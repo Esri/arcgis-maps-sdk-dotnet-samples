@@ -1,0 +1,179 @@
+﻿<phone:PhoneApplicationPage  
+    x:Class="ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.QueryRelatedRecords"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+	xmlns:esri="clr-namespace:Esri.ArcGISRuntime.Controls;assembly=Esri.ArcGISRuntime"
+	xmlns:esriLayers="clr-namespace:Esri.ArcGISRuntime.Layers;assembly=Esri.ArcGISRuntime"
+    xmlns:esriSymbols="clr-namespace:Esri.ArcGISRuntime.Symbology;assembly=Esri.ArcGISRuntime">
+    <Grid Background="{StaticResource PhoneBackgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <esri:MapView Grid.RowSpan="2" Tap="mapView1_Tap">
+            <esri:Map InitialExtent="-10854000, 4502000, -10829000, 4524000">
+
+                <!-- Basemap - tiled map service -->
+                <esriLayers:ArcGISTiledMapServiceLayer 
+                ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" />
+
+                <!-- Gas and oil fields layer -->
+                <esriLayers:ArcGISDynamicMapServiceLayer 
+                VisibleLayers="1"
+                Opacity="0.5"
+                ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Petroleum/KSPetro/MapServer" />
+
+                <!-- Graphics layer for showing wells near tap point -->
+                <esriLayers:GraphicsLayer 
+                ID="WellsLayer">
+                    <esriLayers:GraphicsLayer.Renderer>
+                        <esriSymbols:SimpleRenderer>
+                            <esriSymbols:SimpleMarkerSymbol Color="White" Size="12">
+                                <esriSymbols:SimpleMarkerSymbol.Outline>
+                                    <esriSymbols:SimpleLineSymbol Color="Black" />
+                                </esriSymbols:SimpleMarkerSymbol.Outline>
+                            </esriSymbols:SimpleMarkerSymbol>
+                        </esriSymbols:SimpleRenderer>
+                    </esriLayers:GraphicsLayer.Renderer>
+                </esriLayers:GraphicsLayer>
+
+                <!-- Graphics layer for showing selected well -->
+                <esriLayers:GraphicsLayer 
+                ID="SelectionLayer">
+                    <esriLayers:GraphicsLayer.Renderer>
+                        <esriSymbols:SimpleRenderer>
+                            <esriSymbols:SimpleMarkerSymbol Color="Yellow" Size="12">
+                                <esriSymbols:SimpleMarkerSymbol.Outline>
+                                    <esriSymbols:SimpleLineSymbol Color="Black" />
+                                </esriSymbols:SimpleMarkerSymbol.Outline>
+                            </esriSymbols:SimpleMarkerSymbol>
+                        </esriSymbols:SimpleRenderer>
+                    </esriLayers:GraphicsLayer.Renderer>
+                </esriLayers:GraphicsLayer>
+            </esri:Map>
+        </esri:MapView>
+
+        <!-- UI for showing data from related records -->
+        <Grid x:Name="RelatedRecordsGrid" 
+              Visibility="Collapsed"
+              Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Background -->
+            <Grid Background="{StaticResource PhoneBackgroundBrush}" 
+                  Opacity="0.7" 
+                  Grid.ColumnSpan="4"/>
+            <Grid Background="{StaticResource PhoneBackgroundBrush}" 
+                  Opacity="0.7" 
+                  Grid.ColumnSpan="4"
+                  Grid.RowSpan="2"/>
+
+            <!-- Column Headers -->
+            <TextBlock Text="ID"
+                       HorizontalAlignment="Center"
+                       FontWeight="Bold"
+                       Margin="6" />
+            <TextBlock Text="Formation"
+                       Grid.Column="1"
+                       HorizontalAlignment="Center"
+                       FontWeight="Bold"
+                       Margin="6" />
+            <TextBlock Text="Top"
+                       Grid.Column="2"
+                       HorizontalAlignment="Center"
+                       FontWeight="Bold"
+                       Margin="6" />
+            <TextBlock Text="API Number"
+                       Grid.Column="3"
+                       HorizontalAlignment="Center"
+                       FontWeight="Bold"
+                       Margin="6" />
+
+            <!-- Columns - each items control shows one field from a related record -->
+            <ItemsControl x:Name="ObjectIdColumn"
+                          Grid.Row="1"
+                          Margin="6">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Attributes[OBJECTID]}"
+                                   FontSize="19" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <ItemsControl x:Name="FormationColumn"
+                          ItemsSource="{Binding ItemsSource, ElementName=ObjectIdColumn}"
+                          Grid.Row="1"
+                          Grid.Column="1"
+                          Margin="6">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Attributes[FORMATION]}"
+                                   FontSize="19"
+                                   MaxWidth="180"
+                                   TextTrimming="WordEllipsis"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <ItemsControl x:Name="TopColumn"
+                          ItemsSource="{Binding ItemsSource, ElementName=ObjectIdColumn}"
+                          Grid.Row="1"
+                          Grid.Column="2"
+                          Margin="6">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Attributes[TOP]}"
+                                   FontSize="19" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <ItemsControl x:Name="ApiNumberColumn"
+                          ItemsSource="{Binding ItemsSource, ElementName=ObjectIdColumn}"
+                          Grid.Row="1"
+                          Grid.Column="3"
+                          Margin="6">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Attributes[API_NUMBER]}"
+                                   FontSize="19"
+                                   HorizontalAlignment="Center"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+        </Grid>
+
+        <!-- Status/instructions UI -->
+        <Grid Margin="12"
+              HorizontalAlignment="Left"
+              VerticalAlignment="Top"
+              IsHitTestVisible="False">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid Background="{StaticResource PhoneBackgroundBrush}"
+                  Opacity="0.7" 
+                  Grid.RowSpan="2" />
+            <TextBlock x:Name="StatusText"
+                       Text="Tap the map to search for nearby wells"
+                       TextWrapping="Wrap"
+                       Margin="20"/>
+            <ProgressBar x:Name="ProgressBar" 
+                         IsIndeterminate="True"
+                         Grid.Row="1"
+                         Margin="20,0,20,20"
+                         Visibility="Collapsed"/>
+        </Grid>
+    </Grid>
+</phone:PhoneApplicationPage>

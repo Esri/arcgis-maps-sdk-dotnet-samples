@@ -1,0 +1,86 @@
+﻿<phone:PhoneApplicationPage  
+    x:Class="ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.BufferAndQuery"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+	xmlns:esri="clr-namespace:Esri.ArcGISRuntime.Controls;assembly=Esri.ArcGISRuntime"
+	xmlns:esriLayers="clr-namespace:Esri.ArcGISRuntime.Layers;assembly=Esri.ArcGISRuntime"
+    xmlns:esriSymbols="clr-namespace:Esri.ArcGISRuntime.Symbology;assembly=Esri.ArcGISRuntime">
+    <Grid Background="{StaticResource PhoneBackgroundBrush}">
+        <Grid.Resources>
+            <!-- Object used by layers to bind to DataContext.  Necessary because DataContext is 
+                 not inherited directly. -->
+            <Grid x:Key="DataContextProxy" Tag="{Binding}" />
+        </Grid.Resources>
+
+        <!-- Map -->
+        <esri:MapView MapViewTapped="mapView1_Tap">
+            <esri:Map InitialExtent="-9270200.248, 5246977.326, -9269500.417, 5247569.712, 3857">
+
+                <!-- Basemap - tiled map service -->
+                <esriLayers:ArcGISTiledMapServiceLayer 
+                ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+
+                <!-- Graphics layer for showing parcels -->
+                <esriLayers:GraphicsLayer GraphicsSource="{Binding Tag.Parcels, Source={StaticResource DataContextProxy}}">
+                    <esriLayers:GraphicsLayer.Renderer>
+                        <esriSymbols:SimpleRenderer>
+                            <esriSymbols:SimpleFillSymbol Color="#440000FF">
+                                <esriSymbols:SimpleFillSymbol.Outline>
+                                    <esriSymbols:SimpleLineSymbol Color="Blue" Width="2" />
+                                </esriSymbols:SimpleFillSymbol.Outline>
+                            </esriSymbols:SimpleFillSymbol>
+                        </esriSymbols:SimpleRenderer>
+                    </esriLayers:GraphicsLayer.Renderer>
+                </esriLayers:GraphicsLayer>
+
+                <!-- Graphics layer for showing buffers -->
+                <esriLayers:GraphicsLayer GraphicsSource="{Binding Tag.Buffers, Source={StaticResource DataContextProxy}}">
+                    <esriLayers:GraphicsLayer.Renderer>
+                        <esriSymbols:SimpleRenderer>
+                            <esriSymbols:SimpleFillSymbol Color="#66BB0000">
+                                <esriSymbols:SimpleFillSymbol.Outline>
+                                    <esriSymbols:SimpleLineSymbol Color="#FFCC0000" Width="2" />
+                                </esriSymbols:SimpleFillSymbol.Outline>
+                            </esriSymbols:SimpleFillSymbol>
+                        </esriSymbols:SimpleRenderer>
+                    </esriLayers:GraphicsLayer.Renderer>
+                </esriLayers:GraphicsLayer>
+
+                <!-- Graphics layer for showing tap points -->
+                <esriLayers:GraphicsLayer GraphicsSource="{Binding Tag.TapPoints, Source={StaticResource DataContextProxy}}">
+                    <esriLayers:GraphicsLayer.Renderer>
+                        <esriSymbols:SimpleRenderer>
+                            <esriSymbols:SimpleMarkerSymbol Color="White" Size="8">
+                                <esriSymbols:SimpleMarkerSymbol.Outline>
+                                    <esriSymbols:SimpleLineSymbol Color="Black" />
+                                </esriSymbols:SimpleMarkerSymbol.Outline>
+                            </esriSymbols:SimpleMarkerSymbol>
+                        </esriSymbols:SimpleRenderer>
+                    </esriLayers:GraphicsLayer.Renderer>
+                </esriLayers:GraphicsLayer>
+            </esri:Map>
+        </esri:MapView>
+
+        <!-- Busy indicator and instructions -->
+        <Grid Margin="12"
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid Background="{StaticResource PhoneBackgroundBrush}"
+                  Opacity="0.7" 
+                  Grid.RowSpan="2" />
+            <TextBlock x:Name="StatusText"
+                       Text="Tap the map to create a 100 meter buffer and search for intersecting parcels"
+                       TextWrapping="Wrap"
+                       Margin="20"/>
+            <ProgressBar IsIndeterminate="True"
+                         Grid.Row="1"
+                         Margin="20,0,20,20" 
+                         Visibility="{Binding BusyVisibility}" />
+        </Grid>
+    </Grid>
+</phone:PhoneApplicationPage>

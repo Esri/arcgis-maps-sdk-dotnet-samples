@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RoutingWithBarriers"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+        xmlns:local="clr-namespace:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples">
+    <UserControl.CommandBindings>
+        <CommandBinding Command="local:NetworkCommands.AddStopCommand" Executed="CommandBinding_AddStopExecuted" />
+        <CommandBinding Command="local:NetworkCommands.AddPointBarrierCommand" Executed="CommandBinding_AddPointBarrierExecuted" />
+        <CommandBinding Command="local:NetworkCommands.AddPolylineBarrierCommand" Executed="CommandBinding_AddPolylineBarrierExecuted" />
+        <CommandBinding Command="local:NetworkCommands.AddPolygonBarrierCommand" Executed="CommandBinding_AddPolygonBarrierExecuted" />
+    </UserControl.CommandBindings>
+    <Grid>
+        <esri:MapView x:Name="mapView1">
+            <esri:Map x:Name="map1">
+                <esri:ArcGISTiledMapServiceLayer
+				ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+            </esri:Map>
+        </esri:MapView>
+        <Border HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Padding="5" Background="White" 
+                BorderBrush="Black" BorderThickness="1">
+            <Border.Effect>
+                <DropShadowEffect />
+            </Border.Effect>
+            <StackPanel Orientation="Vertical">
+                <StackPanel >
+                    <TextBlock >Stops:</TextBlock>
+                    <Button x:Name="AddStopButton" Command="local:NetworkCommands.AddStopCommand"  
+                                ToolTip="Add Stop" Width="32" Height="32" Margin="5,5,5,0" >
+                        <Image Source="pack://application:,,,/ArcGISRuntimeSDKDotNet_DesktopSamples;component/Assets/DrawPoint.png" />
+                    </Button>
+                    <TextBlock >Barriers:</TextBlock>
+                    <Button x:Name="AddPointBarrierButton" Command="local:NetworkCommands.AddPointBarrierCommand"  
+                            ToolTip="Add Point Barrier" Width="32" Height="32" Margin="5,5,5,0" >
+                        <Image Source="pack://application:,,,/ArcGISRuntimeSDKDotNet_DesktopSamples;component/Assets/DrawPoint.png" />
+                    </Button>
+                    <Button x:Name="AddPolylineBarrierButton" Command="local:NetworkCommands.AddPolylineBarrierCommand"  
+                            ToolTip="Add Polyline Barrier" Width="32" Height="32" Margin="5,5,5,0" >
+                        <Image Source="pack://application:,,,/ArcGISRuntimeSDKDotNet_DesktopSamples;component/Assets/DrawLineSegment.png" />
+                    </Button>
+                    <Button x:Name="AddPolygonBarrierButton" Command="local:NetworkCommands.AddPolygonBarrierCommand"  
+                            ToolTip="Add Polygon Barrier" Width="32" Height="32" Margin="5,5,5,0" >
+                        <Image Source="pack://application:,,,/ArcGISRuntimeSDKDotNet_DesktopSamples;component/Assets/DrawPolygon.png" />
+                    </Button>
+                </StackPanel>
+               
+
+
+                <CheckBox IsChecked="{Binding Path=IsOnline, Mode=TwoWay}" Margin="10,5,5,5">Online?</CheckBox>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

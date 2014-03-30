@@ -1,0 +1,73 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.GraphicsXaml"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+	xmlns:esri="clr-namespace:Esri.ArcGISRuntime.Controls;assembly=Esri.ArcGISRuntime"
+	xmlns:esriLayers="clr-namespace:Esri.ArcGISRuntime.Layers;assembly=Esri.ArcGISRuntime"
+    xmlns:esriGeometry="clr-namespace:Esri.ArcGISRuntime.Geometry;assembly=Esri.ArcGISRuntime"
+    xmlns:esriSymbols="clr-namespace:Esri.ArcGISRuntime.Symbology;assembly=Esri.ArcGISRuntime">
+
+    <phone:PhoneApplicationPage.Resources>
+
+        <!-- Symbols to be used by graphics -->
+        <esriSymbols:SimpleMarkerSymbol x:Key="CircleSymbol" Style="Circle" />
+        <esriSymbols:SimpleMarkerSymbol x:Key="CrossSymbol" Color="Yellow" Style="Cross" />
+        <esriSymbols:SimpleMarkerSymbol x:Key="DiamondSymbol" Color="Blue" Style="Diamond" />
+        <esriSymbols:SimpleMarkerSymbol x:Key="SquareSymbol" Color="Green" Style="Square" />
+        <esriSymbols:SimpleMarkerSymbol x:Key="TriangleSymbol" Color="White" Style="Triangle" />
+        <esriSymbols:SimpleMarkerSymbol x:Key="XSymbol" Color="Purple" Style="X" />
+    </phone:PhoneApplicationPage.Resources>
+
+    <Grid Background="{StaticResource PhoneBackgroundBrush}">
+
+        <esri:MapView>
+            <esri:Map>
+
+                <!-- Basemap -->
+                <esriLayers:ArcGISTiledMapServiceLayer
+				ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
+
+                <!-- Layer containing graphics -->
+                <esriLayers:GraphicsLayer>
+                    <esriLayers:GraphicsLayer.Graphics>
+
+                        <!-- Set of graphics contained by the layer.  A symbol and geometry are specified for each. -->
+                        <esriLayers:Graphic Symbol="{StaticResource CircleSymbol}" >
+                            <esriLayers:Graphic.Geometry>
+                                <esriGeometry:MapPoint X="-18000000" Y="3900000" />
+                            </esriLayers:Graphic.Geometry>
+                        </esriLayers:Graphic>
+                        <esriLayers:Graphic Symbol="{StaticResource CrossSymbol}" >
+                            <esriLayers:Graphic.Geometry>
+                                <esriGeometry:MapPoint X="19000000" Y="-15000000" />
+                            </esriLayers:Graphic.Geometry>
+                        </esriLayers:Graphic>
+                        <esriLayers:Graphic Symbol="{StaticResource DiamondSymbol}" >
+                            <esriLayers:Graphic.Geometry>
+                                <esriGeometry:MapPoint X="-5000000" Y="18000000" />
+                            </esriLayers:Graphic.Geometry>
+                        </esriLayers:Graphic>
+                        <esriLayers:Graphic Symbol="{StaticResource SquareSymbol}" >
+                            <esriLayers:Graphic.Geometry>
+                                <esriGeometry:MapPoint X="9000000" Y="2000000" />
+                            </esriLayers:Graphic.Geometry>
+                        </esriLayers:Graphic>
+                        <esriLayers:Graphic Symbol="{StaticResource TriangleSymbol}" >
+                            <esriLayers:Graphic.Geometry>
+                                <esriGeometry:MapPoint X="12000000" Y="-8000000" />
+                            </esriLayers:Graphic.Geometry>
+                        </esriLayers:Graphic>
+                        <esriLayers:Graphic Symbol="{StaticResource XSymbol}" >
+                            <esriLayers:Graphic.Geometry>
+                                <esriGeometry:MapPoint X="-10000000" Y="-4000000" />
+                            </esriLayers:Graphic.Geometry>
+                        </esriLayers:Graphic>
+
+                    </esriLayers:GraphicsLayer.Graphics>
+                </esriLayers:GraphicsLayer>
+            </esri:Map>
+        </esri:MapView>
+
+    </Grid>
+</phone:PhoneApplicationPage>

@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Boundary"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="mapView" WrapAround="True">
+            <esri:Map>
+                <esri:ArcGISTiledMapServiceLayer
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
+                <esri:GraphicsLayer x:Name="testGraphics" IsVisible="True" />
+                <esri:GraphicsLayer x:Name="boundaryGraphics" IsVisible="False" />
+            </esri:Map>
+        </esri:MapView>
+
+        <Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="30"
+                HorizontalAlignment="Right" VerticalAlignment="Top">
+            <StackPanel>
+                <StackPanel Margin="20">
+                    <CheckBox Content="Show Test Graphics" Margin="8" 
+                              IsChecked="{Binding ElementName=testGraphics, Path=IsVisible}" />
+                    <CheckBox Content="Show Boundary Graphics" Margin="8" 
+                              IsChecked="{Binding ElementName=boundaryGraphics, Path=IsVisible}" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsLayerRenderingMode"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="mapView" WrapAround="True">
+            <esri:Map>
+                <esri:ArcGISTiledMapServiceLayer
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
+            </esri:Map>
+        </esri:MapView>
+
+        <Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="30"
+                HorizontalAlignment="Right" VerticalAlignment="Top">
+            <StackPanel Margin="12">
+                <StackPanel Orientation="Horizontal" Margin="8">
+                    <TextBlock Text="Graphic Count:  " VerticalAlignment="Center" />
+                    <Slider x:Name="graphicCountSlider" Width="150" 
+                            Minimum="1000" Maximum="10000" 
+                            IsSnapToTickEnabled="True" TickPlacement="Both" TickFrequency="1000"
+                            AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="8">
+                    <TextBlock Text="Rendering Mode:  " VerticalAlignment="Center" />
+                    <ComboBox x:Name="renderingModeCombo" Width="135" >
+                        <esri:GraphicsRenderingMode>Dynamic</esri:GraphicsRenderingMode>
+                        <esri:GraphicsRenderingMode>Static</esri:GraphicsRenderingMode>
+                    </ComboBox>
+                </StackPanel>
+                <Button Content="Create Graphics Layer" Click="CreateGraphicsLayerButton_Click" Margin="12"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,2272 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ArcGISRuntimeSDKDotNet_DesktopSamples</name>
+    </assembly>
+    <members>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.BooleanToVisibilityConverter">
+            <summary>
+            Value converter that translates true to <see cref="F:System.Windows.Visibility.Visible"/> and false to
+            <see cref="F:System.Windows.Visibility.Collapsed"/>.
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ArcGISDynamicMapServiceLayerLocalSample">
+            <summary>
+            Demonstrates creating an ArcGISDynamicMapServiceLayer which references a LocalMapService.
+            </summary>
+            <title>ArcGIS Local Dynamic Map Service Layer</title>
+            <category>Layers</category>
+            <subcategory>Dynamic Service Layers</subcategory>
+            <summary>
+            ArcGISDynamicMapServiceLayerLocalSample
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ArcGISDynamicMapServiceLayerLocalSample.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ArcGISDynamicMapServiceLayerLocalSample"/> class.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ArcGISDynamicMapServiceLayerLocalSample.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ArcGISDynamicMapServiceLayerSample">
+            <summary>
+            Demonstrates adding an ArcGIS dynamic map service layer to a Map in XAML. 
+            </summary>
+            <title>ArcGIS Dynamic Map Service Layer</title>
+            <category>Layers</category>
+            <subcategory>Dynamic Service Layers</subcategory>
+            <summary>
+            ArcGISDynamicMapServiceLayerSample
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ArcGISDynamicMapServiceLayerSample.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ArcGISImageServiceLayerRasterFunctions">
+            <summary>
+            Interaction logic for ArcGISImageServiceLayerRasterFunctions.xaml
+            </summary>
+            <title>Image Service Raster Functions</title>
+            <category>Layers</category>
+            <subcategory>Dynamic Service Layers</subcategory>
+            <summary>
+            ArcGISImageServiceLayerRasterFunctions
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ArcGISImageServiceLayerRasterFunctions.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ArcGISImageServiceLayerSample">
+            <summary>
+            Demonstrates adding an ArcGIS image service layer to a Map in XAML.
+            </summary>
+            <title>ArcGIS Image Service Layer</title>
+            <category>Layers</category>
+            <subcategory>Dynamic Service Layers</subcategory>
+            <summary>
+            ArcGISImageServiceLayerSample
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ArcGISImageServiceLayerSample.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers.DynamicLayerAddData">
+            <summary>
+            This sample demonstrates the dynamic layers capability to add Shapefiles and Raster datasets to the map. Single or multiple Shapefiles or Rasters can be selected in the open file dialog from within a folder. These files will be added to a local map service via the dynamic layers capability available in the API. This local map service is then used as the basis for an ArcGISDynamicMapServiceLayer which is added to the map. It would be possible to extend the sample to allows users to specify the symbol/renderer for any shapefiles added. Raster symbology is predetermined by the raster itself.
+            </summary>
+            <title>Dynamic Layer Add Data</title>
+            <category>Layers</category>
+            <subcategory>Dynamic Service Layers</subcategory>
+            <summary>
+            DynamicLayerAddData
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers.DynamicLayerAddData.#ctor">
+            <summary>Construct DynamicLayerAddData user control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers.DynamicLayerAddData.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers.DynamicLayerLabeling">
+            <summary>
+            This sample demonstrates dynamic layer labeling.  Labels are configured in the LayerDrawingOptions of the dyanmic layer.  In this sample, labels are shown for major and minor US cities with different fonts and scale ranges.  Major city label info is configured in the XAML while minor city label info is added via the code-behind.
+            </summary>
+            <title>Dynamic Layer Labeling</title>
+            <category>Layers</category>
+            <subcategory>Dynamic Service Layers</subcategory>
+            <summary>
+            DynamicLayerLabeling
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers.DynamicLayerLabeling.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers.DynamicLayerRendering">
+            <summary>
+            This sample demonstrates using the GenerateRendererTask to create a class breaks or unique value renderer on the server without having to retrieve all the data to the client. To use the sample, click either the Generate Range Values or Generate Unique Values button. This updates the renderer on the map.
+            
+            In the code-behind, a GenerateRendererTask is used to create a renderer, and the LayerDrawingOptions.Renderer is set to the generated renderer for use in the map's display.
+            </summary>
+            <title>Dynamic Layer Rendering</title>
+            <category>Layers</category>
+            <subcategory>Dynamic Service Layers</subcategory>
+            <summary>
+            DynamicLayerRendering
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers.DynamicLayerRendering.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers.DynamicLayerReordering">
+            <summary>
+            This sample demonstrates changing the order of dynamic layers.  Clicking the 'Change Layer Order' button uses the DynamicLayerInfoCollection to move the top layer to the bottom.
+            </summary>
+            <title>Dynamic Layer Reordering</title>
+            <category>Layers</category>
+            <subcategory>Dynamic Service Layers</subcategory>
+            <summary>
+            DynamicLayerReordering
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers.DynamicLayerReordering.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers.WMSLayer">
+            <summary>
+            This sample demonstrates displaying an WMSLayer draped over an ArcGISTiledMapServiceLayer. The WMSLayer allows users to display Open GIS Consortium (OGC) WMS layers.
+            </summary>
+            <title>WMS Layer</title>
+            <category>Layers</category>
+            <subcategory>Dynamic Service Layers</subcategory>
+            <summary>
+            WMSLayer
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers.WMSLayer.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SOEElevationData">
+            <summary>
+            This sample demonstrates how to use a custom Server Object Extension (SOE) hosted by ArcGIS for Server. The SOE operation used in this example returns a set of interpolated elevation values for a user defined grid. The grid extent and number of rows and columns are provided as inputs to the SOE.
+            </summary>
+            <title>SOE Elevation Data</title>
+            <category>Extras</category>
+            <summary>
+            SOEElevationData
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SOEElevationData.#ctor">
+            <summary>Construct SOE Elevation Data sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SOEElevationData.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerFromLocalGeodatabase">
+            <summary>
+            This sample shows how to add a FeatureLayer from a local .geodatabase file to the map. A .geodatabase file may be created using the 'Create Runtime Content' tool in ArcMap.
+            </summary>
+            <title>Feature Layer from Local Geodatabase</title>
+            <category>Layers</category>
+            <subcategory>Feature Layers</subcategory>
+            <summary>
+            FeatureLayerFromLocalGeodatabase
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerFromLocalGeodatabase.#ctor">
+            <summary>Construct FeatureLayerFromLocalGeodatabase sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerFromLocalGeodatabase.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerFromService">
+            <summary>
+            This sample demonstrates the Feature Layer. Feature layers allow you to easily plot layers from a feature service on a map. As the sample XAML shows, this simply requires declaring a FeatureLayer element in the Map's layers collection and specifying the URL of the its GeodatabaseFeatureServiceTable attribute to the feature service layer.
+            </summary>
+            <title>Feature Layer From Service</title>
+            <category>Layers</category>
+            <subcategory>Feature Layers</subcategory>
+            <summary>
+            FeatureLayerFromService
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerFromService.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerHitTesting">
+            <summary>
+            This sample demonstates feature layer hit testing.  When the user clicks on the map, the applicaiton uses FeatureLayer.HitTest to retrieve the feature at the mouse point.  The HitTest method returns the row ID of the first feature found at the given point.  This sample then uses the FeatureTable.QueryAsync method to retrieve a Feature for the HitTested row ID and desiplays its attributes in the UI.
+            </summary>
+            <title>Hit Testing</title>
+            <category>Layers</category>
+            <subcategory>Feature Layers</subcategory>
+            <summary>
+            FeatureLayerHitTesting
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerHitTesting.#ctor">
+            <summary>Construct FeatureLayerHitTesting sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerHitTesting.mapView_MapViewTapped(System.Object,Esri.ArcGISRuntime.Controls.MapViewInputEventArgs)">
+            <summary>
+            On each mouse click:
+            - HitTest the feature layer
+            - Query the feature table for the returned row
+            - Set the result feature for the UI
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerHitTesting.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="E:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerHitTesting.PropertyChanged">
+            <summary>PropertyChanged event for INotifyPropertyChanged</summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerHitTesting.ResultFeature">
+            <summary>HitTest result feature</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerMapTips">
+            <summary>
+            This sample shows how to display a map tip for a feature layer.  In this example, the MouseMove event of the MapView is handled with code that performs a FeatureLayer HitTest / Query combination which returns a single feature for display in the mapTip element defined in the XAML.
+            </summary>
+            <title>Map Tips</title>
+            <category>Layers</category>
+            <subcategory>Feature Layers</subcategory>
+            <summary>
+            FeatureLayerMapTips
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerMapTips.#ctor">
+            <summary>Construct Map Tips sample</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerMapTips.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerSelection">
+            <summary>
+            This sample demonstrates how to select and unselect features in a feature layer using the SelectFeatures, UnSelectFeatures and ClearSelecteion methods of the FeatureLayer class.  The sample uses the MapView.RequestShapeAsync method to allow the user to draw a selection rectangle intersecting features that he would like to manage.  Once the selection rectangle is returned, a SpatialQueryFilter is used to spatially select features in the feature layer using FeatureLayer.QueryAsync.  When the features are identified the selected features list of the feature layer is managed using the FeatureLayer selection management methods.
+            </summary>
+            <title>Feature Layer Selection</title>
+            <category>Layers</category>
+            <subcategory>Feature Layers</subcategory>
+            <summary>
+            FeatureLayerSelection
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerSelection.#ctor">
+            <summary>Construct Feature Layer Selection sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerSelection.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.QueryFilterSample">
+            <summary>
+            This sample demonstrates how to apply a filter to a feature layer using the FeatureLayer.Where property and to further filter the result set using a QueryFilter. The FeatureLayer.Where property allows you to retrieve a subset of records from a feature service that match an attribute query.  The GeodatabaseFeatureTable.QueryAsync method takes a QueryFilter object and uses it to filter the current feature set.  In this example, the features returned by the query are converted to graphics and displayed in a GraphicsLayer on the map.
+            </summary>
+            <title>Query Filter</title>
+            <category>Layers</category>
+            <subcategory>Feature Layers</subcategory>
+            <summary>
+            QueryFilterSample
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.QueryFilterSample.#ctor">
+            <summary>Construct QueryFilterSample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.QueryFilterSample.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FindPlace">
+            <summary>
+            Demonstrates how to use the FindAsync method of an OnlineLocatorTask object to find places by name.  This sample adds places to the map and list view that match the place name and are above the specified score range.
+            </summary>
+            <title>Find a Place</title>
+            <category>Tasks</category>
+            <subcategory>Geocoding</subcategory>
+            <summary>
+            FindPlace
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FindPlace.#ctor">
+            <summary>Construct find place sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FindPlace.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeocodeFullAddressInput">
+            <summary>
+            Demonstrates performing a geocode by submitting values for multiple address fields.
+            </summary>
+            <category>Tasks</category>
+            <subcategory>Geocoding</subcategory>
+            <summary>
+            GeocodeFullAddressInput
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeocodeFullAddressInput.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeocodeFullAddressInput"/> class.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeocodeFullAddressInput.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="E:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeocodeFullAddressInput.PropertyChanged">
+            <summary>
+            Occurs when a property value changes.
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeocodeFullAddressInput.IsOnline">
+            <summary>
+            Gets or sets a value indicating whether this instance is online.
+            </summary>
+            <value>
+              <c>true</c> if this instance is online; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeocodeFullAddressInput.MatchScore">
+            <summary>
+            Gets or sets the match score.
+            </summary>
+            <value>
+            The match score.
+            </value>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeocodeSingleLineInput">
+            <summary>
+            Performs a single line geocode using either an online ArcGIS Locator service or a local Locator.
+            </summary>
+            <category>Tasks</category>
+            <subcategory>Geocoding</subcategory>
+            <summary>
+            GeocodeSingleLineInput
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeocodeSingleLineInput.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ReverseGeocode">
+            <summary>
+            Demonstrates using the OnlineLocatorTask.ReverseGeocodeAsync method to attempt to address information from a location on the map.
+            </summary>
+            <title>Reverse Geocode</title>
+            <category>Tasks</category>
+            <subcategory>Geocoding</subcategory>
+            <summary>
+            ReverseGeocode
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ReverseGeocode.#ctor">
+            <summary>Construct reverse geocode sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ReverseGeocode.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.AreaSample">
+            <summary>
+            Demonstrates how to calculate the area and perimiter of a polygon using the GeometryEngine.
+            </summary>
+            <title>Area</title>
+            <category>Geometry</category>
+            <summary>
+            AreaSample
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.AreaSample.#ctor">
+            <summary>Construct Area sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.AreaSample.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Boundary">
+            <summary>
+            Demonstrates the GeometryEngine.Boundary method to calculate the geometric boundary of a given geometry. Here, boundaries are calculated for a multi-part polygon (returning a boundary polyline) and a multi-part polyline (returning multiple points).
+            </summary>
+            <title>Boundary</title>
+            <category>Geometry</category>
+            <summary>
+            Boundary
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Boundary.#ctor">
+            <summary>Construct Boundary sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Boundary.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.BufferSample">
+            <summary>
+            This sample demonstrates use of the GeometryEngine to calculate a buffer. To use the sample, click a point on the map. The click point and a buffer of 5 miles around the point will be shown.
+            </summary>
+            <title>Buffer</title>
+            <category>Geometry</category>
+            <summary>
+            BufferSample
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.BufferSample.#ctor">
+            <summary>Construct Buffer sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.BufferSample.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ClipGeometry">
+            <summary>
+            Example of using the GeometryEngine.Clip method to clip feature geometries with a given envelope. To use this sample, the user draws a clipping rectangle over the feature polygons and the system then clips the intersecting feature geometries and displays the resulting polygons in a graphics layer on the map.
+            </summary>
+            <title>Clip</title>
+            <category>Geometry</category>
+            <summary>
+            ClipGeometry
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ClipGeometry.#ctor">
+            <summary>Construct Clip Geometry sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ClipGeometry.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ConvexHull">
+            <summary>
+            Demonstrates use of the GeometryEngine.ConvexHull method to create a convex hull polygon for three or more points.  A convex hull is the smallest polygon that completely encases a set (i.e. locus) of points. To use the sample, add three or more points on the map and click the Generate Convex Hull button. A polygon containing all the points entered will be returned.
+            </summary>
+            <title>Convex Hull</title>
+            <category>Geometry</category>
+            <summary>
+            ConvexHull
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ConvexHull.#ctor">
+            <summary>Construct Convex Hull sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ConvexHull.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.CreatePoints">
+            <summary>
+            Demonstrates how to create point geometries, attach them to graphics and display them on the map. MapPoint geometry objects are used to store geographic points.
+            </summary>
+            <title>Create Points</title>
+            <category>Geometry</category>
+            <summary>
+            CreatePoints
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.CreatePoints.#ctor">
+            <summary>Construct Create Points sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.CreatePoints.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.CreatePolygons">
+            <summary>
+            Demonstrates how to create polygon geometries, attach them to graphics and display them on the map. Polygon geometry objects are used to store geographic polygons.
+            </summary>
+            <title>Create Polygons</title>
+            <category>Geometry</category>
+            <summary>
+            CreatePolygons
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.CreatePolygons.#ctor">
+            <summary>Construct Create Polygons sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.CreatePolygons.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.CreatePolylines">
+            <summary>
+            Demonstrates how to create polyline geometries, attach them to graphics and display them on the map. Polyline geometry objects are used to store geographic lines.
+            </summary>
+            <title>Create Polylines</title>
+            <category>Geometry</category>
+            <summary>
+            CreatePolylines
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.CreatePolylines.#ctor">
+            <summary>Construct Create Polylines sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.CreatePolylines.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.CutGeometry">
+            <summary>
+            Example of using the GeometryEngine.Cut method to cut feature geometries with a given polyline. To use this sample, the user draws a cut polyline intersecting the feature polygons and the system then cuts the intersecting feature geometries and displays the resulting polygons in a graphics layer on the map.
+            </summary>
+            <title>Cut</title>
+            <category>Geometry</category>
+            <summary>
+            CutGeometry
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.CutGeometry.#ctor">
+            <summary>Construct Cut Geometry sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.CutGeometry.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Densify">
+            <summary>
+            This sample demonstrates using GeometryEngine.Densify to take an input polygon and return a densified polygon. Original vertices to create the original polygon are shown in red. The returned polygon shows the additional densified vertices in green. To use the sample, click the 'Densify Polygon' button and create a polygon on the map. Double-click to end the polygon sketch and densify the polygon and see the original and densified vertices.
+            </summary>
+            <title>Densify</title>
+            <category>Geometry</category>
+            <summary>
+            Densify
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Densify.#ctor">
+            <summary>Construct Densify sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Densify.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Difference">
+            <summary>
+            Example of using the GeometryEngine.Difference or GeometryEngine.SymmetricDifference methods to calculate the geometric difference between feature geometries and a user defined geometry. To use this sample, the user draws a polygon over the feature polygons and the system then calculates the difference between the intersecting feature geometries and displays the resulting polygons in a graphics layer on the map.
+            </summary>
+            <title>Difference</title>
+            <category>Geometry</category>
+            <summary>
+            Difference
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Difference.#ctor">
+            <summary>Construct Difference sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Difference.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DistanceFromGeometry">
+            <summary>
+            This sample demonstrates using the GeometryEngine.DistanceFromGeometry method to calcualte the linear distance of the shortest length between two geometries. To use the sample, click on the 'Caluclate Distance' button and then add a polyline and a point to the map. After the point is entered the shortest distance between them is displayed.
+            </summary>
+            <title>Distance From Geometry</title>
+            <category>Geometry</category>
+            <summary>
+            DistanceFromGeometry
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DistanceFromGeometry.#ctor">
+            <summary>Construct Distance From Geometry sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DistanceFromGeometry.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Generalize">
+            <summary>
+            This sample demonstrates using the GeometryEngine.Generalize method to take a polyline with numerous vertices and return a generalized polyline with less vertices. Additionally a SliderControl appears after the GeometryService completes that allows adjusting the maximum offset value of the generalized polyline.
+            </summary>
+            <title>Generalize</title>
+            <category>Geometry</category>
+            <summary>
+            Generalize
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Generalize.#ctor">
+            <summary>Construct Generalize sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Generalize.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeodesicBuffer">
+            <summary>
+            This sample demonstrates use of the GeometryEngine to calculate a geodesic buffer. To use the sample, click a point on the map. The click point and a geodesic buffer of 500 miles around the point will be shown.
+            </summary>
+            <title>Geodesic Buffer</title>
+            <category>Geometry</category>
+            <summary>
+            GeodesicBuffer
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeodesicBuffer.#ctor">
+            <summary>Construct Geodesic Buffer sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeodesicBuffer.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeodesicDensify">
+            <summary>
+            This sample demonstrates using GeometryEngine.GeodesicDensify to take an input shape and return a geodesic densified shape. Original vertices to create the original polygon or polyline are shown in red. The returned polygon shows the additional densified vertices in green. To use the sample, click the 'Densify' button and create a shape on the map. Double-click to end the polygon sketch and densify the shape and see the original and densified vertices.
+            </summary>
+            <title>Geodesic Densify</title>
+            <category>Geometry</category>
+            <summary>
+            GeodesicDensify
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeodesicDensify.#ctor">
+            <summary>Construct Densify sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeodesicDensify.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeodesicEllipse">
+            <summary>
+            This sample demonstrates use of the GeometryEngine.GeodesicEllipse to calculate a geodesic ellipse. Also shows is how to calculate a geodesic sector using GeometryEngine.GeodesicSector to create a gedesic sector emanating from point. To use the sample, fill in the ellipse properties and click the 'Geodesic Ellipse' button, then click a center point on the map. The click point and a geodesic ellipse and sector centered at the point will be displayed.
+            </summary>
+            <title>Geodesic Ellipse</title>
+            <category>Geometry</category>
+            <summary>
+            GeodesicEllipse
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeodesicEllipse.#ctor">
+            <summary>Construct Geodesic Ellipse sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeodesicEllipse.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeodesicMove">
+            <summary>
+            This sample demonstrates use of the GeometryEngine.GeodesicMove method to move a geometry be a specified distance. To use the sample, first digitize a polygon on the map. Then set the move distance and angle properties and click the 'Geodesic Move' button. The original polygon and the new moved polygon will be displayed.
+            </summary>
+            <title>Geodesic Move</title>
+            <category>Geometry</category>
+            <summary>
+            GeodesicMove
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeodesicMove.#ctor">
+            <summary>Construct Geodesic Move sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeodesicMove.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Intersection">
+            <summary>
+            Example of using the GeometryEngine.Intersection method to intersect feature geometries with a given polygon. To use this sample, the user draws a polygon over the feature polygons and the system then retrieves the intersection of the feature geometries and the new polygon. Resulting polygons are shown in a graphics layer on the map.
+            </summary>
+            <title>Intersection</title>
+            <category>Geometry</category>
+            <summary>
+            Intersection
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Intersection.#ctor">
+            <summary>Construct Intersection sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Intersection.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.LabelPoint">
+            <summary>
+            This sample demonstrates use of the GeometryEngine.LabelPoint method to calculate the location of label points.
+            </summary>
+            <title>Label Point</title>
+            <category>Geometry</category>
+            <summary>
+            LabelPoint
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.LabelPoint.#ctor">
+            <summary>Construct Label Point sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.LabelPoint.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.NearestCoordinateInGeometry">
+            <summary>
+            Demonstrates how to find the nearest polygon point or vertex of a geometry using the NearestCoordinateInGeometry or NearestVertexInGeometry methods of the GeometryEngine class. Here, the user selects a target polygon graphic and then clicks points on the map to show the nearest point or vertex on the target polygon.
+            </summary>
+            <title>Nearest Coordinate in Geometry</title>
+            <category>Geometry</category>
+            <summary>
+            NearestCoordinateInGeometry
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.NearestCoordinateInGeometry.#ctor">
+            <summary>Construct Nearest Coordinate sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.NearestCoordinateInGeometry.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OffsetGeometry">
+            <summary>
+            Demonstrates how to create an offset geometry using the Offset method of the GeometryEngine class. Here, the user selects a target polygon graphic and the application creates an offset polygon based on the selected graphic.
+            </summary>
+            <title>Offset</title>
+            <category>Geometry</category>
+            <summary>
+            OffsetGeometry
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OffsetGeometry.#ctor">
+            <summary>Construct Offset sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OffsetGeometry.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ProjectCoordinate">
+            <summary>
+            Sample shows how to project a coordinate from the current map projection (in this case Web Mercator) to a different projection.
+            </summary>
+            <title>Project</title>
+            <category>Geometry</category>
+            <summary>
+            ProjectCoordinate
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ProjectCoordinate.#ctor">
+            <summary>Construct Project sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ProjectCoordinate.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Relate">
+            <summary>
+            Sample shows how to use the GeometryEngine.Relate method to test the spatial relationship of two geometries.
+            </summary>
+            <title>Relate</title>
+            <category>Geometry</category>
+            <summary>
+            Relate
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Relate.#ctor">
+            <summary>Construct Relationship sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Relate.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Relationship">
+            <summary>
+            Sample shows how to to test the spatial relationship of two geometries.
+            </summary>
+            <title>Relationship</title>
+            <category>Geometry</category>
+            <summary>
+            Relationship
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Relationship.#ctor">
+            <summary>Construct Relationship sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Relationship.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Simplify">
+            <summary>
+            This sample demonstrates use of the GeometryEngine.Simplify method to simplify a polygon, and demonstrates the importance of simplification. To use the sample, click the Query with Original Polygon button. Observe the results include parcels that are not wholly within the red polygon. Then click the Simplify Polygon, then Query button. Observe the resulting parcels are now wholly within the red polygon.
+            </summary>
+            <title>Simplify</title>
+            <category>Geometry</category>
+            <summary>
+            Simplify
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Simplify.#ctor">
+            <summary>Construct Geodesic Move sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Simplify.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.UnionGeometry">
+            <summary>
+            Example of using the GeometryEngine.Union method to calculate the geometric union of feature geometries and a given polygon. To use this sample, the user draws a polygon over the feature polygons and the system then retrieves the union of the feature geometries and the new polygon. Resulting polygons are shown in a graphics layer on the map.
+            </summary>
+            <title>Union</title>
+            <category>Geometry</category>
+            <summary>
+            UnionGeometry
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.UnionGeometry.#ctor">
+            <summary>Construct Union sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.UnionGeometry.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ClipFeatures">
+            <summary>
+            This sample demonstrates use of the Geoprocessor to call an asynchronous Clip Features geoprocessing service.
+            </summary>
+            <title>Clip Features</title>
+            <category>Tasks</category>
+            <subcategory>Geoprocessing</subcategory>
+            <summary>
+            ClipFeatures
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ClipFeatures.#ctor">
+            <summary>Construct Clip Features sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ClipFeatures.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DriveTimes">
+            <summary>
+            This sample demonstrates use of the Geoprocessor to call a DriveTimes geoprocessing service. To use the sample, click a point in the map. Drive time polygons of 1, 2, and 3 minutes will be calculated and displayed on the map.
+            </summary>
+            <title>Drive Times</title>
+            <category>Tasks</category>
+            <subcategory>Geoprocessing</subcategory>
+            <summary>
+            DriveTimes
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DriveTimes.#ctor">
+            <summary>Constructs Drive Times sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DriveTimes.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ExtractData">
+            <summary>
+            This sample shows how to work with an asynchronous Extract Data geoprocessing service. The Extract Data Task lets users specify an area of interest then download a zip file that contains data for that area from one or more layers.
+            </summary>
+            <title>Extract Data</title>
+            <category>Tasks</category>
+            <subcategory>Geoprocessing</subcategory>
+            <summary>
+            ExtractData
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ExtractData.#ctor">
+            <summary>Construct Extract Data sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ExtractData.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.MessageInABottle">
+            <summary>
+            This sample demonstrates use of the Geoprocessor to call a MessageInABottle geoprocessing service. To use the sample, specify the number of days and click a point in the ocean. The path of a bottle dropped at the click point over the specified number of days will be drawn on the map.
+            </summary>
+            <title>Message in a Bottle</title>
+            <category>Tasks</category>
+            <subcategory>Geoprocessing</subcategory>
+            <summary>
+            MessageInABottle
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.MessageInABottle.#ctor">
+            <summary>Construct Message In A Bottle sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.MessageInABottle.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.PopulationForArea">
+            <summary>
+            This sample uses a geoprocessing task to estimate the number of people within a polygon you draw on the map. Click 'Summarize Population', then freehand a line on the map surrounding an area to analyze. When you release the mouse button, the polygon will auto-complete and you'll see how many people are estimated to live within the polygon boundaries.
+            </summary>
+            <title>Population for an Area</title>
+            <category>Tasks</category>
+            <subcategory>Geoprocessing</subcategory>
+            <summary>
+            PopulationForArea
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.PopulationForArea.#ctor">
+            <summary>Construct Populattion for Area sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.PopulationForArea.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Viewshed">
+            <summary>
+            This sample demonstrates use of the Geoprocessor to call an asynchronous ViewShed geoprocessing service.
+            </summary>
+            <title>Viewshed</title>
+            <category>Tasks</category>
+            <subcategory>Geoprocessing</subcategory>
+            <summary>
+            Viewshed
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Viewshed.#ctor">
+            <summary>Construct Viewshed sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Viewshed.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.AddInteractively">
+            <summary>
+            Example of how to add Graphics to a GraphicLayer by drawing shapes on the map.  The Editor.RequestShapeAsync method is used to manage map drawing and geometry creation.  Symbols for the graphics are defined in XAML.
+            </summary>
+            <title>Add Graphics Interactively</title>
+            <category>Layers</category>
+            <subcategory>Graphics Layers</subcategory>
+            <summary>
+            AddInteractively
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.AddInteractively.#ctor">
+            <summary>Construct Add Graphics Interactively sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.AddInteractively.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="E:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.AddInteractively.PropertyChanged">
+            <summary>INotifyPropertyChanged notification</summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.AddInteractively.InDrawMode">
+            <summary>Is In Drawing Mode</summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.AddInteractively.CurrentDrawShape">
+            <summary>Currently selected shape type</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.CSVLayerXaml">
+            <summary>
+            Demonstrates defining a CsvLayer in XAML and setting the serviceUri property to a .csv file hosted online by the United States Geological Survey (USGS).
+            </summary>
+            <title>CSV Layer</title>
+            <category>Layers</category>
+            <subcategory>Graphics Layers</subcategory>
+            <summary>
+            CSVLayerXaml
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.CSVLayerXaml.#ctor">
+            <summary>Initializes a new instance of the <see cref="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.CSVLayerXaml"/> class.</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.CSVLayerXaml.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeoRSSLayerWindow">
+            <summary>
+            Creates a GeoRssLayer based on the United States Geological Survey earthquake feed and assigned a SimpleRenderer.
+            </summary>
+            <title>GeoRSS Layer</title>
+            <category>Layers</category>
+            <subcategory>Graphics Layers</subcategory>
+            <summary>
+            GeoRSSLayerWindow
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeoRSSLayerWindow.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeoRSSLayerWindow"/> class.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeoRSSLayerWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphcisLayerSelection">
+            <summary>
+            This sample demonstrates GraphicLayer selection management. Graphics are set in a selected or unselected state by using the Graphic.IsSelected property. Here, the user selects or unselects graphics by clicking on the graphic.
+            </summary>
+            <title>Selection</title>
+            <category>Layers</category>
+            <subcategory>Graphics Layers</subcategory>
+            <summary>
+            GraphcisLayerSelection
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphcisLayerSelection.#ctor">
+            <summary>Construct Graphics Layer Selection sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphcisLayerSelection.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsHitTesting">
+            <summary>
+            This sample shows how to hit test a graphics layer using the GraphicsLayer.HitTestAsync method. Here, the user may sketch a point on the map to initiate the hit testing process - the results of the hit test are then displayed in the UI.
+            </summary>
+            <title>Hit Testing</title>
+            <category>Layers</category>
+            <subcategory>Graphics Layers</subcategory>
+            <summary>
+            GraphicsHitTesting
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsHitTesting.#ctor">
+            <summary>Construct Graphics Hit Testing sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsHitTesting.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsLayerRenderingMode">
+            <summary>
+            This sample demonstates the use of the GraphicsLayer.RenderingMode property to control how a GraphicsLayer draws its graphics. Zooming and Panning the map in each of the rendering modes will show the differences between them. Rendering mode differences will be more pronounced with higher numbers of graphics in the graphic layer.
+            </summary>
+            <title>Rendering Mode</title>
+            <category>Layers</category>
+            <subcategory>Graphics Layers</subcategory>
+            <summary>
+            GraphicsLayerRenderingMode
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsLayerRenderingMode.#ctor">
+            <summary>Construct Rendering Mode sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsLayerRenderingMode.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsLayerSample">
+            <summary>
+            This sample demonstrates how to add a GraphicsLayer with Graphics and Symbols to the map in XAML.  The sample also shows how to add Polyline graphics to a GraphicsLayer from the code-behind.
+            </summary>
+            <title>Graphics Layer Sample</title>
+            <category>Layers</category>
+            <subcategory>Graphics Layers</subcategory>
+            <summary>
+            GraphicsLayerSample
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsLayerSample.#ctor">
+            <summary>Construct graphics layer sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsLayerSample.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsLayerWindow">
+            <summary>
+            Demonstrates various Graphics and GraphicsLayer related actions.
+            </summary>
+            <category>Layers</category>
+            <subcategory>Graphics Layers</subcategory>
+            <summary>
+            GraphicsLayerWindow
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsLayerWindow.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsLayerWindow"/> class.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsLayerWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsMapTips">
+            <summary>
+            This sample demonstrates how to position map tips on graphics in a graphics layer. In this example, a random set of graphics is added to a graphics layer on the map and the MapView.MouseMove event is handled to hit test the graphics layer and position the map tip.
+            </summary>
+            <title>Map Tips</title>
+            <category>Layers</category>
+            <subcategory>Graphics Layers</subcategory>
+            <summary>
+            GraphicsMapTips
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsMapTips.#ctor">
+            <summary>Construct Graphics Map Tips sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsMapTips.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsSourceSample">
+            <summary>
+            This sample demonstartes the use of the GraphicsLayer.GraphicsSouce property. Here, three separate graphics source lists are initially created with random graphics. A button is used to switch the GraphicsSource property of the GraphicsLayer between the sources.
+            </summary>
+            <title>Graphics Source</title>
+            <category>Layers</category>
+            <subcategory>Graphics Layers</subcategory>
+            <summary>
+            GraphicsSourceSample
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsSourceSample.#ctor">
+            <summary>Construct Graphics Source sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsSourceSample.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SmoothGraphicAnimation">
+            <summary>
+            Animates a graphic smoothly between two user defined locations by calling the MapPoint.MoveTo method at regular intervals as defined by a DispatcherTimer. 
+            The distance the point is moved each time is calculated by a quintic easing function.
+            </summary>
+            <title>Smooth Graphic Animation</title>
+            <category>Layers</category>
+            <subcategory>Graphics Layers</subcategory>
+            <summary>
+            SmoothGraphicAnimation
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SmoothGraphicAnimation.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SmoothGraphicAnimation"/> class.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SmoothGraphicAnimation.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ComputeClassStatistics">
+            <summary>
+            Demonstrates how to compute class statistics for an image layer and display the results with the Maximum Likelihood Classification renderer rule.
+            </summary>
+            <title>Compute Class Statistics</title>
+            <category>Tasks</category>
+            <subcategory>Imagery</subcategory>
+            <summary>
+            ComputeClassStatistics
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ComputeClassStatistics.#ctor">
+            <summary>Construct compute class statistics sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ComputeClassStatistics.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GetSamples">
+            <summary>
+            This sample demonstrates using an QueryTask to Query an ArcGISImageServiceLayer to find the outlines of image tiles and display them in a GraphicsLayer. MapOverlay attribute information is displayed for selected tile graphics when they are clicked on the map.
+            </summary>
+            <title>Get Samples</title>
+            <category>Tasks</category>
+            <subcategory>Imagery</subcategory>
+            <summary>
+            GetSamples
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GetSamples.#ctor">
+            <summary>Construct Get Image Samples sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GetSamples.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Mensuration">
+            <summary>
+            This sample demonstrates the use of the mensuration (measure) operations on an ArcGIS image service. Choose a measure operation and units to be returned in the results.
+            </summary>
+            <title>Mensuration</title>
+            <category>Tasks</category>
+            <subcategory>Imagery</subcategory>
+            <summary>
+            Mensuration
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Mensuration.#ctor">
+            <summary>Construct Mensuration sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Mensuration.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GroupLayers">
+            <summary>
+            This sample demonstrates the use of GroupLayers to contain related layers in a map.  In this sample there are two GroupLayers, one containing two basemap layers and the other containing four dynamic or feature layers.  The legend shows how Layer properties (like IsVisible and Opacity) of layers within a GroupLayer can be managed either individually or as a part of the group.
+            </summary>
+            <title>Group Layers</title>
+            <category>Layers</category>
+            <summary>
+            GroupLayers
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GroupLayers.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SetInitialMapExtent">
+            <summary>
+            Shows how to set the initial extent of the map (Map.InitialExtent).
+            </summary>
+            <category>Mapping</category>
+            <summary>
+            SetInitialMapExtent
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SetInitialMapExtent.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.LayersInitialized">
+            <summary>
+            Demonstrates implementing logic which is dependent on the layer collection being initialized.
+            </summary>
+            <category>Layers</category>
+            <summary>
+            LayersInitialized
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.LayersInitialized.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.LayersInitialized"/> class.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.LayersInitialized.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="E:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.LayersInitialized.PropertyChanged">
+            <summary>
+            Occurs when a property value changes.
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.LocationDisplay">
+            <summary>
+            This sample demonstrates the location display using the MapView.LocationDisplay attribute to show your location on a map.  The user may change Location Provider settings and view basic details about the current location.
+            </summary>
+            <title>Location Display</title>
+            <category>Mapping</category>
+            <summary>
+            LocationDisplay
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.LocationDisplay.#ctor">
+            <summary>Construct Location Display sample user control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.LocationDisplay.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RandomProvider">
+            <summary>Location provider that provides psuedo random location updates</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RandomProvider.#ctor">
+            <summary>Construct random provider</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RandomProvider.StartAsync">
+            <summary>Starts the location provider</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RandomProvider.StopAsync">
+            <summary>Stops the location provider</summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RandomProvider.StartLatitude">
+            <summary>Starting Latitude</summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RandomProvider.StartLongitude">
+            <summary>Starting Longitude</summary>
+        </member>
+        <member name="E:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RandomProvider.LocationChanged">
+            <summary>LocationChanged event (from ILocationProvider)</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.MapGrid">
+            <summary>
+            This sample shows how to enable a map grid using the MapView.MapGrid property.  The user is allowed to switch between the standard grid types (Latitude / Longitude, MGRS, UTM, and USNG) by using a combobox in the upper right corner of the screen.
+            </summary>
+            <title>Map Grid</title>
+            <category>Mapping</category>
+            <summary>
+            MapGrid
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.MapGrid.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.MapOverlays">
+            <summary>
+            This sample demonstrates how to display map overlay elements in the MapView. Here, three map overlays are included in the MapView XAML. The first is an overlay that maintains a constant X,Y anchor point on the map. The second overlay is always anchored to the center point of the current extent. The last overlay changes its anchor point when the user clicks the map.
+            </summary>
+            <title>Map Overlays</title>
+            <category>Mapping</category>
+            <summary>
+            MapOverlays
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.MapOverlays.#ctor">
+            <summary>Construct Map Overlays sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.MapOverlays.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.MapRotation">
+            <summary>
+            This sample shows how to rotate a map using the MapView.Rotation property.  The slider control in the top right corner of the map controls the rotation angle of the map view.
+            </summary>
+            <title>Map Rotation</title>
+            <category>Mapping</category>
+            <summary>
+            MapRotation
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.MapRotation.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OverviewMap">
+            <summary>
+            This sample demonstrates displaying an overview map to indicate the extent of the parent map.
+            </summary>
+            <title>Overview Map</title>
+            <category>Mapping</category>
+            <summary>
+            OverviewMap
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OverviewMap.#ctor">
+            <summary>Construct Overview Map sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OverviewMap.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SetSpatialReference">
+            <summary>
+            Demonstrates setting the extent and spatial reference of a map via the Map.InitialExtent property.
+            </summary>
+            <title>Set Spatial Reference</title>
+            <category>Mapping</category>
+            <summary>
+            SetSpatialReference
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SetSpatialReference.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ShowMapExtent">
+            <summary>
+            This sample includes a Map and a ArcGISTiledMapServiceLayer and demonstrates how to handle the ExtentChanged event on the MapView.  The extent parameters of the map are displayed in a textblock as they change at runtime.  Since the Map is in wrap-around mode, absolute values represent the map extent on an infinite continuous grid where values on the X axis increase or decrease as you pan.  Normalized values represent the map extent in the real-world and take the dateline (or current central meridian) into account.
+            </summary>
+            <title>Show Map Extent</title>
+            <category>Mapping</category>
+            <summary>
+            ShowMapExtent
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ShowMapExtent.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ShowMapScale">
+            <summary>
+            This sample demonstrates the map scale changing when you zoom in and out. The XAML textblock is bound to the MapView.Scale property to display the current map scale at the bottom of the display.
+            </summary>
+            <title>Show Map Scale</title>
+            <category>Mapping</category>
+            <summary>
+            ShowMapScale
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ShowMapScale.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ShowMouseCoordinates">
+            <summary>
+            This sample includes a Map and a single ArcGIS Server layer. MouseMove events on the Map are handled to return the mouse cursor location over the map. The location is displayed in pixels and map units.
+            </summary>
+            <title>Show Mouse Coordinates</title>
+            <category>Mapping</category>
+            <summary>
+            ShowMouseCoordinates
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ShowMouseCoordinates.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SwitchBasemaps">
+            <summary>
+            Demonstrates changing the basemap layer in a map by switching  between ArcGIS tiled map services layers hosted by ArcGIS Online.
+            </summary>
+            <title>Switch Basemaps</title>
+            <category>Mapping</category>
+            <summary>
+            SwitchBasemaps
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SwitchBasemaps.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ExportTileCache">
+            <summary>
+            Demonstrates how to download a local tile cache from an online service with the ExportTiles operation enabled.
+            </summary>
+            <title>Export Tile Cache</title>
+            <category>Offline</category>
+            <summary>
+            ExportTileCache
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ExportTileCache.#ctor">
+            <summary>Construct Export Tile Cache sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ExportTileCache.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GenerateGeodatabase">
+            <summary>
+            This sample demonstrates how to generate and download a local geodatabase from an online map service for later offline use.
+            </summary>
+            <title>Generate Geodatabase</title>
+            <category>Offline</category>
+            <summary>
+            GenerateGeodatabase
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GenerateGeodatabase.#ctor">
+            <summary>Construct Generate Geodatabase sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GenerateGeodatabase.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.CreateWebMap">
+            <summary>
+            This sample shows how to create a new webmap from scratch by adding a BaseMap and OperationLayers. Here, a webmap object is created with a base map and operationlayers including an ArcGISDynamicMapService layer, a FeatureService with Popups and a FeatureCollection.
+            </summary>
+            <title>Create Web Map</title>
+            <category>Portal</category>
+            <summary>
+            CreateWebMap
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.CreateWebMap.#ctor">
+            <summary>Construct Create WebMap sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.CreateWebMap.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.LoadWebMap">
+            <summary>
+            This sample demonstrates adding data a WebMap from ArcGIS Online to an application.
+            </summary>
+            <title>Load WebMap</title>
+            <category>Portal</category>
+            <summary>
+            LoadWebMap
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.LoadWebMap.#ctor">
+            <summary>Construct Load WebMap sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.LoadWebMap.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.LoadWebMapMVVM">
+            <summary>
+            This sample demonstrates adding data a WebMap from ArcGIS Online to an application using the MVVM design pattern.
+            </summary>
+            <title>Load WebMap MVVM</title>
+            <category>Portal</category>
+            <summary>
+            LoadWebMapMVVM
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.LoadWebMapMVVM.#ctor">
+            <summary>Construct Load WebMap sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.LoadWebMapMVVM.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.PortalBasemaps">
+            <summary>
+            This sample demonstrates how to search for, return, and dynamically use basemaps from ArcGIS Online.
+            </summary>
+            <title>Basemaps</title>
+            <category>Portal</category>
+            <summary>
+            PortalBasemaps
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.PortalBasemaps.#ctor">
+            <summary>Construct Portal Basemaps sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.PortalBasemaps.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.PortalSearch">
+            <summary>
+            This sample shows how to use the Portal API to search for webmaps on ArcGIS.com that match the search critera.
+            </summary>
+            <title>Search</title>
+            <category>Portal</category>
+            <summary>
+            PortalSearch
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.PortalSearch.#ctor">
+            <summary>Construct Portal Search sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.PortalSearch.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ShowProperties">
+            <summary>
+            This sample illustrates a simple way of querying the Portal metadata/properties and retrieving featuredItems using the Portal API.
+            </summary>
+            <title>ShowProperties</title>
+            <category>Portal</category>
+            <summary>
+            ShowProperties
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ShowProperties.#ctor">
+            <summary>Construct Show Portal Properties sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ShowProperties.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ClientPrinting">
+            <summary>
+            This sample demonstrates how to print a map using client-side capabilities of the PrintDialog class.
+            </summary>
+            <title>Client Printing</title>
+            <category>Printing</category>
+            <summary>
+            ClientPrinting
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ClientPrinting.#ctor">
+            <summary>Construct Client Printing sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ClientPrinting.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.PreviewSizes">
+            <summary>Collection of PreviewSize (creatable in XAML)</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.PreviewSize">
+            <summary>Represents a Preview Size (creatable in XAML)</summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.PreviewSize.Id">
+            <summary>ID or Name of the previes size</summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.PreviewSize.Width">
+            <summary>Width of the preview size</summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.PreviewSize.Height">
+            <summary>Height of the preview size</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ServerPrinting">
+            <summary>
+            This sample demonstrates printing a map using a PrintTask. To use the sample, specify the print settings (Layout Template and Format) using the dropdowns and click the Export Map button to generate a printout of the map. The printout will be displayed using the systems default browser.
+            </summary>
+            <title>Server Printing</title>
+            <category>Printing</category>
+            <summary>
+            ServerPrinting
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ServerPrinting.#ctor">
+            <summary>Construct Server Printing sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ServerPrinting.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.AttributeQuery">
+            <summary>
+            This sample demonstrates performing an attribute query, adding the results to the map and UI, and zooming to the resulting geometry. To use the sample, select a state from the drop-down menu. A QueryTask is used to query a map service layer based on the selected state name. The result is then added as a Graphic to the map and the attributes displayed in a list control.
+            </summary>
+            <title>Attribute Query</title>
+            <category>Tasks</category>
+            <subcategory>Query</subcategory>
+            <summary>
+            AttributeQuery
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.AttributeQuery.#ctor">
+            <summary>Construct Attribute Query sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.AttributeQuery.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FindTaskSample">
+            <summary>
+            This sample demonstrates how to search your data using the find task. The sample displays the results on the map and in tabular list view.
+            </summary>
+            <title>Find</title>
+            <category>Tasks</category>
+            <subcategory>Query</subcategory>
+            <summary>
+            FindTaskSample
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FindTaskSample.#ctor">
+            <summary>Construct Find sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FindTaskSample.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.IdentifySample">
+            <summary>
+            This sample demonstrates performing identify operations. To use the sample, click anywhere in the United States to identify features. The results will be shown in the combo box and list view on the right side of the application. View the data for different results by selecting them from the combo box. In the code-behind, an IdentifyTask is used to perform the identify operation. The tasks IdentifyParameters specify to query the geometry of the map click and to query all the layers in the target map service, which enables returning results from multiple layers.
+            </summary>
+            <title>Identify</title>
+            <category>Tasks</category>
+            <subcategory>Query</subcategory>
+            <summary>
+            IdentifySample
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.IdentifySample.#ctor">
+            <summary>Construct Identify sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.IdentifySample.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.QueryRelatedTables">
+            <summary>
+            This sample demonstrates how to use a relationship query to display information from a related table for selected features. Clicking on the map highlight a set of wells near the clicked point. Select a well from the list to display related features (tops). The object id of the well is used in the relationship query to return 0 to many related records displayed in the list view. Note that the code requires a relationshipId. Feature layers can have more than one relationship and each relationship is identified by a unique identifier. You can use the Services Directory to find the relationship id.
+            </summary>
+            <title>Query Related Tables</title>
+            <category>Tasks</category>
+            <subcategory>Query</subcategory>
+            <summary>
+            QueryRelatedTables
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.QueryRelatedTables.#ctor">
+            <summary>Construct Spatial Query sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.QueryRelatedTables.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SpatialQuery">
+            <summary>
+            This sample demonstrates how to spatially search your data using a QueryTask with its geometry attribute set. The sample spatially queries a map service using the buffer geometry around a user's click point and displays the results in a graphics layer on the map.
+            </summary>
+            <title>Spatial Query</title>
+            <category>Tasks</category>
+            <subcategory>Query</subcategory>
+            <summary>
+            SpatialQuery
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SpatialQuery.#ctor">
+            <summary>Construct Spatial Query sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SpatialQuery.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Statistics">
+            <summary>
+            Demonstrates how to use a QueryTask to get statistics from a map service. A statistics query is executed against a US states map service that gets statistics about population in sub-regions. This is combined with another query that retrieves all state features and the result is added to a graphicslayer and a tabular list view.
+            </summary>
+            <title>Statistics</title>
+            <category>Tasks</category>
+            <subcategory>Query</subcategory>
+            <summary>
+            Statistics
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Statistics.#ctor">
+            <summary>Construct Statistics sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Statistics.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RoutingPointToPoint">
+            <summary>
+            Demonstrates simple point to point routing between two input locations.
+            </summary>
+            <category>Tasks</category>
+            <subcategory>Network Analyst</subcategory>
+            <summary>
+            RoutingPointToPoint
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RoutingPointToPoint.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RoutingPointToPoint.IsOnline">
+            <summary>
+            Gets or sets a value indicating whether this instance is online.
+            </summary>
+            <value>
+              <c>true</c> if this instance is online; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RoutingPointToPoint.IsMapReady">
+            <summary>
+            Gets or sets a value indicating whether the map is initialized.
+            </summary>
+            <value>
+            <c>true</c> if the map is initialized; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RoutingPointToPoint.StartLocationText">
+            <summary>
+            Gets or sets the start location text.
+            </summary>
+            <value>
+            The start location text.
+            </value>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RoutingPointToPoint.EndLocationText">
+            <summary>
+            Gets or sets the end location text.
+            </summary>
+            <value>
+            The end location text.
+            </value>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RoutingWithBarriers">
+            <summary>
+            Shows routing and re-routing around user defined point, polyline, and polygon barriers.
+            </summary>
+            <category>Tasks</category>
+            <subcategory>Network Analyst</subcategory>
+            <summary>
+            RoutingWithBarriers
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RoutingWithBarriers.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RoutingWithBarriers.IsOnline">
+            <summary>
+            Gets or sets a value indicating whether this instance is online.
+            </summary>
+            <value>
+              <c>true</c> if this instance is online; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RoutingWithBarriers.IsMapReady">
+            <summary>
+            Gets or sets a value indicating whether the map is initialized.
+            </summary>
+            <value>
+            <c>true</c> if the map is initialized; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RoutingWithDirections">
+            <summary>
+            Interaction logic for RoutingWithDirections.xaml
+            </summary>
+            <category>Tasks</category>
+            <subcategory>Network Analyst</subcategory>
+            <summary>
+            RoutingWithDirections
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RoutingWithDirections.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RoutingWithDirections.IsOnline">
+            <summary>
+            Gets or sets a value indicating whether this instance is online.
+            </summary>
+            <value>
+              <c>true</c> if this instance is online; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RoutingWithDirections.IsMapReady">
+            <summary>
+            Gets or sets a value indicating whether the map is initialized.
+            </summary>
+            <value>
+            <c>true</c> if the map is initialized; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RoutingWithDirections.StartLocationText">
+            <summary>
+            Gets or sets the start location text.
+            </summary>
+            <value>
+            The start location text.
+            </value>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RoutingWithDirections.EndLocationText">
+            <summary>
+            Gets or sets the end location text.
+            </summary>
+            <value>
+            The end location text.
+            </value>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RoutingWithDirections.Directions">
+            <summary>
+            Gets or sets the directions text.
+            </summary>
+            <value>
+            The directions.
+            </value>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.TokenSecuredServices">
+            <summary>
+            This sample demonstrates how to use the IdentityManager to gain access to a secured service. Here, the map contains a public basemap and two secure dynamic layers. The IdentityManager will challenge for credentials when the Map tries to access a secure service.
+            </summary>
+            <title>ArcGIS Token Secured Services</title>
+            <category>Security</category>
+            <summary>
+            TokenSecuredServices
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.TokenSecuredServices.#ctor">
+            <summary>Construct Token Secured Services sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.TokenSecuredServices.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ClassBreaksRendererSample">
+            <summary>
+            Sample shows how to create a ClassBreaksRenderer for a graphics layer. Earthquake data points are pulled from an online source and rendered using the GraphicsLayer ClassBreaksRenderer.
+            </summary>
+            <title>Class Breaks Renderer</title>
+            <category>Symbology</category>
+            <summary>
+            ClassBreaksRendererSample
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ClassBreaksRendererSample.#ctor">
+            <summary>Construct Class Breaks Renderer sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ClassBreaksRendererSample.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GenerateRenderer">
+            <summary>
+            This sample uses an ArcGIS Server Task to generate a Class Breaks Renderer with five classes. Note that this functionality requires an ArcGIS Server 10.1 instance. The generate renderer task can also generate unique value renderers and can also generate color ramp(s) from two or more colors.
+            </summary>
+            <title>Generate Renderer Task</title>
+            <category>Symbology</category>
+            <summary>
+            GenerateRenderer
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GenerateRenderer.#ctor">
+            <summary>Construct Generate Renderer sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GenerateRenderer.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.LineFillSymbols">
+            <summary>
+            Sample shows how to create Line and Fill Symbol (SimpleLineSymbol, SimpleFillSymbol, PictureFillSymbol) and add graphics using the symbols.
+            </summary>
+            <title>Line and Fill Symbols</title>
+            <category>Symbology</category>
+            <summary>
+            LineFillSymbols
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.LineFillSymbols.#ctor">
+            <summary>Construct Line and Fill Symbols sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.LineFillSymbols.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SampleSymbol">
+            <summary>Local symbol class</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SampleSymbol.#ctor(Esri.ArcGISRuntime.Symbology.Symbol,System.String)">
+            <summary>Construct sample symbol object</summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SampleSymbol.Symbol">
+            <summary>Symbol</summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SampleSymbol.SymbolUri">
+            <summary>Uri for picture symbols</summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SampleSymbol.Swatch">
+            <summary>Swatch for UI</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.MarkerSymbols">
+            <summary>
+            Sample shows how to create MarkerySymbols (both SimpleMarkerSymbol and PictureMarkerSymbol) and add point graphics using the symbols.
+            </summary>
+            <title>Marker Symbols</title>
+            <category>Symbology</category>
+            <summary>
+            MarkerSymbols
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.MarkerSymbols.#ctor">
+            <summary>Construct Marker Symbols sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.MarkerSymbols.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SimpleRendererSample">
+            <summary>
+            Sample shows how to create a SimpleRenderer for a graphics layer in XAML and code. User added points will be added to the graphics layer and rendered using the GraphicsLayer Renderer.
+            </summary>
+            <title>Simple Renderer</title>
+            <category>Symbology</category>
+            <summary>
+            SimpleRendererSample
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SimpleRendererSample.#ctor">
+            <summary>Construct Simple Renderer sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SimpleRendererSample.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.TextSymbols">
+            <summary>
+            Sample shows how to create Text Symbols (TextSymbol) and add graphics using the symbols.
+            </summary>
+            <title>Text Symbols</title>
+            <category>Symbology</category>
+            <summary>
+            TextSymbols
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.TextSymbols.#ctor">
+            <summary>Construct Text Symbols sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.TextSymbols.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.UniqueValueRendererSample">
+            <summary>
+            Sample shows how to create a UniqueValueRenderer for a graphics layer. US state polygons are pulled from an online source and rendered using the GraphicsLayer UniqueValueRenderer.
+            </summary>
+            <title>Unique Value Renderer</title>
+            <category>Symbology</category>
+            <summary>
+            UniqueValueRendererSample
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.UniqueValueRendererSample.#ctor">
+            <summary>Construct Unique Value Renderer sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.UniqueValueRendererSample.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ArcGISLocalTiledLayerSample">
+            <summary>
+            Demonstrates adding a local tiled layer from a tile package (.tpk) to a Map in XAML.
+            </summary>
+            <title>ArcGIS Local Tiled Layer</title>
+            <category>Layers</category>
+            <subcategory>Tiled Layers</subcategory>
+            <summary>
+            ArcGISLocalTiledLayerSample
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ArcGISLocalTiledLayerSample.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ArcGISTiledMapServiceLayerSample">
+            <summary>
+            Demonstrates adding an ArcGIS tiled map service to a Map in XAML.
+            </summary>
+            <title>ArcGIS Tiled Map Service Layer</title>
+            <category>Layers</category>
+            <subcategory>Tiled Layers</subcategory>
+            <summary>
+            ArcGISTiledMapServiceLayerSample
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ArcGISTiledMapServiceLayerSample.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.BingLayerSample">
+            <summary>
+            Demonstrates adding a Bing Maps layer to a Map in code.  A Bing Maps key must be provided to view Bing Maps tiled map services.
+            </summary>
+            <title>Bing Maps Layer</title>
+            <category>Layers</category>
+            <subcategory>Tiled Layers</subcategory>
+            <summary>
+            BingLayerSample
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.BingLayerSample.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OpenStreetMapLayerSample">
+            <summary>
+            Demonstrates adding an Open StreetMap layer to a Map in XAML.
+            </summary>
+            <title>Open StreetMap Layer</title>
+            <category>Layers</category>
+            <subcategory>Tiled Layers</subcategory>
+            <summary>
+            OpenStreetMapLayerSample
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OpenStreetMapLayerSample.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.WebTiledLayerSample">
+            <summary>
+            Demonstrates adding a Web tiled layer to a Map in XAML, and changing layer properties in code behind.
+            </summary>
+            <title>Web Tiled Layer</title>
+            <category>Layers</category>
+            <subcategory>Tiled Layers</subcategory>
+            <summary>
+            WebTiledLayerSample
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.WebTiledLayerSample.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.WmtsLayerSample">
+            <summary>
+            Demonstrates adding a WMTS layer to a Map in XAML.
+            </summary>
+            <title>WMTS Layer</title>
+            <category>Layers</category>
+            <subcategory>Tiled Layers</subcategory>
+            <summary>
+            WmtsLayerSample
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.WmtsLayerSample.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.App">
+            <summary>
+            Interaction logic for App.xaml
+            </summary>
+            <summary>
+            App
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.App.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.App.Main">
+            <summary>
+            Application Entry Point.
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.MainWindow">
+            <summary>
+            MainWindow
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.MainWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,143 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Identify"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+	xmlns:esri="clr-namespace:Esri.ArcGISRuntime.Controls;assembly=Esri.ArcGISRuntime"
+	xmlns:esriLayers="clr-namespace:Esri.ArcGISRuntime.Layers;assembly=Esri.ArcGISRuntime"
+    xmlns:esriSymbols="clr-namespace:Esri.ArcGISRuntime.Symbology;assembly=Esri.ArcGISRuntime"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit">
+
+    <Grid Background="{StaticResource PhoneBackgroundBrush}">
+
+        <!-- Map -->
+        <esri:MapView x:Name="mapView1" MapViewTapped="mapView1_Tap">
+            <esri:Map >
+                <!-- Don't set InitialExtent to avoid issue with ZoomTo when InitialExtent is set -->
+                <!--InitialExtent="-12800000, 2000000, -7800000, 8000000, 3857">-->
+
+                <!-- Basemap - tiled map service -->
+                <esriLayers:ArcGISTiledMapServiceLayer
+				ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+
+                <!-- Graphics layer for displaying result polygons -->
+                <esriLayers:GraphicsLayer
+                ID="PolygonLayer">
+                    <esriLayers:GraphicsLayer.Renderer>
+                        <esriSymbols:SimpleRenderer>
+                            <esriSymbols:SimpleFillSymbol Color="#500000FF">
+                                <esriSymbols:SimpleFillSymbol.Outline>
+                                    <esriSymbols:SimpleLineSymbol Color="Blue" />
+                                </esriSymbols:SimpleFillSymbol.Outline>
+                            </esriSymbols:SimpleFillSymbol>
+                        </esriSymbols:SimpleRenderer>
+                    </esriLayers:GraphicsLayer.Renderer>
+                </esriLayers:GraphicsLayer>
+
+                <!-- Graphics layer for displaying the point tapped on the map -->
+                <esriLayers:GraphicsLayer
+                ID="IdentifyPointLayer">
+                    <esriLayers:GraphicsLayer.Renderer>
+                        <esriSymbols:SimpleRenderer>
+                            <esriSymbols:SimpleMarkerSymbol Style="Circle" Size="8" Color="White">
+                                <esriSymbols:SimpleMarkerSymbol.Outline>
+                                    <esriSymbols:SimpleLineSymbol Color="Black" />
+                                </esriSymbols:SimpleMarkerSymbol.Outline>
+                            </esriSymbols:SimpleMarkerSymbol>
+                        </esriSymbols:SimpleRenderer>
+                    </esriLayers:GraphicsLayer.Renderer>
+                </esriLayers:GraphicsLayer>
+            </esri:Map>
+        </esri:MapView>
+
+        <!-- Border containing feature selection and attributes UI -->
+        <Grid HorizontalAlignment="Left"
+              VerticalAlignment="Top"
+              Margin="12">
+            <Grid Background="{StaticResource PhoneBackgroundBrush}"
+                  Opacity="0.7" />
+            <Grid Margin="12">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Tap within the US to identify features" />
+
+                <!-- list picker for selecting a feature to view -->
+                <toolkit:ListPicker 
+                    x:Name="ResultsListPicker"
+                    Grid.Row="1"
+                    Visibility="Collapsed"
+                    SelectionChanged="ResultsListPicker_SelectionChanged">
+                    <toolkit:ListPicker.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Title}" />
+                        </DataTemplate>
+                    </toolkit:ListPicker.ItemTemplate>
+                    <toolkit:ListPicker.FullModeItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Title}"
+                                       FontSize="28"
+                                       Margin="0,7,0,0"/>
+                        </DataTemplate>
+                    </toolkit:ListPicker.FullModeItemTemplate>
+                </toolkit:ListPicker>
+
+                <ProgressBar x:Name="progress" 
+                             Grid.Row="2" 
+                             Margin="5"
+                             IsIndeterminate="True"
+                             Visibility="Collapsed"/>
+
+                <!-- toggle button to show/hide attributes of the selected feature -->
+                <ToggleButton
+                    x:Name="ShowAttributesButton"
+                    Content="Show Attributes"
+                    Checked="ShowAttributesButton_Checked"
+                    Unchecked="ShowAttributesButton_Unchecked"
+                    Grid.Row="3"
+                    Visibility="Collapsed"/>
+
+                <!-- scroll viewer containing the attributes of the selected feature -->
+                <ScrollViewer 
+                    x:Name="AttributeDisplay"
+                    Margin="0,12,0,0"
+                    Visibility="Collapsed"
+                    HorizontalScrollBarVisibility="Auto"
+                    VerticalScrollBarVisibility="Auto"
+                    Grid.Row="4">
+                    <Grid Margin="0,0,12,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Two items controls - one displaying fields and the other displaying 
+                             attributes of the selected feature.  Two controls are used so that the 
+                             width of each column is constant.  -->
+                        <ItemsControl x:Name="FieldsDisplay">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Key}"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <ItemsControl x:Name="ValuesDisplay"
+                                      Grid.Column="1"
+                                      Margin="5,0,0,0">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Value}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+    </Grid>
+</phone:PhoneApplicationPage>

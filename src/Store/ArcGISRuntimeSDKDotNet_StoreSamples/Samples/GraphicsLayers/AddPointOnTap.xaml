@@ -1,0 +1,30 @@
+﻿<Page
+    x:Name="pageRoot"
+    x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.AddPointOnTap"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:esri="using:Esri.ArcGISRuntime.Controls"  xmlns:lyr="using:Esri.ArcGISRuntime.Layers" 
+	xmlns:sym="using:Esri.ArcGISRuntime.Symbology">
+
+    <Page.Resources>
+        <sym:SimpleMarkerSymbol x:Key="RedMarkerSymbol" Color="Yellow" Size="12"  Style="X" />
+    </Page.Resources>
+
+    <Grid>
+        <esri:MapView x:Name="mapView1" MapViewTapped="mapView1_MapViewTapped">
+            <esri:Map   >
+                <lyr:ArcGISTiledMapServiceLayer
+				ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" />
+                <lyr:GraphicsLayer ID="MyGraphicsLayer">
+                    <lyr:GraphicsLayer.Renderer>
+                        <sym:SimpleRenderer Symbol="{StaticResource RedMarkerSymbol}" />
+                    </lyr:GraphicsLayer.Renderer>
+                </lyr:GraphicsLayer>
+            </esri:Map>
+        </esri:MapView>
+
+        <Button HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20"
+				Content="Clear all"
+				Click="Button_Click_1" />
+    </Grid>
+</Page>

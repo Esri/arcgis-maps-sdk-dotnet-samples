@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsLayerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+        Tag="GraphicsLayerWindow" >
+    <Grid x:Name="LayoutRoot">
+        <Grid.Resources>
+            <esri:SimpleMarkerSymbol x:Key="mag2to3" Color="#FF0A57FC" Size="12" Style="Triangle" />
+            <esri:SimpleMarkerSymbol x:Key="mag3to4" Color="#FF1CA2A3" Size="12" Style="Triangle" />
+            <esri:SimpleMarkerSymbol x:Key="mag4to5" Color="#FF60AD12" Size="12" Style="Triangle" />
+            <esri:SimpleMarkerSymbol x:Key="mag5to6" Color="#FFFFFE0A" Size="12" Style="Triangle" />
+            <esri:SimpleMarkerSymbol x:Key="mag6to7" Color="#FFFDA208" Size="12" Style="Triangle" />
+            <esri:SimpleMarkerSymbol x:Key="mag7to8" Color="#FFFB5107" Size="12" Style="Triangle" />
+            <esri:ClassBreaksRenderer x:Key="MyClassBreaksRenderer" Field="Magnitude" >
+                <esri:ClassBreaksRenderer.Infos>
+                    <esri:ClassBreakInfo Minimum="2" Maximum="3" Symbol="{StaticResource mag2to3}" />
+                    <esri:ClassBreakInfo Minimum="3" Maximum="4" Symbol="{StaticResource mag3to4}" />
+                    <esri:ClassBreakInfo Minimum="4" Maximum="5" Symbol="{StaticResource mag4to5}" />
+                    <esri:ClassBreakInfo Minimum="5" Maximum="6" Symbol="{StaticResource mag5to6}" />
+                    <esri:ClassBreakInfo Minimum="6" Maximum="7" Symbol="{StaticResource mag6to7}" />
+                    <esri:ClassBreakInfo Minimum="7" Maximum="8" Symbol="{StaticResource mag7to8}" />
+                </esri:ClassBreaksRenderer.Infos>
+            </esri:ClassBreaksRenderer>
+            <esri:SimpleRenderer x:Key="SimpleRenderer">
+                <esri:SimpleMarkerSymbol Color="#FFFB5107" Size="12" Style="Triangle" />
+            </esri:SimpleRenderer>
+        </Grid.Resources>
+        
+        <esri:MapView WrapAround="True">
+            <esri:Map x:Name="map1">
+                <esri:ArcGISTiledMapServiceLayer ServiceUri="http://services.arcgisonline.com/arcgis/rest/services/world_topo_map/MapServer" />
+            </esri:Map>
+        </esri:MapView>
+
+        <StackPanel Width="250" HorizontalAlignment="Right"
+                    VerticalAlignment="Top" Background="Black"
+                    Orientation="Vertical">
+            <Button Margin="3" 
+                    Content="Add Graphics Layer" Click="OnGraphicsLayerAddClicked"/>
+            <Button Margin="3" 
+                    Content="Add Single Graphic" Click="OnGraphicAddClicked"/>
+            <Button Margin="3" 
+                    Content="Switch Graphics Source" Click="OnSwitchGraphicsSourceClicked"/>
+            <Button Margin="3" 
+                    Content="Check Events" Click="OnCheckEventsClicked"/>
+            <Button Margin="3" 
+                    Content="Apply Renderer in Code" Click="OnApplyRendererClicked"/>
+            <Button Margin="3" 
+                    Content="Selection color" Click="OnTestSelectionColorClicked"/>
+            <Button Margin="3" 
+                    Content="Add Graphic Range" Click="OnAddGraphicRangeClicked"/>
+            <Button Margin="3" 
+                    Content="Insert Graphic Item" Click="OnInsertGraphicClicked"/>
+            <Button Margin="3" 
+                    Content="Clear Graphic Item" Click="OnClearGraphicItemClicked"/>
+
+            <TextBlock x:Name="OutputTextBox" Foreground="White"/>
+
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,46 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.RenderingInCode"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+	xmlns:esri="clr-namespace:Esri.ArcGISRuntime.Controls;assembly=Esri.ArcGISRuntime"
+	xmlns:esriLayers="clr-namespace:Esri.ArcGISRuntime.Layers;assembly=Esri.ArcGISRuntime"
+    xmlns:esriData="clr-namespace:Esri.ArcGISRuntime.Data;assembly=Esri.ArcGISRuntime">
+
+    <Grid Background="{StaticResource PhoneBackgroundBrush}">
+
+        <esri:MapView x:Name="mapView1">
+            <esri:Map InitialExtent="-13000000, 2000000, -8000000, 8000000, 3857">
+
+                <!-- Basemap -->
+                <esriLayers:ArcGISTiledMapServiceLayer
+				ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
+
+                <esriLayers:FeatureLayer ID="States">
+                    <esriLayers:FeatureLayer.FeatureTable>
+                        <esriData:GeodatabaseFeatureServiceTable
+                        ServiceUri="http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Census_USA/MapServer/5" />
+                    </esriLayers:FeatureLayer.FeatureTable>
+                </esriLayers:FeatureLayer>
+
+                <esriLayers:FeatureLayer ID="Rivers">
+                    <esriLayers:FeatureLayer.FeatureTable>
+                        <esriData:GeodatabaseFeatureServiceTable
+                        ServiceUri="http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer/1" />
+                    </esriLayers:FeatureLayer.FeatureTable>
+                </esriLayers:FeatureLayer>
+
+                <esriLayers:FeatureLayer ID="Cities">
+                    <esriLayers:FeatureLayer.FeatureTable>
+                        <esriData:GeodatabaseFeatureServiceTable
+                        ServiceUri="http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer/0" 
+                        Where="POP1990 > 100000"
+                        />
+                    </esriLayers:FeatureLayer.FeatureTable>
+                </esriLayers:FeatureLayer>
+
+            </esri:Map>
+        </esri:MapView>
+
+    </Grid>
+</phone:PhoneApplicationPage>

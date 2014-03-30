@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SetInitialMapExtent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="mapView">
+            <esri:Map InitialExtent="-13044000,3855000,-13040000,3858000">
+                <esri:ArcGISTiledMapServiceLayer 
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+            </esri:Map>
+        </esri:MapView>
+    </Grid>
+</UserControl>

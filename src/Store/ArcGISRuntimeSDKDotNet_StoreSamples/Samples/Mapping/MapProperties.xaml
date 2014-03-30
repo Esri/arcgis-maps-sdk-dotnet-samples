@@ -1,0 +1,47 @@
+﻿<Page x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.MapProperties"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:samples="using:ArcGISRuntimeSDKDotNet_StoreSamples.Samples"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  	  xmlns:esri="using:Esri.ArcGISRuntime.Controls"  xmlns:lyr="using:Esri.ArcGISRuntime.Layers">
+    
+	<Page.Resources>
+		<samples:ProjectionConverter x:Key="project" />
+	</Page.Resources>
+    <Grid>
+		
+		<esri:MapView x:Name="mapView1"><esri:Map >
+			<lyr:ArcGISTiledMapServiceLayer
+				ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" />
+			<lyr:ArcGISTiledMapServiceLayer
+				ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer" />
+		</esri:Map></esri:MapView>
+		
+		<Border IsHitTestVisible="False"
+				Margin="20"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Top"
+				Background="#CC000000"
+				Padding="20" MaxWidth="300">
+			<StackPanel>
+				<TextBlock Text="Scale:" FontWeight="Bold" />
+				<StackPanel Orientation="Horizontal">
+					<TextBlock Text="1:" />
+					<TextBlock Text="{Binding Scale, ElementName=mapView1}" />
+				</StackPanel>
+				<TextBlock Text="Extent:" FontWeight="Bold" />
+                <!-- DataContext="{Binding Extent, ElementName=mapView1, Converter={StaticResource project}, ConverterParameter=4326}"-->
+                <StackPanel  DataContext="{Binding Extent, ElementName=mapView1, Converter={StaticResource project}, ConverterParameter=4326}">
+					<TextBlock Text="{Binding XMin}" />
+					<TextBlock Text="{Binding YMin}" />
+					<TextBlock Text="{Binding XMax}" />
+					<TextBlock Text="{Binding YMax}" />
+				</StackPanel>
+				
+				<TextBlock Text="Spatial Reference:" FontWeight="Bold"  />
+				<TextBlock Text="{Binding SpatialReference.Wkid, ElementName=mapView1}" />
+				<TextBlock Text="{Binding SpatialReference.Wkt, ElementName=mapView1}" TextWrapping="Wrap" />
+
+			</StackPanel>
+		</Border>
+    </Grid>
+</Page>

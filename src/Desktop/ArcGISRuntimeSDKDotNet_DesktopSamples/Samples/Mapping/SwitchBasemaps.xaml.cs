@@ -1,0 +1,29 @@
+﻿using Esri.ArcGISRuntime.Layers;
+using System.Windows;
+using System.Windows.Controls;
+
+namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
+{
+    /// <summary>
+    /// Demonstrates changing the basemap layer in a map by switching  between ArcGIS tiled map services layers hosted by ArcGIS Online.
+    /// </summary>
+    /// <title>Switch Basemaps</title>
+	/// <category>Mapping</category>
+	public partial class SwitchBasemaps : UserControl
+    {
+        public SwitchBasemaps()
+        {
+            InitializeComponent();
+        }
+
+        private void RadioButton_Click(object sender, RoutedEventArgs e)
+        {
+            map1.Layers.RemoveAt(0);
+
+            map1.Layers.Add(new ArcGISTiledMapServiceLayer()
+            {
+                ServiceUri = ((RadioButton)sender).Tag as string
+            });
+        }
+    }
+}

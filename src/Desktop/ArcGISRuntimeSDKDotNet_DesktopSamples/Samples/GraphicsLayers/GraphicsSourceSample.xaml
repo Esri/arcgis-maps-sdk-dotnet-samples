@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsSourceSample"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="mapView" WrapAround="True">
+            <esri:Map>
+                <esri:ArcGISTiledMapServiceLayer
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
+
+                <esri:GraphicsLayer x:Name="graphicsLayer" />
+            </esri:Map>
+        </esri:MapView>
+
+        <Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="30"
+                HorizontalAlignment="Right" VerticalAlignment="Top">
+            <StackPanel>
+                <Button Content="Switch Graphics Source" Margin="20" Click="SwitchGraphicSourceButton_Click" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

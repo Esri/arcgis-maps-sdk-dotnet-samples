@@ -1,0 +1,708 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ArcGISRuntimeSDKDotNet_PhoneSamples</name>
+    </assembly>
+    <members>
+        <member name="M:ArcGISRuntimeSDKDotNet_PhoneSamples.App.#ctor">
+            <summary>
+            Constructor for the Application object.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_PhoneSamples.App.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.App.RootFrame">
+            <summary>
+            Provides easy access to the root frame of the Phone Application.
+            </summary>
+            <returns>The root frame of the Phone Application.</returns>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.LocalizedStrings">
+            <summary>
+            Provides access to string resources.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_PhoneSamples.MainPage.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Resources.AppResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Resources.AppResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Resources.AppResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Resources.AppResources.AppBarButtonText">
+            <summary>
+              Looks up a localized string similar to add.
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Resources.AppResources.AppBarMenuItemText">
+            <summary>
+              Looks up a localized string similar to Menu Item.
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Resources.AppResources.ApplicationTitle">
+            <summary>
+              Looks up a localized string similar to ArcGIS Runtime SDK for .NET - Samples.
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Resources.AppResources.ResourceFlowDirection">
+            <summary>
+              Looks up a localized string similar to LeftToRight.
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Resources.AppResources.ResourceLanguage">
+            <summary>
+              Looks up a localized string similar to en-US.
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Clip">
+            <summary>
+            
+            </summary>
+            <category>Geoprocessing Tasks</category>
+        </member>
+        <member name="F:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Clip.ClipLinesProperty">
+            <summary>
+            Identifies the <see cref="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Clip.ClipLines"/> dependency property
+            </summary>
+        </member>
+        <member name="F:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Clip.BufferDistanceProperty">
+            <summary>
+            Identifies the <see cref="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Clip.BufferDistance"/> dependency property
+            </summary>
+        </member>
+        <member name="F:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Clip.ClippedCountiesProperty">
+            <summary>
+            Identifies the <see cref="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Clip.ClippedCounties"/> dependency property
+            </summary>
+        </member>
+        <member name="F:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Clip.LayersProperty">
+            <summary>
+            Identifies the <see cref="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Clip.Layers"/> dependency property
+            </summary>
+        </member>
+        <member name="F:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Clip.BusyVisibilityProperty">
+            <summary>
+            Identifies the <see cref="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Clip.BusyVisibility"/> dependency property
+            </summary>
+        </member>
+        <member name="F:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Clip.StatusVisibilityProperty">
+            <summary>
+            Identifies the <see cref="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Clip.StatusVisibility"/> dependency property
+            </summary>
+        </member>
+        <member name="F:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Clip.StatusTextProperty">
+            <summary>
+            Identifies the <see cref="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Clip.StatusText"/> dependency property
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Clip.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Clip.ClipLines">
+            <summary>
+            Gets the set of lines on which the buffer and clip operation is to be based
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Clip.BufferDistance">
+            <summary>
+            Gets or sets the distance to buffer the clip line
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Clip.ClippedCounties">
+            <summary>
+            Gets the set of counties that have been clipped
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Clip.Layers">
+            <summary>
+            Gets the set of layers containing the basemap, input, and output features
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Clip.BusyVisibility">
+            <summary>
+            Gets whether an operation is currently in progress, expressed as a 
+            <see cref="T:System.Windows.Visibility">Visibility</see>
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Clip.StatusVisibility">
+            <summary>
+            Gets whether status text should be shown, expressed as a 
+            <see cref="T:System.Windows.Visibility">Visibility</see>
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Clip.StatusText">
+            <summary>
+            Gets the status of the current operation
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Clip.Editor">
+            <summary>
+            Gets the Editor to use for retrieving input
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.DriveTimes">
+            <summary>
+            
+            </summary>
+            <category>Geoprocessing Tasks</category>
+        </member>
+        <member name="F:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.DriveTimes.TapPointsProperty">
+            <summary>
+            Identifies the <see cref="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.DriveTimes.TapPoints"/> dependency property
+            </summary>
+        </member>
+        <member name="F:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.DriveTimes.DriveTimePolygonsProperty">
+            <summary>
+            Identifies the <see cref="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.DriveTimes.DriveTimePolygons"/> dependency property
+            </summary>
+        </member>
+        <member name="F:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.DriveTimes.BusyVisibilityProperty">
+            <summary>
+            Identifies the <see cref="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.DriveTimes.BusyVisibility"/> dependency property
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.DriveTimes.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.DriveTimes.TapPoints">
+            <summary>
+            Gets the set of points on the map where the user has tapped
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.DriveTimes.DriveTimePolygons">
+            <summary>
+            Gets the set of drive time areas that have been calculated around the tap points
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.DriveTimes.BusyVisibility">
+            <summary>
+            Gets whether an operation is currently in progress, expressed as a 
+            <see cref="T:System.Windows.Visibility">Visibility</see>
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.OceanCurrents">
+            <summary>
+            
+            </summary>
+            <category>Geoprocessing Tasks</category>
+        </member>
+        <member name="F:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.OceanCurrents.TapPointsProperty">
+            <summary>
+            Identifies the <see cref="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.OceanCurrents.TapPoints"/> dependency property
+            </summary>
+        </member>
+        <member name="F:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.OceanCurrents.DaysProperty">
+            <summary>
+            Identifies the <see cref="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.OceanCurrents.Days"/> dependency property
+            </summary>
+        </member>
+        <member name="F:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.OceanCurrents.CurrentsProperty">
+            <summary>
+            Identifies the <see cref="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.OceanCurrents.Currents"/> dependency property
+            </summary>
+        </member>
+        <member name="F:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.OceanCurrents.LayersProperty">
+            <summary>
+            Identifies the <see cref="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.OceanCurrents.Layers"/> dependency property
+            </summary>
+        </member>
+        <member name="F:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.OceanCurrents.BusyVisibilityProperty">
+            <summary>
+            Identifies the <see cref="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.OceanCurrents.BusyVisibility"/> dependency property
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.OceanCurrents.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.OceanCurrents.TapPoints">
+            <summary>
+            Gets the set of lines on which the buffer and clip operation is to be based
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.OceanCurrents.Days">
+            <summary>
+            Gets or sets the distance to buffer the clip line
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.OceanCurrents.Currents">
+            <summary>
+            Gets the set of counties that have been clipped
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.OceanCurrents.Layers">
+            <summary>
+            Gets the set of layers containing the basemap, input, and output features
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.OceanCurrents.BusyVisibility">
+            <summary>
+            Gets whether an operation is currently in progress, expressed as a 
+            <see cref="T:System.Windows.Visibility">Visibility</see>
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Viewshed">
+            <summary>
+            
+            </summary>
+            <category>Geoprocessing Tasks</category>
+        </member>
+        <member name="F:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Viewshed.TapPointsProperty">
+            <summary>
+            Identifies the <see cref="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Viewshed.TapPoints"/> dependency property
+            </summary>
+        </member>
+        <member name="F:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Viewshed.LayersProperty">
+            <summary>
+            Identifies the <see cref="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Viewshed.Layers"/> dependency property
+            </summary>
+        </member>
+        <member name="F:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Viewshed.BusyVisibilityProperty">
+            <summary>
+            Identifies the <see cref="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Viewshed.BusyVisibility"/> dependency property
+            </summary>
+        </member>
+        <member name="F:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Viewshed.StatusTextProperty">
+            <summary>
+            Identifies the <see cref="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Viewshed.StatusText"/> dependency property
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Viewshed.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Viewshed.TapPoints">
+            <summary>
+            Gets the set of points on the map where the user has tapped
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Viewshed.Layers">
+            <summary>
+            Gets the set of layers used including basemap, input, and output layers
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Viewshed.BusyVisibility">
+            <summary>
+            Gets whether an operation is currently in progress, expressed as a 
+            <see cref="T:System.Windows.Visibility">Visibility</see>
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Viewshed.StatusText">
+            <summary>
+            Gets the status of the current operation
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.AddGraphicsOnTap">
+            <summary>
+            
+            </summary>
+            <category>Graphics Layer</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.AddGraphicsOnTap.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Draw">
+            <summary>
+            
+            </summary>
+            <category>Graphics Layers</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Draw.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.GraphicsXaml">
+            <summary>
+            
+            </summary>
+            <category>Graphics Layers</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.GraphicsXaml.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.RenderingInCode">
+            <summary>
+            
+            </summary>
+            <category>Symbology</category>
+        </member>
+        <member name="F:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.RenderingInCode.RiversRendererProperty">
+            <summary>
+            Identifies the <see cref="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.RenderingInCode.RiversRenderer"/> dependency property
+            </summary>
+        </member>
+        <member name="F:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.RenderingInCode.CitiesRendererProperty">
+            <summary>
+            Identifies the <see cref="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.RenderingInCode.CitiesRenderer"/> dependency property
+            </summary>
+        </member>
+        <member name="F:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.RenderingInCode.StatesRendererProperty">
+            <summary>
+            Identifies the <see cref="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.RenderingInCode.StatesRenderer"/> dependency property
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.RenderingInCode.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.RenderingInCode.RiversRenderer">
+            <summary>
+            Gets a renderer for river features
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.RenderingInCode.CitiesRenderer">
+            <summary>
+            Gets a renderer for city features
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.RenderingInCode.StatesRenderer">
+            <summary>
+            Gets a renderer for state features
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.CsvLayerSimple">
+            <summary>
+            
+            </summary>
+            <category>Graphics Layers</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.CsvLayerSimple.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.DynamicAndTiledLayers">
+            <summary>
+            
+            </summary>
+            <category>Dynamic Service Layers</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.DynamicAndTiledLayers.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.DynamicLayer">
+            <summary>
+            
+            </summary>
+            <category>Dynamic Service Layers</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.DynamicLayer.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.DynamicRenderingCode">
+            <summary>
+            
+            </summary>
+            <category>Dynamic Service Layers</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.DynamicRenderingCode.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.DynamicRenderingXaml">
+            <summary>
+            
+            </summary>
+            <category>Dynamic Service Layers</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.DynamicRenderingXaml.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.FeatureLayers">
+            <summary>
+            
+            </summary>
+            <category>Feature Layers</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.FeatureLayers.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.HandleErrors">
+            <summary>
+            
+            </summary>
+            <category>Mapping</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.HandleErrors.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.LocationDisplay">
+            <summary>
+            
+            </summary>
+            <category>Mapping</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.LocationDisplay.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.RandomProvider">
+            <summary>
+            Location provider implementation that randomly generates location data based on the last position
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.MapProperties">
+            <summary>
+            
+            </summary>
+            <category>Mapping</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.MapProperties.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.OverviewMap">
+            <summary>
+            
+            </summary>
+            <category>Mapping</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.OverviewMap.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.TiledLayer">
+            <summary>
+            
+            </summary>
+            <category>Tiled Layers</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.TiledLayer.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.WmsLayerSimple">
+            <summary>
+            
+            </summary>
+            <category>Dynamic Service Layers</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.WmsLayerSimple.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.AttributeQuery">
+            <summary>
+            
+            </summary>
+            <category>Query Tasks</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.AttributeQuery.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.BufferAndQuery">
+            <summary>
+            
+            </summary>
+            <category>Query Tasks</category>
+        </member>
+        <member name="F:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.BufferAndQuery.TapPointsProperty">
+            <summary>
+            Identifies the <see cref="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.BufferAndQuery.TapPoints"/> dependency property
+            </summary>
+        </member>
+        <member name="F:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.BufferAndQuery.BuffersProperty">
+            <summary>
+            Identifies the <see cref="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.BufferAndQuery.Buffers"/> dependency property
+            </summary>
+        </member>
+        <member name="F:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.BufferAndQuery.ParcelsProperty">
+            <summary>
+            Identifies the <see cref="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.BufferAndQuery.Parcels"/> dependency property
+            </summary>
+        </member>
+        <member name="F:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.BufferAndQuery.BusyVisibilityProperty">
+            <summary>
+            Identifies the <see cref="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.BufferAndQuery.BusyVisibility"/> dependency property
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.BufferAndQuery.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.BufferAndQuery.TapPoints">
+            <summary>
+            Gets the set of points on the map where the user has tapped
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.BufferAndQuery.Buffers">
+            <summary>
+            Gets the set of buffers that have been calculated around the tap points
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.BufferAndQuery.Parcels">
+            <summary>
+            Gets the set of parcels that intersect the buffers
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.BufferAndQuery.BusyVisibility">
+            <summary>
+            Gets whether an operation is currently in progress, expressed as a 
+            <see cref="T:System.Windows.Visibility">Visibility</see>
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Identify">
+            <summary>
+            
+            </summary>
+            <category>Query Tasks</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Identify.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.DataItem">
+            <summary>
+            Encapsulates a identify result to allow easy binding
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.DataItem.Title">
+            <summary>
+            Gets or sets the title of the item
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.DataItem.Attributes">
+            <summary>
+            Gets or sets the attributes of the item
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.DataItem.Geometry">
+            <summary>
+            Gets or sets the geometry of the item
+            </summary>
+        </member>
+        <member name="E:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.DataItem.PropertyChanged">
+            <summary>
+            Raised when one of the DataItem's properties is changed
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.QueryOnly">
+            <summary>
+            
+            </summary>
+            <category>Query Tasks</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.QueryOnly.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.QueryRelatedRecords">
+            <summary>
+            
+            </summary>
+            <category>Query Tasks</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.QueryRelatedRecords.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Statistics">
+            <summary>
+            
+            </summary>
+            <category>Query Tasks</category>
+        </member>
+        <member name="F:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Statistics.StatisticProperty">
+            <summary>
+            Identifies the <see cref="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Statistics.Statistic"/> dependency property
+            </summary>
+        </member>
+        <member name="F:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Statistics.ResultsProperty">
+            <summary>
+            Identifies the <see cref="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Statistics.Results"/> dependency property
+            </summary>
+        </member>
+        <member name="F:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Statistics.StatisticsSetProperty">
+            <summary>
+            Identifies the <see cref="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Statistics.StatisticsSet"/> dependency property
+            </summary>
+        </member>
+        <member name="F:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Statistics.BusyVisibilityProperty">
+            <summary>
+            Identifies the <see cref="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Statistics.BusyVisibility"/> dependency property
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Statistics.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Statistics.Statistic">
+            <summary>
+            Gets or sets the statistic to calculate
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Statistics.Results">
+            <summary>
+            Gets the results from the most recent statistics calculation
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Statistics.StatisticsSet">
+            <summary>
+            Gets or sets the set of features to calculate statistics for
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Statistics.BusyVisibility">
+            <summary>
+            Gets whether an operation is currently in progress, expressed as a 
+            <see cref="T:System.Windows.Visibility">Visibility</see>
+            </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Statistics.AllStatistics">
+            <summary>
+            Gets all available <see cref="T:Esri.ArcGISRuntime.Tasks.Query.StatisticType">StatisticTypes</see>
+            </summary>
+        </member>
+    </members>
+</doc>

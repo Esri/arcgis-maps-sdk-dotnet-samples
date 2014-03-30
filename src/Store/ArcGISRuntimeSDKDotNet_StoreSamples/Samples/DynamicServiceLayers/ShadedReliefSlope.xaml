@@ -1,0 +1,50 @@
+﻿<Page
+    x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ShadedReliefSlope"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esri="using:Esri.ArcGISRuntime.Controls"  xmlns:lyr="using:Esri.ArcGISRuntime.Layers">
+
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        <esri:MapView x:Name="mapView1"><esri:Map  >
+            <lyr:ArcGISImageServiceLayer ID="ImageServiceLayer"  
+                    ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Earthquakes/CaliforniaDEM/ImageServer"  
+                    ImageFormat="JPGPNG" />
+            <lyr:ArcGISTiledMapServiceLayer Opacity="100" 
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer" />
+        </esri:Map></esri:MapView>
+
+        <Border Background="Black" HorizontalAlignment="Right" VerticalAlignment="Top"
+                        Margin="30,20,20,30" Padding="10">
+            <StackPanel Orientation="Vertical">
+                <TextBlock x:Name="ResponseTextBlock" Text="Choose the shaded relief or slope raster function, then define input properties.  Click Apply to apply the changes." 
+                           Width="200" TextAlignment="Left"  TextWrapping="Wrap" Margin="0,0,0,5"/>
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" Margin="3">
+                        <RadioButton x:Name="SRRadioButton" IsChecked="True" GroupName="RasterFunction" 
+                                     Content="Shaded Relief"  Margin="3" />
+                        <RadioButton x:Name="SlopeRadioButton" IsChecked="False" GroupName="RasterFunction" 
+                                     Content="Slope"  Margin="3" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="3">
+                        <TextBlock Text="Azimuth" VerticalAlignment="Center" Margin="3"  />
+                        <TextBox x:Name="AzimuthTextBox" Text="215" 
+                                 IsEnabled="{Binding ElementName=SRRadioButton, Path=IsChecked}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="3">
+                        <TextBlock Text="Altitude" Margin="3" VerticalAlignment="Center" />
+                        <TextBox x:Name="AltitudeTextBox"  Text="60" 
+                                 IsEnabled="{Binding ElementName=SRRadioButton, Path=IsChecked}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="3">
+                        <TextBlock Text="ZFactor" VerticalAlignment="Center" Margin="3"  />
+                        <TextBox x:Name="ZFactorTextBox" Text="3" />
+                    </StackPanel>
+                    <CheckBox x:Name="ColormapCheckBox" IsChecked="True" Content="Use Colormap" Margin="3"
+                              IsEnabled="{Binding ElementName=SRRadioButton, Path=IsChecked}"/>
+                </StackPanel>
+                <Button Content="Apply" Margin="0,5,5,0" Click="ApplyButton_Click"  />
+            </StackPanel>
+        </Border>
+
+    </Grid>
+</Page>

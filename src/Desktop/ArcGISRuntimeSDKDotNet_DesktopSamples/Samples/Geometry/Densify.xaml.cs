@@ -1,0 +1,67 @@
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Layers;
+using Esri.ArcGISRuntime.Symbology;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+
+namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
+{
+    /// <summary>
+    /// This sample demonstrates using GeometryEngine.Densify to take an input polygon and return a densified polygon. Original vertices to create the original polygon are shown in red. The returned polygon shows the additional densified vertices in green. To use the sample, click the 'Densify Polygon' button and create a polygon on the map. Double-click to end the polygon sketch and densify the polygon and see the original and densified vertices.
+    /// </summary>
+    /// <title>Densify</title>
+	/// <category>Geometry</category>
+	public partial class Densify : UserControl
+    {
+        private Symbol _polySymbol;
+        private Symbol _origVertexSymbol;
+        private Symbol _newVertexSymbol;
+
+        /// <summary>Construct Densify sample control</summary>
+        public Densify()
+        {
+            InitializeComponent();
+
+            _polySymbol = layoutGrid.Resources["PolySymbol"] as Symbol;
+            _origVertexSymbol = layoutGrid.Resources["OrigVertexSymbol"] as Symbol;
+            _newVertexSymbol = layoutGrid.Resources["NewVertexSymbol"] as Symbol;
+        }
+
+        // Draw and densify a user defined polygon
+        private async void DensifyButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                inputGraphics.Graphics.Clear();
+                resultGraphics.Graphics.Clear();
+
+                // Request polygon from the user
+                var poly = await mapView.Editor.RequestShapeAsync(DrawShape.Polygon, _polySymbol) as Polygon;
+
+                // Add original polygon and vertices to input graphics layer
+                inputGraphics.Graphics.Add(new Graphic(poly, _polySymbol));
+                foreach (var coord in poly.Rings.First())
+                {
+                    inputGraphics.Graphics.Add(new Graphic(new MapPoint(coord, poly.SpatialReference), _origVertexSymbol));
+                }
+
+                // Densify the polygon
+                var densify = GeometryEngine.Densify(poly, mapView.Extent.Width / 100) as Polygon;
+
+                // Add new vertices to result graphics layer
+                foreach (var coord in densify.Rings.First())
+                {
+                    resultGraphics.Graphics.Add(new Graphic(new MapPoint(coord, poly.SpatialReference), _newVertexSymbol));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Densify Error: " + ex.Message, "Densify Geometry Sample");
+            }
+        }
+    }
+}

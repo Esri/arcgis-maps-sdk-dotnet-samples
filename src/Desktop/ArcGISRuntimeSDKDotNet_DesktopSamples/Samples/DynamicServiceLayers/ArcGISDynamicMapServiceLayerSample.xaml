@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ArcGISDynamicMapServiceLayerSample"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid Background="LightBlue">
+        <esri:MapView>
+            <esri:Map>
+                <esri:ArcGISDynamicMapServiceLayer 
+                ServiceUri="http://maps7.arcgisonline.com/arcgis/rest/services/Veterans_by_Race_and_Ethnicity/MapServer"/>
+            </esri:Map>
+        </esri:MapView>
+    </Grid>
+</UserControl>

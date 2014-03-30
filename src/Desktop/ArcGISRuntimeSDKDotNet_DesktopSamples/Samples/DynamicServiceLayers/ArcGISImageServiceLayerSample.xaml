@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ArcGISImageServiceLayerSample"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView WrapAround="True">
+            <esri:Map>
+                <esri:ArcGISImageServiceLayer 
+                ServiceUri="http://imagery.arcgisonline.com/arcgis/rest/services/LandsatGLS/Agriculture/ImageServer" />
+            </esri:Map>
+        </esri:MapView>
+    </Grid>
+</UserControl>

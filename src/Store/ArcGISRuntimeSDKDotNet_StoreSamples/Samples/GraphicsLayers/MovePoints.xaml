@@ -6,7 +6,7 @@
 	xmlns:sym="using:Esri.ArcGISRuntime.Symbology">
 
     <Page.Resources>
-		<sym:SimpleMarkerSymbol x:Key="RedMarkerSymbol"
+		<sym:SimpleMarkerSymbol x:Key="PointMarkerSymbol"
 								Color="CornflowerBlue" Size="15"  Style="Circle" >
 			<sym:SimpleMarkerSymbol.Outline>
 				<sym:SimpleLineSymbol Color="White" Width="2" />
@@ -21,7 +21,7 @@
 				ServiceUri="http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
                 <lyr:GraphicsLayer ID="MyGraphicsLayer">
                     <lyr:GraphicsLayer.Renderer>
-                        <sym:SimpleRenderer Symbol="{StaticResource RedMarkerSymbol}" />
+						<sym:SimpleRenderer Symbol="{StaticResource PointMarkerSymbol}" />
                     </lyr:GraphicsLayer.Renderer>
                 </lyr:GraphicsLayer>
 				<lyr:GraphicsLayer ID="EditGraphicsLayer" Opacity=".5">

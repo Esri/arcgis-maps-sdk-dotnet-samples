@@ -28,7 +28,7 @@
         <Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="30"
                 HorizontalAlignment="Right" VerticalAlignment="Top">
             <StackPanel Margin="30,20">
-                <TextBlock Text="Click the 'Union Geometries' button to digitize a polygon and show the union of polygon features and the new polygon. Resulting polygons will be shown as blue graphics."
+                <TextBlock Text="Click the 'Union Geometries' button to digitize a polygon and show the union of polygon features selected by the polygon. Resulting polygon will be shown as a blue graphic."
                            Width="400" TextAlignment="Left" TextWrapping="Wrap" />
                 <Button Content="Union Geometries" Margin="12,12,12,0" HorizontalAlignment="Center" Click="UnionButton_Click"/>
             </StackPanel>

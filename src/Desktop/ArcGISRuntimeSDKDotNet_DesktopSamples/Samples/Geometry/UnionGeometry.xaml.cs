@@ -70,8 +70,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 // Union the feature geometries and add to graphics layer
                 var states = stateFeatures.Select(feature => feature.Geometry);
                 var sourcePolys = states.ToList();
-                sourcePolys.Add(poly);
-                var unionPoly = GeometryEngine.Union(sourcePolys);
+
+				var unionPoly = GeometryEngine.Union(sourcePolys);
                 var unionGraphic = new Graphic(unionPoly, _fillSymbol);
 
                 resultGraphics.Graphics.Add(unionGraphic);

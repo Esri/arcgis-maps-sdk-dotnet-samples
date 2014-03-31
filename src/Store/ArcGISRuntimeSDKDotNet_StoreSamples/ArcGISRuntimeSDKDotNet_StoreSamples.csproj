@@ -108,6 +108,9 @@
     <Compile Include="SampleListPage.xaml.cs">
       <DependentUpon>SampleListPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\GraphicsLayers\MovePoints.xaml.cs">
+      <DependentUpon>MovePoints.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Mapping\SwitchBasemaps.xaml.cs">
       <DependentUpon>SwitchBasemaps.xaml</DependentUpon>
     </Compile>
@@ -313,6 +316,10 @@
     <Page Include="SampleListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\GraphicsLayers\MovePoints.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Mapping\SwitchBasemaps.xaml">
       <SubType>Designer</SubType>

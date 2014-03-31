@@ -43,6 +43,12 @@
             Display an overview of all the samples and allow user to pick a sample to run
             </summary>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.MovePoints">
+            <summary>
+            
+            </summary>
+            <category>Graphics Layers</category>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SwitchBasemaps">
             <summary>
             

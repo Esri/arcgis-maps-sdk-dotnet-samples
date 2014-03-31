@@ -983,6 +983,22 @@
             InitializeComponent
             </summary>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.MovePoints">
+            <summary>
+            Move point graphics around using hittesting and mouse move.
+            </summary>
+            <title>Move point graphics interactively</title>
+            <category>Layers</category>
+            <subcategory>Graphics Layers</subcategory>
+            <summary>
+            MovePoints
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.MovePoints.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.AddInteractively">
             <summary>
             Example of how to add Graphics to a GraphicLayer by drawing shapes on the map.  The Editor.RequestShapeAsync method is used to manage map drawing and geometry creation.  Symbols for the graphics are defined in XAML.

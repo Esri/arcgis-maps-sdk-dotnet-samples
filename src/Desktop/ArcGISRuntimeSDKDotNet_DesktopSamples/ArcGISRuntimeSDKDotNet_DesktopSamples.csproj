@@ -221,6 +221,9 @@
     <Compile Include="Samples\GeoprocessingTasks\Viewshed.xaml.cs">
       <DependentUpon>Viewshed.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\GraphicsLayers\MovePoints.xaml.cs">
+      <DependentUpon>MovePoints.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\GraphicsLayers\AddInteractively.xaml.cs">
       <DependentUpon>AddInteractively.xaml</DependentUpon>
     </Compile>
@@ -618,6 +621,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\GeoprocessingTasks\Viewshed.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GraphicsLayers\MovePoints.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

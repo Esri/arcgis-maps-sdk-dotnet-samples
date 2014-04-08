@@ -1549,6 +1549,57 @@
             InitializeComponent
             </summary>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OfflineGeocoding">
+            <summary>
+            Demonstrates performing a geocode by submitting values for multiple address fields to a local locator.
+            </summary>
+            <title>Geocoding</title>
+            <category>Offline</category>
+            <summary>
+            OfflineGeocoding
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OfflineGeocoding.#ctor">
+            <summary>Construct Offline Geocoding sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OfflineGeocoding.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OfflineRouting">
+            <summary>
+            This sample demonstrates offline routing with a network analyst LocalRouteTask.
+            </summary>
+            <title>Routing</title>
+            <category>Offline</category>
+            <summary>
+            OfflineRouting
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OfflineRouting.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SyncGeodatabase">
+            <summary>
+            This sample demonstrates how to synchronize a local geodatabase with an online service.
+            </summary>
+            <title>Sync Geodatabase</title>
+            <category>Offline</category>
+            <summary>
+            SyncGeodatabase
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SyncGeodatabase.#ctor">
+            <summary>Construct Generate Geodatabase sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SyncGeodatabase.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.CreateWebMap">
             <summary>
             This sample shows how to create a new webmap from scratch by adding a BaseMap and OperationLayers. Here, a webmap object is created with a base map and operationlayers including an ArcGISDynamicMapService layer, a FeatureService with Popups and a FeatureCollection.

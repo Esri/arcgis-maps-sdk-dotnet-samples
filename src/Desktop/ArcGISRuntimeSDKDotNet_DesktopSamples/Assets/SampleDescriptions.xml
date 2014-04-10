@@ -1600,6 +1600,44 @@
             InitializeComponent
             </summary>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.PortalSecurity">
+            <summary>
+            Security class that defines global challenge method for accessing arcgis.com portal services
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Traffic">
+            <summary>
+            This sample shows how to add the ArcGIS Traffic service to a map.
+            </summary>
+            <title>Traffic</title>
+            <category>ArcGIS Online Services</category>
+            <summary>
+            Traffic
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Traffic.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.BatchGeocoding">
+            <summary>
+            This sample shows how to perform batch geocoding using the ArcGIS Online World Geocoding service with an ArcGIS Online Organizational account.
+            </summary>
+            <title>Batch Geocoding</title>
+            <category>ArcGIS Online Services</category>
+            <summary>
+            BatchGeocoding
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.BatchGeocoding.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SourceAddress">
+            <summary>Souce Address class with change notification for UI</summary>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.CreateWebMap">
             <summary>
             This sample shows how to create a new webmap from scratch by adding a BaseMap and OperationLayers. Here, a webmap object is created with a base map and operationlayers including an ArcGISDynamicMapService layer, a FeatureService with Popups and a FeatureCollection.

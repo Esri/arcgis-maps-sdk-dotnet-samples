@@ -1,256 +1,94 @@
-﻿using Esri.ArcGISRuntime.Controls;
-using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Query;
-using Microsoft.Phone.Controls;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
-namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
 	/// 
 	/// </summary>
-	/// <category>Query Tasks</category>
-	public sealed partial class QueryRelatedRecords : PhoneApplicationPage
+    /// <category>Query Tasks</category>
+	public sealed partial class QueryRelatedRecords : Page
     {
-        MapView m_mapView;
         public QueryRelatedRecords()
         {
-            InitializeComponent();
+            this.InitializeComponent();
+            mapView1.Map.InitialExtent = new Envelope(-10854000, 4502000, -10829000, 4524000, SpatialReferences.WebMercator);
         }
 
-        // On tap, either get related records for the tapped well or find nearby wells if no well was tapped
-        private async void mapView1_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        private async Task RunQuery(Geometry geometry)
         {
-            // Get the map
-            if (m_mapView == null)
-                m_mapView = (MapView)sender;
-
-            // Check whether any wells were tapped
-            var selectedWells = await WellsLayer.HitTestAsync(m_mapView, e.GetPosition(m_mapView), 1);
-            if (selectedWells != null && selectedWells.Count() > 0) // A well was tapped
-            {
-                #region UI logic - show selected graphic, update status text, clear results
-                // Show the tapped graphic as selected
-                var selectedGraphic = selectedWells.First();
-                selectGraphic(selectedGraphic);
-
-                updateStatus("Searching for related records...", true);
-
-                ObjectIdColumn.ItemsSource = null;
-                RelatedRecordsGrid.Visibility = Visibility.Collapsed;
-                #endregion
-
-                // Execute the query for related records
-                var result = await doRelationshipQuery(Convert.ToInt32(selectedGraphic.Attributes["OBJECTID"]));
-
-                #region Handle results - show related records, update status text
-                if (result == null) // Error
-                {
-                    updateStatus("Error retrieving related records", false);
-                }
-                else if (result.RelatedRecordGroups.Count > 0)
-                {
-                    // Get related well tops
-                    IReadOnlyList<Graphic> relatedWellTops = result.RelatedRecordGroups.First().Value;
-
-                    // Show related records
-                    ObjectIdColumn.ItemsSource = relatedWellTops;
-                    RelatedRecordsGrid.Visibility = Visibility.Visible;
-
-                    // Update status text with number of related records found
-                    var statusText = relatedWellTops.Count.ToString();
-                    if (relatedWellTops.Count > 1)
-                        statusText += " related records found";
-                    else
-                        statusText += " related record found";
-                    updateStatus(statusText, false);
-                }
-                else // None found
-                {
-                    updateStatus("No related records found", false);
-                }
-                #endregion
-            }
-            else // No wells were tapped - find nearby wells
-            {
-                #region Update UI - clear results and update status text
-                clearResults();
-                updateStatus("Searching for nearby wells...", true);
-                #endregion
-
-                // Convert tap point to map point and buffer 300 meters
-                var mp = m_mapView.ScreenToLocation(e.GetPosition(m_mapView));
-                var buffer = GeometryEngine.Buffer(mp, 300);
-
-                // Query for wells intersecting the buffer
-                var result = await doQuery(buffer);
-
-                #region Handle results - show wells on map and update status text
-                if (result == null) // Error
-                {
-                    updateStatus("Error finding nearby wells", false);
-                }
-                else if (result.FeatureSet != null
-                    && result.FeatureSet.Features != null
-                    && result.FeatureSet.Features.Count > 0)
-                {
-                    IReadOnlyList<Graphic> wells = result.FeatureSet.Features;
-
-                    // Update status text based on number of wells found
-                    var statusText = wells.Count.ToString();
-                    if (wells.Count > 1)
-                        statusText += " wells found.  Tap one to view related records.";
-                    else
-                        statusText += " well found.  Tap it to view related records.";
-                    updateStatus(statusText, false);
-
-                    // Show the wells on the map and zoom to them
-                    WellsLayer.Graphics.AddRange(wells);
-                    zoomToGraphicsLayer(WellsLayer);
-                }
-                else // no nearby wells found
-                {
-                    updateStatus("No wells found.  Tap the map to search again.", false);
-                }
-                #endregion
-            }
-        }
-
-        #region Get Related Records
-        // Query for well tops related to wells with the passed-in object ID
-        private async Task<RelationshipResult> doRelationshipQuery(int oid)
-        {
-
-            QueryTask queryTask =
-               new QueryTask(new Uri("http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Petroleum/KSPetro/MapServer/0"));
-
-            // Initialize relationship parameters
-            RelationshipParameter parameters = new RelationshipParameter(new long[] { oid }, 3)
-            {
-                OutSpatialReference = m_mapView.SpatialReference,
-                OutFields = new OutFields(new string[] { "OBJECTID, API_NUMBER, FORMATION, TOP" })
-            };
-
-            try
-            {
-                // Do the relationship query and return the result
-                return await queryTask.ExecuteRelationshipQueryAsync(parameters);
-            }
-            catch
-            {
-                return null;
-            }
-        }
-        #endregion
-
-        #region Find Wells
-        // Searches for wells that intersect the passed-in geometry
-        private async Task<QueryResult> doQuery(Geometry geometry)
-        {
+            var l = mapView1.Map.Layers["GraphicsWellsLayer"] as GraphicsLayer;
+            l.Graphics.Clear();
             QueryTask queryTask =
                 new QueryTask(new Uri("http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Petroleum/KSPetro/MapServer/0"));
 
-            // Construct query parameters using the passed-in geometry
-            Query query = new Query(geometry)
-            {
-                ReturnGeometry = true,
-                OutSpatialReference = m_mapView.SpatialReference,
-                OutFields = new OutFields(new string[] { "OBJECTID" })
-            };
+            Query query = new Query("1=1")
+             {
+                 Geometry = geometry,
+                 ReturnGeometry = true,
+                 //OutSpatialReference = mapView1.SpatialReference,
+                 OutFields = OutFields.All
+             };
             try
             {
-                // Execute the query and return the result
-                return await queryTask.ExecuteAsync(query);
+                var result = await queryTask.ExecuteAsync(query);
+                if (result.FeatureSet.Features != null && result.FeatureSet.Features.Count > 0)
+                {
+                    ResultsGrid.ItemsSource = result.FeatureSet.Features;
+                    l.Graphics.AddRange(from g in result.FeatureSet.Features select g);
+                }
             }
-            catch            
+            catch (Exception)
             {
-                return null;
             }
         }
-        #endregion
 
-        #region UI Utility Methods - updateStatus, clearResults, selectGraphic
-        private void updateStatus(string statusText, bool busy)
+        private async void mapView1_Tapped_1(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
         {
-            StatusText.Text = statusText;
-            ProgressBar.Visibility = busy ? Visibility.Visible : Visibility.Collapsed;
+            await RunQuery(Expand(mapView1.Extent, e.Location, 0.01));
         }
 
-        private void clearResults()
+        private Envelope Expand(Envelope mapExtent, MapPoint point, double pct)
         {
-            SelectionLayer.Graphics.Clear();
-            WellsLayer.Graphics.Clear();
-
-            RelatedRecordsGrid.Visibility = Visibility.Collapsed;
-            ObjectIdColumn.ItemsSource = null;
-        }
-
-        private void selectGraphic(Graphic g)
-        {
-            SelectionLayer.Graphics.Clear();
-            SelectionLayer.Graphics.Add(g);
-        }
-        #endregion
-
-        #region GraphicsLayer Utility Methods - zoom and get extent
-        // Zooms to the passed-in graphics layer
-        private void zoomToGraphicsLayer(GraphicsLayer layer)
-        {
-            if (layer.Graphics.Count == 1) // Just pan if only one
+            return new Envelope(
+                point.X - mapExtent.Width * (pct / 2), point.Y - mapExtent.Height * (pct / 2),
+                point.X + mapExtent.Width * (pct / 2), point.Y + mapExtent.Height * (pct / 2))
             {
-                m_mapView.SetView((MapPoint)layer.Graphics.First().Geometry);
-            }
-            else if (layer.Graphics.Count > 1)
-            {
-                // Get envelope and zoom if more than one
-                Envelope extent = getGraphicsLayerExtent(layer);
-                if (extent != null)
-                    m_mapView.SetView(extent.Expand(2));
-            }
+                SpatialReference = mapExtent.SpatialReference
+            };
         }
 
-        // Gets the extent of the passed-in graphics layer as an Envelope
-        private Envelope getGraphicsLayerExtent(GraphicsLayer layer)
+        private async void ResultsGrid_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
-            Envelope env = null;
-
-            double xmin = double.MaxValue;
-            double ymin = double.MaxValue;
-            double xmax = double.MinValue;
-            double ymax = double.MinValue;
-
-            foreach (Graphic g in layer.Graphics)
+            if (e.AddedItems != null && e.AddedItems.Count > 0)
             {
-                if (!(g.Geometry is MapPoint))
-                    continue;
-
-                var point = (MapPoint)g.Geometry;
-                if (point.X < xmin)
-                    xmin = point.X;                
-                if (point.X > xmax)
-                    xmax = point.X;
-                if (point.Y < ymin)
-                    ymin = point.Y;                
-                if (point.Y > ymax)
-                    ymax = point.Y;
+                await RunRelationshipQuery(from item in e.AddedItems select Convert.ToInt64((item as Graphic).Attributes["OBJECTID"], CultureInfo.InvariantCulture));
             }
-
-            if (xmin < double.MaxValue && ymin < double.MaxValue
-            && xmax > double.MinValue && ymax > double.MinValue)
-                env = new Envelope(xmin, ymin, xmax, ymax);
-
-            return env;
         }
-        #endregion
 
-        private GraphicsLayer SelectionLayer { get { return (GraphicsLayer)m_mapView.Map.Layers["SelectionLayer"]; } }
+        private async Task RunRelationshipQuery(IEnumerable<long> objectIds)
+        {
+            QueryTask queryTask =
+               new QueryTask(new Uri("http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Petroleum/KSPetro/MapServer/0"));
 
-        private GraphicsLayer WellsLayer { get { return (GraphicsLayer)m_mapView.Map.Layers["WellsLayer"]; } }
+            //Relationship query
+            RelationshipParameter parameters = new RelationshipParameter(new List<long>(objectIds), 3)
+            {
+                OutSpatialReference = mapView1.SpatialReference
+            };
+            parameters.OutFields.AddRange(new string[] { "OBJECTID, API_NUMBER, ELEVATION, FORMATION, TOP" });
+            var result = await queryTask.ExecuteRelationshipQueryAsync(parameters);
+            RelationshipResultsGrid.ItemsSource = result.RelatedRecordGroups.FirstOrDefault().Value;
+        }
+
+       
     }
 }

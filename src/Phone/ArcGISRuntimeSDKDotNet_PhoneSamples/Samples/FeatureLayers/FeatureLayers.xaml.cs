@@ -1,16 +1,16 @@
-﻿using Microsoft.Phone.Controls;
+﻿using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
 	/// 
 	/// </summary>
 	/// <category>Feature Layers</category>
-	public partial class FeatureLayers : PhoneApplicationPage
-    {
-        public FeatureLayers()
-        {
-            InitializeComponent();
-        }
-    }
+	public sealed partial class FeatureLayers : Page
+	{
+		public FeatureLayers()
+		{
+			this.InitializeComponent();
+		}
+	}
 }

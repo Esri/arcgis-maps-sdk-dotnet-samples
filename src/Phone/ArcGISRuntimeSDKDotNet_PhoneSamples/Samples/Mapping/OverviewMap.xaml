@@ -1,57 +1,35 @@
-﻿<phone:PhoneApplicationPage
-    x:Class="ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.OverviewMap"
+﻿<Page
+    x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.OverviewMap"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
-	xmlns:esri="clr-namespace:Esri.ArcGISRuntime.Controls;assembly=Esri.ArcGISRuntime"
-	xmlns:esriLayers="clr-namespace:Esri.ArcGISRuntime.Layers;assembly=Esri.ArcGISRuntime"
-    xmlns:esriSymbols="clr-namespace:Esri.ArcGISRuntime.Symbology;assembly=Esri.ArcGISRuntime">
+	xmlns:esri="using:Esri.ArcGISRuntime.Controls"  xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
+	xmlns:sym="using:Esri.ArcGISRuntime.Symbology">
 
-    <Grid Background="{StaticResource PhoneBackgroundBrush}">
-
-        <esri:MapView ExtentChanged="map1_ExtentChanged"> 
-            <esri:Map InitialExtent="-1387575.58246071,824455.590093965,3347779.72448098,8589140.93586,3857">
-
-                <!-- Basemap - tiled map service layer -->
-                <esriLayers:ArcGISTiledMapServiceLayer
+    <Grid>
+        <esri:MapView x:Name="mapView1" ExtentChanged="mapView1_ExtentChanged">
+            <esri:Map   >
+                <lyr:ArcGISTiledMapServiceLayer
 				ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer" />
             </esri:Map>
         </esri:MapView>
 
-        <!-- Border around overview map -->
-        <Border HorizontalAlignment="Right"
-				VerticalAlignment="Top"
-				Margin="20"
-				BorderBrush="White"
-				BorderThickness="2"
-                Background="LightGray"
-				IsHitTestVisible="False">
-
-            <!-- Overview map -->
-            <esri:MapView Width="200" Height="200">
-                <esri:Map x:Name="Overview">
-
-                    <!-- Basemap - same tiled map service as the main map -->
-                    <esriLayers:ArcGISTiledMapServiceLayer
-				    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer" />
-
-                    <!-- Graphics layer to show current extent -->
-                    <esriLayers:GraphicsLayer>
-                        <esriLayers:GraphicsLayer.Renderer>
-                            <esriSymbols:SimpleRenderer>
-                                <esriSymbols:SimpleRenderer.Symbol>
-                                    <esriSymbols:SimpleFillSymbol Color="Transparent">
-                                        <esriSymbols:SimpleFillSymbol.Outline>
-                                            <esriSymbols:SimpleLineSymbol Color="Red" Width="2" />
-                                        </esriSymbols:SimpleFillSymbol.Outline>
-                                    </esriSymbols:SimpleFillSymbol>
-                                </esriSymbols:SimpleRenderer.Symbol>
-                            </esriSymbols:SimpleRenderer>
-                        </esriLayers:GraphicsLayer.Renderer>
-                    </esriLayers:GraphicsLayer>
+        <Border HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20"	BorderBrush="White"	BorderThickness="2"  Background="LightGray" IsHitTestVisible="False">
+            <esri:MapView x:Name="overviewMap" Width="200" Height="200" >
+                <esri:Map  >
+                    <lyr:ArcGISTiledMapServiceLayer ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer"  />
+                    <lyr:GraphicsLayer>
+                        <lyr:GraphicsLayer.Renderer>
+                            <sym:SimpleRenderer>
+                                <sym:SimpleFillSymbol Color="#22ff0000">
+                                    <sym:SimpleFillSymbol.Outline>
+                                        <sym:SimpleLineSymbol Color="Red" Width="2" />
+                                    </sym:SimpleFillSymbol.Outline>
+                                </sym:SimpleFillSymbol>
+                            </sym:SimpleRenderer>
+                        </lyr:GraphicsLayer.Renderer>
+                    </lyr:GraphicsLayer>
                 </esri:Map>
             </esri:MapView>
         </Border>
     </Grid>
-
-</phone:PhoneApplicationPage>
+</Page>

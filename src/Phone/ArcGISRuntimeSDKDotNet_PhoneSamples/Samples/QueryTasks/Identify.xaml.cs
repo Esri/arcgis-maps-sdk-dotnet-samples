@@ -1,237 +1,140 @@
-﻿using Esri.ArcGISRuntime.Controls;
+﻿using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Query;
-using Microsoft.Phone.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Linq;
+using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
 	/// 
 	/// </summary>
-	/// <category>Query Tasks</category>
-	public partial class Identify : PhoneApplicationPage
+    /// <category>Query Tasks</category>
+	public sealed partial class Identify : Page
     {
-        MapView m_mapView;
         public Identify()
         {
-            InitializeComponent();
-
-            this.Loaded += Page_Loaded;
+            this.InitializeComponent();
+            mapView1.Map.InitialExtent = new Envelope(-15000000, 2000000, -7000000, 8000000);
         }
 
-        async void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void mapView1_Tapped_1(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
         {
-            this.Loaded -= Page_Loaded;
-
-            // Wait for layers to initialize, then zoom to desired initial extent.  Avoid using InitialExtent
-            // to work around issue with calling ZoomTo after InitialExtent has been set.
-            await Task.WhenAll(mapView1.Map.Layers.Select(l => l.InitializeAsync()));
-            await mapView1.SetViewAsync(new Envelope(-12800000, 2000000, -7800000, 8000000, SpatialReferences.WebMercator));
+            await RunIdentify(e.Location);
         }
 
-        // Perform identify when the map is tapped
-        private async void mapView1_Tap(object sender, MapViewInputEventArgs e)
+        private async Task RunIdentify(MapPoint mp)
         {
-            if (m_mapView == null)
-                m_mapView = (MapView)sender;
-            // Clear any previously displayed results
-            clearResults();
-
-            // Get the point that was tapped and show it on the map
-            
-            GraphicsLayer identifyPointLayer = m_mapView.Map.Layers["IdentifyPointLayer"] as GraphicsLayer;
-            identifyPointLayer.Graphics.Add(new Graphic() { Geometry = e.Location });
-
-            // Show activity
-            progress.Visibility = Visibility.Visible;
-
-            // Perform the identify operation
-            List<DataItem> results = await doIdentifyAsync(e.Location);
-
-            // Hide the activity indicator
-            progress.Visibility = Visibility.Collapsed;
-
-            // Show the results
-            ResultsListPicker.ItemsSource = results;
-            if (results.Count > 0)
+            IdentifyParameter identifyParams = new IdentifyParameter(mp, mapView1.Extent, 2, (int)mapView1.ActualHeight, (int)mapView1.ActualWidth)
             {
-                ResultsListPicker.Visibility = Visibility.Visible;
-                ShowAttributesButton.Visibility = Visibility.Visible;
-            }
-        }
-
-        // Show attribute display UI when the show attributes button is toggled on
-        private void ShowAttributesButton_Checked(object sender, RoutedEventArgs e)
-        {
-            AttributeDisplay.Visibility = Visibility.Visible;
-            ShowAttributesButton.Content = "Hide Attributes";
-        }
-
-        // Hide attribute display UI when the show attributes button is toggled off
-        private void ShowAttributesButton_Unchecked(object sender, RoutedEventArgs e)
-        {
-            AttributeDisplay.Visibility = Visibility.Collapsed;
-            ShowAttributesButton.Content = "Show Attributes";
-        }
-
-        // When a different feature is selected in the list picker, display it on the map and show its attributes
-        private void ResultsListPicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // Get the selected feature
-            DataItem selectedItem = ResultsListPicker.SelectedItem as DataItem;
-            if (selectedItem != null)
-            {
-                // Update the data display with the new feature
-                FieldsDisplay.ItemsSource = ValuesDisplay.ItemsSource = selectedItem.Attributes;
-
-                // Get the layer for displaying the selected feature and clear it
-                GraphicsLayer polygonLayer = m_mapView.Map.Layers["PolygonLayer"] as GraphicsLayer;
-                polygonLayer.Graphics.Clear();
-
-                // Add the newly selected feature to the map and zoom to it
-                polygonLayer.Graphics.Add(new Graphic() { Geometry = selectedItem.Geometry });
-                m_mapView.SetView(selectedItem.Geometry.Extent.Expand(2.5));
-            }
-        }
-
-        // Performs the identify operation and returns the results as DataItems
-        private async Task<List<DataItem>> doIdentifyAsync(MapPoint point)
-        {
-            // Initialize paraemters for the identify operation
-            IdentifyParameter identifyParams = new IdentifyParameter(point, m_mapView.Extent, 2, 
-                (int)m_mapView.ActualHeight, (int)m_mapView.ActualWidth)
-            {
-                SpatialReference = m_mapView.SpatialReference,
-                ReturnGeometry = true
+                LayerOption = LayerOption.Visible,
+                SpatialReference = mapView1.SpatialReference,
             };
 
-            // Initialize the identify task with the service to identify features from
-            IdentifyTask identifyTask = new IdentifyTask(new Uri(
-                "http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Census_USA/MapServer"));
-            var dataItems = new List<DataItem>();
+            IdentifyTask identifyTask = new IdentifyTask(new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/" +
+                "Demographics/ESRI_Census_USA/MapServer"));
+            progress.IsActive = true;
 
             try
             {
-                // Do the identify operation
+                TitleComboBox.ItemsSource = null;
+                ResultsGrid.ItemsSource = null;
                 var result = await identifyTask.ExecuteAsync(identifyParams);
 
-                // Create DataItems that encapsulate each result
+                GraphicsLayer graphicsLayer = mapView1.Map.Layers["MyGraphicsLayer"] as GraphicsLayer;
+                graphicsLayer.Graphics.Clear();
+                graphicsLayer.Graphics.Add(new Graphic() { Geometry = mp });
+
+                var _dataItems = new List<DataItem>();
                 if (result != null && result.Results != null && result.Results.Count > 0)
                 {
                     foreach (var r in result.Results)
                     {
-                        dataItems.Add(new DataItem()
+                        Feature feature = r.Feature;
+                        string title = r.Value.ToString() + " (" + r.LayerName + ")";
+                        _dataItems.Add(new DataItem()
                         {
-                            Title = string.Format("{0} ({1})", r.Value, r.LayerName),
-                            Attributes = r.Feature.Attributes,
-                            Geometry = r.Feature.Geometry
+                            Title = title,
+                            Data = feature.Attributes
                         });
                     }
                 }
+                TitleComboBox.ItemsSource = _dataItems;
+                if (_dataItems.Count > 0)
+                    TitleComboBox.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.Message);
             }
-
-            // Return the results as DataItems
-            return dataItems;
+            finally
+            {
+                progress.IsActive = false;
+            }
         }
 
-        // Clears the previous results from the map and attribute display area
-        private void clearResults()
+        private void TitleComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
-            // Hide the list picker for selecting the feature to view and the button to toggle attributes
-            // on and off
-            ResultsListPicker.Visibility = Visibility.Collapsed;
-            ShowAttributesButton.Visibility = Visibility.Collapsed;
-            ShowAttributesButton.IsChecked = false;
-
-            // Clear the results from the attribute display area
-            ResultsListPicker.ItemsSource = null;
-            FieldsDisplay.ItemsSource = null;
-            ValuesDisplay.ItemsSource = null;
-
-            // Clear the input point from the map
-            GraphicsLayer identifyPointLayer = m_mapView.Map.Layers["IdentifyPointLayer"] as GraphicsLayer;
-            identifyPointLayer.Graphics.Clear();
-
-            // Clear the currently selected feature from the map
-            GraphicsLayer polygonLayer = m_mapView.Map.Layers["PolygonLayer"] as GraphicsLayer;
-            polygonLayer.Graphics.Clear();
+            int index = TitleComboBox.SelectedIndex;
+            var _dataItems = TitleComboBox.ItemsSource as IList<DataItem>;
+            if (index > -1)
+                ResultsGrid.ItemsSource = _dataItems[index].Data;
         }
+
+        private void KeyLoaded(object sender, object e)
+        {
+            TextBlock textBlock = (TextBlock)sender;
+            dynamic dyn = textBlock.DataContext;
+            textBlock.Text = dyn.Key;
+        }
+
+        private void ValueLoaded(object sender, object e)
+        {
+            TextBlock textBlock = (TextBlock)sender;
+            dynamic dyn = textBlock.DataContext;
+            textBlock.Text = Convert.ToString(dyn.Value, CultureInfo.InvariantCulture);
+        }
+
+       
+
     }
 
-    /// <summary>
-    /// Encapsulates a identify result to allow easy binding
-    /// </summary>
     public class DataItem : INotifyPropertyChanged
     {
-        private string m_title;
-        /// <summary>
-        /// Gets or sets the title of the item
-        /// </summary>
+        private string title;
         public string Title
         {
-            get { return m_title; }
+            get { return title; }
             set
             {
-                if (m_title != value)
+                if (title != value)
                 {
-                    m_title = value;
+                    title = value;
                     OnPropertyChanged("Title");
                 }
             }
         }
 
-        private IDictionary<string, object> m_attributes;
-        /// <summary>
-        /// Gets or sets the attributes of the item
-        /// </summary>
-        public IDictionary<string, object> Attributes
+        private IDictionary<string, object> data;
+        public IDictionary<string, object> Data
         {
-            get { return m_attributes; }
+            get { return data; }
             set
             {
-                if (m_attributes != value)
+                if (data != value)
                 {
-                    m_attributes = value;
-                    OnPropertyChanged("Attributes");
+                    data = value;
+                    OnPropertyChanged("Data");
                 }
             }
         }
 
-        private Geometry m_geometry;
-        /// <summary>
-        /// Gets or sets the geometry of the item
-        /// </summary>
-        public Geometry Geometry
-        {
-            get { return m_geometry; }
-            set
-            {
-                if (m_geometry != value)
-                {
-                    m_geometry = value;
-                    OnPropertyChanged("Geometry");
-                }
-            }
-        }
-
-        /// <summary>
-        /// Raised when one of the DataItem's properties is changed
-        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
-
-        // Fires the PropertyChanged event
         private void OnPropertyChanged(string property)
         {
             if (PropertyChanged != null)

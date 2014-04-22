@@ -1,184 +1,63 @@
-﻿<phone:PhoneApplicationPage 
-    x:Class="ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Statistics"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
-    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
-    xmlns:sys="clr-namespace:System;assembly=mscorlib">
-
-    <Grid Background="{StaticResource PhoneBackgroundBrush}">
+﻿<Page x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Statistics"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:ArcGISRuntimeSDKDotNet_StoreSamples.Samples"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:esri="using:Esri.ArcGISRuntime.Controls"  xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
+      mc:Ignorable="d">
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.Resources>
+			<Style x:Key="MyItemTextStyle" BasedOn="{StaticResource BodyTextBlockStyle}" TargetType="TextBlock">
+                <Setter Property="Margin" Value="15,0,0,0"/>
+            </Style>
+			<Style x:Key="MyTitleTextStyle" BasedOn="{StaticResource BodyTextBlockStyle}" TargetType="TextBlock">
+				<Setter Property="Margin" Value="15,0,0,0"/>
+			</Style>
+		</Grid.Resources>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition  />
         </Grid.RowDefinitions>
 
-        <!-- UI for selecting which statistics to calculate -->
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            
-            <!-- UI for selecting what features to calculate statistics for -->
-            <TextBlock Text="Get Statistics For: "
-                       VerticalAlignment="Center"/>
-            <toolkit:ListPicker SelectedItem="{Binding StatisticsSet, Mode=TwoWay}"
-                                Grid.Column="1">
-                <toolkit:ListPicker.Items>
-                    <sys:String>States by Region</sys:String>
-                    <sys:String>Counties by State</sys:String>
-                </toolkit:ListPicker.Items>
-                <toolkit:ListPicker.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding}"/>
-                    </DataTemplate>
-                </toolkit:ListPicker.ItemTemplate>
-                <toolkit:ListPicker.FullModeItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding}"
-                                   FontSize="28"/>
-                    </DataTemplate>
-                </toolkit:ListPicker.FullModeItemTemplate>
-            </toolkit:ListPicker>
-            
-            <!-- UI for selecting which statistic to calculate -->
-            <TextBlock Text="Statistic to Calculate: "
-                       VerticalAlignment="Center"
-                       Grid.Row="1"/>
-            <toolkit:ListPicker ItemsSource="{Binding AllStatistics}"
-                                SelectedItem="{Binding Statistic, Mode=TwoWay}"
-                                Grid.Column="1"
-                                Grid.Row="1">
-                <toolkit:ListPicker.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding}"/>
-                    </DataTemplate>
-                </toolkit:ListPicker.ItemTemplate>
-                <toolkit:ListPicker.FullModeItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding}"
-                                   FontSize="28"/>
-                    </DataTemplate>
-                </toolkit:ListPicker.FullModeItemTemplate>
-            </toolkit:ListPicker>
-        </Grid>
 
-        <!-- Button to start calculation -->
-        <Button Content="Calculate"
-                Margin="-12,12,-12,0"
-                Grid.Row="1"
-                Click="CalculateButton_Click" />
-        
-        <!-- UI for displaying results -->
-        <ScrollViewer Grid.Row="2"
-                      Margin="0,12,0,0">
-            <ItemsControl x:Name="ResultsItemsControl" 
-                          Margin="0,0,10,0"
-                          ItemsSource="{Binding Results}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
+
+        <TextBlock FontSize="20" Text="US Statistics by Sub-region..." Margin="120,20,0,40" />
+
+
+        <GridView Grid.Row="1" x:Name="ResultGrid" HorizontalAlignment="Left"
+          Margin="120,0,0,60"         >
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border  Padding="20" BorderThickness="2" BorderBrush="White">
+
+                        <Grid >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            
-                            <!-- Row header bound to region or state name -->
-                            <Border Padding="10" 
-                                    Background="{StaticResource PhoneForegroundBrush}"
-                                    Width="175" >
-                                <TextBlock Text="{Binding Attributes[name]}" 
-                                           TextWrapping="Wrap"
-                                           Foreground="{StaticResource PhoneBackgroundBrush}"
-                                           FontSize="22" 
-                                           HorizontalAlignment="Center" 
-                                           VerticalAlignment="Center" />
-                            </Border>
-                            <Border HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch"
-                                    Grid.ColumnSpan="2"
-                                    BorderBrush="Gray"
-                                    BorderThickness="0,1,0,0" />
-                            
-                            <!-- Grid containing statistics for each region or state -->
-                            <Grid Grid.Column="1" 
-                                  VerticalAlignment="Top" 
-                                  Margin="10,0,0,0">
-                                <Grid.Resources>
-                                    <Style x:Key="AttributeLabelStyle" TargetType="TextBlock">
-                                        <Style.Setters>
-                                            <Setter Property="Opacity" Value="0.7" />
-                                            <Setter Property="VerticalAlignment" Value="Center" />
-                                        </Style.Setters>
-                                    </Style>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
 
-                                    <Style x:Key="ValueStyle" TargetType="TextBlock">
-                                        <Style.Setters>
-                                            <Setter Property="TextWrapping" Value="Wrap" />
-                                            <Setter Property="VerticalAlignment" Value="Center" />
-                                        </Style.Setters>
-                                    </Style>
-                                </Grid.Resources>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
+                            <TextBlock Grid.ColumnSpan="2" Text="{Binding Attributes[sub_region]}" FontSize="40"  HorizontalAlignment="Left" Margin="0,10,0,20" />
 
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
-                                
-                                <!-- Count -->
-                                <TextBlock Text="Count: "
-                                           Margin="0,6,0,0"
-                                           Style="{StaticResource AttributeLabelStyle}" />
-                                <TextBlock Text="{Binding  Attributes[count]}" 
-                                           Style="{StaticResource ValueStyle}"
-                                           Margin="0,6,0,0"
-                                           Grid.Column="1" />
-
-                                <!-- Population -->
-                                <TextBlock Text="Population: "
-                                           Style="{StaticResource AttributeLabelStyle}"  
-                                           Grid.Row="1" />
-                                <TextBlock Text="{Binding Attributes[pop_summary],
-                                                StringFormat=\{0:0\}}"  
-                                           Style="{StaticResource ValueStyle}"
-                                           Grid.Row="1" 
-                                           Grid.Column="1" />
-
-                                <!-- Population Density -->
-                                <TextBlock Text="Pop. Density: "
-                                           Style="{StaticResource AttributeLabelStyle}"  
-                                           Grid.Row="2" />
-                                <TextBlock Text="{Binding Attributes[pop_density_summary],
-                                                StringFormat=\{0:0.##\}}"  
-                                           Style="{StaticResource ValueStyle}"
-                                           Margin="0,0,0,6"
-                                           Grid.Row="2" 
-                                           Grid.Column="1" />
-                            </Grid>
+                            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+                                <TextBlock Text="Num. States :"  Style="{StaticResource TitleTextBlockStyle}"/>
+                                <TextBlock Text="{Binding  Attributes[numberofstates]}" Style="{StaticResource MyItemTextStyle}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="50,0,0,0">
+								<TextBlock Text="Population :"  Style="{StaticResource TitleTextBlockStyle}"/>
+                                <TextBlock Text="{Binding Attributes[subregionpopulation]}" Style="{StaticResource MyItemTextStyle}" />
+                            </StackPanel>
                         </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
 
-        <!-- Busy indicator -->
-        <ProgressBar x:Name="ProgressBar" 
-                     IsIndeterminate="True"
-                     Grid.Row="2"
-                     VerticalAlignment="Top"
-                     Margin="0,12,0,0"
-                     Visibility="{Binding BusyVisibility}" />
+        </GridView>
+
+
     </Grid>
-</phone:PhoneApplicationPage>
+</Page>

@@ -1,0 +1,228 @@
+﻿<Page
+    x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.RoutingClosestFacility"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SamplesApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:esriControls="using:Esri.ArcGISRuntime.Controls"
+    xmlns:esriLayers="using:Esri.ArcGISRuntime.Layers"
+    xmlns:esriSymbols="using:Esri.ArcGISRuntime.Symbology"
+    xmlns:esriGeometry="using:Esri.ArcGISRuntime.Geometry"
+    mc:Ignorable="d">
+
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}" x:Name="LayoutRoot">
+        <Grid.Resources>
+            <esriSymbols:SimpleRenderer x:Key="StopRenderer">
+                <esriSymbols:SimpleRenderer.Symbol>
+                    <esriSymbols:SimpleMarkerSymbol Size="20" Style="Circle" Color="Green" />
+                </esriSymbols:SimpleRenderer.Symbol>
+            </esriSymbols:SimpleRenderer>
+
+            <esriSymbols:SimpleRenderer x:Key="BarrierRenderer">
+                <esriSymbols:SimpleRenderer.Symbol>
+                    <esriSymbols:SimpleMarkerSymbol Size="20" Style="Square" Color="Red" />
+                </esriSymbols:SimpleRenderer.Symbol>
+            </esriSymbols:SimpleRenderer>
+
+            <esriSymbols:SimpleRenderer x:Key="FacilitiesRenderer">
+                <esriSymbols:SimpleRenderer.Symbol>
+                    <esriSymbols:SimpleMarkerSymbol Size="20" Style="Square" Color="LightBlue" />
+                </esriSymbols:SimpleRenderer.Symbol>
+            </esriSymbols:SimpleRenderer>
+
+            <esriSymbols:SimpleRenderer x:Key="RouteRenderer">
+                <esriSymbols:SimpleRenderer.Symbol>
+                    <esriSymbols:SimpleLineSymbol Color="#990000FF" Width="5"/>
+                </esriSymbols:SimpleRenderer.Symbol>
+            </esriSymbols:SimpleRenderer>
+            <esriSymbols:SimpleLineSymbol x:Key="RouteSymbol" Color="#990000FF" Width="5"/>
+        </Grid.Resources>
+
+        <esriControls:MapView x:Name="mapView1">
+            <esriControls:Map>
+                <esriControls:Map.InitialExtent>
+                    <esriGeometry:Envelope XMin="-13047918" YMin="4036008" XMax="-13045480" YMax="4037866">
+                        <esriGeometry:Envelope.SpatialReference>
+                            <esriGeometry:SpatialReference Wkid="3857" />
+                        </esriGeometry:Envelope.SpatialReference>
+                    </esriGeometry:Envelope>
+                </esriControls:Map.InitialExtent>
+                <esriLayers:ArcGISTiledMapServiceLayer ServiceUri="http://services.arcgisonline.com/arcgis/rest/services/world_topo_map/MapServer" ID="BaseLayer"/>
+                <esriLayers:GraphicsLayer ID="MyIncidentsGraphicsLayer" Renderer="{StaticResource StopRenderer}"/>
+                <esriLayers:GraphicsLayer ID="MyBarriersGraphicsLayer" Renderer="{StaticResource BarrierRenderer}"/>
+                <esriLayers:GraphicsLayer ID="MyFacilitiesGraphicsLayer" Renderer="{StaticResource FacilitiesRenderer}"/>
+                <esriLayers:GraphicsLayer ID="MyRouteGraphicsLayer" Renderer="{StaticResource RouteRenderer}"/>
+            </esriControls:Map>
+        </esriControls:MapView>
+
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Background="Black">
+            <Button x:Name="AddFacilitiesButton" HorizontalAlignment="Center"
+                        Height="auto" VerticalAlignment="Top" Width="auto" Margin="5,5,5,0" Content="Add Facilities"/>
+            <Button x:Name="AddIncidentsButton" HorizontalAlignment="Center"
+                        Height="auto" VerticalAlignment="Top" Width="auto" Margin="5,5,5,0" Content="Add Incidents"/>
+            <StackPanel>
+                <TextBlock Text="Add Barriers" VerticalAlignment="Center" Margin="5,5,5,0" />
+                <StackPanel x:Name="BarrierToolsStackPanel" Orientation="Horizontal" 
+                                Margin="0,0,5,5">
+                    <Button x:Name="AddPointButton" Margin="2" 
+                                        Content="Point" 
+                                        Click="AddPointButton_Click" />
+                    <Button x:Name="AddLineButton" Margin="2" 
+                                        Content="Line" 
+                                        Click="AddLineButton_Click" />
+                    <Button x:Name="AddPolygonButton" Margin="2" 
+                                        Content="Polygon"
+                                       Click="AddPolygonButton_Click" />
+                </StackPanel>
+                <Button Content="Clear All Graphics" 
+                                    Margin="2" HorizontalAlignment="Left" />
+
+            </StackPanel>
+            <Button x:Name="SolveButton" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                        Width="120" Height="40" Content="Solve" 
+                        FontSize="14" FontWeight="Bold" Click="SolveButton_Click"/>
+            <Border Grid.Row="2" Grid.ColumnSpan="2">
+                <ScrollViewer MinHeight="100" BorderThickness="0">
+                    <Grid Background="Transparent" Width="Auto" Margin="0" VerticalAlignment="Center">
+                        <Grid.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </Grid.Resources>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="125" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Travel Direction:" Grid.Row="0" Grid.Column="0" />
+                        <ComboBox x:Name="TravelDirection2" Grid.Row="0" Grid.Column="1">
+                            <ComboBoxItem Content="From Facility" />
+                            <ComboBoxItem Content="To Facility" IsSelected="True"/>
+                        </ComboBox>
+
+                        <TextBlock Text="Default Cutoff:" Grid.Row="1" Grid.Column="0" />
+                        <TextBox x:Name="DefaultCutoff2" Text="10" Grid.Row="1" Grid.Column="1" />
+
+                        <TextBlock Text="Default Target Facility Count:" Grid.Row="2" Grid.Column="0" />
+                        <TextBox x:Name="DefaultTargetFacilityCount2" Text="1" Grid.Row="2" Grid.Column="1" />
+
+                        <TextBlock Text="Output Spatial Reference:" Grid.Row="3" Grid.Column="0" />
+                        <TextBox x:Name="OutputSpatialReference2" Text="102100" Grid.Row="3" Grid.Column="1" />
+
+                        <TextBlock Text="Accumulate Attribute Names:" Grid.Row="4" Grid.Column="0" />
+                        <TextBox x:Name="AccumulateAttributeNames2" Grid.Row="4" Grid.Column="1" />
+
+                        <TextBlock Text="Impedance Attribute Name:" Grid.Row="5" Grid.Column="0" />
+                        <TextBox x:Name="ImpedanceAttributeName2" Text="Time" Grid.Row="5" Grid.Column="1" />
+
+                        <TextBlock Text="Restriction Attribute Names:" Grid.Row="6" Grid.Column="0" />
+                        <TextBox x:Name="RestrictionAttributeNames2" Text="" 
+										Grid.Row="6" Grid.Column="1" />
+
+                        <TextBlock Text="Attribute Parameter Value:" Grid.Row="7" Grid.Column="0" />
+                        <ComboBox x:Name="AttributeParameter2" Grid.Row="7" Grid.Column="1">
+                            <ComboBoxItem Content="None" IsSelected="True" />
+                            <ComboBoxItem Content="15 MPH" />
+                            <ComboBoxItem Content="20 MPH" />
+                            <ComboBoxItem Content="25 MPH" />
+                            <ComboBoxItem Content="35 MPH" />
+                            <ComboBoxItem Content="45 MPH" />
+                            <ComboBoxItem Content="50 MPH" />
+                            <ComboBoxItem Content="55 MPH" />
+                            <ComboBoxItem Content="65 MPH" />
+                            <ComboBoxItem Content="Other Roads" />
+                        </ComboBox>
+
+                        <TextBlock Text="Restrict U-Turns:" Grid.Row="8" Grid.Column="0" />
+                        <ComboBox x:Name="RestrictUTurns2" Grid.Row="8" Grid.Column="1">
+                            <ComboBoxItem Content="Allow Backtrack" IsSelected="True" />
+                            <ComboBoxItem Content="At Dead Ends Only" />
+                            <ComboBoxItem Content="No Backtrack" />
+                        </ComboBox>
+                        <CheckBox x:Name="UseHierarchy2" Grid.Row="9" Grid.ColumnSpan="2" 
+                                              Content="Use Hierarchy" IsChecked="True"/>
+                        <CheckBox x:Name="ReturnDirections2" Grid.Row="10" Grid.ColumnSpan="2" 
+                                              Content="Return Directions" IsChecked="True"/>
+                        <CheckBox x:Name="ReturnRoutes2" Grid.Row="11" Grid.ColumnSpan="2" 
+                                              Content="Return Routes" IsChecked="True"/>
+                        <CheckBox x:Name="ReturnFacilities2" Grid.Row="12" Grid.ColumnSpan="2" 
+                                              Content="Return Facilities" />
+                        <CheckBox x:Name="ReturnIncidents2" Grid.Row="13" Grid.ColumnSpan="2" 
+                                              Content="Return Incidents" />
+                        <CheckBox x:Name="ReturnBarriers2" Grid.Row="14" Grid.ColumnSpan="2" 
+                                              Content="Return Barriers"	/>
+                        <CheckBox x:Name="ReturnPolylineBarriers2" Grid.Row="15" Grid.ColumnSpan="2" 
+										Content="Return Polyline Barriers" />
+                        <CheckBox x:Name="ReturnPolygonBarriers2" Grid.Row="16" Grid.ColumnSpan="2" 
+										Content="Return Polygon Barriers" />
+
+                        <TextBlock Text="Directions Language:" Grid.Row="17" Grid.Column="0" />
+                        <TextBox x:Name="DirectionsLanguage2" Text="en-US" Grid.Row="17" Grid.Column="1" />
+                        <TextBlock Text="Output Lines:" Grid.Row="18" Grid.Column="0" />
+                        <ComboBox x:Name="OutputLines2" Grid.Row="18" Grid.Column="1">
+                            <ComboBoxItem Content="None" />
+                            <ComboBoxItem Content="Straight" />
+                            <ComboBoxItem Content="True Shape" IsSelected="True" />
+                        </ComboBox>
+                        <TextBlock Text="Output Geometry Precision:" Grid.Row="19" Grid.Column="0" />
+                        <TextBox x:Name="OutputGeometryPrecision2" Grid.Row="19" Grid.Column="1" />
+                        <TextBlock Text="Output Geometry Precision Units:" Grid.Row="20" Grid.Column="0" />
+                        <ComboBox x:Name="OutputGeometryPrecisionUnits2" Grid.Row="20" Grid.Column="1">
+                            <ComboBoxItem Content="Unknown" IsSelected="True" />
+                            <ComboBoxItem Content="Decimal Degrees" />
+                            <ComboBoxItem Content="Kilometers" />
+                            <ComboBoxItem Content="Meters" />
+                            <ComboBoxItem Content="Miles" />
+                            <ComboBoxItem Content="Nautical Miles" />
+                            <ComboBoxItem Content="Inches" />
+                            <ComboBoxItem Content="Points" />
+                            <ComboBoxItem Content="Feet" />
+                            <ComboBoxItem Content="Yards" />
+                            <ComboBoxItem Content="Millimeters" />
+                            <ComboBoxItem Content="Centimeters" />
+                            <ComboBoxItem Content="Decimeters" />
+                        </ComboBox>
+
+                        <TextBlock Text="Directions Time Attribute Name:" Grid.Row="21" Grid.Column="0" />
+                        <TextBox x:Name="DirectionsTimeAttributeName2" Text="TravelTime" Grid.Row="21" Grid.Column="1" />
+                        <TextBlock Text="Directions Length Units:" Grid.Row="22" Grid.Column="0" />
+                        <ComboBox x:Name="DirectionsLengthUnits2" Grid.Row="22" Grid.Column="1">
+                            <ComboBoxItem Content="Unkown" />
+                            <ComboBoxItem Content="Kilometers" />
+                            <ComboBoxItem Content="Meters" />
+                            <ComboBoxItem Content="Miles" IsSelected="True" />
+                            <ComboBoxItem Content="Nautical Miles" />
+                        </ComboBox>
+                    </Grid>
+                </ScrollViewer>
+            </Border>
+        </StackPanel>
+
+    </Grid>
+</Page>

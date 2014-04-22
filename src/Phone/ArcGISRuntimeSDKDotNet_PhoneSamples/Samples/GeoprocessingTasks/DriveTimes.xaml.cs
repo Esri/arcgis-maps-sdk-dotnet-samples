@@ -1,164 +1,92 @@
-﻿using Esri.ArcGISRuntime.Controls;
-using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
+using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
-using Esri.ArcGISRuntime.Tasks.Query;
-using Microsoft.Phone.Controls;
 using System;
-using System.Collections.ObjectModel;
-using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Windows;
+using Windows.Storage;
+using Windows.UI.Popups;
+using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
 	/// 
 	/// </summary>
-	/// <category>Geoprocessing Tasks</category>
-	public sealed partial class DriveTimes : PhoneApplicationPage
+    /// <category>Geoprocessing Tasks</category>
+	public sealed partial class DriveTimes : Page
     {
         public DriveTimes()
         {
             InitializeComponent();
-
-            // Initialize the graphics collections
-            TapPoints = new ObservableCollection<Graphic>();
-            DriveTimePolygons = new ObservableCollection<Graphic>();
-
-            // Set the data context to the page instance to allow for binding to the page's properties
-            // in its XAML
-            DataContext = this;
+            InitializePMS().ContinueWith((_) => { }, TaskScheduler.FromCurrentSynchronizationContext());
+            mapView1.Map.InitialExtent = new Envelope(-122.5009, 37.741, -122.3721, 37.8089);
         }
 
-        // On tap, either get related records for the tapped well or find nearby wells if no well was tapped
-        private async void mapView1_Tap(object sender, MapViewInputEventArgs e)
+        private async Task InitializePMS()
         {
-            if (BusyVisibility == Visibility.Visible)
+            try
             {
-                MessageBox.Show("Please wait until the current operation is complete.");
-                return;
+                var imageFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/car-red-16x16.png"));
+                var imageSource = await imageFile.OpenReadAsync();
+                var pms = LayoutRoot.Resources["DefaultMarkerSymbol"] as PictureMarkerSymbol;
+                await pms.SetSourceAsync(imageSource);
             }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
+        }
 
-            // Show busy UI
-            BusyVisibility = Visibility.Visible;
-
-            // Clear previous results
-            TapPoints.Clear();
-            DriveTimePolygons.Clear();
-
-            // Create graphic and add to tap points
-            var g = new Graphic() { Geometry = e.Location };
-            TapPoints.Add(g);
+        private async void mapView1_Tapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
+        {
+            // Convert screen point to map point
+            var mapPoint = mapView1.ScreenToLocation(e.Position);
+            var l = mapView1.Map.Layers["InputLayer"] as GraphicsLayer;
+            l.Graphics.Clear();
+            l.Graphics.Add(new Graphic() { Geometry = mapPoint });
 
             string error = null;
+            Geoprocessor task = new Geoprocessor(new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Network/ESRI_DriveTime_US/GPServer/CreateDriveTimePolygons"));
 
-            // Initialize the Geoprocessing task with the drive time calculation service endpoint
-            Geoprocessor task = new Geoprocessor(new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/" +
-                "Network/ESRI_DriveTime_US/GPServer/CreateDriveTimePolygons"));
-
-            // Initialize input parameters
             var parameter = new GPInputParameter();
-            parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Input_Location", e.Location));
+
+            parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Input_Location", mapPoint));
             parameter.GPParameters.Add(new GPString("Drive_Times", "1 2 3"));
 
             try
             {
-                // Run the operation
                 var result = await task.ExecuteAsync(parameter);
+                var r = mapView1.Map.Layers["ResultLayer"] as GraphicsLayer;
+                r.Graphics.Clear();
+                foreach (GPParameter gpParameter in result.OutParameters)
+                {
+                    if (gpParameter is GPFeatureRecordSetLayer)
+                    {
+                        GPFeatureRecordSetLayer gpLayer = gpParameter as GPFeatureRecordSetLayer;
+                        List<Esri.ArcGISRuntime.Symbology.Symbol> bufferSymbols = new List<Esri.ArcGISRuntime.Symbology.Symbol>(
+                              new Esri.ArcGISRuntime.Symbology.Symbol[] { LayoutRoot.Resources["FillSymbol1"] as Esri.ArcGISRuntime.Symbology.Symbol, LayoutRoot.Resources["FillSymbol2"] as Esri.ArcGISRuntime.Symbology.Symbol, LayoutRoot.Resources["FillSymbol3"] as Esri.ArcGISRuntime.Symbology.Symbol });
 
-                // Check that layers were returned from the operation
-                var outputLayers = result.OutParameters.OfType<GPFeatureRecordSetLayer>();
-                if (outputLayers.Count() > 0)
-                {
-                    // Get the first layer returned - this will be the drive time areas
-                    var outputLayer = outputLayers.First();
-                    if (outputLayer.FeatureSet != null && outputLayer.FeatureSet.Features != null)
-                    {
-                        // Instead of adding drive time polygons one-by-one, update the collection all at once to
-                        // allow the map to render the new features in one rendering pass.
-                        DriveTimePolygons = new ObservableCollection<Graphic>(outputLayer.FeatureSet.Features);
+                        int count = 0;
+                        foreach (Graphic graphic in gpLayer.FeatureSet.Features)
+                        {
+                            graphic.Symbol = bufferSymbols[count];
+                            graphic.Attributes.Add("Info", String.Format("{0} minute buffer ", 3 - count));
+                            r.Graphics.Add(graphic);
+                            count++;
+                        }
                     }
-                    else
-                    {
-                        error = "No results returned";
-                    }
-                }
-                else
-                {
-                    error = "No results returned";
                 }
             }
             catch (Exception ex)
             {
-                error = "Drive time calculation failed: " + ex.Message;
+                error = "Geoprocessor service failed: " + ex.Message;
             }
-
-            // If operation did not succeed, notify user
             if (error != null)
-                MessageBox.Show(error);
-
-            // Hide busy UI
-            BusyVisibility = Visibility.Collapsed;
+                await new MessageDialog(error).ShowAsync();
         }
 
-        #region Bindable Properties - TapPoints, DriveTimePolygons, and BusyVisibility
-
-        #region TapPoints
-        /// <summary>
-        /// Identifies the <see cref="TapPoints"/> dependency property
-        /// </summary>
-        private static readonly DependencyProperty TapPointsProperty = DependencyProperty.Register(
-            "TapPoints", typeof(ObservableCollection<Graphic>), typeof(DriveTimes), null);
-
-        /// <summary>
-        /// Gets the set of points on the map where the user has tapped
-        /// </summary>
-        public ObservableCollection<Graphic> TapPoints
-        {
-            get { return GetValue(TapPointsProperty) as ObservableCollection<Graphic>; }
-            private set { SetValue(TapPointsProperty, value); }
-        }
-        #endregion
-
-        #region DriveTimePolygons
-        /// <summary>
-        /// Identifies the <see cref="DriveTimePolygons"/> dependency property
-        /// </summary>
-        private static readonly DependencyProperty DriveTimePolygonsProperty = DependencyProperty.Register(
-            "DriveTimePolygons", typeof(ObservableCollection<Graphic>), typeof(DriveTimes), null);
-
-        /// <summary>
-        /// Gets the set of drive time areas that have been calculated around the tap points
-        /// </summary>
-        public ObservableCollection<Graphic> DriveTimePolygons
-        {
-            get { return GetValue(DriveTimePolygonsProperty) as ObservableCollection<Graphic>; }
-            private set { SetValue(DriveTimePolygonsProperty, value); }
-        }
-        #endregion
-
-        #region BusyVisibility
-        /// <summary>
-        /// Identifies the <see cref="BusyVisibility"/> dependency property
-        /// </summary>
-        private static readonly DependencyProperty BusyVisibilityProperty = DependencyProperty.Register(
-            "BusyVisibility", typeof(Visibility), typeof(DriveTimes), 
-            new PropertyMetadata(Visibility.Collapsed));
-
-        /// <summary>
-        /// Gets whether an operation is currently in progress, expressed as a 
-        /// <see cref="System.Windows.Visibility">Visibility</see>
-        /// </summary>
-        public Visibility BusyVisibility
-        {
-            get { return (Visibility)GetValue(BusyVisibilityProperty); }
-            private set { SetValue(BusyVisibilityProperty, value); }
-        }
-        #endregion
-
-        
-
-        #endregion
+      
     }
 }

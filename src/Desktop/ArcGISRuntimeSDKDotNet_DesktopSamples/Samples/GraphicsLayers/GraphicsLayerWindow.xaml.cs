@@ -27,30 +27,24 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
         }
-        private async void OnGraphicsLayerAddClicked(object sender, RoutedEventArgs e)
+
+        private void OnGraphicsLayerAddClicked(object sender, RoutedEventArgs e)
         {
+            const string eartquakeDataRelativePath = @"..\..\..\..\..\samples-data\textfiles\earthquakes.txt";
+
             try
             {
-                CsvLayer csvLayer = new CsvLayer();
-
-                Uri uri = new Uri("./Data/earthquake_csv_data.txt", UriKind.Relative);
-                StreamResourceInfo sri = Application.GetContentStream(uri);
-                if (sri != null)
+                CsvLayer csvLayer = new CsvLayer()
                 {
-                    using (Stream s = sri.Stream)
-                    {
-                        await csvLayer.SetSourceAsync(s).ConfigureAwait(true);
-                        csvLayer.Renderer = LayoutRoot.Resources["MyClassBreaksRenderer"] as ClassBreaksRenderer;
-                        map1.Layers.Add(csvLayer);
-                        await csvLayer.InitializeAsync();
-                    }
-                }
+                    ServiceUri = Path.GetFullPath(eartquakeDataRelativePath),
+                    Renderer = LayoutRoot.Resources["MyClassBreaksRenderer"] as ClassBreaksRenderer,
+                };
 
+                map1.Layers.Add(csvLayer);
             }
             catch (Exception ex)
             {
-
-                throw;
+                MessageBox.Show(ex.Message, "Sample Error");
             }
         }
 

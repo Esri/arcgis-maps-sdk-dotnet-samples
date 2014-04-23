@@ -1027,7 +1027,7 @@
         <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.AddInteractively.CurrentDrawShape">
             <summary>Currently selected shape type</summary>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.CSVLayerXaml">
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.CsvLayerSample">
             <summary>
             Demonstrates defining a CsvLayer in XAML and setting the serviceUri property to a .csv file hosted online by the United States Geological Survey (USGS).
             </summary>
@@ -1035,18 +1035,18 @@
             <category>Layers</category>
             <subcategory>Graphics Layers</subcategory>
             <summary>
-            CSVLayerXaml
+            CsvLayerSample
             </summary>
         </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.CSVLayerXaml.#ctor">
-            <summary>Initializes a new instance of the <see cref="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.CSVLayerXaml"/> class.</summary>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.CsvLayerSample.#ctor">
+            <summary>Initializes a new instance of the <see cref="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.CsvLayerSample"/> class.</summary>
         </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.CSVLayerXaml.InitializeComponent">
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.CsvLayerSample.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeoRSSLayerWindow">
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeoRssLayerSample">
             <summary>
             Creates a GeoRssLayer based on the United States Geological Survey earthquake feed and assigned a SimpleRenderer.
             </summary>
@@ -1054,20 +1054,20 @@
             <category>Layers</category>
             <subcategory>Graphics Layers</subcategory>
             <summary>
-            GeoRSSLayerWindow
+            GeoRssLayerSample
             </summary>
         </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeoRSSLayerWindow.#ctor">
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeoRssLayerSample.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeoRSSLayerWindow"/> class.
+            Initializes a new instance of the <see cref="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeoRssLayerSample"/> class.
             </summary>
         </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeoRSSLayerWindow.InitializeComponent">
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeoRssLayerSample.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphcisLayerSelection">
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsLayerSelection">
             <summary>
             This sample demonstrates GraphicLayer selection management. Graphics are set in a selected or unselected state by using the Graphic.IsSelected property. Here, the user selects or unselects graphics by clicking on the graphic.
             </summary>
@@ -1075,13 +1075,13 @@
             <category>Layers</category>
             <subcategory>Graphics Layers</subcategory>
             <summary>
-            GraphcisLayerSelection
+            GraphicsLayerSelection
             </summary>
         </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphcisLayerSelection.#ctor">
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsLayerSelection.#ctor">
             <summary>Construct Graphics Layer Selection sample control</summary>
         </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphcisLayerSelection.InitializeComponent">
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsLayerSelection.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
@@ -1139,26 +1139,6 @@
             <summary>Construct graphics layer sample control</summary>
         </member>
         <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsLayerSample.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsLayerWindow">
-            <summary>
-            Demonstrates various Graphics and GraphicsLayer related actions.
-            </summary>
-            <category>Layers</category>
-            <subcategory>Graphics Layers</subcategory>
-            <summary>
-            GraphicsLayerWindow
-            </summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsLayerWindow.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsLayerWindow"/> class.
-            </summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsLayerWindow.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>

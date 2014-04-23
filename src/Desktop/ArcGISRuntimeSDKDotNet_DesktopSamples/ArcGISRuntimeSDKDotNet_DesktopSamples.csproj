@@ -229,14 +229,14 @@
     <Compile Include="Samples\GraphicsLayers\AddInteractively.xaml.cs">
       <DependentUpon>AddInteractively.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GraphicsLayers\CSVLayerXaml.xaml.cs">
-      <DependentUpon>CSVLayerXaml.xaml</DependentUpon>
+    <Compile Include="Samples\GraphicsLayers\CsvLayerSample.xaml.cs">
+      <DependentUpon>CsvLayerSample.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GraphicsLayers\GeoRSSLayerWindow.xaml.cs">
-      <DependentUpon>GeoRSSLayerWindow.xaml</DependentUpon>
+    <Compile Include="Samples\GraphicsLayers\GeoRssLayerSample.xaml.cs">
+      <DependentUpon>GeoRssLayerSample.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GraphicsLayers\GraphcisLayerSelection.xaml.cs">
-      <DependentUpon>GraphcisLayerSelection.xaml</DependentUpon>
+    <Compile Include="Samples\GraphicsLayers\GraphicsLayerSelection.xaml.cs">
+      <DependentUpon>GraphicsLayerSelection.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GraphicsLayers\GraphicsHitTesting.xaml.cs">
       <DependentUpon>GraphicsHitTesting.xaml</DependentUpon>
@@ -246,9 +246,6 @@
     </Compile>
     <Compile Include="Samples\GraphicsLayers\GraphicsLayerSample.xaml.cs">
       <DependentUpon>GraphicsLayerSample.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\GraphicsLayers\GraphicsLayerWindow.xaml.cs">
-      <DependentUpon>GraphicsLayerWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GraphicsLayers\GraphicsMapTips.xaml.cs">
       <DependentUpon>GraphicsMapTips.xaml</DependentUpon>
@@ -650,15 +647,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GraphicsLayers\CSVLayerXaml.xaml">
+    <Page Include="Samples\GraphicsLayers\CsvLayerSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GraphicsLayers\GeoRSSLayerWindow.xaml">
+    <Page Include="Samples\GraphicsLayers\GeoRssLayerSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GraphicsLayers\GraphcisLayerSelection.xaml">
+    <Page Include="Samples\GraphicsLayers\GraphicsLayerSelection.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -671,10 +668,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\GraphicsLayers\GraphicsLayerSample.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\GraphicsLayers\GraphicsLayerWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

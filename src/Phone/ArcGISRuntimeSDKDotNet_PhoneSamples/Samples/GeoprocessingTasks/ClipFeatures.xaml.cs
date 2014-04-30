@@ -141,7 +141,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             string message = null;
             try
             {
-                var result = await t.GetServiceInfoAsync();
+                var result = await t.GetTaskInfoAsync();
                 #region Display Service Info
                 var sb = new StringBuilder();
                 if (result != null)

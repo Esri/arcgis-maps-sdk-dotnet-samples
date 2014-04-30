@@ -90,8 +90,8 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <SDKReference Include="ArcGISRuntimeWindowsStore, Version=10.2.2">
-      <Name>ArcGIS Runtime for Windows Store apps %28Beta%29</Name>
+    <SDKReference Include="Esri.ArcGISRuntime, Version=10.2.3">
+      <Name>ArcGIS Runtime for Windows Store apps %28Beta 2%29</Name>
     </SDKReference>
     <SDKReference Include="Microsoft.VCLibs, version=12.0">
       <Name>Microsoft Visual C++ 2013 Runtime Package for Windows</Name>

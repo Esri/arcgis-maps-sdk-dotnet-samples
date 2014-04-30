@@ -9,15 +9,17 @@ using Windows.UI.Xaml.Controls;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
-	/// Demonstrates use of the location display,
-	/// and also how to create a custom location provider
+	/// Demonstrates use of the location display, and also how to create a custom location provider
 	/// </summary>
+    /// <title>Location Display</title>
     /// <category>Mapping</category>
 	public sealed partial class LocationDisplay : Page
     {
         public LocationDisplay()
         {
             this.InitializeComponent();
+
+            autoPanModeSelector.ItemsSource = Enum.GetValues(typeof(AutoPanMode));
         }
 
         private void LocationProvider_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -25,12 +27,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             if (providerSelector != null)
             {
                 if (providerSelector.SelectedIndex == 0)
-                    mapView1.LocationDisplay.LocationProvider = new SystemLocationProvider();
+                    mapView.LocationDisplay.LocationProvider = new SystemLocationProvider();
                 else if (providerSelector.SelectedIndex == 1)
-                    mapView1.LocationDisplay.LocationProvider = new RandomProvider();
+                    mapView.LocationDisplay.LocationProvider = new RandomProvider();
             }
         }
     }
+
 	/// <summary>
 	/// This is serves as a custom location provider - in this case creating a randomly roaming location
 	/// for simulating movement, accuracy, speed and heading changes.
@@ -40,6 +43,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         private static Random randomizer = new Random();
         private DispatcherTimer timer;
         LocationInfo oldPosition;
+
         public RandomProvider()
         {
             timer = new DispatcherTimer() { Interval = TimeSpan.FromSeconds(1) };
@@ -112,7 +116,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         public event EventHandler<LocationInfo> LocationChanged;
 
-
         public Task StartAsync()
         {
             timer.Start();
@@ -125,5 +128,4 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             return Task.FromResult<bool>(true);
         }
     }
-
 }

@@ -271,6 +271,9 @@
     <Compile Include="Samples\Mapping\GroupLayers.xaml.cs">
       <DependentUpon>GroupLayers.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Mapping\LayerList.xaml.cs">
+      <DependentUpon>LayerList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Mapping\SetInitialMapExtent.xaml.cs">
       <DependentUpon>SetInitialMapExtent.xaml</DependentUpon>
     </Compile>
@@ -303,6 +306,9 @@
     </Compile>
     <Compile Include="Samples\Mapping\ShowMouseCoordinates.xaml.cs">
       <DependentUpon>ShowMouseCoordinates.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Mapping\Swipe.xaml.cs">
+      <DependentUpon>Swipe.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Mapping\SwitchBasemaps.xaml.cs">
       <DependentUpon>SwitchBasemaps.xaml</DependentUpon>
@@ -706,6 +712,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Mapping\LayerList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Mapping\SetInitialMapExtent.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -747,6 +757,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Mapping\ShowMouseCoordinates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Mapping\Swipe.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

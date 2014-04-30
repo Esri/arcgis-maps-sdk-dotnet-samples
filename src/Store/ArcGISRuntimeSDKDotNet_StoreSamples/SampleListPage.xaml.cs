@@ -121,14 +121,20 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples
                     SampleGroup mappingSamplesGroup = groups.Where(i => i.Key == "Mapping").First();
                     List<Sample> mappingSamples = new List<Sample>();
                     mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Switch Basemaps").First());
-                    mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Define Map Projection").First());
-                    mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Map Properties").First());
-                    mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Enable Touch Rotation").First());
-                    mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Overview Map").First());
-                    mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Layer List").First());
+                    mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Set Initial Map Extent").First());
+                    mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Set Spatial Reference").First());
+                    mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Show Map Extent").First());
+                    mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Show Map Scale").First());
+                    mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Show Mouse Coordinates").First());
+                    mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Map Rotation").First());
+                    mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Map Grid").First());
+                    mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Swipe").First());
+                    mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Map Overlays").First());
+                    mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Group Layers").First());
                     mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Location Display").First());
-                    mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Simple Map Tip").First());
-                    mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Handle Errors").First());
+                    mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Layer List").First());
+                    mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Overview Map").First());
+
                     SampleGroup newMappingSamplesGroup = new SampleGroup(mappingSamples) { Key = mappingSamplesGroup.Key };
                     groups[groups.FindIndex(g => g.Key == mappingSamplesGroup.Key)] = newMappingSamplesGroup;
 

@@ -6,9 +6,10 @@ using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
-	/// <summary>
-	/// 
-	/// </summary>
+    /// <summary>
+    /// This sample demonstrates displaying an overview map to indicate the extent of the parent map.
+    /// </summary>
+    /// <title>Overview Map</title>
     /// <category>Mapping</category>
 	public sealed partial class OverviewMap : Page
     {
@@ -16,11 +17,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-            mapView1.Map.InitialExtent = GeometryEngine.Project(new Envelope(-5, 20, 50, 65, SpatialReferences.Wgs84), SpatialReferences.WebMercator) as Envelope;
-            
+            mapView.Map.InitialExtent = GeometryEngine.Project(
+                new Envelope(-5, 20, 50, 65, SpatialReferences.Wgs84), SpatialReferences.WebMercator) as Envelope;
         }
 
-        private void mapView1_ExtentChanged(object sender, System.EventArgs e)
+        private async void mapView_ExtentChanged(object sender, System.EventArgs e)
         {
             var graphicslayer = overviewMap.Map.Layers.OfType<GraphicsLayer>().FirstOrDefault();
             Graphic g = graphicslayer.Graphics.FirstOrDefault();
@@ -29,7 +30,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 g = new Graphic();
                 graphicslayer.Graphics.Add(g);
             }
-            g.Geometry = mapView1.Extent;
+            g.Geometry = mapView.Extent;
+
+            // Adjust overview map scale
+            await overviewMap.SetViewAsync(mapView.Extent.GetCenter(), mapView.Scale * 15);
         }
     }
 }

@@ -1285,12 +1285,27 @@
             This sample demonstrates the use of GroupLayers to contain related layers in a map.  In this sample there are two GroupLayers, one containing two basemap layers and the other containing four dynamic or feature layers.  The legend shows how Layer properties (like IsVisible and Opacity) of layers within a GroupLayer can be managed either individually or as a part of the group.
             </summary>
             <title>Group Layers</title>
-            <category>Layers</category>
+            <category>Mapping</category>
             <summary>
             GroupLayers
             </summary>
         </member>
         <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GroupLayers.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.LayerList">
+            <summary>
+            Shows how to access layers in the map.
+            </summary>
+            <title>Layer List</title>
+            <category>Mapping</category>
+            <summary>
+            LayerList
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.LayerList.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
@@ -1494,6 +1509,21 @@
             </summary>
         </member>
         <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ShowMouseCoordinates.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SwipeMap">
+            <summary>
+            Shows how to swipe one map over another.
+            </summary>
+            <title>Swipe</title>
+            <category>Mapping</category>
+            <summary>
+            SwipeMap
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SwipeMap.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>

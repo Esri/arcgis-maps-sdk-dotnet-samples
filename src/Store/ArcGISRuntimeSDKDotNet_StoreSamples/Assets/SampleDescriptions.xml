@@ -38,6 +38,15 @@
             <param name="sender">The source of the suspend request.</param>
             <param name="e">Details about the suspend request.</param>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Common.BooleanToVisibilityConverter">
+            <summary>Convert between boolean and visibility</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Common.BooleanToVisibilityConverter.Convert(System.Object,System.Type,System.Object,System.String)">
+            <summary>Convert bool or bool? to Visibility</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Common.BooleanToVisibilityConverter.ConvertBack(System.Object,System.Type,System.Object,System.String)">
+            <summary>Convert Visibility to boolean</summary>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.SampleListPage">
             <summary>
             Display an overview of all the samples and allow user to pick a sample to run
@@ -49,10 +58,77 @@
             </summary>
             <category>Graphics Layers</category>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GroupLayers">
+            <summary>
+            Demonstrates the use of GroupLayers to contain related layers in a map.
+            </summary>
+            <title>Group Layers</title>
+            <category>Mapping</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SetInitialMapExtent">
+            <summary>
+            Shows how to set the initial extent of the map (Map.InitialExtent).
+            </summary>
+            <title>Set Initial Map Extent</title>
+            <category>Mapping</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.MapRotation">
+            <summary>
+            This sample shows how to rotate a map using the MapView.Rotation property.
+            </summary>
+            <title>Map Rotation</title>
+            <category>Mapping</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.MapGrid">
+            <summary>
+            This sample shows how to enable a map grid using the MapView.MapGrid property.
+            Grid Types: Latitude / Longitude, MGRS, UTM, and USNG
+            </summary>
+            <title>Map Grid</title>
+            <category>Mapping</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.MapOverlays">
+            <summary>
+            Demonstrates how to display map overlay elements in the MapView.
+            </summary>
+            <title>Map Overlays</title>
+            <category>Mapping</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SwipeMap">
+            <summary>
+            Shows how to swipe one map over another.
+            </summary>
+            <title>Swipe</title>
+            <category>Mapping</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ShowMouseCoordinates">
+            <summary>
+            Shows mouse and device coordinates when the user taps the device.
+            </summary>
+            <title>Show Mouse Coordinates</title>
+            <category>Mapping</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ShowMapScale">
+            <summary>
+            Shows the map scale changing when you zoom in and out using the MapView.Scale property.
+            </summary>
+            <title>Show Map Scale</title>
+            <category>Mapping</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ShowMapExtent">
+            <summary>
+            Shows how to handle the ExtentChanged event on the MapView and display extent properties at runtime.
+            Since the Map is in wrap-around mode, absolute values represent the map extent on an infinite continuous grid where values on the X axis increase or decrease as you pan.
+            Normalized values represent the map extent in the real-world and take the dateline (or current central meridian) into account.
+            </summary>
+            <title>Show Map Extent</title>
+            <category>Mapping</category>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SwitchBasemaps">
             <summary>
-            
+            Demonstrates changing the basemap layer in a map by switching  between ArcGIS tiled map services layers hosted by ArcGIS Online.
             </summary>
+            <title>Switch Basemaps</title>
             <category>Mapping</category>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SymbolsAndLabels">
@@ -128,10 +204,11 @@
             </summary>
             <category>Graphics Layers</category>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DefineMapProjection">
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SetSpatialReference">
             <summary>
-            
+            Demonstrates setting the extent and spatial reference of a map via the Map.InitialExtent property.
             </summary>
+            <title>Set Spatial Reference</title>
             <category>Mapping</category>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DrawAndEditGraphics">
@@ -182,12 +259,6 @@
             
             </summary>
             <category>Dynamic Service Layers</category>
-        </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.EnableTouchRotation">
-            <summary>
-            
-            </summary>
-            <category>Mapping</category>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayers">
             <summary>
@@ -279,12 +350,6 @@
             </summary>
             <category>Geometry</category>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.HandleErrors">
-            <summary>
-            
-            </summary>
-            <category>Mapping</category>
-        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Identify">
             <summary>
             
@@ -306,15 +371,16 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.LayerList">
             <summary>
-            
+            Shows how to access layers in the map.
             </summary>
+            <title>Layer List</title>
             <category>Mapping</category>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.LocationDisplay">
             <summary>
-            Demonstrates use of the location display,
-            and also how to create a custom location provider
+            Demonstrates use of the location display, and also how to create a custom location provider
             </summary>
+            <title>Location Display</title>
             <category>Mapping</category>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.RandomProvider">
@@ -322,31 +388,6 @@
             This is serves as a custom location provider - in this case creating a randomly roaming location
             for simulating movement, accuracy, speed and heading changes.
             </summary>
-        </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.MapProperties">
-            <summary>
-            
-            </summary>
-            <category>Mapping</category>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ProjectionConverter.Convert(System.Object,System.Type,System.Object,System.String)">
-            <summary>
-            Converter for converting a geometry from one projection to another.
-            The input geometry must have a spatial reference defined, and the converter parameter
-            must but the Well-Known ID or the Well-Known text for the output spatial reference.
-            </summary>
-            <seealso cref="T:Esri.ArcGISRuntime.Geometry.GeometryEngine"/>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ProjectionConverter.ConvertBack(System.Object,System.Type,System.Object,System.String)">
-            <summary>
-            
-            </summary>
-            <param name="value"></param>
-            <param name="targetType"></param>
-            <param name="parameter"></param>
-            <param name="language"></param>
-            <returns></returns>
-            <exception cref="T:System.NotImplementedException">The requestUri was null.</exception>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.MessageInABottle">
             <summary>
@@ -356,8 +397,9 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.OverviewMap">
             <summary>
-            
+            This sample demonstrates displaying an overview map to indicate the extent of the parent map.
             </summary>
+            <title>Overview Map</title>
             <category>Mapping</category>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.QueryOnly">
@@ -420,12 +462,6 @@
             
             </summary>
             <category>Dynamic Service Layers</category>
-        </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SimpleMapTip">
-            <summary>
-            
-            </summary>
-            <category>Mapping</category>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Statistics">
             <summary>

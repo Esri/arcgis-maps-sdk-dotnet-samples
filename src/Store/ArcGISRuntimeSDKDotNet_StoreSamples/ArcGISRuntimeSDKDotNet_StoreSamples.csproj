@@ -101,6 +101,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\BooleanToVisibilityConverter.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -110,6 +111,33 @@
     </Compile>
     <Compile Include="Samples\GraphicsLayers\MovePoints.xaml.cs">
       <DependentUpon>MovePoints.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Mapping\GroupLayers.xaml.cs">
+      <DependentUpon>GroupLayers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Mapping\SetInitialMapExtent.xaml.cs">
+      <DependentUpon>SetInitialMapExtent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Mapping\MapRotation.xaml.cs">
+      <DependentUpon>MapRotation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Mapping\MapGrid.xaml.cs">
+      <DependentUpon>MapGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Mapping\MapOverlays.xaml.cs">
+      <DependentUpon>MapOverlays.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Mapping\Swipe.xaml.cs">
+      <DependentUpon>Swipe.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Mapping\ShowMouseCoordinates.xaml.cs">
+      <DependentUpon>ShowMouseCoordinates.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Mapping\ShowMapScale.xaml.cs">
+      <DependentUpon>ShowMapScale.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Mapping\ShowMapExtent.xaml.cs">
+      <DependentUpon>ShowMapExtent.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Mapping\SwitchBasemaps.xaml.cs">
       <DependentUpon>SwitchBasemaps.xaml</DependentUpon>
@@ -145,8 +173,8 @@
     <Compile Include="Samples\GraphicsLayers\CsvLayerSimple.xaml.cs">
       <DependentUpon>CsvLayerSimple.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Mapping\DefineMapProjection.xaml.cs">
-      <DependentUpon>DefineMapProjection.xaml</DependentUpon>
+    <Compile Include="Samples\Mapping\SetSpatialReference.xaml.cs">
+      <DependentUpon>SetSpatialReference.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GraphicsLayers\DrawAndEditGraphics.xaml.cs">
       <DependentUpon>DrawAndEditGraphics.xaml</DependentUpon>
@@ -168,9 +196,6 @@
     </Compile>
     <Compile Include="Samples\DynamicServiceLayers\DynamicMap.xaml.cs">
       <DependentUpon>DynamicMap.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Mapping\EnableTouchRotation.xaml.cs">
-      <DependentUpon>EnableTouchRotation.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\FeatureLayers\FeatureLayers.xaml.cs">
       <DependentUpon>FeatureLayers.xaml</DependentUpon>
@@ -217,9 +242,6 @@
     <Compile Include="Samples\Geometry\Offset.xaml.cs">
       <DependentUpon>Offset.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Mapping\HandleErrors.xaml.cs">
-      <DependentUpon>HandleErrors.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Samples\QueryTasks\Identify.xaml.cs">
       <DependentUpon>Identify.xaml</DependentUpon>
     </Compile>
@@ -231,9 +253,6 @@
     </Compile>
     <Compile Include="Samples\Mapping\LocationDisplay.xaml.cs">
       <DependentUpon>LocationDisplay.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Mapping\MapProperties.xaml.cs">
-      <DependentUpon>MapProperties.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GeoprocessingTasks\MessageInABottle.xaml.cs">
       <DependentUpon>MessageInABottle.xaml</DependentUpon>
@@ -268,9 +287,6 @@
     <Compile Include="Samples\DynamicServiceLayers\ShadedReliefSlope.xaml.cs">
       <DependentUpon>ShadedReliefSlope.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Mapping\SimpleMapTip.xaml.cs">
-      <DependentUpon>SimpleMapTip.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Samples\QueryTasks\Statistics.xaml.cs">
       <DependentUpon>Statistics.xaml</DependentUpon>
     </Compile>
@@ -298,8 +314,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Logo.scale-100.png" />
+    <Content Include="Assets\RedStickpin.png" />
     <Content Include="Assets\x-24x24.png" />
-    <EmbeddedResource Include="Assets\SampleDescriptions.xml" />
+    <EmbeddedResource Include="Assets\SampleDescriptions.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <Content Include="Assets\SmallLogo.scale-100.png" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\StoreLogo.scale-100.png" />
@@ -318,6 +337,42 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\GraphicsLayers\MovePoints.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Mapping\GroupLayers.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Mapping\SetInitialMapExtent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Mapping\MapRotation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Mapping\MapGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Mapping\MapOverlays.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Mapping\Swipe.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Mapping\ShowMouseCoordinates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Mapping\ShowMapScale.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Mapping\ShowMapExtent.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -365,7 +420,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Mapping\DefineMapProjection.xaml">
+    <Page Include="Samples\Mapping\SetSpatialReference.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -394,10 +449,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\DynamicServiceLayers\DynamicMap.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Mapping\EnableTouchRotation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -461,10 +512,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Mapping\HandleErrors.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Samples\QueryTasks\Identify.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -478,10 +525,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Mapping\LocationDisplay.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Mapping\MapProperties.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -526,10 +569,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\DynamicServiceLayers\ShadedReliefSlope.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Mapping\SimpleMapTip.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

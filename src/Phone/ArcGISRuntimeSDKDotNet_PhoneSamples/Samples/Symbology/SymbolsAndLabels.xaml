@@ -125,7 +125,7 @@
 			<StackPanel>
 			<ToggleSwitch Header="Toggle Labels"
 				IsOn="{Binding Map.Layers[1].IsLabelingEnabled, Mode=TwoWay, ElementName=mapView1}" />
-				<TextBlock Text="Map Rotation" Margin="7,0,0,0" Style="{StaticResource SubtitleTextBlockStyle}" />
+				<TextBlock Text="Map Rotation" Margin="7,0,0,0" />
 				<Slider Minimum="0" Maximum="360"
 						Value="{Binding Rotation, ElementName=mapView1, Mode=TwoWay}" />
 			</StackPanel>

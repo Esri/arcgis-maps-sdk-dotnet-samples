@@ -284,6 +284,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Logo.scale-240.png" />
+    <Content Include="Assets\x-24x24.png" />
     <EmbeddedResource Include="Assets\SampleDescriptions.xml" />
     <Content Include="Assets\SmallLogo.scale-240.png" />
     <Content Include="Assets\SplashScreen.scale-240.png" />

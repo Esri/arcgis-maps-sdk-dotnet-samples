@@ -21,52 +21,55 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
+        
         <esri:MapView x:Name="mapView1" Grid.RowSpan="2" Grid.ColumnSpan="2"                  
                  MapViewTapped="mapView1_Tapped_1">
             <esri:Map  >
-                <lyr:ArcGISTiledMapServiceLayer ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" />
+                <lyr:ArcGISTiledMapServiceLayer 
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" />
                 <lyr:ArcGISDynamicMapServiceLayer ID="DynamicMapWellsLayer"
-                                               ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Petroleum/KSPetro/MapServer" />
-                <lyr:GraphicsLayer ID="GraphicsWellsLayer"
-                                Renderer="{StaticResource SimpleRenderer}"/>
+                    ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Petroleum/KSPetro/MapServer" />
+                <lyr:GraphicsLayer ID="GraphicsWellsLayer" Renderer="{StaticResource SimpleRenderer}"/>
             </esri:Map>
         </esri:MapView>
+        
         <Border Margin="20" Grid.Column="1" Grid.Row="1" Background="#CC000000" Padding="20">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <GridView x:Name="ResultsGrid" SelectionChanged="ResultsGrid_SelectionChanged_1">
-                    <GridView.ItemTemplate>
+
+                <ListBox x:Name="ResultsGrid" Background="Transparent" Foreground="White"
+                         SelectionMode="Single"
+                         SelectionChanged="ResultsGrid_SelectionChanged_1">
+                    <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel>
-                                <TextBlock TextAlignment="Center" Text="{Binding Attributes[OBJECTID]}" Width="110" />
+                                <TextBlock TextAlignment="Center" Text="{Binding Attributes[OBJECTID]}" Width="60" />
                             </StackPanel>
                         </DataTemplate>
-                    </GridView.ItemTemplate>
-                </GridView>
-                <GridView x:Name="RelationshipResultsGrid" Grid.Column="1">
-                    <GridView.ItemTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                
+                <ListBox x:Name="RelationshipResultsGrid" Grid.Column="1" Background="Transparent" Foreground="White"
+                         ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.HorizontalScrollBarVisibility="Visible">
+                    <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Attributes[OBJECTID]}" />
-                                <TextBlock Text="   |   " />
-                                <TextBlock Text="{Binding Attributes[API_NUMBER]}" />
-                                <TextBlock Text="   |   " />
-                                <TextBlock Text="{Binding Attributes[ELEVATION]}" />
-                                <TextBlock Text="   |   " />
-                                <TextBlock Text="{Binding Attributes[FORMATION]}" />
-                                <TextBlock Text="   |   " />
-                                <TextBlock Text="{Binding Attributes[TOP]}" />
-                                <TextBlock Text="   |   " />
-                                <TextBlock Text="{Binding Attributes[OBJECTID]}" />
-                                <TextBlock Text="   |   " />
-                                <TextBlock Text="{Binding Attributes[OBJECTID]}" />
-                            </StackPanel>
+                            <TextBlock>
+                                <Run Text="{Binding Attributes[OBJECTID]}" />
+                                <Run Text=" | " />
+                                <Run Text="{Binding Attributes[API_NUMBER]}" />
+                                <Run Text=" | " />
+                                <Run Text="{Binding Attributes[ELEVATION]}" />
+                                <Run Text=" | " />
+                                <Run Text="{Binding Attributes[FORMATION]}" />
+                                <Run Text=" | " />
+                                <Run Text="{Binding Attributes[TOP]}" />
+                            </TextBlock>
                         </DataTemplate>
-                    </GridView.ItemTemplate>
-                </GridView>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </Grid>
         </Border>
     </Grid>

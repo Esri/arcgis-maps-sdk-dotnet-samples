@@ -368,19 +368,6 @@
             </summary>
             <category>Network Analyst Tasks</category>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.RoutingClosestFacility">
-            <summary>
-            
-            </summary>
-            <category>Network Analyst Tasks</category>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.RoutingClosestFacility.OnNavigatedTo(Windows.UI.Xaml.Navigation.NavigationEventArgs)">
-            <summary>
-            Invoked when this page is about to be displayed in a Frame.
-            </summary>
-            <param name="e">Event data that describes how this page was reached.  The Parameter
-            property is typically used to configure the page.</param>
-        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.RoutingWithBarriers">
             <summary>
             

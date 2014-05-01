@@ -237,9 +237,6 @@
     <Compile Include="Samples\NetworkAnalystTasks\Routing.xaml.cs">
       <DependentUpon>Routing.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\NetworkAnalystTasks\RoutingClosestFacility.xaml.cs">
-      <DependentUpon>RoutingClosestFacility.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Samples\NetworkAnalystTasks\RoutingWithBarriers.xaml.cs">
       <DependentUpon>RoutingWithBarriers.xaml</DependentUpon>
     </Compile>
@@ -486,10 +483,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\NetworkAnalystTasks\Routing.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\NetworkAnalystTasks\RoutingClosestFacility.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

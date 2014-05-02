@@ -2,11 +2,11 @@
     x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ArcGISRuntimeSDKDotNet_StoreSamples">
+    xmlns:common="using:ArcGISRuntimeSDKDotNet_StoreSamples.Common">
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
-            <local:BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+            <common:BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
         </Grid.Resources>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="140" />

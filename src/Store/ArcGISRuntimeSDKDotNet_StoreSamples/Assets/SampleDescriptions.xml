@@ -161,9 +161,43 @@
             </summary>
             <category>Geocode Tasks</category>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ArcGISLocalTiledLayerSample">
+            <summary>
+            Demonstrates adding a local tiled layer from a tile package (.tpk) to a map.
+            </summary>
+            <title>ArcGIS Local Tiled Layer</title>
+            <category>Tiled Layers</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ArcGISLocalTiledLayerSample.GetSingleFileAsync(System.String)">
+            <summary>
+            Get a single file from the user
+            </summary>
+            <remarks>Copies the selected file to App Local Data before returning</remarks>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ArcGISLocalTiledLayerSample.PickSingleFileAsync(System.String)">
+            <summary>
+            FileOpenPicker for the user to select the a target file
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.BingLayerSample">
+            <summary>
+            Demonstrates adding a Bing Maps layer to a Map in code.
+            A Bing Maps key must be provided to view Bing Maps tiled map services.
+            </summary>
+            <title>Bing Maps Layer</title>
+            <category>Tiled Layers</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.OpenStreetMapLayerSample">
+            <summary>
+            Demonstrates adding an Open StreetMap layer to a Map in XAML.
+            </summary>
+            <title>Open StreetMap Layer</title>
+            <category>Tiled Layers</category>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.WebTiledLayerSample">
             <summary>
-            
+            Demonstrates adding a Web tiled layer to a map.
             </summary>
             <title>Web Tiled Layer</title>
             <category>Tiled Layers</category>
@@ -179,12 +213,6 @@
             
             </summary>
             <category>Geocode Tasks</category>
-        </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.BooleanToVisibilityConverter">
-            <summary>
-            Value converter that translates true to <see cref="F:Windows.UI.Xaml.Visibility.Visible"/> and false to
-            <see cref="F:Windows.UI.Xaml.Visibility.Collapsed"/>.
-            </summary>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.CalculateViewshed">
             <summary>
@@ -493,6 +521,18 @@
             
             </summary>
             <category>Dynamic Service Layers</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.WmtsLayerSample">
+            <summary>
+            Demonstrates adding a WMTS layer to a Map in XAML.
+            </summary>
+            <title>WMTS Layer</title>
+            <category>Tiled Layers</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.LocalDataSettingsFlyout">
+            <summary>
+            Application Settings Flyout for deleting sample data from the local data folder
+            </summary>
         </member>
     </members>
 </doc>

@@ -154,6 +154,15 @@
     <Compile Include="Samples\GeocodingTasks\AddressOfLocation.xaml.cs">
       <DependentUpon>AddressOfLocation.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\TiledLayers\ArcGISLocalTiledLayerSample.xaml.cs">
+      <DependentUpon>ArcGISLocalTiledLayerSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\TiledLayers\BingLayerSample.xaml.cs">
+      <DependentUpon>BingLayerSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\TiledLayers\OpenStreetMapLayerSample.xaml.cs">
+      <DependentUpon>OpenStreetMapLayerSample.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\TiledLayers\WebTiledLayerSample.xaml.cs">
       <DependentUpon>WebTiledLayerSample.xaml</DependentUpon>
     </Compile>
@@ -163,7 +172,6 @@
     <Compile Include="Samples\GeocodingTasks\BatchGeocoding.xaml.cs">
       <DependentUpon>BatchGeocoding.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BooleanToVisibilityConverter.cs" />
     <Compile Include="Samples\GeoprocessingTasks\CalculateViewshed.xaml.cs">
       <DependentUpon>CalculateViewshed.xaml</DependentUpon>
     </Compile>
@@ -302,6 +310,12 @@
     <Compile Include="Samples\DynamicServiceLayers\WmsLayerSimple.xaml.cs">
       <DependentUpon>WmsLayerSimple.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\TiledLayers\WmtsLayerSample.xaml.cs">
+      <DependentUpon>WmtsLayerSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LocalDataSettingsFlyout.xaml.cs">
+      <DependentUpon>LocalDataSettingsFlyout.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -390,6 +404,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\GeocodingTasks\AddressOfLocation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\TiledLayers\ArcGISLocalTiledLayerSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\TiledLayers\BingLayerSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\TiledLayers\OpenStreetMapLayerSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -588,6 +614,14 @@
     <Page Include="Samples\DynamicServiceLayers\WmsLayerSimple.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\TiledLayers\WmtsLayerSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LocalDataSettingsFlyout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

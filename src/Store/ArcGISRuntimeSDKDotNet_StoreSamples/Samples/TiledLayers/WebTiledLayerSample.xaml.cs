@@ -1,110 +1,110 @@
-﻿using Esri.ArcGISRuntime.Layers;
-using System.Collections.Generic;
+﻿using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Layers;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
-    /// 
+    /// Demonstrates adding a Web tiled layer to a map.
     /// </summary>
     /// <title>Web Tiled Layer</title>
     /// <category>Tiled Layers</category>
     public sealed partial class WebTiledLayerSample : Page
     {
-        private WebTiledLayer _webTiledLayer1;
-
         public WebTiledLayerSample()
         {
             this.InitializeComponent();
 
-            _webTiledLayer1 = mapView1.Map.Layers["webTiledLayer1"] as WebTiledLayer;
+            mapView.Loaded += mapView_Loaded;
 
-            string[] ABCD = new string[] { "a", "b", "c", "d" };
-            string[] MQ_SUBDOMAINS = new string[] { "mtile01", "mtile02", "mtile03", "mtile04" };
-            string[] ABC = new string[] { "a", "b", "c" };
-
-            List<WebTiledLayerComboItem> items = new List<WebTiledLayerComboItem>()
-            {
-                new WebTiledLayerComboItem("Stamen Watercolor",
-                    "http://{subDomain}.tile.stamen.com/watercolor/{level}/{col}/{row}.jpg",
-                    "Stamen Watercolor",
-                    ABCD),
-                
-                new WebTiledLayerComboItem("Stamen Toner",
-                    "http://{subDomain}.tile.stamen.com/toner/{level}/{col}/{row}.png",
-                    "Stamen Toner",
-                    ABCD),
-
-                new WebTiledLayerComboItem("Apple's OpenStreetMap",
-                    "http://gsp2.apple.com/tile?api=1&style=slideshow&layers=default&lang=en_GB&z={level}&x={col}&y={row}&v=9",
-                    "Apple's rendering of OSM data",
-                    null),
-
-                new WebTiledLayerComboItem("Stamen Terrain",
-                    "http://{subDomain}.tile.stamen.com/terrain/{level}/{col}/{row}.jpg",
-                    "Stamen Terrain",
-                    ABCD),
-
-                new WebTiledLayerComboItem("Stamen Watercolor",
-                    "http://{subDomain}.tile.stamen.com/watercolor/{level}/{col}/{row}.jpg",
-                    "Stamen Watercolor",
-                    ABCD),
-
-                new WebTiledLayerComboItem("MapBox Terrain",
-                    "http://{subDomain}.tiles.mapbox.com/v3/mapbox.mapbox-warden/{level}/{col}/{row}.png",
-                    "MapBox Terrain",
-                    ABCD),
-
-                new WebTiledLayerComboItem("MapBox Streets",
-                    "http://{subDomain}.tiles.mapbox.com/v3/examples.map-vyofok3q/{level}/{col}/{row}.png",
-                    "MapBox Streets",
-                    ABCD),
-
-                new WebTiledLayerComboItem("MapBox Dark",
-                    "http://{subDomain}.tiles.mapbox.com/v3/examples.map-cnkhv76j/{level}/{col}/{row}.png",
-                    "MapBox Dark",
-                    ABCD),
-
-                new WebTiledLayerComboItem("OpenCycleMap",
-                    "http://{subDomain}.tile.opencyclemap.org/cycle/{level}/{col}/{row}.png",
-                    "OpenCycleMap",
-                    ABC),
-
-                new WebTiledLayerComboItem("MapQuest",
-                    "http://{subDomain}.mqcdn.com/tiles/1.0.0/vx/map/{level}/{col}/{row}.jpg",
-                    "MapQuest",
-                    MQ_SUBDOMAINS)
-            };
-
-            webTiledLayerComboBox1.ItemsSource = items;
-            webTiledLayerComboBox1.DisplayMemberPath = "Name";
-            webTiledLayerComboBox1.SelectedIndex = 0;
+            mapView.Map.InitialExtent = new Envelope(-9840712.566, 5094828.570, -9684169.532, 5187877.291, SpatialReferences.WebMercator);
         }
 
-        private class WebTiledLayerComboItem
+        private void mapView_Loaded(object sender, RoutedEventArgs e)
         {
-            public WebTiledLayerComboItem(string name, string urlTemplate, string copyrightText, string[] subDomains)
-            {
-                this.UrlTemplate = urlTemplate;
-                this.CopyrightText = copyrightText;
-                this.SubDomains = subDomains;
-                this.Name = name;
-            }
-
-            public string Name { get; private set; }
-            public string UrlTemplate { get; private set; }
-            public string CopyrightText { get; private set; }
-            public string[] SubDomains { get; private set; }
+            cboLayers.SelectedIndex = 0;
         }
 
-        private void webTiledLayerComboBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cboLayers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            WebTiledLayerComboItem selectedItem = (sender as ComboBox).SelectedItem as WebTiledLayerComboItem;
-            if (selectedItem != null)
+            if (cboLayers == null)
+                return;
+
+            WebTiledLayer webTiledLayer = mapView.Map.Layers["WebTiledLayer"] as WebTiledLayer;
+
+            switch (cboLayers.SelectedIndex)
             {
-                _webTiledLayer1.CopyrightText = selectedItem.CopyrightText;
-                _webTiledLayer1.TemplateUri = selectedItem.UrlTemplate;
-                _webTiledLayer1.SubDomains = selectedItem.SubDomains;
+                //Esri National Geographic
+                case 0:
+                    webTiledLayer.TemplateUri = "http://{subDomain}.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{level}/{row}/{col}";
+                    webTiledLayer.SubDomains = new string[] { "server", "services" };
+                    webTiledLayer.CopyrightText = "National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC";
+                    break;
+                //MapQuest
+                case 1:
+                    webTiledLayer.TemplateUri = "http://mtile01.mqcdn.com/tiles/1.0.0/vx/map/{level}/{col}/{row}.jpg";
+                    webTiledLayer.CopyrightText = "Map Quest";
+                    break;
+                //OpenCycleMap
+                case 2:
+                    webTiledLayer.TemplateUri = "http://{subDomain}.tile.opencyclemap.org/cycle/{level}/{col}/{row}.png";
+                    webTiledLayer.SubDomains = new string[] { "a", "b", "c" };
+                    webTiledLayer.CopyrightText = "Open Cycle Map";
+                    break;
+                //Cloudmade Midnight Commander
+                case 3:
+                    webTiledLayer.TemplateUri = "http://{subDomain}.tile.cloudmade.com/1a1b06b230af4efdbb989ea99e9841af/999/256/{level}/{col}/{row}.png";
+                    webTiledLayer.SubDomains = new string[] { "a", "b", "c" };
+                    webTiledLayer.CopyrightText = "Cloudmade Midnight Commander";
+                    break;
+                //Cloudmade Pale Dawn
+                case 4:
+                    webTiledLayer.TemplateUri = "http://{subDomain}.tile.cloudmade.com/1a1b06b230af4efdbb989ea99e9841af/998/256/{level}/{col}/{row}.png";
+                    webTiledLayer.SubDomains = new string[] { "a", "b", "c" };
+                    webTiledLayer.CopyrightText = "Cloudmade Pale Dawn";
+                    break;
+                //MapBox Dark
+                case 5:
+                    webTiledLayer.TemplateUri = "http://{subDomain}.tiles.mapbox.com/v3/examples.map-cnkhv76j/{level}/{col}/{row}.png";
+                    webTiledLayer.SubDomains = new string[] { "a", "b", "c", "d" };
+                    webTiledLayer.CopyrightText = "Mapbox Dark";
+                    break;
+                //Mapbox Streets
+                case 6:
+                    webTiledLayer.TemplateUri = "http://{subDomain}.tiles.mapbox.com/v3/examples.map-vyofok3q/{level}/{col}/{row}.png";
+                    webTiledLayer.SubDomains = new string[] { "a", "b", "c", "d" };
+                    webTiledLayer.CopyrightText = "Mapbox Streets";
+                    break;
+                //Mapbox Terrain
+                case 7:
+                    webTiledLayer.TemplateUri = "http://{subDomain}.tiles.mapbox.com/v3/mapbox.mapbox-warden/{level}/{col}/{row}.png";
+                    webTiledLayer.SubDomains = new string[] { "a", "b", "c", "d" };
+                    webTiledLayer.CopyrightText = "Mapbox Terrain";
+                    break;
+                //Apple's OpenStreetMap
+                case 8:
+                    webTiledLayer.TemplateUri = "http://gsp2.apple.com/tile?api=1&style=slideshow&layers=default&lang=en_GB&z={level}&x={col}&y={row}&v=9";
+                    webTiledLayer.CopyrightText = "Apple's rendering of OSM data.";
+                    break;
+                //Stamen Terrain
+                case 9:
+                    webTiledLayer.TemplateUri = "http://{subDomain}.tile.stamen.com/terrain/{level}/{col}/{row}.jpg";
+                    webTiledLayer.SubDomains = new string[] { "a", "b", "c", "d" };
+                    webTiledLayer.CopyrightText = "Stamen Terrain";
+                    break;
+                //Stamen Watercolor
+                case 10:
+                    webTiledLayer.TemplateUri = "http://{subDomain}.tile.stamen.com/watercolor/{level}/{col}/{row}.jpg";
+                    webTiledLayer.SubDomains = new string[] { "a", "b", "c", "d" };
+                    webTiledLayer.CopyrightText = "Stamen Watercolor";
+                    break;
+                //Stamen Toner
+                case 11:
+                    webTiledLayer.TemplateUri = "http://{subDomain}.tile.stamen.com/toner/{level}/{col}/{row}.png";
+                    webTiledLayer.SubDomains = new string[] { "a", "b", "c", "d" };
+                    webTiledLayer.CopyrightText = "Stamen Toner";
+                    break;
             }
         }
     }

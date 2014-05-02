@@ -1,0 +1,33 @@
+﻿<SettingsFlyout
+    x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.LocalDataSettingsFlyout"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ArcGISRuntimeSDKDotNet_StoreSamples"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    IconSource="Assets/SmallLogo.png"
+    Title="Local Data Settings"
+    d:DesignWidth="346">
+
+    <!-- This StackPanel acts as a root panel for vertical layout of the content sections -->
+    <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+
+        <!-- The StackPanel(s) below define individual content sections -->
+
+        <!-- Content Section 1-->
+        <StackPanel Style="{StaticResource SettingsFlyoutSectionStyle}">
+
+            <!-- Section header -->
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Local Sample Data" />
+
+            <!-- Section body -->
+            <TextBlock x:Name="txtSampleDataPath" Style="{StaticResource BodyTextBlockStyle}" Margin="0,0,0,12" TextWrapping="Wrap" />
+            <Button Content="Clear Local Sample Data" Click="ResetSampleDataButton_Click" />
+
+        </StackPanel>
+
+        <!-- Define more Content Sections below as necessary -->
+
+    </StackPanel>
+</SettingsFlyout>

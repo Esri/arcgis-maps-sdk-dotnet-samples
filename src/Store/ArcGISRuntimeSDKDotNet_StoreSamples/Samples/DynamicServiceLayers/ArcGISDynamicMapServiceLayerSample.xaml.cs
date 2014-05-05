@@ -3,24 +3,24 @@ using Esri.ArcGISRuntime.Layers;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
+using Windows.UI.Popups;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
-    /// Demonstrates adding an ArcGIS dynamic map service layer to a Map in XAML. 
+    /// Demonstrates adding an ArcGIS dynamic map service layer to a map
     /// </summary>
     /// <title>ArcGIS Dynamic Map Service Layer</title>
-	/// <category>Layers</category>
-	/// <subcategory>Dynamic Service Layers</subcategory>
-	public partial class ArcGISDynamicMapServiceLayerSample : UserControl
+    /// <category>Dynamic Service Layers</category>
+    public sealed partial class ArcGISDynamicMapServiceLayerSample : Page
     {
         private ArcGISDynamicMapServiceLayer _usaLayer;
 
         public ArcGISDynamicMapServiceLayerSample()
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
             mapView.LayerLoaded += mapView_LayerLoaded;
 
@@ -31,7 +31,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             if (e.LoadError != null)
             {
-                MessageBox.Show(e.LoadError.Message, "Layer Error");
+                var _ = new MessageDialog(e.LoadError.Message, "Layer Error").ShowAsync();
                 return;
             }
 

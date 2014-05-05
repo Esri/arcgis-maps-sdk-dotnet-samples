@@ -52,6 +52,27 @@
             Display an overview of all the samples and allow user to pick a sample to run
             </summary>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DynamicLayerLabeling">
+            <summary>
+            Demonstrates dynamic layer labeling using LayerDrawingOptions of a dyanmic layer.
+            </summary>
+            <title>Dynamic Layer Labeling</title>
+            <category>Dynamic Service Layers</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DynamicLayerReordering">
+            <summary>
+            Demonstrates changing the order of dynamic layers.
+            </summary>
+            <title>Dynamic Layer Reordering</title>
+            <category>Dynamic Service Layers</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DynamicLayerRendering">
+            <summary>
+            Sample of using the GenerateRendererTask to create a class breaks or unique value renderer on the server without having to retrieve all the data to the client.
+            </summary>
+            <title>Dynamic Layer Rendering</title>
+            <category>Dynamic Service Layers</category>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.MovePoints">
             <summary>
             
@@ -257,35 +278,11 @@
             </summary>
             <category>Network Analyst Tasks</category>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DynamicAndTile">
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ArcGISDynamicMapServiceLayerSample">
             <summary>
-            
+            Demonstrates adding an ArcGIS dynamic map service layer to a map
             </summary>
-            <category>Dynamic Service Layers</category>
-        </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DynamicLayersInCode">
-            <summary>
-            
-            </summary>
-            <category>Dynamic Service Layers</category>
-        </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DynamicLayersInXAML">
-            <summary>
-            
-            </summary>
-            <category>Dynamic Service Layers</category>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DynamicLayersInXAML.OnNavigatedTo(Windows.UI.Xaml.Navigation.NavigationEventArgs)">
-            <summary>
-            Invoked when this page is about to be displayed in a Frame.
-            </summary>
-            <param name="e">Event data that describes how this page was reached.  The Parameter
-            property is typically used to configure the page.</param>
-        </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DynamicMap">
-            <summary>
-            
-            </summary>
+            <title>ArcGIS Dynamic Map Service Layer</title>
             <category>Dynamic Service Layers</category>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayers">
@@ -384,18 +381,12 @@
             </summary>
             <category>Query Tasks</category>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ImageServiceSimple">
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ArcGISImageServiceLayerSample">
             <summary>
-            
+            Demonstrates adding an ArcGIS image service layer to a map
             </summary>
+            <title>ArcGIS Image Service Layer</title>
             <category>Dynamic Service Layers</category>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ImageServiceSimple.OnNavigatedTo(Windows.UI.Xaml.Navigation.NavigationEventArgs)">
-            <summary>
-            Invoked when this page is about to be displayed in a Frame.
-            </summary>
-            <param name="e">Event data that describes how this page was reached.  The Parameter
-            property is typically used to configure the page.</param>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.LayerList">
             <summary>
@@ -448,10 +439,11 @@
             </summary>
             <category>Query Tasks</category>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.RasterFunctions">
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ImageServiceRasterFunctions">
             <summary>
-            
+            Demonstrates applying raster functions to an image service layer.
             </summary>
+            <title>Image Service Raster Functions</title>
             <category>Dynamic Service Layers</category>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.RenderingInCode">
@@ -490,19 +482,6 @@
             </summary>
             <category>Dynamic Service Layers</category>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SubLayerList">
-            <summary>
-            
-            </summary>
-            <category>Dynamic Service Layers</category>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SubLayerList.OnNavigatedTo(Windows.UI.Xaml.Navigation.NavigationEventArgs)">
-            <summary>
-            Invoked when this page is about to be displayed in a Frame.
-            </summary>
-            <param name="e">Event data that describes how this page was reached.  The Parameter
-            property is typically used to configure the page.</param>
-        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SymbolSwatches">
             <summary>
             
@@ -516,10 +495,12 @@
             <title>ArcGIS Tiled Map Service Layer</title>
             <category>Tiled Layers</category>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.WmsLayerSimple">
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.WmsLayerSample">
             <summary>
-            
+            Demonstrates displaying an WmsLayer on a map.
+            The WmsLayer allows users to display Open GIS Consortium (OGC) WMS layers.
             </summary>
+            <title>WMS Layer</title>
             <category>Dynamic Service Layers</category>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.WmtsLayerSample">

@@ -47,18 +47,18 @@
             InitializeComponent
             </summary>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ArcGISImageServiceLayerRasterFunctions">
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ImageServiceRasterFunctions">
             <summary>
-            Interaction logic for ArcGISImageServiceLayerRasterFunctions.xaml
+            Demonstrates applying raster functions to an image service layer.
             </summary>
             <title>Image Service Raster Functions</title>
             <category>Layers</category>
             <subcategory>Dynamic Service Layers</subcategory>
             <summary>
-            ArcGISImageServiceLayerRasterFunctions
+            ImageServiceRasterFunctions
             </summary>
         </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ArcGISImageServiceLayerRasterFunctions.InitializeComponent">
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ImageServiceRasterFunctions.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>

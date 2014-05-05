@@ -1,25 +1,30 @@
 ﻿using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
-using Windows.UI.Xaml.Controls;
+using System.Windows.Controls;
 
-namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
-	/// <summary>
-	/// 
-	/// </summary>
-    /// <category>Dynamic Service Layers</category>
-	public sealed partial class RasterFunctions : Page
+    /// <summary>
+    /// Demonstrates applying raster functions to an image service layer.
+    /// </summary>
+    /// <title>Image Service Raster Functions</title>
+	/// <category>Layers</category>
+	/// <subcategory>Dynamic Service Layers</subcategory>
+	public partial class ImageServiceRasterFunctions : UserControl
     {
-        public RasterFunctions()
+        public ImageServiceRasterFunctions()
         {
-            this.InitializeComponent();
-            mapView1.Map.InitialExtent = new Envelope(1445440, 540657, 1452348, 544407, new SpatialReference(2264));
+            InitializeComponent();
+
+            mapView.Map.InitialExtent = new Envelope(1445440, 540657, 1452348, 544407, new SpatialReference(2264));
+
+            mapView.LayerLoaded += mapView_LayerLoaded;
         }
 
         private void RasterFunctionsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ArcGISImageServiceLayer imageLayer = mapView1.Map.Layers["MyImageLayer"] as ArcGISImageServiceLayer;
+            ArcGISImageServiceLayer imageLayer = mapView.Map.Layers["ImageLayer"] as ArcGISImageServiceLayer;
             var rasterFunction = (sender as ComboBox).SelectedItem as RasterFunctionInfo;
             if (rasterFunction != null)
             {
@@ -28,14 +33,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
         }
 
-        private void ArcGISImageServiceLayer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void mapView_LayerLoaded(object sender, Esri.ArcGISRuntime.Controls.LayerLoadedEventArgs e)
         {
-           
-        }
-
-        private void mapView1_LayerLoaded(object sender, Esri.ArcGISRuntime.Controls.LayerLoadedEventArgs e)
-        {
-            if (e.Layer.ID == "MyImageLayer")
+            if (e.Layer.ID == "ImageLayer")
             {
                 ArcGISImageServiceLayer imageLayer = e.Layer as ArcGISImageServiceLayer;
                 if (e.LoadError == null)

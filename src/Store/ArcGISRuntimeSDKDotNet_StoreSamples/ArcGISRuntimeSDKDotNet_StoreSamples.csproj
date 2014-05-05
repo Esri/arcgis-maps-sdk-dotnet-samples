@@ -109,6 +109,15 @@
     <Compile Include="SampleListPage.xaml.cs">
       <DependentUpon>SampleListPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\DynamicServiceLayers\DynamicLayerLabeling.xaml.cs">
+      <DependentUpon>DynamicLayerLabeling.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\DynamicServiceLayers\DynamicLayerReordering.xaml.cs">
+      <DependentUpon>DynamicLayerReordering.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\DynamicServiceLayers\DynamicLayerRendering.xaml.cs">
+      <DependentUpon>DynamicLayerRendering.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\GraphicsLayers\MovePoints.xaml.cs">
       <DependentUpon>MovePoints.xaml</DependentUpon>
     </Compile>
@@ -193,17 +202,8 @@
     <Compile Include="Samples\NetworkAnalystTasks\DrivingDirections.xaml.cs">
       <DependentUpon>DrivingDirections.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\DynamicServiceLayers\DynamicAndTile.xaml.cs">
-      <DependentUpon>DynamicAndTile.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\DynamicServiceLayers\DynamicLayersInCode.xaml.cs">
-      <DependentUpon>DynamicLayersInCode.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\DynamicServiceLayers\DynamicLayersInXAML.xaml.cs">
-      <DependentUpon>DynamicLayersInXAML.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\DynamicServiceLayers\DynamicMap.xaml.cs">
-      <DependentUpon>DynamicMap.xaml</DependentUpon>
+    <Compile Include="Samples\DynamicServiceLayers\ArcGISDynamicMapServiceLayerSample.xaml.cs">
+      <DependentUpon>ArcGISDynamicMapServiceLayerSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\FeatureLayers\FeatureLayers.xaml.cs">
       <DependentUpon>FeatureLayers.xaml</DependentUpon>
@@ -253,8 +253,8 @@
     <Compile Include="Samples\QueryTasks\Identify.xaml.cs">
       <DependentUpon>Identify.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\DynamicServiceLayers\ImageServiceSimple.xaml.cs">
-      <DependentUpon>ImageServiceSimple.xaml</DependentUpon>
+    <Compile Include="Samples\DynamicServiceLayers\ArcGISImageServiceLayerSample.xaml.cs">
+      <DependentUpon>ArcGISImageServiceLayerSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Mapping\LayerList.xaml.cs">
       <DependentUpon>LayerList.xaml</DependentUpon>
@@ -277,8 +277,8 @@
     <Compile Include="Samples\QueryTasks\QueryWithBuffer.xaml.cs">
       <DependentUpon>QueryWithBuffer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\DynamicServiceLayers\RasterFunctions.xaml.cs">
-      <DependentUpon>RasterFunctions.xaml</DependentUpon>
+    <Compile Include="Samples\DynamicServiceLayers\ImageServiceRasterFunctions.xaml.cs">
+      <DependentUpon>ImageServiceRasterFunctions.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Symbology\RenderingInCode.xaml.cs">
       <DependentUpon>RenderingInCode.xaml</DependentUpon>
@@ -298,17 +298,14 @@
     <Compile Include="Samples\DynamicServiceLayers\Stretch.xaml.cs">
       <DependentUpon>Stretch.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\DynamicServiceLayers\SubLayerList.xaml.cs">
-      <DependentUpon>SubLayerList.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Samples\Symbology\SymbolSwatches.xaml.cs">
       <DependentUpon>SymbolSwatches.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\TiledLayers\ArcGISTiledMapServiceLayerSample.xaml.cs">
       <DependentUpon>ArcGISTiledMapServiceLayerSample.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\DynamicServiceLayers\WmsLayerSimple.xaml.cs">
-      <DependentUpon>WmsLayerSimple.xaml</DependentUpon>
+    <Compile Include="Samples\DynamicServiceLayers\WmsLayerSample.xaml.cs">
+      <DependentUpon>WmsLayerSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\TiledLayers\WmtsLayerSample.xaml.cs">
       <DependentUpon>WmtsLayerSample.xaml</DependentUpon>
@@ -346,6 +343,18 @@
     <Page Include="SampleListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\DynamicServiceLayers\DynamicLayerLabeling.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\DynamicServiceLayers\DynamicLayerReordering.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\DynamicServiceLayers\DynamicLayerRendering.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\GraphicsLayers\MovePoints.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -459,19 +468,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\DynamicServiceLayers\DynamicAndTile.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\DynamicServiceLayers\DynamicLayersInCode.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\DynamicServiceLayers\DynamicLayersInXAML.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\DynamicServiceLayers\DynamicMap.xaml">
+    <Page Include="Samples\DynamicServiceLayers\ArcGISDynamicMapServiceLayerSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -539,7 +536,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\DynamicServiceLayers\ImageServiceSimple.xaml">
+    <Page Include="Samples\DynamicServiceLayers\ArcGISImageServiceLayerSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -571,7 +568,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\DynamicServiceLayers\RasterFunctions.xaml">
+    <Page Include="Samples\DynamicServiceLayers\ImageServiceRasterFunctions.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -599,10 +596,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\DynamicServiceLayers\SubLayerList.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Samples\Symbology\SymbolSwatches.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -611,7 +604,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\DynamicServiceLayers\WmsLayerSimple.xaml">
+    <Page Include="Samples\DynamicServiceLayers\WmsLayerSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

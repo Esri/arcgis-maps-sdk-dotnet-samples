@@ -28,8 +28,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             try
             {
-                var tpk = await GetSingleFileAsync("basemaps\\campus.tpk");
-                var layer = new ArcGISLocalTiledLayer(tpk) { ID = "campus" };
+                var tpk = await GetSingleFileAsync("basemap.tpk");
+                var layer = new ArcGISLocalTiledLayer(tpk) { ID = "local_basemap" };
                 mapView.Map.Layers.Add(layer);
             }
             catch (Exception ex)
@@ -64,7 +64,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
 
             // Make a copy and return
-            return await original.CopyAsync(folder);
+            return await original.CopyAsync(folder, name);
         }
 
         /// <summary>

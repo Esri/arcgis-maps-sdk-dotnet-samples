@@ -1,5 +1,4 @@
-﻿using System;
-using Windows.Storage;
+﻿using ArcGISRuntimeSDKDotNet_StoreSamples.Common;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -10,29 +9,19 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples
     /// </summary>
     public sealed partial class LocalDataSettingsFlyout : SettingsFlyout
     {
+        private SampleDataViewModel _vm;
+
         public LocalDataSettingsFlyout()
         {
             this.InitializeComponent();
 
-            this.Loaded += LocalDataSettingsFlyout_Loaded;
+            _vm = new SampleDataViewModel();
+            this.DataContext = _vm;
         }
 
-        private void LocalDataSettingsFlyout_Loaded(object sender, RoutedEventArgs e)
+        private async void DownloadButton_Click(object sender, RoutedEventArgs e)
         {
-            txtSampleDataPath.Text = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
-        }
-
-        private async void ResetSampleDataButton_Click(object sender, RoutedEventArgs e)
-        {
-            var localDataFolders = await ApplicationData.Current.LocalFolder.GetFoldersAsync();
-            foreach (var folder in localDataFolders)
-            {
-                try
-                {
-                    await folder.DeleteAsync(StorageDeleteOption.PermanentDelete);
-                }
-                catch { }
-            }
+            await _vm.DownloadLocalDataAsync();
         }
     }
 }

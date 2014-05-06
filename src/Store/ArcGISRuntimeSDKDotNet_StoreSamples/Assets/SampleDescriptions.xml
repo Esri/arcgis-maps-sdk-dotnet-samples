@@ -47,6 +47,12 @@
         <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Common.BooleanToVisibilityConverter.ConvertBack(System.Object,System.Type,System.Object,System.String)">
             <summary>Convert Visibility to boolean</summary>
         </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Common.SampleDataViewModel.#ctor">
+            <summary>Initialize SampleDataViewModel class</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Common.SampleDataViewModel.DownloadLocalDataAsync">
+            <summary>Downloads a .zip file from online URL and extracts it to the App Local Foilder</summary>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.SampleListPage">
             <summary>
             Display an overview of all the samples and allow user to pick a sample to run
@@ -72,6 +78,52 @@
             </summary>
             <title>Dynamic Layer Rendering</title>
             <category>Dynamic Service Layers</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.QueryFilterSample">
+            <summary>
+            Demonstrates using a Query Filter to filter features from a feature layer
+            </summary>
+            <title>Query Filter</title>
+            <category>Feature Layers</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayerSelection">
+            <summary>
+            Demonstrates feature selection functionality in a Feature Layer
+            </summary>
+            <title>Feature Layer Selection</title>
+            <category>Feature Layers</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayerMapTips">
+            <summary>
+            Demonstrates hit testing in the PointerMoved event of the map view to display feature map tips.
+            </summary>
+            <title>Map Tips</title>
+            <category>Feature Layers</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayerHitTesting">
+            <summary>
+            Demonstrates Feature Layer hit testing
+            </summary>
+            <title>Hit Testing</title>
+            <category>Feature Layers</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayerHitTesting.mapView_MapViewTapped(System.Object,Esri.ArcGISRuntime.Controls.MapViewInputEventArgs)">
+            <summary>
+            On each mouse click:
+            - HitTest the feature layer
+            - Query the feature table for the returned row
+            - Set the result feature for the UI
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayerFromLocalGeodatabase">
+            <summary>
+            Demonstrates adding a Feature Layer from a local geodatabase file to a map.
+            </summary>
+            <title>Feature Layer from Local Geodatabase</title>
+            <category>Feature Layers</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayerFromLocalGeodatabase.mapView_ExtentChanged(System.Object,System.EventArgs)">
+            <summary>Add feature tables from a local geodatabase as layers on the map</summary>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.MovePoints">
             <summary>
@@ -285,10 +337,11 @@
             <title>ArcGIS Dynamic Map Service Layer</title>
             <category>Dynamic Service Layers</category>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayers">
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayerFromService">
             <summary>
-            
+            Demonstrates adding a Feature Layer from an online feature service to a map.
             </summary>
+            <title>Feature Layer From Service</title>
             <category>Feature Layers</category>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FindAnAddress">

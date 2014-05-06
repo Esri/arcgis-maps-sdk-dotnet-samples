@@ -134,8 +134,26 @@
     <Compile Include="Samples\FeatureLayers\FeatureLayerFromLocalGeodatabase.xaml.cs">
       <DependentUpon>FeatureLayerFromLocalGeodatabase.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GraphicsLayers\MovePoints.xaml.cs">
+    <Compile Include="Samples\GraphicsLayers\GeoRssLayerSample.xaml.cs">
+      <DependentUpon>GeoRssLayerSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Editing\MovePoints.xaml.cs">
       <DependentUpon>MovePoints.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsLayers\GraphicsLayerRenderingMode.xaml.cs">
+      <DependentUpon>GraphicsLayerRenderingMode.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsLayers\GraphicsLayerSelection.xaml.cs">
+      <DependentUpon>GraphicsLayerSelection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsLayers\GraphicsMapTips.xaml.cs">
+      <DependentUpon>GraphicsMapTips.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsLayers\GraphicsHitTesting.xaml.cs">
+      <DependentUpon>GraphicsHitTesting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsLayers\GraphicsSourceSample.xaml.cs">
+      <DependentUpon>GraphicsSourceSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Mapping\GroupLayers.xaml.cs">
       <DependentUpon>GroupLayers.xaml</DependentUpon>
@@ -170,11 +188,11 @@
     <Compile Include="Samples\Symbology\SymbolsAndLabels.xaml.cs">
       <DependentUpon>SymbolsAndLabels.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GraphicsLayers\AddGraphicsXAML.xaml.cs">
-      <DependentUpon>AddGraphicsXAML.xaml</DependentUpon>
+    <Compile Include="Samples\GraphicsLayers\GraphicsLayerSample.xaml.cs">
+      <DependentUpon>GraphicsLayerSample.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GraphicsLayers\AddPointOnTap.xaml.cs">
-      <DependentUpon>AddPointOnTap.xaml</DependentUpon>
+    <Compile Include="Samples\GraphicsLayers\AddInteractively.xaml.cs">
+      <DependentUpon>AddInteractively.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GeocodingTasks\AddressOfLocation.xaml.cs">
       <DependentUpon>AddressOfLocation.xaml</DependentUpon>
@@ -203,13 +221,13 @@
     <Compile Include="Samples\GeoprocessingTasks\ClipFeatures.xaml.cs">
       <DependentUpon>ClipFeatures.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GraphicsLayers\CsvLayerSimple.xaml.cs">
-      <DependentUpon>CsvLayerSimple.xaml</DependentUpon>
+    <Compile Include="Samples\GraphicsLayers\CsvLayerSample.xaml.cs">
+      <DependentUpon>CsvLayerSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Mapping\SetSpatialReference.xaml.cs">
       <DependentUpon>SetSpatialReference.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GraphicsLayers\DrawAndEditGraphics.xaml.cs">
+    <Compile Include="Samples\Editing\DrawAndEditGraphics.xaml.cs">
       <DependentUpon>DrawAndEditGraphics.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GeoprocessingTasks\DriveTimes.xaml.cs">
@@ -392,7 +410,31 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GraphicsLayers\MovePoints.xaml">
+    <Page Include="Samples\GraphicsLayers\GeoRssLayerSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\MovePoints.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GraphicsLayers\GraphicsLayerRenderingMode.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GraphicsLayers\GraphicsLayerSelection.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GraphicsLayers\GraphicsMapTips.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GraphicsLayers\GraphicsHitTesting.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GraphicsLayers\GraphicsSourceSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -440,11 +482,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GraphicsLayers\AddGraphicsXAML.xaml">
+    <Page Include="Samples\GraphicsLayers\GraphicsLayerSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GraphicsLayers\AddPointOnTap.xaml">
+    <Page Include="Samples\GraphicsLayers\AddInteractively.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -484,7 +526,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GraphicsLayers\CsvLayerSimple.xaml">
+    <Page Include="Samples\GraphicsLayers\CsvLayerSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -492,7 +534,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GraphicsLayers\DrawAndEditGraphics.xaml">
+    <Page Include="Samples\Editing\DrawAndEditGraphics.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -125,10 +125,53 @@
         <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayerFromLocalGeodatabase.mapView_ExtentChanged(System.Object,System.EventArgs)">
             <summary>Add feature tables from a local geodatabase as layers on the map</summary>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GeoRssLayerSample">
+            <summary>
+            Creates a GeoRssLayer based on the United States Geological Survey earthquake feed.
+            </summary>
+            <title>GeoRSS Layer</title>
+            <category>Graphics Layers</category>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.MovePoints">
             <summary>
-            
+            Demonstrates one method of moving graphic points on the map.
             </summary>
+            <title>Move Points</title>
+            <category>Editing</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GraphicsLayerRenderingMode">
+            <summary>
+            Demonstates the use of the GraphicsLayer.RenderingMode property to control how a GraphicsLayer draws its graphics.
+            </summary>
+            <title>Rendering Mode</title>
+            <category>Graphics Layers</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GraphicsLayerSelection">
+            <summary>
+            Demonstrates GraphicLayer selection management.
+            </summary>
+            <title>Selection</title>
+            <category>Graphics Layers</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GraphicsMapTips">
+            <summary>
+            Demonstrates how to position map tips on graphics in a graphics layer.
+            </summary>
+            <title>Map Tips</title>
+            <category>Graphics Layers</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GraphicsHitTesting">
+            <summary>
+            Shows how to hit test a graphics layer using the GraphicsLayer.HitTestAsync method.
+            </summary>
+            <title>Hit Testing</title>
+            <category>Graphics Layers</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GraphicsSourceSample">
+            <summary>
+            Demonstartes the GraphicsLayer.GraphicsSouce property.
+            </summary>
+            <title>Graphics Source</title>
             <category>Graphics Layers</category>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GroupLayers">
@@ -216,17 +259,22 @@
             here they are created in code. Points are generated in the XAML for this sample.
             </summary>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.AddGraphicsXAML">
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GraphicsLayerSample">
             <summary>
-            Demonstrates how to add graphics to a GraphicsLayer using markup
+            Demonstrates how to add graphics to a GraphicsLayer using markup or code
             </summary>
+            <title>Graphics Layer</title>
             <category>Graphics Layers</category>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.AddPointOnTap">
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.AddInteractively">
             <summary>
-            
+            Example of how to add Graphics to a GraphicLayer by drawing shapes on the map.
             </summary>
+            <title>Add Interactively</title>
             <category>Graphics Layers</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.AddInteractively.#ctor">
+            <summary>Construct Add Graphics Interactively sample control</summary>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.AddressOfLocation">
             <summary>
@@ -299,10 +347,11 @@
             </summary>
             <category>Geoprocessing Tasks</category>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.CsvLayerSimple">
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.CsvLayerSample">
             <summary>
-            
+            Demonstrates defining a CsvLayer in XAML and setting the serviceUri property to a .csv file hosted online by the United States Geological Survey (USGS).
             </summary>
+            <title>CSV Layer</title>
             <category>Graphics Layers</category>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SetSpatialReference">
@@ -314,9 +363,10 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DrawAndEditGraphics">
             <summary>
-            
+            Demonstrates drawing and editing map graphics.
             </summary>
-            <category>Graphics Layers</category>
+            <title>Draw and Edit Graphics</title>
+            <category>Editing</category>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DriveTimes">
             <summary>

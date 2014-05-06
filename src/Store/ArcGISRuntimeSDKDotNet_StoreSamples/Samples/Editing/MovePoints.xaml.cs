@@ -11,9 +11,10 @@ using Esri.ArcGISRuntime.Controls;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
-	/// 
-	/// </summary>
-    /// <category>Graphics Layers</category>
+    /// Demonstrates one method of moving graphic points on the map.
+    /// </summary>
+    /// <title>Move Points</title>
+    /// <category>Editing</category>
 	public sealed partial class MovePoints : Page
     {
 		public MovePoints()

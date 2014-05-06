@@ -21,9 +21,10 @@ using Windows.UI.Xaml.Navigation;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
-	/// 
+	/// Demonstrates drawing and editing map graphics.
 	/// </summary>
-    /// <category>Graphics Layers</category>
+    /// <title>Draw and Edit Graphics</title>
+    /// <category>Editing</category>
 	public sealed partial class DrawAndEditGraphics : Page
     {
         Graphic _editGraphic = null;

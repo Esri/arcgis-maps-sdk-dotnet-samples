@@ -402,6 +402,74 @@
             <title>Switch Basemaps</title>
             <category>Mapping</category>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ClassBreaksRendererSample">
+            <summary>
+            Shows how to create a ClassBreaksRenderer for a graphics layer.
+            Earthquake data points are pulled from an online source and rendered using the GraphicsLayer ClassBreaksRenderer.
+            </summary>
+            <title>Class Breaks Renderer</title>
+            <category>Symbology</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ClassBreaksRendererSample.#ctor">
+            <summary>Construct Class Breaks Renderer sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GenerateRenderer">
+            <summary>
+            Demonstrates using an ArcGIS Server Task to generate a Class Breaks Renderer with five classes.
+            The generate renderer task can also generate unique value renderers and can also generate color ramp(s) from two or more colors.
+            Note that this functionality requires an ArcGIS Server 10.1 instance.
+            </summary>
+            <title>Generate Renderer Task</title>
+            <category>Symbology</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GenerateRenderer.#ctor">
+            <summary>Construct Generate Renderer sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.LineFillSymbols">
+            <summary>
+            Shows how to create Line and Fill Symbol (SimpleLineSymbol, SimpleFillSymbol, PictureFillSymbol) and add graphics using the symbols.
+            </summary>
+            <title>Line and Fill Symbols</title>
+            <category>Symbology</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.LineFillSymbols.#ctor">
+            <summary>Construct Line and Fill Symbols sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SampleSymbol">
+            <summary>Local symbol class</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SampleSymbol.#ctor(Esri.ArcGISRuntime.Symbology.Symbol,System.String)">
+            <summary>Construct sample symbol object</summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SampleSymbol.Symbol">
+            <summary>Symbol</summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SampleSymbol.SymbolUri">
+            <summary>Uri for picture symbols</summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SampleSymbol.Swatch">
+            <summary>Swatch for UI</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.MarkerSymbols">
+            <summary>
+            Shows how to create MarkerySymbols (both SimpleMarkerSymbol and PictureMarkerSymbol) and add point graphics using the symbols.
+            </summary>
+            <title>Marker Symbols</title>
+            <category>Symbology</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.MarkerSymbols.#ctor">
+            <summary>Construct Marker Symbols sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SimpleRendererSample">
+            <summary>
+            Shows how to create a SimpleRenderer for a graphics layer in XAML and code.
+            </summary>
+            <title>Simple Renderer</title>
+            <category>Symbology</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SimpleRendererSample.#ctor">
+            <summary>Construct Simple Renderer sample control</summary>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SymbolsAndLabels">
             <summary>
             Shows various types of the more advanced symbol types: Composite and CIM symbology.
@@ -436,6 +504,27 @@
             
             </summary>
             <category>Geocode Tasks</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.TextSymbols">
+            <summary>
+            Sample shows how to create Text Symbols (TextSymbol) and add graphics using the symbols.
+            </summary>
+            <title>Text Symbols</title>
+            <category>Symbology</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.TextSymbols.#ctor">
+            <summary>Construct Text Symbols sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.UniqueValueRendererSample">
+            <summary>
+            Shows how to create a UniqueValueRenderer for a graphics layer.
+            US state polygons are pulled from an online source and rendered using the GraphicsLayer UniqueValueRenderer.
+            </summary>
+            <title>Unique Value Renderer</title>
+            <category>Symbology</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.UniqueValueRendererSample.#ctor">
+            <summary>Construct Unique Value Renderer sample control</summary>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ArcGISLocalTiledLayerSample">
             <summary>
@@ -733,12 +822,6 @@
             <title>Image Service Raster Functions</title>
             <category>Dynamic Service Layers</category>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.RenderingInCode">
-            <summary>
-            
-            </summary>
-            <category>Symbology</category>
-        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Routing">
             <summary>
             
@@ -768,12 +851,6 @@
             
             </summary>
             <category>Dynamic Service Layers</category>
-        </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SymbolSwatches">
-            <summary>
-            
-            </summary>
-            <category>Symbology</category>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ArcGISTiledMapServiceLayerSample">
             <summary>

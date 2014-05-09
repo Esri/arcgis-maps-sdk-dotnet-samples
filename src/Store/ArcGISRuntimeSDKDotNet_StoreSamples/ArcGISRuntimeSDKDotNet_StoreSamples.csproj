@@ -230,6 +230,21 @@
     <Compile Include="Samples\Mapping\SwitchBasemaps.xaml.cs">
       <DependentUpon>SwitchBasemaps.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Symbology\ClassBreaksRendererSample.xaml.cs">
+      <DependentUpon>ClassBreaksRendererSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\GenerateRenderer.xaml.cs">
+      <DependentUpon>GenerateRenderer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\LineFillSymbols.xaml.cs">
+      <DependentUpon>LineFillSymbols.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\MarkerSymbols.xaml.cs">
+      <DependentUpon>MarkerSymbols.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\SimpleRendererSample.xaml.cs">
+      <DependentUpon>SimpleRendererSample.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Symbology\SymbolsAndLabels.xaml.cs">
       <DependentUpon>SymbolsAndLabels.xaml</DependentUpon>
     </Compile>
@@ -241,6 +256,12 @@
     </Compile>
     <Compile Include="Samples\GeocodingTasks\AddressOfLocation.xaml.cs">
       <DependentUpon>AddressOfLocation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\TextSymbols.xaml.cs">
+      <DependentUpon>TextSymbols.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\UniqueValueRendererSample.xaml.cs">
+      <DependentUpon>UniqueValueRendererSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\TiledLayers\ArcGISLocalTiledLayerSample.xaml.cs">
       <DependentUpon>ArcGISLocalTiledLayerSample.xaml</DependentUpon>
@@ -356,9 +377,6 @@
     <Compile Include="Samples\DynamicServiceLayers\ImageServiceRasterFunctions.xaml.cs">
       <DependentUpon>ImageServiceRasterFunctions.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Symbology\RenderingInCode.xaml.cs">
-      <DependentUpon>RenderingInCode.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Samples\NetworkAnalystTasks\Routing.xaml.cs">
       <DependentUpon>Routing.xaml</DependentUpon>
     </Compile>
@@ -373,9 +391,6 @@
     </Compile>
     <Compile Include="Samples\DynamicServiceLayers\Stretch.xaml.cs">
       <DependentUpon>Stretch.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Symbology\SymbolSwatches.xaml.cs">
-      <DependentUpon>SymbolSwatches.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\TiledLayers\ArcGISTiledMapServiceLayerSample.xaml.cs">
       <DependentUpon>ArcGISTiledMapServiceLayerSample.xaml</DependentUpon>
@@ -580,6 +595,26 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Samples\Symbology\ClassBreaksRendererSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\GenerateRenderer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\LineFillSymbols.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\MarkerSymbols.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\SimpleRendererSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Symbology\SymbolsAndLabels.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -593,6 +628,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\GeocodingTasks\AddressOfLocation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\TextSymbols.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\UniqueValueRendererSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -748,10 +791,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Symbology\RenderingInCode.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Samples\NetworkAnalystTasks\Routing.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -769,10 +808,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\DynamicServiceLayers\Stretch.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Symbology\SymbolSwatches.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

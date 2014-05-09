@@ -5,25 +5,27 @@ using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
+using Windows.UI.Popups;
+using Windows.UI.Xaml;
 
-namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
-    /// This sample demonstrates use of the GeometryEngine.LabelPoint method to calculate the location of label points.
+    /// Demonstrates use of the GeometryEngine.LabelPoint method to calculate the location of label points.
     /// </summary>
     /// <title>Label Point</title>
-	/// <category>Geometry</category>
-	public partial class LabelPoint : UserControl
+    /// <category>Geometry</category>
+    public partial class LabelPoint : Windows.UI.Xaml.Controls.Page
     {
         private PictureMarkerSymbol _pictureMarkerSymbol;
+        private GraphicsLayer _labelGraphics;
 
         /// <summary>Construct Label Point sample control</summary>
         public LabelPoint()
         {
             InitializeComponent();
+
+            _labelGraphics = mapView.Map.Layers["LabelGraphics"] as GraphicsLayer;
 
             mapView.ExtentChanged += mapView_ExtentChanged;
             var task = SetupSymbolsAsync();
@@ -34,8 +36,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                _pictureMarkerSymbol = layoutGrid.Resources["PictureMarkerSymbol"] as PictureMarkerSymbol;
-				await _pictureMarkerSymbol.SetSourceAsync(new Uri("pack://application:,,,/ArcGISRuntimeSDKDotNet_DesktopSamples;component/Assets/x-24x24.png"));
+                _pictureMarkerSymbol = LayoutRoot.Resources["PictureMarkerSymbol"] as PictureMarkerSymbol;
+                await _pictureMarkerSymbol.SetSourceAsync(new Uri("ms-appx:///Assets/x-24x24.png"));
             }
             catch (Exception ex)
             {
@@ -63,17 +65,17 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                         mapView.Editor.Cancel.Execute(null);
 
                     //Get the input polygon geometry from the user
-                    var poly = await mapView.Editor.RequestShapeAsync(DrawShape.Polygon, ((SimpleRenderer)labelGraphics.Renderer).Symbol);
+                    var poly = await mapView.Editor.RequestShapeAsync(DrawShape.Polygon, ((SimpleRenderer)_labelGraphics.Renderer).Symbol);
                     if (poly != null)
                     {
                         //Add the polygon drawn by the user
-                        labelGraphics.Graphics.Add(new Graphic(poly));
+                        _labelGraphics.Graphics.Add(new Graphic(poly));
 
                         //Get the label point for the input geometry
                         var labelPoint = GeometryEngine.LabelPoint(poly);
                         if (labelPoint != null)
                         {
-                            labelGraphics.Graphics.Add(new Graphic(labelPoint, _pictureMarkerSymbol));
+                            _labelGraphics.Graphics.Add(new Graphic(labelPoint, _pictureMarkerSymbol));
                         }
                     }
                 }
@@ -83,14 +85,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Label Point Error: " + ex.Message, "Label Point Sample");
+                var _ = new MessageDialog("Label Point Error: " + ex.Message, "Sample Error").ShowAsync();
             }
         }
 
         // Clear label graphics and restart calculating label points
         private async void ResetButton_Click(object sender, RoutedEventArgs e)
         {
-            labelGraphics.Graphics.Clear();
+            _labelGraphics.Graphics.Clear();
             await CalculateLabelPointsAsync();
         }
     }

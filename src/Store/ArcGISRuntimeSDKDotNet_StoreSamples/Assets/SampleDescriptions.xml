@@ -125,6 +125,161 @@
         <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayerFromLocalGeodatabase.mapView_ExtentChanged(System.Object,System.EventArgs)">
             <summary>Add feature tables from a local geodatabase as layers on the map</summary>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Boundary">
+            <summary>
+            Demonstrates the GeometryEngine.Boundary method to calculate the geometric boundary of a given geometry.
+            </summary>
+            <title>Boundary</title>
+            <category>Geometry</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Boundary.#ctor">
+            <summary>Construct Boundary sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ClipGeometry">
+            <summary>
+            Example of using the GeometryEngine.Clip method to clip feature geometries with a given envelope.
+            </summary>
+            <title>Clip</title>
+            <category>Geometry</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ClipGeometry.#ctor">
+            <summary>Construct Clip Geometry sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ConvexHull">
+            <summary>
+            Demonstrates use of the GeometryEngine.ConvexHull method to create a convex hull polygon for three or more points.
+            A convex hull is the smallest polygon that completely encases a set (i.e. locus) of points.
+            </summary>
+            <title>Convex Hull</title>
+            <category>Geometry</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ConvexHull.#ctor">
+            <summary>Construct Convex Hull sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.CreatePoints">
+            <summary>
+            Demonstrates how to create point geometries, attach them to graphics and display them on the map.
+            MapPoint geometry objects are used to store geographic points.
+            </summary>
+            <title>Create Points</title>
+            <category>Geometry</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.CreatePoints.#ctor">
+            <summary>Construct Create Points sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.CreatePolygons">
+            <summary>
+            Demonstrates how to create polygon geometries, attach them to graphics and display them on the map.
+            Polygon geometry objects are used to store geographic polygons.
+            </summary>
+            <title>Create Polygons</title>
+            <category>Geometry</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.CreatePolygons.#ctor">
+            <summary>Construct Create Polygons sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.CreatePolylines">
+            <summary>
+            Demonstrates how to create polyline geometries, attach them to graphics and display them on the map.
+            Polyline geometry objects are used to store geographic lines.
+            </summary>
+            <title>Create Polylines</title>
+            <category>Geometry</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.CreatePolylines.#ctor">
+            <summary>Construct Create Polylines sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GeodesicDensify">
+            <summary>
+            Demonstrates using GeometryEngine.GeodesicDensify to take an input shape and return a geodesic densified shape.
+            </summary>
+            <title>Geodesic Densify</title>
+            <category>Geometry</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GeodesicDensify.#ctor">
+            <summary>Construct Densify sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GeodesicEllipse">
+            <summary>
+            Demonstrates use of the GeometryEngine.GeodesicEllipse to calculate a geodesic ellipse. 
+            Also shows how to calculate a geodesic sector using GeometryEngine.GeodesicSector to create a gedesic sector emanating from point.
+            </summary>
+            <title>Geodesic Ellipse</title>
+            <category>Geometry</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GeodesicEllipse.#ctor">
+            <summary>Construct Geodesic Ellipse sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GeodesicMove">
+            <summary>
+            Demonstrates use of the GeometryEngine.GeodesicMove method to move a geometry be a specified distance.
+            </summary>
+            <title>Geodesic Move</title>
+            <category>Geometry</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GeodesicMove.#ctor">
+            <summary>Construct Geodesic Move sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.NearestCoordinateInGeometry">
+            <summary>
+            Demonstrates how to find the nearest polygon point or vertex of a geometry using the NearestCoordinateInGeometry or NearestVertexInGeometry methods of the GeometryEngine class.
+            </summary>
+            <title>Nearest Coordinate in Geometry</title>
+            <category>Geometry</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.NearestCoordinateInGeometry.#ctor">
+            <summary>Construct Nearest Coordinate sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ProjectCoordinate">
+            <summary>
+            Sample shows how to project a coordinate from the current map projection (in this case Web Mercator) to a different projection.
+            </summary>
+            <title>Project</title>
+            <category>Geometry</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ProjectCoordinate.#ctor">
+            <summary>Construct Project sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Relate">
+            <summary>
+            Sample shows how to use the GeometryEngine.Relate method to test the spatial relationship of two geometries.
+            </summary>
+            <title>Relate</title>
+            <category>Geometry</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Relate.#ctor">
+            <summary>Construct Relationship sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Relationship">
+            <summary>
+            Sample shows how to to test the spatial relationship of two geometries.
+            </summary>
+            <title>Relationship</title>
+            <category>Geometry</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Relationship.#ctor">
+            <summary>Construct Relationship sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Simplify">
+            <summary>
+            Demonstrates use of the GeometryEngine.Simplify method to simplify a polygon, and demonstrates the importance of simplification.
+            </summary>
+            <title>Simplify</title>
+            <category>Geometry</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Simplify.#ctor">
+            <summary>Construct Geodesic Move sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.UnionGeometry">
+            <summary>
+            Example of using the GeometryEngine.Union method to calculate the geometric union of feature geometries and a given polygon.
+            </summary>
+            <title>Union</title>
+            <category>Geometry</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.UnionGeometry.#ctor">
+            <summary>Construct Union sample control</summary>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GeoRssLayerSample">
             <summary>
             Creates a GeoRssLayer based on the United States Geological Survey earthquake feed.
@@ -408,74 +563,103 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GeodesicBuffer">
             <summary>
-            
+            Demonstrates use of the GeometryEngine to calculate a geodesic buffer.
             </summary>
+            <title>Geodesic Buffer</title>
             <category>Geometry</category>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.AreaAndPerimeter">
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GeodesicBuffer.#ctor">
+            <summary>Construct Geodesic Buffer sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.AreaSample">
             <summary>
-            
+            Demonstrates how to calculate the area and perimiter of a polygon using the GeometryEngine.
             </summary>
+            <title>Area</title>
             <category>Geometry</category>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.BufferPoint">
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.BufferSample">
             <summary>
-            
+            Demonstrates use of the GeometryEngine to calculate a buffer.
             </summary>
+            <title>Buffer</title>
             <category>Geometry</category>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.CutPolygons">
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.CutGeometry">
             <summary>
-            
+            Example of using the GeometryEngine.Cut method to cut feature geometries with a given polyline.
             </summary>
+            <title>Cut</title>
             <category>Geometry</category>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DensifyPolygons">
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.CutGeometry.#ctor">
+            <summary>Construct Cut Geometry sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Densify">
             <summary>
-            
+            Demonstrates using GeometryEngine.Densify to take an input polygon and return a densified polygon.
             </summary>
+            <title>Densify</title>
             <category>Geometry</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Densify.#ctor">
+            <summary>Construct Densify sample control</summary>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Difference">
             <summary>
-            
+            Example of using the GeometryEngine.Difference or GeometryEngine.SymmetricDifference methods to calculate the geometric difference between feature geometries and a user defined geometry.
             </summary>
+            <title>Difference</title>
             <category>Geometry</category>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Distance">
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Difference.#ctor">
+            <summary>Construct Difference sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DistanceFromGeometry">
             <summary>
-            
+            Demonstrates using the GeometryEngine.DistanceFromGeometry method to calcualte the linear distance of the shortest length between two geometries.
             </summary>
+            <title>Distance From Geometry</title>
             <category>Geometry</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DistanceFromGeometry.#ctor">
+            <summary>Construct Distance From Geometry sample control</summary>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Generalize">
             <summary>
-            
+            Demonstrates using the GeometryEngine.Generalize method to take a polyline with numerous vertices and return a generalized polyline with less vertices.
             </summary>
+            <title>Generalize</title>
             <category>Geometry</category>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Intersect">
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Generalize.#ctor">
+            <summary>Construct Generalize sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Intersection">
             <summary>
-            
+            Example of using the GeometryEngine.Intersection method to intersect feature geometries with a given polygon.
             </summary>
+            <title>Intersection</title>
             <category>Geometry</category>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.LabelPoints">
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Intersection.#ctor">
+            <summary>Construct Intersection sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.LabelPoint">
             <summary>
-            
+            Demonstrates use of the GeometryEngine.LabelPoint method to calculate the location of label points.
             </summary>
+            <title>Label Point</title>
             <category>Geometry</category>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.LineLength">
-            <summary>
-            
-            </summary>
-            <category>Geometry</category>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.LabelPoint.#ctor">
+            <summary>Construct Label Point sample control</summary>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Offset">
             <summary>
-            
+            Demonstrates how to create an offset geometry using the Offset method of the GeometryEngine class.
             </summary>
+            <title>Offset</title>
             <category>Geometry</category>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Identify">

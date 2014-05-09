@@ -761,20 +761,17 @@
             InitializeComponent
             </summary>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OffsetGeometry">
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Offset">
             <summary>
-            Demonstrates how to create an offset geometry using the Offset method of the GeometryEngine class. Here, the user selects a target polygon graphic and the application creates an offset polygon based on the selected graphic.
+            Demonstrates how to create an offset geometry using the Offset method of the GeometryEngine class.
             </summary>
             <title>Offset</title>
             <category>Geometry</category>
             <summary>
-            OffsetGeometry
+            Offset
             </summary>
         </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OffsetGeometry.#ctor">
-            <summary>Construct Offset sample control</summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OffsetGeometry.InitializeComponent">
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Offset.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>

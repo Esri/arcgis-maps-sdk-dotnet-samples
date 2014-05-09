@@ -1,21 +1,22 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+using System.Windows;
+using System.Windows.Controls;
 
-namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
     /// Demonstrates how to create an offset geometry using the Offset method of the GeometryEngine class.
     /// </summary>
     /// <title>Offset</title>
     /// <category>Geometry</category>
-    public sealed partial class Offset : Page
+    public partial class Offset : UserControl
     {
         private GraphicsLayer parcelGraphicsLayer;
         private GraphicsLayer offsetGraphicsLayer;
@@ -25,9 +26,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            mapView1.Map.InitialExtent = new Envelope(-9275076.4794, 5253225.9406, -9274273.6411, 5253885.6155, SpatialReferences.WebMercator);
-            parcelGraphicsLayer = mapView1.Map.Layers["ParcelsGraphicsLayer"] as GraphicsLayer;
-            offsetGraphicsLayer = mapView1.Map.Layers["OffsetGraphicsLayer"] as GraphicsLayer;
+            mapView.Map.InitialExtent = new Envelope(-9275076.4794, 5253225.9406, -9274273.6411, 5253885.6155, SpatialReferences.WebMercator);
+            parcelGraphicsLayer = mapView.Map.Layers["ParcelsGraphicsLayer"] as GraphicsLayer;
+            offsetGraphicsLayer = mapView.Map.Layers["OffsetGraphicsLayer"] as GraphicsLayer;
 
             InitializeOffsetTypes();
             OffsetDistanceSlider.ValueChanged += Slider_ValueChanged;
@@ -38,7 +39,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             ControlsContainer.Visibility = Visibility.Collapsed;
         }
 
-        void Slider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             DoOffset();
         }
@@ -56,26 +57,27 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private async Task SelectParcelForOffset()
         {
-            ResetButton.IsEnabled = false;
-
             try
             {
+                ResetButton.IsEnabled = false;
                 offsetGraphicsLayer.Graphics.Clear();
 
-                var pointGeom = await mapView1.Editor.RequestPointAsync();
-                pointGeom.SpatialReference = mapView1.SpatialReference;
-                var screenPnt = mapView1.LocationToScreen(pointGeom);
+                var pointGeom = await mapView.Editor.RequestPointAsync();
+                pointGeom.SpatialReference = mapView.SpatialReference;
+                var screenPnt = mapView.LocationToScreen(pointGeom);
 
                 selectedParcelGraphic = await
-                    parcelGraphicsLayer.HitTestAsync(mapView1, screenPnt);
+                    parcelGraphicsLayer.HitTestAsync(mapView, screenPnt);
 
                 DoOffset();
             }
             catch (Exception)
             {
             }
-
-            ResetButton.IsEnabled = true;
+            finally
+            {
+                ResetButton.IsEnabled = true;
+            }
         }
 
         private void DoOffset()
@@ -83,16 +85,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             if (selectedParcelGraphic != null)
             {
                 offsetGraphicsLayer.Graphics.Clear();
+
                 try
                 {
-                    var offsetGeom = GeometryEngine.Offset(
-                        selectedParcelGraphic.Geometry,
-                        OffsetDistanceSlider.Value,
-                        (OffsetType)OffsetTypeComboBox.SelectedItem,
-                         OffsetBevelRatioSlider.Value,
-                         OffsetFlattenErrorSlider.Value
-                        );
-
+                    var offsetGeom = GeometryEngine.Offset(selectedParcelGraphic.Geometry,
+                        OffsetDistanceSlider.Value, (OffsetType)OffsetTypeComboBox.SelectedItem,
+                        OffsetBevelRatioSlider.Value, OffsetFlattenErrorSlider.Value);
                     if (offsetGeom != null)
                     {
                         offsetGraphicsLayer.Graphics.Add(new Graphic { Geometry = offsetGeom });
@@ -100,8 +98,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 }
                 catch (Exception ex)
                 {
-                    var dlg = new Windows.UI.Popups.MessageDialog(ex.Message);
-                    var _ = dlg.ShowAsync();
+                    MessageBox.Show(ex.Message, "Sample Error");
                 }
             }
         }
@@ -111,41 +108,48 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             await SelectParcelForOffset();
         }
 
-        private async void mapView1_LayerLoaded(object sender, Esri.ArcGISRuntime.Controls.LayerLoadedEventArgs e)
+        private async void mapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
         {
             if (e.Layer.ID == "ParcelsGraphicsLayer")
             {
                 if (parcelGraphicsLayer != null && parcelGraphicsLayer.Graphics.Count == 0)
                 {
-                    QueryTask queryTask = new QueryTask(new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/TaxParcel/AssessorsParcelCharacteristics/MapServer/1"));
-
-                    //Create a geometry to use as the extent within which parcels will be returned
-                    var contractRatio = mapView1.Extent.Width / 6;
-                    var extentGeometry = new Envelope(-83.3188395774275, 42.61428312652851, -83.31295664068958, 42.61670913269855);
-
-                    extentGeometry.SpatialReference = SpatialReferences.Wgs84;
-                    Query query = new Query(extentGeometry);
-                    query.ReturnGeometry = true;
-                    query.OutSpatialReference = mapView1.SpatialReference;
-
                     try
                     {
+                        ControlsContainer.Visibility = Visibility.Collapsed;
+                        LoadingParcelsContainer.Visibility = Visibility.Visible;
+
+                        QueryTask queryTask = new QueryTask(
+                            new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/TaxParcel/AssessorsParcelCharacteristics/MapServer/1"));
+
+                        //Create a geometry to use as the extent within which parcels will be returned
+                        var contractRatio = mapView.Extent.Width / 6;
+                        var extentGeometry = new Envelope(-83.3188395774275, 42.61428312652851, -83.31295664068958, 42.61670913269855);
+                        extentGeometry.SpatialReference = SpatialReferences.Wgs84;
+
+                        Query query = new Query(extentGeometry);
+                        query.ReturnGeometry = true;
+                        query.OutSpatialReference = mapView.SpatialReference;
+
                         var results = await queryTask.ExecuteAsync(query, CancellationToken.None);
                         foreach (Graphic g in results.FeatureSet.Features)
                         {
-                            g.Geometry.SpatialReference = mapView1.SpatialReference;
+                            g.Geometry.SpatialReference = mapView.SpatialReference;
                             parcelGraphicsLayer.Graphics.Add(g);
                         }
-                        LoadingParcelsIndicator.IsActive = false;
-                        LoadingParcelsContainer.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+
                         ControlsContainer.Visibility = Visibility.Visible;
                     }
                     catch (Exception ex)
                     {
-                        var dlg = new Windows.UI.Popups.MessageDialog(ex.Message);
-						var _ = dlg.ShowAsync();
+                        MessageBox.Show("Error loading parcel data: " + ex.Message, "Sample Error");
+                    }
+                    finally
+                    {
+                        LoadingParcelsContainer.Visibility = Visibility.Collapsed;
                     }
                 }
+
                 await SelectParcelForOffset();
             }
         }

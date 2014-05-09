@@ -134,6 +134,51 @@
     <Compile Include="Samples\FeatureLayers\FeatureLayerFromLocalGeodatabase.xaml.cs">
       <DependentUpon>FeatureLayerFromLocalGeodatabase.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Geometry\Boundary.xaml.cs">
+      <DependentUpon>Boundary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\ClipGeometry.xaml.cs">
+      <DependentUpon>ClipGeometry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\ConvexHull.xaml.cs">
+      <DependentUpon>ConvexHull.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\CreatePoints.xaml.cs">
+      <DependentUpon>CreatePoints.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\CreatePolygons.xaml.cs">
+      <DependentUpon>CreatePolygons.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\CreatePolylines.xaml.cs">
+      <DependentUpon>CreatePolylines.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\GeodesicDensify.xaml.cs">
+      <DependentUpon>GeodesicDensify.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\GeodesicEllipse.xaml.cs">
+      <DependentUpon>GeodesicEllipse.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\GeodesicMove.xaml.cs">
+      <DependentUpon>GeodesicMove.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\NearestCoordinateInGeometry.xaml.cs">
+      <DependentUpon>NearestCoordinateInGeometry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\ProjectCoordinate.xaml.cs">
+      <DependentUpon>ProjectCoordinate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\Relate.xaml.cs">
+      <DependentUpon>Relate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\Relationship.xaml.cs">
+      <DependentUpon>Relationship.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\Simplify.xaml.cs">
+      <DependentUpon>Simplify.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\UnionGeometry.xaml.cs">
+      <DependentUpon>UnionGeometry.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\GraphicsLayers\GeoRssLayerSample.xaml.cs">
       <DependentUpon>GeoRssLayerSample.xaml</DependentUpon>
     </Compile>
@@ -251,35 +296,32 @@
     <Compile Include="Samples\Geometry\GeodesicBuffer.xaml.cs">
       <DependentUpon>GeodesicBuffer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Geometry\AreaAndPerimeter.xaml.cs">
-      <DependentUpon>AreaAndPerimeter.xaml</DependentUpon>
+    <Compile Include="Samples\Geometry\AreaSample.xaml.cs">
+      <DependentUpon>AreaSample.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Geometry\BufferPoint.xaml.cs">
-      <DependentUpon>BufferPoint.xaml</DependentUpon>
+    <Compile Include="Samples\Geometry\BufferSample.xaml.cs">
+      <DependentUpon>BufferSample.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Geometry\CutPolygons.xaml.cs">
-      <DependentUpon>CutPolygons.xaml</DependentUpon>
+    <Compile Include="Samples\Geometry\CutGeometry.xaml.cs">
+      <DependentUpon>CutGeometry.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Geometry\DensifyPolygons.xaml.cs">
-      <DependentUpon>DensifyPolygons.xaml</DependentUpon>
+    <Compile Include="Samples\Geometry\Densify.xaml.cs">
+      <DependentUpon>Densify.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Geometry\Difference.xaml.cs">
       <DependentUpon>Difference.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Geometry\Distance.xaml.cs">
-      <DependentUpon>Distance.xaml</DependentUpon>
+    <Compile Include="Samples\Geometry\DistanceFromGeometry.xaml.cs">
+      <DependentUpon>DistanceFromGeometry.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Geometry\Generalize.xaml.cs">
       <DependentUpon>Generalize.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Geometry\Intersect.xaml.cs">
-      <DependentUpon>Intersect.xaml</DependentUpon>
+    <Compile Include="Samples\Geometry\Intersection.xaml.cs">
+      <DependentUpon>Intersection.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Geometry\LabelPoints.xaml.cs">
-      <DependentUpon>LabelPoints.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Geometry\LineLength.xaml.cs">
-      <DependentUpon>LineLength.xaml</DependentUpon>
+    <Compile Include="Samples\Geometry\LabelPoint.xaml.cs">
+      <DependentUpon>LabelPoint.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Geometry\Offset.xaml.cs">
       <DependentUpon>Offset.xaml</DependentUpon>
@@ -407,6 +449,66 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\FeatureLayers\FeatureLayerFromLocalGeodatabase.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Geometry\Boundary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Geometry\ClipGeometry.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Geometry\ConvexHull.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Geometry\CreatePoints.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Geometry\CreatePolygons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Geometry\CreatePolylines.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Geometry\GeodesicDensify.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Geometry\GeodesicEllipse.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Geometry\GeodesicMove.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Geometry\NearestCoordinateInGeometry.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Geometry\ProjectCoordinate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Geometry\Relate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Geometry\Relationship.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Geometry\Simplify.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Geometry\UnionGeometry.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -566,19 +668,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Geometry\AreaAndPerimeter.xaml">
+    <Page Include="Samples\Geometry\AreaSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Geometry\BufferPoint.xaml">
+    <Page Include="Samples\Geometry\BufferSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Geometry\CutPolygons.xaml">
+    <Page Include="Samples\Geometry\CutGeometry.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Geometry\DensifyPolygons.xaml">
+    <Page Include="Samples\Geometry\Densify.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -586,7 +688,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Geometry\Distance.xaml">
+    <Page Include="Samples\Geometry\DistanceFromGeometry.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -594,15 +696,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Geometry\Intersect.xaml">
+    <Page Include="Samples\Geometry\Intersection.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Geometry\LabelPoints.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Geometry\LineLength.xaml">
+    <Page Include="Samples\Geometry\LabelPoint.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -67,11 +67,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 filter.MaximumRows = 52;
                 var stateFeatures = await _statesLayer.FeatureTable.QueryAsync(filter);
 
-                // Union the feature geometries and add to graphics layer
+                // Union the geometries and add to graphics layer
                 var states = stateFeatures.Select(feature => feature.Geometry);
-                var sourcePolys = states.ToList();
+                var unionPolys = states.ToList();
+                unionPolys.Add(poly);
 
-				var unionPoly = GeometryEngine.Union(sourcePolys);
+				var unionPoly = GeometryEngine.Union(unionPolys);
                 var unionGraphic = new Graphic(unionPoly, _fillSymbol);
 
                 resultGraphics.Graphics.Add(unionGraphic);

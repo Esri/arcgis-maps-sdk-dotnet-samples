@@ -4,34 +4,30 @@ using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Threading.Tasks;
-using Windows.Storage;
 using Windows.UI.Popups;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <category>Geometry</category>
-	public sealed partial class BufferPoint : Page
+    /// <summary>
+    /// Demonstrates use of the GeometryEngine to calculate a buffer.
+    /// </summary>
+    /// <title>Buffer</title>
+    /// <category>Geometry</category>
+	public sealed partial class BufferSample : Page
     {
-        GraphicsLayer graphicsLayer;
-        PictureMarkerSymbol pms;
-
-        SimpleMarkerSymbol sms;
-        SimpleFillSymbol sfs;
         private const double milesToMetersConversion = 1609.34;
 
-        public BufferPoint()
+        private GraphicsLayer graphicsLayer;
+        private PictureMarkerSymbol pms;
+        private SimpleFillSymbol sfs;
+
+        public BufferSample()
         {
             InitializeComponent();
 
-
             mapView1.Map.InitialExtent = new Envelope(-10863035.970, 3838021.340, -10744801.344, 3887145.299);
             InitializePictureMarkerSymbol().ContinueWith((_) => { }, TaskScheduler.FromCurrentSynchronizationContext());
-            sms = LayoutRoot.Resources["MySimpleMarkerSymbol"] as SimpleMarkerSymbol;
             sfs = LayoutRoot.Resources["MySimpleFillSymbol"] as SimpleFillSymbol;
             graphicsLayer = mapView1.Map.Layers["MyGraphicsLayer"] as GraphicsLayer;
 
@@ -40,12 +36,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         void mapView1_MapViewTapped(object sender, MapViewInputEventArgs e)
         {           
-            graphicsLayer.Graphics.Clear();
             try
             {
+                graphicsLayer.Graphics.Clear();
                 
                 var pointGeom = e.Location;
-
                 var bufferGeom = GeometryEngine.Buffer(pointGeom, 5 * milesToMetersConversion);
 
                 //show geometries on map
@@ -65,27 +60,17 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
         }
 
-  
-
         private async Task InitializePictureMarkerSymbol()
         {
             try
             {
-                var imageFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/i_pushpin.png"));
-                var imageSource = await imageFile.OpenReadAsync();
                 pms = LayoutRoot.Resources["MyPictureMarkerSymbol"] as PictureMarkerSymbol;
-                await pms.SetSourceAsync(imageSource);
+                await pms.SetSourceAsync(new Uri("ms-appx:///Assets/RedStickPin.png"));
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.Message);
             }
         }
-
-
-
-
-
-
     }
 }

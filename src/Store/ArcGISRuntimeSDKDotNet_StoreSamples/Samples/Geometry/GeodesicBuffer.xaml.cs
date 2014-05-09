@@ -3,107 +3,60 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using Windows.UI;
+using System.Threading.Tasks;
 using Windows.UI.Popups;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
-	/// <summary>
-	/// 
-	/// </summary>
+    /// <summary>
+    /// Demonstrates use of the GeometryEngine to calculate a geodesic buffer.
+    /// </summary>
+    /// <title>Geodesic Buffer</title>
     /// <category>Geometry</category>
-	public sealed partial class GeodesicBuffer : Page
+    public partial class GeodesicBuffer : Windows.UI.Xaml.Controls.Page
     {
+        private PictureMarkerSymbol _pinSymbol;
+        private SimpleFillSymbol _bufferSymbol;
+        private GraphicsLayer _graphicsLayer;
+
+        /// <summary>Construct Geodesic Buffer sample control</summary>
         public GeodesicBuffer()
         {
-            this.InitializeComponent();
-            DrawShapes.ItemsSource = new DrawShape[]
-            {
-                DrawShape.Point, DrawShape.Polygon, DrawShape.Polyline
-            };
-            DrawShapes.SelectedIndex = 0;
+            InitializeComponent();
+
+            _graphicsLayer = mapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+            var task = SetupSymbols();
         }
 
-        private async void GenerateGeodesicBuffer_Click(object sender, RoutedEventArgs e)
+        private void mapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
-             string message = null;
             try
             {
-                
-                GraphicsLayer inputGraphicsLayer = null;
-                var drawShape = (DrawShape)DrawShapes.SelectedItem;
-                inputGraphicsLayer = drawShape == DrawShape.Point ? mapView1.Map.Layers["PointInputLayer"] as GraphicsLayer :
-                    ((drawShape == DrawShape.Polyline) ? mapView1.Map.Layers["LineInputLayer"] as GraphicsLayer : mapView1.Map.Layers["PolygonInputLayer"] as GraphicsLayer);
+                _graphicsLayer.Graphics.Clear();
 
-                if (inputGraphicsLayer.Graphics.Count == 0)
-                    throw new Exception("No input shape. Please draw shape to generate buffer");
-                Esri.ArcGISRuntime.Geometry.Geometry geom = inputGraphicsLayer.Graphics.FirstOrDefault().Geometry;
+                var point = e.Location;
+                var buffer = GeometryEngine.GeodesicBuffer(
+                    GeometryEngine.NormalizeCentralMeridianOfGeometry(point), //Normalize in case we we're too far west/east of the world bounds
+                    500, LinearUnits.Miles);
 
-                if (geom != null)
-                {
-                    string json = geom.ToJson();
-                    var buffer = GeometryEngine.GeodesicBuffer(geom, 10, LinearUnits.Meters);
-                    if (buffer != null)
-                    {
-                        GraphicsLayer resultGraphicsLayer = mapView1.Map.Layers["GeometryResultGraphicsLayer"] as GraphicsLayer;
-                        resultGraphicsLayer.Graphics.Add(new Graphic() { Geometry = buffer });
-                        mapView1.SetView(resultGraphicsLayer.Graphics.First().Geometry.Extent);
-                    }
-                }
+                var pointGraphic = new Graphic { Geometry = point, Symbol = _pinSymbol };
+                _graphicsLayer.Graphics.Add(pointGraphic);
+
+                var bufferGraphic = new Graphic { Geometry = buffer, Symbol = _bufferSymbol };
+                _graphicsLayer.Graphics.Add(bufferGraphic);
             }
             catch (Exception ex)
             {
-
-                message = ex.Message;
+                var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
             }
-             if (message != null)
-                await new MessageDialog(message).ShowAsync();
         }
 
-
-
-        private async void Draw_Click(object sender, RoutedEventArgs e)
+        private async Task SetupSymbols()
         {
-            string message = null;
+            _pinSymbol = new PictureMarkerSymbol() { Width = 24, Height = 24, YOffset = 12 };
+            await _pinSymbol.SetSourceAsync(new Uri("ms-appx:///Assets/RedStickPin.png"));
 
-            var editor = mapView1.Editor;
-            editor.EditorConfiguration = new EditorConfiguration()
-            {
-                AllowAddVertex = true,
-                VertexSymbol =
-                    new SimpleMarkerSymbol() { Style = SimpleMarkerStyle.Diamond, Color = Colors.Yellow, Size = 15 }
-            };
-            try
-            {
-                GraphicsLayer inputGraphicsLayer = null;
-                var drawShape = (DrawShape)DrawShapes.SelectedItem;
-
-                inputGraphicsLayer = drawShape == DrawShape.Point ? mapView1.Map.Layers["PointInputLayer"] as GraphicsLayer :
-                    ((drawShape == DrawShape.Polyline) ? mapView1.Map.Layers["LineInputLayer"] as GraphicsLayer : mapView1.Map.Layers["PolygonInputLayer"] as GraphicsLayer);
-
-                var r = await editor.RequestShapeAsync(drawShape, null);
-                inputGraphicsLayer.Graphics.Add(new Graphic() { Geometry = r });
-
-            }
-            catch (Exception ex)
-            {
-                message = ex.Message;
-            }
-            if (message != null)
-                await new MessageDialog(message).ShowAsync();
-        }
-
-        private void OnClearButtonClicked(object sender, RoutedEventArgs e)
-        {
-            IEnumerable<Layer> graphicLayers = mapView1.Map.Layers.Where(l => l is GraphicsLayer);
-            foreach (Layer l in graphicLayers)
-                (l as GraphicsLayer).Graphics.Clear();
-
+            _bufferSymbol = LayoutRoot.Resources["BufferSymbol"] as SimpleFillSymbol;
         }
     }
 }

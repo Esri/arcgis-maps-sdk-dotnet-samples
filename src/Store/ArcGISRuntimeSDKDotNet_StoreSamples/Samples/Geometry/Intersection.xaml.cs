@@ -13,25 +13,25 @@ using Windows.UI.Xaml;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
-    /// Example of using the GeometryEngine.Difference or GeometryEngine.SymmetricDifference methods to calculate the geometric difference between feature geometries and a user defined geometry.
+    /// Example of using the GeometryEngine.Intersection method to intersect feature geometries with a given polygon.
     /// </summary>
-    /// <title>Difference</title>
+    /// <title>Intersection</title>
     /// <category>Geometry</category>
-    public partial class Difference : Windows.UI.Xaml.Controls.Page
+    public partial class Intersection : Windows.UI.Xaml.Controls.Page
     {
         private const string GdbPath = @"samples-data\maps\usa.geodatabase";
 
         private Symbol _fillSymbol;
         private FeatureLayer _statesLayer;
-        private GraphicsLayer _differenceGraphics;
+        private GraphicsLayer _resultGraphics;
 
-        /// <summary>Construct Difference sample control</summary>
-        public Difference()
+        /// <summary>Construct Intersection sample control</summary>
+        public Intersection()
         {
             InitializeComponent();
 
             _fillSymbol = LayoutRoot.Resources["FillSymbol"] as Symbol;
-            _differenceGraphics = mapView.Map.Layers["DifferenceGraphics"] as GraphicsLayer;
+            _resultGraphics = mapView.Map.Layers["ResultGraphics"] as GraphicsLayer;
                 
             var task = CreateFeatureLayersAsync();
         }
@@ -56,18 +56,15 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
         }
 
-        // Calculates a geometric difference between features and user defined geometry
-        private async void DifferenceButton_Click(object sender, RoutedEventArgs e)
+        // Intersects feature geometries with a user defined polygon.
+        private async void IntersectButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                _differenceGraphics.Graphics.Clear();
+                _resultGraphics.Graphics.Clear();
 
-                // wait for user to draw difference polygon
+                // wait for user to draw a polygon
                 var poly = await mapView.Editor.RequestShapeAsync(DrawShape.Polygon);
-
-                // Adjust user polygon for backward digitization
-                poly = GeometryEngine.Simplify(poly);
 
                 // get intersecting features from the feature layer
                 SpatialQueryFilter filter = new SpatialQueryFilter();
@@ -76,20 +73,17 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 filter.MaximumRows = 52;
                 var stateFeatures = await _statesLayer.FeatureTable.QueryAsync(filter);
 
-                // Calc difference between feature geometries and user polygon and add results to graphics layer
+                // Intersect the feature geometries and add to graphics layer
                 var states = stateFeatures.Select(feature => feature.Geometry);
-
-                var diffGraphics = states
-                    .Select(state => ((bool)useSymmetricDifference.IsChecked)
-                        ? GeometryEngine.SymmetricDifference(state, poly)
-                        : GeometryEngine.Difference(state, poly))
+                var intersectGraphics = states
+                    .Select(state => GeometryEngine.Intersection(state, poly))
                     .Select(geo => new Graphic(geo, _fillSymbol));
 
-                _differenceGraphics.Graphics.AddRange(diffGraphics);
+                _resultGraphics.Graphics.AddRange(intersectGraphics);
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Difference Error: " + ex.Message, "Sample Error").ShowAsync();
+                var _ = new MessageDialog("Intersection Error: " + ex.Message, "Sample Error").ShowAsync();
             }
         }
     }

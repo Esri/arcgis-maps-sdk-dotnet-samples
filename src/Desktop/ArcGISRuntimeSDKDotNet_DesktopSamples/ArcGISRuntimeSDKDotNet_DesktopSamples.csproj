@@ -187,8 +187,8 @@
     <Compile Include="Samples\Geometry\NearestCoordinateInGeometry.xaml.cs">
       <DependentUpon>NearestCoordinateInGeometry.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Geometry\OffsetGeometry.xaml.cs">
-      <DependentUpon>OffsetGeometry.xaml</DependentUpon>
+    <Compile Include="Samples\Geometry\Offset.xaml.cs">
+      <DependentUpon>Offset.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Geometry\ProjectCoordinate.xaml.cs">
       <DependentUpon>ProjectCoordinate.xaml</DependentUpon>
@@ -600,7 +600,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Geometry\OffsetGeometry.xaml">
+    <Page Include="Samples\Geometry\Offset.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -5,59 +5,33 @@
     xmlns:local="using:ArcGISRuntimeSDKDotNet_StoreSamples.Samples"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls="using:Esri.ArcGISRuntime.Controls"
-    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
-    xmlns:geometry="using:Esri.ArcGISRuntime.Geometry"
-    xmlns:symbology="using:Esri.ArcGISRuntime.Symbology"
+    xmlns:common="using:ArcGISRuntimeSDKDotNet_StoreSamples.Common"
+    xmlns:esri="using:Esri.ArcGISRuntime.Controls"
+    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
+    xmlns:geo="using:Esri.ArcGISRuntime.Geometry"
+    xmlns:sym="using:Esri.ArcGISRuntime.Symbology"
+    xmlns:data="using:Esri.ArcGISRuntime.Data"
     mc:Ignorable="d">
-
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" x:Name="LayoutRoot">
         <Grid.Resources>
-            <symbology:SimpleRenderer x:Key="PointRenderer">
-                <symbology:SimpleRenderer.Symbol>
-                    <symbology:SimpleMarkerSymbol Size="20" Style="Circle" Color="Green" />
-                </symbology:SimpleRenderer.Symbol>
-            </symbology:SimpleRenderer>
-            <symbology:SimpleRenderer x:Key="LineRenderer">
-                <symbology:SimpleRenderer.Symbol>
-                    <symbology:SimpleLineSymbol Color="#990000FF" Width="5"/>
-                </symbology:SimpleRenderer.Symbol>
-            </symbology:SimpleRenderer>
-            <symbology:SimpleRenderer x:Key="PolygonRenderer">
-                <symbology:SimpleRenderer.Symbol>
-                    <symbology:SimpleFillSymbol Color="Yellow" Style="Solid"/>
-                </symbology:SimpleRenderer.Symbol>
-            </symbology:SimpleRenderer>
-            <symbology:SimpleRenderer x:Key="BufferRenderer">
-                <symbology:SimpleRenderer.Symbol>
-                    <symbology:SimpleFillSymbol Color="Red" Style="Solid"/>
-                </symbology:SimpleRenderer.Symbol>
-            </symbology:SimpleRenderer>
+            <sym:SimpleFillSymbol x:Key="BufferSymbol" Color="#660000FF" Style="Solid">
+                <sym:SimpleFillSymbol.Outline>
+                    <sym:SimpleLineSymbol Color="Blue" Width="2" />
+                </sym:SimpleFillSymbol.Outline>
+            </sym:SimpleFillSymbol>
         </Grid.Resources>
-        <controls:MapView x:Name="mapView1">
-            <controls:Map  >
-                <controls:Map.InitialExtent>
-                    <geometry:Envelope XMin="-13047918" YMin="4036008" XMax="-13045480" YMax="4037866">
-                        <geometry:Envelope.SpatialReference>
-                            <geometry:SpatialReference Wkid="3857" />
-                        </geometry:Envelope.SpatialReference>
-                    </geometry:Envelope>
-                </controls:Map.InitialExtent>
-                <layers:ArcGISTiledMapServiceLayer ServiceUri="http://services.arcgisonline.com/arcgis/rest/services/world_topo_map/MapServer" ID="BaseLayer"/>
-                <layers:GraphicsLayer ID="GeometryResultGraphicsLayer" Renderer="{StaticResource BufferRenderer}"/>
-                <layers:GraphicsLayer ID="PointInputLayer" Renderer="{StaticResource PointRenderer}"/>
-                <layers:GraphicsLayer ID="LineInputLayer" Renderer="{StaticResource LineRenderer}"/>
-                <layers:GraphicsLayer ID="PolygonInputLayer" Renderer="{StaticResource PolygonRenderer}"/>
-            </controls:Map>
-        </controls:MapView>
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Background="Black">
-            <ComboBox x:Name="DrawShapes" />
-            <Button HorizontalAlignment="Stretch" Click="Draw_Click"
-                        Height="auto" VerticalAlignment="Top" Width="auto" Margin="5,5,5,0">Draw</Button>
-            <Button HorizontalAlignment="Stretch" Click="GenerateGeodesicBuffer_Click"
-                        Height="auto" VerticalAlignment="Top" Width="auto" Margin="5,5,5,0">Generate Geodesic Buffer</Button>
-            <Button HorizontalAlignment="Stretch" Click="OnClearButtonClicked"
-                        Height="auto" VerticalAlignment="Top" Width="auto" Margin="5,5,5,0">Clear</Button>
-        </StackPanel>
+
+        <esri:MapView x:Name="mapView" WrapAround="True" MapViewTapped="mapView_MapViewTapped">
+            <esri:Map>
+                <lyr:ArcGISTiledMapServiceLayer
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
+                <lyr:GraphicsLayer ID="GraphicsLayer" />
+            </esri:Map>
+        </esri:MapView>
+
+        <Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
+            <TextBlock x:Name="InstructionsTextBlock" Text="Tap the map to see a 500-mile geodesic buffer around the location." 
+                       Width="250" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14" />
+        </Border>
     </Grid>
 </Page>

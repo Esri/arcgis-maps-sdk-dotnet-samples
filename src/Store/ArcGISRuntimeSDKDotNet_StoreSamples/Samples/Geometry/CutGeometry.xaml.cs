@@ -13,26 +13,28 @@ using Windows.UI.Xaml;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
-    /// Example of using the GeometryEngine.Difference or GeometryEngine.SymmetricDifference methods to calculate the geometric difference between feature geometries and a user defined geometry.
+    /// Example of using the GeometryEngine.Cut method to cut feature geometries with a given polyline.
     /// </summary>
-    /// <title>Difference</title>
+    /// <title>Cut</title>
     /// <category>Geometry</category>
-    public partial class Difference : Windows.UI.Xaml.Controls.Page
+    public sealed partial class CutGeometry : Windows.UI.Xaml.Controls.Page
     {
         private const string GdbPath = @"samples-data\maps\usa.geodatabase";
 
-        private Symbol _fillSymbol;
+        private Symbol _cutLineSymbol;
+        private Symbol _cutFillSymbol;
         private FeatureLayer _statesLayer;
-        private GraphicsLayer _differenceGraphics;
-
-        /// <summary>Construct Difference sample control</summary>
-        public Difference()
+        private GraphicsLayer _resultGraphics;
+                
+        /// <summary>Construct Cut Geometry sample control</summary>
+        public CutGeometry()
         {
             InitializeComponent();
 
-            _fillSymbol = LayoutRoot.Resources["FillSymbol"] as Symbol;
-            _differenceGraphics = mapView.Map.Layers["DifferenceGraphics"] as GraphicsLayer;
-                
+            _cutLineSymbol = LayoutRoot.Resources["CutLineSymbol"] as Symbol;
+            _cutFillSymbol = LayoutRoot.Resources["CutFillSymbol"] as Symbol;
+            _resultGraphics = mapView.Map.Layers["ResultGraphics"] as GraphicsLayer;
+
             var task = CreateFeatureLayersAsync();
         }
 
@@ -56,40 +58,38 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
         }
 
-        // Calculates a geometric difference between features and user defined geometry
-        private async void DifferenceButton_Click(object sender, RoutedEventArgs e)
+        // Cuts feature geometries with a user defined cut polyline.
+        private async void CutButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                _differenceGraphics.Graphics.Clear();
+                _resultGraphics.Graphics.Clear();
 
-                // wait for user to draw difference polygon
-                var poly = await mapView.Editor.RequestShapeAsync(DrawShape.Polygon);
-
-                // Adjust user polygon for backward digitization
-                poly = GeometryEngine.Simplify(poly);
+                // wait for user to draw cut line
+                var cutLine = await mapView.Editor.RequestShapeAsync(DrawShape.Polyline, _cutLineSymbol) as Polyline;
 
                 // get intersecting features from the feature layer
                 SpatialQueryFilter filter = new SpatialQueryFilter();
-                filter.Geometry = GeometryEngine.Project(poly, _statesLayer.FeatureTable.SpatialReference);
-                filter.SpatialRelationship = SpatialRelationship.Intersects;
+                filter.Geometry = GeometryEngine.Project(cutLine, _statesLayer.FeatureTable.SpatialReference);
+                filter.SpatialRelationship = SpatialRelationship.Crosses;
                 filter.MaximumRows = 52;
                 var stateFeatures = await _statesLayer.FeatureTable.QueryAsync(filter);
 
-                // Calc difference between feature geometries and user polygon and add results to graphics layer
+                // Cut the feature geometries and add to graphics layer
                 var states = stateFeatures.Select(feature => feature.Geometry);
+                var cutGraphics = states
+                    .Where(geo => !GeometryEngine.Within(cutLine, geo))
+                    .SelectMany(state => GeometryEngine.Cut(state, cutLine))
+                    .Select(geo => new Graphic(geo, _cutFillSymbol));
 
-                var diffGraphics = states
-                    .Select(state => ((bool)useSymmetricDifference.IsChecked)
-                        ? GeometryEngine.SymmetricDifference(state, poly)
-                        : GeometryEngine.Difference(state, poly))
-                    .Select(geo => new Graphic(geo, _fillSymbol));
-
-                _differenceGraphics.Graphics.AddRange(diffGraphics);
+                _resultGraphics.Graphics.AddRange(cutGraphics);
+            }
+            catch (TaskCanceledException)
+            {
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Difference Error: " + ex.Message, "Sample Error").ShowAsync();
+                var _ = new MessageDialog("Cut Error: " + ex.Message, "Sample Error").ShowAsync();
             }
         }
     }

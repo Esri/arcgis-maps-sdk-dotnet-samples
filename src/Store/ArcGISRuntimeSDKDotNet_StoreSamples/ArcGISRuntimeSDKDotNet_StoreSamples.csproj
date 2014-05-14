@@ -230,6 +230,9 @@
     <Compile Include="Samples\Mapping\SwitchBasemaps.xaml.cs">
       <DependentUpon>SwitchBasemaps.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\QueryTasks\FindTaskSample.xaml.cs">
+      <DependentUpon>FindTaskSample.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Symbology\ClassBreaksRendererSample.xaml.cs">
       <DependentUpon>ClassBreaksRendererSample.xaml</DependentUpon>
     </Compile>
@@ -368,11 +371,11 @@
     <Compile Include="Samples\QueryTasks\QueryOnly.xaml.cs">
       <DependentUpon>QueryOnly.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\QueryTasks\QueryRelatedRecords.xaml.cs">
-      <DependentUpon>QueryRelatedRecords.xaml</DependentUpon>
+    <Compile Include="Samples\QueryTasks\QueryRelatedTables.xaml.cs">
+      <DependentUpon>QueryRelatedTables.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\QueryTasks\QueryWithBuffer.xaml.cs">
-      <DependentUpon>QueryWithBuffer.xaml</DependentUpon>
+    <Compile Include="Samples\QueryTasks\SpatialQuery.xaml.cs">
+      <DependentUpon>SpatialQuery.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\DynamicServiceLayers\ImageServiceRasterFunctions.xaml.cs">
       <DependentUpon>ImageServiceRasterFunctions.xaml</DependentUpon>
@@ -595,6 +598,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Samples\QueryTasks\FindTaskSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Symbology\ClassBreaksRendererSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -779,11 +786,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\QueryTasks\QueryRelatedRecords.xaml">
+    <Page Include="Samples\QueryTasks\QueryRelatedTables.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\QueryTasks\QueryWithBuffer.xaml">
+    <Page Include="Samples\QueryTasks\SpatialQuery.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

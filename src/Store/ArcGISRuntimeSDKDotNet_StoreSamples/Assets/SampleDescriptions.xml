@@ -402,6 +402,16 @@
             <title>Switch Basemaps</title>
             <category>Mapping</category>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FindTaskSample">
+            <summary>
+            Demonstrates how to search your data using the find task.
+            </summary>
+            <title>Find</title>
+            <category>Query Tasks</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FindTaskSample.#ctor">
+            <summary>Construct Find sample control</summary>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ClassBreaksRendererSample">
             <summary>
             Shows how to create a ClassBreaksRenderer for a graphics layer.
@@ -569,8 +579,9 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.AttributeQuery">
             <summary>
-            
+            Demonstrates performing an attribute query, adding the results to the map and UI, and zooming to the resulting geometry.
             </summary>
+            <title>Attribute Query</title>
             <category>Query Tasks</category>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.BatchGeocoding">
@@ -753,8 +764,9 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Identify">
             <summary>
-            
+            Demonstrates performing identify operations.
             </summary>
+            <title>Identify</title>
             <category>Query Tasks</category>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ArcGISImageServiceLayerSample">
@@ -799,20 +811,23 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.QueryOnly">
             <summary>
-            
+            Demonstrates how to use a QueryTask to query a map service without a map.
             </summary>
+            <title>Query Only</title>
             <category>Query Tasks</category>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.QueryRelatedRecords">
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.QueryRelatedTables">
             <summary>
-            
+            Demonstrates how to use a relationship query to display information from a related table for selected features.
             </summary>
+            <title>Query Related Tables</title>
             <category>Query Tasks</category>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.QueryWithBuffer">
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SpatialQuery">
             <summary>
-            
+            Demonstrates how to spatially search your data using a QueryTask with its geometry attribute set.
             </summary>
+            <title>Spatial Query</title>
             <category>Query Tasks</category>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ImageServiceRasterFunctions">
@@ -842,9 +857,16 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Statistics">
             <summary>
-            
+            Demonstrates how to use a QueryTask to get statistics from a map service.
             </summary>
+            <title>Statistics</title>
             <category>Query Tasks</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Statistics.#ctor">
+            <summary>Construct Statistics sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DoubleToStringConverter">
+            <summary>Double to formatted string value converter</summary>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Stretch">
             <summary>

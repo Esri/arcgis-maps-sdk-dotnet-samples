@@ -1,10 +1,9 @@
-﻿<Page x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.QueryWithBuffer" 
+﻿<Page x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SpatialQuery" 
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-      xmlns:local="using:InteractiveSDK.Samples.Maps" 
-      xmlns:esri="using:Esri.ArcGISRuntime.Controls"  xmlns:lyr="using:Esri.ArcGISRuntime.Layers" 
+      xmlns:esri="using:Esri.ArcGISRuntime.Controls"
+      xmlns:lyr="using:Esri.ArcGISRuntime.Layers" 
       xmlns:sym="using:Esri.ArcGISRuntime.Symbology">
-
     <Grid x:Name="LayoutRoot" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
             <sym:PictureMarkerSymbol x:Key="DefaultMarkerSymbol"/>
@@ -22,17 +21,21 @@
             </sym:SimpleFillSymbol>
             <sym:SimpleRenderer x:Key="ParcelRenderer" Symbol="{StaticResource ParcelSymbol}" />
         </Grid.Resources>
-        <esri:MapView x:Name="mapView1" MapViewTapped="mapView1_Tapped_1">
-            <esri:Map  >
-                <lyr:ArcGISTiledMapServiceLayer ID="StreetMapLayer" ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-                <lyr:GraphicsLayer ID="MyResultsGraphicsLayer" Renderer="{StaticResource ParcelRenderer}"/>
-                <lyr:GraphicsLayer ID="BufferLayer"   Renderer="{StaticResource BufferRenderer}"/>
-                <lyr:GraphicsLayer ID="MyGraphicsLayer" Renderer="{StaticResource DefaultRenderer}"/>
+        
+        <esri:MapView x:Name="mapView" MapViewTapped="mapView_Tapped">
+            <esri:Map>
+                <lyr:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+                <lyr:GraphicsLayer ID="ResultsGraphicsLayer" Renderer="{StaticResource ParcelRenderer}"/>
+                <lyr:GraphicsLayer ID="BufferLayer" Renderer="{StaticResource BufferRenderer}"/>
+                <lyr:GraphicsLayer ID="GraphicsLayer" Renderer="{StaticResource DefaultRenderer}"/>
             </esri:Map>
         </esri:MapView>
-        <Border Margin="20" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#CC000000" Padding="20">
+
+        <Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
             <TextBlock x:Name="InformationTextBlock" 
-                       Text="Click on map to set a location. A buffer will used to display parcels within 100 meters of the location." Width="200" Margin="30,20,30,25" HorizontalAlignment="Left" TextWrapping="Wrap" />
+                       Text="Click on map to set a location. A buffer will used to display parcels within 100 meters of the location."
+                       Width="200" TextWrapping="Wrap" />
         </Border>
     </Grid>
 </Page>

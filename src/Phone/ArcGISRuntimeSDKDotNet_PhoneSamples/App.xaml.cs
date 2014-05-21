@@ -1,223 +1,135 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Resources;
-using System.Windows;
-using System.Windows.Markup;
-using System.Windows.Navigation;
-using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
-using ArcGISRuntimeSDKDotNet_PhoneSamples.Resources;
+using Windows.ApplicationModel;
+using Windows.ApplicationModel.Activation;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Xaml.Navigation;
 
 namespace ArcGISRuntimeSDKDotNet_PhoneSamples
 {
-    public partial class App : Application
+    /// <summary>
+    /// Provides application-specific behavior to supplement the default Application class.
+    /// </summary>
+    public sealed partial class App : Application
     {
-        /// <summary>
-        /// Provides easy access to the root frame of the Phone Application.
-        /// </summary>
-        /// <returns>The root frame of the Phone Application.</returns>
-        public static PhoneApplicationFrame RootFrame { get; private set; }
+        private TransitionCollection transitions;
 
         /// <summary>
-        /// Constructor for the Application object.
+        /// Initializes the singleton application object.  This is the first line of authored code
+        /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
         public App()
         {
-            // Global handler for uncaught exceptions.
-            UnhandledException += Application_UnhandledException;
+            this.InitializeComponent();
+            this.Suspending += this.OnSuspending;
+        }
 
-            // Standard XAML initialization
-            InitializeComponent();
-
-            // Phone-specific initialization
-            InitializePhoneApplication();
-
-            // Language display initialization
-            InitializeLanguage();
-
-            // Show graphics profiling information while debugging.
-            if (Debugger.IsAttached)
+        /// <summary>
+        /// Invoked when the application is launched normally by the end user.  Other entry points
+        /// will be used when the application is launched to open a specific file, to display
+        /// search results, and so forth.
+        /// </summary>
+        /// <param name="e">Details about the launch request and process.</param>
+        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        {
+#if DEBUG
+            if (System.Diagnostics.Debugger.IsAttached)
             {
-                // Display the current frame rate counters.
-                Application.Current.Host.Settings.EnableFrameRateCounter = true;
-
-                // Show the areas of the app that are being redrawn in each frame.
-                //Application.Current.Host.Settings.EnableRedrawRegions = true;
-
-                // Enable non-production analysis visualization mode,
-                // which shows areas of a page that are handed off to GPU with a colored overlay.
-                //Application.Current.Host.Settings.EnableCacheVisualization = true;
-
-                // Prevent the screen from turning off while under the debugger by disabling
-                // the application's idle detection.
-                // Caution:- Use this under debug mode only. Application that disables user idle detection will continue to run
-                // and consume battery power when the user is not using the phone.
-                PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
+                this.DebugSettings.EnableFrameRateCounter = true;
             }
+#endif
 
-        }
+            Frame rootFrame = Window.Current.Content as Frame;
 
-        // Code to execute when the application is launching (eg, from Start)
-        // This code will not execute when the application is reactivated
-        private void Application_Launching(object sender, LaunchingEventArgs e)
-        {
-        }
-
-        // Code to execute when the application is activated (brought to foreground)
-        // This code will not execute when the application is first launched
-        private void Application_Activated(object sender, ActivatedEventArgs e)
-        {
-        }
-
-        // Code to execute when the application is deactivated (sent to background)
-        // This code will not execute when the application is closing
-        private void Application_Deactivated(object sender, DeactivatedEventArgs e)
-        {
-        }
-
-        // Code to execute when the application is closing (eg, user hit Back)
-        // This code will not execute when the application is deactivated
-        private void Application_Closing(object sender, ClosingEventArgs e)
-        {
-        }
-
-        // Code to execute if a navigation fails
-        private void RootFrame_NavigationFailed(object sender, NavigationFailedEventArgs e)
-        {
-            if (Debugger.IsAttached)
+            // Do not repeat app initialization when the Window already has content,
+            // just ensure that the window is active
+            if (rootFrame == null)
             {
-                // A navigation has failed; break into the debugger
-                Debugger.Break();
-            }
-        }
+                // Create a Frame to act as the navigation context and navigate to the first page
+                rootFrame = new Frame();
 
-        // Code to execute on Unhandled Exceptions
-        private void Application_UnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)
-        {
-            if (Debugger.IsAttached)
-            {
-                // An unhandled exception has occurred; break into the debugger
-                Debugger.Break();
-            }
-        }
+                // TODO: change this value to a cache size that is appropriate for your application
+                rootFrame.CacheSize = 1;
 
-        #region Phone application initialization
-
-        // Avoid double-initialization
-        private bool phoneApplicationInitialized = false;
-
-        // Do not add any additional code to this method
-        private void InitializePhoneApplication()
-        {
-            if (phoneApplicationInitialized)
-                return;
-
-            // Create the frame but don't set it as RootVisual yet; this allows the splash
-            // screen to remain active until the application is ready to render.
-            RootFrame = new PhoneApplicationFrame();
-            RootFrame.Navigated += CompleteInitializePhoneApplication;
-
-            // Handle navigation failures
-            RootFrame.NavigationFailed += RootFrame_NavigationFailed;
-
-            // Handle reset requests for clearing the backstack
-            RootFrame.Navigated += CheckForResetNavigation;
-
-            // Ensure we don't initialize again
-            phoneApplicationInitialized = true;
-        }
-
-        // Do not add any additional code to this method
-        private void CompleteInitializePhoneApplication(object sender, NavigationEventArgs e)
-        {
-            // Set the root visual to allow the application to render
-            if (RootVisual != RootFrame)
-                RootVisual = RootFrame;
-
-            // Remove this handler since it is no longer needed
-            RootFrame.Navigated -= CompleteInitializePhoneApplication;
-        }
-
-        private void CheckForResetNavigation(object sender, NavigationEventArgs e)
-        {
-            // If the app has received a 'reset' navigation, then we need to check
-            // on the next navigation to see if the page stack should be reset
-            if (e.NavigationMode == NavigationMode.Reset)
-                RootFrame.Navigated += ClearBackStackAfterReset;
-        }
-
-        private void ClearBackStackAfterReset(object sender, NavigationEventArgs e)
-        {
-            // Unregister the event so it doesn't get called again
-            RootFrame.Navigated -= ClearBackStackAfterReset;
-
-            // Only clear the stack for 'new' (forward) and 'refresh' navigations
-            if (e.NavigationMode != NavigationMode.New && e.NavigationMode != NavigationMode.Refresh)
-                return;
-
-            // For UI consistency, clear the entire page stack
-            while (RootFrame.RemoveBackEntry() != null)
-            {
-                ; // do nothing
-            }
-        }
-
-        #endregion
-
-        // Initialize the app's font and flow direction as defined in its localized resource strings.
-        //
-        // To ensure that the font of your application is aligned with its supported languages and that the
-        // FlowDirection for each of those languages follows its traditional direction, ResourceLanguage
-        // and ResourceFlowDirection should be initialized in each resx file to match these values with that
-        // file's culture. For example:
-        //
-        // AppResources.es-ES.resx
-        //    ResourceLanguage's value should be "es-ES"
-        //    ResourceFlowDirection's value should be "LeftToRight"
-        //
-        // AppResources.ar-SA.resx
-        //     ResourceLanguage's value should be "ar-SA"
-        //     ResourceFlowDirection's value should be "RightToLeft"
-        //
-        // For more info on localizing Windows Phone apps see http://go.microsoft.com/fwlink/?LinkId=262072.
-        //
-        private void InitializeLanguage()
-        {
-            try
-            {
-                // Set the font to match the display language defined by the
-                // ResourceLanguage resource string for each supported language.
-                //
-                // Fall back to the font of the neutral language if the Display
-                // language of the phone is not supported.
-                //
-                // If a compiler error is hit then ResourceLanguage is missing from
-                // the resource file.
-                RootFrame.Language = XmlLanguage.GetLanguage(AppResources.ResourceLanguage);
-
-                // Set the FlowDirection of all elements under the root frame based
-                // on the ResourceFlowDirection resource string for each
-                // supported language.
-                //
-                // If a compiler error is hit then ResourceFlowDirection is missing from
-                // the resource file.
-                FlowDirection flow = (FlowDirection)Enum.Parse(typeof(FlowDirection), AppResources.ResourceFlowDirection);
-                RootFrame.FlowDirection = flow;
-            }
-            catch
-            {
-                // If an exception is caught here it is most likely due to either
-                // ResourceLangauge not being correctly set to a supported language
-                // code or ResourceFlowDirection is set to a value other than LeftToRight
-                // or RightToLeft.
-
-                if (Debugger.IsAttached)
+                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
-                    Debugger.Break();
+                    // TODO: Load state from previously suspended application
                 }
 
-                throw;
+                // Place the frame in the current Window
+                Window.Current.Content = rootFrame;
             }
+
+            if (rootFrame.Content == null)
+            {
+                // Removes the turnstile navigation for startup.
+                if (rootFrame.ContentTransitions != null)
+                {
+                    this.transitions = new TransitionCollection();
+                    foreach (var c in rootFrame.ContentTransitions)
+                    {
+                        this.transitions.Add(c);
+                    }
+                }
+
+                rootFrame.ContentTransitions = null;
+                rootFrame.Navigated += this.RootFrame_FirstNavigated;
+
+                // When the navigation stack isn't restored navigate to the first page,
+                // configuring the new page by passing required information as a navigation
+                // parameter
+                if (!rootFrame.Navigate(typeof(MainPage), e.Arguments))
+                {
+                    throw new Exception("Failed to create initial page");
+                }
+#if WINDOWS_PHONE_APP
+                m_rootFrame = rootFrame;
+                Windows.Phone.UI.Input.HardwareButtons.BackPressed += HardwareButtons_BackPressed;
+#endif
+            }
+
+            // Ensure the current window is active
+            Window.Current.Activate();
+        }
+
+#if WINDOWS_PHONE_APP
+        private Frame m_rootFrame;
+        void HardwareButtons_BackPressed(object sender, Windows.Phone.UI.Input.BackPressedEventArgs e)
+        {
+            if (m_rootFrame != null && m_rootFrame.CanGoBack)
+            {
+                m_rootFrame.GoBack();
+                e.Handled = true;
+            }
+        }
+#endif
+
+        /// <summary>
+        /// Restores the content transitions after the app has launched.
+        /// </summary>
+        /// <param name="sender">The object where the handler is attached.</param>
+        /// <param name="e">Details about the navigation event.</param>
+        private void RootFrame_FirstNavigated(object sender, NavigationEventArgs e)
+        {
+            var rootFrame = sender as Frame;
+            rootFrame.ContentTransitions = this.transitions ?? new TransitionCollection() { new NavigationThemeTransition() };
+            rootFrame.Navigated -= this.RootFrame_FirstNavigated;
+        }
+
+        /// <summary>
+        /// Invoked when application execution is being suspended.  Application state is saved
+        /// without knowing whether the application will be terminated or resumed with the contents
+        /// of memory still intact.
+        /// </summary>
+        /// <param name="sender">The source of the suspend request.</param>
+        /// <param name="e">Details about the suspend request.</param>
+        private void OnSuspending(object sender, SuspendingEventArgs e)
+        {
+            var deferral = e.SuspendingOperation.GetDeferral();
+
+            // TODO: Save application state and stop any background activity
+            deferral.Complete();
         }
     }
 }

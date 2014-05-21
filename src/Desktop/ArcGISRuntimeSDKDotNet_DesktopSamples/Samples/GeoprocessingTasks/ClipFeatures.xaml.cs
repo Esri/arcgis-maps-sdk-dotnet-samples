@@ -121,7 +121,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             try
             {
-                var result = await _gpTask.GetServiceInfoAsync();
+                var result = await _gpTask.GetTaskInfoAsync();
 
                 var sb = new StringBuilder();
                 if (result != null)

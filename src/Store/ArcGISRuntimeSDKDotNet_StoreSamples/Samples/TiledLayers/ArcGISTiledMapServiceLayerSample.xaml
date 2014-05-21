@@ -7,7 +7,7 @@
         <esri:MapView>
             <esri:Map>
                 <esriLayers:ArcGISTiledMapServiceLayer
-				ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+				    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
             </esri:Map>
         </esri:MapView>
     </Grid>

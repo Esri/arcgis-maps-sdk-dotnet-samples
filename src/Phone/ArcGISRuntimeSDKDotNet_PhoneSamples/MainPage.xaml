@@ -1,40 +1,51 @@
-﻿<phone:PhoneApplicationPage
+﻿<Page
     x:Class="ArcGISRuntimeSDKDotNet_PhoneSamples.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
-    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:local="using:ArcGISRuntimeSDKDotNet_PhoneSamples"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"    
     mc:Ignorable="d"
-    FontFamily="{StaticResource PhoneFontFamilyNormal}"
-    FontSize="{StaticResource PhoneFontSizeNormal}"
-    Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="Portrait" Orientation="Portrait"
-    shell:SystemTray.IsVisible="True">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid x:Name="LayoutRoot" Background="Transparent">
-        <phone:LongListSelector ItemsSource="{Binding SamplesByCategory}"
-							IsGroupingEnabled="True"	
-							LayoutMode="List"
-						    HideEmptyGroups="False"
-						    SelectionChanged="LongListSelector_SelectionChanged">
-            <phone:LongListSelector.GroupHeaderTemplate>
+    <Page.Resources>
+        <CollectionViewSource
+            x:Name="groupedItemsViewSource"
+            Source="{Binding SamplesByCategory}"
+            IsSourceGrouped="true"
+            ItemsPath="Items"
+            />
+    </Page.Resources>
+
+    <Grid>
+        <ListView ItemsSource="{Binding Source={StaticResource groupedItemsViewSource}}"
+				  ItemClick="ListView_ItemClick" 
+				  SelectionMode="None" 
+				  IsSwipeEnabled="False" 
+				  IsItemClickEnabled="True">
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <Border Background="Transparent" Padding="5" HorizontalAlignment="Stretch">
+                                <Border Background="{StaticResource PhoneAccentBrush}" 
+                                        BorderBrush="{StaticResource PhoneAccentBrush}" 
+                                        BorderThickness="2" HorizontalAlignment="Stretch">
+                                    <TextBlock Text="{Binding Key}" Foreground="{StaticResource PhoneForegroundBrush}" 
+                                           Style="{StaticResource ListViewItemTextBlockStyle}"
+                                           HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                           Padding="5"/>
+                                </Border>
+                            </Border>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </ListView.GroupStyle>
+            <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border Background="Transparent" Padding="5">
-                        <Border Background="{StaticResource PhoneAccentBrush}" BorderBrush="{StaticResource PhoneAccentBrush}" BorderThickness="2"
-							 Height="58" Margin="0,0,18,0" HorizontalAlignment="Stretch">
-                            <TextBlock Text="{Binding Key}" Foreground="{StaticResource PhoneForegroundBrush}" FontSize="36" Padding="6" 
-							FontFamily="{StaticResource PhoneFontFamilySemiLight}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        </Border>
-                    </Border>
+                    <TextBlock Text="{Binding Name}" Style="{StaticResource ListViewItemTextBlockStyle}" Padding="5" />
                 </DataTemplate>
-            </phone:LongListSelector.GroupHeaderTemplate>
-            <phone:LongListSelector.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextTitle2Style}" />
-                </DataTemplate>
-            </phone:LongListSelector.ItemTemplate>
-        </phone:LongListSelector>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
-</phone:PhoneApplicationPage>
+</Page>

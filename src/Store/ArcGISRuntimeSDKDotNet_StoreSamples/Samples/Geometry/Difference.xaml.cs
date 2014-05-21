@@ -1,118 +1,96 @@
 ﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
-using System.Collections.Generic;
+using Esri.ArcGISRuntime.Symbology;
+using System;
 using System.Linq;
+using System.Threading.Tasks;
+using Windows.Storage;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
-	/// <summary>
-	/// 
-	/// </summary>
+    /// <summary>
+    /// Example of using the GeometryEngine.Difference or GeometryEngine.SymmetricDifference methods to calculate the geometric difference between feature geometries and a user defined geometry.
+    /// </summary>
+    /// <title>Difference</title>
     /// <category>Geometry</category>
-	public sealed partial class Difference : Page
+    public partial class Difference : Windows.UI.Xaml.Controls.Page
     {
-        GraphicsLayer inputGraphicsLayer;
-        GraphicsLayer outputGraphicsLayer;
-        GraphicsLayer drawGraphicsLayer;
-        Polygon inputDifferencePolygonGeometry;
+        private const string GdbPath = @"samples-data\maps\usa.geodatabase";
+
+        private Symbol _fillSymbol;
+        private FeatureLayer _statesLayer;
+        private GraphicsLayer _differenceGraphics;
+
+        /// <summary>Construct Difference sample control</summary>
         public Difference()
         {
             InitializeComponent();
 
-            mapView1.Map.InitialExtent = new Envelope(-117.5, 32.5, -116.5, 35.5, SpatialReferences.Wgs84);
-            inputGraphicsLayer = mapView1.Map.Layers["InputGraphicsLayer"] as GraphicsLayer;
-            outputGraphicsLayer = mapView1.Map.Layers["OutputGraphicsLayer"] as GraphicsLayer;
-            drawGraphicsLayer = mapView1.Map.Layers["DrawGraphicsLayer"] as GraphicsLayer;
-
-            AddInputGraphics();
-
-        }
-        private void AddInputGraphics()
-        {
-            var g = new Graphic
-            {
-                Geometry = new Polygon(new List<Coordinate> {
-                new Coordinate(-116.5,33),
-                new Coordinate(-116.5,34),
-                new Coordinate(-116,34),
-                new Coordinate(-116,33)
-            }, mapView1.SpatialReference),
-            };
-
-            inputGraphicsLayer.Graphics.Add(g);
-
-            g = new Graphic
-            {
-                Geometry = new Polygon(new List<Coordinate> {
-                new Coordinate(-118,34),
-                new Coordinate(-118,35),
-                new Coordinate(-117.5,35),
-                new Coordinate(-117.5,34)
+            _fillSymbol = LayoutRoot.Resources["FillSymbol"] as Symbol;
+            _differenceGraphics = mapView.Map.Layers["DifferenceGraphics"] as GraphicsLayer;
                 
-            }, mapView1.SpatialReference)
-            };
-            inputGraphicsLayer.Graphics.Add(g);
-
-            g = new Graphic
-            {
-                Geometry = new Polygon(new List<Coordinate> {
-                new Coordinate(-117.3,34),
-                new Coordinate(-116.3,34),
-                new Coordinate(-116.3,33.5),
-                new Coordinate(-117.3,33.5)
-                
-            }, mapView1.SpatialReference)
-            };
-            inputGraphicsLayer.Graphics.Add(g);
+            var task = CreateFeatureLayersAsync();
         }
 
-        private async void StartButton_Click(object sender, RoutedEventArgs e)
+        // Creates a feature layer from a local .geodatabase file
+        private async Task CreateFeatureLayersAsync()
         {
-
-            outputGraphicsLayer.Graphics.Clear();
-
-            InstructionsTextBlock.Visibility = Windows.UI.Xaml.Visibility.Visible;
-
-            InstructionsTextBlock.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            StartButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-            ResetButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
-
-            //Get the user's input geometry and add it to the map
-            inputDifferencePolygonGeometry = (await mapView1.Editor.RequestShapeAsync(DrawShape.Polygon)) as Polygon;
-            drawGraphicsLayer.Graphics.Clear();
-            drawGraphicsLayer.Graphics.Add(new Graphic { Geometry = inputDifferencePolygonGeometry });
-
-            //Simplify the input geometry
-            var simplifyGeometry = GeometryEngine.Simplify(inputDifferencePolygonGeometry);
-
-            //Generate the difference geometries
-            var inputGeometries1 = inputGraphicsLayer.Graphics.Select(x => x.Geometry).ToList();
-            var inputGeometries2 = new List<Geometry> { simplifyGeometry };
-            var differenceOutputGeometries = GeometryEngine.Difference(inputGeometries1, inputGeometries2);
-
-            //Add the difference geometries to the amp
-            foreach (var geom in differenceOutputGeometries)
+            try
             {
-                outputGraphicsLayer.Graphics.Add(new Graphic { Geometry = geom });
+                var file = await ApplicationData.Current.LocalFolder.TryGetItemAsync(GdbPath);
+                if (file == null)
+                    throw new Exception("Local geodatabase not found. Please download sample data from 'Sample Data Settings'");
+
+                var gdb = await Geodatabase.OpenAsync(file.Path);
+                var table = gdb.FeatureTables.First(ft => ft.Name == "US-States");
+                _statesLayer = new FeatureLayer() { ID = table.Name, FeatureTable = table };
+                mapView.Map.Layers.Insert(1, _statesLayer);
             }
-
-            ResetButton.IsEnabled = true;
+            catch (Exception ex)
+            {
+                var _ = new MessageDialog("Error creating feature layer: " + ex.Message, "Sample Error").ShowAsync();
+            }
         }
 
-
-
-        private void ResetButton_Click(object sender, RoutedEventArgs e)
+        // Calculates a geometric difference between features and user defined geometry
+        private async void DifferenceButton_Click(object sender, RoutedEventArgs e)
         {
-            drawGraphicsLayer.Graphics.Clear();
-            outputGraphicsLayer.Graphics.Clear();
-            InstructionsTextBlock.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-            StartButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            ResetButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-            ResetButton.IsEnabled = false;
-        }
+            try
+            {
+                _differenceGraphics.Graphics.Clear();
 
+                // wait for user to draw difference polygon
+                var poly = await mapView.Editor.RequestShapeAsync(DrawShape.Polygon);
+
+                // Adjust user polygon for backward digitization
+                poly = GeometryEngine.Simplify(poly);
+
+                // get intersecting features from the feature layer
+                SpatialQueryFilter filter = new SpatialQueryFilter();
+                filter.Geometry = GeometryEngine.Project(poly, _statesLayer.FeatureTable.SpatialReference);
+                filter.SpatialRelationship = SpatialRelationship.Intersects;
+                filter.MaximumRows = 52;
+                var stateFeatures = await _statesLayer.FeatureTable.QueryAsync(filter);
+
+                // Calc difference between feature geometries and user polygon and add results to graphics layer
+                var states = stateFeatures.Select(feature => feature.Geometry);
+
+                var diffGraphics = states
+                    .Select(state => ((bool)useSymmetricDifference.IsChecked)
+                        ? GeometryEngine.SymmetricDifference(state, poly)
+                        : GeometryEngine.Difference(state, poly))
+                    .Select(geo => new Graphic(geo, _fillSymbol));
+
+                _differenceGraphics.Graphics.AddRange(diffGraphics);
+            }
+            catch (Exception ex)
+            {
+                var _ = new MessageDialog("Difference Error: " + ex.Message, "Sample Error").ShowAsync();
+            }
+        }
     }
 }

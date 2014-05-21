@@ -21,7 +21,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private void mapView_ExtentChanged(object sender, System.EventArgs e)
         {
-            var center = mapView.Extent.GetCenter();
+            var center = GeometryEngine.Project(mapView.Extent.GetCenter(), SpatialReferences.Wgs84);
 
             if (!(clickOverlay.DataContext is MapPoint))
                 clickOverlay.DataContext = center;
@@ -31,7 +31,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private void mapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
-            clickOverlay.DataContext = e.Location;
+            clickOverlay.DataContext = GeometryEngine.Project(e.Location, SpatialReferences.Wgs84);
         }
     }
 }

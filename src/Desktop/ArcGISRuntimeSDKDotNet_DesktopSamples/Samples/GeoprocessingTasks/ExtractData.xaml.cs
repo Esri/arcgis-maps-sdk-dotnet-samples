@@ -41,7 +41,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                var info = await _gpTask.GetServiceInfoAsync();
+                var info = await _gpTask.GetTaskInfoAsync();
 
                 listLayers.ItemsSource = info.Parameters.First(p => p.Name == "Layers_to_Clip").ChoiceList;
 

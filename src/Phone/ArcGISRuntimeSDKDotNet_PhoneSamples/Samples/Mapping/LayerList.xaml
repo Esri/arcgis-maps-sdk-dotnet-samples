@@ -1,0 +1,89 @@
+﻿<Page
+    x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.LayerList"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ArcGISRuntimeSDKDotNet_StoreSamples.Samples"
+    xmlns:esri="using:Esri.ArcGISRuntime.Controls"  
+    xmlns:esriLayers="using:Esri.ArcGISRuntime.Layers"
+    xmlns:esriData="using:Esri.ArcGISRuntime.Data">
+    <Page.Resources>
+        <local:BooleanToVisibilityConverter x:Key="vizBoolConv" />
+    </Page.Resources>
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <esri:MapView x:Name="mapView1" Grid.Column="1"><esri:Map  >
+            <esriLayers:ArcGISTiledMapServiceLayer DisplayName="Basemap"
+				ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" />
+
+            <esriLayers:ArcGISDynamicMapServiceLayer DisplayName="Fire Potential" Opacity=".35"
+				ServiceUri="http://maps1.arcgisonline.com/ArcGIS/rest/services/RMRS_Wildland_Fire_Potential/MapServer" />
+
+            <!--<lyr:GroupLayer DisplayName="Fire GroupLayer">-->
+            <esriLayers:FeatureLayer>
+                <esriLayers:FeatureLayer.FeatureTable>
+                    <esriData:GeodatabaseFeatureServiceTable
+                        ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Fire/Sheep/FeatureServer/2" 
+                        />
+                </esriLayers:FeatureLayer.FeatureTable>
+            </esriLayers:FeatureLayer>
+            <esriLayers:FeatureLayer>
+                <esriLayers:FeatureLayer.FeatureTable>
+                    <esriData:GeodatabaseFeatureServiceTable
+                        ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Fire/Sheep/FeatureServer/1" 
+                        />
+                </esriLayers:FeatureLayer.FeatureTable>
+            </esriLayers:FeatureLayer>
+            <esriLayers:FeatureLayer>
+                <esriLayers:FeatureLayer.FeatureTable>
+                    <esriData:GeodatabaseFeatureServiceTable
+                        ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Fire/Sheep/FeatureServer/0" 
+                        />
+                </esriLayers:FeatureLayer.FeatureTable>
+            </esriLayers:FeatureLayer>
+            <!--</lyr:GroupLayer>-->
+        </esri:Map></esri:MapView>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Drag layers to reorder them" Margin="20" FontWeight="Bold" />
+
+            <ListView ItemsSource="{Binding ElementName=mapView1, Path=Map.Layers}" 
+				Margin="20,0,0,20"
+				Grid.Row="1"
+				CanReorderItems="True"
+				CanDragItems="True"
+				AllowDrop="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding DisplayName}" FontSize="18" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel>
+                                    <ToggleSwitch IsOn="{Binding IsVisible, Mode=TwoWay}" />
+                                    <Slider Value="{Binding Opacity, Mode=TwoWay}" StepFrequency="0.01" Minimum="0" Maximum="1" />
+                                </StackPanel>
+								<AppBarButton Icon="Delete"
+										Grid.Column="1" Click="RemoveLayerButton_Click" 
+										Margin="0,-30,-60,-30" VerticalAlignment="Center" />
+                            </Grid>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </Grid>
+    </Grid>
+</Page>

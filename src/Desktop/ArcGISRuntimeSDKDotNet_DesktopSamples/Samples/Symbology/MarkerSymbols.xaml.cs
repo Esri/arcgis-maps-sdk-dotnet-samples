@@ -7,7 +7,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
@@ -85,35 +84,16 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 await Task.WhenAll(setSourceTasks);
 
                 // Create image swatches for the UI
-                Task<ImageSource>[] swatchTasks = _symbols.OfType<SimpleMarkerSymbol>()
+                Task<ImageSource>[] swatchTasks = _symbols
                     .Select(sym => sym.CreateSwatchAsync(size, size, 96.0, Colors.Transparent))
                     .ToArray();
 
-                var imageSources = new List<ImageSource>(await Task.WhenAll(swatchTasks));
-
-                // Manually create swatches for the picture marker symbols
-                imageSources.Add(LoadImage("pack://application:,,,/ArcGISRuntimeSDKDotNet_DesktopSamples;component/Assets/RedStickpin.png", size));
-                imageSources.Add(LoadImage("pack://application:,,,/ArcGISRuntimeSDKDotNet_DesktopSamples;component/Assets/RedPushpin.png", size));
-                imageSources.Add(LoadImage("pack://application:,,,/ArcGISRuntimeSDKDotNet_DesktopSamples;component/Assets/x-24x24.png", size));
-
-                symbolCombo.ItemsSource = imageSources;
+                symbolCombo.ItemsSource = await Task.WhenAll(swatchTasks);
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Error: " + ex.Message);
             }
-        }
-
-        // Loads and resizes embedded image
-        private ImageSource LoadImage(string path, int size)
-        {
-            BitmapImage source = new BitmapImage();
-            source.BeginInit();
-            source.UriSource = new Uri(path);
-            source.DecodePixelHeight = size;
-            source.DecodePixelWidth = size;
-            source.EndInit();
-            return source;
         }
     }
 }

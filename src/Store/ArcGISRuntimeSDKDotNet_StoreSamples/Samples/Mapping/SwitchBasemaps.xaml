@@ -14,29 +14,31 @@
             </esri:Map>
         </esri:MapView>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10">
-            <StackPanel.Resources>
-                <Style TargetType="RadioButton">
-                    <Setter Property="Foreground" Value="Black" />
-                    <Setter Property="Background" Value="White" />
-                    <Setter Property="BorderBrush" Value="Black" />
-                    <Setter Property="BorderThickness" Value="1" />
-                    <Setter Property="Padding" Value="5" />
-                    <Setter Property="Margin" Value="5,0,5,0" />
-                </Style>
-            </StackPanel.Resources>
-            <RadioButton Tag="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" 
-                         IsChecked="true" 
-                         GroupName="Layers" Content="Streets" Click="RadioButton_Click"/>
-            <RadioButton Tag="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" 
+        <Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" 
+                Margin="30" Padding="20">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel.Resources>
+                    <Style TargetType="RadioButton">
+                        <Setter Property="Foreground" Value="Black" />
+                        <Setter Property="Background" Value="White" />
+                        <Setter Property="BorderBrush" Value="Black" />
+                        <Setter Property="BorderThickness" Value="1" />
+                        <Setter Property="Padding" Value="5" />
+                        <Setter Property="Margin" Value="5,0" />
+                    </Style>
+                </StackPanel.Resources>
+                
+                <RadioButton Tag="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" 
+                         IsChecked="true" GroupName="Layers" Content="Streets" Click="RadioButton_Click"/>
+                <RadioButton Tag="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" 
                          GroupName="Layers" Content="Topographic" Click="RadioButton_Click"/>
-            <RadioButton Tag="http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" 
+                <RadioButton Tag="http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" 
                          GroupName="Layers" Content="Imagery" Click="RadioButton_Click"/>
-            <RadioButton Tag="http://services.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer" 
+                <RadioButton Tag="http://services.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer" 
                          GroupName="Layers" Content="Oceans" Click="RadioButton_Click"/>
-            <RadioButton Tag="http://services.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer" 
+                <RadioButton Tag="http://services.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer" 
                          GroupName="Layers" Content="National Geographic" Click="RadioButton_Click"/>
-        </StackPanel>
-
+            </StackPanel>
+        </Border>
     </Grid>
 </Page>

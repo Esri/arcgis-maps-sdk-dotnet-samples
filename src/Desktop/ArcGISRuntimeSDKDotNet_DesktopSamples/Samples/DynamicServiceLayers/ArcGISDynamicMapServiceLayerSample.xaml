@@ -3,11 +3,30 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid Background="LightBlue">
-        <esri:MapView>
+        <esri:MapView x:Name="mapView">
             <esri:Map>
-                <esri:ArcGISDynamicMapServiceLayer 
-                ServiceUri="http://maps7.arcgisonline.com/arcgis/rest/services/Veterans_by_Race_and_Ethnicity/MapServer"/>
+                <esri:Map.InitialExtent>
+                    <esri:Envelope XMin="-3548912" YMin="-1847469" XMax="2472012" YMax="1742990">
+                        <esri:Envelope.SpatialReference>
+                            <esri:SpatialReference Wkid="102009"/>
+                        </esri:Envelope.SpatialReference>
+                    </esri:Envelope>
+                </esri:Map.InitialExtent>
+
+                <esri:ArcGISDynamicMapServiceLayer ID="USA"
+                    ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer" />
             </esri:Map>
         </esri:MapView>
+
+        <Border Background="White" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
+            <ItemsControl x:Name="visibleLayers">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Content="{Binding Item1, Mode=OneWay}" Tag="{Binding}" IsChecked="{Binding Item3, Mode=OneWay}" Click="LayerCheckBox_Click" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Border>
     </Grid>
 </UserControl>
+

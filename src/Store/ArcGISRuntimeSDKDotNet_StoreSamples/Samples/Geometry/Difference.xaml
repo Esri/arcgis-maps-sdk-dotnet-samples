@@ -5,74 +5,50 @@
     xmlns:local="using:ArcGISRuntimeSDKDotNet_StoreSamples.Samples"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    	xmlns:esri="using:Esri.ArcGISRuntime.Controls"  xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
-	xmlns:sym="using:Esri.ArcGISRuntime.Symbology"
-    xmlns:geom="using:Esri.ArcGISRuntime.Geometry"
-    xmlns:core="using:Esri.ArcGISRuntime"
+    xmlns:common="using:ArcGISRuntimeSDKDotNet_StoreSamples.Common"
+    xmlns:esri="using:Esri.ArcGISRuntime.Controls"
+    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
+    xmlns:geo="using:Esri.ArcGISRuntime.Geometry"
+    xmlns:sym="using:Esri.ArcGISRuntime.Symbology"
+    xmlns:data="using:Esri.ArcGISRuntime.Data"
     mc:Ignorable="d">
-
     <Grid x:Name="LayoutRoot" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
+            <common:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 
-
-
-
-
+            <sym:SimpleFillSymbol x:Key="FillSymbol" Color="#660000FF" Style="Solid">
+                <sym:SimpleFillSymbol.Outline>
+                    <sym:SimpleLineSymbol Color="Blue" Width="2" />
+                </sym:SimpleFillSymbol.Outline>
+            </sym:SimpleFillSymbol>
         </Grid.Resources>
-        <esri:MapView x:Name="mapView1"><esri:Map  >
-            <lyr:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
-        		ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer" />
-            <lyr:GraphicsLayer ID="InputGraphicsLayer" >
-                <lyr:GraphicsLayer.Renderer>
-                    <sym:SimpleRenderer>
-                        <sym:SimpleFillSymbol  Color="#66FF0000"    >
-                            <sym:SimpleFillSymbol.Outline>
-                                <sym:SimpleLineSymbol Color="Red" Width="1"/>
-                            </sym:SimpleFillSymbol.Outline>
-                        </sym:SimpleFillSymbol>
-                    </sym:SimpleRenderer>
-                </lyr:GraphicsLayer.Renderer>
-            </lyr:GraphicsLayer>
-            <lyr:GraphicsLayer ID="DrawGraphicsLayer">
-                <lyr:GraphicsLayer.Renderer>
-                    <sym:SimpleRenderer>
-                        <sym:SimpleFillSymbol  Color="#8800FFFF" >
-                            <sym:SimpleFillSymbol.Outline>
-                                <sym:SimpleLineSymbol Color="Cyan" Width="1"/>
-                            </sym:SimpleFillSymbol.Outline>
-                        </sym:SimpleFillSymbol>
-                    </sym:SimpleRenderer>
-                </lyr:GraphicsLayer.Renderer>
-            </lyr:GraphicsLayer>
 
-            <lyr:GraphicsLayer ID="OutputGraphicsLayer">
-                <lyr:GraphicsLayer.Renderer>
-                    <sym:SimpleRenderer>
-                        <sym:SimpleFillSymbol  Color="#88FFFF00">
-                            <sym:SimpleFillSymbol.Outline>
-                                <sym:SimpleLineSymbol Color="Yellow" Width="1"/>
-                            </sym:SimpleFillSymbol.Outline>
-                        </sym:SimpleFillSymbol>
-                    </sym:SimpleRenderer>
-                </lyr:GraphicsLayer.Renderer>
-            </lyr:GraphicsLayer>
+        <esri:MapView x:Name="mapView" WrapAround="True">
+            <esri:Map>
+                <esri:Map.InitialExtent>
+                    <geo:Envelope XMin="-15053000" YMin="2749000" XMax="-6540000" YMax="6590000" />
+                </esri:Map.InitialExtent>
 
-            <lyr:GraphicsLayer ID="MyPolygonGraphicsLayer" />
-            <lyr:GraphicsLayer ID="MyVerticesGraphicsLayer" />
-        </esri:Map></esri:MapView>
+                <lyr:ArcGISTiledMapServiceLayer
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
+                <lyr:GraphicsLayer ID="DifferenceGraphics" />
+            </esri:Map>
+        </esri:MapView>
 
-        <Grid HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,15,15,0" >
-            <Border  Background="Black" BorderThickness="1" BorderBrush="White" Padding="30,20,30,30">
-
-                <StackPanel Orientation="Vertical" >
-                    <Button x:Name="StartButton" Content="Start"  Click="StartButton_Click"  Width="250"/>
-                    <TextBlock x:Name="InstructionsTextBlock" Text="Create a polygon on the map that intersects the existing graphic on the map (red). When complete the difference between the polygon and the original graphics will be displayed (yellow).  Click the Reset button to remove the results." 
-                                Visibility="Collapsed" Width="250" TextAlignment="Left" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <Button x:Name="ResetButton" Content="Reset" Margin="0,15,0,0" Visibility="Collapsed" IsEnabled="False" Click="ResetButton_Click" Width="250" />
+        <Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
+            <StackPanel>
+                <TextBlock Text="Click the 'Difference' button to digitize a polygon and calculate the geometric difference between polygon features and the digitized polygon. Resulting difference polygons will be shown as blue graphics."
+                           Width="400" TextAlignment="Left" TextWrapping="Wrap" />
+                <StackPanel Margin="0,12,0,0" HorizontalAlignment="Center">
+                    <Button Content="Difference" Click="DifferenceButton_Click" HorizontalAlignment="Stretch"/>
+                    <CheckBox x:Name="useSymmetricDifference" Content="Use Symmetric Difference" Margin="0,12,0,0" HorizontalAlignment="Center" />
                 </StackPanel>
+            </StackPanel>
+        </Border>
 
-
-            </Border>
-        </Grid>
+        <Border Background="#CC000000" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="20" Padding="10"
+                Visibility="{Binding ElementName=mapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <TextBlock Text="Draw a polygon on the map." Margin="8" FontSize="14" />
+        </Border>
     </Grid>
 </Page>

@@ -1,20 +1,15 @@
-﻿<phone:PhoneApplicationPage
-    x:Class="ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.FeatureLayers"
+﻿<Page
+    x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayers"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
-	xmlns:esri="clr-namespace:Esri.ArcGISRuntime.Controls;assembly=Esri.ArcGISRuntime"
-	xmlns:esriLayers="clr-namespace:Esri.ArcGISRuntime.Layers;assembly=Esri.ArcGISRuntime"
-    xmlns:esriData="clr-namespace:Esri.ArcGISRuntime.Data;assembly=Esri.ArcGISRuntime">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+	xmlns:esri="using:Esri.ArcGISRuntime.Controls"  
+    xmlns:esriLayers="using:Esri.ArcGISRuntime.Layers"
+    xmlns:esriData="using:Esri.ArcGISRuntime.Data">
 
-    <Grid Background="{StaticResource PhoneBackgroundBrush}">
-
-        <esri:MapView>
-            <esri:Map InitialExtent="-13171402, 3911962, -12993176, 4199564, 3857">
-
-                <!-- Basemap - tiled map service layer -->
-                <esriLayers:ArcGISTiledMapServiceLayer 
-                ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
+    <Grid>
+        <esri:MapView x:Name="mapView1">
+            <esri:Map >
+                <esriLayers:ArcGISTiledMapServiceLayer ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
 
                 <esriLayers:FeatureLayer>
                     <esriLayers:FeatureLayer.FeatureTable>
@@ -39,7 +34,5 @@
                 </esriLayers:FeatureLayer>
             </esri:Map>
         </esri:MapView>
-
     </Grid>
-
-</phone:PhoneApplicationPage>
+</Page>

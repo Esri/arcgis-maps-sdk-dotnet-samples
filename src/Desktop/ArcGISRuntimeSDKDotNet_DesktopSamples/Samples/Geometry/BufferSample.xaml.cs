@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System;
@@ -31,14 +32,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             var task = SetupSymbols();
         }
 
-        private void mapView_MouseDown(object sender, MouseButtonEventArgs e)
+        private void mapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
             try
             {
                 graphicsLayer.Graphics.Clear();
 
                 // Convert screen point to map point
-                var point = mapView.ScreenToLocation(e.GetPosition(mapView));
+                var point = e.Location;
                 var buffer = GeometryEngine.Buffer(point, 5 * MILES_TO_METERS);
 
                 //show geometries on map

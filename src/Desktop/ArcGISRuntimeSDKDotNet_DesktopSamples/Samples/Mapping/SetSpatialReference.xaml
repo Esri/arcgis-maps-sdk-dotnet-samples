@@ -3,20 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView WrapAround="True">
-            <esri:Map x:Name="map1">
+        <esri:MapView x:Name="mapView" WrapAround="True">
+            <esri:Map>
                 <!-- Map Extent and Spatial Reference-->
                 <esri:Map.InitialExtent>
-                    <esri:Envelope XMin="-3170138" YMin="-1823795" XMax="2850785" YMax="1766663">
+                    <esri:Envelope XMin="661140" YMin="-1420246" XMax="3015668" YMax="1594451">
                         <esri:Envelope.SpatialReference>
-                            <esri:SpatialReference Wkid="102009"/>
+                            <esri:SpatialReference Wkid="26777"/>
                         </esri:Envelope.SpatialReference>
                     </esri:Envelope>
                 </esri:Map.InitialExtent>
 
-                <esri:ArcGISDynamicMapServiceLayer ID="USA"
-                    ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer" 
-                    VisibleLayers="0,2,4" />
+                <esri:ArcGISDynamicMapServiceLayer
+                        ServiceUri="http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Census_USA/MapServer"/>
+                <esri:ArcGISDynamicMapServiceLayer
+                        ServiceUri="http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Petroleum/KGS_OilGasFields_Kansas/MapServer"/>
             </esri:Map>
         </esri:MapView>
     </Grid>

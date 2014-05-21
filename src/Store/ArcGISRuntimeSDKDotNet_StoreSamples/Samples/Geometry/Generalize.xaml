@@ -5,53 +5,52 @@
     xmlns:local="using:ArcGISRuntimeSDKDotNet_StoreSamples.Samples"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    	xmlns:esri="using:Esri.ArcGISRuntime.Controls"  xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
-	xmlns:sym="using:Esri.ArcGISRuntime.Symbology"
-    xmlns:geom="using:Esri.ArcGISRuntime.Geometry"
-    xmlns:core="using:Esri.ArcGISRuntime"
+    xmlns:common="using:ArcGISRuntimeSDKDotNet_StoreSamples.Common"
+    xmlns:esri="using:Esri.ArcGISRuntime.Controls"
+    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
+    xmlns:geo="using:Esri.ArcGISRuntime.Geometry"
+    xmlns:sym="using:Esri.ArcGISRuntime.Symbology"
     mc:Ignorable="d">
 
     <Grid x:Name="LayoutRoot" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
-
-
-            <sym:SimpleLineSymbol x:Key="DefaultLineSymbol" Color="#AAFF0000"   Width="2" />
+            <sym:SimpleLineSymbol x:Key="DefaultLineSymbol" Color="#AAFF0000" Width="2" />
             <sym:SimpleMarkerSymbol x:Key="DefaultMarkerSymbol" Color="Red" Size="6" />
             <sym:SimpleMarkerSymbol x:Key="GeneralizedMarkerSymbol" Color="#FF00FFFF" Size="6" />
             <sym:SimpleLineSymbol x:Key="GeneralizedLineSymbol" Color="#AA00FFFF" Width="2"/>
         </Grid.Resources>
-        <esri:MapView x:Name="mapView1"><esri:Map  >
-            <lyr:ArcGISTiledMapServiceLayer ID="BaseMapLayer"
-        		ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" />
-            <lyr:GraphicsLayer ID="OriginalLineGraphicsLayer" />
 
-            <lyr:GraphicsLayer ID="GeneralizedLineGraphicsLayer" />
+        <esri:MapView x:Name="mapView" WrapAround="True">
+            <esri:Map>
+                <lyr:ArcGISTiledMapServiceLayer
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" />
 
-        </esri:Map></esri:MapView>
+                <lyr:GraphicsLayer ID="OriginalLineGraphicsLayer" />
+                <lyr:GraphicsLayer ID="GeneralizedLineGraphicsLayer" />
+            </esri:Map>
+        </esri:MapView>
 
-        <Grid HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,15,15,0" >
-            <Border  Background="Black" BorderThickness="1" BorderBrush="White" Padding="30,20,30,30">
+        <Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
+            <StackPanel>
+                <TextBlock Text="Click the 'Generalize' button to generalize the line feature. Original line and vertices are red. Generalized line and vertices are cyan. Use the slider to change the maximum offset distance of the generalized line."
+                           FontSize="14" Visibility="Visible" Width="250" TextAlignment="Left" TextWrapping="Wrap" />
+                <TextBlock x:Name="ResultsTextBlock" 
+                           Visibility="Collapsed" Width="250" TextAlignment="Left" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
-                <StackPanel Orientation="Vertical" >
-                    <TextBlock x:Name="InstructionsTextBlock" FontSize="14" Text="Click the Generalize Line button to generalize the line feature.  Original line and vertices are red.  Generalized line a vertices are cyan.  Use the slider to change the maximum offset distance of the generalized line." 
-                                Visibility="Visible" Width="250" TextAlignment="Left" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-
-                    <TextBlock x:Name="ResultsTextBlock" 
-                                Visibility="Collapsed" Width="250" TextAlignment="Left" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <StackPanel Margin="0,30,0,0"  HorizontalAlignment="Center">
-                        <TextBlock Text="Maximum Offset Distance " Style="{StaticResource TitleTextBlockStyle}" HorizontalAlignment="Center"/>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
-                            <TextBox Text="{Binding Value, ElementName=DistanceSlider, Mode=TwoWay}"/>
-                            <TextBlock Text="km" Margin="10,0" VerticalAlignment="Center" FontSize="14" />
-                        </StackPanel>
-                        <Slider Minimum="1" Maximum="300" x:Name="DistanceSlider" Value="10" IsThumbToolTipEnabled="False" Width="300" />
+                <StackPanel Margin="0,30,0,0"  HorizontalAlignment="Center">
+                    <TextBlock Text="Maximum Offset Distance " HorizontalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
+                        <TextBox Width="50" TextAlignment="Right" 
+                                 Text="{Binding Value, ElementName=DistanceSlider, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Text="km" Margin="10,0" VerticalAlignment="Center" FontSize="14" />
                     </StackPanel>
-                    <Button x:Name="GeneralizeButton" Content="Generalize"  Click="GeneralizeButton_Click"  Width="250" Margin="0,15,0,0"/>
-
+                    <Slider x:Name="DistanceSlider" Minimum="0" Maximum="200" Value="10" Width="200" 
+                            SnapsTo="StepValues" StepFrequency="10" TickPlacement="BottomRight" TickFrequency="10" />
                 </StackPanel>
 
-
-            </Border>
-        </Grid>
+                <Button x:Name="GeneralizeButton" Content="Generalize" Click="GeneralizeButton_Click" 
+                        HorizontalAlignment="Stretch" Margin="15,15,15,0"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </Page>

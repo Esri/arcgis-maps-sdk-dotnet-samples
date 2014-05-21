@@ -73,8 +73,8 @@
     <Compile Include="Samples\DynamicServiceLayers\ArcGISDynamicMapServiceLayerSample.xaml.cs">
       <DependentUpon>ArcGISDynamicMapServiceLayerSample.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\DynamicServiceLayers\ArcGISImageServiceLayerRasterFunctions.xaml.cs">
-      <DependentUpon>ArcGISImageServiceLayerRasterFunctions.xaml</DependentUpon>
+    <Compile Include="Samples\DynamicServiceLayers\ImageServiceRasterFunctions.xaml.cs">
+      <DependentUpon>ImageServiceRasterFunctions.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\DynamicServiceLayers\ArcGISImageServiceLayerSample.xaml.cs">
       <DependentUpon>ArcGISImageServiceLayerSample.xaml</DependentUpon>
@@ -187,8 +187,8 @@
     <Compile Include="Samples\Geometry\NearestCoordinateInGeometry.xaml.cs">
       <DependentUpon>NearestCoordinateInGeometry.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Geometry\OffsetGeometry.xaml.cs">
-      <DependentUpon>OffsetGeometry.xaml</DependentUpon>
+    <Compile Include="Samples\Geometry\Offset.xaml.cs">
+      <DependentUpon>Offset.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Geometry\ProjectCoordinate.xaml.cs">
       <DependentUpon>ProjectCoordinate.xaml</DependentUpon>
@@ -268,6 +268,9 @@
     <Compile Include="Samples\Mapping\GroupLayers.xaml.cs">
       <DependentUpon>GroupLayers.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Mapping\LayerList.xaml.cs">
+      <DependentUpon>LayerList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Mapping\SetInitialMapExtent.xaml.cs">
       <DependentUpon>SetInitialMapExtent.xaml</DependentUpon>
     </Compile>
@@ -300,6 +303,9 @@
     </Compile>
     <Compile Include="Samples\Mapping\ShowMouseCoordinates.xaml.cs">
       <DependentUpon>ShowMouseCoordinates.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Mapping\Swipe.xaml.cs">
+      <DependentUpon>Swipe.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Mapping\SwitchBasemaps.xaml.cs">
       <DependentUpon>SwitchBasemaps.xaml</DependentUpon>
@@ -439,7 +445,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\DynamicServiceLayers\ArcGISImageServiceLayerRasterFunctions.xaml">
+    <Page Include="Samples\DynamicServiceLayers\ImageServiceRasterFunctions.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -591,7 +597,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Geometry\OffsetGeometry.xaml">
+    <Page Include="Samples\Geometry\Offset.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -699,6 +705,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Mapping\LayerList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Mapping\SetInitialMapExtent.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -740,6 +750,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Mapping\ShowMouseCoordinates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Mapping\Swipe.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

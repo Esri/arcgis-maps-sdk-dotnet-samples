@@ -1,90 +1,40 @@
 ﻿using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Location;
-using Microsoft.Phone.Controls;
 using System;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Threading;
-using Location = Esri.ArcGISRuntime.Location;
+using Windows.Foundation;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
-	/// 
+	/// Demonstrates use of the location display,
+	/// and also how to create a custom location provider
 	/// </summary>
-	/// <category>Mapping</category>
-	public partial class LocationDisplay : PhoneApplicationPage
+    /// <category>Mapping</category>
+	public sealed partial class LocationDisplay : Page
     {
-        Location.LocationDisplay m_locationDisplay;
-
         public LocationDisplay()
         {
-            InitializeComponent();
-            m_locationDisplay = this.Resources["locationDisplay"] as Location.LocationDisplay;
+            this.InitializeComponent();
         }
 
-        // Update the location provider when a different one is selcted
-        private async void LocationProvider_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LocationProvider_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Make sure to stop the previous provider
-            await stopRandomLocationProvider();
-
-            // Update the map's location provider based on the selected index in the ListPicker
-            ListPicker providerPicker = (ListPicker)sender;
-            if (providerPicker.SelectedIndex == 0)
-                m_locationDisplay.LocationProvider = new SystemLocationProvider();
-            else if (providerPicker.SelectedIndex == 1)
-                m_locationDisplay.LocationProvider = new RandomProvider();
-        }
-
-        // Updates the AutoPanMode when a different mode is selected
-        private void NavMode_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // Get the location display settings.  Store in a member variable so it only needs to be done once
-            if (m_locationDisplay == null)
-                m_locationDisplay = (Esri.ArcGISRuntime.Location.LocationDisplay)this.Resources["locationDisplay"];
-
-            // Update the AutoPanMode with the selected one in the ListPicker
-            m_locationDisplay.AutoPanMode = (AutoPanMode)((ListPicker)sender).SelectedItem;
-        }
-
-        // Toggles the settings UI on and off
-        private void SettingsButton_Click(object sender, EventArgs e)
-        {
-            DisplaySettings.Visibility = DisplaySettings.Visibility == Visibility.Visible ? 
-                Visibility.Collapsed : Visibility.Visible;
-        }
-
-        private void ShowSettingsButton_Click(object sender, EventArgs e)
-        {
-            DisplaySettings.Visibility = HideSettingsButton.Visibility = Visibility.Visible;
-            ShowSettingsButton.Visibility = Visibility.Collapsed;
-        }
-
-        private void HideSettingsButton_Click(object sender, EventArgs e)
-        {
-            DisplaySettings.Visibility = HideSettingsButton.Visibility = Visibility.Collapsed;
-            ShowSettingsButton.Visibility = Visibility.Visible;
-        }
-
-        // Stop the random location provider when the page is navigated away from 
-        protected override async void OnNavigatingFrom(System.Windows.Navigation.NavigatingCancelEventArgs e)
-        {
-            base.OnNavigatingFrom(e);
-            await stopRandomLocationProvider();
-        }
-
-        private async Task stopRandomLocationProvider()
-        {
-            if (m_locationDisplay.LocationProvider is RandomProvider)
-                await ((RandomProvider)m_locationDisplay.LocationProvider).StopAsync();
+            if (providerSelector != null)
+            {
+                if (providerSelector.SelectedIndex == 0)
+                    mapView1.LocationDisplay.LocationProvider = new SystemLocationProvider();
+                else if (providerSelector.SelectedIndex == 1)
+                    mapView1.LocationDisplay.LocationProvider = new RandomProvider();
+            }
         }
     }
-
-    /// <summary>
-    /// Location provider implementation that randomly generates location data based on the last position
-    /// </summary>
+	/// <summary>
+	/// This is serves as a custom location provider - in this case creating a randomly roaming location
+	/// for simulating movement, accuracy, speed and heading changes.
+	/// </summary>
     public class RandomProvider : ILocationProvider
     {
         private static Random randomizer = new Random();
@@ -160,18 +110,20 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 
         public double StartLongitude { get; set; }
 
-        public System.Threading.Tasks.Task StartAsync()
+        public event EventHandler<LocationInfo> LocationChanged;
+
+
+        public Task StartAsync()
         {
             timer.Start();
             return Task.FromResult<bool>(true);
         }
 
-        public System.Threading.Tasks.Task StopAsync()
+        public Task StopAsync()
         {
             timer.Stop();
             return Task.FromResult<bool>(true);
         }
-
-        public event EventHandler<LocationInfo> LocationChanged;
     }
+
 }

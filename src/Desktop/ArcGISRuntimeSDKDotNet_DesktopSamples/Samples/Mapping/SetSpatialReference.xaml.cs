@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using Esri.ArcGISRuntime.Geometry;
+using System.Windows.Controls;
 
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
@@ -13,16 +14,15 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            // Note: uncomment the following to set the initial extent and spatial reference) 
-            //  of the map in code.
-            
-            //map1.InitialExtent = new Esri.ArcGISRuntime.Geometry.Envelope()
-            //{               
-            //    XMin = -3170138,
-            //    YMin = -1823795,
-            //    XMax = 2850785,
-            //    YMax = 1766663,
-            //    SpatialReference = new Esri.ArcGISRuntime.Geometry.SpatialReference(102009)
+            // NOTE: uncomment the following to set the initial extent and spatial reference via code.
+
+            //mapView.Map.InitialExtent = new Envelope()
+            //{
+            //    XMin = 661140,
+            //    YMin = -1420246,
+            //    XMax = 3015668,
+            //    YMax = 1594451,
+            //    SpatialReference = new SpatialReference(26777)
             //};
         }
     }

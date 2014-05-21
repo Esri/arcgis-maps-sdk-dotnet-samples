@@ -1,105 +1,51 @@
-﻿<phone:PhoneApplicationPage  
-    x:Class="ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.DriveTimes"
+﻿<Page
+    x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DriveTimes"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
-	xmlns:esri="clr-namespace:Esri.ArcGISRuntime.Controls;assembly=Esri.ArcGISRuntime"
-	xmlns:esriLayers="clr-namespace:Esri.ArcGISRuntime.Layers;assembly=Esri.ArcGISRuntime"
-    xmlns:esriSymbols="clr-namespace:Esri.ArcGISRuntime.Symbology;assembly=Esri.ArcGISRuntime"
-    xmlns:sys="clr-namespace:System;assembly=mscorlib">
-    <Grid Background="{StaticResource PhoneBackgroundBrush}">
+	xmlns:esri="using:Esri.ArcGISRuntime.Controls"  xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
+	xmlns:sym="using:Esri.ArcGISRuntime.Symbology"
+	xmlns:core="using:Esri.ArcGISRuntime">
+    <Grid x:Name="LayoutRoot"
+          Background="White">
         <Grid.Resources>
-
-            <!-- Outline for drive time polygons and tap points -->
-            <esriSymbols:SimpleLineSymbol x:Key="Outline" Color="Black" Width="1" />
-
-            <!-- Object used by layers to bind to DataContext.  Necessary because DataContext is 
-                 not inherited directly. -->
-            <Grid x:Key="DataContextProxy" Tag="{Binding}" />
+            <sym:PictureMarkerSymbol x:Key="DefaultMarkerSymbol" />
+            <sym:SimpleRenderer x:Key="PointRenderer"
+                                Symbol="{StaticResource DefaultMarkerSymbol}" />
+            <sym:SimpleLineSymbol x:Key="OutlineSymbol"
+                                  Color="#FFFF9999"
+                                  Width="2"
+                                  Style="Solid" />
+            <sym:SimpleFillSymbol x:Key="FillSymbol1"
+                                   Color="#77FF9999"
+                                  Outline="{StaticResource OutlineSymbol}" />
+            <sym:SimpleFillSymbol x:Key="FillSymbol2"
+                                  Color="#77FFFF99"
+                                  Outline="{StaticResource OutlineSymbol}" />
+            <sym:SimpleFillSymbol x:Key="FillSymbol3"
+                                  Color="#779999FF"
+                                  Outline="{StaticResource OutlineSymbol}" />
         </Grid.Resources>
-
-        <!-- Map -->
-        <esri:MapView MapViewTapped="mapView1_Tap">
-            <esri:Map InitialExtent="-13630000, 4542000, -13625000, 4553000, 3857">
-
-                <esriLayers:ArcGISTiledMapServiceLayer 
-                ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-
-                <!-- Graphics layer for showing drive time polygons -->
-                <esriLayers:GraphicsLayer GraphicsSource="{Binding Tag.DriveTimePolygons, 
-                                        Source={StaticResource DataContextProxy}}">
-                    <esriLayers:GraphicsLayer.Renderer>
-
-                        <!-- Unique value renderer specifying symbols for 1, 2, and 3 minute drive times -->
-                        <esriSymbols:UniqueValueRenderer>
-                            <esriSymbols:UniqueValueRenderer.Fields>
-                                <sys:String>ToBreak</sys:String>
-                            </esriSymbols:UniqueValueRenderer.Fields>
-                            <esriSymbols:UniqueValueInfoCollection>
-                                <esriSymbols:UniqueValueInfo>
-                                    <esriSymbols:UniqueValueInfo.Values>
-                                        <sys:Int32>1</sys:Int32>
-                                    </esriSymbols:UniqueValueInfo.Values>
-                                    <esriSymbols:UniqueValueInfo.Symbol>
-                                        <esriSymbols:SimpleFillSymbol Color="#77FF9999" 
-                                                                  Outline="{StaticResource Outline}" />
-                                    </esriSymbols:UniqueValueInfo.Symbol>
-                                </esriSymbols:UniqueValueInfo>
-                                <esriSymbols:UniqueValueInfo>
-                                    <esriSymbols:UniqueValueInfo.Values>
-                                        <sys:Int32>2</sys:Int32>
-                                    </esriSymbols:UniqueValueInfo.Values>
-                                    <esriSymbols:UniqueValueInfo.Symbol>
-                                        <esriSymbols:SimpleFillSymbol Color="#77FFFF99" 
-                                                                  Outline="{StaticResource Outline}" />
-                                    </esriSymbols:UniqueValueInfo.Symbol>
-                                </esriSymbols:UniqueValueInfo>
-                                <esriSymbols:UniqueValueInfo>
-                                    <esriSymbols:UniqueValueInfo.Values>
-                                        <sys:Int32>3</sys:Int32>
-                                    </esriSymbols:UniqueValueInfo.Values>
-                                    <esriSymbols:UniqueValueInfo.Symbol>
-                                        <esriSymbols:SimpleFillSymbol Color="#779999FF" 
-                                                                  Outline="{StaticResource Outline}" />
-                                    </esriSymbols:UniqueValueInfo.Symbol>
-                                </esriSymbols:UniqueValueInfo>
-                            </esriSymbols:UniqueValueInfoCollection>
-                        </esriSymbols:UniqueValueRenderer>
-                    </esriLayers:GraphicsLayer.Renderer>
-                </esriLayers:GraphicsLayer>
-
-                <!-- Graphics layer for showing tap points -->
-                <esriLayers:GraphicsLayer GraphicsSource="{Binding Tag.TapPoints, 
-                                        Source={StaticResource DataContextProxy}}">
-                    <esriLayers:GraphicsLayer.Renderer>
-                        <esriSymbols:SimpleRenderer>
-                            <esriSymbols:SimpleMarkerSymbol Color="White" Size="8"
-                                                        Outline="{StaticResource Outline}" />
-                        </esriSymbols:SimpleRenderer>
-                    </esriLayers:GraphicsLayer.Renderer>
-                </esriLayers:GraphicsLayer>
+        <esri:MapView x:Name="mapView1" MapViewTapped="mapView1_Tapped">
+            <esri:Map >
+                <lyr:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
+                                             ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer" />
+                <lyr:GraphicsLayer ID="ResultLayer"/>
+                <lyr:GraphicsLayer ID="InputLayer"
+                                Renderer="{StaticResource PointRenderer}"/>
             </esri:Map>
         </esri:MapView>
-
-        <!-- Busy indicator and instructions -->
-        <Grid Margin="12"
-              HorizontalAlignment="Stretch"
-              VerticalAlignment="Top">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Grid Background="{StaticResource PhoneBackgroundBrush}"
-                  Opacity="0.7" 
-                  Grid.RowSpan="2" />
-            <TextBlock x:Name="StatusText"
-                       Text="Tap the map to calculate drive time areas for 1, 2, and 3 minutes from the tapped location"
-                       TextWrapping="Wrap"
-                       Margin="20"/>
-            <ProgressBar IsIndeterminate="True"
-                         Grid.Row="1"
-                         Margin="20,0,20,20" 
-                         Visibility="{Binding BusyVisibility}" />
-        </Grid>
+        <Border Margin="20"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Background="#CC000000">
+            <Grid>
+                <TextBlock x:Name="InformationText"
+                           Text="Click on map to set location. Drive time areas of 1, 2, and 3 minutes will be displayed"
+                           Width="200"
+                           Margin="30,20,30,25"
+                           HorizontalAlignment="Left"
+                           TextWrapping="Wrap" />
+            </Grid>
+        </Border>
     </Grid>
-</phone:PhoneApplicationPage>
+</Page>

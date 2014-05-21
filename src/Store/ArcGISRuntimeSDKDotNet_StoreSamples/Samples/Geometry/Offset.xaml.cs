@@ -10,15 +10,17 @@ using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
-	/// <summary>
-	/// 
-	/// </summary>
+    /// <summary>
+    /// Demonstrates how to create an offset geometry using the Offset method of the GeometryEngine class.
+    /// </summary>
+    /// <title>Offset</title>
     /// <category>Geometry</category>
-	public sealed partial class Offset : Page
+    public sealed partial class Offset : Page
     {
-        GraphicsLayer parcelGraphicsLayer;
-        GraphicsLayer offsetGraphicsLayer;
-        Graphic selectedParcelGraphic;
+        private GraphicsLayer parcelGraphicsLayer;
+        private GraphicsLayer offsetGraphicsLayer;
+        private Graphic selectedParcelGraphic;
+
         public Offset()
         {
             InitializeComponent();
@@ -46,10 +48,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             DoOffset();
         }
 
-
         private void InitializeOffsetTypes()
         {
-
             OffsetTypeComboBox.ItemsSource = new List<OffsetType> { OffsetType.Bevel, OffsetType.Miter, OffsetType.Round, OffsetType.Square };
             OffsetTypeComboBox.SelectedIndex = 0;
         }
@@ -57,7 +57,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         private async Task SelectParcelForOffset()
         {
             ResetButton.IsEnabled = false;
-
 
             try
             {
@@ -74,10 +73,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception)
             {
-
             }
-            ResetButton.IsEnabled = true;
 
+            ResetButton.IsEnabled = true;
         }
 
         private void DoOffset()
@@ -102,7 +100,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 }
                 catch (Exception ex)
                 {
-
                     var dlg = new Windows.UI.Popups.MessageDialog(ex.Message);
                     var _ = dlg.ShowAsync();
                 }
@@ -111,9 +108,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private async void ResetButton_Click(object sender, RoutedEventArgs e)
         {
-
             await SelectParcelForOffset();
-
         }
 
         private async void mapView1_LayerLoaded(object sender, Esri.ArcGISRuntime.Controls.LayerLoadedEventArgs e)
@@ -135,7 +130,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
                     try
                     {
-
                         var results = await queryTask.ExecuteAsync(query, CancellationToken.None);
                         foreach (Graphic g in results.FeatureSet.Features)
                         {
@@ -148,7 +142,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     }
                     catch (Exception ex)
                     {
-
                         var dlg = new Windows.UI.Popups.MessageDialog(ex.Message);
 						var _ = dlg.ShowAsync();
                     }
@@ -156,7 +149,5 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 await SelectParcelForOffset();
             }
         }
-
-
     }
 }

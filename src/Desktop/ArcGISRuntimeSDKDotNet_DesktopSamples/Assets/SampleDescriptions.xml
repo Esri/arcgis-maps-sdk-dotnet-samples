@@ -47,18 +47,18 @@
             InitializeComponent
             </summary>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ArcGISImageServiceLayerRasterFunctions">
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ImageServiceRasterFunctions">
             <summary>
-            Interaction logic for ArcGISImageServiceLayerRasterFunctions.xaml
+            Demonstrates applying raster functions to an image service layer.
             </summary>
             <title>Image Service Raster Functions</title>
             <category>Layers</category>
             <subcategory>Dynamic Service Layers</subcategory>
             <summary>
-            ArcGISImageServiceLayerRasterFunctions
+            ImageServiceRasterFunctions
             </summary>
         </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ArcGISImageServiceLayerRasterFunctions.InitializeComponent">
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ImageServiceRasterFunctions.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
@@ -761,20 +761,17 @@
             InitializeComponent
             </summary>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OffsetGeometry">
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Offset">
             <summary>
-            Demonstrates how to create an offset geometry using the Offset method of the GeometryEngine class. Here, the user selects a target polygon graphic and the application creates an offset polygon based on the selected graphic.
+            Demonstrates how to create an offset geometry using the Offset method of the GeometryEngine class.
             </summary>
             <title>Offset</title>
             <category>Geometry</category>
             <summary>
-            OffsetGeometry
+            Offset
             </summary>
         </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OffsetGeometry.#ctor">
-            <summary>Construct Offset sample control</summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OffsetGeometry.InitializeComponent">
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Offset.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
@@ -1265,12 +1262,27 @@
             This sample demonstrates the use of GroupLayers to contain related layers in a map.  In this sample there are two GroupLayers, one containing two basemap layers and the other containing four dynamic or feature layers.  The legend shows how Layer properties (like IsVisible and Opacity) of layers within a GroupLayer can be managed either individually or as a part of the group.
             </summary>
             <title>Group Layers</title>
-            <category>Layers</category>
+            <category>Mapping</category>
             <summary>
             GroupLayers
             </summary>
         </member>
         <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GroupLayers.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.LayerList">
+            <summary>
+            Shows how to access layers in the map.
+            </summary>
+            <title>Layer List</title>
+            <category>Mapping</category>
+            <summary>
+            LayerList
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.LayerList.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
@@ -1474,6 +1486,21 @@
             </summary>
         </member>
         <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ShowMouseCoordinates.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SwipeMap">
+            <summary>
+            Shows how to swipe one map over another.
+            </summary>
+            <title>Swipe</title>
+            <category>Mapping</category>
+            <summary>
+            SwipeMap
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SwipeMap.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>

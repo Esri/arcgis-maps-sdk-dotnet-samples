@@ -30,7 +30,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                var info = await _printTask.GetServiceInfoAsync();
+                var info = await _printTask.GetTaskInfoAsync();
                 
                 comboLayout.ItemsSource = info.LayoutTemplates;
                 if (info.LayoutTemplates != null && info.LayoutTemplates.Count > 0)

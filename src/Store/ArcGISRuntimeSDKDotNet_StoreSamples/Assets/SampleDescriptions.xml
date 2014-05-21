@@ -470,6 +470,14 @@
         <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.MarkerSymbols.#ctor">
             <summary>Construct Marker Symbols sample control</summary>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.MessageProcessingSample">
+            <summary>
+            Sample shows how to read and process Mil2525C message data from XML file. 
+            </summary>
+            <title>Message Processor</title>
+            <category>Symbology</category>
+            <subcategory>Advanced</subcategory>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SimpleRendererSample">
             <summary>
             Shows how to create a SimpleRenderer for a graphics layer in XAML and code.
@@ -479,6 +487,14 @@
         </member>
         <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SimpleRendererSample.#ctor">
             <summary>Construct Simple Renderer sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.SymbolDictionarySearchSample">
+            <summary>
+            Sample shows how to use search the Mil2525C symbol dictionary.
+            </summary>
+            <title>Symbol Dictionary Search</title>
+            <category>Symbology</category>
+            <subcategory>Advanced</subcategory>	
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SymbolsAndLabels">
             <summary>

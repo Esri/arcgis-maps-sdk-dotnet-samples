@@ -323,6 +323,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology
             get { return _model.Values["StyleFile"].ToString(); }
         }
 
+        public int ImageSize
+        {
+            get { return _imageSize; }
+        }
+
 		public ImageSource Thumbnail
 		{
 			get

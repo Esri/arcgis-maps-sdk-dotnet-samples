@@ -2156,6 +2156,22 @@
             InitializeComponent
             </summary>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.MessageProcessingSample">
+            <summary>
+            Sample shows how to read and process Mil2525C message data from XML file. 
+            </summary>
+            <title>Message Processor</title>
+            <category>Symbology</category>
+            <subcategory>Advanced</subcategory>
+            <summary>
+            MessageProcessingSample
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.MessageProcessingSample.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SimpleRendererSample">
             <summary>
             Sample shows how to create a SimpleRenderer for a graphics layer in XAML and code. User added points will be added to the graphics layer and rendered using the GraphicsLayer Renderer.
@@ -2170,6 +2186,22 @@
             <summary>Construct Simple Renderer sample control</summary>
         </member>
         <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SimpleRendererSample.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.SymbolDictionarySearchSample">
+            <summary>
+            Sample shows how to use search the Mil2525C symbol dictionary.
+            </summary>
+            <title>Symbol Dictionary Search</title>
+            <category>Symbology</category>
+            <subcategory>Advanced</subcategory>
+            <summary>
+            SymbolDictionarySearchSample
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.SymbolDictionarySearchSample.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>

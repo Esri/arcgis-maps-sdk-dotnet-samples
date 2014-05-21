@@ -8,10 +8,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     /// <title>CSV Layer</title>
 	/// <category>Layers</category>
 	/// <subcategory>Graphics Layers</subcategory>
-	public partial class CSVLayerXaml : UserControl
+	public partial class CsvLayerSample : UserControl
     {
-        /// <summary>Initializes a new instance of the <see cref="CSVLayerXaml"/> class.</summary>
-        public CSVLayerXaml()
+        /// <summary>Initializes a new instance of the <see cref="CsvLayerSample"/> class.</summary>
+        public CsvLayerSample()
         {
             InitializeComponent();
         }

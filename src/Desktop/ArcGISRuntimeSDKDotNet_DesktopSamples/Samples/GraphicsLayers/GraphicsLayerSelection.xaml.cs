@@ -16,12 +16,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     /// <title>Selection</title>
 	/// <category>Layers</category>
 	/// <subcategory>Graphics Layers</subcategory>
-	public partial class GraphcisLayerSelection : UserControl
+	public partial class GraphicsLayerSelection : UserControl
     {
         private Random _random = new Random();
 
         /// <summary>Construct Graphics Layer Selection sample control</summary>
-        public GraphcisLayerSelection()
+        public GraphicsLayerSelection()
         {
             InitializeComponent();
             CreateGraphics();

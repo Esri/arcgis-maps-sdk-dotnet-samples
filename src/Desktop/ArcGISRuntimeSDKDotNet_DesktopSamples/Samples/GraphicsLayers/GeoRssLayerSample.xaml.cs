@@ -10,12 +10,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     /// <title>GeoRSS Layer</title>
 	/// <category>Layers</category>
 	/// <subcategory>Graphics Layers</subcategory>
-	public partial class GeoRSSLayerWindow : UserControl
+	public partial class GeoRssLayerSample : UserControl
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="GeoRSSLayerWindow"/> class.
+        /// Initializes a new instance of the <see cref="GeoRssLayerSample"/> class.
         /// </summary>
-        public GeoRSSLayerWindow()
+        public GeoRssLayerSample()
         {
             InitializeComponent();
         }

@@ -1,0 +1,15 @@
+{
+  "type": "position_report",
+  "layerName": "position_reports",
+  "renderer":
+  {
+    "type"           : "dictionary",
+    "description"    : "",
+    "dictionaryType" : "2525C",
+    "field" 	     : "sic",
+    "symbolScaleFactor" : 1.0,
+    "labelsVisible" : true,
+    "minLabelScale" : 10000000,
+    "maxLabelScale" : 0
+  }
+}

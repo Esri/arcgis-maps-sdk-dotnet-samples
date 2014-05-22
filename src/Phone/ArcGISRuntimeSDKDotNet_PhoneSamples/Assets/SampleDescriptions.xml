@@ -216,6 +216,14 @@
             </summary>
             <category>Geometry</category>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.MessageProcessingSample">
+            <summary>
+            Sample shows how to read and process Mil2525C message data from XML file. 
+            </summary>
+            <title>Message Processor</title>
+            <category>Symbology</category>
+            <subcategory>Advanced</subcategory>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Offset">
             <summary>
             
@@ -415,6 +423,14 @@
             
             </summary>
             <category>Symbology</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.SymbolDictionarySearchSample">
+            <summary>
+            Sample shows how to use search the Mil2525C symbol dictionary.
+            </summary>
+            <title>Symbol Dictionary Search</title>
+            <category>Symbology</category>
+            <subcategory>Advanced</subcategory>	
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SymbolsAndLabels">
             <summary>

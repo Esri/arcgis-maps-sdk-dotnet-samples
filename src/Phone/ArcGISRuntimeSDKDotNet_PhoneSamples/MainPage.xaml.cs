@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Esri.ArcGISRuntime;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,6 +16,8 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples
     {
         public MainPage()
         {
+			// Define symbology path to Resources folder. This folder is included in the solution as a Content
+			ArcGISRuntimeEnvironment.SymbolsPath = @"Resources";
             this.InitializeComponent();
             DataContext = SampleDataSource.Current;
         }

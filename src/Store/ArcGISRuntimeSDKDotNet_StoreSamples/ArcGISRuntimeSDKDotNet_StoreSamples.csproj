@@ -245,8 +245,14 @@
     <Compile Include="Samples\Symbology\MarkerSymbols.xaml.cs">
       <DependentUpon>MarkerSymbols.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Symbology\MessageProcessingSample.xaml.cs">
+      <DependentUpon>MessageProcessingSample.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Symbology\SimpleRendererSample.xaml.cs">
       <DependentUpon>SimpleRendererSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\SymbolDictionarySearchSample.xaml.cs">
+      <DependentUpon>SymbolDictionarySearchSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Symbology\SymbolsAndLabels.xaml.cs">
       <DependentUpon>SymbolsAndLabels.xaml</DependentUpon>
@@ -413,6 +419,10 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="ArcGISRuntimeSDKDotNet_StoreSamples_TemporaryKey.pfx" />
+    <Content Include="Resources\Mil2525c\messagetypes\Chemlight.json" />
+    <Content Include="Resources\Mil2525c\messagetypes\PositionReport.json" />
+    <Content Include="Resources\Mil2525c\messagetypes\SpotReport.json" />
+    <Content Include="Resources\Mil2525c\mil2525c.dat" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Logo.scale-100.png" />
@@ -618,9 +628,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Symbology\MessageProcessingSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Samples\Symbology\SimpleRendererSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\SymbolDictionarySearchSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\Symbology\SymbolsAndLabels.xaml">
       <Generator>MSBuild:Compile</Generator>

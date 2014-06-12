@@ -9,7 +9,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     /// <summary>
     /// This sample demonstrates how to add a GraphicsLayer with Graphics and Symbols to the map in XAML.  The sample also shows how to add Polyline graphics to a GraphicsLayer from the code-behind.
     /// </summary>
-    /// <title>Graphics Layer Sample</title>
+    /// <title>Graphics Layer</title>
 	/// <category>Layers</category>
 	/// <subcategory>Graphics Layers</subcategory>
 	public partial class GraphicsLayerSample : UserControl

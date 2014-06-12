@@ -19,7 +19,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 	/// <category>Geometry</category>
 	public partial class ClipGeometry : Windows.UI.Xaml.Controls.Page
     {
-        private const string GdbPath = @"samples-data\maps\usa.geodatabase";
+        private const string GdbPath = @"maps\usa.geodatabase";
 
         private GraphicsLayer _clippedGraphics;
         private Symbol _clipSymbol;

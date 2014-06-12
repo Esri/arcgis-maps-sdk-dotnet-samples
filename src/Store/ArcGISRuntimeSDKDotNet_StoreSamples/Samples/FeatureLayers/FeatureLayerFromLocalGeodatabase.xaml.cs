@@ -15,7 +15,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
     /// <category>Feature Layers</category>
     public sealed partial class FeatureLayerFromLocalGeodatabase : Page
     {
-        private const string LOCAL_GDB_PATH = @"samples-data\maps\usa.geodatabase";
+        private const string LOCAL_GDB_PATH = @"maps\usa.geodatabase";
 
         public FeatureLayerFromLocalGeodatabase()
         {

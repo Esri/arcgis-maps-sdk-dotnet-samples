@@ -19,7 +19,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
     /// <category>Geometry</category>
     public sealed partial class CutGeometry : Windows.UI.Xaml.Controls.Page
     {
-        private const string GdbPath = @"samples-data\maps\usa.geodatabase";
+        private const string GdbPath = @"maps\usa.geodatabase";
 
         private Symbol _cutLineSymbol;
         private Symbol _cutFillSymbol;

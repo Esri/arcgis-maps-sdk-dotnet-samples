@@ -49,10 +49,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             InitializeComponent();
 
-            HandleLayersInitialized();
+            var _ = HandleLayersInitialized();
         }
 
-        async Task HandleLayersInitialized()
+        private async Task HandleLayersInitialized()
         {
             var loadresult = await mapView1.LayersLoadedAsync();
             LayersInitializedProperty = "Initialized!";
@@ -63,7 +63,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                   MessageBox.Show(string.Format("Layer {0} failed to load. {1} ", res.Layer.ID, res.LoadError.Message.ToString()));
                 }
             }
-            
         }
     }
 }

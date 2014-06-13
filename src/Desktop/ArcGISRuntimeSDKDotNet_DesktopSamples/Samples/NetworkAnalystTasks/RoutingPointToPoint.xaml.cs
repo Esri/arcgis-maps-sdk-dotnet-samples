@@ -141,7 +141,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         string _localRoutingDatabase = @"..\..\..\..\..\samples-data\networks\san-diego\san-diego-network.geodatabase";
         string _networkName = "Streets_ND";
 
-        private async Task SetupRouteTask()
+        private void SetupRouteTask()
         {
             if (!IsOnline)
             {
@@ -265,9 +265,16 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         }
 
-        private void SolveRouteButton_Click(object sender, RoutedEventArgs e)
+        private async void SolveRouteButton_Click(object sender, RoutedEventArgs e)
         {
-            CalculateRoute();
+            try
+            {
+                await CalculateRoute();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Sample Error");
+            }
         }
     }
 }

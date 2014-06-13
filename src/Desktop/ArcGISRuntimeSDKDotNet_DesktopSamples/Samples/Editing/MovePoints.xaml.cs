@@ -1,24 +1,18 @@
 ﻿using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
-using Esri.ArcGISRuntime.Symbology;
 using System;
-using System.ComponentModel;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
-    /// Move point graphics around using hittesting and mouse move.
-	/// </summary>
-    /// <title>Move point graphics interactively</title>
-	/// <category>Layers</category>
-	/// <subcategory>Graphics Layers</subcategory>
-	public partial class MovePoints : UserControl
+    /// Demonstrates one method of moving graphic points on the map.
+    /// </summary>
+    /// <title>Move Points</title>
+    /// <category>Editing</category>
+    public partial class MovePoints : UserControl
     {
-
         public MovePoints()
         {
 			InitializeComponent();

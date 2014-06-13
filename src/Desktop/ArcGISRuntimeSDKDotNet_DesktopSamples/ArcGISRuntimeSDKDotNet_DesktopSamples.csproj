@@ -223,7 +223,7 @@
     <Compile Include="Samples\GeoprocessingTasks\Viewshed.xaml.cs">
       <DependentUpon>Viewshed.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GraphicsLayers\MovePoints.xaml.cs">
+    <Compile Include="Samples\Editing\MovePoints.xaml.cs">
       <DependentUpon>MovePoints.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GraphicsLayers\AddInteractively.xaml.cs">
@@ -252,9 +252,6 @@
     </Compile>
     <Compile Include="Samples\GraphicsLayers\GraphicsSourceSample.xaml.cs">
       <DependentUpon>GraphicsSourceSample.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\GraphicsLayers\SmoothGraphicAnimation.xaml.cs">
-      <DependentUpon>SmoothGraphicAnimation.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\ImageryTasks\ComputeClassStatistics.xaml.cs">
       <DependentUpon>ComputeClassStatistics.xaml</DependentUpon>
@@ -651,7 +648,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GraphicsLayers\MovePoints.xaml">
+    <Page Include="Samples\Editing\MovePoints.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -688,10 +685,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\GraphicsLayers\GraphicsSourceSample.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\GraphicsLayers\SmoothGraphicAnimation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

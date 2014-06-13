@@ -865,12 +865,6 @@
             </summary>
             <category>Network Analyst Tasks</category>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ShadedReliefSlope">
-            <summary>
-            
-            </summary>
-            <category>Dynamic Service Layers</category>
-        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Statistics">
             <summary>
             Demonstrates how to use a QueryTask to get statistics from a map service.
@@ -883,12 +877,6 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DoubleToStringConverter">
             <summary>Double to formatted string value converter</summary>
-        </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Stretch">
-            <summary>
-            
-            </summary>
-            <category>Dynamic Service Layers</category>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ArcGISTiledMapServiceLayerSample">
             <summary>

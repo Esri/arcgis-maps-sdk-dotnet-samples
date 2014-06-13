@@ -392,14 +392,8 @@
     <Compile Include="Samples\NetworkAnalystTasks\RoutingWithBarriers.xaml.cs">
       <DependentUpon>RoutingWithBarriers.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\DynamicServiceLayers\ShadedReliefSlope.xaml.cs">
-      <DependentUpon>ShadedReliefSlope.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Samples\QueryTasks\Statistics.xaml.cs">
       <DependentUpon>Statistics.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\DynamicServiceLayers\Stretch.xaml.cs">
-      <DependentUpon>Stretch.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\TiledLayers\ArcGISTiledMapServiceLayerSample.xaml.cs">
       <DependentUpon>ArcGISTiledMapServiceLayerSample.xaml</DependentUpon>
@@ -824,15 +818,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\DynamicServiceLayers\ShadedReliefSlope.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Samples\QueryTasks\Statistics.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\DynamicServiceLayers\Stretch.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

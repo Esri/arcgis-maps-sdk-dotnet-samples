@@ -402,6 +402,58 @@
             <title>Switch Basemaps</title>
             <category>Mapping</category>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ExportTileCache">
+            <summary>
+            Demonstrates how to download a local tile cache from an online service with the ExportTiles operation enabled.
+            </summary>
+            <title>Export Tile Cache</title>
+            <category>Offline</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ExportTileCache.#ctor">
+            <summary>Construct Export Tile Cache sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GenerateGeodatabase">
+            <summary>
+            This sample demonstrates how to generate and download a local geodatabase from an online map service for later offline use.
+            </summary>
+            <title>Generate Geodatabase</title>
+            <category>Offline</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GenerateGeodatabase.#ctor">
+            <summary>Construct Generate Geodatabase sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.OfflineGeocoding">
+            <summary>
+            Demonstrates performing a geocode by submitting values for multiple address fields to a local locator.
+            </summary>
+            <title>Geocoding</title>
+            <category>Offline</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.OfflineGeocoding.#ctor">
+            <summary>Construct Offline Geocoding sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.PointToStringConverter">
+            <summary>
+            MapPoint to formatted string value converter
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.OfflineRouting">
+            <summary>
+            Demonstrates offline routing with a network analyst LocalRouteTask.
+            </summary>
+            <title>Routing</title>
+            <category>Offline</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SyncGeodatabase">
+            <summary>
+            Demonstrates how to synchronize a local geodatabase with an online service.
+            </summary>
+            <title>Sync Geodatabase</title>
+            <category>Offline</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SyncGeodatabase.#ctor">
+            <summary>Construct Generate Geodatabase sample control</summary>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FindTaskSample">
             <summary>
             Demonstrates how to search your data using the find task.

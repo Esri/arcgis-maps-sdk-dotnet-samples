@@ -230,6 +230,21 @@
     <Compile Include="Samples\Mapping\SwitchBasemaps.xaml.cs">
       <DependentUpon>SwitchBasemaps.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Offline\ExportTileCache.xaml.cs">
+      <DependentUpon>ExportTileCache.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Offline\GenerateGeodatabase.xaml.cs">
+      <DependentUpon>GenerateGeodatabase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Offline\OfflineGeocoding.xaml.cs">
+      <DependentUpon>OfflineGeocoding.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Offline\OfflineRouting.xaml.cs">
+      <DependentUpon>OfflineRouting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Offline\SyncGeodatabase.xaml.cs">
+      <DependentUpon>SyncGeodatabase.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\QueryTasks\FindTaskSample.xaml.cs">
       <DependentUpon>FindTaskSample.xaml</DependentUpon>
     </Compile>
@@ -601,6 +616,26 @@
     <Page Include="Samples\Mapping\SwitchBasemaps.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Offline\ExportTileCache.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Offline\GenerateGeodatabase.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Offline\OfflineGeocoding.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Offline\OfflineRouting.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Offline\SyncGeodatabase.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\QueryTasks\FindTaskSample.xaml">
       <Generator>MSBuild:Compile</Generator>

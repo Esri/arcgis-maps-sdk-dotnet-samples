@@ -19,7 +19,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     /// <category>Offline</category>
     public partial class GenerateGeodatabase : UserControl
     {
-        private const string BASE_URL = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/SaveTheBaySync/FeatureServer";
+        private const string BASE_URL = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/WildfireSync/FeatureServer";
         private const string GDB_PREFIX = "DOTNET_Sample";
         private const string GDB_NAME = "sample.geodatabase";
 
@@ -27,6 +27,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public GenerateGeodatabase()
         {
             InitializeComponent();
+            mapView.Map.InitialExtent = new Envelope(-13644593.8492659, 4538221.47307415, -13614635.4487984, 4552888.60663638, SpatialReferences.WebMercator);
         }
 
         // Generate / download and display layers from a generated geodatabase

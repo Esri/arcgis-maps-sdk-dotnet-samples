@@ -42,7 +42,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            var extentWGS84 = new Envelope(-122.60, 37.70, -122.25, 37.82, SpatialReferences.Wgs84);
+            var extentWGS84 = new Envelope(-123.77, 36.80, -119.77, 38.42, SpatialReferences.Wgs84);
             mapView.Map.InitialExtent = GeometryEngine.Project(extentWGS84, SpatialReferences.WebMercator) as Envelope;
 
             mapView.Loaded += mapView_Loaded;
@@ -60,7 +60,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             {
                 sliderLOD.Minimum = 0;
                 sliderLOD.Maximum = _onlineTiledLayer.ServiceInfo.TileInfo.Lods.Count - 1;
-                sliderLOD.Value = (int)(sliderLOD.Maximum / 2);
+                sliderLOD.Value = sliderLOD.Maximum;
             }
 
             _exportTilesTask = new ExportTileCacheTask(new Uri(_onlineTiledLayer.ServiceUri));
@@ -118,7 +118,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     Format = ExportTileCacheFormat.TilePackage,
                     MinScale = _onlineTiledLayer.ServiceInfo.TileInfo.Lods[(int)sliderLOD.Value].Scale,
                     MaxScale = _onlineTiledLayer.ServiceInfo.TileInfo.Lods[0].Scale,
-                    GeometryFilter = mapView.Extent
+                    GeometryFilter = GeometryEngine.Project(mapView.Extent, SpatialReferences.Wgs84)
                 };
 
                 var job = await _exportTilesTask.EstimateTileCacheSizeAsync(_genOptions);

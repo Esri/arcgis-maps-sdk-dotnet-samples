@@ -95,7 +95,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     new SampleSymbol(new SimpleFillSymbol() { Color = Color.FromArgb(100, 0, 255, 0), Style = SimpleFillStyle.DiagonalCross, Outline = blackOutlineSymbol }),
                     new SampleSymbol(new SimpleFillSymbol() { Color = Color.FromArgb(100, 0, 0, 255), Style = SimpleFillStyle.Vertical, Outline = blackOutlineSymbol }),
 
-                    new SampleSymbol(new PictureFillSymbol() { Outline = blackOutlineSymbol }, "pack://application:,,,/ArcGISRuntimeSDKDotNet_DesktopSamples;component/Assets/x-24x24.png")
+                    new SampleSymbol(new PictureFillSymbol() { Outline = blackOutlineSymbol }, "pack://application:,,,/ArcGISRuntimeSDKDotNet_DesktopSamples;component/Assets/x-24x24.png"),
+                    new SampleSymbol(new PictureFillSymbol() { Outline = blackOutlineSymbol }, "http://static.arcgis.com/images/Symbols/Cartographic/esriCartographyMarker_79_Blue.png")
                 };
 
                 // Set image sources for picture fill symbols

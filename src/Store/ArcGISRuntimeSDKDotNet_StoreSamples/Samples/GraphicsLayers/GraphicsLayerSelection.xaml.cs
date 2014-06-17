@@ -97,11 +97,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         // Retrieve a user click point and return hit tested graphics
         private async Task<IEnumerable<Graphic>> FindIntersectingGraphicsAsync()
         {
-            var mapRect = await mapView.Editor.RequestShapeAsync(DrawShape.Rectangle) as Envelope;
+            var mapRect = await mapView.Editor.RequestShapeAsync(DrawShape.Envelope) as Envelope;
 
             Rect winRect = new Rect(
-                mapView.LocationToScreen(new MapPoint(mapRect.XMin, mapRect.YMin, mapView.SpatialReference)),
-                mapView.LocationToScreen(new MapPoint(mapRect.XMax, mapRect.YMax, mapView.SpatialReference)));
+                mapView.LocationToScreen(new MapPoint(mapRect.XMin, mapRect.YMax, mapView.SpatialReference)),
+                mapView.LocationToScreen(new MapPoint(mapRect.XMax, mapRect.YMin, mapView.SpatialReference)));
 
             return await _graphicsLayer.HitTestAsync(mapView, winRect, MAX_GRAPHICS);
         }

@@ -46,7 +46,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                var envelope = await mapView.Editor.RequestShapeAsync(DrawShape.Rectangle) as Envelope;
+                var envelope = await mapView.Editor.RequestShapeAsync(DrawShape.Envelope) as Envelope;
 
                 QueryTask queryTask = new QueryTask(
                     new Uri("http://servicesbeta.esri.com/ArcGIS/rest/services/Portland/PortlandAerial/ImageServer/query"));

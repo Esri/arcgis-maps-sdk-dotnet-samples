@@ -55,7 +55,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             try
             {
                 // Get user rectangle
-                var rect = await mapView.Editor.RequestShapeAsync(DrawShape.Rectangle) as Envelope;
+                var rect = await mapView.Editor.RequestShapeAsync(DrawShape.Envelope) as Envelope;
                 if (rect.Height == 0 || rect.Width == 0)
                     throw new ApplicationException("Please click and drag a box to define an extent.");
 

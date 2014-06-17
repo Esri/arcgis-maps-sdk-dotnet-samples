@@ -16,8 +16,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	/// <subcategory>Dynamic Service Layers</subcategory>
 	public partial class ArcGISDynamicMapServiceLayerLocalSample : UserControl
     {
-           
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ArcGISDynamicMapServiceLayerLocalSample"/> class.
         /// </summary>
@@ -27,7 +25,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             InitializeComponent();
 
-            CreateLocalServiceAndDynamicLayer();
+            var _ = CreateLocalServiceAndDynamicLayer();
         }
 
         public async Task CreateLocalServiceAndDynamicLayer() 
@@ -44,7 +42,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     ServiceUri = localMapService.UrlMapService,
                 };
 
-								MyMapView.Map.Layers.Add(arcGISDynamicMapServiceLayer);
+				MyMapView.Map.Layers.Add(arcGISDynamicMapServiceLayer);
             }
             catch (Exception ex)
             {

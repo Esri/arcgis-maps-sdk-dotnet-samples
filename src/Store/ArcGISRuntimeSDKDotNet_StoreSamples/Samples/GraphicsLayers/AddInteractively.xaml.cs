@@ -14,7 +14,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
     /// <summary>
     /// Example of how to add Graphics to a GraphicLayer by drawing shapes on the map.
     /// </summary>
-    /// <title>Add Interactively</title>
+    /// <title>Add Graphics Interactively</title>
     /// <category>Graphics Layers</category>
 	public sealed partial class AddInteractively : Windows.UI.Xaml.Controls.Page
     {

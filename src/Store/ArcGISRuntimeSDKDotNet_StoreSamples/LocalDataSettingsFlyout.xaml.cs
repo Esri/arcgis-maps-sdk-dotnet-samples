@@ -1,4 +1,5 @@
 ﻿using ArcGISRuntimeSDKDotNet_StoreSamples.Common;
+using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -9,6 +10,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples
     /// </summary>
     public sealed partial class LocalDataSettingsFlyout : SettingsFlyout
     {
+        public static readonly Guid LOCALDATA_SETTINGS_ID = new Guid("{df28d422-a8f5-4b9c-8e69-f82d3e67ee5b}");
+
         private SampleDataViewModel _vm;
 
         public LocalDataSettingsFlyout()

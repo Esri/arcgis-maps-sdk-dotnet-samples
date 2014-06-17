@@ -43,7 +43,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             {
                 _isOnline = value;
 
-                SetupRouteTask();
+                var _ = SetupRouteTask();
 
                 if (PropertyChanged != null)
                 {

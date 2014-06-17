@@ -102,8 +102,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples
 
         private void OnCommandsRequested(SettingsPane sender, SettingsPaneCommandsRequestedEventArgs args)
         {
-            args.Request.ApplicationCommands.Add(new SettingsCommand(
-                "Sample Data", "Sample Data", (handler) => ShowCustomSettingsFlyout()));
+            args.Request.ApplicationCommands.Add(new SettingsCommand(LocalDataSettingsFlyout.LOCALDATA_SETTINGS_ID, 
+                "Sample Data", (handler) => ShowCustomSettingsFlyout()));
         }
 
         public void ShowCustomSettingsFlyout()

@@ -111,7 +111,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             _candidateAddressesGraphicsLayer = map1.Layers["CandidateAddressesGraphicsLayer"] as GraphicsLayer;
 
-            SetSimpleRendererSymbols();
+            var _ = SetSimpleRendererSymbols();
         }
 
         private async Task SetSimpleRendererSymbols()
@@ -132,7 +132,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             _candidateAddressesGraphicsLayer.Renderer = findResultRenderer;
         }
 
-        private async Task SetupLocator()
+        private void SetupLocator()
         {
             if (!IsOnline)
             {
@@ -142,7 +142,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             {
                 _locatorTask = new OnlineLocatorTask(new Uri("http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"), string.Empty);
             }
-
         }
 
         private async void FindButton_Click(object sender, RoutedEventArgs e)

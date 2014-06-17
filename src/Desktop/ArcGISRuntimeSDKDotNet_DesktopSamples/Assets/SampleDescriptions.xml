@@ -982,11 +982,10 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.MovePoints">
             <summary>
-            Move point graphics around using hittesting and mouse move.
+            Demonstrates one method of moving graphic points on the map.
             </summary>
-            <title>Move point graphics interactively</title>
-            <category>Layers</category>
-            <subcategory>Graphics Layers</subcategory>
+            <title>Move Points</title>
+            <category>Editing</category>
             <summary>
             MovePoints
             </summary>
@@ -1125,7 +1124,7 @@
             <summary>
             This sample demonstrates how to add a GraphicsLayer with Graphics and Symbols to the map in XAML.  The sample also shows how to add Polyline graphics to a GraphicsLayer from the code-behind.
             </summary>
-            <title>Graphics Layer Sample</title>
+            <title>Graphics Layer</title>
             <category>Layers</category>
             <subcategory>Graphics Layers</subcategory>
             <summary>
@@ -1174,28 +1173,6 @@
             <summary>Construct Graphics Source sample control</summary>
         </member>
         <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsSourceSample.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SmoothGraphicAnimation">
-            <summary>
-            Animates a graphic smoothly between two user defined locations by calling the MapPoint.MoveTo method at regular intervals as defined by a DispatcherTimer. 
-            The distance the point is moved each time is calculated by a quintic easing function.
-            </summary>
-            <title>Smooth Graphic Animation</title>
-            <category>Layers</category>
-            <subcategory>Graphics Layers</subcategory>
-            <summary>
-            SmoothGraphicAnimation
-            </summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SmoothGraphicAnimation.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SmoothGraphicAnimation"/> class.
-            </summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SmoothGraphicAnimation.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>

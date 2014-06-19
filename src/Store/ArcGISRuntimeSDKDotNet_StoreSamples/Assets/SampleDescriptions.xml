@@ -125,6 +125,33 @@
         <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayerFromLocalGeodatabase.mapView_ExtentChanged(System.Object,System.EventArgs)">
             <summary>Add feature tables from a local geodatabase as layers on the map</summary>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FindPlace">
+            <summary>
+            Demonstrates how to use the FindAsync method of an OnlineLocatorTask object to find places by name.
+            </summary>
+            <title>Find a Place</title>
+            <category>Geocode Tasks</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FindPlace.#ctor">
+            <summary>Construct find place sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GeocodeAddress">
+            <summary>
+            Demonstrates how to geocode an address using the OnlineLocatorTask.
+            </summary>
+            <title>Geocode an Address</title>
+            <category>Geocode Tasks</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ReverseGeocode">
+            <summary>
+            Demonstrates using the OnlineLocatorTask.ReverseGeocodeAsync method to get address information from a location on the map.
+            </summary>
+            <title>Reverse Geocode</title>
+            <category>Geocode Tasks</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ReverseGeocode.#ctor">
+            <summary>Construct reverse geocode sample control</summary>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Boundary">
             <summary>
             Demonstrates the GeometryEngine.Boundary method to calculate the geometric boundary of a given geometry.
@@ -525,12 +552,6 @@
         <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.AddInteractively.#ctor">
             <summary>Construct Add Graphics Interactively sample control</summary>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.AddressOfLocation">
-            <summary>
-            
-            </summary>
-            <category>Geocode Tasks</category>
-        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.TextSymbols">
             <summary>
             Sample shows how to create Text Symbols (TextSymbol) and add graphics using the symbols.
@@ -600,12 +621,6 @@
             <title>Attribute Query</title>
             <category>Query Tasks</category>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.BatchGeocoding">
-            <summary>
-            
-            </summary>
-            <category>Geocode Tasks</category>
-        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.CalculateViewshed">
             <summary>
             
@@ -664,18 +679,6 @@
             </summary>
             <title>Feature Layer From Service</title>
             <category>Feature Layers</category>
-        </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FindAnAddress">
-            <summary>
-            
-            </summary>
-            <category>Geocode Tasks</category>
-        </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FindAnAddressUsingArcGISOnline">
-            <summary>
-            
-            </summary>
-            <category>Geocode Tasks</category>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GeodesicBuffer">
             <summary>

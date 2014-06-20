@@ -402,6 +402,27 @@
             <title>Switch Basemaps</title>
             <category>Mapping</category>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Routing">
+            <summary>
+            Demonstrates simple point to point routing between two input locations with either OnlineLocatorTask or LocalLocatorTask.
+            </summary>
+            <title>Routing</title>
+            <category>Network Analyst Tasks</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.RoutingWithBarriers">
+            <summary>
+            Shows routing and re-routing between stops and around user defined barriers using the OnlineLocatorTask.
+            </summary>
+            <title>Routing Around Barriers</title>
+            <category>Network Analyst Tasks</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.RoutingWithDirections">
+            <summary>
+            Demonstrates retrieving a route and driving directions between input locations with OnlineLocatorTask.
+            </summary>
+            <title>Routing with Directions</title>
+            <category>Network Analyst Tasks</category>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FindTaskSample">
             <summary>
             Demonstrates how to search your data using the find task.
@@ -645,12 +666,6 @@
             </summary>
             <category>Geoprocessing Tasks</category>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DrivingDirections">
-            <summary>
-            
-            </summary>
-            <category>Network Analyst Tasks</category>
-        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ArcGISDynamicMapServiceLayerSample">
             <summary>
             Demonstrates adding an ArcGIS dynamic map service layer to a map
@@ -852,18 +867,6 @@
             </summary>
             <title>Image Service Raster Functions</title>
             <category>Dynamic Service Layers</category>
-        </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Routing">
-            <summary>
-            
-            </summary>
-            <category>Network Analyst Tasks</category>
-        </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.RoutingWithBarriers">
-            <summary>
-            
-            </summary>
-            <category>Network Analyst Tasks</category>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Statistics">
             <summary>

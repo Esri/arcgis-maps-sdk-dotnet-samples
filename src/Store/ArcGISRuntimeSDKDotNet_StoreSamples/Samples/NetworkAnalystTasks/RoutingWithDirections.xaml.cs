@@ -6,19 +6,18 @@ using Esri.ArcGISRuntime.Tasks.NetworkAnalyst;
 using System;
 using System.Globalization;
 using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
+using Windows.UI;
+using Windows.UI.Popups;
+using Windows.UI.Xaml;
 
-namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
     /// Demonstrates retrieving a route and driving directions between input locations with OnlineLocatorTask.
     /// </summary>
     /// <title>Routing with Directions</title>
-    /// <category>Tasks</category>
-    /// <subcategory>Network Analyst</subcategory>
-    public partial class RoutingWithDirections : UserControl
+    /// <category>Network Analyst Tasks</category>
+    public partial class RoutingWithDirections : Windows.UI.Xaml.Controls.Page
     {
         private const string OnlineRoutingService = "http://tasks.arcgisonline.com/ArcGIS/rest/services/NetworkAnalysis/ESRI_Route_NA/NAServer/Route";
 
@@ -63,7 +62,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show(ex.Message, "Sample Error");
+                var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
             }
         }
 
@@ -104,19 +103,16 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             }
             catch (AggregateException ex)
             {
+                var message = ex.Message;
                 var innermostExceptions = ex.Flatten().InnerExceptions;
                 if (innermostExceptions != null && innermostExceptions.Count > 0)
-                {
-                    MessageBox.Show(innermostExceptions[0].Message, "Sample Error");
-                }
-                else
-                {
-                    MessageBox.Show(ex.Message, "Sample Error");
-                }
+                    message = innermostExceptions[0].Message;
+                
+                var _ = new MessageDialog(message, "Sample Error").ShowAsync();
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show(ex.Message, "Sample Error");
+                var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
             }
             finally
             {
@@ -160,7 +156,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             return graphic;
         }
 
-        private void listDirections_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void listDirections_SelectionChanged(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
         {
             _directionsLayer.ClearSelection();
 

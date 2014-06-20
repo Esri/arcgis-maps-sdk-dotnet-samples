@@ -5,22 +5,22 @@ using Esri.ArcGISRuntime.Tasks.NetworkAnalyst;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.Storage;
-using Windows.UI;
-using Windows.UI.Popups;
-using Windows.UI.Xaml;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 
-namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
     /// Demonstrates simple point to point routing between two input locations with either OnlineLocatorTask or LocalLocatorTask.
     /// </summary>
     /// <title>Routing</title>
-    /// <category>Network Analyst Tasks</category>
-    public partial class Routing : Windows.UI.Xaml.Controls.Page
+    /// <category>Tasks</category>
+    /// <subcategory>Network Analyst</subcategory>
+    public partial class Routing : UserControl
     {
         private const string OnlineRoutingService = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route";
-        private const string LocalRoutingDatabase = @"networks\san-diego\san-diego-network.geodatabase";
+        private const string LocalRoutingDatabase = @"..\..\..\..\..\samples-data\networks\san-diego\san-diego-network.geodatabase";
         private const string LocalNetworkName = "Streets_ND";
 
         private GraphicsLayer _extentGraphicsLayer;
@@ -58,7 +58,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+                MessageBox.Show(ex.Message, "Sample Error");
             }
         }
 
@@ -70,25 +70,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 _stopsGraphicsLayer.Graphics.Clear();
                 panelRouteInfo.Visibility = Visibility.Collapsed;
 
-                if (((Windows.UI.Xaml.Controls.CheckBox)sender).IsChecked == true)
+                if (((CheckBox)sender).IsChecked == true)
                     _routeTask = await Task.Run<RouteTask>(() => new OnlineRouteTask(new Uri(OnlineRoutingService)));
                 else
-                {
-                    try
-                    {
-                        var path = System.IO.Path.Combine(ApplicationData.Current.LocalFolder.Path, LocalRoutingDatabase);
-                        _routeTask = await Task.Run<LocalRouteTask>(() => new LocalRouteTask(path, LocalNetworkName));
-                    }
-                    catch
-                    {
-                        chkOnline.IsChecked = true;
-                        throw;
-                    }
-                }
+                    _routeTask = await Task.Run<RouteTask>(() => new LocalRouteTask(LocalRoutingDatabase, LocalNetworkName));
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+                MessageBox.Show(ex.Message, "Sample Error");
             }
         }
 
@@ -102,7 +91,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+                MessageBox.Show(ex.Message, "Sample Error");
             }
         }
 
@@ -162,17 +151,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             {
                 var innermostExceptions = ex.Flatten().InnerExceptions;
                 if (innermostExceptions != null && innermostExceptions.Count > 0)
-                {
-                    var _ = new MessageDialog(innermostExceptions[0].Message, "Sample Error").ShowAsync();
-                }
+                    MessageBox.Show(innermostExceptions[0].Message);
                 else
-                {
-                    var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
-                }
+                    MessageBox.Show(ex.Message);
             }
             catch (System.Exception ex)
             {
-                var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+                MessageBox.Show("Error: " + ex.Message);
             }
             finally
             {

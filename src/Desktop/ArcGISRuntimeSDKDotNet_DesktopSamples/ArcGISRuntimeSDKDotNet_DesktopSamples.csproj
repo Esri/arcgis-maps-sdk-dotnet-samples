@@ -371,8 +371,8 @@
     <Compile Include="Samples\QueryTasks\Statistics.xaml.cs">
       <DependentUpon>Statistics.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\NetworkAnalystTasks\RoutingPointToPoint.xaml.cs">
-      <DependentUpon>RoutingPointToPoint.xaml</DependentUpon>
+    <Compile Include="Samples\NetworkAnalystTasks\Routing.xaml.cs">
+      <DependentUpon>Routing.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\NetworkAnalystTasks\RoutingWithBarriers.xaml.cs">
       <DependentUpon>RoutingWithBarriers.xaml</DependentUpon>
@@ -844,7 +844,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\NetworkAnalystTasks\RoutingPointToPoint.xaml">
+    <Page Include="Samples\NetworkAnalystTasks\Routing.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

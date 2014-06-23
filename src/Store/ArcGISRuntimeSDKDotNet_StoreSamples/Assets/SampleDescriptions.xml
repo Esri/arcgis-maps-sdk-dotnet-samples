@@ -329,6 +329,19 @@
             <title>Graphics Source</title>
             <category>Graphics Layers</category>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SmoothGraphicAnimation">
+            <summary>
+            Animates a graphic smoothly between two user defined locations by calling the MapPoint.MoveTo method at regular intervals as defined by a DispatcherTimer. 
+            The distance the point is moved each time is calculated by a quintic easing function.
+            </summary>
+            <title>Smooth Graphic Animation</title>
+            <category>Graphics Layers</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SmoothGraphicAnimation.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SmoothGraphicAnimation"/> class.
+            </summary>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GroupLayers">
             <summary>
             Demonstrates the use of GroupLayers to contain related layers in a map.

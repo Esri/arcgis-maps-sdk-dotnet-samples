@@ -200,6 +200,9 @@
     <Compile Include="Samples\GraphicsLayers\GraphicsSourceSample.xaml.cs">
       <DependentUpon>GraphicsSourceSample.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\GraphicsLayers\SmoothGraphicAnimation.xaml.cs">
+      <DependentUpon>SmoothGraphicAnimation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Mapping\GroupLayers.xaml.cs">
       <DependentUpon>GroupLayers.xaml</DependentUpon>
     </Compile>
@@ -559,6 +562,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\GraphicsLayers\GraphicsSourceSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GraphicsLayers\SmoothGraphicAnimation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

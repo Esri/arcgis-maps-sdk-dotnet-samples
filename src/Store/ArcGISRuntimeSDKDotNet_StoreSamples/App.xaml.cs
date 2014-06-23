@@ -13,6 +13,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples
     /// </summary>
     sealed partial class App : Application
     {
+        // Local Data Settings Flyout - performs long-running download that may last beyond close of the flyout
+        private static Lazy<LocalDataSettingsFlyout> _localDataSettingsFlyout = new Lazy<LocalDataSettingsFlyout>(false);
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -108,8 +111,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples
 
         public void ShowCustomSettingsFlyout()
         {
-            var settingsFlyout = new LocalDataSettingsFlyout();
-            settingsFlyout.Show();
+            _localDataSettingsFlyout.Value.Show();
         }
     }
 }

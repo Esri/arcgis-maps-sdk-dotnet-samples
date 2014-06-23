@@ -1877,57 +1877,27 @@
             InitializeComponent
             </summary>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RoutingPointToPoint">
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Routing">
             <summary>
-            Demonstrates simple point to point routing between two input locations.
+            Demonstrates simple point to point routing between two input locations with either OnlineLocatorTask or LocalLocatorTask.
             </summary>
+            <title>Routing</title>
             <category>Tasks</category>
             <subcategory>Network Analyst</subcategory>
             <summary>
-            RoutingPointToPoint
+            Routing
             </summary>
         </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RoutingPointToPoint.InitializeComponent">
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Routing.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
         </member>
-        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RoutingPointToPoint.IsOnline">
-            <summary>
-            Gets or sets a value indicating whether this instance is online.
-            </summary>
-            <value>
-              <c>true</c> if this instance is online; otherwise, <c>false</c>.
-            </value>
-        </member>
-        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RoutingPointToPoint.IsMapReady">
-            <summary>
-            Gets or sets a value indicating whether the map is initialized.
-            </summary>
-            <value>
-            <c>true</c> if the map is initialized; otherwise, <c>false</c>.
-            </value>
-        </member>
-        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RoutingPointToPoint.StartLocationText">
-            <summary>
-            Gets or sets the start location text.
-            </summary>
-            <value>
-            The start location text.
-            </value>
-        </member>
-        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RoutingPointToPoint.EndLocationText">
-            <summary>
-            Gets or sets the end location text.
-            </summary>
-            <value>
-            The end location text.
-            </value>
-        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RoutingWithBarriers">
             <summary>
-            Shows routing and re-routing around user defined point, polyline, and polygon barriers.
+            Shows routing and re-routing between stops and around user defined barriers using the OnlineLocatorTask.
             </summary>
+            <title>Routing Around Barriers</title>
             <category>Tasks</category>
             <subcategory>Network Analyst</subcategory>
             <summary>
@@ -1939,26 +1909,11 @@
             InitializeComponent
             </summary>
         </member>
-        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RoutingWithBarriers.IsOnline">
-            <summary>
-            Gets or sets a value indicating whether this instance is online.
-            </summary>
-            <value>
-              <c>true</c> if this instance is online; otherwise, <c>false</c>.
-            </value>
-        </member>
-        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RoutingWithBarriers.IsMapReady">
-            <summary>
-            Gets or sets a value indicating whether the map is initialized.
-            </summary>
-            <value>
-            <c>true</c> if the map is initialized; otherwise, <c>false</c>.
-            </value>
-        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RoutingWithDirections">
             <summary>
-            Interaction logic for RoutingWithDirections.xaml
+            Demonstrates retrieving a route and driving directions between input locations with OnlineLocatorTask.
             </summary>
+            <title>Routing with Directions</title>
             <category>Tasks</category>
             <subcategory>Network Analyst</subcategory>
             <summary>
@@ -1969,46 +1924,6 @@
             <summary>
             InitializeComponent
             </summary>
-        </member>
-        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RoutingWithDirections.IsOnline">
-            <summary>
-            Gets or sets a value indicating whether this instance is online.
-            </summary>
-            <value>
-              <c>true</c> if this instance is online; otherwise, <c>false</c>.
-            </value>
-        </member>
-        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RoutingWithDirections.IsMapReady">
-            <summary>
-            Gets or sets a value indicating whether the map is initialized.
-            </summary>
-            <value>
-            <c>true</c> if the map is initialized; otherwise, <c>false</c>.
-            </value>
-        </member>
-        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RoutingWithDirections.StartLocationText">
-            <summary>
-            Gets or sets the start location text.
-            </summary>
-            <value>
-            The start location text.
-            </value>
-        </member>
-        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RoutingWithDirections.EndLocationText">
-            <summary>
-            Gets or sets the end location text.
-            </summary>
-            <value>
-            The end location text.
-            </value>
-        </member>
-        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RoutingWithDirections.Directions">
-            <summary>
-            Gets or sets the directions text.
-            </summary>
-            <value>
-            The directions.
-            </value>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.TokenSecuredServices">
             <summary>

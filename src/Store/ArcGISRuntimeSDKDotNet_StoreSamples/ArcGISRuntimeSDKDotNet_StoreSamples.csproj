@@ -90,8 +90,8 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <SDKReference Include="Esri.ArcGISRuntime, Version=10.2.3">
-      <Name>ArcGIS Runtime for Windows Store apps %28Beta 2%29</Name>
+    <SDKReference Include="Esri.ArcGISRuntime, Version=10.2.4">
+      <Name>ArcGIS Runtime for Windows Store apps</Name>
     </SDKReference>
     <SDKReference Include="Microsoft.VCLibs, version=12.0">
       <Name>Microsoft Visual C++ 2013 Runtime Package for Windows</Name>
@@ -242,6 +242,15 @@
     <Compile Include="Samples\Mapping\SwitchBasemaps.xaml.cs">
       <DependentUpon>SwitchBasemaps.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\NetworkAnalystTasks\Routing.xaml.cs">
+      <DependentUpon>Routing.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\NetworkAnalystTasks\RoutingWithBarriers.xaml.cs">
+      <DependentUpon>RoutingWithBarriers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\NetworkAnalystTasks\RoutingWithDirections.xaml.cs">
+      <DependentUpon>RoutingWithDirections.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Offline\ExportTileCache.xaml.cs">
       <DependentUpon>ExportTileCache.xaml</DependentUpon>
     </Compile>
@@ -329,9 +338,6 @@
     <Compile Include="Samples\GeoprocessingTasks\DriveTimes.xaml.cs">
       <DependentUpon>DriveTimes.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\NetworkAnalystTasks\DrivingDirections.xaml.cs">
-      <DependentUpon>DrivingDirections.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Samples\DynamicServiceLayers\ArcGISDynamicMapServiceLayerSample.xaml.cs">
       <DependentUpon>ArcGISDynamicMapServiceLayerSample.xaml</DependentUpon>
     </Compile>
@@ -400,12 +406,6 @@
     </Compile>
     <Compile Include="Samples\DynamicServiceLayers\ImageServiceRasterFunctions.xaml.cs">
       <DependentUpon>ImageServiceRasterFunctions.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\NetworkAnalystTasks\Routing.xaml.cs">
-      <DependentUpon>Routing.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\NetworkAnalystTasks\RoutingWithBarriers.xaml.cs">
-      <DependentUpon>RoutingWithBarriers.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\QueryTasks\Statistics.xaml.cs">
       <DependentUpon>Statistics.xaml</DependentUpon>
@@ -633,6 +633,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Samples\NetworkAnalystTasks\Routing.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\NetworkAnalystTasks\RoutingWithBarriers.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\NetworkAnalystTasks\RoutingWithDirections.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Offline\ExportTileCache.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -749,10 +761,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\NetworkAnalystTasks\DrivingDirections.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Samples\DynamicServiceLayers\ArcGISDynamicMapServiceLayerSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -842,14 +850,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\DynamicServiceLayers\ImageServiceRasterFunctions.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\NetworkAnalystTasks\Routing.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\NetworkAnalystTasks\RoutingWithBarriers.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

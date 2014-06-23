@@ -14,7 +14,7 @@
                     ServiceUri="http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 
                 <esri:ArcGISDynamicMapServiceLayer ID="mapServiceLayer" DisplayName="Online Map Service"
-                    ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/SaveTheBaySync/MapServer" />
+                    ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/WildfireSync/MapServer" />
             </esri:Map>
         </esri:MapView>
 

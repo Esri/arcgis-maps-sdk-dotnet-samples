@@ -4,20 +4,22 @@ using Esri.ArcGISRuntime.Http;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using System;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
+using Windows.Storage;
+using Windows.UI.Popups;
+using Windows.UI.Xaml;
 
-namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
     /// This sample demonstrates how to generate and download a local geodatabase from an online map service for later offline use.
     /// </summary>
     /// <title>Generate Geodatabase</title>
     /// <category>Offline</category>
-    public partial class GenerateGeodatabase : UserControl
+    public partial class GenerateGeodatabase : Windows.UI.Xaml.Controls.Page
     {
         private const string BASE_URL = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/WildfireSync/FeatureServer";
         private const string GDB_PREFIX = "DOTNET_Sample";
@@ -35,7 +37,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                panelUI.IsEnabled = false;
                 panelStatus.Visibility = Visibility.Visible;
 
                 ReportStatus("Creating GeodatabaseSyncTask...");
@@ -68,44 +69,35 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var statusResult = await tcs.Task;
 
                 ReportStatus("Downloading Geodatabase...");
-                var gdbPath = await DownloadGeodatabase(statusResult);
+                var gdbFile = await DownloadGeodatabase(statusResult);
 
                 ReportStatus("Create local feature layers...");
-                await CreateFeatureLayersAsync(gdbPath);
+                await CreateFeatureLayersAsync(gdbFile.Path);
 
-                mapView.Map.Layers["mapServiceLayer"].IsVisible = false;
+                mapView.Map.Layers["onlineService"].IsVisible = false;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Sample Error");
+                var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
             }
             finally
             {
                 panelStatus.Visibility = Visibility.Collapsed;
-                panelUI.IsEnabled = true;
             }
         }
 
         // Download a generated geodatabase file
-        private async Task<string> DownloadGeodatabase(GeodatabaseStatusInfo statusResult)
+        private async Task<StorageFile> DownloadGeodatabase(GeodatabaseStatusInfo statusResult)
         {
+            var file = await ApplicationData.Current.TemporaryFolder.CreateFileAsync(GDB_NAME, CreationCollisionOption.ReplaceExisting);
             var client = new ArcGISHttpClient();
-            var gdbStream = client.GetOrPostAsync(statusResult.ResultUri, null);
-            var gdbFolder = System.IO.Path.GetTempPath();
-            var gdbPath = System.IO.Path.Combine(gdbFolder, GDB_NAME);
-
-            if (!System.IO.Directory.Exists(gdbFolder))
-                System.IO.Directory.CreateDirectory(gdbFolder);
-
-            await Task.Factory.StartNew(async () =>
+            var download = await client.GetOrPostAsync(statusResult.ResultUri, null);
+            using (var fileStream = await file.OpenStreamForWriteAsync())
             {
-                using (var stream = System.IO.File.Create(gdbPath))
-                {
-                    await gdbStream.Result.Content.CopyToAsync(stream);
-                }
-            });
+                await download.EnsureSuccessStatusCode().Content.CopyToAsync(fileStream);
+            }
 
-            return gdbPath;
+            return file;
         }
 
         // Create feature layers from the given geodatabase file
@@ -116,7 +108,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var gdb = await Geodatabase.OpenAsync(gdbPath);
 
                 if (gdb.FeatureTables.Count() == 0)
-                    throw new ApplicationException("Downloaded geodatabase has no feature tables.");
+                    throw new Exception("Downloaded geodatabase has no feature tables.");
 
                 var groupLayer = mapView.Map.Layers["Local_Geodatabase"] as GroupLayer;
                 if (groupLayer != null)
@@ -155,7 +147,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error creating feature layer: " + ex.Message, "Sample Error");
+                var _ = new MessageDialog("Error creating feature layer: " + ex.Message, "Sample Error").ShowAsync();
             }
         }
 

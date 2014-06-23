@@ -6,18 +6,17 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
+using Windows.UI.Popups;
+using Windows.UI.Xaml;
 
-namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
     /// Demonstrates how to use the FindAsync method of an OnlineLocatorTask object to find places by name.
     /// </summary>
     /// <title>Find a Place</title>
-    /// <category>Tasks</category>
-    /// <subcategory>Geocoding</subcategory>
-    public partial class FindPlace : UserControl
+    /// <category>Geocode Tasks</category>
+    public partial class FindPlace : Windows.UI.Xaml.Controls.Page
     {
         private const string OnlineLocatorUrl = "http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer";
 
@@ -46,7 +45,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private async Task SetSimpleRendererSymbols()
         {
             var markerSymbol = new PictureMarkerSymbol() { Width = 48, Height = 48, YOffset = 24 };
-            await markerSymbol.SetSourceAsync(new Uri("pack://application:,,,/ArcGISRuntimeSDKDotNet_DesktopSamples;component/Assets/RedStickpin.png"));
+            await markerSymbol.SetSourceAsync(new Uri("ms-appx:///Assets/RedStickpin.png"));
             var renderer = new SimpleRenderer() { Symbol = markerSymbol };
 
             _addressGraphicsLayer.Renderer = renderer;
@@ -87,13 +86,17 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             {
                 var innermostExceptions = ex.Flatten().InnerExceptions;
                 if (innermostExceptions != null && innermostExceptions.Count > 0)
-                    MessageBox.Show(string.Join(" > ", innermostExceptions.Select(i => i.Message).ToArray()));
+                {
+                    var _ = new MessageDialog(string.Join(" > ", innermostExceptions.Select(i => i.Message).ToArray()), "Sample Error").ShowAsync();
+                }
                 else
-                    MessageBox.Show(ex.Message);
+                {
+                    var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+                }
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
             }
             finally
             {
@@ -111,6 +114,19 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             graphic.Attributes["LocationDisplay"] = string.Format("{0:0.000}, {1:0.000}", location.X, location.Y);
 
             _addressGraphicsLayer.Graphics.Add(graphic);
+        }
+
+        private void listResults_SelectionChanged(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
+        {
+            _addressGraphicsLayer.ClearSelection();
+
+            if (e.AddedItems != null)
+            {
+                foreach (var graphic in e.AddedItems.OfType<Graphic>())
+                {
+                    graphic.IsSelected = true;
+                }
+            }
         }
     }
 }

@@ -134,6 +134,15 @@
     <Compile Include="Samples\FeatureLayers\FeatureLayerFromLocalGeodatabase.xaml.cs">
       <DependentUpon>FeatureLayerFromLocalGeodatabase.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\GeocodingTasks\FindPlace.xaml.cs">
+      <DependentUpon>FindPlace.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GeocodingTasks\GeocodeAddress.xaml.cs">
+      <DependentUpon>GeocodeAddress.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GeocodingTasks\ReverseGeocode.xaml.cs">
+      <DependentUpon>ReverseGeocode.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Geometry\Boundary.xaml.cs">
       <DependentUpon>Boundary.xaml</DependentUpon>
     </Compile>
@@ -233,6 +242,21 @@
     <Compile Include="Samples\Mapping\SwitchBasemaps.xaml.cs">
       <DependentUpon>SwitchBasemaps.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Offline\ExportTileCache.xaml.cs">
+      <DependentUpon>ExportTileCache.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Offline\GenerateGeodatabase.xaml.cs">
+      <DependentUpon>GenerateGeodatabase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Offline\OfflineGeocoding.xaml.cs">
+      <DependentUpon>OfflineGeocoding.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Offline\OfflineRouting.xaml.cs">
+      <DependentUpon>OfflineRouting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Offline\SyncGeodatabase.xaml.cs">
+      <DependentUpon>SyncGeodatabase.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\QueryTasks\FindTaskSample.xaml.cs">
       <DependentUpon>FindTaskSample.xaml</DependentUpon>
     </Compile>
@@ -266,9 +290,6 @@
     <Compile Include="Samples\GraphicsLayers\AddInteractively.xaml.cs">
       <DependentUpon>AddInteractively.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GeocodingTasks\AddressOfLocation.xaml.cs">
-      <DependentUpon>AddressOfLocation.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Samples\Symbology\TextSymbols.xaml.cs">
       <DependentUpon>TextSymbols.xaml</DependentUpon>
     </Compile>
@@ -289,9 +310,6 @@
     </Compile>
     <Compile Include="Samples\QueryTasks\AttributeQuery.xaml.cs">
       <DependentUpon>AttributeQuery.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\GeocodingTasks\BatchGeocoding.xaml.cs">
-      <DependentUpon>BatchGeocoding.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GeoprocessingTasks\CalculateViewshed.xaml.cs">
       <DependentUpon>CalculateViewshed.xaml</DependentUpon>
@@ -319,12 +337,6 @@
     </Compile>
     <Compile Include="Samples\FeatureLayers\FeatureLayerFromService.xaml.cs">
       <DependentUpon>FeatureLayerFromService.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\GeocodingTasks\FindAnAddress.xaml.cs">
-      <DependentUpon>FindAnAddress.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\GeocodingTasks\FindAnAddressUsingArcGISOnline.xaml.cs">
-      <DependentUpon>FindAnAddressUsingArcGISOnline.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Geometry\GeodesicBuffer.xaml.cs">
       <DependentUpon>GeodesicBuffer.xaml</DependentUpon>
@@ -477,6 +489,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\GeocodingTasks\FindPlace.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GeocodingTasks\GeocodeAddress.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GeocodingTasks\ReverseGeocode.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Geometry\Boundary.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -609,6 +633,26 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Samples\Offline\ExportTileCache.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Offline\GenerateGeodatabase.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Offline\OfflineGeocoding.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Offline\OfflineRouting.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Offline\SyncGeodatabase.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\QueryTasks\FindTaskSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -653,10 +697,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GeocodingTasks\AddressOfLocation.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Samples\Symbology\TextSymbols.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -682,10 +722,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\QueryTasks\AttributeQuery.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\GeocodingTasks\BatchGeocoding.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -722,14 +758,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\FeatureLayers\FeatureLayerFromService.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\GeocodingTasks\FindAnAddress.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\GeocodingTasks\FindAnAddressUsingArcGISOnline.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

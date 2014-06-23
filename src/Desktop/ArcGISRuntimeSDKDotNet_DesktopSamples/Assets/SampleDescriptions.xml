@@ -309,7 +309,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FindPlace">
             <summary>
-            Demonstrates how to use the FindAsync method of an OnlineLocatorTask object to find places by name.  This sample adds places to the map and list view that match the place name and are above the specified score range.
+            Demonstrates how to use the FindAsync method of an OnlineLocatorTask object to find places by name.
             </summary>
             <title>Find a Place</title>
             <category>Tasks</category>
@@ -326,65 +326,25 @@
             InitializeComponent
             </summary>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeocodeFullAddressInput">
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeocodeAddress">
             <summary>
-            Demonstrates performing a geocode by submitting values for multiple address fields.
+            Demonstrates how to geocode an address using the OnlineLocatorTask.
             </summary>
+            <title>Geocode an Address</title>
             <category>Tasks</category>
             <subcategory>Geocoding</subcategory>
             <summary>
-            GeocodeFullAddressInput
+            GeocodeAddress
             </summary>
         </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeocodeFullAddressInput.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeocodeFullAddressInput"/> class.
-            </summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeocodeFullAddressInput.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
-        <member name="E:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeocodeFullAddressInput.PropertyChanged">
-            <summary>
-            Occurs when a property value changes.
-            </summary>
-        </member>
-        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeocodeFullAddressInput.IsOnline">
-            <summary>
-            Gets or sets a value indicating whether this instance is online.
-            </summary>
-            <value>
-              <c>true</c> if this instance is online; otherwise, <c>false</c>.
-            </value>
-        </member>
-        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeocodeFullAddressInput.MatchScore">
-            <summary>
-            Gets or sets the match score.
-            </summary>
-            <value>
-            The match score.
-            </value>
-        </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeocodeSingleLineInput">
-            <summary>
-            Performs a single line geocode using either an online ArcGIS Locator service or a local Locator.
-            </summary>
-            <category>Tasks</category>
-            <subcategory>Geocoding</subcategory>
-            <summary>
-            GeocodeSingleLineInput
-            </summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeocodeSingleLineInput.InitializeComponent">
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GeocodeAddress.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ReverseGeocode">
             <summary>
-            Demonstrates using the OnlineLocatorTask.ReverseGeocodeAsync method to attempt to address information from a location on the map.
+            Demonstrates using the OnlineLocatorTask.ReverseGeocodeAsync method to get address information from a location on the map.
             </summary>
             <title>Reverse Geocode</title>
             <category>Tasks</category>

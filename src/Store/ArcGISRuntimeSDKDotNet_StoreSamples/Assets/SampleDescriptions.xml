@@ -125,6 +125,33 @@
         <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayerFromLocalGeodatabase.mapView_ExtentChanged(System.Object,System.EventArgs)">
             <summary>Add feature tables from a local geodatabase as layers on the map</summary>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FindPlace">
+            <summary>
+            Demonstrates how to use the FindAsync method of an OnlineLocatorTask object to find places by name.
+            </summary>
+            <title>Find a Place</title>
+            <category>Geocode Tasks</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FindPlace.#ctor">
+            <summary>Construct find place sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GeocodeAddress">
+            <summary>
+            Demonstrates how to geocode an address using the OnlineLocatorTask.
+            </summary>
+            <title>Geocode an Address</title>
+            <category>Geocode Tasks</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ReverseGeocode">
+            <summary>
+            Demonstrates using the OnlineLocatorTask.ReverseGeocodeAsync method to get address information from a location on the map.
+            </summary>
+            <title>Reverse Geocode</title>
+            <category>Geocode Tasks</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ReverseGeocode.#ctor">
+            <summary>Construct reverse geocode sample control</summary>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Boundary">
             <summary>
             Demonstrates the GeometryEngine.Boundary method to calculate the geometric boundary of a given geometry.
@@ -329,6 +356,19 @@
             <title>Graphics Source</title>
             <category>Graphics Layers</category>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SmoothGraphicAnimation">
+            <summary>
+            Animates a graphic smoothly between two user defined locations by calling the MapPoint.MoveTo method at regular intervals as defined by a DispatcherTimer. 
+            The distance the point is moved each time is calculated by a quintic easing function.
+            </summary>
+            <title>Smooth Graphic Animation</title>
+            <category>Graphics Layers</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SmoothGraphicAnimation.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SmoothGraphicAnimation"/> class.
+            </summary>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GroupLayers">
             <summary>
             Demonstrates the use of GroupLayers to contain related layers in a map.
@@ -422,6 +462,58 @@
             </summary>
             <title>Routing with Directions</title>
             <category>Network Analyst Tasks</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ExportTileCache">
+            <summary>
+            Demonstrates how to download a local tile cache from an online service with the ExportTiles operation enabled.
+            </summary>
+            <title>Export Tile Cache</title>
+            <category>Offline</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ExportTileCache.#ctor">
+            <summary>Construct Export Tile Cache sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GenerateGeodatabase">
+            <summary>
+            This sample demonstrates how to generate and download a local geodatabase from an online map service for later offline use.
+            </summary>
+            <title>Generate Geodatabase</title>
+            <category>Offline</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GenerateGeodatabase.#ctor">
+            <summary>Construct Generate Geodatabase sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.OfflineGeocoding">
+            <summary>
+            Demonstrates performing a geocode by submitting values for multiple address fields to a local locator.
+            </summary>
+            <title>Geocoding</title>
+            <category>Offline</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.OfflineGeocoding.#ctor">
+            <summary>Construct Offline Geocoding sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.PointToStringConverter">
+            <summary>
+            MapPoint to formatted string value converter
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.OfflineRouting">
+            <summary>
+            Demonstrates offline routing with a network analyst LocalRouteTask.
+            </summary>
+            <title>Routing</title>
+            <category>Offline</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SyncGeodatabase">
+            <summary>
+            Demonstrates how to synchronize a local geodatabase with an online service.
+            </summary>
+            <title>Sync Geodatabase</title>
+            <category>Offline</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SyncGeodatabase.#ctor">
+            <summary>Construct Generate Geodatabase sample control</summary>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FindTaskSample">
             <summary>
@@ -546,12 +638,6 @@
         <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.AddInteractively.#ctor">
             <summary>Construct Add Graphics Interactively sample control</summary>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.AddressOfLocation">
-            <summary>
-            
-            </summary>
-            <category>Geocode Tasks</category>
-        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.TextSymbols">
             <summary>
             Sample shows how to create Text Symbols (TextSymbol) and add graphics using the symbols.
@@ -621,12 +707,6 @@
             <title>Attribute Query</title>
             <category>Query Tasks</category>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.BatchGeocoding">
-            <summary>
-            
-            </summary>
-            <category>Geocode Tasks</category>
-        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.CalculateViewshed">
             <summary>
             
@@ -679,18 +759,6 @@
             </summary>
             <title>Feature Layer From Service</title>
             <category>Feature Layers</category>
-        </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FindAnAddress">
-            <summary>
-            
-            </summary>
-            <category>Geocode Tasks</category>
-        </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FindAnAddressUsingArcGISOnline">
-            <summary>
-            
-            </summary>
-            <category>Geocode Tasks</category>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GeodesicBuffer">
             <summary>

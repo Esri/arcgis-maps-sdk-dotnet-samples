@@ -4,19 +4,22 @@ using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Geocoding;
 using System;
 using System.Threading;
-using System.Windows;
-using System.Windows.Controls;
+using Windows.UI.Popups;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
     /// Demonstrates using the OnlineLocatorTask.ReverseGeocodeAsync method to get address information from a location on the map.
     /// </summary>
     /// <title>Reverse Geocode</title>
-	/// <category>Tasks</category>
-	/// <subcategory>Geocoding</subcategory>
-	public partial class ReverseGeocode : UserControl
+    /// <category>Geocode Tasks</category>
+    public partial class ReverseGeocode : Page
     {
+        private const string OnlineLocatorUrl = "http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer";
+
+        private GraphicsLayer _graphicsLayer;
         private LocatorTask _locator;
 
         /// <summary>Construct reverse geocode sample control</summary>
@@ -27,7 +30,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             Envelope extent = new Envelope(-117.387, 33.97, -117.355, 33.988, SpatialReferences.Wgs84);
             mapView.Map.InitialExtent = GeometryEngine.Project(extent, SpatialReferences.WebMercator) as Envelope;
 
-            _locator = new OnlineLocatorTask(new Uri("http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"));
+            _graphicsLayer = mapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+                
+            _locator = new OnlineLocatorTask(new Uri(OnlineLocatorUrl));
         }
 
         // Reverse geocode the clicked point and add a graphic and map tip to the map
@@ -35,7 +40,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                graphicsLayer.Graphics.Add(new Graphic(e.Location));
+                _graphicsLayer.Graphics.Add(new Graphic(e.Location));
 
                 var result = await _locator.ReverseGeocodeAsync(e.Location, 50, SpatialReferences.Wgs84, CancellationToken.None);
 
@@ -47,11 +52,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             }
             catch (AggregateException aex)
             {
-                MessageBox.Show(aex.InnerExceptions[0].Message, "Reverse Geocode");
+                var _ = new MessageDialog(aex.InnerExceptions[0].Message, "Reverse Geocode").ShowAsync();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Reverse Geocode");
+                var _ = new MessageDialog(ex.Message, "Reverse Geocode").ShowAsync();
             }
         }
 
@@ -59,7 +64,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
             mapView.Overlays.Clear();
-            graphicsLayer.Graphics.Clear();
+            _graphicsLayer.Graphics.Clear();
         }
     }
 }

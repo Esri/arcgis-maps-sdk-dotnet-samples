@@ -1,30 +1,35 @@
-﻿using Esri.ArcGISRuntime.Controls;
-using Esri.ArcGISRuntime.Data;
+﻿using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Http;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.Tasks.Query;
 using System;
+using System.IO;
+using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading;
+using Windows.UI.Popups;
+using Windows.UI.Xaml;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
+using System.Threading;
+using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Http;
+using Esri.ArcGISRuntime.Tasks.Query;
+using System.Runtime.CompilerServices;
+using Windows.UI.Xaml.Data;
+using System.Globalization;
+using Windows.Storage;
+using System.Collections.ObjectModel;
+using Windows.UI.Xaml.Controls;
+using Windows.Foundation;
 
-namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
-    /// This sample demonstrates how to synchronize a local geodatabase with an online service.
+    /// Demonstrates how to synchronize a local geodatabase with an online service.
     /// </summary>
     /// <title>Sync Geodatabase</title>
     /// <category>Offline</category>
-    public partial class SyncGeodatabase : UserControl, INotifyPropertyChanged
+    public partial class SyncGeodatabase : Windows.UI.Xaml.Controls.Page, INotifyPropertyChanged
     {
         private const string BASE_URL = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/SaveTheBaySync/FeatureServer";
         private const string GDB_PREFIX = "DOTNET_Sample";
@@ -74,8 +79,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             set { _secondaryStatus = value; RaisePropertyChanged(); }
         }
 
-        private CodedValueDomain _birdTypeDomain;
-        public CodedValueDomain BirdTypeDomain
+        private IEnumerable<Tuple<int, string>> _birdTypeDomain;
+        public IEnumerable<Tuple<int, string>> BirdTypeDomain
         {
             get { return _birdTypeDomain; }
             set { _birdTypeDomain = value; RaisePropertyChanged(); }
@@ -92,14 +97,19 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public FeatureLayer LocalBirdsLayer
         {
             get { return _localBirdsLayer; }
-            set { _localBirdsLayer = value; RaisePropertyChanged(); }
+            set { _localBirdsLayer = value; RaisePropertyChanged(); RaisePropertyChanged("LegendLayers"); }
+        }
+
+        public Point TapPosition
+        {
+            get { return mapView.LocationToScreen(_tapLocation); }
         }
 
         private MapPoint _tapLocation;
         public MapPoint TapLocation
         {
             get { return _tapLocation; }
-            set { _tapLocation = value; RaisePropertyChanged(); }
+            set { _tapLocation = value; RaisePropertyChanged(); RaisePropertyChanged("TapPosition"); }
         }
 
         private bool _isEditing;
@@ -108,13 +118,18 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             get { return _isEditing; }
             set { _isEditing = value; RaisePropertyChanged(); }
         }
+
+        public IEnumerable<Layer> LegendLayers
+        {
+            get { return (mapView == null) ? null : mapView.Map.Layers.Where(lyr => !(lyr is GraphicsLayer)); }
+        }
         #endregion
 
         private GeodatabaseSyncTask _syncTask;
         private ArcGISDynamicMapServiceLayer _onlineBirdsLayer;
         private GraphicsLayer _graphicsLayer;
-        private string _gdbPath;
-        
+        private string _gdbName;
+
         /// <summary>Construct Generate Geodatabase sample control</summary>
         public SyncGeodatabase()
         {
@@ -123,12 +138,16 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             mapView.Map.InitialExtent = new Envelope(-13446093.133, 4183761.731, -13432118.570, 4190880.0245, SpatialReferences.WebMercator);
 
             _syncTask = new GeodatabaseSyncTask(new Uri(BASE_URL));
+            
             _onlineBirdsLayer = mapView.Map.Layers.OfType<ArcGISDynamicMapServiceLayer>().First();
+            _onlineBirdsLayer.VisibleLayers = new ObservableCollection<int>() { 1 };
+
             _graphicsLayer = mapView.Map.Layers.OfType<GraphicsLayer>().First();
             _localBirdsLayer = null;
+
             CanGenerate = true;
 
-            this.DataContext = this;
+            DataContext = this;
         }
 
         // Sample exception handler
@@ -138,7 +157,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             if (ex != null)
                 message += ": " + ex.Message;
 
-            MessageBox.Show(message, "Sample Error");
+            var _ = new MessageDialog(message, "Sample Error").ShowAsync();
         }
 
         // Generate local geodatabase from the online service
@@ -157,7 +176,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     var typeField = _localBirdsLayer.FeatureTable.Schema.Fields.FirstOrDefault(fld => fld.Name == "type");
                     if (typeField != null && typeField.Domain is CodedValueDomain)
                     {
-                        BirdTypeDomain = ((CodedValueDomain)typeField.Domain);
+                        BirdTypeDomain = ((CodedValueDomain)typeField.Domain).CodedValues.Select(cv => new Tuple<int, string>((int)cv.Key, cv.Value));
                     }
 
                     CanSync = CanUnregister = true;
@@ -214,10 +233,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var statusResult = await tcs.Task;
 
                 ReportStatus("Downloading Geodatabase...");
-                await DownloadGeodatabaseAsync(statusResult);
+                var gdbFile = await DownloadGeodatabaseAsync(statusResult);
 
                 ReportStatus("Opening Geodatabase...");
-                var gdb = await Geodatabase.OpenAsync(_gdbPath);
+                var gdb = await Geodatabase.OpenAsync(gdbFile.Path);
 
                 ReportStatus("Create local feature layers...");
                 await CreateFeatureLayers(gdb);
@@ -236,7 +255,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             try
             {
                 if (LocalBirdsLayer == null)
-                    throw new ApplicationException("Could not find local geodatabase.");
+                    throw new Exception("Could not find local geodatabase.");
 
                 IsBusy = true;
                 ReportStatus("Synchronizing Local and Online data...");
@@ -253,13 +272,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 syncProgress.ProgressChanged += (sndr, sts) => { SecondaryStatus = sts.Status.ToString(); };
 
                 var syncTask = new GeodatabaseSyncTask(new Uri(BASE_URL));
-                var gdbTable = _localBirdsLayer.FeatureTable as GeodatabaseFeatureTable;
-                await syncTask.SyncGeodatabaseAsync(gdbTable.Geodatabase,
-                    completionAction,
-                    null,
-                    TimeSpan.FromSeconds(3),
-                    syncProgress,
-                    CancellationToken.None);
+                await syncTask.SyncGeodatabaseAsync(_localBirdsLayer.FeatureTable.Geodatabase,
+                    completionAction, null, TimeSpan.FromSeconds(3), syncProgress, CancellationToken.None);
 
                 await tcs.Task;
 
@@ -286,12 +300,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
                 if (LocalBirdsLayer != null)
                 {
-                    var gdbTable = LocalBirdsLayer.FeatureTable as GeodatabaseFeatureTable;
-                    await _syncTask.UnregisterGeodatabaseAsync(gdbTable.Geodatabase);
+                    await _syncTask.UnregisterGeodatabaseAsync(LocalBirdsLayer.FeatureTable.Geodatabase);
 
                     mapView.Map.Layers.Remove(LocalBirdsLayer);
                     LocalBirdFeatures = null;
                     LocalBirdsLayer = null;
+                    RaisePropertyChanged("LegendLayers");
                 }
 
                 CanSync = CanUnregister = false;
@@ -312,8 +326,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
+                if (IsEditing)
+                    return;
+
                 if (LocalBirdsLayer == null)
-                    throw new ApplicationException("No local geodatabase to edit.");
+                    throw new Exception("No local geodatabase to edit.");
 
                 _graphicsLayer.Graphics.Clear();
                 _graphicsLayer.Graphics.Add(new Graphic(e.Location));
@@ -332,9 +349,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                var birdsTable = LocalBirdsLayer.FeatureTable as GeodatabaseFeatureTable;
+                var birdsTable = LocalBirdsLayer.FeatureTable;
                 if (birdsTable == null)
-                    throw new ApplicationException("Birds table was not found in the local geodatabase.");
+                    throw new Exception("Birds table was not found in the local geodatabase.");
 
                 var bird = new GeodatabaseFeature(birdsTable.Schema);
                 bird.Geometry = TapLocation;
@@ -369,50 +386,47 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         }
 
         // Download a generated geodatabase file
-        private async Task DownloadGeodatabaseAsync(GeodatabaseStatusInfo statusResult)
+        private async Task<StorageFile> DownloadGeodatabaseAsync(GeodatabaseStatusInfo statusResult)
         {
+            var file = await GetGeodatabaseFileAsync();
             var client = new ArcGISHttpClient();
-            var gdbStream = client.GetOrPostAsync(statusResult.ResultUri, null);
-
-            SetGeodatabaseFileName();
-
-            await Task.Factory.StartNew(async () =>
+            var download = await client.GetOrPostAsync(statusResult.ResultUri, null);
+            using (var fileStream = await file.OpenStreamForWriteAsync())
             {
-                using (var stream = System.IO.File.Create(_gdbPath))
-                {
-                    await gdbStream.Result.Content.CopyToAsync(stream);
-                }
-            });
+                await download.EnsureSuccessStatusCode().Content.CopyToAsync(fileStream);
+            }
+
+            return file; 
         }
 
         // Get unused (or deletable) geodatabase file
-        private void SetGeodatabaseFileName()
+        private async Task<StorageFile> GetGeodatabaseFileAsync()
         {
-            var fullPathWithoutExt = System.IO.Path.Combine(System.IO.Path.GetTempPath(), GDB_BASENAME);
-
+            StorageFile file = null;
             int count = 0;
-            var tempGdbPath = fullPathWithoutExt + GDB_FILE_EXT;
-            while (System.IO.File.Exists(tempGdbPath))
+            var tempGdbName = GDB_BASENAME + GDB_FILE_EXT;
+            while (file == null)
             {
                 try
                 {
-                    System.IO.File.Delete(tempGdbPath);
+                    file = await ApplicationData.Current.LocalFolder.CreateFileAsync(tempGdbName, CreationCollisionOption.ReplaceExisting);
                 }
                 catch
                 {
                     ++count;
-                    tempGdbPath = fullPathWithoutExt + "_" + count.ToString("000") + GDB_FILE_EXT;
+                    tempGdbName = GDB_BASENAME + "_" + count.ToString("000") + GDB_FILE_EXT;
                 }
             }
 
-            _gdbPath = tempGdbPath;
+            _gdbName = tempGdbName;
+            return file;
         }
 
         // Create feature layers from the given geodatabase file
         private async Task CreateFeatureLayers(Geodatabase gdb)
         {
             if (gdb.FeatureTables.Count() == 0)
-                throw new ApplicationException("Downloaded geodatabase has no feature tables.");
+                throw new Exception("Downloaded geodatabase has no feature tables.");
 
             if (LocalBirdsLayer != null)
                 mapView.Map.Layers.Remove(LocalBirdsLayer);
@@ -425,6 +439,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 FeatureTable = birdsTable
             };
             mapView.Map.Layers.Insert(2, LocalBirdsLayer);
+            RaisePropertyChanged("LegendLayers");
 
             await mapView.SetViewAsync(birdsTable.Extent);
         }
@@ -474,7 +489,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     // Value Converter to transform feature domain field values from domain code to domain value
     internal class CodedValueDomainConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, string language)
         {
             var feature = value as GeodatabaseFeature;
             if (feature == null)
@@ -505,7 +520,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             return convertedValue;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             return null;
         }

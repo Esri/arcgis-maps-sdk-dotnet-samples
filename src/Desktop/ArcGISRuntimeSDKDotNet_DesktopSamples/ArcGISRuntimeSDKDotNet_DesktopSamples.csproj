@@ -118,11 +118,8 @@
     <Compile Include="Samples\GeocodingTasks\FindPlace.xaml.cs">
       <DependentUpon>FindPlace.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GeocodingTasks\GeocodeFullAddressInput.xaml.cs">
-      <DependentUpon>GeocodeFullAddressInput.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\GeocodingTasks\GeocodeSingleLineInput.xaml.cs">
-      <DependentUpon>GeocodeSingleLineInput.xaml</DependentUpon>
+    <Compile Include="Samples\GeocodingTasks\GeocodeAddress.xaml.cs">
+      <DependentUpon>GeocodeAddress.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GeocodingTasks\ReverseGeocode.xaml.cs">
       <DependentUpon>ReverseGeocode.xaml</DependentUpon>
@@ -252,6 +249,9 @@
     </Compile>
     <Compile Include="Samples\GraphicsLayers\GraphicsSourceSample.xaml.cs">
       <DependentUpon>GraphicsSourceSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsLayers\SmoothGraphicAnimation.xaml.cs">
+      <DependentUpon>SmoothGraphicAnimation.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\ImageryTasks\ComputeClassStatistics.xaml.cs">
       <DependentUpon>ComputeClassStatistics.xaml</DependentUpon>
@@ -508,13 +508,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GeocodingTasks\GeocodeFullAddressInput.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Samples\GeocodingTasks\GeocodeAddress.xaml">
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\GeocodingTasks\GeocodeSingleLineInput.xaml">
       <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\GeocodingTasks\ReverseGeocode.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -687,6 +683,10 @@
     <Page Include="Samples\GraphicsLayers\GraphicsSourceSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GraphicsLayers\SmoothGraphicAnimation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\ImageryTasks\ComputeClassStatistics.xaml">
       <Generator>MSBuild:Compile</Generator>

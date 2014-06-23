@@ -253,7 +253,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 syncProgress.ProgressChanged += (sndr, sts) => { SecondaryStatus = sts.Status.ToString(); };
 
                 var syncTask = new GeodatabaseSyncTask(new Uri(BASE_URL));
-                await syncTask.SyncGeodatabaseAsync(_localBirdsLayer.FeatureTable.Geodatabase,
+                var gdbTable = _localBirdsLayer.FeatureTable as GeodatabaseFeatureTable;
+                await syncTask.SyncGeodatabaseAsync(gdbTable.Geodatabase,
                     completionAction,
                     null,
                     TimeSpan.FromSeconds(3),
@@ -285,7 +286,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
                 if (LocalBirdsLayer != null)
                 {
-                    await _syncTask.UnregisterGeodatabaseAsync(LocalBirdsLayer.FeatureTable.Geodatabase);
+                    var gdbTable = LocalBirdsLayer.FeatureTable as GeodatabaseFeatureTable;
+                    await _syncTask.UnregisterGeodatabaseAsync(gdbTable.Geodatabase);
 
                     mapView.Map.Layers.Remove(LocalBirdsLayer);
                     LocalBirdFeatures = null;
@@ -330,7 +332,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                var birdsTable = LocalBirdsLayer.FeatureTable;
+                var birdsTable = LocalBirdsLayer.FeatureTable as GeodatabaseFeatureTable;
                 if (birdsTable == null)
                     throw new ApplicationException("Birds table was not found in the local geodatabase.");
 

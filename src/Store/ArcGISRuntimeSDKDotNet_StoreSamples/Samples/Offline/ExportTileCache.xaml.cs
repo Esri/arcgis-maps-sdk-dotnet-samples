@@ -5,21 +5,21 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using System;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
+using Windows.Storage;
+using Windows.UI.Popups;
+using Windows.UI.Xaml;
 
-namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
     /// Demonstrates how to download a local tile cache from an online service with the ExportTiles operation enabled.
     /// </summary>
     /// <title>Export Tile Cache</title>
     /// <category>Offline</category>
-    public partial class ExportTileCache : UserControl
+    public partial class ExportTileCache : Windows.UI.Xaml.Controls.Page
     {
         //private const string ONLINE_BASEMAP_URL = "https://tiledbasemaps.arcgis.com/arcgis/rest/services/World_Street_Map/MapServer";
         private const string ONLINE_BASEMAP_TOKEN_URL = ""; //"https://www.arcgis.com/sharing/rest/generatetoken";
@@ -53,7 +53,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             await InitializeOnlineBasemap();
 
-            _aoiLayer = new GraphicsLayer() { ID = AOI_LAYER_ID, Renderer = layoutGrid.Resources["AOIRenderer"] as Renderer };
+            _aoiLayer = new GraphicsLayer() { ID = AOI_LAYER_ID, Renderer = LayoutRoot.Resources["AOIRenderer"] as Renderer };
             mapView.Map.Layers.Add(_aoiLayer);
 
             if (_onlineTiledLayer.ServiceInfo != null)
@@ -97,7 +97,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Sample Error");
+                var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
             }
         }
 
@@ -106,7 +106,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                panelUI.IsEnabled = false;
                 panelExport.Visibility = Visibility.Collapsed;
                 progress.Visibility = Visibility.Visible;
 
@@ -142,11 +141,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Sample Error");
+                var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
             }
             finally
             {
-                panelUI.IsEnabled = true;
                 progress.Visibility = Visibility.Collapsed;
             }
         }
@@ -156,12 +154,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                panelUI.IsEnabled = false;
                 panelTOC.Visibility = Visibility.Collapsed;
                 progress.Visibility = Visibility.Visible;
 
-                string tilePath = Path.Combine(Path.GetTempPath(), TILE_CACHE_FOLDER);
-                var downloadOptions = new DownloadTileCacheParameters(tilePath)
+                var downloadOptions = new DownloadTileCacheParameters(ApplicationData.Current.TemporaryFolder)
                 {
                     OverwriteExistingFiles = true
                 };
@@ -185,11 +181,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Sample Error");
+                var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
             }
             finally
             {
-                panelUI.IsEnabled = true;
                 progress.Visibility = Visibility.Collapsed;
             }
         }

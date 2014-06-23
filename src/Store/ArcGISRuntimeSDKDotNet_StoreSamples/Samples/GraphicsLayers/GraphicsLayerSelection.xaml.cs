@@ -108,7 +108,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private void SetGraphicsCountUI()
         {
-            txtSelectionCount.Text = _graphicsLayer.SelectedItems.Count().ToString();
+            txtSelectionCount.Text = _graphicsLayer.SelectedGraphics.Count().ToString();
         }
 
         // Add new random graphics to the graphics layer

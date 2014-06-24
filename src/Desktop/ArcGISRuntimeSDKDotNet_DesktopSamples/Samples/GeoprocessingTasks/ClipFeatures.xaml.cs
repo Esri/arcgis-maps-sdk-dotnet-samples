@@ -12,14 +12,14 @@ using System.Windows.Controls;
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
-    /// This sample demonstrates use of the Geoprocessor to call an asynchronous Clip Features geoprocessing service.
+    /// Demonstrates use of the Geoprocessor to call an asynchronous Clip Features geoprocessing service.
     /// </summary>
     /// <title>Clip Features</title>
 	/// <category>Tasks</category>
 	/// <subcategory>Geoprocessing</subcategory>
 	public partial class ClipFeatures : UserControl
     {
-        private static string SERVICE_URL = "http://serverapps10.esri.com/ArcGIS/rest/services/SamplesNET/USA_Data_ClipTools/GPServer/ClipCounties";
+        private static string ClipCountiesServiceUrl = "http://serverapps10.esri.com/ArcGIS/rest/services/SamplesNET/USA_Data_ClipTools/GPServer/ClipCounties";
 
         private Geoprocessor _gpTask;
 
@@ -30,7 +30,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             mapView.Map.InitialExtent = new Envelope(-130, 10, -70, 60);
 
-            _gpTask = new Geoprocessor(new Uri(SERVICE_URL));
+            _gpTask = new Geoprocessor(new Uri(ClipCountiesServiceUrl));
 
             //Uncomment the following line to show the service parameters at startup.
             //GetServiceInfo().ContinueWith((_) => { }, TaskScheduler.FromCurrentSynchronizationContext());

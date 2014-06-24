@@ -19,6 +19,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	/// <subcategory>Geoprocessing</subcategory>
 	public partial class DriveTimes : UserControl
     {
+        private const string DriveTimeServiceUrl =
+            "http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Network/ESRI_DriveTime_US/GPServer/CreateDriveTimePolygons";
+
         private List<Symbol> _bufferSymbols;
         private Geoprocessor _gpTask;
 
@@ -36,8 +39,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 layoutGrid.Resources["FillSymbol3"] as Symbol
             };
 
-            _gpTask = new Geoprocessor(
-                new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Network/ESRI_DriveTime_US/GPServer/CreateDriveTimePolygons"));
+            _gpTask = new Geoprocessor(new Uri(DriveTimeServiceUrl));
         }
 
         // Use geoprocessor to call drive times gp service and display results

@@ -188,6 +188,12 @@
     <Compile Include="Samples\Geometry\UnionGeometry.xaml.cs">
       <DependentUpon>UnionGeometry.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\GeoprocessingTasks\ExtractData.xaml.cs">
+      <DependentUpon>ExtractData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GeoprocessingTasks\PopulationForArea.xaml.cs">
+      <DependentUpon>PopulationForArea.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\GraphicsLayers\GeoRssLayerSample.xaml.cs">
       <DependentUpon>GeoRssLayerSample.xaml</DependentUpon>
     </Compile>
@@ -320,8 +326,8 @@
     <Compile Include="Samples\QueryTasks\AttributeQuery.xaml.cs">
       <DependentUpon>AttributeQuery.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GeoprocessingTasks\CalculateViewshed.xaml.cs">
-      <DependentUpon>CalculateViewshed.xaml</DependentUpon>
+    <Compile Include="Samples\GeoprocessingTasks\Viewshed.xaml.cs">
+      <DependentUpon>Viewshed.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GeoprocessingTasks\ClipFeatures.xaml.cs">
       <DependentUpon>ClipFeatures.xaml</DependentUpon>
@@ -561,6 +567,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\GeoprocessingTasks\ExtractData.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GeoprocessingTasks\PopulationForArea.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\GraphicsLayers\GeoRssLayerSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -737,7 +751,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GeoprocessingTasks\CalculateViewshed.xaml">
+    <Page Include="Samples\GeoprocessingTasks\Viewshed.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -3,31 +3,23 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
+using Windows.UI.Popups;
+using Windows.UI.Xaml;
 
-namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
     /// This sample uses a geoprocessing task to estimate the number of people within a polygon you draw on the map. Click 'Summarize Population', then freehand a line on the map surrounding an area to analyze. When you release the mouse button, the polygon will auto-complete and you'll see how many people are estimated to live within the polygon boundaries.
     /// </summary>
     /// <title>Population for an Area</title>
-	/// <category>Tasks</category>
-	/// <subcategory>Geoprocessing</subcategory>
-	public partial class PopulationForArea : UserControl
+    /// <category>Geoprocessing Tasks</category>
+    public partial class PopulationForArea : Windows.UI.Xaml.Controls.Page
     {
-        private const string PopulationSummaryServiceUrl =
+        private const string PopulationSummaryServiceUrl = 
             "http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Population_World/GPServer/PopulationSummary";
+
+        private GraphicsLayer _areaLayer;
 
         /// <summary>Construct Populattion for Area sample control</summary>
         public PopulationForArea()
@@ -35,6 +27,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             InitializeComponent();
 
             mapView.Map.InitialExtent = new Envelope(-13879981, 3490335, -7778090, 6248898);
+
+            _areaLayer = mapView.Map.Layers["AreaLayer"] as GraphicsLayer;
         }
 
         // Accept user boundary line and run the Geoprocessing Task to summarize population
@@ -42,13 +36,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                txtResult.Visibility = System.Windows.Visibility.Collapsed;
-                AreaLayer.Graphics.Clear();
+                txtResult.Visibility = Visibility.Collapsed;
+                _areaLayer.Graphics.Clear();
 
                 var boundary = await mapView.Editor.RequestShapeAsync(DrawShape.Freehand) as Polyline;
                 var polygon = new Polygon(boundary, mapView.SpatialReference);
                 polygon = GeometryEngine.Simplify(polygon) as Polygon;
-                AreaLayer.Graphics.Add(new Graphic() { Geometry = polygon });
+                _areaLayer.Graphics.Add(new Graphic() { Geometry = polygon });
 
                 progress.Visibility = Visibility.Visible;
 
@@ -63,13 +57,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 if (rs != null && rs.FeatureSet.Features != null)
                 {
                     int population = Convert.ToInt32(rs.FeatureSet.Features[0].Attributes["SUM"]);
-                    txtResult.Visibility = System.Windows.Visibility.Visible;
+                    txtResult.Visibility = Visibility.Visible;
                     txtResult.Text = string.Format("Area Population: {0:N0}", population);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Geoprocessor service failed: " + ex.Message, "Sample Error");
+                var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
             }
             finally
             {

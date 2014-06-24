@@ -307,6 +307,26 @@
         <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.UnionGeometry.#ctor">
             <summary>Construct Union sample control</summary>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ExtractData">
+            <summary>
+            Shows how to work with an asynchronous Extract Data geoprocessing service. The Extract Data Task lets users specify an area of interest then download a zip file that contains data for that area from one or more layers.
+            </summary>
+            <title>Extract Data</title>
+            <category>Geoprocessing Tasks</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ExtractData.#ctor">
+            <summary>Construct Extract Data sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.PopulationForArea">
+            <summary>
+            This sample uses a geoprocessing task to estimate the number of people within a polygon you draw on the map. Click 'Summarize Population', then freehand a line on the map surrounding an area to analyze. When you release the mouse button, the polygon will auto-complete and you'll see how many people are estimated to live within the polygon boundaries.
+            </summary>
+            <title>Population for an Area</title>
+            <category>Geoprocessing Tasks</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.PopulationForArea.#ctor">
+            <summary>Construct Populattion for Area sample control</summary>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GeoRssLayerSample">
             <summary>
             Creates a GeoRssLayer based on the United States Geological Survey earthquake feed.
@@ -707,17 +727,25 @@
             <title>Attribute Query</title>
             <category>Query Tasks</category>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.CalculateViewshed">
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Viewshed">
             <summary>
-            
+            Demonstrates use of the Geoprocessor to call an asynchronous ViewShed geoprocessing service.
             </summary>
+            <title>Viewshed</title>
             <category>Geoprocessing Tasks</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Viewshed.#ctor">
+            <summary>Construct Viewshed sample control</summary>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ClipFeatures">
             <summary>
-            
+            Demonstrates use of the Geoprocessor to call an asynchronous Clip Features geoprocessing service.
             </summary>
+            <title>Clip Features</title>
             <category>Geoprocessing Tasks</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ClipFeatures.#ctor">
+            <summary>Construct Clip Features sample control</summary>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.CsvLayerSample">
             <summary>
@@ -742,9 +770,13 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DriveTimes">
             <summary>
-            
+            This sample demonstrates use of the Geoprocessor to call a DriveTimes geoprocessing service. To use the sample, click a point in the map. Drive time polygons of 1, 2, and 3 minutes will be calculated and displayed on the map.
             </summary>
+            <title>Drive Times</title>
             <category>Geoprocessing Tasks</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DriveTimes.#ctor">
+            <summary>Constructs Drive Times sample control</summary>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ArcGISDynamicMapServiceLayerSample">
             <summary>
@@ -897,8 +929,9 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.MessageInABottle">
             <summary>
-            
+            This sample demonstrates use of the Geoprocessor to call a MessageInABottle geoprocessing service. To use the sample, specify the number of days and click a point in the ocean. The path of a bottle dropped at the click point over the specified number of days will be drawn on the map.
             </summary>
+            <title>Message in a Bottle</title>
             <category>Geoprocessing Tasks</category>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.OverviewMap">

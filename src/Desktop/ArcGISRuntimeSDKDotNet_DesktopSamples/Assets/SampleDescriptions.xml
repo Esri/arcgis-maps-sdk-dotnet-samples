@@ -828,7 +828,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ClipFeatures">
             <summary>
-            This sample demonstrates use of the Geoprocessor to call an asynchronous Clip Features geoprocessing service.
+            Demonstrates use of the Geoprocessor to call an asynchronous Clip Features geoprocessing service.
             </summary>
             <title>Clip Features</title>
             <category>Tasks</category>

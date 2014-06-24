@@ -15,6 +15,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	/// <subcategory>Geoprocessing</subcategory>
 	public partial class MessageInABottle : UserControl
     {
+        private const string MessageInABottleServiceUrl =
+            "http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_Currents_World/GPServer/MessageInABottle";
+
         /// <summary>Construct Message In A Bottle sample control</summary>
         public MessageInABottle()
         {
@@ -28,11 +31,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             {
                 Progress.Visibility = Visibility.Visible;
 
+                ResultLayer.Graphics.Clear();
                 InputLayer.Graphics.Clear();
                 InputLayer.Graphics.Add(new Graphic() { Geometry = e.Location });
 
-                Geoprocessor geoprocessorTask = new Geoprocessor(
-                    new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_Currents_World/GPServer/MessageInABottle"));
+                Geoprocessor geoprocessorTask = new Geoprocessor(new Uri(MessageInABottleServiceUrl));
 
                 var parameter = new GPInputParameter() { OutSpatialReference = mapView.SpatialReference };
                 var ptNorm = GeometryEngine.NormalizeCentralMeridianOfGeometry(e.Location);
@@ -43,7 +46,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
                 var result = await geoprocessorTask.ExecuteAsync(parameter);
 
-                ResultLayer.Graphics.Clear();
                 foreach (GPParameter gpParameter in result.OutParameters)
                 {
                     if (gpParameter is GPFeatureRecordSetLayer)

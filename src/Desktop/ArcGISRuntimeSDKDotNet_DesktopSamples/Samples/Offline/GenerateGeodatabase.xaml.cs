@@ -97,7 +97,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             if (!System.IO.Directory.Exists(gdbFolder))
                 System.IO.Directory.CreateDirectory(gdbFolder);
 
-            await Task.Factory.StartNew(async () =>
+            await Task.Run(async () =>
             {
                 using (var stream = System.IO.File.Create(gdbPath))
                 {

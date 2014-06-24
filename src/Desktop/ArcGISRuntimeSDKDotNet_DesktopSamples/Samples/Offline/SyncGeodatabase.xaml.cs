@@ -376,7 +376,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             SetGeodatabaseFileName();
 
-            await Task.Factory.StartNew(async () =>
+            await Task.Run(async () =>
             {
                 using (var stream = System.IO.File.Create(_gdbPath))
                 {

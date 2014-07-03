@@ -1,0 +1,118 @@
+﻿<UserControl x:Class="ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.AdvancedSymbology.S57CellInfoSample"
+      	 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:local="clr-namespace:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.AdvancedSymbology"
+             mc:Ignorable="d" 
+             d:DesignHeight="1200" d:DesignWidth="1600">
+	<Grid>
+		<esri:MapView x:Name="mapView" 
+					  LayerLoaded="mapView_LayerLoaded">
+			<esri:Map>
+				<esri:ArcGISTiledMapServiceLayer ID="Ocean_BaseMap"
+                        ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer" />
+
+				<!-- Using group layer to group all Hydrographic layers -->
+				<esri:GroupLayer ID="Hydrographic">
+					<esri:HydrographicS57Layer ID="US1WCO1M" 
+						Path="..\..\..\..\..\samples-data\symbology\s57-electronic-navigational-charts\us1wc01m\US1WC01M.000">
+					</esri:HydrographicS57Layer>
+				</esri:GroupLayer>
+			</esri:Map>
+		</esri:MapView>
+		<Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="30"
+                HorizontalAlignment="Left" VerticalAlignment="Top">
+			<StackPanel Margin="30,20">
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+					<Button Margin="10" x:Name="addCellButton" Content="Add Cell(s)" 
+							Click="AddCellButton_Click" 
+							Height="30" Width="100" 
+							IsEnabled="False"/>
+					<Button Margin="10" x:Name="removeSelectedCellsButton" Content="Remove Selected" 
+							Click="RemoveSelectedCellsButton_Click" 
+							Height="30" Width="100"
+							IsEnabled="False"/>
+					<Button Margin="10" x:Name="zoomToSelectedButton" Content="Zoom to Selected"
+							Click="ZoomToSelectedButtom_Click" 
+							Height="30" Width="100" 
+							IsEnabled="False"/>
+				</StackPanel>
+
+				<!-- Cells -->
+				<ScrollViewer Margin="5" 
+							  HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto"  
+							  Height="140">
+					<ListBox x:Name="s57CellList" 
+							 SelectionChanged="s57CellList_SelectionChanged">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<StackPanel Orientation="Horizontal" Margin="2">
+									<TextBlock Text="{Binding ID, Mode=OneWay}" Margin="5,0,2,0" > 
+									<TextBlock Text=" - "></TextBlock>
+									<TextBlock Text="{Binding Status, Mode=OneWay}"  />
+                                <ToolTipService.ToolTip>
+                                    <StackPanel MaxWidth="400">
+                                        <TextBlock FontWeight="Bold" Text="{Binding Path}" TextWrapping="Wrap" />
+                                    </StackPanel>
+                                </ToolTipService.ToolTip>
+                            </TextBlock>
+								</StackPanel>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+				</ScrollViewer>
+
+				<!--  Cell info -->
+				<GroupBox x:Name="cellInfoDisplay">
+					<GroupBox.Header>
+						<Label>Cell information</Label>
+					</GroupBox.Header>
+					<StackPanel>
+						<StackPanel Orientation="Horizontal">
+							<TextBlock>Name:</TextBlock>
+							<TextBlock Text="{Binding Name}" Margin="5,0,0,0"/>
+						</StackPanel>
+						<StackPanel Orientation="Horizontal">
+							<TextBlock>Path:</TextBlock>
+							<TextBlock Text="{Binding Path}" Margin="5,0,0,0" MaxWidth="380" TextWrapping="Wrap"/>
+						</StackPanel>
+						<StackPanel Orientation="Horizontal">
+							<TextBlock>Agency:</TextBlock>
+							<TextBlock Text="{Binding Agency}" Margin="5,0,0,0"/>
+						</StackPanel>
+						<StackPanel Orientation="Horizontal">
+							<TextBlock>ExchangePurpose:</TextBlock>
+							<TextBlock Text="{Binding ExchangePurpose}" Margin="5,0,0,0"/>
+						</StackPanel>
+						<StackPanel Orientation="Horizontal">
+							<TextBlock>Intended Usage:</TextBlock>
+							<TextBlock Text="{Binding IntendedUsage}" Margin="5,0,0,0"/>
+						</StackPanel>
+						<StackPanel Orientation="Horizontal">
+							<TextBlock>Edition Number:</TextBlock>
+							<TextBlock Text="{Binding EditionNumber}" Margin="5,0,0,0"/>
+						</StackPanel>
+						<StackPanel Orientation="Horizontal">
+							<TextBlock>Update Number:</TextBlock>
+							<TextBlock Text="{Binding UpdateNumber}" Margin="5,0,0,0"/>
+						</StackPanel>
+						<StackPanel Orientation="Horizontal">
+							<TextBlock>Update Application Date:</TextBlock>
+							<TextBlock Text="{Binding UpdateApplicationDate}" Margin="5,0,0,0"/>
+						</StackPanel>
+						<StackPanel Orientation="Horizontal">
+							<TextBlock>Issue Date:</TextBlock>
+							<TextBlock Text="{Binding IssueDate}" Margin="5,0,0,0"/>
+						</StackPanel>
+						<StackPanel Orientation="Horizontal">
+							<TextBlock>Compilation Scale:</TextBlock>
+							<TextBlock Text="{Binding CompilationScale}" Margin="5,0,0,0"/>
+						</StackPanel>
+					</StackPanel>
+				</GroupBox>
+			</StackPanel>
+		</Border>
+	</Grid>
+</UserControl>

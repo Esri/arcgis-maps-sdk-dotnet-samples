@@ -1,0 +1,172 @@
+﻿<UserControl x:Class="ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.AdvancedSymbology.S57SearchSample"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+	<Grid x:Name="LayoutGrid">
+		<Grid.Resources>
+			<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
+			<esri:SimpleLineSymbol x:Key="OutlineSelectionSymbol" Color="Black"/>
+			<esri:SimpleFillSymbol x:Key="SelectionSymbol" Color="Blue" Style="DiagonalCross" Outline="{StaticResource OutlineSelectionSymbol}"/>
+			<esri:SimpleRenderer x:Key="SelectionRendrer" Symbol="{StaticResource SelectionSymbol}"/>
+
+			<esri:SimpleMarkerSymbol x:Key="BluePointSymbol" Color="Blue" Style="Circle" Size="15" />
+			<esri:SimpleLineSymbol x:Key="GreenLineSymbol" Color="Green" Style="Solid" Width="4" />
+			<esri:SimpleFillSymbol x:Key="RedFillSymbol" Color="Red" Style="DiagonalCross">
+				<esri:SimpleFillSymbol.Outline>
+					<esri:SimpleLineSymbol Color="Red" Style="Solid" Width="1" />
+				</esri:SimpleFillSymbol.Outline>
+			</esri:SimpleFillSymbol>
+		</Grid.Resources>
+
+		<esri:MapView x:Name="mapView" 
+					  WrapAround="True"
+					  LayerLoaded="MapView_LayerLoaded">
+			<esri:Map>
+				<esri:ArcGISTiledMapServiceLayer
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
+
+				<!-- Using group layer to group all Hydrographic layers -->
+				<esri:GroupLayer ID="Hydrographic">
+					<esri:HydrographicS57Layer ID="US1WCO1M" 
+						Path="..\..\..\..\..\samples-data\symbology\s57-electronic-navigational-charts\us1wc01m\US1WC01M.000">
+					</esri:HydrographicS57Layer>
+					<esri:HydrographicS57Layer ID="US1WC07M" 
+						Path="..\..\..\..\..\samples-data\symbology\s57-electronic-navigational-charts\us1wc07m\US1WC07M.000">
+					</esri:HydrographicS57Layer>
+				</esri:GroupLayer>
+				<esri:GraphicsLayer ID="resultGraphics" Renderer="{StaticResource SelectionRendrer}"/>
+				<esri:GraphicsLayer x:Name="graphicsLayer" />
+			</esri:Map>
+		</esri:MapView>
+
+		<Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="30"
+                HorizontalAlignment="Left" VerticalAlignment="Top">
+			<Grid Margin="30,20">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="auto" />
+					<RowDefinition Height="*" />
+				</Grid.RowDefinitions>
+				<TextBlock Text="Search results"
+						   FontWeight="ExtraBold"
+                           FontSize="14"
+						   TextAlignment="Left" TextWrapping="Wrap" />
+				<Border x:Name="NoResultsArea" Margin="10" Padding="20">
+					<TextBlock Text="No search results."/>
+				</Border>
+
+				<!-- List of results -->
+				<Grid x:Name="ResultsArea" Visibility="Collapsed"
+					  Grid.Row="1">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*" />
+						<RowDefinition Height="125"/>
+					</Grid.RowDefinitions>
+					<ListView x:Name="ResultList"
+							  SelectionMode="Single"
+							  SelectionChanged="ResultList_SelectionChanged">
+						<ListView.ItemTemplate>
+							<DataTemplate>
+								<Grid>
+									<StackPanel Margin="5">
+										<StackPanel Orientation="Horizontal">
+											<TextBlock Text="Acronym: " />
+											<TextBlock Text="{Binding Path=Acronym}" />
+										</StackPanel>
+										<StackPanel Orientation="Horizontal">
+											<TextBlock Text="Long Name: " />
+											<TextBlock Text="{Binding Path=LongName}"/>
+										</StackPanel>
+										<StackPanel Orientation="Horizontal">
+											<TextBlock Text="Cell Name: " />
+											<TextBlock Text="{Binding Path=CellName}"/>
+										</StackPanel>
+										<StackPanel Orientation="Horizontal">
+											<TextBlock Text="Composition Scale: " />
+											<TextBlock Text="{Binding Path=CompositionScale}"/>
+										</StackPanel>
+									</StackPanel>
+								</Grid>
+							</DataTemplate>
+						</ListView.ItemTemplate>
+					</ListView>
+					<!-- Attributes -->
+					<ScrollViewer 
+						HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"  
+						Height="125" Width="290" Grid.Row="1">
+						<DataGrid ItemsSource="{Binding ElementName=ResultList, Path=SelectedItem.Attributes}"  
+							  AutoGenerateColumns="True" HeadersVisibility="All" 
+                              Background="White">
+						</DataGrid>
+					</ScrollViewer>
+				</Grid>
+			</Grid>
+		</Border>
+
+		<!--Search area -->
+		<Border x:Name="SearchArea" IsEnabled="False"
+			Background="White" BorderBrush="Black" 
+            HorizontalAlignment="Right" VerticalAlignment="Top"
+			BorderThickness="2" Margin="30">
+			<StackPanel Margin="8">
+				<!-- Draw search area -->
+				<GroupBox>
+					<GroupBox.Header>
+						<TextBlock Text="Draw search area"/>
+					</GroupBox.Header>
+					<StackPanel>
+						<TextBlock Text="Select geometry type" Margin="12,8" />
+
+						<ComboBox SelectedItem="{Binding CurrentDrawShape}" Margin="8,0,8,2" Padding="4"
+                              SelectionChanged="ComboBox_SelectionChanged">
+							<esri:DrawShape>Point</esri:DrawShape>
+							<esri:DrawShape>Polyline</esri:DrawShape>
+							<esri:DrawShape>Polygon</esri:DrawShape>
+							<esri:DrawShape>Rectangle</esri:DrawShape>
+							<esri:DrawShape>Arrow</esri:DrawShape>
+							<esri:DrawShape>Triangle</esri:DrawShape>
+							<esri:DrawShape>Ellipse</esri:DrawShape>
+							<esri:DrawShape>Circle</esri:DrawShape>
+							<esri:DrawShape>LineSegment</esri:DrawShape>
+						</ComboBox>
+
+						<Button Content="Draw geometry"
+								Click="AddSearchGeometry_Click"
+								Margin="8"/>
+					</StackPanel>
+				</GroupBox>
+				<!-- Search values -->
+				<GroupBox>
+					<GroupBox.Header>
+						<TextBlock Text="Search values"/>
+					</GroupBox.Header>
+					<StackPanel>
+						<StackPanel Orientation="Horizontal" >
+							<TextBlock Text="Buffer:" Margin="2" Width="135"/>
+							<TextBox x:Name="BufferValue" Text="" Width="150" Margin="2"/>
+						</StackPanel>
+						<StackPanel Orientation="Horizontal" >
+							<TextBlock Text="Object Name (Acronym):" Margin="2" Width="135"/>
+							<TextBox x:Name="SearchText" Text="" Width="150" Margin="2"/>
+						</StackPanel>
+					</StackPanel>
+				</GroupBox>
+				<Button Content="Execute Search" 
+						Click="Search_Click"
+						Margin="8" Padding="6"
+						HorizontalAlignment="Center" FontWeight="Bold"/>
+			</StackPanel>
+		</Border>
+
+		<!-- Status area -->
+		<Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="25"
+                HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                Visibility="{Binding ElementName=mapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
+			<TextBlock Text="Draw the graphic shape on the map." Margin="8" FontSize="14" />
+		</Border>
+	</Grid>
+</UserControl>

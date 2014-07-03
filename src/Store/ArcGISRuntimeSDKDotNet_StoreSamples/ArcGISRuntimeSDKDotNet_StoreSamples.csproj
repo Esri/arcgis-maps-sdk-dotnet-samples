@@ -275,6 +275,18 @@
     <Compile Include="Samples\QueryTasks\FindTaskSample.xaml.cs">
       <DependentUpon>FindTaskSample.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Symbology\AdvancedSymbology\S57CellInfoSample.xaml.cs">
+      <DependentUpon>S57CellInfoSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\AdvancedSymbology\S57DisplayPropertiesSample.xaml.cs">
+      <DependentUpon>S57DisplayPropertiesSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\AdvancedSymbology\S57IdentifySample.xaml.cs">
+      <DependentUpon>S57IdentifySample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\AdvancedSymbology\S57SearchSample.xaml.cs">
+      <DependentUpon>S57SearchSample.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Symbology\ClassBreaksRendererSample.xaml.cs">
       <DependentUpon>ClassBreaksRendererSample.xaml</DependentUpon>
     </Compile>
@@ -438,6 +450,7 @@
     <Content Include="Resources\Mil2525c\messagetypes\PositionReport.json" />
     <Content Include="Resources\Mil2525c\messagetypes\SpotReport.json" />
     <Content Include="Resources\Mil2525c\mil2525c.dat" />
+    <Content Include="Resources\hydrographic_s57\hydrographic_s57.dat" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Logo.scale-100.png" />
@@ -680,6 +693,22 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\QueryTasks\FindTaskSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\AdvancedSymbology\S57CellInfoSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\AdvancedSymbology\S57DisplayPropertiesSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\AdvancedSymbology\S57IdentifySample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\AdvancedSymbology\S57SearchSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

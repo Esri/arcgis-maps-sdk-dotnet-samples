@@ -545,6 +545,38 @@
         <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FindTaskSample.#ctor">
             <summary>Construct Find sample control</summary>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbology.S57CellInfoSample">
+            <summary>
+            This sample demonstrates adding and removing S-57 cells from an HydrographicS57Layer in the Map and accessing the Dataset Identification (DSID) metadata of those S-57 cells. The DSID metadata Provides information regarding the dataset's source and the product specification it is part of.
+            </summary>
+            <title>S57 Cell Information</title>
+            <category>Symbology</category>
+            <subcategory>Advanced</subcategory>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbology.S57DisplayPropertiesSample">
+            <summary>
+            This sample demonstrates using the global static HydrographicS52DisplayProperties object to control the display properties of an HydrographicS57Layer, such as the Color Scheme or Safety Contour Depth. 
+            </summary>
+            <title>S57 Display Properties</title>
+            <category>Symbology</category>
+            <subcategory>Advanced</subcategory>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbology.S57IdentifySample">
+            <summary>
+            This sample demostrates how to perform a point-based identify style operation on an HydrographicS57Layer using the SearchLayer method.
+            </summary>
+            <title>S57 Identify</title>
+            <category>Symbology</category>
+            <subcategory>Advanced</subcategory>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbology.S57SearchSample">
+            <summary>
+            This sample shows how to use the the SearchAsync method to search an HydrographicS57Layer based on an input geometry, buffer value and object name.
+            </summary>
+            <title>S57 Search </title>
+            <category>Symbology</category>
+            <subcategory>Advanced</subcategory>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ClassBreaksRendererSample">
             <summary>
             Shows how to create a ClassBreaksRenderer for a graphics layer.

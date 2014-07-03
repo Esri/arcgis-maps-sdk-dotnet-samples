@@ -21,35 +21,35 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             AddPolyLineGraphics();
         }
 
-        private void AddPolyLineGraphics()
-        {
-            MapPoint ptStart = (MapPoint)graphicsLayer.Graphics[0].Geometry;
-            MapPoint ptEnd = (MapPoint)graphicsLayer.Graphics[5].Geometry;
+		private void AddPolyLineGraphics()
+		{
+			MapPoint ptStart = (MapPoint)graphicsLayer.Graphics[0].Geometry;
+			MapPoint ptEnd = (MapPoint)graphicsLayer.Graphics[5].Geometry;
 
-            // Solid Blue line above point graphics
-            Graphic blueLine = new Graphic()
-            {
-                Symbol = new SimpleLineSymbol() { Color = Colors.Blue, Style = SimpleLineStyle.Solid, Width = 4 },
-                Geometry = new Polyline(new CoordinateCollection() 
-                { 
-                    new Coordinate(ptStart.X, ptStart.Y + 1000000),
-                    new Coordinate(ptEnd.X, ptEnd.Y + 1000000)
-                })
-            };
+			var blueLineBuilder = new PolylineBuilder(new Polyline());
+			blueLineBuilder.AddPoint(ptStart.X, ptStart.Y + 1000000);
+			blueLineBuilder.AddPoint(ptEnd.X, ptEnd.Y + 1000000);
 
-            // Dashed Green line below point graphics
-            Graphic greenLine = new Graphic()
-            {
-                Symbol = new SimpleLineSymbol() { Color = Colors.Green, Style = SimpleLineStyle.Dash, Width = 4 },
-                Geometry = new Polyline(new CoordinateCollection() 
-                { 
-                    new Coordinate(ptStart.X, ptStart.Y - 1000000),
-                    new Coordinate(ptEnd.X, ptEnd.Y - 1000000)
-                })
-            };
+			// Solid Blue line above point graphics
+			Graphic blueLine = new Graphic()
+			{
+				Symbol = new SimpleLineSymbol() { Color = Colors.Blue, Style = SimpleLineStyle.Solid, Width = 4 },
+				Geometry = blueLineBuilder.ToGeometry()
+			};
 
-            graphicsLayer.Graphics.Add(blueLine);
-            graphicsLayer.Graphics.Add(greenLine);
-        }
+			var greenLineBuilder = new PolylineBuilder(new Polyline());
+			greenLineBuilder.AddPoint(ptStart.X, ptStart.Y - 1000000);
+			greenLineBuilder.AddPoint(ptEnd.X, ptEnd.Y - 1000000);
+
+			// Dashed Green line below point graphics
+			Graphic greenLine = new Graphic()
+			{
+				Symbol = new SimpleLineSymbol() { Color = Colors.Green, Style = SimpleLineStyle.Dash, Width = 4 },
+				Geometry = greenLineBuilder.ToGeometry()
+			};
+
+			graphicsLayer.Graphics.Add(blueLine);
+			graphicsLayer.Graphics.Add(greenLine);
+		}
     }
 }

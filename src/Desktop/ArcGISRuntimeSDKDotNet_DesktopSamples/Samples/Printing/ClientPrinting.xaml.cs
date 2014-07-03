@@ -1,4 +1,5 @@
 ﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using System;
 using System.Collections.ObjectModel;
@@ -21,6 +22,15 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public ClientPrinting()
         {
             InitializeComponent();
+
+			// Create initial extend and set it
+			var envelopeBuilder = new EnvelopeBuilder(SpatialReferences.WebMercator);
+			envelopeBuilder.XMin = -9813504.6933477;
+			envelopeBuilder.YMin = 5127140.45392125;
+			envelopeBuilder.XMax = -9812977.49431059;
+			envelopeBuilder.YMax = 5127508.54492118;
+
+			mapView.Map.InitialExtent = envelopeBuilder.ToGeometry();
         }
 
         private void ActivatePrintPreview(object sender, RoutedEventArgs e)

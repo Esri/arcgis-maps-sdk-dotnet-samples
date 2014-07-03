@@ -54,18 +54,18 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             double latOffset = 300;
             double lonOffset = 300;
 
-            var points = new CoordinateCollection()
+            var points = new PointCollection()
             {
-                new Coordinate(lon - lonOffset, lat),
-                new Coordinate(lon, lat + latOffset),
-                new Coordinate(lon + lonOffset, lat),
-                new Coordinate(lon, lat - latOffset),
-                new Coordinate(lon - lonOffset, lat),
-                new Coordinate(lon - 2 * lonOffset, lat + latOffset),
-                new Coordinate(lon - 3 * lonOffset, lat),
-                new Coordinate(lon - 2 * lonOffset, lat - latOffset),
-                new Coordinate(lon - 1.5 * lonOffset, lat + latOffset),
-                new Coordinate(lon - lonOffset, lat)
+                new MapPointBuilder(lon - lonOffset, lat).ToGeometry(),
+                new MapPointBuilder(lon, lat + latOffset).ToGeometry(),
+                new MapPointBuilder(lon + lonOffset, lat).ToGeometry(),
+                new MapPointBuilder(lon, lat - latOffset).ToGeometry(),
+                new MapPointBuilder(lon - lonOffset, lat).ToGeometry(),
+                new MapPointBuilder(lon - 2 * lonOffset, lat + latOffset).ToGeometry(),
+                new MapPointBuilder(lon - 3 * lonOffset, lat).ToGeometry(),
+                new MapPointBuilder(lon - 2 * lonOffset, lat - latOffset).ToGeometry(),
+                new MapPointBuilder(lon - 1.5 * lonOffset, lat + latOffset).ToGeometry(),
+                new MapPointBuilder(lon - lonOffset, lat).ToGeometry()
             };
             _unsimplifiedPolygon = new Polygon(points, mapView.SpatialReference);
 

@@ -31,6 +31,15 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
+			// Create initial extend and set it
+			var envelopeBuilder = new EnvelopeBuilder(SpatialReferences.WebMercator);
+			envelopeBuilder.XMin = -8838052.325801775;
+			envelopeBuilder.YMin = 5409956.10324135;
+			envelopeBuilder.XMax = -8836537.917179003;
+			envelopeBuilder.YMax = 5410659.562767227;
+
+			mapView.Map.InitialExtent = envelopeBuilder.ToGeometry();
+
             _pointSymbol = layoutGrid.Resources["PointSymbol"] as Symbol;
             _lineSymbol = layoutGrid.Resources["LineSymbol"] as Symbol;
             _polygonSymbol = layoutGrid.Resources["PolygonSymbol"] as Symbol;
@@ -90,8 +99,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             try
             {
-                MapPoint pointOne = new MapPoint(line.Paths[0][0], mapView.SpatialReference);
-                MapPoint pointTwo = new MapPoint(line.Paths[0][1], mapView.SpatialReference);
+                MapPoint pointOne = new MapPointBuilder(line.Parts[0][0]).ToGeometry();
+				MapPoint pointTwo = new MapPointBuilder(line.Parts[0][1]).ToGeometry();
 
                 var parameters = new MensurationLengthParameters()
                 {
@@ -114,8 +123,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             try
             {
-                MapPoint pointOne = new MapPoint(line.Paths[0][0], mapView.SpatialReference);
-                MapPoint pointTwo = new MapPoint(line.Paths[0][1], mapView.SpatialReference);
+				MapPoint pointOne = new MapPointBuilder(line.Parts[0][0]).ToGeometry();
+				MapPoint pointTwo = new MapPointBuilder(line.Parts[0][1]).ToGeometry();
 
                 var parameters = new MensurationHeightParameters()
                 {
@@ -137,8 +146,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             try
             {
-                MapPoint pointOne = new MapPoint(line.Paths[0][0], mapView.SpatialReference);
-                MapPoint pointTwo = new MapPoint(line.Paths[0][1], mapView.SpatialReference);
+				MapPoint pointOne = new MapPointBuilder(line.Parts[0][0]).ToGeometry();
+				MapPoint pointTwo = new MapPointBuilder(line.Parts[0][1]).ToGeometry();
 
                 var parameters = new MensurationHeightParameters()
                 {
@@ -160,8 +169,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             try
             {
-                MapPoint pointOne = new MapPoint(line.Paths[0][0], mapView.SpatialReference);
-                MapPoint pointTwo = new MapPoint(line.Paths[0][1], mapView.SpatialReference);
+				MapPoint pointOne = new MapPointBuilder(line.Parts[0][0]).ToGeometry();
+				MapPoint pointTwo = new MapPointBuilder(line.Parts[0][1]).ToGeometry();
 
                 var parameters = new MensurationHeightParameters()
                 {

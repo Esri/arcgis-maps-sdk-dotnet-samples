@@ -8,7 +8,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
@@ -38,7 +37,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             mapView.Editor.EditorConfiguration.MidVertexSymbol = null;
             mapView.Editor.EditorConfiguration.VertexSymbol = null;
-            mapView.Editor.EditorConfiguration.SelectedVertexSymbol = new SimpleMarkerSymbol() { Color = Colors.Blue, Size = 6 };
+            mapView.Editor.EditorConfiguration.SelectedVertexSymbol = new SimpleMarkerSymbol() 
+			{ 
+				Color = System.Windows.Media.Colors.Blue, 
+				Size = 6 
+			};
 
             await AcceptUserPolygon();
         }
@@ -78,16 +81,16 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 if (originalGraphics.Graphics.Count == 0)
                     throw new ApplicationException("Digitize a polygon to move.");
 
-                var coords = originalGraphics.Graphics[0].Geometry as IEnumerable<CoordinateCollection>;
+                var coords = originalGraphics.Graphics[0].Geometry as IEnumerable<PointCollection>;
                 if (coords == null)
                     throw new ApplicationException("Digitize a polygon to move.");
 
-                var points = coords.First().Select(c => new MapPoint(c, mapView.SpatialReference));
+                var points = coords.First().Select(c => new MapPointBuilder(c).ToGeometry());
                 var distance = (double)comboDistance.SelectedItem;
                 var azimuth = (double)sliderAngle.Value;
                 var movedPoints = GeometryEngine.GeodesicMove(points, distance, LinearUnits.Miles, azimuth);
 
-                Polygon movedPoly = new Polygon(movedPoints.Select(p => p.Coordinate), mapView.SpatialReference);
+                Polygon movedPoly = new PolygonBuilder(movedPoints, mapView.SpatialReference).ToGeometry();
                 movedGraphics.Graphics.Clear();
                 movedGraphics.Graphics.Add(new Graphic(movedPoly));
             }

@@ -10,17 +10,10 @@
         
         <esri:MapView x:Name="mapView" WrapAround="True" MapViewTapped="mapView_MapViewTapped">
             <esri:MapView.Overlays>
-                <Grid x:Name="esriOverlay" IsHitTestVisible="False" HorizontalAlignment="Right" VerticalAlignment="Top" MaxWidth="200"
+				<Grid x:Name="esriOverlay" esri:MapView.MapOverlayAnchor="{Binding}" IsHitTestVisible="False" HorizontalAlignment="Right" VerticalAlignment="Top" MaxWidth="200"
                       Visibility="{Binding ElementName=chkEsri, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <esri:MapView.MapOverlayAnchor>
-                        <esri:MapPoint X="-117.19568" Y="34.056601">
-                            <esri:MapPoint.SpatialReference>
-                                <esri:SpatialReference Wkid="4326" />
-                            </esri:MapPoint.SpatialReference>
-                        </esri:MapPoint>
-                    </esri:MapView.MapOverlayAnchor>
 
-                    <Grid.RowDefinitions>
+					<Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="20" />
                     </Grid.RowDefinitions>

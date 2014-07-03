@@ -96,7 +96,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             switch (geometry.GeometryType)
             {
                 case GeometryType.Point:
-                case GeometryType.MultiPoint:
+                case GeometryType.Multipoint:
                     symbol = _markerSymbol;
                     break;
 

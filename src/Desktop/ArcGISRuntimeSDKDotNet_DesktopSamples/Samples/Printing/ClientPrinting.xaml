@@ -133,14 +133,6 @@
         <!--  Map Control  -->
         <esri:MapView x:Name="mapView" WrapAround="True" MinScale="2446">
             <esri:Map>
-                <esri:Map.InitialExtent>
-                    <esri:Envelope XMin="-9813504.6933477" YMin="5127140.45392125" XMax="-9812977.49431059" YMax="5127508.54492118">
-                        <esri:Envelope.SpatialReference>
-                            <esri:SpatialReference Wkid="102100" />
-                        </esri:Envelope.SpatialReference>
-                    </esri:Envelope>
-                </esri:Map.InitialExtent>
-
                 <esri:ArcGISTiledMapServiceLayer ID="Basemap" ShowLegend="False" 
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
 

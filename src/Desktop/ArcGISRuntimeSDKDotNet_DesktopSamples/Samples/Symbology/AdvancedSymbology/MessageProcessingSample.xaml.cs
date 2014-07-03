@@ -1,5 +1,6 @@
 ﻿using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.AdvancedSymbology;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,15 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology
 		public MessageProcessingSample()
 		{
 			InitializeComponent();
+
+			// Create initial extend and set it
+			var envelopeBuilder = new EnvelopeBuilder(SpatialReferences.WebMercator);
+			envelopeBuilder.XMin = -245200;
+			envelopeBuilder.YMin = 6665900;
+			envelopeBuilder.XMax = -207000;
+			envelopeBuilder.YMax = 6687300;
+
+			mapView.Map.InitialExtent = envelopeBuilder.ToGeometry();
 			mapView.ExtentChanged += mapView_ExtentChanged;
 		}
 

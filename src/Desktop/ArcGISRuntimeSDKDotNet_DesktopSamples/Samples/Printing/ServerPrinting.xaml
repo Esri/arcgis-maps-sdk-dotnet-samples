@@ -4,16 +4,8 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid x:Name="layoutGrid">
         <esri:MapView x:Name="mapView">
-            <esri:Map>
-                <esri:Map.InitialExtent>
-                    <esri:Envelope XMin="-10929488.234" YMin="4525208.388" XMax="-10906776.553" YMax="4535252.104">
-                        <esri:Envelope.SpatialReference>
-                            <esri:SpatialReference Wkid="102100" />
-                        </esri:Envelope.SpatialReference>
-                    </esri:Envelope>
-                </esri:Map.InitialExtent>
-                
-                <esri:ArcGISTiledMapServiceLayer 
+			<esri:Map>
+				<esri:ArcGISTiledMapServiceLayer 
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
                 <esri:ArcGISDynamicMapServiceLayer 
                     ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Petroleum/KSFields/MapServer" />

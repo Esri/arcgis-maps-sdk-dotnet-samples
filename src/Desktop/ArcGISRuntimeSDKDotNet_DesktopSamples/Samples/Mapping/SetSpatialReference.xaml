@@ -5,15 +5,6 @@
     <Grid>
         <esri:MapView x:Name="mapView" WrapAround="True">
             <esri:Map>
-                <!-- Map Extent and Spatial Reference-->
-                <esri:Map.InitialExtent>
-                    <esri:Envelope XMin="661140" YMin="-1420246" XMax="3015668" YMax="1594451">
-                        <esri:Envelope.SpatialReference>
-                            <esri:SpatialReference Wkid="26777"/>
-                        </esri:Envelope.SpatialReference>
-                    </esri:Envelope>
-                </esri:Map.InitialExtent>
-
                 <esri:ArcGISDynamicMapServiceLayer
                         ServiceUri="http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Census_USA/MapServer"/>
                 <esri:ArcGISDynamicMapServiceLayer

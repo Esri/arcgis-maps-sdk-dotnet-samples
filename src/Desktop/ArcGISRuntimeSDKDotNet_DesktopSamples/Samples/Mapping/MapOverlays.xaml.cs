@@ -17,6 +17,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             InitializeComponent();
 
             mapView.ExtentChanged += mapView_ExtentChanged;
+
+			esriOverlay.DataContext = new MapPointBuilder(-117.19568, 34.056601, SpatialReferences.Wgs84).ToGeometry();
         }
 
         private void mapView_ExtentChanged(object sender, System.EventArgs e)

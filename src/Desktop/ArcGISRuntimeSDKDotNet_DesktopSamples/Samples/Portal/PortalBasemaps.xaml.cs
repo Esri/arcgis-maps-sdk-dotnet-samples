@@ -61,7 +61,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var item = ((Button)sender).DataContext as ArcGISPortalItem;
                 var webmap = await WebMap.FromPortalItemAsync(item);
                 var basemapVM = await WebMapViewModel.LoadAsync(webmap, _currentVM.ArcGISPortal);
-                _currentVM.BaseMap = basemapVM.BaseMap;
+				_currentVM.Basemap = basemapVM.Basemap;
             }
             catch (Exception ex)
             {

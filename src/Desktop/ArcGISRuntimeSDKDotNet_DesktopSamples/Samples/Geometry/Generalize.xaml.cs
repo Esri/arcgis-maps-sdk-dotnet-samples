@@ -67,7 +67,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     {
                         foreach (var coord in path)
                         {
-                            var vertex = new Graphic(new MapPoint(coord, river.SpatialReference), _defaultMarkerSymbol);
+                            var vertex = new Graphic(new MapPointBuilder(coord).ToGeometry(), _defaultMarkerSymbol);
                             _originalGraphicsLayer.Graphics.Add(vertex);
                         }
                     }
@@ -100,7 +100,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     {
                         foreach (var coord in path)
                         {
-                            var vertex = new Graphic(new MapPoint(coord, mapView.SpatialReference), _generalizedMarkerSymbol);
+							var vertex = new Graphic(new MapPointBuilder(coord).ToGeometry(), _generalizedMarkerSymbol);
                             _generalizedGraphicsLayer.Graphics.Add(vertex);
                         }
                     }

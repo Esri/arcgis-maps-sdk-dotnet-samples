@@ -32,7 +32,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             //Create a new webmap with basemap and operational layers
             var webmap = new WebMap()
             {
-                BaseMap = CreateBasemapLayer(),
+                Basemap = CreateBasemapLayer(),
                 OperationalLayers = new List<WebMapLayer>()
                 {
                     CreateDynamicServiceLayer(),
@@ -49,9 +49,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         }
 
         //Define BaseMap Layer
-        private BaseMap CreateBasemapLayer()
+        private Basemap CreateBasemapLayer()
         {
-            return new BaseMap()
+            return new Basemap()
             {
                 Title = "World Streets",
                 Layers = new List<WebMapLayer>

@@ -9,13 +9,6 @@
 	<Grid>
 		<esri:MapView x:Name="mapView">
 			<esri:Map>
-				<esri:Map.InitialExtent>
-					<esri:Envelope XMin="-245200" YMin="6665900" XMax="-207000" YMax="6687300">
-						<esri:Envelope.SpatialReference>
-							<esri:SpatialReference Wkid="102100"></esri:SpatialReference>
-						</esri:Envelope.SpatialReference>
-					</esri:Envelope>
-				</esri:Map.InitialExtent>
 				<esri:ArcGISTiledMapServiceLayer ID="Basemap" 
 					ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"/>
 				<esri:MessageLayer SymbolDictionaryType="Mil2525C" />

@@ -49,7 +49,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 PropertiesListBox.Items.Add(string.Format("Name: {0}", portalInfo.PortalName));
                 PropertiesListBox.Items.Add(string.Format("Mode: {0}", portalInfo.PortalMode));
 
-                BaseMap basemap = portalInfo.DefaultBaseMap;
+                Basemap basemap = portalInfo.DefaultBasemap;
 
                 PropertiesListBox.Items.Add(string.Format("Default BaseMap Title: {0}", basemap.Title));
                 PropertiesListBox.Items.Add(string.Format("WebMap Layers ({0}):", basemap.Layers.Count));

@@ -1,4 +1,5 @@
 ﻿using Esri.ArcGISRuntime.ArcGISServices;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System.Linq;
@@ -18,6 +19,15 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers
         public DynamicLayerLabeling()
         {
             InitializeComponent();
+
+			// Create initial extend and set it
+			var envelopeBuilder = new EnvelopeBuilder(SpatialReference.Create(102009));
+			envelopeBuilder.XMin = -3548912;
+			envelopeBuilder.YMin = 1847469;
+			envelopeBuilder.XMax = 2472012;
+			envelopeBuilder.YMax = 1742990;
+
+			mapView.Map.InitialExtent = envelopeBuilder.ToGeometry();
 
             // Minor city label info
             DynamicLabelingInfo minorCityLabelInfo = new DynamicLabelingInfo();

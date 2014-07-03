@@ -4,7 +4,6 @@ using Esri.ArcGISRuntime.Symbology;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
@@ -32,13 +31,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             var width = mapView.Extent.Width / 4;
             var length = width / 4;
             var center = mapView.Extent.GetCenter();
-            var topLeft = new MapPoint(center.X - width, center.Y + height, mapView.SpatialReference);
-            var topRight = new MapPoint(center.X + width, center.Y + height, mapView.SpatialReference);
-            var bottomLeft = new MapPoint(center.X - width, center.Y - height, mapView.SpatialReference);
-            var bottomRight = new MapPoint(center.X + width, center.Y - height, mapView.SpatialReference);
+			var topLeft = new MapPointBuilder(center.X - width, center.Y + height, mapView.SpatialReference).ToGeometry();
+			var topRight = new MapPointBuilder(center.X + width, center.Y + height, mapView.SpatialReference).ToGeometry();
+			var bottomLeft = new MapPointBuilder(center.X - width, center.Y - height, mapView.SpatialReference).ToGeometry();
+			var bottomRight = new MapPointBuilder(center.X + width, center.Y - height, mapView.SpatialReference).ToGeometry();
 
-            var redSymbol = new SimpleLineSymbol() { Color = Colors.Red, Width = 4, Style = SimpleLineStyle.Solid };
-            var blueSymbol = new SimpleLineSymbol() { Color = Colors.Blue, Width = 4, Style = SimpleLineStyle.Solid };
+            var redSymbol = new SimpleLineSymbol() { Color = System.Windows.Media.Colors.Red, Width = 4, Style = SimpleLineStyle.Solid };
+            var blueSymbol = new SimpleLineSymbol() { Color = System.Windows.Media.Colors.Blue, Width = 4, Style = SimpleLineStyle.Solid };
 
             graphicsLayer.Graphics.Add(new Graphic() { Geometry = CreatePolylineX(center, length), Symbol = blueSymbol });
             graphicsLayer.Graphics.Add(new Graphic() { Geometry = CreatePolylineX(topLeft, length), Symbol = redSymbol });
@@ -52,15 +51,15 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             var halfLen = length / 2.0;
 
-            CoordinateCollection coords1 = new CoordinateCollection();
-            coords1.Add(new Coordinate(center.X - halfLen, center.Y + halfLen));
-            coords1.Add(new Coordinate(center.X + halfLen, center.Y - halfLen));
+            PointCollection coords1 = new PointCollection();
+            coords1.Add(new MapPointBuilder(center.X - halfLen, center.Y + halfLen).ToGeometry());
+			coords1.Add(new MapPointBuilder(center.X + halfLen, center.Y - halfLen).ToGeometry());
 
-            CoordinateCollection coords2 = new CoordinateCollection();
-            coords2.Add(new Coordinate(center.X + halfLen, center.Y + halfLen));
-            coords2.Add(new Coordinate(center.X - halfLen, center.Y - halfLen));
+            PointCollection coords2 = new PointCollection();
+			coords2.Add(new MapPointBuilder(center.X + halfLen, center.Y + halfLen).ToGeometry());
+			coords2.Add(new MapPointBuilder(center.X - halfLen, center.Y - halfLen).ToGeometry());
 
-            return new Polyline(new List<CoordinateCollection> { coords1, coords2 }, mapView.SpatialReference);
+            return new Polyline(new PartCollection { coords1, coords2 }, mapView.SpatialReference);
         }
     }
 }

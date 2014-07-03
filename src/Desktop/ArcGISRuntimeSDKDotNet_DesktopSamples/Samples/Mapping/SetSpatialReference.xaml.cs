@@ -14,16 +14,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            // NOTE: uncomment the following to set the initial extent and spatial reference via code.
+			// Create initial extend and set it
+			var envelopeBuilder = new EnvelopeBuilder(SpatialReference.Create(26777));
+			envelopeBuilder.XMin = 661140;
+			envelopeBuilder.YMin = -1420246;
+			envelopeBuilder.XMax = 3015668;
+			envelopeBuilder.YMax = 1594451;
 
-            //mapView.Map.InitialExtent = new Envelope()
-            //{
-            //    XMin = 661140,
-            //    YMin = -1420246,
-            //    XMax = 3015668,
-            //    YMax = 1594451,
-            //    SpatialReference = new SpatialReference(26777)
-            //};
+			mapView.Map.InitialExtent = envelopeBuilder.ToGeometry();
         }
     }
 }

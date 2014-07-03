@@ -25,8 +25,16 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
+			var initialExtentBuilder = new EnvelopeBuilder(SpatialReferences.Wgs84)
+			{ 
+				XMin = -130, 
+				YMin = 20, 
+				XMax = -65, 
+				YMax = 55 
+			};
+			
             mapView.Map.InitialExtent = (Envelope)GeometryEngine.Project(
-                new Envelope { XMin = -130, YMin = 20, XMax = -65, YMax = 55, SpatialReference = SpatialReferences.Wgs84 }, 
+                initialExtentBuilder.ToGeometry(), 
                 SpatialReferences.WebMercator);
             graphicsLayer = (GraphicsLayer)mapView.Map.Layers["graphicsLayer"];
         }

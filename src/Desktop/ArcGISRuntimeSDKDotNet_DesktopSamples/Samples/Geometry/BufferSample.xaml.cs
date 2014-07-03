@@ -28,7 +28,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            mapView.Map.InitialExtent = new Envelope(-10863035.970, 3838021.340, -10744801.344, 3887145.299);
+            mapView.Map.InitialExtent = new EnvelopeBuilder(-10863035.970, 3838021.340, -10744801.344, 3887145.299).ToGeometry();
             var task = SetupSymbols();
         }
 

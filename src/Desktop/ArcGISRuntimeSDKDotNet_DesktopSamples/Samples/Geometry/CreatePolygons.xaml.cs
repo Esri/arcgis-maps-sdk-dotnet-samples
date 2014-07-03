@@ -4,7 +4,6 @@ using Esri.ArcGISRuntime.Symbology;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
@@ -32,13 +31,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             var width = mapView.Extent.Width / 4;
             var length = width / 4;
             var center = mapView.Extent.GetCenter();
-            var topLeft = new MapPoint(center.X - width, center.Y + height, mapView.SpatialReference);
-            var topRight = new MapPoint(center.X + width, center.Y + height, mapView.SpatialReference);
-            var bottomLeft = new MapPoint(center.X - width, center.Y - height, mapView.SpatialReference);
-            var bottomRight = new MapPoint(center.X + width, center.Y - height, mapView.SpatialReference);
+            var topLeft = new MapPointBuilder(center.X - width, center.Y + height, mapView.SpatialReference).ToGeometry();
+			var topRight = new MapPointBuilder(center.X + width, center.Y + height, mapView.SpatialReference).ToGeometry();
+			var bottomLeft = new MapPointBuilder(center.X - width, center.Y - height, mapView.SpatialReference).ToGeometry();
+			var bottomRight = new MapPointBuilder(center.X + width, center.Y - height, mapView.SpatialReference).ToGeometry();
 
-            var redSymbol = new SimpleFillSymbol() { Color = Colors.Red };
-            var blueSymbol = new SimpleFillSymbol() { Color = Colors.Blue };
+            var redSymbol = new SimpleFillSymbol() { Color = System.Windows.Media.Colors.Red };
+            var blueSymbol = new SimpleFillSymbol() { Color = System.Windows.Media.Colors.Blue };
 
             graphicsLayer.Graphics.Add(new Graphic() { Geometry = CreatePolygonBox(center, length), Symbol = blueSymbol });
             graphicsLayer.Graphics.Add(new Graphic() { Geometry = CreatePolygonBox(topLeft, length), Symbol = redSymbol });
@@ -52,22 +51,22 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             var halfLen = length / 2.0;
 
-            CoordinateCollection coords = new CoordinateCollection();
-            coords.Add(new Coordinate(center.X - halfLen, center.Y + halfLen));
-            coords.Add(new Coordinate(center.X + halfLen, center.Y + halfLen));
-            coords.Add(new Coordinate(center.X + halfLen, center.Y - halfLen));
-            coords.Add(new Coordinate(center.X - halfLen, center.Y - halfLen));
-            coords.Add(new Coordinate(center.X - halfLen, center.Y + halfLen));
+            PointCollection points = new PointCollection();
+			points.Add(new MapPointBuilder(center.X - halfLen, center.Y + halfLen).ToGeometry());
+			points.Add(new MapPointBuilder(center.X + halfLen, center.Y + halfLen).ToGeometry());
+			points.Add(new MapPointBuilder(center.X + halfLen, center.Y - halfLen).ToGeometry());
+			points.Add(new MapPointBuilder(center.X - halfLen, center.Y - halfLen).ToGeometry());
+			points.Add(new MapPointBuilder(center.X - halfLen, center.Y + halfLen).ToGeometry());
 
             halfLen /= 3;
-            CoordinateCollection coordsHole = new CoordinateCollection();
-            coordsHole.Add(new Coordinate(center.X - halfLen, center.Y + halfLen));
-            coordsHole.Add(new Coordinate(center.X - halfLen, center.Y - halfLen));
-            coordsHole.Add(new Coordinate(center.X + halfLen, center.Y - halfLen));
-            coordsHole.Add(new Coordinate(center.X + halfLen, center.Y + halfLen));
-            coordsHole.Add(new Coordinate(center.X - halfLen, center.Y + halfLen));
+			PointCollection pointsHole = new PointCollection();
+			pointsHole.Add(new MapPointBuilder(center.X - halfLen, center.Y + halfLen).ToGeometry());
+			pointsHole.Add(new MapPointBuilder(center.X - halfLen, center.Y - halfLen).ToGeometry());
+			pointsHole.Add(new MapPointBuilder(center.X + halfLen, center.Y - halfLen).ToGeometry());
+			pointsHole.Add(new MapPointBuilder(center.X + halfLen, center.Y + halfLen).ToGeometry());
+			pointsHole.Add(new MapPointBuilder(center.X - halfLen, center.Y + halfLen).ToGeometry());
 
-            return new Polygon(new List<CoordinateCollection> { coords, coordsHole }, mapView.SpatialReference);
+			return new Polygon(new List<PointCollection> { points, pointsHole }, mapView.SpatialReference);
         }
     }
 }

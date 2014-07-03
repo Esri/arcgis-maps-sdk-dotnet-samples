@@ -15,14 +15,6 @@
 
         <esri:MapView x:Name="mapView">
             <esri:Map>
-                <esri:Map.InitialExtent>
-                    <esri:Envelope XMin="-8838052.325801775" YMin="5409956.10324135" XMax="-8836537.917179003" YMax="5410659.562767227" >
-                        <esri:Envelope.SpatialReference>
-                            <esri:SpatialReference Wkid="102100"/>
-                        </esri:Envelope.SpatialReference>
-                    </esri:Envelope>
-                </esri:Map.InitialExtent>
-
                 <esri:ArcGISTiledMapServiceLayer x:Name="imageServiceLayer"  
                     ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Toronto/ImageServer" />
 

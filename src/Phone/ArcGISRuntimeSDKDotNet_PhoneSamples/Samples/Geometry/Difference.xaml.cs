@@ -34,11 +34,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             var g = new Graphic
             {
-                Geometry = new Polygon(new List<Coordinate> {
-                new Coordinate(-116.5,33),
-                new Coordinate(-116.5,34),
-                new Coordinate(-116,34),
-                new Coordinate(-116,33)
+                Geometry = new Polygon(new List<MapPoint> {
+                new MapPoint(-116.5,33),
+                new MapPoint(-116.5,34),
+                new MapPoint(-116,34),
+                new MapPoint(-116,33)
             }, mapView1.SpatialReference),
             };
 
@@ -46,11 +46,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
             g = new Graphic
             {
-                Geometry = new Polygon(new List<Coordinate> {
-                new Coordinate(-118,34),
-                new Coordinate(-118,35),
-                new Coordinate(-117.5,35),
-                new Coordinate(-117.5,34)
+                Geometry = new Polygon(new List<MapPoint> {
+                new MapPoint(-118,34),
+                new MapPoint(-118,35),
+                new MapPoint(-117.5,35),
+                new MapPoint(-117.5,34)
                 
             }, mapView1.SpatialReference)
             };
@@ -58,11 +58,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
             g = new Graphic
             {
-                Geometry = new Polygon(new List<Coordinate> {
-                new Coordinate(-117.3,34),
-                new Coordinate(-116.3,34),
-                new Coordinate(-116.3,33.5),
-                new Coordinate(-117.3,33.5)
+                Geometry = new Polygon(new List<MapPoint> {
+                new MapPoint(-117.3,34),
+                new MapPoint(-116.3,34),
+                new MapPoint(-116.3,33.5),
+                new MapPoint(-117.3,33.5)
                 
             }, mapView1.SpatialReference)
             };

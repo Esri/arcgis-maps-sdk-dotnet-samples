@@ -56,12 +56,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 		}
 
 		// Helper method
-		private static CoordinateCollection FromArray(params double[] parameters)
+		private static PointCollection FromArray(params double[] parameters)
 		{
-			CoordinateCollection coll = new CoordinateCollection();
+			PointCollection coll = new PointCollection();
+			var mapPointBuilder = new MapPointBuilder(SpatialReferences.Wgs84);
 			for (int i = 0; i < parameters.Length - 1; i+=2)
 			{
-				coll.Add(new Coordinate(parameters[i], parameters[i + 1]));
+				mapPointBuilder.SetValues(parameters[i], parameters[i + 1]);
+				coll.Add(mapPointBuilder.ToGeometry());
 			}
 			return coll;
 		}

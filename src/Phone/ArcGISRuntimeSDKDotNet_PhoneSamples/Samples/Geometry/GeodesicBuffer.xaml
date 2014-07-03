@@ -34,16 +34,9 @@
                 </symbology:SimpleRenderer.Symbol>
             </symbology:SimpleRenderer>
         </Grid.Resources>
-        <controls:MapView x:Name="mapView1">
-            <controls:Map  >
-                <controls:Map.InitialExtent>
-                    <geometry:Envelope XMin="-13047918" YMin="4036008" XMax="-13045480" YMax="4037866">
-                        <geometry:Envelope.SpatialReference>
-                            <geometry:SpatialReference Wkid="3857" />
-                        </geometry:Envelope.SpatialReference>
-                    </geometry:Envelope>
-                </controls:Map.InitialExtent>
-                <layers:ArcGISTiledMapServiceLayer ServiceUri="http://services.arcgisonline.com/arcgis/rest/services/world_topo_map/MapServer" ID="BaseLayer"/>
+        <controls:MapView x:Name="mapView">
+			<controls:Map  >
+				<layers:ArcGISTiledMapServiceLayer ServiceUri="http://services.arcgisonline.com/arcgis/rest/services/world_topo_map/MapServer" ID="BaseLayer"/>
                 <layers:GraphicsLayer ID="GeometryResultGraphicsLayer" Renderer="{StaticResource BufferRenderer}"/>
                 <layers:GraphicsLayer ID="PointInputLayer" Renderer="{StaticResource PointRenderer}"/>
                 <layers:GraphicsLayer ID="LineInputLayer" Renderer="{StaticResource LineRenderer}"/>

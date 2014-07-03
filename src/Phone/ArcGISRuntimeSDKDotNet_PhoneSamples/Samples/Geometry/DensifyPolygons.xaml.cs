@@ -57,7 +57,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             graphicsLayerPolygon.Graphics.Add(thePolygonGraphic);
 
             //show the vertices for the polygon
-            foreach (var vert in densifyPolygonGeometry.Rings.FirstOrDefault())
+			foreach (var vert in densifyPolygonGeometry.Parts.FirstOrDefault())
             {
                 var graphic = new Graphic { Geometry = new MapPoint(vert.X, vert.Y), Symbol = defaultVertexMarkerSymbol };
                 graphicsLayerVertices.Graphics.Add(graphic);
@@ -76,7 +76,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var maxSegLength = GetMaxSegmentLength();
                 var results = GeometryEngine.Densify(densifyPolygonGeometry, maxSegLength);
                 //show the vertices for the polygon
-                foreach (var vert in (results as Polygon).Rings.FirstOrDefault())
+				foreach (var vert in (results as Polygon).Parts.FirstOrDefault())
                 {
                     var graphic = new Graphic { Geometry = new MapPoint(vert.X, vert.Y), Symbol = densifyVertexMarkerSymbol };
                     graphicsLayerVertices.Graphics.Add(graphic);

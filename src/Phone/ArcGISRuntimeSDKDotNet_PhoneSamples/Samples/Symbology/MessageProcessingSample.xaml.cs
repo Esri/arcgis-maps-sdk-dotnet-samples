@@ -1,5 +1,6 @@
 ﻿using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.AdvancedSymbology;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,13 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology
 		public MessageProcessingSample()
 		{
 			InitializeComponent();
+			mapView.Map.InitialExtent = new EnvelopeBuilder(
+				-245200, 
+				6665900, 
+				-207000, 
+				6687300, 
+				SpatialReferences.WebMercator).ToGeometry();
+
 			mapView.ExtentChanged += mapView_ExtentChanged;
 		}
 

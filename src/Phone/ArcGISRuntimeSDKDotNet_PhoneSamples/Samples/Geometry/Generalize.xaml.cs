@@ -56,7 +56,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     g.Geometry.SpatialReference = mapView1.SpatialReference;
                     originalGraphicsLayer.Graphics.Add(g);
 
-                    foreach (var pc in (g.Geometry as Polyline).Paths)
+                    foreach (var pc in (g.Geometry as Polyline).Parts)
                     {
                         foreach (var point in pc)
                         {
@@ -92,7 +92,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 g.Geometry.SpatialReference = mapView1.SpatialReference;
                 generalizedGraphicsLayer.Graphics.Add(g);
 
-                foreach (var pc in (generalizedGeometry as Polyline).Paths)
+				foreach (var pc in (generalizedGeometry as Polyline).Parts)
                 {
                     foreach (var point in pc)
                     {

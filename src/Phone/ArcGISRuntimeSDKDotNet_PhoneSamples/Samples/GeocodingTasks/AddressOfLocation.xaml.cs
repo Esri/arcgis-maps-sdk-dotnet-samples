@@ -107,7 +107,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 }
                 //Convert anchor point to the spatial reference of the map
                 var mp = GeometryEngine.Project(anchor, mapView1.SpatialReference) as MapPoint;
-                //Convert anchor point to screen coordinate
+                //Convert anchor point to screen MapPoint
                 var screen = mapView1.LocationToScreen(mp);
 
                 if (screen.X >= 0 && screen.Y >= 0 &&

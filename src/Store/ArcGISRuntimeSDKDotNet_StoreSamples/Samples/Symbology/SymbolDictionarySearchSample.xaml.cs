@@ -139,14 +139,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 						case DrawShape.Polygon:
 							Polygon polygon = geometry as Polygon;
 							string cpts = string.Empty;
-							foreach (var pt in polygon.Rings[0])
+							foreach (var pt in polygon.Parts[0])
 								cpts += ";" + pt.X.ToString(CultureInfo.InvariantCulture) + "," + pt.Y.ToString(CultureInfo.InvariantCulture);
 							msg.Add("_control_points", cpts);
 							break;
 						case DrawShape.Polyline:
 							Polyline polyline = geometry as Polyline;
 							cpts = string.Empty;
-							foreach (var pt in polyline.Paths[0])
+							foreach (var pt in polyline.Parts[0])
 								cpts += ";" + pt.X.ToString(CultureInfo.InvariantCulture) + "," + pt.Y.ToString(CultureInfo.InvariantCulture);
 							msg.Add("_control_points", cpts);
 							break;

@@ -56,22 +56,22 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             var halfLen = length / 2.0;
 
-            CoordinateCollection coords = new CoordinateCollection();
-            coords.Add(new Coordinate(center.X - halfLen, center.Y + halfLen));
-            coords.Add(new Coordinate(center.X + halfLen, center.Y + halfLen));
-            coords.Add(new Coordinate(center.X + halfLen, center.Y - halfLen));
-            coords.Add(new Coordinate(center.X - halfLen, center.Y - halfLen));
-            coords.Add(new Coordinate(center.X - halfLen, center.Y + halfLen));
+            PointCollection coords = new PointCollection();
+			coords.Add(new MapPointBuilder(center.X - halfLen, center.Y + halfLen).ToGeometry());
+			coords.Add(new MapPointBuilder(center.X + halfLen, center.Y + halfLen).ToGeometry());
+			coords.Add(new MapPointBuilder(center.X + halfLen, center.Y - halfLen).ToGeometry());
+			coords.Add(new MapPointBuilder(center.X - halfLen, center.Y - halfLen).ToGeometry());
+			coords.Add(new MapPointBuilder(center.X - halfLen, center.Y + halfLen).ToGeometry());
 
             halfLen /= 3;
-            CoordinateCollection coordsHole = new CoordinateCollection();
-            coordsHole.Add(new Coordinate(center.X - halfLen, center.Y + halfLen));
-            coordsHole.Add(new Coordinate(center.X - halfLen, center.Y - halfLen));
-            coordsHole.Add(new Coordinate(center.X + halfLen, center.Y - halfLen));
-            coordsHole.Add(new Coordinate(center.X + halfLen, center.Y + halfLen));
-            coordsHole.Add(new Coordinate(center.X - halfLen, center.Y + halfLen));
+            PointCollection coordsHole = new PointCollection();
+			coordsHole.Add(new MapPointBuilder(center.X - halfLen, center.Y + halfLen).ToGeometry());
+			coordsHole.Add(new MapPointBuilder(center.X - halfLen, center.Y - halfLen).ToGeometry());
+			coordsHole.Add(new MapPointBuilder(center.X + halfLen, center.Y - halfLen).ToGeometry());
+			coordsHole.Add(new MapPointBuilder(center.X + halfLen, center.Y + halfLen).ToGeometry());
+			coordsHole.Add(new MapPointBuilder(center.X - halfLen, center.Y + halfLen).ToGeometry());
 
-            return new Polygon(new List<CoordinateCollection> { coords, coordsHole }, mapView.SpatialReference);
+            return new Polygon(new List<PointCollection> { coords, coordsHole }, mapView.SpatialReference);
         }
     }
 }

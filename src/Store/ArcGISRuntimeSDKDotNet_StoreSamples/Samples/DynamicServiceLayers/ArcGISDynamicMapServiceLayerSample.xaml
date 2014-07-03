@@ -9,14 +9,6 @@
     <Grid>
         <esri:MapView x:Name="mapView">
             <esri:Map>
-                <esri:Map.InitialExtent>
-                    <geo:Envelope XMin="-3548912" YMin="-1847469" XMax="2472012" YMax="1742990">
-                        <geo:Envelope.SpatialReference>
-                            <geo:SpatialReference Wkid="102009"/>
-                        </geo:Envelope.SpatialReference>
-                    </geo:Envelope>
-                </esri:Map.InitialExtent>
-
                 <lyr:ArcGISDynamicMapServiceLayer ID="USA"
                     ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer" />
             </esri:Map>

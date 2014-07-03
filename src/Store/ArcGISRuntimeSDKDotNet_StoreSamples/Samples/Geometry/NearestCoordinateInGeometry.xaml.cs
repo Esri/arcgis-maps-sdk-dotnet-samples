@@ -132,9 +132,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 _targetLayer.Graphics.Add(graphic);
 
                 var poly = graphic.Geometry as Polygon;
-                foreach (var coord in poly.Rings.First())
+                foreach (var coord in poly.Parts.First())
                 {
-                    _targetLayer.Graphics.Add(new Graphic(new MapPoint(coord, poly.SpatialReference), _vertexSymbol));
+                    _targetLayer.Graphics.Add(new Graphic(new MapPointBuilder(coord).ToGeometry(), _vertexSymbol));
                 }
             }
         }

@@ -70,22 +70,22 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             var halfLen = length / 2.0;
 
-            CoordinateCollection coords = new CoordinateCollection();
-            coords.Add(new Coordinate(center.X - halfLen, center.Y + halfLen));
-            coords.Add(new Coordinate(center.X + halfLen, center.Y + halfLen));
-            coords.Add(new Coordinate(center.X + halfLen, center.Y - halfLen));
-            coords.Add(new Coordinate(center.X - halfLen, center.Y - halfLen));
-            coords.Add(new Coordinate(center.X - halfLen, center.Y + halfLen));
+            PointCollection coords = new PointCollection();
+			coords.Add(new MapPointBuilder(center.X - halfLen, center.Y + halfLen).ToGeometry());
+			coords.Add(new MapPointBuilder(center.X + halfLen, center.Y + halfLen).ToGeometry());
+			coords.Add(new MapPointBuilder(center.X + halfLen, center.Y - halfLen).ToGeometry());
+			coords.Add(new MapPointBuilder(center.X - halfLen, center.Y - halfLen).ToGeometry());
+			coords.Add(new MapPointBuilder(center.X - halfLen, center.Y + halfLen).ToGeometry());
 
             halfLen /= 3;
-            CoordinateCollection coordsHole = new CoordinateCollection();
-            coordsHole.Add(new Coordinate(center.X - halfLen, center.Y + halfLen));
-            coordsHole.Add(new Coordinate(center.X - halfLen, center.Y - halfLen));
-            coordsHole.Add(new Coordinate(center.X + halfLen, center.Y - halfLen));
-            coordsHole.Add(new Coordinate(center.X + halfLen, center.Y + halfLen));
-            coordsHole.Add(new Coordinate(center.X - halfLen, center.Y + halfLen));
+            PointCollection coordsHole = new PointCollection();
+			coordsHole.Add(new MapPointBuilder(center.X - halfLen, center.Y + halfLen).ToGeometry());
+			coordsHole.Add(new MapPointBuilder(center.X - halfLen, center.Y - halfLen).ToGeometry());
+			coordsHole.Add(new MapPointBuilder(center.X + halfLen, center.Y - halfLen).ToGeometry());
+			coordsHole.Add(new MapPointBuilder(center.X + halfLen, center.Y + halfLen).ToGeometry());
+			coordsHole.Add(new MapPointBuilder(center.X - halfLen, center.Y + halfLen).ToGeometry());
 
-            return new Polygon(new List<CoordinateCollection> { coords, coordsHole }, mapView.SpatialReference);
+            return new Polygon(new List<PointCollection> { coords, coordsHole }, mapView.SpatialReference);
         }
 
         // Creates a polyline with four paths in the shape of a box centered at the given point
@@ -94,27 +94,27 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             var halfLen = length / 2.0;
             var spacer = length / 10.0;
 
-            List<CoordinateCollection> coords = new List<CoordinateCollection>()
+            List<PointCollection> coords = new List<PointCollection>()
             {
-                new CoordinateCollection() 
+                new PointCollection() 
                 { 
-                    new Coordinate(center.X - halfLen + spacer, center.Y + halfLen),
-                    new Coordinate(center.X + halfLen - spacer, center.Y + halfLen)
+                    new MapPointBuilder(center.X - halfLen + spacer, center.Y + halfLen).ToGeometry(),
+                    new MapPointBuilder(center.X + halfLen - spacer, center.Y + halfLen).ToGeometry()
                 },
-                new CoordinateCollection() 
+                new PointCollection() 
                 { 
-                    new Coordinate(center.X + halfLen, center.Y + halfLen - spacer),
-                    new Coordinate(center.X + halfLen, center.Y - halfLen + spacer)
+                    new MapPointBuilder(center.X + halfLen, center.Y + halfLen - spacer).ToGeometry(),
+                    new MapPointBuilder(center.X + halfLen, center.Y - halfLen + spacer).ToGeometry()
                 },
-                new CoordinateCollection() 
+                new PointCollection() 
                 { 
-                    new Coordinate(center.X + halfLen - spacer, center.Y - halfLen),
-                    new Coordinate(center.X - halfLen + spacer, center.Y - halfLen)
+                    new MapPointBuilder(center.X + halfLen - spacer, center.Y - halfLen).ToGeometry(),
+                    new MapPointBuilder(center.X - halfLen + spacer, center.Y - halfLen).ToGeometry()
                 },
-                new CoordinateCollection() 
+                new PointCollection() 
                 { 
-                    new Coordinate(center.X - halfLen, center.Y - halfLen + spacer),
-                    new Coordinate(center.X - halfLen, center.Y + halfLen - spacer)
+                    new MapPointBuilder(center.X - halfLen, center.Y - halfLen + spacer).ToGeometry(),
+                    new MapPointBuilder(center.X - halfLen, center.Y + halfLen - spacer).ToGeometry()
                 }
             };
 

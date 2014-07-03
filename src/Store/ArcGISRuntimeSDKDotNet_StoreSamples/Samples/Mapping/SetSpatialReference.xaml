@@ -13,15 +13,7 @@
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <esri:MapView x:Name="mapView">
             <esri:Map>
-                <esri:Map.InitialExtent>
-                    <geo:Envelope XMin="661140" YMin="-1420246" XMax="3015668" YMax="1594451">
-                        <geo:Envelope.SpatialReference>
-                            <geo:SpatialReference Wkid="26777" />
-                        </geo:Envelope.SpatialReference>
-                    </geo:Envelope>
-                </esri:Map.InitialExtent>
-                
-                <esri:Map.Layers>
+               <esri:Map.Layers>
                     <lyr:ArcGISDynamicMapServiceLayer
                         ServiceUri="http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Census_USA/MapServer"/>
                     <lyr:ArcGISDynamicMapServiceLayer

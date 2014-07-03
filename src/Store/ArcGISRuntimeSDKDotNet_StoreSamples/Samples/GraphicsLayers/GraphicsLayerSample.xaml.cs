@@ -33,10 +33,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             Graphic blueLine = new Graphic()
             {
                 Symbol = new SimpleLineSymbol() { Color = Colors.Blue, Style = SimpleLineStyle.Solid, Width = 4 },
-                Geometry = new Polyline(new CoordinateCollection() 
+                Geometry = new Polyline(new PointCollection() 
                 { 
-                    new Coordinate(ptStart.X, ptStart.Y + 1000000),
-                    new Coordinate(ptEnd.X, ptEnd.Y + 1000000)
+                    new MapPointBuilder(ptStart.X, ptStart.Y + 1000000).ToGeometry(),
+                    new MapPointBuilder(ptEnd.X, ptEnd.Y + 1000000).ToGeometry()
                 })
             };
 
@@ -44,10 +44,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             Graphic greenLine = new Graphic()
             {
                 Symbol = new SimpleLineSymbol() { Color = Colors.Green, Style = SimpleLineStyle.Dash, Width = 4 },
-                Geometry = new Polyline(new CoordinateCollection() 
+                Geometry = new Polyline(new PointCollection() 
                 { 
-                    new Coordinate(ptStart.X, ptStart.Y - 1000000),
-                    new Coordinate(ptEnd.X, ptEnd.Y - 1000000)
+                    new MapPointBuilder(ptStart.X, ptStart.Y - 1000000).ToGeometry(),
+                    new MapPointBuilder(ptEnd.X, ptEnd.Y - 1000000).ToGeometry()
                 })
             };
 

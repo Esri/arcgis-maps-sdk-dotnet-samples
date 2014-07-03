@@ -56,15 +56,15 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             var halfLen = length / 2.0;
 
-            CoordinateCollection coords1 = new CoordinateCollection();
-            coords1.Add(new Coordinate(center.X - halfLen, center.Y + halfLen));
-            coords1.Add(new Coordinate(center.X + halfLen, center.Y - halfLen));
+            PointCollection coords1 = new PointCollection();
+			coords1.Add(new MapPointBuilder(center.X - halfLen, center.Y + halfLen).ToGeometry());
+			coords1.Add(new MapPointBuilder(center.X + halfLen, center.Y - halfLen).ToGeometry());
 
-            CoordinateCollection coords2 = new CoordinateCollection();
-            coords2.Add(new Coordinate(center.X + halfLen, center.Y + halfLen));
-            coords2.Add(new Coordinate(center.X - halfLen, center.Y - halfLen));
+            PointCollection coords2 = new PointCollection();
+			coords2.Add(new MapPointBuilder(center.X + halfLen, center.Y + halfLen).ToGeometry());
+			coords2.Add(new MapPointBuilder(center.X - halfLen, center.Y - halfLen).ToGeometry());
 
-            return new Polyline(new List<CoordinateCollection> { coords1, coords2 }, mapView.SpatialReference);
+            return new Polyline(new List<PointCollection> { coords1, coords2 }, mapView.SpatialReference);
         }
     }
 }

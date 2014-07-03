@@ -56,18 +56,18 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var original = await mapView.Editor.RequestShapeAsync(drawShape, _fillSymbol);
 
                 // Add original shape vertices to input graphics layer
-                var coordsOriginal = ((IEnumerable<CoordinateCollection>)original).First();
+                var coordsOriginal = ((IEnumerable<PointCollection>)original).First();
                 foreach (var coord in coordsOriginal)
-                    _inputGraphics.Graphics.Add(new Graphic(new MapPoint(coord, original.SpatialReference), _origVertexSymbol));
+                    _inputGraphics.Graphics.Add(new Graphic(new MapPointBuilder(coord).ToGeometry(), _origVertexSymbol));
 
                 // Densify the shape
                 var densify = GeometryEngine.GeodesicDensify(original, mapView.Extent.Width / 100, LinearUnits.Meters);
                 _inputGraphics.Graphics.Add(new Graphic(densify, _fillSymbol));
 
                 // Add new vertices to result graphics layer
-                var coordsDensify = ((IEnumerable<CoordinateCollection>)densify).First();
+                var coordsDensify = ((IEnumerable<PointCollection>)densify).First();
                 foreach (var coord in coordsDensify)
-                    _resultGraphics.Graphics.Add(new Graphic(new MapPoint(coord, original.SpatialReference), _newVertexSymbol));
+                    _resultGraphics.Graphics.Add(new Graphic(new MapPointBuilder(coord).ToGeometry(), _newVertexSymbol));
 
                 // Results
                 var results = new List<Tuple<string, object>>()

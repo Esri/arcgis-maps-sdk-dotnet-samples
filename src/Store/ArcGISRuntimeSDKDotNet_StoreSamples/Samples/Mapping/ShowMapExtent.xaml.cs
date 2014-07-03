@@ -30,13 +30,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 {
                     var normalizedPolygon = (Polygon)normalizedExtent;
 
-                    if (normalizedPolygon.Rings.Count == 1)
+					if (normalizedPolygon.Parts.Count == 1)
                         newExtent = normalizedPolygon.Extent;
                     else
                     {
                         newExtent = new Envelope();
 
-                        foreach (var p in normalizedPolygon.Rings[0])
+						foreach (var p in normalizedPolygon.Parts[0])
                         {
                             if (p.X < newExtent.XMin || double.IsNaN(newExtent.XMin))
                                 newExtent.XMin = p.X;
@@ -44,7 +44,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                                 newExtent.YMin = p.Y;
                         }
 
-                        foreach (var p in normalizedPolygon.Rings[1])
+						foreach (var p in normalizedPolygon.Parts[1])
                         {
                             if (p.X > newExtent.XMax || double.IsNaN(newExtent.XMax))
                                 newExtent.XMax = p.X;

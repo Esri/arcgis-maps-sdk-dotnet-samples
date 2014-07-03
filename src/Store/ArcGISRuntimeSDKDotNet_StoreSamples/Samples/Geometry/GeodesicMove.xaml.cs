@@ -82,16 +82,16 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 if (_originalGraphics.Graphics.Count == 0)
                     throw new Exception("Digitize a polygon to move.");
 
-                var coords = _originalGraphics.Graphics[0].Geometry as IEnumerable<CoordinateCollection>;
+                var coords = _originalGraphics.Graphics[0].Geometry as IEnumerable<PointCollection>;
                 if (coords == null)
                     throw new Exception("Digitize a polygon to move.");
 
-                var points = coords.First().Select(c => new MapPoint(c, mapView.SpatialReference));
+                var points = coords.First().Select(c => new MapPointBuilder(c).ToGeometry());
                 var distance = (double)comboDistance.SelectedItem;
                 var azimuth = (double)sliderAngle.Value;
                 var movedPoints = GeometryEngine.GeodesicMove(points, distance, LinearUnits.Miles, azimuth);
 
-                Polygon movedPoly = new Polygon(movedPoints.Select(p => p.Coordinate), mapView.SpatialReference);
+                Polygon movedPoly = new PolygonBuilder(movedPoints, mapView.SpatialReference).ToGeometry();
                 _movedGraphics.Graphics.Clear();
                 _movedGraphics.Graphics.Add(new Graphic(movedPoly));
             }

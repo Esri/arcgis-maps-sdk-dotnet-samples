@@ -49,18 +49,18 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
                 // Add original polygon and vertices to input graphics layer
                 _inputGraphics.Graphics.Add(new Graphic(poly, _polySymbol));
-                foreach (var coord in poly.Rings.First())
+				foreach (var coord in poly.Parts.First())
                 {
-                    _inputGraphics.Graphics.Add(new Graphic(new MapPoint(coord, poly.SpatialReference), _origVertexSymbol));
+                    _inputGraphics.Graphics.Add(new Graphic(new MapPointBuilder(coord).ToGeometry(), _origVertexSymbol));
                 }
 
                 // Densify the polygon
                 var densify = GeometryEngine.Densify(poly, mapView.Extent.Width / 100) as Polygon;
 
                 // Add new vertices to result graphics layer
-                foreach (var coord in densify.Rings.First())
+				foreach (var coord in densify.Parts.First())
                 {
-                    _resultGraphics.Graphics.Add(new Graphic(new MapPoint(coord, poly.SpatialReference), _newVertexSymbol));
+                    _resultGraphics.Graphics.Add(new Graphic(new MapPointBuilder(coord).ToGeometry(), _newVertexSymbol));
                 }
             }
             catch (Exception ex)

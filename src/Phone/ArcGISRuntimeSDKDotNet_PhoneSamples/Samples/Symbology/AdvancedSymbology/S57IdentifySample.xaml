@@ -40,9 +40,7 @@
                         ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer" />
 
 				<!-- Using group layer to group all Hydrographic layers -->
-				<lyr:GroupLayer ID="Hydrographic">
-				</lyr:GroupLayer>
-
+				<lyr:GroupLayer ID="Hydrographic"/>
 				<lyr:GraphicsLayer ID="ResultGraphics" Renderer="{StaticResource selectionRendrer}"/>
 			</esri:Map>
 		</esri:MapView>

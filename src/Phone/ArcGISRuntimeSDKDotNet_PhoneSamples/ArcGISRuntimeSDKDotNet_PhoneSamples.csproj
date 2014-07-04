@@ -298,6 +298,10 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Icons\vector.circle.png" />
+    <Content Include="Assets\Icons\vector.line.png" />
+    <Content Include="Assets\Icons\vector.polygon.png" />
+    <Content Include="Assets\Icons\vector.rectangle.png" />
     <Content Include="Assets\Logo.scale-240.png" />
     <Content Include="Assets\x-24x24.png" />
     <EmbeddedResource Include="Assets\SampleDescriptions.xml" />

@@ -14,15 +14,15 @@
 			<Setter Property="BorderBrush" Value="Transparent" />
 			<Setter Property="Background" Value="#CC000000" />
 			<Setter Property="BorderThickness" Value="2" />
-			<Setter Property="Margin" Value="30" />
-			<Setter Property="Padding" Value="20" />
+			<Setter Property="Margin" Value="20" />
+			<Setter Property="Padding" Value="10" />
 			<Setter Property="VerticalAlignment" Value="Top" />
 		</Style>
 		<Style x:Key="headerTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource SubheaderTextBlockStyle}">
 			<Setter Property="Margin" Value="5,5,10,5" />
 			<Setter Property="FontWeight" Value="Bold" />
 		</Style>
-		<Style x:Key="subHeaderTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource SubtitleTextBlockStyle}">
+		<Style x:Key="subHeaderTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource SubheaderTextBlockStyle}">
 			<Setter Property="HorizontalAlignment" Value="Center" />
 			<Setter Property="Margin" Value="10,5,5,5" />
 		</Style>
@@ -43,52 +43,86 @@
 	<!-- Application command bar -->
 	<Page.BottomAppBar>
 		<CommandBar IsOpen="True">
-			<AppBarButton Icon="Setting" Label="Search values">
+			<AppBarButton Icon="Edit" Label="Draw">
 				<AppBarButton.Flyout>
-					<Flyout>
-						<StackPanel>
-							<StackPanel Orientation="Horizontal" >
-								<TextBlock Text="Buffer:" Margin="2" Width="135"/>
-								<TextBox x:Name="BufferValue" Text="" Width="150" Margin="2"/>
-							</StackPanel>
-							<StackPanel Orientation="Horizontal" >
-								<TextBlock Text="Object Name (Acronym):" Margin="2" Width="135"/>
-								<TextBox x:Name="SearchText" Text="" Width="150" Margin="2"/>
-							</StackPanel>
-						</StackPanel>
+					<Flyout x:Name="drawFlyout">
+						<Grid Margin="10">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="auto"></RowDefinition>
+								<RowDefinition Height="*"></RowDefinition>
+								<RowDefinition Height="10"></RowDefinition>
+								<RowDefinition Height="*"></RowDefinition>
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="10"></ColumnDefinition>
+								<ColumnDefinition Width="*"></ColumnDefinition>
+								<ColumnDefinition Width="*"></ColumnDefinition>
+								<ColumnDefinition Width="*"></ColumnDefinition>
+								<ColumnDefinition Width="*"></ColumnDefinition>
+								<ColumnDefinition Width="10"></ColumnDefinition>
+							</Grid.ColumnDefinitions>
+
+							<Button Tag="line" Click="AddSearchGeometry_Click"
+									HorizontalAlignment="Center" VerticalAlignment="Center"
+									Grid.Column="1" Grid.Row="1" Margin="5" 
+									Background="{StaticResource PhoneAccentBrush}"
+									BorderBrush="Transparent">
+								<Image Source="ms-appx:///Assets/Icons/vector.line.png" 
+									Height="100" Width="100" 
+									HorizontalAlignment="Center" VerticalAlignment="Center"
+									Stretch="UniformToFill" />
+							</Button>
+
+							<Button Tag="polygon" Click="AddSearchGeometry_Click"
+										HorizontalAlignment="Center" VerticalAlignment="Center"
+										Grid.Column="2" Grid.Row="1" Margin="5" 
+										Background="{StaticResource PhoneAccentBrush}"
+										BorderBrush="Transparent">
+								<Image Source="ms-appx:///Assets/Icons/vector.polygon.png" 
+										Height="100" Width="100" 
+										HorizontalAlignment="Center" VerticalAlignment="Center"
+										Stretch="UniformToFill" />
+							</Button>
+
+							<Button Tag="rectangle" Click="AddSearchGeometry_Click"
+										HorizontalAlignment="Center" VerticalAlignment="Center"
+										Grid.Column="3" Grid.Row="1" Margin="5" 
+										Background="{StaticResource PhoneAccentBrush}"
+										BorderBrush="Transparent">
+								<Image Source="ms-appx:///Assets/Icons/vector.rectangle.png" 
+										Height="100" Width="100" 
+										HorizontalAlignment="Center" VerticalAlignment="Center"
+										Stretch="UniformToFill" />
+							</Button>
+
+							<Button Tag="circle" Click="AddSearchGeometry_Click"
+										HorizontalAlignment="Center" VerticalAlignment="Center"
+										Grid.Column="4" Grid.Row="1" Margin="5" 
+										Background="{StaticResource PhoneAccentBrush}"
+										BorderBrush="Transparent">
+								<Image Source="ms-appx:///Assets/Icons/vector.circle.png" 
+										Height="100" Width="100" 
+										HorizontalAlignment="Center" VerticalAlignment="Center"
+										Stretch="UniformToFill" />
+							</Button>
+							
+							<Grid Grid.Row="3" Grid.ColumnSpan="6">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="*"></RowDefinition>
+									<RowDefinition Height="*"></RowDefinition>
+								</Grid.RowDefinitions>
+								<TextBox x:Name="BufferValue" Header="Buffer"
+										 Margin="5" 
+										 PlaceholderText="ie. 5"/>
+								<TextBox x:Name="SearchText" Header="Object name"
+										 Grid.Row="1" Margin="5" 
+										 PlaceholderText="ie. M_QUAL"/>
+							</Grid>
+						</Grid>
 					</Flyout>
 				</AppBarButton.Flyout>
 			</AppBarButton>
-
 			<AppBarButton Icon="Find" Label="Search" Click="Search_Click"/>
-			
-			<CommandBar.SecondaryCommands>
-				<AppBarButton Icon="Edit" Label="Geometry type">
-					<AppBarButton.Flyout>
-						<Flyout>
-							<StackPanel>
-								<StackPanel Orientation="Horizontal" Margin="5">
-									<TextBlock Text="Geometry type:" Style="{StaticResource SubheaderTextBlockStyle}" 
-										   Width="200"/>
-									<ComboBox SelectedItem="{Binding CurrentDrawShape,Mode=TwoWay}" Margin="8,0,8,2" Padding="4"
-									 SelectionChanged="ComboBox_SelectionChanged">
-										<esri:DrawShape>Point</esri:DrawShape>
-										<esri:DrawShape>Polyline</esri:DrawShape>
-										<esri:DrawShape>Polygon</esri:DrawShape>
-										<esri:DrawShape>Rectangle</esri:DrawShape>
-										<esri:DrawShape>Arrow</esri:DrawShape>
-										<esri:DrawShape>Triangle</esri:DrawShape>
-										<esri:DrawShape>Ellipse</esri:DrawShape>
-										<esri:DrawShape>Circle</esri:DrawShape>
-										<esri:DrawShape>LineSegment</esri:DrawShape>
-									</ComboBox>
-								</StackPanel>
-							</StackPanel>
-						</Flyout>
-					</AppBarButton.Flyout>
-				</AppBarButton>
-				<AppBarButton Icon="Edit" Label="Draw" Click="AddSearchGeometry_Click"/>
-			</CommandBar.SecondaryCommands>
 		</CommandBar>
 	</Page.BottomAppBar>
 
@@ -107,7 +141,9 @@
 			</esri:Map>
 		</esri:MapView>
 
-		<Border HorizontalAlignment="Right" Style="{StaticResource overlayBorderStyle}" Padding="20,10">
+		<Border x:Name="resultsBorder"
+				Visibility="Collapsed"
+				Style="{StaticResource overlayBorderStyle}" >
 			<Grid MaxWidth="400">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="auto"/>
@@ -119,10 +155,7 @@
 				<TextBlock Text="Search results:" 
 						   Style="{StaticResource headerTextBlockStyle}"/>
 
-				<Border x:Name="noResultsArea" Margin="10" Padding="20" Grid.Row="1">
-					<TextBlock Text="No search results." />
-				</Border>
-				<StackPanel x:Name="resultsArea" Visibility="Collapsed" Grid.Row="1">
+				<StackPanel x:Name="resultsArea" Grid.Row="1">
 					<ListView x:Name="resultList" SelectionMode="Single" SelectionChanged="resultList_SelectionChanged">
 						<ListView.ItemTemplate>
 							<DataTemplate>

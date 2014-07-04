@@ -100,7 +100,7 @@
 									<TextBox Text="{Binding Path=ShallowContourMeters}" Width="100"/>
 								</StackPanel>
 								<StackPanel Orientation="Horizontal">
-									<TextBlock Text="Safety:" 
+									<TextBlock Text="Safet	y:" 
 											   Style="{StaticResource SubheaderTextBlockStyle}" 
 											   Width="200"/>
 									<TextBox Text="{Binding Path=SafetyContourMeters}" Width="100"/>

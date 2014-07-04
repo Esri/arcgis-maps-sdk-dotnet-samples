@@ -31,7 +31,6 @@
 		<sym:SimpleRenderer x:Key="selectionRendrer" Symbol="{StaticResource selectionSymbol}"/>
 	</Page.Resources>
 
-
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 		<esri:MapView x:Name="mapView" 
 					  LayerLoaded="mapView_LayerLoaded"

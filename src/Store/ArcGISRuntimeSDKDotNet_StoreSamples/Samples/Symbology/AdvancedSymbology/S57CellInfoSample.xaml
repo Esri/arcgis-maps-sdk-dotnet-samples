@@ -56,11 +56,7 @@
 					</Flyout>
 				</AppBarButton.Flyout>
 			</AppBarButton>
-		
-			<CommandBar.SecondaryCommands>
-				<AppBarButton Icon="Zoom" Label="Zoom To" Click="ZoomToSelectedButtom_Click"/>
-			</CommandBar.SecondaryCommands>
-			
+			<AppBarButton Icon="Zoom" Label="Zoom To" Click="ZoomToSelectedButtom_Click"/>
 		</CommandBar>
 	</Page.BottomAppBar>
 

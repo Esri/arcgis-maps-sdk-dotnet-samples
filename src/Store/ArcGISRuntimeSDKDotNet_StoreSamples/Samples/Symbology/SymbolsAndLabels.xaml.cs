@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using Esri.ArcGISRuntime.Geometry;
-using Windows.UI.Xaml.Controls;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 
@@ -10,7 +9,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 	/// Shows various types of the more advanced symbol types: Composite and CIM symbology.
 	/// </summary>
     /// <category>Symbology</category>
-	public sealed partial class SymbolsAndLabels : Page
+	public sealed partial class SymbolsAndLabels : Windows.UI.Xaml.Controls.Page
     {
 		public SymbolsAndLabels()
         {
@@ -53,6 +52,21 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 				g.Attributes["SymbolType"] = g.Symbol.GetType().Name;
 				g.Attributes["ID"] = ++i;
 			}
+			var symbols = this.Resources.OfType<MarkerSymbol>();
+			double x = -7000000;
+			foreach (var symbol in symbols)
+			{
+				Graphic g = new Graphic(new MapPoint(x, 3900000), symbol);
+				layer.Graphics.Add(g);
+				x += 1000000;
+			}
+
+			layer.Graphics.Add(new Graphic(new MapPoint(-6000000, 4800000), (Symbol)Resources["NumberedMarkerSymbol1"]));
+			layer.Graphics.Add(new Graphic(new MapPoint(-5000000, 3900000), (Symbol)Resources["NumberedMarkerSymbolA"]));
+			layer.Graphics.Add(new Graphic(new MapPoint(-4000000, 4800000), (Symbol)Resources["NumberedMarkerSymbol1"]));
+			layer.Graphics.Add(new Graphic(new MapPoint(-3000000, 3900000), (Symbol)Resources["NumberedMarkerSymbolA"]));
+			layer.Graphics.Add(new Graphic(new MapPoint(-2000000, 4800000), (Symbol)Resources["NumberedMarkerSymbol1"]));
+			layer.Graphics.Add(new Graphic(new MapPoint(-1000000, 3900000), (Symbol)Resources["NumberedMarkerSymbolA"]));
 		}
 
 		// Helper method

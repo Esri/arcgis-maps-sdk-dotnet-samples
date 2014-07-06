@@ -43,7 +43,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             InitializeComponent();
 
             var extentWGS84 = new Envelope(-123.77, 36.80, -119.77, 38.42, SpatialReferences.Wgs84);
-            mapView.Map.InitialExtent = GeometryEngine.Project(extentWGS84, SpatialReferences.WebMercator) as Envelope;
+			mapView.Map.InitialViewpoint = extentWGS84;
 
             mapView.Loaded += mapView_Loaded;
         }

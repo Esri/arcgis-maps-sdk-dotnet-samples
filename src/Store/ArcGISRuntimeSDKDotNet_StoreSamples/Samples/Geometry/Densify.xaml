@@ -28,9 +28,9 @@
 
         <esri:MapView x:Name="mapView" WrapAround="True">
             <esri:Map>
-                <esri:Map.InitialExtent>
-                    <geo:Envelope XMin="-15000000" YMin="2000000" XMax="-7000000" YMax="8000000" />
-                </esri:Map.InitialExtent>
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-15000000" YMin="2000000" XMax="-7000000" YMax="8000000" />
+                </esri:Map.InitialViewpoint>
 
                 <lyr:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />

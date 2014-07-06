@@ -2,6 +2,7 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using System;
+using System.Linq;
 using Windows.Storage;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
@@ -37,7 +38,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
                 var gdb = await Geodatabase.OpenAsync(gdbFile.Path);
 
-                Envelope extent = new Envelope();
+                Envelope extent = gdb.FeatureTables.First().Extent;
                 foreach (var table in gdb.FeatureTables)
                 {
                     var flayer = new FeatureLayer()

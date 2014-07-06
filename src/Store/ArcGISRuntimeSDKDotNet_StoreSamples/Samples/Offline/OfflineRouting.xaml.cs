@@ -40,7 +40,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             _routesLayer = mapView.Map.Layers["RoutesLayer"] as GraphicsLayer;
             _directionsLayer = mapView.Map.Layers["DirectionsLayer"] as GraphicsLayer;
                 
-            mapView.Map.InitialExtent = new Envelope(-13044000, 3855000, -13040000, 3858000, SpatialReferences.WebMercator);
+            mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-13044000, 3855000, -13040000, 3858000, SpatialReferences.WebMercator));
             mapView.ExtentChanged += mapView_ExtentChanged;
         }
 

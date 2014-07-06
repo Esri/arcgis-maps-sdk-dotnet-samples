@@ -33,7 +33,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			envelopeBuilder.XMax = -2472012;
 			envelopeBuilder.YMax = 1742990;
 
-			mapView.Map.InitialExtent = envelopeBuilder.ToGeometry();
+			mapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(envelopeBuilder.ToGeometry());
 
             var layer = mapView.Map.Layers.OfType<ArcGISDynamicMapServiceLayer>().FirstOrDefault();
             layer.VisibleLayers = new ObservableCollection<int>() { 2 };

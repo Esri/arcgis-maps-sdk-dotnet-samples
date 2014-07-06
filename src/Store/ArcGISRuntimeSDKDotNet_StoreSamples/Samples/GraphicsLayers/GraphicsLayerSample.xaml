@@ -22,41 +22,9 @@
                 <lyr:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
 
-                <lyr:GraphicsLayer ID="GraphicsLayer">
-                    <lyr:GraphicsLayer.Graphics>
-                        <lyr:Graphic Symbol="{StaticResource RedMarkerSymbolCircle}" >
-                            <lyr:Graphic.Geometry>
-                                <geom:MapPoint X="-7000000" Y="3900000" />
-                            </lyr:Graphic.Geometry>
-                        </lyr:Graphic>
-                        <lyr:Graphic Symbol="{StaticResource RedMarkerSymbolCross}" >
-                            <lyr:Graphic.Geometry>
-                                <geom:MapPoint X="-6000000" Y="3900000" />
-                            </lyr:Graphic.Geometry>
-                        </lyr:Graphic>
-                        <lyr:Graphic Symbol="{StaticResource RedMarkerSymbolDiamond}" >
-                            <lyr:Graphic.Geometry>
-                                <geom:MapPoint X="-5000000" Y="3900000" />
-                            </lyr:Graphic.Geometry>
-                        </lyr:Graphic>
-                        <lyr:Graphic Symbol="{StaticResource RedMarkerSymbolSquare}" >
-                            <lyr:Graphic.Geometry>
-                                <geom:MapPoint X="-4000000" Y="3900000" />
-                            </lyr:Graphic.Geometry>
-                        </lyr:Graphic>
-                        <lyr:Graphic Symbol="{StaticResource RedMarkerSymbolTriangle}" >
-                            <lyr:Graphic.Geometry>
-                                <geom:MapPoint X="-3000000" Y="3900000" />
-                            </lyr:Graphic.Geometry>
-                        </lyr:Graphic>
-                        <lyr:Graphic Symbol="{StaticResource RedMarkerSymbolX}" >
-                            <lyr:Graphic.Geometry>
-                                <geom:MapPoint X="-2000000" Y="3900000" />
-                            </lyr:Graphic.Geometry>
-                        </lyr:Graphic>
-                    </lyr:GraphicsLayer.Graphics>
-                </lyr:GraphicsLayer>
-            </esri:Map>
+				<lyr:GraphicsLayer ID="GraphicsLayer" />
+
+			</esri:Map>
         </esri:MapView>
     </Grid>
 </Page>

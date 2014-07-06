@@ -61,7 +61,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             {
                 oldPosition = new LocationInfo()
                 {
-                    Location = new MapPoint(StartLongitude, StartLatitude) { SpatialReference = new SpatialReference(4326) },
+                    Location = new MapPoint(StartLongitude, StartLatitude, new SpatialReference(4326)),
                     Speed = 0,
                     Course = 0,
                     HorizontalAccuracy = 20,

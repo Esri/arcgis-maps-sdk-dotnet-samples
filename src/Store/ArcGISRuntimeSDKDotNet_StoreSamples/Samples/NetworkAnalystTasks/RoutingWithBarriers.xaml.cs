@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalyst;
@@ -31,7 +32,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            mapView.Map.InitialExtent = new Envelope(-13637527, 4545455, -13622931, 4552890, SpatialReferences.WebMercator);
+            mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-13637527, 4545455, -13622931, 4552890, SpatialReferences.WebMercator));
 
             _routeGraphicsLayer = mapView.Map.Layers["RouteGraphicsLayer"] as GraphicsLayer;
             _stopGraphicsLayer = mapView.Map.Layers["StopGraphicsLayer"] as GraphicsLayer;

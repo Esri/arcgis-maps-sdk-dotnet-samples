@@ -26,7 +26,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            mapView1.Map.InitialExtent = new Envelope(-10863035.970, 3838021.340, -10744801.344, 3887145.299);
+            mapView1.Map.InitialViewpoint = new Envelope(-10863035.970, 3838021.340, -10744801.344, 3887145.299);
             InitializePictureMarkerSymbol().ContinueWith((_) => { }, TaskScheduler.FromCurrentSynchronizationContext());
             sfs = LayoutRoot.Resources["MySimpleFillSymbol"] as SimpleFillSymbol;
             graphicsLayer = mapView1.Map.Layers["MyGraphicsLayer"] as GraphicsLayer;

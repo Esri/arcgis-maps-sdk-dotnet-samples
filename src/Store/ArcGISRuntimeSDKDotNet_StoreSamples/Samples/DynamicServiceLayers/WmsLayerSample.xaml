@@ -6,6 +6,9 @@
     <Grid>
         <esri:MapView x:Name="mapView">
             <esri:Map >
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-15000000" YMin="2000000"  XMax="-7000000" YMax="8000000" />
+				</esri:Map.InitialViewpoint>
                 <lyr:ArcGISTiledMapServiceLayer ServiceUri="http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
                 <lyr:WmsLayer ID="WMSLayer" Opacity="0.7" ServiceUri="http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi" />
             </esri:Map>

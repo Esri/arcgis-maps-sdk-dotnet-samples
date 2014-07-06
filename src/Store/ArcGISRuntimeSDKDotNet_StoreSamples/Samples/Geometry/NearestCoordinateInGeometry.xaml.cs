@@ -35,10 +35,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             _graphicsLayer = mapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
             _targetLayer = mapView.Map.Layers["TargetLayer"] as GraphicsLayer;
             _coordinateLayer = mapView.Map.Layers["CoordinateLayer"] as GraphicsLayer;
-                
-            mapView.Map.InitialExtent = (Envelope)GeometryEngine.Project(
-                new Envelope(-83.3188395774275, 42.61428312652851, -83.31295664068958, 42.61670913269855, SpatialReferences.Wgs84),
-                SpatialReferences.WebMercator);
+
+			mapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(new Envelope(-83.3188395774275, 42.61428312652851, -83.31295664068958, 42.61670913269855, SpatialReferences.Wgs84));
+			mapView.Map.SpatialReference = SpatialReferences.WebMercator;
 
             mapView.ExtentChanged += mapView_ExtentChanged;
         }

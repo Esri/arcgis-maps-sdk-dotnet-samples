@@ -34,23 +34,24 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                         newExtent = normalizedPolygon.Extent;
                     else
                     {
-                        newExtent = new Envelope();
+                        var newExtentBuilder = new EnvelopeBuilder();
 
 						foreach (var p in normalizedPolygon.Parts[0])
                         {
                             if (p.X < newExtent.XMin || double.IsNaN(newExtent.XMin))
-                                newExtent.XMin = p.X;
+								newExtentBuilder.XMin = p.X;
                             if (p.Y < newExtent.YMin || double.IsNaN(newExtent.YMin))
-                                newExtent.YMin = p.Y;
+								newExtentBuilder.YMin = p.Y;
                         }
 
 						foreach (var p in normalizedPolygon.Parts[1])
                         {
                             if (p.X > newExtent.XMax || double.IsNaN(newExtent.XMax))
-                                newExtent.XMax = p.X;
+								newExtentBuilder.XMax = p.X;
                             if (p.Y > newExtent.YMax || double.IsNaN(newExtent.YMax))
-                                newExtent.YMax = p.Y;
+								newExtentBuilder.YMax = p.Y;
                         }
+						newExtent = newExtentBuilder.ToGeometry();
                     }
                 }
                 else if (normalizedExtent is Envelope)

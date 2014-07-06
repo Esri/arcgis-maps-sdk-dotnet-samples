@@ -28,7 +28,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             InitializeComponent();
 
             Envelope extent = new Envelope(-117.387, 33.97, -117.355, 33.988, SpatialReferences.Wgs84);
-            mapView.Map.InitialExtent = GeometryEngine.Project(extent, SpatialReferences.WebMercator) as Envelope;
+            mapView.Map.InitialViewpoint = new Viewpoint(extent);
+			mapView.Map.SpatialReference = SpatialReferences.WebMercator;
 
             _graphicsLayer = mapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
                 

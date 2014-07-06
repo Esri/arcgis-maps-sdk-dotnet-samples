@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using System;
 using Windows.UI.Popups;
@@ -25,7 +26,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			envelopeBuilder.XMax = 2472012;
 			envelopeBuilder.YMax = 1742990;
 
-			mapView.Map.InitialExtent = envelopeBuilder.ToGeometry();
+			mapView.Map.InitialViewpoint = new Viewpoint(envelopeBuilder.ToGeometry());
         }
 
         private void ChangeLayerOrderClick(object sender, RoutedEventArgs e)

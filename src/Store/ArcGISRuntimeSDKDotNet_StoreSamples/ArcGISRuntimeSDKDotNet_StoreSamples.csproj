@@ -221,6 +221,9 @@
     <Compile Include="Samples\Mapping\GroupLayers.xaml.cs">
       <DependentUpon>GroupLayers.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Mapping\SetInitialCenterAndScale.xaml.cs">
+      <DependentUpon>SetInitialCenterAndScale.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Mapping\SetInitialMapExtent.xaml.cs">
       <DependentUpon>SetInitialMapExtent.xaml</DependentUpon>
     </Compile>
@@ -621,6 +624,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Mapping\GroupLayers.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Mapping\SetInitialCenterAndScale.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

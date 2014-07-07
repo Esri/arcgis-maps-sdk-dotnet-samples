@@ -20,7 +20,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public QueryRelatedRecords()
         {
             this.InitializeComponent();
-            mapView1.Map.InitialExtent = new Envelope(-10854000, 4502000, -10829000, 4524000, SpatialReferences.WebMercator);
+			mapView1.Map.InitialViewpoint = new Envelope(-10854000, 4502000, -10829000, 4524000, SpatialReferences.WebMercator);
         }
 
         private async Task RunQuery(Geometry geometry)
@@ -60,10 +60,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             return new Envelope(
                 point.X - mapExtent.Width * (pct / 2), point.Y - mapExtent.Height * (pct / 2),
-                point.X + mapExtent.Width * (pct / 2), point.Y + mapExtent.Height * (pct / 2))
-            {
-                SpatialReference = mapExtent.SpatialReference
-            };
+                point.X + mapExtent.Width * (pct / 2), point.Y + mapExtent.Height * (pct / 2),
+                mapExtent.SpatialReference);
         }
 
         private async void ResultsGrid_SelectionChanged_1(object sender, SelectionChangedEventArgs e)

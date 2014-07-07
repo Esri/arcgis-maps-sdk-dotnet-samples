@@ -24,12 +24,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
             var ext = new Envelope(-122.554, 37.615, -122.245, 37.884, SpatialReferences.Wgs84);
-            //xmax = -13608251.152023727
-            //xmin = -13642648.874678848
-            //mapView1.Map.InitialExtent.YMax = 4563051.8387280777
-            //ymin = 4525180.0845494056
 
-            mapView1.Map.InitialExtent = GeometryEngine.Project(ext, SpatialReferences.WebMercator) as Envelope;
+			mapView1.Map.InitialViewpoint = ext;
 
             _candidateGraphicsLayer = mapView1.Map.Layers["CandidateGraphicsLayer"] as GraphicsLayer;
         }
@@ -76,11 +72,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                             var pt = geom as MapPoint;
                             string latlon = String.Format("{0}, {1}", pt.X, pt.Y);
                             graphic.Attributes.Add("LatLon", latlon);
-                        }
-
-                        if (geom.SpatialReference == null)
-                        {
-                            geom.SpatialReference = mapView1.SpatialReference;
                         }
 
                         _candidateGraphicsLayer.Graphics.Add(graphic);

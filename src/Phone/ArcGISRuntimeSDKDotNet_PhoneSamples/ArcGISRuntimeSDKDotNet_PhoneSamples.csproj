@@ -204,9 +204,6 @@
     <Compile Include="Samples\GeoprocessingTasks\MessageInABottle.xaml.cs">
       <DependentUpon>MessageInABottle.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GraphicsLayers\AddGraphicsXAML.xaml.cs">
-      <DependentUpon>AddGraphicsXAML.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Samples\GraphicsLayers\AddPointOnTap.xaml.cs">
       <DependentUpon>AddPointOnTap.xaml</DependentUpon>
     </Compile>
@@ -461,10 +458,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\GeoprocessingTasks\MessageInABottle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\GraphicsLayers\AddGraphicsXAML.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

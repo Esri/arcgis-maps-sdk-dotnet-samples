@@ -29,12 +29,12 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology
 		public MessageProcessingSample()
 		{
 			InitializeComponent();
-			mapView.Map.InitialExtent = new EnvelopeBuilder(
+			mapView.Map.InitialViewpoint = new Envelope(
 				-245200, 
 				6665900, 
 				-207000, 
 				6687300, 
-				SpatialReferences.WebMercator).ToGeometry();
+				SpatialReferences.WebMercator);
 
 			mapView.ExtentChanged += mapView_ExtentChanged;
 		}

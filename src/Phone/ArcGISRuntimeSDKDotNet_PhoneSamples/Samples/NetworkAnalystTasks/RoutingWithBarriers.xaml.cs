@@ -19,7 +19,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public RoutingWithBarriers()
         {
             this.InitializeComponent();
-            mapView1.Map.InitialExtent = new Envelope(-117.22, 34.04, -117.17, 34.07);
+			mapView1.Map.InitialViewpoint = new Envelope(-117.22, 34.04, -117.17, 34.07);
         }
 
         private void mapView1_Tapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)

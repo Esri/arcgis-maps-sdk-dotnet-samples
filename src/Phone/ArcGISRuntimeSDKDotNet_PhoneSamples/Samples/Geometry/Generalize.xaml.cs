@@ -27,7 +27,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            mapView1.Map.InitialExtent = new Envelope(-12000000, 3000000, -7000000, 7000000, SpatialReferences.WebMercator);
+			mapView1.Map.InitialViewpoint = new Envelope(-12000000, 3000000, -7000000, 7000000, SpatialReferences.WebMercator);
             originalGraphicsLayer = mapView1.Map.Layers["OriginalLineGraphicsLayer"] as GraphicsLayer;
             generalizedGraphicsLayer = mapView1.Map.Layers["GeneralizedLineGraphicsLayer"] as GraphicsLayer;
 
@@ -53,7 +53,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 foreach (Graphic g in results.FeatureSet.Features)
                 {
                     g.Symbol = defaultLineSymbol;
-                    g.Geometry.SpatialReference = mapView1.SpatialReference;
                     originalGraphicsLayer.Graphics.Add(g);
 
                     foreach (var pc in (g.Geometry as Polyline).Parts)
@@ -86,10 +85,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             generalizedGraphicsLayer.Graphics.Clear();
             if (generalizedGeometry != null)
             {
-                var g = new Graphic();
-                g.Symbol = generalizedLineSymbol;
-                g.Geometry = generalizedGeometry;
-                g.Geometry.SpatialReference = mapView1.SpatialReference;
+                var g = new Graphic(generalizedGeometry, generalizedLineSymbol);
                 generalizedGraphicsLayer.Graphics.Add(g);
 
 				foreach (var pc in (generalizedGeometry as Polyline).Parts)

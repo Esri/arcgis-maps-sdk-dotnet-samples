@@ -13,7 +13,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public ImageServiceSimple()
         {
             this.InitializeComponent();
-            mapView1.Map.InitialExtent = new Envelope(-13486609, 5713307, -13263258, 5823117) { SpatialReference = new SpatialReference(102100) };
+			mapView1.Map.InitialViewpoint = new Envelope(-13486609, 5713307, -13263258, 5823117, SpatialReferences.WebMercator);
         }
 
         /// <summary>

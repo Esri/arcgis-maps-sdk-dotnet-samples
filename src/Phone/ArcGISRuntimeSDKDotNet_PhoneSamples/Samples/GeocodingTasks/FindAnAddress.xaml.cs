@@ -23,9 +23,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public FindAnAddress()
         {
             this.InitializeComponent();
-            mapView1.Map.InitialExtent = GeometryEngine.Project(new Envelope(-122.554, 37.615, -122.245, 37.884, SpatialReferences.Wgs84),
-                SpatialReferences.WebMercator) as Envelope;
-            _candidateGraphicsLayer = mapView1.Map.Layers["CandidateGraphicsLayer"] as GraphicsLayer;
+			mapView1.Map.InitialViewpoint = new Envelope(-122.554, 37.615, -122.245, 37.884, SpatialReferences.Wgs84);
+			_candidateGraphicsLayer = mapView1.Map.Layers["CandidateGraphicsLayer"] as GraphicsLayer;
         }
 
         private async void FindAddressButton_Click(object sender, RoutedEventArgs e)
@@ -75,12 +74,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
                                 string latlon = String.Format("{0}, {1}", candidate.Location.X, candidate.Location.Y);
                                 graphic.Attributes.Add("LatLon", latlon);
-
-                                if (candidate.Location.SpatialReference == null)
-                                {
-                                    candidate.Location.SpatialReference = SpatialReferences.Wgs84;
-                                }
-
                                 _candidateGraphicsLayer.Graphics.Add(graphic);
                             }
                         }

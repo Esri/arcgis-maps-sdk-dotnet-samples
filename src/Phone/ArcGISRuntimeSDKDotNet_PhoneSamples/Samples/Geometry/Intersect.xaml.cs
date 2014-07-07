@@ -27,7 +27,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            mapView1.Map.InitialExtent = new Envelope(-83.3188395774275, 42.61428312652851, -83.31295664068958, 42.61670913269855, SpatialReferences.Wgs84);
+			mapView1.Map.InitialViewpoint = new Envelope(-83.3188395774275, 42.61428312652851, -83.31295664068958, 42.61670913269855, SpatialReferences.Wgs84);
             parcelGraphicsLayer = mapView1.Map.Layers["ParcelsGraphicsLayer"] as GraphicsLayer;
             intersectGraphicsLayer = mapView1.Map.Layers["IntersectGraphicsLayer"] as GraphicsLayer;
             random = new Random();
@@ -111,9 +111,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     var extentGeometry = new Envelope(mapView1.Extent.GetCenter().X - contractRatio,
                         mapView1.Extent.GetCenter().Y - contractRatio,
                         mapView1.Extent.GetCenter().X + contractRatio,
-                        mapView1.Extent.GetCenter().Y + contractRatio);
-
-                    extentGeometry.SpatialReference = mapView1.SpatialReference;
+                        mapView1.Extent.GetCenter().Y + contractRatio,
+						mapView1.SpatialReference);
                     Query query = new Query(extentGeometry);
                     query.ReturnGeometry = true;
                     query.OutSpatialReference = mapView1.SpatialReference;
@@ -122,7 +121,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     var results = await queryTask.ExecuteAsync(query, CancellationToken.None);
                     foreach (Graphic g in results.FeatureSet.Features)
                     {
-                        g.Geometry.SpatialReference = mapView1.SpatialReference;
                         parcelGraphicsLayer.Graphics.Add(g);
                     }
                 }

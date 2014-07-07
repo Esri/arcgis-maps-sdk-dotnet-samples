@@ -14,7 +14,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public RasterFunctions()
         {
             this.InitializeComponent();
-            mapView1.Map.InitialExtent = new Envelope(1445440, 540657, 1452348, 544407, new SpatialReference(2264));
+			mapView1.Map.InitialViewpoint = new Envelope(1445440, 540657, 1452348, 544407, new SpatialReference(2264));
         }
 
         private void RasterFunctionsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

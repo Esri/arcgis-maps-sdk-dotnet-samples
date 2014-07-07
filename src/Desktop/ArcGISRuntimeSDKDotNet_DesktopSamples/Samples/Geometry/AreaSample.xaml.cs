@@ -29,12 +29,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
 			mapView.Map.InitialViewpoint = initialExtent;
             graphicsLayer = (GraphicsLayer)mapView.Map.Layers["graphicsLayer"];
+			mapView.ExtentChanged += mapView_ExtentChanged; 
         }
 
-        private async void mapView_Loaded(object sender, RoutedEventArgs e)
-        {
-            await doCalculateAreaAndLength();
-        }
+		private async void mapView_ExtentChanged(object sender, System.EventArgs e)
+		{
+			mapView.ExtentChanged -= mapView_ExtentChanged;
+			await doCalculateAreaAndLength();
+		}
 
         private async Task doCalculateAreaAndLength()
         {

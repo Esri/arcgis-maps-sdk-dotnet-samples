@@ -82,7 +82,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 if (_originalGraphics.Graphics.Count == 0)
                     throw new Exception("Digitize a polygon to move.");
 
-                var coords = _originalGraphics.Graphics[0].Geometry as IEnumerable<PointCollection>;
+                var coords = _originalGraphics.Graphics[0].Geometry as Multipart;
                 if (coords == null)
                     throw new Exception("Digitize a polygon to move.");
 

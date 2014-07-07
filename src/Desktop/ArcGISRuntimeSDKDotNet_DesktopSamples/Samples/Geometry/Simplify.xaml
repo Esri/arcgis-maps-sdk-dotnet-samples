@@ -20,10 +20,10 @@
         <esri:MapView x:Name="mapView" WrapAround="True">
             <esri:Map>
 				<esri:Map.InitialViewpoint>
-                    <esri:ViewpointExtent XMin="-9270500" YMin="5246900" XMax="-9269300" YMax="5247600" />
-                </esri:Map.InitialViewpoint>
-                
-                <esri:ArcGISTiledMapServiceLayer
+					<esri:ViewpointExtent XMin="-9270434.248" YMin="5246977.326" XMax="-9269261.417" YMax="5247569.712" SpatialReferenceID="102100"/>
+				</esri:Map.InitialViewpoint>
+				
+				<esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 
                 <esri:GraphicsLayer x:Name="parcelLayer">

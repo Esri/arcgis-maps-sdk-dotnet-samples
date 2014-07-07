@@ -13,8 +13,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            // Note: uncomment the following to set the initial extent of the map in code.
-            // mapView.Map.InitialExtent = new Envelope(-13044000, 3855000, -13040000, 3858000); 
+			// Note: uncomment the following to set the initial extent of the map in code.
+			//mapView.Map.InitialViewpoint = new Envelope(-117.182686,32.695853,-117.133872,32.718530, SpatialReferences.Wgs84);
         }
     }
 }

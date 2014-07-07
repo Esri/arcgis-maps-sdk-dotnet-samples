@@ -4,8 +4,11 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="mapView">
-			<esri:Map InitialViewpoint="-13044000,3855000,-13040000,3858000">
-                <esri:ArcGISTiledMapServiceLayer 
+			<esri:Map>
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-117.182686" YMin="32.695853" XMax="-117.133872" YMax="32.718530" SpatialReferenceID="4326" />
+				</esri:Map.InitialViewpoint>
+				<esri:ArcGISTiledMapServiceLayer 
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
             </esri:Map>
         </esri:MapView>

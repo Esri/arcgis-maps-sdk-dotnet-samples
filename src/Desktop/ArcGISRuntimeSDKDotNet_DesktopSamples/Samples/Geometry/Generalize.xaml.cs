@@ -29,7 +29,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             InitializeComponent();
 
 			mapView.Map.InitialViewpoint = new Envelope(-12000000, 3000000, -7000000, 7000000, SpatialReferences.WebMercator);
-            mapView.Loaded += mapView_Loaded;
+			mapView.NavigationCompleted += mapView_NavigationCompleted;
 
             _originalGraphicsLayer = mapView.Map.Layers["OriginalLineGraphicsLayer"] as GraphicsLayer;
             _generalizedGraphicsLayer = mapView.Map.Layers["GeneralizedLineGraphicsLayer"] as GraphicsLayer;
@@ -41,9 +41,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         }
 
         // Adds the original river graphic to the map (from an online service)
-        async void mapView_Loaded(object sender, RoutedEventArgs e)
+		async void mapView_NavigationCompleted(object sender, EventArgs e)
         {
-            try
+			mapView.NavigationCompleted -= mapView_NavigationCompleted; //only listed for it the first time
+			try
             {
                 if (_originalGraphicsLayer != null && _originalGraphicsLayer.Graphics.Count == 0)
                 {

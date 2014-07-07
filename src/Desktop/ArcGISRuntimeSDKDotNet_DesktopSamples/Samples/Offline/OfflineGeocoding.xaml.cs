@@ -28,7 +28,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            mapView.Map.InitialExtent = new Envelope(-13044000, 3855000, -13040000, 3858000, SpatialReferences.WebMercator);
+			mapView.Map.InitialViewpoint = new Envelope(-13044000, 3855000, -13040000, 3858000, SpatialReferences.WebMercator);
 
             var _ = SetupRendererSymbols();
         }
@@ -72,7 +72,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 graphicsLayer.GraphicsSource = candidateResults
                     .Select(result => new Graphic(result.Location, new Dictionary<string, object> { { "Locator", result } }));
 
-                await mapView.SetViewAsync(ExtentFromGraphics());
+                await mapView.SetViewAsync(ExtentFromGraphics().Expand(2));
             }
             catch (AggregateException ex)
             {
@@ -97,28 +97,20 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Helper method to retrieve an extent from graphics in the graphics layer
         private Envelope ExtentFromGraphics()
         {
-            var graphics = graphicsLayer.GraphicsSource;
-            if (graphics == null || graphics.Count() == 0)
-                return mapView.Extent;
+			var graphics = graphicsLayer.GraphicsSource;
+			if (graphics == null || graphics.Count() == 0)
+				return mapView.Extent;
 
-            var extent = graphics.First().Geometry.Extent;
-            foreach (var graphic in graphics)
-            {
-                MapPoint point = graphic.Geometry as MapPoint;
-                if (point == null)
-                    continue;
+			var extent = graphics.First().Geometry.Extent;
+			foreach (var graphic in graphics)
+			{
+				if (graphic == null || graphic.Geometry == null)
+					continue;
+				extent = extent.Union(graphic.Geometry.Extent);
+				MapPoint point = graphic.Geometry as MapPoint;
+			}
 
-                if (point.X < extent.XMin)
-                    extent.XMin = point.X;
-                if (point.Y < extent.YMin)
-                    extent.YMin = point.Y;
-                if (point.X > extent.XMax)
-                    extent.XMax = point.X;
-                if (point.Y > extent.YMax)
-                    extent.YMax = point.Y;
-            }
-
-            return extent.Expand(2);
+			return extent;
         }
     }
 }

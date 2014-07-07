@@ -31,16 +31,16 @@
                     <Run FontStyle="Italic">Absolute</Run>
                     <LineBreak />
                     <Run>MinX: </Run>
-                    <Run Text="{Binding ElementName=mapView, Path=Extent.XMin, StringFormat=\{0:F3\}}" />
+                    <Run Text="{Binding ElementName=mapView, Path=Extent.XMin, StringFormat=\{0:F3\}, Mode=OneWay}" />
                     <LineBreak />
                     <Run>MinY: </Run>
-                    <Run Text="{Binding ElementName=mapView, Path=Extent.YMin, StringFormat=\{0:F3\}}" />
+                    <Run Text="{Binding ElementName=mapView, Path=Extent.YMin, StringFormat=\{0:F3\}, Mode=OneWay}" />
                     <LineBreak />
                     <Run>MaxX: </Run>
-                    <Run Text="{Binding ElementName=mapView, Path=Extent.XMax, StringFormat=\{0:F3\}}" />
+                    <Run Text="{Binding ElementName=mapView, Path=Extent.XMax, StringFormat=\{0:F3\}, Mode=OneWay}" />
                     <LineBreak />
                     <Run>MaxY: </Run>
-                    <Run Text="{Binding ElementName=mapView, Path=Extent.YMax, StringFormat=\{0:F3\}}" />
+                    <Run Text="{Binding ElementName=mapView, Path=Extent.YMax, StringFormat=\{0:F3\}, Mode=OneWay}" />
                
                     <LineBreak />
                     <LineBreak />

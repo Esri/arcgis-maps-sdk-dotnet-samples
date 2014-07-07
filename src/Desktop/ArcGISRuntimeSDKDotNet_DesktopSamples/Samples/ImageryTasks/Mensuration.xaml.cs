@@ -38,7 +38,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 			envelopeBuilder.XMax = -8836537.917179003;
 			envelopeBuilder.YMax = 5410659.562767227;
 
-			mapView.Map.InitialExtent = envelopeBuilder.ToGeometry();
+			mapView.Map.InitialViewpoint = envelopeBuilder.ToGeometry();
 
             _pointSymbol = layoutGrid.Resources["PointSymbol"] as Symbol;
             _lineSymbol = layoutGrid.Resources["LineSymbol"] as Symbol;

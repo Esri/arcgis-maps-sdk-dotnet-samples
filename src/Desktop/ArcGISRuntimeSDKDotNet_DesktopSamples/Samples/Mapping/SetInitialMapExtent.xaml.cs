@@ -4,7 +4,7 @@ using Esri.ArcGISRuntime.Geometry;
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
-    /// Shows how to set the initial extent of the map (Map.InitialExtent).
+	/// Shows how to set the initial extent of the map (Map.InitialViewpoint).
     /// </summary>
 	/// <category>Mapping</category>
 	public partial class SetInitialMapExtent : UserControl

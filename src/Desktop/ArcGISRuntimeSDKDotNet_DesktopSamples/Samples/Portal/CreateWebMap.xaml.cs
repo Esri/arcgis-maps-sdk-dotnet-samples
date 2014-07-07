@@ -44,7 +44,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             // Load the new webmap into the current UI
             var mapView = new MapView();
             mapView.Map = await LoadWebMapAsync(webmap);
-            mapView.Map.InitialExtent = new Envelope(-20000000, 1100000, -3900000, 11000000);
+			mapView.Map.InitialViewpoint = new Envelope(-20000000, 1100000, -3900000, 11000000);
             layoutGrid.Children.Add(mapView);
         }
 

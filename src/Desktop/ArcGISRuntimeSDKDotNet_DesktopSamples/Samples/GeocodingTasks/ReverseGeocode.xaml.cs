@@ -25,7 +25,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             InitializeComponent();
 
             Envelope extent = new Envelope(-117.387, 33.97, -117.355, 33.988, SpatialReferences.Wgs84);
-            mapView.Map.InitialExtent = GeometryEngine.Project(extent, SpatialReferences.WebMercator) as Envelope;
+			mapView.Map.InitialViewpoint = extent;
 
             _locator = new OnlineLocatorTask(new Uri("http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"));
         }

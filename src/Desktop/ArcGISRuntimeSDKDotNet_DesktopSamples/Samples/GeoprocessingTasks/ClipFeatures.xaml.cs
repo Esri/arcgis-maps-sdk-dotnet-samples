@@ -28,7 +28,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            mapView.Map.InitialExtent = new Envelope(-130, 10, -70, 60);
+			mapView.Map.InitialViewpoint = new Envelope(-130, 10, -70, 60);
 
             _gpTask = new Geoprocessor(new Uri(ClipCountiesServiceUrl));
 

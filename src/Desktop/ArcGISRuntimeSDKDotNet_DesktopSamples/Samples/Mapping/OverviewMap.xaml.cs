@@ -17,8 +17,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            mapView.Map.InitialExtent = GeometryEngine.Project(
-                new Envelope(-5, 20, 50, 65, SpatialReferences.Wgs84), SpatialReferences.WebMercator) as Envelope;
+			mapView.Map.InitialViewpoint = new Envelope(-5, 20, 50, 65, SpatialReferences.Wgs84);
 
             mapView.ExtentChanged += mapView_ExtentChanged;
         }

@@ -35,7 +35,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology
 			envelopeBuilder.XMax = -207000;
 			envelopeBuilder.YMax = 6687300;
 
-			mapView.Map.InitialExtent = envelopeBuilder.ToGeometry();
+			mapView.Map.InitialViewpoint = envelopeBuilder.ToGeometry();
 			mapView.ExtentChanged += mapView_ExtentChanged;
 		}
 

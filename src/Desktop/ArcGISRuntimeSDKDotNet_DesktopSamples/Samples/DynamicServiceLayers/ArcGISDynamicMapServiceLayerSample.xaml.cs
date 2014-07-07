@@ -19,23 +19,19 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     {
         private ArcGISDynamicMapServiceLayer _usaLayer;
 
-        public ArcGISDynamicMapServiceLayerSample()
-        {
-            InitializeComponent();
+		public ArcGISDynamicMapServiceLayerSample()
+		{
+			InitializeComponent();
 
 			// Create initial extend and set it
-			var envelopeBuilder = new EnvelopeBuilder(SpatialReference.Create(102009));
-			envelopeBuilder.XMin = -3548912;
-			envelopeBuilder.YMin = 1847469;
-			envelopeBuilder.XMax = 2472012;
-			envelopeBuilder.YMax = 1742990;
+			var envelope = new Envelope(-3548912, 1847469, 2472012, 1742990, SpatialReference.Create(102009));
 
-			mapView.Map.InitialExtent = envelopeBuilder.ToGeometry();
+			mapView.Map.InitialViewpoint = envelope;
 
-            mapView.LayerLoaded += mapView_LayerLoaded;
+			mapView.LayerLoaded += mapView_LayerLoaded;
 
-            _usaLayer = mapView.Map.Layers["USA"] as ArcGISDynamicMapServiceLayer;
-        }
+			_usaLayer = mapView.Map.Layers["USA"] as ArcGISDynamicMapServiceLayer;
+		}
 
         private void mapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
         {

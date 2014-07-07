@@ -26,7 +26,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            mapView.Map.InitialExtent = new Envelope(-9275076.4794, 5253225.9406, -9274273.6411, 5253885.6155, SpatialReferences.WebMercator);
+			mapView.Map.InitialViewpoint = new Envelope(-9275076.4794, 5253225.9406, -9274273.6411, 5253885.6155, SpatialReferences.WebMercator);
             parcelGraphicsLayer = mapView.Map.Layers["ParcelsGraphicsLayer"] as GraphicsLayer;
             offsetGraphicsLayer = mapView.Map.Layers["OffsetGraphicsLayer"] as GraphicsLayer;
 
@@ -63,7 +63,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 offsetGraphicsLayer.Graphics.Clear();
 
                 var pointGeom = await mapView.Editor.RequestPointAsync();
-                pointGeom.SpatialReference = mapView.SpatialReference;
                 var screenPnt = mapView.LocationToScreen(pointGeom);
 
                 selectedParcelGraphic = await
@@ -124,8 +123,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
                         //Create a geometry to use as the extent within which parcels will be returned
                         var contractRatio = mapView.Extent.Width / 6;
-                        var extentGeometry = new Envelope(-83.3188395774275, 42.61428312652851, -83.31295664068958, 42.61670913269855);
-                        extentGeometry.SpatialReference = SpatialReferences.Wgs84;
+                        var extentGeometry = new Envelope(-83.3188395774275, 42.61428312652851, -83.31295664068958, 42.61670913269855, SpatialReferences.Wgs84);
 
                         Query query = new Query(extentGeometry);
                         query.ReturnGeometry = true;
@@ -134,7 +132,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                         var results = await queryTask.ExecuteAsync(query, CancellationToken.None);
                         foreach (Graphic g in results.FeatureSet.Features)
                         {
-                            g.Geometry.SpatialReference = mapView.SpatialReference;
                             parcelGraphicsLayer.Graphics.Add(g);
                         }
 

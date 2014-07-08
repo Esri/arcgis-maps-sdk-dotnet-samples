@@ -39,11 +39,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.AdvancedSymbol
 			s57CellList.ItemsSource = _hydrographicGroupLayer.ChildLayers;
 			s57CellList.SelectedIndex = 0;
 
-			Polygon extent = new Polygon();
+			Envelope extent = _hydrographicGroupLayer.ChildLayers.First().FullExtent;
 
-			// Create combined extent from child hydrographic layers and add to s57 list
+			// Create combined extent from child hydrographic layers
 			foreach (var layer in _hydrographicGroupLayer.ChildLayers)
-				extent = GeometryEngine.Union(extent, layer.FullExtent) as Polygon;
+				extent = extent.Union(layer.FullExtent);
 
 			// Zoom to full extent
 			await mapView.SetViewAsync(extent);

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SetInitialMapExtent"
+﻿<UserControl x:Class="ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SetInitialCenterAndScale"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
@@ -6,7 +6,8 @@
         <esri:MapView x:Name="mapView">
 			<esri:Map>
 				<esri:Map.InitialViewpoint>
-					<esri:ViewpointExtent XMin="-117.182686" YMin="32.695853" XMax="-117.133872" YMax="32.718530" SpatialReferenceID="4326" />
+					<!--Center on San Diego, at scale 1:50,000, using coordinates in WGS84 spatial reference (4326)-->
+					<esri:ViewportCenter X="-117.15" Y="32.705" Scale="50000" SpatialReferenceID="4326" />
 				</esri:Map.InitialViewpoint>
 				<esri:ArcGISTiledMapServiceLayer 
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />

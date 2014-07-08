@@ -286,12 +286,6 @@
             </summary>
             <category>Geoprocessing Tasks</category>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.AddGraphicsXAML">
-            <summary>
-            Demonstrates how to add graphics to a GraphicsLayer using markup
-            </summary>
-            <category>Graphics Layers</category>
-        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.AddPointOnTap">
             <summary>
             

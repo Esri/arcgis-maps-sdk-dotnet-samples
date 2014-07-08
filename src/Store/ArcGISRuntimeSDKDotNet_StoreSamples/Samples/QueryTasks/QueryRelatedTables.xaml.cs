@@ -25,7 +25,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
             _wellsLayer = mapView.Map.Layers["WellsLayer"] as GraphicsLayer;
                 
-            mapView.Map.InitialExtent = new Envelope(-10854000, 4502000, -10829000, 4524000, SpatialReferences.WebMercator);
+            mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-10854000, 4502000, -10829000, 4524000, SpatialReferences.WebMercator));
         }
 
         // Select a set of wells near the click point
@@ -96,10 +96,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             return new Envelope(
                 point.X - mapExtent.Width * (pct / 2), point.Y - mapExtent.Height * (pct / 2),
-                point.X + mapExtent.Width * (pct / 2), point.Y + mapExtent.Height * (pct / 2))
-            {
-                SpatialReference = mapExtent.SpatialReference
-            };
+                point.X + mapExtent.Width * (pct / 2), point.Y + mapExtent.Height * (pct / 2),
+				mapExtent.SpatialReference);
         }
     }
 }

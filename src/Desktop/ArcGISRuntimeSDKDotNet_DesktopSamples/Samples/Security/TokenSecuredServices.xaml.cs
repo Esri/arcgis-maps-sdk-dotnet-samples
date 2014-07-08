@@ -24,7 +24,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            mapView.Map.InitialExtent = new Envelope(-17611013.373, 2601908.195, -2823070.655, 9287290.632);
+			mapView.Map.InitialViewpoint = new Envelope(-17611013.373, 2601908.195, -2823070.655, 9287290.632);
 
             IdentityManager.Current.ChallengeMethod = Challenge;
         }

@@ -28,7 +28,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 			envelopeBuilder.XMax = -10906776.553;
 			envelopeBuilder.YMax = 4535252.104;
 
-			mapView.Map.InitialExtent = envelopeBuilder.ToGeometry();
+			mapView.Map.InitialViewpoint = envelopeBuilder.ToGeometry();
 
             _printTask = new PrintTask(
                 new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task"));

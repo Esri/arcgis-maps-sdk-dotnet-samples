@@ -37,11 +37,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.AdvancedSymbol
 			await mapView.LayersLoadedAsync();
 
 			var hydroGroupLayer = mapView.Map.Layers.OfType<GroupLayer>().First();
-			Polygon extent = new Polygon();
+			var extent = hydroGroupLayer.ChildLayers.First().FullExtent;
 
 			// Create combined extent from child hydrographic layers
-			foreach(var layer in hydroGroupLayer.ChildLayers)		
-				extent = GeometryEngine.Union(extent, layer.FullExtent) as Polygon;
+			foreach(var layer in hydroGroupLayer.ChildLayers)
+				extent = extent.Union(layer.FullExtent);
 
 			// Zoom to full extent
 			await mapView.SetViewAsync(extent);

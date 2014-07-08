@@ -16,7 +16,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public Stretch()
         {
             this.InitializeComponent();
-            mapView1.Map.InitialExtent =
+            mapView1.Map.InitialViewpoint =
                 new Envelope(-13483041, 5707158, -13300798, 5776035, new SpatialReference(102100));
         }
 

@@ -21,7 +21,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-            mapView.Map.InitialExtent = new Envelope(-15000000, 2000000, -7000000, 8000000);
+            mapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(new Envelope(-15000000, 2000000, -7000000, 8000000));
         }
 
         private async void mapView_Tapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)

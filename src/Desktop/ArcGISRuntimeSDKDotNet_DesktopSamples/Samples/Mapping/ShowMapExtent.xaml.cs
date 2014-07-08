@@ -28,27 +28,28 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     var normalizedPolygon = (Polygon)normalizedExtent;
 
 					if (normalizedPolygon.Parts.Count == 1)
-                        newExtent = normalizedPolygon.Extent;
-                    else
-                    {
-                        newExtent = new Envelope();
+						newExtent = normalizedPolygon.Extent;
+					else
+					{
+						var newExtentBuilder = new EnvelopeBuilder();
 
 						foreach (var p in normalizedPolygon.Parts[0])
-                        {
-                            if (p.X < newExtent.XMin || double.IsNaN(newExtent.XMin))
-                                newExtent.XMin = p.X;
-                            if (p.Y < newExtent.YMin || double.IsNaN(newExtent.YMin))
-                                newExtent.YMin = p.Y;
-                        }
+						{
+							if (p.X < newExtent.XMin || double.IsNaN(newExtent.XMin))
+								newExtentBuilder.XMin = p.X;
+							if (p.Y < newExtent.YMin || double.IsNaN(newExtent.YMin))
+								newExtentBuilder.YMin = p.Y;
+						}
 
 						foreach (var p in normalizedPolygon.Parts[1])
-                        {
-                            if (p.X > newExtent.XMax || double.IsNaN(newExtent.XMax))
-                                newExtent.XMax = p.X;
-                            if (p.Y > newExtent.YMax || double.IsNaN(newExtent.YMax))
-                                newExtent.YMax = p.Y;
-                        }
-                    }
+						{
+							if (p.X > newExtent.XMax || double.IsNaN(newExtent.XMax))
+								newExtentBuilder.XMax = p.X;
+							if (p.Y > newExtent.YMax || double.IsNaN(newExtent.YMax))
+								newExtentBuilder.YMax = p.Y;
+						}
+						newExtent = newExtentBuilder.ToGeometry();
+					}
                 }
                 else if (normalizedExtent is Envelope)
                     newExtent = normalizedExtent as Envelope;

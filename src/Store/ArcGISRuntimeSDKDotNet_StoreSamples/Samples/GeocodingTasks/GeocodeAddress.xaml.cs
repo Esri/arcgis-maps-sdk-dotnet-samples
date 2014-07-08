@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Geocoding;
@@ -30,7 +31,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             InitializeComponent();
 
             var ext = new Envelope(-122.554, 37.615, -122.245, 37.884, SpatialReferences.Wgs84);
-            mapView.Map.InitialExtent = GeometryEngine.Project(ext, SpatialReferences.WebMercator) as Envelope;
+			mapView.Map.InitialViewpoint = new Viewpoint(ext);
+			mapView.Map.SpatialReference = SpatialReferences.WebMercator;
 
             _addressGraphicsLayer = mapView.Map.Layers["AddressGraphicsLayer"] as GraphicsLayer;
 

@@ -16,7 +16,11 @@
 
         <esri:MapView x:Name="mapView">
             <esri:Map >
-                <lyr:ArcGISTiledMapServiceLayer ID="TopoMapLayer"
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-12004036" YMin="4652780" XMax="-11735714" YMax="4808810" />
+				</esri:Map.InitialViewpoint>
+
+				<lyr:ArcGISTiledMapServiceLayer ID="TopoMapLayer"
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
                 <lyr:GraphicsLayer ID="InputLayer" Renderer="{StaticResource PointRenderer}" />
             </esri:Map>

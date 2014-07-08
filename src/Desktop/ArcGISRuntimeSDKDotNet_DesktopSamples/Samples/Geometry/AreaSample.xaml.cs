@@ -25,24 +25,18 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			var initialExtentBuilder = new EnvelopeBuilder(SpatialReferences.Wgs84)
-			{ 
-				XMin = -130, 
-				YMin = 20, 
-				XMax = -65, 
-				YMax = 55 
-			};
-			
-            mapView.Map.InitialExtent = (Envelope)GeometryEngine.Project(
-                initialExtentBuilder.ToGeometry(), 
-                SpatialReferences.WebMercator);
+			var initialExtent = new Envelope(-130, 20, -65, 55, SpatialReferences.Wgs84);
+
+			mapView.Map.InitialViewpoint = initialExtent;
             graphicsLayer = (GraphicsLayer)mapView.Map.Layers["graphicsLayer"];
+			mapView.ExtentChanged += mapView_ExtentChanged; 
         }
 
-        private async void mapView_Loaded(object sender, RoutedEventArgs e)
-        {
-            await doCalculateAreaAndLength();
-        }
+		private async void mapView_ExtentChanged(object sender, System.EventArgs e)
+		{
+			mapView.ExtentChanged -= mapView_ExtentChanged;
+			await doCalculateAreaAndLength();
+		}
 
         private async Task doCalculateAreaAndLength()
         {

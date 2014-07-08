@@ -23,7 +23,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            mapView.Map.InitialExtent = new Envelope(-9270434.248, 5246977.326, -9269261.417, 5247569.712);
+			mapView.Map.InitialViewpoint = new Envelope(-9270434.248, 5246977.326, -9269261.417, 5247569.712);
             InitializePMS().ContinueWith((_) => { }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 

@@ -5,9 +5,9 @@
     <Grid>
         <esri:MapView x:Name="mapView" WrapAround="True">
             <esri:Map x:Name="map">
-                <esri:Map.InitialExtent>
-                    <esri:Envelope XMin="-13200000" YMin="4000000" XMax="-13000000" YMax="4150000" />
-                </esri:Map.InitialExtent>
+				<esri:Map.InitialViewpoint>
+                    <esri:ViewpointExtent XMin="-13200000" YMin="4000000" XMax="-13000000" YMax="4150000" />
+                </esri:Map.InitialViewpoint>
                 
                 <esri:GroupLayer DisplayName="Basemap Group">
                     <esri:ArcGISTiledMapServiceLayer DisplayName="Imagery" IsVisible="False"

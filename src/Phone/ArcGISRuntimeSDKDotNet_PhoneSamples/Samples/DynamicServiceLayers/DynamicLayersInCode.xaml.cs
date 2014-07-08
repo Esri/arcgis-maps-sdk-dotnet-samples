@@ -17,7 +17,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public DynamicLayersInCode()
         {
             this.InitializeComponent();
-            mapView1.Map.InitialExtent = new Envelope(-3548912, -1847469, 2472012, 1742990, new SpatialReference(102009));
+			mapView1.Map.InitialViewpoint = new Envelope(-3548912, -1847469, 2472012, 1742990, SpatialReference.Create(102009));
         }
 
         private void ApplyRangeValueClick(object sender, RoutedEventArgs e)

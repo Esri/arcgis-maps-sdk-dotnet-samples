@@ -29,8 +29,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             InitializeComponent();
 
 
-            mapView1.Map.InitialExtent = GeometryEngine.Project(
-				new Envelope(-83.31884, 42.61428, -83.31296, 42.61671, SpatialReferences.Wgs84), SpatialReferences.WebMercator) as Envelope;
+			mapView1.Map.InitialViewpoint = new Envelope(-83.31884, 42.61428, -83.31296, 42.61671, SpatialReferences.Wgs84);
             sfs = LayoutRoot.Resources["MySimpleFillSymbol"] as SimpleFillSymbol;
             graphicsLayer = mapView1.Map.Layers["MyGraphicsLayer"] as GraphicsLayer;
 			var _ = LoadParcels();

@@ -8,6 +8,9 @@
     <Grid>
         <esri:MapView x:Name="mapView">
             <esri:Map>
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-9840712.566" YMin="5094828.570" XMax="-9684169.532" YMax="5187877.291" SpatialReferenceID="3857" />
+				</esri:Map.InitialViewpoint>
                 <lyr:WebTiledLayer ID="WebTiledLayer" />
             </esri:Map>
         </esri:MapView>

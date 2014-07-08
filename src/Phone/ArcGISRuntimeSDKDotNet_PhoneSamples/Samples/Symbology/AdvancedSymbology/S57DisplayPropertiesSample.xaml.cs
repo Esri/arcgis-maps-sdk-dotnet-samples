@@ -68,11 +68,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 				// Wait until all layers are loaded
 				var layers = await mapView.LayersLoadedAsync();
 
-				Polygon extent = new Polygon();
+				Envelope extent = _hydrographicGroupLayer.ChildLayers.First().FullExtent;
 
 				// Create combined extent from child hydrographic layers
 				foreach (var layer in _hydrographicGroupLayer.ChildLayers)
-					extent = GeometryEngine.Union(extent, layer.FullExtent) as Polygon;
+					extent = extent.Union(layer.FullExtent);
 
 				// Zoom to full extent
 				await mapView.SetViewAsync(extent);

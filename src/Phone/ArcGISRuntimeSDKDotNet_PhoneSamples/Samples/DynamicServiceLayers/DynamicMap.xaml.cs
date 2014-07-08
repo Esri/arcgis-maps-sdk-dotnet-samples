@@ -12,12 +12,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public DynamicMap()
         {
             this.InitializeComponent();
-			mapView.Map.InitialExtent = new EnvelopeBuilder(
+			mapView.Map.InitialViewpoint = new Envelope(
 				-12387666.9930794, 
 				3775019.32005654, 
 				-12309395.4761154, 
 				3818219.62318802, 
-				SpatialReferences.WebMercator).ToGeometry();
+				SpatialReferences.WebMercator);
         }
     }
 }

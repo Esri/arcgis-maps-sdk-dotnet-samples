@@ -25,7 +25,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
             mapView.MapViewTapped += mapView_MapViewTapped;
 
-            mapView.Map.InitialExtent = new Envelope(-14675766.3566695, 2695407.73380258, -6733121.86117095, 6583994.1013904);
+            mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-14675766.3566695, 2695407.73380258, -6733121.86117095, 6583994.1013904));
 
             _featureLayer = mapView.Map.Layers["FeatureLayer"] as FeatureLayer;
             ((GeodatabaseFeatureServiceTable)_featureLayer.FeatureTable).OutFields = OutFields.All;

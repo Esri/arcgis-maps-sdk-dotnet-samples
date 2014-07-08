@@ -5,9 +5,9 @@
     <Grid x:Name="layoutGrid">
         <esri:MapView x:Name="mapView" WrapAround="True">
             <esri:Map>
-                <esri:Map.InitialExtent>
-                    <esri:Envelope XMin="-14131917.758914" YMin="5680423.82721854" XMax="-12669734.6418583" YMax="6341452.4447208" />
-                </esri:Map.InitialExtent>
+				<esri:Map.InitialViewpoint>
+                    <esri:ViewpointExtent XMin="-14131917.758914" YMin="5680423.82721854" XMax="-12669734.6418583" YMax="6341452.4447208" />
+                </esri:Map.InitialViewpoint>
 
                 <esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer" />

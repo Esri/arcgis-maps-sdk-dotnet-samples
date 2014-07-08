@@ -31,7 +31,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            mapView.Map.InitialExtent = new Envelope(-13044000, 3855000, -13040000, 3858000, SpatialReferences.WebMercator);
+            mapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(new Envelope(-13044000, 3855000, -13040000, 3858000, SpatialReferences.WebMercator));
             _graphicsLayer = mapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
 
             var _ = SetupRendererSymbols();
@@ -79,7 +79,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 _graphicsLayer.GraphicsSource = candidateResults
                     .Select(result => new Graphic(result.Location, new Dictionary<string, object> { { "Locator", result } }));
 
-                await mapView.SetViewAsync(ExtentFromGraphics());
+                await mapView.SetViewAsync(ExtentFromGraphics().Expand(2));
             }
             catch (AggregateException ex)
             {
@@ -115,21 +115,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             var extent = graphics.First().Geometry.Extent;
             foreach (var graphic in graphics)
             {
+				if (graphic == null || graphic.Geometry == null)
+					continue;
+				extent = extent.Union(graphic.Geometry.Extent);
                 MapPoint point = graphic.Geometry as MapPoint;
-                if (point == null)
-                    continue;
-
-                if (point.X < extent.XMin)
-                    extent.XMin = point.X;
-                if (point.Y < extent.YMin)
-                    extent.YMin = point.Y;
-                if (point.X > extent.XMax)
-                    extent.XMax = point.X;
-                if (point.Y > extent.YMax)
-                    extent.YMax = point.Y;
             }
 
-            return extent.Expand(2);
+            return extent;
         }
 
         private void listResults_SelectionChanged(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)

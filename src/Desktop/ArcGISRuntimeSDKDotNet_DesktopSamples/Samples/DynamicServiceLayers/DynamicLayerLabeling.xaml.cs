@@ -27,7 +27,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers
 			envelopeBuilder.XMax = 2472012;
 			envelopeBuilder.YMax = 1742990;
 
-			mapView.Map.InitialExtent = envelopeBuilder.ToGeometry();
+			mapView.Map.InitialViewpoint = envelopeBuilder.ToGeometry();
 
             // Minor city label info
             DynamicLabelingInfo minorCityLabelInfo = new DynamicLabelingInfo();

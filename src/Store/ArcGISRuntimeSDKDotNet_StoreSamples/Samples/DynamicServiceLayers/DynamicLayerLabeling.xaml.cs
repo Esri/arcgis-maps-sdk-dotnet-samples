@@ -35,7 +35,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			envelopeBuilder.XMax = 2472012;
 			envelopeBuilder.YMax = 1742990;
 
-			mapView.Map.InitialExtent = envelopeBuilder.ToGeometry();
+			mapView.Map.InitialViewpoint = envelopeBuilder.ToGeometry();
 
             mapView.Loaded += mapView_Loaded;
 

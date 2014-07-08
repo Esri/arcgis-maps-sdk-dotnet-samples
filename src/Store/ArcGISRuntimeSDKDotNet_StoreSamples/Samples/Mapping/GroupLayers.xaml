@@ -39,9 +39,9 @@
 
         <esri:MapView x:Name="mapView" WrapAround="True" MapGrid="{Binding ElementName=gridTypeCombo, Path=SelectedItem.Tag}">
             <esri:Map>
-                <esri:Map.InitialExtent>
-                    <geo:Envelope XMin="-13200000" YMin="4000000" XMax="-13000000" YMax="4150000" />
-                </esri:Map.InitialExtent>
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-13200000" YMin="4000000" XMax="-13000000" YMax="4150000" />
+                </esri:Map.InitialViewpoint>
 
                 <lyr:GroupLayer DisplayName="Basemap Group">
                     <lyr:ArcGISTiledMapServiceLayer DisplayName="Imagery" IsVisible="False"

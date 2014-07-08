@@ -21,7 +21,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
             InitializePMS().ContinueWith((_) => { }, TaskScheduler.FromCurrentSynchronizationContext());
-            mapView1.Map.InitialExtent = new Envelope(-122.5009, 37.741, -122.3721, 37.8089);
+			mapView1.Map.InitialViewpoint = new Envelope(-122.5009, 37.741, -122.3721, 37.8089);
         }
 
         private async Task InitializePMS()

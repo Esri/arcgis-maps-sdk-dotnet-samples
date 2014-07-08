@@ -32,12 +32,12 @@
         </Grid.Resources>
         <controls:MapView x:Name="mapView1" MapViewTapped="mapView1_MapViewTapped">
             <controls:Map>
-                <controls:Map.InitialExtent>
-                    <geometry:Envelope XMin="-15000000"
+                <controls:Map.InitialViewpoint>
+                    <controls:ViewpointExtent XMin="-15000000"
                                YMin="2000000"
                                XMax="-7000000"
                                YMax="8000000" />
-                </controls:Map.InitialExtent>
+                </controls:Map.InitialViewpoint>
                 <layers:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
                                               ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
                 <layers:GraphicsLayer ID="PointGraphicsLayer"  

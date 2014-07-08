@@ -29,7 +29,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            mapView.Map.InitialExtent = new Envelope(-130, 10, -70, 60);
+            mapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(new Envelope(-130, 10, -70, 60));
 
             _inputLayer = mapView.Map.Layers["InputLayer"] as GraphicsLayer;
             _resultLayer = mapView.Map.Layers["ResultLayer"] as GraphicsLayer;

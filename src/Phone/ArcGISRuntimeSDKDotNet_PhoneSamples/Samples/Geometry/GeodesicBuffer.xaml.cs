@@ -22,12 +22,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public GeodesicBuffer()
         {
             this.InitializeComponent();
-			mapView.Map.InitialExtent = new EnvelopeBuilder(
+			mapView.Map.InitialViewpoint = new Envelope(
 				-13047918, 
 				4036008, 
 				-13045480, 
 				4037866, 
-				SpatialReference.Create(3857)).ToGeometry();
+				SpatialReferences.WebMercator);
 
 	        DrawShapes.ItemsSource = new DrawShape[]
             {

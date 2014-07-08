@@ -32,7 +32,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            mapView.Map.InitialExtent = new Envelope(-7917189, 5211428, -7902815, 5218750, SpatialReferences.WebMercator);
+			mapView.Map.InitialViewpoint = new Envelope(-7917189, 5211428, -7902815, 5218750, SpatialReferences.WebMercator);
 
             _directionPointSymbol = LayoutRoot.Resources["directionPointSymbol"] as Symbol;
             _stopsLayer = mapView.Map.Layers["StopsLayer"] as GraphicsLayer;

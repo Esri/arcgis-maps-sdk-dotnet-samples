@@ -27,15 +27,15 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             _parcelLayer = mapView.Map.Layers["ParcelLayer"] as GraphicsLayer;
             _polygonLayer = mapView.Map.Layers["PolygonLayer"] as GraphicsLayer;
 
-            mapView.ExtentChanged += mapView_ExtentChanged;
+			mapView.NavigationCompleted += mapView_NavigationCompleted;
         }
 
-        // Start map interaction once the mapview extent is set
-        private void mapView_ExtentChanged(object sender, EventArgs e)
-        {
-            mapView.ExtentChanged -= mapView_ExtentChanged;
-            DrawPolygon();
-        }
+		// Start map interaction once the mapview finishes navigation to initial viewpoint
+		private void mapView_NavigationCompleted(object sender, EventArgs e)
+		{
+			mapView.NavigationCompleted -= mapView_NavigationCompleted;
+			DrawPolygon();
+		}
 
         // Query without simplifying original geometry
         private async void QueryOnlyButton_Click(object sender, RoutedEventArgs e)

@@ -22,13 +22,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            mapView.ExtentChanged += mapView_ExtentChanged;
+			mapView.NavigationCompleted += mapView_NavigationCompleted;
         }
 
-        // Start map interaction once the mapview extent is set
-        private void mapView_ExtentChanged(object sender, EventArgs e)
+		// Start map interaction once the mapview finishes navigation to initial viewpoint
+		private void mapView_NavigationCompleted(object sender, EventArgs e)
         {
-            mapView.ExtentChanged -= mapView_ExtentChanged;
+			mapView.NavigationCompleted -= mapView_NavigationCompleted;
             DrawPolygon();
         }
 

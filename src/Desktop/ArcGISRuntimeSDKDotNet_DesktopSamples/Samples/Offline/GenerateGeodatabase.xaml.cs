@@ -27,7 +27,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public GenerateGeodatabase()
         {
             InitializeComponent();
-            mapView.Map.InitialExtent = new Envelope(-13644593.8492659, 4538221.47307415, -13614635.4487984, 4552888.60663638, SpatialReferences.WebMercator);
+			mapView.Map.InitialViewpoint = new Envelope(-13644593.8492659, 4538221.47307415, -13614635.4487984, 4552888.60663638, SpatialReferences.WebMercator);
         }
 
         // Generate / download and display layers from a generated geodatabase
@@ -128,7 +128,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     DisplayName = string.Format("Local ({0})", gdbPath)
                 };
 
-                Envelope extent = new Envelope();
+                Envelope extent = gdb.FeatureTables.First().Extent;
                 foreach (var table in gdb.FeatureTables)
                 {
                     var flayer = new FeatureLayer()

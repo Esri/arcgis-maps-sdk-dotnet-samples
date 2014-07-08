@@ -22,11 +22,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-            mapView.Map.InitialExtent = new Envelope(-9270434.248, 5246977.326, -9269261.417, 5247569.712);
-            var _ = InitializePMS();
+            mapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(new Envelope(-9270434, 5246977, -9269261, 5247570));
+            InitializePMS();
         }
 
-        private async Task InitializePMS()
+        private async void InitializePMS()
         {
             try
             {

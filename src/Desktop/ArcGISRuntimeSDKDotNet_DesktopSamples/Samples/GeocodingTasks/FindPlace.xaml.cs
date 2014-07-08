@@ -30,7 +30,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             InitializeComponent();
 
             var ext = new Envelope(-117.207, 32.686, -117.079, 32.739, SpatialReferences.Wgs84);
-            mapView.Map.InitialExtent = GeometryEngine.Project(ext, SpatialReferences.WebMercator) as Envelope;
+            mapView.Map.InitialViewpoint = ext;
 
             _addressGraphicsLayer = mapView.Map.Layers["AddressGraphicsLayer"] as GraphicsLayer;
 

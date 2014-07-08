@@ -32,7 +32,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            mapView.Map.InitialExtent = new Envelope(-13044000, 3855000, -13040000, 3858000, SpatialReferences.WebMercator);
+			mapView.Map.InitialViewpoint = new Envelope(-13044000, 3855000, -13040000, 3858000, SpatialReferences.WebMercator);
 
             _extentGraphicsLayer = mapView.Map.Layers["ExtentGraphicsLayer"] as GraphicsLayer;
             _routeGraphicsLayer = mapView.Map.Layers["RouteGraphicsLayer"] as GraphicsLayer;

@@ -83,40 +83,6 @@
 							</lyr:LabelClass.Symbol>
 						</lyr:LabelClass>
 					</lyr:GraphicsLayer.LabelClasses>
-                    <lyr:GraphicsLayer.Graphics>
-
-						<lyr:Graphic Symbol="{StaticResource NumberedMarkerSymbol1}" >
-                            <lyr:Graphic.Geometry>
-                                <geom:MapPoint X="-6000000" Y="4800000" />
-                            </lyr:Graphic.Geometry>
-                        </lyr:Graphic>
-						<lyr:Graphic Symbol="{StaticResource NumberedMarkerSymbolA}" >
-                            <lyr:Graphic.Geometry>
-                                <geom:MapPoint X="-5000000" Y="3900000" />
-                            </lyr:Graphic.Geometry>
-                        </lyr:Graphic>
-						<lyr:Graphic Symbol="{StaticResource NumberedMarkerSymbol1}" >
-                            <lyr:Graphic.Geometry>
-                                <geom:MapPoint X="-4000000" Y="4800000" />
-                            </lyr:Graphic.Geometry>
-                        </lyr:Graphic>
-						<lyr:Graphic Symbol="{StaticResource NumberedMarkerSymbolA}" >
-                            <lyr:Graphic.Geometry>
-                                <geom:MapPoint X="-3000000" Y="3900000" />
-                            </lyr:Graphic.Geometry>
-                        </lyr:Graphic>
-						<lyr:Graphic Symbol="{StaticResource NumberedMarkerSymbol1}" >
-                            <lyr:Graphic.Geometry>
-                                <geom:MapPoint X="-2000000" Y="4800000" />
-                            </lyr:Graphic.Geometry>
-                        </lyr:Graphic>
-						<lyr:Graphic Symbol="{StaticResource NumberedMarkerSymbolA}" >
-                            <lyr:Graphic.Geometry>
-                                <geom:MapPoint X="-1000000" Y="3900000" />
-                            </lyr:Graphic.Geometry>
-                        </lyr:Graphic>
-
-                    </lyr:GraphicsLayer.Graphics>
                 </lyr:GraphicsLayer>
             </esri:Map>
         </esri:MapView>

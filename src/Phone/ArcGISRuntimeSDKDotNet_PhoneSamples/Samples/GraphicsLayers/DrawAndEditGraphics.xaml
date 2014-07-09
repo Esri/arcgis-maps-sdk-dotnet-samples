@@ -103,10 +103,10 @@
                           IsChecked="True">
                     <TextBlock Text="Move Vertex" TextWrapping="WrapWholeWords"  Width="75"/>
                 </CheckBox>
-                <CheckBox x:Name="DeleteVertex" >
+                <CheckBox x:Name="DeleteVertex" IsChecked="True" >
                     <TextBlock Text="Delete Vertex" TextWrapping="WrapWholeWords"  Width="75"/>
                 </CheckBox>
-                <CheckBox x:Name="MoveGeometry" >
+                <CheckBox x:Name="MoveGeometry" IsChecked="True" >
                     <TextBlock Text="Move Geometry" TextWrapping="WrapWholeWords"  Width="75"/>
                 </CheckBox>
                 <CheckBox x:Name="Scale"  

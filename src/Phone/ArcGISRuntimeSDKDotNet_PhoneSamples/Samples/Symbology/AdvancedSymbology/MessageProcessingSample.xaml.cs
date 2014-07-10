@@ -22,7 +22,7 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology
 	/// <subcategory>Advanced</subcategory>
 	public sealed partial class MessageProcessingSample : Page
 	{
-		private const string DATA_PATH = @"samples-data\symbology\Mil2525CMessages.xml";
+		private const string DATA_PATH = @"symbology\Mil2525CMessages.xml";
 
 		private MessageLayer _messageLayer;
 
@@ -79,21 +79,29 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology
 				* </message>
 				*/
 
-				// Load the XML document
-				XDocument xmlDocument = XDocument.Load(file.Path, LoadOptions.None);
+				//var folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync("Data");
+				//var file = await folder.GetFileAsync("Mil2525CMessages.xml");
 
-				// Create a collection of messages
-				IEnumerable<XElement> messagesXml = from n in xmlDocument.Root.Elements()
-													where n.Name == "message"
-													select n;
-
-				// Iterate through the messages passing each to the ProcessMessage method on the MessageProcessor.
-				// The MessageGroupLayer associated with this MessageProcessor will handle the creation of any 
-				// GraphicsLayers and Graphic objects necessary to display the message.
-				foreach (XElement messageXml in messagesXml)
+				using (var stream = await file.OpenStreamForReadAsync())
 				{
-					Message message = new Message(from n in messageXml.Elements() select new KeyValuePair<string, string>(n.Name.ToString(), n.Value));
-					_messageLayer.ProcessMessage(message);
+					XDocument xmlDocument = XDocument.Load(stream);
+
+					// Create a collection of messages
+					IEnumerable<XElement> messagesXml = from n in xmlDocument.Root.Elements() where n.Name == "message" select n;
+
+					// Iterate through the messages passing each to the ProcessMessage method on the MessageProcessor.
+					// The MessageGroupLayer associated with this MessageProcessor will handle the creation of any 
+					// GraphicsLayers and Graphic objects necessary to display the message.
+					foreach (XElement messageXml in messagesXml)
+					{
+						Message message = new Message(from n in messageXml.Elements() select new KeyValuePair<string, string>(n.Name.ToString(), n.Value));
+						var messageProcessingSuccesful = _messageLayer.ProcessMessage(message);
+						
+						if (messageProcessingSuccesful == false)
+						{
+							var _ = new MessageDialog("Could not process the message.", "Message Processing Sample").ShowAsync();
+						}
+					}
 				}
 
 				/*

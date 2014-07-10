@@ -152,6 +152,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 				mapView.Editor.Cancel.Execute(null);
 
 			_drawGraphicsLayer.Graphics.Clear();
+			findBtn.IsEnabled = false;
 
 			// Hide floyout from the UI
 			drawFlyout.Hide();
@@ -187,6 +188,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 				// add the new graphic to the graphic layer
 				var graphic = new Graphic(_searchGeometry, symbol);
 				_drawGraphicsLayer.Graphics.Add(graphic);
+				findBtn.IsEnabled = true;
 			}
 			catch (TaskCanceledException)
 			{

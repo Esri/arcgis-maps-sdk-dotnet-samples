@@ -18,11 +18,6 @@
 			<Setter Property="Padding" Value="10" />
 			<Setter Property="VerticalAlignment" Value="Top" />
 		</Style>
-		
-		<Style x:Key="headerTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource SubheaderTextBlockStyle}">
-			<Setter Property="Margin" Value="5,5,10,5" />
-			<Setter Property="FontWeight" Value="Bold" />
-		</Style>
 	</Page.Resources>
 
 	<!-- Application command bar -->
@@ -31,27 +26,77 @@
 			<AppBarButton Icon="List" Label="Cells">
 				<AppBarButton.Flyout>
 					<Flyout>
-						<StackPanel Width="350">
-							<TextBlock Text="Cells:" 
-								Style="{StaticResource headerTextBlockStyle}"/>
-							<ListBox x:Name="s57CellList" 
-									 SelectionChanged="s57CellList_SelectionChanged"
-									 Margin="10">
-								<ListBox.ItemTemplate>
-									<DataTemplate>
-										<StackPanel Orientation="Horizontal" Margin="2">
-											<TextBlock Text="{Binding ID, Mode=OneWay}" Margin="5,0,2,0"/>
-											<TextBlock Text=" - "></TextBlock>
-											<TextBlock Text="{Binding Status, Mode=OneWay}"  />
-											<ToolTipService.ToolTip>
-												<StackPanel MaxWidth="320">
-													<TextBlock FontWeight="Bold" Text="{Binding Path}" TextWrapping="Wrap" />
-												</StackPanel>
-											</ToolTipService.ToolTip>
-										</StackPanel>
-									</DataTemplate>
-								</ListBox.ItemTemplate>
-							</ListBox>
+						<StackPanel Margin="10">
+							<TextBlock 
+								Text="Cell information:" 
+								Style="{StaticResource TitleTextBlockStyle}"/>
+
+							<StackPanel Margin="10">
+								<TextBlock Text="Loaded cells:" />
+								<ListBox x:Name="s57CellList" 
+										SelectionChanged="s57CellList_SelectionChanged"
+										Margin="10"
+										MaxHeight="300">
+									<ListBox.ItemTemplate>
+										<DataTemplate>
+											<StackPanel Orientation="Horizontal" Margin="2">
+												<TextBlock Text="{Binding ID, Mode=OneWay}" Margin="5,0,2,0"/>
+												<TextBlock Text=" - "></TextBlock>
+												<TextBlock Text="{Binding Status, Mode=OneWay}"  />
+												<ToolTipService.ToolTip>
+													<StackPanel MaxWidth="320">
+														<TextBlock FontWeight="Bold" Text="{Binding Path}" TextWrapping="Wrap" />
+													</StackPanel>
+												</ToolTipService.ToolTip>
+											</StackPanel>
+										</DataTemplate>
+									</ListBox.ItemTemplate>
+								</ListBox>
+							</StackPanel>
+							<StackPanel Margin="10">
+								<StackPanel x:Name="cellInfoDisplay">
+									<StackPanel Orientation="Horizontal">
+										<TextBlock>Name:</TextBlock>
+										<TextBlock Text="{Binding Name}" Margin="5,0,0,0"/>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock>Path:</TextBlock>
+										<TextBlock Text="{Binding Path}" Margin="5,0,0,0" TextWrapping="Wrap"/>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock>Agency:</TextBlock>
+										<TextBlock Text="{Binding Agency}" Margin="5,0,0,0"/>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock>ExchangePurpose:</TextBlock>
+										<TextBlock Text="{Binding ExchangePurpose}" Margin="5,0,0,0"/>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock>Intended Usage:</TextBlock>
+										<TextBlock Text="{Binding IntendedUsage}" Margin="5,0,0,0"/>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock>Edition Number:</TextBlock>
+										<TextBlock Text="{Binding EditionNumber}" Margin="5,0,0,0"/>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock>Update Number:</TextBlock>
+										<TextBlock Text="{Binding UpdateNumber}" Margin="5,0,0,0"/>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock>Update Application Date:</TextBlock>
+										<TextBlock Text="{Binding UpdateApplicationDate}" Margin="5,0,0,0"/>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock>Issue Date:</TextBlock>
+										<TextBlock Text="{Binding IssueDate}" Margin="5,0,0,0"/>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock>Compilation Scale:</TextBlock>
+										<TextBlock Text="{Binding CompilationScale}" Margin="5,0,0,0"/>
+									</StackPanel>
+								</StackPanel>
+							</StackPanel>
 						</StackPanel>
 					</Flyout>
 				</AppBarButton.Flyout>
@@ -74,13 +119,14 @@
 		</esri:MapView>
 
 		<Border HorizontalAlignment="Stretch" Style="{StaticResource overlayBorderStyle}" Padding="20,10">
-			<Grid MaxWidth="400" x:Name="cellInfoDisplay">
+			<Grid MaxWidth="400" >
 				<Grid.RowDefinitions>
 					<RowDefinition Height="auto"/>
 					<RowDefinition Height="*" />
 				</Grid.RowDefinitions>
 				<StackPanel>
-					<StackPanel Orientation="Horizontal">
+					<TextBlock TextWrapping="WrapWholeWords">See loaded cell information from </TextBlock>
+					<!--<StackPanel Orientation="Horizontal">
 						<TextBlock>Name:</TextBlock>
 						<TextBlock Text="{Binding Name}" Margin="5,0,0,0"/>
 					</StackPanel>
@@ -119,7 +165,7 @@
 					<StackPanel Orientation="Horizontal">
 						<TextBlock>Compilation Scale:</TextBlock>
 						<TextBlock Text="{Binding CompilationScale}" Margin="5,0,0,0"/>
-					</StackPanel>
+					</StackPanel>-->
 				</StackPanel>
 			</Grid>
 		</Border>

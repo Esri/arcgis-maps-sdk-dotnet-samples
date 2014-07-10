@@ -22,47 +22,28 @@
 			<AppBarButton Icon="List" Label="Scheme">
 				<AppBarButton.Flyout>
 					<Flyout>
-						<StackPanel>
-							<StackPanel Orientation="Horizontal" Margin="5">
-								<TextBlock Text="Color Scheme:" Style="{StaticResource SubheaderTextBlockStyle}"
-										   Width="200"/>
-								<ComboBox x:Name="colorSchemes"
-										  VerticalAlignment="Center"
-										  SelectedItem="{Binding Path=ColorScheme, Mode=TwoWay}" 
-										  Width="160" />
-							</StackPanel>
-							<StackPanel Orientation="Horizontal" Margin="5">
-								<TextBlock Text="Depth Units:" Style="{StaticResource SubheaderTextBlockStyle}"
-										    Width="200"/>
-								<ComboBox x:Name="dislayDepthUnits"
-										  VerticalAlignment="Center"
-										  SelectedItem="{Binding Path=DisplayDepthUnits, Mode=TwoWay}" 
-										  Width="160" />
-							</StackPanel>
-							<StackPanel Orientation="Horizontal" Margin="5">
-								<TextBlock Text="Area:" Style="{StaticResource SubheaderTextBlockStyle}"
-										    Width="200"/>
-								<ComboBox x:Name="areaSymbolizationTypes"
-										  VerticalAlignment="Center"
-										  SelectedItem="{Binding Path=AreaSymbolizationType, Mode=TwoWay}" 
-										  Width="160" />
-							</StackPanel>
-							<StackPanel Orientation="Horizontal" Margin="5">
-								<TextBlock Text="Point:" Style="{StaticResource SubheaderTextBlockStyle}" 
-										   Width="200"/>
-								<ComboBox x:Name="pointSymbolizationTypes"
-										  VerticalAlignment="Center"
-                                          SelectedItem="{Binding Path=PointSymbolizationType, Mode=TwoWay}"
-										  Width="160" />
-							</StackPanel>
-
-							<StackPanel Orientation="Horizontal" Margin="5">
-								<TextBlock Text="Category:" Style="{StaticResource SubheaderTextBlockStyle}" 
-										   Width="200"/>
-								<ComboBox x:Name="displayCategory"
-									SelectedItem="{Binding Path=DisplayCategory, Mode=TwoWay}" 
-									Width="160" />
-							</StackPanel>
+						<StackPanel Margin="10">
+							<TextBlock Text="Change scheme properties" Style="{StaticResource TitleTextBlockStyle}"/>
+							<ComboBox x:Name="colorSchemes"
+									  Header="Color scheme"
+									  Margin="5,0"
+									  SelectedItem="{Binding Path=ColorScheme, Mode=TwoWay}" />
+							<ComboBox x:Name="dislayDepthUnits"
+									  Header="Depth Units"
+									  Margin="5,0"
+									  SelectedItem="{Binding Path=DisplayDepthUnits, Mode=TwoWay}" />
+							<ComboBox x:Name="areaSymbolizationTypes"
+									  Header="Area"
+									  Margin="5,0"
+									  SelectedItem="{Binding Path=AreaSymbolizationType, Mode=TwoWay}" />
+							<ComboBox x:Name="pointSymbolizationTypes"
+									  Header="Point"
+									  Margin="5,0"
+									  SelectedItem="{Binding Path=PointSymbolizationType, Mode=TwoWay}" />
+							<ComboBox x:Name="displayCategory"
+									  Header="Category"
+									  Margin="5,0"
+									  SelectedItem="{Binding Path=DisplayCategory, Mode=TwoWay}" />
 						</StackPanel>
 					</Flyout>
 				</AppBarButton.Flyout>
@@ -71,36 +52,27 @@
 			<AppBarButton Icon="Bullets" Label="Depth">
 				<AppBarButton.Flyout>
 					<Flyout>
-						<StackPanel>
-							<StackPanel>
-								<StackPanel Orientation="Horizontal">
-									<TextBlock Text="Depth Shades:" 
-											   Style="{StaticResource SubheaderTextBlockStyle}" 
-											   Width="200"/>
-									<ComboBox x:Name="depthShades"
-										 VerticalAlignment="Center"
-                                         SelectedItem="{Binding Path=DepthShades, Mode=TwoWay}" Width="160"  />
-								</StackPanel>
-
-								<StackPanel Orientation="Horizontal">
-									<TextBlock Text="Shallow:" 
-											   Style="{StaticResource SubheaderTextBlockStyle}" 
-											   Width="200"/>
-									<TextBox Text="{Binding Path=ShallowContourMeters}" Width="160"/>
-								</StackPanel>
-								<StackPanel Orientation="Horizontal">
-									<TextBlock Text="Safet	y:" 
-											   Style="{StaticResource SubheaderTextBlockStyle}" 
-											   Width="200"/>
-									<TextBox Text="{Binding Path=SafetyContourMeters}" Width="160"/>
-								</StackPanel>
-								<StackPanel Orientation="Horizontal">
-									<TextBlock Text="Deep:" 
-											   Style="{StaticResource SubheaderTextBlockStyle}" 
-											   Width="200"/>
-									<TextBox Text="{Binding Path=DeepContourMeters}" Width="160"/>
-								</StackPanel>
-							</StackPanel>
+						<StackPanel Margin="10">
+							<TextBlock Text="Change depth properties" Style="{StaticResource TitleTextBlockStyle}"/>
+							<ComboBox x:Name="depthShades"
+									  Header="Depth shades"
+									  Margin="5"
+									  SelectedItem="{Binding Path=DepthShades, Mode=TwoWay}" />
+							<TextBox
+								Header="Shallow contour (meters)"
+								Margin="5"
+								Text="{Binding Path=ShallowContourMeters}" 
+								InputScope="Number"/>
+							<TextBox 
+								Header="Safety contour (meters)"
+								Margin="5"
+								Text="{Binding Path=SafetyContourMeters}" 
+								InputScope="Number"/>
+							<TextBox 
+								Header="Deep contours (meters)"
+								Margin="5"
+								Text="{Binding Path=DeepContourMeters}"
+								InputScope="Number"/>
 						</StackPanel>
 					</Flyout>
 				</AppBarButton.Flyout>
@@ -110,22 +82,35 @@
 				<AppBarButton.Flyout>
 					<Flyout>
 						<StackPanel Margin="10">
-							<ToggleSwitch Header="Important Text" IsOn="{Binding Path=TextGroupProperties.ImportantText}" />
-							<ToggleSwitch Header="Light Descriptions" 
-											  IsOn="{Binding Path=TextGroupProperties.LightDescriptionString}" />
-							<ToggleSwitch Header="Nature Of Seabed" 
-											  IsOn="{Binding Path=TextGroupProperties.NatureOfSeabed}" />
-							<ToggleSwitch Header="Magnetic Variation And Swept Depth" 
-											  IsOn="{Binding Path=TextGroupProperties.MagneticVariationAndSweptDepth}" />
-							<ToggleSwitch Header="Names For Position Reporting" 
-											  IsOn="{Binding Path=TextGroupProperties.NamesForPositionReporting}" />
-							<ToggleSwitch Header="Notes On Chart Data" 
-											  IsOn="{Binding Path=TextGroupProperties.NoteOnChartData}" />
-							<ToggleSwitch Header="Geographic Names" 
-											  IsOn="{Binding Path=TextGroupProperties.GeographicNames}" />
-							<ToggleSwitch Header="Berth Number" 
-											  IsOn="{Binding Path=TextGroupProperties.BerthNumber}" />
-
+							<TextBlock Text="Change text properties" Style="{StaticResource TitleTextBlockStyle}"/>
+							<ScrollViewer>
+								<StackPanel>
+									<ToggleSwitch Header="Important Text"
+										  Margin="5,0"
+										  IsOn="{Binding Path=TextGroupProperties.ImportantText}" />
+									<ToggleSwitch Header="Light Descriptions" 
+										  Margin="5,0"
+										  IsOn="{Binding Path=TextGroupProperties.LightDescriptionString}" />
+									<ToggleSwitch Header="Nature Of Seabed" 
+										  Margin="5,0"
+										  IsOn="{Binding Path=TextGroupProperties.NatureOfSeabed}" />
+									<ToggleSwitch Header="Magnetic Variation And Swept Depth" 
+										  Margin="5,0"
+										  IsOn="{Binding Path=TextGroupProperties.MagneticVariationAndSweptDepth}" />
+									<ToggleSwitch Header="Names For Position Reporting" 
+										  Margin="5,0"
+										  IsOn="{Binding Path=TextGroupProperties.NamesForPositionReporting}" />
+									<ToggleSwitch Header="Notes On Chart Data" 
+										  Margin="5,0"
+										  IsOn="{Binding Path=TextGroupProperties.NoteOnChartData}" />
+									<ToggleSwitch Header="Geographic Names" 
+										  Margin="5,0"
+										  IsOn="{Binding Path=TextGroupProperties.GeographicNames}" />
+									<ToggleSwitch Header="Berth Number" 
+										  Margin="5,0"
+										  IsOn="{Binding Path=TextGroupProperties.BerthNumber}" />
+								</StackPanel>
+							</ScrollViewer>
 						</StackPanel>
 					</Flyout>
 				</AppBarButton.Flyout>

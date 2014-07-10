@@ -51,6 +51,7 @@
 								<RowDefinition Height="auto"></RowDefinition>
 								<RowDefinition Height="*"></RowDefinition>
 								<RowDefinition Height="10"></RowDefinition>
+								<RowDefinition Height="auto"></RowDefinition>
 								<RowDefinition Height="*"></RowDefinition>
 							</Grid.RowDefinitions>
 							<Grid.ColumnDefinitions>
@@ -62,6 +63,7 @@
 								<ColumnDefinition Width="10"></ColumnDefinition>
 							</Grid.ColumnDefinitions>
 
+							<TextBlock Text="Draw search area" Grid.ColumnSpan="5" Style="{StaticResource TitleTextBlockStyle}" />
 							<Button Tag="line" Click="AddSearchGeometry_Click"
 									HorizontalAlignment="Center" VerticalAlignment="Center"
 									Grid.Column="1" Grid.Row="1" Margin="5" 
@@ -105,15 +107,16 @@
 										HorizontalAlignment="Center" VerticalAlignment="Center"
 										Stretch="UniformToFill" />
 							</Button>
-							
-							<Grid Grid.Row="3" Grid.ColumnSpan="6">
+
+							<TextBlock Text="Search parameters"  Grid.Row="3" Grid.ColumnSpan="5" Style="{StaticResource TitleTextBlockStyle}" />
+							<Grid Grid.Row="4" Grid.ColumnSpan="6">
 								<Grid.RowDefinitions>
 									<RowDefinition Height="*"></RowDefinition>
 									<RowDefinition Height="*"></RowDefinition>
 								</Grid.RowDefinitions>
 								<TextBox x:Name="BufferValue" Header="Buffer"
 										 Margin="5" 
-										 PlaceholderText="ie. 5"/>
+										 PlaceholderText="ie. 5" InputScope="Number"/>
 								<TextBox x:Name="SearchText" Header="Object name"
 										 Grid.Row="1" Margin="5" 
 										 PlaceholderText="ie. M_QUAL"/>
@@ -122,7 +125,7 @@
 					</Flyout>
 				</AppBarButton.Flyout>
 			</AppBarButton>
-			<AppBarButton Icon="Find" Label="Search" Click="Search_Click"/>
+			<AppBarButton x:Name="findBtn" Icon="Find" Label="Search" Click="Search_Click" IsEnabled="False"/>
 		</CommandBar>
 	</Page.BottomAppBar>
 

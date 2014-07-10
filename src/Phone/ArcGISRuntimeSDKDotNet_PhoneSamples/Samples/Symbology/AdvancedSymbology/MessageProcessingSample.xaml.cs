@@ -62,8 +62,6 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology
 		{
 			try
 			{
-				var file = await ApplicationData.Current.LocalFolder.GetFileAsync(DATA_PATH);
-
 				// This function simulates real time message processing by processing a static set of messages from an XML document.
 				/* 
 				* |== Example Message ==|
@@ -79,9 +77,7 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology
 				* </message>
 				*/
 
-				//var folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync("Data");
-				//var file = await folder.GetFileAsync("Mil2525CMessages.xml");
-
+				var file = await ApplicationData.Current.LocalFolder.GetFileAsync(DATA_PATH);
 				using (var stream = await file.OpenStreamForReadAsync())
 				{
 					XDocument xmlDocument = XDocument.Load(stream);
@@ -90,8 +86,6 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology
 					IEnumerable<XElement> messagesXml = from n in xmlDocument.Root.Elements() where n.Name == "message" select n;
 
 					// Iterate through the messages passing each to the ProcessMessage method on the MessageProcessor.
-					// The MessageGroupLayer associated with this MessageProcessor will handle the creation of any 
-					// GraphicsLayers and Graphic objects necessary to display the message.
 					foreach (XElement messageXml in messagesXml)
 					{
 						Message message = new Message(from n in messageXml.Elements() select new KeyValuePair<string, string>(n.Name.ToString(), n.Value));

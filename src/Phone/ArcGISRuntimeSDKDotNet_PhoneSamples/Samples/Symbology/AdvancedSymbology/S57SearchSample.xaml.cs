@@ -49,7 +49,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 			this.InitializeComponent();
 			mapView.ExtentChanged += mapView_ExtentChanged;
 			
-			DataContext = this;
 			_searchResults = new ObservableCollection<S57FeatureObject>();
 			resultList.ItemsSource = _searchResults;
 

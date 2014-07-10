@@ -30,9 +30,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 		{
 			InitializeComponent();
 
-			mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(
-					-245200, 6665900, -207000, 6687300, 
-					SpatialReferences.WebMercator));
+			mapView.Map.InitialViewpoint = new Envelope(-245200, 6665900, -207000, 6687300, SpatialReferences.WebMercator);
 
 			mapView.ExtentChanged += mapView_ExtentChanged;
 		}
@@ -60,11 +58,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 		{
 			try
 			{
-				var file = await ApplicationData.Current.LocalFolder.TryGetItemAsync(DATA_PATH);
-				if (file == null)
-					throw new Exception("Local message data not found. Please download sample data from 'Sample Data Settings'");
-
-
 				// This function simulates real time message processing by processing a static set of messages from an XML document.
 				/* 
 				* |== Example Message ==|
@@ -80,6 +73,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 				* </message>
 				*/
 
+				var file = await ApplicationData.Current.LocalFolder.TryGetItemAsync(DATA_PATH);
+				if (file == null)
+					throw new Exception("Local message data not found. Please download sample data from 'Sample Data Settings'");
+
 				// Load the XML document
 				XDocument xmlDocument = XDocument.Load(file.Path, LoadOptions.None);
 
@@ -89,12 +86,15 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 													select n;
 
 				// Iterate through the messages passing each to the ProcessMessage method on the MessageProcessor.
-				// The MessageGroupLayer associated with this MessageProcessor will handle the creation of any 
-				// GraphicsLayers and Graphic objects necessary to display the message.
 				foreach (XElement messageXml in messagesXml)
 				{
 					Message message = new Message(from n in messageXml.Elements() select new KeyValuePair<string, string>(n.Name.ToString(), n.Value));
-					_messageLayer.ProcessMessage(message);
+					var messageProcessingSuccesful = _messageLayer.ProcessMessage(message);
+
+					if (messageProcessingSuccesful == false)
+					{
+						var _ = new MessageDialog("Could not process the message.", "Message Processing Sample").ShowAsync();
+					}
 				}
 
 				/*

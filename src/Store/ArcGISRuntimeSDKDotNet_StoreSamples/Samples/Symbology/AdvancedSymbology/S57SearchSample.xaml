@@ -43,52 +43,89 @@
 	<!-- Application command bar -->
 	<Page.BottomAppBar>
 		<CommandBar IsOpen="True">
-			<AppBarButton Icon="Setting" Label="Search values">
+			<AppBarButton Icon="Filter" Label="Search parameters">
 				<AppBarButton.Flyout>
-					<Flyout>
-						<StackPanel>
-							<StackPanel Orientation="Horizontal" >
-								<TextBlock Text="Buffer:" Margin="2" Width="135"/>
-								<TextBox x:Name="BufferValue" Text="" Width="150" Margin="2"/>
-							</StackPanel>
-							<StackPanel Orientation="Horizontal" >
-								<TextBlock Text="Object Name (Acronym):" Margin="2" Width="135"/>
-								<TextBox x:Name="SearchText" Text="" Width="150" Margin="2"/>
-							</StackPanel>
-						</StackPanel>
+					<Flyout x:Name="drawFlyout">
+						<Grid>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="auto"></RowDefinition>
+								<RowDefinition Height="*"></RowDefinition>
+								<RowDefinition Height="10"></RowDefinition>
+								<RowDefinition Height="auto"></RowDefinition>
+								<RowDefinition Height="*"></RowDefinition>
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="10"></ColumnDefinition>
+								<ColumnDefinition Width="*"></ColumnDefinition>
+								<ColumnDefinition Width="*"></ColumnDefinition>
+								<ColumnDefinition Width="*"></ColumnDefinition>
+								<ColumnDefinition Width="*"></ColumnDefinition>
+								<ColumnDefinition Width="10"></ColumnDefinition>
+							</Grid.ColumnDefinitions>
+
+							<TextBlock Text="Draw search area" Grid.ColumnSpan="5" Style="{StaticResource TitleTextBlockStyle}" />
+							<Button Tag="line" Click="AddSearchGeometry_Click"
+									HorizontalAlignment="Center" VerticalAlignment="Center"
+									Grid.Column="1" Grid.Row="1" Margin="5" 
+									Background="CornflowerBlue"
+									BorderBrush="Transparent">
+								<Image Source="ms-appx:///Assets/Icons/vector.line.png" 
+									Height="50" Width="50" 
+									HorizontalAlignment="Center" VerticalAlignment="Center"
+									Stretch="UniformToFill" />
+							</Button>
+
+							<Button Tag="polygon" Click="AddSearchGeometry_Click"
+										HorizontalAlignment="Center" VerticalAlignment="Center"
+										Grid.Column="2" Grid.Row="1" Margin="5" 
+										Background="CornflowerBlue"
+										BorderBrush="Transparent">
+								<Image Source="ms-appx:///Assets/Icons/vector.polygon.png" 
+										Height="50" Width="50" 
+										HorizontalAlignment="Center" VerticalAlignment="Center"
+										Stretch="UniformToFill" />
+							</Button>
+
+							<Button Tag="rectangle" Click="AddSearchGeometry_Click"
+										HorizontalAlignment="Center" VerticalAlignment="Center"
+										Grid.Column="3" Grid.Row="1" Margin="5" 
+										Background="CornflowerBlue"
+										BorderBrush="Transparent">
+								<Image Source="ms-appx:///Assets/Icons/vector.rectangle.png" 
+										Height="50" Width="50" 
+										HorizontalAlignment="Center" VerticalAlignment="Center"
+										Stretch="UniformToFill" />
+							</Button>
+
+							<Button Tag="circle" Click="AddSearchGeometry_Click"
+										HorizontalAlignment="Center" VerticalAlignment="Center"
+										Grid.Column="4" Grid.Row="1" Margin="5" 
+										Background="CornflowerBlue"
+										BorderBrush="Transparent">
+								<Image Source="ms-appx:///Assets/Icons/vector.circle.png" 
+										Height="50" Width="50" 
+										HorizontalAlignment="Center" VerticalAlignment="Center"
+										Stretch="UniformToFill" />
+							</Button>
+
+							<TextBlock Text="Search parameters"  Grid.Row="3" Grid.ColumnSpan="5" Style="{StaticResource TitleTextBlockStyle}" />
+							<Grid Grid.Row="4" Grid.ColumnSpan="6">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="*"></RowDefinition>
+									<RowDefinition Height="*"></RowDefinition>
+								</Grid.RowDefinitions>
+								<TextBox x:Name="BufferValue" Header="Buffer"
+										 Margin="5" 
+										 PlaceholderText="ie. 5" InputScope="Number"/>
+								<TextBox x:Name="SearchText" Header="Object name"
+										 Grid.Row="1" Margin="5" 
+										 PlaceholderText="ie. M_QUAL"/>
+							</Grid>
+						</Grid>
 					</Flyout>
 				</AppBarButton.Flyout>
 			</AppBarButton>
-
-			<AppBarButton Icon="Find" Label="Search" Click="Search_Click"/>
-			
-			<CommandBar.SecondaryCommands>
-				<AppBarButton Icon="Edit" Label="Geometry type">
-					<AppBarButton.Flyout>
-						<Flyout>
-							<StackPanel>
-								<StackPanel Orientation="Horizontal" Margin="5">
-									<TextBlock Text="Geometry type:" Style="{StaticResource SubheaderTextBlockStyle}" 
-										   Width="200"/>
-									<ComboBox SelectedItem="{Binding CurrentDrawShape,Mode=TwoWay}" Margin="8,0,8,2" Padding="4"
-									 SelectionChanged="ComboBox_SelectionChanged">
-										<esri:DrawShape>Point</esri:DrawShape>
-										<esri:DrawShape>Polyline</esri:DrawShape>
-										<esri:DrawShape>Polygon</esri:DrawShape>
-										<esri:DrawShape>Rectangle</esri:DrawShape>
-										<esri:DrawShape>Arrow</esri:DrawShape>
-										<esri:DrawShape>Triangle</esri:DrawShape>
-										<esri:DrawShape>Ellipse</esri:DrawShape>
-										<esri:DrawShape>Circle</esri:DrawShape>
-										<esri:DrawShape>LineSegment</esri:DrawShape>
-									</ComboBox>
-								</StackPanel>
-							</StackPanel>
-						</Flyout>
-					</AppBarButton.Flyout>
-				</AppBarButton>
-				<AppBarButton Icon="Edit" Label="Draw" Click="AddSearchGeometry_Click"/>
-			</CommandBar.SecondaryCommands>
+			<AppBarButton x:Name="findBtn" Icon="Find" Label="Search" Click="Search_Click" IsEnabled="False"/>
 		</CommandBar>
 	</Page.BottomAppBar>
 

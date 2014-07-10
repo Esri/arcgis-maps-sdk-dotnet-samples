@@ -31,13 +31,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 	/// <title>S57 Search </title>
 	/// <category>Symbology</category>
 	/// <subcategory>Advanced</subcategory>
-	public sealed partial class S57SearchSample : Page, INotifyPropertyChanged
+	public sealed partial class S57SearchSample : Page
 	{
 		private const string LAYER_1_PATH = @"symbology\s57-electronic-navigational-charts\us1wc01m\us1wc01m.000";
 		private const string LAYER_2_PATH = @"symbology\s57-electronic-navigational-charts\us1wc07m\us1wc07m.000";
 
 		private GroupLayer _hydrographicGroupLayer;
-		private DrawShape _currentDrawShape;
 		private Geometry _searchGeometry;
 
 		private GroupLayer _hydrographicLayers;
@@ -50,8 +49,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 			this.InitializeComponent();
 			mapView.ExtentChanged += mapView_ExtentChanged;
 			
-			DataContext = this;
-			_currentDrawShape = DrawShape.Point;
 			_searchResults = new ObservableCollection<S57FeatureObject>();
 			resultList.ItemsSource = _searchResults;
 
@@ -59,17 +56,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 			_hydrographicLayers = mapView.Map.Layers.OfType<GroupLayer>().First();
 			_resultGraphicsLayer = mapView.Map.Layers.OfType<GraphicsLayer>().First(x => x.ID == "resultGraphics");
 			_drawGraphicsLayer = mapView.Map.Layers.OfType<GraphicsLayer>().First(x => x.ID == "drawGraphics");
-		}
-
-		public DrawShape CurrentDrawShape
-		{
-			get { return _currentDrawShape; }
-			set
-			{
-				_currentDrawShape = value;
-				if (PropertyChanged != null)
-					PropertyChanged(this, new PropertyChangedEventArgs("CurrentDrawShape"));
-			}
 		}
 
 		// Load data - enable functionality after layers are loaded.
@@ -159,38 +145,44 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 				mapView.Editor.Cancel.Execute(null);
 
 			_drawGraphicsLayer.Graphics.Clear();
+			findBtn.IsEnabled = false;
+
+			// Hide floyout from the UI
+			drawFlyout.Hide();
+			BottomAppBar.IsOpen = false;
 
 			try
 			{
+				var selectedDrawShape = DrawShape.Polygon;
+				var symbolType = (sender as Button).Tag.ToString();
 				symbols.Symbol symbol = null;
-				switch (CurrentDrawShape)
+				switch (symbolType)
 				{
-					case DrawShape.Point:
-						symbol = Resources["BluePointSymbol"] as symbols.Symbol;
-						break;
-
-					case DrawShape.LineSegment:
-					case DrawShape.Freehand:
-					case DrawShape.Polyline:
+					case "line":
+						selectedDrawShape = DrawShape.Polyline;
 						symbol = Resources["GreenLineSymbol"] as symbols.Symbol;
 						break;
-
-					case DrawShape.Arrow:
-					case DrawShape.Circle:
-					case DrawShape.Ellipse:
-					case DrawShape.Polygon:
-					case DrawShape.Rectangle:
-					case DrawShape.Triangle:
+					case "polygon":
+						selectedDrawShape = DrawShape.Polygon;
+						symbol = Resources["RedFillSymbol"] as symbols.Symbol;
+						break;
+					case "circle":
+						selectedDrawShape = DrawShape.Circle;
+						symbol = Resources["RedFillSymbol"] as symbols.Symbol;
+						break;
+					case "rectangle":
+						selectedDrawShape = DrawShape.Rectangle;
 						symbol = Resources["RedFillSymbol"] as symbols.Symbol;
 						break;
 				}
 
 				// wait for user to draw the shape
-				_searchGeometry = await mapView.Editor.RequestShapeAsync(CurrentDrawShape, symbol);
+				_searchGeometry = await mapView.Editor.RequestShapeAsync(selectedDrawShape, symbol);
 
 				// add the new graphic to the graphic layer
 				var graphic = new Graphic(_searchGeometry, symbol);
 				_drawGraphicsLayer.Graphics.Add(graphic);
+				findBtn.IsEnabled = true;
 			}
 			catch (TaskCanceledException)
 			{
@@ -241,7 +233,5 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 				noResultsArea.Visibility = Visibility.Visible;
 			}
 		}
-
-		public event PropertyChangedEventHandler PropertyChanged;
 	}
 }

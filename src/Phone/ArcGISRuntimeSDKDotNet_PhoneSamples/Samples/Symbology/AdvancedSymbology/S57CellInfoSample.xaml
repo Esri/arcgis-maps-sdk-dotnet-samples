@@ -118,56 +118,9 @@
 			</esri:Map>
 		</esri:MapView>
 
-		<Border HorizontalAlignment="Stretch" Style="{StaticResource overlayBorderStyle}" Padding="20,10">
-			<Grid MaxWidth="400" >
-				<Grid.RowDefinitions>
-					<RowDefinition Height="auto"/>
-					<RowDefinition Height="*" />
-				</Grid.RowDefinitions>
-				<StackPanel>
-					<TextBlock TextWrapping="WrapWholeWords">See loaded cell information from </TextBlock>
-					<!--<StackPanel Orientation="Horizontal">
-						<TextBlock>Name:</TextBlock>
-						<TextBlock Text="{Binding Name}" Margin="5,0,0,0"/>
-					</StackPanel>
-					<StackPanel Orientation="Horizontal">
-						<TextBlock>Path:</TextBlock>
-						<TextBlock Text="{Binding Path}" Margin="5,0,0,0" MaxWidth="380" TextWrapping="Wrap"/>
-					</StackPanel>
-					<StackPanel Orientation="Horizontal">
-						<TextBlock>Agency:</TextBlock>
-						<TextBlock Text="{Binding Agency}" Margin="5,0,0,0"/>
-					</StackPanel>
-					<StackPanel Orientation="Horizontal">
-						<TextBlock>ExchangePurpose:</TextBlock>
-						<TextBlock Text="{Binding ExchangePurpose}" Margin="5,0,0,0"/>
-					</StackPanel>
-					<StackPanel Orientation="Horizontal">
-						<TextBlock>Intended Usage:</TextBlock>
-						<TextBlock Text="{Binding IntendedUsage}" Margin="5,0,0,0"/>
-					</StackPanel>
-					<StackPanel Orientation="Horizontal">
-						<TextBlock>Edition Number:</TextBlock>
-						<TextBlock Text="{Binding EditionNumber}" Margin="5,0,0,0"/>
-					</StackPanel>
-					<StackPanel Orientation="Horizontal">
-						<TextBlock>Update Number:</TextBlock>
-						<TextBlock Text="{Binding UpdateNumber}" Margin="5,0,0,0"/>
-					</StackPanel>
-					<StackPanel Orientation="Horizontal">
-						<TextBlock>Update Application Date:</TextBlock>
-						<TextBlock Text="{Binding UpdateApplicationDate}" Margin="5,0,0,0"/>
-					</StackPanel>
-					<StackPanel Orientation="Horizontal">
-						<TextBlock>Issue Date:</TextBlock>
-						<TextBlock Text="{Binding IssueDate}" Margin="5,0,0,0"/>
-					</StackPanel>
-					<StackPanel Orientation="Horizontal">
-						<TextBlock>Compilation Scale:</TextBlock>
-						<TextBlock Text="{Binding CompilationScale}" Margin="5,0,0,0"/>
-					</StackPanel>-->
-				</StackPanel>
-			</Grid>
+		<Border HorizontalAlignment="Stretch" Style="{StaticResource overlayBorderStyle}" Padding="30,20">
+			<TextBlock TextWrapping="WrapWholeWords"
+					   FontSize="14">Click Cell-button to see cell's that are loaded into map and their cell information.</TextBlock>
 		</Border>
 	</Grid>
 </Page>

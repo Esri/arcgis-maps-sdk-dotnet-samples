@@ -7,20 +7,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 {
@@ -45,7 +38,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 
 			// Collection of strings to hold the selected symbol dictionary keywords
 			SelectedKeywords = new ObservableCollection<string>();
-			_keywords = _symbolDictionary.Keywords.ToList();
+
+			// Remove any empty strings space from keywords
+			_keywords = _symbolDictionary.Keywords.OrderBy(k => k).ToList();
+			_keywords = _keywords.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct().ToList();
+
+			// Remove any empty strings space from categories
+			_categories = new[] { "" }.Concat(_symbolDictionary.Filters["CATEGORY"]);
+			Categories = _categories.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct();
 
 			// Collection of view models for the displayed list of symbols
 			Symbols = new ObservableCollection<SymbolViewModel>();
@@ -55,10 +55,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 			InitializeComponent();
 
 			// Set the image size
-			_imageSize = 40;
+			_imageSize = 64;
 
 			// Get reference to MessageLayer to use with messages
-			_messageLayer = mapView.Map.Layers.OfType<MessageLayer>().First();
+			_messageLayer = MyMapView.Map.Layers.OfType<MessageLayer>().First();
+
+			// Fire initial search to populate the results with all symbols
+			Search();
 		}
 
 		// Search results 
@@ -68,16 +71,27 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 		public ObservableCollection<string> SelectedKeywords { get; private set; }
 
 		// All keywords in alphabetical order
-		public IEnumerable<string> Keywords { get { return new[] { " " }.Concat(_keywords.OrderBy(k => k)); } }
+		public IEnumerable<string> Keywords
+		{
+			get { return _keywords; }
+			set
+			{
+				_keywords = value.ToList();
+				RaisePropertyChanged("Keywords");
+			}
+		}
 
-		// All style files used in symbol dictionary
-		public IEnumerable<string> StyleFiles { get { return new[] { " " }.Concat(_symbolDictionary.Filters["StyleFile"]); } }
-
-		// All categories used in symbol dictionary 
-		public IEnumerable<string> Categories { get { return new[] { " " }.Concat(_symbolDictionary.Filters["Category"]); } }
-
-		// All geometry types used in symbol dictionary
-		public IEnumerable<string> GeometryTypes { get { return new[] { " " }.Concat(_symbolDictionary.Filters["GeometryType"]); } }
+		// All categories used in symbol dictionary
+		private IEnumerable<string> _categories;
+		public IEnumerable<string> Categories
+		{
+			get { return _categories; }
+			set
+			{
+				_categories = value;
+				RaisePropertyChanged("Categories");
+			}
+		}
 
 		// SelectedChanged event handler for the ListBoxes
 		private void SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -102,7 +116,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 
 			var kw = cmbKeyword.SelectedValue.ToString();
 
-			// Add keyword to selected list if it's not already there
+			// Add keyword to selected list if it is not already there
 			if (SelectedKeywords.FirstOrDefault(s => s == kw) == null)
 				SelectedKeywords.Add(kw);
 			Search();
@@ -116,7 +130,15 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 				// Keep adding messages until next symbol is selected
 				while (true)
 				{
-					var geometry = await mapView.Editor.RequestShapeAsync(requestedShape, null, null);
+					Esri.ArcGISRuntime.Geometry.Geometry geometry = null;
+					try
+					{
+						geometry = await MyMapView.Editor.RequestShapeAsync(requestedShape, null, null);
+					}
+					catch { }
+					
+					if (geometry == null)
+						return;
 
 					// Create a new message
 					Message msg = new Message();
@@ -125,7 +147,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 					msg.Id = Guid.NewGuid().ToString();
 					msg.Add("_type", "position_report");
 					msg.Add("_action", "update");
-					msg.Add("_wkid", "3857");
+					msg.Add("_wkid", MyMapView.SpatialReference.Wkid.ToString());
 					msg.Add("sic", _selectedSymbol.SymbolID);
 					msg.Add("uniquedesignation", "1");
 
@@ -157,10 +179,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 						await new MessageDialog("Failed to process message.", "Symbol Dictionary Search Sample").ShowAsync();
 				}
 			}
-			catch (TaskCanceledException taskCanceledException)
-			{
-				// Requsting geometry was canceled.
-			}
 			catch (Exception ex)
 			{
 				var _ = new MessageDialog(ex.Message, "Symbol Dictionary Search Sample").ShowAsync();
@@ -176,22 +194,15 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 			_selectedSymbol = e.AddedItems[0] as SymbolViewModel;
 
 			Dictionary<string, string> values = (Dictionary<string, string>)_selectedSymbol.Model.Values;
-			string geometryControlType = values["GeometryConversionType"];
+			string geometryControlType = values["GeometryType"];
 			DrawShape requestedShape = DrawShape.Point;
 
-			// Note that not all Geometry types are handled here
 			switch (geometryControlType)
 			{
 				case "Point":
 					requestedShape = DrawShape.Point;
 					break;
-				case "Polyline":
-				case "PolylineWithTail":
-				case "TripleArrow":
-				case "ArrowWithOffset":
-				case "ParallelLinesMidline":
-				case "UOrTShape":
-				case "T":
+				case "Line":
 					requestedShape = DrawShape.Polyline;
 					break;
 				case "Polygon":
@@ -204,12 +215,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 					requestedShape = DrawShape.Rectangle;
 					break;
 				default:
-					await new MessageDialog("Selected symbol is not supported in this sample", "Symbol Dictionary Search Sample").ShowAsync();
+					var _ = new MessageDialog("Selected symbol is not supported in this sample", "Symbol Dictionary Search Sample").ShowAsync();
 					return;
 			}
 
 			// Enable adding symbols to the map
-			await AddSymbolAsync(requestedShape);
+			var addSymbolAsync = AddSymbolAsync(requestedShape);
 		}
 
 		// Function to search the symbol dictionary based on the selected value in the style file, category and/or geometry type ListBoxes
@@ -217,15 +228,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 		{
 			Dictionary<string, string> filters = new Dictionary<string, string>();
 
-			// Set filters if there is some selected
-			if (!string.IsNullOrEmpty((string)cmbStyleFile.SelectedValue))
-				filters["StyleFile"] = cmbStyleFile.SelectedValue.ToString();
-
+			// Set Category filter
 			if (!string.IsNullOrEmpty((string)cmbCategory.SelectedValue))
-				filters["Category"] = cmbCategory.SelectedValue.ToString();
-
-			if (!string.IsNullOrEmpty((string)cmbGeometryType.SelectedValue))
-				filters["GeometryType"] = cmbGeometryType.SelectedValue.ToString();
+				filters["CATEGORY"] = cmbCategory.SelectedValue.ToString();
 
 			// Clear the current Symbols collection
 			Symbols.Clear();
@@ -298,6 +303,16 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 			if (handler != null)
 				handler(this, new PropertyChangedEventArgs(name));
 		}
+
+		private void btnSearch_Click(object sender, RoutedEventArgs e)
+		{
+			IEnumerable<SymbolProperties> symbols = _symbolDictionary.FindSymbols(new List<string>() { txtSymbolName.Text });
+			if (symbols == null)
+				return;
+			Symbols.Clear();
+			foreach (var s in from symbol in symbols.ToList() select new SymbolViewModel(symbol, _imageSize))
+				Symbols.Add(s);
+		}
 	}
 
 	// Presents single symbol
@@ -325,11 +340,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 		public string SymbolID
 		{
 			get { return _model.Values["SymbolID"].ToString(); }
-		}
-
-		public string StyleFile
-		{
-			get { return _model.Values["StyleFile"].ToString(); }
 		}
 
 		public int ImageSize

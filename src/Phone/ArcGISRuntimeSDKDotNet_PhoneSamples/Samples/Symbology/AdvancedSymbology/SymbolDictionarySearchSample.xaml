@@ -29,7 +29,7 @@
 		</Style>
 	</Page.Resources>
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-		<esri:MapView x:Name="mapView">
+		<esri:MapView x:Name="MyMapView">
 			<esri:Map>
 				<lyr:ArcGISTiledMapServiceLayer ID="Basemap"
 					ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"/>

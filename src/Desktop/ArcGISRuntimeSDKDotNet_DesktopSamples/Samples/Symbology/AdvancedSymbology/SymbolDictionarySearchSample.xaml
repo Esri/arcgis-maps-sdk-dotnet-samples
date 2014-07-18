@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="800" d:DesignWidth="600">
 	<UserControl.Resources>
 		<Style x:Key="overlayBorderStyle" TargetType="Border">
 			<Setter Property="BorderBrush" Value="Black" />
@@ -20,7 +20,7 @@
 		</Style>
 	</UserControl.Resources>
     <Grid>
-		<esri:MapView x:Name="mapView">
+		<esri:MapView x:Name="MyMapView">
 			<esri:Map>
 				<esri:ArcGISTiledMapServiceLayer ID="Basemap"
 					ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"/>
@@ -59,11 +59,14 @@
 					<ColumnDefinition />
 				</Grid.ColumnDefinitions>
 
-				<Rectangle Fill="#FFFFFFFF" Stroke="DarkGray" Margin="5,25,5,0" 
-                           Grid.ColumnSpan="2" Grid.RowSpan="3"/>
+				<!--<Rectangle Fill="#FFFFFFFF" Stroke="DarkGray" Margin="5,25,5,0" 
+                           Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
 
+				<Rectangle Fill="#FFFFFFFF" Stroke="DarkGray" Margin="5,25,5,0" 
+                           Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
+				
 				<Rectangle Fill="#FFFFFFFF" Grid.Row="8" Stroke="DarkGray" Margin="5,0,5,10" 
-                           Grid.ColumnSpan="2" Grid.RowSpan="3"/>
+                           Grid.ColumnSpan="2" Grid.RowSpan="3"/>-->
 
 				<!-- Keywords -->
 				<TextBlock Text="Keywords:" 
@@ -72,7 +75,7 @@
 				<TextBlock Text="Keyword:" Margin="10,5,10,5" Grid.Row="1"/>
 				<ComboBox Name="cmbKeyword" SelectionChanged="KeywordSelectionChanged" 
 						  ItemsSource="{Binding Keywords}" 
-                          Width="280" Margin="5,5,5,0" 
+                           Margin="5,5,5,0" 
 						  Grid.Column="1" Grid.Row="1" />
 				<ListBox Name="lstKeywords" 
 						 ItemsSource="{Binding SelectedKeywords}"
@@ -96,33 +99,44 @@
 						   Style="{StaticResource headerTextBlockStyle}"
 						   Grid.Row="3" Grid.ColumnSpan="2"/>
 
-				<TextBlock Text="StyleFile:" Margin="10,5,5,5" Grid.Row="4"/>
+				<!--<TextBlock Text="StyleFile:" Margin="10,5,5,5" Grid.Row="4"/>
 				<ComboBox Name="cmbStyleFile" 
 						  ItemsSource="{Binding StyleFiles}" SelectionChanged="SelectionChanged" 
 						  Grid.Row="4" Grid.Column="1" 
-                          Width="280" Margin="5"/>
+                          Width="280" Margin="5"/>-->
 
 				<!-- Category -->
-				<TextBlock Text="Category:" Margin="10,5,5,5" Grid.Row="5"/>
+				<TextBlock Text="Category:" Margin="10,5,5,5" Grid.Row="4"/>
 				<ComboBox Name="cmbCategory" 
 						  ItemsSource="{Binding Categories}" SelectionChanged="SelectionChanged"  
-						  Grid.Row="5" Grid.Column="1" 
-                          Width="280" Margin="5"/>
+						  Grid.Row="4" Grid.Column="1" 
+                           Margin="5,5,5,0"/>
 
+				
 				<!-- Geometry type -->
-				<TextBlock Text="Geometry Type:" Margin="10,5,5,5" Grid.Row="6"/>
+				<!--<TextBlock Text="Geometry Type:" Margin="10,5,5,5" Grid.Row="6"/>
 				<ComboBox Name="cmbGeometryType" 
 						 ItemsSource="{Binding GeometryTypes}" SelectionChanged="SelectionChanged" 
                          Grid.Row="6" Grid.Column="1" 
-						 Width="280" Margin="5" />
+						 Width="280" Margin="5" />-->
+
+				<TextBlock Text="Symbol ID Search:" 
+						   Style="{StaticResource headerTextBlockStyle}"
+						   Grid.Row="5"  Grid.ColumnSpan="2"/>
+
+				<TextBlock Text="Symbol ID:" Margin="10,5,5,5" Grid.Row="6"/>
+					<TextBox Name="txtSymbolName"  
+                                  Margin="5,5,5,0" Grid.Row="6" Grid.Column="1"/>
+
+				<Button Name="btnSearch" Margin="5,5,5,0" Click="btnSearch_Click" Grid.Row="7" Grid.Column="1">Search</Button>
 
 				<!-- Results -->
 				<TextBlock Text="Symbol Results:" 
 						   Style="{StaticResource headerTextBlockStyle}"
-						   Grid.Row="7" Grid.ColumnSpan="2" />
-				<TextBlock Text="Symbols found:" Margin="10,5,10,5" Grid.Row="8" />
+						   Grid.Row="8" Grid.ColumnSpan="2" />
+				<TextBlock Text="Symbols found:" Margin="10,5,10,5" Grid.Row="9" />
 				<TextBlock Text="{Binding Symbols.Count}" 
-						   Margin="15,5,10,5" Grid.Row="8" Grid.Column="1" />
+						   Margin="15,5,10,5" Grid.Row="9" Grid.Column="1" />
 
 				<ListBox x:Name="SymbolListBox" 
 						 ItemsSource="{Binding Symbols}" SelectionChanged="SymbolListBox_SelectionChanged"
@@ -153,8 +167,8 @@
 										<TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Category}"/>
 										<TextBlock Text="Symbol ID:" Grid.Row="1" Grid.Column="0"/>
 										<TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding SymbolID}"/>
-										<TextBlock Text="Stylefile:" Grid.Row="2" Grid.Column="0"/>
-										<TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding StyleFile}"/>
+										<!--<TextBlock Text="Stylefile:" Grid.Row="2" Grid.Column="0"/>
+										<TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding StyleFile}"/>-->
 									</Grid>
 								</StackPanel>
 							</StackPanel>

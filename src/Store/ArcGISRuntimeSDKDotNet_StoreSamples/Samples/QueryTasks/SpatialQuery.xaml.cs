@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
+using System.Linq;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
@@ -66,7 +67,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 if (queryResult != null && queryResult.FeatureSet != null)
                 {
                     var resultLayer = mapView.Map.Layers["ResultsGraphicsLayer"] as GraphicsLayer;
-                    resultLayer.Graphics.AddRange(queryResult.FeatureSet.Features);
+                    resultLayer.Graphics.AddRange(queryResult.FeatureSet.Features.OfType<Graphic>());
                 }
             }
             catch (Exception ex)

@@ -6,6 +6,7 @@ using System;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI.Popups;
+using System.Linq;
 using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
@@ -65,7 +66,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     if (gpParameter is GPFeatureRecordSetLayer)
                     {
                         GPFeatureRecordSetLayer gpLayer = gpParameter as GPFeatureRecordSetLayer;
-                        r.Graphics.AddRange(gpLayer.FeatureSet.Features);
+                        r.Graphics.AddRange(gpLayer.FeatureSet.Features.OfType<Graphic>());
                     }
                 }
             }

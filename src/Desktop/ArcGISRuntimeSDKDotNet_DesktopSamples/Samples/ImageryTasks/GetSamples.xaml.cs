@@ -5,6 +5,7 @@ using Esri.ArcGISRuntime.Tasks.Query;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Linq;
 using System.Windows.Controls;
 
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
@@ -61,7 +62,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
                 var result = await queryTask.ExecuteAsync(query);
                 
-                graphicsLayer.Graphics.AddRange(result.FeatureSet.Features);
+                graphicsLayer.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
             }
             catch (Exception ex)
             {

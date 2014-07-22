@@ -86,7 +86,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var result = await queryTask.ExecuteAsync(query);
                 if (result.FeatureSet.Features != null && result.FeatureSet.Features.Count > 0)
                 {
-                    await CreateSubRegionLayerGraphics(result.FeatureSet.Features);
+                    await CreateSubRegionLayerGraphics(result.FeatureSet.Features.OfType<Graphic>());
                     resultsGrid.ItemsSource = graphicsLayer.Graphics;
                 }
             }

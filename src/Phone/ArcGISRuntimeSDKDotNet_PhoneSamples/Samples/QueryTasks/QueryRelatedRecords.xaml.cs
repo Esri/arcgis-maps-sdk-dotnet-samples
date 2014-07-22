@@ -43,7 +43,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 if (result.FeatureSet.Features != null && result.FeatureSet.Features.Count > 0)
                 {
                     ResultsGrid.ItemsSource = result.FeatureSet.Features;
-                    l.Graphics.AddRange(from g in result.FeatureSet.Features select g);
+                    l.Graphics.AddRange(from g in result.FeatureSet.Features.OfType<Graphic>() select g);
                 }
             }
             catch (Exception)

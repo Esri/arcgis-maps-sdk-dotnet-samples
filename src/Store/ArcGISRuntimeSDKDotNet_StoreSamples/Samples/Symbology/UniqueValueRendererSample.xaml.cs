@@ -80,7 +80,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             var result = await queryTask.ExecuteAsync(query);
 
             _states.Graphics.Clear();
-            _states.Graphics.AddRange(result.FeatureSet.Features);
+            _states.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
         }
 
         // Utility: Generate a random simple fill symbol

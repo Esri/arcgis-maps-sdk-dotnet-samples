@@ -56,7 +56,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology
 			_imageSize = 64;
 
 			// Get reference to MessageLayer to use with messages
-			_messageLayer = mapView.Map.Layers.OfType<MessageLayer>().First();
+			_messageLayer = MyMapView.Map.Layers.OfType<MessageLayer>().First();
 
 			// Fire initial search to populate the results with all symbols
 			Search();
@@ -132,7 +132,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology
 
 					try
 					{
-						geometry = await mapView.Editor.RequestShapeAsync(requestedShape, null, null);
+						geometry = await MyMapView.Editor.RequestShapeAsync(requestedShape, null, null);
 					}
 					catch { }
 
@@ -146,7 +146,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology
 					msg.Id = Guid.NewGuid().ToString();
 					msg.Add("_type", "position_report");
 					msg.Add("_action", "update");
-					msg.Add("_wkid", mapView.SpatialReference.Wkid.ToString());
+					msg.Add("_wkid", MyMapView.SpatialReference.Wkid.ToString());
 					msg.Add("sic", _selectedSymbol.SymbolID);
 					msg.Add("uniquedesignation", "1");
 

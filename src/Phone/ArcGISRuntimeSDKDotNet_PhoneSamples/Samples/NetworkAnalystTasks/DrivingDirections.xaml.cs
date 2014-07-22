@@ -72,8 +72,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var routeTaskResult = await routeTask.SolveAsync(routeParams);
                 _directionsFeatureSet = routeTaskResult.Routes.FirstOrDefault();
 
-                _directionsFeatureSet.RouteGraphic.Symbol = LayoutRoot.Resources["RouteSymbol"] as Esri.ArcGISRuntime.Symbology.Symbol;
-                routeLayer.Graphics.Add(_directionsFeatureSet.RouteGraphic);
+                (_directionsFeatureSet.RouteFeature as Graphic).Symbol = LayoutRoot.Resources["RouteSymbol"] as Esri.ArcGISRuntime.Symbology.Symbol;
+                routeLayer.Graphics.Add(_directionsFeatureSet.RouteFeature as Graphic);
 
                 var totalLength = _directionsFeatureSet.GetTotalLength(LinearUnits.Miles);
                 var calculatedLength = _directionsFeatureSet.RouteDirections.Sum(x => x.GetLength(LinearUnits.Miles));
@@ -103,7 +103,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     i++;
                 }
 
-                mapView1.SetView(_directionsFeatureSet.RouteGraphic.Geometry.Extent.Expand(1.2));
+                mapView1.SetView(_directionsFeatureSet.RouteFeature.Geometry.Extent.Expand(1.2));
             }
             catch (Exception ex)
             {
@@ -134,7 +134,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             if (_directionsFeatureSet != null)
             {
-                mapView1.SetView(_directionsFeatureSet.RouteGraphic.Geometry.Extent.Expand(0.6));
+                mapView1.SetView(_directionsFeatureSet.RouteFeature.Geometry.Extent.Expand(0.6));
             }
         }
 

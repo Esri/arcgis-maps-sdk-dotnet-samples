@@ -78,7 +78,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
 
                         foreach (var route in result.Routes)
-                            routeLayer.Graphics.Add(route.RouteGraphic);
+                            routeLayer.Graphics.Add(route.RouteFeature as Graphic);
 
                     }
                 }

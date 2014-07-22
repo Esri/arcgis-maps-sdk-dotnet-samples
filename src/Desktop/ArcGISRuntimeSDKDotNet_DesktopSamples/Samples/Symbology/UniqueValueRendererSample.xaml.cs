@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Symbology;
+﻿using Esri.ArcGISRuntime.Layers;
+using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
 using System.Collections.Generic;
@@ -76,7 +77,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             var result = await queryTask.ExecuteAsync(query);
 
             states.Graphics.Clear();
-            states.Graphics.AddRange(result.FeatureSet.Features);
+            states.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
         }
 
         // Utility: Generate a random simple fill symbol

@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Symbology;
+﻿using Esri.ArcGISRuntime.Layers;
+using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Linq;
 
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
@@ -75,7 +77,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             var result = await queryTask.ExecuteAsync(query);
 
             earthquakes.Graphics.Clear();
-            earthquakes.Graphics.AddRange(result.FeatureSet.Features);
+            earthquakes.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
         }
 
         // Utility: Generate a random simple marker symbol

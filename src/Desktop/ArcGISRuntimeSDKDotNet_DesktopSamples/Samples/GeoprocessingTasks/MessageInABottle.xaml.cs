@@ -4,6 +4,7 @@ using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Linq;
 
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
@@ -51,7 +52,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     if (gpParameter is GPFeatureRecordSetLayer)
                     {
                         GPFeatureRecordSetLayer gpLayer = gpParameter as GPFeatureRecordSetLayer;
-                        ResultLayer.Graphics.AddRange(gpLayer.FeatureSet.Features);
+                        ResultLayer.Graphics.AddRange(gpLayer.FeatureSet.Features.OfType<Graphic>());
                     }
                 }
             }

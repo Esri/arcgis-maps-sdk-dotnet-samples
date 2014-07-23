@@ -5,6 +5,7 @@ using System;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
+using System.Linq;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
@@ -95,7 +96,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var result = await queryTask.ExecuteAsync(query);
 
                 _parcelLayer.Graphics.Clear();
-                _parcelLayer.Graphics.AddRange(result.FeatureSet.Features);
+                _parcelLayer.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
             }
             catch (Exception ex)
             {

@@ -8,20 +8,11 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Popups;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology
 {
@@ -41,20 +32,25 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology
 		public SymbolDictionarySearchSample()
 		{
 			InitializeComponent();
+
 			// Create a new SymbolDictionary instance 
 			_symbolDictionary = new SymbolDictionary(SymbolDictionaryType.Mil2525c);
-			_keywords = _symbolDictionary.Keywords.ToList();
+
+			// Remove any empty strings space from keywords
+			_keywords = _symbolDictionary.Keywords.OrderBy(k => k).ToList();
+			_keywords = _keywords.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct().ToList();
 
 			// Collection of view models for the displayed list of symbols
 			Symbols = new ObservableCollection<SymbolViewModel>();
 
 			// Set the DataContext for binding
 			DataContext = this;
+			
 			// Set the image size
-			_imageSize = 40;
+			_imageSize = 64;
 
 			// Get reference to MessageLayer to use with messages
-			_messageLayer = mapView.Map.Layers.OfType<MessageLayer>().First();
+			_messageLayer = MyMapView.Map.Layers.OfType<MessageLayer>().First();
 		}
 
 		// Search results 
@@ -69,7 +65,7 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology
 				if (_selectedKeyword == value)
 					return;
 				_selectedKeyword = value;
-				Search(_selectedKeyword);
+				Search();
 				RaisePropertyChanged("SelectedKeyword"); }
 		}
 
@@ -83,110 +79,106 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology
 				if (_selectedSymbol == value)
 					return;
 				_selectedSymbol = value;
-				var _ = DrawSymbolAsync(_selectedSymbol);
+				var _ = AddSymbolAsync(_selectedSymbol);
 				RaisePropertyChanged("SelectedSymbol");
 			}
 		}
 
 		// All keywords in alphabetical order
-		public IEnumerable<string> Keywords { get { return new[] { " " }.Concat(_keywords.OrderBy(k => k)); } }
+		public IEnumerable<string> Keywords
+		{
+			get { return _keywords; }
+			set
+			{
+				_keywords = value.ToList();
+				RaisePropertyChanged("Keywords");
+			}
+		}
 
 		// Request geometry and new message to the layer
-		private async Task AddSymbolAsync(DrawShape requestedShape)
+		private async Task AddSymbolAsync(SymbolViewModel symbolViewModel)
 		{
 			try
 			{
-				// Keep adding messages until next symbol is selected
-				while (true)
+				Dictionary<string, string> values = (Dictionary<string, string>)symbolViewModel.Model.Values;
+				string geometryControlType = values["GeometryType"];
+				DrawShape requestedShape = DrawShape.Point;
+
+				switch (geometryControlType)
 				{
-					var geometry = await mapView.Editor.RequestShapeAsync(requestedShape, null, null);
-
-					// Create a new message
-					Message msg = new Message();
-
-					// Set the ID and other parts of the message
-					msg.Id = Guid.NewGuid().ToString();
-					msg.Add("_type", "position_report");
-					msg.Add("_action", "update");
-					msg.Add("_wkid", "3857");
-					msg.Add("sic", _selectedSymbol.SymbolID);
-					msg.Add("uniquedesignation", "1");
-
-					// Construct the Control Points based on the geometry type of the drawn geometry.
-					switch (requestedShape)
-					{
-						case DrawShape.Point:
-							MapPoint point = geometry as MapPoint;
-							msg.Add("_control_points", point.X.ToString(CultureInfo.InvariantCulture) + "," + point.Y.ToString(CultureInfo.InvariantCulture));
-							break;
-						case DrawShape.Polygon:
-							Polygon polygon = geometry as Polygon;
-							string cpts = string.Empty;
-							foreach (var pt in polygon.Parts[0])
-								cpts += ";" + pt.X.ToString(CultureInfo.InvariantCulture) + "," + pt.Y.ToString(CultureInfo.InvariantCulture);
-							msg.Add("_control_points", cpts);
-							break;
-						case DrawShape.Polyline:
-							Polyline polyline = geometry as Polyline;
-							cpts = string.Empty;
-							foreach (var pt in polyline.Parts[0])
-								cpts += ";" + pt.X.ToString(CultureInfo.InvariantCulture) + "," + pt.Y.ToString(CultureInfo.InvariantCulture);
-							msg.Add("_control_points", cpts);
-							break;
-					}
-
-					// Process the message
-					if (!_messageLayer.ProcessMessage(msg))
-						await new MessageDialog("Failed to process message.", "Symbol Dictionary Search Sample").ShowAsync();
+					case "Point":
+						requestedShape = DrawShape.Point;
+						break;
+					case "Line":
+						requestedShape = DrawShape.Polyline;
+						break;
+					case "Polygon":
+						requestedShape = DrawShape.Polygon;
+						break;
+					case "Circle":
+						requestedShape = DrawShape.Circle;
+						break;
+					case "Rectangular":
+						requestedShape = DrawShape.Rectangle;
+						break;
+					default:
+						await new MessageDialog("Selected symbol is not supported in this sample", "Symbol Dictionary Search Sample").ShowAsync();
+						return;
 				}
-			}
-			catch (TaskCanceledException taskCanceledException)
-			{
-				// Requsting geometry was canceled.
+
+				Esri.ArcGISRuntime.Geometry.Geometry geometry = null;
+
+				try
+				{
+					geometry = await MyMapView.Editor.RequestShapeAsync(requestedShape, null, null);
+				}
+				catch { }
+
+				if (geometry == null)
+					return;
+
+				// Create a new message
+				Message msg = new Message();
+
+				// Set the ID and other parts of the message
+				msg.Id = Guid.NewGuid().ToString();
+				msg.Add("_type", "position_report");
+				msg.Add("_action", "update");
+				msg.Add("_wkid", MyMapView.SpatialReference.Wkid.ToString());
+				msg.Add("sic", _selectedSymbol.SymbolID);
+				msg.Add("uniquedesignation", "1");
+
+				// Construct the Control Points based on the geometry type of the drawn geometry.
+				switch (requestedShape)
+				{
+					case DrawShape.Point:
+						MapPoint point = geometry as MapPoint;
+						msg.Add("_control_points", point.X.ToString(CultureInfo.InvariantCulture) + "," + point.Y.ToString(CultureInfo.InvariantCulture));
+						break;
+					case DrawShape.Polygon:
+						Polygon polygon = geometry as Polygon;
+						string cpts = string.Empty;
+						foreach (var pt in polygon.Parts[0])
+							cpts += ";" + pt.X.ToString(CultureInfo.InvariantCulture) + "," + pt.Y.ToString(CultureInfo.InvariantCulture);
+						msg.Add("_control_points", cpts);
+						break;
+					case DrawShape.Polyline:
+						Polyline polyline = geometry as Polyline;
+						cpts = string.Empty;
+						foreach (var pt in polyline.Parts[0])
+							cpts += ";" + pt.X.ToString(CultureInfo.InvariantCulture) + "," + pt.Y.ToString(CultureInfo.InvariantCulture);
+						msg.Add("_control_points", cpts);
+						break;
+				}
+
+				// Process the message
+				if (!_messageLayer.ProcessMessage(msg))
+					await new MessageDialog("Failed to process message.", "Symbol Dictionary Search Sample").ShowAsync();
 			}
 			catch (Exception ex)
 			{
 				var _ = new MessageDialog(ex.Message, "Symbol Dictionary Search Sample").ShowAsync();
 			}
-		}
-
-		private async Task DrawSymbolAsync(SymbolViewModel symbolViewModel)
-		{
-			Dictionary<string, string> values = (Dictionary<string, string>)_selectedSymbol.Model.Values;
-			string geometryControlType = values["GeometryConversionType"];
-			DrawShape requestedShape = DrawShape.Point;
-
-			// Note that not all Geometry types are handled here
-			switch (geometryControlType)
-			{
-				case "Point":
-					requestedShape = DrawShape.Point;
-					break;
-				case "Polyline":
-				case "PolylineWithTail":
-				case "TripleArrow":
-				case "ArrowWithOffset":
-				case "ParallelLinesMidline":
-				case "UOrTShape":
-				case "T":
-					requestedShape = DrawShape.Polyline;
-					break;
-				case "Polygon":
-					requestedShape = DrawShape.Polygon;
-					break;
-				case "Circle":
-					requestedShape = DrawShape.Circle;
-					break;
-				case "Rectangular":
-					requestedShape = DrawShape.Rectangle;
-					break;
-				default:
-					await new MessageDialog("Selected symbol is not supported in this sample", "Symbol Dictionary Search Sample").ShowAsync();
-					return;
-			}
-
-			// Enable adding symbols to the map
-			await AddSymbolAsync(requestedShape);
 		}
 
 		// Sets the currently selected symbol
@@ -197,45 +189,12 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology
 
 			_selectedSymbol = e.AddedItems[0] as SymbolViewModel;
 
-			Dictionary<string, string> values = (Dictionary<string, string>)_selectedSymbol.Model.Values;
-			string geometryControlType = values["GeometryConversionType"];
-			DrawShape requestedShape = DrawShape.Point;
+			var _ = AddSymbolAsync(_selectedSymbol);
 
-			// Note that not all Geometry types are handled here
-			switch (geometryControlType)
-			{
-				case "Point":
-					requestedShape = DrawShape.Point;
-					break;
-				case "Polyline":
-				case "PolylineWithTail":
-				case "TripleArrow":
-				case "ArrowWithOffset":
-				case "ParallelLinesMidline":
-				case "UOrTShape":
-				case "T":
-					requestedShape = DrawShape.Polyline;
-					break;
-				case "Polygon":
-					requestedShape = DrawShape.Polygon;
-					break;
-				case "Circle":
-					requestedShape = DrawShape.Circle;
-					break;
-				case "Rectangular":
-					requestedShape = DrawShape.Rectangle;
-					break;
-				default:
-					await new MessageDialog("Selected symbol is not supported in this sample", "Symbol Dictionary Search Sample").ShowAsync();
-					return;
-			}
-
-			// Enable adding symbols to the map
-			await AddSymbolAsync(requestedShape);
 		}
 
 		// Function to search the symbol dictionary based on the selected value in the style file, category and/or geometry type ListBoxes
-		private void Search(string keyword)
+		private void Search()
 		{
 			// Create empty filter dictionary, not used
 			Dictionary<string, string> filters = new Dictionary<string, string>();
@@ -243,18 +202,30 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology
 			// Clear the current Symbols collection
 			Symbols.Clear();
 
-			// Perform the search applying any selected keywords and filters 
-			
-			IEnumerable<SymbolProperties> symbols = _symbolDictionary.FindSymbols(new List<string>() { keyword}, filters);
+			// Perform the search applying any selected keywords
+			IEnumerable<SymbolProperties> symbols = _symbolDictionary.FindSymbols(new List<string>() { _selectedKeyword });
 			
 			var allSymbols = symbols.ToList();
 
+			// Update the list of applicable keywords (excluding any keywords that are not on the current result set)
+			if (SelectedKeyword == null)
+			{
+				_keywords = _symbolDictionary.Keywords.ToList().Where(k => !IsSymbolId(k)).ToList();
+			}
+			else
+			{
+				IEnumerable<string> allSymbolKeywords = allSymbols.SelectMany(s => s.Keywords);
+				_keywords = allSymbolKeywords.Distinct()
+					.Except(new List<string>(){SelectedKeyword})
+					.Where(k => !IsSymbolId(k))
+					.ToList();
+			}
+
 			RaisePropertyChanged("Keywords");
-			Debug.WriteLine(DateTime.Now);
+
 			// Add symbols to UI collection
 			foreach (var s in from symbol in allSymbols select new SymbolViewModel(symbol, _imageSize))
 				Symbols.Add(s);
-			Debug.WriteLine(DateTime.Now);
 		}
 
 		// Do not add keywords which represent a single symbol to the Keywords list.
@@ -328,11 +299,6 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology
 		public string SymbolID
 		{
 			get { return _model.Values["SymbolID"].ToString(); }
-		}
-
-		public string StyleFile
-		{
-			get { return _model.Values["StyleFile"].ToString(); }
 		}
 
 		public int ImageSize

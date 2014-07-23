@@ -96,7 +96,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 {
                     _routeGraphicsLayer.Graphics.Clear();
 
-                    var route = routeResult.Routes.First().RouteGraphic;
+                    var route = routeResult.Routes.First().RouteFeature;
                     _routeGraphicsLayer.Graphics.Add(new Graphic(route.Geometry));
                 }
             }

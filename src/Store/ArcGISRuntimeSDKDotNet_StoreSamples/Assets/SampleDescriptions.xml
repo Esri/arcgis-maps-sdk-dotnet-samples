@@ -552,6 +552,14 @@
         <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FindTaskSample.#ctor">
             <summary>Construct Find sample control</summary>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.MessageProcessingSample">
+            <summary>
+            Sample shows how to read and process Mil2525C message data from XML file. 
+            </summary>
+            <title>Message Processor</title>
+            <category>Symbology</category>
+            <subcategory>Advanced</subcategory>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbology.S57CellInfoSample">
             <summary>
             This sample demonstrates adding and removing S-57 cells from an HydrographicS57Layer in the Map and accessing the Dataset Identification (DSID) metadata of those S-57 cells. The DSID metadata Provides information regarding the dataset's source and the product specification it is part of.
@@ -583,6 +591,14 @@
             <title>S57 Search </title>
             <category>Symbology</category>
             <subcategory>Advanced</subcategory>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.SymbolDictionarySearchSample">
+            <summary>
+            Sample shows how to use search the Mil2525C symbol dictionary.
+            </summary>
+            <title>Symbol Dictionary Search</title>
+            <category>Symbology</category>
+            <subcategory>Advanced</subcategory>	
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ClassBreaksRendererSample">
             <summary>
@@ -642,14 +658,6 @@
         <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.MarkerSymbols.#ctor">
             <summary>Construct Marker Symbols sample control</summary>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.MessageProcessingSample">
-            <summary>
-            Sample shows how to read and process Mil2525C message data from XML file. 
-            </summary>
-            <title>Message Processor</title>
-            <category>Symbology</category>
-            <subcategory>Advanced</subcategory>
-        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SimpleRendererSample">
             <summary>
             Shows how to create a SimpleRenderer for a graphics layer in XAML and code.
@@ -659,14 +667,6 @@
         </member>
         <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SimpleRendererSample.#ctor">
             <summary>Construct Simple Renderer sample control</summary>
-        </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.SymbolDictionarySearchSample">
-            <summary>
-            Sample shows how to use search the Mil2525C symbol dictionary.
-            </summary>
-            <title>Symbol Dictionary Search</title>
-            <category>Symbology</category>
-            <subcategory>Advanced</subcategory>	
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SymbolsAndLabels">
             <summary>

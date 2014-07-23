@@ -278,6 +278,9 @@
     <Compile Include="Samples\QueryTasks\FindTaskSample.xaml.cs">
       <DependentUpon>FindTaskSample.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Symbology\AdvancedSymbology\MessageProcessingSample.xaml.cs">
+      <DependentUpon>MessageProcessingSample.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Symbology\AdvancedSymbology\S57CellInfoSample.xaml.cs">
       <DependentUpon>S57CellInfoSample.xaml</DependentUpon>
     </Compile>
@@ -289,6 +292,9 @@
     </Compile>
     <Compile Include="Samples\Symbology\AdvancedSymbology\S57SearchSample.xaml.cs">
       <DependentUpon>S57SearchSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\AdvancedSymbology\SymbolDictionarySearchSample.xaml.cs">
+      <DependentUpon>SymbolDictionarySearchSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Symbology\ClassBreaksRendererSample.xaml.cs">
       <DependentUpon>ClassBreaksRendererSample.xaml</DependentUpon>
@@ -302,14 +308,8 @@
     <Compile Include="Samples\Symbology\MarkerSymbols.xaml.cs">
       <DependentUpon>MarkerSymbols.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Symbology\MessageProcessingSample.xaml.cs">
-      <DependentUpon>MessageProcessingSample.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Samples\Symbology\SimpleRendererSample.xaml.cs">
       <DependentUpon>SimpleRendererSample.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Symbology\SymbolDictionarySearchSample.xaml.cs">
-      <DependentUpon>SymbolDictionarySearchSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Symbology\SymbolsAndLabels.xaml.cs">
       <DependentUpon>SymbolsAndLabels.xaml</DependentUpon>
@@ -449,11 +449,21 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="ArcGISRuntimeSDKDotNet_StoreSamples_TemporaryKey.pfx" />
-    <Content Include="Resources\Mil2525c\messagetypes\Chemlight.json" />
-    <Content Include="Resources\Mil2525c\messagetypes\PositionReport.json" />
-    <Content Include="Resources\Mil2525c\messagetypes\SpotReport.json" />
-    <Content Include="Resources\Mil2525c\mil2525c.dat" />
-    <Content Include="Resources\hydrographic_s57\hydrographic_s57.dat" />
+    <Content Include="Resources\Mil2525c\messagetypes\Chemlight.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Mil2525c\messagetypes\PositionReport.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Mil2525c\messagetypes\SpotReport.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Mil2525c\mil2525c.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\hydrographic_s57\hydrographic_s57.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Logo.scale-100.png" />
@@ -703,6 +713,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Symbology\AdvancedSymbology\MessageProcessingSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Symbology\AdvancedSymbology\S57CellInfoSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -716,6 +730,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Symbology\AdvancedSymbology\S57SearchSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\AdvancedSymbology\SymbolDictionarySearchSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -735,17 +753,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Symbology\MessageProcessingSample.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Samples\Symbology\SimpleRendererSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Symbology\SymbolDictionarySearchSample.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\Symbology\SymbolsAndLabels.xaml">
       <Generator>MSBuild:Compile</Generator>

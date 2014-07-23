@@ -91,7 +91,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     throw new Exception("No route could be calculated");
 
                 var route = routeResult.Routes.First();
-                _routesLayer.Graphics.Add(new Graphic(route.RouteGraphic.Geometry));
+                _routesLayer.Graphics.Add(new Graphic(route.RouteFeature.Geometry));
 
                 _directionsLayer.GraphicsSource = route.RouteDirections.Select(rd => GraphicFromRouteDirection(rd));
 
@@ -99,7 +99,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var totalLength = route.RouteDirections.Select(rd => rd.GetLength(LinearUnits.Miles)).Sum();
                 txtRouteTotals.Text = string.Format("Time: {0:h':'mm':'ss} / Length: {1:0.00} mi", totalTime, totalLength);
 
-                await mapView.SetViewAsync(route.RouteGraphic.Geometry.Extent.Expand(1.25));
+                await mapView.SetViewAsync(route.RouteFeature.Geometry.Extent.Expand(1.25));
             }
             catch (AggregateException ex)
             {

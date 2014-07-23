@@ -9,6 +9,7 @@ using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
+
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
@@ -109,7 +110,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             var result = await queryTask.ExecuteAsync(query);
 
             _graphicsLayer.Graphics.Clear();
-            _graphicsLayer.Graphics.AddRange(result.FeatureSet.Features);
+            _graphicsLayer.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
         }
 
         // Accept user click point and select the underlying target polygon

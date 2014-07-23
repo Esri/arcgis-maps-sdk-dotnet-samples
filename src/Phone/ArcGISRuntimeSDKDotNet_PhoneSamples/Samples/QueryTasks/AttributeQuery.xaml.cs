@@ -76,7 +76,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 {
                     var symbol = LayoutRoot.Resources["DefaultFillSymbol"] as Esri.ArcGISRuntime.Symbology.Symbol;
                     var g = featureSet.Features[0];
-                    graphicsLayer.Graphics.Add(g);
+                    graphicsLayer.Graphics.Add(g as Graphic);
                     var selectedFeatureExtent = g.Geometry.Extent;
                     Envelope displayExtent = selectedFeatureExtent.Expand(1.3);
                     mapView1.SetView(displayExtent);

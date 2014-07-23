@@ -52,17 +52,17 @@
 							<TextBox
 								Header="Shallow contour (meters)"
 								Margin="5"
-								Text="{Binding Path=ShallowContourMeters}" 
+								Text="{Binding Path=ShallowContourMeters, Mode=TwoWay}" 
 								InputScope="Number"/>
 							<TextBox 
 								Header="Safety contour (meters)"
 								Margin="5"
-								Text="{Binding Path=SafetyContourMeters}" 
+								Text="{Binding Path=SafetyContourMeters, Mode=TwoWay}" 
 								InputScope="Number"/>
 							<TextBox 
 								Header="Deep contours (meters)"
 								Margin="5"
-								Text="{Binding Path=DeepContourMeters}"
+								Text="{Binding Path=DeepContourMeters, Mode=TwoWay}"
 								InputScope="Number"/>
 						</StackPanel>
 					</Flyout>
@@ -73,21 +73,21 @@
 				<Button.Flyout>
 					<MenuFlyout>
 						<ToggleMenuFlyoutItem Text="Important Text" 
-											  IsChecked="{Binding Path=TextGroupProperties.ImportantText}" />
+											  IsChecked="{Binding Path=TextGroupProperties.ImportantText, Mode=TwoWay}" />
 						<ToggleMenuFlyoutItem Text="Light Descriptions" 
-											  IsChecked="{Binding Path=TextGroupProperties.LightDescriptionString}" />
+											  IsChecked="{Binding Path=TextGroupProperties.LightDescriptionString, Mode=TwoWay}" />
 						<ToggleMenuFlyoutItem Text="Nature Of Seabed" 
-											  IsChecked="{Binding Path=TextGroupProperties.NatureOfSeabed}" />
+											  IsChecked="{Binding Path=TextGroupProperties.NatureOfSeabed, Mode=TwoWay}" />
 						<ToggleMenuFlyoutItem Text="Magnetic Variation And Swept Depth" 
-											  IsChecked="{Binding Path=TextGroupProperties.MagneticVariationAndSweptDepth}" />
+											  IsChecked="{Binding Path=TextGroupProperties.MagneticVariationAndSweptDepth, Mode=TwoWay}" />
 						<ToggleMenuFlyoutItem Text="Names For Position Reporting" 
-											  IsChecked="{Binding Path=TextGroupProperties.NamesForPositionReporting}" />
+											  IsChecked="{Binding Path=TextGroupProperties.NamesForPositionReporting, Mode=TwoWay}" />
 						<ToggleMenuFlyoutItem Text="Notes On Chart Data" 
-											  IsChecked="{Binding Path=TextGroupProperties.NoteOnChartData}" />
+											  IsChecked="{Binding Path=TextGroupProperties.NoteOnChartData, Mode=TwoWay}" />
 						<ToggleMenuFlyoutItem Text="Geographic Names" 
-											  IsChecked="{Binding Path=TextGroupProperties.GeographicNames}" />
+											  IsChecked="{Binding Path=TextGroupProperties.GeographicNames, Mode=TwoWay}" />
 						<ToggleMenuFlyoutItem Text="Berth Number" 
-											  IsChecked="{Binding Path=TextGroupProperties.BerthNumber}" />
+											  IsChecked="{Binding Path=TextGroupProperties.BerthNumber, Mode=TwoWay}" />
 					</MenuFlyout>
 				</Button.Flyout>
 			</AppBarButton>
@@ -95,25 +95,25 @@
 			<AppBarButton Icon="View" Label="View groups">
 				<Button.Flyout>
 					<MenuFlyout>
-						<ToggleMenuFlyoutItem Text="Unknown objects" IsChecked="{Binding Path=ViewGroupProperties.UnknownObjects}" />
-						<ToggleMenuFlyoutItem Text="Chart data coverage" IsChecked="{Binding Path=ViewGroupProperties.ChartDataCoverage}" />
-						<ToggleMenuFlyoutItem Text="Standard land areas" IsChecked="{Binding Path=ViewGroupProperties.StandardLandAreas}" />
-						<ToggleMenuFlyoutItem Text="Area Of depth less than safety contour" IsChecked="{Binding Path=ViewGroupProperties.AreaOfDepthLessThanSafetyContour}" />
-						<ToggleMenuFlyoutItem Text="Water and seabed features" IsChecked="{Binding Path=ViewGroupProperties.WaterAndSeabedFeatures}" />
-						<ToggleMenuFlyoutItem Text="Traffic routes" IsChecked="{Binding Path=ViewGroupProperties.TrafficRoutes}" />
-						<ToggleMenuFlyoutItem Text="Cautionary areas" IsChecked="{Binding Path=ViewGroupProperties.CautionaryAreas}" />
-						<ToggleMenuFlyoutItem Text="Information areas" IsChecked="{Binding Path=ViewGroupProperties.InformationAreas}" />
-						<ToggleMenuFlyoutItem Text="Buoys and beacons" IsChecked="{Binding Path=ViewGroupProperties.BuoysAndBeacons}" />
-						<ToggleMenuFlyoutItem Text="Lights" IsChecked="{Binding Path=Lights}" />
-						<ToggleMenuFlyoutItem Text="Fog signals" IsChecked="{Binding Path=ViewGroupProperties.FogSignals}" />
-						<ToggleMenuFlyoutItem Text="Radar" IsChecked="{Binding Path=ViewGroupProperties.Radar}" />
-						<ToggleMenuFlyoutItem Text="Services" IsChecked="{Binding Path=ViewGroupProperties.Services}" />
-						<ToggleMenuFlyoutItem Text="Information about chart data" IsChecked="{Binding Path=ViewGroupProperties.InformationAboutChartData}" />
-						<ToggleMenuFlyoutItem Text="Other land areas" IsChecked="{Binding Path=ViewGroupProperties.OtherLandAreas}" />
-						<ToggleMenuFlyoutItem Text="Soundings" IsChecked="{Binding Path=ViewGroupProperties.Soundings}" />
-						<ToggleMenuFlyoutItem Text="Depth contours currents magnetics" IsChecked="{Binding Path=ViewGroupProperties.DepthContoursCurrentsMagnetics}" />
-						<ToggleMenuFlyoutItem Text="Seabed and obstructions" IsChecked="{Binding Path=ViewGroupProperties.SeabedAndObstructions}" />
-						<ToggleMenuFlyoutItem Text="Services and small craft facilities" IsChecked="{Binding Path=ViewGroupProperties.ServicesAndSmallCraftFacilities}" />
+						<ToggleMenuFlyoutItem Text="Unknown objects" IsChecked="{Binding Path=ViewGroupProperties.UnknownObjects, Mode=TwoWay}" />
+						<ToggleMenuFlyoutItem Text="Chart data coverage" IsChecked="{Binding Path=ViewGroupProperties.ChartDataCoverage, Mode=TwoWay}" />
+						<ToggleMenuFlyoutItem Text="Standard land areas" IsChecked="{Binding Path=ViewGroupProperties.StandardLandAreas, Mode=TwoWay}" />
+						<ToggleMenuFlyoutItem Text="Area Of depth less than safety contour" IsChecked="{Binding Path=ViewGroupProperties.AreaOfDepthLessThanSafetyContour, Mode=TwoWay}" />
+						<ToggleMenuFlyoutItem Text="Water and seabed features" IsChecked="{Binding Path=ViewGroupProperties.WaterAndSeabedFeatures, Mode=TwoWay}" />
+						<ToggleMenuFlyoutItem Text="Traffic routes" IsChecked="{Binding Path=ViewGroupProperties.TrafficRoutes, Mode=TwoWay}" />
+						<ToggleMenuFlyoutItem Text="Cautionary areas" IsChecked="{Binding Path=ViewGroupProperties.CautionaryAreas, Mode=TwoWay}" />
+						<ToggleMenuFlyoutItem Text="Information areas" IsChecked="{Binding Path=ViewGroupProperties.InformationAreas, Mode=TwoWay}" />
+						<ToggleMenuFlyoutItem Text="Buoys and beacons" IsChecked="{Binding Path=ViewGroupProperties.BuoysAndBeacons, Mode=TwoWay}" />
+						<ToggleMenuFlyoutItem Text="Lights" IsChecked="{Binding Path=Lights, Mode=TwoWay}" />
+						<ToggleMenuFlyoutItem Text="Fog signals" IsChecked="{Binding Path=ViewGroupProperties.FogSignals, Mode=TwoWay}" />
+						<ToggleMenuFlyoutItem Text="Radar" IsChecked="{Binding Path=ViewGroupProperties.Radar, Mode=TwoWay}" />
+						<ToggleMenuFlyoutItem Text="Services" IsChecked="{Binding Path=ViewGroupProperties.Services, Mode=TwoWay}" />
+						<ToggleMenuFlyoutItem Text="Information about chart data" IsChecked="{Binding Path=ViewGroupProperties.InformationAboutChartData, Mode=TwoWay}" />
+						<ToggleMenuFlyoutItem Text="Other land areas" IsChecked="{Binding Path=ViewGroupProperties.OtherLandAreas, Mode=TwoWay}" />
+						<ToggleMenuFlyoutItem Text="Soundings" IsChecked="{Binding Path=ViewGroupProperties.Soundings, Mode=TwoWay}" />
+						<ToggleMenuFlyoutItem Text="Depth contours currents magnetics" IsChecked="{Binding Path=ViewGroupProperties.DepthContoursCurrentsMagnetics, Mode=TwoWay}" />
+						<ToggleMenuFlyoutItem Text="Seabed and obstructions" IsChecked="{Binding Path=ViewGroupProperties.SeabedAndObstructions, Mode=TwoWay}" />
+						<ToggleMenuFlyoutItem Text="Services and small craft facilities" IsChecked="{Binding Path=ViewGroupProperties.ServicesAndSmallCraftFacilities, Mode=TwoWay}" />
 					</MenuFlyout>
 				</Button.Flyout>
 			</AppBarButton>

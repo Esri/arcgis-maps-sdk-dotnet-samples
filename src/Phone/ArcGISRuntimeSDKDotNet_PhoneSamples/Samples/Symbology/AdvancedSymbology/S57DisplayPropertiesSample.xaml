@@ -61,17 +61,17 @@
 							<TextBox
 								Header="Shallow contour (meters)"
 								Margin="5"
-								Text="{Binding Path=ShallowContourMeters}" 
+								Text="{Binding Path=ShallowContourMeters, Mode=TwoWay}" 
 								InputScope="Number"/>
 							<TextBox 
 								Header="Safety contour (meters)"
 								Margin="5"
-								Text="{Binding Path=SafetyContourMeters}" 
+								Text="{Binding Path=SafetyContourMeters, Mode=TwoWay}" 
 								InputScope="Number"/>
 							<TextBox 
 								Header="Deep contours (meters)"
 								Margin="5"
-								Text="{Binding Path=DeepContourMeters}"
+								Text="{Binding Path=DeepContourMeters, Mode=TwoWay}"
 								InputScope="Number"/>
 						</StackPanel>
 					</Flyout>
@@ -87,28 +87,28 @@
 								<StackPanel>
 									<ToggleSwitch Header="Important Text"
 										  Margin="5,0"
-										  IsOn="{Binding Path=TextGroupProperties.ImportantText}" />
+										  IsOn="{Binding Path=TextGroupProperties.ImportantText, Mode=TwoWay}" />
 									<ToggleSwitch Header="Light Descriptions" 
 										  Margin="5,0"
-										  IsOn="{Binding Path=TextGroupProperties.LightDescriptionString}" />
+										  IsOn="{Binding Path=TextGroupProperties.LightDescriptionString, Mode=TwoWay}" />
 									<ToggleSwitch Header="Nature Of Seabed" 
 										  Margin="5,0"
-										  IsOn="{Binding Path=TextGroupProperties.NatureOfSeabed}" />
+										  IsOn="{Binding Path=TextGroupProperties.NatureOfSeabed, Mode=TwoWay}" />
 									<ToggleSwitch Header="Magnetic Variation And Swept Depth" 
 										  Margin="5,0"
-										  IsOn="{Binding Path=TextGroupProperties.MagneticVariationAndSweptDepth}" />
+										  IsOn="{Binding Path=TextGroupProperties.MagneticVariationAndSweptDepth, Mode=TwoWay}" />
 									<ToggleSwitch Header="Names For Position Reporting" 
 										  Margin="5,0"
-										  IsOn="{Binding Path=TextGroupProperties.NamesForPositionReporting}" />
+										  IsOn="{Binding Path=TextGroupProperties.NamesForPositionReporting, Mode=TwoWay}" />
 									<ToggleSwitch Header="Notes On Chart Data" 
 										  Margin="5,0"
-										  IsOn="{Binding Path=TextGroupProperties.NoteOnChartData}" />
+										  IsOn="{Binding Path=TextGroupProperties.NoteOnChartData, Mode=TwoWay}" />
 									<ToggleSwitch Header="Geographic Names" 
 										  Margin="5,0"
-										  IsOn="{Binding Path=TextGroupProperties.GeographicNames}" />
+										  IsOn="{Binding Path=TextGroupProperties.GeographicNames, Mode=TwoWay}" />
 									<ToggleSwitch Header="Berth Number" 
 										  Margin="5,0"
-										  IsOn="{Binding Path=TextGroupProperties.BerthNumber}" />
+										  IsOn="{Binding Path=TextGroupProperties.BerthNumber, Mode=TwoWay}" />
 								</StackPanel>
 							</ScrollViewer>
 						</StackPanel>

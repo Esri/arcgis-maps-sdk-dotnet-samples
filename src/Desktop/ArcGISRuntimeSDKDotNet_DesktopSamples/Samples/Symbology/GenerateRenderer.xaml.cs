@@ -73,7 +73,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     ColorRamps = new ObservableCollection<ColorRamp>() { colorRamp }
                 };
 
-                var param = new GenerateRendererParameter()
+                var param = new GenerateRendererParameters()
                 {
                     ClassificationDefinition = classBreaksDef,
                     Where = ((GeodatabaseFeatureServiceTable)featureLayer.FeatureTable).Where

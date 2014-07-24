@@ -75,7 +75,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     var objectIds = e.AddedItems.OfType<Graphic>()
                         .Select(g => Convert.ToInt64(g.Attributes["OBJECTID"]));
 
-                    RelationshipParameter parameters = new RelationshipParameter(new List<long>(objectIds), 3)
+                    RelationshipParameters parameters = new RelationshipParameters(new List<long>(objectIds), 3)
                     {
                         OutSpatialReference = mapView.SpatialReference
                     };

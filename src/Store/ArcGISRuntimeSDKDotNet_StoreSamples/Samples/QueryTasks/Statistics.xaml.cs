@@ -47,7 +47,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
                 UniqueValueDefinition uvDef = new UniqueValueDefinition() { Fields = new string[] { "sub_region" } };
                 uvDef.ColorRamps.Add(new ColorRamp() { From = Colors.Purple, To = Colors.Yellow, Algorithm = Algorithm.LabLch });
-                GenerateRendererParameter rendererParams = new GenerateRendererParameter() { ClassificationDefinition = uvDef };
+                GenerateRendererParameters rendererParams = new GenerateRendererParameters() { ClassificationDefinition = uvDef };
 
                 var rendererResult = await generateRendererTask.GenerateRendererAsync(rendererParams);
                 _graphicsLayer.Renderer = rendererResult.Renderer;

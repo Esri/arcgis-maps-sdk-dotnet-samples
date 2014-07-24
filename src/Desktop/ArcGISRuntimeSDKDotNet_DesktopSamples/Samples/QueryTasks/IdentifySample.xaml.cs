@@ -34,7 +34,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 graphicsLayer.Graphics.Clear();
                 graphicsLayer.Graphics.Add(new Graphic(e.Location));
 
-                IdentifyParameter identifyParams = new IdentifyParameter(e.Location, mapView.Extent, 2, (int)mapView.ActualHeight, (int)mapView.ActualWidth)
+                IdentifyParameters identifyParams = new IdentifyParameters(e.Location, mapView.Extent, 2, (int)mapView.ActualHeight, (int)mapView.ActualWidth)
                 {
                     LayerOption = LayerOption.Visible,
                     SpatialReference = mapView.SpatialReference,

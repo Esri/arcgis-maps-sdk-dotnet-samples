@@ -103,7 +103,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             var result = await queryTask.ExecuteAsync(query);
 
             graphicsLayer.Graphics.Clear();
-            graphicsLayer.Graphics.AddRange(result.FeatureSet.Features);
+            graphicsLayer.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
         }
 
         // Accept user click point and select the underlying target polygon

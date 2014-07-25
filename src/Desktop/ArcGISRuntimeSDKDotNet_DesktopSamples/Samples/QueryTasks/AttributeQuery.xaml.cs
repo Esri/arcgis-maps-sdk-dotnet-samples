@@ -75,7 +75,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 if (featureSet != null && featureSet.Features.Count > 0)
                 {
                     var graphic = featureSet.Features.First();
-                    graphicsLayer.Graphics.Add(graphic);
+                    graphicsLayer.Graphics.Add(graphic as Graphic);
 
                     var selectedFeatureExtent = graphic.Geometry.Extent;
                     Envelope displayExtent = selectedFeatureExtent.Expand(1.3);

@@ -50,7 +50,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var result = await queryTask.ExecuteAsync(query);
                 if (result.FeatureSet.Features != null && result.FeatureSet.Features.Count > 0)
                 {
-                    _wellsLayer.Graphics.AddRange(result.FeatureSet.Features);
+                    _wellsLayer.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
                     wellsGrid.ItemsSource = result.FeatureSet.Features;
                     resultsPanel.Visibility = Visibility.Visible;
                 }
@@ -75,7 +75,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     var objectIds = e.AddedItems.OfType<Graphic>()
                         .Select(g => Convert.ToInt64(g.Attributes["OBJECTID"]));
 
-                    RelationshipParameter parameters = new RelationshipParameter(new List<long>(objectIds), 3)
+                    RelationshipParameters parameters = new RelationshipParameters(new List<long>(objectIds), 3)
                     {
                         OutSpatialReference = mapView.SpatialReference
                     };

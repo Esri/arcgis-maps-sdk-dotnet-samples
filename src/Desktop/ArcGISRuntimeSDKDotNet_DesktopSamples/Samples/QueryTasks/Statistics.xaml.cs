@@ -42,7 +42,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
                 UniqueValueDefinition uvDef = new UniqueValueDefinition() { Fields = new List<string> { "sub_region" } };
                 uvDef.ColorRamps.Add(new ColorRamp() { From = Colors.Purple, To = Colors.Yellow, Algorithm = Algorithm.LabLch });
-                GenerateRendererParameter rendererParams = new GenerateRendererParameter() { ClassificationDefinition = uvDef };
+                GenerateRendererParameters rendererParams = new GenerateRendererParameters() { ClassificationDefinition = uvDef };
 
                 var rendererResult = await generateRendererTask.GenerateRendererAsync(rendererParams);
                 graphicsLayer.Renderer = rendererResult.Renderer;
@@ -86,7 +86,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var result = await queryTask.ExecuteAsync(query);
                 if (result.FeatureSet.Features != null && result.FeatureSet.Features.Count > 0)
                 {
-                    await CreateSubRegionLayerGraphics(result.FeatureSet.Features);
+                    await CreateSubRegionLayerGraphics(result.FeatureSet.Features.OfType<Graphic>());
                     resultsGrid.ItemsSource = graphicsLayer.Graphics;
                 }
             }

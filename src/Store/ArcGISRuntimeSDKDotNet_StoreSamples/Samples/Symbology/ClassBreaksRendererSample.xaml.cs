@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
+using System.Linq;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
@@ -79,7 +80,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             var result = await queryTask.ExecuteAsync(query);
 
             _earthquakes.Graphics.Clear();
-            _earthquakes.Graphics.AddRange(result.FeatureSet.Features);
+            _earthquakes.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
         }
 
         // Utility: Generate a random simple marker symbol

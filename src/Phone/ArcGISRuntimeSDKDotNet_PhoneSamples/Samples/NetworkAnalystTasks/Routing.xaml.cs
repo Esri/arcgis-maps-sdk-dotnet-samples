@@ -59,7 +59,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                             }
 
                             var routeLayer = mapView1.Map.Layers["MyRouteGraphicsLayer"] as GraphicsLayer;
-                            routeLayer.Graphics.Add(firstRoute.RouteGraphic);
+                            routeLayer.Graphics.Add(firstRoute.RouteFeature as Graphic);
                         }
                     }
 

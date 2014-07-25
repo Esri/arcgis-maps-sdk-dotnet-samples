@@ -79,7 +79,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                             return;
                         }
 
-                        resultLayer.Graphics.AddRange(gpLayer.FeatureSet.Features);
+                        resultLayer.Graphics.AddRange(gpLayer.FeatureSet.Features.OfType<Graphic>());
                     }
                 }
             }

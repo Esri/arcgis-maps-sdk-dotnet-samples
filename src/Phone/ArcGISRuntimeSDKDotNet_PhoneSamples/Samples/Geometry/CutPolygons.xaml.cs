@@ -66,7 +66,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             var result = await queryTask.ExecuteAsync(query);
 
             graphicsLayer.Graphics.Clear();
-            graphicsLayer.Graphics.AddRange(result.FeatureSet.Features);
+            graphicsLayer.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
 
             //Once the graphics have been loaded we can now enable the 'Cut Polygons' button
             CutPolygonsButton.IsEnabled = true;

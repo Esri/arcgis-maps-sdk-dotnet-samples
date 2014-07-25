@@ -99,7 +99,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 routeParams.OutSpatialReference = mapView.SpatialReference;
                 routeParams.ReturnDirections = true;
                 routeParams.DirectionsLengthUnit = LinearUnits.Miles;
-                routeParams.DirectionsLanguage = new CultureInfo("en");
+                routeParams.DirectionsLanguage = new CultureInfo("en-US");
                 routeParams.Stops = new FeaturesAsFeature(stopsLayer.Graphics) { SpatialReference = mapView.SpatialReference };
 
                 var routeResult = await _routeTask.SolveAsync(routeParams);
@@ -107,7 +107,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     throw new ApplicationException("No route could be calculated");
 
                 var route = routeResult.Routes.First();
-                routesLayer.Graphics.Add(new Graphic(route.RouteGraphic.Geometry));
+                routesLayer.Graphics.Add(new Graphic(route.RouteFeature.Geometry));
 
                 directionsLayer.GraphicsSource = route.RouteDirections.Select(rd => GraphicFromRouteDirection(rd));
 
@@ -115,7 +115,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var totalLength = route.RouteDirections.Select(rd => rd.GetLength(LinearUnits.Miles)).Sum();
                 txtRouteTotals.Text = string.Format("Time: {0:h':'mm':'ss} / Length: {1:0.00} mi", totalTime, totalLength);
 
-                await mapView.SetViewAsync(route.RouteGraphic.Geometry.Extent.Expand(1.2));
+                await mapView.SetViewAsync(route.RouteFeature.Geometry.Extent.Expand(1.2));
             }
             catch (AggregateException ex)
             {

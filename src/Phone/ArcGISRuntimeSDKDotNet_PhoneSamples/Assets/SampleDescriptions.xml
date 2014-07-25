@@ -216,6 +216,14 @@
             </summary>
             <category>Geometry</category>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.MessageProcessingSample">
+            <summary>
+            Sample shows how to read and process Mil2525C message data from XML file. 
+            </summary>
+            <title>Message Processor</title>
+            <category>Symbology</category>
+            <subcategory>Advanced</subcategory>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbology.S57CellInfoSample">
             <summary>
             This sample demonstrates adding and removing S-57 cells from an HydrographicS57Layer in the Map and accessing the Dataset Identification (DSID) metadata of those S-57 cells. The DSID metadata Provides information regarding the dataset's source and the product specification it is part of.
@@ -245,14 +253,6 @@
             This sample shows how to use the the SearchAsync method to search an HydrographicS57Layer based on an input geometry, buffer value and object name.
             </summary>
             <title>S57 Search </title>
-            <category>Symbology</category>
-            <subcategory>Advanced</subcategory>
-        </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.MessageProcessingSample">
-            <summary>
-            Sample shows how to read and process Mil2525C message data from XML file. 
-            </summary>
-            <title>Message Processor</title>
             <category>Symbology</category>
             <subcategory>Advanced</subcategory>
         </member>
@@ -444,12 +444,6 @@
             </summary>
             <category>Query Tasks</category>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.RenderingInCode">
-            <summary>
-            
-            </summary>
-            <category>Symbology</category>
-        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.SymbolDictionarySearchSample">
             <summary>
             Sample shows how to use search the Mil2525C symbol dictionary.
@@ -457,6 +451,12 @@
             <title>Symbol Dictionary Search</title>
             <category>Symbology</category>
             <subcategory>Advanced</subcategory>	
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.RenderingInCode">
+            <summary>
+            
+            </summary>
+            <category>Symbology</category>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SymbolsAndLabels">
             <summary>

@@ -46,7 +46,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 AreaLayer.Graphics.Clear();
 
                 var boundary = await mapView.Editor.RequestShapeAsync(DrawShape.Freehand) as Polyline;
-                var polygon = new Polygon(boundary, mapView.SpatialReference);
+                var polygon = new Polygon(boundary.Parts, mapView.SpatialReference);
                 polygon = GeometryEngine.Simplify(polygon) as Polygon;
                 AreaLayer.Graphics.Add(new Graphic() { Geometry = polygon });
 

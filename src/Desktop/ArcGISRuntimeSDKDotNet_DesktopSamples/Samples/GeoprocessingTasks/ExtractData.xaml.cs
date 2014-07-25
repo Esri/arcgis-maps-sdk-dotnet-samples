@@ -66,10 +66,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 if (chkFreehand.IsChecked == true)
                 {
                     var boundary = await mapView.Editor.RequestShapeAsync(DrawShape.Freehand) as Polyline;
-                    if (boundary.First().Count <= 1)
+                    if (boundary.Parts.First().Count <= 1)
                         return;
 
-                    aoi = new Polygon(boundary, mapView.SpatialReference);
+                    aoi = new Polygon(boundary.Parts, mapView.SpatialReference);
                     aoi = GeometryEngine.Simplify(aoi) as Polygon;
                 }
                 else

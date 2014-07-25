@@ -40,7 +40,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 _areaLayer.Graphics.Clear();
 
                 var boundary = await mapView.Editor.RequestShapeAsync(DrawShape.Freehand) as Polyline;
-                var polygon = new Polygon(boundary, mapView.SpatialReference);
+                var polygon = new Polygon(boundary.Parts, mapView.SpatialReference);
                 polygon = GeometryEngine.Simplify(polygon) as Polygon;
                 _areaLayer.Graphics.Add(new Graphic() { Geometry = polygon });
 

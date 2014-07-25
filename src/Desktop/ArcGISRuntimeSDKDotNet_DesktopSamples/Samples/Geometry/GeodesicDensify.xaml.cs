@@ -51,7 +51,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var original = await mapView.Editor.RequestShapeAsync(drawShape, _fillSymbol);
 
                 // Add original shape vertices to input graphics layer
-                var coordsOriginal = (original as Multipart).First();
+                var coordsOriginal = (original as Multipart).Parts.First();
 				foreach (var coord in coordsOriginal)
 					inputGraphics.Graphics.Add(new Graphic(new MapPointBuilder(coord).ToGeometry(), _origVertexSymbol));
 
@@ -60,7 +60,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 inputGraphics.Graphics.Add(new Graphic(densify, _fillSymbol));
 
                 // Add new vertices to result graphics layer
-                var coordsDensify = (densify as Multipart).First();
+                var coordsDensify = (densify as Multipart).Parts.First();
                 foreach (var coord in coordsDensify)
                     resultGraphics.Graphics.Add(new Graphic(new MapPointBuilder(coord).ToGeometry(), _newVertexSymbol));
 

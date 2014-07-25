@@ -63,7 +63,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
                     _originalGraphicsLayer.Graphics.Add(new Graphic(river, _defaultLineSymbol));
 
-                    foreach (var path in river)
+                    foreach (var path in river.Parts)
                     {
                         foreach (var coord in path)
                         {
@@ -96,7 +96,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     var graphic = new Graphic(generalizedPolyline, _generalizedLineSymbol);
                     _generalizedGraphicsLayer.Graphics.Add(graphic);
 
-                    foreach (var path in generalizedPolyline)
+                    foreach (var path in generalizedPolyline.Parts)
                     {
                         foreach (var coord in path)
                         {

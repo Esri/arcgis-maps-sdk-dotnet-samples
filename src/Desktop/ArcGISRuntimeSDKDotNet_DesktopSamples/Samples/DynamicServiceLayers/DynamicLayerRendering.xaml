@@ -9,6 +9,10 @@
 
         <esri:MapView x:Name="mapView" WrapAround="True" Background="#FFE3E3E3">
             <esri:Map x:Name="map">
+                <esri:Map.InitialViewpoint>
+                    <esri:ViewpointExtent XMin="-129.045897661039" YMin="22.7383988271239"
+                                          XMax="-63.3737367088314" YMax="56.1901558121545" SpatialReferenceID="4269" />
+                </esri:Map.InitialViewpoint>
                 <esri:ArcGISDynamicMapServiceLayer x:Name="censusLayer" ID="USA"
 				    ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer"
                     VisibleLayers="2" />

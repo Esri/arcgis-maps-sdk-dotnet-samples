@@ -89,8 +89,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             MapPoint startPoint = _userInteractionLayer.Graphics[0].Geometry as MapPoint;
             MapPoint finishPoint = _userInteractionLayer.Graphics[1].Geometry as MapPoint;
 
-            MapPoint animatingPoint = new MapPoint(startPoint.X, startPoint.Y);
-            _animatingLayer.Graphics.Add(new Graphic() { Geometry = animatingPoint });
+            var animatingGraphic = new Graphic(new MapPoint(startPoint.X, startPoint.Y));
+            _animatingLayer.Graphics.Add(animatingGraphic);
 
             // Framework easing objects may be used to calculate progressive values
             // - i.e. QuinticEase, BackEase, BounceEase, ElasticEase, etc.
@@ -104,7 +104,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 double fraction = easing.Ease((DateTime.Now - animateStartTime).TotalMilliseconds / AnimationDuration);
                 var x = (finishPoint.X - startPoint.X) * fraction + startPoint.X;
                 var y = (finishPoint.Y - startPoint.Y) * fraction + startPoint.Y;
-                animatingPoint.MoveTo(x, y);
+                animatingGraphic.Geometry = new MapPoint(x, y);
             };
 
             animationTimer.Start();

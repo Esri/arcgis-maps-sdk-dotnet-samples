@@ -98,7 +98,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     case DrawShape.Polygon:
                     case DrawShape.Rectangle:
                     case DrawShape.Triangle:
-                        symbol = LayoutGrid.Resources["RedFillSymbol"] as Symbol;
+					case DrawShape.Envelope:
+						symbol = LayoutGrid.Resources["RedFillSymbol"] as Symbol;
                         break;
                 }
 

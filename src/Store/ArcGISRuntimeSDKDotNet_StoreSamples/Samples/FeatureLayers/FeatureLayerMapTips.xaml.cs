@@ -16,7 +16,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
     /// <category>Feature Layers</category>
     public sealed partial class FeatureLayerMapTips : Page
 	{
-        private FeatureLayer _featureLayer;
+		private FeatureLayer _featureLayer;
+		private bool _isMapReady;
 
         public FeatureLayerMapTips()
 		{
@@ -25,12 +26,22 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             _featureLayer = mapView.Map.Layers["FeatureLayer"] as FeatureLayer;
             ((GeodatabaseFeatureServiceTable)_featureLayer.FeatureTable).OutFields = OutFields.All;
 
-            mapView.PointerMoved += mapView_PointerMoved;
+			mapView.SpatialReferenceChanged += mapView_SpatialReferenceChanged;
+			mapView.PointerMoved += mapView_PointerMoved;
         }
+
+		private async void mapView_SpatialReferenceChanged(object sender, System.EventArgs e)
+		{
+			await mapView.LayersLoadedAsync();
+			_isMapReady = true;
+		}
 
         private async void mapView_PointerMoved(object sender, PointerRoutedEventArgs e)
         {
-            try
+			if (!_isMapReady)
+				return;
+			
+			try
             {
                 Point screenPoint = e.GetCurrentPoint(mapView).Position;
                 var rows = await _featureLayer.HitTestAsync(mapView, screenPoint);

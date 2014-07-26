@@ -80,7 +80,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     case DrawShape.Polygon:
                     case DrawShape.Rectangle:
                     case DrawShape.Triangle:
-                        symbol = Resources["RedFillSymbol"] as sym.Symbol;
+					case DrawShape.Envelope:
+						symbol = Resources["RedFillSymbol"] as sym.Symbol;
                         break;
                 }
 

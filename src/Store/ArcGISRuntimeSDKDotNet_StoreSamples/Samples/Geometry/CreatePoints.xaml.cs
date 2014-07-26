@@ -46,6 +46,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             graphicsLayer.Graphics.Add(new Graphic() { Geometry = topRight, Symbol = symbol });
             graphicsLayer.Graphics.Add(new Graphic() { Geometry = bottomLeft, Symbol = symbol });
             graphicsLayer.Graphics.Add(new Graphic() { Geometry = bottomRight, Symbol = symbol });
-        }
+
+			graphicsLayer.Graphics.Add(new Graphic() { Geometry = new MapPoint(0, 0), Symbol = new SimpleMarkerSymbol() { Size = 15, Color = Colors.Blue } });
+		}
     }
 }

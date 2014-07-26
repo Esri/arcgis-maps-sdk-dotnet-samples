@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -13,15 +12,28 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	/// <subcategory>Feature Layers</subcategory>
 	public partial class FeatureLayerMapTips : UserControl
     {
+		private bool _isMapReady;
+
         /// <summary>Construct Map Tips sample</summary>
         public FeatureLayerMapTips()
         {
             InitializeComponent();
+
+			mapView.SpatialReferenceChanged += mapView_SpatialReferenceChanged;
         }
+
+		private async void mapView_SpatialReferenceChanged(object sender, System.EventArgs e)
+		{
+			await mapView.LayersLoadedAsync();
+			_isMapReady = true;
+		}
 
         private async void mapView_MouseMove(object sender, MouseEventArgs e)
         {
-            try
+			if (!_isMapReady)
+				return;
+
+			try
             {
                 System.Windows.Point screenPoint = e.GetPosition(mapView);
                 var rows = await earthquakes.HitTestAsync(mapView, screenPoint);

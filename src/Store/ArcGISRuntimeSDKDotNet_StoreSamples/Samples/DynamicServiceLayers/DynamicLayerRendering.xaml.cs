@@ -26,15 +26,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-			// Create initial extend and set it
-			var envelopeBuilder = new EnvelopeBuilder(SpatialReference.Create(102009));
-			envelopeBuilder.XMin = -3548912;
-			envelopeBuilder.YMin = -1847469;
-			envelopeBuilder.XMax = -2472012;
-			envelopeBuilder.YMax = 1742990;
-
-			mapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(envelopeBuilder.ToGeometry());
-
             var layer = mapView.Map.Layers.OfType<ArcGISDynamicMapServiceLayer>().FirstOrDefault();
             layer.VisibleLayers = new ObservableCollection<int>() { 2 };
 

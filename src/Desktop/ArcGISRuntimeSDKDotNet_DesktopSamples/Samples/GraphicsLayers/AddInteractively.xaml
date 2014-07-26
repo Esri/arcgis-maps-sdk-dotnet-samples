@@ -42,6 +42,7 @@
                         <esri:DrawShape>Ellipse</esri:DrawShape>
                         <esri:DrawShape>Circle</esri:DrawShape>
                         <esri:DrawShape>LineSegment</esri:DrawShape>
+                        <esri:DrawShape>Envelope</esri:DrawShape>
                     </ComboBox>
 
                     <ToggleButton Margin="8" HorizontalAlignment="Center" Padding="6"

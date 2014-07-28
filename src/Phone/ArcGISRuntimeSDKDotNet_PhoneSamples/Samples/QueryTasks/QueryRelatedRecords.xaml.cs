@@ -78,7 +78,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                new QueryTask(new Uri("http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Petroleum/KSPetro/MapServer/0"));
 
             //Relationship query
-            RelationshipParameter parameters = new RelationshipParameter(new List<long>(objectIds), 3)
+            RelationshipParameters parameters = new RelationshipParameters(new List<long>(objectIds), 3)
             {
                 OutSpatialReference = mapView1.SpatialReference
             };

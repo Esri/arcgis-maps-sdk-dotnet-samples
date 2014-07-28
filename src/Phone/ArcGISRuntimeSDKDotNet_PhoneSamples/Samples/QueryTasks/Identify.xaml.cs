@@ -30,7 +30,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private async Task RunIdentify(MapPoint mp)
         {
-            IdentifyParameter identifyParams = new IdentifyParameter(mp, mapView1.Extent, 2, (int)mapView1.ActualHeight, (int)mapView1.ActualWidth)
+            IdentifyParameters identifyParams = new IdentifyParameters(mp, mapView1.Extent, 2, (int)mapView1.ActualHeight, (int)mapView1.ActualWidth)
             {
                 LayerOption = LayerOption.Visible,
                 SpatialReference = mapView1.SpatialReference,

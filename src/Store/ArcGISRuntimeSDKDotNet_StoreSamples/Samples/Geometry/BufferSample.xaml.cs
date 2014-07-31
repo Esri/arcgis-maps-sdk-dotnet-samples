@@ -26,7 +26,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            InitializePictureMarkerSymbol().ContinueWith((_) => { }, TaskScheduler.FromCurrentSynchronizationContext());
+            InitializePictureMarkerSymbol();
             sfs = LayoutRoot.Resources["MySimpleFillSymbol"] as SimpleFillSymbol;
             graphicsLayer = mapView1.Map.Layers["MyGraphicsLayer"] as GraphicsLayer;
 
@@ -59,7 +59,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
         }
 
-        private async Task InitializePictureMarkerSymbol()
+        private async void InitializePictureMarkerSymbol()
         {
             try
             {

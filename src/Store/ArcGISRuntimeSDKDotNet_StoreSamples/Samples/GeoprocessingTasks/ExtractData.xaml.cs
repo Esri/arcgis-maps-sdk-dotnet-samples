@@ -37,11 +37,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             _graphicsLayer = mapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
             _gpTask = new Geoprocessor(new Uri(ExtractDataServiceUrl));
 
-            SetupUI().ContinueWith(t => { }, TaskScheduler.FromCurrentSynchronizationContext());
+            SetupUI();
         }
 
         // Sets up UI choices from the extract data service information
-        private async Task SetupUI()
+        private async void SetupUI()
         {
             try
             {

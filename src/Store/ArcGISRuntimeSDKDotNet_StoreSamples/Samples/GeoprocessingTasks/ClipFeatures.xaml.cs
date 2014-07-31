@@ -37,7 +37,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             _gpTask = new Geoprocessor(new Uri(ClipCountiesServiceUrl));
 
             //Uncomment the following line to show the service parameters at startup.
-            //GetServiceInfo().ContinueWith((_) => { }, TaskScheduler.FromCurrentSynchronizationContext());
+            //var _ = GetServiceInfo();
         }
 
         // Get the users input line on the map and fire off a GP Job to clip features

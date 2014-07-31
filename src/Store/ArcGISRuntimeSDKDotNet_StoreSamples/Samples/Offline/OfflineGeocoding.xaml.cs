@@ -34,16 +34,21 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             mapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(new Envelope(-13044000, 3855000, -13040000, 3858000, SpatialReferences.WebMercator));
             _graphicsLayer = mapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
 
-            var _ = SetupRendererSymbols();
+			SetupRendererSymbols();
         }
 
         // Setup marker symbol and renderer
-        private async Task SetupRendererSymbols()
+        private async void SetupRendererSymbols()
         {
             var markerSymbol = new PictureMarkerSymbol() { Width = 48, Height = 48, YOffset = 24 };
+			try { 
             await markerSymbol.SetSourceAsync(
                 new Uri("ms-appx:///Assets/RedStickpin.png"));
-
+			}
+			catch (System.Exception ex)
+			{
+				var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+			}
             _graphicsLayer.Renderer = new SimpleRenderer() { Symbol = markerSymbol, };
         }
 

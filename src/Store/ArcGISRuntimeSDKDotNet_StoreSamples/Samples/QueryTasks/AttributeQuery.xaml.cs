@@ -27,10 +27,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 
             mapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(new Envelope(-15000000, 2000000, -7000000, 8000000));
 
-            var _ = InitializeComboBox();
+            InitializeComboBox();
         }
 
-        private async Task InitializeComboBox()
+        private async void InitializeComboBox()
         {
             try
             {

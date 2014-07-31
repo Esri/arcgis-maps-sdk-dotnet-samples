@@ -56,7 +56,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers
                     // Add the dynamic map service layer to the map
                     if (dynLayer != null)
                     {
-                        mapView.Map.Layers.Add(dynLayer);
+						MyMapView.Map.Layers.Add(dynLayer);
                     }
                 }
                 catch (Exception ex)
@@ -84,7 +84,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers
                     // Add the dynamic map service layer to the map
                     if (dynLayer != null)
                     {
-                        mapView.Map.Layers.Add(dynLayer);
+						MyMapView.Map.Layers.Add(dynLayer);
                     }
                 }
                 catch (Exception ex)

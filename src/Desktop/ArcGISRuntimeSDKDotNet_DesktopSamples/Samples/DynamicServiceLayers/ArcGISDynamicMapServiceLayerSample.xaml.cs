@@ -1,5 +1,4 @@
 ﻿using Esri.ArcGISRuntime.Controls;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using System;
 using System.Collections.ObjectModel;
@@ -23,9 +22,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 		{
 			InitializeComponent();
 
-			mapView.LayerLoaded += mapView_LayerLoaded;
+			MyMapView.LayerLoaded += mapView_LayerLoaded;
 
-			_usaLayer = mapView.Map.Layers["USA"] as ArcGISDynamicMapServiceLayer;
+			_usaLayer = MyMapView.Map.Layers["USA"] as ArcGISDynamicMapServiceLayer;
 		}
 
         private void mapView_LayerLoaded(object sender, LayerLoadedEventArgs e)

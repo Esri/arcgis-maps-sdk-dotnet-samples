@@ -1,5 +1,4 @@
 ﻿using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System.Linq;

@@ -18,14 +18,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(1445440, 540657, 1452348, 544407, SpatialReference.Create(2264)));
-			mapView.Map.SpatialReference = SpatialReference.Create(2264);
-            mapView.LayerLoaded += mapView_LayerLoaded;
+			MyMapView.Map.InitialViewpoint = new Envelope(1445440, 540657, 1452348, 544407, SpatialReference.Create(2264));
+			MyMapView.Map.SpatialReference = SpatialReference.Create(2264);
+			MyMapView.LayerLoaded += mapView_LayerLoaded;
         }
 
         private void RasterFunctionsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ArcGISImageServiceLayer imageLayer = mapView.Map.Layers["ImageLayer"] as ArcGISImageServiceLayer;
+			ArcGISImageServiceLayer imageLayer = MyMapView.Map.Layers["ImageLayer"] as ArcGISImageServiceLayer;
             var rasterFunction = (sender as ComboBox).SelectedItem as RasterFunctionInfo;
             if (rasterFunction != null)
             {

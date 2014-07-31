@@ -82,7 +82,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 PrintMapView.MaximumExtent = BaseMapView.MaximumExtent;
                 PrintMapView.MaxScale = BaseMapView.MaxScale;
                 PrintMapView.MinScale = BaseMapView.MinScale;
-				PrintMapView.SetRotation(BaseMapView.Rotation);
+				PrintMapView.Rotation = BaseMapView.Rotation;
                 PrintMapView.WrapAround = BaseMapView.WrapAround;
                 PrintMapView.Map = BaseMapView.Map;
 
@@ -145,7 +145,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             var mapPrinter = d as MapPrinter;
             if (mapPrinter != null)
-                mapPrinter.PrintMapView.SetRotation((bool)e.NewValue ? -90 : 0);
+                mapPrinter.PrintMapView.Rotation = (bool)e.NewValue ? -90 : 0;
         }
 
         private bool _isPrinting;

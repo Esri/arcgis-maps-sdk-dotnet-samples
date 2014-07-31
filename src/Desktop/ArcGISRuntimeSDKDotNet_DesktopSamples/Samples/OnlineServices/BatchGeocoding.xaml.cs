@@ -82,7 +82,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     var overlay = new ContentControl() { HorizontalAlignment = HorizontalAlignment.Right, VerticalAlignment = VerticalAlignment.Top };
                     overlay.Template = layoutGrid.Resources["MapTipTemplate"] as ControlTemplate;
                     overlay.DataContext = candidate["attributes"] as Dictionary<string, object>;
-					MapView.SetViewOverlayAnchor(overlay, point);
+					MapView.SetMapOverlayAnchor(overlay, point);
                     mapView.Overlays.Add(overlay);
                 }
 

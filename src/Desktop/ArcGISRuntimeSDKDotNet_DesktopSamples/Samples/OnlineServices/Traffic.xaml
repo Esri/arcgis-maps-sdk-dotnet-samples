@@ -16,7 +16,7 @@
             <esri:MapView.Overlays>
                 <Border x:Name="incidentOverlay" HorizontalAlignment="Right" VerticalAlignment="Top"
                         Background="Black" BorderBrush="White" BorderThickness="2" Padding="6"
-                        esri:MapView.ViewOverlayAnchor="{Binding Feature.Geometry}" Visibility="Collapsed">
+                        esri:MapView.MapOverlayAnchor="{Binding Feature.Geometry}" Visibility="Collapsed">
                     <Grid MaxWidth="350" DataContext="{Binding Feature}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />

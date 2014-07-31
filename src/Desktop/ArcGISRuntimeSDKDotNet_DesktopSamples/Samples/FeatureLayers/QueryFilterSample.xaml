@@ -38,8 +38,10 @@
                             Where="pop2000 > 200000" OutFields="*" />
 					</esri:FeatureLayer.FeatureTable>
 				</esri:FeatureLayer>
-				<esri:GraphicsLayer x:Name="queryResults" Renderer="{StaticResource BluePointRenderer}" />
             </esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay x:Name="queryResults" Renderer="{StaticResource BluePointRenderer}" />
+			</esri:MapView.GraphicsOverlays>
         </esri:MapView>
 		
 		<Border Background="White" BorderBrush="Black" BorderThickness="1"

@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Geocoding;
 using System;
@@ -23,7 +24,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public FindAnAddress()
         {
             this.InitializeComponent();
-			mapView1.Map.InitialViewpoint = new Envelope(-122.554, 37.615, -122.245, 37.884, SpatialReferences.Wgs84);
+			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-122.554, 37.615, -122.245, 37.884, SpatialReferences.Wgs84));
 			_candidateGraphicsLayer = mapView1.Map.Layers["CandidateGraphicsLayer"] as GraphicsLayer;
         }
 

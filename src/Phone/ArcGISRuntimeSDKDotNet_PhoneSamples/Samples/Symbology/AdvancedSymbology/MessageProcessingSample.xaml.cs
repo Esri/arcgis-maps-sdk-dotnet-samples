@@ -1,5 +1,6 @@
 ﻿using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.AdvancedSymbology;
+using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using System;
@@ -29,12 +30,12 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology
 		public MessageProcessingSample()
 		{
 			InitializeComponent();
-			mapView.Map.InitialViewpoint = new Envelope(
+			mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(
 				-245200, 
 				6665900, 
 				-207000, 
 				6687300, 
-				SpatialReferences.WebMercator);
+				SpatialReferences.WebMercator));
 
 			mapView.ExtentChanged += mapView_ExtentChanged;
 		}

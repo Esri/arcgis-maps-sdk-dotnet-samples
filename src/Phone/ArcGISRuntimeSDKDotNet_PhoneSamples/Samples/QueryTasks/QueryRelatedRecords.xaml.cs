@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
@@ -20,7 +21,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public QueryRelatedRecords()
         {
             this.InitializeComponent();
-			mapView1.Map.InitialViewpoint = new Envelope(-10854000, 4502000, -10829000, 4524000, SpatialReferences.WebMercator);
+			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-10854000, 4502000, -10829000, 4524000, SpatialReferences.WebMercator));
         }
 
         private async Task RunQuery(Geometry geometry)

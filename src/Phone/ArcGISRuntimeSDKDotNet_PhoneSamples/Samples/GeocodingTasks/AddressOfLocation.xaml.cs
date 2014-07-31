@@ -8,6 +8,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using System.Linq;
+using Esri.ArcGISRuntime.Controls;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
@@ -27,7 +28,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
             Envelope initial_extent = new Envelope(-117.387, 33.97, -117.355, 33.988, wgs84);
 
-			mapView1.Map.InitialViewpoint = initial_extent;
+			mapView1.Map.InitialViewpoint = new Viewpoint(initial_extent);
 
             _locationGraphicsLayer = mapView1.Map.Layers["LocationGraphicsLayer"] as GraphicsLayer;
 

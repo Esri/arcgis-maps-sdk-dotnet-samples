@@ -16,20 +16,26 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public HandleErrors()
         {
             this.InitializeComponent();
-            var _ = HandleLayersLoaded();
+            HandleLayersLoaded();
         }
 
-        private async Task HandleLayersLoaded()
+        private async void HandleLayersLoaded()
         {
-            var loadresult = await mapView1.LayersLoadedAsync();
-            foreach (var res in loadresult)
-            {
-                if (res.LoadError != null)
-                {
-                    var msg = new MessageDialog(string.Format("Layer {0} failed to load. {1} ", res.Layer.ID, res.LoadError.Message.ToString()));
-                    await msg.ShowAsync();
-                }
-            }
+			try
+			{
+				var loadresult = await mapView1.LayersLoadedAsync();
+				foreach (var res in loadresult)
+				{
+					if (res.LoadError != null)
+					{
+						var msg = new MessageDialog(string.Format("Layer {0} failed to load. {1} ", res.Layer.ID, res.LoadError.Message.ToString()));
+						await msg.ShowAsync();
+					}
+				}
+			}
+			catch {
+				//TODO
+			}
         }
     }
 }

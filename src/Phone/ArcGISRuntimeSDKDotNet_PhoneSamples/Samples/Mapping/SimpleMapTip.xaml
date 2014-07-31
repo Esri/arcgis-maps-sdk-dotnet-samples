@@ -14,7 +14,7 @@
 					x:Name="esriOverlay"
 					IsHitTestVisible="False"
 				    HorizontalAlignment="Right"
-					esri:MapView.MapOverlayAnchor="{Binding}"
+					esri:MapView.ViewOverlayAnchor="{Binding}"
 				    VerticalAlignment="Top" MaxWidth="200">
 
                     <Grid.RowDefinitions>

@@ -79,7 +79,7 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology
 				if (_selectedSymbol == value)
 					return;
 				_selectedSymbol = value;
-				var _ = AddSymbolAsync(_selectedSymbol);
+				AddSymbolAsync(_selectedSymbol);
 				RaisePropertyChanged("SelectedSymbol");
 			}
 		}
@@ -96,7 +96,7 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology
 		}
 
 		// Request geometry and new message to the layer
-		private async Task AddSymbolAsync(SymbolViewModel symbolViewModel)
+		private async void AddSymbolAsync(SymbolViewModel symbolViewModel)
 		{
 			try
 			{
@@ -182,14 +182,14 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology
 		}
 
 		// Sets the currently selected symbol
-		private async void SymbolListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		private void SymbolListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			if (e.AddedItems.Count != 1)
 				return;
 
 			_selectedSymbol = e.AddedItems[0] as SymbolViewModel;
 
-			var _ = AddSymbolAsync(_selectedSymbol);
+			AddSymbolAsync(_selectedSymbol);
 
 		}
 

@@ -22,7 +22,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-			mapView1.Map.InitialViewpoint = new Envelope(-117.5, 32.5, -116.5, 35.5, SpatialReferences.Wgs84);
+			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-117.5, 32.5, -116.5, 35.5, SpatialReferences.Wgs84));
             inputGraphicsLayer = mapView1.Map.Layers["InputGraphicsLayer"] as GraphicsLayer;
             outputGraphicsLayer = mapView1.Map.Layers["OutputGraphicsLayer"] as GraphicsLayer;
             drawGraphicsLayer = mapView1.Map.Layers["DrawGraphicsLayer"] as GraphicsLayer;

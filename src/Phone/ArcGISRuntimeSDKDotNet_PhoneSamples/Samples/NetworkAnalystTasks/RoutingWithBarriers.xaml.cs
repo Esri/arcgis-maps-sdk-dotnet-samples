@@ -1,4 +1,5 @@
 ﻿using Esri.ArcGISRuntime.ArcGISServices;
+using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalyst;
@@ -19,7 +20,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public RoutingWithBarriers()
         {
             this.InitializeComponent();
-			mapView1.Map.InitialViewpoint = new Envelope(-117.22, 34.04, -117.17, 34.07);
+			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-117.22, 34.04, -117.17, 34.07));
         }
 
         private void mapView1_Tapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)

@@ -27,7 +27,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-			mapView1.Map.InitialViewpoint = new Envelope(-83.3188395774275, 42.61428312652851, -83.31295664068958, 42.61670913269855, SpatialReferences.Wgs84);
+			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-83.3188396, 42.61428312, -83.31295664, 42.6167091, SpatialReferences.Wgs84));
             parcelGraphicsLayer = mapView1.Map.Layers["ParcelsGraphicsLayer"] as GraphicsLayer;
             intersectGraphicsLayer = mapView1.Map.Layers["IntersectGraphicsLayer"] as GraphicsLayer;
             random = new Random();

@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -13,7 +14,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public ImageServiceSimple()
         {
             this.InitializeComponent();
-			mapView1.Map.InitialViewpoint = new Envelope(-13486609, 5713307, -13263258, 5823117, SpatialReferences.WebMercator);
+			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-13486609, 5713307, -13263258, 5823117, SpatialReferences.WebMercator));
         }
 
         /// <summary>

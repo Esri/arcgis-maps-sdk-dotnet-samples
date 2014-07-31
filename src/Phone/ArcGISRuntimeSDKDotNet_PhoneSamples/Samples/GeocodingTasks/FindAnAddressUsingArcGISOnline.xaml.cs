@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Geocoding;
 using System;
@@ -25,7 +26,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             this.InitializeComponent();
             var ext = new Envelope(-122.554, 37.615, -122.245, 37.884, SpatialReferences.Wgs84);
 
-			mapView1.Map.InitialViewpoint = ext;
+			mapView1.Map.InitialViewpoint = new Viewpoint(ext);
 
             _candidateGraphicsLayer = mapView1.Map.Layers["CandidateGraphicsLayer"] as GraphicsLayer;
         }

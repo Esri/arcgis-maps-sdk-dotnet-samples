@@ -29,10 +29,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             InitializeComponent();
 
 
-			mapView1.Map.InitialViewpoint = new Envelope(-83.31884, 42.61428, -83.31296, 42.61671, SpatialReferences.Wgs84);
+			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-83.31884, 42.61428, -83.31296, 42.61671, SpatialReferences.Wgs84));
             sfs = LayoutRoot.Resources["MySimpleFillSymbol"] as SimpleFillSymbol;
             graphicsLayer = mapView1.Map.Layers["MyGraphicsLayer"] as GraphicsLayer;
-			var _ = LoadParcels();
+			LoadParcels();
         }
 
         private async void CutPolygonsButton_Click(object sender, RoutedEventArgs e)
@@ -56,21 +56,26 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         }
 
 
-        private async Task LoadParcels()
+        private async void LoadParcels()
         {
+
             //Use a QueryTask to load the Parcels into the graphics layer.
             //Notice that we are filtering the returned features based on the current map's extent
             //by passing in a geometry into the constructor of the Query object
             var queryTask = new QueryTask(new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/TaxParcel/AssessorsParcelCharacteristics/MapServer/1"));
             var query = new Query(mapView1.Extent) { ReturnGeometry = true, OutSpatialReference = mapView1.SpatialReference };
-            var result = await queryTask.ExecuteAsync(query);
+			try
+			{
+				var result = await queryTask.ExecuteAsync(query);
 
-            graphicsLayer.Graphics.Clear();
-            graphicsLayer.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
+				graphicsLayer.Graphics.Clear();
+				graphicsLayer.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
 
-            //Once the graphics have been loaded we can now enable the 'Cut Polygons' button
-            CutPolygonsButton.IsEnabled = true;
-        }
+			}
+			catch { }
+			//Once the graphics have been loaded we can now enable the 'Cut Polygons' button
+			CutPolygonsButton.IsEnabled = true;
+		}
 
         private async Task DoCutPolygons()
         {

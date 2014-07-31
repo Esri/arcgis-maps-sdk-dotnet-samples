@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI.Xaml.Controls;
 using System.Linq;
+using Esri.ArcGISRuntime.Controls;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
@@ -20,11 +21,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-			mapView1.Map.InitialViewpoint = new Envelope(-9270434.248, 5246977.326, -9269261.417, 5247569.712);
-            InitializePMS().ContinueWith((_) => { }, TaskScheduler.FromCurrentSynchronizationContext());
+			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-9270434.248, 5246977.326, -9269261.417, 5247569.712));
+            InitializePMS();
         }
 
-        private async Task InitializePMS()
+        private async void InitializePMS()
         {
             try
             {

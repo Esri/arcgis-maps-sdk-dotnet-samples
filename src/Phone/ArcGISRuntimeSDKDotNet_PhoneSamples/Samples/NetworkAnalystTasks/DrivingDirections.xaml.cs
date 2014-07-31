@@ -1,4 +1,5 @@
 ﻿using Esri.ArcGISRuntime.ArcGISServices;
+using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
@@ -23,7 +24,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public DrivingDirections()
         {
             this.InitializeComponent();
-			mapView1.Map.InitialViewpoint = new Envelope(-123, 33, -115, 37);
+			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-123, 33, -115, 37));
         }
 
         private async void GetDirections_Click(object sender, RoutedEventArgs e)

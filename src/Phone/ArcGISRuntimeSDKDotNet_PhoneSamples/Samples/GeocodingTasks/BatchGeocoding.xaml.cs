@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Geocoding;
 using System;
@@ -26,7 +27,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-			mapView1.Map.InitialViewpoint = new Envelope(-15000000, 2000000, -7000000, 8000000, SpatialReferences.WebMercator);
+			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-15000000, 2000000, -7000000, 8000000, SpatialReferences.WebMercator));
 
             _locatorTask = new OnlineLocatorTask
                 (new Uri("http://serverapps101.esri.com/arcgis/rest/services/USA_Geocode/GeocodeServer", UriKind.Absolute), "");

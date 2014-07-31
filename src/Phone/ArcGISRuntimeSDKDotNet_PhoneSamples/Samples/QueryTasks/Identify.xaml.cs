@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Data;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Query;
@@ -20,7 +21,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public Identify()
         {
             this.InitializeComponent();
-			mapView1.Map.InitialViewpoint = new Envelope(-15000000, 2000000, -7000000, 8000000);
+			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-15000000, 2000000, -7000000, 8000000));
         }
 
         private async void mapView1_Tapped_1(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)

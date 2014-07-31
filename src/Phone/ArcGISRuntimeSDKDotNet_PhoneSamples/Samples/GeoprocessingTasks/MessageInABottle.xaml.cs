@@ -20,10 +20,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public MessageInABottle()
         {
             InitializeComponent();
-            InitializePMS().ContinueWith((_) => { }, TaskScheduler.FromCurrentSynchronizationContext());
+            InitializePMS();
         }
 
-        private async Task InitializePMS()
+        private async void InitializePMS()
         {
             try
             {

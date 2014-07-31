@@ -24,8 +24,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            Envelope extent = new Envelope(-117.387, 33.97, -117.355, 33.988, SpatialReferences.Wgs84);
-			MyMapView.Map.InitialViewpoint = new Viewpoint(extent);
+			MyMapView.Map.InitialViewpoint = new Envelope(-117.387, 33.97, -117.355, 33.988, SpatialReferences.Wgs84);
 
             _locator = new OnlineLocatorTask(new Uri("http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"));
         }
@@ -35,7 +34,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                graphicsLayer.Graphics.Add(new Graphic(e.Location));
+                graphicsOverlay.Graphics.Add(new Graphic(e.Location));
 
                 var result = await _locator.ReverseGeocodeAsync(e.Location, 50, SpatialReferences.Wgs84, CancellationToken.None);
 
@@ -59,7 +58,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
             MyMapView.Overlays.Clear();
-            graphicsLayer.Graphics.Clear();
+			graphicsOverlay.Graphics.Clear();
         }
     }
 }

@@ -45,7 +45,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 					if (table.ServiceInfo.Extent != null &&
 						!table.ServiceInfo.Extent.IsEmpty)
 					{
-						if (extent.IsEmpty)
+						if (extent == null)
+							extent = table.ServiceInfo.Extent;
+						else if (extent.IsEmpty)
 							extent = table.ServiceInfo.Extent;
 						else
 							extent = extent.Union(table.ServiceInfo.Extent);

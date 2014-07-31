@@ -24,11 +24,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			InitializePMS().ContinueWith((_) => { }, TaskScheduler.FromCurrentSynchronizationContext());
+			InitializePMS();
         }
 
         // Initialize PushPin symbol
-        private async Task InitializePMS()
+        private async void InitializePMS()
         {
             try
             {

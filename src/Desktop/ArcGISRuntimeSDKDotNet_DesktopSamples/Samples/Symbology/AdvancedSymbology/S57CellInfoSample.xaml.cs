@@ -25,15 +25,22 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.AdvancedSymbol
 			InitializeComponent();
 
 			// Create default instance of display properties and set that to DataContext for binding
-			var _ = ZoomToHydrographicLayersAsync();
+			ZoomToHydrographicLayersAsync();
 		}
 
 		// Zoom to combined extent of the group layer that contains all hydrographic layers
-		private async Task ZoomToHydrographicLayersAsync()
+		private async void ZoomToHydrographicLayersAsync()
 		{
-			// wait until all layers are loaded
-			await mapView.LayersLoadedAsync();
-
+			try
+			{
+				// wait until all layers are loaded
+				await mapView.LayersLoadedAsync();
+			}
+			catch (System.Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+				return;
+			}
 			// Get group layer from Map and set list items source
 			_hydrographicGroupLayer = mapView.Map.Layers.OfType<GroupLayer>().First();
 			s57CellList.ItemsSource = _hydrographicGroupLayer.ChildLayers;
@@ -47,7 +54,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.AdvancedSymbol
 
 			// Zoom to full extent
 			await mapView.SetViewAsync(extent);
-			
+
 			// Enable controls
 			addCellButton.IsEnabled = true;
 			zoomToSelectedButton.IsEnabled = true;

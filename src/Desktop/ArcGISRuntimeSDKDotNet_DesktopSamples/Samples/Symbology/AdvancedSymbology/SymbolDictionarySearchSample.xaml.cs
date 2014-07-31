@@ -121,7 +121,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology
 		}
 
 		// Request geometry and new message to the layer
-		private async Task AddSymbolAsync(DrawShape requestedShape)
+		private async void AddSymbolAsync(DrawShape requestedShape)
 		{
 			try
 			{
@@ -219,7 +219,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology
 			}
 
 			// Enable adding symbols to the map
-			var _ = AddSymbolAsync(requestedShape);
+			AddSymbolAsync(requestedShape);
 		}
 
 		// Function to search the symbol dictionary based on the selected value in the style file, category and/or geometry type ListBoxes

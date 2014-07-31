@@ -23,29 +23,35 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            SetupWebMap()
-                .ContinueWith(t => { }, TaskScheduler.FromCurrentSynchronizationContext());
+            SetupWebMap();
         }
 
-        private async Task SetupWebMap()
+        private async void SetupWebMap()
         {
-            //Create a new webmap with basemap and operational layers
-            var webmap = new WebMap()
-            {
-                Basemap = CreateBasemapLayer(),
-                OperationalLayers = new List<WebMapLayer>()
+			try
+			{
+				//Create a new webmap with basemap and operational layers
+				var webmap = new WebMap()
+				{
+					Basemap = CreateBasemapLayer(),
+					OperationalLayers = new List<WebMapLayer>()
                 {
                     CreateDynamicServiceLayer(),
                     CreateStateLayerWithPopup(),
                     await CreateFeatureCollectionLayer()
                 }
-            };
+				};
 
-            // Load the new webmap into the current UI
-            var mapView = new MapView();
-            mapView.Map = await LoadWebMapAsync(webmap);
-			mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-20000000, 1100000, -3900000, 11000000));
-            layoutGrid.Children.Add(mapView);
+				// Load the new webmap into the current UI
+				var mapView = new MapView();
+				mapView.Map = await LoadWebMapAsync(webmap);
+				mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-20000000, 1100000, -3900000, 11000000));
+				layoutGrid.Children.Add(mapView);
+			}
+			catch (System.Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
         }
 
         //Define BaseMap Layer
@@ -147,19 +153,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         }
 
         // Loads the given webmap
-        private async Task<Map> LoadWebMapAsync(WebMap webmap)
-        {
-            try
-            {
-                var portal = await ArcGISPortal.CreateAsync();
-                var vm = await WebMapViewModel.LoadAsync(webmap, portal);
-                return vm.Map;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Sample Error");
-                return null;
-            }
-        }
+		private async Task<Map> LoadWebMapAsync(WebMap webmap)
+		{
+			var portal = await ArcGISPortal.CreateAsync();
+			var vm = await WebMapViewModel.LoadAsync(webmap, portal);
+			return vm.Map;
+		}
     }
 }

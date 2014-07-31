@@ -27,15 +27,22 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.AdvancedSymbol
 
 			// Create default instance of display properties and set that to DataContext for binding
 			DataContext = HydrographicS52DisplayProperties.Default;
-			var _ = ZoomToHydrographicLayersAsync();
+			ZoomToHydrographicLayersAsync();
 		}
 
 		// Zoom to combined extent of the group layer that contains all hydrographic layers
-		private async Task ZoomToHydrographicLayersAsync()
+		private async void ZoomToHydrographicLayersAsync()
 		{
-			// wait until all layers are loaded
-			await mapView.LayersLoadedAsync();
-
+			try
+			{
+				// wait until all layers are loaded
+				await mapView.LayersLoadedAsync();
+			}
+			catch (System.Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+				return;
+			}
 			var hydroGroupLayer = mapView.Map.Layers.OfType<GroupLayer>().First();
 			var extent = hydroGroupLayer.ChildLayers.First().FullExtent;
 

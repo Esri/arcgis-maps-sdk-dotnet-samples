@@ -33,11 +33,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             _gpTask = new Geoprocessor(
                 new Uri("http://sampleserver4.arcgisonline.com/ArcGIS/rest/services/HomelandSecurity/Incident_Data_Extraction/GPServer/Extract%20Data%20Task"));
 
-            SetupUI().ContinueWith(t => { }, TaskScheduler.FromCurrentSynchronizationContext());
+            SetupUI();
         }
 
         // Sets up UI choices from the extract data service information
-        private async Task SetupUI()
+        private async void SetupUI()
         {
             try
             {

@@ -25,12 +25,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
 			mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-15000000, 2000000, -7000000, 8000000));
             
-            InitializeComboBox()
-                .ContinueWith((t) => { }, TaskScheduler.FromCurrentSynchronizationContext());
+            InitializeComboBox();
         }
 
         // Load the combobox with state data from the map service
-        private async Task InitializeComboBox()
+        private async void InitializeComboBox()
         {
             try
             {

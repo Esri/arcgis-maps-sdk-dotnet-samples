@@ -25,10 +25,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             InitializeComponent();
 
-            var _ = CreateLocalServiceAndDynamicLayer();
+            CreateLocalServiceAndDynamicLayer();
         }
 
-        public async Task CreateLocalServiceAndDynamicLayer() 
+        public async void CreateLocalServiceAndDynamicLayer() 
         {
             LocalMapService localMapService = new LocalMapService(@"..\..\..\..\..\samples-data\maps\water-distribution-network.mpk");
 

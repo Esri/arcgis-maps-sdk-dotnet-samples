@@ -36,14 +36,24 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             _stopGraphicsLayer = mapView.Map.Layers["StopGraphicsLayer"] as GraphicsLayer;
             _barrierGraphicsLayer = mapView.Map.Layers["BarrierGraphicsLayer"] as GraphicsLayer;
 
-            var _ = SetupRouteTask();
+            SetupRouteTask();
         }
 
         private async Task SetupRouteTask()
         {
             _routeTask = new OnlineRouteTask(new Uri(OnlineRoutingService));
-            if (_routeTask != null)
-                _routeParams = await _routeTask.GetDefaultParametersAsync();
+			if (_routeTask != null)
+			{
+				try
+				{
+					_routeParams = await _routeTask.GetDefaultParametersAsync();
+				}
+				catch(Exception ex)
+				{
+					MessageBox.Show(ex.Message);
+				}
+			}
+			
         }
 
         private void ClearButton_Click(object sender, RoutedEventArgs e)

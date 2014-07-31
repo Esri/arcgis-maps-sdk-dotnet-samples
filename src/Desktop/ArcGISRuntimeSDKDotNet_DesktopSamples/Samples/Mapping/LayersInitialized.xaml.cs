@@ -49,20 +49,26 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             InitializeComponent();
 
-            var _ = HandleLayersInitialized();
+            HandleLayersInitialized();
         }
 
-        private async Task HandleLayersInitialized()
+        private async void HandleLayersInitialized()
         {
-            var loadresult = await mapView1.LayersLoadedAsync();
-            LayersInitializedProperty = "Initialized!";
-            foreach (var res in loadresult)
-            {
-                if (res.LoadError != null)
-                {
-                  MessageBox.Show(string.Format("Layer {0} failed to load. {1} ", res.Layer.ID, res.LoadError.Message.ToString()));
-                }
-            }
+			try
+			{
+				var loadresult = await mapView1.LayersLoadedAsync();
+				LayersInitializedProperty = "Initialized!";
+				foreach (var res in loadresult)
+				{
+					if (res.LoadError != null)
+					{
+						MessageBox.Show(string.Format("Layer {0} failed to load. {1} ", res.Layer.ID, res.LoadError.Message.ToString()));
+					}
+				}
+			}
+			catch {
+			  //TODO
+			}
         }
     }
 }

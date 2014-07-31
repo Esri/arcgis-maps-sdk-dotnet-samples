@@ -43,7 +43,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             InitializeComponent();
 
             var extentWGS84 = new Envelope(-123.77, 36.80, -119.77, 38.42, SpatialReferences.Wgs84);
-			mapView.Map.InitialViewpoint = extentWGS84;
+			mapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(extentWGS84);
+			mapView.Map.SpatialReference = SpatialReferences.Wgs84;
 
             mapView.Loaded += mapView_Loaded;
         }

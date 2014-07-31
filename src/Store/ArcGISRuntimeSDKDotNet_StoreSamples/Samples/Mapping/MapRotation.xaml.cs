@@ -27,5 +27,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             else
                 mapView.ClearValue(UIElement.ManipulationModeProperty);
         }
+
+		private void rotationSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+		{
+			mapView.SetRotation(e.NewValue);
+		}
     }
 }

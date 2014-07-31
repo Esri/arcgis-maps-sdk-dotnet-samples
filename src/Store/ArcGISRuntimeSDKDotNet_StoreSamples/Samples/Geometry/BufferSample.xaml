@@ -24,7 +24,10 @@
 
         <esri:MapView x:Name="mapView1">
             <esri:Map >
-                <lyr:ArcGISTiledMapServiceLayer ID="StreetMapLayer" 
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-10863036" YMin="3838021" XMax="-10744801" YMax="3887145" SpatialReferenceID="3857"/>
+				</esri:Map.InitialViewpoint>
+				<lyr:ArcGISTiledMapServiceLayer ID="StreetMapLayer" 
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
                 <lyr:GraphicsLayer ID="MyGraphicsLayer" />
             </esri:Map>

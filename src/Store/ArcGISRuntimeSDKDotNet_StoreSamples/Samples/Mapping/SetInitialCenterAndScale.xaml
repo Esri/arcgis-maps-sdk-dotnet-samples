@@ -11,7 +11,7 @@
             <esri:Map>
 				<esri:Map.InitialViewpoint>
 					<!--Center on San Diego, at scale 1:50,000, using coordinates in WGS84 spatial reference (4326)-->
-					<esri:ViewportCenter X="-117.15" Y="32.705" Scale="50000" SpatialReferenceID="4326" />
+					<esri:ViewpointCenter X="-117.15" Y="32.705" Scale="50000" SpatialReferenceID="4326" />
 				</esri:Map.InitialViewpoint>
                 <lyr:ArcGISTiledMapServiceLayer 
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />

@@ -48,7 +48,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var overlay = new ContentControl() { HorizontalAlignment = HorizontalAlignment.Right, VerticalAlignment = VerticalAlignment.Top };
                 overlay.Template = layoutGrid.Resources["MapTipTemplate"] as ControlTemplate;
                 overlay.DataContext = result;
-                MapView.SetMapOverlayAnchor(overlay, e.Location);
+				MapView.SetViewOverlayAnchor(overlay, e.Location);
                 mapView.Overlays.Add(overlay);
             }
             catch (AggregateException aex)

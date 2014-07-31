@@ -29,9 +29,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 		public MessageProcessingSample()
 		{
 			InitializeComponent();
-
-			mapView.Map.InitialViewpoint = new Envelope(-245200, 6665900, -207000, 6687300, SpatialReferences.WebMercator);
-
 			mapView.ExtentChanged += mapView_ExtentChanged;
 		}
 

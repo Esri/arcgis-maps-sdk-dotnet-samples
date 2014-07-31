@@ -27,17 +27,17 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             _origSymbol = layoutGrid.Resources["OriginalSymbol"] as Symbol;
 
-            mapView.ExtentChanged += mapView_ExtentChanged;
+            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 
         // Start map interaction once the mapview extent is set
-        private async void mapView_ExtentChanged(object sender, EventArgs e)
+        private async void MyMapView_ExtentChanged(object sender, EventArgs e)
         {
-            mapView.ExtentChanged -= mapView_ExtentChanged;
+            MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
 
-            mapView.Editor.EditorConfiguration.MidVertexSymbol = null;
-            mapView.Editor.EditorConfiguration.VertexSymbol = null;
-            mapView.Editor.EditorConfiguration.SelectedVertexSymbol = new SimpleMarkerSymbol() 
+            MyMapView.Editor.EditorConfiguration.MidVertexSymbol = null;
+            MyMapView.Editor.EditorConfiguration.VertexSymbol = null;
+            MyMapView.Editor.EditorConfiguration.SelectedVertexSymbol = new SimpleMarkerSymbol() 
 			{ 
 				Color = System.Windows.Media.Colors.Blue, 
 				Size = 6 
@@ -60,7 +60,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 movedGraphics.Graphics.Clear();
                 originalGraphics.Graphics.Clear();
 
-                var polygon = await mapView.Editor.RequestShapeAsync(DrawShape.Polygon, _origSymbol);
+                var polygon = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon, _origSymbol);
 
                 originalGraphics.Graphics.Add(new Graphic(polygon));
             }
@@ -90,7 +90,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var azimuth = (double)sliderAngle.Value;
                 var movedPoints = GeometryEngine.GeodesicMove(points, distance, LinearUnits.Miles, azimuth);
 
-                Polygon movedPoly = new PolygonBuilder(movedPoints, mapView.SpatialReference).ToGeometry();
+                Polygon movedPoly = new PolygonBuilder(movedPoints, MyMapView.SpatialReference).ToGeometry();
                 movedGraphics.Graphics.Clear();
                 movedGraphics.Graphics.Add(new Graphic(movedPoly));
             }

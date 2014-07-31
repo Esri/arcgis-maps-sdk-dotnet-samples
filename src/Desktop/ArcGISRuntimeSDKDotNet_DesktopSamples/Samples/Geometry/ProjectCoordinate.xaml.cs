@@ -19,15 +19,15 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            mapView.ExtentChanged += mapView_ExtentChanged;
+            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 
         // Start map interaction
-        private async void mapView_ExtentChanged(object sender, EventArgs e)
+        private async void MyMapView_ExtentChanged(object sender, EventArgs e)
         {
             try
             {
-                mapView.ExtentChanged -= mapView_ExtentChanged;
+                MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
                 await AcceptPointsAsync();
             }
             catch (Exception ex)
@@ -40,9 +40,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // - collected point is in the coordinate system of the current map
         private async Task AcceptPointsAsync()
         {
-            while (mapView.Extent != null)
+            while (MyMapView.Extent != null)
             {
-                var point = await mapView.Editor.RequestPointAsync();
+                var point = await MyMapView.Editor.RequestPointAsync();
 
                 graphicsLayer.Graphics.Clear();
                 graphicsLayer.Graphics.Add(new Graphic(point));

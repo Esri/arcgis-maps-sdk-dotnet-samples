@@ -13,7 +13,7 @@
             <esri:SimpleRenderer x:Key="FillRenderer" Symbol="{StaticResource FillSymbol}" />
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" WrapAround="True">
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
             <esri:Map>
                 <esri:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
@@ -33,7 +33,7 @@
               
                 <StackPanel Margin="0,16,0,0" HorizontalAlignment="Center" Orientation="Horizontal">
                     <Button Content="Compute Class Statistics" Click="ComputeClassStatisticsButton_Click"
-                            IsEnabled="{Binding ElementName=mapView, Path=Editor.IsActive}" />
+                            IsEnabled="{Binding ElementName=MyMapView, Path=Editor.IsActive}" />
                     <Button Content="Reset" Margin="12,0,0,0" Click="ResetButton_Click" />
                 </StackPanel>
                 <ProgressBar x:Name="progress" IsIndeterminate="True" Margin="12,12,12,0" Visibility="Collapsed" />

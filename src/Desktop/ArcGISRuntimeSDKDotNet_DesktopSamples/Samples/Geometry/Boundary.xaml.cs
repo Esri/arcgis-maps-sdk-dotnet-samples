@@ -28,7 +28,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Setup graphic layers with test graphics and calculated boundaries of each
         private async Task CreateGraphics()
         {
-            await mapView.LayersLoadedAsync();
+            await MyMapView.LayersLoadedAsync();
 
             CreateTestGraphics();
             CalculateBoundaries();
@@ -37,10 +37,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Creates a two-part polygon and a four-part polyline to use as test graphics for the Boundary method
         private void CreateTestGraphics()
         {
-            var center = mapView.Extent.GetCenter();
-            var width = mapView.Extent.Width / 4;
-            var left = new MapPointBuilder(center.X - width, center.Y, mapView.SpatialReference).ToGeometry();
-            var right = new MapPointBuilder(center.X + width, center.Y, mapView.SpatialReference).ToGeometry();
+            var center = MyMapView.Extent.GetCenter();
+            var width = MyMapView.Extent.Width / 4;
+            var left = new MapPointBuilder(center.X - width, center.Y, MyMapView.SpatialReference).ToGeometry();
+            var right = new MapPointBuilder(center.X + width, center.Y, MyMapView.SpatialReference).ToGeometry();
 
             var fillSymbol = new SimpleFillSymbol() { Color = Colors.Red, Style = SimpleFillStyle.Solid };
             var lineSymbol = new SimpleLineSymbol() { Color = Colors.Red, Style = SimpleLineStyle.Solid, Width = 2 };
@@ -67,7 +67,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private Polygon CreatePolygonBox(MapPoint center, double length)
         {
             var halfLen = length / 2.0;
-			var mapPointBuilder = new MapPointBuilder(mapView.SpatialReference);
+			var mapPointBuilder = new MapPointBuilder(MyMapView.SpatialReference);
 
 			Geometry.PointCollection coords = new Geometry.PointCollection();
 			coords.Add(new MapPointBuilder(center.X - halfLen, center.Y + halfLen).ToGeometry());
@@ -84,7 +84,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 			coordsHole.Add(new MapPointBuilder(center.X + halfLen, center.Y + halfLen).ToGeometry());
 			coordsHole.Add(new MapPointBuilder(center.X - halfLen, center.Y + halfLen).ToGeometry());
 
-            return new Polygon(new List<Geometry.PointCollection> { coords, coordsHole }, mapView.SpatialReference);
+            return new Polygon(new List<Geometry.PointCollection> { coords, coordsHole }, MyMapView.SpatialReference);
         }
 
         // Creates a polyline with four paths in the shape of a box centered at the given point
@@ -117,7 +117,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 }
             };
 
-            return new Polyline(coords, mapView.SpatialReference);
+            return new Polyline(coords, MyMapView.SpatialReference);
         }
     }
 }

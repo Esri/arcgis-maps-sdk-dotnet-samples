@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView x:Name="mapView">
+        <esri:MapView x:Name="MyMapView">
 			<esri:Map>
 				<esri:Map.InitialViewpoint>
 					<!--Center on San Diego, at scale 1:50,000, using coordinates in WGS84 spatial reference (4326)-->

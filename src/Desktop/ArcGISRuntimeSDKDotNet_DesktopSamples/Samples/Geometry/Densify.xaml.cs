@@ -40,7 +40,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 resultGraphics.Graphics.Clear();
 
                 // Request polygon from the user
-                var poly = await mapView.Editor.RequestShapeAsync(DrawShape.Polygon, _polySymbol) as Polygon;
+                var poly = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon, _polySymbol) as Polygon;
 
                 // Add original polygon and vertices to input graphics layer
                 inputGraphics.Graphics.Add(new Graphic(poly, _polySymbol));
@@ -50,7 +50,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 }
 
                 // Densify the polygon
-                var densify = GeometryEngine.Densify(poly, mapView.Extent.Width / 100) as Polygon;
+                var densify = GeometryEngine.Densify(poly, MyMapView.Extent.Width / 100) as Polygon;
 
                 // Add new vertices to result graphics layer
                 foreach (var coord in densify.Parts.First())

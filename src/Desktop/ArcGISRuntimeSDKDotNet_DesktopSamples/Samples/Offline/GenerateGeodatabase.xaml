@@ -8,7 +8,7 @@
             <esri:SimpleRenderer x:Key="AOIRenderer" Symbol="{StaticResource AOISymbol}" />
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView">
+        <esri:MapView x:Name="MyMapView">
             <esri:Map>
                 <esri:ArcGISTiledMapServiceLayer DisplayName="Streets Basemap"
                     ServiceUri="http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
@@ -30,7 +30,7 @@
                 </StackPanel>
 
                 <TextBlock Text="Map Layers" FontSize="14" FontWeight="Bold" Margin="0,12,0,6" HorizontalAlignment="Center" />
-                <TreeView Grid.Row="1" ItemsSource="{Binding ElementName=mapView, Path=Map.Layers}" Margin="12,0">
+                <TreeView Grid.Row="1" ItemsSource="{Binding ElementName=MyMapView, Path=Map.Layers}" Margin="12,0">
                     <TreeView.ItemContainerStyle>
                         <Style TargetType="TreeViewItem">
                             <Setter Property="TreeViewItem.IsExpanded" Value="True" />

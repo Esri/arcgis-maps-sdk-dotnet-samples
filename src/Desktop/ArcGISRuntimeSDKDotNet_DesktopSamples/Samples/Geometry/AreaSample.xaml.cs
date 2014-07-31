@@ -27,14 +27,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
 			var initialExtent = new Envelope(-130, 20, -65, 55, SpatialReferences.Wgs84);
 
-			mapView.Map.InitialViewpoint = new Viewpoint(initialExtent);
-            graphicsLayer = (GraphicsLayer)mapView.Map.Layers["graphicsLayer"];
-			mapView.ExtentChanged += mapView_ExtentChanged; 
+			MyMapView.Map.InitialViewpoint = new Viewpoint(initialExtent);
+            graphicsLayer = (GraphicsLayer)MyMapView.Map.Layers["graphicsLayer"];
+			MyMapView.ExtentChanged += MyMapView_ExtentChanged; 
         }
 
-		private async void mapView_ExtentChanged(object sender, System.EventArgs e)
+		private async void MyMapView_ExtentChanged(object sender, System.EventArgs e)
 		{
-			mapView.ExtentChanged -= mapView_ExtentChanged;
+			MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
 			await doCalculateAreaAndLength();
 		}
 
@@ -43,7 +43,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             try
             {
                 // Wait for user to draw
-                var geom = await mapView.Editor.RequestShapeAsync(DrawShape.Polygon);
+                var geom = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon);
 
                 // show geometry on map
                 graphicsLayer.Graphics.Clear();
@@ -75,7 +75,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private async void CancelCurrent_Click(object sender, RoutedEventArgs e)
         {
-            mapView.Editor.Cancel.Execute(null);
+            MyMapView.Editor.Cancel.Execute(null);
             ResetUI();
             await doCalculateAreaAndLength();
         }

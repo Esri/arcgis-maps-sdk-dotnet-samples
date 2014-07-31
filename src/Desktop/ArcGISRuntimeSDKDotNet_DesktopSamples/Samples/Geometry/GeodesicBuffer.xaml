@@ -11,7 +11,7 @@
             </esri:SimpleFillSymbol>
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" WrapAround="True" MouseMove="mapView_MouseMove">
+        <esri:MapView x:Name="MyMapView" WrapAround="True" MouseMove="MyMapView_MouseMove">
             <esri:Map>
                 <esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />

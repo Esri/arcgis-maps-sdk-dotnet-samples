@@ -27,9 +27,8 @@
 
 		<esri:MapView x:Name="MyMapView" WrapAround="True" >
             <esri:Map>
-                <esri:ArcGISTiledMapServiceLayer
+				<esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-
 				<esri:FeatureLayer x:Name="cities" ID="featureLayer" 
 								   Renderer="{StaticResource OrangePointRenderer}">
 					<esri:FeatureLayer.FeatureTable>

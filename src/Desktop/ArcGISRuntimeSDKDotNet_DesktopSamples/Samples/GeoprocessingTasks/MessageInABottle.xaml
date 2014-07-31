@@ -11,7 +11,7 @@
             <esri:SimpleRenderer x:Key="LineRenderer" Symbol="{StaticResource PathLineSymbol}" />
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" WrapAround="True" MapViewTapped="mapView_MapViewTapped">
+        <esri:MapView x:Name="MyMapView" WrapAround="True" MapViewTapped="MyMapView_MapViewTapped">
             <esri:Map>
                 <esri:ArcGISTiledMapServiceLayer ID="TopoMapLayer"
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />

@@ -31,10 +31,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                while (mapView.Extent != null)
+                while (MyMapView.Extent != null)
                 {
                     // Accept user point
-                    var point = await mapView.Editor.RequestPointAsync();
+                    var point = await MyMapView.Editor.RequestPointAsync();
 
                     // create the geodesic ellipse
                     var radius1 = (double)comboRadius1.SelectedItem;

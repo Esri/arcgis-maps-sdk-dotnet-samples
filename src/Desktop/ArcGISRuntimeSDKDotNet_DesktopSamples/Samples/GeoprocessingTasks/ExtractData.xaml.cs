@@ -28,7 +28,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-8985039, 4495835, -8114289, 4889487, SpatialReferences.WebMercator));
+			MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-8985039, 4495835, -8114289, 4889487, SpatialReferences.WebMercator));
 
             _gpTask = new Geoprocessor(
                 new Uri("http://sampleserver4.arcgisonline.com/ArcGIS/rest/services/HomelandSecurity/Incident_Data_Extraction/GPServer/Extract%20Data%20Task"));
@@ -65,16 +65,16 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 Polygon aoi = null;
                 if (chkFreehand.IsChecked == true)
                 {
-                    var boundary = await mapView.Editor.RequestShapeAsync(DrawShape.Freehand) as Polyline;
+                    var boundary = await MyMapView.Editor.RequestShapeAsync(DrawShape.Freehand) as Polyline;
                     if (boundary.Parts.First().Count <= 1)
                         return;
 
-                    aoi = new Polygon(boundary.Parts, mapView.SpatialReference);
+                    aoi = new Polygon(boundary.Parts, MyMapView.SpatialReference);
                     aoi = GeometryEngine.Simplify(aoi) as Polygon;
                 }
                 else
                 {
-                    aoi = await mapView.Editor.RequestShapeAsync(DrawShape.Polygon) as Polygon;
+                    aoi = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon) as Polygon;
                 }
 
                 graphicsLayer.Graphics.Add(new Graphic(aoi));

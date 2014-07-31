@@ -42,7 +42,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
                 var table = gdb.FeatureTables.First(ft => ft.Name == "US-States");
                 _statesLayer = new FeatureLayer() { ID = table.Name, FeatureTable = table };
-                mapView.Map.Layers.Insert(1, _statesLayer);
+                MyMapView.Map.Layers.Insert(1, _statesLayer);
             }
             catch (Exception ex)
             {
@@ -58,7 +58,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 resultGraphics.Graphics.Clear();
 
                 // wait for user to draw a polygon
-                var poly = await mapView.Editor.RequestShapeAsync(DrawShape.Polygon);
+                var poly = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon);
 
                 // get intersecting features from the feature layer
                 SpatialQueryFilter filter = new SpatialQueryFilter();

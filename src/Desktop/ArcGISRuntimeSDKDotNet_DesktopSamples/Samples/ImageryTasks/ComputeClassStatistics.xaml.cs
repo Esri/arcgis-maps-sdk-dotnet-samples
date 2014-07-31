@@ -24,16 +24,16 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            mapView.LayerLoaded += mapView_LayerLoaded;
+            MyMapView.LayerLoaded += MyMapView_LayerLoaded;
         }
 
         // Zooms to the image layer and starts accepting user points
-        private async void mapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
+        private async void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
         {
             if (e.Layer is ArcGISImageServiceLayer)
             {
                 if (e.Layer.FullExtent != null)
-                    await mapView.SetViewAsync(e.Layer.FullExtent);
+                    await MyMapView.SetViewAsync(e.Layer.FullExtent);
 
                 await AcceptClassPoints();
             }
@@ -45,8 +45,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             try
             {
                 progress.Visibility = Visibility.Visible;
-                if (mapView.Editor.IsActive)
-                    mapView.Editor.Cancel.Execute(null);
+                if (MyMapView.Editor.IsActive)
+                    MyMapView.Editor.Cancel.Execute(null);
 
                 var statsTask = new ComputeClassStatisticsTask(new Uri(imageLayer.ServiceUri));
 
@@ -89,8 +89,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             {
                 while (true)
                 {
-                    var point = await mapView.Editor.RequestPointAsync();
-                    var polygon = GeometryEngine.Buffer(point, mapView.Extent.Width * .01);
+                    var point = await MyMapView.Editor.RequestPointAsync();
+                    var polygon = GeometryEngine.Buffer(point, MyMapView.Extent.Width * .01);
                     var attr = new Dictionary<string, object>() { { "ID", graphicsLayer.Graphics.Count + 1 } };
                     graphicsLayer.Graphics.Add(new Graphic(polygon, attr));
                 }

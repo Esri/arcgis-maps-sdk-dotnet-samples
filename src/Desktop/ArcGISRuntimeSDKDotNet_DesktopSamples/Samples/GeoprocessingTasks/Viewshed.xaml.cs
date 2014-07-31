@@ -36,10 +36,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             {
                 uiPanel.IsEnabled = false;
                 inputLayer.Graphics.Clear();
-                mapView.Map.Layers.Remove("ViewshedResultsLayer");
+                MyMapView.Map.Layers.Remove("ViewshedResultsLayer");
 
                 //get the user's input point
-                var inputPoint = await mapView.Editor.RequestPointAsync();
+                var inputPoint = await MyMapView.Editor.RequestPointAsync();
 
                 progress.Visibility = Visibility.Visible;
                 inputLayer.Graphics.Add(new Graphic() { Geometry = inputPoint });
@@ -62,8 +62,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                         //Insert the results layer just beneath the input graphics layer.
                         //This allows us to see the input point at all times.
                         resultLayer.ID = "ViewshedResultsLayer";
-                        mapView.Map.Layers.Insert(mapView.Map.Layers.IndexOf(inputLayer), resultLayer);
-                        await mapView.LayersLoadedAsync(new List<Layer> { resultLayer });
+                        MyMapView.Map.Layers.Insert(MyMapView.Map.Layers.IndexOf(inputLayer), resultLayer);
+                        await MyMapView.LayersLoadedAsync(new List<Layer> { resultLayer });
                     }
                 }
             }

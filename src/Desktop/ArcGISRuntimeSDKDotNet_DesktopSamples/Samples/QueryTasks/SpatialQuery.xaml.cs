@@ -42,7 +42,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         }
 
         // buffer the click point, query the map service with the buffer geometry as the filter and add graphics to the map
-        private async void mapView_MapViewTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
+        private async void MyMapView_MapViewTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var query = new Query("1=1")
                 {
                     ReturnGeometry = true,
-                    OutSpatialReference = mapView.SpatialReference,
+                    OutSpatialReference = MyMapView.SpatialReference,
                     Geometry = bufferResult
                 };
                 query.OutFields.Add("OWNERNME1");

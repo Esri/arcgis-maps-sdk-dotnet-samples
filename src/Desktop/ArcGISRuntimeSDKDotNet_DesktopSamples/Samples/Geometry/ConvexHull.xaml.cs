@@ -35,11 +35,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                await mapView.LayersLoadedAsync();
+                await MyMapView.LayersLoadedAsync();
 
-                while (mapView.Extent != null)
+                while (MyMapView.Extent != null)
                 {
-                    var point = await mapView.Editor.RequestPointAsync();
+                    var point = await MyMapView.Editor.RequestPointAsync();
 
                     // reset graphics layers if we've already created a convex hull polygon
                     if (convexHullGraphics.Graphics.Count > 0)

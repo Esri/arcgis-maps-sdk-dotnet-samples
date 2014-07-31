@@ -11,7 +11,7 @@
             <esri:SimpleRenderer x:Key="BarrierLayerRenderer" Symbol="{StaticResource BarrierSymbol}" />
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" MapViewTapped="mapView_MapViewTapped">
+        <esri:MapView x:Name="MyMapView" MapViewTapped="MyMapView_MapViewTapped">
 			<esri:Map InitialViewpoint="-13637527,4545455,-13622931,4552890,3857">
                 <esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />

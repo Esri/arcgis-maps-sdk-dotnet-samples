@@ -8,7 +8,7 @@
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         </Grid.Resources>
         
-        <esri:MapView x:Name="mapView" WrapAround="True" MapViewTapped="mapView_MapViewTapped">
+        <esri:MapView x:Name="MyMapView" WrapAround="True" MapViewTapped="MyMapView_MapViewTapped">
             <esri:MapView.Overlays>
 				<Grid x:Name="esriOverlay" esri:MapView.MapOverlayAnchor="{Binding}" IsHitTestVisible="False" HorizontalAlignment="Right" VerticalAlignment="Top" MaxWidth="200"
                       Visibility="{Binding ElementName=chkEsri, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">

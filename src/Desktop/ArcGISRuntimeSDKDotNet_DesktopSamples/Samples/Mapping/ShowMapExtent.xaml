@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView x:Name="mapView" WrapAround="True" ExtentChanged="MapView_ExtentChanged">
+        <esri:MapView x:Name="MyMapView" WrapAround="True" ExtentChanged="MapView_ExtentChanged">
             <esri:Map>
                 <esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
@@ -31,16 +31,16 @@
                     <Run FontStyle="Italic">Absolute</Run>
                     <LineBreak />
                     <Run>MinX: </Run>
-                    <Run Text="{Binding ElementName=mapView, Path=Extent.XMin, StringFormat=\{0:F3\}, Mode=OneWay}" />
+                    <Run Text="{Binding ElementName=MyMapView, Path=Extent.XMin, StringFormat=\{0:F3\}, Mode=OneWay}" />
                     <LineBreak />
                     <Run>MinY: </Run>
-                    <Run Text="{Binding ElementName=mapView, Path=Extent.YMin, StringFormat=\{0:F3\}, Mode=OneWay}" />
+                    <Run Text="{Binding ElementName=MyMapView, Path=Extent.YMin, StringFormat=\{0:F3\}, Mode=OneWay}" />
                     <LineBreak />
                     <Run>MaxX: </Run>
-                    <Run Text="{Binding ElementName=mapView, Path=Extent.XMax, StringFormat=\{0:F3\}, Mode=OneWay}" />
+                    <Run Text="{Binding ElementName=MyMapView, Path=Extent.XMax, StringFormat=\{0:F3\}, Mode=OneWay}" />
                     <LineBreak />
                     <Run>MaxY: </Run>
-                    <Run Text="{Binding ElementName=mapView, Path=Extent.YMax, StringFormat=\{0:F3\}, Mode=OneWay}" />
+                    <Run Text="{Binding ElementName=MyMapView, Path=Extent.YMax, StringFormat=\{0:F3\}, Mode=OneWay}" />
                
                     <LineBreak />
                     <LineBreak />

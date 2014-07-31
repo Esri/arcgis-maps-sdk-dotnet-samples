@@ -22,12 +22,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 		{
 			InitializeComponent();
 
-			MyMapView.LayerLoaded += mapView_LayerLoaded;
+			MyMapView.LayerLoaded += MyMapView_LayerLoaded;
 
 			_usaLayer = MyMapView.Map.Layers["USA"] as ArcGISDynamicMapServiceLayer;
 		}
 
-        private void mapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
+        private void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
         {
             if (e.LoadError != null)
             {

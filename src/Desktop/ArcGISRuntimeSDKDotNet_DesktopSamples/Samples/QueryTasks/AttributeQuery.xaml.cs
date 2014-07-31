@@ -23,7 +23,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-15000000, 2000000, -7000000, 8000000));
+			MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-15000000, 2000000, -7000000, 8000000));
             
             InitializeComboBox();
         }
@@ -66,7 +66,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 {
                     OutFields = OutFields.All,
                     ReturnGeometry = true,
-                    OutSpatialReference = mapView.SpatialReference
+                    OutSpatialReference = MyMapView.SpatialReference
                 };
 
                 var result = await queryTask.ExecuteAsync(query);
@@ -79,7 +79,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
                     var selectedFeatureExtent = graphic.Geometry.Extent;
                     Envelope displayExtent = selectedFeatureExtent.Expand(1.3);
-                    mapView.SetView(displayExtent);
+                    MyMapView.SetView(displayExtent);
 
                     resultsGrid.ItemsSource = graphic.Attributes;
                     resultsGrid.Visibility = Visibility.Visible;

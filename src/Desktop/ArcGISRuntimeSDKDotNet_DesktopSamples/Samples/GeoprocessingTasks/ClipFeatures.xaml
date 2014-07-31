@@ -12,7 +12,7 @@
             <esri:SimpleRenderer x:Key="ResultRenderer" Symbol="{StaticResource ResultFillSymbol}" />
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView">
+        <esri:MapView x:Name="MyMapView">
             <esri:Map >
                 <esri:ArcGISTiledMapServiceLayer ID="TopoMapLayer"
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer" />

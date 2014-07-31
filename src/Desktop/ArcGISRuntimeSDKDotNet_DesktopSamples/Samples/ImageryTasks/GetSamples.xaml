@@ -13,7 +13,7 @@
             <esri:SimpleRenderer x:Key="FillRenderer" Symbol="{StaticResource FootprintFillSymbol}" />
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" WrapAround="True" MapViewTapped="mapView_MapViewTapped">
+        <esri:MapView x:Name="MyMapView" WrapAround="True" MapViewTapped="MyMapView_MapViewTapped">
             <esri:Map>
                 <esri:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
                     ServiceUri="http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer" />

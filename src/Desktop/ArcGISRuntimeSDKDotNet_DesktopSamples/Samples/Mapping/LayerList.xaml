@@ -10,7 +10,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <esri:MapView x:Name="mapView" Grid.Column="1">
+        <esri:MapView x:Name="MyMapView" Grid.Column="1">
             <esri:Map>
                 <esri:ArcGISTiledMapServiceLayer DisplayName="Basemap"
 				    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" />
@@ -52,7 +52,7 @@
                 </TextBlock>
 
                 <ListView x:Name="legend" Grid.Row="1" BorderBrush="Transparent" Background="Transparent"
-                      ItemsSource="{Binding ElementName=mapView, Path=Map.Layers}"
+                      ItemsSource="{Binding ElementName=MyMapView, Path=Map.Layers}"
                       AllowDrop="True" DragEnter="legend_DragEnter" Drop="legend_Drop"
                       PreviewMouseMove="legend_PreviewMouseMove" PreviewMouseLeftButtonDown="legend_PreviewMouseLeftButtonDown">
                     <ListView.ItemContainerStyle>

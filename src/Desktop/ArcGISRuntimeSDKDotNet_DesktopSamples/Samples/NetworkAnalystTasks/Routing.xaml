@@ -8,7 +8,7 @@
             <esri:SimpleRenderer x:Key="RouteLayerRenderer" Symbol="{StaticResource RouteSymbol}" />
         </Grid.Resources>
         
-        <esri:MapView x:Name="mapView" MapViewTapped="mapView_MapViewTapped">
+        <esri:MapView x:Name="MyMapView" MapViewTapped="MyMapView_MapViewTapped">
             <esri:Map>
                 <esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />

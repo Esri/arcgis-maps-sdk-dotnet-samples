@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView x:Name="mapView1">
+        <esri:MapView x:Name="MyMapView1">
             <esri:Map>
                 <esri:ArcGISTiledMapServiceLayer ID="DynamicLayer1"
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer"/>

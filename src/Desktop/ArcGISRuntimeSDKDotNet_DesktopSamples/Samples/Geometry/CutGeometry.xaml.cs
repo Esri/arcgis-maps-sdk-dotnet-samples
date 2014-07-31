@@ -44,7 +44,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
                 var table = gdb.FeatureTables.First(ft => ft.Name == "US-States");
                 _statesLayer = new FeatureLayer() { ID = table.Name, FeatureTable = table };
-                mapView.Map.Layers.Insert(1, _statesLayer);
+                MyMapView.Map.Layers.Insert(1, _statesLayer);
             }
             catch (Exception ex)
             {
@@ -60,7 +60,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 resultGraphics.Graphics.Clear();
 
                 // wait for user to draw cut line
-                var cutLine = await mapView.Editor.RequestShapeAsync(DrawShape.Polyline, _cutLineSymbol) as Polyline;
+                var cutLine = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polyline, _cutLineSymbol) as Polyline;
 
                 // get intersecting features from the feature layer
                 SpatialQueryFilter filter = new SpatialQueryFilter();

@@ -38,11 +38,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 graphicsLayer.Graphics.Clear();
 
                 // wait for user to draw a polyline
-                var line = await mapView.Editor.RequestShapeAsync(DrawShape.Polyline, _lineSymbol);
+                var line = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polyline, _lineSymbol);
                 graphicsLayer.Graphics.Add(new Graphic(line, _lineSymbol));
 
                 // wait for user to draw a point
-                var point = await mapView.Editor.RequestPointAsync();
+                var point = await MyMapView.Editor.RequestPointAsync();
                 graphicsLayer.Graphics.Add(new Graphic(point, _pointSymbol));
 
                 // Calc distance between between line and point

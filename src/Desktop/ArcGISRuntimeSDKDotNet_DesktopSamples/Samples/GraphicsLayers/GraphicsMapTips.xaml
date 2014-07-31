@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView x:Name="mapView" WrapAround="True" MouseMove="mapView_MouseMove">
+        <esri:MapView x:Name="MyMapView" WrapAround="True" MouseMove="MyMapView_MouseMove">
             <esri:Map>
                 <esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />

@@ -22,16 +22,16 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public GetSamples()
         {
             InitializeComponent();
-            mapView.LayerLoaded += mapView_LayerLoaded;
+            MyMapView.LayerLoaded += MyMapView_LayerLoaded;
         }
 
         // Zoom to the image service extent
-        private async void mapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
+        private async void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
         {
             if (e.Layer is ArcGISImageServiceLayer)
             {
                 if (e.Layer.FullExtent != null)
-                    await mapView.SetViewAsync(e.Layer.FullExtent);
+                    await MyMapView.SetViewAsync(e.Layer.FullExtent);
             }
         }
 
@@ -47,7 +47,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                var envelope = await mapView.Editor.RequestShapeAsync(DrawShape.Envelope) as Envelope;
+                var envelope = await MyMapView.Editor.RequestShapeAsync(DrawShape.Envelope) as Envelope;
 
                 QueryTask queryTask = new QueryTask(
                     new Uri("http://servicesbeta.esri.com/ArcGIS/rest/services/Portland/PortlandAerial/ImageServer/query"));
@@ -56,7 +56,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 {
                     OutFields = new OutFields(new string[] { "Name", "LowPS" }),
                     ReturnGeometry = true,
-                    OutSpatialReference = mapView.SpatialReference,
+                    OutSpatialReference = MyMapView.SpatialReference,
                     Where = "Category = 1"
                 };
 
@@ -71,13 +71,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         }
 
         // Hittest the graphics layer and show the map tip for the selected graphic
-        private async void mapView_MapViewTapped(object sender, MapViewInputEventArgs e)
+        private async void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
             try
             {
                 graphicsLayer.ClearSelection();
 
-                var graphic = await graphicsLayer.HitTestAsync(mapView, e.Position);
+                var graphic = await graphicsLayer.HitTestAsync(MyMapView, e.Position);
                 if (graphic != null)
                 {
                     graphic.IsSelected = true;

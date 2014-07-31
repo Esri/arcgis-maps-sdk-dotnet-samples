@@ -19,10 +19,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			MyMapView.SpatialReferenceChanged += mapView_SpatialReferenceChanged;
+			MyMapView.SpatialReferenceChanged += MyMapView_SpatialReferenceChanged;
         }
 
-		private async void mapView_SpatialReferenceChanged(object sender, System.EventArgs e)
+		private async void MyMapView_SpatialReferenceChanged(object sender, System.EventArgs e)
 		{
 			await MyMapView.LayersLoadedAsync();
 			_isMapReady = true;

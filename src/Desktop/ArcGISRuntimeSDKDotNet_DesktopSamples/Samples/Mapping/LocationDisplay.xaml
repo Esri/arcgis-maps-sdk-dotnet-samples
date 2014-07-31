@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView x:Name="mapView" WrapAround="True">
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
             <esri:Map>
                 <esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
@@ -21,9 +21,9 @@
 
             <StackPanel Margin="20,10,20,20">
                 <TextBlock Text="Location Display Settings" FontWeight="Bold" Margin="0,4"/>
-                <CheckBox Content="Enabled" IsChecked="{Binding ElementName=mapView, Path=LocationDisplay.IsEnabled}" />
+                <CheckBox Content="Enabled" IsChecked="{Binding ElementName=MyMapView, Path=LocationDisplay.IsEnabled}" />
                 <TextBlock Text="Auto Pan Mode" />
-                <ComboBox SelectedItem="{Binding ElementName=mapView, Path=LocationDisplay.AutoPanMode}">
+                <ComboBox SelectedItem="{Binding ElementName=MyMapView, Path=LocationDisplay.AutoPanMode}">
                     <esri:AutoPanMode>Off</esri:AutoPanMode>
                     <esri:AutoPanMode>Default</esri:AutoPanMode>
                     <esri:AutoPanMode>Navigation</esri:AutoPanMode>
@@ -48,10 +48,10 @@
             <StackPanel Margin="20,10,20,20">
                 <TextBlock Text="Current Location" FontWeight="Bold" Margin="0,4"/>
                 <StackPanel>
-                    <TextBlock Text="{Binding ElementName=mapView, Path=LocationDisplay.CurrentLocation.Location.X, StringFormat='X: {0:0.000000}'}" />
-                    <TextBlock Text="{Binding ElementName=mapView, Path=LocationDisplay.CurrentLocation.Location.Y, StringFormat='Y: {0:0.000000}'}" />
-                    <TextBlock Text="{Binding ElementName=mapView, Path=LocationDisplay.CurrentLocation.Course, StringFormat='Course: {0:0.000}'}" />
-                    <TextBlock Text="{Binding ElementName=mapView, Path=LocationDisplay.CurrentLocation.Speed, StringFormat='Speed: {0:0.000}'}" />
+                    <TextBlock Text="{Binding ElementName=MyMapView, Path=LocationDisplay.CurrentLocation.Location.X, StringFormat='X: {0:0.000000}'}" />
+                    <TextBlock Text="{Binding ElementName=MyMapView, Path=LocationDisplay.CurrentLocation.Location.Y, StringFormat='Y: {0:0.000000}'}" />
+                    <TextBlock Text="{Binding ElementName=MyMapView, Path=LocationDisplay.CurrentLocation.Course, StringFormat='Course: {0:0.000}'}" />
+                    <TextBlock Text="{Binding ElementName=MyMapView, Path=LocationDisplay.CurrentLocation.Speed, StringFormat='Speed: {0:0.000}'}" />
                 </StackPanel>
             </StackPanel>
         </Grid>

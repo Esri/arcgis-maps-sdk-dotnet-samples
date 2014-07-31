@@ -36,14 +36,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.AdvancedSymbol
 			try
 			{
 				// wait until all layers are loaded
-				await mapView.LayersLoadedAsync();
+				await MyMapView.LayersLoadedAsync();
 			}
 			catch (System.Exception ex)
 			{
 				MessageBox.Show(ex.Message);
 				return;
 			}
-			var hydroGroupLayer = mapView.Map.Layers.OfType<GroupLayer>().First();
+			var hydroGroupLayer = MyMapView.Map.Layers.OfType<GroupLayer>().First();
 			var extent = hydroGroupLayer.ChildLayers.First().FullExtent;
 
 			// Create combined extent from child hydrographic layers
@@ -51,14 +51,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.AdvancedSymbol
 				extent = extent.Union(layer.FullExtent);
 
 			// Zoom to full extent
-			await mapView.SetViewAsync(extent);
+			await MyMapView.SetViewAsync(extent);
 			
 			// Enable controls
 			displayPropertiesArea.IsEnabled = true;
 		}
 
 		// Show error if loading layers fail
-		private void mapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
+		private void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
 		{
 			if (e.LoadError == null)
 				return;

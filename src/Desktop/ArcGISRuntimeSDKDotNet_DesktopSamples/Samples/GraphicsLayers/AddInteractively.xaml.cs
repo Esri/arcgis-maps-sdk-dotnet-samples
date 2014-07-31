@@ -59,12 +59,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Draw graphics infinitely
         private async void AddGraphicsAsync()
         {
-            await mapView.LayersLoadedAsync();
+            await MyMapView.LayersLoadedAsync();
 
             while (InDrawMode)
             {
                 // if the map is not in a valid state - quit and turn drawing mode off
-                if (mapView.Extent == null)
+                if (MyMapView.Extent == null)
                 {
                     InDrawMode = false;
                     break;
@@ -104,7 +104,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 }
 
                 // wait for user to draw the shape
-                var geometry = await mapView.Editor.RequestShapeAsync(CurrentDrawShape, symbol);
+                var geometry = await MyMapView.Editor.RequestShapeAsync(CurrentDrawShape, symbol);
 
                 // add the new graphic to the graphic layer
                 var graphic = new Graphic(geometry, symbol);
@@ -123,16 +123,16 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Cancel the current shape drawing (if in Editor.RequestShapeAsync) when the shape type has changed
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (mapView.Editor.IsActive)
-                mapView.Editor.Cancel.Execute(null);
+            if (MyMapView.Editor.IsActive)
+                MyMapView.Editor.Cancel.Execute(null);
         }
 
         // Cancel the current shape drawing (if in Editor.RequestShapeAsync)
         //  and initiate new graphic adding if drawing mode is on
         private void ToggleButton_Click(object sender, RoutedEventArgs e)
         {
-            if (mapView.Editor.IsActive)
-                mapView.Editor.Cancel.Execute(null);
+            if (MyMapView.Editor.IsActive)
+                MyMapView.Editor.Cancel.Execute(null);
 
             if (InDrawMode)
                 AddGraphicsAsync();

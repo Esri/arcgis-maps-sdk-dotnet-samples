@@ -32,9 +32,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            _routeGraphicsLayer = mapView.Map.Layers["RouteGraphicsLayer"] as GraphicsLayer;
-            _stopGraphicsLayer = mapView.Map.Layers["StopGraphicsLayer"] as GraphicsLayer;
-            _barrierGraphicsLayer = mapView.Map.Layers["BarrierGraphicsLayer"] as GraphicsLayer;
+            _routeGraphicsLayer = MyMapView.Map.Layers["RouteGraphicsLayer"] as GraphicsLayer;
+            _stopGraphicsLayer = MyMapView.Map.Layers["StopGraphicsLayer"] as GraphicsLayer;
+            _barrierGraphicsLayer = MyMapView.Map.Layers["BarrierGraphicsLayer"] as GraphicsLayer;
 
             SetupRouteTask();
         }
@@ -63,7 +63,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             _barrierGraphicsLayer.Graphics.Clear();
         }
 
-        private async void mapView_MapViewTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
+        private async void MyMapView_MapViewTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
         {
             try
             {
@@ -96,7 +96,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
                 _routeParams.Stops = new FeaturesAsFeature(_stopGraphicsLayer.Graphics);
                 _routeParams.PointBarriers = new FeaturesAsFeature(_barrierGraphicsLayer.Graphics);
-                _routeParams.OutSpatialReference = mapView.SpatialReference;
+                _routeParams.OutSpatialReference = MyMapView.SpatialReference;
 
                 RouteResult routeResult = await _routeTask.SolveAsync(_routeParams);
 

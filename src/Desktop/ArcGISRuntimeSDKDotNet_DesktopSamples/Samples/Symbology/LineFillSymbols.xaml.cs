@@ -26,13 +26,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            mapView.ExtentChanged += mapView_ExtentChanged;
+            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 
         // Start map interaction
-        private async void mapView_ExtentChanged(object sender, EventArgs e)
+        private async void MyMapView_ExtentChanged(object sender, EventArgs e)
         {
-            mapView.ExtentChanged -= mapView_ExtentChanged;
+            MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
 
             await SetupSymbolsAsync();
             DataContext = this;
@@ -43,8 +43,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Cancel current shape request when the symbol selection changes 
         private async void symbolCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (mapView.Editor.IsActive)
-                mapView.Editor.Cancel.Execute(null);
+            if (MyMapView.Editor.IsActive)
+                MyMapView.Editor.Cancel.Execute(null);
 
             await AcceptPointsAsync();
         }
@@ -54,15 +54,15 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                while (mapView.Extent != null)
+                while (MyMapView.Extent != null)
                 {
                     SampleSymbol sampleSymbol = _symbols[symbolCombo.SelectedIndex];
 
                     Esri.ArcGISRuntime.Geometry.Geometry shape = null;
                     if (sampleSymbol.Symbol is LineSymbol)
-                        shape = await mapView.Editor.RequestShapeAsync(DrawShape.Polyline, sampleSymbol.Symbol);
+                        shape = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polyline, sampleSymbol.Symbol);
                     else
-                        shape = await mapView.Editor.RequestShapeAsync(DrawShape.Polygon, sampleSymbol.Symbol);
+                        shape = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon, sampleSymbol.Symbol);
 
                     graphicsLayer.Graphics.Add(new Graphic(shape, sampleSymbol.Symbol));
 					await Task.Delay(100);

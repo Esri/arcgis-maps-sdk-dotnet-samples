@@ -28,11 +28,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-10863035.970, 3838021.340, -10744801.344, 3887145.299));
+            MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-10863035.970, 3838021.340, -10744801.344, 3887145.299));
             var task = SetupSymbols();
         }
 
-        private void mapView_MapViewTapped(object sender, MapViewInputEventArgs e)
+        private void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
             try
             {

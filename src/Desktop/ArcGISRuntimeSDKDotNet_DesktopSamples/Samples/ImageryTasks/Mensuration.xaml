@@ -13,7 +13,7 @@
             </esri:SimpleFillSymbol>
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView">
+        <esri:MapView x:Name="MyMapView">
 			<esri:Map InitialViewpoint="-8838052,5409956,-8836538,5410660,3857">
                 <esri:ArcGISTiledMapServiceLayer x:Name="imageServiceLayer"  
                     ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Toronto/ImageServer" />

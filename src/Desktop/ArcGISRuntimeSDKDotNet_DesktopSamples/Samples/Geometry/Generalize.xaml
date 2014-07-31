@@ -10,7 +10,7 @@
             <esri:SimpleLineSymbol x:Key="GeneralizedLineSymbol" Color="#AA00FFFF" Width="2"/>
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" WrapAround="True">
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
             <esri:Map>
 				<esri:Map.InitialViewpoint>
 					<esri:ViewpointExtent XMin="-12000000" YMin="3000000" XMax="-7000000" YMax="7000000" SpatialReferenceID="3857" />

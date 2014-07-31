@@ -35,19 +35,19 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             switch (gridTypeCombo.SelectedIndex)
             {
                 case 0:
-                    mapView.MapGrid = null;
+                    MyMapView.MapGrid = null;
                     break;
                 case 1: 
-                    mapView.MapGrid = new LatLonMapGrid(LatLonMapGridLabelStyle.DecimalDegrees, _mapGridLevels);
+                    MyMapView.MapGrid = new LatLonMapGrid(LatLonMapGridLabelStyle.DecimalDegrees, _mapGridLevels);
                     break;
                 case 2:
-                    mapView.MapGrid = new MgrsMapGrid(_mapGridLevels);
+                    MyMapView.MapGrid = new MgrsMapGrid(_mapGridLevels);
                     break;
                 case 3:
-                    mapView.MapGrid = new UtmMapGrid(_mapGridLevels);
+                    MyMapView.MapGrid = new UtmMapGrid(_mapGridLevels);
                     break;
                 case 4:
-                    mapView.MapGrid = new UsngMapGrid(_mapGridLevels);
+                    MyMapView.MapGrid = new UsngMapGrid(_mapGridLevels);
                     break;
             }
         }

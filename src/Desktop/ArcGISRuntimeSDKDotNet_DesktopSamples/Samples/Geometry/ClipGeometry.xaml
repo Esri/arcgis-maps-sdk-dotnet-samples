@@ -11,7 +11,7 @@
             </esri:SimpleFillSymbol>
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" WrapAround="True">
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
             <esri:Map>
 				<esri:Map.InitialViewpoint>
                     <esri:ViewpointExtent XMin="-15053000" YMin="2749000" XMax="-6540000" YMax="6590000" />
@@ -38,7 +38,7 @@
             <Border.Style>
                 <Style TargetType="FrameworkElement">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=mapView, Path=Editor.IsActive}" Value="True">
+                        <DataTrigger Binding="{Binding ElementName=MyMapView, Path=Editor.IsActive}" Value="True">
                             <Setter Property="Visibility" Value="Visible" />
                          </DataTrigger>
                     </Style.Triggers>

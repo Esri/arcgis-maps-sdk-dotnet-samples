@@ -33,9 +33,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             InitializeComponent();
 
             var ext = new Envelope(-122.554, 37.615, -122.245, 37.884, SpatialReferences.Wgs84);
-			mapView.Map.InitialViewpoint = new Viewpoint(ext);
+			MyMapView.Map.InitialViewpoint = new Viewpoint(ext);
 
-            _addressGraphicsLayer = mapView.Map.Layers["AddressGraphicsLayer"] as GraphicsLayer;
+            _addressGraphicsLayer = MyMapView.Map.Layers["AddressGraphicsLayer"] as GraphicsLayer;
 
             _locatorTask = new OnlineLocatorTask(new Uri(OnlineLocatorUrl));
             _locatorTask.AutoNormalize = true;
@@ -65,7 +65,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     _locatorServiceInfo = await _locatorTask.GetInfoAsync();
 
                 var candidateResults = await _locatorTask.GeocodeAsync(
-                    GetInputAddressFromUI(), new List<string> { "Addr_type","Score","X","Y" }, mapView.SpatialReference, CancellationToken.None);
+                    GetInputAddressFromUI(), new List<string> { "Addr_type","Score","X","Y" }, MyMapView.SpatialReference, CancellationToken.None);
 
                 if (candidateResults == null || candidateResults.Count == 0)
                     throw new Exception("No candidates found.");
@@ -77,7 +77,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 listResults.Visibility = Visibility.Visible;
 
                 var extent = GeometryEngine.Union(_addressGraphicsLayer.Graphics.Select(g => g.Geometry)).Extent.Expand(1.1);
-                await mapView.SetViewAsync(extent);
+                await MyMapView.SetViewAsync(extent);
             }
             catch (AggregateException ex)
             {
@@ -134,7 +134,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private void AddGraphicFromLocatorCandidate(LocatorGeocodeResult candidate)
         {
-            var graphic = new Graphic(new MapPoint(candidate.Location.X, candidate.Location.Y, mapView.SpatialReference));
+            var graphic = new Graphic(new MapPoint(candidate.Location.X, candidate.Location.Y, MyMapView.SpatialReference));
             graphic.Attributes["Address"] = candidate.Address;
             graphic.Attributes["Score"] = candidate.Score;
             graphic.Attributes["MatchType"] = candidate.Attributes["Addr_type"];

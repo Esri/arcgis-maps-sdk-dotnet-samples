@@ -10,7 +10,7 @@
             <esri:SimpleFillSymbol x:Key="FillSymbol" Color="#7F0000FF" Style="DiagonalCross" Outline="{StaticResource LineSymbol}" />
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" WrapAround="True">
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
             <esri:Map>
                 <esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
@@ -71,7 +71,7 @@
 
         <Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="25"
                 HorizontalAlignment="Center" VerticalAlignment="Bottom"
-                Visibility="{Binding ElementName=mapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
+                Visibility="{Binding ElementName=MyMapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
             <TextBlock Text="Digitize shapes on the map." Margin="8" FontSize="14" />
         </Border>
     </Grid>

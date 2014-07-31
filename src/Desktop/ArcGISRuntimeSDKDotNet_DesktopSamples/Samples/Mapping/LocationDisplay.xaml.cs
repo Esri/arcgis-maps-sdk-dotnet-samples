@@ -24,9 +24,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private void providerSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (providerSelector.SelectedIndex == 0)
-                mapView.LocationDisplay.LocationProvider = new SystemLocationProvider();
+                MyMapView.LocationDisplay.LocationProvider = new SystemLocationProvider();
             else
-                mapView.LocationDisplay.LocationProvider = new RandomProvider();
+                MyMapView.LocationDisplay.LocationProvider = new RandomProvider();
         }
     }
 

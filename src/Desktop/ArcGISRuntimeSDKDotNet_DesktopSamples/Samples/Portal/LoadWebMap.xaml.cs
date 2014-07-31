@@ -64,7 +64,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var item = await ArcGISPortalItem.CreateAsync(_portal, wmId);
                 var webmap = await WebMap.FromPortalItemAsync(item);
                 var vm = await WebMapViewModel.LoadAsync(webmap, _portal);
-                mapView.Map = vm.Map;
+                MyMapView.Map = vm.Map;
 
                 detailsPanel.DataContext = item;
                 detailsPanel.Visibility = Visibility.Visible;

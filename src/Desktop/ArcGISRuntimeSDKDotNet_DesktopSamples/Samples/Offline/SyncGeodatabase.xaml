@@ -13,7 +13,7 @@
             </Style>
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" MapViewTapped="mapView_MapViewTapped">
+        <esri:MapView x:Name="MyMapView" MapViewTapped="MyMapView_MapViewTapped">
 			<esri:Map InitialViewpoint="-13446093,4183762,-13432118,4190880,3857">
                 <esri:ArcGISTiledMapServiceLayer DisplayName="Streets Basemap"
                     ServiceUri="http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
@@ -98,7 +98,7 @@
             <StackPanel>
                 <StackPanel>
                     <TextBlock Text="Current Map Layers" FontSize="16" FontWeight="Bold" Margin="0,0,0,6" />
-                    <ListView Grid.Row="1" ItemsSource="{Binding ElementName=mapView, Path=Map.Layers}" Margin="12,0" 
+                    <ListView Grid.Row="1" ItemsSource="{Binding ElementName=MyMapView, Path=Map.Layers}" Margin="12,0" 
                           BorderBrush="Transparent">
                         <ListView.Resources>
                             <!-- Ignore GraphicsLayer -->

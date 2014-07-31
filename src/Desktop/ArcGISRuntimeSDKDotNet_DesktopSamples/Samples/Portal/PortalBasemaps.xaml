@@ -23,7 +23,7 @@
             </ItemsControl>
         </ScrollViewer>
 
-        <esri:MapView Grid.Column="1" x:Name="mapView" />
+        <esri:MapView Grid.Column="1" x:Name="MyMapView" />
 
         <ProgressBar Grid.Column="1" x:Name="progress" IsIndeterminate="True" Margin="0,0,0,20"
                      HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="300"

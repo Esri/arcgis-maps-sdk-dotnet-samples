@@ -25,16 +25,16 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Create four point graphics on the map in the center of four equal quadrants
         private async Task CreatePointGraphics()
         {
-            await mapView.LayersLoadedAsync();
+            await MyMapView.LayersLoadedAsync();
 
-            var height = mapView.Extent.Height / 4;
-            var width = mapView.Extent.Width / 4;
-            var center = mapView.Extent.GetCenter();
+            var height = MyMapView.Extent.Height / 4;
+            var width = MyMapView.Extent.Width / 4;
+            var center = MyMapView.Extent.GetCenter();
 
-            var topLeft = new MapPoint(center.X - width, center.Y + height, mapView.SpatialReference);
-            var topRight = new MapPoint(center.X + width, center.Y + height, mapView.SpatialReference);
-            var bottomLeft = new MapPoint(center.X - width, center.Y - height, mapView.SpatialReference);
-            var bottomRight = new MapPoint(center.X + width, center.Y - height, mapView.SpatialReference);
+            var topLeft = new MapPoint(center.X - width, center.Y + height, MyMapView.SpatialReference);
+            var topRight = new MapPoint(center.X + width, center.Y + height, MyMapView.SpatialReference);
+            var bottomLeft = new MapPoint(center.X - width, center.Y - height, MyMapView.SpatialReference);
+            var bottomRight = new MapPoint(center.X + width, center.Y - height, MyMapView.SpatialReference);
 
             var symbol = new SimpleMarkerSymbol() { Color = Colors.Red, Size = 15, Style = SimpleMarkerStyle.Diamond };
 

@@ -28,7 +28,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-15000000, 2000000, -7000000, 8000000));
+			MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-15000000, 2000000, -7000000, 8000000));
 
             _markerSymbol = layoutGrid.Resources["MarkerSymbol"] as Symbol;
             _lineSymbol = layoutGrid.Resources["LineSymbol"] as Symbol;
@@ -53,7 +53,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     LayerIDs = new List<int> { 0, 1, 2 },
                     SearchFields = new List<string> { "CITY_NAME", "NAME", "SYSTEM", "STATE_ABBR", "STATE_NAME" },
                     ReturnGeometry = true,
-                    SpatialReference = mapView.SpatialReference,
+                    SpatialReference = MyMapView.SpatialReference,
                     SearchText = txtFind.Text
                 };
 

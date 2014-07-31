@@ -29,15 +29,15 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             _symbols.Add(layoutGrid.Resources["LineSymbol"] as Symbol);
             _symbols.Add(layoutGrid.Resources["FillSymbol"] as Symbol);
 
-            mapView.ExtentChanged += mapView_ExtentChanged;
+            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 
         // Start map interaction
-        private void mapView_ExtentChanged(object sender, EventArgs e)
+        private void MyMapView_ExtentChanged(object sender, EventArgs e)
         {
             try
             {
-                mapView.ExtentChanged -= mapView_ExtentChanged;
+                MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
                 btnDraw.IsEnabled = true;
             }
             catch (Exception ex)
@@ -53,14 +53,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             DrawShape drawShape1 = (DrawShape)comboShapeOne.SelectedItem;
             Geometry shapeOne = null;
             if (drawShape1 == DrawShape.Point)
-                shapeOne = await mapView.Editor.RequestPointAsync();
+                shapeOne = await MyMapView.Editor.RequestPointAsync();
             else
-                shapeOne = await mapView.Editor.RequestShapeAsync(drawShape1, _symbols[comboShapeOne.SelectedIndex]);
+                shapeOne = await MyMapView.Editor.RequestShapeAsync(drawShape1, _symbols[comboShapeOne.SelectedIndex]);
 
             graphicsLayer.Graphics.Add(new Graphic(shapeOne, _symbols[comboShapeOne.SelectedIndex]));
 
             // Shape Two
-            Geometry shapeTwo = await mapView.Editor.RequestShapeAsync(
+            Geometry shapeTwo = await MyMapView.Editor.RequestShapeAsync(
                 (DrawShape)comboShapeTwo.SelectedItem, _symbols[comboShapeTwo.SelectedIndex]);
 
             graphicsLayer.Graphics.Add(new Graphic(shapeTwo, _symbols[comboShapeTwo.SelectedIndex]));

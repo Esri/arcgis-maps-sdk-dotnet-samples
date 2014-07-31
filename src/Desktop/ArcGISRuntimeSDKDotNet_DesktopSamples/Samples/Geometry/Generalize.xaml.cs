@@ -28,10 +28,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			mapView.NavigationCompleted += mapView_NavigationCompleted;
+			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
 
-            _originalGraphicsLayer = mapView.Map.Layers["OriginalLineGraphicsLayer"] as GraphicsLayer;
-            _generalizedGraphicsLayer = mapView.Map.Layers["GeneralizedLineGraphicsLayer"] as GraphicsLayer;
+            _originalGraphicsLayer = MyMapView.Map.Layers["OriginalLineGraphicsLayer"] as GraphicsLayer;
+            _generalizedGraphicsLayer = MyMapView.Map.Layers["GeneralizedLineGraphicsLayer"] as GraphicsLayer;
 
             _defaultMarkerSymbol = layoutGrid.Resources["DefaultMarkerSymbol"] as SimpleMarkerSymbol;
             _defaultLineSymbol = layoutGrid.Resources["DefaultLineSymbol"] as SimpleLineSymbol;
@@ -40,9 +40,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         }
 
         // Adds the original river graphic to the map (from an online service)
-		async void mapView_NavigationCompleted(object sender, EventArgs e)
+		async void MyMapView_NavigationCompleted(object sender, EventArgs e)
         {
-			mapView.NavigationCompleted -= mapView_NavigationCompleted; //only listed for it the first time
+			MyMapView.NavigationCompleted -= MyMapView_NavigationCompleted; //only listed for it the first time
 			try
             {
                 if (_originalGraphicsLayer != null && _originalGraphicsLayer.Graphics.Count == 0)
@@ -52,7 +52,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
                     Query query = new Query("NAME = 'Mississippi'");
                     query.ReturnGeometry = true;
-                    query.OutSpatialReference = mapView.SpatialReference;
+                    query.OutSpatialReference = MyMapView.SpatialReference;
 
                     var results = await queryTask.ExecuteAsync(query);
 

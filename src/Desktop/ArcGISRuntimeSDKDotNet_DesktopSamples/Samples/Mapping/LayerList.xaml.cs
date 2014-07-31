@@ -22,13 +22,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             this.InitializeComponent();
 
-			mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-13279586, 4010136, -12786147, 4280850, SpatialReferences.WebMercator));
+			MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-13279586, 4010136, -12786147, 4280850, SpatialReferences.WebMercator));
         }
 
         private void RemoveLayerButton_Click(object sender, RoutedEventArgs e)
         {
             var layer = (sender as FrameworkElement).DataContext as Layer;
-            mapView.Map.Layers.Remove(layer);
+            MyMapView.Map.Layers.Remove(layer);
         }
 
         private void legend_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -78,16 +78,16 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     Layer replaceLayer = lvItem.DataContext as Layer;
                     if (replaceLayer != null)
                     {
-                        int index = mapView.Map.Layers.IndexOf(replaceLayer);
+                        int index = MyMapView.Map.Layers.IndexOf(replaceLayer);
                         if (index >= 0)
                         {
-                            mapView.Map.Layers.Remove(moveLayer);
-                            mapView.Map.Layers.Insert(index, moveLayer);
+                            MyMapView.Map.Layers.Remove(moveLayer);
+                            MyMapView.Map.Layers.Insert(index, moveLayer);
                         }
                         else
                         {
-                            mapView.Map.Layers.Remove(moveLayer);
-                            mapView.Map.Layers.Add(moveLayer);
+                            MyMapView.Map.Layers.Remove(moveLayer);
+                            MyMapView.Map.Layers.Add(moveLayer);
                         }
                     }
                 }

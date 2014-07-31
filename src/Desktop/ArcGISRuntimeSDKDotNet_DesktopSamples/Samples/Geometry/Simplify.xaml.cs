@@ -23,13 +23,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			mapView.NavigationCompleted += mapView_NavigationCompleted;
+			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
         }
 
 		// Start map interaction once the mapview finishes navigation to initial viewpoint
-		private void mapView_NavigationCompleted(object sender, EventArgs e)
+		private void MyMapView_NavigationCompleted(object sender, EventArgs e)
         {
-			mapView.NavigationCompleted -= mapView_NavigationCompleted;
+			MyMapView.NavigationCompleted -= MyMapView_NavigationCompleted;
             DrawPolygon();
         }
 
@@ -49,7 +49,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Draw the unsimplified polygon
         private void DrawPolygon()
         {
-            MapPoint center = mapView.Extent.GetCenter();
+            MapPoint center = MyMapView.Extent.GetCenter();
             double lat = center.Y;
             double lon = center.X + 300;
             double latOffset = 300;
@@ -68,7 +68,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 new MapPointBuilder(lon - 1.5 * lonOffset, lat + latOffset).ToGeometry(),
                 new MapPointBuilder(lon - lonOffset, lat).ToGeometry()
             };
-            _unsimplifiedPolygon = new Polygon(points, mapView.SpatialReference);
+            _unsimplifiedPolygon = new Polygon(points, MyMapView.SpatialReference);
 
             polygonLayer.Graphics.Clear();
             polygonLayer.Graphics.Add(new Graphic(_unsimplifiedPolygon));
@@ -84,7 +84,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var query = new Query(geometry)
                 {
                     ReturnGeometry = true,
-                    OutSpatialReference = mapView.SpatialReference,
+                    OutSpatialReference = MyMapView.SpatialReference,
                     SpatialRelationship = SpatialRelationship.Contains,
                     OutFields = OutFields.All
                 };

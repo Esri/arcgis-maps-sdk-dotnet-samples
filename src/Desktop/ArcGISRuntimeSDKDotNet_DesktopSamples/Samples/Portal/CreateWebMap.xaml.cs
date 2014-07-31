@@ -43,10 +43,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 				};
 
 				// Load the new webmap into the current UI
-				var mapView = new MapView();
-				mapView.Map = await LoadWebMapAsync(webmap);
-				mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-20000000, 1100000, -3900000, 11000000));
-				layoutGrid.Children.Add(mapView);
+				var MyMapView = new MapView();
+				MyMapView.Map = await LoadWebMapAsync(webmap);
+				MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-20000000, 1100000, -3900000, 11000000));
+				layoutGrid.Children.Add(MyMapView);
 			}
 			catch (System.Exception ex)
 			{

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView x:Name="mapView">
+        <esri:MapView x:Name="MyMapView">
 			<esri:Map>
 				<esri:Map.InitialViewpoint>
 					<esri:ViewpointExtent XMin="-117.182686" YMin="32.695853" XMax="-117.133872" YMax="32.718530" SpatialReferenceID="4326" />

@@ -8,7 +8,7 @@
             <esri:SimpleRenderer x:Key="AOIRenderer" Symbol="{StaticResource AOISymbol}" />
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" />
+        <esri:MapView x:Name="MyMapView" />
 
         <Border x:Name="panelUI" Background="White" BorderBrush="Black" BorderThickness="2" Width="400"
                 HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
@@ -38,9 +38,9 @@
 
                     <StackPanel x:Name="panelTOC" Margin="0,12,0,0" Visibility="Collapsed">
                         <TextBlock Text="Step 3: Show / Hide Map Layers" FontSize="16" FontWeight="Bold" Margin="0,6,0,6" />
-                        <CheckBox Content="Show Online Basemap" Margin="4" IsChecked="{Binding ElementName=mapView, Path=Map.Layers[OnlineBasemap].IsVisible, Mode=TwoWay}" />
-                        <CheckBox Content="Show Local Basemap" Margin="4" IsChecked="{Binding ElementName=mapView, Path=Map.Layers[LocalTiles].IsVisible, Mode=TwoWay}" />
-                        <CheckBox Content="Show Area of Interest" Margin="4" IsChecked="{Binding ElementName=mapView, Path=Map.Layers[AOI].IsVisible, Mode=TwoWay}" />
+                        <CheckBox Content="Show Online Basemap" Margin="4" IsChecked="{Binding ElementName=MyMapView, Path=Map.Layers[OnlineBasemap].IsVisible, Mode=TwoWay}" />
+                        <CheckBox Content="Show Local Basemap" Margin="4" IsChecked="{Binding ElementName=MyMapView, Path=Map.Layers[LocalTiles].IsVisible, Mode=TwoWay}" />
+                        <CheckBox Content="Show Area of Interest" Margin="4" IsChecked="{Binding ElementName=MyMapView, Path=Map.Layers[AOI].IsVisible, Mode=TwoWay}" />
                     </StackPanel>
                 </StackPanel>
 

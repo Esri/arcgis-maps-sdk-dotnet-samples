@@ -15,7 +15,7 @@
             <esri:SimpleRenderer x:Key="directionsRenderer" Symbol="{StaticResource directionLineSymbol}" />
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" MapViewTapped="mapView_MapViewTapped" MapViewDoubleTapped="mapView_MapViewDoubleTapped">
+        <esri:MapView x:Name="MyMapView" MapViewTapped="MyMapView_MapViewTapped" MapViewDoubleTapped="MyMapView_MapViewDoubleTapped">
             <esri:Map>
                 <esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />

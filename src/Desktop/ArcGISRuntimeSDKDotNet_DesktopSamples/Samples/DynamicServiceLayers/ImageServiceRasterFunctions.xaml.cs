@@ -20,7 +20,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
 			MyMapView.Map.InitialViewpoint = new Envelope(1445440, 540657, 1452348, 544407, SpatialReference.Create(2264));
 			MyMapView.Map.SpatialReference = SpatialReference.Create(2264);
-			MyMapView.LayerLoaded += mapView_LayerLoaded;
+			MyMapView.LayerLoaded += MyMapView_LayerLoaded;
         }
 
         private void RasterFunctionsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -34,7 +34,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             }
         }
 
-        private void mapView_LayerLoaded(object sender, Esri.ArcGISRuntime.Controls.LayerLoadedEventArgs e)
+        private void MyMapView_LayerLoaded(object sender, Esri.ArcGISRuntime.Controls.LayerLoadedEventArgs e)
         {
             if (e.Layer.ID == "ImageLayer")
             {

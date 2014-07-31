@@ -30,7 +30,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-122.5009, 37.741, -122.3721, 37.8089));
+			MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-122.5009, 37.741, -122.3721, 37.8089));
 
             _bufferSymbols = new List<Symbol>()
             {
@@ -43,7 +43,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         }
 
         // Use geoprocessor to call drive times gp service and display results
-        private async void mapView_MapViewTapped(object sender, MapViewInputEventArgs e)
+        private async void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
             try
             {

@@ -12,7 +12,7 @@
             <esri:SimpleRenderer x:Key="directionsRenderer" Symbol="{StaticResource directionLineSymbol}" />
         </Grid.Resources>
         
-        <esri:MapView x:Name="mapView" MapViewTapped="mapView_MapViewTapped" MapViewDoubleTapped="mapView_MapViewDoubleTapped">
+        <esri:MapView x:Name="MyMapView" MapViewTapped="MyMapView_MapViewTapped" MapViewDoubleTapped="MyMapView_MapViewDoubleTapped">
 			<esri:Map InitialViewpoint="-7917189,5211428,-7902815,5218750,3857">
                 <esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
@@ -48,7 +48,7 @@
                     <TextBlock x:Name="txtRouteTotals" Grid.Row="1" FontStyle="Italic" />
 
                     <ListView x:Name="listDirections" Grid.Row="2"
-                              ItemsSource="{Binding ElementName=mapView, Path=Map.Layers[DirectionsLayer].Graphics}"
+                              ItemsSource="{Binding ElementName=MyMapView, Path=Map.Layers[DirectionsLayer].Graphics}"
                               SelectionMode="Single" SelectionChanged="listDirections_SelectionChanged">
                         <ListView.ItemTemplate>
                             <DataTemplate>

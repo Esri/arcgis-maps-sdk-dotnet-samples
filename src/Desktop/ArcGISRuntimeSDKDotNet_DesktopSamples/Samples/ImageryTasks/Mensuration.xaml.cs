@@ -204,7 +204,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             {
                 graphicsLayer.Graphics.Clear();
 
-                var shape = await mapView.Editor.RequestShapeAsync(drawShape, symbol);
+                var shape = await MyMapView.Editor.RequestShapeAsync(drawShape, symbol);
 
                 graphicsLayer.Graphics.Add(new Graphic(shape, symbol));
                 return shape;

@@ -35,14 +35,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             try
             {
                 uiPanel.IsEnabled = false;
-                inputLayer.Graphics.Clear();
+				inputOverlay.Graphics.Clear();
                 MyMapView.Map.Layers.Remove("ViewshedResultsLayer");
 
                 //get the user's input point
                 var inputPoint = await MyMapView.Editor.RequestPointAsync();
 
                 progress.Visibility = Visibility.Visible;
-                inputLayer.Graphics.Add(new Graphic() { Geometry = inputPoint });
+				inputOverlay.Graphics.Add(new Graphic() { Geometry = inputPoint });
 
                 var parameter = new GPInputParameter() { OutSpatialReference = SpatialReferences.WebMercator };
                 parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Input_Features", inputPoint));
@@ -59,10 +59,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     var resultLayer = _gpTask.GetResultMapServiceLayer(result.JobID);
                     if (resultLayer != null)
                     {
-                        //Insert the results layer just beneath the input graphics layer.
-                        //This allows us to see the input point at all times.
-                        resultLayer.ID = "ViewshedResultsLayer";
-                        MyMapView.Map.Layers.Insert(MyMapView.Map.Layers.IndexOf(inputLayer), resultLayer);
+						resultLayer.ID = "ViewshedResultsLayer";
+						MyMapView.Map.Layers.Add(resultLayer);
                         await MyMapView.LayersLoadedAsync(new List<Layer> { resultLayer });
                     }
                 }

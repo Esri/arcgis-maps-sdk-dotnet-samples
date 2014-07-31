@@ -14,17 +14,24 @@
 
         <esri:MapView x:Name="MyMapView">
             <esri:Map >
-                <esri:ArcGISTiledMapServiceLayer ID="TopoMapLayer"
+				<esri:ArcGISTiledMapServiceLayer ID="TopoMapLayer"
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer" />
-                <esri:GraphicsLayer x:Name="resultLayer" Renderer="{StaticResource ResultRenderer}" />
-                <esri:GraphicsLayer x:Name="inputLayer" Renderer="{StaticResource InputRenderer}" />
-            </esri:Map>
-        </esri:MapView>
+			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay x:Name="resultsOverlay" Renderer="{StaticResource ResultRenderer}"/>
+				<esri:GraphicsOverlay x:Name="inputOverlay" Renderer="{StaticResource InputRenderer}"/>
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
 
-        <Border x:Name="uiPanel" Margin="30" Padding="20" Width="450" HorizontalAlignment="Right" VerticalAlignment="Top" 
-                Background="White" BorderBrush="Black" BorderThickness="2">
-            <StackPanel>
-                <TextBlock Text="Click 'Start' and draw a line on the map over the United States. The line will be buffered and the buffer will be used to clip US county polygons. Results are returned as a GP map image."
+		<Border Background="White" BorderBrush="Black" BorderThickness="1"
+				HorizontalAlignment="Right" VerticalAlignment="Top"
+				Margin="30" Padding="20"
+				x:Name="uiPanel" Width="450">
+			<Border.Effect>
+				<DropShadowEffect/>
+			</Border.Effect>
+			<StackPanel>
+				<TextBlock Text="Click 'Start' and draw a line on the map over the United States. The line will be buffered and the buffer will be used to clip US county polygons. Results are returned as a GP map image."
                            TextWrapping="Wrap" FontSize="14" />
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="12,16,12,0">

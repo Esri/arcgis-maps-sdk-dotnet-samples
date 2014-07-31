@@ -34,7 +34,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-13879981, 3490335, -7778090, 6248898));
+            MyMapView.Map.InitialViewpoint = new Envelope(-13879981, 3490335, -7778090, 6248898);
         }
 
         // Accept user boundary line and run the Geoprocessing Task to summarize population
@@ -43,12 +43,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             try
             {
                 txtResult.Visibility = System.Windows.Visibility.Collapsed;
-                AreaLayer.Graphics.Clear();
+				areaOverlay.Graphics.Clear();
 
                 var boundary = await MyMapView.Editor.RequestShapeAsync(DrawShape.Freehand) as Polyline;
                 var polygon = new Polygon(boundary.Parts, MyMapView.SpatialReference);
                 polygon = GeometryEngine.Simplify(polygon) as Polygon;
-                AreaLayer.Graphics.Add(new Graphic() { Geometry = polygon });
+				areaOverlay.Graphics.Add(new Graphic() { Geometry = polygon });
 
                 progress.Visibility = Visibility.Visible;
 

@@ -30,7 +30,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-122.5009, 37.741, -122.3721, 37.8089));
+			MyMapView.Map.InitialViewpoint = new Envelope(-122.5009, 37.741, -122.3721, 37.8089);
 
             _bufferSymbols = new List<Symbol>()
             {
@@ -49,10 +49,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             {
                 progress.Visibility = Visibility.Visible;
 
-                inputLayer.Graphics.Clear();
-                resultLayer.Graphics.Clear();
+                inputOverlay.Graphics.Clear();
+				resultsOverlay.Graphics.Clear();
 
-                inputLayer.Graphics.Add(new Graphic(e.Location));
+				inputOverlay.Graphics.Add(new Graphic(e.Location));
 
                 var parameter = new GPInputParameter();
                 parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Input_Location", e.Location));
@@ -61,7 +61,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var result = await _gpTask.ExecuteAsync(parameter);
 
                 var features = result.OutParameters.OfType<GPFeatureRecordSetLayer>().First().FeatureSet.Features;
-                resultLayer.Graphics.AddRange(features.Select((fs, idx) => new Graphic(fs.Geometry, _bufferSymbols[idx])));
+				resultsOverlay.Graphics.AddRange(features.Select((fs, idx) => new Graphic(fs.Geometry, _bufferSymbols[idx])));
             }
             catch (Exception ex)
             {

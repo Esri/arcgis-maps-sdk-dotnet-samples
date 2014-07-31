@@ -60,7 +60,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                graphicsLayer.Graphics.Clear();
+				graphicsOverlay.Graphics.Clear();
 
                 Polygon aoi = null;
                 if (chkFreehand.IsChecked == true)
@@ -77,7 +77,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     aoi = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon) as Polygon;
                 }
 
-                graphicsLayer.Graphics.Add(new Graphic(aoi));
+				graphicsOverlay.Graphics.Add(new Graphic(aoi));
             }
             catch (Exception ex)
             {
@@ -97,12 +97,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 if (layersToClip == null || layersToClip.Count == 0)
                     throw new ApplicationException("Please select layers to extract data from.");
 
-                if (graphicsLayer.Graphics.Count == 0)
+				if (graphicsOverlay.Graphics.Count == 0)
                     throw new ApplicationException("Please digitize an area of interest polygon on the map.");
 
                 var parameter = new GPInputParameter() { OutSpatialReference = SpatialReferences.WebMercator };
                 parameter.GPParameters.Add(new GPMultiValue<GPString>("Layers_to_Clip", layersToClip));
-                parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Area_of_Interest", graphicsLayer.Graphics[0].Geometry));
+				parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Area_of_Interest", graphicsOverlay.Graphics[0].Geometry));
                 parameter.GPParameters.Add(new GPString("Feature_Format", (string)comboFormat.SelectedItem));
 
                 var result = await SubmitAndPollStatusAsync(parameter);

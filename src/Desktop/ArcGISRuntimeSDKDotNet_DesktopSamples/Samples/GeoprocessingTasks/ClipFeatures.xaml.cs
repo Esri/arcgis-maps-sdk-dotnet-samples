@@ -42,8 +42,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             try
             {
                 uiPanel.IsEnabled = false;
-                inputLayer.Graphics.Clear();
-                resultLayer.Graphics.Clear();
+				inputOverlay.Graphics.Clear();
+                resultsOverlay.Graphics.Clear();
 
                 foreach (var lyr in MyMapView.Map.Layers.OfType < GPResultImageLayer>())
                     MyMapView.Map.Layers.Remove(lyr);
@@ -52,7 +52,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var inputLine = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polyline) as Polyline;
 
                 progress.Visibility = Visibility.Visible;
-                inputLayer.Graphics.Add(new Graphic() { Geometry = inputLine });
+				inputOverlay.Graphics.Add(new Graphic() { Geometry = inputLine });
 
                 var parameter = new GPInputParameter();
                 parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Input_Features", inputLine));
@@ -79,7 +79,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                             return;
                         }
 
-                        resultLayer.Graphics.AddRange(gpLayer.FeatureSet.Features.OfType<Graphic>());
+						resultsOverlay.Graphics.AddRange(gpLayer.FeatureSet.Features.OfType<Graphic>());
                     }
                 }
             }

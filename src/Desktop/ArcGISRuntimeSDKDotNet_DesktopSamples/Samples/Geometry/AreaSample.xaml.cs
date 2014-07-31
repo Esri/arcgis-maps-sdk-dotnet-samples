@@ -18,17 +18,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private const double toMilesConversion = 0.0006213700922;
         private const double toSqMilesConversion = 0.0000003861003;
 
-        private GraphicsLayer graphicsLayer;
-
         /// <summary>Construct Area sample control</summary>
         public AreaSample()
         {
             InitializeComponent();
 
-			var initialExtent = new Envelope(-130, 20, -65, 55, SpatialReferences.Wgs84);
+			MyMapView.Map.InitialViewpoint = new Envelope(-130, 20, -65, 55, SpatialReferences.Wgs84);
 
-			MyMapView.Map.InitialViewpoint = new Viewpoint(initialExtent);
-            graphicsLayer = (GraphicsLayer)MyMapView.Map.Layers["graphicsLayer"];
 			MyMapView.ExtentChanged += MyMapView_ExtentChanged; 
         }
 
@@ -46,10 +42,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var geom = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon);
 
                 // show geometry on map
-                graphicsLayer.Graphics.Clear();
+				AreaOverlay.Graphics.Clear();
 
                 var graphic = new Graphic { Geometry = geom, Symbol = LayoutRoot.Resources["DefaultFillSymbol"] as Symbol };
-                graphicsLayer.Graphics.Add(graphic);
+				AreaOverlay.Graphics.Add(graphic);
 
                 // Calculate results
                 var areaPlanar = GeometryEngine.Area(geom);
@@ -88,7 +84,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private void ResetUI()
         {
-            graphicsLayer.Graphics.Clear();
+			AreaOverlay.Graphics.Clear();
             Instructions.Visibility = Visibility.Visible;
             Results.Visibility = Visibility.Collapsed;
         }

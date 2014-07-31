@@ -31,10 +31,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             var width = MyMapView.Extent.Width / 4;
             var length = width / 4;
             var center = MyMapView.Extent.GetCenter();
-			var topLeft = new MapPointBuilder(center.X - width, center.Y + height, MyMapView.SpatialReference).ToGeometry();
-			var topRight = new MapPointBuilder(center.X + width, center.Y + height, MyMapView.SpatialReference).ToGeometry();
-			var bottomLeft = new MapPointBuilder(center.X - width, center.Y - height, MyMapView.SpatialReference).ToGeometry();
-			var bottomRight = new MapPointBuilder(center.X + width, center.Y - height, MyMapView.SpatialReference).ToGeometry();
+			var topLeft = new MapPoint(center.X - width, center.Y + height, MyMapView.SpatialReference);
+			var topRight = new MapPoint(center.X + width, center.Y + height, MyMapView.SpatialReference);
+			var bottomLeft = new MapPoint(center.X - width, center.Y - height, MyMapView.SpatialReference);
+			var bottomRight = new MapPoint(center.X + width, center.Y - height, MyMapView.SpatialReference);
 
             var redSymbol = new SimpleLineSymbol() { Color = System.Windows.Media.Colors.Red, Width = 4, Style = SimpleLineStyle.Solid };
             var blueSymbol = new SimpleLineSymbol() { Color = System.Windows.Media.Colors.Blue, Width = 4, Style = SimpleLineStyle.Solid };
@@ -52,12 +52,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             var halfLen = length / 2.0;
 
             PointCollection coords1 = new PointCollection();
-            coords1.Add(new MapPointBuilder(center.X - halfLen, center.Y + halfLen).ToGeometry());
-			coords1.Add(new MapPointBuilder(center.X + halfLen, center.Y - halfLen).ToGeometry());
+            coords1.Add(new MapPoint(center.X - halfLen, center.Y + halfLen));
+			coords1.Add(new MapPoint(center.X + halfLen, center.Y - halfLen));
 
             PointCollection coords2 = new PointCollection();
-			coords2.Add(new MapPointBuilder(center.X + halfLen, center.Y + halfLen).ToGeometry());
-			coords2.Add(new MapPointBuilder(center.X - halfLen, center.Y - halfLen).ToGeometry());
+			coords2.Add(new MapPoint(center.X + halfLen, center.Y + halfLen));
+			coords2.Add(new MapPoint(center.X - halfLen, center.Y - halfLen));
 
             return new Polyline(new PartCollection { coords1, coords2 }, MyMapView.SpatialReference);
         }

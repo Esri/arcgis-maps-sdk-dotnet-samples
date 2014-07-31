@@ -90,8 +90,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             try
             {
-                MapPoint pointOne = new MapPointBuilder(line.Parts[0][0]).ToGeometry();
-				MapPoint pointTwo = new MapPointBuilder(line.Parts[0][1]).ToGeometry();
+                MapPoint pointOne = line.Parts[0][0];
+				MapPoint pointTwo =line.Parts[0][1];
 
                 var parameters = new MensurationLengthParameters()
                 {
@@ -114,8 +114,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             try
             {
-				MapPoint pointOne = new MapPointBuilder(line.Parts[0][0]).ToGeometry();
-				MapPoint pointTwo = new MapPointBuilder(line.Parts[0][1]).ToGeometry();
+				MapPoint pointOne = line.Parts[0][0];
+				MapPoint pointTwo = line.Parts[0][1];
 
                 var parameters = new MensurationHeightParameters()
                 {
@@ -137,8 +137,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             try
             {
-				MapPoint pointOne = new MapPointBuilder(line.Parts[0][0]).ToGeometry();
-				MapPoint pointTwo = new MapPointBuilder(line.Parts[0][1]).ToGeometry();
+				MapPoint pointOne = line.Parts[0][0];
+				MapPoint pointTwo = line.Parts[0][1];
 
                 var parameters = new MensurationHeightParameters()
                 {
@@ -160,8 +160,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             try
             {
-				MapPoint pointOne = new MapPointBuilder(line.Parts[0][0]).ToGeometry();
-				MapPoint pointTwo = new MapPointBuilder(line.Parts[0][1]).ToGeometry();
+				MapPoint pointOne = line.Parts[0][0];
+				MapPoint pointTwo = line.Parts[0][1];
 
                 var parameters = new MensurationHeightParameters()
                 {

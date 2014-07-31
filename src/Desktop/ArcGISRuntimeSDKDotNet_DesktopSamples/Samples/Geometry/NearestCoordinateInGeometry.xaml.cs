@@ -126,9 +126,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 targetLayer.Graphics.Add(graphic);
 
                 var poly = graphic.Geometry as Polygon;
-                foreach (var coord in poly.Parts.First())
+                foreach (var mapPoint in poly.Parts.First())
                 {
-					targetLayer.Graphics.Add(new Graphic(new MapPointBuilder(coord).ToGeometry(), _vertexSymbol));
+					targetLayer.Graphics.Add(new Graphic(mapPoint, _vertexSymbol));
                 }
             }
         }

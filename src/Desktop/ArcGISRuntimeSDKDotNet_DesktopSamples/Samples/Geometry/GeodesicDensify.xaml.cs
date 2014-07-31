@@ -52,8 +52,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
                 // Add original shape vertices to input graphics layer
                 var coordsOriginal = (original as Multipart).Parts.First();
-				foreach (var coord in coordsOriginal)
-					inputGraphics.Graphics.Add(new Graphic(new MapPointBuilder(coord).ToGeometry(), _origVertexSymbol));
+				foreach (var mapPoint in coordsOriginal)
+					inputGraphics.Graphics.Add(new Graphic(mapPoint, _origVertexSymbol));
 
                 // Densify the shape
                 var densify = GeometryEngine.GeodesicDensify(original, MyMapView.Extent.Width / 100, LinearUnits.Meters);
@@ -61,8 +61,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
                 // Add new vertices to result graphics layer
                 var coordsDensify = (densify as Multipart).Parts.First();
-                foreach (var coord in coordsDensify)
-                    resultGraphics.Graphics.Add(new Graphic(new MapPointBuilder(coord).ToGeometry(), _newVertexSymbol));
+				foreach (var mapPoint in coordsDensify)
+					resultGraphics.Graphics.Add(new Graphic(mapPoint, _newVertexSymbol));
 
                 // Results
                 Dictionary<string, object> results = new Dictionary<string, object>();

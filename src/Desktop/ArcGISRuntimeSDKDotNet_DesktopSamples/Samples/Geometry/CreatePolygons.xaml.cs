@@ -31,10 +31,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             var width = MyMapView.Extent.Width / 4;
             var length = width / 4;
             var center = MyMapView.Extent.GetCenter();
-            var topLeft = new MapPointBuilder(center.X - width, center.Y + height, MyMapView.SpatialReference).ToGeometry();
-			var topRight = new MapPointBuilder(center.X + width, center.Y + height, MyMapView.SpatialReference).ToGeometry();
-			var bottomLeft = new MapPointBuilder(center.X - width, center.Y - height, MyMapView.SpatialReference).ToGeometry();
-			var bottomRight = new MapPointBuilder(center.X + width, center.Y - height, MyMapView.SpatialReference).ToGeometry();
+            var topLeft = new MapPoint(center.X - width, center.Y + height, MyMapView.SpatialReference);
+			var topRight = new MapPoint(center.X + width, center.Y + height, MyMapView.SpatialReference);
+			var bottomLeft = new MapPoint(center.X - width, center.Y - height, MyMapView.SpatialReference);
+			var bottomRight = new MapPoint(center.X + width, center.Y - height, MyMapView.SpatialReference);
 
             var redSymbol = new SimpleFillSymbol() { Color = System.Windows.Media.Colors.Red };
             var blueSymbol = new SimpleFillSymbol() { Color = System.Windows.Media.Colors.Blue };
@@ -52,19 +52,19 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             var halfLen = length / 2.0;
 
             PointCollection points = new PointCollection();
-			points.Add(new MapPointBuilder(center.X - halfLen, center.Y + halfLen).ToGeometry());
-			points.Add(new MapPointBuilder(center.X + halfLen, center.Y + halfLen).ToGeometry());
-			points.Add(new MapPointBuilder(center.X + halfLen, center.Y - halfLen).ToGeometry());
-			points.Add(new MapPointBuilder(center.X - halfLen, center.Y - halfLen).ToGeometry());
-			points.Add(new MapPointBuilder(center.X - halfLen, center.Y + halfLen).ToGeometry());
+			points.Add(new MapPoint(center.X - halfLen, center.Y + halfLen));
+			points.Add(new MapPoint(center.X + halfLen, center.Y + halfLen));
+			points.Add(new MapPoint(center.X + halfLen, center.Y - halfLen));
+			points.Add(new MapPoint(center.X - halfLen, center.Y - halfLen));
+			points.Add(new MapPoint(center.X - halfLen, center.Y + halfLen));
 
             halfLen /= 3;
 			PointCollection pointsHole = new PointCollection();
-			pointsHole.Add(new MapPointBuilder(center.X - halfLen, center.Y + halfLen).ToGeometry());
-			pointsHole.Add(new MapPointBuilder(center.X - halfLen, center.Y - halfLen).ToGeometry());
-			pointsHole.Add(new MapPointBuilder(center.X + halfLen, center.Y - halfLen).ToGeometry());
-			pointsHole.Add(new MapPointBuilder(center.X + halfLen, center.Y + halfLen).ToGeometry());
-			pointsHole.Add(new MapPointBuilder(center.X - halfLen, center.Y + halfLen).ToGeometry());
+			pointsHole.Add(new MapPoint(center.X - halfLen, center.Y + halfLen));
+			pointsHole.Add(new MapPoint(center.X - halfLen, center.Y - halfLen));
+			pointsHole.Add(new MapPoint(center.X + halfLen, center.Y - halfLen));
+			pointsHole.Add(new MapPoint(center.X + halfLen, center.Y + halfLen));
+			pointsHole.Add(new MapPoint(center.X - halfLen, center.Y + halfLen));
 
 			return new Polygon(new List<PointCollection> { points, pointsHole }, MyMapView.SpatialReference);
         }

@@ -65,9 +65,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
                     foreach (var path in river.Parts)
                     {
-                        foreach (var coord in path)
+						foreach (var point in path)
                         {
-                            var vertex = new Graphic(new MapPointBuilder(coord).ToGeometry(), _defaultMarkerSymbol);
+							var vertex = new Graphic(point, _defaultMarkerSymbol);
                             _originalGraphicsLayer.Graphics.Add(vertex);
                         }
                     }
@@ -98,9 +98,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
                     foreach (var path in generalizedPolyline.Parts)
                     {
-                        foreach (var coord in path)
+						foreach (var point in path)
                         {
-							var vertex = new Graphic(new MapPointBuilder(coord).ToGeometry(), _generalizedMarkerSymbol);
+							var vertex = new Graphic(point, _generalizedMarkerSymbol);
                             _generalizedGraphicsLayer.Graphics.Add(vertex);
                         }
                     }

@@ -22,7 +22,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            var task = CreateGraphics();
+            var _ = CreateGraphics();
         }
 
         // Setup graphic layers with test graphics and calculated boundaries of each
@@ -39,11 +39,18 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             var center = MyMapView.Extent.GetCenter();
             var width = MyMapView.Extent.Width / 4;
-            var left = new MapPointBuilder(center.X - width, center.Y, MyMapView.SpatialReference).ToGeometry();
-            var right = new MapPointBuilder(center.X + width, center.Y, MyMapView.SpatialReference).ToGeometry();
+            var left = new MapPoint(center.X - width, center.Y, MyMapView.SpatialReference);
+			var right = new MapPoint(center.X + width, center.Y, MyMapView.SpatialReference);
 
-            var fillSymbol = new SimpleFillSymbol() { Color = Colors.Red, Style = SimpleFillStyle.Solid };
-            var lineSymbol = new SimpleLineSymbol() { Color = Colors.Red, Style = SimpleLineStyle.Solid, Width = 2 };
+            var fillSymbol = new SimpleFillSymbol() { 
+				Color = Colors.Red, 
+				Style = SimpleFillStyle.Solid 
+			};
+            var lineSymbol = new SimpleLineSymbol() {
+				Color = Colors.Red, 
+				Style = SimpleLineStyle.Solid,
+				Width = 2 
+			};
 
             testGraphics.Graphics.Add(new Graphic() { Geometry = CreatePolygonBox(left, width), Symbol = fillSymbol });
             testGraphics.Graphics.Add(new Graphic() { Geometry = CreatePolylineBox(right, width), Symbol = lineSymbol });
@@ -52,8 +59,17 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Calculates the geometric boundaries for each test graphic
         private void CalculateBoundaries()
         {
-            var lineSymbol = (Symbol)new SimpleLineSymbol() { Color = Colors.Blue, Style = SimpleLineStyle.Solid, Width = 2 };
-            var pointSymbol = (Symbol)new SimpleMarkerSymbol() { Color = Colors.Blue, Style = SimpleMarkerStyle.Circle, Size = 12 };
+            var lineSymbol = (Symbol)new SimpleLineSymbol() { 
+				Color = Colors.Blue, 
+				Style = SimpleLineStyle.Solid, 
+				Width = 2 
+			};
+
+            var pointSymbol = (Symbol)new SimpleMarkerSymbol() { 
+				Color = Colors.Blue, 
+				Style = SimpleMarkerStyle.Circle, 
+				Size = 12 
+			};
 
             foreach (var testGraphic in testGraphics.Graphics)
             {
@@ -67,22 +83,21 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private Polygon CreatePolygonBox(MapPoint center, double length)
         {
             var halfLen = length / 2.0;
-			var mapPointBuilder = new MapPointBuilder(MyMapView.SpatialReference);
 
 			Geometry.PointCollection coords = new Geometry.PointCollection();
-			coords.Add(new MapPointBuilder(center.X - halfLen, center.Y + halfLen).ToGeometry());
-			coords.Add(new MapPointBuilder(center.X + halfLen, center.Y + halfLen).ToGeometry());
-			coords.Add(new MapPointBuilder(center.X + halfLen, center.Y - halfLen).ToGeometry());
-			coords.Add(new MapPointBuilder(center.X - halfLen, center.Y - halfLen).ToGeometry());
-			coords.Add(new MapPointBuilder(center.X - halfLen, center.Y + halfLen).ToGeometry());
+			coords.Add(new MapPoint(center.X - halfLen, center.Y + halfLen));
+			coords.Add(new MapPoint(center.X + halfLen, center.Y + halfLen));
+			coords.Add(new MapPoint(center.X + halfLen, center.Y - halfLen));
+			coords.Add(new MapPoint(center.X - halfLen, center.Y - halfLen));
+			coords.Add(new MapPoint(center.X - halfLen, center.Y + halfLen));
 
             halfLen /= 3;
 			Geometry.PointCollection coordsHole = new Geometry.PointCollection();
-			coordsHole.Add(new MapPointBuilder(center.X - halfLen, center.Y + halfLen).ToGeometry());
-			coordsHole.Add(new MapPointBuilder(center.X - halfLen, center.Y - halfLen).ToGeometry());
-			coordsHole.Add(new MapPointBuilder(center.X + halfLen, center.Y - halfLen).ToGeometry());
-			coordsHole.Add(new MapPointBuilder(center.X + halfLen, center.Y + halfLen).ToGeometry());
-			coordsHole.Add(new MapPointBuilder(center.X - halfLen, center.Y + halfLen).ToGeometry());
+			coordsHole.Add(new MapPoint(center.X - halfLen, center.Y + halfLen));
+			coordsHole.Add(new MapPoint(center.X - halfLen, center.Y - halfLen));
+			coordsHole.Add(new MapPoint(center.X + halfLen, center.Y - halfLen));
+			coordsHole.Add(new MapPoint(center.X + halfLen, center.Y + halfLen));
+			coordsHole.Add(new MapPoint(center.X - halfLen, center.Y + halfLen));
 
             return new Polygon(new List<Geometry.PointCollection> { coords, coordsHole }, MyMapView.SpatialReference);
         }
@@ -97,23 +112,23 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             {
                 new Geometry.PointCollection() 
                 { 
-                    new MapPointBuilder(center.X - halfLen + spacer, center.Y + halfLen).ToGeometry(),
-                    new MapPointBuilder(center.X + halfLen - spacer, center.Y + halfLen).ToGeometry()
+                    new MapPoint(center.X - halfLen + spacer, center.Y + halfLen),
+                    new MapPoint(center.X + halfLen - spacer, center.Y + halfLen)
                 },
                 new Geometry.PointCollection() 
                 { 
-                    new MapPointBuilder(center.X + halfLen, center.Y + halfLen - spacer).ToGeometry(),
-                    new MapPointBuilder(center.X + halfLen, center.Y - halfLen + spacer).ToGeometry()
+                    new MapPoint(center.X + halfLen, center.Y + halfLen - spacer),
+                    new MapPoint(center.X + halfLen, center.Y - halfLen + spacer)
                 },
                 new Geometry.PointCollection() 
                 { 
-                    new MapPointBuilder(center.X + halfLen - spacer, center.Y - halfLen).ToGeometry(),
-                    new MapPointBuilder(center.X - halfLen + spacer, center.Y - halfLen).ToGeometry()
+                    new MapPoint(center.X + halfLen - spacer, center.Y - halfLen),
+                    new MapPoint(center.X - halfLen + spacer, center.Y - halfLen)
                 },
                 new Geometry.PointCollection() 
                 { 
-                    new MapPointBuilder(center.X - halfLen, center.Y - halfLen + spacer).ToGeometry(),
-                    new MapPointBuilder(center.X - halfLen, center.Y + halfLen - spacer).ToGeometry()
+                    new MapPoint(center.X - halfLen, center.Y - halfLen + spacer),
+                    new MapPoint(center.X - halfLen, center.Y + halfLen - spacer)
                 }
             };
 

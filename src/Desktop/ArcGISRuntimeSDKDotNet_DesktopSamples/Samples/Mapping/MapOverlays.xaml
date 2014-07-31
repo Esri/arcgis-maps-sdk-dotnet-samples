@@ -8,85 +8,86 @@
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         </Grid.Resources>
         
-        <esri:MapView x:Name="MyMapView" WrapAround="True" MapViewTapped="MyMapView_MapViewTapped">
-            <esri:MapView.Overlays>
+        <esri:MapView x:Name="MyMapView" WrapAround="True" 
+					  MapViewTapped="MyMapView_MapViewTapped">
+			<esri:Map>
+				<esri:ArcGISTiledMapServiceLayer
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" />
+			</esri:Map>
+			
+			<esri:MapView.Overlays>
 				<Grid x:Name="esriOverlay" esri:MapView.MapOverlayAnchor="{Binding}" IsHitTestVisible="False" HorizontalAlignment="Right" VerticalAlignment="Top" MaxWidth="200"
                       Visibility="{Binding ElementName=chkEsri, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
 
 					<Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="20" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="20" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+						<RowDefinition Height="*" />
+						<RowDefinition Height="20" />
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="20" />
+						<ColumnDefinition Width="*" />
+					</Grid.ColumnDefinitions>
 
-                    <Grid.RenderTransform>
-                        <TranslateTransform x:Name="MapTipTranslate" />
-                    </Grid.RenderTransform>
+					<Grid.RenderTransform>
+						<TranslateTransform x:Name="MapTipTranslate" />
+					</Grid.RenderTransform>
 
-                    <Border Background="#CC000000" BorderThickness="1,1,1,0" Margin="0,0,0,-1" BorderBrush="White" Grid.ColumnSpan="2">
-                        <StackPanel Margin="20">
-                            <TextBlock Text="Esri Headquaters" FontWeight="Bold" Foreground="White" />
-                        </StackPanel>
-                    </Border>
+					<Border Background="#CC000000" BorderThickness="1,1,1,0" Margin="0,0,0,-1" BorderBrush="White" Grid.ColumnSpan="2">
+						<StackPanel Margin="20">
+							<TextBlock Text="Esri Headquaters" FontWeight="Bold" Foreground="White" />
+						</StackPanel>
+					</Border>
 
-                    <Path StrokeThickness="1" Fill="#CC000000" Stroke="White" Stretch="Fill" HorizontalAlignment="Left" Data="M0,0 L0,1 1,0" Grid.Row="1" />
-                    <Path StrokeThickness="1" Fill="#CC000000" Stroke="White" Stretch="Fill" VerticalAlignment="Top" Data="M0,0 L1,0" Grid.Row="1" Grid.Column="1" />
-                </Grid>
+					<Path StrokeThickness="1" Fill="#CC000000" Stroke="White" Stretch="Fill" HorizontalAlignment="Left" Data="M0,0 L0,1 1,0" Grid.Row="1" />
+					<Path StrokeThickness="1" Fill="#CC000000" Stroke="White" Stretch="Fill" VerticalAlignment="Top" Data="M0,0 L1,0" Grid.Row="1" Grid.Column="1" />
+				</Grid>
 
-                <Border x:Name="centerOverlay" Background="Transparent" Opacity=".65" 
+				<Border x:Name="centerOverlay" Background="Transparent" Opacity=".65" 
                         HorizontalAlignment="Center" VerticalAlignment="Center" esri:MapView.MapOverlayAnchor="{Binding}"
                         Visibility="{Binding ElementName=chkCenter, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <StackPanel>
-                        <Image Source="pack://application:,,,/ArcGISRuntimeSDKDotNet_DesktopSamples;component/Assets/RedStickPin.png" Margin="0,-40,0,0" />
-                        <TextBlock Foreground="White" FontSize="11">
-                            <TextBlock.Text>
-                                <MultiBinding StringFormat="{}{0:0.000}, {1:0.000}">
-                                    <Binding Path="X" />
-                                    <Binding Path="Y" />
-                                </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
-                    </StackPanel>
-                </Border>
+					<StackPanel>
+						<Image Source="pack://application:,,,/ArcGISRuntimeSDKDotNet_DesktopSamples;component/Assets/RedStickPin.png" Margin="0,-40,0,0" />
+						<TextBlock Foreground="White" FontSize="11">
+							<TextBlock.Text>
+								<MultiBinding StringFormat="{}{0:0.000}, {1:0.000}">
+									<Binding Path="X" />
+									<Binding Path="Y" />
+								</MultiBinding>
+							</TextBlock.Text>
+						</TextBlock>
+					</StackPanel>
+				</Border>
 
-                <Grid x:Name="clickOverlay" HorizontalAlignment="Right" VerticalAlignment="Top"
+				<Grid x:Name="clickOverlay" HorizontalAlignment="Right" VerticalAlignment="Top"
                       Background="Transparent" esri:MapView.MapOverlayAnchor="{Binding}"
                       Visibility="{Binding ElementName=chkCoords, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
 
-                    <Ellipse HorizontalAlignment="Left" VerticalAlignment="Bottom" Fill="Red" Height="6" Width="6" Margin="-3,0,0,-3" />
+					<Ellipse HorizontalAlignment="Left" VerticalAlignment="Bottom" Fill="Red" Height="6" Width="6" Margin="-3,0,0,-3" />
 
-                    <Grid Margin="8">
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+					<Grid Margin="8">
+						<Grid.RowDefinitions>
+							<RowDefinition />
+							<RowDefinition />
+							<RowDefinition />
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="Auto" />
+						</Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Map Coordinates" Margin="0,0,0,6" />
+						<TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Map Coordinates" Margin="0,0,0,6" />
 
-                        <TextBlock Grid.Row="1" Grid.Column="0" Text="X" Foreground="White" FontSize="14" />
-                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding X, StringFormat={}{0:0.000}}" 
+						<TextBlock Grid.Row="1" Grid.Column="0" Text="X" Foreground="White" FontSize="14" />
+						<TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding X, StringFormat={}{0:0.000}}" 
                                Foreground="White" FontSize="14" HorizontalAlignment="Center" />
 
-                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Y" Foreground="White" FontSize="14" />
-                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Y, StringFormat={}{0:0.000}}" 
+						<TextBlock Grid.Row="2" Grid.Column="0" Text="Y" Foreground="White" FontSize="14" />
+						<TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Y, StringFormat={}{0:0.000}}" 
                                Foreground="White" FontSize="14" HorizontalAlignment="Center" />
-                    </Grid>
-                </Grid>
-            </esri:MapView.Overlays>
-
-            <esri:Map>
-                <esri:ArcGISTiledMapServiceLayer
-                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" />
-            </esri:Map>
-        </esri:MapView>
+					</Grid>
+				</Grid>
+			</esri:MapView.Overlays>
+		</esri:MapView>
 
         <Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="30"
                 HorizontalAlignment="Right" VerticalAlignment="Top">

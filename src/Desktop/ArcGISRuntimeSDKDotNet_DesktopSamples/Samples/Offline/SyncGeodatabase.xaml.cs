@@ -120,8 +120,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			mapView.Map.InitialViewpoint = new Envelope(-13446093.133, 4183761.731, -13432118.570, 4190880.0245, SpatialReferences.WebMercator);
-
             _syncTask = new GeodatabaseSyncTask(new Uri(BASE_URL));
             _onlineBirdsLayer = mapView.Map.Layers.OfType<ArcGISDynamicMapServiceLayer>().First();
             _graphicsLayer = mapView.Map.Layers.OfType<GraphicsLayer>().First();

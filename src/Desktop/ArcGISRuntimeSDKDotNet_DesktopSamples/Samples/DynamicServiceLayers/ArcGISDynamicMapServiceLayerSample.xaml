@@ -4,8 +4,8 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid Background="LightBlue">
         <esri:MapView x:Name="mapView">
-            <esri:Map>
-                <esri:ArcGISDynamicMapServiceLayer ID="USA"
+			<esri:Map InitialViewpoint="-3548912,1847469,2472012,1742990,102009">
+				<esri:ArcGISDynamicMapServiceLayer ID="USA"
                     ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer" />
             </esri:Map>
         </esri:MapView>

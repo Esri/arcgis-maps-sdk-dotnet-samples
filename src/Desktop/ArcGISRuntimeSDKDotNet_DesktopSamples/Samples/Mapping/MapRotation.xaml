@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView WrapAround="True" Rotation="{Binding ElementName=rotationSlider, Path=Value, Mode=TwoWay, Delay=20}"
+        <esri:MapView WrapAround="True" x:Name="mapView"
                       ManipulationMode="All"
                       >
             <esri:Map>
@@ -25,10 +25,10 @@
                 <TextBlock Text="{Binding ElementName=rotationSlider, Path=Value, StringFormat='Rotation: {0}'}" 
                          Margin="4,0"  FontWeight="Bold" />
 
-                <Slider x:Name="rotationSlider" Margin="4"
-                        Orientation="Horizontal" Width="100" IsSnapToTickEnabled="True"
+                <Slider x:Name="rotationSlider" Margin="4" ValueChanged="rotationSlider_ValueChanged"
+                        Orientation="Horizontal" Width="100" IsSnapToTickEnabled="True" Value="{Binding Rotation, ElementName=mapView, Mode=OneWay}"
                         TickPlacement="BottomRight" TickFrequency="5"
-                        Minimum="0" Maximum="360" Value="0" />
+                        Minimum="0" Maximum="360" />
             </StackPanel>
         </Grid>
     </Grid>

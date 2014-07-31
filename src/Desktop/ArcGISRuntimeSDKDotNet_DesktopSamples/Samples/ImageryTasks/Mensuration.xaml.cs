@@ -31,15 +31,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			// Create initial extend and set it
-			var envelopeBuilder = new EnvelopeBuilder(SpatialReferences.WebMercator);
-			envelopeBuilder.XMin = -8838052.325801775;
-			envelopeBuilder.YMin = 5409956.10324135;
-			envelopeBuilder.XMax = -8836537.917179003;
-			envelopeBuilder.YMax = 5410659.562767227;
-
-			mapView.Map.InitialViewpoint = envelopeBuilder.ToGeometry();
-
             _pointSymbol = layoutGrid.Resources["PointSymbol"] as Symbol;
             _lineSymbol = layoutGrid.Resources["LineSymbol"] as Symbol;
             _polygonSymbol = layoutGrid.Resources["PolygonSymbol"] as Symbol;

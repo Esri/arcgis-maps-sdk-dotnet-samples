@@ -32,8 +32,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			mapView.Map.InitialViewpoint = new Envelope(-13637527, 4545455, -13622931, 4552890, SpatialReferences.WebMercator);
-
             _routeGraphicsLayer = mapView.Map.Layers["RouteGraphicsLayer"] as GraphicsLayer;
             _stopGraphicsLayer = mapView.Map.Layers["StopGraphicsLayer"] as GraphicsLayer;
             _barrierGraphicsLayer = mapView.Map.Layers["BarrierGraphicsLayer"] as GraphicsLayer;

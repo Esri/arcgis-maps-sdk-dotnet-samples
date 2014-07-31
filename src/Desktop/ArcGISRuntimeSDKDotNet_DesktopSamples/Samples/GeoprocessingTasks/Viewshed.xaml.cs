@@ -25,8 +25,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            mapView.Map.InitialViewpoint = new Envelope(-12004035.9462375, 4652780.19374956, -11735714.4261546, 4808810.41937776);
-
             _gpTask = new Geoprocessor(
                 new Uri("http://serverapps101.esri.com/arcgis/rest/services/ProbabilisticViewshedModel/GPServer/ProbabilisticViewshedModel"));
         }

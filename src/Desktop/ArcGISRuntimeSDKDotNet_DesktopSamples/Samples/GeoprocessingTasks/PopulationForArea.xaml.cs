@@ -34,7 +34,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            mapView.Map.InitialViewpoint = new Envelope(-13879981, 3490335, -7778090, 6248898);
+            mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-13879981, 3490335, -7778090, 6248898));
         }
 
         // Accept user boundary line and run the Geoprocessing Task to summarize population

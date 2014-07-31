@@ -28,14 +28,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology
 		{
 			InitializeComponent();
 
-			// Create initial extend and set it
-			var envelopeBuilder = new EnvelopeBuilder(SpatialReferences.WebMercator);
-			envelopeBuilder.XMin = -245200;
-			envelopeBuilder.YMin = 6665900;
-			envelopeBuilder.XMax = -207000;
-			envelopeBuilder.YMax = 6687300;
-
-			mapView.Map.InitialViewpoint = envelopeBuilder.ToGeometry();
 			mapView.ExtentChanged += mapView_ExtentChanged;
 		}
 

@@ -14,7 +14,7 @@
         </Grid.Resources>
 
         <esri:MapView x:Name="mapView">
-            <esri:Map>
+			<esri:Map InitialViewpoint="-8838052,5409956,-8836538,5410660,3857">
                 <esri:ArcGISTiledMapServiceLayer x:Name="imageServiceLayer"  
                     ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Toronto/ImageServer" />
 

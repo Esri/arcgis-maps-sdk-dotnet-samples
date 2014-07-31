@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Query;
@@ -29,7 +30,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             _vertexSymbol = new SimpleMarkerSymbol() { Color = Colors.LightGreen, Size = 8, Style = SimpleMarkerStyle.Circle };
             _userPointSymbol = new SimpleMarkerSymbol() { Color = Colors.Black, Size = 10, Style = SimpleMarkerStyle.Circle };
 
-			mapView.Map.InitialViewpoint = new Envelope(-83.3188395774275, 42.61428312652851, -83.31295664068958, 42.61670913269855, SpatialReferences.Wgs84);
+			mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-83.3188396, 42.6142831, -83.3129566, 42.6167091, SpatialReferences.Wgs84));
 			mapView.Map.SpatialReference = SpatialReferences.WebMercator;
 
             mapView.ExtentChanged += mapView_ExtentChanged;

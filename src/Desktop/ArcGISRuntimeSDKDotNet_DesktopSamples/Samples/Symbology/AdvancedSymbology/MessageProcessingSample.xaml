@@ -8,7 +8,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
 	<Grid>
 		<esri:MapView x:Name="mapView">
-			<esri:Map>
+			<esri:Map InitialViewpoint="-245200,6665900,-207000,6687300,3857">
 				<esri:ArcGISTiledMapServiceLayer ID="Basemap" 
 					ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"/>
 				<esri:MessageLayer SymbolDictionaryType="Mil2525C" />

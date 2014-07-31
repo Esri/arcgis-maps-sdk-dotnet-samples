@@ -1,4 +1,5 @@
 ﻿using Esri.ArcGISRuntime.ArcGISServices;
+using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using System.Windows.Controls;
@@ -17,7 +18,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			mapView.Map.InitialViewpoint = new Envelope(1445440, 540657, 1452348, 544407, SpatialReference.Create(2264));
+			mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(1445440, 540657, 1452348, 544407, SpatialReference.Create(2264)));
 			mapView.Map.SpatialReference = SpatialReference.Create(2264);
             mapView.LayerLoaded += mapView_LayerLoaded;
         }

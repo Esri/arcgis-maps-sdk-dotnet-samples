@@ -14,7 +14,7 @@
         </Grid.Resources>
 
         <esri:MapView x:Name="mapView" MapViewTapped="mapView_MapViewTapped">
-            <esri:Map>
+			<esri:Map InitialViewpoint="-13446093,4183762,-13432118,4190880,3857">
                 <esri:ArcGISTiledMapServiceLayer DisplayName="Streets Basemap"
                     ServiceUri="http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 
@@ -34,7 +34,7 @@
                 <Border x:Name="birdSightingOverlay" Background="Beige" BorderBrush="Black" BorderThickness="2" CornerRadius="10"
                         Padding="12" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="250" Height="200"
                         Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}" 
-                        esri:MapView.MapOverlayAnchor="{Binding TapLocation}">
+                        esri:MapView.ViewOverlayAnchor="{Binding TapLocation}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />

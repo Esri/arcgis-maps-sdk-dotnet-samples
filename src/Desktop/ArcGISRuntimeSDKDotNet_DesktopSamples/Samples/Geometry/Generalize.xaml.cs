@@ -28,7 +28,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			mapView.Map.InitialViewpoint = new Envelope(-12000000, 3000000, -7000000, 7000000, SpatialReferences.WebMercator);
 			mapView.NavigationCompleted += mapView_NavigationCompleted;
 
             _originalGraphicsLayer = mapView.Map.Layers["OriginalLineGraphicsLayer"] as GraphicsLayer;

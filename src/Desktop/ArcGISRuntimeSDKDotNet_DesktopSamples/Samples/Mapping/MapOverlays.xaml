@@ -10,7 +10,7 @@
         
         <esri:MapView x:Name="mapView" WrapAround="True" MapViewTapped="mapView_MapViewTapped">
             <esri:MapView.Overlays>
-				<Grid x:Name="esriOverlay" esri:MapView.MapOverlayAnchor="{Binding}" IsHitTestVisible="False" HorizontalAlignment="Right" VerticalAlignment="Top" MaxWidth="200"
+				<Grid x:Name="esriOverlay" esri:MapView.ViewOverlayAnchor="{Binding}" IsHitTestVisible="False" HorizontalAlignment="Right" VerticalAlignment="Top" MaxWidth="200"
                       Visibility="{Binding ElementName=chkEsri, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
 
 					<Grid.RowDefinitions>
@@ -37,7 +37,7 @@
                 </Grid>
 
                 <Border x:Name="centerOverlay" Background="Transparent" Opacity=".65" 
-                        HorizontalAlignment="Center" VerticalAlignment="Center" esri:MapView.MapOverlayAnchor="{Binding}"
+                        HorizontalAlignment="Center" VerticalAlignment="Center" esri:MapView.ViewOverlayAnchor="{Binding}"
                         Visibility="{Binding ElementName=chkCenter, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <StackPanel>
                         <Image Source="pack://application:,,,/ArcGISRuntimeSDKDotNet_DesktopSamples;component/Assets/RedStickPin.png" Margin="0,-40,0,0" />
@@ -53,7 +53,7 @@
                 </Border>
 
                 <Grid x:Name="clickOverlay" HorizontalAlignment="Right" VerticalAlignment="Top"
-                      Background="Transparent" esri:MapView.MapOverlayAnchor="{Binding}"
+                      Background="Transparent" esri:MapView.ViewOverlayAnchor="{Binding}"
                       Visibility="{Binding ElementName=chkCoords, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
 
                     <Ellipse HorizontalAlignment="Left" VerticalAlignment="Bottom" Fill="Red" Height="6" Width="6" Margin="-3,0,0,-3" />

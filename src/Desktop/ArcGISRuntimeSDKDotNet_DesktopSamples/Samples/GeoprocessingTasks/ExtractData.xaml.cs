@@ -28,7 +28,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			mapView.Map.InitialViewpoint = new Envelope(-8985039.34626515, 4495835.02641862, -8114288.50438322, 4889486.96951941, SpatialReferences.WebMercator);
+			mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-8985039, 4495835, -8114289, 4889487, SpatialReferences.WebMercator));
 
             _gpTask = new Geoprocessor(
                 new Uri("http://sampleserver4.arcgisonline.com/ArcGIS/rest/services/HomelandSecurity/Incident_Data_Extraction/GPServer/Extract%20Data%20Task"));

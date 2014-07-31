@@ -27,7 +27,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             _trafficLayer = mapView.Map.Layers["Traffic"] as ArcGISDynamicMapServiceLayer;
 
-            mapView.Map.InitialViewpoint = new Envelope(-13230693.582, 3941779.273, -12928937.030, 4095486.517, SpatialReferences.WebMercator);
             mapView.LayerLoaded += mapView_LayerLoaded;
         }
 

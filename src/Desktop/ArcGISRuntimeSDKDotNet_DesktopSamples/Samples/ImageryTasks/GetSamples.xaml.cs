@@ -81,7 +81,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 if (graphic != null)
                 {
                     graphic.IsSelected = true;
-                    MapView.SetMapOverlayAnchor(mapTip, e.Location);
+					MapView.SetViewOverlayAnchor(mapTip, e.Location);
                     mapTip.DataContext = graphic;
                     mapTip.Visibility = System.Windows.Visibility.Visible;
                 }

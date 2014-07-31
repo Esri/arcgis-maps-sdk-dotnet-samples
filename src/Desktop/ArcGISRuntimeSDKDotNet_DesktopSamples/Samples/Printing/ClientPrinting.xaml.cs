@@ -22,15 +22,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public ClientPrinting()
         {
             InitializeComponent();
-
-			// Create initial extend and set it
-			var envelopeBuilder = new EnvelopeBuilder(SpatialReferences.WebMercator);
-			envelopeBuilder.XMin = -9813504.6933477;
-			envelopeBuilder.YMin = 5127140.45392125;
-			envelopeBuilder.XMax = -9812977.49431059;
-			envelopeBuilder.YMax = 5127508.54492118;
-
-			mapView.Map.InitialViewpoint = envelopeBuilder.ToGeometry();
         }
 
         private void ActivatePrintPreview(object sender, RoutedEventArgs e)
@@ -91,7 +82,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 PrintMapView.MaximumExtent = BaseMapView.MaximumExtent;
                 PrintMapView.MaxScale = BaseMapView.MaxScale;
                 PrintMapView.MinScale = BaseMapView.MinScale;
-                PrintMapView.Rotation = BaseMapView.Rotation;
+				PrintMapView.SetRotation(BaseMapView.Rotation);
                 PrintMapView.WrapAround = BaseMapView.WrapAround;
                 PrintMapView.Map = BaseMapView.Map;
 
@@ -154,7 +145,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             var mapPrinter = d as MapPrinter;
             if (mapPrinter != null)
-                mapPrinter.PrintMapView.Rotation = ((bool)e.NewValue ? -90 : 0);
+                mapPrinter.PrintMapView.SetRotation((bool)e.NewValue ? -90 : 0);
         }
 
         private bool _isPrinting;

@@ -26,7 +26,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			mapView.Map.InitialViewpoint = new Envelope(-9275076.4794, 5253225.9406, -9274273.6411, 5253885.6155, SpatialReferences.WebMercator);
+			mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-9275076, 5253226, -9274274, 5253886, SpatialReferences.WebMercator));
             parcelGraphicsLayer = mapView.Map.Layers["ParcelsGraphicsLayer"] as GraphicsLayer;
             offsetGraphicsLayer = mapView.Map.Layers["OffsetGraphicsLayer"] as GraphicsLayer;
 

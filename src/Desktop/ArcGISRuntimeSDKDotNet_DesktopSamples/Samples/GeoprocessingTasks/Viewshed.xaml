@@ -11,7 +11,7 @@
         </Grid.Resources>
 
         <esri:MapView x:Name="mapView">
-            <esri:Map >
+			<esri:Map InitialViewpoint="-12004036,4652780,-11735714,4808810,3857">
                 <esri:ArcGISTiledMapServiceLayer ID="TopoMapLayer"
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
                 <esri:GraphicsLayer x:Name="inputLayer" Renderer="{StaticResource PointRenderer}" />

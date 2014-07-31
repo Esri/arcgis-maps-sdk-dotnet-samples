@@ -5,7 +5,7 @@
              xmlns:local="clr-namespace:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples">
     <Grid x:Name="layoutGrid">
         <esri:MapView x:Name="mapView" MapViewTapped="mapView_MapViewTapped">
-            <esri:Map>
+			<esri:Map InitialViewpoint="-13230694,3941779,-12928937,40954867,3857">
                 <esri:ArcGISTiledMapServiceLayer DisplayName="World Topo (Basemap)"
                     ServiceUri="http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
 
@@ -16,7 +16,7 @@
             <esri:MapView.Overlays>
                 <Border x:Name="incidentOverlay" HorizontalAlignment="Right" VerticalAlignment="Top"
                         Background="Black" BorderBrush="White" BorderThickness="2" Padding="6"
-                        esri:MapView.MapOverlayAnchor="{Binding Feature.Geometry}" Visibility="Collapsed">
+                        esri:MapView.ViewOverlayAnchor="{Binding Feature.Geometry}" Visibility="Collapsed">
                     <Grid MaxWidth="350" DataContext="{Binding Feature}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />

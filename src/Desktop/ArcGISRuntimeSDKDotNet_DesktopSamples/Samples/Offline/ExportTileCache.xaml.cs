@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.Symbology;
@@ -43,7 +44,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             InitializeComponent();
 
             var extentWGS84 = new Envelope(-123.77, 36.80, -119.77, 38.42, SpatialReferences.Wgs84);
-			mapView.Map.InitialViewpoint = extentWGS84;
+			mapView.Map.InitialViewpoint = new Viewpoint(extentWGS84);
 
             mapView.Loaded += mapView_Loaded;
         }

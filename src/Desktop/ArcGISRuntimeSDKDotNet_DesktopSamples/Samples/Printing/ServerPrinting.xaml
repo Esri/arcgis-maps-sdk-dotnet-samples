@@ -4,7 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid x:Name="layoutGrid">
         <esri:MapView x:Name="mapView">
-			<esri:Map>
+			<esri:Map InitialViewpoint="-10929488,4525208,-10906777,4535252,3857">
 				<esri:ArcGISTiledMapServiceLayer 
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
                 <esri:ArcGISDynamicMapServiceLayer 

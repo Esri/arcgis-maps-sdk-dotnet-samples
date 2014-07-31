@@ -16,15 +16,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers
         public DynamicLayerReordering()
         {
             InitializeComponent();
-
-			// Create initial extend and set it
-			var envelopeBuilder = new EnvelopeBuilder(SpatialReference.Create(102009));
-			envelopeBuilder.XMin = -3548912;
-			envelopeBuilder.YMin = -1847469;
-			envelopeBuilder.XMax = 2472012;
-			envelopeBuilder.YMax = 1742990;
-
-			mapView.Map.InitialViewpoint = envelopeBuilder.ToGeometry();
+			mapView.Map.SpatialReference = new SpatialReference(102009);
         }
 
         private void ChangeLayerOrderClick(object sender, System.Windows.RoutedEventArgs e)

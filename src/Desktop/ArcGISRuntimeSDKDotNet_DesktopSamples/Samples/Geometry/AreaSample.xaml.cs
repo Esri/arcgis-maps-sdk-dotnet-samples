@@ -27,7 +27,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
 			var initialExtent = new Envelope(-130, 20, -65, 55, SpatialReferences.Wgs84);
 
-			mapView.Map.InitialViewpoint = initialExtent;
+			mapView.Map.InitialViewpoint = new Viewpoint(initialExtent);
             graphicsLayer = (GraphicsLayer)mapView.Map.Layers["graphicsLayer"];
 			mapView.ExtentChanged += mapView_ExtentChanged; 
         }

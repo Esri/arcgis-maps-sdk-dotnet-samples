@@ -24,9 +24,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			mapView.Map.InitialViewpoint = new Envelope(-17611013.373, 2601908.195, -2823070.655, 9287290.632);
-
-            IdentityManager.Current.ChallengeMethod = Challenge;
+			IdentityManager.Current.ChallengeMethod = Challenge;
         }
 
         // Base Challenge method that dispatches to the UI thread if necessary

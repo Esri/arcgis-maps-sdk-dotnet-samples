@@ -23,11 +23,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 		{
 			InitializeComponent();
 
-			// Create initial extend and set it
-			var envelope = new Envelope(-3548912, 1847469, 2472012, 1742990, SpatialReference.Create(102009));
-
-			mapView.Map.InitialViewpoint = envelope;
-
 			mapView.LayerLoaded += mapView_LayerLoaded;
 
 			_usaLayer = mapView.Map.Layers["USA"] as ArcGISDynamicMapServiceLayer;

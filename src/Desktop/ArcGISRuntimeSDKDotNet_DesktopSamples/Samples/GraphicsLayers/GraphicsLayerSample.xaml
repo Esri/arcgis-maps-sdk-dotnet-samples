@@ -14,11 +14,12 @@
 
         <esri:MapView x:Name="MyMapView" WrapAround="True">
             <esri:Map>
-                <esri:ArcGISTiledMapServiceLayer
+				<esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
-
-				<esri:GraphicsLayer x:Name="graphicsLayer" />
 			</esri:Map>
-        </esri:MapView>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay x:Name="graphicsOverlay" />
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
     </Grid>
 </UserControl>

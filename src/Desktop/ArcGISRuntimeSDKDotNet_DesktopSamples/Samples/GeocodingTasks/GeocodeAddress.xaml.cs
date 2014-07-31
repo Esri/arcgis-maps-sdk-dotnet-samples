@@ -31,7 +31,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			MyMapView.Map.InitialViewpoint = new Envelope(-122.554, 37.615, -122.245, 37.884, SpatialReferences.Wgs84);
+			MyMapView.Map.InitialViewpoint = new ViewpointExtent(
+				new Envelope(-122.554, 37.615, -122.245, 37.884, SpatialReferences.Wgs84));
 
 			_addressOverlay = AddressOverlay;
 

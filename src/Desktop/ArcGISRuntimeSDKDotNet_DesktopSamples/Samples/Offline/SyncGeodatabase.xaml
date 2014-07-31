@@ -34,7 +34,7 @@
                 <Border x:Name="birdSightingOverlay" Background="Beige" BorderBrush="Black" BorderThickness="2" CornerRadius="10"
                         Padding="12" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="250" Height="200"
                         Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}" 
-                        esri:MapView.MapOverlayAnchor="{Binding TapLocation}">
+                        esri:MapView.ViewOverlayAnchor="{Binding TapLocation}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />

@@ -10,7 +10,7 @@ using System.Windows.Controls;
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
-    /// Example of how to add Graphics to a GraphicLayer by drawing shapes on the map.  The Editor.RequestShapeAsync method is used to manage map drawing and geometry creation.  Symbols for the graphics are defined in XAML.
+    /// Example of how to add Graphics to a GraphicsOverlay by drawing shapes on the map.  The Editor.RequestShapeAsync method is used to manage map drawing and geometry creation.  Symbols for the graphics are defined in XAML.
     /// </summary>
     /// <title>Add Graphics Interactively</title>
 	/// <category>Layers</category>
@@ -57,7 +57,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         }
 
         // Draw graphics infinitely
-        private async void AddGraphicsAsync()
+        private async Task AddGraphicsAsync()
         {
             await MyMapView.LayersLoadedAsync();
 
@@ -108,7 +108,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
                 // add the new graphic to the graphic layer
                 var graphic = new Graphic(geometry, symbol);
-                graphicsLayer.Graphics.Add(graphic);
+				graphicsOverlay.Graphics.Add(graphic);
             }
             catch (TaskCanceledException)
             {
@@ -129,18 +129,20 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         // Cancel the current shape drawing (if in Editor.RequestShapeAsync)
         //  and initiate new graphic adding if drawing mode is on
-        private void ToggleButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (MyMapView.Editor.IsActive)
-                MyMapView.Editor.Cancel.Execute(null);
+		private void ToggleButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (MyMapView.Editor.IsActive)
+				MyMapView.Editor.Cancel.Execute(null);
 
-            if (InDrawMode)
-                AddGraphicsAsync();
-        }
+			if (InDrawMode)
+			{
+				var _ = AddGraphicsAsync();
+			}
+		}
 
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
-            graphicsLayer.Graphics.Clear();
+			graphicsOverlay.Graphics.Clear();
         }
     }
 }

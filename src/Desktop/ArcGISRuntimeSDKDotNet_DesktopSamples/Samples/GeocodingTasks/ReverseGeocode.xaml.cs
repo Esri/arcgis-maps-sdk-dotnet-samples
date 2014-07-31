@@ -24,7 +24,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			MyMapView.Map.InitialViewpoint = new Envelope(-117.387, 33.97, -117.355, 33.988, SpatialReferences.Wgs84);
+			MyMapView.Map.InitialViewpoint = new ViewpointExtent(
+				new Envelope(-117.387, 33.97, -117.355, 33.988, SpatialReferences.Wgs84));
 
             _locator = new OnlineLocatorTask(new Uri("http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"));
         }
@@ -41,7 +42,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var overlay = new ContentControl() { HorizontalAlignment = HorizontalAlignment.Right, VerticalAlignment = VerticalAlignment.Top };
                 overlay.Template = layoutGrid.Resources["MapTipTemplate"] as ControlTemplate;
                 overlay.DataContext = result;
-                MapView.SetMapOverlayAnchor(overlay, e.Location);
+                MapView.SetViewOverlayAnchor(overlay, e.Location);
                 MyMapView.Overlays.Add(overlay);
             }
             catch (AggregateException aex)

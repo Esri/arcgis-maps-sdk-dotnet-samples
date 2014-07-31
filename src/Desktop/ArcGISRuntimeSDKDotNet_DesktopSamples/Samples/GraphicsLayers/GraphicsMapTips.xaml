@@ -5,12 +5,13 @@
     <Grid>
         <esri:MapView x:Name="MyMapView" WrapAround="True" MouseMove="MyMapView_MouseMove">
             <esri:Map>
-                <esri:ArcGISTiledMapServiceLayer
+				<esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
-
-                <esri:GraphicsLayer x:Name="graphicsLayer" />
-            </esri:Map>
-        </esri:MapView>
+			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay x:Name="graphicsOverlay" />
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
 
 
         <Border x:Name="mapTip" Background="White" BorderBrush="Black" BorderThickness="2" Padding="4"

@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System;
@@ -12,7 +13,7 @@ using System.Windows.Threading;
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
-    /// Animates a graphic smoothly between two user defined locations by calling the MapPoint.MoveTo method at regular intervals as defined by a DispatcherTimer. 
+    /// Animates a graphic smoothly between two user defined locations by moving MapPoint at regular intervals as defined by a DispatcherTimer. 
     /// The distance the point is moved each time is calculated by a quintic easing function.
     /// </summary>
     /// <title>Smooth Graphic Animation</title>
@@ -22,8 +23,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     {
         private const int AnimationDuration = 5000;     // milliseconds (5 second animation)
 
-        private GraphicsLayer _animatingLayer;
-        private GraphicsLayer _userInteractionLayer;
+		private GraphicsOverlay _animatingOverlay;
+		private GraphicsOverlay _userInteractionOverlay;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SmoothGraphicAnimation"/> class.
@@ -32,19 +33,27 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            _userInteractionLayer = new GraphicsLayer()
+            _userInteractionOverlay = new GraphicsOverlay()
             {
                 Renderer = new SimpleRenderer()
                 {
-                    Symbol = new SimpleMarkerSymbol() { Color = Colors.Green, Size = 15, Style = SimpleMarkerStyle.Circle }
+                    Symbol = new SimpleMarkerSymbol() { 
+						Color = Colors.Green, 
+						Size = 15, 
+						Style = SimpleMarkerStyle.Circle 
+					}
                 }
             };
 
-            _animatingLayer = new GraphicsLayer()
+			_animatingOverlay = new GraphicsOverlay()
             {
                 Renderer = new SimpleRenderer()
                 {
-                    Symbol = new SimpleMarkerSymbol() { Color = Colors.Red, Size = 15, Style = SimpleMarkerStyle.Circle }
+                    Symbol = new SimpleMarkerSymbol() { 
+						Color = Colors.Red, 
+						Size = 15, 
+						Style = SimpleMarkerStyle.Circle 
+					}
                 }
             };
 
@@ -53,32 +62,32 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             {
                 if (e.PropertyName == "SpatialReference")
                 {
-                    MyMapView1.PropertyChanged -= propertyChanged;
-                    AddLayers();
+                    MyMapView.PropertyChanged -= propertyChanged;
+					AddOverlays();
                     await WaitforMapClick();
                 }
             };
-            MyMapView1.PropertyChanged += propertyChanged;
+			MyMapView.PropertyChanged += propertyChanged;
         }
 
-        private void AddLayers()
+        private void AddOverlays()
         {
-            map1.Layers.Add(_userInteractionLayer);
-            map1.Layers.Add(_animatingLayer);
+			MyMapView.GraphicsOverlays.Add(_userInteractionOverlay);
+			MyMapView.GraphicsOverlays.Add(_animatingOverlay);
         }
 
         private async Task WaitforMapClick()
         {
-            MapPoint m = await MyMapView1.Editor.RequestPointAsync();
+			MapPoint m = await MyMapView.Editor.RequestPointAsync();
 
-            _userInteractionLayer.Graphics.Add(new Graphic(m));
+			_userInteractionOverlay.Graphics.Add(new Graphic(m));
 
-            if (_userInteractionLayer.Graphics.Count == 2)
+			if (_userInteractionOverlay.Graphics.Count == 2)
             {
                 AnimateGraphic();
                 await Task.Delay(AnimationDuration);
-                _userInteractionLayer.Graphics.Clear();
-                _animatingLayer.Graphics.Clear();
+				_userInteractionOverlay.Graphics.Clear();
+				_animatingOverlay.Graphics.Clear();
             }
 
             await WaitforMapClick();
@@ -86,11 +95,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private void AnimateGraphic()
         {
-            MapPoint startPoint = _userInteractionLayer.Graphics[0].Geometry as MapPoint;
-            MapPoint finishPoint = _userInteractionLayer.Graphics[1].Geometry as MapPoint;
+			MapPoint startPoint = _userInteractionOverlay.Graphics[0].Geometry as MapPoint;
+			MapPoint finishPoint = _userInteractionOverlay.Graphics[1].Geometry as MapPoint;
 
             var animatingGraphic = new Graphic(new MapPoint(startPoint.X, startPoint.Y));
-            _animatingLayer.Graphics.Add(animatingGraphic);
+			_animatingOverlay.Graphics.Add(animatingGraphic);
 
             // Framework easing objects may be used to calculate progressive values
             // - i.e. QuinticEase, BackEase, BounceEase, ElasticEase, etc.

@@ -28,9 +28,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            MyMapView.Map.InitialViewpoint = new Envelope(
+			MyMapView.Map.InitialViewpoint = new ViewpointExtent(new Envelope(
 				-10863035.970, 3838021.340, -10744801.344, 3887145.299, 
-				SpatialReferences.WebMercator);
+				SpatialReferences.WebMercator));
             var _ = SetupSymbolsAsync();
         }
 

@@ -957,7 +957,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.AddInteractively">
             <summary>
-            Example of how to add Graphics to a GraphicLayer by drawing shapes on the map.  The Editor.RequestShapeAsync method is used to manage map drawing and geometry creation.  Symbols for the graphics are defined in XAML.
+            Example of how to add Graphics to a GraphicsOverlay by drawing shapes on the map.  The Editor.RequestShapeAsync method is used to manage map drawing and geometry creation.  Symbols for the graphics are defined in XAML.
             </summary>
             <title>Add Graphics Interactively</title>
             <category>Layers</category>
@@ -1044,7 +1044,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsHitTesting">
             <summary>
-            This sample shows how to hit test a graphics layer using the GraphicsLayer.HitTestAsync method. Here, the user may sketch a point on the map to initiate the hit testing process - the results of the hit test are then displayed in the UI.
+            This sample shows how to hit test a graphics layer using the GraphicsOverlay.HitTestAsync method. Here, the user may sketch a point on the map to initiate the hit testing process - the results of the hit test are then displayed in the UI.
             </summary>
             <title>Hit Testing</title>
             <category>Layers</category>
@@ -1063,7 +1063,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsLayerRenderingMode">
             <summary>
-            This sample demonstates the use of the GraphicsLayer.RenderingMode property to control how a GraphicsLayer draws its graphics. Zooming and Panning the map in each of the rendering modes will show the differences between them. Rendering mode differences will be more pronounced with higher numbers of graphics in the graphic layer.
+            This sample demonstates the use of the GraphicsLayer.RenderingMode property to control how a GraphicsOverlay draws its graphics. Zooming and Panning the map in each of the rendering modes will show the differences between them. Rendering mode differences will be more pronounced with higher numbers of graphics in the graphic layer.
             </summary>
             <title>Rendering Mode</title>
             <category>Layers</category>
@@ -1082,7 +1082,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsLayerSample">
             <summary>
-            This sample demonstrates how to add a GraphicsLayer with Graphics and Symbols to the map in XAML.  The sample also shows how to add Polyline graphics to a GraphicsLayer from the code-behind.
+            This sample demonstrates how to add a GraphicsOverlay with Graphics and Symbols to the map in XAML.  The sample also shows how to add Polyline graphics to a GraphicsOverlay from the code-behind.
             </summary>
             <title>Graphics Layer</title>
             <category>Layers</category>
@@ -1139,7 +1139,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SmoothGraphicAnimation">
             <summary>
-            Animates a graphic smoothly between two user defined locations by calling the MapPoint.MoveTo method at regular intervals as defined by a DispatcherTimer. 
+            Animates a graphic smoothly between two user defined locations by moving MapPoint at regular intervals as defined by a DispatcherTimer. 
             The distance the point is moved each time is calculated by a quintic easing function.
             </summary>
             <title>Smooth Graphic Animation</title>

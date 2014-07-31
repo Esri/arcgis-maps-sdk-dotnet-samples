@@ -31,7 +31,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             _userPointSymbol = new SimpleMarkerSymbol() { Color = Colors.Black, Size = 10, Style = SimpleMarkerStyle.Circle };
 
 			// Define initial viewpoint as a Wgs84 but use WebMercator on a map.
-			MyMapView.Map.InitialViewpoint = new Envelope(-83.3188396, 42.6142831, -83.3129566, 42.6167091, SpatialReferences.Wgs84);
+			MyMapView.Map.InitialViewpoint = new ViewpointExtent(
+				new Envelope(-83.3188396, 42.6142831, -83.3129566, 42.6167091, SpatialReferences.Wgs84));
 			MyMapView.Map.SpatialReference = SpatialReferences.WebMercator;
 
             MyMapView.ExtentChanged += MyMapView_ExtentChanged;

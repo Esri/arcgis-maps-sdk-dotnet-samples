@@ -30,7 +30,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			MyMapView.Map.InitialViewpoint = new Envelope(-122.5009, 37.741, -122.3721, 37.8089);
+			MyMapView.Map.InitialViewpoint = new ViewpointExtent(
+				new Envelope(-122.5009, 37.741, -122.3721, 37.8089));
 
             _bufferSymbols = new List<Symbol>()
             {

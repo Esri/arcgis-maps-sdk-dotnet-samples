@@ -26,8 +26,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             InitializeComponent();
 
             _isHitTesting = false;
-            CreateGraphics();
-        }
+			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
+		}
+
+		private void MyMapView_NavigationCompleted(object sender, EventArgs e)
+		{
+			MyMapView.NavigationCompleted -= MyMapView_NavigationCompleted;
+			CreateGraphics();
+		}
 
         // HitTest the graphics and position the map tip
         private async void MyMapView_MouseMove(object sender, MouseEventArgs e)
@@ -40,7 +46,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 _isHitTesting = true;
 
                 System.Windows.Point screenPoint = e.GetPosition(MyMapView);
-                var graphic = await graphicsLayer.HitTestAsync(MyMapView, screenPoint);
+				var graphic = await graphicsOverlay.HitTestAsync(MyMapView, screenPoint);
                 if (graphic != null)
                 {
                     maptipTransform.X = screenPoint.X + 4;
@@ -62,13 +68,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         }
 
         // Create three List<Graphic> objects with random graphics to serve as layer GraphicsSources
-        private async void CreateGraphics()
+		private void CreateGraphics()
         {
-            await MyMapView.LayersLoadedAsync();
-
             for (int n = 1; n <= 20; ++n)
             {
-                graphicsLayer.Graphics.Add(CreateRandomGraphic(n));
+				graphicsOverlay.Graphics.Add(CreateRandomGraphic(n));
             }
         }
 

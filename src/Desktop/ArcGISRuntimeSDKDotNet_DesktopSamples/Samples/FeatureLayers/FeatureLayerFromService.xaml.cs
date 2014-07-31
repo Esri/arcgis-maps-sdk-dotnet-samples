@@ -30,7 +30,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var gdbFeatureServiceTable = await GeodatabaseFeatureServiceTable.OpenAsync(
                     new Uri("http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Earthquakes/EarthquakesFromLastSevenDays/FeatureServer/0"));
 
-                mapView.Map.Layers.Add(new FeatureLayer(gdbFeatureServiceTable) { ID = "featureLayer" });
+				MyMapView.Map.Layers.Add(new FeatureLayer(gdbFeatureServiceTable) { ID = "featureLayer" });
             }
             catch (Exception ex)
             {

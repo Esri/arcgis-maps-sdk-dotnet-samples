@@ -231,7 +231,7 @@
         <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerHitTesting.#ctor">
             <summary>Construct FeatureLayerHitTesting sample control</summary>
         </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerHitTesting.mapView_MapViewTapped(System.Object,Esri.ArcGISRuntime.Controls.MapViewInputEventArgs)">
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerHitTesting.MyMapView_MapViewTapped(System.Object,Esri.ArcGISRuntime.Controls.MapViewInputEventArgs)">
             <summary>
             On each mouse click:
             - HitTest the feature layer

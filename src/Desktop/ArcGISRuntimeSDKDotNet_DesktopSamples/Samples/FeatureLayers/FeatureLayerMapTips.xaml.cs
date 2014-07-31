@@ -19,24 +19,24 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			mapView.SpatialReferenceChanged += mapView_SpatialReferenceChanged;
+			MyMapView.SpatialReferenceChanged += mapView_SpatialReferenceChanged;
         }
 
 		private async void mapView_SpatialReferenceChanged(object sender, System.EventArgs e)
 		{
-			await mapView.LayersLoadedAsync();
+			await MyMapView.LayersLoadedAsync();
 			_isMapReady = true;
 		}
 
-        private async void mapView_MouseMove(object sender, MouseEventArgs e)
+		private async void MyMapView_MouseMove(object sender, MouseEventArgs e)
         {
 			if (!_isMapReady)
 				return;
 
 			try
             {
-                System.Windows.Point screenPoint = e.GetPosition(mapView);
-                var rows = await earthquakes.HitTestAsync(mapView, screenPoint);
+				System.Windows.Point screenPoint = e.GetPosition(MyMapView);
+				var rows = await earthquakes.HitTestAsync(MyMapView, screenPoint);
                 if (rows != null && rows.Length > 0)
                 {
                     var features = await earthquakes.FeatureTable.QueryAsync(rows);

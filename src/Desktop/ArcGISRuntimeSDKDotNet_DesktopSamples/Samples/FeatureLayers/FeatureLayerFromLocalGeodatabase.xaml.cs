@@ -23,7 +23,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public FeatureLayerFromLocalGeodatabase()
         {
             InitializeComponent();
-            var task = CreateFeatureLayersAsync();
+            var _ = CreateFeatureLayersAsync();
         }
 
         private async Task CreateFeatureLayersAsync()
@@ -32,7 +32,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             {
                 var gdb = await Geodatabase.OpenAsync(GDB_PATH);
 
-                Envelope extent = gdb.FeatureTables.First().Extent;
+				Envelope extent = null;
                 foreach (var table in gdb.FeatureTables)
                 {
                     var flayer = new FeatureLayer()
@@ -42,18 +42,19 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                         FeatureTable = table
                     };
 
-                    if (table.Extent != null)
-                    {
-                        if (extent == null)
-                            extent = table.Extent;
-                        else
-                            extent = extent.Union(table.Extent);
-                    }
+					if (table.ServiceInfo.Extent != null &&
+						!table.ServiceInfo.Extent.IsEmpty)
+					{
+						if (extent.IsEmpty)
+							extent = table.ServiceInfo.Extent;
+						else
+							extent = extent.Union(table.ServiceInfo.Extent);
+					}
 
-                    mapView.Map.Layers.Add(flayer);
+					MyMapView.Map.Layers.Add(flayer);
                 }
 
-                await mapView.SetViewAsync(extent.Expand(1.10));
+				await MyMapView.SetViewAsync(extent.Expand(1.10));
             }
             catch (Exception ex)
             {

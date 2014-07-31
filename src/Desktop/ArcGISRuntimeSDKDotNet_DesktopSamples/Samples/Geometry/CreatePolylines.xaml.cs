@@ -19,11 +19,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            var task = CreatePolylineGraphics();
+            var _ = CreatePolylineGraphicsAsync();
         }
 
         // Create polyline graphics on the map in the center and the center of four equal quadrants
-        private async Task CreatePolylineGraphics()
+        private async Task CreatePolylineGraphicsAsync()
         {
             await MyMapView.LayersLoadedAsync();
 
@@ -31,19 +31,28 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             var width = MyMapView.Extent.Width / 4;
             var length = width / 4;
             var center = MyMapView.Extent.GetCenter();
+
 			var topLeft = new MapPoint(center.X - width, center.Y + height, MyMapView.SpatialReference);
 			var topRight = new MapPoint(center.X + width, center.Y + height, MyMapView.SpatialReference);
 			var bottomLeft = new MapPoint(center.X - width, center.Y - height, MyMapView.SpatialReference);
 			var bottomRight = new MapPoint(center.X + width, center.Y - height, MyMapView.SpatialReference);
 
-            var redSymbol = new SimpleLineSymbol() { Color = System.Windows.Media.Colors.Red, Width = 4, Style = SimpleLineStyle.Solid };
-            var blueSymbol = new SimpleLineSymbol() { Color = System.Windows.Media.Colors.Blue, Width = 4, Style = SimpleLineStyle.Solid };
+            var redSymbol = new SimpleLineSymbol() { 
+				Color = System.Windows.Media.Colors.Red, 
+				Width = 4, 
+				Style = SimpleLineStyle.Solid 
+			};
+            var blueSymbol = new SimpleLineSymbol() { 
+				Color = System.Windows.Media.Colors.Blue, 
+				Width = 4, 
+				Style = SimpleLineStyle.Solid 
+			};
 
-            graphicsLayer.Graphics.Add(new Graphic() { Geometry = CreatePolylineX(center, length), Symbol = blueSymbol });
-            graphicsLayer.Graphics.Add(new Graphic() { Geometry = CreatePolylineX(topLeft, length), Symbol = redSymbol });
-            graphicsLayer.Graphics.Add(new Graphic() { Geometry = CreatePolylineX(topRight, length), Symbol = redSymbol });
-            graphicsLayer.Graphics.Add(new Graphic() { Geometry = CreatePolylineX(bottomLeft, length), Symbol = redSymbol });
-            graphicsLayer.Graphics.Add(new Graphic() { Geometry = CreatePolylineX(bottomRight, length), Symbol = redSymbol });
+            graphicsOverlay.Graphics.Add(new Graphic() { Geometry = CreatePolylineX(center, length), Symbol = blueSymbol });
+			graphicsOverlay.Graphics.Add(new Graphic() { Geometry = CreatePolylineX(topLeft, length), Symbol = redSymbol });
+			graphicsOverlay.Graphics.Add(new Graphic() { Geometry = CreatePolylineX(topRight, length), Symbol = redSymbol });
+			graphicsOverlay.Graphics.Add(new Graphic() { Geometry = CreatePolylineX(bottomLeft, length), Symbol = redSymbol });
+			graphicsOverlay.Graphics.Add(new Graphic() { Geometry = CreatePolylineX(bottomRight, length), Symbol = redSymbol });
         }
 
         // Creates a polyline with two paths in the shape of an 'X' centered at the given point

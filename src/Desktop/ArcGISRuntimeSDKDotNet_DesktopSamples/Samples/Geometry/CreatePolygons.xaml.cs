@@ -19,11 +19,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            var task = CreatePolygonGraphics();
+            var _ = CreatePolygonGraphicsAsync();
         }
 
         // Create Polygon graphics on the map in the center and the center of four equal quadrants
-        private async Task CreatePolygonGraphics()
+		private async Task CreatePolygonGraphicsAsync()
         {
             await MyMapView.LayersLoadedAsync();
 
@@ -31,6 +31,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             var width = MyMapView.Extent.Width / 4;
             var length = width / 4;
             var center = MyMapView.Extent.GetCenter();
+
             var topLeft = new MapPoint(center.X - width, center.Y + height, MyMapView.SpatialReference);
 			var topRight = new MapPoint(center.X + width, center.Y + height, MyMapView.SpatialReference);
 			var bottomLeft = new MapPoint(center.X - width, center.Y - height, MyMapView.SpatialReference);
@@ -39,11 +40,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             var redSymbol = new SimpleFillSymbol() { Color = System.Windows.Media.Colors.Red };
             var blueSymbol = new SimpleFillSymbol() { Color = System.Windows.Media.Colors.Blue };
 
-            graphicsLayer.Graphics.Add(new Graphic() { Geometry = CreatePolygonBox(center, length), Symbol = blueSymbol });
-            graphicsLayer.Graphics.Add(new Graphic() { Geometry = CreatePolygonBox(topLeft, length), Symbol = redSymbol });
-            graphicsLayer.Graphics.Add(new Graphic() { Geometry = CreatePolygonBox(topRight, length), Symbol = redSymbol });
-            graphicsLayer.Graphics.Add(new Graphic() { Geometry = CreatePolygonBox(bottomLeft, length), Symbol = redSymbol });
-            graphicsLayer.Graphics.Add(new Graphic() { Geometry = CreatePolygonBox(bottomRight, length), Symbol = redSymbol });
+            graphicsOverlay.Graphics.Add(new Graphic() { Geometry = CreatePolygonBox(center, length), Symbol = blueSymbol });
+			graphicsOverlay.Graphics.Add(new Graphic() { Geometry = CreatePolygonBox(topLeft, length), Symbol = redSymbol });
+			graphicsOverlay.Graphics.Add(new Graphic() { Geometry = CreatePolygonBox(topRight, length), Symbol = redSymbol });
+			graphicsOverlay.Graphics.Add(new Graphic() { Geometry = CreatePolygonBox(bottomLeft, length), Symbol = redSymbol });
+			graphicsOverlay.Graphics.Add(new Graphic() { Geometry = CreatePolygonBox(bottomRight, length), Symbol = redSymbol });
         }
 
         // Creates a square polygon with a hole centered at the given point

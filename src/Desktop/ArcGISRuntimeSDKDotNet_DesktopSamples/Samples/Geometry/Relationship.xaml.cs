@@ -57,13 +57,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             else
                 shapeOne = await MyMapView.Editor.RequestShapeAsync(drawShape1, _symbols[comboShapeOne.SelectedIndex]);
 
-            graphicsLayer.Graphics.Add(new Graphic(shapeOne, _symbols[comboShapeOne.SelectedIndex]));
+			graphicsOverlay.Graphics.Add(new Graphic(shapeOne, _symbols[comboShapeOne.SelectedIndex]));
 
             // Shape Two
             Geometry shapeTwo = await MyMapView.Editor.RequestShapeAsync(
                 (DrawShape)comboShapeTwo.SelectedItem, _symbols[comboShapeTwo.SelectedIndex]);
 
-            graphicsLayer.Graphics.Add(new Graphic(shapeTwo, _symbols[comboShapeTwo.SelectedIndex]));
+			graphicsOverlay.Graphics.Add(new Graphic(shapeTwo, _symbols[comboShapeTwo.SelectedIndex]));
 
             Dictionary<string, bool> relations = new Dictionary<string, bool>();
             relations["Contains"] = GeometryEngine.Contains(shapeOne, shapeTwo);
@@ -86,7 +86,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 btnDraw.IsEnabled = false;
                 resultsPanel.Visibility = Visibility.Collapsed;
 
-                graphicsLayer.Graphics.Clear();
+				graphicsOverlay.Graphics.Clear();
                 await AcceptShapeAsync();
             }
             catch (TaskCanceledException)

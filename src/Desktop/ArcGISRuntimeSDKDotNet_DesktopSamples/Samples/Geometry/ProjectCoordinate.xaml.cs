@@ -36,7 +36,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             }
         }
 
-        // Accept user map clicks and add points to the graphics layer with the selected symbol
+        // Accept user map clicks and add points to the graphics overlay with the selected symbol
         // - collected point is in the coordinate system of the current map
         private async Task AcceptPointsAsync()
         {
@@ -44,8 +44,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             {
                 var point = await MyMapView.Editor.RequestPointAsync();
 
-                graphicsLayer.Graphics.Clear();
-                graphicsLayer.Graphics.Add(new Graphic(point));
+				graphicsOverlay.Graphics.Clear();
+				graphicsOverlay.Graphics.Add(new Graphic(point));
 
                 // Convert from web mercator to WGS84
                 var projectedPoint = GeometryEngine.Project(point, SpatialReferences.Wgs84);

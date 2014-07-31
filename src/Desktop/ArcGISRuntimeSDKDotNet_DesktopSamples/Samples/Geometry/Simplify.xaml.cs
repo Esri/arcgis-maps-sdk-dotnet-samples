@@ -2,10 +2,10 @@
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Linq;
 
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
@@ -70,8 +70,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             };
             _unsimplifiedPolygon = new Polygon(points, MyMapView.SpatialReference);
 
-            polygonLayer.Graphics.Clear();
-            polygonLayer.Graphics.Add(new Graphic(_unsimplifiedPolygon));
+            polygonOverlay.Graphics.Clear();
+			polygonOverlay.Graphics.Add(new Graphic(_unsimplifiedPolygon));
         }
 
         // Query the parcel service with the given geometry (Contains)
@@ -90,8 +90,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 };
                 var result = await queryTask.ExecuteAsync(query);
 
-                parcelLayer.Graphics.Clear();
-                parcelLayer.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
+				parcelOverlay.Graphics.Clear();
+				parcelOverlay.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
             }
             catch (Exception ex)
             {

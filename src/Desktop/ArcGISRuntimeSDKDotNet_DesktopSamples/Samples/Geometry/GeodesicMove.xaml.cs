@@ -57,12 +57,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                movedGraphics.Graphics.Clear();
-                originalGraphics.Graphics.Clear();
+                movedOverlay.Graphics.Clear();
+				originalOverlay.Graphics.Clear();
 
                 var polygon = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon, _origSymbol);
 
-                originalGraphics.Graphics.Add(new Graphic(polygon));
+				originalOverlay.Graphics.Add(new Graphic(polygon));
             }
             catch (TaskCanceledException)
             {
@@ -78,10 +78,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                if (originalGraphics.Graphics.Count == 0)
+                if (originalOverlay.Graphics.Count == 0)
                     throw new ApplicationException("Digitize a polygon to move.");
 
-                var coords = originalGraphics.Graphics[0].Geometry as Multipart;
+				var coords = originalOverlay.Graphics[0].Geometry as Multipart;
                 if (coords == null)
                     throw new ApplicationException("Digitize a polygon to move.");
 
@@ -90,9 +90,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var azimuth = (double)sliderAngle.Value;
                 var movedPoints = GeometryEngine.GeodesicMove(points, distance, LinearUnits.Miles, azimuth);
 
-                Polygon movedPoly = new PolygonBuilder(movedPoints, MyMapView.SpatialReference).ToGeometry();
-                movedGraphics.Graphics.Clear();
-                movedGraphics.Graphics.Add(new Graphic(movedPoly));
+                Polygon movedPoly = new Polygon(movedPoints, MyMapView.SpatialReference);
+				movedOverlay.Graphics.Clear();
+				movedOverlay.Graphics.Add(new Graphic(movedPoly));
             }
             catch (Exception ex)
             {

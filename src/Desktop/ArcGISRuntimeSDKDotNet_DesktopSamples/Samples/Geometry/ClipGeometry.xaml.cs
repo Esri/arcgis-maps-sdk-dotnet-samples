@@ -30,7 +30,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             _clipSymbol = layoutGrid.Resources["ClipRectSymbol"] as Symbol;
 
-            var task = CreateFeatureLayersAsync();
+            var _ = CreateFeatureLayersAsync();
         }
 
         // Creates a feature layer from a local .geodatabase file
@@ -55,7 +55,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                clippedGraphics.Graphics.Clear();
+				clippedGraphicsOverlay.Graphics.Clear();
 
                 // wait for user to draw clip rect
                 var rect = await MyMapView.Editor.RequestShapeAsync(DrawShape.Rectangle);
@@ -73,7 +73,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     .Select(state => GeometryEngine.Clip(state, rect.Extent))
                     .Select(geo => new Graphic(geo, _clipSymbol));
 
-                clippedGraphics.Graphics.AddRange(clipGraphics);
+				clippedGraphicsOverlay.Graphics.AddRange(clipGraphics);
             }
             catch (TaskCanceledException)
             {

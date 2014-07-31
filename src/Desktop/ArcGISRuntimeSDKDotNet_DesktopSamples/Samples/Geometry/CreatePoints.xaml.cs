@@ -19,7 +19,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            var task = CreatePointGraphics();
+            var _ = CreatePointGraphics();
         }
 
         // Create four point graphics on the map in the center of four equal quadrants
@@ -38,12 +38,15 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             var symbol = new SimpleMarkerSymbol() { Color = Colors.Red, Size = 15, Style = SimpleMarkerStyle.Diamond };
 
-            graphicsLayer.Graphics.Add(new Graphic() { Geometry = topLeft, Symbol = symbol });
-            graphicsLayer.Graphics.Add(new Graphic() { Geometry = topRight, Symbol = symbol });
-            graphicsLayer.Graphics.Add(new Graphic() { Geometry = bottomLeft, Symbol = symbol });
-            graphicsLayer.Graphics.Add(new Graphic() { Geometry = bottomRight, Symbol = symbol });
+            graphicsOverlay.Graphics.Add(new Graphic() { Geometry = topLeft, Symbol = symbol });
+			graphicsOverlay.Graphics.Add(new Graphic() { Geometry = topRight, Symbol = symbol });
+			graphicsOverlay.Graphics.Add(new Graphic() { Geometry = bottomLeft, Symbol = symbol });
+			graphicsOverlay.Graphics.Add(new Graphic() { Geometry = bottomRight, Symbol = symbol });
 
-			graphicsLayer.Graphics.Add(new Graphic() { Geometry = new MapPoint(0, 0), Symbol = new SimpleMarkerSymbol() { Size = 15, Color = Colors.Blue } });
+			graphicsOverlay.Graphics.Add(new Graphic() { 
+				Geometry = new MapPoint(0, 0), 
+				Symbol = new SimpleMarkerSymbol() { Size = 15, Color = Colors.Blue } 
+			});
 		}
     }
 }

@@ -30,7 +30,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             _fillSymbol = layoutGrid.Resources["FillSymbol"] as Symbol;
 
-            var task = CreateFeatureLayersAsync();
+            var _ = CreateFeatureLayersAsync();
         }
 
         // Creates a feature layer from a local .geodatabase file
@@ -55,7 +55,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                resultGraphics.Graphics.Clear();
+                resultsOverlay.Graphics.Clear();
 
                 // wait for user to draw a polygon
                 var poly = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon);
@@ -73,7 +73,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     .Select(state => GeometryEngine.Intersection(state, poly))
                     .Select(geo => new Graphic(geo, _fillSymbol));
 
-                resultGraphics.Graphics.AddRange(intersectGraphics);
+				resultsOverlay.Graphics.AddRange(intersectGraphics);
             }
             catch (Exception ex)
             {

@@ -38,13 +38,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     500, LinearUnits.Miles);
 
                 Graphic bufferGraphic = null;
-                if (graphicsLayer.Graphics.Count == 0)
+                if (graphicsOverlay.Graphics.Count == 0)
                 {
                     bufferGraphic = new Graphic { Geometry = buffer, Symbol = _bufferSymbol };
-                    graphicsLayer.Graphics.Add(bufferGraphic);
+					graphicsOverlay.Graphics.Add(bufferGraphic);
                 }
                 else
-                    bufferGraphic = graphicsLayer.Graphics[0];
+					bufferGraphic = graphicsOverlay.Graphics[0];
                 bufferGraphic.Geometry = buffer;
             }
             catch (Exception ex)

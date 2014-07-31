@@ -31,10 +31,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 		private async void MyMapView_ExtentChanged(object sender, System.EventArgs e)
 		{
 			MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
-			await doCalculateAreaAndLength();
+			await DoCalculateAreaAndLengthAsync();
 		}
 
-        private async Task doCalculateAreaAndLength()
+        private async Task DoCalculateAreaAndLengthAsync()
         {
             try
             {
@@ -73,13 +73,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             MyMapView.Editor.Cancel.Execute(null);
             ResetUI();
-            await doCalculateAreaAndLength();
+			await DoCalculateAreaAndLengthAsync();
         }
 
         private async void RestartButton_Click(object sender, RoutedEventArgs e)
         {
             ResetUI();
-            await doCalculateAreaAndLength();
+			await DoCalculateAreaAndLengthAsync();
         }
 
         private void ResetUI()

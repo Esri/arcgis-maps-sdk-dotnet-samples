@@ -56,7 +56,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 btnTest.IsEnabled = false;
                 resultPanel.Visibility = Visibility.Collapsed;
 
-                graphicsLayer.Graphics.Clear();
+				graphicsOverlay.Graphics.Clear();
 
                 // Shape One
                 DrawShape drawShape1 = (DrawShape)comboShapeOne.SelectedItem;
@@ -66,13 +66,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 else
                     shapeOne = await MyMapView.Editor.RequestShapeAsync(drawShape1, _symbols[comboShapeOne.SelectedIndex]);
 
-                graphicsLayer.Graphics.Add(new Graphic(shapeOne, _symbols[comboShapeOne.SelectedIndex]));
+				graphicsOverlay.Graphics.Add(new Graphic(shapeOne, _symbols[comboShapeOne.SelectedIndex]));
 
                 // Shape Two
                 Esri.ArcGISRuntime.Geometry.Geometry shapeTwo = await MyMapView.Editor.RequestShapeAsync(
                     (DrawShape)comboShapeTwo.SelectedItem, _symbols[comboShapeTwo.SelectedIndex]);
 
-                graphicsLayer.Graphics.Add(new Graphic(shapeTwo, _symbols[comboShapeTwo.SelectedIndex]));
+				graphicsOverlay.Graphics.Add(new Graphic(shapeTwo, _symbols[comboShapeTwo.SelectedIndex]));
             }
             catch (TaskCanceledException)
             {
@@ -84,7 +84,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             finally
             {
                 btnDraw.IsEnabled = true;
-                btnTest.IsEnabled = (graphicsLayer.Graphics.Count >= 2);
+				btnTest.IsEnabled = (graphicsOverlay.Graphics.Count >= 2);
             }
         }
 
@@ -93,11 +93,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                if (graphicsLayer.Graphics.Count < 2)
+				if (graphicsOverlay.Graphics.Count < 2)
                     throw new ApplicationException("No shapes abailable for relationship test");
 
-                var shape1 = graphicsLayer.Graphics[0].Geometry;
-                var shape2 = graphicsLayer.Graphics[1].Geometry;
+				var shape1 = graphicsOverlay.Graphics[0].Geometry;
+				var shape2 = graphicsOverlay.Graphics[1].Geometry;
 
                 string relate = comboRelate.Text;
                 if (relate.Length < 9)

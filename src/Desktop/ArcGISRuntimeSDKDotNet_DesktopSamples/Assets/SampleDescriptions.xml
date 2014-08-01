@@ -1958,7 +1958,7 @@
             InitializeComponent
             </summary>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.AdvancedSymbology.S57CellInfoSample">
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic.S57CellInfoSample">
             <summary>
             This sample demonstrates adding and removing S-57 cells from an HydrographicS57Layer in the Map and accessing the Dataset Identification (DSID) metadata of those S-57 cells. The DSID metadata Provides information regarding the dataset's source and the product specification it is part of.
             </summary>
@@ -1969,12 +1969,12 @@
             S57CellInfoSample
             </summary>
         </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.AdvancedSymbology.S57CellInfoSample.InitializeComponent">
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic.S57CellInfoSample.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.AdvancedSymbology.S57DisplayPropertiesSample">
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic.S57DisplayPropertiesSample">
             <summary>
             This sample demonstrates using the global static HydrographicS52DisplayProperties object to control the display properties of an HydrographicS57Layer, such as the Color Scheme or Safety Contour Depth. 
             </summary>
@@ -1985,12 +1985,12 @@
             S57DisplayPropertiesSample
             </summary>
         </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.AdvancedSymbology.S57DisplayPropertiesSample.InitializeComponent">
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic.S57DisplayPropertiesSample.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.AdvancedSymbology.S57IdentifySample">
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic.S57IdentifySample">
             <summary>
             This sample demostrates how to perform a point-based identify style operation on an HydrographicS57Layer using the SearchLayer method.
             </summary>
@@ -2001,12 +2001,12 @@
             S57IdentifySample
             </summary>
         </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.AdvancedSymbology.S57IdentifySample.InitializeComponent">
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic.S57IdentifySample.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.AdvancedSymbology.S57SearchSample">
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic.S57SearchSample">
             <summary>
             This sample shows how to use the the SearchAsync method to search an HydrographicS57Layer based on an input geometry, buffer value and object name.
             </summary>
@@ -2017,7 +2017,7 @@
             S57SearchSample
             </summary>
         </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.AdvancedSymbology.S57SearchSample.InitializeComponent">
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic.S57SearchSample.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>

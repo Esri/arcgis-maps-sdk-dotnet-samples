@@ -1,10 +1,11 @@
-﻿<UserControl x:Class="ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.AdvancedSymbology.S57DisplayPropertiesSample"
+﻿<UserControl x:Class="ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic.S57DisplayPropertiesSample"
 			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+			 xmlns:hydro="clr-namespace:Esri.ArcGISRuntime.Hydrographic;assembly=Esri.ArcGISRuntime"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-			 xmlns:local="clr-namespace:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.AdvancedSymbology"
+			 xmlns:local="clr-namespace:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic"
              mc:Ignorable="d" 
              d:DesignHeight="1200" d:DesignWidth="1600">
 	<UserControl.Resources>
@@ -19,12 +20,12 @@
 
 				<!-- Using group layer to group all Hydrographic layers -->
 				<esri:GroupLayer ID="Hydrographic">
-					<esri:HydrographicS57Layer ID="US1WCO1M" 
+					<hydro:HydrographicS57Layer ID="US1WCO1M" 
 						Path="..\..\..\..\..\samples-data\symbology\s57-electronic-navigational-charts\us1wc01m\US1WC01M.000">
-					</esri:HydrographicS57Layer>
-					<esri:HydrographicS57Layer ID="US1WC07M" 
+					</hydro:HydrographicS57Layer>
+					<hydro:HydrographicS57Layer ID="US1WC07M" 
 						Path="..\..\..\..\..\samples-data\symbology\s57-electronic-navigational-charts\us1wc07m\US1WC07M.000">
-					</esri:HydrographicS57Layer>
+					</hydro:HydrographicS57Layer>
 				</esri:GroupLayer>
 			</esri:Map>
 		</esri:MapView>
@@ -44,19 +45,19 @@
 						<!-- Color Scheme & Depth Display Units -->
 						<StackPanel Orientation="Horizontal">
 							<TextBlock Text="Color Scheme:"  Margin="5,0,0,0" Width="80" VerticalAlignment="Top"/>
-							<ComboBox ItemsSource="{Binding Source={local:EnumValuesExtension {x:Type esri:S52ColorScheme}}}" 
+							<ComboBox ItemsSource="{Binding Source={local:EnumValuesExtension {x:Type hydro:S52ColorScheme}}}" 
                                   SelectedItem="{Binding Path=ColorScheme, Mode=TwoWay}" Width="120" />
 							<TextBlock Text="Depth Units:" Margin="5,0,0,0"  Width="80" VerticalAlignment="Top"/>
-							<ComboBox ItemsSource="{Binding Source={local:EnumValuesExtension {x:Type esri:S52DisplayDepthUnits}}}"  
+							<ComboBox ItemsSource="{Binding Source={local:EnumValuesExtension {x:Type hydro:S52DisplayDepthUnits}}}"  
                                   SelectedItem="{Binding Path=DisplayDepthUnits, Mode=TwoWay}" Width="120" />
 						</StackPanel>
 						<!-- Point and Area Symbolization Type -->
 						<StackPanel Orientation="Horizontal" Margin="0,5,0,0">
 							<TextBlock Text="Area:" Margin="5,0,0,0" Width="80" VerticalAlignment="Center"/>
-							<ComboBox ItemsSource="{Binding Source={local:EnumValuesExtension {x:Type esri:S52AreaSymbolizationType}}}"
+							<ComboBox ItemsSource="{Binding Source={local:EnumValuesExtension {x:Type hydro:S52AreaSymbolizationType}}}"
                                    SelectedItem="{Binding Path=AreaSymbolizationType, Mode=TwoWay}" Width="120" />
 							<TextBlock Text="Point:" Margin="5,0,0,0"  Width="80" VerticalAlignment="Center"/>
-							<ComboBox ItemsSource="{Binding Source={local:EnumValuesExtension {x:Type esri:S52PointSymbolizationType}}}" 
+							<ComboBox ItemsSource="{Binding Source={local:EnumValuesExtension {x:Type hydro:S52PointSymbolizationType}}}" 
                                           SelectedItem="{Binding Path=PointSymbolizationType, Mode=TwoWay}" Width="120" />
 						</StackPanel>
 					</StackPanel>
@@ -68,11 +69,11 @@
 					</GroupBox.Header>
 					<StackPanel Orientation="Horizontal">
 						<CheckBox Content="Base" IsChecked="{Binding Path=DisplayCategory, Converter={StaticResource FlagsConverter},
-                            ConverterParameter={x:Static esri:S52DisplayCategory.DisplayBase}}" Margin="5,0,0,0" />
+                            ConverterParameter={x:Static hydro:S52DisplayCategory.DisplayBase}}" Margin="5,0,0,0" />
 						<CheckBox Content="Standard" IsChecked="{Binding Path=DisplayCategory, Converter={StaticResource FlagsConverter},
-                            ConverterParameter={x:Static esri:S52DisplayCategory.Standard}}"  Margin="5,0,0,0"/>
+                            ConverterParameter={x:Static hydro:S52DisplayCategory.Standard}}"  Margin="5,0,0,0"/>
 						<CheckBox Content="Other" IsChecked="{Binding Path=DisplayCategory, Converter={StaticResource FlagsConverter},
-                            ConverterParameter={x:Static esri:S52DisplayCategory.Other}}" Margin="5,0,5,0"/>
+                            ConverterParameter={x:Static hydro:S52DisplayCategory.Other}}" Margin="5,0,5,0"/>
 					</StackPanel>
 				</GroupBox>
 				<!--  Depth Areas -->
@@ -81,7 +82,7 @@
 						<Label>Depth Areas</Label>
 					</GroupBox.Header>
 					<StackPanel Orientation="Horizontal">
-						<ComboBox ItemsSource="{Binding Source={local:EnumValuesExtension {x:Type esri:S52DepthShades}}}" 
+						<ComboBox ItemsSource="{Binding Source={local:EnumValuesExtension {x:Type hydro:S52DepthShades}}}" 
                                       SelectedItem="{Binding Path=DepthShades, Mode=TwoWay}" Width="60" />
 						<TextBlock Text="Depth Shades" Width="80" />
 						<CheckBox Content="Shallow Depth Pattern" IsChecked="{Binding Path=ShallowDepthPattern}" />

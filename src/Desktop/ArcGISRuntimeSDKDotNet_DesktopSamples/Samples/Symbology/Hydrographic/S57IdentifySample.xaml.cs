@@ -1,5 +1,6 @@
 ﻿using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Hydrographic;
 using Esri.ArcGISRuntime.Layers;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 
-namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.AdvancedSymbology
+namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 {
 	/// <summary>
 	/// This sample demostrates how to perform a point-based identify style operation on an HydrographicS57Layer using the SearchLayer method.

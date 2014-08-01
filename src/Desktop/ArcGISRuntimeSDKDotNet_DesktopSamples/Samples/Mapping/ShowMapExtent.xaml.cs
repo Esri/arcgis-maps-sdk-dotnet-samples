@@ -35,17 +35,17 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
 						foreach (var p in normalizedPolygon.Parts[0])
 						{
-							if (p.X < newExtent.XMin || double.IsNaN(newExtent.XMin))
+							if (p.X < newExtentBuilder.XMin || double.IsNaN(newExtentBuilder.XMin))
 								newExtentBuilder.XMin = p.X;
-							if (p.Y < newExtent.YMin || double.IsNaN(newExtent.YMin))
+							if (p.Y < newExtentBuilder.YMin || double.IsNaN(newExtentBuilder.YMin))
 								newExtentBuilder.YMin = p.Y;
 						}
 
 						foreach (var p in normalizedPolygon.Parts[1])
 						{
-							if (p.X > newExtent.XMax || double.IsNaN(newExtent.XMax))
+							if (p.X > newExtentBuilder.XMax || double.IsNaN(newExtentBuilder.XMax))
 								newExtentBuilder.XMax = p.X;
-							if (p.Y > newExtent.YMax || double.IsNaN(newExtent.YMax))
+							if (p.Y > newExtentBuilder.YMax || double.IsNaN(newExtentBuilder.YMax))
 								newExtentBuilder.YMax = p.Y;
 						}
 						newExtent = newExtentBuilder.ToGeometry();

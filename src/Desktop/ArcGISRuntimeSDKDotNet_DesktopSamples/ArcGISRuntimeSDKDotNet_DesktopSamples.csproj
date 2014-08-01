@@ -385,16 +385,16 @@
     <Compile Include="Samples\Security\TokenSecuredServices.xaml.cs">
       <DependentUpon>TokenSecuredServices.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Symbology\AdvancedSymbology\S57CellInfoSample.xaml.cs">
+    <Compile Include="Samples\Symbology\Hydrographic\S57CellInfoSample.xaml.cs">
       <DependentUpon>S57CellInfoSample.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Symbology\AdvancedSymbology\S57DisplayPropertiesSample.xaml.cs">
+    <Compile Include="Samples\Symbology\Hydrographic\S57DisplayPropertiesSample.xaml.cs">
       <DependentUpon>S57DisplayPropertiesSample.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Symbology\AdvancedSymbology\S57IdentifySample.xaml.cs">
+    <Compile Include="Samples\Symbology\Hydrographic\S57IdentifySample.xaml.cs">
       <DependentUpon>S57IdentifySample.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Symbology\AdvancedSymbology\S57SearchSample.xaml.cs">
+    <Compile Include="Samples\Symbology\Hydrographic\S57SearchSample.xaml.cs">
       <DependentUpon>S57SearchSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Symbology\ClassBreaksRendererSample.xaml.cs">
@@ -878,19 +878,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Symbology\AdvancedSymbology\S57CellInfoSample.xaml">
+    <Page Include="Samples\Symbology\Hydrographic\S57CellInfoSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Symbology\AdvancedSymbology\S57DisplayPropertiesSample.xaml">
+    <Page Include="Samples\Symbology\Hydrographic\S57DisplayPropertiesSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Symbology\AdvancedSymbology\S57IdentifySample.xaml">
+    <Page Include="Samples\Symbology\Hydrographic\S57IdentifySample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Symbology\AdvancedSymbology\S57SearchSample.xaml">
+    <Page Include="Samples\Symbology\Hydrographic\S57SearchSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -39,7 +39,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             SetupRouteTask();
         }
 
-        private async Task SetupRouteTask()
+        private async void SetupRouteTask()
         {
             _routeTask = new OnlineRouteTask(new Uri(OnlineRoutingService));
 			if (_routeTask != null)

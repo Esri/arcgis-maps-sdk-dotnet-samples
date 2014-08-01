@@ -1180,7 +1180,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GetSamples">
             <summary>
-            This sample demonstrates using an QueryTask to Query an ArcGISImageServiceLayer to find the outlines of image tiles and display them in a GraphicsLayer. MapOverlay attribute information is displayed for selected tile graphics when they are clicked on the map.
+            This sample demonstrates using an QueryTask to Query an ArcGISImageServiceLayer to find the outlines of image tiles and display them in a GraphicOverlay. MapOverlay attribute information is displayed for selected tile graphics when they are clicked on the map.
             </summary>
             <title>Get Samples</title>
             <category>Tasks</category>
@@ -1958,70 +1958,6 @@
             InitializeComponent
             </summary>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.AdvancedSymbology.S57CellInfoSample">
-            <summary>
-            This sample demonstrates adding and removing S-57 cells from an HydrographicS57Layer in the Map and accessing the Dataset Identification (DSID) metadata of those S-57 cells. The DSID metadata Provides information regarding the dataset's source and the product specification it is part of.
-            </summary>
-            <title>S57 Cell Information</title>
-            <category>Symbology</category>
-            <subcategory>Advanced</subcategory>
-            <summary>
-            S57CellInfoSample
-            </summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.AdvancedSymbology.S57CellInfoSample.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.AdvancedSymbology.S57DisplayPropertiesSample">
-            <summary>
-            This sample demonstrates using the global static HydrographicS52DisplayProperties object to control the display properties of an HydrographicS57Layer, such as the Color Scheme or Safety Contour Depth. 
-            </summary>
-            <title>S57 Display Properties</title>
-            <category>Symbology</category>
-            <subcategory>Advanced</subcategory>
-            <summary>
-            S57DisplayPropertiesSample
-            </summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.AdvancedSymbology.S57DisplayPropertiesSample.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.AdvancedSymbology.S57IdentifySample">
-            <summary>
-            This sample demostrates how to perform a point-based identify style operation on an HydrographicS57Layer using the SearchLayer method.
-            </summary>
-            <title>S57 Identify</title>
-            <category>Symbology</category>
-            <subcategory>Advanced</subcategory>
-            <summary>
-            S57IdentifySample
-            </summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.AdvancedSymbology.S57IdentifySample.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.AdvancedSymbology.S57SearchSample">
-            <summary>
-            This sample shows how to use the the SearchAsync method to search an HydrographicS57Layer based on an input geometry, buffer value and object name.
-            </summary>
-            <title>S57 Search </title>
-            <category>Symbology</category>
-            <subcategory>Advanced</subcategory>
-            <summary>
-            S57SearchSample
-            </summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.AdvancedSymbology.S57SearchSample.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ClassBreaksRendererSample">
             <summary>
             Sample shows how to create a ClassBreaksRenderer for a graphics layer. Earthquake data points are pulled from an online source and rendered using the GraphicsLayer ClassBreaksRenderer.
@@ -2109,22 +2045,6 @@
             InitializeComponent
             </summary>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.MessageProcessingSample">
-            <summary>
-            Sample shows how to read and process Mil2525C message data from XML file. 
-            </summary>
-            <title>Message Processor</title>
-            <category>Symbology</category>
-            <subcategory>Advanced</subcategory>
-            <summary>
-            MessageProcessingSample
-            </summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.MessageProcessingSample.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SimpleRendererSample">
             <summary>
             Sample shows how to create a SimpleRenderer for a graphics layer in XAML and code. User added points will be added to the graphics layer and rendered using the GraphicsLayer Renderer.
@@ -2139,22 +2059,6 @@
             <summary>Construct Simple Renderer sample control</summary>
         </member>
         <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SimpleRendererSample.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.SymbolDictionarySearchSample">
-            <summary>
-            Sample shows how to use search the Mil2525C symbol dictionary.
-            </summary>
-            <title>Symbol Dictionary Search</title>
-            <category>Symbology</category>
-            <subcategory>Advanced</subcategory>
-            <summary>
-            SymbolDictionarySearchSample
-            </summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.SymbolDictionarySearchSample.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>

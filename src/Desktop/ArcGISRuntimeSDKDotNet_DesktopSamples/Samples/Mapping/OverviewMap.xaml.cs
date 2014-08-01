@@ -26,12 +26,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private async void MyMapView_ExtentChanged(object sender, System.EventArgs e)
         {
             // Update overview map graphic
-            var graphicslayer = overviewMap.Map.Layers.OfType<GraphicsLayer>().FirstOrDefault();
-            Graphic g = graphicslayer.Graphics.FirstOrDefault();
+			Graphic g = overviewOverlay.Graphics.FirstOrDefault();
             if (g == null) //first time
             {
                 g = new Graphic();
-                graphicslayer.Graphics.Add(g);
+				overviewOverlay.Graphics.Add(g);
             }
             g.Geometry = MyMapView.Extent;
 

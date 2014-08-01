@@ -56,7 +56,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
 			try
 			{
-				var loadresult = await MyMapView1.LayersLoadedAsync();
+				var loadresult = await MyMapView.LayersLoadedAsync();
 				LayersInitializedProperty = "Initialized!";
 				foreach (var res in loadresult)
 				{

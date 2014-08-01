@@ -35,7 +35,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 if (e.Layer.FullExtent != null)
                     await MyMapView.SetViewAsync(e.Layer.FullExtent);
 
-                await AcceptClassPoints();
+                await AcceptClassPointsAsync();
             }
         }
 
@@ -51,7 +51,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var statsTask = new ComputeClassStatisticsTask(new Uri(imageLayer.ServiceUri));
 
                 var statsParam = new ComputeClassStatisticsParameters();
-                statsParam.ClassDescriptions = graphicsLayer.Graphics
+				statsParam.ClassDescriptions = graphicsOverlay.Graphics
                     .Select((g, idx) => new ClassDescription(idx, idx.ToString(), g.Geometry as Polygon)).ToList();
 
                 var result = await statsTask.ComputeClassStatisticsAsync(statsParam);
@@ -76,14 +76,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Reset the rendering rule for the image layer and restart accepting loop
         private async void ResetButton_Click(object sender, RoutedEventArgs e)
         {
-            graphicsLayer.Graphics.Clear();
+			graphicsOverlay.Graphics.Clear();
             imageLayer.RenderingRule = null;
-            await AcceptClassPoints();
+            await AcceptClassPointsAsync();
         }
 
         // Continually accepts user-entered points
         // - Buffered polygons are created from the points and added to the graphics layer
-        private async Task AcceptClassPoints()
+        private async Task AcceptClassPointsAsync()
         {
             try
             {
@@ -91,8 +91,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 {
                     var point = await MyMapView.Editor.RequestPointAsync();
                     var polygon = GeometryEngine.Buffer(point, MyMapView.Extent.Width * .01);
-                    var attr = new Dictionary<string, object>() { { "ID", graphicsLayer.Graphics.Count + 1 } };
-                    graphicsLayer.Graphics.Add(new Graphic(polygon, attr));
+					var attr = new Dictionary<string, object>() { { "ID", graphicsOverlay.Graphics.Count + 1 } };
+					graphicsOverlay.Graphics.Add(new Graphic(polygon, attr));
                 }
             }
             catch (TaskCanceledException)

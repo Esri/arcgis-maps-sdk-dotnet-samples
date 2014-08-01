@@ -1,5 +1,6 @@
 ﻿using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Hydrographic;
 using Esri.ArcGISRuntime.Layers;
 using System;
 using System.Collections.Generic;

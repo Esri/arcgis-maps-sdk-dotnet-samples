@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Hydrographic;
 
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.AdvancedSymbology
 {

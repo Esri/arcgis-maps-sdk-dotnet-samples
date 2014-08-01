@@ -194,7 +194,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
-            graphicsLayer.Graphics.Clear();
+			graphicsOverlay.Graphics.Clear();
         }
 
         // Retrieve the given shape type from the user
@@ -202,11 +202,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                graphicsLayer.Graphics.Clear();
+				graphicsOverlay.Graphics.Clear();
 
                 var shape = await MyMapView.Editor.RequestShapeAsync(drawShape, symbol);
 
-                graphicsLayer.Graphics.Add(new Graphic(shape, symbol));
+				graphicsOverlay.Graphics.Add(new Graphic(shape, symbol));
                 return shape;
             }
             catch (Exception ex)

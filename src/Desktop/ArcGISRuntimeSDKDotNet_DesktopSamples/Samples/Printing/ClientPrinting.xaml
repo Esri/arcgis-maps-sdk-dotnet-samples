@@ -131,7 +131,7 @@
         </Grid.Resources>
 
         <!--  Map Control  -->
-        <esri:MapView x:Name="mapView" WrapAround="True" MinScale="2446">
+        <esri:MapView x:Name="MyMapView" WrapAround="True" MinScale="2446">
 			<esri:Map InitialViewpoint="-9813505,5127140,-9812977,5127509,3857">
                 <esri:ArcGISTiledMapServiceLayer ID="Basemap" ShowLegend="False" 
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
@@ -316,7 +316,7 @@
                     </Border.Effect>
                     <Viewbox>
                         <local:MapPrinter x:Name="printControl" Title="Water Network"
-                                          BaseMapView="{Binding ElementName=mapView}"
+                                          BaseMapView="{Binding ElementName=MyMapView}"
                                           Width="{Binding ElementName=comboPreviewSize, Path=SelectedItem.Width}"
                                           Height="{Binding ElementName=comboPreviewSize, Path=SelectedItem.Height}"
                                           Template="{Binding SelectedValue, ElementName=comboPrintTemplate}" />

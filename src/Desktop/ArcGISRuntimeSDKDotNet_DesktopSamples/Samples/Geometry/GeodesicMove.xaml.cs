@@ -27,17 +27,17 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             _origSymbol = layoutGrid.Resources["OriginalSymbol"] as Symbol;
 
-            mapView.ExtentChanged += mapView_ExtentChanged;
+            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 
         // Start map interaction once the mapview extent is set
-        private async void mapView_ExtentChanged(object sender, EventArgs e)
+        private async void MyMapView_ExtentChanged(object sender, EventArgs e)
         {
-            mapView.ExtentChanged -= mapView_ExtentChanged;
+            MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
 
-            mapView.Editor.EditorConfiguration.MidVertexSymbol = null;
-            mapView.Editor.EditorConfiguration.VertexSymbol = null;
-            mapView.Editor.EditorConfiguration.SelectedVertexSymbol = new SimpleMarkerSymbol() 
+            MyMapView.Editor.EditorConfiguration.MidVertexSymbol = null;
+            MyMapView.Editor.EditorConfiguration.VertexSymbol = null;
+            MyMapView.Editor.EditorConfiguration.SelectedVertexSymbol = new SimpleMarkerSymbol() 
 			{ 
 				Color = System.Windows.Media.Colors.Blue, 
 				Size = 6 
@@ -57,12 +57,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                movedGraphics.Graphics.Clear();
-                originalGraphics.Graphics.Clear();
+                movedOverlay.Graphics.Clear();
+				originalOverlay.Graphics.Clear();
 
-                var polygon = await mapView.Editor.RequestShapeAsync(DrawShape.Polygon, _origSymbol);
+                var polygon = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon, _origSymbol);
 
-                originalGraphics.Graphics.Add(new Graphic(polygon));
+				originalOverlay.Graphics.Add(new Graphic(polygon));
             }
             catch (TaskCanceledException)
             {
@@ -78,21 +78,21 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                if (originalGraphics.Graphics.Count == 0)
+                if (originalOverlay.Graphics.Count == 0)
                     throw new ApplicationException("Digitize a polygon to move.");
 
-                var coords = originalGraphics.Graphics[0].Geometry as Multipart;
+				var coords = originalOverlay.Graphics[0].Geometry as Multipart;
                 if (coords == null)
                     throw new ApplicationException("Digitize a polygon to move.");
 
-                var points = coords.Parts.First().Select(c => new MapPointBuilder(c).ToGeometry());
+                var points = coords.Parts.First();
                 var distance = (double)comboDistance.SelectedItem;
                 var azimuth = (double)sliderAngle.Value;
                 var movedPoints = GeometryEngine.GeodesicMove(points, distance, LinearUnits.Miles, azimuth);
 
-                Polygon movedPoly = new PolygonBuilder(movedPoints, mapView.SpatialReference).ToGeometry();
-                movedGraphics.Graphics.Clear();
-                movedGraphics.Graphics.Add(new Graphic(movedPoly));
+                Polygon movedPoly = new Polygon(movedPoints, MyMapView.SpatialReference);
+				movedOverlay.Graphics.Clear();
+				movedOverlay.Graphics.Add(new Graphic(movedPoly));
             }
             catch (Exception ex)
             {

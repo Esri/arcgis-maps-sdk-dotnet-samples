@@ -25,8 +25,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            mapView.ExtentChanged += mapView_ExtentChanged;
-            var task = SetupSymbolsAsync();
+            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
+            var _ = SetupSymbolsAsync();
         }
 
         // Load the picture symbol image
@@ -44,9 +44,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         }
 
         // Start accepting user polygons and calculating label points
-        private async void mapView_ExtentChanged(object sender, EventArgs e)
+        private async void MyMapView_ExtentChanged(object sender, EventArgs e)
         {
-            mapView.ExtentChanged -= mapView_ExtentChanged;
+            MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
             await CalculateLabelPointsAsync();
         }
 
@@ -55,25 +55,25 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                await mapView.LayersLoadedAsync();
+                await MyMapView.LayersLoadedAsync();
 
-                while (mapView.Extent != null)
+                while (MyMapView.Extent != null)
                 {
-                    if (mapView.Editor.IsActive)
-                        mapView.Editor.Cancel.Execute(null);
+                    if (MyMapView.Editor.IsActive)
+                        MyMapView.Editor.Cancel.Execute(null);
 
                     //Get the input polygon geometry from the user
-                    var poly = await mapView.Editor.RequestShapeAsync(DrawShape.Polygon, ((SimpleRenderer)labelGraphics.Renderer).Symbol);
+					var poly = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon, ((SimpleRenderer)labelGraphicOverlay.Renderer).Symbol);
                     if (poly != null)
                     {
                         //Add the polygon drawn by the user
-                        labelGraphics.Graphics.Add(new Graphic(poly));
+						labelGraphicOverlay.Graphics.Add(new Graphic(poly));
 
                         //Get the label point for the input geometry
                         var labelPoint = GeometryEngine.LabelPoint(poly);
                         if (labelPoint != null)
                         {
-                            labelGraphics.Graphics.Add(new Graphic(labelPoint, _pictureMarkerSymbol));
+							labelGraphicOverlay.Graphics.Add(new Graphic(labelPoint, _pictureMarkerSymbol));
                         }
                     }
                 }
@@ -90,7 +90,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Clear label graphics and restart calculating label points
         private async void ResetButton_Click(object sender, RoutedEventArgs e)
         {
-            labelGraphics.Graphics.Clear();
+			labelGraphicOverlay.Graphics.Clear();
             await CalculateLabelPointsAsync();
         }
     }

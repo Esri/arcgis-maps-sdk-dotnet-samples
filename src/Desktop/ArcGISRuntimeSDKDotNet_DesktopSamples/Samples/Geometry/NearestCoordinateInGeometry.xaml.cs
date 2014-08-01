@@ -30,20 +30,22 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             _vertexSymbol = new SimpleMarkerSymbol() { Color = Colors.LightGreen, Size = 8, Style = SimpleMarkerStyle.Circle };
             _userPointSymbol = new SimpleMarkerSymbol() { Color = Colors.Black, Size = 10, Style = SimpleMarkerStyle.Circle };
 
-			mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-83.3188396, 42.6142831, -83.3129566, 42.6167091, SpatialReferences.Wgs84));
-			mapView.Map.SpatialReference = SpatialReferences.WebMercator;
+			// Define initial viewpoint as a Wgs84 but use WebMercator on a map.
+			MyMapView.Map.InitialViewpoint = new ViewpointExtent(
+				new Envelope(-83.3188396, 42.6142831, -83.3129566, 42.6167091, SpatialReferences.Wgs84));
+			MyMapView.Map.SpatialReference = SpatialReferences.WebMercator;
 
-            mapView.ExtentChanged += mapView_ExtentChanged;
+            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 
-        private async void mapView_ExtentChanged(object sender, EventArgs e)
+        private async void MyMapView_ExtentChanged(object sender, EventArgs e)
         {
             try
             {
-                mapView.ExtentChanged -= mapView_ExtentChanged;
+                MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
 
                 await LoadParcelsAsync();
-                await mapView.LayersLoadedAsync();
+                await MyMapView.LayersLoadedAsync();
 
                 layoutGrid.IsEnabled = true;
                 await ProcessUserPointsAsync(false);
@@ -56,14 +58,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private async void SelectTargetButton_Click(object sender, RoutedEventArgs e)
         {
-            coordinateLayer.Graphics.Clear();
+            coordinateOverlay.Graphics.Clear();
             await ProcessUserPointsAsync(false);
         }
 
         private async void cboVertexOnly_Click(object sender, RoutedEventArgs e)
         {
-            coordinateLayer.Graphics.Clear();
-            await ProcessUserPointsAsync(targetLayer.Graphics.Count > 0);
+			coordinateOverlay.Graphics.Clear();
+			await ProcessUserPointsAsync(targetOverlay.Graphics.Count > 0);
         }
 
         // Process user selection and point clicks
@@ -74,15 +76,15 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 txtResult.Visibility = Visibility.Collapsed;
                 txtResult.Text = string.Empty;
 
-                if (mapView.Editor.IsActive)
-                    mapView.Editor.Cancel.Execute(null);
+                if (MyMapView.Editor.IsActive)
+                    MyMapView.Editor.Cancel.Execute(null);
 
                 if (!isTargetSelected)
                 {
                     await SelectTargetGeometryAsync();
                 }
 
-                while (mapView.Extent != null)
+                while (MyMapView.Extent != null)
                 {
                     await GetNearestCoordAsync((bool)cboVertexOnly.IsChecked);
                 }
@@ -100,35 +102,39 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private async Task LoadParcelsAsync()
         {
             var queryTask = new QueryTask(new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/TaxParcel/AssessorsParcelCharacteristics/MapServer/1"));
-            var query = new Query(mapView.Extent) { ReturnGeometry = true, OutSpatialReference = mapView.SpatialReference, OutFields = OutFields.All };
+            var query = new Query(MyMapView.Extent) { 
+				ReturnGeometry = true, 
+				OutSpatialReference = MyMapView.SpatialReference, 
+				OutFields = OutFields.All 
+			};
             var result = await queryTask.ExecuteAsync(query);
 
-            graphicsLayer.Graphics.Clear();
-            graphicsLayer.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
+            graphicsOverlay.Graphics.Clear();
+			graphicsOverlay.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
         }
 
         // Accept user click point and select the underlying target polygon
         private async Task SelectTargetGeometryAsync()
         {
             txtInstruct.Text = "Click to select a target geometry";
-            coordinateLayer.Graphics.Clear();
-            targetLayer.Graphics.Clear();
+			coordinateOverlay.Graphics.Clear();
+			targetOverlay.Graphics.Clear();
 
             Graphic graphic = null;
             while (graphic == null)
             {
-                var point = await mapView.Editor.RequestPointAsync();
+                var point = await MyMapView.Editor.RequestPointAsync();
 
-                graphic = await graphicsLayer.HitTestAsync(mapView, mapView.LocationToScreen(point));
+				graphic = await graphicsOverlay.HitTestAsync(MyMapView, MyMapView.LocationToScreen(point));
                 if (graphic == null)
                     continue;
 
-                targetLayer.Graphics.Add(graphic);
+				targetOverlay.Graphics.Add(graphic);
 
                 var poly = graphic.Geometry as Polygon;
-                foreach (var coord in poly.Parts.First())
+                foreach (var mapPoint in poly.Parts.First())
                 {
-					targetLayer.Graphics.Add(new Graphic(new MapPointBuilder(coord).ToGeometry(), _vertexSymbol));
+					targetOverlay.Graphics.Add(new Graphic(mapPoint, _vertexSymbol));
                 }
             }
         }
@@ -136,12 +142,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Accept user click point and find nearest target geometry point
         private async Task GetNearestCoordAsync(bool vertexOnly)
         {
-            var target = targetLayer.Graphics.Select(g => g.Geometry).FirstOrDefault();
+            var target = targetOverlay.Graphics.Select(g => g.Geometry).FirstOrDefault();
             if (target == null)
                 return;
 
             txtInstruct.Text = "Click the map to find the nearest coordinate in the selected geometry";
-            var point = await mapView.Editor.RequestPointAsync();
+            var point = await MyMapView.Editor.RequestPointAsync();
 
             ProximityResult result = null;
             if (vertexOnly)
@@ -149,9 +155,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             else
                 result = GeometryEngine.NearestCoordinateInGeometry(target, point);
 
-            coordinateLayer.Graphics.Clear();
-            coordinateLayer.Graphics.Add(new Graphic(point, _userPointSymbol));
-            coordinateLayer.Graphics.Add(new Graphic(result.Point));
+			coordinateOverlay.Graphics.Clear();
+			coordinateOverlay.Graphics.Add(new Graphic(point, _userPointSymbol));
+			coordinateOverlay.Graphics.Add(new Graphic(result.Point));
 
             txtResult.Visibility = Visibility.Visible;
             txtResult.Text = string.Format("Nearest Point: Index: {0}, Distance: {1:0.000}", result.PointIndex, result.Distance);

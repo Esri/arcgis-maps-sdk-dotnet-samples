@@ -36,26 +36,26 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                inputGraphics.Graphics.Clear();
-                resultGraphics.Graphics.Clear();
+                inputOverlay.Graphics.Clear();
+                resultsOverlay.Graphics.Clear();
 
                 // Request polygon from the user
-                var poly = await mapView.Editor.RequestShapeAsync(DrawShape.Polygon, _polySymbol) as Polygon;
+                var poly = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon, _polySymbol) as Polygon;
 
                 // Add original polygon and vertices to input graphics layer
-                inputGraphics.Graphics.Add(new Graphic(poly, _polySymbol));
-                foreach (var coord in poly.Parts.First())
+				inputOverlay.Graphics.Add(new Graphic(poly, _polySymbol));
+                foreach (var mapPoint in poly.Parts.First())
                 {
-                    inputGraphics.Graphics.Add(new Graphic(new MapPointBuilder(coord).ToGeometry(), _origVertexSymbol));
+					inputOverlay.Graphics.Add(new Graphic(mapPoint, _origVertexSymbol));
                 }
 
                 // Densify the polygon
-                var densify = GeometryEngine.Densify(poly, mapView.Extent.Width / 100) as Polygon;
+                var densify = GeometryEngine.Densify(poly, MyMapView.Extent.Width / 100) as Polygon;
 
                 // Add new vertices to result graphics layer
-                foreach (var coord in densify.Parts.First())
+				foreach (var mapPoint in densify.Parts.First())
                 {
-					resultGraphics.Graphics.Add(new Graphic(new MapPointBuilder(coord).ToGeometry(), _newVertexSymbol));
+					resultsOverlay.Graphics.Add(new Graphic(mapPoint, _newVertexSymbol));
                 }
             }
             catch (Exception ex)

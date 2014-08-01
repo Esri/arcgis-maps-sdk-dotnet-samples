@@ -16,14 +16,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            mapView.ExtentChanged += mapView_ExtentChanged;
+            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
 
-			esriOverlay.DataContext = new MapPointBuilder(-117.19568, 34.056601, SpatialReferences.Wgs84).ToGeometry();
+			esriOverlay.DataContext = new MapPoint(-117.19568, 34.056601, SpatialReferences.Wgs84);
         }
 
-        private void mapView_ExtentChanged(object sender, System.EventArgs e)
+        private void MyMapView_ExtentChanged(object sender, System.EventArgs e)
         {
-            var center = GeometryEngine.Project(mapView.Extent.GetCenter(), SpatialReferences.Wgs84);
+            var center = GeometryEngine.Project(MyMapView.Extent.GetCenter(), SpatialReferences.Wgs84);
 
             if (!(clickOverlay.DataContext is MapPoint))
                 clickOverlay.DataContext = center;
@@ -31,7 +31,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             centerOverlay.DataContext = center;
         }
 
-        private void mapView_MapViewTapped(object sender, MapViewInputEventArgs e)
+        private void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
             clickOverlay.DataContext = GeometryEngine.Project(e.Location, SpatialReferences.Wgs84);
         }

@@ -28,29 +28,27 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-10863035.970, 3838021.340, -10744801.344, 3887145.299));
-            var task = SetupSymbols();
+			MyMapView.Map.InitialViewpoint = new ViewpointExtent(new Envelope(
+				-10863035.970, 3838021.340, -10744801.344, 3887145.299, 
+				SpatialReferences.WebMercator));
+            var _ = SetupSymbolsAsync();
         }
 
-        private void mapView_MapViewTapped(object sender, MapViewInputEventArgs e)
+        private void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
             try
             {
-                graphicsLayer.Graphics.Clear();
+				graphicOverlay.Graphics.Clear();
 
                 // Convert screen point to map point
                 var point = e.Location;
                 var buffer = GeometryEngine.Buffer(point, 5 * MILES_TO_METERS);
 
-                //show geometries on map
-                if (graphicsLayer != null)
-                {
-                    var pointGraphic = new Graphic { Geometry = point, Symbol = _pinSymbol };
-                    graphicsLayer.Graphics.Add(pointGraphic);
+                var bufferGraphic = new Graphic { Geometry = buffer, Symbol = _bufferSymbol };
+				graphicOverlay.Graphics.Add(bufferGraphic);
 
-                    var bufferGraphic = new Graphic { Geometry = buffer, Symbol = _bufferSymbol };
-                    graphicsLayer.Graphics.Add(bufferGraphic);
-                }
+				var pointGraphic = new Graphic { Geometry = point, Symbol = _pinSymbol };
+				graphicOverlay.Graphics.Add(pointGraphic);
             }
             catch (Exception ex)
             {
@@ -58,10 +56,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             }
         }
 
-        private async Task SetupSymbols()
+        private async Task SetupSymbolsAsync()
         {
             _pinSymbol = new PictureMarkerSymbol() { Width = 48, Height = 48, YOffset = 24 };
-            await _pinSymbol.SetSourceAsync(new Uri("pack://application:,,,/ArcGISRuntimeSDKDotNet_DesktopSamples;component/Assets/RedStickpin.png"));
+            await _pinSymbol.SetSourceAsync(
+				new Uri("pack://application:,,,/ArcGISRuntimeSDKDotNet_DesktopSamples;component/Assets/RedStickpin.png"));
 
             _bufferSymbol = layoutGrid.Resources["BufferSymbol"] as SimpleFillSymbol;
         }

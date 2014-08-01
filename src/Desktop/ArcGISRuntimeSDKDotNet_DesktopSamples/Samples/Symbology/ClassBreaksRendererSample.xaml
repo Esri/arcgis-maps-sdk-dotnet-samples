@@ -12,7 +12,7 @@
             <esri:SimpleMarkerSymbol x:Key="mag7to8" Color="#FFFB5107" Size="12" Style="Triangle" />
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" WrapAround="True">
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
             <esri:Map>
                 <esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />

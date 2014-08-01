@@ -2,9 +2,9 @@
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Linq;
 
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
@@ -26,19 +26,19 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         }
 
         // Begin geoprocessing with a user tap on the map
-        private async void mapView_MapViewTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
+        private async void MyMapView_MapViewTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
         {
             try
             {
                 Progress.Visibility = Visibility.Visible;
 
-                ResultLayer.Graphics.Clear();
-                InputLayer.Graphics.Clear();
-                InputLayer.Graphics.Add(new Graphic() { Geometry = e.Location });
+				resultsOverlay.Graphics.Clear();
+                inputOverlay.Graphics.Clear();
+				inputOverlay.Graphics.Add(new Graphic() { Geometry = e.Location });
 
                 Geoprocessor geoprocessorTask = new Geoprocessor(new Uri(MessageInABottleServiceUrl));
 
-                var parameter = new GPInputParameter() { OutSpatialReference = mapView.SpatialReference };
+                var parameter = new GPInputParameter() { OutSpatialReference = MyMapView.SpatialReference };
                 var ptNorm = GeometryEngine.NormalizeCentralMeridianOfGeometry(e.Location);
                 var ptGeographic = GeometryEngine.Project(ptNorm, SpatialReferences.Wgs84) as MapPoint;
 
@@ -52,7 +52,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     if (gpParameter is GPFeatureRecordSetLayer)
                     {
                         GPFeatureRecordSetLayer gpLayer = gpParameter as GPFeatureRecordSetLayer;
-                        ResultLayer.Graphics.AddRange(gpLayer.FeatureSet.Features.OfType<Graphic>());
+						resultsOverlay.Graphics.AddRange(gpLayer.FeatureSet.Features.OfType<Graphic>());
                     }
                 }
             }

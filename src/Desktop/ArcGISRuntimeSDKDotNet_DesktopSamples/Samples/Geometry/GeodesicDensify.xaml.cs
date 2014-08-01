@@ -43,26 +43,26 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             try
             {
                 resultsPanel.Visibility = Visibility.Collapsed;
-                inputGraphics.Graphics.Clear();
-                resultGraphics.Graphics.Clear();
+                inputOverlay.Graphics.Clear();
+                resultsOverlay.Graphics.Clear();
 
                 // Request polygon or polyline from the user
                 DrawShape drawShape = (DrawShape)comboShapeType.SelectedItem;
-                var original = await mapView.Editor.RequestShapeAsync(drawShape, _fillSymbol);
+                var original = await MyMapView.Editor.RequestShapeAsync(drawShape, _fillSymbol);
 
                 // Add original shape vertices to input graphics layer
                 var coordsOriginal = (original as Multipart).Parts.First();
-				foreach (var coord in coordsOriginal)
-					inputGraphics.Graphics.Add(new Graphic(new MapPointBuilder(coord).ToGeometry(), _origVertexSymbol));
+				foreach (var mapPoint in coordsOriginal)
+					inputOverlay.Graphics.Add(new Graphic(mapPoint, _origVertexSymbol));
 
                 // Densify the shape
-                var densify = GeometryEngine.GeodesicDensify(original, mapView.Extent.Width / 100, LinearUnits.Meters);
-                inputGraphics.Graphics.Add(new Graphic(densify, _fillSymbol));
+                var densify = GeometryEngine.GeodesicDensify(original, MyMapView.Extent.Width / 100, LinearUnits.Meters);
+                inputOverlay.Graphics.Add(new Graphic(densify, _fillSymbol));
 
                 // Add new vertices to result graphics layer
                 var coordsDensify = (densify as Multipart).Parts.First();
-                foreach (var coord in coordsDensify)
-                    resultGraphics.Graphics.Add(new Graphic(new MapPointBuilder(coord).ToGeometry(), _newVertexSymbol));
+				foreach (var mapPoint in coordsDensify)
+					resultsOverlay.Graphics.Add(new Graphic(mapPoint, _newVertexSymbol));
 
                 // Results
                 Dictionary<string, object> results = new Dictionary<string, object>();

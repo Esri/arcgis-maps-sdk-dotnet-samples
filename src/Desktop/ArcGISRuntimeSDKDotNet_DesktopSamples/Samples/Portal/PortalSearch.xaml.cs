@@ -127,7 +127,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var item = ((Button)sender).DataContext as ArcGISPortalItem;
                 var webmap = await WebMap.FromPortalItemAsync(item);
                 var vm = await WebMapViewModel.LoadAsync(webmap, _portal);
-                mapView.Map = vm.Map;
+                MyMapView.Map = vm.Map;
 
                 WebmapContent.Visibility = Visibility.Visible;
             }

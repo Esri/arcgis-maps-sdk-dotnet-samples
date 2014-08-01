@@ -7,33 +7,39 @@
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" WrapAround="False">
+        <esri:MapView x:Name="MyMapView" WrapAround="False">
             <esri:Map>
 				<esri:Map.InitialViewpoint>
                     <esri:ViewpointExtent XMin="-15053000" YMin="2749000" XMax="-6540000" YMax="6590000" />
                 </esri:Map.InitialViewpoint>
 
-                <esri:ArcGISTiledMapServiceLayer
+				<esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
-                <esri:GraphicsLayer x:Name="graphicsLayer" SelectionColor="Blue" />
-            </esri:Map>
-        </esri:MapView>
+			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay x:Name="graphicsOverlay" SelectionColor="Blue" />
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
+		
+		<Border Background="White" BorderBrush="Black" BorderThickness="1"
+				HorizontalAlignment="Right" VerticalAlignment="Top"
+				Margin="30" Padding="20">
+			<Border.Effect>
+				<DropShadowEffect/>
+			</Border.Effect>
+			<StackPanel>
+                <Button Content="Add Selected Graphics" Click="AddSelectButton_Click" Margin="0,4"/>
+                <Button Content="Remove Selected Graphics" Click="RemoveSelectButton_Click" Margin="0,4"/>
+                <Button Content="Clear Selected Graphics" Click="ClearSelectButton_Click" Margin="0,4"/>
 
-        <Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="25"
-                HorizontalAlignment="Right" VerticalAlignment="Top">
-            <StackPanel Margin="8">
-                <Button Content="Add Selected Graphics" Click="AddSelectButton_Click" Margin="4"/>
-                <Button Content="Remove Selected Graphics" Click="RemoveSelectButton_Click" Margin="4"/>
-                <Button Content="Clear Selected Graphics" Click="ClearSelectButton_Click" Margin="4"/>
-
-                <TextBlock Text="{Binding ElementName=graphicsLayer, Path=SelectedItems.Count, StringFormat='Selection Count: {0}'}" 
-                           Margin="4" HorizontalAlignment="Center" FontWeight="Bold" />
+				<TextBlock Text="{Binding ElementName=graphicsOverlay, Path=SelectedGraphics.Count, StringFormat='Selection Count: {0}'}" 
+                           Margin="0,4" HorizontalAlignment="Center" FontWeight="Bold" />
             </StackPanel>
         </Border>
 
         <Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="25"
                 HorizontalAlignment="Center" VerticalAlignment="Bottom"
-                Visibility="{Binding ElementName=mapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}" >
+                Visibility="{Binding ElementName=MyMapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}" >
             <TextBlock Text="Draw rectangle to select / unselect graphics." Margin="8" FontSize="14" />
         </Border>
     </Grid>

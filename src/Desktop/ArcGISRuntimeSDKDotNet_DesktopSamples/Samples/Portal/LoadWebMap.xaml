@@ -4,7 +4,7 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid x:Name="layoutGrid">
-        <esri:MapView x:Name="mapView" />
+        <esri:MapView x:Name="MyMapView" />
 
         <Border x:Name="uiPanel" Background="White" BorderBrush="Black" BorderThickness="2" Margin="30"
                 Width="375" HorizontalAlignment="Right" VerticalAlignment="Top">

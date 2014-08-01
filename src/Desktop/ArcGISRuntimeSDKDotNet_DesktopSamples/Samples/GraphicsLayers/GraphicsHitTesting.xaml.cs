@@ -4,6 +4,7 @@ using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -11,7 +12,7 @@ using System.Windows.Media;
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
-    /// This sample shows how to hit test a graphics layer using the GraphicsLayer.HitTestAsync method. Here, the user may sketch a point on the map to initiate the hit testing process - the results of the hit test are then displayed in the UI.
+    /// This sample shows how to hit test a graphics layer using the GraphicsOverlay.HitTestAsync method. Here, the user may sketch a point on the map to initiate the hit testing process - the results of the hit test are then displayed in the UI.
     /// </summary>
     /// <title>Hit Testing</title>
 	/// <category>Layers</category>
@@ -27,15 +28,15 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            CreateGraphics();
+            var _ = CreateGraphicsAsync();
         }
 
         // Hit Test the graphics layer by single point
-        private async void mapView_MapViewTapped(object sender, MapViewInputEventArgs e)
+        private async void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
             try
             {
-                var graphics = await graphicsLayer.HitTestAsync(mapView, e.Position, MAX_GRAPHICS);
+				var graphics = await graphicsOverlay.HitTestAsync(MyMapView, e.Position, MAX_GRAPHICS);
 
                 string results = "Hit: ";
                 if (graphics == null || graphics.Count() == 0)
@@ -51,14 +52,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         }
 
         // Create three List<Graphic> objects with random graphics to serve as layer GraphicsSources
-        private async void CreateGraphics()
+		private async Task CreateGraphicsAsync()
         {
-            await mapView.LayersLoadedAsync();
+            await MyMapView.LayersLoadedAsync();
 
             for (int n = 1; n <= MAX_GRAPHICS; ++n)
-            {
-                graphicsLayer.Graphics.Add(CreateRandomGraphic(n));
-            }
+				graphicsOverlay.Graphics.Add(CreateRandomGraphic(n));
         }
 
         // Create a random graphic
@@ -89,9 +88,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Utility: Generate a random MapPoint within the current extent
         private MapPoint GetRandomMapPoint()
         {
-            double x = mapView.Extent.XMin + (_random.NextDouble() * mapView.Extent.Width);
-            double y = mapView.Extent.YMin + (_random.NextDouble() * mapView.Extent.Height);
-            return new MapPoint(x, y, mapView.SpatialReference);
+            double x = MyMapView.Extent.XMin + (_random.NextDouble() * MyMapView.Extent.Width);
+            double y = MyMapView.Extent.YMin + (_random.NextDouble() * MyMapView.Extent.Height);
+            return new MapPoint(x, y, MyMapView.SpatialReference);
         }
     }
 }

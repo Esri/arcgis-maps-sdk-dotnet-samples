@@ -5,7 +5,6 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Geocoding;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,7 +23,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     {
         private const string OnlineLocatorUrl = "http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer";
 
-        private GraphicsLayer _addressGraphicsLayer;
+        private GraphicsOverlay _addressOverlay;
         private LocatorServiceInfo _locatorServiceInfo;
         private OnlineLocatorTask _locatorTask;
 
@@ -32,10 +31,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            var ext = new Envelope(-122.554, 37.615, -122.245, 37.884, SpatialReferences.Wgs84);
-			mapView.Map.InitialViewpoint = new Viewpoint(ext);
+			MyMapView.Map.InitialViewpoint = new ViewpointExtent(
+				new Envelope(-122.554, 37.615, -122.245, 37.884, SpatialReferences.Wgs84));
 
-            _addressGraphicsLayer = mapView.Map.Layers["AddressGraphicsLayer"] as GraphicsLayer;
+			_addressOverlay = AddressOverlay;
 
             _locatorTask = new OnlineLocatorTask(new Uri(OnlineLocatorUrl));
             _locatorTask.AutoNormalize = true;
@@ -43,14 +42,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             var task = SetSimpleRendererSymbols();
         }
 
-        // Setup the pin graphic and graphics layer renderer
+        // Setup the pin graphic and GraphicsOverlay renderer
         private async Task SetSimpleRendererSymbols()
         {
             var markerSymbol = new PictureMarkerSymbol() { Width = 48, Height = 48, YOffset = 24 };
             await markerSymbol.SetSourceAsync(new Uri("pack://application:,,,/ArcGISRuntimeSDKDotNet_DesktopSamples;component/Assets/RedStickpin.png"));
             var renderer = new SimpleRenderer() { Symbol = markerSymbol };
 
-            _addressGraphicsLayer.Renderer = renderer;
+			_addressOverlay.Renderer = renderer;
         }
 
         private async void GeocodeButton_Click(object sender, RoutedEventArgs e)
@@ -59,13 +58,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             {
                 progress.Visibility = Visibility.Visible;
                 listResults.Visibility = Visibility.Collapsed;
-                _addressGraphicsLayer.Graphics.Clear();
+				_addressOverlay.Graphics.Clear();
 
                 if (_locatorServiceInfo == null)
                     _locatorServiceInfo = await _locatorTask.GetInfoAsync();
 
                 var candidateResults = await _locatorTask.GeocodeAsync(
-                    GetInputAddressFromUI(), new List<string> { "Addr_type","Score","X","Y" }, mapView.SpatialReference, CancellationToken.None);
+                    GetInputAddressFromUI(), new List<string> { "Addr_type","Score","X","Y" }, MyMapView.SpatialReference, CancellationToken.None);
 
                 if (candidateResults == null || candidateResults.Count == 0)
                     throw new Exception("No candidates found.");
@@ -73,11 +72,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 foreach (var candidate in candidateResults)
                     AddGraphicFromLocatorCandidate(candidate);
 
-                listResults.ItemsSource = _addressGraphicsLayer.Graphics.Where(g => g.IsVisible);
+				var visibleGraphics = _addressOverlay.Graphics.Where(g => g.IsVisible);
+				listResults.ItemsSource = visibleGraphics;
                 listResults.Visibility = Visibility.Visible;
 
-                var extent = GeometryEngine.Union(_addressGraphicsLayer.Graphics.Select(g => g.Geometry)).Extent.Expand(1.1);
-                await mapView.SetViewAsync(extent);
+				var extent = GeometryEngine.Union(visibleGraphics.Select(g => g.Geometry)).Extent.Expand(1.2);
+                await MyMapView.SetViewAsync(extent);
             }
             catch (AggregateException ex)
             {
@@ -134,7 +134,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private void AddGraphicFromLocatorCandidate(LocatorGeocodeResult candidate)
         {
-            var graphic = new Graphic(new MapPoint(candidate.Location.X, candidate.Location.Y, mapView.SpatialReference));
+            var graphic = new Graphic(new MapPoint(candidate.Location.X, candidate.Location.Y, MyMapView.SpatialReference));
             graphic.Attributes["Address"] = candidate.Address;
             graphic.Attributes["Score"] = candidate.Score;
             graphic.Attributes["MatchType"] = candidate.Attributes["Addr_type"];
@@ -145,7 +145,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             graphic.Attributes["LocationDisplay"] = string.Format("{0:0.000}, {1:0.000}", x, y);
 
             graphic.IsVisible = (candidate.Score >= MatchScoreSlider.Value);
-            _addressGraphicsLayer.Graphics.Add(graphic);
+			_addressOverlay.Graphics.Add(graphic);
         }
 
         private void btnMultipleLine_Checked(object sender, RoutedEventArgs e)
@@ -156,15 +156,15 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private void MatchScoreSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (_addressGraphicsLayer == null)
+			if (_addressOverlay == null)
                 return;
 
-            foreach (var graphic in _addressGraphicsLayer.Graphics)
+			foreach (var graphic in _addressOverlay.Graphics)
             {
                 graphic.IsVisible = (Convert.ToInt32(graphic.Attributes["Score"]) >= e.NewValue);
             }
 
-            listResults.ItemsSource = _addressGraphicsLayer.Graphics.Where(g => g.IsVisible);
+			listResults.ItemsSource = _addressOverlay.Graphics.Where(g => g.IsVisible);
         }
     }
 }

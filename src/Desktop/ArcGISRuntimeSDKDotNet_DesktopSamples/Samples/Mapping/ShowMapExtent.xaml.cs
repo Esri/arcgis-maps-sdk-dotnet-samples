@@ -20,9 +20,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             Envelope newExtent = null;
 
-            if (mapView.WrapAround)
+            if (MyMapView.WrapAround)
             {
-                Geometry normalizedExtent = GeometryEngine.NormalizeCentralMeridianOfGeometry(mapView.Extent);
+                Geometry normalizedExtent = GeometryEngine.NormalizeCentralMeridianOfGeometry(MyMapView.Extent);
                 if (normalizedExtent is Polygon)
                 {
                     var normalizedPolygon = (Polygon)normalizedExtent;
@@ -55,7 +55,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     newExtent = normalizedExtent as Envelope;
             }
             else
-                newExtent = mapView.Extent;
+                newExtent = MyMapView.Extent;
 
             MinXNormalized.Text = newExtent.XMin.ToString("0.000");
             MinYNormalized.Text = newExtent.YMin.ToString("0.000");

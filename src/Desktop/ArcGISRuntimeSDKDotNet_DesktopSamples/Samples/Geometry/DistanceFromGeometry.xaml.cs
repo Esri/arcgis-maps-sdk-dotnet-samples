@@ -35,15 +35,15 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             try
             {
                 txtResults.Visibility = Visibility.Collapsed;
-                graphicsLayer.Graphics.Clear();
+                graphicsOverlay.Graphics.Clear();
 
                 // wait for user to draw a polyline
-                var line = await mapView.Editor.RequestShapeAsync(DrawShape.Polyline, _lineSymbol);
-                graphicsLayer.Graphics.Add(new Graphic(line, _lineSymbol));
+                var line = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polyline, _lineSymbol);
+				graphicsOverlay.Graphics.Add(new Graphic(line, _lineSymbol));
 
                 // wait for user to draw a point
-                var point = await mapView.Editor.RequestPointAsync();
-                graphicsLayer.Graphics.Add(new Graphic(point, _pointSymbol));
+                var point = await MyMapView.Editor.RequestPointAsync();
+				graphicsOverlay.Graphics.Add(new Graphic(point, _pointSymbol));
 
                 // Calc distance between between line and point
                 double distance = GeometryEngine.DistanceFromGeometry(line, point) * METERS_TO_MILES;
@@ -54,7 +54,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             {
                 MessageBox.Show("Distance Calculation Error: " + ex.Message, "Distance From Geometry Sample");
                 txtResults.Visibility = Visibility.Collapsed;
-                graphicsLayer.Graphics.Clear();
+				graphicsOverlay.Graphics.Clear();
             }
         }
     }

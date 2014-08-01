@@ -63,7 +63,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private async Task<long[]> FindIntersectingFeaturesAsync()
         {
-            var rect = await mapView.Editor.RequestShapeAsync(DrawShape.Rectangle);
+			var rect = await MyMapView.Editor.RequestShapeAsync(DrawShape.Rectangle);
 
             SpatialQueryFilter filter = new SpatialQueryFilter();
             filter.Geometry = GeometryEngine.Project(rect, cities.FeatureTable.SpatialReference);

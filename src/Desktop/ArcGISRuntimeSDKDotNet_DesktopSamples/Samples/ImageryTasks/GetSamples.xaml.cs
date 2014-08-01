@@ -11,7 +11,7 @@ using System.Windows.Controls;
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
-    /// This sample demonstrates using an QueryTask to Query an ArcGISImageServiceLayer to find the outlines of image tiles and display them in a GraphicsLayer. MapOverlay attribute information is displayed for selected tile graphics when they are clicked on the map.
+    /// This sample demonstrates using an QueryTask to Query an ArcGISImageServiceLayer to find the outlines of image tiles and display them in a GraphicOverlay. MapOverlay attribute information is displayed for selected tile graphics when they are clicked on the map.
     /// </summary>
     /// <title>Get Samples</title>
     /// <category>Tasks</category>
@@ -22,23 +22,23 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public GetSamples()
         {
             InitializeComponent();
-            mapView.LayerLoaded += mapView_LayerLoaded;
+            MyMapView.LayerLoaded += MyMapView_LayerLoaded;
         }
 
         // Zoom to the image service extent
-        private async void mapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
+        private async void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
         {
             if (e.Layer is ArcGISImageServiceLayer)
             {
                 if (e.Layer.FullExtent != null)
-                    await mapView.SetViewAsync(e.Layer.FullExtent);
+                    await MyMapView.SetViewAsync(e.Layer.FullExtent);
             }
         }
 
         // Start query process on user button click
         private async void GetSamplesButton_Click(object sender, RoutedEventArgs e)
         {
-            graphicsLayer.Graphics.Clear();
+            graphicsOverlay.Graphics.Clear();
             await QueryImageTiles();
         }
 
@@ -47,7 +47,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                var envelope = await mapView.Editor.RequestShapeAsync(DrawShape.Envelope) as Envelope;
+                var envelope = await MyMapView.Editor.RequestShapeAsync(DrawShape.Envelope) as Envelope;
 
                 QueryTask queryTask = new QueryTask(
                     new Uri("http://servicesbeta.esri.com/ArcGIS/rest/services/Portland/PortlandAerial/ImageServer/query"));
@@ -56,13 +56,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 {
                     OutFields = new OutFields(new string[] { "Name", "LowPS" }),
                     ReturnGeometry = true,
-                    OutSpatialReference = mapView.SpatialReference,
+                    OutSpatialReference = MyMapView.SpatialReference,
                     Where = "Category = 1"
                 };
 
                 var result = await queryTask.ExecuteAsync(query);
-                
-                graphicsLayer.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
+
+				graphicsOverlay.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
             }
             catch (Exception ex)
             {
@@ -71,13 +71,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         }
 
         // Hittest the graphics layer and show the map tip for the selected graphic
-        private async void mapView_MapViewTapped(object sender, MapViewInputEventArgs e)
+        private async void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
             try
             {
-                graphicsLayer.ClearSelection();
+				graphicsOverlay.ClearSelection();
 
-                var graphic = await graphicsLayer.HitTestAsync(mapView, e.Position);
+				var graphic = await graphicsOverlay.HitTestAsync(MyMapView, e.Position);
                 if (graphic != null)
                 {
                     graphic.IsSelected = true;

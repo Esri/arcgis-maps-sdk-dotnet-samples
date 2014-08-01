@@ -24,12 +24,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             _bufferSymbol = layoutGrid.Resources["BufferSymbol"] as SimpleFillSymbol;
         }
 
-        private void mapView_MouseMove(object sender, MouseEventArgs e)
+        private void MyMapView_MouseMove(object sender, MouseEventArgs e)
         {
             try
             {
                 // Convert screen point to map point
-                var point = mapView.ScreenToLocation(e.GetPosition(mapView));
+                var point = MyMapView.ScreenToLocation(e.GetPosition(MyMapView));
                 if (point == null)
                     return;
 
@@ -38,13 +38,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     500, LinearUnits.Miles);
 
                 Graphic bufferGraphic = null;
-                if (graphicsLayer.Graphics.Count == 0)
+                if (graphicsOverlay.Graphics.Count == 0)
                 {
                     bufferGraphic = new Graphic { Geometry = buffer, Symbol = _bufferSymbol };
-                    graphicsLayer.Graphics.Add(bufferGraphic);
+					graphicsOverlay.Graphics.Add(bufferGraphic);
                 }
                 else
-                    bufferGraphic = graphicsLayer.Graphics[0];
+					bufferGraphic = graphicsOverlay.Graphics[0];
                 bufferGraphic.Geometry = buffer;
             }
             catch (Exception ex)

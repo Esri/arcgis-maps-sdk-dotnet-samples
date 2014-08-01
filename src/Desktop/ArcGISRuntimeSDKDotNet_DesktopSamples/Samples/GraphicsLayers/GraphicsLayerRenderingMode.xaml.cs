@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System;
@@ -12,7 +13,7 @@ using System.Windows.Media;
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
-    /// This sample demonstates the use of the GraphicsLayer.RenderingMode property to control how a GraphicsLayer draws its graphics. Zooming and Panning the map in each of the rendering modes will show the differences between them. Rendering mode differences will be more pronounced with higher numbers of graphics in the graphic layer.
+    /// This sample demonstates the use of the GraphicsLayer.RenderingMode property to control how a GraphicsOverlay draws its graphics. Zooming and Panning the map in each of the rendering modes will show the differences between them. Rendering mode differences will be more pronounced with higher numbers of graphics in the graphic layer.
     /// </summary>
     /// <title>Rendering Mode</title>
 	/// <category>Layers</category>
@@ -33,39 +34,38 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             renderingModeCombo.SelectedIndex = 0;
 
             // Create the minimum set of graphics
-            var task = CreateGraphics(1000);
+			var _ = CreateGraphicsAsync(1000);
         }
 
         // Creates a new graphics layer with the specified graphics count and rendering mode
         private async void CreateGraphicsLayerButton_Click(object sender, RoutedEventArgs e)
         {
-            if (mapView.Map.Layers.Count > 1)
-                mapView.Map.Layers.RemoveAt(1);
+            if (MyMapView.GraphicsOverlays.Count > 1)
+				MyMapView.GraphicsOverlays.RemoveAt(1);
 
-            var graphicsLayer = new GraphicsLayer() { RenderingMode = (GraphicsRenderingMode)renderingModeCombo.SelectedValue };
-            mapView.Map.Layers.Add(graphicsLayer);
+            var graphicsOverlay = new GraphicsOverlay() { 
+				RenderingMode = (GraphicsRenderingMode)renderingModeCombo.SelectedValue 
+			};
+			MyMapView.GraphicsOverlays.Add(graphicsOverlay);
 
             // Add new graphics if needed
             var numGraphics = (int)graphicCountSlider.Value;
             if (_graphics.Count < numGraphics)
-            {
-                await CreateGraphics(numGraphics - _graphics.Count);
-            }
-            graphicsLayer.Graphics.AddRange(_graphics.Take(numGraphics));
+				await CreateGraphicsAsync(numGraphics - _graphics.Count);
+
+			graphicsOverlay.Graphics.AddRange(_graphics.Take(numGraphics));
         }
 
         // Add new random graphics to the graphics layer
-        private async Task CreateGraphics(int numGraphics)
+        private async Task CreateGraphicsAsync(int numGraphics)
         {
-            await mapView.LayersLoadedAsync();
+            await MyMapView.LayersLoadedAsync();
 
             if (_maxExtent == null)
-                _maxExtent = mapView.Extent;
+                _maxExtent = MyMapView.Extent;
 
             for (int n = 0; n < numGraphics; ++n)
-            {
                 _graphics.Add(CreateRandomGraphic());
-            }
         }
 
         // Create a random graphic
@@ -88,7 +88,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             double x = _maxExtent.XMin + (_random.NextDouble() * _maxExtent.Width);
             double y = _maxExtent.YMin + (_random.NextDouble() * _maxExtent.Height);
-            return new MapPoint(x, y, mapView.SpatialReference);
+            return new MapPoint(x, y, MyMapView.SpatialReference);
         }
 
         // Utility: Generate a random System.Windows.Media.Color

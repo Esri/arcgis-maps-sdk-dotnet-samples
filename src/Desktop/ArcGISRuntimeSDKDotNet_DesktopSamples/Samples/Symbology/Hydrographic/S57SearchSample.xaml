@@ -24,7 +24,7 @@
 			</esri:SimpleFillSymbol>
 		</Grid.Resources>
 
-		<esri:MapView x:Name="mapView" 
+		<esri:MapView x:Name="MyMapView" 
 					  WrapAround="True"
 					  LayerLoaded="MapView_LayerLoaded">
 			<esri:Map>
@@ -166,7 +166,7 @@
 		<!-- Status area -->
 		<Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="25"
                 HorizontalAlignment="Center" VerticalAlignment="Bottom"
-                Visibility="{Binding ElementName=mapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
+                Visibility="{Binding ElementName=MyMapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
 			<TextBlock Text="Draw the graphic shape on the map." Margin="8" FontSize="14" />
 		</Border>
 	</Grid>

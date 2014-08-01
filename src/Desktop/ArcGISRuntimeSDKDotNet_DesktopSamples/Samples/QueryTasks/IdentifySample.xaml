@@ -8,7 +8,7 @@
             <esri:SimpleRenderer x:Key="MarkerRenderer" Symbol="{StaticResource MarkerSymbol}" />
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" WrapAround="True" MapViewTapped="mapView_MapViewTapped">
+        <esri:MapView x:Name="MyMapView" WrapAround="True" MapViewTapped="MyMapView_MapViewTapped">
             <esri:Map>
                 <esri:ArcGISTiledMapServiceLayer 
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />

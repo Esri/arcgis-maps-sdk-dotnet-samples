@@ -12,7 +12,7 @@ using System.Windows.Controls;
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
-    /// Example of using the GeometryEngine.Union method to calculate the geometric union of feature geometries and a given polygon. To use this sample, the user draws a polygon over the feature polygons and the system then retrieves the union of the feature geometries and the new polygon. Resulting polygons are shown in a graphics layer on the map.
+    /// Example of using the GeometryEngine.Union method to calculate the geometric union of feature geometries and a given polygon. To use this sample, the user draws a polygon over the feature polygons and the system then retrieves the union of the feature geometries and the new polygon. Resulting polygons are shown in a graphics overlay on the map.
     /// </summary>
     /// <title>Union</title>
 	/// <category>Geometry</category>
@@ -30,7 +30,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             _fillSymbol = layoutGrid.Resources["FillSymbol"] as Symbol;
 
-            var task = CreateFeatureLayersAsync();
+            var _ = CreateFeatureLayersAsync();
         }
 
         // Creates a feature layer from a local .geodatabase file
@@ -42,7 +42,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
                 var table = gdb.FeatureTables.First(ft => ft.Name == "US-States");
                 _statesLayer = new FeatureLayer() { ID = table.Name, FeatureTable = table };
-                mapView.Map.Layers.Insert(1, _statesLayer);
+                MyMapView.Map.Layers.Insert(1, _statesLayer);
             }
             catch (Exception ex)
             {
@@ -55,10 +55,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                resultGraphics.Graphics.Clear();
+				resultsOverlay.Graphics.Clear();
 
                 // wait for user to draw a polygon
-                var poly = await mapView.Editor.RequestShapeAsync(DrawShape.Polygon);
+                var poly = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon);
 
                 // get intersecting features from the feature layer
                 SpatialQueryFilter filter = new SpatialQueryFilter();
@@ -75,7 +75,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 				var unionPoly = GeometryEngine.Union(unionPolys);
                 var unionGraphic = new Graphic(unionPoly, _fillSymbol);
 
-                resultGraphics.Graphics.Add(unionGraphic);
+				resultsOverlay.Graphics.Add(unionGraphic);
             }
             catch (Exception ex)
             {

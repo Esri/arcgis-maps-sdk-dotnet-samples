@@ -40,13 +40,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 			resultList.ItemsSource = _searchResults;
 
 			// Reference layers that are used
-			_hydrographicLayers = mapView.Map.Layers.OfType<GroupLayer>().First();
-			_resultGraphicsLayer = mapView.Map.Layers.OfType<GraphicsLayer>().First();
+			_hydrographicLayers = MyMapView.Map.Layers.OfType<GroupLayer>().First();
+			_resultGraphicsLayer = MyMapView.Map.Layers.OfType<GraphicsLayer>().First();
 			ZoomToHydrographicLayersAsync();
 		}
 
 		// When user clicks/taps the map, execute search to all hydrographic layers and set results to view
-		private async void mapView_MapViewTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
+		private async void MyMapView_MapViewTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
 		{
 			if (!_isLoaded)
 				return;
@@ -59,7 +59,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 				var hydroLayer = layer as HydrographicS57Layer;
 
 				// Identify feature objects from layer
-				var results = await hydroLayer.HitTestAsync(mapView, e.Position, 10, 3);
+				var results = await hydroLayer.HitTestAsync(MyMapView, e.Position, 10, 3);
 			
 
 				// Add results to results list
@@ -91,7 +91,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 			try
 			{
 				// wait until all layers are loaded
-				await mapView.LayersLoadedAsync();
+				await MyMapView.LayersLoadedAsync();
 			}
 			catch (System.Exception ex)
 			{
@@ -105,12 +105,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 				extent = extent.Union(layer.FullExtent);
 
 			// Zoom to full extent
-			await mapView.SetViewAsync(extent);
+			await MyMapView.SetViewAsync(extent);
 			_isLoaded = true;
 		}
 
 		// Show error if loading layers fail
-		private void mapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
+		private void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
 		{
 			if (e.LoadError == null)
 				return;

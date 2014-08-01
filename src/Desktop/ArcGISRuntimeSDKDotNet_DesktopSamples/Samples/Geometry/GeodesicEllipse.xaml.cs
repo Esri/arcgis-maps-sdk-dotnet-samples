@@ -31,10 +31,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                while (mapView.Extent != null)
+                while (MyMapView.Extent != null)
                 {
                     // Accept user point
-                    var point = await mapView.Editor.RequestPointAsync();
+                    var point = await MyMapView.Editor.RequestPointAsync();
 
                     // create the geodesic ellipse
                     var radius1 = (double)comboRadius1.SelectedItem;
@@ -50,9 +50,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     var ellipse = GeometryEngine.GeodesicEllipse(param);
 
                     //show geometries on map
-                    graphicsLayer.Graphics.Clear();
-                    graphicsLayer.Graphics.Add(new Graphic(point, _pinSymbol));
-                    graphicsLayer.Graphics.Add(new Graphic(ellipse));
+					graphicsOverlay.Graphics.Clear();
+					graphicsOverlay.Graphics.Add(new Graphic(point, _pinSymbol));
+					graphicsOverlay.Graphics.Add(new Graphic(ellipse));
 
                     // geodesic sector
                     if ((bool)chkSector.IsChecked)
@@ -67,7 +67,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                         };
                         var sector = GeometryEngine.GeodesicSector(sectorParams);
 
-                        graphicsLayer.Graphics.Add(new Graphic(sector, _sectorSymbol));
+						graphicsOverlay.Graphics.Add(new Graphic(sector, _sectorSymbol));
                     }
                 }
             }

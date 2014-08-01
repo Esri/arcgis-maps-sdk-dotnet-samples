@@ -30,11 +30,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private const string ONLINE_BASEMAP_URL = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer";
         private const string ONLINE_LAYER_ID = "OnlineBasemap";
         private const string LOCAL_LAYER_ID = "LocalTiles";
-        private const string AOI_LAYER_ID = "AOI";
         private const string TILE_CACHE_FOLDER = "ExportTileCacheSample";
 
         private ArcGISTiledMapServiceLayer _onlineTiledLayer;
-        private GraphicsLayer _aoiLayer;
+        private GraphicsOverlay _aoiOverlay;
         private ExportTileCacheTask _exportTilesTask;
         private GenerateTileCacheParameters _genOptions;
 
@@ -44,18 +43,20 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             InitializeComponent();
 
             var extentWGS84 = new Envelope(-123.77, 36.80, -119.77, 38.42, SpatialReferences.Wgs84);
-			mapView.Map.InitialViewpoint = new Viewpoint(extentWGS84);
+			MyMapView.Map.InitialViewpoint = new Viewpoint(extentWGS84);
 
-            mapView.Loaded += mapView_Loaded;
+            MyMapView.Loaded += MyMapView_Loaded;
         }
 
         // Load the online basemap and dependent UI
-        private async void mapView_Loaded(object sender, RoutedEventArgs e)
+        private async void MyMapView_Loaded(object sender, RoutedEventArgs e)
         {
             await InitializeOnlineBasemap();
 
-            _aoiLayer = new GraphicsLayer() { ID = AOI_LAYER_ID, Renderer = layoutGrid.Resources["AOIRenderer"] as Renderer };
-            mapView.Map.Layers.Add(_aoiLayer);
+            _aoiOverlay = new GraphicsOverlay() { 
+				Renderer = layoutGrid.Resources["AOIRenderer"] as Renderer 
+			};
+            MyMapView.GraphicsOverlays.Add(_aoiOverlay);
 
             if (_onlineTiledLayer.ServiceInfo != null)
             {
@@ -94,7 +95,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 }
 
                 await _onlineTiledLayer.InitializeAsync();
-                mapView.Map.Layers.Add(_onlineTiledLayer);
+                MyMapView.Map.Layers.Add(_onlineTiledLayer);
             }
             catch (Exception ex)
             {
@@ -111,15 +112,15 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 panelExport.Visibility = Visibility.Collapsed;
                 progress.Visibility = Visibility.Visible;
 
-                _aoiLayer.Graphics.Clear();
-                _aoiLayer.Graphics.Add(new Graphic(mapView.Extent));
+                _aoiOverlay.Graphics.Clear();
+                _aoiOverlay.Graphics.Add(new Graphic(MyMapView.Extent));
 
                 _genOptions = new GenerateTileCacheParameters()
                 {
                     Format = ExportTileCacheFormat.TilePackage,
                     MinScale = _onlineTiledLayer.ServiceInfo.TileInfo.Lods[(int)sliderLOD.Value].Scale,
                     MaxScale = _onlineTiledLayer.ServiceInfo.TileInfo.Lods[0].Scale,
-                    GeometryFilter = GeometryEngine.Project(mapView.Extent, SpatialReferences.Wgs84)
+                    GeometryFilter = GeometryEngine.Project(MyMapView.Extent, SpatialReferences.Wgs84)
                 };
 
                 var job = await _exportTilesTask.EstimateTileCacheSizeAsync(_genOptions);
@@ -170,17 +171,17 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var result = await _exportTilesTask.GenerateTileCacheAndDownloadAsync(
                     _genOptions, downloadOptions, TimeSpan.FromSeconds(5), CancellationToken.None);
 
-                var localTiledLayer = mapView.Map.Layers.FirstOrDefault(lyr => lyr.ID == LOCAL_LAYER_ID);
+                var localTiledLayer = MyMapView.Map.Layers.FirstOrDefault(lyr => lyr.ID == LOCAL_LAYER_ID);
                 if (localTiledLayer != null)
-                    mapView.Map.Layers.Remove(localTiledLayer);
+                    MyMapView.Map.Layers.Remove(localTiledLayer);
 
                 localTiledLayer = new ArcGISLocalTiledLayer(result.OutputPath) { ID = LOCAL_LAYER_ID };
-                mapView.Map.Layers.Insert(1, localTiledLayer);
+                MyMapView.Map.Layers.Insert(1, localTiledLayer);
 
                 _onlineTiledLayer.IsVisible = false;
 
-                if (mapView.Scale < _genOptions.MinScale)
-                    await mapView.SetViewAsync(mapView.Extent.GetCenter(), _genOptions.MinScale);
+                if (MyMapView.Scale < _genOptions.MinScale)
+                    await MyMapView.SetViewAsync(MyMapView.Extent.GetCenter(), _genOptions.MinScale);
 
                 panelTOC.Visibility = Visibility.Visible;
             }

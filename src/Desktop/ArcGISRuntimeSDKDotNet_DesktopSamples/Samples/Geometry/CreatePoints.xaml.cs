@@ -19,31 +19,34 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            var task = CreatePointGraphics();
+            var _ = CreatePointGraphics();
         }
 
         // Create four point graphics on the map in the center of four equal quadrants
         private async Task CreatePointGraphics()
         {
-            await mapView.LayersLoadedAsync();
+            await MyMapView.LayersLoadedAsync();
 
-            var height = mapView.Extent.Height / 4;
-            var width = mapView.Extent.Width / 4;
-            var center = mapView.Extent.GetCenter();
+            var height = MyMapView.Extent.Height / 4;
+            var width = MyMapView.Extent.Width / 4;
+            var center = MyMapView.Extent.GetCenter();
 
-            var topLeft = new MapPoint(center.X - width, center.Y + height, mapView.SpatialReference);
-            var topRight = new MapPoint(center.X + width, center.Y + height, mapView.SpatialReference);
-            var bottomLeft = new MapPoint(center.X - width, center.Y - height, mapView.SpatialReference);
-            var bottomRight = new MapPoint(center.X + width, center.Y - height, mapView.SpatialReference);
+            var topLeft = new MapPoint(center.X - width, center.Y + height, MyMapView.SpatialReference);
+            var topRight = new MapPoint(center.X + width, center.Y + height, MyMapView.SpatialReference);
+            var bottomLeft = new MapPoint(center.X - width, center.Y - height, MyMapView.SpatialReference);
+            var bottomRight = new MapPoint(center.X + width, center.Y - height, MyMapView.SpatialReference);
 
             var symbol = new SimpleMarkerSymbol() { Color = Colors.Red, Size = 15, Style = SimpleMarkerStyle.Diamond };
 
-            graphicsLayer.Graphics.Add(new Graphic() { Geometry = topLeft, Symbol = symbol });
-            graphicsLayer.Graphics.Add(new Graphic() { Geometry = topRight, Symbol = symbol });
-            graphicsLayer.Graphics.Add(new Graphic() { Geometry = bottomLeft, Symbol = symbol });
-            graphicsLayer.Graphics.Add(new Graphic() { Geometry = bottomRight, Symbol = symbol });
+            graphicsOverlay.Graphics.Add(new Graphic() { Geometry = topLeft, Symbol = symbol });
+			graphicsOverlay.Graphics.Add(new Graphic() { Geometry = topRight, Symbol = symbol });
+			graphicsOverlay.Graphics.Add(new Graphic() { Geometry = bottomLeft, Symbol = symbol });
+			graphicsOverlay.Graphics.Add(new Graphic() { Geometry = bottomRight, Symbol = symbol });
 
-			graphicsLayer.Graphics.Add(new Graphic() { Geometry = new MapPoint(0, 0), Symbol = new SimpleMarkerSymbol() { Size = 15, Color = Colors.Blue } });
+			graphicsOverlay.Graphics.Add(new Graphic() { 
+				Geometry = new MapPoint(0, 0), 
+				Symbol = new SimpleMarkerSymbol() { Size = 15, Color = Colors.Blue } 
+			});
 		}
     }
 }

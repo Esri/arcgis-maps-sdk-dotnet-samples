@@ -28,7 +28,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-130, 10, -70, 60));
+			MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-130, 10, -70, 60));
 
             _gpTask = new Geoprocessor(new Uri(ClipCountiesServiceUrl));
 
@@ -42,17 +42,17 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             try
             {
                 uiPanel.IsEnabled = false;
-                inputLayer.Graphics.Clear();
-                resultLayer.Graphics.Clear();
+				inputOverlay.Graphics.Clear();
+                resultsOverlay.Graphics.Clear();
 
-                foreach (var lyr in mapView.Map.Layers.OfType < GPResultImageLayer>())
-                    mapView.Map.Layers.Remove(lyr);
+                foreach (var lyr in MyMapView.Map.Layers.OfType < GPResultImageLayer>())
+                    MyMapView.Map.Layers.Remove(lyr);
 
                 //get the user's input line
-                var inputLine = await mapView.Editor.RequestShapeAsync(DrawShape.Polyline) as Polyline;
+                var inputLine = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polyline) as Polyline;
 
                 progress.Visibility = Visibility.Visible;
-                inputLayer.Graphics.Add(new Graphic() { Geometry = inputLine });
+				inputOverlay.Graphics.Add(new Graphic() { Geometry = inputLine });
 
                 var parameter = new GPInputParameter();
                 parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Input_Features", inputLine));
@@ -74,12 +74,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                             
                             GPResultImageLayer gpImageLayer = resultImageLayer;
                             gpImageLayer.Opacity = 0.5;
-                            mapView.Map.Layers.Add(gpImageLayer);
+                            MyMapView.Map.Layers.Add(gpImageLayer);
                             txtStatus.Text = "Greater than 500 features returned.  Results drawn using map service.";
                             return;
                         }
 
-                        resultLayer.Graphics.AddRange(gpLayer.FeatureSet.Features.OfType<Graphic>());
+						resultsOverlay.Graphics.AddRange(gpLayer.FeatureSet.Features.OfType<Graphic>());
                     }
                 }
             }

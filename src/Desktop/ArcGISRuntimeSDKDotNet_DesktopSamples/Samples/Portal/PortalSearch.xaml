@@ -155,7 +155,7 @@
             </Grid>
 
             <Grid x:Name="WebmapContent" Grid.ColumnSpan="2" Visibility="Collapsed" Background="#FF565656">
-                <esri:MapView x:Name="mapView" />
+                <esri:MapView x:Name="MyMapView" />
             </Grid>
         </Grid>
 

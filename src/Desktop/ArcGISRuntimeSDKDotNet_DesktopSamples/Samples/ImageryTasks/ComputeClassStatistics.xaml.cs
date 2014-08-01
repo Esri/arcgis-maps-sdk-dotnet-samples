@@ -24,18 +24,18 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            mapView.LayerLoaded += mapView_LayerLoaded;
+            MyMapView.LayerLoaded += MyMapView_LayerLoaded;
         }
 
         // Zooms to the image layer and starts accepting user points
-        private async void mapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
+        private async void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
         {
             if (e.Layer is ArcGISImageServiceLayer)
             {
                 if (e.Layer.FullExtent != null)
-                    await mapView.SetViewAsync(e.Layer.FullExtent);
+                    await MyMapView.SetViewAsync(e.Layer.FullExtent);
 
-                await AcceptClassPoints();
+                await AcceptClassPointsAsync();
             }
         }
 
@@ -45,13 +45,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             try
             {
                 progress.Visibility = Visibility.Visible;
-                if (mapView.Editor.IsActive)
-                    mapView.Editor.Cancel.Execute(null);
+                if (MyMapView.Editor.IsActive)
+                    MyMapView.Editor.Cancel.Execute(null);
 
                 var statsTask = new ComputeClassStatisticsTask(new Uri(imageLayer.ServiceUri));
 
                 var statsParam = new ComputeClassStatisticsParameters();
-                statsParam.ClassDescriptions = graphicsLayer.Graphics
+				statsParam.ClassDescriptions = graphicsOverlay.Graphics
                     .Select((g, idx) => new ClassDescription(idx, idx.ToString(), g.Geometry as Polygon)).ToList();
 
                 var result = await statsTask.ComputeClassStatisticsAsync(statsParam);
@@ -76,23 +76,23 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Reset the rendering rule for the image layer and restart accepting loop
         private async void ResetButton_Click(object sender, RoutedEventArgs e)
         {
-            graphicsLayer.Graphics.Clear();
+			graphicsOverlay.Graphics.Clear();
             imageLayer.RenderingRule = null;
-            await AcceptClassPoints();
+            await AcceptClassPointsAsync();
         }
 
         // Continually accepts user-entered points
         // - Buffered polygons are created from the points and added to the graphics layer
-        private async Task AcceptClassPoints()
+        private async Task AcceptClassPointsAsync()
         {
             try
             {
                 while (true)
                 {
-                    var point = await mapView.Editor.RequestPointAsync();
-                    var polygon = GeometryEngine.Buffer(point, mapView.Extent.Width * .01);
-                    var attr = new Dictionary<string, object>() { { "ID", graphicsLayer.Graphics.Count + 1 } };
-                    graphicsLayer.Graphics.Add(new Graphic(polygon, attr));
+                    var point = await MyMapView.Editor.RequestPointAsync();
+                    var polygon = GeometryEngine.Buffer(point, MyMapView.Extent.Width * .01);
+					var attr = new Dictionary<string, object>() { { "ID", graphicsOverlay.Graphics.Count + 1 } };
+					graphicsOverlay.Graphics.Add(new Graphic(polygon, attr));
                 }
             }
             catch (TaskCanceledException)

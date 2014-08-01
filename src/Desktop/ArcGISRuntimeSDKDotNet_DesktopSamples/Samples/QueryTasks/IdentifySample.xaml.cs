@@ -20,11 +20,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public IdentifySample()
         {
             InitializeComponent();
-			mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-15000000, 2000000, -7000000, 8000000));
+			MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-15000000, 2000000, -7000000, 8000000));
         }
 
         // Identify features at the click point
-        private async void mapView_MapViewTapped(object sender, MapViewInputEventArgs e)
+        private async void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
             try
             {
@@ -34,10 +34,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 graphicsLayer.Graphics.Clear();
                 graphicsLayer.Graphics.Add(new Graphic(e.Location));
 
-                IdentifyParameters identifyParams = new IdentifyParameters(e.Location, mapView.Extent, 2, (int)mapView.ActualHeight, (int)mapView.ActualWidth)
+                IdentifyParameters identifyParams = new IdentifyParameters(e.Location, MyMapView.Extent, 2, (int)MyMapView.ActualHeight, (int)MyMapView.ActualWidth)
                 {
                     LayerOption = LayerOption.Visible,
-                    SpatialReference = mapView.SpatialReference,
+                    SpatialReference = MyMapView.SpatialReference,
                 };
 
                 IdentifyTask identifyTask = new IdentifyTask(

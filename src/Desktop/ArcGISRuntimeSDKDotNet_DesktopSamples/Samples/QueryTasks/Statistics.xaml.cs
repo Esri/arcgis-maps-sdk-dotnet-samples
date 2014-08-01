@@ -104,7 +104,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             Query query = new Query("1=1")
             {
                 ReturnGeometry = true,
-                OutSpatialReference = mapView.SpatialReference,
+                OutSpatialReference = MyMapView.SpatialReference,
                 OutFields = new OutFields(new List<string> { "sub_region" })
             };
 

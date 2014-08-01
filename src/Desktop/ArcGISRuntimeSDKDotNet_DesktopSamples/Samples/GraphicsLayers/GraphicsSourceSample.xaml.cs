@@ -26,8 +26,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public GraphicsSourceSample()
         {
             InitializeComponent();
-            CreateGraphics();
-        }
+			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
+		}
+
+		private void MyMapView_NavigationCompleted(object sender, EventArgs e)
+		{
+			MyMapView.NavigationCompleted -= MyMapView_NavigationCompleted;
+			CreateGraphics();
+		}
 
         // Switch between pre-created graphics lists
         private void SwitchGraphicSourceButton_Click(object sender, RoutedEventArgs e)
@@ -36,14 +42,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             if (_graphicSourceIndex == _grahicsSources.Count)
                 _graphicSourceIndex = 0;
 
-            graphicsLayer.GraphicsSource = _grahicsSources[_graphicSourceIndex];
+			graphicsOverlay.GraphicsSource = _grahicsSources[_graphicSourceIndex];
         }
 
-        // Create three List<Graphic> objects with random graphics to serve as layer GraphicsSources
-        private async void CreateGraphics()
+        // Create three List<Graphic> objects with random graphics to serve as overlay GraphicsSources
+        private void CreateGraphics()
         {
-            await mapView.LayersLoadedAsync();
-
             _grahicsSources = new List<List<Graphic>>()
             {
                 new List<Graphic>(),
@@ -60,7 +64,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             }
 
             _graphicSourceIndex = 0;
-            graphicsLayer.GraphicsSource = _grahicsSources[_graphicSourceIndex];
+			graphicsOverlay.GraphicsSource = _grahicsSources[_graphicSourceIndex];
         }
 
         // Create a random graphic
@@ -76,9 +80,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Utility: Generate a random MapPoint within the current extent
         private MapPoint GetRandomMapPoint()
         {
-            double x = mapView.Extent.XMin + (_random.NextDouble() * mapView.Extent.Width);
-            double y = mapView.Extent.YMin + (_random.NextDouble() * mapView.Extent.Height);
-            return new MapPoint(x, y, mapView.SpatialReference);
+            double x = MyMapView.Extent.XMin + (_random.NextDouble() * MyMapView.Extent.Width);
+            double y = MyMapView.Extent.YMin + (_random.NextDouble() * MyMapView.Extent.Height);
+            return new MapPoint(x, y, MyMapView.SpatialReference);
         }
 
         // Utility: Generate a random System.Windows.Media.Color

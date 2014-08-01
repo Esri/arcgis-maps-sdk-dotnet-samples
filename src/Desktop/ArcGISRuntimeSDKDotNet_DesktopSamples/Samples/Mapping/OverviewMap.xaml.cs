@@ -18,25 +18,24 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-5, 20, 50, 65, SpatialReferences.Wgs84));
+			MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-5, 20, 50, 65, SpatialReferences.Wgs84));
 
-            mapView.ExtentChanged += mapView_ExtentChanged;
+            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 
-        private async void mapView_ExtentChanged(object sender, System.EventArgs e)
+        private async void MyMapView_ExtentChanged(object sender, System.EventArgs e)
         {
             // Update overview map graphic
-            var graphicslayer = overviewMap.Map.Layers.OfType<GraphicsLayer>().FirstOrDefault();
-            Graphic g = graphicslayer.Graphics.FirstOrDefault();
+			Graphic g = overviewOverlay.Graphics.FirstOrDefault();
             if (g == null) //first time
             {
                 g = new Graphic();
-                graphicslayer.Graphics.Add(g);
+				overviewOverlay.Graphics.Add(g);
             }
-            g.Geometry = mapView.Extent;
+            g.Geometry = MyMapView.Extent;
 
             // Adjust overview map scale
-            await overviewMap.SetViewAsync(mapView.Extent.GetCenter(), mapView.Scale * 15);
+            await overviewMap.SetViewAsync(MyMapView.Extent.GetCenter(), MyMapView.Scale * 15);
         }
     }
 }

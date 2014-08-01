@@ -28,7 +28,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-8985039, 4495835, -8114289, 4889487, SpatialReferences.WebMercator));
+			MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-8985039, 4495835, -8114289, 4889487, SpatialReferences.WebMercator));
 
             _gpTask = new Geoprocessor(
                 new Uri("http://sampleserver4.arcgisonline.com/ArcGIS/rest/services/HomelandSecurity/Incident_Data_Extraction/GPServer/Extract%20Data%20Task"));
@@ -60,24 +60,24 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                graphicsLayer.Graphics.Clear();
+				graphicsOverlay.Graphics.Clear();
 
                 Polygon aoi = null;
                 if (chkFreehand.IsChecked == true)
                 {
-                    var boundary = await mapView.Editor.RequestShapeAsync(DrawShape.Freehand) as Polyline;
+                    var boundary = await MyMapView.Editor.RequestShapeAsync(DrawShape.Freehand) as Polyline;
                     if (boundary.Parts.First().Count <= 1)
                         return;
 
-                    aoi = new Polygon(boundary.Parts, mapView.SpatialReference);
+                    aoi = new Polygon(boundary.Parts, MyMapView.SpatialReference);
                     aoi = GeometryEngine.Simplify(aoi) as Polygon;
                 }
                 else
                 {
-                    aoi = await mapView.Editor.RequestShapeAsync(DrawShape.Polygon) as Polygon;
+                    aoi = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon) as Polygon;
                 }
 
-                graphicsLayer.Graphics.Add(new Graphic(aoi));
+				graphicsOverlay.Graphics.Add(new Graphic(aoi));
             }
             catch (Exception ex)
             {
@@ -97,12 +97,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 if (layersToClip == null || layersToClip.Count == 0)
                     throw new ApplicationException("Please select layers to extract data from.");
 
-                if (graphicsLayer.Graphics.Count == 0)
+				if (graphicsOverlay.Graphics.Count == 0)
                     throw new ApplicationException("Please digitize an area of interest polygon on the map.");
 
                 var parameter = new GPInputParameter() { OutSpatialReference = SpatialReferences.WebMercator };
                 parameter.GPParameters.Add(new GPMultiValue<GPString>("Layers_to_Clip", layersToClip));
-                parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Area_of_Interest", graphicsLayer.Graphics[0].Geometry));
+				parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Area_of_Interest", graphicsOverlay.Graphics[0].Geometry));
                 parameter.GPParameters.Add(new GPString("Feature_Format", (string)comboFormat.SelectedItem));
 
                 var result = await SubmitAndPollStatusAsync(parameter);

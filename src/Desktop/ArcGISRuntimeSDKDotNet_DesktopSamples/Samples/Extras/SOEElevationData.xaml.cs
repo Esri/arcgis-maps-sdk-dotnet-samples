@@ -55,7 +55,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             try
             {
                 // Get user rectangle
-                var rect = await mapView.Editor.RequestShapeAsync(DrawShape.Envelope) as Envelope;
+				var rect = await MyMapView.Editor.RequestShapeAsync(DrawShape.Envelope) as Envelope;
                 if (rect.Height == 0 || rect.Width == 0)
                     throw new ApplicationException("Please click and drag a box to define an extent.");
 
@@ -82,7 +82,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             SOEurl += string.Format(CultureInfo.InvariantCulture,
                 "Extent={{\"xmin\" : {0}, \"ymin\" : {1}, \"xmax\" : {2}, \"ymax\" :{3},\"spatialReference\" : {{\"wkid\" : {4}}}}}&Rows={5}&Columns={6}&f=json",
                 rect.XMin, rect.YMin, rect.XMax, rect.YMax,
-                mapView.SpatialReference.Wkid, HeightTextBox.Text, WidthTextBox.Text);
+				MyMapView.SpatialReference.Wkid, HeightTextBox.Text, WidthTextBox.Text);
 
             /* 
              * e.g. 

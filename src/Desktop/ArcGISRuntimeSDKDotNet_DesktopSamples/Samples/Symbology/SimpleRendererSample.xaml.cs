@@ -22,13 +22,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            mapView.ExtentChanged += mapView_ExtentChanged;
+            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 
         // Start map interaction
-        private async void mapView_ExtentChanged(object sender, EventArgs e)
+        private async void MyMapView_ExtentChanged(object sender, EventArgs e)
         {
-            mapView.ExtentChanged -= mapView_ExtentChanged;
+            MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
             await AcceptPointsAsync();
         }
 
@@ -43,9 +43,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                while (mapView.Extent != null)
+                while (MyMapView.Extent != null)
                 {
-                    var point = await mapView.Editor.RequestPointAsync();
+                    var point = await MyMapView.Editor.RequestPointAsync();
                     graphicsLayer.Graphics.Add(new Graphic(point));
                 }
             }

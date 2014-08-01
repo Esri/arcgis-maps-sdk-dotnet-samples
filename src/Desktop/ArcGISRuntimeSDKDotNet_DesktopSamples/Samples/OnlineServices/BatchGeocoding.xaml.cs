@@ -51,7 +51,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             {
                 progress.Visibility = Visibility.Visible;
                 graphicsLayer.Graphics.Clear();
-                mapView.Overlays.Clear();
+                MyMapView.Overlays.Clear();
 
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
 
@@ -62,7 +62,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
                 Dictionary<string, string> parameters = new Dictionary<string, string>();
                 parameters["f"] = "json";
-                parameters["outSR"] = mapView.SpatialReference.Wkid.ToString();
+                parameters["outSR"] = MyMapView.SpatialReference.Wkid.ToString();
                 parameters["addresses"] = addresses;
 
                 ArcGISHttpClient httpClient = new ArcGISHttpClient();
@@ -75,7 +75,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 foreach (var candidate in candidates.OfType<Dictionary<string, object>>())
                 {
                     var location = candidate["location"] as Dictionary<string, object>;
-                    MapPoint point = new MapPoint(Convert.ToDouble(location["x"]), Convert.ToDouble(location["y"]), mapView.SpatialReference);
+                    MapPoint point = new MapPoint(Convert.ToDouble(location["x"]), Convert.ToDouble(location["y"]), MyMapView.SpatialReference);
                     graphicsLayer.Graphics.Add(new Graphic(point));
 
                     // Create a new templated overlay for the geocoded address
@@ -83,10 +83,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     overlay.Template = layoutGrid.Resources["MapTipTemplate"] as ControlTemplate;
                     overlay.DataContext = candidate["attributes"] as Dictionary<string, object>;
 					MapView.SetViewOverlayAnchor(overlay, point);
-                    mapView.Overlays.Add(overlay);
+                    MyMapView.Overlays.Add(overlay);
                 }
 
-                await mapView.SetViewAsync(GeometryEngine.Union(graphicsLayer.Graphics.Select(g => g.Geometry)).Extent.Expand(1.5));
+                await MyMapView.SetViewAsync(GeometryEngine.Union(graphicsLayer.Graphics.Select(g => g.Geometry)).Extent.Expand(1.5));
             }
             catch (Exception ex)
             {

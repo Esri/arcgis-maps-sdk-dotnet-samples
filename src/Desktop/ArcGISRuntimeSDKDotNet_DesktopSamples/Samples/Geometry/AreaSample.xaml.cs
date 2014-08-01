@@ -18,38 +18,35 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private const double toMilesConversion = 0.0006213700922;
         private const double toSqMilesConversion = 0.0000003861003;
 
-        private GraphicsLayer graphicsLayer;
-
         /// <summary>Construct Area sample control</summary>
         public AreaSample()
         {
             InitializeComponent();
 
-			var initialExtent = new Envelope(-130, 20, -65, 55, SpatialReferences.Wgs84);
+			MyMapView.Map.InitialViewpoint = new ViewpointExtent(
+				new Envelope(-130, 20, -65, 55, SpatialReferences.Wgs84));
 
-			mapView.Map.InitialViewpoint = new Viewpoint(initialExtent);
-            graphicsLayer = (GraphicsLayer)mapView.Map.Layers["graphicsLayer"];
-			mapView.ExtentChanged += mapView_ExtentChanged; 
+			MyMapView.ExtentChanged += MyMapView_ExtentChanged; 
         }
 
-		private async void mapView_ExtentChanged(object sender, System.EventArgs e)
+		private async void MyMapView_ExtentChanged(object sender, System.EventArgs e)
 		{
-			mapView.ExtentChanged -= mapView_ExtentChanged;
-			await doCalculateAreaAndLength();
+			MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
+			await DoCalculateAreaAndLengthAsync();
 		}
 
-        private async Task doCalculateAreaAndLength()
+        private async Task DoCalculateAreaAndLengthAsync()
         {
             try
             {
                 // Wait for user to draw
-                var geom = await mapView.Editor.RequestShapeAsync(DrawShape.Polygon);
+                var geom = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon);
 
                 // show geometry on map
-                graphicsLayer.Graphics.Clear();
+				AreaOverlay.Graphics.Clear();
 
                 var graphic = new Graphic { Geometry = geom, Symbol = LayoutRoot.Resources["DefaultFillSymbol"] as Symbol };
-                graphicsLayer.Graphics.Add(graphic);
+				AreaOverlay.Graphics.Add(graphic);
 
                 // Calculate results
                 var areaPlanar = GeometryEngine.Area(geom);
@@ -75,20 +72,20 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private async void CancelCurrent_Click(object sender, RoutedEventArgs e)
         {
-            mapView.Editor.Cancel.Execute(null);
+            MyMapView.Editor.Cancel.Execute(null);
             ResetUI();
-            await doCalculateAreaAndLength();
+			await DoCalculateAreaAndLengthAsync();
         }
 
         private async void RestartButton_Click(object sender, RoutedEventArgs e)
         {
             ResetUI();
-            await doCalculateAreaAndLength();
+			await DoCalculateAreaAndLengthAsync();
         }
 
         private void ResetUI()
         {
-            graphicsLayer.Graphics.Clear();
+			AreaOverlay.Graphics.Clear();
             Instructions.Visibility = Visibility.Visible;
             Results.Visibility = Visibility.Collapsed;
         }

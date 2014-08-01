@@ -1,7 +1,6 @@
 ﻿using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.LocalServices;
 using System;
-using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,10 +24,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             InitializeComponent();
 
-            CreateLocalServiceAndDynamicLayer();
+            var _ = CreateLocalServiceAndDynamicLayer();
         }
 
-        public async void CreateLocalServiceAndDynamicLayer() 
+        public async Task CreateLocalServiceAndDynamicLayer() 
         {
             LocalMapService localMapService = new LocalMapService(@"..\..\..\..\..\samples-data\maps\water-distribution-network.mpk");
 

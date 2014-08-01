@@ -90,8 +90,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             try
             {
-                MapPoint pointOne = new MapPointBuilder(line.Parts[0][0]).ToGeometry();
-				MapPoint pointTwo = new MapPointBuilder(line.Parts[0][1]).ToGeometry();
+                MapPoint pointOne = line.Parts[0][0];
+				MapPoint pointTwo =line.Parts[0][1];
 
                 var parameters = new MensurationLengthParameters()
                 {
@@ -114,8 +114,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             try
             {
-				MapPoint pointOne = new MapPointBuilder(line.Parts[0][0]).ToGeometry();
-				MapPoint pointTwo = new MapPointBuilder(line.Parts[0][1]).ToGeometry();
+				MapPoint pointOne = line.Parts[0][0];
+				MapPoint pointTwo = line.Parts[0][1];
 
                 var parameters = new MensurationHeightParameters()
                 {
@@ -137,8 +137,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             try
             {
-				MapPoint pointOne = new MapPointBuilder(line.Parts[0][0]).ToGeometry();
-				MapPoint pointTwo = new MapPointBuilder(line.Parts[0][1]).ToGeometry();
+				MapPoint pointOne = line.Parts[0][0];
+				MapPoint pointTwo = line.Parts[0][1];
 
                 var parameters = new MensurationHeightParameters()
                 {
@@ -160,8 +160,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             try
             {
-				MapPoint pointOne = new MapPointBuilder(line.Parts[0][0]).ToGeometry();
-				MapPoint pointTwo = new MapPointBuilder(line.Parts[0][1]).ToGeometry();
+				MapPoint pointOne = line.Parts[0][0];
+				MapPoint pointTwo = line.Parts[0][1];
 
                 var parameters = new MensurationHeightParameters()
                 {
@@ -194,7 +194,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
-            graphicsLayer.Graphics.Clear();
+			graphicsOverlay.Graphics.Clear();
         }
 
         // Retrieve the given shape type from the user
@@ -202,11 +202,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                graphicsLayer.Graphics.Clear();
+				graphicsOverlay.Graphics.Clear();
 
-                var shape = await mapView.Editor.RequestShapeAsync(drawShape, symbol);
+                var shape = await MyMapView.Editor.RequestShapeAsync(drawShape, symbol);
 
-                graphicsLayer.Graphics.Add(new Graphic(shape, symbol));
+				graphicsOverlay.Graphics.Add(new Graphic(shape, symbol));
                 return shape;
             }
             catch (Exception ex)

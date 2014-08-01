@@ -12,7 +12,7 @@ using System.Windows.Controls;
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
-    /// Example of using the GeometryEngine.Cut method to cut feature geometries with a given polyline. To use this sample, the user draws a cut polyline intersecting the feature polygons and the system then cuts the intersecting feature geometries and displays the resulting polygons in a graphics layer on the map.
+    /// Example of using the GeometryEngine.Cut method to cut feature geometries with a given polyline. To use this sample, the user draws a cut polyline intersecting the feature polygons and the system then cuts the intersecting feature geometries and displays the resulting polygons in a graphics overlay on the map.
     /// </summary>
     /// <title>Cut</title>
 	/// <category>Geometry</category>
@@ -32,7 +32,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             _cutLineSymbol = layoutGrid.Resources["CutLineSymbol"] as Symbol;
             _cutFillSymbol = layoutGrid.Resources["CutFillSymbol"] as Symbol;
 
-            var task = CreateFeatureLayersAsync();
+            var _ = CreateFeatureLayersAsync();
         }
 
         // Creates a feature layer from a local .geodatabase file
@@ -44,7 +44,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
                 var table = gdb.FeatureTables.First(ft => ft.Name == "US-States");
                 _statesLayer = new FeatureLayer() { ID = table.Name, FeatureTable = table };
-                mapView.Map.Layers.Insert(1, _statesLayer);
+                MyMapView.Map.Layers.Add(_statesLayer);
             }
             catch (Exception ex)
             {
@@ -57,10 +57,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                resultGraphics.Graphics.Clear();
+				resultsOverlay.Graphics.Clear();
 
                 // wait for user to draw cut line
-                var cutLine = await mapView.Editor.RequestShapeAsync(DrawShape.Polyline, _cutLineSymbol) as Polyline;
+                var cutLine = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polyline, _cutLineSymbol) as Polyline;
 
                 // get intersecting features from the feature layer
                 SpatialQueryFilter filter = new SpatialQueryFilter();
@@ -76,7 +76,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     .SelectMany(state => GeometryEngine.Cut(state, cutLine))
                     .Select(geo => new Graphic(geo, _cutFillSymbol));
 
-                resultGraphics.Graphics.AddRange(cutGraphics);
+				resultsOverlay.Graphics.AddRange(cutGraphics);
             }
             catch (TaskCanceledException)
             {

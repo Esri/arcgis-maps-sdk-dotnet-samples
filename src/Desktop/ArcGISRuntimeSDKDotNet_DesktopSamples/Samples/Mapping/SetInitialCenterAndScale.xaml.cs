@@ -15,7 +15,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             InitializeComponent();
 
 			// Note: uncomment the following to set the initial center/scale of the map in code.
-			//mapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(new MapPoint(-117.15,32.705,SpatialReferences.Wgs84), 50000); 
+			//MyMapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(new MapPoint(-117.15,32.705,SpatialReferences.Wgs84), 50000); 
         }
     }
 }

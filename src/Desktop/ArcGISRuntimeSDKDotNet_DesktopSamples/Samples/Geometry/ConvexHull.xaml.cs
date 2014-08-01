@@ -27,30 +27,30 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             _pointSymbol = (Symbol)layoutGrid.Resources["PointSymbol"];
             _polygonSymbol = (Symbol)layoutGrid.Resources["ConvexHullSymbol"];
 
-            DrawPoints();
+            var _ = DrawPointsAsync();
         }
 
         // Continuosly accepts new points from the user
-        private async void DrawPoints()
+        private async Task DrawPointsAsync()
         {
             try
             {
-                await mapView.LayersLoadedAsync();
+                await MyMapView.LayersLoadedAsync();
 
-                while (mapView.Extent != null)
+                while (MyMapView.Extent != null)
                 {
-                    var point = await mapView.Editor.RequestPointAsync();
+                    var point = await MyMapView.Editor.RequestPointAsync();
 
                     // reset graphics layers if we've already created a convex hull polygon
-                    if (convexHullGraphics.Graphics.Count > 0)
+                    if (convexHullGraphicsOverlay.Graphics.Count > 0)
                     {
-                        inputGraphics.Graphics.Clear();
-                        convexHullGraphics.Graphics.Clear();
+                        inputGraphicsOverlay.Graphics.Clear();
+                        convexHullGraphicsOverlay.Graphics.Clear();
                     }
 
-                    inputGraphics.Graphics.Add(new Graphic(point, _pointSymbol));
+                    inputGraphicsOverlay.Graphics.Add(new Graphic(point, _pointSymbol));
 
-                    if (inputGraphics.Graphics.Count > 2)
+                    if (inputGraphicsOverlay.Graphics.Count > 2)
                         btnConvexHull.IsEnabled = true;
                 }
             }
@@ -68,8 +68,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                var convexHull = GeometryEngine.ConvexHull(inputGraphics.Graphics.Select(g => g.Geometry));
-                convexHullGraphics.Graphics.Add(new Graphic(convexHull, _polygonSymbol));
+                var convexHull = GeometryEngine.ConvexHull(inputGraphicsOverlay.Graphics.Select(g => g.Geometry));
+				inputGraphicsOverlay.Graphics.Add(new Graphic(convexHull, _polygonSymbol));
 
                 btnConvexHull.IsEnabled = false;
             }

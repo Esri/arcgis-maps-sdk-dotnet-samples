@@ -27,8 +27,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public GraphicsLayerSelection()
         {
             InitializeComponent();
-            CreateGraphics();
+			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
         }
+
+		private void MyMapView_NavigationCompleted(object sender, EventArgs e)
+		{
+			MyMapView.NavigationCompleted -= MyMapView_NavigationCompleted;
+			CreateGraphics();
+		}
 
         // Remove selected graphics from graphics layer selection
         private async void AddSelectButton_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -75,7 +81,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                graphicsLayer.ClearSelection();
+				graphicsOverlay.ClearSelection();
             }
             catch (Exception ex)
             {
@@ -86,23 +92,21 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Retrieve a user click point and return hit tested graphics
         private async Task<IEnumerable<Graphic>> FindIntersectingGraphicsAsync()
         {
-            var mapRect = await mapView.Editor.RequestShapeAsync(DrawShape.Envelope) as Envelope;
+            var mapRect = await MyMapView.Editor.RequestShapeAsync(DrawShape.Envelope) as Envelope;
 
             Rect winRect = new Rect(
-                mapView.LocationToScreen(new MapPoint(mapRect.XMin, mapRect.YMax, mapView.SpatialReference)),
-                mapView.LocationToScreen(new MapPoint(mapRect.XMax, mapRect.YMin, mapView.SpatialReference)));
+                MyMapView.LocationToScreen(new MapPoint(mapRect.XMin, mapRect.YMax, MyMapView.SpatialReference)),
+                MyMapView.LocationToScreen(new MapPoint(mapRect.XMax, mapRect.YMin, MyMapView.SpatialReference)));
 
-            return await graphicsLayer.HitTestAsync(mapView, winRect, MAX_GRAPHICS);
+			return await graphicsOverlay.HitTestAsync(MyMapView, winRect, MAX_GRAPHICS);
         }
 
-        // Add new random graphics to the graphics layer
-        private async void CreateGraphics()
+        // Add new random graphics to the graphics overlay
+        private void CreateGraphics()
         {
-            await mapView.LayersLoadedAsync();
-
             for (int n = 1; n <= MAX_GRAPHICS; ++n)
             {
-                graphicsLayer.Graphics.Add(CreateRandomGraphic());
+				graphicsOverlay.Graphics.Add(CreateRandomGraphic());
             }
         }
 
@@ -124,9 +128,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Utility: Generate a random MapPoint within the current extent
         private MapPoint GetRandomMapPoint()
         {
-            double x = mapView.Extent.XMin + (_random.NextDouble() * mapView.Extent.Width);
-            double y = mapView.Extent.YMin + (_random.NextDouble() * mapView.Extent.Height);
-            return new MapPoint(x, y, mapView.SpatialReference);
+            double x = MyMapView.Extent.XMin + (_random.NextDouble() * MyMapView.Extent.Width);
+            double y = MyMapView.Extent.YMin + (_random.NextDouble() * MyMapView.Extent.Height);
+            return new MapPoint(x, y, MyMapView.SpatialReference);
         }
     }
 }

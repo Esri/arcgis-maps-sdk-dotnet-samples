@@ -35,7 +35,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 			try
 			{
 				// wait until all layers are loaded
-				await mapView.LayersLoadedAsync();
+				await MyMapView.LayersLoadedAsync();
 			}
 			catch (System.Exception ex)
 			{
@@ -43,7 +43,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 				return;
 			}
 			// Get group layer from Map and set list items source
-			_hydrographicGroupLayer = mapView.Map.Layers.OfType<GroupLayer>().First();
+			_hydrographicGroupLayer = MyMapView.Map.Layers.OfType<GroupLayer>().First();
 			s57CellList.ItemsSource = _hydrographicGroupLayer.ChildLayers;
 			s57CellList.SelectedIndex = 0;
 
@@ -54,7 +54,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 				extent = extent.Union(layer.FullExtent);
 
 			// Zoom to full extent
-			await mapView.SetViewAsync(extent);
+			await MyMapView.SetViewAsync(extent);
 
 			// Enable controls
 			addCellButton.IsEnabled = true;
@@ -63,7 +63,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 		}
 
 		// Show error if loading layers fail
-		private void mapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
+		private void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
 		{
 			if (e.LoadError == null)
 				return;
@@ -108,7 +108,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 			if (selectedLayer == null)
 				return;
 
-			ZoomToCell(await selectedLayer.GetCellAsync(mapView));
+			ZoomToCell(await selectedLayer.GetCellAsync(MyMapView));
 		}
 
 		private void ZoomToCell(S57Cell currentCell)
@@ -118,7 +118,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 
 			if (currentCell.Extent != null)
 			{
-				mapView.SetView(currentCell.Extent);
+				MyMapView.SetView(currentCell.Extent);
 			}
 		}
 
@@ -128,7 +128,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 			if (selectedLayer == null)
 				return;
 
-			cellInfoDisplay.DataContext = await selectedLayer.GetCellAsync(mapView);
+			cellInfoDisplay.DataContext = await selectedLayer.GetCellAsync(MyMapView);
 		}
 
 		private void RemoveSelectedCellsButton_Click(object sender, System.Windows.RoutedEventArgs e)

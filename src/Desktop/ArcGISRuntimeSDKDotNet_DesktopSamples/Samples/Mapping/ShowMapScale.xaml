@@ -7,7 +7,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
              >
     <Grid>
-        <esri:MapView x:Name="mapView" WrapAround="True">
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
             <esri:Map>
                 <esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
@@ -18,7 +18,7 @@
                 HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10" >
             <TextBlock Name="MapScaleTextBlock" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="Black">
                 <Run>Map Scale: 1:</Run>
-                <TextBlock Text="{Binding ElementName=mapView, StringFormat={}{0:0}, Path=Scale}" FontSize="12" FontWeight="Bold" Foreground="Black"/>
+                <TextBlock Text="{Binding ElementName=MyMapView, StringFormat={}{0:0}, Path=Scale}" FontSize="12" FontWeight="Bold" Foreground="Black"/>
             </TextBlock>
         </Border>
     </Grid>

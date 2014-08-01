@@ -32,18 +32,18 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             _isMapReady = false;
             _directionPointSymbol = layoutGrid.Resources["directionPointSymbol"] as Symbol;
-            mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-13044000, 3855000, -13040000, 3858000, SpatialReferences.WebMercator));
-            mapView.ExtentChanged += mapView_ExtentChanged;
+            MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-13044000, 3855000, -13040000, 3858000, SpatialReferences.WebMercator));
+            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 
         // Make sure the map is ready for user interaction
-        private async void mapView_ExtentChanged(object sender, EventArgs e)
+        private async void MyMapView_ExtentChanged(object sender, EventArgs e)
         {
             try
             {
-                mapView.ExtentChanged -= mapView_ExtentChanged;
+                MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
 
-                await mapView.LayersLoadedAsync();
+                await MyMapView.LayersLoadedAsync();
                 _isMapReady = true;
             }
             catch (Exception ex)
@@ -53,7 +53,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         }
 
         // Get user Stop points
-        private void mapView_MapViewTapped(object sender, MapViewInputEventArgs e)
+        private void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
             if (!_isMapReady)
                 return;
@@ -80,7 +80,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         }
 
         // Calculate the route
-        private async void mapView_MapViewDoubleTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
+        private async void MyMapView_MapViewDoubleTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
         {
             if (!_isMapReady || stopsLayer.Graphics.Count() < 2)
                 return;
@@ -96,11 +96,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     _routeTask = await Task.Run<LocalRouteTask>(() => new LocalRouteTask(_localRoutingDatabase, _networkName));
 
                 RouteParameters routeParams = await _routeTask.GetDefaultParametersAsync();
-                routeParams.OutSpatialReference = mapView.SpatialReference;
+                routeParams.OutSpatialReference = MyMapView.SpatialReference;
                 routeParams.ReturnDirections = true;
                 routeParams.DirectionsLengthUnit = LinearUnits.Miles;
                 routeParams.DirectionsLanguage = new CultureInfo("en-US");
-                routeParams.Stops = new FeaturesAsFeature(stopsLayer.Graphics) { SpatialReference = mapView.SpatialReference };
+                routeParams.Stops = new FeaturesAsFeature(stopsLayer.Graphics) { SpatialReference = MyMapView.SpatialReference };
 
                 var routeResult = await _routeTask.SolveAsync(routeParams);
                 if (routeResult == null || routeResult.Routes == null || routeResult.Routes.Count() == 0)
@@ -115,7 +115,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var totalLength = route.RouteDirections.Select(rd => rd.GetLength(LinearUnits.Miles)).Sum();
                 txtRouteTotals.Text = string.Format("Time: {0:h':'mm':'ss} / Length: {1:0.00} mi", totalTime, totalLength);
 
-                await mapView.SetViewAsync(route.RouteFeature.Geometry.Extent.Expand(1.2));
+                await MyMapView.SetViewAsync(route.RouteFeature.Geometry.Extent.Expand(1.2));
             }
             catch (AggregateException ex)
             {

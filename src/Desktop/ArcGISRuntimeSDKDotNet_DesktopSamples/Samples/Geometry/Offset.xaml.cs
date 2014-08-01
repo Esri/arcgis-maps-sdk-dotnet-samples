@@ -26,9 +26,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-9275076, 5253226, -9274274, 5253886, SpatialReferences.WebMercator));
-            parcelGraphicsLayer = mapView.Map.Layers["ParcelsGraphicsLayer"] as GraphicsLayer;
-            offsetGraphicsLayer = mapView.Map.Layers["OffsetGraphicsLayer"] as GraphicsLayer;
+			MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-9275076, 5253226, -9274274, 5253886, SpatialReferences.WebMercator));
+            parcelGraphicsLayer = MyMapView.Map.Layers["ParcelsGraphicsLayer"] as GraphicsLayer;
+            offsetGraphicsLayer = MyMapView.Map.Layers["OffsetGraphicsLayer"] as GraphicsLayer;
 
             InitializeOffsetTypes();
             OffsetDistanceSlider.ValueChanged += Slider_ValueChanged;
@@ -62,11 +62,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 ResetButton.IsEnabled = false;
                 offsetGraphicsLayer.Graphics.Clear();
 
-                var pointGeom = await mapView.Editor.RequestPointAsync();
-                var screenPnt = mapView.LocationToScreen(pointGeom);
+                var pointGeom = await MyMapView.Editor.RequestPointAsync();
+                var screenPnt = MyMapView.LocationToScreen(pointGeom);
 
                 selectedParcelGraphic = await
-                    parcelGraphicsLayer.HitTestAsync(mapView, screenPnt);
+                    parcelGraphicsLayer.HitTestAsync(MyMapView, screenPnt);
 
                 DoOffset();
             }
@@ -107,7 +107,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             await SelectParcelForOffset();
         }
 
-        private async void mapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
+        private async void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
         {
             if (e.Layer.ID == "ParcelsGraphicsLayer")
             {
@@ -122,12 +122,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                             new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/TaxParcel/AssessorsParcelCharacteristics/MapServer/1"));
 
                         //Create a geometry to use as the extent within which parcels will be returned
-                        var contractRatio = mapView.Extent.Width / 6;
+                        var contractRatio = MyMapView.Extent.Width / 6;
                         var extentGeometry = new Envelope(-83.3188395774275, 42.61428312652851, -83.31295664068958, 42.61670913269855, SpatialReferences.Wgs84);
 
                         Query query = new Query(extentGeometry);
                         query.ReturnGeometry = true;
-                        query.OutSpatialReference = mapView.SpatialReference;
+                        query.OutSpatialReference = MyMapView.SpatialReference;
 
                         var results = await queryTask.ExecuteAsync(query, CancellationToken.None);
                         foreach (Graphic g in results.FeatureSet.Features)

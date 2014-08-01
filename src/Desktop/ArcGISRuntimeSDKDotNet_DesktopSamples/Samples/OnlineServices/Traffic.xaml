@@ -4,7 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
              xmlns:local="clr-namespace:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples">
     <Grid x:Name="layoutGrid">
-        <esri:MapView x:Name="mapView" MapViewTapped="mapView_MapViewTapped">
+        <esri:MapView x:Name="MyMapView" MapViewTapped="MyMapView_MapViewTapped">
 			<esri:Map InitialViewpoint="-13230694,3941779,-12928937,40954867,3857">
                 <esri:ArcGISTiledMapServiceLayer DisplayName="World Topo (Basemap)"
                     ServiceUri="http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />

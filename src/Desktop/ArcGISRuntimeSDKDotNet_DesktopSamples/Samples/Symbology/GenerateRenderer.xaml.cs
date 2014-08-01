@@ -28,17 +28,17 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             var lineSymbol = new SimpleLineSymbol() { Color = Colors.Black, Width = 0.5 };
             _baseSymbol = new SimpleFillSymbol() { Color = Colors.Transparent, Outline = lineSymbol, Style = SimpleFillStyle.Solid };
 
-            mapView.ExtentChanged += mapView_ExtentChanged;
+            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 
         // Load data - set initial renderer after the map has an extent and feature layer loaded
-        private async void mapView_ExtentChanged(object sender, EventArgs e)
+        private async void MyMapView_ExtentChanged(object sender, EventArgs e)
         {
             try
             {
-                mapView.ExtentChanged -= mapView_ExtentChanged;
+                MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
 
-                await mapView.LayersLoadedAsync();
+                await MyMapView.LayersLoadedAsync();
 
                 comboField.SelectedIndex = 0;
             }

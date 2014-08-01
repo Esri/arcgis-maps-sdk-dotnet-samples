@@ -13,18 +13,23 @@
 
         <esri:MapView x:Name="MyMapView" MapViewTapped="MyMapView_MapViewTapped">
 			<esri:Map InitialViewpoint="-13637527,4545455,-13622931,4552890,3857">
-                <esri:ArcGISTiledMapServiceLayer
+				<esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay x:Name="RouteGraphicsOverlay" Renderer="{StaticResource RouteLayerRenderer}" />
+				<esri:GraphicsOverlay x:Name="StopGraphicsOverlay"  />
+				<esri:GraphicsOverlay x:Name="BarrierGraphicsOverlay" Renderer="{StaticResource BarrierLayerRenderer}"/>
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
 
-                <esri:GraphicsLayer ID="RouteGraphicsLayer" Renderer="{StaticResource RouteLayerRenderer}" />
-                <esri:GraphicsLayer ID="StopGraphicsLayer" />
-                <esri:GraphicsLayer ID="BarrierGraphicsLayer" Renderer="{StaticResource BarrierLayerRenderer}" />
-            </esri:Map>
-        </esri:MapView>
-
-        <Border Background="White" BorderBrush="Black" BorderThickness="1" Width="250"
-                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
-            <StackPanel>
+		<Border Background="White" BorderBrush="Black" BorderThickness="1"
+				HorizontalAlignment="Right" VerticalAlignment="Top"
+				Margin="30" Padding="20" Width="250">
+			<Border.Effect>
+				<DropShadowEffect/>
+			</Border.Effect>
+			<StackPanel>
                 <TextBlock Text="Tap stop and barrier points on the map to see the calculated route." 
                            TextWrapping="Wrap" />
 

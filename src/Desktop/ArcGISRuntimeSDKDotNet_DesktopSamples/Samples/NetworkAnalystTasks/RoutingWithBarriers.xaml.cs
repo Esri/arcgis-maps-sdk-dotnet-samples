@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalyst;
@@ -21,9 +22,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     {
         private const string OnlineRoutingService = "http://tasks.arcgisonline.com/ArcGIS/rest/services/NetworkAnalysis/ESRI_Route_NA/NAServer/Route";
 
-        private GraphicsLayer _routeGraphicsLayer;
-        private GraphicsLayer _stopGraphicsLayer;
-        private GraphicsLayer _barrierGraphicsLayer;
+        private GraphicsOverlay _routeGraphicsOverlay;
+		private GraphicsOverlay _stopGraphicsOverlay;
+		private GraphicsOverlay _barrierGraphicsOverlay;
 
         private OnlineRouteTask _routeTask;
         private RouteParameters _routeParams;
@@ -32,14 +33,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            _routeGraphicsLayer = MyMapView.Map.Layers["RouteGraphicsLayer"] as GraphicsLayer;
-            _stopGraphicsLayer = MyMapView.Map.Layers["StopGraphicsLayer"] as GraphicsLayer;
-            _barrierGraphicsLayer = MyMapView.Map.Layers["BarrierGraphicsLayer"] as GraphicsLayer;
+            _routeGraphicsOverlay = RouteGraphicsOverlay;
+            _stopGraphicsOverlay = StopGraphicsOverlay;
+            _barrierGraphicsOverlay = BarrierGraphicsOverlay;
 
-            SetupRouteTask();
+            var _ = SetupRouteTaskAsync();
         }
 
-        private async Task SetupRouteTask()
+        private async Task SetupRouteTaskAsync()
         {
             _routeTask = new OnlineRouteTask(new Uri(OnlineRoutingService));
 			if (_routeTask != null)
@@ -58,9 +59,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
-            _routeGraphicsLayer.Graphics.Clear();
-            _stopGraphicsLayer.Graphics.Clear();
-            _barrierGraphicsLayer.Graphics.Clear();
+            _routeGraphicsOverlay.Graphics.Clear();
+            _stopGraphicsOverlay.Graphics.Clear();
+            _barrierGraphicsOverlay.Graphics.Clear();
         }
 
         private async void MyMapView_MapViewTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
@@ -69,12 +70,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             {
                 if (rbStops.IsChecked == true)
                 {
-                    var graphicIdx = _stopGraphicsLayer.Graphics.Count + 1;
-                    _stopGraphicsLayer.Graphics.Add(CreateStopGraphic(e.Location, graphicIdx));
+                    var graphicIdx = _stopGraphicsOverlay.Graphics.Count + 1;
+                    _stopGraphicsOverlay.Graphics.Add(CreateStopGraphic(e.Location, graphicIdx));
                 }
                 else
                 {
-                    _barrierGraphicsLayer.Graphics.Add(new Graphic(e.Location));
+                    _barrierGraphicsOverlay.Graphics.Add(new Graphic(e.Location));
                 }
 
                 await SolveRoute();
@@ -87,25 +88,25 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         public async Task SolveRoute()
         {
-            if (_stopGraphicsLayer.Graphics.Count < 2)
+            if (_stopGraphicsOverlay.Graphics.Count < 2)
                 return;
 
             try
             {
                 progress.Visibility = Visibility.Visible;
 
-                _routeParams.Stops = new FeaturesAsFeature(_stopGraphicsLayer.Graphics);
-                _routeParams.PointBarriers = new FeaturesAsFeature(_barrierGraphicsLayer.Graphics);
+                _routeParams.Stops = new FeaturesAsFeature(_stopGraphicsOverlay.Graphics);
+                _routeParams.PointBarriers = new FeaturesAsFeature(_barrierGraphicsOverlay.Graphics);
                 _routeParams.OutSpatialReference = MyMapView.SpatialReference;
 
                 RouteResult routeResult = await _routeTask.SolveAsync(_routeParams);
 
                 if (routeResult.Routes.Count > 0)
                 {
-                    _routeGraphicsLayer.Graphics.Clear();
+                    _routeGraphicsOverlay.Graphics.Clear();
 
                     var route = routeResult.Routes.First().RouteFeature;
-                    _routeGraphicsLayer.Graphics.Add(new Graphic(route.Geometry));
+                    _routeGraphicsOverlay.Graphics.Add(new Graphic(route.Geometry));
                 }
             }
             catch (AggregateException ex)

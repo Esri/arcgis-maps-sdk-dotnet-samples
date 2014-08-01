@@ -31,11 +31,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
 			MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-13044000, 3855000, -13040000, 3858000, SpatialReferences.WebMercator));
 
-            SetupRendererSymbols();
+            var _ = SetupRendererSymbolsAsync();
         }
 
         // Setup marker symbol and renderer
-        private async void SetupRendererSymbols()
+        private async Task SetupRendererSymbolsAsync()
         {
             var markerSymbol = new PictureMarkerSymbol() { Width = 48, Height = 48, YOffset = 24 };
 			try
@@ -47,7 +47,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 			{
 				MessageBox.Show(ex.Message);
 			}
-            graphicsLayer.Renderer = new SimpleRenderer() { Symbol = markerSymbol, };
+			graphicsOverlay.Renderer = new SimpleRenderer() { Symbol = markerSymbol, };
         }
 
         // Geocode input address and add result graphics to the map
@@ -57,7 +57,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             {
                 progress.Visibility = Visibility.Visible;
                 listResults.Visibility = Visibility.Collapsed;
-                graphicsLayer.GraphicsSource = null;
+				graphicsOverlay.GraphicsSource = null;
 
                 // Street, City, State, ZIP
                 Dictionary<string, string> address = new Dictionary<string, string>();
@@ -76,7 +76,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var candidateResults = await _locatorTask.GeocodeAsync(
                     address, new List<string> { "Match_addr" }, MyMapView.SpatialReference, CancellationToken.None);
 
-                graphicsLayer.GraphicsSource = candidateResults
+				graphicsOverlay.GraphicsSource = candidateResults
                     .Select(result => new Graphic(result.Location, new Dictionary<string, object> { { "Locator", result } }));
 
                 await MyMapView.SetViewAsync(ExtentFromGraphics().Expand(2));
@@ -96,7 +96,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             finally
             {
                 progress.Visibility = Visibility.Collapsed;
-                if (graphicsLayer.GraphicsSource != null)
+				if (graphicsOverlay.GraphicsSource != null)
                     listResults.Visibility = Visibility.Visible;
             }
         }
@@ -104,7 +104,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Helper method to retrieve an extent from graphics in the graphics layer
         private Envelope ExtentFromGraphics()
         {
-			var graphics = graphicsLayer.GraphicsSource;
+			var graphics = graphicsOverlay.GraphicsSource;
 			if (graphics == null || graphics.Count() == 0)
 				return MyMapView.Extent;
 

@@ -30,11 +30,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private const string ONLINE_BASEMAP_URL = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer";
         private const string ONLINE_LAYER_ID = "OnlineBasemap";
         private const string LOCAL_LAYER_ID = "LocalTiles";
-        private const string AOI_LAYER_ID = "AOI";
         private const string TILE_CACHE_FOLDER = "ExportTileCacheSample";
 
         private ArcGISTiledMapServiceLayer _onlineTiledLayer;
-        private GraphicsLayer _aoiLayer;
+        private GraphicsOverlay _aoiOverlay;
         private ExportTileCacheTask _exportTilesTask;
         private GenerateTileCacheParameters _genOptions;
 
@@ -54,8 +53,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             await InitializeOnlineBasemap();
 
-            _aoiLayer = new GraphicsLayer() { ID = AOI_LAYER_ID, Renderer = layoutGrid.Resources["AOIRenderer"] as Renderer };
-            MyMapView.Map.Layers.Add(_aoiLayer);
+            _aoiOverlay = new GraphicsOverlay() { 
+				Renderer = layoutGrid.Resources["AOIRenderer"] as Renderer 
+			};
+            MyMapView.GraphicsOverlays.Add(_aoiOverlay);
 
             if (_onlineTiledLayer.ServiceInfo != null)
             {
@@ -111,8 +112,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 panelExport.Visibility = Visibility.Collapsed;
                 progress.Visibility = Visibility.Visible;
 
-                _aoiLayer.Graphics.Clear();
-                _aoiLayer.Graphics.Add(new Graphic(MyMapView.Extent));
+                _aoiOverlay.Graphics.Clear();
+                _aoiOverlay.Graphics.Add(new Graphic(MyMapView.Extent));
 
                 _genOptions = new GenerateTileCacheParameters()
                 {

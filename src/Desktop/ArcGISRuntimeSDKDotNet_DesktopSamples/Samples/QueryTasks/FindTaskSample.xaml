@@ -17,15 +17,21 @@
             <esri:Map>
                 <esri:ArcGISTiledMapServiceLayer 
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
-                <esri:ArcGISDynamicMapServiceLayer 
+				<esri:ArcGISDynamicMapServiceLayer 
                      ServiceUri="http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer" />
-                <esri:GraphicsLayer x:Name="graphicsLayer" />
-            </esri:Map>
-        </esri:MapView>
+			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay x:Name="graphicsOverlay" />
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
 
-        <Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="30" Width="325"
+        <Border Background="White" BorderBrush="Black" BorderThickness="1" 
+				Margin="30" Padding="20" Width="325"
                 HorizontalAlignment="Right" VerticalAlignment="Top">
-            <Grid Margin="30,20">
+			<Border.Effect>
+				<DropShadowEffect />
+			</Border.Effect>
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />

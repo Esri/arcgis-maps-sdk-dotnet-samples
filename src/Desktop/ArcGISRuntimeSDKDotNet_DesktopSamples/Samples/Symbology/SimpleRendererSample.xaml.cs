@@ -35,7 +35,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Change the graphics layer renderer to a new SimpleRenderer
         private void ChangeRendererButton_Click(object sender, RoutedEventArgs e)
         {
-            graphicsLayer.Renderer = new SimpleRenderer() { Symbol = GetRandomSymbol() };
+			graphicsOverlay.Renderer = new SimpleRenderer() { Symbol = GetRandomSymbol() };
         }
 
         // Accept user map clicks and add points to the graphics layer (use the default symbol from renderer)
@@ -46,7 +46,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 while (MyMapView.Extent != null)
                 {
                     var point = await MyMapView.Editor.RequestPointAsync();
-                    graphicsLayer.Graphics.Add(new Graphic(point));
+					graphicsOverlay.Graphics.Add(new Graphic(point));
                 }
             }
             catch (TaskCanceledException)

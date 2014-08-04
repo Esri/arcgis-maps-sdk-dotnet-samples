@@ -59,7 +59,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     var point = await MyMapView.Editor.RequestPointAsync();
 
                     var symbol = _symbols[symbolCombo.SelectedIndex];
-                    graphicsLayer.Graphics.Add(new Graphic(point, symbol));
+					graphicsOverlay.Graphics.Add(new Graphic(point, symbol));
                 }
             }
             catch (TaskCanceledException)

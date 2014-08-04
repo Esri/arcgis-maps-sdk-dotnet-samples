@@ -112,7 +112,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private GeodatabaseSyncTask _syncTask;
         private ArcGISDynamicMapServiceLayer _onlineBirdsLayer;
-        private GraphicsLayer _graphicsLayer;
+        private GraphicsOverlay _graphicsOverlay;
         private string _gdbPath;
         
         /// <summary>Construct Generate Geodatabase sample control</summary>
@@ -122,7 +122,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             _syncTask = new GeodatabaseSyncTask(new Uri(BASE_URL));
             _onlineBirdsLayer = MyMapView.Map.Layers.OfType<ArcGISDynamicMapServiceLayer>().First();
-            _graphicsLayer = MyMapView.Map.Layers.OfType<GraphicsLayer>().First();
+			_graphicsOverlay = graphicsOverlay;
             _localBirdsLayer = null;
             CanGenerate = true;
 
@@ -313,8 +313,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 if (LocalBirdsLayer == null)
                     throw new ApplicationException("No local geodatabase to edit.");
 
-                _graphicsLayer.Graphics.Clear();
-                _graphicsLayer.Graphics.Add(new Graphic(e.Location));
+                _graphicsOverlay.Graphics.Clear();
+                _graphicsOverlay.Graphics.Add(new Graphic(e.Location));
 
                 TapLocation = e.Location;
                 IsEditing = true;
@@ -350,7 +350,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
                 await RefreshDataView();
 
-                _graphicsLayer.Graphics.Clear();
+                _graphicsOverlay.Graphics.Clear();
                 IsEditing = false;
             }
             catch (Exception ex)
@@ -362,7 +362,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Cancel current edit
         private void CancelBirdSightingButton_Click(object sender, RoutedEventArgs e)
         {
-            _graphicsLayer.Graphics.Clear();
+            _graphicsOverlay.Graphics.Clear();
             IsEditing = false;
         }
 

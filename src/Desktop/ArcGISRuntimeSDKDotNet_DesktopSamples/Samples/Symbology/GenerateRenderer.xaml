@@ -26,10 +26,13 @@
             </esri:Map>
         </esri:MapView>
 
-        <Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="30"
+		<Border Background="White" BorderBrush="Black" BorderThickness="1" Margin="30" Padding="20"
                 HorizontalAlignment="Right" VerticalAlignment="Top">
-            <StackPanel Margin="30,20">
-                <TextBlock Text="Select a field to use to create a renderer for the counties in Washington state."
+			<Border.Effect>
+				<DropShadowEffect />
+			</Border.Effect>
+			<StackPanel>
+				<TextBlock Text="Select a field to use to create a renderer for the counties in Washington state."
                            FontSize="14" Width="300" TextAlignment="Left" TextWrapping="Wrap" />
 
                 <StackPanel HorizontalAlignment="Center">

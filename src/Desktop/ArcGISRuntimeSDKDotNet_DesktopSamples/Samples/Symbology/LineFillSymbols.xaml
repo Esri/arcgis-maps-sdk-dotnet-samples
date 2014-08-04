@@ -10,17 +10,21 @@
                     <esri:ViewpointExtent XMin="-15053000" YMin="2749000" XMax="-6540000" YMax="6590000" />
                 </esri:Map.InitialViewpoint>
 
-                <esri:ArcGISTiledMapServiceLayer
+				<esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
-                
-                <esri:GraphicsLayer x:Name="graphicsLayer" />
-            </esri:Map>
+			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay x:Name="graphicsOverlay" />
+			</esri:MapView.GraphicsOverlays>
         </esri:MapView>
 
-        <Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="30"
+		<Border Background="White" BorderBrush="Black" BorderThickness="1" Margin="30" Padding="20"
                 HorizontalAlignment="Right" VerticalAlignment="Top">
-            <StackPanel Margin="30,20">
-                <TextBlock Text="Click the map to add shapes with the selected line or fill symbol."
+			<Border.Effect>
+				<DropShadowEffect />
+			</Border.Effect>
+			<StackPanel>
+				<TextBlock Text="Click the map to add shapes with the selected line or fill symbol."
                            FontSize="14"  Width="250" TextAlignment="Left" TextWrapping="Wrap" />
 
                 <ComboBox x:Name="symbolCombo" HorizontalAlignment="Center" Margin="12,20,12,0" SelectedIndex="0"

@@ -29,9 +29,12 @@
 				</esri:GroupLayer>
 			</esri:Map>
 		</esri:MapView>
-		<Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="30"
-                HorizontalAlignment="Left" VerticalAlignment="Top">
-			<StackPanel x:Name="displayPropertiesArea" IsEnabled="False" Margin="30,20">
+		<Border Background="White" BorderBrush="Black" BorderThickness="1" Margin="30" Padding="20"
+                HorizontalAlignment="Right" VerticalAlignment="Top">
+			<Border.Effect>
+				<DropShadowEffect />
+			</Border.Effect>
+			<StackPanel x:Name="displayPropertiesArea" IsEnabled="False">
 				<TextBlock Text="S52 Display Properties"
 						   FontWeight="ExtraBold"
                            FontSize="14"  Width="400" 

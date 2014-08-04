@@ -44,7 +44,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             while (MyMapView.Extent != null)
             {
                 var point = await MyMapView.Editor.RequestPointAsync();
-                graphicsLayer.Graphics.Add(new Graphic(point, _symbols[symbolCombo.SelectedIndex]));
+				graphicsOverlay.Graphics.Add(new Graphic(point, _symbols[symbolCombo.SelectedIndex]));
             }
         }
 

@@ -53,12 +53,18 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private void ChangeRenderer()
         {
-            var renderer = new UniqueValueRenderer() { Fields = new ObservableCollection<string>(new List<string> { "sub_region" }) };
+            var renderer = new UniqueValueRenderer() 
+			{ 
+				Fields = new ObservableCollection<string>(new List<string> { "sub_region" }) 
+			};
 
             renderer.Infos = new UniqueValueInfoCollection(states.Graphics
                 .Select(g => g.Attributes["sub_region"])
                 .Distinct()
-                .Select(obj => new UniqueValueInfo { Values = new ObservableCollection<object>(new object[] { obj }), Symbol = GetRandomSymbol() }));
+                .Select(obj => new UniqueValueInfo { 
+					Values = new ObservableCollection<object>(new object[] { obj }), 
+					Symbol = GetRandomSymbol() 
+				}));
 
             states.Renderer = renderer;
         }

@@ -409,14 +409,8 @@
     <Compile Include="Samples\Symbology\MarkerSymbols.xaml.cs">
       <DependentUpon>MarkerSymbols.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Symbology\AdvancedSymbology\MessageProcessingSample.xaml.cs">
-      <DependentUpon>MessageProcessingSample.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Samples\Symbology\SimpleRendererSample.xaml.cs">
       <DependentUpon>SimpleRendererSample.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Symbology\AdvancedSymbology\SymbolDictionarySearchSample.xaml.cs">
-      <DependentUpon>SymbolDictionarySearchSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Symbology\TextSymbols.xaml.cs">
       <DependentUpon>TextSymbols.xaml</DependentUpon>
@@ -910,15 +904,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Symbology\AdvancedSymbology\MessageProcessingSample.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Samples\Symbology\SimpleRendererSample.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Symbology\AdvancedSymbology\SymbolDictionarySearchSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

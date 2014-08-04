@@ -23,13 +23,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-15000000, 2000000, -7000000, 8000000));
-            
-            InitializeComboBox();
+			MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope
+				(-15000000, 2000000, -7000000, 8000000));
+
+			var _ = InitializeComboBoxAsync();
         }
 
         // Load the combobox with state data from the map service
-        private async void InitializeComboBox()
+        private async Task InitializeComboBoxAsync()
         {
             try
             {
@@ -56,7 +57,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 progress.Visibility = Visibility.Visible;
                 resultsGrid.Visibility = Visibility.Collapsed;
                 resultsGrid.ItemsSource = null;
-                graphicsLayer.Graphics.Clear();
+				graphicsOverlay.Graphics.Clear();
 
                 QueryTask queryTask = new QueryTask(
                     new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Census_USA/MapServer/5"));
@@ -75,7 +76,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 if (featureSet != null && featureSet.Features.Count > 0)
                 {
                     var graphic = featureSet.Features.First();
-                    graphicsLayer.Graphics.Add(graphic as Graphic);
+					graphicsOverlay.Graphics.Add(graphic as Graphic);
 
                     var selectedFeatureExtent = graphic.Geometry.Extent;
                     Envelope displayExtent = selectedFeatureExtent.Expand(1.3);

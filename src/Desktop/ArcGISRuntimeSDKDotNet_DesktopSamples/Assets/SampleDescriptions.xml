@@ -134,7 +134,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers.DynamicLayerReordering">
             <summary>
-            This sample demonstrates changing the order of dynamic layers.  Clicking the 'Change Layer Order' button uses the DynamicLayerInfoCollection to move the top layer to the bottom.
+            This sample demonstrates changing the order of dynamic layers. Clicking the 'Change Layer Order' button uses the DynamicLayerInfoCollection to move the top layer to the bottom.
             </summary>
             <title>Dynamic Layer Reordering</title>
             <category>Layers</category>
@@ -231,7 +231,7 @@
         <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerHitTesting.#ctor">
             <summary>Construct FeatureLayerHitTesting sample control</summary>
         </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerHitTesting.mapView_MapViewTapped(System.Object,Esri.ArcGISRuntime.Controls.MapViewInputEventArgs)">
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerHitTesting.MyMapView_MapViewTapped(System.Object,Esri.ArcGISRuntime.Controls.MapViewInputEventArgs)">
             <summary>
             On each mouse click:
             - HitTest the feature layer
@@ -290,7 +290,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.QueryFilterSample">
             <summary>
-            This sample demonstrates how to apply a filter to a feature layer using the FeatureLayer.Where property and to further filter the result set using a QueryFilter. The FeatureLayer.Where property allows you to retrieve a subset of records from a feature service that match an attribute query.  The GeodatabaseFeatureTable.QueryAsync method takes a QueryFilter object and uses it to filter the current feature set.  In this example, the features returned by the query are converted to graphics and displayed in a GraphicsLayer on the map.
+            This sample demonstrates how to apply a filter to a feature layer using the FeatureLayer.Where property and to further filter the result set using a QueryFilter. The FeatureLayer.Where property allows you to retrieve a subset of records from a feature service that match an attribute query.  The GeodatabaseFeatureTable.QueryAsync method takes a QueryFilter object and uses it to filter the current feature set.  In this example, the features returned by the query are converted to graphics and displayed in a GraphicsOverlay on the map.
             </summary>
             <title>Query Filter</title>
             <category>Layers</category>
@@ -507,7 +507,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.CutGeometry">
             <summary>
-            Example of using the GeometryEngine.Cut method to cut feature geometries with a given polyline. To use this sample, the user draws a cut polyline intersecting the feature polygons and the system then cuts the intersecting feature geometries and displays the resulting polygons in a graphics layer on the map.
+            Example of using the GeometryEngine.Cut method to cut feature geometries with a given polyline. To use this sample, the user draws a cut polyline intersecting the feature polygons and the system then cuts the intersecting feature geometries and displays the resulting polygons in a graphics overlay on the map.
             </summary>
             <title>Cut</title>
             <category>Geometry</category>
@@ -810,7 +810,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.UnionGeometry">
             <summary>
-            Example of using the GeometryEngine.Union method to calculate the geometric union of feature geometries and a given polygon. To use this sample, the user draws a polygon over the feature polygons and the system then retrieves the union of the feature geometries and the new polygon. Resulting polygons are shown in a graphics layer on the map.
+            Example of using the GeometryEngine.Union method to calculate the geometric union of feature geometries and a given polygon. To use this sample, the user draws a polygon over the feature polygons and the system then retrieves the union of the feature geometries and the new polygon. Resulting polygons are shown in a graphics overlay on the map.
             </summary>
             <title>Union</title>
             <category>Geometry</category>
@@ -957,7 +957,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.AddInteractively">
             <summary>
-            Example of how to add Graphics to a GraphicLayer by drawing shapes on the map.  The Editor.RequestShapeAsync method is used to manage map drawing and geometry creation.  Symbols for the graphics are defined in XAML.
+            Example of how to add Graphics to a GraphicsOverlay by drawing shapes on the map.  The Editor.RequestShapeAsync method is used to manage map drawing and geometry creation.  Symbols for the graphics are defined in XAML.
             </summary>
             <title>Add Graphics Interactively</title>
             <category>Layers</category>
@@ -1044,7 +1044,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsHitTesting">
             <summary>
-            This sample shows how to hit test a graphics layer using the GraphicsLayer.HitTestAsync method. Here, the user may sketch a point on the map to initiate the hit testing process - the results of the hit test are then displayed in the UI.
+            This sample shows how to hit test a graphics layer using the GraphicsOverlay.HitTestAsync method. Here, the user may sketch a point on the map to initiate the hit testing process - the results of the hit test are then displayed in the UI.
             </summary>
             <title>Hit Testing</title>
             <category>Layers</category>
@@ -1063,7 +1063,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsLayerRenderingMode">
             <summary>
-            This sample demonstates the use of the GraphicsLayer.RenderingMode property to control how a GraphicsLayer draws its graphics. Zooming and Panning the map in each of the rendering modes will show the differences between them. Rendering mode differences will be more pronounced with higher numbers of graphics in the graphic layer.
+            This sample demonstates the use of the GraphicsLayer.RenderingMode property to control how a GraphicsOverlay draws its graphics. Zooming and Panning the map in each of the rendering modes will show the differences between them. Rendering mode differences will be more pronounced with higher numbers of graphics in the graphic layer.
             </summary>
             <title>Rendering Mode</title>
             <category>Layers</category>
@@ -1082,7 +1082,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GraphicsLayerSample">
             <summary>
-            This sample demonstrates how to add a GraphicsLayer with Graphics and Symbols to the map in XAML.  The sample also shows how to add Polyline graphics to a GraphicsLayer from the code-behind.
+            This sample demonstrates how to add a GraphicsOverlay with Graphics and Symbols to the map in XAML.  The sample also shows how to add Polyline graphics to a GraphicsOverlay from the code-behind.
             </summary>
             <title>Graphics Layer</title>
             <category>Layers</category>
@@ -1139,7 +1139,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SmoothGraphicAnimation">
             <summary>
-            Animates a graphic smoothly between two user defined locations by calling the MapPoint.MoveTo method at regular intervals as defined by a DispatcherTimer. 
+            Animates a graphic smoothly between two user defined locations by moving MapPoint at regular intervals as defined by a DispatcherTimer. 
             The distance the point is moved each time is calculated by a quintic easing function.
             </summary>
             <title>Smooth Graphic Animation</title>
@@ -1180,7 +1180,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GetSamples">
             <summary>
-            This sample demonstrates using an QueryTask to Query an ArcGISImageServiceLayer to find the outlines of image tiles and display them in a GraphicsLayer. MapOverlay attribute information is displayed for selected tile graphics when they are clicked on the map.
+            This sample demonstrates using an QueryTask to Query an ArcGISImageServiceLayer to find the outlines of image tiles and display them in a GraphicOverlay. MapOverlay attribute information is displayed for selected tile graphics when they are clicked on the map.
             </summary>
             <title>Get Samples</title>
             <category>Tasks</category>
@@ -1964,7 +1964,7 @@
             </summary>
             <title>S57 Cell Information</title>
             <category>Symbology</category>
-            <subcategory>Advanced</subcategory>
+            <subcategory>Hydrographic</subcategory>
             <summary>
             S57CellInfoSample
             </summary>
@@ -1980,7 +1980,7 @@
             </summary>
             <title>S57 Display Properties</title>
             <category>Symbology</category>
-            <subcategory>Advanced</subcategory>
+            <subcategory>Hydrographic</subcategory>
             <summary>
             S57DisplayPropertiesSample
             </summary>
@@ -1996,7 +1996,7 @@
             </summary>
             <title>S57 Identify</title>
             <category>Symbology</category>
-            <subcategory>Advanced</subcategory>
+            <subcategory>Hydrographic</subcategory>
             <summary>
             S57IdentifySample
             </summary>
@@ -2012,7 +2012,7 @@
             </summary>
             <title>S57 Search </title>
             <category>Symbology</category>
-            <subcategory>Advanced</subcategory>
+            <subcategory>Hydrographic</subcategory>
             <summary>
             S57SearchSample
             </summary>
@@ -2109,22 +2109,6 @@
             InitializeComponent
             </summary>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.MessageProcessingSample">
-            <summary>
-            Sample shows how to read and process Mil2525C message data from XML file. 
-            </summary>
-            <title>Message Processor</title>
-            <category>Symbology</category>
-            <subcategory>Advanced</subcategory>
-            <summary>
-            MessageProcessingSample
-            </summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.MessageProcessingSample.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SimpleRendererSample">
             <summary>
             Sample shows how to create a SimpleRenderer for a graphics layer in XAML and code. User added points will be added to the graphics layer and rendered using the GraphicsLayer Renderer.
@@ -2139,22 +2123,6 @@
             <summary>Construct Simple Renderer sample control</summary>
         </member>
         <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SimpleRendererSample.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.SymbolDictionarySearchSample">
-            <summary>
-            Sample shows how to use search the Mil2525C symbol dictionary.
-            </summary>
-            <title>Symbol Dictionary Search</title>
-            <category>Symbology</category>
-            <subcategory>Advanced</subcategory>
-            <summary>
-            SymbolDictionarySearchSample
-            </summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.SymbolDictionarySearchSample.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>

@@ -64,7 +64,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     else
                         shape = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon, sampleSymbol.Symbol);
 
-                    graphicsLayer.Graphics.Add(new Graphic(shape, sampleSymbol.Symbol));
+					graphicsOverlay.Graphics.Add(new Graphic(shape, sampleSymbol.Symbol));
 					await Task.Delay(100);
                 }
             }

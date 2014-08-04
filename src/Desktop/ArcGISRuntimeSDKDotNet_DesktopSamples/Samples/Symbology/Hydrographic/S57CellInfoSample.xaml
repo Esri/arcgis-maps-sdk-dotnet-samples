@@ -23,9 +23,12 @@
 				</esri:GroupLayer>
 			</esri:Map>
 		</esri:MapView>
-		<Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="30"
-                HorizontalAlignment="Left" VerticalAlignment="Top">
-			<StackPanel Margin="30,20">
+		<Border Background="White" BorderBrush="Black" BorderThickness="1" Margin="30" Padding="20"
+                HorizontalAlignment="Right" VerticalAlignment="Top">
+			<Border.Effect>
+				<DropShadowEffect />
+			</Border.Effect>
+			<StackPanel>
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 					<Button Margin="10" x:Name="addCellButton" Content="Add Cell(s)" 
 							Click="AddCellButton_Click" 

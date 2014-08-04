@@ -23,7 +23,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-10854000, 4502000, -10829000, 4524000, SpatialReferences.WebMercator));
+			MyMapView.Map.InitialViewpoint = new Viewpoint(
+				new Envelope(-10854000, 4502000, -10829000, 4524000, SpatialReferences.WebMercator));
         }
 
         // Select a set of wells near the click point
@@ -31,7 +32,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                wellsLayer.Graphics.Clear();
+				wellsOverlay.Graphics.Clear();
                 wellsGrid.ItemsSource = relationshipsGrid.ItemsSource = null;
 
                 QueryTask queryTask =
@@ -48,7 +49,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var result = await queryTask.ExecuteAsync(query);
                 if (result.FeatureSet.Features != null && result.FeatureSet.Features.Count > 0)
                 {
-                    wellsLayer.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
+					wellsOverlay.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
                     wellsGrid.ItemsSource = result.FeatureSet.Features;
                     resultsPanel.Visibility = Visibility.Visible;
                 }

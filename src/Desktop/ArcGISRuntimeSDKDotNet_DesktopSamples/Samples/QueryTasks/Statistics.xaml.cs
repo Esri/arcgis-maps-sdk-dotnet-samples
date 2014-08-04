@@ -26,12 +26,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			var taskRenderer = SetUniqueRenderer();
-            var taskQuery = RunQuery();
+			var _ = SetUniqueRendererAsync();
+            var __ = RunQueryAsync();
         }
 
         // Create a unique value renderer by state sub-region name
-        private async Task SetUniqueRenderer()
+        private async Task SetUniqueRendererAsync()
         {
             try
             {
@@ -43,7 +43,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 GenerateRendererParameters rendererParams = new GenerateRendererParameters() { ClassificationDefinition = uvDef };
 
                 var rendererResult = await generateRendererTask.GenerateRendererAsync(rendererParams);
-                graphicsLayer.Renderer = rendererResult.Renderer;
+				graphicsOverlay.Renderer = rendererResult.Renderer;
             }
             catch (Exception ex)
             {
@@ -52,12 +52,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         }
 
         // Query states the for graphics and statistics
-        private async Task RunQuery()
+        private async Task RunQueryAsync()
         {
             try
             {
                 progress.Visibility = Visibility.Visible;
-                graphicsLayer.Graphics.Clear();
+				graphicsOverlay.Graphics.Clear();
                 resultsGrid.ItemsSource = null;
 
                 QueryTask queryTask = new QueryTask(new Uri(LAYER_URL));
@@ -85,7 +85,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 if (result.FeatureSet.Features != null && result.FeatureSet.Features.Count > 0)
                 {
                     await CreateSubRegionLayerGraphics(result.FeatureSet.Features.OfType<Graphic>());
-                    resultsGrid.ItemsSource = graphicsLayer.Graphics;
+					resultsGrid.ItemsSource = graphicsOverlay.Graphics;
                 }
             }
             catch (Exception ex)
@@ -115,13 +115,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 .GroupBy(g => g.Attributes["sub_region"], g => g.Geometry)
                 .Select(grp => new Graphic(GeometryEngine.Union(grp), statistics.First(stat => grp.Key.Equals(stat.Attributes["sub_region"])).Attributes));
 
-            graphicsLayer.Graphics.Clear();
-            graphicsLayer.Graphics.AddRange(regions);
+			graphicsOverlay.Graphics.Clear();
+			graphicsOverlay.Graphics.AddRange(regions);
         }
 
         private void resultsGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            graphicsLayer.ClearSelection();
+			graphicsOverlay.ClearSelection();
 
             if (e.AddedItems != null && e.AddedItems.Count > 0)
             {

@@ -16,7 +16,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 	/// </summary>
 	/// <title>S57 Cell Information</title>
 	/// <category>Symbology</category>
-	/// <subcategory>Advanced</subcategory>
+	/// <subcategory>Hydrographic</subcategory>
 	public partial class S57CellInfoSample : UserControl 
 	{
 		GroupLayer _hydrographicGroupLayer;
@@ -26,11 +26,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 			InitializeComponent();
 
 			// Create default instance of display properties and set that to DataContext for binding
-			ZoomToHydrographicLayersAsync();
+			var _ = ZoomToHydrographicLayersAsync();
 		}
 
 		// Zoom to combined extent of the group layer that contains all hydrographic layers
-		private async void ZoomToHydrographicLayersAsync()
+		private async Task ZoomToHydrographicLayersAsync()
 		{
 			try
 			{

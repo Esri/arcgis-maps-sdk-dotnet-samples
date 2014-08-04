@@ -43,7 +43,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 progress.Visibility = Visibility.Visible;
                 resultsGrid.Visibility = Visibility.Collapsed;
                 resultsGrid.ItemsSource = null;
-                graphicsLayer.Graphics.Clear();
+				graphicsOverlay.Graphics.Clear();
 
                 FindTask findTask = new FindTask(
                     new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer"));
@@ -77,13 +77,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Highlight the selected grid view item on the map
         private void resultsGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            graphicsLayer.Graphics.Clear();
+			graphicsOverlay.Graphics.Clear();
 
             if (e.AddedItems != null && e.AddedItems.Count > 0)
             {
                 var findItem = e.AddedItems.OfType<FindItem>().FirstOrDefault();
                 if (findItem != null)
-                    graphicsLayer.Graphics.Add(new Graphic(findItem.Feature.Geometry, ChooseGraphicSymbol(findItem.Feature.Geometry)));
+					graphicsOverlay.Graphics.Add(new Graphic(findItem.Feature.Geometry, ChooseGraphicSymbol(findItem.Feature.Geometry)));
             }
         }
 

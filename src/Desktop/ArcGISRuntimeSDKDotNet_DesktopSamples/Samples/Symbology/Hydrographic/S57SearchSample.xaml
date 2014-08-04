@@ -40,14 +40,19 @@
 						Path="..\..\..\..\..\samples-data\symbology\s57-electronic-navigational-charts\us1wc07m\US1WC07M.000">
 					</hydro:HydrographicS57Layer>
 				</esri:GroupLayer>
-				<esri:GraphicsLayer ID="resultGraphics" Renderer="{StaticResource SelectionRendrer}"/>
-				<esri:GraphicsLayer x:Name="graphicsLayer" />
 			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay x:Name="resultsOverlay" Renderer="{StaticResource SelectionRendrer}"/>
+				<esri:GraphicsOverlay x:Name="graphicsOverlay" />
+			</esri:MapView.GraphicsOverlays>
 		</esri:MapView>
-
-		<Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="30"
-                HorizontalAlignment="Left" VerticalAlignment="Top">
-			<Grid Margin="30,20">
+		
+		<Border Background="White" BorderBrush="Black" BorderThickness="1" Margin="30" Padding="20"
+                HorizontalAlignment="Right" VerticalAlignment="Top">
+			<Border.Effect>
+				<DropShadowEffect />
+			</Border.Effect>
+			<Grid>	
 				<Grid.RowDefinitions>
 					<RowDefinition Height="auto" />
 					<RowDefinition Height="*" />
@@ -111,9 +116,12 @@
 		<!--Search area -->
 		<Border x:Name="SearchArea" IsEnabled="False"
 			Background="White" BorderBrush="Black" 
-            HorizontalAlignment="Right" VerticalAlignment="Top"
-			BorderThickness="2" Margin="30">
-			<StackPanel Margin="8">
+            HorizontalAlignment="Left" VerticalAlignment="Top"
+			BorderThickness="1" Margin="30" Padding="20">
+			<Border.Effect>
+				<DropShadowEffect />
+			</Border.Effect>
+			<StackPanel>
 				<!-- Draw search area -->
 				<GroupBox>
 					<GroupBox.Header>

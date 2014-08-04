@@ -19,14 +19,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 	/// </summary>
 	/// <title>S57 Search </title>
 	/// <category>Symbology</category>
-	/// <subcategory>Advanced</subcategory>
+	/// <subcategory>Hydrographic</subcategory>
 	public partial class S57SearchSample : UserControl, INotifyPropertyChanged
 	{
 		private DrawShape _currentDrawShape;
 		private Geometry _searchGeometry;
 
 		private GroupLayer _hydrographicLayers;
-		private GraphicsLayer _resultGraphicsLayer;
+		private GraphicsOverlay _resultGraphicsOverlay;
 		private ObservableCollection<S57FeatureObject> _searchResults;
 
 		public S57SearchSample()
@@ -40,7 +40,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 
 			// Reference layers that are used
 			_hydrographicLayers = MyMapView.Map.Layers.OfType<GroupLayer>().First();
-			_resultGraphicsLayer = MyMapView.Map.Layers.OfType<GraphicsLayer>().First(x => x.ID == "resultGraphics");
+			_resultGraphicsOverlay = resultsOverlay;
 			ZoomToHydrographicLayersAsync();
 		}
 
@@ -93,14 +93,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 		private async void ResultList_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			// Clear previous selection
-			_resultGraphicsLayer.Graphics.Clear();
+			_resultGraphicsOverlay.Graphics.Clear();
 
 			// When no results found, this is 0
 			if (e.AddedItems.Count > 0)
 			{
 				// Using single mode so there is only one item
 				var selectedFeatureObject = e.AddedItems[0] as S57FeatureObject;
-				_resultGraphicsLayer.Graphics.Add(new Graphic(selectedFeatureObject.Geometry));
+				_resultGraphicsOverlay.Graphics.Add(new Graphic(selectedFeatureObject.Geometry));
 				await MyMapView.SetViewAsync(selectedFeatureObject.Geometry.Extent);
 			}
 		}
@@ -119,7 +119,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
             if (MyMapView.Editor.IsActive)
                 MyMapView.Editor.Cancel.Execute(null);
 
-			graphicsLayer.Graphics.Clear();
+			graphicsOverlay.Graphics.Clear();
 
 			try
 			{
@@ -151,7 +151,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 
 				// add the new graphic to the graphic layer
 				var graphic = new Graphic(_searchGeometry, symbol);
-				graphicsLayer.Graphics.Add(graphic);
+				graphicsOverlay.Graphics.Add(graphic);
 			}
 			catch (TaskCanceledException)
 			{

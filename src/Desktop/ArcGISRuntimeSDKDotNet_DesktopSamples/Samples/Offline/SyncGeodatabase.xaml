@@ -18,18 +18,20 @@
                 <esri:ArcGISTiledMapServiceLayer DisplayName="Streets Basemap"
                     ServiceUri="http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 
-                <esri:ArcGISDynamicMapServiceLayer ID="onlineBirdsLayer" DisplayName="Online Birds" VisibleLayers="1"
+				<esri:ArcGISDynamicMapServiceLayer ID="onlineBirdsLayer" DisplayName="Online Birds" VisibleLayers="1"
                     ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/SaveTheBaySync/MapServer" />
+			</esri:Map>
 
-                <esri:GraphicsLayer x:Name="graphicsLayer" DisplayName="Graphics">
-                    <esri:GraphicsLayer.Renderer>
-                        <esri:SimpleRenderer>
-                            <esri:SimpleMarkerSymbol Color="Red" Style="Diamond" Size="8" />
-                        </esri:SimpleRenderer>
-                    </esri:GraphicsLayer.Renderer>
-                </esri:GraphicsLayer>
-            </esri:Map>
-
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay x:Name="graphicsOverlay">
+					<esri:GraphicsOverlay.Renderer>
+						<esri:SimpleRenderer>
+							<esri:SimpleMarkerSymbol Color="Red" Style="Diamond" Size="8" />
+						</esri:SimpleRenderer>
+					</esri:GraphicsOverlay.Renderer>
+				</esri:GraphicsOverlay>
+			</esri:MapView.GraphicsOverlays>
+			
             <esri:MapView.Overlays>
                 <Border x:Name="birdSightingOverlay" Background="Beige" BorderBrush="Black" BorderThickness="2" CornerRadius="10"
                         Padding="12" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="250" Height="200"
@@ -67,10 +69,15 @@
             </esri:MapView.Overlays>
         </esri:MapView>
 
-        <Border x:Name="panelEdit" Background="White" BorderBrush="Black" BorderThickness="2" MaxHeight="250"
-                HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="30" Padding="20"
+        <Border x:Name="panelEdit" Background="White" BorderBrush="Black" 
+				BorderThickness="1" MaxHeight="250"
+                HorizontalAlignment="Left" VerticalAlignment="Bottom" 
+				Margin="30" Padding="20"
                 Visibility="{Binding CanSync, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <Grid>
+			<Border.Effect>
+				<DropShadowEffect/>
+			</Border.Effect>
+			<Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -93,18 +100,20 @@
             </Grid>
         </Border>
 
-        <Border x:Name="panelLegend" Background="White" BorderBrush="Black" BorderThickness="2" Width="250"
-                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30" Padding="20">
-            <StackPanel>
+        <Border x:Name="panelLegend" 
+				Background="White" BorderBrush="Black" BorderThickness="2" Width="250"
+                HorizontalAlignment="Left" VerticalAlignment="Top" 
+				Margin="30" Padding="20">
+			<Border.Effect>
+				<DropShadowEffect/>
+			</Border.Effect>
+			<StackPanel>
                 <StackPanel>
                     <TextBlock Text="Current Map Layers" FontSize="16" FontWeight="Bold" Margin="0,0,0,6" />
                     <ListView Grid.Row="1" ItemsSource="{Binding ElementName=MyMapView, Path=Map.Layers}" Margin="12,0" 
                           BorderBrush="Transparent">
-                        <ListView.Resources>
-                            <!-- Ignore GraphicsLayer -->
-                            <DataTemplate DataType="{x:Type esri:GraphicsLayer}" />
-
-                            <DataTemplate DataType="{x:Type esri:Layer}">
+						<ListView.Resources>
+							<DataTemplate DataType="{x:Type esri:Layer}">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
@@ -128,9 +137,14 @@
             </StackPanel>
         </Border>
 
-        <Border x:Name="panelUI" Background="White" BorderBrush="Black" BorderThickness="2" Width="375"
-                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Border x:Name="panelUI"
+				Background="White" BorderBrush="Black" BorderThickness="1" Width="375"
+                HorizontalAlignment="Right" VerticalAlignment="Top" 
+				Margin="30" Padding="20">
+			<Border.Effect>
+				<DropShadowEffect/>
+			</Border.Effect>
+			<ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel>
                     <StackPanel x:Name="panelGenerate" IsEnabled="{Binding CanGenerate}">
                         <TextBlock Text="Step 1: Generate Local Geodatabase" FontSize="16" FontWeight="Bold" Margin="0,0,0,6" />

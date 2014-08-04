@@ -20,9 +20,11 @@
 
         <!-- Login UI -->
         <Border x:Name="loginPanel"
-                Background="White" BorderBrush="Black" BorderThickness="2" Margin="30" 
-                HorizontalAlignment="Center" VerticalAlignment="Top" Visibility="Collapsed">
-            <Grid Margin="20">
+                Background="White" BorderBrush="Black" BorderThickness="1" 
+				Margin="30" Padding="20"
+                HorizontalAlignment="Center" VerticalAlignment="Top" 
+				Visibility="Collapsed">
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="100"/>
                     <ColumnDefinition Width="150" />

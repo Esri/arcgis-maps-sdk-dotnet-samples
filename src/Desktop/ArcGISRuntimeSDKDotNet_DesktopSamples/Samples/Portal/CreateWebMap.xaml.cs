@@ -45,7 +45,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 				// Load the new webmap into the current UI
 				var MyMapView = new MapView();
 				MyMapView.Map = await LoadWebMapAsync(webmap);
-				MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-20000000, 1100000, -3900000, 11000000));
+				MyMapView.Map.InitialViewpoint = new Viewpoint(
+					new Envelope(-20000000, 1100000, -3900000, 11000000));
 				layoutGrid.Children.Add(MyMapView);
 			}
 			catch (System.Exception ex)
@@ -81,14 +82,22 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private WebMapLayer CreateStateLayerWithPopup()
         {
             IList<FieldInfo> fieldinfos = new List<FieldInfo>();
-            fieldinfos.Add(new FieldInfo() { FieldName = "STATE_NAME", Label = "State", IsVisible = true });
+            fieldinfos.Add(new FieldInfo() { 
+				FieldName = "STATE_NAME", 
+				Label = "State", 
+				IsVisible = true 
+			});
 
             IList<MediaInfo> mediainfos = new List<MediaInfo>();
             MediaInfoValue infovalue = new MediaInfoValue();
             infovalue.Fields = new string[] { "POP2000,POP2007" };
             mediainfos.Add(new MediaInfo() { Type = MediaType.PieChart, Value = infovalue });
 
-            PopupInfo popup = new PopupInfo() { FieldInfos = fieldinfos, MediaInfos = mediainfos, Title = "Population Change between 2000 and 2007", };
+            PopupInfo popup = new PopupInfo() { 
+				FieldInfos = fieldinfos, 
+				MediaInfos = mediainfos, 
+				Title = "Population Change between 2000 and 2007"
+			};
 
             return new WebMapLayer
             {
@@ -140,7 +149,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     sublayer.FeatureSet = queryResult.FeatureSet;
 
                     sublayer.AddCustomProperty("layerDefinition", layerdef);
-                    featureCollection = new FeatureCollection { SubLayers = new List<WebMapSubLayer> { sublayer } };
+                    featureCollection = new FeatureCollection { 
+						SubLayers = new List<WebMapSubLayer> 
+						{ sublayer } 
+					};
                 }
 
                 return new WebMapLayer { FeatureCollection = featureCollection };

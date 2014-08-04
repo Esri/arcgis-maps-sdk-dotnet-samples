@@ -25,11 +25,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 	/// </summary>
 	/// <title>S57 Identify</title>
 	/// <category>Symbology</category>
-	/// <subcategory>Advanced</subcategory>
+	/// <subcategory>Hydrographic</subcategory>
 	public partial class S57IdentifySample : UserControl
 	{
 		GroupLayer _hydrographicLayers;
-		GraphicsLayer _resultGraphicsLayer;
+		GraphicsOverlay _resultGraphicsOverlay;
 		ObservableCollection<S57FeatureObject> _searchResults;
 		bool _isLoaded;
 
@@ -41,8 +41,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 
 			// Reference layers that are used
 			_hydrographicLayers = MyMapView.Map.Layers.OfType<GroupLayer>().First();
-			_resultGraphicsLayer = MyMapView.Map.Layers.OfType<GraphicsLayer>().First();
-			ZoomToHydrographicLayersAsync();
+			_resultGraphicsOverlay = resultOverlay;
+			var _ = ZoomToHydrographicLayersAsync();
 		}
 
 		// When user clicks/taps the map, execute search to all hydrographic layers and set results to view
@@ -86,7 +86,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 		}
 
 		// Zoom to combined extent of the group layer that contains all hydrographic layers
-		private async void ZoomToHydrographicLayersAsync()
+		private async Task ZoomToHydrographicLayersAsync()
 		{
 			try
 			{
@@ -123,14 +123,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 		private void resultList_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			// Clear previous selection
-			_resultGraphicsLayer.Graphics.Clear();
+			_resultGraphicsOverlay.Graphics.Clear();
 
 			// When no results found, this is 0
 			if (e.AddedItems.Count > 0)
 			{
 				// Using single mode so there is only one item
 				var selectedFeatureObject = e.AddedItems[0] as S57FeatureObject;
-				_resultGraphicsLayer.Graphics.Add(new Graphic(selectedFeatureObject.Geometry));
+				_resultGraphicsOverlay.Graphics.Add(new Graphic(selectedFeatureObject.Geometry));
 			}
 		}
 	}

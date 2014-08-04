@@ -141,10 +141,19 @@
             </esri:Map>
         </esri:MapView>
 
-        <Button Margin="21,20,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                BorderBrush="Black" BorderThickness="2"
-                Content="Print" FontSize="18" Padding="30,10" Click="ActivatePrintPreview"
-                ToolTipService.ToolTip="Show Print Preview Dialog" />
+		<Border Background="White" BorderBrush="Black" BorderThickness="1"
+				HorizontalAlignment="Right" VerticalAlignment="Top"
+				Margin="30" Padding="20">
+			<Border.Effect>
+				<DropShadowEffect/>
+			</Border.Effect>
+			<Button Content="Print" 
+					Width="150" Height="75"
+					FontSize="18"
+					Click="ActivatePrintPreview"
+					ToolTipService.ToolTip="Show Print Preview Dialog" />
+		</Border>
+		
 
         <!--  Print Preview Dialog (overlaps the map in this sample)  -->
         <Grid x:Name="previewPanel" Background="LightGray" Visibility="Collapsed">

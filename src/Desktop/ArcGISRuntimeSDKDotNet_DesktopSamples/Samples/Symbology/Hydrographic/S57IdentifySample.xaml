@@ -29,13 +29,18 @@
 						Path="..\..\..\..\..\samples-data\symbology\s57-electronic-navigational-charts\us1wc07m\US1WC07M.000">
 					</hydro:HydrographicS57Layer>
 				</esri:GroupLayer>
-				<esri:GraphicsLayer ID="ResultGraphics" Renderer="{StaticResource selectionRendrer}"/>
 			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay x:Name="resultOverlay" Renderer="{StaticResource selectionRendrer}"/>
+			</esri:MapView.GraphicsOverlays>
 		</esri:MapView>
 
-		<Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="30"
-                HorizontalAlignment="Left" VerticalAlignment="Top">
-			<StackPanel Margin="30,20">
+		<Border Background="White" BorderBrush="Black" BorderThickness="1" Margin="30" Padding="20"
+                HorizontalAlignment="Right" VerticalAlignment="Top">
+			<Border.Effect>
+				<DropShadowEffect />
+			</Border.Effect>
+			<StackPanel>
 				<TextBlock Text="Identify results"
 						   FontWeight="ExtraBold"
                            FontSize="14"

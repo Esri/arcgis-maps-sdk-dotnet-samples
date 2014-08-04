@@ -50,7 +50,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             try
             {
                 progress.Visibility = Visibility.Visible;
-                graphicsLayer.Graphics.Clear();
+				graphicsOverlay.Graphics.Clear();
                 MyMapView.Overlays.Clear();
 
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
@@ -76,7 +76,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 {
                     var location = candidate["location"] as Dictionary<string, object>;
                     MapPoint point = new MapPoint(Convert.ToDouble(location["x"]), Convert.ToDouble(location["y"]), MyMapView.SpatialReference);
-                    graphicsLayer.Graphics.Add(new Graphic(point));
+					graphicsOverlay.Graphics.Add(new Graphic(point));
 
                     // Create a new templated overlay for the geocoded address
                     var overlay = new ContentControl() { HorizontalAlignment = HorizontalAlignment.Right, VerticalAlignment = VerticalAlignment.Top };
@@ -86,7 +86,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     MyMapView.Overlays.Add(overlay);
                 }
 
-                await MyMapView.SetViewAsync(GeometryEngine.Union(graphicsLayer.Graphics.Select(g => g.Geometry)).Extent.Expand(1.5));
+				await MyMapView.SetViewAsync(GeometryEngine.Union(graphicsOverlay.Graphics.Select(g => g.Geometry)).Extent.Expand(1.5));
             }
             catch (Exception ex)
             {

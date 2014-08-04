@@ -24,11 +24,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			InitializePMS();
+			var _ = InitializePMSAsync();
         }
 
         // Initialize PushPin symbol
-        private async void InitializePMS()
+        private async Task InitializePMSAsync()
         {
             try
             {
@@ -46,10 +46,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                graphicsLayer.Graphics.Add(new Graphic(e.Location));
+                graphicsOverlay.Graphics.Add(new Graphic(e.Location));
 
                 var bufferResult = GeometryEngine.Buffer(e.Location, 100);
-                bufferLayer.Graphics.Add(new Graphic(bufferResult));
+                bufferOverlay.Graphics.Add(new Graphic(bufferResult));
 
                 var queryTask = new QueryTask(
                     new Uri("http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/BloomfieldHillsMichigan/Parcels/MapServer/2"));
@@ -64,7 +64,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var queryResult = await queryTask.ExecuteAsync(query);
                 if (queryResult != null && queryResult.FeatureSet != null)
                 {
-                    parcelLayer.Graphics.AddRange(queryResult.FeatureSet.Features.OfType<Graphic>());
+                    parcelOverlay.Graphics.AddRange(queryResult.FeatureSet.Features.OfType<Graphic>());
                 }
             }
             catch (Exception ex)

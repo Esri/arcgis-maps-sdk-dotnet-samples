@@ -20,7 +20,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public IdentifySample()
         {
             InitializeComponent();
-			MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-15000000, 2000000, -7000000, 8000000));
+			MyMapView.Map.InitialViewpoint = new Viewpoint(
+				new Envelope(-15000000, 2000000, -7000000, 8000000));
         }
 
         // Identify features at the click point
@@ -31,8 +32,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 progress.Visibility = Visibility.Visible;
                 resultsGrid.DataContext = null;
 
-                graphicsLayer.Graphics.Clear();
-                graphicsLayer.Graphics.Add(new Graphic(e.Location));
+				graphicsOverlay.Graphics.Clear();
+				graphicsOverlay.Graphics.Add(new Graphic(e.Location));
 
                 IdentifyParameters identifyParams = new IdentifyParameters(e.Location, MyMapView.Extent, 2, (int)MyMapView.ActualHeight, (int)MyMapView.ActualWidth)
                 {

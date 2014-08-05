@@ -17,10 +17,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-            mapView.Loaded += mapView_Loaded;
+            MyMapView.Loaded += MyMapView_Loaded;
         }
 
-        private void mapView_Loaded(object sender, RoutedEventArgs e)
+        private void MyMapView_Loaded(object sender, RoutedEventArgs e)
         {
             cboLayers.SelectedIndex = 0;
         }
@@ -30,7 +30,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             if (cboLayers == null)
                 return;
 
-            WebTiledLayer webTiledLayer = mapView.Map.Layers["WebTiledLayer"] as WebTiledLayer;
+            WebTiledLayer webTiledLayer = MyMapView.Map.Layers["WebTiledLayer"] as WebTiledLayer;
 
             switch (cboLayers.SelectedIndex)
             {

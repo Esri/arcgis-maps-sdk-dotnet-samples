@@ -230,7 +230,7 @@
     </Page.Resources>
 
     <Grid x:Name="LayoutRoot" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-        <esri:MapView x:Name="mapView1" LayerLoaded="mapView1_LayerLoaded">
+        <esri:MapView x:Name="MyMapView" LayerLoaded="MyMapView_LayerLoaded">
             <esri:Map  >
 				<layers:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
         		ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />

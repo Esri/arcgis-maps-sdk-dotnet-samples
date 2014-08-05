@@ -28,11 +28,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            mapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(new Envelope(-12000000, 3000000, -7000000, 7000000, SpatialReferences.WebMercator));
-            mapView.Loaded += mapView_Loaded;
+            MyMapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(new Envelope(-12000000, 3000000, -7000000, 7000000, SpatialReferences.WebMercator));
+            MyMapView.Loaded += MyMapView_Loaded;
 
-            _originalGraphicsLayer = mapView.Map.Layers["OriginalLineGraphicsLayer"] as GraphicsLayer;
-            _generalizedGraphicsLayer = mapView.Map.Layers["GeneralizedLineGraphicsLayer"] as GraphicsLayer;
+            _originalGraphicsLayer = MyMapView.Map.Layers["OriginalLineGraphicsLayer"] as GraphicsLayer;
+            _generalizedGraphicsLayer = MyMapView.Map.Layers["GeneralizedLineGraphicsLayer"] as GraphicsLayer;
 
             _defaultMarkerSymbol = LayoutRoot.Resources["DefaultMarkerSymbol"] as SimpleMarkerSymbol;
             _defaultLineSymbol = LayoutRoot.Resources["DefaultLineSymbol"] as SimpleLineSymbol;
@@ -41,7 +41,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         }
 
         // Adds the original river graphic to the map (from an online service)
-        async void mapView_Loaded(object sender, RoutedEventArgs e)
+        async void MyMapView_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
                     Query query = new Query("NAME = 'Mississippi'");
                     query.ReturnGeometry = true;
-                    query.OutSpatialReference = mapView.SpatialReference;
+                    query.OutSpatialReference = MyMapView.SpatialReference;
 
                     var results = await queryTask.ExecuteAsync(query);
 

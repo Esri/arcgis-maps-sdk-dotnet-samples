@@ -21,17 +21,17 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            _graphicsLayer = mapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+            _graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
                 
-            mapView.ExtentChanged += mapView_ExtentChanged;
+            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 
         // Start map interaction
-        private async void mapView_ExtentChanged(object sender, EventArgs e)
+        private async void MyMapView_ExtentChanged(object sender, EventArgs e)
         {
             try
             {
-                mapView.ExtentChanged -= mapView_ExtentChanged;
+                MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
                 await AcceptPointsAsync();
             }
             catch (Exception ex)
@@ -44,9 +44,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         // - collected point is in the coordinate system of the current map
         private async Task AcceptPointsAsync()
         {
-            while (mapView.Extent != null)
+            while (MyMapView.Extent != null)
             {
-                var point = await mapView.Editor.RequestPointAsync();
+                var point = await MyMapView.Editor.RequestPointAsync();
 
                 _graphicsLayer.Graphics.Clear();
                 _graphicsLayer.Graphics.Add(new Graphic(point));

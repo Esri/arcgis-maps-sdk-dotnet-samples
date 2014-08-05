@@ -16,16 +16,16 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-            mapView.ExtentChanged += MapView_ExtentChanged;
+            MyMapView.ExtentChanged += MapView_ExtentChanged;
         }
 
         private void MapView_ExtentChanged(object sender, System.EventArgs e)
         {
             Envelope newExtent = null;
 
-            if (mapView.WrapAround)
+            if (MyMapView.WrapAround)
             {
-                Geometry normalizedExtent = GeometryEngine.NormalizeCentralMeridianOfGeometry(mapView.Extent);
+                Geometry normalizedExtent = GeometryEngine.NormalizeCentralMeridianOfGeometry(MyMapView.Extent);
                 if (normalizedExtent is Polygon)
                 {
                     var normalizedPolygon = (Polygon)normalizedExtent;
@@ -58,17 +58,17 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     newExtent = normalizedExtent as Envelope;
             }
             else
-                newExtent = mapView.Extent;
+                newExtent = MyMapView.Extent;
 
             MinXNormalized.Text = newExtent.XMin.ToString("0.000");
             MinYNormalized.Text = newExtent.YMin.ToString("0.000");
             MaxXNormalized.Text = newExtent.XMax.ToString("0.000");
             MaxYNormalized.Text = newExtent.YMax.ToString("0.000");
 
-            MinXAbsolute.Text = mapView.Extent.XMin.ToString("0.000");
-            MinYAbsolute.Text = mapView.Extent.YMin.ToString("0.000");
-            MaxXAbsolute.Text = mapView.Extent.XMax.ToString("0.000");
-            MaxYAbsolute.Text = mapView.Extent.YMax.ToString("0.000");
+            MinXAbsolute.Text = MyMapView.Extent.XMin.ToString("0.000");
+            MinYAbsolute.Text = MyMapView.Extent.YMin.ToString("0.000");
+            MaxXAbsolute.Text = MyMapView.Extent.XMax.ToString("0.000");
+            MaxYAbsolute.Text = MyMapView.Extent.YMax.ToString("0.000");
         }
     }
 }

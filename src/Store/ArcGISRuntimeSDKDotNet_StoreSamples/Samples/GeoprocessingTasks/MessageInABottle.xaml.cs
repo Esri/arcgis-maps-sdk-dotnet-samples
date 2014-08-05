@@ -26,11 +26,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            _inputLayer = mapView.Map.Layers["InputLayer"] as GraphicsLayer;
-            _resultLayer = mapView.Map.Layers["ResultLayer"] as GraphicsLayer;
+            _inputLayer = MyMapView.Map.Layers["InputLayer"] as GraphicsLayer;
+            _resultLayer = MyMapView.Map.Layers["ResultLayer"] as GraphicsLayer;
         }
 
-       private async void mapView_Tapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
+       private async void MyMapView_Tapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
        {
            try
            {
@@ -42,7 +42,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
                Geoprocessor geoprocessorTask = new Geoprocessor(new Uri(MessageInABottleServiceUrl));
 
-               var parameter = new GPInputParameter() { OutSpatialReference = mapView.SpatialReference };
+               var parameter = new GPInputParameter() { OutSpatialReference = MyMapView.SpatialReference };
                var ptNorm = GeometryEngine.NormalizeCentralMeridianOfGeometry(e.Location);
                var ptGeographic = GeometryEngine.Project(ptNorm, SpatialReferences.Wgs84) as MapPoint;
 

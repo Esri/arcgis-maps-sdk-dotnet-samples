@@ -14,7 +14,7 @@
 			<symb:SimpleFillSymbol x:Key="DefaultFillSymbol" Color="#99FF9999" Outline="{StaticResource OutlineSymbol}" />
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView">
+        <esri:MapView x:Name="MyMapView">
             <esri:Map>
 				<esri:Map.InitialViewpoint>
 					<esri:ViewpointExtent XMin="-12004036" YMin="4652780" XMax="-11735714" YMax="4808810" />

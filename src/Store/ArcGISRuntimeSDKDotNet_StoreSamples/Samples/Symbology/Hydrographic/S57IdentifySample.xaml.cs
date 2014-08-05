@@ -47,27 +47,27 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 			resultList.ItemsSource = _searchResults;
 
 			// Reference layers that are used
-			_hydrographicGroupLayer = mapView.Map.Layers.OfType<GroupLayer>().First();
-			_resultGraphicsLayer = mapView.Map.Layers.OfType<GraphicsLayer>().First();
-			mapView.ExtentChanged += mapView_ExtentChanged;
+			_hydrographicGroupLayer = MyMapView.Map.Layers.OfType<GroupLayer>().First();
+			_resultGraphicsLayer = MyMapView.Map.Layers.OfType<GraphicsLayer>().First();
+			MyMapView.ExtentChanged += MyMapView_ExtentChanged;
 		}
 
 		// Load data - enable functionality after layers are loaded.
-		private async void mapView_ExtentChanged(object sender, EventArgs e)
+		private async void MyMapView_ExtentChanged(object sender, EventArgs e)
 		{
 			try
 			{
-				mapView.ExtentChanged -= mapView_ExtentChanged;
+				MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
 
 				// Get group layer from Map and set list items source
-				_hydrographicGroupLayer = mapView.Map.Layers.OfType<GroupLayer>().First();
+				_hydrographicGroupLayer = MyMapView.Map.Layers.OfType<GroupLayer>().First();
 
 				// Check that sample data is downloaded to the client
 				await CreateHydrographicLayerAsync(LAYER_1_PATH);
 				await CreateHydrographicLayerAsync(LAYER_2_PATH);
 
 				// Wait until all layers are loaded
-				var layers = await mapView.LayersLoadedAsync();
+				var layers = await MyMapView.LayersLoadedAsync();
 
 				Envelope extent = _hydrographicGroupLayer.ChildLayers.First().FullExtent;
 
@@ -76,7 +76,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 					extent = extent.Union(layer.FullExtent);
 
 				// Zoom to full extent
-				await mapView.SetViewAsync(extent);
+				await MyMapView.SetViewAsync(extent);
 				_isLoaded = true;
 			}
 			catch (Exception ex)
@@ -101,7 +101,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 		}
 
 		// When user clicks/taps the map, execute search to all hydrographic layers and set results to view
-		private async void mapView_MapViewTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
+		private async void MyMapView_MapViewTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
 		{
 			if (!_isLoaded)
 				return;
@@ -114,7 +114,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 				var hydroLayer = layer as HydrographicS57Layer;
 
 				// Identify feature objects from layer
-				var results = await hydroLayer.HitTestAsync(mapView, e.Position, 10, 3);
+				var results = await hydroLayer.HitTestAsync(MyMapView, e.Position, 10, 3);
 
 				// Add results to results list
 				if (results != null && results.Count > 0)
@@ -140,7 +140,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 		}
 
 		// Show error if loading layers fail
-		private void mapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
+		private void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
 		{
 			if (e.LoadError == null)
 				return;

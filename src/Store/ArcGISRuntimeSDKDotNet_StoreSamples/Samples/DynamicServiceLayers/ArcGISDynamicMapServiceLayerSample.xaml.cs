@@ -30,14 +30,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			envelopeBuilder.XMax = 2472012;
 			envelopeBuilder.YMax = 1742990;
 
-			mapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(envelopeBuilder.ToGeometry());
+			MyMapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(envelopeBuilder.ToGeometry());
 
-            mapView.LayerLoaded += mapView_LayerLoaded;
+            MyMapView.LayerLoaded += MyMapView_LayerLoaded;
 
-            _usaLayer = mapView.Map.Layers["USA"] as ArcGISDynamicMapServiceLayer;
+            _usaLayer = MyMapView.Map.Layers["USA"] as ArcGISDynamicMapServiceLayer;
         }
 
-        private void mapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
+        private void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
         {
             if (e.LoadError != null)
             {

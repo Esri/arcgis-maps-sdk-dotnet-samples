@@ -36,7 +36,7 @@
             </DataTemplate>
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" WrapAround="True" MapGrid="{Binding ElementName=gridTypeCombo, Path=SelectedItem.Tag}">
+        <esri:MapView x:Name="MyMapView" WrapAround="True" MapGrid="{Binding ElementName=gridTypeCombo, Path=SelectedItem.Tag}">
             <esri:Map>
 				<esri:Map.InitialViewpoint>
 					<esri:ViewpointExtent XMin="-13200000" YMin="4000000" XMax="-13000000" YMax="4150000" />
@@ -85,7 +85,7 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Text="Map Layers" FontWeight="Bold" FontSize="16" />
-                <ListView Grid.Row="1" Margin="0,20,0,0" ItemsSource="{Binding ElementName=mapView, Path=Map.Layers}" 
+                <ListView Grid.Row="1" Margin="0,20,0,0" ItemsSource="{Binding ElementName=MyMapView, Path=Map.Layers}" 
                           ItemTemplate="{StaticResource legendGroupTemplate}" SelectionMode="None" />
             </Grid>
         </Border>

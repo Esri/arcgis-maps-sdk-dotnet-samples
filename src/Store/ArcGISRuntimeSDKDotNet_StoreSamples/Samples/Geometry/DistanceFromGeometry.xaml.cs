@@ -28,7 +28,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
             _lineSymbol = LayoutRoot.Resources["LineSymbol"] as Symbol;
             _pointSymbol = LayoutRoot.Resources["PointSymbol"] as Symbol;
-            _graphicsLayer = mapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+            _graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
         }
 
         // Calculates the linear distance between two user-defined geometries
@@ -40,11 +40,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 _graphicsLayer.Graphics.Clear();
 
                 // wait for user to draw a polyline
-                var line = await mapView.Editor.RequestShapeAsync(DrawShape.Polyline, _lineSymbol);
+                var line = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polyline, _lineSymbol);
                 _graphicsLayer.Graphics.Add(new Graphic(line, _lineSymbol));
 
                 // wait for user to draw a point
-                var point = await mapView.Editor.RequestPointAsync();
+                var point = await MyMapView.Editor.RequestPointAsync();
                 _graphicsLayer.Graphics.Add(new Graphic(point, _pointSymbol));
 
                 // Calc distance between between line and point

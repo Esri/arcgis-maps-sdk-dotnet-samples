@@ -11,7 +11,7 @@
 			<symb:SimpleRenderer x:Key="SimpleRenderer" Symbol="{StaticResource DefaultMarkerSymbol}" />
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" MapViewTapped="mapView_Tapped">
+        <esri:MapView x:Name="MyMapView" MapViewTapped="MyMapView_Tapped">
             <esri:Map>
 				<layers:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />

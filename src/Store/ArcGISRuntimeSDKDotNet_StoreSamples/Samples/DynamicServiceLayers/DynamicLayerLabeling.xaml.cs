@@ -28,13 +28,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-			mapView.Loaded += mapView_Loaded;
+			MyMapView.Loaded += MyMapView_Loaded;
 
-            _usaLayer = mapView.Map.Layers["USA"] as ArcGISDynamicMapServiceLayer;
+            _usaLayer = MyMapView.Map.Layers["USA"] as ArcGISDynamicMapServiceLayer;
             _usaLayer.VisibleLayers = new ObservableCollection<int>() { 0, 1, 2 };
         }
 
-        private void mapView_Loaded(object sender, RoutedEventArgs e)
+        private void MyMapView_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {

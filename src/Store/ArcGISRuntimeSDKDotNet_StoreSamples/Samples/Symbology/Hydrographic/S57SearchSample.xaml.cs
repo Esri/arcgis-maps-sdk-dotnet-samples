@@ -47,33 +47,33 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 		public S57SearchSample()
 		{
 			this.InitializeComponent();
-			mapView.ExtentChanged += mapView_ExtentChanged;
+			MyMapView.ExtentChanged += MyMapView_ExtentChanged;
 			
 			_searchResults = new ObservableCollection<S57FeatureObject>();
 			resultList.ItemsSource = _searchResults;
 
 			// Reference layers that are used
-			_hydrographicLayers = mapView.Map.Layers.OfType<GroupLayer>().First();
-			_resultGraphicsLayer = mapView.Map.Layers.OfType<GraphicsLayer>().First(x => x.ID == "resultGraphics");
-			_drawGraphicsLayer = mapView.Map.Layers.OfType<GraphicsLayer>().First(x => x.ID == "drawGraphics");
+			_hydrographicLayers = MyMapView.Map.Layers.OfType<GroupLayer>().First();
+			_resultGraphicsLayer = MyMapView.Map.Layers.OfType<GraphicsLayer>().First(x => x.ID == "resultGraphics");
+			_drawGraphicsLayer = MyMapView.Map.Layers.OfType<GraphicsLayer>().First(x => x.ID == "drawGraphics");
 		}
 
 		// Load data - enable functionality after layers are loaded.
-		private async void mapView_ExtentChanged(object sender, EventArgs e)
+		private async void MyMapView_ExtentChanged(object sender, EventArgs e)
 		{
 			try
 			{
-				mapView.ExtentChanged -= mapView_ExtentChanged;
+				MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
 
 				// Get group layer from Map and set list items source
-				_hydrographicGroupLayer = mapView.Map.Layers.OfType<GroupLayer>().First();
+				_hydrographicGroupLayer = MyMapView.Map.Layers.OfType<GroupLayer>().First();
 
 				// Check that sample data is downloaded to the client
 				await CreateHydrographicLayerAsync(LAYER_1_PATH);
 				await CreateHydrographicLayerAsync(LAYER_2_PATH);
 
 				// Wait until all layers are loaded
-				var layers = await mapView.LayersLoadedAsync();
+				var layers = await MyMapView.LayersLoadedAsync();
 
 				Envelope extent = _hydrographicGroupLayer.ChildLayers.First().FullExtent;
 
@@ -82,7 +82,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 					extent = extent.Union(layer.FullExtent);
 
 				// Zoom to full extent
-				await mapView.SetViewAsync(extent);
+				await MyMapView.SetViewAsync(extent);
 			}
 			catch (Exception ex)
 			{
@@ -91,7 +91,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 		}
 
 		// Show error if loading layers fail
-		private void mapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
+		private void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
 		{
 			if (e.LoadError == null)
 				return;
@@ -126,23 +126,23 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 				// Using single mode so there is only one item
 				var selectedFeatureObject = e.AddedItems[0] as S57FeatureObject;
 				_resultGraphicsLayer.Graphics.Add(new Graphic(selectedFeatureObject.Geometry));
-				await mapView.SetViewAsync(selectedFeatureObject.Geometry.Extent);
+				await MyMapView.SetViewAsync(selectedFeatureObject.Geometry.Extent);
 			}
 		}
 
 		// Cancel the current shape drawing (if in Editor.RequestShapeAsync) when the shape type has changed
 		private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			if (mapView.Editor.IsActive)
-				mapView.Editor.Cancel.Execute(null);
+			if (MyMapView.Editor.IsActive)
+				MyMapView.Editor.Cancel.Execute(null);
 		}
 
 		// Cancel the current shape drawing (if in Editor.RequestShapeAsync)
 		// and draw new geometry
 		private async void AddSearchGeometry_Click(object sender, RoutedEventArgs e)
 		{
-			if (mapView.Editor.IsActive)
-				mapView.Editor.Cancel.Execute(null);
+			if (MyMapView.Editor.IsActive)
+				MyMapView.Editor.Cancel.Execute(null);
 
 			_drawGraphicsLayer.Graphics.Clear();
 			findBtn.IsEnabled = false;
@@ -177,7 +177,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 				}
 
 				// wait for user to draw the shape
-				_searchGeometry = await mapView.Editor.RequestShapeAsync(selectedDrawShape, symbol);
+				_searchGeometry = await MyMapView.Editor.RequestShapeAsync(selectedDrawShape, symbol);
 
 				// add the new graphic to the graphic layer
 				var graphic = new Graphic(_searchGeometry, symbol);
@@ -209,7 +209,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 				Double.TryParse(BufferValue.Text, out bufferDistance);
 
 				// Search feature objects from layer based on geometry, buffer and object name
-				var results = await hydroLayer.SearchAsync(mapView, _searchGeometry, bufferDistance, SearchText.Text);
+				var results = await hydroLayer.SearchAsync(MyMapView, _searchGeometry, bufferDistance, SearchText.Text);
 
 				// Add results to results list
 				if (results != null && results.Count > 0)

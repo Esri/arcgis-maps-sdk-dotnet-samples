@@ -8,7 +8,7 @@
     xmlns:data="using:Esri.ArcGISRuntime.Data">
 
     <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <esri:MapView x:Name="mapView" WrapAround="True">
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
             <esri:Map>
 				<esri:Map.InitialViewpoint>
                     <esri:ViewpointExtent XMin="-14131917.758914" YMin="5680423.82721854" XMax="-12669734.6418583" YMax="6341452.4447208" />

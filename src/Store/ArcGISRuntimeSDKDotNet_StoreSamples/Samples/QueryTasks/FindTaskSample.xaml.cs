@@ -27,13 +27,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
             
-            mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-15000000, 2000000, -7000000, 8000000));
+            MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-15000000, 2000000, -7000000, 8000000));
 
             _markerSymbol = LayoutRoot.Resources["MarkerSymbol"] as Symbol;
             _lineSymbol = LayoutRoot.Resources["LineSymbol"] as Symbol;
             _fillSymbol = LayoutRoot.Resources["FillSymbol"] as Symbol;
 
-            _graphicsLayer = mapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+            _graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
         }
 
         // Find map service items with entered information in given fields
@@ -54,7 +54,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     LayerIDs = new int[] { 0, 1, 2 },
                     SearchFields = new string[] { "CITY_NAME", "NAME", "SYSTEM", "STATE_ABBR", "STATE_NAME" },
                     ReturnGeometry = true,
-                    SpatialReference = mapView.SpatialReference,
+                    SpatialReference = MyMapView.SpatialReference,
                     SearchText = txtFind.Text
                 };
 

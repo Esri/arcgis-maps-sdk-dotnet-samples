@@ -13,7 +13,7 @@
             <common:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" WrapAround="True" >
+        <esri:MapView x:Name="MyMapView" WrapAround="True" >
             <esri:Map>
 				<esri:Map.InitialViewpoint>
 					<esri:ViewpointExtent XMin="-14675766" YMin="2695407" XMax="-6733121" YMax="6583994" SpatialReferenceID="3857"/>

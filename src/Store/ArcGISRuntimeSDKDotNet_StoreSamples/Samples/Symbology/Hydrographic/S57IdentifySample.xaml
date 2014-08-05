@@ -29,9 +29,9 @@
 	</Page.Resources>
 
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-		<esri:MapView x:Name="mapView" 
-					  LayerLoaded="mapView_LayerLoaded"
-					  MapViewTapped="mapView_MapViewTapped">
+		<esri:MapView x:Name="MyMapView" 
+					  LayerLoaded="MyMapView_LayerLoaded"
+					  MapViewTapped="MyMapView_MapViewTapped">
 			<esri:Map>
 				<layers:ArcGISTiledMapServiceLayer ID="Ocean_BaseMap"
                         ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer" />

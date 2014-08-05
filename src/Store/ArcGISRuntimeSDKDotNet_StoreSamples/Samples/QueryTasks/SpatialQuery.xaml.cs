@@ -23,7 +23,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-            mapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(new Envelope(-9270434, 5246977, -9269261, 5247570));
+            MyMapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(new Envelope(-9270434, 5246977, -9269261, 5247570));
             InitializePMS();
         }
 
@@ -42,14 +42,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
         }
 
-        private async void mapView_Tapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
+        private async void MyMapView_Tapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
         {
             try
             {
-                var graphicsLayer = mapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+                var graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
                 graphicsLayer.Graphics.Add(new Graphic() { Geometry = e.Location });
 
-                var bufferLayer = mapView.Map.Layers["BufferLayer"] as GraphicsLayer;
+                var bufferLayer = MyMapView.Map.Layers["BufferLayer"] as GraphicsLayer;
                 var bufferResult = GeometryEngine.Buffer(e.Location, 100);
                 bufferLayer.Graphics.Add(new Graphic() { Geometry = bufferResult });
 
@@ -58,7 +58,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var query = new Query("1=1")
                 {
                     ReturnGeometry = true,
-                    OutSpatialReference = mapView.SpatialReference,
+                    OutSpatialReference = MyMapView.SpatialReference,
                     Geometry = bufferResult
                 };
                 query.OutFields.Add("OWNERNME1");
@@ -66,7 +66,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var queryResult = await queryTask.ExecuteAsync(query);
                 if (queryResult != null && queryResult.FeatureSet != null)
                 {
-                    var resultLayer = mapView.Map.Layers["ResultsGraphicsLayer"] as GraphicsLayer;
+                    var resultLayer = MyMapView.Map.Layers["ResultsGraphicsLayer"] as GraphicsLayer;
                     resultLayer.Graphics.AddRange(queryResult.FeatureSet.Features.OfType<Graphic>());
                 }
             }

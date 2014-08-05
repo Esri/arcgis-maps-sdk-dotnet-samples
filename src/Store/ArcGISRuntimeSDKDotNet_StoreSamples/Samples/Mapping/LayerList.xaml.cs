@@ -19,13 +19,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-			mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-13279586, 4010136, -12786147, 4280850, SpatialReferences.WebMercator));
+			MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-13279586, 4010136, -12786147, 4280850, SpatialReferences.WebMercator));
         }
 
         private void RemoveLayerButton_Click(object sender, RoutedEventArgs e)
         {
             var layer = (sender as FrameworkElement).DataContext as Layer;
-            mapView.Map.Layers.Remove(layer);
+            MyMapView.Map.Layers.Remove(layer);
         }
     }
 }

@@ -27,9 +27,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             if (providerSelector != null)
             {
                 if (providerSelector.SelectedIndex == 0)
-                    mapView.LocationDisplay.LocationProvider = new SystemLocationProvider();
+                    MyMapView.LocationDisplay.LocationProvider = new SystemLocationProvider();
                 else if (providerSelector.SelectedIndex == 1)
-                    mapView.LocationDisplay.LocationProvider = new RandomProvider();
+                    MyMapView.LocationDisplay.LocationProvider = new RandomProvider();
             }
         }
     }

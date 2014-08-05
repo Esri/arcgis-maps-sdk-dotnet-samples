@@ -12,7 +12,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <esri:MapView x:Name="mapView" Grid.Column="1">
+        <esri:MapView x:Name="MyMapView" Grid.Column="1">
             <esri:Map>
 				<layers:ArcGISTiledMapServiceLayer DisplayName="Basemap"
 				    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" />
@@ -49,7 +49,7 @@
 
             <TextBlock Text="Drag layers to reorder them" Margin="20" FontWeight="Bold" />
 
-            <ListView ItemsSource="{Binding ElementName=mapView, Path=Map.Layers}" 
+            <ListView ItemsSource="{Binding ElementName=MyMapView, Path=Map.Layers}" 
                       Margin="20,0,0,20" Grid.Row="1" CanReorderItems="True" CanDragItems="True" AllowDrop="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>

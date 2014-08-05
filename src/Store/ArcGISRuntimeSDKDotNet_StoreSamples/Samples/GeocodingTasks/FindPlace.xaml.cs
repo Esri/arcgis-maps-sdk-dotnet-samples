@@ -29,9 +29,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             InitializeComponent();
 
             var ext = new Envelope(-117.207, 32.686, -117.079, 32.739, SpatialReferences.Wgs84);
-			mapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(ext);
+			MyMapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(ext);
 			
-            _addressGraphicsLayer = mapView.Map.Layers["AddressGraphicsLayer"] as GraphicsLayer;
+            _addressGraphicsLayer = MyMapView.Map.Layers["AddressGraphicsLayer"] as GraphicsLayer;
 
             _locatorTask = new OnlineLocatorTask(new Uri(OnlineLocatorUrl));
             _locatorTask.AutoNormalize = true;
@@ -62,10 +62,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
                 var param = new OnlineLocatorFindParameters(SearchTextBox.Text)
                 {
-                    SearchExtent = mapView.Extent,
-                    Location = mapView.Extent.GetCenter(),
+                    SearchExtent = MyMapView.Extent,
+                    Location = MyMapView.Extent.GetCenter(),
                     MaxLocations = 5,
-                    OutSpatialReference = mapView.SpatialReference,
+                    OutSpatialReference = MyMapView.SpatialReference,
                     OutFields = new string[] { "Place_addr" }
                 };
 
@@ -78,7 +78,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     AddGraphicFromLocatorCandidate(candidate);
 
                 var extent = GeometryEngine.Union(_addressGraphicsLayer.Graphics.Select(g => g.Geometry)).Extent.Expand(1.1);
-                await mapView.SetViewAsync(extent);
+                await MyMapView.SetViewAsync(extent);
 
                 listResults.Visibility = Visibility.Visible;
             }

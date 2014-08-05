@@ -6,7 +6,7 @@
     xmlns:layers="using:Esri.ArcGISRuntime.Layers">
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-        <esri:MapView x:Name="mapView" LayerLoaded="mapView_LayerLoaded">
+        <esri:MapView x:Name="MyMapView" LayerLoaded="MyMapView_LayerLoaded">
             <esri:Map >
 				<layers:ArcGISImageServiceLayer ID="ImageLayer"
                     ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/CharlotteLAS/ImageServer" />

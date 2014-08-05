@@ -12,7 +12,7 @@
             <local:DoubleToStringConverter x:Key="DoubleToStringConverter" />
         </Grid.Resources>
         
-        <esri:MapView x:Name="mapView" WrapAround="True">
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
             <esri:Map>
 				<layers:ArcGISTiledMapServiceLayer 
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />

@@ -30,7 +30,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            _clippedGraphics = mapView.Map.Layers["ClippedGraphics"] as GraphicsLayer;
+            _clippedGraphics = MyMapView.Map.Layers["ClippedGraphics"] as GraphicsLayer;
             _clipSymbol = layoutGrid.Resources["ClipRectSymbol"] as Symbol;
 
             var task = CreateFeatureLayersAsync();
@@ -48,7 +48,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var gdb = await Geodatabase.OpenAsync(file.Path);
                 var table = gdb.FeatureTables.First(ft => ft.Name == "US-States");
                 _statesLayer = new FeatureLayer() { ID = table.Name, FeatureTable = table };
-                mapView.Map.Layers.Insert(1, _statesLayer);
+                MyMapView.Map.Layers.Insert(1, _statesLayer);
             }
             catch (Exception ex)
             {
@@ -64,7 +64,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 _clippedGraphics.Graphics.Clear();
 
                 // wait for user to draw clip rect
-                var rect = await mapView.Editor.RequestShapeAsync(DrawShape.Rectangle);
+                var rect = await MyMapView.Editor.RequestShapeAsync(DrawShape.Rectangle);
 
                 // get intersecting features from the feature layer
                 SpatialQueryFilter filter = new SpatialQueryFilter();

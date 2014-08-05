@@ -23,23 +23,23 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            graphicsLayer = mapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+            graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
             var task = CreatePolylineGraphics();
         }
 
         // Create polyline graphics on the map in the center and the center of four equal quadrants
         private async Task CreatePolylineGraphics()
         {
-            await mapView.LayersLoadedAsync();
+            await MyMapView.LayersLoadedAsync();
 
-            var height = mapView.Extent.Height / 4;
-            var width = mapView.Extent.Width / 4;
+            var height = MyMapView.Extent.Height / 4;
+            var width = MyMapView.Extent.Width / 4;
             var length = width / 4;
-            var center = mapView.Extent.GetCenter();
-            var topLeft = new MapPoint(center.X - width, center.Y + height, mapView.SpatialReference);
-            var topRight = new MapPoint(center.X + width, center.Y + height, mapView.SpatialReference);
-            var bottomLeft = new MapPoint(center.X - width, center.Y - height, mapView.SpatialReference);
-            var bottomRight = new MapPoint(center.X + width, center.Y - height, mapView.SpatialReference);
+            var center = MyMapView.Extent.GetCenter();
+            var topLeft = new MapPoint(center.X - width, center.Y + height, MyMapView.SpatialReference);
+            var topRight = new MapPoint(center.X + width, center.Y + height, MyMapView.SpatialReference);
+            var bottomLeft = new MapPoint(center.X - width, center.Y - height, MyMapView.SpatialReference);
+            var bottomRight = new MapPoint(center.X + width, center.Y - height, MyMapView.SpatialReference);
 
             var redSymbol = new SimpleLineSymbol() { Color = Colors.Red, Width = 4, Style = SimpleLineStyle.Solid };
             var blueSymbol = new SimpleLineSymbol() { Color = Colors.Blue, Width = 4, Style = SimpleLineStyle.Solid };
@@ -64,7 +64,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			coords2.Add(new MapPointBuilder(center.X + halfLen, center.Y + halfLen).ToGeometry());
 			coords2.Add(new MapPointBuilder(center.X - halfLen, center.Y - halfLen).ToGeometry());
 
-            return new Polyline(new List<PointCollection> { coords1, coords2 }, mapView.SpatialReference);
+            return new Polyline(new List<PointCollection> { coords1, coords2 }, MyMapView.SpatialReference);
         }
     }
 }

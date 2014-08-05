@@ -25,9 +25,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            _labelGraphics = mapView.Map.Layers["LabelGraphics"] as GraphicsLayer;
+            _labelGraphics = MyMapView.Map.Layers["LabelGraphics"] as GraphicsLayer;
 
-            mapView.ExtentChanged += mapView_ExtentChanged;
+            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
             var task = SetupSymbolsAsync();
         }
 
@@ -46,9 +46,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         }
 
         // Start accepting user polygons and calculating label points
-        private async void mapView_ExtentChanged(object sender, EventArgs e)
+        private async void MyMapView_ExtentChanged(object sender, EventArgs e)
         {
-            mapView.ExtentChanged -= mapView_ExtentChanged;
+            MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
             await CalculateLabelPointsAsync();
         }
 
@@ -57,15 +57,15 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             try
             {
-                await mapView.LayersLoadedAsync();
+                await MyMapView.LayersLoadedAsync();
 
-                while (mapView.Extent != null)
+                while (MyMapView.Extent != null)
                 {
-                    if (mapView.Editor.IsActive)
-                        mapView.Editor.Cancel.Execute(null);
+                    if (MyMapView.Editor.IsActive)
+                        MyMapView.Editor.Cancel.Execute(null);
 
                     //Get the input polygon geometry from the user
-                    var poly = await mapView.Editor.RequestShapeAsync(DrawShape.Polygon, ((SimpleRenderer)_labelGraphics.Renderer).Symbol);
+                    var poly = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon, ((SimpleRenderer)_labelGraphics.Renderer).Symbol);
                     if (poly != null)
                     {
                         //Add the polygon drawn by the user

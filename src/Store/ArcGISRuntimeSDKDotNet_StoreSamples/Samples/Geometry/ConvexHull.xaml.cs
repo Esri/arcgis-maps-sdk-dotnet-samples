@@ -28,8 +28,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            _inputGraphics = mapView.Map.Layers["InputGraphics"] as GraphicsLayer;
-            _convexHullGraphics = mapView.Map.Layers["ConvexHullGraphics"] as GraphicsLayer;
+            _inputGraphics = MyMapView.Map.Layers["InputGraphics"] as GraphicsLayer;
+            _convexHullGraphics = MyMapView.Map.Layers["ConvexHullGraphics"] as GraphicsLayer;
             _pointSymbol = (Symbol)layoutGrid.Resources["PointSymbol"];
             _polygonSymbol = (Symbol)layoutGrid.Resources["ConvexHullSymbol"];
 
@@ -41,11 +41,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             try
             {
-                await mapView.LayersLoadedAsync();
+                await MyMapView.LayersLoadedAsync();
 
-                while (mapView.Extent != null)
+                while (MyMapView.Extent != null)
                 {
-                    var point = await mapView.Editor.RequestPointAsync();
+                    var point = await MyMapView.Editor.RequestPointAsync();
 
                     // reset graphics layers if we've already created a convex hull polygon
                     if (_convexHullGraphics.Graphics.Count > 0)

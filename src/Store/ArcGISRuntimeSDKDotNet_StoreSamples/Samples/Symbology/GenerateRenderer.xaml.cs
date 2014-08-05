@@ -32,21 +32,21 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             var lineSymbol = new SimpleLineSymbol() { Color = Colors.Black, Width = 0.5 };
             _baseSymbol = new SimpleFillSymbol() { Color = Colors.Transparent, Outline = lineSymbol, Style = SimpleFillStyle.Solid };
 
-            _featureLayer = mapView.Map.Layers["FeatureLayer"] as FeatureLayer;
+            _featureLayer = MyMapView.Map.Layers["FeatureLayer"] as FeatureLayer;
             ((GeodatabaseFeatureServiceTable)_featureLayer.FeatureTable).OutFields = new OutFields(
                 new string[] { "POP2007, POP07_SQMI, WHITE, BLACK, AMERI_ES, ASIAN, HAWN_PI, OTHER, MULT_RACE, HISPANIC, STATE_NAME, NAME" });
 
-            mapView.ExtentChanged += mapView_ExtentChanged;
+            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 
         // Load data - set initial renderer after the map has an extent and feature layer loaded
-        private async void mapView_ExtentChanged(object sender, EventArgs e)
+        private async void MyMapView_ExtentChanged(object sender, EventArgs e)
         {
             try
             {
-                mapView.ExtentChanged -= mapView_ExtentChanged;
+                MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
 
-                await mapView.LayersLoadedAsync();
+                await MyMapView.LayersLoadedAsync();
 
                 comboField.SelectedIndex = 0;
             }

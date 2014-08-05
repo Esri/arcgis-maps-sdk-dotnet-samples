@@ -27,17 +27,17 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
             _pinSymbol = LayoutRoot.Resources["PointSymbol"] as Symbol;
             _sectorSymbol = LayoutRoot.Resources["SectorSymbol"] as Symbol;
-            _graphicsLayer = mapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+            _graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
         }
 
         private async void EllipseButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                while (mapView.Extent != null)
+                while (MyMapView.Extent != null)
                 {
                     // Accept user point
-                    var point = await mapView.Editor.RequestPointAsync();
+                    var point = await MyMapView.Editor.RequestPointAsync();
 
                     // create the geodesic ellipse
                     var radius1 = (double)comboRadius1.SelectedItem;

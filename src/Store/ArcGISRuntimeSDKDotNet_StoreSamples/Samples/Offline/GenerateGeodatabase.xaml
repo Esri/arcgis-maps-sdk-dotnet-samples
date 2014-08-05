@@ -33,7 +33,7 @@
             </DataTemplate>
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView">
+        <esri:MapView x:Name="MyMapView">
             <esri:Map>
 				<layers:ArcGISTiledMapServiceLayer DisplayName="Streets Basemap"
                     ServiceUri="http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
@@ -54,7 +54,7 @@
                 </StackPanel>
 
                 <TextBlock Text="Map Layers" FontSize="16" FontWeight="Bold" Margin="0,12,0,6" />
-                <ItemsControl Grid.Row="1" ItemsSource="{Binding ElementName=mapView, Path=Map.Layers}" 
+                <ItemsControl Grid.Row="1" ItemsSource="{Binding ElementName=MyMapView, Path=Map.Layers}" 
                           ItemTemplate="{StaticResource legendGroupTemplate}" />
             </StackPanel>
         </Border>

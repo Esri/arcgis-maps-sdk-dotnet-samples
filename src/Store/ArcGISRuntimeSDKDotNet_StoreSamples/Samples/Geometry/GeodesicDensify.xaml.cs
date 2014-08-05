@@ -38,8 +38,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             _origVertexSymbol = LayoutRoot.Resources["OrigVertexSymbol"] as Symbol;
             _newVertexSymbol = LayoutRoot.Resources["NewVertexSymbol"] as Symbol;
 
-            _inputGraphics = mapView.Map.Layers["InputGraphics"] as GraphicsLayer;
-            _resultGraphics = mapView.Map.Layers["ResultGraphics"] as GraphicsLayer;
+            _inputGraphics = MyMapView.Map.Layers["InputGraphics"] as GraphicsLayer;
+            _resultGraphics = MyMapView.Map.Layers["ResultGraphics"] as GraphicsLayer;
         }
 
         // Draw and densify a user defined polygon
@@ -53,7 +53,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
                 // Request polygon or polyline from the user
                 DrawShape drawShape = (DrawShape)comboShapeType.SelectedValue;
-                var original = await mapView.Editor.RequestShapeAsync(drawShape, _fillSymbol);
+                var original = await MyMapView.Editor.RequestShapeAsync(drawShape, _fillSymbol);
 
                 // Add original shape vertices to input graphics layer
 				var coordsOriginal = (original as Multipart).Parts.First();
@@ -61,7 +61,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     _inputGraphics.Graphics.Add(new Graphic(new MapPointBuilder(coord).ToGeometry(), _origVertexSymbol));
 
                 // Densify the shape
-                var densify = GeometryEngine.GeodesicDensify(original, mapView.Extent.Width / 100, LinearUnits.Meters);
+                var densify = GeometryEngine.GeodesicDensify(original, MyMapView.Extent.Width / 100, LinearUnits.Meters);
                 _inputGraphics.Graphics.Add(new Graphic(densify, _fillSymbol));
 
                 // Add new vertices to result graphics layer

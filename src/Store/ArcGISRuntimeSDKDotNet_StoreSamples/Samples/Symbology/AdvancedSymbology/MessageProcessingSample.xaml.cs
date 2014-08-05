@@ -29,20 +29,20 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 		public MessageProcessingSample()
 		{
 			InitializeComponent();
-			mapView.ExtentChanged += mapView_ExtentChanged;
+			MyMapView.ExtentChanged += MyMapView_ExtentChanged;
 		}
 
 		// Load data - enable functionality after layers are loaded.
-		private async void mapView_ExtentChanged(object sender, EventArgs e)
+		private async void MyMapView_ExtentChanged(object sender, EventArgs e)
 		{
 			try
 			{
-				mapView.ExtentChanged -= mapView_ExtentChanged;
+				MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
 
 				// Wait until all layers are loaded
-				var layers = await mapView.LayersLoadedAsync();
+				var layers = await MyMapView.LayersLoadedAsync();
 
-				_messageLayer = mapView.Map.Layers.OfType<MessageLayer>().First();
+				_messageLayer = MyMapView.Map.Layers.OfType<MessageLayer>().First();
 				processMessagesBtn.IsEnabled = true;
 			}
 			catch (Exception ex)

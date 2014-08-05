@@ -15,7 +15,7 @@
 	</Page.Resources>
 
     <Grid>
-        <esri:MapView x:Name="mapView1" MapViewTapped="mapView1_MapViewTapped" PointerMoved="mapView1_PointerMoved">
+        <esri:MapView x:Name="MyMapView" MapViewTapped="MyMapView_MapViewTapped" PointerMoved="MyMapView_PointerMoved">
             <esri:Map   >
 				<layers:ArcGISTiledMapServiceLayer
 					ServiceUri="http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer" />

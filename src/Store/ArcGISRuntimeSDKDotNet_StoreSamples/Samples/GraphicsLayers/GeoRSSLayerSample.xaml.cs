@@ -21,7 +21,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             try
             {
-                var rssLayer = mapView.Map.Layers["RssLayer"] as GeoRssLayer;
+                var rssLayer = MyMapView.Map.Layers["RssLayer"] as GeoRssLayer;
                 await rssLayer.UpdateAsync();
                 await new MessageDialog("Layer updated successfully", "GeoRSS Layer Sample").ShowAsync();
             }

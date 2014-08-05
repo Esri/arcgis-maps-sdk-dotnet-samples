@@ -4,7 +4,7 @@
       xmlns:esri="using:Esri.ArcGISRuntime.Controls"
       xmlns:layers="using:Esri.ArcGISRuntime.Layers">
     <Grid>
-        <esri:MapView x:Name="mapView">
+        <esri:MapView x:Name="MyMapView">
             <esri:Map>
                 <!-- Known Local Data Folder Tile Package -->
 				<!--<layers:ArcGISLocalTiledLayer ID="campus" Path="ms-appdata:///local/basemaps/campus.tpk" />-->

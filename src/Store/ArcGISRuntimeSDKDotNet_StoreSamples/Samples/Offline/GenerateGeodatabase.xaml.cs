@@ -30,7 +30,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public GenerateGeodatabase()
         {
             InitializeComponent();
-            mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-13644594, 4538221, -13614635, 4552886, SpatialReferences.WebMercator));
+            MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-13644594, 4538221, -13614635, 4552886, SpatialReferences.WebMercator));
         }
 
         // Generate / download and display layers from a generated geodatabase
@@ -43,11 +43,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 ReportStatus("Creating GeodatabaseSyncTask...");
                 var syncTask = new GeodatabaseSyncTask(new Uri(BASE_URL));
 
-                var options = new GenerateGeodatabaseParameters(new int[] { 0, 1, 2 }, mapView.Extent)
+                var options = new GenerateGeodatabaseParameters(new int[] { 0, 1, 2 }, MyMapView.Extent)
                 {
                     GeodatabasePrefixName = GDB_PREFIX,
                     ReturnAttachments = false,
-                    OutSpatialReference = mapView.SpatialReference,
+                    OutSpatialReference = MyMapView.SpatialReference,
                     SyncModel = SyncModel.PerLayer
                 };
 
@@ -75,7 +75,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 ReportStatus("Create local feature layers...");
                 await CreateFeatureLayersAsync(gdbFile.Path);
 
-                mapView.Map.Layers["onlineService"].IsVisible = false;
+                MyMapView.Map.Layers["onlineService"].IsVisible = false;
             }
             catch (Exception ex)
             {
@@ -111,9 +111,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 if (gdb.FeatureTables.Count() == 0)
                     throw new Exception("Downloaded geodatabase has no feature tables.");
 
-                var groupLayer = mapView.Map.Layers["Local_Geodatabase"] as GroupLayer;
+                var groupLayer = MyMapView.Map.Layers["Local_Geodatabase"] as GroupLayer;
                 if (groupLayer != null)
-                    mapView.Map.Layers.Remove(groupLayer);
+                    MyMapView.Map.Layers.Remove(groupLayer);
                 
                 groupLayer = new GroupLayer()
                 {
@@ -142,9 +142,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     groupLayer.ChildLayers.Add(flayer);
                 }
 
-                mapView.Map.Layers.Add(groupLayer);
+                MyMapView.Map.Layers.Add(groupLayer);
 
-                await mapView.SetViewAsync(extent.Expand(1.10));
+                await MyMapView.SetViewAsync(extent.Expand(1.10));
             }
             catch (Exception ex)
             {

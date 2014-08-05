@@ -31,8 +31,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            mapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(new Envelope(-13044000, 3855000, -13040000, 3858000, SpatialReferences.WebMercator));
-            _graphicsLayer = mapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+            MyMapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(new Envelope(-13044000, 3855000, -13040000, 3858000, SpatialReferences.WebMercator));
+            _graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
 
 			SetupRendererSymbols();
         }
@@ -79,12 +79,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 }
 
                 var candidateResults = await _locatorTask.GeocodeAsync(
-                    address, new List<string> { "Match_addr" }, mapView.SpatialReference, CancellationToken.None);
+                    address, new List<string> { "Match_addr" }, MyMapView.SpatialReference, CancellationToken.None);
 
                 _graphicsLayer.GraphicsSource = candidateResults
                     .Select(result => new Graphic(result.Location, new Dictionary<string, object> { { "Locator", result } }));
 
-                await mapView.SetViewAsync(ExtentFromGraphics().Expand(2));
+                await MyMapView.SetViewAsync(ExtentFromGraphics().Expand(2));
             }
             catch (AggregateException ex)
             {
@@ -115,7 +115,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             var graphics = _graphicsLayer.GraphicsSource;
             if (graphics == null || graphics.Count() == 0)
-                return mapView.Extent;
+                return MyMapView.Extent;
 
             var extent = graphics.First().Geometry.Extent;
             foreach (var graphic in graphics)

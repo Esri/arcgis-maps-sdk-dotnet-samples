@@ -17,11 +17,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-			mapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(new Envelope(-5, 20, 50, 65, SpatialReferences.Wgs84));
-			mapView.Map.SpatialReference = SpatialReferences.WebMercator;
+			MyMapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(new Envelope(-5, 20, 50, 65, SpatialReferences.Wgs84));
+			MyMapView.Map.SpatialReference = SpatialReferences.WebMercator;
         }
 
-        private async void mapView_ExtentChanged(object sender, System.EventArgs e)
+        private async void MyMapView_ExtentChanged(object sender, System.EventArgs e)
         {
             var graphicslayer = overviewMap.Map.Layers.OfType<GraphicsLayer>().FirstOrDefault();
             Graphic g = graphicslayer.Graphics.FirstOrDefault();
@@ -30,10 +30,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 g = new Graphic();
                 graphicslayer.Graphics.Add(g);
             }
-            g.Geometry = mapView.Extent;
+            g.Geometry = MyMapView.Extent;
 
             // Adjust overview map scale
-            await overviewMap.SetViewAsync(mapView.Extent.GetCenter(), mapView.Scale * 15);
+            await overviewMap.SetViewAsync(MyMapView.Extent.GetCenter(), MyMapView.Scale * 15);
         }
     }
 }

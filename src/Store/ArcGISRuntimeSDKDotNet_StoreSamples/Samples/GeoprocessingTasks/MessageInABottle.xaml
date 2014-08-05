@@ -15,7 +15,7 @@
 			<symb:SimpleRenderer x:Key="LineRenderer" Symbol="{StaticResource PathLineSymbol}" />
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" MapViewTapped="mapView_Tapped">
+        <esri:MapView x:Name="MyMapView" MapViewTapped="MyMapView_Tapped">
             <esri:Map>
 				<layers:ArcGISTiledMapServiceLayer ID="TopoMapLayer"
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />

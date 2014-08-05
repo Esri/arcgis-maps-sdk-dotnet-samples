@@ -21,24 +21,24 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-            mapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(new Envelope(-15000000, 2000000, -7000000, 8000000));
+            MyMapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(new Envelope(-15000000, 2000000, -7000000, 8000000));
         }
 
-        private async void mapView_Tapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
+        private async void MyMapView_Tapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
         {
             try
             {
                 progress.Visibility = Visibility.Visible;
                 resultsGrid.DataContext = null;
 
-                GraphicsLayer graphicsLayer = mapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+                GraphicsLayer graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
                 graphicsLayer.Graphics.Clear();
                 graphicsLayer.Graphics.Add(new Graphic(e.Location));
 
-                IdentifyParameters identifyParams = new IdentifyParameters(e.Location, mapView.Extent, 2, (int)mapView.ActualHeight, (int)mapView.ActualWidth)
+                IdentifyParameters identifyParams = new IdentifyParameters(e.Location, MyMapView.Extent, 2, (int)MyMapView.ActualHeight, (int)MyMapView.ActualWidth)
                 {
                     LayerOption = LayerOption.Visible,
-                    SpatialReference = mapView.SpatialReference,
+                    SpatialReference = MyMapView.SpatialReference,
                 };
 
                 IdentifyTask identifyTask = new IdentifyTask(

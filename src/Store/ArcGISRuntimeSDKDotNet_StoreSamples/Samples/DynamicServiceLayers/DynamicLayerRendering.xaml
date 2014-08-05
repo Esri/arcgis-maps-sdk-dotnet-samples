@@ -5,7 +5,7 @@
       xmlns:layers="using:Esri.ArcGISRuntime.Layers"
       xmlns:geo="using:Esri.ArcGISRuntime.Geometry">
     <Grid>
-        <esri:MapView x:Name="mapView">
+        <esri:MapView x:Name="MyMapView">
             <esri:Map>
                 <esri:Map.InitialViewpoint>
                     <esri:ViewpointExtent XMin="-129.045897661039" YMin="22.7383988271239"

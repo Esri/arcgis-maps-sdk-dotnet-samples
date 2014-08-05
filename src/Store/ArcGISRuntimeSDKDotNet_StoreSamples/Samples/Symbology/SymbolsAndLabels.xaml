@@ -63,7 +63,7 @@
 	</Page.Resources>
 
     <Grid>
-        <esri:MapView x:Name="mapView1" ManipulationMode="All">
+        <esri:MapView x:Name="MyMapView" ManipulationMode="All">
             <esri:Map>
 				<layers:ArcGISTiledMapServiceLayer
 					ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
@@ -88,10 +88,10 @@
 		<Border HorizontalAlignment="Right" VerticalAlignment="Top" Padding="20" Margin="20" Background="#99000000">
 			<StackPanel>
 			<ToggleSwitch Header="Toggle Labels"
-				IsOn="{Binding Map.Layers[1].IsLabelingEnabled, Mode=TwoWay, ElementName=mapView1}" />
+				IsOn="{Binding Map.Layers[1].IsLabelingEnabled, Mode=TwoWay, ElementName=MyMapView}" />
 				<TextBlock Text="Map Rotation" Margin="7,0,0,0" Style="{StaticResource SubtitleTextBlockStyle}" />
 				<Slider Minimum="0" Maximum="360"
-						Value="{Binding Rotation, ElementName=mapView1, Mode=TwoWay}" />
+						Value="{Binding Rotation, ElementName=MyMapView, Mode=TwoWay}" />
 			</StackPanel>
 		</Border>
 	</Grid>

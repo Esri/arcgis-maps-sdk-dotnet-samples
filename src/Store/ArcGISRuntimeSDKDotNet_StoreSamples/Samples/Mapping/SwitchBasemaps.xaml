@@ -7,7 +7,7 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-        <esri:MapView WrapAround="True" x:Name="mapView1">
+        <esri:MapView WrapAround="True" x:Name="MyMapView">
             <esri:Map>
 				<layers:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />

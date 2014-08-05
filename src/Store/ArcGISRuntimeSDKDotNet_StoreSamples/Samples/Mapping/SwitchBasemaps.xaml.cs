@@ -18,9 +18,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private void RadioButton_Click(object sender, RoutedEventArgs e)
         {
-            mapView1.Map.Layers.RemoveAt(0);
+            MyMapView.Map.Layers.RemoveAt(0);
 
-            mapView1.Map.Layers.Add(new ArcGISTiledMapServiceLayer()
+            MyMapView.Map.Layers.Add(new ArcGISTiledMapServiceLayer()
             {
                 ServiceUri = ((RadioButton)sender).Tag as string
             });

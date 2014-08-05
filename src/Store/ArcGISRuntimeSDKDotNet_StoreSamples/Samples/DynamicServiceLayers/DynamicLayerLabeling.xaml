@@ -5,7 +5,7 @@
       xmlns:layers="using:Esri.ArcGISRuntime.Layers"
       xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
     <Grid>
-        <esri:MapView x:Name="mapView">
+        <esri:MapView x:Name="MyMapView">
             <esri:Map>
 				<esri:Map.InitialViewpoint>
 					<esri:ViewpointExtent XMin="-3548912" YMin="1847469" XMax="2472012" YMax="1742990" SpatialReferenceID="102009"/>

@@ -5,7 +5,7 @@
 	xmlns:esri="using:Esri.ArcGISRuntime.Controls" 
     xmlns:layers="using:Esri.ArcGISRuntime.Layers">
     <Grid>
-        <esri:MapView x:Name="mapView">
+        <esri:MapView x:Name="MyMapView">
             <esri:Map>
 				<layers:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />

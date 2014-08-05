@@ -23,11 +23,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 		{
 			this.InitializeComponent();
 
-            mapView.MapViewTapped += mapView_MapViewTapped;
+            MyMapView.MapViewTapped += MyMapView_MapViewTapped;
 
-            mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-14675766.3566695, 2695407.73380258, -6733121.86117095, 6583994.1013904));
+            MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-14675766.3566695, 2695407.73380258, -6733121.86117095, 6583994.1013904));
 
-            _featureLayer = mapView.Map.Layers["FeatureLayer"] as FeatureLayer;
+            _featureLayer = MyMapView.Map.Layers["FeatureLayer"] as FeatureLayer;
             ((GeodatabaseFeatureServiceTable)_featureLayer.FeatureTable).OutFields = OutFields.All;
         }
 
@@ -37,11 +37,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         /// - Query the feature table for the returned row
         /// - Set the result feature for the UI
         /// </summary>
-        private async void mapView_MapViewTapped(object sender, MapViewInputEventArgs e)
+        private async void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
             try
             {
-                var rows = await _featureLayer.HitTestAsync(mapView, e.Position);
+                var rows = await _featureLayer.HitTestAsync(MyMapView, e.Position);
                 if (rows != null && rows.Length > 0)
                 {
                     var features = await _featureLayer.FeatureTable.QueryAsync(rows);

@@ -28,12 +28,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
             InitializePictureMarkerSymbol();
             sfs = LayoutRoot.Resources["MySimpleFillSymbol"] as SimpleFillSymbol;
-            graphicsLayer = mapView1.Map.Layers["MyGraphicsLayer"] as GraphicsLayer;
+            graphicsLayer = MyMapView.Map.Layers["MyGraphicsLayer"] as GraphicsLayer;
 
-            mapView1.MapViewTapped += mapView1_MapViewTapped;
+            MyMapView.MapViewTapped += MyMapView_MapViewTapped;
         }
 
-        void mapView1_MapViewTapped(object sender, MapViewInputEventArgs e)
+        void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {           
             try
             {

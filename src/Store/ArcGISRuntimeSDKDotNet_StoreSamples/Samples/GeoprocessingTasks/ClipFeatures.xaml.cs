@@ -29,10 +29,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            mapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(new Envelope(-130, 10, -70, 60));
+            MyMapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(new Envelope(-130, 10, -70, 60));
 
-            _inputLayer = mapView.Map.Layers["InputLayer"] as GraphicsLayer;
-            _resultLayer = mapView.Map.Layers["ResultLayer"] as GraphicsLayer;
+            _inputLayer = MyMapView.Map.Layers["InputLayer"] as GraphicsLayer;
+            _resultLayer = MyMapView.Map.Layers["ResultLayer"] as GraphicsLayer;
 
             _gpTask = new Geoprocessor(new Uri(ClipCountiesServiceUrl));
 
@@ -48,11 +48,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 _inputLayer.Graphics.Clear();
                 _resultLayer.Graphics.Clear();
 
-                foreach (var lyr in mapView.Map.Layers.OfType<GPResultImageLayer>())
-                    mapView.Map.Layers.Remove(lyr);
+                foreach (var lyr in MyMapView.Map.Layers.OfType<GPResultImageLayer>())
+                    MyMapView.Map.Layers.Remove(lyr);
 
                 //get the user's input line
-                var inputLine = await mapView.Editor.RequestShapeAsync(DrawShape.Polyline) as Polyline;
+                var inputLine = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polyline) as Polyline;
 
                 progress.Visibility = Visibility.Visible;
                 _inputLayer.Graphics.Add(new Graphic() { Geometry = inputLine });
@@ -77,7 +77,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
                             GPResultImageLayer gpImageLayer = resultImageLayer;
                             gpImageLayer.Opacity = 0.5;
-                            mapView.Map.Layers.Add(gpImageLayer);
+                            MyMapView.Map.Layers.Add(gpImageLayer);
                             txtStatus.Text = "Greater than 500 features returned.  Results drawn using map service.";
                             return;
                         }

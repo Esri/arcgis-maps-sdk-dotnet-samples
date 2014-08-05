@@ -23,23 +23,23 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            graphicsLayer = mapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+            graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
             var task = CreatePolygonGraphics();
         }
 
         // Create Polygon graphics on the map in the center and the center of four equal quadrants
         private async Task CreatePolygonGraphics()
         {
-            await mapView.LayersLoadedAsync();
+            await MyMapView.LayersLoadedAsync();
 
-            var height = mapView.Extent.Height / 4;
-            var width = mapView.Extent.Width / 4;
+            var height = MyMapView.Extent.Height / 4;
+            var width = MyMapView.Extent.Width / 4;
             var length = width / 4;
-            var center = mapView.Extent.GetCenter();
-            var topLeft = new MapPoint(center.X - width, center.Y + height, mapView.SpatialReference);
-            var topRight = new MapPoint(center.X + width, center.Y + height, mapView.SpatialReference);
-            var bottomLeft = new MapPoint(center.X - width, center.Y - height, mapView.SpatialReference);
-            var bottomRight = new MapPoint(center.X + width, center.Y - height, mapView.SpatialReference);
+            var center = MyMapView.Extent.GetCenter();
+            var topLeft = new MapPoint(center.X - width, center.Y + height, MyMapView.SpatialReference);
+            var topRight = new MapPoint(center.X + width, center.Y + height, MyMapView.SpatialReference);
+            var bottomLeft = new MapPoint(center.X - width, center.Y - height, MyMapView.SpatialReference);
+            var bottomRight = new MapPoint(center.X + width, center.Y - height, MyMapView.SpatialReference);
 
             var redSymbol = new SimpleFillSymbol() { Color = Colors.Red };
             var blueSymbol = new SimpleFillSymbol() { Color = Colors.Blue };
@@ -71,7 +71,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			coordsHole.Add(new MapPointBuilder(center.X + halfLen, center.Y + halfLen).ToGeometry());
 			coordsHole.Add(new MapPointBuilder(center.X - halfLen, center.Y + halfLen).ToGeometry());
 
-            return new Polygon(new List<PointCollection> { coords, coordsHole }, mapView.SpatialReference);
+            return new Polygon(new List<PointCollection> { coords, coordsHole }, MyMapView.SpatialReference);
         }
     }
 }

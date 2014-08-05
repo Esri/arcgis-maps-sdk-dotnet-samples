@@ -20,7 +20,7 @@
     </Page.Resources>
 
     <Grid>
-        <esri:MapView x:Name="mapView" WrapAround="True">
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
             <esri:Map>
 				<layers:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
@@ -37,7 +37,7 @@
                 <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                     <TextBlock Margin="4" Width="110" VerticalAlignment="Center">
                         <Run Text="Graphics Count:  " />
-                        <Run Text="{Binding ElementName=mapView, Path=Map.Layers[1].Graphics.Count}" />
+                        <Run Text="{Binding ElementName=MyMapView, Path=Map.Layers[1].Graphics.Count}" />
                     </TextBlock>
 
                     <Button Content="Clear" Click="ClearButton_Click" HorizontalAlignment="Right" />

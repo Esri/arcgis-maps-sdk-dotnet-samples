@@ -28,16 +28,16 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             InitializeComponent();
 
             Envelope extent = new Envelope(-117.387, 33.97, -117.355, 33.988, SpatialReferences.Wgs84);
-            mapView.Map.InitialViewpoint = new Viewpoint(extent);
-			mapView.Map.SpatialReference = SpatialReferences.WebMercator;
+            MyMapView.Map.InitialViewpoint = new Viewpoint(extent);
+			MyMapView.Map.SpatialReference = SpatialReferences.WebMercator;
 
-            _graphicsLayer = mapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+            _graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
                 
             _locator = new OnlineLocatorTask(new Uri(OnlineLocatorUrl));
         }
 
         // Reverse geocode the clicked point and add a graphic and map tip to the map
-        private async void mapView_MapViewTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
+        private async void MyMapView_MapViewTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
         {
             try
             {
@@ -49,7 +49,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 overlay.Template = layoutGrid.Resources["MapTipTemplate"] as ControlTemplate;
                 overlay.DataContext = result;
 				MapView.SetViewOverlayAnchor(overlay, e.Location);
-                mapView.Overlays.Add(overlay);
+                MyMapView.Overlays.Add(overlay);
             }
             catch (AggregateException aex)
             {
@@ -64,7 +64,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         // Clear current graphcis and overlay map tips
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
-            mapView.Overlays.Clear();
+            MyMapView.Overlays.Clear();
             _graphicsLayer.Graphics.Clear();
         }
     }

@@ -6,7 +6,7 @@
     xmlns:layers="using:Esri.ArcGISRuntime.Layers">
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-        <esri:MapView x:Name="mapView" WrapAround="True" >
+        <esri:MapView x:Name="MyMapView" WrapAround="True" >
             <esri:Map>
 				<layers:ArcGISTiledMapServiceLayer DisplayName="Basemap"
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
@@ -16,7 +16,7 @@
         <Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
             <StackPanel>
                 <TextBlock Text="Map Layers" FontWeight="Bold" FontSize="16" Margin="0,0,0,8"/>
-                <ItemsControl ItemsSource="{Binding ElementName=mapView, Path=Map.Layers}">
+                <ItemsControl ItemsSource="{Binding ElementName=MyMapView, Path=Map.Layers}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding DisplayName}" FontSize="14" Margin="2"/>

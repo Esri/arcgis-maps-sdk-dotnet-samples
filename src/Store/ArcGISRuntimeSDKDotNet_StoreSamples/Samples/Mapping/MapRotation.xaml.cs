@@ -23,14 +23,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 return;
 
             if (toggle.IsChecked == true)
-                mapView.ManipulationMode = ManipulationModes.All;
+                MyMapView.ManipulationMode = ManipulationModes.All;
             else
-                mapView.ClearValue(UIElement.ManipulationModeProperty);
+                MyMapView.ClearValue(UIElement.ManipulationModeProperty);
         }
 
 		private void rotationSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
 		{
-			mapView.SetRotation(e.NewValue);
+			MyMapView.SetRotation(e.NewValue);
 		}
     }
 }

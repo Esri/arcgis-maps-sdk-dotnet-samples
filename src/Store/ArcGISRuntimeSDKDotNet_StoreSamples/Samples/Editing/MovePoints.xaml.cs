@@ -27,7 +27,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 		{
 			//Add some random points for editing
 			Random r = new Random();
-			var graphicsLayer = mapView1.Map.Layers["MyGraphicsLayer"] as GraphicsLayer;
+			var graphicsLayer = MyMapView.Map.Layers["MyGraphicsLayer"] as GraphicsLayer;
             for (int i = 0; i < 20; i++)
 			{
 				graphicsLayer.Graphics.Add(
@@ -37,10 +37,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
 		private Graphic graphicBeingEdited;
 
-        private async void mapView1_MapViewTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
+        private async void MyMapView_MapViewTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
         {
-			var graphicsLayer = mapView1.Map.Layers["MyGraphicsLayer"] as GraphicsLayer;
-			var editGraphicsLayer = mapView1.Map.Layers["EditGraphicsLayer"] as GraphicsLayer;
+			var graphicsLayer = MyMapView.Map.Layers["MyGraphicsLayer"] as GraphicsLayer;
+			var editGraphicsLayer = MyMapView.Map.Layers["EditGraphicsLayer"] as GraphicsLayer;
 			if (graphicBeingEdited == null)
 			{
 				var hit = await graphicsLayer.HitTestAsync(sender as ViewBase, e.Position);
@@ -65,11 +65,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			}
         }
 
-		private void mapView1_PointerMoved(object sender, PointerRoutedEventArgs e)
+		private void MyMapView_PointerMoved(object sender, PointerRoutedEventArgs e)
 		{
 			if (graphicBeingEdited != null)
 			{
-				var editGraphicsLayer = mapView1.Map.Layers["EditGraphicsLayer"] as GraphicsLayer;
+				var editGraphicsLayer = MyMapView.Map.Layers["EditGraphicsLayer"] as GraphicsLayer;
 				MapView mapview = (MapView)sender;
 				var location = mapview.ScreenToLocation(e.GetCurrentPoint(mapview).Position);
 				editGraphicsLayer.Graphics[0].Geometry = location;

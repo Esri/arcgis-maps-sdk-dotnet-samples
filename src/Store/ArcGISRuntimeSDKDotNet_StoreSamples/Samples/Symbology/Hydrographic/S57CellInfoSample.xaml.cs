@@ -39,32 +39,32 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 		public S57CellInfoSample()
 		{
 			this.InitializeComponent();
-			mapView.ExtentChanged += mapView_ExtentChanged;
+			MyMapView.ExtentChanged += MyMapView_ExtentChanged;
 		}
 
 		// Load data - enable functionality after layers are loaded.
-		private async void mapView_ExtentChanged(object sender, EventArgs e)
+		private async void MyMapView_ExtentChanged(object sender, EventArgs e)
 		{
 			try
 			{
-				mapView.ExtentChanged -= mapView_ExtentChanged;
+				MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
 
 				// Get group layer from Map and set list items source
-				_hydrographicGroupLayer = mapView.Map.Layers.OfType<GroupLayer>().First();
+				_hydrographicGroupLayer = MyMapView.Map.Layers.OfType<GroupLayer>().First();
 
 				// Check that sample data is downloaded to the client
 				await CreateHydrographicLayerAsync(LAYER_1_PATH);
 				await CreateHydrographicLayerAsync(LAYER_2_PATH);
 
 				// Wait until all layers are loaded
-				var layers = await mapView.LayersLoadedAsync();
+				var layers = await MyMapView.LayersLoadedAsync();
 
 				// Set item sources
 				s57CellList.ItemsSource = _hydrographicGroupLayer.ChildLayers;
 				s57CellList.SelectedIndex = 0;
 
 				// Zoom to hydrographic layer
-				await mapView.SetViewAsync(_hydrographicGroupLayer.FullExtent);
+				await MyMapView.SetViewAsync(_hydrographicGroupLayer.FullExtent);
 			}
 			catch (Exception ex)
 			{
@@ -73,7 +73,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 		}
 
 		// Show error if loading layers fail
-		private void mapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
+		private void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
 		{
 			if (e.LoadError == null)
 				return;
@@ -88,7 +88,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 			if (selectedLayer == null)
 				return;
 
-			ZoomToCell(await selectedLayer.GetCellAsync(mapView));
+			ZoomToCell(await selectedLayer.GetCellAsync(MyMapView));
 		}
 
 		private void ZoomToCell(S57Cell currentCell)
@@ -98,7 +98,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 
 			if (currentCell.Extent != null)
 			{
-				mapView.SetView(currentCell.Extent);
+				MyMapView.SetView(currentCell.Extent);
 			}
 		}
 
@@ -108,7 +108,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 			if (selectedLayer == null)
 				return;
 
-			cellInfoDisplay.DataContext = await selectedLayer.GetCellAsync(mapView);
+			cellInfoDisplay.DataContext = await selectedLayer.GetCellAsync(MyMapView);
 		}
 
 		private async Task CreateHydrographicLayerAsync(string path)

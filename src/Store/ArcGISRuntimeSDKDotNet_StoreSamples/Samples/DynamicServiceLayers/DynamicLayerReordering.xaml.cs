@@ -26,14 +26,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			envelopeBuilder.XMax = 2472012;
 			envelopeBuilder.YMax = 1742990;
 
-			mapView.Map.InitialViewpoint = new Viewpoint(envelopeBuilder.ToGeometry());
+			MyMapView.Map.InitialViewpoint = new Viewpoint(envelopeBuilder.ToGeometry());
         }
 
         private void ChangeLayerOrderClick(object sender, RoutedEventArgs e)
         {
             try
             {
-                var dynamicLayer = mapView.Map.Layers["USA"] as ArcGISDynamicMapServiceLayer;
+                var dynamicLayer = MyMapView.Map.Layers["USA"] as ArcGISDynamicMapServiceLayer;
 
                 if (dynamicLayer.DynamicLayerInfos == null)
                     dynamicLayer.DynamicLayerInfos = dynamicLayer.CreateDynamicLayerInfosFromLayerInfos();

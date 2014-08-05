@@ -23,13 +23,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-            _wellsLayer = mapView.Map.Layers["WellsLayer"] as GraphicsLayer;
+            _wellsLayer = MyMapView.Map.Layers["WellsLayer"] as GraphicsLayer;
                 
-            mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-10854000, 4502000, -10829000, 4524000, SpatialReferences.WebMercator));
+            MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-10854000, 4502000, -10829000, 4524000, SpatialReferences.WebMercator));
         }
 
         // Select a set of wells near the click point
-        private async void mapView_MapViewTapped(object sender, MapViewInputEventArgs e)
+        private async void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
             try
             {
@@ -41,9 +41,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
                 Query query = new Query("1=1")
                 {
-                    Geometry = Expand(mapView.Extent, e.Location, 0.01),
+                    Geometry = Expand(MyMapView.Extent, e.Location, 0.01),
                     ReturnGeometry = true,
-                    OutSpatialReference = mapView.SpatialReference,
+                    OutSpatialReference = MyMapView.SpatialReference,
                     OutFields = OutFields.All
                 };
 
@@ -77,7 +77,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
                     RelationshipParameters parameters = new RelationshipParameters(new List<long>(objectIds), 3)
                     {
-                        OutSpatialReference = mapView.SpatialReference
+                        OutSpatialReference = MyMapView.SpatialReference
                     };
 
                     parameters.OutFields.AddRange(new string[] { "OBJECTID, API_NUMBER, ELEVATION, FORMATION, TOP" });

@@ -43,7 +43,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             string message = null;
             var resultGeometry = _editGraphic == null ? null : _editGraphic.Geometry;
-            var editCnfg = mapView1.Editor.EditorConfiguration;
+            var editCnfg = MyMapView.Editor.EditorConfiguration;
             editCnfg.AllowAddVertex = AddVertex.IsChecked.HasValue && AddVertex.IsChecked.Value;
             editCnfg.AllowDeleteVertex = DeleteVertex.IsChecked.HasValue && DeleteVertex.IsChecked.Value;
             editCnfg.AllowMoveGeometry = MoveGeometry.IsChecked.HasValue && MoveGeometry.IsChecked.Value;
@@ -59,8 +59,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var drawShape = (DrawShape)DrawShapes.SelectedItem;
 
                 GraphicsLayer graphicsLayer;
-                graphicsLayer = drawShape == DrawShape.Point ? mapView1.Map.Layers["PointGraphicsLayer"] as GraphicsLayer :
-                   ((drawShape == DrawShape.Polyline || drawShape == DrawShape.Freehand) ? mapView1.Map.Layers["PolylineGraphicsLayer"] as GraphicsLayer : mapView1.Map.Layers["PolygonGraphicsLayer"] as GraphicsLayer);
+                graphicsLayer = drawShape == DrawShape.Point ? MyMapView.Map.Layers["PointGraphicsLayer"] as GraphicsLayer :
+                   ((drawShape == DrawShape.Polyline || drawShape == DrawShape.Freehand) ? MyMapView.Map.Layers["PolylineGraphicsLayer"] as GraphicsLayer : MyMapView.Map.Layers["PolygonGraphicsLayer"] as GraphicsLayer);
 
                 var progress = new Progress<GeometryEditStatus>();
                 progress.ProgressChanged += (a, b) =>
@@ -76,7 +76,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 {
                     case "Draw":
                         {
-                            var r = await mapView1.Editor.RequestShapeAsync(drawShape, null, progress);
+                            var r = await MyMapView.Editor.RequestShapeAsync(drawShape, null, progress);
                             graphicsLayer.Graphics.Add(new Graphic() { Geometry = r });
                             break;
                         }
@@ -86,7 +86,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                                 return;
                             var g = _editGraphic;
                             g.IsVisible = false;
-                            var r = await mapView1.Editor.EditGeometryAsync(g.Geometry, null, progress);
+                            var r = await MyMapView.Editor.EditGeometryAsync(g.Geometry, null, progress);
                             resultGeometry = r ?? resultGeometry;
                             _editGraphic.Geometry = resultGeometry;
                             _editGraphic.IsSelected = false;
@@ -112,14 +112,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         }
 
-        private async void mapView1_MapViewTapped(object sender, MapViewInputEventArgs e)
+        private async void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
             var drawShape = (DrawShape)DrawShapes.SelectedItem;
             GraphicsLayer graphicsLayer;
-            graphicsLayer = drawShape == DrawShape.Point ? mapView1.Map.Layers["PointGraphicsLayer"] as GraphicsLayer :
-               ((drawShape == DrawShape.Polyline || drawShape == DrawShape.Freehand) ? mapView1.Map.Layers["PolylineGraphicsLayer"] as GraphicsLayer : mapView1.Map.Layers["PolygonGraphicsLayer"] as GraphicsLayer);
+            graphicsLayer = drawShape == DrawShape.Point ? MyMapView.Map.Layers["PointGraphicsLayer"] as GraphicsLayer :
+               ((drawShape == DrawShape.Polyline || drawShape == DrawShape.Freehand) ? MyMapView.Map.Layers["PolylineGraphicsLayer"] as GraphicsLayer : MyMapView.Map.Layers["PolygonGraphicsLayer"] as GraphicsLayer);
 
-            var graphic = await graphicsLayer.HitTestAsync(mapView1, e.Position);
+            var graphic = await graphicsLayer.HitTestAsync(MyMapView, e.Position);
             if (graphic != null)
             {
                 _editGraphic = graphic;

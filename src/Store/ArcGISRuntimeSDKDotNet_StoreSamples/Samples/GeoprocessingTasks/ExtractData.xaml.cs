@@ -32,9 +32,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-8985039.34626515, 4495835.02641862, -8114288.50438322, 4889486.96951941));
+            MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-8985039.34626515, 4495835.02641862, -8114288.50438322, 4889486.96951941));
 
-            _graphicsLayer = mapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+            _graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
             _gpTask = new Geoprocessor(new Uri(ExtractDataServiceUrl));
 
             SetupUI();
@@ -69,16 +69,16 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 Polygon aoi = null;
                 if (chkFreehand.IsChecked == true)
                 {
-                    var boundary = await mapView.Editor.RequestShapeAsync(DrawShape.Freehand) as Polyline;
+                    var boundary = await MyMapView.Editor.RequestShapeAsync(DrawShape.Freehand) as Polyline;
                     if (boundary.Parts.First().Count <= 1)
                         return;
 
-                    aoi = new Polygon(boundary.Parts, mapView.SpatialReference);
+                    aoi = new Polygon(boundary.Parts, MyMapView.SpatialReference);
                     aoi = GeometryEngine.Simplify(aoi) as Polygon;
                 }
                 else
                 {
-                    aoi = await mapView.Editor.RequestShapeAsync(DrawShape.Polygon) as Polygon;
+                    aoi = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon) as Polygon;
                 }
 
                 _graphicsLayer.Graphics.Add(new Graphic(aoi));

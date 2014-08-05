@@ -19,21 +19,21 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-			(mapView.Overlays[0] as Grid).DataContext = new MapPointBuilder(-117.19568, 34.056601, SpatialReferences.Wgs84).ToGeometry();
+			(MyMapView.Overlays[0] as Grid).DataContext = new MapPointBuilder(-117.19568, 34.056601, SpatialReferences.Wgs84).ToGeometry();
 
-            mapView.Loaded += mapView_Loaded;
-            mapView.ExtentChanged += mapView_ExtentChanged;
+            MyMapView.Loaded += MyMapView_Loaded;
+            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 
-        private void mapView_Loaded(object sender, RoutedEventArgs e)
+        private void MyMapView_Loaded(object sender, RoutedEventArgs e)
         {
             _clickOverlay = FindName("clickOverlay") as FrameworkElement;
             _centerOverlay = FindName("centerOverlay") as FrameworkElement;
         }
 
-        private void mapView_ExtentChanged(object sender, System.EventArgs e)
+        private void MyMapView_ExtentChanged(object sender, System.EventArgs e)
         {
-            var center = GeometryEngine.Project(mapView.Extent.GetCenter(), SpatialReferences.Wgs84);
+            var center = GeometryEngine.Project(MyMapView.Extent.GetCenter(), SpatialReferences.Wgs84);
 
             if (!(_clickOverlay.DataContext is MapPoint))
                 _clickOverlay.DataContext = center;
@@ -41,7 +41,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             _centerOverlay.DataContext = center;
         }
 
-        private void mapView_MapViewTapped(object sender, MapViewInputEventArgs e)
+        private void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
             _clickOverlay.DataContext = GeometryEngine.Project(e.Location, SpatialReferences.Wgs84);
         }

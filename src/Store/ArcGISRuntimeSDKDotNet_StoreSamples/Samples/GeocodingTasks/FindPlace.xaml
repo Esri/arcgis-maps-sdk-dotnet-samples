@@ -6,7 +6,7 @@
     xmlns:layers="using:Esri.ArcGISRuntime.Layers">
 	
     <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <esri:MapView x:Name="mapView" WrapAround="True" Grid.Row="0">
+        <esri:MapView x:Name="MyMapView" WrapAround="True" Grid.Row="0">
             <esri:Map>
 				<layers:ArcGISTiledMapServiceLayer 
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />

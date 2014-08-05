@@ -30,7 +30,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-            _graphicsLayer = mapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+            _graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
 
             SetGraphicsCountUI();
             CreateGraphics();
@@ -97,13 +97,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         // Retrieve a user click point and return hit tested graphics
         private async Task<IEnumerable<Graphic>> FindIntersectingGraphicsAsync()
         {
-            var mapRect = await mapView.Editor.RequestShapeAsync(DrawShape.Envelope) as Envelope;
+            var mapRect = await MyMapView.Editor.RequestShapeAsync(DrawShape.Envelope) as Envelope;
 
             Rect winRect = new Rect(
-                mapView.LocationToScreen(new MapPoint(mapRect.XMin, mapRect.YMax, mapView.SpatialReference)),
-                mapView.LocationToScreen(new MapPoint(mapRect.XMax, mapRect.YMin, mapView.SpatialReference)));
+                MyMapView.LocationToScreen(new MapPoint(mapRect.XMin, mapRect.YMax, MyMapView.SpatialReference)),
+                MyMapView.LocationToScreen(new MapPoint(mapRect.XMax, mapRect.YMin, MyMapView.SpatialReference)));
 
-            return await _graphicsLayer.HitTestAsync(mapView, winRect, MAX_GRAPHICS);
+            return await _graphicsLayer.HitTestAsync(MyMapView, winRect, MAX_GRAPHICS);
         }
 
         private void SetGraphicsCountUI()
@@ -114,7 +114,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         // Add new random graphics to the graphics layer
         private async void CreateGraphics()
         {
-            await mapView.LayersLoadedAsync();
+            await MyMapView.LayersLoadedAsync();
 
             for (int n = 1; n <= MAX_GRAPHICS; ++n)
             {
@@ -140,9 +140,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         // Utility: Generate a random MapPoint within the current extent
         private MapPoint GetRandomMapPoint()
         {
-            double x = mapView.Extent.XMin + (_random.NextDouble() * mapView.Extent.Width);
-            double y = mapView.Extent.YMin + (_random.NextDouble() * mapView.Extent.Height);
-            return new MapPoint(x, y, mapView.SpatialReference);
+            double x = MyMapView.Extent.XMin + (_random.NextDouble() * MyMapView.Extent.Width);
+            double y = MyMapView.Extent.YMin + (_random.NextDouble() * MyMapView.Extent.Height);
+            return new MapPoint(x, y, MyMapView.SpatialReference);
         }
     }
 }

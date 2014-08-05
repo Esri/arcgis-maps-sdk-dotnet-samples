@@ -22,7 +22,7 @@
             <esri:UsngMapGrid x:Key="UsngGrid" Levels="{StaticResource GridLevels}" />
         </Grid.Resources>
         
-        <esri:MapView x:Name="mapView" WrapAround="True" MapGrid="{Binding ElementName=gridTypeCombo, Path=SelectedItem.Tag}">
+        <esri:MapView x:Name="MyMapView" WrapAround="True" MapGrid="{Binding ElementName=gridTypeCombo, Path=SelectedItem.Tag}">
             <esri:Map>
 				<layers:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />

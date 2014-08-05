@@ -4,7 +4,7 @@
       xmlns:esri="using:Esri.ArcGISRuntime.Controls"
       xmlns:layers="using:Esri.ArcGISRuntime.Layers">
     <Grid>
-        <esri:MapView x:Name="mapView">
+        <esri:MapView x:Name="MyMapView">
             <esri:Map>
 				<layers:ArcGISDynamicMapServiceLayer ID="USA"
 				    ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer" />

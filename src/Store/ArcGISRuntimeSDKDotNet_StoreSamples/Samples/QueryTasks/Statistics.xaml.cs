@@ -29,9 +29,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-			mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-15000000, 2000000, -7000000, 8000000));
+			MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-15000000, 2000000, -7000000, 8000000));
 
-            _graphicsLayer = mapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+            _graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
 
             var taskRenderer = SetUniqueRenderer();
             var taskQuery = RunQuery();
@@ -111,7 +111,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             Query query = new Query("1=1")
             {
                 ReturnGeometry = true,
-                OutSpatialReference = mapView.SpatialReference,
+                OutSpatialReference = MyMapView.SpatialReference,
                 OutFields = new OutFields(new List<string> { "sub_region" })
             };
 

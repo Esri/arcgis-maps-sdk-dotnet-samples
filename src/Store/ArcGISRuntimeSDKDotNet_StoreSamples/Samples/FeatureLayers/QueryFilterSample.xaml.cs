@@ -24,12 +24,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 		{
 			this.InitializeComponent();
 
-            mapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(new Envelope(-14675766, 2695408, -6733122, 6583994));
+            MyMapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(new Envelope(-14675766, 2695408, -6733122, 6583994));
 
-            _featureLayer = mapView.Map.Layers["FeatureLayer"] as FeatureLayer;
+            _featureLayer = MyMapView.Map.Layers["FeatureLayer"] as FeatureLayer;
             ((GeodatabaseFeatureServiceTable)_featureLayer.FeatureTable).OutFields = OutFields.All;
 
-            _queryResultsLayer = mapView.Map.Layers["QueryResults"] as GraphicsLayer;
+            _queryResultsLayer = MyMapView.Map.Layers["QueryResults"] as GraphicsLayer;
         }
 
         private async void QueryButton_Click(object sender, RoutedEventArgs e)

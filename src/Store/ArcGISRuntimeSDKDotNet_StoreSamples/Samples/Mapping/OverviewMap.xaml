@@ -7,7 +7,7 @@
 	xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
 
     <Grid>
-        <esri:MapView x:Name="mapView" ExtentChanged="mapView_ExtentChanged">
+        <esri:MapView x:Name="MyMapView" ExtentChanged="MyMapView_ExtentChanged">
             <esri:Map>
 				<layers:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer" />

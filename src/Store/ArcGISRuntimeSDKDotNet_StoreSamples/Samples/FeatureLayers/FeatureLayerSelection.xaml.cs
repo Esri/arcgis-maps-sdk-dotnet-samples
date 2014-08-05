@@ -25,10 +25,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 		{
 			this.InitializeComponent();
 
-            _featureLayer = mapView.Map.Layers["FeatureLayer"] as FeatureLayer;
+            _featureLayer = MyMapView.Map.Layers["FeatureLayer"] as FeatureLayer;
             ((GeodatabaseFeatureServiceTable)_featureLayer.FeatureTable).OutFields = OutFields.All;
 
-            panelPrompt.DataContext = mapView;
+            panelPrompt.DataContext = MyMapView;
             SetSelectionCountUI();
         }
 
@@ -75,7 +75,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private async Task<long[]> FindIntersectingFeaturesAsync()
         {
-            var rect = await mapView.Editor.RequestShapeAsync(DrawShape.Rectangle);
+            var rect = await MyMapView.Editor.RequestShapeAsync(DrawShape.Rectangle);
 
             SpatialQueryFilter filter = new SpatialQueryFilter();
             filter.Geometry = GeometryEngine.Project(rect, _featureLayer.FeatureTable.SpatialReference);

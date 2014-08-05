@@ -23,7 +23,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 		/// </summary>
 		private void CreateGeometries()
 		{
-			var layer = mapView1.Map.Layers.OfType<GraphicsLayer>().First();
+			var layer = MyMapView.Map.Layers.OfType<GraphicsLayer>().First();
 			int i = 0;
 			foreach (var g in layer.Graphics)
 				g.Attributes["Label"] = "Label #" + (++i).ToString();

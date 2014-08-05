@@ -6,7 +6,7 @@
     xmlns:layers="using:Esri.ArcGISRuntime.Layers">
     
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-        <esri:MapView x:Name="mapView">
+        <esri:MapView x:Name="MyMapView">
             <esri:Map>
 				<esri:Map.InitialViewpoint>
 					<!--Center on San Diego, at scale 1:50,000, using coordinates in WGS84 spatial reference (4326)-->

@@ -33,11 +33,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-13044000, 3855000, -13040000, 3858000, SpatialReferences.WebMercator));
+            MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-13044000, 3855000, -13040000, 3858000, SpatialReferences.WebMercator));
 
-            _extentGraphicsLayer = mapView.Map.Layers["ExtentGraphicsLayer"] as GraphicsLayer;
-            _routeGraphicsLayer = mapView.Map.Layers["RouteGraphicsLayer"] as GraphicsLayer;
-            _stopsGraphicsLayer = mapView.Map.Layers["StopsGraphicsLayer"] as GraphicsLayer;
+            _extentGraphicsLayer = MyMapView.Map.Layers["ExtentGraphicsLayer"] as GraphicsLayer;
+            _routeGraphicsLayer = MyMapView.Map.Layers["RouteGraphicsLayer"] as GraphicsLayer;
+            _stopsGraphicsLayer = MyMapView.Map.Layers["StopsGraphicsLayer"] as GraphicsLayer;
 
             var extent = new Envelope(-117.2595, 32.5345, -116.9004, 32.8005, SpatialReferences.Wgs84);
             _extentGraphicsLayer.Graphics.Add(new Graphic(GeometryEngine.Project(extent, SpatialReferences.WebMercator)));
@@ -45,7 +45,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             _routeTask = new OnlineRouteTask(new Uri(OnlineRoutingService));
         }
 
-        private async void mapView_MapViewTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
+        private async void MyMapView_MapViewTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
         {
             try
             {
@@ -137,11 +137,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
                 RouteParameters routeParams = await _routeTask.GetDefaultParametersAsync();
 
-                routeParams.OutSpatialReference = mapView.SpatialReference;
+                routeParams.OutSpatialReference = MyMapView.SpatialReference;
                 routeParams.ReturnDirections = false;
 
                 FeaturesAsFeature stops = new FeaturesAsFeature(_stopsGraphicsLayer.Graphics);
-                stops.SpatialReference = mapView.SpatialReference;
+                stops.SpatialReference = MyMapView.SpatialReference;
                 routeParams.Stops = stops;
 
                 RouteResult routeResult = await _routeTask.SolveAsync(routeParams);

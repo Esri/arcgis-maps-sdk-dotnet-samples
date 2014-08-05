@@ -21,9 +21,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			envelopeBuilder.XMax = 3015668;
 			envelopeBuilder.YMax = 1594451;
 
-			mapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(envelopeBuilder.ToGeometry());
+			MyMapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(envelopeBuilder.ToGeometry());
 
-			mapView.Map.SpatialReference = SpatialReference.Create(26777); //Force map spatial reference to Wkid=26777
+			MyMapView.Map.SpatialReference = SpatialReference.Create(26777); //Force map spatial reference to Wkid=26777
         }
     }
 }

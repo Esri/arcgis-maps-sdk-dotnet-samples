@@ -26,9 +26,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-13879981, 3490335, -7778090, 6248898));
+            MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-13879981, 3490335, -7778090, 6248898));
 
-            _areaLayer = mapView.Map.Layers["AreaLayer"] as GraphicsLayer;
+            _areaLayer = MyMapView.Map.Layers["AreaLayer"] as GraphicsLayer;
         }
 
         // Accept user boundary line and run the Geoprocessing Task to summarize population
@@ -39,8 +39,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 txtResult.Visibility = Visibility.Collapsed;
                 _areaLayer.Graphics.Clear();
 
-                var boundary = await mapView.Editor.RequestShapeAsync(DrawShape.Freehand) as Polyline;
-                var polygon = new Polygon(boundary.Parts, mapView.SpatialReference);
+                var boundary = await MyMapView.Editor.RequestShapeAsync(DrawShape.Freehand) as Polyline;
+                var polygon = new Polygon(boundary.Parts, MyMapView.SpatialReference);
                 polygon = GeometryEngine.Simplify(polygon) as Polygon;
                 _areaLayer.Graphics.Add(new Graphic() { Geometry = polygon });
 
@@ -48,7 +48,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
                 Geoprocessor geoprocessorTask = new Geoprocessor(new Uri(PopulationSummaryServiceUrl));
 
-                var parameter = new GPInputParameter() { OutSpatialReference = mapView.SpatialReference };
+                var parameter = new GPInputParameter() { OutSpatialReference = MyMapView.SpatialReference };
                 parameter.GPParameters.Add(new GPFeatureRecordSetLayer("inputPoly", polygon));
 
                 var result = await geoprocessorTask.ExecuteAsync(parameter);

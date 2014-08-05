@@ -102,7 +102,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         public Point TapPosition
         {
-            get { return mapView.LocationToScreen(_tapLocation); }
+            get { return MyMapView.LocationToScreen(_tapLocation); }
         }
 
         private MapPoint _tapLocation;
@@ -121,7 +121,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         public IEnumerable<Layer> LegendLayers
         {
-            get { return (mapView == null) ? null : mapView.Map.Layers.Where(lyr => !(lyr is GraphicsLayer)); }
+            get { return (MyMapView == null) ? null : MyMapView.Map.Layers.Where(lyr => !(lyr is GraphicsLayer)); }
         }
         #endregion
 
@@ -135,14 +135,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-			mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-13446093, 4183762, -13432119, 4190880, SpatialReferences.WebMercator));
+			MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-13446093, 4183762, -13432119, 4190880, SpatialReferences.WebMercator));
 
             _syncTask = new GeodatabaseSyncTask(new Uri(BASE_URL));
             
-            _onlineBirdsLayer = mapView.Map.Layers.OfType<ArcGISDynamicMapServiceLayer>().First();
+            _onlineBirdsLayer = MyMapView.Map.Layers.OfType<ArcGISDynamicMapServiceLayer>().First();
             _onlineBirdsLayer.VisibleLayers = new ObservableCollection<int>() { 1 };
 
-            _graphicsLayer = mapView.Map.Layers.OfType<GraphicsLayer>().First();
+            _graphicsLayer = MyMapView.Map.Layers.OfType<GraphicsLayer>().First();
             _localBirdsLayer = null;
 
             CanGenerate = true;
@@ -168,7 +168,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 IsBusy = true;
 
                 // Generate local gdb
-                await GenerateLocalGeodatabaseAsync(mapView.Extent);
+                await GenerateLocalGeodatabaseAsync(MyMapView.Extent);
 
                 // Set editing combobox itemssource from bird type domain
                 if (_localBirdsLayer != null)
@@ -304,7 +304,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     var gdbTable = LocalBirdsLayer.FeatureTable as GeodatabaseLocalFeatureTable;
                     await _syncTask.UnregisterGeodatabaseAsync(gdbTable.Geodatabase);
 
-                    mapView.Map.Layers.Remove(LocalBirdsLayer);
+                    MyMapView.Map.Layers.Remove(LocalBirdsLayer);
                     LocalBirdFeatures = null;
                     LocalBirdsLayer = null;
                     RaisePropertyChanged("LegendLayers");
@@ -324,7 +324,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         }
 
         // Handles click on the map to add a new bird sighting
-        private void mapView_MapViewTapped(object sender, MapViewInputEventArgs e)
+        private void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
             try
             {
@@ -431,7 +431,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 throw new Exception("Downloaded geodatabase has no feature tables.");
 
             if (LocalBirdsLayer != null)
-                mapView.Map.Layers.Remove(LocalBirdsLayer);
+                MyMapView.Map.Layers.Remove(LocalBirdsLayer);
 
             var birdsTable = gdb.FeatureTables.First();
             LocalBirdsLayer = new FeatureLayer()
@@ -440,10 +440,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 DisplayName = "Local Birds",
                 FeatureTable = birdsTable
             };
-            mapView.Map.Layers.Insert(2, LocalBirdsLayer);
+            MyMapView.Map.Layers.Insert(2, LocalBirdsLayer);
             RaisePropertyChanged("LegendLayers");
 
-            await mapView.SetViewAsync(birdsTable.Extent);
+            await MyMapView.SetViewAsync(birdsTable.Extent);
         }
 
         // Update the UI grid with bird data queried from local gdb
@@ -452,7 +452,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             LocalBirdFeatures = await _localBirdsLayer.FeatureTable.QueryAsync(new QueryFilter() { WhereClause = "1=1" });
 
             QueryTask queryTask = new QueryTask(new Uri(_onlineBirdsLayer.ServiceUri + "/1"));
-            Query query = new Query("1=1") { Geometry = mapView.Extent, OutFields = new OutFields(new string[] { "globalid" }) };
+            Query query = new Query("1=1") { Geometry = MyMapView.Extent, OutFields = new OutFields(new string[] { "globalid" }) };
             var queryResult = await queryTask.ExecuteAsync(query);
 
             var onlineBirdIds = queryResult.FeatureSet.Features.Select(f => f.Attributes["globalid"]);

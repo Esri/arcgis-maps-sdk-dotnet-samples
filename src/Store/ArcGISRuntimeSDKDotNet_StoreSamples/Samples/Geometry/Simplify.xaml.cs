@@ -25,16 +25,16 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            _parcelLayer = mapView.Map.Layers["ParcelLayer"] as GraphicsLayer;
-            _polygonLayer = mapView.Map.Layers["PolygonLayer"] as GraphicsLayer;
+            _parcelLayer = MyMapView.Map.Layers["ParcelLayer"] as GraphicsLayer;
+            _polygonLayer = MyMapView.Map.Layers["PolygonLayer"] as GraphicsLayer;
 
-			mapView.NavigationCompleted += mapView_NavigationCompleted;
+			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
         }
 
 		// Start map interaction once the mapview finishes navigation to initial viewpoint
-		private void mapView_NavigationCompleted(object sender, EventArgs e)
+		private void MyMapView_NavigationCompleted(object sender, EventArgs e)
 		{
-			mapView.NavigationCompleted -= mapView_NavigationCompleted;
+			MyMapView.NavigationCompleted -= MyMapView_NavigationCompleted;
 			DrawPolygon();
 		}
 
@@ -54,7 +54,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         // Draw the unsimplified polygon
         private void DrawPolygon()
         {
-            MapPoint center = mapView.Extent.GetCenter();
+            MapPoint center = MyMapView.Extent.GetCenter();
             double lat = center.Y;
             double lon = center.X + 300;
             double latOffset = 300;
@@ -73,7 +73,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 new MapPointBuilder(lon - 1.5 * lonOffset, lat + latOffset).ToGeometry(),
                 new MapPointBuilder(lon - lonOffset, lat).ToGeometry()
             };
-            _unsimplifiedPolygon = new Polygon(points, mapView.SpatialReference);
+            _unsimplifiedPolygon = new Polygon(points, MyMapView.SpatialReference);
 
             _polygonLayer.Graphics.Clear();
             _polygonLayer.Graphics.Add(new Graphic(_unsimplifiedPolygon));
@@ -89,7 +89,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var query = new Query(geometry)
                 {
                     ReturnGeometry = true,
-                    OutSpatialReference = mapView.SpatialReference,
+                    OutSpatialReference = MyMapView.SpatialReference,
                     SpatialRelationship = SpatialRelationship.Contains,
                     OutFields = OutFields.All
                 };

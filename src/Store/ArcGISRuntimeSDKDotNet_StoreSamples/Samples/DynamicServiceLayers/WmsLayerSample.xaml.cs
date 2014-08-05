@@ -14,7 +14,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public WmsLayerSample()
         {
             this.InitializeComponent();
-            var wmsLayer = mapView.Map.Layers[1] as WmsLayer;
+            var wmsLayer = MyMapView.Map.Layers[1] as WmsLayer;
             wmsLayer.Layers = new string[] { "nexrad-n0r" };
         }
     }

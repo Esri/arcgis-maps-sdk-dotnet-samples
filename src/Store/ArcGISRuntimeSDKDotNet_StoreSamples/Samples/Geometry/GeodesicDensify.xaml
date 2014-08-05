@@ -24,7 +24,7 @@
             </symb:SimpleFillSymbol>
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" WrapAround="True">
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
             <esri:Map>
                 <esri:Map.InitialViewpoint>
 					<esri:ViewpointExtent XMin="-15000000" YMin="2000000" XMax="-7000000" YMax="8000000" />
@@ -77,7 +77,7 @@
         </Border>
 
         <Border Background="#CC000000" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="20" Padding="10"
-                Visibility="{Binding ElementName=mapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
+                Visibility="{Binding ElementName=MyMapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
             <TextBlock Text="Draw a shape on the map." FontSize="14" />
         </Border>
     </Grid>

@@ -22,13 +22,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-            mapView.ExtentChanged += mapView_ExtentChanged;
+            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 
         /// <summary>Add feature tables from a local geodatabase as layers on the map</summary>
-        private async void mapView_ExtentChanged(object sender, EventArgs e)
+        private async void MyMapView_ExtentChanged(object sender, EventArgs e)
         {
-            mapView.ExtentChanged -= mapView_ExtentChanged;
+            MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
 
             try
             {
@@ -56,11 +56,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                             extent = extent.Union(table.Extent);
                     }
 
-                    mapView.Map.Layers.Add(flayer);
+                    MyMapView.Map.Layers.Add(flayer);
                 }
 
                 if (!extent.IsEmpty)
-                    await mapView.SetViewAsync(extent.Expand(1.10));
+                    await MyMapView.SetViewAsync(extent.Expand(1.10));
             }
             catch (Exception ex)
             {

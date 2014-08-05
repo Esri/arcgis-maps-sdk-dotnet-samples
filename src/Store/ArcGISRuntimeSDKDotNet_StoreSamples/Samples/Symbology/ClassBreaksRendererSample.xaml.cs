@@ -26,17 +26,17 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            _earthquakes = mapView.Map.Layers["Earthquakes"] as GraphicsLayer;
+            _earthquakes = MyMapView.Map.Layers["Earthquakes"] as GraphicsLayer;
                 
-            mapView.ExtentChanged += mapView_ExtentChanged;
+            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 
         // Load earthquake data
-        private async void mapView_ExtentChanged(object sender, EventArgs e)
+        private async void MyMapView_ExtentChanged(object sender, EventArgs e)
         {
             try
             {
-                mapView.ExtentChanged -= mapView_ExtentChanged;
+                MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
                 await LoadEarthquakesAsync();
             }
             catch (Exception ex)
@@ -70,10 +70,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             var queryTask = new QueryTask(
                 new Uri("http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Earthquakes/EarthquakesFromLastSevenDays/MapServer/0"));
-            var query = new Query(mapView.Extent)
+            var query = new Query(MyMapView.Extent)
             {
                 ReturnGeometry = true,
-                OutSpatialReference = mapView.SpatialReference,
+                OutSpatialReference = MyMapView.SpatialReference,
                 Where = "magnitude > 2.0",
                 OutFields = new OutFields(new string[] { "magnitude" })
             };

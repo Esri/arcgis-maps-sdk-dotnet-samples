@@ -51,12 +51,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             {
                 if (e.PropertyName == "SpatialReference")
                 {
-                    mapView1.PropertyChanged -= propertyChanged;
+                    MyMapView.PropertyChanged -= propertyChanged;
                     AddLayers();
                     await WaitforMapClick();
                 }
             };
-            mapView1.PropertyChanged += propertyChanged;
+            MyMapView.PropertyChanged += propertyChanged;
         }
 
         private void AddLayers()
@@ -67,7 +67,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private async Task WaitforMapClick()
         {
-            MapPoint m = await mapView1.Editor.RequestPointAsync();
+            MapPoint m = await MyMapView.Editor.RequestPointAsync();
 
             _userInteractionLayer.Graphics.Add(new Graphic(m));
 

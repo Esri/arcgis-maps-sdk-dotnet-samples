@@ -16,12 +16,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public ImageServiceRasterFunctions()
         {
             this.InitializeComponent();
-            mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(1445440, 540657, 1452348, 544407, new SpatialReference(2264)));
+            MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(1445440, 540657, 1452348, 544407, new SpatialReference(2264)));
         }
 
         private void RasterFunctionsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ArcGISImageServiceLayer imageLayer = mapView.Map.Layers["ImageLayer"] as ArcGISImageServiceLayer;
+            ArcGISImageServiceLayer imageLayer = MyMapView.Map.Layers["ImageLayer"] as ArcGISImageServiceLayer;
             var rasterFunction = (sender as ComboBox).SelectedItem as RasterFunctionInfo;
             if (rasterFunction != null)
             {
@@ -30,7 +30,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
         }
 
-        private void mapView_LayerLoaded(object sender, Esri.ArcGISRuntime.Controls.LayerLoadedEventArgs e)
+        private void MyMapView_LayerLoaded(object sender, Esri.ArcGISRuntime.Controls.LayerLoadedEventArgs e)
         {
             if (e.Layer.ID == "ImageLayer")
             {

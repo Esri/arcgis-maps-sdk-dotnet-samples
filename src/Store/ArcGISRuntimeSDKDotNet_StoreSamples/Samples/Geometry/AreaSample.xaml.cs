@@ -24,13 +24,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            mapView1.Loaded += mapView1_Loaded;
-            mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-130, 20, -65, 55, SpatialReferences.Wgs84)); 
-            mapView1.Map.SpatialReference = SpatialReferences.WebMercator;
-            graphicsLayer = mapView1.Map.Layers["MyGraphicsLayer"] as GraphicsLayer;
+            MyMapView.Loaded += MyMapView_Loaded;
+            MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-130, 20, -65, 55, SpatialReferences.Wgs84)); 
+            MyMapView.Map.SpatialReference = SpatialReferences.WebMercator;
+            graphicsLayer = MyMapView.Map.Layers["MyGraphicsLayer"] as GraphicsLayer;
         }
 
-        async void mapView1_Loaded(object sender, RoutedEventArgs e)
+        async void MyMapView_Loaded(object sender, RoutedEventArgs e)
         {
             await doCalculateAreaAndLength();
         }
@@ -40,7 +40,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             try
             {
                 //Wait for user to draw
-                var geom = await mapView1.Editor.RequestShapeAsync(DrawShape.Polygon);
+                var geom = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon);
 
                 //show geometry on map
                 graphicsLayer.Graphics.Clear();
@@ -80,7 +80,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private async void CancelCurrent_Click(object sender, RoutedEventArgs e)
         {
-            mapView1.Editor.Cancel.Execute(null);
+            MyMapView.Editor.Cancel.Execute(null);
             ResetUI();
             await doCalculateAreaAndLength();
         }

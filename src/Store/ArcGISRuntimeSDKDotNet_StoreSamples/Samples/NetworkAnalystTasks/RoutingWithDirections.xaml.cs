@@ -31,18 +31,18 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-7917189, 5211428, -7902815, 5218750, SpatialReferences.WebMercator));
+            MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-7917189, 5211428, -7902815, 5218750, SpatialReferences.WebMercator));
 
             _directionPointSymbol = LayoutRoot.Resources["directionPointSymbol"] as Symbol;
-            _stopsLayer = mapView.Map.Layers["StopsLayer"] as GraphicsLayer;
-            _routesLayer = mapView.Map.Layers["RoutesLayer"] as GraphicsLayer;
-            _directionsLayer = mapView.Map.Layers["DirectionsLayer"] as GraphicsLayer;
+            _stopsLayer = MyMapView.Map.Layers["StopsLayer"] as GraphicsLayer;
+            _routesLayer = MyMapView.Map.Layers["RoutesLayer"] as GraphicsLayer;
+            _directionsLayer = MyMapView.Map.Layers["DirectionsLayer"] as GraphicsLayer;
 
             _routeTask = new OnlineRouteTask(new Uri(OnlineRoutingService));
         }
 
         // Get user Stop points
-        private void mapView_MapViewTapped(object sender, MapViewInputEventArgs e)
+        private void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
             try
             {
@@ -67,7 +67,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         }
 
         // Calculate the route
-        private async void mapView_MapViewDoubleTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
+        private async void MyMapView_MapViewDoubleTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
         {
             if (_stopsLayer.Graphics.Count() < 2)
                 return;
@@ -80,11 +80,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 progress.Visibility = Visibility.Visible;
 
                 RouteParameters routeParams = await _routeTask.GetDefaultParametersAsync();
-                routeParams.OutSpatialReference = mapView.SpatialReference;
+                routeParams.OutSpatialReference = MyMapView.SpatialReference;
                 routeParams.ReturnDirections = true;
                 routeParams.DirectionsLengthUnit = LinearUnits.Miles;
                 routeParams.DirectionsLanguage = CultureInfo.CurrentCulture;
-                routeParams.Stops = new FeaturesAsFeature(_stopsLayer.Graphics) { SpatialReference = mapView.SpatialReference };
+                routeParams.Stops = new FeaturesAsFeature(_stopsLayer.Graphics) { SpatialReference = MyMapView.SpatialReference };
 
                 var routeResult = await _routeTask.SolveAsync(routeParams);
                 if (routeResult == null || routeResult.Routes == null || routeResult.Routes.Count() == 0)
@@ -99,7 +99,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var totalLength = route.RouteDirections.Select(rd => rd.GetLength(LinearUnits.Miles)).Sum();
                 txtRouteTotals.Text = string.Format("Time: {0:h':'mm':'ss} / Length: {1:0.00} mi", totalTime, totalLength);
 
-                await mapView.SetViewAsync(route.RouteFeature.Geometry.Extent.Expand(1.25));
+                await MyMapView.SetViewAsync(route.RouteFeature.Geometry.Extent.Expand(1.25));
             }
             catch (AggregateException ex)
             {

@@ -26,7 +26,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-            var layer = mapView.Map.Layers.OfType<ArcGISDynamicMapServiceLayer>().FirstOrDefault();
+            var layer = MyMapView.Map.Layers.OfType<ArcGISDynamicMapServiceLayer>().FirstOrDefault();
             layer.VisibleLayers = new ObservableCollection<int>() { 2 };
 
             // Create GenerateRendererTask for a specific map layer
@@ -120,7 +120,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             LayerDrawingOptionCollection options = null;
 
             // If this is the first execution of this sample create a new LayerDrawingOptionsCollection
-            if (((ArcGISDynamicMapServiceLayer)mapView.Map.Layers["USA"]).LayerDrawingOptions == null)
+            if (((ArcGISDynamicMapServiceLayer)MyMapView.Map.Layers["USA"]).LayerDrawingOptions == null)
             {
                 options = new LayerDrawingOptionCollection();
 
@@ -130,7 +130,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             else
             {
                 // Otherwise the layer will have an existing LayerDrawingOptionsCollection from a previous button click
-                options = ((ArcGISDynamicMapServiceLayer)mapView.Map.Layers["USA"]).LayerDrawingOptions;
+                options = ((ArcGISDynamicMapServiceLayer)MyMapView.Map.Layers["USA"]).LayerDrawingOptions;
 
                 // Iterate over the LayerDrawingOptionsCollection. 
                 // For layer ID 2 get the existing LayerDrawingOptions object and apply the newly generated renderer
@@ -153,12 +153,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     Definition = rendererParam.Where
                 };
 
-                ((ArcGISDynamicMapServiceLayer)mapView.Map.Layers["USA"]).LayerDefinitions =
+                ((ArcGISDynamicMapServiceLayer)MyMapView.Map.Layers["USA"]).LayerDefinitions =
                     new ObservableCollection<LayerDefinition>() { layerDefinition };
             }
 
             // Apply the updated LayerDrawingOptionsCollection to the LayerDrawingOptions property on the layer
-            ((ArcGISDynamicMapServiceLayer)mapView.Map.Layers["USA"]).LayerDrawingOptions = options;
+            ((ArcGISDynamicMapServiceLayer)MyMapView.Map.Layers["USA"]).LayerDrawingOptions = options;
         }
     }
 }

@@ -27,17 +27,17 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            _states = mapView.Map.Layers["States"] as GraphicsLayer;
+            _states = MyMapView.Map.Layers["States"] as GraphicsLayer;
                 
-            mapView.ExtentChanged += mapView_ExtentChanged;
+            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 
         // Load state data - set initial renderer
-        private async void mapView_ExtentChanged(object sender, EventArgs e)
+        private async void MyMapView_ExtentChanged(object sender, EventArgs e)
         {
             try
             {
-                mapView.ExtentChanged -= mapView_ExtentChanged;
+                MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
                 await LoadStatesAsync();
 
                 ChangeRenderer();
@@ -71,10 +71,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             var queryTask = new QueryTask(
                 new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2"));
-            var query = new Query(mapView.Extent)
+            var query = new Query(MyMapView.Extent)
             {
                 ReturnGeometry = true,
-                OutSpatialReference = mapView.SpatialReference,
+                OutSpatialReference = MyMapView.SpatialReference,
                 OutFields = new OutFields(new string[] { "sub_region" })
             };
             var result = await queryTask.ExecuteAsync(query);

@@ -23,28 +23,28 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 		{
 			this.InitializeComponent();
 
-            _featureLayer = mapView.Map.Layers["FeatureLayer"] as FeatureLayer;
+            _featureLayer = MyMapView.Map.Layers["FeatureLayer"] as FeatureLayer;
             ((GeodatabaseFeatureServiceTable)_featureLayer.FeatureTable).OutFields = OutFields.All;
 
-			mapView.SpatialReferenceChanged += mapView_SpatialReferenceChanged;
-			mapView.PointerMoved += mapView_PointerMoved;
+			MyMapView.SpatialReferenceChanged += MyMapView_SpatialReferenceChanged;
+			MyMapView.PointerMoved += MyMapView_PointerMoved;
         }
 
-		private async void mapView_SpatialReferenceChanged(object sender, System.EventArgs e)
+		private async void MyMapView_SpatialReferenceChanged(object sender, System.EventArgs e)
 		{
-			await mapView.LayersLoadedAsync();
+			await MyMapView.LayersLoadedAsync();
 			_isMapReady = true;
 		}
 
-        private async void mapView_PointerMoved(object sender, PointerRoutedEventArgs e)
+        private async void MyMapView_PointerMoved(object sender, PointerRoutedEventArgs e)
         {
 			if (!_isMapReady)
 				return;
 			
 			try
             {
-                Point screenPoint = e.GetCurrentPoint(mapView).Position;
-                var rows = await _featureLayer.HitTestAsync(mapView, screenPoint);
+                Point screenPoint = e.GetCurrentPoint(MyMapView).Position;
+                var rows = await _featureLayer.HitTestAsync(MyMapView, screenPoint);
                 if (rows != null && rows.Length > 0)
                 {
                     var features = await _featureLayer.FeatureTable.QueryAsync(rows);

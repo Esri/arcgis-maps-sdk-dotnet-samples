@@ -107,7 +107,7 @@
             <title>Hit Testing</title>
             <category>Feature Layers</category>
         </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayerHitTesting.mapView_MapViewTapped(System.Object,Esri.ArcGISRuntime.Controls.MapViewInputEventArgs)">
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayerHitTesting.MyMapView_MapViewTapped(System.Object,Esri.ArcGISRuntime.Controls.MapViewInputEventArgs)">
             <summary>
             On each mouse click:
             - HitTest the feature layer
@@ -122,7 +122,7 @@
             <title>Feature Layer from Local Geodatabase</title>
             <category>Feature Layers</category>
         </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayerFromLocalGeodatabase.mapView_ExtentChanged(System.Object,System.EventArgs)">
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayerFromLocalGeodatabase.MyMapView_ExtentChanged(System.Object,System.EventArgs)">
             <summary>Add feature tables from a local geodatabase as layers on the map</summary>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FindPlace">

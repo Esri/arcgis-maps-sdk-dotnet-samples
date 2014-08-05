@@ -5,11 +5,9 @@
     xmlns:local="using:ArcGISRuntimeSDKDotNet_StoreSamples.Samples"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    	xmlns:esri="using:Esri.ArcGISRuntime.Controls"  
-    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
-	xmlns:sym="using:Esri.ArcGISRuntime.Symbology"
-    xmlns:geom="using:Esri.ArcGISRuntime.Geometry"
-    xmlns:core="using:Esri.ArcGISRuntime"
+    xmlns:esri="using:Esri.ArcGISRuntime.Controls"  
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+	xmlns:symb="using:Esri.ArcGISRuntime.Symbology"
     mc:Ignorable="d">
     <Page.Resources>
         <Style TargetType="TextBlock">
@@ -234,31 +232,31 @@
     <Grid x:Name="LayoutRoot" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <esri:MapView x:Name="mapView1" LayerLoaded="mapView1_LayerLoaded">
             <esri:Map  >
-                <lyr:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
+				<layers:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
         		ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-                <lyr:GraphicsLayer ID="ParcelsGraphicsLayer"  Opacity="0.3" >
-                    <lyr:GraphicsLayer.Renderer>
-                        <sym:SimpleRenderer>
-                            <sym:SimpleFillSymbol  Color="#990000FF"    >
-                                <sym:SimpleFillSymbol.Outline>
-                                    <sym:SimpleLineSymbol Color="Blue" Width="1"/>
-                                </sym:SimpleFillSymbol.Outline>
-                            </sym:SimpleFillSymbol>
-                        </sym:SimpleRenderer>
-                    </lyr:GraphicsLayer.Renderer>
-                </lyr:GraphicsLayer>
+				<layers:GraphicsLayer ID="ParcelsGraphicsLayer"  Opacity="0.3" >
+					<layers:GraphicsLayer.Renderer>
+						<symb:SimpleRenderer>
+							<symb:SimpleFillSymbol  Color="#990000FF"    >
+								<symb:SimpleFillSymbol.Outline>
+									<symb:SimpleLineSymbol Color="Blue" Width="1"/>
+                                </symb:SimpleFillSymbol.Outline>
+                            </symb:SimpleFillSymbol>
+                        </symb:SimpleRenderer>
+                    </layers:GraphicsLayer.Renderer>
+                </layers:GraphicsLayer>
 
-                <lyr:GraphicsLayer ID="OffsetGraphicsLayer" Opacity="0.4"  >
-                    <lyr:GraphicsLayer.Renderer>
-                        <sym:SimpleRenderer>
-                            <sym:SimpleFillSymbol  Color="Bisque"    >
-                                <sym:SimpleFillSymbol.Outline>
-                                    <sym:SimpleLineSymbol Color="Green" Width="2"/>
-                                </sym:SimpleFillSymbol.Outline>
-                            </sym:SimpleFillSymbol>
-                        </sym:SimpleRenderer>
-                    </lyr:GraphicsLayer.Renderer>
-                </lyr:GraphicsLayer>
+				<layers:GraphicsLayer ID="OffsetGraphicsLayer" Opacity="0.4"  >
+					<layers:GraphicsLayer.Renderer>
+						<symb:SimpleRenderer>
+							<symb:SimpleFillSymbol  Color="Bisque"    >
+								<symb:SimpleFillSymbol.Outline>
+									<symb:SimpleLineSymbol Color="Green" Width="2"/>
+                                </symb:SimpleFillSymbol.Outline>
+                            </symb:SimpleFillSymbol>
+                        </symb:SimpleRenderer>
+                    </layers:GraphicsLayer.Renderer>
+                </layers:GraphicsLayer>
 
             </esri:Map>
         </esri:MapView>
@@ -281,14 +279,11 @@
                         <TextBlock Text="Offset Type : "/>
                         <ComboBox x:Name="OffsetTypeComboBox"  />
 
-
-
                         <TextBlock>
                             <Run  Text="Bevel Ratio : "/>
                             <Run Text="{Binding Value, ElementName=OffsetBevelRatioSlider, Mode=TwoWay}" />
                         </TextBlock>
                         <Slider x:Name="OffsetBevelRatioSlider" Margin="0,-10,0,-30" Minimum="0" Maximum="5" Value="1.1" Foreground="Transparent" StepFrequency="0.1"  IsThumbToolTipEnabled="True" Style="{StaticResource MySliderStyle}"/>
-
 
                         <TextBlock>
                             <Run  Text="Flatten Error : "/>
@@ -299,15 +294,11 @@
 
                     </StackPanel>
 
-
-                    <StackPanel x:Name="LoadingParcelsContainer"  HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <TextBlock Text="Loading parcels..."/>
-                        <ProgressRing x:Name="LoadingParcelsIndicator" Width="40" Height="40" IsActive="True" Margin="0,10"/>
-                    </StackPanel>
-
-                </StackPanel>
-
-
+					<StackPanel x:Name="LoadingParcelsContainer"  HorizontalAlignment="Center" VerticalAlignment="Center">
+						<TextBlock Text="Loading parcels..."/>
+						<ProgressRing x:Name="LoadingParcelsIndicator" Width="40" Height="40" IsActive="True" Margin="0,10"/>
+					</StackPanel>
+				</StackPanel>
             </Border>
         </Grid>
     </Grid>

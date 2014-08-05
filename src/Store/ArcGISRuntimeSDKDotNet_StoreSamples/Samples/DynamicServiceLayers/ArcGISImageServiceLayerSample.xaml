@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
     mc:Ignorable="d">
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
@@ -16,9 +16,9 @@
                     <esri:ViewpointExtent XMin="-13486609" YMin="5713307" XMax="-13263258" YMax="5823117" />
                 </esri:Map.InitialViewpoint>
 
-                <lyr:ArcGISTiledMapServiceLayer 
+				<layers:ArcGISTiledMapServiceLayer 
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
-                <lyr:ArcGISImageServiceLayer ID="Image" DisplayName="Portland Landsat"
+				<layers:ArcGISImageServiceLayer ID="Image" DisplayName="Portland Landsat"
                     ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Portland/CascadeLandsat/ImageServer" 
                     ImageFormat="PNG8" NoData="0"/>
             </esri:Map>

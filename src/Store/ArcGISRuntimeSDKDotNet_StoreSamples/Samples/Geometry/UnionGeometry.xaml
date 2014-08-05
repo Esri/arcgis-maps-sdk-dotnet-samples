@@ -4,20 +4,18 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:common="using:ArcGISRuntimeSDKDotNet_StoreSamples.Common"
     xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
-    xmlns:geo="using:Esri.ArcGISRuntime.Geometry"
-    xmlns:sym="using:Esri.ArcGISRuntime.Symbology"
-    xmlns:data="using:Esri.ArcGISRuntime.Data">
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+    xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
     
     <Grid x:Name="LayoutRoot" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
             <common:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 
-            <sym:SimpleFillSymbol x:Key="FillSymbol" Color="#660000FF" Style="Solid">
-                <sym:SimpleFillSymbol.Outline>
-                    <sym:SimpleLineSymbol Color="Blue" Width="2" />
-                </sym:SimpleFillSymbol.Outline>
-            </sym:SimpleFillSymbol>
+			<symb:SimpleFillSymbol x:Key="FillSymbol" Color="#660000FF" Style="Solid">
+				<symb:SimpleFillSymbol.Outline>
+					<symb:SimpleLineSymbol Color="Blue" Width="2" />
+                </symb:SimpleFillSymbol.Outline>
+            </symb:SimpleFillSymbol>
         </Grid.Resources>
 
         <esri:MapView x:Name="mapView" WrapAround="True">
@@ -25,10 +23,10 @@
                 <esri:Map.InitialViewpoint>
 					<esri:ViewpointExtent XMin="-15053000" YMin="2749000" XMax="-6540000" YMax="6590000" />
                 </esri:Map.InitialViewpoint>
-                
-                <lyr:ArcGISTiledMapServiceLayer
+
+				<layers:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
-                <lyr:GraphicsLayer ID="ResultGraphics" />
+				<layers:GraphicsLayer ID="ResultGraphics" />
             </esri:Map>
         </esri:MapView>
 

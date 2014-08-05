@@ -7,23 +7,21 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:common="using:ArcGISRuntimeSDKDotNet_StoreSamples.Common"
     xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
-    xmlns:geo="using:Esri.ArcGISRuntime.Geometry"
-    xmlns:sym="using:Esri.ArcGISRuntime.Symbology"
-    xmlns:data="using:Esri.ArcGISRuntime.Data"
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+    xmlns:symb="using:Esri.ArcGISRuntime.Symbology"
     mc:Ignorable="d">
 
     <Grid x:Name="LayoutRoot" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
             <common:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 
-            <sym:SimpleMarkerSymbol x:Key="OrigVertexSymbol" Color="Red" Size="12" />
-            <sym:SimpleMarkerSymbol x:Key="NewVertexSymbol" Color="LightGreen" Size="8" />
-            <sym:SimpleFillSymbol x:Key="PolySymbol" Color="#88000000" Style="Solid">
-                <sym:SimpleFillSymbol.Outline>
-                    <sym:SimpleLineSymbol Color="Black" Width="1" />
-                </sym:SimpleFillSymbol.Outline>
-            </sym:SimpleFillSymbol>
+			<symb:SimpleMarkerSymbol x:Key="OrigVertexSymbol" Color="Red" Size="12" />
+			<symb:SimpleMarkerSymbol x:Key="NewVertexSymbol" Color="LightGreen" Size="8" />
+			<symb:SimpleFillSymbol x:Key="PolySymbol" Color="#88000000" Style="Solid">
+				<symb:SimpleFillSymbol.Outline>
+					<symb:SimpleLineSymbol Color="Black" Width="1" />
+                </symb:SimpleFillSymbol.Outline>
+            </symb:SimpleFillSymbol>
         </Grid.Resources>
 
         <esri:MapView x:Name="mapView" WrapAround="True">
@@ -32,11 +30,11 @@
 					<esri:ViewpointExtent XMin="-15000000" YMin="2000000" XMax="-7000000" YMax="8000000" />
                 </esri:Map.InitialViewpoint>
 
-                <lyr:ArcGISTiledMapServiceLayer
+				<layers:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
 
-                <lyr:GraphicsLayer ID="InputGraphics" />
-                <lyr:GraphicsLayer ID="ResultGraphics" />
+				<layers:GraphicsLayer ID="InputGraphics" />
+				<layers:GraphicsLayer ID="ResultGraphics" />
             </esri:Map>
         </esri:MapView>
 

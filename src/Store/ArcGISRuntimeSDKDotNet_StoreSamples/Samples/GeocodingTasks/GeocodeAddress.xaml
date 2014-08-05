@@ -4,9 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:common="using:ArcGISRuntimeSDKDotNet_StoreSamples.Common"
     xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
-    xmlns:geo="using:Esri.ArcGISRuntime.Geometry"
-    xmlns:sym="using:Esri.ArcGISRuntime.Symbology">
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers">
+	
     <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
             <common:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -18,9 +17,9 @@
         
         <esri:MapView x:Name="mapView" WrapAround="True">
             <esri:Map>
-                <lyr:ArcGISTiledMapServiceLayer 
+				<layers:ArcGISTiledMapServiceLayer 
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-                <lyr:GraphicsLayer ID="AddressGraphicsLayer" />
+				<layers:GraphicsLayer ID="AddressGraphicsLayer" />
             </esri:Map>
         </esri:MapView>
 

@@ -5,10 +5,8 @@
     xmlns:local="using:ArcGISRuntimeSDKDotNet_StoreSamples.Samples"
     xmlns:common="using:ArcGISRuntimeSDKDotNet_StoreSamples.Common"
     xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
-    xmlns:geo="using:Esri.ArcGISRuntime.Geometry"
-    xmlns:sym="using:Esri.ArcGISRuntime.Symbology"
-    xmlns:data="using:Esri.ArcGISRuntime.Data">
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+    xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
 
     <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
@@ -18,19 +16,19 @@
 
         <esri:MapView x:Name="mapView" MapViewTapped="mapView_MapViewTapped">
             <esri:Map>
-                <lyr:ArcGISTiledMapServiceLayer DisplayName="Streets Basemap"
+				<layers:ArcGISTiledMapServiceLayer DisplayName="Streets Basemap"
                     ServiceUri="http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 
-                <lyr:ArcGISDynamicMapServiceLayer ID="onlineBirdsLayer" DisplayName="Online Birds" 
+				<layers:ArcGISDynamicMapServiceLayer ID="onlineBirdsLayer" DisplayName="Online Birds" 
                     ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/SaveTheBaySync/MapServer" />
 
-                <lyr:GraphicsLayer ID="GraphicsLayer" DisplayName="Graphics">
-                    <lyr:GraphicsLayer.Renderer>
-                        <sym:SimpleRenderer>
-                            <sym:SimpleMarkerSymbol Color="Red" Style="Diamond" Size="8" />
-                        </sym:SimpleRenderer>
-                    </lyr:GraphicsLayer.Renderer>
-                </lyr:GraphicsLayer>
+				<layers:GraphicsLayer ID="GraphicsLayer" DisplayName="Graphics">
+					<layers:GraphicsLayer.Renderer>
+						<symb:SimpleRenderer>
+							<symb:SimpleMarkerSymbol Color="Red" Style="Diamond" Size="8" />
+                        </symb:SimpleRenderer>
+                    </layers:GraphicsLayer.Renderer>
+                </layers:GraphicsLayer>
             </esri:Map>
         </esri:MapView>
 

@@ -6,20 +6,18 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
-	xmlns:sym="using:Esri.ArcGISRuntime.Symbology"
-    xmlns:geom="using:Esri.ArcGISRuntime.Geometry"
-    xmlns:core="using:Esri.ArcGISRuntime"
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+	xmlns:symb="using:Esri.ArcGISRuntime.Symbology"
     mc:Ignorable="d">
 
     <Grid x:Name="LayoutRoot" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
-            <sym:SimpleFillSymbol x:Key="MySimpleFillSymbol"  Color="#660000FF">
-                <sym:SimpleFillSymbol.Outline>
-                    <sym:SimpleLineSymbol Color="Blue" Width="2"/>
-                </sym:SimpleFillSymbol.Outline>
-            </sym:SimpleFillSymbol>
-            <sym:PictureMarkerSymbol x:Key="MyPictureMarkerSymbol" XOffset="0" YOffset="24"/>
+			<symb:SimpleFillSymbol x:Key="MySimpleFillSymbol"  Color="#660000FF">
+				<symb:SimpleFillSymbol.Outline>
+					<symb:SimpleLineSymbol Color="Blue" Width="2"/>
+                </symb:SimpleFillSymbol.Outline>
+            </symb:SimpleFillSymbol>
+			<symb:PictureMarkerSymbol x:Key="MyPictureMarkerSymbol" XOffset="0" YOffset="24"/>
         </Grid.Resources>
 
         <esri:MapView x:Name="mapView1">
@@ -27,9 +25,9 @@
 				<esri:Map.InitialViewpoint>
 					<esri:ViewpointExtent XMin="-10863036" YMin="3838021" XMax="-10744801" YMax="3887145" SpatialReferenceID="3857"/>
 				</esri:Map.InitialViewpoint>
-				<lyr:ArcGISTiledMapServiceLayer ID="StreetMapLayer" 
+				<layers:ArcGISTiledMapServiceLayer ID="StreetMapLayer" 
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-                <lyr:GraphicsLayer ID="MyGraphicsLayer" />
+				<layers:GraphicsLayer ID="MyGraphicsLayer" />
             </esri:Map>
         </esri:MapView>
 

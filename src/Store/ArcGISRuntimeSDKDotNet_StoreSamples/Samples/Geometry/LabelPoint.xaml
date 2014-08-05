@@ -7,15 +7,13 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:common="using:ArcGISRuntimeSDKDotNet_StoreSamples.Common"
     xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
-    xmlns:geo="using:Esri.ArcGISRuntime.Geometry"
-    xmlns:sym="using:Esri.ArcGISRuntime.Symbology"
-    xmlns:data="using:Esri.ArcGISRuntime.Data"
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+    xmlns:symb="using:Esri.ArcGISRuntime.Symbology"
     mc:Ignorable="d">
     <Grid x:Name="LayoutRoot" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
             <common:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-            <sym:PictureMarkerSymbol x:Key="PictureMarkerSymbol" XOffset="12" YOffset="12" />
+			<symb:PictureMarkerSymbol x:Key="PictureMarkerSymbol" XOffset="12" YOffset="12" />
         </Grid.Resources>
 
         <esri:MapView x:Name="mapView" WrapAround="True">
@@ -24,20 +22,20 @@
 					<esri:ViewpointExtent XMin="-15053000" YMin="2749000" XMax="-6540000" YMax="6590000" />
                 </esri:Map.InitialViewpoint>
 
-                <lyr:ArcGISTiledMapServiceLayer
+				<layers:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
-                
-                <lyr:GraphicsLayer ID="LabelGraphics">
-                    <lyr:GraphicsLayer.Renderer>
-                        <sym:SimpleRenderer>
-                            <sym:SimpleFillSymbol Color="#7F0000FF"    >
-                                <sym:SimpleFillSymbol.Outline>
-                                    <sym:SimpleLineSymbol Color="Blue" Width="2"/>
-                                </sym:SimpleFillSymbol.Outline>
-                            </sym:SimpleFillSymbol>
-                        </sym:SimpleRenderer>
-                    </lyr:GraphicsLayer.Renderer>
-                </lyr:GraphicsLayer>
+
+				<layers:GraphicsLayer ID="LabelGraphics">
+					<layers:GraphicsLayer.Renderer>
+						<symb:SimpleRenderer>
+							<symb:SimpleFillSymbol Color="#7F0000FF"    >
+								<symb:SimpleFillSymbol.Outline>
+									<symb:SimpleLineSymbol Color="Blue" Width="2"/>
+                                </symb:SimpleFillSymbol.Outline>
+                            </symb:SimpleFillSymbol>
+                        </symb:SimpleRenderer>
+                    </layers:GraphicsLayer.Renderer>
+                </layers:GraphicsLayer>
             </esri:Map>
         </esri:MapView>
 

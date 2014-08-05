@@ -5,23 +5,23 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
-    xmlns:sym="using:Esri.ArcGISRuntime.Symbology"
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+    xmlns:symb="using:Esri.ArcGISRuntime.Symbology"
 	mc:Ignorable="d">
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
-            <sym:SimpleRenderer x:Key="TriangleRenderer">
-                <sym:SimpleMarkerSymbol Color="#FF0A57FC" Size="12" Style="Triangle" />
-            </sym:SimpleRenderer>
+			<symb:SimpleRenderer x:Key="TriangleRenderer">
+				<symb:SimpleMarkerSymbol Color="#FF0A57FC" Size="12" Style="Triangle" />
+            </symb:SimpleRenderer>
         </Grid.Resources>
 
         <esri:MapView x:Name="mapView">
             <esri:Map>
-                <lyr:ArcGISTiledMapServiceLayer
+				<layers:ArcGISTiledMapServiceLayer
 				    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
 
-                <lyr:GeoRssLayer ID="RssLayer"
+				<layers:GeoRssLayer ID="RssLayer"
                     ServiceUri="http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.atom" 
                     Renderer="{StaticResource TriangleRenderer}" />
             </esri:Map>

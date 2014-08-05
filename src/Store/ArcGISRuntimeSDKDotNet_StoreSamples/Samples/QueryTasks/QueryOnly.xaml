@@ -1,8 +1,7 @@
 ﻿<Page x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.QueryOnly"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-      xmlns:lyr="using:Esri.ArcGISRuntime.Layers">
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

@@ -5,7 +5,7 @@
       xmlns:local="using:ArcGISRuntimeSDKDotNet_StoreSamples.Samples"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-      xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
+      xmlns:layers="using:Esri.ArcGISRuntime.Layers"
       mc:Ignorable="d">
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
@@ -14,9 +14,9 @@
         
         <esri:MapView x:Name="mapView" WrapAround="True">
             <esri:Map>
-                <lyr:ArcGISTiledMapServiceLayer 
+				<layers:ArcGISTiledMapServiceLayer 
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-                <lyr:GraphicsLayer ID="GraphicsLayer" />
+				<layers:GraphicsLayer ID="GraphicsLayer" />
             </esri:Map>
         </esri:MapView>
 

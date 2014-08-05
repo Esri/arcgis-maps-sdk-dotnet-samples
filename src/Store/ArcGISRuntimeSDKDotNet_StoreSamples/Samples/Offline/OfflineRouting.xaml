@@ -4,31 +4,29 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:common="using:ArcGISRuntimeSDKDotNet_StoreSamples.Common"
     xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
-    xmlns:geo="using:Esri.ArcGISRuntime.Geometry"
-    xmlns:sym="using:Esri.ArcGISRuntime.Symbology"
-    xmlns:data="using:Esri.ArcGISRuntime.Data">
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+    xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
 
     <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
-            <sym:SimpleMarkerSymbol x:Key="stopSymbol" Color="Green" Size="10" Style="Circle" />
-            <sym:SimpleRenderer x:Key="stopsRenderer" Symbol="{StaticResource stopSymbol}" />
+			<symb:SimpleMarkerSymbol x:Key="stopSymbol" Color="Green" Size="10" Style="Circle" />
+			<symb:SimpleRenderer x:Key="stopsRenderer" Symbol="{StaticResource stopSymbol}" />
 
-            <sym:SimpleLineSymbol x:Key="routeSymbol" Color="Blue" Width="2" Style="Dot" />
-            <sym:SimpleRenderer x:Key="routesRenderer" Symbol="{StaticResource routeSymbol}" />
+			<symb:SimpleLineSymbol x:Key="routeSymbol" Color="Blue" Width="2" Style="Dot" />
+			<symb:SimpleRenderer x:Key="routesRenderer" Symbol="{StaticResource routeSymbol}" />
 
-            <sym:SimpleMarkerSymbol x:Key="directionPointSymbol" Color="Blue" Size="6" Style="X" />
-            <sym:SimpleLineSymbol x:Key="directionLineSymbol" Color="Transparent" Width="2" Style="Solid" />
-            <sym:SimpleRenderer x:Key="directionsRenderer" Symbol="{StaticResource directionLineSymbol}" />
+			<symb:SimpleMarkerSymbol x:Key="directionPointSymbol" Color="Blue" Size="6" Style="X" />
+			<symb:SimpleLineSymbol x:Key="directionLineSymbol" Color="Transparent" Width="2" Style="Solid" />
+			<symb:SimpleRenderer x:Key="directionsRenderer" Symbol="{StaticResource directionLineSymbol}" />
         </Grid.Resources>
 
         <esri:MapView x:Name="mapView" MapViewTapped="mapView_MapViewTapped" MapViewDoubleTapped="mapView_MapViewDoubleTapped">
             <esri:Map>
-                <lyr:ArcGISTiledMapServiceLayer
+				<layers:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-                <lyr:GraphicsLayer ID="StopsLayer" Renderer="{StaticResource stopsRenderer}" />
-                <lyr:GraphicsLayer ID="RoutesLayer" Renderer="{StaticResource routesRenderer}" />
-                <lyr:GraphicsLayer ID="DirectionsLayer" Renderer="{StaticResource directionsRenderer}" />
+				<layers:GraphicsLayer ID="StopsLayer" Renderer="{StaticResource stopsRenderer}" />
+				<layers:GraphicsLayer ID="RoutesLayer" Renderer="{StaticResource routesRenderer}" />
+				<layers:GraphicsLayer ID="DirectionsLayer" Renderer="{StaticResource directionsRenderer}" />
             </esri:Map>
         </esri:MapView>
 

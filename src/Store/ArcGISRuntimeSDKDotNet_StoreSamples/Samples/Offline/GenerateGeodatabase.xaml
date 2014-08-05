@@ -4,15 +4,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:common="using:ArcGISRuntimeSDKDotNet_StoreSamples.Common"
     xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
     xmlns:geo="using:Esri.ArcGISRuntime.Geometry"
-    xmlns:sym="using:Esri.ArcGISRuntime.Symbology"
-    xmlns:data="using:Esri.ArcGISRuntime.Data">
+    xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
 
     <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
-            <sym:SimpleFillSymbol x:Key="AOISymbol" Color="#55FF0000" Style="Solid" />
-            <sym:SimpleRenderer x:Key="AOIRenderer" Symbol="{StaticResource AOISymbol}" />
+			<symb:SimpleFillSymbol x:Key="AOISymbol" Color="#55FF0000" Style="Solid" />
+			<symb:SimpleRenderer x:Key="AOIRenderer" Symbol="{StaticResource AOISymbol}" />
 
             <Style TargetType="ListViewItem">
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -36,10 +35,10 @@
 
         <esri:MapView x:Name="mapView">
             <esri:Map>
-                <lyr:ArcGISTiledMapServiceLayer DisplayName="Streets Basemap"
+				<layers:ArcGISTiledMapServiceLayer DisplayName="Streets Basemap"
                     ServiceUri="http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 
-                <lyr:ArcGISDynamicMapServiceLayer ID="onlineService" DisplayName="Online Data"
+				<layers:ArcGISDynamicMapServiceLayer ID="onlineService" DisplayName="Online Data"
                     ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/WildfireSync/MapServer" />
             </esri:Map>
         </esri:MapView>

@@ -4,10 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:common="using:ArcGISRuntimeSDKDotNet_StoreSamples.Common"
     xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
-    xmlns:geo="using:Esri.ArcGISRuntime.Geometry"
-    xmlns:sym="using:Esri.ArcGISRuntime.Symbology"
-    xmlns:data="using:Esri.ArcGISRuntime.Data">
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 		<esri:MapView x:Name="mapView">
@@ -15,9 +12,9 @@
 				<esri:Map.InitialViewpoint>
 					<esri:ViewpointExtent XMin="-245200" YMin="6665900" XMax="-207000" YMax="6687300" SpatialReferenceID="3857"/>
 				</esri:Map.InitialViewpoint>
-				<lyr:ArcGISTiledMapServiceLayer ID="Basemap" 
+				<layers:ArcGISTiledMapServiceLayer ID="Basemap" 
 					ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"/>
-				<lyr:MessageLayer SymbolDictionaryType="Mil2525C" />
+				<layers:MessageLayer SymbolDictionaryType="Mil2525C" />
 			</esri:Map>
 		</esri:MapView>
 

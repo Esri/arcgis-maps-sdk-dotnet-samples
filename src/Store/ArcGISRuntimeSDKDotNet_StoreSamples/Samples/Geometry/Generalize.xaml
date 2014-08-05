@@ -7,26 +7,25 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:common="using:ArcGISRuntimeSDKDotNet_StoreSamples.Common"
     xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
-    xmlns:geo="using:Esri.ArcGISRuntime.Geometry"
-    xmlns:sym="using:Esri.ArcGISRuntime.Symbology"
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+    xmlns:symb="using:Esri.ArcGISRuntime.Symbology"
     mc:Ignorable="d">
 
     <Grid x:Name="LayoutRoot" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
-            <sym:SimpleLineSymbol x:Key="DefaultLineSymbol" Color="#AAFF0000" Width="2" />
-            <sym:SimpleMarkerSymbol x:Key="DefaultMarkerSymbol" Color="Red" Size="6" />
-            <sym:SimpleMarkerSymbol x:Key="GeneralizedMarkerSymbol" Color="#FF00FFFF" Size="6" />
-            <sym:SimpleLineSymbol x:Key="GeneralizedLineSymbol" Color="#AA00FFFF" Width="2"/>
+			<symb:SimpleLineSymbol x:Key="DefaultLineSymbol" Color="#AAFF0000" Width="2" />
+			<symb:SimpleMarkerSymbol x:Key="DefaultMarkerSymbol" Color="Red" Size="6" />
+			<symb:SimpleMarkerSymbol x:Key="GeneralizedMarkerSymbol" Color="#FF00FFFF" Size="6" />
+			<symb:SimpleLineSymbol x:Key="GeneralizedLineSymbol" Color="#AA00FFFF" Width="2"/>
         </Grid.Resources>
 
         <esri:MapView x:Name="mapView" WrapAround="True">
             <esri:Map>
-                <lyr:ArcGISTiledMapServiceLayer
+				<layers:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" />
 
-                <lyr:GraphicsLayer ID="OriginalLineGraphicsLayer" />
-                <lyr:GraphicsLayer ID="GeneralizedLineGraphicsLayer" />
+				<layers:GraphicsLayer ID="OriginalLineGraphicsLayer" />
+				<layers:GraphicsLayer ID="GeneralizedLineGraphicsLayer" />
             </esri:Map>
         </esri:MapView>
 

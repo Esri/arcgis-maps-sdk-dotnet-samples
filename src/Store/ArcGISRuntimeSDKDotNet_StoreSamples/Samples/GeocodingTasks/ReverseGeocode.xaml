@@ -4,16 +4,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:common="using:ArcGISRuntimeSDKDotNet_StoreSamples.Common"
     xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
-    xmlns:geo="using:Esri.ArcGISRuntime.Geometry"
-    xmlns:sym="using:Esri.ArcGISRuntime.Symbology">
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+    xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
     <Grid x:Name="layoutGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
-            <sym:SimpleRenderer x:Key="MarkerRenderer">
-                <sym:SimpleRenderer.Symbol>
-                    <sym:SimpleMarkerSymbol Color="Red" Size="8" Style="Diamond"/>
-                </sym:SimpleRenderer.Symbol>
-            </sym:SimpleRenderer>
+			<symb:SimpleRenderer x:Key="MarkerRenderer">
+				<symb:SimpleRenderer.Symbol>
+					<symb:SimpleMarkerSymbol Color="Red" Size="8" Style="Diamond"/>
+                </symb:SimpleRenderer.Symbol>
+            </symb:SimpleRenderer>
 
             <ControlTemplate x:Key="MapTipTemplate">
                 <Border Background="Black" BorderBrush="White" BorderThickness="2" Margin="4,0,0,4">
@@ -49,9 +48,9 @@
 
         <esri:MapView x:Name="mapView" WrapAround="True" MapViewTapped="mapView_MapViewTapped">
             <esri:Map>
-                <lyr:ArcGISTiledMapServiceLayer 
+				<layers:ArcGISTiledMapServiceLayer 
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-                <lyr:GraphicsLayer ID="GraphicsLayer" Renderer="{StaticResource MarkerRenderer}" />
+				<layers:GraphicsLayer ID="GraphicsLayer" Renderer="{StaticResource MarkerRenderer}" />
             </esri:Map>
         </esri:MapView>
 

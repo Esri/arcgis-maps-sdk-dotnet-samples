@@ -7,27 +7,26 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Esri.ArcGISRuntime.Controls"
     xmlns:layers="using:Esri.ArcGISRuntime.Layers"
-    xmlns:geometry="using:Esri.ArcGISRuntime.Geometry"
-    xmlns:symbology="using:Esri.ArcGISRuntime.Symbology"
+    xmlns:symb="using:Esri.ArcGISRuntime.Symbology"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" x:Name="LayoutRoot">
         <Grid.Resources>
-            <symbology:SimpleMarkerSymbol x:Key="SMS"
+			<symb:SimpleMarkerSymbol x:Key="SMS"
                                     Color="Red"
                                     Style="Circle"
                                     Size="10" />
-            <symbology:SimpleLineSymbol x:Key="SLS"
+			<symb:SimpleLineSymbol x:Key="SLS"
                                   Color="Red"
                                   Width="5" />
-            <symbology:SimpleFillSymbol x:Key="SFS"
+			<symb:SimpleFillSymbol x:Key="SFS"
                                   Color="#66FF0000"
                                   Style="Solid" />
-            <symbology:SimpleRenderer x:Key="MarkerRenderer"
+			<symb:SimpleRenderer x:Key="MarkerRenderer"
                                 Symbol="{StaticResource SMS}" />
-            <symbology:SimpleRenderer x:Key="PolylineRenderer"
+			<symb:SimpleRenderer x:Key="PolylineRenderer"
                                 Symbol="{StaticResource SLS}" />
-            <symbology:SimpleRenderer x:Key="PolygonRenderer"
+			<symb:SimpleRenderer x:Key="PolygonRenderer"
                                 Symbol="{StaticResource SFS}" />
         </Grid.Resources>
         <controls:MapView x:Name="mapView1" MapViewTapped="mapView1_MapViewTapped">

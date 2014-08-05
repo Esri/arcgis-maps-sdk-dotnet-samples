@@ -3,27 +3,27 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
-    xmlns:sym="using:Esri.ArcGISRuntime.Symbology">
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+    xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
     
     <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
-            <sym:SimpleFillSymbol x:Key="AreaSymbol" Color="#660000FF" Style="Solid">
-                <sym:SimpleFillSymbol.Outline>
-                    <sym:SimpleLineSymbol Color="Blue" Style="DashDot" Width="2" />
-                </sym:SimpleFillSymbol.Outline>
-            </sym:SimpleFillSymbol>
+			<symb:SimpleFillSymbol x:Key="AreaSymbol" Color="#660000FF" Style="Solid">
+				<symb:SimpleFillSymbol.Outline>
+					<symb:SimpleLineSymbol Color="Blue" Style="DashDot" Width="2" />
+                </symb:SimpleFillSymbol.Outline>
+            </symb:SimpleFillSymbol>
 
-            <sym:SimpleRenderer x:Key="AreaRenderer" Symbol="{StaticResource AreaSymbol}" />
+			<symb:SimpleRenderer x:Key="AreaRenderer" Symbol="{StaticResource AreaSymbol}" />
         </Grid.Resources>
 
         <esri:MapView x:Name="mapView" WrapAround="True">
             <esri:Map>
-                <lyr:ArcGISTiledMapServiceLayer
+				<layers:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-                <lyr:ArcGISDynamicMapServiceLayer Opacity="0.5"
+				<layers:ArcGISDynamicMapServiceLayer Opacity="0.5"
                     ServiceUri="http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Population_World/MapServer" />
-                <lyr:GraphicsLayer ID="AreaLayer" Renderer="{StaticResource AreaRenderer}" />
+				<layers:GraphicsLayer ID="AreaLayer" Renderer="{StaticResource AreaRenderer}" />
             </esri:Map>
         </esri:MapView>
 

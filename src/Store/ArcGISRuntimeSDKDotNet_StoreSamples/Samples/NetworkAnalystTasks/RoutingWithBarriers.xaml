@@ -4,25 +4,26 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:common="using:ArcGISRuntimeSDKDotNet_StoreSamples.Common"
     xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
-    xmlns:sym="using:Esri.ArcGISRuntime.Symbology">
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+    xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
+	
     <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
-            <sym:SimpleLineSymbol x:Key="RouteSymbol" Color="#990000FF" Style="Solid" Width="3" />
-            <sym:SimpleRenderer x:Key="RouteLayerRenderer" Symbol="{StaticResource RouteSymbol}" />
+			<symb:SimpleLineSymbol x:Key="RouteSymbol" Color="#990000FF" Style="Solid" Width="3" />
+			<symb:SimpleRenderer x:Key="RouteLayerRenderer" Symbol="{StaticResource RouteSymbol}" />
 
-            <sym:SimpleMarkerSymbol x:Key="BarrierSymbol" Color="Black" Style="X" Size="20" />
-            <sym:SimpleRenderer x:Key="BarrierLayerRenderer" Symbol="{StaticResource BarrierSymbol}" />
+			<symb:SimpleMarkerSymbol x:Key="BarrierSymbol" Color="Black" Style="X" Size="20" />
+			<symb:SimpleRenderer x:Key="BarrierLayerRenderer" Symbol="{StaticResource BarrierSymbol}" />
         </Grid.Resources>
 
         <esri:MapView x:Name="mapView" MapViewTapped="mapView_MapViewTapped">
             <esri:Map>
-                <lyr:ArcGISTiledMapServiceLayer
+				<layers:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 
-                <lyr:GraphicsLayer ID="RouteGraphicsLayer" Renderer="{StaticResource RouteLayerRenderer}" />
-                <lyr:GraphicsLayer ID="StopGraphicsLayer" />
-                <lyr:GraphicsLayer ID="BarrierGraphicsLayer" Renderer="{StaticResource BarrierLayerRenderer}" />
+				<layers:GraphicsLayer ID="RouteGraphicsLayer" Renderer="{StaticResource RouteLayerRenderer}" />
+				<layers:GraphicsLayer ID="StopGraphicsLayer" />
+				<layers:GraphicsLayer ID="BarrierGraphicsLayer" Renderer="{StaticResource BarrierLayerRenderer}" />
             </esri:Map>
         </esri:MapView>
 

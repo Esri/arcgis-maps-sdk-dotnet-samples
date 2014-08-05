@@ -6,19 +6,17 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
-	xmlns:sym="using:Esri.ArcGISRuntime.Symbology"
-    xmlns:geom="using:Esri.ArcGISRuntime.Geometry"
-    xmlns:core="using:Esri.ArcGISRuntime"
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+	xmlns:symb="using:Esri.ArcGISRuntime.Symbology"
     mc:Ignorable="d">
 
     <Grid x:Name="LayoutRoot" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
-            <sym:SimpleFillSymbol x:Key="DefaultFillSymbol"  Color="#7F0000FF"    >
-                <sym:SimpleFillSymbol.Outline>
-                    <sym:SimpleLineSymbol Color="Blue" Width="2"/>
-                </sym:SimpleFillSymbol.Outline>
-            </sym:SimpleFillSymbol>
+			<symb:SimpleFillSymbol x:Key="DefaultFillSymbol"  Color="#7F0000FF"    >
+				<symb:SimpleFillSymbol.Outline>
+					<symb:SimpleLineSymbol Color="Blue" Width="2"/>
+                </symb:SimpleFillSymbol.Outline>
+            </symb:SimpleFillSymbol>
             
             <Style x:Key="TextBasicStyle" TargetType="TextBlock">
                 <Setter Property="FontSize" Value="14"/>
@@ -33,9 +31,9 @@
 
         <esri:MapView x:Name="mapView1">
             <esri:Map>
-                <lyr:ArcGISTiledMapServiceLayer ID="StreetMapLayer" 
-        		ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-                <lyr:GraphicsLayer ID="MyGraphicsLayer" />
+				<layers:ArcGISTiledMapServiceLayer ID="StreetMapLayer" 
+        			ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+				<layers:GraphicsLayer ID="MyGraphicsLayer" />
             </esri:Map>
         </esri:MapView>
 

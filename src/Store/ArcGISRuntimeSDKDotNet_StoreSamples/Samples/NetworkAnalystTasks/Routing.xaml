@@ -4,23 +4,23 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:common="using:ArcGISRuntimeSDKDotNet_StoreSamples.Common"
     xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
-    xmlns:sym="using:Esri.ArcGISRuntime.Symbology">
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+    xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
 
     <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
-            <sym:SimpleLineSymbol x:Key="RouteSymbol" Color="#990000FF" Style="Solid" Width="3" />
-            <sym:SimpleRenderer x:Key="RouteLayerRenderer" Symbol="{StaticResource RouteSymbol}" />
+			<symb:SimpleLineSymbol x:Key="RouteSymbol" Color="#990000FF" Style="Solid" Width="3" />
+			<symb:SimpleRenderer x:Key="RouteLayerRenderer" Symbol="{StaticResource RouteSymbol}" />
         </Grid.Resources>
         
         <esri:MapView x:Name="mapView" MapViewTapped="mapView_MapViewTapped">
             <esri:Map>
-                <lyr:ArcGISTiledMapServiceLayer
+				<layers:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 
-                <lyr:GraphicsLayer ID="ExtentGraphicsLayer" Renderer="{StaticResource RouteLayerRenderer}" />
-                <lyr:GraphicsLayer ID="RouteGraphicsLayer" Renderer="{StaticResource RouteLayerRenderer}" />
-                <lyr:GraphicsLayer ID="StopsGraphicsLayer" />
+                <layers:GraphicsLayer ID="ExtentGraphicsLayer" Renderer="{StaticResource RouteLayerRenderer}" />
+				<layers:GraphicsLayer ID="RouteGraphicsLayer" Renderer="{StaticResource RouteLayerRenderer}" />
+				<layers:GraphicsLayer ID="StopsGraphicsLayer" />
             </esri:Map>
         </esri:MapView>
 

@@ -566,7 +566,7 @@
             </summary>
             <title>S57 Cell Information</title>
             <category>Symbology</category>
-            <subcategory>Advanced</subcategory>
+            <subcategory>Hydrographic</subcategory>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbology.S57DisplayPropertiesSample">
             <summary>
@@ -574,7 +574,7 @@
             </summary>
             <title>S57 Display Properties</title>
             <category>Symbology</category>
-            <subcategory>Advanced</subcategory>
+            <subcategory>Hydrographic</subcategory>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbology.S57IdentifySample">
             <summary>
@@ -582,7 +582,7 @@
             </summary>
             <title>S57 Identify</title>
             <category>Symbology</category>
-            <subcategory>Advanced</subcategory>
+            <subcategory>Hydrographic</subcategory>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbology.S57SearchSample">
             <summary>
@@ -590,7 +590,7 @@
             </summary>
             <title>S57 Search </title>
             <category>Symbology</category>
-            <subcategory>Advanced</subcategory>
+            <subcategory>Hydrographic</subcategory>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.SymbolDictionarySearchSample">
             <summary>

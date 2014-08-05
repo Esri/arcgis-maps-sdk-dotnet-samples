@@ -1,5 +1,6 @@
 ﻿using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Hydrographic;
 using Esri.ArcGISRuntime.Layers;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 	/// </summary>
 	/// <title>S57 Cell Information</title>
 	/// <category>Symbology</category>
-	/// <subcategory>Advanced</subcategory>
+	/// <subcategory>Hydrographic</subcategory>
 	public sealed partial class S57CellInfoSample : Page
 	{
 		private const string LAYER_1_PATH = @"symbology\s57-electronic-navigational-charts\us1wc01m\us1wc01m.000";
@@ -112,16 +113,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 
 		private async Task CreateHydrographicLayerAsync(string path)
 		{
-			StorageFile file = null;
-			try
-			{
-				file = await ApplicationData.Current.LocalFolder.GetFileAsync(path);
-			}
-			catch (FileNotFoundException notFoundException)
-			{
+			var file = await ApplicationData.Current.LocalFolder.TryGetItemAsync(path);
+			if (file == null)
 				throw new Exception("Local hydrographic data not found. Please download sample data from 'Sample Data Settings'");
-			}
-			
+
 			// Create hydrographic layer from sample data
 			var hydroLayer = new HydrographicS57Layer()
 			{

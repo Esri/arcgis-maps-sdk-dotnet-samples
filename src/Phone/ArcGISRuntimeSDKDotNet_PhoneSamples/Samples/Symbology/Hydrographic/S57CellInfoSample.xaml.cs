@@ -4,7 +4,6 @@ using Esri.ArcGISRuntime.Hydrographic;
 using Esri.ArcGISRuntime.Layers;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -12,6 +11,7 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
+using Windows.Storage.Pickers;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -24,31 +24,21 @@ using Windows.UI.Xaml.Navigation;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbology
 {
 	/// <summary>
-	/// This sample demonstrates using the global static HydrographicS52DisplayProperties object to control the display properties of an HydrographicS57Layer, such as the Color Scheme or Safety Contour Depth. 
+	/// This sample demonstrates adding and removing S-57 cells from an HydrographicS57Layer in the Map and accessing the Dataset Identification (DSID) metadata of those S-57 cells. The DSID metadata Provides information regarding the dataset's source and the product specification it is part of.
 	/// </summary>
-	/// <title>S57 Display Properties</title>
+	/// <title>S57 Cell Information</title>
 	/// <category>Symbology</category>
-	/// <subcategory>Advanced</subcategory>
-	public sealed partial class S57DisplayPropertiesSample : Page
+	/// <subcategory>Hydrographic</subcategory>
+	public sealed partial class S57CellInfoSample : Page
 	{
 		private const string LAYER_1_PATH = @"symbology\s57-electronic-navigational-charts\us1wc01m\us1wc01m.000";
 		private const string LAYER_2_PATH = @"symbology\s57-electronic-navigational-charts\us1wc07m\us1wc07m.000";
 
 		private GroupLayer _hydrographicGroupLayer;
 
-		public S57DisplayPropertiesSample()
+		public S57CellInfoSample()
 		{
 			this.InitializeComponent();
-
-			colorSchemes.ItemsSource = Enum.GetValues(typeof(S52ColorScheme)).Cast<S52ColorScheme>();
-			dislayDepthUnits.ItemsSource = Enum.GetValues(typeof(S52DisplayDepthUnits)).Cast<S52DisplayDepthUnits>();
-			areaSymbolizationTypes.ItemsSource = Enum.GetValues(typeof(S52AreaSymbolizationType)).Cast<S52AreaSymbolizationType>();
-			pointSymbolizationTypes.ItemsSource = Enum.GetValues(typeof(S52PointSymbolizationType)).Cast<S52PointSymbolizationType>();
-			displayCategory.ItemsSource = Enum.GetValues(typeof(S52DisplayCategory)).Cast<S52DisplayCategory>();
-			depthShades.ItemsSource = Enum.GetValues(typeof(S52DepthShades)).Cast<S52DepthShades>();
-
-			// Create default instance of display properties and set that to DataContext for binding
-			DataContext = HydrographicS52DisplayProperties.Default;
 			mapView.ExtentChanged += mapView_ExtentChanged;
 		}
 
@@ -69,19 +59,16 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 				// Wait until all layers are loaded
 				var layers = await mapView.LayersLoadedAsync();
 
-				Envelope extent = _hydrographicGroupLayer.ChildLayers.First().FullExtent;
+				// Set item sources
+				s57CellList.ItemsSource = _hydrographicGroupLayer.ChildLayers;
+				s57CellList.SelectedIndex = 0;
 
-				// Create combined extent from child hydrographic layers
-				foreach (var layer in _hydrographicGroupLayer.ChildLayers)
-					extent = extent.Union(layer.FullExtent);
-
-
-				// Zoom to full extent
-				await mapView.SetViewAsync(extent);
+				// Zoom to hydrographic layer
+				await mapView.SetViewAsync(_hydrographicGroupLayer.FullExtent);
 			}
 			catch (Exception ex)
 			{
-				var _ = new MessageDialog(ex.Message, "S57 Display Properties Sample").ShowAsync();
+				var _ = new MessageDialog(ex.Message, "S57 Cell Info Sample").ShowAsync();
 			}
 		}
 
@@ -95,12 +82,47 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 				string.Format("Error when loading layer. {0}", e.LoadError.ToString()), "S57 Cell Info Sample").ShowAsync();
 		}
 
+		private async void ZoomToSelectedButtom_Click(object sender, RoutedEventArgs e)
+		{
+			var selectedLayer = s57CellList.SelectedItem as HydrographicS57Layer;
+			if (selectedLayer == null)
+				return;
+
+			ZoomToCell(await selectedLayer.GetCellAsync(mapView));
+		}
+
+		private void ZoomToCell(S57Cell currentCell)
+		{
+			if (currentCell == null)
+				return;
+
+			if (currentCell.Extent != null)
+			{
+				mapView.SetView(currentCell.Extent);
+			}
+		}
+
+		private async void s57CellList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			var selectedLayer = s57CellList.SelectedItem as HydrographicS57Layer;
+			if (selectedLayer == null)
+				return;
+
+			cellInfoDisplay.DataContext = await selectedLayer.GetCellAsync(mapView);
+		}
+
 		private async Task CreateHydrographicLayerAsync(string path)
 		{
-			var file = await ApplicationData.Current.LocalFolder.TryGetItemAsync(path);
-			if (file == null)
+			StorageFile file = null;
+			try
+			{
+				file = await ApplicationData.Current.LocalFolder.GetFileAsync(path);
+			}
+			catch (FileNotFoundException notFoundException)
+			{
 				throw new Exception("Local hydrographic data not found. Please download sample data from 'Sample Data Settings'");
-
+			}
+			
 			// Create hydrographic layer from sample data
 			var hydroLayer = new HydrographicS57Layer()
 			{

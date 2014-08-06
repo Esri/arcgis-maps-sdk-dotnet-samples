@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Layers;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
@@ -19,14 +20,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 	public partial class ClassBreaksRendererSample : Windows.UI.Xaml.Controls.Page
     {
         private Random _random = new Random();
-        private GraphicsLayer _earthquakes;
+        private GraphicsOverlay _earthquakes;
 
         /// <summary>Construct Class Breaks Renderer sample control</summary>
         public ClassBreaksRendererSample()
         {
             InitializeComponent();
 
-            _earthquakes = MyMapView.Map.Layers["Earthquakes"] as GraphicsLayer;
+			_earthquakes = MyMapView.GraphicsOverlays[0];
                 
             MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }

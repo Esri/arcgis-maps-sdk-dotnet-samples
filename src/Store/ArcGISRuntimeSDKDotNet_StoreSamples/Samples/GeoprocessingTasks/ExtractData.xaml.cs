@@ -24,15 +24,15 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         private const string ExtractDataServiceUrl =
             "http://sampleserver4.arcgisonline.com/ArcGIS/rest/services/HomelandSecurity/Incident_Data_Extraction/GPServer/Extract%20Data%20Task";
 
-        private GraphicsLayer _graphicsLayer;
+        private GraphicsOverlay _graphicsOverlay;
         private Geoprocessor _gpTask;
 
         /// <summary>Construct Extract Data sample control</summary>
         public ExtractData()
         {
             InitializeComponent();
-       
-            _graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+
+			_graphicsOverlay = MyMapView.GraphicsOverlays[0];
             _gpTask = new Geoprocessor(new Uri(ExtractDataServiceUrl));
 
             SetupUI();
@@ -62,7 +62,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             try
             {
-                _graphicsLayer.Graphics.Clear();
+                _graphicsOverlay.Graphics.Clear();
 
                 Polygon aoi = null;
                 if (chkFreehand.IsChecked == true)
@@ -79,7 +79,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     aoi = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon) as Polygon;
                 }
 
-                _graphicsLayer.Graphics.Add(new Graphic(aoi));
+                _graphicsOverlay.Graphics.Add(new Graphic(aoi));
             }
             catch (Exception ex)
             {
@@ -98,12 +98,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 if (layersToClip == null || layersToClip.Count == 0)
                     throw new Exception("Please select layers to extract data from.");
 
-                if (_graphicsLayer.Graphics.Count == 0)
+                if (_graphicsOverlay.Graphics.Count == 0)
                     throw new Exception("Please digitize an area of interest polygon on the map.");
 
                 var parameter = new GPInputParameter() { OutSpatialReference = SpatialReferences.WebMercator };
                 parameter.GPParameters.Add(new GPMultiValue<GPString>("Layers_to_Clip", layersToClip));
-                parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Area_of_Interest", _graphicsLayer.Graphics[0].Geometry));
+                parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Area_of_Interest", _graphicsOverlay.Graphics[0].Geometry));
                 parameter.GPParameters.Add(new GPString("Feature_Format", (string)comboFormat.SelectedItem));
 
                 var result = await SubmitAndPollStatusAsync(parameter);

@@ -29,10 +29,11 @@
 
 				<layers:ArcGISDynamicMapServiceLayer ID="HomelandSecurity"
                     ServiceUri="http://sampleserver4.arcgisonline.com/ArcGIS/rest/services/HomelandSecurity/Incident_Data_Extraction/MapServer" />
-
-				<layers:GraphicsLayer ID="GraphicsLayer" Renderer="{StaticResource FillRenderer}" />
             </esri:Map>
-        </esri:MapView>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay x:Name="graphicsOverlay" Renderer="{StaticResource FillRenderer}"/>
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
 
         <Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20" Width="300">
             <StackPanel>

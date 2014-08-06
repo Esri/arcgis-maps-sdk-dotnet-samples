@@ -23,7 +23,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private Symbol _fillSymbol;
         private FeatureLayer _statesLayer;
-        private GraphicsLayer _differenceGraphics;
+        private GraphicsOverlay _differenceGraphics;
 
         /// <summary>Construct Difference sample control</summary>
         public Difference()
@@ -31,7 +31,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             InitializeComponent();
 
             _fillSymbol = LayoutRoot.Resources["FillSymbol"] as Symbol;
-            _differenceGraphics = MyMapView.Map.Layers["DifferenceGraphics"] as GraphicsLayer;
+			_differenceGraphics = MyMapView.GraphicsOverlays[0];
                 
             var _ = CreateFeatureLayersAsync();
         }

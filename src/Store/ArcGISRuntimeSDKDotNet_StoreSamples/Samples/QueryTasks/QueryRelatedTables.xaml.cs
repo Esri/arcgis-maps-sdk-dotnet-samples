@@ -17,13 +17,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
     /// <category>Query Tasks</category>
 	public sealed partial class QueryRelatedTables : Windows.UI.Xaml.Controls.Page
     {
-        private  GraphicsLayer _wellsLayer;
+        private  GraphicsOverlay _wellsOverlay;
 
         public QueryRelatedTables()
         {
             this.InitializeComponent();
 
-            _wellsLayer = MyMapView.Map.Layers["WellsLayer"] as GraphicsLayer;                
+			_wellsOverlay = MyMapView.GraphicsOverlays[0];               
         }
 
         // Select a set of wells near the click point
@@ -31,7 +31,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             try
             {
-                _wellsLayer.Graphics.Clear();
+                _wellsOverlay.Graphics.Clear();
                 wellsGrid.ItemsSource = relationshipsGrid.ItemsSource = null;
 
                 QueryTask queryTask =
@@ -48,7 +48,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var result = await queryTask.ExecuteAsync(query);
                 if (result.FeatureSet.Features != null && result.FeatureSet.Features.Count > 0)
                 {
-                    _wellsLayer.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
+                    _wellsOverlay.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
                     wellsGrid.ItemsSource = result.FeatureSet.Features;
                     resultsPanel.Visibility = Visibility.Visible;
                 }

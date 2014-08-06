@@ -21,16 +21,16 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         private static string ClipCountiesServiceUrl = "http://serverapps10.esri.com/ArcGIS/rest/services/SamplesNET/USA_Data_ClipTools/GPServer/ClipCounties";
 
         private Geoprocessor _gpTask;
-        private GraphicsLayer _inputLayer;
-        private GraphicsLayer _resultLayer;
+        private GraphicsOverlay _inputOverlay;
+        private GraphicsOverlay _resultOverlay;
 
         /// <summary>Construct Clip Features sample control</summary>
         public ClipFeatures()
         {
             InitializeComponent();
 
-            _inputLayer = MyMapView.Map.Layers["InputLayer"] as GraphicsLayer;
-            _resultLayer = MyMapView.Map.Layers["ResultLayer"] as GraphicsLayer;
+			_inputOverlay = MyMapView.GraphicsOverlays[1];
+			_resultOverlay = MyMapView.GraphicsOverlays[0];
 
             _gpTask = new Geoprocessor(new Uri(ClipCountiesServiceUrl));
 
@@ -43,8 +43,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             try
             {
-                _inputLayer.Graphics.Clear();
-                _resultLayer.Graphics.Clear();
+                _inputOverlay.Graphics.Clear();
+                _resultOverlay.Graphics.Clear();
 
                 foreach (var lyr in MyMapView.Map.Layers.OfType<GPResultImageLayer>())
                     MyMapView.Map.Layers.Remove(lyr);
@@ -53,7 +53,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var inputLine = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polyline) as Polyline;
 
                 progress.Visibility = Visibility.Visible;
-                _inputLayer.Graphics.Add(new Graphic() { Geometry = inputLine });
+                _inputOverlay.Graphics.Add(new Graphic() { Geometry = inputLine });
 
                 var parameter = new GPInputParameter();
                 parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Input_Features", inputLine));
@@ -80,7 +80,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                             return;
                         }
 
-                        _resultLayer.Graphics.AddRange(gpLayer.FeatureSet.Features.OfType<Graphic>());
+                        _resultOverlay.Graphics.AddRange(gpLayer.FeatureSet.Features.OfType<Graphic>());
                     }
                 }
             }

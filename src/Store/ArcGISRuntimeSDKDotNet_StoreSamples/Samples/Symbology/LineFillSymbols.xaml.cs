@@ -20,14 +20,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 	public partial class LineFillSymbols : Windows.UI.Xaml.Controls.Page
     {
         private List<SampleSymbol> _symbols;
-        private GraphicsLayer _graphicsLayer;
+        private GraphicsOverlay _graphicsOverlay;
 
         /// <summary>Construct Line and Fill Symbols sample control</summary>
         public LineFillSymbols()
         {
             InitializeComponent();
 
-            _graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+			_graphicsOverlay = MyMapView.GraphicsOverlays[0];
 
             MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
@@ -66,7 +66,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     else
                         shape = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon, sampleSymbol.Symbol);
 
-                    _graphicsLayer.Graphics.Add(new Graphic(shape, sampleSymbol.Symbol));
+                    _graphicsOverlay.Graphics.Add(new Graphic(shape, sampleSymbol.Symbol));
 					await Task.Delay(100);
                 }
             }

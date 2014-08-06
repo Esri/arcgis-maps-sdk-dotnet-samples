@@ -41,14 +41,15 @@
 
 				<layers:FeatureLayer ID="FeatureLayer" Renderer="{StaticResource OrangePointRenderer}">
 					<layers:FeatureLayer.FeatureTable>
-                        <data:GeodatabaseFeatureServiceTable 
+						<data:GeodatabaseFeatureServiceTable 
                             ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0"
                             Where="pop2000 > 200000" />
-                    </layers:FeatureLayer.FeatureTable>
-                </layers:FeatureLayer>
-
-				<layers:GraphicsLayer ID="QueryResults" Renderer="{StaticResource BluePointRenderer}" />
-            </esri:Map>
+					</layers:FeatureLayer.FeatureTable>
+				</layers:FeatureLayer>
+			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay x:Name="QueryResults" Renderer="{StaticResource BluePointRenderer}" />
+			</esri:MapView.GraphicsOverlays>
         </esri:MapView>
 
         <Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">

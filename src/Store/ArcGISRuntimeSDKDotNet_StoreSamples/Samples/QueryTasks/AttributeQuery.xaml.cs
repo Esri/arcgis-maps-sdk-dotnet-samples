@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
@@ -16,13 +17,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
     /// <category>Query Tasks</category>
     public sealed partial class AttributeQuery : Page
     {
-        private GraphicsLayer _graphicsLayer;
+        private GraphicsOverlay _graphicsOverlay;
 
         public AttributeQuery()
         {
             this.InitializeComponent();
 
-            _graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+			_graphicsOverlay = MyMapView.GraphicsOverlays[0];
 
             InitializeComboBox();
         }
@@ -53,7 +54,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 progress.Visibility = Visibility.Visible;
                 results.Visibility = Visibility.Collapsed;
                 resultsGrid.ItemsSource = null;
-                _graphicsLayer.Graphics.Clear();
+                _graphicsOverlay.Graphics.Clear();
 
                 QueryTask queryTask = new QueryTask(
                     new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Census_USA/MapServer/5"));
@@ -72,7 +73,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 if (featureSet != null && featureSet.Features.Count > 0)
                 {
                     var graphic = featureSet.Features.First() as Graphic;
-                    _graphicsLayer.Graphics.Add(graphic);
+                    _graphicsOverlay.Graphics.Add(graphic);
 
                     var selectedFeatureExtent = graphic.Geometry.Extent;
                     Envelope displayExtent = selectedFeatureExtent.Expand(1.3);

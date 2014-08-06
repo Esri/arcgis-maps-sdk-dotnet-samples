@@ -1,5 +1,4 @@
-﻿using Windows.UI.Xaml;
-using Esri.ArcGISRuntime.Controls;
+﻿using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
@@ -7,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
+using Windows.UI.Xaml;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
@@ -18,7 +18,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 	public partial class Relationship : Windows.UI.Xaml.Controls.Page
     {
         private List<Symbol> _symbols;
-        private GraphicsLayer _graphicsLayer;
+        private GraphicsOverlay _graphicsOverlay;
 
         /// <summary>Construct Relationship sample control</summary>
         public Relationship()
@@ -30,7 +30,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             _symbols.Add(LayoutRoot.Resources["LineSymbol"] as Symbol);
             _symbols.Add(LayoutRoot.Resources["FillSymbol"] as Symbol);
 
-            _graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+			_graphicsOverlay = MyMapView.GraphicsOverlays[0];
 
             MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
@@ -56,13 +56,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             Geometry shapeOne = await MyMapView.Editor.RequestShapeAsync(
                 (DrawShape)comboShapeOne.SelectedValue, _symbols[comboShapeOne.SelectedIndex]);
 
-            _graphicsLayer.Graphics.Add(new Graphic(shapeOne, _symbols[comboShapeOne.SelectedIndex]));
+			_graphicsOverlay.Graphics.Add(new Graphic(shapeOne, _symbols[comboShapeOne.SelectedIndex]));
 
             // Shape Two
             Geometry shapeTwo = await MyMapView.Editor.RequestShapeAsync(
                 (DrawShape)comboShapeTwo.SelectedValue, _symbols[comboShapeTwo.SelectedIndex]);
 
-            _graphicsLayer.Graphics.Add(new Graphic(shapeTwo, _symbols[comboShapeTwo.SelectedIndex]));
+			_graphicsOverlay.Graphics.Add(new Graphic(shapeTwo, _symbols[comboShapeTwo.SelectedIndex]));
 
             var relations = new List<Tuple<string, bool>>();
             relations.Add(new Tuple<string,bool>("Contains", GeometryEngine.Contains(shapeOne, shapeTwo)));
@@ -85,7 +85,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 btnDraw.IsEnabled = false;
                 resultsPanel.Visibility = Visibility.Collapsed;
 
-                _graphicsLayer.Graphics.Clear();
+				_graphicsOverlay.Graphics.Clear();
                 await AcceptShapeAsync();
             }
             catch (TaskCanceledException)

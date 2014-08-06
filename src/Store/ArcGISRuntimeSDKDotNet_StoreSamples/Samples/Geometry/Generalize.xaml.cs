@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Query;
@@ -16,8 +17,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
     /// <category>Geometry</category>
     public partial class Generalize : Windows.UI.Xaml.Controls.Page
     {
-        private GraphicsLayer _originalGraphicsLayer;
-        private GraphicsLayer _generalizedGraphicsLayer;
+        private GraphicsOverlay _originalGraphicsOverlay;
+        private GraphicsOverlay _generalizedGraphicsOverlay;
         private SimpleMarkerSymbol _defaultMarkerSymbol;
         private SimpleLineSymbol _defaultLineSymbol;
         private SimpleLineSymbol _generalizedLineSymbol;
@@ -30,8 +31,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
              MyMapView.Loaded += MyMapView_Loaded;
 
-            _originalGraphicsLayer = MyMapView.Map.Layers["OriginalLineGraphicsLayer"] as GraphicsLayer;
-            _generalizedGraphicsLayer = MyMapView.Map.Layers["GeneralizedLineGraphicsLayer"] as GraphicsLayer;
+			 _originalGraphicsOverlay = MyMapView.GraphicsOverlays[0];
+			 _generalizedGraphicsOverlay = MyMapView.GraphicsOverlays[1];
 
             _defaultMarkerSymbol = LayoutRoot.Resources["DefaultMarkerSymbol"] as SimpleMarkerSymbol;
             _defaultLineSymbol = LayoutRoot.Resources["DefaultLineSymbol"] as SimpleLineSymbol;
@@ -44,7 +45,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             try
             {
-                if (_originalGraphicsLayer != null && _originalGraphicsLayer.Graphics.Count == 0)
+                if (_originalGraphicsOverlay != null && _originalGraphicsOverlay.Graphics.Count == 0)
                 {
                     QueryTask queryTask = new QueryTask(
                         new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer/1"));
@@ -60,14 +61,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                         .OfType<Polyline>()
                         .FirstOrDefault();
 
-                    _originalGraphicsLayer.Graphics.Add(new Graphic(river, _defaultLineSymbol));
+                    _originalGraphicsOverlay.Graphics.Add(new Graphic(river, _defaultLineSymbol));
 
                     foreach (var path in river.Parts)
                     {
                         foreach (var coord in path)
                         {
                             var vertex = new Graphic(coord, _defaultMarkerSymbol);
-                            _originalGraphicsLayer.Graphics.Add(vertex);
+                            _originalGraphicsOverlay.Graphics.Add(vertex);
                         }
                     }
 
@@ -85,22 +86,22 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             try
             {
-                _generalizedGraphicsLayer.Graphics.Clear();
+                _generalizedGraphicsOverlay.Graphics.Clear();
 
                 var offset = DistanceSlider.Value * 1000;
-                var generalizedPolyline = GeometryEngine.Generalize(_originalGraphicsLayer.Graphics[0].Geometry, offset, false) as Polyline;
+                var generalizedPolyline = GeometryEngine.Generalize(_originalGraphicsOverlay.Graphics[0].Geometry, offset, false) as Polyline;
 
                 if (generalizedPolyline != null)
                 {
                     var graphic = new Graphic(generalizedPolyline, _generalizedLineSymbol);
-                    _generalizedGraphicsLayer.Graphics.Add(graphic);
+                    _generalizedGraphicsOverlay.Graphics.Add(graphic);
 
                     foreach (var path in generalizedPolyline.Parts)
                     {
                         foreach (var coord in path)
                         {
                             var vertex = new Graphic(coord, _generalizedMarkerSymbol);
-                            _generalizedGraphicsLayer.Graphics.Add(vertex);
+                            _generalizedGraphicsOverlay.Graphics.Add(vertex);
                         }
                     }
                 }

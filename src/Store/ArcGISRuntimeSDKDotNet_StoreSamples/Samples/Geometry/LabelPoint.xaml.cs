@@ -18,14 +18,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
     public partial class LabelPoint : Windows.UI.Xaml.Controls.Page
     {
         private PictureMarkerSymbol _pictureMarkerSymbol;
-        private GraphicsLayer _labelGraphics;
+        private GraphicsOverlay _labelGraphics;
 
         /// <summary>Construct Label Point sample control</summary>
         public LabelPoint()
         {
             InitializeComponent();
 
-            _labelGraphics = MyMapView.Map.Layers["LabelGraphics"] as GraphicsLayer;
+			_labelGraphics = MyMapView.GraphicsOverlays[0];
 
             MyMapView.ExtentChanged += MyMapView_ExtentChanged;
             var task = SetupSymbolsAsync();

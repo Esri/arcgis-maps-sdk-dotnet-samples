@@ -19,9 +19,11 @@
             <esri:Map>
 				<layers:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
-				<layers:GraphicsLayer ID="GraphicsLayer" />
             </esri:Map>
-        </esri:MapView>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay x:Name="graphicsOverlay" />
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
 
         <Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
             <TextBlock x:Name="InstructionsTextBlock" Text="Tap the map to see a 500-mile geodesic buffer around the location." 

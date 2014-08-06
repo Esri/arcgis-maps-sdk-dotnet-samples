@@ -19,10 +19,12 @@
             <esri:Map>
 				<layers:ArcGISTiledMapServiceLayer ID="TopoMapLayer"
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
-				<layers:GraphicsLayer ID="ResultLayer" Renderer="{StaticResource LineRenderer}" />
-				<layers:GraphicsLayer ID="InputLayer" Renderer="{StaticResource PointRenderer}" />
             </esri:Map>
-        </esri:MapView>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay x:Name="resultsOverlay" Renderer="{StaticResource LineRenderer}"/>
+				<esri:GraphicsOverlay x:Name="inputOverlay" Renderer="{StaticResource PointRenderer}"/>
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
 
         <Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
             <StackPanel>

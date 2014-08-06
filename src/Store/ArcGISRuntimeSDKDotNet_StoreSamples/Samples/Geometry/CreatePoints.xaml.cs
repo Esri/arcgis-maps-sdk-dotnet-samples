@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System.Threading.Tasks;
@@ -15,14 +16,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 	/// <category>Geometry</category>
 	public partial class CreatePoints : Page
     {
-        private GraphicsLayer graphicsLayer;
+        private GraphicsOverlay _graphicsOverlay;
 
         /// <summary>Construct Create Points sample control</summary>
         public CreatePoints()
         {
             InitializeComponent();
 
-            graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+			_graphicsOverlay = MyMapView.GraphicsOverlays[0];
             var task = CreatePointGraphics();
         }
 
@@ -42,12 +43,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
             var symbol = new SimpleMarkerSymbol() { Color = Colors.Red, Size = 15, Style = SimpleMarkerStyle.Diamond };
 
-            graphicsLayer.Graphics.Add(new Graphic() { Geometry = topLeft, Symbol = symbol });
-            graphicsLayer.Graphics.Add(new Graphic() { Geometry = topRight, Symbol = symbol });
-            graphicsLayer.Graphics.Add(new Graphic() { Geometry = bottomLeft, Symbol = symbol });
-            graphicsLayer.Graphics.Add(new Graphic() { Geometry = bottomRight, Symbol = symbol });
+            _graphicsOverlay.Graphics.Add(new Graphic() { Geometry = topLeft, Symbol = symbol });
+            _graphicsOverlay.Graphics.Add(new Graphic() { Geometry = topRight, Symbol = symbol });
+            _graphicsOverlay.Graphics.Add(new Graphic() { Geometry = bottomLeft, Symbol = symbol });
+            _graphicsOverlay.Graphics.Add(new Graphic() { Geometry = bottomRight, Symbol = symbol });
 
-			graphicsLayer.Graphics.Add(new Graphic() { Geometry = new MapPoint(0, 0), Symbol = new SimpleMarkerSymbol() { Size = 15, Color = Colors.Blue } });
+			_graphicsOverlay.Graphics.Add(new Graphic() { Geometry = new MapPoint(0, 0), Symbol = new SimpleMarkerSymbol() { Size = 15, Color = Colors.Blue } });
 		}
     }
 }

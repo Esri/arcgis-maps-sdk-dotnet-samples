@@ -4,7 +4,6 @@ using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Linq;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.UI;
 using Windows.UI.Popups;
@@ -20,8 +19,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 	public partial class GeodesicMove : Windows.UI.Xaml.Controls.Page
     {
         private Symbol _origSymbol;
-        private GraphicsLayer _originalGraphics;
-        private GraphicsLayer _movedGraphics;
+        private GraphicsOverlay _originalGraphics;
+        private GraphicsOverlay _movedGraphics;
 
         /// <summary>Construct Geodesic Move sample control</summary>
         public GeodesicMove()
@@ -29,8 +28,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             InitializeComponent();
 
             _origSymbol = LayoutRoot.Resources["OriginalSymbol"] as Symbol;
-            _originalGraphics = MyMapView.Map.Layers["OriginalGraphics"] as GraphicsLayer;
-            _movedGraphics = MyMapView.Map.Layers["MovedGraphics"] as GraphicsLayer;
+			_originalGraphics = MyMapView.GraphicsOverlays[0];
+			_movedGraphics = MyMapView.GraphicsOverlays[1];
                 
             MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }

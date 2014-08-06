@@ -17,14 +17,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
     {
         private PictureMarkerSymbol _pinSymbol;
         private SimpleFillSymbol _bufferSymbol;
-        private GraphicsLayer _graphicsLayer;
+        private GraphicsOverlay _graphicsOverlay;
 
         /// <summary>Construct Geodesic Buffer sample control</summary>
         public GeodesicBuffer()
         {
             InitializeComponent();
 
-            _graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+			_graphicsOverlay = MyMapView.GraphicsOverlays[0];
             var _ = SetupSymbolsAsync();
         }
 
@@ -32,7 +32,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             try
             {
-                _graphicsLayer.Graphics.Clear();
+                _graphicsOverlay.Graphics.Clear();
 
                 var point = e.Location;
                 var buffer = GeometryEngine.GeodesicBuffer(
@@ -40,10 +40,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     500, LinearUnits.Miles);
 
                 var pointGraphic = new Graphic { Geometry = point, Symbol = _pinSymbol };
-                _graphicsLayer.Graphics.Add(pointGraphic);
+                _graphicsOverlay.Graphics.Add(pointGraphic);
 
                 var bufferGraphic = new Graphic { Geometry = buffer, Symbol = _bufferSymbol };
-                _graphicsLayer.Graphics.Add(bufferGraphic);
+                _graphicsOverlay.Graphics.Add(bufferGraphic);
             }
             catch (Exception ex)
             {

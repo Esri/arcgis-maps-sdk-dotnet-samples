@@ -18,15 +18,15 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         private const double toMilesConversion = 0.0006213700922;
         private const double toSqMilesConversion = 0.0000003861003;
 
-        private GraphicsLayer graphicsLayer;
+		private GraphicsOverlay _graphicsOverlay;
 
-        public AreaSample()
-        {
-            InitializeComponent();
+		public AreaSample()
+		{
+			InitializeComponent();
 
-            graphicsLayer = MyMapView.Map.Layers["MyGraphicsLayer"] as GraphicsLayer;
-			MyMapView.ExtentChanged += MyMapView_ExtentChanged; 
-        }
+			_graphicsOverlay = MyMapView.GraphicsOverlays[0];
+			MyMapView.ExtentChanged += MyMapView_ExtentChanged;
+		}
 
 		private async void MyMapView_ExtentChanged(object sender, System.EventArgs e)
 		{
@@ -34,45 +34,45 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			await DoCalculateAreaAndLengthAsync();
 		}
 
-        private async Task DoCalculateAreaAndLengthAsync()
-        {
-            try
-            {
-                //Wait for user to draw
-                var geom = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon);
+		private async Task DoCalculateAreaAndLengthAsync()
+		{
+			try
+			{
+				//Wait for user to draw
+				var geom = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon);
 
-                //show geometry on map
-                graphicsLayer.Graphics.Clear();
+				//show geometry on map
+				_graphicsOverlay.Graphics.Clear();
 
-                var g = new Graphic { Geometry = geom, Symbol = LayoutRoot.Resources["DefaultFillSymbol"] as Esri.ArcGISRuntime.Symbology.Symbol };
-                graphicsLayer.Graphics.Add(g);
+				var g = new Graphic { Geometry = geom, Symbol = LayoutRoot.Resources["DefaultFillSymbol"] as Esri.ArcGISRuntime.Symbology.Symbol };
+				_graphicsOverlay.Graphics.Add(g);
 
-                //Calculate results
-                var areaPlanar = GeometryEngine.Area(geom);
-                ResultsAreaPlanar.Text = string.Format("{0} sq. miles", (areaPlanar * toSqMilesConversion).ToString("n3"));
+				//Calculate results
+				var areaPlanar = GeometryEngine.Area(geom);
+				ResultsAreaPlanar.Text = string.Format("{0} sq. miles", (areaPlanar * toSqMilesConversion).ToString("n3"));
 
-                var perimPlanar = GeometryEngine.Length(geom);
-                ResultsPerimeterPlanar.Text = string.Format("{0} miles", (perimPlanar * toMilesConversion).ToString("n3"));
+				var perimPlanar = GeometryEngine.Length(geom);
+				ResultsPerimeterPlanar.Text = string.Format("{0} miles", (perimPlanar * toMilesConversion).ToString("n3"));
 
-                var areaGeodesic = GeometryEngine.GeodesicArea(geom);
-                ResultsAreaGeodesic.Text = string.Format("{0} sq. miles", (areaGeodesic * toSqMilesConversion).ToString("n3"));
+				var areaGeodesic = GeometryEngine.GeodesicArea(geom);
+				ResultsAreaGeodesic.Text = string.Format("{0} sq. miles", (areaGeodesic * toSqMilesConversion).ToString("n3"));
 
-                var perimGeodesic = GeometryEngine.GeodesicLength(geom);
-                ResultsPerimeterGeodesic.Text = string.Format("{0} miles", (perimGeodesic * toMilesConversion).ToString("n3"));
+				var perimGeodesic = GeometryEngine.GeodesicLength(geom);
+				ResultsPerimeterGeodesic.Text = string.Format("{0} miles", (perimGeodesic * toMilesConversion).ToString("n3"));
 
-                Instructions.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-                Results.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            }
-            catch (System.Threading.Tasks.TaskCanceledException)
-            {
-                var dlg = new MessageDialog("Current sketch has been canceled.", "Task Canceled!");
-                var _ = dlg.ShowAsync();
-            }
-        }
+				Instructions.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+				Results.Visibility = Windows.UI.Xaml.Visibility.Visible;
+			}
+			catch (System.Threading.Tasks.TaskCanceledException)
+			{
+				var dlg = new MessageDialog("Current sketch has been canceled.", "Task Canceled!");
+				var _ = dlg.ShowAsync();
+			}
+		}
 
-        private void ResetUI()
-        {
-            graphicsLayer.Graphics.Clear();
+		private void ResetUI()
+		{
+			_graphicsOverlay.Graphics.Clear();
             Instructions.Visibility = Visibility.Visible;
             Results.Visibility = Visibility.Collapsed;
         }

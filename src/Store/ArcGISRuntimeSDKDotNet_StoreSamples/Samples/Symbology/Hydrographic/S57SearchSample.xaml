@@ -136,9 +136,11 @@
 
 				<!-- Using group layer to group all Hydrographic layers -->
 				<layers:GroupLayer ID="Hydrographic"/>
-				<layers:GraphicsLayer ID="resultGraphics" Renderer="{StaticResource SelectionRendrer}"/>
-				<layers:GraphicsLayer ID="drawGraphics" />
 			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay x:Name="resultsOverlay" Renderer="{StaticResource SelectionRendrer}"/>
+				<esri:GraphicsOverlay x:Name="graphicsOverlay" />
+			</esri:MapView.GraphicsOverlays>
 		</esri:MapView>
 
 		<Border HorizontalAlignment="Right" Style="{StaticResource overlayBorderStyle}" Padding="20,10">

@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System.Collections.Generic;
@@ -16,14 +17,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 	/// <category>Geometry</category>
 	public partial class CreatePolylines : Page
     {
-        private GraphicsLayer graphicsLayer;
+        private GraphicsOverlay _graphicsOverlay;
 
         /// <summary>Construct Create Polylines sample control</summary>
         public CreatePolylines()
         {
             InitializeComponent();
 
-            graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+			_graphicsOverlay = MyMapView.GraphicsOverlays[0];
             var task = CreatePolylineGraphics();
         }
 
@@ -44,11 +45,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             var redSymbol = new SimpleLineSymbol() { Color = Colors.Red, Width = 4, Style = SimpleLineStyle.Solid };
             var blueSymbol = new SimpleLineSymbol() { Color = Colors.Blue, Width = 4, Style = SimpleLineStyle.Solid };
 
-            graphicsLayer.Graphics.Add(new Graphic() { Geometry = CreatePolylineX(center, length), Symbol = blueSymbol });
-            graphicsLayer.Graphics.Add(new Graphic() { Geometry = CreatePolylineX(topLeft, length), Symbol = redSymbol });
-            graphicsLayer.Graphics.Add(new Graphic() { Geometry = CreatePolylineX(topRight, length), Symbol = redSymbol });
-            graphicsLayer.Graphics.Add(new Graphic() { Geometry = CreatePolylineX(bottomLeft, length), Symbol = redSymbol });
-            graphicsLayer.Graphics.Add(new Graphic() { Geometry = CreatePolylineX(bottomRight, length), Symbol = redSymbol });
+            _graphicsOverlay.Graphics.Add(new Graphic() { Geometry = CreatePolylineX(center, length), Symbol = blueSymbol });
+            _graphicsOverlay.Graphics.Add(new Graphic() { Geometry = CreatePolylineX(topLeft, length), Symbol = redSymbol });
+            _graphicsOverlay.Graphics.Add(new Graphic() { Geometry = CreatePolylineX(topRight, length), Symbol = redSymbol });
+            _graphicsOverlay.Graphics.Add(new Graphic() { Geometry = CreatePolylineX(bottomLeft, length), Symbol = redSymbol });
+            _graphicsOverlay.Graphics.Add(new Graphic() { Geometry = CreatePolylineX(bottomRight, length), Symbol = redSymbol });
         }
 
         // Creates a polyline with two paths in the shape of an 'X' centered at the given point

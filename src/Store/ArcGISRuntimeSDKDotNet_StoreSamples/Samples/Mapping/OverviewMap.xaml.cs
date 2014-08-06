@@ -18,12 +18,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private async void MyMapView_ExtentChanged(object sender, System.EventArgs e)
         {
-            var graphicslayer = overviewMap.Map.Layers.OfType<GraphicsLayer>().FirstOrDefault();
-            Graphic g = graphicslayer.Graphics.FirstOrDefault();
+			var graphicsOverlay = overviewMap.GraphicsOverlays[0];
+			Graphic g = graphicsOverlay.Graphics.FirstOrDefault();
             if (g == null) //first time
             {
                 g = new Graphic();
-                graphicslayer.Graphics.Add(g);
+				graphicsOverlay.Graphics.Add(g);
             }
             g.Geometry = MyMapView.Extent;
 

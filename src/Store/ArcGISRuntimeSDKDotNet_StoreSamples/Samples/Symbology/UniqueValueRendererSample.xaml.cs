@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Layers;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
@@ -20,14 +21,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 	public partial class UniqueValueRendererSample : Windows.UI.Xaml.Controls.Page
     {
         private Random _random = new Random();
-        private GraphicsLayer _states;
+        private GraphicsOverlay _states;
 
         /// <summary>Construct Unique Value Renderer sample control</summary>
         public UniqueValueRendererSample()
         {
             InitializeComponent();
 
-            _states = MyMapView.Map.Layers["States"] as GraphicsLayer;
+			_states = MyMapView.GraphicsOverlays[0];
                 
             MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }

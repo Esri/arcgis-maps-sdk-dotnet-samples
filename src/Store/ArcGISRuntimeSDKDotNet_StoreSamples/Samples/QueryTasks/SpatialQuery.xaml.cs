@@ -45,12 +45,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             try
             {
-                var graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
-                graphicsLayer.Graphics.Add(new Graphic() { Geometry = e.Location });
+				var graphicsOverlay = MyMapView.GraphicsOverlays[2];
+                graphicsOverlay.Graphics.Add(new Graphic() { Geometry = e.Location });
 
-                var bufferLayer = MyMapView.Map.Layers["BufferLayer"] as GraphicsLayer;
+				var bufferOverlay = MyMapView.GraphicsOverlays[1];
                 var bufferResult = GeometryEngine.Buffer(e.Location, 100);
-                bufferLayer.Graphics.Add(new Graphic() { Geometry = bufferResult });
+                bufferOverlay.Graphics.Add(new Graphic() { Geometry = bufferResult });
 
                 var queryTask = new QueryTask(
                     new Uri("http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/BloomfieldHillsMichigan/Parcels/MapServer/2"));
@@ -65,8 +65,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var queryResult = await queryTask.ExecuteAsync(query);
                 if (queryResult != null && queryResult.FeatureSet != null)
                 {
-                    var resultLayer = MyMapView.Map.Layers["ResultsGraphicsLayer"] as GraphicsLayer;
-                    resultLayer.Graphics.AddRange(queryResult.FeatureSet.Features.OfType<Graphic>());
+					var resultOverlay = MyMapView.GraphicsOverlays[0];
+                    resultOverlay.Graphics.AddRange(queryResult.FeatureSet.Features.OfType<Graphic>());
                 }
             }
             catch (Exception ex)

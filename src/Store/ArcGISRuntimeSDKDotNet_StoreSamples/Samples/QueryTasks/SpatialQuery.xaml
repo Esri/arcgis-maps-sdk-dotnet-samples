@@ -30,11 +30,13 @@
 				</esri:Map.InitialViewpoint>
 				<layers:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-				<layers:GraphicsLayer ID="ResultsGraphicsLayer" Renderer="{StaticResource ParcelRenderer}"/>
-				<layers:GraphicsLayer ID="BufferLayer" Renderer="{StaticResource BufferRenderer}"/>
-				<layers:GraphicsLayer ID="GraphicsLayer" Renderer="{StaticResource DefaultRenderer}"/>
             </esri:Map>
-        </esri:MapView>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay x:Name="parcelOverlay" Renderer="{StaticResource ParcelRenderer}"/>
+				<esri:GraphicsOverlay x:Name="bufferOverlay" Renderer="{StaticResource BufferRenderer}"/>
+				<esri:GraphicsOverlay x:Name="graphicsOverlay" Renderer="{StaticResource DefaultRenderer}"/>
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
 
         <Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
             <TextBlock x:Name="InformationTextBlock" 

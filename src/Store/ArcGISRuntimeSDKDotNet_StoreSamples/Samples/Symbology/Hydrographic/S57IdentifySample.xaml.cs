@@ -27,7 +27,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 
 
 		private GroupLayer _hydrographicGroupLayer;
-		private GraphicsLayer _resultGraphicsLayer;
+		private GraphicsOverlay _resultGraphicsOverlay;
 		private ObservableCollection<S57FeatureObject> _searchResults;
 		private bool _isLoaded;
 
@@ -39,7 +39,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 
 			// Reference layers that are used
 			_hydrographicGroupLayer = MyMapView.Map.Layers.OfType<GroupLayer>().First();
-			_resultGraphicsLayer = MyMapView.Map.Layers.OfType<GraphicsLayer>().First();
+			_resultGraphicsOverlay = MyMapView.GraphicsOverlays[0];
 			MyMapView.ExtentChanged += MyMapView_ExtentChanged;
 		}
 
@@ -143,14 +143,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 		private void resultList_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			// Clear previous selection
-			_resultGraphicsLayer.Graphics.Clear();
+			_resultGraphicsOverlay.Graphics.Clear();
 
 			// When no results found, this is 0
 			if (e.AddedItems.Count > 0)
 			{
 				// Using single mode so there is only one item
 				var selectedFeatureObject = e.AddedItems[0] as S57FeatureObject;
-				_resultGraphicsLayer.Graphics.Add(new Graphic(selectedFeatureObject.Geometry));
+				_resultGraphicsOverlay.Graphics.Add(new Graphic(selectedFeatureObject.Geometry));
 			}
 		}
 	}

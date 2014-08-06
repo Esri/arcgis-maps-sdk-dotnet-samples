@@ -6,6 +6,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using System.Linq;
+using Esri.ArcGISRuntime.Controls;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
@@ -19,15 +20,15 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         private const string MessageInABottleServiceUrl = 
             "http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_Currents_World/GPServer/MessageInABottle";
 
-        private GraphicsLayer _inputLayer;
-        private GraphicsLayer _resultLayer;
+        private GraphicsOverlay _inputOverlay;
+        private GraphicsOverlay _resultOverlay;
 
         public MessageInABottle()
         {
             InitializeComponent();
 
-            _inputLayer = MyMapView.Map.Layers["InputLayer"] as GraphicsLayer;
-            _resultLayer = MyMapView.Map.Layers["ResultLayer"] as GraphicsLayer;
+			_inputOverlay = MyMapView.GraphicsOverlays[1];
+			_resultOverlay = MyMapView.GraphicsOverlays[0];
         }
 
        private async void MyMapView_Tapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
@@ -36,9 +37,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
            {
                Progress.Visibility = Visibility.Visible;
 
-               _resultLayer.Graphics.Clear();
-               _inputLayer.Graphics.Clear();
-               _inputLayer.Graphics.Add(new Graphic() { Geometry = e.Location });
+               _resultOverlay.Graphics.Clear();
+               _inputOverlay.Graphics.Clear();
+               _inputOverlay.Graphics.Add(new Graphic() { Geometry = e.Location });
 
                Geoprocessor geoprocessorTask = new Geoprocessor(new Uri(MessageInABottleServiceUrl));
 
@@ -56,7 +57,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                    if (gpParameter is GPFeatureRecordSetLayer)
                    {
                        GPFeatureRecordSetLayer gpLayer = gpParameter as GPFeatureRecordSetLayer;
-                       _resultLayer.Graphics.AddRange(gpLayer.FeatureSet.Features.OfType<Graphic>());
+                       _resultOverlay.Graphics.AddRange(gpLayer.FeatureSet.Features.OfType<Graphic>());
                    }
                }
            }

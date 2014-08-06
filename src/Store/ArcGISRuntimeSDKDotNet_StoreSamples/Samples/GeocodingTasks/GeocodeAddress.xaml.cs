@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Geocoding;
@@ -21,14 +22,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
     {
         private const string OnlineLocatorUrl = "http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer";
 
-        private GraphicsLayer _addressGraphicsLayer;
+        private GraphicsOverlay _addressOverlay;
         private LocatorServiceInfo _locatorServiceInfo;
         private OnlineLocatorTask _locatorTask;
 
         public GeocodeAddress()
         {
             InitializeComponent();
-            _addressGraphicsLayer = MyMapView.Map.Layers["AddressGraphicsLayer"] as GraphicsLayer;
+			_addressOverlay = MyMapView.GraphicsOverlays[0];
             _locatorTask = new OnlineLocatorTask(new Uri(OnlineLocatorUrl));
             _locatorTask.AutoNormalize = true;
 
@@ -42,7 +43,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             await markerSymbol.SetSourceAsync(new Uri("ms-appx:///Assets/RedStickpin.png"));
             var renderer = new SimpleRenderer() { Symbol = markerSymbol };
 
-            _addressGraphicsLayer.Renderer = renderer;
+            _addressOverlay.Renderer = renderer;
         }
 
         private async void GeocodeButton_Click(object sender, RoutedEventArgs e)
@@ -51,7 +52,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             {
                 progress.Visibility = Visibility.Visible;
                 listResults.Visibility = Visibility.Collapsed;
-                _addressGraphicsLayer.Graphics.Clear();
+                _addressOverlay.Graphics.Clear();
 
                 if (_locatorServiceInfo == null)
                     _locatorServiceInfo = await _locatorTask.GetInfoAsync();
@@ -65,10 +66,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 foreach (var candidate in candidateResults)
                     AddGraphicFromLocatorCandidate(candidate);
 
-                listResults.ItemsSource = _addressGraphicsLayer.Graphics.Where(g => g.IsVisible);
+                listResults.ItemsSource = _addressOverlay.Graphics.Where(g => g.IsVisible);
                 listResults.Visibility = Visibility.Visible;
 
-                var extent = GeometryEngine.Union(_addressGraphicsLayer.Graphics.Select(g => g.Geometry)).Extent.Expand(1.1);
+                var extent = GeometryEngine.Union(_addressOverlay.Graphics.Select(g => g.Geometry)).Extent.Expand(1.1);
                 await MyMapView.SetViewAsync(extent);
             }
             catch (AggregateException ex)
@@ -141,7 +142,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             graphic.Attributes["LocationDisplay"] = string.Format("{0:0.000}, {1:0.000}", x, y);
 
             graphic.IsVisible = (candidate.Score >= MatchScoreSlider.Value);
-            _addressGraphicsLayer.Graphics.Add(graphic);
+            _addressOverlay.Graphics.Add(graphic);
         }
 
         private void btnMultipleLine_Checked(object sender, RoutedEventArgs e)
@@ -152,20 +153,20 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private void MatchScoreSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
-            if (_addressGraphicsLayer == null)
+            if (_addressOverlay == null)
                 return;
 
-            foreach (var graphic in _addressGraphicsLayer.Graphics)
+            foreach (var graphic in _addressOverlay.Graphics)
             {
                 graphic.IsVisible = (Convert.ToInt32(graphic.Attributes["Score"]) >= e.NewValue);
             }
 
-            listResults.ItemsSource = _addressGraphicsLayer.Graphics.Where(g => g.IsVisible);
+            listResults.ItemsSource = _addressOverlay.Graphics.Where(g => g.IsVisible);
         }
 
         private void listResults_SelectionChanged(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
         {
-            _addressGraphicsLayer.ClearSelection();
+            _addressOverlay.ClearSelection();
 
             if (e.AddedItems != null)
             {

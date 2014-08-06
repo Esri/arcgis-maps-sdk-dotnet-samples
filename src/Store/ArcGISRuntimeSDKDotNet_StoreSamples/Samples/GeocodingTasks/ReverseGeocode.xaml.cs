@@ -19,14 +19,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
     {
         private const string OnlineLocatorUrl = "http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer";
 
-        private GraphicsLayer _graphicsLayer;
+        private GraphicsOverlay _graphicsOverlay;
         private LocatorTask _locator;
 
         /// <summary>Construct reverse geocode sample control</summary>
         public ReverseGeocode()
         {
             InitializeComponent();
-            _graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer; 
+			_graphicsOverlay = MyMapView.GraphicsOverlays[0];
             _locator = new OnlineLocatorTask(new Uri(OnlineLocatorUrl));
         }
 
@@ -35,7 +35,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             try
             {
-                _graphicsLayer.Graphics.Add(new Graphic(e.Location));
+                _graphicsOverlay.Graphics.Add(new Graphic(e.Location));
 
                 var result = await _locator.ReverseGeocodeAsync(e.Location, 50, SpatialReferences.Wgs84, CancellationToken.None);
 
@@ -59,7 +59,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
             MyMapView.Overlays.Clear();
-            _graphicsLayer.Graphics.Clear();
+            _graphicsOverlay.Graphics.Clear();
         }
     }
 }

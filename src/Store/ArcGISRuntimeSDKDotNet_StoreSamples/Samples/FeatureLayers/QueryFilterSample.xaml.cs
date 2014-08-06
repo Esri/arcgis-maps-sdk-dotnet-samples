@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Data;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
@@ -17,7 +18,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
     public sealed partial class QueryFilterSample : Page
 	{
         private FeatureLayer _featureLayer;
-        private GraphicsLayer _queryResultsLayer;
+        private GraphicsOverlay _queryResultsOverlay;
 
         public QueryFilterSample()
 		{
@@ -26,7 +27,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             _featureLayer = MyMapView.Map.Layers["FeatureLayer"] as FeatureLayer;
             ((GeodatabaseFeatureServiceTable)_featureLayer.FeatureTable).OutFields = OutFields.All;
 
-            _queryResultsLayer = MyMapView.Map.Layers["QueryResults"] as GraphicsLayer;
+            _queryResultsOverlay = QueryResults;
         }
 
         private async void QueryButton_Click(object sender, RoutedEventArgs e)
@@ -34,7 +35,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             try
             {
                 var features = await _featureLayer.FeatureTable.QueryAsync(new QueryFilter() { WhereClause = where.Text });
-                _queryResultsLayer.GraphicsSource = features.Select(f => new Graphic(f.Geometry));
+                _queryResultsOverlay.GraphicsSource = features.Select(f => new Graphic(f.Geometry));
             }
             catch (Exception ex)
             {

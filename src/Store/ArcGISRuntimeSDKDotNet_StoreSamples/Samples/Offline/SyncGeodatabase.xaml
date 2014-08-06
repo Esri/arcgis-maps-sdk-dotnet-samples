@@ -25,16 +25,18 @@
 
 				<layers:ArcGISDynamicMapServiceLayer ID="onlineBirdsLayer" DisplayName="Online Birds" 
                     ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/SaveTheBaySync/MapServer" />
+            </esri:Map>
 
-				<layers:GraphicsLayer ID="GraphicsLayer" DisplayName="Graphics">
-					<layers:GraphicsLayer.Renderer>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay x:Name="graphicsOverlay">
+					<esri:GraphicsOverlay.Renderer>
 						<symb:SimpleRenderer>
 							<symb:SimpleMarkerSymbol Color="Red" Style="Diamond" Size="8" />
-                        </symb:SimpleRenderer>
-                    </layers:GraphicsLayer.Renderer>
-                </layers:GraphicsLayer>
-            </esri:Map>
-        </esri:MapView>
+						</symb:SimpleRenderer>
+					</esri:GraphicsOverlay.Renderer>
+				</esri:GraphicsOverlay>
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
 
         <Border x:Name="panelBirdSighting" Background="#CC000000" BorderBrush="White" BorderThickness="2" CornerRadius="10"
                 Padding="12" HorizontalAlignment="Left" VerticalAlignment="Top" Width="250" Height="200"

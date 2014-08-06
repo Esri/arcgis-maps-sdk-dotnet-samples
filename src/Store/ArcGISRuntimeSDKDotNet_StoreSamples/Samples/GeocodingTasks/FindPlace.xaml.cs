@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Geocoding;
@@ -20,20 +21,20 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
     {
         private const string OnlineLocatorUrl = "http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer";
 
-        private GraphicsLayer _addressGraphicsLayer;
+        private GraphicsOverlay _addressOverlay;
         private OnlineLocatorTask _locatorTask;
 
         /// <summary>Construct find place sample control</summary>
         public FindPlace()
         {
             InitializeComponent();
-			
-            _addressGraphicsLayer = MyMapView.Map.Layers["AddressGraphicsLayer"] as GraphicsLayer;
+
+			_addressOverlay = MyMapView.GraphicsOverlays[0]; ;
 
             _locatorTask = new OnlineLocatorTask(new Uri(OnlineLocatorUrl));
             _locatorTask.AutoNormalize = true;
 
-            listResults.ItemsSource = _addressGraphicsLayer.Graphics;
+            listResults.ItemsSource = _addressOverlay.Graphics;
 
             var _ = SetSimpleRendererSymbolsAsync();
         }
@@ -45,7 +46,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             await markerSymbol.SetSourceAsync(new Uri("ms-appx:///Assets/RedStickpin.png"));
             var renderer = new SimpleRenderer() { Symbol = markerSymbol };
 
-            _addressGraphicsLayer.Renderer = renderer;
+            _addressOverlay.Renderer = renderer;
         }
 
         // Find matching places, create graphics and add them to the UI
@@ -55,7 +56,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             {
                 progress.Visibility = Visibility.Visible;
                 listResults.Visibility = Visibility.Collapsed;
-                _addressGraphicsLayer.Graphics.Clear();
+                _addressOverlay.Graphics.Clear();
 
                 var param = new OnlineLocatorFindParameters(SearchTextBox.Text)
                 {
@@ -74,7 +75,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 foreach (var candidate in candidateResults)
                     AddGraphicFromLocatorCandidate(candidate);
 
-                var extent = GeometryEngine.Union(_addressGraphicsLayer.Graphics.Select(g => g.Geometry)).Extent.Expand(1.1);
+                var extent = GeometryEngine.Union(_addressOverlay.Graphics.Select(g => g.Geometry)).Extent.Expand(1.1);
                 await MyMapView.SetViewAsync(extent);
 
                 listResults.Visibility = Visibility.Visible;
@@ -110,12 +111,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             graphic.Attributes["Address"] = candidate.Feature.Attributes["Place_addr"];
             graphic.Attributes["LocationDisplay"] = string.Format("{0:0.000}, {1:0.000}", location.X, location.Y);
 
-            _addressGraphicsLayer.Graphics.Add(graphic);
+            _addressOverlay.Graphics.Add(graphic);
         }
 
         private void listResults_SelectionChanged(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
         {
-            _addressGraphicsLayer.ClearSelection();
+            _addressOverlay.ClearSelection();
 
             if (e.AddedItems != null)
             {

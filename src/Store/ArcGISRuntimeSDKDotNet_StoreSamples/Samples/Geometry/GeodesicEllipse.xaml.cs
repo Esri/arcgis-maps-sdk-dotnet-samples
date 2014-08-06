@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System;
@@ -18,7 +19,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
     {
         private Symbol _pinSymbol;
         private Symbol _sectorSymbol;
-        private GraphicsLayer _graphicsLayer;
+        private GraphicsOverlay _graphicsOverlay;
 
         /// <summary>Construct Geodesic Ellipse sample control</summary>
         public GeodesicEllipse()
@@ -27,7 +28,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
             _pinSymbol = LayoutRoot.Resources["PointSymbol"] as Symbol;
             _sectorSymbol = LayoutRoot.Resources["SectorSymbol"] as Symbol;
-            _graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+			_graphicsOverlay = MyMapView.GraphicsOverlays[0];
         }
 
         private async void EllipseButton_Click(object sender, RoutedEventArgs e)
@@ -53,9 +54,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     var ellipse = GeometryEngine.GeodesicEllipse(param);
 
                     //show geometries on map
-                    _graphicsLayer.Graphics.Clear();
-                    _graphicsLayer.Graphics.Add(new Graphic(point, _pinSymbol));
-                    _graphicsLayer.Graphics.Add(new Graphic(ellipse));
+                    _graphicsOverlay.Graphics.Clear();
+                    _graphicsOverlay.Graphics.Add(new Graphic(point, _pinSymbol));
+                    _graphicsOverlay.Graphics.Add(new Graphic(ellipse));
 
                     // geodesic sector
                     if ((bool)chkSector.IsChecked)
@@ -70,7 +71,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                         };
                         var sector = GeometryEngine.GeodesicSector(sectorParams);
 
-                        _graphicsLayer.Graphics.Add(new Graphic(sector, _sectorSymbol));
+                        _graphicsOverlay.Graphics.Add(new Graphic(sector, _sectorSymbol));
                     }
                 }
             }

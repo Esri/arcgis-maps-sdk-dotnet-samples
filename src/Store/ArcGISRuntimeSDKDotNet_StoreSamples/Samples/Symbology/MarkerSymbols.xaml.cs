@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Layers;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Collections.Generic;
@@ -19,14 +20,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 	public partial class MarkerSymbols : Windows.UI.Xaml.Controls.Page
     {
         private List<MarkerSymbol> _symbols;
-        private GraphicsLayer _graphicsLayer;
+        private GraphicsOverlay _graphicsOverlay;
 
         /// <summary>Construct Marker Symbols sample control</summary>
         public MarkerSymbols()
         {
             InitializeComponent();
 
-            _graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+			_graphicsOverlay = MyMapView.GraphicsOverlays[0];
 
             MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
@@ -46,7 +47,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             while (MyMapView.Extent != null)
             {
                 var point = await MyMapView.Editor.RequestPointAsync();
-                _graphicsLayer.Graphics.Add(new Graphic(point, _symbols[symbolCombo.SelectedIndex]));
+                _graphicsOverlay.Graphics.Add(new Graphic(point, _symbols[symbolCombo.SelectedIndex]));
             }
         }
 

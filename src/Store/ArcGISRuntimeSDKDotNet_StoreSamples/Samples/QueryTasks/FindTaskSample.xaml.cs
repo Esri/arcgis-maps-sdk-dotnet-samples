@@ -20,7 +20,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         private Symbol _markerSymbol;
         private Symbol _lineSymbol;
         private Symbol _fillSymbol;
-        private GraphicsLayer _graphicsLayer;
+        private GraphicsOverlay _graphicsOverlay;
 
         /// <summary>Construct Find sample control</summary>
         public FindTaskSample()
@@ -31,7 +31,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             _lineSymbol = LayoutRoot.Resources["LineSymbol"] as Symbol;
             _fillSymbol = LayoutRoot.Resources["FillSymbol"] as Symbol;
 
-            _graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+			_graphicsOverlay = MyMapView.GraphicsOverlays[0];
         }
 
         // Find map service items with entered information in given fields
@@ -42,7 +42,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 progress.Visibility = Visibility.Visible;
                 resultsGrid.Visibility = Visibility.Collapsed;
                 resultsGrid.ItemsSource = null;
-                _graphicsLayer.Graphics.Clear();
+                _graphicsOverlay.Graphics.Clear();
 
                 FindTask findTask = new FindTask(
                     new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer"));
@@ -76,13 +76,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         // Highlight the selected grid view item on the map
         private void resultsGrid_SelectionChanged(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
         {
-            _graphicsLayer.Graphics.Clear();
+            _graphicsOverlay.Graphics.Clear();
 
             if (e.AddedItems != null && e.AddedItems.Count > 0)
             {
                 var findItem = e.AddedItems.OfType<FindItem>().FirstOrDefault();
                 if (findItem != null)
-                    _graphicsLayer.Graphics.Add(new Graphic(findItem.Feature.Geometry, ChooseGraphicSymbol(findItem.Feature.Geometry)));
+                    _graphicsOverlay.Graphics.Add(new Graphic(findItem.Feature.Geometry, ChooseGraphicSymbol(findItem.Feature.Geometry)));
             }
         }
 

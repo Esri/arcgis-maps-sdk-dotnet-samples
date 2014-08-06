@@ -30,8 +30,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 		private Geometry _searchGeometry;
 
 		private GroupLayer _hydrographicLayers;
-		private GraphicsLayer _resultGraphicsLayer;
-		private GraphicsLayer _drawGraphicsLayer;
+		private GraphicsOverlay _resultGraphicsOverlay;
+		private GraphicsOverlay _drawGraphicsOverlay;
 		private ObservableCollection<S57FeatureObject> _searchResults;
 
 		public S57SearchSample()
@@ -44,8 +44,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 
 			// Reference layers that are used
 			_hydrographicLayers = MyMapView.Map.Layers.OfType<GroupLayer>().First();
-			_resultGraphicsLayer = MyMapView.Map.Layers.OfType<GraphicsLayer>().First(x => x.ID == "resultGraphics");
-			_drawGraphicsLayer = MyMapView.Map.Layers.OfType<GraphicsLayer>().First(x => x.ID == "drawGraphics");
+			_resultGraphicsOverlay = MyMapView.GraphicsOverlays[0];
+			_drawGraphicsOverlay = MyMapView.GraphicsOverlays[1];
 		}
 
 		// Load data - enable functionality after layers are loaded.
@@ -108,14 +108,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 		private async void resultList_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			// Clear previous selection
-			_resultGraphicsLayer.Graphics.Clear();
+			_resultGraphicsOverlay.Graphics.Clear();
 
 			// When no results found, this is 0
 			if (e.AddedItems.Count > 0)
 			{
 				// Using single mode so there is only one item
 				var selectedFeatureObject = e.AddedItems[0] as S57FeatureObject;
-				_resultGraphicsLayer.Graphics.Add(new Graphic(selectedFeatureObject.Geometry));
+				_resultGraphicsOverlay.Graphics.Add(new Graphic(selectedFeatureObject.Geometry));
 				await MyMapView.SetViewAsync(selectedFeatureObject.Geometry.Extent);
 			}
 		}
@@ -134,7 +134,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 			if (MyMapView.Editor.IsActive)
 				MyMapView.Editor.Cancel.Execute(null);
 
-			_drawGraphicsLayer.Graphics.Clear();
+			_drawGraphicsOverlay.Graphics.Clear();
 			findBtn.IsEnabled = false;
 
 			// Hide floyout from the UI
@@ -171,7 +171,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 
 				// add the new graphic to the graphic layer
 				var graphic = new Graphic(_searchGeometry, symbol);
-				_drawGraphicsLayer.Graphics.Add(graphic);
+				_drawGraphicsOverlay.Graphics.Add(graphic);
 				findBtn.IsEnabled = true;
 			}
 			catch (TaskCanceledException)

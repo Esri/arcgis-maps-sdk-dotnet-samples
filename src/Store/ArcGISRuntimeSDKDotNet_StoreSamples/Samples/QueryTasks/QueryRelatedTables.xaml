@@ -20,9 +20,11 @@
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" />
 				<layers:ArcGISDynamicMapServiceLayer
                     ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Petroleum/KSPetro/MapServer" />
-				<layers:GraphicsLayer ID="WellsLayer" Renderer="{StaticResource SimpleRenderer}"/>
             </esri:Map>
-        </esri:MapView>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay x:Name="wellsOverlay" Renderer="{StaticResource SimpleRenderer}" />
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
 
         <Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20" Width="250">
             <TextBlock Text="Click on the map to highlight well points near a location.  Select wells in the tabular panel below to view related records."

@@ -127,7 +127,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private GeodatabaseSyncTask _syncTask;
         private ArcGISDynamicMapServiceLayer _onlineBirdsLayer;
-        private GraphicsLayer _graphicsLayer;
+        private GraphicsOverlay _graphicsOverlay;
         private string _gdbName;
 
         /// <summary>Construct Generate Geodatabase sample control</summary>
@@ -140,7 +140,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             _onlineBirdsLayer = MyMapView.Map.Layers.OfType<ArcGISDynamicMapServiceLayer>().First();
             _onlineBirdsLayer.VisibleLayers = new ObservableCollection<int>() { 1 };
 
-            _graphicsLayer = MyMapView.Map.Layers.OfType<GraphicsLayer>().First();
+			_graphicsOverlay = MyMapView.GraphicsOverlays[0];
             _localBirdsLayer = null;
 
             CanGenerate = true;
@@ -332,8 +332,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 if (LocalBirdsLayer == null)
                     throw new Exception("No local geodatabase to edit.");
 
-                _graphicsLayer.Graphics.Clear();
-                _graphicsLayer.Graphics.Add(new Graphic(e.Location));
+                _graphicsOverlay.Graphics.Clear();
+                _graphicsOverlay.Graphics.Add(new Graphic(e.Location));
 
                 TapLocation = e.Location;
                 IsEditing = true;
@@ -369,7 +369,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
                 await RefreshDataView();
 
-                _graphicsLayer.Graphics.Clear();
+                _graphicsOverlay.Graphics.Clear();
                 IsEditing = false;
             }
             catch (Exception ex)
@@ -381,7 +381,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         // Cancel current edit
         private void CancelBirdSightingButton_Click(object sender, RoutedEventArgs e)
         {
-            _graphicsLayer.Graphics.Clear();
+            _graphicsOverlay.Graphics.Clear();
             IsEditing = false;
         }
 

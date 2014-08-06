@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using System;
@@ -20,7 +21,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         private const string ViewshedServiceUrl =
             "http://serverapps101.esri.com/arcgis/rest/services/ProbabilisticViewshedModel/GPServer/ProbabilisticViewshedModel";
 
-        private GraphicsLayer _inputLayer;
+        private GraphicsOverlay _inputOverlay;
         private Geoprocessor _gpTask;
 
         /// <summary>Construct Viewshed sample control</summary>
@@ -28,7 +29,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            _inputLayer = MyMapView.Map.Layers["InputLayer"] as GraphicsLayer;
+			_inputOverlay = MyMapView.GraphicsOverlays[0];
                 
             _gpTask = new Geoprocessor(new Uri(ViewshedServiceUrl));
         }
@@ -38,14 +39,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             try
             {
-                _inputLayer.Graphics.Clear();
+                _inputOverlay.Graphics.Clear();
                 MyMapView.Map.Layers.Remove("ViewshedResultsLayer");
 
                 //get the user's input point
                 var inputPoint = await MyMapView.Editor.RequestPointAsync();
 
                 progress.Visibility = Visibility.Visible;
-                _inputLayer.Graphics.Add(new Graphic() { Geometry = inputPoint });
+                _inputOverlay.Graphics.Add(new Graphic() { Geometry = inputPoint });
 
                 var parameter = new GPInputParameter() { OutSpatialReference = SpatialReferences.WebMercator };
                 parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Input_Features", inputPoint));
@@ -62,10 +63,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     var resultLayer = _gpTask.GetResultMapServiceLayer(result.JobID);
                     if (resultLayer != null)
                     {
-                        //Insert the results layer just beneath the input graphics layer.
-                        //This allows us to see the input point at all times.
                         resultLayer.ID = "ViewshedResultsLayer";
-                        MyMapView.Map.Layers.Insert(MyMapView.Map.Layers.IndexOf(_inputLayer), resultLayer);
+                        MyMapView.Map.Layers.Add(resultLayer);
                         await MyMapView.LayersLoadedAsync(new List<Layer> { resultLayer });
                     }
                 }

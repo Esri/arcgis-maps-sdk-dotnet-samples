@@ -2,21 +2,10 @@
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
@@ -43,7 +32,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             string message = null;
             var resultGeometry = _editGraphic == null ? null : _editGraphic.Geometry;
-            var editCnfg = MyMapView.Editor.EditorConfiguration;
+            
+			var editCnfg = MyMapView.Editor.EditorConfiguration;
             editCnfg.AllowAddVertex = AddVertex.IsChecked.HasValue && AddVertex.IsChecked.Value;
             editCnfg.AllowDeleteVertex = DeleteVertex.IsChecked.HasValue && DeleteVertex.IsChecked.Value;
             editCnfg.AllowMoveGeometry = MoveGeometry.IsChecked.HasValue && MoveGeometry.IsChecked.Value;
@@ -58,9 +48,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             {
                 var drawShape = (DrawShape)DrawShapes.SelectedItem;
 
-                GraphicsLayer graphicsLayer;
-                graphicsLayer = drawShape == DrawShape.Point ? MyMapView.Map.Layers["PointGraphicsLayer"] as GraphicsLayer :
-                   ((drawShape == DrawShape.Polyline || drawShape == DrawShape.Freehand) ? MyMapView.Map.Layers["PolylineGraphicsLayer"] as GraphicsLayer : MyMapView.Map.Layers["PolygonGraphicsLayer"] as GraphicsLayer);
+                GraphicsOverlay graphicsOverlay;
+				graphicsOverlay = drawShape == DrawShape.Point ? PointGraphicsOverlay :
+                   ((drawShape == DrawShape.Polyline || drawShape == DrawShape.Freehand) ? 
+					PolylineGraphicsOverlay : PolygonGraphicsOverlay);
 
                 var progress = new Progress<GeometryEditStatus>();
                 progress.ProgressChanged += (a, b) =>
@@ -77,7 +68,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     case "Draw":
                         {
                             var r = await MyMapView.Editor.RequestShapeAsync(drawShape, null, progress);
-                            graphicsLayer.Graphics.Add(new Graphic() { Geometry = r });
+                            graphicsOverlay.Graphics.Add(new Graphic() { Geometry = r });
                             break;
                         }
                     case "Edit":

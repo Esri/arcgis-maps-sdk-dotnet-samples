@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Layers;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Collections.Generic;
@@ -20,14 +21,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
     {
         private Random _random = new Random();
         private List<TextSymbol> _symbols;
-        private GraphicsLayer _graphicsLayer;
+        private GraphicsOverlay _graphicsOverlay;
 
         /// <summary>Construct Text Symbols sample control</summary>
         public TextSymbols()
         {
             InitializeComponent();
 
-            _graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+			_graphicsOverlay = MyMapView.GraphicsOverlays[0];
                 
             MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
@@ -62,7 +63,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     var point = await MyMapView.Editor.RequestPointAsync();
 
                     var symbol = _symbols[symbolCombo.SelectedIndex];
-                    _graphicsLayer.Graphics.Add(new Graphic(point, symbol));
+                    _graphicsOverlay.Graphics.Add(new Graphic(point, symbol));
                 }
             }
             catch (TaskCanceledException)

@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.Symbology;
@@ -33,7 +34,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         private const string TILE_CACHE_FOLDER = "ExportTileCacheSample";
 
         private ArcGISTiledMapServiceLayer _onlineTiledLayer;
-        private GraphicsLayer _aoiLayer;
+        private GraphicsOverlay _aoiOverlay;
         private ExportTileCacheTask _exportTilesTask;
         private GenerateTileCacheParameters _genOptions;
 
@@ -54,8 +55,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             await InitializeOnlineBasemap();
 
-            _aoiLayer = new GraphicsLayer() { ID = AOI_LAYER_ID, Renderer = LayoutRoot.Resources["AOIRenderer"] as Renderer };
-            MyMapView.Map.Layers.Add(_aoiLayer);
+            _aoiOverlay = new GraphicsOverlay() { Renderer = LayoutRoot.Resources["AOIRenderer"] as Renderer };
+            MyMapView.GraphicsOverlays.Add(_aoiOverlay);
 
             if (_onlineTiledLayer.ServiceInfo != null)
             {
@@ -110,8 +111,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 panelExport.Visibility = Visibility.Collapsed;
                 progress.Visibility = Visibility.Visible;
 
-                _aoiLayer.Graphics.Clear();
-                _aoiLayer.Graphics.Add(new Graphic(MyMapView.Extent));
+                _aoiOverlay.Graphics.Clear();
+                _aoiOverlay.Graphics.Add(new Graphic(MyMapView.Extent));
 
                 _genOptions = new GenerateTileCacheParameters()
                 {

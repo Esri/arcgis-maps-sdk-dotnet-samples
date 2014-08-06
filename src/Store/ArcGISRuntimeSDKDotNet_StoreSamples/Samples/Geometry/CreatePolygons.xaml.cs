@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System.Collections.Generic;
@@ -16,14 +17,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 	/// <category>Geometry</category>
 	public partial class CreatePolygons : Page
     {
-        private GraphicsLayer graphicsLayer;
+        private GraphicsOverlay _graphicsOverlay;
 
         /// <summary>Construct Create Polygons sample control</summary>
         public CreatePolygons()
         {
             InitializeComponent();
 
-            graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+			_graphicsOverlay = MyMapView.GraphicsOverlays[0];
             var _ = CreatePolygonGraphicsAsync();
         }
 
@@ -44,11 +45,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             var redSymbol = new SimpleFillSymbol() { Color = Colors.Red };
             var blueSymbol = new SimpleFillSymbol() { Color = Colors.Blue };
 
-            graphicsLayer.Graphics.Add(new Graphic() { Geometry = CreatePolygonBox(center, length), Symbol = blueSymbol });
-            graphicsLayer.Graphics.Add(new Graphic() { Geometry = CreatePolygonBox(topLeft, length), Symbol = redSymbol });
-            graphicsLayer.Graphics.Add(new Graphic() { Geometry = CreatePolygonBox(topRight, length), Symbol = redSymbol });
-            graphicsLayer.Graphics.Add(new Graphic() { Geometry = CreatePolygonBox(bottomLeft, length), Symbol = redSymbol });
-            graphicsLayer.Graphics.Add(new Graphic() { Geometry = CreatePolygonBox(bottomRight, length), Symbol = redSymbol });
+			_graphicsOverlay.Graphics.Add(new Graphic() { Geometry = CreatePolygonBox(center, length), Symbol = blueSymbol });
+			_graphicsOverlay.Graphics.Add(new Graphic() { Geometry = CreatePolygonBox(topLeft, length), Symbol = redSymbol });
+			_graphicsOverlay.Graphics.Add(new Graphic() { Geometry = CreatePolygonBox(topRight, length), Symbol = redSymbol });
+			_graphicsOverlay.Graphics.Add(new Graphic() { Geometry = CreatePolygonBox(bottomLeft, length), Symbol = redSymbol });
+			_graphicsOverlay.Graphics.Add(new Graphic() { Geometry = CreatePolygonBox(bottomRight, length), Symbol = redSymbol });
         }
 
         // Creates a square polygon with a hole centered at the given point

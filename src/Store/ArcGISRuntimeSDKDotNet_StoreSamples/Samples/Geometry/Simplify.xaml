@@ -30,19 +30,19 @@
 
 				<layers:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-
-				<layers:GraphicsLayer ID="ParcelLayer">
-					<layers:GraphicsLayer.Renderer>
-						<symb:SimpleRenderer Symbol="{StaticResource ParcelSymbol}" />
-                    </layers:GraphicsLayer.Renderer>
-                </layers:GraphicsLayer>
-
-				<layers:GraphicsLayer ID="PolygonLayer">
-					<layers:GraphicsLayer.Renderer>
-						<symb:SimpleRenderer Symbol="{StaticResource PolygonSymbol}" />
-                    </layers:GraphicsLayer.Renderer>
-                </layers:GraphicsLayer>
             </esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay x:Name="parcelOverlay">
+					<esri:GraphicsOverlay.Renderer>
+						<symb:SimpleRenderer Symbol="{StaticResource ParcelSymbol}" />
+					</esri:GraphicsOverlay.Renderer>
+				</esri:GraphicsOverlay>
+				<esri:GraphicsOverlay x:Name="polygonOverlay">
+					<esri:GraphicsOverlay.Renderer>
+						<symb:SimpleRenderer Symbol="{StaticResource PolygonSymbol}" />
+					</esri:GraphicsOverlay.Renderer>
+				</esri:GraphicsOverlay>
+			</esri:MapView.GraphicsOverlays>
         </esri:MapView>
 
         <Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">

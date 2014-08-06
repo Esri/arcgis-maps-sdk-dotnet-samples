@@ -22,8 +22,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         private const string DriveTimeServiceUrl =
             "http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Network/ESRI_DriveTime_US/GPServer/CreateDriveTimePolygons";
 
-        private GraphicsLayer _resultLayer;
-        private GraphicsLayer _inputLayer;
+        private GraphicsOverlay _resultOverlay;
+        private GraphicsOverlay _inputOverlay;
         private List<Symbol> _bufferSymbols;
         private Geoprocessor _gpTask;
 
@@ -32,8 +32,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            _inputLayer = MyMapView.Map.Layers["InputLayer"] as GraphicsLayer;
-            _resultLayer = MyMapView.Map.Layers["ResultLayer"] as GraphicsLayer;
+			_inputOverlay = MyMapView.GraphicsOverlays[0];
+			_resultOverlay = MyMapView.GraphicsOverlays[1];
                 
             _bufferSymbols = new List<Symbol>()
             {
@@ -52,10 +52,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             {
                 progress.Visibility = Visibility.Visible;
 
-                _inputLayer.Graphics.Clear();
-                _resultLayer.Graphics.Clear();
+                _inputOverlay.Graphics.Clear();
+                _resultOverlay.Graphics.Clear();
 
-                _inputLayer.Graphics.Add(new Graphic(e.Location));
+                _inputOverlay.Graphics.Add(new Graphic(e.Location));
 
                 var parameter = new GPInputParameter();
                 parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Input_Location", e.Location));
@@ -64,7 +64,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var result = await _gpTask.ExecuteAsync(parameter);
 
                 var features = result.OutParameters.OfType<GPFeatureRecordSetLayer>().First().FeatureSet.Features;
-                _resultLayer.Graphics.AddRange(features.Select((fs, idx) => new Graphic(fs.Geometry, _bufferSymbols[idx])));
+                _resultOverlay.Graphics.AddRange(features.Select((fs, idx) => new Graphic(fs.Geometry, _bufferSymbols[idx])));
             }
             catch (Exception ex)
             {

@@ -23,12 +23,13 @@
 
 				<layers:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-
-				<layers:GraphicsLayer ID="RouteGraphicsLayer" Renderer="{StaticResource RouteLayerRenderer}" />
-				<layers:GraphicsLayer ID="StopGraphicsLayer" />
-				<layers:GraphicsLayer ID="BarrierGraphicsLayer" Renderer="{StaticResource BarrierLayerRenderer}" />
             </esri:Map>
-        </esri:MapView>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay x:Name="RouteGraphicsOverlay" Renderer="{StaticResource RouteLayerRenderer}" />
+				<esri:GraphicsOverlay x:Name="StopGraphicsOverlay"  />
+				<esri:GraphicsOverlay x:Name="BarrierGraphicsOverlay" Renderer="{StaticResource BarrierLayerRenderer}"/>
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
 
         <Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20" Width="300">
             <StackPanel>

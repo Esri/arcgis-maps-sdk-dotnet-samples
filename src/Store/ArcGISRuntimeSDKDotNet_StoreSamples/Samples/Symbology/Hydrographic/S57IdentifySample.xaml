@@ -38,8 +38,10 @@
 
 				<!-- Using group layer to group all Hydrographic layers -->
 				<layers:GroupLayer ID="Hydrographic"/>
-				<layers:GraphicsLayer ID="ResultGraphics" Renderer="{StaticResource selectionRendrer}"/>
 			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay x:Name="resultOverlay" Renderer="{StaticResource selectionRendrer}"/>
+			</esri:MapView.GraphicsOverlays>
 		</esri:MapView>
 
 		<Border HorizontalAlignment="Right" Style="{StaticResource overlayBorderStyle}" Padding="20,10">

@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
@@ -29,9 +30,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 progress.Visibility = Visibility.Visible;
                 resultsGrid.DataContext = null;
 
-                GraphicsLayer graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
-                graphicsLayer.Graphics.Clear();
-                graphicsLayer.Graphics.Add(new Graphic(e.Location));
+				GraphicsOverlay graphicsOverlay = MyMapView.GraphicsOverlays[0];
+                graphicsOverlay.Graphics.Clear();
+                graphicsOverlay.Graphics.Add(new Graphic(e.Location));
 
                 IdentifyParameters identifyParams = new IdentifyParameters(e.Location, MyMapView.Extent, 2, (int)MyMapView.ActualHeight, (int)MyMapView.ActualWidth)
                 {

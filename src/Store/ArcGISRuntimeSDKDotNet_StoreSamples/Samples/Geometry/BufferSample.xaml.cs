@@ -18,17 +18,17 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
     {
         private const double milesToMetersConversion = 1609.34;
 
-        private GraphicsLayer graphicsLayer;
-        private PictureMarkerSymbol pms;
-        private SimpleFillSymbol sfs;
+        private GraphicsOverlay _graphicsOverlay;
+        private PictureMarkerSymbol _pms;
+        private SimpleFillSymbol _sfs;
 
         public BufferSample()
         {
             InitializeComponent();
 
             var _ = InitializePictureMarkerSymbolAsync();
-            sfs = LayoutRoot.Resources["MySimpleFillSymbol"] as SimpleFillSymbol;
-            graphicsLayer = MyMapView.Map.Layers["MyGraphicsLayer"] as GraphicsLayer;
+            _sfs = LayoutRoot.Resources["MySimpleFillSymbol"] as SimpleFillSymbol;
+			_graphicsOverlay = MyMapView.GraphicsOverlays[0];
 
             MyMapView.MapViewTapped += MyMapView_MapViewTapped;
         }
@@ -37,19 +37,19 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {           
             try
             {
-                graphicsLayer.Graphics.Clear();
+                _graphicsOverlay.Graphics.Clear();
                 
                 var pointGeom = e.Location;
                 var bufferGeom = GeometryEngine.Buffer(pointGeom, 5 * milesToMetersConversion);
 
                 //show geometries on map
-                if (graphicsLayer != null)
+                if (_graphicsOverlay != null)
                 {
-                    var pointGraphic = new Graphic { Geometry = pointGeom, Symbol = pms };
-                    graphicsLayer.Graphics.Add(pointGraphic);
+                    var pointGraphic = new Graphic { Geometry = pointGeom, Symbol = _pms };
+                    _graphicsOverlay.Graphics.Add(pointGraphic);
 
-                    var bufferGraphic = new Graphic { Geometry = bufferGeom, Symbol = sfs };
-                    graphicsLayer.Graphics.Add(bufferGraphic);
+                    var bufferGraphic = new Graphic { Geometry = bufferGeom, Symbol = _sfs };
+                    _graphicsOverlay.Graphics.Add(bufferGraphic);
                 }
             }
             catch (Exception ex)
@@ -63,8 +63,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             try
             {
-                pms = LayoutRoot.Resources["MyPictureMarkerSymbol"] as PictureMarkerSymbol;
-                await pms.SetSourceAsync(new Uri("ms-appx:///Assets/RedStickPin.png"));
+                _pms = LayoutRoot.Resources["MyPictureMarkerSymbol"] as PictureMarkerSymbol;
+                await _pms.SetSourceAsync(new Uri("ms-appx:///Assets/RedStickPin.png"));
             }
             catch (Exception ex)
             {

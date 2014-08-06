@@ -24,21 +24,21 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         private const string LocalRoutingDatabase = @"networks\san-diego\san-diego-network.geodatabase";
         private const string LocalNetworkName = "Streets_ND";
 
-        private GraphicsLayer _extentGraphicsLayer;
-        private GraphicsLayer _routeGraphicsLayer;
-        private GraphicsLayer _stopsGraphicsLayer;
+        private GraphicsOverlay _extentGraphicsOverlay;
+        private GraphicsOverlay _routeGraphicsOverlay;
+        private GraphicsOverlay _stopsGraphicsOverlay;
         private RouteTask _routeTask;
 
         public Routing()
         {
             InitializeComponent();
 
-            _extentGraphicsLayer = MyMapView.Map.Layers["ExtentGraphicsLayer"] as GraphicsLayer;
-            _routeGraphicsLayer = MyMapView.Map.Layers["RouteGraphicsLayer"] as GraphicsLayer;
-            _stopsGraphicsLayer = MyMapView.Map.Layers["StopsGraphicsLayer"] as GraphicsLayer;
+			_extentGraphicsOverlay = MyMapView.GraphicsOverlays[0];
+			_routeGraphicsOverlay = MyMapView.GraphicsOverlays[1];
+			_stopsGraphicsOverlay = MyMapView.GraphicsOverlays[2];
 
             var extent = new Envelope(-117.2595, 32.5345, -116.9004, 32.8005, SpatialReferences.Wgs84);
-            _extentGraphicsLayer.Graphics.Add(new Graphic(GeometryEngine.Project(extent, SpatialReferences.WebMercator)));
+            _extentGraphicsOverlay.Graphics.Add(new Graphic(GeometryEngine.Project(extent, SpatialReferences.WebMercator)));
 
             _routeTask = new OnlineRouteTask(new Uri(OnlineRoutingService));
         }
@@ -47,8 +47,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             try
             {
-                var graphicIdx = _stopsGraphicsLayer.Graphics.Count + 1;
-                _stopsGraphicsLayer.Graphics.Add(CreateStopGraphic(e.Location, graphicIdx));
+                var graphicIdx = _stopsGraphicsOverlay.Graphics.Count + 1;
+                _stopsGraphicsOverlay.Graphics.Add(CreateStopGraphic(e.Location, graphicIdx));
 
                 if (graphicIdx > 1)
                 {
@@ -65,8 +65,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             try
             {
-                _routeGraphicsLayer.Graphics.Clear();
-                _stopsGraphicsLayer.Graphics.Clear();
+                _routeGraphicsOverlay.Graphics.Clear();
+                _stopsGraphicsOverlay.Graphics.Clear();
                 panelRouteInfo.Visibility = Visibility.Collapsed;
 
                 if (((Windows.UI.Xaml.Controls.CheckBox)sender).IsChecked == true)
@@ -95,8 +95,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             try
             {
-                _routeGraphicsLayer.Graphics.Clear();
-                _stopsGraphicsLayer.Graphics.Clear();
+                _routeGraphicsOverlay.Graphics.Clear();
+                _stopsGraphicsOverlay.Graphics.Clear();
                 panelRouteInfo.Visibility = Visibility.Collapsed;
             }
             catch (Exception ex)
@@ -138,7 +138,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 routeParams.OutSpatialReference = MyMapView.SpatialReference;
                 routeParams.ReturnDirections = false;
 
-                FeaturesAsFeature stops = new FeaturesAsFeature(_stopsGraphicsLayer.Graphics);
+                FeaturesAsFeature stops = new FeaturesAsFeature(_stopsGraphicsOverlay.Graphics);
                 stops.SpatialReference = MyMapView.SpatialReference;
                 routeParams.Stops = stops;
 
@@ -146,10 +146,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
                 if (routeResult.Routes.Count > 0)
                 {
-                    _routeGraphicsLayer.Graphics.Clear();
+                    _routeGraphicsOverlay.Graphics.Clear();
 
                     var route = routeResult.Routes.First().RouteFeature;
-                    _routeGraphicsLayer.Graphics.Add(new Graphic(route.Geometry));
+                    _routeGraphicsOverlay.Graphics.Add(new Graphic(route.Geometry));
 
                     var meters = GeometryEngine.GeodesicLength(route.Geometry, GeodeticCurveType.Geodesic);
                     txtDistance.Text = string.Format("{0:0.00} miles", LinearUnits.Miles.ConvertFromMeters(meters));

@@ -20,10 +20,11 @@
             <esri:Map>
 				<layers:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
-
-				<layers:GraphicsLayer ID="Earthquakes">
-					<layers:GraphicsLayer.Renderer>
-						<symb:ClassBreaksRenderer Field="magnitude">
+            </esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay x:Name="earthquakes">
+					<esri:GraphicsOverlay.Renderer>
+						<symb:ClassBreaksRenderer Field="magnitude" >
 							<symb:ClassBreaksRenderer.Infos>
 								<symb:ClassBreakInfo Minimum="2" Maximum="3" Symbol="{StaticResource mag2to3}" />
 								<symb:ClassBreakInfo Minimum="3" Maximum="4" Symbol="{StaticResource mag3to4}" />
@@ -31,11 +32,11 @@
 								<symb:ClassBreakInfo Minimum="5" Maximum="6" Symbol="{StaticResource mag5to6}" />
 								<symb:ClassBreakInfo Minimum="6" Maximum="7" Symbol="{StaticResource mag6to7}" />
 								<symb:ClassBreakInfo Minimum="7" Maximum="8" Symbol="{StaticResource mag7to8}" />
-                            </symb:ClassBreaksRenderer.Infos>
-                        </symb:ClassBreaksRenderer>
-                    </layers:GraphicsLayer.Renderer>
-                </layers:GraphicsLayer>
-            </esri:Map>
+							</symb:ClassBreaksRenderer.Infos>
+						</symb:ClassBreaksRenderer>
+					</esri:GraphicsOverlay.Renderer>
+				</esri:GraphicsOverlay>
+			</esri:MapView.GraphicsOverlays>
         </esri:MapView>
 
         <Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">

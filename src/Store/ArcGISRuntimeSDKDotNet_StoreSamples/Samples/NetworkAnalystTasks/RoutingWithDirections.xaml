@@ -24,12 +24,13 @@
 
 				<layers:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-
-				<layers:GraphicsLayer ID="StopsLayer" />
-				<layers:GraphicsLayer ID="RoutesLayer" Renderer="{StaticResource routesRenderer}" />
-				<layers:GraphicsLayer ID="DirectionsLayer" Renderer="{StaticResource directionsRenderer}" SelectionColor="#CCFF0000" />
             </esri:Map>
-        </esri:MapView>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay x:Name="RoutesOverlay"  Renderer="{StaticResource routesRenderer}"/>
+				<esri:GraphicsOverlay x:Name="StopsOverlay" />
+				<esri:GraphicsOverlay x:Name="DirectionsOverlay" Renderer="{StaticResource directionsRenderer}" SelectionColor="#CCFF0000"/>
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
 
         <Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20" Width="400">
             <Grid>

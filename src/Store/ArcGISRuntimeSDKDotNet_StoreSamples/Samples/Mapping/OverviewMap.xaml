@@ -22,19 +22,21 @@
             <esri:MapView x:Name="overviewMap" Width="300" Height="200" >
                 <esri:Map  >
 					<layers:ArcGISTiledMapServiceLayer ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer"  />
-					<layers:GraphicsLayer>
-						<layers:GraphicsLayer.Renderer>
+                </esri:Map>
+				<esri:MapView.GraphicsOverlays>
+					<esri:GraphicsOverlay x:Name="overviewOverlay">
+						<esri:GraphicsOverlay.Renderer>
 							<symb:SimpleRenderer>
-								<symb:SimpleFillSymbol Color="#22ff0000">
+								<symb:SimpleFillSymbol Color="#22FF0000">
 									<symb:SimpleFillSymbol.Outline>
 										<symb:SimpleLineSymbol Color="Red" Width="2" />
-                                    </symb:SimpleFillSymbol.Outline>
-                                </symb:SimpleFillSymbol>
-                            </symb:SimpleRenderer>
-                        </layers:GraphicsLayer.Renderer>
-                    </layers:GraphicsLayer>
-                </esri:Map>
-            </esri:MapView>
+									</symb:SimpleFillSymbol.Outline>
+								</symb:SimpleFillSymbol>
+							</symb:SimpleRenderer>
+						</esri:GraphicsOverlay.Renderer>
+					</esri:GraphicsOverlay>
+				</esri:MapView.GraphicsOverlays>
+			</esri:MapView>
         </Border>
     </Grid>
 </Page>

@@ -22,13 +22,12 @@
 				</esri:Map.InitialViewpoint>
 				<layers:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
                                               ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-				<layers:GraphicsLayer ID="PointGraphicsLayer"  
-                                 Renderer="{StaticResource MarkerRenderer}" />
-				<layers:GraphicsLayer ID="PolylineGraphicsLayer" 
-                                 Renderer="{StaticResource PolylineRenderer}" />
-				<layers:GraphicsLayer ID="PolygonGraphicsLayer" 
-                                 Renderer="{StaticResource PolygonRenderer}" />
 			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay x:Name="PointGraphicsOverlay" Renderer="{StaticResource MarkerRenderer}" />
+				<esri:GraphicsOverlay x:Name="PolylineGraphicsOverlay" Renderer="{StaticResource PolylineRenderer}" />
+				<esri:GraphicsOverlay x:Name="PolygonGraphicsOverlay" Renderer="{StaticResource PolygonRenderer}" />
+			</esri:MapView.GraphicsOverlays>
 		</esri:MapView>
 
         <Border Background="Black" BorderThickness="1" CornerRadius="5"

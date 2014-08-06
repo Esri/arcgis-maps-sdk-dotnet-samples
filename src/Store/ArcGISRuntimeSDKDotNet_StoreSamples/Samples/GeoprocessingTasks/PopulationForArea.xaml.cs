@@ -19,15 +19,15 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         private const string PopulationSummaryServiceUrl = 
             "http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Population_World/GPServer/PopulationSummary";
 
-        private GraphicsLayer _areaLayer;
+        private GraphicsOverlay _areaOverlay;
 
         /// <summary>Construct Populattion for Area sample control</summary>
-        public PopulationForArea()
-        {
-            InitializeComponent();
+		public PopulationForArea()
+		{
+			InitializeComponent();
 
-            _areaLayer = MyMapView.Map.Layers["AreaLayer"] as GraphicsLayer;
-        }
+			_areaOverlay = MyMapView.GraphicsOverlays[0];
+		}
 
         // Accept user boundary line and run the Geoprocessing Task to summarize population
         private async void SummarizePopulationButton_Click(object sender, RoutedEventArgs e)
@@ -35,12 +35,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             try
             {
                 txtResult.Visibility = Visibility.Collapsed;
-                _areaLayer.Graphics.Clear();
+                _areaOverlay.Graphics.Clear();
 
                 var boundary = await MyMapView.Editor.RequestShapeAsync(DrawShape.Freehand) as Polyline;
                 var polygon = new Polygon(boundary.Parts, MyMapView.SpatialReference);
                 polygon = GeometryEngine.Simplify(polygon) as Polygon;
-                _areaLayer.Graphics.Add(new Graphic() { Geometry = polygon });
+                _areaOverlay.Graphics.Add(new Graphic() { Geometry = polygon });
 
                 progress.Visibility = Visibility.Visible;
 

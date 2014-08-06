@@ -23,11 +23,12 @@
 
 				<layers:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" />
-
-				<layers:GraphicsLayer ID="OriginalLineGraphicsLayer" />
-				<layers:GraphicsLayer ID="GeneralizedLineGraphicsLayer" />
             </esri:Map>
-        </esri:MapView>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay x:Name="originalOverlay" />
+				<esri:GraphicsOverlay x:Name="generalizedLineOverlay" />
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
 
         <Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
             <StackPanel>

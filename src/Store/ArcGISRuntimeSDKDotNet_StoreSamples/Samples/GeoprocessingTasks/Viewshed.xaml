@@ -22,9 +22,11 @@
 
 				<layers:ArcGISTiledMapServiceLayer ID="TopoMapLayer"
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
-				<layers:GraphicsLayer ID="InputLayer" Renderer="{StaticResource PointRenderer}" />
             </esri:Map>
-        </esri:MapView>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay x:Name="inputOverlay" Renderer="{StaticResource PointRenderer}"/>
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
 
         <Border x:Name="uiPanel" Background="#CC000000" Width="325"
                 HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">

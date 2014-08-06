@@ -1,11 +1,12 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
-using System.Linq;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
@@ -17,16 +18,16 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 	public partial class Simplify : Windows.UI.Xaml.Controls.Page
     {
         private Polygon _unsimplifiedPolygon;
-        private GraphicsLayer _parcelLayer;
-        private GraphicsLayer _polygonLayer;
+        private GraphicsOverlay _parcelOverlay;
+        private GraphicsOverlay _polygonOverlay;
 
         /// <summary>Construct Geodesic Move sample control</summary>
         public Simplify()
         {
             InitializeComponent();
 
-            _parcelLayer = MyMapView.Map.Layers["ParcelLayer"] as GraphicsLayer;
-            _polygonLayer = MyMapView.Map.Layers["PolygonLayer"] as GraphicsLayer;
+			_parcelOverlay = MyMapView.GraphicsOverlays[0];
+			_polygonOverlay = MyMapView.GraphicsOverlays[1];
 
 			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
         }
@@ -75,8 +76,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             };
             _unsimplifiedPolygon = new Polygon(points, MyMapView.SpatialReference);
 
-            _polygonLayer.Graphics.Clear();
-            _polygonLayer.Graphics.Add(new Graphic(_unsimplifiedPolygon));
+            _polygonOverlay.Graphics.Clear();
+            _polygonOverlay.Graphics.Add(new Graphic(_unsimplifiedPolygon));
         }
 
         // Query the parcel service with the given geometry (Contains)
@@ -95,8 +96,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 };
                 var result = await queryTask.ExecuteAsync(query);
 
-                _parcelLayer.Graphics.Clear();
-                _parcelLayer.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
+                _parcelOverlay.Graphics.Clear();
+                _parcelOverlay.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
             }
             catch (Exception ex)
             {

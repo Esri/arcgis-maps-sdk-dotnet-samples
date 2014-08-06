@@ -22,14 +22,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
     {
         private const string LAYER_URL = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2";
         
-        private GraphicsLayer _graphicsLayer;
+        private GraphicsOverlay _graphicsOverlay;
 
         /// <summary>Construct Statistics sample control</summary>
         public Statistics()
         {
             InitializeComponent();
 
-            _graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+			_graphicsOverlay = MyMapView.GraphicsOverlays[0];
 
             var taskRenderer = SetUniqueRenderer();
             var taskQuery = RunQuery();
@@ -48,7 +48,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 GenerateRendererParameters rendererParams = new GenerateRendererParameters() { ClassificationDefinition = uvDef };
 
                 var rendererResult = await generateRendererTask.GenerateRendererAsync(rendererParams);
-                _graphicsLayer.Renderer = rendererResult.Renderer;
+                _graphicsOverlay.Renderer = rendererResult.Renderer;
             }
             catch (Exception ex)
             {
@@ -62,7 +62,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             try
             {
                 progress.Visibility = Visibility.Visible;
-                _graphicsLayer.Graphics.Clear();
+                _graphicsOverlay.Graphics.Clear();
                 resultsGrid.ItemsSource = null;
 
                 QueryTask queryTask = new QueryTask(new Uri(LAYER_URL));
@@ -90,7 +90,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 if (result.FeatureSet.Features != null && result.FeatureSet.Features.Count > 0)
                 {
                     await CreateSubRegionLayerGraphics(result.FeatureSet.Features.OfType<Graphic>());
-                    resultsGrid.ItemsSource = _graphicsLayer.Graphics;
+                    resultsGrid.ItemsSource = _graphicsOverlay.Graphics;
                 }
             }
             catch (Exception ex)
@@ -120,13 +120,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 .GroupBy(g => g.Attributes["sub_region"], g => g.Geometry)
                 .Select(grp => new Graphic(GeometryEngine.Union(grp), statistics.First(stat => grp.Key.Equals(stat.Attributes["sub_region"])).Attributes));
 
-            _graphicsLayer.Graphics.Clear();
-            _graphicsLayer.Graphics.AddRange(regions);
+            _graphicsOverlay.Graphics.Clear();
+            _graphicsOverlay.Graphics.AddRange(regions);
         }
 
         private void resultsGrid_SelectionChanged(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
         {
-            _graphicsLayer.ClearSelection();
+            _graphicsOverlay.ClearSelection();
 
             if (e.AddedItems != null && e.AddedItems.Count > 0)
             {

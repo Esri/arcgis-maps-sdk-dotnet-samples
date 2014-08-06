@@ -23,7 +23,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private Symbol _fillSymbol;
         private FeatureLayer _statesLayer;
-        private GraphicsLayer _resultGraphics;
+        private GraphicsOverlay _resultGraphics;
 
         /// <summary>Construct Intersection sample control</summary>
         public Intersection()
@@ -31,7 +31,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             InitializeComponent();
 
             _fillSymbol = LayoutRoot.Resources["FillSymbol"] as Symbol;
-            _resultGraphics = MyMapView.Map.Layers["ResultGraphics"] as GraphicsLayer;
+			_resultGraphics = MyMapView.GraphicsOverlays[0];
                 
             var _ = CreateFeatureLayersAsync();
         }

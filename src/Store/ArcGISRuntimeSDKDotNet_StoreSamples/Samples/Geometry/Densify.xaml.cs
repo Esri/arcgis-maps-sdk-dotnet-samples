@@ -20,8 +20,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         private Symbol _origVertexSymbol;
         private Symbol _newVertexSymbol;
 
-        private GraphicsLayer _inputGraphics;
-        private GraphicsLayer _resultGraphics;
+        private GraphicsOverlay _inputGraphics;
+        private GraphicsOverlay _resultGraphics;
 
         /// <summary>Construct Densify sample control</summary>
         public Densify()
@@ -32,8 +32,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             _origVertexSymbol = LayoutRoot.Resources["OrigVertexSymbol"] as Symbol;
             _newVertexSymbol = LayoutRoot.Resources["NewVertexSymbol"] as Symbol;
 
-            _inputGraphics = MyMapView.Map.Layers["InputGraphics"] as GraphicsLayer;
-            _resultGraphics = MyMapView.Map.Layers["ResultGraphics"] as GraphicsLayer;
+			_inputGraphics = MyMapView.GraphicsOverlays[0];
+			_resultGraphics = MyMapView.GraphicsOverlays[1];
         }
 
         // Draw and densify a user defined polygon

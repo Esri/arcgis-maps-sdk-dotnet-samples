@@ -62,16 +62,16 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
             var points = new PointCollection()
             {
-                new MapPointBuilder(lon - lonOffset, lat).ToGeometry(),
-                new MapPointBuilder(lon, lat + latOffset).ToGeometry(),
-                new MapPointBuilder(lon + lonOffset, lat).ToGeometry(),
-                new MapPointBuilder(lon, lat - latOffset).ToGeometry(),
-                new MapPointBuilder(lon - lonOffset, lat).ToGeometry(),
-                new MapPointBuilder(lon - 2 * lonOffset, lat + latOffset).ToGeometry(),
-                new MapPointBuilder(lon - 3 * lonOffset, lat).ToGeometry(),
-                new MapPointBuilder(lon - 2 * lonOffset, lat - latOffset).ToGeometry(),
-                new MapPointBuilder(lon - 1.5 * lonOffset, lat + latOffset).ToGeometry(),
-                new MapPointBuilder(lon - lonOffset, lat).ToGeometry()
+                new MapPoint(lon - lonOffset, lat),
+                new MapPoint(lon, lat + latOffset),
+                new MapPoint(lon + lonOffset, lat),
+                new MapPoint(lon, lat - latOffset),
+                new MapPoint(lon - lonOffset, lat),
+                new MapPoint(lon - 2 * lonOffset, lat + latOffset),
+                new MapPoint(lon - 3 * lonOffset, lat),
+                new MapPoint(lon - 2 * lonOffset, lat - latOffset),
+                new MapPoint(lon - 1.5 * lonOffset, lat + latOffset),
+                new MapPoint(lon - lonOffset, lat)
             };
             _unsimplifiedPolygon = new Polygon(points, MyMapView.SpatialReference);
 

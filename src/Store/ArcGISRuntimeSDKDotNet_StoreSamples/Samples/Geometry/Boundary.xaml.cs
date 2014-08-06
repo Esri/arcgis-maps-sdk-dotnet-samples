@@ -71,19 +71,19 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             var halfLen = length / 2.0;
 
             PointCollection coords = new PointCollection();
-			coords.Add(new MapPointBuilder(center.X - halfLen, center.Y + halfLen).ToGeometry());
-			coords.Add(new MapPointBuilder(center.X + halfLen, center.Y + halfLen).ToGeometry());
-			coords.Add(new MapPointBuilder(center.X + halfLen, center.Y - halfLen).ToGeometry());
-			coords.Add(new MapPointBuilder(center.X - halfLen, center.Y - halfLen).ToGeometry());
-			coords.Add(new MapPointBuilder(center.X - halfLen, center.Y + halfLen).ToGeometry());
+			coords.Add(new MapPoint(center.X - halfLen, center.Y + halfLen));
+			coords.Add(new MapPoint(center.X + halfLen, center.Y + halfLen));
+			coords.Add(new MapPoint(center.X + halfLen, center.Y - halfLen));
+			coords.Add(new MapPoint(center.X - halfLen, center.Y - halfLen));
+			coords.Add(new MapPoint(center.X - halfLen, center.Y + halfLen));
 
             halfLen /= 3;
             PointCollection coordsHole = new PointCollection();
-			coordsHole.Add(new MapPointBuilder(center.X - halfLen, center.Y + halfLen).ToGeometry());
-			coordsHole.Add(new MapPointBuilder(center.X - halfLen, center.Y - halfLen).ToGeometry());
-			coordsHole.Add(new MapPointBuilder(center.X + halfLen, center.Y - halfLen).ToGeometry());
-			coordsHole.Add(new MapPointBuilder(center.X + halfLen, center.Y + halfLen).ToGeometry());
-			coordsHole.Add(new MapPointBuilder(center.X - halfLen, center.Y + halfLen).ToGeometry());
+			coordsHole.Add(new MapPoint(center.X - halfLen, center.Y + halfLen));
+			coordsHole.Add(new MapPoint(center.X - halfLen, center.Y - halfLen));
+			coordsHole.Add(new MapPoint(center.X + halfLen, center.Y - halfLen));
+			coordsHole.Add(new MapPoint(center.X + halfLen, center.Y + halfLen));
+			coordsHole.Add(new MapPoint(center.X - halfLen, center.Y + halfLen));
 
             return new Polygon(new List<PointCollection> { coords, coordsHole }, MyMapView.SpatialReference);
         }
@@ -98,23 +98,23 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             {
                 new PointCollection() 
                 { 
-                    new MapPointBuilder(center.X - halfLen + spacer, center.Y + halfLen).ToGeometry(),
-                    new MapPointBuilder(center.X + halfLen - spacer, center.Y + halfLen).ToGeometry()
+                    new MapPoint(center.X - halfLen + spacer, center.Y + halfLen),
+                    new MapPoint(center.X + halfLen - spacer, center.Y + halfLen)
                 },
                 new PointCollection() 
                 { 
-                    new MapPointBuilder(center.X + halfLen, center.Y + halfLen - spacer).ToGeometry(),
-                    new MapPointBuilder(center.X + halfLen, center.Y - halfLen + spacer).ToGeometry()
+                    new MapPoint(center.X + halfLen, center.Y + halfLen - spacer),
+                    new MapPoint(center.X + halfLen, center.Y - halfLen + spacer)
                 },
                 new PointCollection() 
                 { 
-                    new MapPointBuilder(center.X + halfLen - spacer, center.Y - halfLen).ToGeometry(),
-                    new MapPointBuilder(center.X - halfLen + spacer, center.Y - halfLen).ToGeometry()
+                    new MapPoint(center.X + halfLen - spacer, center.Y - halfLen),
+                    new MapPoint(center.X - halfLen + spacer, center.Y - halfLen)
                 },
                 new PointCollection() 
                 { 
-                    new MapPointBuilder(center.X - halfLen, center.Y - halfLen + spacer).ToGeometry(),
-                    new MapPointBuilder(center.X - halfLen, center.Y + halfLen - spacer).ToGeometry()
+                    new MapPoint(center.X - halfLen, center.Y - halfLen + spacer),
+                    new MapPoint(center.X - halfLen, center.Y + halfLen - spacer)
                 }
             };
 

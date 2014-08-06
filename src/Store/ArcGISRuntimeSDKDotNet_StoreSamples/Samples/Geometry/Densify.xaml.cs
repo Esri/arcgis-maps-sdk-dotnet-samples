@@ -51,7 +51,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 _inputGraphics.Graphics.Add(new Graphic(poly, _polySymbol));
 				foreach (var coord in poly.Parts.First())
                 {
-                    _inputGraphics.Graphics.Add(new Graphic(new MapPointBuilder(coord).ToGeometry(), _origVertexSymbol));
+                    _inputGraphics.Graphics.Add(new Graphic(coord, _origVertexSymbol));
                 }
 
                 // Densify the polygon
@@ -60,7 +60,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 // Add new vertices to result graphics layer
 				foreach (var coord in densify.Parts.First())
                 {
-                    _resultGraphics.Graphics.Add(new Graphic(new MapPointBuilder(coord).ToGeometry(), _newVertexSymbol));
+                    _resultGraphics.Graphics.Add(new Graphic(coord, _newVertexSymbol));
                 }
             }
             catch (Exception ex)

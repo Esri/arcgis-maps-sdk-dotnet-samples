@@ -73,13 +73,16 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 		private static PointCollection FromArray(params double[] parameters)
 		{
 			PointCollection coll = new PointCollection();
-			var mapPointBuilder = new MapPointBuilder(SpatialReferences.Wgs84);
 			for (int i = 0; i < parameters.Length - 1; i+=2)
 			{
-				mapPointBuilder.SetValues(parameters[i], parameters[i + 1]);
-				coll.Add(mapPointBuilder.ToGeometry());
+				coll.Add(new MapPoint(parameters[i], parameters[i + 1]));
 			}
 			return coll;
+		}
+
+		private void Slider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+		{
+			MyMapView.SetRotationAsync(e.NewValue);
 		}
     }
 }

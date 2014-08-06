@@ -109,7 +109,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             if (message != null)
                 await new MessageDialog(message).ShowAsync();
-
         }
 
         private async void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
@@ -126,8 +125,5 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 _editGraphic.IsSelected = true;
             }
         }
-
-
-
     }
 }

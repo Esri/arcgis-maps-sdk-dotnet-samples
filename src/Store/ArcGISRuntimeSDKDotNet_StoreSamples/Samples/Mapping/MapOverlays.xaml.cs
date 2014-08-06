@@ -19,7 +19,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-			(MyMapView.Overlays[0] as Grid).DataContext = new MapPointBuilder(-117.19568, 34.056601, SpatialReferences.Wgs84).ToGeometry();
+			(MyMapView.Overlays[0] as Grid).DataContext = new MapPoint(-117.19568, 34.056601, SpatialReferences.Wgs84);
 
             MyMapView.Loaded += MyMapView_Loaded;
             MyMapView.ExtentChanged += MyMapView_ExtentChanged;

@@ -54,8 +54,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 Symbol = new SimpleLineSymbol() { Color = Colors.Blue, Style = SimpleLineStyle.Solid, Width = 4 },
                 Geometry = new Polyline(new PointCollection() 
                 { 
-                    new MapPointBuilder(ptStart.X, ptStart.Y + 1000000).ToGeometry(),
-                    new MapPointBuilder(ptEnd.X, ptEnd.Y + 1000000).ToGeometry()
+                    new MapPoint(ptStart.X, ptStart.Y + 1000000),
+                    new MapPoint(ptEnd.X, ptEnd.Y + 1000000)
                 })
             };
 
@@ -65,8 +65,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 Symbol = new SimpleLineSymbol() { Color = Colors.Green, Style = SimpleLineStyle.Dash, Width = 4 },
                 Geometry = new Polyline(new PointCollection() 
                 { 
-                    new MapPointBuilder(ptStart.X, ptStart.Y - 1000000).ToGeometry(),
-                    new MapPointBuilder(ptEnd.X, ptEnd.Y - 1000000).ToGeometry()
+                    new MapPoint(ptStart.X, ptStart.Y - 1000000),
+                    new MapPoint(ptEnd.X, ptEnd.Y - 1000000)
                 })
             };
 

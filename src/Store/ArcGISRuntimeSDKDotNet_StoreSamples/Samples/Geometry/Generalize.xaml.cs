@@ -67,7 +67,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     {
                         foreach (var coord in path)
                         {
-                            var vertex = new Graphic(new MapPointBuilder(coord).ToGeometry(), _defaultMarkerSymbol);
+                            var vertex = new Graphic(coord, _defaultMarkerSymbol);
                             _originalGraphicsLayer.Graphics.Add(vertex);
                         }
                     }
@@ -100,7 +100,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     {
                         foreach (var coord in path)
                         {
-                            var vertex = new Graphic(new MapPointBuilder(coord).ToGeometry(), _generalizedMarkerSymbol);
+                            var vertex = new Graphic(coord, _generalizedMarkerSymbol);
                             _generalizedGraphicsLayer.Graphics.Add(vertex);
                         }
                     }

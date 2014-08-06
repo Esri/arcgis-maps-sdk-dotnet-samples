@@ -35,7 +35,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             _cutFillSymbol = LayoutRoot.Resources["CutFillSymbol"] as Symbol;
             _resultGraphics = MyMapView.Map.Layers["ResultGraphics"] as GraphicsLayer;
 
-            var task = CreateFeatureLayersAsync();
+            var _ = CreateFeatureLayersAsync();
         }
 
         // Creates a feature layer from a local .geodatabase file

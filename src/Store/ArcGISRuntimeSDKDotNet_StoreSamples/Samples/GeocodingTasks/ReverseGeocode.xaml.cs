@@ -26,13 +26,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public ReverseGeocode()
         {
             InitializeComponent();
-
-            Envelope extent = new Envelope(-117.387, 33.97, -117.355, 33.988, SpatialReferences.Wgs84);
-            MyMapView.Map.InitialViewpoint = new Viewpoint(extent);
-			MyMapView.Map.SpatialReference = SpatialReferences.WebMercator;
-
-            _graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
-                
+            _graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer; 
             _locator = new OnlineLocatorTask(new Uri(OnlineLocatorUrl));
         }
 

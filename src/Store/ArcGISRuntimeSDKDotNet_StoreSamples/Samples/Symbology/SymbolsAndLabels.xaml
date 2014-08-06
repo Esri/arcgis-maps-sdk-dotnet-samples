@@ -4,8 +4,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:esri="using:Esri.ArcGISRuntime.Controls" 
     xmlns:layers="using:Esri.ArcGISRuntime.Layers"
-	xmlns:symb="using:Esri.ArcGISRuntime.Symbology"
-    xmlns:core="using:Esri.ArcGISRuntime">
+	xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
 
     <Page.Resources>
 		<!--Composite Symbol mixing simple cirkle marker with a text-->

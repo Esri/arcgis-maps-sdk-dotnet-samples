@@ -1,5 +1,4 @@
 ﻿using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
@@ -23,8 +22,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public QueryFilterSample()
 		{
 			this.InitializeComponent();
-
-            MyMapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(new Envelope(-14675766, 2695408, -6733122, 6583994));
 
             _featureLayer = MyMapView.Map.Layers["FeatureLayer"] as FeatureLayer;
             ((GeodatabaseFeatureServiceTable)_featureLayer.FeatureTable).OutFields = OutFields.All;

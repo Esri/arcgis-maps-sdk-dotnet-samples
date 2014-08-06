@@ -24,11 +24,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             InitializeComponent();
 
             graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
-            var task = CreatePolygonGraphics();
+            var _ = CreatePolygonGraphicsAsync();
         }
 
         // Create Polygon graphics on the map in the center and the center of four equal quadrants
-        private async Task CreatePolygonGraphics()
+		private async Task CreatePolygonGraphicsAsync()
         {
             await MyMapView.LayersLoadedAsync();
 

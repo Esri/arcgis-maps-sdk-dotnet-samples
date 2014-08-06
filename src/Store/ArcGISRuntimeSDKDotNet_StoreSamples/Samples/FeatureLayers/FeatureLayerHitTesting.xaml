@@ -10,6 +10,10 @@
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <esri:MapView x:Name="MyMapView" WrapAround="True" >
             <esri:Map>
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-14675766.3566695" YMin="2695407.73380258" XMax="-6733121.86117095" YMax="6583994.1013904" />
+				</esri:Map.InitialViewpoint>
+
 				<layers:ArcGISTiledMapServiceLayer DisplayName="Basemap"
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 
@@ -25,7 +29,7 @@
                     </layers:FeatureLayer.Renderer>
 
 					<layers:FeatureLayer.FeatureTable>
-                        <data:GeodatabaseFeatureServiceTable 
+                        <data:GeodatabaseFeatureServiceTable
                             ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0"
                             Where="pop2000 > 200000" />
                     </layers:FeatureLayer.FeatureTable>

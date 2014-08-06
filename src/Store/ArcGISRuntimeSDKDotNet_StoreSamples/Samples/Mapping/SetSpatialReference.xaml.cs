@@ -14,7 +14,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-			// Create initial extend and set it
+			// Create initial extend and set it note that this doesn't set MapView.SpatialReference.
 			var envelopeBuilder = new EnvelopeBuilder(SpatialReference.Create(26777));
 			envelopeBuilder.XMin = 661140;
 			envelopeBuilder.YMin = -1420246;

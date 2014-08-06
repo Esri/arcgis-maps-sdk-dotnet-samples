@@ -1,6 +1,5 @@
 ﻿using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
@@ -24,8 +23,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			this.InitializeComponent();
 
             MyMapView.MapViewTapped += MyMapView_MapViewTapped;
-
-            MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-14675766.3566695, 2695407.73380258, -6733121.86117095, 6583994.1013904));
 
             _featureLayer = MyMapView.Map.Layers["FeatureLayer"] as FeatureLayer;
             ((GeodatabaseFeatureServiceTable)_featureLayer.FeatureTable).OutFields = OutFields.All;

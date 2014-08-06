@@ -33,8 +33,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-13044000, 3855000, -13040000, 3858000, SpatialReferences.WebMercator));
-
             _extentGraphicsLayer = MyMapView.Map.Layers["ExtentGraphicsLayer"] as GraphicsLayer;
             _routeGraphicsLayer = MyMapView.Map.Layers["RouteGraphicsLayer"] as GraphicsLayer;
             _stopsGraphicsLayer = MyMapView.Map.Layers["StopsGraphicsLayer"] as GraphicsLayer;

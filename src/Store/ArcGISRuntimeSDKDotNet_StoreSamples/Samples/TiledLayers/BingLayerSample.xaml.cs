@@ -27,11 +27,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             string layerNameTag = (string)((RadioButton)sender).Tag;
 
-            foreach (Layer layer in map.Layers)
+			foreach (Layer layer in MyMap.Layers)
                 if (layer is BingLayer)
                     layer.IsVisible = false;
 
-            map.Layers[layerNameTag].IsVisible = true;
+			MyMap.Layers[layerNameTag].IsVisible = true;
         }
 
         private void BingKeyTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -67,10 +67,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                             IsVisible = false
                         };
 
-                        map.Layers.Add(bingLayer);
+						MyMap.Layers.Add(bingLayer);
                     }
 
-                    map.Layers[0].IsVisible = true;
+					MyMap.Layers[0].IsVisible = true;
 
                     BingKeyGrid.Visibility = Visibility.Collapsed;
                     InvalidBingKeyTextBlock.Visibility = Visibility.Collapsed;

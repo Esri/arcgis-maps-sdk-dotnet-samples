@@ -26,8 +26,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-13879981, 3490335, -7778090, 6248898));
-
             _areaLayer = MyMapView.Map.Layers["AreaLayer"] as GraphicsLayer;
         }
 

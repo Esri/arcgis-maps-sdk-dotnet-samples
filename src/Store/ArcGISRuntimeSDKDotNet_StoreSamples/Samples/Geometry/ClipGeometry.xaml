@@ -1,12 +1,14 @@
-﻿<Page x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ClipGeometry"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:common="using:ArcGISRuntimeSDKDotNet_StoreSamples.Common"
-      xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-      xmlns:layers="using:Esri.ArcGISRuntime.Layers"
-      xmlns:symb="using:Esri.ArcGISRuntime.Symbology"
-      xmlns:data="using:Esri.ArcGISRuntime.Data">
-    <Grid x:Name="layoutGrid">
+﻿<Page 
+	x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ClipGeometry"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:common="using:ArcGISRuntimeSDKDotNet_StoreSamples.Common"
+    xmlns:esri="using:Esri.ArcGISRuntime.Controls"
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+    xmlns:symb="using:Esri.ArcGISRuntime.Symbology"
+    xmlns:data="using:Esri.ArcGISRuntime.Data">
+  
+	<Grid x:Name="layoutGrid">
         <Grid.Resources>
             <common:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 

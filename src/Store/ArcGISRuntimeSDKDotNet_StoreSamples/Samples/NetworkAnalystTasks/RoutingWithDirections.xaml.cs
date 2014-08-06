@@ -30,9 +30,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public RoutingWithDirections()
         {
             InitializeComponent();
-
-            MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-7917189, 5211428, -7902815, 5218750, SpatialReferences.WebMercator));
-
+      
             _directionPointSymbol = LayoutRoot.Resources["directionPointSymbol"] as Symbol;
             _stopsLayer = MyMapView.Map.Layers["StopsLayer"] as GraphicsLayer;
             _routesLayer = MyMapView.Map.Layers["RoutesLayer"] as GraphicsLayer;

@@ -61,15 +61,15 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private void AddLayers()
         {
-            map1.Layers.Add(_userInteractionLayer);
-            map1.Layers.Add(_animatingLayer);
+            MyMapView.Map.Layers.Add(_userInteractionLayer);
+			MyMapView.Map.Layers.Add(_animatingLayer);
         }
 
         private async Task WaitforMapClick()
         {
-            MapPoint m = await MyMapView.Editor.RequestPointAsync();
+            MapPoint point = await MyMapView.Editor.RequestPointAsync();
 
-            _userInteractionLayer.Graphics.Add(new Graphic(m));
+            _userInteractionLayer.Graphics.Add(new Graphic(point));
 
             if (_userInteractionLayer.Graphics.Count == 2)
             {

@@ -33,7 +33,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             _fillSymbol = LayoutRoot.Resources["FillSymbol"] as Symbol;
             _resultGraphics = MyMapView.Map.Layers["ResultGraphics"] as GraphicsLayer;
                 
-            var task = CreateFeatureLayersAsync();
+            var _ = CreateFeatureLayersAsync();
         }
 
         // Creates a feature layer from a local .geodatabase file

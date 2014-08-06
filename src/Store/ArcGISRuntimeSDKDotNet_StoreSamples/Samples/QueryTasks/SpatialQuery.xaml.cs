@@ -23,7 +23,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-            MyMapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(new Envelope(-9270434, 5246977, -9269261, 5247570));
             InitializePMS();
         }
 

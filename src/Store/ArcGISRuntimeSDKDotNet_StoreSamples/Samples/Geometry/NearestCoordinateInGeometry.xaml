@@ -7,13 +7,19 @@
     xmlns:layers="using:Esri.ArcGISRuntime.Layers"
     xmlns:symb="using:Esri.ArcGISRuntime.Symbology"
     xmlns:data="using:Esri.ArcGISRuntime.Data">
+	
     <Grid x:Name="LayoutRoot" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
             <common:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         </Grid.Resources>
 
         <esri:MapView x:Name="MyMapView" WrapAround="True">
-            <esri:Map>
+			<esri:Map>
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-83.3188395774275" YMin="42.61428312652851" XMax="-83.31295664068958" YMax="42.61670913269855" 
+										  SpatialReferenceID="4326" />
+				</esri:Map.InitialViewpoint>
+
 				<layers:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
 

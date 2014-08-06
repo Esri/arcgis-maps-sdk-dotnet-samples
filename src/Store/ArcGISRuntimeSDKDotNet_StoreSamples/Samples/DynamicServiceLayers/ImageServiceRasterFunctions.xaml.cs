@@ -1,6 +1,4 @@
 ﻿using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.Controls;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Windows.UI.Xaml.Controls;
 
@@ -16,7 +14,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public ImageServiceRasterFunctions()
         {
             this.InitializeComponent();
-            MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(1445440, 540657, 1452348, 544407, new SpatialReference(2264)));
         }
 
         private void RasterFunctionsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

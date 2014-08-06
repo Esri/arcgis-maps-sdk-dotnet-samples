@@ -8,6 +8,9 @@
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <esri:MapView x:Name="MyMapView" LayerLoaded="MyMapView_LayerLoaded">
             <esri:Map >
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="1445440" YMin="540657" XMax="1452348" YMax="544407" SpatialReferenceID="2264" />
+				</esri:Map.InitialViewpoint>
 				<layers:ArcGISImageServiceLayer ID="ImageLayer"
                     ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/CharlotteLAS/ImageServer" />
             </esri:Map>

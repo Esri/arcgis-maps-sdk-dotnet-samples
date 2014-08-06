@@ -23,9 +23,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-            _wellsLayer = MyMapView.Map.Layers["WellsLayer"] as GraphicsLayer;
-                
-            MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-10854000, 4502000, -10829000, 4524000, SpatialReferences.WebMercator));
+            _wellsLayer = MyMapView.Map.Layers["WellsLayer"] as GraphicsLayer;                
         }
 
         // Select a set of wells near the click point

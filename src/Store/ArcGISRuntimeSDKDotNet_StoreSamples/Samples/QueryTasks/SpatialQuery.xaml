@@ -4,6 +4,7 @@
       xmlns:esri="using:Esri.ArcGISRuntime.Controls"
       xmlns:layers="using:Esri.ArcGISRuntime.Layers" 
       xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
+	
     <Grid x:Name="LayoutRoot" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
 			<symb:PictureMarkerSymbol x:Key="DefaultMarkerSymbol"/>
@@ -24,6 +25,9 @@
         
         <esri:MapView x:Name="MyMapView" MapViewTapped="MyMapView_Tapped">
             <esri:Map>
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-9270434" YMin="5246977" XMax="-9269261" YMax="5247570" SpatialReferenceID="102100" />
+				</esri:Map.InitialViewpoint>
 				<layers:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 				<layers:GraphicsLayer ID="ResultsGraphicsLayer" Renderer="{StaticResource ParcelRenderer}"/>

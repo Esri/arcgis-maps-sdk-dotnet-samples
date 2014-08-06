@@ -17,6 +17,9 @@
 
         <esri:MapView x:Name="MyMapView">
             <esri:Map >
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-130" YMin="10" XMax="-70" YMax="60" SpatialReferenceID="4326" />
+				</esri:Map.InitialViewpoint>
 				<layers:ArcGISTiledMapServiceLayer ID="TopoMapLayer"
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer" />
 				<layers:GraphicsLayer ID="ResultLayer" Renderer="{StaticResource ResultRenderer}" />

@@ -5,8 +5,7 @@
 	xmlns:esri="using:Esri.ArcGISRuntime.Controls"  
     xmlns:layers="using:Esri.ArcGISRuntime.Layers"
     xmlns:data="using:Esri.ArcGISRuntime.Data"
-    xmlns:symb="using:Esri.ArcGISRuntime.Symbology"
-    xmlns:common="using:ArcGISRuntimeSDKDotNet_StoreSamples.Common">
+    xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
@@ -33,6 +32,10 @@
 
         <esri:MapView x:Name="MyMapView" WrapAround="True" >
             <esri:Map>
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-14675766" YMin="2695408" XMax="-6733122" YMax="6583994" />
+				</esri:Map.InitialViewpoint>
+	
 				<layers:ArcGISTiledMapServiceLayer DisplayName="Basemap"
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
-
+using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
@@ -17,7 +17,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
     /// </summary>
     /// <title>Nearest Coordinate in Geometry</title>
 	/// <category>Geometry</category>
-	public partial class NearestCoordinateInGeometry : Windows.UI.Xaml.Controls.Page
+	public partial class NearestCoordinateInGeometry : Page
     {
         private SimpleMarkerSymbol _vertexSymbol;
         private SimpleMarkerSymbol _userPointSymbol;
@@ -36,9 +36,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             _graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
             _targetLayer = MyMapView.Map.Layers["TargetLayer"] as GraphicsLayer;
             _coordinateLayer = MyMapView.Map.Layers["CoordinateLayer"] as GraphicsLayer;
-
-			MyMapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(new Envelope(-83.3188395774275, 42.61428312652851, -83.31295664068958, 42.61670913269855, SpatialReferences.Wgs84));
-			MyMapView.Map.SpatialReference = SpatialReferences.WebMercator;
 
             MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }

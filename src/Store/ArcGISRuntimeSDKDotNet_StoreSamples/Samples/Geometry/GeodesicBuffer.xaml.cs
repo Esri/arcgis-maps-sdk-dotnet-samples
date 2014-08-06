@@ -25,7 +25,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             InitializeComponent();
 
             _graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
-            var task = SetupSymbols();
+            var _ = SetupSymbolsAsync();
         }
 
         private void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
@@ -51,7 +51,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
         }
 
-        private async Task SetupSymbols()
+        private async Task SetupSymbolsAsync()
         {
             _pinSymbol = new PictureMarkerSymbol() { Width = 24, Height = 24, YOffset = 12 };
             await _pinSymbol.SetSourceAsync(new Uri("ms-appx:///Assets/RedStickPin.png"));

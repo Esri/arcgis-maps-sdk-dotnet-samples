@@ -1,5 +1,4 @@
 ﻿using Esri.ArcGISRuntime.Controls;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using System;
 using System.Collections.ObjectModel;
@@ -23,17 +22,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-			// Create initial extend and set it
-			var envelopeBuilder = new EnvelopeBuilder(SpatialReference.Create(102009));
-			envelopeBuilder.XMin = -3548912;
-			envelopeBuilder.YMin = 1847469;
-			envelopeBuilder.XMax = 2472012;
-			envelopeBuilder.YMax = 1742990;
-
-			MyMapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(envelopeBuilder.ToGeometry());
-
             MyMapView.LayerLoaded += MyMapView_LayerLoaded;
-
             _usaLayer = MyMapView.Map.Layers["USA"] as ArcGISDynamicMapServiceLayer;
         }
 

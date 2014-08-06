@@ -1,10 +1,6 @@
-﻿using Esri.ArcGISRuntime.Controls;
-using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Layers;
-using System;
+﻿using Esri.ArcGISRuntime.Layers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Data;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
@@ -18,9 +14,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public LayerList()
         {
             this.InitializeComponent();
-
-			MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-13279586, 4010136, -12786147, 4280850, SpatialReferences.WebMercator));
-        }
+       }
 
         private void RemoveLayerButton_Click(object sender, RoutedEventArgs e)
         {

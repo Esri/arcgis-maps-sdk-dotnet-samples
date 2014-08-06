@@ -26,8 +26,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public FindTaskSample()
         {
             InitializeComponent();
-            
-            MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-15000000, 2000000, -7000000, 8000000));
 
             _markerSymbol = LayoutRoot.Resources["MarkerSymbol"] as Symbol;
             _lineSymbol = LayoutRoot.Resources["LineSymbol"] as Symbol;

@@ -2,11 +2,11 @@
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
-using System.Linq;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {

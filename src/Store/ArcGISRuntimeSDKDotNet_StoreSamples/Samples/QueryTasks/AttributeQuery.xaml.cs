@@ -3,7 +3,6 @@ using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -24,8 +23,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             this.InitializeComponent();
 
             _graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
-                
-            MyMapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(new Envelope(-15000000, 2000000, -7000000, 8000000));
 
             InitializeComboBox();
         }

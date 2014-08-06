@@ -1,5 +1,4 @@
-﻿using Esri.ArcGISRuntime.Controls;
-using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Geocoding;
@@ -29,21 +28,15 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public GeocodeAddress()
         {
             InitializeComponent();
-
-            var ext = new Envelope(-122.554, 37.615, -122.245, 37.884, SpatialReferences.Wgs84);
-			MyMapView.Map.InitialViewpoint = new Viewpoint(ext);
-			MyMapView.Map.SpatialReference = SpatialReferences.WebMercator;
-
             _addressGraphicsLayer = MyMapView.Map.Layers["AddressGraphicsLayer"] as GraphicsLayer;
-
             _locatorTask = new OnlineLocatorTask(new Uri(OnlineLocatorUrl));
             _locatorTask.AutoNormalize = true;
 
-            var task = SetSimpleRendererSymbols();
+            var _ = SetSimpleRendererSymbolsAsync();
         }
 
         // Setup the pin graphic and graphics layer renderer
-        private async Task SetSimpleRendererSymbols()
+        private async Task SetSimpleRendererSymbolsAsync()
         {
             var markerSymbol = new PictureMarkerSymbol() { Width = 48, Height = 48, YOffset = 24 };
             await markerSymbol.SetSourceAsync(new Uri("ms-appx:///Assets/RedStickpin.png"));

@@ -27,9 +27,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public FindPlace()
         {
             InitializeComponent();
-
-            var ext = new Envelope(-117.207, 32.686, -117.079, 32.739, SpatialReferences.Wgs84);
-			MyMapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(ext);
 			
             _addressGraphicsLayer = MyMapView.Map.Layers["AddressGraphicsLayer"] as GraphicsLayer;
 
@@ -38,11 +35,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
             listResults.ItemsSource = _addressGraphicsLayer.Graphics;
 
-            var task = SetSimpleRendererSymbols();
+            var _ = SetSimpleRendererSymbolsAsync();
         }
 
         // Setup the pin graphic and graphics layer renderer
-        private async Task SetSimpleRendererSymbols()
+        private async Task SetSimpleRendererSymbolsAsync()
         {
             var markerSymbol = new PictureMarkerSymbol() { Width = 48, Height = 48, YOffset = 24 };
             await markerSymbol.SetSourceAsync(new Uri("ms-appx:///Assets/RedStickpin.png"));

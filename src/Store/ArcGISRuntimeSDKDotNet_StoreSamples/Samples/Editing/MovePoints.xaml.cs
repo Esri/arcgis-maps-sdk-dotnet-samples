@@ -31,7 +31,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             for (int i = 0; i < 20; i++)
 			{
 				graphicsLayer.Graphics.Add(
-					new Graphic( new MapPoint(r.NextDouble()*360, r.NextDouble()*180, SpatialReferences.Wgs84)));
+					new Graphic(new MapPoint(r.NextDouble()*360, r.NextDouble()*180, SpatialReferences.Wgs84)));
 			}
 		}
 

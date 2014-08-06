@@ -1,5 +1,4 @@
-﻿using Esri.ArcGISRuntime.Controls;
-using Esri.ArcGISRuntime.Data;
+﻿using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Http;
 using Esri.ArcGISRuntime.Layers;
@@ -30,7 +29,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public GenerateGeodatabase()
         {
             InitializeComponent();
-            MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-13644594, 4538221, -13614635, 4552886, SpatialReferences.WebMercator));
         }
 
         // Generate / download and display layers from a generated geodatabase

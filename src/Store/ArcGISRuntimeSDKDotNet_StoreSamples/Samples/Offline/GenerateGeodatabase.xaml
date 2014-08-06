@@ -2,10 +2,8 @@
     x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GenerateGeodatabase"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:common="using:ArcGISRuntimeSDKDotNet_StoreSamples.Common"
     xmlns:esri="using:Esri.ArcGISRuntime.Controls"
     xmlns:layers="using:Esri.ArcGISRuntime.Layers"
-    xmlns:geo="using:Esri.ArcGISRuntime.Geometry"
     xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
 
     <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -35,6 +33,10 @@
 
         <esri:MapView x:Name="MyMapView">
             <esri:Map>
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-13644594" YMin="4538221" XMax="-13614635" YMax="4552886" SpatialReferenceID="102100" />
+				</esri:Map.InitialViewpoint>
+
 				<layers:ArcGISTiledMapServiceLayer DisplayName="Streets Basemap"
                     ServiceUri="http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 

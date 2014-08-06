@@ -22,6 +22,10 @@
 
         <esri:MapView x:Name="MyMapView" MapViewTapped="MyMapView_MapViewTapped" MapViewDoubleTapped="MyMapView_MapViewDoubleTapped">
             <esri:Map>
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-13044000" YMin="3855000" XMax="-13040000" YMax="3858000" SpatialReferenceID="102100" />
+				</esri:Map.InitialViewpoint>
+				
 				<layers:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 				<layers:GraphicsLayer ID="StopsLayer" Renderer="{StaticResource stopsRenderer}" />

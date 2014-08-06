@@ -32,12 +32,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            MyMapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(new Envelope(-122.5009, 37.741, -122.3721, 37.8089));
-
             _inputLayer = MyMapView.Map.Layers["InputLayer"] as GraphicsLayer;
             _resultLayer = MyMapView.Map.Layers["ResultLayer"] as GraphicsLayer;
                 
-
             _bufferSymbols = new List<Symbol>()
             {
                 LayoutRoot.Resources["FillSymbol1"] as Symbol, 

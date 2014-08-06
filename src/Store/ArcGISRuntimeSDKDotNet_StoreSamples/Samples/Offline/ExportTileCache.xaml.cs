@@ -44,7 +44,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
             var extentWGS84 = new Envelope(-123.77, 36.80, -119.77, 38.42, SpatialReferences.Wgs84);
 			MyMapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(extentWGS84);
-			MyMapView.Map.SpatialReference = SpatialReferences.Wgs84;
+			MyMapView.Map.SpatialReference = SpatialReferences.WebMercator;
 
             MyMapView.Loaded += MyMapView_Loaded;
         }

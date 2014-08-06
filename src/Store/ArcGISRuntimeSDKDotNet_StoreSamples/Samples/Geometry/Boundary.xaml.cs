@@ -20,11 +20,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            var task = CreateGraphics();
+            var _ = CreateGraphicsAsync();
         }
 
         // Setup graphic layers with test graphics and calculated boundaries of each
-        private async Task CreateGraphics()
+        private async Task CreateGraphicsAsync()
         {
             await MyMapView.LayersLoadedAsync();
 

@@ -31,9 +31,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public ExtractData()
         {
             InitializeComponent();
-
-            MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-8985039.34626515, 4495835.02641862, -8114288.50438322, 4889486.96951941));
-
+       
             _graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
             _gpTask = new Geoprocessor(new Uri(ExtractDataServiceUrl));
 

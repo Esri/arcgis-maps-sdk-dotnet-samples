@@ -13,8 +13,12 @@
         </Grid.Resources>
         
         <esri:MapView x:Name="MyMapView" WrapAround="True" Grid.Row="0">
-            <esri:Map>
-                <!-- Replace with local basemap for offline use (ArcGISLocalTiledLayer) -->
+			<esri:Map>
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-13044000" YMin="3855000" XMax="-13040000" YMax="3858000" SpatialReferenceID="102100" />
+				</esri:Map.InitialViewpoint>
+
+				<!-- Replace with local basemap for offline use (ArcGISLocalTiledLayer) -->
 				<layers:ArcGISTiledMapServiceLayer 
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 				<layers:GraphicsLayer ID="GraphicsLayer" />

@@ -135,8 +135,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-			MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-13446093, 4183762, -13432119, 4190880, SpatialReferences.WebMercator));
-
             _syncTask = new GeodatabaseSyncTask(new Uri(BASE_URL));
             
             _onlineBirdsLayer = MyMapView.Map.Layers.OfType<ArcGISDynamicMapServiceLayer>().First();

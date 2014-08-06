@@ -8,6 +8,10 @@
     <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <esri:MapView x:Name="MyMapView" WrapAround="True" Grid.Row="0">
             <esri:Map>
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-117.207" YMin="32.686" XMax="-117.079" YMax="32.739" SpatialReferenceID="4326"/>
+				</esri:Map.InitialViewpoint>
+
 				<layers:ArcGISTiledMapServiceLayer 
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 				<layers:GraphicsLayer ID="AddressGraphicsLayer" />

@@ -5,6 +5,7 @@
     xmlns:esri="using:Esri.ArcGISRuntime.Controls"
     xmlns:layers="using:Esri.ArcGISRuntime.Layers"
     xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
+	
     <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
 			<symb:SimpleLineSymbol x:Key="routeSymbol" Color="Blue" Width="2" Style="Dot" />
@@ -17,6 +18,10 @@
         
         <esri:MapView x:Name="MyMapView" MapViewTapped="MyMapView_MapViewTapped" MapViewDoubleTapped="MyMapView_MapViewDoubleTapped">
             <esri:Map>
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-7917189" YMin="5211428" XMax="-7902815" YMax="5218750" SpatialReferenceID="102100" />
+				</esri:Map.InitialViewpoint>
+
 				<layers:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 

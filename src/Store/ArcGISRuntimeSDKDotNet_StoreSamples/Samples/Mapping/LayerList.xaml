@@ -14,6 +14,10 @@
 
         <esri:MapView x:Name="MyMapView" Grid.Column="1">
             <esri:Map>
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-13279586" YMin="4010136" XMax="-12786147" YMax="4280850" SpatialReferenceID="102100" />
+				</esri:Map.InitialViewpoint>
+
 				<layers:ArcGISTiledMapServiceLayer DisplayName="Basemap"
 				    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" />
 

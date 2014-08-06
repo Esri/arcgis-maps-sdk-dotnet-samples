@@ -33,11 +33,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             _pointSymbol = (Symbol)layoutGrid.Resources["PointSymbol"];
             _polygonSymbol = (Symbol)layoutGrid.Resources["ConvexHullSymbol"];
 
-            DrawPoints();
+            var _ = DrawPointsAsync();
         }
 
         // Continuosly accepts new points from the user
-        private async void DrawPoints()
+        private async Task DrawPointsAsync()
         {
             try
             {

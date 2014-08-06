@@ -1,6 +1,4 @@
-﻿using Esri.ArcGISRuntime;
-using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Layers;
+﻿using Esri.ArcGISRuntime.Layers;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
 
@@ -16,10 +14,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public OverviewMap()
         {
             this.InitializeComponent();
-
-			MyMapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(new Envelope(-5, 20, 50, 65, SpatialReferences.Wgs84));
-			MyMapView.Map.SpatialReference = SpatialReferences.WebMercator;
-        }
+       }
 
         private async void MyMapView_ExtentChanged(object sender, System.EventArgs e)
         {

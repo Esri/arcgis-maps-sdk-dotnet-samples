@@ -28,8 +28,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            MyMapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(new Envelope(-12000000, 3000000, -7000000, 7000000, SpatialReferences.WebMercator));
-            MyMapView.Loaded += MyMapView_Loaded;
+             MyMapView.Loaded += MyMapView_Loaded;
 
             _originalGraphicsLayer = MyMapView.Map.Layers["OriginalLineGraphicsLayer"] as GraphicsLayer;
             _generalizedGraphicsLayer = MyMapView.Map.Layers["GeneralizedLineGraphicsLayer"] as GraphicsLayer;

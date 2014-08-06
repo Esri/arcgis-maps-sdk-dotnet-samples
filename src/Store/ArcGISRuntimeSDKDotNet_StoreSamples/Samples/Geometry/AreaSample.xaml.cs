@@ -24,18 +24,17 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            MyMapView.Loaded += MyMapView_Loaded;
-            MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-130, 20, -65, 55, SpatialReferences.Wgs84)); 
-            MyMapView.Map.SpatialReference = SpatialReferences.WebMercator;
             graphicsLayer = MyMapView.Map.Layers["MyGraphicsLayer"] as GraphicsLayer;
+			MyMapView.ExtentChanged += MyMapView_ExtentChanged; 
         }
 
-        async void MyMapView_Loaded(object sender, RoutedEventArgs e)
-        {
-            await doCalculateAreaAndLength();
-        }
+		private async void MyMapView_ExtentChanged(object sender, System.EventArgs e)
+		{
+			MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
+			await DoCalculateAreaAndLengthAsync();
+		}
 
-        private async Task doCalculateAreaAndLength()
+        private async Task DoCalculateAreaAndLengthAsync()
         {
             try
             {
@@ -82,13 +81,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             MyMapView.Editor.Cancel.Execute(null);
             ResetUI();
-            await doCalculateAreaAndLength();
+			await DoCalculateAreaAndLengthAsync();
         }
 
         private async void RestartButton_Click(object sender, RoutedEventArgs e)
         {
             ResetUI();
-            await doCalculateAreaAndLength();
+			await DoCalculateAreaAndLengthAsync();
         }
     }
 }

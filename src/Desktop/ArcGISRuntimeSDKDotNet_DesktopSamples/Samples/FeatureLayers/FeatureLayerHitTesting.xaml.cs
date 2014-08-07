@@ -20,6 +20,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public event PropertyChangedEventHandler PropertyChanged;
 
         private Feature _resultFeature;
+
         /// <summary>HitTest result feature</summary>
         public Feature ResultFeature 
         {

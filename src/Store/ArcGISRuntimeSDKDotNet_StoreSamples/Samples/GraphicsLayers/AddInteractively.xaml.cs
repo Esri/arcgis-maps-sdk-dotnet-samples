@@ -98,7 +98,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Error drawing graphic: " + ex.Message, "Add Graphic Interactively").ShowAsync();
+                var _x = new MessageDialog("Error drawing graphic: " + ex.Message, "Add Graphic Interactively").ShowAsync();
             }
         }
 

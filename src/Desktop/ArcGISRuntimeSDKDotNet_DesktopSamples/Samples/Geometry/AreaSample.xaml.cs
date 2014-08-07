@@ -2,6 +2,7 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
+using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,14 +23,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public AreaSample()
         {
             InitializeComponent();
-
-			MyMapView.Map.InitialViewpoint = new ViewpointExtent(
-				new Envelope(-130, 20, -65, 55, SpatialReferences.Wgs84));
-
 			MyMapView.ExtentChanged += MyMapView_ExtentChanged; 
         }
 
-		private async void MyMapView_ExtentChanged(object sender, System.EventArgs e)
+		private async void MyMapView_ExtentChanged(object sender, EventArgs e)
 		{
 			MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
 			await DoCalculateAreaAndLengthAsync();
@@ -45,7 +42,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 // show geometry on map
 				AreaOverlay.Graphics.Clear();
 
-                var graphic = new Graphic { Geometry = geom, Symbol = LayoutRoot.Resources["DefaultFillSymbol"] as Symbol };
+                var graphic = new Graphic 
+				{ 
+					Geometry = geom, 
+					Symbol = LayoutRoot.Resources["DefaultFillSymbol"] as Symbol 
+				};
 				AreaOverlay.Graphics.Add(graphic);
 
                 // Calculate results

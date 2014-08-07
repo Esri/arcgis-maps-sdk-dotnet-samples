@@ -170,7 +170,7 @@
             <category>Geometry</category>
         </member>
         <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ClipGeometry.#ctor">
-            <summary>Construct Clip Geometry sample control</summary>
+            <summary>Construct Clip Geometry sample control</summary>S
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ConvexHull">
             <summary>

@@ -72,7 +72,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 			}
 			catch (Exception ex)
 			{
-				var _ = new MessageDialog(ex.Message, "S57 Display Properties Sample").ShowAsync();
+				var _x = new MessageDialog(ex.Message, "S57 Display Properties Sample").ShowAsync();
 			}
 		}
 
@@ -136,7 +136,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 			if (e.LoadError == null)
 				return;
 
-			var _ = new MessageDialog(
+			var _x = new MessageDialog(
 				string.Format("Error when loading layer. {0}", e.LoadError.ToString()), "S57 Identify Sample").ShowAsync();
 		}
 

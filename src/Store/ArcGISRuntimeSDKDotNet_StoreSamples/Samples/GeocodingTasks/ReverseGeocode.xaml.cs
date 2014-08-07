@@ -31,7 +31,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         }
 
         // Reverse geocode the clicked point and add a graphic and map tip to the map
-        private async void MyMapView_MapViewTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
+        private async void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
             try
             {
@@ -47,11 +47,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (AggregateException aex)
             {
-                var _ = new MessageDialog(aex.InnerExceptions[0].Message, "Reverse Geocode").ShowAsync();
+                var _x = new MessageDialog(aex.InnerExceptions[0].Message, "Reverse Geocode").ShowAsync();
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog(ex.Message, "Reverse Geocode").ShowAsync();
+                var _x = new MessageDialog(ex.Message, "Reverse Geocode").ShowAsync();
             }
         }
 

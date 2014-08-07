@@ -155,7 +155,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             if (ex != null)
                 message += ": " + ex.Message;
 
-            var _ = new MessageDialog(message, "Sample Error").ShowAsync();
+            var _x = new MessageDialog(message, "Sample Error").ShowAsync();
         }
 
         // Generate local geodatabase from the online service

@@ -25,7 +25,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             InitializeComponent();
 
 			_graphicsOverlay = MyMapView.GraphicsOverlays[0];
-            var _ = SetupSymbolsAsync();
+            SetupSymbols();
         }
 
         private void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
@@ -47,16 +47,24 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
             }
         }
 
-        private async Task SetupSymbolsAsync()
+		private async void SetupSymbols()
         {
-            _pinSymbol = new PictureMarkerSymbol() { Width = 24, Height = 24, YOffset = 12 };
-            await _pinSymbol.SetSourceAsync(new Uri("ms-appx:///Assets/RedStickPin.png"));
+			try
+			{
+				_pinSymbol = new PictureMarkerSymbol() { Width = 24, Height = 24, YOffset = 12 };
+				await _pinSymbol.SetSourceAsync(new Uri("ms-appx:///Assets/RedStickPin.png"));
 
-            _bufferSymbol = LayoutRoot.Resources["BufferSymbol"] as SimpleFillSymbol;
+				_bufferSymbol = LayoutRoot.Resources["BufferSymbol"] as SimpleFillSymbol;
+
+			}
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+			}
         }
     }
 }

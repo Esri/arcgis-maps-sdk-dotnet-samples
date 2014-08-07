@@ -11,11 +11,7 @@
         </Grid.Resources>
 
         <esri:MapView x:Name="MyMapView" WrapAround="True">
-            <esri:Map>
-				<esri:Map.InitialViewpoint>
-					<esri:ViewpointExtent XMin="-12000000" YMin="3000000" XMax="-7000000" YMax="7000000" SpatialReferenceID="3857" />
-                </esri:Map.InitialViewpoint>
-
+			<esri:Map InitialViewpoint="-12000000,3000000,-7000000,7000000,3857">
 				<esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" />
 			</esri:Map>

@@ -28,11 +28,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			_labelGraphics = MyMapView.GraphicsOverlays[0];
 
             MyMapView.ExtentChanged += MyMapView_ExtentChanged;
-            var task = SetupSymbolsAsync();
+			SetupSymbols();
         }
 
         // Load the picture symbol image
-        private async Task SetupSymbolsAsync()
+        private async void SetupSymbols()
         {
             try
             {
@@ -41,7 +41,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
+				var _x = new MessageDialog("Error occured : " + ex.Message, "Boundary Sample").ShowAsync();
             }
         }
 
@@ -80,12 +80,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     }
                 }
             }
-            catch (TaskCanceledException)
-            {
-            }
+            catch (TaskCanceledException) { }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Label Point Error: " + ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog("Label Point Error: " + ex.Message, "Sample Error").ShowAsync();
             }
         }
 

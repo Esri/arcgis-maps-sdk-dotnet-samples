@@ -54,7 +54,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             catch (Exception ex)
             {
                 listHitFeature.ItemsSource = null;
-                var _ = new MessageDialog("HitTest Error: " + ex.Message, "Feature Layer Hit Testing Sample").ShowAsync();
+                var _x = new MessageDialog("HitTest Error: " + ex.Message, "Feature Layer Hit Testing Sample").ShowAsync();
             }
         }
     }

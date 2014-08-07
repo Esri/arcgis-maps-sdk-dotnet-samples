@@ -19,11 +19,10 @@
 							<symb:SimpleMarkerSymbol Color="LightBlue" Style="Circle" Size="12">
 								<symb:SimpleMarkerSymbol.Outline>
 									<symb:SimpleLineSymbol Color="Blue" Width="2" Style="Solid" />
-                                </symb:SimpleMarkerSymbol.Outline>
-                            </symb:SimpleMarkerSymbol>
-                        </symb:SimpleRenderer>
-                    </layers:FeatureLayer.Renderer>
-
+								</symb:SimpleMarkerSymbol.Outline>
+							</symb:SimpleMarkerSymbol>
+						</symb:SimpleRenderer>
+					</layers:FeatureLayer.Renderer>
 					<layers:FeatureLayer.FeatureTable>
                         <data:GeodatabaseFeatureServiceTable 
                             ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Earthquakes/EarthquakesFromLastSevenDays/FeatureServer/0"

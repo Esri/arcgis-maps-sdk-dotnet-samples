@@ -17,6 +17,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
     /// <category>Editing</category>
 	public sealed partial class MovePoints : Page
     {
+		private Graphic graphicBeingEdited;
+
 		public MovePoints()
         {
             this.InitializeComponent();
@@ -34,8 +36,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 					new Graphic(new MapPoint(r.NextDouble()*360, r.NextDouble()*180, SpatialReferences.Wgs84)));
 			}
 		}
-
-		private Graphic graphicBeingEdited;
 
         private async void MyMapView_MapViewTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
         {

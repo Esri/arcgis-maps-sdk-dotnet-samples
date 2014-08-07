@@ -29,12 +29,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             InitializeComponent();
 
             _fillSymbol = layoutGrid.Resources["FillSymbol"] as Symbol;
-
-            var _ = CreateFeatureLayersAsync();
+            CreateFeatureLayers();
         }
 
         // Creates a feature layer from a local .geodatabase file
-        private async Task CreateFeatureLayersAsync()
+		private async void CreateFeatureLayers()
         {
             try
             {

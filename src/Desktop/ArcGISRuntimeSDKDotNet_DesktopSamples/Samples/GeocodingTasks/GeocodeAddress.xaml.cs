@@ -31,25 +31,28 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			MyMapView.Map.InitialViewpoint = new ViewpointExtent(
-				new Envelope(-122.554, 37.615, -122.245, 37.884, SpatialReferences.Wgs84));
-
-			_addressOverlay = AddressOverlay;
-
+			_addressOverlay = MyMapView.GraphicsOverlays[0];
             _locatorTask = new OnlineLocatorTask(new Uri(OnlineLocatorUrl));
             _locatorTask.AutoNormalize = true;
 
-            var task = SetSimpleRendererSymbols();
+            SetSimpleRendererSymbols();
         }
 
-        // Setup the pin graphic and GraphicsOverlay renderer
-        private async Task SetSimpleRendererSymbols()
+		// Setup the pin graphic and graphics overlay renderer
+        private async void SetSimpleRendererSymbols()
         {
-            var markerSymbol = new PictureMarkerSymbol() { Width = 48, Height = 48, YOffset = 24 };
-            await markerSymbol.SetSourceAsync(new Uri("pack://application:,,,/ArcGISRuntimeSDKDotNet_DesktopSamples;component/Assets/RedStickpin.png"));
-            var renderer = new SimpleRenderer() { Symbol = markerSymbol };
+			try
+			{
+				var markerSymbol = new PictureMarkerSymbol() { Width = 48, Height = 48, YOffset = 24 };
+				await markerSymbol.SetSourceAsync(new Uri("pack://application:,,,/ArcGISRuntimeSDKDotNet_DesktopSamples;component/Assets/RedStickpin.png"));
+				var renderer = new SimpleRenderer() { Symbol = markerSymbol };
 
-			_addressOverlay.Renderer = renderer;
+				_addressOverlay.Renderer = renderer;
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Error occured : " + ex.Message, "Find Place Sample");
+			}
         }
 
         private async void GeocodeButton_Click(object sender, RoutedEventArgs e)

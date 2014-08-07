@@ -5,12 +5,21 @@
     <Grid>
 		<esri:MapView x:Name="MyMapView" WrapAround="True" 
 					  MapViewTapped="MyMapView_MapViewTapped">
-            <esri:Map>
+			<esri:Map InitialViewpoint="-14675766.3566695,2695407.73380258,-6733121.86117095,6583994.1013904">
                 <esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 
                 <esri:FeatureLayer x:Name="cities" ID="featureLayer">
-                    <esri:FeatureLayer.FeatureTable>
+					<esri:FeatureLayer.Renderer>
+						<esri:SimpleRenderer>
+							<esri:SimpleMarkerSymbol Color="LightBlue" Style="Circle" Size="12">
+								<esri:SimpleMarkerSymbol.Outline>
+									<esri:SimpleLineSymbol Color="Blue" Width="2" Style="Solid" />
+								</esri:SimpleMarkerSymbol.Outline>
+							</esri:SimpleMarkerSymbol>
+						</esri:SimpleRenderer>
+					</esri:FeatureLayer.Renderer>
+					<esri:FeatureLayer.FeatureTable>
                         <esri:GeodatabaseFeatureServiceTable
                             ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0"
                             Where="pop2000 > 200000" OutFields="*" />

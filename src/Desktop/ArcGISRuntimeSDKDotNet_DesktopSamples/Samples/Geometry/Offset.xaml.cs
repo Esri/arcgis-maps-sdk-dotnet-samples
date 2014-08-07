@@ -26,7 +26,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-9275076, 5253226, -9274274, 5253886, SpatialReferences.WebMercator));
             parcelGraphicsLayer = MyMapView.Map.Layers["ParcelsGraphicsLayer"] as GraphicsLayer;
             offsetGraphicsLayer = MyMapView.Map.Layers["OffsetGraphicsLayer"] as GraphicsLayer;
 
@@ -55,24 +54,26 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             OffsetTypeComboBox.SelectedIndex = 0;
         }
 
-        private async Task SelectParcelForOffset()
+        private async Task SelectParcelForOffsetAsync()
         {
-            try
-            {
-                ResetButton.IsEnabled = false;
-                offsetGraphicsLayer.Graphics.Clear();
+			try
+			{
+				ResetButton.IsEnabled = false;
+				offsetGraphicsLayer.Graphics.Clear();
 
-                var pointGeom = await MyMapView.Editor.RequestPointAsync();
-                var screenPnt = MyMapView.LocationToScreen(pointGeom);
+				var pointGeom = await MyMapView.Editor.RequestPointAsync();
+				var screenPnt = MyMapView.LocationToScreen(pointGeom);
 
-                selectedParcelGraphic = await
-                    parcelGraphicsLayer.HitTestAsync(MyMapView, screenPnt);
+				selectedParcelGraphic = await
+					parcelGraphicsLayer.HitTestAsync(MyMapView, screenPnt);
 
-                DoOffset();
-            }
-            catch (Exception)
-            {
-            }
+				DoOffset();
+			}
+			catch (TaskCanceledException) { }
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message, "Sample Error");
+			}
             finally
             {
                 ResetButton.IsEnabled = true;
@@ -104,7 +105,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private async void ResetButton_Click(object sender, RoutedEventArgs e)
         {
-            await SelectParcelForOffset();
+            await SelectParcelForOffsetAsync();
         }
 
         private async void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
@@ -123,7 +124,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
                         //Create a geometry to use as the extent within which parcels will be returned
                         var contractRatio = MyMapView.Extent.Width / 6;
-                        var extentGeometry = new Envelope(-83.3188395774275, 42.61428312652851, -83.31295664068958, 42.61670913269855, SpatialReferences.Wgs84);
+
+                        var extentGeometry = new Envelope(
+							-83.3188395774275, 
+							42.61428312652851, 
+							-83.31295664068958, 
+							42.61670913269855, 
+							SpatialReferences.Wgs84);
 
                         Query query = new Query(extentGeometry);
                         query.ReturnGeometry = true;
@@ -146,8 +153,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                         LoadingParcelsContainer.Visibility = Visibility.Collapsed;
                     }
                 }
-
-                await SelectParcelForOffset();
+                await SelectParcelForOffsetAsync();
             }
         }
     }

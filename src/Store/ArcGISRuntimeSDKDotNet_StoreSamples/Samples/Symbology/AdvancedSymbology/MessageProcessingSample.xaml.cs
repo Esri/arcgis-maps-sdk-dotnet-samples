@@ -47,7 +47,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 			}
 			catch (Exception ex)
 			{
-				var _ = new MessageDialog(ex.Message, "Message Processing Sample").ShowAsync();
+				var _x = new MessageDialog(ex.Message, "Message Processing Sample").ShowAsync();
 			}
 		}
 
@@ -90,7 +90,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 
 					if (messageProcessingSuccesful == false)
 					{
-						var _ = new MessageDialog("Could not process the message.", "Message Processing Sample").ShowAsync();
+						var _x = new MessageDialog("Could not process the message.", "Message Processing Sample").ShowAsync();
 					}
 				}
 
@@ -116,7 +116,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 			}
 			catch (Exception ex)
 			{
-				var _ = new MessageDialog(ex.Message, "Message Processing Sample").ShowAsync();
+				var _x = new MessageDialog(ex.Message, "Message Processing Sample").ShowAsync();
 			}
 		}
 	}

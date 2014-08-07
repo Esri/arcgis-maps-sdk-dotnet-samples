@@ -82,12 +82,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 resultsListView.ItemsSource = results;
                 resultsPanel.Visibility = Visibility.Visible;
             }
-            catch (TaskCanceledException)
-            {
-            }
+            catch (TaskCanceledException) { }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Densify Error: " + ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog("Densify Error: " + ex.Message, "Sample Error").ShowAsync();
             }
         }
     }

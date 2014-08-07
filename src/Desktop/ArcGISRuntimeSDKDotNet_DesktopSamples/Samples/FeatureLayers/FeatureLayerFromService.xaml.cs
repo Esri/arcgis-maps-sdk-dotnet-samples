@@ -20,10 +20,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             InitializeComponent();
 
             // Note: code to create feature layer from a feature service
-            //var task = CreateFeatureLayer();
+            //CreateFeatureLayer();
         }
 
-        private async Task CreateFeatureLayer()
+        private async void CreateFeatureLayer()
         {
             try
             {

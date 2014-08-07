@@ -23,15 +23,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public ReverseGeocode()
         {
             InitializeComponent();
-
-			MyMapView.Map.InitialViewpoint = new ViewpointExtent(
-				new Envelope(-117.387, 33.97, -117.355, 33.988, SpatialReferences.Wgs84));
-
             _locator = new OnlineLocatorTask(new Uri("http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"));
         }
 
         // Reverse geocode the clicked point and add a graphic and map tip to the map
-        private async void MyMapView_MapViewTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
+        private async void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
             try
             {

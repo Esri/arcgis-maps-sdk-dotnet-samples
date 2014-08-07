@@ -65,7 +65,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Error generating renderer: " + ex.Message).ShowAsync();
+                var _x = new MessageDialog("Error generating renderer: " + ex.Message).ShowAsync();
             }
             finally
             {
@@ -103,7 +103,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Error generating renderer: " + ex.Message).ShowAsync();
+                var _x = new MessageDialog("Error generating renderer: " + ex.Message).ShowAsync();
             }
             finally
             {

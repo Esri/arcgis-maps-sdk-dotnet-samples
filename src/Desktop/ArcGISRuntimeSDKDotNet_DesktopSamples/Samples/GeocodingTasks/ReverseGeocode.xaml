@@ -47,8 +47,9 @@
             </ControlTemplate>
         </Grid.Resources>
 
-        <esri:MapView x:Name="MyMapView" WrapAround="True" MapViewTapped="MyMapView_MapViewTapped">
-            <esri:Map>
+        <esri:MapView x:Name="MyMapView" WrapAround="True" 
+					  MapViewTapped="MyMapView_MapViewTapped">
+			<esri:Map InitialViewpoint="-117.387,33.97,-117.355,33.988,4326">
 				<esri:ArcGISTiledMapServiceLayer 
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 			</esri:Map>

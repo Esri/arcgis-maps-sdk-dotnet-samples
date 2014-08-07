@@ -27,7 +27,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog(ex.Message, "GeoRSS Layer Sample").ShowAsync();
+                var _x = new MessageDialog(ex.Message, "GeoRSS Layer Sample").ShowAsync();
             }
         }
     }

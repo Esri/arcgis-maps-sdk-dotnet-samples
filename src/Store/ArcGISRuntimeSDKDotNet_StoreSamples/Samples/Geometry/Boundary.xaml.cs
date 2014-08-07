@@ -21,12 +21,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public Boundary()
         {
             InitializeComponent();
-
-            Initialize();
+			CreateGraphics();
         }
 
         // Setup graphic layers with test graphics and calculated boundaries of each
-        private async void Initialize()
+		private async void CreateGraphics()
         {
 			try
 			{
@@ -37,7 +36,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			}
 			catch (Exception ex)
 			{
-				var task = new MessageDialog(string.Format("Error occured : {0}", ex.ToString(), "Boundary Sample"));
+				var _x = new MessageDialog(
+					string.Format("Error occured : {0}", ex.ToString(), "Boundary Sample")).ShowAsync();
 			}
         }
 

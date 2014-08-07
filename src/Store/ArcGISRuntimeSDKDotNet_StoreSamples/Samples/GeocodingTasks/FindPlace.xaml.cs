@@ -36,17 +36,24 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
             listResults.ItemsSource = _addressOverlay.Graphics;
 
-            var _ = SetSimpleRendererSymbolsAsync();
+            SetSimpleRendererSymbols();
         }
 
-        // Setup the pin graphic and graphics layer renderer
-        private async Task SetSimpleRendererSymbolsAsync()
+        // Setup the pin graphic and graphics overlay renderer
+        private async void SetSimpleRendererSymbols()
         {
-            var markerSymbol = new PictureMarkerSymbol() { Width = 48, Height = 48, YOffset = 24 };
-            await markerSymbol.SetSourceAsync(new Uri("ms-appx:///Assets/RedStickpin.png"));
-            var renderer = new SimpleRenderer() { Symbol = markerSymbol };
+			try
+			{
+				var markerSymbol = new PictureMarkerSymbol() { Width = 48, Height = 48, YOffset = 24 };
+				await markerSymbol.SetSourceAsync(new Uri("ms-appx:///Assets/RedStickpin.png"));
+				var renderer = new SimpleRenderer() { Symbol = markerSymbol };
 
-            _addressOverlay.Renderer = renderer;
+				_addressOverlay.Renderer = renderer;
+			}
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog("Selection Error: " + ex.Message, "Find Place Sample").ShowAsync();
+			}
         }
 
         // Find matching places, create graphics and add them to the UI
@@ -85,16 +92,16 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var innermostExceptions = ex.Flatten().InnerExceptions;
                 if (innermostExceptions != null && innermostExceptions.Count > 0)
                 {
-                    var _ = new MessageDialog(string.Join(" > ", innermostExceptions.Select(i => i.Message).ToArray()), "Sample Error").ShowAsync();
+                    var _x = new MessageDialog(string.Join(" > ", innermostExceptions.Select(i => i.Message).ToArray()), "Sample Error").ShowAsync();
                 }
                 else
                 {
-                    var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+                    var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
                 }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
             }
             finally
             {

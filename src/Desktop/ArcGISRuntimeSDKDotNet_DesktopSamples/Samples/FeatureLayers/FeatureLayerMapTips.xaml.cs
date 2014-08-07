@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -35,7 +36,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
 			try
             {
-				System.Windows.Point screenPoint = e.GetPosition(MyMapView);
+				Point screenPoint = e.GetPosition(MyMapView);
 				var rows = await earthquakes.HitTestAsync(MyMapView, screenPoint);
                 if (rows != null && rows.Length > 0)
                 {

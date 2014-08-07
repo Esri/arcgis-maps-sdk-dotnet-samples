@@ -60,7 +60,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (System.Exception ex)
             {
-                var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
             }
         }
 
@@ -106,11 +106,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 if (innermostExceptions != null && innermostExceptions.Count > 0)
                     message = innermostExceptions[0].Message;
                 
-                var _ = new MessageDialog(message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog(message, "Sample Error").ShowAsync();
             }
             catch (System.Exception ex)
             {
-                var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
             }
             finally
             {

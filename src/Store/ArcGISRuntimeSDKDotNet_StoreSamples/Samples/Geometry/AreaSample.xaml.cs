@@ -1,6 +1,7 @@
 ﻿using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
+using System;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -28,7 +29,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			MyMapView.ExtentChanged += MyMapView_ExtentChanged;
 		}
 
-		private async void MyMapView_ExtentChanged(object sender, System.EventArgs e)
+		private async void MyMapView_ExtentChanged(object sender, EventArgs e)
 		{
 			MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
 			await DoCalculateAreaAndLengthAsync();
@@ -44,7 +45,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 				//show geometry on map
 				_graphicsOverlay.Graphics.Clear();
 
-				var g = new Graphic { Geometry = geom, Symbol = LayoutRoot.Resources["DefaultFillSymbol"] as Esri.ArcGISRuntime.Symbology.Symbol };
+				var g = new Graphic 
+				{
+					Geometry = geom, 
+					Symbol = LayoutRoot.Resources["DefaultFillSymbol"] as Esri.ArcGISRuntime.Symbology.Symbol 
+				};
 				_graphicsOverlay.Graphics.Add(g);
 
 				//Calculate results
@@ -63,10 +68,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 				Instructions.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
 				Results.Visibility = Windows.UI.Xaml.Visibility.Visible;
 			}
-			catch (System.Threading.Tasks.TaskCanceledException)
+			catch (TaskCanceledException)
 			{
-				var dlg = new MessageDialog("Current sketch has been canceled.", "Task Canceled!");
-				var _ = dlg.ShowAsync();
+				var _x = new MessageDialog("Current sketch has been canceled.", "Task Canceled!").ShowAsync();
 			}
 		}
 

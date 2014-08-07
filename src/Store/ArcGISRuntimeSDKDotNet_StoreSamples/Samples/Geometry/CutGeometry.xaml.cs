@@ -35,11 +35,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             _cutFillSymbol = LayoutRoot.Resources["CutFillSymbol"] as Symbol;
 			_resultGraphicsOverlay = MyMapView.GraphicsOverlays[0];
 
-            var _ = CreateFeatureLayersAsync();
+            CreateFeatureLayers();
         }
 
         // Creates a feature layer from a local .geodatabase file
-        private async Task CreateFeatureLayersAsync()
+        private async void CreateFeatureLayers()
         {
             try
             {
@@ -54,7 +54,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Error creating feature layer: " + ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog("Error creating feature layer: " + ex.Message, "Sample Error").ShowAsync();
             }
         }
 
@@ -84,12 +84,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
                 _resultGraphicsOverlay.Graphics.AddRange(cutGraphics);
             }
-            catch (TaskCanceledException)
-            {
-            }
+            catch (TaskCanceledException) { }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Cut Error: " + ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog("Cut Error: " + ex.Message, "Sample Error").ShowAsync();
             }
         }
     }

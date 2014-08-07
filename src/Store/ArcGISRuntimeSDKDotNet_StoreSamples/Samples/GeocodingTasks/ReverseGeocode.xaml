@@ -47,7 +47,8 @@
             </ControlTemplate>
         </Grid.Resources>
 
-        <esri:MapView x:Name="MyMapView" WrapAround="True" MapViewTapped="MyMapView_MapViewTapped">
+        <esri:MapView x:Name="MyMapView" WrapAround="True" 
+					  MapViewTapped="MyMapView_MapViewTapped">
             <esri:Map>
 				<esri:Map.InitialViewpoint>
 					<esri:ViewpointExtent XMin="-117.387" YMin="33.97" XMax="-117.355" YMax="33.988" SpatialReferenceID="4326"/>

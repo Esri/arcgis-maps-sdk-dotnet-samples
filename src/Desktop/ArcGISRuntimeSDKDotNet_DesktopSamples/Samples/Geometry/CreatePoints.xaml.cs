@@ -1,7 +1,9 @@
 ﻿using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
+using System;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -18,35 +20,41 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public CreatePoints()
         {
             InitializeComponent();
+			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
+		}
 
-            var _ = CreatePointGraphics();
-        }
+		// Create four point graphics on the map in the center of four equal quadrants
+		private void MyMapView_NavigationCompleted(object sender, EventArgs e)
+		{
+			MyMapView.NavigationCompleted -= MyMapView_NavigationCompleted;
+			try
+			{
+				var height = MyMapView.Extent.Height / 4;
+				var width = MyMapView.Extent.Width / 4;
+				var center = MyMapView.Extent.GetCenter();
 
-        // Create four point graphics on the map in the center of four equal quadrants
-        private async Task CreatePointGraphics()
-        {
-            await MyMapView.LayersLoadedAsync();
+				var topLeft = new MapPoint(center.X - width, center.Y + height, MyMapView.SpatialReference);
+				var topRight = new MapPoint(center.X + width, center.Y + height, MyMapView.SpatialReference);
+				var bottomLeft = new MapPoint(center.X - width, center.Y - height, MyMapView.SpatialReference);
+				var bottomRight = new MapPoint(center.X + width, center.Y - height, MyMapView.SpatialReference);
 
-            var height = MyMapView.Extent.Height / 4;
-            var width = MyMapView.Extent.Width / 4;
-            var center = MyMapView.Extent.GetCenter();
+				var symbol = new SimpleMarkerSymbol() { Color = Colors.Red, Size = 15, Style = SimpleMarkerStyle.Diamond };
 
-            var topLeft = new MapPoint(center.X - width, center.Y + height, MyMapView.SpatialReference);
-            var topRight = new MapPoint(center.X + width, center.Y + height, MyMapView.SpatialReference);
-            var bottomLeft = new MapPoint(center.X - width, center.Y - height, MyMapView.SpatialReference);
-            var bottomRight = new MapPoint(center.X + width, center.Y - height, MyMapView.SpatialReference);
+				graphicsOverlay.Graphics.Add(new Graphic() { Geometry = topLeft, Symbol = symbol });
+				graphicsOverlay.Graphics.Add(new Graphic() { Geometry = topRight, Symbol = symbol });
+				graphicsOverlay.Graphics.Add(new Graphic() { Geometry = bottomLeft, Symbol = symbol });
+				graphicsOverlay.Graphics.Add(new Graphic() { Geometry = bottomRight, Symbol = symbol });
 
-            var symbol = new SimpleMarkerSymbol() { Color = Colors.Red, Size = 15, Style = SimpleMarkerStyle.Diamond };
-
-            graphicsOverlay.Graphics.Add(new Graphic() { Geometry = topLeft, Symbol = symbol });
-			graphicsOverlay.Graphics.Add(new Graphic() { Geometry = topRight, Symbol = symbol });
-			graphicsOverlay.Graphics.Add(new Graphic() { Geometry = bottomLeft, Symbol = symbol });
-			graphicsOverlay.Graphics.Add(new Graphic() { Geometry = bottomRight, Symbol = symbol });
-
-			graphicsOverlay.Graphics.Add(new Graphic() { 
-				Geometry = new MapPoint(0, 0), 
-				Symbol = new SimpleMarkerSymbol() { Size = 15, Color = Colors.Blue } 
-			});
+				graphicsOverlay.Graphics.Add(new Graphic()
+				{
+					Geometry = new MapPoint(0, 0),
+					Symbol = new SimpleMarkerSymbol() { Size = 15, Color = Colors.Blue }
+				});
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Error occured : " + ex.Message, "Create Points Sample");
+			}
 		}
     }
 }

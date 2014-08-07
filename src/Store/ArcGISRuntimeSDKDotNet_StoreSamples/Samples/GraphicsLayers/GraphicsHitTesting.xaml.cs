@@ -48,7 +48,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("HitTest Error: " + ex.Message, "Graphics Layer Hit Testing").ShowAsync();
+                var _x = new MessageDialog("HitTest Error: " + ex.Message, "Graphics Layer Hit Testing").ShowAsync();
             }
         }
 

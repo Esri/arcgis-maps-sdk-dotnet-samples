@@ -181,7 +181,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 			}
 			catch (Exception ex)
 			{
-				var _ = new MessageDialog(ex.Message, "Symbol Dictionary Search Sample").ShowAsync();
+				var _x = new MessageDialog(ex.Message, "Symbol Dictionary Search Sample").ShowAsync();
 			}
 		}
 
@@ -215,7 +215,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 					requestedShape = DrawShape.Rectangle;
 					break;
 				default:
-					var _ = new MessageDialog("Selected symbol is not supported in this sample", "Symbol Dictionary Search Sample").ShowAsync();
+					var _x = new MessageDialog("Selected symbol is not supported in this sample", "Symbol Dictionary Search Sample").ShowAsync();
 					return;
 			}
 

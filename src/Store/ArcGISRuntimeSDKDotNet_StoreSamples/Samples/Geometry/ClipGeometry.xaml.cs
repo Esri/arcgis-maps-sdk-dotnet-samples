@@ -25,7 +25,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         private Symbol _clipSymbol;
         private FeatureLayer _statesLayer;
 
-        /// <summary>Construct Clip Geometry sample control</summary>
+        /// <summary>Construct Clip Geometry sample control</summary>S
         public ClipGeometry()
         {
             InitializeComponent();
@@ -33,11 +33,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			_clippedGraphicsOverlay = MyMapView.GraphicsOverlays[0];
             _clipSymbol = layoutGrid.Resources["ClipRectSymbol"] as Symbol;
 
-            var task = CreateFeatureLayersAsync();
+			CreateFeatureLayers();
         }
 
         // Creates a feature layer from a local .geodatabase file
-        private async Task CreateFeatureLayersAsync()
+        private async void CreateFeatureLayers()
         {
             try
             {
@@ -52,7 +52,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Error creating feature layer: " + ex.Message, "Clip Geometry").ShowAsync();
+                var _x = new MessageDialog("Error creating feature layer: " + ex.Message, "Clip Geometry").ShowAsync();
             }
         }
 
@@ -81,12 +81,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
                 _clippedGraphicsOverlay.Graphics.AddRange(clipGraphics);
             }
-            catch (TaskCanceledException)
-            {
-            }
+            catch (TaskCanceledException) { }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Clip Error: " + ex.Message, "Clip Geometry").ShowAsync();
+                var _x = new MessageDialog("Clip Error: " + ex.Message, "Clip Geometry").ShowAsync();
             }
         }
     }

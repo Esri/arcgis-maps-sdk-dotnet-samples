@@ -35,7 +35,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             _gpTask = new Geoprocessor(new Uri(ClipCountiesServiceUrl));
 
             //Uncomment the following line to show the service parameters at startup.
-            //var _ = GetServiceInfo();
+            //var _x =GetServiceInfo();
         }
 
         // Get the users input line on the map and fire off a GP Job to clip features
@@ -86,7 +86,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
             }
             finally
             {
@@ -164,7 +164,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 message = ex.Message;
             }
 
-            var _ = new MessageDialog(message, "Service Info").ShowAsync();
+            var _x = new MessageDialog(message, "Service Info").ShowAsync();
         }
     }
 }

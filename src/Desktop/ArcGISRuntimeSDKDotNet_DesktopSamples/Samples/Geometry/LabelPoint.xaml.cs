@@ -26,11 +26,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             InitializeComponent();
 
             MyMapView.ExtentChanged += MyMapView_ExtentChanged;
-            var _ = SetupSymbolsAsync();
+            SetupSymbols();
         }
 
         // Load the picture symbol image
-        private async Task SetupSymbolsAsync()
+		private async void SetupSymbols()
         {
             try
             {
@@ -39,7 +39,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
+				MessageBox.Show("Error occured : " + ex.Message, "Label Point Sample");
             }
         }
 
@@ -78,9 +78,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     }
                 }
             }
-            catch (TaskCanceledException)
-            {
-            }
+            catch (TaskCanceledException) { }
             catch (Exception ex)
             {
                 MessageBox.Show("Label Point Error: " + ex.Message, "Label Point Sample");

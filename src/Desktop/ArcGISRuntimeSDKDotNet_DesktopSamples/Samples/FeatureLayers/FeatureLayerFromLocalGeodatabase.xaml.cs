@@ -23,10 +23,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public FeatureLayerFromLocalGeodatabase()
         {
             InitializeComponent();
-            var _ = CreateFeatureLayersAsync();
+            CreateFeatureLayers();
         }
 
-        private async Task CreateFeatureLayersAsync()
+        private async void CreateFeatureLayers()
         {
             try
             {

@@ -89,9 +89,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 				graphicsOverlay.Graphics.Clear();
                 await AcceptShapeAsync();
             }
-            catch (TaskCanceledException)
-            {
-            }
+            catch (TaskCanceledException) { }
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message, "Relationship Sample");

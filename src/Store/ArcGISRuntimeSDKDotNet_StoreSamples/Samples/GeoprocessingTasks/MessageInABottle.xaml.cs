@@ -63,7 +63,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
            }
            catch (Exception ex)
            {
-               var _ = new MessageDialog("Geoprocessor service failed: " + ex.Message, "Sample Error").ShowAsync();
+               var _x = new MessageDialog("Geoprocessor service failed: " + ex.Message, "Sample Error").ShowAsync();
            }
            finally
            {

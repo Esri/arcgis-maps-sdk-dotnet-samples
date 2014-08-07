@@ -32,12 +32,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
             _fillSymbol = LayoutRoot.Resources["FillSymbol"] as Symbol;
 			_differenceGraphics = MyMapView.GraphicsOverlays[0];
-                
-            var _ = CreateFeatureLayersAsync();
+            CreateFeatureLayers();
         }
 
         // Creates a feature layer from a local .geodatabase file
-        private async Task CreateFeatureLayersAsync()
+		private async void CreateFeatureLayers()
         {
             try
             {
@@ -52,7 +51,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Error creating feature layer: " + ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog("Error creating feature layer: " + ex.Message, "Sample Error").ShowAsync();
             }
         }
 
@@ -89,7 +88,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Difference Error: " + ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog("Difference Error: " + ex.Message, "Sample Error").ShowAsync();
             }
         }
     }

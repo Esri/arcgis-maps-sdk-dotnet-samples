@@ -71,9 +71,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     }
                 }
             }
-            catch (TaskCanceledException)
-            {
-            }
+            catch (TaskCanceledException) { }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Geometry Engine Failed!");

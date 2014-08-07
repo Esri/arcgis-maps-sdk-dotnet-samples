@@ -43,17 +43,17 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 				Size = 6 
 			};
 
-            await AcceptUserPolygon();
+            await AcceptUserPolygonAsync();
         }
 
         // Digitize a new original polygon to move
         private async void DigitizeButton_Click(object sender, RoutedEventArgs e)
         {
-            await AcceptUserPolygon();
+            await AcceptUserPolygonAsync();
         }
 
         // Get the polygon from the user
-        private async Task AcceptUserPolygon()
+        private async Task AcceptUserPolygonAsync()
         {
             try
             {
@@ -64,9 +64,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
 				originalOverlay.Graphics.Add(new Graphic(polygon));
             }
-            catch (TaskCanceledException)
-            {
-            }
+            catch (TaskCanceledException) { }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Geodesic Move Sample");

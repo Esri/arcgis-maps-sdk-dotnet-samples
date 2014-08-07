@@ -6,8 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
@@ -38,7 +40,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             ControlsContainer.Visibility = Visibility.Collapsed;
         }
 
-        void Slider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        void Slider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
             DoOffset();
         }
@@ -54,25 +56,27 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             OffsetTypeComboBox.SelectedIndex = 0;
         }
 
-        private async Task SelectParcelForOffset()
+        private async Task SelectParcelForOffsetAsync()
         {
             ResetButton.IsEnabled = false;
 
-            try
-            {
-                offsetGraphicsLayer.Graphics.Clear();
+			try
+			{
+				offsetGraphicsLayer.Graphics.Clear();
 
-                var pointGeom = await MyMapView.Editor.RequestPointAsync();
-                var screenPnt = MyMapView.LocationToScreen(pointGeom);
+				var pointGeom = await MyMapView.Editor.RequestPointAsync();
+				var screenPnt = MyMapView.LocationToScreen(pointGeom);
 
-                selectedParcelGraphic = await
-                    parcelGraphicsLayer.HitTestAsync(MyMapView, screenPnt);
+				selectedParcelGraphic = await
+					parcelGraphicsLayer.HitTestAsync(MyMapView, screenPnt);
 
-                DoOffset();
-            }
-            catch (Exception)
-            {
-            }
+				DoOffset();
+			}
+			catch (TaskCanceledException) { }
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog(ex.Message).ShowAsync();
+			}
 
             ResetButton.IsEnabled = true;
         }
@@ -93,35 +97,40 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                         );
 
                     if (offsetGeom != null)
-                    {
                         offsetGraphicsLayer.Graphics.Add(new Graphic { Geometry = offsetGeom });
-                    }
                 }
                 catch (Exception ex)
                 {
-                    var dlg = new Windows.UI.Popups.MessageDialog(ex.Message);
-                    var _ = dlg.ShowAsync();
+                    var _x = new MessageDialog(ex.Message).ShowAsync();
                 }
             }
         }
 
         private async void ResetButton_Click(object sender, RoutedEventArgs e)
         {
-            await SelectParcelForOffset();
+            await SelectParcelForOffsetAsync();
         }
 
-        private async void MyMapView_LayerLoaded(object sender, Esri.ArcGISRuntime.Controls.LayerLoadedEventArgs e)
+        private async void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
         {
             if (e.Layer.ID == "ParcelsGraphicsLayer")
             {
                 if (parcelGraphicsLayer != null && parcelGraphicsLayer.Graphics.Count == 0)
                 {
-                    QueryTask queryTask = new QueryTask(new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/TaxParcel/AssessorsParcelCharacteristics/MapServer/1"));
+                    QueryTask queryTask = new QueryTask(
+						new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/TaxParcel/AssessorsParcelCharacteristics/MapServer/1"));
 
                     //Create a geometry to use as the extent within which parcels will be returned
                     var contractRatio = MyMapView.Extent.Width / 6;
-                    var extentGeometry = new Envelope(-83.3188395774275, 42.61428312652851, -83.31295664068958, 42.61670913269855, SpatialReferences.Wgs84);
-                    Query query = new Query(extentGeometry);
+                    
+					var extentGeometry = new Envelope(
+						-83.3188395774275, 
+						42.61428312652851, 
+						-83.31295664068958, 
+						42.61670913269855, 
+						SpatialReferences.Wgs84);
+                    
+					Query query = new Query(extentGeometry);
                     query.ReturnGeometry = true;
                     query.OutSpatialReference = MyMapView.SpatialReference;
 
@@ -138,11 +147,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     }
                     catch (Exception ex)
                     {
-                        var dlg = new Windows.UI.Popups.MessageDialog(ex.Message);
-						var _ = dlg.ShowAsync();
+                        var _x = new MessageDialog(ex.Message).ShowAsync();
                     }
                 }
-                await SelectParcelForOffset();
+                await SelectParcelForOffsetAsync();
             }
         }
     }

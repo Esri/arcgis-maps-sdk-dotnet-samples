@@ -27,7 +27,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             _featureLayer = MyMapView.Map.Layers["FeatureLayer"] as FeatureLayer;
             ((GeodatabaseFeatureServiceTable)_featureLayer.FeatureTable).OutFields = OutFields.All;
 
-            _queryResultsOverlay = QueryResults;
+			_queryResultsOverlay = MyMapView.GraphicsOverlays[0];
         }
 
         private async void QueryButton_Click(object sender, RoutedEventArgs e)
@@ -39,7 +39,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog(ex.Message, "Query Error").ShowAsync();
+                var _x = new MessageDialog(ex.Message, "Query Error").ShowAsync();
             }
         }
     }

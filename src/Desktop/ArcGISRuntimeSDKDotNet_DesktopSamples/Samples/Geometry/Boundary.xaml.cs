@@ -1,11 +1,12 @@
 ﻿using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-
 using Geometry = Esri.ArcGISRuntime.Geometry;
 
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
@@ -21,17 +22,23 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public Boundary()
         {
             InitializeComponent();
-
-            var _ = CreateGraphicsAsync();
+			CreateGraphics();
         }
 
         // Setup graphic layers with test graphics and calculated boundaries of each
-        private async Task CreateGraphicsAsync()
+        private async void CreateGraphics()
         {
-            await MyMapView.LayersLoadedAsync();
+			try
+			{
+				await MyMapView.LayersLoadedAsync();
 
-            CreateTestGraphics();
-            CalculateBoundaries();
+				CreateTestGraphics();
+				CalculateBoundaries();
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Error occured : " + ex.Message, "Boundary Sample");
+			}
         }
 
         // Creates a two-part polygon and a four-part polyline to use as test graphics for the Boundary method
@@ -42,15 +49,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             var left = new MapPoint(center.X - width, center.Y, MyMapView.SpatialReference);
 			var right = new MapPoint(center.X + width, center.Y, MyMapView.SpatialReference);
 
-            var fillSymbol = new SimpleFillSymbol() { 
-				Color = Colors.Red, 
-				Style = SimpleFillStyle.Solid 
-			};
-            var lineSymbol = new SimpleLineSymbol() {
-				Color = Colors.Red, 
-				Style = SimpleLineStyle.Solid,
-				Width = 2 
-			};
+            var fillSymbol = new SimpleFillSymbol() { Color = Colors.Red, Style = SimpleFillStyle.Solid };
+            var lineSymbol = new SimpleLineSymbol() { Color = Colors.Red, Style = SimpleLineStyle.Solid, Width = 2 };
 
             testGraphics.Graphics.Add(new Graphic() { Geometry = CreatePolygonBox(left, width), Symbol = fillSymbol });
             testGraphics.Graphics.Add(new Graphic() { Geometry = CreatePolylineBox(right, width), Symbol = lineSymbol });

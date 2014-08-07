@@ -26,7 +26,7 @@
         </Grid.Resources>
 
 		<esri:MapView x:Name="MyMapView" WrapAround="True" >
-            <esri:Map>
+			<esri:Map InitialViewpoint="-14675766,2695408,-6733122,6583994">
 				<esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 				<esri:FeatureLayer x:Name="cities" ID="featureLayer" 

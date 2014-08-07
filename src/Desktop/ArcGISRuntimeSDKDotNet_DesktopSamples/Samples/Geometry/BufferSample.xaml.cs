@@ -27,11 +27,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public BufferSample()
         {
             InitializeComponent();
-
-			MyMapView.Map.InitialViewpoint = new ViewpointExtent(new Envelope(
-				-10863035.970, 3838021.340, -10744801.344, 3887145.299, 
-				SpatialReferences.WebMercator));
-            var _ = SetupSymbolsAsync();
+            SetupSymbols();
         }
 
         private void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
@@ -56,13 +52,20 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             }
         }
 
-        private async Task SetupSymbolsAsync()
-        {
-            _pinSymbol = new PictureMarkerSymbol() { Width = 48, Height = 48, YOffset = 24 };
-            await _pinSymbol.SetSourceAsync(
-				new Uri("pack://application:,,,/ArcGISRuntimeSDKDotNet_DesktopSamples;component/Assets/RedStickpin.png"));
+        private async void SetupSymbols()
+		{
+			try
+			{
+				_pinSymbol = new PictureMarkerSymbol() { Width = 48, Height = 48, YOffset = 24 };
+				await _pinSymbol.SetSourceAsync(
+					new Uri("pack://application:,,,/ArcGISRuntimeSDKDotNet_DesktopSamples;component/Assets/RedStickpin.png"));
 
-            _bufferSymbol = layoutGrid.Resources["BufferSymbol"] as SimpleFillSymbol;
+				_bufferSymbol = layoutGrid.Resources["BufferSymbol"] as SimpleFillSymbol;
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Error occured : " + ex.Message, "Buffer Sample");
+			}
         }
     }
 }

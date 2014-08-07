@@ -22,8 +22,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-			_graphicsOverlay = MyMapView.GraphicsOverlays[0];
-                
+			_graphicsOverlay = MyMapView.GraphicsOverlays[0]; 
             MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 
@@ -37,7 +36,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
             }
         }
 

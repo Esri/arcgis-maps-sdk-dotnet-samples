@@ -27,7 +27,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (System.Exception ex)
             {
-                var _ = new Windows.UI.Popups.MessageDialog(ex.Message, "Error").ShowAsync();
+                var _x = new Windows.UI.Popups.MessageDialog(ex.Message, "Error").ShowAsync();
             }
         }
 
@@ -49,7 +49,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
             }
         }
     }

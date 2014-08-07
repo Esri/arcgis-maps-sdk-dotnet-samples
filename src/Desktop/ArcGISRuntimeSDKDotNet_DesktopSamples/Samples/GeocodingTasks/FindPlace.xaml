@@ -4,13 +4,13 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid x:Name="LayoutRoot">
         <esri:MapView x:Name="MyMapView" WrapAround="True">
-            <esri:Map>
+			<esri:Map InitialViewpoint="-117.207,32.686,-117.079,32.739,4326">
                 <esri:ArcGISTiledMapServiceLayer 
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
             </esri:Map>
-		  <esri:MapView.GraphicsOverlays>
-			<esri:GraphicsOverlay x:Name="AddressOverlay" />
-		  </esri:MapView.GraphicsOverlays>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay x:Name="AddressOverlay" />
+			</esri:MapView.GraphicsOverlays>
         </esri:MapView>
 
 		<Border Background="White" BorderBrush="Black" BorderThickness="1"

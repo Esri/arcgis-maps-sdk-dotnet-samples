@@ -26,7 +26,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            var _ = InitializePictureMarkerSymbolAsync();
+			SetupSymbols();
             _sfs = LayoutRoot.Resources["MySimpleFillSymbol"] as SimpleFillSymbol;
 			_graphicsOverlay = MyMapView.GraphicsOverlays[0];
 
@@ -54,12 +54,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var dlg = new MessageDialog(ex.Message, "Geometry Engine Failed!");
-				var _ = dlg.ShowAsync();
+                var _x = new MessageDialog(ex.Message, "Geometry Engine Failed!").ShowAsync();
             }
         }
 
-        private async Task InitializePictureMarkerSymbolAsync()
+		private async void SetupSymbols()
         {
             try
             {
@@ -67,8 +66,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 await _pms.SetSourceAsync(new Uri("ms-appx:///Assets/RedStickPin.png"));
             }
             catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex.Message);
+			{
+                var _x = new MessageDialog(ex.Message, "Buffer Sample").ShowAsync();
             }
         }
     }

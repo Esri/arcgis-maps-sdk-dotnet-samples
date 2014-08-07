@@ -77,9 +77,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 resultsListView.ItemsSource = results;
                 resultsPanel.Visibility = Visibility.Visible;
             }
-            catch (TaskCanceledException)
-            {
-            }
+            catch (TaskCanceledException) { }
             catch (Exception ex)
             {
                 MessageBox.Show("Densify Error: " + ex.Message, "Geodesic Densify Sample");

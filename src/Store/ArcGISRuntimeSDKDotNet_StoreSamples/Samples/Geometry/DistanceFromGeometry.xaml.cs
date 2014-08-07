@@ -54,7 +54,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Distance Calculation Error: " + ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog("Distance Calculation Error: " + ex.Message, "Sample Error").ShowAsync();
                 txtResults.Visibility = Visibility.Collapsed;
                 _graphicsOverlay.Graphics.Clear();
             }

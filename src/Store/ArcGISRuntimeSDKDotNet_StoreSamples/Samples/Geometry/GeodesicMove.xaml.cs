@@ -43,17 +43,17 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             MyMapView.Editor.EditorConfiguration.VertexSymbol = null;
             MyMapView.Editor.EditorConfiguration.SelectedVertexSymbol = new SimpleMarkerSymbol() { Color = Colors.Blue, Size = 6 };
 
-            await AcceptUserPolygon();
+            await AcceptUserPolygonAsync();
         }
 
         // Digitize a new original polygon to move
         private async void DigitizeButton_Click(object sender, RoutedEventArgs e)
         {
-            await AcceptUserPolygon();
+            await AcceptUserPolygonAsync();
         }
 
         // Get the polygon from the user
-        private async Task AcceptUserPolygon()
+        private async Task AcceptUserPolygonAsync()
         {
             try
             {
@@ -64,12 +64,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
                 _originalGraphics.Graphics.Add(new Graphic(polygon));
             }
-            catch (TaskCanceledException)
-            {
-            }
+            catch (TaskCanceledException) { }
             catch (Exception ex)
             {
-                var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
             }
         }
 
@@ -96,7 +94,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
             }
         }
     }

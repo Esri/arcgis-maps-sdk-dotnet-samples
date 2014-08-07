@@ -32,11 +32,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             _cutLineSymbol = layoutGrid.Resources["CutLineSymbol"] as Symbol;
             _cutFillSymbol = layoutGrid.Resources["CutFillSymbol"] as Symbol;
 
-            var _ = CreateFeatureLayersAsync();
+            CreateFeatureLayers();
         }
 
         // Creates a feature layer from a local .geodatabase file
-        private async Task CreateFeatureLayersAsync()
+        private async void CreateFeatureLayers()
         {
             try
             {
@@ -78,9 +78,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
 				resultsOverlay.Graphics.AddRange(cutGraphics);
             }
-            catch (TaskCanceledException)
-            {
-            }
+            catch (TaskCanceledException) { }
             catch (Exception ex)
             {
                 MessageBox.Show("Cut Error: " + ex.Message, "Cut Geometry");

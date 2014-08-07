@@ -23,7 +23,15 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             this.InitializeComponent();
             DrawShapes.ItemsSource = new DrawShape[]
             {
-                DrawShape.Freehand, DrawShape.Point, DrawShape.Polygon, DrawShape.Polyline, DrawShape.Arrow, DrawShape.Circle, DrawShape.Ellipse,DrawShape.LineSegment,DrawShape.Rectangle
+                DrawShape.Freehand,
+				DrawShape.Point,
+				DrawShape.Polygon,
+				DrawShape.Polyline,
+				DrawShape.Arrow,
+				DrawShape.Circle,
+				DrawShape.Ellipse,
+				DrawShape.LineSegment,
+				DrawShape.Rectangle
             };
             DrawShapes.SelectedIndex = 0;
         }

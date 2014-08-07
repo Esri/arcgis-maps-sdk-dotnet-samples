@@ -77,7 +77,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Error loading test line: " + ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog("Error loading test line: " + ex.Message, "Sample Error").ShowAsync();
             }
         }
 
@@ -108,7 +108,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Error generalizing line: " + ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog("Error generalizing line: " + ex.Message, "Sample Error").ShowAsync();
             }
         }
     }

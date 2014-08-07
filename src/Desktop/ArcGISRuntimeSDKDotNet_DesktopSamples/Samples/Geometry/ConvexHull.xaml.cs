@@ -27,11 +27,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             _pointSymbol = (Symbol)layoutGrid.Resources["PointSymbol"];
             _polygonSymbol = (Symbol)layoutGrid.Resources["ConvexHullSymbol"];
 
-            var _ = DrawPointsAsync();
+            DrawPoints();
         }
 
         // Continuosly accepts new points from the user
-        private async Task DrawPointsAsync()
+		private async void DrawPoints()
         {
             try
             {
@@ -54,9 +54,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                         btnConvexHull.IsEnabled = true;
                 }
             }
-            catch (TaskCanceledException)
-            {
-            }
+            catch (TaskCanceledException) { }
             catch (Exception ex)
             {
                 MessageBox.Show("Error adding points: " + ex.Message, "Convex Hull Sample");

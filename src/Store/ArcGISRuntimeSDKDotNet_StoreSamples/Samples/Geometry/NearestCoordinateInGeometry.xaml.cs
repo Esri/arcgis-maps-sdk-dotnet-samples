@@ -54,7 +54,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Error loading parcels: " + ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog("Error loading parcels: " + ex.Message, "Sample Error").ShowAsync();
             }
         }
 
@@ -91,12 +91,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     await GetNearestCoordAsync((bool)cboVertexOnly.IsChecked);
                 }
             }
-            catch (TaskCanceledException)
-            {
-            }
+            catch (TaskCanceledException) { }
             catch (Exception ex)
             {
-                var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
             }
         }
 

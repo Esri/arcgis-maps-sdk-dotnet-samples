@@ -53,7 +53,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Sample Error: " + ex.Message).ShowAsync();
+                var _x = new MessageDialog("Sample Error: " + ex.Message).ShowAsync();
             }
         }
     }

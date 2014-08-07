@@ -47,7 +47,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			}
 			catch (System.Exception ex)
 			{
-				var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+				var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
 			}
             _graphicsOverlay.Renderer = new SimpleRenderer() { Symbol = markerSymbol, };
         }
@@ -91,16 +91,16 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var innermostExceptions = ex.Flatten().InnerExceptions;
                 if (innermostExceptions != null && innermostExceptions.Count > 0)
                 {
-                    var _ = new MessageDialog(string.Join(" > ", innermostExceptions.Select(i => i.Message).ToArray())).ShowAsync();
+                    var _x = new MessageDialog(string.Join(" > ", innermostExceptions.Select(i => i.Message).ToArray())).ShowAsync();
                 }
                 else
                 {
-                    var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+                    var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
                 }
             }
             catch (System.Exception ex)
             {
-                var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
             }
             finally
             {

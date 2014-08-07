@@ -13,7 +13,7 @@
         </Grid.Resources>
 
         <esri:MapView x:Name="MyMapView">
-            <esri:Map >
+			<esri:Map InitialViewpoint="-130,10,-70,60,4326">
 				<esri:ArcGISTiledMapServiceLayer ID="TopoMapLayer"
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer" />
 			</esri:Map>

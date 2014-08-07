@@ -35,59 +35,60 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             _gpTask = new Geoprocessor(new Uri(ClipCountiesServiceUrl));
 
             //Uncomment the following line to show the service parameters at startup.
-            //var _x =GetServiceInfo();
+            //GetServiceInfo();
         }
 
         // Get the users input line on the map and fire off a GP Job to clip features
         private async void StartButton_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                _inputOverlay.Graphics.Clear();
-                _resultOverlay.Graphics.Clear();
+			try
+			{
+				_inputOverlay.Graphics.Clear();
+				_resultOverlay.Graphics.Clear();
 
-                foreach (var lyr in MyMapView.Map.Layers.OfType<GPResultImageLayer>())
-                    MyMapView.Map.Layers.Remove(lyr);
+				foreach (var lyr in MyMapView.Map.Layers.OfType<GPResultImageLayer>())
+					MyMapView.Map.Layers.Remove(lyr);
 
-                //get the user's input line
-                var inputLine = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polyline) as Polyline;
+				//get the user's input line
+				var inputLine = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polyline) as Polyline;
 
-                progress.Visibility = Visibility.Visible;
-                _inputOverlay.Graphics.Add(new Graphic() { Geometry = inputLine });
+				progress.Visibility = Visibility.Visible;
+				_inputOverlay.Graphics.Add(new Graphic() { Geometry = inputLine });
 
-                var parameter = new GPInputParameter();
-                parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Input_Features", inputLine));
-                parameter.GPParameters.Add(new GPLinearUnit("Linear_unit", LinearUnits.Miles, Int32.Parse(txtMiles.Text)));
+				var parameter = new GPInputParameter();
+				parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Input_Features", inputLine));
+				parameter.GPParameters.Add(new GPLinearUnit("Linear_unit", LinearUnits.Miles, Int32.Parse(txtMiles.Text)));
 
-                var result = await SubmitAndPollStatusAsync(parameter);
+				var result = await SubmitAndPollStatusAsync(parameter);
 
-                if (result.JobStatus == GPJobStatus.Succeeded)
-                {
-                    txtStatus.Text = "Finished processing. Retrieving results...";
+				if (result.JobStatus == GPJobStatus.Succeeded)
+				{
+					txtStatus.Text = "Finished processing. Retrieving results...";
 
-                    var resultData = await _gpTask.GetResultDataAsync(result.JobID, "Clipped_Counties");
-                    if (resultData is GPFeatureRecordSetLayer)
-                    {
-                        GPFeatureRecordSetLayer gpLayer = resultData as GPFeatureRecordSetLayer;
-                        if (gpLayer.FeatureSet.Features.Count == 0)
-                        {
-                            var resultImageLayer = await _gpTask.GetResultImageLayerAsync(result.JobID, "Clipped_Counties");
+					var resultData = await _gpTask.GetResultDataAsync(result.JobID, "Clipped_Counties");
+					if (resultData is GPFeatureRecordSetLayer)
+					{
+						GPFeatureRecordSetLayer gpLayer = resultData as GPFeatureRecordSetLayer;
+						if (gpLayer.FeatureSet.Features.Count == 0)
+						{
+							var resultImageLayer = await _gpTask.GetResultImageLayerAsync(result.JobID, "Clipped_Counties");
 
-                            GPResultImageLayer gpImageLayer = resultImageLayer;
-                            gpImageLayer.Opacity = 0.5;
-                            MyMapView.Map.Layers.Add(gpImageLayer);
-                            txtStatus.Text = "Greater than 500 features returned.  Results drawn using map service.";
-                            return;
-                        }
+							GPResultImageLayer gpImageLayer = resultImageLayer;
+							gpImageLayer.Opacity = 0.5;
+							MyMapView.Map.Layers.Add(gpImageLayer);
+							txtStatus.Text = "Greater than 500 features returned.  Results drawn using map service.";
+							return;
+						}
 
-                        _resultOverlay.Graphics.AddRange(gpLayer.FeatureSet.Features.OfType<Graphic>());
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
-            }
+						_resultOverlay.Graphics.AddRange(gpLayer.FeatureSet.Features.OfType<Graphic>());
+					}
+				}
+			}
+			catch (TaskCanceledException) { }
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+			}
             finally
             {
                 progress.Visibility = Visibility.Collapsed;
@@ -115,7 +116,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         }
 
         // Display service info
-        private async Task GetServiceInfo()
+        private async void GetServiceInfo()
         {
             string message = null;
 

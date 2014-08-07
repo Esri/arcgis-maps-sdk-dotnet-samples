@@ -136,7 +136,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
 			if (InDrawMode)
 			{
-				var _ = AddGraphicsAsync();
+				var _x = AddGraphicsAsync();
 			}
 		}
 

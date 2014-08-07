@@ -4,6 +4,7 @@ using Esri.ArcGISRuntime.Symbology;
 using System;
 using Windows.Foundation;
 using Windows.UI;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -70,12 +71,17 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         // Create three List<Graphic> objects with random graphics to serve as layer GraphicsSources
         private async void CreateGraphics()
         {
-            await MyMapView.LayersLoadedAsync();
+			try
+			{
+				await MyMapView.LayersLoadedAsync();
 
-            for (int n = 1; n <= MAX_GRAPHICS; ++n)
-            {
-                _graphicsLayer.Graphics.Add(CreateRandomGraphic(n));
-            }
+				for (int n = 1; n <= MAX_GRAPHICS; ++n)
+					_graphicsLayer.Graphics.Add(CreateRandomGraphic(n));
+			}
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog("Error occured " + ex.ToString(), "Sample error").ShowAsync();
+			}
         }
 
         // Create a random graphic

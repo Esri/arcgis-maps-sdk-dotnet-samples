@@ -33,9 +33,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public PopulationForArea()
         {
             InitializeComponent();
-
-            MyMapView.Map.InitialViewpoint = new ViewpointExtent(
-				new Envelope(-13879981, 3490335, -7778090, 6248898));
         }
 
         // Accept user boundary line and run the Geoprocessing Task to summarize population

@@ -27,7 +27,7 @@
 
         <esri:MapView x:Name="MyMapView"
 					  MapViewTapped="MyMapView_MapViewTapped">
-            <esri:Map>
+			<esri:Map InitialViewpoint="-122.5009,37.741,-122.3721,37.8089,4326">
                 <esri:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer" />
 			</esri:Map>

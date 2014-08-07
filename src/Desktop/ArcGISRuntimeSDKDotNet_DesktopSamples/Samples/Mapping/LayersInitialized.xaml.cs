@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -66,8 +67,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 					}
 				}
 			}
-			catch {
-			  //TODO
+			catch (Exception ex)
+			{
+				MessageBox.Show("Error occured : " + ex.ToString(), "Sample error");
 			}
         }
     }

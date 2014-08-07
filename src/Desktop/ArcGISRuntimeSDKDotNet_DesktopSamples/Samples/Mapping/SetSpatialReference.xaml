@@ -4,7 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" WrapAround="True">
-            <esri:Map>
+			<esri:Map InitialViewpoint="661140, -1420246, 3015668, 1594451, 26777">
                 <esri:ArcGISDynamicMapServiceLayer
                         ServiceUri="http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Census_USA/MapServer"/>
                 <esri:ArcGISDynamicMapServiceLayer

@@ -21,8 +21,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public LayerList()
         {
             this.InitializeComponent();
-
-			MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-13279586, 4010136, -12786147, 4280850, SpatialReferences.WebMercator));
         }
 
         private void RemoveLayerButton_Click(object sender, RoutedEventArgs e)

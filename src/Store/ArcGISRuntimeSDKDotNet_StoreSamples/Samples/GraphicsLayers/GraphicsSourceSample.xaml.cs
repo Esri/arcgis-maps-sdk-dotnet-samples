@@ -4,6 +4,7 @@ using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Collections.Generic;
 using Windows.UI;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -42,25 +43,32 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         // Create three List<Graphic> objects with random graphics to serve as layer GraphicsSources
         private async void CreateGraphics()
         {
-            await MyMapView.LayersLoadedAsync();
+			try
+			{
+				await MyMapView.LayersLoadedAsync();
 
-            _grahicsSources = new List<List<Graphic>>()
-            {
-                new List<Graphic>(),
-                new List<Graphic>(),
-                new List<Graphic>()
-            };
+				_grahicsSources = new List<List<Graphic>>()
+				{
+					new List<Graphic>(),
+					new List<Graphic>(),
+					new List<Graphic>()
+				};
 
-            foreach (var graphicList in _grahicsSources)
-            {
-                for (int n = 0; n < 10; ++n)
-                {
-                    graphicList.Add(CreateRandomGraphic());
-                }
-            }
+				foreach (var graphicList in _grahicsSources)
+				{
+					for (int n = 0; n < 10; ++n)
+					{
+						graphicList.Add(CreateRandomGraphic());
+					}
+				}
 
-            _graphicSourceIndex = 0;
-            _graphicsLayer.GraphicsSource = _grahicsSources[_graphicSourceIndex];
+				_graphicSourceIndex = 0;
+				_graphicsLayer.GraphicsSource = _grahicsSources[_graphicSourceIndex];
+			}
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog("Exception occured : " + ex.ToString(), "Sample error").ShowAsync();
+			}
         }
 
         // Create a random graphic

@@ -17,9 +17,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public OverviewMap()
         {
             InitializeComponent();
-
-			MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-5, 20, 50, 65, SpatialReferences.Wgs84));
-
             MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 

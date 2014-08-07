@@ -47,9 +47,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     graphic.IsSelected = true;
                 }
             }
-            catch (TaskCanceledException)
-            {
-            }
+            catch (TaskCanceledException) { }
             catch (Exception ex)
             {
                 MessageBox.Show("Selection Error: " + ex.Message, "Graphics Layer Selection Sample");
@@ -67,9 +65,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     graphic.IsSelected = false;
                 }
             }
-            catch (TaskCanceledException)
-            {
-            }
+			catch (TaskCanceledException) { }
             catch (Exception ex)
             {
                 MessageBox.Show("Selection Error: " + ex.Message, "Graphics Layer Selection Sample");

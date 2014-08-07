@@ -34,8 +34,21 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             renderingModeCombo.SelectedIndex = 0;
 
             // Create the minimum set of graphics
-			var _ = CreateGraphicsAsync(1000);
-        }
+			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
+		}
+
+		private async void MyMapView_NavigationCompleted(object sender, EventArgs e)
+		{
+			MyMapView.NavigationCompleted -= MyMapView_NavigationCompleted;
+			try
+			{
+				await CreateGraphicsAsync(1000);
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Failed to create graphics. Error = " + ex.ToString(), "Sample Error"); 
+			}
+		}
 
         // Creates a new graphics layer with the specified graphics count and rendering mode
         private async void CreateGraphicsLayerButton_Click(object sender, RoutedEventArgs e)

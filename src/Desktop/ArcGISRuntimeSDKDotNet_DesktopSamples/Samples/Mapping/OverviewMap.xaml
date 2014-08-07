@@ -4,7 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid x:Name="layoutGrid">
         <esri:MapView x:Name="MyMapView">
-            <esri:Map>
+			<esri:Map InitialViewpoint="-5, 20, 50, 65, 4326">
                 <esri:ArcGISTiledMapServiceLayer ID="Basemap"
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer" />
             </esri:Map>

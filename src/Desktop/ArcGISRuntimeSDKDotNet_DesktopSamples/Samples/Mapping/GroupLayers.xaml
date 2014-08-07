@@ -4,11 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" WrapAround="True">
-            <esri:Map x:Name="map">
-				<esri:Map.InitialViewpoint>
-                    <esri:ViewpointExtent XMin="-13200000" YMin="4000000" XMax="-13000000" YMax="4150000" />
-                </esri:Map.InitialViewpoint>
-                
+			<esri:Map x:Name="map" InitialViewpoint="-13200000,4000000,-13000000,4150000">
                 <esri:GroupLayer DisplayName="Basemap Group">
                     <esri:ArcGISTiledMapServiceLayer DisplayName="Imagery" IsVisible="False"
                         ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" />

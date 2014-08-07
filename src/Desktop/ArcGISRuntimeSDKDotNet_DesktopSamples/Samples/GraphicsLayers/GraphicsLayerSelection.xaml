@@ -8,11 +8,7 @@
         </Grid.Resources>
 
         <esri:MapView x:Name="MyMapView" WrapAround="False">
-            <esri:Map>
-				<esri:Map.InitialViewpoint>
-                    <esri:ViewpointExtent XMin="-15053000" YMin="2749000" XMax="-6540000" YMax="6590000" />
-                </esri:Map.InitialViewpoint>
-
+			<esri:Map InitialViewpoint="-15053000,2749000,-6540000,6590000">
 				<esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
 			</esri:Map>

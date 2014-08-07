@@ -13,11 +13,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public SetSpatialReference()
         {
             InitializeComponent();
-
-			// Create initial extent and set it
-			var envelope = new Envelope(661140, -1420246, 3015668, 1594451, SpatialReference.Create(26777));
-			MyMapView.Map.InitialViewpoint = new Esri.ArcGISRuntime.Controls.Viewpoint(envelope);
-			
+		
 			MyMapView.Map.SpatialReference = SpatialReference.Create(26777); //Force map spatial reference to Wkid=26777
         }
     }

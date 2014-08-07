@@ -28,7 +28,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            var _ = CreateGraphicsAsync();
+            CreateGraphics();
         }
 
         // Hit Test the graphics layer by single point
@@ -52,12 +52,19 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         }
 
         // Create three List<Graphic> objects with random graphics to serve as layer GraphicsSources
-		private async Task CreateGraphicsAsync()
+		private async void CreateGraphics()
         {
-            await MyMapView.LayersLoadedAsync();
+			try
+			{
+				await MyMapView.LayersLoadedAsync();
 
-            for (int n = 1; n <= MAX_GRAPHICS; ++n)
-				graphicsOverlay.Graphics.Add(CreateRandomGraphic(n));
+				for (int n = 1; n <= MAX_GRAPHICS; ++n)
+					graphicsOverlay.Graphics.Add(CreateRandomGraphic(n));
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Error occured : " + ex.ToString(), "Sample error");
+			}
         }
 
         // Create a random graphic

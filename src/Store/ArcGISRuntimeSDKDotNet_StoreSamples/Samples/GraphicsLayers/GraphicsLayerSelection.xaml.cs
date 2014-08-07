@@ -49,9 +49,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
                 SetGraphicsCountUI();
             }
-            catch (TaskCanceledException)
-            {
-            }
+            catch (TaskCanceledException) { }
             catch (Exception ex)
             {
                 var _x = new MessageDialog("Selection Error: " + ex.Message, "Graphics Layer Selection Sample").ShowAsync();
@@ -71,9 +69,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
                 SetGraphicsCountUI();
             }
-            catch (TaskCanceledException)
-            {
-            }
+			catch (TaskCanceledException) { }
             catch (Exception ex)
             {
                 var _x = new MessageDialog("Selection Error: " + ex.Message, "Graphics Layer Selection Sample").ShowAsync();
@@ -114,12 +110,17 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         // Add new random graphics to the graphics layer
         private async void CreateGraphics()
         {
-            await MyMapView.LayersLoadedAsync();
+			try
+			{
+				await MyMapView.LayersLoadedAsync();
 
-            for (int n = 1; n <= MAX_GRAPHICS; ++n)
-            {
-                _graphicsLayer.Graphics.Add(CreateRandomGraphic());
-            }
+				for (int n = 1; n <= MAX_GRAPHICS; ++n)
+					_graphicsLayer.Graphics.Add(CreateRandomGraphic());
+			}
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog("Error occured " + ex.ToString(), "Sample error").ShowAsync();
+			}
         }
 
         // Create a random graphic

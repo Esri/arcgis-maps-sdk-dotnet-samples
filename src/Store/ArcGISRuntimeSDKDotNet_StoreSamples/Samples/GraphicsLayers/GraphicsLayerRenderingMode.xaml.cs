@@ -37,9 +37,22 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 .Select(n => new Tuple<string, int>(Enum.GetName(typeof(GraphicsRenderingMode), n), n));
             renderingModeCombo.SelectedIndex = 0;
 
-            // Create the minimum set of graphics
-            var task = CreateGraphics(1000);
-        }
+			// Create the minimum set of graphics
+			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
+		}
+
+		private async void MyMapView_NavigationCompleted(object sender, EventArgs e)
+		{
+			MyMapView.NavigationCompleted -= MyMapView_NavigationCompleted;
+			try
+			{
+				await CreateGraphicsAsync(1000);
+			}
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog("Failed to create graphics. Error = " + ex.ToString(), "Sample Error").ShowAsync();
+			}
+		}
 
         // Creates a new graphics layer with the specified graphics count and rendering mode
         private async void CreateGraphicsLayerButton_Click(object sender, RoutedEventArgs e)
@@ -54,13 +67,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             var numGraphics = (int)graphicCountSlider.Value;
             if (_graphics.Count < numGraphics)
             {
-                await CreateGraphics(numGraphics - _graphics.Count);
+                await CreateGraphicsAsync(numGraphics - _graphics.Count);
             }
             graphicsLayer.Graphics.AddRange(_graphics.Take(numGraphics));
         }
 
         // Add new random graphics to the graphics layer
-        private async Task CreateGraphics(int numGraphics)
+        private async Task CreateGraphicsAsync(int numGraphics)
         {
             await MyMapView.LayersLoadedAsync();
 

@@ -1,9 +1,11 @@
 ﻿using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.UI;
+using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
@@ -20,16 +22,23 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            var _ = CreateGraphicsAsync();
+            Initialize();
         }
 
         // Setup graphic layers with test graphics and calculated boundaries of each
-        private async Task CreateGraphicsAsync()
+        private async void Initialize()
         {
-            await MyMapView.LayersLoadedAsync();
-
-            CreateTestGraphics();
-            CalculateBoundaries();
+			try
+			{
+				await MyMapView.LayersLoadedAsync();
+	
+				CreateTestGraphics();
+				CalculateBoundaries();
+			}
+			catch (Exception ex)
+			{
+				var task = new MessageDialog(string.Format("Error occured : {0}", ex.ToString(), "Boundary Sample"));
+			}
         }
 
         // Creates a two-part polygon and a four-part polyline to use as test graphics for the Boundary method

@@ -30,7 +30,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             if (e.LoadError != null)
             {
-                var _ = new MessageDialog(e.LoadError.Message, "Layer Error").ShowAsync();
+                var _x = new MessageDialog(e.LoadError.Message, "Layer Error").ShowAsync();
                 return;
             }
 

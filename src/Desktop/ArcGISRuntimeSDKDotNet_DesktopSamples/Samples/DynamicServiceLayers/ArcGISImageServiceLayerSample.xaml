@@ -4,11 +4,7 @@
         xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView">
-            <esri:Map>
-                <esri:Map.InitialViewpoint>
-                    <esri:ViewpointExtent XMin="-13486609" YMin="5713307" XMax="-13263258" YMax="5823117" />
-                </esri:Map.InitialViewpoint>
-                
+			<esri:Map InitialViewpoint="-13486609,5713307,-13263258,5823117">
                 <esri:ArcGISTiledMapServiceLayer 
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
                 <esri:ArcGISImageServiceLayer ID="Image" DisplayName="Portland Landsat"

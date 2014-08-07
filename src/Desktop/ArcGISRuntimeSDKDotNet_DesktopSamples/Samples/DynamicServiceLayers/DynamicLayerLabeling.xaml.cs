@@ -22,7 +22,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers
             // Minor city label info
             DynamicLabelingInfo minorCityLabelInfo = new DynamicLabelingInfo();
             minorCityLabelInfo.LabelExpression = "[areaname]";
-            minorCityLabelInfo.LabelPlacement = LabelPlacement.PointLabelPlacementAboveRight;
+         //   minorCityLabelInfo.LabelPlacement = LabelPlacement.PointLabelPlacementAboveRight;
             minorCityLabelInfo.Symbol = new Esri.ArcGISRuntime.Symbology.TextSymbol()
             {
                 Color = Colors.Black,

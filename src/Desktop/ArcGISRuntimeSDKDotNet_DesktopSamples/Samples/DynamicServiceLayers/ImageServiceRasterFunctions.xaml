@@ -4,7 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
 		<esri:MapView x:Name="MyMapView" WrapAround="True" >
-            <esri:Map>
+			<esri:Map InitialViewpoint="1445440,540657,1452348,544407,2264">
                 <esri:ArcGISImageServiceLayer ID="ImageLayer"
                     ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/CharlotteLAS/ImageServer" />
             </esri:Map>

@@ -23,7 +23,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 			InitializeComponent();
 
 			MyMapView.LayerLoaded += MyMapView_LayerLoaded;
-
 			_usaLayer = MyMapView.Map.Layers["USA"] as ArcGISDynamicMapServiceLayer;
 		}
 

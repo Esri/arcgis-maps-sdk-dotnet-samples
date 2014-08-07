@@ -18,8 +18,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			MyMapView.Map.InitialViewpoint = new ViewpointExtent(
-				new Envelope(1445440, 540657, 1452348, 544407, SpatialReference.Create(2264)));
 			MyMapView.Map.SpatialReference = SpatialReference.Create(2264);
 			MyMapView.LayerLoaded += MyMapView_LayerLoaded;
         }

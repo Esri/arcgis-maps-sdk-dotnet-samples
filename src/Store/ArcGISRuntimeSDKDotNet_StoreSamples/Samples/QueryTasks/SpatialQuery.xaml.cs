@@ -23,10 +23,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-            InitializePMS();
+			InitializePictureMarkerSymbol();
         }
 
-        private async void InitializePMS()
+		private async void InitializePictureMarkerSymbol()
         {
             try
             {

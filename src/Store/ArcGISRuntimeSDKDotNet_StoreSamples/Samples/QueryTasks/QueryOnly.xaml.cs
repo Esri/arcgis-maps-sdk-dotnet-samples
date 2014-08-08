@@ -44,9 +44,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var result = await queryTask.ExecuteAsync(query);
                 itemListView.ItemsSource = result.FeatureSet.Features;
             }
-            catch (TaskCanceledException)
-            {
-            }
+            catch (TaskCanceledException) { }
             catch (Exception ex)
             {
                 var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();

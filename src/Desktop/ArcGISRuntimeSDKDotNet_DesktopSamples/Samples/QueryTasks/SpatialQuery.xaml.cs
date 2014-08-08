@@ -24,11 +24,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			var _ = InitializePMSAsync();
+			InitializePictureMarkerSymbol();
         }
 
         // Initialize PushPin symbol
-        private async Task InitializePMSAsync()
+		private async void InitializePictureMarkerSymbol()
         {
             try
             {

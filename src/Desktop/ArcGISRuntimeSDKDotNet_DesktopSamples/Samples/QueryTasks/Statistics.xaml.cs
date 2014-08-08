@@ -26,12 +26,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			var _ = SetUniqueRendererAsync();
-            var __ = RunQueryAsync();
+			SetupSymbology();
+            RunQuery();
         }
 
         // Create a unique value renderer by state sub-region name
-        private async Task SetUniqueRendererAsync()
+		private async void SetupSymbology()
         {
             try
             {
@@ -52,7 +52,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         }
 
         // Query states the for graphics and statistics
-        private async Task RunQueryAsync()
+        private async void RunQuery()
         {
             try
             {

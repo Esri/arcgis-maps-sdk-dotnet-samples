@@ -20,8 +20,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public IdentifySample()
         {
             InitializeComponent();
-			MyMapView.Map.InitialViewpoint = new Viewpoint(
-				new Envelope(-15000000, 2000000, -7000000, 8000000));
         }
 
         // Identify features at the click point

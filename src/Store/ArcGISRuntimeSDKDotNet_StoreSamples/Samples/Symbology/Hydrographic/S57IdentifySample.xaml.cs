@@ -25,7 +25,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbolog
 		private const string LAYER_1_PATH = @"symbology\s57-electronic-navigational-charts\us1wc01m\us1wc01m.000";
 		private const string LAYER_2_PATH = @"symbology\s57-electronic-navigational-charts\us1wc07m\us1wc07m.000";
 
-
 		private GroupLayer _hydrographicGroupLayer;
 		private GraphicsOverlay _resultGraphicsOverlay;
 		private ObservableCollection<S57FeatureObject> _searchResults;

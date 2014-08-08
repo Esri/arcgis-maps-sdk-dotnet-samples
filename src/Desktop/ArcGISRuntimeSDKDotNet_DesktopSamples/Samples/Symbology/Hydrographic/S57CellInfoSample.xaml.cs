@@ -3,6 +3,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Hydrographic;
 using Esri.ArcGISRuntime.Layers;
 using Microsoft.Win32;
+using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,40 +27,40 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 			InitializeComponent();
 
 			// Create default instance of display properties and set that to DataContext for binding
-			var _ = ZoomToHydrographicLayersAsync();
+			ZoomToHydrographicLayers();
 		}
 
 		// Zoom to combined extent of the group layer that contains all hydrographic layers
-		private async Task ZoomToHydrographicLayersAsync()
+		private async void ZoomToHydrographicLayers()
 		{
 			try
 			{
 				// wait until all layers are loaded
 				await MyMapView.LayersLoadedAsync();
+				
+				// Get group layer from Map and set list items source
+				_hydrographicGroupLayer = MyMapView.Map.Layers.OfType<GroupLayer>().First();
+				s57CellList.ItemsSource = _hydrographicGroupLayer.ChildLayers;
+				s57CellList.SelectedIndex = 0;
+
+				Envelope extent = _hydrographicGroupLayer.ChildLayers.First().FullExtent;
+
+				// Create combined extent from child hydrographic layers
+				foreach (var layer in _hydrographicGroupLayer.ChildLayers)
+					extent = extent.Union(layer.FullExtent);
+
+				// Zoom to full extent
+				await MyMapView.SetViewAsync(extent);
+
+				// Enable controls
+				addCellButton.IsEnabled = true;
+				zoomToSelectedButton.IsEnabled = true;
+				removeSelectedCellsButton.IsEnabled = true;
 			}
-			catch (System.Exception ex)
+			catch (Exception ex)
 			{
-				MessageBox.Show(ex.Message);
-				return;
+				MessageBox.Show("Error occured : " + ex.Message, "Sample error");
 			}
-			// Get group layer from Map and set list items source
-			_hydrographicGroupLayer = MyMapView.Map.Layers.OfType<GroupLayer>().First();
-			s57CellList.ItemsSource = _hydrographicGroupLayer.ChildLayers;
-			s57CellList.SelectedIndex = 0;
-
-			Envelope extent = _hydrographicGroupLayer.ChildLayers.First().FullExtent;
-
-			// Create combined extent from child hydrographic layers
-			foreach (var layer in _hydrographicGroupLayer.ChildLayers)
-				extent = extent.Union(layer.FullExtent);
-
-			// Zoom to full extent
-			await MyMapView.SetViewAsync(extent);
-
-			// Enable controls
-			addCellButton.IsEnabled = true;
-			zoomToSelectedButton.IsEnabled = true;
-			removeSelectedCellsButton.IsEnabled = true;
 		}
 
 		// Show error if loading layers fail

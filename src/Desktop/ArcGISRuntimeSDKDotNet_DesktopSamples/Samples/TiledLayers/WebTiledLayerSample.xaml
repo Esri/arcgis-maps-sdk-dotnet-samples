@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView>
-            <esri:Map x:Name="map1" InitialViewpoint="-9840712.566, 5094828.570, -9684169.532, 5187877.291, 102100">
+        <esri:MapView x:Name="MyMapView">
+            <esri:Map InitialViewpoint="-9840712.566, 5094828.570, -9684169.532, 5187877.291, 102100">
                 <esri:WebTiledLayer ID="MyWebTiledLayer" TemplateUri="http://{subDomain}.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{level}/{row}/{col}"
                     SubDomains="server, services" CopyrightText="National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC" />
             </esri:Map>

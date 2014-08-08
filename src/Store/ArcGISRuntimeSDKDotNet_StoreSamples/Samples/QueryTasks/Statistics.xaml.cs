@@ -31,12 +31,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
 			_graphicsOverlay = MyMapView.GraphicsOverlays[0];
 
-            var taskRenderer = SetUniqueRenderer();
-            var taskQuery = RunQuery();
+            SetupSymbology();
+            RunQuery();
         }
 
         // Create a unique value renderer by state sub-region name
-        private async Task SetUniqueRenderer()
+		private async void SetupSymbology()
         {
             try
             {
@@ -57,7 +57,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         }
 
         // Query states the for graphics and statistics
-        private async Task RunQuery()
+        private async void RunQuery()
         {
             try
             {

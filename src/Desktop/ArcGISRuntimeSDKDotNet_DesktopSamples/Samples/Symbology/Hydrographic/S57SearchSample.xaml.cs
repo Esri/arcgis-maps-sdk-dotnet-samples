@@ -41,7 +41,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 			// Reference layers that are used
 			_hydrographicLayers = MyMapView.Map.Layers.OfType<GroupLayer>().First();
 			_resultGraphicsOverlay = resultsOverlay;
-			ZoomToHydrographicLayersAsync();
+			ZoomToHydrographicLayers();
 		}
 
 		public DrawShape CurrentDrawShape
@@ -56,27 +56,28 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 		}
 
 		// Zoom to combined extent of the group layer that contains all hydrographic layers
-		private async void ZoomToHydrographicLayersAsync()
+		private async void ZoomToHydrographicLayers()
 		{
 			try
 			{
 				// wait until all layers are loaded
 				await MyMapView.LayersLoadedAsync();
+
+				var extent = _hydrographicLayers.ChildLayers.First().FullExtent;
+
+				// Create combined extent from child hydrographic layers
+				foreach (var layer in _hydrographicLayers.ChildLayers)
+					extent = extent.Union(layer.FullExtent);
+
+				// Zoom to full extent
+				await MyMapView.SetViewAsync(extent);
+				SearchArea.IsEnabled = true;
 			}
 			catch (System.Exception ex)
 			{
 				MessageBox.Show(ex.Message);
 				return;
 			}
-			var extent = _hydrographicLayers.ChildLayers.First().FullExtent;
-
-			// Create combined extent from child hydrographic layers
-			foreach (var layer in _hydrographicLayers.ChildLayers)
-				extent = extent.Union(layer.FullExtent);
-
-			// Zoom to full extent
-			await MyMapView.SetViewAsync(extent);
-			SearchArea.IsEnabled = true;
 		}
 
 		// Show error if loading layers fail

@@ -46,9 +46,15 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 inputOverlay.Graphics.Clear();
                 resultsOverlay.Graphics.Clear();
 
-                // Request polygon or polyline from the user
-                DrawShape drawShape = (DrawShape)comboShapeType.SelectedItem;
-                var original = await MyMapView.Editor.RequestShapeAsync(drawShape, _fillSymbol);
+				// Request polygon or polyline from the user
+				DrawShape drawShape = (DrawShape)comboShapeType.SelectedValue;
+
+				// Use polyline as default
+				Symbol symbolToUse = _lineSymbol;
+				if (drawShape == DrawShape.Polygon)
+					symbolToUse = _fillSymbol;
+
+				var original = await MyMapView.Editor.RequestShapeAsync(drawShape, symbolToUse);
 
                 // Add original shape vertices to input graphics layer
                 var coordsOriginal = (original as Multipart).Parts.First();

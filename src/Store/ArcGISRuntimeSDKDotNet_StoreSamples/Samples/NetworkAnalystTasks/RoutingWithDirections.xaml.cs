@@ -58,7 +58,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var graphicIdx = _stopsOverlay.Graphics.Count + 1;
                 _stopsOverlay.Graphics.Add(CreateStopGraphic(e.Location, graphicIdx));
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
             }
@@ -108,7 +108,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 
                 var _x = new MessageDialog(message, "Sample Error").ShowAsync();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
             }

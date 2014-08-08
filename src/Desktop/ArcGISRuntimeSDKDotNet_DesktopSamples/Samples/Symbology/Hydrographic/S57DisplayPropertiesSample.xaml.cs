@@ -28,34 +28,34 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 
 			// Create default instance of display properties and set that to DataContext for binding
 			DataContext = HydrographicS52DisplayProperties.Default;
-			ZoomToHydrographicLayersAsync();
+			ZoomToHydrographicLayers();
 		}
 
 		// Zoom to combined extent of the group layer that contains all hydrographic layers
-		private async void ZoomToHydrographicLayersAsync()
+		private async void ZoomToHydrographicLayers()
 		{
 			try
 			{
 				// wait until all layers are loaded
 				await MyMapView.LayersLoadedAsync();
+
+				var hydroGroupLayer = MyMapView.Map.Layers.OfType<GroupLayer>().First();
+				var extent = hydroGroupLayer.ChildLayers.First().FullExtent;
+
+				// Create combined extent from child hydrographic layers
+				foreach (var layer in hydroGroupLayer.ChildLayers)
+					extent = extent.Union(layer.FullExtent);
+
+				// Zoom to full extent
+				await MyMapView.SetViewAsync(extent);
+
+				// Enable controls
+				displayPropertiesArea.IsEnabled = true;
 			}
-			catch (System.Exception ex)
+			catch (Exception ex)
 			{
 				MessageBox.Show(ex.Message);
-				return;
 			}
-			var hydroGroupLayer = MyMapView.Map.Layers.OfType<GroupLayer>().First();
-			var extent = hydroGroupLayer.ChildLayers.First().FullExtent;
-
-			// Create combined extent from child hydrographic layers
-			foreach(var layer in hydroGroupLayer.ChildLayers)
-				extent = extent.Union(layer.FullExtent);
-
-			// Zoom to full extent
-			await MyMapView.SetViewAsync(extent);
-			
-			// Enable controls
-			displayPropertiesArea.IsEnabled = true;
 		}
 
 		// Show error if loading layers fail

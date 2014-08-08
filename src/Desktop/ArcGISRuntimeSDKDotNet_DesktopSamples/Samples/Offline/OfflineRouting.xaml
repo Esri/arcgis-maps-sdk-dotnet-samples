@@ -15,8 +15,10 @@
             <esri:SimpleRenderer x:Key="directionsRenderer" Symbol="{StaticResource directionLineSymbol}" />
         </Grid.Resources>
 
-        <esri:MapView x:Name="MyMapView" MapViewTapped="MyMapView_MapViewTapped" MapViewDoubleTapped="MyMapView_MapViewDoubleTapped">
-            <esri:Map>
+        <esri:MapView x:Name="MyMapView" 
+					  MapViewTapped="MyMapView_MapViewTapped" 
+					  MapViewDoubleTapped="MyMapView_MapViewDoubleTapped">
+			<esri:Map InitialViewpoint="-13044000, 3855000, -13040000, 3858000, 3857">
                 <esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
                 <esri:GraphicsLayer x:Name="stopsLayer" Renderer="{StaticResource stopsRenderer}" />

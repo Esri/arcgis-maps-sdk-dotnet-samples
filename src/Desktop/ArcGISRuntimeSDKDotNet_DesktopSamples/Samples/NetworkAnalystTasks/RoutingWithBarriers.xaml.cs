@@ -37,24 +37,20 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             _stopGraphicsOverlay = StopGraphicsOverlay;
             _barrierGraphicsOverlay = BarrierGraphicsOverlay;
 
-            SetupRouteTaskAsync();
+            SetupRouteTask();
         }
 
-        private async void SetupRouteTaskAsync()
+        private async void SetupRouteTask()
         {
-            _routeTask = new OnlineRouteTask(new Uri(OnlineRoutingService));
-			if (_routeTask != null)
+			try
 			{
-				try
-				{
-					_routeParams = await _routeTask.GetDefaultParametersAsync();
-				}
-				catch(Exception ex)
-				{
-					MessageBox.Show(ex.Message);
-				}
+				_routeTask = new OnlineRouteTask(new Uri(OnlineRoutingService));
+				_routeParams = await _routeTask.GetDefaultParametersAsync();
 			}
-			
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}	
         }
 
         private void ClearButton_Click(object sender, RoutedEventArgs e)

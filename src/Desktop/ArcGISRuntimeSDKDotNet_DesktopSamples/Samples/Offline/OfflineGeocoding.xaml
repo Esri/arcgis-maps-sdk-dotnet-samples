@@ -4,7 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid Background="White">
         <esri:MapView x:Name="MyMapView" WrapAround="True" Grid.Row="0">
-            <esri:Map>
+			<esri:Map InitialViewpoint="-13044000, 3855000, -13040000, 3858000, 4326">
                 <!-- Replace with local basemap for offline use (ArcGISLocalTiledLayer) -->
 				<esri:ArcGISTiledMapServiceLayer 
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />

@@ -4,6 +4,7 @@ using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalyst;
 using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -49,13 +50,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             try
             {
                 MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
-
                 await MyMapView.LayersLoadedAsync();
                 _isMapReady = true;
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(ex.ToString());
+				var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
             }
         }
 

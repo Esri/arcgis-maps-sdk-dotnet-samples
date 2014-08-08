@@ -21,7 +21,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             if (cboLayers == null)
                 return;
 
-            WebTiledLayer webTiledLayer = map1.Layers["MyWebTiledLayer"] as WebTiledLayer;
+			WebTiledLayer webTiledLayer = MyMapView.Map.Layers["MyWebTiledLayer"] as WebTiledLayer;
 
             switch (cboLayers.SelectedIndex)
             {

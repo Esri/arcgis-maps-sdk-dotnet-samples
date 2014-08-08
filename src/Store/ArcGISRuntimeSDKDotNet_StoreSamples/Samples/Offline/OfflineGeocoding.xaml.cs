@@ -40,16 +40,17 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         // Setup marker symbol and renderer
         private async void SetupRendererSymbols()
         {
-            var markerSymbol = new PictureMarkerSymbol() { Width = 48, Height = 48, YOffset = 24 };
-			try { 
-            await markerSymbol.SetSourceAsync(
-                new Uri("ms-appx:///Assets/RedStickpin.png"));
+			try 
+			{
+				var markerSymbol = new PictureMarkerSymbol() { Width = 48, Height = 48, YOffset = 24 };
+				await markerSymbol.SetSourceAsync(
+					new Uri("ms-appx:///Assets/RedStickpin.png"));
+				_graphicsOverlay.Renderer = new SimpleRenderer() { Symbol = markerSymbol, };
 			}
 			catch (System.Exception ex)
 			{
 				var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
-			}
-            _graphicsOverlay.Renderer = new SimpleRenderer() { Symbol = markerSymbol, };
+			}            
         }
 
         // Geocode input address and add result graphics to the map

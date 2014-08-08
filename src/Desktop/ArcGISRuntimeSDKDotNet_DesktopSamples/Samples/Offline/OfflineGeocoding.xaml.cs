@@ -28,26 +28,23 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public OfflineGeocoding()
         {
             InitializeComponent();
-
-			MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-13044000, 3855000, -13040000, 3858000, SpatialReferences.WebMercator));
-
-            var _ = SetupRendererSymbolsAsync();
+            SetupRendererSymbols();
         }
 
         // Setup marker symbol and renderer
-        private async Task SetupRendererSymbolsAsync()
+        private async void SetupRendererSymbols()
         {
-            var markerSymbol = new PictureMarkerSymbol() { Width = 48, Height = 48, YOffset = 24 };
 			try
 			{
+				var markerSymbol = new PictureMarkerSymbol() { Width = 48, Height = 48, YOffset = 24 };
 				await markerSymbol.SetSourceAsync(
 					new Uri("pack://application:,,,/ArcGISRuntimeSDKDotNet_DesktopSamples;component/Assets/RedStickpin.png"));
+				graphicsOverlay.Renderer = new SimpleRenderer() { Symbol = markerSymbol, };
 			}
 			catch(Exception ex)
 			{
-				MessageBox.Show(ex.Message);
+				MessageBox.Show("Error occured : " + ex.Message, "Sample error");
 			}
-			graphicsOverlay.Renderer = new SimpleRenderer() { Symbol = markerSymbol, };
         }
 
         // Geocode input address and add result graphics to the map

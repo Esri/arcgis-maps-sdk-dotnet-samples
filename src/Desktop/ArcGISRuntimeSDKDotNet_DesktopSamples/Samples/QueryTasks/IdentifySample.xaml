@@ -9,7 +9,7 @@
         </Grid.Resources>
 
         <esri:MapView x:Name="MyMapView" WrapAround="True" MapViewTapped="MyMapView_MapViewTapped">
-            <esri:Map>
+			<esri:Map InitialViewpoint="-15000000, 2000000, -7000000, 8000000">
 				<esri:ArcGISTiledMapServiceLayer 
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 			</esri:Map>

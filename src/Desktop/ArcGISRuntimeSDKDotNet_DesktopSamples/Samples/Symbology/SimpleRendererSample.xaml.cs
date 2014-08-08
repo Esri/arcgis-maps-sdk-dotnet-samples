@@ -49,9 +49,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 					graphicsOverlay.Graphics.Add(new Graphic(point));
                 }
             }
-            catch (TaskCanceledException)
-            {
-            }
+            catch (TaskCanceledException) { }
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message, "Simple Renderer Sample");

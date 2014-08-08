@@ -9,7 +9,7 @@
         </Grid.Resources>
 
         <esri:MapView x:Name="MyMapView">
-            <esri:Map>
+			<esri:Map InitialViewpoint="-13644594, 4538221, -13614635, 4552889, 4326">
                 <esri:ArcGISTiledMapServiceLayer DisplayName="Streets Basemap"
                     ServiceUri="http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 

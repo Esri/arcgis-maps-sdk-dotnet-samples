@@ -22,9 +22,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public QueryRelatedTables()
         {
             InitializeComponent();
-
-			MyMapView.Map.InitialViewpoint = new Viewpoint(
-				new Envelope(-10854000, 4502000, -10829000, 4524000, SpatialReferences.WebMercator));
         }
 
         // Select a set of wells near the click point

@@ -28,7 +28,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public GenerateGeodatabase()
         {
             InitializeComponent();
-			MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-13644594, 4538221, -13614635, 4552889, SpatialReferences.WebMercator));
         }
 
         // Generate / download and display layers from a generated geodatabase

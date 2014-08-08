@@ -32,7 +32,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             _isMapReady = false;
             _directionPointSymbol = layoutGrid.Resources["directionPointSymbol"] as Symbol;
-            MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-13044000, 3855000, -13040000, 3858000, SpatialReferences.WebMercator));
             MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 

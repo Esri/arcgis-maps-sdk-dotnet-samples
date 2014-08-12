@@ -29,7 +29,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-             MyMapView.Loaded += MyMapView_Loaded;
+			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
 
 			 _originalGraphicsOverlay = MyMapView.GraphicsOverlays[0];
 			 _generalizedGraphicsOverlay = MyMapView.GraphicsOverlays[1];
@@ -40,46 +40,46 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             _generalizedMarkerSymbol = LayoutRoot.Resources["GeneralizedMarkerSymbol"] as SimpleMarkerSymbol;
         }
 
-        // Adds the original river graphic to the map (from an online service)
-        async void MyMapView_Loaded(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                if (_originalGraphicsOverlay != null && _originalGraphicsOverlay.Graphics.Count == 0)
-                {
-                    QueryTask queryTask = new QueryTask(
-                        new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer/1"));
+		// Adds the original river graphic to the map (from an online service)
+		private async void MyMapView_NavigationCompleted(object sender, EventArgs e)
+		{
+			try
+			{
+				if (_originalGraphicsOverlay != null && _originalGraphicsOverlay.Graphics.Count == 0)
+				{
+					QueryTask queryTask = new QueryTask(
+						new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer/1"));
 
-                    Query query = new Query("NAME = 'Mississippi'");
-                    query.ReturnGeometry = true;
-                    query.OutSpatialReference = MyMapView.SpatialReference;
+					Query query = new Query("NAME = 'Mississippi'");
+					query.ReturnGeometry = true;
+					query.OutSpatialReference = MyMapView.SpatialReference;
 
-                    var results = await queryTask.ExecuteAsync(query);
+					var results = await queryTask.ExecuteAsync(query);
 
-                    var river = results.FeatureSet.Features
-                        .Select(f => f.Geometry)
-                        .OfType<Polyline>()
-                        .FirstOrDefault();
+					var river = results.FeatureSet.Features
+						.Select(f => f.Geometry)
+						.OfType<Polyline>()
+						.FirstOrDefault();
 
-                    _originalGraphicsOverlay.Graphics.Add(new Graphic(river, _defaultLineSymbol));
+					_originalGraphicsOverlay.Graphics.Add(new Graphic(river, _defaultLineSymbol));
 
-                    foreach (var path in river.Parts)
-                    {
-                        foreach (var coord in path)
-                        {
-                            var vertex = new Graphic(coord, _defaultMarkerSymbol);
-                            _originalGraphicsOverlay.Graphics.Add(vertex);
-                        }
-                    }
+					foreach (var path in river.Parts)
+					{
+						foreach (var coord in path)
+						{
+							var vertex = new Graphic(coord, _defaultMarkerSymbol);
+							_originalGraphicsOverlay.Graphics.Add(vertex);
+						}
+					}
 
-                    GeneralizeButton.IsEnabled = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                var _x = new MessageDialog("Error loading test line: " + ex.Message, "Sample Error").ShowAsync();
-            }
-        }
+					GeneralizeButton.IsEnabled = true;
+				}
+			}
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog("Error loading test line: " + ex.Message, "Sample Error").ShowAsync();
+			}
+		}
 
         // Generalizes the original line graphic
         private void GeneralizeButton_Click(object sender, RoutedEventArgs e)
@@ -89,7 +89,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 _generalizedGraphicsOverlay.Graphics.Clear();
 
                 var offset = DistanceSlider.Value * 1000;
-                var generalizedPolyline = GeometryEngine.Generalize(_originalGraphicsOverlay.Graphics[0].Geometry, offset, false) as Polyline;
+                var generalizedPolyline = GeometryEngine.Generalize(
+					_originalGraphicsOverlay.Graphics[0].Geometry, offset, false) as Polyline;
 
                 if (generalizedPolyline != null)
                 {

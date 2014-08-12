@@ -43,6 +43,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 		// Adds the original river graphic to the map (from an online service)
 		private async void MyMapView_NavigationCompleted(object sender, EventArgs e)
 		{
+			MyMapView.NavigationCompleted -= MyMapView_NavigationCompleted;
 			try
 			{
 				if (_originalGraphicsOverlay != null && _originalGraphicsOverlay.Graphics.Count == 0)

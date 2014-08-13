@@ -41,7 +41,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             {
                 MapPoint mapPoint = location;
                 if (MyMapView.WrapAround)
-                    mapPoint = GeometryEngine.NormalizeCentralMeridianOfGeometry(mapPoint) as MapPoint;
+					mapPoint = GeometryEngine.NormalizeCentralMeridian(mapPoint) as MapPoint;
                 txtMapCoords.Text = string.Format("Map Coords: {0:0.000}, {1:0.000}", mapPoint.X, mapPoint.Y);
             }
         }

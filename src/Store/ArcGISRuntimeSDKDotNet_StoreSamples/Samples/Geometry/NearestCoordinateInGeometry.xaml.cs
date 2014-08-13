@@ -38,14 +38,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			_targetOverlay = MyMapView.GraphicsOverlays[1];
 			_coordinateOverlay = MyMapView.GraphicsOverlays[2];
 
-            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
+			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
         }
 
-        private async void MyMapView_ExtentChanged(object sender, EventArgs e)
+		private async void MyMapView_NavigationCompleted(object sender, EventArgs e)
         {
             try
             {
-                MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
+				MyMapView.NavigationCompleted -= MyMapView_NavigationCompleted;
 
                 await LoadParcelsAsync();
                 await MyMapView.LayersLoadedAsync();
@@ -147,9 +147,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
             ProximityResult result = null;
             if (vertexOnly)
-                result = GeometryEngine.NearestVertexInGeometry(target, point);
+                result = GeometryEngine.NearestVertex(target, point);
             else
-                result = GeometryEngine.NearestCoordinateInGeometry(target, point);
+                result = GeometryEngine.NearestCoordinate(target, point);
 
             _coordinateOverlay.Graphics.Clear();
             _coordinateOverlay.Graphics.Add(new Graphic(point, _userPointSymbol));

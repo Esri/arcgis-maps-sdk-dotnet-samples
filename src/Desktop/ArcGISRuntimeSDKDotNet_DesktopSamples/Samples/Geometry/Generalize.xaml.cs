@@ -84,7 +84,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 generalizedLineOverlay.Graphics.Clear();
 
                 var offset = DistanceSlider.Value * 1000;
-				var generalizedPolyline = GeometryEngine.Generalize(originalOverlay.Graphics[0].Geometry, offset, false) as Polyline;
+				var generalizedPolyline = GeometryEngine.Generalize(
+					originalOverlay.Graphics[0].Geometry, offset, false) as Polyline;
 
                 if (generalizedPolyline != null)
                 {

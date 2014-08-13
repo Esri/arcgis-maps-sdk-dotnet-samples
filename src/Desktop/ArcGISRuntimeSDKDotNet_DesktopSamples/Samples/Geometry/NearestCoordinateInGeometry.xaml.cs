@@ -29,14 +29,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             _vertexSymbol = new SimpleMarkerSymbol() { Color = Colors.LightGreen, Size = 8, Style = SimpleMarkerStyle.Circle };
             _userPointSymbol = new SimpleMarkerSymbol() { Color = Colors.Black, Size = 10, Style = SimpleMarkerStyle.Circle };
-            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
+			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
         }
 
-        private async void MyMapView_ExtentChanged(object sender, EventArgs e)
+		private async void MyMapView_NavigationCompleted(object sender, EventArgs e)
         {
             try
             {
-                MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
+				MyMapView.NavigationCompleted -= MyMapView_NavigationCompleted;
 
                 await LoadParcelsAsync();
                 await MyMapView.LayersLoadedAsync();
@@ -143,9 +143,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             ProximityResult result = null;
             if (vertexOnly)
-                result = GeometryEngine.NearestVertexInGeometry(target, point);
+                result = GeometryEngine.NearestVertex(target, point);
             else
-                result = GeometryEngine.NearestCoordinateInGeometry(target, point);
+                result = GeometryEngine.NearestCoordinate(target, point);
 
 			coordinateOverlay.Graphics.Clear();
 			coordinateOverlay.Graphics.Add(new Graphic(point, _userPointSymbol));

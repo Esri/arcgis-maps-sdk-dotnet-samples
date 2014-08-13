@@ -44,7 +44,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                Geoprocessor geoprocessorTask = new Geoprocessor(new Uri(MessageInABottleServiceUrl));
 
                var parameter = new GPInputParameter() { OutSpatialReference = MyMapView.SpatialReference };
-               var ptNorm = GeometryEngine.NormalizeCentralMeridianOfGeometry(e.Location);
+			   var ptNorm = GeometryEngine.NormalizeCentralMeridian(e.Location);
                var ptGeographic = GeometryEngine.Project(ptNorm, SpatialReferences.Wgs84) as MapPoint;
 
                parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Input_Point", ptGeographic));

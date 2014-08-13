@@ -36,7 +36,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
                 var point = e.Location;
                 var buffer = GeometryEngine.GeodesicBuffer(
-                    GeometryEngine.NormalizeCentralMeridianOfGeometry(point), //Normalize in case we we're too far west/east of the world bounds
+                    GeometryEngine.NormalizeCentralMeridian(point), //Normalize in case we we're too far west/east of the world bounds
                     500, LinearUnits.Miles);
 
                 var pointGraphic = new Graphic { Geometry = point, Symbol = _pinSymbol };

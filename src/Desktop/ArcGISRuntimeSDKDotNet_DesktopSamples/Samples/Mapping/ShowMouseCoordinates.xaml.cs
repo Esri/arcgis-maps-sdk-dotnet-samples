@@ -28,7 +28,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             MapPoint mapPoint = MyMapView.ScreenToLocation(screenPoint);
             if (MyMapView.WrapAround)
-                mapPoint = GeometryEngine.NormalizeCentralMeridianOfGeometry(mapPoint) as MapPoint;
+                mapPoint = GeometryEngine.NormalizeCentralMeridian(mapPoint) as MapPoint;
             MapCoordsTextBlock.Text = string.Format("Map Coords: X = {0}, Y = {1}",
                     Math.Round(mapPoint.X, 4), Math.Round(mapPoint.Y, 4));
         }

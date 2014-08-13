@@ -25,7 +25,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
             if (MyMapView.WrapAround)
             {
-                Geometry normalizedExtent = GeometryEngine.NormalizeCentralMeridianOfGeometry(MyMapView.Extent);
+				Geometry normalizedExtent = GeometryEngine.NormalizeCentralMeridian(MyMapView.Extent);
                 if (normalizedExtent is Polygon)
                 {
                     var normalizedPolygon = (Polygon)normalizedExtent;
@@ -34,7 +34,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                         newExtent = normalizedPolygon.Extent;
                     else
                     {
-                        var newExtentBuilder = new EnvelopeBuilder();
+                        var newExtentBuilder = new EnvelopeBuilder(MyMapView.SpatialReference);
 
 						foreach (var p in normalizedPolygon.Parts[0])
                         {

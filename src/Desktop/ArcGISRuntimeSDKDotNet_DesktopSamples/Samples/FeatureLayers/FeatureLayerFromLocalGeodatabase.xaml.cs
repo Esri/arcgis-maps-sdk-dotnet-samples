@@ -42,12 +42,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                         FeatureTable = table
                     };
 
-					if (table.ServiceInfo.Extent != null &&
-						!table.ServiceInfo.Extent.IsEmpty)
+					if (!Geometry.IsNullOrEmpty(table.ServiceInfo.Extent))
 					{
-						if (extent == null)
-							extent = table.ServiceInfo.Extent;
-						else if (extent.IsEmpty)
+						if (Geometry.IsNullOrEmpty(extent))
 							extent = table.ServiceInfo.Extent;
 						else
 							extent = extent.Union(table.ServiceInfo.Extent);

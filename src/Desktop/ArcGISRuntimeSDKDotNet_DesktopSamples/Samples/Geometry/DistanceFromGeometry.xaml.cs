@@ -46,7 +46,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 				graphicsOverlay.Graphics.Add(new Graphic(point, _pointSymbol));
 
                 // Calc distance between between line and point
-                double distance = GeometryEngine.DistanceFromGeometry(line, point) * METERS_TO_MILES;
+                double distance = GeometryEngine.Distance(line, point) * METERS_TO_MILES;
                 txtResults.Text = string.Format("Distance between geometries: {0:0.000} miles", distance);
                 txtResults.Visibility = Visibility.Visible;
             }

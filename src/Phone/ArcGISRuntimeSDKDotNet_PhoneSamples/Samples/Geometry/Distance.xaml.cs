@@ -56,7 +56,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             var wmPolyline = GeometryEngine.Project(inputPolylineGeometry, SpatialReferences.WebMercator);
             var wmPoint = GeometryEngine.Project(inputPointGeometry, SpatialReferences.WebMercator) as MapPoint;
 
-            var result = GeometryEngine.NearestCoordinateInGeometry(wmPolyline, wmPoint);
+            var result = GeometryEngine.NearestCoordinate(wmPolyline, wmPoint);
 
 
 

@@ -51,7 +51,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             {
                 progress.Visibility = Visibility.Visible;
 				graphicsOverlay.Graphics.Clear();
-                MyMapView.Overlays.Clear();
+                MyMapView.Overlays.Items.Clear();
 
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
 
@@ -83,7 +83,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     overlay.Template = layoutGrid.Resources["MapTipTemplate"] as ControlTemplate;
                     overlay.DataContext = candidate["attributes"] as Dictionary<string, object>;
 					MapView.SetViewOverlayAnchor(overlay, point);
-                    MyMapView.Overlays.Add(overlay);
+                    MyMapView.Overlays.Items.Add(overlay);
                 }
 
 				await MyMapView.SetViewAsync(GeometryEngine.Union(graphicsOverlay.Graphics.Select(g => g.Geometry)).Extent.Expand(1.5));

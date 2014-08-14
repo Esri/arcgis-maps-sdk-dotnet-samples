@@ -5,6 +5,7 @@
     xmlns:common="using:ArcGISRuntimeSDKDotNet_StoreSamples.Common"
     xmlns:esri="using:Esri.ArcGISRuntime.Controls"
     xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
+	xmlns:specialized="using:Esri.ArcGISRuntime.Symbology.Specialized"
     xmlns:geo="using:Esri.ArcGISRuntime.Geometry"
     xmlns:sym="using:Esri.ArcGISRuntime.Symbology"
     xmlns:data="using:Esri.ArcGISRuntime.Data">
@@ -23,7 +24,7 @@
 			<esri:Map>
 				<lyr:ArcGISTiledMapServiceLayer ID="Basemap" 
 					ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"/>
-				<lyr:MessageLayer SymbolDictionaryType="Mil2525C" />
+				<specialized:MessageLayer SymbolDictionaryType="Mil2525C" />
 			</esri:Map>
 		</esri:MapView>
 

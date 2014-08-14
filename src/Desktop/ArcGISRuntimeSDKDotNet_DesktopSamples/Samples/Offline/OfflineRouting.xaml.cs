@@ -99,7 +99,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 routeParams.ReturnDirections = true;
                 routeParams.DirectionsLengthUnit = LinearUnits.Miles;
                 routeParams.DirectionsLanguage = new CultureInfo("en-US");
-                routeParams.Stops = new FeaturesAsFeature(stopsLayer.Graphics) { SpatialReference = MyMapView.SpatialReference };
+                routeParams.SetStops(stopsLayer.Graphics);
 
                 var routeResult = await _routeTask.SolveAsync(routeParams);
                 if (routeResult == null || routeResult.Routes == null || routeResult.Routes.Count() == 0)

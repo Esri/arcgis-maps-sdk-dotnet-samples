@@ -68,7 +68,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 routeParams.DirectionsLengthUnit = LinearUnits.Miles;
                 routeParams.UseTimeWindows = false;
                 routeParams.OutSpatialReference = mapView1.SpatialReference;
-                routeParams.Stops = new FeaturesAsFeature(routeLayer.Graphics);
+                routeParams.SetStops(routeLayer.Graphics);
 
                 var routeTaskResult = await routeTask.SolveAsync(routeParams);
                 _directionsFeatureSet = routeTaskResult.Routes.FirstOrDefault();

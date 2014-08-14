@@ -174,20 +174,8 @@
     <Compile Include="Samples\Geometry\LineLength.xaml.cs">
       <DependentUpon>LineLength.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Symbology\AdvancedSymbology\MessageProcessingSample.xaml.cs">
+    <Compile Include="Samples\Symbology\Specialized\MessageProcessingSample.xaml.cs">
       <DependentUpon>MessageProcessingSample.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Symbology\AdvancedSymbology\S57CellInfoSample.xaml.cs">
-      <DependentUpon>S57CellInfoSample.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Symbology\AdvancedSymbology\S57DisplayPropertiesSample.xaml.cs">
-      <DependentUpon>S57DisplayPropertiesSample.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Symbology\AdvancedSymbology\S57IdentifySample.xaml.cs">
-      <DependentUpon>S57IdentifySample.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Symbology\AdvancedSymbology\S57SearchSample.xaml.cs">
-      <DependentUpon>S57SearchSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Geometry\Offset.xaml.cs">
       <DependentUpon>Offset.xaml</DependentUpon>
@@ -270,8 +258,20 @@
     <Compile Include="Samples\QueryTasks\Statistics.xaml.cs">
       <DependentUpon>Statistics.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Symbology\AdvancedSymbology\SymbolDictionarySearchSample.xaml.cs">
+    <Compile Include="Samples\Symbology\Specialized\SymbolDictionarySearchSample.xaml.cs">
       <DependentUpon>SymbolDictionarySearchSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\Hydrographic\S57CellInfoSample.xaml.cs">
+      <DependentUpon>S57CellInfoSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\Hydrographic\S57DisplayPropertiesSample.xaml.cs">
+      <DependentUpon>S57DisplayPropertiesSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\Hydrographic\S57IdentifySample.xaml.cs">
+      <DependentUpon>S57IdentifySample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\Hydrographic\S57SearchSample.xaml.cs">
+      <DependentUpon>S57SearchSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Symbology\RenderingInCode.xaml.cs">
       <DependentUpon>RenderingInCode.xaml</DependentUpon>
@@ -421,23 +421,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Symbology\AdvancedSymbology\MessageProcessingSample.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Symbology\AdvancedSymbology\S57CellInfoSample.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Symbology\AdvancedSymbology\S57DisplayPropertiesSample.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Symbology\AdvancedSymbology\S57IdentifySample.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Symbology\AdvancedSymbology\S57SearchSample.xaml">
+    <Page Include="Samples\Symbology\Specialized\MessageProcessingSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -549,7 +533,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Symbology\AdvancedSymbology\SymbolDictionarySearchSample.xaml">
+    <Page Include="Samples\Symbology\Specialized\SymbolDictionarySearchSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\Hydrographic\S57CellInfoSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\Hydrographic\S57DisplayPropertiesSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\Hydrographic\S57IdentifySample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\Hydrographic\S57SearchSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

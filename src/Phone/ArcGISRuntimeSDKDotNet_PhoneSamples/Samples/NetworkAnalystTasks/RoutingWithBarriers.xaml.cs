@@ -58,15 +58,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 {
                     OnlineRouteTask routeTask = new OnlineRouteTask(new Uri("http://tasks.arcgisonline.com/ArcGIS/rest/services/NetworkAnalysis/ESRI_Route_NA/NAServer/Route"));
                     RouteParameters routeParams = await routeTask.GetDefaultParametersAsync();
-                    FeaturesAsFeature featureAsFeature = new FeaturesAsFeature();
-                    featureAsFeature.Features = stopsLayer.Graphics;
-                    routeParams.Stops = featureAsFeature;
+					routeParams.SetStops(stopsLayer.Graphics);
 
                     routeParams.UseTimeWindows = false;
                     routeParams.OutSpatialReference = mapView1.SpatialReference;
-                    FeaturesAsFeature barrierFeatures = new FeaturesAsFeature();
-                    barrierFeatures.Features = barriersLayer.Graphics;
-                    routeParams.PointBarriers = barrierFeatures;
+                    routeParams.SetPointBarriers(barriersLayer.Graphics);
                     routeParams.OutputGeometryPrecision = 1;
                     //routeParams.OutputGeometryPrecisionUnit = LinearUnits.Miles;
                     routeParams.DirectionsLengthUnit = LinearUnits.Miles;

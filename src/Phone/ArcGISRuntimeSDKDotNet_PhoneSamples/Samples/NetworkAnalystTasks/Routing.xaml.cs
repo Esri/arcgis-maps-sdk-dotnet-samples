@@ -35,9 +35,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     var routeTask = new OnlineRouteTask(new Uri("http://tasks.arcgisonline.com/ArcGIS/rest/services/NetworkAnalysis/ESRI_Route_NA/NAServer/Route"));
                     var routeParams = await routeTask.GetDefaultParametersAsync();
 
-                    FeaturesAsFeature stopsFeatures = new FeaturesAsFeature();
-                    stopsFeatures.Features = stopsGraphicsLayer.Graphics;
-                    routeParams.Stops = stopsFeatures;
+                    routeParams.SetStops(stopsGraphicsLayer.Graphics);
                     routeParams.UseTimeWindows = false;
                     routeParams.OutSpatialReference = mapView1.SpatialReference;
                     routeParams.DirectionsLengthUnit = LinearUnits.Miles;

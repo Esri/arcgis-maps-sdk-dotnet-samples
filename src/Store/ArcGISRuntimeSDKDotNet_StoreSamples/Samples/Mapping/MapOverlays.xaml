@@ -18,74 +18,76 @@
             </esri:Map>
 
             <esri:MapView.Overlays>
-				<Grid esri:MapView.ViewOverlayAnchor="{Binding}" IsHitTestVisible="False" HorizontalAlignment="Right" VerticalAlignment="Top" MaxWidth="200"
-                      Visibility="{Binding ElementName=chkEsri, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+				<esri:OverlayItemsControl>
+					<Grid esri:MapView.ViewOverlayAnchor="{Binding}" IsHitTestVisible="False" HorizontalAlignment="Right" VerticalAlignment="Top" MaxWidth="200"
+						  Visibility="{Binding ElementName=chkEsri, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
                 
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="20" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="20" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="*" />
+							<RowDefinition Height="20" />
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="20" />
+							<ColumnDefinition Width="*" />
+						</Grid.ColumnDefinitions>
 
-                    <Grid.RenderTransform>
-                        <TranslateTransform x:Name="MapTipTranslate" />
-                    </Grid.RenderTransform>
+						<Grid.RenderTransform>
+							<TranslateTransform x:Name="MapTipTranslate" />
+						</Grid.RenderTransform>
 
-                    <Border Background="#CC000000" BorderThickness="1,1,1,0" Margin="0,0,0,-1" BorderBrush="White" Grid.ColumnSpan="2">
-                        <StackPanel Margin="20">
-                            <TextBlock Text="Esri Headquaters" FontWeight="Bold" Foreground="White" />
-                        </StackPanel>
-                    </Border>
+						<Border Background="#CC000000" BorderThickness="1,1,1,0" Margin="0,0,0,-1" BorderBrush="White" Grid.ColumnSpan="2">
+							<StackPanel Margin="20">
+								<TextBlock Text="Esri Headquaters" FontWeight="Bold" Foreground="White" />
+							</StackPanel>
+						</Border>
 
-                    <Path StrokeThickness="1" Fill="#CC000000" Stroke="White" Stretch="Fill" HorizontalAlignment="Left" Data="M0,0 L0,1 1,0" Grid.Row="1" />
-                    <Path StrokeThickness="1" Fill="#CC000000" Stroke="White" Stretch="Fill" VerticalAlignment="Top" Data="M0,0 L1,0" Grid.Row="1" Grid.Column="1" />
-                </Grid>
+						<Path StrokeThickness="1" Fill="#CC000000" Stroke="White" Stretch="Fill" HorizontalAlignment="Left" Data="M0,0 L0,1 1,0" Grid.Row="1" />
+						<Path StrokeThickness="1" Fill="#CC000000" Stroke="White" Stretch="Fill" VerticalAlignment="Top" Data="M0,0 L1,0" Grid.Row="1" Grid.Column="1" />
+					</Grid>
 
-                <Border x:Name="centerOverlay" Background="Transparent" Opacity=".65" 
-                        HorizontalAlignment="Center" VerticalAlignment="Center" esri:MapView.ViewOverlayAnchor="{Binding}"
-                        Visibility="{Binding ElementName=chkCenter, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <StackPanel>
-                        <Image Source="ms-appx:///Assets/RedStickPin.png" Margin="0,-40,0,0" />
-                        <TextBlock Foreground="White" FontSize="11">
-                            <Run Text="{Binding X}" />
-                            <Run Text=", " />
-                            <Run Text="{Binding Y}" />
-                        </TextBlock>
-                    </StackPanel>
-                </Border>
+					<Border x:Name="centerOverlay" Background="Transparent" Opacity=".65" 
+							HorizontalAlignment="Center" VerticalAlignment="Center" esri:MapView.ViewOverlayAnchor="{Binding}"
+							Visibility="{Binding ElementName=chkCenter, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+						<StackPanel>
+							<Image Source="ms-appx:///Assets/RedStickPin.png" Margin="0,-40,0,0" />
+							<TextBlock Foreground="White" FontSize="11">
+								<Run Text="{Binding X}" />
+								<Run Text=", " />
+								<Run Text="{Binding Y}" />
+							</TextBlock>
+						</StackPanel>
+					</Border>
 
-                <Grid x:Name="clickOverlay" HorizontalAlignment="Right" VerticalAlignment="Top"
-                      Background="Transparent" esri:MapView.ViewOverlayAnchor="{Binding}"
-                      Visibility="{Binding ElementName=chkCoords, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+					<Grid x:Name="clickOverlay" HorizontalAlignment="Right" VerticalAlignment="Top"
+						  Background="Transparent" esri:MapView.ViewOverlayAnchor="{Binding}"
+						  Visibility="{Binding ElementName=chkCoords, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
 
-                    <Ellipse HorizontalAlignment="Left" VerticalAlignment="Bottom" Fill="Red" Height="6" Width="6" Margin="-3,0,0,-3" />
+						<Ellipse HorizontalAlignment="Left" VerticalAlignment="Bottom" Fill="Red" Height="6" Width="6" Margin="-3,0,0,-3" />
 
-                    <Grid Margin="8">
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+						<Grid Margin="8">
+							<Grid.RowDefinitions>
+								<RowDefinition />
+								<RowDefinition />
+								<RowDefinition />
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Map Coordinates" Margin="0,0,0,6" />
+							<TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Map Coordinates" Margin="0,0,0,6" />
 
-                        <TextBlock Grid.Row="1" Grid.Column="0" Text="X" Foreground="White" FontSize="14" />
-                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding X}" 
-                               Foreground="White" FontSize="14" HorizontalAlignment="Center" />
+							<TextBlock Grid.Row="1" Grid.Column="0" Text="X" Foreground="White" FontSize="14" />
+							<TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding X}" 
+								   Foreground="White" FontSize="14" HorizontalAlignment="Center" />
 
-                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Y" Foreground="White" FontSize="14" />
-                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Y}" 
-                               Foreground="White" FontSize="14" HorizontalAlignment="Center" />
-                    </Grid>
-                </Grid>
-            </esri:MapView.Overlays>
+							<TextBlock Grid.Row="2" Grid.Column="0" Text="Y" Foreground="White" FontSize="14" />
+							<TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Y}" 
+								   Foreground="White" FontSize="14" HorizontalAlignment="Center" />
+						</Grid>
+					</Grid>
+				</esri:OverlayItemsControl>
+			</esri:MapView.Overlays>
         </esri:MapView>
 
         <Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">

@@ -4,7 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:common="using:ArcGISRuntimeSDKDotNet_StoreSamples.Common"
     xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-    xmlns:layers="using:Esri.ArcGISRuntime.Layers">
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+	xmlns:special="using:Esri.ArcGISRuntime.Symbology.Specialized">
 
 	<Page.Resources>
 		<Style x:Key="overlayBorderStyle" TargetType="Border">
@@ -29,7 +30,7 @@
 			<esri:Map>
 				<layers:ArcGISTiledMapServiceLayer ID="Basemap"
 					ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"/>
-				<layers:MessageLayer ID="Messages" SymbolDictionaryType="Mil2525C" />
+				<special:MessageLayer ID="Messages" SymbolDictionaryType="Mil2525C" />
 			</esri:Map>
 		</esri:MapView>
 

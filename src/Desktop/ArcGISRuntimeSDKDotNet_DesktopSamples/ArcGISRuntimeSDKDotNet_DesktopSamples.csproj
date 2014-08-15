@@ -385,6 +385,12 @@
     <Compile Include="Samples\Security\TokenSecuredServices.xaml.cs">
       <DependentUpon>TokenSecuredServices.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Symbology\Specialized\MessageProcessingSample.xaml.cs">
+      <DependentUpon>MessageProcessingSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\Specialized\SymbolDictionarySearchSample.xaml.cs">
+      <DependentUpon>SymbolDictionarySearchSample.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Symbology\Hydrographic\S57CellInfoSample.xaml.cs">
       <DependentUpon>S57CellInfoSample.xaml</DependentUpon>
     </Compile>
@@ -869,6 +875,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Security\TokenSecuredServices.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\Specialized\MessageProcessingSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\Specialized\SymbolDictionarySearchSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -12,7 +12,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbology
+namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.Hydrographic
 {
 	/// <summary>
 	/// This sample demostrates how to perform a point-based identify style operation on an HydrographicS57Layer using the SearchLayer method.

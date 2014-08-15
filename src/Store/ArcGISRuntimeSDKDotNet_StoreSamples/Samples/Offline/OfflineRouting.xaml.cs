@@ -110,7 +110,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 routeParams.ReturnDirections = true;
                 routeParams.DirectionsLengthUnit = LinearUnits.Miles;
                 routeParams.DirectionsLanguage = new CultureInfo("en-US");
-                routeParams.Stops = new FeaturesAsFeature(_stopsLayer.Graphics) { SpatialReference = MyMapView.SpatialReference };
+				routeParams.SetStops(_stopsLayer.Graphics);
 
                 var routeResult = await _routeTask.SolveAsync(routeParams);
                 if (routeResult == null || routeResult.Routes == null || routeResult.Routes.Count() == 0)

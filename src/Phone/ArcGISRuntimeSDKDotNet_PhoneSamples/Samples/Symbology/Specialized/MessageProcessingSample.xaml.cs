@@ -13,7 +13,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology
+namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.Specialized
 {
 	/// <summary>
 	/// Sample shows how to read and process Mil2525C message data from XML file. 

@@ -14,7 +14,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 
-namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology
+namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.Specialized
 {
 	/// <summary>
 	/// Sample shows how to use search the Mil2525C symbol dictionary.

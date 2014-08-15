@@ -43,7 +43,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 overlay.Template = layoutGrid.Resources["MapTipTemplate"] as ControlTemplate;
                 overlay.DataContext = result;
 				MapView.SetViewOverlayAnchor(overlay, e.Location);
-                MyMapView.Overlays.Add(overlay);
+                MyMapView.Overlays.Items.Add(overlay);
             }
             catch (AggregateException aex)
             {
@@ -58,7 +58,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         // Clear current graphcis and overlay map tips
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
-            MyMapView.Overlays.Clear();
+            MyMapView.Overlays.Items.Clear();
             _graphicsOverlay.Graphics.Clear();
         }
     }

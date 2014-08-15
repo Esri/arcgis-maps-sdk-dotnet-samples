@@ -138,9 +138,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 routeParams.OutSpatialReference = MyMapView.SpatialReference;
                 routeParams.ReturnDirections = false;
 
-                FeaturesAsFeature stops = new FeaturesAsFeature(_stopsGraphicsOverlay.Graphics);
-                stops.SpatialReference = MyMapView.SpatialReference;
-                routeParams.Stops = stops;
+				routeParams.SetStops(_stopsGraphicsOverlay.Graphics);
 
                 RouteResult routeResult = await _routeTask.SolveAsync(routeParams);
 

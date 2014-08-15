@@ -1,5 +1,6 @@
 ﻿using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Geometry;
+using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -19,7 +20,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-			(MyMapView.Overlays[0] as Grid).DataContext = new MapPoint(-117.19568, 34.056601, SpatialReferences.Wgs84);
+			(MyMapView.Overlays.Items[0] as Grid).DataContext = new MapPoint(-117.19568, 34.056601, SpatialReferences.Wgs84);
 
             MyMapView.Loaded += MyMapView_Loaded;
             MyMapView.ExtentChanged += MyMapView_ExtentChanged;
@@ -33,17 +34,20 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private void MyMapView_ExtentChanged(object sender, System.EventArgs e)
         {
-            var center = GeometryEngine.Project(MyMapView.Extent.GetCenter(), SpatialReferences.Wgs84);
+			var normalizedPoint = GeometryEngine.NormalizeCentralMeridian(MyMapView.Extent.GetCenter());
+			var projectedCenter = GeometryEngine.Project(normalizedPoint, SpatialReferences.Wgs84) as MapPoint;
 
             if (!(_clickOverlay.DataContext is MapPoint))
-                _clickOverlay.DataContext = center;
+				_clickOverlay.DataContext = projectedCenter;
 
-            _centerOverlay.DataContext = center;
+			_centerOverlay.DataContext = projectedCenter;
         }
 
         private void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
-            _clickOverlay.DataContext = GeometryEngine.Project(e.Location, SpatialReferences.Wgs84);
+			var normalizedPoint = GeometryEngine.NormalizeCentralMeridian(e.Location);
+			var projectedCenter = GeometryEngine.Project(normalizedPoint, SpatialReferences.Wgs84) as MapPoint;
+			_clickOverlay.DataContext = projectedCenter;
         }
     }
 }

@@ -10,7 +10,7 @@ using Windows.Storage;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbology
+namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.Hydrographic
 {
 	/// <summary>
 	/// This sample demonstrates using the global static HydrographicS52DisplayProperties object to control the display properties of an HydrographicS57Layer, such as the Color Scheme or Safety Contour Depth. 

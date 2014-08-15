@@ -21,7 +21,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbology
+namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.Hydrographic
 {
 	/// <summary>
 	/// This sample demostrates how to perform a point-based identify style operation on an HydrographicS57Layer using the SearchLayer method.

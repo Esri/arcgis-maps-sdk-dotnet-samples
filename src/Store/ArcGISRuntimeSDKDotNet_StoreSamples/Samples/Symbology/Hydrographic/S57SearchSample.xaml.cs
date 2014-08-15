@@ -13,7 +13,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using symbols = Esri.ArcGISRuntime.Symbology;
 
-namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbology
+namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.Hydrographic
 {
 	/// <summary>
 	/// This sample shows how to use the the SearchAsync method to search an HydrographicS57Layer based on an input geometry, buffer value and object name.

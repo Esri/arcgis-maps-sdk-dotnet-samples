@@ -90,8 +90,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             {
                 progress.Visibility = Visibility.Visible;
 
-                _routeParams.Stops = new FeaturesAsFeature(_stopGraphicsOverlay.Graphics);
-                _routeParams.PointBarriers = new FeaturesAsFeature(_barrierGraphicsOverlay.Graphics);
+                _routeParams.SetStops(_stopGraphicsOverlay.Graphics);
+                _routeParams.SetPointBarriers(_barrierGraphicsOverlay.Graphics);
                 _routeParams.OutSpatialReference = MyMapView.SpatialReference;
 
                 RouteResult routeResult = await _routeTask.SolveAsync(_routeParams);

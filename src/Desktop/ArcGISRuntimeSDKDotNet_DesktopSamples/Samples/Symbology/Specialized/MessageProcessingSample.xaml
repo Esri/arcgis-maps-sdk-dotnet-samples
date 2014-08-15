@@ -1,7 +1,8 @@
-﻿<UserControl x:Class="ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.MessageProcessingSample"
+﻿<UserControl x:Class="ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Specialized.MessageProcessingSample"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+			 xmlns:special="clr-namespace:Esri.ArcGISRuntime.Symbology.Specialized;assembly=Esri.ArcGISRuntime"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
@@ -11,7 +12,7 @@
 			<esri:Map InitialViewpoint="-245200,6665900,-207000,6687300,3857">
 				<esri:ArcGISTiledMapServiceLayer ID="Basemap" 
 					ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"/>
-				<esri:MessageLayer SymbolDictionaryType="Mil2525C" />
+				<special:MessageLayer SymbolDictionaryType="Mil2525C" />
 			</esri:Map>
 		</esri:MapView>
 

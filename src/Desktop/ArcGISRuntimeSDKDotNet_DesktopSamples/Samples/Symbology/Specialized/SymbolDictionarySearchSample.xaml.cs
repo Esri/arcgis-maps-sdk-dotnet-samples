@@ -1,4 +1,4 @@
-﻿using Esri.ArcGISRuntime.AdvancedSymbology;
+﻿using Esri.ArcGISRuntime.Symbology.Specialized;
 using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
@@ -13,7 +13,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology
+namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Specialized
 {
 	/// <summary>
 	/// Sample shows how to use search the Mil2525C symbol dictionary.

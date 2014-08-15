@@ -1,7 +1,6 @@
-﻿using Esri.ArcGISRuntime.AdvancedSymbology;
-using Esri.ArcGISRuntime.Controls;
+﻿using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Layers;
+using Esri.ArcGISRuntime.Symbology.Specialized;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,7 +8,6 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.Storage;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

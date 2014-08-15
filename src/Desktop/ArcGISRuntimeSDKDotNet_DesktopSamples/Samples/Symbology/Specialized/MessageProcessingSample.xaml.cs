@@ -1,5 +1,5 @@
 ﻿using Esri.ArcGISRuntime;
-using Esri.ArcGISRuntime.AdvancedSymbology;
+using Esri.ArcGISRuntime.Symbology.Specialized;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using System;
@@ -10,7 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Xml.Linq;
 
-namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology
+namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Specialized
 {
 	/// <summary>
 	/// Sample shows how to read and process Mil2525C message data from XML file. 

@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbology.S57DisplayPropertiesSample"
+    x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.Hydrographic.S57DisplayPropertiesSample"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:common="using:ArcGISRuntimeSDKDotNet_StoreSamples.Common"

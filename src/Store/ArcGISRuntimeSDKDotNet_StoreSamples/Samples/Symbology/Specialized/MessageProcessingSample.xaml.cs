@@ -1,8 +1,4 @@
-﻿using Esri.ArcGISRuntime;
-using Esri.ArcGISRuntime.AdvancedSymbology;
-using Esri.ArcGISRuntime.Controls;
-using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Layers;
+﻿using Esri.ArcGISRuntime.Symbology.Specialized;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -11,7 +11,7 @@
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Reference_Overlay/MapServer" />
 				<esri:FeatureLayer x:Name="featureLayer" Opacity="0.8">
                     <esri:FeatureLayer.FeatureTable>
-                        <esri:GeodatabaseFeatureServiceTable 
+                        <esri:ServiceFeatureTable 
                             Mode="Snapshot"
                             ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/2"
                             Where="STATE_NAME = 'Washington'"

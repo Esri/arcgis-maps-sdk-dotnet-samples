@@ -33,7 +33,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             _baseSymbol = new SimpleFillSymbol() { Color = Colors.Transparent, Outline = lineSymbol, Style = SimpleFillStyle.Solid };
 
             _featureLayer = MyMapView.Map.Layers["FeatureLayer"] as FeatureLayer;
-            ((GeodatabaseFeatureServiceTable)_featureLayer.FeatureTable).OutFields = new OutFields(
+            ((ServiceFeatureTable)_featureLayer.FeatureTable).OutFields = new OutFields(
                 new string[] { "POP2007, POP07_SQMI, WHITE, BLACK, AMERI_ES, ASIAN, HAWN_PI, OTHER, MULT_RACE, HISPANIC, STATE_NAME, NAME" });
 
             MyMapView.ExtentChanged += MyMapView_ExtentChanged;
@@ -84,7 +84,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var param = new GenerateRendererParameters()
                 {
                     ClassificationDefinition = classBreaksDef,
-                    Where = ((GeodatabaseFeatureServiceTable)_featureLayer.FeatureTable).Where
+                    Where = ((ServiceFeatureTable)_featureLayer.FeatureTable).Where
                 };
 
                 var result = await generateRenderer.GenerateRendererAsync(param);

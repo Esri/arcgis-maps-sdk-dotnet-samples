@@ -20,7 +20,7 @@
 
 				<layers:FeatureLayer ID="FeatureLayer" Opacity="0.8">
 					<layers:FeatureLayer.FeatureTable>
-                        <data:GeodatabaseFeatureServiceTable 
+                        <data:ServiceFeatureTable 
                             Mode="OnDemand"
                             ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/2"
                             Where="STATE_NAME = 'Washington'" />

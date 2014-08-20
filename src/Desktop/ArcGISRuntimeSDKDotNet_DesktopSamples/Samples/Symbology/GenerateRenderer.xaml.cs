@@ -76,7 +76,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var param = new GenerateRendererParameters()
                 {
                     ClassificationDefinition = classBreaksDef,
-                    Where = ((GeodatabaseFeatureServiceTable)featureLayer.FeatureTable).Where
+                    Where = ((ServiceFeatureTable)featureLayer.FeatureTable).Where
                 };
 
                 var result = await generateRenderer.GenerateRendererAsync(param);

@@ -14,7 +14,7 @@
                         <esri:LayerDrawingOptionCollection>
                             <esri:LayerDrawingOptions LayerID="0" ShowLabels="True">
                                 <esri:LayerDrawingOptions.LabelingInfos>
-                                    <esri:DynamicLabelingInfo LabelExpression="[areaname]" LabelPlacement="PointLabelPlacementAboveRight" Where="pop2000 > 500000">
+                                    <esri:DynamicLabelingInfo LabelExpression="[areaname]" LabelPlacement="PointAboveRight" Where="pop2000 > 500000">
                                         <esri:DynamicLabelingInfo.Symbol>
                                             <esri:TextSymbol Color="Blue">
                                                 <esri:TextSymbol.Font>

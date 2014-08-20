@@ -216,7 +216,7 @@
             </summary>
             <category>Geometry</category>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.MessageProcessingSample">
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.Specialized.MessageProcessingSample">
             <summary>
             Sample shows how to read and process Mil2525C message data from XML file. 
             </summary>
@@ -412,7 +412,7 @@
             </summary>
             <category>Query Tasks</category>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.SymbolDictionarySearchSample">
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.Specialized.SymbolDictionarySearchSample">
             <summary>
             Sample shows how to use search the Mil2525C symbol dictionary.
             </summary>
@@ -420,7 +420,7 @@
             <category>Symbology</category>
             <subcategory>Advanced</subcategory>	
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbology.S57CellInfoSample">
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.Hydrographic.S57CellInfoSample">
             <summary>
             This sample demonstrates adding and removing S-57 cells from an HydrographicS57Layer in the Map and accessing the Dataset Identification (DSID) metadata of those S-57 cells. The DSID metadata Provides information regarding the dataset's source and the product specification it is part of.
             </summary>
@@ -428,7 +428,7 @@
             <category>Symbology</category>
             <subcategory>Hydrographic</subcategory>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbology.S57DisplayPropertiesSample">
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.Hydrographic.S57DisplayPropertiesSample">
             <summary>
             This sample demonstrates using the global static HydrographicS52DisplayProperties object to control the display properties of an HydrographicS57Layer, such as the Color Scheme or Safety Contour Depth. 
             </summary>
@@ -436,7 +436,7 @@
             <category>Symbology</category>
             <subcategory>Hydrographic</subcategory>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbology.S57IdentifySample">
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.Hydrographic.S57IdentifySample">
             <summary>
             This sample demostrates how to perform a point-based identify style operation on an HydrographicS57Layer using the SearchLayer method.
             </summary>
@@ -444,7 +444,7 @@
             <category>Symbology</category>
             <subcategory>Hydrographic</subcategory>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.AdvancedSymbology.S57SearchSample">
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.Hydrographic.S57SearchSample">
             <summary>
             This sample shows how to use the the SearchAsync method to search an HydrographicS57Layer based on an input geometry, buffer value and object name.
             </summary>

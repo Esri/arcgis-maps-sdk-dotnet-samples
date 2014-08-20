@@ -26,19 +26,19 @@
 
 				<layers:FeatureLayer DisplayName="Fire Perimeter">
 					<layers:FeatureLayer.FeatureTable>
-						<data:GeodatabaseFeatureServiceTable
+						<data:ServiceFeatureTable
                             ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Fire/Sheep/FeatureServer/2" />
                     </layers:FeatureLayer.FeatureTable>
                 </layers:FeatureLayer>
 				<layers:FeatureLayer DisplayName="Evacuation Perimeter">
 					<layers:FeatureLayer.FeatureTable>
-						<data:GeodatabaseFeatureServiceTable
+						<data:ServiceFeatureTable
                             ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Fire/Sheep/FeatureServer/1" />
                     </layers:FeatureLayer.FeatureTable>
                 </layers:FeatureLayer>
 				<layers:FeatureLayer DisplayName="Points of Interest">
 					<layers:FeatureLayer.FeatureTable>
-						<data:GeodatabaseFeatureServiceTable
+						<data:ServiceFeatureTable
                             ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Fire/Sheep/FeatureServer/0" />
                     </layers:FeatureLayer.FeatureTable>
                 </layers:FeatureLayer>

@@ -10,7 +10,7 @@
                 <esri:ArcGISDynamicMapServiceLayer 
                     ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Petroleum/KSFields/MapServer" />
                 <esri:FeatureLayer>
-                    <esri:GeodatabaseFeatureServiceTable Mode="OnDemand" 
+                    <esri:ServiceFeatureTable Mode="OnDemand" 
                         ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Petroleum/KSWells/MapServer/0" />
                 </esri:FeatureLayer>
             </esri:Map>

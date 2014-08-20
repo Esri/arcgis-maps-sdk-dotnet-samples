@@ -14,19 +14,19 @@
 
 				<layers:FeatureLayer>
 					<layers:FeatureLayer.FeatureTable>
-						<data:GeodatabaseFeatureServiceTable
+						<data:ServiceFeatureTable
                             ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Wildfire/FeatureServer/2" />
                     </layers:FeatureLayer.FeatureTable>
                 </layers:FeatureLayer>
 				<layers:FeatureLayer>
 					<layers:FeatureLayer.FeatureTable>
-						<data:GeodatabaseFeatureServiceTable
+						<data:ServiceFeatureTable
                             ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Wildfire/FeatureServer/1" />
                     </layers:FeatureLayer.FeatureTable>
                 </layers:FeatureLayer>
 				<layers:FeatureLayer>
 					<layers:FeatureLayer.FeatureTable>
-						<data:GeodatabaseFeatureServiceTable
+						<data:ServiceFeatureTable
                             ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Wildfire/FeatureServer/0" />
                     </layers:FeatureLayer.FeatureTable>
                 </layers:FeatureLayer>

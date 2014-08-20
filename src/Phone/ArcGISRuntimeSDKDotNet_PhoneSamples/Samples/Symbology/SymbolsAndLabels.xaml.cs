@@ -24,6 +24,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 		private void CreateGeometries()
 		{
 			var layer = mapView1.Map.Layers.OfType<GraphicsLayer>().First();
+
+			layer.Graphics.Add(new Graphic(new MapPoint(-6000000, 4800000), (Symbol)Resources["NumberedMarkerSymbol1"]));
+			layer.Graphics.Add(new Graphic(new MapPoint(-5000000, 3900000), (Symbol)Resources["NumberedMarkerSymbolA"]));
+			layer.Graphics.Add(new Graphic(new MapPoint(-4000000, 4800000), (Symbol)Resources["NumberedMarkerSymbol1"]));
+			layer.Graphics.Add(new Graphic(new MapPoint(-3000000, 3900000), (Symbol)Resources["NumberedMarkerSymbolA"]));
+			layer.Graphics.Add(new Graphic(new MapPoint(-2000000, 4800000), (Symbol)Resources["NumberedMarkerSymbol1"]));
+			layer.Graphics.Add(new Graphic(new MapPoint(-1000000, 3900000), (Symbol)Resources["NumberedMarkerSymbolA"]));
+
 			int i = 0;
 			foreach (var g in layer.Graphics)
 				g.Attributes["Label"] = "Label #" + (++i).ToString();
@@ -60,23 +68,17 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 				layer.Graphics.Add(g);
 				x += 1000000;
 			}
-
-			layer.Graphics.Add(new Graphic(new MapPoint(-6000000, 4800000), (Symbol)Resources["NumberedMarkerSymbol1"]));
-			layer.Graphics.Add(new Graphic(new MapPoint(-5000000, 3900000), (Symbol)Resources["NumberedMarkerSymbolA"]));
-			layer.Graphics.Add(new Graphic(new MapPoint(-4000000, 4800000), (Symbol)Resources["NumberedMarkerSymbol1"]));
-			layer.Graphics.Add(new Graphic(new MapPoint(-3000000, 3900000), (Symbol)Resources["NumberedMarkerSymbolA"]));
-			layer.Graphics.Add(new Graphic(new MapPoint(-2000000, 4800000), (Symbol)Resources["NumberedMarkerSymbol1"]));
-			layer.Graphics.Add(new Graphic(new MapPoint(-1000000, 3900000), (Symbol)Resources["NumberedMarkerSymbolA"]));
 		}
 
 		// Helper method
 		private static PointCollection FromArray(params double[] parameters)
 		{
 			PointCollection coll = new PointCollection();
+			var mapPointBuilder = new MapPointBuilder(SpatialReferences.Wgs84);
 			for (int i = 0; i < parameters.Length - 1; i+=2)
 			{
-				var point = new MapPoint(parameters[i], parameters[i + 1], SpatialReferences.Wgs84);
-				coll.Add(point);
+				mapPointBuilder.SetValues(parameters[i], parameters[i + 1]);
+				coll.Add(mapPointBuilder.ToGeometry());
 			}
 			return coll;
 		}

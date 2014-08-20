@@ -20,7 +20,7 @@
 						<layers:LayerDrawingOptionCollection>
 							<layers:LayerDrawingOptions LayerID="0" ShowLabels="True">
 								<layers:LayerDrawingOptions.LabelingInfos>
-									<layers:DynamicLabelingInfo LabelExpression="[areaname]" LabelPlacement="PointLabelPlacementAboveRight" Where="pop2000 > 500000">
+									<layers:DynamicLabelingInfo LabelExpression="[areaname]" LabelPlacement="PointAboveRight" Where="pop2000 > 500000">
 										<layers:DynamicLabelingInfo.Symbol>
 											<symb:TextSymbol Color="Blue">
 												<symb:TextSymbol.Font>

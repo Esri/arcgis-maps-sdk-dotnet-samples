@@ -24,7 +24,7 @@
 						</symb:SimpleRenderer>
 					</layers:FeatureLayer.Renderer>
 					<layers:FeatureLayer.FeatureTable>
-                        <data:GeodatabaseFeatureServiceTable 
+                        <data:ServiceFeatureTable 
                             ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Earthquakes/EarthquakesFromLastSevenDays/FeatureServer/0"
                             Where="magnitude >= 3.0" />
                     </layers:FeatureLayer.FeatureTable>

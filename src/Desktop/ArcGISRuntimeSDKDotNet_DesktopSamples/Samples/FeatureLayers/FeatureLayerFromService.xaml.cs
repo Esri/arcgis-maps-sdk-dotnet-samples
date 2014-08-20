@@ -8,7 +8,7 @@ using System.Windows.Controls;
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
-    /// This sample demonstrates the Feature Layer. Feature layers allow you to easily plot layers from a feature service on a map. As the sample XAML shows, this simply requires declaring a FeatureLayer element in the Map's layers collection and specifying the URL of the its GeodatabaseFeatureServiceTable attribute to the feature service layer.
+    /// This sample demonstrates the Feature Layer. Feature layers allow you to easily plot layers from a feature service on a map. As the sample XAML shows, this simply requires declaring a FeatureLayer element in the Map's layers collection and specifying the URL of the its ServiceFeatureTable attribute to the feature service layer.
     /// </summary>
     /// <title>Feature Layer From Service</title>
 	/// <category>Layers</category>
@@ -27,7 +27,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                var gdbFeatureServiceTable = await GeodatabaseFeatureServiceTable.OpenAsync(
+                var gdbFeatureServiceTable = await ServiceFeatureTable.OpenAsync(
                     new Uri("http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Earthquakes/EarthquakesFromLastSevenDays/FeatureServer/0"));
 
 				MyMapView.Map.Layers.Add(new FeatureLayer(gdbFeatureServiceTable) { ID = "featureLayer" });

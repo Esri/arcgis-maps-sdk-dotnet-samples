@@ -70,27 +70,25 @@
                 <lyr:ArcGISTiledMapServiceLayer
 				ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
 
-                <lyr:GraphicsLayer IsLabelingEnabled="False">
-					<lyr:GraphicsLayer.LabelClasses>
-						<lyr:LabelClass TextExpression="[Label]">
-							<lyr:LabelClass.Symbol>
-								<sym:TextSymbol Color="Blue" />
-							</lyr:LabelClass.Symbol>
-						</lyr:LabelClass>
-						<lyr:LabelClass TextExpression="[SymbolType] CONCAT NEWLINE CONCAT &quot;ID= &quot; CONCAT [ID]">
-							<lyr:LabelClass.Symbol>
+                <lyr:GraphicsLayer>
+					<lyr:GraphicsLayer.Labeling>
+						<lyr:LabelProperties>
+							<lyr:AttributeLabelClass LabelPlacement="PointAboveRight" TextExpression="[Label]">
+									<sym:TextSymbol Color="Blue" />
+							</lyr:AttributeLabelClass>
+							<lyr:AttributeLabelClass LabelPlacement="PointBelowLeft" TextExpression="[SymbolType] CONCAT NEWLINE CONCAT &quot;ID= &quot; CONCAT [ID]">
 								<sym:TextSymbol Color="Black" />
-							</lyr:LabelClass.Symbol>
-						</lyr:LabelClass>
-					</lyr:GraphicsLayer.LabelClasses>
-                </lyr:GraphicsLayer>
+							</lyr:AttributeLabelClass>
+						</lyr:LabelProperties>
+					</lyr:GraphicsLayer.Labeling>
+				</lyr:GraphicsLayer>
             </esri:Map>
         </esri:MapView>
 
 		<Border HorizontalAlignment="Right" VerticalAlignment="Top" Padding="20" Margin="20" Background="#99000000">
 			<StackPanel>
 			<ToggleSwitch Header="Toggle Labels"
-				IsOn="{Binding Map.Layers[1].IsLabelingEnabled, Mode=TwoWay, ElementName=mapView1}" />
+				IsOn="{Binding Map.Layers[1].Labeling.IsEnabled, Mode=TwoWay, ElementName=mapView1}" />
 				<TextBlock Text="Map Rotation" Margin="7,0,0,0" />
 				<Slider Minimum="0" Maximum="360"
 						Value="{Binding Rotation, ElementName=mapView1, Mode=TwoWay}" />

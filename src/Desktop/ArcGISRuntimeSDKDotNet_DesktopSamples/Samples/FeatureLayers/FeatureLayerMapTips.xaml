@@ -20,7 +20,7 @@
 						</esri:SimpleRenderer>
 					</esri:FeatureLayer.Renderer>
                     <esri:FeatureLayer.FeatureTable>
-                        <esri:GeodatabaseFeatureServiceTable
+                        <esri:ServiceFeatureTable
                             ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Earthquakes/EarthquakesFromLastSevenDays/FeatureServer/0"
                             Where="magnitude >= 3.0" OutFields="*" />
                     </esri:FeatureLayer.FeatureTable>

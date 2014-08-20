@@ -22,7 +22,7 @@
                     ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/ServiceRequest1/MapServer"/>
                     <esriLayers:FeatureLayer>
                         <esriLayers:FeatureLayer.FeatureTable>
-                            <esriData:GeodatabaseFeatureServiceTable
+                            <esriData:ServiceFeatureTable
                         ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Fire/Sheep/FeatureServer/0" 
                         />
                         </esriLayers:FeatureLayer.FeatureTable>

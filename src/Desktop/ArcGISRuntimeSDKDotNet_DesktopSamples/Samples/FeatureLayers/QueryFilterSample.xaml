@@ -32,7 +32,7 @@
 				<esri:FeatureLayer x:Name="cities" ID="featureLayer" 
 								   Renderer="{StaticResource OrangePointRenderer}">
 					<esri:FeatureLayer.FeatureTable>
-						<esri:GeodatabaseFeatureServiceTable
+						<esri:ServiceFeatureTable
                             ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0"
                             Where="pop2000 > 200000" OutFields="*" />
 					</esri:FeatureLayer.FeatureTable>

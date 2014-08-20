@@ -25,7 +25,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			this.InitializeComponent();
 
             _featureLayer = MyMapView.Map.Layers["FeatureLayer"] as FeatureLayer;
-            ((GeodatabaseFeatureServiceTable)_featureLayer.FeatureTable).OutFields = OutFields.All;
+            ((ServiceFeatureTable)_featureLayer.FeatureTable).OutFields = OutFields.All;
 
 			_queryResultsOverlay = MyMapView.GraphicsOverlays[0];
         }

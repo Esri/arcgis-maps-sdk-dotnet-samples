@@ -15,17 +15,17 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private const string REDIRECT_URI = "urn:ietf:wg:oauth:2.0:oob";
 
         // Challenge method should prompt for portal oauth username / password if necessary
-        public static async Task<IdentityManager.Credential> Challenge(IdentityManager.CredentialRequestInfo arg)
+        public static async Task<Credential> Challenge(CredentialRequestInfo arg)
         {
             // Register Portal Server if necessary
             var serverInfo = IdentityManager.Current.FindServerInfo(PORTAL_URL);
             if (serverInfo == null)
             {
-                serverInfo = new IdentityManager.ServerInfo()
+                serverInfo = new ServerInfo()
                 {
                     ServerUri = PORTAL_URL,
-                    TokenAuthenticationType = IdentityManager.TokenAuthenticationType.OAuthAuthorizationCode,
-                    OAuthClientInfo = new IdentityManager.OAuthClientInfo()
+                    TokenAuthenticationType = TokenAuthenticationType.OAuthAuthorizationCode,
+                    OAuthClientInfo = new OAuthClientInfo()
                     {
                         ClientId = CLIENT_ID,
                         RedirectUri = REDIRECT_URI

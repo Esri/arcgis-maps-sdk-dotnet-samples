@@ -31,7 +31,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             InitializeComponent();
 
             IdentityManager.Current.RegisterServer(
-                new IdentityManager.ServerInfo()
+                new ServerInfo()
                 {
                     ServerUri = DEFAULT_SERVER_URL,
                     TokenServiceUri = DEFAULT_TOKEN_URL,
@@ -43,9 +43,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         // Activate IdentityManager but don't accept any challenge.
         // User must use the 'SignIn' button for getting its own maps.
-        private Task<IdentityManager.Credential> Challenge(IdentityManager.CredentialRequestInfo arg)
+        private Task<Credential> Challenge(CredentialRequestInfo arg)
         {
-            return Task.FromResult<IdentityManager.Credential>(null);
+            return Task.FromResult<Credential>(null);
         }
 
         // Initialize the display with a web map and search portal for basemaps

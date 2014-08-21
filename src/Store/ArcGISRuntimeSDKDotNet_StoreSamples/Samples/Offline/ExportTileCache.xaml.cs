@@ -80,7 +80,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 if (!string.IsNullOrEmpty(ONLINE_BASEMAP_TOKEN_URL))
                 {
                     // Set credentials and token for online basemap
-                    var options = new IdentityManager.GenerateTokenOptions()
+                    var options = new GenerateTokenOptions()
                     {
                         Referer = new Uri(_onlineTiledLayer.ServiceUri)
                     };

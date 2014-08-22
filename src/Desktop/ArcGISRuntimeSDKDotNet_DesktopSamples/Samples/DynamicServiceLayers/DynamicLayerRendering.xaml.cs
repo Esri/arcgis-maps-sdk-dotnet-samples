@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Layers;
+﻿using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
 using System.Collections.Generic;
@@ -46,6 +47,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers
 
             DataContext = this;
             IsBusy = false;
+
+			MyMapView.Map.SpatialReference = SpatialReferences.WebMercator;
 
             // Create GenerateRendererTask for a specific map layer
             generateRendererTask = new GenerateRendererTask(new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/2"));

@@ -49,17 +49,15 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 				var graphic = await graphicsOverlay.HitTestAsync(MyMapView, screenPoint);
                 if (graphic != null)
                 {
-                    maptipTransform.X = screenPoint.X + 4;
-                    maptipTransform.Y = screenPoint.Y - mapTip.ActualHeight;
                     mapTip.DataContext = graphic;
                     mapTip.Visibility = System.Windows.Visibility.Visible;
                 }
                 else
-                    mapTip.Visibility = System.Windows.Visibility.Hidden;
+                    mapTip.Visibility = System.Windows.Visibility.Collapsed;
             }
             catch
             {
-                mapTip.Visibility = System.Windows.Visibility.Hidden;
+                mapTip.Visibility = System.Windows.Visibility.Collapsed;
             }
             finally
             {

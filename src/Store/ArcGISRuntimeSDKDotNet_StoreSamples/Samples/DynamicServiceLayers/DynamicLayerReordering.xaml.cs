@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Layers;
+﻿using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Layers;
 using System;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -16,6 +17,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public DynamicLayerReordering()
         {
             this.InitializeComponent();
+			MyMapView.Map.SpatialReference = SpatialReferences.WebMercator;
         }
 
         private void ChangeLayerOrderClick(object sender, RoutedEventArgs e)

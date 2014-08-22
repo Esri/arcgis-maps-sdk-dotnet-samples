@@ -19,7 +19,7 @@
 			<Border.Effect>
 				<DropShadowEffect/>
 			</Border.Effect>
-            <Grid Margin="20">
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />

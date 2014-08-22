@@ -22,49 +22,56 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private Random _random = new Random();
         private GraphicsLayer _graphicsLayer;
-        private bool _isHitTesting;
+		private FrameworkElement _mapTip;
+		private bool _isMapReady;
 
         public GraphicsMapTips()
         {
             this.InitializeComponent();
 
             _graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+			_mapTip = MyMapView.Overlays.Items[0] as FrameworkElement;
 
             MyMapView.PointerMoved += MyMapView_PointerMoved;
             
-            _isHitTesting = false;
-            CreateGraphics();
-        }
+            _isMapReady = false;
+			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
+		}
+
+		private void MyMapView_NavigationCompleted(object sender, EventArgs e)
+		{
+			MyMapView.NavigationCompleted -= MyMapView_NavigationCompleted;
+			CreateGraphics();
+			_isMapReady = true;
+		}
 
         // HitTest the graphics and position the map tip
         private async void MyMapView_PointerMoved(object sender, PointerRoutedEventArgs e)
         {
-            if (_isHitTesting)
+            if (!_isMapReady)
                 return;
 
             try
             {
-                _isHitTesting = true;
+                _isMapReady = false;
 
                 Point screenPoint = e.GetCurrentPoint(MyMapView).Position;
                 var graphic = await _graphicsLayer.HitTestAsync(MyMapView, screenPoint);
                 if (graphic != null)
                 {
-                    maptipTransform.X = screenPoint.X + 4;
-                    maptipTransform.Y = screenPoint.Y - mapTip.ActualHeight;
-                    mapTip.DataContext = graphic;
-                    mapTip.Visibility = Visibility.Visible;
+                    _mapTip.DataContext = graphic;
+                    _mapTip.Visibility = Visibility.Visible;
                 }
                 else
-                    mapTip.Visibility = Visibility.Collapsed;
+                    _mapTip.Visibility = Visibility.Collapsed;
             }
             catch
             {
-                mapTip.Visibility = Visibility.Collapsed;
+                _mapTip.Visibility = Visibility.Collapsed;
             }
             finally
             {
-                _isHitTesting = false;
+                _isMapReady = true;
             }
         }
 

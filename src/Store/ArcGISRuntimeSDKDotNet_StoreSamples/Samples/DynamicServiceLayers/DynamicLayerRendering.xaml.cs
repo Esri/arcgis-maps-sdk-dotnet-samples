@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Layers;
+﻿using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public DynamicLayerRendering()
         {
             this.InitializeComponent();
+
+			MyMapView.Map.SpatialReference = SpatialReferences.WebMercator;
 
             var layer = MyMapView.Map.Layers.OfType<ArcGISDynamicMapServiceLayer>().FirstOrDefault();
             layer.VisibleLayers = new ObservableCollection<int>() { 2 };

@@ -11,16 +11,15 @@
 			<esri:MapView.GraphicsOverlays>
 				<esri:GraphicsOverlay x:Name="graphicsOverlay" />
 			</esri:MapView.GraphicsOverlays>
+            <esri:MapView.Overlays>
+                <esri:OverlayItemsControl>
+                    <Border x:Name="mapTip" Background="White" BorderBrush="Black" BorderThickness="2" 
+                            Padding="4" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4"
+                            Visibility="Collapsed" esri:ViewBase.ViewOverlayAnchor="{Binding Geometry}">
+                        <TextBlock Text="{Binding Attributes[ID], StringFormat='ID: {0}'}" />
+                    </Border>
+                </esri:OverlayItemsControl>
+            </esri:MapView.Overlays>
 		</esri:MapView>
-
-
-        <Border x:Name="mapTip" Background="White" BorderBrush="Black" BorderThickness="2" Padding="4"
-                HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Hidden">
-            <Border.RenderTransform>
-                <TranslateTransform x:Name="maptipTransform" />
-            </Border.RenderTransform>
-
-            <TextBlock Text="{Binding Attributes[ID], StringFormat='ID: {0}'}" />
-        </Border>
     </Grid>
 </UserControl>

@@ -5,26 +5,27 @@
     xmlns:esri="using:Esri.ArcGISRuntime.Controls"
     xmlns:layers="using:Esri.ArcGISRuntime.Layers"
     xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
-    
-	<Grid>
+
+    <Grid>
         <esri:MapView x:Name="MyMapView">
             <esri:Map>
-				<esri:Map.InitialViewpoint>
-					<esri:ViewpointExtent XMin="-3548912" YMin="1847469" XMax="2472012" YMax="1742990" SpatialReferenceID="102009"/>
-				</esri:Map.InitialViewpoint>
-				<layers:ArcGISDynamicMapServiceLayer ID="USA"
+                <esri:Map.InitialViewpoint>
+                    <esri:ViewpointExtent XMin="-14675766.357" YMin="2695407.734"
+                                          XMax="-6733121.861" YMax="6583994.101" SpatialReferenceID="102100" />
+                </esri:Map.InitialViewpoint>
+                <layers:ArcGISDynamicMapServiceLayer ID="USA"
 				    ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer">
 
                     <!-- Major City Label Info -->
-					<layers:ArcGISDynamicMapServiceLayer.LayerDrawingOptions>
-						<layers:LayerDrawingOptionCollection>
-							<layers:LayerDrawingOptions LayerID="0" ShowLabels="True">
-								<layers:LayerDrawingOptions.LabelingInfos>
-									<layers:DynamicLabelingInfo LabelExpression="[areaname]" LabelPlacement="PointAboveRight" Where="pop2000 > 500000">
-										<layers:DynamicLabelingInfo.Symbol>
-											<symb:TextSymbol Color="Blue">
-												<symb:TextSymbol.Font>
-													<symb:SymbolFont FontFamily="Arial" FontSize="12" FontStyle="Italic" FontWeight="Bold" />
+                    <layers:ArcGISDynamicMapServiceLayer.LayerDrawingOptions>
+                        <layers:LayerDrawingOptionCollection>
+                            <layers:LayerDrawingOptions LayerID="0" ShowLabels="True">
+                                <layers:LayerDrawingOptions.LabelingInfos>
+                                    <layers:DynamicLabelingInfo LabelExpression="[areaname]" LabelPlacement="PointAboveRight" Where="pop2000 > 500000">
+                                        <layers:DynamicLabelingInfo.Symbol>
+                                            <symb:TextSymbol Color="Blue">
+                                                <symb:TextSymbol.Font>
+                                                    <symb:SymbolFont FontFamily="Arial" FontSize="12" FontStyle="Italic" FontWeight="Bold" />
                                                 </symb:TextSymbol.Font>
                                             </symb:TextSymbol>
                                         </layers:DynamicLabelingInfo.Symbol>

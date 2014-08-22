@@ -8,12 +8,7 @@
         </Grid.Resources>
 
 		<esri:MapView x:Name="MyMapView" WrapAround="True">
-            <esri:Map x:Name="map">
-                <esri:Map.InitialViewpoint>
-                    <esri:ViewpointExtent XMin="-129.045897661039" YMin="22.7383988271239"
-                                          XMax="-63.3737367088314" YMax="56.1901558121545" 
-										  SpatialReferenceID="4269" />
-                </esri:Map.InitialViewpoint>
+            <esri:Map x:Name="map" InitialViewpoint="-14675766.357,2695407.734,-6733121.861,6583994.101,102100">
                 <esri:ArcGISDynamicMapServiceLayer x:Name="censusLayer" ID="USA"
 				    ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer"
                     VisibleLayers="2" />

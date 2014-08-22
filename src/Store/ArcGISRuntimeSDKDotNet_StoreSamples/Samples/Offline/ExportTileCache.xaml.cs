@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
@@ -190,5 +191,21 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 progress.Visibility = Visibility.Collapsed;
             }
         }
-    }
+
+		private void ShowAoiExtentCheckBox_Click(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				var chkbox = sender as CheckBox;
+				var graphic = _aoiOverlay.Graphics.FirstOrDefault();
+				if (chkbox != null && graphic != null)
+				{
+					graphic.IsVisible = (bool)chkbox.IsChecked;
+				}
+			}
+			catch (Exception)
+			{
+			}
+		}
+	}
 }

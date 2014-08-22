@@ -7,11 +7,11 @@
     <Grid>
         <esri:MapView x:Name="MyMapView">
             <esri:Map>
-				<esri:Map.InitialViewpoint>
-					<esri:ViewpointExtent XMin="-3548912" YMin="-1847469" XMax="2472012" YMax="1742990" SpatialReferenceID="102009" />
-				</esri:Map.InitialViewpoint>
+                <esri:Map.InitialViewpoint>
+                    <esri:ViewpointExtent XMin="-14675766.357" YMin="2695407.734" XMax="-6733121.861" YMax="6583994.101" SpatialReferenceID="102100" />
+                </esri:Map.InitialViewpoint>
 
-				<layers:ArcGISDynamicMapServiceLayer ID="USA"
+                <layers:ArcGISDynamicMapServiceLayer ID="USA"
 				    ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer" />
             </esri:Map>
         </esri:MapView>

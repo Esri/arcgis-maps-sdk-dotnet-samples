@@ -39,7 +39,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private async void GetSamplesButton_Click(object sender, RoutedEventArgs e)
         {
             graphicsOverlay.Graphics.Clear();
-            await QueryImageTiles();
+			mapTip.Visibility = System.Windows.Visibility.Collapsed;
+			await QueryImageTiles();
         }
 
         // Query the image service for sample tiles

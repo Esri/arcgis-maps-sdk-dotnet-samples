@@ -59,7 +59,7 @@
             <ListView ItemsSource="{Binding ElementName=mapView1, Path=Map.Layers}" 
 				Margin="20,0,0,20"
 				Grid.Row="1"
-				CanReorderItems="True"
+				ReorderMode="Enabled"
 				CanDragItems="True"
 				AllowDrop="True">
                 <ListView.ItemTemplate>

@@ -22,12 +22,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public CreateWebMap()
         {
             InitializeComponent();
-
-            SetupWebMap();
+			MyMapView.Loaded += MyMapView_Loaded;
         }
 
-        private async void SetupWebMap()
-        {
+		private async void MyMapView_Loaded(object sender, RoutedEventArgs e)
+		{
 			try
 			{
 				//Create a new webmap with basemap and operational layers
@@ -43,11 +42,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 				};
 
 				// Load the new webmap into the current UI
-				var MyMapView = new MapView();
 				MyMapView.Map = await LoadWebMapAsync(webmap);
 				MyMapView.Map.InitialViewpoint = new Viewpoint(
-					new Envelope(-20000000, 1100000, -3900000, 11000000));
-				layoutGrid.Children.Add(MyMapView);
+					new Envelope(-14470183.421, 3560814.811, -11255400.943, 5399444.790, SpatialReferences.WebMercator));
 			}
 			catch (System.Exception ex)
 			{
@@ -63,7 +60,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 Title = "World Streets",
                 Layers = new List<WebMapLayer>
                 { 
-                    new WebMapLayer { Url = "http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" }
+                    new WebMapLayer { Url = "http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" }
                 }
             };
         }
@@ -102,7 +99,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             return new WebMapLayer
             {
                 Url = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3",
-                PopupInfo = popup
+				LayerType = WebMapLayerType.ArcGISFeatureLayer,
+				PopupInfo = popup
             };
         }
 

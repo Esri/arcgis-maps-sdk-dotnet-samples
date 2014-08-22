@@ -4,8 +4,8 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid x:Name="layoutGrid">
         <esri:MapView x:Name="MyMapView" WrapAround="True">
-			<esri:Map InitialViewpoint="-15000000,2000000,-7000000,8000000,3857">
-				<esri:ArcGISTiledMapServiceLayer 
+            <esri:Map InitialViewpoint="-14675766.357,2695407.734,-6733121.861,6583994.101,102100">
+                <esri:ArcGISTiledMapServiceLayer 
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 			</esri:Map>
 			<esri:MapView.GraphicsOverlays>

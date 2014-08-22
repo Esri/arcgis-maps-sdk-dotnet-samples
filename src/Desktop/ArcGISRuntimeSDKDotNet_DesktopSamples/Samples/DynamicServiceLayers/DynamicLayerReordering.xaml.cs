@@ -14,7 +14,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers
         public DynamicLayerReordering()
         {
             InitializeComponent();
-			MyMapView.Map.SpatialReference = SpatialReference.Create(102009);
+			MyMapView.Map.SpatialReference = SpatialReferences.WebMercator;
         }
 
         private void ChangeLayerOrderClick(object sender, System.Windows.RoutedEventArgs e)

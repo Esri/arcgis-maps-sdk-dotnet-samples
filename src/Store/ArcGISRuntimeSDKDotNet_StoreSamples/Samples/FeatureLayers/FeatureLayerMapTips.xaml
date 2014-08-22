@@ -30,21 +30,22 @@
                     </layers:FeatureLayer.FeatureTable>
                 </layers:FeatureLayer>
             </esri:Map>
+            
+            <esri:MapView.Overlays>
+                <esri:OverlayItemsControl>
+                    <Border Background="#CC000000" BorderBrush="White" BorderThickness="2" Padding="4" 
+                            HorizontalAlignment="Left" VerticalAlignment="Top" IsHitTestVisible="False" 
+                            Visibility="Collapsed" esri:ViewBase.ViewOverlayAnchor="{Binding Geometry}">
+                        <StackPanel>
+                            <TextBlock Text="{Binding Attributes[datetime]}" FontWeight="Bold" />
+                            <TextBlock>
+                                <Run Text="Magnitude: " />
+                                <Run Text="{Binding Attributes[magnitude]}" />
+                            </TextBlock>
+                        </StackPanel>
+                    </Border>
+                </esri:OverlayItemsControl>
+            </esri:MapView.Overlays>
         </esri:MapView>
-
-        <Border x:Name="mapTip" Background="#CC000000" BorderBrush="White" BorderThickness="2" Padding="4" 
-                HorizontalAlignment="Left" VerticalAlignment="Top" IsHitTestVisible="False" Visibility="Collapsed">
-            <Border.RenderTransform>
-                <TranslateTransform x:Name="maptipTransform" />
-            </Border.RenderTransform>
-
-            <StackPanel>
-                <TextBlock Text="{Binding Attributes[datetime]}" FontWeight="Bold" />
-                <TextBlock>
-                    <Run Text="Magnitude: " />
-                    <Run Text="{Binding Attributes[magnitude]}" />
-                </TextBlock>
-            </StackPanel>
-        </Border>
     </Grid>
 </Page>

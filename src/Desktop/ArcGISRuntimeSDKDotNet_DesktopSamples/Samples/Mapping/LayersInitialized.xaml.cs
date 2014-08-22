@@ -20,7 +20,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         #region Layers Initialized Text Property
 
-        private string _layersInitialized = "No Initialized";
+        private string _layersInitialized = "Not Initialized";
 
         public string LayersInitializedProperty
         {
@@ -31,7 +31,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             set
             {
                 _layersInitialized = value;
-
                 if (PropertyChanged != null)
                 {
                     PropertyChanged(this, new PropertyChangedEventArgs("LayersInitializedProperty"));
@@ -47,9 +46,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public LayersInitialized()
         {
             DataContext = this;
-
             InitializeComponent();
-
             HandleLayersInitialized();
         }
 

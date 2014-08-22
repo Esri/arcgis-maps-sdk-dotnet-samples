@@ -1,4 +1,5 @@
 ﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using System;
 using System.Collections.ObjectModel;
@@ -22,8 +23,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-            MyMapView.LayerLoaded += MyMapView_LayerLoaded;
-            _usaLayer = MyMapView.Map.Layers["USA"] as ArcGISDynamicMapServiceLayer;
+			MyMapView.Map.SpatialReference = SpatialReferences.WebMercator;
+			_usaLayer = MyMapView.Map.Layers["USA"] as ArcGISDynamicMapServiceLayer;
+			MyMapView.LayerLoaded += MyMapView_LayerLoaded;
         }
 
         private void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)

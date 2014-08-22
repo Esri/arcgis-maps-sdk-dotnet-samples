@@ -34,8 +34,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             _pointSymbol = (Symbol)layoutGrid.Resources["PointSymbol"];
             _polygonSymbol = (Symbol)layoutGrid.Resources["ConvexHullSymbol"];
 
-            DrawPoints();
+			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
         }
+
+		private void MyMapView_NavigationCompleted(object sender, EventArgs e)
+		{
+			MyMapView.NavigationCompleted -= MyMapView_NavigationCompleted;
+			DrawPoints();
+		}
 
         // Continuosly accepts new points from the user
 		private async void DrawPoints()

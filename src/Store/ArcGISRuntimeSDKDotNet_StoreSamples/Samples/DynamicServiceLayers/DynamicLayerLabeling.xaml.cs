@@ -1,4 +1,5 @@
 ﻿using Esri.ArcGISRuntime.ArcGISServices;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System;
@@ -24,6 +25,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
+			MyMapView.Map.SpatialReference = SpatialReferences.WebMercator;
 			MyMapView.Loaded += MyMapView_Loaded;
 
             _usaLayer = MyMapView.Map.Layers["USA"] as ArcGISDynamicMapServiceLayer;

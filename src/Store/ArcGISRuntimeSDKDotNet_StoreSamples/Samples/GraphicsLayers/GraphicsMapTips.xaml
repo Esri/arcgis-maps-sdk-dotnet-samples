@@ -13,18 +13,19 @@
 
 				<layers:GraphicsLayer ID="GraphicsLayer" />
             </esri:Map>
+            
+            <esri:MapView.Overlays>
+                <esri:OverlayItemsControl>
+                    <Border Background="#CC000000" BorderBrush="White" BorderThickness="2" Padding="4" Margin="4"
+                            HorizontalAlignment="Left" VerticalAlignment="Top" IsHitTestVisible="False" 
+                            Visibility="Collapsed" esri:ViewBase.ViewOverlayAnchor="{Binding Geometry}">
+                        <TextBlock>
+                            <Run Text="ID: " FontWeight="Bold" />
+                            <Run Text="{Binding Attributes[ID]}" />
+                        </TextBlock>
+                    </Border>
+                </esri:OverlayItemsControl>
+            </esri:MapView.Overlays>
         </esri:MapView>
-
-        <Border x:Name="mapTip" Background="#CC000000" BorderBrush="White" BorderThickness="2" Padding="4"
-                HorizontalAlignment="Left" VerticalAlignment="Top" IsHitTestVisible="False" Visibility="Collapsed">
-            <Border.RenderTransform>
-                <TranslateTransform x:Name="maptipTransform" />
-            </Border.RenderTransform>
-
-            <TextBlock>
-                <Run Text="ID: " FontWeight="Bold" />
-                <Run Text="{Binding Attributes[ID]}" />
-            </TextBlock>
-        </Border>
     </Grid>
 </Page>

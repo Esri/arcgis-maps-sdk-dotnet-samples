@@ -18,6 +18,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 	{
 		private FeatureLayer _featureLayer;
 		private bool _isMapReady;
+		private FrameworkElement _mapTip;
 
         public FeatureLayerMapTips()
 		{
@@ -25,6 +26,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
             _featureLayer = MyMapView.Map.Layers["FeatureLayer"] as FeatureLayer;
             ((ServiceFeatureTable)_featureLayer.FeatureTable).OutFields = OutFields.All;
+
+			_mapTip = MyMapView.Overlays.Items[0] as FrameworkElement;
 
 			MyMapView.SpatialReferenceChanged += MyMapView_SpatialReferenceChanged;
 			MyMapView.PointerMoved += MyMapView_PointerMoved;
@@ -43,25 +46,27 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			
 			try
             {
+				_isMapReady = false;
+
                 Point screenPoint = e.GetCurrentPoint(MyMapView).Position;
                 var rows = await _featureLayer.HitTestAsync(MyMapView, screenPoint);
                 if (rows != null && rows.Length > 0)
                 {
                     var features = await _featureLayer.FeatureTable.QueryAsync(rows);
-                    var feature = features.FirstOrDefault();
-
-                    maptipTransform.X = screenPoint.X + 4;
-                    maptipTransform.Y = screenPoint.Y - mapTip.ActualHeight;
-                    mapTip.DataContext = feature;
-                    mapTip.Visibility = Visibility.Visible;
+					_mapTip.DataContext = features.FirstOrDefault();
+                    _mapTip.Visibility = Visibility.Visible;
                 }
                 else
-                    mapTip.Visibility = Visibility.Collapsed;
+                    _mapTip.Visibility = Visibility.Collapsed;
             }
             catch
             {
-                mapTip.Visibility = Visibility.Collapsed;
+                _mapTip.Visibility = Visibility.Collapsed;
             }
+			finally
+			{
+				_isMapReady = true;
+			}
         }
     }
 }

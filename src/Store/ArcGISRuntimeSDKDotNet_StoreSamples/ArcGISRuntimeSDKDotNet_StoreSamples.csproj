@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ArcGISRuntimeSDKDotNet_StoreSamples</RootNamespace>
     <AssemblyName>ArcGISRuntimeSDKDotNet_StoreSamples</AssemblyName>
-    <DefaultLanguage>en</DefaultLanguage>
+    <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformVersion>8.1</TargetPlatformVersion>
     <MinimumVisualStudioVersion>12</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -218,6 +218,15 @@
     <Compile Include="Samples\GraphicsLayers\SmoothGraphicAnimation.xaml.cs">
       <DependentUpon>SmoothGraphicAnimation.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\ImageryTasks\ComputeClassStatistics.xaml.cs">
+      <DependentUpon>ComputeClassStatistics.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\ImageryTasks\GetSamples.xaml.cs">
+      <DependentUpon>GetSamples.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\ImageryTasks\Mensuration.xaml.cs">
+      <DependentUpon>Mensuration.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Mapping\GroupLayers.xaml.cs">
       <DependentUpon>GroupLayers.xaml</DependentUpon>
     </Compile>
@@ -274,6 +283,24 @@
     </Compile>
     <Compile Include="Samples\Offline\SyncGeodatabase.xaml.cs">
       <DependentUpon>SyncGeodatabase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Portal\CreateWebMap.xaml.cs">
+      <DependentUpon>CreateWebMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Portal\LoadWebMap.xaml.cs">
+      <DependentUpon>LoadWebMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Portal\LoadWebMapMVVM.xaml.cs">
+      <DependentUpon>LoadWebMapMVVM.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Portal\PortalBasemaps.xaml.cs">
+      <DependentUpon>PortalBasemaps.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Portal\PortalSearch.xaml.cs">
+      <DependentUpon>PortalSearch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Portal\ShowProperties.xaml.cs">
+      <DependentUpon>ShowProperties.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\QueryTasks\FindTaskSample.xaml.cs">
       <DependentUpon>FindTaskSample.xaml</DependentUpon>
@@ -633,6 +660,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\ImageryTasks\ComputeClassStatistics.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\ImageryTasks\GetSamples.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\ImageryTasks\Mensuration.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Mapping\GroupLayers.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -706,6 +745,30 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Offline\SyncGeodatabase.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Portal\CreateWebMap.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Portal\LoadWebMap.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Portal\LoadWebMapMVVM.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Portal\PortalBasemaps.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Portal\PortalSearch.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Portal\ShowProperties.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -935,8 +998,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Samples\ImageryTasks\" />
-    <Folder Include="Samples\Portal\" />
     <Folder Include="Samples\Printing\" />
     <Folder Include="Samples\Security\" />
   </ItemGroup>

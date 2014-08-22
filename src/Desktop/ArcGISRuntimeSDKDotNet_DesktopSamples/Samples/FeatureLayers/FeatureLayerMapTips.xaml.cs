@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Layers;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -36,25 +39,27 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
 			try
             {
+				_isMapReady = false;
+
 				Point screenPoint = e.GetPosition(MyMapView);
 				var rows = await earthquakes.HitTestAsync(MyMapView, screenPoint);
                 if (rows != null && rows.Length > 0)
                 {
                     var features = await earthquakes.FeatureTable.QueryAsync(rows);
-                    var feature = features.FirstOrDefault();
-
-                    maptipTransform.X = screenPoint.X + 4;
-                    maptipTransform.Y = screenPoint.Y - mapTip.ActualHeight;
-                    mapTip.DataContext = feature;
+					mapTip.DataContext = features.FirstOrDefault();
                     mapTip.Visibility = System.Windows.Visibility.Visible;
                 }
                 else
-                    mapTip.Visibility = System.Windows.Visibility.Hidden;
+                    mapTip.Visibility = System.Windows.Visibility.Collapsed;
             }
             catch
             {
-                mapTip.Visibility = System.Windows.Visibility.Hidden;
+                mapTip.Visibility = System.Windows.Visibility.Collapsed;
             }
+			finally
+			{
+				_isMapReady = true;
+			}
         }
     }
 }

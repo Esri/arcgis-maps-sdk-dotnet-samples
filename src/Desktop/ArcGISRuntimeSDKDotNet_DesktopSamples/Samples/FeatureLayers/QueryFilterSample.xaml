@@ -55,7 +55,7 @@
                     FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" />
                 
                 <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Center">
-                    <TextBox x:Name="where" Margin="5" Text="pop2000 > 200000" Width="200"/>
+                    <TextBox x:Name="where" Margin="5" Text="pop2000 > 500000" Width="200"/>
                     <Button Content="Query" Click="QueryButton_Click" Margin="5"/>
                 </StackPanel>
             </StackPanel>

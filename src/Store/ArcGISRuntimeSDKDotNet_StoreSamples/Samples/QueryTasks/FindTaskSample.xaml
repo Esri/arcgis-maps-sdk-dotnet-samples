@@ -20,7 +20,7 @@
         <esri:MapView x:Name="MyMapView" WrapAround="True">
             <esri:Map>
 				<esri:Map.InitialViewpoint>
-					<esri:ViewpointExtent XMin="-15000000" YMin="2000000" XMax="-7000000" YMax="8000000" SpatialReferenceID="102100" />
+                    <esri:ViewpointExtent XMin="-14675766.357" YMin="2695407.734" XMax="-6733121.861" YMax="6583994.101" SpatialReferenceID="102100" />
 				</esri:Map.InitialViewpoint>
 				<layers:ArcGISTiledMapServiceLayer 
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />

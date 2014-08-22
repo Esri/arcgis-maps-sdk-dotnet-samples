@@ -5,7 +5,7 @@
              xmlns:local="clr-namespace:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples">
     <Grid x:Name="layoutGrid">
         <esri:MapView x:Name="MyMapView" MapViewTapped="MyMapView_MapViewTapped">
-			<esri:Map InitialViewpoint="-13230694,3941779,-12928937,40954867,3857">
+            <esri:Map InitialViewpoint="-13230694,3941779,-12928937,40954867,3857">
                 <esri:ArcGISTiledMapServiceLayer DisplayName="World Topo (Basemap)"
                     ServiceUri="http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
 
@@ -14,56 +14,57 @@
             </esri:Map>
 
             <esri:MapView.Overlays>
-                <Border x:Name="incidentOverlay" HorizontalAlignment="Right" VerticalAlignment="Top"
+                <esri:OverlayItemsControl>
+                    <Border x:Name="incidentOverlay" HorizontalAlignment="Right" VerticalAlignment="Top"
                         Background="Black" BorderBrush="White" BorderThickness="2" Padding="6"
                         esri:MapView.ViewOverlayAnchor="{Binding Feature.Geometry}" Visibility="Collapsed">
-                    <Grid MaxWidth="350" DataContext="{Binding Feature}">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        
-                        <Grid.Resources>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="Foreground" Value="White" />
-                                <Setter Property="Margin" Value="0,0,8,0" />
-                            </Style>
-                        </Grid.Resources>
+                        <Grid MaxWidth="350" DataContext="{Binding Feature}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Incident Details" FontWeight="Bold" Margin="0,0,0,4" />
+                            <Grid.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Foreground" Value="White" />
+                                    <Setter Property="Margin" Value="0,0,8,0" />
+                                </Style>
+                            </Grid.Resources>
 
-                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Location" />
-                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=Attributes[location]}" />
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Incident Details" FontWeight="Bold" Margin="0,0,0,4" />
 
-                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Start" />
-                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Path=Attributes[start_localtime]}" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Location" />
+                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=Attributes[location]}" />
 
-                        <TextBlock Grid.Row="3" Grid.Column="0" Text="End" />
-                        <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Path=Attributes[end_localtime]}" />
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Start" />
+                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Path=Attributes[start_localtime]}" />
 
-                        <TextBlock Grid.Row="4" Grid.Column="0" Text="Description" />
-                        <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Path=Attributes[description]}" TextWrapping="Wrap" />
-                    </Grid>
-                </Border>
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="End" />
+                            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Path=Attributes[end_localtime]}" />
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Description" />
+                            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Path=Attributes[description]}" TextWrapping="Wrap" />
+                        </Grid>
+                    </Border>
+                </esri:OverlayItemsControl>
             </esri:MapView.Overlays>
         </esri:MapView>
 
-
-		<Border
+        <Border
 				Background="White" BorderBrush="Black" BorderThickness="1"
 				HorizontalAlignment="Right" VerticalAlignment="Top"
 				Margin="30" Padding="20" Width="350">
-			<Border.Effect>
-				<DropShadowEffect/>
-			</Border.Effect>
-			<StackPanel>
+            <Border.Effect>
+                <DropShadowEffect/>
+            </Border.Effect>
+            <StackPanel>
                 <TextBlock Text="Traffic data from the ArcGIS Online Traffic Service." 
 						   TextWrapping="Wrap" FontWeight="Bold" />
 

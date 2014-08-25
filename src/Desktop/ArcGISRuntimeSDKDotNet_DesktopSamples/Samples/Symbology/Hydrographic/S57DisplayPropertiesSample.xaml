@@ -35,7 +35,7 @@
 				<DropShadowEffect />
 			</Border.Effect>
 			<StackPanel x:Name="displayPropertiesArea" IsEnabled="False">
-				<TextBlock Text="S52 Display Properties"
+				<TextBlock Text="S57 Display Properties"
 						   FontWeight="ExtraBold"
                            FontSize="14"  Width="400" 
 						   TextAlignment="Left" TextWrapping="Wrap" />

@@ -6,6 +6,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -123,33 +124,34 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     GeometryFilter = GeometryEngine.Project(MyMapView.Extent, SpatialReferences.Wgs84)
                 };
 
-                var job = await _exportTilesTask.EstimateTileCacheSizeAsync(_genOptions);
-
-                // Poll for the results async
-                while (job.Status != GPJobStatus.Cancelled && job.Status != GPJobStatus.Deleted
-                    && job.Status != GPJobStatus.Succeeded && job.Status != GPJobStatus.TimedOut
-                    && job.Status != GPJobStatus.Failed)
-                {
-                    await Task.Delay(TimeSpan.FromSeconds(5));
-                    await _exportTilesTask.CheckEstimateTileCacheSizeJobStatusAsync(job);
-                }
-
-                if (job.Status == GPJobStatus.Succeeded)
-                {
-                    var result = await _exportTilesTask.CheckEstimateTileCacheSizeJobStatusAsync(job);
-                    txtExportSize.Text = string.Format("Tiles: {0} - Size (kb): {1:0}", result.TileCount, result.Size / 1024);
-                    panelExport.Visibility = Visibility.Visible;
-                    panelTOC.Visibility = Visibility.Collapsed;
-                }
+                var job = await _exportTilesTask.EstimateTileCacheSizeAsync(_genOptions, 
+                    (result, ex) =>  // Callback for when estimate operation has completed
+                        {
+                            if (ex == null) // Check whether operation completed with errors
+                            {
+                                txtExportSize.Text = string.Format("Tiles: {0} - Size (kb): {1:0}", result.TileCount, result.Size / 1024);
+                                panelExport.Visibility = Visibility.Visible;
+                                panelTOC.Visibility = Visibility.Collapsed;
+                            }
+                            else
+                            {
+                                MessageBox.Show(ex.Message, "Sample Error");
+                            }
+                            panelUI.IsEnabled = true;
+                            progress.Visibility = Visibility.Collapsed;
+                        },
+                        TimeSpan.FromSeconds(1), // Check the operation every five seconds
+                        CancellationToken.None,
+                        new Progress<ExportTileCacheJob>((j) =>  // Callback for status updates
+                        {
+                            Debug.WriteLine(getTileCacheGenerationStatusMessage(j));
+                        }));
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Sample Error");
-            }
-            finally
-            {
-                panelUI.IsEnabled = true;
-                progress.Visibility = Visibility.Collapsed;
+                panelExport.Visibility = Visibility.Visible;
+                panelTOC.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -169,7 +171,15 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 };
 
                 var result = await _exportTilesTask.GenerateTileCacheAndDownloadAsync(
-                    _genOptions, downloadOptions, TimeSpan.FromSeconds(5), CancellationToken.None);
+                    _genOptions, downloadOptions, TimeSpan.FromSeconds(5), CancellationToken.None, 
+                    new Progress<ExportTileCacheJob>((job) => // Callback for reporting status during tile cache generation
+                    {
+                        Debug.WriteLine(getTileCacheGenerationStatusMessage(job));
+                    }),
+                    new Progress<ExportTileCacheDownloadProgress>((downloadProgress) => // Callback for reporting status during tile cache download
+                    {
+                        Debug.WriteLine(getDownloadStatusMessage(downloadProgress));
+                    }));
 
                 var localTiledLayer = MyMapView.Map.Layers.FirstOrDefault(lyr => lyr.ID == LOCAL_LAYER_ID);
                 if (localTiledLayer != null)
@@ -211,5 +221,26 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 			{
 			}
 		}
+
+        private static string getTileCacheGenerationStatusMessage(ExportTileCacheJob job)
+        {
+            if (job.Messages == null)
+                return "";
+
+            var text = string.Format("Job Status: {0}\n\nMessages:\n=====================\n", job.Status);
+            foreach (GPMessage message in job.Messages)
+            {
+                text += string.Format("Message type: {0}\nMessage: {1}\n--------------------\n",
+                    message.MessageType, message.Description);
+            }
+            return text;
+        }
+
+        private static string getDownloadStatusMessage(ExportTileCacheDownloadProgress downloadProgress)
+        {
+            return string.Format("Downloading file {0} of {1}...\n{2:P0} complete\n" +
+                "Bytes read: {3}", downloadProgress.FilesDownloaded, downloadProgress.TotalFiles, downloadProgress.ProgressPercentage,
+                downloadProgress.CurrentFileBytesReceived);
+        }
     }
 }

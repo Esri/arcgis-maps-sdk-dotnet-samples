@@ -56,7 +56,7 @@
                     <TextBlock x:Name="txtRouteTotals" Grid.Row="1" FontStyle="Italic" />
 
                     <ListView x:Name="listDirections" Grid.Row="2"
-                              ItemsSource="{Binding ElementName=MyMapView, Path=Map.Layers[DirectionsLayer].Graphics}"
+                               ItemsSource="{Binding ElementName=MyMapView, Path=GraphicsOverlays[2].Graphics}"
                               SelectionMode="Single" SelectionChanged="listDirections_SelectionChanged">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">

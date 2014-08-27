@@ -24,6 +24,15 @@
 			<Setter Property="Margin" Value="10,5,5,5" />
 		</Style>
 
+		<!-- selected point -->
+		<symb:SimpleRenderer x:Key="PointSelectionRenderer">
+			<symb:SimpleMarkerSymbol Color="Blue" />
+		</symb:SimpleRenderer>
+		<!-- selected polyline -->
+		<symb:SimpleRenderer x:Key="LineSelectionRenderer">
+			<symb:SimpleLineSymbol Color="Blue" Width="2" />
+		</symb:SimpleRenderer>
+		<!-- selected polygon -->
 		<symb:SimpleLineSymbol x:Key="OutlineSelectionSymbol" Color="Black"/>
 		<symb:SimpleFillSymbol x:Key="SelectionSymbol" Color="Blue" Style="DiagonalCross" Outline="{StaticResource OutlineSelectionSymbol}"/>
 		<symb:SimpleRenderer x:Key="SelectionRendrer" Symbol="{StaticResource SelectionSymbol}"/>
@@ -138,8 +147,10 @@
 				<layers:GroupLayer ID="Hydrographic"/>
 			</esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="resultsOverlay" Renderer="{StaticResource SelectionRendrer}"/>
 				<esri:GraphicsOverlay x:Name="graphicsOverlay" />
+				<esri:GraphicsOverlay x:Name="polygonResultsOverlay" Renderer="{StaticResource SelectionRendrer}"/>
+				<esri:GraphicsOverlay x:Name="lineResultsOverlay" Renderer="{StaticResource LineSelectionRenderer}"/>
+				<esri:GraphicsOverlay x:Name="pointResultsOverlay" Renderer="{StaticResource PointSelectionRenderer}"/>
 			</esri:MapView.GraphicsOverlays>
 		</esri:MapView>
 
@@ -148,7 +159,6 @@
 				<Grid.RowDefinitions>
 					<RowDefinition Height="auto"/>
 					<RowDefinition Height="auto"/>
-					<RowDefinition Height="*" />
 				</Grid.RowDefinitions>
 
 				<!-- Results -->
@@ -158,8 +168,9 @@
 				<Border x:Name="noResultsArea" Margin="10" Padding="20" Grid.Row="1">
 					<TextBlock Text="No search results." />
 				</Border>
-				<StackPanel x:Name="resultsArea" Visibility="Collapsed" Grid.Row="1">
-					<ListView x:Name="resultList" SelectionMode="Single" SelectionChanged="resultList_SelectionChanged">
+				<Grid x:Name="resultsArea" Visibility="Collapsed" Grid.Row="1">
+					<ListView x:Name="resultList" SelectionMode="Single"
+							  SelectionChanged="resultList_SelectionChanged">
 						<ListView.ItemTemplate>
 							<DataTemplate>
 								<Grid>
@@ -185,7 +196,7 @@
 							</DataTemplate>
 						</ListView.ItemTemplate>
 					</ListView>
-				</StackPanel>
+				</Grid>
 			</Grid>
 		</Border>
 	</Grid>

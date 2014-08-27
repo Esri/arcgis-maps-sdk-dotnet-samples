@@ -30,7 +30,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.Hydrographic
 		private Geometry _searchGeometry;
 
 		private GroupLayer _hydrographicLayers;
-		private GraphicsOverlay _resultGraphicsOverlay;
+		private GraphicsOverlay _pointResultGraphicsOverlay;
+		private GraphicsOverlay _lineResultGraphicsOverlay;
+		private GraphicsOverlay _polygonResultGraphicsOverlay;
 		private GraphicsOverlay _drawGraphicsOverlay;
 		private ObservableCollection<S57FeatureObject> _searchResults;
 
@@ -44,8 +46,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.Hydrographic
 
 			// Reference layers that are used
 			_hydrographicLayers = MyMapView.Map.Layers.OfType<GroupLayer>().First();
-			_resultGraphicsOverlay = MyMapView.GraphicsOverlays[0];
-			_drawGraphicsOverlay = MyMapView.GraphicsOverlays[1];
+			_drawGraphicsOverlay = MyMapView.GraphicsOverlays[0];
+			_polygonResultGraphicsOverlay = MyMapView.GraphicsOverlays[1];
+			_lineResultGraphicsOverlay = MyMapView.GraphicsOverlays[2];
+			_pointResultGraphicsOverlay = MyMapView.GraphicsOverlays[3];
+		
 		}
 
 		// Load data - enable functionality after layers are loaded.
@@ -108,14 +113,33 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.Hydrographic
 		private async void resultList_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			// Clear previous selection
-			_resultGraphicsOverlay.Graphics.Clear();
+			_polygonResultGraphicsOverlay.Graphics.Clear();
+			_lineResultGraphicsOverlay.Graphics.Clear();
+			_pointResultGraphicsOverlay.Graphics.Clear();
 
 			// When no results found, this is 0
 			if (e.AddedItems.Count > 0)
 			{
 				// Using single mode so there is only one item
 				var selectedFeatureObject = e.AddedItems[0] as S57FeatureObject;
-				_resultGraphicsOverlay.Graphics.Add(new Graphic(selectedFeatureObject.Geometry));
+
+				var selectedGeometry = selectedFeatureObject.Geometry;
+				if (selectedGeometry is Polygon)
+				{
+					_polygonResultGraphicsOverlay.Graphics.Add(new Graphic(selectedFeatureObject.Geometry));
+					_polygonResultGraphicsOverlay.Graphics[0].IsSelected = true;
+				}
+				else if (selectedGeometry is Polyline)
+				{
+					_lineResultGraphicsOverlay.Graphics.Add(new Graphic(selectedFeatureObject.Geometry));
+					_lineResultGraphicsOverlay.Graphics[0].IsSelected = true;
+				}
+				else if (selectedGeometry is MapPoint)
+				{
+					_pointResultGraphicsOverlay.Graphics.Add(new Graphic(selectedFeatureObject.Geometry));
+					_pointResultGraphicsOverlay.Graphics[0].IsSelected = true;
+				}
+
 				await MyMapView.SetViewAsync(selectedFeatureObject.Geometry.Extent);
 			}
 		}

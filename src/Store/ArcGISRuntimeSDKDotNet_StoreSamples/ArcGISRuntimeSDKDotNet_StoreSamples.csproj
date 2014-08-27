@@ -476,6 +476,10 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="ArcGISRuntimeSDKDotNet_StoreSamples_TemporaryKey.pfx" />
+    <Content Include="Assets\Icons\vector.circle.png" />
+    <Content Include="Assets\Icons\vector.line.png" />
+    <Content Include="Assets\Icons\vector.polygon.png" />
+    <Content Include="Assets\Icons\vector.rectangle.png" />
     <Content Include="Resources\Mil2525c\messagetypes\Chemlight.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -26,7 +26,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.Hydrographic
 		private const string LAYER_2_PATH = @"symbology\s57-electronic-navigational-charts\us1wc07m\us1wc07m.000";
 
 		private GroupLayer _hydrographicGroupLayer;
-		private GraphicsOverlay _resultGraphicsOverlay;
+		private GraphicsOverlay _pointResultGraphicsOverlay;
+		private GraphicsOverlay _lineResultGraphicsOverlay;
+		private GraphicsOverlay _polygonResultGraphicsOverlay;
 		private ObservableCollection<S57FeatureObject> _searchResults;
 		private bool _isLoaded;
 
@@ -38,7 +40,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.Hydrographic
 
 			// Reference layers that are used
 			_hydrographicGroupLayer = MyMapView.Map.Layers.OfType<GroupLayer>().First();
-			_resultGraphicsOverlay = MyMapView.GraphicsOverlays[0];
+			_polygonResultGraphicsOverlay = MyMapView.GraphicsOverlays[0];
+			_lineResultGraphicsOverlay = MyMapView.GraphicsOverlays[1];
+			_pointResultGraphicsOverlay = MyMapView.GraphicsOverlays[2];
 			MyMapView.ExtentChanged += MyMapView_ExtentChanged;
 		}
 
@@ -142,14 +146,32 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.Hydrographic
 		private void resultList_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			// Clear previous selection
-			_resultGraphicsOverlay.Graphics.Clear();
+			_polygonResultGraphicsOverlay.Graphics.Clear();
+			_lineResultGraphicsOverlay.Graphics.Clear();
+			_pointResultGraphicsOverlay.Graphics.Clear();
 
 			// When no results found, this is 0
 			if (e.AddedItems.Count > 0)
 			{
 				// Using single mode so there is only one item
 				var selectedFeatureObject = e.AddedItems[0] as S57FeatureObject;
-				_resultGraphicsOverlay.Graphics.Add(new Graphic(selectedFeatureObject.Geometry));
+
+				var selectedGeometry = selectedFeatureObject.Geometry;
+				if (selectedGeometry is Polygon)
+				{
+					_polygonResultGraphicsOverlay.Graphics.Add(new Graphic(selectedFeatureObject.Geometry));
+					_polygonResultGraphicsOverlay.Graphics[0].IsSelected = true;
+				}
+				else if (selectedGeometry is Polyline)
+				{
+					_lineResultGraphicsOverlay.Graphics.Add(new Graphic(selectedFeatureObject.Geometry));
+					_lineResultGraphicsOverlay.Graphics[0].IsSelected = true;
+				}
+				else if (selectedGeometry is MapPoint)
+				{
+					_pointResultGraphicsOverlay.Graphics.Add(new Graphic(selectedFeatureObject.Geometry));
+					_pointResultGraphicsOverlay.Graphics[0].IsSelected = true;
+				}
 			}
 		}
 	}

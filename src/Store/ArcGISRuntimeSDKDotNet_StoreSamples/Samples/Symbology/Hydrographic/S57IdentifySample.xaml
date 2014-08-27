@@ -23,9 +23,19 @@
 			<Setter Property="HorizontalAlignment" Value="Center" />
 			<Setter Property="Margin" Value="10,5,5,5" />
 		</Style>
-		<symb:SimpleLineSymbol x:Key="outlineSelectionSymbol" Color="Black"/>
-		<symb:SimpleFillSymbol x:Key="selectionSymbol" Color="Blue" Style="DiagonalCross" Outline="{StaticResource outlineSelectionSymbol}"/>
-		<symb:SimpleRenderer x:Key="selectionRendrer" Symbol="{StaticResource selectionSymbol}"/>
+		
+		<!-- selected point -->
+		<symb:SimpleRenderer x:Key="PointSelectionRenderer">
+			<symb:SimpleMarkerSymbol Color="Blue" />
+		</symb:SimpleRenderer>
+		<!-- selected polyline -->
+		<symb:SimpleRenderer x:Key="LineSelectionRenderer">
+			<symb:SimpleLineSymbol Color="Blue" Width="2" />
+		</symb:SimpleRenderer>
+		<!-- selected polygon -->
+		<symb:SimpleLineSymbol x:Key="OutlineSelectionSymbol" Color="Black"/>
+		<symb:SimpleFillSymbol x:Key="SelectionSymbol" Color="Blue" Style="DiagonalCross" Outline="{StaticResource OutlineSelectionSymbol}"/>
+		<symb:SimpleRenderer x:Key="SelectionRendrer" Symbol="{StaticResource SelectionSymbol}"/>
 	</Page.Resources>
 
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -40,7 +50,9 @@
 				<layers:GroupLayer ID="Hydrographic"/>
 			</esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="resultOverlay" Renderer="{StaticResource selectionRendrer}"/>
+				<esri:GraphicsOverlay x:Name="polygonResultsOverlay" Renderer="{StaticResource SelectionRendrer}"/>
+				<esri:GraphicsOverlay x:Name="lineResultsOverlay" Renderer="{StaticResource LineSelectionRenderer}"/>
+				<esri:GraphicsOverlay x:Name="pointResultsOverlay" Renderer="{StaticResource PointSelectionRenderer}"/>
 			</esri:MapView.GraphicsOverlays>
 		</esri:MapView>
 

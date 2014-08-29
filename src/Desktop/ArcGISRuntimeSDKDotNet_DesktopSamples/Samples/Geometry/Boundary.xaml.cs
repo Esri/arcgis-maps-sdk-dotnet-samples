@@ -108,31 +108,64 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             var halfLen = length / 2.0;
             var spacer = length / 10.0;
 
-			PartCollection coords = new PartCollection()
-            {
-                new Geometry.PointCollection() 
-                { 
-                    new MapPoint(center.X - halfLen + spacer, center.Y + halfLen),
-                    new MapPoint(center.X + halfLen - spacer, center.Y + halfLen)
-                },
-                new Geometry.PointCollection() 
-                { 
-                    new MapPoint(center.X + halfLen, center.Y + halfLen - spacer),
-                    new MapPoint(center.X + halfLen, center.Y - halfLen + spacer)
-                },
-                new Geometry.PointCollection() 
-                { 
-                    new MapPoint(center.X + halfLen - spacer, center.Y - halfLen),
-                    new MapPoint(center.X - halfLen + spacer, center.Y - halfLen)
-                },
-                new Geometry.PointCollection() 
-                { 
-                    new MapPoint(center.X - halfLen, center.Y - halfLen + spacer),
-                    new MapPoint(center.X - halfLen, center.Y + halfLen - spacer)
-                }
-            };
+			PolylineBuilder polylineBuilder = new PolylineBuilder(MyMapView.SpatialReference);
+			
+			// First path
+			polylineBuilder.AddPart(new Geometry.PointCollection()
+				{
+					new MapPoint(center.X - halfLen + spacer, center.Y + halfLen),
+					new MapPoint(center.X + halfLen - spacer, center.Y + halfLen)
+				});
 
-            return new Polyline(coords, MyMapView.SpatialReference);
+			// Second path
+			polylineBuilder.AddPart(new Geometry.PointCollection()
+				{
+					new MapPoint(center.X + halfLen, center.Y + halfLen - spacer),
+                    new MapPoint(center.X + halfLen, center.Y - halfLen + spacer)
+				});
+
+			// Third path
+			polylineBuilder.AddPart(new Geometry.PointCollection()
+				{
+					new MapPoint(center.X + halfLen - spacer, center.Y - halfLen),
+                    new MapPoint(center.X - halfLen + spacer, center.Y - halfLen)
+				});
+
+			// Forth path
+			polylineBuilder.AddPart(new Geometry.PointCollection()
+				{
+					new MapPoint(center.X - halfLen, center.Y - halfLen + spacer),
+                    new MapPoint(center.X - halfLen, center.Y + halfLen - spacer)
+				});
+
+			return polylineBuilder.ToGeometry();
+
+			//PartCollection coords = new PartCollection()
+			//{
+			//	new Geometry.SegmentCollection(MyMapView.SpatialReference) 
+			//	{ 
+			//		new LineSegment(
+			//			new MapPoint(center.X - halfLen + spacer, center.Y + halfLen),
+			//			new MapPoint(center.X + halfLen - spacer, center.Y + halfLen))
+			//	},
+			//	new Geometry.PointCollection() 
+			//	{ 
+			//		new MapPoint(center.X + halfLen, center.Y + halfLen - spacer),
+			//		new MapPoint(center.X + halfLen, center.Y - halfLen + spacer)
+			//	},
+			//	new Geometry.PointCollection() 
+			//	{ 
+			//		new MapPoint(center.X + halfLen - spacer, center.Y - halfLen),
+			//		new MapPoint(center.X - halfLen + spacer, center.Y - halfLen)
+			//	},
+			//	new Geometry.PointCollection() 
+			//	{ 
+			//		new MapPoint(center.X - halfLen, center.Y - halfLen + spacer),
+			//		new MapPoint(center.X - halfLen, center.Y + halfLen - spacer)
+			//	}
+			//};
+
+            //return new Polyline(coords, MyMapView.SpatialReference);
         }
     }
 }

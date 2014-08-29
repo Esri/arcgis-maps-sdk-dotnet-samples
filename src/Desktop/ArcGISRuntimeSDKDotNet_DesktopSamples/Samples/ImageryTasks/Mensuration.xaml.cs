@@ -90,8 +90,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             try
             {
-                MapPoint pointOne = line.Parts[0][0];
-				MapPoint pointTwo =line.Parts[0][1];
+				//MapPoint pointOne = line.Parts[0][0];
+				//MapPoint pointTwo =line.Parts[0][1];
 
                 var parameters = new MensurationLengthParameters()
                 {
@@ -99,7 +99,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     LinearUnit = comboLinearUnit.SelectedItem as LinearUnit
                 };
 
-                var result = await _mensurationTask.DistanceAndAngleAsync(pointOne, pointTwo, parameters);
+				var result = await _mensurationTask.DistanceAndAngleAsync(
+					line.Parts.First().StartPoint,
+					line.Parts.First().EndPoint, parameters);
+//                var result = await _mensurationTask.DistanceAndAngleAsync(pointOne, pointTwo, parameters);
                 ShowResults(result, ((Button)sender).Tag.ToString());
             }
             catch (Exception ex)
@@ -114,16 +117,22 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             try
             {
-				MapPoint pointOne = line.Parts[0][0];
-				MapPoint pointTwo = line.Parts[0][1];
+				//MapPoint pointOne = line.Parts[0][0];
+				//MapPoint pointTwo = line.Parts[0][1];
 
                 var parameters = new MensurationHeightParameters()
                 {
                     LinearUnit = comboLinearUnit.SelectedItem as LinearUnit
                 };
 
-                var result = await _mensurationTask.HeightFromBaseAndTopAsync(pointOne, pointTwo, parameters);
-                ShowResults(result, ((Button)sender).Tag.ToString());
+                //var result = await _mensurationTask.HeightFromBaseAndTopAsync(pointOne, pointTwo, parameters);
+
+				var result = await _mensurationTask.HeightFromBaseAndTopAsync(
+					line.Parts.First().StartPoint, 
+					line.Parts.First().EndPoint, parameters);
+
+
+				ShowResults(result, ((Button)sender).Tag.ToString());
             }
             catch (Exception ex)
             {
@@ -137,16 +146,21 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             try
             {
-				MapPoint pointOne = line.Parts[0][0];
-				MapPoint pointTwo = line.Parts[0][1];
+				//MapPoint pointOne = line.Parts[0][0];
+				//MapPoint pointTwo = line.Parts[0][1];
 
                 var parameters = new MensurationHeightParameters()
                 {
                     LinearUnit = comboLinearUnit.SelectedItem as LinearUnit
                 };
 
-                var result = await _mensurationTask.HeightFromBaseAndTopShadowAsync(pointOne, pointTwo, parameters);
-                ShowResults(result, ((Button)sender).Tag.ToString());
+				//var result = await _mensurationTask.HeightFromBaseAndTopShadowAsync(pointOne, pointTwo, parameters);
+
+				var result = await _mensurationTask.HeightFromBaseAndTopShadowAsync(
+					line.Parts.First().StartPoint,
+					line.Parts.First().EndPoint, parameters);
+
+				ShowResults(result, ((Button)sender).Tag.ToString());
             }
             catch (Exception ex)
             {
@@ -160,15 +174,19 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             try
             {
-				MapPoint pointOne = line.Parts[0][0];
-				MapPoint pointTwo = line.Parts[0][1];
+				//MapPoint pointOne = line.Parts[0][0];
+				//MapPoint pointTwo = line.Parts[0][1];
 
                 var parameters = new MensurationHeightParameters()
                 {
                     LinearUnit = comboLinearUnit.SelectedItem as LinearUnit
                 };
 
-                var result = await _mensurationTask.HeightFromTopAndTopShadowAsync(pointOne, pointTwo, parameters);
+				//var result = await _mensurationTask.HeightFromTopAndTopShadowAsync(pointOne, pointTwo, parameters);
+				var result = await _mensurationTask.HeightFromTopAndTopShadowAsync(
+					line.Parts.First().StartPoint, 
+					line.Parts.First().EndPoint, parameters);
+
                 ShowResults(result, ((Button)sender).Tag.ToString());
             }
             catch (Exception ex)

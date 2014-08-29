@@ -63,7 +63,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
                 // Densify the shape
                 var densify = GeometryEngine.GeodesicDensify(original, MyMapView.Extent.Width / 100, LinearUnits.Meters);
-                inputOverlay.Graphics.Add(new Graphic(densify, _fillSymbol));
+
+				if (densify.GeometryType == GeometryType.Polygon)
+					inputOverlay.Graphics.Add(new Graphic(densify, _fillSymbol));
+				else
+					inputOverlay.Graphics.Add(new Graphic(densify, _lineSymbol));
 
                 // Add new vertices to result graphics layer
                 var coordsDensify = (densify as Multipart).Parts.First().GetPoints();

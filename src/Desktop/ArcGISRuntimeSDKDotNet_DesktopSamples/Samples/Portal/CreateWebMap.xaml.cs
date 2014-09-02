@@ -146,7 +146,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     var sublayer = new WebMapSubLayer();
                     sublayer.FeatureSet = queryResult.FeatureSet;
 
-                    sublayer.AddCustomProperty("layerDefinition", layerdef);
+					sublayer.SetCustomProperty("layerDefinition", layerdef);
                     featureCollection = new FeatureCollection { 
 						SubLayers = new List<WebMapSubLayer> 
 						{ sublayer } 

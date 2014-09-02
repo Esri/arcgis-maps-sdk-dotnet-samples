@@ -36,7 +36,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     ServerUri = DEFAULT_SERVER_URL,
                     TokenServiceUri = DEFAULT_TOKEN_URL,
                 });
-            IdentityManager.Current.ChallengeMethod = Challenge;
+			IdentityManager.Current.ChallengeHandler = new ChallengeHandler(Challenge);
 
             Loaded += control_Loaded;
         }

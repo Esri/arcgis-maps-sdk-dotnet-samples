@@ -101,7 +101,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.Hydrographic
 			{
 				file = await ApplicationData.Current.LocalFolder.GetFileAsync(path);
 			}
-			catch (FileNotFoundException notFoundException)
+			catch (FileNotFoundException)
 			{
 				throw new Exception("Local hydrographic data not found. Please download sample data from 'Sample Data Settings'");
 			}

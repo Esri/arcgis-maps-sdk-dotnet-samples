@@ -184,7 +184,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 		}
 
 		// Sets the currently selected symbol
-		private async void SymbolListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		private void SymbolListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			if (e.AddedItems.Count != 1)
 				return;

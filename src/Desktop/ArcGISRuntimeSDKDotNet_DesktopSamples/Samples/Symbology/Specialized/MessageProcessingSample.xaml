@@ -23,10 +23,13 @@
                            FontSize="14"  Width="400" TextAlignment="Left" TextWrapping="Wrap" />
 				<Button x:Name="processMessagesBtn" 
 						IsEnabled="False"
-						Content="Process messages" 
-						HorizontalAlignment="Center" 
+						Content="Process messages"  
 						Margin="12,12,12,0"
                         Click="ProcessMessagesButton_Click"/>
+				<Button Content="Select Messages" Click="AddSelectButton_Click" Margin="12,12,12,0"/>
+				<Button Content="Clear Selection" Click="ClearSelectButton_Click" Margin="12,12,12,0"/>	
+				<TextBlock Text="{Binding ElementName=graphicsOverlay, Path=SelectedGraphics.Count, StringFormat='Selection Count: {0}'}" 
+                          Margin="12,12,12,0" HorizontalAlignment="Center" FontWeight="Bold" />
 			</StackPanel>
 		</Border>
 	</Grid>

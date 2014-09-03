@@ -1964,7 +1964,7 @@
             </summary>
             <title>Message Processor</title>
             <category>Symbology</category>
-            <subcategory>Advanced</subcategory>
+            <subcategory>Specialized</subcategory>
             <summary>
             MessageProcessingSample
             </summary>
@@ -1980,7 +1980,7 @@
             </summary>
             <title>Symbol Dictionary Search</title>
             <category>Symbology</category>
-            <subcategory>Advanced</subcategory>
+            <subcategory>Specialized</subcategory>
             <summary>
             SymbolDictionarySearchSample
             </summary>

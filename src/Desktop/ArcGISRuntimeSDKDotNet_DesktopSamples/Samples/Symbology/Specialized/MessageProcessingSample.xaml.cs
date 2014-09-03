@@ -2,6 +2,7 @@
 using Esri.ArcGISRuntime.Symbology.Specialized;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
+using Esri.ArcGISRuntime.Controls;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,6 +10,8 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Xml.Linq;
+using System.Threading.Tasks;
+
 
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Specialized
 {
@@ -17,7 +20,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Specialized
 	/// </summary>
 	/// <title>Message Processor</title>
 	/// <category>Symbology</category>
-	/// <subcategory>Advanced</subcategory>
+	/// <subcategory>Specialized</subcategory>
 	public partial class MessageProcessingSample : UserControl
 	{
 		private const string DATA_PATH = @"..\..\..\..\..\samples-data\symbology\Mil2525CMessages.xml";
@@ -50,10 +53,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Specialized
 			}
 		}
 
-		private void ProcessMessagesButton_Click(object sender, RoutedEventArgs e)
+		private async void ProcessMessagesButton_Click(object sender, RoutedEventArgs e)
 		{
 			try
 			{
+				await MyMapView.LayersLoadedAsync();
 				// This function simulates real time message processing by processing a static set of messages from an XML document.
 				/* 
 				* |== Example Message ==|
@@ -112,6 +116,84 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Specialized
 			{
 				MessageBox.Show(ex.Message, "Message Processing Sample");
 			}
+		}
+
+		private async void AddSelectButton_Click(object sender, System.Windows.RoutedEventArgs e)
+		{
+			try
+			{
+				await FindIntersectingGraphicsAsync();
+				//var graphics = await FindIntersectingGraphicsAsync();
+				//foreach (var graphic in graphics)
+				//{
+				//	MilitaryMessage message = _messageLayer.GetMessage(graphic.Attributes["_id"].ToString()) as MilitaryMessage;
+				//	message.MessageAction = MilitaryMessageAction.Select;
+				//	if (_messageLayer.ProcessMessage(message))
+				//	{
+				//		selectedMessages.Add(message);
+				//	}
+				//}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Selection Error: " + ex.Message, "Graphics Layer Selection Sample");
+			}
+		}
+
+		private List<MilitaryMessage> selectedMessages = new List<MilitaryMessage>();
+
+		private void ClearSelectButton_Click(object sender, System.Windows.RoutedEventArgs e)
+		{
+			try
+			{
+				foreach (MilitaryMessage message in selectedMessages)
+				{
+					message.MessageAction = MilitaryMessageAction.UnSelect;
+					_messageLayer.ProcessMessage(message);
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Selection Error: " + ex.Message, "Graphics Layer Selection Sample");
+			}
+		}
+
+		//private async Task<IEnumerable<Graphic>> FindIntersectingGraphicsAsync()
+		private async Task FindIntersectingGraphicsAsync()
+		{
+			//var pointOfInterest = await MyMapView.Editor.RequestPointAsync();
+
+			//MessageSubLayer messageSubLayer = _messageLayer.ChildLayers[0] as MessageSubLayer;
+	
+			//Point point = MyMapView.LocationToScreen(pointOfInterest);
+
+			//return await messageSubLayer.HitTestAsync(MyMapView, point, maxHits:100);
+
+			var pt = await MyMapView.Editor.RequestPointAsync();
+			var screenpt = MyMapView.LocationToScreen(pt);
+
+
+			var messageSubLayers = _messageLayer.ChildLayers.Cast<MessageSubLayer>();
+
+			IEnumerable<Graphic> results = Enumerable.Empty<Graphic>();
+
+			foreach (var l in messageSubLayers)
+				results = results.Concat(await l.HitTestAsync(MyMapView, screenpt, 10));
+
+			var grouped = results.GroupBy(r => r.Geometry.GeometryType);
+
+			//MessageBox.Show(string.Join("\r\n", grouped.Select(g => g.Key + " " + g.Count())));
+
+			foreach (var graphic in grouped)
+			{
+				MilitaryMessage message = _messageLayer.GetMessage(((Graphic)graphic).Attributes["_id"].ToString()) as MilitaryMessage;
+				message.MessageAction = MilitaryMessageAction.Select;
+				if (_messageLayer.ProcessMessage(message))
+				{
+					selectedMessages.Add(message);
+				}
+			}
+
 		}
 	}
 }

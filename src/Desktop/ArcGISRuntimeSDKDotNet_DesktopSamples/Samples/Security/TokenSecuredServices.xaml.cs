@@ -24,7 +24,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			IdentityManager.Current.ChallengeMethod = Challenge;
+			IdentityManager.Current.ChallengeHandler = new ChallengeHandler(PortalSecurity.Challenge);
         }
 
         // Base Challenge method that dispatches to the UI thread if necessary

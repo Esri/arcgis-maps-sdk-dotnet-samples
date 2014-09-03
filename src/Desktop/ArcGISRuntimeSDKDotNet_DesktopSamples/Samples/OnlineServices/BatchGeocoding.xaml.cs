@@ -32,7 +32,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             InitializeComponent();
 
             // Security Setup
-            IdentityManager.Current.ChallengeMethod = PortalSecurity.Challenge;
+			IdentityManager.Current.ChallengeHandler = new ChallengeHandler(PortalSecurity.Challenge);
 
             // Allow 5 source addresses by default
             SourceAddresses = new ObservableCollection<SourceAddress>();

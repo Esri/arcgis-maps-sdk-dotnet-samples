@@ -20,7 +20,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Specialized
 	/// </summary>
 	/// <title>Symbol Dictionary Search</title>
 	/// <category>Symbology</category>
-	/// <subcategory>Advanced</subcategory>
+	/// <subcategory>Specialized</subcategory>
 	public partial class SymbolDictionarySearchSample : UserControl, INotifyPropertyChanged
 	{
 		private SymbolViewModel _selectedSymbol;

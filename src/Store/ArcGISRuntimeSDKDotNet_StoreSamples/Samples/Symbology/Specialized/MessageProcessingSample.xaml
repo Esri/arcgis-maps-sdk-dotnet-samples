@@ -36,14 +36,7 @@
 				<Button Content="Clear Selection" 
 						Click="ClearSelectButton_Click" 
 						Margin="12,12,12,0"
-						HorizontalAlignment="Center" />
-				<TextBlock Margin="12,12,12,0"
-						   HorizontalAlignment="Center"
-						   FontSize="14"
-						   FontWeight="Bold">
-					<Run Text="Selection Count: " />
-					<Run Text="{Binding ElementName=graphicsOverlay, Path=SelectedGraphics.Count}"  />
-				</TextBlock>
+						HorizontalAlignment="Center" />	
 			</StackPanel>
 		</Border>
 	</Grid>

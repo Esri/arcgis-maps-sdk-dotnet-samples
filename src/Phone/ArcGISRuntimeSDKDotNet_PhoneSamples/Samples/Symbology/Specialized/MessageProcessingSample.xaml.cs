@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 using Windows.Storage;
 using Windows.UI.Popups;
@@ -20,7 +21,7 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.Specialized
 	/// </summary>
 	/// <title>Message Processor</title>
 	/// <category>Symbology</category>
-	/// <subcategory>Advanced</subcategory>
+	/// <subcategory>Specialized</subcategory>
 	public sealed partial class MessageProcessingSample : Page
 	{
 		private const string DATA_PATH = @"symbology\Mil2525CMessages.xml";
@@ -30,14 +31,14 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.Specialized
 		public MessageProcessingSample()
 		{
 			InitializeComponent();
-			mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(
+			MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(
 				-245200, 
 				6665900, 
 				-207000, 
 				6687300, 
 				SpatialReferences.WebMercator));
 
-			mapView.ExtentChanged += mapView_ExtentChanged;
+			MyMapView.ExtentChanged += mapView_ExtentChanged;
 		}
 
 		// Load data - enable functionality after layers are loaded.
@@ -45,12 +46,12 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.Specialized
 		{
 			try
 			{
-				mapView.ExtentChanged -= mapView_ExtentChanged;
+				MyMapView.ExtentChanged -= mapView_ExtentChanged;
 
 				// Wait until all layers are loaded
-				var layers = await mapView.LayersLoadedAsync();
+				var layers = await MyMapView.LayersLoadedAsync();
 
-				_messageLayer = mapView.Map.Layers.OfType<MessageLayer>().First();
+				_messageLayer = MyMapView.Map.Layers.OfType<MessageLayer>().First();
 				processMessagesBtn.IsEnabled = true;
 			}
 			catch (Exception ex)
@@ -129,6 +130,60 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.Specialized
 			catch (Exception ex)
 			{
 				var _ = new MessageDialog(ex.Message, "Message Processing Sample").ShowAsync();
+			}
+		}
+
+		private async void AddSelectButton_Click(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				await FindIntersectingGraphicsAsync();
+			}
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog("Selection Error: " + ex.Message, "Message Processing Sample").ShowAsync();
+			}
+		}
+
+		private List<MilitaryMessage> selectedMessages = new List<MilitaryMessage>();
+
+		private void ClearSelectButton_Click(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				foreach (MilitaryMessage message in selectedMessages)
+				{
+					message.MessageAction = MilitaryMessageAction.UnSelect;
+					_messageLayer.ProcessMessage(message);
+				}
+				selectedMessages.Clear();
+			}
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog("Selection Error: " + ex.Message, "Message Processing Sample").ShowAsync();
+			}
+		}
+
+		private async Task FindIntersectingGraphicsAsync()
+		{
+			var mapPoint = await MyMapView.Editor.RequestPointAsync();
+			var screenPoint = MyMapView.LocationToScreen(mapPoint);
+
+			var messageSubLayers = _messageLayer.ChildLayers.Cast<MessageSubLayer>();
+
+			IEnumerable<Graphic> results = Enumerable.Empty<Graphic>();
+
+			foreach (var l in messageSubLayers)
+				results = results.Concat(await l.HitTestAsync(MyMapView, screenPoint, maxHits: 10));
+
+			foreach (var graphic in results)
+			{
+				MilitaryMessage message = _messageLayer.GetMessage(graphic.Attributes["_id"].ToString()) as MilitaryMessage;
+				message.MessageAction = MilitaryMessageAction.Select;
+				if (_messageLayer.ProcessMessage(message))
+				{
+					selectedMessages.Add(message);
+				}
 			}
 		}
 	}

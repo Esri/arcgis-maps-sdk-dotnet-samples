@@ -272,7 +272,7 @@
             </summary>
             <title>Message Processor</title>
             <category>Symbology</category>
-            <subcategory>Advanced</subcategory>
+            <subcategory>Specialized</subcategory>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Offset">
             <summary>

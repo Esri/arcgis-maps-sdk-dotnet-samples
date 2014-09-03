@@ -77,12 +77,21 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 				new MapPoint(center.X + halfLen, center.Y + halfLen, MyMapView.SpatialReference),
 				new MapPoint(center.X - halfLen, center.Y - halfLen, MyMapView.SpatialReference));
 
+
+
 			var segmentCollection = new SegmentCollection(MyMapView.SpatialReference)
 			{
-				segment, segment2
+				segment
 			};
 
-			return new Polyline(segmentCollection, MyMapView.SpatialReference);
+			var segmentCollection2 = new SegmentCollection(MyMapView.SpatialReference)
+			{
+				segment2
+			};
+
+			return new Polyline(
+				new [] { segmentCollection, segmentCollection2},
+				MyMapView.SpatialReference);
         }
     }
 }

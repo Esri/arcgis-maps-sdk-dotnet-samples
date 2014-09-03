@@ -324,6 +324,7 @@
     <Compile Include="Samples\Offline\SyncGeodatabase.xaml.cs">
       <DependentUpon>SyncGeodatabase.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Security\OAuthAuthorizeHandler.cs" />
     <Compile Include="Samples\OnlineServices\PortalSecurity.cs" />
     <Compile Include="Samples\OnlineServices\Traffic.xaml.cs">
       <DependentUpon>Traffic.xaml</DependentUpon>

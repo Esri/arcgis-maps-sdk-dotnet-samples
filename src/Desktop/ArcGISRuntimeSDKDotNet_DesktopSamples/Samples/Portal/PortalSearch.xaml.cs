@@ -26,20 +26,20 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private ArcGISPortal _portal;
 
         /// <summary>Construct Portal Search sample control</summary>
-		public PortalSearch()
-		{
-			InitializeComponent();
+        public PortalSearch()
+        {
+            InitializeComponent();
 
-			IdentityManager.Current.RegisterServer(
-				new ServerInfo()
-				{
-					ServerUri = DEFAULT_SERVER_URL,
-					TokenServiceUri = DEFAULT_TOKEN_URL,
-				});
-			IdentityManager.Current.ChallengeHandler = new ChallengeHandler(PortalSecurity.Challenge);
+            IdentityManager.Current.RegisterServer(
+                new ServerInfo()
+                {
+                    ServerUri = DEFAULT_SERVER_URL,
+                    TokenServiceUri = DEFAULT_TOKEN_URL,
+                });
+			IdentityManager.Current.ChallengeHandler = new ChallengeHandler(Challenge);
 
-			Loaded += control_Loaded;
-		}
+            Loaded += control_Loaded;
+        }
 
         // Activate IdentityManager but don't accept any challenge.
         // User must use the 'SignIn' button for getting its own maps.

@@ -7,7 +7,7 @@
     xmlns:esriData="using:Esri.ArcGISRuntime.Data">
 
     <Grid>
-        <esri:MapView x:Name="mapView1">
+		<esri:MapView x:Name="MyMapView" LayerLoaded="MyMapView_LayerLoaded">
             <esri:Map >
                 <esriLayers:ArcGISTiledMapServiceLayer ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
 

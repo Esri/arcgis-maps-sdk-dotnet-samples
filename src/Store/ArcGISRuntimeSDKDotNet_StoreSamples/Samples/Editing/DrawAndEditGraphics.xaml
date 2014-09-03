@@ -24,9 +24,9 @@
                                               ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 			</esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="PointGraphicsOverlay" Renderer="{StaticResource MarkerRenderer}" />
-				<esri:GraphicsOverlay x:Name="PolylineGraphicsOverlay" Renderer="{StaticResource PolylineRenderer}" />
-				<esri:GraphicsOverlay x:Name="PolygonGraphicsOverlay" Renderer="{StaticResource PolygonRenderer}" />
+                <esri:GraphicsOverlay ID="PointGraphicsOverlay" Renderer="{StaticResource MarkerRenderer}" />
+				<esri:GraphicsOverlay ID="PolylineGraphicsOverlay" Renderer="{StaticResource PolylineRenderer}" />
+				<esri:GraphicsOverlay ID="PolygonGraphicsOverlay" Renderer="{StaticResource PolygonRenderer}" />
 			</esri:MapView.GraphicsOverlays>
 		</esri:MapView>
 

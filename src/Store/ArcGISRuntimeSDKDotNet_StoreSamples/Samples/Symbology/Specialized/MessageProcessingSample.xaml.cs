@@ -1,7 +1,9 @@
-﻿using Esri.ArcGISRuntime.Symbology.Specialized;
+﻿using Esri.ArcGISRuntime.Layers;
+using Esri.ArcGISRuntime.Symbology.Specialized;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 using Windows.Storage;
 using Windows.UI.Popups;
@@ -113,6 +115,60 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 			catch (Exception ex)
 			{
 				var _x = new MessageDialog(ex.Message, "Message Processing Sample").ShowAsync();
+			}
+		}
+
+		private async void AddSelectButton_Click(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				await FindIntersectingGraphicsAsync();
+			}
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog("Selection Error: " + ex.Message, "Message Processing Sample").ShowAsync();
+			}
+		}
+
+		private List<MilitaryMessage> selectedMessages = new List<MilitaryMessage>();
+
+		private void ClearSelectButton_Click(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				foreach (MilitaryMessage message in selectedMessages)
+				{
+					message.MessageAction = MilitaryMessageAction.UnSelect;
+					_messageLayer.ProcessMessage(message);
+				}
+				selectedMessages.Clear();
+			}
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog("Selection Error: " + ex.Message, "Message Processing Sample").ShowAsync();
+			}
+		}
+
+		private async Task FindIntersectingGraphicsAsync()
+		{
+			var mapPoint = await MyMapView.Editor.RequestPointAsync();
+			var screenPoint = MyMapView.LocationToScreen(mapPoint);
+
+			var messageSubLayers = _messageLayer.ChildLayers.Cast<MessageSubLayer>();
+
+			IEnumerable<Graphic> results = Enumerable.Empty<Graphic>();
+
+			foreach (var l in messageSubLayers)
+				results = results.Concat(await l.HitTestAsync(MyMapView, screenPoint, maxHits: 10));
+
+			foreach (var graphic in results)
+			{
+				MilitaryMessage message = _messageLayer.GetMessage(graphic.Attributes["_id"].ToString()) as MilitaryMessage;
+				message.MessageAction = MilitaryMessageAction.Select;
+				if (_messageLayer.ProcessMessage(message))
+				{
+					selectedMessages.Add(message);
+				}
 			}
 		}
 	}

@@ -32,6 +32,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             InitializeComponent();
 
             // Security Setup
+            IdentityManager.Current.OAuthAuthorizeHandler = new OAuthAuthorizeHandler();
 			IdentityManager.Current.ChallengeHandler = new ChallengeHandler(PortalSecurity.Challenge);
 
             // Allow 5 source addresses by default

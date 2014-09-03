@@ -22,7 +22,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public Traffic()
         {
             InitializeComponent();
-
+            IdentityManager.Current.OAuthAuthorizeHandler = new OAuthAuthorizeHandler();
             IdentityManager.Current.ChallengeHandler = new ChallengeHandler(PortalSecurity.Challenge);
 
             _trafficLayer = MyMapView.Map.Layers["Traffic"] as ArcGISDynamicMapServiceLayer;

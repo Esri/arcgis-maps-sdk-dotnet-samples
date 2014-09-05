@@ -231,20 +231,24 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Retrieve the given shape type from the user
 		private async Task<Geometry> RequestUserShape(DrawShape drawShape, Symbols.Symbol symbol)
         {
-            try
-            {
+			try
+			{
 				_graphicsOverlay.Graphics.Clear();
 
-                var shape = await MyMapView.Editor.RequestShapeAsync(drawShape, symbol);
+				var shape = await MyMapView.Editor.RequestShapeAsync(drawShape, symbol);
 
 				_graphicsOverlay.Graphics.Add(new Graphic(shape, symbol));
-                return shape;
-            }
-            catch (Exception ex)
-            {
+				return shape;
+			}
+			catch (TaskCanceledException) 
+			{
+				return null;
+			}
+			catch (Exception ex)
+			{
 				var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
-                return null;
-            }
+				return null;
+			}
         }
 
         // Show results from mensuration task in string format

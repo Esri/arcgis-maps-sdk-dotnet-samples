@@ -33,7 +33,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 					{
 						var newExtentBuilder = new EnvelopeBuilder(MyMapView.SpatialReference);
 
-						foreach (var p in normalizedPolygon.Parts[0])
+						foreach (var p in normalizedPolygon.Parts[0].GetPoints())
 						{
 							if (p.X < newExtentBuilder.XMin || double.IsNaN(newExtentBuilder.XMin))
 								newExtentBuilder.XMin = p.X;
@@ -41,7 +41,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 								newExtentBuilder.YMin = p.Y;
 						}
 
-						foreach (var p in normalizedPolygon.Parts[1])
+						foreach (var p in normalizedPolygon.Parts[1].GetPoints())
 						{
 							if (p.X > newExtentBuilder.XMax || double.IsNaN(newExtentBuilder.XMax))
 								newExtentBuilder.XMax = p.X;

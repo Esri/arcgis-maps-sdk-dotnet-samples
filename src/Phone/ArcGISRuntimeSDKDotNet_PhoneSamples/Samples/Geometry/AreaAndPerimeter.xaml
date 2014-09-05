@@ -32,10 +32,12 @@
         </Grid.Resources>
         <esri:MapView x:Name="mapView1">
             <esri:Map>
-                <lyr:ArcGISTiledMapServiceLayer ID="StreetMapLayer" 
+				<lyr:ArcGISTiledMapServiceLayer ID="StreetMapLayer" 
         		ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-                <lyr:GraphicsLayer ID="MyGraphicsLayer" />
-            </esri:Map>
+			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="Graphics" />
+			</esri:MapView.GraphicsOverlays>
         </esri:MapView>
 
         <Grid HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,15,15,0" >

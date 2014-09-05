@@ -69,15 +69,26 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             var halfLen = length / 2.0;
 
-            PointCollection coords1 = new PointCollection();
-            coords1.Add(new MapPoint(center.X - halfLen, center.Y + halfLen));
-			coords1.Add(new MapPoint(center.X + halfLen, center.Y - halfLen));
+			LineSegment segment = new LineSegment(
+				new MapPoint(center.X - halfLen, center.Y + halfLen, MyMapView.SpatialReference),
+				new MapPoint(center.X + halfLen, center.Y - halfLen, MyMapView.SpatialReference));
 
-            PointCollection coords2 = new PointCollection();
-			coords2.Add(new MapPoint(center.X + halfLen, center.Y + halfLen));
-			coords2.Add(new MapPoint(center.X - halfLen, center.Y - halfLen));
+			LineSegment segment2 = new LineSegment(
+				new MapPoint(center.X + halfLen, center.Y + halfLen, MyMapView.SpatialReference),
+				new MapPoint(center.X - halfLen, center.Y - halfLen, MyMapView.SpatialReference));
 
-            return new Polyline(new PartCollection { coords1, coords2 }, MyMapView.SpatialReference);
+			var segmentCollection = new SegmentCollection(MyMapView.SpatialReference)
+			{
+				segment
+			};
+
+			var segmentCollection2 = new SegmentCollection(MyMapView.SpatialReference)
+			{
+				segment2
+			};
+
+			return new Polyline(new [] { segmentCollection, segmentCollection2},
+				MyMapView.SpatialReference);
         }
     }
 }

@@ -5,7 +5,8 @@
     xmlns:local="using:ArcGISRuntimeSDKDotNet_StoreSamples.Samples"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    	xmlns:esri="using:Esri.ArcGISRuntime.Controls"  xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
+    xmlns:esri="using:Esri.ArcGISRuntime.Controls"  
+	xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
 	xmlns:sym="using:Esri.ArcGISRuntime.Symbology"
     xmlns:geom="using:Esri.ArcGISRuntime.Geometry"
     xmlns:core="using:Esri.ArcGISRuntime"
@@ -13,24 +14,20 @@
 
     <Grid x:Name="LayoutRoot" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
-
-
             <sym:SimpleLineSymbol x:Key="DefaultLineSymbol" Color="#AAFF0000"   Width="2" />
             <sym:SimpleMarkerSymbol x:Key="DefaultMarkerSymbol" Color="Red" Size="6" />
             <sym:SimpleMarkerSymbol x:Key="GeneralizedMarkerSymbol" Color="#FF00FFFF" Size="6" />
             <sym:SimpleLineSymbol x:Key="GeneralizedLineSymbol" Color="#AA00FFFF" Width="2"/>
         </Grid.Resources>
-        <esri:MapView x:Name="mapView1">
+		<esri:MapView x:Name="MyMapView">
 			<esri:Map>
 				<esri:Map.InitialViewpoint>
 					<esri:ViewpointExtent XMin="-12000000" YMin="3000000" XMax="-7000000" YMax="7000000" />
 				</esri:Map.InitialViewpoint>
-			<lyr:ArcGISTiledMapServiceLayer ID="BaseMapLayer"
-        		ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" />
-            <lyr:GraphicsLayer ID="OriginalLineGraphicsLayer" />
-
-            <lyr:GraphicsLayer ID="GeneralizedLineGraphicsLayer" />
-
+				<lyr:ArcGISTiledMapServiceLayer ID="BaseMapLayer"
+        			ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" />
+				<lyr:GraphicsLayer ID="OriginalLineGraphicsLayer" />
+				<lyr:GraphicsLayer ID="GeneralizedLineGraphicsLayer" />
 			</esri:Map>
 		</esri:MapView>
 

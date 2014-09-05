@@ -29,46 +29,55 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-	        originalGraphicsLayer = mapView1.Map.Layers["OriginalLineGraphicsLayer"] as GraphicsLayer;
-            generalizedGraphicsLayer = mapView1.Map.Layers["GeneralizedLineGraphicsLayer"] as GraphicsLayer;
+			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
 
-            mapView1.Loaded += mapView1_Loaded;
+			originalGraphicsLayer = MyMapView.Map.Layers["OriginalLineGraphicsLayer"] as GraphicsLayer;
+			generalizedGraphicsLayer = MyMapView.Map.Layers["GeneralizedLineGraphicsLayer"] as GraphicsLayer;
+
             defaultMarkerSymbol = LayoutRoot.Resources["DefaultMarkerSymbol"] as SimpleMarkerSymbol;
             defaultLineSymbol = LayoutRoot.Resources["DefaultLineSymbol"] as SimpleLineSymbol;
             generalizedLineSymbol = LayoutRoot.Resources["GeneralizedLineSymbol"] as SimpleLineSymbol;
             generalizedMarkerSymbol = LayoutRoot.Resources["GeneralizedMarkerSymbol"] as SimpleMarkerSymbol;
         }
 
-        async void mapView1_Loaded(object sender, RoutedEventArgs e)
+		private async void MyMapView_NavigationCompleted(object sender, EventArgs e)
         {
-            if (originalGraphicsLayer != null && originalGraphicsLayer.Graphics.Count == 0)
-            {
-                QueryTask queryTask = new QueryTask(new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer/1"));
-                Query query = new Query("NAME = 'Mississippi'");
-                query.ReturnGeometry = true;
-                query.OutSpatialReference = mapView1.SpatialReference;
+			MyMapView.NavigationCompleted -= MyMapView_NavigationCompleted;
+			try
+			{
+				if (originalGraphicsLayer != null && originalGraphicsLayer.Graphics.Count == 0)
+				{
+					QueryTask queryTask = new QueryTask(new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer/1"));
+					Query query = new Query("NAME = 'Mississippi'");
+					query.ReturnGeometry = true;
+					query.OutSpatialReference = MyMapView.SpatialReference;
 
-                var results = await queryTask.ExecuteAsync(query, CancellationToken.None);
-                foreach (Graphic g in results.FeatureSet.Features)
-                {
-                    g.Symbol = defaultLineSymbol;
-                    originalGraphicsLayer.Graphics.Add(g);
+					var results = await queryTask.ExecuteAsync(query, CancellationToken.None);
+					foreach (Graphic g in results.FeatureSet.Features)
+					{
+						g.Symbol = defaultLineSymbol;
+						originalGraphicsLayer.Graphics.Add(g);
 
-                    foreach (var part in (g.Geometry as Polyline).Parts)
-                    {
-                        foreach (var point in part.GetPoints())
-                        {
-                            var vertex = new Graphic()
-                            {
-                                Symbol = defaultMarkerSymbol,
-                                Geometry = point
-                            };
-                            originalGraphicsLayer.Graphics.Add(vertex);
-                        }
-                    }
-                }
-                GeneralizeButton.IsEnabled = true;
-            }
+						foreach (var part in (g.Geometry as Polyline).Parts)
+						{
+							foreach (var point in part.GetPoints())
+							{
+								var vertex = new Graphic()
+								{
+									Symbol = defaultMarkerSymbol,
+									Geometry = point
+								};
+								originalGraphicsLayer.Graphics.Add(vertex);
+							}
+						}
+					}
+					GeneralizeButton.IsEnabled = true;
+				}
+			}
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog("Error loading test line: " + ex.Message, "Sample Error").ShowAsync();
+			}
         }
 
         private  void GeneralizeButton_Click(object sender, RoutedEventArgs e)
@@ -103,7 +112,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             {
                 var _x = new MessageDialog("Error generalizing line: " + ex.Message, "Sample Error").ShowAsync();
             }
-          
         }
     }
 }

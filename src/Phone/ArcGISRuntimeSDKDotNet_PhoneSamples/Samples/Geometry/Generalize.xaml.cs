@@ -6,6 +6,7 @@ using Esri.ArcGISRuntime.Tasks.Query;
 using System;
 using System.Threading;
 using Windows.UI;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -23,12 +24,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         SimpleLineSymbol defaultLineSymbol;
         SimpleLineSymbol generalizedLineSymbol;
         SimpleMarkerSymbol generalizedMarkerSymbol;
+
         public Generalize()
         {
             InitializeComponent();
 
-			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-12000000, 3000000, -7000000, 7000000, SpatialReferences.WebMercator));
-            originalGraphicsLayer = mapView1.Map.Layers["OriginalLineGraphicsLayer"] as GraphicsLayer;
+	        originalGraphicsLayer = mapView1.Map.Layers["OriginalLineGraphicsLayer"] as GraphicsLayer;
             generalizedGraphicsLayer = mapView1.Map.Layers["GeneralizedLineGraphicsLayer"] as GraphicsLayer;
 
             mapView1.Loaded += mapView1_Loaded;
@@ -36,7 +37,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             defaultLineSymbol = LayoutRoot.Resources["DefaultLineSymbol"] as SimpleLineSymbol;
             generalizedLineSymbol = LayoutRoot.Resources["GeneralizedLineSymbol"] as SimpleLineSymbol;
             generalizedMarkerSymbol = LayoutRoot.Resources["GeneralizedMarkerSymbol"] as SimpleMarkerSymbol;
-
         }
 
         async void mapView1_Loaded(object sender, RoutedEventArgs e)
@@ -48,23 +48,22 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 query.ReturnGeometry = true;
                 query.OutSpatialReference = mapView1.SpatialReference;
 
-
                 var results = await queryTask.ExecuteAsync(query, CancellationToken.None);
                 foreach (Graphic g in results.FeatureSet.Features)
                 {
                     g.Symbol = defaultLineSymbol;
                     originalGraphicsLayer.Graphics.Add(g);
 
-                    foreach (var pc in (g.Geometry as Polyline).Parts)
+                    foreach (var part in (g.Geometry as Polyline).Parts)
                     {
-                        foreach (var point in pc)
+                        foreach (var point in part.GetPoints())
                         {
-                            var vertice = new Graphic()
+                            var vertex = new Graphic()
                             {
                                 Symbol = defaultMarkerSymbol,
-                                Geometry = new MapPoint(point.X, point.Y)
+                                Geometry = point
                             };
-                            originalGraphicsLayer.Graphics.Add(vertice);
+                            originalGraphicsLayer.Graphics.Add(vertex);
                         }
                     }
                 }
@@ -74,36 +73,37 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private  void GeneralizeButton_Click(object sender, RoutedEventArgs e)
         {
+			try
+			{
+				generalizedGraphicsLayer.Graphics.Clear();
 
-            generalizedGraphicsLayer.Graphics.Clear();
-            //GeneralizeButton.IsEnabled = false;
-
-
-            var offset = DistanceSlider.Value * 1000;
+				var offset = DistanceSlider.Value * 1000;
             
-            var generalizedGeometry = GeometryEngine.Generalize(originalGraphicsLayer.Graphics[0].Geometry, offset, false);
-            generalizedGraphicsLayer.Graphics.Clear();
-            if (generalizedGeometry != null)
-            {
-                var g = new Graphic(generalizedGeometry, generalizedLineSymbol);
-                generalizedGraphicsLayer.Graphics.Add(g);
+				var generalizedGeometry = GeometryEngine.Generalize(originalGraphicsLayer.Graphics[0].Geometry, offset, false);
+				if (generalizedGeometry != null)
+				{
+					var g = new Graphic(generalizedGeometry, generalizedLineSymbol);
+					generalizedGraphicsLayer.Graphics.Add(g);
 
-				foreach (var pc in (generalizedGeometry as Polyline).Parts)
-                {
-                    foreach (var point in pc)
-                    {
-                        var vertice = new Graphic()
-                        {
-                            Symbol = generalizedMarkerSymbol,
-                            Geometry = new MapPoint(point.X, point.Y)
-                        };
-                        generalizedGraphicsLayer.Graphics.Add(vertice);
-                    }
-                }
+					foreach (var part in (generalizedGeometry as Polyline).Parts)
+					{
+						foreach (var point in part.GetPoints())
+						{
+							var vertex = new Graphic()
+							{
+								Symbol = generalizedMarkerSymbol,
+								Geometry = point
+							};
+							generalizedGraphicsLayer.Graphics.Add(vertex);
+						}
+					}
+				}
             }
-
+            catch (Exception ex)
+            {
+                var _x = new MessageDialog("Error generalizing line: " + ex.Message, "Sample Error").ShowAsync();
+            }
+          
         }
-
-
     }
 }

@@ -207,10 +207,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             {
 				var point = await RequestUserShape(DrawShape.Point, _pointSymbol) as MapPoint;
 
+				// Requesting shape cancelled
+				if (point == null)
+					return;
+
                 var result = await _mensurationTask.PointAsync(point, new MensurationPointParameters());
                 ShowResults(result, ((Button)sender).Tag.ToString());
             }
-			catch (TaskCanceledException cancelledException) { }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Mensuration Error");

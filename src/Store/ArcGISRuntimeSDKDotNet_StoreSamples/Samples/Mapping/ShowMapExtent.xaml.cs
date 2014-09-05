@@ -36,19 +36,19 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     {
                         var newExtentBuilder = new EnvelopeBuilder(MyMapView.SpatialReference);
 
-						foreach (var p in normalizedPolygon.Parts[0])
+						foreach (var p in normalizedPolygon.Parts[0].GetPoints())
                         {
-                            if (p.X < newExtent.XMin || double.IsNaN(newExtent.XMin))
+							if (Geometry.IsNullOrEmpty(newExtent) || p.X < newExtent.XMin || double.IsNaN(newExtent.XMin))
 								newExtentBuilder.XMin = p.X;
-                            if (p.Y < newExtent.YMin || double.IsNaN(newExtent.YMin))
+							if (Geometry.IsNullOrEmpty(newExtent) || p.Y < newExtent.YMin || double.IsNaN(newExtent.YMin))
 								newExtentBuilder.YMin = p.Y;
                         }
 
-						foreach (var p in normalizedPolygon.Parts[1])
+						foreach (var p in normalizedPolygon.Parts[1].GetPoints())
                         {
-                            if (p.X > newExtent.XMax || double.IsNaN(newExtent.XMax))
+							if (Geometry.IsNullOrEmpty(newExtent) || p.X > newExtent.XMax || double.IsNaN(newExtent.XMax))
 								newExtentBuilder.XMax = p.X;
-                            if (p.Y > newExtent.YMax || double.IsNaN(newExtent.YMax))
+							if (Geometry.IsNullOrEmpty(newExtent) || p.Y > newExtent.YMax || double.IsNaN(newExtent.YMax))
 								newExtentBuilder.YMax = p.Y;
                         }
 						newExtent = newExtentBuilder.ToGeometry();

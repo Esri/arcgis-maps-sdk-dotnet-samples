@@ -49,7 +49,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
                 // Add original polygon and vertices to input graphics layer
                 _inputGraphics.Graphics.Add(new Graphic(poly, _polySymbol));
-				foreach (var coord in poly.Parts.First())
+				foreach (var coord in poly.Parts.First().GetPoints())
                 {
                     _inputGraphics.Graphics.Add(new Graphic(coord, _origVertexSymbol));
                 }
@@ -58,7 +58,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var densify = GeometryEngine.Densify(poly, MyMapView.Extent.Width / 100) as Polygon;
 
                 // Add new vertices to result graphics layer
-				foreach (var coord in densify.Parts.First())
+				foreach (var coord in densify.Parts.First().GetPoints())
                 {
                     _resultGraphics.Graphics.Add(new Graphic(coord, _newVertexSymbol));
                 }

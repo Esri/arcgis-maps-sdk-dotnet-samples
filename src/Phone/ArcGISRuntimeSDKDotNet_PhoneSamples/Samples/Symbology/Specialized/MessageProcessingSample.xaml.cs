@@ -122,7 +122,7 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.Specialized
 				// Hide info box
 				infoBox.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
 			}
-			catch(FileNotFoundException fileNotFoundException)
+			catch(FileNotFoundException)
 			{
 				var _ = new MessageDialog("Local message data not found. Please download sample data before using this sample.", "Message Processing Sample").ShowAsync();
 			}

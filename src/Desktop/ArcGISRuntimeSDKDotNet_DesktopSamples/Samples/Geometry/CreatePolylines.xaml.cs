@@ -77,8 +77,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 				new MapPoint(center.X + halfLen, center.Y + halfLen, MyMapView.SpatialReference),
 				new MapPoint(center.X - halfLen, center.Y - halfLen, MyMapView.SpatialReference));
 
-
-
 			var segmentCollection = new SegmentCollection(MyMapView.SpatialReference)
 			{
 				segment
@@ -89,8 +87,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 				segment2
 			};
 
-			return new Polyline(
-				new [] { segmentCollection, segmentCollection2},
+			return new Polyline(new [] { segmentCollection, segmentCollection2},
 				MyMapView.SpatialReference);
         }
     }

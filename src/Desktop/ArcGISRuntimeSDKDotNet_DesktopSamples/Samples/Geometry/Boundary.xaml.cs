@@ -139,33 +139,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 				});
 
 			return polylineBuilder.ToGeometry();
-
-			//PartCollection coords = new PartCollection()
-			//{
-			//	new Geometry.SegmentCollection(MyMapView.SpatialReference) 
-			//	{ 
-			//		new LineSegment(
-			//			new MapPoint(center.X - halfLen + spacer, center.Y + halfLen),
-			//			new MapPoint(center.X + halfLen - spacer, center.Y + halfLen))
-			//	},
-			//	new Geometry.PointCollection() 
-			//	{ 
-			//		new MapPoint(center.X + halfLen, center.Y + halfLen - spacer),
-			//		new MapPoint(center.X + halfLen, center.Y - halfLen + spacer)
-			//	},
-			//	new Geometry.PointCollection() 
-			//	{ 
-			//		new MapPoint(center.X + halfLen - spacer, center.Y - halfLen),
-			//		new MapPoint(center.X - halfLen + spacer, center.Y - halfLen)
-			//	},
-			//	new Geometry.PointCollection() 
-			//	{ 
-			//		new MapPoint(center.X - halfLen, center.Y - halfLen + spacer),
-			//		new MapPoint(center.X - halfLen, center.Y + halfLen - spacer)
-			//	}
-			//};
-
-            //return new Polyline(coords, MyMapView.SpatialReference);
         }
     }
 }

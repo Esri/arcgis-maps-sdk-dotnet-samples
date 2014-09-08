@@ -1,10 +1,13 @@
-﻿using Esri.ArcGISRuntime.Layers;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology.Specialized;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Windows.Foundation;
 using Windows.Storage;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -117,12 +120,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 				var _x = new MessageDialog(ex.Message, "Message Processing Sample").ShowAsync();
 			}
 		}
+	
+		private List<MilitaryMessage> selectedMessages = new List<MilitaryMessage>();
 
 		private async void AddSelectButton_Click(object sender, RoutedEventArgs e)
 		{
 			try
 			{
-				await FindIntersectingGraphicsAsync();
+				await FindIntersectingGraphicsAsync(DrawShape.Point);
 			}
 			catch (Exception ex)
 			{
@@ -130,8 +135,63 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 			}
 		}
 
-		private List<MilitaryMessage> selectedMessages = new List<MilitaryMessage>();
+		private async void MultipleSelectButton_Click(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				await FindIntersectingGraphicsAsync(DrawShape.Envelope);
+			}
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog("Selection Error: " + ex.Message, "Message Processing Sample").ShowAsync();
+			}
+		}
 
+		private async Task FindIntersectingGraphicsAsync(DrawShape drawMode)
+		{
+			var messageSubLayers = _messageLayer.ChildLayers.Cast<MessageSubLayer>();
+
+			IEnumerable<Graphic> results = Enumerable.Empty<Graphic>();
+
+			int maxHits = 1;
+
+			if (drawMode == DrawShape.Point)
+			{
+				var mapPoint = await MyMapView.Editor.RequestPointAsync();
+				var screenPoint = MyMapView.LocationToScreen(mapPoint);
+				foreach (var l in messageSubLayers)
+					results = results.Concat(await l.HitTestAsync(MyMapView, screenPoint, maxHits));
+			}
+			else
+			{
+				maxHits = 100;
+				var geometry = await MyMapView.Editor.RequestShapeAsync(drawMode);
+				var mapEnvelope = (geometry as Envelope).Extent;
+				var upperLeft = MyMapView.LocationToScreen
+					(new MapPoint(mapEnvelope.XMin, mapEnvelope.YMax, geometry.SpatialReference));
+				var lowerRight = MyMapView.LocationToScreen
+					(new MapPoint(mapEnvelope.XMax, mapEnvelope.YMin, geometry.SpatialReference));
+				var rect = new Rect(upperLeft, lowerRight);
+
+				foreach (var l in messageSubLayers)
+					results = results.Concat(await l.HitTestAsync(MyMapView, rect, maxHits));
+			}
+
+			if (results.Count() == 0)
+				return;
+
+			foreach (var graphic in results)
+			{
+				MilitaryMessage message = _messageLayer.GetMessage(graphic.Attributes["_id"].ToString()) as MilitaryMessage;
+				message.MessageAction = MilitaryMessageAction.Select;
+				if (_messageLayer.ProcessMessage(message))
+				{
+					selectedMessages.Add(message);
+				}
+			}
+		}
+
+		
 		private void ClearSelectButton_Click(object sender, RoutedEventArgs e)
 		{
 			try
@@ -149,27 +209,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 			}
 		}
 
-		private async Task FindIntersectingGraphicsAsync()
-		{
-			var mapPoint = await MyMapView.Editor.RequestPointAsync();
-			var screenPoint = MyMapView.LocationToScreen(mapPoint);
-
-			var messageSubLayers = _messageLayer.ChildLayers.Cast<MessageSubLayer>();
-
-			IEnumerable<Graphic> results = Enumerable.Empty<Graphic>();
-
-			foreach (var l in messageSubLayers)
-				results = results.Concat(await l.HitTestAsync(MyMapView, screenPoint, maxHits: 10));
-
-			foreach (var graphic in results)
-			{
-				MilitaryMessage message = _messageLayer.GetMessage(graphic.Attributes["_id"].ToString()) as MilitaryMessage;
-				message.MessageAction = MilitaryMessageAction.Select;
-				if (_messageLayer.ProcessMessage(message))
-				{
-					selectedMessages.Add(message);
-				}
-			}
-		}
+	
 	}
 }

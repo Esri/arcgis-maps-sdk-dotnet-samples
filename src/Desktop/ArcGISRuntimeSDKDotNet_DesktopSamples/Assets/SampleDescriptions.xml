@@ -1581,6 +1581,27 @@
             InitializeComponent
             </summary>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OAuthAuthorizeHandler">
+            <summary>
+            Desktop OAuthAuthorize handler which encapsulates the redirection of the user to the OAuth authorization URI by using a WebBrowser.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OAuthAuthorizeHandler.AuthorizeAsync(System.String,System.String,System.String)">
+            <summary>
+            Redirects the user to the authorization URI by using a WebBrowser.
+            </summary>
+            <param name="serviceUri">The service URI.</param>
+            <param name="authorizeUri">The authorize URI.</param>
+            <param name="callbackUri">The callback URI.</param>
+            <returns>Dictionary of parameters returned by the authorization URI (code, access_token, refresh_token, ...)</returns>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OAuthAuthorizeHandler.DecodeParameters(System.Uri)">
+            <summary>
+            Decodes the parameters returned when the user agent is redirected to the callback url
+            The parameters can be returned as fragments (e.g. access_token for Browser based app) or as query parameter (e.g. code for Server based app)
+            </summary>
+            <param name="uri">The URI.</param>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.PortalSecurity">
             <summary>
             Security class that defines global challenge method for accessing arcgis.com portal services

@@ -26,17 +26,25 @@
 				<Button x:Name="processMessagesBtn" 
 						IsEnabled="False"
 						Content="Process messages" 
-						HorizontalAlignment="Center" 
+						Click="ProcessMessagesButton_Click"
 						Margin="0,12,0,0"
-                        Click="ProcessMessagesButton_Click"/>
+						HorizontalAlignment="Center" 
+						Width="200"/>
 				<Button Content="Select Messages" 
 						Click="AddSelectButton_Click" 
 						Margin="12,12,12,0"
-						HorizontalAlignment="Center" />
+						HorizontalAlignment="Center" 
+						Width="200"/>
+				<Button Content="Select Multiple Messages" 
+						Click="MultipleSelectButton_Click" 
+						Margin="12,12,12,0"
+						HorizontalAlignment="Center"
+						Width="200"/>
 				<Button Content="Clear Selection" 
 						Click="ClearSelectButton_Click" 
 						Margin="12,12,12,0"
-						HorizontalAlignment="Center" />	
+						HorizontalAlignment="Center" 
+						Width="200"/>	
 			</StackPanel>
 		</Border>
 	</Grid>

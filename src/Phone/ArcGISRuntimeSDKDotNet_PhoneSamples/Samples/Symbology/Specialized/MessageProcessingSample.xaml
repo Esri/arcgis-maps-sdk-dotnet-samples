@@ -13,17 +13,22 @@
 		<CommandBar IsOpen="True">
 			<AppBarButton 
 				x:Name="processMessagesBtn" 
-				Label="process" Icon="Add" 
+				Label="Process" Icon="Add" 
 				Click="ProcessMessagesButton_Click">
 			</AppBarButton>
 			<AppBarButton 
 				x:Name="selectMessagesBtn" 
-				Label="select" Icon="Pin" 
+				Label="Select" Icon="Pin" 
 				Click="AddSelectButton_Click">
 			</AppBarButton>
 			<AppBarButton 
+				x:Name="selectMultipleBtn" 
+				Label="Multi-Select" Icon="ViewAll" 
+				Click="MultipleSelectButton_Click">
+			</AppBarButton>
+			<AppBarButton 
 				x:Name="clearSelectedMessagesBtn" 
-				Label="clear" Icon="Clear" 
+				Label="Clear" Icon="ClearSelection" 
 				Click="ClearSelectButton_Click">
 			</AppBarButton>
 

@@ -614,13 +614,13 @@
     <Folder Include="Samples\Security\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\hydrographic_s57\hydrographic_s57.dat" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Resources\Mil2525c\messagetypes\Chemlight.json" />
     <Content Include="Resources\Mil2525c\messagetypes\PositionReport.json" />
     <Content Include="Resources\Mil2525c\messagetypes\SpotReport.json" />
     <Content Include="Resources\Mil2525c\mil2525c.dat" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Resources\hydrographic_s57\hydrographic_s57.dat" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

@@ -40,11 +40,12 @@
                 <StackPanel VerticalAlignment="Top"
                             Margin="20,5,20,20"
                             Background="WhiteSmoke"
-                            Width="280"
-                            Height="190">
+                            Width="280">
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Right">
-                        <Button Content="Add"
+                        <Button IsEnabled="False" 
+                                x:Name="AddButton"
+                                Content="Add"
                                 Margin="2"
                                 Click="AddButton_Click" />
                         <Button IsEnabled="False"
@@ -57,12 +58,12 @@
                                 Margin="2"
                                 Click="CancelButton_Click" />
                     </StackPanel>
-                    <ItemsControl x:Name="AttachmentList"
+                    <ListBox x:Name="AttachmentList"
                                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                                   ScrollViewer.HorizontalScrollBarVisibility="Auto"
                                   Height="100"
                                   Margin="2">
-                        <ItemsControl.ItemTemplate>
+                        <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="{Binding Name}" />
@@ -77,8 +78,8 @@
                                             Click="DeleteButton_Click" />
                                 </StackPanel>
                             </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </StackPanel>
             </StackPanel>
         </Grid>

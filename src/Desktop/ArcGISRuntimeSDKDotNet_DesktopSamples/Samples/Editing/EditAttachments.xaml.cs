@@ -57,8 +57,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 if (featureIDs != null)
                 {
                     layer.SelectFeatures(featureIDs);
-                    await QueryAttachmentsAsync(table, featureIDs.FirstOrDefault());
+                    var featureID = featureIDs.FirstOrDefault();
+                    await QueryAttachmentsAsync(table, featureID);
                 }
+                AddButton.IsEnabled = layer.SelectedFeatureIDs.Any();
             }
             catch (Exception ex)
             {

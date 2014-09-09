@@ -96,6 +96,9 @@
     <Compile Include="Samples\Extras\SOEElevationData.xaml.cs">
       <DependentUpon>SOEElevationData.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Editing\EditAttachments.xaml.cs">
+      <DependentUpon>EditAttachments.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\FeatureLayers\FeatureLayerFromLocalGeodatabase.xaml.cs">
       <DependentUpon>FeatureLayerFromLocalGeodatabase.xaml</DependentUpon>
     </Compile>
@@ -494,6 +497,10 @@
     <Page Include="Samples\Extras\SOEElevationData.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\EditAttachments.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\FeatureLayers\FeatureLayerFromLocalGeodatabase.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditAttachments"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView"
+                      MapViewTapped="MyMapView_MapViewTapped">
+            <esri:Map InitialViewpoint="-122.4306073721, 37.7666097907,-122.4230971868, 37.77197420877,4326">
+                <esri:ArcGISTiledMapServiceLayer ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+                <esri:FeatureLayer ID="IncidentsLayer">
+                    <esri:ServiceFeatureTable ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/SanFrancisco/311Incidents/FeatureServer/0"
+                                              Mode="OnDemand" />
+                </esri:FeatureLayer>
+            </esri:Map>
+        </esri:MapView>
+        <Grid HorizontalAlignment="Right"
+              VerticalAlignment="Top"
+              Margin="0,15,15,0">
+            <Rectangle Fill="#77919191"
+                       Stroke="Gray"
+                       RadiusX="10"
+                       RadiusY="10"
+                       Margin="0,0,0,5">
+                <Rectangle.Effect>
+                    <DropShadowEffect />
+                </Rectangle.Effect>
+            </Rectangle>
+            <Rectangle Fill="#FFFFFFFF"
+                       Stroke="DarkGray"
+                       RadiusX="5"
+                       RadiusY="5"
+                       Margin="10,10,10,15" />
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Click on a point feature to select it, and click the 'Add' button to attach a file."
+                           Width="275"
+                           TextAlignment="Left"
+                           Margin="20,20,20,5"
+                           TextWrapping="Wrap"
+                           FontWeight="Bold" />
+                <StackPanel VerticalAlignment="Top"
+                            Margin="20,5,20,20"
+                            Background="WhiteSmoke"
+                            Width="280"
+                            Height="190">
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Right">
+                        <Button Content="Add"
+                                Margin="2"
+                                Click="AddButton_Click" />
+                        <Button IsEnabled="False"
+                                x:Name="SaveButton"
+                                Content="Save Edits"
+                                Margin="2"
+                                Click="SaveButton_Click" />
+                        <Button IsEnabled="{Binding ElementName=SaveButton, Path=IsEnabled}"
+                                Content="Cancel Edits"
+                                Margin="2"
+                                Click="CancelButton_Click" />
+                    </StackPanel>
+                    <ItemsControl x:Name="AttachmentList"
+                                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                  Height="100"
+                                  Margin="2">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Name}" />
+                                    <Button Content="Open"
+                                            Margin="2"
+                                            Click="OpenButton_Click" />
+                                    <Button Content="Update"
+                                            Margin="2"
+                                            Click="UpdateButton_Click" />
+                                    <Button Content="Delete"
+                                            Margin="2"
+                                            Click="DeleteButton_Click" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -58,9 +58,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
 					originalOverlay.Graphics.Add(new Graphic(river, _defaultLineSymbol));
 
-                    foreach (var path in river.Parts)
+                    foreach (var part in river.Parts)
                     {
-						foreach (var point in path)
+						foreach (var point in part.GetPoints())
                         {
 							var vertex = new Graphic(point, _defaultMarkerSymbol);
 							originalOverlay.Graphics.Add(vertex);
@@ -92,9 +92,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     var graphic = new Graphic(generalizedPolyline, _generalizedLineSymbol);
 					generalizedLineOverlay.Graphics.Add(graphic);
 
-                    foreach (var path in generalizedPolyline.Parts)
+                    foreach (var part in generalizedPolyline.Parts)
                     {
-						foreach (var point in path)
+						foreach (var point in part.GetPoints())
                         {
 							var vertex = new Graphic(point, _generalizedMarkerSymbol);
 							generalizedLineOverlay.Graphics.Add(vertex);

@@ -62,16 +62,20 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var original = await MyMapView.Editor.RequestShapeAsync(drawShape, symbolToUse);
 
                 // Add original shape vertices to input graphics layer
-				var coordsOriginal = (original as Multipart).Parts.First();
+				var coordsOriginal = (original as Multipart).Parts.First().GetPoints();
                 foreach (var coord in coordsOriginal)
                     _inputGraphics.Graphics.Add(new Graphic(coord, _origVertexSymbol));
 
                 // Densify the shape
                 var densify = GeometryEngine.GeodesicDensify(original, MyMapView.Extent.Width / 100, LinearUnits.Meters);
-                _inputGraphics.Graphics.Add(new Graphic(densify, _fillSymbol));
 
+				if (densify.GeometryType == GeometryType.Polygon)
+					_inputGraphics.Graphics.Add(new Graphic(densify, _fillSymbol));
+				else
+					_inputGraphics.Graphics.Add(new Graphic(densify, _lineSymbol));
+				
                 // Add new vertices to result graphics layer
-				var coordsDensify = (densify as Multipart).Parts.First();
+				var coordsDensify = (densify as Multipart).Parts.First().GetPoints();
                 foreach (var coord in coordsDensify)
                     _resultGraphics.Graphics.Add(new Graphic(coord, _newVertexSymbol));
 

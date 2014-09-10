@@ -128,7 +128,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 _targetOverlay.Graphics.Add(graphic);
 
                 var poly = graphic.Geometry as Polygon;
-                foreach (var coord in poly.Parts.First())
+				foreach (var coord in poly.Parts.First().GetPoints())
                 {
                     _targetOverlay.Graphics.Add(new Graphic(coord, _vertexSymbol));
                 }

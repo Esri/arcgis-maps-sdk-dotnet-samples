@@ -66,7 +66,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
 					foreach (var path in river.Parts)
 					{
-						foreach (var coord in path)
+						foreach (var coord in path.GetPoints())
 						{
 							var vertex = new Graphic(coord, _defaultMarkerSymbol);
 							_originalGraphicsOverlay.Graphics.Add(vertex);
@@ -100,7 +100,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
                     foreach (var path in generalizedPolyline.Parts)
                     {
-                        foreach (var coord in path)
+						foreach (var coord in path.GetPoints())
                         {
                             var vertex = new Graphic(coord, _generalizedMarkerSymbol);
                             _generalizedGraphicsOverlay.Graphics.Add(vertex);

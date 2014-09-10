@@ -1,6 +1,8 @@
-﻿using Esri.ArcGISRuntime.Controls;
+﻿using System.Windows.Media;
+using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Portal;
+using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Query;
 using Esri.ArcGISRuntime.WebMap;
 using System;
@@ -119,24 +121,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
                 var queryResult = await qt.ExecuteAsync(query);
 
-                Dictionary<string, object> layerdef = new Dictionary<string, object>();
-                Dictionary<string, object> defdictionary = new Dictionary<string, object>() 
-                { 
-                    { "id", 0 }, 
-                    { "name", "Earthquakes from last 7 days" } 
-                };
-
-                Dictionary<string, object> renderer = new Dictionary<string, object>();
-                renderer.Add("type", "simple");
-                renderer.Add("style", "esriSMSCircle");
-
-                int[] color = new int[] { 255, 0, 0, 255 };
-                renderer.Add("color", color);
-                renderer.Add("size", 4);
-
-                defdictionary.Add("drawingInfo", renderer);
-
-                layerdef.Add("layerDefinition", defdictionary);
+                var simpleRenderer = new SimpleRenderer { Symbol = new SimpleMarkerSymbol { Style = SimpleMarkerStyle.Circle, Color = Color.FromArgb(255, 0, 0, 255), Size = 8 } };
+                var drawingInfo = new DrawingInfo { Renderer = simpleRenderer };
+                var layerDefinition = new LayerDefinition {DrawingInfo = drawingInfo};
 
                 //Create FeatureCollection as webmap layer
                 FeatureCollection featureCollection = null;
@@ -144,16 +131,16 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 if (queryResult.FeatureSet.Features.Count > 0)
                 {
                     var sublayer = new WebMapSubLayer();
+                    sublayer.Id = 0;
                     sublayer.FeatureSet = queryResult.FeatureSet;
 
-					sublayer.SetCustomProperty("layerDefinition", layerdef);
+                    sublayer.LayerDefinition = layerDefinition;
                     featureCollection = new FeatureCollection { 
-						SubLayers = new List<WebMapSubLayer> 
-						{ sublayer } 
-					};
+                        SubLayers = new List<WebMapSubLayer> { sublayer } 
+                    };
                 }
 
-                return new WebMapLayer { FeatureCollection = featureCollection };
+                return new WebMapLayer { FeatureCollection = featureCollection, Title = "Earthquakes from last 7 days" };
             }
             catch (Exception ex)
             {

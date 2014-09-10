@@ -83,7 +83,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 if (coords == null)
                     throw new Exception("Digitize a polygon to move.");
 
-                var points = coords.Parts.First();
+				var points = coords.Parts.First().GetPoints();
                 var distance = (double)comboDistance.SelectedItem;
                 var azimuth = (double)sliderAngle.Value;
                 var movedPoints = GeometryEngine.GeodesicMove(points, distance, LinearUnits.Miles, azimuth);

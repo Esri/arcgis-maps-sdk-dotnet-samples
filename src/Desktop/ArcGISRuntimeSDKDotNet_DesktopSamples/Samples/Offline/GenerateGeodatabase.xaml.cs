@@ -131,6 +131,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 Envelope extent = gdb.FeatureTables.First().Extent;
                 foreach (var table in gdb.FeatureTables)
                 {
+                  //if this call is made after FeatureTable is initialized, a call to FeatureLayer.ResetRender will be required.
+                  table.UseAdvancedSymbology = true;
                     var flayer = new FeatureLayer()
                     {
                         ID = table.Name,

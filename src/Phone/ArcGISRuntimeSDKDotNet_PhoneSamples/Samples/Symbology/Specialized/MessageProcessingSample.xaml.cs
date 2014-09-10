@@ -178,41 +178,60 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.Specialized
 			if (drawMode == DrawShape.Point)
 			{
 				// Ask the user for the point of interest
-				var mapPoint = await MyMapView.Editor.RequestPointAsync();
+				MapPoint mapPoint = null;
+				try
+				{
+					mapPoint = await MyMapView.Editor.RequestPointAsync();
+				}
+				catch (TaskCanceledException) { }
+
+				if (Geometry.IsNullOrEmpty(mapPoint))
+					return;
 
 				// Get the location in screen coordinates
 				var screenPoint = MyMapView.LocationToScreen(mapPoint);
 
-				// Iterate the Message sub layers awaiting the HitTestAsync method on each
+								
+				// Iterate the Message sub layers and await the HitTestAsync method on each layer
 				foreach (var l in messageSubLayers)
 					results = results.Concat(await l.HitTestAsync(MyMapView, screenPoint, maxHits));
-			}
+			}	
 			// Handle the multiple Message selection mode
 			else
 			{
 				// Increase the max hits value
 				maxHits = 100;
+	
 				// Ask the user for the area of interest
-				var geometry = await MyMapView.Editor.RequestShapeAsync(drawMode);
-				
-				// Cast to an Envelope
-				Envelope mapEnvelope = geometry as Envelope;
-				
+				Envelope envelope = null;
+				try
+				{
+					envelope = await MyMapView.Editor.RequestShapeAsync(drawMode) as Envelope;
+				}
+				catch (TaskCanceledException) { }
+
+				// Check the geometry
+				if (Geometry.IsNullOrEmpty(envelope))
+					return;
+								
 				// Get the screen location of the upper left
 				var upperLeft = MyMapView.LocationToScreen
-					(new MapPoint(mapEnvelope.XMin, mapEnvelope.YMax, geometry.SpatialReference));
-
+					(new MapPoint(envelope.XMin, envelope.YMax, envelope.SpatialReference));
+								
 				// Get the screen location of the lower right
 				var lowerRight = MyMapView.LocationToScreen
-					(new MapPoint(mapEnvelope.XMax, mapEnvelope.YMin, geometry.SpatialReference));
+					(new MapPoint(envelope.XMax, envelope.YMin, envelope.SpatialReference));
 
 				// Create a Rect from the two corners
 				var rect = new Rect(upperLeft, lowerRight);
 
-				// Iterate the Message sub layers awaiting the HitTestAsync method on each
+				// Iterate the Message sub layers and await the HitTestAsync method on each layer
 				foreach (var l in messageSubLayers)
 					results = results.Concat(await l.HitTestAsync(MyMapView, rect, maxHits));
 			}
+
+			if (results.Count() == 0)
+				return;
 
 			// Iterate the results and modify the Action value to Select then reprocess each Message
 			foreach (var graphic in results)

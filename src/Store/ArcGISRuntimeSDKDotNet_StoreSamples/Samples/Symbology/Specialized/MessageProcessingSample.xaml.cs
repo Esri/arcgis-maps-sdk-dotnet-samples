@@ -147,32 +147,70 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 			}
 		}
 
+		// Performs a HitTest on the rendered Messages and selects the results
 		private async Task FindIntersectingGraphicsAsync(DrawShape drawMode)
 		{
+			// Get sub layers of the MessageLayer
 			var messageSubLayers = _messageLayer.ChildLayers.Cast<MessageSubLayer>();
 
+			// Create an empty result set
 			IEnumerable<Graphic> results = Enumerable.Empty<Graphic>();
 
+			// Set the max hits to 1
 			int maxHits = 1;
 
+			// Handle the individual Message selection mode
 			if (drawMode == DrawShape.Point)
 			{
-				var mapPoint = await MyMapView.Editor.RequestPointAsync();
+				// Ask the user for the point of interest
+				MapPoint mapPoint = null;
+				try
+				{
+					mapPoint = await MyMapView.Editor.RequestPointAsync();
+				}
+				catch (TaskCanceledException) { }
+
+				if (Geometry.IsNullOrEmpty(mapPoint))
+					return;
+
+				// Get the location in screen coordinates
 				var screenPoint = MyMapView.LocationToScreen(mapPoint);
+
+
+				// Iterate the Message sub layers and await the HitTestAsync method on each layer
 				foreach (var l in messageSubLayers)
 					results = results.Concat(await l.HitTestAsync(MyMapView, screenPoint, maxHits));
 			}
+			// Handle the multiple Message selection mode
 			else
 			{
+				// Increase the max hits value
 				maxHits = 100;
-				var geometry = await MyMapView.Editor.RequestShapeAsync(drawMode);
-				var mapEnvelope = (geometry as Envelope).Extent;
+
+				// Ask the user for the area of interest
+				Envelope envelope = null;
+				try
+				{
+					envelope = await MyMapView.Editor.RequestShapeAsync(drawMode) as Envelope;
+				}
+				catch (TaskCanceledException) { }
+
+				// Check the geometry
+				if (Geometry.IsNullOrEmpty(envelope))
+					return;
+
+				// Get the screen location of the upper left
 				var upperLeft = MyMapView.LocationToScreen
-					(new MapPoint(mapEnvelope.XMin, mapEnvelope.YMax, geometry.SpatialReference));
+					(new MapPoint(envelope.XMin, envelope.YMax, envelope.SpatialReference));
+
+				// Get the screen location of the lower right
 				var lowerRight = MyMapView.LocationToScreen
-					(new MapPoint(mapEnvelope.XMax, mapEnvelope.YMin, geometry.SpatialReference));
+					(new MapPoint(envelope.XMax, envelope.YMin, envelope.SpatialReference));
+
+				// Create a Rect from the two corners
 				var rect = new Rect(upperLeft, lowerRight);
 
+				// Iterate the Message sub layers and await the HitTestAsync method on each layer
 				foreach (var l in messageSubLayers)
 					results = results.Concat(await l.HitTestAsync(MyMapView, rect, maxHits));
 			}
@@ -180,17 +218,22 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 			if (results.Count() == 0)
 				return;
 
+			// Iterate the results and modify the Action value to Select then reprocess each Message
 			foreach (var graphic in results)
 			{
+				// Retrieve the Message representation from the MessageLayer for each Graphic returned
 				MilitaryMessage message = _messageLayer.GetMessage(graphic.Attributes["_id"].ToString()) as MilitaryMessage;
+
+				// Modify the Action to Select
 				message.MessageAction = MilitaryMessageAction.Select;
+
+				// Reprocess the Message and add to the list
 				if (_messageLayer.ProcessMessage(message))
 				{
 					selectedMessages.Add(message);
 				}
 			}
 		}
-
 		
 		private void ClearSelectButton_Click(object sender, RoutedEventArgs e)
 		{

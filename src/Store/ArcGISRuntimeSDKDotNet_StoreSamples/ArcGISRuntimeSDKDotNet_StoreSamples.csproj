@@ -302,6 +302,9 @@
     <Compile Include="Samples\Portal\ShowProperties.xaml.cs">
       <DependentUpon>ShowProperties.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Printing\ServerPrinting.xaml.cs">
+      <DependentUpon>ServerPrinting.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\QueryTasks\FindTaskSample.xaml.cs">
       <DependentUpon>FindTaskSample.xaml</DependentUpon>
     </Compile>
@@ -776,6 +779,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Printing\ServerPrinting.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\QueryTasks\FindTaskSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1002,7 +1009,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Samples\Printing\" />
     <Folder Include="Samples\Security\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">

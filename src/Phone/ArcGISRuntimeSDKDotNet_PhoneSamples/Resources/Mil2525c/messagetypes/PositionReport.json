@@ -5,7 +5,7 @@
   {
     "type"           : "dictionary",
     "description"    : "",
-    "dictionaryType" : "2525C",
+    "dictionaryType" : "mil2525c",
     "field" 	     : "sic",
     "symbolScaleFactor" : 1.0,
     "labelsVisible" : true,

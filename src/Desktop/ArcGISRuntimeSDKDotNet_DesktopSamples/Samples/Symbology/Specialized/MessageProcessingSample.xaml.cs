@@ -2,6 +2,7 @@
 using Esri.ArcGISRuntime.Symbology.Specialized;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
+using Esri.ArcGISRuntime.Controls;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,6 +10,8 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Xml.Linq;
+using System.Threading.Tasks;
+
 
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Specialized
 {
@@ -17,7 +20,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Specialized
 	/// </summary>
 	/// <title>Message Processor</title>
 	/// <category>Symbology</category>
-	/// <subcategory>Advanced</subcategory>
+	/// <subcategory>Specialized</subcategory>
 	public partial class MessageProcessingSample : UserControl
 	{
 		private const string DATA_PATH = @"..\..\..\..\..\samples-data\symbology\Mil2525CMessages.xml";
@@ -50,10 +53,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Specialized
 			}
 		}
 
-		private void ProcessMessagesButton_Click(object sender, RoutedEventArgs e)
+		private async void ProcessMessagesButton_Click(object sender, RoutedEventArgs e)
 		{
 			try
 			{
+				await MyMapView.LayersLoadedAsync();
 				// This function simulates real time message processing by processing a static set of messages from an XML document.
 				/* 
 				* |== Example Message ==|
@@ -111,6 +115,96 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Specialized
 			catch (Exception ex)
 			{
 				MessageBox.Show(ex.Message, "Message Processing Sample");
+			}
+		}
+
+		private List<MilitaryMessage> selectedMessages = new List<MilitaryMessage>();
+		
+		private async void AddSelectButton_Click(object sender, System.Windows.RoutedEventArgs e)
+		{
+			try
+			{
+				await FindIntersectingGraphicsAsync(DrawShape.Point);
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Selection Error: " + ex.Message, "Message Processing Sample");
+			}
+		}
+
+		private async void MultipleSelectButton_Click(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				await FindIntersectingGraphicsAsync(DrawShape.Envelope);
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Selection Error: " + ex.Message, "Message Processing Sample");
+			}
+		}
+
+		private async Task FindIntersectingGraphicsAsync(DrawShape drawMode)
+		{
+			var messageSubLayers = _messageLayer.ChildLayers.Cast<MessageSubLayer>();
+
+			IEnumerable<Graphic> results = Enumerable.Empty<Graphic>();
+			
+			int maxHits = 1;
+
+			if (drawMode == DrawShape.Point)
+			{
+				var mapPoint = await MyMapView.Editor.RequestPointAsync();
+				var screenPoint = MyMapView.LocationToScreen(mapPoint);
+				foreach (var l in messageSubLayers)
+					results = results.Concat(await l.HitTestAsync(MyMapView, screenPoint, maxHits)); 
+			}
+			else
+			{
+				maxHits = 100;
+				var geometry = await MyMapView.Editor.RequestShapeAsync(drawMode);
+				var mapEnvelope = (geometry as Envelope).Extent;
+				var upperLeft = MyMapView.LocationToScreen
+					(new MapPoint(mapEnvelope.XMin, mapEnvelope.YMax, geometry.SpatialReference));
+				var lowerRight = MyMapView.LocationToScreen
+					(new MapPoint(mapEnvelope.XMax, mapEnvelope.YMin, geometry.SpatialReference));
+				var rect = new Rect(upperLeft, lowerRight);
+
+				foreach (var l in messageSubLayers)
+					results = results.Concat(await l.HitTestAsync(MyMapView, rect, maxHits));
+			}
+
+			if (results.Count() == 0)
+				return;
+
+			foreach (var graphic in results)
+			{
+				MilitaryMessage message = _messageLayer.GetMessage(graphic.Attributes["_id"].ToString()) as MilitaryMessage;
+				message.MessageAction = MilitaryMessageAction.Select;
+				if (_messageLayer.ProcessMessage(message))
+				{
+					selectedMessages.Add(message);
+				}
+				else
+				{
+					MessageBox.Show("Failed");
+				}
+			}
+		}
+
+		private void ClearSelectButton_Click(object sender, System.Windows.RoutedEventArgs e)
+		{
+			try
+			{
+				foreach (MilitaryMessage message in selectedMessages)
+				{
+					message.MessageAction = MilitaryMessageAction.UnSelect;
+					_messageLayer.ProcessMessage(message);
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Selection Error: " + ex.Message, "Message Processing Sample");
 			}
 		}
 	}

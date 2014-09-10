@@ -34,7 +34,7 @@ Notes:
 
 ## Resources
 
-* [ArcGIS Runtime SDK for .NET](http://esriurl/dotnetsdk)
+* [ArcGIS Runtime SDK for .NET](http://esriurl.com/dotnetsdk)
 
 ## Issues
 

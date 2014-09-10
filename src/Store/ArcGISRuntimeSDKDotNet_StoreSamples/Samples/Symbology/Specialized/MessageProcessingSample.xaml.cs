@@ -27,6 +27,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 
 		private MessageLayer _messageLayer;
 
+		private List<MilitaryMessage> selectedMessages = new List<MilitaryMessage>();
+
 		public MessageProcessingSample()
 		{
 			InitializeComponent();
@@ -120,8 +122,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 				var _x = new MessageDialog(ex.Message, "Message Processing Sample").ShowAsync();
 			}
 		}
-	
-		private List<MilitaryMessage> selectedMessages = new List<MilitaryMessage>();
 
 		private async void AddSelectButton_Click(object sender, RoutedEventArgs e)
 		{

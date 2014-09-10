@@ -28,15 +28,12 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.Specialized
 
 		private MessageLayer _messageLayer;
 
+		// The list of selected Messages to clear.
+		private List<MilitaryMessage> selectedMessages = new List<MilitaryMessage>();
+
 		public MessageProcessingSample()
 		{
 			InitializeComponent();
-			MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(
-				-245200, 
-				6665900, 
-				-207000, 
-				6687300, 
-				SpatialReferences.WebMercator));
 
 			MyMapView.ExtentChanged += mapView_ExtentChanged;
 		}
@@ -132,9 +129,6 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.Specialized
 				var _ = new MessageDialog(ex.Message, "Message Processing Sample").ShowAsync();
 			}
 		}
-
-		// The list of selected Messages to clear.
-		private List<MilitaryMessage> selectedMessages = new List<MilitaryMessage>();
 
 		// Select Messages individually
 		private async void AddSelectButton_Click(object sender, RoutedEventArgs e)

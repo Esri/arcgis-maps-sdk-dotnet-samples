@@ -24,6 +24,28 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
         }
+        
+        /// <summary>
+        /// For handling FileOpenPicker.PickSingleFileAndContinue
+        /// Reference: http://msdn.microsoft.com/en-us/library/windows/apps/xaml/dn614994.aspx
+        /// </summary>
+        private static ContinuationManager _continuationManager;
+        internal static ContinuationManager ContinuationManager
+        {
+            get
+            {
+                if (_continuationManager == null)
+                    _continuationManager = new ContinuationManager();
+                return _continuationManager;
+            }
+        }
+
+        protected override void OnActivated(IActivatedEventArgs e)
+        {        
+            if (e is IContinuationActivatedEventArgs)
+                ContinuationManager.OnContinue((IContinuationActivatedEventArgs) e);
+            base.OnActivated(e);
+        }
 
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
@@ -60,6 +82,8 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
             }
+
+
 
             if (rootFrame.Content == null)
             {

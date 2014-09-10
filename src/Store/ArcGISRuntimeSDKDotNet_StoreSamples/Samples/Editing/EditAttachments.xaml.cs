@@ -35,6 +35,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             // By default, the attachmentResults is a union of local and server query for attachments.
             var queryAttachmentResult = await table.QueryAttachmentsAsync(featureID);
             AttachmentList.ItemsSource = queryAttachmentResult != null ? queryAttachmentResult.Infos : null;
+            AttachmentsButton.IsEnabled = AttachmentList.Items != null && AttachmentList.Items.Any();
         }
 
         private async void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
@@ -82,7 +83,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             picker.FileTypeFilter.Add(".gif");
             picker.FileTypeFilter.Add(".png");
             picker.FileTypeFilter.Add(".bmp");
-            picker.FileTypeFilter.Add(".txt");
             return await picker.PickSingleFileAsync();
         }
 

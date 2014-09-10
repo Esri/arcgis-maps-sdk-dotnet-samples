@@ -59,6 +59,7 @@
                     <AppBarButton.Flyout>
                         <Flyout>
                             <ListBox x:Name="AttachmentList"
+                                     MaxHeight="200"
                                      ScrollViewer.VerticalScrollBarVisibility="Auto"
                                      ScrollViewer.HorizontalScrollBarVisibility="Auto">
                                 <ListBox.ItemTemplate>
@@ -69,7 +70,6 @@
                                                        Width="80"
                                                        TextTrimming="WordEllipsis" />
                                             <AppBarButton Icon="OpenFile"
-                                                          Height="20"
                                                           Label="Open"
                                                           Click="OpenButton_Click" />
                                             <AppBarButton Icon="Edit"

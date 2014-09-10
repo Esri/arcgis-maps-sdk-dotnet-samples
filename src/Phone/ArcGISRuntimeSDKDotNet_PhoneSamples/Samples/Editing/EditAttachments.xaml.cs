@@ -1,31 +1,36 @@
-﻿using System.Threading.Tasks;
+﻿using ArcGISRuntimeSDKDotNet_PhoneSamples;
 using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Layers;
-using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media.Imaging;
-using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using Windows.ApplicationModel.Activation;
+using Windows.Storage;
+using Windows.Storage.Pickers;
+using Windows.UI.Popups;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
 
-namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
     /// Demonstrates how attachments can be queried and modified from a ServiceFeatureTable and how this type of edit is pushed to the server or canceled.
     /// </summary>
     /// <title>Edit Attachments</title>
     /// <category>Editing</category>
-    public partial class EditAttachments : UserControl
+    public partial class EditAttachments : Page
     {
         public EditAttachments()
         {
-            InitializeComponent();
+            InitializeComponent();       
         }
-        
+
         private async Task QueryAttachmentsAsync(ServiceFeatureTable table, long featureID)
         {
             if (table == null)
@@ -33,6 +38,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             // By default, the attachmentResults is a union of local and server query for attachments.
             var queryAttachmentResult = await table.QueryAttachmentsAsync(featureID);
             AttachmentList.ItemsSource = queryAttachmentResult != null ? queryAttachmentResult.Infos : null;
+            AttachmentsButton.IsEnabled = AttachmentList.Items != null && AttachmentList.Items.Any();
         }
 
         private async void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
@@ -67,23 +73,35 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 message = ex.Message;
             }
             if (!string.IsNullOrWhiteSpace(message))
-                MessageBox.Show(message);
+                await new MessageDialog(message).ShowAsync();
         }
         
-        private static bool GetFile(out Stream stream, out string name)
+        private Task<StorageFile> GetFileAsync()
         {
-            stream = Stream.Null;
-            name = null;
-            var dialog = new OpenFileDialog();
-            dialog.InitialDirectory = Path.Combine(Environment.CurrentDirectory, "images");
-            dialog.Multiselect = false;
-            dialog.Filter = "Image Files|*.tif;*.jpg;*.gif;*.png;*.bmp";
-            var dialogResult = dialog.ShowDialog();
-            if (!dialogResult.HasValue || !dialogResult.Value)
-                return false;
-            stream = dialog.OpenFile();
-            name = Path.GetFileName(dialog.FileName);
-            return true;
+            // See http://msdn.microsoft.com/en-us/library/windows/apps/xaml/dn614994.aspx
+            // For ContinuationManager implementation.
+            var tcs = new TaskCompletionSource<StorageFile>();        
+            EventHandler<FileOpenPickerContinuationEventArgs> fileOpenedHandler = null;
+            fileOpenedHandler = (s, e) =>
+            {
+                App.ContinuationManager.FilePickerOpened -= fileOpenedHandler;
+                var file = e.Files != null ? e.Files.FirstOrDefault() : null;
+                if (file == null)
+                    tcs.TrySetCanceled();
+                else
+                    tcs.TrySetResult(file);
+            };
+            App.ContinuationManager.FilePickerOpened += fileOpenedHandler;
+            var picker = new FileOpenPicker();
+            picker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+            picker.ViewMode = PickerViewMode.Thumbnail;
+            picker.FileTypeFilter.Add(".tif");
+            picker.FileTypeFilter.Add(".jpg");
+            picker.FileTypeFilter.Add(".gif");
+            picker.FileTypeFilter.Add(".png");
+            picker.FileTypeFilter.Add(".bmp");
+            picker.PickSingleFileAndContinue();
+            return tcs.Task;
         }
 
         private enum EditType
@@ -130,7 +148,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 message = ex.Message;
             }
             if (!string.IsNullOrWhiteSpace(message))
-                MessageBox.Show(message);
+                await new MessageDialog(message).ShowAsync();
         }
 
         private async void AddButton_Click(object sender, RoutedEventArgs e)
@@ -143,25 +161,21 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             var table = layer.FeatureTable as ServiceFeatureTable;
             if (table == null)
                 return;
-            var featureID = layer.SelectedFeatureIDs.FirstOrDefault();
-            var stream = Stream.Null;
-            string name = null;
+            var featureID = layer.SelectedFeatureIDs.FirstOrDefault();           
             string message = null;
             try
             {
-                if (GetFile(out stream, out name))
-                {
-                    // Adds attachment to the specified feature.
-                    var attachmentResult = await table.AddAttachmentAsync(featureID, stream, name);
-                    await UpdateAttachmentListAsync(attachmentResult, EditType.Add);
-                }
+                var file = await GetFileAsync();
+                // Adds attachment to the specified feature.
+                var attachmentResult = await table.AddAttachmentAsync(featureID, file);
+                await UpdateAttachmentListAsync(attachmentResult, EditType.Add);
             }
             catch (Exception ex)
             {
                 message = ex.Message;
             }
             if (!string.IsNullOrWhiteSpace(message))
-                MessageBox.Show(message);
+                await new MessageDialog(message).ShowAsync();
         }
 
         private async void UpdateButton_Click(object sender, RoutedEventArgs e)
@@ -183,19 +197,17 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             string message = null;
             try
             {
-                if (GetFile(out stream, out name))
-                {
-                    // Updates the specified attachment.
-                    var attachmentResult = await table.UpdateAttachmentAsync(featureID, info.ID, stream, name);
-                    await UpdateAttachmentListAsync(attachmentResult, EditType.Update);
-                }
+                var file = await GetFileAsync();
+                // Updates the specified attachment.
+                var attachmentResult = await table.UpdateAttachmentAsync(featureID, info.ID, file);
+                await UpdateAttachmentListAsync(attachmentResult, EditType.Update);
             }
             catch (Exception ex)
             {
                 message = ex.Message;
             }
             if (!string.IsNullOrWhiteSpace(message))
-                MessageBox.Show(message);
+                new MessageDialog(message).ShowAsync();
         }
 
         private async void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -226,7 +238,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 message = ex.Message;
             }
             if (!string.IsNullOrWhiteSpace(message))
-                MessageBox.Show(message);
+                await new MessageDialog(message).ShowAsync();
         }
 
         private async void OpenButton_Click(object sender, RoutedEventArgs e)
@@ -252,17 +264,18 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     if (data != Stream.Null)
                     {
                         var source = new BitmapImage();
-                        source.BeginInit();
-                        source.StreamSource = data;
-                        source.EndInit();
+                        await source.SetSourceAsync(data.AsRandomAccessStream());                        
                         image = new Image() { Source = source };
                     }
                 }
                 // Displays the attachment as an image onto a new dialog window.
                 if (image != null)
                 {
-                    var window = new Window() { Content = image, Title = info.Name };
-                    window.ShowDialog();
+                    var panel = new StackPanel();
+                    panel.Children.Add(new TextBlock() { Text = info.Name, TextAlignment = TextAlignment.Left });
+                    panel.Children.Add(image);
+                    var flyout = new Flyout() { Content = panel };
+                    flyout.ShowAt(MyMapView);
                 }
             }
             catch (Exception ex)
@@ -270,7 +283,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 message = ex.Message;
             }
             if (!string.IsNullOrWhiteSpace(message))
-                MessageBox.Show(message);
+                await new MessageDialog(message).ShowAsync();
         }
 
         private static string GetResultMessage(IEnumerable<AttachmentResult> attachmentResults, EditType editType)
@@ -335,7 +348,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 message = ex.Message;
             }
             if (!string.IsNullOrWhiteSpace(message))
-                MessageBox.Show(message);
+                await new MessageDialog(message).ShowAsync();
         }
 
         private async void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -362,7 +375,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 message = ex.Message;
             }
             if (!string.IsNullOrWhiteSpace(message))
-                MessageBox.Show(message);
+                await new MessageDialog(message).ShowAsync();
         }
     }
 }

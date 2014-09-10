@@ -55,7 +55,6 @@
                     <TextBlock x:Name="txtRouteTotals" Grid.Row="1" FontStyle="Italic" />
 
                     <ListView x:Name="listDirections" Grid.Row="2"
-                              ItemsSource="{Binding ElementName=MyMapView, Path=GraphicsOverlays[2].Graphics}"
                               SelectionMode="Single" SelectionChanged="listDirections_SelectionChanged">
                         <ListView.ItemTemplate>
                             <DataTemplate>

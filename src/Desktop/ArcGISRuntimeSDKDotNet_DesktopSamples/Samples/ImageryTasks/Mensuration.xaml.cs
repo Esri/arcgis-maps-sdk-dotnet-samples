@@ -237,7 +237,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 				graphicsOverlay.Graphics.Add(new Graphic(shape, symbol));
                 return shape;
             }
-			catch (TaskCanceledException cancelledException) 
+			catch (TaskCanceledException) 
 			{
 				return null;
 			}

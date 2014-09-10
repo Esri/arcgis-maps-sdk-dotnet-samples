@@ -32,8 +32,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-			_inputOverlay = MyMapView.GraphicsOverlays[0];
-			_resultOverlay = MyMapView.GraphicsOverlays[1];
+			_resultOverlay = MyMapView.GraphicsOverlays[0];
+			_inputOverlay = MyMapView.GraphicsOverlays[1];
                 
             _bufferSymbols = new List<Symbol>()
             {

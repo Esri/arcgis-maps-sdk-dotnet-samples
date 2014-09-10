@@ -303,6 +303,9 @@
     <Compile Include="Samples\Portal\ShowProperties.xaml.cs">
       <DependentUpon>ShowProperties.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Printing\ServerPrinting.xaml.cs">
+      <DependentUpon>ServerPrinting.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\QueryTasks\FindTaskSample.xaml.cs">
       <DependentUpon>FindTaskSample.xaml</DependentUpon>
     </Compile>
@@ -481,6 +484,12 @@
     <Content Include="Assets\Icons\vector.line.png" />
     <Content Include="Assets\Icons\vector.polygon.png" />
     <Content Include="Assets\Icons\vector.rectangle.png" />
+    <Content Include="Resources\hydrographic_s57\hydrographic_s57.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Mil2525c\mil2525c.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Mil2525c\messagetypes\Chemlight.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -488,12 +497,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Mil2525c\messagetypes\SpotReport.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Mil2525c\mil2525c.dat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\hydrographic_s57\hydrographic_s57.dat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -781,6 +784,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Printing\ServerPrinting.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\QueryTasks\FindTaskSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1007,7 +1014,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Samples\Printing\" />
     <Folder Include="Samples\Security\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">

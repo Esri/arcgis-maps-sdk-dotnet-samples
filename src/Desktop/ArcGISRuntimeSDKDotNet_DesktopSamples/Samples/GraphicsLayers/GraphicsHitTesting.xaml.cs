@@ -28,8 +28,21 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            CreateGraphics();
+			MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
+
+		private async void MyMapView_ExtentChanged(object sender, EventArgs e)
+		{
+			try
+			{
+				MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
+				await CreateGraphics();
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message, "Sample Exception");
+			}
+		}
 
         // Hit Test the graphics layer by single point
         private async void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
@@ -52,7 +65,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         }
 
         // Create three List<Graphic> objects with random graphics to serve as layer GraphicsSources
-		private async void CreateGraphics()
+		private async Task CreateGraphics()
         {
 			try
 			{
@@ -71,7 +84,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private Graphic CreateRandomGraphic(int id)
         {
             var symbol = new CompositeSymbol();
-            symbol.Symbols.Add(new SimpleMarkerSymbol() { Style = SimpleMarkerStyle.Circle, Color = Colors.Red, Size = 16 });
+            symbol.Symbols.Add(new SimpleMarkerSymbol() { Style = SimpleMarkerStyle.Circle, Color = Colors.Red, Size = 17 });
             symbol.Symbols.Add(new TextSymbol()
             {
                 Text = id.ToString(),

@@ -62,7 +62,7 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="4,8" HorizontalAlignment="Center">
-                        <Run Text="Source WKID: " />
+                        <Run Text="Target WKID: " />
                         <Run Text="{Binding SpatialReference.Wkid}" />
                     </TextBlock>
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="X:" Margin="6,2" HorizontalAlignment="Right" />

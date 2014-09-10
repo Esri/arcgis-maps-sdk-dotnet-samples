@@ -25,7 +25,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            _isHitTesting = false;
+            _isHitTesting = true;
 			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
 		}
 
@@ -33,6 +33,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 		{
 			MyMapView.NavigationCompleted -= MyMapView_NavigationCompleted;
 			CreateGraphics();
+			_isHitTesting = false;
 		}
 
         // HitTest the graphics and position the map tip
@@ -78,7 +79,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private Graphic CreateRandomGraphic(int id)
         {
             var symbol = new CompositeSymbol();
-            symbol.Symbols.Add(new SimpleMarkerSymbol() { Style = SimpleMarkerStyle.Circle, Color = Colors.Red, Size = 16 });
+            symbol.Symbols.Add(new SimpleMarkerSymbol() { Style = SimpleMarkerStyle.Circle, Color = Colors.Red, Size = 17 });
             symbol.Symbols.Add(new TextSymbol()
             {
                 Text = id.ToString(),

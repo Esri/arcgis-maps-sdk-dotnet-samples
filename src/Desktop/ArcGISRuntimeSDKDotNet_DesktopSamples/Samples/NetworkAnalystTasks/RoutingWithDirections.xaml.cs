@@ -94,6 +94,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 _routesOverlay.Graphics.Add(new Graphic(route.RouteFeature.Geometry));
 
                 _directionsOverlay.GraphicsSource = route.RouteDirections.Select(rd => GraphicFromRouteDirection(rd));
+				listDirections.ItemsSource = _directionsOverlay.Graphics;
 
                 var totalTime = route.RouteDirections.Select(rd => rd.Time).Aggregate(TimeSpan.Zero, (p, v) => p.Add(v));
                 var totalLength = route.RouteDirections.Select(rd => rd.GetLength(LinearUnits.Miles)).Sum();

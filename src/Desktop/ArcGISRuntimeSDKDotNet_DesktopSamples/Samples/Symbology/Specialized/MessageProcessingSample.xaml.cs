@@ -167,12 +167,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Specialized
 				}
 				catch (TaskCanceledException) { }
 
+				// Check the geometry
 				if (Geometry.IsNullOrEmpty(mapPoint))
 					return;
 
 				// Get the location in screen coordinates
 				var screenPoint = MyMapView.LocationToScreen(mapPoint);
-
 
 				// Iterate the Message sub layers and await the HitTestAsync method on each layer
 				foreach (var l in messageSubLayers)

@@ -75,6 +75,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             var query = new Query(MyMapView.Extent)
             {
                 ReturnGeometry = true,
+				MaxAllowableOffset = MyMapView.UnitsPerPixel,
                 OutSpatialReference = MyMapView.SpatialReference,
                 OutFields = new OutFields(new string[] { "sub_region" })
             };

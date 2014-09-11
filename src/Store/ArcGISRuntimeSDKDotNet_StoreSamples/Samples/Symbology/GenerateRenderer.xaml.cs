@@ -46,7 +46,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             {
                 MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
 
-                await MyMapView.LayersLoadedAsync();
+				var table = _featureLayer.FeatureTable as ServiceFeatureTable;
+				table.MaxAllowableOffset = MyMapView.UnitsPerPixel;
+				
+				await MyMapView.LayersLoadedAsync();
 
                 comboField.SelectedIndex = 0;
             }

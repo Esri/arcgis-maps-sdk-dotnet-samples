@@ -36,11 +36,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
+				MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
 
-                await MyMapView.LayersLoadedAsync();
+				var table = featureLayer.FeatureTable as ServiceFeatureTable;
+				table.MaxAllowableOffset = MyMapView.UnitsPerPixel;
 
-                comboField.SelectedIndex = 0;
+				await MyMapView.LayersLoadedAsync();
+
+				comboField.SelectedIndex = 0;
             }
             catch (Exception ex)
             {

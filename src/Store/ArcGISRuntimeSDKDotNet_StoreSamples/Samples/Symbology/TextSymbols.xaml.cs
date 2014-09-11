@@ -80,30 +80,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             try
             {
-                var fontFamilies = new List<string>()
+				var fontFamilies = new List<string>()
                 {
-                    "Bogus",
-                    "Algerian",
-                    "Chiller",
-                    "Comic Sans MS",
-                    "Cooper",
-                    "Elephant",
-                    "Fixedsys",
-                    "Forte",
-                    "Jokerman",
-                    "Lindsey",
-                    "Mistral",
-                    "Motorwerk",
-                    "Old English Text MT",
-                    "Parchment",
-                    "Ravie",
-                    "Script MT",
-                    "Segoe Keycaps",
-                    "Showcard Gothic",
-                    "Snap ITC",
-                    "Terminal",
-                    "Vivaldi",
-                    "Wingdings"
+                    "Bogus", "Algerian", "Chiller", "Comic Sans MS",
+                    "Cooper", "Elephant", "Forte", "Jokerman",
+                    "Lindsey", "Mistral", "Motorwerk", "Old English Text MT",
+                    "Parchment", "Ravie", "Script MT", "Segoe Print",
+                    "Showcard Gothic", "Snap ITC", "Vivaldi", "Wingdings"
                 };
 
                  // Create symbols from font list
@@ -114,13 +97,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                         Color = GetRandomColor(),
                         HorizontalTextAlignment = HorizontalTextAlignment.Center,
                         VerticalTextAlignment = VerticalTextAlignment.Middle,
-                        Font = new SymbolFont(f, 16)
+                        Font = new SymbolFont(f, 20)
                     })
                     .ToList();
 
                 // Create image swatches for the UI
                 Task<ImageSource>[] swatchTasks = _symbols
-                    .Select(sym => sym.CreateSwatchAsync(200, 24, 96.0, Colors.Transparent))
+                    .Select(sym => sym.CreateSwatchAsync())
                     .ToArray();
 
                 symbolCombo.ItemsSource = new List<ImageSource>(await Task.WhenAll(swatchTasks));

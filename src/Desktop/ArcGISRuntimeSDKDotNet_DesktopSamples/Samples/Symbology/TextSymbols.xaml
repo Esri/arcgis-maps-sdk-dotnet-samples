@@ -21,15 +21,13 @@
 			</Border.Effect>
 			<StackPanel>
                 <TextBlock Text="Click the map to add points with the selected text symbol."
-                           FontSize="14"  Width="250" TextAlignment="Left" TextWrapping="Wrap" />
+                           FontSize="14" Width="250" TextAlignment="Left" TextWrapping="Wrap" />
 
-                <StackPanel HorizontalAlignment="Center" Margin="12,20,12,0">
+                <StackPanel HorizontalAlignment="Stretch" Margin="12,20,12,0">
                     <ComboBox x:Name="symbolCombo" SelectedIndex="0" SelectionChanged="symbolCombo_SelectionChanged">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <Border BorderBrush="Black" BorderThickness="1" Margin="2" Padding="2">
-                                    <Image Source="{Binding}" Stretch="None" />
-                                </Border>
+                                <Image Source="{Binding}" Stretch="None" Margin="5" />
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>

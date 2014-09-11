@@ -66,6 +66,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BooleanToVisibilityConverter.cs" />
+    <Compile Include="LongEnumerableToBooleanConverter.cs" />
     <Compile Include="Samples\DynamicServiceLayers\ArcGISDynamicMapServiceLayerLocalSample.xaml.cs">
       <DependentUpon>ArcGISDynamicMapServiceLayerLocalSample.xaml</DependentUpon>
     </Compile>
@@ -93,8 +94,14 @@
     <Compile Include="Samples\DynamicServiceLayers\WMSLayer.xaml.cs">
       <DependentUpon>WMSLayer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Editing\EditGeometry.xaml.cs">
+      <DependentUpon>EditGeometry.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Extras\SOEElevationData.xaml.cs">
       <DependentUpon>SOEElevationData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Editing\EditAttachments.xaml.cs">
+      <DependentUpon>EditAttachments.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\FeatureLayers\FeatureLayerFromLocalGeodatabase.xaml.cs">
       <DependentUpon>FeatureLayerFromLocalGeodatabase.xaml</DependentUpon>
@@ -491,9 +498,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Editing\EditGeometry.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Extras\SOEElevationData.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\EditAttachments.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\FeatureLayers\FeatureLayerFromLocalGeodatabase.xaml">
       <Generator>MSBuild:Compile</Generator>

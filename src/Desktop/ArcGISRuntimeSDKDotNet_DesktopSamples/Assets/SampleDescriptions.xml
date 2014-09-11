@@ -164,6 +164,22 @@
             InitializeComponent
             </summary>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditGeometry">
+            <summary>
+            Demonstrates how geometry of a feature can be modified from a ServiceFeatureTable
+            and how this type of edit is pushed to the server or canceled.
+            </summary>
+            <title>Edit Geometry</title>
+            <category>Editing</category>
+            <summary>
+            EditGeometry
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditGeometry.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SOEElevationData">
             <summary>
             This sample demonstrates how to use a custom Server Object Extension (SOE) hosted by ArcGIS for Server. The SOE operation used in this example returns a set of interpolated elevation values for a user defined grid. The grid extent and number of rows and columns are provided as inputs to the SOE.
@@ -178,6 +194,22 @@
             <summary>Construct SOE Elevation Data sample control</summary>
         </member>
         <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SOEElevationData.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditAttachments">
+            <summary>
+            Demonstrates how attachments can be queried and modified from a ServiceFeatureTable
+            and how this type of edit is pushed to the server or canceled.
+            </summary>
+            <title>Edit Attachments</title>
+            <category>Editing</category>
+            <summary>
+            EditAttachments
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditAttachments.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>

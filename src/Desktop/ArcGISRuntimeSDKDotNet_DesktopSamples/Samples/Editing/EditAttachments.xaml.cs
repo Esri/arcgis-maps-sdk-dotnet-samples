@@ -15,7 +15,8 @@ using System.Collections.Generic;
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
-    /// Demonstrates how attachments can be queried and modified from a ServiceFeatureTable and how this type of edit is pushed to the server or canceled.
+    /// Demonstrates how attachments can be queried and modified from a ServiceFeatureTable
+    /// and how this type of edit is pushed to the server or canceled.
     /// </summary>
     /// <title>Edit Attachments</title>
     /// <category>Editing</category>
@@ -30,7 +31,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             if (table == null)
                 return;
-            // By default, the attachmentResults is a union of local and server query for attachments.
+            // By default, the editResults is a union of local and server query for attachments.
             var queryAttachmentResult = await table.QueryAttachmentsAsync(featureID);
             AttachmentList.ItemsSource = queryAttachmentResult != null ? queryAttachmentResult.Infos : null;
         }
@@ -51,7 +52,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             string message = null;
             try
             {
-                // Selects feature based on hit-test attachmentResults 
+                // Selects feature based on hit-test editResults 
                 // and performs query attachments on the first selected feature.
                 var featureIDs = await layer.HitTestAsync(MyMapView, e.Position);
                 if (featureIDs != null)

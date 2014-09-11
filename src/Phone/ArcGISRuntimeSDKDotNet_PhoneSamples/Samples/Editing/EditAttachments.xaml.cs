@@ -20,7 +20,8 @@ using Windows.UI.Xaml.Media.Imaging;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
-    /// Demonstrates how attachments can be queried and modified from a ServiceFeatureTable and how this type of edit is pushed to the server or canceled.
+    /// Demonstrates how attachments can be queried and modified from a ServiceFeatureTable 
+    /// and how this type of edit is pushed to the server or canceled.
     /// </summary>
     /// <title>Edit Attachments</title>
     /// <category>Editing</category>

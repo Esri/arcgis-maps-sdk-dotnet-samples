@@ -15,6 +15,12 @@
             executed, and as such is the logical equivalent of main() or WinMain().
             </summary>
         </member>
+        <member name="F:ArcGISRuntimeSDKDotNet_PhoneSamples.App._continuationManager">
+            <summary>
+            For handling FileOpenPicker.PickSingleFileAndContinue
+            Reference: http://msdn.microsoft.com/en-us/library/windows/apps/xaml/dn614994.aspx
+            </summary>
+        </member>
         <member name="M:ArcGISRuntimeSDKDotNet_PhoneSamples.App.OnLaunched(Windows.ApplicationModel.Activation.LaunchActivatedEventArgs)">
             <summary>
             Invoked when the application is launched normally by the end user.  Other entry points
@@ -119,6 +125,22 @@
             
             </summary>
             <category>Dynamic Service Layers</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.EditAttachments">
+            <summary>
+            Demonstrates how attachments can be queried and modified from a ServiceFeatureTable 
+            and how this type of edit is pushed to the server or canceled.
+            </summary>
+            <title>Edit Attachments</title>
+            <category>Editing</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.EditGeometry">
+            <summary>
+            Demonstrates how geometry of a feature can be modified from a ServiceFeatureTable
+            and how this type of edit is pushed to the server or canceled.
+            </summary>
+            <title>Edit Geometry</title>
+            <category>Editing</category>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayers">
             <summary>

@@ -1,0 +1,173 @@
+﻿<Page x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.EditGeometry"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:esri="using:Esri.ArcGISRuntime.Controls"
+      xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+      xmlns:data="using:Esri.ArcGISRuntime.Data"
+      xmlns:local="using:ArcGISRuntimeSDKDotNet_StoreSamples.Common">
+
+    <Page.Resources>
+        <esri:Editor x:Key="MyEditor" />
+        <local:NegateBooleanConverter x:Key="NegateBooleanConverter" />
+    </Page.Resources>
+    <Grid>
+        <esri:MapView x:Name="MyMapView"
+                      Editor="{StaticResource MyEditor}">
+            <esri:Map>
+                <esri:Map.InitialViewpoint>
+                    <esri:ViewpointExtent XMin="-13054165"
+                                          YMin="3850112"
+                                          XMax="-13027133"
+                                          YMax="3863559" />
+                </esri:Map.InitialViewpoint>
+                <layers:ArcGISTiledMapServiceLayer ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+                <layers:FeatureLayer ID="ThreatAreas">
+                    <data:ServiceFeatureTable ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/HomelandSecurity/operations/FeatureServer/2"
+                                              Mode="OnDemand" />
+                </layers:FeatureLayer>
+            </esri:Map>
+        </esri:MapView>
+    </Grid>
+    <Page.BottomAppBar>
+        <CommandBar IsOpen="True"
+                    IsSticky="True">
+            <CommandBar.PrimaryCommands>
+                <AppBarButton Icon="Add"
+                              Label="Add"
+                              Click="AddButton_Click"
+                              ToolTipService.ToolTip="Fire">
+                    <AppBarButton.Tag>
+                        <x:Int32>10301</x:Int32>
+                    </AppBarButton.Tag>
+                </AppBarButton>
+                <AppBarButton Icon="Delete"
+                              Label="Delete"
+                              x:Name="DeleteSelectedButton"
+                              IsEnabled="False"
+                              Click="DeleteSelectedButton_Click" />
+                <AppBarButton Icon="Save"
+                              IsEnabled="False"
+                              x:Name="SaveButton"
+                              Label="Save"
+                              Click="SaveButton_Click" />
+                <AppBarButton Icon="Cancel"
+                              IsEnabled="{Binding ElementName=SaveButton, Path=IsEnabled}"
+                              Label="Cancel"
+                              Click="CancelButton_Click" />
+            </CommandBar.PrimaryCommands>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Icon="Important"
+                              Label="Info">
+                    <AppBarButton.Flyout>
+                        <Flyout>
+                            <TextBlock Text="Use the Add Polygon button to enable drawing a polygon on the map.  Use other buttons to move, modify, select or delete features.  Use the Save Edits button to commit edits to the database.  Cancel Edits will clear all edits up to that point."
+                                       Width="200"
+                                       TextAlignment="Left"
+                                       Margin="30,20,20,30"
+                                       TextWrapping="Wrap" />
+                        </Flyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+                <AppBarButton Icon="Filter"
+                              Label="Select">
+                    <AppBarButton.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Tag="New"
+                                            Text="New Selection"
+                                            Click="SelectButton_Click" />
+                            <MenuFlyoutItem Tag="Add"
+                                            Text="Add to Selection"
+                                            IsEnabled="{Binding ElementName=DeleteSelectedButton, Path=IsEnabled}"
+                                            Click="SelectButton_Click" />
+                            <MenuFlyoutItem Tag="Remove"
+                                            Text="Remove from Selection"
+                                            IsEnabled="{Binding ElementName=DeleteSelectedButton, Path=IsEnabled}"
+                                            Click="SelectButton_Click" />
+                            <MenuFlyoutItem Tag="Clear"
+                                            Text="Clear Selection"
+                                            IsEnabled="{Binding ElementName=DeleteSelectedButton, Path=IsEnabled}"
+                                            Click="ClearSelectionButton_Click" />
+                        </MenuFlyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+                <AppBarButton Icon="Edit"
+                              Label="Edit Geometry">
+                    <AppBarButton.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="Edit / Move"
+                                            Click="EditVerticesButton_Click" />
+                            <MenuFlyoutItem Text="Cut"
+                                            IsEnabled="{Binding ElementName=DeleteSelectedButton, Path=IsEnabled}"
+                                            x:Name="CutButton"
+                                            Click="CutButton_Click" />
+                            <MenuFlyoutItem Text="Reshape"
+                                            IsEnabled="{Binding ElementName=CutButton, Path=IsEnabled}"
+                                            Click="ReshapeButton_Click" />
+                            <MenuFlyoutItem Text="Union"
+                                            x:Name="UnionButton"
+                                            IsEnabled="{Binding ElementName=CutButton, Path=IsEnabled}"
+                                            Click="UnionButton_Click" />
+                        </MenuFlyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+                <AppBarButton Icon="Setting"
+                              Label="Editor Configuration"
+                              DataContext="{Binding Source={StaticResource MyEditor}, Path=EditorConfiguration}">
+                    <AppBarButton.Flyout>
+                        <Flyout>
+                            <StackPanel>
+                                <CheckBox Content="Freehand Draw"
+                                          IsEnabled="{Binding Source={StaticResource MyEditor}, Path=IsActive, Converter={StaticResource NegateBooleanConverter}}"
+                                          x:Name="IsFreehand"
+                                          Margin="2" />
+                                <CheckBox Content="Auto Complete"
+                                          IsEnabled="{Binding Source={StaticResource MyEditor}, Path=IsActive, Converter={StaticResource NegateBooleanConverter}}"
+                                          x:Name="IsAutoComplete"
+                                          Margin="2" />
+                                <CheckBox Content="Auto Select"
+                                          IsEnabled="{Binding Source={StaticResource MyEditor}, Path=IsActive, Converter={StaticResource NegateBooleanConverter}}"
+                                          Click="IsAutoSelect_Click"
+                                          x:Name="IsAutoSelect"
+                                          Margin="2" />
+                                <CheckBox Content="Continuous Action"
+                                          IsEnabled="{Binding Source={StaticResource MyEditor}, Path=IsActive, Converter={StaticResource NegateBooleanConverter}}"
+                                          x:Name="IsContinuous"
+                                          Margin="2" />
+                                <MenuFlyoutSeparator />
+                                <CheckBox Content="Allow Add Vertex"
+                                          IsEnabled="{Binding Source={StaticResource MyEditor}, Path=IsActive, Converter={StaticResource NegateBooleanConverter}}"
+                                          IsChecked="{Binding AllowAddVertex, Mode=TwoWay}"
+                                          Margin="2" />
+                                <CheckBox Content="Allow Move Vertex"
+                                          IsEnabled="{Binding Source={StaticResource MyEditor}, Path=IsActive, Converter={StaticResource NegateBooleanConverter}}"
+                                          IsChecked="{Binding AllowMoveVertex, Mode=TwoWay}"
+                                          Margin="2" />
+                                <CheckBox Content="Allow Delete Vertex"
+                                          IsEnabled="{Binding Source={StaticResource MyEditor}, Path=IsActive, Converter={StaticResource NegateBooleanConverter}}"
+                                          IsChecked="{Binding AllowDeleteVertex, Mode=TwoWay}"
+                                          Margin="2" />
+                                <MenuFlyoutSeparator />
+                                <CheckBox Content="Allow Move Geometry"
+                                          IsEnabled="{Binding Source={StaticResource MyEditor}, Path=IsActive, Converter={StaticResource NegateBooleanConverter}}"
+                                          IsChecked="{Binding AllowMoveGeometry, Mode=TwoWay}"
+                                          Margin="2" />
+                                <CheckBox Content="Allow Scale Geometry"
+                                          IsEnabled="{Binding Source={StaticResource MyEditor}, Path=IsActive, Converter={StaticResource NegateBooleanConverter}}"
+                                          IsChecked="{Binding AllowScaleGeometry, Mode=TwoWay}"
+                                          Margin="2" />
+                                <CheckBox Content="Allow Rotate Geometry"
+                                          IsEnabled="{Binding Source={StaticResource MyEditor}, Path=IsActive, Converter={StaticResource NegateBooleanConverter}}"
+                                          IsChecked="{Binding AllowRotateGeometry, Mode=TwoWay}"
+                                          Margin="2" />
+                                <CheckBox Content="Maintain Aspect Ratio"
+                                          IsEnabled="{Binding Source={StaticResource MyEditor}, Path=IsActive, Converter={StaticResource NegateBooleanConverter}}"
+                                          IsChecked="{Binding MaintainAspectRatio, Mode=TwoWay}"
+                                          Margin="2" />
+                            </StackPanel>
+                        </Flyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

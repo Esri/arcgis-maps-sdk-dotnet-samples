@@ -123,6 +123,9 @@
     <Compile Include="Samples\Editing\EditAttachments.xaml.cs" />
     <Compile Include="Samples\Editing\EditGeometry.xaml.cs" />
     <Compile Include="Samples\Editing\EditAttributes.xaml.cs" />
+    <Compile Include="Samples\FeatureLayers\FeatureLayerFromShapefile.xaml.cs">
+      <DependentUpon>FeatureLayerFromShapefile.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\FeatureLayers\QueryFilterSample.xaml.cs">
       <DependentUpon>QueryFilterSample.xaml</DependentUpon>
     </Compile>
@@ -536,6 +539,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\DynamicServiceLayers\DynamicLayerRendering.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\FeatureLayers\FeatureLayerFromShapefile.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

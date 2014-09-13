@@ -52,7 +52,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             string message = null;
             try
             {
-                // Selects feature based on hit-test editResults 
+                // Selects feature based on hit-test  
                 // and performs query attachments on the first selected feature.
                 var featureIDs = await layer.HitTestAsync(MyMapView, e.Position);
                 if (featureIDs != null)

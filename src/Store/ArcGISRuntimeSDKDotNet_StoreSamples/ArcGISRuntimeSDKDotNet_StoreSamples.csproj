@@ -120,8 +120,9 @@
     <Compile Include="Samples\DynamicServiceLayers\DynamicLayerRendering.xaml.cs">
       <DependentUpon>DynamicLayerRendering.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\EditAttachments.xaml.cs" />
-    <Compile Include="Samples\EditGeometry.xaml.cs" />
+    <Compile Include="Samples\Editing\EditAttachments.xaml.cs" />
+    <Compile Include="Samples\Editing\EditGeometry.xaml.cs" />
+    <Compile Include="Samples\Editing\EditAttributes.xaml.cs" />
     <Compile Include="Samples\FeatureLayers\QueryFilterSample.xaml.cs">
       <DependentUpon>QueryFilterSample.xaml</DependentUpon>
     </Compile>
@@ -538,11 +539,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\EditAttachments.xaml">
+    <Page Include="Samples\Editing\EditAttachments.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\EditGeometry.xaml">
+    <Page Include="Samples\Editing\EditGeometry.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\EditAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -217,6 +217,25 @@
             InitializeComponent
             </summary>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerFromShapefile">
+            <summary>
+            This sample shows how to add a FeatureLayer from a local shapefile to the map.
+            </summary>
+            <title>Feature Layer from Shapefile</title>
+            <category>Layers</category>
+            <subcategory>Feature Layers</subcategory>
+            <summary>
+            FeatureLayerFromShapefile
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerFromShapefile.#ctor">
+            <summary>Construct FeatureLayerFromLocalGeodatabase sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerFromShapefile.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerHitTesting">
             <summary>
             This sample demonstates feature layer hit testing.  When the user clicks on the map, the applicaiton uses FeatureLayer.HitTest to retrieve the feature at the mouse point.  The HitTest method returns the row ID of the first feature found at the given point.  This sample then uses the FeatureTable.QueryAsync method to retrieve a Feature for the HitTested row ID and desiplays its attributes in the UI.
@@ -1212,6 +1231,21 @@
             <summary>Construct Mensuration sample control</summary>
         </member>
         <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Mensuration.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.InteractionOptionsSample">
+            <summary>
+            This sample shows how to change interaction settings that controls the MapView.
+            </summary>
+            <title>Interaction options</title>
+            <category>Mapping</category>
+            <summary>
+            InteractionOptionsSample
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.InteractionOptionsSample.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>

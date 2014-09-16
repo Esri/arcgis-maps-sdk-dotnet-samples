@@ -230,6 +230,9 @@
     <Compile Include="Samples\ImageryTasks\Mensuration.xaml.cs">
       <DependentUpon>Mensuration.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Mapping\InteractionOptionsSample.xaml.cs">
+      <DependentUpon>InteractionOptionsSample.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Mapping\GroupLayers.xaml.cs">
       <DependentUpon>GroupLayers.xaml</DependentUpon>
     </Compile>
@@ -683,6 +686,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\ImageryTasks\Mensuration.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Mapping\InteractionOptionsSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

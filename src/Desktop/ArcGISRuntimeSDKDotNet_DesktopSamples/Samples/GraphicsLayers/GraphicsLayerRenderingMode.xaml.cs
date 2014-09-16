@@ -50,7 +50,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 			}
 		}
 
-        // Creates a new graphics layer with the specified graphics count and rendering mode
+        // Creates a new graphics z with the specified graphics count and rendering mode
         private async void CreateGraphicsLayerButton_Click(object sender, RoutedEventArgs e)
         {
             if (MyMapView.GraphicsOverlays.Count > 1)

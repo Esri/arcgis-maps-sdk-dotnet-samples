@@ -17,7 +17,7 @@
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 			</esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="graphicOverlay" />
+				<esri:GraphicsOverlay ID="graphicOverlay" />
 			</esri:MapView.GraphicsOverlays>
         </esri:MapView>
 		

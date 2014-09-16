@@ -23,10 +23,15 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private PictureMarkerSymbol _pinSymbol;
         private SimpleFillSymbol _bufferSymbol;
 
+		private GraphicsOverlay _graphicOverlay; 
+
         /// <summary>Construct Buffer sample control</summary>
         public BufferSample()
         {
             InitializeComponent();
+
+			_graphicOverlay = MyMapView.GraphicsOverlays["graphicOverlay"];
+
             SetupSymbols();
         }
 
@@ -34,17 +39,17 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-				graphicOverlay.Graphics.Clear();
+				_graphicOverlay.Graphics.Clear();
 
                 // Convert screen point to map point
                 var point = e.Location;
                 var buffer = GeometryEngine.Buffer(point, 5 * MILES_TO_METERS);
 
                 var bufferGraphic = new Graphic { Geometry = buffer, Symbol = _bufferSymbol };
-				graphicOverlay.Graphics.Add(bufferGraphic);
+				_graphicOverlay.Graphics.Add(bufferGraphic);
 
 				var pointGraphic = new Graphic { Geometry = point, Symbol = _pinSymbol };
-				graphicOverlay.Graphics.Add(pointGraphic);
+				_graphicOverlay.Graphics.Add(pointGraphic);
             }
             catch (Exception ex)
             {

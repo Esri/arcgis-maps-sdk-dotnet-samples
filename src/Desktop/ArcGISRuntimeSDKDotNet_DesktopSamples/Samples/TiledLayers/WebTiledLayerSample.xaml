@@ -1,7 +1,7 @@
 ﻿<UserControl x:Class="ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.WebTiledLayerSample"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView">
             <esri:Map InitialViewpoint="-9840712.566, 5094828.570, -9684169.532, 5187877.291, 102100">

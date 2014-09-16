@@ -32,7 +32,7 @@
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/NGS_Topo_US_2D/MapServer" />
             </esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="graphicsOverlay">
+				<esri:GraphicsOverlay ID="graphicsOverlay">
 					<esri:GraphicsOverlay.Renderer>
 						<symb:SimpleRenderer Symbol="{StaticResource EllipseSymbol}" />
 					</esri:GraphicsOverlay.Renderer>

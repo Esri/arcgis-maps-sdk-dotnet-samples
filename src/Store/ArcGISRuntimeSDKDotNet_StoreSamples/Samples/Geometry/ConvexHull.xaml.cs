@@ -29,8 +29,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-			_inputGraphicsOverlay = MyMapView.GraphicsOverlays[0];
-			_convexHullGraphicsOverlay = MyMapView.GraphicsOverlays[1];
+			_inputGraphicsOverlay = MyMapView.GraphicsOverlays["inputGraphicsOverlay"];
+			_convexHullGraphicsOverlay = MyMapView.GraphicsOverlays["convexHullGraphicsOverlay"];
             _pointSymbol = (Symbol)layoutGrid.Resources["PointSymbol"];
             _polygonSymbol = (Symbol)layoutGrid.Resources["ConvexHullSymbol"];
 

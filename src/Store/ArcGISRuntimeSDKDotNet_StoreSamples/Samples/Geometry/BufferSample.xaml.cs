@@ -28,7 +28,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
 			SetupSymbols();
             _sfs = LayoutRoot.Resources["MySimpleFillSymbol"] as SimpleFillSymbol;
-			_graphicsOverlay = MyMapView.GraphicsOverlays[0];
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicOverlay"];
 
             MyMapView.MapViewTapped += MyMapView_MapViewTapped;
         }

@@ -23,6 +23,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private Symbol _cutLineSymbol;
         private Symbol _cutFillSymbol;
         private FeatureLayer _statesLayer;
+		private GraphicsOverlay _resultGraphicsOverlay;
 
         /// <summary>Construct Cut Geometry sample control</summary>
         public CutGeometry()
@@ -31,6 +32,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             _cutLineSymbol = layoutGrid.Resources["CutLineSymbol"] as Symbol;
             _cutFillSymbol = layoutGrid.Resources["CutFillSymbol"] as Symbol;
+			_resultGraphicsOverlay = MyMapView.GraphicsOverlays["resultsOverlay"];
 
             CreateFeatureLayers();
         }
@@ -57,7 +59,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-				resultsOverlay.Graphics.Clear();
+				_resultGraphicsOverlay.Graphics.Clear();
 
                 // wait for user to draw cut line
                 var cutLine = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polyline, _cutLineSymbol) as Polyline;
@@ -76,7 +78,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     .SelectMany(state => GeometryEngine.Cut(state, cutLine))
                     .Select(geo => new Graphic(geo, _cutFillSymbol));
 
-				resultsOverlay.Graphics.AddRange(cutGraphics);
+				_resultGraphicsOverlay.Graphics.AddRange(cutGraphics);
             }
             catch (TaskCanceledException) { }
             catch (Exception ex)

@@ -28,7 +28,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
             _pinSymbol = LayoutRoot.Resources["PointSymbol"] as Symbol;
             _sectorSymbol = LayoutRoot.Resources["SectorSymbol"] as Symbol;
-			_graphicsOverlay = MyMapView.GraphicsOverlays[0];
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
         }
 
         private async void EllipseButton_Click(object sender, RoutedEventArgs e)

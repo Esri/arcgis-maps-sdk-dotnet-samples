@@ -33,7 +33,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
             _cutLineSymbol = LayoutRoot.Resources["CutLineSymbol"] as Symbol;
             _cutFillSymbol = LayoutRoot.Resources["CutFillSymbol"] as Symbol;
-			_resultGraphicsOverlay = MyMapView.GraphicsOverlays[0];
+			_resultGraphicsOverlay = MyMapView.GraphicsOverlays["resultsOverlay"];
 
             CreateFeatureLayers();
         }

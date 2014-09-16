@@ -22,6 +22,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private Symbol _fillSymbol;
         private FeatureLayer _statesLayer;
+		private GraphicsOverlay _differenceGraphics;
 
         /// <summary>Construct Difference sample control</summary>
         public Difference()
@@ -29,6 +30,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             InitializeComponent();
 
             _fillSymbol = layoutGrid.Resources["FillSymbol"] as Symbol;
+			_differenceGraphics = MyMapView.GraphicsOverlays["resultsOverlay"];
             CreateFeatureLayers();
         }
 
@@ -54,7 +56,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                resultsOverlay.Graphics.Clear();
+				_differenceGraphics.Graphics.Clear();
 
                 // wait for user to draw difference polygon
                 var poly = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon);
@@ -78,7 +80,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                         : GeometryEngine.Difference(state, poly))
                     .Select(geo => new Graphic(geo, _fillSymbol));
 
-				resultsOverlay.Graphics.AddRange(diffGraphics);
+				_differenceGraphics.Graphics.AddRange(diffGraphics);
             }
             catch (Exception ex)
             {

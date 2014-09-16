@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System;
@@ -17,10 +18,17 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 	/// <category>Geometry</category>
 	public partial class Boundary : Page
     {
+		private GraphicsOverlay _testGraphics;
+		private GraphicsOverlay _boundaryGraphics;
+
         /// <summary>Construct Boundary sample control</summary>
         public Boundary()
         {
             InitializeComponent();
+
+			_testGraphics = MyMapView.GraphicsOverlays["TestGraphics"];
+			_boundaryGraphics = MyMapView.GraphicsOverlays["BoundaryGraphics"];
+
 			CreateGraphics();
         }
 
@@ -52,25 +60,21 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             var fillSymbol = new SimpleFillSymbol() { Color = Colors.Red, Style = SimpleFillStyle.Solid };
             var lineSymbol = new SimpleLineSymbol() { Color = Colors.Red, Style = SimpleLineStyle.Solid, Width = 2 };
 
-            var testGraphics = MyMapView.Map.Layers["TestGraphics"] as GraphicsLayer;
-            testGraphics.Graphics.Add(new Graphic() { Geometry = CreatePolygonBox(left, width), Symbol = fillSymbol });
-            testGraphics.Graphics.Add(new Graphic() { Geometry = CreatePolylineBox(right, width), Symbol = lineSymbol });
+			_testGraphics.Graphics.Add(new Graphic() { Geometry = CreatePolygonBox(left, width), Symbol = fillSymbol });
+			_testGraphics.Graphics.Add(new Graphic() { Geometry = CreatePolylineBox(right, width), Symbol = lineSymbol });
         }
 
         // Calculates the geometric boundaries for each test graphic
         private void CalculateBoundaries()
         {
-            var testGraphics = MyMapView.Map.Layers["TestGraphics"] as GraphicsLayer;
-            var boundaryGraphics = MyMapView.Map.Layers["BoundaryGraphics"] as GraphicsLayer;
-
             var lineSymbol = (Esri.ArcGISRuntime.Symbology.Symbol)new SimpleLineSymbol() { Color = Colors.Blue, Style = SimpleLineStyle.Solid, Width = 2 };
             var pointSymbol = (Esri.ArcGISRuntime.Symbology.Symbol)new SimpleMarkerSymbol() { Color = Colors.Blue, Style = SimpleMarkerStyle.Circle, Size = 12 };
 
-            foreach (var testGraphic in testGraphics.Graphics)
+			foreach (var testGraphic in _testGraphics.Graphics)
             {
                 var boundary = GeometryEngine.Boundary(testGraphic.Geometry);
                 var graphic = new Graphic(boundary, (boundary.GeometryType == GeometryType.Polyline) ? lineSymbol : pointSymbol);
-                boundaryGraphics.Graphics.Add(graphic);
+                _boundaryGraphics.Graphics.Add(graphic);
             }
         }
 

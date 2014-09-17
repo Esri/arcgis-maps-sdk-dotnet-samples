@@ -28,10 +28,12 @@
 				
 				<layers:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-				<layers:GraphicsLayer ID="StopsLayer" Renderer="{StaticResource stopsRenderer}" />
-				<layers:GraphicsLayer ID="RoutesLayer" Renderer="{StaticResource routesRenderer}" />
-				<layers:GraphicsLayer ID="DirectionsLayer" Renderer="{StaticResource directionsRenderer}" />
             </esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="stopsOverlay" Renderer="{StaticResource stopsRenderer}" />
+				<esri:GraphicsOverlay ID="routesOverlay" Renderer="{StaticResource routesRenderer}" />
+				<esri:GraphicsOverlay ID="directionsOverlay" Renderer="{StaticResource directionsRenderer}" />
+			</esri:MapView.GraphicsOverlays>
         </esri:MapView>
 
         <Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20" Width="350">
@@ -58,7 +60,7 @@
                     <TextBlock x:Name="txtRouteTotals" Grid.Row="1" FontStyle="Italic" />
 
                     <ListView x:Name="listDirections" Grid.Row="2"
-                              ItemsSource="{Binding ElementName=MyMapView, Path=Map.Layers[DirectionsLayer].Graphics}"
+                              ItemsSource="{Binding ElementName=MyMapView, Path=GraphicsOverlays[directionsOverlay].Graphics}"
                               SelectionMode="Single" SelectionChanged="listDirections_SelectionChanged">
                         <ListView.ItemTemplate>
                             <DataTemplate>

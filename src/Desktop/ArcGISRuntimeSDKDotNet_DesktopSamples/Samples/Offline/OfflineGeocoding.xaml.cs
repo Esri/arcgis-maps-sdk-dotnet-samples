@@ -23,11 +23,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private const string LOCATOR_PATH = @"..\..\..\..\..\samples-data\locators\san-diego\san-diego-locator.loc";
 
         private LocalLocatorTask _locatorTask;
+		private GraphicsOverlay _graphicsOverlay;
 
         /// <summary>Construct Offline Geocoding sample control</summary>
         public OfflineGeocoding()
         {
             InitializeComponent();
+
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
             SetupRendererSymbols();
         }
 
@@ -39,7 +42,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 				var markerSymbol = new PictureMarkerSymbol() { Width = 48, Height = 48, YOffset = 24 };
 				await markerSymbol.SetSourceAsync(
 					new Uri("pack://application:,,,/ArcGISRuntimeSDKDotNet_DesktopSamples;component/Assets/RedStickpin.png"));
-				graphicsOverlay.Renderer = new SimpleRenderer() { Symbol = markerSymbol, };
+				_graphicsOverlay.Renderer = new SimpleRenderer() { Symbol = markerSymbol, };
 			}
 			catch(Exception ex)
 			{
@@ -54,7 +57,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             {
                 progress.Visibility = Visibility.Visible;
                 listResults.Visibility = Visibility.Collapsed;
-				graphicsOverlay.GraphicsSource = null;
+				_graphicsOverlay.GraphicsSource = null;
 
                 // Street, City, State, ZIP
                 Dictionary<string, string> address = new Dictionary<string, string>();
@@ -73,7 +76,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var candidateResults = await _locatorTask.GeocodeAsync(
                     address, new List<string> { "Match_addr" }, MyMapView.SpatialReference, CancellationToken.None);
 
-				graphicsOverlay.GraphicsSource = candidateResults
+				_graphicsOverlay.GraphicsSource = candidateResults
                     .Select(result => new Graphic(result.Location, new Dictionary<string, object> { { "Locator", result } }));
 
                 await MyMapView.SetViewAsync(ExtentFromGraphics().Expand(2));
@@ -93,7 +96,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             finally
             {
                 progress.Visibility = Visibility.Collapsed;
-				if (graphicsOverlay.GraphicsSource != null)
+				if (_graphicsOverlay.GraphicsSource != null)
                     listResults.Visibility = Visibility.Visible;
             }
         }
@@ -101,7 +104,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Helper method to retrieve an extent from graphics in the graphics layer
         private Envelope ExtentFromGraphics()
         {
-			var graphics = graphicsOverlay.GraphicsSource;
+			var graphics = _graphicsOverlay.GraphicsSource;
 			if (graphics == null || graphics.Count() == 0)
 				return MyMapView.Extent;
 

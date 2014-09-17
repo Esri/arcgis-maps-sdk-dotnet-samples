@@ -25,7 +25,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public GetSamples()
         {
             InitializeComponent();
-			_graphicsOverlay = MyMapView.GraphicsOverlays.First();
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
 			_mapTip = MyMapView.Overlays.Items.First() as FrameworkElement;
             MyMapView.LayerLoaded += MyMapView_LayerLoaded;
         }

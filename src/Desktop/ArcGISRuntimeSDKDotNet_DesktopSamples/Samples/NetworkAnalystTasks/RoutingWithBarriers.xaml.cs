@@ -33,9 +33,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            _routeGraphicsOverlay = RouteGraphicsOverlay;
-            _stopGraphicsOverlay = StopGraphicsOverlay;
-            _barrierGraphicsOverlay = BarrierGraphicsOverlay;
+			_routeGraphicsOverlay = MyMapView.GraphicsOverlays["RouteGraphicsOverlay"];
+			_stopGraphicsOverlay = MyMapView.GraphicsOverlays["StopGraphicsOverlay"];
+			_barrierGraphicsOverlay = MyMapView.GraphicsOverlays["BarrierGraphicsOverlay"];
 
             SetupRouteTask();
         }

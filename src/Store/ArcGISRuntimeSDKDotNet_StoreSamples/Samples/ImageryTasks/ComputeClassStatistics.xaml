@@ -47,7 +47,7 @@
 			</esri:Map>
 
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="GraphicsOverlay" Renderer="{StaticResource FillRenderer}"/>
+				<esri:GraphicsOverlay ID="graphicsOverlay" Renderer="{StaticResource FillRenderer}"/>
 			</esri:MapView.GraphicsOverlays>
 		</esri:MapView>
 

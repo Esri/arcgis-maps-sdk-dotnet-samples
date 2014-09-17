@@ -23,7 +23,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private Symbol _pointSymbol;
         private Symbol _lineSymbol;
         private Symbol _polygonSymbol;
-
+		private GraphicsOverlay _graphicsOverlay;
         private MensurationTask _mensurationTask;
 
         /// <summary>Construct Mensuration sample control</summary>
@@ -34,6 +34,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             _pointSymbol = layoutGrid.Resources["PointSymbol"] as Symbol;
             _lineSymbol = layoutGrid.Resources["LineSymbol"] as Symbol;
             _polygonSymbol = layoutGrid.Resources["PolygonSymbol"] as Symbol;
+
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
 
             comboLinearUnit.ItemsSource = typeof(LinearUnits).GetProperties().Select(p => p.GetValue(null, null))
                 .Except(new LinearUnit[] { LinearUnits.NauticalMiles } ).ToList();
@@ -222,7 +224,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
-			graphicsOverlay.Graphics.Clear();
+			_graphicsOverlay.Graphics.Clear();
         }
 
         // Retrieve the given shape type from the user
@@ -230,11 +232,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-				graphicsOverlay.Graphics.Clear();
+				_graphicsOverlay.Graphics.Clear();
 
                 var shape = await MyMapView.Editor.RequestShapeAsync(drawShape, symbol);
 
-				graphicsOverlay.Graphics.Add(new Graphic(shape, symbol));
+				_graphicsOverlay.Graphics.Add(new Graphic(shape, symbol));
                 return shape;
             }
 			catch (TaskCanceledException) 

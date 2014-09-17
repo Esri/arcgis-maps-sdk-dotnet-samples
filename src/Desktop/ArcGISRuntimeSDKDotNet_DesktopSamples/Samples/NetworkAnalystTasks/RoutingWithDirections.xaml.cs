@@ -34,9 +34,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
 			_directionPointSymbol = LayoutRoot.Resources["directionPointSymbol"] as Symbol;
 
-			_stopsOverlay = StopsOverlay;
-			_routesOverlay = RoutesOverlay;
-			_directionsOverlay = DirectionsOverlay;
+			_stopsOverlay = MyMapView.GraphicsOverlays["StopsOverlay"];
+			_routesOverlay = MyMapView.GraphicsOverlays["RoutesOverlay"];
+			_directionsOverlay = MyMapView.GraphicsOverlays["DirectionsOverlay"];
 
             _routeTask = new OnlineRouteTask(new Uri(OnlineRoutingService));
         }

@@ -99,7 +99,7 @@
             </esri:Map>
 
             <esri:MapView.GraphicsOverlays>
-                <esri:GraphicsOverlay />
+				<esri:GraphicsOverlay ID="graphicsOverlay"/>
             </esri:MapView.GraphicsOverlays>
         </esri:MapView>
 

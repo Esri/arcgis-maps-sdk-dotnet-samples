@@ -22,12 +22,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private async void MyMapView_ExtentChanged(object sender, System.EventArgs e)
         {
+			var graphicsOverlay = overviewMap.GraphicsOverlays["overviewOverlay"];
+
             // Update overview map graphic
-			Graphic g = overviewOverlay.Graphics.FirstOrDefault();
+			Graphic g = graphicsOverlay.Graphics.FirstOrDefault();
             if (g == null) //first time
             {
                 g = new Graphic();
-				overviewOverlay.Graphics.Add(g);
+				graphicsOverlay.Graphics.Add(g);
             }
             g.Geometry = MyMapView.Extent;
 

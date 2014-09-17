@@ -17,9 +17,9 @@
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 			</esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="RouteGraphicsOverlay" Renderer="{StaticResource RouteLayerRenderer}" />
-				<esri:GraphicsOverlay x:Name="StopGraphicsOverlay"  />
-				<esri:GraphicsOverlay x:Name="BarrierGraphicsOverlay" Renderer="{StaticResource BarrierLayerRenderer}"/>
+				<esri:GraphicsOverlay ID="RouteGraphicsOverlay" Renderer="{StaticResource RouteLayerRenderer}" />
+				<esri:GraphicsOverlay ID="StopGraphicsOverlay"  />
+				<esri:GraphicsOverlay ID="BarrierGraphicsOverlay" Renderer="{StaticResource BarrierLayerRenderer}"/>
 			</esri:MapView.GraphicsOverlays>
 		</esri:MapView>
 

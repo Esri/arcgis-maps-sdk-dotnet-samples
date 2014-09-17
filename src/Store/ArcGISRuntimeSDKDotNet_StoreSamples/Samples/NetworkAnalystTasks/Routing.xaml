@@ -22,9 +22,9 @@
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
             </esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="ExtentGraphicsOverlay" Renderer="{StaticResource RouteLayerRenderer}" />
-				<esri:GraphicsOverlay x:Name="RouteGraphicsOverlay" Renderer="{StaticResource RouteLayerRenderer}" />
-				<esri:GraphicsOverlay x:Name="StopsGraphicsOverlay" />
+				<esri:GraphicsOverlay ID="ExtentGraphicsOverlay" Renderer="{StaticResource RouteLayerRenderer}" />
+				<esri:GraphicsOverlay ID="RouteGraphicsOverlay" Renderer="{StaticResource RouteLayerRenderer}" />
+				<esri:GraphicsOverlay ID="StopsGraphicsOverlay" />
 			</esri:MapView.GraphicsOverlays>
 		</esri:MapView>
 

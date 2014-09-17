@@ -20,7 +20,7 @@
             </esri:Map>
 
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="graphicsOverlay" />
+				<esri:GraphicsOverlay ID="graphicsOverlay" />
 			</esri:MapView.GraphicsOverlays>
 		</esri:MapView>
 

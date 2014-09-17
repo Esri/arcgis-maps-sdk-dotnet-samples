@@ -140,7 +140,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             _onlineBirdsLayer = MyMapView.Map.Layers.OfType<ArcGISDynamicMapServiceLayer>().First();
             _onlineBirdsLayer.VisibleLayers = new ObservableCollection<int>() { 1 };
 
-			_graphicsOverlay = MyMapView.GraphicsOverlays[0];
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
             _localBirdsLayer = null;
 
             CanGenerate = true;

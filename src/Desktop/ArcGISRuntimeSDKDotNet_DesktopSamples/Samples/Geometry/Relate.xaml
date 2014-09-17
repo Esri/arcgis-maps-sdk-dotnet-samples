@@ -17,7 +17,7 @@
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
 			</esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="graphicsOverlay" />
+				<esri:GraphicsOverlay ID="graphicsOverlay" />
 			</esri:MapView.GraphicsOverlays>
 		</esri:MapView>
 
@@ -34,7 +34,7 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <StackPanel Orientation="Horizontal" Margin="12,0" VerticalAlignment="Center">
                         <TextBlock Text="Shape 1:" Margin="6,0" VerticalAlignment="Center" />
-                        <ComboBox x:Name="comboShapeOne" SelectedIndex="0" Width="80">
+                        <ComboBox x:Name="comboShapeOne" SelectedIndex="2" Width="80">
                             <esri:DrawShape>Point</esri:DrawShape>
                             <esri:DrawShape>Polyline</esri:DrawShape>
                             <esri:DrawShape>Polygon</esri:DrawShape>
@@ -43,7 +43,7 @@
 
                     <StackPanel Orientation="Horizontal" Margin="12,0" VerticalAlignment="Center">
                         <TextBlock Text="Shape 2:" Margin="6,0" VerticalAlignment="Center" />
-                        <ComboBox x:Name="comboShapeTwo" SelectedIndex="0" Width="80">
+                        <ComboBox x:Name="comboShapeTwo" SelectedIndex="2" Width="80">
                             <esri:DrawShape>Point</esri:DrawShape>
                             <esri:DrawShape>Polyline</esri:DrawShape>
                             <esri:DrawShape>Polygon</esri:DrawShape>
@@ -57,8 +57,8 @@
                 <StackPanel Orientation="Horizontal" Margin="12,24,12,0" HorizontalAlignment="Center">
                     <TextBlock Text="Relationship:" Margin="6,0" VerticalAlignment="Center" />
                     <ComboBox x:Name="comboRelate" Width="200" IsEditable="True" FontFamily="Courier New" SelectedIndex="0">
-                        <sys:String>T******** (Intersects)</sys:String>
-                        <sys:String>T*****FF* (Contains)</sys:String>
+						<sys:String>T*****FF* (Contains)</sys:String>
+						<sys:String>T******** (Intersects)</sys:String>
                         <sys:String>T*F**F*** (Within)</sys:String>
                         <sys:String>T*F**FFF* (Equals)</sys:String>
                         <sys:String>FF*FF**** (Disjoint)</sys:String>

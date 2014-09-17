@@ -30,12 +30,12 @@
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/NGS_Topo_US_2D/MapServer" />
             </esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="originalOverlay">
+				<esri:GraphicsOverlay ID="originalOverlay">
 					<esri:GraphicsOverlay.Renderer>
 						<symb:SimpleRenderer Symbol="{StaticResource OriginalSymbol}" />
 					</esri:GraphicsOverlay.Renderer>
 				</esri:GraphicsOverlay>
-				<esri:GraphicsOverlay x:Name="movedOverlay">
+				<esri:GraphicsOverlay ID="movedOverlay">
 					<esri:GraphicsOverlay.Renderer>
 						<symb:SimpleRenderer Symbol="{StaticResource MovedSymbol}" />
 					</esri:GraphicsOverlay.Renderer>

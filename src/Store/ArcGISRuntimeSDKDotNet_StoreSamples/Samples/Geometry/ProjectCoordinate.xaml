@@ -14,7 +14,7 @@
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
             </esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="graphicsOverlay">
+				<esri:GraphicsOverlay ID="graphicsOverlay">
 					<esri:GraphicsOverlay.Renderer>
 						<symb:SimpleRenderer>
 							<symb:SimpleMarkerSymbol Color="Black" Style="Diamond" Size="12" />

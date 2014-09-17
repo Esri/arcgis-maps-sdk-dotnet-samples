@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using System;
 using System.Threading.Tasks;
@@ -14,11 +15,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	/// <category>Geometry</category>
 	public partial class ProjectCoordinate : UserControl
     {
+		private GraphicsOverlay _graphicsOverlay;
+
         /// <summary>Construct Project sample control</summary>
         public ProjectCoordinate()
         {
             InitializeComponent();
-
+		
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"]; 
             MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 
@@ -44,8 +48,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             {
                 var point = await MyMapView.Editor.RequestPointAsync();
 
-				graphicsOverlay.Graphics.Clear();
-				graphicsOverlay.Graphics.Add(new Graphic(point));
+				_graphicsOverlay.Graphics.Clear();
+				_graphicsOverlay.Graphics.Add(new Graphic(point));
 
                 // Convert from web mercator to WGS84
                 var projectedPoint = GeometryEngine.Project(point, SpatialReferences.Wgs84);

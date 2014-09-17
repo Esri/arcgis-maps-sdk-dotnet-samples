@@ -22,6 +22,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private Symbol _fillSymbol;
         private FeatureLayer _statesLayer;
+		private GraphicsOverlay _resultsOverlay;
 
         /// <summary>Construct Intersection sample control</summary>
         public Intersection()
@@ -29,6 +30,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             InitializeComponent();
 
             _fillSymbol = layoutGrid.Resources["FillSymbol"] as Symbol;
+			_resultsOverlay = MyMapView.GraphicsOverlays["resultsOverlay"];
 
            CreateFeatureLayers();
         }
@@ -55,7 +57,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                resultsOverlay.Graphics.Clear();
+				_resultsOverlay.Graphics.Clear();
 
                 // wait for user to draw a polygon
                 var poly = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon);
@@ -73,7 +75,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     .Select(state => GeometryEngine.Intersection(state, poly))
                     .Select(geo => new Graphic(geo, _fillSymbol));
 
-				resultsOverlay.Graphics.AddRange(intersectGraphics);
+				_resultsOverlay.Graphics.AddRange(intersectGraphics);
             }
             catch (Exception ex)
             {

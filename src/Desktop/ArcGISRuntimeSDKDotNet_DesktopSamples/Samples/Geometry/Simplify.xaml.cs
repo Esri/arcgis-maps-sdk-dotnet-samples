@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
@@ -17,11 +18,16 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	public partial class Simplify : UserControl
     {
         private Polygon _unsimplifiedPolygon;
+		private GraphicsOverlay _parcelOverlay;
+		private GraphicsOverlay _polygonOverlay;
 
         /// <summary>Construct Geodesic Move sample control</summary>
         public Simplify()
         {
             InitializeComponent();
+
+			_parcelOverlay = MyMapView.GraphicsOverlays["parcelOverlay"];
+			_polygonOverlay = MyMapView.GraphicsOverlays["polygonOverlay"];
 
 			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
         }
@@ -70,8 +76,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             };
             _unsimplifiedPolygon = new Polygon(points, MyMapView.SpatialReference);
 
-            polygonOverlay.Graphics.Clear();
-			polygonOverlay.Graphics.Add(new Graphic(_unsimplifiedPolygon));
+			_polygonOverlay.Graphics.Clear();
+			_polygonOverlay.Graphics.Add(new Graphic(_unsimplifiedPolygon));
         }
 
         // Query the parcel service with the given geometry (Contains)
@@ -90,8 +96,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 };
                 var result = await queryTask.ExecuteAsync(query);
 
-				parcelOverlay.Graphics.Clear();
-				parcelOverlay.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
+				_parcelOverlay.Graphics.Clear();
+				_parcelOverlay.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
             }
             catch (Exception ex)
             {

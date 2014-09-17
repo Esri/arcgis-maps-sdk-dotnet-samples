@@ -30,7 +30,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             _symbols.Add(LayoutRoot.Resources["LineSymbol"] as Symbol);
             _symbols.Add(LayoutRoot.Resources["FillSymbol"] as Symbol);
 
-			_graphicsOverlay = MyMapView.GraphicsOverlays[0];
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
 
             MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }

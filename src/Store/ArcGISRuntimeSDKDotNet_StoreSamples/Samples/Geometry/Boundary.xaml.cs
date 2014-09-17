@@ -29,8 +29,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			_testGraphics = MyMapView.GraphicsOverlays["TestGraphics"];
 			_boundaryGraphics = MyMapView.GraphicsOverlays["BoundaryGraphics"];
 
+			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
+		}
+
+		private void MyMapView_NavigationCompleted(object sender, EventArgs e)
+		{
+			MyMapView.NavigationCompleted -= MyMapView_NavigationCompleted;
 			CreateGraphics();
-        }
+		}
 
         // Setup graphic layers with test graphics and calculated boundaries of each
 		private async void CreateGraphics()

@@ -16,7 +16,7 @@
 			</esri:Map>
 			
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="labelGraphicOverlay">
+				<esri:GraphicsOverlay ID="labelGraphicOverlay">
 					<esri:GraphicsOverlay.Renderer>
 						<esri:SimpleRenderer>
 							<esri:SimpleFillSymbol Color="#7F0000FF"    >

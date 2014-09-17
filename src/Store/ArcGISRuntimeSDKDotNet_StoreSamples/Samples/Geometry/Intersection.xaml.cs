@@ -31,7 +31,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             InitializeComponent();
 
             _fillSymbol = LayoutRoot.Resources["FillSymbol"] as Symbol;
-			_resultGraphics = MyMapView.GraphicsOverlays[0];
+			_resultGraphics = MyMapView.GraphicsOverlays["resultsOverlay"];
                 
             CreateFeatureLayers();
         }

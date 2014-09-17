@@ -22,11 +22,16 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private static string ClipCountiesServiceUrl = "http://serverapps10.esri.com/ArcGIS/rest/services/SamplesNET/USA_Data_ClipTools/GPServer/ClipCounties";
 
         private Geoprocessor _gpTask;
+		private GraphicsOverlay _inputOverlay;
+		private GraphicsOverlay _resultsOverlay;
 
         /// <summary>Construct Clip Features sample control</summary>
         public ClipFeatures()
         {
             InitializeComponent();
+
+			_inputOverlay = MyMapView.GraphicsOverlays["inputOverlay"];
+			_resultsOverlay = MyMapView.GraphicsOverlays["resultsOverlay"];
 
             _gpTask = new Geoprocessor(new Uri(ClipCountiesServiceUrl));
 
@@ -40,8 +45,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 			try
 			{
 				uiPanel.IsEnabled = false;
-				inputOverlay.Graphics.Clear();
-				resultsOverlay.Graphics.Clear();
+				_inputOverlay.Graphics.Clear();
+				_resultsOverlay.Graphics.Clear();
 
 				foreach (var lyr in MyMapView.Map.Layers.OfType<GPResultImageLayer>())
 					MyMapView.Map.Layers.Remove(lyr);
@@ -50,7 +55,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 				var inputLine = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polyline) as Polyline;
 
 				progress.Visibility = Visibility.Visible;
-				inputOverlay.Graphics.Add(new Graphic() { Geometry = inputLine });
+				_inputOverlay.Graphics.Add(new Graphic() { Geometry = inputLine });
 
 				var parameter = new GPInputParameter();
 				parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Input_Features", inputLine));
@@ -77,7 +82,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 							return;
 						}
 
-						resultsOverlay.Graphics.AddRange(gpLayer.FeatureSet.Features.OfType<Graphic>());
+						_resultsOverlay.Graphics.AddRange(gpLayer.FeatureSet.Features.OfType<Graphic>());
 					}
 				}
 			}

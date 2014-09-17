@@ -14,7 +14,7 @@
             <esri:SimpleRenderer x:Key="FillRenderer" Symbol="{StaticResource FillSymbol}" />
         </Grid.Resources>
 
-        <esri:MapView x:Name="MyMapView" WrapAround="True">
+        <esri:MapView x:Name="MyMapView" WrapAround="True" LayerLoaded="MyMapView_LayerLoaded">
 			<esri:Map InitialViewpoint="-8985039, 4495835, -8114289, 4889487">
                 <esri:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
@@ -23,7 +23,7 @@
                     ServiceUri="http://sampleserver4.arcgisonline.com/ArcGIS/rest/services/HomelandSecurity/Incident_Data_Extraction/MapServer" />
 			</esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="graphicsOverlay" Renderer="{StaticResource FillRenderer}"/>
+				<esri:GraphicsOverlay ID="graphicsOverlay" Renderer="{StaticResource FillRenderer}"/>
 			</esri:MapView.GraphicsOverlays>
 		</esri:MapView>
 

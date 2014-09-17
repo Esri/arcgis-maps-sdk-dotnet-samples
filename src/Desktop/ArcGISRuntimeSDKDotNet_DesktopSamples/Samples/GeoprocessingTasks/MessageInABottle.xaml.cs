@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using System;
@@ -19,10 +20,16 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private const string MessageInABottleServiceUrl =
             "http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_Currents_World/GPServer/MessageInABottle";
 
+		private GraphicsOverlay _inputOverlay;
+		private GraphicsOverlay _resultsOverlay;
+
         /// <summary>Construct Message In A Bottle sample control</summary>
         public MessageInABottle()
         {
             InitializeComponent();
+
+			_inputOverlay = MyMapView.GraphicsOverlays["inputOverlay"];
+			_resultsOverlay = MyMapView.GraphicsOverlays["resultsOverlay"];
         }
 
         // Begin geoprocessing with a user tap on the map
@@ -32,9 +39,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             {
                 Progress.Visibility = Visibility.Visible;
 
-				resultsOverlay.Graphics.Clear();
-                inputOverlay.Graphics.Clear();
-				inputOverlay.Graphics.Add(new Graphic() { Geometry = e.Location });
+				_resultsOverlay.Graphics.Clear();
+                _inputOverlay.Graphics.Clear();
+				_inputOverlay.Graphics.Add(new Graphic() { Geometry = e.Location });
 
                 Geoprocessor geoprocessorTask = new Geoprocessor(new Uri(MessageInABottleServiceUrl));
 
@@ -52,7 +59,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     if (gpParameter is GPFeatureRecordSetLayer)
                     {
                         GPFeatureRecordSetLayer gpLayer = gpParameter as GPFeatureRecordSetLayer;
-						resultsOverlay.Graphics.AddRange(gpLayer.FeatureSet.Features.OfType<Graphic>());
+						_resultsOverlay.Graphics.AddRange(gpLayer.FeatureSet.Features.OfType<Graphic>());
                     }
                 }
             }

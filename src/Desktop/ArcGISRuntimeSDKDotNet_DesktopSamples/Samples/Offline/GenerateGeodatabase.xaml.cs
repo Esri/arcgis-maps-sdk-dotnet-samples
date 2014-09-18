@@ -73,7 +73,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 ReportStatus("Create local feature layers...");
                 await CreateFeatureLayersAsync(gdbPath);
 
-                MyMapView.Map.Layers["mapServiceLayer"].IsVisible = false;
+                MyMapView.Map.Layers["wildfireGroup"].IsVisible = false;
             }
             catch (Exception ex)
             {

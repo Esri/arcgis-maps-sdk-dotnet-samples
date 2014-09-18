@@ -30,6 +30,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 progress.Visibility = Visibility.Visible;
                 resultsGrid.DataContext = null;
 
+				GraphicsOverlay graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
 				graphicsOverlay.Graphics.Clear();
 				graphicsOverlay.Graphics.Add(new Graphic(e.Location));
 

@@ -18,10 +18,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	/// <subcategory>Query</subcategory>
 	public partial class AttributeQuery : UserControl
     {
+		private GraphicsOverlay _graphicsOverlay;
+
         /// <summary>Construct Attribute Query sample control</summary>
         public AttributeQuery()
         {
             InitializeComponent();
+
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
 			InitializeComboBox();
         }
 
@@ -53,7 +57,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 progress.Visibility = Visibility.Visible;
                 resultsGrid.Visibility = Visibility.Collapsed;
                 resultsGrid.ItemsSource = null;
-				graphicsOverlay.Graphics.Clear();
+				_graphicsOverlay.Graphics.Clear();
 
                 QueryTask queryTask = new QueryTask(
                     new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Census_USA/MapServer/5"));
@@ -72,7 +76,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 if (featureSet != null && featureSet.Features.Count > 0)
                 {
                     var graphic = featureSet.Features.First();
-					graphicsOverlay.Graphics.Add(graphic as Graphic);
+					_graphicsOverlay.Graphics.Add(graphic as Graphic);
 
                     var selectedFeatureExtent = graphic.Geometry.Extent;
                     Envelope displayExtent = selectedFeatureExtent.Expand(1.3);

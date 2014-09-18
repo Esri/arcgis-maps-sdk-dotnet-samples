@@ -18,10 +18,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	/// <subcategory>Query</subcategory>
 	public partial class QueryRelatedTables : UserControl
     {
-        /// <summary>Construct Spatial Query sample control</summary>
+		private GraphicsOverlay _wellsOverlay;
+     
+		/// <summary>Construct Spatial Query sample control</summary>
         public QueryRelatedTables()
         {
             InitializeComponent();
+
+			_wellsOverlay = MyMapView.GraphicsOverlays["wellsOverlay"];               
         }
 
         // Select a set of wells near the click point
@@ -29,7 +33,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-				wellsOverlay.Graphics.Clear();
+				_wellsOverlay.Graphics.Clear();
                 wellsGrid.ItemsSource = relationshipsGrid.ItemsSource = null;
 
                 QueryTask queryTask =
@@ -46,7 +50,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var result = await queryTask.ExecuteAsync(query);
                 if (result.FeatureSet.Features != null && result.FeatureSet.Features.Count > 0)
                 {
-					wellsOverlay.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
+					_wellsOverlay.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
                     wellsGrid.ItemsSource = result.FeatureSet.Features;
                     resultsPanel.Visibility = Visibility.Visible;
                 }

@@ -40,9 +40,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.Hydrographic
 
 			// Reference layers that are used
 			_hydrographicGroupLayer = MyMapView.Map.Layers.OfType<GroupLayer>().First();
-			_polygonResultGraphicsOverlay = MyMapView.GraphicsOverlays[0];
-			_lineResultGraphicsOverlay = MyMapView.GraphicsOverlays[1];
-			_pointResultGraphicsOverlay = MyMapView.GraphicsOverlays[2];
+			_polygonResultGraphicsOverlay = MyMapView.GraphicsOverlays["polygonResultsOverlay"];
+			_lineResultGraphicsOverlay = MyMapView.GraphicsOverlays["lineResultsOverlay"];
+			_pointResultGraphicsOverlay = MyMapView.GraphicsOverlays["pointResultsOverlay"];
 			MyMapView.ExtentChanged += MyMapView_ExtentChanged;
 		}
 

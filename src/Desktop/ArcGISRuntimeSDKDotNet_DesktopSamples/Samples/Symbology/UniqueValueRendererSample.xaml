@@ -9,7 +9,7 @@
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
 			</esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay  x:Name="states"/>
+				<esri:GraphicsOverlay ID="states"/>
 			</esri:MapView.GraphicsOverlays>
         </esri:MapView>
 

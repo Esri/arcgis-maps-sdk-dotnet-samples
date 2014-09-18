@@ -31,7 +31,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             _lineSymbol = LayoutRoot.Resources["LineSymbol"] as Symbol;
             _fillSymbol = LayoutRoot.Resources["FillSymbol"] as Symbol;
 
-			_graphicsOverlay = MyMapView.GraphicsOverlays[0];
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
         }
 
         // Find map service items with entered information in given fields

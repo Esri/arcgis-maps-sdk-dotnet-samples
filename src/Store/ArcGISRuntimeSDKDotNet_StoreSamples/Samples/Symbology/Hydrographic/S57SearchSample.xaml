@@ -147,10 +147,10 @@
 				<layers:GroupLayer ID="Hydrographic"/>
 			</esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="graphicsOverlay" />
-				<esri:GraphicsOverlay x:Name="polygonResultsOverlay" Renderer="{StaticResource SelectionRendrer}"/>
-				<esri:GraphicsOverlay x:Name="lineResultsOverlay" Renderer="{StaticResource LineSelectionRenderer}"/>
-				<esri:GraphicsOverlay x:Name="pointResultsOverlay" Renderer="{StaticResource PointSelectionRenderer}"/>
+				<esri:GraphicsOverlay ID="graphicsOverlay" />
+				<esri:GraphicsOverlay ID="polygonResultsOverlay" Renderer="{StaticResource SelectionRendrer}"/>
+				<esri:GraphicsOverlay ID="lineResultsOverlay" Renderer="{StaticResource LineSelectionRenderer}"/>
+				<esri:GraphicsOverlay ID="pointResultsOverlay" Renderer="{StaticResource PointSelectionRenderer}"/>
 			</esri:MapView.GraphicsOverlays>
 		</esri:MapView>
 

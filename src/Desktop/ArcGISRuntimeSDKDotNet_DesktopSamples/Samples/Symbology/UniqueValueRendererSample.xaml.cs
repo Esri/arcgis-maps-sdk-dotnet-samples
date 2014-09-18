@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Layers;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
@@ -20,11 +21,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	public partial class UniqueValueRendererSample : UserControl
     {
         private Random _random = new Random();
+		private GraphicsOverlay _states;
 
         /// <summary>Construct Unique Value Renderer sample control</summary>
         public UniqueValueRendererSample()
         {
             InitializeComponent();
+
+			_states = MyMapView.GraphicsOverlays["states"];
 
             MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
@@ -58,7 +62,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 				Fields = new ObservableCollection<string>(new List<string> { "sub_region" }) 
 			};
 
-            renderer.Infos = new UniqueValueInfoCollection(states.Graphics
+			renderer.Infos = new UniqueValueInfoCollection(_states.Graphics
                 .Select(g => g.Attributes["sub_region"])
                 .Distinct()
                 .Select(obj => new UniqueValueInfo { 
@@ -66,7 +70,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 					Symbol = GetRandomSymbol() 
 				}));
 
-            states.Renderer = renderer;
+			_states.Renderer = renderer;
         }
 
         // Load US state data from map service
@@ -83,8 +87,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             };
             var result = await queryTask.ExecuteAsync(query);
 
-            states.Graphics.Clear();
-            states.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
+			_states.Graphics.Clear();
+			_states.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
         }
 
         // Utility: Generate a random simple fill symbol

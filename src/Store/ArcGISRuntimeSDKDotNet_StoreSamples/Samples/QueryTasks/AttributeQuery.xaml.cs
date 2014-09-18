@@ -23,8 +23,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-			_graphicsOverlay = MyMapView.GraphicsOverlays[0];
-
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
             InitializeComboBox();
         }
 

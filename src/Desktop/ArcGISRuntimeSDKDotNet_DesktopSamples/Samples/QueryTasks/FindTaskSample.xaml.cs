@@ -22,6 +22,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private Symbol _markerSymbol;
         private Symbol _lineSymbol;
         private Symbol _fillSymbol;
+		private GraphicsOverlay _graphicsOverlay;
 
         /// <summary>Construct Find sample control</summary>
         public FindTaskSample()
@@ -30,6 +31,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             _markerSymbol = layoutGrid.Resources["MarkerSymbol"] as Symbol;
             _lineSymbol = layoutGrid.Resources["LineSymbol"] as Symbol;
             _fillSymbol = layoutGrid.Resources["FillSymbol"] as Symbol;
+
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
         }
 
         // Find map service items with entered information in given fields
@@ -40,7 +43,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 progress.Visibility = Visibility.Visible;
                 resultsGrid.Visibility = Visibility.Collapsed;
                 resultsGrid.ItemsSource = null;
-				graphicsOverlay.Graphics.Clear();
+				_graphicsOverlay.Graphics.Clear();
 
                 FindTask findTask = new FindTask(
                     new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer"));
@@ -74,13 +77,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Highlight the selected grid view item on the map
         private void resultsGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-			graphicsOverlay.Graphics.Clear();
+			_graphicsOverlay.Graphics.Clear();
 
             if (e.AddedItems != null && e.AddedItems.Count > 0)
             {
                 var findItem = e.AddedItems.OfType<FindItem>().FirstOrDefault();
                 if (findItem != null)
-					graphicsOverlay.Graphics.Add(new Graphic(findItem.Feature.Geometry, ChooseGraphicSymbol(findItem.Feature.Geometry)));
+					_graphicsOverlay.Graphics.Add(new Graphic(findItem.Feature.Geometry, ChooseGraphicSymbol(findItem.Feature.Geometry)));
             }
         }
 

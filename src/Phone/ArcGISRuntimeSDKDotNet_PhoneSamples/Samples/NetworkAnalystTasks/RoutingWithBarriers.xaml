@@ -13,8 +13,11 @@
             <sym:SimpleRenderer x:Key="RouteRenderer" Symbol="{StaticResource RouteSymbol}" />
         </Grid.Resources>
         <esri:MapView x:Name="mapView1" MapViewTapped="mapView1_Tapped">
-            <esri:Map >
-                <lyr:ArcGISTiledMapServiceLayer ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer" />
+            <esri:Map>
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-117.24377026205757" YMin="32.61710761167467" XMax="-116.95879261773452" YMax="32.841266856294624" SpatialReferenceID="4326" />
+				</esri:Map.InitialViewpoint>
+				<lyr:ArcGISTiledMapServiceLayer ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer" />
                 <lyr:GraphicsLayer ID="MyRouteGraphicsLayer" Renderer="{StaticResource RouteRenderer}" />
                 <lyr:GraphicsLayer ID="MyStopsGraphicsLayer" Renderer="{StaticResource StopRenderer}" />
                 <lyr:GraphicsLayer ID="MyBarriersGraphicsLayer" Renderer="{StaticResource BarrierRenderer}" />

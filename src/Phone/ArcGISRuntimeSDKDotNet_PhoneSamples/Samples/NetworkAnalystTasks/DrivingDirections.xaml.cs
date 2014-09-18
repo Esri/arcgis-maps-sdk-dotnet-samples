@@ -7,6 +7,7 @@ using Esri.ArcGISRuntime.Tasks.Geocoding;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalyst;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -61,11 +62,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     routeLayer.Graphics.Add(graphicLocation);
                 }
 
-                var routeTask = new OnlineRouteTask(new Uri("http://tasks.arcgisonline.com/ArcGIS/rest/services/NetworkAnalysis/ESRI_Route_NA/NAServer/Route"));
+				var routeTask = new OnlineRouteTask(
+					new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route"));
                 RouteParameters routeParams = await routeTask.GetDefaultParametersAsync();
                 routeParams.ReturnRoutes = true;
                 routeParams.ReturnDirections = true;
                 routeParams.DirectionsLengthUnit = LinearUnits.Miles;
+				routeParams.DirectionsLanguage = new CultureInfo("en-Us"); // CultureInfo.CurrentCulture;
                 routeParams.UseTimeWindows = false;
                 routeParams.OutSpatialReference = mapView1.SpatialReference;
                 routeParams.SetStops(routeLayer.Graphics);

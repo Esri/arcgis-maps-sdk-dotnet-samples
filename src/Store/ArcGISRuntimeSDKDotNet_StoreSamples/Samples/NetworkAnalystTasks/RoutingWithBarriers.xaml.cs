@@ -19,7 +19,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
     /// <category>Network Analyst Tasks</category>
     public partial class RoutingWithBarriers : Windows.UI.Xaml.Controls.Page
     {
-        private const string OnlineRoutingService = "http://tasks.arcgisonline.com/ArcGIS/rest/services/NetworkAnalysis/ESRI_Route_NA/NAServer/Route";
+		private const string OnlineRoutingService = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route";
 
         private GraphicsOverlay _routeGraphicsOverlay;
         private GraphicsOverlay _stopGraphicsOverlay;

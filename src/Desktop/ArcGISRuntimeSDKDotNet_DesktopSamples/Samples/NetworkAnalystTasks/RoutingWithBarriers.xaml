@@ -5,21 +5,21 @@
     <Grid>
         <Grid.Resources>
             <esri:SimpleLineSymbol x:Key="RouteSymbol" Color="#990000FF" Style="Solid" Width="3" />
-            <esri:SimpleRenderer x:Key="RouteLayerRenderer" Symbol="{StaticResource RouteSymbol}" />
+            <esri:SimpleRenderer x:Key="RouteRenderer" Symbol="{StaticResource RouteSymbol}" />
 
             <esri:SimpleMarkerSymbol x:Key="BarrierSymbol" Color="Black" Style="X" Size="20" />
-            <esri:SimpleRenderer x:Key="BarrierLayerRenderer" Symbol="{StaticResource BarrierSymbol}" />
+            <esri:SimpleRenderer x:Key="BarrierRenderer" Symbol="{StaticResource BarrierSymbol}" />
         </Grid.Resources>
 
         <esri:MapView x:Name="MyMapView" MapViewTapped="MyMapView_MapViewTapped">
-			<esri:Map InitialViewpoint="-13637527,4545455,-13622931,4552890,3857">
+			<esri:Map InitialViewpoint="-117.24377026205757,32.61710761167467,-116.95879261773452,32.841266856294624,4326">
 				<esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 			</esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay ID="RouteGraphicsOverlay" Renderer="{StaticResource RouteLayerRenderer}" />
+				<esri:GraphicsOverlay ID="RouteGraphicsOverlay" Renderer="{StaticResource RouteRenderer}" />
 				<esri:GraphicsOverlay ID="StopGraphicsOverlay"  />
-				<esri:GraphicsOverlay ID="BarrierGraphicsOverlay" Renderer="{StaticResource BarrierLayerRenderer}"/>
+				<esri:GraphicsOverlay ID="BarrierGraphicsOverlay" Renderer="{StaticResource BarrierRenderer}"/>
 			</esri:MapView.GraphicsOverlays>
 		</esri:MapView>
 

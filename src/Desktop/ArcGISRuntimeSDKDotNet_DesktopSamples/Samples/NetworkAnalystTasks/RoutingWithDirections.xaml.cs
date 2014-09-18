@@ -20,7 +20,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     /// <subcategory>Network Analyst</subcategory>
     public partial class RoutingWithDirections : UserControl
     {
-        private const string OnlineRoutingService = "http://tasks.arcgisonline.com/ArcGIS/rest/services/NetworkAnalysis/ESRI_Route_NA/NAServer/Route";
+		private const string OnlineRoutingService = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route";
 
         private OnlineRouteTask _routeTask;
         private Symbol _directionPointSymbol;

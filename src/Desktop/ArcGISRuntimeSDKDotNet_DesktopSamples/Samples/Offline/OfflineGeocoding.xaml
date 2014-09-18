@@ -60,7 +60,7 @@
 
                 <ProgressBar x:Name="progress" IsIndeterminate="True" Visibility="Collapsed" Margin="12" />
 
-				<ListView x:Name="listResults" DataContext="{Binding ElementName=graphicsOverlay}" ItemsSource="{Binding Graphics}" Margin="0,12,0,0"
+				<ListView x:Name="listResults" DataContext="{Binding ElementName=MyMapView, Path=GraphicsOverlays[graphicsOverlay]}" ItemsSource="{Binding Graphics}" Margin="0,12,0,0"
                           Visibility="Collapsed">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">

@@ -22,11 +22,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private const int MAX_GRAPHICS = 50;
 
         private Random _random = new Random();
+		private GraphicsLayer _graphicsLayer;
 
         /// <summary>Construct Graphics Layer Selection sample control</summary>
         public GraphicsLayerSelection()
         {
             InitializeComponent();
+
+			_graphicsLayer = MyMapView.Map.Layers["graphicsLayer"] as GraphicsLayer;
 			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
         }
 
@@ -77,7 +80,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-				graphicsOverlay.ClearSelection();
+				_graphicsLayer.ClearSelection();
             }
             catch (Exception ex)
             {
@@ -94,7 +97,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 MyMapView.LocationToScreen(new MapPoint(mapRect.XMin, mapRect.YMax, MyMapView.SpatialReference)),
                 MyMapView.LocationToScreen(new MapPoint(mapRect.XMax, mapRect.YMin, MyMapView.SpatialReference)));
 
-			return await graphicsOverlay.HitTestAsync(MyMapView, winRect, MAX_GRAPHICS);
+			return await _graphicsLayer.HitTestAsync(MyMapView, winRect, MAX_GRAPHICS);
         }
 
         // Add new random graphics to the graphics overlay
@@ -102,7 +105,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             for (int n = 1; n <= MAX_GRAPHICS; ++n)
             {
-				graphicsOverlay.Graphics.Add(CreateRandomGraphic());
+				_graphicsLayer.Graphics.Add(CreateRandomGraphic());
             }
         }
 

@@ -22,12 +22,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private const int MAX_GRAPHICS = 50;
 
         private Random _random = new Random();
+		private GraphicsLayer _graphicsLayer;
 
         /// <summary>Construct Graphics Hit Testing sample control</summary>
         public GraphicsHitTesting()
         {
             InitializeComponent();
 
+			_graphicsLayer = MyMapView.Map.Layers["graphicsLayer"] as GraphicsLayer;
 			MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 
@@ -49,7 +51,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-				var graphics = await graphicsOverlay.HitTestAsync(MyMapView, e.Position, MAX_GRAPHICS);
+				var graphics = await _graphicsLayer.HitTestAsync(MyMapView, e.Position, MAX_GRAPHICS);
 
                 string results = "Hit: ";
                 if (graphics == null || graphics.Count() == 0)
@@ -72,7 +74,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 				await MyMapView.LayersLoadedAsync();
 
 				for (int n = 1; n <= MAX_GRAPHICS; ++n)
-					graphicsOverlay.Graphics.Add(CreateRandomGraphic(n));
+					_graphicsLayer.Graphics.Add(CreateRandomGraphic(n));
 			}
 			catch (Exception ex)
 			{

@@ -20,7 +20,7 @@
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 			</esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay ID="RoutesOverlay"  Renderer="{StaticResource routesRenderer}"/>
+				<esri:GraphicsOverlay ID="RoutesOverlay" Renderer="{StaticResource routesRenderer}"/>
 				<esri:GraphicsOverlay ID="StopsOverlay" />
 				<esri:GraphicsOverlay ID="DirectionsOverlay" Renderer="{StaticResource directionsRenderer}" SelectionColor="#CCFF0000"/>
 			</esri:MapView.GraphicsOverlays>

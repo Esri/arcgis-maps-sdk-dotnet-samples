@@ -23,8 +23,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     {
         private const int AnimationDuration = 5000;     // milliseconds (5 second animation)
 
-		private GraphicsOverlay _animatingOverlay;
-		private GraphicsOverlay _userInteractionOverlay;
+		private GraphicsLayer _animatingLayer;
+		private GraphicsLayer _userInteractionLayer;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SmoothGraphicAnimation"/> class.
@@ -33,7 +33,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            _userInteractionOverlay = new GraphicsOverlay()
+			_userInteractionLayer = new GraphicsLayer()
             {
                 Renderer = new SimpleRenderer()
                 {
@@ -45,7 +45,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 }
             };
 
-			_animatingOverlay = new GraphicsOverlay()
+			_animatingLayer = new GraphicsLayer()
             {
                 Renderer = new SimpleRenderer()
                 {
@@ -72,22 +72,22 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private void AddOverlays()
         {
-			MyMapView.GraphicsOverlays.Add(_userInteractionOverlay);
-			MyMapView.GraphicsOverlays.Add(_animatingOverlay);
+			MyMapView.Map.Layers.Add(_userInteractionLayer);
+			MyMapView.Map.Layers.Add(_animatingLayer);
         }
 
         private async Task WaitforMapClick()
         {
 			MapPoint m = await MyMapView.Editor.RequestPointAsync();
 
-			_userInteractionOverlay.Graphics.Add(new Graphic(m));
+			_userInteractionLayer.Graphics.Add(new Graphic(m));
 
-			if (_userInteractionOverlay.Graphics.Count == 2)
+			if (_userInteractionLayer.Graphics.Count == 2)
             {
                 AnimateGraphic();
                 await Task.Delay(AnimationDuration);
-				_userInteractionOverlay.Graphics.Clear();
-				_animatingOverlay.Graphics.Clear();
+				_userInteractionLayer.Graphics.Clear();
+				_animatingLayer.Graphics.Clear();
             }
 
             await WaitforMapClick();
@@ -95,11 +95,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private void AnimateGraphic()
         {
-			MapPoint startPoint = _userInteractionOverlay.Graphics[0].Geometry as MapPoint;
-			MapPoint finishPoint = _userInteractionOverlay.Graphics[1].Geometry as MapPoint;
+			MapPoint startPoint = _userInteractionLayer.Graphics[0].Geometry as MapPoint;
+			MapPoint finishPoint = _userInteractionLayer.Graphics[1].Geometry as MapPoint;
 
             var animatingGraphic = new Graphic(new MapPoint(startPoint.X, startPoint.Y));
-			_animatingOverlay.Graphics.Add(animatingGraphic);
+			_animatingLayer.Graphics.Add(animatingGraphic);
 
             // Framework easing objects may be used to calculate progressive values
             // - i.e. QuinticEase, BackEase, BounceEase, ElasticEase, etc.

@@ -68,7 +68,7 @@
                 <ProgressBar x:Name="progress" IsIndeterminate="True" Visibility="Collapsed" Margin="12" />
 
                 <ListView x:Name="listResults" Margin="0,12,0,0" Visibility="Collapsed"
-                          DataContext="{Binding ElementName=MyMapView, Path=Map.Layers[GraphicsLayer]}" 
+                          DataContext="{Binding ElementName=MyMapView, Path=GraphicsOverlays[graphicsOverlay]}" 
                           ItemsSource="{Binding Graphics}"
                           SelectionMode="Single" SelectionChanged="listResults_SelectionChanged">
 

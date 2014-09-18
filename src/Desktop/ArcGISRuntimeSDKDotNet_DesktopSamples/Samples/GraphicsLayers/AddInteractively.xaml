@@ -16,13 +16,11 @@
         </Grid.Resources>
 
         <esri:MapView x:Name="MyMapView" WrapAround="True">
-            <esri:Map>
+			<esri:Map>
 				<esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
+				<esri:GraphicsLayer ID="graphicsLayer" />
 			</esri:Map>
-			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="graphicsOverlay" />
-			</esri:MapView.GraphicsOverlays>
 		</esri:MapView>
 
 		<Border Background="White" BorderBrush="Black" BorderThickness="1"
@@ -70,7 +68,7 @@
 
                 <Border BorderBrush="Black" BorderThickness="1" Margin="4,8,4,4">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding ElementName=graphicsOverlay, Path=Graphics.Count, StringFormat='Graphics Count:  {0}'}"
+						<TextBlock Text="{Binding ElementName=MyMapView, Path=Map.Layers[graphicsLayer].Graphics.Count, StringFormat='Graphics Count:  {0}'}"
                                    Margin="4" Width="110" VerticalAlignment="Center" />
                         <Button Content="Clear" Click="ClearButton_Click" HorizontalAlignment="Right" />
                     </StackPanel>

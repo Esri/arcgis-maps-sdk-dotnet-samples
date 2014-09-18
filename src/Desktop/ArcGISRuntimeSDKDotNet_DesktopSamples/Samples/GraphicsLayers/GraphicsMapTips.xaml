@@ -4,14 +4,13 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" WrapAround="True" MouseMove="MyMapView_MouseMove">
-            <esri:Map>
+			<esri:Map>
 				<esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
+
+				<esri:GraphicsLayer ID="GraphicsLayer" />
 			</esri:Map>
-			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="graphicsOverlay" />
-			</esri:MapView.GraphicsOverlays>
-            <esri:MapView.Overlays>
+			<esri:MapView.Overlays>
                 <esri:OverlayItemsControl>
                     <Border x:Name="mapTip" Background="White" BorderBrush="Black" BorderThickness="2" 
                             Padding="4" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4"

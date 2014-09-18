@@ -81,7 +81,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 routeParams.OutSpatialReference = MyMapView.SpatialReference;
                 routeParams.ReturnDirections = true;
                 routeParams.DirectionsLengthUnit = LinearUnits.Miles;
-                routeParams.DirectionsLanguage = CultureInfo.CurrentCulture;
+				routeParams.DirectionsLanguage = new CultureInfo("en-Us"); // CultureInfo.CurrentCulture;
                 routeParams.SetStops(_stopsOverlay.Graphics);
 
                 var routeResult = await _routeTask.SolveAsync(routeParams);

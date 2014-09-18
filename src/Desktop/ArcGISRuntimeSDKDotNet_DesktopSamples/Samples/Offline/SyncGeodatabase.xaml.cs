@@ -122,7 +122,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             _syncTask = new GeodatabaseSyncTask(new Uri(BASE_URL));
             _onlineBirdsLayer = MyMapView.Map.Layers.OfType<ArcGISDynamicMapServiceLayer>().First();
-			_graphicsOverlay = graphicsOverlay;
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
             _localBirdsLayer = null;
             CanGenerate = true;
 

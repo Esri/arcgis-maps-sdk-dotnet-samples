@@ -25,7 +25,7 @@
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
             </esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="graphicsOverlay" Renderer="{StaticResource SimpleRenderer}" />
+				<esri:GraphicsOverlay ID="graphicsOverlay" Renderer="{StaticResource SimpleRenderer}" />
 			</esri:MapView.GraphicsOverlays>
 		</esri:MapView>
 

@@ -17,13 +17,15 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	public partial class GraphicsMapTips : UserControl
     {
         private Random _random = new Random();
-
+		private GraphicsLayer _graphicsLayer;
         private bool _isHitTesting;
 
         /// <summary>Construct Graphics Map Tips sample control</summary>
         public GraphicsMapTips()
         {
             InitializeComponent();
+
+			_graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
 
             _isHitTesting = true;
 			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
@@ -47,7 +49,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 _isHitTesting = true;
 
                 System.Windows.Point screenPoint = e.GetPosition(MyMapView);
-				var graphic = await graphicsOverlay.HitTestAsync(MyMapView, screenPoint);
+				var graphic = await _graphicsLayer.HitTestAsync(MyMapView, screenPoint);
                 if (graphic != null)
                 {
                     mapTip.DataContext = graphic;
@@ -71,7 +73,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             for (int n = 1; n <= 20; ++n)
             {
-				graphicsOverlay.Graphics.Add(CreateRandomGraphic(n));
+				_graphicsLayer.Graphics.Add(CreateRandomGraphic(n));
             }
         }
 

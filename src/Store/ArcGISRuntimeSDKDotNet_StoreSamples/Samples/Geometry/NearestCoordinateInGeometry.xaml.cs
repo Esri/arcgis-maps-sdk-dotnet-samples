@@ -34,9 +34,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             _vertexSymbol = new SimpleMarkerSymbol() { Color = Colors.LightGreen, Size = 8, Style = SimpleMarkerStyle.Circle };
             _userPointSymbol = new SimpleMarkerSymbol() { Color = Colors.Black, Size = 10, Style = SimpleMarkerStyle.Circle };
 
-			_graphicsOverlay = MyMapView.GraphicsOverlays[0];
-			_targetOverlay = MyMapView.GraphicsOverlays[1];
-			_coordinateOverlay = MyMapView.GraphicsOverlays[2];
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
+			_targetOverlay = MyMapView.GraphicsOverlays["targetOverlay"];
+			_coordinateOverlay = MyMapView.GraphicsOverlays["coordinateOverlay"];
 
 			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
         }

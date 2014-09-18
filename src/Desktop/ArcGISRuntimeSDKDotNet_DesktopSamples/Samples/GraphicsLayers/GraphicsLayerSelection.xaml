@@ -11,10 +11,9 @@
 			<esri:Map InitialViewpoint="-15053000,2749000,-6540000,6590000">
 				<esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
+
+				<esri:GraphicsLayer ID="graphicsLayer" SelectionColor="Blue" />
 			</esri:Map>
-			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="graphicsOverlay" SelectionColor="Blue" />
-			</esri:MapView.GraphicsOverlays>
 		</esri:MapView>
 		
 		<Border Background="White" BorderBrush="Black" BorderThickness="1"

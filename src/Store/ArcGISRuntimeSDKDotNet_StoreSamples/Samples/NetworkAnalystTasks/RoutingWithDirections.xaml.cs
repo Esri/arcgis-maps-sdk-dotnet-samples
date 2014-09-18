@@ -19,7 +19,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
     /// <category>Network Analyst Tasks</category>
     public partial class RoutingWithDirections : Windows.UI.Xaml.Controls.Page
     {
-        private const string OnlineRoutingService = "http://tasks.arcgisonline.com/ArcGIS/rest/services/NetworkAnalysis/ESRI_Route_NA/NAServer/Route";
+		private const string OnlineRoutingService = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route";
 
         private OnlineRouteTask _routeTask;
         private Symbol _directionPointSymbol;
@@ -32,9 +32,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             InitializeComponent();
       
             _directionPointSymbol = LayoutRoot.Resources["directionPointSymbol"] as Symbol;
-			_stopsOverlay = MyMapView.GraphicsOverlays[1];
-			_routesOverlay = MyMapView.GraphicsOverlays[0];
-			_directionsOverlay = MyMapView.GraphicsOverlays[2];
+			_stopsOverlay = MyMapView.GraphicsOverlays["StopsOverlay"];
+			_routesOverlay = MyMapView.GraphicsOverlays["RoutesOverlay"];
+			_directionsOverlay = MyMapView.GraphicsOverlays["DirectionsOverlay"];
 
             _routeTask = new OnlineRouteTask(new Uri(OnlineRoutingService));
         }
@@ -81,7 +81,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 routeParams.OutSpatialReference = MyMapView.SpatialReference;
                 routeParams.ReturnDirections = true;
                 routeParams.DirectionsLengthUnit = LinearUnits.Miles;
-                routeParams.DirectionsLanguage = CultureInfo.CurrentCulture;
+				routeParams.DirectionsLanguage = new CultureInfo("en-Us"); // CultureInfo.CurrentCulture;
                 routeParams.SetStops(_stopsOverlay.Graphics);
 
                 var routeResult = await _routeTask.SolveAsync(routeParams);

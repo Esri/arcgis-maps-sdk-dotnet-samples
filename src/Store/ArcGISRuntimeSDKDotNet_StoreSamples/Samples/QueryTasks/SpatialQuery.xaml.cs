@@ -45,10 +45,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             try
             {
-				var graphicsOverlay = MyMapView.GraphicsOverlays[2];
+				var graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
                 graphicsOverlay.Graphics.Add(new Graphic() { Geometry = e.Location });
 
-				var bufferOverlay = MyMapView.GraphicsOverlays[1];
+				var bufferOverlay = MyMapView.GraphicsOverlays["bufferOverlay"];
                 var bufferResult = GeometryEngine.Buffer(e.Location, 100);
                 bufferOverlay.Graphics.Add(new Graphic() { Geometry = bufferResult });
 
@@ -65,7 +65,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var queryResult = await queryTask.ExecuteAsync(query);
                 if (queryResult != null && queryResult.FeatureSet != null)
                 {
-					var resultOverlay = MyMapView.GraphicsOverlays[0];
+					var resultOverlay = MyMapView.GraphicsOverlays["parcelOverlay"];
                     resultOverlay.Graphics.AddRange(queryResult.FeatureSet.Features.OfType<Graphic>());
                 }
             }

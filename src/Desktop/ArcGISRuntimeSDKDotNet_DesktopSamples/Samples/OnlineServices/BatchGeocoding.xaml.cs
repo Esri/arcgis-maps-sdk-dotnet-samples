@@ -26,6 +26,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private const string GEOCODE_SERVICE_URL = "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/geocodeAddresses";
 
         public ObservableCollection<SourceAddress> SourceAddresses { get; set; }
+		private GraphicsOverlay _graphicsOverlay;
 
         public BatchGeocoding()
         {
@@ -34,6 +35,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             // Security Setup
             IdentityManager.Current.OAuthAuthorizeHandler = new OAuthAuthorizeHandler();
 			IdentityManager.Current.ChallengeHandler = new ChallengeHandler(PortalSecurity.Challenge);
+
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
 
             // Allow 5 source addresses by default
             SourceAddresses = new ObservableCollection<SourceAddress>();
@@ -51,7 +54,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             try
             {
                 progress.Visibility = Visibility.Visible;
-				graphicsOverlay.Graphics.Clear();
+				_graphicsOverlay.Graphics.Clear();
                 MyMapView.Overlays.Items.Clear();
 
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
@@ -77,7 +80,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 {
                     var location = candidate["location"] as Dictionary<string, object>;
                     MapPoint point = new MapPoint(Convert.ToDouble(location["x"]), Convert.ToDouble(location["y"]), MyMapView.SpatialReference);
-					graphicsOverlay.Graphics.Add(new Graphic(point));
+					_graphicsOverlay.Graphics.Add(new Graphic(point));
 
                     // Create a new templated overlay for the geocoded address
                     var overlay = new ContentControl() { HorizontalAlignment = HorizontalAlignment.Right, VerticalAlignment = VerticalAlignment.Top };
@@ -87,7 +90,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     MyMapView.Overlays.Items.Add(overlay);
                 }
 
-				await MyMapView.SetViewAsync(GeometryEngine.Union(graphicsOverlay.Graphics.Select(g => g.Geometry)).Extent.Expand(1.5));
+				await MyMapView.SetViewAsync(GeometryEngine.Union(_graphicsOverlay.Graphics.Select(g => g.Geometry)).Extent.Expand(1.5));
             }
             catch (Exception ex)
             {

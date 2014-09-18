@@ -16,10 +16,9 @@
             <esri:Map>
 				<esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
+
+				<esri:GraphicsLayer ID="GraphicsLayer" />
 			</esri:Map>
-			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="graphicsOverlay" />
-			</esri:MapView.GraphicsOverlays>
 		</esri:MapView>
     </Grid>
 </UserControl>

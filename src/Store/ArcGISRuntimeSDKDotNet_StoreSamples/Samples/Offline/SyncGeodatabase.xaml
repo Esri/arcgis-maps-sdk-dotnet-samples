@@ -28,7 +28,7 @@
             </esri:Map>
 
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="graphicsOverlay">
+				<esri:GraphicsOverlay ID="graphicsOverlay">
 					<esri:GraphicsOverlay.Renderer>
 						<symb:SimpleRenderer>
 							<symb:SimpleMarkerSymbol Color="Red" Style="Diamond" Size="8" />

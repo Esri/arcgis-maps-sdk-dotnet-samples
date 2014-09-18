@@ -4,13 +4,13 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid x:Name="LayoutRoot">
         <Grid.Resources>
-            <esri:SimpleFillSymbol x:Key="DefaultFillSymbol" Color="Blue"    >
-                <esri:SimpleFillSymbol.Outline>
-                    <esri:SimpleLineSymbol Color="Blue" Width="2"/>
-                </esri:SimpleFillSymbol.Outline>
-            </esri:SimpleFillSymbol>
+			<esri:SimpleFillSymbol x:Key="DefaultFillSymbol" Color="#7F0000FF">
+				<esri:SimpleFillSymbol.Outline>
+					<esri:SimpleLineSymbol Color="Blue" Width="2"/>
+				</esri:SimpleFillSymbol.Outline>
+			</esri:SimpleFillSymbol>
 
-            <Style x:Key="TextBasicStyle" TargetType="TextBlock">
+			<Style x:Key="TextBasicStyle" TargetType="TextBlock">
                 <Setter Property="FontSize" Value="14"/>
             </Style>
             <Style x:Key="TextHeadingStyle" TargetType="TextBlock" BasedOn="{StaticResource TextBasicStyle}">
@@ -27,7 +27,7 @@
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 			</esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="AreaOverlay" />
+				<esri:GraphicsOverlay ID="AreaOverlay" />
 			</esri:MapView.GraphicsOverlays>
 		</esri:MapView>
 

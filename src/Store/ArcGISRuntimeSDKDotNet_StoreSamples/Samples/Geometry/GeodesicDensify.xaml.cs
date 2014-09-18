@@ -25,8 +25,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         private Symbol _fillSymbol;
         private Symbol _origVertexSymbol;
         private Symbol _newVertexSymbol;
-        private GraphicsOverlay _inputGraphics;
-        private GraphicsOverlay _resultGraphics;
+        private GraphicsOverlay _inputOverlay;
+        private GraphicsOverlay _resultsOverlay;
 
         /// <summary>Construct Densify sample control</summary>
         public GeodesicDensify()
@@ -38,8 +38,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             _origVertexSymbol = LayoutRoot.Resources["OrigVertexSymbol"] as Symbol;
             _newVertexSymbol = LayoutRoot.Resources["NewVertexSymbol"] as Symbol;
 
-			_inputGraphics = MyMapView.GraphicsOverlays[0];
-			_resultGraphics = MyMapView.GraphicsOverlays[1];
+			_inputOverlay = MyMapView.GraphicsOverlays["inputOverlay"];
+			_resultsOverlay = MyMapView.GraphicsOverlays["resultsOverlay"];
         }
 
         // Draw and densify a user defined polygon
@@ -48,8 +48,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             try
             {
                 resultsPanel.Visibility = Visibility.Collapsed;
-                _inputGraphics.Graphics.Clear();
-                _resultGraphics.Graphics.Clear();
+                _inputOverlay.Graphics.Clear();
+                _resultsOverlay.Graphics.Clear();
 
                 // Request polygon or polyline from the user
                 DrawShape drawShape = (DrawShape)comboShapeType.SelectedValue;
@@ -64,20 +64,20 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 // Add original shape vertices to input graphics layer
 				var coordsOriginal = (original as Multipart).Parts.First().GetPoints();
                 foreach (var coord in coordsOriginal)
-                    _inputGraphics.Graphics.Add(new Graphic(coord, _origVertexSymbol));
+                    _inputOverlay.Graphics.Add(new Graphic(coord, _origVertexSymbol));
 
                 // Densify the shape
                 var densify = GeometryEngine.GeodesicDensify(original, MyMapView.Extent.Width / 100, LinearUnits.Meters);
 
 				if (densify.GeometryType == GeometryType.Polygon)
-					_inputGraphics.Graphics.Add(new Graphic(densify, _fillSymbol));
+					_inputOverlay.Graphics.Add(new Graphic(densify, _fillSymbol));
 				else
-					_inputGraphics.Graphics.Add(new Graphic(densify, _lineSymbol));
+					_inputOverlay.Graphics.Add(new Graphic(densify, _lineSymbol));
 				
                 // Add new vertices to result graphics layer
 				var coordsDensify = (densify as Multipart).Parts.First().GetPoints();
                 foreach (var coord in coordsDensify)
-                    _resultGraphics.Graphics.Add(new Graphic(coord, _newVertexSymbol));
+                    _resultsOverlay.Graphics.Add(new Graphic(coord, _newVertexSymbol));
 
                 // Results
                 var results = new List<Tuple<string, object>>()

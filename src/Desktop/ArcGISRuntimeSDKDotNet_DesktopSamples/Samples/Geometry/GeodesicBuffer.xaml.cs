@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System;
@@ -16,11 +17,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     public partial class GeodesicBuffer : UserControl
     {
         private SimpleFillSymbol _bufferSymbol;
+		private GraphicsOverlay _graphicsOverlay;
 
         /// <summary>Construct Geodesic Buffer sample control</summary>
         public GeodesicBuffer()
         {
             InitializeComponent();
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
             _bufferSymbol = layoutGrid.Resources["BufferSymbol"] as SimpleFillSymbol;
         }
 
@@ -38,13 +41,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     500, LinearUnits.Miles);
 
                 Graphic bufferGraphic = null;
-                if (graphicsOverlay.Graphics.Count == 0)
+				if (_graphicsOverlay.Graphics.Count == 0)
                 {
                     bufferGraphic = new Graphic { Geometry = buffer, Symbol = _bufferSymbol };
-					graphicsOverlay.Graphics.Add(bufferGraphic);
+					_graphicsOverlay.Graphics.Add(bufferGraphic);
                 }
                 else
-					bufferGraphic = graphicsOverlay.Graphics[0];
+					bufferGraphic = _graphicsOverlay.Graphics[0];
                 bufferGraphic.Geometry = buffer;
             }
             catch (Exception ex)

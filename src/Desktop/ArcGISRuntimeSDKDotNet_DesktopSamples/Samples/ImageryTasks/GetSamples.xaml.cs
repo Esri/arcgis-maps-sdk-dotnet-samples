@@ -18,10 +18,15 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     /// <subcategory>Imagery</subcategory>
     public partial class GetSamples : UserControl
     {
+		private GraphicsOverlay _graphicsOverlay;
+		private FrameworkElement _mapTip;
+
         /// <summary>Construct Get Image Samples sample control</summary>
         public GetSamples()
         {
             InitializeComponent();
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
+			_mapTip = MyMapView.Overlays.Items.First() as FrameworkElement;
             MyMapView.LayerLoaded += MyMapView_LayerLoaded;
         }
 
@@ -38,8 +43,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Start query process on user button click
         private async void GetSamplesButton_Click(object sender, RoutedEventArgs e)
         {
-            graphicsOverlay.Graphics.Clear();
-			mapTip.Visibility = System.Windows.Visibility.Collapsed;
+            _graphicsOverlay.Graphics.Clear();
+			_mapTip.Visibility = System.Windows.Visibility.Collapsed;
 			await QueryImageTiles();
         }
 
@@ -63,7 +68,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
                 var result = await queryTask.ExecuteAsync(query);
 
-				graphicsOverlay.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
+				_graphicsOverlay.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
             }
             catch (Exception ex)
             {
@@ -76,22 +81,22 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-				graphicsOverlay.ClearSelection();
+				_graphicsOverlay.ClearSelection();
 
-				var graphic = await graphicsOverlay.HitTestAsync(MyMapView, e.Position);
+				var graphic = await _graphicsOverlay.HitTestAsync(MyMapView, e.Position);
                 if (graphic != null)
                 {
                     graphic.IsSelected = true;
 					MapView.SetViewOverlayAnchor(mapTip, e.Location);
-                    mapTip.DataContext = graphic;
-                    mapTip.Visibility = System.Windows.Visibility.Visible;
+					_mapTip.DataContext = graphic;
+					_mapTip.Visibility = System.Windows.Visibility.Visible;
                 }
                 else
-                    mapTip.Visibility = System.Windows.Visibility.Collapsed;
+					_mapTip.Visibility = System.Windows.Visibility.Collapsed;
             }
             catch
             {
-                mapTip.Visibility = System.Windows.Visibility.Collapsed;
+				_mapTip.Visibility = System.Windows.Visibility.Collapsed;
             }
         }
     }

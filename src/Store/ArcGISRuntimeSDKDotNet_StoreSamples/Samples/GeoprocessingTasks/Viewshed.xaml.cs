@@ -29,7 +29,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-			_inputOverlay = MyMapView.GraphicsOverlays[0];
+			_inputOverlay = MyMapView.GraphicsOverlays["inputOverlay"];
                 
             _gpTask = new Geoprocessor(new Uri(ViewshedServiceUrl));
         }

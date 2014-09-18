@@ -29,7 +29,7 @@
                     ServiceUri="http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Population_World/MapServer" />
             </esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="areaOverlay" Renderer="{StaticResource AreaRenderer}"/>
+				<esri:GraphicsOverlay ID="areaOverlay" Renderer="{StaticResource AreaRenderer}"/>
 			</esri:MapView.GraphicsOverlays>
 		</esri:MapView>
 

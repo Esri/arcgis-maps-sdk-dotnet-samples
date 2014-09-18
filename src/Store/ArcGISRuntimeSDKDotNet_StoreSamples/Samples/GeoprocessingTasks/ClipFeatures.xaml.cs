@@ -22,15 +22,15 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private Geoprocessor _gpTask;
         private GraphicsOverlay _inputOverlay;
-        private GraphicsOverlay _resultOverlay;
+        private GraphicsOverlay _resultsOverlay;
 
         /// <summary>Construct Clip Features sample control</summary>
         public ClipFeatures()
         {
             InitializeComponent();
 
-			_inputOverlay = MyMapView.GraphicsOverlays[1];
-			_resultOverlay = MyMapView.GraphicsOverlays[0];
+			_inputOverlay = MyMapView.GraphicsOverlays["inputOverlay"];
+			_resultsOverlay = MyMapView.GraphicsOverlays["resultsOverlay"];
 
             _gpTask = new Geoprocessor(new Uri(ClipCountiesServiceUrl));
 
@@ -44,7 +44,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			try
 			{
 				_inputOverlay.Graphics.Clear();
-				_resultOverlay.Graphics.Clear();
+				_resultsOverlay.Graphics.Clear();
 
 				foreach (var lyr in MyMapView.Map.Layers.OfType<GPResultImageLayer>())
 					MyMapView.Map.Layers.Remove(lyr);
@@ -80,7 +80,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 							return;
 						}
 
-						_resultOverlay.Graphics.AddRange(gpLayer.FeatureSet.Features.OfType<Graphic>());
+						_resultsOverlay.Graphics.AddRange(gpLayer.FeatureSet.Features.OfType<Graphic>());
 					}
 				}
 			}

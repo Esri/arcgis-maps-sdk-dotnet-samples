@@ -27,7 +27,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-			_graphicsOverlay = MyMapView.GraphicsOverlays.First();
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
 
             MyMapView.LayerLoaded += MyMapView_LayerLoaded;
         }

@@ -23,12 +23,15 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private Symbol _clipSymbol;
         private FeatureLayer _statesLayer;
 
+		private GraphicsOverlay _clippedGraphicsOverlay;
+
         /// <summary>Construct Clip Geometry sample control</summary>
         public ClipGeometry()
         {
             InitializeComponent();
 
             _clipSymbol = layoutGrid.Resources["ClipRectSymbol"] as Symbol;
+			_clippedGraphicsOverlay = MyMapView.GraphicsOverlays["clippedGraphicsOverlay"];
             CreateFeatureLayers();
         }
 
@@ -54,7 +57,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-				clippedGraphicsOverlay.Graphics.Clear();
+				_clippedGraphicsOverlay.Graphics.Clear();
 
                 // wait for user to draw clip rect
                 var rect = await MyMapView.Editor.RequestShapeAsync(DrawShape.Rectangle);
@@ -72,7 +75,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     .Select(state => GeometryEngine.Clip(state, rect.Extent))
                     .Select(geo => new Graphic(geo, _clipSymbol));
 
-				clippedGraphicsOverlay.Graphics.AddRange(clipGraphics);
+				_clippedGraphicsOverlay.Graphics.AddRange(clipGraphics);
             }
             catch (TaskCanceledException) { }
             catch (Exception ex)

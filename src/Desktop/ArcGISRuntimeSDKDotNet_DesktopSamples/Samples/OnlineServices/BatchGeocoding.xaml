@@ -50,7 +50,7 @@
                     ServiceUri="http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 			</esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="graphicsOverlay" Renderer="{StaticResource markerRenderer}"/>
+				<esri:GraphicsOverlay ID="graphicsOverlay" Renderer="{StaticResource markerRenderer}"/>
 			</esri:MapView.GraphicsOverlays>
         </esri:MapView>
 

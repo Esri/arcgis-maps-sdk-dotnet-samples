@@ -32,8 +32,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-			_graphicsOverlay = MyMapView.GraphicsOverlays[0];
-
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
 			SetupRendererSymbols();
         }
 

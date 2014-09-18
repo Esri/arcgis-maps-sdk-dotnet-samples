@@ -27,7 +27,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-			_earthquakes = MyMapView.GraphicsOverlays[0];
+			_earthquakes = MyMapView.GraphicsOverlays["earthquakes"];
                 
             MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }

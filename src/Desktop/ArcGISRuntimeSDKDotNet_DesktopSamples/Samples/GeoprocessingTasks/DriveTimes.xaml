@@ -32,8 +32,8 @@
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer" />
 			</esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="resultsOverlay"/>
-				<esri:GraphicsOverlay x:Name="inputOverlay">
+				<esri:GraphicsOverlay ID="resultsOverlay"/>
+				<esri:GraphicsOverlay ID="inputOverlay">
 				<esri:GraphicsOverlay.Renderer>
 					<esri:SimpleRenderer Symbol="{StaticResource MarkerSymbol}" />
 					</esri:GraphicsOverlay.Renderer>

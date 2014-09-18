@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Query;
@@ -16,6 +17,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	/// <category>Geometry</category>
 	public partial class Generalize : UserControl
     {
+		private GraphicsOverlay _originalGraphicsOverlay;
+		private GraphicsOverlay _generalizedGraphicsOverlay;
         private SimpleMarkerSymbol _defaultMarkerSymbol;
         private SimpleLineSymbol _defaultLineSymbol;
         private SimpleLineSymbol _generalizedLineSymbol;
@@ -27,6 +30,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             InitializeComponent();
 
 			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
+
+			_originalGraphicsOverlay = MyMapView.GraphicsOverlays["originalOverlay"];
+			_generalizedGraphicsOverlay = MyMapView.GraphicsOverlays["generalizedLineOverlay"];
 
             _defaultMarkerSymbol = layoutGrid.Resources["DefaultMarkerSymbol"] as SimpleMarkerSymbol;
             _defaultLineSymbol = layoutGrid.Resources["DefaultLineSymbol"] as SimpleLineSymbol;
@@ -40,7 +46,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 			MyMapView.NavigationCompleted -= MyMapView_NavigationCompleted; //only listed for it the first time
 			try
             {
-				if (originalOverlay != null && originalOverlay.Graphics.Count == 0)
+				if (_originalGraphicsOverlay != null && _originalGraphicsOverlay.Graphics.Count == 0)
                 {
                     QueryTask queryTask = new QueryTask(
                         new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer/1"));
@@ -56,14 +62,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                         .OfType<Polyline>()
                         .FirstOrDefault();
 
-					originalOverlay.Graphics.Add(new Graphic(river, _defaultLineSymbol));
+					_originalGraphicsOverlay.Graphics.Add(new Graphic(river, _defaultLineSymbol));
 
                     foreach (var part in river.Parts)
                     {
 						foreach (var point in part.GetPoints())
                         {
 							var vertex = new Graphic(point, _defaultMarkerSymbol);
-							originalOverlay.Graphics.Add(vertex);
+							_originalGraphicsOverlay.Graphics.Add(vertex);
                         }
                     }
 
@@ -81,23 +87,23 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                generalizedLineOverlay.Graphics.Clear();
+				_generalizedGraphicsOverlay.Graphics.Clear();
 
                 var offset = DistanceSlider.Value * 1000;
 				var generalizedPolyline = GeometryEngine.Generalize(
-					originalOverlay.Graphics[0].Geometry, offset, false) as Polyline;
+					_originalGraphicsOverlay.Graphics[0].Geometry, offset, false) as Polyline;
 
                 if (generalizedPolyline != null)
                 {
                     var graphic = new Graphic(generalizedPolyline, _generalizedLineSymbol);
-					generalizedLineOverlay.Graphics.Add(graphic);
+					_generalizedGraphicsOverlay.Graphics.Add(graphic);
 
                     foreach (var part in generalizedPolyline.Parts)
                     {
 						foreach (var point in part.GetPoints())
                         {
 							var vertex = new Graphic(point, _generalizedMarkerSymbol);
-							generalizedLineOverlay.Graphics.Add(vertex);
+							_generalizedGraphicsOverlay.Graphics.Add(vertex);
                         }
                     }
                 }

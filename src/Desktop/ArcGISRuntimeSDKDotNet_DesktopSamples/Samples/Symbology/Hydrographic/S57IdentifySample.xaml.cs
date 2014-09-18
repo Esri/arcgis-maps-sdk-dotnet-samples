@@ -28,10 +28,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 	/// <subcategory>Hydrographic</subcategory>
 	public partial class S57IdentifySample : UserControl
 	{
-		GroupLayer _hydrographicLayers;
-		GraphicsOverlay _resultGraphicsOverlay;
-		ObservableCollection<S57FeatureObject> _searchResults;
-		bool _isLoaded;
+		private GroupLayer _hydrographicLayers;
+		private GraphicsOverlay _pointResultGraphicsOverlay;
+		private GraphicsOverlay _lineResultGraphicsOverlay;
+		private GraphicsOverlay _polygonResultGraphicsOverlay;
+		private ObservableCollection<S57FeatureObject> _searchResults;
+		private bool _isLoaded;
 
 		public S57IdentifySample()
 		{
@@ -41,7 +43,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 
 			// Reference layers that are used
 			_hydrographicLayers = MyMapView.Map.Layers.OfType<GroupLayer>().First();
-			_resultGraphicsOverlay = resultOverlay;
+			_polygonResultGraphicsOverlay = MyMapView.GraphicsOverlays["polygonResultsOverlay"];
+			_lineResultGraphicsOverlay = MyMapView.GraphicsOverlays["lineResultsOverlay"];
+			_pointResultGraphicsOverlay = MyMapView.GraphicsOverlays["pointResultsOverlay"];
 			ZoomToHydrographicLayers();
 		}
 
@@ -61,7 +65,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 				// Identify feature objects from layer
 				var results = await hydroLayer.HitTestAsync(MyMapView, e.Position, 10, 3);
 			
-
 				// Add results to results list
 				if (results != null && results.Count > 0)
 				{
@@ -123,14 +126,32 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 		private void resultList_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			// Clear previous selection
-			_resultGraphicsOverlay.Graphics.Clear();
+			_polygonResultGraphicsOverlay.Graphics.Clear();
+			_lineResultGraphicsOverlay.Graphics.Clear();
+			_pointResultGraphicsOverlay.Graphics.Clear();
 
 			// When no results found, this is 0
 			if (e.AddedItems.Count > 0)
 			{
 				// Using single mode so there is only one item
 				var selectedFeatureObject = e.AddedItems[0] as S57FeatureObject;
-				_resultGraphicsOverlay.Graphics.Add(new Graphic(selectedFeatureObject.Geometry));
+
+				var selectedGeometry = selectedFeatureObject.Geometry;
+				if (selectedGeometry is Polygon)
+				{
+					_polygonResultGraphicsOverlay.Graphics.Add(new Graphic(selectedFeatureObject.Geometry));
+					_polygonResultGraphicsOverlay.Graphics[0].IsSelected = true;
+				}
+				else if (selectedGeometry is Polyline)
+				{
+					_lineResultGraphicsOverlay.Graphics.Add(new Graphic(selectedFeatureObject.Geometry));
+					_lineResultGraphicsOverlay.Graphics[0].IsSelected = true;
+				}
+				else if (selectedGeometry is MapPoint)
+				{
+					_pointResultGraphicsOverlay.Graphics.Add(new Graphic(selectedFeatureObject.Geometry));
+					_pointResultGraphicsOverlay.Graphics[0].IsSelected = true;
+				}
 			}
 		}
 	}

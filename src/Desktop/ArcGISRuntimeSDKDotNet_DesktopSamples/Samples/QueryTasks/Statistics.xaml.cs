@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
@@ -21,17 +22,27 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     {
         private const string LAYER_URL = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2";
 
+		private GraphicsOverlay _graphicsOverlay;
+
         /// <summary>Construct Statistics sample control</summary>
         public Statistics()
         {
             InitializeComponent();
 
-			SetupSymbology();
-            RunQuery();
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
+
+			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
         }
 
+		private async void MyMapView_NavigationCompleted(object sender, EventArgs e)
+		{
+			MyMapView.NavigationCompleted -= MyMapView_NavigationCompleted;
+			await SetupSymbology();
+			await RunQuery();
+		}
+
         // Create a unique value renderer by state sub-region name
-		private async void SetupSymbology()
+		private async Task SetupSymbology()
         {
             try
             {
@@ -43,7 +54,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 GenerateRendererParameters rendererParams = new GenerateRendererParameters() { ClassificationDefinition = uvDef };
 
                 var rendererResult = await generateRendererTask.GenerateRendererAsync(rendererParams);
-				graphicsOverlay.Renderer = rendererResult.Renderer;
+				_graphicsOverlay.Renderer = rendererResult.Renderer;
             }
             catch (Exception ex)
             {
@@ -52,12 +63,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         }
 
         // Query states the for graphics and statistics
-        private async void RunQuery()
+        private async Task RunQuery()
         {
             try
             {
                 progress.Visibility = Visibility.Visible;
-				graphicsOverlay.Graphics.Clear();
+				_graphicsOverlay.Graphics.Clear();
                 resultsGrid.ItemsSource = null;
 
                 QueryTask queryTask = new QueryTask(new Uri(LAYER_URL));
@@ -85,7 +96,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 if (result.FeatureSet.Features != null && result.FeatureSet.Features.Count > 0)
                 {
                     await CreateSubRegionLayerGraphics(result.FeatureSet.Features.OfType<Graphic>());
-					resultsGrid.ItemsSource = graphicsOverlay.Graphics;
+					resultsGrid.ItemsSource = _graphicsOverlay.Graphics;
                 }
             }
             catch (Exception ex)
@@ -115,13 +126,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 .GroupBy(g => g.Attributes["sub_region"], g => g.Geometry)
                 .Select(grp => new Graphic(GeometryEngine.Union(grp), statistics.First(stat => grp.Key.Equals(stat.Attributes["sub_region"])).Attributes));
 
-			graphicsOverlay.Graphics.Clear();
-			graphicsOverlay.Graphics.AddRange(regions);
+			_graphicsOverlay.Graphics.Clear();
+			_graphicsOverlay.Graphics.AddRange(regions);
         }
 
         private void resultsGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-			graphicsOverlay.ClearSelection();
+			_graphicsOverlay.ClearSelection();
 
             if (e.AddedItems != null && e.AddedItems.Count > 0)
             {

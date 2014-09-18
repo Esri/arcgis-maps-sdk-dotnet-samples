@@ -1,9 +1,9 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -18,12 +18,25 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	/// <category>Geometry</category>
 	public partial class Boundary : UserControl
     {
+		private GraphicsOverlay _testGraphics;
+		private GraphicsOverlay _boundaryGraphics;
+
         /// <summary>Construct Boundary sample control</summary>
         public Boundary()
         {
             InitializeComponent();
+
+			_testGraphics = MyMapView.GraphicsOverlays["TestGraphics"];
+			_boundaryGraphics = MyMapView.GraphicsOverlays["BoundaryGraphics"];
+
+			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
+	    }
+
+		private void MyMapView_NavigationCompleted(object sender, EventArgs e)
+		{
+			MyMapView.NavigationCompleted -= MyMapView_NavigationCompleted;
 			CreateGraphics();
-        }
+		}
 
         // Setup graphic layers with test graphics and calculated boundaries of each
         private async void CreateGraphics()
@@ -52,8 +65,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             var fillSymbol = new SimpleFillSymbol() { Color = Colors.Red, Style = SimpleFillStyle.Solid };
             var lineSymbol = new SimpleLineSymbol() { Color = Colors.Red, Style = SimpleLineStyle.Solid, Width = 2 };
 
-            testGraphics.Graphics.Add(new Graphic() { Geometry = CreatePolygonBox(left, width), Symbol = fillSymbol });
-            testGraphics.Graphics.Add(new Graphic() { Geometry = CreatePolylineBox(right, width), Symbol = lineSymbol });
+            _testGraphics.Graphics.Add(new Graphic() { Geometry = CreatePolygonBox(left, width), Symbol = fillSymbol });
+            _testGraphics.Graphics.Add(new Graphic() { Geometry = CreatePolylineBox(right, width), Symbol = lineSymbol });
         }
 
         // Calculates the geometric boundaries for each test graphic
@@ -71,11 +84,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 				Size = 12 
 			};
 
-            foreach (var testGraphic in testGraphics.Graphics)
+            foreach (var testGraphic in _testGraphics.Graphics)
             {
                 var boundary = GeometryEngine.Boundary(testGraphic.Geometry);
                 var graphic = new Graphic(boundary, (boundary.GeometryType == GeometryType.Polyline) ? lineSymbol : pointSymbol);
-                boundaryGraphics.Graphics.Add(graphic);
+                _boundaryGraphics.Graphics.Add(graphic);
             }
         }
 

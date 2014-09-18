@@ -22,7 +22,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         private const string DriveTimeServiceUrl =
             "http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Network/ESRI_DriveTime_US/GPServer/CreateDriveTimePolygons";
 
-        private GraphicsOverlay _resultOverlay;
+        private GraphicsOverlay _resultsOverlay;
         private GraphicsOverlay _inputOverlay;
         private List<Symbol> _bufferSymbols;
         private Geoprocessor _gpTask;
@@ -32,8 +32,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-			_resultOverlay = MyMapView.GraphicsOverlays[0];
-			_inputOverlay = MyMapView.GraphicsOverlays[1];
+			_resultsOverlay = MyMapView.GraphicsOverlays["resultsOverlay"];
+			_inputOverlay = MyMapView.GraphicsOverlays["inputOverlay"];
                 
             _bufferSymbols = new List<Symbol>()
             {
@@ -53,7 +53,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 progress.Visibility = Visibility.Visible;
 
                 _inputOverlay.Graphics.Clear();
-                _resultOverlay.Graphics.Clear();
+                _resultsOverlay.Graphics.Clear();
 
                 _inputOverlay.Graphics.Add(new Graphic(e.Location));
 
@@ -64,7 +64,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var result = await _gpTask.ExecuteAsync(parameter);
 
                 var features = result.OutParameters.OfType<GPFeatureRecordSetLayer>().First().FeatureSet.Features;
-                _resultOverlay.Graphics.AddRange(features.Select((fs, idx) => new Graphic(fs.Geometry, _bufferSymbols[idx])));
+                _resultsOverlay.Graphics.AddRange(features.Select((fs, idx) => new Graphic(fs.Geometry, _bufferSymbols[idx])));
             }
             catch (Exception ex)
             {

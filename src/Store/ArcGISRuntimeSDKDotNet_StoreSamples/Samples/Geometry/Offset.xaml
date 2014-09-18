@@ -236,31 +236,31 @@
 				
 				<layers:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
         			ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-				<layers:GraphicsLayer ID="ParcelsGraphicsLayer"  Opacity="0.3" >
-					<layers:GraphicsLayer.Renderer>
+            </esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="ParcelsGraphicsOverlay" Opacity="0.3" >
+					<esri:GraphicsOverlay.Renderer>
 						<symb:SimpleRenderer>
-							<symb:SimpleFillSymbol  Color="#990000FF"    >
+							<symb:SimpleFillSymbol Color="#990000FF">
 								<symb:SimpleFillSymbol.Outline>
 									<symb:SimpleLineSymbol Color="Blue" Width="1"/>
-                                </symb:SimpleFillSymbol.Outline>
-                            </symb:SimpleFillSymbol>
-                        </symb:SimpleRenderer>
-                    </layers:GraphicsLayer.Renderer>
-                </layers:GraphicsLayer>
-
-				<layers:GraphicsLayer ID="OffsetGraphicsLayer" Opacity="0.4"  >
-					<layers:GraphicsLayer.Renderer>
+								</symb:SimpleFillSymbol.Outline>
+							</symb:SimpleFillSymbol>
+						</symb:SimpleRenderer>
+					</esri:GraphicsOverlay.Renderer>
+				</esri:GraphicsOverlay>
+				<esri:GraphicsOverlay  ID="OffsetGraphicsOverlay" Opacity="0.4"  >
+					<esri:GraphicsOverlay.Renderer>
 						<symb:SimpleRenderer>
 							<symb:SimpleFillSymbol  Color="Bisque"    >
 								<symb:SimpleFillSymbol.Outline>
 									<symb:SimpleLineSymbol Color="Green" Width="2"/>
-                                </symb:SimpleFillSymbol.Outline>
-                            </symb:SimpleFillSymbol>
-                        </symb:SimpleRenderer>
-                    </layers:GraphicsLayer.Renderer>
-                </layers:GraphicsLayer>
-
-            </esri:Map>
+								</symb:SimpleFillSymbol.Outline>
+							</symb:SimpleFillSymbol>
+						</symb:SimpleRenderer>
+					</esri:GraphicsOverlay.Renderer>
+				</esri:GraphicsOverlay>
+			</esri:MapView.GraphicsOverlays>
         </esri:MapView>
 
         <Grid HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,15,15,0" >

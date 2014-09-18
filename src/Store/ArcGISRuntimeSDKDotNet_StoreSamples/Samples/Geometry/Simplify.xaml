@@ -32,12 +32,12 @@
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
             </esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="parcelOverlay">
+				<esri:GraphicsOverlay ID="parcelOverlay">
 					<esri:GraphicsOverlay.Renderer>
 						<symb:SimpleRenderer Symbol="{StaticResource ParcelSymbol}" />
 					</esri:GraphicsOverlay.Renderer>
 				</esri:GraphicsOverlay>
-				<esri:GraphicsOverlay x:Name="polygonOverlay">
+				<esri:GraphicsOverlay ID="polygonOverlay">
 					<esri:GraphicsOverlay.Renderer>
 						<symb:SimpleRenderer Symbol="{StaticResource PolygonSymbol}" />
 					</esri:GraphicsOverlay.Renderer>

@@ -8,9 +8,18 @@
              mc:Ignorable="d" 
              d:DesignHeight="1200" d:DesignWidth="1600">
 	<UserControl.Resources>
-		<esri:SimpleLineSymbol x:Key="outlineSelectionSymbol" Color="Black"/>
-		<esri:SimpleFillSymbol x:Key="selectionSymbol" Color="Blue" Style="DiagonalCross" Outline="{StaticResource outlineSelectionSymbol}"/>
-		<esri:SimpleRenderer x:Key="selectionRendrer" Symbol="{StaticResource selectionSymbol}"/>
+		<!-- selected point -->
+		<esri:SimpleRenderer x:Key="PointSelectionRenderer">
+			<esri:SimpleMarkerSymbol Color="Blue" />
+		</esri:SimpleRenderer>
+		<!-- selected polyline -->
+		<esri:SimpleRenderer x:Key="LineSelectionRenderer">
+			<esri:SimpleLineSymbol Color="Blue" Width="2" />
+		</esri:SimpleRenderer>
+		<!-- selected polygon -->
+		<esri:SimpleLineSymbol x:Key="OutlineSelectionSymbol" Color="Black"/>
+		<esri:SimpleFillSymbol x:Key="SelectionSymbol" Color="Blue" Style="DiagonalCross" Outline="{StaticResource OutlineSelectionSymbol}"/>
+		<esri:SimpleRenderer x:Key="SelectionRendrer" Symbol="{StaticResource SelectionSymbol}"/>
 	</UserControl.Resources>
     <Grid>
 		<esri:MapView x:Name="MyMapView" 
@@ -31,7 +40,9 @@
 				</esri:GroupLayer>
 			</esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="resultOverlay" Renderer="{StaticResource selectionRendrer}"/>
+				<esri:GraphicsOverlay ID="polygonResultsOverlay" Renderer="{StaticResource SelectionRendrer}"/>
+				<esri:GraphicsOverlay ID="lineResultsOverlay" Renderer="{StaticResource LineSelectionRenderer}"/>
+				<esri:GraphicsOverlay ID="pointResultsOverlay" Renderer="{StaticResource PointSelectionRenderer}"/>
 			</esri:MapView.GraphicsOverlays>
 		</esri:MapView>
 

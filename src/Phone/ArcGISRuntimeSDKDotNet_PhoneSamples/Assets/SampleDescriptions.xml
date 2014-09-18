@@ -246,6 +246,13 @@
         <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Mensuration.#ctor">
             <summary>Construct Mensuration sample control</summary>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.InteractionOptionsSample">
+            <summary>
+            This sample shows how to change interaction settings that controls the MapView.
+            </summary>
+            <title>Interaction Options</title>
+            <category>Mapping</category>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.CreateWebMap">
             <summary>
             Shows how to create a new webmap from scratch by adding a Basemap and OperationLayers. 

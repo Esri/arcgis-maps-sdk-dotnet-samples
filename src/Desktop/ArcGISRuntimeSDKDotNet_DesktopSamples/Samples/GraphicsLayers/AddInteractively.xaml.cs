@@ -20,6 +20,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         /// <summary>INotifyPropertyChanged notification</summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
+		private GraphicsLayer _graphicsLayer;
+
         private bool _inDrawMode;
         /// <summary>Is In Drawing Mode</summary>
         public bool InDrawMode
@@ -53,6 +55,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             DataContext = this;
             _currentDrawShape = DrawShape.Point;
+			_graphicsLayer = MyMapView.Map.Layers["graphicsLayer"] as GraphicsLayer;
             _inDrawMode = false;
         }
 
@@ -108,7 +111,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
                 // add the new graphic to the graphic layer
                 var graphic = new Graphic(geometry, symbol);
-				graphicsOverlay.Graphics.Add(graphic);
+				_graphicsLayer.Graphics.Add(graphic);
             }
             catch (TaskCanceledException)
             {
@@ -142,7 +145,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
-			graphicsOverlay.Graphics.Clear();
+			_graphicsLayer.Graphics.Clear();
         }
     }
 }

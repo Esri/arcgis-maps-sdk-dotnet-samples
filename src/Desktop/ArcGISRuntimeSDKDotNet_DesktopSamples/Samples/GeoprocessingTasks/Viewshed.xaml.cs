@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using System;
@@ -18,15 +19,20 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	/// <subcategory>Geoprocessing</subcategory>
 	public partial class Viewshed : UserControl
     {
-        private Geoprocessor _gpTask;
+		private const string ViewshedServiceUrl =
+		   "http://serverapps101.esri.com/arcgis/rest/services/ProbabilisticViewshedModel/GPServer/ProbabilisticViewshedModel";
+
+		private GraphicsOverlay _inputOverlay;
+		private Geoprocessor _gpTask;
 
         /// <summary>Construct Viewshed sample control</summary>
         public Viewshed()
         {
             InitializeComponent();
 
-            _gpTask = new Geoprocessor(
-                new Uri("http://serverapps101.esri.com/arcgis/rest/services/ProbabilisticViewshedModel/GPServer/ProbabilisticViewshedModel"));
+			_inputOverlay = MyMapView.GraphicsOverlays["inputOverlay"];
+
+            _gpTask = new Geoprocessor(new Uri(ViewshedServiceUrl));
         }
 
         // Get the users click point on the map and fire off a GP Job to calculate the viewshed
@@ -35,14 +41,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             try
             {
                 uiPanel.IsEnabled = false;
-				inputOverlay.Graphics.Clear();
+				_inputOverlay.Graphics.Clear();
                 MyMapView.Map.Layers.Remove("ViewshedResultsLayer");
 
                 //get the user's input point
                 var inputPoint = await MyMapView.Editor.RequestPointAsync();
 
                 progress.Visibility = Visibility.Visible;
-				inputOverlay.Graphics.Add(new Graphic() { Geometry = inputPoint });
+				_inputOverlay.Graphics.Add(new Graphic() { Geometry = inputPoint });
 
                 var parameter = new GPInputParameter() { OutSpatialReference = SpatialReferences.WebMercator };
                 parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Input_Features", inputPoint));

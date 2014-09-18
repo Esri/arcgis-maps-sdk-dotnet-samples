@@ -26,7 +26,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 		private Geometry _searchGeometry;
 
 		private GroupLayer _hydrographicLayers;
-		private GraphicsOverlay _resultGraphicsOverlay;
+		private GraphicsOverlay _pointResultGraphicsOverlay;
+		private GraphicsOverlay _lineResultGraphicsOverlay;
+		private GraphicsOverlay _polygonResultGraphicsOverlay;
+		private GraphicsOverlay _drawGraphicsOverlay;
 		private ObservableCollection<S57FeatureObject> _searchResults;
 
 		public S57SearchSample()
@@ -40,7 +43,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 
 			// Reference layers that are used
 			_hydrographicLayers = MyMapView.Map.Layers.OfType<GroupLayer>().First();
-			_resultGraphicsOverlay = resultsOverlay;
+			_drawGraphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
+			_polygonResultGraphicsOverlay = MyMapView.GraphicsOverlays["polygonResultsOverlay"];
+			_lineResultGraphicsOverlay = MyMapView.GraphicsOverlays["lineResultsOverlay"];
+			_pointResultGraphicsOverlay = MyMapView.GraphicsOverlays["pointResultsOverlay"];
 			ZoomToHydrographicLayers();
 		}
 
@@ -94,14 +100,33 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 		private async void ResultList_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			// Clear previous selection
-			_resultGraphicsOverlay.Graphics.Clear();
+			_polygonResultGraphicsOverlay.Graphics.Clear();
+			_lineResultGraphicsOverlay.Graphics.Clear();
+			_pointResultGraphicsOverlay.Graphics.Clear();
 
 			// When no results found, this is 0
 			if (e.AddedItems.Count > 0)
 			{
 				// Using single mode so there is only one item
 				var selectedFeatureObject = e.AddedItems[0] as S57FeatureObject;
-				_resultGraphicsOverlay.Graphics.Add(new Graphic(selectedFeatureObject.Geometry));
+
+				var selectedGeometry = selectedFeatureObject.Geometry;
+				if (selectedGeometry is Polygon)
+				{
+					_polygonResultGraphicsOverlay.Graphics.Add(new Graphic(selectedFeatureObject.Geometry));
+					_polygonResultGraphicsOverlay.Graphics[0].IsSelected = true;
+				}
+				else if (selectedGeometry is Polyline)
+				{
+					_lineResultGraphicsOverlay.Graphics.Add(new Graphic(selectedFeatureObject.Geometry));
+					_lineResultGraphicsOverlay.Graphics[0].IsSelected = true;
+				}
+				else if (selectedGeometry is MapPoint)
+				{
+					_pointResultGraphicsOverlay.Graphics.Add(new Graphic(selectedFeatureObject.Geometry));
+					_pointResultGraphicsOverlay.Graphics[0].IsSelected = true;
+				}
+
 				await MyMapView.SetViewAsync(selectedFeatureObject.Geometry.Extent);
 			}
 		}
@@ -120,7 +145,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
             if (MyMapView.Editor.IsActive)
                 MyMapView.Editor.Cancel.Execute(null);
 
-			graphicsOverlay.Graphics.Clear();
+			_drawGraphicsOverlay.Graphics.Clear();
+			searchBtn.IsEnabled = false;
 
 			try
 			{
@@ -152,11 +178,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 
 				// add the new graphic to the graphic layer
 				var graphic = new Graphic(_searchGeometry, symbol);
-				graphicsOverlay.Graphics.Add(graphic);
+				_drawGraphicsOverlay.Graphics.Add(graphic);
+				searchBtn.IsEnabled = true;
 			}
 			catch (TaskCanceledException)
 			{
-				// Ignore cancelations from selecting new shape type
+				searchBtn.IsEnabled = false;
 			}
 			catch (Exception ex)
 			{

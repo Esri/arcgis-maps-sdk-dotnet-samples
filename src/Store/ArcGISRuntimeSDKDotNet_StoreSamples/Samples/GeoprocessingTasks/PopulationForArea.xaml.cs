@@ -26,7 +26,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 		{
 			InitializeComponent();
 
-			_areaOverlay = MyMapView.GraphicsOverlays[0];
+			_areaOverlay = MyMapView.GraphicsOverlays["areaOverlay"];
 		}
 
         // Accept user boundary line and run the Geoprocessing Task to summarize population

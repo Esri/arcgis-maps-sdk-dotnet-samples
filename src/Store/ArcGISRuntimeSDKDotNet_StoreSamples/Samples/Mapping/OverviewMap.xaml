@@ -7,7 +7,7 @@
 	xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
 
     <Grid>
-        <esri:MapView x:Name="MyMapView" ExtentChanged="MyMapView_ExtentChanged">
+        <esri:MapView x:Name="MyMapView">
             <esri:Map>
 				<esri:Map.InitialViewpoint>
 					<esri:ViewpointExtent XMin="-5" YMin="20" XMax="50" YMax="65" SpatialReferenceID="4326" />
@@ -24,7 +24,7 @@
 					<layers:ArcGISTiledMapServiceLayer ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer"  />
                 </esri:Map>
 				<esri:MapView.GraphicsOverlays>
-					<esri:GraphicsOverlay x:Name="overviewOverlay">
+					<esri:GraphicsOverlay ID="overviewOverlay">
 						<esri:GraphicsOverlay.Renderer>
 							<symb:SimpleRenderer>
 								<symb:SimpleFillSymbol Color="#22FF0000">

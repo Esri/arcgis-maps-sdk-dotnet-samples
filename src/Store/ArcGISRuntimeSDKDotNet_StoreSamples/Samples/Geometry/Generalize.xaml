@@ -25,8 +25,8 @@
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" />
             </esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="originalOverlay" />
-				<esri:GraphicsOverlay x:Name="generalizedLineOverlay" />
+				<esri:GraphicsOverlay ID="originalOverlay" />
+				<esri:GraphicsOverlay ID="generalizedLineOverlay" />
 			</esri:MapView.GraphicsOverlays>
 		</esri:MapView>
 

@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Layers;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Threading.Tasks;
@@ -16,11 +17,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	public partial class SimpleRendererSample : UserControl
     {
         private Random _random = new Random();
+		private GraphicsOverlay _graphicsOverlay;
 
         /// <summary>Construct Simple Renderer sample control</summary>
         public SimpleRendererSample()
         {
             InitializeComponent();
+
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
 
             MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
@@ -35,7 +39,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Change the graphics layer renderer to a new SimpleRenderer
         private void ChangeRendererButton_Click(object sender, RoutedEventArgs e)
         {
-			graphicsOverlay.Renderer = new SimpleRenderer() { Symbol = GetRandomSymbol() };
+			_graphicsOverlay.Renderer = new SimpleRenderer() { Symbol = GetRandomSymbol() };
         }
 
         // Accept user map clicks and add points to the graphics layer (use the default symbol from renderer)
@@ -46,7 +50,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 while (MyMapView.Extent != null)
                 {
                     var point = await MyMapView.Editor.RequestPointAsync();
-					graphicsOverlay.Graphics.Add(new Graphic(point));
+					_graphicsOverlay.Graphics.Add(new Graphic(point));
                 }
             }
             catch (TaskCanceledException) { }

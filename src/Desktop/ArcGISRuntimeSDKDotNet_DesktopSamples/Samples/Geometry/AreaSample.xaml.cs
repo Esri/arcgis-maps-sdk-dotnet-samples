@@ -19,11 +19,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private const double toMilesConversion = 0.0006213700922;
         private const double toSqMilesConversion = 0.0000003861003;
 
+		private GraphicsOverlay _graphicsOverlay;
+
         /// <summary>Construct Area sample control</summary>
         public AreaSample()
         {
             InitializeComponent();
-			MyMapView.ExtentChanged += MyMapView_ExtentChanged; 
+			MyMapView.ExtentChanged += MyMapView_ExtentChanged;
+			_graphicsOverlay = MyMapView.GraphicsOverlays["AreaOverlay"];
         }
 
 		private async void MyMapView_ExtentChanged(object sender, EventArgs e)
@@ -40,14 +43,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var geom = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon);
 
                 // show geometry on map
-				AreaOverlay.Graphics.Clear();
+				_graphicsOverlay.Graphics.Clear();
 
                 var graphic = new Graphic 
 				{ 
 					Geometry = geom, 
 					Symbol = LayoutRoot.Resources["DefaultFillSymbol"] as Symbol 
 				};
-				AreaOverlay.Graphics.Add(graphic);
+				_graphicsOverlay.Graphics.Add(graphic);
 
                 // Calculate results
                 var areaPlanar = GeometryEngine.Area(geom);
@@ -86,7 +89,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private void ResetUI()
         {
-			AreaOverlay.Graphics.Clear();
+			_graphicsOverlay.Graphics.Clear();
             Instructions.Visibility = Visibility.Visible;
             Results.Visibility = Visibility.Collapsed;
         }

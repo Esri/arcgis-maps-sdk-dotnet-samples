@@ -23,7 +23,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-			_wellsOverlay = MyMapView.GraphicsOverlays[0];               
+			_wellsOverlay = MyMapView.GraphicsOverlays["wellsOverlay"];               
         }
 
         // Select a set of wells near the click point

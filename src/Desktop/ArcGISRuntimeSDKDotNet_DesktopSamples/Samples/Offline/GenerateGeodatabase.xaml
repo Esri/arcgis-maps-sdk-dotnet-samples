@@ -13,8 +13,22 @@
                 <esri:ArcGISTiledMapServiceLayer DisplayName="Streets Basemap"
                     ServiceUri="http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 
-                <esri:ArcGISDynamicMapServiceLayer ID="mapServiceLayer" DisplayName="Online Map Service"
-                    ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/WildfireSync/MapServer" />
+                
+                <esri:GroupLayer ID="wildfireGroup" DisplayName="Online Wildfire Response">
+                    
+                    <esri:FeatureLayer ID="mapServiceLayer2" DisplayName="Wildfire Response Polygon">
+                        <esri:ServiceFeatureTable ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/WildfireSync/MapServer/2" OutFields="*" UseAdvancedSymbology="True" />
+                    </esri:FeatureLayer>
+
+                    <esri:FeatureLayer ID="mapServiceLayer1" DisplayName="Wildfire Response Polyline ">
+                        <esri:ServiceFeatureTable ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/WildfireSync/MapServer/1" OutFields="*" UseAdvancedSymbology="True"/>
+                    </esri:FeatureLayer>
+
+                    <esri:FeatureLayer ID="mapServiceLayer" DisplayName="Wildfire Response Points">
+                        <esri:ServiceFeatureTable ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/WildfireSync/MapServer/0" OutFields="*" UseAdvancedSymbology="True" />
+                    </esri:FeatureLayer>
+                </esri:GroupLayer>                                                
+                              
             </esri:Map>
         </esri:MapView>
 

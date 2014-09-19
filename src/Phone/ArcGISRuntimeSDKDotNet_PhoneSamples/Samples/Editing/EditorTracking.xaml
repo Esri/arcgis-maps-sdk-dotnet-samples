@@ -34,6 +34,7 @@
                     IsSticky="True">
             <CommandBar.PrimaryCommands>
                 <AppBarButton x:Name="AddButton"
+                              IsEnabled="False"
                               Icon="Add"
                               Label="Add"
                               Click="AddButton_Click"
@@ -71,6 +72,59 @@
                     <AppBarButton.Flyout>
                         <Flyout>
                             <Grid>
+                                <Grid x:Name="LoginPanel" Visibility="Visible">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="150" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0"
+                                               Grid.Column="0"
+                                               Grid.ColumnSpan="2"
+                                               Margin="0,0,0,8"
+                                               TextWrapping="Wrap"
+                                               x:Name="LoginInfo" />
+                                    <TextBlock Grid.Row="1"
+                                               Grid.Column="0"
+                                               Margin="2"
+                                               VerticalAlignment="Center"
+                                               Text="Username" />
+                                    <TextBox Grid.Row="1"
+                                             Grid.Column="1"
+                                             Margin="2"
+                                             x:Name="Username" />
+                                    <TextBlock Grid.Row="2"
+                                               Grid.Column="0"
+                                               Margin="2"
+                                               VerticalAlignment="Center"
+                                               Text="Password" />
+                                    <!-- Yes, the password is visible in this example. Use a PasswordBox to mask the password text. -->
+                                    <TextBox Grid.Row="2"
+                                             Grid.Column="1"
+                                             Margin="2"
+                                             x:Name="Password" />
+                                    <Button Grid.Row="3"
+                                            Grid.Column="0"
+                                            Grid.ColumnSpan="2"
+                                            Margin="0,12,0,0"
+                                            HorizontalAlignment="Center"
+                                            Content="Login and Load Layer"
+                                            Click="SignInButton_Click" />
+                                    <TextBlock Grid.Row="4"
+                                               Grid.Column="0"
+                                               Grid.ColumnSpan="2"
+                                               Margin="8,12,8,0"
+                                               Foreground="Red"
+                                               TextWrapping="Wrap"
+                                               x:Name="ErrorMessage" />
+                                </Grid>
+                                <Grid Visibility="{Binding ElementName=LoginPanel, Path=Visibility, Converter={StaticResource ReverseVisibilityConverter}}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="100" />
                                     <ColumnDefinition Width="150" />
@@ -101,6 +155,7 @@
                                         Grid.ColumnSpan="2"
                                         Margin="2"
                                         Click="SignOutButton_Click" />
+                                </Grid>
                             </Grid>
                         </Flyout>
                     </AppBarButton.Flyout>

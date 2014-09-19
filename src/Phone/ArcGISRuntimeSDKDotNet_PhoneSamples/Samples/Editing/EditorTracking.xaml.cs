@@ -11,6 +11,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -26,6 +27,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
     /// <category>Editing</category>
     public partial class EditorTracking : Page
     {
+        private TaskCompletionSource<Credential> loginTcs; // Used for logging in.
         private Flyout dataForm; // Used for attribute editing.        
         private bool isAdding;
 
@@ -34,6 +36,47 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             InitializeComponent();
             var table = GetFeatureTable();
             table.OutFields = OutFields.All;
+            // You may also use SignInDialog from the Toolkit.
+            IdentityManager.Current.ChallengeHandler = new ChallengeHandler(OnChallenge);
+        }
+
+        private async Task<Credential> OnChallenge(CredentialRequestInfo requestInfo)
+        {
+            // Use Dispatcher to access UIElements
+            var tcs = new TaskCompletionSource<Credential>();
+            if (Dispatcher == null)
+                tcs.TrySetResult(await ChallengeUI(requestInfo));
+            else
+            {
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    new DispatchedHandler(async () =>
+                    {
+                        tcs.TrySetResult(await ChallengeUI(requestInfo));
+                    }));
+            }
+            var credential = await tcs.Task;
+            return credential;
+        }
+
+        private async Task<Credential> ChallengeUI(CredentialRequestInfo requestInfo)
+        {
+            try
+            {
+                // Check ArcGIS Token Secured Services sample for the rest of login code.
+                string username = "user1";
+                string password = "user1";
+                LoginInfo.Tag = requestInfo;
+                LoginInfo.Text = string.Format("Login to: {0}", requestInfo.ServiceUri);
+                Username.Text = username;
+                Password.Text = password;
+                LoginPanel.Visibility = Visibility.Visible;
+                loginTcs = new TaskCompletionSource<Credential>();
+                return await loginTcs.Task;
+            }
+            finally
+            {
+                LoginPanel.Visibility = Visibility.Collapsed;
+            }
         }
                 
         private FeatureLayer GetFeatureLayer()
@@ -57,6 +100,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         
         private void RemoveCredential()
         {
+            attemptCount = 0;
             var table = GetFeatureTable();
             if (table == null)
                 return;
@@ -65,6 +109,29 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 return;
             IdentityManager.Current.RemoveCredential(credential);
             AddButton.IsEnabled = false;
+        }
+
+        int attemptCount = 0;
+        private async void SignInButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (loginTcs == null || loginTcs.Task == null)
+                return;
+            try
+            {
+                var requestInfo = LoginInfo.Tag as CredentialRequestInfo;
+                var username = Username.Text.Trim();
+                var password = Password.Text.Trim();
+                var credentials = await IdentityManager.Current.GenerateCredentialAsync(requestInfo.ServiceUri,
+                   username, password, requestInfo.GenerateTokenOptions);
+                loginTcs.TrySetResult(credentials);
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage.Text = ex.Message;
+                attemptCount++;
+                if (attemptCount >= 3)
+                    loginTcs.TrySetException(ex);
+            }
         }
 
         private void SignOutButton_Click(object sender, RoutedEventArgs e)

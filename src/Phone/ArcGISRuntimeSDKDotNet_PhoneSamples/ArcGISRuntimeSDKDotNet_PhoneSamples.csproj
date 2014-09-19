@@ -172,7 +172,9 @@
     <Compile Include="Samples\ImageryTasks\Mensuration.xaml.cs">
       <DependentUpon>Mensuration.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Mapping\InteractionOptionsSample.xaml.cs" />
+    <Compile Include="Samples\Mapping\InteractionOptionsSample.xaml.cs">
+      <DependentUpon>InteractionOptionsSample.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Portal\CreateWebMap.xaml.cs">
       <DependentUpon>CreateWebMap.xaml</DependentUpon>
     </Compile>
@@ -455,8 +457,8 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Mapping\InteractionOptionsSample.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\Portal\CreateWebMap.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -1,7 +1,5 @@
 ﻿using Esri.ArcGISRuntime.Controls;
-using System;
 using System.Diagnostics;
-using System.Linq;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 
@@ -17,12 +15,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 		public InteractionOptionsSample()
         {
             this.InitializeComponent();
-			MouseWheelInteraction.ItemsSource = Enum.GetValues(typeof(MouseWheelDirection)).Cast<MouseWheelDirection>();
+
 			PanOptions.DataContext = MyMapView.InteractionOptions.PanOptions;
 			ZoomOptions.DataContext = MyMapView.InteractionOptions.ZoomOptions;
 			RotateToggle.DataContext = MyMapView.InteractionOptions.RotationOptions;
 			OptionsToggle.DataContext = MyMapView.InteractionOptions;
-		}
+        }
 
 		private void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
 		{

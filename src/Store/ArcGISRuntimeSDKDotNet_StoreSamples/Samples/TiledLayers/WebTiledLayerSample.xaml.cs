@@ -30,7 +30,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             if (cboLayers == null)
                 return;
 
-            WebTiledLayer webTiledLayer = MyMapView.Map.Layers["WebTiledLayer"] as WebTiledLayer;
+			WebTiledLayer webTiledLayer = new WebTiledLayer() { ID = "WebTiledLayer" };
 
             switch (cboLayers.SelectedIndex)
             {
@@ -105,6 +105,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     webTiledLayer.CopyrightText = "Stamen Toner";
                     break;
             }
+
+			MyMapView.Map.Layers.Remove("WebTiledLayer");
+			MyMapView.Map.Layers.Add(webTiledLayer);
         }
     }
 }

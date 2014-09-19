@@ -96,7 +96,7 @@
     </Compile>
     <Compile Include="Samples\DynamicServiceLayers\WMSLayer.xaml.cs">
       <DependentUpon>WMSLayer.xaml</DependentUpon>
-    </Compile>
+        </Compile>
     <Compile Include="Samples\Editing\EditAttachments.xaml.cs">
       <DependentUpon>EditAttachments.xaml</DependentUpon>
     </Compile>

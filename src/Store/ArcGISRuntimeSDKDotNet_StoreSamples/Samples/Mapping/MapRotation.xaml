@@ -22,7 +22,7 @@
                     <DataTemplate>
                         <TextBlock FontSize="16" HorizontalAlignment="Left">
                             <Run Text="Rotation:  " />
-                            <Run Text="{Binding ElementName=rotationSlider, Path=Value}" FontWeight="Bold" />
+                            <Run Text="{Binding ElementName=MyMapView, Path=Rotation}" FontWeight="Bold" />
                         </TextBlock>
                     </DataTemplate>
                 </Slider.HeaderTemplate>

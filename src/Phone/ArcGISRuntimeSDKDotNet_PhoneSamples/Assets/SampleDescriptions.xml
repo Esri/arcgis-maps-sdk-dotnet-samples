@@ -148,6 +148,13 @@
             <title>Edit Geometry</title>
             <category>Editing</category>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.EditorTracking">
+            <summary>
+            Demonstrates how Identity Manager is used to log-in a token-secured service to identify the user performing edits on feature and how these edits are pushed to the server or canceled.
+            </summary>
+            <title>Editor Tracking</title>
+            <category>Editing</category>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayers">
             <summary>
             

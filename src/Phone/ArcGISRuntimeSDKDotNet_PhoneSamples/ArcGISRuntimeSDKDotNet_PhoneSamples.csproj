@@ -114,6 +114,7 @@
     <Compile Include="Samples\Editing\EditAttachments.xaml.cs" />
     <Compile Include="Samples\Editing\EditAttributes.xaml.cs" />
     <Compile Include="Samples\Editing\EditGeometry.xaml.cs" />
+    <Compile Include="Samples\Editing\EditorTracking.xaml.cs" />
     <Compile Include="Samples\FeatureLayers\FeatureLayers.xaml.cs">
       <DependentUpon>FeatureLayers.xaml</DependentUpon>
     </Compile>
@@ -370,6 +371,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Editing\EditGeometry.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\EditorTracking.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -128,16 +128,14 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.EditAttachments">
             <summary>
-            Demonstrates how attachments can be queried and modified from a ServiceFeatureTable 
-            and how this type of edit is pushed to the server or canceled.
+            Demonstrates how attachments can be queried and modified from a ServiceFeatureTable and how this type of edit is pushed to the server or canceled.
             </summary>
             <title>Edit Attachments</title>
             <category>Editing</category>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.EditAttributes">
             <summary>
-            Demonstrates how attributes of a feature can be modified from a ServiceFeatureTable
-            and how this type of edit is pushed to the server or canceled.
+            Demonstrates how attributes of a feature can be modified from a ServiceFeatureTable and how this type of edit is pushed to the server or canceled.
             </summary>
             <title>Edit Attributes</title>
             <category>Editing</category>

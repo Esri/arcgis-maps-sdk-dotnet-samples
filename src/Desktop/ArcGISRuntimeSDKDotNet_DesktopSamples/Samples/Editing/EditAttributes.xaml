@@ -1,9 +1,11 @@
 ﻿<UserControl x:Class="ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditAttributes"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:ArcGISRuntimeSDKDotNet_DesktopSamples"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
              xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <UserControl.Resources>
+        <local:KeyValueConverter x:Key="KeyValueConverter" />
         <DataTemplate x:Key="MyItemTemplate">
             <TextBlock Text="{Binding Value}" />
         </DataTemplate>

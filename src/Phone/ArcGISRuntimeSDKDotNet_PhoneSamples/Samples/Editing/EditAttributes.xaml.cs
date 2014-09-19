@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Controls;
+﻿using ArcGISRuntimeSDKDotNet_StoreSamples.Common;
+using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Edit;
@@ -17,8 +18,7 @@ using Windows.UI.Xaml.Data;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
-    /// Demonstrates how attributes of a feature can be modified from a ServiceFeatureTable
-    /// and how this type of edit is pushed to the server or canceled.
+    /// Demonstrates how attributes of a feature can be modified from a ServiceFeatureTable and how this type of edit is pushed to the server or canceled.
     /// </summary>
     /// <title>Edit Attributes</title>
     /// <category>Editing</category>
@@ -27,12 +27,28 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public EditAttributes()
         {
             InitializeComponent();
-            var layer = MyMapView.Map.Layers["IncidentsLayer"] as FeatureLayer;
-            var table = (ServiceFeatureTable)layer.FeatureTable;
+            var table = GetFeatureTable();
             table.OutFields = OutFields.All;
         }
 
         private Flyout dataForm;
+
+        private FeatureLayer GetFeatureLayer()
+        {
+            if (MyMapView.Map == null || MyMapView.Map.Layers == null)
+                return null;
+            var layer = MyMapView.Map.Layers["IncidentsLayer"] as FeatureLayer;
+            return layer;
+        }
+
+        private ServiceFeatureTable GetFeatureTable(FeatureLayer ownerLayer = null)
+        {
+            var layer = ownerLayer ?? GetFeatureLayer();
+            if (layer == null || !(layer.FeatureTable is ServiceFeatureTable))
+                return null;
+            var table = (ServiceFeatureTable)layer.FeatureTable;
+            return table;
+        }
 
         private async void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
         {
@@ -60,7 +76,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                         int row = 0;
                         foreach (var field in table.ServiceInfo.Fields)
                         {
-                            var label = new TextBlock() { Text = field.Alias ?? field.Name };
+                            var label = new TextBlock() { Text = field.Alias ?? field.Name, Margin = new Thickness(2d) };
                             label.SetValue(Grid.RowProperty, row);
                             formGrid.Children.Add(label);
                             FrameworkElement value = null;
@@ -69,6 +85,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                             if (field.IsEditable)
                             {
                                 binding.Mode = BindingMode.TwoWay;
+                                var keyValueConverter = this.Resources["KeyValueConverter"] as KeyValueConverter;
                                 if (hasFeatureTypes && table.ServiceInfo.TypeIdField == field.Name)
                                 {
                                     value = new ComboBox() { Margin = new Thickness(2d) };
@@ -76,7 +93,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                                                  select new KeyValuePair<object, string>(t.ID, t.Name);
                                     ((ComboBox)value).ItemsSource = from item in lookup 
                                                                     select item.Value;
-                                    binding.Converter = new KeyValueConverter();
+									binding.Converter = keyValueConverter;
                                     binding.ConverterParameter = lookup;
                                     ((ComboBox)value).SetBinding(ComboBox.SelectedItemProperty, binding);
                                 }
@@ -88,7 +105,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                                         var lookup = ((CodedValueDomain)field.Domain).CodedValues;
                                         ((ComboBox)value).ItemsSource = from item in lookup
                                                                         select item.Value;
-                                        binding.Converter = new KeyValueConverter();
+                                        binding.Converter = keyValueConverter;
                                         binding.ConverterParameter = lookup;
                                     }
                                     else if (field.Domain is RangeDomain<IComparable>)
@@ -168,30 +185,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 await new MessageDialog(message).ShowAsync();
         }
 
-        private ServiceFeatureTable GetFeatureTable()
-        {
-            if (MyMapView == null || MyMapView.Map == null || MyMapView.Map.Layers == null)
-                return null;
-            var layer = MyMapView.Map.Layers["IncidentsLayer"] as FeatureLayer;
-            if (layer == null)
-                return null;
-            if (layer == null)
-                return null;
-            var table = layer.FeatureTable as ServiceFeatureTable;
-            if (table == null)
-                return null;
-            return table;
-        }
-
         private async void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
-            if (MyMapView.Map == null || MyMapView.Map.Layers == null)
-                return;
-            var layer = MyMapView.Map.Layers["IncidentsLayer"] as FeatureLayer;
-            if (layer == null)
-                return;
-            var table = layer.FeatureTable as ServiceFeatureTable;
-            if (table == null)
+            var layer = GetFeatureLayer();
+            var table = GetFeatureTable(layer);
+            if (layer == null || table == null)
                 return;
             layer.ClearSelection();
             string message = null;
@@ -284,48 +282,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             // Cancels the local edits by refreshing features with preserveEdits=false.
             table.RefreshFeatures(false);
             SaveButton.IsEnabled = table.HasEdits;
-        }
-        
-        private class KeyValueConverter : IValueConverter
-        {
-            private bool AreEqual(object first, object second)
-            {
-                if (first is short)
-                {
-                    var firstShort = (short)first;
-                    var secondShort = System.Convert.ToInt16(second, CultureInfo.InvariantCulture);
-                    return Int16.Equals(firstShort, secondShort);
-                }
-                if (first is string)
-                {
-                    var firstString = (string)first;
-                    var secondString = System.Convert.ToString(second, CultureInfo.InvariantCulture);
-                    return string.Equals(firstString, secondString);
-                }
-                return object.Equals(first, second);
-            }
-
-            public object Convert(object value, Type targetType, object parameter, string language)
-            {
-
-                if (parameter is IEnumerable<KeyValuePair<object, string>>)
-                {
-                    var lookup = (IEnumerable<KeyValuePair<object, string>>)parameter;
-                    return lookup.FirstOrDefault(item => AreEqual(value, item.Key)).Value;
-                }
-                return value;
-            }
-
-            public object ConvertBack(object value, Type targetType, object parameter, string language)
-            {
-                if (parameter is IEnumerable<KeyValuePair<object, string>>)
-                {
-                    var lookup = (IEnumerable<KeyValuePair<object, string>>)parameter;
-                    var kvp = lookup.FirstOrDefault(item => AreEqual(value, item.Value));
-                    return kvp.Key;
-                }
-                return value;
-            }
         }
     }
 }

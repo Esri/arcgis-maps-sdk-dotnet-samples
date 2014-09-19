@@ -15,8 +15,7 @@ using System.Windows.Controls;
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
-    /// Demonstrates how geometry of a feature can be modified from a ServiceFeatureTable
-    /// and how this type of edit is pushed to the server or canceled.
+    /// Demonstrates how geometry of a feature can be modified from a ServiceFeatureTable and how this type of edit is pushed to the server or canceled.
     /// </summary>
     /// <title>Edit Geometry</title>
     /// <category>Editing</category>
@@ -36,22 +35,18 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private FeatureLayer GetFeatureLayer()
         {
-            if (MyMapView == null || MyMapView.Map == null || MyMapView.Map.Layers == null)
+            if (MyMapView.Map == null || MyMapView.Map.Layers == null)
                 return null;
             var layer = MyMapView.Map.Layers["ThreatAreas"] as FeatureLayer;
-            if (layer == null)
-                return null;
             return layer;
         }
 
-        private ServiceFeatureTable GetFeatureTable(FeatureLayer owner = null)
+        private ServiceFeatureTable GetFeatureTable(FeatureLayer ownerLayer = null)
         {
-            var layer = owner ?? GetFeatureLayer();
-            if (layer == null)
+            var layer = ownerLayer ?? GetFeatureLayer();
+            if (layer == null || !(layer.FeatureTable is ServiceFeatureTable))
                 return null;
-            var table = layer.FeatureTable as ServiceFeatureTable;
-            if (table == null)
-                return null;
+            var table = (ServiceFeatureTable)layer.FeatureTable;
             return table;
         }
 

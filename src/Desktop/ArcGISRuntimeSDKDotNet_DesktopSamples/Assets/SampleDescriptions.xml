@@ -166,8 +166,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditAttachments">
             <summary>
-            Demonstrates how attachments can be queried and modified from a ServiceFeatureTable
-            and how this type of edit is pushed to the server or canceled.
+            Demonstrates how attachments can be queried and modified from a ServiceFeatureTable and how this type of edit is pushed to the server or canceled.
             </summary>
             <title>Edit Attachments</title>
             <category>Editing</category>
@@ -182,8 +181,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditAttributes">
             <summary>
-            Demonstrates how attributes of a feature can be modified from a ServiceFeatureTable
-            and how this type of edit is pushed to the server or canceled.
+            Demonstrates how attributes of a feature can be modified from a ServiceFeatureTable and how this type of edit is pushed to the server or canceled.
             </summary>
             <title>Edit Attributes</title>
             <category>Editing</category>
@@ -198,8 +196,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditGeometry">
             <summary>
-            Demonstrates how geometry of a feature can be modified from a ServiceFeatureTable
-            and how this type of edit is pushed to the server or canceled.
+            Demonstrates how geometry of a feature can be modified from a ServiceFeatureTable and how this type of edit is pushed to the server or canceled.
             </summary>
             <title>Edit Geometry</title>
             <category>Editing</category>
@@ -208,6 +205,21 @@
             </summary>
         </member>
         <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditGeometry.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditorTracking">
+            <summary>
+            Demonstrates how Identity Manager is used to log-in a token-secured service to identify the user performing edits on feature and how these edits are pushed to the server or canceled.
+            </summary>
+            <title>Editor Tracking</title>
+            <category>Editing</category>
+            <summary>
+            EditorTracking
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditorTracking.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>

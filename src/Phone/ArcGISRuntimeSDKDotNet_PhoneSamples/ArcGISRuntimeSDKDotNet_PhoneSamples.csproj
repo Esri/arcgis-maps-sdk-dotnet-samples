@@ -73,7 +73,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\KeyValueConverter.cs" />
     <Compile Include="Common\NegateBooleanConverter.cs" />
+    <Compile Include="Common\ReverseVisibilityConverter.cs" />
     <Compile Include="ContinuationManager.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>

@@ -18,8 +18,7 @@ using Windows.UI.Xaml.Media.Imaging;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
-    /// Demonstrates how attachments can be queried and modified from a ServiceFeatureTable 
-    /// and how this type of edit is pushed to the server or canceled.
+    /// Demonstrates how attachments can be queried and modified from a ServiceFeatureTable and how this type of edit is pushed to the server or canceled.
     /// </summary>
     /// <title>Edit Attachments</title>
     /// <category>Editing</category>
@@ -30,11 +29,28 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             InitializeComponent();
         }
         
+        private FeatureLayer GetFeatureLayer()
+        {
+            if (MyMapView.Map == null || MyMapView.Map.Layers == null)
+                return null;
+            var layer = MyMapView.Map.Layers["IncidentsLayer"] as FeatureLayer;
+            return layer;
+        }
+
+        private ServiceFeatureTable GetFeatureTable(FeatureLayer ownerLayer)
+        {
+            var layer = ownerLayer ?? GetFeatureLayer();
+            if (layer == null || !(layer.FeatureTable is ServiceFeatureTable))
+                return null;
+            var table = (ServiceFeatureTable)layer.FeatureTable;
+            return table;
+        }
+        
         private async Task QueryAttachmentsAsync(ServiceFeatureTable table, long featureID)
         {
             if (table == null)
                 return;
-            // By default, the attachmentResults is a union of local and server query for attachments.
+            // By default, the result is a union of local and server query for attachments.
             var queryAttachmentResult = await table.QueryAttachmentsAsync(featureID);
             AttachmentList.ItemsSource = queryAttachmentResult != null ? queryAttachmentResult.Infos : null;
             AttachmentsButton.IsEnabled = AttachmentList.Items != null && AttachmentList.Items.Any();
@@ -42,13 +58,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private async void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
-            if (MyMapView.Map == null || MyMapView.Map.Layers == null)
-                return;
-            var layer = MyMapView.Map.Layers["IncidentsLayer"] as FeatureLayer;
-            if (layer == null)
-                return;
-            var table = layer.FeatureTable as ServiceFeatureTable;
-            if (table == null)
+            var layer = GetFeatureLayer();
+            var table = GetFeatureTable(layer);
+            if (layer == null || table == null)
                 return;
             // Updates layer selection and attachment list.
             layer.ClearSelection();
@@ -56,7 +68,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             string message = null;
             try
             {
-                // Selects feature based on hit-test attachmentResults 
+                // Selects feature based on hit-test  
                 // and performs query attachments on the first selected feature.
                 var featureIDs = await layer.HitTestAsync(MyMapView, e.Position);
                 if (featureIDs != null)
@@ -99,19 +111,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             if (attachmentResult == null)
                 return;
-            if (MyMapView.Map == null || MyMapView.Map.Layers == null)
-                return;
-            var layer = MyMapView.Map.Layers["IncidentsLayer"] as FeatureLayer;
-            if (layer == null || layer.SelectedFeatureIDs == null || !layer.SelectedFeatureIDs.Any())
-                return;
-            var table = layer.FeatureTable as ServiceFeatureTable;
-            if (table == null)
+            var layer = GetFeatureLayer();
+            var table = GetFeatureTable(layer);
+            if (layer == null || layer.SelectedFeatureIDs == null || !layer.SelectedFeatureIDs.Any() ||
+                table == null)
                 return;
             string message = null;
             try
             {
-                if (attachmentResult != null)
-                {
                     if (attachmentResult.Error != null)
                         message = attachmentResult.Error.Message;
                     else
@@ -126,7 +133,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     await QueryAttachmentsAsync(table, attachmentResult.ParentID);
                     SaveButton.IsEnabled = table.HasEdits;
                 }
-            }
             catch (Exception ex)
             {
                 message = ex.Message;
@@ -137,13 +143,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private async void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            if (MyMapView.Map == null || MyMapView.Map.Layers == null)
-                return;
-            var layer = MyMapView.Map.Layers["IncidentsLayer"] as FeatureLayer;
-            if (layer == null || layer.SelectedFeatureIDs == null || !layer.SelectedFeatureIDs.Any())
-                return;
-            var table = layer.FeatureTable as ServiceFeatureTable;
-            if (table == null)
+            var layer = GetFeatureLayer();
+            var table = GetFeatureTable(layer);
+            if (layer == null || layer.SelectedFeatureIDs == null || !layer.SelectedFeatureIDs.Any() ||
+                table == null)
                 return;
             var featureID = layer.SelectedFeatureIDs.FirstOrDefault();           
             string message = null;
@@ -164,13 +167,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private async void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
-            if (MyMapView.Map == null || MyMapView.Map.Layers == null)
-                return;
-            var layer = MyMapView.Map.Layers["IncidentsLayer"] as FeatureLayer;
-            if (layer == null || layer.SelectedFeatureIDs == null || !layer.SelectedFeatureIDs.Any())
-                return;
-            var table = layer.FeatureTable as ServiceFeatureTable;
-            if (table == null)
+            var layer = GetFeatureLayer();
+            var table = GetFeatureTable(layer);
+            if (layer == null || layer.SelectedFeatureIDs == null || !layer.SelectedFeatureIDs.Any() ||
+                table == null)
                 return;
             var info = (sender as Button).DataContext as AttachmentInfoItem;
             if (info == null)
@@ -196,13 +196,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private async void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            if (MyMapView.Map == null || MyMapView.Map.Layers == null)
-                return;
-            var layer = MyMapView.Map.Layers["IncidentsLayer"] as FeatureLayer;
-            if (layer == null || layer.SelectedFeatureIDs == null || !layer.SelectedFeatureIDs.Any())
-                return;
-            var table = layer.FeatureTable as ServiceFeatureTable;
-            if (table == null)
+            var layer = GetFeatureLayer();
+            var table = GetFeatureTable(layer);
+            if (layer == null || layer.SelectedFeatureIDs == null || !layer.SelectedFeatureIDs.Any() ||
+                table == null || !table.HasEdits)
                 return;
             var info = (sender as Button).DataContext as AttachmentInfoItem;
             if (info == null)
@@ -292,13 +289,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (MyMapView.Map == null || MyMapView.Map.Layers == null)
-                return;
-            var layer = MyMapView.Map.Layers["IncidentsLayer"] as FeatureLayer;
-            if (layer == null || layer.SelectedFeatureIDs == null || !layer.SelectedFeatureIDs.Any())
-                return;
-            var table = layer.FeatureTable as ServiceFeatureTable;
-            if (table == null || !table.HasEdits)
+            var layer = GetFeatureLayer();
+            var table = GetFeatureTable(layer);
+            if (layer == null || table == null || !table.HasEdits)
                 return;
             string message = null;
             try
@@ -337,13 +330,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private async void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            if (MyMapView.Map == null || MyMapView.Map.Layers == null)
-                return;
-            var layer = MyMapView.Map.Layers["IncidentsLayer"] as FeatureLayer;
-            if (layer == null || layer.SelectedFeatureIDs == null || !layer.SelectedFeatureIDs.Any())
-                return;
-            var table = layer.FeatureTable as ServiceFeatureTable;
-            if (table == null || !table.HasEdits)
+            var layer = GetFeatureLayer();
+            var table = GetFeatureTable(layer);
+            if (layer == null || layer.SelectedFeatureIDs == null || !layer.SelectedFeatureIDs.Any() ||
+                table == null || !table.HasEdits)
                 return;
             string message = null;
             try

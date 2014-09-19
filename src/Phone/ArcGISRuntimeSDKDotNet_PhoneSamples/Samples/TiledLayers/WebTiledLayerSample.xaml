@@ -6,8 +6,11 @@
     xmlns:esriLayers="using:Esri.ArcGISRuntime.Layers">
 
     <Grid>
-        <esri:MapView x:Name="mapView1">
-            <esri:Map >
+        <esri:MapView x:Name="MyMapView">
+            <esri:Map>
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-9840712.566" YMin="5094828.570" XMax="-9684169.532" YMax="5187877.291" SpatialReferenceID="3857" />
+				</esri:Map.InitialViewpoint>
                 <esriLayers:WebTiledLayer ID="webTiledLayer1" />
             </esri:Map>
         </esri:MapView>
@@ -16,8 +19,8 @@
                   Margin="10" HorizontalAlignment="Center" VerticalAlignment="Top" Width="300" Background="Black" 
                   BorderBrush="White" SelectionChanged="webTiledLayerComboBox1_SelectionChanged" />
 
-        <TextBlock Text="{Binding ElementName=mapView1, Path=Map.Layers[webTiledLayer1].CopyrightText}"
+        <!--<TextBlock Text="{Binding ElementName=mapView1, Path=Map.Layers[webTiledLayer1].CopyrightText}"
                    VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="5" 
-                   Foreground="Black" IsHitTestVisible="False" />
+                   Foreground="Black" IsHitTestVisible="False" />-->
     </Grid>
 </Page>

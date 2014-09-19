@@ -22,11 +22,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             if (toggle == null)
                 return;
 
-            if (toggle.IsChecked == true)
-                MyMapView.ManipulationMode = ManipulationModes.All;
-            else
-                MyMapView.ClearValue(UIElement.ManipulationModeProperty);
-        }
+			if (toggle.IsChecked == true)
+				MyMapView.InteractionOptions.RotationOptions.IsEnabled = true;
+			else
+				MyMapView.InteractionOptions.RotationOptions.IsEnabled = false;
+		}
 
 		private void rotationSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
 		{

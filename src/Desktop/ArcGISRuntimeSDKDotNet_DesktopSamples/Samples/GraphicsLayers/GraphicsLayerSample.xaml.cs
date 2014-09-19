@@ -16,10 +16,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	/// <subcategory>Graphics Layers</subcategory>
 	public partial class GraphicsLayerSample : UserControl
     {
+		private GraphicsLayer _graphicsLayer;
+
         /// <summary>Construct graphics layer sample control</summary>
         public GraphicsLayerSample()
         {
             InitializeComponent();
+
+			_graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
 			AddPointGraphics();
 			AddPolyLineGraphics();
         }
@@ -31,22 +35,22 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 			foreach (var symbol in symbols)
 			{
 				Graphic g = new Graphic(new MapPoint(x, 3900000), symbol);
-				graphicsOverlay.Graphics.Add(g);
+				_graphicsLayer.Graphics.Add(g);
 				x += 1000000;
 			}
 
-			graphicsOverlay.Graphics.Add(new Graphic(new MapPoint(-7000000, 3900000), (Symbol)Resources["RedMarkerSymbolCircle"]));
-			graphicsOverlay.Graphics.Add(new Graphic(new MapPoint(-6000000, 3900000), (Symbol)Resources["RedMarkerSymbolCross"]));
-			graphicsOverlay.Graphics.Add(new Graphic(new MapPoint(-5000000, 3900000), (Symbol)Resources["RedMarkerSymbolDiamond"]));
-			graphicsOverlay.Graphics.Add(new Graphic(new MapPoint(-4000000, 3900000), (Symbol)Resources["RedMarkerSymbolSquare"]));
-			graphicsOverlay.Graphics.Add(new Graphic(new MapPoint(-3000000, 3900000), (Symbol)Resources["RedMarkerSymbolTriangle"]));
-			graphicsOverlay.Graphics.Add(new Graphic(new MapPoint(-2000000, 3900000), (Symbol)Resources["RedMarkerSymbolX"]));
+			_graphicsLayer.Graphics.Add(new Graphic(new MapPoint(-7000000, 3900000), (Symbol)Resources["RedMarkerSymbolCircle"]));
+			_graphicsLayer.Graphics.Add(new Graphic(new MapPoint(-6000000, 3900000), (Symbol)Resources["RedMarkerSymbolCross"]));
+			_graphicsLayer.Graphics.Add(new Graphic(new MapPoint(-5000000, 3900000), (Symbol)Resources["RedMarkerSymbolDiamond"]));
+			_graphicsLayer.Graphics.Add(new Graphic(new MapPoint(-4000000, 3900000), (Symbol)Resources["RedMarkerSymbolSquare"]));
+			_graphicsLayer.Graphics.Add(new Graphic(new MapPoint(-3000000, 3900000), (Symbol)Resources["RedMarkerSymbolTriangle"]));
+			_graphicsLayer.Graphics.Add(new Graphic(new MapPoint(-2000000, 3900000), (Symbol)Resources["RedMarkerSymbolX"]));
 		}
 
 		private void AddPolyLineGraphics()
 		{
-			MapPoint ptStart = (MapPoint)graphicsOverlay.Graphics[0].Geometry;
-			MapPoint ptEnd = (MapPoint)graphicsOverlay.Graphics[5].Geometry;
+			MapPoint ptStart = (MapPoint)_graphicsLayer.Graphics[0].Geometry;
+			MapPoint ptEnd = (MapPoint)_graphicsLayer.Graphics[5].Geometry;
 
 			var blueLineGeometry = new Polyline(
 				new List<MapPoint> 
@@ -78,8 +82,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 				Geometry = greenLineGeometry
 			};
 
-			graphicsOverlay.Graphics.Add(blueLine);
-			graphicsOverlay.Graphics.Add(greenLine);
+			_graphicsLayer.Graphics.Add(blueLine);
+			_graphicsLayer.Graphics.Add(greenLine);
 		}
     }
 }

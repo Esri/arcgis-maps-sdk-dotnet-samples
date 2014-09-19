@@ -31,8 +31,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
 			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
 
-			 _originalGraphicsOverlay = MyMapView.GraphicsOverlays[0];
-			 _generalizedGraphicsOverlay = MyMapView.GraphicsOverlays[1];
+			 _originalGraphicsOverlay = MyMapView.GraphicsOverlays["originalOverlay"];
+			 _generalizedGraphicsOverlay = MyMapView.GraphicsOverlays["generalizedLineOverlay"];
 
             _defaultMarkerSymbol = LayoutRoot.Resources["DefaultMarkerSymbol"] as SimpleMarkerSymbol;
             _defaultLineSymbol = LayoutRoot.Resources["DefaultLineSymbol"] as SimpleLineSymbol;

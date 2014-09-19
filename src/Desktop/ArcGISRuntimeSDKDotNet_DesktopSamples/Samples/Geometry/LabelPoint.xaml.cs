@@ -19,11 +19,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	public partial class LabelPoint : UserControl
     {
         private PictureMarkerSymbol _pictureMarkerSymbol;
+		private GraphicsOverlay _labelOverlay;
 
         /// <summary>Construct Label Point sample control</summary>
         public LabelPoint()
         {
             InitializeComponent();
+
+			_labelOverlay = MyMapView.GraphicsOverlays["labelGraphicOverlay"];
 
             MyMapView.ExtentChanged += MyMapView_ExtentChanged;
             SetupSymbols();
@@ -63,17 +66,17 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                         MyMapView.Editor.Cancel.Execute(null);
 
                     //Get the input polygon geometry from the user
-					var poly = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon, ((SimpleRenderer)labelGraphicOverlay.Renderer).Symbol);
+					var poly = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon, ((SimpleRenderer)_labelOverlay.Renderer).Symbol);
                     if (poly != null)
                     {
                         //Add the polygon drawn by the user
-						labelGraphicOverlay.Graphics.Add(new Graphic(poly));
+						_labelOverlay.Graphics.Add(new Graphic(poly));
 
                         //Get the label point for the input geometry
                         var labelPoint = GeometryEngine.LabelPoint(poly);
                         if (labelPoint != null)
                         {
-							labelGraphicOverlay.Graphics.Add(new Graphic(labelPoint, _pictureMarkerSymbol));
+							_labelOverlay.Graphics.Add(new Graphic(labelPoint, _pictureMarkerSymbol));
                         }
                     }
                 }
@@ -88,7 +91,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Clear label graphics and restart calculating label points
         private async void ResetButton_Click(object sender, RoutedEventArgs e)
         {
-			labelGraphicOverlay.Graphics.Clear();
+			_labelOverlay.Graphics.Clear();
             await CalculateLabelPointsAsync();
         }
     }

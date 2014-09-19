@@ -14,11 +14,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public OverviewMap()
         {
             this.InitializeComponent();
+			MyMapView.ExtentChanged += MyMapView_ExtentChanged;
        }
 
         private async void MyMapView_ExtentChanged(object sender, System.EventArgs e)
         {
-			var graphicsOverlay = overviewMap.GraphicsOverlays[0];
+			var graphicsOverlay = overviewMap.GraphicsOverlays["overviewOverlay"];
+
+			// Update overview map graphic
 			Graphic g = graphicsOverlay.Graphics.FirstOrDefault();
             if (g == null) //first time
             {

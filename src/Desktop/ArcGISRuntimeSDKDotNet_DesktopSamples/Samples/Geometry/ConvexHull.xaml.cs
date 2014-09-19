@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System;
@@ -16,6 +17,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	/// <category>Geometry</category>
 	public partial class ConvexHull : UserControl
     {
+		private GraphicsOverlay _inputGraphicsOverlay;
+		private GraphicsOverlay _convexHullGraphicsOverlay;
         private Symbol _pointSymbol;
         private Symbol _polygonSymbol;
 
@@ -24,6 +27,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
+			_inputGraphicsOverlay = MyMapView.GraphicsOverlays["inputGraphicsOverlay"];
+			_convexHullGraphicsOverlay = MyMapView.GraphicsOverlays["convexHullGraphicsOverlay"];
             _pointSymbol = (Symbol)layoutGrid.Resources["PointSymbol"];
             _polygonSymbol = (Symbol)layoutGrid.Resources["ConvexHullSymbol"];
 
@@ -42,15 +47,15 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     var point = await MyMapView.Editor.RequestPointAsync();
 
                     // reset graphics layers if we've already created a convex hull polygon
-                    if (convexHullGraphicsOverlay.Graphics.Count > 0)
+                    if (_convexHullGraphicsOverlay.Graphics.Count > 0)
                     {
-                        inputGraphicsOverlay.Graphics.Clear();
-                        convexHullGraphicsOverlay.Graphics.Clear();
+						_inputGraphicsOverlay.Graphics.Clear();
+						_convexHullGraphicsOverlay.Graphics.Clear();
                     }
 
-                    inputGraphicsOverlay.Graphics.Add(new Graphic(point, _pointSymbol));
+					_inputGraphicsOverlay.Graphics.Add(new Graphic(point, _pointSymbol));
 
-                    if (inputGraphicsOverlay.Graphics.Count > 2)
+					if (_inputGraphicsOverlay.Graphics.Count > 2)
                         btnConvexHull.IsEnabled = true;
                 }
             }
@@ -66,8 +71,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                var convexHull = GeometryEngine.ConvexHull(inputGraphicsOverlay.Graphics.Select(g => g.Geometry));
-				inputGraphicsOverlay.Graphics.Add(new Graphic(convexHull, _polygonSymbol));
+                var convexHull = GeometryEngine.ConvexHull(_inputGraphicsOverlay.Graphics.Select(g => g.Geometry));
+				_convexHullGraphicsOverlay.Graphics.Add(new Graphic(convexHull, _polygonSymbol));
 
                 btnConvexHull.IsEnabled = false;
             }

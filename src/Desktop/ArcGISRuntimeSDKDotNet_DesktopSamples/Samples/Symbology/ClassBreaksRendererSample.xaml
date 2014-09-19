@@ -18,7 +18,7 @@
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
             </esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="earthquakes">
+				<esri:GraphicsOverlay ID="earthquakes">
 					<esri:GraphicsOverlay.Renderer>
 						<esri:ClassBreaksRenderer Field="magnitude" >
 							<esri:ClassBreaksRenderer.Infos>

@@ -5,11 +5,13 @@
     <Grid>
         <esri:MapView x:Name="MyMapView" WrapAround="True">
             <esri:Map>
-                <esri:ArcGISTiledMapServiceLayer
+				<esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
-                <esri:GraphicsLayer x:Name="testGraphics" IsVisible="True" />
-                <esri:GraphicsLayer x:Name="boundaryGraphics" IsVisible="False" />
-            </esri:Map>
+			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="TestGraphics" IsVisible="True" />
+				<esri:GraphicsOverlay ID="BoundaryGraphics" IsVisible="False" />
+			</esri:MapView.GraphicsOverlays>
         </esri:MapView>
 
 		<Border Background="White" BorderBrush="Black" BorderThickness="1"
@@ -21,9 +23,9 @@
             <StackPanel>
                 <StackPanel>
                     <CheckBox Content="Show Test Graphics" Margin="8" 
-                              IsChecked="{Binding ElementName=testGraphics, Path=IsVisible}" />
+                              IsChecked="{Binding ElementName=MyMapView, Path=GraphicsOverlays[TestGraphics].IsVisible}" />
                     <CheckBox Content="Show Boundary Graphics" Margin="8" 
-                              IsChecked="{Binding ElementName=boundaryGraphics, Path=IsVisible}" />
+                             IsChecked="{Binding ElementName=MyMapView, Path=GraphicsOverlays[BoundaryGraphics].IsVisible}" />
                 </StackPanel>
             </StackPanel>
         </Border>

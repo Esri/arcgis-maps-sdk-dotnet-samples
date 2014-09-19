@@ -22,7 +22,7 @@
                         ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 				</esri:Map>
 				<esri:MapView.GraphicsOverlays>
-					<esri:GraphicsOverlay x:Name="overviewOverlay">
+					<esri:GraphicsOverlay ID="overviewOverlay">
 						<esri:GraphicsOverlay.Renderer>
 							<esri:SimpleRenderer>
 								<esri:SimpleFillSymbol Color="#22FF0000">

@@ -39,7 +39,7 @@
 				</esri:FeatureLayer>
             </esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="queryResults" Renderer="{StaticResource BluePointRenderer}" />
+				<esri:GraphicsOverlay ID="queryResults" Renderer="{StaticResource BluePointRenderer}" />
 			</esri:MapView.GraphicsOverlays>
         </esri:MapView>
 		

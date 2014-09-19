@@ -28,8 +28,8 @@
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
             </esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="inputGraphicsOverlay" />
-				<esri:GraphicsOverlay x:Name="convexHullGraphicsOverlay" />
+				<esri:GraphicsOverlay ID="inputGraphicsOverlay" />
+				<esri:GraphicsOverlay ID="convexHullGraphicsOverlay" />
 			</esri:MapView.GraphicsOverlays>
         </esri:MapView>
 

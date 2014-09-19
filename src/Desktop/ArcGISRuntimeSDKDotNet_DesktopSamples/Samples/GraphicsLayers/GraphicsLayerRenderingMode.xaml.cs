@@ -50,23 +50,23 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 			}
 		}
 
-        // Creates a new graphics layer with the specified graphics count and rendering mode
+        // Creates a new graphics z with the specified graphics count and rendering mode
         private async void CreateGraphicsLayerButton_Click(object sender, RoutedEventArgs e)
         {
             if (MyMapView.GraphicsOverlays.Count > 1)
 				MyMapView.GraphicsOverlays.RemoveAt(1);
 
-            var graphicsOverlay = new GraphicsOverlay() { 
+            var graphicsLayer = new GraphicsLayer() { 
 				RenderingMode = (GraphicsRenderingMode)renderingModeCombo.SelectedValue 
 			};
-			MyMapView.GraphicsOverlays.Add(graphicsOverlay);
+			MyMapView.Map.Layers.Add(graphicsLayer);
 
             // Add new graphics if needed
             var numGraphics = (int)graphicCountSlider.Value;
             if (_graphics.Count < numGraphics)
 				await CreateGraphicsAsync(numGraphics - _graphics.Count);
 
-			graphicsOverlay.Graphics.AddRange(_graphics.Take(numGraphics));
+			graphicsLayer.Graphics.AddRange(_graphics.Take(numGraphics));
         }
 
         // Add new random graphics to the graphics layer

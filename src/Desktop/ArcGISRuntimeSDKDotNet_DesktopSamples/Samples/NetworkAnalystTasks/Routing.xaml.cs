@@ -33,9 +33,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            _extentGraphicsOverlay = ExtentGraphicsOverlay;
-            _routeGraphicsOverlay = RouteGraphicsOverlay;
-            _stopsGraphicsOverlay = StopsGraphicsOverlay;
+			_extentGraphicsOverlay = MyMapView.GraphicsOverlays["ExtentGraphicsOverlay"];
+			_routeGraphicsOverlay = MyMapView.GraphicsOverlays["RouteGraphicsOverlay"];
+			_stopsGraphicsOverlay = MyMapView.GraphicsOverlays["StopsGraphicsOverlay"];
 
             var extent = new Envelope(-117.2595, 32.5345, -116.9004, 32.8005, SpatialReferences.Wgs84);
             _extentGraphicsOverlay.Graphics.Add(new Graphic(GeometryEngine.Project(extent, SpatialReferences.WebMercator)));

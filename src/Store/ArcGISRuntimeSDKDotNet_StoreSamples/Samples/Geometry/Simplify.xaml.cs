@@ -26,8 +26,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-			_parcelOverlay = MyMapView.GraphicsOverlays[0];
-			_polygonOverlay = MyMapView.GraphicsOverlays[1];
+			_parcelOverlay = MyMapView.GraphicsOverlays["parcelOverlay"];
+			_polygonOverlay = MyMapView.GraphicsOverlays["polygonOverlay"];
 
 			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
         }

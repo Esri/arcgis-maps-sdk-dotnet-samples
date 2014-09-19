@@ -19,12 +19,14 @@
 					  MapViewTapped="MyMapView_MapViewTapped" 
 					  MapViewDoubleTapped="MyMapView_MapViewDoubleTapped">
 			<esri:Map InitialViewpoint="-13044000, 3855000, -13040000, 3858000, 3857">
-                <esri:ArcGISTiledMapServiceLayer
+				<esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-                <esri:GraphicsLayer x:Name="stopsLayer" Renderer="{StaticResource stopsRenderer}" />
-                <esri:GraphicsLayer x:Name="routesLayer" Renderer="{StaticResource routesRenderer}" />
-                <esri:GraphicsLayer x:Name="directionsLayer" Renderer="{StaticResource directionsRenderer}" />
-            </esri:Map>
+			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="stopsOverlay" Renderer="{StaticResource stopsRenderer}" />
+				<esri:GraphicsOverlay ID="routesOverlay" Renderer="{StaticResource routesRenderer}" />
+				<esri:GraphicsOverlay ID="directionsOverlay" Renderer="{StaticResource directionsRenderer}" />
+			</esri:MapView.GraphicsOverlays>
         </esri:MapView>
 
 		<Border x:Name="panelEdit"
@@ -55,7 +57,9 @@
 
                     <TextBlock Text="Route Details:"  FontSize="16" FontWeight="Bold" />
                     <TextBlock x:Name="txtRouteTotals" Grid.Row="1" FontStyle="Italic" />
-                    <ListView x:Name="listDirections" Grid.Row="2" ItemsSource="{Binding ElementName=directionsLayer, Path=Graphics}" SelectedIndex="0">
+                    <ListView x:Name="listDirections" Grid.Row="2" 
+							  ItemsSource="{Binding ElementName=MyMapView, Path=GraphicsOverlays[directionsOverlay].Graphics}"
+							  SelectedIndex="0">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>

@@ -18,7 +18,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	public partial class GraphicsSourceSample : UserControl
     {
         private Random _random = new Random();
-
+		private GraphicsLayer _graphicsLayer;
         private List<List<Graphic>> _grahicsSources;
         private int _graphicSourceIndex;
 
@@ -26,6 +26,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public GraphicsSourceSample()
         {
             InitializeComponent();
+
+			_graphicsLayer = MyMapView.Map.Layers["graphicsLayer"] as GraphicsLayer;
 			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
 		}
 
@@ -42,7 +44,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             if (_graphicSourceIndex == _grahicsSources.Count)
                 _graphicSourceIndex = 0;
 
-			graphicsOverlay.GraphicsSource = _grahicsSources[_graphicSourceIndex];
+			_graphicsLayer.GraphicsSource = _grahicsSources[_graphicSourceIndex];
         }
 
         // Create three List<Graphic> objects with random graphics to serve as overlay GraphicsSources
@@ -64,7 +66,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             }
 
             _graphicSourceIndex = 0;
-			graphicsOverlay.GraphicsSource = _grahicsSources[_graphicSourceIndex];
+			_graphicsLayer.GraphicsSource = _grahicsSources[_graphicSourceIndex];
         }
 
         // Create a random graphic

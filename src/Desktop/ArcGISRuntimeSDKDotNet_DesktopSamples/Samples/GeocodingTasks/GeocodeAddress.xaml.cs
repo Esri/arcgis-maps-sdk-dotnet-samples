@@ -31,7 +31,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-			_addressOverlay = MyMapView.GraphicsOverlays[0];
+			_addressOverlay = MyMapView.GraphicsOverlays["AddressOverlay"];
             _locatorTask = new OnlineLocatorTask(new Uri(OnlineLocatorUrl));
             _locatorTask.AutoNormalize = true;
 

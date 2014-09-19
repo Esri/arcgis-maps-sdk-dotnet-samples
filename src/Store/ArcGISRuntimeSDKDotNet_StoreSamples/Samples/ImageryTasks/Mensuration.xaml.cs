@@ -37,7 +37,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			_lineSymbol = LayoutRoot.Resources["LineSymbol"] as Symbols.Symbol;
 			_polygonSymbol = LayoutRoot.Resources["PolygonSymbol"] as Symbols.Symbol;
 
-			_graphicsOverlay = MyMapView.GraphicsOverlays.First();
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
 
             comboLinearUnit.ItemsSource = typeof(LinearUnits).GetTypeInfo().DeclaredProperties
 				.Select(p => p.GetValue(null, null))

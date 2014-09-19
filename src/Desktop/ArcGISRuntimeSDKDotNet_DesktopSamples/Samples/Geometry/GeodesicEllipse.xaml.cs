@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System;
@@ -17,6 +18,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     {
         private Symbol _pinSymbol;
         private Symbol _sectorSymbol;
+		private GraphicsOverlay _graphicsOverlay;
 
         /// <summary>Construct Geodesic Ellipse sample control</summary>
         public GeodesicEllipse()
@@ -25,6 +27,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             _pinSymbol = layoutGrid.Resources["PointSymbol"] as Symbol;
             _sectorSymbol = layoutGrid.Resources["SectorSymbol"] as Symbol;
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
         }
 
         private async void EllipseButton_Click(object sender, RoutedEventArgs e)
@@ -50,9 +53,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     var ellipse = GeometryEngine.GeodesicEllipse(param);
 
                     //show geometries on map
-					graphicsOverlay.Graphics.Clear();
-					graphicsOverlay.Graphics.Add(new Graphic(point, _pinSymbol));
-					graphicsOverlay.Graphics.Add(new Graphic(ellipse));
+					_graphicsOverlay.Graphics.Clear();
+					_graphicsOverlay.Graphics.Add(new Graphic(point, _pinSymbol));
+					_graphicsOverlay.Graphics.Add(new Graphic(ellipse));
 
                     // geodesic sector
                     if ((bool)chkSector.IsChecked)
@@ -67,7 +70,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                         };
                         var sector = GeometryEngine.GeodesicSector(sectorParams);
 
-						graphicsOverlay.Graphics.Add(new Graphic(sector, _sectorSymbol));
+						_graphicsOverlay.Graphics.Add(new Graphic(sector, _sectorSymbol));
                     }
                 }
             }

@@ -19,6 +19,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	public partial class GeodesicMove : UserControl
     {
         private Symbol _origSymbol;
+		private GraphicsOverlay _originalOverlay;
+		private GraphicsOverlay _movedOverlay;
 
         /// <summary>Construct Geodesic Move sample control</summary>
         public GeodesicMove()
@@ -26,6 +28,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             InitializeComponent();
 
             _origSymbol = layoutGrid.Resources["OriginalSymbol"] as Symbol;
+			_originalOverlay = MyMapView.GraphicsOverlays["originalOverlay"];
+			_movedOverlay = MyMapView.GraphicsOverlays["movedOverlay"];
 
             MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
@@ -57,12 +61,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                movedOverlay.Graphics.Clear();
-				originalOverlay.Graphics.Clear();
+                _movedOverlay.Graphics.Clear();
+				_originalOverlay.Graphics.Clear();
 
                 var polygon = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon, _origSymbol);
 
-				originalOverlay.Graphics.Add(new Graphic(polygon));
+				_originalOverlay.Graphics.Add(new Graphic(polygon));
             }
             catch (TaskCanceledException) { }
             catch (Exception ex)
@@ -76,10 +80,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                if (originalOverlay.Graphics.Count == 0)
+                if (_originalOverlay.Graphics.Count == 0)
                     throw new ApplicationException("Digitize a polygon to move.");
 
-				var coords = originalOverlay.Graphics[0].Geometry as Multipart;
+				var coords = _originalOverlay.Graphics[0].Geometry as Multipart;
                 if (coords == null)
                     throw new ApplicationException("Digitize a polygon to move.");
 
@@ -89,8 +93,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var movedPoints = GeometryEngine.GeodesicMove(points, distance, LinearUnits.Miles, azimuth);
 
                 Polygon movedPoly = new Polygon(movedPoints, MyMapView.SpatialReference);
-				movedOverlay.Graphics.Clear();
-				movedOverlay.Graphics.Add(new Graphic(movedPoly));
+				_movedOverlay.Graphics.Clear();
+				_movedOverlay.Graphics.Add(new Graphic(movedPoly));
             }
             catch (Exception ex)
             {

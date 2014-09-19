@@ -31,7 +31,7 @@
                     ServiceUri="http://sampleserver4.arcgisonline.com/ArcGIS/rest/services/HomelandSecurity/Incident_Data_Extraction/MapServer" />
             </esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="graphicsOverlay" Renderer="{StaticResource FillRenderer}"/>
+				<esri:GraphicsOverlay ID="graphicsOverlay" Renderer="{StaticResource FillRenderer}"/>
 			</esri:MapView.GraphicsOverlays>
 		</esri:MapView>
 

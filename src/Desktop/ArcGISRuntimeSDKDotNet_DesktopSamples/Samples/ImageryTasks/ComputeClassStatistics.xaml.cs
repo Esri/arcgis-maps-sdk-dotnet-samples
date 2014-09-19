@@ -19,11 +19,15 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     /// <subcategory>Imagery</subcategory>
     public partial class ComputeClassStatistics : UserControl
     {
+		private ArcGISImageServiceLayer _imageLayer;
+		private GraphicsOverlay _graphicsOverlay;
+
         /// <summary>Construct compute class statistics sample control</summary>
         public ComputeClassStatistics()
         {
             InitializeComponent();
 
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
             MyMapView.LayerLoaded += MyMapView_LayerLoaded;
         }
 
@@ -35,6 +39,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 if (e.Layer.FullExtent != null)
                     await MyMapView.SetViewAsync(e.Layer.FullExtent);
 
+				_imageLayer = (ArcGISImageServiceLayer)e.Layer;
                 await AcceptClassPointsAsync();
             }
         }
@@ -44,6 +49,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
+				if (_graphicsOverlay.Graphics.Count < 2)
+					throw new ArgumentException("Before computing statistics, enter two or more class definition areas by clicking the image on the map.");
+
                 progress.Visibility = Visibility.Visible;
                 if (MyMapView.Editor.IsActive)
                     MyMapView.Editor.Cancel.Execute(null);
@@ -51,7 +59,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var statsTask = new ComputeClassStatisticsTask(new Uri(imageLayer.ServiceUri));
 
                 var statsParam = new ComputeClassStatisticsParameters();
-				statsParam.ClassDescriptions = graphicsOverlay.Graphics
+				statsParam.ClassDescriptions = _graphicsOverlay.Graphics
                     .Select((g, idx) => new ClassDescription(idx, idx.ToString(), g.Geometry as Polygon)).ToList();
 
                 var result = await statsTask.ComputeClassStatisticsAsync(statsParam);
@@ -76,7 +84,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Reset the rendering rule for the image layer and restart accepting loop
         private async void ResetButton_Click(object sender, RoutedEventArgs e)
         {
-			graphicsOverlay.Graphics.Clear();
+			_graphicsOverlay.Graphics.Clear();
             imageLayer.RenderingRule = null;
             await AcceptClassPointsAsync();
         }
@@ -91,8 +99,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 {
                     var point = await MyMapView.Editor.RequestPointAsync();
                     var polygon = GeometryEngine.Buffer(point, MyMapView.Extent.Width * .01);
-					var attr = new Dictionary<string, object>() { { "ID", graphicsOverlay.Graphics.Count + 1 } };
-					graphicsOverlay.Graphics.Add(new Graphic(polygon, attr));
+					var attr = new Dictionary<string, object>() { { "ID", _graphicsOverlay.Graphics.Count + 1 } };
+					_graphicsOverlay.Graphics.Add(new Graphic(polygon, attr));
                 }
             }
             catch (TaskCanceledException)

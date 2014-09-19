@@ -20,12 +20,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	public partial class LineFillSymbols : UserControl
     {
         private List<SampleSymbol> _symbols;
+		private GraphicsOverlay _graphicsOverlay;
 
         /// <summary>Construct Line and Fill Symbols sample control</summary>
         public LineFillSymbols()
         {
             InitializeComponent();
 
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
             MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 
@@ -64,7 +66,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     else
                         shape = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon, sampleSymbol.Symbol);
 
-					graphicsOverlay.Graphics.Add(new Graphic(shape, sampleSymbol.Symbol));
+					_graphicsOverlay.Graphics.Add(new Graphic(shape, sampleSymbol.Symbol));
 					await Task.Delay(100);
                 }
             }

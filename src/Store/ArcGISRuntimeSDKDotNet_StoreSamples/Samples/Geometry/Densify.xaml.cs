@@ -20,8 +20,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         private Symbol _origVertexSymbol;
         private Symbol _newVertexSymbol;
 
-        private GraphicsOverlay _inputGraphics;
-        private GraphicsOverlay _resultGraphics;
+        private GraphicsOverlay _inputOverlay;
+        private GraphicsOverlay _resultOverlay;
 
         /// <summary>Construct Densify sample control</summary>
         public Densify()
@@ -32,8 +32,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             _origVertexSymbol = LayoutRoot.Resources["OrigVertexSymbol"] as Symbol;
             _newVertexSymbol = LayoutRoot.Resources["NewVertexSymbol"] as Symbol;
 
-			_inputGraphics = MyMapView.GraphicsOverlays[0];
-			_resultGraphics = MyMapView.GraphicsOverlays[1];
+			_inputOverlay = MyMapView.GraphicsOverlays["inputOverlay"];
+			_resultOverlay = MyMapView.GraphicsOverlays["resultsOverlay"];
         }
 
         // Draw and densify a user defined polygon
@@ -41,17 +41,17 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             try
             {
-                _inputGraphics.Graphics.Clear();
-                _resultGraphics.Graphics.Clear();
+                _inputOverlay.Graphics.Clear();
+                _resultOverlay.Graphics.Clear();
 
                 // Request polygon from the user
                 var poly = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon, _polySymbol) as Polygon;
 
                 // Add original polygon and vertices to input graphics layer
-                _inputGraphics.Graphics.Add(new Graphic(poly, _polySymbol));
+                _inputOverlay.Graphics.Add(new Graphic(poly, _polySymbol));
 				foreach (var coord in poly.Parts.First().GetPoints())
                 {
-                    _inputGraphics.Graphics.Add(new Graphic(coord, _origVertexSymbol));
+                    _inputOverlay.Graphics.Add(new Graphic(coord, _origVertexSymbol));
                 }
 
                 // Densify the polygon
@@ -60,7 +60,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 // Add new vertices to result graphics layer
 				foreach (var coord in densify.Parts.First().GetPoints())
                 {
-                    _resultGraphics.Graphics.Add(new Graphic(coord, _newVertexSymbol));
+                    _resultOverlay.Graphics.Add(new Graphic(coord, _newVertexSymbol));
                 }
             }
             catch (Exception ex)

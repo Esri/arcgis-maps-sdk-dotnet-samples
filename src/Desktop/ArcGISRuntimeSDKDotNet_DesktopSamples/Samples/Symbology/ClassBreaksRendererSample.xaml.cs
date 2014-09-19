@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Linq;
+using Esri.ArcGISRuntime.Controls;
 
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
@@ -19,11 +20,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	public partial class ClassBreaksRendererSample : UserControl
     {
         private Random _random = new Random();
+		private GraphicsOverlay _earthquakes;
 
         /// <summary>Construct Class Breaks Renderer sample control</summary>
         public ClassBreaksRendererSample()
         {
             InitializeComponent();
+
+			_earthquakes = MyMapView.GraphicsOverlays["earthquakes"];
 
             MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
@@ -47,7 +51,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             SimpleMarkerStyle style = (SimpleMarkerStyle)_random.Next(0, 6);
 
-            earthquakes.Renderer = new ClassBreaksRenderer()
+			_earthquakes.Renderer = new ClassBreaksRenderer()
             {
                 Field = "magnitude",
                 Infos = new ClassBreakInfoCollection() 
@@ -76,8 +80,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             };
             var result = await queryTask.ExecuteAsync(query);
 
-            earthquakes.Graphics.Clear();
-            earthquakes.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
+			_earthquakes.Graphics.Clear();
+			_earthquakes.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
         }
 
         // Utility: Generate a random simple marker symbol

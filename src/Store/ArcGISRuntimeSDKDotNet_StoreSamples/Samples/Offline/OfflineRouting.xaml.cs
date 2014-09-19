@@ -26,9 +26,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private LocalRouteTask _routeTask;
         private Symbol _directionPointSymbol;
-        private GraphicsLayer _stopsLayer;
-        private GraphicsLayer _routesLayer;
-        private GraphicsLayer _directionsLayer;
+        private GraphicsOverlay _stopsOverlay;
+        private GraphicsOverlay _routesOverlay;
+        private GraphicsOverlay _directionsOverlay;
         private bool _isMapReady;
 
         public OfflineRouting()
@@ -37,9 +37,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
             _isMapReady = false;
             _directionPointSymbol = LayoutRoot.Resources["directionPointSymbol"] as Symbol;
-            _stopsLayer = MyMapView.Map.Layers["StopsLayer"] as GraphicsLayer;
-            _routesLayer = MyMapView.Map.Layers["RoutesLayer"] as GraphicsLayer;
-            _directionsLayer = MyMapView.Map.Layers["DirectionsLayer"] as GraphicsLayer;
+			_stopsOverlay = MyMapView.GraphicsOverlays["stopsOverlay"];
+			_routesOverlay = MyMapView.GraphicsOverlays["routesOverlay"];
+			_directionsOverlay = MyMapView.GraphicsOverlays["directionsOverlay"];
                 
             MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
@@ -69,16 +69,16 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             {
                 e.Handled = true;
 
-                if (_directionsLayer.Graphics.Count() > 0)
+                if (_directionsOverlay.Graphics.Count() > 0)
                 {
                     panelResults.Visibility = Visibility.Collapsed;
 
-                    _stopsLayer.Graphics.Clear();
-                    _routesLayer.Graphics.Clear();
-                    _directionsLayer.GraphicsSource = null;
+                    _stopsOverlay.Graphics.Clear();
+                    _routesOverlay.Graphics.Clear();
+                    _directionsOverlay.GraphicsSource = null;
                 }
 
-                _stopsLayer.Graphics.Add(new Graphic(e.Location));
+                _stopsOverlay.Graphics.Add(new Graphic(e.Location));
             }
             catch (System.Exception ex)
             {
@@ -89,7 +89,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         // Calculate the route
         private async void MyMapView_MapViewDoubleTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
         {
-            if (!_isMapReady || _stopsLayer.Graphics.Count() < 2)
+            if (!_isMapReady || _stopsOverlay.Graphics.Count() < 2)
                 return;
 
             try
@@ -110,16 +110,16 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 routeParams.ReturnDirections = true;
                 routeParams.DirectionsLengthUnit = LinearUnits.Miles;
                 routeParams.DirectionsLanguage = new CultureInfo("en-US");
-				routeParams.SetStops(_stopsLayer.Graphics);
+				routeParams.SetStops(_stopsOverlay.Graphics);
 
                 var routeResult = await _routeTask.SolveAsync(routeParams);
                 if (routeResult == null || routeResult.Routes == null || routeResult.Routes.Count() == 0)
                     throw new Exception("No route could be calculated");
 
                 var route = routeResult.Routes.First();
-                _routesLayer.Graphics.Add(new Graphic(route.RouteFeature.Geometry));
+                _routesOverlay.Graphics.Add(new Graphic(route.RouteFeature.Geometry));
 
-                _directionsLayer.GraphicsSource = route.RouteDirections.Select(rd => GraphicFromRouteDirection(rd));
+                _directionsOverlay.GraphicsSource = route.RouteDirections.Select(rd => GraphicFromRouteDirection(rd));
 
                 var totalTime = route.RouteDirections.Select(rd => rd.Time).Aggregate(TimeSpan.Zero, (p, v) => p.Add(v));
                 var totalLength = route.RouteDirections.Select(rd => rd.GetLength(LinearUnits.Miles)).Sum();
@@ -146,7 +146,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             finally
             {
                 progress.Visibility = Visibility.Collapsed;
-                if (_directionsLayer.Graphics.Count() > 0)
+                if (_directionsOverlay.Graphics.Count() > 0)
                     panelResults.Visibility = Visibility.Visible;
             }
         }
@@ -165,7 +165,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private void listDirections_SelectionChanged(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
         {
-            _directionsLayer.ClearSelection();
+            _directionsOverlay.ClearSelection();
 
             if (e.AddedItems != null && e.AddedItems.Count == 1)
             {

@@ -18,6 +18,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	public partial class Relationship : UserControl
     {
         private List<Symbol> _symbols;
+		private GraphicsOverlay _graphicsOverlay;
 
         /// <summary>Construct Relationship sample control</summary>
         public Relationship()
@@ -28,6 +29,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             _symbols.Add(layoutGrid.Resources["PointSymbol"] as Symbol);
             _symbols.Add(layoutGrid.Resources["LineSymbol"] as Symbol);
             _symbols.Add(layoutGrid.Resources["FillSymbol"] as Symbol);
+
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
 
             MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
@@ -57,13 +60,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             else
                 shapeOne = await MyMapView.Editor.RequestShapeAsync(drawShape1, _symbols[comboShapeOne.SelectedIndex]);
 
-			graphicsOverlay.Graphics.Add(new Graphic(shapeOne, _symbols[comboShapeOne.SelectedIndex]));
+			_graphicsOverlay.Graphics.Add(new Graphic(shapeOne, _symbols[comboShapeOne.SelectedIndex]));
 
             // Shape Two
             Geometry shapeTwo = await MyMapView.Editor.RequestShapeAsync(
                 (DrawShape)comboShapeTwo.SelectedItem, _symbols[comboShapeTwo.SelectedIndex]);
 
-			graphicsOverlay.Graphics.Add(new Graphic(shapeTwo, _symbols[comboShapeTwo.SelectedIndex]));
+			_graphicsOverlay.Graphics.Add(new Graphic(shapeTwo, _symbols[comboShapeTwo.SelectedIndex]));
 
             Dictionary<string, bool> relations = new Dictionary<string, bool>();
             relations["Contains"] = GeometryEngine.Contains(shapeOne, shapeTwo);
@@ -86,7 +89,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 btnDraw.IsEnabled = false;
                 resultsPanel.Visibility = Visibility.Collapsed;
 
-				graphicsOverlay.Graphics.Clear();
+				_graphicsOverlay.Graphics.Clear();
                 await AcceptShapeAsync();
             }
             catch (TaskCanceledException) { }

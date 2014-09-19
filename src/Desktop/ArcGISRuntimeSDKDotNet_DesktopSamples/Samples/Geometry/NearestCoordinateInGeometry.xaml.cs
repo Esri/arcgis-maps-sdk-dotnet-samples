@@ -21,6 +21,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     {
         private SimpleMarkerSymbol _vertexSymbol;
         private SimpleMarkerSymbol _userPointSymbol;
+		private GraphicsOverlay _graphicsOverlay;
+		private GraphicsOverlay _targetOverlay;
+		private GraphicsOverlay _coordinateOverlay;
 
         /// <summary>Construct Nearest Coordinate sample control</summary>
         public NearestCoordinateInGeometry()
@@ -29,6 +32,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             _vertexSymbol = new SimpleMarkerSymbol() { Color = Colors.LightGreen, Size = 8, Style = SimpleMarkerStyle.Circle };
             _userPointSymbol = new SimpleMarkerSymbol() { Color = Colors.Black, Size = 10, Style = SimpleMarkerStyle.Circle };
+
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
+			_targetOverlay = MyMapView.GraphicsOverlays["targetOverlay"];
+			_coordinateOverlay = MyMapView.GraphicsOverlays["coordinateOverlay"];
+			
 			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
         }
 
@@ -52,14 +60,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private async void SelectTargetButton_Click(object sender, RoutedEventArgs e)
         {
-            coordinateOverlay.Graphics.Clear();
+            _coordinateOverlay.Graphics.Clear();
             await ProcessUserPointsAsync(false);
         }
 
         private async void cboVertexOnly_Click(object sender, RoutedEventArgs e)
         {
-			coordinateOverlay.Graphics.Clear();
-			await ProcessUserPointsAsync(targetOverlay.Graphics.Count > 0);
+			_coordinateOverlay.Graphics.Clear();
+			await ProcessUserPointsAsync(_targetOverlay.Graphics.Count > 0);
         }
 
         // Process user selection and point clicks
@@ -101,32 +109,32 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 			};
             var result = await queryTask.ExecuteAsync(query);
 
-            graphicsOverlay.Graphics.Clear();
-			graphicsOverlay.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
+            _graphicsOverlay.Graphics.Clear();
+			_graphicsOverlay.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
         }
 
         // Accept user click point and select the underlying target polygon
         private async Task SelectTargetGeometryAsync()
         {
             txtInstruct.Text = "Click to select a target geometry";
-			coordinateOverlay.Graphics.Clear();
-			targetOverlay.Graphics.Clear();
+			_coordinateOverlay.Graphics.Clear();
+			_targetOverlay.Graphics.Clear();
 
             Graphic graphic = null;
             while (graphic == null)
             {
                 var point = await MyMapView.Editor.RequestPointAsync();
 
-				graphic = await graphicsOverlay.HitTestAsync(MyMapView, MyMapView.LocationToScreen(point));
+				graphic = await _graphicsOverlay.HitTestAsync(MyMapView, MyMapView.LocationToScreen(point));
                 if (graphic == null)
                     continue;
 
-				targetOverlay.Graphics.Add(graphic);
+				_targetOverlay.Graphics.Add(graphic);
 
                 var poly = graphic.Geometry as Polygon;
                 foreach (var mapPoint in poly.Parts.First().GetPoints())
                 {
-					targetOverlay.Graphics.Add(new Graphic(mapPoint, _vertexSymbol));
+					_targetOverlay.Graphics.Add(new Graphic(mapPoint, _vertexSymbol));
                 }
             }
         }
@@ -134,7 +142,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Accept user click point and find nearest target geometry point
         private async Task GetNearestCoordAsync(bool vertexOnly)
         {
-            var target = targetOverlay.Graphics.Select(g => g.Geometry).FirstOrDefault();
+            var target = _targetOverlay.Graphics.Select(g => g.Geometry).FirstOrDefault();
             if (target == null)
                 return;
 
@@ -147,9 +155,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             else
                 result = GeometryEngine.NearestCoordinate(target, point);
 
-			coordinateOverlay.Graphics.Clear();
-			coordinateOverlay.Graphics.Add(new Graphic(point, _userPointSymbol));
-			coordinateOverlay.Graphics.Add(new Graphic(result.Point));
+			_coordinateOverlay.Graphics.Clear();
+			_coordinateOverlay.Graphics.Add(new Graphic(point, _userPointSymbol));
+			_coordinateOverlay.Graphics.Add(new Graphic(result.Point));
 
             txtResult.Visibility = Visibility.Visible;
             txtResult.Text = string.Format("Nearest Point: Index: {0}, Distance: {1:0.000}", result.PointIndex, result.Distance);

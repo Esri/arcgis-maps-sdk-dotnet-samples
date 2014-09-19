@@ -26,7 +26,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             try
             {
                 var features = await cities.FeatureTable.QueryAsync(new QueryFilter() { WhereClause = where.Text});
-                queryResults.GraphicsSource = features.Select(f => new Graphic(f.Geometry));
+				MyMapView.GraphicsOverlays["queryResults"].GraphicsSource = features.Select(f => new Graphic(f.Geometry));
             }
             catch (Exception ex)
             {

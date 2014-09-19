@@ -23,7 +23,7 @@
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
             </esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="labelGraphicOverlay">
+				<esri:GraphicsOverlay ID="labelGraphicOverlay">
 					<esri:GraphicsOverlay.Renderer>
 						<symb:SimpleRenderer>
 							<symb:SimpleFillSymbol Color="#7F0000FF">

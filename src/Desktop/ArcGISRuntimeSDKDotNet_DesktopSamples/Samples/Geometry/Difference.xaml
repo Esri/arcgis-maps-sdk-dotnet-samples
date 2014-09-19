@@ -19,7 +19,7 @@
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
 			</esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="resultsOverlay" />
+				<esri:GraphicsOverlay ID="resultsOverlay" />
 			</esri:MapView.GraphicsOverlays>
         </esri:MapView>
 

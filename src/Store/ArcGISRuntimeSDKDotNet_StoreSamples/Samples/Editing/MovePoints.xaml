@@ -19,13 +19,15 @@
             <esri:Map>
 				<layers:ArcGISTiledMapServiceLayer
 					ServiceUri="http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
-				<layers:GraphicsLayer ID="MyGraphicsLayer">
-					<layers:GraphicsLayer.Renderer>
-						<symb:SimpleRenderer Symbol="{StaticResource PointMarkerSymbol}" />
-                    </layers:GraphicsLayer.Renderer>
-                </layers:GraphicsLayer>
-				<layers:GraphicsLayer ID="EditGraphicsLayer" Opacity=".5"/>
 			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="MyGraphicsOverlay">
+					<esri:GraphicsOverlay.Renderer>
+						<symb:SimpleRenderer Symbol="{StaticResource PointMarkerSymbol}" />
+					</esri:GraphicsOverlay.Renderer>
+				</esri:GraphicsOverlay>
+				<esri:GraphicsOverlay ID="EditGraphicsOverlay" Opacity=".5"/>
+			</esri:MapView.GraphicsOverlays>
         </esri:MapView>
 
 		<Border Margin="20" Padding="20"

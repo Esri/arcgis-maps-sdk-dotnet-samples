@@ -19,6 +19,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	public partial class Relate : UserControl
     {
         private List<Symbol> _symbols;
+		private GraphicsOverlay _graphicsOverlay;
 
         /// <summary>Construct Relationship sample control</summary>
         public Relate()
@@ -29,6 +30,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             _symbols.Add(layoutGrid.Resources["PointSymbol"] as Symbol);
             _symbols.Add(layoutGrid.Resources["LineSymbol"] as Symbol);
             _symbols.Add(layoutGrid.Resources["FillSymbol"] as Symbol);
+
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
 
             MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
@@ -56,7 +59,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 btnTest.IsEnabled = false;
                 resultPanel.Visibility = Visibility.Collapsed;
 
-				graphicsOverlay.Graphics.Clear();
+				_graphicsOverlay.Graphics.Clear();
 
                 // Shape One
                 DrawShape drawShape1 = (DrawShape)comboShapeOne.SelectedItem;
@@ -66,13 +69,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 else
                     shapeOne = await MyMapView.Editor.RequestShapeAsync(drawShape1, _symbols[comboShapeOne.SelectedIndex]);
 
-				graphicsOverlay.Graphics.Add(new Graphic(shapeOne, _symbols[comboShapeOne.SelectedIndex]));
+				_graphicsOverlay.Graphics.Add(new Graphic(shapeOne, _symbols[comboShapeOne.SelectedIndex]));
 
                 // Shape Two
                 Esri.ArcGISRuntime.Geometry.Geometry shapeTwo = await MyMapView.Editor.RequestShapeAsync(
                     (DrawShape)comboShapeTwo.SelectedItem, _symbols[comboShapeTwo.SelectedIndex]);
 
-				graphicsOverlay.Graphics.Add(new Graphic(shapeTwo, _symbols[comboShapeTwo.SelectedIndex]));
+				_graphicsOverlay.Graphics.Add(new Graphic(shapeTwo, _symbols[comboShapeTwo.SelectedIndex]));
             }
             catch (TaskCanceledException) { }
             catch (Exception ex)
@@ -82,7 +85,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             finally
             {
                 btnDraw.IsEnabled = true;
-				btnTest.IsEnabled = (graphicsOverlay.Graphics.Count >= 2);
+				btnTest.IsEnabled = (_graphicsOverlay.Graphics.Count >= 2);
             }
         }
 
@@ -91,11 +94,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-				if (graphicsOverlay.Graphics.Count < 2)
+				if (_graphicsOverlay.Graphics.Count < 2)
                     throw new ApplicationException("No shapes abailable for relationship test");
 
-				var shape1 = graphicsOverlay.Graphics[0].Geometry;
-				var shape2 = graphicsOverlay.Graphics[1].Geometry;
+				var shape1 = _graphicsOverlay.Graphics[0].Geometry;
+				var shape2 = _graphicsOverlay.Graphics[1].Geometry;
 
                 string relate = comboRelate.Text;
                 if (relate.Length < 9)

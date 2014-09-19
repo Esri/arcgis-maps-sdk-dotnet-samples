@@ -24,7 +24,7 @@
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
             </esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="graphicsOverlay">
+				<esri:GraphicsOverlay ID="graphicsOverlay">
 					<esri:GraphicsOverlay.Renderer>
 						<symb:SimpleRenderer>
 							<symb:SimpleFillSymbol Color="#7F0000FF">
@@ -36,7 +36,7 @@
 					</esri:GraphicsOverlay.Renderer>
 				</esri:GraphicsOverlay>
 
-				<esri:GraphicsOverlay x:Name="targetOverlay">
+				<esri:GraphicsOverlay ID="targetOverlay">
 					<esri:GraphicsOverlay.Renderer>
 						<symb:SimpleRenderer>
 							<symb:SimpleFillSymbol Color="#66FF0000">
@@ -48,7 +48,7 @@
 					</esri:GraphicsOverlay.Renderer>
 				</esri:GraphicsOverlay>
 
-				<esri:GraphicsOverlay x:Name="coordinateOverlay">
+				<esri:GraphicsOverlay ID="coordinateOverlay">
 					<esri:GraphicsOverlay.Renderer>
 						<symb:SimpleRenderer>
 							<symb:SimpleMarkerSymbol Color="Red" Style="Circle" Size="10">

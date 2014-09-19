@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System;
@@ -16,10 +17,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	/// <category>Geometry</category>
 	public partial class CreatePoints : UserControl
     {
+		private GraphicsOverlay _graphicsOverlay;
+
         /// <summary>Construct Create Points sample control</summary>
         public CreatePoints()
         {
             InitializeComponent();
+
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
 			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
 		}
 
@@ -40,12 +45,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
 				var symbol = new SimpleMarkerSymbol() { Color = Colors.Red, Size = 15, Style = SimpleMarkerStyle.Diamond };
 
-				graphicsOverlay.Graphics.Add(new Graphic() { Geometry = topLeft, Symbol = symbol });
-				graphicsOverlay.Graphics.Add(new Graphic() { Geometry = topRight, Symbol = symbol });
-				graphicsOverlay.Graphics.Add(new Graphic() { Geometry = bottomLeft, Symbol = symbol });
-				graphicsOverlay.Graphics.Add(new Graphic() { Geometry = bottomRight, Symbol = symbol });
+				_graphicsOverlay.Graphics.Add(new Graphic() { Geometry = topLeft, Symbol = symbol });
+				_graphicsOverlay.Graphics.Add(new Graphic() { Geometry = topRight, Symbol = symbol });
+				_graphicsOverlay.Graphics.Add(new Graphic() { Geometry = bottomLeft, Symbol = symbol });
+				_graphicsOverlay.Graphics.Add(new Graphic() { Geometry = bottomRight, Symbol = symbol });
 
-				graphicsOverlay.Graphics.Add(new Graphic()
+				_graphicsOverlay.Graphics.Add(new Graphic()
 				{
 					Geometry = new MapPoint(0, 0),
 					Symbol = new SimpleMarkerSymbol() { Size = 15, Color = Colors.Blue }

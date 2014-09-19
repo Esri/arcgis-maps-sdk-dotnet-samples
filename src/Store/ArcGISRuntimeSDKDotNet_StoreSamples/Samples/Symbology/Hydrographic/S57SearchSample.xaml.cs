@@ -46,11 +46,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.Hydrographic
 
 			// Reference layers that are used
 			_hydrographicLayers = MyMapView.Map.Layers.OfType<GroupLayer>().First();
-			_drawGraphicsOverlay = MyMapView.GraphicsOverlays[0];
-			_polygonResultGraphicsOverlay = MyMapView.GraphicsOverlays[1];
-			_lineResultGraphicsOverlay = MyMapView.GraphicsOverlays[2];
-			_pointResultGraphicsOverlay = MyMapView.GraphicsOverlays[3];
-		
+			_drawGraphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
+			_polygonResultGraphicsOverlay = MyMapView.GraphicsOverlays["polygonResultsOverlay"];
+			_lineResultGraphicsOverlay = MyMapView.GraphicsOverlays["lineResultsOverlay"];
+			_pointResultGraphicsOverlay = MyMapView.GraphicsOverlays["pointResultsOverlay"];
 		}
 
 		// Load data - enable functionality after layers are loaded.
@@ -201,6 +200,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.Hydrographic
 			catch (TaskCanceledException)
 			{
 				// Ignore cancelations from selecting new shape type
+				findBtn.IsEnabled = false;
 			}
 			catch (Exception ex)
 			{

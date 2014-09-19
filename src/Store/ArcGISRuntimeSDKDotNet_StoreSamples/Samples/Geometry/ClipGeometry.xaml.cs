@@ -30,7 +30,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-			_clippedGraphicsOverlay = MyMapView.GraphicsOverlays[0];
+			_clippedGraphicsOverlay = MyMapView.GraphicsOverlays["clippedGraphicsOverlay"];
             _clipSymbol = layoutGrid.Resources["ClipRectSymbol"] as Symbol;
 
 			CreateFeatureLayers();

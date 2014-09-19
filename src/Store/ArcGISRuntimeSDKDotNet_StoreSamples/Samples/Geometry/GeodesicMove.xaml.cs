@@ -19,8 +19,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 	public partial class GeodesicMove : Windows.UI.Xaml.Controls.Page
     {
         private Symbol _origSymbol;
-        private GraphicsOverlay _originalGraphics;
-        private GraphicsOverlay _movedGraphics;
+        private GraphicsOverlay _originalOverlay;
+        private GraphicsOverlay _movedOverlay;
 
         /// <summary>Construct Geodesic Move sample control</summary>
         public GeodesicMove()
@@ -28,8 +28,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             InitializeComponent();
 
             _origSymbol = LayoutRoot.Resources["OriginalSymbol"] as Symbol;
-			_originalGraphics = MyMapView.GraphicsOverlays[0];
-			_movedGraphics = MyMapView.GraphicsOverlays[1];
+			_originalOverlay = MyMapView.GraphicsOverlays["originalOverlay"];
+			_movedOverlay = MyMapView.GraphicsOverlays["movedOverlay"];
                 
             MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
@@ -57,12 +57,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             try
             {
-                _movedGraphics.Graphics.Clear();
-                _originalGraphics.Graphics.Clear();
+                _movedOverlay.Graphics.Clear();
+                _originalOverlay.Graphics.Clear();
 
                 var polygon = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon, _origSymbol);
 
-                _originalGraphics.Graphics.Add(new Graphic(polygon));
+                _originalOverlay.Graphics.Add(new Graphic(polygon));
             }
             catch (TaskCanceledException) { }
             catch (Exception ex)
@@ -76,10 +76,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             try
             {
-                if (_originalGraphics.Graphics.Count == 0)
+                if (_originalOverlay.Graphics.Count == 0)
                     throw new Exception("Digitize a polygon to move.");
 
-                var coords = _originalGraphics.Graphics[0].Geometry as Multipart;
+                var coords = _originalOverlay.Graphics[0].Geometry as Multipart;
                 if (coords == null)
                     throw new Exception("Digitize a polygon to move.");
 
@@ -89,8 +89,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var movedPoints = GeometryEngine.GeodesicMove(points, distance, LinearUnits.Miles, azimuth);
 
                 Polygon movedPoly = new PolygonBuilder(movedPoints, MyMapView.SpatialReference).ToGeometry();
-                _movedGraphics.Graphics.Clear();
-                _movedGraphics.Graphics.Add(new Graphic(movedPoly));
+                _movedOverlay.Graphics.Clear();
+                _movedOverlay.Graphics.Add(new Graphic(movedPoly));
             }
             catch (Exception ex)
             {

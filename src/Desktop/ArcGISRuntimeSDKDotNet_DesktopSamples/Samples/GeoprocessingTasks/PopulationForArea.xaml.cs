@@ -29,10 +29,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private const string PopulationSummaryServiceUrl =
             "http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Population_World/GPServer/PopulationSummary";
 
+		private GraphicsOverlay _areaOverlay;
+
         /// <summary>Construct Populattion for Area sample control</summary>
         public PopulationForArea()
         {
             InitializeComponent();
+
+			_areaOverlay = MyMapView.GraphicsOverlays["areaOverlay"];
         }
 
         // Accept user boundary line and run the Geoprocessing Task to summarize population
@@ -41,12 +45,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             try
             {
                 txtResult.Visibility = System.Windows.Visibility.Collapsed;
-				areaOverlay.Graphics.Clear();
+				_areaOverlay.Graphics.Clear();
 
                 var boundary = await MyMapView.Editor.RequestShapeAsync(DrawShape.Freehand) as Polyline;
                 var polygon = new Polygon(boundary.Parts, MyMapView.SpatialReference);
                 polygon = GeometryEngine.Simplify(polygon) as Polygon;
-				areaOverlay.Graphics.Add(new Graphic() { Geometry = polygon });
+				_areaOverlay.Graphics.Add(new Graphic() { Geometry = polygon });
 
                 progress.Visibility = Visibility.Visible;
 

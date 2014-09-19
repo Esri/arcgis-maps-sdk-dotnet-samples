@@ -19,8 +19,8 @@
                 
             </esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="inputGraphicsOverlay" />
-				<esri:GraphicsOverlay x:Name="convexHullGraphicsOverlay" />
+				<esri:GraphicsOverlay ID="inputGraphicsOverlay" />
+				<esri:GraphicsOverlay ID="convexHullGraphicsOverlay" />
 			</esri:MapView.GraphicsOverlays>
 		</esri:MapView>
 		

@@ -24,7 +24,7 @@
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
             </esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay x:Name="inputOverlay" Renderer="{StaticResource PointRenderer}"/>
+				<esri:GraphicsOverlay ID="inputOverlay" Renderer="{StaticResource PointRenderer}"/>
 			</esri:MapView.GraphicsOverlays>
 		</esri:MapView>
 

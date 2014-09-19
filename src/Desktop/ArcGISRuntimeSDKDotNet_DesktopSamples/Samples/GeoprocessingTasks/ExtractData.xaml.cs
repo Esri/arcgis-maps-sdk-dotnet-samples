@@ -21,15 +21,19 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     /// <subcategory>Geoprocessing</subcategory>
     public partial class ExtractData : UserControl
     {
+		private const string ExtractDataServiceUrl =
+				"http://sampleserver4.arcgisonline.com/ArcGIS/rest/services/HomelandSecurity/Incident_Data_Extraction/GPServer/Extract%20Data%20Task";
+
         private Geoprocessor _gpTask;
+		private GraphicsOverlay _graphicsOverlay;
 
         /// <summary>Construct Extract Data sample control</summary>
         public ExtractData()
         {
             InitializeComponent();
 
-            _gpTask = new Geoprocessor(
-                new Uri("http://sampleserver4.arcgisonline.com/ArcGIS/rest/services/HomelandSecurity/Incident_Data_Extraction/GPServer/Extract%20Data%20Task"));
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
+			_gpTask = new Geoprocessor(new Uri(ExtractDataServiceUrl));
 
             SetupUI();
         }
@@ -58,7 +62,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-				graphicsOverlay.Graphics.Clear();
+				_graphicsOverlay.Graphics.Clear();
 
                 Polygon aoi = null;
                 if (chkFreehand.IsChecked == true)
@@ -75,7 +79,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     aoi = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon) as Polygon;
                 }
 
-				graphicsOverlay.Graphics.Add(new Graphic(aoi));
+				_graphicsOverlay.Graphics.Add(new Graphic(aoi));
             }
             catch (Exception ex)
             {
@@ -95,12 +99,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 if (layersToClip == null || layersToClip.Count == 0)
                     throw new ApplicationException("Please select layers to extract data from.");
 
-				if (graphicsOverlay.Graphics.Count == 0)
+				if (_graphicsOverlay.Graphics.Count == 0)
                     throw new ApplicationException("Please digitize an area of interest polygon on the map.");
 
                 var parameter = new GPInputParameter() { OutSpatialReference = SpatialReferences.WebMercator };
                 parameter.GPParameters.Add(new GPMultiValue<GPString>("Layers_to_Clip", layersToClip));
-				parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Area_of_Interest", graphicsOverlay.Graphics[0].Geometry));
+				parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Area_of_Interest", _graphicsOverlay.Graphics[0].Geometry));
                 parameter.GPParameters.Add(new GPString("Feature_Format", (string)comboFormat.SelectedItem));
 
                 var result = await SubmitAndPollStatusAsync(parameter);
@@ -178,5 +182,16 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 }
             }
         }
+
+		// Show error if loading layers fail
+		private void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
+		{
+			if (e.LoadError == null)
+				return;
+
+			MessageBox.Show(
+					string.Format("Error when loading layer. {0}", e.LoadError.ToString()),
+					"Error loading layer");
+		}
     }
 }

@@ -164,22 +164,6 @@
             InitializeComponent
             </summary>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditAttributes">
-            <summary>
-            Demonstrates how attributes of a feature can be modified from a ServiceFeatureTable
-            and how this type of edit is pushed to the server or canceled.
-            </summary>
-            <title>Edit Attributes</title>
-            <category>Editing</category>
-            <summary>
-            EditAttributes
-            </summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditAttributes.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditAttachments">
             <summary>
             Demonstrates how attachments can be queried and modified from a ServiceFeatureTable
@@ -192,6 +176,22 @@
             </summary>
         </member>
         <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditAttachments.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditAttributes">
+            <summary>
+            Demonstrates how attributes of a feature can be modified from a ServiceFeatureTable
+            and how this type of edit is pushed to the server or canceled.
+            </summary>
+            <title>Edit Attributes</title>
+            <category>Editing</category>
+            <summary>
+            EditAttributes
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditAttributes.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
@@ -261,6 +261,25 @@
             </summary>
         </member>
         <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerFromService.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerFromShapefile">
+            <summary>
+            This sample shows how to add a FeatureLayer from a local shapefile to the map.
+            </summary>
+            <title>Feature Layer from Shapefile</title>
+            <category>Layers</category>
+            <subcategory>Feature Layers</subcategory>
+            <summary>
+            FeatureLayerFromShapefile
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerFromShapefile.#ctor">
+            <summary>Construct FeatureLayerFromLocalGeodatabase sample control</summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerFromShapefile.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
@@ -1260,6 +1279,21 @@
             <summary>Construct Mensuration sample control</summary>
         </member>
         <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Mensuration.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.InteractionOptionsSample">
+            <summary>
+            This sample shows how to change interaction settings that controls the MapView.
+            </summary>
+            <title>Interaction Options</title>
+            <category>Mapping</category>
+            <summary>
+            InteractionOptionsSample
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.InteractionOptionsSample.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>

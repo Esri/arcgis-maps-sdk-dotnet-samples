@@ -22,6 +22,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private Symbol _fillSymbol;
         private FeatureLayer _statesLayer;
+		private GraphicsOverlay _resultGraphics;
 
         /// <summary>Construct Union sample control</summary>
         public UnionGeometry()
@@ -29,6 +30,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             InitializeComponent();
 
             _fillSymbol = layoutGrid.Resources["FillSymbol"] as Symbol;
+			_resultGraphics = MyMapView.GraphicsOverlays["resultsOverlay"];
 
             CreateFeatureLayers();
         }
@@ -55,7 +57,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-				resultsOverlay.Graphics.Clear();
+				_resultGraphics.Graphics.Clear();
 
                 // wait for user to draw a polygon
                 var poly = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon);
@@ -75,7 +77,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 				var unionPoly = GeometryEngine.Union(unionPolys);
                 var unionGraphic = new Graphic(unionPoly, _fillSymbol);
 
-				resultsOverlay.Graphics.Add(unionGraphic);
+				_resultGraphics.Graphics.Add(unionGraphic);
             }
             catch (Exception ex)
             {

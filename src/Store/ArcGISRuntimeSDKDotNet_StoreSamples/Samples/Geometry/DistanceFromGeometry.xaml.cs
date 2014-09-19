@@ -28,7 +28,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
             _lineSymbol = LayoutRoot.Resources["LineSymbol"] as Symbol;
             _pointSymbol = LayoutRoot.Resources["PointSymbol"] as Symbol;
-			_graphicsOverlay = MyMapView.GraphicsOverlays[0];
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
         }
 
         // Calculates the linear distance between two user-defined geometries

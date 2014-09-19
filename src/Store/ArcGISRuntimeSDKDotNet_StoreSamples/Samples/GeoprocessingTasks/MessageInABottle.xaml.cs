@@ -21,14 +21,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             "http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_Currents_World/GPServer/MessageInABottle";
 
         private GraphicsOverlay _inputOverlay;
-        private GraphicsOverlay _resultOverlay;
+        private GraphicsOverlay _resultsOverlay;
 
         public MessageInABottle()
         {
             InitializeComponent();
 
-			_inputOverlay = MyMapView.GraphicsOverlays[1];
-			_resultOverlay = MyMapView.GraphicsOverlays[0];
+			_inputOverlay = MyMapView.GraphicsOverlays["inputOverlay"];
+			_resultsOverlay = MyMapView.GraphicsOverlays["resultsOverlay"];
         }
 
        private async void MyMapView_Tapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
@@ -37,7 +37,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
            {
                Progress.Visibility = Visibility.Visible;
 
-               _resultOverlay.Graphics.Clear();
+               _resultsOverlay.Graphics.Clear();
                _inputOverlay.Graphics.Clear();
                _inputOverlay.Graphics.Add(new Graphic() { Geometry = e.Location });
 
@@ -57,7 +57,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                    if (gpParameter is GPFeatureRecordSetLayer)
                    {
                        GPFeatureRecordSetLayer gpLayer = gpParameter as GPFeatureRecordSetLayer;
-                       _resultOverlay.Graphics.AddRange(gpLayer.FeatureSet.Features.OfType<Graphic>());
+                       _resultsOverlay.Graphics.AddRange(gpLayer.FeatureSet.Features.OfType<Graphic>());
                    }
                }
            }

@@ -291,10 +291,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             {
                 // Updates the feature with its Attributes already modified by the two-way binding.
                 await table.UpdateAsync(feature);
-                // To reflect the changes in auto-populated fields, query feature and update form data context.
-                feature = (GeodatabaseFeature)await table.QueryAsync(Convert.ToInt64(feature.Attributes[table.ObjectIDField], CultureInfo.InvariantCulture));
-                if (formGrid != null)
+                if (formGrid != null && formGrid.Parent is Window)
+                {
+                    // To reflect the changes in auto-populated fields, query feature and update form data context.
+                    feature = (GeodatabaseFeature)await table.QueryAsync(Convert.ToInt64(feature.Attributes[table.ObjectIDField], CultureInfo.InvariantCulture));
                     formGrid.DataContext = feature;
+                }
                 SaveButton.IsEnabled = table.HasEdits;
             }
             catch (Exception ex)
@@ -332,7 +334,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                         {
                             var dataForm = new Window() { Content = formGrid, Height = 300, Width = 500, Title = "Attribute Editor" };
                             dataForm.DataContext = feature;
-                            dataForm.ShowDialog();
+                            dataForm.Show();
                         }
                     }
                 }
@@ -457,14 +459,45 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 MessageBox.Show(message);
         }
 
+        private Task<bool> CancelEditsAsync(ServiceFeatureTable table)
+        {
+            if (table == null)
+                return Task.FromResult(false);
+            var tcs = new TaskCompletionSource<bool>();
+            EventHandler<UpdateCompletedEventArgs> updatedCompletedHandler = null;
+            updatedCompletedHandler = (s, e) =>
+            {
+                table.UpdateCompleted -= updatedCompletedHandler;
+                if (e.Error != null)
+                    tcs.TrySetException(e.Error);
+                else
+                    tcs.TrySetResult(true);
+            };
+            table.UpdateCompleted += updatedCompletedHandler;
+            table.RefreshFeatures(false);
+            return tcs.Task;
+        }
+
         private async void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            var table = GetFeatureTable();
-            if (table == null || !table.HasEdits)
+            var layer = GetFeatureLayer();
+            var table = GetFeatureTable(layer);
+            if (layer == null || table == null || !table.HasEdits)
                 return;
-            // Cancels the local edits by refreshing features with preserveEdits=false.
-            table.RefreshFeatures(false);
-            SaveButton.IsEnabled = table.HasEdits;
-        }        
+            // Cancels the local edits by refreshing features with preserveEdits=false 
+            // and awaits for UpdatedCompleted before performing query.
+            var cancelResult = await CancelEditsAsync(table);
+            if (cancelResult)
+            {
+                var featureID = layer.SelectedFeatureIDs.FirstOrDefault();
+                if (featureID != null && formGrid != null && formGrid.Parent is Window)
+                {
+                    // To reflect the changes in fields, query feature and update form data context.
+                    var feature = (GeodatabaseFeature)await table.QueryAsync(featureID);
+                    formGrid.DataContext = feature;
+                }
+                SaveButton.IsEnabled = table.HasEdits;
+            }
+        }      
     }
 }

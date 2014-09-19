@@ -66,6 +66,7 @@
                     </AppBarButton.Flyout>
                 </AppBarButton>
                 <AppBarButton Icon="Permissions"
+                              IsEnabled="{Binding ElementName=AddButton, Path=IsEnabled}"
                               Label="Identity">
                     <AppBarButton.Flyout>
                         <Flyout>
@@ -96,7 +97,6 @@
                                            Grid.Row="1"
                                            TextAlignment="Left" />
                                 <Button Content="Sign Out"
-                                        IsEnabled="{Binding ElementName=AddButton, Path=IsEnabled}"
                                         Grid.Row="2"
                                         Grid.ColumnSpan="2"
                                         Margin="2"

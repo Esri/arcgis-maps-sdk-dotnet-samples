@@ -197,7 +197,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             var layer = GetFeatureLayer();
             var table = GetFeatureTable(layer);
             if (layer == null || layer.SelectedFeatureIDs == null || !layer.SelectedFeatureIDs.Any() ||
-                table == null || !table.HasEdits)
+                table == null)
                 return;
             var info = (sender as Button).DataContext as AttachmentInfoItem;
             if (info == null)
@@ -332,6 +332,25 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 MessageBox.Show(message);
         }
 
+        private Task<bool> CancelEditsAsync(ServiceFeatureTable table)
+        {
+            if (table == null)
+                return Task.FromResult(false);
+            var tcs = new TaskCompletionSource<bool>();
+            EventHandler<UpdateCompletedEventArgs> updatedCompletedHandler = null;
+            updatedCompletedHandler = (s, e) =>
+            {
+                table.UpdateCompleted -= updatedCompletedHandler;
+                if (e.Error != null)
+                    tcs.TrySetException(e.Error);
+                else
+                    tcs.TrySetResult(true);
+            };
+            table.UpdateCompleted += updatedCompletedHandler;
+            table.RefreshFeatures(false);
+            return tcs.Task;
+        }
+
         private async void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             var layer = GetFeatureLayer();
@@ -342,11 +361,15 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             string message = null;
             try
             {
-                // Cancels the local edits by refreshing features with preserveEdits=false.
-                table.RefreshFeatures(false);
-                var featureID = layer.SelectedFeatureIDs.FirstOrDefault();
-                await QueryAttachmentsAsync(table, featureID);
-                SaveButton.IsEnabled = table.HasEdits;
+                // Cancels the local edits by refreshing features with preserveEdits=false 
+                // and awaits for UpdatedCompleted before performing query.
+                var cancelResult = await CancelEditsAsync(table);
+                if (cancelResult)
+                {
+                    var featureID = layer.SelectedFeatureIDs.FirstOrDefault();
+                    await QueryAttachmentsAsync(table, featureID);
+                    SaveButton.IsEnabled = table.HasEdits;
+                }
             }
             catch (Exception ex)
             {

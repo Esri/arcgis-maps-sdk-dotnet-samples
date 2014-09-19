@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -199,11 +200,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                         if (feature != null && formGrid != null)
                         {
                             var dataForm = new Window() { Content = formGrid, Height = 300, Width = 500, Title = "Attribute Editor" };
-                        dataForm.DataContext = feature;
-                        dataForm.ShowDialog();
+                            dataForm.DataContext = feature;
+                            dataForm.Show();
+                        }
                     }
                 }
-            }
             }
             catch (Exception ex)
             {
@@ -264,14 +265,45 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 MessageBox.Show(message);
         }
 
+        private Task<bool> CancelEditsAsync(ServiceFeatureTable table)
+        {
+            if (table == null)
+                return Task.FromResult(false);
+            var tcs = new TaskCompletionSource<bool>();
+            EventHandler<UpdateCompletedEventArgs> updatedCompletedHandler = null;
+            updatedCompletedHandler = (s, e) =>
+            {
+                table.UpdateCompleted -= updatedCompletedHandler;
+                if (e.Error != null)
+                    tcs.TrySetException(e.Error);
+                else
+                    tcs.TrySetResult(true);
+            };
+            table.UpdateCompleted += updatedCompletedHandler;
+            table.RefreshFeatures(false);
+            return tcs.Task;
+        }
+        
         private async void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            var table = GetFeatureTable();
-            if (table == null || !table.HasEdits)
+            var layer = GetFeatureLayer();
+            var table = GetFeatureTable(layer);
+            if (layer == null || table == null || !table.HasEdits)
                 return;
-            // Cancels the local edits by refreshing features with preserveEdits=false.
-            table.RefreshFeatures(false);
-            SaveButton.IsEnabled = table.HasEdits;
+            // Cancels the local edits by refreshing features with preserveEdits=false 
+            // and awaits for UpdatedCompleted before performing query.
+            var cancelResult = await CancelEditsAsync(table);
+            if (cancelResult)
+            {
+                var featureID = layer.SelectedFeatureIDs.FirstOrDefault();
+                if (featureID != null && formGrid != null && formGrid.Parent is Window)
+                {
+                    // To reflect the changes in fields, query feature and update form data context.
+                    var feature = (GeodatabaseFeature)await table.QueryAsync(featureID);
+                    formGrid.DataContext = feature;
+                }
+                SaveButton.IsEnabled = table.HasEdits;
+            }
         }
     }
 }

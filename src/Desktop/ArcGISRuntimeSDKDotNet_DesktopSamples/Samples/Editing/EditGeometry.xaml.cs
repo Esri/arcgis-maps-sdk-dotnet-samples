@@ -647,6 +647,25 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 MessageBox.Show(message);
         }
 
+        private Task<bool> CancelEditsAsync(ServiceFeatureTable table)
+        {
+            if (table == null)
+                return Task.FromResult(false);
+            var tcs = new TaskCompletionSource<bool>();
+            EventHandler<UpdateCompletedEventArgs> updatedCompletedHandler = null;
+            updatedCompletedHandler = (s, e) =>
+            {
+                table.UpdateCompleted -= updatedCompletedHandler;
+                if (e.Error != null)
+                    tcs.TrySetException(e.Error);
+                else
+                    tcs.TrySetResult(true);
+            };
+            table.UpdateCompleted += updatedCompletedHandler;
+            table.RefreshFeatures(false);
+            return tcs.Task;
+        }
+
         private async void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             // Cancel edits on SketchLayer.
@@ -659,9 +678,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             var table = GetFeatureTable();
             if (table == null || !table.HasEdits)
                 return;
-            // Cancels the local edits by refreshing features with preserveEdits=false.
-            table.RefreshFeatures(false);
-            SaveButton.IsEnabled = table.HasEdits;
+
+            // Cancels the local edits by refreshing features with preserveEdits=false 
+            // and awaits for UpdatedCompleted before checking HasEdits.
+            var cancelResult = await CancelEditsAsync(table);
+            if (cancelResult)
+                SaveButton.IsEnabled = table.HasEdits;
         }
     }
 }

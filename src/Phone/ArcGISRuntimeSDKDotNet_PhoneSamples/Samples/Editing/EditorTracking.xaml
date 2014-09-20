@@ -68,6 +68,7 @@
                 </AppBarButton>
                 <AppBarButton Icon="Permissions"
                               Label="Identity"
+                              x:Name="Identity"
                               IsEnabled="{Binding ElementName=AddButton, Path=IsEnabled}">
                     <AppBarButton.Flyout>
                         <Flyout>
@@ -115,6 +116,7 @@
                                             Margin="0,12,0,0"
                                             HorizontalAlignment="Center"
                                             Content="Login and Load Layer"
+                                            TabIndex="0"
                                             Click="SignInButton_Click" />
                                     <TextBlock Grid.Row="4"
                                                Grid.Column="0"

@@ -70,6 +70,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 Username.Text = username;
                 Password.Text = password;
                 LoginPanel.Visibility = Visibility.Visible;
+                Identity.Flyout.ShowAt(Identity);
                 loginTcs = new TaskCompletionSource<Credential>();
                 return await loginTcs.Task;
             }
@@ -131,6 +132,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 attemptCount++;
                 if (attemptCount >= 3)
                     loginTcs.TrySetException(ex);
+            }
+            finally
+            {
+                Identity.Flyout.Hide();
             }
         }
 
@@ -196,6 +201,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                                 if (hasFeatureTypes && table.ServiceInfo.TypeIdField == field.Name)
                                 {
                                     value = new ComboBox() { Margin = new Thickness(2d) };
+                                    ((ComboBox)value).SelectionChanged += ComboBox_SelectionChanged;
                                     var lookup = from t in table.ServiceInfo.Types
                                                                     select new KeyValuePair<object, string>(t.ID, t.Name);
                                     ((ComboBox)value).ItemsSource = from item in lookup 
@@ -207,6 +213,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                                 else if (field.Domain != null)
                                 {
                                     value = new ComboBox() { Margin = new Thickness(2d) };
+                                    ((ComboBox)value).SelectionChanged += ComboBox_SelectionChanged;                                  
                                     if (field.Domain is CodedValueDomain)
                                     {
                                         var lookup = ((CodedValueDomain)field.Domain).CodedValues;
@@ -266,6 +273,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     }
                 }
             }
+        }
+
+        void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dataForm != null)
+                dataForm.ShowAt(MyMapView);            
         }
 
         private async void DeleteButton_Click(object sender, RoutedEventArgs e)

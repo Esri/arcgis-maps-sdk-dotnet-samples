@@ -26,8 +26,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
     /// <category>Editing</category>
     public partial class EditorTracking : Page
     {
-        private Flyout dataForm; // Used for attribute editing.        
-        private bool isAdding;
+        private Flyout dataForm; // Used for attribute editing.   
 
         public EditorTracking()
         {
@@ -109,7 +108,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                         var formGrid = new Grid() { Margin = new Thickness(2d) };
                         formGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
                         formGrid.ColumnDefinitions.Add(new ColumnDefinition());
-                        var fieldCount = table.ServiceInfo.Fields.Count + 1; // Fields + Apply/Close button
+                        var fieldCount = table.ServiceInfo.Fields.Count + 1; // Fields + Apply/Delete/EditClose button
                         for (int i = 0; i < fieldCount; i++)
                             formGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
                         var hasFeatureTypes = !string.IsNullOrWhiteSpace(table.ServiceInfo.TypeIdField) && table.ServiceInfo.Types != null && table.ServiceInfo.Types.Any();
@@ -174,21 +173,26 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                             formGrid.Children.Add(value);
                             row++;
                         }
-                        var buttonGrid = new Grid() { HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(2d) };
+                        var buttonGrid = new Grid() {Name = "ButtonGrid", HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(2d) };
+                        buttonGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
                         buttonGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
                         buttonGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
                         buttonGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
                         buttonGrid.SetValue(Grid.ColumnSpanProperty, 2);
                         buttonGrid.SetValue(Grid.RowProperty, row);
-                        var applyButton = new Button() { Content = "Apply", Margin = new Thickness(2d) };
+                        var applyButton = new Button() { Name = "ApplyButton", Content = "Apply", Margin = new Thickness(2d) };
                         applyButton.Click += ApplyButton_Click;
                         buttonGrid.Children.Add(applyButton);
-                        var deleteButton = new Button() { Content = "Delete Feature", Margin = new Thickness(2d) };
-                        deleteButton.SetValue(Grid.ColumnProperty, 1);
+                        var editButton = new Button() { Name = "EditButton", Content = "Edit Geometry", Margin = new Thickness(2d) };
+                        editButton.SetValue(Grid.ColumnProperty, 1);
+                        editButton.Click += EditButton_Click;
+                        buttonGrid.Children.Add(editButton);
+                        var deleteButton = new Button() { Name = "DeleteButton", Content = "Delete Feature", Margin = new Thickness(2d) };
+                        deleteButton.SetValue(Grid.ColumnProperty, 2);
                         deleteButton.Click += DeleteButton_Click;
                         buttonGrid.Children.Add(deleteButton);
                         var closeButton = new Button() { Content = "Close", Margin = new Thickness(2d) };
-                        closeButton.SetValue(Grid.ColumnProperty, 2);
+                        closeButton.SetValue(Grid.ColumnProperty, 3);
                         closeButton.Click += CloseButton_Click;
                         buttonGrid.Children.Add(closeButton);
                         formGrid.Children.Add(buttonGrid);
@@ -199,6 +203,45 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     }
                 }
             }
+        }
+
+        private async void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            var feature = (sender as Button).DataContext as GeodatabaseFeature;
+            if (feature == null)
+                return;
+            var layer = GetFeatureLayer();
+            var table = GetFeatureTable(layer);
+            if (layer == null || table == null || string.IsNullOrWhiteSpace(table.ObjectIDField))
+                return;
+            string message = null;
+            try
+            {
+                var dialog = new MessageDialog("Tap on a new location to update the geometry.", "Edit feature geometry");
+                dialog.Commands.Add(new UICommand("OK", new UICommandInvokedHandler(async (command) =>
+                {
+                    CloseDataForm();
+                    var featureID = Convert.ToInt64(feature.Attributes[table.ObjectIDField], CultureInfo.InvariantCulture);
+                    layer.SetFeatureVisibility(new long[] { featureID }, false);
+                    // Updates the geometry of the feature.
+                    var mapPoint = await MyMapView.Editor.RequestPointAsync();
+                    feature.Geometry = mapPoint;
+                    layer.SetFeatureVisibility(new long[] { featureID }, true);
+                    await table.UpdateAsync(feature);
+                    SaveButton.IsEnabled = table.HasEdits;
+                })));
+                await dialog.ShowAsync();
+            }
+            catch (TaskCanceledException tcex)
+            {
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            if (!string.IsNullOrWhiteSpace(message))
+                await new MessageDialog(message).ShowAsync();
+
         }
 
         private async void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -213,13 +256,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             try
             {
                 var dialog = new MessageDialog("Are you sure you want to delete this feature from the table?", "Delete feature");
-                dialog.Commands.Add(new UICommand("OK", new UICommandInvokedHandler( async (command) => 
-                    {
+                dialog.Commands.Add(new UICommand("OK", new UICommandInvokedHandler(async (command) =>
+                {
+                    CloseDataForm();
                     // Deletes the feature from the table.
                     await table.DeleteAsync(feature);
                     SaveButton.IsEnabled = table.HasEdits;
-                    CloseDataForm();
-                    })));
+                })));
                 await dialog.ShowAsync();
             
             }
@@ -271,7 +314,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 
         private async void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
-            if (isAdding)
+            if (MyMapView.Editor.IsActive)
                 return;
             var layer = GetFeatureLayer();
             var table = GetFeatureTable(layer);
@@ -314,7 +357,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             var table = GetFeatureTable();
             if (table == null)
                 return;
-            isAdding = true;
             var typeId = Convert.ToInt32((sender as Button).Tag, CultureInfo.InvariantCulture);
             string message = null;
             try
@@ -361,10 +403,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             catch (Exception ex)
             {
                 message = ex.Message;
-            }
-            finally
-            {
-                isAdding = false;
             }
             if (!string.IsNullOrWhiteSpace(message))
                 await new MessageDialog(message).ShowAsync();

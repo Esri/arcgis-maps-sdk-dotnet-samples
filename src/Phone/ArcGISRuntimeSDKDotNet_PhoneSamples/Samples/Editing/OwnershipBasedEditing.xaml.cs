@@ -1,43 +1,60 @@
-﻿using Esri.ArcGISRuntime.Controls;
+﻿using ArcGISRuntimeSDKDotNet_StoreSamples.Common;
+using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.Tasks.Edit;
+using Esri.ArcGISRuntime.Tasks.Query;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
+using Windows.UI.Core;
+using Windows.UI.Popups;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
 
-namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
-    /// Demonstrates how Identity Manager is used to log-in a token-secured service to identify the user performing edits on feature and how these edits are pushed to the server or canceled.
+    /// Demonstrates the ability of feature services to restrict editing operations based on feature ownership.  The owner is defined as the user who created the feature.  In this example, owners can update or delete their features.  Feature not owned by the current user cannot be updated or deleted.  
     /// </summary>
-    /// <title>Editor Tracking</title>
+    /// <title>Ownership-based Editing</title>
     /// <category>Editing</category>
-    public partial class EditorTracking : UserControl
+    public partial class OwnershipBasedEditing : Page
     {
         private TaskCompletionSource<Credential> loginTcs; // Used for logging in.
-        private Grid formGrid; // Used for attribute editing.
+        private Flyout dataForm; // Used for attribute editing.   
 
-        public EditorTracking()
+        public OwnershipBasedEditing()
         {
             InitializeComponent();
+            var table = GetFeatureTable();
+            table.OutFields = OutFields.All;
             // You may also use SignInDialog from the Toolkit.
-            IdentityManager.Current.ChallengeHandler = new ChallengeHandler(OnChallenge);   
+            IdentityManager.Current.ChallengeHandler = new ChallengeHandler(OnChallenge);
         }
 
         private async Task<Credential> OnChallenge(CredentialRequestInfo requestInfo)
         {
             // Use Dispatcher to access UIElements
+            var tcs = new TaskCompletionSource<Credential>();
             if (Dispatcher == null)
-                return await ChallengeUI(requestInfo);
-            return await Dispatcher.Invoke(() => ChallengeUI(requestInfo));
+                tcs.TrySetResult(await ChallengeUI(requestInfo));
+            else
+            {
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    new DispatchedHandler(async () =>
+                    {
+                        tcs.TrySetResult(await ChallengeUI(requestInfo));
+                    }));
+            }
+            var credential = await tcs.Task;
+            return credential;
         }
 
         private async Task<Credential> ChallengeUI(CredentialRequestInfo requestInfo)
@@ -47,10 +64,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 // Check ArcGIS Token Secured Services sample for the rest of login code.
                 string username = "user1";
                 string password = "user1";
-                var loginInfo  = new LoginInfo(requestInfo, username, password);
-                LoginPanel.DataContext = loginInfo;
+                LoginInfo.Tag = requestInfo;
+                LoginInfo.Text = string.Format("Login to: {0}", requestInfo.ServiceUri);
+                Username.Text = username;
+                Password.Text = password;
                 LoginPanel.Visibility = Visibility.Visible;
-                loginTcs = new TaskCompletionSource<Credential>(loginInfo);
+                Identity.Flyout.ShowAt(Identity);
+                loginTcs = new TaskCompletionSource<Credential>();
                 return await loginTcs.Task;
             }
             finally
@@ -58,32 +78,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 LoginPanel.Visibility = Visibility.Collapsed;
             }
         }
-
-        private async void SignInButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (loginTcs == null || loginTcs.Task == null || loginTcs.Task.AsyncState == null)
-                return;
-            var loginInfo = loginTcs.Task.AsyncState as LoginInfo;
-            try
-            {
-                var credentials = await IdentityManager.Current.GenerateCredentialAsync(loginInfo.ServiceUrl,
-                    loginInfo.UserName, loginInfo.Password, loginInfo.RequestInfo.GenerateTokenOptions);
-                loginTcs.TrySetResult(credentials);
-            }
-            catch (Exception ex)
-            {
-                loginInfo.ErrorMessage = ex.Message;
-                loginInfo.AttemptCount++;
-                if (loginInfo.AttemptCount >= 3)
-                    loginTcs.TrySetException(ex);
-            }
-        }
-        
+                
         private FeatureLayer GetFeatureLayer()
         {
             if (MyMapView == null || MyMapView.Map == null || MyMapView.Map.Layers == null)
                 return null;
-            var layer = MyMapView.Map.Layers["WildfireLayer"] as FeatureLayer;
+            var layer = MyMapView.Map.Layers["SaveTheBayMarineLayer"] as FeatureLayer;
             if (layer == null)
                 return null;
             return layer;
@@ -100,6 +100,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         
         private void RemoveCredential()
         {
+            attemptCount = 0;
             var table = GetFeatureTable();
             if (table == null)
                 return;
@@ -108,7 +109,33 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 return;
             IdentityManager.Current.RemoveCredential(credential);
             AddButton.IsEnabled = false;
-            LoginPanel.Visibility = Visibility.Visible;
+        }
+
+        int attemptCount = 0;
+        private async void SignInButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (loginTcs == null || loginTcs.Task == null)
+                return;
+            try
+            {
+                var requestInfo = LoginInfo.Tag as CredentialRequestInfo;
+                var username = Username.Text.Trim();
+                var password = Password.Text.Trim();
+                var credentials = await IdentityManager.Current.GenerateCredentialAsync(requestInfo.ServiceUri,
+                   username, password, requestInfo.GenerateTokenOptions);
+                loginTcs.TrySetResult(credentials);
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage.Text = ex.Message;
+                attemptCount++;
+                if (attemptCount >= 3)
+                    loginTcs.TrySetException(ex);
+            }
+            finally
+            {
+                Identity.Flyout.Hide();
+            }
         }
 
         private void SignOutButton_Click(object sender, RoutedEventArgs e)
@@ -147,8 +174,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     if (table.ServiceInfo != null && table.ServiceInfo.Fields != null)
                     {
                         AddButton.IsEnabled = true;
-                        var itemtTemplate = this.Resources["MyItemTemplate"] as DataTemplate;
-                        formGrid = new Grid() { Margin = new Thickness(2d) };
+                        DisplayName.Text = table.ServiceInfo.Name;
+                        var credential = IdentityManager.Current.FindCredential(table.ServiceUri);
+                        UserName.Text = credential != null ? credential.UserName : string.Empty;
+                        var formGrid = new Grid() { Margin = new Thickness(2d) };
                         formGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
                         formGrid.ColumnDefinitions.Add(new ColumnDefinition());
                         var fieldCount = table.ServiceInfo.Fields.Count + 1; // Fields + Apply/Delete/Edit/Close button
@@ -163,28 +192,34 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                             formGrid.Children.Add(label);
                             FrameworkElement value = null;
                             // This binding will be resolved once the DataContext for formGrid is set to feature.
-                            var binding = new Binding(string.Format("Attributes[{0}]", field.Name));
+                            var binding = new Binding() { Path = new PropertyPath(string.Format("Attributes[{0}]", field.Name)) };
                             if (field.IsEditable)
                             {
                                 binding.Mode = BindingMode.TwoWay; 
                                 var keyValueConverter = this.Resources["KeyValueConverter"] as KeyValueConverter;
                                 if (hasFeatureTypes && table.ServiceInfo.TypeIdField == field.Name)
                                 {
-                                    value = new ComboBox() { ItemTemplate = itemtTemplate, Margin = new Thickness(2d) };
-                                    ((ComboBox)value).ItemsSource = from t in table.ServiceInfo.Types
+                                    value = new ComboBox() { Margin = new Thickness(2d) };
+                                    ((ComboBox)value).SelectionChanged += ComboBox_SelectionChanged;
+                                    var lookup = from t in table.ServiceInfo.Types
                                                                     select new KeyValuePair<object, string>(t.ID, t.Name);
+                                    ((ComboBox)value).ItemsSource = from item in lookup 
+                                                                    select item.Value;
                                     binding.Converter = keyValueConverter;
-                                    binding.ConverterParameter = ((ComboBox)value).ItemsSource;
+                                    binding.ConverterParameter = lookup;
                                     ((ComboBox)value).SetBinding(ComboBox.SelectedItemProperty, binding);
                                 }
                                 else if (field.Domain != null)
                                 {
-                                    value = new ComboBox() { ItemTemplate = itemtTemplate, Margin = new Thickness(2d) };
+                                    value = new ComboBox() { Margin = new Thickness(2d) };
+                                    ((ComboBox)value).SelectionChanged += ComboBox_SelectionChanged;                                  
                                     if (field.Domain is CodedValueDomain)
                                     {
-                                        ((ComboBox)value).ItemsSource = ((CodedValueDomain)field.Domain).CodedValues;
+                                        var lookup = ((CodedValueDomain)field.Domain).CodedValues;
+                                        ((ComboBox)value).ItemsSource = from item in lookup
+                                                                        select item.Value;
                                         binding.Converter = keyValueConverter;
-                                        binding.ConverterParameter = ((ComboBox)value).ItemsSource;
+                                        binding.ConverterParameter = lookup;
                                     }
                                     else if (field.Domain is RangeDomain<IComparable>)
                                     {
@@ -196,7 +231,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                                 else
                                 {
                                     value = new TextBox() { Margin = new Thickness(2d) };
-                                    // Fields of DataType than string will need a converter.
+                                    // Fields of DataType other than string will need a converter.
                                     ((TextBox)value).SetBinding(TextBox.TextProperty, binding);
                                     if (field.Length.HasValue)
                                         ((TextBox)value).MaxLength = field.Length.Value;
@@ -212,21 +247,21 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                             formGrid.Children.Add(value);
                             row++;
                         }
-                        var buttonGrid = new Grid() { HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(2d) };
+                        var buttonGrid = new Grid() { Name = "ButtonGrid", HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(2d) };
                         buttonGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
                         buttonGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
-                        buttonGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
+                        buttonGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto }); 
                         buttonGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
                         buttonGrid.SetValue(Grid.ColumnSpanProperty, 2);
                         buttonGrid.SetValue(Grid.RowProperty, row);
-                        var applyButton = new Button() { Content = "Apply", Margin = new Thickness(2d) };
+                        var applyButton = new Button() { Name = "ApplyButton", Content = "Apply", Margin = new Thickness(2d) };
                         applyButton.Click += ApplyButton_Click;
                         buttonGrid.Children.Add(applyButton);
-                        var editButton = new Button() { Content = "Edit Geometry", Margin = new Thickness(2d) };
+                        var editButton = new Button() { Name = "EditButton", Content = "Edit Geometry", Margin = new Thickness(2d) };
                         editButton.SetValue(Grid.ColumnProperty, 1);
                         editButton.Click += EditButton_Click;
                         buttonGrid.Children.Add(editButton);
-                        var deleteButton = new Button() { Content = "Delete Feature", Margin = new Thickness(2d) };
+                        var deleteButton = new Button() { Name = "DeleteButton", Content = "Delete Feature", Margin = new Thickness(2d) };
                         deleteButton.SetValue(Grid.ColumnProperty, 2);
                         deleteButton.Click += DeleteButton_Click;
                         buttonGrid.Children.Add(deleteButton);
@@ -235,9 +270,19 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                         closeButton.Click += CloseButton_Click;
                         buttonGrid.Children.Add(closeButton);
                         formGrid.Children.Add(buttonGrid);
+                        var formPanel = new StackPanel();
+                        formPanel.Children.Add(new TextBlock() { Text = "Attribute Editor" });
+                        formPanel.Children.Add(formGrid);
+                        dataForm = new Flyout() { Content = formPanel, Placement = FlyoutPlacementMode.Full };
                     }
                 }
             }
+        }
+
+        void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dataForm != null)
+                dataForm.ShowAt(MyMapView);            
         }
 
         private async void EditButton_Click(object sender, RoutedEventArgs e)
@@ -248,22 +293,24 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             var layer = GetFeatureLayer();
             var table = GetFeatureTable(layer);
             if (layer == null || table == null || string.IsNullOrWhiteSpace(table.ObjectIDField))
-                return;            
+                return;
             string message = null;
             try
             {
-                var editPrompt = MessageBox.Show("Tap on a new location to update the geometry.", "Edit feature geometry", MessageBoxButton.OKCancel);
-                if (editPrompt == MessageBoxResult.OK)
+                var dialog = new MessageDialog("Tap on a new location to update the geometry.", "Edit feature geometry");
+                dialog.Commands.Add(new UICommand("OK", new UICommandInvokedHandler(async (command) =>
                 {
                     CloseDataForm();
                     var featureID = Convert.ToInt64(feature.Attributes[table.ObjectIDField], CultureInfo.InvariantCulture);
                     layer.SetFeatureVisibility(new long[] { featureID }, false);
+                    // Updates the geometry of the feature.
                     var mapPoint = await MyMapView.Editor.RequestPointAsync();
                     feature.Geometry = mapPoint;
                     layer.SetFeatureVisibility(new long[] { featureID }, true);
                     await table.UpdateAsync(feature);
                     SaveButton.IsEnabled = table.HasEdits;
-                }
+                })));
+                await dialog.ShowAsync();
             }
             catch (TaskCanceledException tcex)
             {
@@ -273,7 +320,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 message = ex.Message;
             }
             if (!string.IsNullOrWhiteSpace(message))
-                MessageBox.Show(message);
+                await new MessageDialog(message).ShowAsync();
 
         }
 
@@ -288,30 +335,29 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             string message = null;
             try
             {
-                var deletePrompt = MessageBox.Show("Are you sure you want to delete this feature from the table?", "Delete feature", MessageBoxButton.OKCancel);
-                if (deletePrompt == MessageBoxResult.OK)
+                var dialog = new MessageDialog("Are you sure you want to delete this feature from the table?", "Delete feature");
+                dialog.Commands.Add(new UICommand("OK", new UICommandInvokedHandler(async (command) =>
                 {
                     CloseDataForm();
                     // Deletes the feature from the table.
                     await table.DeleteAsync(feature);
                     SaveButton.IsEnabled = table.HasEdits;
-                }
+                })));
+                await dialog.ShowAsync();
+            
             }
             catch (Exception ex)
             {
                 message = ex.Message;
             }
             if (!string.IsNullOrWhiteSpace(message))
-                MessageBox.Show(message);
+                await new MessageDialog(message).ShowAsync();
         }
         
         private void CloseDataForm()
         {
-            if (formGrid != null && formGrid.Parent is Window)
-            {
-                var dataForm = (Window)formGrid.Parent;
-                dataForm.Close();
-            }
+            if (dataForm != null)
+                dataForm.Hide();
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -332,12 +378,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             {
                 // Updates the feature with its Attributes already modified by the two-way binding.
                 await table.UpdateAsync(feature);
-                if (formGrid != null && formGrid.Parent is Window)
-                {
-                    // To reflect the changes in auto-populated fields, query feature and update form data context.
-                    feature = (GeodatabaseFeature)await table.QueryAsync(Convert.ToInt64(feature.Attributes[table.ObjectIDField], CultureInfo.InvariantCulture));
-                    formGrid.DataContext = feature;
-                }
+                // To reflect the changes in auto-populated fields, query feature and update form data context.
+                feature = (GeodatabaseFeature)await table.QueryAsync(Convert.ToInt64(feature.Attributes[table.ObjectIDField], CultureInfo.InvariantCulture));
+                if (dataForm != null && dataForm.Content is FrameworkElement)
+                    ((FrameworkElement)dataForm.Content).DataContext = feature;
                 SaveButton.IsEnabled = table.HasEdits;
             }
             catch (Exception ex)
@@ -345,7 +389,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 message = ex.Message;
             }
             if (!string.IsNullOrWhiteSpace(message))
-                MessageBox.Show(message);
+                await new MessageDialog(message).ShowAsync();
         }
                 
         private async void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
@@ -371,11 +415,42 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     if (features != null)
                     {
                         var feature = features.FirstOrDefault();
-                        if (feature != null && formGrid != null)
+                        if (feature != null && dataForm != null)
                         {
-                            var dataForm = new Window() { Content = formGrid, Height = 300, Width = 500, Title = "Attribute Editor" };
-                            dataForm.DataContext = feature;
-                            dataForm.Show();
+                            if (dataForm.Content is FrameworkElement)
+                                ((FrameworkElement)dataForm.Content).DataContext = feature;
+                            // Determines whether currently logged-in user can update/delete the feature.                            
+                            // See also CanAdd/Update/DeleteAttachment.
+                            var geodatabaseFeature = (GeodatabaseFeature)feature;
+                            var canUpdateAttributes = table.CanUpdateFeature(geodatabaseFeature);
+                            var canUpdateGeometry = table.CanUpdateGeometry(geodatabaseFeature);
+                            var canDeleteFeature = table.CanDeleteFeature(geodatabaseFeature);
+                            var formPanel = (StackPanel)dataForm.Content;
+                            if (formPanel != null && formPanel.Children.Count > 1 && formPanel.Children[1] is Grid)
+                            {
+                                var formGrid = (Grid)formPanel.Children[1];
+                                foreach (var child in formGrid.Children)
+                                {
+                                    var element = (FrameworkElement)child;
+                                    if (element.Name == "ButtonGrid")
+                                    {
+                                        var buttonGrid = (Grid)element;
+                                        foreach (var button in buttonGrid.Children)
+                                        {
+                                            var buttonElement = (Control)button;
+                                            if (buttonElement.Name == "ApplyButton")
+                                                buttonElement.IsEnabled = canUpdateAttributes;
+                                            else if (buttonElement.Name == "EditButton")
+                                                buttonElement.IsEnabled = canUpdateGeometry;
+                                            else if (buttonElement.Name == "DeleteButton")
+                                                buttonElement.IsEnabled = canDeleteFeature;
+                                        }
+                                    }
+                                    else if (element is Control)
+                                        ((Control)element).IsEnabled = canUpdateAttributes;
+                                }
+                            }
+                            dataForm.ShowAt(MyMapView);
                         }
                     }
                 }
@@ -385,14 +460,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 message = ex.Message;
             }
             if (!string.IsNullOrWhiteSpace(message))
-                MessageBox.Show(message);
+                await new MessageDialog(message).ShowAsync();
         }
 
         private async void AddButton_Click(object sender, RoutedEventArgs e)
         {
             var table = GetFeatureTable();
             if (table == null)
-                return;
+                return;            
             var typeId = Convert.ToInt32((sender as Button).Tag, CultureInfo.InvariantCulture);
             string message = null;
             try
@@ -420,14 +495,15 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                         }
                     }
                 }
-
+                if (!table.CanAddFeature(feature))
+                    throw new Exception("The service does not allow adding new feature.");
                 // Adds feature to local geodatabase.
                 var id = await table.AddAsync(feature);
-                if (formGrid != null)
+                if (dataForm != null)
                 {
-                    var dataForm = new Window() { Content = formGrid, Height = 300, Width = 500, Title = "Attribute Editor" };
-                    dataForm.DataContext = feature;
-                    dataForm.ShowDialog();
+                    if (dataForm.Content is FrameworkElement)
+                        ((FrameworkElement)dataForm.Content).DataContext = feature;
+                    dataForm.ShowAt(MyMapView);
                 }
 
                 SaveButton.IsEnabled = table.HasEdits;
@@ -441,7 +517,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 message = ex.Message;
             }
             if (!string.IsNullOrWhiteSpace(message))
-                MessageBox.Show(message);
+                await new MessageDialog(message).ShowAsync();
         }
 
         private static string GetResultMessage(IEnumerable<FeatureEditResultItem> editResults)
@@ -492,9 +568,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 message = ex.Message;
             }
             if (!string.IsNullOrWhiteSpace(message))
-                MessageBox.Show(message);
+                await new MessageDialog(message).ShowAsync();
         }
-
+        
         private Task<bool> CancelEditsAsync(ServiceFeatureTable table)
         {
             if (table == null)
@@ -516,24 +592,24 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private async void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            var layer = GetFeatureLayer();
-            var table = GetFeatureTable(layer);
-            if (layer == null || table == null || !table.HasEdits)
+            var table = GetFeatureTable();
+            if (table == null || !table.HasEdits)
                 return;
-            // Cancels the local edits by refreshing features with preserveEdits=false 
-            // and awaits for UpdatedCompleted before performing query.
-            var cancelResult = await CancelEditsAsync(table);
-            if (cancelResult)
+            string message = null;
+            try
             {
-                var featureID = layer.SelectedFeatureIDs.FirstOrDefault();
-                if (featureID != null && formGrid != null && formGrid.Parent is Window)
-                {
-                    // To reflect the changes in fields, query feature and update form data context.
-                    var feature = (GeodatabaseFeature)await table.QueryAsync(featureID);
-                    formGrid.DataContext = feature;
-                }
-                SaveButton.IsEnabled = table.HasEdits;
+                // Cancels the local edits by refreshing features with preserveEdits=false 
+                // and awaits for UpdatedCompleted before checking HasEdits.
+                var cancelResult = await CancelEditsAsync(table);
+                if (cancelResult)
+                    SaveButton.IsEnabled = table.HasEdits;
             }
-        }      
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            if (!string.IsNullOrWhiteSpace(message))
+                await new MessageDialog(message).ShowAsync();
+        }     
     }
 }

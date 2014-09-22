@@ -96,7 +96,10 @@
     </Compile>
     <Compile Include="Samples\DynamicServiceLayers\WMSLayer.xaml.cs">
       <DependentUpon>WMSLayer.xaml</DependentUpon>
-        </Compile>
+    </Compile>
+    <Compile Include="Samples\Editing\OwnershipBasedEditing.xaml.cs">
+      <DependentUpon>OwnershipBasedEditing.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Editing\EditAttachments.xaml.cs">
       <DependentUpon>EditAttachments.xaml</DependentUpon>
     </Compile>
@@ -106,7 +109,9 @@
     <Compile Include="Samples\Editing\EditGeometry.xaml.cs">
       <DependentUpon>EditGeometry.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Editing\EditorTracking.xaml.cs" />
+    <Compile Include="Samples\Editing\EditorTracking.xaml.cs">
+      <DependentUpon>EditorTracking.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Editing\Extras\SOEElevationData.xaml.cs">
       <DependentUpon>SOEElevationData.xaml</DependentUpon>
     </Compile>
@@ -508,6 +513,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\DynamicServiceLayers\WMSLayer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\OwnershipBasedEditing.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

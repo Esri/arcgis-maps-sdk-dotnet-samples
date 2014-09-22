@@ -148,6 +148,13 @@
             <title>Edit Geometry</title>
             <category>Editing</category>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.OwnershipBasedEditing">
+            <summary>
+            Demonstrates the ability of feature services to restrict editing operations based on feature ownership.  The owner is defined as the user who created the feature.  In this example, owners can update or delete their features.  Feature not owned by the current user cannot be updated or deleted.  
+            </summary>
+            <title>Ownership-based Editing</title>
+            <category>Editing</category>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.EditorTracking">
             <summary>
             Demonstrates how Identity Manager is used to log-in a token-secured service to identify the user performing edits on feature and how these edits are pushed to the server or canceled.

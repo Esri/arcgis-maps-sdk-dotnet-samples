@@ -16,16 +16,16 @@ using System.Windows.Data;
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
-    /// Demonstrates how Identity Manager is used to log-in a token-secured service to identify the user performing edits on feature and how these edits are pushed to the server or canceled.
+    /// Demonstrates the ability of feature services to restrict editing operations based on feature ownership.  The owner is defined as the user who created the feature.  In this example, owners can update or delete their features.  Feature not owned by the current user cannot be updated or deleted.  
     /// </summary>
-    /// <title>Editor Tracking</title>
+    /// <title>Ownership-based Editing</title>
     /// <category>Editing</category>
-    public partial class EditorTracking : UserControl
+    public partial class OwnershipBasedEditing : UserControl
     {
         private TaskCompletionSource<Credential> loginTcs; // Used for logging in.
         private Grid formGrid; // Used for attribute editing.
 
-        public EditorTracking()
+        public OwnershipBasedEditing()
         {
             InitializeComponent();
             // You may also use SignInDialog from the Toolkit.
@@ -83,7 +83,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             if (MyMapView == null || MyMapView.Map == null || MyMapView.Map.Layers == null)
                 return null;
-            var layer = MyMapView.Map.Layers["WildfireLayer"] as FeatureLayer;
+            var layer = MyMapView.Map.Layers["SaveTheBayMarineLayer"] as FeatureLayer;
             if (layer == null)
                 return null;
             return layer;
@@ -212,21 +212,21 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                             formGrid.Children.Add(value);
                             row++;
                         }
-                        var buttonGrid = new Grid() { HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(2d) };
+                        var buttonGrid = new Grid() { Name = "ButtonGrid", HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(2d) };
                         buttonGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
                         buttonGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
                         buttonGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
                         buttonGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
                         buttonGrid.SetValue(Grid.ColumnSpanProperty, 2);
                         buttonGrid.SetValue(Grid.RowProperty, row);
-                        var applyButton = new Button() { Content = "Apply", Margin = new Thickness(2d) };
+                        var applyButton = new Button() { Name = "ApplyButton", Content = "Apply", Margin = new Thickness(2d) };
                         applyButton.Click += ApplyButton_Click;
                         buttonGrid.Children.Add(applyButton);
-                        var editButton = new Button() { Content = "Edit Geometry", Margin = new Thickness(2d) };
+                        var editButton = new Button() { Name = "EditButton", Content = "Edit Geometry", Margin = new Thickness(2d) };
                         editButton.SetValue(Grid.ColumnProperty, 1);
                         editButton.Click += EditButton_Click;
                         buttonGrid.Children.Add(editButton);
-                        var deleteButton = new Button() { Content = "Delete Feature", Margin = new Thickness(2d) };
+                        var deleteButton = new Button() { Name = "DeleteButton", Content = "Delete Feature", Margin = new Thickness(2d) };
                         deleteButton.SetValue(Grid.ColumnProperty, 2);
                         deleteButton.Click += DeleteButton_Click;
                         buttonGrid.Children.Add(deleteButton);
@@ -258,6 +258,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     CloseDataForm();
                     var featureID = Convert.ToInt64(feature.Attributes[table.ObjectIDField], CultureInfo.InvariantCulture);
                     layer.SetFeatureVisibility(new long[] { featureID }, false);
+                    // Updates the geometry of the feature.
                     var mapPoint = await MyMapView.Editor.RequestPointAsync();
                     feature.Geometry = mapPoint;
                     layer.SetFeatureVisibility(new long[] { featureID }, true);
@@ -372,9 +373,35 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     {
                         var feature = features.FirstOrDefault();
                         if (feature != null && formGrid != null)
-                        {
-                            var dataForm = new Window() { Content = formGrid, Height = 300, Width = 500, Title = "Attribute Editor" };
+                        {                            
+                            var dataForm = new Window() { Content = formGrid, Height = 350, Width = 500, Title = "Attribute Editor" };
                             dataForm.DataContext = feature;
+                            // Determines whether currently logged-in user can update/delete the feature.
+                            // See also CanAdd/Update/DeleteAttachment.
+                            var geodatabaseFeature = (GeodatabaseFeature)feature;
+                            var canUpdateAttributes = table.CanUpdateFeature(geodatabaseFeature);
+                            var canUpdateGeometry = table.CanUpdateGeometry(geodatabaseFeature);
+                            var canDeleteFeature = table.CanDeleteFeature(geodatabaseFeature);
+                            foreach (var child in formGrid.Children)
+                            {
+                                var element = (FrameworkElement)child;
+                                if (element.Name == "ButtonGrid")
+                                {
+                                    var buttonGrid = (Grid)element;
+                                    foreach (var button in buttonGrid.Children)
+                                    {
+                                        var buttonElement = (FrameworkElement)button;
+                                        if (buttonElement.Name == "ApplyButton")
+                                            buttonElement.IsEnabled = canUpdateAttributes;
+                                        else if (buttonElement.Name == "EditButton")
+                                            buttonElement.IsEnabled = canUpdateGeometry;
+                                        else if (buttonElement.Name == "DeleteButton")
+                                            buttonElement.IsEnabled = canDeleteFeature;
+                                    }
+                                }
+                                else
+                                    element.IsEnabled = canUpdateAttributes;
+                            }
                             dataForm.Show();
                         }
                     }
@@ -420,12 +447,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                         }
                     }
                 }
-
+                if (!table.CanAddFeature(feature))
+                    throw new Exception("The service does not allow adding new feature.");
                 // Adds feature to local geodatabase.
                 var id = await table.AddAsync(feature);
                 if (formGrid != null)
                 {
-                    var dataForm = new Window() { Content = formGrid, Height = 300, Width = 500, Title = "Attribute Editor" };
+                    var dataForm = new Window() { Content = formGrid, Height = 350, Width = 500, Title = "Attribute Editor" };
                     dataForm.DataContext = feature;
                     dataForm.ShowDialog();
                 }

@@ -27,10 +27,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private void cboLayers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (cboLayers == null)
-                return;
+			if (cboLayers == null)
+				return;
 
-			WebTiledLayer webTiledLayer = new WebTiledLayer() { ID = "WebTiledLayer" };
+			MyMapView.Map.Layers.Remove("MyWebTiledLayer");
+
+			WebTiledLayer webTiledLayer = new WebTiledLayer() { ID = "MyWebTiledLayer" };
 
             switch (cboLayers.SelectedIndex)
             {
@@ -105,8 +107,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     webTiledLayer.CopyrightText = "Stamen Toner";
                     break;
             }
-
-			MyMapView.Map.Layers.Remove("WebTiledLayer");
 			MyMapView.Map.Layers.Add(webTiledLayer);
         }
     }

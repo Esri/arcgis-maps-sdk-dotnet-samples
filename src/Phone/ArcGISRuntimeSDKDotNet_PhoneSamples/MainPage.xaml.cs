@@ -27,6 +27,10 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples
         private void ListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             var item = (Sample)e.ClickedItem;
+
+			GC.Collect();
+			GC.WaitForPendingFinalizers();
+
             Frame.Navigate(item.Page);
         }
 

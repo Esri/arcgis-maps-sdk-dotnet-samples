@@ -268,18 +268,6 @@
     <Compile Include="Samples\Symbology\Specialized\SymbolDictionarySearchSample.xaml.cs">
       <DependentUpon>SymbolDictionarySearchSample.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Symbology\Hydrographic\S57CellInfoSample.xaml.cs">
-      <DependentUpon>S57CellInfoSample.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Symbology\Hydrographic\S57DisplayPropertiesSample.xaml.cs">
-      <DependentUpon>S57DisplayPropertiesSample.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Symbology\Hydrographic\S57IdentifySample.xaml.cs">
-      <DependentUpon>S57IdentifySample.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Symbology\Hydrographic\S57SearchSample.xaml.cs">
-      <DependentUpon>S57SearchSample.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Samples\Symbology\RenderingInCode.xaml.cs">
       <DependentUpon>RenderingInCode.xaml</DependentUpon>
     </Compile>
@@ -584,22 +572,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Symbology\Hydrographic\S57CellInfoSample.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Symbology\Hydrographic\S57DisplayPropertiesSample.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Symbology\Hydrographic\S57IdentifySample.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Symbology\Hydrographic\S57SearchSample.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Samples\Symbology\RenderingInCode.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -641,9 +613,6 @@
     <TargetPlatformIdentifier>WindowsPhoneApp</TargetPlatformIdentifier>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
-  <PropertyGroup>
-    <SDKReferenceDirectoryRoot>C:\applications\output\winprt_sdk\;$(SDKReferenceDirectoryRoot)</SDKReferenceDirectoryRoot>
-  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

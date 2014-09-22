@@ -72,6 +72,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 			menu.IsChecked = true;
 			currentSampleMenuItem = menu;
 			StatusBar.DataContext = sample;
+
+			GC.Collect();
+			GC.WaitForPendingFinalizers();
 		}
     }
 

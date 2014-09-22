@@ -73,7 +73,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 		// Helper method
 		private static PointCollection FromArray(params double[] parameters)
 		{
-			PointCollection coll = new PointCollection();
+            PointCollection coll = new PointCollection(SpatialReferences.Wgs84);
 			var mapPointBuilder = new MapPointBuilder(SpatialReferences.Wgs84);
 			for (int i = 0; i < parameters.Length - 1; i+=2)
 			{

@@ -13,6 +13,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 		public EnableTouchRotation()
 		{
 			this.InitializeComponent();
+            mapView1.InteractionOptions.RotationOptions.IsEnabled = true;
 		}
 
 		private void ToggleSwitch_Toggled(object sender, RoutedEventArgs e)
@@ -20,10 +21,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			if(mapView1 == null)
 				return;
 			var isOn = (sender as ToggleSwitch).IsOn;
-			if (isOn)
-				mapView1.ClearValue(UIElement.ManipulationModeProperty); //Set back to default setting
-			else
-				mapView1.ManipulationMode = ManipulationModes.All; //Enable all manipulation modes including rotation
+            mapView1.InteractionOptions.RotationOptions.IsEnabled = isOn ? false : true;            
 		}
 	}
 }

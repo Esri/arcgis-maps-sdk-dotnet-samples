@@ -24,12 +24,8 @@
         		ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer" />
             <lyr:GraphicsLayer ID="MyGraphicsLayer" >
                 <lyr:GraphicsLayer.Renderer>
-                    <sym:SimpleRenderer>
-                        <sym:SimpleFillSymbol  Color="#66FF0000"    >
-                            <sym:SimpleFillSymbol.Outline>
-                                <sym:SimpleLineSymbol Color="#66FF0000" Width="3"/>
-                            </sym:SimpleFillSymbol.Outline>
-                        </sym:SimpleFillSymbol>
+                        <sym:SimpleRenderer>
+                            <sym:SimpleLineSymbol Color="#66FF0000" Width="3"/>                            
                     </sym:SimpleRenderer>
                 </lyr:GraphicsLayer.Renderer>
             </lyr:GraphicsLayer>

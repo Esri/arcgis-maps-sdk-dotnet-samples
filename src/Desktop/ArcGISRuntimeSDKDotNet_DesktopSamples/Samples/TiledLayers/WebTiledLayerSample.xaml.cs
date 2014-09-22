@@ -18,10 +18,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private void cboLayers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (cboLayers == null)
+            if (MyMapView.SpatialReference == null)
                 return;
 
-			WebTiledLayer webTiledLayer = new WebTiledLayer() { ID = "WebTiledLayer" };
+			MyMapView.Map.Layers.Remove("MyWebTiledLayer");
+
+			WebTiledLayer webTiledLayer = new WebTiledLayer() { ID = "MyWebTiledLayer" };
 
 			switch (cboLayers.SelectedIndex)
 			{
@@ -97,7 +99,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 					break;
 			}
 
-			MyMapView.Map.Layers.Remove("WebTiledLayer");
+			
 			MyMapView.Map.Layers.Add(webTiledLayer);
         }
     }

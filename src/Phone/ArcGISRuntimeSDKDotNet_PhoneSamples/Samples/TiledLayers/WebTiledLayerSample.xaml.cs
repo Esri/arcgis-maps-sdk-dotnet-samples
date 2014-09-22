@@ -99,14 +99,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             WebTiledLayerComboItem selectedItem = (sender as ComboBox).SelectedItem as WebTiledLayerComboItem;
             if (selectedItem != null)
             {
-				if (MyMapView.Map.Layers["webTiledLayer1"] != null)
-					MyMapView.Map.Layers.Remove("webTiledLayer1");
+				if (MyMapView.Map.Layers["MyWebTiledLayer"] != null)
+					MyMapView.Map.Layers.Remove("MyWebTiledLayer");
 
-				var webTiledLayer1 = new WebTiledLayer { ID = "webTiledLayer1" };
-				webTiledLayer1.CopyrightText = selectedItem.CopyrightText;
-				webTiledLayer1.TemplateUri = selectedItem.UrlTemplate;
-				webTiledLayer1.SubDomains = selectedItem.SubDomains;
-				MyMapView.Map.Layers.Add(webTiledLayer1);
+				var myWebTiledLayer = new WebTiledLayer { ID = "MyWebTiledLayer" };
+				myWebTiledLayer.CopyrightText = selectedItem.CopyrightText;
+				myWebTiledLayer.TemplateUri = selectedItem.UrlTemplate;
+				myWebTiledLayer.SubDomains = selectedItem.SubDomains;
+				MyMapView.Map.Layers.Add(myWebTiledLayer);
             }
         }
     }

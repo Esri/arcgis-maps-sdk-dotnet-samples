@@ -31,6 +31,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples
 		void SampleFrame_Navigated(object sender, NavigationEventArgs e)
 		{
 			AppState.Current.CanGoBack = SampleFrame.CanGoBack;
+
+			GC.Collect();
+			GC.WaitForPendingFinalizers();
 		}
 
 		private void AppBarButton_Click(object sender, RoutedEventArgs e)

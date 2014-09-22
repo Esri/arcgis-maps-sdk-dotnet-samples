@@ -12,8 +12,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public SimpleMapTip()
         {
             this.InitializeComponent();
-
-			esriOverlay.DataContext = new MapPoint(-117.19568, 34.056601, SpatialReferences.Wgs84);
+            ((Grid)mapView1.Overlays.Items[0]).DataContext = new MapPoint(-117.19568, 34.056601, SpatialReferences.Wgs84);			
         }
     }
 }

@@ -32,7 +32,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-83.31884, 42.61428, -83.31296, 42.61671, SpatialReferences.Wgs84));
             sfs = LayoutRoot.Resources["MySimpleFillSymbol"] as SimpleFillSymbol;
             graphicsLayer = mapView1.Map.Layers["MyGraphicsLayer"] as GraphicsLayer;
-			LoadParcels();
+            Task.WhenAll(mapView1.Map.Layers.Select(l => l.InitializeAsync())).ContinueWith((t) =>
+            {  
+                if(!t.IsFaulted)
+                    LoadParcels();
+            }, TaskScheduler.FromCurrentSynchronizationContext());
+			
         }
 
         private async void CutPolygonsButton_Click(object sender, RoutedEventArgs e)
@@ -63,7 +68,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             //Notice that we are filtering the returned features based on the current map's extent
             //by passing in a geometry into the constructor of the Query object
             var queryTask = new QueryTask(new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/TaxParcel/AssessorsParcelCharacteristics/MapServer/1"));
-            var query = new Query(mapView1.Extent) { ReturnGeometry = true, OutSpatialReference = mapView1.SpatialReference };
+            var query = new Query(mapView1.Extent) { ReturnGeometry = true, OutSpatialReference = mapView1.SpatialReference, Where="1=1" };
 			try
 			{
 				var result = await queryTask.ExecuteAsync(query);

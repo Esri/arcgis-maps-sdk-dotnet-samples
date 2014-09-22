@@ -31,8 +31,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.Hydrographic
 	/// <subcategory>Hydrographic</subcategory>
 	public sealed partial class S57DisplayPropertiesSample : Page
 	{
-		private const string LAYER_1_PATH = @"symbology\s57-electronic-navigational-charts\us1wc01m\us1wc01m.000";
-		private const string LAYER_2_PATH = @"symbology\s57-electronic-navigational-charts\us1wc07m\us1wc07m.000";
+		private const string LAYER_1_PATH = @"samples-data\symbology\s57-electronic-navigational-charts\us1wc01m\us1wc01m.000";
+		private const string LAYER_2_PATH = @"samples-data\symbology\s57-electronic-navigational-charts\us1wc07m\us1wc07m.000";
 
 		private GroupLayer _hydrographicGroupLayer;
 

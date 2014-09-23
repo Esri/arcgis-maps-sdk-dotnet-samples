@@ -84,8 +84,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private void AnimateGraphic()
         {
-            MapPoint startPoint = _userInteractionLayer.Graphics[0].Geometry as MapPoint;
-            MapPoint finishPoint = _userInteractionLayer.Graphics[1].Geometry as MapPoint;
+			MapPoint userStartPoint = _userInteractionLayer.Graphics[0].Geometry as MapPoint;
+			MapPoint userFinishPoint = _userInteractionLayer.Graphics[1].Geometry as MapPoint;
+
+			MapPoint startPoint = GeometryEngine.NormalizeCentralMeridian(userStartPoint) as MapPoint;
+			MapPoint finishPoint = GeometryEngine.NormalizeCentralMeridian(userFinishPoint) as MapPoint;
 
 			var animatingGraphic = new Graphic(new MapPoint(startPoint.X, startPoint.Y));
 			_animatingLayer.Graphics.Add(animatingGraphic);

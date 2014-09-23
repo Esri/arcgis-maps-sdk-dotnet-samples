@@ -4,9 +4,11 @@
       xmlns:esri="using:Esri.ArcGISRuntime.Controls"  xmlns:lyr="using:Esri.ArcGISRuntime.Layers">
 
     <Grid>
-        <esri:MapView x:Name="mapView1"><esri:Map >
-            <lyr:ArcGISTiledMapServiceLayer ServiceUri="http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-            <lyr:WmsLayer ID="WMSLayer" Opacity="0.7" ServiceUri="http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi" />
-        </esri:Map></esri:MapView>
+		<esri:MapView x:Name="MyMapView" WrapAround="False">
+			<esri:Map>
+				<lyr:ArcGISTiledMapServiceLayer ServiceUri="http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+				<lyr:WmsLayer ID="WMSLayer" Opacity="0.7" ServiceUri="http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi" />
+			</esri:Map>
+		</esri:MapView>
     </Grid>
 </Page>

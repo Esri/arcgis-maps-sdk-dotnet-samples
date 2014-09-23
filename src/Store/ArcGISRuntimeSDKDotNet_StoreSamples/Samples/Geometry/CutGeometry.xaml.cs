@@ -68,9 +68,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 // wait for user to draw cut line
                 var cutLine = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polyline, _cutLineSymbol) as Polyline;
 
+				Polyline polyline = GeometryEngine.NormalizeCentralMeridian(cutLine) as Polyline;
+
                 // get intersecting features from the feature layer
                 SpatialQueryFilter filter = new SpatialQueryFilter();
-                filter.Geometry = GeometryEngine.Project(cutLine, _statesLayer.FeatureTable.SpatialReference);
+				filter.Geometry = GeometryEngine.Project(polyline, _statesLayer.FeatureTable.SpatialReference);
                 filter.SpatialRelationship = SpatialRelationship.Crosses;
                 filter.MaximumRows = 52;
                 var stateFeatures = await _statesLayer.FeatureTable.QueryAsync(filter);
@@ -78,8 +80,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 // Cut the feature geometries and add to graphics layer
                 var states = stateFeatures.Select(feature => feature.Geometry);
                 var cutGraphics = states
-                    .Where(geo => !GeometryEngine.Within(cutLine, geo))
-                    .SelectMany(state => GeometryEngine.Cut(state, cutLine))
+					.Where(geo => !GeometryEngine.Within(polyline, geo))
+					.SelectMany(state => GeometryEngine.Cut(state, polyline))
                     .Select(geo => new Graphic(geo, _cutFillSymbol));
 
                 _resultGraphicsOverlay.Graphics.AddRange(cutGraphics);

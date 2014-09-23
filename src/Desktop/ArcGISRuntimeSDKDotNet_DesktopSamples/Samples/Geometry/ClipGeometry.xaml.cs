@@ -62,9 +62,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 // wait for user to draw clip rect
                 var rect = await MyMapView.Editor.RequestShapeAsync(DrawShape.Rectangle);
 
+				Polygon polygon = GeometryEngine.NormalizeCentralMeridian(rect) as Polygon;
+
                 // get intersecting features from the feature layer
                 SpatialQueryFilter filter = new SpatialQueryFilter();
-                filter.Geometry = GeometryEngine.Project(rect, _statesLayer.FeatureTable.SpatialReference);
+				filter.Geometry = GeometryEngine.Project(polygon, _statesLayer.FeatureTable.SpatialReference);
                 filter.SpatialRelationship = SpatialRelationship.Intersects;
                 filter.MaximumRows = 52;
                 var stateFeatures = await _statesLayer.FeatureTable.QueryAsync(filter);
@@ -72,7 +74,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 // Clip the feature geometries and add to graphics layer
                 var states = stateFeatures.Select(feature => feature.Geometry);
                 var clipGraphics = states
-                    .Select(state => GeometryEngine.Clip(state, rect.Extent))
+					.Select(state => GeometryEngine.Clip(state, polygon.Extent))
                     .Select(geo => new Graphic(geo, _clipSymbol));
 
 				_clippedGraphicsOverlay.Graphics.AddRange(clipGraphics);

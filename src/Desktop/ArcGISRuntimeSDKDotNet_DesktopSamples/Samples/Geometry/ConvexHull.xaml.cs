@@ -42,7 +42,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             {
                 await MyMapView.LayersLoadedAsync();
 
-                while (MyMapView.Extent != null)
+                while (MyMapView.SpatialReference != null)
                 {
                     var point = await MyMapView.Editor.RequestPointAsync();
 

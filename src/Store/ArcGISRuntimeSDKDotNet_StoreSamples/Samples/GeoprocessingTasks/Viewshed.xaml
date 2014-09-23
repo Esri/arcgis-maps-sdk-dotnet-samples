@@ -10,8 +10,9 @@
         <Grid.Resources>
 			<symb:SimpleMarkerSymbol x:Key="MarkerSymbol" Color="Black" Style="X" Size="8" />
 			<symb:SimpleRenderer x:Key="PointRenderer" Symbol="{StaticResource MarkerSymbol}" />
-			<symb:SimpleLineSymbol x:Key="OutlineSymbol" Color="#FFFF9999" Width="2" Style="Solid" />
-			<symb:SimpleFillSymbol x:Key="DefaultFillSymbol" Color="#99FF9999" Outline="{StaticResource OutlineSymbol}" />
+			<symb:SimpleLineSymbol x:Key="OutlineSymbol" Color="Red" Width="2" Style="Solid" />
+			<symb:SimpleFillSymbol x:Key="DefaultFillSymbol" Color="#44FF9999" Outline="{StaticResource OutlineSymbol}" />
+			<symb:SimpleRenderer x:Key="ViewshedRenderer" Symbol="{StaticResource DefaultFillSymbol}" />
         </Grid.Resources>
 
         <esri:MapView x:Name="MyMapView">
@@ -24,21 +25,20 @@
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
             </esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay ID="inputOverlay" Renderer="{StaticResource PointRenderer}"/>
+				<esri:GraphicsOverlay ID="ViewshedOverlay" Renderer="{StaticResource ViewshedRenderer}"/>
+				<esri:GraphicsOverlay ID="InputOverlay" Renderer="{StaticResource PointRenderer}"/>
 			</esri:MapView.GraphicsOverlays>
 		</esri:MapView>
 
         <Border x:Name="uiPanel" Background="#CC000000" Width="325"
                 HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
             <StackPanel>
-                <TextBlock Text="Hit 'Start' and then click on the map to see the calculated viewshed with distance and height values specified below."
+                <TextBlock Text="Click 'Start' and then click on the map to see the calculated viewshed for the distance specified below."
                            TextWrapping="Wrap" FontSize="14" Margin="8,8,8,0" />
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="12,16,12,0">
                     <TextBlock Text="Miles:" VerticalAlignment="Center" Margin="0,0,8,0" />
                     <TextBox x:Name="txtMiles" Text="10" Width="35" TextAlignment="Right" />
-                    <TextBlock Text="Height:" VerticalAlignment="Center" Margin="18,0,8,0" />
-                    <TextBox x:Name="txtHeight" Text="50" Width="35" TextAlignment="Right" />
                 </StackPanel>
 
                 <Button Content="Start" HorizontalAlignment="Stretch" Margin="0,16,0,0" Click="StartButton_Click"/>

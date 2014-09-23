@@ -20,9 +20,9 @@
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
-            <TextBox x:Name="FromTextBox" Width="250" Margin="5" Text="380 New York St, Redlands, CA, 92373" ToolTipService.ToolTip="Enter a U.S. address as 'Street, City, State, Zip'" />
-            <TextBox x:Name="ToTextBox" Width="250" Margin="5" Text="345 Park Ave, San Jose, CA, 95110" ToolTipService.ToolTip="Enter a U.S. address as 'Street, City, State, Zip'" />
+        <StackPanel Grid.ColumnSpan="2">
+            <TextBox x:Name="FromTextBox" Margin="5" Text="380 New York St, Redlands, CA, 92373" ToolTipService.ToolTip="Enter a U.S. address as 'Street, City, State, Zip'" />
+            <TextBox x:Name="ToTextBox" Margin="5" Text="345 Park Ave, San Jose, CA, 95110" ToolTipService.ToolTip="Enter a U.S. address as 'Street, City, State, Zip'" />
             <Button Content="Get Directions" Click="GetDirections_Click" Margin="5" />
         </StackPanel>
         <esri:MapView x:Name="mapView1" Grid.Row="1" Grid.Column="0" >

@@ -52,9 +52,9 @@
                 </TextBlock>
 
                 <ListView x:Name="legend" Grid.Row="1" BorderBrush="Transparent" Background="Transparent"
-                      ItemsSource="{Binding ElementName=MyMapView, Path=Map.Layers}"
-                      AllowDrop="True" DragEnter="legend_DragEnter" Drop="legend_Drop"
-                      PreviewMouseMove="legend_PreviewMouseMove" PreviewMouseLeftButtonDown="legend_PreviewMouseLeftButtonDown">
+						  ItemsSource="{Binding LegendLayers}"
+						  AllowDrop="True" DragEnter="legend_DragEnter" Drop="legend_Drop"
+						  PreviewMouseMove="legend_PreviewMouseMove" PreviewMouseLeftButtonDown="legend_PreviewMouseLeftButtonDown">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />

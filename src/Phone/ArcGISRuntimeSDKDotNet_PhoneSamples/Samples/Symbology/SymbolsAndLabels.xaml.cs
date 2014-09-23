@@ -14,6 +14,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 		public SymbolsAndLabels()
         {
             this.InitializeComponent();
+            mapView1.InteractionOptions.RotationOptions.IsEnabled = true;            
 			CreateGeometries();
         }
 
@@ -73,7 +74,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 		// Helper method
 		private static PointCollection FromArray(params double[] parameters)
 		{
-			PointCollection coll = new PointCollection();
+            PointCollection coll = new PointCollection(SpatialReferences.Wgs84);
 			var mapPointBuilder = new MapPointBuilder(SpatialReferences.Wgs84);
 			for (int i = 0; i < parameters.Length - 1; i+=2)
 			{
@@ -82,5 +83,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			}
 			return coll;
 		}
+
+        private void RotationSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        {
+            mapView1.SetRotationAsync(e.NewValue);
+        }
     }
 }

@@ -1,7 +1,9 @@
-﻿using Esri.ArcGISRuntime.Controls;
-using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Layers;
+﻿using Esri.ArcGISRuntime.Layers;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -14,20 +16,27 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     /// </summary>
     /// <title>Layer List</title>
     /// <category>Mapping</category>
-    public sealed partial class LayerList : UserControl
+    public sealed partial class LayerList : UserControl, INotifyPropertyChanged
     {
         private Point _startPoint;
 
+		public IEnumerable<Layer> LegendLayers
+		{
+			get { return MyMapView.Map.Layers.Reverse(); }
+		}
+		
         public LayerList()
         {
             this.InitializeComponent();
-        }
+			DataContext = this;
+		}
 
         private void RemoveLayerButton_Click(object sender, RoutedEventArgs e)
         {
             var layer = (sender as FrameworkElement).DataContext as Layer;
             MyMapView.Map.Layers.Remove(layer);
-        }
+			OnPropertyChanged("LegendLayers");
+		}
 
         private void legend_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -87,9 +96,17 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                             MyMapView.Map.Layers.Remove(moveLayer);
                             MyMapView.Map.Layers.Add(moveLayer);
                         }
+
+						OnPropertyChanged("LegendLayers");
                     }
                 }
             }
         }
-    }
+
+		public event PropertyChangedEventHandler PropertyChanged = delegate { };
+		private void OnPropertyChanged([CallerMemberName] string name = null)
+		{
+			PropertyChanged(this, new PropertyChangedEventArgs(name));
+		}
+	}
 }

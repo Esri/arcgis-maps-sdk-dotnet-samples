@@ -53,7 +53,7 @@
 
             <TextBlock Text="Drag layers to reorder them" Margin="20" FontWeight="Bold" />
 
-            <ListView ItemsSource="{Binding ElementName=MyMapView, Path=Map.Layers}" 
+            <ListView x:Name="legend" ItemsSource="{Binding LegendLayers}" 
                       Margin="20,0,0,20" Grid.Row="1" CanReorderItems="True" CanDragItems="True" AllowDrop="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>

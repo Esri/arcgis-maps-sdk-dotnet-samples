@@ -68,7 +68,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                             {
                                 Graphic graphic = new Graphic()
                                 {
-                                    Geometry = candidate.Location
+                                    Geometry = new MapPoint(candidate.Location.X, candidate.Location.Y, SpatialReferences.Wgs84)
                                 };
 
                                 graphic.Attributes.Add("Address", candidate.Address);

@@ -13,22 +13,29 @@
     mc:Ignorable="d">
 
     <Grid x:Name="LayoutRoot" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.Resources>
-            <sym:SimpleLineSymbol x:Key="MySimpleLineSymbol" Color="Red" Width="4" Style="Solid" />
-            <sym:SimpleFillSymbol x:Key="MySimpleFillSymbol"  Color="#660000FF"    >
-                <sym:SimpleFillSymbol.Outline>
-                    <sym:SimpleLineSymbol Color="Blue" Width="1"/>
-                </sym:SimpleFillSymbol.Outline>
-            </sym:SimpleFillSymbol>
-
-            <sym:SimpleRenderer x:Key="MySimpleRenderer" Symbol="{StaticResource MySimpleFillSymbol}"/>
-        </Grid.Resources>
+		<Grid.Resources>
+			<sym:SimpleFillSymbol x:Key="ResultsSimpleFillSymbol" Color="LightBlue" >
+				<sym:SimpleFillSymbol.Outline>
+					<sym:SimpleLineSymbol Color="DarkBlue" Width="1"/>
+				</sym:SimpleFillSymbol.Outline>
+			</sym:SimpleFillSymbol>
+			<sym:SimpleRenderer x:Key="ResultsSimpleRenderer" Symbol="{StaticResource ResultsSimpleFillSymbol}"/>
+			<sym:SimpleFillSymbol x:Key="StatesSimpleFillSymbol" Color="LightGray" >
+				<sym:SimpleFillSymbol.Outline>
+					<sym:SimpleLineSymbol Color="DarkGray" Width="1"/>
+				</sym:SimpleFillSymbol.Outline>
+			</sym:SimpleFillSymbol>
+			<sym:SimpleRenderer x:Key="StatesSimpleRenderer" Symbol="{StaticResource StatesSimpleFillSymbol}"/>
+		</Grid.Resources>
         <esri:MapView x:Name="mapView1">
 			<esri:Map >
 				<lyr:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
         			ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-				<lyr:GraphicsLayer ID="MyGraphicsLayer" Renderer="{StaticResource MySimpleRenderer}" />
 			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="StatesGraphicsOverlay" Renderer="{StaticResource StatesSimpleRenderer}" />
+				<esri:GraphicsOverlay ID="ResultsGraphicsOverlay" Renderer="{StaticResource ResultsSimpleRenderer}" />
+			</esri:MapView.GraphicsOverlays>
 		</esri:MapView>
 
         <Grid HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,15,15,0" >

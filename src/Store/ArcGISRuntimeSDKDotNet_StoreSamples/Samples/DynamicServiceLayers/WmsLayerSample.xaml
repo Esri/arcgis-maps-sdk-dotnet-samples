@@ -6,7 +6,7 @@
     xmlns:layers="using:Esri.ArcGISRuntime.Layers">
     
 	<Grid>
-        <esri:MapView x:Name="MyMapView">
+		<esri:MapView x:Name="MyMapView" WrapAround="False">
             <esri:Map >
 				<esri:Map.InitialViewpoint>
 					<esri:ViewpointExtent XMin="-15000000" YMin="2000000"  XMax="-7000000" YMax="8000000" />

@@ -32,38 +32,42 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             _pointSymbol = (Symbol)layoutGrid.Resources["PointSymbol"];
             _polygonSymbol = (Symbol)layoutGrid.Resources["ConvexHullSymbol"];
 
-            DrawPoints();
+			MyMapView.SpatialReferenceChanged += MyMapView_SpatialReferenceChanged;
         }
 
+		void MyMapView_SpatialReferenceChanged(object sender, EventArgs e)
+		{
+			var x = DrawPoints();
+		}
+
         // Continuosly accepts new points from the user
-		private async void DrawPoints()
+		private async Task DrawPoints()
         {
-            try
-            {
-                await MyMapView.LayersLoadedAsync();
+			try
+			{
+				await MyMapView.LayersLoadedAsync();
 
-                while (MyMapView.Extent != null)
-                {
-                    var point = await MyMapView.Editor.RequestPointAsync();
+				var point = await MyMapView.Editor.RequestPointAsync();
 
-                    // reset graphics layers if we've already created a convex hull polygon
-                    if (_convexHullGraphicsOverlay.Graphics.Count > 0)
-                    {
-						_inputGraphicsOverlay.Graphics.Clear();
-						_convexHullGraphicsOverlay.Graphics.Clear();
-                    }
+				// reset graphics layers if we've already created a convex hull polygon
+				if (_convexHullGraphicsOverlay.Graphics.Count > 0)
+				{
+					_inputGraphicsOverlay.Graphics.Clear();
+					_convexHullGraphicsOverlay.Graphics.Clear();
+				}
 
-					_inputGraphicsOverlay.Graphics.Add(new Graphic(point, _pointSymbol));
+				_inputGraphicsOverlay.Graphics.Add(new Graphic(point, _pointSymbol));
 
-					if (_inputGraphicsOverlay.Graphics.Count > 2)
-                        btnConvexHull.IsEnabled = true;
-                }
-            }
-            catch (TaskCanceledException) { }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error adding points: " + ex.Message, "Convex Hull Sample");
-            }
+				if (_inputGraphicsOverlay.Graphics.Count > 2)
+					btnConvexHull.IsEnabled = true;
+					
+				await DrawPoints();
+			}
+			catch (TaskCanceledException) { }
+			catch (Exception ex)
+			{
+				MessageBox.Show("Error adding points: " + ex.Message, "Convex Hull Sample");
+			}
         }
 
         // Creates a convex hull polygon from the input point graphics

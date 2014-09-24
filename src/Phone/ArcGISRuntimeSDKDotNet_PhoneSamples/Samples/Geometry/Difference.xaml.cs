@@ -80,13 +80,18 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             StartButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             ResetButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
 
-            //Get the user's input geometry and add it to the map
-            inputDifferencePolygonGeometry = (await mapView1.Editor.RequestShapeAsync(DrawShape.Polygon)) as Polygon;
+			// wait for user to draw difference polygon
+			Polygon inputDifferencePolygonGeometry = await mapView1.Editor.RequestShapeAsync(DrawShape.Polygon) as Polygon;
+
+			// Take account of WrapAround
+			Polygon polygon = GeometryEngine.NormalizeCentralMeridian(inputDifferencePolygonGeometry) as Polygon;
+
+			// Get the user input geometry and add it to the map
             drawGraphicsLayer.Graphics.Clear();
             drawGraphicsLayer.Graphics.Add(new Graphic { Geometry = inputDifferencePolygonGeometry });
 
-            //Simplify the input geometry
-            var simplifyGeometry = GeometryEngine.Simplify(inputDifferencePolygonGeometry);
+			// Adjust user polygon for backward digitization
+			var simplifyGeometry = GeometryEngine.Simplify(polygon);
 
             //Generate the difference geometries
             var inputGeometries1 = inputGraphicsLayer.Graphics.Select(x => x.Geometry).ToList();

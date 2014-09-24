@@ -44,8 +44,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 if (mapView1.Editor.IsActive)
                     mapView1.Editor.Cancel.Execute(null);
 
-                //Get the input polygon geometry from the user
-                inputGeom = await mapView1.Editor.RequestShapeAsync(DrawShape.Polygon);
+				// Wait for user to draw a polygon
+				Polygon userpoly = await mapView1.Editor.RequestShapeAsync(DrawShape.Polygon) as Polygon;
+
+				Polygon inputGeom = GeometryEngine.NormalizeCentralMeridian(userpoly) as Polygon;
 
                 if (inputGeom != null)
                 {
@@ -59,7 +61,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
 
                     //Optional - Simplify the input geometry
-                    inputGeom = GeometryEngine.Simplify(inputGeom);
+                    inputGeom = GeometryEngine.Simplify(inputGeom) as Polygon;
 
                     //Do the intersection for each of the graphics in the parcels layer
                     foreach (var parcel in parcelGraphicsLayer.Graphics)

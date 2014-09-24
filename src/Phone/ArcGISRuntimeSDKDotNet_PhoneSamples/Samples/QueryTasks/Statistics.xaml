@@ -9,10 +9,10 @@
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
 			<Style x:Key="MyItemTextStyle" BasedOn="{StaticResource BodyTextBlockStyle}" TargetType="TextBlock">
-                <Setter Property="Margin" Value="15,0,0,0"/>
+                <Setter Property="Margin" Value="5,0"/>
             </Style>
 			<Style x:Key="MyTitleTextStyle" BasedOn="{StaticResource BodyTextBlockStyle}" TargetType="TextBlock">
-				<Setter Property="Margin" Value="15,0,0,0"/>
+				<Setter Property="Margin" Value="10,0"/>
 			</Style>
 		</Grid.Resources>
         <Grid.RowDefinitions>
@@ -22,11 +22,11 @@
 
 
 
-        <TextBlock FontSize="20" Text="US Statistics by Sub-region..." Margin="120,20,0,40" />
+        <TextBlock FontSize="20" Text="US Statistics by Sub-region..." Margin="0" />
 
 
         <GridView Grid.Row="1" x:Name="ResultGrid" HorizontalAlignment="Left"
-          Margin="120,0,0,60"         >
+          Margin="0"         >
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Border  Padding="20" BorderThickness="2" BorderBrush="White">
@@ -41,13 +41,13 @@
                                 <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
 
-                            <TextBlock Grid.ColumnSpan="2" Text="{Binding Attributes[sub_region]}" FontSize="40"  HorizontalAlignment="Left" Margin="0,10,0,20" />
+                            <TextBlock Grid.ColumnSpan="2" Text="{Binding Attributes[sub_region]}" FontSize="40"  HorizontalAlignment="Left" Margin="0" />
 
                             <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
                                 <TextBlock Text="Num. States :"  Style="{StaticResource TitleTextBlockStyle}"/>
                                 <TextBlock Text="{Binding  Attributes[numberofstates]}" Style="{StaticResource MyItemTextStyle}" />
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="50,0,0,0">
+                            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="0">
 								<TextBlock Text="Population :"  Style="{StaticResource TitleTextBlockStyle}"/>
                                 <TextBlock Text="{Binding Attributes[subregionpopulation]}" Style="{StaticResource MyItemTextStyle}" />
                             </StackPanel>

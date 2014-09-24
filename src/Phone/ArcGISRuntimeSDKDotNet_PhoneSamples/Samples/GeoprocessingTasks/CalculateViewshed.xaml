@@ -15,13 +15,16 @@
                                   Color="#FFFF9999"
                                   Width="2"
                                   Style="Solid"/>
-            <sym:SimpleFillSymbol x:Key="DefaultFillSymbol"
-                                       Color="#99FF9999"
-                                  Outline="{StaticResource OutlineSymbol}"/>
+            <sym:SimpleRenderer x:Key="viewShedRenderer">
+                <sym:SimpleRenderer.Symbol>
+                    <sym:SimpleFillSymbol Color="#44FF9999" Outline="{StaticResource OutlineSymbol}"/>
+                </sym:SimpleRenderer.Symbol>
+            </sym:SimpleRenderer>                        
         </Grid.Resources>
         <esri:MapView x:Name="mapView1"><esri:Map >
             <lyr:ArcGISTiledMapServiceLayer ID="TopoMapLayer"
                                              ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
+            <lyr:GraphicsLayer ID="viewShedLayer" Renderer="{StaticResource viewShedRenderer}" />
             <lyr:GraphicsLayer ID="InputLayer" Renderer="{StaticResource PointRenderer}" />
         </esri:Map></esri:MapView>
         <Border Margin="20"

@@ -62,11 +62,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             {
                 _differenceGraphics.Graphics.Clear();
 
-                // wait for user to draw difference polygon
-                var poly = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon);
+				// wait for user to draw difference polygon
+				Polygon userpoly = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon) as Polygon;
 
-                // Adjust user polygon for backward digitization
-                poly = GeometryEngine.Simplify(poly);
+				// Take account of WrapAround
+				Polygon poly = GeometryEngine.NormalizeCentralMeridian(userpoly) as Polygon;
+
+				// Adjust user polygon for backward digitization
+				poly = GeometryEngine.Simplify(poly) as Polygon;
 
                 // get intersecting features from the feature layer
                 SpatialQueryFilter filter = new SpatialQueryFilter();

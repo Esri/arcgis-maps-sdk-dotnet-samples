@@ -14,6 +14,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 		public SymbolsAndLabels()
         {
             this.InitializeComponent();
+            mapView1.InteractionOptions.RotationOptions.IsEnabled = true;            
 			CreateGeometries();
         }
 
@@ -82,5 +83,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			}
 			return coll;
 		}
+
+        private void RotationSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        {
+            mapView1.SetRotationAsync(e.NewValue);
+        }
     }
 }

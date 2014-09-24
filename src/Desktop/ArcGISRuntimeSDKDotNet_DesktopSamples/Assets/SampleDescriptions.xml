@@ -1017,7 +1017,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Viewshed">
             <summary>
-            This sample demonstrates use of the Geoprocessor to call an asynchronous ViewShed geoprocessing service.
+            This sample demonstrates use of the Geoprocessor to call a Viewshed geoprocessing service.
             </summary>
             <title>Viewshed</title>
             <category>Tasks</category>

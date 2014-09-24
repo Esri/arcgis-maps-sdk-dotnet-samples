@@ -37,7 +37,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 while (MyMapView.Extent != null)
                 {
                     // Accept user point
-                    var point = await MyMapView.Editor.RequestPointAsync();
+					MapPoint userpoint = await MyMapView.Editor.RequestPointAsync() as MapPoint;
+
+					MapPoint point = GeometryEngine.NormalizeCentralMeridian(userpoint) as MapPoint;
 
                     // create the geodesic ellipse
                     var radius1 = (double)comboRadius1.SelectedItem;
@@ -77,7 +79,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             catch (TaskCanceledException) { }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Geometry Engine Failed!");
+                MessageBox.Show(ex.Message, "Error");
             }
         }
     }

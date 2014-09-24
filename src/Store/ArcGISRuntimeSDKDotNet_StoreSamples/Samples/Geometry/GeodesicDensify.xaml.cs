@@ -61,6 +61,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
 				var original = await MyMapView.Editor.RequestShapeAsync(drawShape, symbolToUse);
 
+				// Account for WrapAround
 				var normalized = GeometryEngine.NormalizeCentralMeridian(original);
 
                 // Add original shape vertices to input graphics layer

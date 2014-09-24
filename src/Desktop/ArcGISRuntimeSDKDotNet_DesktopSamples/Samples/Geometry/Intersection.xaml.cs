@@ -60,7 +60,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 				_resultsOverlay.Graphics.Clear();
 
                 // wait for user to draw a polygon
-                var poly = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon);
+                Polygon userpoly = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon) as Polygon;
+
+				Polygon poly = GeometryEngine.NormalizeCentralMeridian(userpoly) as Polygon;
 
                 // get intersecting features from the feature layer
                 SpatialQueryFilter filter = new SpatialQueryFilter();

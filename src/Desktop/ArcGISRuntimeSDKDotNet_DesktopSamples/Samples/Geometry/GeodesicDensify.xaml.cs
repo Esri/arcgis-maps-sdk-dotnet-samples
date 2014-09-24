@@ -62,13 +62,16 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
 				var original = await MyMapView.Editor.RequestShapeAsync(drawShape, symbolToUse);
 
+				// Account for WrapAround
+				var normalized = GeometryEngine.NormalizeCentralMeridian(original);
+
                 // Add original shape vertices to input graphics layer
-                var coordsOriginal = (original as Multipart).Parts.First().GetPoints();
+				var coordsOriginal = (normalized as Multipart).Parts.First().GetPoints();
 				foreach (var mapPoint in coordsOriginal)
 					_inputOverlay.Graphics.Add(new Graphic(mapPoint, _origVertexSymbol));
 
                 // Densify the shape
-                var densify = GeometryEngine.GeodesicDensify(original, MyMapView.Extent.Width / 100, LinearUnits.Meters);
+				var densify = GeometryEngine.GeodesicDensify(normalized, MyMapView.Extent.Width / 100, LinearUnits.Meters);
 
 				if (densify.GeometryType == GeometryType.Polygon)
 					_inputOverlay.Graphics.Add(new Graphic(densify, _fillSymbol));
@@ -83,7 +86,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 // Results
                 Dictionary<string, object> results = new Dictionary<string, object>();
                 results["Length"] = GeometryEngine.GeodesicLength(densify) * METERS_TO_MILES;
-                if (original is Polygon)
+				if (normalized is Polygon)
                     results["Area"] = GeometryEngine.GeodesicArea(densify) * SQUARE_METERS_TO_MILES;
                 else
                     results["Area"] = "N/A";

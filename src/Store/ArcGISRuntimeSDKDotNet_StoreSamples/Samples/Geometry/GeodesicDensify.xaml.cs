@@ -59,15 +59,17 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 				if (drawShape == DrawShape.Polygon)
 					symbolToUse = _fillSymbol;
 
-                var original = await MyMapView.Editor.RequestShapeAsync(drawShape, symbolToUse);
+				var original = await MyMapView.Editor.RequestShapeAsync(drawShape, symbolToUse);
+
+				var normalized = GeometryEngine.NormalizeCentralMeridian(original);
 
                 // Add original shape vertices to input graphics layer
-				var coordsOriginal = (original as Multipart).Parts.First().GetPoints();
+				var coordsOriginal = (normalized as Multipart).Parts.First().GetPoints();
                 foreach (var coord in coordsOriginal)
                     _inputOverlay.Graphics.Add(new Graphic(coord, _origVertexSymbol));
 
                 // Densify the shape
-                var densify = GeometryEngine.GeodesicDensify(original, MyMapView.Extent.Width / 100, LinearUnits.Meters);
+				var densify = GeometryEngine.GeodesicDensify(normalized, MyMapView.Extent.Width / 100, LinearUnits.Meters);
 
 				if (densify.GeometryType == GeometryType.Polygon)
 					_inputOverlay.Graphics.Add(new Graphic(densify, _fillSymbol));
@@ -84,7 +86,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 {
                     new Tuple<string, object>("Length", GeometryEngine.GeodesicLength(densify) * METERS_TO_MILES),
                     new Tuple<string, object>("Area", 
-                        (original is Polygon) ? (GeometryEngine.GeodesicArea(densify) * SQUARE_METERS_TO_MILES).ToString("0.000") : "N/A"),
+                        (normalized is Polygon) ? (GeometryEngine.GeodesicArea(densify) * SQUARE_METERS_TO_MILES).ToString("0.000") : "N/A"),
                     new Tuple<string, object>("Vertices Before", coordsOriginal.Count()),
                     new Tuple<string, object>("Vertices After", coordsDensify.Count())
                 };

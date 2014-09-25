@@ -58,7 +58,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         GraphicsOverlay graphicsOverlay;
         graphicsOverlay = drawShape == DrawShape.Point ? MyMapView.GraphicsOverlays["PointGraphicsOverlay"] as GraphicsOverlay :
-                   ((drawShape == DrawShape.Polyline || drawShape == DrawShape.Freehand) ?
+                   ((drawShape == DrawShape.Polyline || drawShape == DrawShape.Freehand || drawShape == DrawShape.LineSegment) ?
           MyMapView.GraphicsOverlays["PolylineGraphicsOverlay"] as GraphicsOverlay : MyMapView.GraphicsOverlays["PolygonGraphicsOverlay"] as GraphicsOverlay);
 
         var progress = new Progress<GeometryEditStatus>();

@@ -32,26 +32,33 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.Specialized
 		public SymbolDictionarySearchSample()
 		{
 			InitializeComponent();
-
-			// Create a new SymbolDictionary instance 
-			_symbolDictionary = new SymbolDictionary(SymbolDictionaryType.Mil2525c);
-
-			// Remove any empty strings space from keywords
-			_keywords = _symbolDictionary.Keywords.OrderBy(k => k).ToList();
-			_keywords = _keywords.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct().ToList();
-
-			// Collection of view models for the displayed list of symbols
-			Symbols = new ObservableCollection<SymbolViewModel>();
-
-			// Set the DataContext for binding
-			DataContext = this;
-			
-			// Set the image size
-			_imageSize = 64;
-
-			// Get reference to MessageLayer to use with messages
-			_messageLayer = MyMapView.Map.Layers.OfType<MessageLayer>().First();
+            Init();        
 		}
+
+        private async void Init()
+        {
+            // Wait until all layers are loaded
+            await MyMapView.LayersLoadedAsync();
+
+            // Create a new SymbolDictionary instance 
+            _symbolDictionary = new SymbolDictionary(SymbolDictionaryType.Mil2525c);
+
+            // Remove any empty strings space from keywords
+            _keywords = _symbolDictionary.Keywords.OrderBy(k => k).ToList();
+            _keywords = _keywords.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct().ToList();
+
+            // Collection of view models for the displayed list of symbols
+            Symbols = new ObservableCollection<SymbolViewModel>();
+
+            // Set the DataContext for binding
+            DataContext = this;
+
+            // Set the image size
+            _imageSize = 64;
+
+            // Get reference to MessageLayer to use with messages
+            _messageLayer = MyMapView.Map.Layers.OfType<MessageLayer>().First();
+        }
 
 		// Search results 
 		public ObservableCollection<SymbolViewModel> Symbols { get; private set; }

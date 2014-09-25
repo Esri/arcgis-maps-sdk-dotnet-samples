@@ -21,13 +21,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     /// <category>Editing</category>
     public partial class EditAttributes : UserControl
     {
+        private Grid formGrid;
         public EditAttributes()
         {
             InitializeComponent();
         }
-
-        private Grid formGrid;
-        
+                
         private FeatureLayer GetFeatureLayer()
         {
             if (MyMapView.Map == null || MyMapView.Map.Layers == null)

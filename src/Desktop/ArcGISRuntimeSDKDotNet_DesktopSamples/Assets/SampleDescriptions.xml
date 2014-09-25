@@ -164,6 +164,21 @@
             InitializeComponent
             </summary>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SelectionOnly">
+            <summary>
+            Demonstrates how selection is used so only features of interests can be imported and edited in the local geodatabase.
+            </summary>
+            <title>Selection Only</title>
+            <category>Editing</category>
+            <summary>
+            SelectionOnly
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SelectionOnly.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OwnershipBasedEditing">
             <summary>
             Demonstrates the ability of feature services to restrict editing operations based on feature ownership.  The owner is defined as the user who created the feature.  In this example, owners can update or delete their features.  Feature not owned by the current user cannot be updated or deleted.  

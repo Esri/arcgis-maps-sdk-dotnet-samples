@@ -126,6 +126,9 @@
     <Compile Include="Samples\Editing\EditorTracking.xaml.cs">
       <DependentUpon>EditorTracking.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Editing\SelectionOnly.xaml.cs" >
+      <DependentUpon>SelectionOnly.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\FeatureLayers\FeatureLayers.xaml.cs">
       <DependentUpon>FeatureLayers.xaml</DependentUpon>
     </Compile>
@@ -380,6 +383,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Editing\EditorTracking.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\SelectionOnly.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

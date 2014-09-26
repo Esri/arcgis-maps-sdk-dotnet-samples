@@ -24,17 +24,17 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
     /// <category>Editing</category>
     public partial class EditGeometry : Page
     {
-        public EditGeometry()
-        {
-            InitializeComponent();
-        }
-        
         private enum EditType
         {
             Add,
             Update,
             Delete
         }
+
+        public EditGeometry()
+        {
+            InitializeComponent();
+        }        
 
         private FeatureLayer GetFeatureLayer()
         {

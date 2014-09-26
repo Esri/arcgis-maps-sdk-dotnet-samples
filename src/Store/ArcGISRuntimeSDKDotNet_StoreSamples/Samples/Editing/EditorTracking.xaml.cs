@@ -26,6 +26,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
     /// <category>Editing</category>
     public partial class EditorTracking : Page
     {
+        private enum EditType
+        {
+            Add,
+            Update,
+            Delete
+        }
         private Flyout dataForm; // Used for attribute editing.   
 
         public EditorTracking()
@@ -408,10 +414,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 await new MessageDialog(message).ShowAsync();
         }
 
-        private static string GetResultMessage(IEnumerable<FeatureEditResultItem> editResults)
+        private static string GetResultMessage(IEnumerable<FeatureEditResultItem> editResults, EditType editType)
         {
             var sb = new StringBuilder();
-            var operation = "updates";
+            var operation = editType == EditType.Add ? "adds" :
+                (editType == EditType.Update ? "updates" : "deletes");
             if (editResults.Any(r => r.Error != null))
             {
                 sb.AppendLine(string.Format("Failed {0} : [{1}]", operation, string.Join(", ", from r in editResults
@@ -439,12 +446,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var saveResult = await table.ApplyEditsAsync();
                 if (saveResult != null)
                 {
-                    var hasAdds = saveResult.AddResults != null && saveResult.AddResults.Any();
-                    var hasDeletes = saveResult.DeleteResults != null && saveResult.DeleteResults.Any();
-                    if (hasAdds || hasDeletes)
-                        throw new Exception("This sample only updates attributes of existing features and should not result in any add nor delete.");
                     var sb = new StringBuilder();
-                    var editMessage = GetResultMessage(saveResult.UpdateResults);
+                    var editMessage = GetResultMessage(saveResult.AddResults, EditType.Add);
+                    if (!string.IsNullOrWhiteSpace(editMessage))
+                        sb.AppendLine(editMessage);
+                    editMessage = GetResultMessage(saveResult.UpdateResults, EditType.Update);
+                    if (!string.IsNullOrWhiteSpace(editMessage))
+                        sb.AppendLine(editMessage);
+                    editMessage = GetResultMessage(saveResult.DeleteResults, EditType.Delete);
                     if (!string.IsNullOrWhiteSpace(editMessage))
                         sb.AppendLine(editMessage);
                     message = sb.ToString();

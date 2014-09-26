@@ -162,6 +162,13 @@
             <title>Editor Tracking</title>
             <category>Editing</category>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SelectionOnly">
+            <summary>
+            Demonstrates how to add and selectively import, update or delete features to local geodatabase while the rest of the features are rendered by dynamic layer.
+            </summary>
+            <title>Selection Only</title>
+            <category>Editing</category>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayers">
             <summary>
             

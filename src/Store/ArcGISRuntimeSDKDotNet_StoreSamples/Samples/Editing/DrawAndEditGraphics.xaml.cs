@@ -17,7 +17,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
   public sealed partial class DrawAndEditGraphics : Page
   {
     Graphic _editGraphic = null;
-
+      
     public DrawAndEditGraphics()
     {
       this.InitializeComponent();
@@ -58,7 +58,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         GraphicsOverlay graphicsOverlay;
         graphicsOverlay = drawShape == DrawShape.Point ? MyMapView.GraphicsOverlays["PointGraphicsOverlay"] as GraphicsOverlay :
-                   ((drawShape == DrawShape.Polyline || drawShape == DrawShape.Freehand) ?
+                   ((drawShape == DrawShape.Polyline || drawShape == DrawShape.Freehand || drawShape == DrawShape.LineSegment) ?
           MyMapView.GraphicsOverlays["PolylineGraphicsOverlay"] as GraphicsOverlay : MyMapView.GraphicsOverlays["PolygonGraphicsOverlay"] as GraphicsOverlay);
 
         var progress = new Progress<GeometryEditStatus>();
@@ -115,13 +115,24 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
       var drawShape = (DrawShape)DrawShapes.SelectedItem;
       GraphicsOverlay graphicsOverlay;
       graphicsOverlay = drawShape == DrawShape.Point ? MyMapView.GraphicsOverlays["PointGraphicsOverlay"] as GraphicsOverlay :
-                 ((drawShape == DrawShape.Polyline || drawShape == DrawShape.Freehand) ?
+                 ((drawShape == DrawShape.Polyline || drawShape == DrawShape.Freehand || drawShape == DrawShape.LineSegment) ?
         MyMapView.GraphicsOverlays["PolylineGraphicsOverlay"] as GraphicsOverlay : MyMapView.GraphicsOverlays["PolygonGraphicsOverlay"] as GraphicsOverlay);
 
 
       var graphic = await graphicsOverlay.HitTestAsync(MyMapView, e.Position);
-      if (graphic != null)
+      
+        if (graphic != null)
       {
+          //Clear prevoius selection
+          foreach (GraphicsOverlay gOLay in MyMapView.GraphicsOverlays)
+          {
+              gOLay.ClearSelection();
+          }
+
+        //Cancel editing if started
+         if (MyMapView.Editor.Cancel.CanExecute(null))
+              MyMapView.Editor.Cancel.Execute(null);
+
         _editGraphic = graphic;
         _editGraphic.IsSelected = true;
       }

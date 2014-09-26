@@ -1,15 +1,8 @@
 ﻿<UserControl x:Class="ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SelectionOnly"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:ArcGISRuntimeSDKDotNet_DesktopSamples"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"             
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
              xmlns:sys="clr-namespace:System;assembly=mscorlib">
-    <UserControl.Resources>
-        <local:KeyValueConverter x:Key="KeyValueConverter" />
-        <DataTemplate x:Key="MyItemTemplate">
-            <TextBlock Text="{Binding Value}" />
-        </DataTemplate>
-    </UserControl.Resources>
     <Grid>
         <esri:MapView x:Name="MyMapView"
                       LayerLoaded="MyMapView_LayerLoaded"
@@ -40,18 +33,21 @@
                         ToolTipService.ToolTip="IR Intense Heat Area"
                         Content="Add Feature">
                     <Button.Tag>
-                        <sys:Int32>1</sys:Int32>
+                        <sys:Int16>1</sys:Int16>
                     </Button.Tag>
                 </Button>
-                <Button IsEnabled="False"
-                        x:Name="SaveButton"
-                        Content="Save Edits"
+                <Button x:Name="EditButton"
+                        IsEnabled="False"
+                        Click="EditButton_Click"
                         Margin="2"
-                        Click="SaveButton_Click" />
-                <Button IsEnabled="{Binding ElementName=SaveButton, Path=IsEnabled}"
-                        Content="Cancel Edits"
+                        Content="Edit Geometry">
+                </Button>
+                <Button IsEnabled="{Binding ElementName=EditButton, Path=IsEnabled}"
+                        DataContext="{Binding ElementName=EditButton, Path=DataContext}"
+                        Click="DeleteButton_Click"
                         Margin="2"
-                        Click="CancelButton_Click" />
+                        Content="Delete Feature">
+                </Button>
             </StackPanel>
         </Border>
         <Border Background="White"
@@ -64,7 +60,7 @@
             <Border.Effect>
                 <DropShadowEffect />
             </Border.Effect>
-            <TextBlock Text="Click on a feature in the map to view the attributes in the data form.  Edit values in the data form and click Apply to save to the database."
+            <TextBlock Text="Click on a feature in the map to edit its geometry or delete the feature. Confirm edit or delete to save to the database."                       
                        Width="200"
                        TextAlignment="Left"
                        Margin="30,20,20,30"

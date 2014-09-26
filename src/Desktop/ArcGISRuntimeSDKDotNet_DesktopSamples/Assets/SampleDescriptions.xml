@@ -166,7 +166,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SelectionOnly">
             <summary>
-            Demonstrates how selection is used so only features of interests can be imported and edited in the local geodatabase.
+            Demonstrates how to add and selectively import, update or delete features to local geodatabase while the rest of the features are rendered by dynamic layer.
             </summary>
             <title>Selection Only</title>
             <category>Editing</category>

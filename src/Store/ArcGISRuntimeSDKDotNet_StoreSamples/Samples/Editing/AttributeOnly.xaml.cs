@@ -18,7 +18,7 @@ using Windows.UI.Xaml.Data;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
-    /// Demonstrates how to selectively import and update feature attributes to local geodatabase and update the dynamic layer to reflect these changes.
+    /// Demonstrates how to selectively import and update feature attributes to local geodatabase and update the dynamic layer to reflect attribute changes.
     /// </summary>
     /// <title>Attribute Only</title>
     /// <category>Editing</category>
@@ -32,7 +32,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             InitializeComponent();
             var layer = GetArcGISDynamicMapServiceLayer();
             if (layer != null)
-                layer.VisibleLayers = new ObservableCollection<int>(new int[] { 2 });
+                layer.VisibleLayers = new ObservableCollection<int>(new int[] { 0 });
         }
 
         private ArcGISDynamicMapServiceLayer GetArcGISDynamicMapServiceLayer()
@@ -291,7 +291,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             {
                 var dialog = new MessageDialog("Do you want to apply the changes to your database?", "Apply edits");
                 dialog.Commands.Add(new UICommand("OK", new UICommandInvokedHandler(async (command) =>
-                {
+                {                    
                     await UpdateFeatureAttributesAsync(graphic);
                     ClearLocalGraphics();
                 })));
@@ -299,6 +299,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 {
                     ClearLocalGraphics();
                 })));
+                await dialog.ShowAsync();
             }
             catch (Exception ex)
             {

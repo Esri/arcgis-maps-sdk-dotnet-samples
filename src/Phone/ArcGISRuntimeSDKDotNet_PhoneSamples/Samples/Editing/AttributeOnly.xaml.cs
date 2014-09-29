@@ -1,35 +1,38 @@
-﻿using Esri.ArcGISRuntime.Controls;
+﻿using ArcGISRuntimeSDKDotNet_StoreSamples.Common;
+using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Layers;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks.Edit;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
+using Windows.UI.Popups;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
 
-namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
-    /// Demonstrates how to selectively import and update feature attributes to local geodatabase and update the dynamic layer to reflect attribute changes.
+    /// Demonstrates how to selectively import and update feature attributes to local geodatabase and update the dynamic layer to reflect these changes.
     /// </summary>
     /// <title>Attribute Only</title>
     /// <category>Editing</category>
-    public partial class AttributeOnly : UserControl
+    public partial class AttributeOnly : Page
     {
-        private Grid formGrid;
+        private Flyout dataForm;
         private ServiceFeatureTable table;
 
         public AttributeOnly()
         {
             InitializeComponent();
+            var layer = GetArcGISDynamicMapServiceLayer();
+            if (layer != null)
+                layer.VisibleLayers = new ObservableCollection<int>(new int[] { 0 });
         }
 
         private ArcGISDynamicMapServiceLayer GetArcGISDynamicMapServiceLayer()
@@ -68,13 +71,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     // For better validation and customization support use FeatureDataForm from the Toolkit.   
                     if (table.ServiceInfo.Fields != null)
                     {
-                        var itemtTemplate = this.Resources["MyItemTemplate"] as DataTemplate;
-                        formGrid = new Grid() { Margin = new Thickness(2d) };
+                        var formGrid = new Grid() { Margin = new Thickness(2d) };
                         formGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
                         formGrid.ColumnDefinitions.Add(new ColumnDefinition());
                         var fieldCount = table.ServiceInfo.Fields.Count + 1; // Fields + Apply/Close button
                         for (int i = 0; i < fieldCount; i++)
-                            formGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
+                            formGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto }); 
+                        var hasFeatureTypes = !string.IsNullOrWhiteSpace(table.ServiceInfo.TypeIdField) && table.ServiceInfo.Types != null && table.ServiceInfo.Types.Any();
                         int row = 0;
                         foreach (var field in table.ServiceInfo.Fields)
                         {
@@ -83,19 +86,32 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                             formGrid.Children.Add(label);
                             FrameworkElement value = null;
                             // This binding will be resolved once the DataContext for formGrid is set to feature.
-                            var binding = new Binding(string.Format("Attributes[{0}]", field.Name));
+                            var binding = new Binding() { Path = new PropertyPath(string.Format("Attributes[{0}]", field.Name)) };
                             if (field.IsEditable)
                             {
                                 binding.Mode = BindingMode.TwoWay;
                                 var keyValueConverter = this.Resources["KeyValueConverter"] as KeyValueConverter;
-                                if (field.Domain != null)
+                                if (hasFeatureTypes && table.ServiceInfo.TypeIdField == field.Name)
                                 {
-                                    value = new ComboBox() { ItemTemplate = itemtTemplate, Margin = new Thickness(2d) };
+                                    value = new ComboBox() { Margin = new Thickness(2d) };
+                                    var lookup = from t in table.ServiceInfo.Types
+                                                 select new KeyValuePair<object, string>(t.ID, t.Name);
+                                    ((ComboBox)value).ItemsSource = from item in lookup
+                                                                    select item.Value;
+                                    binding.Converter = keyValueConverter;
+                                    binding.ConverterParameter = lookup;
+                                    ((ComboBox)value).SetBinding(ComboBox.SelectedItemProperty, binding);
+                                }
+                                else if (field.Domain != null)
+                                {
+                                    value = new ComboBox() { Margin = new Thickness(2d) };
                                     if (field.Domain is CodedValueDomain)
                                     {
-                                        ((ComboBox)value).ItemsSource = ((CodedValueDomain)field.Domain).CodedValues;
+                                        var lookup = ((CodedValueDomain)field.Domain).CodedValues;
+                                        ((ComboBox)value).ItemsSource = from item in lookup
+                                                                        select item.Value;
                                         binding.Converter = keyValueConverter;
-                                        binding.ConverterParameter = ((ComboBox)value).ItemsSource;
+                                        binding.ConverterParameter = lookup;
                                     }
                                     else if (field.Domain is RangeDomain<IComparable>)
                                     {
@@ -136,6 +152,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                         closeButton.Click += CloseButton_Click;
                         buttonGrid.Children.Add(closeButton);
                         formGrid.Children.Add(buttonGrid);
+                        var formPanel = new StackPanel();
+                        formPanel.Children.Add(new TextBlock() { Text = "Attribute Editor" });
+                        formPanel.Children.Add(formGrid);
+                        dataForm = new Flyout() { Content = formPanel, Placement = FlyoutPlacementMode.Full };
                     }
                 }
             }
@@ -169,6 +189,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             return value;
         }
 
+        private void ClearLocalGraphics()
+        {
+            var layer = GetGraphicsLayer();
+            if (layer != null && layer.Graphics != null)
+                layer.Graphics.Clear();
+        }
+
         private async void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
             if (MyMapView.Editor.IsActive)
@@ -181,9 +208,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             string message = null;
             try
             {
-                // Clear local graphics.
-                if (layer != null && layer.Graphics != null)
-                    layer.Graphics.Clear();
+                ClearLocalGraphics();
                 // Perform an identify to pull graphic into local layer.
                 var mapPoint = MyMapView.ScreenToLocation(e.Position);
                 var parameters = new IdentifyParameters(mapPoint, MyMapView.Extent, 2, (int)MyMapView.ActualHeight, (int)MyMapView.ActualWidth);
@@ -207,9 +232,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                         graphic.IsSelected = true;
                         // Add selected feature to local layer.
                         layer.Graphics.Add(graphic);
-                        var dataForm = new Window() { Content = formGrid, Height = 300, Width = 500, Title = "Attribute Editor" };
-                        dataForm.DataContext = graphic;
-                        dataForm.Show();
+                        if (dataForm != null)
+                        {
+                            if (dataForm.Content is FrameworkElement)
+                                ((FrameworkElement)dataForm.Content).DataContext = graphic;
+                            dataForm.ShowAt(MyMapView);
+                        }
                     }
                 }
             }
@@ -218,7 +246,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 message = ex.Message;
             }
             if (!string.IsNullOrWhiteSpace(message))
-                MessageBox.Show(message);
+                await new MessageDialog(message).ShowAsync();
         }
 
         private async Task UpdateFeatureAttributesAsync(Graphic graphic)
@@ -249,11 +277,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            if (formGrid != null && formGrid.Parent is Window)
-            {
-                var dataForm = (Window)formGrid.Parent;
-                dataForm.Close();
-            }
+            if (dataForm != null)
+                dataForm.Hide();
         }
 
         private async void ApplyButton_Click(object sender, RoutedEventArgs e)
@@ -264,21 +289,24 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             string message = null;
             try
             {
-
-                var editPrompt = MessageBox.Show("Do you want to apply the changes to your database?", "Apply edits", MessageBoxButton.OKCancel);
-                if (editPrompt == MessageBoxResult.OK)
+                var dialog = new MessageDialog("Do you want to apply the changes to your database?", "Apply edits");
+                dialog.Commands.Add(new UICommand("OK", new UICommandInvokedHandler(async (command) =>
+                {
                     await UpdateFeatureAttributesAsync(graphic);
-                var layer = GetGraphicsLayer();
-                // Clear local graphics.
-                if (layer != null && layer.Graphics != null)
-                    layer.Graphics.Clear();
+                    ClearLocalGraphics();
+                })));
+                dialog.Commands.Add(new UICommand("Cancel", new UICommandInvokedHandler(async (command) =>
+                {
+                    ClearLocalGraphics();
+                })));
+                await dialog.ShowAsync();
             }
             catch (Exception ex)
             {
                 message = ex.Message;
             }
             if (!string.IsNullOrWhiteSpace(message))
-                MessageBox.Show(message);
+                await new MessageDialog(message).ShowAsync();
         }
     }
 }

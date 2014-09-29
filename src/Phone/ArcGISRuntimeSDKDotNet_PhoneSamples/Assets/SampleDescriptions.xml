@@ -126,6 +126,13 @@
             </summary>
             <category>Dynamic Service Layers</category>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.AttributeOnly">
+            <summary>
+            Demonstrates how to selectively import and update feature attributes to local geodatabase and update the dynamic layer to reflect these changes.
+            </summary>
+            <title>Attribute Only</title>
+            <category>Editing</category>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.EditAttachments">
             <summary>
             Demonstrates how attachments can be queried and modified from a ServiceFeatureTable and how this type of edit is pushed to the server or canceled.

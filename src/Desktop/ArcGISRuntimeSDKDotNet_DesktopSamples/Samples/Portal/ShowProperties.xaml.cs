@@ -10,7 +10,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     /// <summary>
     /// This sample illustrates a simple way of querying the Portal metadata/properties and retrieving featuredItems using the Portal API.
     /// </summary>
-    /// <title>ShowProperties</title>
+    /// <title>Show Properties</title>
     /// <category>Portal</category>
     public partial class ShowProperties : UserControl
     {

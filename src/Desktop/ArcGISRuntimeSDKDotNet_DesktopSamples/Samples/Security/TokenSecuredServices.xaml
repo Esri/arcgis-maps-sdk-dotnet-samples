@@ -4,7 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid x:Name="layoutGrid">
         <esri:MapView x:Name="MyMapView" WrapAround="True">
-			<esri:Map InitialViewpoint="-17611013,2601908,-2823071,9287290,3857">
+            <esri:Map InitialViewpoint="-17611013,2601908,-2823071,9287290,3857">
                 <esri:ArcGISTiledMapServiceLayer DisplayName="World Street Map - Public"
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 
@@ -12,9 +12,6 @@
                 <esri:ArcGISDynamicMapServiceLayer ID="USA" DisplayName="USA - Secure"
                     ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA_secure_user1/MapServer" />
 
-                <!-- username: user1 | password: pass.word1 -->
-                <esri:ArcGISDynamicMapServiceLayer ID="GulfCoastOil" DisplayName="Gulf Coast Oil - Secure"
-                    ServiceUri="http://serverapps10.esri.com/arcgis/rest/services/GulfLawrenceSecureUser1/MapServer" />
             </esri:Map>
         </esri:MapView>
 

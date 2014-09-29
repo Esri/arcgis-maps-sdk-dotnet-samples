@@ -97,6 +97,9 @@
     <Compile Include="Samples\DynamicServiceLayers\WMSLayer.xaml.cs">
       <DependentUpon>WMSLayer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Editing\AttributeOnly.xaml.cs">
+      <DependentUpon>AttributeOnly.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Editing\SelectionOnly.xaml.cs">
       <DependentUpon>SelectionOnly.xaml</DependentUpon>
     </Compile>
@@ -516,6 +519,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\DynamicServiceLayers\WMSLayer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\AttributeOnly.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

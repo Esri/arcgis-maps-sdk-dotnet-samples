@@ -164,6 +164,21 @@
             InitializeComponent
             </summary>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.AttributeOnly">
+            <summary>
+            Demonstrates how to selectively import and update feature attributes to local geodatabase while the rest of the features are rendered by dynamic layer.
+            </summary>
+            <title>Attribute Only</title>
+            <category>Editing</category>
+            <summary>
+            AttributeOnly
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.AttributeOnly.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SelectionOnly">
             <summary>
             Demonstrates how to add and selectively import, update or delete features to local geodatabase while the rest of the features are rendered by dynamic layer.

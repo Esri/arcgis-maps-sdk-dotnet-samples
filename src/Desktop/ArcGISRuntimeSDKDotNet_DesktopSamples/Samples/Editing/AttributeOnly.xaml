@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.AttributeOnly"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:ArcGISRuntimeSDKDotNet_DesktopSamples"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <UserControl.Resources>
+        <esri:SimpleLineSymbol x:Key="HighlightOutlineSymbol"
+                               Color="Yellow"
+                               Width="4.5" />
+        <esri:SimpleFillSymbol x:Key="HighlightFillSymbol"
+                               Color="Transparent"
+                               Outline="{StaticResource HighlightOutlineSymbol}" />
+        <esri:SimpleRenderer x:Key="HighlightRenderer"
+                             Symbol="{StaticResource HighlightFillSymbol}" />
+        <local:KeyValueConverter x:Key="KeyValueConverter" />
+        <DataTemplate x:Key="MyItemTemplate">
+            <TextBlock Text="{Binding Value}" />
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <esri:MapView x:Name="MyMapView"
+                      LayerLoaded="MyMapView_LayerLoaded"
+                      MapViewTapped="MyMapView_MapViewTapped">
+            <esri:Map InitialViewpoint="-13075150.8872716,4015586.5093488,-13073624.4294544,4016213.20181174">
+                <esri:ArcGISTiledMapServiceLayer ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+                <esri:ArcGISDynamicMapServiceLayer ID="PoolPermitDynamicLayer"  
+                                                   VisibleLayers="0"
+                                                   ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/PoolPermits/MapServer" />
+                <esri:GraphicsLayer ID="PoolPermitFeatureLayer"
+                                    Renderer="{StaticResource HighlightRenderer}"/>
+            </esri:Map>
+        </esri:MapView>
+        <Border Background="White"
+                BorderBrush="Black"
+                BorderThickness="1"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="30"
+                Padding="20">
+            <Border.Effect>
+                <DropShadowEffect />
+            </Border.Effect>
+            <TextBlock Text="Click on a feature in the map to edit its attribute. Confirm edit to save to the database."
+                       Width="200"
+                       TextAlignment="Left"
+                       Margin="30,20,20,30"
+                       TextWrapping="Wrap" />
+        </Border>
+    </Grid>
+</UserControl>

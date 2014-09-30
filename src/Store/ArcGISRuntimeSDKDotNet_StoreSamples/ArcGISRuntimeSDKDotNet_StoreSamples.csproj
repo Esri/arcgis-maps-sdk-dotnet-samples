@@ -106,6 +106,7 @@
     <Compile Include="Common\NegateBooleanConverter.cs" />
     <Compile Include="Common\ReverseVisibilityConverter.cs" />
     <Compile Include="Common\SampleDataViewModel.cs" />
+    <Compile Include="Common\StringToDateConverter.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -134,13 +135,16 @@
     <Compile Include="Samples\Editing\EditAttributes.xaml.cs">
       <DependentUpon>EditAttributes.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Editing\EditRelatedData.xaml.cs">
+      <DependentUpon>EditRelatedData.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Editing\OwnershipBasedEditing.xaml.cs">
       <DependentUpon>OwnershipBasedEditing.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Editing\EditorTracking.xaml.cs">
       <DependentUpon>EditorTracking.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Editing\SelectionOnly.xaml.cs" >
+    <Compile Include="Samples\Editing\SelectionOnly.xaml.cs">
       <DependentUpon>SelectionOnly.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\FeatureLayers\FeatureLayerFromShapefile.xaml.cs">
@@ -566,6 +570,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Editing\AttributeOnly.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\EditRelatedData.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -27,7 +27,7 @@
                 <Button Content="Remove Selected Graphics" Click="RemoveSelectButton_Click" Margin="0,4"/>
                 <Button Content="Clear Selected Graphics" Click="ClearSelectButton_Click" Margin="0,4"/>
 
-				<TextBlock Text="{Binding ElementName=graphicsOverlay, Path=SelectedGraphics.Count, StringFormat='Selection Count: {0}'}" 
+				<TextBlock Text="{Binding ElementName=MyMapView, Path=Map.Layers[graphicsLayer].SelectedGraphics.Count, StringFormat='Selection Count: {0}'}" 
                            Margin="0,4" HorizontalAlignment="Center" FontWeight="Bold" />
             </StackPanel>
         </Border>

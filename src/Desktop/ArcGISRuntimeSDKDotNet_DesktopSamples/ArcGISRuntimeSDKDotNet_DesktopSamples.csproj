@@ -66,6 +66,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BooleanToVisibilityConverter.cs" />
+    <Compile Include="StringToDateConverter.cs" />
     <Compile Include="KeyValueConverter.cs" />
     <Compile Include="LongEnumerableToBooleanConverter.cs" />
     <Compile Include="NegateBooleanConverter.cs" />
@@ -99,6 +100,9 @@
     </Compile>
     <Compile Include="Samples\Editing\AttributeOnly.xaml.cs">
       <DependentUpon>AttributeOnly.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Editing\EditRelatedData.xaml.cs">
+      <DependentUpon>EditRelatedData.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Editing\SelectionOnly.xaml.cs">
       <DependentUpon>SelectionOnly.xaml</DependentUpon>
@@ -523,6 +527,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Editing\AttributeOnly.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\EditRelatedData.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -166,7 +166,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.AttributeOnly">
             <summary>
-            Demonstrates how to selectively import and update feature attributes to local geodatabase while the rest of the features are rendered by dynamic layer.
+            Demonstrates how to selectively import and update graphic attributes to local geodatabase and update the dynamic layer to reflect attribute changes.
             </summary>
             <title>Attribute Only</title>
             <category>Editing</category>
@@ -175,6 +175,21 @@
             </summary>
         </member>
         <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.AttributeOnly.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData">
+            <summary>
+            Demonstrates how to query and update graphic attributes of the related table.
+            </summary>
+            <title>Edit Related Data</title>
+            <category>Editing</category>
+            <summary>
+            EditRelatedData
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
@@ -196,7 +211,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OwnershipBasedEditing">
             <summary>
-            Demonstrates the ability of feature services to restrict editing operations based on feature ownership.  The owner is defined as the user who created the feature.  In this example, owners can update or delete their features.  Feature not owned by the current user cannot be updated or deleted.  
+            Demonstrates the ability of graphic services to restrict editing operations based on graphic ownership.  The owner is defined as the user who created the graphic.  In this example, owners can update or delete their features.  Feature not owned by the current user cannot be updated or deleted.  
             </summary>
             <title>Ownership-based Editing</title>
             <category>Editing</category>
@@ -226,7 +241,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditAttributes">
             <summary>
-            Demonstrates how attributes of a feature can be modified from a ServiceFeatureTable and how this type of edit is pushed to the server or canceled.
+            Demonstrates how attributes of a graphic can be modified from a ServiceFeatureTable and how this type of edit is pushed to the server or canceled.
             </summary>
             <title>Edit Attributes</title>
             <category>Editing</category>
@@ -241,7 +256,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditGeometry">
             <summary>
-            Demonstrates how geometry of a feature can be modified from a ServiceFeatureTable and how this type of edit is pushed to the server or canceled.
+            Demonstrates how geometry of a graphic can be modified from a ServiceFeatureTable and how this type of edit is pushed to the server or canceled.
             </summary>
             <title>Edit Geometry</title>
             <category>Editing</category>
@@ -256,7 +271,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditorTracking">
             <summary>
-            Demonstrates how Identity Manager is used to log-in a token-secured service to identify the user performing edits on feature and how these edits are pushed to the server or canceled.
+            Demonstrates how Identity Manager is used to log-in a token-secured service to identify the user performing edits on graphic and how these edits are pushed to the server or canceled.
             </summary>
             <title>Editor Tracking</title>
             <category>Editing</category>
@@ -308,7 +323,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerFromService">
             <summary>
-            This sample demonstrates the Feature Layer. Feature layers allow you to easily plot layers from a feature service on a map. As the sample XAML shows, this simply requires declaring a FeatureLayer element in the Map's layers collection and specifying the URL of the its ServiceFeatureTable attribute to the feature service layer.
+            This sample demonstrates the Feature Layer. Feature layers allow you to easily plot layers from a graphic service on a map. As the sample XAML shows, this simply requires declaring a FeatureLayer element in the Map's layers collection and specifying the URL of the its ServiceFeatureTable attribute to the graphic service layer.
             </summary>
             <title>Feature Layer From Service</title>
             <category>Layers</category>
@@ -343,7 +358,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerHitTesting">
             <summary>
-            This sample demonstates feature layer hit testing.  When the user clicks on the map, the applicaiton uses FeatureLayer.HitTest to retrieve the feature at the mouse point.  The HitTest method returns the row ID of the first feature found at the given point.  This sample then uses the FeatureTable.QueryAsync method to retrieve a Feature for the HitTested row ID and desiplays its attributes in the UI.
+            This sample demonstates graphic layer hit testing.  When the user clicks on the map, the applicaiton uses FeatureLayer.HitTest to retrieve the graphic at the mouse point.  The HitTest method returns the row ID of the first graphic found at the given point.  This sample then uses the FeatureTable.QueryAsync method to retrieve a Feature for the HitTested row ID and desiplays its attributes in the UI.
             </summary>
             <title>Hit Testing</title>
             <category>Layers</category>
@@ -358,9 +373,9 @@
         <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerHitTesting.MyMapView_MapViewTapped(System.Object,Esri.ArcGISRuntime.Controls.MapViewInputEventArgs)">
             <summary>
             On each mouse click:
-            - HitTest the feature layer
-            - Query the feature table for the returned row
-            - Set the result feature for the UI
+            - HitTest the graphic layer
+            - Query the graphic relatedTable for the returned row
+            - Set the result graphic for the UI
             </summary>
         </member>
         <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerHitTesting.InitializeComponent">
@@ -372,11 +387,11 @@
             <summary>PropertyChanged event for INotifyPropertyChanged</summary>
         </member>
         <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerHitTesting.ResultFeature">
-            <summary>HitTest result feature</summary>
+            <summary>HitTest result graphic</summary>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerMapTips">
             <summary>
-            This sample shows how to display a map tip for a feature layer.  In this example, the MouseMove event of the MapView is handled with code that performs a FeatureLayer HitTest / Query combination which returns a single feature for display in the mapTip element defined in the XAML.
+            This sample shows how to display a map tip for a graphic layer.  In this example, the MouseMove event of the MapView is handled with code that performs a FeatureLayer HitTest / Query combination which returns a single graphic for display in the mapTip element defined in the XAML.
             </summary>
             <title>Map Tips</title>
             <category>Layers</category>
@@ -395,7 +410,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerSelection">
             <summary>
-            This sample demonstrates how to select and unselect features in a feature layer using the SelectFeatures, UnSelectFeatures and ClearSelecteion methods of the FeatureLayer class.  The sample uses the MapView.RequestShapeAsync method to allow the user to draw a selection rectangle intersecting features that he would like to manage.  Once the selection rectangle is returned, a SpatialQueryFilter is used to spatially select features in the feature layer using FeatureLayer.QueryAsync.  When the features are identified the selected features list of the feature layer is managed using the FeatureLayer selection management methods.
+            This sample demonstrates how to select and unselect features in a graphic layer using the SelectFeatures, UnSelectFeatures and ClearSelecteion methods of the FeatureLayer class.  The sample uses the MapView.RequestShapeAsync method to allow the user to draw a selection rectangle intersecting features that he would like to manage.  Once the selection rectangle is returned, a SpatialQueryFilter is used to spatially select features in the graphic layer using FeatureLayer.QueryAsync.  When the features are identified the selected features list of the graphic layer is managed using the FeatureLayer selection management methods.
             </summary>
             <title>Feature Layer Selection</title>
             <category>Layers</category>
@@ -414,7 +429,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.QueryFilterSample">
             <summary>
-            This sample demonstrates how to apply a filter to a feature layer using the FeatureLayer.Where property and to further filter the result set using a QueryFilter. The FeatureLayer.Where property allows you to retrieve a subset of records from a feature service that match an attribute query.  The ArcGISFeatureTable.QueryAsync method takes a QueryFilter object and uses it to filter the current feature set.  In this example, the features returned by the query are converted to graphics and displayed in a GraphicsOverlay on the map.
+            This sample demonstrates how to apply a filter to a graphic layer using the FeatureLayer.Where property and to further filter the result set using a QueryFilter. The FeatureLayer.Where property allows you to retrieve a subset of records from a graphic service that match an attribute query.  The ArcGISFeatureTable.QueryAsync method takes a QueryFilter object and uses it to filter the current graphic set.  In this example, the features returned by the query are converted to graphics and displayed in a GraphicsOverlay on the map.
             </summary>
             <title>Query Filter</title>
             <category>Layers</category>
@@ -541,7 +556,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ClipGeometry">
             <summary>
-            Example of using the GeometryEngine.Clip method to clip feature geometries with a given envelope. To use this sample, the user draws a clipping rectangle over the feature polygons and the system then clips the intersecting feature geometries and displays the resulting polygons in a graphics layer on the map.
+            Example of using the GeometryEngine.Clip method to clip graphic geometries with a given envelope. To use this sample, the user draws a clipping rectangle over the graphic polygons and the system then clips the intersecting graphic geometries and displays the resulting polygons in a graphics layer on the map.
             </summary>
             <title>Clip</title>
             <category>Geometry</category>
@@ -631,7 +646,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.CutGeometry">
             <summary>
-            Example of using the GeometryEngine.Cut method to cut feature geometries with a given polyline. To use this sample, the user draws a cut polyline intersecting the feature polygons and the system then cuts the intersecting feature geometries and displays the resulting polygons in a graphics overlay on the map.
+            Example of using the GeometryEngine.Cut method to cut graphic geometries with a given polyline. To use this sample, the user draws a cut polyline intersecting the graphic polygons and the system then cuts the intersecting graphic geometries and displays the resulting polygons in a graphics overlay on the map.
             </summary>
             <title>Cut</title>
             <category>Geometry</category>
@@ -667,7 +682,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Difference">
             <summary>
-            Example of using the GeometryEngine.Difference or GeometryEngine.SymmetricDifference methods to calculate the geometric difference between feature geometries and a user defined geometry. To use this sample, the user draws a polygon over the feature polygons and the system then calculates the difference between the intersecting feature geometries and displays the resulting polygons in a graphics layer on the map.
+            Example of using the GeometryEngine.Difference or GeometryEngine.SymmetricDifference methods to calculate the geometric difference between graphic geometries and a user defined geometry. To use this sample, the user draws a polygon over the graphic polygons and the system then calculates the difference between the intersecting graphic geometries and displays the resulting polygons in a graphics layer on the map.
             </summary>
             <title>Difference</title>
             <category>Geometry</category>
@@ -793,7 +808,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Intersection">
             <summary>
-            Example of using the GeometryEngine.Intersection method to intersect feature geometries with a given polygon. To use this sample, the user draws a polygon over the feature polygons and the system then retrieves the intersection of the feature geometries and the new polygon. Resulting polygons are shown in a graphics layer on the map.
+            Example of using the GeometryEngine.Intersection method to intersect graphic geometries with a given polygon. To use this sample, the user draws a polygon over the graphic polygons and the system then retrieves the intersection of the graphic geometries and the new polygon. Resulting polygons are shown in a graphics layer on the map.
             </summary>
             <title>Intersection</title>
             <category>Geometry</category>
@@ -934,7 +949,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.UnionGeometry">
             <summary>
-            Example of using the GeometryEngine.Union method to calculate the geometric union of feature geometries and a given polygon. To use this sample, the user draws a polygon over the feature polygons and the system then retrieves the union of the feature geometries and the new polygon. Resulting polygons are shown in a graphics overlay on the map.
+            Example of using the GeometryEngine.Union method to calculate the geometric union of graphic geometries and a given polygon. To use this sample, the user draws a polygon over the graphic polygons and the system then retrieves the union of the graphic geometries and the new polygon. Resulting polygons are shown in a graphics overlay on the map.
             </summary>
             <title>Union</title>
             <category>Geometry</category>
@@ -1357,7 +1372,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.GroupLayers">
             <summary>
-            This sample demonstrates the use of GroupLayers to contain related layers in a map.  In this sample there are two GroupLayers, one containing two basemap layers and the other containing four dynamic or feature layers.  The legend shows how Layer properties (like IsVisible and Opacity) of layers within a GroupLayer can be managed either individually or as a part of the group.
+            This sample demonstrates the use of GroupLayers to contain related layers in a map.  In this sample there are two GroupLayers, one containing two basemap layers and the other containing four dynamic or graphic layers.  The legend shows how Layer properties (like IsVisible and Opacity) of layers within a GroupLayer can be managed either individually or as a part of the group.
             </summary>
             <title>Group Layers</title>
             <category>Mapping</category>
@@ -1873,7 +1888,7 @@
             <summary>
             This sample illustrates a simple way of querying the Portal metadata/properties and retrieving featuredItems using the Portal API.
             </summary>
-            <title>ShowProperties</title>
+            <title>Show Properties</title>
             <category>Portal</category>
             <summary>
             ShowProperties
@@ -1997,7 +2012,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.QueryRelatedTables">
             <summary>
-            This sample demonstrates how to use a relationship query to display information from a related table for selected features. Clicking on the map highlight a set of wells near the clicked point. Select a well from the list to display related features (tops). The object id of the well is used in the relationship query to return 0 to many related records displayed in the list view. Note that the code requires a relationshipId. Feature layers can have more than one relationship and each relationship is identified by a unique identifier. You can use the Services Directory to find the relationship id.
+            This sample demonstrates how to use a relationship query to display information from a related relatedTable for selected features. Clicking on the map highlight a set of wells near the clicked point. Select a well from the list to display related features (tops). The object id of the well is used in the relationship query to return 0 to many related records displayed in the list view. Note that the code requires a relationshipId. Feature layers can have more than one relationship and each relationship is identified by a unique identifier. You can use the Services Directory to find the relationship id.
             </summary>
             <title>Query Related Tables</title>
             <category>Tasks</category>
@@ -2102,7 +2117,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.TokenSecuredServices">
             <summary>
-            This sample demonstrates how to use the IdentityManager to gain access to a secured service. Here, the map contains a public basemap and two secure dynamic layers. The IdentityManager will challenge for credentials when the Map tries to access a secure service.
+            This sample demonstrates how to use the IdentityManager to gain access to a secured service. Here, the map contains a public basemap and a secure dynamic layer. The IdentityManager will challenge for credentials when the Map tries to access a secure service.
             </summary>
             <title>ArcGIS Token Secured Services</title>
             <category>Security</category>

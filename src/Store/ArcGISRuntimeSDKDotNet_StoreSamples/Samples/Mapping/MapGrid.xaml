@@ -6,17 +6,12 @@
     xmlns:layers="using:Esri.ArcGISRuntime.Layers">
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.Resources>
-            <esri:MapGridLevelCollection x:Key="GridLevels">
-                <esri:MapGridLevel LineColor="Green" LineWidth="2" />
-                <esri:MapGridLevel LineColor="Red" LineWidth="1" />
-            </esri:MapGridLevelCollection>
-
-            <esri:LatLonMapGrid x:Key="LatLonGrid" LabelStyle="DecimalDegrees" Levels="{StaticResource GridLevels}" />
-            <esri:MgrsMapGrid x:Key="MgrsGrid" Levels="{StaticResource GridLevels}" />
-            <esri:UtmMapGrid x:Key="UtmGrid" Levels="{StaticResource GridLevels}" />
-            <esri:UsngMapGrid x:Key="UsngGrid" Levels="{StaticResource GridLevels}" />
-        </Grid.Resources>
+		<Grid.Resources>
+			<esri:LatLonMapGrid x:Key="LatLonGrid" LabelPosition="Geographic" LabelStyle="DecimalDegrees" />
+			<esri:MgrsMapGrid x:Key="MgrsGrid" LabelPosition="TopLeft" />
+			<esri:UtmMapGrid x:Key="UtmGrid" />
+			<esri:UsngMapGrid x:Key="UsngGrid" LabelPosition="AllSides" />
+		</Grid.Resources>
         
         <esri:MapView x:Name="MyMapView" WrapAround="True" MapGrid="{Binding ElementName=gridTypeCombo, Path=SelectedItem.Tag}">
             <esri:Map>

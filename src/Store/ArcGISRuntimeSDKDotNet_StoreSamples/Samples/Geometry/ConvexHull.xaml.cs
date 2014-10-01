@@ -37,10 +37,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
         }
 
-		private void MyMapView_NavigationCompleted(object sender, EventArgs e)
+		private async void MyMapView_NavigationCompleted(object sender, EventArgs e)
 		{
 			MyMapView.NavigationCompleted -= MyMapView_NavigationCompleted;
-			DrawPoints();
+			await DrawPoints();
 		}
 
         // Continuosly accepts new points from the user

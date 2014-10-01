@@ -55,14 +55,19 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             try
             {
                 // Get user rectangle
-				var rect = await MyMapView.Editor.RequestShapeAsync(DrawShape.Envelope) as Envelope;
-                if (rect.Height == 0 || rect.Width == 0)
-                    throw new ApplicationException("Please click and drag a box to define an extent.");
+				var userEnvelope = await MyMapView.Editor.RequestShapeAsync(DrawShape.Envelope) as Envelope;
+				if (userEnvelope.Height == 0 || userEnvelope.Width == 0)
+					throw new ApplicationException("Please click and drag a box to define an extent.");
 
-                graphicsLayer.Graphics.Add(new Graphic(rect));
+				// Display the graphics
+				graphicsLayer.Graphics.Add(new Graphic(userEnvelope));
+
+				// Take account of WrapAround
+				var polygon = GeometryEngine.NormalizeCentralMeridian(userEnvelope) as Polygon;
+				Envelope envelope = polygon.Extent;
 
                 // Retrieve elevation data from the service
-                ElevationData elevationData = await GetElevationData(rect);
+                ElevationData elevationData = await GetElevationData(envelope);
 
                 // Create the image for the display
                 WriteableBitmap writeableBitmapElevation = CreateElevationImage(elevationData);

@@ -32,7 +32,12 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.Specialized
 		public SymbolDictionarySearchSample()
 		{
 			InitializeComponent();
-            Init();        
+			MyMapView.SpatialReferenceChanged += MyMapView_SpatialReferenceChanged;
+		}
+
+		void MyMapView_SpatialReferenceChanged(object sender, EventArgs e)
+		{
+			Init();
 		}
 
         private async void Init()
@@ -40,8 +45,20 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.Specialized
             // Wait until all layers are loaded
             await MyMapView.LayersLoadedAsync();
 
-            // Create a new SymbolDictionary instance 
-            _symbolDictionary = new SymbolDictionary(SymbolDictionaryType.Mil2525c);
+			bool isSymbolDictionaryInitialized = false;
+			try
+			{
+				// Create a new SymbolDictionary instance 
+				_symbolDictionary = new SymbolDictionary(SymbolDictionaryType.Mil2525c);
+				isSymbolDictionaryInitialized = true;
+			}
+			catch { }
+
+			if (!isSymbolDictionaryInitialized)
+			{
+				await new MessageDialog("Failed to create symbol dictionary.", "Symbol Dictionary Search Sample").ShowAsync();
+				return;
+			}
 
             // Remove any empty strings space from keywords
             _keywords = _symbolDictionary.Keywords.OrderBy(k => k).ToList();

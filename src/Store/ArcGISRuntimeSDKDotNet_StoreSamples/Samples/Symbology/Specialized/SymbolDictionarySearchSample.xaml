@@ -111,7 +111,7 @@
 				<TextBox Name="txtSymbolName"  
                                   Margin="5,5,5,0" Grid.Row="6" Grid.Column="1"/>
 
-				<Button Name="btnSearch" Margin="5,5,5,0" Click="btnSearch_Click" Grid.Row="7" Grid.Column="1">Search</Button>
+				<Button Name="btnSearch" Margin="5,5,5,0" Click="btnSearch_Click" Grid.Row="7" Grid.Column="1" IsEnabled="False">Search</Button>
 
 				<!-- Results -->
 				<TextBlock Text="Symbol Results:" 

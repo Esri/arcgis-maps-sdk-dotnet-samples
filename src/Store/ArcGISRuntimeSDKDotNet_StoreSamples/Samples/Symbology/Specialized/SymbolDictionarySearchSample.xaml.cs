@@ -29,50 +29,66 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 		private int _imageSize;
 		private MessageLayer _messageLayer;
 
-        public SymbolDictionarySearchSample()
-        {
+		public SymbolDictionarySearchSample()
+		{
+			InitializeComponent();
 
-            InitializeComponent();
+			MyMapView.SpatialReferenceChanged += MyMapView_SpatialReferenceChanged;
+		}
 
-            Init();
+		void MyMapView_SpatialReferenceChanged(object sender, EventArgs e)
+		{
+			Init();
+		}
 
-        }
+		private async void Init()
+		{
+			// Wait until all layers are loaded
+			await MyMapView.LayersLoadedAsync();
 
-        private async void Init()
-        {
-            await MyMapView.LayersLoadedAsync();
+			bool isSymbolDictionaryInitialized = false;
+			try
+			{
+				// Create a new SymbolDictionary instance 
+				_symbolDictionary = new SymbolDictionary(SymbolDictionaryType.Mil2525c);
+				isSymbolDictionaryInitialized = true;
+			}
+			catch{}
 
-            // Create a new SymbolDictionary instance 
-            _symbolDictionary = new SymbolDictionary(SymbolDictionaryType.Mil2525c);
+			if(!isSymbolDictionaryInitialized)
+			{	
+				await new MessageDialog("Failed to create symbol dictionary.", "Symbol Dictionary Search Sample").ShowAsync();
+				return;
+			}
 
-            // Collection of strings to hold the selected symbol dictionary keywords
-            SelectedKeywords = new ObservableCollection<string>();
+			// Collection of strings to hold the selected symbol dictionary keywords
+			SelectedKeywords = new ObservableCollection<string>();
 
-            // Remove any empty strings space from keywords
-            _keywords = _symbolDictionary.Keywords.OrderBy(k => k).ToList();
-            _keywords = _keywords.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct().ToList();
+			// Remove any empty strings space from keywords
+			_keywords = _symbolDictionary.Keywords.OrderBy(k => k).ToList();
+			_keywords = _keywords.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct().ToList();
 
-            // Remove any empty strings space from categories
-            _categories = new[] { "" }.Concat(_symbolDictionary.Filters["CATEGORY"]);
-            Categories = _categories.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct();
+			// Remove any empty strings space from categories
+			_categories = new[] { "" }.Concat(_symbolDictionary.Filters["CATEGORY"]);
+			Categories = _categories.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct();
 
-            // Collection of view models for the displayed list of symbols
-            Symbols = new ObservableCollection<SymbolViewModel>();
+			// Collection of view models for the displayed list of symbols
+			Symbols = new ObservableCollection<SymbolViewModel>();
 
-            // Set the DataContext for binding
-            DataContext = this;
+			// Set the DataContext for binding
+			DataContext = this;
 
+			// Set the image size
+			_imageSize = 64;
 
-            // Set the image size
-            _imageSize = 64;
+			// Get reference to MessageLayer to use with messages
+			_messageLayer = MyMapView.Map.Layers.OfType<MessageLayer>().First();
 
-            // Get reference to MessageLayer to use with messages
-            _messageLayer = MyMapView.Map.Layers.OfType<MessageLayer>().First();
+			// Fire initial search to populate the results with all symbols
+			Search();
 
-            // Fire initial search to populate the results with all symbols
-            Search();
-        }
-
+			btnSearch.IsEnabled = true;
+		}
 
 		// Search results 
 		public ObservableCollection<SymbolViewModel> Symbols { get; private set; }
@@ -146,7 +162,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 						geometry = await MyMapView.Editor.RequestShapeAsync(requestedShape, null, null);
 					}
 					catch { }
-					
+
 					if (geometry == null)
 						return;
 

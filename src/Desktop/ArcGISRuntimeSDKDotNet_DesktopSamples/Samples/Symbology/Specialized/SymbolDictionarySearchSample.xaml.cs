@@ -31,8 +31,37 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Specialized
 
 		public SymbolDictionarySearchSample()
 		{
-			// Create a new SymbolDictionary instance 
-			_symbolDictionary = new SymbolDictionary(SymbolDictionaryType.Mil2525c);
+			// Set the DataContext for binding
+			DataContext = this;
+			InitializeComponent();
+
+			MyMapView.SpatialReferenceChanged += MyMapView_SpatialReferenceChanged;
+		}
+
+		void MyMapView_SpatialReferenceChanged(object sender, EventArgs e)
+		{
+			Init();
+		}
+
+		private async void Init()
+		{
+			// Wait until all layers are loaded
+			await MyMapView.LayersLoadedAsync();
+
+			bool isSymbolDictionaryInitialized = false;
+			try
+			{
+				// Create a new SymbolDictionary instance 
+				_symbolDictionary = new SymbolDictionary(SymbolDictionaryType.Mil2525c);
+				isSymbolDictionaryInitialized = true;
+			}
+			catch { }
+
+			if (!isSymbolDictionaryInitialized)
+			{
+				MessageBox.Show("Failed to create symbol dictionary.", "Symbol Dictionary Search Sample");
+				return;
+			}
 
 			// Collection of strings to hold the selected symbol dictionary keywords
 			SelectedKeywords = new ObservableCollection<string>();
@@ -48,10 +77,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Specialized
 			// Collection of view models for the displayed list of symbols
 			Symbols = new ObservableCollection<SymbolViewModel>();
 
-			// Set the DataContext for binding
-			DataContext = this;
-			InitializeComponent();
-
 			// Set the image size
 			_imageSize = 64;
 
@@ -60,6 +85,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Specialized
 
 			// Fire initial search to populate the results with all symbols
 			Search();
+
+			btnSearch.IsEnabled = true;
 		}
 
 		// Search results 

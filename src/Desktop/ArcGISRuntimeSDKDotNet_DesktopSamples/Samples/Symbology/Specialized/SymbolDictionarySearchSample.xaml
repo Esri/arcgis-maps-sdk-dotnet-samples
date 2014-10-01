@@ -60,15 +60,6 @@
 					<ColumnDefinition />
 				</Grid.ColumnDefinitions>
 
-				<!--<Rectangle Fill="#FFFFFFFF" Stroke="DarkGray" Margin="5,25,5,0" 
-                           Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
-
-				<Rectangle Fill="#FFFFFFFF" Stroke="DarkGray" Margin="5,25,5,0" 
-                           Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
-				
-				<Rectangle Fill="#FFFFFFFF" Grid.Row="8" Stroke="DarkGray" Margin="5,0,5,10" 
-                           Grid.ColumnSpan="2" Grid.RowSpan="3"/>-->
-
 				<!-- Keywords -->
 				<TextBlock Text="Keywords:" 
 						   Style="{StaticResource headerTextBlockStyle}"
@@ -99,27 +90,13 @@
 				<TextBlock Text="Filters:"
 						   Style="{StaticResource headerTextBlockStyle}"
 						   Grid.Row="3" Grid.ColumnSpan="2"/>
-
-				<!--<TextBlock Text="StyleFile:" Margin="10,5,5,5" Grid.Row="4"/>
-				<ComboBox Name="cmbStyleFile" 
-						  ItemsSource="{Binding StyleFiles}" SelectionChanged="SelectionChanged" 
-						  Grid.Row="4" Grid.Column="1" 
-                          Width="280" Margin="5"/>-->
-
+				
 				<!-- Category -->
 				<TextBlock Text="Category:" Margin="10,5,5,5" Grid.Row="4"/>
 				<ComboBox Name="cmbCategory" 
 						  ItemsSource="{Binding Categories}" SelectionChanged="SelectionChanged"  
 						  Grid.Row="4" Grid.Column="1" 
                            Margin="5,5,5,0"/>
-
-				
-				<!-- Geometry type -->
-				<!--<TextBlock Text="Geometry Type:" Margin="10,5,5,5" Grid.Row="6"/>
-				<ComboBox Name="cmbGeometryType" 
-						 ItemsSource="{Binding GeometryTypes}" SelectionChanged="SelectionChanged" 
-                         Grid.Row="6" Grid.Column="1" 
-						 Width="280" Margin="5" />-->
 
 				<TextBlock Text="Symbol ID Search:" 
 						   Style="{StaticResource headerTextBlockStyle}"
@@ -129,7 +106,7 @@
 					<TextBox Name="txtSymbolName"  
                                   Margin="5,5,5,0" Grid.Row="6" Grid.Column="1"/>
 
-				<Button Name="btnSearch" Margin="5,5,5,0" Click="btnSearch_Click" Grid.Row="7" Grid.Column="1">Search</Button>
+				<Button Name="btnSearch" Margin="5,5,5,0" Click="btnSearch_Click" Grid.Row="7" Grid.Column="1" IsEnabled="False">Search</Button>
 
 				<!-- Results -->
 				<TextBlock Text="Symbol Results:" 
@@ -168,8 +145,6 @@
 										<TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Category}"/>
 										<TextBlock Text="Symbol ID:" Grid.Row="1" Grid.Column="0"/>
 										<TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding SymbolID}"/>
-										<!--<TextBlock Text="Stylefile:" Grid.Row="2" Grid.Column="0"/>
-										<TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding StyleFile}"/>-->
 									</Grid>
 								</StackPanel>
 							</StackPanel>

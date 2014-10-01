@@ -1,26 +1,33 @@
-﻿using System.Threading.Tasks;
-using Esri.ArcGISRuntime.Controls;
+﻿using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Layers;
 using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using System.Collections.Generic;
 
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
-    /// Demonstrates how attachments can be queried and modified from a ServiceFeatureTable and how this type of edit is pushed to the server or canceled.
+    /// Demonstrates how to edit feature attachments.
     /// </summary>
     /// <title>Edit Attachments</title>
     /// <category>Editing</category>
     public partial class EditAttachments : UserControl
     {
+        private enum EditType
+        {
+            Add,
+            Update,
+            Delete
+        }
+
         public EditAttachments()
         {
             InitializeComponent();
@@ -30,8 +37,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             if (MyMapView.Map == null || MyMapView.Map.Layers == null)
                 return null;
-            var layer = MyMapView.Map.Layers["IncidentsLayer"] as FeatureLayer;
-            return layer;
+            return MyMapView.Map.Layers["IncidentsLayer"] as FeatureLayer;
         }
 
         private ServiceFeatureTable GetFeatureTable(FeatureLayer ownerLayer)
@@ -39,15 +45,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             var layer = ownerLayer ?? GetFeatureLayer();
             if (layer == null || !(layer.FeatureTable is ServiceFeatureTable))
                 return null;
-            var table = (ServiceFeatureTable)layer.FeatureTable;
-            return table;
+            return (ServiceFeatureTable)layer.FeatureTable;
         }
         
         private async Task QueryAttachmentsAsync(ServiceFeatureTable table, long featureID)
         {
             if (table == null)
                 return;
-            // By default, the result is a union of local and server query for attachments.
             var queryAttachmentResult = await table.QueryAttachmentsAsync(featureID);
             AttachmentList.ItemsSource = queryAttachmentResult != null ? queryAttachmentResult.Infos : null;
         }
@@ -101,12 +105,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private async Task UpdateAttachmentListAsync(AttachmentResult attachmentResult, EditType editType)
         {
-            if (attachmentResult == null)
-                return;
             var layer = GetFeatureLayer();
             var table = GetFeatureTable(layer);
-            if (layer == null || layer.SelectedFeatureIDs == null || !layer.SelectedFeatureIDs.Any() ||
-                table == null)
+            if (attachmentResult == null || layer == null || table == null)
                 return;
             string message = null;
             try
@@ -137,8 +138,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             var layer = GetFeatureLayer();
             var table = GetFeatureTable(layer);
-            if (layer == null || layer.SelectedFeatureIDs == null || !layer.SelectedFeatureIDs.Any() ||
-                table == null)
+            if (layer == null || table == null || layer.SelectedFeatureIDs == null || 
+                !layer.SelectedFeatureIDs.Any())
                 return;
             var featureID = layer.SelectedFeatureIDs.FirstOrDefault();
             var stream = Stream.Null;
@@ -165,11 +166,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             var layer = GetFeatureLayer();
             var table = GetFeatureTable(layer);
-            if (layer == null || layer.SelectedFeatureIDs == null || !layer.SelectedFeatureIDs.Any() ||
-                table == null)
-                return;
-            var info = (sender as Button).DataContext as AttachmentInfoItem;
-            if (info == null)
+            var info = (AttachmentInfoItem)((Button)sender).DataContext;
+            if (info == null || layer == null || table == null || 
+                layer.SelectedFeatureIDs == null || !layer.SelectedFeatureIDs.Any())
                 return;
             var featureID = layer.SelectedFeatureIDs.FirstOrDefault();
             var stream = Stream.Null;
@@ -196,11 +195,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             var layer = GetFeatureLayer();
             var table = GetFeatureTable(layer);
-            if (layer == null || layer.SelectedFeatureIDs == null || !layer.SelectedFeatureIDs.Any() ||
-                table == null)
-                return;
-            var info = (sender as Button).DataContext as AttachmentInfoItem;
-            if (info == null)
+            var info = (AttachmentInfoItem)((Button)sender).DataContext;
+            if (info == null || layer == null || table == null ||
+                layer.SelectedFeatureIDs == null || !layer.SelectedFeatureIDs.Any())
                 return;
             var featureID = layer.SelectedFeatureIDs.FirstOrDefault();
             string message = null;
@@ -222,7 +219,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private async void OpenButton_Click(object sender, RoutedEventArgs e)
         {
-            var info = (sender as Button).DataContext as AttachmentInfoItem;
+            var info = (AttachmentInfoItem)((Button)sender).DataContext;
             if (info == null)
                 return;
             Image image = null;
@@ -264,14 +261,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 MessageBox.Show(message);
         }
 
-        private enum EditType
-        {
-            Add,
-            Update,
-            Delete
-        }
-
-        private static string GetResultMessage(IEnumerable<AttachmentResult> attachmentResults, EditType editType)
+        private string GetResultMessage(IEnumerable<AttachmentResult> attachmentResults, EditType editType)
         {
             var sb = new StringBuilder();
             var operation = editType == EditType.Add ? "adds" :

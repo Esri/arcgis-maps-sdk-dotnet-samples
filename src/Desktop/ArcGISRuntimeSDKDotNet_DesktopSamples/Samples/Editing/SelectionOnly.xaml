@@ -31,7 +31,7 @@
                         Click="AddButton_Click"
                         Margin="2"
                         ToolTipService.ToolTip="IR Intense Heat Area"
-                        Content="Add Feature">
+                        Content="Add">
                     <Button.Tag>
                         <sys:Int16>1</sys:Int16>
                     </Button.Tag>
@@ -40,13 +40,13 @@
                         IsEnabled="False"
                         Click="EditButton_Click"
                         Margin="2"
-                        Content="Edit Geometry">
+                        Content="Edit">
                 </Button>
                 <Button IsEnabled="{Binding ElementName=EditButton, Path=IsEnabled}"
                         DataContext="{Binding ElementName=EditButton, Path=DataContext}"
                         Click="DeleteButton_Click"
                         Margin="2"
-                        Content="Delete Feature">
+                        Content="Delete">
                 </Button>
             </StackPanel>
         </Border>
@@ -60,7 +60,7 @@
             <Border.Effect>
                 <DropShadowEffect />
             </Border.Effect>
-            <TextBlock Text="Click on a feature in the map to edit its geometry or delete the feature. Confirm edit or delete to save to the database."                       
+            <TextBlock Text="Click 'Add' to add new feature or click on feature to select and edit its geometry or delete it."
                        Width="200"
                        TextAlignment="Left"
                        Margin="30,20,20,30"

@@ -5,7 +5,9 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
              xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <UserControl.Resources>
+        <!-- Used for CodedValueDomain conversion -->
         <local:KeyValueConverter x:Key="KeyValueConverter" />
+        <!-- Used for CodedValueDomain selection -->
         <DataTemplate x:Key="MyItemTemplate">
             <TextBlock Text="{Binding Value}" />
         </DataTemplate>
@@ -55,7 +57,7 @@
             <Border.Effect>
                 <DropShadowEffect />
             </Border.Effect>
-            <TextBlock Text="Click on a feature in the map to view the attributes in the data form.  Edit values in the data form and click Apply to save to the database."
+            <TextBlock Text="Click on a feature to edit its attributes."
                        Width="200"
                        TextAlignment="Left"
                        Margin="30,20,20,30"

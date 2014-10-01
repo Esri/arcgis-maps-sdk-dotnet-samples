@@ -478,7 +478,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 MessageBox.Show(message);
         }
 
-        private static string GetResultMessage(IEnumerable<FeatureEditResultItem> editResults, EditType editType)
+        private string GetResultMessage(IEnumerable<FeatureEditResultItem> editResults, EditType editType)
         {
             var sb = new StringBuilder();
             var operation = editType == EditType.Add ? "adds" :

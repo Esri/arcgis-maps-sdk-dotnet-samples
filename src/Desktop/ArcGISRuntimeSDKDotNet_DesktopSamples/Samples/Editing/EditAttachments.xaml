@@ -24,7 +24,7 @@
                 <DropShadowEffect />
             </Border.Effect>            
             <StackPanel Orientation="Vertical">
-                <TextBlock Text="Click on a point feature to select it, and click the 'Add' button to attach a file."
+                <TextBlock Text="Click on feature to select it and edit its attachments."
                            Width="275"
                            TextAlignment="Left"
                            Margin="20,20,20,5"

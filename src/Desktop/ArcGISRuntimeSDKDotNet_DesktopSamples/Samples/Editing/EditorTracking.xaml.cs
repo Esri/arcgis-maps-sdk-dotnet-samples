@@ -16,7 +16,7 @@ using System.Windows.Data;
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
-    /// Demonstrates how Identity Manager is used to log-in a token-secured service to identify the user performing edits on feature and how these edits are pushed to the server or canceled.
+    /// Demonstrates how to track feature edits by user based on their login.
     /// </summary>
     /// <title>Editor Tracking</title>
     /// <category>Editing</category>
@@ -89,10 +89,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             if (MyMapView == null || MyMapView.Map == null || MyMapView.Map.Layers == null)
                 return null;
-            var layer = MyMapView.Map.Layers["WildfireLayer"] as FeatureLayer;
-            if (layer == null)
-                return null;
-            return layer;
+            return MyMapView.Map.Layers["WildfireLayer"] as FeatureLayer;
         }
 
         private ServiceFeatureTable GetFeatureTable(FeatureLayer ownerLayer = null)
@@ -100,8 +97,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             var layer = ownerLayer ?? GetFeatureLayer();
             if (layer == null || !(layer.FeatureTable is ServiceFeatureTable))
                 return null;
-            var table = (ServiceFeatureTable)layer.FeatureTable;
-            return table;
+           return (ServiceFeatureTable)layer.FeatureTable;
         }
         
         private void RemoveCredential()
@@ -136,125 +132,118 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             RemoveCredential();
         }
 
-        private async void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
+        private void BuildAttributeEditor()
         {
-            if (e.LoadError != null)
+            var table = GetFeatureTable();
+            if (table == null || table.ServiceInfo == null || table.ServiceInfo.Fields == null)
                 return;
-            if (e.Layer is FeatureLayer)
+            // Builds the Attribute Editor based on FieldInfo (i.e. Editable, Domain, Length, DataType)
+            // For better validation and customization support use FeatureDataForm from the Toolkit.                
+            formGrid = new Grid() { Margin = new Thickness(2d) };
+            formGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
+            formGrid.ColumnDefinitions.Add(new ColumnDefinition());
+            var fieldCount = table.ServiceInfo.Fields.Count + 1; // Fields + Apply/Delete/Edit/Close button
+            for (int i = 0; i < fieldCount; i++)
+                formGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
+            var hasFeatureTypes = !string.IsNullOrWhiteSpace(table.ServiceInfo.TypeIdField) && table.ServiceInfo.Types != null && table.ServiceInfo.Types.Any();
+            int row = 0;
+            foreach (var field in table.ServiceInfo.Fields)
             {
-                var layer = (FeatureLayer)e.Layer;
-                var table = layer.FeatureTable as ServiceFeatureTable;
-                if (table != null)
+                var label = new TextBlock() { Text = field.Alias ?? field.Name, Margin = new Thickness(2d) };
+                label.SetValue(Grid.RowProperty, row);
+                formGrid.Children.Add(label);
+                FrameworkElement value = null;
+                // This binding will be resolved once the DataContext for formGrid is set to feature.
+                var binding = new Binding(string.Format("Attributes[{0}]", field.Name));
+                if (field.IsEditable)
                 {
-                    if (!table.IsInitialized)
-                        await table.InitializeAsync();
-                    // Builds the Attribute Editor based on FieldInfo (i.e. Editable, Domain, Length, DataType)
-                    // For better validation and customization support use FeatureDataForm from the Toolkit.
-                    if (table.ServiceInfo != null && table.ServiceInfo.Fields != null)
+                    binding.Mode = BindingMode.TwoWay;
+                    // This service only contains FeatureTypes.
+                    // Depending on your service, you might consider handling item selection for:
+                    // RangeDomain or CodedValueDomain
+                    if (hasFeatureTypes && table.ServiceInfo.TypeIdField == field.Name)
                     {
-                        AddButton.IsEnabled = true;
                         var itemtTemplate = this.Resources["MyItemTemplate"] as DataTemplate;
-                        formGrid = new Grid() { Margin = new Thickness(2d) };
-                        formGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
-                        formGrid.ColumnDefinitions.Add(new ColumnDefinition());
-                        var fieldCount = table.ServiceInfo.Fields.Count + 1; // Fields + Apply/Delete/Edit/Close button
-                        for (int i = 0; i < fieldCount; i++)
-                            formGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
-                        var hasFeatureTypes = !string.IsNullOrWhiteSpace(table.ServiceInfo.TypeIdField) && table.ServiceInfo.Types != null && table.ServiceInfo.Types.Any();
-                        int row = 0;
-                        foreach (var field in table.ServiceInfo.Fields)
-                        {
-                            var label = new TextBlock() { Text = field.Alias ?? field.Name, Margin = new Thickness(2d)};
-                            label.SetValue(Grid.RowProperty, row);
-                            formGrid.Children.Add(label);
-                            FrameworkElement value = null;
-                            // This binding will be resolved once the DataContext for formGrid is set to feature.
-                            var binding = new Binding(string.Format("Attributes[{0}]", field.Name));
-                            if (field.IsEditable)
-                            {
-                                binding.Mode = BindingMode.TwoWay; 
-                                var keyValueConverter = this.Resources["KeyValueConverter"] as KeyValueConverter;
-                                if (hasFeatureTypes && table.ServiceInfo.TypeIdField == field.Name)
-                                {
-                                    value = new ComboBox() { ItemTemplate = itemtTemplate, Margin = new Thickness(2d) };
-                                    ((ComboBox)value).ItemsSource = from t in table.ServiceInfo.Types
-                                                                    select new KeyValuePair<object, string>(t.ID, t.Name);
-                                    binding.Converter = keyValueConverter;
-                                    binding.ConverterParameter = ((ComboBox)value).ItemsSource;
-                                    ((ComboBox)value).SetBinding(ComboBox.SelectedItemProperty, binding);
-                                }
-                                else if (field.Domain != null)
-                                {
-                                    value = new ComboBox() { ItemTemplate = itemtTemplate, Margin = new Thickness(2d) };
-                                    if (field.Domain is CodedValueDomain)
-                                    {
-                                        ((ComboBox)value).ItemsSource = ((CodedValueDomain)field.Domain).CodedValues;
-                                        binding.Converter = keyValueConverter;
-                                        binding.ConverterParameter = ((ComboBox)value).ItemsSource;
-                                    }
-                                    else if (field.Domain is RangeDomain<IComparable>)
-                                    {
-                                        var rangeDomain = (RangeDomain<IComparable>)field.Domain;
-                                        ((ComboBox)value).ItemsSource = new IComparable[] { rangeDomain.MinValue, rangeDomain.MaxValue };
-                                    }
-                                    ((ComboBox)value).SetBinding(ComboBox.SelectedItemProperty, binding);
-                                }
-                                else
-                                {
-                                    value = new TextBox() { Margin = new Thickness(2d) };
-                                    // Fields of DataType than string will need a converter.
-                                    ((TextBox)value).SetBinding(TextBox.TextProperty, binding);
-                                    if (field.Length.HasValue)
-                                        ((TextBox)value).MaxLength = field.Length.Value;
-                                }
-                            }
-                            else
-                            {                                
-                                value = new TextBlock() { Margin = new Thickness(2d) };
-                                ((TextBlock)value).SetBinding(TextBlock.TextProperty, binding);
-                            }
-                            value.SetValue(Grid.ColumnProperty, 1);
-                            value.SetValue(Grid.RowProperty, row);
-                            formGrid.Children.Add(value);
-                            row++;
-                        }
-                        var buttonGrid = new Grid() { HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(2d) };
-                        buttonGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
-                        buttonGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
-                        buttonGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
-                        buttonGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
-                        buttonGrid.SetValue(Grid.ColumnSpanProperty, 2);
-                        buttonGrid.SetValue(Grid.RowProperty, row);
-                        var applyButton = new Button() { Content = "Apply", Margin = new Thickness(2d) };
-                        applyButton.Click += ApplyButton_Click;
-                        buttonGrid.Children.Add(applyButton);
-                        var editButton = new Button() { Content = "Edit Geometry", Margin = new Thickness(2d) };
-                        editButton.SetValue(Grid.ColumnProperty, 1);
-                        editButton.Click += EditButton_Click;
-                        buttonGrid.Children.Add(editButton);
-                        var deleteButton = new Button() { Content = "Delete Feature", Margin = new Thickness(2d) };
-                        deleteButton.SetValue(Grid.ColumnProperty, 2);
-                        deleteButton.Click += DeleteButton_Click;
-                        buttonGrid.Children.Add(deleteButton);
-                        var closeButton = new Button() { Content = "Close", Margin = new Thickness(2d) };
-                        closeButton.SetValue(Grid.ColumnProperty, 3);
-                        closeButton.Click += CloseButton_Click;
-                        buttonGrid.Children.Add(closeButton);
-                        formGrid.Children.Add(buttonGrid);
+                        value = new ComboBox() { ItemTemplate = itemtTemplate, Margin = new Thickness(2d) };
+                        ((ComboBox)value).ItemsSource = from t in table.ServiceInfo.Types
+                                                        select new KeyValuePair<object, string>(t.ID, t.Name);
+                        binding.Converter = this.Resources["KeyValueConverter"] as KeyValueConverter;
+                        binding.ConverterParameter = ((ComboBox)value).ItemsSource;
+                        ((ComboBox)value).SetBinding(ComboBox.SelectedItemProperty, binding);
+                    }
+                    else
+                    {
+                        value = new TextBox() { Margin = new Thickness(2d) };
+                        // Fields of DataType than string will need a converter.
+                        ((TextBox)value).SetBinding(TextBox.TextProperty, binding);
+                        if (field.Length.HasValue)
+                            ((TextBox)value).MaxLength = field.Length.Value;
                     }
                 }
+                else
+                {
+                    value = new TextBlock() { Margin = new Thickness(2d) };
+                    ((TextBlock)value).SetBinding(TextBlock.TextProperty, binding);
+                }
+                value.SetValue(Grid.ColumnProperty, 1);
+                value.SetValue(Grid.RowProperty, row);
+                formGrid.Children.Add(value);
+                row++;
             }
+            var buttonGrid = new Grid() { HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(2d) };
+            buttonGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
+            buttonGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
+            buttonGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
+            buttonGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
+            buttonGrid.SetValue(Grid.ColumnSpanProperty, 2);
+            buttonGrid.SetValue(Grid.RowProperty, row);
+            var applyButton = new Button() { Content = "Apply", Margin = new Thickness(2d) };
+            applyButton.Click += ApplyButton_Click;
+            buttonGrid.Children.Add(applyButton);
+            var editButton = new Button() { Content = "Edit Geometry", Margin = new Thickness(2d) };
+            editButton.SetValue(Grid.ColumnProperty, 1);
+            editButton.Click += EditButton_Click;
+            buttonGrid.Children.Add(editButton);
+            var deleteButton = new Button() { Content = "Delete Feature", Margin = new Thickness(2d) };
+            deleteButton.SetValue(Grid.ColumnProperty, 2);
+            deleteButton.Click += DeleteButton_Click;
+            buttonGrid.Children.Add(deleteButton);
+            var closeButton = new Button() { Content = "Close", Margin = new Thickness(2d) };
+            closeButton.SetValue(Grid.ColumnProperty, 3);
+            closeButton.Click += CloseButton_Click;
+            buttonGrid.Children.Add(closeButton);
+            formGrid.Children.Add(buttonGrid);
+            AddButton.IsEnabled = true;
+        }
+
+        private async void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
+        {
+            if (e.LoadError != null || !(e.Layer is FeatureLayer))
+                return;
+            var layer = (FeatureLayer)e.Layer;
+            var table = (ServiceFeatureTable)layer.FeatureTable;
+            string message = null;
+            try
+            {
+                if (!table.IsInitialized)
+                    await table.InitializeAsync();
+                BuildAttributeEditor();
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            if (!string.IsNullOrWhiteSpace(message))
+                MessageBox.Show(message);
         }
 
         private async void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            var feature = (sender as Button).DataContext as GeodatabaseFeature;
-            if (feature == null)
-                return;
             var layer = GetFeatureLayer();
             var table = GetFeatureTable(layer);
             if (layer == null || table == null || string.IsNullOrWhiteSpace(table.ObjectIDField))
                 return;            
+            var feature = (GeodatabaseFeature)((Button)sender).DataContext;
             string message = null;
             try
             {
@@ -450,7 +439,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 MessageBox.Show(message);
         }
 
-        private static string GetResultMessage(IEnumerable<FeatureEditResultItem> editResults, EditType editType)
+        private string GetResultMessage(IEnumerable<FeatureEditResultItem> editResults, EditType editType)
         {
             var sb = new StringBuilder();
             var operation = editType == EditType.Add ? "adds" :

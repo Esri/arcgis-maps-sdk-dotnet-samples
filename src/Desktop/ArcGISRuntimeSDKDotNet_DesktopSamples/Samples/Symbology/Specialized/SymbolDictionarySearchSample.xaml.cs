@@ -30,16 +30,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Specialized
 		private MessageLayer _messageLayer;
 
 		public SymbolDictionarySearchSample()
-		{
-			// Set the DataContext for binding
-			DataContext = this;
+		{	
 			InitializeComponent();
 
 			MyMapView.SpatialReferenceChanged += MyMapView_SpatialReferenceChanged;
 		}
 
 		void MyMapView_SpatialReferenceChanged(object sender, EventArgs e)
-		{
+		{			
 			Init();
 		}
 
@@ -86,7 +84,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Specialized
 			// Fire initial search to populate the results with all symbols
 			Search();
 
+			// Enable the UI
 			btnSearch.IsEnabled = true;
+
+			// Set the DataContext for binding
+			DataContext = this;
 		}
 
 		// Search results 

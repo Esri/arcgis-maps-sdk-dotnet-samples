@@ -23,7 +23,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
     /// <category>Editing</category>
     public partial class EditRelatedData : Page
     {
-
         private Flyout dataForm;
         private Esri.ArcGISRuntime.ArcGISServices.Relationship relationship;
         private ServiceFeatureTable relatedTable;
@@ -55,76 +54,51 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 yield return i;
         }
 
-        private async void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
+        private void BuildAttributeEditor()
         {
-            if (e.LoadError != null)
-                return;
-            if (!(e.Layer is ArcGISDynamicMapServiceLayer))
-                return;
-            // Using ArcGISDynamicMapServiceLayer, get details for the layer and its related table.
-            var dynamicLayer = (ArcGISDynamicMapServiceLayer)e.Layer;
-            var allDetails = await dynamicLayer.GetAllDetailsAsync();
-            if (allDetails == null || allDetails.Layers == null || allDetails.Layers.Count == 0)
-                return;
-            var relatedLayer = allDetails.Layers.FirstOrDefault();            
-            if(relatedLayer.Fields == null)
-                return;
-            // To retrieve ID from IdentifyResult.
-            objectIdField = relatedLayer.Fields.FirstOrDefault(f => f.Type == FieldType.Oid);            
-            // Used to query and create related table.
-            relationship = relatedLayer.Relationships.FirstOrDefault();
-            var relatedTableID = relationship.RelatedTableID;
-            // To retrieve related attribute value from IdentifyResult.
-            if (!string.IsNullOrWhiteSpace(relationship.KeyField))
-                keyField = relatedLayer.Fields.FirstOrDefault(f => f.Name == relationship.KeyField);
-            var featureServiceUri = dynamicLayer.ServiceUri.Replace("MapServer", "FeatureServer");
-            featureServiceUri = string.Format("{0}/{1}", featureServiceUri, relatedTableID);            
-            relatedTable = await ServiceFeatureTable.OpenAsync(new Uri(featureServiceUri));
-            relatedTable.OutFields = OutFields.All;
-            if (!relatedTable.IsInitialized)
-                await relatedTable.InitializeAsync();
-            if (relatedTable.ServiceInfo == null || relatedTable.ServiceInfo.Fields == null)
+            if (relatedTable == null || relatedTable.ServiceInfo == null || relatedTable.ServiceInfo.Fields == null)
                 return;
             // Builds the Attribute Editor based on FieldInfo (i.e. Editable, Domain, Length, DataType)
-            // For better validation and customization support use FeatureDataForm from the Toolkit. 
+            // For better validation and customization support,
+            // use FeatureDataForm from the Toolkit: https://github.com/Esri/arcgis-toolkit-dotnet.              
             var formGrid = new Grid() { Margin = new Thickness(2d) };
             formGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
             formGrid.ColumnDefinitions.Add(new ColumnDefinition());
-            var fieldCount = relatedTable.ServiceInfo.Fields.Count + 1; // Fields + Apply/Delete/Close button
+            var fieldCount = relatedTable.ServiceInfo.Fields.Count + 1; // Fields + Apply/Delete/Edit/Close button
             for (int i = 0; i < fieldCount; i++)
                 formGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
             int row = 0;
+            var hasFeatureTypes = !string.IsNullOrWhiteSpace(relatedTable.ServiceInfo.TypeIdField) && relatedTable.ServiceInfo.Types != null && relatedTable.ServiceInfo.Types.Count > 1;
             foreach (var field in relatedTable.ServiceInfo.Fields)
             {
+
                 var label = new TextBlock() { Text = field.Alias ?? field.Name, Margin = new Thickness(2d) };
                 label.SetValue(Grid.RowProperty, row);
                 formGrid.Children.Add(label);
                 FrameworkElement value = null;
-                // This binding will be resolved once the DataContext for formGrid is set to graphic.
+                // This binding will be resolved once the DataContext is set to a feature object.
                 var binding = new Binding() { Path = new PropertyPath(string.Format("Attributes[{0}]", field.Name)) };
                 if (field.IsEditable)
                 {
                     binding.Mode = BindingMode.TwoWay;
-                    if (field.Domain != null)
+                    // This service only contains RangeDomain.
+                    // Depending on your service, you might consider handling item selection for CodedValueDomain or FeatureTypes.                   
+                    if (field.Domain is RangeDomain<IComparable>)
                     {
-                        // This service only contains RangeDomain.
-                        // Depending on your service, you might consider handling item selection for:
-                        // CodedValueDomain and FeatureTypes.
                         value = new ComboBox() { Margin = new Thickness(2d) };
-                        if (field.Domain is RangeDomain<IComparable>)
-                        {
-                            var rangeDomain = (RangeDomain<IComparable>)field.Domain;
-                            // The field in this service is of Integer type.
-                            ((ComboBox)value).ItemsSource = GetRangeValues((int)rangeDomain.MinValue, (int)rangeDomain.MaxValue);
-                        }
+                        var rangeDomain = (RangeDomain<IComparable>)field.Domain;
+                        // The field in this service is of Integer type.
+                        ((ComboBox)value).ItemsSource = GetRangeValues((int)rangeDomain.MinValue, (int)rangeDomain.MaxValue);
                         ((ComboBox)value).SetBinding(ComboBox.SelectedItemProperty, binding);
                     }
                     else
                     {
                         value = new TextBox() { Margin = new Thickness(2d) };
-                        // Fields of DataType other than string will need a converter.
+                        // Fields of DataType than string will need a converter.
                         if (field.DataType == typeof(DateTime))
                             binding.Converter = this.Resources["StringToDateConverter"] as StringToDateConverter;
+                        else if (field.DataType == typeof(short))
+                            binding.Converter = this.Resources["StringToShortConverter"] as StringToShortConverter;
                         ((TextBox)value).SetBinding(TextBox.TextProperty, binding);
                         if (field.Length.HasValue)
                             ((TextBox)value).MaxLength = field.Length.Value;
@@ -147,7 +121,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             buttonGrid.SetValue(Grid.RowProperty, row);
             var applyButton = new Button() { Content = "Apply", Margin = new Thickness(2d) };
             applyButton.Click += ApplyButton_Click;
-            buttonGrid.Children.Add(applyButton); 
+            buttonGrid.Children.Add(applyButton);
             var deleteButton = new Button() { Content = "Delete", Margin = new Thickness(2d) };
             deleteButton.SetValue(Grid.ColumnProperty, 1);
             deleteButton.Click += DeleteButton_Click;
@@ -155,11 +129,51 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             closeButton.SetValue(Grid.ColumnProperty, 2);
             closeButton.Click += CloseButton_Click;
             buttonGrid.Children.Add(closeButton);
-            formGrid.Children.Add(buttonGrid); 
-            var formPanel = new StackPanel();
+            formGrid.Children.Add(buttonGrid);
+			var formPanel = new StackPanel();
             formPanel.Children.Add(new TextBlock() { Text = "Attribute Editor" });
             formPanel.Children.Add(formGrid);
             dataForm = new Flyout() { Content = formPanel, Placement = FlyoutPlacementMode.Full };
+
+        }
+
+        private async void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
+        {
+            if (e.LoadError != null || !(e.Layer is ArcGISDynamicMapServiceLayer))
+                return;
+            // Creates the related table based on dynamic layer details.
+            var dynamicLayer = (ArcGISDynamicMapServiceLayer)e.Layer;
+            string message = null;
+            try
+            {
+                var allDetails = await dynamicLayer.GetAllDetailsAsync();
+                if (allDetails == null || allDetails.Layers == null || allDetails.Layers.Count == 0)
+                    return;
+                var relatedLayer = allDetails.Layers.FirstOrDefault();
+                if (relatedLayer.Fields == null)
+                    return;
+                // To retrieve ID from IdentifyResult.
+                objectIdField = relatedLayer.Fields.FirstOrDefault(f => f.Type == FieldType.Oid);
+                // Used to query and create related table.
+                relationship = relatedLayer.Relationships.FirstOrDefault();
+                var relatedTableID = relationship.RelatedTableID;
+                // To retrieve related attribute value from IdentifyResult.
+                if (!string.IsNullOrWhiteSpace(relationship.KeyField))
+                    keyField = relatedLayer.Fields.FirstOrDefault(f => f.Name == relationship.KeyField);
+                var featureServiceUri = dynamicLayer.ServiceUri.Replace("MapServer", "FeatureServer");
+                featureServiceUri = string.Format("{0}/{1}", featureServiceUri, relatedTableID);
+                relatedTable = await ServiceFeatureTable.OpenAsync(new Uri(featureServiceUri));
+                relatedTable.OutFields = OutFields.All;
+                if (!relatedTable.IsInitialized)
+                    await relatedTable.InitializeAsync(); ;
+                BuildAttributeEditor();
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            if (!string.IsNullOrWhiteSpace(message))
+                await new MessageDialog(message).ShowAsync();
         }
 
         private object GetDefaultValue(FieldInfo field)
@@ -175,7 +189,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 return default(int);
             if (field.DataType == typeof(string))
                 return default(string);
-            if(field.IsNullable)
+            if (field.IsNullable)
                 return null;
             return string.Empty;
         }
@@ -207,7 +221,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 if (result == null || result.Results == null || result.Results.Count == 0)
                     return;
                 var item = result.Results.FirstOrDefault();
-                var graphic = item.Feature as Graphic;
+                var graphic = (Graphic)item.Feature;
                 if (graphic == null)
                     return;
                 // Retrieve graphic ID using Field.Alias. Identify result use Alias.
@@ -215,7 +229,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 if (graphic.Attributes.ContainsKey(objectIdField.Alias))
                     featureID = Convert.ToInt64(graphic.Attributes[objectIdField.Alias], CultureInfo.InvariantCulture);
                 string requestID = null;
-                if(graphic.Attributes.ContainsKey(keyField.Alias))
+                if (graphic.Attributes.ContainsKey(keyField.Alias))
                     requestID = Convert.ToString(graphic.Attributes[objectIdField.Alias], CultureInfo.InvariantCulture);
                 if (featureID == 0 || requestID == null)
                     return;
@@ -231,7 +245,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             if (!string.IsNullOrWhiteSpace(message))
                 await new MessageDialog(message).ShowAsync();
         }
-        
+
         private async void AddButton_Click(object sender, RoutedEventArgs e)
         {
             if (relatedTable == null || relatedTable.ServiceInfo == null ||
@@ -267,7 +281,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             {
                 message = ex.Message;
             }
-            if (!string.IsNullOrWhiteSpace(message))                
+            if (!string.IsNullOrWhiteSpace(message))
                 await new MessageDialog(message).ShowAsync();
         }
 
@@ -276,7 +290,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             var dynamicLayer = GetArcGISDynamicMapServiceLayer();
             if (dynamicLayer == null || relationship == null)
                 return;
-            var item = (KeyValuePair<long, string>)((Button)sender).DataContext;            
+            var item = (KeyValuePair<long, string>)((Button)sender).DataContext;
             var featureID = item.Key;
             RelationshipList.ItemsSource = null;
             string message = null;
@@ -298,7 +312,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             if (!string.IsNullOrWhiteSpace(message))
                 await new MessageDialog(message).ShowAsync();
         }
-        
+
         private async void RelatedFeatureButton_Click(object sender, RoutedEventArgs e)
         {
             if (relatedTable == null || string.IsNullOrWhiteSpace(relatedTable.ObjectIDField))
@@ -342,23 +356,24 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private async void ApplyButton_Click(object sender, RoutedEventArgs e)
         {
-            var feature = (sender as Button).DataContext as GeodatabaseFeature;
-            if (feature == null || relatedTable == null)
+            if (relatedTable == null)
                 return;
+            var feature = (GeodatabaseFeature)((Button)sender).DataContext;
             string message = null;
             try
             {
-                var dialog = new MessageDialog("Do you want to apply the changes to your database?", "Apply edits");
+                var dialog = new MessageDialog("Do you want to save the attribute change?", "Update attributes");
                 dialog.Commands.Add(new UICommand("OK", new UICommandInvokedHandler(async (command) =>
                 {
                     await UpdateRelatedTableAsync(feature);
-                ClearLocalGraphics();
+                    ClearLocalGraphics();
                 })));
                 dialog.Commands.Add(new UICommand("Cancel", new UICommandInvokedHandler(async (command) =>
                 {
                     ClearLocalGraphics();
                 })));
                 await dialog.ShowAsync();
+
             }
             catch (Exception ex)
             {
@@ -379,13 +394,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private async void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            var feature = (sender as Button).DataContext as GeodatabaseFeature;
-            if (feature == null || relatedTable == null)
+            if (relatedTable == null)
                 return;
+            var feature = (GeodatabaseFeature)((Button)sender).DataContext;
             string message = null;
             try
             {
-                var dialog = new MessageDialog("Are you sure you want to delete this feature from the relatedTable?", "Delete feature");
+                var dialog = new MessageDialog("Are you sure you want to delete this feature?", "Delete feature");
                 dialog.Commands.Add(new UICommand("OK", new UICommandInvokedHandler(async (command) =>
                 {
                     await DeleteFeatureAsync(feature);
@@ -393,7 +408,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 })));
                 dialog.Commands.Add(new UICommand("Cancel", new UICommandInvokedHandler(async (command) =>
                 {
-                    await DeleteFeatureAsync(feature);
                     ClearLocalGraphics();
                 })));
                 await dialog.ShowAsync();

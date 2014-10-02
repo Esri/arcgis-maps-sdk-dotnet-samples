@@ -4,7 +4,7 @@ using Windows.UI.Xaml.Data;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Common
 {
-    public class StringToDateConverter : IValueConverter
+    public class StringToShortConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
@@ -18,9 +18,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Common
             if (value is string)
             {
                 var stringValue = (string)value;
-                DateTime dateValue = DateTime.MinValue;
-                if (DateTime.TryParse(stringValue, out dateValue))
-                    return dateValue;
+                Int16 shortValue = Int16.MinValue;
+                if (Int16.TryParse(stringValue, out shortValue))
+                    return shortValue;
             }
             return value;
         }

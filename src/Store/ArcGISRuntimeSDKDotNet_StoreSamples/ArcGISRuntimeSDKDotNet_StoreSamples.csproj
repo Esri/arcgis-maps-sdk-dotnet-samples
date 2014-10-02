@@ -107,6 +107,7 @@
     <Compile Include="Common\ReverseVisibilityConverter.cs" />
     <Compile Include="Common\SampleDataViewModel.cs" />
     <Compile Include="Common\StringToDateConverter.cs" />
+    <Compile Include="Common\StringToShortConverter.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

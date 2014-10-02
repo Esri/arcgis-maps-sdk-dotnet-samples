@@ -73,7 +73,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 if (field.IsEditable)
                 {
                     binding.Mode = BindingMode.TwoWay;
-                    // This service only contains CodedValueDomain.Depending on your service, 
+                    // This service only contains CodedValueDomain. Depending on your service, 
                     // you might consider handling item selection for: RangeDomain and FeatureTypes.
                     if (field.Domain is CodedValueDomain)
                     {
@@ -240,7 +240,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             string message = null;
             try
             {
-                var editPrompt = MessageBox.Show("Are you sure you want to delete feature?", "Delete feature", MessageBoxButton.OKCancel);
+                var editPrompt = MessageBox.Show("Do you want to save the attribute change?", "Update feature", MessageBoxButton.OKCancel);
                 if (editPrompt == MessageBoxResult.OK)
                     await UpdateFeatureAttributesAsync(graphic);
                 ClearLocalGraphics();

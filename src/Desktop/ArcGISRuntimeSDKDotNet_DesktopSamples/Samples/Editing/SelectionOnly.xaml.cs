@@ -158,7 +158,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             var layerID = layer.VisibleLayers.FirstOrDefault();
             var featureServiceUri = layer.ServiceUri.Replace("MapServer", "FeatureServer");
             featureServiceUri = string.Format("{0}/{1}", featureServiceUri, layerID);
-            // Create relatedTable with the minimum required fields.
+            // Create table with the minimum required fields.
             // objectId to identify feature, typeId to render the feature.
             table = await ServiceFeatureTable.OpenAsync(new Uri(featureServiceUri), null, MyMapView.SpatialReference);
             table.OutFields = new OutFields();

@@ -126,50 +126,6 @@
                 </Grid>
             </Grid>
         </Border>
-        <Border
-            Background="White"
-                BorderBrush="Black"
-                BorderThickness="1"
-                Margin="30"
-                Padding="20"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Top"
-                Visibility="{Binding ElementName=LoginPanel, Path=Visibility, Converter={StaticResource ReverseVisibilityConverter}}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100" />
-                    <ColumnDefinition Width="150" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0"
-                           Grid.ColumnSpan="2"
-                           Text="{Binding ElementName=MyMap,Path=Layers[WildfireLayer].DisplayName}" />
-                <TextBlock Text="Logged in as:"
-                           Grid.Column="0"
-                           Grid.Row="1"
-                           Margin="2"
-                           VerticalAlignment="Center" />
-                <TextBlock Text="{Binding UserName}"
-                           DataContext="{Binding ElementName=LoginPanel, Path=DataContext}"
-                           FontWeight="Bold"
-                           Margin="2"
-                           Grid.Column="1"
-                           Grid.Row="1"
-                           TextAlignment="Left" />
-                <Button 
-                        Content="Sign Out"
-                        Grid.Row="2"
-                        Grid.ColumnSpan="2"
-                        Margin="2"
-                        Click="SignOutButton_Click" />
-            </Grid>
-        </Border>
         <Border Background="White"
                 BorderBrush="Black"
                 BorderThickness="1"

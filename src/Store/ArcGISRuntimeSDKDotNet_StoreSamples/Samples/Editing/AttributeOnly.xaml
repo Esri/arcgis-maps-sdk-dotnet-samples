@@ -5,17 +5,15 @@
       xmlns:esri="using:Esri.ArcGISRuntime.Controls"
       xmlns:layers="using:Esri.ArcGISRuntime.Layers"
       xmlns:symbology="using:Esri.ArcGISRuntime.Symbology">
-    <UserControl.Resources>
-        <symbology:SimpleLineSymbol x:Key="HighlightOutlineSymbol"
-                                    Color="Yellow"
-                                    Width="4.5" />
-        <symbology:SimpleFillSymbol x:Key="HighlightFillSymbol"
-                                    Color="Transparent"
-                                    Outline="{StaticResource HighlightOutlineSymbol}" />
-        <symbology:SimpleRenderer x:Key="HighlightRenderer"
-                                  Symbol="{StaticResource HighlightFillSymbol}" />
+    <Page.Resources>
+        <!-- Used for feature selection. -->
+        <symbology:SimpleFillSymbol x:Key="FillSymbol"
+                                    Color="Transparent" />
+        <symbology:SimpleRenderer x:Key="FillRenderer"
+                                  Symbol="{StaticResource FillSymbol}" />
+        <!-- Used for CodedValueDomain conversion -->
         <local:KeyValueConverter x:Key="KeyValueConverter" />
-    </UserControl.Resources>
+    </Page.Resources>
     <Grid>
         <esri:MapView x:Name="MyMapView"
                       LayerLoaded="MyMapView_LayerLoaded"
@@ -28,10 +26,12 @@
                                           YMax="4016213.20181174" />
                 </esri:Map.InitialViewpoint>
                 <layers:ArcGISTiledMapServiceLayer ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+                <!-- Used to render all features -->
                 <layers:ArcGISDynamicMapServiceLayer ID="PoolPermitDynamicLayer"
                                                      ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/PoolPermits/MapServer" />
-                <layers:GraphicsLayer ID="PoolPermitFeatureLayer"
-                                      Renderer="{StaticResource HighlightRenderer}" />
+                <!-- Used to edit one feature at a time -->
+                <layers:GraphicsLayer ID="PoolPermit"
+                                      Renderer="{StaticResource FillRenderer}" />
             </esri:Map>
         </esri:MapView>
     </Grid>
@@ -43,7 +43,7 @@
                               Label="Info">
                     <AppBarButton.Flyout>
                         <Flyout>
-                            <TextBlock Text="Tap on a feature in the map to edit its attribute. Confirm edit to save to the database."
+                            <TextBlock Text="Tap on a feature to select and edit its attribute."
                                        Width="200"
                                        TextAlignment="Left"
                                        Margin="30,20,20,30"

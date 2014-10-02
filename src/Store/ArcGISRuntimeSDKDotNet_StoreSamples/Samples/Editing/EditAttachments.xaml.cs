@@ -18,39 +18,43 @@ using Windows.UI.Xaml.Media.Imaging;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
-    /// Demonstrates how attachments can be queried and modified from a ServiceFeatureTable and how this type of edit is pushed to the server or canceled.
+    /// Demonstrates how to edit feature attachments.
     /// </summary>
     /// <title>Edit Attachments</title>
     /// <category>Editing</category>
     public partial class EditAttachments : Page
     {
+        private enum EditType
+        {
+            Add,
+            Update,
+            Delete
+        }
+
         public EditAttachments()
         {
             InitializeComponent();
         }
-        
+
         private FeatureLayer GetFeatureLayer()
         {
             if (MyMapView.Map == null || MyMapView.Map.Layers == null)
                 return null;
-            var layer = MyMapView.Map.Layers["IncidentsLayer"] as FeatureLayer;
-            return layer;
+            return MyMapView.Map.Layers["IncidentsLayer"] as FeatureLayer;
         }
 
-        private ServiceFeatureTable GetFeatureTable(FeatureLayer ownerLayer)
+        private ServiceFeatureTable GetFeatureTable(FeatureLayer ownerLayer = null)
         {
             var layer = ownerLayer ?? GetFeatureLayer();
             if (layer == null || !(layer.FeatureTable is ServiceFeatureTable))
                 return null;
-            var table = (ServiceFeatureTable)layer.FeatureTable;
-            return table;
+            return (ServiceFeatureTable)layer.FeatureTable;
         }
-        
+
         private async Task QueryAttachmentsAsync(ServiceFeatureTable table, long featureID)
         {
             if (table == null)
                 return;
-            // By default, the result is a union of local and server query for attachments.
             var queryAttachmentResult = await table.QueryAttachmentsAsync(featureID);
             AttachmentList.ItemsSource = queryAttachmentResult != null ? queryAttachmentResult.Infos : null;
             AttachmentsButton.IsEnabled = AttachmentList.Items != null && AttachmentList.Items.Any();
@@ -100,39 +104,28 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             return await picker.PickSingleFileAsync();
         }
 
-        private enum EditType
-        {
-            Add,
-            Update,
-            Delete
-        }
-
         private async Task UpdateAttachmentListAsync(AttachmentResult attachmentResult, EditType editType)
         {
-            if (attachmentResult == null)
-                return;
-            var layer = GetFeatureLayer();
-            var table = GetFeatureTable(layer);
-            if (layer == null || layer.SelectedFeatureIDs == null || !layer.SelectedFeatureIDs.Any() ||
-                table == null)
+            var table = GetFeatureTable();
+            if (attachmentResult == null || table == null)
                 return;
             string message = null;
             try
             {
-                    if (attachmentResult.Error != null)
-                        message = attachmentResult.Error.Message;
-                    else
-                    {
-                        message = string.Format("{0} attachment [{1}] {2} feature [{3}]",
-                            editType == EditType.Add ? "Add" : (editType == EditType.Update ? "Update" : "Delete"),
-                            attachmentResult.ObjectID,
-                            editType == EditType.Add ? "to" : "from",
-                            attachmentResult.ParentID);
-                    }
-                    // Performs another query on attachments.
-                    await QueryAttachmentsAsync(table, attachmentResult.ParentID);
-                    SaveButton.IsEnabled = table.HasEdits;
+                if (attachmentResult.Error != null)
+                    message = attachmentResult.Error.Message;
+                else
+                {
+                    message = string.Format("{0} attachment [{1}] {2} feature [{3}]",
+                        editType == EditType.Add ? "Add" : (editType == EditType.Update ? "Update" : "Delete"),
+                        attachmentResult.ObjectID,
+                        editType == EditType.Add ? "to" : "from",
+                        attachmentResult.ParentID);
                 }
+                // Performs another query on attachments.
+                await QueryAttachmentsAsync(table, attachmentResult.ParentID);
+                SaveButton.IsEnabled = table.HasEdits;
+            }
             catch (Exception ex)
             {
                 message = ex.Message;
@@ -145,18 +138,20 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             var layer = GetFeatureLayer();
             var table = GetFeatureTable(layer);
-            if (layer == null || layer.SelectedFeatureIDs == null || !layer.SelectedFeatureIDs.Any() ||
-                table == null)
+            if (layer == null || table == null || layer.SelectedFeatureIDs == null ||
+                !layer.SelectedFeatureIDs.Any())
                 return;
-            var featureID = layer.SelectedFeatureIDs.FirstOrDefault();           
+            var featureID = layer.SelectedFeatureIDs.FirstOrDefault();
+            var stream = Stream.Null;
+            string name = null;
             string message = null;
             try
             {
                 var file = await GetFileAsync();
-                // Adds attachment to the specified feature.
+                    // Adds attachment to the specified feature.
                 var attachmentResult = await table.AddAttachmentAsync(featureID, file);
-                await UpdateAttachmentListAsync(attachmentResult, EditType.Add);
-            }
+                    await UpdateAttachmentListAsync(attachmentResult, EditType.Add);
+                }
             catch (Exception ex)
             {
                 message = ex.Message;
@@ -169,11 +164,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             var layer = GetFeatureLayer();
             var table = GetFeatureTable(layer);
-            if (layer == null || layer.SelectedFeatureIDs == null || !layer.SelectedFeatureIDs.Any() ||
-                table == null)
-                return;
-            var info = (sender as Button).DataContext as AttachmentInfoItem;
-            if (info == null)
+            var info = (AttachmentInfoItem)((Button)sender).DataContext;
+            if (info == null || layer == null || table == null ||
+                layer.SelectedFeatureIDs == null || !layer.SelectedFeatureIDs.Any())
                 return;
             var featureID = layer.SelectedFeatureIDs.FirstOrDefault();
             var stream = Stream.Null;
@@ -182,27 +175,25 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             try
             {
                 var file = await GetFileAsync();
-                // Updates the specified attachment.
+                    // Updates the specified attachment.
                 var attachmentResult = await table.UpdateAttachmentAsync(featureID, info.ID, file);
-                await UpdateAttachmentListAsync(attachmentResult, EditType.Update);
-            }
+                    await UpdateAttachmentListAsync(attachmentResult, EditType.Update);
+                }
             catch (Exception ex)
             {
                 message = ex.Message;
             }
             if (!string.IsNullOrWhiteSpace(message))
-                new MessageDialog(message).ShowAsync();
+                await new MessageDialog(message).ShowAsync();
         }
 
         private async void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             var layer = GetFeatureLayer();
             var table = GetFeatureTable(layer);
-            if (layer == null || layer.SelectedFeatureIDs == null || !layer.SelectedFeatureIDs.Any() ||
-                table == null)
-                return;
-            var info = (sender as Button).DataContext as AttachmentInfoItem;
-            if (info == null)
+            var info = (AttachmentInfoItem)((Button)sender).DataContext;
+            if (info == null || layer == null || table == null ||
+                layer.SelectedFeatureIDs == null || !layer.SelectedFeatureIDs.Any())
                 return;
             var featureID = layer.SelectedFeatureIDs.FirstOrDefault();
             string message = null;
@@ -224,7 +215,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private async void OpenButton_Click(object sender, RoutedEventArgs e)
         {
-            var info = (sender as Button).DataContext as AttachmentInfoItem;
+            var info = (AttachmentInfoItem)((Button)sender).DataContext;
             if (info == null)
                 return;
             Image image = null;
@@ -267,7 +258,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 await new MessageDialog(message).ShowAsync();
         }
 
-        private static string GetResultMessage(IEnumerable<AttachmentResult> attachmentResults, EditType editType)
+        private string GetResultMessage(IEnumerable<AttachmentResult> attachmentResults, EditType editType)
         {
             var sb = new StringBuilder();
             var operation = editType == EditType.Add ? "adds" :
@@ -289,9 +280,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            var layer = GetFeatureLayer();
-            var table = GetFeatureTable(layer);
-            if (layer == null || table == null || !table.HasEdits)
+            var table = GetFeatureTable();
+            if (table == null || !table.HasEdits)
                 return;
             string message = null;
             try
@@ -358,10 +348,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             try
             {
                 // Cancels the local edits by refreshing features with preserveEdits=false 
-                // and awaits for UpdatedCompleted before checking HasEdits.
+                // and awaits for UpdatedCompleted before performing query.
                 var cancelResult = await CancelEditsAsync(table);
                 if (cancelResult)
+                {
+                    var featureID = layer.SelectedFeatureIDs.FirstOrDefault();
+                    await QueryAttachmentsAsync(table, featureID);
                     SaveButton.IsEnabled = table.HasEdits;
+                }
             }
             catch (Exception ex)
             {

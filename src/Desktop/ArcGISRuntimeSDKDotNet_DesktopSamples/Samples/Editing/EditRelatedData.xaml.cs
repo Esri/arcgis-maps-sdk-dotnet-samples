@@ -14,7 +14,7 @@ using System.Windows.Data;
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
-    /// Demonstrates how to query and update graphic attributes of the related relatedTable.
+    /// Demonstrates how to query and update graphic attributes of the related table.
     /// </summary>
     /// <title>Edit Related Data</title>
     /// <category>Editing</category>
@@ -133,7 +133,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             if (e.LoadError != null || !(e.Layer is ArcGISDynamicMapServiceLayer))
                 return;
-            // Creates the related relatedTable based on dynamic layer details.
+            // Creates the related table based on dynamic layer details.
             var dynamicLayer = (ArcGISDynamicMapServiceLayer)e.Layer;
             string message = null;
             try
@@ -146,7 +146,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     return;
                 // To retrieve ID from IdentifyResult.
                 objectIdField = relatedLayer.Fields.FirstOrDefault(f => f.Type == FieldType.Oid);
-                // Used to query and create related relatedTable.
+                // Used to query and create related table.
                 relationship = relatedLayer.Relationships.FirstOrDefault();
                 var relatedTableID = relationship.RelatedTableID;
                 // To retrieve related attribute value from IdentifyResult.
@@ -379,7 +379,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             string message = null;
             try
             {
-                var deletePrompt = MessageBox.Show("Are you sure you want to delete this feature from the relatedTable?", "Delete graphic", MessageBoxButton.OKCancel);
+                var deletePrompt = MessageBox.Show("Are you sure you want to delete this feature?", "Delete feature", MessageBoxButton.OKCancel);
                 if (deletePrompt == MessageBoxResult.OK)
                     await DeleteFeatureAsync(feature);
                 ClearLocalGraphics();

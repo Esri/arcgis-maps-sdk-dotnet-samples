@@ -33,7 +33,7 @@
                     IsSticky="True">
             <CommandBar.PrimaryCommands>
                 <AppBarButton Icon="Add"
-                              Label="Add"
+                              Label="Add Polygon"
                               Click="AddButton_Click"
                               ToolTipService.ToolTip="Fire">
                     <AppBarButton.Tag>
@@ -60,7 +60,7 @@
                               Label="Info">
                     <AppBarButton.Flyout>
                         <Flyout>
-                            <TextBlock Text="Use the Add Polygon button to enable drawing a polygon on the map.  Use other buttons to move, modify, select or delete features.  Use the Save Edits button to commit edits to the database.  Cancel Edits will clear all edits up to that point."
+                            <TextBlock Text="Click 'Select' to select features, edit its geometry or delete selection. Click 'Add Polygon' and tap on map to create new feature."
                                        Width="200"
                                        TextAlignment="Left"
                                        Margin="30,20,20,30"

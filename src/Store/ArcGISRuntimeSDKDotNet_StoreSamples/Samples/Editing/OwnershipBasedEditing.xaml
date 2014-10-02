@@ -6,6 +6,9 @@
       xmlns:layers="using:Esri.ArcGISRuntime.Layers"
       xmlns:data="using:Esri.ArcGISRuntime.Data">
     <Page.Resources>
+        <!-- Used for Attribute two-way binding -->
+        <local:StringToDateConverter x:Key="StringToDateConverter" />
+        <!-- Used for CodedValueDomain conversion -->
         <local:KeyValueConverter x:Key="KeyValueConverter" />
         <local:ReverseVisibilityConverter x:Key="ReverseVisibilityConverter" />
     </Page.Resources>

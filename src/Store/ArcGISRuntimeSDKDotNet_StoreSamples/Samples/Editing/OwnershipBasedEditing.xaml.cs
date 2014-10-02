@@ -20,7 +20,7 @@ using Windows.UI.Xaml.Data;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
-    /// Demonstrates the ability of feature services to restrict editing operations based on feature ownership.  The owner is defined as the user who created the feature.  In this example, owners can update or delete their features.  Feature not owned by the current user cannot be updated or deleted.  
+    /// Demonstrates how to restrict feature edits by ownership and user login.
     /// </summary>
     /// <title>Ownership-based Editing</title>
     /// <category>Editing</category>
@@ -45,10 +45,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             if (MyMapView == null || MyMapView.Map == null || MyMapView.Map.Layers == null)
                 return null;
-            var layer = MyMapView.Map.Layers["SaveTheBayMarineLayer"] as FeatureLayer;
-            if (layer == null)
-                return null;
-            return layer;
+            return MyMapView.Map.Layers["SaveTheBayMarineLayer"] as FeatureLayer;
         }
 
         private ServiceFeatureTable GetFeatureTable(FeatureLayer ownerLayer = null)
@@ -56,8 +53,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             var layer = ownerLayer ?? GetFeatureLayer();
             if (layer == null || !(layer.FeatureTable is ServiceFeatureTable))
                 return null;
-            var table = (ServiceFeatureTable)layer.FeatureTable;
-            return table;
+            return(ServiceFeatureTable)layer.FeatureTable;
         }
         
         private void RemoveCredential()
@@ -74,6 +70,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private void SignOutButton_Click(object sender, RoutedEventArgs e)
         {
+            // Remove credential, table and layer. Add a new instance to trigger a new challenge.
             RemoveCredential();
             var layer = GetFeatureLayer();
             var table = GetFeatureTable(layer);
@@ -87,58 +84,47 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         
         private void MyMapView_Unloaded(object sender, RoutedEventArgs e)
         {
-            // To sign-out user when switching between samples.
+            // Sign-out user when switching between samples.
             RemoveCredential();
         }
 
-        private async void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
+        private void BuildAttributeEditor()
         {
-            if (e.LoadError != null)
+            var table = GetFeatureTable();
+            if (table == null || table.ServiceInfo == null || table.ServiceInfo.Fields == null)
                 return;
-            if (e.Layer is FeatureLayer)
-            {
-                var layer = (FeatureLayer)e.Layer;
-                var table = layer.FeatureTable as ServiceFeatureTable;
-                if (table != null)
-                {
-                    if (!table.IsInitialized)
-                        await table.InitializeAsync();
-                    // Builds the Attribute Editor based on FieldInfo (i.e. Editable, Domain, Length, DataType)
-                    // For better validation and customization support use FeatureDataForm from the Toolkit.
-                    if (table.ServiceInfo != null && table.ServiceInfo.Fields != null)
-                    {
-                        AddButton.IsEnabled = true;
-                        DisplayName.Text = table.ServiceInfo.Name;
-                        var credential = IdentityManager.Current.FindCredential(table.ServiceUri);
-                        UserName.Text = credential != null ? credential.UserName : string.Empty;
-                        var formGrid = new Grid() { Margin = new Thickness(2d) };
+            // Builds the Attribute Editor based on FieldInfo (i.e. Editable, Domain, Length, DataType)
+            // For better validation and customization support,
+            // use FeatureDataForm from the Toolkit: https://github.com/Esri/arcgis-toolkit-dotnet.              
+var            formGrid = new Grid() { Margin = new Thickness(2d) };
                         formGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
                         formGrid.ColumnDefinitions.Add(new ColumnDefinition());
                         var fieldCount = table.ServiceInfo.Fields.Count + 1; // Fields + Apply/Delete/EditClose button
                         for (int i = 0; i < fieldCount; i++)
                             formGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
-                        var hasFeatureTypes = !string.IsNullOrWhiteSpace(table.ServiceInfo.TypeIdField) && table.ServiceInfo.Types != null && table.ServiceInfo.Types.Any();
                         int row = 0;
+            var hasFeatureTypes = !string.IsNullOrWhiteSpace(table.ServiceInfo.TypeIdField) && table.ServiceInfo.Types != null && table.ServiceInfo.Types.Count > 1;
                         foreach (var field in table.ServiceInfo.Fields)
                         {
                             var label = new TextBlock() { Text = field.Alias ?? field.Name, Margin = new Thickness(2d)};
                             label.SetValue(Grid.RowProperty, row);
                             formGrid.Children.Add(label);
                             FrameworkElement value = null;
-                            // This binding will be resolved once the DataContext for formGrid is set to feature.
+                            // This binding will be resolved once the DataContext is set to a feature object.
                             var binding = new Binding() { Path = new PropertyPath(string.Format("Attributes[{0}]", field.Name)) };
                             if (field.IsEditable)
                             {
                                 binding.Mode = BindingMode.TwoWay; 
-                                var keyValueConverter = this.Resources["KeyValueConverter"] as KeyValueConverter;
-                                if (hasFeatureTypes && table.ServiceInfo.TypeIdField == field.Name)
+                    // This service only contains CodedValueDomain and FeatureTypes.
+                    // Depending on your service, you might consider handling item selection for RangeDomain.                    
+                    if (hasFeatureTypes && field.Name == table.ServiceInfo.TypeIdField || field.Domain is CodedValueDomain)
                                 {
                                     value = new ComboBox() { Margin = new Thickness(2d) };
                                     var lookup = from t in table.ServiceInfo.Types
                                                                     select new KeyValuePair<object, string>(t.ID, t.Name);
                                     ((ComboBox)value).ItemsSource = from item in lookup 
                                                                     select item.Value;
-                                    binding.Converter = keyValueConverter;
+                                    binding.Converter = this.Resources["KeyValueConverter"] as KeyValueConverter;
                                     binding.ConverterParameter = lookup;
                                     ((ComboBox)value).SetBinding(ComboBox.SelectedItemProperty, binding);
                                 }
@@ -146,24 +132,22 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                                 {
                                     value = new ComboBox() { Margin = new Thickness(2d) };
                                     if (field.Domain is CodedValueDomain)
+                            ((ComboBox)value).ItemsSource = ((CodedValueDomain)field.Domain).CodedValues;
+                        else
                                     {
-                                        var lookup = ((CodedValueDomain)field.Domain).CodedValues;
-                                        ((ComboBox)value).ItemsSource = from item in lookup
-                                                                        select item.Value;
-                                        binding.Converter = keyValueConverter;
-                                        binding.ConverterParameter = lookup;
-                                    }
-                                    else if (field.Domain is RangeDomain<IComparable>)
-                                    {
-                                        var rangeDomain = (RangeDomain<IComparable>)field.Domain;
-                                        ((ComboBox)value).ItemsSource = new IComparable[] { rangeDomain.MinValue, rangeDomain.MaxValue };
+                        ((ComboBox)value).ItemsSource = from t in table.ServiceInfo.Types
+                                                        select new KeyValuePair<object, string>(t.ID, t.Name);
                                     }
                                     ((ComboBox)value).SetBinding(ComboBox.SelectedItemProperty, binding);
                                 }
                                 else
                                 {
                                     value = new TextBox() { Margin = new Thickness(2d) };
-                                    // Fields of DataType other than string will need a converter.
+                        // Fields of DataType than string will need a converter.
+                        if (field.DataType == typeof(DateTime))
+                            binding.Converter = this.Resources["StringToDateConverter"] as StringToDateConverter;
+                        else if (field.DataType == typeof(short))
+                            binding.Converter = this.Resources["StringToShortConverter"] as StringToShortConverter;
                                     ((TextBox)value).SetBinding(TextBox.TextProperty, binding);
                                     if (field.Length.HasValue)
                                         ((TextBox)value).MaxLength = field.Length.Value;
@@ -207,29 +191,48 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                         formPanel.Children.Add(formGrid);
                         dataForm = new Flyout() { Content = formPanel, Placement = FlyoutPlacementMode.Full };
                     }
-                }
+
+        private async void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
+        {
+            if (e.LoadError != null || !(e.Layer is FeatureLayer))
+                return;
+            var layer = (FeatureLayer)e.Layer;
+            var table = (ServiceFeatureTable)layer.FeatureTable;
+            string message = null;
+            try
+            {
+                if (!table.IsInitialized)
+                    await table.InitializeAsync();
+                DisplayName.Text = table.ServiceInfo.Name;
+                var credential = IdentityManager.Current.FindCredential(table.ServiceUri);
+                UserName.Text = credential != null ? credential.UserName : string.Empty;
+                BuildAttributeEditor();
+                AddButton.IsEnabled = true;
             }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            if (!string.IsNullOrWhiteSpace(message))
+                await new MessageDialog(message).ShowAsync();
         }
 
         private async void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            var feature = (sender as Button).DataContext as GeodatabaseFeature;
-            if (feature == null)
-                return;
             var layer = GetFeatureLayer();
             var table = GetFeatureTable(layer);
             if (layer == null || table == null || string.IsNullOrWhiteSpace(table.ObjectIDField))
                 return;
+            var feature = (GeodatabaseFeature)((Button)sender).DataContext;
             string message = null;
             try
             {
-                var dialog = new MessageDialog("Tap on a new location to update the geometry.", "Edit feature geometry");
+                var dialog = new MessageDialog("Tap on a new location to update the geometry.", "Update geometry");
                 dialog.Commands.Add(new UICommand("OK", new UICommandInvokedHandler(async (command) =>
                 {
                     CloseDataForm();
                     var featureID = Convert.ToInt64(feature.Attributes[table.ObjectIDField], CultureInfo.InvariantCulture);
                     layer.SetFeatureVisibility(new long[] { featureID }, false);
-                    // Updates the geometry of the feature.
                     var mapPoint = await MyMapView.Editor.RequestPointAsync();
                     feature.Geometry = mapPoint;
                     layer.SetFeatureVisibility(new long[] { featureID }, true);
@@ -252,16 +255,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private async void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            var feature = (sender as Button).DataContext as GeodatabaseFeature;
-            if (feature == null)
-                return;
+            var feature = (GeodatabaseFeature)((Button)sender).DataContext;
             var table = GetFeatureTable();
             if (table == null)
                 return;
             string message = null;
             try
             {
-                var dialog = new MessageDialog("Are you sure you want to delete this feature from the table?", "Delete feature");
+                var dialog = new MessageDialog("Are you sure you want to delete feature?", "Delete feature");
                 dialog.Commands.Add(new UICommand("OK", new UICommandInvokedHandler(async (command) =>
                 {
                     CloseDataForm();
@@ -293,9 +294,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         
         private async void ApplyButton_Click(object sender, RoutedEventArgs e)
         {
-            var feature = (sender as Button).DataContext as GeodatabaseFeature;
-            if (feature == null)
-                return;
+            var feature = (GeodatabaseFeature)((Button)sender).DataContext;
             var table = GetFeatureTable();
             if (table == null)
                 return;
@@ -304,10 +303,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             {
                 // Updates the feature with its Attributes already modified by the two-way binding.
                 await table.UpdateAsync(feature);
+                if (dataForm != null)
+                {
                 // To reflect the changes in auto-populated fields, query feature and update form data context.
                 feature = (GeodatabaseFeature)await table.QueryAsync(Convert.ToInt64(feature.Attributes[table.ObjectIDField], CultureInfo.InvariantCulture));
                 if (dataForm != null && dataForm.Content is FrameworkElement)
                     ((FrameworkElement)dataForm.Content).DataContext = feature;
+                }
                 SaveButton.IsEnabled = table.HasEdits;
             }
             catch (Exception ex)
@@ -338,47 +340,43 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     layer.SelectFeatures(featureIDs);
                     var featureID = featureIDs.FirstOrDefault();
                     var features = await table.QueryAsync(new long[] { featureID }, true);
-                    if (features != null)
+                    if (features == null || !features.Any() || dataForm == null)
+                        return;
+                    var feature = features.FirstOrDefault();
+                    if (dataForm.Content is FrameworkElement)
+                        ((FrameworkElement)dataForm.Content).DataContext = feature;
+                    // Determines whether currently logged-in user can update/delete the feature.                            
+                    // See also CanAdd/Update/DeleteAttachment.
+                    var geodatabaseFeature = (GeodatabaseFeature)feature;
+                    var canUpdateAttributes = table.CanUpdateFeature(geodatabaseFeature);
+                    var canUpdateGeometry = table.CanUpdateGeometry(geodatabaseFeature);
+                    var canDeleteFeature = table.CanDeleteFeature(geodatabaseFeature);
+                    var formPanel = (StackPanel)dataForm.Content;
+                    if (formPanel != null && formPanel.Children.Count > 1 && formPanel.Children[1] is Grid)
                     {
-                        var feature = features.FirstOrDefault();
-                        if (feature != null && dataForm != null)
+                        var formGrid = (Grid)formPanel.Children[1];
+                        foreach (var child in formGrid.Children)
                         {
-                            if (dataForm.Content is FrameworkElement)
-                                ((FrameworkElement)dataForm.Content).DataContext = feature;
-                            // Determines whether currently logged-in user can update/delete the feature.                            
-                            // See also CanAdd/Update/DeleteAttachment.
-                            var geodatabaseFeature = (GeodatabaseFeature)feature;
-                            var canUpdateAttributes = table.CanUpdateFeature(geodatabaseFeature);
-                            var canUpdateGeometry = table.CanUpdateGeometry(geodatabaseFeature);
-                            var canDeleteFeature = table.CanDeleteFeature(geodatabaseFeature);
-                            var formPanel = (StackPanel)dataForm.Content;
-                            if (formPanel != null && formPanel.Children.Count > 1 && formPanel.Children[1] is Grid)
+                            var element = (FrameworkElement)child;
+                            if (element.Name == "ButtonGrid")
                             {
-                                var formGrid = (Grid)formPanel.Children[1];
-                                foreach (var child in formGrid.Children)
+                                var buttonGrid = (Grid)element;
+                                foreach (var button in buttonGrid.Children)
                                 {
-                                    var element = (FrameworkElement)child;
-                                    if (element.Name == "ButtonGrid")
-                                    {
-                                        var buttonGrid = (Grid)element;
-                                        foreach (var button in buttonGrid.Children)
-                                        {
-                                            var buttonElement = (Control)button;                                            
-                                            if (buttonElement.Name == "ApplyButton")
-                                                buttonElement.IsEnabled = canUpdateAttributes;
-                                            else if (buttonElement.Name == "EditButton")
-                                                buttonElement.IsEnabled = canUpdateGeometry;
-                                            else if (buttonElement.Name == "DeleteButton")
-                                                buttonElement.IsEnabled = canDeleteFeature;
-                                        }
-                                    }
-                                    else if(element is Control)        
-                                        ((Control)element).IsEnabled = canUpdateAttributes;
+                                    var buttonElement = (Control)button;
+                                    if (buttonElement.Name == "ApplyButton")
+                                        buttonElement.IsEnabled = canUpdateAttributes;
+                                    else if (buttonElement.Name == "EditButton")
+                                        buttonElement.IsEnabled = canUpdateGeometry;
+                                    else if (buttonElement.Name == "DeleteButton")
+                                        buttonElement.IsEnabled = canDeleteFeature;
                                 }
                             }
-                            dataForm.ShowAt(MyMapView);
+                            else if (element is Control)
+                                ((Control)element).IsEnabled = canUpdateAttributes;
                         }
                     }
+                    dataForm.ShowAt(MyMapView);
                 }
             }
             catch (Exception ex)
@@ -394,7 +392,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             var table = GetFeatureTable();
             if (table == null)
                 return;
-            var typeId = Convert.ToInt32((sender as Button).Tag, CultureInfo.InvariantCulture);
+            var typeId = Convert.ToInt32(((Button)sender).Tag, CultureInfo.InvariantCulture);
             string message = null;
             try
             {
@@ -447,7 +445,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 await new MessageDialog(message).ShowAsync();
         }
 
-        private static string GetResultMessage(IEnumerable<FeatureEditResultItem> editResults, EditType editType)
+        private string GetResultMessage(IEnumerable<FeatureEditResultItem> editResults, EditType editType)
         {
             var sb = new StringBuilder();
             var operation = editType == EditType.Add ? "adds" :
@@ -470,15 +468,15 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             var table = GetFeatureTable();
-            if (table == null)
+            if (table == null || !table.HasEdits)
                 return;
             string message = null;
             try
             {
                 // Submits the feature edits to server.
                 var saveResult = await table.ApplyEditsAsync();
-                if (saveResult != null)
-                {
+                if (saveResult == null)
+                    return;
                     var sb = new StringBuilder();
                     var editMessage = GetResultMessage(saveResult.AddResults, EditType.Add);
                     if (!string.IsNullOrWhiteSpace(editMessage))
@@ -490,7 +488,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     if (!string.IsNullOrWhiteSpace(editMessage))
                         sb.AppendLine(editMessage);
                     message = sb.ToString();
-                }
                 SaveButton.IsEnabled = table.HasEdits;
             }
             catch (Exception ex)
@@ -522,8 +519,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private async void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            var table = GetFeatureTable();
-            if (table == null || !table.HasEdits)
+            var layer = GetFeatureLayer();
+            var table = GetFeatureTable(layer);
+            if (layer == null || table == null || !table.HasEdits)
                 return;
             // Cancels the local edits by refreshing features with preserveEdits=false 
             // and awaits for UpdatedCompleted before checking HasEdits.

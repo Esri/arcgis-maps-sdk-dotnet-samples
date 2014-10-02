@@ -16,8 +16,10 @@
                                           YMax="4280849.94238526" />
                 </esri:Map.InitialViewpoint>
                 <layers:ArcGISTiledMapServiceLayer ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
+                <!-- Used to render all features -->
                 <layers:ArcGISDynamicMapServiceLayer ID="WildFireDynamic"
                                                      ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Wildfire/MapServer" />
+                <!-- Used to edit one feature at a time -->
                 <layers:GraphicsLayer ID="WildFirePolygons" />
             </esri:Map>
         </esri:MapView>
@@ -29,7 +31,7 @@
                 <AppBarButton x:Name="AddButton"
                               IsEnabled="False"
                               Icon="Add"
-                              Label="Add"
+                              Label="Add Polygon"
                               Click="AddButton_Click"
                               Margin="2"
                               ToolTipService.ToolTip="IR Intense Heat Area">
@@ -42,7 +44,7 @@
                               x:Name="EditButton"
                               IsEnabled="False"
                               Click="EditButton_Click"
-                              Margin="2"/>
+                              Margin="2" />
                 <AppBarButton Icon="Delete"
                               Label="Delete"
                               IsEnabled="{Binding ElementName=EditButton, Path=IsEnabled}"
@@ -55,14 +57,14 @@
                               Label="Info">
                     <AppBarButton.Flyout>
                         <Flyout>
-                            <TextBlock Text="Tap on a feature in the map to edit its geometry or delete the feature. Confirm edit or delete to save to the database."
+                            <TextBlock Text="Click on a feature to select, edit its geometry or delete feature. Click 'Add Polygon' and tap on map to create new feature."
                                        Width="200"
                                        TextAlignment="Left"
                                        Margin="30,20,20,30"
                                        TextWrapping="Wrap" />
                         </Flyout>
                     </AppBarButton.Flyout>
-                </AppBarButton>               
+                </AppBarButton>
             </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.BottomAppBar>

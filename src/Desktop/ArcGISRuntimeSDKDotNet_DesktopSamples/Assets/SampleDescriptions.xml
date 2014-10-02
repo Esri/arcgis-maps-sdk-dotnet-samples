@@ -181,7 +181,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData">
             <summary>
-            Demonstrates how to query and update graphic attributes of the related relatedTable.
+            Demonstrates how to query and update graphic attributes of the related table.
             </summary>
             <title>Edit Related Data</title>
             <category>Editing</category>

@@ -120,7 +120,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private void SignOutButton_Click(object sender, RoutedEventArgs e)
         {
-            // Remove credential, relatedTable and layer. Add a new instance to trigger a new challenge.
+            // Remove credential, table and layer. Add a new instance to trigger a new challenge.
             RemoveCredential();
             var layer = GetFeatureLayer();
             var table = GetFeatureTable(layer);
@@ -298,7 +298,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 if (deletePrompt == MessageBoxResult.OK)
                 {
                     CloseDataForm();
-                    // Deletes the feature from the relatedTable.
+                    // Deletes the feature from the table.
                     await table.DeleteAsync(feature);
                     SaveButton.IsEnabled = table.HasEdits;
                 }

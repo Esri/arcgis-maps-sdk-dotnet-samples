@@ -6,6 +6,10 @@
       xmlns:layers="using:Esri.ArcGISRuntime.Layers"
       xmlns:data="using:Esri.ArcGISRuntime.Data">
     <Page.Resources>
+        <!-- Used for Attribute two-way binding -->
+        <local:StringToShortConverter x:Key="StringToShortConverter" />
+        <local:StringToDateConverter x:Key="StringToDateConverter" />
+        <!-- Used for FeatureTypes conversion -->
         <local:KeyValueConverter x:Key="KeyValueConverter" />
         <local:ReverseVisibilityConverter x:Key="ReverseVisibilityConverter" />
     </Page.Resources>
@@ -58,7 +62,7 @@
                               Label="Info">
                     <AppBarButton.Flyout>
                         <Flyout>
-                            <TextBlock Text="Click on a feature in the map to view the attributes in the data form.  Edit values in the data form and click Apply to save to the database."
+                            <TextBlock Text="Tap on a feature to select, edit its attributes, geometry or delete feature. Click 'Add Point' and tap on map to create new feature."
                                        Width="200"
                                        TextAlignment="Left"
                                        Margin="30,20,20,30"
@@ -140,7 +144,7 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock Grid.Row="0"
                                            Grid.ColumnSpan="2"
-                                           x:Name="DisplayName"/>
+                                           x:Name="DisplayName" />
                                 <TextBlock Text="Logged in as:"
                                            Grid.Column="0"
                                            Grid.Row="1"

@@ -17,8 +17,7 @@ using Windows.UI.Xaml.Controls;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
-    /// Demonstrates how geometry of a feature can be modified from a ServiceFeatureTable
-    /// and how this type of edit is pushed to the server or canceled.
+    /// Demonstrates how to edit feature geometry.
     /// </summary>
     /// <title>Edit Geometry</title>
     /// <category>Editing</category>
@@ -34,29 +33,23 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public EditGeometry()
         {
             InitializeComponent();
-        }        
+        }
 
         private FeatureLayer GetFeatureLayer()
         {
-            if (MyMapView == null || MyMapView.Map == null || MyMapView.Map.Layers == null)
+            if (MyMapView.Map == null || MyMapView.Map.Layers == null)
                 return null;
-            var layer = MyMapView.Map.Layers["ThreatAreas"] as FeatureLayer;
-            if (layer == null)
-                return null;
-            return layer;
+            return MyMapView.Map.Layers["ThreatAreas"] as FeatureLayer;
         }
 
-        private ServiceFeatureTable GetFeatureTable(FeatureLayer owner = null)
+        private ServiceFeatureTable GetFeatureTable(FeatureLayer ownerLayer = null)
         {
-            var layer = owner ?? GetFeatureLayer();
-            if (layer == null)
+            var layer = ownerLayer ?? GetFeatureLayer();
+            if (layer == null || !(layer.FeatureTable is ServiceFeatureTable))
                 return null;
-            var table = layer.FeatureTable as ServiceFeatureTable;
-            if (table == null)
-                return null;
-            return table;
+            return (ServiceFeatureTable)layer.FeatureTable;
         }
-        
+
         private async Task<Polygon> GetPolygonAsync()
         {
             // Determine if Freehand is enabled.
@@ -78,9 +71,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             polygon = GeometryEngine.Simplify(polygon) as Polygon;
             return polygon;
         }
-        
+
         private async Task<IEnumerable<Feature>> GetSelectedFeaturesAsync(ServiceFeatureTable table, IEnumerable<long> selectedFeatureIDs)
         {
+            // Performs query on cached features by IDs or geometry filter.
             IEnumerable<Feature> selectedFeatures = null;
             if (selectedFeatureIDs != null && selectedFeatureIDs.Any())
                 selectedFeatures = await table.QueryAsync(selectedFeatureIDs, true);
@@ -96,44 +90,38 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             return selectedFeatures;
         }
-        
+
         private async Task<Polygon> GetAutoCompletedPolygonAsync(Polygon polygon, IEnumerable<Feature> selectedFeatures)
         {
-
+            if (polygon == null || selectedFeatures == null || !selectedFeatures.Any())
+                return null;
             // Perform auto-complete on selected features.
-            if (selectedFeatures != null && selectedFeatures.Any())
+            var existingBoundaries = from f in selectedFeatures
+                                     select f.Geometry as Polygon;
+            var newBoundaries = new Polyline[] { polygon.ToPolyline() };
+            var autoCompleteResult = GeometryEngine.AutoComplete(existingBoundaries, newBoundaries);
+            if (autoCompleteResult == null || !autoCompleteResult.Any())
+                return null;
+            var polygonBuilder = new PolygonBuilder(MyMapView.SpatialReference);
+            foreach (var geom in autoCompleteResult)
             {
-                var existingBoundaries = from f in selectedFeatures
-                                         select f.Geometry as Polygon;
-                var newBoundaries = new Polyline[] { polygon.ToPolyline() };
-                var autoCompleteResult = GeometryEngine.AutoComplete(existingBoundaries, newBoundaries);
-                if (autoCompleteResult != null && autoCompleteResult.Any())
-                {
-                    var polygonBuilder = new PolygonBuilder(MyMapView.SpatialReference);
-                    foreach (var geom in autoCompleteResult)
-                    {
-                        if (geom is Polygon)
-                        {
-                            var p = (Polygon)geom;
-                            foreach (var i in p.Parts)
-                                polygonBuilder.Parts.AddPart(i);
-                        }
-                    }
-                    polygon = polygonBuilder.ToGeometry();
-                }
+                if (!(geom is Polygon))
+                    continue;
+                var p = (Polygon)geom;
+                foreach (var i in p.Parts)
+                    polygonBuilder.Parts.AddPart(i);
             }
-            return polygon;
+            return polygonBuilder.ToGeometry();
         }
 
         private async void AddButton_Click(object sender, RoutedEventArgs e)
         {
             var layer = GetFeatureLayer();
-            if (layer == null)
-                return;
             var table = GetFeatureTable(layer);
-            if (table == null)
+            if (layer == null || table == null)
                 return;
-            var typeId = Convert.ToInt32((sender as Button).Tag, CultureInfo.InvariantCulture);
+
+            var typeId = Convert.ToInt32(((Button)sender).Tag, CultureInfo.InvariantCulture);
             string message = null;
             try
             {
@@ -194,17 +182,15 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 await new MessageDialog(message).ShowAsync();
 
         }
-        
+
         private async void SelectButton_Click(object sender, RoutedEventArgs e)
         {
             var layer = GetFeatureLayer();
-            if (layer == null)
-                return;
             var table = GetFeatureTable(layer);
-            if (table == null)
+            if (layer == null || table == null)
                 return;
+            var tag = Convert.ToString(((MenuFlyoutItem)sender).Tag, CultureInfo.InvariantCulture);
             string message = null;
-            var tag = Convert.ToString((sender as MenuFlyoutItem).Tag, CultureInfo.InvariantCulture);
             try
             {
                 while (true)
@@ -285,34 +271,26 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             if (!string.IsNullOrWhiteSpace(message))
                 await new MessageDialog(message).ShowAsync();
         }
-        
+
         private void ClearSelectionButton_Click(object sender, RoutedEventArgs e)
         {
             var layer = GetFeatureLayer();
-            if (layer == null)
-                return;
-            // Clears selection on layer if any.
-            if (layer.SelectedFeatureIDs != null && layer.SelectedFeatureIDs.Any())
+            if (layer != null && layer.SelectedFeatureIDs != null && layer.SelectedFeatureIDs.Any())
                 layer.ClearSelection();
         }
 
         private async void DeleteSelectedButton_Click(object sender, RoutedEventArgs e)
         {
             var layer = GetFeatureLayer();
-            if (layer == null)
-                return;
             var table = GetFeatureTable(layer);
-            if (table == null)
+            if (layer == null || table == null || layer.SelectedFeatureIDs == null || !layer.SelectedFeatureIDs.Any())
                 return;
             string message = null;
             try
             {
-                if (layer.SelectedFeatureIDs != null && layer.SelectedFeatureIDs.Any())
-                {
-                    // Delete the selected features by passing the IDs
-                    await table.DeleteAsync(layer.SelectedFeatureIDs);
-                    SaveButton.IsEnabled = table.HasEdits;
-                }
+                // Delete the selected features by passing the IDs
+                await table.DeleteAsync(layer.SelectedFeatureIDs);
+                SaveButton.IsEnabled = table.HasEdits;
             }
             catch (TaskCanceledException tcex)
             {
@@ -328,10 +306,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         private async void EditVerticesButton_Click(object sender, RoutedEventArgs e)
         {
             var layer = GetFeatureLayer();
-            if (layer == null)
-                return;
             var table = GetFeatureTable(layer);
-            if (table == null)
+            if (layer == null || table == null)
                 return;
             string message = null;
             long? id = null;
@@ -346,31 +322,26 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     if (featureIDs == null || !featureIDs.Any())
                         continue;
                     id = featureIDs.FirstOrDefault();
-                    if (id.HasValue)
-                    {
-                        // Hide the original feature using its ID.
-                        layer.SetFeatureVisibility(new long[] { id.Value }, false);
-                        // Query based on ID to get the feature.
-                        var features = await table.QueryAsync(new long[] { id.Value }, true);
-                        if (features != null)
-                        {
-                            var feature = features.FirstOrDefault();
-                            if (feature != null)
-                            {
-                                // Use Editor to update its Geometry.
-                                var geometry = await MyMapView.Editor.EditGeometryAsync(feature.Geometry);
-                                var polygon = geometry as Polygon;
-                                // Simplify Polygon to make geometry topologically correct.
-                                polygon = GeometryEngine.Simplify(polygon) as Polygon;
-                                feature.Geometry = polygon;
-                                await table.UpdateAsync(feature);
-                                // Unhide the original feature. 
-                                if (id.HasValue)
-                                    layer.SetFeatureVisibility(new long[] { id.Value }, true);
-                                SaveButton.IsEnabled = table.HasEdits;
-                            }
-                        }
-                    }
+                    if (!id.HasValue)
+                        return;
+                    // Hide the original feature using its ID.
+                    layer.SetFeatureVisibility(new long[] { id.Value }, false);
+                    // Query based on ID to get the feature.
+                    var features = await table.QueryAsync(new long[] { id.Value }, true);
+                    if (features == null || !features.Any())
+                        continue;
+                    var feature = features.FirstOrDefault();
+                    // Use Editor to update its Geometry.
+                    var geometry = await MyMapView.Editor.EditGeometryAsync(feature.Geometry);
+                    var polygon = geometry as Polygon;
+                    // Simplify Polygon to make geometry topologically correct.
+                    polygon = GeometryEngine.Simplify(polygon) as Polygon;
+                    feature.Geometry = polygon;
+                    await table.UpdateAsync(feature);
+                    // Unhide the original feature. 
+                    layer.SetFeatureVisibility(new long[] { id.Value }, true);
+                    SaveButton.IsEnabled = table.HasEdits;
+
                     var isContinuous = IsContinuous.IsChecked.HasValue && IsContinuous.IsChecked.Value;
                     if (!isContinuous)
                         break;
@@ -411,10 +382,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         private async void CutButton_Click(object sender, RoutedEventArgs e)
         {
             var layer = GetFeatureLayer();
-            if (layer == null)
-                return;
             var table = GetFeatureTable(layer);
-            if (table == null)
+            if (layer == null || table == null)
                 return;
             string message = null;
             try
@@ -423,40 +392,37 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 {
                     // Get reshaper cutter.
                     var cutter = await GetPolylineAsync();
-                    
+
                     // Use selected features if any; otherwise, query features using spatial filter on current map extent.
                     var selectedFeatures = await GetSelectedFeaturesAsync(table, layer.SelectedFeatureIDs);
 
-                    // Perform cut on selected features.
-                    if (selectedFeatures != null && selectedFeatures.Any())
+                    if (selectedFeatures == null || !selectedFeatures.Any())
+                        continue;
+                    foreach (var f in selectedFeatures)
                     {
-                        
-                        foreach (var f in selectedFeatures)
+                        var cutResult = GeometryEngine.Cut(f.Geometry, cutter);
+                        if (cutResult == null || !cutResult.Any())
+                            continue;
+                        bool isFirstUpdated = false;
+                        foreach (var geom in cutResult)
                         {
-                            var cutResult = GeometryEngine.Cut(f.Geometry, cutter);
-                            if (cutResult != null && cutResult.Any())
+                            var p = (Polygon)geom;
+                            if (!isFirstUpdated)
                             {
-                                bool isFirstUpdated = false;
-                                foreach (var geom in cutResult)
-                                {
-                                    var p = (Polygon)geom;
-                                    if (!isFirstUpdated)
-                                    {
-                                        f.Geometry = p;
-                                        await table.UpdateAsync(f);
-                                        isFirstUpdated = true;
-                                    }
-                                    else
-                                    {
-                                        var n = new GeodatabaseFeature(table.Schema) { Geometry = p };                                        
-                                        foreach (var item in f.Attributes)
-                                            n.Attributes[item.Key] = item.Value;
-                                        var id = await table.AddAsync(n);
-                                        layer.SelectFeatures(new long[] { id });
-                                    }
-                                    SaveButton.IsEnabled = table.HasEdits;
-                                }
+                                f.Geometry = p;
+                                await table.UpdateAsync(f);
+                                isFirstUpdated = true;
                             }
+                            else
+                            {
+                                var n = new GeodatabaseFeature(table.Schema) { Geometry = p };
+                                foreach (var item in f.Attributes)
+                                    n.Attributes[item.Key] = item.Value;
+                                var id = await table.AddAsync(n);
+                                layer.SelectFeatures(new long[] { id });
+                            }
+                            UnionButton.IsEnabled = true;
+                            SaveButton.IsEnabled = table.HasEdits;
                         }
                     }
                     var isContinuous = IsContinuous.IsChecked.HasValue && IsContinuous.IsChecked.Value;
@@ -477,15 +443,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private async void ReshapeButton_Click(object sender, RoutedEventArgs e)
         {
-            if (MyMapView == null || MyMapView.Map == null || MyMapView.Map.Layers == null)
-                return;
-            var layer = MyMapView.Map.Layers["ThreatAreas"] as FeatureLayer;
-            if (layer == null)
-                return;
-            var table = layer.FeatureTable as ServiceFeatureTable;
-            if (table == null)
-                return;
-            if (MyMapView.Editor == null)
+            var layer = GetFeatureLayer();
+            var table = GetFeatureTable(layer);
+            if (layer == null || table == null)
                 return;
             string message = null;
             try
@@ -494,23 +454,21 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 {
                     // Get polyline reshaper.
                     var reshaper = await GetPolylineAsync();
-                    
+
                     // Use selected features if any; otherwise, query features using spatial filter on current map extent.
                     var selectedFeatures = await GetSelectedFeaturesAsync(table, layer.SelectedFeatureIDs);
 
-                    if (selectedFeatures != null && selectedFeatures.Any())
+                    if (selectedFeatures == null || !selectedFeatures.Any())
+                        continue;
+                    foreach (var f in selectedFeatures)
                     {
-                        foreach (var f in selectedFeatures)
-                        {
-                            var reshapeResult = GeometryEngine.Reshape(f.Geometry, reshaper);
-                            if (reshapeResult is Polygon)
-                            {
-                                var polygon = (Polygon)reshapeResult;
-                                f.Geometry = polygon;
-                                await table.UpdateAsync(f);
-                                SaveButton.IsEnabled = table.HasEdits;
-                            }
-                        }
+                        var reshapeResult = GeometryEngine.Reshape(f.Geometry, reshaper);
+                        if (!(reshapeResult is Polygon))
+                            continue;
+                        var polygon = (Polygon)reshapeResult;
+                        f.Geometry = polygon;
+                        await table.UpdateAsync(f);
+                        SaveButton.IsEnabled = table.HasEdits;
                     }
                     var isContinuous = IsContinuous.IsChecked.HasValue && IsContinuous.IsChecked.Value;
                     if (!isContinuous)
@@ -532,10 +490,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         private async void UnionButton_Click(object sender, RoutedEventArgs e)
         {
             var layer = GetFeatureLayer();
-            if (layer == null)
-                return;
             var table = GetFeatureTable(layer);
-            if (table == null)
+            if (layer == null || table == null)
                 return;
             string message = null;
             try
@@ -544,24 +500,22 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 {
                     // Use selected features if any; otherwise, query features using spatial filter on current map extent.
                     var selectedFeatures = await GetSelectedFeaturesAsync(table, layer.SelectedFeatureIDs);
-
-                    if (selectedFeatures != null && selectedFeatures.Any())
+                    if (selectedFeatures == null || !selectedFeatures.Any())
+                        continue;
+                    var unionResult = GeometryEngine.Union(from f in selectedFeatures select f.Geometry);
+                    var firstID = layer.SelectedFeatureIDs.FirstOrDefault();
+                    var firstFeature = (from f in selectedFeatures
+                                        where Convert.ToInt64(f.Attributes[table.ObjectIDField], CultureInfo.InvariantCulture) == firstID
+                                        select f).FirstOrDefault();
+                    if (firstFeature != null)
                     {
-                        var unionResult = GeometryEngine.Union(from f in selectedFeatures select f.Geometry);
-                        var firstID = layer.SelectedFeatureIDs.FirstOrDefault();
-                        var firstFeature = (from f in selectedFeatures
-                                            where Convert.ToInt64(f.Attributes[table.ObjectIDField], CultureInfo.InvariantCulture) == firstID
-                                            select f).FirstOrDefault();
-                        if (firstFeature != null)
-                        {
-                            firstFeature.Geometry = unionResult;
-                            await table.UpdateAsync(firstFeature);
-                            var otherFeatureIDs = from i in layer.SelectedFeatureIDs
-                                                  where i != firstID
-                                                  select i;
-                            await table.DeleteAsync(otherFeatureIDs);
-                            SaveButton.IsEnabled = table.HasEdits;
-                        }
+                        firstFeature.Geometry = unionResult;
+                        await table.UpdateAsync(firstFeature);
+                        var otherFeatureIDs = from i in layer.SelectedFeatureIDs
+                                              where i != firstID
+                                              select i;
+                        await table.DeleteAsync(otherFeatureIDs);
+                        SaveButton.IsEnabled = table.HasEdits;
                     }
                     var isContinuous = IsContinuous.IsChecked.HasValue && IsContinuous.IsChecked.Value;
                     if (!isContinuous)
@@ -579,11 +533,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 await new MessageDialog(message).ShowAsync();
 
         }
-               
+
         private void IsAutoSelect_Click(object sender, RoutedEventArgs e)
         {
             var layer = GetFeatureLayer();
-            if (layer == null)
+            if (layer == null || layer.SelectedFeatureIDs == null)
                 return;
             var count = layer.SelectedFeatureIDs.Count();
             if (count == 0)
@@ -599,7 +553,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
         }
 
-        private static string GetResultMessage(IEnumerable<FeatureEditResultItem> editResults, EditType editType)
+        private string GetResultMessage(IEnumerable<FeatureEditResultItem> editResults, EditType editType)
         {
             var sb = new StringBuilder();
             var operation = editType == EditType.Add ? "adds" :
@@ -637,10 +591,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                         sb.AppendLine(editMessage);
                     editMessage = GetResultMessage(saveResult.UpdateResults, EditType.Update);
                     if (!string.IsNullOrWhiteSpace(editMessage))
-                        sb.AppendLine(editMessage); 
+                        sb.AppendLine(editMessage);
                     editMessage = GetResultMessage(saveResult.DeleteResults, EditType.Delete);
                     if (!string.IsNullOrWhiteSpace(editMessage))
-                        sb.AppendLine(editMessage);                   
+                        sb.AppendLine(editMessage);
                     message = sb.ToString();
                 }
                 SaveButton.IsEnabled = table.HasEdits;
@@ -684,21 +638,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             var table = GetFeatureTable();
             if (table == null || !table.HasEdits)
                 return;
-            string message = null;
-            try
-            {
-                // Cancels the local edits by refreshing features with preserveEdits=false 
-                // and awaits for UpdatedCompleted before checking HasEdits.
-                var cancelResult = await CancelEditsAsync(table);
-                if (cancelResult)
-                    SaveButton.IsEnabled = table.HasEdits;
-            }
-            catch (Exception ex)
-            {
-                message = ex.Message;
-            }
-            if (!string.IsNullOrWhiteSpace(message))
-                await new MessageDialog(message).ShowAsync();
+
+            // Cancels the local edits by refreshing features with preserveEdits=false 
+            // and awaits for UpdatedCompleted before checking HasEdits.
+            var cancelResult = await CancelEditsAsync(table);
+            if (cancelResult)
+                SaveButton.IsEnabled = table.HasEdits;
         }
     }
 }

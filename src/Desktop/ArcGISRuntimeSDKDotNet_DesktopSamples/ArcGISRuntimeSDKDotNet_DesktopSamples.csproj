@@ -93,6 +93,9 @@
     <Compile Include="Samples\DynamicServiceLayers\WMSLayer.xaml.cs">
       <DependentUpon>WMSLayer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Editing\DynamicLayerEditAttribute.xaml.cs">
+      <DependentUpon>DynamicLayerEditAttribute.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Editing\Extras\SOEElevationData.xaml.cs">
       <DependentUpon>SOEElevationData.xaml</DependentUpon>
     </Compile>
@@ -496,6 +499,10 @@
     <Page Include="Samples\DynamicServiceLayers\WMSLayer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\DynamicLayerEditAttribute.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\Editing\Extras\SOEElevationData.xaml">
       <Generator>MSBuild:Compile</Generator>

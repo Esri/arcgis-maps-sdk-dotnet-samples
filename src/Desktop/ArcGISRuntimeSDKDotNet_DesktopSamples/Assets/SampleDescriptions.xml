@@ -164,6 +164,43 @@
             InitializeComponent
             </summary>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayerEditAttribute">
+            <summary>
+            Demonstrates how to selectively import and update feature attributes while using dynamic layer to render the features.
+            </summary>
+            <title>Dynamic Layer Edit Attribute</title>
+            <category>Editing</category>
+            <summary>
+            DynamicLayerEditAttribute
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayerEditAttribute.MyMapView_LayerLoaded(System.Object,Esri.ArcGISRuntime.Controls.LayerLoadedEventArgs)">
+            <summary>
+            Builds choice list for attribute editing from layer metadata.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayerEditAttribute.MyMapView_MapViewTapped(System.Object,Esri.ArcGISRuntime.Controls.MapViewInputEventArgs)">
+            <summary>
+            Identifies feature to highlight.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayerEditAttribute.SetAttributeEditor(Esri.ArcGISRuntime.Layers.Graphic)">
+            <summary>
+            Displays feature attributes.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayerEditAttribute.ApplyButton_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Submits changes to server and refreshes dynamic layer.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayerEditAttribute.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SOEElevationData">
             <summary>
             This sample demonstrates how to use a custom Server Object Extension (SOE) hosted by ArcGIS for Server. The SOE operation used in this example returns a set of interpolated elevation values for a user defined grid. The grid extent and number of rows and columns are provided as inputs to the SOE.
@@ -1768,7 +1805,7 @@
             <summary>
             This sample illustrates a simple way of querying the Portal metadata/properties and retrieving featuredItems using the Portal API.
             </summary>
-            <title>ShowProperties</title>
+            <title>Show Properties</title>
             <category>Portal</category>
             <summary>
             ShowProperties
@@ -1997,7 +2034,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.TokenSecuredServices">
             <summary>
-            This sample demonstrates how to use the IdentityManager to gain access to a secured service. Here, the map contains a public basemap and two secure dynamic layers. The IdentityManager will challenge for credentials when the Map tries to access a secure service.
+            This sample demonstrates how to use the IdentityManager to gain access to a secured service. Here, the map contains a public basemap and a secure dynamic layer. The IdentityManager will challenge for credentials when the Map tries to access a secure service.
             </summary>
             <title>ArcGIS Token Secured Services</title>
             <category>Security</category>

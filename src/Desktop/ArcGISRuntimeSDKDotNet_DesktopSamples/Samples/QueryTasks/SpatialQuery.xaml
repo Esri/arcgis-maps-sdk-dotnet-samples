@@ -28,7 +28,7 @@
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 			</esri:Map>
 			<esri:MapView.GraphicsOverlays>
-				<esri:GraphicsOverlay ID="parcelOverlay" Renderer="{StaticResource ParcelRenderer}"/>
+				<esri:GraphicsOverlay ID="parcelOverlay" RenderingMode="Static" Renderer="{StaticResource ParcelRenderer}"/>
 				<esri:GraphicsOverlay ID="bufferOverlay" Renderer="{StaticResource BufferRenderer}"/>
 				<esri:GraphicsOverlay ID="graphicsOverlay" Renderer="{StaticResource DefaultRenderer}"/>
 			</esri:MapView.GraphicsOverlays>

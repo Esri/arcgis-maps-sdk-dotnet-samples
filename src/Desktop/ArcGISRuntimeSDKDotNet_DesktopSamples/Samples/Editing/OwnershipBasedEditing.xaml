@@ -5,7 +5,11 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
              xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <UserControl.Resources>
+        <!-- Used for Attribute two-way binding -->
+        <local:StringToDateConverter x:Key="StringToDateConverter" />
+        <!-- Used for CodedValueDomain conversion -->
         <local:KeyValueConverter x:Key="KeyValueConverter" />
+        <!-- Used for CodedValueDomain selection -->
         <DataTemplate x:Key="MyItemTemplate">
             <TextBlock Text="{Binding Value}" />
         </DataTemplate>
@@ -25,8 +29,7 @@
                 </esri:FeatureLayer>
             </esri:Map>
         </esri:MapView>
-        <Border x:Name="LoginPanel"
-                Background="White"
+        <Border Background="White"
                 BorderBrush="Black"
                 BorderThickness="1"
                 Margin="30"
@@ -35,68 +38,92 @@
                 VerticalAlignment="Top"
                 Visibility="Visible">
             <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100" />
-                    <ColumnDefinition Width="150" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0"
-                           Grid.Column="0"
-                           Grid.ColumnSpan="2"
-                           Margin="0,0,0,8"
-                           TextWrapping="Wrap"
-                           Text="{Binding ServiceUrl, StringFormat='Login to: {0}'}" />
-                <TextBlock Grid.Row="1"
-                           Grid.Column="0"
-                           Margin="2"
-                           VerticalAlignment="Center"
-                           Text="Username" />
-                <TextBox Grid.Row="1"
-                         Grid.Column="1"
-                         Margin="2"
-                         Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBlock Grid.Row="2"
-                           Grid.Column="0"
-                           Margin="2"
-                           VerticalAlignment="Center"
-                           Text="Password" />
-                <!-- Yes, the password is visible in this example. Use a PasswordBox to mask the password text. -->
-                <TextBox Grid.Row="2"
-                         Grid.Column="1"
-                         Margin="2"
-                         Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
-                <Button Grid.Row="3"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="2"
-                        Margin="0,12,0,0"
-                        HorizontalAlignment="Center"
-                        Content="Login and Load Layer"
-                        IsDefault="True"
-                        Click="SignInButton_Click" />
-                <TextBlock Grid.Row="4"
-                           Grid.Column="0"
-                           Grid.ColumnSpan="2"
-                           Margin="8,12,8,0"
-                           Foreground="Red"
-                           TextWrapping="Wrap"
-                           Text="{Binding ErrorMessage}">
-                    <TextBlock.Style>
-                        <Style TargetType="{x:Type TextBlock}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding ErrorMessage}"
-                                             Value="">
-                                    <Setter Property="Visibility"
-                                            Value="Collapsed" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style></TextBlock>
+                <Grid x:Name="LoginPanel"
+                      Visibility="Visible">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="150" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="2"
+                               Margin="0,0,0,8"
+                               TextWrapping="Wrap"
+                               x:Name="LoginInfo" />
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="0"
+                               Margin="2"
+                               VerticalAlignment="Center"
+                               Text="Username" />
+                    <TextBox Grid.Row="1"
+                             Grid.Column="1"
+                             Margin="2"
+                             x:Name="Username" />
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="0"
+                               Margin="2"
+                               VerticalAlignment="Center"
+                               Text="Password" />
+                    <!-- Yes, the password is visible in this example. Use a PasswordBox to mask the password text. -->
+                    <TextBox Grid.Row="2"
+                             Grid.Column="1"
+                             Margin="2"
+                             x:Name="Password" />
+                    <Button Grid.Row="3"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Margin="0,12,0,0"
+                            HorizontalAlignment="Center"
+                            Content="Login and Load Layer"
+                            TabIndex="0"
+                            Click="SignInButton_Click" />
+                    <TextBlock Grid.Row="4"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="2"
+                               Margin="8,12,8,0"
+                               Foreground="Red"
+                               TextWrapping="Wrap"
+                               x:Name="ErrorMessage" />
+                </Grid>
+                <Grid Visibility="{Binding ElementName=LoginPanel, Path=Visibility, Converter={StaticResource ReverseVisibilityConverter}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="150" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0"
+                               Grid.ColumnSpan="2"
+                               x:Name="DisplayName" />
+                    <TextBlock Text="Logged in as:"
+                               Grid.Column="0"
+                               Grid.Row="1"
+                               Margin="2"
+                               VerticalAlignment="Center" />
+                    <TextBlock x:Name="UserName"
+                               FontWeight="Bold"
+                               Margin="2"
+                               Grid.Column="1"
+                               Grid.Row="1"
+                               TextAlignment="Left" />
+                    <Button Content="Sign Out"
+                            Grid.Row="2"
+                            Grid.ColumnSpan="2"
+                            Margin="2"
+                            Click="SignOutButton_Click" />
+                </Grid>
             </Grid>
         </Border>
         <Border
@@ -185,7 +212,7 @@
             <Border.Effect>
                 <DropShadowEffect />
             </Border.Effect>
-            <TextBlock Text="Click on a feature in the map to view the attributes in the data form.  Edit values in the data form and click Apply to save to the database."
+            <TextBlock Text="Click on a feature to select, edit its attributes, geometry or delete feature. Click 'Add Point' and tap on map to create new feature."
                        Width="200"
                        TextAlignment="Left"
                        Margin="30,20,20,30"

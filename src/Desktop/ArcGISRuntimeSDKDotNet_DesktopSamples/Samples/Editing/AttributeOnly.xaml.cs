@@ -19,8 +19,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     /// <category>Editing</category>
     public partial class AttributeOnly : UserControl
     {
-        private Grid formGrid;
-        private ServiceFeatureTable table;
+        private Grid formGrid; // used for attribute editing.
+        private ServiceFeatureTable table; // used for submitting changes to server.
 
         public AttributeOnly()
         {
@@ -53,8 +53,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             if (table == null || table.ServiceInfo == null || table.ServiceInfo.Fields == null)
                 return;
             // Builds the Attribute Editor based on FieldInfo (i.e. Editable, Domain, Length, DataType)
-            // For better validation and customization support use FeatureDataForm from the Toolkit. 
-            var itemtTemplate = this.Resources["MyItemTemplate"] as DataTemplate;
+            // For better validation and customization support,
+            // use FeatureDataForm from the Toolkit: https://github.com/Esri/arcgis-toolkit-dotnet. 
             formGrid = new Grid() { Margin = new Thickness(2d) };
             formGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
             formGrid.ColumnDefinitions.Add(new ColumnDefinition());
@@ -68,17 +68,17 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 label.SetValue(Grid.RowProperty, row);
                 formGrid.Children.Add(label);
                 FrameworkElement value = null;
-                // This binding will be resolved once the DataContext for formGrid is set to feature.
+                // This binding will be resolved once the DataContext is set to a feature object.
                 var binding = new Binding(string.Format("Attributes[{0}]", field.Name));
                 if (field.IsEditable)
                 {
                     binding.Mode = BindingMode.TwoWay;
-                    // This service only contains CodedValueDomain.
-                    // Depending on your service, you might consider handling item selection for:
-                    // RangeDomain and FeatureTypes.
+                    // This service only contains CodedValueDomain.Depending on your service, 
+                    // you might consider handling item selection for: RangeDomain and FeatureTypes.
                     if (field.Domain is CodedValueDomain)
                     {
-                        value = new ComboBox() { ItemTemplate = itemtTemplate, Margin = new Thickness(2d) };
+                        var itemTemplate = this.Resources["MyItemTemplate"] as DataTemplate;
+                        value = new ComboBox() { ItemTemplate = itemTemplate, Margin = new Thickness(2d) };
                         ((ComboBox)value).ItemsSource = ((CodedValueDomain)field.Domain).CodedValues;
                         binding.Converter = this.Resources["KeyValueConverter"] as KeyValueConverter;
                         binding.ConverterParameter = ((ComboBox)value).ItemsSource;
@@ -122,7 +122,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             if (e.LoadError != null || !(e.Layer is ArcGISDynamicMapServiceLayer))
                 return;
-            // Creates the table based on visible layer from dynamic layer.
+            // Creates the relatedTable based on visible layer from dynamic layer.
             var dynamicLayer = (ArcGISDynamicMapServiceLayer)e.Layer;
             var layerID = dynamicLayer.VisibleLayers.FirstOrDefault();
             var featureServiceUri = dynamicLayer.ServiceUri.Replace("MapServer", "FeatureServer");
@@ -170,7 +170,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 table.ServiceInfo == null || table.ServiceInfo.Fields == null)
                 return;
             ClearLocalGraphics();
-            // Perform an identify to pull graphic into local layer.
+            // Perform an identify to pull feature into local layer.
             var mapPoint = MyMapView.ScreenToLocation(e.Position);
             var parameters = new IdentifyParameters(mapPoint, MyMapView.Extent, 2, (int)MyMapView.ActualHeight, (int)MyMapView.ActualWidth);
             var task = new IdentifyTask(new Uri(dynamicLayer.ServiceUri));
@@ -182,7 +182,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 if (result == null || result.Results == null || result.Results.Count < 1)
                     return;
                 var item = result.Results[0];
-                graphic = item.Feature as Graphic;
+                graphic = (Graphic)item.Feature;
             }
             catch (Exception ex)
             {
@@ -190,10 +190,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             }
             if (!string.IsNullOrWhiteSpace(message))
                 MessageBox.Show(message);
-            if (graphic == null)
-                return;
-            // IdentifyResult use Field.Alias.
-            // Ensure that correct data type is stored as Field.Name.
+            // IdentifyResult use Field.Alias; ensure that correct data type is stored as Field.Name.
             foreach (var field in table.ServiceInfo.Fields)
             {
                 if (graphic.Attributes.ContainsKey(field.Alias))
@@ -203,7 +200,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 }
             }
             graphic.IsSelected = true;
-            // Add selected feature to local layer.
             layer.Graphics.Add(graphic);
             var dataForm = new Window() { Content = formGrid, Height = 300, Width = 500, Title = "Attribute Editor" };
             dataForm.DataContext = graphic;
@@ -244,7 +240,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             string message = null;
             try
             {
-                var editPrompt = MessageBox.Show("Do you want to apply the changes to your database?", "Apply edits", MessageBoxButton.OKCancel);
+                var editPrompt = MessageBox.Show("Are you sure you want to delete feature?", "Delete feature", MessageBoxButton.OKCancel);
                 if (editPrompt == MessageBoxResult.OK)
                     await UpdateFeatureAttributesAsync(graphic);
                 ClearLocalGraphics();

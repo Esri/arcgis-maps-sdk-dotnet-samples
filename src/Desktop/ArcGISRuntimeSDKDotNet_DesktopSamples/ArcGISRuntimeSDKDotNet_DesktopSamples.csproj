@@ -66,6 +66,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BooleanToVisibilityConverter.cs" />
+    <Compile Include="StringToShortConverter.cs" />
     <Compile Include="StringToDateConverter.cs" />
     <Compile Include="KeyValueConverter.cs" />
     <Compile Include="LongEnumerableToBooleanConverter.cs" />

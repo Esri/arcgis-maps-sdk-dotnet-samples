@@ -72,6 +72,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         
         private async Task<IEnumerable<Feature>> GetSelectedFeaturesAsync(ServiceFeatureTable table, IEnumerable<long> selectedFeatureIDs)
         {
+            // Performs query on cached features by IDs or geometry filter.
             IEnumerable<Feature> selectedFeatures = null;
             if (selectedFeatureIDs != null && selectedFeatureIDs.Any())
                 selectedFeatures = await table.QueryAsync(selectedFeatureIDs, true);

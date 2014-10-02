@@ -22,9 +22,11 @@
                       MapViewTapped="MyMapView_MapViewTapped">
             <esri:Map InitialViewpoint="-13075150.8872716,4015586.5093488,-13073624.4294544,4016213.20181174">
                 <esri:ArcGISTiledMapServiceLayer ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+                <!-- Used to render all features --> 
                 <esri:ArcGISDynamicMapServiceLayer ID="PoolPermitDynamicLayer"  
                                                    VisibleLayers="0"
                                                    ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/PoolPermits/MapServer" />
+                <!-- Used to edit one feature at a time -->
                 <esri:GraphicsLayer ID="PoolPermit"
                                     Renderer="{StaticResource FillRenderer}"/>
             </esri:Map>

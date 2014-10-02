@@ -9,9 +9,11 @@
                       MapViewTapped="MyMapView_MapViewTapped">
             <esri:Map InitialViewpoint="-13279585.9811197,4010136.34579502,-12786146.5545795,4280849.94238526">
                 <esri:ArcGISTiledMapServiceLayer ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
+                <!-- Used to render all features -->
                 <esri:ArcGISDynamicMapServiceLayer ID="WildFireDynamic"
                                                    VisibleLayers="2"
                                                    ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Wildfire/MapServer" />
+                <!-- Used to edit one feature at a time -->
                 <esri:GraphicsLayer ID="WildFirePolygons" />
             </esri:Map>
         </esri:MapView>
@@ -31,7 +33,7 @@
                         Click="AddButton_Click"
                         Margin="2"
                         ToolTipService.ToolTip="IR Intense Heat Area"
-                        Content="Add">
+                        Content="Add Polygon">
                     <Button.Tag>
                         <sys:Int16>1</sys:Int16>
                     </Button.Tag>
@@ -60,7 +62,7 @@
             <Border.Effect>
                 <DropShadowEffect />
             </Border.Effect>
-            <TextBlock Text="Click 'Add' to add new feature or click on feature to select and edit its geometry or delete it."
+            <TextBlock Text="Click on a feature to select, edit its geometry or delete feature. Click 'Add Polygon' and tap on map to create new feature."
                        Width="200"
                        TextAlignment="Left"
                        Margin="30,20,20,30"

@@ -48,8 +48,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             if (table == null || table.ServiceInfo == null || table.ServiceInfo.Fields == null)
                 return;
             // Builds the Attribute Editor based on FieldInfo (i.e. Editable, Domain, Length, DataType)
-            // For better validation and customization support use FeatureDataForm from the Toolkit. 
-            var itemtTemplate = this.Resources["MyItemTemplate"] as DataTemplate;
+            // For better validation and customization support,
+            // use FeatureDataForm from the Toolkit: https://github.com/Esri/arcgis-toolkit-dotnet.             
             formGrid = new Grid() { Margin = new Thickness(2d) };
             formGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
             formGrid.ColumnDefinitions.Add(new ColumnDefinition());
@@ -64,7 +64,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 label.SetValue(Grid.RowProperty, row);
                 formGrid.Children.Add(label);
                 FrameworkElement value = null;
-                // This binding will be resolved once the DataContext for formGrid is set to feature.
+                // This binding will be resolved once the DataContext is set to a feature object.
                 var binding = new Binding(string.Format("Attributes[{0}]", field.Name));
                 if (field.IsEditable)
                 {
@@ -73,7 +73,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     // Depending on your service, you might consider handling item selection for RangeDomain.                    
                     if (hasFeatureTypes && field.Name == table.ServiceInfo.TypeIdField || field.Domain is CodedValueDomain)
                     {
-                        value = new ComboBox() { ItemTemplate = itemtTemplate, Margin = new Thickness(2d) };
+						var itemTemplate = this.Resources["MyItemTemplate"] as DataTemplate;
+                        value = new ComboBox() { ItemTemplate = itemTemplate, Margin = new Thickness(2d) };
                         if (field.Domain is CodedValueDomain)
                             ((ComboBox)value).ItemsSource = ((CodedValueDomain)field.Domain).CodedValues;
                         else

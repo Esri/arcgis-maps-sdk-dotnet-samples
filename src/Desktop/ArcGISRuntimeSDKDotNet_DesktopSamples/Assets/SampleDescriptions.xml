@@ -181,7 +181,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData">
             <summary>
-            Demonstrates how to query and update graphic attributes of the related table.
+            Demonstrates how to query and update graphic attributes of the related relatedTable.
             </summary>
             <title>Edit Related Data</title>
             <category>Editing</category>
@@ -211,7 +211,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OwnershipBasedEditing">
             <summary>
-            Demonstrates the ability of feature services to restrict editing operations based on feature ownership.  The owner is defined as the user who created the feature.  In this example, owners can update or delete their features.  Feature not owned by the current user cannot be updated or deleted.  
+            Demonstrates how to restrict feature edits by ownership and user login.
             </summary>
             <title>Ownership-based Editing</title>
             <category>Editing</category>

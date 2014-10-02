@@ -6,7 +6,7 @@ using System.Windows.Data;
 
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 {
-    public class StringToDateConverter : IValueConverter
+    public class StringToShortConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -20,9 +20,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples
             if (value is string)
             {
                 var stringValue = (string)value;
-                DateTime dateTime = DateTime.MinValue;
-                if (DateTime.TryParse(stringValue, out dateTime))
-                    return dateTime;
+                Int16 shortValue = Int16.MinValue;
+                if (Int16.TryParse(stringValue, out shortValue))
+                    return shortValue;
             }
             return value;
         }

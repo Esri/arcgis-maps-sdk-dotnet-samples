@@ -116,9 +116,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 if (result == null || result.Results == null || result.Results.Count < 1)
                     return;
                 var item = result.Results[0];
-                var graphic = item.Feature as Graphic;
-                if (graphic == null)
-                    return;
+                var graphic = (Graphic)item.Feature;
                 // Identify result use alias so add an entry that use field name.
                 if (objectIdField != null && graphic.Attributes.ContainsKey(objectIdField.Alias))
                     graphic.Attributes[objectIdField.Name] =  graphic.Attributes[objectIdField.Alias];                
@@ -160,7 +158,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             var layerID = layer.VisibleLayers.FirstOrDefault();
             var featureServiceUri = layer.ServiceUri.Replace("MapServer", "FeatureServer");
             featureServiceUri = string.Format("{0}/{1}", featureServiceUri, layerID);
-            // Create table with the minimum required fields.
+            // Create relatedTable with the minimum required fields.
             // objectId to identify feature, typeId to render the feature.
             table = await ServiceFeatureTable.OpenAsync(new Uri(featureServiceUri), null, MyMapView.SpatialReference);
             table.OutFields = new OutFields();
@@ -209,7 +207,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 layer.Graphics.Add(graphic);
                 EditButton.DataContext = graphic;
                 EditButton.IsEnabled = true;
-                var addPrompt = MessageBox.Show("Do you want to add new feature to your database?", "Add feature", MessageBoxButton.OKCancel);
+                var addPrompt = MessageBox.Show("Do you want to save new feature?", "Add feature", MessageBoxButton.OKCancel);
                 if (addPrompt == MessageBoxResult.OK)
                     await AddFeatureAsync(graphic);
                 ClearLocalGraphics();
@@ -256,7 +254,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 geometry = GeometryEngine.Simplify(geometry);
                 graphic.Geometry = geometry;
                 graphic.IsVisible = true;
-                var editPrompt = MessageBox.Show("Do you want to apply the changes to your database?", "Apply edits", MessageBoxButton.OKCancel);
+                var editPrompt = MessageBox.Show("Do you want to save the geometry change?", "Update feature", MessageBoxButton.OKCancel);
                 if (editPrompt == MessageBoxResult.OK)
                     await UpdateFeatureGeometryAsync(graphic);
                 ClearLocalGraphics();
@@ -290,13 +288,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private async void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            var graphic = (sender as Button).DataContext as Graphic;
-            if (graphic == null || table == null)
+            if (table == null)
                 return;
+            var graphic = (Graphic)((Button)sender).DataContext;            
             string message = null;
             try
             {
-                var deletePrompt = MessageBox.Show("Are you sure you want to delete feature from the database?", "Delete feature", MessageBoxButton.OKCancel);
+                var deletePrompt = MessageBox.Show("Are you sure you want to delete feature?", "Delete feature", MessageBoxButton.OKCancel);
                 if (deletePrompt == MessageBoxResult.OK)
                     await DeleteFeatureAsync(graphic);
                 ClearLocalGraphics();

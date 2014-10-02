@@ -40,7 +40,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             return MyMapView.Map.Layers["IncidentsLayer"] as FeatureLayer;
         }
 
-        private ServiceFeatureTable GetFeatureTable(FeatureLayer ownerLayer)
+        private ServiceFeatureTable GetFeatureTable(FeatureLayer ownerLayer = null)
         {
             var layer = ownerLayer ?? GetFeatureLayer();
             if (layer == null || !(layer.FeatureTable is ServiceFeatureTable))
@@ -105,9 +105,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private async Task UpdateAttachmentListAsync(AttachmentResult attachmentResult, EditType editType)
         {
-            var layer = GetFeatureLayer();
-            var table = GetFeatureTable(layer);
-            if (attachmentResult == null || layer == null || table == null)
+            var table = GetFeatureTable();
+            if (attachmentResult == null || table == null)
                 return;
             string message = null;
             try
@@ -283,9 +282,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            var layer = GetFeatureLayer();
-            var table = GetFeatureTable(layer);
-            if (layer == null || table == null || !table.HasEdits)
+            var table = GetFeatureTable();
+            if (table == null || !table.HasEdits)
                 return;
             string message = null;
             try

@@ -4,19 +4,21 @@ using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
+using Windows.UI.Popups;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
     /// Demonstrates how to selectively import and update feature attributes while using dynamic layer to render the features.
     /// </summary>
     /// <title>Dynamic Layer Edit Attribute</title>
     /// <category>Editing</category>
-    public partial class DynamicLayerEditAttribute : UserControl
+    public partial class DynamicLayerEditAttribute : Page
     {
         // Editing is done through this table.
         private ServiceFeatureTable table;
@@ -24,8 +26,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public DynamicLayerEditAttribute()
         {
             InitializeComponent();
+            var layer = MyMapView.Map.Layers["PoolPermit"] as ArcGISDynamicMapServiceLayer;
+            layer.VisibleLayers = new ObservableCollection<int>(new int[] { 0 });
         }
-        
+
         /// <summary>
         /// Builds choice list for attribute editing from layer metadata.
         /// </summary>
@@ -46,16 +50,18 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 if (field == null || field.Domain == null || !(field.Domain is CodedValueDomain))
                     return;
                 var codedValueDomain = (CodedValueDomain)field.Domain;
-                ChoiceList.ItemsSource = codedValueDomain.CodedValues;
+                ChoiceList.ItemsSource = from item in codedValueDomain.CodedValues
+                                         select item.Value;
+                ChoiceList.Tag = codedValueDomain.CodedValues;
             }
             catch (Exception ex)
             {
                 message = ex.Message;
             }
             if (!string.IsNullOrWhiteSpace(message))
-                MessageBox.Show(message);
+                await new MessageDialog(message).ShowAsync();
         }
-        
+
         /// <summary>
         /// Identifies feature to highlight.
         /// </summary>
@@ -89,7 +95,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 message = ex.Message;
             }
             if (!string.IsNullOrWhiteSpace(message))
-                MessageBox.Show(message);
+                await new MessageDialog(message).ShowAsync();
         }
 
         /// <summary>
@@ -100,19 +106,22 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             if (graphic != null)
             {
                 var hasPool = Convert.ToString(graphic.Attributes["Has_Pool"], CultureInfo.InvariantCulture);
-                var lookup = (IReadOnlyDictionary<object, string>)ChoiceList.ItemsSource;
+                var lookup = (IReadOnlyDictionary<object, string>)ChoiceList.Tag;
                 var selected = (from item in lookup
                                 where string.Equals(item.Value, hasPool)
-                                select item).FirstOrDefault();
+                                select item.Value).FirstOrDefault();
                 ChoiceList.SelectedItem = selected;
                 var featureID = Convert.ToInt64(graphic.Attributes["OBJECTID"], CultureInfo.InvariantCulture);
                 AttributeEditor.Tag = featureID;
-                AttributeEditor.Visibility = Visibility.Visible;
+                AttributeEditor.IsEnabled = true;
             }
             else
-                AttributeEditor.Visibility = Visibility.Collapsed;
+            {
+                AttributeEditor.IsEnabled = false;
+                AttributeEditor.Flyout.Hide();
+            }
         }
-                
+
         /// <summary>
         /// Submits changes to server and refreshes dynamic layer.
         /// </summary>
@@ -135,8 +144,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 }
                 // Retrieves feature identified by ID and update its attributes.
                 var feature = await table.QueryAsync(featureID);
-                var item = (KeyValuePair<object, string>)ChoiceList.SelectedItem;
-                feature.Attributes["has_pool"] = item.Key;                
+                var hasPool = Convert.ToString(ChoiceList.SelectedItem, CultureInfo.InvariantCulture);
+                var lookup = (IReadOnlyDictionary<object, string>)ChoiceList.Tag;
+                var selected = (from item in lookup
+                                where string.Equals(item.Value, hasPool)
+                                select item).FirstOrDefault();
+                feature.Attributes["has_pool"] = selected.Key;
                 await table.UpdateAsync(feature);
                 if (table.HasEdits)
                 {
@@ -150,7 +163,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     // Refreshes layer to reflect attribute edits.
                     layer.Invalidate();
                 }
-               
+
             }
             catch (Exception ex)
             {
@@ -161,7 +174,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 SetAttributeEditor();
             }
             if (!string.IsNullOrWhiteSpace(message))
-                MessageBox.Show(message);
+                await new MessageDialog(message).ShowAsync();
         }
     }
 }

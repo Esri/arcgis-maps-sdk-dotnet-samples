@@ -120,6 +120,33 @@
             </summary>
             <category>Dynamic Service Layers</category>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DynamicLayerEditAttribute">
+            <summary>
+            Demonstrates how to selectively import and update feature attributes while using dynamic layer to render the features.
+            </summary>
+            <title>Dynamic Layer Edit Attribute</title>
+            <category>Editing</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DynamicLayerEditAttribute.MyMapView_LayerLoaded(System.Object,Esri.ArcGISRuntime.Controls.LayerLoadedEventArgs)">
+            <summary>
+            Builds choice list for attribute editing from layer metadata.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DynamicLayerEditAttribute.MyMapView_MapViewTapped(System.Object,Esri.ArcGISRuntime.Controls.MapViewInputEventArgs)">
+            <summary>
+            Identifies feature to highlight.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DynamicLayerEditAttribute.SetAttributeEditor(Esri.ArcGISRuntime.Layers.Graphic)">
+            <summary>
+            Displays feature attributes.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DynamicLayerEditAttribute.ApplyButton_Click(System.Object,Windows.UI.Xaml.RoutedEventArgs)">
+            <summary>
+            Submits changes to server and refreshes dynamic layer.
+            </summary>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayers">
             <summary>
             

@@ -41,6 +41,7 @@
             </Border.Effect>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="2"
+                               VerticalAlignment="Center"
                                Text="Has_Pool" />
                     <ComboBox x:Name="ChoiceList"
                               Margin="2">

@@ -193,8 +193,6 @@
             <summary>
             Submits changes to server and refreshes dynamic layer.
             </summary>
-            <param name="sender"></param>
-            <param name="e"></param>
         </member>
         <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayerEditAttribute.InitializeComponent">
             <summary>

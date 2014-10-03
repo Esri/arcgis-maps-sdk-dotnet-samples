@@ -57,9 +57,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             {
                 var drawShape = (DrawShape)DrawShapes.SelectedItem;
 
-                GraphicsLayer graphicsLayer;
-                graphicsLayer = drawShape == DrawShape.Point ? mapView1.Map.Layers["PointGraphicsLayer"] as GraphicsLayer :
-                   ((drawShape == DrawShape.Polyline || drawShape == DrawShape.Freehand) ? mapView1.Map.Layers["PolylineGraphicsLayer"] as GraphicsLayer : mapView1.Map.Layers["PolygonGraphicsLayer"] as GraphicsLayer);
+                GraphicsOverlay graphicsOverlay;
+                graphicsOverlay = drawShape == DrawShape.Point ? mapView1.GraphicsOverlays["PointGraphicsOverlay"] as GraphicsOverlay :
+                           ((drawShape == DrawShape.Polyline || drawShape == DrawShape.Freehand || drawShape == DrawShape.LineSegment) ?
+                  mapView1.GraphicsOverlays["PolylineGraphicsOverlay"] as GraphicsOverlay : mapView1.GraphicsOverlays["PolygonGraphicsOverlay"] as GraphicsOverlay);
 
                 var progress = new Progress<GeometryEditStatus>();
                 progress.ProgressChanged += (a, b) =>
@@ -76,7 +77,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     case "Draw":
                         {
                             var r = await mapView1.Editor.RequestShapeAsync(drawShape, null, progress);
-                            graphicsLayer.Graphics.Add(new Graphic() { Geometry = r });
+                            graphicsOverlay.Graphics.Add(new Graphic() { Geometry = r });
                             break;
                         }
                     case "Edit":
@@ -114,13 +115,23 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         private async void mapView1_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
             var drawShape = (DrawShape)DrawShapes.SelectedItem;
-            GraphicsLayer graphicsLayer;
-            graphicsLayer = drawShape == DrawShape.Point ? mapView1.Map.Layers["PointGraphicsLayer"] as GraphicsLayer :
-               ((drawShape == DrawShape.Polyline || drawShape == DrawShape.Freehand) ? mapView1.Map.Layers["PolylineGraphicsLayer"] as GraphicsLayer : mapView1.Map.Layers["PolygonGraphicsLayer"] as GraphicsLayer);
+            GraphicsOverlay graphicsOverlay;
+            graphicsOverlay = drawShape == DrawShape.Point ? mapView1.GraphicsOverlays["PointGraphicsOverlay"] as GraphicsOverlay :
+                       ((drawShape == DrawShape.Polyline || drawShape == DrawShape.Freehand || drawShape == DrawShape.LineSegment) ?
+              mapView1.GraphicsOverlays["PolylineGraphicsOverlay"] as GraphicsOverlay : mapView1.GraphicsOverlays["PolygonGraphicsOverlay"] as GraphicsOverlay);
 
-            var graphic = await graphicsLayer.HitTestAsync(mapView1, e.Position);
+            var graphic = await graphicsOverlay.HitTestAsync(mapView1, e.Position);
+
             if (graphic != null)
             {
+                //Clear prevoius selection
+                foreach (GraphicsOverlay gOLay in mapView1.GraphicsOverlays)
+                    gOLay.ClearSelection();
+
+                //Cancel editing if started
+                if (mapView1.Editor.Cancel.CanExecute(null))
+                    mapView1.Editor.Cancel.Execute(null);
+
                 _editGraphic = graphic;
                 _editGraphic.IsSelected = true;
             }

@@ -40,13 +40,15 @@
                 </controls:Map.InitialViewpoint>
                 <layers:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
                                               ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-                <layers:GraphicsLayer ID="PointGraphicsLayer"  
-                                 Renderer="{StaticResource MarkerRenderer}" />
-                <layers:GraphicsLayer ID="PolylineGraphicsLayer" 
-                                 Renderer="{StaticResource PolylineRenderer}" />
-                <layers:GraphicsLayer ID="PolygonGraphicsLayer" 
-                                 Renderer="{StaticResource PolygonRenderer}" />
+             
             </controls:Map>
+
+            <controls:MapView.GraphicsOverlays>
+                <controls:GraphicsOverlay ID="PointGraphicsOverlay" Renderer="{StaticResource MarkerRenderer}" />
+                <controls:GraphicsOverlay ID="PolylineGraphicsOverlay" Renderer="{StaticResource PolylineRenderer}" />
+                <controls:GraphicsOverlay ID="PolygonGraphicsOverlay" Renderer="{StaticResource PolygonRenderer}" />
+            </controls:MapView.GraphicsOverlays>
+            
         </controls:MapView>
 
         <Border Background="Black" BorderThickness="1" CornerRadius="5"

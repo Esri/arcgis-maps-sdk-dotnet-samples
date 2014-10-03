@@ -13,7 +13,6 @@
     </Page.Resources>
     <Grid>
         <esri:MapView x:Name="MyMapView"
-                      LayerLoaded="MyMapView_LayerLoaded"
                       MapViewTapped="MyMapView_MapViewTapped">
             <esri:Map>
                 <esri:Map.InitialViewpoint>
@@ -23,7 +22,7 @@
                                           YMax="4016213.20181174" />
                 </esri:Map.InitialViewpoint>
                 <layers:ArcGISTiledMapServiceLayer ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-                <!-- Renders all features -->
+                <!-- Renders features at current extent -->
                 <layers:ArcGISDynamicMapServiceLayer ID="PoolPermit"
                                                      ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/PoolPermits/MapServer" />
             </esri:Map>
@@ -42,7 +41,7 @@
                 <AppBarButton Icon="Edit"
                               Label="Edit"
                               IsEnabled="False"
-                              x:Name="AttributeEditor">
+                              x:Name="EditButton">
                     <AppBarButton.Flyout>
                         <Flyout>
                             <StackPanel Orientation="Horizontal"
@@ -54,11 +53,6 @@
                                 <ComboBox x:Name="ChoiceList"
                                           Margin="2"
                                           VerticalAlignment="Center" />
-                                <Button x:Name="ApplyButton"
-                                        Margin="2"
-                                        VerticalAlignment="Center"
-                                        Content="Apply"
-                                        Click="ApplyButton_Click" />
                             </StackPanel>
                         </Flyout>
                     </AppBarButton.Flyout>

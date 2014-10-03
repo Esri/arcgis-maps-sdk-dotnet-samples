@@ -6,13 +6,14 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
-    /// Demonstrates how to selectively import and update feature attributes while using dynamic layer to render the features.
+    /// Demonstrates how to selectively import and update feature attributes in dynamic layer.
     /// </summary>
     /// <title>Dynamic Layer Edit Attribute</title>
     /// <category>Editing</category>
@@ -20,40 +21,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     {
         // Editing is done through this table.
         private ServiceFeatureTable table;
+        // Used to populate choice list for editing field.
+        private IReadOnlyDictionary<object, string> choices;
 
         public DynamicLayerEditAttribute()
         {
             InitializeComponent();
-        }
-        
-        /// <summary>
-        /// Builds choice list for attribute editing from layer metadata.
-        /// </summary>
-        private async void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
-        {
-            if (e.LoadError != null || !(e.Layer is ArcGISDynamicMapServiceLayer))
-                return;
-            var layer = (ArcGISDynamicMapServiceLayer)e.Layer;
-            var id = layer.VisibleLayers[0];
-            string message = null;
-            try
-            {
-                // Gets service metadata for specific layer and extract field information for attribute editing.
-                var details = await layer.GetDetailsAsync(id);
-                if (details == null || details.Fields == null)
-                    return;
-                var field = details.Fields.FirstOrDefault(f => f.Name == "has_pool");
-                if (field == null || field.Domain == null || !(field.Domain is CodedValueDomain))
-                    return;
-                var codedValueDomain = (CodedValueDomain)field.Domain;
-                ChoiceList.ItemsSource = codedValueDomain.CodedValues;
-            }
-            catch (Exception ex)
-            {
-                message = ex.Message;
-            }
-            if (!string.IsNullOrWhiteSpace(message))
-                MessageBox.Show(message);
         }
         
         /// <summary>
@@ -75,14 +48,20 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             string message = null;
             try
             {
-                // Performs an identify and adds feature result as selected into GraphicsOverlay.
+                // Performs an identify and adds feature result as selected into overlay.
                 var result = await task.ExecuteAsync(parameter);
                 if (result == null || result.Results == null || result.Results.Count < 1)
                     return;
                 var graphic = (Graphic)result.Results[0].Feature;
                 graphic.IsSelected = true;
                 overlay.Graphics.Add(graphic);
-                SetAttributeEditor(graphic);
+
+                // Prepares attribute editor.
+                var featureID = Convert.ToInt64(graphic.Attributes["OBJECTID"], CultureInfo.InvariantCulture);
+                var hasPool = Convert.ToString(graphic.Attributes["Has_Pool"], CultureInfo.InvariantCulture);
+                if (choices == null)
+                    choices = await GetChoicesAsync();
+                SetAttributeEditor(featureID, hasPool);
             }
             catch (Exception ex)
             {
@@ -93,50 +72,77 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         }
 
         /// <summary>
-        /// Displays feature attributes.
+        /// Returns choice list for attribute editing.
         /// </summary>
-        private void SetAttributeEditor(Graphic graphic = null)
+        private async Task<IReadOnlyDictionary<object, string>> GetChoicesAsync()
         {
-            if (graphic != null)
+            var layer = MyMapView.Map.Layers["PoolPermit"] as ArcGISDynamicMapServiceLayer;
+            var id = layer.VisibleLayers[0];
+            string message = null;
+            try
             {
-                var hasPool = Convert.ToString(graphic.Attributes["Has_Pool"], CultureInfo.InvariantCulture);
-                var lookup = (IReadOnlyDictionary<object, string>)ChoiceList.ItemsSource;
-                var selected = (from item in lookup
-                                where string.Equals(item.Value, hasPool)
-                                select item).FirstOrDefault();
-                ChoiceList.SelectedItem = selected;
-                var featureID = Convert.ToInt64(graphic.Attributes["OBJECTID"], CultureInfo.InvariantCulture);
-                AttributeEditor.Tag = featureID;
-                AttributeEditor.Visibility = Visibility.Visible;
+                // Gets service metadata for specific layer and extract field information for attribute editing.
+                var details = await layer.GetDetailsAsync(id);
+                if (details != null && details.Fields != null)
+                {
+                    var field = details.Fields.FirstOrDefault(f => f.Name == "has_pool");
+                    if (field.Domain is CodedValueDomain)
+                        return ((CodedValueDomain)field.Domain).CodedValues;
+                }
             }
-            else
-                AttributeEditor.Visibility = Visibility.Collapsed;
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            if (!string.IsNullOrWhiteSpace(message))
+                MessageBox.Show(message);
+            return null;
+        }
+
+        /// <summary>        
+        /// Prepares attribute editor for editing.
+        /// </summary>
+        private void SetAttributeEditor(long featureID = 0, string hasPool = null)
+        {
+            if (ChoiceList.ItemsSource == null && choices != null)
+                ChoiceList.ItemsSource = choices;
+            if (!string.IsNullOrWhiteSpace(hasPool) && choices != null)
+            {
+                var selected = choices.FirstOrDefault(item => string.Equals(item.Value, hasPool));
+                ChoiceList.SelectedItem = selected;
+            }
+            AttributeEditor.Tag = featureID;
+            AttributeEditor.Visibility = featureID == 0 ? Visibility.Collapsed : Visibility.Visible;
+            if(featureID > 0)
+                ChoiceList.SelectionChanged += ChoiceList_SelectionChanged;
         }
                 
         /// <summary>
-        /// Submits changes to server and refreshes dynamic layer.
+        /// Enables attribute editing, submits attribute edit back to the server and refreshes dynamic layer.
         /// </summary>
-        private async void ApplyButton_Click(object sender, RoutedEventArgs e)
+        private async void ChoiceList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            ChoiceList.SelectionChanged -= ChoiceList_SelectionChanged;
             var featureID = (Int64)AttributeEditor.Tag;
+            var selected = (KeyValuePair<object, string>)ChoiceList.SelectedItem;
             var layer = MyMapView.Map.Layers["PoolPermit"] as ArcGISDynamicMapServiceLayer;
+            var overlay = MyMapView.GraphicsOverlays["Highlighter"] as GraphicsOverlay;
             string message = null;
             try
             {
                 if (table == null)
                 {
                     // Creates table based on visible layer of dynamic layer 
-                    // using FeatureServer to enable editing and specifying the fields for editing.
+                    // using FeatureServer specifying has_pool field to enable editing.
                     var id = layer.VisibleLayers[0];
                     var url = layer.ServiceUri.Replace("MapServer", "FeatureServer");
                     url = string.Format("{0}/{1}", url, id);
                     table = await ServiceFeatureTable.OpenAsync(new Uri(url), null, MyMapView.SpatialReference);
                     table.OutFields = new OutFields(new string[] { "has_pool" });
                 }
-                // Retrieves feature identified by ID and update its attributes.
+                // Retrieves feature identified by ID and updates its attributes.
                 var feature = await table.QueryAsync(featureID);
-                var item = (KeyValuePair<object, string>)ChoiceList.SelectedItem;
-                feature.Attributes["has_pool"] = item.Key;                
+                feature.Attributes["has_pool"] = selected.Key;
                 await table.UpdateAsync(feature);
                 if (table.HasEdits)
                 {
@@ -150,7 +156,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     // Refreshes layer to reflect attribute edits.
                     layer.Invalidate();
                 }
-               
             }
             catch (Exception ex)
             {
@@ -158,6 +163,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             }
             finally
             {
+                overlay.Graphics.Clear();
                 SetAttributeEditor();
             }
             if (!string.IsNullOrWhiteSpace(message))

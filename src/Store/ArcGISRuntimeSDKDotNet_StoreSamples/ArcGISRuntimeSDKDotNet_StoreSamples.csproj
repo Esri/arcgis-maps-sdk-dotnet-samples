@@ -119,7 +119,16 @@
     <Compile Include="Samples\DynamicServiceLayers\DynamicLayerRendering.xaml.cs">
       <DependentUpon>DynamicLayerRendering.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Editing\DynamicLayerEditAttribute.xaml.cs" >
+    <Compile Include="Samples\Editing\FeatureLayerEditGeometry.xaml.cs">
+      <DependentUpon>FeatureLayerEditGeometry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Editing\FeatureLayerEditAttribute.xaml.cs">
+      <DependentUpon>FeatureLayerEditAttribute.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Editing\DynamicLayerEditGeometry.xaml.cs">
+      <DependentUpon>DynamicLayerEditGeometry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Editing\DynamicLayerEditAttribute.xaml.cs">
       <DependentUpon>DynamicLayerEditAttribute.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\FeatureLayers\FeatureLayerFromShapefile.xaml.cs">
@@ -541,6 +550,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\DynamicServiceLayers\DynamicLayerRendering.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\FeatureLayerEditGeometry.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\FeatureLayerEditAttribute.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\DynamicLayerEditGeometry.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

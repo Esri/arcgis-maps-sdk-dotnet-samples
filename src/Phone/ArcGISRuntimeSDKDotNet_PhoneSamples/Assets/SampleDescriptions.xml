@@ -15,6 +15,12 @@
             executed, and as such is the logical equivalent of main() or WinMain().
             </summary>
         </member>
+        <member name="F:ArcGISRuntimeSDKDotNet_PhoneSamples.App._continuationManager">
+            <summary>
+            For handling FileOpenPicker.PickSingleFileAndContinue
+            Reference: http://msdn.microsoft.com/en-us/library/windows/apps/xaml/dn614994.aspx
+            </summary>
+        </member>
         <member name="M:ArcGISRuntimeSDKDotNet_PhoneSamples.App.OnLaunched(Windows.ApplicationModel.Activation.LaunchActivatedEventArgs)">
             <summary>
             Invoked when the application is launched normally by the end user.  Other entry points
@@ -119,6 +125,62 @@
             
             </summary>
             <category>Dynamic Service Layers</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.AttributeOnly">
+            <summary>
+            Demonstrates how to selectively import and update feature attributes while using dynamic layer to render the features.
+            </summary>
+            <title>Attribute Only</title>
+            <category>Editing</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.EditAttachments">
+            <summary>
+            Demonstrates how to edit feature attachments.
+            </summary>
+            <title>Edit Attachments</title>
+            <category>Editing</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.EditAttributes">
+            <summary>
+            Demonstrates how to edit feature attributes.
+            </summary>
+            <title>Edit Attributes</title>
+            <category>Editing</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.EditGeometry">
+            <summary>
+            Demonstrates how to edit feature geometry.
+            </summary>
+            <title>Edit Geometry</title>
+            <category>Editing</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.EditRelatedData">
+            <summary>
+            Demonstrates how to query and update graphic attributes of the related table.
+            </summary>
+            <title>Edit Related Data</title>
+            <category>Editing</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.OwnershipBasedEditing">
+            <summary>
+            Demonstrates how to restrict feature edits by ownership and user login.
+            </summary>
+            <title>Ownership-based Editing</title>
+            <category>Editing</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.EditorTracking">
+            <summary>
+            Demonstrates how to track feature edits by user based on their login.
+            </summary>
+            <title>Editor Tracking</title>
+            <category>Editing</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SelectionOnly">
+            <summary>
+            Demonstrates how to add and selectively import, update geometry or delete features using dynamic layer to render the features.
+            </summary>
+            <title>Selection Only</title>
+            <category>Editing</category>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayers">
             <summary>
@@ -246,7 +308,7 @@
         <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Mensuration.#ctor">
             <summary>Construct Mensuration sample control</summary>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.InteractionOptionsSample">
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.InteractionOptionsSample">
             <summary>
             This sample shows how to change interaction settings that controls the MapView.
             </summary>

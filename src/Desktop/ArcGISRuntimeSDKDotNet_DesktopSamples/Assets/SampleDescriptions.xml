@@ -164,6 +164,126 @@
             InitializeComponent
             </summary>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.AttributeOnly">
+            <summary>
+            Demonstrates how to selectively import and update feature attributes while using dynamic layer to render the features.
+            </summary>
+            <title>Attribute Only</title>
+            <category>Editing</category>
+            <summary>
+            AttributeOnly
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.AttributeOnly.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData">
+            <summary>
+            Demonstrates how to query and update graphic attributes of the related table.
+            </summary>
+            <title>Edit Related Data</title>
+            <category>Editing</category>
+            <summary>
+            EditRelatedData
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SelectionOnly">
+            <summary>
+            Demonstrates how to add and selectively import, update geometry or delete features using dynamic layer to render the features.
+            </summary>
+            <title>Selection Only</title>
+            <category>Editing</category>
+            <summary>
+            SelectionOnly
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SelectionOnly.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OwnershipBasedEditing">
+            <summary>
+            Demonstrates how to restrict feature edits by ownership and user login.
+            </summary>
+            <title>Ownership-based Editing</title>
+            <category>Editing</category>
+            <summary>
+            OwnershipBasedEditing
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OwnershipBasedEditing.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditAttachments">
+            <summary>
+            Demonstrates how to edit feature attachments.
+            </summary>
+            <title>Edit Attachments</title>
+            <category>Editing</category>
+            <summary>
+            EditAttachments
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditAttachments.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditAttributes">
+            <summary>
+            Demonstrates how to edit feature attributes.
+            </summary>
+            <title>Edit Attributes</title>
+            <category>Editing</category>
+            <summary>
+            EditAttributes
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditAttributes.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditGeometry">
+            <summary>
+            Demonstrates how to edit feature geometry.
+            </summary>
+            <title>Edit Geometry</title>
+            <category>Editing</category>
+            <summary>
+            EditGeometry
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditGeometry.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditorTracking">
+            <summary>
+            Demonstrates how to track feature edits by user based on their login.
+            </summary>
+            <title>Editor Tracking</title>
+            <category>Editing</category>
+            <summary>
+            EditorTracking
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditorTracking.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SOEElevationData">
             <summary>
             This sample demonstrates how to use a custom Server Object Extension (SOE) hosted by ArcGIS for Server. The SOE operation used in this example returns a set of interpolated elevation values for a user defined grid. The grid extent and number of rows and columns are provided as inputs to the SOE.
@@ -1768,7 +1888,7 @@
             <summary>
             This sample illustrates a simple way of querying the Portal metadata/properties and retrieving featuredItems using the Portal API.
             </summary>
-            <title>ShowProperties</title>
+            <title>Show Properties</title>
             <category>Portal</category>
             <summary>
             ShowProperties
@@ -1997,7 +2117,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.TokenSecuredServices">
             <summary>
-            This sample demonstrates how to use the IdentityManager to gain access to a secured service. Here, the map contains a public basemap and two secure dynamic layers. The IdentityManager will challenge for credentials when the Map tries to access a secure service.
+            This sample demonstrates how to use the IdentityManager to gain access to a secured service. Here, the map contains a public basemap and a secure dynamic layer. The IdentityManager will challenge for credentials when the Map tries to access a secure service.
             </summary>
             <title>ArcGIS Token Secured Services</title>
             <category>Security</category>

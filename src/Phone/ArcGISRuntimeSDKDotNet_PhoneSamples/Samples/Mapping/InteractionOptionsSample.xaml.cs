@@ -3,7 +3,7 @@ using System.Diagnostics;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
 	/// This sample shows how to change interaction settings that controls the MapView.

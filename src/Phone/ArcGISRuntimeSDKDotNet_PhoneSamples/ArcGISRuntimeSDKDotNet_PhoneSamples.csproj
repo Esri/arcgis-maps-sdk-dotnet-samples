@@ -73,6 +73,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\KeyValueConverter.cs" />
+    <Compile Include="Common\NegateBooleanConverter.cs" />
+    <Compile Include="Common\ReverseVisibilityConverter.cs" />
+    <Compile Include="Common\StringToDateConverter.cs" />
+    <Compile Include="Common\StringToShortConverter.cs" />
+    <Compile Include="ContinuationManager.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -106,6 +112,28 @@
     </Compile>
     <Compile Include="Samples\DynamicServiceLayers\WmsLayerSimple.xaml.cs">
       <DependentUpon>WmsLayerSimple.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Editing\AttributeOnly.xaml.cs">
+      <DependentUpon>AttributeOnly.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Editing\EditAttachments.xaml.cs">
+      <DependentUpon>EditAttachments.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Editing\EditAttributes.xaml.cs">
+      <DependentUpon>EditAttributes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Editing\EditGeometry.xaml.cs">
+      <DependentUpon>EditGeometry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Editing\EditRelatedData.xaml.cs" />
+    <Compile Include="Samples\Editing\OwnershipBasedEditing.xaml.cs">
+      <DependentUpon>OwnershipBasedEditing.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Editing\EditorTracking.xaml.cs">
+      <DependentUpon>EditorTracking.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Editing\SelectionOnly.xaml.cs">
+      <DependentUpon>SelectionOnly.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\FeatureLayers\FeatureLayers.xaml.cs">
       <DependentUpon>FeatureLayers.xaml</DependentUpon>
@@ -341,6 +369,38 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\DynamicServiceLayers\WmsLayerSimple.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\AttributeOnly.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\EditAttachments.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\EditAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\EditGeometry.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\EditRelatedData.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\OwnershipBasedEditing.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\EditorTracking.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\SelectionOnly.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

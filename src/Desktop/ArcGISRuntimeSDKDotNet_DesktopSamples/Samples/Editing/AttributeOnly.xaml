@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.AttributeOnly"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:ArcGISRuntimeSDKDotNet_DesktopSamples"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <UserControl.Resources>
+        <!-- Used for feature selection. -->
+        <esri:SimpleFillSymbol x:Key="FillSymbol"
+                               Color="Transparent" />
+        <esri:SimpleRenderer x:Key="FillRenderer"
+                             Symbol="{StaticResource FillSymbol}" />
+        <!-- Used for CodedValueDomain conversion -->
+        <local:KeyValueConverter x:Key="KeyValueConverter" />
+        <!-- Used for CodedValueDomain selection -->
+        <DataTemplate x:Key="MyItemTemplate">
+            <TextBlock Text="{Binding Value}" />
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <esri:MapView x:Name="MyMapView"
+                      LayerLoaded="MyMapView_LayerLoaded"
+                      MapViewTapped="MyMapView_MapViewTapped">
+            <esri:Map InitialViewpoint="-13075150.8872716,4015586.5093488,-13073624.4294544,4016213.20181174">
+                <esri:ArcGISTiledMapServiceLayer ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+                <!-- Used to render all features --> 
+                <esri:ArcGISDynamicMapServiceLayer ID="PoolPermitDynamicLayer"  
+                                                   VisibleLayers="0"
+                                                   ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/PoolPermits/MapServer" />
+                <!-- Used to edit one feature at a time -->
+                <esri:GraphicsLayer ID="PoolPermit"
+                                    Renderer="{StaticResource FillRenderer}"/>
+            </esri:Map>
+        </esri:MapView>
+        <Border Background="White"
+                BorderBrush="Black"
+                BorderThickness="1"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="30"
+                Padding="20">
+            <Border.Effect>
+                <DropShadowEffect />
+            </Border.Effect>
+            <TextBlock Text="Click on a feature to select and edit its attribute."
+                       Width="200"
+                       TextAlignment="Left"
+                       Margin="30,20,20,30"
+                       TextWrapping="Wrap" />
+        </Border>
+    </Grid>
+</UserControl>

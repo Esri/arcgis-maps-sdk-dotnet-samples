@@ -93,7 +93,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     if (table is ServiceFeatureTable)
                     {
                         var serviceTable = (ServiceFeatureTable)table;
-                        // Pushes attribute edits back to the server.
+                        // Pushes geometry edits back to the server.
                         var result = await serviceTable.ApplyEditsAsync();
                     if (result.UpdateResults == null || result.UpdateResults.Count < 1)
                         return;

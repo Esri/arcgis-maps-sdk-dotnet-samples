@@ -2,43 +2,43 @@
     x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GeodesicEllipse"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:common="using:ArcGISRuntimeSDKDotNet_StoreSamples.Common"
     xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
-    xmlns:geo="using:Esri.ArcGISRuntime.Geometry"
-    xmlns:sym="using:Esri.ArcGISRuntime.Symbology">
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+    xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
+	
     <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
             <common:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 
-            <sym:SimpleMarkerSymbol x:Key="PointSymbol" Color="Black" Style="Circle" Size="4" />
+			<symb:SimpleMarkerSymbol x:Key="PointSymbol" Color="Black" Style="Circle" Size="4" />
 
-            <sym:SimpleFillSymbol x:Key="EllipseSymbol" Color="#660000FF" Style="Solid">
-                <sym:SimpleFillSymbol.Outline>
-                    <sym:SimpleLineSymbol Color="Blue" Width="2" />
-                </sym:SimpleFillSymbol.Outline>
-            </sym:SimpleFillSymbol>
+			<symb:SimpleFillSymbol x:Key="EllipseSymbol" Color="#660000FF" Style="Solid">
+				<symb:SimpleFillSymbol.Outline>
+					<symb:SimpleLineSymbol Color="Blue" Width="2" />
+                </symb:SimpleFillSymbol.Outline>
+            </symb:SimpleFillSymbol>
 
-            <sym:SimpleFillSymbol x:Key="SectorSymbol" Color="#66FF0000" Style="Solid">
-                <sym:SimpleFillSymbol.Outline>
-                    <sym:SimpleLineSymbol Color="Red" Width="1" />
-                </sym:SimpleFillSymbol.Outline>
-            </sym:SimpleFillSymbol>
+			<symb:SimpleFillSymbol x:Key="SectorSymbol" Color="#66FF0000" Style="Solid">
+				<symb:SimpleFillSymbol.Outline>
+					<symb:SimpleLineSymbol Color="Red" Width="1" />
+                </symb:SimpleFillSymbol.Outline>
+            </symb:SimpleFillSymbol>
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" WrapAround="True">
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
             <esri:Map>
-                <lyr:ArcGISTiledMapServiceLayer
+				<layers:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/NGS_Topo_US_2D/MapServer" />
-                
-                <lyr:GraphicsLayer ID="GraphicsLayer">
-                    <lyr:GraphicsLayer.Renderer>
-                        <sym:SimpleRenderer Symbol="{StaticResource EllipseSymbol}" />
-                    </lyr:GraphicsLayer.Renderer>
-                </lyr:GraphicsLayer>
             </esri:Map>
-        </esri:MapView>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="graphicsOverlay">
+					<esri:GraphicsOverlay.Renderer>
+						<symb:SimpleRenderer Symbol="{StaticResource EllipseSymbol}" />
+					</esri:GraphicsOverlay.Renderer>
+				</esri:GraphicsOverlay>
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
 
         <Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
             <StackPanel>
@@ -137,7 +137,7 @@
         </Border>
 
         <Border Background="#CC000000" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="20" Padding="10"
-                Visibility="{Binding ElementName=mapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
+                Visibility="{Binding ElementName=MyMapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
             <TextBlock Text="Click a point on the map." FontSize="14" />
         </Border>
     </Grid>

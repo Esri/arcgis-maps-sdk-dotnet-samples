@@ -13,26 +13,25 @@
             </esri:SimpleFillSymbol>
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView">
-            <esri:Map>
-                <esri:Map.InitialExtent>
-                    <esri:Envelope XMin="-8838052.325801775" YMin="5409956.10324135" XMax="-8836537.917179003" YMax="5410659.562767227" >
-                        <esri:Envelope.SpatialReference>
-                            <esri:SpatialReference Wkid="102100"/>
-                        </esri:Envelope.SpatialReference>
-                    </esri:Envelope>
-                </esri:Map.InitialExtent>
-
+        <esri:MapView x:Name="MyMapView">
+			<esri:Map InitialViewpoint="-8838052,5409956,-8836538,5410660,3857">
                 <esri:ArcGISTiledMapServiceLayer x:Name="imageServiceLayer"  
                     ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Toronto/ImageServer" />
-
-                <esri:GraphicsLayer x:Name="graphicsLayer" />
             </esri:Map>
-        </esri:MapView>
 
-        <Border Background="White" BorderBrush="Black" BorderThickness="2" 
-                VerticalAlignment="Top" HorizontalAlignment="Right" Margin="30" Width="400">
-            <StackPanel Margin="20">
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="graphicsOverlay" />
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
+
+		<Border Background="White" BorderBrush="Black" BorderThickness="1"
+				HorizontalAlignment="Right" VerticalAlignment="Top"
+				Margin="30" Padding="20"
+				Width="350">
+			<Border.Effect>
+				<DropShadowEffect/>
+			</Border.Effect>
+			<StackPanel>
                 <TextBlock TextAlignment="Center" Text="Choose a measure operation and units" 
                            FontWeight="Bold" Height="16" Margin="5" />
 

@@ -56,7 +56,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers
                     // Add the dynamic map service layer to the map
                     if (dynLayer != null)
                     {
-                        mapView.Map.Layers.Add(dynLayer);
+						MyMapView.Map.Layers.Add(dynLayer);
                     }
                 }
                 catch (Exception ex)
@@ -84,7 +84,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers
                     // Add the dynamic map service layer to the map
                     if (dynLayer != null)
                     {
-                        mapView.Map.Layers.Add(dynLayer);
+						MyMapView.Map.Layers.Add(dynLayer);
                     }
                 }
                 catch (Exception ex)
@@ -181,7 +181,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers
                         case GeometryType.Envelope:
                             layerDrawOpt.Renderer = new SimpleRenderer() { Symbol = new SimpleFillSymbol() { Color = GetRandomColor(), Outline = new SimpleLineSymbol() { Color = GetRandomColor() } } };
                             break;
-                        case GeometryType.MultiPoint:
+                        case GeometryType.Multipoint:
                             layerDrawOpt.Renderer = new SimpleRenderer() { Symbol = new SimpleMarkerSymbol() { Color = GetRandomColor(), Size = 8 } };
                             break;
                         case GeometryType.Point:

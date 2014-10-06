@@ -12,81 +12,85 @@ using System.Windows.Controls;
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
-    /// This sample demonstrates use of the Geoprocessor to call an asynchronous Clip Features geoprocessing service.
+    /// Demonstrates use of the Geoprocessor to call an asynchronous Clip Features geoprocessing service.
     /// </summary>
     /// <title>Clip Features</title>
 	/// <category>Tasks</category>
 	/// <subcategory>Geoprocessing</subcategory>
 	public partial class ClipFeatures : UserControl
     {
-        private static string SERVICE_URL = "http://serverapps10.esri.com/ArcGIS/rest/services/SamplesNET/USA_Data_ClipTools/GPServer/ClipCounties";
+        private static string ClipCountiesServiceUrl = "http://serverapps10.esri.com/ArcGIS/rest/services/SamplesNET/USA_Data_ClipTools/GPServer/ClipCounties";
 
         private Geoprocessor _gpTask;
+		private GraphicsOverlay _inputOverlay;
+		private GraphicsOverlay _resultsOverlay;
 
         /// <summary>Construct Clip Features sample control</summary>
         public ClipFeatures()
         {
             InitializeComponent();
 
-            mapView.Map.InitialExtent = new Envelope(-130, 10, -70, 60);
+			_inputOverlay = MyMapView.GraphicsOverlays["inputOverlay"];
+			_resultsOverlay = MyMapView.GraphicsOverlays["resultsOverlay"];
 
-            _gpTask = new Geoprocessor(new Uri(SERVICE_URL));
+            _gpTask = new Geoprocessor(new Uri(ClipCountiesServiceUrl));
 
             //Uncomment the following line to show the service parameters at startup.
-            //GetServiceInfo().ContinueWith((_) => { }, TaskScheduler.FromCurrentSynchronizationContext());
+            //GetServiceInfo();
         }
 
         // Get the users input line on the map and fire off a GP Job to clip features
         private async void StartButton_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                uiPanel.IsEnabled = false;
-                inputLayer.Graphics.Clear();
-                resultLayer.Graphics.Clear();
+			try
+			{
+				uiPanel.IsEnabled = false;
+				_inputOverlay.Graphics.Clear();
+				_resultsOverlay.Graphics.Clear();
 
-                foreach (var lyr in mapView.Map.Layers.OfType < GPResultImageLayer>())
-                    mapView.Map.Layers.Remove(lyr);
+				foreach (var lyr in MyMapView.Map.Layers.OfType<GPResultImageLayer>())
+					MyMapView.Map.Layers.Remove(lyr);
 
-                //get the user's input line
-                var inputLine = await mapView.Editor.RequestShapeAsync(DrawShape.Polyline) as Polyline;
+				//get the user's input line
+				var inputLine = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polyline) as Polyline;
 
-                progress.Visibility = Visibility.Visible;
-                inputLayer.Graphics.Add(new Graphic() { Geometry = inputLine });
+				progress.Visibility = Visibility.Visible;
+				_inputOverlay.Graphics.Add(new Graphic() { Geometry = inputLine });
 
-                var parameter = new GPInputParameter();
-                parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Input_Features", inputLine));
-                parameter.GPParameters.Add(new GPLinearUnit("Linear_unit", LinearUnits.Miles, Int32.Parse(txtMiles.Text)));
+				var parameter = new GPInputParameter();
+				parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Input_Features", inputLine));
+				parameter.GPParameters.Add(new GPLinearUnit("Linear_unit", LinearUnits.Miles, Int32.Parse(txtMiles.Text)));
 
-                var result = await SubmitAndPollStatusAsync(parameter);
+				var result = await SubmitAndPollStatusAsync(parameter);
 
-                if (result.JobStatus == GPJobStatus.Succeeded)
-                {
-                    txtStatus.Text = "Finished processing. Retrieving results...";
+				if (result.JobStatus == GPJobStatus.Succeeded)
+				{
+					txtStatus.Text = "Finished processing. Retrieving results...";
 
-                    var resultData = await _gpTask.GetResultDataAsync(result.JobID, "Clipped_Counties");
-                    if (resultData is GPFeatureRecordSetLayer)
-                    {
-                        GPFeatureRecordSetLayer gpLayer = resultData as GPFeatureRecordSetLayer;
-                        if (gpLayer.FeatureSet.Features.Count == 0)
-                        {
-                            var resultImageLayer = await _gpTask.GetResultImageLayerAsync(result.JobID, "Clipped_Counties");
-                            
-                            GPResultImageLayer gpImageLayer = resultImageLayer;
-                            gpImageLayer.Opacity = 0.5;
-                            mapView.Map.Layers.Add(gpImageLayer);
-                            txtStatus.Text = "Greater than 500 features returned.  Results drawn using map service.";
-                            return;
-                        }
+					var resultData = await _gpTask.GetResultDataAsync(result.JobID, "Clipped_Counties");
+					if (resultData is GPFeatureRecordSetLayer)
+					{
+						GPFeatureRecordSetLayer gpLayer = resultData as GPFeatureRecordSetLayer;
+						if (gpLayer.FeatureSet.Features.Count == 0)
+						{
+							var resultImageLayer = await _gpTask.GetResultImageLayerAsync(result.JobID, "Clipped_Counties");
 
-                        resultLayer.Graphics.AddRange(gpLayer.FeatureSet.Features);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Sample Error");
-            }
+							GPResultImageLayer gpImageLayer = resultImageLayer;
+							gpImageLayer.Opacity = 0.5;
+							MyMapView.Map.Layers.Add(gpImageLayer);
+							txtStatus.Text = "Greater than 500 features returned.  Results drawn using map service.";
+							return;
+						}
+
+						_resultsOverlay.Graphics.AddRange(gpLayer.FeatureSet.Features.OfType<Graphic>());
+					}
+				}
+			}
+			catch (TaskCanceledException) { }
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message, "Sample Error");
+			}
             finally
             {
                 uiPanel.IsEnabled = true;
@@ -115,7 +119,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         }
 
         // Display service info
-        private async Task GetServiceInfo()
+        private async void GetServiceInfo()
         {
             string message = null;
 

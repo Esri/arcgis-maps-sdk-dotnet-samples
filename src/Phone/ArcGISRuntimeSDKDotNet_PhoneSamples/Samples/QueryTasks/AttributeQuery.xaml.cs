@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Query;
@@ -20,11 +21,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public AttributeQuery()
         {
             this.InitializeComponent();
-            mapView1.Map.InitialExtent = new Envelope(-15000000, 2000000, -7000000, 8000000);
-            InitializeComboBox().ContinueWith((_) => { }, TaskScheduler.FromCurrentSynchronizationContext());
+			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-15000000, 2000000, -7000000, 8000000));
+            InitializeComboBox();
         }
 
-        private async Task InitializeComboBox()
+        private async void InitializeComboBox()
         {
             QueryTask queryTask = new QueryTask(new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Census_USA/MapServer/5"));
 
@@ -76,7 +77,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 {
                     var symbol = LayoutRoot.Resources["DefaultFillSymbol"] as Esri.ArcGISRuntime.Symbology.Symbol;
                     var g = featureSet.Features[0];
-                    graphicsLayer.Graphics.Add(g);
+                    graphicsLayer.Graphics.Add(g as Graphic);
                     var selectedFeatureExtent = g.Geometry.Extent;
                     Envelope displayExtent = selectedFeatureExtent.Expand(1.3);
                     mapView1.SetView(displayExtent);

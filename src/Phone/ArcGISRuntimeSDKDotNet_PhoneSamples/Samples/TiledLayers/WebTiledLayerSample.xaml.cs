@@ -1,5 +1,6 @@
 ﻿using Esri.ArcGISRuntime.Layers;
 using System.Collections.Generic;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
@@ -11,13 +12,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
     /// <category>Tiled Layers</category>
     public sealed partial class WebTiledLayerSample : Page
     {
-        private WebTiledLayer _webTiledLayer1;
-
         public WebTiledLayerSample()
         {
             this.InitializeComponent();
-
-            _webTiledLayer1 = mapView1.Map.Layers["webTiledLayer1"] as WebTiledLayer;
 
             string[] ABCD = new string[] { "a", "b", "c", "d" };
             string[] MQ_SUBDOMAINS = new string[] { "mtile01", "mtile02", "mtile03", "mtile04" };
@@ -73,8 +70,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
             webTiledLayerComboBox1.ItemsSource = items;
             webTiledLayerComboBox1.DisplayMemberPath = "Name";
-            webTiledLayerComboBox1.SelectedIndex = 0;
-        }
+			MyMapView.Loaded += MyMapView_Loaded;
+		}
+
+		private void MyMapView_Loaded(object sender, RoutedEventArgs e)
+		{
+			webTiledLayerComboBox1.SelectedIndex = 0;
+		}
 
         private class WebTiledLayerComboItem
         {
@@ -97,9 +99,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             WebTiledLayerComboItem selectedItem = (sender as ComboBox).SelectedItem as WebTiledLayerComboItem;
             if (selectedItem != null)
             {
-                _webTiledLayer1.CopyrightText = selectedItem.CopyrightText;
-                _webTiledLayer1.TemplateUri = selectedItem.UrlTemplate;
-                _webTiledLayer1.SubDomains = selectedItem.SubDomains;
+				if (MyMapView.Map.Layers["MyWebTiledLayer"] != null)
+					MyMapView.Map.Layers.Remove("MyWebTiledLayer");
+
+				var myWebTiledLayer = new WebTiledLayer { ID = "MyWebTiledLayer" };
+				myWebTiledLayer.CopyrightText = selectedItem.CopyrightText;
+				myWebTiledLayer.TemplateUri = selectedItem.UrlTemplate;
+				myWebTiledLayer.SubDomains = selectedItem.SubDomains;
+				MyMapView.Map.Layers.Add(myWebTiledLayer);
             }
         }
     }

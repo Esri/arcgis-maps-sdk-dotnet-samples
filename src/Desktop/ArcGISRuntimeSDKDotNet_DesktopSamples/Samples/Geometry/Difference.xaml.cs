@@ -22,6 +22,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private Symbol _fillSymbol;
         private FeatureLayer _statesLayer;
+		private GraphicsOverlay _differenceGraphics;
 
         /// <summary>Construct Difference sample control</summary>
         public Difference()
@@ -29,12 +30,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             InitializeComponent();
 
             _fillSymbol = layoutGrid.Resources["FillSymbol"] as Symbol;
-
-            var task = CreateFeatureLayersAsync();
+			_differenceGraphics = MyMapView.GraphicsOverlays["resultsOverlay"];
+            CreateFeatureLayers();
         }
 
         // Creates a feature layer from a local .geodatabase file
-        private async Task CreateFeatureLayersAsync()
+		private async void CreateFeatureLayers()
         {
             try
             {
@@ -42,7 +43,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
                 var table = gdb.FeatureTables.First(ft => ft.Name == "US-States");
                 _statesLayer = new FeatureLayer() { ID = table.Name, FeatureTable = table };
-                mapView.Map.Layers.Insert(1, _statesLayer);
+                MyMapView.Map.Layers.Add(_statesLayer);
             }
             catch (Exception ex)
             {
@@ -55,13 +56,16 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                differenceGraphics.Graphics.Clear();
+				_differenceGraphics.Graphics.Clear();
 
                 // wait for user to draw difference polygon
-                var poly = await mapView.Editor.RequestShapeAsync(DrawShape.Polygon);
+                Polygon userpoly = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon) as Polygon;
+
+				// Take account of WrapAround
+				Polygon poly = GeometryEngine.NormalizeCentralMeridian(userpoly) as Polygon;
 
                 // Adjust user polygon for backward digitization
-                poly = GeometryEngine.Simplify(poly);
+                poly = GeometryEngine.Simplify(poly) as Polygon;
 
                 // get intersecting features from the feature layer
                 SpatialQueryFilter filter = new SpatialQueryFilter();
@@ -79,7 +83,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                         : GeometryEngine.Difference(state, poly))
                     .Select(geo => new Graphic(geo, _fillSymbol));
 
-                differenceGraphics.Graphics.AddRange(diffGraphics);
+				_differenceGraphics.Graphics.AddRange(diffGraphics);
             }
             catch (Exception ex)
             {

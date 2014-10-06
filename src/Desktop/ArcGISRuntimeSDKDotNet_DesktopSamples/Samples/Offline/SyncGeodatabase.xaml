@@ -13,63 +13,72 @@
             </Style>
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" MapViewTapped="mapView_MapViewTapped">
-            <esri:Map>
+        <esri:MapView x:Name="MyMapView" MapViewTapped="MyMapView_MapViewTapped">
+            <esri:Map InitialViewpoint="-13446093,4183762,-13432118,4190880,3857">
                 <esri:ArcGISTiledMapServiceLayer DisplayName="Streets Basemap"
                     ServiceUri="http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 
                 <esri:ArcGISDynamicMapServiceLayer ID="onlineBirdsLayer" DisplayName="Online Birds" VisibleLayers="1"
                     ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/SaveTheBaySync/MapServer" />
+            </esri:Map>
 
-                <esri:GraphicsLayer x:Name="graphicsLayer" DisplayName="Graphics">
-                    <esri:GraphicsLayer.Renderer>
+            <esri:MapView.GraphicsOverlays>
+                <esri:GraphicsOverlay ID="graphicsOverlay">
+                    <esri:GraphicsOverlay.Renderer>
                         <esri:SimpleRenderer>
                             <esri:SimpleMarkerSymbol Color="Red" Style="Diamond" Size="8" />
                         </esri:SimpleRenderer>
-                    </esri:GraphicsLayer.Renderer>
-                </esri:GraphicsLayer>
-            </esri:Map>
+                    </esri:GraphicsOverlay.Renderer>
+                </esri:GraphicsOverlay>
+            </esri:MapView.GraphicsOverlays>
 
             <esri:MapView.Overlays>
-                <Border x:Name="birdSightingOverlay" Background="Beige" BorderBrush="Black" BorderThickness="2" CornerRadius="10"
+                <esri:OverlayItemsControl>
+                    <Border x:Name="birdSightingOverlay" Background="Beige" BorderBrush="Black" BorderThickness="2" CornerRadius="10"
                         Padding="12" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="250" Height="200"
                         Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}" 
-                        esri:MapView.MapOverlayAnchor="{Binding TapLocation}">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="16" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
+                        esri:MapView.ViewOverlayAnchor="{Binding TapLocation}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="16" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Bird Sighting" 
+                            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Bird Sighting" 
                                    FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,12" />
 
-                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Bird Type: " VerticalAlignment="Center" />
-                        <ComboBox Grid.Row="1" Grid.Column="1" x:Name="comboBirdType" Margin="0,6" VerticalAlignment="Center"
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Bird Type: " VerticalAlignment="Center" />
+                            <ComboBox Grid.Row="1" Grid.Column="1" x:Name="comboBirdType" Margin="0,6" VerticalAlignment="Center"
                                   ItemsSource="{Binding BirdTypeDomain.CodedValues}" DisplayMemberPath="Value" SelectedValuePath="Key" SelectedIndex="0" />
 
-                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Comment: " VerticalAlignment="Top" Margin="0,4,0,0" />
-                        <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtComment" AcceptsReturn="True" AcceptsTab="True" TextWrapping="Wrap" />
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Comment: " VerticalAlignment="Top" Margin="0,4,0,0" />
+                            <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtComment" AcceptsReturn="True" AcceptsTab="True" TextWrapping="Wrap" />
 
-                        <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button Content="OK" HorizontalAlignment="Center" Padding="0,6" Width="80" Margin="0,0,16,0" Click="RegisterBirdSightingButton_Click"/>
-                            <Button Content="Cancel" HorizontalAlignment="Center" Padding="0,6" Width="80" Click="CancelBirdSightingButton_Click"/>
-                        </StackPanel>
-                    </Grid>
-                </Border>
+                            <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Content="OK" HorizontalAlignment="Center" Padding="0,6" Width="80" Margin="0,0,16,0" Click="RegisterBirdSightingButton_Click"/>
+                                <Button Content="Cancel" HorizontalAlignment="Center" Padding="0,6" Width="80" Click="CancelBirdSightingButton_Click"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </esri:OverlayItemsControl>
             </esri:MapView.Overlays>
         </esri:MapView>
 
-        <Border x:Name="panelEdit" Background="White" BorderBrush="Black" BorderThickness="2" MaxHeight="250"
-                HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="30" Padding="20"
+        <Border x:Name="panelEdit" Background="White" BorderBrush="Black" 
+				BorderThickness="1" MaxHeight="250"
+                HorizontalAlignment="Left" VerticalAlignment="Bottom" 
+				Margin="30" Padding="20"
                 Visibility="{Binding CanSync, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Border.Effect>
+                <DropShadowEffect/>
+            </Border.Effect>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -93,17 +102,19 @@
             </Grid>
         </Border>
 
-        <Border x:Name="panelLegend" Background="White" BorderBrush="Black" BorderThickness="2" Width="250"
-                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30" Padding="20">
+        <Border x:Name="panelLegend" 
+				Background="White" BorderBrush="Black" BorderThickness="2" Width="250"
+                HorizontalAlignment="Left" VerticalAlignment="Top" 
+				Margin="30" Padding="20">
+            <Border.Effect>
+                <DropShadowEffect/>
+            </Border.Effect>
             <StackPanel>
                 <StackPanel>
                     <TextBlock Text="Current Map Layers" FontSize="16" FontWeight="Bold" Margin="0,0,0,6" />
-                    <ListView Grid.Row="1" ItemsSource="{Binding ElementName=mapView, Path=Map.Layers}" Margin="12,0" 
+                    <ListView Grid.Row="1" ItemsSource="{Binding ElementName=MyMapView, Path=Map.Layers}" Margin="12,0" 
                           BorderBrush="Transparent">
                         <ListView.Resources>
-                            <!-- Ignore GraphicsLayer -->
-                            <DataTemplate DataType="{x:Type esri:GraphicsLayer}" />
-
                             <DataTemplate DataType="{x:Type esri:Layer}">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -128,8 +139,13 @@
             </StackPanel>
         </Border>
 
-        <Border x:Name="panelUI" Background="White" BorderBrush="Black" BorderThickness="2" Width="375"
-                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
+        <Border x:Name="panelUI"
+				Background="White" BorderBrush="Black" BorderThickness="1" Width="375"
+                HorizontalAlignment="Right" VerticalAlignment="Top" 
+				Margin="30" Padding="20">
+            <Border.Effect>
+                <DropShadowEffect/>
+            </Border.Effect>
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel>
                     <StackPanel x:Name="panelGenerate" IsEnabled="{Binding CanGenerate}">

@@ -2,56 +2,23 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
-    <Grid>
-        <Grid.Resources>
-            <esri:SimpleMarkerSymbol x:Key="RedMarkerSymbolCircle" Color="Red" Size="12" Style="Circle" />
-            <esri:SimpleMarkerSymbol x:Key="RedMarkerSymbolCross" Color="Red" Size="12" Style="Cross" />
-            <esri:SimpleMarkerSymbol x:Key="RedMarkerSymbolDiamond" Color="Red" Size="12" Style="Diamond" />
-            <esri:SimpleMarkerSymbol x:Key="RedMarkerSymbolSquare" Color="Red" Size="12" Style="Square" />
-            <esri:SimpleMarkerSymbol x:Key="RedMarkerSymbolTriangle" Color="Red" Size="12" Style="Triangle" />
-            <esri:SimpleMarkerSymbol x:Key="RedMarkerSymbolX" Color="Red" Size="12" Style="X" />
-        </Grid.Resources>
+    <UserControl.Resources>
+        <esri:SimpleMarkerSymbol x:Key="RedMarkerSymbolCircle" Color="Red" Size="12" Style="Circle" />
+        <esri:SimpleMarkerSymbol x:Key="RedMarkerSymbolCross" Color="Red" Size="12" Style="Cross" />
+        <esri:SimpleMarkerSymbol x:Key="RedMarkerSymbolDiamond" Color="Red" Size="12" Style="Diamond" />
+        <esri:SimpleMarkerSymbol x:Key="RedMarkerSymbolSquare" Color="Red" Size="12" Style="Square" />
+        <esri:SimpleMarkerSymbol x:Key="RedMarkerSymbolTriangle" Color="Red" Size="12" Style="Triangle" />
+        <esri:SimpleMarkerSymbol x:Key="RedMarkerSymbolX" Color="Red" Size="12" Style="X" />
+    </UserControl.Resources>
 
-        <esri:MapView x:Name="mapView" WrapAround="True">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
             <esri:Map>
-                <esri:ArcGISTiledMapServiceLayer
+				<esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
 
-                <esri:GraphicsLayer x:Name="graphicsLayer">
-                    <esri:GraphicsLayer.Graphics>
-                        <esri:Graphic Symbol="{StaticResource RedMarkerSymbolCircle}" >
-                            <esri:Graphic.Geometry>
-                                <esri:MapPoint X="-7000000" Y="3900000" />
-                            </esri:Graphic.Geometry>
-                        </esri:Graphic>
-                        <esri:Graphic Symbol="{StaticResource RedMarkerSymbolCross}" >
-                            <esri:Graphic.Geometry>
-                                <esri:MapPoint X="-6000000" Y="3900000" />
-                            </esri:Graphic.Geometry>
-                        </esri:Graphic>
-                        <esri:Graphic Symbol="{StaticResource RedMarkerSymbolDiamond}" >
-                            <esri:Graphic.Geometry>
-                                <esri:MapPoint X="-5000000" Y="3900000" />
-                            </esri:Graphic.Geometry>
-                        </esri:Graphic>
-                        <esri:Graphic Symbol="{StaticResource RedMarkerSymbolSquare}" >
-                            <esri:Graphic.Geometry>
-                                <esri:MapPoint X="-4000000" Y="3900000" />
-                            </esri:Graphic.Geometry>
-                        </esri:Graphic>
-                        <esri:Graphic Symbol="{StaticResource RedMarkerSymbolTriangle}" >
-                            <esri:Graphic.Geometry>
-                                <esri:MapPoint X="-3000000" Y="3900000" />
-                            </esri:Graphic.Geometry>
-                        </esri:Graphic>
-                        <esri:Graphic Symbol="{StaticResource RedMarkerSymbolX}" >
-                            <esri:Graphic.Geometry>
-                                <esri:MapPoint X="-2000000" Y="3900000" />
-                            </esri:Graphic.Geometry>
-                        </esri:Graphic>
-                    </esri:GraphicsLayer.Graphics>
-                </esri:GraphicsLayer>
-            </esri:Map>
-        </esri:MapView>
+				<esri:GraphicsLayer ID="GraphicsLayer" />
+			</esri:Map>
+		</esri:MapView>
     </Grid>
 </UserControl>

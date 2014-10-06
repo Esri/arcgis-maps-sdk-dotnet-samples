@@ -1,5 +1,4 @@
-﻿using Esri.ArcGISRuntime.Geometry;
-using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {

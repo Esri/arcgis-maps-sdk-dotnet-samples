@@ -1,315 +1,174 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalyst;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Media;
 
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
-    /// Interaction logic for RoutingWithDirections.xaml
+    /// Demonstrates retrieving a route and driving directions between input locations with OnlineLocatorTask.
     /// </summary>
-	/// <category>Tasks</category>
+    /// <title>Routing with Directions</title>
+    /// <category>Tasks</category>
     /// <subcategory>Network Analyst</subcategory>
-	public partial class RoutingWithDirections : UserControl, INotifyPropertyChanged 
+    public partial class RoutingWithDirections : UserControl
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+		private const string OnlineRoutingService = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route";
 
-        #region IsOnline Property
-
-        private bool _isOnline = true;
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this instance is online.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is online; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsOnline
-        {
-            get
-            {
-                return _isOnline;
-            }
-            set
-            {
-                _isOnline = value;
-
-                SetupRouteTask();
-
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs("IsOnline"));
-                }
-            }
-        }
-
-        #endregion
-
-        #region IsMapReady Property
-
-        private bool _isMapReady = false;
-
-        /// <summary>
-        /// Gets or sets a value indicating whether the map is initialized.
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if the map is initialized; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsMapReady
-        {
-            get
-            {
-                return _isMapReady;
-            }
-            set
-            {
-                _isMapReady = value;
-
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs("IsMapReady"));
-                }
-            }
-        }
-
-        #endregion
-
-        #region Routing Start and End Location Properties
-        private string _startLocationText = "";
-        /// <summary>
-        /// Gets or sets the start location text.
-        /// </summary>
-        /// <value>
-        /// The start location text.
-        /// </value>
-        public string StartLocationText
-        {
-            get
-            {
-                return _startLocationText;
-            }
-            set
-            {
-                _startLocationText = value;
-
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs("StartLocationText"));
-                }
-            }
-        }
-
-        private string _endLocationText = "";
-
-        /// <summary>
-        /// Gets or sets the end location text.
-        /// </summary>
-        /// <value>
-        /// The end location text.
-        /// </value>
-        public string EndLocationText
-        {
-            get
-            {
-                return _endLocationText;
-            }
-            set
-            {
-                _endLocationText = value;
-
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs("EndLocationText"));
-                }
-            }
-        }
-        #endregion Routing Start and End Locations
-
-        #region Directions Property
-
-        private string _directions = "";
-
-        /// <summary>
-        /// Gets or sets the directions text.
-        /// </summary>
-        /// <value>
-        /// The directions.
-        /// </value>
-        public string Directions
-        {
-            get
-            {
-                return _directions;
-            }
-            set
-            {
-                _directions = value;
-
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs("Directions"));
-                }
-            }
-        }
-
-        #endregion
-
-        GraphicsLayer _routeGraphicsLayer;
-        GraphicsLayer _stopsGraphicsLayer;
-        RouteTask _routeTask;
-        string _onlineRoutingService = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route";
-          string _localRoutingDatabase = @"..\..\..\..\..\samples-data\networks\san-diego\san-diego-network.geodatabase";
-        string _networkName = "Streets_ND";
-
-        private void SetupRouteTask()
-        {
-            if (!IsOnline)
-            {
-                _routeTask = new LocalRouteTask(_localRoutingDatabase, _networkName);
-            }
-            else
-            {
-                _routeTask = new OnlineRouteTask(new Uri(_onlineRoutingService));
-            }
-        }
+        private OnlineRouteTask _routeTask;
+        private Symbol _directionPointSymbol;
+        private GraphicsOverlay _stopsOverlay;
+		private GraphicsOverlay _routesOverlay;
+		private GraphicsOverlay _directionsOverlay;
 
         public RoutingWithDirections()
         {
             InitializeComponent();
 
-             // Min X,Y = -13,044,000  3,855,000 Meters
-            // Max X,Y = -13,040,000  3,858,000 Meters
-            map1.InitialExtent = new Envelope(-13044000, 3855000, -13040000, 3858000, new SpatialReference(102100));
+			_directionPointSymbol = LayoutRoot.Resources["directionPointSymbol"] as Symbol;
 
-            DataContext = this;
+			_stopsOverlay = MyMapView.GraphicsOverlays["StopsOverlay"];
+			_routesOverlay = MyMapView.GraphicsOverlays["RoutesOverlay"];
+			_directionsOverlay = MyMapView.GraphicsOverlays["DirectionsOverlay"];
 
-            SetupRouteTask();
-
-            _routeGraphicsLayer = new GraphicsLayer();
-            _routeGraphicsLayer.Renderer = new SimpleRenderer()
-            {
-                Symbol = new SimpleLineSymbol() 
-                {
-                    Color = Colors.Blue,
-                    Style = SimpleLineStyle.Dot,
-                    Width = 2
-                }
-            };
-            map1.Layers.Add(_routeGraphicsLayer);
-
-            _stopsGraphicsLayer = new GraphicsLayer();
-            _stopsGraphicsLayer.Renderer = new SimpleRenderer()
-            {
-                Symbol = new SimpleMarkerSymbol()
-                {
-                    Color = Colors.Green,
-                    Size = 12,
-                    Style = SimpleMarkerStyle.Circle
-                }
-            };
-            map1.Layers.Add(_stopsGraphicsLayer);
-
-             HandleLayersInitialized();
+            _routeTask = new OnlineRouteTask(new Uri(OnlineRoutingService));
         }
 
-        private async void HandleLayersInitialized()
+        // Get user Stop points
+        private void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
             try
             {
-                await mapView1.LayersLoadedAsync();
-                IsMapReady = true;
+                e.Handled = true;
+
+                if (_directionsOverlay.Graphics.Count() > 0)
+                {
+                    panelResults.Visibility = Visibility.Collapsed;
+
+                    _stopsOverlay.Graphics.Clear();
+                    _routesOverlay.Graphics.Clear();
+                    _directionsOverlay.GraphicsSource = null;
+                }
+
+                var graphicIdx = _stopsOverlay.Graphics.Count + 1;
+                _stopsOverlay.Graphics.Add(CreateStopGraphic(e.Location, graphicIdx));
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
-                MessageBox.Show(ex.Message);
-                return;
+                MessageBox.Show(ex.Message, "Sample Error");
             }
         }
 
-          private async Task CalculateRoute() 
-          {
-              StartLocationText = string.Empty;
-              EndLocationText = string.Empty;
-              Directions = string.Empty;
-            _routeGraphicsLayer.Graphics.Clear();
-            _stopsGraphicsLayer.Graphics.Clear();
+        // Calculate the route
+        private async void MyMapView_MapViewDoubleTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
+        {
+            if (_stopsOverlay.Graphics.Count() < 2)
+                return;
 
             try
             {
-                // Mouseclick 1:
-                MapPoint startLocation = await mapView1.Editor.RequestPointAsync();    
-                _stopsGraphicsLayer.Graphics.Add(new Graphic() { Geometry = startLocation }) ;
+                e.Handled = true;
 
-                StartLocationText = " X: " + Math.Round(startLocation.X, 0).ToString() + " Y: " + Math.Round(startLocation.Y, 0).ToString();
+                panelResults.Visibility = Visibility.Collapsed;
+                progress.Visibility = Visibility.Visible;
 
-                // Mouseclick 2:
-                MapPoint endLocation = await mapView1.Editor.RequestPointAsync();
-                _stopsGraphicsLayer.Graphics.Add(new Graphic() { Geometry = endLocation});
-
-                EndLocationText = " X: " + Math.Round(endLocation.X, 0).ToString() + " Y: " + Math.Round(endLocation.Y, 0).ToString();
-                
-                Esri.ArcGISRuntime.Tasks.NetworkAnalyst.RouteParameters routeParams = await _routeTask.GetDefaultParametersAsync();
-
-                routeParams.OutSpatialReference = mapView1.SpatialReference;
+                RouteParameters routeParams = await _routeTask.GetDefaultParametersAsync();
+                routeParams.OutSpatialReference = MyMapView.SpatialReference;
                 routeParams.ReturnDirections = true;
-                routeParams.DirectionsLengthUnit = LinearUnits.Kilometers;
-                routeParams.DirectionsLanguage = new System.Globalization.CultureInfo("en");
-                List<Graphic> graphicsStops = new List<Graphic>();
+                routeParams.DirectionsLengthUnit = LinearUnits.Miles;
+				routeParams.DirectionsLanguage = new CultureInfo("en-Us"); // CultureInfo.CurrentCulture;
+                routeParams.SetStops(_stopsOverlay.Graphics);
 
+                var routeResult = await _routeTask.SolveAsync(routeParams);
+                if (routeResult == null || routeResult.Routes == null || routeResult.Routes.Count() == 0)
+                    throw new Exception("No route could be calculated");
 
-                graphicsStops.Add(new Graphic(startLocation));
-                graphicsStops.Add(new Graphic(endLocation));
-                FeaturesAsFeature stops = new FeaturesAsFeature(graphicsStops);
-                stops.SpatialReference = mapView1.SpatialReference;
-                routeParams.Stops = stops;
+                var route = routeResult.Routes.First();
+                _routesOverlay.Graphics.Add(new Graphic(route.RouteFeature.Geometry));
 
-                RouteResult routeResult = await _routeTask.SolveAsync(routeParams);
-                if (routeResult.Routes.Count > 0)
-                {
-                Graphic graphic = new Graphic(routeResult.Routes[0].RouteGraphic.Geometry);
-                _routeGraphicsLayer.Graphics.Add(graphic);
+                _directionsOverlay.GraphicsSource = route.RouteDirections.Select(rd => GraphicFromRouteDirection(rd));
+				listDirections.ItemsSource = _directionsOverlay.Graphics;
 
-                List<string> directions = new List<string>();
-                foreach (var item in routeResult.Routes[0].RouteDirections)
-                {
-                    directions.Add(" " + item.Text + "\r\n");
-                }
+                var totalTime = route.RouteDirections.Select(rd => rd.Time).Aggregate(TimeSpan.Zero, (p, v) => p.Add(v));
+                var totalLength = route.RouteDirections.Select(rd => rd.GetLength(LinearUnits.Miles)).Sum();
+                txtRouteTotals.Text = string.Format("Time: {0:h':'mm':'ss} / Length: {1:0.00} mi", totalTime, totalLength);
 
-                Directions = String.Join<string>(String.Empty, directions);
-                }
+				if (!route.RouteFeature.Geometry.IsEmpty)
+					await MyMapView.SetViewAsync(route.RouteFeature.Geometry.Extent.Expand(1.25));
             }
             catch (AggregateException ex)
             {
                 var innermostExceptions = ex.Flatten().InnerExceptions;
                 if (innermostExceptions != null && innermostExceptions.Count > 0)
-                    MessageBox.Show(innermostExceptions[0].Message);
+                {
+                    MessageBox.Show(innermostExceptions[0].Message, "Sample Error");
+                }
                 else
-                    MessageBox.Show(ex.Message);
+                {
+                    MessageBox.Show(ex.Message, "Sample Error");
+                }
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show(ex.Message, "Sample Error");
+            }
+            finally
+            {
+                progress.Visibility = Visibility.Collapsed;
+                if (_directionsOverlay.Graphics.Count() > 0)
+                    panelResults.Visibility = Visibility.Visible;
             }
         }
 
-        private async void SolveRouteButton_Click(object sender, RoutedEventArgs e)
+        private Graphic CreateStopGraphic(MapPoint location, int id)
         {
-            try
+            var symbol = new CompositeSymbol();
+            symbol.Symbols.Add(new SimpleMarkerSymbol() { Style = SimpleMarkerStyle.Circle, Color = Colors.Blue, Size = 16 });
+            symbol.Symbols.Add(new TextSymbol()
             {
-                await CalculateRoute();
-            }
-            catch (Exception ex)
+                Text = id.ToString(),
+                Color = Colors.White,
+                VerticalTextAlignment = VerticalTextAlignment.Middle,
+                HorizontalTextAlignment = HorizontalTextAlignment.Center,
+                YOffset = -1
+            });
+
+            var graphic = new Graphic()
             {
-                MessageBox.Show(ex.Message, "Sample Error");
+                Geometry = location,
+                Symbol = symbol
+            };
+
+            return graphic;
+        }
+
+        private Graphic GraphicFromRouteDirection(RouteDirection rd)
+        {
+            var graphic = new Graphic(rd.Geometry);
+            graphic.Attributes.Add("Direction", rd.Text);
+            graphic.Attributes.Add("Time", string.Format("{0:h\\:mm\\:ss}", rd.Time));
+            graphic.Attributes.Add("Length", string.Format("{0:0.00}", rd.GetLength(LinearUnits.Miles)));
+            if (rd.Geometry is MapPoint)
+                graphic.Symbol = _directionPointSymbol;
+
+            return graphic;
+        }
+
+        private void listDirections_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _directionsOverlay.ClearSelection();
+
+            if (e.AddedItems != null && e.AddedItems.Count == 1)
+            {
+                var graphic = e.AddedItems[0] as Graphic;
+                graphic.IsSelected = true;
             }
         }
     }

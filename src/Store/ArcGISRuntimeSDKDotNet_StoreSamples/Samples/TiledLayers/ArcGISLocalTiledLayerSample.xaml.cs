@@ -21,20 +21,20 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            mapView.Loaded += mapView_Loaded;
+            MyMapView.Loaded += MyMapView_Loaded;
         }
 
-        private async void mapView_Loaded(object sender, RoutedEventArgs e)
+        private async void MyMapView_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
                 var tpk = await GetSingleFileAsync("basemap.tpk");
                 var layer = new ArcGISLocalTiledLayer(tpk) { ID = "local_basemap" };
-                mapView.Map.Layers.Add(layer);
+                MyMapView.Map.Layers.Add(layer);
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
             }
         }
 

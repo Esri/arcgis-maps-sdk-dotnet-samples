@@ -1,34 +1,38 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
-    /// This sample demonstrates use of the Geoprocessor to call an asynchronous ViewShed geoprocessing service.
+    /// This sample demonstrates use of the Geoprocessor to call a Viewshed geoprocessing service.
     /// </summary>
     /// <title>Viewshed</title>
 	/// <category>Tasks</category>
 	/// <subcategory>Geoprocessing</subcategory>
 	public partial class Viewshed : UserControl
     {
-        private Geoprocessor _gpTask;
+		private const string ViewshedServiceUrl =
+		   "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Elevation/ESRI_Elevation_World/GPServer/Viewshed";
+
+		private GraphicsOverlay _inputOverlay;
+		private GraphicsOverlay _viewshedOverlay;
+		private Geoprocessor _gpTask;
 
         /// <summary>Construct Viewshed sample control</summary>
         public Viewshed()
         {
             InitializeComponent();
 
-            mapView.Map.InitialExtent = new Envelope(-12004035.9462375, 4652780.19374956, -11735714.4261546, 4808810.41937776);
+			_inputOverlay = MyMapView.GraphicsOverlays["inputOverlay"];
+			_viewshedOverlay = MyMapView.GraphicsOverlays["ViewshedOverlay"];
 
-            _gpTask = new Geoprocessor(
-                new Uri("http://serverapps101.esri.com/arcgis/rest/services/ProbabilisticViewshedModel/GPServer/ProbabilisticViewshedModel"));
+            _gpTask = new Geoprocessor(new Uri(ViewshedServiceUrl));
         }
 
         // Get the users click point on the map and fire off a GP Job to calculate the viewshed
@@ -37,37 +41,27 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             try
             {
                 uiPanel.IsEnabled = false;
-                inputLayer.Graphics.Clear();
-                mapView.Map.Layers.Remove("ViewshedResultsLayer");
+				_inputOverlay.Graphics.Clear();
+				_viewshedOverlay.Graphics.Clear();
 
                 //get the user's input point
-                var inputPoint = await mapView.Editor.RequestPointAsync();
+                var inputPoint = await MyMapView.Editor.RequestPointAsync();
 
                 progress.Visibility = Visibility.Visible;
-                inputLayer.Graphics.Add(new Graphic() { Geometry = inputPoint });
+				_inputOverlay.Graphics.Add(new Graphic() { Geometry = inputPoint });
 
                 var parameter = new GPInputParameter() { OutSpatialReference = SpatialReferences.WebMercator };
-                parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Input_Features", inputPoint));
-                parameter.GPParameters.Add(new GPString("Height", txtHeight.Text));
-                parameter.GPParameters.Add(new GPLinearUnit("Distance", LinearUnits.Miles, Convert.ToDouble(txtMiles.Text)));
+				parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Input_Observation_Point", inputPoint));
+				parameter.GPParameters.Add(new GPLinearUnit("Viewshed_Distance ", LinearUnits.Miles, Convert.ToDouble(txtMiles.Text)));
 
-                var result = await SubmitAndPollStatusAsync(parameter);
+				txtStatus.Text = "Processing on server...";
+				var result = await _gpTask.ExecuteAsync(parameter);
+                if (result == null || result.OutParameters == null || !(result.OutParameters[0] is GPFeatureRecordSetLayer))
+					throw new ApplicationException("No viewshed graphics returned for this start point.");
 
-                if (result.JobStatus == GPJobStatus.Succeeded)
-                {
-                    txtStatus.Text = "Finished processing. Retrieving results...";
-
-                    //get the results as a ArcGISDynamicMapServiceLayer
-                    var resultLayer = _gpTask.GetResultMapServiceLayer(result.JobID);
-                    if (resultLayer != null)
-                    {
-                        //Insert the results layer just beneath the input graphics layer.
-                        //This allows us to see the input point at all times.
-                        resultLayer.ID = "ViewshedResultsLayer";
-                        mapView.Map.Layers.Insert(mapView.Map.Layers.IndexOf(inputLayer), resultLayer);
-                        await mapView.LayersLoadedAsync(new List<Layer> { resultLayer });
-                    }
-                }
+                txtStatus.Text = "Finished processing. Retrieving results...";
+				var viewshedLayer = result.OutParameters[0] as GPFeatureRecordSetLayer;
+				_viewshedOverlay.Graphics.AddRange(viewshedLayer.FeatureSet.Features.OfType<Graphic>());
             }
             catch (Exception ex)
             {
@@ -78,26 +72,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 uiPanel.IsEnabled = true;
                 progress.Visibility = Visibility.Collapsed;
             }
-        }
-
-        // Submit GP Job and Poll the server for results every 2 seconds.
-        private async Task<GPJobInfo> SubmitAndPollStatusAsync(GPInputParameter parameter)
-        {
-            // Submit gp service job
-            var result = await _gpTask.SubmitJobAsync(parameter);
-
-            // Poll for the results async
-            while (result.JobStatus != GPJobStatus.Cancelled && result.JobStatus != GPJobStatus.Deleted
-                && result.JobStatus != GPJobStatus.Succeeded && result.JobStatus != GPJobStatus.TimedOut)
-            {
-                result = await _gpTask.CheckJobStatusAsync(result.JobID);
-
-                txtStatus.Text = string.Join(Environment.NewLine, result.Messages.Select(x => x.Description));
-
-                await Task.Delay(2000);
-            }
-
-            return result;
         }
     }
 }

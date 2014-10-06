@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System;
@@ -16,35 +17,37 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     public partial class GeodesicBuffer : UserControl
     {
         private SimpleFillSymbol _bufferSymbol;
+		private GraphicsOverlay _graphicsOverlay;
 
         /// <summary>Construct Geodesic Buffer sample control</summary>
         public GeodesicBuffer()
         {
             InitializeComponent();
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
             _bufferSymbol = layoutGrid.Resources["BufferSymbol"] as SimpleFillSymbol;
         }
 
-        private void mapView_MouseMove(object sender, MouseEventArgs e)
+        private void MyMapView_MouseMove(object sender, MouseEventArgs e)
         {
             try
             {
                 // Convert screen point to map point
-                var point = mapView.ScreenToLocation(e.GetPosition(mapView));
+                var point = MyMapView.ScreenToLocation(e.GetPosition(MyMapView));
                 if (point == null)
                     return;
 
                 var buffer = GeometryEngine.GeodesicBuffer(
-                    GeometryEngine.NormalizeCentralMeridianOfGeometry(point), //Normalize in case we we're too far west/east of the world bounds
+					GeometryEngine.NormalizeCentralMeridian(point), //Normalize in case we we're too far west/east of the world bounds
                     500, LinearUnits.Miles);
 
                 Graphic bufferGraphic = null;
-                if (graphicsLayer.Graphics.Count == 0)
+				if (_graphicsOverlay.Graphics.Count == 0)
                 {
                     bufferGraphic = new Graphic { Geometry = buffer, Symbol = _bufferSymbol };
-                    graphicsLayer.Graphics.Add(bufferGraphic);
+					_graphicsOverlay.Graphics.Add(bufferGraphic);
                 }
                 else
-                    bufferGraphic = graphicsLayer.Graphics[0];
+					bufferGraphic = _graphicsOverlay.Graphics[0];
                 bufferGraphic.Geometry = buffer;
             }
             catch (Exception ex)

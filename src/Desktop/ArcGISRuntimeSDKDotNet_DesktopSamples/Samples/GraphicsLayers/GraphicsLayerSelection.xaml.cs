@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System;
@@ -14,39 +15,42 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     /// This sample demonstrates GraphicLayer selection management. Graphics are set in a selected or unselected state by using the Graphic.IsSelected property. Here, the user selects or unselects graphics by clicking on the graphic.
     /// </summary>
     /// <title>Selection</title>
-	/// <category>Layers</category>
-	/// <subcategory>Graphics Layers</subcategory>
-	public partial class GraphicsLayerSelection : UserControl
+    /// <category>Layers</category>
+    /// <subcategory>Graphics Layers</subcategory>
+    public partial class GraphicsLayerSelection : UserControl
     {
+        private const int MAX_GRAPHICS = 50;
+
         private Random _random = new Random();
+		private GraphicsLayer _graphicsLayer;
 
         /// <summary>Construct Graphics Layer Selection sample control</summary>
         public GraphicsLayerSelection()
         {
             InitializeComponent();
-            CreateGraphics();
+
+			_graphicsLayer = MyMapView.Map.Layers["graphicsLayer"] as GraphicsLayer;
+			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
         }
+
+		private void MyMapView_NavigationCompleted(object sender, EventArgs e)
+		{
+			MyMapView.NavigationCompleted -= MyMapView_NavigationCompleted;
+			CreateGraphics();
+		}
 
         // Remove selected graphics from graphics layer selection
         private async void AddSelectButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             try
             {
-                if (mapView.Editor.IsActive)
-                    mapView.Editor.Cancel.Execute(null);
-
-                while (mapView.Extent != null)
+                var graphics = await FindIntersectingGraphicsAsync();
+                foreach (var graphic in graphics)
                 {
-                    var graphics = await FindIntersectingGraphicsAsync();
-                    foreach (var graphic in graphics)
-                    {
-                        graphic.IsSelected = true;
-                    }
+                    graphic.IsSelected = true;
                 }
             }
-            catch (TaskCanceledException)
-            {
-            }
+            catch (TaskCanceledException) { }
             catch (Exception ex)
             {
                 MessageBox.Show("Selection Error: " + ex.Message, "Graphics Layer Selection Sample");
@@ -58,21 +62,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                if (mapView.Editor.IsActive)
-                    mapView.Editor.Cancel.Execute(null);
-
-                while (mapView.Extent != null)
+                var graphics = await FindIntersectingGraphicsAsync();
+                foreach (var graphic in graphics)
                 {
-                    var graphics = await FindIntersectingGraphicsAsync();
-                    foreach (var graphic in graphics)
-                    {
-                        graphic.IsSelected = false;
-                    }
+                    graphic.IsSelected = false;
                 }
             }
-            catch (TaskCanceledException)
-            {
-            }
+			catch (TaskCanceledException) { }
             catch (Exception ex)
             {
                 MessageBox.Show("Selection Error: " + ex.Message, "Graphics Layer Selection Sample");
@@ -84,7 +80,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                graphicsLayer.ClearSelection();
+				_graphicsLayer.ClearSelection();
             }
             catch (Exception ex)
             {
@@ -95,18 +91,21 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Retrieve a user click point and return hit tested graphics
         private async Task<IEnumerable<Graphic>> FindIntersectingGraphicsAsync()
         {
-            var point = await mapView.Editor.RequestPointAsync();
-            return await graphicsLayer.HitTestAsync(mapView, mapView.LocationToScreen(point, true), 10);
+            var mapRect = await MyMapView.Editor.RequestShapeAsync(DrawShape.Envelope) as Envelope;
+
+            Rect winRect = new Rect(
+                MyMapView.LocationToScreen(new MapPoint(mapRect.XMin, mapRect.YMax, MyMapView.SpatialReference)),
+                MyMapView.LocationToScreen(new MapPoint(mapRect.XMax, mapRect.YMin, MyMapView.SpatialReference)));
+
+			return await _graphicsLayer.HitTestAsync(MyMapView, winRect, MAX_GRAPHICS);
         }
 
-        // Add new random graphics to the graphics layer
-        private async void CreateGraphics()
+        // Add new random graphics to the graphics overlay
+        private void CreateGraphics()
         {
-            await mapView.LayersLoadedAsync();
-
-            for (int n = 1; n <= 20; ++n)
+            for (int n = 1; n <= MAX_GRAPHICS; ++n)
             {
-                graphicsLayer.Graphics.Add(CreateRandomGraphic());
+				_graphicsLayer.Graphics.Add(CreateRandomGraphic());
             }
         }
 
@@ -128,9 +127,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Utility: Generate a random MapPoint within the current extent
         private MapPoint GetRandomMapPoint()
         {
-            double x = mapView.Extent.XMin + (_random.NextDouble() * mapView.Extent.Width);
-            double y = mapView.Extent.YMin + (_random.NextDouble() * mapView.Extent.Height);
-            return new MapPoint(x, y, mapView.SpatialReference);
+            double x = MyMapView.Extent.XMin + (_random.NextDouble() * MyMapView.Extent.Width);
+            double y = MyMapView.Extent.YMin + (_random.NextDouble() * MyMapView.Extent.Height);
+            return new MapPoint(x, y, MyMapView.SpatialReference);
         }
     }
 }

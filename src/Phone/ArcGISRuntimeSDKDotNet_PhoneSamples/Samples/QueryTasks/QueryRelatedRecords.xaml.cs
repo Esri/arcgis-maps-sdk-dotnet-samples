@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
@@ -20,7 +21,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public QueryRelatedRecords()
         {
             this.InitializeComponent();
-            mapView1.Map.InitialExtent = new Envelope(-10854000, 4502000, -10829000, 4524000, SpatialReferences.WebMercator);
+			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-10854000, 4502000, -10829000, 4524000, SpatialReferences.WebMercator));
         }
 
         private async Task RunQuery(Geometry geometry)
@@ -43,7 +44,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 if (result.FeatureSet.Features != null && result.FeatureSet.Features.Count > 0)
                 {
                     ResultsGrid.ItemsSource = result.FeatureSet.Features;
-                    l.Graphics.AddRange(from g in result.FeatureSet.Features select g);
+                    l.Graphics.AddRange(from g in result.FeatureSet.Features.OfType<Graphic>() select g);
                 }
             }
             catch (Exception)
@@ -60,10 +61,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             return new Envelope(
                 point.X - mapExtent.Width * (pct / 2), point.Y - mapExtent.Height * (pct / 2),
-                point.X + mapExtent.Width * (pct / 2), point.Y + mapExtent.Height * (pct / 2))
-            {
-                SpatialReference = mapExtent.SpatialReference
-            };
+                point.X + mapExtent.Width * (pct / 2), point.Y + mapExtent.Height * (pct / 2),
+                mapExtent.SpatialReference);
         }
 
         private async void ResultsGrid_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
@@ -80,7 +79,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                new QueryTask(new Uri("http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Petroleum/KSPetro/MapServer/0"));
 
             //Relationship query
-            RelationshipParameter parameters = new RelationshipParameter(new List<long>(objectIds), 3)
+            RelationshipParameters parameters = new RelationshipParameters(new List<long>(objectIds), 3)
             {
                 OutSpatialReference = mapView1.SpatialReference
             };

@@ -5,6 +5,7 @@ using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using System.Collections.ObjectModel;
+using Esri.ArcGISRuntime.Controls;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
@@ -17,7 +18,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public DynamicLayersInCode()
         {
             this.InitializeComponent();
-            mapView1.Map.InitialExtent = new Envelope(-3548912, -1847469, 2472012, 1742990, new SpatialReference(102009));
+			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-3548912, -1847469, 2472012, 1742990, SpatialReference.Create(102009)));
         }
 
         private void ApplyRangeValueClick(object sender, RoutedEventArgs e)

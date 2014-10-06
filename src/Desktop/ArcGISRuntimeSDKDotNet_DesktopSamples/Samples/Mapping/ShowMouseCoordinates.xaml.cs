@@ -17,18 +17,18 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             InitializeComponent();
         }
 
-        private void mapView_MouseMove(object sender, MouseEventArgs e)
+        private void MyMapView_MouseMove(object sender, MouseEventArgs e)
         {
-            if (mapView.Extent == null)
+            if (MyMapView.Extent == null)
                 return;
 
-            System.Windows.Point screenPoint = e.GetPosition(mapView);
+            System.Windows.Point screenPoint = e.GetPosition(MyMapView);
             ScreenCoordsTextBlock.Text = string.Format("Screen Coords: X = {0}, Y = {1}",
                 screenPoint.X, screenPoint.Y);
 
-            MapPoint mapPoint = mapView.ScreenToLocation(screenPoint);
-            if (mapView.WrapAround)
-                mapPoint = GeometryEngine.NormalizeCentralMeridianOfGeometry(mapPoint) as MapPoint;
+            MapPoint mapPoint = MyMapView.ScreenToLocation(screenPoint);
+            if (MyMapView.WrapAround)
+                mapPoint = GeometryEngine.NormalizeCentralMeridian(mapPoint) as MapPoint;
             MapCoordsTextBlock.Text = string.Format("Map Coords: X = {0}, Y = {1}",
                     Math.Round(mapPoint.X, 4), Math.Round(mapPoint.Y, 4));
         }

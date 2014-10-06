@@ -3,19 +3,22 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:esri="using:Esri.ArcGISRuntime.Controls" 
-    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
     xmlns:common="using:ArcGISRuntimeSDKDotNet_StoreSamples.Common">
     <Grid>
         <Grid.Resources>
             <common:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView">
+        <esri:MapView x:Name="MyMapView" WrapAround="False">
             <esri:Map>
-                <lyr:ArcGISTiledMapServiceLayer
-                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-15053000" YMin="2749000" XMax="-6540000" YMax="6590000" />
+                </esri:Map.InitialViewpoint>
 
-                <lyr:GraphicsLayer ID="GraphicsLayer" SelectionColor="Blue" />
+				<layers:ArcGISTiledMapServiceLayer
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
+				<layers:GraphicsLayer ID="GraphicsLayer" SelectionColor="Blue" />
             </esri:Map>
         </esri:MapView>
 
@@ -26,9 +29,9 @@
             </TextBlock>
         </Border>
 
-        <Border Background="#CC000000" BorderBrush="White" BorderThickness="2" Margin="25"
-                HorizontalAlignment="Center" VerticalAlignment="Top" IsHitTestVisible="False"
-                Visibility="{Binding ElementName=mapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Border Background="#CC000000" BorderBrush="White" BorderThickness="2" Margin="125"
+                HorizontalAlignment="Center" VerticalAlignment="Bottom" IsHitTestVisible="False"
+                Visibility="{Binding ElementName=MyMapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
             <TextBlock Text="Draw rectangle to select / unselect graphics." Margin="8" FontSize="14" />
         </Border>
     </Grid>

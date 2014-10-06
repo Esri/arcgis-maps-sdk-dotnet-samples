@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Data;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Query;
@@ -20,7 +21,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public Identify()
         {
             this.InitializeComponent();
-            mapView1.Map.InitialExtent = new Envelope(-15000000, 2000000, -7000000, 8000000);
+			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-15000000, 2000000, -7000000, 8000000));
         }
 
         private async void mapView1_Tapped_1(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
@@ -30,7 +31,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private async Task RunIdentify(MapPoint mp)
         {
-            IdentifyParameter identifyParams = new IdentifyParameter(mp, mapView1.Extent, 2, (int)mapView1.ActualHeight, (int)mapView1.ActualWidth)
+            IdentifyParameters identifyParams = new IdentifyParameters(mp, mapView1.Extent, 2, (int)mapView1.ActualHeight, (int)mapView1.ActualWidth)
             {
                 LayerOption = LayerOption.Visible,
                 SpatialReference = mapView1.SpatialReference,

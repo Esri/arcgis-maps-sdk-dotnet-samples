@@ -26,12 +26,17 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	/// <subcategory>Geoprocessing</subcategory>
 	public partial class PopulationForArea : UserControl
     {
+        private const string PopulationSummaryServiceUrl =
+            "http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Population_World/GPServer/PopulationSummary";
+
+		private GraphicsOverlay _areaOverlay;
+
         /// <summary>Construct Populattion for Area sample control</summary>
         public PopulationForArea()
         {
             InitializeComponent();
 
-            mapView.Map.InitialExtent = new Envelope(-13879981, 3490335, -7778090, 6248898);
+			_areaOverlay = MyMapView.GraphicsOverlays["areaOverlay"];
         }
 
         // Accept user boundary line and run the Geoprocessing Task to summarize population
@@ -40,19 +45,18 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             try
             {
                 txtResult.Visibility = System.Windows.Visibility.Collapsed;
-                AreaLayer.Graphics.Clear();
+				_areaOverlay.Graphics.Clear();
 
-                var boundary = await mapView.Editor.RequestShapeAsync(DrawShape.Freehand) as Polyline;
-                var polygon = new Polygon(boundary, mapView.SpatialReference);
+                var boundary = await MyMapView.Editor.RequestShapeAsync(DrawShape.Freehand) as Polyline;
+                var polygon = new Polygon(boundary.Parts, MyMapView.SpatialReference);
                 polygon = GeometryEngine.Simplify(polygon) as Polygon;
-                AreaLayer.Graphics.Add(new Graphic() { Geometry = polygon });
+				_areaOverlay.Graphics.Add(new Graphic() { Geometry = polygon });
 
                 progress.Visibility = Visibility.Visible;
 
-                Geoprocessor geoprocessorTask = new Geoprocessor(
-                    new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Population_World/GPServer/PopulationSummary"));
+                Geoprocessor geoprocessorTask = new Geoprocessor(new Uri(PopulationSummaryServiceUrl));
 
-                var parameter = new GPInputParameter() { OutSpatialReference = mapView.SpatialReference };
+                var parameter = new GPInputParameter() { OutSpatialReference = MyMapView.SpatialReference };
                 parameter.GPParameters.Add(new GPFeatureRecordSetLayer("inputPoly", polygon));
 
                 var result = await geoprocessorTask.ExecuteAsync(parameter);

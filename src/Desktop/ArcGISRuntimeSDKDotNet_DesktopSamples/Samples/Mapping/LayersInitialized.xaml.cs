@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -19,7 +20,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         #region Layers Initialized Text Property
 
-        private string _layersInitialized = "No Initialized";
+        private string _layersInitialized = "Not Initialized";
 
         public string LayersInitializedProperty
         {
@@ -30,7 +31,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             set
             {
                 _layersInitialized = value;
-
                 if (PropertyChanged != null)
                 {
                     PropertyChanged(this, new PropertyChangedEventArgs("LayersInitializedProperty"));
@@ -46,23 +46,28 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public LayersInitialized()
         {
             DataContext = this;
-
             InitializeComponent();
-
-            var _ = HandleLayersInitialized();
+            HandleLayersInitialized();
         }
 
-        private async Task HandleLayersInitialized()
+        private async void HandleLayersInitialized()
         {
-            var loadresult = await mapView1.LayersLoadedAsync();
-            LayersInitializedProperty = "Initialized!";
-            foreach (var res in loadresult)
-            {
-                if (res.LoadError != null)
-                {
-                  MessageBox.Show(string.Format("Layer {0} failed to load. {1} ", res.Layer.ID, res.LoadError.Message.ToString()));
-                }
-            }
+			try
+			{
+				var loadresult = await MyMapView.LayersLoadedAsync();
+				LayersInitializedProperty = "Initialized!";
+				foreach (var res in loadresult)
+				{
+					if (res.LoadError != null)
+					{
+						MessageBox.Show(string.Format("Layer {0} failed to load. {1} ", res.Layer.ID, res.LoadError.Message.ToString()));
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Error occured : " + ex.ToString(), "Sample error");
+			}
         }
     }
 }

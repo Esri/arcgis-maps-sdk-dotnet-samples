@@ -10,7 +10,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     /// <summary>
     /// This sample illustrates a simple way of querying the Portal metadata/properties and retrieving featuredItems using the Portal API.
     /// </summary>
-    /// <title>ShowProperties</title>
+    /// <title>Show Properties</title>
     /// <category>Portal</category>
     public partial class ShowProperties : UserControl
     {
@@ -49,7 +49,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 PropertiesListBox.Items.Add(string.Format("Name: {0}", portalInfo.PortalName));
                 PropertiesListBox.Items.Add(string.Format("Mode: {0}", portalInfo.PortalMode));
 
-                BaseMap basemap = portalInfo.DefaultBaseMap;
+                Basemap basemap = portalInfo.DefaultBasemap;
 
                 PropertiesListBox.Items.Add(string.Format("Default BaseMap Title: {0}", basemap.Title));
                 PropertiesListBox.Items.Add(string.Format("WebMap Layers ({0}):", basemap.Layers.Count));

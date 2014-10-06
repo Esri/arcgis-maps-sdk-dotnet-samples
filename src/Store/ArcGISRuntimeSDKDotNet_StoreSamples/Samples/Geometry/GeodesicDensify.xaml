@@ -4,10 +4,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:common="using:ArcGISRuntimeSDKDotNet_StoreSamples.Common"
     xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
-    xmlns:geo="using:Esri.ArcGISRuntime.Geometry"
-    xmlns:sym="using:Esri.ArcGISRuntime.Symbology"
-    xmlns:data="using:Esri.ArcGISRuntime.Data">
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+    xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
+	
     <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
             <common:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -15,28 +14,30 @@
             <esri:DrawShape x:Key="Polyline">Polyline</esri:DrawShape>
             <esri:DrawShape x:Key="Polygon">Polygon</esri:DrawShape>
 
-            <sym:SimpleMarkerSymbol x:Key="OrigVertexSymbol" Color="Red" Size="12" />
-            <sym:SimpleMarkerSymbol x:Key="NewVertexSymbol" Color="LightGreen" Size="8" />
-            <sym:SimpleLineSymbol x:Key="LineSymbol" Color="Blue" Width="2" Style="Solid" />
-            <sym:SimpleFillSymbol x:Key="FillSymbol" Color="#88000000" Style="Solid">
-                <sym:SimpleFillSymbol.Outline>
-                    <sym:SimpleLineSymbol Color="Black" Width="1" />
-                </sym:SimpleFillSymbol.Outline>
-            </sym:SimpleFillSymbol>
+			<symb:SimpleMarkerSymbol x:Key="OrigVertexSymbol" Color="Red" Size="12" />
+			<symb:SimpleMarkerSymbol x:Key="NewVertexSymbol" Color="LightGreen" Size="8" />
+			<symb:SimpleLineSymbol x:Key="LineSymbol" Color="Blue" Width="2" Style="Solid" />
+			<symb:SimpleFillSymbol x:Key="FillSymbol" Color="#88000000" Style="Solid">
+				<symb:SimpleFillSymbol.Outline>
+					<symb:SimpleLineSymbol Color="Black" Width="1" />
+                </symb:SimpleFillSymbol.Outline>
+            </symb:SimpleFillSymbol>
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" WrapAround="True">
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
             <esri:Map>
-                <esri:Map.InitialExtent>
-                    <geo:Envelope XMin="-15000000" YMin="2000000" XMax="-7000000" YMax="8000000" />
-                </esri:Map.InitialExtent>
+                <esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-15000000" YMin="2000000" XMax="-7000000" YMax="8000000" />
+                </esri:Map.InitialViewpoint>
 
-                <lyr:ArcGISTiledMapServiceLayer
+				<layers:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
-                <lyr:GraphicsLayer ID="InputGraphics" />
-                <lyr:GraphicsLayer ID="ResultGraphics" />
             </esri:Map>
-        </esri:MapView>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="inputOverlay" />
+				<esri:GraphicsOverlay ID="resultsOverlay" />
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
 
         <Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
             <StackPanel>
@@ -78,7 +79,7 @@
         </Border>
 
         <Border Background="#CC000000" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="20" Padding="10"
-                Visibility="{Binding ElementName=mapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
+                Visibility="{Binding ElementName=MyMapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
             <TextBlock Text="Draw a shape on the map." FontSize="14" />
         </Border>
     </Grid>

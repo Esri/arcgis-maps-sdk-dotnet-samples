@@ -24,7 +24,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         private Symbol _cutLineSymbol;
         private Symbol _cutFillSymbol;
         private FeatureLayer _statesLayer;
-        private GraphicsLayer _resultGraphics;
+        private GraphicsOverlay _resultGraphicsOverlay;
                 
         /// <summary>Construct Cut Geometry sample control</summary>
         public CutGeometry()
@@ -33,13 +33,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
             _cutLineSymbol = LayoutRoot.Resources["CutLineSymbol"] as Symbol;
             _cutFillSymbol = LayoutRoot.Resources["CutFillSymbol"] as Symbol;
-            _resultGraphics = mapView.Map.Layers["ResultGraphics"] as GraphicsLayer;
+			_resultGraphicsOverlay = MyMapView.GraphicsOverlays["resultsOverlay"];
 
-            var task = CreateFeatureLayersAsync();
+            CreateFeatureLayers();
         }
 
         // Creates a feature layer from a local .geodatabase file
-        private async Task CreateFeatureLayersAsync()
+        private async void CreateFeatureLayers()
         {
             try
             {
@@ -50,11 +50,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var gdb = await Geodatabase.OpenAsync(file.Path);
                 var table = gdb.FeatureTables.First(ft => ft.Name == "US-States");
                 _statesLayer = new FeatureLayer() { ID = table.Name, FeatureTable = table };
-                mapView.Map.Layers.Insert(1, _statesLayer);
+                MyMapView.Map.Layers.Insert(1, _statesLayer);
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Error creating feature layer: " + ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog("Error creating feature layer: " + ex.Message, "Sample Error").ShowAsync();
             }
         }
 
@@ -63,14 +63,16 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             try
             {
-                _resultGraphics.Graphics.Clear();
+                _resultGraphicsOverlay.Graphics.Clear();
 
                 // wait for user to draw cut line
-                var cutLine = await mapView.Editor.RequestShapeAsync(DrawShape.Polyline, _cutLineSymbol) as Polyline;
+                var cutLine = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polyline, _cutLineSymbol) as Polyline;
+
+				Polyline polyline = GeometryEngine.NormalizeCentralMeridian(cutLine) as Polyline;
 
                 // get intersecting features from the feature layer
                 SpatialQueryFilter filter = new SpatialQueryFilter();
-                filter.Geometry = GeometryEngine.Project(cutLine, _statesLayer.FeatureTable.SpatialReference);
+				filter.Geometry = GeometryEngine.Project(polyline, _statesLayer.FeatureTable.SpatialReference);
                 filter.SpatialRelationship = SpatialRelationship.Crosses;
                 filter.MaximumRows = 52;
                 var stateFeatures = await _statesLayer.FeatureTable.QueryAsync(filter);
@@ -78,18 +80,16 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 // Cut the feature geometries and add to graphics layer
                 var states = stateFeatures.Select(feature => feature.Geometry);
                 var cutGraphics = states
-                    .Where(geo => !GeometryEngine.Within(cutLine, geo))
-                    .SelectMany(state => GeometryEngine.Cut(state, cutLine))
+					.Where(geo => !GeometryEngine.Within(polyline, geo))
+					.SelectMany(state => GeometryEngine.Cut(state, polyline))
                     .Select(geo => new Graphic(geo, _cutFillSymbol));
 
-                _resultGraphics.Graphics.AddRange(cutGraphics);
+                _resultGraphicsOverlay.Graphics.AddRange(cutGraphics);
             }
-            catch (TaskCanceledException)
-            {
-            }
+            catch (TaskCanceledException) { }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Cut Error: " + ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog("Cut Error: " + ex.Message, "Sample Error").ShowAsync();
             }
         }
     }

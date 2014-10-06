@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Layers;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -13,35 +16,50 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	/// <subcategory>Feature Layers</subcategory>
 	public partial class FeatureLayerMapTips : UserControl
     {
+		private bool _isMapReady;
+
         /// <summary>Construct Map Tips sample</summary>
         public FeatureLayerMapTips()
         {
             InitializeComponent();
+
+			MyMapView.SpatialReferenceChanged += MyMapView_SpatialReferenceChanged;
         }
 
-        private async void mapView_MouseMove(object sender, MouseEventArgs e)
+		private async void MyMapView_SpatialReferenceChanged(object sender, System.EventArgs e)
+		{
+			await MyMapView.LayersLoadedAsync();
+			_isMapReady = true;
+		}
+
+		private async void MyMapView_MouseMove(object sender, MouseEventArgs e)
         {
-            try
+			if (!_isMapReady)
+				return;
+
+			try
             {
-                System.Windows.Point screenPoint = e.GetPosition(mapView);
-                var rows = await earthquakes.HitTestAsync(mapView, screenPoint);
+				_isMapReady = false;
+
+				Point screenPoint = e.GetPosition(MyMapView);
+				var rows = await earthquakes.HitTestAsync(MyMapView, screenPoint);
                 if (rows != null && rows.Length > 0)
                 {
                     var features = await earthquakes.FeatureTable.QueryAsync(rows);
-                    var feature = features.FirstOrDefault();
-
-                    maptipTransform.X = screenPoint.X + 4;
-                    maptipTransform.Y = screenPoint.Y - mapTip.ActualHeight;
-                    mapTip.DataContext = feature;
+					mapTip.DataContext = features.FirstOrDefault();
                     mapTip.Visibility = System.Windows.Visibility.Visible;
                 }
                 else
-                    mapTip.Visibility = System.Windows.Visibility.Hidden;
+                    mapTip.Visibility = System.Windows.Visibility.Collapsed;
             }
             catch
             {
-                mapTip.Visibility = System.Windows.Visibility.Hidden;
+                mapTip.Visibility = System.Windows.Visibility.Collapsed;
             }
+			finally
+			{
+				_isMapReady = true;
+			}
         }
     }
 }

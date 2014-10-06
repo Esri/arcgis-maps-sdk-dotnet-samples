@@ -3,20 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid x:Name="layoutGrid">
-        <esri:MapView x:Name="mapView" WrapAround="True">
-            <esri:Map>
-                <esri:Map.InitialExtent>
-                    <esri:Envelope XMin="-14131917.758914" YMin="5680423.82721854" XMax="-12669734.6418583" YMax="6341452.4447208" />
-                </esri:Map.InitialExtent>
-
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
+			<esri:Map InitialViewpoint="-14131917.758914,5680423.82721854,-12669734.6418583,6341452.4447208">
                 <esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer" />
-                <esri:ArcGISTiledMapServiceLayer
+				<esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Reference_Overlay/MapServer" />
-
-                <esri:FeatureLayer x:Name="featureLayer" Opacity="0.8">
+				<esri:FeatureLayer x:Name="featureLayer" Opacity="0.8">
                     <esri:FeatureLayer.FeatureTable>
-                        <esri:GeodatabaseFeatureServiceTable 
+                        <esri:ServiceFeatureTable 
                             Mode="Snapshot"
                             ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/2"
                             Where="STATE_NAME = 'Washington'"
@@ -26,10 +21,13 @@
             </esri:Map>
         </esri:MapView>
 
-        <Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="30"
+		<Border Background="White" BorderBrush="Black" BorderThickness="1" Margin="30" Padding="20"
                 HorizontalAlignment="Right" VerticalAlignment="Top">
-            <StackPanel Margin="30,20">
-                <TextBlock Text="Select a field to use to create a renderer for the counties in Washington state."
+			<Border.Effect>
+				<DropShadowEffect />
+			</Border.Effect>
+			<StackPanel>
+				<TextBlock Text="Select a field to use to create a renderer for the counties in Washington state."
                            FontSize="14" Width="300" TextAlignment="Left" TextWrapping="Wrap" />
 
                 <StackPanel HorizontalAlignment="Center">

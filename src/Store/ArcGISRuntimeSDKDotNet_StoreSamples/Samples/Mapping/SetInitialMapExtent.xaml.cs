@@ -1,10 +1,11 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
-    /// Shows how to set the initial extent of the map (Map.InitialExtent).
+	/// Shows how to set the initial extent of the map (Map.InitialViewpoint).
     /// </summary>
     /// <title>Set Initial Map Extent</title>
     /// <category>Mapping</category>
@@ -15,7 +16,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             InitializeComponent();
 
             // Note: uncomment the following to set the initial extent of the map in code.
-            //mapView.Map.InitialExtent = new Envelope(-13044000, 3855000, -13040000, 3858000); 
+			//MyMapView.Map.InitialViewpoint = new ViewpointExtent(
+			//	new Envelope(-117.182686,32.695853,-117.133872,32.718530, SpatialReferences.Wgs84)); 
         }
     }
 }

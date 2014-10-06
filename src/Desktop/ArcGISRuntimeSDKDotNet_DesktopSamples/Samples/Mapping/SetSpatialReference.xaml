@@ -3,17 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView x:Name="mapView" WrapAround="True">
-            <esri:Map>
-                <!-- Map Extent and Spatial Reference-->
-                <esri:Map.InitialExtent>
-                    <esri:Envelope XMin="661140" YMin="-1420246" XMax="3015668" YMax="1594451">
-                        <esri:Envelope.SpatialReference>
-                            <esri:SpatialReference Wkid="26777"/>
-                        </esri:Envelope.SpatialReference>
-                    </esri:Envelope>
-                </esri:Map.InitialExtent>
-
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
+			<esri:Map InitialViewpoint="661140, -1420246, 3015668, 1594451, 26777">
                 <esri:ArcGISDynamicMapServiceLayer
                         ServiceUri="http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Census_USA/MapServer"/>
                 <esri:ArcGISDynamicMapServiceLayer

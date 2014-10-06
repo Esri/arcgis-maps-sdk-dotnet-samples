@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -16,22 +17,22 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-            mapView.Loaded += mapView_Loaded;
-
-            mapView.Map.InitialExtent = new Envelope(-9840712.566, 5094828.570, -9684169.532, 5187877.291, SpatialReferences.WebMercator);
+            MyMapView.Loaded += MyMapView_Loaded;
         }
 
-        private void mapView_Loaded(object sender, RoutedEventArgs e)
+        private void MyMapView_Loaded(object sender, RoutedEventArgs e)
         {
             cboLayers.SelectedIndex = 0;
         }
 
         private void cboLayers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (cboLayers == null)
-                return;
+			if (cboLayers == null)
+				return;
 
-            WebTiledLayer webTiledLayer = mapView.Map.Layers["WebTiledLayer"] as WebTiledLayer;
+			MyMapView.Map.Layers.Remove("MyWebTiledLayer");
+
+			WebTiledLayer webTiledLayer = new WebTiledLayer() { ID = "MyWebTiledLayer" };
 
             switch (cboLayers.SelectedIndex)
             {
@@ -106,6 +107,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     webTiledLayer.CopyrightText = "Stamen Toner";
                     break;
             }
+			MyMapView.Map.Layers.Add(webTiledLayer);
         }
     }
 }

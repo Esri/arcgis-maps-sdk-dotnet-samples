@@ -7,19 +7,11 @@
 	xmlns:geom="using:Esri.ArcGISRuntime.Geometry">
     
     <Grid>
-		<esri:MapView x:Name="mapView1">
+		<esri:MapView x:Name="mapView">
 			<esri:Map >
-				<esri:Map.InitialExtent>
-					<geom:Envelope XMin="-12387666.9930794" YMin="3775019.32005654"
-								   XMax="-12309395.4761154" YMax="3818219.62318802">
-						<geom:Envelope.SpatialReference>
-							<geom:SpatialReference Wkid="102100" />
-						</geom:Envelope.SpatialReference>
-					</geom:Envelope>
-				</esri:Map.InitialExtent>
-			<lyr:ArcGISDynamicMapServiceLayer
-                ServiceUri="http://serverapps101.esri.com/arcgis/rest/services/USAStreetMap/MapServer" />
-		</esri:Map></esri:MapView>
-
+				<lyr:ArcGISDynamicMapServiceLayer
+					ServiceUri="http://serverapps101.esri.com/arcgis/rest/services/USAStreetMap/MapServer" />
+			</esri:Map>
+		</esri:MapView>
 	</Grid>
 </Page>

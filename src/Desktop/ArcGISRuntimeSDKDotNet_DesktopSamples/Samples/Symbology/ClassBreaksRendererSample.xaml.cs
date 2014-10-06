@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Symbology;
+﻿using Esri.ArcGISRuntime.Layers;
+using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Linq;
+using Esri.ArcGISRuntime.Controls;
 
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
@@ -17,21 +20,24 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	public partial class ClassBreaksRendererSample : UserControl
     {
         private Random _random = new Random();
+		private GraphicsOverlay _earthquakes;
 
         /// <summary>Construct Class Breaks Renderer sample control</summary>
         public ClassBreaksRendererSample()
         {
             InitializeComponent();
 
-            mapView.ExtentChanged += mapView_ExtentChanged;
+			_earthquakes = MyMapView.GraphicsOverlays["earthquakes"];
+
+            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 
         // Load earthquake data
-        private async void mapView_ExtentChanged(object sender, EventArgs e)
+        private async void MyMapView_ExtentChanged(object sender, EventArgs e)
         {
             try
             {
-                mapView.ExtentChanged -= mapView_ExtentChanged;
+                MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
                 await LoadEarthquakesAsync();
             }
             catch (Exception ex)
@@ -45,7 +51,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             SimpleMarkerStyle style = (SimpleMarkerStyle)_random.Next(0, 6);
 
-            earthquakes.Renderer = new ClassBreaksRenderer()
+			_earthquakes.Renderer = new ClassBreaksRenderer()
             {
                 Field = "magnitude",
                 Infos = new ClassBreakInfoCollection() 
@@ -65,17 +71,17 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             var queryTask = new QueryTask(
                 new Uri("http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Earthquakes/EarthquakesFromLastSevenDays/MapServer/0"));
-            var query = new Query(mapView.Extent)
+            var query = new Query(MyMapView.Extent)
             {
                 ReturnGeometry = true,
-                OutSpatialReference = mapView.SpatialReference,
+                OutSpatialReference = MyMapView.SpatialReference,
                 Where = "magnitude > 2.0",
                 OutFields = new OutFields(new List<string> { "magnitude" })
             };
             var result = await queryTask.ExecuteAsync(query);
 
-            earthquakes.Graphics.Clear();
-            earthquakes.Graphics.AddRange(result.FeatureSet.Features);
+			_earthquakes.Graphics.Clear();
+			_earthquakes.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
         }
 
         // Utility: Generate a random simple marker symbol

@@ -13,17 +13,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public SetSpatialReference()
         {
             InitializeComponent();
-
-            // NOTE: uncomment the following to set the initial extent and spatial reference via code.
-
-            //mapView.Map.InitialExtent = new Envelope()
-            //{
-            //    XMin = 661140,
-            //    YMin = -1420246,
-            //    XMax = 3015668,
-            //    YMax = 1594451,
-            //    SpatialReference = new SpatialReference(26777)
-            //};
+		
+			MyMapView.Map.SpatialReference = SpatialReference.Create(26777); //Force map spatial reference to Wkid=26777
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Geocoding;
 using System;
@@ -23,9 +24,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public FindAnAddress()
         {
             this.InitializeComponent();
-            mapView1.Map.InitialExtent = GeometryEngine.Project(new Envelope(-122.554, 37.615, -122.245, 37.884, SpatialReferences.Wgs84),
-                SpatialReferences.WebMercator) as Envelope;
-            _candidateGraphicsLayer = mapView1.Map.Layers["CandidateGraphicsLayer"] as GraphicsLayer;
+			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-122.554, 37.615, -122.245, 37.884, SpatialReferences.Wgs84));
+			_candidateGraphicsLayer = mapView1.Map.Layers["CandidateGraphicsLayer"] as GraphicsLayer;
         }
 
         private async void FindAddressButton_Click(object sender, RoutedEventArgs e)
@@ -68,19 +68,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                             {
                                 Graphic graphic = new Graphic()
                                 {
-                                    Geometry = candidate.Location
+                                    Geometry = new MapPoint(candidate.Location.X, candidate.Location.Y, SpatialReferences.Wgs84)
                                 };
 
                                 graphic.Attributes.Add("Address", candidate.Address);
 
                                 string latlon = String.Format("{0}, {1}", candidate.Location.X, candidate.Location.Y);
                                 graphic.Attributes.Add("LatLon", latlon);
-
-                                if (candidate.Location.SpatialReference == null)
-                                {
-                                    candidate.Location.SpatialReference = SpatialReferences.Wgs84;
-                                }
-
                                 _candidateGraphicsLayer.Graphics.Add(graphic);
                             }
                         }
@@ -132,7 +126,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 }
                 //Convert anchor point to the spatial reference of the map
                 var mp = GeometryEngine.Project(anchor, mapView1.SpatialReference) as MapPoint;
-                //Convert anchor point to screen coordinate
+                //Convert anchor point to screen MapPoint
                 var screen = mapView1.LocationToScreen(mp);
 
                 if (screen.X >= 0 && screen.Y >= 0 &&

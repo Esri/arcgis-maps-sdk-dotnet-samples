@@ -25,12 +25,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 		{
 			this.InitializeComponent();
 
-            mapView.Map.InitialExtent = new Envelope(-14675766.3566695, 2695407.73380258, -6733121.86117095, 6583994.1013904);
+            _featureLayer = MyMapView.Map.Layers["FeatureLayer"] as FeatureLayer;
+            ((ServiceFeatureTable)_featureLayer.FeatureTable).OutFields = OutFields.All;
 
-            _featureLayer = mapView.Map.Layers["FeatureLayer"] as FeatureLayer;
-            ((GeodatabaseFeatureServiceTable)_featureLayer.FeatureTable).OutFields = OutFields.All;
-
-            panelPrompt.DataContext = mapView;
+            panelPrompt.DataContext = MyMapView;
             SetSelectionCountUI();
         }
 
@@ -44,7 +42,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Selection Error: " + ex.Message, "Feature Layer Selection Sample").ShowAsync();
+                var _x = new MessageDialog("Selection Error: " + ex.Message, "Feature Layer Selection Sample").ShowAsync();
             }
         }
 
@@ -58,7 +56,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Selection Error: " + ex.Message, "Feature Layer Selection Sample").ShowAsync();
+                var _x = new MessageDialog("Selection Error: " + ex.Message, "Feature Layer Selection Sample").ShowAsync();
             }
         }
 
@@ -71,13 +69,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Selection Error: " + ex.Message, "Feature Layer Selection Sample").ShowAsync();
+                var _x = new MessageDialog("Selection Error: " + ex.Message, "Feature Layer Selection Sample").ShowAsync();
             }
         }
 
         private async Task<long[]> FindIntersectingFeaturesAsync()
         {
-            var rect = await mapView.Editor.RequestShapeAsync(DrawShape.Rectangle);
+            var rect = await MyMapView.Editor.RequestShapeAsync(DrawShape.Rectangle);
 
             SpatialQueryFilter filter = new SpatialQueryFilter();
             filter.Geometry = GeometryEngine.Project(rect, _featureLayer.FeatureTable.SpatialReference);

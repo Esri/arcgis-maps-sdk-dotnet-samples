@@ -1,6 +1,4 @@
-﻿using Esri.ArcGISRuntime;
-using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Layers;
+﻿using Esri.ArcGISRuntime.Layers;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
 
@@ -16,24 +14,24 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public OverviewMap()
         {
             this.InitializeComponent();
+			MyMapView.ExtentChanged += MyMapView_ExtentChanged;
+       }
 
-            mapView.Map.InitialExtent = GeometryEngine.Project(
-                new Envelope(-5, 20, 50, 65, SpatialReferences.Wgs84), SpatialReferences.WebMercator) as Envelope;
-        }
-
-        private async void mapView_ExtentChanged(object sender, System.EventArgs e)
+        private async void MyMapView_ExtentChanged(object sender, System.EventArgs e)
         {
-            var graphicslayer = overviewMap.Map.Layers.OfType<GraphicsLayer>().FirstOrDefault();
-            Graphic g = graphicslayer.Graphics.FirstOrDefault();
+			var graphicsOverlay = overviewMap.GraphicsOverlays["overviewOverlay"];
+
+			// Update overview map graphic
+			Graphic g = graphicsOverlay.Graphics.FirstOrDefault();
             if (g == null) //first time
             {
                 g = new Graphic();
-                graphicslayer.Graphics.Add(g);
+				graphicsOverlay.Graphics.Add(g);
             }
-            g.Geometry = mapView.Extent;
+            g.Geometry = MyMapView.Extent;
 
             // Adjust overview map scale
-            await overviewMap.SetViewAsync(mapView.Extent.GetCenter(), mapView.Scale * 15);
+            await overviewMap.SetViewAsync(MyMapView.Extent.GetCenter(), MyMapView.Scale * 15);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Esri.ArcGISRuntime.Symbology;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Layers;
+using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
 using System.Collections.Generic;
@@ -19,21 +21,24 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	public partial class UniqueValueRendererSample : UserControl
     {
         private Random _random = new Random();
+		private GraphicsOverlay _states;
 
         /// <summary>Construct Unique Value Renderer sample control</summary>
         public UniqueValueRendererSample()
         {
             InitializeComponent();
 
-            mapView.ExtentChanged += mapView_ExtentChanged;
+			_states = MyMapView.GraphicsOverlays["states"];
+
+            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 
         // Load state data - set initial renderer
-        private async void mapView_ExtentChanged(object sender, EventArgs e)
+        private async void MyMapView_ExtentChanged(object sender, EventArgs e)
         {
             try
             {
-                mapView.ExtentChanged -= mapView_ExtentChanged;
+                MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
                 await LoadStatesAsync();
 
                 ChangeRenderer();
@@ -52,14 +57,20 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private void ChangeRenderer()
         {
-            var renderer = new UniqueValueRenderer() { Fields = new ObservableCollection<string>(new List<string> { "sub_region" }) };
+            var renderer = new UniqueValueRenderer() 
+			{ 
+				Fields = new ObservableCollection<string>(new List<string> { "sub_region" }) 
+			};
 
-            renderer.Infos = new UniqueValueInfoCollection(states.Graphics
+			renderer.Infos = new UniqueValueInfoCollection(_states.Graphics
                 .Select(g => g.Attributes["sub_region"])
                 .Distinct()
-                .Select(obj => new UniqueValueInfo { Values = new ObservableCollection<object>(new object[] { obj }), Symbol = GetRandomSymbol() }));
+                .Select(obj => new UniqueValueInfo { 
+					Values = new ObservableCollection<object>(new object[] { obj }), 
+					Symbol = GetRandomSymbol() 
+				}));
 
-            states.Renderer = renderer;
+			_states.Renderer = renderer;
         }
 
         // Load US state data from map service
@@ -67,16 +78,17 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             var queryTask = new QueryTask(
                 new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2"));
-            var query = new Query(mapView.Extent)
+            var query = new Query(MyMapView.Extent)
             {
                 ReturnGeometry = true,
-                OutSpatialReference = mapView.SpatialReference,
+				MaxAllowableOffset = MyMapView.UnitsPerPixel,
+                OutSpatialReference = MyMapView.SpatialReference,
                 OutFields = new OutFields(new List<string> { "sub_region" })
             };
             var result = await queryTask.ExecuteAsync(query);
 
-            states.Graphics.Clear();
-            states.Graphics.AddRange(result.FeatureSet.Features);
+			_states.Graphics.Clear();
+			_states.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
         }
 
         // Utility: Generate a random simple fill symbol

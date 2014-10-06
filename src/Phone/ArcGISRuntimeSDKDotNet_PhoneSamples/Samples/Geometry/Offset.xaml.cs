@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
@@ -23,7 +24,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            mapView1.Map.InitialExtent = new Envelope(-9275076.4794, 5253225.9406, -9274273.6411, 5253885.6155, SpatialReferences.WebMercator);
+			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-9275076, 5253226, -9274274, 5253886, SpatialReferences.WebMercator));
             parcelGraphicsLayer = mapView1.Map.Layers["ParcelsGraphicsLayer"] as GraphicsLayer;
             offsetGraphicsLayer = mapView1.Map.Layers["OffsetGraphicsLayer"] as GraphicsLayer;
 
@@ -64,7 +65,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 offsetGraphicsLayer.Graphics.Clear();
 
                 var pointGeom = await mapView1.Editor.RequestPointAsync();
-                pointGeom.SpatialReference = mapView1.SpatialReference;
                 var screenPnt = mapView1.LocationToScreen(pointGeom);
 
                 selectedParcelGraphic = await
@@ -126,9 +126,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
                     //Create a geometry to use as the extent within which parcels will be returned
                     var contractRatio = mapView1.Extent.Width / 6;
-                    var extentGeometry = new Envelope(-83.3188395774275, 42.61428312652851, -83.31295664068958, 42.61670913269855);
-
-                    extentGeometry.SpatialReference = SpatialReferences.Wgs84;
+                    var extentGeometry = new Envelope(-83.3188395774275, 42.61428312652851, -83.31295664068958, 42.61670913269855, SpatialReferences.Wgs84);
                     Query query = new Query(extentGeometry);
                     query.ReturnGeometry = true;
                     query.OutSpatialReference = mapView1.SpatialReference;
@@ -139,7 +137,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                         var results = await queryTask.ExecuteAsync(query, CancellationToken.None);
                         foreach (Graphic g in results.FeatureSet.Features)
                         {
-                            g.Geometry.SpatialReference = mapView1.SpatialReference;
                             parcelGraphicsLayer.Graphics.Add(g);
                         }
                         LoadingParcelsIndicator.IsActive = false;

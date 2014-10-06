@@ -19,10 +19,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-            RunQuery().ContinueWith((_) => { }, TaskScheduler.FromCurrentSynchronizationContext());
+            RunQuery();
         }
 
-        private async Task RunQuery()
+        private async void RunQuery()
         {
             QueryTask queryTask =
                 new QueryTask(new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2"));

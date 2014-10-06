@@ -1,4 +1,5 @@
 ﻿using Esri.ArcGISRuntime.ArcGISServices;
+using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
@@ -6,11 +7,14 @@ using Esri.ArcGISRuntime.Tasks.Geocoding;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalyst;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using Windows.UI;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
@@ -18,166 +22,151 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 	/// 
 	/// </summary>
 	/// <category>Network Analyst Tasks</category>
-	public sealed partial class DrivingDirections : Page
+    public sealed partial class DrivingDirections : Windows.UI.Xaml.Controls.Page
     {
+        private const string OnlineRoutingService = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route";
+
+        private OnlineRouteTask _routeTask;
+        private Symbol _directionPointSymbol;
+        private GraphicsOverlay _stopsOverlay;
+        private GraphicsOverlay _routesOverlay;
+        private GraphicsOverlay _directionsOverlay;
+
         public DrivingDirections()
         {
             this.InitializeComponent();
-            mapView1.Map.InitialExtent = new Envelope(-123, 33, -115, 37);
+            _directionPointSymbol = LayoutRoot.Resources["directionPointSymbol"] as Symbol;
+            _stopsOverlay = MyMapView.GraphicsOverlays["StopsOverlay"];
+            _routesOverlay = MyMapView.GraphicsOverlays["RoutesOverlay"];
+            _directionsOverlay = MyMapView.GraphicsOverlays["DirectionsOverlay"];
+
+            _routeTask = new OnlineRouteTask(new Uri(OnlineRoutingService));
         }
 
-        private async void GetDirections_Click(object sender, RoutedEventArgs e)
+        // Get user Stop points
+        private void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
-            //Reset
-            DirectionsStackPanel.Children.Clear();
-            var _stops = new List<Graphic>();
-            var _locator = new OnlineLocatorTask(new Uri("http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"), "");
-            var routeLayer = mapView1.Map.Layers["MyRouteGraphicsLayer"] as GraphicsLayer;
-            routeLayer.Graphics.Clear();
             try
             {
-                var fields = new List<string> { "Loc_name" };
-                //Geocode from address
-                var fromLocation = await _locator.GeocodeAsync(ParseAddress(FromTextBox.Text), fields, CancellationToken.None);
-                if (fromLocation != null && fromLocation.Count > 0)
+                e.Handled = true;
+
+                if (_directionsOverlay.Graphics.Count() > 0)
                 {
-                    var result = fromLocation.FirstOrDefault();
-                    Graphic graphicLocation = new Graphic() { Geometry = result.Location, Symbol = LayoutRoot.Resources["FromSymbol"] as Esri.ArcGISRuntime.Symbology.Symbol };
-                    graphicLocation.Attributes["address"] = result.Address;
-                    graphicLocation.Attributes["score"] = result.Score;
-                    _stops.Add(graphicLocation);
-                    routeLayer.Graphics.Add(graphicLocation);
-                }
-                //Geocode to address
-                var toLocation = await _locator.GeocodeAsync(ParseAddress(ToTextBox.Text), fields, CancellationToken.None);
-                if (toLocation != null && toLocation.Count > 0)
-                {
-                    var result = toLocation.FirstOrDefault();
-                    Graphic graphicLocation = new Graphic() { Geometry = result.Location, Symbol = LayoutRoot.Resources["ToSymbol"] as Esri.ArcGISRuntime.Symbology.Symbol };
-                    graphicLocation.Attributes["address"] = result.Address;
-                    graphicLocation.Attributes["score"] = result.Score;
-                    _stops.Add(graphicLocation);
-                    routeLayer.Graphics.Add(graphicLocation);
+                    panelResults.Visibility = Visibility.Collapsed;
+
+                    _stopsOverlay.Graphics.Clear();
+                    _routesOverlay.Graphics.Clear();
+                    _directionsOverlay.GraphicsSource = null;
                 }
 
-                var routeTask = new OnlineRouteTask(new Uri("http://tasks.arcgisonline.com/ArcGIS/rest/services/NetworkAnalysis/ESRI_Route_NA/NAServer/Route"));
-                RouteParameters routeParams = await routeTask.GetDefaultParametersAsync();
-                routeParams.ReturnRoutes = true;
-                routeParams.ReturnDirections = true;
-                routeParams.DirectionsLengthUnit = LinearUnits.Miles;
-                routeParams.UseTimeWindows = false;
-                routeParams.OutSpatialReference = mapView1.SpatialReference;
-                routeParams.Stops = new FeaturesAsFeature(routeLayer.Graphics);
-
-                var routeTaskResult = await routeTask.SolveAsync(routeParams);
-                _directionsFeatureSet = routeTaskResult.Routes.FirstOrDefault();
-
-                _directionsFeatureSet.RouteGraphic.Symbol = LayoutRoot.Resources["RouteSymbol"] as Esri.ArcGISRuntime.Symbology.Symbol;
-                routeLayer.Graphics.Add(_directionsFeatureSet.RouteGraphic);
-
-                var totalLength = _directionsFeatureSet.GetTotalLength(LinearUnits.Miles);
-                var calculatedLength = _directionsFeatureSet.RouteDirections.Sum(x => x.GetLength(LinearUnits.Miles));
-
-                TotalDistanceTextBlock.Text = string.Format("Total Distance: {0:N3} miles", totalLength); 
-
-                TotalTimeTextBlock.Text = string.Format("Total Time: {0}", FormatTime(_directionsFeatureSet.TotalTime.TotalMinutes));
-                TitleTextBlock.Text = _directionsFeatureSet.RouteName;
-
-                int i = 1;
-                foreach (var item in _directionsFeatureSet.RouteDirections)
-                {
-                    TextBlock textBlock = new TextBlock() { Text = string.Format("{0:00} - {1}", i, item.Text), Tag = item.Geometry, Margin = new Thickness(0, 15,0,0), FontSize = 20 };
-                    textBlock.Tapped += TextBlock_Tapped;
-                    DirectionsStackPanel.Children.Add(textBlock);
-
-                    var secondarySP = new StackPanel() { Orientation = Orientation.Horizontal };
-                    if (item.Time.TotalMinutes > 0)
-                    {
-                        var timeTb = new TextBlock { Text = string.Format("Time : {0:N2} minutes", item.Time.TotalMinutes), Margin= new Thickness(45,0,0,0) };
-                        secondarySP.Children.Add(timeTb);
-                        var distTb = new TextBlock { Text = string.Format("Distance : {0:N2} miles", item.GetLength(LinearUnits.Miles)), Margin = new Thickness(25, 0, 0, 0) };
-                        secondarySP.Children.Add(distTb);
-
-                        DirectionsStackPanel.Children.Add(secondarySP);
-                    }
-                    i++;
-                }
-
-                mapView1.SetView(_directionsFeatureSet.RouteGraphic.Geometry.Extent.Expand(1.2));
+                var graphicIdx = _stopsOverlay.Graphics.Count + 1;
+                _stopsOverlay.Graphics.Add(CreateStopGraphic(e.Location, graphicIdx));
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(ex.Message);
+                var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
             }
         }
-        Route _directionsFeatureSet;
-        Graphic _activeSegmentGraphic;
-        private void TextBlock_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
-        {
 
-            TextBlock textBlock = sender as TextBlock;
-            var geom = textBlock.Tag as Geometry;
-            if (geom != null)
+        // Calculate the route
+        private async void MyMapView_MapViewDoubleTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
+        {
+            if (_stopsOverlay.Graphics.Count() < 2)
+                return;
+
+            try
             {
-                mapView1.SetView(geom.Extent.Expand(1.2));
-                if (_activeSegmentGraphic == null)
-                {
-                    _activeSegmentGraphic = new Graphic() { Symbol = LayoutRoot.Resources["SegmentSymbol"] as Esri.ArcGISRuntime.Symbology.Symbol };
-                    GraphicsLayer graphicsLayer = mapView1.Map.Layers["MyRouteGraphicsLayer"] as GraphicsLayer;
-                    graphicsLayer.Graphics.Add(_activeSegmentGraphic);
-                }
-                _activeSegmentGraphic.Geometry = geom;
-            }
-        }
+                e.Handled = true;
 
-        void StackPanel_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
-        {
-            if (_directionsFeatureSet != null)
+                panelResults.Visibility = Visibility.Collapsed;
+                progress.Visibility = Visibility.Visible;
+
+                RouteParameters routeParams = await _routeTask.GetDefaultParametersAsync();
+                routeParams.OutSpatialReference = MyMapView.SpatialReference;
+                routeParams.ReturnDirections = true;
+                routeParams.DirectionsLengthUnit = LinearUnits.Miles;
+                routeParams.DirectionsLanguage = new CultureInfo("en-Us"); // CultureInfo.CurrentCulture;
+                routeParams.SetStops(_stopsOverlay.Graphics);
+
+                var routeResult = await _routeTask.SolveAsync(routeParams);
+                if (routeResult == null || routeResult.Routes == null || routeResult.Routes.Count() == 0)
+                    throw new Exception("No route could be calculated");
+
+                var route = routeResult.Routes.First();
+                _routesOverlay.Graphics.Add(new Graphic(route.RouteFeature.Geometry));
+
+                _directionsOverlay.GraphicsSource = route.RouteDirections.Select(rd => GraphicFromRouteDirection(rd));
+
+                var totalTime = route.RouteDirections.Select(rd => rd.Time).Aggregate(TimeSpan.Zero, (p, v) => p.Add(v));
+                var totalLength = route.RouteDirections.Select(rd => rd.GetLength(LinearUnits.Miles)).Sum();
+                txtRouteTotals.Text = string.Format("Time: {0:h':'mm':'ss} / Length: {1:0.00} mi", totalTime, totalLength);
+
+                await MyMapView.SetViewAsync(route.RouteFeature.Geometry.Extent.Expand(1.25));
+            }
+            catch (AggregateException ex)
             {
-                mapView1.SetView(_directionsFeatureSet.RouteGraphic.Geometry.Extent.Expand(0.6));
+                var message = ex.Message;
+                var innermostExceptions = ex.Flatten().InnerExceptions;
+                if (innermostExceptions != null && innermostExceptions.Count > 0)
+                    message = innermostExceptions[0].Message;
+
+                var _x = new MessageDialog(message, "Sample Error").ShowAsync();
             }
-        }
-
-        private IDictionary<string, string> ParseAddress(string addressStr)
-        {
-            string[] fromArray = addressStr.Split(new char[] { ',' });
-            var address = new Dictionary<string, string>();
-            address.Add("Address", fromArray[0]);
-            address.Add("City", fromArray[1]);
-            address.Add("State", fromArray[2]);
-            address.Add("Zip", fromArray[3]);
-            address.Add("Country", "USA");
-
-            //param.OutFields.Add("Loc_name");
-
-            return address;
-        }
-
-        private string FormatDistance(double dist, string units)
-        {
-            string result = "";
-            double formatDistance = Math.Round(dist, 2);
-            if (formatDistance != 0)
+            catch (Exception ex)
             {
-                result = formatDistance + " " + units;
+                var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
             }
-            return result;
+            finally
+            {
+                progress.Visibility = Visibility.Collapsed;
+                if (_directionsOverlay.Graphics.Count() > 0)
+                    panelResults.Visibility = Visibility.Visible;
+            }
         }
 
-        private string FormatTime(double minutes)
+        private Graphic CreateStopGraphic(MapPoint location, int id)
         {
-            TimeSpan time = TimeSpan.FromMinutes(minutes);
-            string result = "";
-            int hours = (int)Math.Floor(time.TotalHours);
-            if (hours > 1)
-                result = string.Format("{0} hours ", hours);
-            else if (hours == 1)
-                result = string.Format("{0} hour ", hours);
-            if (time.Minutes > 1)
-                result += string.Format("{0} minutes ", time.Minutes);
-            else if (time.Minutes == 1)
-                result += string.Format("{0} minute ", time.Minutes);
-            return result;
+            var symbol = new CompositeSymbol();
+            symbol.Symbols.Add(new SimpleMarkerSymbol() { Style = SimpleMarkerStyle.Circle, Color = Colors.Blue, Size = 16 });
+            symbol.Symbols.Add(new TextSymbol()
+            {
+                Text = id.ToString(),
+                Color = Colors.White,
+                VerticalTextAlignment = VerticalTextAlignment.Middle,
+                HorizontalTextAlignment = HorizontalTextAlignment.Center,
+                YOffset = -1
+            });
+
+            var graphic = new Graphic()
+            {
+                Geometry = location,
+                Symbol = symbol
+            };
+
+            return graphic;
+        }
+
+        private Graphic GraphicFromRouteDirection(RouteDirection rd)
+        {
+            var graphic = new Graphic(rd.Geometry);
+            graphic.Attributes.Add("Direction", rd.Text);
+            graphic.Attributes.Add("Time", string.Format("{0:h\\:mm\\:ss}", rd.Time));
+            graphic.Attributes.Add("Length", string.Format("{0:0.00}", rd.GetLength(LinearUnits.Miles)));
+            if (rd.Geometry is MapPoint)
+                graphic.Symbol = _directionPointSymbol;
+
+            return graphic;
+        }
+
+        private void listDirections_SelectionChanged(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
+        {
+            _directionsOverlay.ClearSelection();
+
+            if (e.AddedItems != null && e.AddedItems.Count == 1)
+            {
+                var graphic = e.AddedItems[0] as Graphic;
+                graphic.IsSelected = true;
+            }
         }
     }
 }

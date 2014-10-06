@@ -1,7 +1,9 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalyst;
 using System;
+using System.Globalization;
 using System.Linq;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
@@ -17,7 +19,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public Routing()
         {
             this.InitializeComponent();
-            mapView1.Map.InitialExtent = new Envelope(-117.22, 34.04, -117.17, 34.07);
         }
 
         private async void mapView1_Tapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
@@ -31,15 +32,16 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             {
                 try
                 {
-                    var routeTask = new OnlineRouteTask(new Uri("http://tasks.arcgisonline.com/ArcGIS/rest/services/NetworkAnalysis/ESRI_Route_NA/NAServer/Route"));
+                    var routeTask = new OnlineRouteTask(
+						new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route"));
                     var routeParams = await routeTask.GetDefaultParametersAsync();
 
-                    FeaturesAsFeature stopsFeatures = new FeaturesAsFeature();
-                    stopsFeatures.Features = stopsGraphicsLayer.Graphics;
-                    routeParams.Stops = stopsFeatures;
+                    routeParams.SetStops(stopsGraphicsLayer.Graphics);
                     routeParams.UseTimeWindows = false;
                     routeParams.OutSpatialReference = mapView1.SpatialReference;
                     routeParams.DirectionsLengthUnit = LinearUnits.Miles;
+					routeParams.DirectionsLanguage = new CultureInfo("en-Us"); // CultureInfo.CurrentCulture;
+
                     var result = await routeTask.SolveAsync(routeParams);
                     if (result != null)
                     {
@@ -55,14 +57,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                                     totalMins = totalMins + dir.Time.Minutes;
 
                                 await new MessageDialog(string.Format("{0:N2} minutes", totalMins)).ShowAsync();
-
                             }
 
                             var routeLayer = mapView1.Map.Layers["MyRouteGraphicsLayer"] as GraphicsLayer;
-                            routeLayer.Graphics.Add(firstRoute.RouteGraphic);
+                            routeLayer.Graphics.Add(firstRoute.RouteFeature as Graphic);
                         }
                     }
-
                 }
                 catch (Exception ex)
                 {
@@ -70,7 +70,5 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 }
             }
         }
-
-
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
@@ -23,12 +22,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 		{
 			this.InitializeComponent();
 
-            mapView.MapViewTapped += mapView_MapViewTapped;
+            MyMapView.MapViewTapped += MyMapView_MapViewTapped;
 
-            mapView.Map.InitialExtent = new Envelope(-14675766.3566695, 2695407.73380258, -6733121.86117095, 6583994.1013904);
-
-            _featureLayer = mapView.Map.Layers["FeatureLayer"] as FeatureLayer;
-            ((GeodatabaseFeatureServiceTable)_featureLayer.FeatureTable).OutFields = OutFields.All;
+            _featureLayer = MyMapView.Map.Layers["FeatureLayer"] as FeatureLayer;
+            ((ServiceFeatureTable)_featureLayer.FeatureTable).OutFields = OutFields.All;
         }
 
         /// <summary>
@@ -37,11 +34,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         /// - Query the feature table for the returned row
         /// - Set the result feature for the UI
         /// </summary>
-        private async void mapView_MapViewTapped(object sender, MapViewInputEventArgs e)
+        private async void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
             try
             {
-                var rows = await _featureLayer.HitTestAsync(mapView, e.Position);
+                var rows = await _featureLayer.HitTestAsync(MyMapView, e.Position);
                 if (rows != null && rows.Length > 0)
                 {
                     var features = await _featureLayer.FeatureTable.QueryAsync(rows);
@@ -57,7 +54,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             catch (Exception ex)
             {
                 listHitFeature.ItemsSource = null;
-                var _ = new MessageDialog("HitTest Error: " + ex.Message, "Feature Layer Hit Testing Sample").ShowAsync();
+                var _x = new MessageDialog("HitTest Error: " + ex.Message, "Feature Layer Hit Testing Sample").ShowAsync();
             }
         }
     }

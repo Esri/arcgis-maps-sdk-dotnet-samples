@@ -23,18 +23,20 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private Symbol _clipSymbol;
         private FeatureLayer _statesLayer;
 
+		private GraphicsOverlay _clippedGraphicsOverlay;
+
         /// <summary>Construct Clip Geometry sample control</summary>
         public ClipGeometry()
         {
             InitializeComponent();
 
             _clipSymbol = layoutGrid.Resources["ClipRectSymbol"] as Symbol;
-
-            var task = CreateFeatureLayersAsync();
+			_clippedGraphicsOverlay = MyMapView.GraphicsOverlays["clippedGraphicsOverlay"];
+            CreateFeatureLayers();
         }
 
         // Creates a feature layer from a local .geodatabase file
-        private async Task CreateFeatureLayersAsync()
+		private async void CreateFeatureLayers()
         {
             try
             {
@@ -42,7 +44,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
                 var table = gdb.FeatureTables.First(ft => ft.Name == "US-States");
                 _statesLayer = new FeatureLayer() { ID = table.Name, FeatureTable = table };
-                mapView.Map.Layers.Insert(1, _statesLayer);
+                MyMapView.Map.Layers.Insert(1, _statesLayer);
             }
             catch (Exception ex)
             {
@@ -55,14 +57,16 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                clippedGraphics.Graphics.Clear();
+				_clippedGraphicsOverlay.Graphics.Clear();
 
                 // wait for user to draw clip rect
-                var rect = await mapView.Editor.RequestShapeAsync(DrawShape.Rectangle);
+                var rect = await MyMapView.Editor.RequestShapeAsync(DrawShape.Rectangle);
+
+				Polygon polygon = GeometryEngine.NormalizeCentralMeridian(rect) as Polygon;
 
                 // get intersecting features from the feature layer
                 SpatialQueryFilter filter = new SpatialQueryFilter();
-                filter.Geometry = GeometryEngine.Project(rect, _statesLayer.FeatureTable.SpatialReference);
+				filter.Geometry = GeometryEngine.Project(polygon, _statesLayer.FeatureTable.SpatialReference);
                 filter.SpatialRelationship = SpatialRelationship.Intersects;
                 filter.MaximumRows = 52;
                 var stateFeatures = await _statesLayer.FeatureTable.QueryAsync(filter);
@@ -70,14 +74,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 // Clip the feature geometries and add to graphics layer
                 var states = stateFeatures.Select(feature => feature.Geometry);
                 var clipGraphics = states
-                    .Select(state => GeometryEngine.Clip(state, rect.Extent))
+					.Select(state => GeometryEngine.Clip(state, polygon.Extent))
                     .Select(geo => new Graphic(geo, _clipSymbol));
 
-                clippedGraphics.Graphics.AddRange(clipGraphics);
+				_clippedGraphicsOverlay.Graphics.AddRange(clipGraphics);
             }
-            catch (TaskCanceledException)
-            {
-            }
+            catch (TaskCanceledException) { }
             catch (Exception ex)
             {
                 MessageBox.Show("Clip Error: " + ex.Message, "Clip Geometry");

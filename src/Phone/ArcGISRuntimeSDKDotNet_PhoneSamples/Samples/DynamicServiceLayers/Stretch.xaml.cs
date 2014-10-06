@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using System;
 using System.Collections.Generic;
@@ -16,8 +17,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public Stretch()
         {
             this.InitializeComponent();
-            mapView1.Map.InitialExtent =
-                new Envelope(-13483041, 5707158, -13300798, 5776035, new SpatialReference(102100));
+            mapView1.Map.InitialViewpoint =
+                new Viewpoint(new Envelope(-13483041, 5707158, -13300798, 5776035, SpatialReferences.WebMercator));
         }
 
         private void ApplyButton_Click(object sender, RoutedEventArgs e)

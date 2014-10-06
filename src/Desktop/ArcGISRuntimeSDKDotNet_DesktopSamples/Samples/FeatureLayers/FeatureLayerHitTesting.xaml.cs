@@ -1,11 +1,10 @@
-﻿using Esri.ArcGISRuntime.Data;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Data;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
@@ -21,6 +20,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public event PropertyChangedEventHandler PropertyChanged;
 
         private Feature _resultFeature;
+
         /// <summary>HitTest result feature</summary>
         public Feature ResultFeature 
         {
@@ -47,11 +47,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         /// - Query the feature table for the returned row
         /// - Set the result feature for the UI
         /// </summary>
-        private async void mapView_MapViewTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
+		private async void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
             try
             {
-                var rows = await cities.HitTestAsync(mapView, e.Position);
+				var rows = await cities.HitTestAsync(MyMapView, e.Position);
                 if (rows != null && rows.Length > 0)
                 {
                     var features = await cities.FeatureTable.QueryAsync(rows);
@@ -66,7 +66,5 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 MessageBox.Show("HitTest Error: " + ex.Message, "Feature Layer Hit Testing Sample");
             }
         }
-
-       
     }
 }

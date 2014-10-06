@@ -1,13 +1,9 @@
-﻿using Esri.ArcGISRuntime.Geometry;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Shapes;
-using Windows.UI.Xaml;
-using Windows.Foundation;
-using Windows.UI.Xaml.Media;
-using Windows.UI;
-using Windows.UI.Xaml.Controls.Primitives;
-using System;
+﻿using System;
 using System.Diagnostics;
+using Windows.Foundation;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Media;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {

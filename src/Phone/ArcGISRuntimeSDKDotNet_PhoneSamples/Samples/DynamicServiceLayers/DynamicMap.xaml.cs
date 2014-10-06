@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
@@ -12,6 +13,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public DynamicMap()
         {
             this.InitializeComponent();
+			mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(
+				-12387666.9930794, 
+				3775019.32005654, 
+				-12309395.4761154, 
+				3818219.62318802, 
+				SpatialReferences.WebMercator));
         }
     }
 }

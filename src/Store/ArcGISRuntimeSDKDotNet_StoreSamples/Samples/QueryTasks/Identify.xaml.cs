@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
@@ -20,25 +21,23 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public Identify()
         {
             this.InitializeComponent();
-
-            mapView.Map.InitialExtent = new Envelope(-15000000, 2000000, -7000000, 8000000);
         }
 
-        private async void mapView_Tapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
+        private async void MyMapView_Tapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
         {
             try
             {
                 progress.Visibility = Visibility.Visible;
                 resultsGrid.DataContext = null;
 
-                GraphicsLayer graphicsLayer = mapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
-                graphicsLayer.Graphics.Clear();
-                graphicsLayer.Graphics.Add(new Graphic(e.Location));
+				GraphicsOverlay graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
+                graphicsOverlay.Graphics.Clear();
+                graphicsOverlay.Graphics.Add(new Graphic(e.Location));
 
-                IdentifyParameter identifyParams = new IdentifyParameter(e.Location, mapView.Extent, 2, (int)mapView.ActualHeight, (int)mapView.ActualWidth)
+                IdentifyParameters identifyParams = new IdentifyParameters(e.Location, MyMapView.Extent, 2, (int)MyMapView.ActualHeight, (int)MyMapView.ActualWidth)
                 {
                     LayerOption = LayerOption.Visible,
-                    SpatialReference = mapView.SpatialReference,
+                    SpatialReference = MyMapView.SpatialReference,
                 };
 
                 IdentifyTask identifyTask = new IdentifyTask(
@@ -52,7 +51,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
             }
             finally
             {

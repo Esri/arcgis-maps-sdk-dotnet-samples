@@ -3,32 +3,38 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid x:Name="layoutGrid">
-        <esri:MapView x:Name="mapView">
-            <esri:Map>
+        <esri:MapView x:Name="MyMapView">
+			<esri:Map InitialViewpoint="-5, 20, 50, 65, 4326">
                 <esri:ArcGISTiledMapServiceLayer ID="Basemap"
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer" />
             </esri:Map>
         </esri:MapView>
-
-        <Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="20"
-                HorizontalAlignment="Right" VerticalAlignment="Top" IsHitTestVisible="False">
-            <esri:MapView x:Name="overviewMap" Width="300" Height="200">
-                <esri:Map>
-                    <esri:ArcGISTiledMapServiceLayer
+		
+		<Border Background="White" BorderBrush="Black" BorderThickness="1"
+				HorizontalAlignment="Right" VerticalAlignment="Top"
+				Margin="30" Padding="20" IsHitTestVisible="False">
+			<Border.Effect>
+				<DropShadowEffect/>
+			</Border.Effect>
+			<esri:MapView x:Name="overviewMap" Width="300" Height="200">
+				<esri:Map>
+					<esri:ArcGISTiledMapServiceLayer
                         ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-                    <esri:GraphicsLayer x:Name="overviewGraphics">
-                        <esri:GraphicsLayer.Renderer>
-                            <esri:SimpleRenderer>
-                                <esri:SimpleFillSymbol Color="#22FF0000">
-                                    <esri:SimpleFillSymbol.Outline>
-                                        <esri:SimpleLineSymbol Color="Red" Width="2" />
-                                    </esri:SimpleFillSymbol.Outline>
-                                </esri:SimpleFillSymbol>
-                            </esri:SimpleRenderer>
-                        </esri:GraphicsLayer.Renderer>
-                    </esri:GraphicsLayer>
-                </esri:Map>
-            </esri:MapView>
-        </Border>
+				</esri:Map>
+				<esri:MapView.GraphicsOverlays>
+					<esri:GraphicsOverlay ID="overviewOverlay">
+						<esri:GraphicsOverlay.Renderer>
+							<esri:SimpleRenderer>
+								<esri:SimpleFillSymbol Color="#22FF0000">
+									<esri:SimpleFillSymbol.Outline>
+										<esri:SimpleLineSymbol Color="Red" Width="2" />
+									</esri:SimpleFillSymbol.Outline>
+								</esri:SimpleFillSymbol>
+							</esri:SimpleRenderer>
+						</esri:GraphicsOverlay.Renderer>
+					</esri:GraphicsOverlay>
+				</esri:MapView.GraphicsOverlays>
+			</esri:MapView>
+		</Border>
     </Grid>
 </UserControl>

@@ -7,51 +7,57 @@
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         </Grid.Resources>
         
-        <esri:MapView x:Name="mapView" WrapAround="True">
-            <esri:Map>
-                <esri:ArcGISTiledMapServiceLayer
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
+			<esri:Map InitialViewpoint="-83.3188395774275,42.61428312652851,-83.31295664068958,42.61670913269855,4326">
+				<esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
-                <esri:GraphicsLayer x:Name="graphicsLayer">
-                    <esri:GraphicsLayer.Renderer>
-                        <esri:SimpleRenderer>
-                            <esri:SimpleFillSymbol Color="#7F0000FF">
-                                <esri:SimpleFillSymbol.Outline>
-                                    <esri:SimpleLineSymbol Color="Blue" Width="2"/>
-                                </esri:SimpleFillSymbol.Outline>
-                            </esri:SimpleFillSymbol>
-                        </esri:SimpleRenderer>
-                    </esri:GraphicsLayer.Renderer>
-                </esri:GraphicsLayer>
+			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="graphicsOverlay">
+					<esri:GraphicsOverlay.Renderer>
+						<esri:SimpleRenderer>
+							<esri:SimpleFillSymbol Color="#7F0000FF">
+								<esri:SimpleFillSymbol.Outline>
+									<esri:SimpleLineSymbol Color="Blue" Width="2"/>
+								</esri:SimpleFillSymbol.Outline>
+							</esri:SimpleFillSymbol>
+						</esri:SimpleRenderer>
+					</esri:GraphicsOverlay.Renderer>
+				</esri:GraphicsOverlay>
 
-                <esri:GraphicsLayer x:Name="targetLayer">
-                    <esri:GraphicsLayer.Renderer>
-                        <esri:SimpleRenderer>
-                            <esri:SimpleFillSymbol Color="#66FF0000">
-                                <esri:SimpleFillSymbol.Outline>
-                                    <esri:SimpleLineSymbol Color="Red" Width="2"/>
-                                </esri:SimpleFillSymbol.Outline>
-                            </esri:SimpleFillSymbol>
-                        </esri:SimpleRenderer>
-                    </esri:GraphicsLayer.Renderer>
-                </esri:GraphicsLayer>
+				<esri:GraphicsOverlay ID="targetOverlay">
+					<esri:GraphicsOverlay.Renderer>
+						<esri:SimpleRenderer>
+							<esri:SimpleFillSymbol Color="#66FF0000">
+								<esri:SimpleFillSymbol.Outline>
+									<esri:SimpleLineSymbol Color="Red" Width="2"/>
+								</esri:SimpleFillSymbol.Outline>
+							</esri:SimpleFillSymbol>
+						</esri:SimpleRenderer>
+					</esri:GraphicsOverlay.Renderer>
+				</esri:GraphicsOverlay>
 
-                <esri:GraphicsLayer x:Name="coordinateLayer">
-                    <esri:GraphicsLayer.Renderer>
-                        <esri:SimpleRenderer>
-                            <esri:SimpleMarkerSymbol Color="Red" Style="Circle" Size="10">
-                                <esri:SimpleMarkerSymbol.Outline>
-                                    <esri:SimpleLineSymbol Color="Black" Width="1" />
-                                </esri:SimpleMarkerSymbol.Outline>
-                            </esri:SimpleMarkerSymbol>
-                        </esri:SimpleRenderer>
-                    </esri:GraphicsLayer.Renderer>
-                </esri:GraphicsLayer>
-            </esri:Map>
+				<esri:GraphicsOverlay ID="coordinateOverlay">
+					<esri:GraphicsOverlay.Renderer>
+						<esri:SimpleRenderer>
+							<esri:SimpleMarkerSymbol Color="Red" Style="Circle" Size="10">
+								<esri:SimpleMarkerSymbol.Outline>
+									<esri:SimpleLineSymbol Color="Black" Width="1" />
+								</esri:SimpleMarkerSymbol.Outline>
+							</esri:SimpleMarkerSymbol>
+						</esri:SimpleRenderer>
+					</esri:GraphicsOverlay.Renderer>
+				</esri:GraphicsOverlay>
+			</esri:MapView.GraphicsOverlays>
         </esri:MapView>
-
-        <Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="30"
-                HorizontalAlignment="Right" VerticalAlignment="Top">
-            <StackPanel Margin="30,20">
+		
+		<Border Background="White" BorderBrush="Black" BorderThickness="1"
+				 HorizontalAlignment="Right" VerticalAlignment="Top"
+				 Margin="30" Padding="20">
+			<Border.Effect>
+				<DropShadowEffect/>
+			</Border.Effect>
+			<StackPanel>
                 <TextBlock Text="Select a target parcel by clicking it on the map. Then click points anywhere on the map to see the neartest point or vertex on the target polygon."
                            Width="400" TextAlignment="Left" TextWrapping="Wrap" />
                 <CheckBox x:Name="cboVertexOnly" Content="Find Nearest Vertex Only" Margin="12,12,12,0" IsThreeState="False" HorizontalAlignment="Center"
@@ -63,7 +69,7 @@
 
         <Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="25"
                 HorizontalAlignment="Center" VerticalAlignment="Bottom"
-                Visibility="{Binding ElementName=mapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
+                Visibility="{Binding ElementName=MyMapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
             <TextBlock x:Name="txtInstruct" Margin="8" FontSize="14" />
         </Border>
     </Grid>

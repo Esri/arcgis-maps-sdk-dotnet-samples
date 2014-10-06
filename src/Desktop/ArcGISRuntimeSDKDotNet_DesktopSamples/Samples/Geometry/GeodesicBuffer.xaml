@@ -11,18 +11,24 @@
             </esri:SimpleFillSymbol>
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" WrapAround="True" MouseMove="mapView_MouseMove">
+        <esri:MapView x:Name="MyMapView" WrapAround="True" MouseMove="MyMapView_MouseMove">
             <esri:Map>
-                <esri:ArcGISTiledMapServiceLayer
+				<esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
-                <esri:GraphicsLayer x:Name="graphicsLayer" />
-            </esri:Map>
-        </esri:MapView>
-
-        <Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="30" Padding="30,20,30,30"
-                HorizontalAlignment="Right" VerticalAlignment="Top">
+			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="graphicsOverlay" />
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
+		
+		<Border Background="White" BorderBrush="Black" BorderThickness="1"
+				HorizontalAlignment="Right" VerticalAlignment="Top"
+				Margin="30" Padding="20">
+			<Border.Effect>
+				<DropShadowEffect/>
+			</Border.Effect>
             <TextBlock x:Name="InstructionsTextBlock" Text="Move the mouse to see a 500-mile geodesic buffer around the mouse location." 
-                       Width="250" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14" />
+                       Width="250" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="14" />
         </Border>
     </Grid>
 </UserControl>

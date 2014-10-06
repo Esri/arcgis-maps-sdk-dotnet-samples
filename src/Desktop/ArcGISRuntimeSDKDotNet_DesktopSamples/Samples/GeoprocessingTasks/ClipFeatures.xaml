@@ -12,35 +12,40 @@
             <esri:SimpleRenderer x:Key="ResultRenderer" Symbol="{StaticResource ResultFillSymbol}" />
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView">
-            <esri:Map >
-                <esri:ArcGISTiledMapServiceLayer ID="TopoMapLayer"
+        <esri:MapView x:Name="MyMapView">
+			<esri:Map InitialViewpoint="-130,10,-70,60,4326">
+				<esri:ArcGISTiledMapServiceLayer ID="TopoMapLayer"
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer" />
-                <esri:GraphicsLayer x:Name="resultLayer" Renderer="{StaticResource ResultRenderer}" />
-                <esri:GraphicsLayer x:Name="inputLayer" Renderer="{StaticResource InputRenderer}" />
-            </esri:Map>
-        </esri:MapView>
+			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="resultsOverlay" Renderer="{StaticResource ResultRenderer}"/>
+				<esri:GraphicsOverlay ID="inputOverlay" Renderer="{StaticResource InputRenderer}"/>
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
 
-        <Border x:Name="uiPanel" Margin="30" Width="450" HorizontalAlignment="Right" VerticalAlignment="Top" 
-                Background="White" BorderBrush="Black" BorderThickness="2">
-            <Grid>
-                <StackPanel Orientation="Vertical" Margin="20">
-                    <TextBlock Text="Hit 'Start' and then Draw a line on the map over the United States. When finished the line will be buffered and the buffer will be used to clip US county polygons. Results are returned as a GP map image."
-                               TextWrapping="Wrap" FontSize="14" Margin="8,8,8,0" HorizontalAlignment="Left"/>
+		<Border Background="White" BorderBrush="Black" BorderThickness="1"
+				HorizontalAlignment="Right" VerticalAlignment="Top"
+				Margin="30" Padding="20"
+				x:Name="uiPanel" Width="450">
+			<Border.Effect>
+				<DropShadowEffect/>
+			</Border.Effect>
+			<StackPanel>
+				<TextBlock Text="Click 'Start' and draw a line on the map over the United States. The line will be buffered and the buffer will be used to clip US county polygons. Results are returned as a GP map image."
+                           TextWrapping="Wrap" FontSize="14" />
 
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="12,16,12,0">
-                        <TextBlock Text="Distance (in miles):" VerticalAlignment="Center" Margin="0,0,8,0" />
-                        <TextBox x:Name="txtMiles" Text="100" Width="40" TextAlignment="Right" />
-                    </StackPanel>
-
-                    <Button Content="Start" HorizontalAlignment="Center" Width="250" Margin="0,18,0,0" Click="StartButton_Click"/>
-
-                    <StackPanel x:Name="progress" Visibility="Collapsed">
-                        <ProgressBar Margin="12,12,12,0" IsIndeterminate="True" />
-                        <TextBlock x:Name="txtStatus" Margin="12,12,12,0" FontSize="14"/>
-                    </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="12,16,12,0">
+                    <TextBlock Text="Distance (in miles):" VerticalAlignment="Center" Margin="0,0,8,0" />
+                    <TextBox x:Name="txtMiles" Text="100" Width="40" TextAlignment="Right" />
                 </StackPanel>
-            </Grid>
+
+                <Button Content="Start" Margin="0,18,0,0" Padding="20,5" Click="StartButton_Click"/>
+
+                <StackPanel x:Name="progress" Visibility="Collapsed">
+                    <ProgressBar Margin="12,12,12,0" IsIndeterminate="True" />
+                    <TextBlock x:Name="txtStatus" Margin="12,12,12,0" FontSize="14"/>
+                </StackPanel>
+            </StackPanel>
         </Border>
     </Grid>
 </UserControl>

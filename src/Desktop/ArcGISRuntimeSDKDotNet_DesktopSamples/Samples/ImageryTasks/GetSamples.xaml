@@ -13,37 +13,47 @@
             <esri:SimpleRenderer x:Key="FillRenderer" Symbol="{StaticResource FootprintFillSymbol}" />
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" WrapAround="True" MapViewTapped="mapView_MapViewTapped">
+        <esri:MapView x:Name="MyMapView" WrapAround="True" MapViewTapped="MyMapView_MapViewTapped">
             <esri:Map>
                 <esri:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
                     ServiceUri="http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
 
                 <esri:ArcGISImageServiceLayer x:Name="imageLayer"
                     ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Portland/Aerial/ImageServer" />
-
-                <esri:GraphicsLayer x:Name="graphicsLayer" Renderer="{StaticResource FillRenderer}" />
             </esri:Map>
 
+            <esri:MapView.GraphicsOverlays>
+                <esri:GraphicsOverlay ID="graphicsOverlay" Renderer="{StaticResource FillRenderer}"/>
+            </esri:MapView.GraphicsOverlays>
+
             <esri:MapView.Overlays>
-                <Border x:Name="mapTip" HorizontalAlignment="Right" VerticalAlignment="Top" Padding="12"
-                        Background="LightGray" BorderBrush="Black" BorderThickness="2" Visibility="Collapsed">
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Grid.Column="0" Text="Name: " FontWeight="Bold" />
-                            <TextBlock Grid.Column="1" Text="{Binding Attributes[Name]}" />
+                <esri:OverlayItemsControl>
+                    <Border x:Name="mapTip" HorizontalAlignment="Right" VerticalAlignment="Top" Padding="12"
+                            Background="LightGray" BorderBrush="Black" BorderThickness="2" Visibility="Collapsed">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Grid.Column="0" Text="Name: " FontWeight="Bold" />
+                                <TextBlock Grid.Column="1" Text="{Binding Attributes[Name]}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Grid.Column="0" Text="Pixel Size (meters/pixel): " FontWeight="Bold"/>
+                                <TextBlock Grid.Column="1" Text="{Binding Attributes[LowPS]}" />
+                            </StackPanel>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Grid.Column="0" Text="Pixel Size (meters/pixel): " FontWeight="Bold"/>
-                            <TextBlock Grid.Column="1" Text="{Binding Attributes[LowPS]}" />
-                        </StackPanel>
-                    </StackPanel>
-                </Border>
+                    </Border>
+                </esri:OverlayItemsControl>
             </esri:MapView.Overlays>
         </esri:MapView>
 
-        <Border x:Name="uiPanel" Background="White" BorderBrush="Black" BorderThickness="2" Margin="30"
-                Width="350" HorizontalAlignment="Right" VerticalAlignment="Top">
-            <StackPanel Margin="20">
+        <Border x:Name="uiPanel"
+				Background="White" BorderBrush="Black" BorderThickness="1"
+				HorizontalAlignment="Right" VerticalAlignment="Top"
+				Margin="30" Padding="20"
+				Width="350">
+            <Border.Effect>
+                <DropShadowEffect/>
+            </Border.Effect>
+            <StackPanel>
                 <TextBlock Text="Click the 'Get Samples' button and drag a rectangle on the map to query image tiles. Tile footprints will be displayed and their attributes will be available in map tips."
                            Margin="12,0,12,0" TextWrapping="Wrap" />
 

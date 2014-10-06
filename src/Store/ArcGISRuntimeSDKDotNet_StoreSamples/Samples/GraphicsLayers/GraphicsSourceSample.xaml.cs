@@ -4,6 +4,7 @@ using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Collections.Generic;
 using Windows.UI;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -25,7 +26,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-            _graphicsLayer = mapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+            _graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
             CreateGraphics();
         }
 
@@ -42,25 +43,32 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         // Create three List<Graphic> objects with random graphics to serve as layer GraphicsSources
         private async void CreateGraphics()
         {
-            await mapView.LayersLoadedAsync();
+			try
+			{
+				await MyMapView.LayersLoadedAsync();
 
-            _grahicsSources = new List<List<Graphic>>()
-            {
-                new List<Graphic>(),
-                new List<Graphic>(),
-                new List<Graphic>()
-            };
+				_grahicsSources = new List<List<Graphic>>()
+				{
+					new List<Graphic>(),
+					new List<Graphic>(),
+					new List<Graphic>()
+				};
 
-            foreach (var graphicList in _grahicsSources)
-            {
-                for (int n = 0; n < 10; ++n)
-                {
-                    graphicList.Add(CreateRandomGraphic());
-                }
-            }
+				foreach (var graphicList in _grahicsSources)
+				{
+					for (int n = 0; n < 10; ++n)
+					{
+						graphicList.Add(CreateRandomGraphic());
+					}
+				}
 
-            _graphicSourceIndex = 0;
-            _graphicsLayer.GraphicsSource = _grahicsSources[_graphicSourceIndex];
+				_graphicSourceIndex = 0;
+				_graphicsLayer.GraphicsSource = _grahicsSources[_graphicSourceIndex];
+			}
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog("Exception occured : " + ex.ToString(), "Sample error").ShowAsync();
+			}
         }
 
         // Create a random graphic
@@ -76,9 +84,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         // Utility: Generate a random MapPoint within the current extent
         private MapPoint GetRandomMapPoint()
         {
-            double x = mapView.Extent.XMin + (_random.NextDouble() * mapView.Extent.Width);
-            double y = mapView.Extent.YMin + (_random.NextDouble() * mapView.Extent.Height);
-            return new MapPoint(x, y, mapView.SpatialReference);
+            double x = MyMapView.Extent.XMin + (_random.NextDouble() * MyMapView.Extent.Width);
+            double y = MyMapView.Extent.YMin + (_random.NextDouble() * MyMapView.Extent.Height);
+            return new MapPoint(x, y, MyMapView.SpatialReference);
         }
 
         // Utility: Generate a random System.Windows.Media.Color

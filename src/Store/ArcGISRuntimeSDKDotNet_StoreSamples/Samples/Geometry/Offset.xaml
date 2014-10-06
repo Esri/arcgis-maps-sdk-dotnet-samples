@@ -2,15 +2,10 @@
     x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Offset"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ArcGISRuntimeSDKDotNet_StoreSamples.Samples"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    	xmlns:esri="using:Esri.ArcGISRuntime.Controls"  
-    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
-	xmlns:sym="using:Esri.ArcGISRuntime.Symbology"
-    xmlns:geom="using:Esri.ArcGISRuntime.Geometry"
-    xmlns:core="using:Esri.ArcGISRuntime"
-    mc:Ignorable="d">
+    xmlns:esri="using:Esri.ArcGISRuntime.Controls"  
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+	xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
+	
     <Page.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="FontSize" Value="14"/>
@@ -232,35 +227,40 @@
     </Page.Resources>
 
     <Grid x:Name="LayoutRoot" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-        <esri:MapView x:Name="mapView1" LayerLoaded="mapView1_LayerLoaded">
-            <esri:Map  >
-                <lyr:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
-        		ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-                <lyr:GraphicsLayer ID="ParcelsGraphicsLayer"  Opacity="0.3" >
-                    <lyr:GraphicsLayer.Renderer>
-                        <sym:SimpleRenderer>
-                            <sym:SimpleFillSymbol  Color="#990000FF"    >
-                                <sym:SimpleFillSymbol.Outline>
-                                    <sym:SimpleLineSymbol Color="Blue" Width="1"/>
-                                </sym:SimpleFillSymbol.Outline>
-                            </sym:SimpleFillSymbol>
-                        </sym:SimpleRenderer>
-                    </lyr:GraphicsLayer.Renderer>
-                </lyr:GraphicsLayer>
-
-                <lyr:GraphicsLayer ID="OffsetGraphicsLayer" Opacity="0.4"  >
-                    <lyr:GraphicsLayer.Renderer>
-                        <sym:SimpleRenderer>
-                            <sym:SimpleFillSymbol  Color="Bisque"    >
-                                <sym:SimpleFillSymbol.Outline>
-                                    <sym:SimpleLineSymbol Color="Green" Width="2"/>
-                                </sym:SimpleFillSymbol.Outline>
-                            </sym:SimpleFillSymbol>
-                        </sym:SimpleRenderer>
-                    </lyr:GraphicsLayer.Renderer>
-                </lyr:GraphicsLayer>
-
+        <esri:MapView x:Name="MyMapView" LayerLoaded="MyMapView_LayerLoaded">
+            <esri:Map >
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-9275076.4794" YMin="5253225.9406" XMax="-9274273.6411" YMax="5253885.6155"
+										  SpatialReferenceID="102100"/>
+				</esri:Map.InitialViewpoint>
+				
+				<layers:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
+        			ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
             </esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="ParcelsGraphicsOverlay" Opacity="0.3" >
+					<esri:GraphicsOverlay.Renderer>
+						<symb:SimpleRenderer>
+							<symb:SimpleFillSymbol Color="#990000FF">
+								<symb:SimpleFillSymbol.Outline>
+									<symb:SimpleLineSymbol Color="Blue" Width="1"/>
+								</symb:SimpleFillSymbol.Outline>
+							</symb:SimpleFillSymbol>
+						</symb:SimpleRenderer>
+					</esri:GraphicsOverlay.Renderer>
+				</esri:GraphicsOverlay>
+				<esri:GraphicsOverlay  ID="OffsetGraphicsOverlay" Opacity="0.4"  >
+					<esri:GraphicsOverlay.Renderer>
+						<symb:SimpleRenderer>
+							<symb:SimpleFillSymbol  Color="Bisque"    >
+								<symb:SimpleFillSymbol.Outline>
+									<symb:SimpleLineSymbol Color="Green" Width="2"/>
+								</symb:SimpleFillSymbol.Outline>
+							</symb:SimpleFillSymbol>
+						</symb:SimpleRenderer>
+					</esri:GraphicsOverlay.Renderer>
+				</esri:GraphicsOverlay>
+			</esri:MapView.GraphicsOverlays>
         </esri:MapView>
 
         <Grid HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,15,15,0" >
@@ -281,14 +281,11 @@
                         <TextBlock Text="Offset Type : "/>
                         <ComboBox x:Name="OffsetTypeComboBox"  />
 
-
-
                         <TextBlock>
                             <Run  Text="Bevel Ratio : "/>
                             <Run Text="{Binding Value, ElementName=OffsetBevelRatioSlider, Mode=TwoWay}" />
                         </TextBlock>
                         <Slider x:Name="OffsetBevelRatioSlider" Margin="0,-10,0,-30" Minimum="0" Maximum="5" Value="1.1" Foreground="Transparent" StepFrequency="0.1"  IsThumbToolTipEnabled="True" Style="{StaticResource MySliderStyle}"/>
-
 
                         <TextBlock>
                             <Run  Text="Flatten Error : "/>
@@ -299,15 +296,11 @@
 
                     </StackPanel>
 
-
-                    <StackPanel x:Name="LoadingParcelsContainer"  HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <TextBlock Text="Loading parcels..."/>
-                        <ProgressRing x:Name="LoadingParcelsIndicator" Width="40" Height="40" IsActive="True" Margin="0,10"/>
-                    </StackPanel>
-
-                </StackPanel>
-
-
+					<StackPanel x:Name="LoadingParcelsContainer"  HorizontalAlignment="Center" VerticalAlignment="Center">
+						<TextBlock Text="Loading parcels..."/>
+						<ProgressRing x:Name="LoadingParcelsIndicator" Width="40" Height="40" IsActive="True" Margin="0,10"/>
+					</StackPanel>
+				</StackPanel>
             </Border>
         </Grid>
     </Grid>

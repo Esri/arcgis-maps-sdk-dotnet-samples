@@ -23,7 +23,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private Symbol _fillSymbol;
         private FeatureLayer _statesLayer;
-        private GraphicsLayer _differenceGraphics;
+        private GraphicsOverlay _differenceGraphics;
 
         /// <summary>Construct Difference sample control</summary>
         public Difference()
@@ -31,13 +31,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             InitializeComponent();
 
             _fillSymbol = LayoutRoot.Resources["FillSymbol"] as Symbol;
-            _differenceGraphics = mapView.Map.Layers["DifferenceGraphics"] as GraphicsLayer;
-                
-            var task = CreateFeatureLayersAsync();
+			_differenceGraphics = MyMapView.GraphicsOverlays["resultsOverlay"];
+            CreateFeatureLayers();
         }
 
         // Creates a feature layer from a local .geodatabase file
-        private async Task CreateFeatureLayersAsync()
+		private async void CreateFeatureLayers()
         {
             try
             {
@@ -48,11 +47,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var gdb = await Geodatabase.OpenAsync(file.Path);
                 var table = gdb.FeatureTables.First(ft => ft.Name == "US-States");
                 _statesLayer = new FeatureLayer() { ID = table.Name, FeatureTable = table };
-                mapView.Map.Layers.Insert(1, _statesLayer);
+                MyMapView.Map.Layers.Insert(1, _statesLayer);
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Error creating feature layer: " + ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog("Error creating feature layer: " + ex.Message, "Sample Error").ShowAsync();
             }
         }
 
@@ -63,11 +62,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             {
                 _differenceGraphics.Graphics.Clear();
 
-                // wait for user to draw difference polygon
-                var poly = await mapView.Editor.RequestShapeAsync(DrawShape.Polygon);
+				// wait for user to draw difference polygon
+				Polygon userpoly = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon) as Polygon;
 
-                // Adjust user polygon for backward digitization
-                poly = GeometryEngine.Simplify(poly);
+				// Take account of WrapAround
+				Polygon poly = GeometryEngine.NormalizeCentralMeridian(userpoly) as Polygon;
+
+				// Adjust user polygon for backward digitization
+				poly = GeometryEngine.Simplify(poly) as Polygon;
 
                 // get intersecting features from the feature layer
                 SpatialQueryFilter filter = new SpatialQueryFilter();
@@ -89,7 +91,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Difference Error: " + ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog("Difference Error: " + ex.Message, "Sample Error").ShowAsync();
             }
         }
     }

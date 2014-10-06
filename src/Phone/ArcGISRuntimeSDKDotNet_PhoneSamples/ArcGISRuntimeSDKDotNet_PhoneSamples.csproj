@@ -15,25 +15,6 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{76F1466A-8B6D-4E39-A767-685A06062A39};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_PHONE_APP</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_PHONE_APP</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\ARM\Debug\</OutputPath>
@@ -81,8 +62,8 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <SDKReference Include="Esri.ArcGISRuntime, Version=10.2.3">
-      <Name>ArcGIS Runtime for Windows Phone %28Beta 2%29</Name>
+    <SDKReference Include="Esri.ArcGISRuntime, Version=10.2.4">
+      <Name>ArcGIS Runtime for Windows Phone</Name>
     </SDKReference>
     <SDKReference Include="Microsoft.VCLibs, version=12.0">
       <Name>Microsoft Visual C++ 2013 Runtime Package for Windows Phone</Name>
@@ -92,6 +73,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ContinuationManager.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -125,6 +107,21 @@
     </Compile>
     <Compile Include="Samples\DynamicServiceLayers\WmsLayerSimple.xaml.cs">
       <DependentUpon>WmsLayerSimple.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Editing\EditAttachment.xaml.cs">
+      <DependentUpon>EditAttachment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Editing\FeatureLayerEditGeometry.xaml.cs">
+      <DependentUpon>FeatureLayerEditGeometry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Editing\FeatureLayerEditAttribute.xaml.cs">
+      <DependentUpon>FeatureLayerEditAttribute.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Editing\DynamicLayerEditGeometry.xaml.cs">
+      <DependentUpon>DynamicLayerEditGeometry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Editing\DynamicLayerEditAttribute.xaml.cs">
+      <DependentUpon>DynamicLayerEditAttribute.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\FeatureLayers\FeatureLayers.xaml.cs">
       <DependentUpon>FeatureLayers.xaml</DependentUpon>
@@ -174,7 +171,25 @@
     <Compile Include="Samples\Geometry\LineLength.xaml.cs">
       <DependentUpon>LineLength.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Symbology\MessageProcessingSample.xaml.cs">
+    <Compile Include="Samples\ImageryTasks\ComputeClassStatistics.xaml.cs">
+      <DependentUpon>ComputeClassStatistics.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\ImageryTasks\GetSamples.xaml.cs">
+      <DependentUpon>GetSamples.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\ImageryTasks\Mensuration.xaml.cs">
+      <DependentUpon>Mensuration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Mapping\InteractionOptionsSample.xaml.cs">
+      <DependentUpon>InteractionOptionsSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Portal\CreateWebMap.xaml.cs">
+      <DependentUpon>CreateWebMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Portal\PortalBasemaps.xaml.cs">
+      <DependentUpon>PortalBasemaps.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\Specialized\MessageProcessingSample.xaml.cs">
       <DependentUpon>MessageProcessingSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Geometry\Offset.xaml.cs">
@@ -191,9 +206,6 @@
     </Compile>
     <Compile Include="Samples\GeoprocessingTasks\MessageInABottle.xaml.cs">
       <DependentUpon>MessageInABottle.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\GraphicsLayers\AddGraphicsXAML.xaml.cs">
-      <DependentUpon>AddGraphicsXAML.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GraphicsLayers\AddPointOnTap.xaml.cs">
       <DependentUpon>AddPointOnTap.xaml</DependentUpon>
@@ -261,11 +273,11 @@
     <Compile Include="Samples\QueryTasks\Statistics.xaml.cs">
       <DependentUpon>Statistics.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Symbology\Specialized\SymbolDictionarySearchSample.xaml.cs">
+      <DependentUpon>SymbolDictionarySearchSample.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Symbology\RenderingInCode.xaml.cs">
       <DependentUpon>RenderingInCode.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Symbology\SymbolDictionarySearchSample.xaml.cs">
-      <DependentUpon>SymbolDictionarySearchSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Symbology\SymbolsAndLabels.xaml.cs">
       <DependentUpon>SymbolsAndLabels.xaml</DependentUpon>
@@ -286,6 +298,10 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Icons\vector.circle.png" />
+    <Content Include="Assets\Icons\vector.line.png" />
+    <Content Include="Assets\Icons\vector.polygon.png" />
+    <Content Include="Assets\Icons\vector.rectangle.png" />
     <Content Include="Assets\Logo.scale-240.png" />
     <Content Include="Assets\x-24x24.png" />
     <EmbeddedResource Include="Assets\SampleDescriptions.xml" />
@@ -341,6 +357,26 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\DynamicServiceLayers\WmsLayerSimple.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\EditAttachment.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\FeatureLayerEditGeometry.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\FeatureLayerEditAttribute.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\DynamicLayerEditGeometry.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\DynamicLayerEditAttribute.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -408,7 +444,31 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Symbology\MessageProcessingSample.xaml">
+    <Page Include="Samples\ImageryTasks\ComputeClassStatistics.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\ImageryTasks\GetSamples.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\ImageryTasks\Mensuration.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Mapping\InteractionOptionsSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Portal\CreateWebMap.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Portal\PortalBasemaps.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\Specialized\MessageProcessingSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -429,10 +489,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\GeoprocessingTasks\MessageInABottle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\GraphicsLayers\AddGraphicsXAML.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -524,11 +580,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Symbology\RenderingInCode.xaml">
+    <Page Include="Samples\Symbology\Specialized\SymbolDictionarySearchSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Symbology\SymbolDictionarySearchSample.xaml">
+    <Page Include="Samples\Symbology\RenderingInCode.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -550,10 +606,11 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Samples\ImageryTasks\" />
-    <Folder Include="Samples\Portal\" />
     <Folder Include="Samples\Printing\" />
     <Folder Include="Samples\Security\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\hydrographic_s57\hydrographic_s57.dat" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Mil2525c\messagetypes\Chemlight.json" />
@@ -568,9 +625,6 @@
     <TargetPlatformIdentifier>WindowsPhoneApp</TargetPlatformIdentifier>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
-  <PropertyGroup>
-    <SDKReferenceDirectoryRoot>C:\applications\output\winprt_sdk\;$(SDKReferenceDirectoryRoot)</SDKReferenceDirectoryRoot>
-  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

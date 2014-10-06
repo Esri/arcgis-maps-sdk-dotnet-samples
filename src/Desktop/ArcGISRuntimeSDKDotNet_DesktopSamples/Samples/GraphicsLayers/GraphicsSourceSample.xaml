@@ -3,19 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView x:Name="mapView" WrapAround="True">
-            <esri:Map>
-                <esri:ArcGISTiledMapServiceLayer
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
+			<esri:Map>
+				<esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
+				<esri:GraphicsLayer ID="graphicsLayer" />
+			</esri:Map>
+		</esri:MapView>
 
-                <esri:GraphicsLayer x:Name="graphicsLayer" />
-            </esri:Map>
-        </esri:MapView>
-
-        <Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="30"
-                HorizontalAlignment="Right" VerticalAlignment="Top">
-            <StackPanel>
-                <Button Content="Switch Graphics Source" Margin="20" Click="SwitchGraphicSourceButton_Click" />
+		<Border Background="White" BorderBrush="Black" BorderThickness="1"
+				HorizontalAlignment="Right" VerticalAlignment="Top"
+				Margin="30" Padding="20">
+			<Border.Effect>
+				<DropShadowEffect/>
+			</Border.Effect>
+			<StackPanel>
+                <Button Content="Switch Graphics Source" Click="SwitchGraphicSourceButton_Click" />
             </StackPanel>
         </Border>
     </Grid>

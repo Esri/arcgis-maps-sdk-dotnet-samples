@@ -18,20 +18,22 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	/// <subcategory>Query</subcategory>
 	public partial class QueryRelatedTables : UserControl
     {
-        /// <summary>Construct Spatial Query sample control</summary>
+		private GraphicsOverlay _wellsOverlay;
+     
+		/// <summary>Construct Spatial Query sample control</summary>
         public QueryRelatedTables()
         {
             InitializeComponent();
 
-            mapView.Map.InitialExtent = new Envelope(-10854000, 4502000, -10829000, 4524000, SpatialReferences.WebMercator);
+			_wellsOverlay = MyMapView.GraphicsOverlays["wellsOverlay"];               
         }
 
         // Select a set of wells near the click point
-        private async void mapView_MapViewTapped(object sender, MapViewInputEventArgs e)
+        private async void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
             try
             {
-                wellsLayer.Graphics.Clear();
+				_wellsOverlay.Graphics.Clear();
                 wellsGrid.ItemsSource = relationshipsGrid.ItemsSource = null;
 
                 QueryTask queryTask =
@@ -39,16 +41,16 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
                 Query query = new Query("1=1")
                 {
-                    Geometry = Expand(mapView.Extent, e.Location, 0.01),
+                    Geometry = Expand(MyMapView.Extent, e.Location, 0.01),
                     ReturnGeometry = true,
-                    OutSpatialReference = mapView.SpatialReference,
+                    OutSpatialReference = MyMapView.SpatialReference,
                     OutFields = OutFields.All
                 };
 
                 var result = await queryTask.ExecuteAsync(query);
                 if (result.FeatureSet.Features != null && result.FeatureSet.Features.Count > 0)
                 {
-                    wellsLayer.Graphics.AddRange(result.FeatureSet.Features);
+					_wellsOverlay.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
                     wellsGrid.ItemsSource = result.FeatureSet.Features;
                     resultsPanel.Visibility = Visibility.Visible;
                 }
@@ -73,9 +75,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     var objectIds = e.AddedItems.OfType<Graphic>()
                         .Select(g => Convert.ToInt64(g.Attributes["OBJECTID"]));
 
-                    RelationshipParameter parameters = new RelationshipParameter(new List<long>(objectIds), 3)
+                    RelationshipParameters parameters = new RelationshipParameters(new List<long>(objectIds), 3)
                     {
-                        OutSpatialReference = mapView.SpatialReference
+                        OutSpatialReference = MyMapView.SpatialReference
                     };
 
                     parameters.OutFields.AddRange(new string[] { "OBJECTID, API_NUMBER, ELEVATION, FORMATION, TOP" });
@@ -92,12 +94,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private Envelope Expand(Envelope mapExtent, MapPoint point, double pct)
         {
-            return new Envelope(
-                    point.X - mapExtent.Width * (pct / 2), point.Y - mapExtent.Height * (pct / 2),
-                    point.X + mapExtent.Width * (pct / 2), point.Y + mapExtent.Height * (pct / 2))
-            {
-                SpatialReference = mapExtent.SpatialReference
-            };
+			return new Envelope(
+					point.X - mapExtent.Width * (pct / 2), point.Y - mapExtent.Height * (pct / 2),
+					point.X + mapExtent.Width * (pct / 2), point.Y + mapExtent.Height * (pct / 2),
+					mapExtent.SpatialReference);
         }
     }
 }

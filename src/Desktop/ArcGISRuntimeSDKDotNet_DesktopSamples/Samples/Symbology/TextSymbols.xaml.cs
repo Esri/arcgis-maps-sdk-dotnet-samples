@@ -26,13 +26,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            mapView.ExtentChanged += mapView_ExtentChanged;
+            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 
         // Start map interaction
-        private async void mapView_ExtentChanged(object sender, EventArgs e)
+        private async void MyMapView_ExtentChanged(object sender, EventArgs e)
         {
-            mapView.ExtentChanged -= mapView_ExtentChanged;
+            MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
 
             await SetupSymbolsAsync();
             DataContext = this;
@@ -43,8 +43,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Cancel current shape request when the symbol selection changes 
         private async void symbolCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (mapView.Editor.IsActive)
-                mapView.Editor.Cancel.Execute(null);
+            if (MyMapView.Editor.IsActive)
+                MyMapView.Editor.Cancel.Execute(null);
 
             await AcceptPointsAsync();
         }
@@ -54,12 +54,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                while (mapView.Extent != null)
+                while (MyMapView.Extent != null)
                 {
-                    var point = await mapView.Editor.RequestPointAsync();
+                    var point = await MyMapView.Editor.RequestPointAsync();
 
                     var symbol = _symbols[symbolCombo.SelectedIndex];
-                    graphicsLayer.Graphics.Add(new Graphic(point, symbol));
+					graphicsOverlay.Graphics.Add(new Graphic(point, symbol));
                 }
             }
             catch (TaskCanceledException)
@@ -76,24 +76,30 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                // Create symbols from 30 random fonts
-                _symbols = Fonts.SystemFontFamilies
-                    .Where(f => f.Baseline < 1.0)
-                    .OrderBy(x => Guid.NewGuid())
-                    .Take(30)
-                    .Select((f,idx) => new TextSymbol()
-                    {
-                        Text = f.Source,
-                        Color = GetRandomColor(),
-                        HorizontalTextAlignment = HorizontalTextAlignment.Center,
-                        VerticalTextAlignment = VerticalTextAlignment.Middle,
-                        Font = new SymbolFont(f.Source, 14)
-                    })
-                    .ToList();
+				var fontFamilies = new List<string>()
+                {
+                    "Bogus", "Algerian", "Chiller", "Comic Sans MS",
+                    "Cooper", "Elephant", "Forte", "Jokerman",
+                    "Lindsey", "Mistral", "Motorwerk", "Old English Text MT",
+                    "Parchment", "Ravie", "Script MT", "Segoe Print",
+                    "Showcard Gothic", "Snap ITC", "Vivaldi", "Wingdings"
+                };
+
+				// Create symbols from font list
+				_symbols = fontFamilies
+					.Select(f => new TextSymbol()
+					{
+						Text = f,
+						Color = GetRandomColor(),
+						HorizontalTextAlignment = HorizontalTextAlignment.Center,
+						VerticalTextAlignment = VerticalTextAlignment.Middle,
+						Font = new SymbolFont(f, 20)
+					})
+					.ToList();
 
                 // Create image swatches for the UI
                 Task<ImageSource>[] swatchTasks = _symbols
-                    .Select(sym => sym.CreateSwatchAsync(200, 24, 96.0, Colors.Transparent))
+                    .Select(sym => sym.CreateSwatchAsync())
                     .ToArray();
 
                 symbolCombo.ItemsSource = new List<ImageSource>(await Task.WhenAll(swatchTasks));

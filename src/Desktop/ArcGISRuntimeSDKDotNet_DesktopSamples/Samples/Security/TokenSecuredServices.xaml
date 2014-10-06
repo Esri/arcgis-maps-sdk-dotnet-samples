@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid x:Name="layoutGrid">
-        <esri:MapView x:Name="mapView" WrapAround="True">
-            <esri:Map>
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
+            <esri:Map InitialViewpoint="-17611013,2601908,-2823071,9287290,3857">
                 <esri:ArcGISTiledMapServiceLayer DisplayName="World Street Map - Public"
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 
@@ -12,17 +12,16 @@
                 <esri:ArcGISDynamicMapServiceLayer ID="USA" DisplayName="USA - Secure"
                     ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA_secure_user1/MapServer" />
 
-                <!-- username: user1 | password: pass.word1 -->
-                <esri:ArcGISDynamicMapServiceLayer ID="GulfCoastOil" DisplayName="Gulf Coast Oil - Secure"
-                    ServiceUri="http://serverapps10.esri.com/arcgis/rest/services/GulfLawrenceSecureUser1/MapServer" />
             </esri:Map>
         </esri:MapView>
 
         <!-- Login UI -->
         <Border x:Name="loginPanel"
-                Background="White" BorderBrush="Black" BorderThickness="2" Margin="30" 
-                HorizontalAlignment="Center" VerticalAlignment="Top" Visibility="Collapsed">
-            <Grid Margin="20">
+                Background="White" BorderBrush="Black" BorderThickness="1" 
+				Margin="30" Padding="20"
+                HorizontalAlignment="Center" VerticalAlignment="Top" 
+				Visibility="Collapsed">
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="100"/>
                     <ColumnDefinition Width="150" />
@@ -69,7 +68,7 @@
                 HorizontalAlignment="Right" VerticalAlignment="Top">
             <StackPanel>
                 <TextBlock Text="Map Layers (with status)" Margin="4" FontSize="14" FontWeight="Bold" />
-                <ListView x:Name="listLayerStatus" Padding="6" ItemsSource="{Binding ElementName=mapView, Path=Map.Layers}">
+                <ListView x:Name="listLayerStatus" Padding="6" ItemsSource="{Binding ElementName=MyMapView, Path=Map.Layers}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel>

@@ -25,7 +25,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            mapView1.Map.InitialExtent = new Envelope(-13149423, 3997267, -12992880, 4062214, SpatialReferences.WebMercator);
+			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-13149423, 3997267, -12992880, 4062214, SpatialReferences.WebMercator));
             myGraphicsLayer = mapView1.Map.Layers["MyGraphicsLayer"] as GraphicsLayer;
         }
 

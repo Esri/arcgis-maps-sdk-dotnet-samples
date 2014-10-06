@@ -6,6 +6,7 @@ using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using System.Collections.ObjectModel;
+using Esri.ArcGISRuntime.Controls;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
@@ -18,7 +19,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public RenderingInCode()
         {
             this.InitializeComponent();
-            mapView1.Map.InitialExtent = new Envelope(-15000000, 2000000, -7000000, 8000000);
+			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-15000000, 2000000, -7000000, 8000000));
             SetRenderers();
             
         }

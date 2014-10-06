@@ -10,35 +10,35 @@
             </Style>
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" LayerLoaded="mapView_LayerLoaded">
-            <esri:Map>
-                <esri:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
+        <esri:MapView x:Name="MyMapView" LayerLoaded="MyMapView_LayerLoaded">
+			<esri:Map InitialViewpoint="-9275076, 5253226, -9274274, 5253886, 102100">
+				<esri:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-
-                <esri:GraphicsLayer ID="ParcelsGraphicsLayer"  Opacity="0.3" >
-                    <esri:GraphicsLayer.Renderer>
-                        <esri:SimpleRenderer>
-                            <esri:SimpleFillSymbol  Color="#990000FF"    >
-                                <esri:SimpleFillSymbol.Outline>
-                                    <esri:SimpleLineSymbol Color="Blue" Width="1"/>
-                                </esri:SimpleFillSymbol.Outline>
-                            </esri:SimpleFillSymbol>
-                        </esri:SimpleRenderer>
-                    </esri:GraphicsLayer.Renderer>
-                </esri:GraphicsLayer>
-
-                <esri:GraphicsLayer ID="OffsetGraphicsLayer" Opacity="0.4"  >
-                    <esri:GraphicsLayer.Renderer>
-                        <esri:SimpleRenderer>
-                            <esri:SimpleFillSymbol  Color="Bisque"    >
-                                <esri:SimpleFillSymbol.Outline>
-                                    <esri:SimpleLineSymbol Color="Green" Width="2"/>
-                                </esri:SimpleFillSymbol.Outline>
-                            </esri:SimpleFillSymbol>
-                        </esri:SimpleRenderer>
-                    </esri:GraphicsLayer.Renderer>
-                </esri:GraphicsLayer>
-            </esri:Map>
+			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="ParcelsGraphicsOverlay" Opacity="0.3" >
+					<esri:GraphicsOverlay.Renderer>
+						<esri:SimpleRenderer>
+							<esri:SimpleFillSymbol Color="#990000FF">
+								<esri:SimpleFillSymbol.Outline>
+									<esri:SimpleLineSymbol Color="Blue" Width="1"/>
+								</esri:SimpleFillSymbol.Outline>
+							</esri:SimpleFillSymbol>
+						</esri:SimpleRenderer>
+					</esri:GraphicsOverlay.Renderer>
+				</esri:GraphicsOverlay>
+				<esri:GraphicsOverlay  ID="OffsetGraphicsOverlay" Opacity="0.4"  >
+					<esri:GraphicsOverlay.Renderer>
+						<esri:SimpleRenderer>
+							<esri:SimpleFillSymbol  Color="Bisque"    >
+								<esri:SimpleFillSymbol.Outline>
+									<esri:SimpleLineSymbol Color="Green" Width="2"/>
+								</esri:SimpleFillSymbol.Outline>
+							</esri:SimpleFillSymbol>
+						</esri:SimpleRenderer>
+					</esri:GraphicsOverlay.Renderer>
+				</esri:GraphicsOverlay>
+			</esri:MapView.GraphicsOverlays>
         </esri:MapView>
 
         <Border Background="White" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">

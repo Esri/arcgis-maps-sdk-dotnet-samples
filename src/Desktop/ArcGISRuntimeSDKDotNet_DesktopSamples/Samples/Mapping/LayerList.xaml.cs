@@ -1,6 +1,9 @@
-﻿using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Layers;
+﻿using Esri.ArcGISRuntime.Layers;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -13,23 +16,27 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     /// </summary>
     /// <title>Layer List</title>
     /// <category>Mapping</category>
-    public sealed partial class LayerList : UserControl
+    public sealed partial class LayerList : UserControl, INotifyPropertyChanged
     {
         private Point _startPoint;
 
+		public IEnumerable<Layer> LegendLayers
+		{
+			get { return MyMapView.Map.Layers.Reverse(); }
+		}
+		
         public LayerList()
         {
             this.InitializeComponent();
-
-            mapView.Map.InitialExtent = new Envelope(-13279585.9811197, 4010136.34579502,
-                -12786146.5545795, 4280849.94238526, SpatialReferences.WebMercator);
-        }
+			DataContext = this;
+		}
 
         private void RemoveLayerButton_Click(object sender, RoutedEventArgs e)
         {
             var layer = (sender as FrameworkElement).DataContext as Layer;
-            mapView.Map.Layers.Remove(layer);
-        }
+            MyMapView.Map.Layers.Remove(layer);
+			OnPropertyChanged("LegendLayers");
+		}
 
         private void legend_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -78,20 +85,28 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     Layer replaceLayer = lvItem.DataContext as Layer;
                     if (replaceLayer != null)
                     {
-                        int index = mapView.Map.Layers.IndexOf(replaceLayer);
+                        int index = MyMapView.Map.Layers.IndexOf(replaceLayer);
                         if (index >= 0)
                         {
-                            mapView.Map.Layers.Remove(moveLayer);
-                            mapView.Map.Layers.Insert(index, moveLayer);
+                            MyMapView.Map.Layers.Remove(moveLayer);
+                            MyMapView.Map.Layers.Insert(index, moveLayer);
                         }
                         else
                         {
-                            mapView.Map.Layers.Remove(moveLayer);
-                            mapView.Map.Layers.Add(moveLayer);
+                            MyMapView.Map.Layers.Remove(moveLayer);
+                            MyMapView.Map.Layers.Add(moveLayer);
                         }
+
+						OnPropertyChanged("LegendLayers");
                     }
                 }
             }
         }
-    }
+
+		public event PropertyChangedEventHandler PropertyChanged = delegate { };
+		private void OnPropertyChanged([CallerMemberName] string name = null)
+		{
+			PropertyChanged(this, new PropertyChangedEventArgs(name));
+		}
+	}
 }

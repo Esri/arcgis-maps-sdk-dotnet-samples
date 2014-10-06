@@ -18,14 +18,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         private const double toMilesConversion = 0.0006213700922;
         private const double toSqMilesConversion = 0.0000003861003;
 
-        GraphicsLayer graphicsLayer;
+        GraphicsOverlay graphicsOverlay;
         public AreaAndPerimeter()
         {
             InitializeComponent();
 
             mapView1.Loaded += mapView1_Loaded;
-            mapView1.Map.InitialExtent = GeometryEngine.Project(new Envelope { XMin = -130, YMin = 20, XMax = -65, YMax = 55, SpatialReference = SpatialReferences.Wgs84 }, SpatialReferences.WebMercator) as Envelope;
-            graphicsLayer = mapView1.Map.Layers["MyGraphicsLayer"] as GraphicsLayer;
+			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-130, 20, -65, 55, SpatialReferences.Wgs84));
+            graphicsOverlay = mapView1.GraphicsOverlays["Graphics"] as GraphicsOverlay;
         }
 
         async void mapView1_Loaded(object sender, RoutedEventArgs e)
@@ -40,10 +40,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var geom = await mapView1.Editor.RequestShapeAsync(DrawShape.Polygon);
 
                 //show geometry on map
-                graphicsLayer.Graphics.Clear();
+                graphicsOverlay.Graphics.Clear();
 
                 var g = new Graphic { Geometry = geom, Symbol = LayoutRoot.Resources["DefaultFillSymbol"] as Esri.ArcGISRuntime.Symbology.Symbol };
-                graphicsLayer.Graphics.Add(g);
+                graphicsOverlay.Graphics.Add(g);
 
 
                 //Calculate results
@@ -74,7 +74,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private void ResetUI()
         {
-            graphicsLayer.Graphics.Clear();
+            graphicsOverlay.Graphics.Clear();
             Instructions.Visibility = Visibility.Visible;
             Results.Visibility = Visibility.Collapsed;
 

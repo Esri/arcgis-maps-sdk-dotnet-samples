@@ -25,24 +25,29 @@
             </esri:SimpleFillSymbol>
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" MapViewTapped="mapView_MapViewTapped">
-            <esri:Map>
+        <esri:MapView x:Name="MyMapView"
+					  MapViewTapped="MyMapView_MapViewTapped">
+			<esri:Map InitialViewpoint="-122.5009,37.741,-122.3721,37.8089,4326">
                 <esri:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer" />
-
-                <esri:GraphicsLayer x:Name="resultLayer" />
-                
-                <esri:GraphicsLayer x:Name="inputLayer">
-                    <esri:GraphicsLayer.Renderer>
-                        <esri:SimpleRenderer Symbol="{StaticResource MarkerSymbol}" />
-                    </esri:GraphicsLayer.Renderer>
-                </esri:GraphicsLayer>
-            </esri:Map>
+			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="resultsOverlay"/>
+				<esri:GraphicsOverlay ID="inputOverlay">
+				<esri:GraphicsOverlay.Renderer>
+					<esri:SimpleRenderer Symbol="{StaticResource MarkerSymbol}" />
+					</esri:GraphicsOverlay.Renderer>
+				</esri:GraphicsOverlay>
+			</esri:MapView.GraphicsOverlays>
         </esri:MapView>
 
-        <Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="30"
-                Width="300" HorizontalAlignment="Right" VerticalAlignment="Top">
-            <StackPanel Margin="20" >
+		<Border Background="White" BorderBrush="Black" BorderThickness="1"
+				HorizontalAlignment="Right" VerticalAlignment="Top"
+				Margin="30" Padding="20">
+			<Border.Effect>
+				<DropShadowEffect/>
+			</Border.Effect>
+			<StackPanel>
                 <TextBlock Text="Click on the map to set a location. Drive time areas of 1, 2, and 3 minutes will be displayed" 
                            TextWrapping="Wrap" HorizontalAlignment="Center" />
                 

@@ -4,6 +4,7 @@ using Esri.ArcGISRuntime.Symbology;
 using System;
 using Windows.Foundation;
 using Windows.UI;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -21,61 +22,73 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private Random _random = new Random();
         private GraphicsLayer _graphicsLayer;
-        private bool _isHitTesting;
+		private FrameworkElement _mapTip;
+		private bool _isMapReady;
 
         public GraphicsMapTips()
         {
             this.InitializeComponent();
 
-            _graphicsLayer = mapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+            _graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+			_mapTip = MyMapView.Overlays.Items[0] as FrameworkElement;
 
-            mapView.PointerMoved += mapView_PointerMoved;
+            MyMapView.PointerMoved += MyMapView_PointerMoved;
             
-            _isHitTesting = false;
-            CreateGraphics();
-        }
+            _isMapReady = false;
+			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
+		}
+
+		private void MyMapView_NavigationCompleted(object sender, EventArgs e)
+		{
+			MyMapView.NavigationCompleted -= MyMapView_NavigationCompleted;
+			CreateGraphics();
+			_isMapReady = true;
+		}
 
         // HitTest the graphics and position the map tip
-        private async void mapView_PointerMoved(object sender, PointerRoutedEventArgs e)
+        private async void MyMapView_PointerMoved(object sender, PointerRoutedEventArgs e)
         {
-            if (_isHitTesting)
+            if (!_isMapReady)
                 return;
 
             try
             {
-                _isHitTesting = true;
+                _isMapReady = false;
 
-                Point screenPoint = e.GetCurrentPoint(mapView).Position;
-                var graphic = await _graphicsLayer.HitTestAsync(mapView, screenPoint);
+                Point screenPoint = e.GetCurrentPoint(MyMapView).Position;
+                var graphic = await _graphicsLayer.HitTestAsync(MyMapView, screenPoint);
                 if (graphic != null)
                 {
-                    maptipTransform.X = screenPoint.X + 4;
-                    maptipTransform.Y = screenPoint.Y - mapTip.ActualHeight;
-                    mapTip.DataContext = graphic;
-                    mapTip.Visibility = Visibility.Visible;
+                    _mapTip.DataContext = graphic;
+                    _mapTip.Visibility = Visibility.Visible;
                 }
                 else
-                    mapTip.Visibility = Visibility.Collapsed;
+                    _mapTip.Visibility = Visibility.Collapsed;
             }
             catch
             {
-                mapTip.Visibility = Visibility.Collapsed;
+                _mapTip.Visibility = Visibility.Collapsed;
             }
             finally
             {
-                _isHitTesting = false;
+                _isMapReady = true;
             }
         }
 
         // Create three List<Graphic> objects with random graphics to serve as layer GraphicsSources
         private async void CreateGraphics()
         {
-            await mapView.LayersLoadedAsync();
+			try
+			{
+				await MyMapView.LayersLoadedAsync();
 
-            for (int n = 1; n <= MAX_GRAPHICS; ++n)
-            {
-                _graphicsLayer.Graphics.Add(CreateRandomGraphic(n));
-            }
+				for (int n = 1; n <= MAX_GRAPHICS; ++n)
+					_graphicsLayer.Graphics.Add(CreateRandomGraphic(n));
+			}
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog("Error occured " + ex.ToString(), "Sample error").ShowAsync();
+			}
         }
 
         // Create a random graphic
@@ -106,9 +119,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         // Utility: Generate a random MapPoint within the current extent
         private MapPoint GetRandomMapPoint()
         {
-            double x = mapView.Extent.XMin + (_random.NextDouble() * mapView.Extent.Width);
-            double y = mapView.Extent.YMin + (_random.NextDouble() * mapView.Extent.Height);
-            return new MapPoint(x, y, mapView.SpatialReference);
+            double x = MyMapView.Extent.XMin + (_random.NextDouble() * MyMapView.Extent.Width);
+            double y = MyMapView.Extent.YMin + (_random.NextDouble() * MyMapView.Extent.Height);
+            return new MapPoint(x, y, MyMapView.SpatialReference);
         }
     }
 }

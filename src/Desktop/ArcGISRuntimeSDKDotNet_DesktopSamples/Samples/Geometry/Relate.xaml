@@ -11,25 +11,30 @@
             <esri:SimpleFillSymbol x:Key="FillSymbol" Color="#7F0000FF" Style="DiagonalCross" Outline="{StaticResource LineSymbol}" />
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" WrapAround="True">
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
             <esri:Map>
-                <esri:ArcGISTiledMapServiceLayer
+				<esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
+			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="graphicsOverlay" />
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
 
-                <esri:GraphicsLayer x:Name="graphicsLayer" />
-            </esri:Map>
-        </esri:MapView>
-
-        <Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="30"
-                HorizontalAlignment="Right" VerticalAlignment="Top">
-            <StackPanel Margin="30,20">
+		<Border Background="White" BorderBrush="Black" BorderThickness="1"
+				 HorizontalAlignment="Right" VerticalAlignment="Top"
+				 Margin="30" Padding="20">
+			<Border.Effect>
+				<DropShadowEffect/>
+			</Border.Effect>
+			<StackPanel>
                 <TextBlock Text="Click the 'Start Drawing' button to add two shapes to the map.  Then test the relationship of Shape #1 to Shape #2 by choosing or entering a DE-9IM value and clicking the 'Test Relationship' button." 
                            Margin="0,0,0,12" FontSize="14" Width="400" TextAlignment="Left" TextWrapping="Wrap" />
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <StackPanel Orientation="Horizontal" Margin="12,0" VerticalAlignment="Center">
                         <TextBlock Text="Shape 1:" Margin="6,0" VerticalAlignment="Center" />
-                        <ComboBox x:Name="comboShapeOne" SelectedIndex="0" Width="80">
+                        <ComboBox x:Name="comboShapeOne" SelectedIndex="2" Width="80">
                             <esri:DrawShape>Point</esri:DrawShape>
                             <esri:DrawShape>Polyline</esri:DrawShape>
                             <esri:DrawShape>Polygon</esri:DrawShape>
@@ -38,7 +43,7 @@
 
                     <StackPanel Orientation="Horizontal" Margin="12,0" VerticalAlignment="Center">
                         <TextBlock Text="Shape 2:" Margin="6,0" VerticalAlignment="Center" />
-                        <ComboBox x:Name="comboShapeTwo" SelectedIndex="0" Width="80">
+                        <ComboBox x:Name="comboShapeTwo" SelectedIndex="2" Width="80">
                             <esri:DrawShape>Point</esri:DrawShape>
                             <esri:DrawShape>Polyline</esri:DrawShape>
                             <esri:DrawShape>Polygon</esri:DrawShape>
@@ -52,8 +57,8 @@
                 <StackPanel Orientation="Horizontal" Margin="12,24,12,0" HorizontalAlignment="Center">
                     <TextBlock Text="Relationship:" Margin="6,0" VerticalAlignment="Center" />
                     <ComboBox x:Name="comboRelate" Width="200" IsEditable="True" FontFamily="Courier New" SelectedIndex="0">
-                        <sys:String>T******** (Intersects)</sys:String>
-                        <sys:String>T*****FF* (Contains)</sys:String>
+						<sys:String>T*****FF* (Contains)</sys:String>
+						<sys:String>T******** (Intersects)</sys:String>
                         <sys:String>T*F**F*** (Within)</sys:String>
                         <sys:String>T*F**FFF* (Equals)</sys:String>
                         <sys:String>FF*FF**** (Disjoint)</sys:String>
@@ -71,7 +76,7 @@
 
         <Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="25"
                 HorizontalAlignment="Center" VerticalAlignment="Bottom"
-                Visibility="{Binding ElementName=mapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
+                Visibility="{Binding ElementName=MyMapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
             <TextBlock Text="Digitize shapes on the map." Margin="8" FontSize="14" />
         </Border>
     </Grid>

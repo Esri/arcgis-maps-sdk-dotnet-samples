@@ -25,8 +25,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         private Symbol _fillSymbol;
         private Symbol _origVertexSymbol;
         private Symbol _newVertexSymbol;
-        private GraphicsLayer _inputGraphics;
-        private GraphicsLayer _resultGraphics;
+        private GraphicsOverlay _inputOverlay;
+        private GraphicsOverlay _resultsOverlay;
 
         /// <summary>Construct Densify sample control</summary>
         public GeodesicDensify()
@@ -38,8 +38,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             _origVertexSymbol = LayoutRoot.Resources["OrigVertexSymbol"] as Symbol;
             _newVertexSymbol = LayoutRoot.Resources["NewVertexSymbol"] as Symbol;
 
-            _inputGraphics = mapView.Map.Layers["InputGraphics"] as GraphicsLayer;
-            _resultGraphics = mapView.Map.Layers["ResultGraphics"] as GraphicsLayer;
+			_inputOverlay = MyMapView.GraphicsOverlays["inputOverlay"];
+			_resultsOverlay = MyMapView.GraphicsOverlays["resultsOverlay"];
         }
 
         // Draw and densify a user defined polygon
@@ -48,33 +48,46 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             try
             {
                 resultsPanel.Visibility = Visibility.Collapsed;
-                _inputGraphics.Graphics.Clear();
-                _resultGraphics.Graphics.Clear();
+                _inputOverlay.Graphics.Clear();
+                _resultsOverlay.Graphics.Clear();
 
                 // Request polygon or polyline from the user
                 DrawShape drawShape = (DrawShape)comboShapeType.SelectedValue;
-                var original = await mapView.Editor.RequestShapeAsync(drawShape, _fillSymbol);
+	
+				// Use polyline as default
+				Symbol symbolToUse = _lineSymbol; 
+				if (drawShape == DrawShape.Polygon)
+					symbolToUse = _fillSymbol;
+
+				var original = await MyMapView.Editor.RequestShapeAsync(drawShape, symbolToUse);
+
+				// Account for WrapAround
+				var normalized = GeometryEngine.NormalizeCentralMeridian(original);
 
                 // Add original shape vertices to input graphics layer
-                var coordsOriginal = ((IEnumerable<CoordinateCollection>)original).First();
+				var coordsOriginal = (normalized as Multipart).Parts.First().GetPoints();
                 foreach (var coord in coordsOriginal)
-                    _inputGraphics.Graphics.Add(new Graphic(new MapPoint(coord, original.SpatialReference), _origVertexSymbol));
+                    _inputOverlay.Graphics.Add(new Graphic(coord, _origVertexSymbol));
 
                 // Densify the shape
-                var densify = GeometryEngine.GeodesicDensify(original, mapView.Extent.Width / 100, LinearUnits.Meters);
-                _inputGraphics.Graphics.Add(new Graphic(densify, _fillSymbol));
+				var densify = GeometryEngine.GeodesicDensify(normalized, MyMapView.Extent.Width / 100, LinearUnits.Meters);
 
+				if (densify.GeometryType == GeometryType.Polygon)
+					_inputOverlay.Graphics.Add(new Graphic(densify, _fillSymbol));
+				else
+					_inputOverlay.Graphics.Add(new Graphic(densify, _lineSymbol));
+				
                 // Add new vertices to result graphics layer
-                var coordsDensify = ((IEnumerable<CoordinateCollection>)densify).First();
+				var coordsDensify = (densify as Multipart).Parts.First().GetPoints();
                 foreach (var coord in coordsDensify)
-                    _resultGraphics.Graphics.Add(new Graphic(new MapPoint(coord, original.SpatialReference), _newVertexSymbol));
+                    _resultsOverlay.Graphics.Add(new Graphic(coord, _newVertexSymbol));
 
                 // Results
                 var results = new List<Tuple<string, object>>()
                 {
                     new Tuple<string, object>("Length", GeometryEngine.GeodesicLength(densify) * METERS_TO_MILES),
                     new Tuple<string, object>("Area", 
-                        (original is Polygon) ? (GeometryEngine.GeodesicArea(densify) * SQUARE_METERS_TO_MILES).ToString("0.000") : "N/A"),
+                        (normalized is Polygon) ? (GeometryEngine.GeodesicArea(densify) * SQUARE_METERS_TO_MILES).ToString("0.000") : "N/A"),
                     new Tuple<string, object>("Vertices Before", coordsOriginal.Count()),
                     new Tuple<string, object>("Vertices After", coordsDensify.Count())
                 };
@@ -82,12 +95,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 resultsListView.ItemsSource = results;
                 resultsPanel.Visibility = Visibility.Visible;
             }
-            catch (TaskCanceledException)
-            {
-            }
+            catch (TaskCanceledException) { }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Densify Error: " + ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog("Densify Error: " + ex.Message, "Sample Error").ShowAsync();
             }
         }
     }

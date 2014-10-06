@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Layers;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Threading.Tasks;
@@ -16,26 +17,29 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	public partial class SimpleRendererSample : UserControl
     {
         private Random _random = new Random();
+		private GraphicsOverlay _graphicsOverlay;
 
         /// <summary>Construct Simple Renderer sample control</summary>
         public SimpleRendererSample()
         {
             InitializeComponent();
 
-            mapView.ExtentChanged += mapView_ExtentChanged;
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
+
+            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 
         // Start map interaction
-        private async void mapView_ExtentChanged(object sender, EventArgs e)
+        private async void MyMapView_ExtentChanged(object sender, EventArgs e)
         {
-            mapView.ExtentChanged -= mapView_ExtentChanged;
+            MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
             await AcceptPointsAsync();
         }
 
         // Change the graphics layer renderer to a new SimpleRenderer
         private void ChangeRendererButton_Click(object sender, RoutedEventArgs e)
         {
-            graphicsLayer.Renderer = new SimpleRenderer() { Symbol = GetRandomSymbol() };
+			_graphicsOverlay.Renderer = new SimpleRenderer() { Symbol = GetRandomSymbol() };
         }
 
         // Accept user map clicks and add points to the graphics layer (use the default symbol from renderer)
@@ -43,15 +47,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                while (mapView.Extent != null)
+                while (MyMapView.Extent != null)
                 {
-                    var point = await mapView.Editor.RequestPointAsync();
-                    graphicsLayer.Graphics.Add(new Graphic(point));
+                    var point = await MyMapView.Editor.RequestPointAsync();
+					_graphicsOverlay.Graphics.Add(new Graphic(point));
                 }
             }
-            catch (TaskCanceledException)
-            {
-            }
+            catch (TaskCanceledException) { }
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message, "Simple Renderer Sample");

@@ -14,21 +14,27 @@
             <esri:SimpleRenderer x:Key="FillRenderer" Symbol="{StaticResource FillSymbol}" />
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" WrapAround="True">
-            <esri:Map>
+        <esri:MapView x:Name="MyMapView" WrapAround="True" LayerLoaded="MyMapView_LayerLoaded">
+			<esri:Map InitialViewpoint="-8985039, 4495835, -8114289, 4889487">
                 <esri:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 
-                <esri:ArcGISDynamicMapServiceLayer ID="HomelandSecurity"
+				<esri:ArcGISDynamicMapServiceLayer ID="HomelandSecurity"
                     ServiceUri="http://sampleserver4.arcgisonline.com/ArcGIS/rest/services/HomelandSecurity/Incident_Data_Extraction/MapServer" />
+			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="graphicsOverlay" Renderer="{StaticResource FillRenderer}"/>
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
 
-                <esri:GraphicsLayer x:Name="graphicsLayer" Renderer="{StaticResource FillRenderer}" />
-            </esri:Map>
-        </esri:MapView>
-
-        <Border x:Name="uiPanel" Background="White" BorderBrush="Black" BorderThickness="2" Margin="30"
-                Width="300" HorizontalAlignment="Right" VerticalAlignment="Top">
-            <StackPanel Margin="20">
+		<Border Background="White" BorderBrush="Black" BorderThickness="1"
+				HorizontalAlignment="Right" VerticalAlignment="Top"
+				Margin="30" Padding="20"
+				x:Name="uiPanel" Width="450">
+			<Border.Effect>
+				<DropShadowEffect/>
+			</Border.Effect>
+			<StackPanel>
                 <StackPanel Margin="12,0,12,0">
                     <TextBlock Text="Step 1: Select Extract Layers" FontSize="16" FontWeight="Bold" />
                     <ListBox x:Name="listLayers" Margin="12,12,12,0" SelectionMode="Multiple" />
@@ -55,6 +61,5 @@
                 <TextBlock x:Name="txtStatus" Margin="12,12,12,0" Visibility="Collapsed" />
             </StackPanel>
         </Border>
-
     </Grid>
 </UserControl>

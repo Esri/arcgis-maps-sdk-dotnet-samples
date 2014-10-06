@@ -30,7 +30,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-            _graphicsLayer = mapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+            _graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
 
             SetGraphicsCountUI();
             CreateGraphics();
@@ -49,12 +49,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
                 SetGraphicsCountUI();
             }
-            catch (TaskCanceledException)
-            {
-            }
+            catch (TaskCanceledException) { }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Selection Error: " + ex.Message, "Graphics Layer Selection Sample").ShowAsync();
+                var _x = new MessageDialog("Selection Error: " + ex.Message, "Graphics Layer Selection Sample").ShowAsync();
             }
         }
 
@@ -71,12 +69,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
                 SetGraphicsCountUI();
             }
-            catch (TaskCanceledException)
-            {
-            }
+			catch (TaskCanceledException) { }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Selection Error: " + ex.Message, "Graphics Layer Selection Sample").ShowAsync();
+                var _x = new MessageDialog("Selection Error: " + ex.Message, "Graphics Layer Selection Sample").ShowAsync();
             }
         }
 
@@ -90,36 +86,41 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Selection Error: " + ex.Message, "Graphics Layer Selection Sample").ShowAsync();
+                var _x = new MessageDialog("Selection Error: " + ex.Message, "Graphics Layer Selection Sample").ShowAsync();
             }
         }
 
         // Retrieve a user click point and return hit tested graphics
         private async Task<IEnumerable<Graphic>> FindIntersectingGraphicsAsync()
         {
-            var mapRect = await mapView.Editor.RequestShapeAsync(DrawShape.Rectangle) as Envelope;
+            var mapRect = await MyMapView.Editor.RequestShapeAsync(DrawShape.Envelope) as Envelope;
 
             Rect winRect = new Rect(
-                mapView.LocationToScreen(new MapPoint(mapRect.XMin, mapRect.YMin, mapView.SpatialReference)),
-                mapView.LocationToScreen(new MapPoint(mapRect.XMax, mapRect.YMax, mapView.SpatialReference)));
+                MyMapView.LocationToScreen(new MapPoint(mapRect.XMin, mapRect.YMax, MyMapView.SpatialReference)),
+                MyMapView.LocationToScreen(new MapPoint(mapRect.XMax, mapRect.YMin, MyMapView.SpatialReference)));
 
-            return await _graphicsLayer.HitTestAsync(mapView, winRect, MAX_GRAPHICS);
+            return await _graphicsLayer.HitTestAsync(MyMapView, winRect, MAX_GRAPHICS);
         }
 
         private void SetGraphicsCountUI()
         {
-            txtSelectionCount.Text = _graphicsLayer.SelectedItems.Count().ToString();
+            txtSelectionCount.Text = _graphicsLayer.SelectedGraphics.Count().ToString();
         }
 
         // Add new random graphics to the graphics layer
         private async void CreateGraphics()
         {
-            await mapView.LayersLoadedAsync();
+			try
+			{
+				await MyMapView.LayersLoadedAsync();
 
-            for (int n = 1; n <= MAX_GRAPHICS; ++n)
-            {
-                _graphicsLayer.Graphics.Add(CreateRandomGraphic());
-            }
+				for (int n = 1; n <= MAX_GRAPHICS; ++n)
+					_graphicsLayer.Graphics.Add(CreateRandomGraphic());
+			}
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog("Error occured " + ex.ToString(), "Sample error").ShowAsync();
+			}
         }
 
         // Create a random graphic
@@ -140,9 +141,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         // Utility: Generate a random MapPoint within the current extent
         private MapPoint GetRandomMapPoint()
         {
-            double x = mapView.Extent.XMin + (_random.NextDouble() * mapView.Extent.Width);
-            double y = mapView.Extent.YMin + (_random.NextDouble() * mapView.Extent.Height);
-            return new MapPoint(x, y, mapView.SpatialReference);
+            double x = MyMapView.Extent.XMin + (_random.NextDouble() * MyMapView.Extent.Width);
+            double y = MyMapView.Extent.YMin + (_random.NextDouble() * MyMapView.Extent.Height);
+            return new MapPoint(x, y, MyMapView.SpatialReference);
         }
     }
 }

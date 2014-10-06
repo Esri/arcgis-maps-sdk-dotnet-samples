@@ -19,7 +19,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private Symbol _lineSymbol;
         private Symbol _pointSymbol;
-        private GraphicsLayer _graphicsLayer;
+        private GraphicsOverlay _graphicsOverlay;
 
         /// <summary>Construct Distance From Geometry sample control</summary>
         public DistanceFromGeometry()
@@ -28,7 +28,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
             _lineSymbol = LayoutRoot.Resources["LineSymbol"] as Symbol;
             _pointSymbol = LayoutRoot.Resources["PointSymbol"] as Symbol;
-            _graphicsLayer = mapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
         }
 
         // Calculates the linear distance between two user-defined geometries
@@ -37,26 +37,26 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             try
             {
                 txtResults.Visibility = Visibility.Collapsed;
-                _graphicsLayer.Graphics.Clear();
+                _graphicsOverlay.Graphics.Clear();
 
                 // wait for user to draw a polyline
-                var line = await mapView.Editor.RequestShapeAsync(DrawShape.Polyline, _lineSymbol);
-                _graphicsLayer.Graphics.Add(new Graphic(line, _lineSymbol));
+                var line = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polyline, _lineSymbol);
+                _graphicsOverlay.Graphics.Add(new Graphic(line, _lineSymbol));
 
                 // wait for user to draw a point
-                var point = await mapView.Editor.RequestPointAsync();
-                _graphicsLayer.Graphics.Add(new Graphic(point, _pointSymbol));
+                var point = await MyMapView.Editor.RequestPointAsync();
+                _graphicsOverlay.Graphics.Add(new Graphic(point, _pointSymbol));
 
                 // Calc distance between between line and point
-                double distance = GeometryEngine.DistanceFromGeometry(line, point) * METERS_TO_MILES;
+                double distance = GeometryEngine.Distance(line, point) * METERS_TO_MILES;
                 txtResults.Text = string.Format("Distance between geometries: {0:0.000} miles", distance);
                 txtResults.Visibility = Visibility.Visible;
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Distance Calculation Error: " + ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog("Distance Calculation Error: " + ex.Message, "Sample Error").ShowAsync();
                 txtResults.Visibility = Visibility.Collapsed;
-                _graphicsLayer.Graphics.Clear();
+                _graphicsOverlay.Graphics.Clear();
             }
         }
     }

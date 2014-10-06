@@ -8,6 +8,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using System.Linq;
+using Esri.ArcGISRuntime.Controls;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
@@ -25,9 +26,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-            Envelope intial_extent = new Envelope(-117.387, 33.97, -117.355, 33.988, wgs84);
+            Envelope initial_extent = new Envelope(-117.387, 33.97, -117.355, 33.988, wgs84);
 
-            mapView1.Map.InitialExtent = GeometryEngine.Project(intial_extent, mercator) as Envelope; ;
+			mapView1.Map.InitialViewpoint = new Viewpoint(initial_extent);
 
             _locationGraphicsLayer = mapView1.Map.Layers["LocationGraphicsLayer"] as GraphicsLayer;
 
@@ -107,7 +108,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 }
                 //Convert anchor point to the spatial reference of the map
                 var mp = GeometryEngine.Project(anchor, mapView1.SpatialReference) as MapPoint;
-                //Convert anchor point to screen coordinate
+                //Convert anchor point to screen MapPoint
                 var screen = mapView1.LocationToScreen(mp);
 
                 if (screen.X >= 0 && screen.Y >= 0 &&

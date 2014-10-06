@@ -2,49 +2,47 @@
     x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Simplify"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:common="using:ArcGISRuntimeSDKDotNet_StoreSamples.Common"
     xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
     xmlns:geo="using:Esri.ArcGISRuntime.Geometry"
-    xmlns:sym="using:Esri.ArcGISRuntime.Symbology"
-    xmlns:data="using:Esri.ArcGISRuntime.Data">
+    xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
 
     <Grid x:Name="LayoutRoot" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
-            <sym:SimpleFillSymbol x:Key="ParcelSymbol" Color="#660000FF" Style="Solid">
-                <sym:SimpleFillSymbol.Outline>
-                    <sym:SimpleLineSymbol Color="Blue" Width="2" />
-                </sym:SimpleFillSymbol.Outline>
-            </sym:SimpleFillSymbol>
+			<symb:SimpleFillSymbol x:Key="ParcelSymbol" Color="#660000FF" Style="Solid">
+				<symb:SimpleFillSymbol.Outline>
+					<symb:SimpleLineSymbol Color="Blue" Width="2" />
+                </symb:SimpleFillSymbol.Outline>
+            </symb:SimpleFillSymbol>
 
-            <sym:SimpleFillSymbol x:Key="PolygonSymbol" Color="#66FF0000" Style="Solid">
-                <sym:SimpleFillSymbol.Outline>
-                    <sym:SimpleLineSymbol Color="Red" Width="2" />
-                </sym:SimpleFillSymbol.Outline>
-            </sym:SimpleFillSymbol>
+			<symb:SimpleFillSymbol x:Key="PolygonSymbol" Color="#66FF0000" Style="Solid">
+				<symb:SimpleFillSymbol.Outline>
+					<symb:SimpleLineSymbol Color="Red" Width="2" />
+                </symb:SimpleFillSymbol.Outline>
+            </symb:SimpleFillSymbol>
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" WrapAround="True">
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
             <esri:Map>
-                <esri:Map.InitialExtent>
-                    <geo:Envelope XMin="-9270500" YMin="5246900" XMax="-9269300" YMax="5247600" />
-                </esri:Map.InitialExtent>
-                
-                <lyr:ArcGISTiledMapServiceLayer
-                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-9270434.248" YMin="5246977.326" XMax="-9269261.417" YMax="5247569.712" SpatialReferenceID="102100"/>
+                </esri:Map.InitialViewpoint>
 
-                <lyr:GraphicsLayer ID="ParcelLayer">
-                    <lyr:GraphicsLayer.Renderer>
-                        <sym:SimpleRenderer Symbol="{StaticResource ParcelSymbol}" />
-                    </lyr:GraphicsLayer.Renderer>
-                </lyr:GraphicsLayer>
-                
-                <lyr:GraphicsLayer ID="PolygonLayer">
-                    <lyr:GraphicsLayer.Renderer>
-                        <sym:SimpleRenderer Symbol="{StaticResource PolygonSymbol}" />
-                    </lyr:GraphicsLayer.Renderer>
-                </lyr:GraphicsLayer>
+				<layers:ArcGISTiledMapServiceLayer
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
             </esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="parcelOverlay">
+					<esri:GraphicsOverlay.Renderer>
+						<symb:SimpleRenderer Symbol="{StaticResource ParcelSymbol}" />
+					</esri:GraphicsOverlay.Renderer>
+				</esri:GraphicsOverlay>
+				<esri:GraphicsOverlay ID="polygonOverlay">
+					<esri:GraphicsOverlay.Renderer>
+						<symb:SimpleRenderer Symbol="{StaticResource PolygonSymbol}" />
+					</esri:GraphicsOverlay.Renderer>
+				</esri:GraphicsOverlay>
+			</esri:MapView.GraphicsOverlays>
         </esri:MapView>
 
         <Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">

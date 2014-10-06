@@ -2,6 +2,7 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,16 +23,16 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public FeatureLayerFromLocalGeodatabase()
         {
             InitializeComponent();
-            var task = CreateFeatureLayersAsync();
+            CreateFeatureLayers();
         }
 
-        private async Task CreateFeatureLayersAsync()
+        private async void CreateFeatureLayers()
         {
             try
             {
                 var gdb = await Geodatabase.OpenAsync(GDB_PATH);
 
-                Envelope extent = new Envelope();
+				Envelope extent = null;
                 foreach (var table in gdb.FeatureTables)
                 {
                     var flayer = new FeatureLayer()
@@ -41,18 +42,18 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                         FeatureTable = table
                     };
 
-                    if (table.Extent != null)
-                    {
-                        if (extent == null)
-                            extent = table.Extent;
-                        else
-                            extent = extent.Union(table.Extent);
-                    }
+					if (!Geometry.IsNullOrEmpty(table.ServiceInfo.Extent))
+					{
+						if (Geometry.IsNullOrEmpty(extent))
+							extent = table.ServiceInfo.Extent;
+						else
+							extent = extent.Union(table.ServiceInfo.Extent);
+					}
 
-                    mapView.Map.Layers.Add(flayer);
+					MyMapView.Map.Layers.Add(flayer);
                 }
 
-                await mapView.SetViewAsync(extent.Expand(1.10));
+				await MyMapView.SetViewAsync(extent.Expand(1.10));
             }
             catch (Exception ex)
             {

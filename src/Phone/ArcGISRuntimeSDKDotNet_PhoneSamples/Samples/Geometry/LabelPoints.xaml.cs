@@ -24,14 +24,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            mapView1.Map.InitialExtent = new Envelope(-118.331, 33.7, -116.75, 34, SpatialReferences.Wgs84);
+			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-118.331, 33.7, -116.75, 34, SpatialReferences.Wgs84));
             myGraphicsLayer = mapView1.Map.Layers["MyGraphicsLayer"] as GraphicsLayer;
-            InitializePictureMarkerSymbol().ContinueWith((_) => { }, TaskScheduler.FromCurrentSynchronizationContext());
+            InitializePictureMarkerSymbol();
 
             mapView1.Loaded += mapView1_Loaded;
 
         }
-        private async Task InitializePictureMarkerSymbol()
+        private async void InitializePictureMarkerSymbol()
         {
             try
             {

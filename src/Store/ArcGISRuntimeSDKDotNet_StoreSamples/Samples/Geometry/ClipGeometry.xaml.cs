@@ -21,23 +21,23 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
     {
         private const string GdbPath = @"maps\usa.geodatabase";
 
-        private GraphicsLayer _clippedGraphics;
+        private GraphicsOverlay _clippedGraphicsOverlay;
         private Symbol _clipSymbol;
         private FeatureLayer _statesLayer;
 
-        /// <summary>Construct Clip Geometry sample control</summary>
+        /// <summary>Construct Clip Geometry sample control</summary>S
         public ClipGeometry()
         {
             InitializeComponent();
 
-            _clippedGraphics = mapView.Map.Layers["ClippedGraphics"] as GraphicsLayer;
+			_clippedGraphicsOverlay = MyMapView.GraphicsOverlays["clippedGraphicsOverlay"];
             _clipSymbol = layoutGrid.Resources["ClipRectSymbol"] as Symbol;
 
-            var task = CreateFeatureLayersAsync();
+			CreateFeatureLayers();
         }
 
         // Creates a feature layer from a local .geodatabase file
-        private async Task CreateFeatureLayersAsync()
+        private async void CreateFeatureLayers()
         {
             try
             {
@@ -48,11 +48,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var gdb = await Geodatabase.OpenAsync(file.Path);
                 var table = gdb.FeatureTables.First(ft => ft.Name == "US-States");
                 _statesLayer = new FeatureLayer() { ID = table.Name, FeatureTable = table };
-                mapView.Map.Layers.Insert(1, _statesLayer);
+                MyMapView.Map.Layers.Insert(1, _statesLayer);
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Error creating feature layer: " + ex.Message, "Clip Geometry").ShowAsync();
+                var _x = new MessageDialog("Error creating feature layer: " + ex.Message, "Clip Geometry").ShowAsync();
             }
         }
 
@@ -61,14 +61,16 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             try
             {
-                _clippedGraphics.Graphics.Clear();
+                _clippedGraphicsOverlay.Graphics.Clear();
 
                 // wait for user to draw clip rect
-                var rect = await mapView.Editor.RequestShapeAsync(DrawShape.Rectangle);
+                var rect = await MyMapView.Editor.RequestShapeAsync(DrawShape.Rectangle);
+
+				Polygon polygon = GeometryEngine.NormalizeCentralMeridian(rect) as Polygon;
 
                 // get intersecting features from the feature layer
                 SpatialQueryFilter filter = new SpatialQueryFilter();
-                filter.Geometry = GeometryEngine.Project(rect, _statesLayer.FeatureTable.SpatialReference);
+				filter.Geometry = GeometryEngine.Project(polygon, _statesLayer.FeatureTable.SpatialReference);
                 filter.SpatialRelationship = SpatialRelationship.Intersects;
                 filter.MaximumRows = 52;
                 var stateFeatures = await _statesLayer.FeatureTable.QueryAsync(filter);
@@ -76,17 +78,15 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 // Clip the feature geometries and add to graphics layer
                 var states = stateFeatures.Select(feature => feature.Geometry);
                 var clipGraphics = states
-                    .Select(state => GeometryEngine.Clip(state, rect.Extent))
+					.Select(state => GeometryEngine.Clip(state, polygon.Extent))
                     .Select(geo => new Graphic(geo, _clipSymbol));
 
-                _clippedGraphics.Graphics.AddRange(clipGraphics);
+                _clippedGraphicsOverlay.Graphics.AddRange(clipGraphics);
             }
-            catch (TaskCanceledException)
-            {
-            }
+            catch (TaskCanceledException) { }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Clip Error: " + ex.Message, "Clip Geometry").ShowAsync();
+                var _x = new MessageDialog("Clip Error: " + ex.Message, "Clip Geometry").ShowAsync();
             }
         }
     }

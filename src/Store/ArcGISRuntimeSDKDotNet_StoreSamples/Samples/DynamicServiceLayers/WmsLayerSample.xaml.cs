@@ -1,5 +1,4 @@
-﻿using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Layers;
+﻿using Esri.ArcGISRuntime.Layers;
 using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
@@ -15,10 +14,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public WmsLayerSample()
         {
             this.InitializeComponent();
-
-            mapView.Map.InitialExtent = new Envelope(-15000000, 2000000, -7000000, 8000000);
-
-            var wmsLayer = mapView.Map.Layers[1] as WmsLayer;
+            var wmsLayer = MyMapView.Map.Layers[1] as WmsLayer;
             wmsLayer.Layers = new string[] { "nexrad-n0r" };
         }
     }

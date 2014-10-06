@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Geocoding;
@@ -22,25 +23,31 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private const string LOCATOR_PATH = @"..\..\..\..\..\samples-data\locators\san-diego\san-diego-locator.loc";
 
         private LocalLocatorTask _locatorTask;
+		private GraphicsOverlay _graphicsOverlay;
 
         /// <summary>Construct Offline Geocoding sample control</summary>
         public OfflineGeocoding()
         {
             InitializeComponent();
 
-            mapView.Map.InitialExtent = new Envelope(-13044000, 3855000, -13040000, 3858000, SpatialReferences.WebMercator);
-
-            var _ = SetupRendererSymbols();
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
+            SetupRendererSymbols();
         }
 
         // Setup marker symbol and renderer
-        private async Task SetupRendererSymbols()
+        private async void SetupRendererSymbols()
         {
-            var markerSymbol = new PictureMarkerSymbol() { Width = 48, Height = 48, YOffset = 24 };
-            await markerSymbol.SetSourceAsync(
-                new Uri("pack://application:,,,/ArcGISRuntimeSDKDotNet_DesktopSamples;component/Assets/RedStickpin.png"));
-
-            graphicsLayer.Renderer = new SimpleRenderer() { Symbol = markerSymbol, };
+			try
+			{
+				var markerSymbol = new PictureMarkerSymbol() { Width = 48, Height = 48, YOffset = 24 };
+				await markerSymbol.SetSourceAsync(
+					new Uri("pack://application:,,,/ArcGISRuntimeSDKDotNet_DesktopSamples;component/Assets/RedStickpin.png"));
+				_graphicsOverlay.Renderer = new SimpleRenderer() { Symbol = markerSymbol, };
+			}
+			catch(Exception ex)
+			{
+				MessageBox.Show("Error occured : " + ex.Message, "Sample error");
+			}
         }
 
         // Geocode input address and add result graphics to the map
@@ -50,7 +57,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             {
                 progress.Visibility = Visibility.Visible;
                 listResults.Visibility = Visibility.Collapsed;
-                graphicsLayer.GraphicsSource = null;
+				_graphicsOverlay.GraphicsSource = null;
 
                 // Street, City, State, ZIP
                 Dictionary<string, string> address = new Dictionary<string, string>();
@@ -67,12 +74,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     _locatorTask = await Task.Run<LocalLocatorTask>(() => new LocalLocatorTask(LOCATOR_PATH));
 
                 var candidateResults = await _locatorTask.GeocodeAsync(
-                    address, new List<string> { "Match_addr" }, mapView.SpatialReference, CancellationToken.None);
+                    address, new List<string> { "Match_addr" }, MyMapView.SpatialReference, CancellationToken.None);
 
-                graphicsLayer.GraphicsSource = candidateResults
+				_graphicsOverlay.GraphicsSource = candidateResults
                     .Select(result => new Graphic(result.Location, new Dictionary<string, object> { { "Locator", result } }));
 
-                await mapView.SetViewAsync(ExtentFromGraphics());
+                await MyMapView.SetViewAsync(ExtentFromGraphics().Expand(2));
             }
             catch (AggregateException ex)
             {
@@ -89,7 +96,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             finally
             {
                 progress.Visibility = Visibility.Collapsed;
-                if (graphicsLayer.GraphicsSource != null)
+				if (_graphicsOverlay.GraphicsSource != null)
                     listResults.Visibility = Visibility.Visible;
             }
         }
@@ -97,28 +104,20 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Helper method to retrieve an extent from graphics in the graphics layer
         private Envelope ExtentFromGraphics()
         {
-            var graphics = graphicsLayer.GraphicsSource;
-            if (graphics == null || graphics.Count() == 0)
-                return mapView.Extent;
+			var graphics = _graphicsOverlay.GraphicsSource;
+			if (graphics == null || graphics.Count() == 0)
+				return MyMapView.Extent;
 
-            var extent = graphics.First().Geometry.Extent;
-            foreach (var graphic in graphics)
-            {
-                MapPoint point = graphic.Geometry as MapPoint;
-                if (point == null)
-                    continue;
+			var extent = graphics.First().Geometry.Extent;
+			foreach (var graphic in graphics)
+			{
+				if (graphic == null || graphic.Geometry == null)
+					continue;
+				extent = extent.Union(graphic.Geometry.Extent);
+				MapPoint point = graphic.Geometry as MapPoint;
+			}
 
-                if (point.X < extent.XMin)
-                    extent.XMin = point.X;
-                if (point.Y < extent.YMin)
-                    extent.YMin = point.Y;
-                if (point.X > extent.XMax)
-                    extent.XMax = point.X;
-                if (point.Y > extent.YMax)
-                    extent.YMax = point.Y;
-            }
-
-            return extent.Expand(2);
+			return extent;
         }
     }
 }

@@ -3,22 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView x:Name="mapView" WrapAround="True">
-            <esri:Map>
-                <esri:ArcGISTiledMapServiceLayer
+		<esri:MapView x:Name="MyMapView" WrapAround="True">
+			<esri:Map>
+				<esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
-                
-                <esri:GraphicsLayer x:Name="graphicsLayer">
-                    <esri:Graphic>
-                        <esri:Graphic.Geometry>
-                            <esri:MapPoint X="0" Y="0" />
-                        </esri:Graphic.Geometry>
-                        <esri:Graphic.Symbol>
-                            <esri:SimpleMarkerSymbol Color="Blue" Size="15" Style="Circle" />
-                        </esri:Graphic.Symbol>
-                    </esri:Graphic>
-                </esri:GraphicsLayer>
-            </esri:Map>
-        </esri:MapView>
-    </Grid>
+			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="graphicsOverlay" />
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
+	</Grid>
 </UserControl>

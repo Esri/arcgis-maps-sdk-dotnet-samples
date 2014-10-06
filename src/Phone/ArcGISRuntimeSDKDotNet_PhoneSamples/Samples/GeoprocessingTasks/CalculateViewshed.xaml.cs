@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
@@ -18,15 +19,17 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 	public sealed partial class CalculateViewshed : Page
     {
         GraphicsLayer inputLayer;
+        GraphicsLayer viewShedLayer;
         public CalculateViewshed()
         {
             InitializeComponent();
-            InitializePMS().ContinueWith((_) => { }, TaskScheduler.FromCurrentSynchronizationContext());
-            mapView1.Map.InitialExtent = new Envelope(-12004035.9462375, 4652780.19374956, -11735714.4261546, 4808810.41937776);
+            InitializePMS();
+			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-12004036, 4652780, -11735714, 4808810));
             inputLayer = mapView1.Map.Layers["InputLayer"] as GraphicsLayer;
+            viewShedLayer = mapView1.Map.Layers["viewShedLayer"] as GraphicsLayer;
         }
 
-        private async Task InitializePMS()
+        private async void InitializePMS()
         {
             try
             {
@@ -45,14 +48,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private void ClearResultsButton_Click(object sender, RoutedEventArgs e)
         {
-
             //remove all previous results
             inputLayer.Graphics.Clear();
-
-            var resultsLayer = mapView1.Map.Layers["MyResultsLayer"];
-            if (resultsLayer != null)
-                mapView1.Map.Layers.Remove(resultsLayer);
-
+            viewShedLayer.Graphics.Clear();            
         }
 
         private async void StartButton_Click(object sender, RoutedEventArgs e)
@@ -66,6 +64,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             //update UI elements
             MyProgressRing.Visibility = Windows.UI.Xaml.Visibility.Visible;
             MyProgressRing.IsActive = true;
+
+            viewShedLayer.Graphics.Clear();
 
             inputLayer.Graphics.Clear();
             inputLayer.Graphics.Add(new Graphic() { Geometry = inputPoint });
@@ -98,18 +98,16 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             if (result.JobStatus == GPJobStatus.Succeeded)
             {
                 //get the results as a ArcGISDynamicMapServiceLayer
-                StatusTextBlock.Text = "Finished processing. Retrieving results...";
-                var resultLayer = task.GetResultMapServiceLayer(result.JobID);
+                StatusTextBlock.Text = "Finished processing. Retrieving results...";                
+                var viewshedResult = await task.GetResultDataAsync(result.JobID, "View") as GPFeatureRecordSetLayer;
+                var rangeResult = await task.GetResultDataAsync(result.JobID, "Range") as GPFeatureRecordSetLayer;
 
-                if (resultLayer != null)
+                if (viewshedResult != null && viewshedResult.FeatureSet != null && viewshedResult.FeatureSet.Features != null)
                 {
-                    //Add an ID so that we can reference this layer (to remove it)
-                    resultLayer.ID = "MyResultsLayer";
-
-                    //Insert the results layer just beneath the input graphics layer.
-                    //This allows us to see the input point at all times.
-                    mapView1.Map.Layers.Insert(mapView1.Map.Layers.IndexOf(inputLayer), resultLayer);
-
+                    foreach (var feature in viewshedResult.FeatureSet.Features)
+                    {
+                        viewShedLayer.Graphics.Add((Graphic)feature);
+                    }
                 }
 
                 //Reset the UI

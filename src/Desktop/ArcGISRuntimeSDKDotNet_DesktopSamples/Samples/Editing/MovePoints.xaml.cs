@@ -13,6 +13,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     /// <category>Editing</category>
     public partial class MovePoints : UserControl
     {
+		private Graphic graphicBeingEdited;
+
         public MovePoints()
         {
 			InitializeComponent();
@@ -23,23 +25,21 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 		{
 			//Add some random points for editing
 			Random r = new Random();
-			var graphicsLayer = mapView1.Map.Layers["MyGraphicsLayer"] as GraphicsLayer;
+			var graphicsOverlay = MyMapView.GraphicsOverlays["MyGraphicsOverlay"];
 			for (int i = 0; i < 20; i++)
 			{
-				graphicsLayer.Graphics.Add(
+				graphicsOverlay.Graphics.Add(
 					new Graphic(new MapPoint(r.NextDouble() * 360, r.NextDouble() * 180, SpatialReferences.Wgs84)));
 			}
 		}
 
-		private Graphic graphicBeingEdited;
-
-		private async void mapView1_MapViewTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
+		private async void MyMapView_MapViewTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
 		{
-			var graphicsLayer = mapView1.Map.Layers["MyGraphicsLayer"] as GraphicsLayer;
-			var editGraphicsLayer = mapView1.Map.Layers["EditGraphicsLayer"] as GraphicsLayer;
+			var graphicsOverlay = MyMapView.GraphicsOverlays["MyGraphicsOverlay"];
+			var editGraphicsOverlay = MyMapView.GraphicsOverlays["EditGraphicsOverlay"];
 			if (graphicBeingEdited == null)
 			{
-				var hit = await graphicsLayer.HitTestAsync(sender as Esri.ArcGISRuntime.Controls.ViewBase, e.Position);
+				var hit = await graphicsOverlay.HitTestAsync(sender as Esri.ArcGISRuntime.Controls.ViewBase, e.Position);
 				if (hit != null)
 				{
 					graphicBeingEdited = hit;
@@ -47,9 +47,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 					graphicBeingEdited.IsSelected = true;
 					//Create a temporary we can move around without 'disturbing' the original feature until commit
 					Graphic g = new Graphic();
-					g.Symbol = hit.Symbol ?? graphicsLayer.Renderer.GetSymbol(hit);
+					g.Symbol = hit.Symbol ?? graphicsOverlay.Renderer.GetSymbol(hit);
 					g.Geometry = hit.Geometry;
-					editGraphicsLayer.Graphics.Add(g);
+					editGraphicsOverlay.Graphics.Add(g);
 				}
 			}
 			else //Commit and clean up
@@ -57,18 +57,18 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 				graphicBeingEdited.Geometry = e.Location;
 				graphicBeingEdited.IsSelected = false;
 				graphicBeingEdited = null;
-				editGraphicsLayer.Graphics.Clear();
+				editGraphicsOverlay.Graphics.Clear();
 			}
 		}
 
-		private void mapView1_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+		private void MyMapView_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
 		{
 			if (graphicBeingEdited != null)
 			{
-				var editGraphicsLayer = mapView1.Map.Layers["EditGraphicsLayer"] as GraphicsLayer;
+				var editGraphicsOverlay = MyMapView.GraphicsOverlays["EditGraphicsOverlay"];
 				MapView mapview = (MapView)sender;
 				var location = mapview.ScreenToLocation(e.GetPosition(mapview));
-				editGraphicsLayer.Graphics[0].Geometry = location;
+				editGraphicsOverlay.Graphics[0].Geometry = location;
 			}
 		}
     }

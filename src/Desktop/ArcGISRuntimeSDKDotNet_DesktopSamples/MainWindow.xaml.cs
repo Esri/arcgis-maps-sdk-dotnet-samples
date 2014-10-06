@@ -72,6 +72,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 			menu.IsChecked = true;
 			currentSampleMenuItem = menu;
 			StatusBar.DataContext = sample;
+
+			GC.Collect();
+			GC.WaitForPendingFinalizers();
 		}
     }
 
@@ -170,7 +173,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples
                 List<Sample> mappingSamples = new List<Sample>();
                 mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Switch Basemaps").First());
                 mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Set Initial Map Extent").First());
-                mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Set Spatial Reference").First());
+				mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Set Initial Center and Scale").First());
+				mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Set Spatial Reference").First());
                 mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Show Map Extent").First());
                 mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Show Map Scale").First());
                 mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Show Mouse Coordinates").First());
@@ -182,6 +186,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples
                 mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Location Display").First());
                 mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Layer List").First());
                 mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Overview Map").First());
+				//Add any missing samples
+				foreach (var item in mappingSamplesGroup.Items)
+					if (!mappingSamples.Contains(item))
+						mappingSamples.Add(item);
+
                 SampleGroup newMappingSamplesGroup = new SampleGroup(mappingSamples) { Key = mappingSamplesGroup.Key };
                 groups[groups.FindIndex(g => g.Key == mappingSamplesGroup.Key)] = newMappingSamplesGroup;
 

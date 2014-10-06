@@ -32,30 +32,31 @@
         </Grid.Resources>
         <controls:MapView x:Name="mapView1" MapViewTapped="mapView1_MapViewTapped">
             <controls:Map>
-                <controls:Map.InitialExtent>
-                    <geometry:Envelope XMin="-15000000"
+                <controls:Map.InitialViewpoint>
+                    <controls:ViewpointExtent XMin="-15000000"
                                YMin="2000000"
                                XMax="-7000000"
                                YMax="8000000" />
-                </controls:Map.InitialExtent>
+                </controls:Map.InitialViewpoint>
                 <layers:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
                                               ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-                <layers:GraphicsLayer ID="PointGraphicsLayer"  
-                                 Renderer="{StaticResource MarkerRenderer}" />
-                <layers:GraphicsLayer ID="PolylineGraphicsLayer" 
-                                 Renderer="{StaticResource PolylineRenderer}" />
-                <layers:GraphicsLayer ID="PolygonGraphicsLayer" 
-                                 Renderer="{StaticResource PolygonRenderer}" />
+             
             </controls:Map>
+
+            <controls:MapView.GraphicsOverlays>
+                <controls:GraphicsOverlay ID="PointGraphicsOverlay" Renderer="{StaticResource MarkerRenderer}" />
+                <controls:GraphicsOverlay ID="PolylineGraphicsOverlay" Renderer="{StaticResource PolylineRenderer}" />
+                <controls:GraphicsOverlay ID="PolygonGraphicsOverlay" Renderer="{StaticResource PolygonRenderer}" />
+            </controls:MapView.GraphicsOverlays>
+            
         </controls:MapView>
 
         <Border Background="Black" BorderThickness="1" CornerRadius="5"
-                HorizontalAlignment="Right" VerticalAlignment="Top"
-               
-                Margin="10" BorderBrush="Black">
+                HorizontalAlignment="Center" VerticalAlignment="Top"              
+                Margin="5" BorderBrush="Black">
             <StackPanel Orientation="Vertical">
-                <TextBlock Text="Instructions" Margin="5" FontSize="16" FontWeight="Bold"/>
-                <TextBlock Margin="10" HorizontalAlignment="Center" FontSize="14" TextWrapping="Wrap">
+                <TextBlock Text="Instructions" Margin="5" FontSize="10" FontWeight="Bold"/>
+                <TextBlock Margin="10" HorizontalAlignment="Center" FontSize="8" TextWrapping="WrapWholeWords">
                 - Select Shape and click Draw to start drawing. <LineBreak/>
                 <LineBreak/>
                 - Click on shape to select and click Edit to start editing.<LineBreak/>
@@ -67,61 +68,59 @@
                 - Click on Blue Handles to rotate
                 </TextBlock>
             </StackPanel>
-
-
-
         </Border>
+
         <Border Background="Black" BorderThickness="1" CornerRadius="5"
-                HorizontalAlignment="Left" VerticalAlignment="Top"
-               
-                Margin="10" BorderBrush="Black">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>               
-                <StackPanel Orientation="Horizontal" Grid.Row="1">
-                    <ComboBox x:Name="DrawShapes"  Margin="10"/>
-                    <Button Content="Draw"
+                HorizontalAlignment="Left" VerticalAlignment="Top"               
+                Margin="5" BorderBrush="Black">
+
+            <StackPanel Orientation="Vertical">
+                <ComboBox x:Name="DrawShapes"/>
+                <Button Content="Draw"
                     Click="OnDrawButtonClicked" />
-                    <Button Content="Edit"
+                <Button Content="Edit"
                         Click="OnDrawButtonClicked" />
-                    <Button Content="Undo"
+                <Button Content="Undo"
                         Command="{Binding Editor.Undo, ElementName=mapView1}" />
-                    <Button Content="Redo"
+                <Button Content="Redo"
                         Command="{Binding Editor.Redo, ElementName=mapView1}" />
-                    <Button Content="Cancel"
+                <Button Content="Cancel"
                         Command="{Binding Editor.Cancel, ElementName=mapView1}" />
-                    <Button Content="Complete"
+                <Button Content="Complete"
                         Command="{Binding Editor.Complete, ElementName=mapView1}" />
-                    <Button Content="Delete Selected Vertex"
-                        Command="{Binding Editor.DeleteVertex, ElementName=mapView1}" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="10">
-                    <CheckBox x:Name="AddVertex"    Content="AddVertex"  IsChecked="True" />
-                    <CheckBox x:Name="MoveVertex"
-                          Content="Move Vertex"
-                          IsChecked="True" />
-                    <CheckBox x:Name="DeleteVertex"
-                          Content="Delete Vertex"
-                          IsChecked="True" />
-                    <CheckBox x:Name="MoveGeometry"
-                          Content="Move Geometry"
-                          IsChecked="True" />
-                    <CheckBox x:Name="Scale"
+                <Button Command="{Binding Editor.DeleteVertex, ElementName=mapView1}" Width="75" >
+                    <TextBlock Text="Delete Selected Vertex" TextWrapping="WrapWholeWords"/>
+                </Button>
+            </StackPanel>
+        </Border>
+
+        <Border Background="Black" BorderThickness="1" CornerRadius="5"
+                VerticalAlignment="Top" HorizontalAlignment="Right"               
+                Margin="5" BorderBrush="Black">
+            <StackPanel Orientation="Vertical"  Width="100">
+                <CheckBox x:Name="AddVertex" IsChecked="True">
+                    <TextBlock Text="Add Vertex" TextWrapping="WrapWholeWords"  Width="75"/>
+                </CheckBox>
+                <CheckBox x:Name="MoveVertex"                
+                          IsChecked="True">
+                    <TextBlock Text="Move Vertex" TextWrapping="WrapWholeWords"  Width="75"/>
+                </CheckBox>
+                <CheckBox x:Name="DeleteVertex" IsChecked="True" >
+                    <TextBlock Text="Delete Vertex" TextWrapping="WrapWholeWords"  Width="75"/>
+                </CheckBox>
+                <CheckBox x:Name="MoveGeometry" IsChecked="True" >
+                    <TextBlock Text="Move Geometry" TextWrapping="WrapWholeWords"  Width="75"/>
+                </CheckBox>
+                <CheckBox x:Name="Scale"  
                           Content="Scale"
                           IsChecked="True" />
-                    <CheckBox x:Name="Rotate"
+                <CheckBox x:Name="Rotate"  
                           Content="Rotate"
                           IsChecked="True" />
-                    <CheckBox x:Name="MaintainAspectRatio"
-                          Content="Maintain AspectRatio"
-                          IsChecked="True" />
-                </StackPanel>
-
-            </Grid>
-
+                <CheckBox x:Name="MaintainAspectRatio" IsChecked="True">
+                    <TextBlock Text="Maintain Aspect Ratio" TextWrapping="WrapWholeWords" Width="75" />
+                </CheckBox>
+            </StackPanel>
         </Border>
     </Grid>
 </Page>

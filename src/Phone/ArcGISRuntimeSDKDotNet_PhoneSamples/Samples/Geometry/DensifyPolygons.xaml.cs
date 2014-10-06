@@ -28,19 +28,16 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-
             polygonSymbol = LayoutRoot.Resources["MySimpleFillSymbol"] as SimpleFillSymbol;
             graphicsLayerVertices = mapView1.Map.Layers["MyVerticesGraphicsLayer"] as GraphicsLayer;
             graphicsLayerPolygon = mapView1.Map.Layers["MyPolygonGraphicsLayer"] as GraphicsLayer;
             defaultVertexMarkerSymbol = LayoutRoot.Resources["MyDefaultVertexMarkerSymbol"] as Esri.ArcGISRuntime.Symbology.Symbol;
             densifyVertexMarkerSymbol = LayoutRoot.Resources["MyDensifyVertexMarkerSymbol"] as Esri.ArcGISRuntime.Symbology.Symbol;
-
         }
 
         private async void StartButton_Click(object sender, RoutedEventArgs e)
         {
             SetupUI();
-
 
             InstructionsTextBlock.Visibility = Windows.UI.Xaml.Visibility.Visible;
             StartButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
@@ -57,15 +54,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             graphicsLayerPolygon.Graphics.Add(thePolygonGraphic);
 
             //show the vertices for the polygon
-            foreach (var vert in densifyPolygonGeometry.Rings.FirstOrDefault())
+			foreach (var vert in densifyPolygonGeometry.Parts.FirstOrDefault().GetPoints())
             {
                 var graphic = new Graphic { Geometry = new MapPoint(vert.X, vert.Y), Symbol = defaultVertexMarkerSymbol };
                 graphicsLayerVertices.Graphics.Add(graphic);
             }
 
             DensifyPolygonsButton.IsEnabled = true;
-
-
         }
 
         private void DensifyPolygonsButton_Click(object sender, RoutedEventArgs e)
@@ -76,7 +71,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var maxSegLength = GetMaxSegmentLength();
                 var results = GeometryEngine.Densify(densifyPolygonGeometry, maxSegLength);
                 //show the vertices for the polygon
-                foreach (var vert in (results as Polygon).Rings.FirstOrDefault())
+				foreach (var vert in (results as Polygon).Parts.FirstOrDefault().GetPoints())
                 {
                     var graphic = new Graphic { Geometry = new MapPoint(vert.X, vert.Y), Symbol = densifyVertexMarkerSymbol };
                     graphicsLayerVertices.Graphics.Add(graphic);
@@ -87,7 +82,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var dlg = new MessageDialog(ex.Message, "Geometry Engine Failed!");
 				var _ = dlg.ShowAsync();
             }
-
 
             //Hide/show ui elements
             ResetUI();

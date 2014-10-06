@@ -1,5 +1,6 @@
 ﻿using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Geometry;
+using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -19,29 +20,34 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-            mapView.Loaded += mapView_Loaded;
-            mapView.ExtentChanged += mapView_ExtentChanged;
+			(MyMapView.Overlays.Items[0] as Grid).DataContext = new MapPoint(-117.19568, 34.056601, SpatialReferences.Wgs84);
+
+            MyMapView.Loaded += MyMapView_Loaded;
+            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 
-        private void mapView_Loaded(object sender, RoutedEventArgs e)
+        private void MyMapView_Loaded(object sender, RoutedEventArgs e)
         {
             _clickOverlay = FindName("clickOverlay") as FrameworkElement;
             _centerOverlay = FindName("centerOverlay") as FrameworkElement;
         }
 
-        private void mapView_ExtentChanged(object sender, System.EventArgs e)
+        private void MyMapView_ExtentChanged(object sender, System.EventArgs e)
         {
-            var center = GeometryEngine.Project(mapView.Extent.GetCenter(), SpatialReferences.Wgs84);
+			var normalizedPoint = GeometryEngine.NormalizeCentralMeridian(MyMapView.Extent.GetCenter());
+			var projectedCenter = GeometryEngine.Project(normalizedPoint, SpatialReferences.Wgs84) as MapPoint;
 
             if (!(_clickOverlay.DataContext is MapPoint))
-                _clickOverlay.DataContext = center;
+				_clickOverlay.DataContext = projectedCenter;
 
-            _centerOverlay.DataContext = center;
+			_centerOverlay.DataContext = projectedCenter;
         }
 
-        private void mapView_MapViewTapped(object sender, MapViewInputEventArgs e)
+        private void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
-            _clickOverlay.DataContext = GeometryEngine.Project(e.Location, SpatialReferences.Wgs84);
+			var normalizedPoint = GeometryEngine.NormalizeCentralMeridian(e.Location);
+			var projectedCenter = GeometryEngine.Project(normalizedPoint, SpatialReferences.Wgs84) as MapPoint;
+			_clickOverlay.DataContext = projectedCenter;
         }
     }
 }

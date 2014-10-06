@@ -17,34 +17,35 @@
             </esri:SimpleFillSymbol>
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" WrapAround="True">
-            <esri:Map>
-                <esri:Map.InitialExtent>
-                    <esri:Envelope XMin="-9270500" YMin="5246900" XMax="-9269300" YMax="5247600" />
-                </esri:Map.InitialExtent>
-                
-                <esri:ArcGISTiledMapServiceLayer
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
+			<esri:Map InitialViewpoint="-9270434.248,5246977.326,-9269261.417,5247569.712">
+				<esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-
-                <esri:GraphicsLayer x:Name="parcelLayer">
-                    <esri:GraphicsLayer.Renderer>
-                        <esri:SimpleRenderer Symbol="{StaticResource ParcelSymbol}" />
-                    </esri:GraphicsLayer.Renderer>
-                </esri:GraphicsLayer>
-                
-                <esri:GraphicsLayer x:Name="polygonLayer">
-                    <esri:GraphicsLayer.Renderer>
-                        <esri:SimpleRenderer Symbol="{StaticResource PolygonSymbol}" />
-                    </esri:GraphicsLayer.Renderer>
-                </esri:GraphicsLayer>
             </esri:Map>
+			
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="parcelOverlay">
+					<esri:GraphicsOverlay.Renderer>
+						<esri:SimpleRenderer Symbol="{StaticResource ParcelSymbol}" />
+					</esri:GraphicsOverlay.Renderer>
+				</esri:GraphicsOverlay>
+				<esri:GraphicsOverlay ID="polygonOverlay">
+					<esri:GraphicsOverlay.Renderer>
+						<esri:SimpleRenderer Symbol="{StaticResource PolygonSymbol}" />
+					</esri:GraphicsOverlay.Renderer>
+				</esri:GraphicsOverlay>
+			</esri:MapView.GraphicsOverlays>
         </esri:MapView>
 
-        <Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="30"
-                HorizontalAlignment="Right" VerticalAlignment="Top">
-            <StackPanel Margin="30,20">
+		<Border Background="White" BorderBrush="Black" BorderThickness="1"
+				 HorizontalAlignment="Right" VerticalAlignment="Top"
+				 Margin="30" Padding="20">
+			<Border.Effect>
+				<DropShadowEffect/>
+			</Border.Effect>
+			<StackPanel>
                 <TextBlock Text="Many spatial operations require topologically correct geometry.  If you try to use the self-intersecting geometry below without simplifying it you will get incorrect results.  The query's spatial relationship is Contains, which should only return the parcels that the polygon contains." 
-                           Width="550" TextAlignment="Left"  TextWrapping="Wrap" Foreground="Black" />
+                           Width="550" TextWrapping="Wrap" />
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="12,16,12,0">
                     <Button Content="Query with Original Polygon" Margin="8,8,24,0" Click="QueryOnlyButton_Click" />
                     <Button Content="Simplify Polygon, then Query" Margin="8,8,8,0" Click="SimplifyAndQueryButton_Click" />

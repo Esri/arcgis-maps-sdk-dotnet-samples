@@ -8,7 +8,7 @@ using System.Windows.Controls;
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
-    /// This sample demonstrates how to apply a filter to a feature layer using the FeatureLayer.Where property and to further filter the result set using a QueryFilter. The FeatureLayer.Where property allows you to retrieve a subset of records from a feature service that match an attribute query.  The GeodatabaseFeatureTable.QueryAsync method takes a QueryFilter object and uses it to filter the current feature set.  In this example, the features returned by the query are converted to graphics and displayed in a GraphicsLayer on the map.
+    /// This sample demonstrates how to apply a filter to a feature layer using the FeatureLayer.Where property and to further filter the result set using a QueryFilter. The FeatureLayer.Where property allows you to retrieve a subset of records from a feature service that match an attribute query.  The ArcGISFeatureTable.QueryAsync method takes a QueryFilter object and uses it to filter the current feature set.  In this example, the features returned by the query are converted to graphics and displayed in a GraphicsOverlay on the map.
     /// </summary>
     /// <title>Query Filter</title>
 	/// <category>Layers</category>
@@ -26,7 +26,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             try
             {
                 var features = await cities.FeatureTable.QueryAsync(new QueryFilter() { WhereClause = where.Text});
-                queryResults.GraphicsSource = features.Select(f => new Graphic(f.Geometry));
+				MyMapView.GraphicsOverlays["queryResults"].GraphicsSource = features.Select(f => new Graphic(f.Geometry));
             }
             catch (Exception ex)
             {

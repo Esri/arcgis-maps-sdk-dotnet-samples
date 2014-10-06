@@ -1,10 +1,9 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Geocoding;
-using Esri.ArcGISRuntime.Tasks.Query;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,13 +13,16 @@ using System.Windows.Controls;
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
-    /// Demonstrates how to use the FindAsync method of an OnlineLocatorTask object to find places by name.  This sample adds places to the map and list view that match the place name and are above the specified score range.
+    /// Demonstrates how to use the FindAsync method of an OnlineLocatorTask object to find places by name.
     /// </summary>
     /// <title>Find a Place</title>
-	/// <category>Tasks</category>
-	/// <subcategory>Geocoding</subcategory>
-	public partial class FindPlace : UserControl
+    /// <category>Tasks</category>
+    /// <subcategory>Geocoding</subcategory>
+    public partial class FindPlace : UserControl
     {
+        private const string OnlineLocatorUrl = "http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer";
+
+		private GraphicsOverlay _addressOverlay;
         private OnlineLocatorTask _locatorTask;
 
         /// <summary>Construct find place sample control</summary>
@@ -28,22 +30,31 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            mapView.Map.InitialExtent = new Envelope(-13043302, 3856091, -13040394, 3857406, SpatialReferences.WebMercator);
+			_addressOverlay = MyMapView.GraphicsOverlays["AddressOverlay"];
 
-            _locatorTask = new OnlineLocatorTask(new Uri("http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"));
+            _locatorTask = new OnlineLocatorTask(new Uri(OnlineLocatorUrl));
             _locatorTask.AutoNormalize = true;
 
-            var task = SetSimpleRendererSymbols();
+			listResults.ItemsSource = _addressOverlay.Graphics;
+
+            SetSimpleRendererSymbols();
         }
 
-        // Setup the pin graphic and graphics layer renderer
-        private async Task SetSimpleRendererSymbols()
+		// Setup the pin graphic and graphics overlay renderer
+        private async void SetSimpleRendererSymbols()
         {
-            var markerSymbol = new PictureMarkerSymbol() { Width = 48, Height = 48, YOffset = 24 };
-            await markerSymbol.SetSourceAsync(new Uri("pack://application:,,,/ArcGISRuntimeSDKDotNet_DesktopSamples;component/Assets/RedStickpin.png"));
-            var renderer = new SimpleRenderer() { Symbol = markerSymbol };
+			try
+			{
+				var markerSymbol = new PictureMarkerSymbol() { Width = 48, Height = 48, YOffset = 24 };
+				await markerSymbol.SetSourceAsync(new Uri("pack://application:,,,/ArcGISRuntimeSDKDotNet_DesktopSamples;component/Assets/RedStickpin.png"));
+				var renderer = new SimpleRenderer() { Symbol = markerSymbol };
 
-            addressesGraphicsLayer.Renderer = renderer;
+				_addressOverlay.Renderer = renderer;
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Error occured : " + ex.Message, "Find Place Sample");
+			}
         }
 
         // Find matching places, create graphics and add them to the UI
@@ -52,25 +63,30 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             try
             {
                 progress.Visibility = Visibility.Visible;
-                addressesGraphicsLayer.Graphics.Clear();
+                listResults.Visibility = Visibility.Collapsed;
+				_addressOverlay.Graphics.Clear();
 
                 var param = new OnlineLocatorFindParameters(SearchTextBox.Text)
                 {
-                    SearchExtent = mapView.Extent,
-                    Location = mapView.Extent.GetCenter(),
-                    Distance = mapView.Extent.Width / 2,
+                    SearchExtent = MyMapView.Extent,
+                    Location = MyMapView.Extent.GetCenter(),
                     MaxLocations = 5,
-                    OutSpatialReference = mapView.SpatialReference,
-                    OutFields = OutFields.All
+                    OutSpatialReference = MyMapView.SpatialReference,
+                    OutFields = new string[] { "Place_addr" }
                 };
 
                 var candidateResults = await _locatorTask.FindAsync(param, CancellationToken.None);
 
-                var graphics = candidateResults
-                    .Select(result => new Graphic(result.Feature.Geometry, new Dictionary<string, object> { { "Locator", result } }));
-                
-                foreach (var graphic in graphics)
-                    addressesGraphicsLayer.Graphics.Add(graphic);
+                if (candidateResults == null || candidateResults.Count == 0)
+                    throw new Exception("No candidates found in the current map extent.");
+
+                foreach (var candidate in candidateResults)
+                    AddGraphicFromLocatorCandidate(candidate);
+
+				var extent = GeometryEngine.Union(_addressOverlay.Graphics.Select(g => g.Geometry)).Extent.Expand(1.1);
+                await MyMapView.SetViewAsync(extent);
+
+                listResults.Visibility = Visibility.Visible;
             }
             catch (AggregateException ex)
             {
@@ -88,6 +104,19 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             {
                 progress.Visibility = Visibility.Collapsed;
             }
+        }
+
+        private void AddGraphicFromLocatorCandidate(LocatorFindResult candidate)
+        {
+            var location = GeometryEngine.Project(
+				candidate.Feature.Geometry, SpatialReferences.Wgs84) as MapPoint;
+
+            var graphic = new Graphic(location);
+            graphic.Attributes["Name"] = candidate.Name;
+            graphic.Attributes["Address"] = candidate.Feature.Attributes["Place_addr"];
+            graphic.Attributes["LocationDisplay"] = string.Format("{0:0.000}, {1:0.000}", location.X, location.Y);
+
+            _addressOverlay.Graphics.Add(graphic);
         }
     }
 }

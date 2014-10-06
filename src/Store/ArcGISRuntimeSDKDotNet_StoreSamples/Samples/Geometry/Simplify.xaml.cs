@@ -1,7 +1,9 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -16,26 +18,26 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 	public partial class Simplify : Windows.UI.Xaml.Controls.Page
     {
         private Polygon _unsimplifiedPolygon;
-        private GraphicsLayer _parcelLayer;
-        private GraphicsLayer _polygonLayer;
+        private GraphicsOverlay _parcelOverlay;
+        private GraphicsOverlay _polygonOverlay;
 
         /// <summary>Construct Geodesic Move sample control</summary>
         public Simplify()
         {
             InitializeComponent();
 
-            _parcelLayer = mapView.Map.Layers["ParcelLayer"] as GraphicsLayer;
-            _polygonLayer = mapView.Map.Layers["PolygonLayer"] as GraphicsLayer;
+			_parcelOverlay = MyMapView.GraphicsOverlays["parcelOverlay"];
+			_polygonOverlay = MyMapView.GraphicsOverlays["polygonOverlay"];
 
-            mapView.ExtentChanged += mapView_ExtentChanged;
+			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
         }
 
-        // Start map interaction once the mapview extent is set
-        private void mapView_ExtentChanged(object sender, EventArgs e)
-        {
-            mapView.ExtentChanged -= mapView_ExtentChanged;
-            DrawPolygon();
-        }
+		// Start map interaction once the mapview finishes navigation to initial viewpoint
+		private void MyMapView_NavigationCompleted(object sender, EventArgs e)
+		{
+			MyMapView.NavigationCompleted -= MyMapView_NavigationCompleted;
+			DrawPolygon();
+		}
 
         // Query without simplifying original geometry
         private async void QueryOnlyButton_Click(object sender, RoutedEventArgs e)
@@ -53,29 +55,29 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         // Draw the unsimplified polygon
         private void DrawPolygon()
         {
-            MapPoint center = mapView.Extent.GetCenter();
+            MapPoint center = MyMapView.Extent.GetCenter();
             double lat = center.Y;
             double lon = center.X + 300;
             double latOffset = 300;
             double lonOffset = 300;
 
-            var points = new CoordinateCollection()
+            var points = new PointCollection()
             {
-                new Coordinate(lon - lonOffset, lat),
-                new Coordinate(lon, lat + latOffset),
-                new Coordinate(lon + lonOffset, lat),
-                new Coordinate(lon, lat - latOffset),
-                new Coordinate(lon - lonOffset, lat),
-                new Coordinate(lon - 2 * lonOffset, lat + latOffset),
-                new Coordinate(lon - 3 * lonOffset, lat),
-                new Coordinate(lon - 2 * lonOffset, lat - latOffset),
-                new Coordinate(lon - 1.5 * lonOffset, lat + latOffset),
-                new Coordinate(lon - lonOffset, lat)
+                new MapPoint(lon - lonOffset, lat),
+                new MapPoint(lon, lat + latOffset),
+                new MapPoint(lon + lonOffset, lat),
+                new MapPoint(lon, lat - latOffset),
+                new MapPoint(lon - lonOffset, lat),
+                new MapPoint(lon - 2 * lonOffset, lat + latOffset),
+                new MapPoint(lon - 3 * lonOffset, lat),
+                new MapPoint(lon - 2 * lonOffset, lat - latOffset),
+                new MapPoint(lon - 1.5 * lonOffset, lat + latOffset),
+                new MapPoint(lon - lonOffset, lat)
             };
-            _unsimplifiedPolygon = new Polygon(points, mapView.SpatialReference);
+            _unsimplifiedPolygon = new Polygon(points, MyMapView.SpatialReference);
 
-            _polygonLayer.Graphics.Clear();
-            _polygonLayer.Graphics.Add(new Graphic(_unsimplifiedPolygon));
+            _polygonOverlay.Graphics.Clear();
+            _polygonOverlay.Graphics.Add(new Graphic(_unsimplifiedPolygon));
         }
 
         // Query the parcel service with the given geometry (Contains)
@@ -88,18 +90,18 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var query = new Query(geometry)
                 {
                     ReturnGeometry = true,
-                    OutSpatialReference = mapView.SpatialReference,
+                    OutSpatialReference = MyMapView.SpatialReference,
                     SpatialRelationship = SpatialRelationship.Contains,
                     OutFields = OutFields.All
                 };
                 var result = await queryTask.ExecuteAsync(query);
 
-                _parcelLayer.Graphics.Clear();
-                _parcelLayer.Graphics.AddRange(result.FeatureSet.Features);
+                _parcelOverlay.Graphics.Clear();
+                _parcelOverlay.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
             }
         }
     }

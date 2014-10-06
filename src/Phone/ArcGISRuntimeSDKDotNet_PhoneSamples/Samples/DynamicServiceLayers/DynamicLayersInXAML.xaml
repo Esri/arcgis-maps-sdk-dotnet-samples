@@ -16,15 +16,8 @@
             <sym:SimpleLineSymbol x:Key="BlackSLS" Color="Black" Width="1"/>
         </Grid.Resources>
         <esri:MapView x:Name="mapView1">
-            <esri:Map >
-                <esri:Map.InitialExtent>
-                    <geom:Envelope XMin="-3170138" YMin="-1823795" XMax="2850785" YMax="1766663">
-                        <geom:Envelope.SpatialReference>
-                            <geom:SpatialReference Wkid="102009"/>
-                        </geom:Envelope.SpatialReference>
-                    </geom:Envelope>
-                </esri:Map.InitialExtent>
-                <layer:ArcGISDynamicMapServiceLayer ID="USA" ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer" >
+			<esri:Map >
+				<layer:ArcGISDynamicMapServiceLayer ID="USA" ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer" >
                     <!--<layer:ArcGISDynamicMapServiceLayer.VisibleLayers>
                         <x:Int32>0</x:Int32>
                         <x:Int32>2</x:Int32>

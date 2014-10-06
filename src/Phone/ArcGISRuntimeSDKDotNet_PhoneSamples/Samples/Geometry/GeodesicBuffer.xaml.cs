@@ -22,7 +22,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public GeodesicBuffer()
         {
             this.InitializeComponent();
-            DrawShapes.ItemsSource = new DrawShape[]
+			mapView.Map.InitialViewpoint = new Viewpoint(new Envelope(
+				-13047918, 
+				4036008, 
+				-13045480, 
+				4037866, 
+				SpatialReferences.WebMercator));
+
+	        DrawShapes.ItemsSource = new DrawShape[]
             {
                 DrawShape.Point, DrawShape.Polygon, DrawShape.Polyline
             };
@@ -37,8 +44,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 
                 GraphicsLayer inputGraphicsLayer = null;
                 var drawShape = (DrawShape)DrawShapes.SelectedItem;
-                inputGraphicsLayer = drawShape == DrawShape.Point ? mapView1.Map.Layers["PointInputLayer"] as GraphicsLayer :
-                    ((drawShape == DrawShape.Polyline) ? mapView1.Map.Layers["LineInputLayer"] as GraphicsLayer : mapView1.Map.Layers["PolygonInputLayer"] as GraphicsLayer);
+                inputGraphicsLayer = drawShape == DrawShape.Point ? mapView.Map.Layers["PointInputLayer"] as GraphicsLayer :
+					((drawShape == DrawShape.Polyline) ? mapView.Map.Layers["LineInputLayer"] as GraphicsLayer : mapView.Map.Layers["PolygonInputLayer"] as GraphicsLayer);
 
                 if (inputGraphicsLayer.Graphics.Count == 0)
                     throw new Exception("No input shape. Please draw shape to generate buffer");
@@ -50,9 +57,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     var buffer = GeometryEngine.GeodesicBuffer(geom, 10, LinearUnits.Meters);
                     if (buffer != null)
                     {
-                        GraphicsLayer resultGraphicsLayer = mapView1.Map.Layers["GeometryResultGraphicsLayer"] as GraphicsLayer;
+						GraphicsLayer resultGraphicsLayer = mapView.Map.Layers["GeometryResultGraphicsLayer"] as GraphicsLayer;
                         resultGraphicsLayer.Graphics.Add(new Graphic() { Geometry = buffer });
-                        mapView1.SetView(resultGraphicsLayer.Graphics.First().Geometry.Extent);
+						mapView.SetView(resultGraphicsLayer.Graphics.First().Geometry.Extent);
                     }
                 }
             }
@@ -71,7 +78,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             string message = null;
 
-            var editor = mapView1.Editor;
+			var editor = mapView.Editor;
             editor.EditorConfiguration = new EditorConfiguration()
             {
                 AllowAddVertex = true,
@@ -83,8 +90,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 GraphicsLayer inputGraphicsLayer = null;
                 var drawShape = (DrawShape)DrawShapes.SelectedItem;
 
-                inputGraphicsLayer = drawShape == DrawShape.Point ? mapView1.Map.Layers["PointInputLayer"] as GraphicsLayer :
-                    ((drawShape == DrawShape.Polyline) ? mapView1.Map.Layers["LineInputLayer"] as GraphicsLayer : mapView1.Map.Layers["PolygonInputLayer"] as GraphicsLayer);
+				inputGraphicsLayer = drawShape == DrawShape.Point ? mapView.Map.Layers["PointInputLayer"] as GraphicsLayer :
+					((drawShape == DrawShape.Polyline) ? mapView.Map.Layers["LineInputLayer"] as GraphicsLayer : mapView.Map.Layers["PolygonInputLayer"] as GraphicsLayer);
 
                 var r = await editor.RequestShapeAsync(drawShape, null);
                 inputGraphicsLayer.Graphics.Add(new Graphic() { Geometry = r });
@@ -100,7 +107,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private void OnClearButtonClicked(object sender, RoutedEventArgs e)
         {
-            IEnumerable<Layer> graphicLayers = mapView1.Map.Layers.Where(l => l is GraphicsLayer);
+			IEnumerable<Layer> graphicLayers = mapView.Map.Layers.Where(l => l is GraphicsLayer);
             foreach (Layer l in graphicLayers)
                 (l as GraphicsLayer).Graphics.Clear();
 

@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
@@ -20,11 +21,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public DriveTimes()
         {
             InitializeComponent();
-            InitializePMS().ContinueWith((_) => { }, TaskScheduler.FromCurrentSynchronizationContext());
-            mapView1.Map.InitialExtent = new Envelope(-122.5009, 37.741, -122.3721, 37.8089);
+            InitializePMS();
+			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-122.5009, 37.741, -122.3721, 37.8089));
         }
 
-        private async Task InitializePMS()
+        private async void InitializePMS()
         {
             try
             {

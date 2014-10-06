@@ -3,12 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView WrapAround="True">
-            <esri:Map>
-                <esri:Map.InitialExtent>
-                    <esri:Envelope XMin="-15000000" YMin="2000000" XMax="-7000000" YMax="8000000" />
-                </esri:Map.InitialExtent>
-                
+		<esri:MapView WrapAround="False" LayerLoaded="MyMapView_LayerLoaded">
+			<esri:Map InitialViewpoint="-15000000,2000000,-7000000,8000000" >
                 <esri:ArcGISTiledMapServiceLayer 
                     ServiceUri="http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
                 <esri:WmsLayer ID="OtherWMSLayer"

@@ -2,6 +2,7 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using System;
+using System.Linq;
 using Windows.Storage;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
@@ -21,13 +22,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-            mapView.ExtentChanged += mapView_ExtentChanged;
+            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 
         /// <summary>Add feature tables from a local geodatabase as layers on the map</summary>
-        private async void mapView_ExtentChanged(object sender, EventArgs e)
+        private async void MyMapView_ExtentChanged(object sender, EventArgs e)
         {
-            mapView.ExtentChanged -= mapView_ExtentChanged;
+            MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
 
             try
             {
@@ -37,7 +38,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
                 var gdb = await Geodatabase.OpenAsync(gdbFile.Path);
 
-                Envelope extent = new Envelope();
+                Envelope extent = gdb.FeatureTables.First().Extent;
                 foreach (var table in gdb.FeatureTables)
                 {
                     var flayer = new FeatureLayer()
@@ -55,15 +56,15 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                             extent = extent.Union(table.Extent);
                     }
 
-                    mapView.Map.Layers.Add(flayer);
+                    MyMapView.Map.Layers.Add(flayer);
                 }
 
                 if (!extent.IsEmpty)
-                    await mapView.SetViewAsync(extent.Expand(1.10));
+                    await MyMapView.SetViewAsync(extent.Expand(1.10));
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
             }
         }
     }

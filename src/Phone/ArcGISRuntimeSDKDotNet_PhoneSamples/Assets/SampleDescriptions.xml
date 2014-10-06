@@ -15,6 +15,12 @@
             executed, and as such is the logical equivalent of main() or WinMain().
             </summary>
         </member>
+        <member name="F:ArcGISRuntimeSDKDotNet_PhoneSamples.App._continuationManager">
+            <summary>
+            For handling FileOpenPicker.PickSingleFileAndContinue
+            Reference: http://msdn.microsoft.com/en-us/library/windows/apps/xaml/dn614994.aspx
+            </summary>
+        </member>
         <member name="M:ArcGISRuntimeSDKDotNet_PhoneSamples.App.OnLaunched(Windows.ApplicationModel.Activation.LaunchActivatedEventArgs)">
             <summary>
             Invoked when the application is launched normally by the end user.  Other entry points
@@ -120,6 +126,156 @@
             </summary>
             <category>Dynamic Service Layers</category>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.EditAttachment">
+            <summary>
+            Demonstrates how to update feature attachments in feature layer.
+            </summary>
+            <title>Edit Attachment</title>
+            <category>Editing</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.EditAttachment.MyMapView_MapViewTapped(System.Object,Esri.ArcGISRuntime.Controls.MapViewInputEventArgs)">
+            <summary>
+            Selects feature for editing and query its attachments.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.EditAttachment.SetAttachmentEditor(System.Int64,System.Collections.Generic.IReadOnlyList{Esri.ArcGISRuntime.Data.AttachmentInfoItem})">
+            <summary>
+            Prepares attachment editor for editing.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.EditAttachment.SaveEditsAsync">
+            <summary>
+            Submits attachment edits back to server.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.EditAttachment.QueryAttachmentsAsync(System.Int64)">
+            <summary>
+            Query attachments of specified feature.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.EditAttachment.GetFileAsync">
+            <summary>
+            Prompts user to pick file from pictures folder.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.EditAttachment.AddButton_Click(System.Object,Windows.UI.Xaml.RoutedEventArgs)">
+            <summary>
+            Adds new attachment to feature.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.EditAttachment.OpenButton_Click(System.Object,Windows.UI.Xaml.RoutedEventArgs)">
+            <summary>
+            Opens the specified attachment.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.EditAttachment.UpdateButton_Click(System.Object,Windows.UI.Xaml.RoutedEventArgs)">
+            <summary>
+            Updates the specified attachment of feature.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.EditAttachment.DeleteButton_Click(System.Object,Windows.UI.Xaml.RoutedEventArgs)">
+            <summary>
+            Deletes the specified attachment from feature.
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayerEditGeometry">
+            <summary>
+            Demonstrates how to update feature geometry in feature layer.
+            </summary>
+            <title>Feature Layer Edit Geometry</title>
+            <category>Editing</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayerEditGeometry.MyMapView_MapViewTapped(System.Object,Esri.ArcGISRuntime.Controls.MapViewInputEventArgs)">
+            <summary>
+            Selects feature for editing.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayerEditGeometry.SetGeometryEditor(Esri.ArcGISRuntime.Data.Feature)">
+            <summary>
+            Prepares GeometryEditor for editing.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayerEditGeometry.EditButton_Click(System.Object,Windows.UI.Xaml.RoutedEventArgs)">
+            <summary>
+            Enables geometry editing and submits geometry edit back to the server.
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayerEditAttribute">
+            <summary>
+            Demonstrates how to update feature attributes in feature layer.
+            </summary>
+            <title>Feature Layer Edit Attribute</title>
+            <category>Editing</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayerEditAttribute.MyMapView_MapViewTapped(System.Object,Esri.ArcGISRuntime.Controls.MapViewInputEventArgs)">
+            <summary>
+            Selects feature for editing.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayerEditAttribute.GetChoices">
+            <summary>
+            Returns choice list for attribute editing.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayerEditAttribute.SetAttributeEditor(Esri.ArcGISRuntime.Data.Feature)">
+            <summary>        
+            Prepares AttributeEditor for editing.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayerEditAttribute.ChoiceList_SelectionChanged(System.Object,Windows.UI.Xaml.Controls.SelectionChangedEventArgs)">
+            <summary>
+            Enables attribute editing and submits attribute edit back to the server.
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DynamicLayerEditGeometry">
+            <summary>
+            Demonstrates how to selectively import and update feature geometry in dynamic layer.
+            </summary>
+            <title>Dynamic Layer Edit Geometry</title>
+            <category>Editing</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DynamicLayerEditGeometry.MyMapView_MapViewTapped(System.Object,Esri.ArcGISRuntime.Controls.MapViewInputEventArgs)">
+            <summary>
+            Identifies feature to highlight.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DynamicLayerEditGeometry.SetGeometryEditor(System.Int64)">
+            <summary>
+            Prepares GeometryEditor for editing.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DynamicLayerEditGeometry.EditButton_Click(System.Object,Windows.UI.Xaml.RoutedEventArgs)">
+            <summary>
+            Enables geometry editing, submits geometry edit back to the server and refreshes dynamic layer.
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DynamicLayerEditAttribute">
+            <summary>
+            Demonstrates how to selectively import and update feature attributes in dynamic layer.
+            </summary>
+            <title>Dynamic Layer Edit Attribute</title>
+            <category>Editing</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DynamicLayerEditAttribute.MyMapView_MapViewTapped(System.Object,Esri.ArcGISRuntime.Controls.MapViewInputEventArgs)">
+            <summary>
+            Identifies feature to highlight.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DynamicLayerEditAttribute.GetChoicesAsync">
+            <summary>
+            Returns choice list for attribute editing.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DynamicLayerEditAttribute.SetAttributeEditor(System.Int64,System.String)">
+            <summary>        
+            Prepares AttributeEditor for editing.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DynamicLayerEditAttribute.ChoiceList_SelectionChanged(System.Object,Windows.UI.Xaml.Controls.SelectionChangedEventArgs)">
+            <summary>
+            Enables attribute editing, submits attribute edit back to the server and refreshes dynamic layer.
+            </summary>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.FeatureLayers">
             <summary>
             
@@ -216,13 +372,70 @@
             </summary>
             <category>Geometry</category>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.MessageProcessingSample">
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ComputeClassStatistics">
+            <summary>
+            Demonstrates how to compute class statistics for an image layer and display the results with the Maximum Likelihood Classification renderer rule.
+            </summary>
+            <title>Compute Class Statistics</title>
+            <category>Imagery Tasks</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ComputeClassStatistics.#ctor">
+            <summary>Construct compute class statistics sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GetSamples">
+            <summary>
+            Demonstrates using a QueryTask to Query an ArcGISImageServiceLayer to find image tile outlines and display them in a GraphicOverlay. MapOverlay attribute information is displayed for selected tile graphics when they are clicked on the map.
+            </summary>
+            <title>Get Samples</title>
+            <category>Imagery Tasks</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GetSamples.#ctor">
+            <summary>Construct Get Image Samples sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Mensuration">
+            <summary>
+            Demonstrates the use of the mensuration (measure) operations on an ArcGIS image service.
+            </summary>
+            <title>Mensuration</title>
+            <category>Imagery Tasks</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Mensuration.#ctor">
+            <summary>Construct Mensuration sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.InteractionOptionsSample">
+            <summary>
+            This sample shows how to change interaction settings that controls the MapView.
+            </summary>
+            <title>Interaction Options</title>
+            <category>Mapping</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.CreateWebMap">
+            <summary>
+            Shows how to create a new webmap from scratch by adding a Basemap and OperationLayers. 
+            </summary>
+            <title>Create Web Map</title>
+            <category>Portal</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.CreateWebMap.#ctor">
+            <summary>Construct Create WebMap sample page</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.PortalBasemaps">
+            <summary>
+            This sample demonstrates how to search for, return, and dynamically use basemaps from ArcGIS Online.
+            </summary>
+            <title>Basemaps</title>
+            <category>Portal</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.PortalBasemaps.#ctor">
+            <summary>Construct Portal Basemaps sample control</summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.Specialized.MessageProcessingSample">
             <summary>
             Sample shows how to read and process Mil2525C message data from XML file. 
             </summary>
             <title>Message Processor</title>
             <category>Symbology</category>
-            <subcategory>Advanced</subcategory>
+            <subcategory>Specialized</subcategory>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Offset">
             <summary>
@@ -253,12 +466,6 @@
             
             </summary>
             <category>Geoprocessing Tasks</category>
-        </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.AddGraphicsXAML">
-            <summary>
-            Demonstrates how to add graphics to a GraphicsLayer using markup
-            </summary>
-            <category>Graphics Layers</category>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.AddPointOnTap">
             <summary>
@@ -418,19 +625,19 @@
             </summary>
             <category>Query Tasks</category>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.RenderingInCode">
-            <summary>
-            
-            </summary>
-            <category>Symbology</category>
-        </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.SymbolDictionarySearchSample">
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.Specialized.SymbolDictionarySearchSample">
             <summary>
             Sample shows how to use search the Mil2525C symbol dictionary.
             </summary>
             <title>Symbol Dictionary Search</title>
             <category>Symbology</category>
             <subcategory>Advanced</subcategory>	
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.RenderingInCode">
+            <summary>
+            
+            </summary>
+            <category>Symbology</category>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SymbolsAndLabels">
             <summary>

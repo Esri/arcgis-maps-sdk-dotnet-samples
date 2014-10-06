@@ -20,41 +20,42 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             Envelope newExtent = null;
 
-            if (mapView.WrapAround)
+            if (MyMapView.WrapAround)
             {
-                Geometry normalizedExtent = GeometryEngine.NormalizeCentralMeridianOfGeometry(mapView.Extent);
+                Geometry normalizedExtent = GeometryEngine.NormalizeCentralMeridian(MyMapView.Extent);
                 if (normalizedExtent is Polygon)
                 {
                     var normalizedPolygon = (Polygon)normalizedExtent;
 
-                    if (normalizedPolygon.Rings.Count == 1)
-                        newExtent = normalizedPolygon.Extent;
-                    else
-                    {
-                        newExtent = new Envelope();
+					if (normalizedPolygon.Parts.Count == 1)
+						newExtent = normalizedPolygon.Extent;
+					else
+					{
+						var newExtentBuilder = new EnvelopeBuilder(MyMapView.SpatialReference);
 
-                        foreach (var p in normalizedPolygon.Rings[0])
-                        {
-                            if (p.X < newExtent.XMin || double.IsNaN(newExtent.XMin))
-                                newExtent.XMin = p.X;
-                            if (p.Y < newExtent.YMin || double.IsNaN(newExtent.YMin))
-                                newExtent.YMin = p.Y;
-                        }
+						foreach (var p in normalizedPolygon.Parts[0].GetPoints())
+						{
+							if (p.X < newExtentBuilder.XMin || double.IsNaN(newExtentBuilder.XMin))
+								newExtentBuilder.XMin = p.X;
+							if (p.Y < newExtentBuilder.YMin || double.IsNaN(newExtentBuilder.YMin))
+								newExtentBuilder.YMin = p.Y;
+						}
 
-                        foreach (var p in normalizedPolygon.Rings[1])
-                        {
-                            if (p.X > newExtent.XMax || double.IsNaN(newExtent.XMax))
-                                newExtent.XMax = p.X;
-                            if (p.Y > newExtent.YMax || double.IsNaN(newExtent.YMax))
-                                newExtent.YMax = p.Y;
-                        }
-                    }
+						foreach (var p in normalizedPolygon.Parts[1].GetPoints())
+						{
+							if (p.X > newExtentBuilder.XMax || double.IsNaN(newExtentBuilder.XMax))
+								newExtentBuilder.XMax = p.X;
+							if (p.Y > newExtentBuilder.YMax || double.IsNaN(newExtentBuilder.YMax))
+								newExtentBuilder.YMax = p.Y;
+						}
+						newExtent = newExtentBuilder.ToGeometry();
+					}
                 }
                 else if (normalizedExtent is Envelope)
                     newExtent = normalizedExtent as Envelope;
             }
             else
-                newExtent = mapView.Extent;
+                newExtent = MyMapView.Extent;
 
             MinXNormalized.Text = newExtent.XMin.ToString("0.000");
             MinYNormalized.Text = newExtent.YMin.ToString("0.000");

@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Query;
@@ -21,17 +22,17 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private Symbol _markerSymbol;
         private Symbol _lineSymbol;
         private Symbol _fillSymbol;
+		private GraphicsOverlay _graphicsOverlay;
 
         /// <summary>Construct Find sample control</summary>
         public FindTaskSample()
         {
             InitializeComponent();
-            
-            mapView.Map.InitialExtent = new Envelope(-15000000, 2000000, -7000000, 8000000);
-
             _markerSymbol = layoutGrid.Resources["MarkerSymbol"] as Symbol;
             _lineSymbol = layoutGrid.Resources["LineSymbol"] as Symbol;
             _fillSymbol = layoutGrid.Resources["FillSymbol"] as Symbol;
+
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
         }
 
         // Find map service items with entered information in given fields
@@ -42,7 +43,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 progress.Visibility = Visibility.Visible;
                 resultsGrid.Visibility = Visibility.Collapsed;
                 resultsGrid.ItemsSource = null;
-                graphicsLayer.Graphics.Clear();
+				_graphicsOverlay.Graphics.Clear();
 
                 FindTask findTask = new FindTask(
                     new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer"));
@@ -52,7 +53,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     LayerIDs = new List<int> { 0, 1, 2 },
                     SearchFields = new List<string> { "CITY_NAME", "NAME", "SYSTEM", "STATE_ABBR", "STATE_NAME" },
                     ReturnGeometry = true,
-                    SpatialReference = mapView.SpatialReference,
+                    SpatialReference = MyMapView.SpatialReference,
                     SearchText = txtFind.Text
                 };
 
@@ -76,13 +77,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Highlight the selected grid view item on the map
         private void resultsGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            graphicsLayer.Graphics.Clear();
+			_graphicsOverlay.Graphics.Clear();
 
             if (e.AddedItems != null && e.AddedItems.Count > 0)
             {
                 var findItem = e.AddedItems.OfType<FindItem>().FirstOrDefault();
                 if (findItem != null)
-                    graphicsLayer.Graphics.Add(new Graphic(findItem.Feature.Geometry, ChooseGraphicSymbol(findItem.Feature.Geometry)));
+					_graphicsOverlay.Graphics.Add(new Graphic(findItem.Feature.Geometry, ChooseGraphicSymbol(findItem.Feature.Geometry)));
             }
         }
 
@@ -96,7 +97,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             switch (geometry.GeometryType)
             {
                 case GeometryType.Point:
-                case GeometryType.MultiPoint:
+                case GeometryType.Multipoint:
                     symbol = _markerSymbol;
                     break;
 

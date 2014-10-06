@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using System;
 using System.Threading.Tasks;
@@ -14,20 +15,23 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	/// <category>Geometry</category>
 	public partial class ProjectCoordinate : UserControl
     {
+		private GraphicsOverlay _graphicsOverlay;
+
         /// <summary>Construct Project sample control</summary>
         public ProjectCoordinate()
         {
             InitializeComponent();
-
-            mapView.ExtentChanged += mapView_ExtentChanged;
+		
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"]; 
+            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 
         // Start map interaction
-        private async void mapView_ExtentChanged(object sender, EventArgs e)
+        private async void MyMapView_ExtentChanged(object sender, EventArgs e)
         {
             try
             {
-                mapView.ExtentChanged -= mapView_ExtentChanged;
+                MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
                 await AcceptPointsAsync();
             }
             catch (Exception ex)
@@ -36,16 +40,16 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             }
         }
 
-        // Accept user map clicks and add points to the graphics layer with the selected symbol
+        // Accept user map clicks and add points to the graphics overlay with the selected symbol
         // - collected point is in the coordinate system of the current map
         private async Task AcceptPointsAsync()
         {
-            while (mapView.Extent != null)
+            while (MyMapView.Extent != null)
             {
-                var point = await mapView.Editor.RequestPointAsync();
+                var point = await MyMapView.Editor.RequestPointAsync();
 
-                graphicsLayer.Graphics.Clear();
-                graphicsLayer.Graphics.Add(new Graphic(point));
+				_graphicsOverlay.Graphics.Clear();
+				_graphicsOverlay.Graphics.Add(new Graphic(point));
 
                 // Convert from web mercator to WGS84
                 var projectedPoint = GeometryEngine.Project(point, SpatialReferences.Wgs84);

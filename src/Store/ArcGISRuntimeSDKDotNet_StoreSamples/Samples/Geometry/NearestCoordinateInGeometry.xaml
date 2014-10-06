@@ -4,57 +4,63 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:common="using:ArcGISRuntimeSDKDotNet_StoreSamples.Common"
     xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
-    xmlns:geo="using:Esri.ArcGISRuntime.Geometry"
-    xmlns:sym="using:Esri.ArcGISRuntime.Symbology"
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+    xmlns:symb="using:Esri.ArcGISRuntime.Symbology"
     xmlns:data="using:Esri.ArcGISRuntime.Data">
+	
     <Grid x:Name="LayoutRoot" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
             <common:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" WrapAround="True">
-            <esri:Map>
-                <lyr:ArcGISTiledMapServiceLayer
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
+			<esri:Map>
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-83.3188395774275" YMin="42.61428312652851" XMax="-83.31295664068958" YMax="42.61670913269855" 
+										  SpatialReferenceID="4326" />
+				</esri:Map.InitialViewpoint>
+
+				<layers:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
-                
-                <lyr:GraphicsLayer ID="GraphicsLayer">
-                    <lyr:GraphicsLayer.Renderer>
-                        <sym:SimpleRenderer>
-                            <sym:SimpleFillSymbol Color="#7F0000FF">
-                                <sym:SimpleFillSymbol.Outline>
-                                    <sym:SimpleLineSymbol Color="Blue" Width="2"/>
-                                </sym:SimpleFillSymbol.Outline>
-                            </sym:SimpleFillSymbol>
-                        </sym:SimpleRenderer>
-                    </lyr:GraphicsLayer.Renderer>
-                </lyr:GraphicsLayer>
-
-                <lyr:GraphicsLayer ID="TargetLayer">
-                    <lyr:GraphicsLayer.Renderer>
-                        <sym:SimpleRenderer>
-                            <sym:SimpleFillSymbol Color="#66FF0000">
-                                <sym:SimpleFillSymbol.Outline>
-                                    <sym:SimpleLineSymbol Color="Red" Width="2"/>
-                                </sym:SimpleFillSymbol.Outline>
-                            </sym:SimpleFillSymbol>
-                        </sym:SimpleRenderer>
-                    </lyr:GraphicsLayer.Renderer>
-                </lyr:GraphicsLayer>
-
-                <lyr:GraphicsLayer ID="CoordinateLayer">
-                    <lyr:GraphicsLayer.Renderer>
-                        <sym:SimpleRenderer>
-                            <sym:SimpleMarkerSymbol Color="Red" Style="Circle" Size="10">
-                                <sym:SimpleMarkerSymbol.Outline>
-                                    <sym:SimpleLineSymbol Color="Black" Width="1" />
-                                </sym:SimpleMarkerSymbol.Outline>
-                            </sym:SimpleMarkerSymbol>
-                        </sym:SimpleRenderer>
-                    </lyr:GraphicsLayer.Renderer>
-                </lyr:GraphicsLayer>
             </esri:Map>
-        </esri:MapView>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="graphicsOverlay">
+					<esri:GraphicsOverlay.Renderer>
+						<symb:SimpleRenderer>
+							<symb:SimpleFillSymbol Color="#7F0000FF">
+								<symb:SimpleFillSymbol.Outline>
+									<symb:SimpleLineSymbol Color="Blue" Width="2"/>
+								</symb:SimpleFillSymbol.Outline>
+							</symb:SimpleFillSymbol>
+						</symb:SimpleRenderer>
+					</esri:GraphicsOverlay.Renderer>
+				</esri:GraphicsOverlay>
+
+				<esri:GraphicsOverlay ID="targetOverlay">
+					<esri:GraphicsOverlay.Renderer>
+						<symb:SimpleRenderer>
+							<symb:SimpleFillSymbol Color="#66FF0000">
+								<symb:SimpleFillSymbol.Outline>
+									<symb:SimpleLineSymbol Color="Red" Width="2"/>
+								</symb:SimpleFillSymbol.Outline>
+							</symb:SimpleFillSymbol>
+						</symb:SimpleRenderer>
+					</esri:GraphicsOverlay.Renderer>
+				</esri:GraphicsOverlay>
+
+				<esri:GraphicsOverlay ID="coordinateOverlay">
+					<esri:GraphicsOverlay.Renderer>
+						<symb:SimpleRenderer>
+							<symb:SimpleMarkerSymbol Color="Red" Style="Circle" Size="10">
+								<symb:SimpleMarkerSymbol.Outline>
+									<symb:SimpleLineSymbol Color="Black" Width="1" />
+								</symb:SimpleMarkerSymbol.Outline>
+							</symb:SimpleMarkerSymbol>
+						</symb:SimpleRenderer>
+					</esri:GraphicsOverlay.Renderer>
+				</esri:GraphicsOverlay>
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
 
         <Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
             <StackPanel>
@@ -68,7 +74,7 @@
         </Border>
 
         <Border Background="#CC000000" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="20" Padding="10"
-                Visibility="{Binding ElementName=mapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
+                Visibility="{Binding ElementName=MyMapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
             <TextBlock x:Name="txtInstruct" FontSize="14" />
         </Border>
     </Grid>

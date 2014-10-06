@@ -4,26 +4,25 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:common="using:ArcGISRuntimeSDKDotNet_StoreSamples.Common"
     xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
-    xmlns:geo="using:Esri.ArcGISRuntime.Geometry"
-    xmlns:sym="using:Esri.ArcGISRuntime.Symbology"
-    xmlns:data="using:Esri.ArcGISRuntime.Data">
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+    xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
     
     <Grid x:Name="LayoutRoot" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-        <esri:MapView x:Name="mapView" WrapAround="True">
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
             <esri:Map>
-                <lyr:ArcGISTiledMapServiceLayer
+				<layers:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
-
-                <lyr:GraphicsLayer ID="GraphicsLayer">
-                    <lyr:GraphicsLayer.Renderer>
-                        <sym:SimpleRenderer>
-                            <sym:SimpleMarkerSymbol Color="Black" Style="Diamond" Size="12" />
-                        </sym:SimpleRenderer>
-                    </lyr:GraphicsLayer.Renderer>
-                </lyr:GraphicsLayer>
             </esri:Map>
-        </esri:MapView>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="graphicsOverlay">
+					<esri:GraphicsOverlay.Renderer>
+						<symb:SimpleRenderer>
+							<symb:SimpleMarkerSymbol Color="Black" Style="Diamond" Size="12" />
+						</symb:SimpleRenderer>
+					</esri:GraphicsOverlay.Renderer>
+				</esri:GraphicsOverlay>
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
 
         <Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
             <StackPanel>
@@ -63,7 +62,7 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="4,8" HorizontalAlignment="Center">
-                        <Run Text="Source WKID: " />
+                        <Run Text="Target WKID: " />
                         <Run Text="{Binding SpatialReference.Wkid}" />
                     </TextBlock>
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="X:" Margin="6,2" HorizontalAlignment="Right" />

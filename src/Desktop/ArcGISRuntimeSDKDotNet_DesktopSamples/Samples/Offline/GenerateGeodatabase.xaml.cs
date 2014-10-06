@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Data;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Http;
 using Esri.ArcGISRuntime.Layers;
@@ -19,7 +20,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     /// <category>Offline</category>
     public partial class GenerateGeodatabase : UserControl
     {
-        private const string BASE_URL = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/SaveTheBaySync/FeatureServer";
+        private const string BASE_URL = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/WildfireSync/FeatureServer";
         private const string GDB_PREFIX = "DOTNET_Sample";
         private const string GDB_NAME = "sample.geodatabase";
 
@@ -40,11 +41,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 ReportStatus("Creating GeodatabaseSyncTask...");
                 var syncTask = new GeodatabaseSyncTask(new Uri(BASE_URL));
 
-                var options = new GenerateGeodatabaseParameters(new int[] { 0, 1, 2 }, mapView.Extent)
+                var options = new GenerateGeodatabaseParameters(new int[] { 0, 1, 2 }, MyMapView.Extent)
                 {
                     GeodatabasePrefixName = GDB_PREFIX,
                     ReturnAttachments = false,
-                    OutSpatialReference = mapView.SpatialReference,
+                    OutSpatialReference = MyMapView.SpatialReference,
                     SyncModel = SyncModel.PerLayer
                 };
 
@@ -72,7 +73,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 ReportStatus("Create local feature layers...");
                 await CreateFeatureLayersAsync(gdbPath);
 
-                mapView.Map.Layers["mapServiceLayer"].IsVisible = false;
+                MyMapView.Map.Layers["wildfireGroup"].IsVisible = false;
             }
             catch (Exception ex)
             {
@@ -96,7 +97,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             if (!System.IO.Directory.Exists(gdbFolder))
                 System.IO.Directory.CreateDirectory(gdbFolder);
 
-            await Task.Factory.StartNew(async () =>
+            await Task.Run(async () =>
             {
                 using (var stream = System.IO.File.Create(gdbPath))
                 {
@@ -117,9 +118,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 if (gdb.FeatureTables.Count() == 0)
                     throw new ApplicationException("Downloaded geodatabase has no feature tables.");
 
-                var groupLayer = mapView.Map.Layers["Local_Geodatabase"] as GroupLayer;
+                var groupLayer = MyMapView.Map.Layers["Local_Geodatabase"] as GroupLayer;
                 if (groupLayer != null)
-                    mapView.Map.Layers.Remove(groupLayer);
+                    MyMapView.Map.Layers.Remove(groupLayer);
                 
                 groupLayer = new GroupLayer()
                 {
@@ -127,9 +128,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     DisplayName = string.Format("Local ({0})", gdbPath)
                 };
 
-                Envelope extent = new Envelope();
+                Envelope extent = gdb.FeatureTables.First().Extent;
                 foreach (var table in gdb.FeatureTables)
                 {
+                  //if this call is made after FeatureTable is initialized, a call to FeatureLayer.ResetRender will be required.
+                  table.UseAdvancedSymbology = true;
                     var flayer = new FeatureLayer()
                     {
                         ID = table.Name,
@@ -148,9 +151,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     groupLayer.ChildLayers.Add(flayer);
                 }
 
-                mapView.Map.Layers.Add(groupLayer);
+                MyMapView.Map.Layers.Add(groupLayer);
 
-                await mapView.SetViewAsync(extent.Expand(1.10));
+                await MyMapView.SetViewAsync(extent.Expand(1.10));
             }
             catch (Exception ex)
             {

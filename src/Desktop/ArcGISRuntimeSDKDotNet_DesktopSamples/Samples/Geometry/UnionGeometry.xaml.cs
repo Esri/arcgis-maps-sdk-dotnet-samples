@@ -12,7 +12,7 @@ using System.Windows.Controls;
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
-    /// Example of using the GeometryEngine.Union method to calculate the geometric union of feature geometries and a given polygon. To use this sample, the user draws a polygon over the feature polygons and the system then retrieves the union of the feature geometries and the new polygon. Resulting polygons are shown in a graphics layer on the map.
+    /// Example of using the GeometryEngine.Union method to calculate the geometric union of feature geometries and a given polygon. To use this sample, the user draws a polygon over the feature polygons and the system then retrieves the union of the feature geometries and the new polygon. Resulting polygons are shown in a graphics overlay on the map.
     /// </summary>
     /// <title>Union</title>
 	/// <category>Geometry</category>
@@ -22,6 +22,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private Symbol _fillSymbol;
         private FeatureLayer _statesLayer;
+		private GraphicsOverlay _resultGraphics;
 
         /// <summary>Construct Union sample control</summary>
         public UnionGeometry()
@@ -29,12 +30,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             InitializeComponent();
 
             _fillSymbol = layoutGrid.Resources["FillSymbol"] as Symbol;
+			_resultGraphics = MyMapView.GraphicsOverlays["resultsOverlay"];
 
-            var task = CreateFeatureLayersAsync();
+            CreateFeatureLayers();
         }
 
         // Creates a feature layer from a local .geodatabase file
-        private async Task CreateFeatureLayersAsync()
+        private async void CreateFeatureLayers()
         {
             try
             {
@@ -42,7 +44,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
                 var table = gdb.FeatureTables.First(ft => ft.Name == "US-States");
                 _statesLayer = new FeatureLayer() { ID = table.Name, FeatureTable = table };
-                mapView.Map.Layers.Insert(1, _statesLayer);
+                MyMapView.Map.Layers.Insert(1, _statesLayer);
             }
             catch (Exception ex)
             {
@@ -55,10 +57,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                resultGraphics.Graphics.Clear();
+				_resultGraphics.Graphics.Clear();
 
                 // wait for user to draw a polygon
-                var poly = await mapView.Editor.RequestShapeAsync(DrawShape.Polygon);
+                var poly = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon);
 
                 // get intersecting features from the feature layer
                 SpatialQueryFilter filter = new SpatialQueryFilter();
@@ -70,12 +72,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 // Union the geometries and add to graphics layer
                 var states = stateFeatures.Select(feature => feature.Geometry);
                 var unionPolys = states.ToList();
-                unionPolys.Add(poly);
 
 				var unionPoly = GeometryEngine.Union(unionPolys);
                 var unionGraphic = new Graphic(unionPoly, _fillSymbol);
 
-                resultGraphics.Graphics.Add(unionGraphic);
+				_resultGraphics.Graphics.Add(unionGraphic);
             }
             catch (Exception ex)
             {

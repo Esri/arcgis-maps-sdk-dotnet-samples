@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using Esri.ArcGISRuntime.Geometry;
-using Windows.UI.Xaml.Controls;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 
@@ -10,7 +9,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 	/// Shows various types of the more advanced symbol types: Composite and CIM symbology.
 	/// </summary>
     /// <category>Symbology</category>
-	public sealed partial class SymbolsAndLabels : Page
+	public sealed partial class SymbolsAndLabels : Windows.UI.Xaml.Controls.Page
     {
 		public SymbolsAndLabels()
         {
@@ -24,7 +23,15 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 		/// </summary>
 		private void CreateGeometries()
 		{
-			var layer = mapView1.Map.Layers.OfType<GraphicsLayer>().First();
+			var layer = MyMapView.Map.Layers.OfType<GraphicsLayer>().First();
+
+			layer.Graphics.Add(new Graphic(new MapPoint(-6000000, 4800000), (Symbol)Resources["NumberedMarkerSymbol1"]));
+			layer.Graphics.Add(new Graphic(new MapPoint(-5000000, 3900000), (Symbol)Resources["NumberedMarkerSymbolA"]));
+			layer.Graphics.Add(new Graphic(new MapPoint(-4000000, 4800000), (Symbol)Resources["NumberedMarkerSymbol1"]));
+			layer.Graphics.Add(new Graphic(new MapPoint(-3000000, 3900000), (Symbol)Resources["NumberedMarkerSymbolA"]));
+			layer.Graphics.Add(new Graphic(new MapPoint(-2000000, 4800000), (Symbol)Resources["NumberedMarkerSymbol1"]));
+			layer.Graphics.Add(new Graphic(new MapPoint(-1000000, 3900000), (Symbol)Resources["NumberedMarkerSymbolA"]));
+
 			int i = 0;
 			foreach (var g in layer.Graphics)
 				g.Attributes["Label"] = "Label #" + (++i).ToString();
@@ -53,17 +60,30 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 				g.Attributes["SymbolType"] = g.Symbol.GetType().Name;
 				g.Attributes["ID"] = ++i;
 			}
+			var symbols = this.Resources.OfType<MarkerSymbol>();
+			double x = -7000000;
+			foreach (var symbol in symbols)
+			{
+				Graphic g = new Graphic(new MapPoint(x, 3900000), symbol);
+				layer.Graphics.Add(g);
+				x += 1000000;
+			}
 		}
 
 		// Helper method
-		private static CoordinateCollection FromArray(params double[] parameters)
+		private static PointCollection FromArray(params double[] parameters)
 		{
-			CoordinateCollection coll = new CoordinateCollection();
+			PointCollection coll = new PointCollection();
 			for (int i = 0; i < parameters.Length - 1; i+=2)
 			{
-				coll.Add(new Coordinate(parameters[i], parameters[i + 1]));
+				coll.Add(new MapPoint(parameters[i], parameters[i + 1]));
 			}
 			return coll;
+		}
+
+		private void Slider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+		{
+			MyMapView.SetRotationAsync(e.NewValue);
 		}
     }
 }

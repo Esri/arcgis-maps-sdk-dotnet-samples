@@ -16,41 +16,57 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
     /// <category>Feature Layers</category>
     public sealed partial class FeatureLayerMapTips : Page
 	{
-        private FeatureLayer _featureLayer;
+		private FeatureLayer _featureLayer;
+		private bool _isMapReady;
+		private FrameworkElement _mapTip;
 
         public FeatureLayerMapTips()
 		{
 			this.InitializeComponent();
 
-            _featureLayer = mapView.Map.Layers["FeatureLayer"] as FeatureLayer;
-            ((GeodatabaseFeatureServiceTable)_featureLayer.FeatureTable).OutFields = OutFields.All;
+            _featureLayer = MyMapView.Map.Layers["FeatureLayer"] as FeatureLayer;
+            ((ServiceFeatureTable)_featureLayer.FeatureTable).OutFields = OutFields.All;
 
-            mapView.PointerMoved += mapView_PointerMoved;
+			_mapTip = MyMapView.Overlays.Items[0] as FrameworkElement;
+
+			MyMapView.SpatialReferenceChanged += MyMapView_SpatialReferenceChanged;
+			MyMapView.PointerMoved += MyMapView_PointerMoved;
         }
 
-        private async void mapView_PointerMoved(object sender, PointerRoutedEventArgs e)
+		private async void MyMapView_SpatialReferenceChanged(object sender, System.EventArgs e)
+		{
+			await MyMapView.LayersLoadedAsync();
+			_isMapReady = true;
+		}
+
+        private async void MyMapView_PointerMoved(object sender, PointerRoutedEventArgs e)
         {
-            try
+			if (!_isMapReady)
+				return;
+			
+			try
             {
-                Point screenPoint = e.GetCurrentPoint(mapView).Position;
-                var rows = await _featureLayer.HitTestAsync(mapView, screenPoint);
+				_isMapReady = false;
+
+                Point screenPoint = e.GetCurrentPoint(MyMapView).Position;
+                var rows = await _featureLayer.HitTestAsync(MyMapView, screenPoint);
                 if (rows != null && rows.Length > 0)
                 {
                     var features = await _featureLayer.FeatureTable.QueryAsync(rows);
-                    var feature = features.FirstOrDefault();
-
-                    maptipTransform.X = screenPoint.X + 4;
-                    maptipTransform.Y = screenPoint.Y - mapTip.ActualHeight;
-                    mapTip.DataContext = feature;
-                    mapTip.Visibility = Visibility.Visible;
+					_mapTip.DataContext = features.FirstOrDefault();
+                    _mapTip.Visibility = Visibility.Visible;
                 }
                 else
-                    mapTip.Visibility = Visibility.Collapsed;
+                    _mapTip.Visibility = Visibility.Collapsed;
             }
             catch
             {
-                mapTip.Visibility = Visibility.Collapsed;
+                _mapTip.Visibility = Visibility.Collapsed;
             }
+			finally
+			{
+				_isMapReady = true;
+			}
         }
     }
 }

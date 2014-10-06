@@ -12,9 +12,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Common
 {
     internal class SampleDataViewModel : INotifyPropertyChanged
     {
-        private const string AGOL_SAMPLE_DATA_URL = "http://www.arcgis.com/sharing/content/items/6783caae8fc543a6b28553b569d31daf/data";
+		private const string AGOL_SAMPLE_DATA_URL = "http://www.arcgis.com/sharing/content/items/698cf2dd47994e169353bf997b3ab1d8/data";
 
-        // String with date of last data download
+		// String with date of last data download
         private string _lastDownloadDate;
         public string LastDownloadDate
         {

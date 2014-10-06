@@ -1,10 +1,12 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -29,11 +31,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private const string ONLINE_BASEMAP_URL = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer";
         private const string ONLINE_LAYER_ID = "OnlineBasemap";
         private const string LOCAL_LAYER_ID = "LocalTiles";
-        private const string AOI_LAYER_ID = "AOI";
         private const string TILE_CACHE_FOLDER = "ExportTileCacheSample";
 
         private ArcGISTiledMapServiceLayer _onlineTiledLayer;
-        private GraphicsLayer _aoiLayer;
+        private GraphicsOverlay _aoiOverlay;
         private ExportTileCacheTask _exportTilesTask;
         private GenerateTileCacheParameters _genOptions;
 
@@ -42,25 +43,27 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            var extentWGS84 = new Envelope(-122.60, 37.70, -122.25, 37.82, SpatialReferences.Wgs84);
-            mapView.Map.InitialExtent = GeometryEngine.Project(extentWGS84, SpatialReferences.WebMercator) as Envelope;
+            var extentWGS84 = new Envelope(-123.77, 36.80, -119.77, 38.42, SpatialReferences.Wgs84);
+			MyMapView.Map.InitialViewpoint = new Viewpoint(extentWGS84);
 
-            mapView.Loaded += mapView_Loaded;
+            MyMapView.Loaded += MyMapView_Loaded;
         }
 
         // Load the online basemap and dependent UI
-        private async void mapView_Loaded(object sender, RoutedEventArgs e)
+        private async void MyMapView_Loaded(object sender, RoutedEventArgs e)
         {
             await InitializeOnlineBasemap();
 
-            _aoiLayer = new GraphicsLayer() { ID = AOI_LAYER_ID, Renderer = layoutGrid.Resources["AOIRenderer"] as Renderer };
-            mapView.Map.Layers.Add(_aoiLayer);
+            _aoiOverlay = new GraphicsOverlay() { 
+				Renderer = layoutGrid.Resources["AOIRenderer"] as Renderer 
+			};
+            MyMapView.GraphicsOverlays.Add(_aoiOverlay);
 
             if (_onlineTiledLayer.ServiceInfo != null)
             {
                 sliderLOD.Minimum = 0;
                 sliderLOD.Maximum = _onlineTiledLayer.ServiceInfo.TileInfo.Lods.Count - 1;
-                sliderLOD.Value = (int)(sliderLOD.Maximum / 2);
+                sliderLOD.Value = sliderLOD.Maximum;
             }
 
             _exportTilesTask = new ExportTileCacheTask(new Uri(_onlineTiledLayer.ServiceUri));
@@ -78,7 +81,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 if (!string.IsNullOrEmpty(ONLINE_BASEMAP_TOKEN_URL))
                 {
                     // Set credentials and token for online basemap
-                    var options = new IdentityManager.GenerateTokenOptions()
+                    var options = new GenerateTokenOptions()
                     {
                         Referer = new Uri(_onlineTiledLayer.ServiceUri)
                     };
@@ -93,7 +96,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 }
 
                 await _onlineTiledLayer.InitializeAsync();
-                mapView.Map.Layers.Add(_onlineTiledLayer);
+                MyMapView.Map.Layers.Add(_onlineTiledLayer);
             }
             catch (Exception ex)
             {
@@ -110,44 +113,45 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 panelExport.Visibility = Visibility.Collapsed;
                 progress.Visibility = Visibility.Visible;
 
-                _aoiLayer.Graphics.Clear();
-                _aoiLayer.Graphics.Add(new Graphic(mapView.Extent));
+                _aoiOverlay.Graphics.Clear();
+                _aoiOverlay.Graphics.Add(new Graphic(MyMapView.Extent));
 
                 _genOptions = new GenerateTileCacheParameters()
                 {
                     Format = ExportTileCacheFormat.TilePackage,
                     MinScale = _onlineTiledLayer.ServiceInfo.TileInfo.Lods[(int)sliderLOD.Value].Scale,
                     MaxScale = _onlineTiledLayer.ServiceInfo.TileInfo.Lods[0].Scale,
-                    GeometryFilter = mapView.Extent
+                    GeometryFilter = GeometryEngine.Project(MyMapView.Extent, SpatialReferences.Wgs84)
                 };
 
-                var job = await _exportTilesTask.EstimateTileCacheSizeAsync(_genOptions);
-
-                // Poll for the results async
-                while (job.Status != GPJobStatus.Cancelled && job.Status != GPJobStatus.Deleted
-                    && job.Status != GPJobStatus.Succeeded && job.Status != GPJobStatus.TimedOut
-                    && job.Status != GPJobStatus.Failed)
-                {
-                    await Task.Delay(TimeSpan.FromSeconds(5));
-                    await _exportTilesTask.CheckEstimateTileCacheSizeJobStatusAsync(job);
-                }
-
-                if (job.Status == GPJobStatus.Succeeded)
-                {
-                    var result = await _exportTilesTask.CheckEstimateTileCacheSizeJobStatusAsync(job);
-                    txtExportSize.Text = string.Format("Tiles: {0} - Size (kb): {1:0}", result.TileCount, result.Size / 1024);
-                    panelExport.Visibility = Visibility.Visible;
-                    panelTOC.Visibility = Visibility.Collapsed;
-                }
+                var job = await _exportTilesTask.EstimateTileCacheSizeAsync(_genOptions, 
+                    (result, ex) =>  // Callback for when estimate operation has completed
+                        {
+                            if (ex == null) // Check whether operation completed with errors
+                            {
+                                txtExportSize.Text = string.Format("Tiles: {0} - Size (kb): {1:0}", result.TileCount, result.Size / 1024);
+                                panelExport.Visibility = Visibility.Visible;
+                                panelTOC.Visibility = Visibility.Collapsed;
+                            }
+                            else
+                            {
+                                MessageBox.Show(ex.Message, "Sample Error");
+                            }
+                            panelUI.IsEnabled = true;
+                            progress.Visibility = Visibility.Collapsed;
+                        },
+                        TimeSpan.FromSeconds(1), // Check the operation every five seconds
+                        CancellationToken.None,
+                        new Progress<ExportTileCacheJob>((j) =>  // Callback for status updates
+                        {
+                            Debug.WriteLine(getTileCacheGenerationStatusMessage(j));
+                        }));
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Sample Error");
-            }
-            finally
-            {
-                panelUI.IsEnabled = true;
-                progress.Visibility = Visibility.Collapsed;
+                panelExport.Visibility = Visibility.Visible;
+                panelTOC.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -167,19 +171,27 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 };
 
                 var result = await _exportTilesTask.GenerateTileCacheAndDownloadAsync(
-                    _genOptions, downloadOptions, TimeSpan.FromSeconds(5), CancellationToken.None);
+                    _genOptions, downloadOptions, TimeSpan.FromSeconds(5), CancellationToken.None, 
+                    new Progress<ExportTileCacheJob>((job) => // Callback for reporting status during tile cache generation
+                    {
+                        Debug.WriteLine(getTileCacheGenerationStatusMessage(job));
+                    }),
+                    new Progress<ExportTileCacheDownloadProgress>((downloadProgress) => // Callback for reporting status during tile cache download
+                    {
+                        Debug.WriteLine(getDownloadStatusMessage(downloadProgress));
+                    }));
 
-                var localTiledLayer = mapView.Map.Layers.FirstOrDefault(lyr => lyr.ID == LOCAL_LAYER_ID);
+                var localTiledLayer = MyMapView.Map.Layers.FirstOrDefault(lyr => lyr.ID == LOCAL_LAYER_ID);
                 if (localTiledLayer != null)
-                    mapView.Map.Layers.Remove(localTiledLayer);
+                    MyMapView.Map.Layers.Remove(localTiledLayer);
 
                 localTiledLayer = new ArcGISLocalTiledLayer(result.OutputPath) { ID = LOCAL_LAYER_ID };
-                mapView.Map.Layers.Insert(1, localTiledLayer);
+                MyMapView.Map.Layers.Insert(1, localTiledLayer);
 
                 _onlineTiledLayer.IsVisible = false;
 
-                if (mapView.Scale < _genOptions.MinScale)
-                    await mapView.SetViewAsync(mapView.Extent.GetCenter(), _genOptions.MinScale);
+                if (MyMapView.Scale < _genOptions.MinScale)
+                    await MyMapView.SetViewAsync(MyMapView.Extent.GetCenter(), _genOptions.MinScale);
 
                 panelTOC.Visibility = Visibility.Visible;
             }
@@ -192,6 +204,43 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 panelUI.IsEnabled = true;
                 progress.Visibility = Visibility.Collapsed;
             }
+        }
+
+		private void ShowAoiExtentCheckBox_Click(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				var chkbox = sender as CheckBox;
+				var graphic = _aoiOverlay.Graphics.FirstOrDefault();
+				if (chkbox != null && graphic != null)
+				{
+					graphic.IsVisible = (bool)chkbox.IsChecked;
+				}
+			}
+			catch (Exception)
+			{
+			}
+		}
+
+        private static string getTileCacheGenerationStatusMessage(ExportTileCacheJob job)
+        {
+            if (job.Messages == null)
+                return "";
+
+            var text = string.Format("Job Status: {0}\n\nMessages:\n=====================\n", job.Status);
+            foreach (GPMessage message in job.Messages)
+            {
+                text += string.Format("Message type: {0}\nMessage: {1}\n--------------------\n",
+                    message.MessageType, message.Description);
+            }
+            return text;
+        }
+
+        private static string getDownloadStatusMessage(ExportTileCacheDownloadProgress downloadProgress)
+        {
+            return string.Format("Downloading file {0} of {1}...\n{2:P0} complete\n" +
+                "Bytes read: {3}", downloadProgress.FilesDownloaded, downloadProgress.TotalFiles, downloadProgress.ProgressPercentage,
+                downloadProgress.CurrentFileBytesReceived);
         }
     }
 }

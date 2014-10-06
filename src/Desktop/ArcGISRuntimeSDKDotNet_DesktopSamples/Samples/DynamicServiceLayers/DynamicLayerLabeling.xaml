@@ -3,16 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView WrapAround="True" Background="#FFE3E3E3">
-            <esri:Map>
-                <esri:Map.InitialExtent>
-                    <esri:Envelope XMin="-3548912" YMin="-1847469" XMax="2472012" YMax="1742990">
-                        <esri:Envelope.SpatialReference>
-                            <esri:SpatialReference Wkid="102009"/>
-                        </esri:Envelope.SpatialReference>
-                    </esri:Envelope>
-                </esri:Map.InitialExtent>
-
+		<esri:MapView x:Name="MyMapView" WrapAround="True">
+            <esri:Map InitialViewpoint="-14675766.357,2695407.734,-6733121.861,6583994.101,102100">
                 <esri:ArcGISDynamicMapServiceLayer x:Name="dynamicLayer" ID="USA"
 				    ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer"
                     VisibleLayers="0,1,2">
@@ -22,7 +14,7 @@
                         <esri:LayerDrawingOptionCollection>
                             <esri:LayerDrawingOptions LayerID="0" ShowLabels="True">
                                 <esri:LayerDrawingOptions.LabelingInfos>
-                                    <esri:DynamicLabelingInfo LabelExpression="[areaname]" LabelPlacement="PointLabelPlacementAboveRight" Where="pop2000 > 500000">
+                                    <esri:DynamicLabelingInfo LabelExpression="[areaname]" LabelPlacement="PointAboveRight" Where="pop2000 > 500000">
                                         <esri:DynamicLabelingInfo.Symbol>
                                             <esri:TextSymbol Color="Blue">
                                                 <esri:TextSymbol.Font>

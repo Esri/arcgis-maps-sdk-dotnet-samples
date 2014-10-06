@@ -1,4 +1,5 @@
 ﻿using Esri.ArcGISRuntime;
+using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using System.Linq;
@@ -16,11 +17,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-            mapView1.Map.InitialExtent = GeometryEngine.Project(new Envelope(-5, 20, 50, 65, SpatialReferences.Wgs84), SpatialReferences.WebMercator) as Envelope;
+			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-5, 20, 50, 65, SpatialReferences.Wgs84));
             
         }
 
-        private void mapView1_ExtentChanged(object sender, System.EventArgs e)
+        private async void mapView1_ExtentChanged(object sender, System.EventArgs e)
         {
             var graphicslayer = overviewMap.Map.Layers.OfType<GraphicsLayer>().FirstOrDefault();
             Graphic g = graphicslayer.Graphics.FirstOrDefault();
@@ -30,6 +31,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 graphicslayer.Graphics.Add(g);
             }
             g.Geometry = mapView1.Extent;
+
+            // Adjust overview map scale
+            await overviewMap.SetViewAsync(mapView1.Extent.GetCenter(), mapView1.Scale * 15);
         }
     }
 }

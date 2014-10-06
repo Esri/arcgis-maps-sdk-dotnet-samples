@@ -7,14 +7,23 @@
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" WrapAround="True">
-            <esri:Map>
+		<esri:MapView x:Name="MyMapView" WrapAround="True">
+			<esri:Map InitialViewpoint="-14675766,2695407,-6733121,6583994,3857">
                 <esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
 
                 <esri:FeatureLayer x:Name="cities" ID="featureLayer">
+					<esri:FeatureLayer.Renderer>
+						<esri:SimpleRenderer>
+							<esri:SimpleMarkerSymbol Color="LightBlue" Style="Circle" Size="12">
+								<esri:SimpleMarkerSymbol.Outline>
+									<esri:SimpleLineSymbol Color="Blue" Width="2" Style="Solid" />
+								</esri:SimpleMarkerSymbol.Outline>
+							</esri:SimpleMarkerSymbol>
+						</esri:SimpleRenderer>
+					</esri:FeatureLayer.Renderer>
                     <esri:FeatureLayer.FeatureTable>
-                        <esri:GeodatabaseFeatureServiceTable
+                        <esri:ServiceFeatureTable
                             ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0"
                             Where="pop2000 > 200000" OutFields="*" />
                     </esri:FeatureLayer.FeatureTable>
@@ -22,9 +31,13 @@
             </esri:Map>
         </esri:MapView>
 
-        <Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="25"
-                HorizontalAlignment="Right" VerticalAlignment="Top">
-            <StackPanel Margin="8">
+		<Border Background="White" BorderBrush="Black" BorderThickness="1"
+				HorizontalAlignment="Right" VerticalAlignment="Top" 
+				Margin="30" Padding="20">
+			<Border.Effect>
+				<DropShadowEffect />
+			</Border.Effect>
+			<StackPanel>
                 <Button Content="Add Selected Features" Click="AddSelectButton_Click" Margin="4"/>
                 <Button Content="Remove Selected Features" Click="RemoveSelectButton_Click" Margin="4"/>
                 <Button Content="Clear Selected Features" Click="ClearSelectButton_Click" Margin="4"/>
@@ -37,7 +50,7 @@
         <Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="25"
                 HorizontalAlignment="Center" VerticalAlignment="Bottom">
             <TextBlock Text="Draw a selection rectangle intersecting the points to select / unselect." Margin="8" FontSize="14" 
-                       Visibility="{Binding ElementName=mapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                       Visibility="{Binding ElementName=MyMapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}" />
         </Border>
     </Grid>
 </UserControl>

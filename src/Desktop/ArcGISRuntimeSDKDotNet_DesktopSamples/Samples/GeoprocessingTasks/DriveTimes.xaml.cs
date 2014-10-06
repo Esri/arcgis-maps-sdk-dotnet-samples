@@ -19,6 +19,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	/// <subcategory>Geoprocessing</subcategory>
 	public partial class DriveTimes : UserControl
     {
+        private const string DriveTimeServiceUrl =
+            "http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Network/ESRI_DriveTime_US/GPServer/CreateDriveTimePolygons";
+
+		private GraphicsOverlay _resultsOverlay;
+		private GraphicsOverlay _inputOverlay;
         private List<Symbol> _bufferSymbols;
         private Geoprocessor _gpTask;
 
@@ -27,7 +32,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            mapView.Map.InitialExtent = new Envelope(-122.5009, 37.741, -122.3721, 37.8089);
+			_resultsOverlay = MyMapView.GraphicsOverlays["resultsOverlay"];
+			_inputOverlay = MyMapView.GraphicsOverlays["inputOverlay"];
 
             _bufferSymbols = new List<Symbol>()
             {
@@ -36,21 +42,20 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 layoutGrid.Resources["FillSymbol3"] as Symbol
             };
 
-            _gpTask = new Geoprocessor(
-                new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Network/ESRI_DriveTime_US/GPServer/CreateDriveTimePolygons"));
+            _gpTask = new Geoprocessor(new Uri(DriveTimeServiceUrl));
         }
 
         // Use geoprocessor to call drive times gp service and display results
-        private async void mapView_MapViewTapped(object sender, MapViewInputEventArgs e)
+        private async void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
             try
             {
                 progress.Visibility = Visibility.Visible;
 
-                inputLayer.Graphics.Clear();
-                resultLayer.Graphics.Clear();
+                _inputOverlay.Graphics.Clear();
+				_resultsOverlay.Graphics.Clear();
 
-                inputLayer.Graphics.Add(new Graphic(e.Location));
+				_inputOverlay.Graphics.Add(new Graphic(e.Location));
 
                 var parameter = new GPInputParameter();
                 parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Input_Location", e.Location));
@@ -59,7 +64,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var result = await _gpTask.ExecuteAsync(parameter);
 
                 var features = result.OutParameters.OfType<GPFeatureRecordSetLayer>().First().FeatureSet.Features;
-                resultLayer.Graphics.AddRange(features.Select((fs, idx) => new Graphic(fs.Geometry, _bufferSymbols[idx])));
+				_resultsOverlay.Graphics.AddRange(features.Select((fs, idx) => new Graphic(fs.Geometry, _bufferSymbols[idx])));
             }
             catch (Exception ex)
             {

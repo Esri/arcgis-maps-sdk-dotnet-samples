@@ -26,13 +26,17 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private const string GEOCODE_SERVICE_URL = "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/geocodeAddresses";
 
         public ObservableCollection<SourceAddress> SourceAddresses { get; set; }
+		private GraphicsOverlay _graphicsOverlay;
 
         public BatchGeocoding()
         {
             InitializeComponent();
 
             // Security Setup
-            IdentityManager.Current.ChallengeMethod = PortalSecurity.Challenge;
+            IdentityManager.Current.OAuthAuthorizeHandler = new OAuthAuthorizeHandler();
+			IdentityManager.Current.ChallengeHandler = new ChallengeHandler(PortalSecurity.Challenge);
+
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
 
             // Allow 5 source addresses by default
             SourceAddresses = new ObservableCollection<SourceAddress>();
@@ -50,8 +54,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             try
             {
                 progress.Visibility = Visibility.Visible;
-                graphicsLayer.Graphics.Clear();
-                mapView.Overlays.Clear();
+				_graphicsOverlay.Graphics.Clear();
+                MyMapView.Overlays.Items.Clear();
 
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
 
@@ -62,7 +66,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
                 Dictionary<string, string> parameters = new Dictionary<string, string>();
                 parameters["f"] = "json";
-                parameters["outSR"] = mapView.SpatialReference.Wkid.ToString();
+                parameters["outSR"] = MyMapView.SpatialReference.Wkid.ToString();
                 parameters["addresses"] = addresses;
 
                 ArcGISHttpClient httpClient = new ArcGISHttpClient();
@@ -75,18 +79,18 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 foreach (var candidate in candidates.OfType<Dictionary<string, object>>())
                 {
                     var location = candidate["location"] as Dictionary<string, object>;
-                    MapPoint point = new MapPoint(Convert.ToDouble(location["x"]), Convert.ToDouble(location["y"]), mapView.SpatialReference);
-                    graphicsLayer.Graphics.Add(new Graphic(point));
+                    MapPoint point = new MapPoint(Convert.ToDouble(location["x"]), Convert.ToDouble(location["y"]), MyMapView.SpatialReference);
+					_graphicsOverlay.Graphics.Add(new Graphic(point));
 
                     // Create a new templated overlay for the geocoded address
                     var overlay = new ContentControl() { HorizontalAlignment = HorizontalAlignment.Right, VerticalAlignment = VerticalAlignment.Top };
                     overlay.Template = layoutGrid.Resources["MapTipTemplate"] as ControlTemplate;
                     overlay.DataContext = candidate["attributes"] as Dictionary<string, object>;
-                    MapView.SetMapOverlayAnchor(overlay, point);
-                    mapView.Overlays.Add(overlay);
+					MapView.SetViewOverlayAnchor(overlay, point);
+                    MyMapView.Overlays.Items.Add(overlay);
                 }
 
-                await mapView.SetViewAsync(GeometryEngine.Union(graphicsLayer.Graphics.Select(g => g.Geometry)).Extent.Expand(1.5));
+				await MyMapView.SetViewAsync(GeometryEngine.Union(_graphicsOverlay.Graphics.Select(g => g.Geometry)).Extent.Expand(1.5));
             }
             catch (Exception ex)
             {

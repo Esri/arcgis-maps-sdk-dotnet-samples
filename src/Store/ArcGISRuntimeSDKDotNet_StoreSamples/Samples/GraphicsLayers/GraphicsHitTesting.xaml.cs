@@ -26,18 +26,18 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-            _graphicsLayer = mapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+            _graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
 
-            mapView.MapViewTapped += mapView_MapViewTapped;
+            MyMapView.MapViewTapped += MyMapView_MapViewTapped;
             CreateGraphics();
         }
 
         // Hit Test the graphics layer by single point
-        private async void mapView_MapViewTapped(object sender, MapViewInputEventArgs e)
+        private async void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
             try
             {
-                var graphics = await _graphicsLayer.HitTestAsync(mapView, e.Position, MAX_GRAPHICS);
+                var graphics = await _graphicsLayer.HitTestAsync(MyMapView, e.Position, MAX_GRAPHICS);
 
                 string results = "Hit: ";
                 if (graphics == null || graphics.Count() == 0)
@@ -48,19 +48,24 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("HitTest Error: " + ex.Message, "Graphics Layer Hit Testing").ShowAsync();
+                var _x = new MessageDialog("HitTest Error: " + ex.Message, "Graphics Layer Hit Testing").ShowAsync();
             }
         }
 
         // Create three List<Graphic> objects with random graphics to serve as layer GraphicsSources
         private async void CreateGraphics()
         {
-            await mapView.LayersLoadedAsync();
+			try
+			{
+				await MyMapView.LayersLoadedAsync();
 
-            for (int n = 1; n <= MAX_GRAPHICS; ++n)
-            {
-                _graphicsLayer.Graphics.Add(CreateRandomGraphic(n));
-            }
+				for (int n = 1; n <= MAX_GRAPHICS; ++n)
+					_graphicsLayer.Graphics.Add(CreateRandomGraphic(n));
+			}
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog(ex.ToString(), "Sample error").ShowAsync();
+			}
         }
 
         // Create a random graphic
@@ -91,9 +96,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         // Utility: Generate a random MapPoint within the current extent
         private MapPoint GetRandomMapPoint()
         {
-            double x = mapView.Extent.XMin + (_random.NextDouble() * mapView.Extent.Width);
-            double y = mapView.Extent.YMin + (_random.NextDouble() * mapView.Extent.Height);
-            return new MapPoint(x, y, mapView.SpatialReference);
+            double x = MyMapView.Extent.XMin + (_random.NextDouble() * MyMapView.Extent.Width);
+            double y = MyMapView.Extent.YMin + (_random.NextDouble() * MyMapView.Extent.Height);
+            return new MapPoint(x, y, MyMapView.SpatialReference);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Layers;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Collections.Generic;
@@ -19,22 +20,22 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 	public partial class MarkerSymbols : Windows.UI.Xaml.Controls.Page
     {
         private List<MarkerSymbol> _symbols;
-        private GraphicsLayer _graphicsLayer;
+        private GraphicsOverlay _graphicsOverlay;
 
         /// <summary>Construct Marker Symbols sample control</summary>
         public MarkerSymbols()
         {
             InitializeComponent();
 
-            _graphicsLayer = mapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
 
-            mapView.ExtentChanged += mapView_ExtentChanged;
+            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 
         // Start map interaction
-        private async void mapView_ExtentChanged(object sender, EventArgs e)
+        private async void MyMapView_ExtentChanged(object sender, EventArgs e)
         {
-            mapView.ExtentChanged -= mapView_ExtentChanged;
+            MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
 
             await SetupSymbolsAsync();
             await AcceptPointsAsync();
@@ -43,10 +44,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         // Accept user map clicks and add points to the graphics layer with the selected symbol
         private async Task AcceptPointsAsync()
         {
-            while (mapView.Extent != null)
+            while (MyMapView.Extent != null)
             {
-                var point = await mapView.Editor.RequestPointAsync();
-                _graphicsLayer.Graphics.Add(new Graphic(point, _symbols[symbolCombo.SelectedIndex]));
+                var point = await MyMapView.Editor.RequestPointAsync();
+                _graphicsOverlay.Graphics.Add(new Graphic(point, _symbols[symbolCombo.SelectedIndex]));
             }
         }
 

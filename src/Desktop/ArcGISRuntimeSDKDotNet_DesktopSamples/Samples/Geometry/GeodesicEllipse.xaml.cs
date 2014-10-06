@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System;
@@ -17,6 +18,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     {
         private Symbol _pinSymbol;
         private Symbol _sectorSymbol;
+		private GraphicsOverlay _graphicsOverlay;
 
         /// <summary>Construct Geodesic Ellipse sample control</summary>
         public GeodesicEllipse()
@@ -25,16 +27,19 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             _pinSymbol = layoutGrid.Resources["PointSymbol"] as Symbol;
             _sectorSymbol = layoutGrid.Resources["SectorSymbol"] as Symbol;
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
         }
 
         private async void EllipseButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                while (mapView.Extent != null)
+                while (MyMapView.Extent != null)
                 {
                     // Accept user point
-                    var point = await mapView.Editor.RequestPointAsync();
+					MapPoint userpoint = await MyMapView.Editor.RequestPointAsync() as MapPoint;
+
+					MapPoint point = GeometryEngine.NormalizeCentralMeridian(userpoint) as MapPoint;
 
                     // create the geodesic ellipse
                     var radius1 = (double)comboRadius1.SelectedItem;
@@ -50,9 +55,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     var ellipse = GeometryEngine.GeodesicEllipse(param);
 
                     //show geometries on map
-                    graphicsLayer.Graphics.Clear();
-                    graphicsLayer.Graphics.Add(new Graphic(point, _pinSymbol));
-                    graphicsLayer.Graphics.Add(new Graphic(ellipse));
+					_graphicsOverlay.Graphics.Clear();
+					_graphicsOverlay.Graphics.Add(new Graphic(point, _pinSymbol));
+					_graphicsOverlay.Graphics.Add(new Graphic(ellipse));
 
                     // geodesic sector
                     if ((bool)chkSector.IsChecked)
@@ -67,16 +72,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                         };
                         var sector = GeometryEngine.GeodesicSector(sectorParams);
 
-                        graphicsLayer.Graphics.Add(new Graphic(sector, _sectorSymbol));
+						_graphicsOverlay.Graphics.Add(new Graphic(sector, _sectorSymbol));
                     }
                 }
             }
-            catch (TaskCanceledException)
-            {
-            }
+            catch (TaskCanceledException) { }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Geometry Engine Failed!");
+                MessageBox.Show(ex.Message, "Error");
             }
         }
     }

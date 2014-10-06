@@ -1,8 +1,10 @@
 ﻿using Esri.ArcGISRuntime.ArcGISServices;
+using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalyst;
 using System;
+using System.Globalization;
 using System.Linq;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -19,7 +21,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public RoutingWithBarriers()
         {
             this.InitializeComponent();
-            mapView1.Map.InitialExtent = new Envelope(-117.22, 34.04, -117.17, 34.07);
         }
 
         private void mapView1_Tapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
@@ -55,20 +56,17 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             {
                 try
                 {
-                    OnlineRouteTask routeTask = new OnlineRouteTask(new Uri("http://tasks.arcgisonline.com/ArcGIS/rest/services/NetworkAnalysis/ESRI_Route_NA/NAServer/Route"));
+                    OnlineRouteTask routeTask = new OnlineRouteTask
+						(new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route"));
                     RouteParameters routeParams = await routeTask.GetDefaultParametersAsync();
-                    FeaturesAsFeature featureAsFeature = new FeaturesAsFeature();
-                    featureAsFeature.Features = stopsLayer.Graphics;
-                    routeParams.Stops = featureAsFeature;
-
+					routeParams.SetStops(stopsLayer.Graphics);
                     routeParams.UseTimeWindows = false;
                     routeParams.OutSpatialReference = mapView1.SpatialReference;
-                    FeaturesAsFeature barrierFeatures = new FeaturesAsFeature();
-                    barrierFeatures.Features = barriersLayer.Graphics;
-                    routeParams.PointBarriers = barrierFeatures;
+                    routeParams.SetPointBarriers(barriersLayer.Graphics);
                     routeParams.OutputGeometryPrecision = 1;
-                    //routeParams.OutputGeometryPrecisionUnit = LinearUnits.Miles;
                     routeParams.DirectionsLengthUnit = LinearUnits.Miles;
+					routeParams.DirectionsLanguage = new CultureInfo("en-Us"); // CultureInfo.CurrentCulture;
+
                     var result = await routeTask.SolveAsync(routeParams);
 
                     if (result != null)
@@ -78,7 +76,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
 
                         foreach (var route in result.Routes)
-                            routeLayer.Graphics.Add(route.RouteGraphic);
+                            routeLayer.Graphics.Add(route.RouteFeature as Graphic);
 
                     }
                 }

@@ -20,22 +20,21 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 	public partial class LineFillSymbols : Windows.UI.Xaml.Controls.Page
     {
         private List<SampleSymbol> _symbols;
-        private GraphicsLayer _graphicsLayer;
+        private GraphicsOverlay _graphicsOverlay;
 
         /// <summary>Construct Line and Fill Symbols sample control</summary>
         public LineFillSymbols()
         {
             InitializeComponent();
 
-            _graphicsLayer = mapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
-
-            mapView.ExtentChanged += mapView_ExtentChanged;
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
+            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 
         // Start map interaction
-        private async void mapView_ExtentChanged(object sender, EventArgs e)
+        private async void MyMapView_ExtentChanged(object sender, EventArgs e)
         {
-            mapView.ExtentChanged -= mapView_ExtentChanged;
+            MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
 
             await SetupSymbolsAsync();
             await AcceptPointsAsync();
@@ -44,10 +43,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         // Cancel current shape request when the symbol selection changes 
         private async void symbolCombo_SelectionChanged(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
         {
-            if (!mapView.Editor.IsActive)
+            if (!MyMapView.Editor.IsActive)
                 return;
 
-            mapView.Editor.Cancel.Execute(null);
+            MyMapView.Editor.Cancel.Execute(null);
             await AcceptPointsAsync();
         }
 
@@ -56,17 +55,17 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             try
             {
-                while (mapView.Extent != null)
+                while (MyMapView.Extent != null)
                 {
                     SampleSymbol sampleSymbol = _symbols[symbolCombo.SelectedIndex];
 
                     Esri.ArcGISRuntime.Geometry.Geometry shape = null;
                     if (sampleSymbol.Symbol is LineSymbol)
-                        shape = await mapView.Editor.RequestShapeAsync(DrawShape.Polyline, sampleSymbol.Symbol);
+                        shape = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polyline, sampleSymbol.Symbol);
                     else
-                        shape = await mapView.Editor.RequestShapeAsync(DrawShape.Polygon, sampleSymbol.Symbol);
+                        shape = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon, sampleSymbol.Symbol);
 
-                    _graphicsLayer.Graphics.Add(new Graphic(shape, sampleSymbol.Symbol));
+                    _graphicsOverlay.Graphics.Add(new Graphic(shape, sampleSymbol.Symbol));
 					await Task.Delay(100);
                 }
             }
@@ -75,7 +74,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
             }
         }
 
@@ -99,8 +98,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     new SampleSymbol(new SimpleFillSymbol() { Color = Color.FromArgb(100, 0, 255, 0), Style = SimpleFillStyle.DiagonalCross, Outline = blackOutlineSymbol }),
                     new SampleSymbol(new SimpleFillSymbol() { Color = Color.FromArgb(100, 0, 0, 255), Style = SimpleFillStyle.Vertical, Outline = blackOutlineSymbol }),
 
-                    new SampleSymbol(new PictureFillSymbol() { Outline = blackOutlineSymbol }, "ms-appx:///Assets/x-24x24.png"),
-                    new SampleSymbol(new PictureFillSymbol() { Outline = blackOutlineSymbol }, "http://static.arcgis.com/images/Symbols/Cartographic/esriCartographyMarker_79_Blue.png")
+                    new SampleSymbol(new PictureFillSymbol() { Outline = blackOutlineSymbol, Width = 24, Height = 24 }, "ms-appx:///Assets/x-24x24.png"),
+                    new SampleSymbol(new PictureFillSymbol() { Outline = blackOutlineSymbol, Width = 24, Height = 24 }, "http://static.arcgis.com/images/Symbols/Cartographic/esriCartographyMarker_79_Blue.png")
                 };
 
                 // Set image sources for picture fill symbols

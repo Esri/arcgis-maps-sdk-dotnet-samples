@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using Esri.ArcGISRuntime.Controls;
+using System.Diagnostics;
+using System.Windows.Controls;
 
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers
 {
@@ -14,5 +16,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers
         {
             InitializeComponent();
         }
+
+		private void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
+		{
+			if (e.LoadError == null)
+				return;
+
+			Debug.WriteLine(string.Format("Error while loading layer : {0} - {1}", e.Layer.ID, e.LoadError.Message));
+		}
     }
 }

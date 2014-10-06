@@ -3,12 +3,15 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-    xmlns:lyr="using:Esri.ArcGISRuntime.Layers">
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers">
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-        <esri:MapView x:Name="mapView" LayerLoaded="mapView_LayerLoaded">
+        <esri:MapView x:Name="MyMapView" LayerLoaded="MyMapView_LayerLoaded">
             <esri:Map >
-                <lyr:ArcGISImageServiceLayer ID="ImageLayer"
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="1445440" YMin="540657" XMax="1452348" YMax="544407" SpatialReferenceID="2264" />
+				</esri:Map.InitialViewpoint>
+				<layers:ArcGISImageServiceLayer ID="ImageLayer"
                     ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/CharlotteLAS/ImageServer" />
             </esri:Map>
         </esri:MapView>

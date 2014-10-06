@@ -21,6 +21,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private Symbol _origVertexSymbol;
         private Symbol _newVertexSymbol;
 
+		private GraphicsOverlay _inputOverlay;
+		private GraphicsOverlay _resultsOverlay;
+
         /// <summary>Construct Densify sample control</summary>
         public Densify()
         {
@@ -29,6 +32,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             _polySymbol = layoutGrid.Resources["PolySymbol"] as Symbol;
             _origVertexSymbol = layoutGrid.Resources["OrigVertexSymbol"] as Symbol;
             _newVertexSymbol = layoutGrid.Resources["NewVertexSymbol"] as Symbol;
+
+			_inputOverlay = MyMapView.GraphicsOverlays["inputOverlay"];
+			_resultsOverlay = MyMapView.GraphicsOverlays["resultsOverlay"];
         }
 
         // Draw and densify a user defined polygon
@@ -36,26 +42,26 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                inputGraphics.Graphics.Clear();
-                resultGraphics.Graphics.Clear();
+                _inputOverlay.Graphics.Clear();
+                _resultsOverlay.Graphics.Clear();
 
                 // Request polygon from the user
-                var poly = await mapView.Editor.RequestShapeAsync(DrawShape.Polygon, _polySymbol) as Polygon;
+                var poly = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon, _polySymbol) as Polygon;
 
                 // Add original polygon and vertices to input graphics layer
-                inputGraphics.Graphics.Add(new Graphic(poly, _polySymbol));
-                foreach (var coord in poly.Rings.First())
+				_inputOverlay.Graphics.Add(new Graphic(poly, _polySymbol));
+                foreach (var mapPoint in poly.Parts.First().GetPoints())
                 {
-                    inputGraphics.Graphics.Add(new Graphic(new MapPoint(coord, poly.SpatialReference), _origVertexSymbol));
+					_inputOverlay.Graphics.Add(new Graphic(mapPoint, _origVertexSymbol));
                 }
 
                 // Densify the polygon
-                var densify = GeometryEngine.Densify(poly, mapView.Extent.Width / 100) as Polygon;
+                var densify = GeometryEngine.Densify(poly, MyMapView.Extent.Width / 100) as Polygon;
 
                 // Add new vertices to result graphics layer
-                foreach (var coord in densify.Rings.First())
+				foreach (var mapPoint in densify.Parts.First().GetPoints())
                 {
-                    resultGraphics.Graphics.Add(new Graphic(new MapPoint(coord, poly.SpatialReference), _newVertexSymbol));
+					_resultsOverlay.Graphics.Add(new Graphic(mapPoint, _newVertexSymbol));
                 }
             }
             catch (Exception ex)

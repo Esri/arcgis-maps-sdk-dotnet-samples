@@ -13,5 +13,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
         }
+
+		private void rotationSlider_ValueChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<double> e)
+		{
+			MyMapView.SetRotation(e.NewValue);
+		}
     }
 }

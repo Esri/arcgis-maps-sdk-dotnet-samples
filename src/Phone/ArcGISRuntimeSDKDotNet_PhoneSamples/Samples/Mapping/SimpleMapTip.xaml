@@ -10,42 +10,41 @@
 
         <esri:MapView x:Name="mapView1">
             <esri:MapView.Overlays>
-                <Grid IsHitTestVisible="False"
-				    HorizontalAlignment="Right"
-				    VerticalAlignment="Top" MaxWidth="200">
-                    <esri:MapView.MapOverlayAnchor>
-                        <geom:MapPoint X="-117.19568" Y="34.056601">
-                            <geom:MapPoint.SpatialReference>
-                                <geom:SpatialReference Wkid="4326" />
-                            </geom:MapPoint.SpatialReference>
-                        </geom:MapPoint>
-                    </esri:MapView.MapOverlayAnchor>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="20" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="20" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RenderTransform>
-                        <TranslateTransform x:Name="MapTipTranslate" />
-                    </Grid.RenderTransform>
-                    <Border Background="#CC000000" BorderThickness="1,1,1,0"
-					Margin="0,0,0,-1"
-					BorderBrush="White" Grid.ColumnSpan="2">
-                        <StackPanel Margin="20">
-                            <TextBlock Text="Esri Headquaters" FontWeight="Bold" />
-                        </StackPanel>
-                    </Border>
-                    <Path StrokeThickness="1" Fill="#CC000000" Stroke="White" 
-				  Stretch="Fill" HorizontalAlignment="Left"
-				  Data="M0,0 L0,1 1,0" Grid.Row="1" />
-                    <Path StrokeThickness="1" Fill="#CC000000" Stroke="White" 
-				  Stretch="Fill" VerticalAlignment="Top"
-				  Data="M0,0 L1,0" Grid.Row="1" Grid.Column="1" />
-                </Grid>
-            </esri:MapView.Overlays>
+				<esri:OverlayItemsControl>
+					<Grid
+						x:Name="esriOverlay"
+						IsHitTestVisible="False"
+						HorizontalAlignment="Right"
+						esri:MapView.ViewOverlayAnchor="{Binding}"
+						VerticalAlignment="Top" MaxWidth="200">
+
+						<Grid.RowDefinitions>
+							<RowDefinition Height="*" />
+							<RowDefinition Height="20" />
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="20" />
+							<ColumnDefinition Width="*" />
+						</Grid.ColumnDefinitions>
+						<Grid.RenderTransform>
+							<TranslateTransform x:Name="MapTipTranslate" />
+						</Grid.RenderTransform>
+						<Border Background="#CC000000" BorderThickness="1,1,1,0"
+						Margin="0,0,0,-1"
+						BorderBrush="White" Grid.ColumnSpan="2">
+							<StackPanel Margin="20">
+								<TextBlock Text="Esri Headquaters" FontWeight="Bold" />
+							</StackPanel>
+						</Border>
+						<Path StrokeThickness="1" Fill="#CC000000" Stroke="White" 
+					  Stretch="Fill" HorizontalAlignment="Left"
+					  Data="M0,0 L0,1 1,0" Grid.Row="1" />
+						<Path StrokeThickness="1" Fill="#CC000000" Stroke="White" 
+					  Stretch="Fill" VerticalAlignment="Top"
+					  Data="M0,0 L1,0" Grid.Row="1" Grid.Column="1" />
+					</Grid>
+				</esri:OverlayItemsControl>
+			</esri:MapView.Overlays>
             <esri:Map >
                 <lyr:ArcGISTiledMapServiceLayer
 				ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" />

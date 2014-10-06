@@ -6,6 +6,7 @@ using Esri.ArcGISRuntime.Tasks.Query;
 using System;
 using System.Threading;
 using Windows.UI;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -23,91 +24,94 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         SimpleLineSymbol defaultLineSymbol;
         SimpleLineSymbol generalizedLineSymbol;
         SimpleMarkerSymbol generalizedMarkerSymbol;
+
         public Generalize()
         {
             InitializeComponent();
 
-            mapView1.Map.InitialExtent = new Envelope(-12000000, 3000000, -7000000, 7000000, SpatialReferences.WebMercator);
-            originalGraphicsLayer = mapView1.Map.Layers["OriginalLineGraphicsLayer"] as GraphicsLayer;
-            generalizedGraphicsLayer = mapView1.Map.Layers["GeneralizedLineGraphicsLayer"] as GraphicsLayer;
+			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
 
-            mapView1.Loaded += mapView1_Loaded;
+			originalGraphicsLayer = MyMapView.Map.Layers["OriginalLineGraphicsLayer"] as GraphicsLayer;
+			generalizedGraphicsLayer = MyMapView.Map.Layers["GeneralizedLineGraphicsLayer"] as GraphicsLayer;
+
             defaultMarkerSymbol = LayoutRoot.Resources["DefaultMarkerSymbol"] as SimpleMarkerSymbol;
             defaultLineSymbol = LayoutRoot.Resources["DefaultLineSymbol"] as SimpleLineSymbol;
             generalizedLineSymbol = LayoutRoot.Resources["GeneralizedLineSymbol"] as SimpleLineSymbol;
             generalizedMarkerSymbol = LayoutRoot.Resources["GeneralizedMarkerSymbol"] as SimpleMarkerSymbol;
-
         }
 
-        async void mapView1_Loaded(object sender, RoutedEventArgs e)
+		private async void MyMapView_NavigationCompleted(object sender, EventArgs e)
         {
-            if (originalGraphicsLayer != null && originalGraphicsLayer.Graphics.Count == 0)
-            {
-                QueryTask queryTask = new QueryTask(new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer/1"));
-                Query query = new Query("NAME = 'Mississippi'");
-                query.ReturnGeometry = true;
-                query.OutSpatialReference = mapView1.SpatialReference;
+			MyMapView.NavigationCompleted -= MyMapView_NavigationCompleted;
+			try
+			{
+				if (originalGraphicsLayer != null && originalGraphicsLayer.Graphics.Count == 0)
+				{
+					QueryTask queryTask = new QueryTask(new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer/1"));
+					Query query = new Query("NAME = 'Mississippi'");
+					query.ReturnGeometry = true;
+					query.OutSpatialReference = MyMapView.SpatialReference;
 
+					var results = await queryTask.ExecuteAsync(query, CancellationToken.None);
+					foreach (Graphic g in results.FeatureSet.Features)
+					{
+						g.Symbol = defaultLineSymbol;
+						originalGraphicsLayer.Graphics.Add(g);
 
-                var results = await queryTask.ExecuteAsync(query, CancellationToken.None);
-                foreach (Graphic g in results.FeatureSet.Features)
-                {
-                    g.Symbol = defaultLineSymbol;
-                    g.Geometry.SpatialReference = mapView1.SpatialReference;
-                    originalGraphicsLayer.Graphics.Add(g);
-
-                    foreach (var pc in (g.Geometry as Polyline).Paths)
-                    {
-                        foreach (var point in pc)
-                        {
-                            var vertice = new Graphic()
-                            {
-                                Symbol = defaultMarkerSymbol,
-                                Geometry = new MapPoint(point.X, point.Y)
-                            };
-                            originalGraphicsLayer.Graphics.Add(vertice);
-                        }
-                    }
-                }
-                GeneralizeButton.IsEnabled = true;
-            }
+						foreach (var part in (g.Geometry as Polyline).Parts)
+						{
+							foreach (var point in part.GetPoints())
+							{
+								var vertex = new Graphic()
+								{
+									Symbol = defaultMarkerSymbol,
+									Geometry = point
+								};
+								originalGraphicsLayer.Graphics.Add(vertex);
+							}
+						}
+					}
+					GeneralizeButton.IsEnabled = true;
+				}
+			}
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog("Error loading test line: " + ex.Message, "Sample Error").ShowAsync();
+			}
         }
 
         private  void GeneralizeButton_Click(object sender, RoutedEventArgs e)
         {
+			try
+			{
+				generalizedGraphicsLayer.Graphics.Clear();
 
-            generalizedGraphicsLayer.Graphics.Clear();
-            //GeneralizeButton.IsEnabled = false;
-
-
-            var offset = DistanceSlider.Value * 1000;
+				var offset = DistanceSlider.Value * 1000;
             
-            var generalizedGeometry = GeometryEngine.Generalize(originalGraphicsLayer.Graphics[0].Geometry, offset, false);
-            generalizedGraphicsLayer.Graphics.Clear();
-            if (generalizedGeometry != null)
-            {
-                var g = new Graphic();
-                g.Symbol = generalizedLineSymbol;
-                g.Geometry = generalizedGeometry;
-                g.Geometry.SpatialReference = mapView1.SpatialReference;
-                generalizedGraphicsLayer.Graphics.Add(g);
+				var generalizedGeometry = GeometryEngine.Generalize(originalGraphicsLayer.Graphics[0].Geometry, offset, false);
+				if (generalizedGeometry != null)
+				{
+					var g = new Graphic(generalizedGeometry, generalizedLineSymbol);
+					generalizedGraphicsLayer.Graphics.Add(g);
 
-                foreach (var pc in (generalizedGeometry as Polyline).Paths)
-                {
-                    foreach (var point in pc)
-                    {
-                        var vertice = new Graphic()
-                        {
-                            Symbol = generalizedMarkerSymbol,
-                            Geometry = new MapPoint(point.X, point.Y)
-                        };
-                        generalizedGraphicsLayer.Graphics.Add(vertice);
-                    }
-                }
+					foreach (var part in (generalizedGeometry as Polyline).Parts)
+					{
+						foreach (var point in part.GetPoints())
+						{
+							var vertex = new Graphic()
+							{
+								Symbol = generalizedMarkerSymbol,
+								Geometry = point
+							};
+							generalizedGraphicsLayer.Graphics.Add(vertex);
+						}
+					}
+				}
             }
-
+            catch (Exception ex)
+            {
+                var _x = new MessageDialog("Error generalizing line: " + ex.Message, "Sample Error").ShowAsync();
+            }
         }
-
-
     }
 }

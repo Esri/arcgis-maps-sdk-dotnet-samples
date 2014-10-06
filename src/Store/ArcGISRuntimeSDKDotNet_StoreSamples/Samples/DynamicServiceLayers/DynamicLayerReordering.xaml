@@ -1,21 +1,17 @@
-﻿<Page x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DynamicLayerReordering"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-      xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
-      xmlns:geo="using:Esri.ArcGISRuntime.Geometry">
+﻿<Page 
+	x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DynamicLayerReordering"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esri="using:Esri.ArcGISRuntime.Controls"
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers">
     <Grid>
-        <esri:MapView x:Name="mapView">
+        <esri:MapView x:Name="MyMapView">
             <esri:Map>
-                <esri:Map.InitialExtent>
-                    <geo:Envelope XMin="-3548912" YMin="-1847469" XMax="2472012" YMax="1742990">
-                        <geo:Envelope.SpatialReference>
-                            <geo:SpatialReference Wkid="102009"/>
-                        </geo:Envelope.SpatialReference>
-                    </geo:Envelope>
-                </esri:Map.InitialExtent>
+                <esri:Map.InitialViewpoint>
+                    <esri:ViewpointExtent XMin="-14675766.357" YMin="2695407.734" XMax="-6733121.861" YMax="6583994.101" SpatialReferenceID="102100" />
+                </esri:Map.InitialViewpoint>
 
-                <lyr:ArcGISDynamicMapServiceLayer ID="USA"
+                <layers:ArcGISDynamicMapServiceLayer ID="USA"
 				    ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer" />
             </esri:Map>
         </esri:MapView>

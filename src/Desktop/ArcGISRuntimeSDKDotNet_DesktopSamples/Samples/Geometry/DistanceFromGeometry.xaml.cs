@@ -19,6 +19,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private Symbol _lineSymbol;
         private Symbol _pointSymbol;
+		private GraphicsOverlay _graphicsOverlay;
 
         /// <summary>Construct Distance From Geometry sample control</summary>
         public DistanceFromGeometry()
@@ -27,6 +28,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             _lineSymbol = layoutGrid.Resources["LineSymbol"] as Symbol;
             _pointSymbol = layoutGrid.Resources["PointSymbol"] as Symbol;
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
         }
 
         // Calculates the linear distance between two user-defined geometries
@@ -35,18 +37,18 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             try
             {
                 txtResults.Visibility = Visibility.Collapsed;
-                graphicsLayer.Graphics.Clear();
+				_graphicsOverlay.Graphics.Clear();
 
                 // wait for user to draw a polyline
-                var line = await mapView.Editor.RequestShapeAsync(DrawShape.Polyline, _lineSymbol);
-                graphicsLayer.Graphics.Add(new Graphic(line, _lineSymbol));
+                var line = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polyline, _lineSymbol);
+				_graphicsOverlay.Graphics.Add(new Graphic(line, _lineSymbol));
 
                 // wait for user to draw a point
-                var point = await mapView.Editor.RequestPointAsync();
-                graphicsLayer.Graphics.Add(new Graphic(point, _pointSymbol));
+                var point = await MyMapView.Editor.RequestPointAsync();
+				_graphicsOverlay.Graphics.Add(new Graphic(point, _pointSymbol));
 
                 // Calc distance between between line and point
-                double distance = GeometryEngine.DistanceFromGeometry(line, point) * METERS_TO_MILES;
+                double distance = GeometryEngine.Distance(line, point) * METERS_TO_MILES;
                 txtResults.Text = string.Format("Distance between geometries: {0:0.000} miles", distance);
                 txtResults.Visibility = Visibility.Visible;
             }
@@ -54,7 +56,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             {
                 MessageBox.Show("Distance Calculation Error: " + ex.Message, "Distance From Geometry Sample");
                 txtResults.Visibility = Visibility.Collapsed;
-                graphicsLayer.Graphics.Clear();
+				_graphicsOverlay.Graphics.Clear();
             }
         }
     }

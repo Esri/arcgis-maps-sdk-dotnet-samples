@@ -3,34 +3,33 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
 	xmlns:esri="using:Esri.ArcGISRuntime.Controls"  
-    xmlns:esriLayers="using:Esri.ArcGISRuntime.Layers"
-    xmlns:geo="using:Esri.ArcGISRuntime.Geometry"
-    xmlns:esriData="using:Esri.ArcGISRuntime.Data">
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+    xmlns:data="using:Esri.ArcGISRuntime.Data">
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-        <esri:MapView x:Name="mapView">
+        <esri:MapView x:Name="MyMapView">
             <esri:Map>
-                <esriLayers:ArcGISTiledMapServiceLayer 
+				<layers:ArcGISTiledMapServiceLayer 
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
 
-                <esriLayers:FeatureLayer>
-                    <esriLayers:FeatureLayer.FeatureTable>
-                        <esriData:GeodatabaseFeatureServiceTable
+				<layers:FeatureLayer>
+					<layers:FeatureLayer.FeatureTable>
+						<data:ServiceFeatureTable
                             ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Wildfire/FeatureServer/2" />
-                    </esriLayers:FeatureLayer.FeatureTable>
-                </esriLayers:FeatureLayer>
-                <esriLayers:FeatureLayer>
-                    <esriLayers:FeatureLayer.FeatureTable>
-                        <esriData:GeodatabaseFeatureServiceTable
+                    </layers:FeatureLayer.FeatureTable>
+                </layers:FeatureLayer>
+				<layers:FeatureLayer>
+					<layers:FeatureLayer.FeatureTable>
+						<data:ServiceFeatureTable
                             ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Wildfire/FeatureServer/1" />
-                    </esriLayers:FeatureLayer.FeatureTable>
-                </esriLayers:FeatureLayer>
-                <esriLayers:FeatureLayer>
-                    <esriLayers:FeatureLayer.FeatureTable>
-                        <esriData:GeodatabaseFeatureServiceTable
+                    </layers:FeatureLayer.FeatureTable>
+                </layers:FeatureLayer>
+				<layers:FeatureLayer>
+					<layers:FeatureLayer.FeatureTable>
+						<data:ServiceFeatureTable
                             ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Wildfire/FeatureServer/0" />
-                    </esriLayers:FeatureLayer.FeatureTable>
-                </esriLayers:FeatureLayer>
+                    </layers:FeatureLayer.FeatureTable>
+                </layers:FeatureLayer>
             </esri:Map>
         </esri:MapView>
     </Grid>

@@ -5,6 +5,7 @@ using Esri.ArcGISRuntime.Layers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Controls;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
@@ -17,7 +18,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public ShadedReliefSlope()
         {
             this.InitializeComponent();
-            mapView1.Map.InitialExtent = new Envelope(-13201378, 4359503, -13092435, 4412872, new SpatialReference(102100));
+			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-13201378, 4359503, -13092435, 4412872, SpatialReferences.WebMercator));
         }
 
         private void ApplyButton_Click(object sender, RoutedEventArgs e)

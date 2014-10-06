@@ -1,133 +1,94 @@
 ﻿<Page
-    x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SymbolsAndLabels"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	 xmlns:esri="using:Esri.ArcGISRuntime.Controls" 
-	xmlns:sym="using:Esri.ArcGISRuntime.Symbology"
-    xmlns:geom="using:Esri.ArcGISRuntime.Geometry"
-    xmlns:core="using:Esri.ArcGISRuntime"
-    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
-	>
+	x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SymbolsAndLabels"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"	
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:esri="using:Esri.ArcGISRuntime.Controls" 
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+	xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
 
     <Page.Resources>
 		<!--Composite Symbol mixing simple cirkle marker with a text-->
-		<sym:CompositeSymbol x:Key="NumberedMarkerSymbol1">
-			<sym:SimpleMarkerSymbol Size="20" Color="White">
-				<sym:SimpleMarkerSymbol.Outline>
-					<sym:SimpleLineSymbol Color="CornflowerBlue" Width="3" />
-				</sym:SimpleMarkerSymbol.Outline>
-			</sym:SimpleMarkerSymbol>
-			<sym:TextSymbol Text="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Middle">
-				<sym:TextSymbol.Font>
-					<sym:SymbolFont FontWeight="Bold" FontSize="14" />
-				</sym:TextSymbol.Font>
-			</sym:TextSymbol>
-		</sym:CompositeSymbol>
-		<sym:CompositeSymbol x:Key="NumberedMarkerSymbolA">
-			<sym:SimpleMarkerSymbol Size="20" Color="White">
-				<sym:SimpleMarkerSymbol.Outline>
-					<sym:SimpleLineSymbol Color="Red" Width="3" />
-				</sym:SimpleMarkerSymbol.Outline>
-			</sym:SimpleMarkerSymbol>
-			<sym:TextSymbol Text="A" HorizontalTextAlignment="Center" VerticalTextAlignment="Middle">
-				<sym:TextSymbol.Font>
-					<sym:SymbolFont FontWeight="Bold" FontSize="14" />
-				</sym:TextSymbol.Font>
-			</sym:TextSymbol>
-			<sym:SimpleMarkerSymbol Size="30" Color="Transparent">
-				<sym:SimpleMarkerSymbol.Outline>
-					<sym:SimpleLineSymbol Color="#AA000000" Width="1" />
-				</sym:SimpleMarkerSymbol.Outline>
-			</sym:SimpleMarkerSymbol>
-			<sym:SimpleMarkerSymbol Size="40" Color="Transparent">
-				<sym:SimpleMarkerSymbol.Outline>
-					<sym:SimpleLineSymbol Color="#55000000" Width="1" />
-				</sym:SimpleMarkerSymbol.Outline>
-			</sym:SimpleMarkerSymbol>
-		</sym:CompositeSymbol>
+		<symb:CompositeSymbol x:Key="NumberedMarkerSymbol1">
+			<symb:SimpleMarkerSymbol Size="20" Color="White">
+				<symb:SimpleMarkerSymbol.Outline>
+					<symb:SimpleLineSymbol Color="CornflowerBlue" Width="3" />
+				</symb:SimpleMarkerSymbol.Outline>
+			</symb:SimpleMarkerSymbol>
+			<symb:TextSymbol Text="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Middle">
+				<symb:TextSymbol.Font>
+					<symb:SymbolFont FontWeight="Bold" FontSize="14" />
+				</symb:TextSymbol.Font>
+			</symb:TextSymbol>
+		</symb:CompositeSymbol>
+		<symb:CompositeSymbol x:Key="NumberedMarkerSymbolA">
+			<symb:SimpleMarkerSymbol Size="20" Color="White">
+				<symb:SimpleMarkerSymbol.Outline>
+					<symb:SimpleLineSymbol Color="Red" Width="3" />
+				</symb:SimpleMarkerSymbol.Outline>
+			</symb:SimpleMarkerSymbol>
+			<symb:TextSymbol Text="A" HorizontalTextAlignment="Center" VerticalTextAlignment="Middle">
+				<symb:TextSymbol.Font>
+					<symb:SymbolFont FontWeight="Bold" FontSize="14" />
+				</symb:TextSymbol.Font>
+			</symb:TextSymbol>
+			<symb:SimpleMarkerSymbol Size="30" Color="Transparent">
+				<symb:SimpleMarkerSymbol.Outline>
+					<symb:SimpleLineSymbol Color="#AA000000" Width="1" />
+				</symb:SimpleMarkerSymbol.Outline>
+			</symb:SimpleMarkerSymbol>
+			<symb:SimpleMarkerSymbol Size="40" Color="Transparent">
+				<symb:SimpleMarkerSymbol.Outline>
+					<symb:SimpleLineSymbol Color="#55000000" Width="1" />
+				</symb:SimpleMarkerSymbol.Outline>
+			</symb:SimpleMarkerSymbol>
+		</symb:CompositeSymbol>
 
-		<sym:CompositeSymbol x:Key="OutlinedAndDashedSymbol">
-			<sym:SimpleLineSymbol Width="7" Color="CornflowerBlue" />
-			<sym:SimpleLineSymbol Style="Solid" Color="Black" Width="3" />
-			<sym:SimpleLineSymbol Style="Dash" Color="White" Width="3" />
-		</sym:CompositeSymbol>
+		<symb:CompositeSymbol x:Key="OutlinedAndDashedSymbol">
+			<symb:SimpleLineSymbol Width="7" Color="CornflowerBlue" />
+			<symb:SimpleLineSymbol Style="Solid" Color="Black" Width="3" />
+			<symb:SimpleLineSymbol Style="Dash" Color="White" Width="3" />
+		</symb:CompositeSymbol>
 
 		<!--Uses a mix of marker, line and fill symbols to highlight vertices and create an advanced outline-->
-		<sym:CompositeSymbol x:Key="VertexFillSymbol">
-			<sym:SimpleFillSymbol Color="#44FFFF00">
-				<sym:SimpleFillSymbol.Outline>
-					<sym:SimpleLineSymbol Width="5" Color="CornflowerBlue" />
-				</sym:SimpleFillSymbol.Outline>
-			</sym:SimpleFillSymbol>
-			<sym:SimpleLineSymbol Style="DashDot" Color="White" Width="3" />
-			<sym:SimpleMarkerSymbol Size="8" Color="Red" />
-		</sym:CompositeSymbol>
+		<symb:CompositeSymbol x:Key="VertexFillSymbol">
+			<symb:SimpleFillSymbol Color="#44FFFF00">
+				<symb:SimpleFillSymbol.Outline>
+					<symb:SimpleLineSymbol Width="5" Color="CornflowerBlue" />
+				</symb:SimpleFillSymbol.Outline>
+			</symb:SimpleFillSymbol>
+			<symb:SimpleLineSymbol Style="DashDot" Color="White" Width="3" />
+			<symb:SimpleMarkerSymbol Size="8" Color="Red" />
+		</symb:CompositeSymbol>
 	</Page.Resources>
 
     <Grid>
-        <esri:MapView x:Name="mapView1" ManipulationMode="All">
+        <esri:MapView x:Name="MyMapView" ManipulationMode="All">
             <esri:Map>
-                <lyr:ArcGISTiledMapServiceLayer
-				ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
+				<layers:ArcGISTiledMapServiceLayer
+					ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
 
-                <lyr:GraphicsLayer IsLabelingEnabled="False">
-					<lyr:GraphicsLayer.LabelClasses>
-						<lyr:LabelClass TextExpression="[Label]">
-							<lyr:LabelClass.Symbol>
-								<sym:TextSymbol Color="Blue" />
-							</lyr:LabelClass.Symbol>
-						</lyr:LabelClass>
-						<lyr:LabelClass TextExpression="[SymbolType] CONCAT NEWLINE CONCAT &quot;ID= &quot; CONCAT [ID]">
-							<lyr:LabelClass.Symbol>
-								<sym:TextSymbol Color="Black" />
-							</lyr:LabelClass.Symbol>
-						</lyr:LabelClass>
-					</lyr:GraphicsLayer.LabelClasses>
-                    <lyr:GraphicsLayer.Graphics>
-
-						<lyr:Graphic Symbol="{StaticResource NumberedMarkerSymbol1}" >
-                            <lyr:Graphic.Geometry>
-                                <geom:MapPoint X="-6000000" Y="4800000" />
-                            </lyr:Graphic.Geometry>
-                        </lyr:Graphic>
-						<lyr:Graphic Symbol="{StaticResource NumberedMarkerSymbolA}" >
-                            <lyr:Graphic.Geometry>
-                                <geom:MapPoint X="-5000000" Y="3900000" />
-                            </lyr:Graphic.Geometry>
-                        </lyr:Graphic>
-						<lyr:Graphic Symbol="{StaticResource NumberedMarkerSymbol1}" >
-                            <lyr:Graphic.Geometry>
-                                <geom:MapPoint X="-4000000" Y="4800000" />
-                            </lyr:Graphic.Geometry>
-                        </lyr:Graphic>
-						<lyr:Graphic Symbol="{StaticResource NumberedMarkerSymbolA}" >
-                            <lyr:Graphic.Geometry>
-                                <geom:MapPoint X="-3000000" Y="3900000" />
-                            </lyr:Graphic.Geometry>
-                        </lyr:Graphic>
-						<lyr:Graphic Symbol="{StaticResource NumberedMarkerSymbol1}" >
-                            <lyr:Graphic.Geometry>
-                                <geom:MapPoint X="-2000000" Y="4800000" />
-                            </lyr:Graphic.Geometry>
-                        </lyr:Graphic>
-						<lyr:Graphic Symbol="{StaticResource NumberedMarkerSymbolA}" >
-                            <lyr:Graphic.Geometry>
-                                <geom:MapPoint X="-1000000" Y="3900000" />
-                            </lyr:Graphic.Geometry>
-                        </lyr:Graphic>
-
-                    </lyr:GraphicsLayer.Graphics>
-                </lyr:GraphicsLayer>
+				<layers:GraphicsLayer>
+					<layers:GraphicsLayer.Labeling>
+						<layers:LabelProperties IsEnabled="False">
+							<layers:AttributeLabelClass TextExpression="[Label]" >
+								<symb:TextSymbol Color="Blue" />
+							</layers:AttributeLabelClass>
+							<layers:AttributeLabelClass TextExpression="[SymbolType] CONCAT NEWLINE CONCAT &quot;ID= &quot; CONCAT [ID]">
+								<symb:TextSymbol Color="Black" />
+							</layers:AttributeLabelClass>
+						</layers:LabelProperties>
+					</layers:GraphicsLayer.Labeling>
+				</layers:GraphicsLayer>
             </esri:Map>
         </esri:MapView>
 
 		<Border HorizontalAlignment="Right" VerticalAlignment="Top" Padding="20" Margin="20" Background="#99000000">
 			<StackPanel>
 			<ToggleSwitch Header="Toggle Labels"
-				IsOn="{Binding Map.Layers[1].IsLabelingEnabled, Mode=TwoWay, ElementName=mapView1}" />
+				IsOn="{Binding Map.Layers[1].Labeling.IsEnabled, Mode=TwoWay, ElementName=MyMapView}" />
 				<TextBlock Text="Map Rotation" Margin="7,0,0,0" Style="{StaticResource SubtitleTextBlockStyle}" />
 				<Slider Minimum="0" Maximum="360"
-						Value="{Binding Rotation, ElementName=mapView1, Mode=TwoWay}" />
+						ValueChanged="Slider_ValueChanged" />
 			</StackPanel>
 		</Border>
 	</Grid>

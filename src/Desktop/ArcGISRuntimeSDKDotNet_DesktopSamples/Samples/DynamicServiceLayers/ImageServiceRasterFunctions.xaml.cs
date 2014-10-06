@@ -1,4 +1,5 @@
 ﻿using Esri.ArcGISRuntime.ArcGISServices;
+using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using System.Windows.Controls;
@@ -17,14 +18,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            mapView.Map.InitialExtent = new Envelope(1445440, 540657, 1452348, 544407, new SpatialReference(2264));
-
-            mapView.LayerLoaded += mapView_LayerLoaded;
+			MyMapView.Map.SpatialReference = SpatialReference.Create(2264);
+			MyMapView.LayerLoaded += MyMapView_LayerLoaded;
         }
 
         private void RasterFunctionsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ArcGISImageServiceLayer imageLayer = mapView.Map.Layers["ImageLayer"] as ArcGISImageServiceLayer;
+			ArcGISImageServiceLayer imageLayer = MyMapView.Map.Layers["ImageLayer"] as ArcGISImageServiceLayer;
             var rasterFunction = (sender as ComboBox).SelectedItem as RasterFunctionInfo;
             if (rasterFunction != null)
             {
@@ -33,7 +33,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             }
         }
 
-        private void mapView_LayerLoaded(object sender, Esri.ArcGISRuntime.Controls.LayerLoadedEventArgs e)
+        private void MyMapView_LayerLoaded(object sender, Esri.ArcGISRuntime.Controls.LayerLoadedEventArgs e)
         {
             if (e.Layer.ID == "ImageLayer")
             {

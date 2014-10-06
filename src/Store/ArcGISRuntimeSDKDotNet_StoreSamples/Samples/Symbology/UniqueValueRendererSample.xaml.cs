@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Layers;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
@@ -20,31 +21,31 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 	public partial class UniqueValueRendererSample : Windows.UI.Xaml.Controls.Page
     {
         private Random _random = new Random();
-        private GraphicsLayer _states;
+        private GraphicsOverlay _states;
 
         /// <summary>Construct Unique Value Renderer sample control</summary>
         public UniqueValueRendererSample()
         {
             InitializeComponent();
 
-            _states = mapView.Map.Layers["States"] as GraphicsLayer;
+			_states = MyMapView.GraphicsOverlays["states"];
                 
-            mapView.ExtentChanged += mapView_ExtentChanged;
+            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 
         // Load state data - set initial renderer
-        private async void mapView_ExtentChanged(object sender, EventArgs e)
+        private async void MyMapView_ExtentChanged(object sender, EventArgs e)
         {
             try
             {
-                mapView.ExtentChanged -= mapView_ExtentChanged;
+                MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
                 await LoadStatesAsync();
 
                 ChangeRenderer();
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Error loading states data: " + ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog("Error loading states data: " + ex.Message, "Sample Error").ShowAsync();
             }
         }
 
@@ -71,16 +72,17 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             var queryTask = new QueryTask(
                 new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2"));
-            var query = new Query(mapView.Extent)
+            var query = new Query(MyMapView.Extent)
             {
                 ReturnGeometry = true,
-                OutSpatialReference = mapView.SpatialReference,
+				MaxAllowableOffset = MyMapView.UnitsPerPixel,
+                OutSpatialReference = MyMapView.SpatialReference,
                 OutFields = new OutFields(new string[] { "sub_region" })
             };
             var result = await queryTask.ExecuteAsync(query);
 
             _states.Graphics.Clear();
-            _states.Graphics.AddRange(result.FeatureSet.Features);
+            _states.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
         }
 
         // Utility: Generate a random simple fill symbol

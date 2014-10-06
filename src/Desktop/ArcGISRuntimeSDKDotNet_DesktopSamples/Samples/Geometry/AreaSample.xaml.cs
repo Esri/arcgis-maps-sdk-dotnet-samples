@@ -2,6 +2,7 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
+using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,36 +19,38 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private const double toMilesConversion = 0.0006213700922;
         private const double toSqMilesConversion = 0.0000003861003;
 
-        private GraphicsLayer graphicsLayer;
+		private GraphicsOverlay _graphicsOverlay;
 
         /// <summary>Construct Area sample control</summary>
         public AreaSample()
         {
             InitializeComponent();
-
-            mapView.Map.InitialExtent = (Envelope)GeometryEngine.Project(
-                new Envelope { XMin = -130, YMin = 20, XMax = -65, YMax = 55, SpatialReference = SpatialReferences.Wgs84 }, 
-                SpatialReferences.WebMercator);
-            graphicsLayer = (GraphicsLayer)mapView.Map.Layers["graphicsLayer"];
+			MyMapView.ExtentChanged += MyMapView_ExtentChanged;
+			_graphicsOverlay = MyMapView.GraphicsOverlays["AreaOverlay"];
         }
 
-        private async void mapView_Loaded(object sender, RoutedEventArgs e)
-        {
-            await doCalculateAreaAndLength();
-        }
+		private async void MyMapView_ExtentChanged(object sender, EventArgs e)
+		{
+			MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
+			await DoCalculateAreaAndLengthAsync();
+		}
 
-        private async Task doCalculateAreaAndLength()
+        private async Task DoCalculateAreaAndLengthAsync()
         {
             try
             {
                 // Wait for user to draw
-                var geom = await mapView.Editor.RequestShapeAsync(DrawShape.Polygon);
+                var geom = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon);
 
                 // show geometry on map
-                graphicsLayer.Graphics.Clear();
+				_graphicsOverlay.Graphics.Clear();
 
-                var graphic = new Graphic { Geometry = geom, Symbol = LayoutRoot.Resources["DefaultFillSymbol"] as Symbol };
-                graphicsLayer.Graphics.Add(graphic);
+                var graphic = new Graphic 
+				{ 
+					Geometry = geom, 
+					Symbol = LayoutRoot.Resources["DefaultFillSymbol"] as Symbol 
+				};
+				_graphicsOverlay.Graphics.Add(graphic);
 
                 // Calculate results
                 var areaPlanar = GeometryEngine.Area(geom);
@@ -73,20 +76,20 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private async void CancelCurrent_Click(object sender, RoutedEventArgs e)
         {
-            mapView.Editor.Cancel.Execute(null);
+            MyMapView.Editor.Cancel.Execute(null);
             ResetUI();
-            await doCalculateAreaAndLength();
+			await DoCalculateAreaAndLengthAsync();
         }
 
         private async void RestartButton_Click(object sender, RoutedEventArgs e)
         {
             ResetUI();
-            await doCalculateAreaAndLength();
+			await DoCalculateAreaAndLengthAsync();
         }
 
         private void ResetUI()
         {
-            graphicsLayer.Graphics.Clear();
+			_graphicsOverlay.Graphics.Clear();
             Instructions.Visibility = Visibility.Visible;
             Results.Visibility = Visibility.Collapsed;
         }

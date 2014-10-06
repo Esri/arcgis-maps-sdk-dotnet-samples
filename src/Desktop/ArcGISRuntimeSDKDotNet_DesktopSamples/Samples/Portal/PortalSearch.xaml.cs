@@ -31,21 +31,21 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             InitializeComponent();
 
             IdentityManager.Current.RegisterServer(
-                new IdentityManager.ServerInfo()
+                new ServerInfo()
                 {
                     ServerUri = DEFAULT_SERVER_URL,
                     TokenServiceUri = DEFAULT_TOKEN_URL,
                 });
-            IdentityManager.Current.ChallengeMethod = Challenge;
+			IdentityManager.Current.ChallengeHandler = new ChallengeHandler(Challenge);
 
             Loaded += control_Loaded;
         }
 
         // Activate IdentityManager but don't accept any challenge.
         // User must use the 'SignIn' button for getting its own maps.
-        private Task<IdentityManager.Credential> Challenge(IdentityManager.CredentialRequestInfo arg)
+        private Task<Credential> Challenge(CredentialRequestInfo arg)
         {
-            return Task.FromResult<IdentityManager.Credential>(null);
+            return Task.FromResult<Credential>(null);
         }
 
         // Initialize the display with a web map and search portal for basemaps
@@ -127,7 +127,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var item = ((Button)sender).DataContext as ArcGISPortalItem;
                 var webmap = await WebMap.FromPortalItemAsync(item);
                 var vm = await WebMapViewModel.LoadAsync(webmap, _portal);
-                mapView.Map = vm.Map;
+                MyMapView.Map = vm.Map;
 
                 WebmapContent.Visibility = Visibility.Visible;
             }

@@ -3,11 +3,12 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:esri="using:Esri.ArcGISRuntime.Controls" 
-    xmlns:lyr="using:Esri.ArcGISRuntime.Layers">
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers">
+	
     <Grid>
-        <esri:MapView x:Name="mapView">
+        <esri:MapView x:Name="MyMapView">
             <esri:Map>
-                <lyr:ArcGISTiledMapServiceLayer
+				<layers:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
             </esri:Map>
         </esri:MapView>

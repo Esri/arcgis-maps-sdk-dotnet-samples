@@ -3,22 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid x:Name="layoutGrid">
-        <esri:MapView x:Name="mapView">
-            <esri:Map>
-                <esri:Map.InitialExtent>
-                    <esri:Envelope XMin="-10929488.234" YMin="4525208.388" XMax="-10906776.553" YMax="4535252.104">
-                        <esri:Envelope.SpatialReference>
-                            <esri:SpatialReference Wkid="102100" />
-                        </esri:Envelope.SpatialReference>
-                    </esri:Envelope>
-                </esri:Map.InitialExtent>
-                
-                <esri:ArcGISTiledMapServiceLayer 
+        <esri:MapView x:Name="MyMapView">
+			<esri:Map InitialViewpoint="-10929488,4525208,-10906777,4535252,3857">
+				<esri:ArcGISTiledMapServiceLayer 
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
                 <esri:ArcGISDynamicMapServiceLayer 
                     ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Petroleum/KSFields/MapServer" />
                 <esri:FeatureLayer>
-                    <esri:GeodatabaseFeatureServiceTable Mode="OnDemand" 
+                    <esri:ServiceFeatureTable Mode="OnDemand" 
                         ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Petroleum/KSWells/MapServer/0" />
                 </esri:FeatureLayer>
             </esri:Map>

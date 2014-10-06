@@ -1,6 +1,7 @@
 ﻿using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
+using System;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -18,78 +19,79 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         private const double toMilesConversion = 0.0006213700922;
         private const double toSqMilesConversion = 0.0000003861003;
 
-        private GraphicsLayer graphicsLayer;
+		private GraphicsOverlay _graphicsOverlay;
 
-        public AreaSample()
-        {
-            InitializeComponent();
+		public AreaSample()
+		{
+			InitializeComponent();
 
-            mapView1.Loaded += mapView1_Loaded;
-            mapView1.Map.InitialExtent = GeometryEngine.Project(
-                new Envelope { XMin = -130, YMin = 20, XMax = -65, YMax = 55, SpatialReference = SpatialReferences.Wgs84 }, 
-                SpatialReferences.WebMercator) as Envelope;
-            graphicsLayer = mapView1.Map.Layers["MyGraphicsLayer"] as GraphicsLayer;
-        }
+			_graphicsOverlay = MyMapView.GraphicsOverlays["AreaOverlay"];
+			MyMapView.ExtentChanged += MyMapView_ExtentChanged;
+		}
 
-        async void mapView1_Loaded(object sender, RoutedEventArgs e)
-        {
-            await doCalculateAreaAndLength();
-        }
+		private async void MyMapView_ExtentChanged(object sender, EventArgs e)
+		{
+			MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
+			await DoCalculateAreaAndLengthAsync();
+		}
 
-        private async Task doCalculateAreaAndLength()
-        {
-            try
-            {
-                //Wait for user to draw
-                var geom = await mapView1.Editor.RequestShapeAsync(DrawShape.Polygon);
+		private async Task DoCalculateAreaAndLengthAsync()
+		{
+			try
+			{
+				//Wait for user to draw
+				var geom = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon);
 
-                //show geometry on map
-                graphicsLayer.Graphics.Clear();
+				//show geometry on map
+				_graphicsOverlay.Graphics.Clear();
 
-                var g = new Graphic { Geometry = geom, Symbol = LayoutRoot.Resources["DefaultFillSymbol"] as Esri.ArcGISRuntime.Symbology.Symbol };
-                graphicsLayer.Graphics.Add(g);
+				var g = new Graphic 
+				{
+					Geometry = geom, 
+					Symbol = LayoutRoot.Resources["DefaultFillSymbol"] as Esri.ArcGISRuntime.Symbology.Symbol 
+				};
+				_graphicsOverlay.Graphics.Add(g);
 
-                //Calculate results
-                var areaPlanar = GeometryEngine.Area(geom);
-                ResultsAreaPlanar.Text = string.Format("{0} sq. miles", (areaPlanar * toSqMilesConversion).ToString("n3"));
+				//Calculate results
+				var areaPlanar = GeometryEngine.Area(geom);
+				ResultsAreaPlanar.Text = string.Format("{0} sq. miles", (areaPlanar * toSqMilesConversion).ToString("n3"));
 
-                var perimPlanar = GeometryEngine.Length(geom);
-                ResultsPerimeterPlanar.Text = string.Format("{0} miles", (perimPlanar * toMilesConversion).ToString("n3"));
+				var perimPlanar = GeometryEngine.Length(geom);
+				ResultsPerimeterPlanar.Text = string.Format("{0} miles", (perimPlanar * toMilesConversion).ToString("n3"));
 
-                var areaGeodesic = GeometryEngine.GeodesicArea(geom);
-                ResultsAreaGeodesic.Text = string.Format("{0} sq. miles", (areaGeodesic * toSqMilesConversion).ToString("n3"));
+				var areaGeodesic = GeometryEngine.GeodesicArea(geom);
+				ResultsAreaGeodesic.Text = string.Format("{0} sq. miles", (areaGeodesic * toSqMilesConversion).ToString("n3"));
 
-                var perimGeodesic = GeometryEngine.GeodesicLength(geom);
-                ResultsPerimeterGeodesic.Text = string.Format("{0} miles", (perimGeodesic * toMilesConversion).ToString("n3"));
+				var perimGeodesic = GeometryEngine.GeodesicLength(geom);
+				ResultsPerimeterGeodesic.Text = string.Format("{0} miles", (perimGeodesic * toMilesConversion).ToString("n3"));
 
-                Instructions.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-                Results.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            }
-            catch (System.Threading.Tasks.TaskCanceledException)
-            {
-                var dlg = new MessageDialog("Current sketch has been canceled.", "Task Canceled!");
-                var _ = dlg.ShowAsync();
-            }
-        }
+				Instructions.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+				Results.Visibility = Windows.UI.Xaml.Visibility.Visible;
+			}
+			catch (TaskCanceledException)
+			{
+				var _x = new MessageDialog("Current sketch has been canceled.", "Task Canceled!").ShowAsync();
+			}
+		}
 
-        private void ResetUI()
-        {
-            graphicsLayer.Graphics.Clear();
+		private void ResetUI()
+		{
+			_graphicsOverlay.Graphics.Clear();
             Instructions.Visibility = Visibility.Visible;
             Results.Visibility = Visibility.Collapsed;
         }
 
         private async void CancelCurrent_Click(object sender, RoutedEventArgs e)
         {
-            mapView1.Editor.Cancel.Execute(null);
+            MyMapView.Editor.Cancel.Execute(null);
             ResetUI();
-            await doCalculateAreaAndLength();
+			await DoCalculateAreaAndLengthAsync();
         }
 
         private async void RestartButton_Click(object sender, RoutedEventArgs e)
         {
             ResetUI();
-            await doCalculateAreaAndLength();
+			await DoCalculateAreaAndLengthAsync();
         }
     }
 }

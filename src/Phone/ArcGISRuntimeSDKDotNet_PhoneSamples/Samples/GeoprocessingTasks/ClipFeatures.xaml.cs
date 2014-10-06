@@ -23,10 +23,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public ClipFeatures()
         {
             InitializeComponent();
-            mapView1.Map.InitialExtent = new Envelope(-130, 10, -70, 60);
+			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-130, 10, -70, 60));
 
             //Uncomment the following line to show the service parameters at startup.
-            //GetServiceInfo().ContinueWith((_) => { }, TaskScheduler.FromCurrentSynchronizationContext());
+            //var _ GetServiceInfo();
 
         }
 

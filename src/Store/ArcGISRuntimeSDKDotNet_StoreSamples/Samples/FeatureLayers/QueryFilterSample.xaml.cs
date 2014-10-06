@@ -1,5 +1,5 @@
-﻿using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
@@ -18,18 +18,16 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
     public sealed partial class QueryFilterSample : Page
 	{
         private FeatureLayer _featureLayer;
-        private GraphicsLayer _queryResultsLayer;
+        private GraphicsOverlay _queryResultsOverlay;
 
         public QueryFilterSample()
 		{
 			this.InitializeComponent();
 
-            mapView.Map.InitialExtent = new Envelope(-14675766.3566695, 2695407.73380258, -6733121.86117095, 6583994.1013904);
+            _featureLayer = MyMapView.Map.Layers["FeatureLayer"] as FeatureLayer;
+            ((ServiceFeatureTable)_featureLayer.FeatureTable).OutFields = OutFields.All;
 
-            _featureLayer = mapView.Map.Layers["FeatureLayer"] as FeatureLayer;
-            ((GeodatabaseFeatureServiceTable)_featureLayer.FeatureTable).OutFields = OutFields.All;
-
-            _queryResultsLayer = mapView.Map.Layers["QueryResults"] as GraphicsLayer;
+			_queryResultsOverlay = MyMapView.GraphicsOverlays[0];
         }
 
         private async void QueryButton_Click(object sender, RoutedEventArgs e)
@@ -37,11 +35,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             try
             {
                 var features = await _featureLayer.FeatureTable.QueryAsync(new QueryFilter() { WhereClause = where.Text });
-                _queryResultsLayer.GraphicsSource = features.Select(f => new Graphic(f.Geometry));
+                _queryResultsOverlay.GraphicsSource = features.Select(f => new Graphic(f.Geometry));
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog(ex.Message, "Query Error").ShowAsync();
+                var _x = new MessageDialog(ex.Message, "Query Error").ShowAsync();
             }
         }
     }

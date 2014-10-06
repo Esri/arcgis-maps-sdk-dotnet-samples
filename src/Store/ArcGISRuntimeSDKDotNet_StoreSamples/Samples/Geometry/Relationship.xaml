@@ -4,10 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:common="using:ArcGISRuntimeSDKDotNet_StoreSamples.Common"
     xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
-    xmlns:geo="using:Esri.ArcGISRuntime.Geometry"
-    xmlns:sym="using:Esri.ArcGISRuntime.Symbology"
-    xmlns:data="using:Esri.ArcGISRuntime.Data">
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+    xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
 
     <Grid x:Name="LayoutRoot" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
@@ -17,19 +15,20 @@
             <esri:DrawShape x:Key="Polyline">Polyline</esri:DrawShape>
             <esri:DrawShape x:Key="Polygon">Polygon</esri:DrawShape>
 
-            <sym:SimpleLineSymbol x:Key="LineSymbol" Color="Blue" Style="Solid" Width="2" />
-            <sym:SimpleMarkerSymbol x:Key="PointSymbol" Color="Red" Style="Circle" Size="12" Outline="{StaticResource LineSymbol}" />
-            <sym:SimpleFillSymbol x:Key="FillSymbol" Color="#7F0000FF" Style="DiagonalCross" Outline="{StaticResource LineSymbol}" />
+			<symb:SimpleLineSymbol x:Key="LineSymbol" Color="Blue" Style="Solid" Width="2" />
+			<symb:SimpleMarkerSymbol x:Key="PointSymbol" Color="Red" Style="Circle" Size="12" Outline="{StaticResource LineSymbol}" />
+			<symb:SimpleFillSymbol x:Key="FillSymbol" Color="#7F0000FF" Style="DiagonalCross" Outline="{StaticResource LineSymbol}" />
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" WrapAround="True">
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
             <esri:Map>
-                <lyr:ArcGISTiledMapServiceLayer
+				<layers:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
-
-                <lyr:GraphicsLayer ID="GraphicsLayer" />
             </esri:Map>
-        </esri:MapView>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="graphicsOverlay" />
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
 
         <Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
             <StackPanel>
@@ -81,7 +80,7 @@
         </Border>
 
         <Border Background="#CC000000" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="20" Padding="10"
-                Visibility="{Binding ElementName=mapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
+                Visibility="{Binding ElementName=MyMapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
             <TextBlock Text="Digitize shapes on the map." FontSize="14" />
         </Border>
     </Grid>

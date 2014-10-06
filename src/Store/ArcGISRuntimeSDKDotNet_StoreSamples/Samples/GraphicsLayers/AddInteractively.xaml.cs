@@ -25,7 +25,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            _graphicsLayer = mapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
+            _graphicsLayer = MyMapView.Map.Layers["GraphicsLayer"] as GraphicsLayer;
 
             comboDrawShape.DisplayMemberPath = "Item1";
             comboDrawShape.SelectedValuePath = "Item2";
@@ -42,12 +42,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         // Draw graphics infinitely
         private async void AddGraphicsAsync()
         {
-            await mapView.LayersLoadedAsync();
+            await MyMapView.LayersLoadedAsync();
 
             while (true)
             {
                 // if the map is not in a valid state
-                if (mapView.Extent == null)
+                if (MyMapView.Extent == null)
                     break;
 
                 await AddSingleGraphicAsync();
@@ -80,12 +80,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     case DrawShape.Polygon:
                     case DrawShape.Rectangle:
                     case DrawShape.Triangle:
-                        symbol = Resources["RedFillSymbol"] as sym.Symbol;
+					case DrawShape.Envelope:
+						symbol = Resources["RedFillSymbol"] as sym.Symbol;
                         break;
                 }
 
                 // wait for user to draw the shape
-                var geometry = await mapView.Editor.RequestShapeAsync(drawShape, symbol);
+                var geometry = await MyMapView.Editor.RequestShapeAsync(drawShape, symbol);
 
                 // add the new graphic to the graphic layer
                 var graphic = new Graphic(geometry, symbol);
@@ -97,15 +98,15 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Error drawing graphic: " + ex.Message, "Add Graphic Interactively").ShowAsync();
+                var _x = new MessageDialog("Error drawing graphic: " + ex.Message, "Add Graphic Interactively").ShowAsync();
             }
         }
 
         // Cancel the current shape drawing (if in Editor.RequestShapeAsync) when the shape type has changed
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (mapView.Editor.IsActive)
-                mapView.Editor.Cancel.Execute(null);
+            if (MyMapView.Editor.IsActive)
+                MyMapView.Editor.Cancel.Execute(null);
         }
 
         private void ClearButton_Click(object sender, RoutedEventArgs e)

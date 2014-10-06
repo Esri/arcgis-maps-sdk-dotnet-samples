@@ -5,40 +5,47 @@ using Esri.ArcGISRuntime.Tasks.Query;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Linq;
 using System.Windows.Controls;
 
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
-    /// This sample demonstrates using an QueryTask to Query an ArcGISImageServiceLayer to find the outlines of image tiles and display them in a GraphicsLayer. MapOverlay attribute information is displayed for selected tile graphics when they are clicked on the map.
+    /// This sample demonstrates using an QueryTask to Query an ArcGISImageServiceLayer to find the outlines of image tiles and display them in a GraphicOverlay. MapOverlay attribute information is displayed for selected tile graphics when they are clicked on the map.
     /// </summary>
     /// <title>Get Samples</title>
     /// <category>Tasks</category>
     /// <subcategory>Imagery</subcategory>
     public partial class GetSamples : UserControl
     {
+		private GraphicsOverlay _graphicsOverlay;
+		private FrameworkElement _mapTip;
+
         /// <summary>Construct Get Image Samples sample control</summary>
         public GetSamples()
         {
             InitializeComponent();
-            mapView.LayerLoaded += mapView_LayerLoaded;
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
+			_mapTip = MyMapView.Overlays.Items.First() as FrameworkElement;
+            MyMapView.LayerLoaded += MyMapView_LayerLoaded;
         }
 
         // Zoom to the image service extent
-        private async void mapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
+        private async void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
         {
             if (e.Layer is ArcGISImageServiceLayer)
             {
                 if (e.Layer.FullExtent != null)
-                    await mapView.SetViewAsync(e.Layer.FullExtent);
+                    await MyMapView.SetViewAsync(e.Layer.FullExtent);
             }
         }
 
         // Start query process on user button click
         private async void GetSamplesButton_Click(object sender, RoutedEventArgs e)
         {
-            graphicsLayer.Graphics.Clear();
-            await QueryImageTiles();
+            _graphicsOverlay.Graphics.Clear();
+			_mapTip.Visibility = System.Windows.Visibility.Collapsed;
+			await QueryImageTiles();
         }
 
         // Query the image service for sample tiles
@@ -46,7 +53,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                var envelope = await mapView.Editor.RequestShapeAsync(DrawShape.Rectangle) as Envelope;
+                var envelope = await MyMapView.Editor.RequestShapeAsync(DrawShape.Envelope) as Envelope;
 
                 QueryTask queryTask = new QueryTask(
                     new Uri("http://servicesbeta.esri.com/ArcGIS/rest/services/Portland/PortlandAerial/ImageServer/query"));
@@ -55,13 +62,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 {
                     OutFields = new OutFields(new string[] { "Name", "LowPS" }),
                     ReturnGeometry = true,
-                    OutSpatialReference = mapView.SpatialReference,
+                    OutSpatialReference = MyMapView.SpatialReference,
                     Where = "Category = 1"
                 };
 
                 var result = await queryTask.ExecuteAsync(query);
-                
-                graphicsLayer.Graphics.AddRange(result.FeatureSet.Features);
+
+				_graphicsOverlay.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
             }
             catch (Exception ex)
             {
@@ -70,26 +77,26 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         }
 
         // Hittest the graphics layer and show the map tip for the selected graphic
-        private async void mapView_MapViewTapped(object sender, MapViewInputEventArgs e)
+        private async void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
             try
             {
-                graphicsLayer.ClearSelection();
+				_graphicsOverlay.ClearSelection();
 
-                var graphic = await graphicsLayer.HitTestAsync(mapView, e.Position);
+				var graphic = await _graphicsOverlay.HitTestAsync(MyMapView, e.Position);
                 if (graphic != null)
                 {
                     graphic.IsSelected = true;
-                    MapView.SetMapOverlayAnchor(mapTip, e.Location);
-                    mapTip.DataContext = graphic;
-                    mapTip.Visibility = System.Windows.Visibility.Visible;
+					MapView.SetViewOverlayAnchor(mapTip, e.Location);
+					_mapTip.DataContext = graphic;
+					_mapTip.Visibility = System.Windows.Visibility.Visible;
                 }
                 else
-                    mapTip.Visibility = System.Windows.Visibility.Collapsed;
+					_mapTip.Visibility = System.Windows.Visibility.Collapsed;
             }
             catch
             {
-                mapTip.Visibility = System.Windows.Visibility.Collapsed;
+				_mapTip.Visibility = System.Windows.Visibility.Collapsed;
             }
         }
     }

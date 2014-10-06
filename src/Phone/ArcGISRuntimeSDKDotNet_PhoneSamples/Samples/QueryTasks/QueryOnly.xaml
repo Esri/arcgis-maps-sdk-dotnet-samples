@@ -8,7 +8,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition  />
         </Grid.RowDefinitions>
-        <Border Padding="10" BorderBrush="White" BorderThickness="2" Margin="120,60,0,60" HorizontalAlignment="Left">
+        <Border Padding="10" BorderBrush="White" BorderThickness="2" Margin="0" HorizontalAlignment="Left">
             <StackPanel>
                 <TextBlock Text="US State Name contains (case sensitive)"                            FontSize="16" />
                 <StackPanel Orientation="Horizontal">
@@ -16,7 +16,7 @@
                 <TextBox x:Name="StateNameTextBox"
                          Text="New"
                          TextWrapping="NoWrap"
-                         Width="400" FontSize="20"
+                         Width="200" FontSize="20"
                          AcceptsReturn="true" />
                 <Button Content="Do Query"
                         Click="QueryButton_Click" Margin="5,0,0,0" />                    
@@ -26,7 +26,7 @@
 
 
         <ListView x:Name="itemListView" Grid.Row="1"
-          Margin="120,0,0,60" SelectionMode="None" 
+          Margin="0" SelectionMode="None" 
           >
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -35,7 +35,7 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" Padding="10" BorderBrush="White" BorderThickness="2" Width="500" >
+                        <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" Padding="10" BorderBrush="White" BorderThickness="2" >
                             <TextBlock Text="{Binding Attributes[STATE_NAME]}" FontSize="40" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
                         <Grid Grid.Column="1" VerticalAlignment="Top" Margin="10,0,0,0">

@@ -10,8 +10,8 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <esri:MapView x:Name="mapView" Grid.Column="1">
-            <esri:Map>
+        <esri:MapView x:Name="MyMapView" Grid.Column="1">
+			<esri:Map InitialViewpoint="-13279586, 4010136, -12786147, 4280850, 102100">
                 <esri:ArcGISTiledMapServiceLayer DisplayName="Basemap"
 				    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" />
 
@@ -20,19 +20,19 @@
 
                 <esri:FeatureLayer DisplayName="Fire Perimeter">
                     <esri:FeatureLayer.FeatureTable>
-                        <esri:GeodatabaseFeatureServiceTable
+                        <esri:ServiceFeatureTable
                             ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Fire/Sheep/FeatureServer/2" />
                     </esri:FeatureLayer.FeatureTable>
                 </esri:FeatureLayer>
                 <esri:FeatureLayer DisplayName="Evacuation Perimeter">
                     <esri:FeatureLayer.FeatureTable>
-                        <esri:GeodatabaseFeatureServiceTable
+                        <esri:ServiceFeatureTable
                             ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Fire/Sheep/FeatureServer/1" />
                     </esri:FeatureLayer.FeatureTable>
                 </esri:FeatureLayer>
                 <esri:FeatureLayer DisplayName="Points of Interest">
                     <esri:FeatureLayer.FeatureTable>
-                        <esri:GeodatabaseFeatureServiceTable
+                        <esri:ServiceFeatureTable
                             ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Fire/Sheep/FeatureServer/0" />
                     </esri:FeatureLayer.FeatureTable>
                 </esri:FeatureLayer>
@@ -52,9 +52,9 @@
                 </TextBlock>
 
                 <ListView x:Name="legend" Grid.Row="1" BorderBrush="Transparent" Background="Transparent"
-                      ItemsSource="{Binding ElementName=mapView, Path=Map.Layers}"
-                      AllowDrop="True" DragEnter="legend_DragEnter" Drop="legend_Drop"
-                      PreviewMouseMove="legend_PreviewMouseMove" PreviewMouseLeftButtonDown="legend_PreviewMouseLeftButtonDown">
+						  ItemsSource="{Binding LegendLayers}"
+						  AllowDrop="True" DragEnter="legend_DragEnter" Drop="legend_Drop"
+						  PreviewMouseMove="legend_PreviewMouseMove" PreviewMouseLeftButtonDown="legend_PreviewMouseLeftButtonDown">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />

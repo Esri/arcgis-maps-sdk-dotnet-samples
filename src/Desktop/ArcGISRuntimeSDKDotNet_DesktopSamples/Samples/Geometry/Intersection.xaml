@@ -13,30 +13,32 @@
             </esri:SimpleFillSymbol>
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" WrapAround="True">
-            <esri:Map>
-                <esri:Map.InitialExtent>
-                    <esri:Envelope XMin="-15053000" YMin="2749000" XMax="-6540000" YMax="6590000" />
-                </esri:Map.InitialExtent>
-                
-                <esri:ArcGISTiledMapServiceLayer
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
+			<esri:Map InitialViewpoint="-15053000,2749000,-6540000,6590000">
+				<esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
-                <esri:GraphicsLayer x:Name="resultGraphics" />
-            </esri:Map>
-        </esri:MapView>
+			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="resultsOverlay" />
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
 
-        <Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="30"
-                HorizontalAlignment="Right" VerticalAlignment="Top">
-            <StackPanel Margin="30,20">
+		<Border Background="White" BorderBrush="Black" BorderThickness="1"
+				 HorizontalAlignment="Right" VerticalAlignment="Top"
+				 Margin="30" Padding="20">
+			<Border.Effect>
+				<DropShadowEffect/>
+			</Border.Effect>
+			<StackPanel>
                 <TextBlock Text="Click the 'Intersect Geometries' button to digitize a polygon and show the intersection of polygon features and the new polygon. Resulting polygons will be shown as blue graphics."
-                           Width="400" TextAlignment="Left" TextWrapping="Wrap" />
+                           Width="400" TextWrapping="Wrap" />
                 <Button Content="Intersect Geometries" Margin="12,12,12,0" HorizontalAlignment="Center" Click="IntersectButton_Click"/>
             </StackPanel>
         </Border>
 
         <Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="25"
                 HorizontalAlignment="Center" VerticalAlignment="Bottom"
-                Visibility="{Binding ElementName=mapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
+                Visibility="{Binding ElementName=MyMapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
             <TextBlock Text="Digitize a polygon on the map." Margin="8" FontSize="14" />
         </Border>
     </Grid>

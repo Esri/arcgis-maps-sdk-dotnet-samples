@@ -1,153 +1,154 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
-    /// <summary>
-    /// Demonstrates how to create an offset geometry using the Offset method of the GeometryEngine class.
-    /// </summary>
-    /// <title>Offset</title>
-    /// <category>Geometry</category>
-    public sealed partial class Offset : Page
-    {
-        private GraphicsLayer parcelGraphicsLayer;
-        private GraphicsLayer offsetGraphicsLayer;
-        private Graphic selectedParcelGraphic;
+	/// <summary>
+	/// Demonstrates how to create an offset geometry using the Offset method of the GeometryEngine class.
+	/// </summary>
+	/// <title>Offset</title>
+	/// <category>Geometry</category>
+	public sealed partial class Offset : Page
+	{
+		private GraphicsOverlay _parcelOverlay;
+		private GraphicsOverlay _offsetOverlay;
+		private Graphic _selectedParcelGraphic;
 
-        public Offset()
-        {
-            InitializeComponent();
+		public Offset()
+		{
+			InitializeComponent();
 
-            mapView1.Map.InitialExtent = new Envelope(-9275076.4794, 5253225.9406, -9274273.6411, 5253885.6155, SpatialReferences.WebMercator);
-            parcelGraphicsLayer = mapView1.Map.Layers["ParcelsGraphicsLayer"] as GraphicsLayer;
-            offsetGraphicsLayer = mapView1.Map.Layers["OffsetGraphicsLayer"] as GraphicsLayer;
+			_parcelOverlay = MyMapView.GraphicsOverlays["ParcelsGraphicsOverlay"];
+			_offsetOverlay = MyMapView.GraphicsOverlays["OffsetGraphicsOverlay"];
 
-            InitializeOffsetTypes();
-            OffsetDistanceSlider.ValueChanged += Slider_ValueChanged;
-            OffsetTypeComboBox.SelectionChanged += ComboBox_SelectionChanged;
-            OffsetFlattenErrorSlider.ValueChanged += Slider_ValueChanged;
-            OffsetBevelRatioSlider.ValueChanged += Slider_ValueChanged;
+			InitializeOffsetTypes();
+			OffsetDistanceSlider.ValueChanged += Slider_ValueChanged;
+			OffsetTypeComboBox.SelectionChanged += ComboBox_SelectionChanged;
+			OffsetFlattenErrorSlider.ValueChanged += Slider_ValueChanged;
+			OffsetBevelRatioSlider.ValueChanged += Slider_ValueChanged;
 
-            ControlsContainer.Visibility = Visibility.Collapsed;
-        }
+			ControlsContainer.Visibility = Visibility.Collapsed;
+		}
 
-        void Slider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
-        {
-            DoOffset();
-        }
+		void Slider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+		{
+			DoOffset();
+		}
 
-        void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            DoOffset();
-        }
+		void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			DoOffset();
+		}
 
-        private void InitializeOffsetTypes()
-        {
-            OffsetTypeComboBox.ItemsSource = new List<OffsetType> { OffsetType.Bevel, OffsetType.Miter, OffsetType.Round, OffsetType.Square };
-            OffsetTypeComboBox.SelectedIndex = 0;
-        }
+		private void InitializeOffsetTypes()
+		{
+			OffsetTypeComboBox.ItemsSource = new List<OffsetType> { OffsetType.Bevel, OffsetType.Miter, OffsetType.Round, OffsetType.Square };
+			OffsetTypeComboBox.SelectedIndex = 0;
+		}
 
-        private async Task SelectParcelForOffset()
-        {
-            ResetButton.IsEnabled = false;
+		private async Task SelectParcelForOffsetAsync()
+		{
+			ResetButton.IsEnabled = false;
 
-            try
-            {
-                offsetGraphicsLayer.Graphics.Clear();
+			try
+			{
+				_offsetOverlay.Graphics.Clear();
 
-                var pointGeom = await mapView1.Editor.RequestPointAsync();
-                pointGeom.SpatialReference = mapView1.SpatialReference;
-                var screenPnt = mapView1.LocationToScreen(pointGeom);
+				var pointGeom = await MyMapView.Editor.RequestPointAsync();
+				var screenPnt = MyMapView.LocationToScreen(pointGeom);
 
-                selectedParcelGraphic = await
-                    parcelGraphicsLayer.HitTestAsync(mapView1, screenPnt);
+				_selectedParcelGraphic = await
+					_parcelOverlay.HitTestAsync(MyMapView, screenPnt);
 
-                DoOffset();
-            }
-            catch (Exception)
-            {
-            }
+				DoOffset();
+			}
+			catch (TaskCanceledException) { }
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog(ex.Message).ShowAsync();
+			}
 
-            ResetButton.IsEnabled = true;
-        }
+			ResetButton.IsEnabled = true;
+		}
 
-        private void DoOffset()
-        {
-            if (selectedParcelGraphic != null)
-            {
-                offsetGraphicsLayer.Graphics.Clear();
-                try
-                {
-                    var offsetGeom = GeometryEngine.Offset(
-                        selectedParcelGraphic.Geometry,
-                        OffsetDistanceSlider.Value,
-                        (OffsetType)OffsetTypeComboBox.SelectedItem,
-                         OffsetBevelRatioSlider.Value,
-                         OffsetFlattenErrorSlider.Value
-                        );
+		private void DoOffset()
+		{
+			if (_selectedParcelGraphic != null)
+			{
+				_offsetOverlay.Graphics.Clear();
+				try
+				{
+					var offsetGeom = GeometryEngine.Offset(
+							_selectedParcelGraphic.Geometry,
+							OffsetDistanceSlider.Value,
+							(OffsetType)OffsetTypeComboBox.SelectedItem,
+							OffsetBevelRatioSlider.Value,
+							OffsetFlattenErrorSlider.Value);
 
-                    if (offsetGeom != null)
-                    {
-                        offsetGraphicsLayer.Graphics.Add(new Graphic { Geometry = offsetGeom });
-                    }
-                }
-                catch (Exception ex)
-                {
-                    var dlg = new Windows.UI.Popups.MessageDialog(ex.Message);
-                    var _ = dlg.ShowAsync();
-                }
-            }
-        }
+					if (offsetGeom != null)
+						_offsetOverlay.Graphics.Add(new Graphic { Geometry = offsetGeom });
+				}
+				catch (Exception ex)
+				{
+					var _x = new MessageDialog(ex.Message).ShowAsync();
+				}
+			}
+		}
 
-        private async void ResetButton_Click(object sender, RoutedEventArgs e)
-        {
-            await SelectParcelForOffset();
-        }
+		private async void ResetButton_Click(object sender, RoutedEventArgs e)
+		{
+			await SelectParcelForOffsetAsync();
+		}
 
-        private async void mapView1_LayerLoaded(object sender, Esri.ArcGISRuntime.Controls.LayerLoadedEventArgs e)
-        {
-            if (e.Layer.ID == "ParcelsGraphicsLayer")
-            {
-                if (parcelGraphicsLayer != null && parcelGraphicsLayer.Graphics.Count == 0)
-                {
-                    QueryTask queryTask = new QueryTask(new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/TaxParcel/AssessorsParcelCharacteristics/MapServer/1"));
+		private async void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
+		{
+			if (_parcelOverlay != null && _parcelOverlay.Graphics.Count == 0)
+			{
+				QueryTask queryTask = new QueryTask(
+					new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/TaxParcel/AssessorsParcelCharacteristics/MapServer/1"));
 
-                    //Create a geometry to use as the extent within which parcels will be returned
-                    var contractRatio = mapView1.Extent.Width / 6;
-                    var extentGeometry = new Envelope(-83.3188395774275, 42.61428312652851, -83.31295664068958, 42.61670913269855);
+				//Create a geometry to use as the extent within which parcels will be returned
+				var contractRatio = MyMapView.Extent.Width / 6;
 
-                    extentGeometry.SpatialReference = SpatialReferences.Wgs84;
-                    Query query = new Query(extentGeometry);
-                    query.ReturnGeometry = true;
-                    query.OutSpatialReference = mapView1.SpatialReference;
+				var extentGeometry = new Envelope(
+					-83.3188395774275,
+					42.61428312652851,
+					-83.31295664068958,
+					42.61670913269855,
+					SpatialReferences.Wgs84);
 
-                    try
-                    {
-                        var results = await queryTask.ExecuteAsync(query, CancellationToken.None);
-                        foreach (Graphic g in results.FeatureSet.Features)
-                        {
-                            g.Geometry.SpatialReference = mapView1.SpatialReference;
-                            parcelGraphicsLayer.Graphics.Add(g);
-                        }
-                        LoadingParcelsIndicator.IsActive = false;
-                        LoadingParcelsContainer.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-                        ControlsContainer.Visibility = Visibility.Visible;
-                    }
-                    catch (Exception ex)
-                    {
-                        var dlg = new Windows.UI.Popups.MessageDialog(ex.Message);
-						var _ = dlg.ShowAsync();
-                    }
-                }
-                await SelectParcelForOffset();
-            }
-        }
-    }
+				Query query = new Query(extentGeometry);
+				query.ReturnGeometry = true;
+				query.OutSpatialReference = SpatialReferences.WebMercator;
+
+				try
+				{
+					var results = await queryTask.ExecuteAsync(query, CancellationToken.None);
+					foreach (Graphic g in results.FeatureSet.Features)
+					{
+						_parcelOverlay.Graphics.Add(g);
+					}
+					LoadingParcelsIndicator.IsActive = false;
+					LoadingParcelsContainer.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+					ControlsContainer.Visibility = Visibility.Visible;
+				}
+				catch (Exception ex)
+				{
+					var _x = new MessageDialog(ex.Message).ShowAsync();
+				}
+			}
+			await SelectParcelForOffsetAsync();
+		}
+	}
 }
+

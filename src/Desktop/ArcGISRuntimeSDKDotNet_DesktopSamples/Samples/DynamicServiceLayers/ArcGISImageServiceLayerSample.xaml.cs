@@ -1,8 +1,4 @@
-﻿using Esri.ArcGISRuntime.Layers;
-using System;
-using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
@@ -16,7 +12,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     {
         public ArcGISImageServiceLayerSample()
         {
-            InitializeComponent();            
-        }        
+            InitializeComponent();
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Layers;
+﻿using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-            var layer = mapView.Map.Layers.OfType<ArcGISDynamicMapServiceLayer>().FirstOrDefault();
+			MyMapView.Map.SpatialReference = SpatialReferences.WebMercator;
+
+            var layer = MyMapView.Map.Layers.OfType<ArcGISDynamicMapServiceLayer>().FirstOrDefault();
             layer.VisibleLayers = new ObservableCollection<int>() { 2 };
 
             // Create GenerateRendererTask for a specific map layer
@@ -55,7 +58,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
                 // Create a new GenerateRendererParameter object and set the ClassificationDefinition
                 // Also specify a Where clause on the layer to demonstrate excluding features from the classification
-                GenerateRendererParameter rendererParam = new GenerateRendererParameter()
+                GenerateRendererParameters rendererParam = new GenerateRendererParameters()
                 {
                     ClassificationDefinition = classBreaksDefinition,
                     Where = "STATE_NAME NOT IN ('Alaska', 'Hawaii')"
@@ -65,7 +68,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Error generating renderer: " + ex.Message).ShowAsync();
+                var _x = new MessageDialog("Error generating renderer: " + ex.Message).ShowAsync();
             }
             finally
             {
@@ -93,7 +96,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
                 // Create a new GenerateRendererParameter object and set the ClassificationDefinition
                 // Also specify a Where clause on the layer to demonstrate excluding features from the classification
-                GenerateRendererParameter rendererParam = new GenerateRendererParameter()
+                GenerateRendererParameters rendererParam = new GenerateRendererParameters()
                 {
                     ClassificationDefinition = uniqueValueDefinition,
                     Where = "STATE_NAME NOT IN ('Alaska', 'Hawaii')"
@@ -103,7 +106,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Error generating renderer: " + ex.Message).ShowAsync();
+                var _x = new MessageDialog("Error generating renderer: " + ex.Message).ShowAsync();
             }
             finally
             {
@@ -111,7 +114,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
         }
 
-        private async Task GenerateRenderer(GenerateRendererParameter rendererParam)
+        private async Task GenerateRenderer(GenerateRendererParameters rendererParam)
         {
             GenerateRendererResult result = await generateRendererTask.GenerateRendererAsync(rendererParam);
 
@@ -119,7 +122,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             LayerDrawingOptionCollection options = null;
 
             // If this is the first execution of this sample create a new LayerDrawingOptionsCollection
-            if (((ArcGISDynamicMapServiceLayer)mapView.Map.Layers["USA"]).LayerDrawingOptions == null)
+            if (((ArcGISDynamicMapServiceLayer)MyMapView.Map.Layers["USA"]).LayerDrawingOptions == null)
             {
                 options = new LayerDrawingOptionCollection();
 
@@ -129,7 +132,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             else
             {
                 // Otherwise the layer will have an existing LayerDrawingOptionsCollection from a previous button click
-                options = ((ArcGISDynamicMapServiceLayer)mapView.Map.Layers["USA"]).LayerDrawingOptions;
+                options = ((ArcGISDynamicMapServiceLayer)MyMapView.Map.Layers["USA"]).LayerDrawingOptions;
 
                 // Iterate over the LayerDrawingOptionsCollection. 
                 // For layer ID 2 get the existing LayerDrawingOptions object and apply the newly generated renderer
@@ -152,12 +155,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     Definition = rendererParam.Where
                 };
 
-                ((ArcGISDynamicMapServiceLayer)mapView.Map.Layers["USA"]).LayerDefinitions =
+                ((ArcGISDynamicMapServiceLayer)MyMapView.Map.Layers["USA"]).LayerDefinitions =
                     new ObservableCollection<LayerDefinition>() { layerDefinition };
             }
 
             // Apply the updated LayerDrawingOptionsCollection to the LayerDrawingOptions property on the layer
-            ((ArcGISDynamicMapServiceLayer)mapView.Map.Layers["USA"]).LayerDrawingOptions = options;
+            ((ArcGISDynamicMapServiceLayer)MyMapView.Map.Layers["USA"]).LayerDrawingOptions = options;
         }
     }
 }

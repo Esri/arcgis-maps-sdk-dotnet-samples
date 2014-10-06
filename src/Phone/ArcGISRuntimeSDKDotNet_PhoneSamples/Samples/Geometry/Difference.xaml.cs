@@ -22,7 +22,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            mapView1.Map.InitialExtent = new Envelope(-117.5, 32.5, -116.5, 35.5, SpatialReferences.Wgs84);
+			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-117.5, 32.5, -116.5, 35.5, SpatialReferences.Wgs84));
             inputGraphicsLayer = mapView1.Map.Layers["InputGraphicsLayer"] as GraphicsLayer;
             outputGraphicsLayer = mapView1.Map.Layers["OutputGraphicsLayer"] as GraphicsLayer;
             drawGraphicsLayer = mapView1.Map.Layers["DrawGraphicsLayer"] as GraphicsLayer;
@@ -34,11 +34,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             var g = new Graphic
             {
-                Geometry = new Polygon(new List<Coordinate> {
-                new Coordinate(-116.5,33),
-                new Coordinate(-116.5,34),
-                new Coordinate(-116,34),
-                new Coordinate(-116,33)
+                Geometry = new Polygon(new List<MapPoint> {
+                new MapPoint(-116.5,33),
+                new MapPoint(-116.5,34),
+                new MapPoint(-116,34),
+                new MapPoint(-116,33)
             }, mapView1.SpatialReference),
             };
 
@@ -46,11 +46,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
             g = new Graphic
             {
-                Geometry = new Polygon(new List<Coordinate> {
-                new Coordinate(-118,34),
-                new Coordinate(-118,35),
-                new Coordinate(-117.5,35),
-                new Coordinate(-117.5,34)
+                Geometry = new Polygon(new List<MapPoint> {
+                new MapPoint(-118,34),
+                new MapPoint(-118,35),
+                new MapPoint(-117.5,35),
+                new MapPoint(-117.5,34)
                 
             }, mapView1.SpatialReference)
             };
@@ -58,11 +58,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
             g = new Graphic
             {
-                Geometry = new Polygon(new List<Coordinate> {
-                new Coordinate(-117.3,34),
-                new Coordinate(-116.3,34),
-                new Coordinate(-116.3,33.5),
-                new Coordinate(-117.3,33.5)
+                Geometry = new Polygon(new List<MapPoint> {
+                new MapPoint(-117.3,34),
+                new MapPoint(-116.3,34),
+                new MapPoint(-116.3,33.5),
+                new MapPoint(-117.3,33.5)
                 
             }, mapView1.SpatialReference)
             };
@@ -80,13 +80,18 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             StartButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             ResetButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
 
-            //Get the user's input geometry and add it to the map
-            inputDifferencePolygonGeometry = (await mapView1.Editor.RequestShapeAsync(DrawShape.Polygon)) as Polygon;
+			// wait for user to draw difference polygon
+			Polygon inputDifferencePolygonGeometry = await mapView1.Editor.RequestShapeAsync(DrawShape.Polygon) as Polygon;
+
+			// Take account of WrapAround
+			Polygon polygon = GeometryEngine.NormalizeCentralMeridian(inputDifferencePolygonGeometry) as Polygon;
+
+			// Get the user input geometry and add it to the map
             drawGraphicsLayer.Graphics.Clear();
             drawGraphicsLayer.Graphics.Add(new Graphic { Geometry = inputDifferencePolygonGeometry });
 
-            //Simplify the input geometry
-            var simplifyGeometry = GeometryEngine.Simplify(inputDifferencePolygonGeometry);
+			// Adjust user polygon for backward digitization
+			var simplifyGeometry = GeometryEngine.Simplify(polygon);
 
             //Generate the difference geometries
             var inputGeometries1 = inputGraphicsLayer.Graphics.Select(x => x.Geometry).ToList();

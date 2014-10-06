@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Layers;
+﻿using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
 using System.Collections.Generic;
@@ -47,6 +48,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers
             DataContext = this;
             IsBusy = false;
 
+			MyMapView.Map.SpatialReference = SpatialReferences.WebMercator;
+
             // Create GenerateRendererTask for a specific map layer
             generateRendererTask = new GenerateRendererTask(new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/2"));
         }
@@ -77,7 +80,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers
 
                 // Create a new GenerateRendererParameter object and set the ClassificationDefinition
                 // Also specify a Where clause on the layer to demonstrate excluding features from the classification
-                GenerateRendererParameter rendererParam = new GenerateRendererParameter()
+                GenerateRendererParameters rendererParam = new GenerateRendererParameters()
                 {
                     ClassificationDefinition = classBreaksDefinition,
                     Where = "STATE_NAME NOT IN ('Alaska', 'Hawaii')"
@@ -118,7 +121,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers
 
                 // Create a new GenerateRendererParameter object and set the ClassificationDefinition
                 // Also specify a Where clause on the layer to demonstrate excluding features from the classification
-                GenerateRendererParameter rendererParam = new GenerateRendererParameter()
+                GenerateRendererParameters rendererParam = new GenerateRendererParameters()
                 {
                     ClassificationDefinition = uniqueValueDefinition,
                     Where = "STATE_NAME NOT IN ('Alaska', 'Hawaii')"
@@ -136,7 +139,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers
             }
         }
 
-        private async Task GenerateRenderer(GenerateRendererParameter rendererParam)
+        private async Task GenerateRenderer(GenerateRendererParameters rendererParam)
         {
             GenerateRendererResult result = await generateRendererTask.GenerateRendererAsync(rendererParam);
 

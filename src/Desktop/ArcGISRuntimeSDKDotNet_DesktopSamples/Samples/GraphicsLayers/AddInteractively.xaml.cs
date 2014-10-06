@@ -10,7 +10,7 @@ using System.Windows.Controls;
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
-    /// Example of how to add Graphics to a GraphicLayer by drawing shapes on the map.  The Editor.RequestShapeAsync method is used to manage map drawing and geometry creation.  Symbols for the graphics are defined in XAML.
+    /// Example of how to add Graphics to a GraphicsOverlay by drawing shapes on the map.  The Editor.RequestShapeAsync method is used to manage map drawing and geometry creation.  Symbols for the graphics are defined in XAML.
     /// </summary>
     /// <title>Add Graphics Interactively</title>
 	/// <category>Layers</category>
@@ -19,6 +19,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     {
         /// <summary>INotifyPropertyChanged notification</summary>
         public event PropertyChangedEventHandler PropertyChanged;
+
+		private GraphicsLayer _graphicsLayer;
 
         private bool _inDrawMode;
         /// <summary>Is In Drawing Mode</summary>
@@ -53,18 +55,19 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
             DataContext = this;
             _currentDrawShape = DrawShape.Point;
+			_graphicsLayer = MyMapView.Map.Layers["graphicsLayer"] as GraphicsLayer;
             _inDrawMode = false;
         }
 
         // Draw graphics infinitely
-        private async void AddGraphicsAsync()
+        private async Task AddGraphicsAsync()
         {
-            await mapView.LayersLoadedAsync();
+            await MyMapView.LayersLoadedAsync();
 
             while (InDrawMode)
             {
                 // if the map is not in a valid state - quit and turn drawing mode off
-                if (mapView.Extent == null)
+                if (MyMapView.Extent == null)
                 {
                     InDrawMode = false;
                     break;
@@ -98,16 +101,17 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     case DrawShape.Polygon:
                     case DrawShape.Rectangle:
                     case DrawShape.Triangle:
-                        symbol = LayoutGrid.Resources["RedFillSymbol"] as Symbol;
+					case DrawShape.Envelope:
+						symbol = LayoutGrid.Resources["RedFillSymbol"] as Symbol;
                         break;
                 }
 
                 // wait for user to draw the shape
-                var geometry = await mapView.Editor.RequestShapeAsync(CurrentDrawShape, symbol);
+                var geometry = await MyMapView.Editor.RequestShapeAsync(CurrentDrawShape, symbol);
 
                 // add the new graphic to the graphic layer
                 var graphic = new Graphic(geometry, symbol);
-                graphicsLayer.Graphics.Add(graphic);
+				_graphicsLayer.Graphics.Add(graphic);
             }
             catch (TaskCanceledException)
             {
@@ -122,24 +126,26 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Cancel the current shape drawing (if in Editor.RequestShapeAsync) when the shape type has changed
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (mapView.Editor.IsActive)
-                mapView.Editor.Cancel.Execute(null);
+            if (MyMapView.Editor.IsActive)
+                MyMapView.Editor.Cancel.Execute(null);
         }
 
         // Cancel the current shape drawing (if in Editor.RequestShapeAsync)
         //  and initiate new graphic adding if drawing mode is on
-        private void ToggleButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (mapView.Editor.IsActive)
-                mapView.Editor.Cancel.Execute(null);
+		private void ToggleButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (MyMapView.Editor.IsActive)
+				MyMapView.Editor.Cancel.Execute(null);
 
-            if (InDrawMode)
-                AddGraphicsAsync();
-        }
+			if (InDrawMode)
+			{
+				var _x = AddGraphicsAsync();
+			}
+		}
 
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
-            graphicsLayer.Graphics.Clear();
+			_graphicsLayer.Graphics.Clear();
         }
     }
 }

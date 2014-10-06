@@ -1,4 +1,6 @@
-﻿using Esri.ArcGISRuntime.Layers;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Layers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,6 +26,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public DynamicLayersInXAML()
         {
             this.InitializeComponent();
+			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(
+				-3170138,
+				-1823795, 
+				2850785, 
+				1766663, 
+				SpatialReference.Create(102009)));
+
            (mapView1.Map.Layers["USA"] as ArcGISDynamicMapServiceLayer).VisibleLayers = new System.Collections.ObjectModel.ObservableCollection<int> { 0, 2, 4 };
         }
 

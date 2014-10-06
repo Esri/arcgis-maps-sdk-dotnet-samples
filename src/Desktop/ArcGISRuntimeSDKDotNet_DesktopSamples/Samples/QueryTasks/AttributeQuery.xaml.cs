@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
@@ -17,19 +18,19 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	/// <subcategory>Query</subcategory>
 	public partial class AttributeQuery : UserControl
     {
+		private GraphicsOverlay _graphicsOverlay;
+
         /// <summary>Construct Attribute Query sample control</summary>
         public AttributeQuery()
         {
             InitializeComponent();
-            
-            mapView.Map.InitialExtent = new Envelope(-15000000, 2000000, -7000000, 8000000);
-            
-            InitializeComboBox()
-                .ContinueWith((t) => { }, TaskScheduler.FromCurrentSynchronizationContext());
+
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
+			InitializeComboBox();
         }
 
         // Load the combobox with state data from the map service
-        private async Task InitializeComboBox()
+        private async void InitializeComboBox()
         {
             try
             {
@@ -56,7 +57,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 progress.Visibility = Visibility.Visible;
                 resultsGrid.Visibility = Visibility.Collapsed;
                 resultsGrid.ItemsSource = null;
-                graphicsLayer.Graphics.Clear();
+				_graphicsOverlay.Graphics.Clear();
 
                 QueryTask queryTask = new QueryTask(
                     new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Census_USA/MapServer/5"));
@@ -66,7 +67,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 {
                     OutFields = OutFields.All,
                     ReturnGeometry = true,
-                    OutSpatialReference = mapView.SpatialReference
+                    OutSpatialReference = MyMapView.SpatialReference
                 };
 
                 var result = await queryTask.ExecuteAsync(query);
@@ -75,11 +76,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 if (featureSet != null && featureSet.Features.Count > 0)
                 {
                     var graphic = featureSet.Features.First();
-                    graphicsLayer.Graphics.Add(graphic);
+					_graphicsOverlay.Graphics.Add(graphic as Graphic);
 
                     var selectedFeatureExtent = graphic.Geometry.Extent;
                     Envelope displayExtent = selectedFeatureExtent.Expand(1.3);
-                    mapView.SetView(displayExtent);
+                    MyMapView.SetView(displayExtent);
 
                     resultsGrid.ItemsSource = graphic.Attributes;
                     resultsGrid.Visibility = Visibility.Visible;

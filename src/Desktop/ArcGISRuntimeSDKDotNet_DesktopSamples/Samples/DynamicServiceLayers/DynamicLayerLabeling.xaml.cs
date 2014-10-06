@@ -1,4 +1,5 @@
 ﻿using Esri.ArcGISRuntime.ArcGISServices;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System.Linq;
@@ -19,10 +20,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers
         {
             InitializeComponent();
 
+			MyMapView.Map.SpatialReference = SpatialReferences.WebMercator;
+
             // Minor city label info
             DynamicLabelingInfo minorCityLabelInfo = new DynamicLabelingInfo();
             minorCityLabelInfo.LabelExpression = "[areaname]";
-            minorCityLabelInfo.LabelPlacement = LabelPlacement.PointLabelPlacementAboveRight;
             minorCityLabelInfo.Symbol = new Esri.ArcGISRuntime.Symbology.TextSymbol()
             {
                 Color = Colors.Black,

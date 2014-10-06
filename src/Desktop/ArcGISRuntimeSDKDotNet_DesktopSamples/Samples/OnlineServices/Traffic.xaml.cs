@@ -22,17 +22,16 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public Traffic()
         {
             InitializeComponent();
+            IdentityManager.Current.OAuthAuthorizeHandler = new OAuthAuthorizeHandler();
+            IdentityManager.Current.ChallengeHandler = new ChallengeHandler(PortalSecurity.Challenge);
 
-            IdentityManager.Current.ChallengeMethod = PortalSecurity.Challenge;
+            _trafficLayer = MyMapView.Map.Layers["Traffic"] as ArcGISDynamicMapServiceLayer;
 
-            _trafficLayer = mapView.Map.Layers["Traffic"] as ArcGISDynamicMapServiceLayer;
-
-            mapView.Map.InitialExtent = new Envelope(-13230693.582, 3941779.273, -12928937.030, 4095486.517, SpatialReferences.WebMercator);
-            mapView.LayerLoaded += mapView_LayerLoaded;
+            MyMapView.LayerLoaded += MyMapView_LayerLoaded;
         }
 
         // Populate layer legend with north america traffic sublayer names
-        private async void mapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
+        private async void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
         {
             if (e.Layer == _trafficLayer)
             {
@@ -42,7 +41,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             }
         }
 
-        private async void mapView_MapViewTapped(object sender, MapViewInputEventArgs e)
+        private async void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
             try
             {
@@ -51,11 +50,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
                 var identifyTask = new IdentifyTask(new Uri(_trafficLayer.ServiceUri));
 
-                IdentifyParameter identifyParams = new IdentifyParameter(e.Location, mapView.Extent, 5, (int)mapView.ActualHeight, (int)mapView.ActualWidth)
+                IdentifyParameters identifyParams = new IdentifyParameters(e.Location, MyMapView.Extent, 5, (int)MyMapView.ActualHeight, (int)MyMapView.ActualWidth)
                 {
                     LayerIDs = new int[] { 2, 3, 4 },
                     LayerOption = LayerOption.Top,
-                    SpatialReference = mapView.SpatialReference,
+                    SpatialReference = MyMapView.SpatialReference,
                 };
 
                 var result = await identifyTask.ExecuteAsync(identifyParams);

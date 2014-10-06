@@ -16,23 +16,25 @@
             </esri:SimpleFillSymbol>
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView" WrapAround="True">
-            <esri:Map>
-                <esri:Map.InitialExtent>
-                    <esri:Envelope XMin="-15000000" YMin="2000000" XMax="-7000000" YMax="8000000" />
-                </esri:Map.InitialExtent>
-
-                <esri:ArcGISTiledMapServiceLayer
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
+			<esri:Map InitialViewpoint="-15000000,2000000,-7000000,8000000">
+				<esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
-                <esri:GraphicsLayer x:Name="inputGraphics" />
-                <esri:GraphicsLayer x:Name="resultGraphics" />
-            </esri:Map>
-        </esri:MapView>
+			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="inputOverlay" />
+				<esri:GraphicsOverlay ID="resultsOverlay" />
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
 
-        <Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="30"
-                HorizontalAlignment="Right" VerticalAlignment="Top">
-            <StackPanel Margin="30,20">
-                <TextBlock Text="Click the 'Geodesic Densify' button to digitize and densify a polygon or polyline. Red points indicate digitized vertices. Green points show all vertices (original and new) in the densified shape."
+		<Border Background="White" BorderBrush="Black" BorderThickness="1"
+				 HorizontalAlignment="Right" VerticalAlignment="Top"
+				 Margin="30" Padding="20">
+			<Border.Effect>
+				<DropShadowEffect/>
+			</Border.Effect>
+			<StackPanel>
+				<TextBlock Text="Click the 'Geodesic Densify' button to digitize and densify a polygon or polyline. Red points indicate digitized vertices. Green points show all vertices (original and new) in the densified shape."
                            Width="300" TextAlignment="Left" TextWrapping="Wrap" />
 
                 <StackPanel Orientation="Horizontal" Margin="12" HorizontalAlignment="Center">
@@ -71,7 +73,7 @@
 
         <Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="25"
                 HorizontalAlignment="Center" VerticalAlignment="Bottom"
-                Visibility="{Binding ElementName=mapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
+                Visibility="{Binding ElementName=MyMapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
             <TextBlock Text="Draw a shape on the map." Margin="8" FontSize="14" />
         </Border>
     </Grid>

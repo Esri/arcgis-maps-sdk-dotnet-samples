@@ -17,14 +17,20 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples
         public MainPage()
         {
 			// Define symbology path to Resources folder. This folder is included in the solution as a Content
-			ArcGISRuntimeEnvironment.SymbolsPath = @"Resources";
-            this.InitializeComponent();
+			if (!ArcGISRuntimeEnvironment.IsInitialized)
+				ArcGISRuntimeEnvironment.SymbolsPath = @"Resources";
+           
+			this.InitializeComponent();
             DataContext = SampleDataSource.Current;
         }
 
         private void ListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             var item = (Sample)e.ClickedItem;
+
+			GC.Collect();
+			GC.WaitForPendingFinalizers();
+
             Frame.Navigate(item.Page);
         }
 
@@ -132,6 +138,7 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples
                     mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Location Display").First());
                     mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Simple Map Tip").First());
                     mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Handle Errors").First());
+					mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Interaction Options").First());
                     SampleGroup newMappingSamplesGroup = new SampleGroup(mappingSamples) { Key = mappingSamplesGroup.Key };
                     groups[groups.FindIndex(g => g.Key == mappingSamplesGroup.Key)] = newMappingSamplesGroup;
 

@@ -17,21 +17,21 @@
 
                 <esriLayers:FeatureLayer ID="MyFeatureLayerUnique">
                     <esriLayers:FeatureLayer.FeatureTable>
-                        <esriData:GeodatabaseFeatureServiceTable
+                        <esriData:ServiceFeatureTable
                         ServiceUri="http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer/2" 
                         />
                     </esriLayers:FeatureLayer.FeatureTable>
                 </esriLayers:FeatureLayer>
                 <esriLayers:FeatureLayer ID="MyFeatureLayerSimple">
                     <esriLayers:FeatureLayer.FeatureTable>
-                        <esriData:GeodatabaseFeatureServiceTable
+                        <esriData:ServiceFeatureTable
                         ServiceUri="http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer/1" 
                         />
                     </esriLayers:FeatureLayer.FeatureTable>
                 </esriLayers:FeatureLayer>
                 <esriLayers:FeatureLayer ID="MyFeatureLayerClassBreak">
                     <esriLayers:FeatureLayer.FeatureTable>
-                        <esriData:GeodatabaseFeatureServiceTable
+                        <esriData:ServiceFeatureTable
                         ServiceUri="http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer/0" 
                         />
                     </esriLayers:FeatureLayer.FeatureTable>

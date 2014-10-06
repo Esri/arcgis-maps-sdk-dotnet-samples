@@ -21,7 +21,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            mapView1.Map.InitialExtent = new Envelope(-117.5, 32.5, -116.5, 35.5, SpatialReferences.Wgs84);
+			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-117.5, 32.5, -116.5, 35.5, SpatialReferences.Wgs84));
             inputGraphicsLayer = mapView1.Map.Layers["MyGraphicsLayer"] as GraphicsLayer;
 
         }
@@ -56,7 +56,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             var wmPolyline = GeometryEngine.Project(inputPolylineGeometry, SpatialReferences.WebMercator);
             var wmPoint = GeometryEngine.Project(inputPointGeometry, SpatialReferences.WebMercator) as MapPoint;
 
-            var result = GeometryEngine.NearestCoordinateInGeometry(wmPolyline, wmPoint);
+            var result = GeometryEngine.NearestCoordinate(wmPolyline, wmPoint);
 
 
 

@@ -4,32 +4,30 @@
              xmlns:local="clr-namespace:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid x:Name="layoutGrid">
-        <esri:MapView x:Name="mapView" WrapAround="True">
-            <esri:Map>
-                <esri:Map.InitialExtent>
-                    <esri:Envelope XMin="-15053000" YMin="2749000" XMax="-6540000" YMax="6590000" />
-                </esri:Map.InitialExtent>
-
-                <esri:ArcGISTiledMapServiceLayer
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
+			<esri:Map InitialViewpoint="-15053000,2749000,-6540000,6590000">
+				<esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
+			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay x:Name="graphicsOverlay" />
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
 
-                <esri:GraphicsLayer x:Name="graphicsLayer" />
-            </esri:Map>
-        </esri:MapView>
-
-        <Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="30"
+		<Border Background="White" BorderBrush="Black" BorderThickness="1" Margin="30" Padding="20"
                 HorizontalAlignment="Right" VerticalAlignment="Top">
-            <StackPanel Margin="30,20">
+			<Border.Effect>
+				<DropShadowEffect />
+			</Border.Effect>
+			<StackPanel>
                 <TextBlock Text="Click the map to add points with the selected text symbol."
-                           FontSize="14"  Width="250" TextAlignment="Left" TextWrapping="Wrap" />
+                           FontSize="14" Width="250" TextAlignment="Left" TextWrapping="Wrap" />
 
-                <StackPanel HorizontalAlignment="Center" Margin="12,20,12,0">
+                <StackPanel HorizontalAlignment="Stretch" Margin="12,20,12,0">
                     <ComboBox x:Name="symbolCombo" SelectedIndex="0" SelectionChanged="symbolCombo_SelectionChanged">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <Border BorderBrush="Black" BorderThickness="1" Margin="2" Padding="2">
-                                    <Image Source="{Binding}" Stretch="None" />
-                                </Border>
+                                <Image Source="{Binding}" Stretch="None" Margin="5" />
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>

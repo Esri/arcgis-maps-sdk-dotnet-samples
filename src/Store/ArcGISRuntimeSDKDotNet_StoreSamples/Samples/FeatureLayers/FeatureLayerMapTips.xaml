@@ -3,50 +3,49 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
 	xmlns:esri="using:Esri.ArcGISRuntime.Controls"  
-    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
-    xmlns:geo="using:Esri.ArcGISRuntime.Geometry"
-    xmlns:data="using:Esri.ArcGISRuntime.Data"
-    xmlns:sym="using:Esri.ArcGISRuntime.Symbology">
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+	xmlns:data="using:Esri.ArcGISRuntime.Data"
+    xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-        <esri:MapView x:Name="mapView" WrapAround="True" >
+        <esri:MapView x:Name="MyMapView" WrapAround="True" >
             <esri:Map>
-                <lyr:ArcGISTiledMapServiceLayer DisplayName="Basemap"
+				<layers:ArcGISTiledMapServiceLayer DisplayName="Basemap"
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
 
-                <lyr:FeatureLayer ID="FeatureLayer">
-                    <lyr:FeatureLayer.Renderer>
-                        <sym:SimpleRenderer>
-                            <sym:SimpleMarkerSymbol Color="LightBlue" Style="Circle" Size="12">
-                                <sym:SimpleMarkerSymbol.Outline>
-                                    <sym:SimpleLineSymbol Color="Blue" Width="2" Style="Solid" />
-                                </sym:SimpleMarkerSymbol.Outline>
-                            </sym:SimpleMarkerSymbol>
-                        </sym:SimpleRenderer>
-                    </lyr:FeatureLayer.Renderer>
-
-                    <lyr:FeatureLayer.FeatureTable>
-                        <data:GeodatabaseFeatureServiceTable 
+				<layers:FeatureLayer ID="FeatureLayer">
+					<layers:FeatureLayer.Renderer>
+						<symb:SimpleRenderer>
+							<symb:SimpleMarkerSymbol Color="LightBlue" Style="Circle" Size="12">
+								<symb:SimpleMarkerSymbol.Outline>
+									<symb:SimpleLineSymbol Color="Blue" Width="2" Style="Solid" />
+								</symb:SimpleMarkerSymbol.Outline>
+							</symb:SimpleMarkerSymbol>
+						</symb:SimpleRenderer>
+					</layers:FeatureLayer.Renderer>
+					<layers:FeatureLayer.FeatureTable>
+                        <data:ServiceFeatureTable 
                             ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Earthquakes/EarthquakesFromLastSevenDays/FeatureServer/0"
                             Where="magnitude >= 3.0" />
-                    </lyr:FeatureLayer.FeatureTable>
-                </lyr:FeatureLayer>
+                    </layers:FeatureLayer.FeatureTable>
+                </layers:FeatureLayer>
             </esri:Map>
+            
+            <esri:MapView.Overlays>
+                <esri:OverlayItemsControl>
+                    <Border Background="#CC000000" BorderBrush="White" BorderThickness="2" Padding="4" 
+                            HorizontalAlignment="Left" VerticalAlignment="Top" IsHitTestVisible="False" 
+                            Visibility="Collapsed" esri:ViewBase.ViewOverlayAnchor="{Binding Geometry}">
+                        <StackPanel>
+                            <TextBlock Text="{Binding Attributes[datetime]}" FontWeight="Bold" />
+                            <TextBlock>
+                                <Run Text="Magnitude: " />
+                                <Run Text="{Binding Attributes[magnitude]}" />
+                            </TextBlock>
+                        </StackPanel>
+                    </Border>
+                </esri:OverlayItemsControl>
+            </esri:MapView.Overlays>
         </esri:MapView>
-
-        <Border x:Name="mapTip" Background="#CC000000" BorderBrush="White" BorderThickness="2" Padding="4" 
-                HorizontalAlignment="Left" VerticalAlignment="Top" IsHitTestVisible="False" Visibility="Collapsed">
-            <Border.RenderTransform>
-                <TranslateTransform x:Name="maptipTransform" />
-            </Border.RenderTransform>
-
-            <StackPanel>
-                <TextBlock Text="{Binding Attributes[datetime]}" FontWeight="Bold" />
-                <TextBlock>
-                    <Run Text="Magnitude: " />
-                    <Run Text="{Binding Attributes[magnitude]}" />
-                </TextBlock>
-            </StackPanel>
-        </Border>
     </Grid>
 </Page>

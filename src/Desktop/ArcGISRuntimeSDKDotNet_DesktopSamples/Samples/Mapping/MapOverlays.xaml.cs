@@ -16,22 +16,27 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            mapView.ExtentChanged += mapView_ExtentChanged;
+            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
+
+			esriOverlay.DataContext = new MapPoint(-117.19568, 34.056601, SpatialReferences.Wgs84);
         }
 
-        private void mapView_ExtentChanged(object sender, System.EventArgs e)
-        {
-            var center = GeometryEngine.Project(mapView.Extent.GetCenter(), SpatialReferences.Wgs84);
+		private void MyMapView_ExtentChanged(object sender, System.EventArgs e)
+		{
+			var normalizedPoint = GeometryEngine.NormalizeCentralMeridian(MyMapView.Extent.GetCenter());
+			var projectedCenter = GeometryEngine.Project(normalizedPoint, SpatialReferences.Wgs84) as MapPoint;
 
-            if (!(clickOverlay.DataContext is MapPoint))
-                clickOverlay.DataContext = center;
+			if (!(clickOverlay.DataContext is MapPoint))
+				clickOverlay.DataContext = projectedCenter;
 
-            centerOverlay.DataContext = center;
-        }
+			centerOverlay.DataContext = projectedCenter;
+		}
 
-        private void mapView_MapViewTapped(object sender, MapViewInputEventArgs e)
-        {
-            clickOverlay.DataContext = GeometryEngine.Project(e.Location, SpatialReferences.Wgs84);
-        }
+		private void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
+		{
+			var normalizedPoint = GeometryEngine.NormalizeCentralMeridian(e.Location);
+			var projectedCenter = GeometryEngine.Project(normalizedPoint, SpatialReferences.Wgs84) as MapPoint;
+			clickOverlay.DataContext = projectedCenter;
+		}
     }
 }

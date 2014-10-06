@@ -2,23 +2,17 @@
     x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.AreaSample"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ArcGISRuntimeSDKDotNet_StoreSamples.Samples"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
-	xmlns:sym="using:Esri.ArcGISRuntime.Symbology"
-    xmlns:geom="using:Esri.ArcGISRuntime.Geometry"
-    xmlns:core="using:Esri.ArcGISRuntime"
-    mc:Ignorable="d">
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+	xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
 
     <Grid x:Name="LayoutRoot" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
-            <sym:SimpleFillSymbol x:Key="DefaultFillSymbol"  Color="#7F0000FF"    >
-                <sym:SimpleFillSymbol.Outline>
-                    <sym:SimpleLineSymbol Color="Blue" Width="2"/>
-                </sym:SimpleFillSymbol.Outline>
-            </sym:SimpleFillSymbol>
+			<symb:SimpleFillSymbol x:Key="DefaultFillSymbol"  Color="#7F0000FF"    >
+				<symb:SimpleFillSymbol.Outline>
+					<symb:SimpleLineSymbol Color="Blue" Width="2"/>
+                </symb:SimpleFillSymbol.Outline>
+            </symb:SimpleFillSymbol>
             
             <Style x:Key="TextBasicStyle" TargetType="TextBlock">
                 <Setter Property="FontSize" Value="14"/>
@@ -31,13 +25,19 @@
             </Style>
         </Grid.Resources>
 
-        <esri:MapView x:Name="mapView1">
-            <esri:Map>
-                <lyr:ArcGISTiledMapServiceLayer ID="StreetMapLayer" 
-        		ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-                <lyr:GraphicsLayer ID="MyGraphicsLayer" />
+        <esri:MapView x:Name="MyMapView">
+			<esri:Map>
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-130" YMin="20" XMax="-65" YMax="55" SpatialReferenceID="4326"/>
+				</esri:Map.InitialViewpoint>
+
+				<layers:ArcGISTiledMapServiceLayer ID="StreetMapLayer" 
+        			ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
             </esri:Map>
-        </esri:MapView>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="AreaOverlay" />
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
 
         <Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
             <Grid>

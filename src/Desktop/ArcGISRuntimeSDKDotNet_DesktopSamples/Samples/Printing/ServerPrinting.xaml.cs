@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Tasks.Printing;
+﻿using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Tasks.Printing;
 using System;
 using System.Diagnostics;
 using System.Windows;
@@ -23,10 +24,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             _printTask = new PrintTask(
                 new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task"));
 
-            mapView.Loaded += mapView_Loaded;
+            MyMapView.Loaded += MyMapView_Loaded;
         }
 
-        private async void mapView_Loaded(object sender, RoutedEventArgs e)
+        private async void MyMapView_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -52,9 +53,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             {
                 progress.Visibility = Visibility.Visible;
 
-                PrintParameters printParameters = new PrintParameters(mapView)
+                PrintParameters printParameters = new PrintParameters(MyMapView)
                 {
-                    ExportOptions = new ExportOptions() { Dpi = 96, OutputSize = new Size(mapView.ActualWidth, mapView.ActualHeight) },
+                    ExportOptions = new ExportOptions() { Dpi = 96, OutputSize = new Size(MyMapView.ActualWidth, MyMapView.ActualHeight) },
                     LayoutTemplate = (string)comboLayout.SelectedItem ?? string.Empty,
                     Format = (string)comboFormat.SelectedItem,
                 };

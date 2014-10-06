@@ -131,16 +131,8 @@
         </Grid.Resources>
 
         <!--  Map Control  -->
-        <esri:MapView x:Name="mapView" WrapAround="True" MinScale="2446">
-            <esri:Map>
-                <esri:Map.InitialExtent>
-                    <esri:Envelope XMin="-9813504.6933477" YMin="5127140.45392125" XMax="-9812977.49431059" YMax="5127508.54492118">
-                        <esri:Envelope.SpatialReference>
-                            <esri:SpatialReference Wkid="102100" />
-                        </esri:Envelope.SpatialReference>
-                    </esri:Envelope>
-                </esri:Map.InitialExtent>
-
+        <esri:MapView x:Name="MyMapView" WrapAround="True" MinScale="2446">
+			<esri:Map InitialViewpoint="-9813505,5127140,-9812977,5127509,3857">
                 <esri:ArcGISTiledMapServiceLayer ID="Basemap" ShowLegend="False" 
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
 
@@ -149,10 +141,19 @@
             </esri:Map>
         </esri:MapView>
 
-        <Button Margin="21,20,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                BorderBrush="Black" BorderThickness="2"
-                Content="Print" FontSize="18" Padding="30,10" Click="ActivatePrintPreview"
-                ToolTipService.ToolTip="Show Print Preview Dialog" />
+		<Border Background="White" BorderBrush="Black" BorderThickness="1"
+				HorizontalAlignment="Right" VerticalAlignment="Top"
+				Margin="30" Padding="20">
+			<Border.Effect>
+				<DropShadowEffect/>
+			</Border.Effect>
+			<Button Content="Print" 
+					Width="150" Height="75"
+					FontSize="18"
+					Click="ActivatePrintPreview"
+					ToolTipService.ToolTip="Show Print Preview Dialog" />
+		</Border>
+		
 
         <!--  Print Preview Dialog (overlaps the map in this sample)  -->
         <Grid x:Name="previewPanel" Background="LightGray" Visibility="Collapsed">
@@ -324,7 +325,7 @@
                     </Border.Effect>
                     <Viewbox>
                         <local:MapPrinter x:Name="printControl" Title="Water Network"
-                                          BaseMapView="{Binding ElementName=mapView}"
+                                          BaseMapView="{Binding ElementName=MyMapView}"
                                           Width="{Binding ElementName=comboPreviewSize, Path=SelectedItem.Width}"
                                           Height="{Binding ElementName=comboPreviewSize, Path=SelectedItem.Height}"
                                           Template="{Binding SelectedValue, ElementName=comboPrintTemplate}" />

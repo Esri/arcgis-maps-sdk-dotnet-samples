@@ -1,11 +1,10 @@
-﻿using Esri.ArcGISRuntime.Layers;
-using System.Linq;
+﻿using Esri.ArcGISRuntime.Geometry;
 using System.Windows.Controls;
 
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers
 {
     /// <summary>
-    /// This sample demonstrates changing the order of dynamic layers.  Clicking the 'Change Layer Order' button uses the DynamicLayerInfoCollection to move the top layer to the bottom.
+    /// This sample demonstrates changing the order of dynamic layers. Clicking the 'Change Layer Order' button uses the DynamicLayerInfoCollection to move the top layer to the bottom.
     /// </summary>
     /// <title>Dynamic Layer Reordering</title>
 	/// <category>Layers</category>
@@ -15,6 +14,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers
         public DynamicLayerReordering()
         {
             InitializeComponent();
+			MyMapView.Map.SpatialReference = SpatialReferences.WebMercator;
         }
 
         private void ChangeLayerOrderClick(object sender, System.Windows.RoutedEventArgs e)

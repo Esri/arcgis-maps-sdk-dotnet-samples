@@ -3,30 +3,28 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid x:Name="layoutGrid">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="Auto" />
+		</Grid.ColumnDefinitions>
+        <esri:MapView x:Name="MyMapView" />
 
-        <ScrollViewer MaxWidth="200" HorizontalAlignment="Left" Margin="5">
-            <ItemsControl x:Name="basemapList">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Button Click="BaseMapButton_Click" Margin="5">
-                            <StackPanel>
-                                <Image Source="{Binding ThumbnailUri}" Margin="3" Width="200" Height="133" />
-                                <TextBlock Text="{Binding Title}" />
-                            </StackPanel>
-                        </Button>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
-
-        <esri:MapView Grid.Column="1" x:Name="mapView" />
-
-        <ProgressBar Grid.Column="1" x:Name="progress" IsIndeterminate="True" Margin="0,0,0,20"
+        <ProgressBar x:Name="progress" IsIndeterminate="True" Margin="0,0,0,20"
                      HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="300"
                      Visibility="Collapsed" />
-    </Grid>
+		<ScrollViewer Grid.Column="1"  MaxWidth="200" HorizontalAlignment="Left" Margin="5">
+			<ItemsControl x:Name="basemapList">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Button Click="BaseMapButton_Click" Margin="5">
+							<StackPanel>
+								<Image Source="{Binding ThumbnailUri}" Margin="3" Width="200" Height="133" />
+								<TextBlock Text="{Binding Title}" />
+							</StackPanel>
+						</Button>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</ScrollViewer>
+	</Grid>
 </UserControl>

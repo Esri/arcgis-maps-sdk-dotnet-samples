@@ -2,17 +2,13 @@
     x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.LocationDisplay"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ArcGISRuntimeSDKDotNet_StoreSamples.Samples"
 	xmlns:esri="using:Esri.ArcGISRuntime.Controls"  
-    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
-    xmlns:loc="using:Esri.ArcGISRuntime.Location"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+	xmlns:layers="using:Esri.ArcGISRuntime.Layers">
+	
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-        <esri:MapView x:Name="mapView">
+        <esri:MapView x:Name="MyMapView">
             <esri:Map>
-                <lyr:ArcGISTiledMapServiceLayer
+				<layers:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
             </esri:Map>
         </esri:MapView>
@@ -22,10 +18,10 @@
             <StackPanel >
                 <TextBlock Text="Location Display Settings" FontWeight="Bold" />
                 <ToggleSwitch Header="Enabled" 
-                              IsOn="{Binding ElementName=mapView, Path=LocationDisplay.IsEnabled, Mode=TwoWay}" />
+                              IsOn="{Binding ElementName=MyMapView, Path=LocationDisplay.IsEnabled, Mode=TwoWay}" />
                 <TextBlock Text="Auto Pan Mode" />
                 <ComboBox x:Name="autoPanModeSelector"
-                          SelectedItem="{Binding ElementName=mapView, Path=LocationDisplay.AutoPanMode, Mode=TwoWay}" />
+                          SelectedItem="{Binding ElementName=MyMapView, Path=LocationDisplay.AutoPanMode, Mode=TwoWay}" />
                 <TextBlock Text="Location Provider" />
                 <ComboBox x:Name="providerSelector" SelectionChanged="LocationProvider_SelectionChanged">
                     <ComboBoxItem IsSelected="True">System Provider</ComboBoxItem>
@@ -41,16 +37,16 @@
                 <StackPanel>
                     <TextBlock>
                         <Run Text="X: " />
-                        <Run Text="{Binding ElementName=mapView, Path=LocationDisplay.CurrentLocation.Location.X }" />
+                        <Run Text="{Binding ElementName=MyMapView, Path=LocationDisplay.CurrentLocation.Location.X }" />
                         <LineBreak />
                         <Run Text="Y: " />
-                        <Run Text="{Binding ElementName=mapView, Path=LocationDisplay.CurrentLocation.Location.Y }" />
+                        <Run Text="{Binding ElementName=MyMapView, Path=LocationDisplay.CurrentLocation.Location.Y }" />
                         <LineBreak />
                         <Run Text="Course: " />
-                        <Run Text="{Binding ElementName=mapView, Path=LocationDisplay.CurrentLocation.Course }" />
+                        <Run Text="{Binding ElementName=MyMapView, Path=LocationDisplay.CurrentLocation.Course }" />
                         <LineBreak />
                         <Run Text="Speed:" />
-                        <Run Text="{Binding ElementName=mapView, Path=LocationDisplay.CurrentLocation.Speed }" />
+                        <Run Text="{Binding ElementName=MyMapView, Path=LocationDisplay.CurrentLocation.Speed }" />
                     </TextBlock>
                 </StackPanel>
             </StackPanel>

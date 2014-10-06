@@ -23,7 +23,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         private Symbol _pointSymbol;
         private Symbol _lineSymbol;
         private Symbol _polygonSymbol;
-
+		private GraphicsOverlay _graphicsOverlay;
         private MensurationTask _mensurationTask;
 
         /// <summary>Construct Mensuration sample control</summary>
@@ -34,6 +34,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             _pointSymbol = layoutGrid.Resources["PointSymbol"] as Symbol;
             _lineSymbol = layoutGrid.Resources["LineSymbol"] as Symbol;
             _polygonSymbol = layoutGrid.Resources["PolygonSymbol"] as Symbol;
+
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
 
             comboLinearUnit.ItemsSource = typeof(LinearUnits).GetProperties().Select(p => p.GetValue(null, null))
                 .Except(new LinearUnit[] { LinearUnits.NauticalMiles } ).ToList();
@@ -50,10 +52,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private async void AreaPerimeterButton_Click(object sender, RoutedEventArgs e)
         {
-            var polygon = await RequestUserShape(DrawShape.Polygon, _polygonSymbol) as Polygon;
-
             try
             {
+				var polygon = await RequestUserShape(DrawShape.Polygon, _polygonSymbol) as Polygon;
+
+				// Requesting shape cancelled
+				if (polygon == null)
+					return;
+
                 var parameters = new MensurationAreaParameters()
                 {
                     LinearUnit = comboLinearUnit.SelectedItem as LinearUnit,
@@ -71,10 +77,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private async void CentroidButton_Click(object sender, RoutedEventArgs e)
         {
-            var polygon = await RequestUserShape(DrawShape.Polygon, _polygonSymbol) as Polygon;
-
             try
             {
+				var polygon = await RequestUserShape(DrawShape.Polygon, _polygonSymbol) as Polygon;
+				
+				// Requesting shape cancelled
+				if (polygon == null)
+					return;
+
                 var result = await _mensurationTask.CentroidAsync(polygon, new MensurationPointParameters());
                 ShowResults(result, ((Button)sender).Tag.ToString());
             }
@@ -86,12 +96,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private async void DistanceAzimuthButton_Click(object sender, RoutedEventArgs e)
         {
-            var line = await RequestUserShape(DrawShape.LineSegment, _lineSymbol) as Polyline;
-
             try
             {
-                MapPoint pointOne = new MapPoint(line.Paths[0][0], mapView.SpatialReference);
-                MapPoint pointTwo = new MapPoint(line.Paths[0][1], mapView.SpatialReference);
+				var line = await RequestUserShape(DrawShape.LineSegment, _lineSymbol) as Polyline;
+
+				// Requesting shape cancelled
+				if (line == null)
+					return;
 
                 var parameters = new MensurationLengthParameters()
                 {
@@ -99,7 +110,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     LinearUnit = comboLinearUnit.SelectedItem as LinearUnit
                 };
 
-                var result = await _mensurationTask.DistanceAndAngleAsync(pointOne, pointTwo, parameters);
+				var result = await _mensurationTask.DistanceAndAngleAsync(
+					line.Parts.First().StartPoint,
+					line.Parts.First().EndPoint, parameters);
                 ShowResults(result, ((Button)sender).Tag.ToString());
             }
             catch (Exception ex)
@@ -110,20 +123,25 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private async void HeightBaseToTopButton_Click(object sender, RoutedEventArgs e)
         {
-            var line = await RequestUserShape(DrawShape.LineSegment, _lineSymbol) as Polyline;
-
             try
             {
-                MapPoint pointOne = new MapPoint(line.Paths[0][0], mapView.SpatialReference);
-                MapPoint pointTwo = new MapPoint(line.Paths[0][1], mapView.SpatialReference);
+				var line = await RequestUserShape(DrawShape.LineSegment, _lineSymbol) as Polyline;
+
+				// Requesting shape cancelled
+				if (line == null)
+					return;
 
                 var parameters = new MensurationHeightParameters()
                 {
                     LinearUnit = comboLinearUnit.SelectedItem as LinearUnit
                 };
 
-                var result = await _mensurationTask.HeightFromBaseAndTopAsync(pointOne, pointTwo, parameters);
-                ShowResults(result, ((Button)sender).Tag.ToString());
+				var result = await _mensurationTask.HeightFromBaseAndTopAsync(
+					line.Parts.First().StartPoint, 
+					line.Parts.First().EndPoint, parameters);
+
+
+				ShowResults(result, ((Button)sender).Tag.ToString());
             }
             catch (Exception ex)
             {
@@ -133,42 +151,50 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private async void HeightBaseToTopShadowButton_Click(object sender, RoutedEventArgs e)
         {
-            var line = await RequestUserShape(DrawShape.LineSegment, _lineSymbol) as Polyline;
+			try
+			{
+				var line = await RequestUserShape(DrawShape.LineSegment, _lineSymbol) as Polyline;
+				
+				// Requesting shape cancelled
+				if (line == null)
+					return;
 
-            try
-            {
-                MapPoint pointOne = new MapPoint(line.Paths[0][0], mapView.SpatialReference);
-                MapPoint pointTwo = new MapPoint(line.Paths[0][1], mapView.SpatialReference);
+				var parameters = new MensurationHeightParameters()
+				{
+					LinearUnit = comboLinearUnit.SelectedItem as LinearUnit
+				};
 
-                var parameters = new MensurationHeightParameters()
-                {
-                    LinearUnit = comboLinearUnit.SelectedItem as LinearUnit
-                };
+				var result = await _mensurationTask.HeightFromBaseAndTopShadowAsync(
+					line.Parts.First().StartPoint,
+					line.Parts.First().EndPoint, parameters);
 
-                var result = await _mensurationTask.HeightFromBaseAndTopShadowAsync(pointOne, pointTwo, parameters);
-                ShowResults(result, ((Button)sender).Tag.ToString());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Mensuration Error");
-            }
+				ShowResults(result, ((Button)sender).Tag.ToString());
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message, "Mensuration Error");
+			}
         }
 
         private async void HeightTopToTopShadowButton_Click(object sender, RoutedEventArgs e)
         {
-            var line = await RequestUserShape(DrawShape.LineSegment, _lineSymbol) as Polyline;
-
             try
             {
-                MapPoint pointOne = new MapPoint(line.Paths[0][0], mapView.SpatialReference);
-                MapPoint pointTwo = new MapPoint(line.Paths[0][1], mapView.SpatialReference);
+				var line = await RequestUserShape(DrawShape.LineSegment, _lineSymbol) as Polyline;
+
+				// Requesting shape cancelled
+				if (line == null)
+					return;
 
                 var parameters = new MensurationHeightParameters()
                 {
                     LinearUnit = comboLinearUnit.SelectedItem as LinearUnit
                 };
 
-                var result = await _mensurationTask.HeightFromTopAndTopShadowAsync(pointOne, pointTwo, parameters);
+				var result = await _mensurationTask.HeightFromTopAndTopShadowAsync(
+					line.Parts.First().StartPoint, 
+					line.Parts.First().EndPoint, parameters);
+
                 ShowResults(result, ((Button)sender).Tag.ToString());
             }
             catch (Exception ex)
@@ -179,10 +205,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private async void PointButton_Click(object sender, RoutedEventArgs e)
         {
-            var point = await RequestUserShape(DrawShape.Point, _pointSymbol) as MapPoint;
-
             try
             {
+				var point = await RequestUserShape(DrawShape.Point, _pointSymbol) as MapPoint;
+
+				// Requesting shape cancelled
+				if (point == null)
+					return;
+
                 var result = await _mensurationTask.PointAsync(point, new MensurationPointParameters());
                 ShowResults(result, ((Button)sender).Tag.ToString());
             }
@@ -194,7 +224,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
-            graphicsLayer.Graphics.Clear();
+			_graphicsOverlay.Graphics.Clear();
         }
 
         // Retrieve the given shape type from the user
@@ -202,13 +232,17 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                graphicsLayer.Graphics.Clear();
+				_graphicsOverlay.Graphics.Clear();
 
-                var shape = await mapView.Editor.RequestShapeAsync(drawShape, symbol);
+                var shape = await MyMapView.Editor.RequestShapeAsync(drawShape, symbol);
 
-                graphicsLayer.Graphics.Add(new Graphic(shape, symbol));
+				_graphicsOverlay.Graphics.Add(new Graphic(shape, symbol));
                 return shape;
             }
+			catch (TaskCanceledException) 
+			{
+				return null;
+			}
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Shape Drawing Error");

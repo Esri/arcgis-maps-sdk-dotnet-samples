@@ -1,42 +1,41 @@
-﻿<Page x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.MovePoints"
+﻿<Page 
+	x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.MovePoints"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:esri="using:Esri.ArcGISRuntime.Controls" 
-	xmlns:lyr="using:Esri.ArcGISRuntime.Layers" 
-	xmlns:sym="using:Esri.ArcGISRuntime.Symbology">
+	xmlns:layers="using:Esri.ArcGISRuntime.Layers" 
+	xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
 
     <Page.Resources>
-		<sym:SimpleMarkerSymbol x:Key="PointMarkerSymbol"
-								Color="CornflowerBlue" Size="15"  Style="Circle" >
-			<sym:SimpleMarkerSymbol.Outline>
-				<sym:SimpleLineSymbol Color="White" Width="2" />
-			</sym:SimpleMarkerSymbol.Outline>
-		</sym:SimpleMarkerSymbol>
+		<symb:SimpleMarkerSymbol x:Key="PointMarkerSymbol" Color="CornflowerBlue" Size="15"  Style="Circle" >
+			<symb:SimpleMarkerSymbol.Outline>
+				<symb:SimpleLineSymbol Color="White" Width="2" />
+			</symb:SimpleMarkerSymbol.Outline>
+		</symb:SimpleMarkerSymbol>
 	</Page.Resources>
 
     <Grid>
-        <esri:MapView x:Name="mapView1" MapViewTapped="mapView1_MapViewTapped" PointerMoved="mapView1_PointerMoved">
-            <esri:Map   >
-                <lyr:ArcGISTiledMapServiceLayer
-				ServiceUri="http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
-                <lyr:GraphicsLayer ID="MyGraphicsLayer">
-                    <lyr:GraphicsLayer.Renderer>
-						<sym:SimpleRenderer Symbol="{StaticResource PointMarkerSymbol}" />
-                    </lyr:GraphicsLayer.Renderer>
-                </lyr:GraphicsLayer>
-				<lyr:GraphicsLayer ID="EditGraphicsLayer" Opacity=".5">
-				</lyr:GraphicsLayer>
+        <esri:MapView x:Name="MyMapView" MapViewTapped="MyMapView_MapViewTapped" PointerMoved="MyMapView_PointerMoved">
+            <esri:Map>
+				<layers:ArcGISTiledMapServiceLayer
+					ServiceUri="http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
 			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="MyGraphicsOverlay">
+					<esri:GraphicsOverlay.Renderer>
+						<symb:SimpleRenderer Symbol="{StaticResource PointMarkerSymbol}" />
+					</esri:GraphicsOverlay.Renderer>
+				</esri:GraphicsOverlay>
+				<esri:GraphicsOverlay ID="EditGraphicsOverlay" Opacity=".5"/>
+			</esri:MapView.GraphicsOverlays>
         </esri:MapView>
 
 		<Border Margin="20" Padding="20"
 				HorizontalAlignment="Left"
 				VerticalAlignment="Top"
 				Background="#99000000"
-				MaxWidth="250"
-				>
+				MaxWidth="250">
 			<TextBlock TextWrapping="Wrap" Text="Click a point to move it. Click again to commit the change." />
 		</Border>
-		
     </Grid>
 </Page>

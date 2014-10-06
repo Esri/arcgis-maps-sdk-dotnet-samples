@@ -1,4 +1,5 @@
 ﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using System;
 using System.Collections.ObjectModel;
@@ -81,7 +82,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 PrintMapView.MaximumExtent = BaseMapView.MaximumExtent;
                 PrintMapView.MaxScale = BaseMapView.MaxScale;
                 PrintMapView.MinScale = BaseMapView.MinScale;
-                PrintMapView.Rotation = BaseMapView.Rotation;
+				PrintMapView.SetRotation(BaseMapView.Rotation);
                 PrintMapView.WrapAround = BaseMapView.WrapAround;
                 PrintMapView.Map = BaseMapView.Map;
 
@@ -91,7 +92,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             if (extent != null)
                 PrintMapView.SetView(extent);
             else if (BaseMapView != null)
-                PrintMapView.SetView(BaseMapView.Extent ?? BaseMapView.Map.InitialExtent);
+				PrintMapView.SetView(BaseMapView.Extent ?? (BaseMapView.Map.InitialViewpoint == null ? null : BaseMapView.Map.InitialViewpoint.TargetGeometry));
 
             AttributionItems = new ObservableCollection<string>(
                 PrintMapView.Map.Layers.Where(layer => layer.IsVisible)
@@ -115,7 +116,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             if (mapPrinter != null)
             {
                 if (newBaseMapView != null && mapPrinter.PrintMapView != null)
-                    mapPrinter.PrintMapView.SetView(newBaseMapView.Extent ?? newBaseMapView.Map.InitialExtent);
+					mapPrinter.PrintMapView.SetView(newBaseMapView.Extent ?? (newBaseMapView.Map.InitialViewpoint == null ? null : newBaseMapView.Map.InitialViewpoint.TargetGeometry));
                 if (newBaseMapView == null && mapPrinter.IsPrinting)
                     mapPrinter.IsCancelingPrint = true;
             }
@@ -144,7 +145,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             var mapPrinter = d as MapPrinter;
             if (mapPrinter != null)
-                mapPrinter.PrintMapView.Rotation = ((bool)e.NewValue ? -90 : 0);
+                mapPrinter.PrintMapView.SetRotation((bool)e.NewValue ? -90 : 0);
         }
 
         private bool _isPrinting;

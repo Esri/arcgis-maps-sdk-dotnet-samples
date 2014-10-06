@@ -1,44 +1,41 @@
-﻿<Page x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DynamicLayerLabeling"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-      xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
-      xmlns:geo="using:Esri.ArcGISRuntime.Geometry"
-      xmlns:sym="using:Esri.ArcGISRuntime.Symbology">
-    <Grid>
-        <esri:MapView x:Name="mapView">
-            <esri:Map>
-                <esri:Map.InitialExtent>
-                    <geo:Envelope XMin="-3548912" YMin="-1847469" XMax="2472012" YMax="1742990">
-                        <geo:Envelope.SpatialReference>
-                            <geo:SpatialReference Wkid="102009"/>
-                        </geo:Envelope.SpatialReference>
-                    </geo:Envelope>
-                </esri:Map.InitialExtent>
+﻿<Page 
+	x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DynamicLayerLabeling"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esri="using:Esri.ArcGISRuntime.Controls"
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+    xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
 
-                <lyr:ArcGISDynamicMapServiceLayer ID="USA"
+    <Grid>
+        <esri:MapView x:Name="MyMapView">
+            <esri:Map>
+                <esri:Map.InitialViewpoint>
+                    <esri:ViewpointExtent XMin="-14675766.357" YMin="2695407.734"
+                                          XMax="-6733121.861" YMax="6583994.101" SpatialReferenceID="102100" />
+                </esri:Map.InitialViewpoint>
+                <layers:ArcGISDynamicMapServiceLayer ID="USA"
 				    ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer">
 
                     <!-- Major City Label Info -->
-                    <lyr:ArcGISDynamicMapServiceLayer.LayerDrawingOptions>
-                        <lyr:LayerDrawingOptionCollection>
-                            <lyr:LayerDrawingOptions LayerID="0" ShowLabels="True">
-                                <lyr:LayerDrawingOptions.LabelingInfos>
-                                    <lyr:DynamicLabelingInfo LabelExpression="[areaname]" LabelPlacement="PointLabelPlacementAboveRight" Where="pop2000 > 500000">
-                                        <lyr:DynamicLabelingInfo.Symbol>
-                                            <sym:TextSymbol Color="Blue">
-                                                <sym:TextSymbol.Font>
-                                                    <sym:SymbolFont FontFamily="Arial" FontSize="12" FontStyle="Italic" FontWeight="Bold" />
-                                                </sym:TextSymbol.Font>
-                                            </sym:TextSymbol>
-                                        </lyr:DynamicLabelingInfo.Symbol>
-                                    </lyr:DynamicLabelingInfo>
-                                </lyr:LayerDrawingOptions.LabelingInfos>
-                            </lyr:LayerDrawingOptions>
-                        </lyr:LayerDrawingOptionCollection>
-                    </lyr:ArcGISDynamicMapServiceLayer.LayerDrawingOptions>
+                    <layers:ArcGISDynamicMapServiceLayer.LayerDrawingOptions>
+                        <layers:LayerDrawingOptionCollection>
+                            <layers:LayerDrawingOptions LayerID="0" ShowLabels="True">
+                                <layers:LayerDrawingOptions.LabelingInfos>
+                                    <layers:DynamicLabelingInfo LabelExpression="[areaname]" LabelPlacement="PointAboveRight" Where="pop2000 > 500000">
+                                        <layers:DynamicLabelingInfo.Symbol>
+                                            <symb:TextSymbol Color="Blue">
+                                                <symb:TextSymbol.Font>
+                                                    <symb:SymbolFont FontFamily="Arial" FontSize="12" FontStyle="Italic" FontWeight="Bold" />
+                                                </symb:TextSymbol.Font>
+                                            </symb:TextSymbol>
+                                        </layers:DynamicLabelingInfo.Symbol>
+                                    </layers:DynamicLabelingInfo>
+                                </layers:LayerDrawingOptions.LabelingInfos>
+                            </layers:LayerDrawingOptions>
+                        </layers:LayerDrawingOptionCollection>
+                    </layers:ArcGISDynamicMapServiceLayer.LayerDrawingOptions>
 
-                </lyr:ArcGISDynamicMapServiceLayer>
+                </layers:ArcGISDynamicMapServiceLayer>
             </esri:Map>
         </esri:MapView>
     </Grid>

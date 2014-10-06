@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
@@ -12,7 +13,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public WmsLayerSimple()
         {
             this.InitializeComponent();
-            mapView1.Map.InitialExtent = new Envelope(-15000000, 2000000, -7000000, 8000000);
+			MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-15000000, 2000000, -7000000, 8000000));
         }
     }
 }

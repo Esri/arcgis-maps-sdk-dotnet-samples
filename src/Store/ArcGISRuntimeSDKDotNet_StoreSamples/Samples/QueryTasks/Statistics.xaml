@@ -1,24 +1,27 @@
 ﻿<Page x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Statistics"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:ArcGISRuntimeSDKDotNet_StoreSamples.Samples"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-      xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
-      mc:Ignorable="d">
+      xmlns:layers="using:Esri.ArcGISRuntime.Layers">
+	
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
             <local:DoubleToStringConverter x:Key="DoubleToStringConverter" />
         </Grid.Resources>
         
-        <esri:MapView x:Name="mapView" WrapAround="True">
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
             <esri:Map>
-                <lyr:ArcGISTiledMapServiceLayer 
+				<esri:Map.InitialViewpoint>
+                    <esri:ViewpointExtent XMin="-14675766.357" YMin="2695407.734" XMax="-6733121.861" YMax="6583994.101" SpatialReferenceID="102100" />
+                </esri:Map.InitialViewpoint>
+				<layers:ArcGISTiledMapServiceLayer 
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-                <lyr:GraphicsLayer ID="GraphicsLayer" />
             </esri:Map>
-        </esri:MapView>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="graphicsOverlay" />
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
 
         <Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
             <Grid>

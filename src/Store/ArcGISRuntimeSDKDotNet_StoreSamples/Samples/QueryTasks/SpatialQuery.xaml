@@ -2,35 +2,41 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
       xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-      xmlns:lyr="using:Esri.ArcGISRuntime.Layers" 
-      xmlns:sym="using:Esri.ArcGISRuntime.Symbology">
+      xmlns:layers="using:Esri.ArcGISRuntime.Layers" 
+      xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
+	
     <Grid x:Name="LayoutRoot" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
-            <sym:PictureMarkerSymbol x:Key="DefaultMarkerSymbol"/>
-            <sym:SimpleRenderer x:Key="DefaultRenderer" Symbol="{StaticResource DefaultMarkerSymbol}" />
-            <sym:SimpleFillSymbol x:Key="BufferSymbol" Color="#66BB0000">
-                <sym:SimpleFillSymbol.Outline>
-                    <sym:SimpleLineSymbol Color="#88CC0000" Width="2" />
-                </sym:SimpleFillSymbol.Outline>
-            </sym:SimpleFillSymbol>
-            <sym:SimpleRenderer x:Key="BufferRenderer" Symbol="{StaticResource BufferSymbol}" />
-            <sym:SimpleFillSymbol x:Key="ParcelSymbol" Color="#440000FF">
-                <sym:SimpleFillSymbol.Outline>
-                    <sym:SimpleLineSymbol Color="Blue" Width="2" />
-                </sym:SimpleFillSymbol.Outline>
-            </sym:SimpleFillSymbol>
-            <sym:SimpleRenderer x:Key="ParcelRenderer" Symbol="{StaticResource ParcelSymbol}" />
+			<symb:PictureMarkerSymbol x:Key="DefaultMarkerSymbol"/>
+			<symb:SimpleRenderer x:Key="DefaultRenderer" Symbol="{StaticResource DefaultMarkerSymbol}" />
+			<symb:SimpleFillSymbol x:Key="BufferSymbol" Color="#66BB0000">
+				<symb:SimpleFillSymbol.Outline>
+					<symb:SimpleLineSymbol Color="#88CC0000" Width="2" />
+                </symb:SimpleFillSymbol.Outline>
+            </symb:SimpleFillSymbol>
+			<symb:SimpleRenderer x:Key="BufferRenderer" Symbol="{StaticResource BufferSymbol}" />
+			<symb:SimpleFillSymbol x:Key="ParcelSymbol" Color="#440000FF">
+				<symb:SimpleFillSymbol.Outline>
+					<symb:SimpleLineSymbol Color="Blue" Width="2" />
+                </symb:SimpleFillSymbol.Outline>
+            </symb:SimpleFillSymbol>
+			<symb:SimpleRenderer x:Key="ParcelRenderer" Symbol="{StaticResource ParcelSymbol}" />
         </Grid.Resources>
         
-        <esri:MapView x:Name="mapView" MapViewTapped="mapView_Tapped">
+        <esri:MapView x:Name="MyMapView" MapViewTapped="MyMapView_Tapped">
             <esri:Map>
-                <lyr:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-9270434" YMin="5246977" XMax="-9269261" YMax="5247570" SpatialReferenceID="102100" />
+				</esri:Map.InitialViewpoint>
+				<layers:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-                <lyr:GraphicsLayer ID="ResultsGraphicsLayer" Renderer="{StaticResource ParcelRenderer}"/>
-                <lyr:GraphicsLayer ID="BufferLayer" Renderer="{StaticResource BufferRenderer}"/>
-                <lyr:GraphicsLayer ID="GraphicsLayer" Renderer="{StaticResource DefaultRenderer}"/>
             </esri:Map>
-        </esri:MapView>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="parcelOverlay" Renderer="{StaticResource ParcelRenderer}"/>
+				<esri:GraphicsOverlay ID="bufferOverlay" Renderer="{StaticResource BufferRenderer}"/>
+				<esri:GraphicsOverlay ID="graphicsOverlay" Renderer="{StaticResource DefaultRenderer}"/>
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
 
         <Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
             <TextBlock x:Name="InformationTextBlock" 

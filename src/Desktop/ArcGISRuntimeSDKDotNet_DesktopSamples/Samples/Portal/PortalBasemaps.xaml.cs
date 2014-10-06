@@ -20,11 +20,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            mapView.Loaded += mapView_Loaded;
+            MyMapView.Loaded += MyMapView_Loaded;
         }
 
         // Initialize the display with a web map and search portal for basemaps
-        private async void mapView_Loaded(object sender, RoutedEventArgs e)
+        private async void MyMapView_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var item = await ArcGISPortalItem.CreateAsync(portal, "3679c136c2694d0b95bb5e6c3f2b480e");
                 var webmap = await WebMap.FromPortalItemAsync(item);
                 _currentVM = await WebMapViewModel.LoadAsync(webmap, portal);
-                mapView.Map = _currentVM.Map;
+                MyMapView.Map = _currentVM.Map;
 
                 // Load portal basemaps
                 var result = await portal.ArcGISPortalInfo.SearchBasemapGalleryAsync();
@@ -61,7 +61,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var item = ((Button)sender).DataContext as ArcGISPortalItem;
                 var webmap = await WebMap.FromPortalItemAsync(item);
                 var basemapVM = await WebMapViewModel.LoadAsync(webmap, _currentVM.ArcGISPortal);
-                _currentVM.BaseMap = basemapVM.BaseMap;
+				_currentVM.Basemap = basemapVM.Basemap;
             }
             catch (Exception ex)
             {

@@ -2,33 +2,30 @@
     x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.GenerateRenderer"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:common="using:ArcGISRuntimeSDKDotNet_StoreSamples.Common"
     xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
-    xmlns:geo="using:Esri.ArcGISRuntime.Geometry"
-    xmlns:sym="using:Esri.ArcGISRuntime.Symbology"
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
     xmlns:data="using:Esri.ArcGISRuntime.Data">
 
     <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <esri:MapView x:Name="mapView" WrapAround="True">
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
             <esri:Map>
-                <esri:Map.InitialExtent>
-                    <geo:Envelope XMin="-14131917.758914" YMin="5680423.82721854" XMax="-12669734.6418583" YMax="6341452.4447208" />
-                </esri:Map.InitialExtent>
+				<esri:Map.InitialViewpoint>
+                    <esri:ViewpointExtent XMin="-14131917.758914" YMin="5680423.82721854" XMax="-12669734.6418583" YMax="6341452.4447208" />
+                </esri:Map.InitialViewpoint>
 
-                <lyr:ArcGISTiledMapServiceLayer
+				<layers:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer" />
-                <lyr:ArcGISTiledMapServiceLayer
+				<layers:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Reference_Overlay/MapServer" />
 
-                <lyr:FeatureLayer ID="FeatureLayer" Opacity="0.8">
-                    <lyr:FeatureLayer.FeatureTable>
-                        <data:GeodatabaseFeatureServiceTable 
+				<layers:FeatureLayer ID="FeatureLayer" Opacity="0.8">
+					<layers:FeatureLayer.FeatureTable>
+                        <data:ServiceFeatureTable 
                             Mode="OnDemand"
                             ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/2"
                             Where="STATE_NAME = 'Washington'" />
-                    </lyr:FeatureLayer.FeatureTable>
-                </lyr:FeatureLayer>
+                    </layers:FeatureLayer.FeatureTable>
+                </layers:FeatureLayer>
             </esri:Map>
         </esri:MapView>
 

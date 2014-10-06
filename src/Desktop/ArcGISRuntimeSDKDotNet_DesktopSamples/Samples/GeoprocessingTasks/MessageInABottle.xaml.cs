@@ -1,7 +1,9 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -15,27 +17,36 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	/// <subcategory>Geoprocessing</subcategory>
 	public partial class MessageInABottle : UserControl
     {
+        private const string MessageInABottleServiceUrl =
+            "http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_Currents_World/GPServer/MessageInABottle";
+
+		private GraphicsOverlay _inputOverlay;
+		private GraphicsOverlay _resultsOverlay;
+
         /// <summary>Construct Message In A Bottle sample control</summary>
         public MessageInABottle()
         {
             InitializeComponent();
+
+			_inputOverlay = MyMapView.GraphicsOverlays["inputOverlay"];
+			_resultsOverlay = MyMapView.GraphicsOverlays["resultsOverlay"];
         }
 
         // Begin geoprocessing with a user tap on the map
-        private async void mapView_MapViewTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
+        private async void MyMapView_MapViewTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
         {
             try
             {
                 Progress.Visibility = Visibility.Visible;
 
-                InputLayer.Graphics.Clear();
-                InputLayer.Graphics.Add(new Graphic() { Geometry = e.Location });
+				_resultsOverlay.Graphics.Clear();
+                _inputOverlay.Graphics.Clear();
+				_inputOverlay.Graphics.Add(new Graphic() { Geometry = e.Location });
 
-                Geoprocessor geoprocessorTask = new Geoprocessor(
-                    new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_Currents_World/GPServer/MessageInABottle"));
+                Geoprocessor geoprocessorTask = new Geoprocessor(new Uri(MessageInABottleServiceUrl));
 
-                var parameter = new GPInputParameter() { OutSpatialReference = mapView.SpatialReference };
-                var ptNorm = GeometryEngine.NormalizeCentralMeridianOfGeometry(e.Location);
+                var parameter = new GPInputParameter() { OutSpatialReference = MyMapView.SpatialReference };
+				var ptNorm = GeometryEngine.NormalizeCentralMeridian(e.Location);
                 var ptGeographic = GeometryEngine.Project(ptNorm, SpatialReferences.Wgs84) as MapPoint;
 
                 parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Input_Point", ptGeographic));
@@ -43,13 +54,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
                 var result = await geoprocessorTask.ExecuteAsync(parameter);
 
-                ResultLayer.Graphics.Clear();
                 foreach (GPParameter gpParameter in result.OutParameters)
                 {
                     if (gpParameter is GPFeatureRecordSetLayer)
                     {
                         GPFeatureRecordSetLayer gpLayer = gpParameter as GPFeatureRecordSetLayer;
-                        ResultLayer.Graphics.AddRange(gpLayer.FeatureSet.Features);
+						_resultsOverlay.Graphics.AddRange(gpLayer.FeatureSet.Features.OfType<Graphic>());
                     }
                 }
             }

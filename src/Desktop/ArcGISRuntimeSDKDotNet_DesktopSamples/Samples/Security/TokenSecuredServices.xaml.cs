@@ -11,26 +11,24 @@ using System.Windows.Threading;
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
-    /// This sample demonstrates how to use the IdentityManager to gain access to a secured service. Here, the map contains a public basemap and two secure dynamic layers. The IdentityManager will challenge for credentials when the Map tries to access a secure service.
+    /// This sample demonstrates how to use the IdentityManager to gain access to a secured service. Here, the map contains a public basemap and a secure dynamic layer. The IdentityManager will challenge for credentials when the Map tries to access a secure service.
     /// </summary>
     /// <title>ArcGIS Token Secured Services</title>
     /// <category>Security</category>
     public partial class TokenSecuredServices : UserControl
     {
-        private TaskCompletionSource<IdentityManager.Credential> _loginTCS;
+        private TaskCompletionSource<Credential> _loginTCS;
 
         /// <summary>Construct Token Secured Services sample control</summary>
         public TokenSecuredServices()
         {
             InitializeComponent();
 
-            mapView.Map.InitialExtent = new Envelope(-17611013.373, 2601908.195, -2823070.655, 9287290.632);
-
-            IdentityManager.Current.ChallengeMethod = Challenge;
+			IdentityManager.Current.ChallengeHandler = new ChallengeHandler(Challenge);
         }
 
         // Base Challenge method that dispatches to the UI thread if necessary
-        private async Task<IdentityManager.Credential> Challenge(IdentityManager.CredentialRequestInfo cri)
+        private async Task<Credential> Challenge(CredentialRequestInfo cri)
         {
             if (Dispatcher == null)
             {
@@ -62,7 +60,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         //}
 
         // Challenge method that prompts for username / password
-        private async Task<IdentityManager.Credential> ChallengeUI(IdentityManager.CredentialRequestInfo cri)
+        private async Task<Credential> ChallengeUI(CredentialRequestInfo cri)
         {
             try
             {
@@ -70,7 +68,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 string password = (cri.ServiceUri.Contains("USA_secure_user1")) ? "user1" : "pass.word1";
 
                 loginPanel.DataContext = new LoginInfo(cri, username, password);
-                _loginTCS = new TaskCompletionSource<IdentityManager.Credential>(loginPanel.DataContext);
+                _loginTCS = new TaskCompletionSource<Credential>(loginPanel.DataContext);
 
                 loginPanel.Visibility = Visibility.Visible;
 
@@ -113,8 +111,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     // Helper class to contain login information
     internal class LoginInfo : INotifyPropertyChanged
     {
-        private IdentityManager.CredentialRequestInfo _requestInfo;
-        public IdentityManager.CredentialRequestInfo RequestInfo
+        private CredentialRequestInfo _requestInfo;
+        public CredentialRequestInfo RequestInfo
         {
             get { return _requestInfo; }
             set { _requestInfo = value; OnPropertyChanged(); }
@@ -155,7 +153,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             set { _attemptCount = value; OnPropertyChanged(); }
         }
 
-        public LoginInfo(IdentityManager.CredentialRequestInfo cri, string user, string pwd)
+        public LoginInfo(CredentialRequestInfo cri, string user, string pwd)
         {
             RequestInfo = cri;
             ServiceUrl = new Uri(cri.ServiceUri).GetLeftPart(UriPartial.Path);

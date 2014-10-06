@@ -26,21 +26,21 @@
             <!--<lyr:GroupLayer DisplayName="Fire GroupLayer">-->
             <esriLayers:FeatureLayer>
                 <esriLayers:FeatureLayer.FeatureTable>
-                    <esriData:GeodatabaseFeatureServiceTable
+                    <esriData:ServiceFeatureTable
                         ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Fire/Sheep/FeatureServer/2" 
                         />
                 </esriLayers:FeatureLayer.FeatureTable>
             </esriLayers:FeatureLayer>
             <esriLayers:FeatureLayer>
                 <esriLayers:FeatureLayer.FeatureTable>
-                    <esriData:GeodatabaseFeatureServiceTable
+                    <esriData:ServiceFeatureTable
                         ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Fire/Sheep/FeatureServer/1" 
                         />
                 </esriLayers:FeatureLayer.FeatureTable>
             </esriLayers:FeatureLayer>
             <esriLayers:FeatureLayer>
                 <esriLayers:FeatureLayer.FeatureTable>
-                    <esriData:GeodatabaseFeatureServiceTable
+                    <esriData:ServiceFeatureTable
                         ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Fire/Sheep/FeatureServer/0" 
                         />
                 </esriLayers:FeatureLayer.FeatureTable>
@@ -59,7 +59,7 @@
             <ListView ItemsSource="{Binding ElementName=mapView1, Path=Map.Layers}" 
 				Margin="20,0,0,20"
 				Grid.Row="1"
-				CanReorderItems="True"
+				ReorderMode="Enabled"
 				CanDragItems="True"
 				AllowDrop="True">
                 <ListView.ItemTemplate>

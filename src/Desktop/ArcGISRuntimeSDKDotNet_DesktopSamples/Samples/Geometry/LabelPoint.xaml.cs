@@ -19,18 +19,21 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	public partial class LabelPoint : UserControl
     {
         private PictureMarkerSymbol _pictureMarkerSymbol;
+		private GraphicsOverlay _labelOverlay;
 
         /// <summary>Construct Label Point sample control</summary>
         public LabelPoint()
         {
             InitializeComponent();
 
-            mapView.ExtentChanged += mapView_ExtentChanged;
-            var task = SetupSymbolsAsync();
+			_labelOverlay = MyMapView.GraphicsOverlays["labelGraphicOverlay"];
+
+            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
+            SetupSymbols();
         }
 
         // Load the picture symbol image
-        private async Task SetupSymbolsAsync()
+		private async void SetupSymbols()
         {
             try
             {
@@ -39,14 +42,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
+				MessageBox.Show("Error occured : " + ex.Message, "Label Point Sample");
             }
         }
 
         // Start accepting user polygons and calculating label points
-        private async void mapView_ExtentChanged(object sender, EventArgs e)
+        private async void MyMapView_ExtentChanged(object sender, EventArgs e)
         {
-            mapView.ExtentChanged -= mapView_ExtentChanged;
+            MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
             await CalculateLabelPointsAsync();
         }
 
@@ -55,32 +58,30 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                await mapView.LayersLoadedAsync();
+                await MyMapView.LayersLoadedAsync();
 
-                while (mapView.Extent != null)
+                while (MyMapView.Extent != null)
                 {
-                    if (mapView.Editor.IsActive)
-                        mapView.Editor.Cancel.Execute(null);
+                    if (MyMapView.Editor.IsActive)
+                        MyMapView.Editor.Cancel.Execute(null);
 
                     //Get the input polygon geometry from the user
-                    var poly = await mapView.Editor.RequestShapeAsync(DrawShape.Polygon, ((SimpleRenderer)labelGraphics.Renderer).Symbol);
+					var poly = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon, ((SimpleRenderer)_labelOverlay.Renderer).Symbol);
                     if (poly != null)
                     {
                         //Add the polygon drawn by the user
-                        labelGraphics.Graphics.Add(new Graphic(poly));
+						_labelOverlay.Graphics.Add(new Graphic(poly));
 
                         //Get the label point for the input geometry
                         var labelPoint = GeometryEngine.LabelPoint(poly);
                         if (labelPoint != null)
                         {
-                            labelGraphics.Graphics.Add(new Graphic(labelPoint, _pictureMarkerSymbol));
+							_labelOverlay.Graphics.Add(new Graphic(labelPoint, _pictureMarkerSymbol));
                         }
                     }
                 }
             }
-            catch (TaskCanceledException)
-            {
-            }
+            catch (TaskCanceledException) { }
             catch (Exception ex)
             {
                 MessageBox.Show("Label Point Error: " + ex.Message, "Label Point Sample");
@@ -90,7 +91,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         // Clear label graphics and restart calculating label points
         private async void ResetButton_Click(object sender, RoutedEventArgs e)
         {
-            labelGraphics.Graphics.Clear();
+			_labelOverlay.Graphics.Clear();
             await CalculateLabelPointsAsync();
         }
     }

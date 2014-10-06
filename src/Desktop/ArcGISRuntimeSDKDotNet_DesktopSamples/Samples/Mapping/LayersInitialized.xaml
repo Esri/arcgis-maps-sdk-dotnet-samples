@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView x:Name="mapView1">
+        <esri:MapView x:Name="MyMapView">
             <esri:Map>
                 <esri:ArcGISTiledMapServiceLayer ID="DynamicLayer1"
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer"/>
@@ -13,22 +13,21 @@
                     ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/ServiceRequest1/MapServer"/>
                 <esri:FeatureLayer>
                     <esri:FeatureLayer.FeatureTable>
-                        <esri:GeodatabaseFeatureServiceTable
-                        ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Fire/Sheep/FeatureServer/0" />
+                        <esri:ServiceFeatureTable
+                            ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Fire/Sheep/FeatureServer/0" />
                     </esri:FeatureLayer.FeatureTable>
                 </esri:FeatureLayer>
                 <esri:GraphicsLayer />
             </esri:Map>
         </esri:MapView>
-        
-        <Border HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Padding="5" Background="White" 
-                BorderBrush="Black" BorderThickness="1">
-            <Border.Effect>
-                <DropShadowEffect />
-            </Border.Effect>
-            <StackPanel Orientation="Vertical">
-                <TextBlock Width="150" Margin="5" Text="{Binding LayersInitializedProperty}" Background="Black" Foreground="White"/>
-            </StackPanel>
+
+		<Border Background="White" BorderBrush="Black" BorderThickness="1"
+				HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20" Width="350">
+			<Border.Effect>
+				<DropShadowEffect/>
+			</Border.Effect>
+			<TextBlock Text="{Binding LayersInitializedProperty}" FontSize="14" FontWeight="Bold"
+                       HorizontalAlignment="Center" />
         </Border>
     </Grid>
 </UserControl>

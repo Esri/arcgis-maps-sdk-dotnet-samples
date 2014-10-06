@@ -1,12 +1,10 @@
 ﻿using Esri.ArcGISRuntime.ArcGISServices;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks.Query;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -27,20 +25,21 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             this.InitializeComponent();
 
-            mapView.Loaded += mapView_Loaded;
+			MyMapView.Map.SpatialReference = SpatialReferences.WebMercator;
+			MyMapView.Loaded += MyMapView_Loaded;
 
-            _usaLayer = mapView.Map.Layers["USA"] as ArcGISDynamicMapServiceLayer;
+            _usaLayer = MyMapView.Map.Layers["USA"] as ArcGISDynamicMapServiceLayer;
             _usaLayer.VisibleLayers = new ObservableCollection<int>() { 0, 1, 2 };
         }
 
-        private void mapView_Loaded(object sender, RoutedEventArgs e)
+        private void MyMapView_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
                 // Minor city label info
                 DynamicLabelingInfo minorCityLabelInfo = new DynamicLabelingInfo();
                 minorCityLabelInfo.LabelExpression = "[areaname]";
-                minorCityLabelInfo.LabelPlacement = LabelPlacement.PointLabelPlacementAboveRight;
+                minorCityLabelInfo.LabelPlacement = Esri.ArcGISRuntime.Layers.LabelPlacement.PointAboveRight;
                 minorCityLabelInfo.Symbol = new TextSymbol()
                 {
                     Color = Colors.Black,
@@ -56,7 +55,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Sample Error: " + ex.Message).ShowAsync();
+                var _x = new MessageDialog("Sample Error: " + ex.Message).ShowAsync();
             }
         }
     }

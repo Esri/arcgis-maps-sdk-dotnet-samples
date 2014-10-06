@@ -3,31 +3,42 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView x:Name="mapView" WrapAround="True" MouseMove="mapView_MouseMove">
+        <esri:MapView x:Name="MyMapView" WrapAround="True" 
+					  MouseMove="MyMapView_MouseMove">
             <esri:Map>
                 <esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 
                 <esri:FeatureLayer x:Name="earthquakes" ID="featureLayer">
+                    <esri:FeatureLayer.Renderer>
+                        <esri:SimpleRenderer>
+                            <esri:SimpleMarkerSymbol Color="LightBlue" Style="Circle" Size="12">
+                                <esri:SimpleMarkerSymbol.Outline>
+                                    <esri:SimpleLineSymbol Color="Blue" Width="2" Style="Solid" />
+                                </esri:SimpleMarkerSymbol.Outline>
+                            </esri:SimpleMarkerSymbol>
+                        </esri:SimpleRenderer>
+                    </esri:FeatureLayer.Renderer>
                     <esri:FeatureLayer.FeatureTable>
-                        <esri:GeodatabaseFeatureServiceTable
+                        <esri:ServiceFeatureTable
                             ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Earthquakes/EarthquakesFromLastSevenDays/FeatureServer/0"
                             Where="magnitude >= 3.0" OutFields="*" />
                     </esri:FeatureLayer.FeatureTable>
                 </esri:FeatureLayer>
             </esri:Map>
-        </esri:MapView>
 
-        <Border x:Name="mapTip" Background="White" BorderBrush="Black" BorderThickness="2" Padding="4"
-                HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Hidden">
-            <Border.RenderTransform>
-                <TranslateTransform x:Name="maptipTransform" />
-            </Border.RenderTransform>
-            
-            <StackPanel>
-                <TextBlock Text="{Binding Attributes[datetime]}" FontWeight="Bold" />
-                <TextBlock Text="{Binding Attributes[magnitude], StringFormat='Magnitude: {0}'}" />
-            </StackPanel>
-        </Border>
+            <esri:MapView.Overlays>
+                <esri:OverlayItemsControl>
+                    <Border x:Name="mapTip" Background="White" BorderBrush="Black" BorderThickness="2" 
+                            Padding="4" Margin="4" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                            Visibility="Collapsed" esri:ViewBase.ViewOverlayAnchor="{Binding Geometry}">
+                        <StackPanel>
+                            <TextBlock Text="{Binding Attributes[datetime]}" FontWeight="Bold" />
+                            <TextBlock Text="{Binding Attributes[magnitude], StringFormat='Magnitude: {0}'}" />
+                        </StackPanel>
+                    </Border>
+                </esri:OverlayItemsControl>
+            </esri:MapView.Overlays>
+        </esri:MapView>
     </Grid>
 </UserControl>

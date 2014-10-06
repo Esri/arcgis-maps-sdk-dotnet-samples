@@ -19,6 +19,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 	public partial class Relate : UserControl
     {
         private List<Symbol> _symbols;
+		private GraphicsOverlay _graphicsOverlay;
 
         /// <summary>Construct Relationship sample control</summary>
         public Relate()
@@ -30,15 +31,17 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             _symbols.Add(layoutGrid.Resources["LineSymbol"] as Symbol);
             _symbols.Add(layoutGrid.Resources["FillSymbol"] as Symbol);
 
-            mapView.ExtentChanged += mapView_ExtentChanged;
+			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
+
+            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 
         // Start map interaction
-        private void mapView_ExtentChanged(object sender, EventArgs e)
+        private void MyMapView_ExtentChanged(object sender, EventArgs e)
         {
             try
             {
-                mapView.ExtentChanged -= mapView_ExtentChanged;
+                MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
                 btnDraw.IsEnabled = true;
             }
             catch (Exception ex)
@@ -56,27 +59,25 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 btnTest.IsEnabled = false;
                 resultPanel.Visibility = Visibility.Collapsed;
 
-                graphicsLayer.Graphics.Clear();
+				_graphicsOverlay.Graphics.Clear();
 
                 // Shape One
                 DrawShape drawShape1 = (DrawShape)comboShapeOne.SelectedItem;
                 Esri.ArcGISRuntime.Geometry.Geometry shapeOne = null;
                 if (drawShape1 == DrawShape.Point)
-                    shapeOne = await mapView.Editor.RequestPointAsync();
+                    shapeOne = await MyMapView.Editor.RequestPointAsync();
                 else
-                    shapeOne = await mapView.Editor.RequestShapeAsync(drawShape1, _symbols[comboShapeOne.SelectedIndex]);
+                    shapeOne = await MyMapView.Editor.RequestShapeAsync(drawShape1, _symbols[comboShapeOne.SelectedIndex]);
 
-                graphicsLayer.Graphics.Add(new Graphic(shapeOne, _symbols[comboShapeOne.SelectedIndex]));
+				_graphicsOverlay.Graphics.Add(new Graphic(shapeOne, _symbols[comboShapeOne.SelectedIndex]));
 
                 // Shape Two
-                Esri.ArcGISRuntime.Geometry.Geometry shapeTwo = await mapView.Editor.RequestShapeAsync(
+                Esri.ArcGISRuntime.Geometry.Geometry shapeTwo = await MyMapView.Editor.RequestShapeAsync(
                     (DrawShape)comboShapeTwo.SelectedItem, _symbols[comboShapeTwo.SelectedIndex]);
 
-                graphicsLayer.Graphics.Add(new Graphic(shapeTwo, _symbols[comboShapeTwo.SelectedIndex]));
+				_graphicsOverlay.Graphics.Add(new Graphic(shapeTwo, _symbols[comboShapeTwo.SelectedIndex]));
             }
-            catch (TaskCanceledException)
-            {
-            }
+            catch (TaskCanceledException) { }
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message, "Relationship Sample");
@@ -84,7 +85,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             finally
             {
                 btnDraw.IsEnabled = true;
-                btnTest.IsEnabled = (graphicsLayer.Graphics.Count >= 2);
+				btnTest.IsEnabled = (_graphicsOverlay.Graphics.Count >= 2);
             }
         }
 
@@ -93,11 +94,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                if (graphicsLayer.Graphics.Count < 2)
+				if (_graphicsOverlay.Graphics.Count < 2)
                     throw new ApplicationException("No shapes abailable for relationship test");
 
-                var shape1 = graphicsLayer.Graphics[0].Geometry;
-                var shape2 = graphicsLayer.Graphics[1].Geometry;
+				var shape1 = _graphicsOverlay.Graphics[0].Geometry;
+				var shape2 = _graphicsOverlay.Graphics[1].Geometry;
 
                 string relate = comboRelate.Text;
                 if (relate.Length < 9)

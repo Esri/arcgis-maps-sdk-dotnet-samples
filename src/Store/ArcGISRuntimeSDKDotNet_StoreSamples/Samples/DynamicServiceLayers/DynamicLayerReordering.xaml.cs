@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Layers;
+﻿using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Layers;
 using System;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -16,13 +17,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public DynamicLayerReordering()
         {
             this.InitializeComponent();
+			MyMapView.Map.SpatialReference = SpatialReferences.WebMercator;
         }
 
         private void ChangeLayerOrderClick(object sender, RoutedEventArgs e)
         {
             try
             {
-                var dynamicLayer = mapView.Map.Layers["USA"] as ArcGISDynamicMapServiceLayer;
+                var dynamicLayer = MyMapView.Map.Layers["USA"] as ArcGISDynamicMapServiceLayer;
 
                 if (dynamicLayer.DynamicLayerInfos == null)
                     dynamicLayer.DynamicLayerInfos = dynamicLayer.CreateDynamicLayerInfosFromLayerInfos();
@@ -34,7 +36,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                var _ = new MessageDialog("Sample Error: " + ex.Message).ShowAsync();
+                var _x =  new MessageDialog("Sample Error: " + ex.Message).ShowAsync();
             }
         }
     }

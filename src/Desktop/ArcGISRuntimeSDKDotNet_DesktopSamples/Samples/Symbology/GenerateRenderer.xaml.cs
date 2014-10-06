@@ -28,19 +28,22 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             var lineSymbol = new SimpleLineSymbol() { Color = Colors.Black, Width = 0.5 };
             _baseSymbol = new SimpleFillSymbol() { Color = Colors.Transparent, Outline = lineSymbol, Style = SimpleFillStyle.Solid };
 
-            mapView.ExtentChanged += mapView_ExtentChanged;
+            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
         }
 
         // Load data - set initial renderer after the map has an extent and feature layer loaded
-        private async void mapView_ExtentChanged(object sender, EventArgs e)
+        private async void MyMapView_ExtentChanged(object sender, EventArgs e)
         {
             try
             {
-                mapView.ExtentChanged -= mapView_ExtentChanged;
+				MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
 
-                await mapView.LayersLoadedAsync();
+				var table = featureLayer.FeatureTable as ServiceFeatureTable;
+				table.MaxAllowableOffset = MyMapView.UnitsPerPixel;
 
-                comboField.SelectedIndex = 0;
+				await MyMapView.LayersLoadedAsync();
+
+				comboField.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
@@ -73,10 +76,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     ColorRamps = new ObservableCollection<ColorRamp>() { colorRamp }
                 };
 
-                var param = new GenerateRendererParameter()
+                var param = new GenerateRendererParameters()
                 {
                     ClassificationDefinition = classBreaksDef,
-                    Where = ((GeodatabaseFeatureServiceTable)featureLayer.FeatureTable).Where
+                    Where = ((ServiceFeatureTable)featureLayer.FeatureTable).Where
                 };
 
                 var result = await generateRenderer.GenerateRendererAsync(param);

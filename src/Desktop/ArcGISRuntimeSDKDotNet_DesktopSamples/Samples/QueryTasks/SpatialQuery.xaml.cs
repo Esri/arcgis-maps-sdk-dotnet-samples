@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Linq;
 
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
@@ -23,12 +24,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             InitializeComponent();
 
-            mapView.Map.InitialExtent = new Envelope(-9270434.248, 5246977.326, -9269261.417, 5247569.712);
-            InitializePMS().ContinueWith((_) => { }, TaskScheduler.FromCurrentSynchronizationContext());
+			InitializePictureMarkerSymbol();
         }
 
         // Initialize PushPin symbol
-        private async Task InitializePMS()
+		private async void InitializePictureMarkerSymbol()
         {
             try
             {
@@ -42,21 +42,23 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         }
 
         // buffer the click point, query the map service with the buffer geometry as the filter and add graphics to the map
-        private async void mapView_MapViewTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
+        private async void MyMapView_MapViewTapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
         {
             try
             {
-                graphicsLayer.Graphics.Add(new Graphic(e.Location));
+				var graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
+				graphicsOverlay.Graphics.Add(new Graphic() { Geometry = e.Location });
 
-                var bufferResult = GeometryEngine.Buffer(e.Location, 100);
-                bufferLayer.Graphics.Add(new Graphic(bufferResult));
+				var bufferOverlay = MyMapView.GraphicsOverlays["bufferOverlay"];
+				var bufferResult = GeometryEngine.Buffer(e.Location, 100);
+				bufferOverlay.Graphics.Add(new Graphic() { Geometry = bufferResult });
 
                 var queryTask = new QueryTask(
                     new Uri("http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/BloomfieldHillsMichigan/Parcels/MapServer/2"));
                 var query = new Query("1=1")
                 {
                     ReturnGeometry = true,
-                    OutSpatialReference = mapView.SpatialReference,
+                    OutSpatialReference = MyMapView.SpatialReference,
                     Geometry = bufferResult
                 };
                 query.OutFields.Add("OWNERNME1");
@@ -64,7 +66,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var queryResult = await queryTask.ExecuteAsync(query);
                 if (queryResult != null && queryResult.FeatureSet != null)
                 {
-                    parcelLayer.Graphics.AddRange(queryResult.FeatureSet.Features);
+					var resultOverlay = MyMapView.GraphicsOverlays["parcelOverlay"];
+					resultOverlay.Graphics.AddRange(queryResult.FeatureSet.Features.OfType<Graphic>());
                 }
             }
             catch (Exception ex)

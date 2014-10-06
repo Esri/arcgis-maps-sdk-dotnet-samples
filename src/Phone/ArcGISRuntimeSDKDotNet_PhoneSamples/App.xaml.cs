@@ -26,6 +26,28 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples
         }
 
         /// <summary>
+        /// For handling FileOpenPicker.PickSingleFileAndContinue
+        /// Reference: http://msdn.microsoft.com/en-us/library/windows/apps/xaml/dn614994.aspx
+        /// </summary>
+        private static ContinuationManager _continuationManager;
+        internal static ContinuationManager ContinuationManager
+        {
+            get
+            {
+                if (_continuationManager == null)
+                    _continuationManager = new ContinuationManager();
+                return _continuationManager;
+            }
+        }
+
+        protected override void OnActivated(IActivatedEventArgs e)
+        {
+            if (e is IContinuationActivatedEventArgs)
+                ContinuationManager.OnContinue((IContinuationActivatedEventArgs)e);
+            base.OnActivated(e);
+        }
+
+        /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
         /// will be used when the application is launched to open a specific file, to display
         /// search results, and so forth.

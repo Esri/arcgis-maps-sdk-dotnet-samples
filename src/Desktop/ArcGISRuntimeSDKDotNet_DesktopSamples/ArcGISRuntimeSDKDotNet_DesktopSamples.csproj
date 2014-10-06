@@ -93,6 +93,21 @@
     <Compile Include="Samples\DynamicServiceLayers\WMSLayer.xaml.cs">
       <DependentUpon>WMSLayer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Editing\EditAttachment.xaml.cs">
+      <DependentUpon>EditAttachment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Editing\FeatureLayerEditGeometry.xaml.cs">
+      <DependentUpon>FeatureLayerEditGeometry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Editing\FeatureLayerEditAttribute.xaml.cs">
+      <DependentUpon>FeatureLayerEditAttribute.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Editing\DynamicLayerEditGeometry.xaml.cs">
+      <DependentUpon>DynamicLayerEditGeometry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Editing\DynamicLayerEditAttribute.xaml.cs">
+      <DependentUpon>DynamicLayerEditAttribute.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Editing\Extras\SOEElevationData.xaml.cs">
       <DependentUpon>SOEElevationData.xaml</DependentUpon>
     </Compile>
@@ -496,6 +511,26 @@
     <Page Include="Samples\DynamicServiceLayers\WMSLayer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\EditAttachment.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\FeatureLayerEditGeometry.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\FeatureLayerEditAttribute.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\DynamicLayerEditGeometry.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\DynamicLayerEditAttribute.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\Editing\Extras\SOEElevationData.xaml">
       <Generator>MSBuild:Compile</Generator>

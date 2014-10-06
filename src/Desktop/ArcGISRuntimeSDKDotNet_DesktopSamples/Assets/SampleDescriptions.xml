@@ -164,6 +164,196 @@
             InitializeComponent
             </summary>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditAttachment">
+            <summary>
+            Demonstrates how to update feature attachments in feature layer.
+            </summary>
+            <title>Edit Attachment</title>
+            <category>Editing</category>
+            <summary>
+            EditAttachment
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditAttachment.MyMapView_MapViewTapped(System.Object,Esri.ArcGISRuntime.Controls.MapViewInputEventArgs)">
+            <summary>
+            Selects feature for editing and query its attachments.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditAttachment.SetAttachmentEditor(System.Int64,System.Collections.Generic.IReadOnlyList{Esri.ArcGISRuntime.Data.AttachmentInfoItem})">
+            <summary>
+            Prepares attachment editor for editing.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditAttachment.SaveEditsAsync">
+            <summary>
+            Submits attachment edits back to server.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditAttachment.QueryAttachmentsAsync(System.Int64)">
+            <summary>
+            Query attachments of specified feature.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditAttachment.GetFile">
+            <summary>
+            Prompts user to pick file from pictures folder.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditAttachment.AddButton_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Adds new attachment to feature.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditAttachment.OpenButton_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Opens the specified attachment.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditAttachment.UpdateButton_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Updates the specified attachment of feature.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditAttachment.DeleteButton_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Deletes the specified attachment from feature.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditAttachment.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerEditGeometry">
+            <summary>
+            Demonstrates how to update feature geometry in feature layer.
+            </summary>
+            <title>Feature Layer Edit Geometry</title>
+            <category>Editing</category>
+            <summary>
+            FeatureLayerEditGeometry
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerEditGeometry.MyMapView_MapViewTapped(System.Object,Esri.ArcGISRuntime.Controls.MapViewInputEventArgs)">
+            <summary>
+            Selects feature for editing.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerEditGeometry.SetGeometryEditor(Esri.ArcGISRuntime.Data.Feature)">
+            <summary>
+            Prepares GeometryEditor for editing.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerEditGeometry.EditButton_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Enables geometry editing and submits geometry edit back to the server.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerEditGeometry.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerEditAttribute">
+            <summary>
+            Demonstrates how to update feature attributes in feature layer.
+            </summary>
+            <title>Feature Layer Edit Attribute</title>
+            <category>Editing</category>
+            <summary>
+            FeatureLayerEditAttribute
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerEditAttribute.MyMapView_MapViewTapped(System.Object,Esri.ArcGISRuntime.Controls.MapViewInputEventArgs)">
+            <summary>
+            Selects feature for editing.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerEditAttribute.GetChoices">
+            <summary>
+            Returns choice list for attribute editing.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerEditAttribute.SetAttributeEditor(Esri.ArcGISRuntime.Data.Feature)">
+            <summary>        
+            Prepares AttributeEditor for editing.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerEditAttribute.ChoiceList_SelectionChanged(System.Object,System.Windows.Controls.SelectionChangedEventArgs)">
+            <summary>
+            Enables attribute editing and submits attribute edit back to the server.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.FeatureLayerEditAttribute.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayerEditGeometry">
+            <summary>
+            Demonstrates how to selectively import and update feature geometry in dynamic layer.
+            </summary>
+            <title>Dynamic Layer Edit Geometry</title>
+            <category>Editing</category>
+            <summary>
+            DynamicLayerEditGeometry
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayerEditGeometry.MyMapView_MapViewTapped(System.Object,Esri.ArcGISRuntime.Controls.MapViewInputEventArgs)">
+            <summary>
+            Identifies feature to highlight.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayerEditGeometry.SetGeometryEditor(System.Int64)">
+            <summary>
+            Prepares geometry editor for editing.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayerEditGeometry.EditButton_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Enables geometry editing, submits geometry edit back to the server and refreshes dynamic layer.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayerEditGeometry.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayerEditAttribute">
+            <summary>
+            Demonstrates how to selectively import and update feature attributes in dynamic layer.
+            </summary>
+            <title>Dynamic Layer Edit Attribute</title>
+            <category>Editing</category>
+            <summary>
+            DynamicLayerEditAttribute
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayerEditAttribute.MyMapView_MapViewTapped(System.Object,Esri.ArcGISRuntime.Controls.MapViewInputEventArgs)">
+            <summary>
+            Identifies feature to highlight.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayerEditAttribute.GetChoicesAsync">
+            <summary>
+            Returns choice list for attribute editing.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayerEditAttribute.SetAttributeEditor(System.Int64,System.String)">
+            <summary>        
+            Prepares attribute editor for editing.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayerEditAttribute.ChoiceList_SelectionChanged(System.Object,System.Windows.Controls.SelectionChangedEventArgs)">
+            <summary>
+            Enables attribute editing, submits attribute edit back to the server and refreshes dynamic layer.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayerEditAttribute.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.SOEElevationData">
             <summary>
             This sample demonstrates how to use a custom Server Object Extension (SOE) hosted by ArcGIS for Server. The SOE operation used in this example returns a set of interpolated elevation values for a user defined grid. The grid extent and number of rows and columns are provided as inputs to the SOE.
@@ -1768,7 +1958,7 @@
             <summary>
             This sample illustrates a simple way of querying the Portal metadata/properties and retrieving featuredItems using the Portal API.
             </summary>
-            <title>ShowProperties</title>
+            <title>Show Properties</title>
             <category>Portal</category>
             <summary>
             ShowProperties
@@ -1997,7 +2187,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.TokenSecuredServices">
             <summary>
-            This sample demonstrates how to use the IdentityManager to gain access to a secured service. Here, the map contains a public basemap and two secure dynamic layers. The IdentityManager will challenge for credentials when the Map tries to access a secure service.
+            This sample demonstrates how to use the IdentityManager to gain access to a secured service. Here, the map contains a public basemap and a secure dynamic layer. The IdentityManager will challenge for credentials when the Map tries to access a secure service.
             </summary>
             <title>ArcGIS Token Secured Services</title>
             <category>Security</category>

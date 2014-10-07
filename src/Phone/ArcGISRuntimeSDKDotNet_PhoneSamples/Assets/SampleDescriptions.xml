@@ -126,6 +126,50 @@
             </summary>
             <category>Dynamic Service Layers</category>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.OwnershipBasedEditing">
+            <summary>
+            Demonstrates how editing of features can be restricted by ownership-based access defined in the service.
+            </summary>
+            <title>Ownership-based Editing</title>
+            <category>Editing</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.OwnershipBasedEditing.GetCredentialAsync(Esri.ArcGISRuntime.Security.CredentialRequestInfo)">
+            <summary>
+            Forwards credential request info using Dispatcher to enable access to UI elements.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.OwnershipBasedEditing.GetCredentialUIAsync(Esri.ArcGISRuntime.Security.CredentialRequestInfo)">
+            <summary>
+            Initializes UI and login task with credential request info.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.OwnershipBasedEditing.SignInButton_Click(System.Object,Windows.UI.Xaml.RoutedEventArgs)">
+            <summary>
+            Attempts to generate credential for service to set login task result.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.OwnershipBasedEditing.SignOut">
+            <summary>
+            Removes credential used to access the service and adds a new instance of layer to trigger another challenge.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.OwnershipBasedEditing.SignOutButton_Click(System.Object,Windows.UI.Xaml.RoutedEventArgs)" -->
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.OwnershipBasedEditing.MyMapView_LayerLoaded(System.Object,Esri.ArcGISRuntime.Controls.LayerLoadedEventArgs)">
+            <summary>
+            Updates login information based on credential.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.OwnershipBasedEditing.MyMapView_LayerUnloaded(System.Object,Esri.ArcGISRuntime.Controls.LayerUnloadedEventArgs)" -->
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.OwnershipBasedEditing.MyMapView_MapViewTapped(System.Object,Esri.ArcGISRuntime.Controls.MapViewInputEventArgs)">
+            <summary>
+            Selects feature and checks whether update or delete is allowed.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.OwnershipBasedEditing.AddButton_Click(System.Object,Windows.UI.Xaml.RoutedEventArgs)">
+            <summary>
+            Adds a new turtle feature owned by current user.
+            </summary>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.EditAttachment">
             <summary>
             Demonstrates how to update feature attachments in feature layer.

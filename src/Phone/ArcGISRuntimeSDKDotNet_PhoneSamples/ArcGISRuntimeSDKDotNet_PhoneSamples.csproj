@@ -108,6 +108,9 @@
     <Compile Include="Samples\DynamicServiceLayers\WmsLayerSimple.xaml.cs">
       <DependentUpon>WmsLayerSimple.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Editing\OwnershipBasedEditing.xaml.cs">
+      <DependentUpon>OwnershipBasedEditing.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Editing\EditAttachment.xaml.cs">
       <DependentUpon>EditAttachment.xaml</DependentUpon>
     </Compile>
@@ -357,6 +360,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\DynamicServiceLayers\WmsLayerSimple.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\OwnershipBasedEditing.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

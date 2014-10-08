@@ -126,6 +126,28 @@
             </summary>
             <category>Dynamic Service Layers</category>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ExplicitSave">
+            <summary>
+            Demonstrates how to accumulated edits can be saved or canceled altogether.
+            </summary>
+            <title>Explicit Save</title>
+            <category>Editing</category>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ExplicitSave.AddButton_Click(System.Object,Windows.UI.Xaml.RoutedEventArgs)">
+            <summary>
+            Adds new feature on tap.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ExplicitSave.SaveButton_Click(System.Object,Windows.UI.Xaml.RoutedEventArgs)">
+            <summary>
+            Saves accumulated edits.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ExplicitSave.CancelButton_Click(System.Object,Windows.UI.Xaml.RoutedEventArgs)">
+            <summary>
+            Cancels accumulated edits.
+            </summary>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.EditRelatedData">
             <summary>
             Demonstrates how to query and edit related records.

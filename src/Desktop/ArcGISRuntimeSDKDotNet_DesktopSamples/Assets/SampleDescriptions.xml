@@ -164,6 +164,36 @@
             InitializeComponent
             </summary>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ExplicitSave">
+            <summary>
+            Demonstrates how to accumulated edits can be saved or canceled altogether.
+            </summary>
+            <title>Explicit Save</title>
+            <category>Editing</category>
+            <summary>
+            ExplicitSave
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ExplicitSave.AddButton_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Adds new feature on tap.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ExplicitSave.SaveButton_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Saves accumulated edits.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ExplicitSave.CancelButton_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Cancels accumulated edits.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ExplicitSave.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData">
             <summary>
             Demonstrates how to query and edit related records.
@@ -269,6 +299,7 @@
             Removes credential used to access the service and adds a new instance of layer to trigger another challenge.
             </summary>
         </member>
+        <!-- Badly formed XML comment ignored for member "M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OwnershipBasedEditing.SignOutButton_Click(System.Object,System.Windows.RoutedEventArgs)" -->
         <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OwnershipBasedEditing.MyMapView_LayerLoaded(System.Object,Esri.ArcGISRuntime.Controls.LayerLoadedEventArgs)">
             <summary>
             Updates login information based on credential.

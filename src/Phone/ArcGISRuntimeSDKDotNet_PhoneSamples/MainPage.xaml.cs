@@ -4,29 +4,46 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Xml.Linq;
+using Windows.UI;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Media;
 
 namespace ArcGISRuntimeSDKDotNet_PhoneSamples
 {
     public sealed partial class MainPage : Page
     {
+		private SampleDataViewModel _sampleDataVM;
+
         public MainPage()
         {
 			// Define symbology path to Resources folder. This folder is included in the solution as a Content
 			if (!ArcGISRuntimeEnvironment.IsInitialized)
 				ArcGISRuntimeEnvironment.SymbolsPath = @"Resources";
-           
+
 			this.InitializeComponent();
-            DataContext = SampleDataSource.Current;
+			
+			_sampleDataVM = new SampleDataViewModel();
+			SampleDataPanel.DataContext = _sampleDataVM;
+
+			DataContext = SampleDataSource.Current;
         }
 
-        private void ListView_ItemClick(object sender, ItemClickEventArgs e)
+        private async void ListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             var item = (Sample)e.ClickedItem;
+
+			// Check if the app requires local data
+			if (item.RequiresLocalData && !_sampleDataVM.HasData)
+			{
+				await new MessageDialog(
+					"This sample requires data local to this device. Please download the sample data from the main page.", "Local Data Required")
+					.ShowAsync();
+				return;
+			}
 
 			GC.Collect();
 			GC.WaitForPendingFinalizers();
@@ -34,7 +51,12 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples
             Frame.Navigate(item.Page);
         }
 
-        public class SampleDataSource
+		private async void DownloadSampleDataButton_Click(object sender, RoutedEventArgs e)
+		{
+			await _sampleDataVM.DownloadLocalDataAsync();
+		}
+		
+		public class SampleDataSource
         {
             private SampleDataSource()
             {
@@ -48,7 +70,8 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples
                                Page = p,
                                Name = SplitCamelCasedWords(p.Name),
                                SampleFile = p.Name + ".xaml",
-                               Category = "Misc"
+                               Category = "Misc",
+							   RequiresLocalData = false
                            }).ToArray();
 
                 //Update descriptions and category based on included XML Doc
@@ -82,7 +105,10 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples
                                     var subcategory = member.Descendants("subcategory").FirstOrDefault();
                                     if (subcategory != null && category.Value is string)
                                         match.Subcategory = subcategory.Value.Trim();
-                                }
+									var localData = member.Descendants("localdata").FirstOrDefault();
+									if (localData != null && localData.Value is string)
+										match.RequiresLocalData = localData.Value.Trim().Equals(bool.TrueString, StringComparison.CurrentCultureIgnoreCase);
+								}
                             }
                         }
                         catch { } //ignore
@@ -90,6 +116,7 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples
                 }
                 catch { } //ignore
             }
+
             private static string SplitCamelCasedWords(string value)
             {
                 var text = System.Text.RegularExpressions.Regex.Replace(value, "([a-z])([A-Z])", "$1 $2");
@@ -168,7 +195,29 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples
             public string Subcategory { get; set; }
             public string Description { get; set; }
             public string SampleFile { get; set; }
+			public bool RequiresLocalData { get; set; }
         }
     }
+
+	// Converts a boolean to a SolidColorBrush (true = green, false = red)
+	internal class BoolToGreenRedConverter : IValueConverter
+	{
+		public object Convert(object value, Type targetType, object parameter, string language)
+		{
+			if (value is bool)
+				return new SolidColorBrush((bool)value ? Colors.Green : Colors.Red);
+			else
+				return DependencyProperty.UnsetValue;
+		}
+
+		public object ConvertBack(object value, Type targetType, object parameter, string language)
+		{
+			var brush = value as SolidColorBrush;
+			if (brush != null)
+				return (brush.Color == Colors.Green);
+			else
+				return DependencyProperty.UnsetValue;
+		}
+	}
 }
 

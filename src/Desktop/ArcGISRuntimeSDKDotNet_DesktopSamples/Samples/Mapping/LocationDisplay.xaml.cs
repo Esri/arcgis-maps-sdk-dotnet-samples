@@ -15,11 +15,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     /// <category>Mapping</category>
     public partial class LocationDisplay : UserControl
     {
-         /// <summary>Construct Location Display sample user control</summary>
+        /// <summary>Construct Location Display sample user control</summary>
         public LocationDisplay()
         {
             InitializeComponent();
-         }
+        }
 
         private void providerSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -34,8 +34,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             // If the LocationDisplay is enabled and a Location currently exists, reset the map
             // to zero rotation and center on the Location. Otherwise, set the MapView to center on 0,0.
-            if (MyMapView.LocationDisplay.IsEnabled &&
-                MyMapView.LocationDisplay != null &&
+            if (MyMapView.LocationDisplay != null &&
+                MyMapView.LocationDisplay.IsEnabled &&
                 MyMapView.LocationDisplay.CurrentLocation.Location.Extent != null)
             {
                 // Get the current AutoPanMode setting as it is automatically disabled when calling MyMapView.SetView().

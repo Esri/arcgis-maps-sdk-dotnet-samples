@@ -299,13 +299,21 @@
             Removes credential used to access the service and adds a new instance of layer to trigger another challenge.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OwnershipBasedEditing.SignOutButton_Click(System.Object,System.Windows.RoutedEventArgs)" -->
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OwnershipBasedEditing.SignOutButton_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Signs out from current login so sample can trigger credential challenge.
+            </summary>
+        </member>
         <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OwnershipBasedEditing.MyMapView_LayerLoaded(System.Object,Esri.ArcGISRuntime.Controls.LayerLoadedEventArgs)">
             <summary>
             Updates login information based on credential.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OwnershipBasedEditing.MyMapView_LayerUnloaded(System.Object,Esri.ArcGISRuntime.Controls.LayerUnloadedEventArgs)" -->
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OwnershipBasedEditing.MyMapView_LayerUnloaded(System.Object,Esri.ArcGISRuntime.Controls.LayerUnloadedEventArgs)">
+            <summary>
+            Signs out from current login so switching samples can trigger credential challenge.
+            </summary>
+        </member>
         <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OwnershipBasedEditing.MyMapView_MapViewTapped(System.Object,Esri.ArcGISRuntime.Controls.MapViewInputEventArgs)">
             <summary>
             Selects feature and checks whether update or delete is allowed.

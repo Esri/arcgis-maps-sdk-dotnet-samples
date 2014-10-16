@@ -164,6 +164,163 @@
             InitializeComponent
             </summary>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ExplicitSave">
+            <summary>
+            Demonstrates how to accumulated edits can be saved or canceled altogether.
+            </summary>
+            <title>Explicit Save</title>
+            <category>Editing</category>
+            <summary>
+            ExplicitSave
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ExplicitSave.AddButton_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Adds new feature on tap.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ExplicitSave.SaveButton_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Saves accumulated edits.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ExplicitSave.CancelButton_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Cancels accumulated edits.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ExplicitSave.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData">
+            <summary>
+            Demonstrates how to query and edit related records.
+            </summary>
+            <title>Edit Related Data</title>
+            <category>Editing</category>
+            <summary>
+            EditRelatedData
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData.MyMapView_MapViewTapped(System.Object,Esri.ArcGISRuntime.Controls.MapViewInputEventArgs)">
+            <summary>
+            Identifies graphic to highlight and query its related records.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData.SetRelatedRecordEditor(System.Int64,System.String)">
+            <summary>
+            Prepares related record editor for add and query.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData.SetAttributeEditor(Esri.ArcGISRuntime.Data.Feature)">
+            <summary>
+            Prepares attribute editor for update or delete of existing related record.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData.GetRangeValues(System.Int32,System.Int32)">
+            <summary>
+            Gets exclusive values between minimum and maximum values.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData.GetRelationshipAsync">
+            <summary>
+            Gets relationship information using service metadata.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData.QueryRelatedRecordsAsync">
+            <summary>
+            Queries related records for specified feature ID.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData.SaveEditsAsync">
+            <summary>
+            Submits related record edits back to server.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData.GetRelatedTableAsync">
+            <summary>
+            Gets related table for editing.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData.RelatedRecords_SelectionChanged(System.Object,System.Windows.Controls.SelectionChangedEventArgs)">
+            <summary>
+            Displays current attribute values of related record.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData.AddButton_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Adds a new related record to highlighted feature.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData.EditButton_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Updates attributes of related record.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData.DeleteButton_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Deletes related record.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OwnershipBasedEditing">
+            <summary>
+            Demonstrates how editing of features can be restricted by ownership-based access defined in the service.
+            </summary>
+            <title>Ownership-based Editing</title>
+            <category>Editing</category>
+            <summary>
+            OwnershipBasedEditing
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OwnershipBasedEditing.GetCredentialAsync(Esri.ArcGISRuntime.Security.CredentialRequestInfo)">
+            <summary>
+            Forwards credential request info using Dispatcher to enable access to UI elements.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OwnershipBasedEditing.GetCredentialUIAsync(Esri.ArcGISRuntime.Security.CredentialRequestInfo)">
+            <summary>
+            Initializes UI and login task with credential request info.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OwnershipBasedEditing.SignInButton_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Attempts to generate credential for service to set login task result.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OwnershipBasedEditing.SignOut">
+            <summary>
+            Removes credential used to access the service and adds a new instance of layer to trigger another challenge.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OwnershipBasedEditing.SignOutButton_Click(System.Object,System.Windows.RoutedEventArgs)" -->
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OwnershipBasedEditing.MyMapView_LayerLoaded(System.Object,Esri.ArcGISRuntime.Controls.LayerLoadedEventArgs)">
+            <summary>
+            Updates login information based on credential.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OwnershipBasedEditing.MyMapView_LayerUnloaded(System.Object,Esri.ArcGISRuntime.Controls.LayerUnloadedEventArgs)" -->
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OwnershipBasedEditing.MyMapView_MapViewTapped(System.Object,Esri.ArcGISRuntime.Controls.MapViewInputEventArgs)">
+            <summary>
+            Selects feature and checks whether update or delete is allowed.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OwnershipBasedEditing.AddButton_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Adds a new turtle feature owned by current user.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OwnershipBasedEditing.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditAttachment">
             <summary>
             Demonstrates how to update feature attachments in feature layer.

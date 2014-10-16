@@ -93,12 +93,6 @@
     <Compile Include="Samples\DynamicServiceLayers\WMSLayer.xaml.cs">
       <DependentUpon>WMSLayer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Editing\ExplicitSave.xaml.cs">
-      <DependentUpon>ExplicitSave.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Editing\EditRelatedData.xaml.cs">
-      <DependentUpon>EditRelatedData.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Samples\Editing\OwnershipBasedEditing.xaml.cs">
       <DependentUpon>OwnershipBasedEditing.xaml</DependentUpon>
     </Compile>
@@ -228,22 +222,22 @@
     <Compile Include="Samples\Geometry\UnionGeometry.xaml.cs">
       <DependentUpon>UnionGeometry.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Geometry\GeoprocessingTasks\ClipFeatures.xaml.cs">
+    <Compile Include="Samples\GeoprocessingTasks\ClipFeatures.xaml.cs">
       <DependentUpon>ClipFeatures.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Geometry\GeoprocessingTasks\DriveTimes.xaml.cs">
+    <Compile Include="Samples\GeoprocessingTasks\DriveTimes.xaml.cs">
       <DependentUpon>DriveTimes.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Geometry\GeoprocessingTasks\ExtractData.xaml.cs">
+    <Compile Include="Samples\GeoprocessingTasks\ExtractData.xaml.cs">
       <DependentUpon>ExtractData.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Geometry\GeoprocessingTasks\MessageInABottle.xaml.cs">
+    <Compile Include="Samples\GeoprocessingTasks\MessageInABottle.xaml.cs">
       <DependentUpon>MessageInABottle.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Geometry\GeoprocessingTasks\PopulationForArea.xaml.cs">
+    <Compile Include="Samples\GeoprocessingTasks\PopulationForArea.xaml.cs">
       <DependentUpon>PopulationForArea.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Geometry\GeoprocessingTasks\Viewshed.xaml.cs">
+    <Compile Include="Samples\GeoprocessingTasks\Viewshed.xaml.cs">
       <DependentUpon>Viewshed.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Editing\MovePoints.xaml.cs">
@@ -521,14 +515,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Editing\ExplicitSave.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Editing\EditRelatedData.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Samples\Editing\OwnershipBasedEditing.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -701,27 +687,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Geometry\GeoprocessingTasks\ClipFeatures.xaml">
+    <Page Include="Samples\GeoprocessingTasks\ClipFeatures.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Geometry\GeoprocessingTasks\DriveTimes.xaml">
+    <Page Include="Samples\GeoprocessingTasks\DriveTimes.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Geometry\GeoprocessingTasks\ExtractData.xaml">
+    <Page Include="Samples\GeoprocessingTasks\ExtractData.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Geometry\GeoprocessingTasks\MessageInABottle.xaml">
+    <Page Include="Samples\GeoprocessingTasks\MessageInABottle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Geometry\GeoprocessingTasks\PopulationForArea.xaml">
+    <Page Include="Samples\GeoprocessingTasks\PopulationForArea.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Geometry\GeoprocessingTasks\Viewshed.xaml">
+    <Page Include="Samples\GeoprocessingTasks\Viewshed.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

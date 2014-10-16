@@ -274,7 +274,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             }
         }
 
-        // Unregister local geoddatase from the online service
+        // Unregister local geodatabase from the online service
         private async void UnregisterButton_Click(object sender, RoutedEventArgs e)
         {
             try

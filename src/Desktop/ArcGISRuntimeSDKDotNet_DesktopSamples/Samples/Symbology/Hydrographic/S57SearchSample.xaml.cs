@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.Hydrographic;
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 {
 	/// <summary>
-	/// This sample shows how to use the the SearchAsync method to search an HydrographicS57Layer based on an input geometry, buffer value and object name.
+	/// This sample shows how to use the SearchAsync method to search an HydrographicS57Layer based on an input geometry, buffer value and object name.
 	/// </summary>
 	/// <title>S57 Search </title>
 	/// <category>Symbology</category>

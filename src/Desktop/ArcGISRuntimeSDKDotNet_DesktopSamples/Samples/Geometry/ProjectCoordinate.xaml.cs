@@ -51,11 +51,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 				_graphicsOverlay.Graphics.Clear();
 				_graphicsOverlay.Graphics.Add(new Graphic(point));
 
-                // Convert from web mercator to WGS84
-                var projectedPoint = GeometryEngine.Project(point, SpatialReferences.Wgs84);
+                // Take account of WrapAround
+                var normalizedPt = GeometryEngine.NormalizeCentralMeridian(point) as MapPoint;
+
+                // Convert from Web Mercator to WGS84
+                var projectedPoint = GeometryEngine.Project(normalizedPt, SpatialReferences.Wgs84);
 
                 gridXY.Visibility = gridLatLon.Visibility = Visibility.Visible;
-                gridXY.DataContext = point;
+                gridXY.DataContext = normalizedPt;
                 gridLatLon.DataContext = projectedPoint;
             }
         }

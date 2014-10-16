@@ -54,7 +54,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show("Error occured : " + ex.Message, "Create Polygons Sample");
+				MessageBox.Show("Error occurred : " + ex.Message, "Create Polygons Sample");
 			}  
         }
 

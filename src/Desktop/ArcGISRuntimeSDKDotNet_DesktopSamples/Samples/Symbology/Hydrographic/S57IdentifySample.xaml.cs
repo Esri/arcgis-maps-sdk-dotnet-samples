@@ -21,7 +21,7 @@ using System.Windows.Navigation;
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 {
 	/// <summary>
-	/// This sample demostrates how to perform a point-based identify style operation on an HydrographicS57Layer using the SearchLayer method.
+	/// This sample demonstrates how to perform a point-based identify style operation on an HydrographicS57Layer using the SearchLayer method.
 	/// </summary>
 	/// <title>S57 Identify</title>
 	/// <category>Symbology</category>

@@ -15,20 +15,20 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     /// This sample demonstrates how to spatially search your data using a QueryTask with its geometry attribute set. The sample spatially queries a map service using the buffer geometry around a user's click point and displays the results in a graphics layer on the map.
     /// </summary>
     /// <title>Spatial Query</title>
-	/// <category>Tasks</category>
-	/// <subcategory>Query</subcategory>
-	public partial class SpatialQuery : UserControl
+    /// <category>Tasks</category>
+    /// <subcategory>Query</subcategory>
+    public partial class SpatialQuery : UserControl
     {
         /// <summary>Construct Spatial Query sample control</summary>
         public SpatialQuery()
         {
             InitializeComponent();
 
-			InitializePictureMarkerSymbol();
+            InitializePictureMarkerSymbol();
         }
 
         // Initialize PushPin symbol
-		private async void InitializePictureMarkerSymbol()
+        private async void InitializePictureMarkerSymbol()
         {
             try
             {
@@ -46,12 +46,18 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-				var graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
-				graphicsOverlay.Graphics.Add(new Graphic() { Geometry = e.Location });
+                var graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
+                if (!(graphicsOverlay.Graphics.Count == 0))
+                    graphicsOverlay.Graphics.Clear();
 
-				var bufferOverlay = MyMapView.GraphicsOverlays["bufferOverlay"];
-				var bufferResult = GeometryEngine.Buffer(e.Location, 100);
-				bufferOverlay.Graphics.Add(new Graphic() { Geometry = bufferResult });
+                graphicsOverlay.Graphics.Add(new Graphic() { Geometry = e.Location });
+
+                var bufferOverlay = MyMapView.GraphicsOverlays["bufferOverlay"];
+                if (!(bufferOverlay.Graphics.Count == 0))
+                    bufferOverlay.Graphics.Clear();
+
+                var bufferResult = GeometryEngine.Buffer(e.Location, 100);
+                bufferOverlay.Graphics.Add(new Graphic() { Geometry = bufferResult });
 
                 var queryTask = new QueryTask(
                     new Uri("http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/BloomfieldHillsMichigan/Parcels/MapServer/2"));
@@ -66,8 +72,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var queryResult = await queryTask.ExecuteAsync(query);
                 if (queryResult != null && queryResult.FeatureSet != null)
                 {
-					var resultOverlay = MyMapView.GraphicsOverlays["parcelOverlay"];
-					resultOverlay.Graphics.AddRange(queryResult.FeatureSet.Features.OfType<Graphic>());
+                    var resultOverlay = MyMapView.GraphicsOverlays["parcelOverlay"];
+                    if (!(resultOverlay.Graphics.Count == 0))
+                        resultOverlay.Graphics.Clear();
+
+                    resultOverlay.Graphics.AddRange(queryResult.FeatureSet.Features.OfType<Graphic>());
                 }
             }
             catch (Exception ex)

@@ -1123,7 +1123,7 @@
             </summary>
         </member>
         <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.PopulationForArea.#ctor">
-            <summary>Construct Populattion for Area sample control</summary>
+            <summary>Construct Population for Area sample control</summary>
         </member>
         <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.PopulationForArea.InitializeComponent">
             <summary>
@@ -1536,13 +1536,16 @@
         <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.LocationDisplay.#ctor">
             <summary>Construct Location Display sample user control</summary>
         </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.LocationDisplay.resetDisplay_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>Reset the MapView by removing any map rotation and centering on the existing Location. </summary>
+        </member>
         <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.LocationDisplay.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RandomProvider">
-            <summary>Location provider that provides psuedo random location updates</summary>
+            <summary>Location provider that provides pseudo random location updates</summary>
         </member>
         <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.RandomProvider.#ctor">
             <summary>Construct random provider</summary>
@@ -2269,7 +2272,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic.S57IdentifySample">
             <summary>
-            This sample demostrates how to perform a point-based identify style operation on an HydrographicS57Layer using the SearchLayer method.
+            This sample demonstrates how to perform a point-based identify style operation on an HydrographicS57Layer using the SearchLayer method.
             </summary>
             <title>S57 Identify</title>
             <category>Symbology</category>
@@ -2285,7 +2288,7 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic.S57SearchSample">
             <summary>
-            This sample shows how to use the the SearchAsync method to search an HydrographicS57Layer based on an input geometry, buffer value and object name.
+            This sample shows how to use the SearchAsync method to search an HydrographicS57Layer based on an input geometry, buffer value and object name.
             </summary>
             <title>S57 Search </title>
             <category>Symbology</category>

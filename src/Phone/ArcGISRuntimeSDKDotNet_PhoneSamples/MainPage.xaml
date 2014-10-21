@@ -67,7 +67,7 @@
 								   FontWeight="Bold"
 								   Text="Local Sample Data" Margin="0,0,0,10" />
 
-						<TextBlock Text="Certain samples require data to be local to this device. This panel downloads sample data from an online host and stores it in this application's local storage folder."
+						<TextBlock Text="Certain samples require data to be local to this device. Click Download Sample Data to download the latest data to this application's local storage folder."
 							Style="{StaticResource BodyTextBlockStyle}" />
 						<!-- Section body -->
 						<TextBlock Style="{StaticResource BodyTextBlockStyle}" Margin="0,15,0,10">

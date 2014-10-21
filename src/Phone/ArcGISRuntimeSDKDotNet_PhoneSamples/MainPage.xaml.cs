@@ -40,7 +40,7 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples
 			if (item.RequiresLocalData && !_sampleDataVM.HasData)
 			{
 				await new MessageDialog(
-					"This sample requires data local to this device. Please download the sample data from the main page.", "Local Data Required")
+					"This sample requires data local to this device. Please download the sample data.", "Local Data Required")
 					.ShowAsync();
 				return;
 			}

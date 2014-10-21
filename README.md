@@ -21,6 +21,7 @@ This project contains samples for the ArcGIS Runtime SDK for .NET - Desktop, Sto
     - Clean, build, and run the application.
 
 Notes:
+* If you are using the official release of the .Net SDK version 10.2.4, there will be slight changes in the samples code.
 * Sample data for ArcGIS Runtime SDKs is included as a submodule with this repo: https://github.com/Esri/arcgis-runtime-samples-data.  If downloading the zip or using a source control application that does not pull submodules from this repo, get the sample data from https://github.com/Esri/arcgis-runtime-samples-data directly.  Place sample data contents in a folder named "sample-data" at the same level as the "src" folder for this repo.
 * The Windows Phone samples project contains a reference to the Nuget package for the [Windows Phone Toolkit](http://www.nuget.org/packages/WPtoolkit/).  To enable download of Nuget packages on project build, in Visual Studio go to Tools > Options > Package Manager and check the box next to "Allow Nuget to download missing packages during build".  You can also choose to download and install the [October 2012 version of the Windows Phone Toolkit](http://phone.codeplex.com/). 
 

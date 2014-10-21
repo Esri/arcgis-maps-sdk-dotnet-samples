@@ -35,7 +35,7 @@
 
 						<Border Background="#CC000000" BorderThickness="1,1,1,0" Margin="0,0,0,-1" BorderBrush="White" Grid.ColumnSpan="2">
 							<StackPanel Margin="20">
-								<TextBlock Text="Esri Headquaters" FontWeight="Bold" Foreground="White" />
+								<TextBlock Text="Esri Headquarters" FontWeight="Bold" Foreground="White" />
 							</StackPanel>
 						</Border>
 
@@ -98,7 +98,7 @@
 				<DropShadowEffect/>
 			</Border.Effect>
 			<StackPanel>
-                <TextBlock Text="Click the checkboxes to enable or disable the associated map overlay."
+                <TextBlock Text="Check the check boxes to enable or disable the associated map overlay."
                            FontSize="14" Width="300" TextAlignment="Left" TextWrapping="Wrap" Margin="0,0,0,12"/>
 
                 <StackPanel HorizontalAlignment="Center">

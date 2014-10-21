@@ -15,14 +15,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     /// Example of using the GeometryEngine.Union method to calculate the geometric union of feature geometries and a given polygon. To use this sample, the user draws a polygon over the feature polygons and the system then retrieves the union of the feature geometries and the new polygon. Resulting polygons are shown in a graphics overlay on the map.
     /// </summary>
     /// <title>Union</title>
-	/// <category>Geometry</category>
-	public partial class UnionGeometry : UserControl
+    /// <category>Geometry</category>
+    public partial class UnionGeometry : UserControl
     {
         private const string GDB_PATH = @"..\..\..\..\..\samples-data\maps\usa.geodatabase";
 
         private Symbol _fillSymbol;
         private FeatureLayer _statesLayer;
-		private GraphicsOverlay _resultGraphics;
+        private GraphicsOverlay _resultGraphics;
 
         /// <summary>Construct Union sample control</summary>
         public UnionGeometry()
@@ -30,7 +30,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             InitializeComponent();
 
             _fillSymbol = layoutGrid.Resources["FillSymbol"] as Symbol;
-			_resultGraphics = MyMapView.GraphicsOverlays["resultsOverlay"];
+            _resultGraphics = MyMapView.GraphicsOverlays["resultsOverlay"];
 
             CreateFeatureLayers();
         }
@@ -57,14 +57,17 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-				_resultGraphics.Graphics.Clear();
+                _resultGraphics.Graphics.Clear();
 
                 // wait for user to draw a polygon
                 var poly = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon);
 
+                // Take account of WrapAround
+                var normalizedPoly = GeometryEngine.NormalizeCentralMeridian(poly) as Polygon;
+
                 // get intersecting features from the feature layer
                 SpatialQueryFilter filter = new SpatialQueryFilter();
-                filter.Geometry = GeometryEngine.Project(poly, _statesLayer.FeatureTable.SpatialReference);
+                filter.Geometry = GeometryEngine.Project(normalizedPoly, _statesLayer.FeatureTable.SpatialReference);
                 filter.SpatialRelationship = SpatialRelationship.Intersects;
                 filter.MaximumRows = 52;
                 var stateFeatures = await _statesLayer.FeatureTable.QueryAsync(filter);
@@ -73,10 +76,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var states = stateFeatures.Select(feature => feature.Geometry);
                 var unionPolys = states.ToList();
 
-				var unionPoly = GeometryEngine.Union(unionPolys);
+
+                var unionPoly = GeometryEngine.Union(unionPolys);
                 var unionGraphic = new Graphic(unionPoly, _fillSymbol);
 
-				_resultGraphics.Graphics.Add(unionGraphic);
+                _resultGraphics.Graphics.Add(unionGraphic);
             }
             catch (Exception ex)
             {

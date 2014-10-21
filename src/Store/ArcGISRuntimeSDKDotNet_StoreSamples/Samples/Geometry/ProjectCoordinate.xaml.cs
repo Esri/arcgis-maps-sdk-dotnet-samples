@@ -51,6 +51,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 _graphicsOverlay.Graphics.Clear();
                 _graphicsOverlay.Graphics.Add(new Graphic(point));
 
+                // Take account of WrapAround
+                var normalizedPt = GeometryEngine.NormalizeCentralMeridian(point) as MapPoint;
+
                 // Convert from web mercator to WGS84
                 var projectedPoint = GeometryEngine.Project(point, SpatialReferences.Wgs84);
 

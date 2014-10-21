@@ -3,28 +3,30 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-		<esri:MapView x:Name="MyMapView" WrapAround="True">
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
             <esri:Map>
                 <esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
             </esri:Map>
         </esri:MapView>
 
-		<Border Background="White" BorderBrush="Black" BorderThickness="1"
+        <Border Background="White" BorderBrush="Black" BorderThickness="1"
 				HorizontalAlignment="Right" VerticalAlignment="Top" 
 				Margin="30" Padding="20"
 				Width="175">
-			<Border.Effect>
-				<DropShadowEffect />
-			</Border.Effect>
-			<StackPanel>
+            <Border.Effect>
+                <DropShadowEffect />
+            </Border.Effect>
+            <StackPanel>
                 <TextBlock Text="Add Shapefile and raster data sample:" FontWeight="Bold" TextWrapping="Wrap"  Margin="4"/>
-                <TextBlock Text="Click either the Add Shapefile or Add Raster button below then browse to a folder and select one or more datasets from that workspace to add them to the map." 
+                <TextBlock Text="Click the Add Shapefile or Add Raster button below then browse to a folder and select one or more datasets from that workspace to add them to the map." 
                            TextWrapping="Wrap"  Margin="5"/>
                 <Button Content="Add Shapefile" HorizontalAlignment="Center" Width="100" Margin="4" Padding="8"
                         Click="AddShapefileButton_Click" />
                 <Button Content="Add Raster" HorizontalAlignment="Center" Width="100" Margin="4" Padding="8"
                         Click="AddRasterButton_Click" />
+                <ProgressBar x:Name="progress" IsIndeterminate="True" VerticalAlignment="Bottom" Width="113" Height="8" Margin="10,10,0,10" 
+                     Visibility="{Binding Path=IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Left" />
             </StackPanel>
         </Border>
     </Grid>

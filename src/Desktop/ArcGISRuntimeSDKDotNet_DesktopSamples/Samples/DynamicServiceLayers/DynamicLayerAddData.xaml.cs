@@ -29,6 +29,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers
         public DynamicLayerAddData()
         {
             InitializeComponent();
+            progress.Visibility = Visibility.Collapsed;
         }
 
         // Add shapefiles
@@ -43,6 +44,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers
             {
                 try
                 {
+                    progress.Visibility = Visibility.Visible;
                     List<string> fileNames = new List<string>();
                     foreach (var item in openFileDialog.SafeFileNames)
                     {
@@ -57,6 +59,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers
                     if (dynLayer != null)
                     {
 						MyMapView.Map.Layers.Add(dynLayer);
+                        progress.Visibility = Visibility.Collapsed;
                     }
                 }
                 catch (Exception ex)
@@ -77,6 +80,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers
             {
                 try
                 {
+                    progress.Visibility = Visibility.Visible;
                     // Call the add dataset method with workspace type, parent directory path and actual file names
                     var dynLayer = await AddFileDatasetToDynamicMapServiceLayer(WorkspaceFactoryType.Raster, 
                         Path.GetDirectoryName(openFileDialog.FileName), new List<string>(openFileDialog.SafeFileNames));
@@ -85,6 +89,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers
                     if (dynLayer != null)
                     {
 						MyMapView.Map.Layers.Add(dynLayer);
+                        progress.Visibility = Visibility.Collapsed;
                     }
                 }
                 catch (Exception ex)

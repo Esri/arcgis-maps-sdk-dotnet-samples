@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,13 +12,26 @@ using System.Xml.Linq;
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 {
    public partial class MainWindow : Window
-    {
-        public MainWindow()
-        {
+   {
+	   private string _runtimeVersion;
+
+       public MainWindow()
+       {
             InitializeComponent();
 			LoadSamples();
 			CheckForLocalData();
-        }
+			GetRuntimeVersionNumber();
+		}
+
+		private void GetRuntimeVersionNumber()
+		{
+			var assembly = System.Reflection.Assembly.Load(new AssemblyName("Esri.ArcGISRuntime"));
+			var version = assembly.GetName().Version;
+			// Extract version number, note build happens to be the 3rd place number, but we use it for the minor-minor version e.g. "10.1.1"
+			_runtimeVersion = version.Major + "." + version.Minor;
+			if (version.Build != 0)
+				_runtimeVersion += "." + version.Build;
+		}
 
 		private void CheckForLocalData()
 		{
@@ -64,6 +78,32 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 		MenuItem currentSampleMenuItem;
 		private void sampleitem_Click(Sample sample, MenuItem menu)
 		{
+			// Check if sample needs SDK installation and if it's available
+			if (sample.IsSDK)
+			{
+				try
+				{
+					// Check if the SDK is installed using registry key
+					using (RegistryKey Key =
+						Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft.NETFramework\v4.5.50709\AssemblyFoldersEx\ArcGIS Runtime SDK " + _runtimeVersion))
+					{
+
+						if (Key == null)
+						{
+							SampleContainer.Child = new SdkInstallNeeded();
+							if (currentSampleMenuItem != null)
+								currentSampleMenuItem.IsChecked = false;
+
+							return;
+						}
+					}
+				}
+				catch (Exception exception)
+				{
+					throw new Exception("Could not read registry for SDK path");
+				}
+			}
+
 			var c = sample.UserControl.GetConstructor(new Type[] { });
 			var ctrl = c.Invoke(new object[] { }) as UIElement;
 			SampleContainer.Child = ctrl;
@@ -126,6 +166,15 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 								var subcategory = member.Descendants("subcategory").FirstOrDefault();
 								if (subcategory != null)
 									match.Subcategory = subcategory.Value.Trim();
+
+								// Get information if the sample needs SDK installation
+								var isSDK = member.Descendants("isSDK").FirstOrDefault();
+								if (isSDK != null && isSDK.Value is string)
+								{
+									var result = false;
+									bool.TryParse(isSDK.Value.Trim(), out result);
+									match.IsSDK = result;
+								}
 							}
 						}
 					}
@@ -220,5 +269,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 		public string Subcategory { get; set; }
 		public string Description { get; set; }
 		public string SampleFile { get; set; }
+
+		/// <summary>
+		/// Defines if the sample needs SDK installation to work. 
+		/// </summary>
+		/// <remarks>This is used for sample that needs something to being deployed like military symbology or S57 symbology.</remarks>
+		public bool IsSDK { get; set; }
 	}
 }

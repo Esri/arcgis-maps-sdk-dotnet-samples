@@ -164,111 +164,6 @@
             InitializeComponent
             </summary>
         </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ExplicitSave">
-            <summary>
-            Demonstrates how to accumulated edits can be saved or canceled altogether.
-            </summary>
-            <title>Explicit Save</title>
-            <category>Editing</category>
-            <summary>
-            ExplicitSave
-            </summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ExplicitSave.AddButton_Click(System.Object,System.Windows.RoutedEventArgs)">
-            <summary>
-            Adds new feature on tap.
-            </summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ExplicitSave.SaveButton_Click(System.Object,System.Windows.RoutedEventArgs)">
-            <summary>
-            Saves accumulated edits.
-            </summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ExplicitSave.CancelButton_Click(System.Object,System.Windows.RoutedEventArgs)">
-            <summary>
-            Cancels accumulated edits.
-            </summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.ExplicitSave.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
-        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData">
-            <summary>
-            Demonstrates how to query and edit related records.
-            </summary>
-            <title>Edit Related Data</title>
-            <category>Editing</category>
-            <summary>
-            EditRelatedData
-            </summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData.MyMapView_MapViewTapped(System.Object,Esri.ArcGISRuntime.Controls.MapViewInputEventArgs)">
-            <summary>
-            Identifies graphic to highlight and query its related records.
-            </summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData.SetRelatedRecordEditor(System.Int64,System.String)">
-            <summary>
-            Prepares related record editor for add and query.
-            </summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData.SetAttributeEditor(Esri.ArcGISRuntime.Data.Feature)">
-            <summary>
-            Prepares attribute editor for update or delete of existing related record.
-            </summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData.GetRangeValues(System.Int32,System.Int32)">
-            <summary>
-            Gets exclusive values between minimum and maximum values.
-            </summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData.GetRelationshipAsync">
-            <summary>
-            Gets relationship information using service metadata.
-            </summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData.QueryRelatedRecordsAsync">
-            <summary>
-            Queries related records for specified feature ID.
-            </summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData.SaveEditsAsync">
-            <summary>
-            Submits related record edits back to server.
-            </summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData.GetRelatedTableAsync">
-            <summary>
-            Gets related table for editing.
-            </summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData.RelatedRecords_SelectionChanged(System.Object,System.Windows.Controls.SelectionChangedEventArgs)">
-            <summary>
-            Displays current attribute values of related record.
-            </summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData.AddButton_Click(System.Object,System.Windows.RoutedEventArgs)">
-            <summary>
-            Adds a new related record to highlighted feature.
-            </summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData.EditButton_Click(System.Object,System.Windows.RoutedEventArgs)">
-            <summary>
-            Updates attributes of related record.
-            </summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData.DeleteButton_Click(System.Object,System.Windows.RoutedEventArgs)">
-            <summary>
-            Deletes related record.
-            </summary>
-        </member>
-        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.EditRelatedData.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.OwnershipBasedEditing">
             <summary>
             Demonstrates how editing of features can be restricted by ownership-based access defined in the service.
@@ -2378,6 +2273,7 @@
             <title>Message Processor</title>
             <category>Symbology</category>
             <subcategory>Specialized</subcategory>
+            <isSDK>true</isSDK>
             <summary>
             MessageProcessingSample
             </summary>
@@ -2394,6 +2290,7 @@
             <title>Symbol Dictionary Search</title>
             <category>Symbology</category>
             <subcategory>Specialized</subcategory>
+            <isSDK>true</isSDK>
             <summary>
             SymbolDictionarySearchSample
             </summary>
@@ -2410,6 +2307,7 @@
             <title>S57 Cell Information</title>
             <category>Symbology</category>
             <subcategory>Hydrographic</subcategory>
+            <isSDK>true</isSDK>
             <summary>
             S57CellInfoSample
             </summary>
@@ -2426,6 +2324,7 @@
             <title>S57 Display Properties</title>
             <category>Symbology</category>
             <subcategory>Hydrographic</subcategory>
+            <isSDK>true</isSDK>
             <summary>
             S57DisplayPropertiesSample
             </summary>
@@ -2442,6 +2341,7 @@
             <title>S57 Identify</title>
             <category>Symbology</category>
             <subcategory>Hydrographic</subcategory>
+            <isSDK>true</isSDK>
             <summary>
             S57IdentifySample
             </summary>
@@ -2458,6 +2358,7 @@
             <title>S57 Search </title>
             <category>Symbology</category>
             <subcategory>Hydrographic</subcategory>
+            <isSDK>true</isSDK>
             <summary>
             S57SearchSample
             </summary>
@@ -2704,6 +2605,19 @@
             InitializeComponent
             </summary>
         </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.SdkInstallNeeded">
+            <summary>
+            Interaction logic for SdkInstallNeeded.xaml
+            </summary>
+            <summary>
+            SdkInstallNeeded
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.SdkInstallNeeded.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.App">
             <summary>
             Interaction logic for App.xaml
@@ -2731,6 +2645,12 @@
             <summary>
             InitializeComponent
             </summary>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Sample.IsSDK">
+            <summary>
+            Defines if the sample needs SDK installation to work. 
+            </summary>
+            <remarks>This is used for sample that needs something to being deployed like military symbology or S57 symbology.</remarks>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Properties.Resources">
             <summary>

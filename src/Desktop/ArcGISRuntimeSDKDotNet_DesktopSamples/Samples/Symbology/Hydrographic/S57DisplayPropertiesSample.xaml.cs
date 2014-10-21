@@ -20,6 +20,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 	/// <title>S57 Display Properties</title>
 	/// <category>Symbology</category>
 	/// <subcategory>Hydrographic</subcategory>
+	/// <isSDK>true</isSDK>
 	public partial class S57DisplayPropertiesSample : UserControl 
 	{
 		public S57DisplayPropertiesSample()

@@ -45,6 +45,12 @@
             <param name="sender">The source of the suspend request.</param>
             <param name="e">Details about the suspend request.</param>
         </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_PhoneSamples.MainPage.Sample.IsSDK">
+            <summary>
+            Defines if the sample needs SDK installation to work. 
+            </summary>
+            <remarks>This is used for sample that needs something to being deployed like military symbology or S57 symbology.</remarks>
+        </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.DynamicAndTile">
             <summary>
             
@@ -569,6 +575,7 @@
             <title>Message Processor</title>
             <category>Symbology</category>
             <subcategory>Specialized</subcategory>
+            <isSDK>true</isSDK>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Offset">
             <summary>
@@ -765,6 +772,7 @@
             <title>Symbol Dictionary Search</title>
             <category>Symbology</category>
             <subcategory>Advanced</subcategory>	
+            <isSDK>true</isSDK>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_StoreSamples.Samples.RenderingInCode">
             <summary>
@@ -803,6 +811,18 @@
             </summary>
             <title>Web Tiled Layer</title>
             <category>Tiled Layers</category>
+        </member>
+        <member name="T:ArcGISRuntimeSDKDotNet_PhoneSamples.SdkInstallNeededPage">
+            <summary>
+            An empty page that can be used on its own or navigated to within a Frame.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_PhoneSamples.SdkInstallNeededPage.OnNavigatedTo(Windows.UI.Xaml.Navigation.NavigationEventArgs)">
+            <summary>
+            Invoked when this page is about to be displayed in a Frame.
+            </summary>
+            <param name="e">Event data that describes how this page was reached.
+            This parameter is typically used to configure the page.</param>
         </member>
     </members>
 </doc>

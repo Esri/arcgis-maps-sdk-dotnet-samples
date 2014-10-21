@@ -14,19 +14,70 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples
 {
     public sealed partial class MainPage : Page
     {
+		private string _runtimeVersion;
+
         public MainPage()
         {
 			// Define symbology path to Resources folder. This folder is included in the solution as a Content
 			if (!ArcGISRuntimeEnvironment.IsInitialized)
-				ArcGISRuntimeEnvironment.SymbolsPath = @"Resources";
+				ArcGISRuntimeEnvironment.SymbolsPath = @"arcgisruntime10.2.4\resources\symbols";
            
 			this.InitializeComponent();
-            DataContext = SampleDataSource.Current;
-        }
+			DataContext = SampleDataSource.Current; GetRuntimeVersionNumber();
+		}
 
-        private void ListView_ItemClick(object sender, ItemClickEventArgs e)
+		private void GetRuntimeVersionNumber()
+		{
+			// Get version number that is used in the deployment folder
+			Assembly runtimeAssembly = typeof(ArcGISRuntimeEnvironment).GetTypeInfo().Assembly;
+
+			var sdkVersion = string.Empty;
+			var attr = CustomAttributeExtensions.GetCustomAttribute<AssemblyFileVersionAttribute>(runtimeAssembly);
+			if (attr != null)
+			{
+				var version = attr.Version;
+				string[] versions = attr.Version.Split(new[] { '.' });
+
+				// Ensure that we only look maximum of 3 part version number ie. 10.2.4
+				int partCount = 3;
+				if (versions.Count() < 3)
+					partCount = versions.Count();
+
+				for (var i = 0; i < partCount; i++)
+				{
+					if (string.IsNullOrEmpty(sdkVersion))
+						_runtimeVersion = versions[i];
+					else
+						_runtimeVersion += "." + versions[i];
+				}
+			}
+			else
+				throw new Exception("Cannot read version number from ArcGIS Runtime");
+		}
+
+        private async void ListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             var item = (Sample)e.ClickedItem;
+
+			// Check if sample needs SDK installation and if it's available
+			if (item.IsSDK)
+			{
+				try
+				{
+					// Check that all folders are deployed - assuming that symbols folder contains all 
+					// deployable dictionaries
+					var appFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
+					var runtimeFolder = await appFolder.GetFolderAsync("arcgisruntime" + _runtimeVersion);
+					var resourcesFolder = await runtimeFolder.GetFolderAsync("resources");
+					var symbolsFolders = await resourcesFolder.GetFolderAsync("symbols");
+				}
+				catch (FileNotFoundException)
+				{
+					// Deployment folder is not found show sample not available page
+					Frame.Navigate(typeof(SdkInstallNeededPage));
+					return;
+				}
+			}
 
 			GC.Collect();
 			GC.WaitForPendingFinalizers();
@@ -82,6 +133,15 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples
                                     var subcategory = member.Descendants("subcategory").FirstOrDefault();
                                     if (subcategory != null && category.Value is string)
                                         match.Subcategory = subcategory.Value.Trim();
+
+									// Get information if the sample needs SDK installation
+									var isSDK = member.Descendants("isSDK").FirstOrDefault();
+									if (isSDK != null && isSDK.Value is string)
+									{
+										var result = false;
+										bool.TryParse(isSDK.Value.Trim(), out result);
+										match.IsSDK = result;
+									}
                                 }
                             }
                         }
@@ -168,6 +228,12 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples
             public string Subcategory { get; set; }
             public string Description { get; set; }
             public string SampleFile { get; set; }
+
+			/// <summary>
+			/// Defines if the sample needs SDK installation to work. 
+			/// </summary>
+			/// <remarks>This is used for sample that needs something to being deployed like military symbology or S57 symbology.</remarks>
+			public bool IsSDK { get; set; }
         }
     }
 }

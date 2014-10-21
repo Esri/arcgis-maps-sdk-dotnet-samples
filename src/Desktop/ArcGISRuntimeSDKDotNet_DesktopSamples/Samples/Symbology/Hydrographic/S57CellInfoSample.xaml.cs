@@ -18,6 +18,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 	/// <title>S57 Cell Information</title>
 	/// <category>Symbology</category>
 	/// <subcategory>Hydrographic</subcategory>
+	/// <isSDK>true</isSDK>
 	public partial class S57CellInfoSample : UserControl 
 	{
 		GroupLayer _hydrographicGroupLayer;

@@ -27,7 +27,7 @@
 		<StackPanel Margin="0,20" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" >
 			<TextBlock
 				HorizontalAlignment="Center" Style="{StaticResource SubheaderTextBlockStyle}" TextWrapping="Wrap"
-				Text="Selected sample is using additional components that are available only with deployment" />
+				Text="Selected sample is using additional components that are available only with deployment." />
 
 			<TextBlock Margin="0,20"
 				Text="To enable these capabilities, install SDK and create a deployment." Style="{StaticResource BodyTextBlockStyle}"

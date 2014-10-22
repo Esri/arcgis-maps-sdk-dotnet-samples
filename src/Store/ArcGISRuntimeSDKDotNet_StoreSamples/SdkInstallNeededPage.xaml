@@ -27,7 +27,7 @@
 
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Margin="40">
 				<TextBlock 
-				   Text="Install SDK from :" Style="{StaticResource SubheaderTextBlockStyle}" VerticalAlignment="Center"/>
+				   Text="Install SDK from : " Style="{StaticResource SubheaderTextBlockStyle}" VerticalAlignment="Center"/>
 				<HyperlinkButton NavigateUri="https://developersdev.arcgis.com/net/">
 					<TextBlock Text="developers.arcgis.com" Style="{StaticResource SubheaderTextBlockStyle}" VerticalAlignment="Center"></TextBlock>
 				</HyperlinkButton>

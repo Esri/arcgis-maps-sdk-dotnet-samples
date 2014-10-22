@@ -11,8 +11,8 @@ using System.Xml.Linq;
 
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 {
-   public partial class MainWindow : Window
-   {
+	public partial class MainWindow : Window
+	{
 		private bool _isSdkInstalled;
 
 		public MainWindow()
@@ -36,13 +36,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 			return runtimeVersion;
 		}
 
+		// Checks if the SDK is installed to this machine.
 		private void CheckIfSdkIsInstalled()
 		{
 			try
 			{
 				// Check if the SDK is installed using registry key
 				using (RegistryKey Key =
-					Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft.NETFramework\v4.5.50709\AssemblyFoldersEx\ArcGIS Runtime SDK " + GetRuntimeVersionNumber()))
+					Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft\.NETFramework\v4.5.50709\AssemblyFoldersEx\ArcGIS Runtime SDK " + GetRuntimeVersionNumber()))
 				{
 					if (Key == null)
 						_isSdkInstalled = false;
@@ -56,9 +57,26 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 			}
 		}
 
+		// Checks if deployment folder is found from the same folder where application is and
+		// if it has symbols folder in it. If it has it, we assume that all symbology files 
+		// are deployed.
+		private bool CheckIfHasDeploymentFolder()
+		{
+			// Check if there is a deployment folder
+			if (Directory.Exists("arcgisruntime" + GetRuntimeVersionNumber()))
+			{
+				// deployment folder is found, check that symbols are deployed
+				if (Directory.Exists("arcgisruntime" + GetRuntimeVersionNumber() + "\\symbols"))
+					return true;
+				return false; // not found
+			}
+
+			return false; // not found
+		}
+
 		private void CheckForLocalData()
 		{
-			if(!Directory.Exists(@"..\..\..\..\..\samples-data\"))
+			if (!Directory.Exists(@"..\..\..\..\..\samples-data\"))
 			{
 				sampleDataNotFound.Visibility = System.Windows.Visibility.Visible;
 			}
@@ -70,7 +88,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 			{
 				MenuItem samplesItem = new MenuItem() { Header = group.Key };
 				var subGroups = group.Items.GroupBy(g => g.Subcategory);
-				foreach(var subGroup in subGroups.Where(sg=>sg.Key != null))
+				foreach (var subGroup in subGroups.Where(sg => sg.Key != null))
 				{
 					MenuItem subGroupItem = new MenuItem() { Header = subGroup.Key };
 					foreach (var sample in subGroup)
@@ -79,7 +97,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 					}
 					samplesItem.Items.Add(subGroupItem);
 				}
-				foreach (var sample in group.Items.Where(g=>g.Subcategory == null))
+				foreach (var sample in group.Items.Where(g => g.Subcategory == null))
 				{
 					CreateSampleMenuItem(samplesItem, sample);
 				}
@@ -102,7 +120,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 		private void sampleitem_Click(Sample sample, MenuItem menu)
 		{
 			// Check if sample needs SDK installation and if it's available
-			if (sample.IsSDK && !_isSdkInstalled)
+			// If build with using Nuget reference, deployment folder is copied under the bin folder
+			// without symbols or other deployable extensions. 
+			if (sample.IsSDK && (!CheckIfHasDeploymentFolder() || !_isSdkInstalled))
 			{
 				SampleContainer.Child = new SdkInstallNeeded();
 				if (currentSampleMenuItem != null)
@@ -122,7 +142,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 			GC.Collect();
 			GC.WaitForPendingFinalizers();
 		}
-    }
+	}
 
 	public class SampleDatasource
 	{

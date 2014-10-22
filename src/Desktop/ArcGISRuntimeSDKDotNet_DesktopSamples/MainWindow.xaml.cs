@@ -13,24 +13,47 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 {
    public partial class MainWindow : Window
    {
-	   private string _runtimeVersion;
+		private bool _isSdkInstalled;
 
-       public MainWindow()
-       {
-            InitializeComponent();
+		public MainWindow()
+		{
+			InitializeComponent();
 			LoadSamples();
 			CheckForLocalData();
-			GetRuntimeVersionNumber();
+			CheckIfSdkIsInstalled();
 		}
 
-		private void GetRuntimeVersionNumber()
+		private string GetRuntimeVersionNumber()
 		{
+			var runtimeVersion = string.Empty;
 			var assembly = System.Reflection.Assembly.Load(new AssemblyName("Esri.ArcGISRuntime"));
 			var version = assembly.GetName().Version;
 			// Extract version number, note build happens to be the 3rd place number, but we use it for the minor-minor version e.g. "10.1.1"
-			_runtimeVersion = version.Major + "." + version.Minor;
+			runtimeVersion = version.Major + "." + version.Minor;
 			if (version.Build != 0)
-				_runtimeVersion += "." + version.Build;
+				runtimeVersion += "." + version.Build;
+
+			return runtimeVersion;
+		}
+
+		private void CheckIfSdkIsInstalled()
+		{
+			try
+			{
+				// Check if the SDK is installed using registry key
+				using (RegistryKey Key =
+					Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft.NETFramework\v4.5.50709\AssemblyFoldersEx\ArcGIS Runtime SDK " + GetRuntimeVersionNumber()))
+				{
+					if (Key == null)
+						_isSdkInstalled = false;
+					else
+						_isSdkInstalled = true;
+				}
+			}
+			catch (Exception)
+			{
+				_isSdkInstalled = false;
+			}
 		}
 
 		private void CheckForLocalData()
@@ -79,29 +102,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 		private void sampleitem_Click(Sample sample, MenuItem menu)
 		{
 			// Check if sample needs SDK installation and if it's available
-			if (sample.IsSDK)
+			if (sample.IsSDK && !_isSdkInstalled)
 			{
-				try
-				{
-					// Check if the SDK is installed using registry key
-					using (RegistryKey Key =
-						Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft.NETFramework\v4.5.50709\AssemblyFoldersEx\ArcGIS Runtime SDK " + _runtimeVersion))
-					{
-
-						if (Key == null)
-						{
-							SampleContainer.Child = new SdkInstallNeeded();
-							if (currentSampleMenuItem != null)
-								currentSampleMenuItem.IsChecked = false;
-
-							return;
-						}
-					}
-				}
-				catch (Exception exception)
-				{
-					throw new Exception("Could not read registry for SDK path");
-				}
+				SampleContainer.Child = new SdkInstallNeeded();
+				if (currentSampleMenuItem != null)
+					currentSampleMenuItem.IsChecked = false;
+				return;
 			}
 
 			var c = sample.UserControl.GetConstructor(new Type[] { });

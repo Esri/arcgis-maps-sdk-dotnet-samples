@@ -15,17 +15,17 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples
 	/// </summary>
 	public sealed partial class SampleListPage : Page
 	{
-		private string _runtimeVersion;
+		private bool _hasDeployment;
 
 		public SampleListPage()
 		{
 			this.InitializeComponent();
 			DataContext = SampleDatasource.Current;
 
-			GetRuntimeVersionNumber();
+			CheckDeployment();
 		}
 
-		private void GetRuntimeVersionNumber()
+		private string GetRuntimeVersionNumber()
 		{
 			// Get version number that is used in the deployment folder
 			Assembly runtimeAssembly = typeof(ArcGISRuntimeEnvironment).GetTypeInfo().Assembly;
@@ -45,13 +45,34 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples
 				for (var i = 0; i < partCount; i++)
 				{
 					if (string.IsNullOrEmpty(sdkVersion))
-						_runtimeVersion = versions[i];
+						sdkVersion = versions[i];
 					else
-						_runtimeVersion += "." + versions[i];
+						sdkVersion += "." + versions[i];
 				}
 			}
 			else
 				throw new Exception("Cannot read version number from ArcGIS Runtime");
+
+			return sdkVersion;
+		}
+
+		private async void CheckDeployment()
+		{
+			try
+			{
+				// Check that all folders are deployed - assuming that symbols folder contains all 
+				// deployable dictionaries
+				var appFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
+				var runtimeFolder = await appFolder.GetFolderAsync("arcgisruntime" + GetRuntimeVersionNumber());
+				var resourcesFolder = await runtimeFolder.GetFolderAsync("resources");
+				var symbolsFolders = await resourcesFolder.GetFolderAsync("symbols");
+
+				_hasDeployment = true;
+			}
+			catch (FileNotFoundException)
+			{
+				_hasDeployment = false;
+			}
 		}
 
 		private async void GridView_ItemClick(object sender, ItemClickEventArgs e)
@@ -59,24 +80,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples
 			var item = (Sample)e.ClickedItem;
 
 			// Check if sample needs SDK installation and if it's available
-			if (item.IsSDK)
+			if (item.IsSDK && !_hasDeployment)
 			{
-				try
-				{
-					// Check that all folders are deployed - assuming that symbols folder contains all 
-					// deployable dictionaries
-					var appFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
-					var runtimeFolder = await appFolder.GetFolderAsync("arcgisruntime" + _runtimeVersion);
-					var resourcesFolder = await runtimeFolder.GetFolderAsync("resources");
-					var symbolsFolders = await resourcesFolder.GetFolderAsync("symbols");
-				}
-				catch (FileNotFoundException)
-				{
-					// Deployment folder is not found show sample not available page
-					Frame.Navigate(typeof(SdkInstallNeededPage));
-					AppState.Current.CurrentSampleTitle = "Sample not available";
-					return;					
-				}
+				// Deployment folder is not found show sample not available page
+				Frame.Navigate(typeof(SdkInstallNeededPage));
+				AppState.Current.CurrentSampleTitle = "Sample not available";
+				return;
 			}
 
 			// Sample is available

@@ -71,11 +71,13 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BooleanToVisibilityConverter.cs" />
     <Compile Include="ContinuationManager.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SampleDataViewModel.cs" />
     <Compile Include="Samples\DynamicServiceLayers\DynamicAndTile.xaml.cs">
       <DependentUpon>DynamicAndTile.xaml</DependentUpon>
     </Compile>
@@ -291,6 +293,9 @@
     </Compile>
     <Compile Include="Samples\Symbology\SymbolSwatches.xaml.cs">
       <DependentUpon>SymbolSwatches.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\TiledLayers\ArcGISLocalTiledLayerSample.xaml.cs">
+      <DependentUpon>ArcGISLocalTiledLayerSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\TiledLayers\ArcGISTiledMapServiceLayerSample.xaml.cs">
       <DependentUpon>ArcGISTiledMapServiceLayerSample.xaml</DependentUpon>
@@ -615,6 +620,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Symbology\SymbolSwatches.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\TiledLayers\ArcGISLocalTiledLayerSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

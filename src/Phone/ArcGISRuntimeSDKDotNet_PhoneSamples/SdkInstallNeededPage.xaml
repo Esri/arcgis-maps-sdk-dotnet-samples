@@ -27,10 +27,10 @@
 		<StackPanel Margin="0,20" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" >
 			<TextBlock
 				HorizontalAlignment="Center" Style="{StaticResource SubheaderTextBlockStyle}" TextWrapping="Wrap"
-				Text="Selected sample is using additional components that are available only in SDK installation" />
+				Text="Selected sample is using additional components that are available only with deployment" />
 
 			<TextBlock Margin="0,20"
-				Text="To enable these capabilities, install SDK and replace references" Style="{StaticResource BodyTextBlockStyle}"
+				Text="To enable these capabilities, install SDK and create a deployment." Style="{StaticResource BodyTextBlockStyle}"
 				TextWrapping="Wrap" VerticalAlignment="Center"/>
 	
 			<HyperlinkButton NavigateUri="https://developersdev.arcgis.com/net/">

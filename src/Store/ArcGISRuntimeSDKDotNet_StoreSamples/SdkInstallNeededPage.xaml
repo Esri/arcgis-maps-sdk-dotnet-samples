@@ -18,11 +18,11 @@
 				   Text="Selected sample is using additional components" />
 
 			<TextBlock HorizontalAlignment="Center" Style="{StaticResource HeaderTextBlockStyle}"
-				   Text="that are available only in SDK installation." Margin="0,10,0,0"/>
+				   Text="that are available only with deployment." Margin="0,10,0,0"/>
 
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Margin="40">
 				<TextBlock 
-				   Text="To enable these capabilities, install SDK and replace references" Style="{StaticResource SubheaderTextBlockStyle}" VerticalAlignment="Center"/>
+				   Text="To enable these capabilities, install SDK and create a deployment." Style="{StaticResource SubheaderTextBlockStyle}" VerticalAlignment="Center"/>
 			</StackPanel>
 
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Margin="40">
@@ -34,7 +34,7 @@
 			</StackPanel>
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1">
 				<TextBlock 
-				   Text="Read more from :" Style="{StaticResource SubheaderTextBlockStyle}" VerticalAlignment="Center"/>
+				   Text="Read more from : " Style="{StaticResource SubheaderTextBlockStyle}" VerticalAlignment="Center"/>
 				<HyperlinkButton NavigateUri="https://github.com/Esri/arcgis-runtime-samples-dotnet/blob/master/README.md">
 					<TextBlock Text="readme" Style="{StaticResource SubheaderTextBlockStyle}" VerticalAlignment="Center"></TextBlock>
 				</HyperlinkButton>

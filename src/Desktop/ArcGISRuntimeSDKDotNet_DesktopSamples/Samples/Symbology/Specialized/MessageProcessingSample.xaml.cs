@@ -191,14 +191,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Specialized
                 {
                     await FindIntersectingGraphicsAsync(DrawShape.Point);
                 }
+                catch (TaskCanceledException ex)
+                {
+                    // Do nothing if it's a TaskCanceledException
+                }
                 catch (Exception ex)
                 {
-                    if (ex is TaskCanceledException)
-                    {
-                        // Do nothing if it's a TaskCanceledException
-                    }
-                    else
-                        MessageBox.Show("Selection Error: " + ex.Message, "Message Processing Sample");
+                    MessageBox.Show("Selection Error: " + ex.Message, "Message Processing Sample");
                 }
             }
         }
@@ -211,14 +210,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Specialized
                 {
                     await FindIntersectingGraphicsAsync(DrawShape.Envelope);
                 }
+                catch (TaskCanceledException ex)
+                {
+                    // Do nothing if it's a TaskCanceledException
+                }
                 catch (Exception ex)
                 {
-                    if (ex is TaskCanceledException)
-                    {
-                        // Do nothing if it's a TaskCanceledException
-                    }
-                    else
-                        MessageBox.Show("Selection Error: " + ex.Message, "Message Processing Sample");
+                    MessageBox.Show("Selection Error: " + ex.Message, "Message Processing Sample");
                 }
             }
         }

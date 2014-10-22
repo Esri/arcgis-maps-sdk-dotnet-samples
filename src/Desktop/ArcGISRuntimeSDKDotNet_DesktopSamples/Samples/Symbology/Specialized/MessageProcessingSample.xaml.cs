@@ -34,14 +34,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Specialized
             MyMapView.SpatialReferenceChanged += MyMapView_SpatialReferenceChanged;
         }
 
-        private async void MyMapView_SpatialReferenceChanged(object sender, EventArgs e)
+        private void MyMapView_SpatialReferenceChanged(object sender, EventArgs e)
         {
             try
             {
                 MyMapView.SpatialReferenceChanged -= MyMapView_SpatialReferenceChanged;
-
-                // Wait until all layers are loaded
-                await MyMapView.LayersLoadedAsync();
 
                 _messageLayer = MyMapView.Map.Layers.OfType<MessageLayer>().First();
 
@@ -221,7 +218,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Specialized
                         // Do nothing if it's a TaskCanceledException
                     }
                     else
-                    MessageBox.Show("Selection Error: " + ex.Message, "Message Processing Sample");
+                        MessageBox.Show("Selection Error: " + ex.Message, "Message Processing Sample");
                 }
             }
         }

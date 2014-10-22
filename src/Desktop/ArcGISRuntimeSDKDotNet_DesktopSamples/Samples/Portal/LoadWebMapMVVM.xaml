@@ -79,12 +79,6 @@
                                     </TextBlock>
                                     <Image Source="{Binding ThumbnailUri}" Grid.Row="2" Grid.Column="0" 
                                            Stretch="UniformToFill" Width="200" Height="133" />
-
-                                    <!--<Button Grid.Row="2" Grid.Column="0" Margin="0" Padding="1"
-                                        Command="{Binding ElementName=searchResultsList, Path=DataContext.LoadWebMapCommand}" 
-                                        CommandParameter="{Binding}">
-                                    </Button>-->
-
                                     <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Snippet}" TextWrapping="Wrap" Margin="4,0" />
                                 </Grid>
                             </DataTemplate>

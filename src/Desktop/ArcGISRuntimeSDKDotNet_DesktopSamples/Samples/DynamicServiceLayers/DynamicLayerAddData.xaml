@@ -25,8 +25,8 @@
                         Click="AddShapefileButton_Click" />
                 <Button Content="Add Raster" HorizontalAlignment="Center" Width="100" Margin="4" Padding="8"
                         Click="AddRasterButton_Click" />
-                <ProgressBar x:Name="progress" IsIndeterminate="True" VerticalAlignment="Bottom" Width="113" Height="8" Margin="10,10,0,10" 
-                     Visibility="{Binding Path=IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Left" />
+                <ProgressBar x:Name="progress" IsIndeterminate="True" VerticalAlignment="Bottom" Width="113" Margin="10,10,0,10" 
+                     HorizontalAlignment="Left" />
             </StackPanel>
         </Border>
     </Grid>

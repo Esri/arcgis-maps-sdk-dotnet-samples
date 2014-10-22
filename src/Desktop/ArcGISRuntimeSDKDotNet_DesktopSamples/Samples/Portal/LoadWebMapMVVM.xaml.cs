@@ -30,7 +30,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 return;
 
             // Forward from View to ViewModel
-           ((LoadWebMapVM)DataContext).LoadWebMapCommand.Execute(e.AddedItems[0]);
+            if (((LoadWebMapVM)DataContext).LoadWebMapCommand.CanExecute(e.AddedItems[0]))
+                ((LoadWebMapVM)DataContext).LoadWebMapCommand.Execute(e.AddedItems[0]);
         }
     }
 

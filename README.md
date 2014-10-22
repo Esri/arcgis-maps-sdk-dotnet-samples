@@ -5,12 +5,11 @@ This project contains samples for the ArcGIS Runtime SDK for .NET - Desktop, Sto
 ## Instructions 
 
 1. Fork and then clone the repo or download the .zip file. 
-2. Download and install the [ArcGIS Runtime SDK for .NET](https://developers.arcgis.com/net/).  
-3. Confirm the supported system configuration for the API of interest in the ArcGIS Runtime SDK for .NET:
+2. Confirm the supported system configuration for the API of interest in the ArcGIS Runtime SDK for .NET:
   * [Windows Desktop](http://developers.arcgis.com/net/desktop/guide/system-requirements.htm)
   * [Windows Phone](http://developers.arcgis.com/net/store/guide/system-requirements.htm)
   * [Windows Store](http://developers.arcgis.com/net/store/guide/system-requirements.htm) 
-4. In Visual Studio, open the solution for the Desktop, Phone, or Store samples.   
+3. In Visual Studio, open the solution for the Desktop, Phone, or Store samples.   
   * Windows Desktop: src\Desktop\ArcGISRuntimeSDKDotNet_DesktopSamples.sln  
 	   - Clean, build, and run the application.
   * Windows Phone: src\Phone\ArcGISRuntimeSDKDotNet_PhoneSamples.sln  
@@ -20,7 +19,14 @@ This project contains samples for the ArcGIS Runtime SDK for .NET - Desktop, Sto
     - In Visual Studio go to Build > Configuration Manager.  Select the appropriate active solution platform.  If deploying to a Windows RT 8.1 device, use ARM.  If deploying to a Windows 8.1 device (or simulator), select the appropriate processor type, x86 or x64.  
     - Clean, build, and run the application.
 
+
 Notes:
+* Projets references [ArcGIS Runtime SDK for .NET](http://esriurl.com/dotnetsdk) by using Nuget package that is restored when project is build first time. 
+* Some samples needs [ArcGIS Runtime SDK for .NET](http://esriurl.com/dotnetsdk) SDK to being installed to the developer machine or deployment folder to work. 
+	* If you want to run those samples following steps are needed
+		* Download and install [ArcGIS Runtime SDK for .NET](http://esriurl.com/dotnetsdk).
+		* Clean output folders.
+		* For Windows Store and Windows Phone, [deployment](https://developers.arcgis.com/net/desktop/guide/deployment.htm) has to be done. Deploy all extra capabilties to make sure that you can run all samples.
 * Sample data for ArcGIS Runtime SDKs is included as a submodule with this repo: https://github.com/Esri/arcgis-runtime-samples-data.  If downloading the zip or using a source control application that does not pull submodules from this repo, get the sample data from https://github.com/Esri/arcgis-runtime-samples-data directly.  Place sample data contents in a folder named "sample-data" at the same level as the "src" folder for this repo.
 * The Windows Phone samples project contains a reference to the Nuget package for the [Windows Phone Toolkit](http://www.nuget.org/packages/WPtoolkit/).  To enable download of Nuget packages on project build, in Visual Studio go to Tools > Options > Package Manager and check the box next to "Allow Nuget to download missing packages during build".  You can also choose to download and install the [October 2012 version of the Windows Phone Toolkit](http://phone.codeplex.com/). 
 

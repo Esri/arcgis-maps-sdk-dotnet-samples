@@ -21,6 +21,16 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public LoadWebMapMVVM()
         {
             InitializeComponent();
+            DataContext = new LoadWebMapVM();
+        }
+
+        private void searchResultsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems == null || e.AddedItems.Count == 0)
+                return;
+
+            // Forward from View to ViewModel
+           ((LoadWebMapVM)DataContext).LoadWebMapCommand.Execute(e.AddedItems[0]);
         }
     }
 
@@ -51,7 +61,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 RaisePropertyChanged("SearchText");
             }
         }
-        
+
         // Portal Search Results
         private ObservableCollection<ArcGISPortalItem> _searchResults;
         public ObservableCollection<ArcGISPortalItem> SearchResults
@@ -110,7 +120,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             var task = GetFeaturedWebMapsAsync();
         }
 
-        // Loads featured WebMaps from arcgis online
+        // Loads featured WebMaps from ArcGIS online
         private async Task GetFeaturedWebMapsAsync()
         {
             try
@@ -121,8 +131,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     _portal = await ArcGISPortal.CreateAsync();
 
                 var searchParams = new SearchParameters("type: \"web map\" NOT \"web mapping application\" ")
-                { 
-                    Limit = 20, 
+                {
+                    Limit = 20,
                     SortField = "avgrating",
                     SortOrder = QuerySortOrder.Descending,
                 };
@@ -136,7 +146,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             }
         }
 
-        // Searches arcgis online for webmaps containing SearchText
+        // Searches ArcGIS online for webmaps containing SearchText
         private async Task SearchArcgisOnline()
         {
             try
@@ -147,8 +157,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     _portal = await ArcGISPortal.CreateAsync();
 
                 var searchParams = new SearchParameters(SearchText + " type: \"web map\" NOT \"web mapping application\" ")
-                { 
-                    Limit = 20, 
+                {
+                    Limit = 20,
                     SortField = "avgrating",
                     SortOrder = QuerySortOrder.Descending,
                 };

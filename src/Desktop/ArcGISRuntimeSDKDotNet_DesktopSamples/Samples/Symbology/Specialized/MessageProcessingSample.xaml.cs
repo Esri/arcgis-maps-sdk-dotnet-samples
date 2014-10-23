@@ -129,7 +129,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Specialized
             if (drawMode == DrawShape.Point)
             {
                 var mapPoint = await MyMapView.Editor.RequestPointAsync();
-                // MyMapView.Editor.
                 var screenPoint = MyMapView.LocationToScreen(mapPoint);
                 foreach (var l in messageSubLayers)
                     results = results.Concat(await l.HitTestAsync(MyMapView, screenPoint, maxHits));

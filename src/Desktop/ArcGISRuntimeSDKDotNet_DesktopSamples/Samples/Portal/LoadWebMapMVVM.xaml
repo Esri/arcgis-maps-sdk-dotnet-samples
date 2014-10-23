@@ -10,15 +10,15 @@
         <local:LoadWebMapVM x:Key="LoadWebMapViewModel" />
     </UserControl.Resources>
 
-    <Grid DataContext="{StaticResource LoadWebMapViewModel}">
+    <Grid>
         <esri:MapView Map="{Binding CurrentWebMapVM.Map}" />
 
-		<Border Background="White" BorderBrush="Black" BorderThickness="1"
+        <Border Background="White" BorderBrush="Black" BorderThickness="1"
 				HorizontalAlignment="Right" VerticalAlignment="Top"
 				Margin="30" Padding="20" Width="500">
-			<Border.Effect>
-				<DropShadowEffect/>
-			</Border.Effect>
+            <Border.Effect>
+                <DropShadowEffect/>
+            </Border.Effect>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -27,13 +27,13 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="0">
-                    <TextBlock Text="Enter query text for searching arcgis.com webmaps:" Margin="0,0,0,2" TextWrapping="Wrap" />
+                    <TextBlock Text="Enter query text to search ArcGIS webmaps:" Margin="0,0,0,2" TextWrapping="Wrap" />
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        
+
                         <TextBox Grid.Column="0" Margin="0,0,12,0" VerticalAlignment="Center"
                                  Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
                         <Button Grid.Column="1" Content="Search" VerticalAlignment="Center" Padding="12,2" 
@@ -45,16 +45,17 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="12" />
                     </Grid.RowDefinitions>
-                    
+
                     <ProgressBar IsIndeterminate="True" VerticalAlignment="Center" 
                                  Visibility="{Binding IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 </Grid>
 
                 <ScrollViewer Grid.Row="2">
-                    <ItemsControl x:Name="searchResultsList" ItemsSource="{Binding SearchResults}">
-                        <ItemsControl.ItemTemplate>
+                    <ListView x:Name="searchResultsList" ItemsSource="{Binding SearchResults}" 
+                              SelectionChanged="searchResultsList_SelectionChanged" SelectionMode="Single">
+                        <ListView.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="4,4,4,8">
+                                <Grid Margin="4,4,4,8" Width="430">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
@@ -76,18 +77,13 @@
                                             </MultiBinding>
                                         </TextBlock.Text>
                                     </TextBlock>
-
-                                    <Button Grid.Row="2" Grid.Column="0" Margin="0" Padding="1"
-                                        Command="{Binding ElementName=searchResultsList, Path=DataContext.LoadWebMapCommand}" 
-                                        CommandParameter="{Binding}">
-                                        <Image Source="{Binding ThumbnailUri}" Stretch="UniformToFill" Width="200" Height="133" />
-                                    </Button>
-
+                                    <Image Source="{Binding ThumbnailUri}" Grid.Row="2" Grid.Column="0" 
+                                           Stretch="UniformToFill" Width="200" Height="133" />
                                     <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Snippet}" TextWrapping="Wrap" Margin="4,0" />
                                 </Grid>
                             </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </ScrollViewer>
             </Grid>
         </Border>

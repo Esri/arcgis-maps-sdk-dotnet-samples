@@ -30,25 +30,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Specialized
         public MessageProcessingSample()
         {
             InitializeComponent();
-
-            MyMapView.SpatialReferenceChanged += MyMapView_SpatialReferenceChanged;
-        }
-
-        private void MyMapView_SpatialReferenceChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                MyMapView.SpatialReferenceChanged -= MyMapView_SpatialReferenceChanged;
-
-                _messageLayer = MyMapView.Map.Layers.OfType<MessageLayer>().First();
-
-                ProcessMessages();
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Message Processing Sample");
-            }
+            ProcessMessages();
         }
 
         private async void ProcessMessages()
@@ -56,6 +38,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Specialized
             try
             {
                 await MyMapView.LayersLoadedAsync();
+
+                _messageLayer = MyMapView.Map.Layers.OfType<MessageLayer>().First();
+
                 // This function simulates real time message processing by processing a static set of messages from an XML document.
                 /* 
                 * |== Example Message ==|

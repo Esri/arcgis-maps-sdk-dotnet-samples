@@ -32,12 +32,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
         public SymbolDictionarySearchSample()
         {
             InitializeComponent();
-
-            MyMapView.SpatialReferenceChanged += MyMapView_SpatialReferenceChanged;
-        }
-
-        void MyMapView_SpatialReferenceChanged(object sender, EventArgs e)
-        {
+            
             Init();
         }
 

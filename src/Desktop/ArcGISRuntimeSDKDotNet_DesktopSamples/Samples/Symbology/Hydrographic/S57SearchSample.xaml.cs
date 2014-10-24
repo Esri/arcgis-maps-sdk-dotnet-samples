@@ -20,7 +20,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 	/// <title>S57 Search </title>
 	/// <category>Symbology</category>
 	/// <subcategory>Hydrographic</subcategory>
-	/// <isSDK>true</isSDK>
+	/// <requiresSymbols>true</requiresSymbols>
 	public partial class S57SearchSample : UserControl, INotifyPropertyChanged
 	{
 		private DrawShape _currentDrawShape;

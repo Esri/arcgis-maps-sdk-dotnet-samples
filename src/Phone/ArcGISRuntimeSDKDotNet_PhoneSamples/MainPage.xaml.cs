@@ -23,7 +23,7 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples
         {
 			// Define symbology path to Resources folder. This folder is included in the solution as a Content
 			if (!ArcGISRuntimeEnvironment.IsInitialized)
-				ArcGISRuntimeEnvironment.SymbolsPath = @"arcgisruntime10.2.4\resources\symbols";
+				ArcGISRuntimeEnvironment.SymbolsPath = @"arcgisruntime" + GetRuntimeVersionNumber() + @"\resources\symbols";
            
 			this.InitializeComponent();
 			
@@ -88,8 +88,8 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples
         {
             var item = (Sample)e.ClickedItem;
 
-			// Check if sample needs SDK installation and if it's available
-			if (item.IsSDK && !_hasDeployment)
+			// Check if sample needs symbols and if deployment is available with symbols
+			if (item.RequiresSymbols && !_hasDeployment)
 			{
 					// Deployment folder is not found show sample not available page
 					Frame.Navigate(typeof(SdkInstallNeededPage));
@@ -169,13 +169,13 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples
 									if (localData != null && localData.Value is string)
 										match.RequiresLocalData = localData.Value.Trim().Equals(bool.TrueString, StringComparison.CurrentCultureIgnoreCase);
 
-									// Get information if the sample needs SDK installation
-									var isSDK = member.Descendants("isSDK").FirstOrDefault();
-									if (isSDK != null && isSDK.Value is string)
+									// Get information if the sample needs symbols
+									var requiresSymbols = member.Descendants("requiresSymbols").FirstOrDefault();
+									if (requiresSymbols != null && requiresSymbols.Value is string)
 									{
 										var result = false;
-										bool.TryParse(isSDK.Value.Trim(), out result);
-										match.IsSDK = result;
+										bool.TryParse(requiresSymbols.Value.Trim(), out result);
+										match.RequiresSymbols = result;
 									}
                                 }
                             }
@@ -266,10 +266,14 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples
             public string SampleFile { get; set; }
 
 			/// <summary>
-			/// Defines if the sample needs SDK installation to work. 
+			/// Defines if the sample needs symbol to work. 
 			/// </summary>
-			/// <remarks>This is used for sample that needs something to being deployed like military symbology or S57 symbology.</remarks>
-			public bool IsSDK { get; set; }
+			/// <remarks>This is used for samples that need something to being deployed like military symbology or S57 symbology.</remarks>
+			public bool RequiresSymbols { get; set; }
+
+			/// <summary>
+			/// Defines if the sample needs local data to work.
+			/// </summary>
 			public bool RequiresLocalData { get; set; }
         }
     }

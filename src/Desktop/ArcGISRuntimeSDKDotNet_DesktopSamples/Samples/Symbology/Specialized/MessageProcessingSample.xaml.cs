@@ -21,7 +21,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Specialized
 	/// <title>Message Processor</title>
 	/// <category>Symbology</category>
 	/// <subcategory>Specialized</subcategory>
-	/// <isSDK>true</isSDK>
+	/// <requiresSymbols>true</requiresSymbols>
 	public partial class MessageProcessingSample : UserControl
 	{
 		private const string DATA_PATH = @"..\..\..\..\..\samples-data\symbology\Mil2525CMessages.xml";

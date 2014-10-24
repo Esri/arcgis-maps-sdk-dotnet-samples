@@ -26,7 +26,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 	/// <title>S57 Identify</title>
 	/// <category>Symbology</category>
 	/// <subcategory>Hydrographic</subcategory>
-	/// <isSDK>true</isSDK>
+	/// <requiresSymbols>true</requiresSymbols>
 	public partial class S57IdentifySample : UserControl
 	{
 		private GroupLayer _hydrographicLayers;

@@ -166,11 +166,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 			// Check if sample needs SDK installation and if it's available
 			// If build with using Nuget reference, deployment folder is copied under the bin folder
 			// without symbols or other deployable extensions. 
-			if (sample.IsSDK && (!CheckIfHasDeploymentFolder() || !_isSdkInstalled))
+			if (sample.RequiresSymbols && (!CheckIfHasDeploymentFolder() || !_isSdkInstalled))
 				isSampleAvailable = false;
 
 			// Check if local server is needed and if it's available
-			if (sample.LocalServer && (!CheckIfHasDeploymentAndLocalServer() && !CheckIfSdkIsInstalledAndNoDeploymentIsFound()))
+			if (sample.RequiresLocalServer && (!CheckIfHasDeploymentAndLocalServer() && !CheckIfSdkIsInstalledAndNoDeploymentIsFound()))
 				isSampleAvailable = false;
 
 			if (!isSampleAvailable)
@@ -245,22 +245,22 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 								if (subcategory != null)
 									match.Subcategory = subcategory.Value.Trim();
 
-								// Get information if the sample needs SDK installation
-								var isSDK = member.Descendants("isSDK").FirstOrDefault();
-								if (isSDK != null && isSDK.Value is string)
+								// Get information if the sample needs symbol installation
+								var requiresSymbols = member.Descendants("requiresSymbols").FirstOrDefault();
+								if (requiresSymbols != null && requiresSymbols.Value is string)
 								{
 									var result = false;
-									bool.TryParse(isSDK.Value.Trim(), out result);
-									match.IsSDK = result;
+									bool.TryParse(requiresSymbols.Value.Trim(), out result);
+									match.RequiresSymbols = result;
 								}
 
 								// Get information if the sample needs LocalServer
-								var localServer = member.Descendants("localServer").FirstOrDefault();
-								if (localServer != null && localServer.Value is string)
+								var requiresLocalServer = member.Descendants("requiresLocalServer").FirstOrDefault();
+								if (requiresLocalServer != null && requiresLocalServer.Value is string)
 								{
 									var result = false;
-									bool.TryParse(localServer.Value.Trim(), out result);
-									match.LocalServer = result;
+									bool.TryParse(requiresLocalServer.Value.Trim(), out result);
+									match.RequiresLocalServer = result;
 								}
 							}
 						}
@@ -358,15 +358,15 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 		public string SampleFile { get; set; }
 
 		/// <summary>
-		/// Defines if the sample needs SDK installation to work. Defaults to false.
+		/// Defines if the sample needs symbols to work. Defaults to false.
 		/// </summary>
 		/// <remarks>This is used for sample that needs something to being deployed like military symbology or S57 symbology.</remarks>
-		public bool IsSDK { get; set; }
+		public bool RequiresSymbols { get; set; }
 
 		/// <summary>
 		/// Defines if the sample needs Local server to work. Defaults to false.
 		/// </summary>
 		/// <remarks>Only used in desktop.</remarks>
-		public bool LocalServer { get; set; }
+		public bool RequiresLocalServer { get; set; }
 	}
 }

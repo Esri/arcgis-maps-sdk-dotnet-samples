@@ -22,7 +22,7 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.Specialized
 	/// <title>Symbol Dictionary Search</title>
 	/// <category>Symbology</category>
 	/// <subcategory>Advanced</subcategory>	
-	/// <isSDK>true</isSDK>
+	/// <requiresSymbols>true</requiresSymbols>
 	public sealed partial class SymbolDictionarySearchSample : Page, INotifyPropertyChanged
 	{
 		private SymbolDictionary _symbolDictionary;

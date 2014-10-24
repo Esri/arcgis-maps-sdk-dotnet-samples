@@ -1,28 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 {
-	/// <summary>
-	/// Interaction logic for SdkInstallNeeded.xaml
-	/// </summary>
 	public partial class SdkInstallNeeded : UserControl
 	{
 		public SdkInstallNeeded()
 		{
 			InitializeComponent();
+		}
+
+		private void DeveloperSiteLink_Click(object sender, RoutedEventArgs e)
+		{
+			Process.Start(new ProcessStartInfo("http://esriurl.com/dotnetsdk"));
+		}
+
+		private void ReadMore_Click(object sender, RoutedEventArgs e)
+		{
+			Process.Start(new ProcessStartInfo("https://github.com/Esri/arcgis-runtime-samples-dotnet/blob/master/README.md"));
 		}
 	}
 }

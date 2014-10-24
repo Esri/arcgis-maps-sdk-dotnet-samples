@@ -58,12 +58,12 @@
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40,20,40,10">
 				<TextBlock 
 				   Text="Install SDK from : " VerticalAlignment="Center"/>
-				<Button Style="{StaticResource linkButton}" Content="developers.arcgis.com" />
+				<Button Style="{StaticResource linkButton}" Content="developers.arcgis.com" Click="DeveloperSiteLink_Click"/>
 			</StackPanel>
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
 				<TextBlock 
 				   Text="Read more from : " VerticalAlignment="Center"/>
-				<Button Style="{StaticResource linkButton}" Content="readme" />
+				<Button Style="{StaticResource linkButton}" Content="readme" Click="ReadMore_Click"/>
 			</StackPanel>
 		</StackPanel>
 	</Grid>

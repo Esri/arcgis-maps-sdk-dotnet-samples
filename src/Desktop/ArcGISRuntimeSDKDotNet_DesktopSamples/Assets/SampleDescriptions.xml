@@ -17,6 +17,7 @@
             <title>ArcGIS Local Dynamic Map Service Layer</title>
             <category>Layers</category>
             <subcategory>Dynamic Service Layers</subcategory>
+            <localServer>true</localServer>
             <summary>
             ArcGISDynamicMapServiceLayerLocalSample
             </summary>
@@ -86,6 +87,7 @@
             <title>Dynamic Layer Add Data</title>
             <category>Layers</category>
             <subcategory>Dynamic Service Layers</subcategory>
+            <localServer>true</localServer>
             <summary>
             DynamicLayerAddData
             </summary>
@@ -2607,9 +2609,6 @@
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.SdkInstallNeeded">
             <summary>
-            Interaction logic for SdkInstallNeeded.xaml
-            </summary>
-            <summary>
             SdkInstallNeeded
             </summary>
         </member>
@@ -2641,6 +2640,22 @@
             MainWindow
             </summary>
         </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.MainWindow.CheckIfLocalServerIsDeployed">
+            <summary>
+            Checks if either 32 or 64 bit local server is found under deployment folder.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.MainWindow.CheckIfHasDeploymentAndLocalServer">
+            <summary>
+            Checks if deployment folder is located with application and if it contains local server.
+            Return true both conditions are true, false other vise. If this returns true, deployment is ok for local server samples.
+            </summary>
+        </member>
+        <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.MainWindow.CheckIfSdkIsInstalledAndNoDeploymentIsFound">
+            <summary>
+            Checks if SDK is installed and no deployment is done. This means that centralized developer deployment is used.
+            </summary>
+        </member>
         <member name="M:ArcGISRuntimeSDKDotNet_DesktopSamples.MainWindow.InitializeComponent">
             <summary>
             InitializeComponent
@@ -2648,9 +2663,15 @@
         </member>
         <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Sample.IsSDK">
             <summary>
-            Defines if the sample needs SDK installation to work. 
+            Defines if the sample needs SDK installation to work. Defaults to false.
             </summary>
             <remarks>This is used for sample that needs something to being deployed like military symbology or S57 symbology.</remarks>
+        </member>
+        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Sample.LocalServer">
+            <summary>
+            Defines if the sample needs Local server to work. Defaults to false.
+            </summary>
+            <remarks>Only used in desktop.</remarks>
         </member>
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Properties.Resources">
             <summary>

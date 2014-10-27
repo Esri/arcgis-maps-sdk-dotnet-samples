@@ -32,8 +32,8 @@
 			<TextBlock Margin="0,20"
 				Text="To enable these capabilities, install SDK and create a deployment." Style="{StaticResource BodyTextBlockStyle}"
 				TextWrapping="Wrap" VerticalAlignment="Center"/>
-	
-			<HyperlinkButton NavigateUri="https://developers.arcgis.com/net/">
+
+			<HyperlinkButton NavigateUri="http://esriurl.com/dotnetsdk">
 				<TextBlock Text="install SDK" Style="{StaticResource TitleTextBlockStyle}" VerticalAlignment="Center"></TextBlock>
 			</HyperlinkButton>
 

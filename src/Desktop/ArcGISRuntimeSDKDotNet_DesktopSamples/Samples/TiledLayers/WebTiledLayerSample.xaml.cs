@@ -35,7 +35,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     webTiledLayer.TemplateUri = "http://{subDomain}.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{level}/{row}/{col}";
                     webTiledLayer.SubDomains = new string[] { "server", "services" };
                     webTiledLayer.CopyrightText = "National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC";
-                    Attribution.Visibility = Visibility.Collapsed;
+                    Attribution.Visibility = Visibility.Collapsed; // No attribution info here, so keep dialog collapsed.
                     break;
                 //MapQuest
                 case 1:
@@ -57,14 +57,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     webTiledLayer.TemplateUri = "http://{subDomain}.tile.cloudmade.com/1a1b06b230af4efdbb989ea99e9841af/999/256/{level}/{col}/{row}.png";
                     webTiledLayer.SubDomains = new string[] { "a", "b", "c" };
                     webTiledLayer.CopyrightText = "Cloudmade Midnight Commander";
-                    Attribution.Visibility = Visibility.Collapsed;
+                    Attribution.Visibility = Visibility.Collapsed; // No attribution info here, so keep dialog collapsed.
                     break;
                 //Cloudmade Pale Dawn
                 case 4:
                     webTiledLayer.TemplateUri = "http://{subDomain}.tile.cloudmade.com/1a1b06b230af4efdbb989ea99e9841af/998/256/{level}/{col}/{row}.png";
                     webTiledLayer.SubDomains = new string[] { "a", "b", "c" };
                     webTiledLayer.CopyrightText = "Cloudmade Pale Dawn";
-                    Attribution.Visibility = Visibility.Collapsed;
+                    Attribution.Visibility = Visibility.Collapsed; // No attribution info here, so keep dialog collapsed.
                     break;
                 //MapBox Dark
                 case 5:

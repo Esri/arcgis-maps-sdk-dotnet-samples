@@ -13,9 +13,6 @@
 
         <Border BorderBrush="Black" BorderThickness="1" Background="White" HorizontalAlignment="Right" 
                 VerticalAlignment="Top" Margin="30" Padding="20">
-            <Border.Effect>
-                <DropShadowEffect/>
-            </Border.Effect>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -48,66 +45,72 @@
             Margin="10" Visibility="Collapsed">
             <ContentControl.Resources>
                 <!-- MapQuest -->
-                <TextBlock x:Key="MapQuestAttribution" TextWrapping="Wrap" Background="White" Padding="4">
-                <Run Text="Tiles courtesy of "></Run>
-                <Hyperlink NavigateUri="http://www.mapquest.com/" RequestNavigate="Hyperlink_RequestNavigate">
-                    <TextBlock Text="MapQuest" />
-                </Hyperlink>
-                <Image Source="http://developer.mapquest.com/content/osm/mq_logo.png" Height="16" Width="16"/>
-            </TextBlock>
+                <TextBlock x:Key="MapQuestAttribution" 
+                           TextWrapping="Wrap" 
+                           Background="White" 
+                           Padding="4">
+                <Run Text="Tiles courtesy of "/>
+                <Hyperlink NavigateUri="http://www.mapquest.com/" 
+                           RequestNavigate="Hyperlink_RequestNavigate">MapQuest</Hyperlink>
+                <Image Source="http://developer.mapquest.com/content/osm/mq_logo.png" 
+                       Height="16" 
+                       Width="16"/>
+                </TextBlock>
                 <!-- OpenStreetMap Cycle Map -->
-                <TextBlock x:Key="OpenCycleMapAttribution" TextWrapping="Wrap" Background="White" Padding="4">
-                <Run Text="OpenCycleMap.org - the "></Run>
-                <Hyperlink NavigateUri="http://www.openstreetmap.org/#map=5/51.500/-0.100" RequestNavigate="Hyperlink_RequestNavigate">
-                    <TextBlock Text="OpenStreetMap" />
-                </Hyperlink>
-                <Run Text=" Cycle Map"></Run>
-            </TextBlock>
+                <TextBlock x:Key="OpenCycleMapAttribution" 
+                           TextWrapping="Wrap" 
+                           Background="White" 
+                           Padding="4">
+                <Run Text="OpenCycleMap.org - the "/>
+                <Hyperlink NavigateUri="http://www.openstreetmap.org/#map=5/51.500/-0.100" 
+                           RequestNavigate="Hyperlink_RequestNavigate">OpenStreetMap</Hyperlink>
+                <Run Text=" Cycle Map"/>
+                </TextBlock>
                 <!-- Mapbox -->
-                <TextBlock x:Key="MapboxAttribution" TextWrapping="Wrap" Background="White" Padding="4">
-                <Run Text="© Mapbox © OpenStreetMap"></Run>
-                <Hyperlink NavigateUri="https://www.mapbox.com/map-feedback/" RequestNavigate="Hyperlink_RequestNavigate">
-                    <TextBlock Text="Improve this map" />
-                </Hyperlink>
-            </TextBlock>
+                <TextBlock x:Key="MapboxAttribution" 
+                           TextWrapping="Wrap" 
+                           Background="White" 
+                           Padding="4">
+                <Run Text="© Mapbox © OpenStreetMap"/>
+                <Hyperlink NavigateUri="https://www.mapbox.com/map-feedback/" 
+                           RequestNavigate="Hyperlink_RequestNavigate">Improve this map</Hyperlink>
+                </TextBlock>
                 <!-- Stamen Toner Map -->
-                <TextBlock x:Key="StamenTonerAttribution" TextWrapping="Wrap" Background="White" Padding="4">
-                <Run Text="Map tiles by "></Run>
-                <Hyperlink NavigateUri="http://stamen.com/" RequestNavigate="Hyperlink_RequestNavigate">
-                    <TextBlock Text="Stamen Design," />
-                </Hyperlink>
-                <Run Text=" under "></Run>
-                    <Hyperlink NavigateUri="http://creativecommons.org/licenses/by/3.0" RequestNavigate="Hyperlink_RequestNavigate">
-                    <TextBlock Text="CC BY 3.0." />
-                </Hyperlink>
-                <Run Text=" Data by "></Run>
-                    <Hyperlink NavigateUri="http://openstreetmap.org/" RequestNavigate="Hyperlink_RequestNavigate">
-                    <TextBlock Text="OpenStreetMap," />
-                </Hyperlink>
-                <Run Text=" under "></Run>
-                    <Hyperlink NavigateUri="http://www.openstreetmap.org/copyright" RequestNavigate="Hyperlink_RequestNavigate">
-                    <TextBlock Text="ODbl." />
-                </Hyperlink>
-            </TextBlock>
+                <TextBlock x:Key="StamenTonerAttribution" 
+                           TextWrapping="Wrap" 
+                           Background="White" 
+                           Padding="4">
+                <Run Text="Map tiles by "/>
+                <Hyperlink NavigateUri="http://stamen.com/" 
+                           RequestNavigate="Hyperlink_RequestNavigate">Stamen Design</Hyperlink>
+                <Run Text=", under "/>
+                    <Hyperlink NavigateUri="http://creativecommons.org/licenses/by/3.0" 
+                               RequestNavigate="Hyperlink_RequestNavigate">CC BY 3.0.</Hyperlink>
+                <Run Text=" Data by "/>
+                    <Hyperlink NavigateUri="http://openstreetmap.org/" 
+                               RequestNavigate="Hyperlink_RequestNavigate">OpenStreetMap</Hyperlink>
+                <Run Text=", under "/>
+                    <Hyperlink NavigateUri="http://www.openstreetmap.org/copyright" 
+                               RequestNavigate="Hyperlink_RequestNavigate">ODbl.</Hyperlink>
+                </TextBlock>
                 <!-- Stamen Other Map -->
-                <TextBlock x:Key="StamenOtherAttribution" TextWrapping="Wrap" Background="White" Padding="4">
-                <Run Text="Map tiles by "></Run>
-                <Hyperlink NavigateUri="http://stamen.com/" RequestNavigate="Hyperlink_RequestNavigate">
-                    <TextBlock Text="Stamen Design," />
-                </Hyperlink>
-                <Run Text=" under "></Run>
-                    <Hyperlink NavigateUri="http://creativecommons.org/licenses/by/3.0" RequestNavigate="Hyperlink_RequestNavigate">
-                    <TextBlock Text="CC BY 3.0." />
-                </Hyperlink>
-                <Run Text=" Data by "></Run>
-                    <Hyperlink NavigateUri="http://openstreetmap.org/" RequestNavigate="Hyperlink_RequestNavigate">
-                    <TextBlock Text="OpenStreetMap," />
-                </Hyperlink>
-                <Run Text=" under "></Run>
-                    <Hyperlink NavigateUri="http://creativecommons.org/licenses/by-sa/3.0" RequestNavigate="Hyperlink_RequestNavigate">
-                    <TextBlock Text="CC BY SA." />
-                </Hyperlink>
-            </TextBlock>
+                <TextBlock x:Key="StamenOtherAttribution" 
+                           TextWrapping="Wrap" 
+                           Background="White" 
+                           Padding="4">
+                <Run Text="Map tiles by "/>
+                <Hyperlink NavigateUri="http://stamen.com/"
+                           RequestNavigate="Hyperlink_RequestNavigate">Stamen Design</Hyperlink>
+                <Run Text=", under "/>
+                    <Hyperlink NavigateUri="http://creativecommons.org/licenses/by/3.0" 
+                               RequestNavigate="Hyperlink_RequestNavigate">CC BY 3.0.</Hyperlink>
+                <Run Text=" Data by "/>
+                    <Hyperlink NavigateUri="http://openstreetmap.org/" 
+                               RequestNavigate="Hyperlink_RequestNavigate">OpenStreetMap</Hyperlink>
+                <Run Text=", under "/>
+                    <Hyperlink NavigateUri="http://creativecommons.org/licenses/by-sa/3.0" 
+                               RequestNavigate="Hyperlink_RequestNavigate">CC BY SA.</Hyperlink>
+                </TextBlock>
             </ContentControl.Resources>
         </ContentControl>
     </Grid>

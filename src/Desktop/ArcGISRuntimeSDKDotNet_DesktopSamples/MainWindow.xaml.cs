@@ -177,8 +177,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 			{
 				// Todo deploy local server.
 				SampleContainer.Child = new SdkInstallNeeded();
+
 				if (currentSampleMenuItem != null)
 					currentSampleMenuItem.IsChecked = false;
+
+				StatusBar.DataContext = new Sample() { Description = "Sample isn't available.",	UserControl = typeof(SdkInstallNeeded)};
+
 				return;
 			}
 

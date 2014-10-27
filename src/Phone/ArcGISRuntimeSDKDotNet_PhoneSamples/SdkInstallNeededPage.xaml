@@ -33,7 +33,7 @@
 				Text="To enable these capabilities, install SDK and create a deployment." Style="{StaticResource BodyTextBlockStyle}"
 				TextWrapping="Wrap" VerticalAlignment="Center"/>
 	
-			<HyperlinkButton NavigateUri="https://developersdev.arcgis.com/net/">
+			<HyperlinkButton NavigateUri="https://developers.arcgis.com/net/">
 				<TextBlock Text="install SDK" Style="{StaticResource TitleTextBlockStyle}" VerticalAlignment="Center"></TextBlock>
 			</HyperlinkButton>
 

@@ -47,7 +47,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     /// <summary>Represents a Preview Size (creatable in XAML)</summary>
     public class PreviewSize
     {
-        /// <summary>ID or Name of the previes size</summary>
+        /// <summary>ID or Name of the preview size</summary>
         public string Id { get; set; }
         /// <summary>Width of the preview size</summary>
         public double Width { get; set; }
@@ -187,7 +187,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             get { return DateTime.Now; }
         }
 
-        // Start the print process (by delagating either to the Silverlight print engine or to the WPF print engine)
+        // Start the print process (by delegating either to the Silverlight print engine or to the WPF print engine)
         public void Print()
         {
             if (IsPrinting)
@@ -212,7 +212,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             }
         }
 
-        // InotifyPropertyChanged implementation
+        // INotifyPropertyChanged implementation
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Notifies the property changed.

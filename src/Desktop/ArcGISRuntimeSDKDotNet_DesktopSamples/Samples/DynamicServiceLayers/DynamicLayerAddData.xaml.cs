@@ -20,6 +20,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers
     /// <title>Dynamic Layer Add Data</title>
 	/// <category>Layers</category>
 	/// <subcategory>Dynamic Service Layers</subcategory>
+	/// <requiresLocalServer>true</requiresLocalServer>
 	public partial class DynamicLayerAddData : UserControl
     {
         private const string _emptyMapPackage = @"..\..\..\..\..\samples-data\maps\water-distribution-network.mpk";

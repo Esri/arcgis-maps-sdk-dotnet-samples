@@ -21,6 +21,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 	/// <title>Message Processor</title>
 	/// <category>Symbology</category>
 	/// <subcategory>Advanced</subcategory>
+	/// <requiresSymbols>true</requiresSymbols>
 	public sealed partial class MessageProcessingSample : Page
 	{
 		private const string DATA_PATH = @"symbology\Mil2525CMessages.xml";

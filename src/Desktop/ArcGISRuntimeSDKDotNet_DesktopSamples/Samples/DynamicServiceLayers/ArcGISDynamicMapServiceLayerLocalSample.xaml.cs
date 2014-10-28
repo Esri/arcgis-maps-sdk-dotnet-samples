@@ -13,6 +13,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     /// <title>ArcGIS Local Dynamic Map Service Layer</title>
 	/// <category>Layers</category>
 	/// <subcategory>Dynamic Service Layers</subcategory>
+	/// <requiresLocalServer>true</requiresLocalServer>
 	public partial class ArcGISDynamicMapServiceLayerLocalSample : UserControl
     {
         /// <summary>

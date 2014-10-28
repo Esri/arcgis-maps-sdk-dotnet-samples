@@ -21,7 +21,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples
     {
 		public MainPage()
         {
-			ArcGISRuntimeEnvironment.SymbolsPath = @"Resources";
             this.InitializeComponent();
 			DataContext = AppState.Current;
 			SampleFrame.Navigated += SampleFrame_Navigated;

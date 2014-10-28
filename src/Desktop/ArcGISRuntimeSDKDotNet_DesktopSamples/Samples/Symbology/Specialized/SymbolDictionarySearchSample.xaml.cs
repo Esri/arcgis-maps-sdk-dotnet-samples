@@ -21,6 +21,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Specialized
     /// <title>Symbol Dictionary Search</title>
     /// <category>Symbology</category>
     /// <subcategory>Specialized</subcategory>
+	/// <requiresSymbols>true</requiresSymbols>
     public partial class SymbolDictionarySearchSample : UserControl, INotifyPropertyChanged
     {
         private SymbolViewModel _selectedSymbol;

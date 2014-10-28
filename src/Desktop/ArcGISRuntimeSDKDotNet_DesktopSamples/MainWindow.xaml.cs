@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,22 +11,118 @@ using System.Xml.Linq;
 
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 {
-   public partial class MainWindow : Window
-    {
-        public MainWindow()
-        {
-            InitializeComponent();
+	public partial class MainWindow : Window
+	{
+		private bool _isSdkInstalled;
+
+		public MainWindow()
+		{
+			InitializeComponent();
 			LoadSamples();
 			CheckForLocalData();
-        }
+			CheckIfSdkIsInstalled();
+		}
+
+		private string GetRuntimeVersionNumber()
+		{
+			var runtimeVersion = string.Empty;
+			var assembly = System.Reflection.Assembly.Load(new AssemblyName("Esri.ArcGISRuntime"));
+			var version = assembly.GetName().Version;
+			// Extract version number, note build happens to be the 3rd place number, but we use it for the minor-minor version e.g. "10.1.1"
+			runtimeVersion = version.Major + "." + version.Minor;
+			if (version.Build != 0)
+				runtimeVersion += "." + version.Build;
+
+			return runtimeVersion;
+		}
+
+		// Checks if the SDK is installed to this machine.
+		private void CheckIfSdkIsInstalled()
+		{
+			try
+			{
+				// Check if the SDK is installed using registry key
+				using (RegistryKey Key =
+					Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft\.NETFramework\v4.5.50709\AssemblyFoldersEx\ArcGIS Runtime SDK " + GetRuntimeVersionNumber()))
+				{
+					if (Key == null)
+						_isSdkInstalled = false;
+					else
+						_isSdkInstalled = true;
+				}
+			}
+			catch (Exception)
+			{
+				_isSdkInstalled = false;
+			}
+		}
+
+		// Checks if deployment folder is found from the same folder where application is and
+		// optionally if it has symbols folder in it. If it has it, we assume that all symbology files 
+		// are deployed.
+		private bool CheckIfHasDeploymentFolder(bool checkSymbolsFolder = true)
+		{
+			// Check if there is a deployment folder
+			if (Directory.Exists("arcgisruntime" + GetRuntimeVersionNumber()))
+			{
+				if (checkSymbolsFolder)
+				{
+					// deployment folder is found, check that symbols are deployed
+					if (Directory.Exists("arcgisruntime" + GetRuntimeVersionNumber() + "\\symbols"))
+						return true; // found
+					else
+						return false; // not found
+				}
+				else
+					return true; // found
+			}
+
+			return false; // not found
+		}
+
+		/// <summary>
+		/// Checks if either 32 or 64 bit local server is found under deployment folder.
+		/// </summary>
+		private bool CheckIfLocalServerIsDeployed()
+		{
+			// deployment folder is found, check that symbols are deployed
+			if (Directory.Exists("arcgisruntime" + GetRuntimeVersionNumber() + "\\LocalServer32") ||
+				Directory.Exists("arcgisruntime" + GetRuntimeVersionNumber() + "\\LocalServer64"))
+				return true;
+			return false; // not found
+		}
+
+		/// <summary>
+		/// Checks if deployment folder is located with application and if it contains local server.
+		/// Return true both conditions are true, false other vise. If this returns true, deployment is ok for local server samples.
+		/// </summary>
+		private bool CheckIfHasDeploymentAndLocalServer()
+		{
+			if (CheckIfHasDeploymentFolder(false) && CheckIfLocalServerIsDeployed())
+				return true;
+
+			return false;
+		}
+
+		/// <summary>
+		/// Checks if SDK is installed and no deployment is done. This means that centralized developer deployment is used.
+		/// </summary>
+		private bool CheckIfSdkIsInstalledAndNoDeploymentIsFound()
+		{
+			if (_isSdkInstalled && !CheckIfHasDeploymentFolder(false))
+				return true;
+
+			return false;
+		}
 
 		private void CheckForLocalData()
 		{
-			if(!Directory.Exists(@"..\..\..\..\..\samples-data\"))
+			if (!Directory.Exists(@"..\..\..\..\..\samples-data\"))
 			{
 				sampleDataNotFound.Visibility = System.Windows.Visibility.Visible;
 			}
 		}
+
 		private void LoadSamples()
 		{
 			var samples = SampleDatasource.Current.SamplesByCategory;
@@ -33,7 +130,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 			{
 				MenuItem samplesItem = new MenuItem() { Header = group.Key };
 				var subGroups = group.Items.GroupBy(g => g.Subcategory);
-				foreach(var subGroup in subGroups.Where(sg=>sg.Key != null))
+				foreach (var subGroup in subGroups.Where(sg => sg.Key != null))
 				{
 					MenuItem subGroupItem = new MenuItem() { Header = subGroup.Key };
 					foreach (var sample in subGroup)
@@ -42,7 +139,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 					}
 					samplesItem.Items.Add(subGroupItem);
 				}
-				foreach (var sample in group.Items.Where(g=>g.Subcategory == null))
+				foreach (var sample in group.Items.Where(g => g.Subcategory == null))
 				{
 					CreateSampleMenuItem(samplesItem, sample);
 				}
@@ -64,6 +161,31 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 		MenuItem currentSampleMenuItem;
 		private void sampleitem_Click(Sample sample, MenuItem menu)
 		{
+			var isSampleAvailable = true;
+
+			// Check if sample needs SDK installation and if it's available
+			// If build with using Nuget reference, deployment folder is copied under the bin folder
+			// without symbols or other deployable extensions. 
+			if (sample.RequiresSymbols && (!CheckIfHasDeploymentFolder() || !_isSdkInstalled))
+				isSampleAvailable = false;
+
+			// Check if local server is needed and if it's available
+			if (sample.RequiresLocalServer && (!CheckIfHasDeploymentAndLocalServer() && !CheckIfSdkIsInstalledAndNoDeploymentIsFound()))
+				isSampleAvailable = false;
+
+			if (!isSampleAvailable)
+			{
+				// Todo deploy local server.
+				SampleContainer.Child = new SdkInstallNeeded();
+
+				if (currentSampleMenuItem != null)
+					currentSampleMenuItem.IsChecked = false;
+
+				StatusBar.DataContext = new Sample() { Description = "Sample isn't available.",	UserControl = typeof(SdkInstallNeeded)};
+
+				return;
+			}
+
 			var c = sample.UserControl.GetConstructor(new Type[] { });
 			var ctrl = c.Invoke(new object[] { }) as UIElement;
 			SampleContainer.Child = ctrl;
@@ -76,7 +198,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 			GC.Collect();
 			GC.WaitForPendingFinalizers();
 		}
-    }
+	}
 
 	public class SampleDatasource
 	{
@@ -126,6 +248,24 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 								var subcategory = member.Descendants("subcategory").FirstOrDefault();
 								if (subcategory != null)
 									match.Subcategory = subcategory.Value.Trim();
+
+								// Get information if the sample needs symbol installation
+								var requiresSymbols = member.Descendants("requiresSymbols").FirstOrDefault();
+								if (requiresSymbols != null && requiresSymbols.Value is string)
+								{
+									var result = false;
+									bool.TryParse(requiresSymbols.Value.Trim(), out result);
+									match.RequiresSymbols = result;
+								}
+
+								// Get information if the sample needs LocalServer
+								var requiresLocalServer = member.Descendants("requiresLocalServer").FirstOrDefault();
+								if (requiresLocalServer != null && requiresLocalServer.Value is string)
+								{
+									var result = false;
+									bool.TryParse(requiresLocalServer.Value.Trim(), out result);
+									match.RequiresLocalServer = result;
+								}
 							}
 						}
 					}
@@ -220,5 +360,17 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 		public string Subcategory { get; set; }
 		public string Description { get; set; }
 		public string SampleFile { get; set; }
+
+		/// <summary>
+		/// Defines if the sample needs symbols to work. Defaults to false.
+		/// </summary>
+		/// <remarks>This is used for sample that needs something to being deployed like military symbology or S57 symbology.</remarks>
+		public bool RequiresSymbols { get; set; }
+
+		/// <summary>
+		/// Defines if the sample needs Local server to work. Defaults to false.
+		/// </summary>
+		/// <remarks>Only used in desktop.</remarks>
+		public bool RequiresLocalServer { get; set; }
 	}
 }

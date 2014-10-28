@@ -17,24 +17,84 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples
     public sealed partial class MainPage : Page
     {
 		private SampleDataViewModel _sampleDataVM;
+		private bool _hasDeployment;
 
         public MainPage()
         {
 			// Define symbology path to Resources folder. This folder is included in the solution as a Content
 			if (!ArcGISRuntimeEnvironment.IsInitialized)
-				ArcGISRuntimeEnvironment.SymbolsPath = @"Resources";
-
+				ArcGISRuntimeEnvironment.SymbolsPath = @"arcgisruntime" + GetRuntimeVersionNumber() + @"\resources\symbols";
+           
 			this.InitializeComponent();
 			
 			_sampleDataVM = new SampleDataViewModel();
 			SampleDataPanel.DataContext = _sampleDataVM;
 
-			DataContext = SampleDataSource.Current;
+            DataContext = SampleDataSource.Current;
+			CheckDeployment();
+		}
+
+		private string GetRuntimeVersionNumber()
+		{
+			// Get version number that is used in the deployment folder
+			Assembly runtimeAssembly = typeof(ArcGISRuntimeEnvironment).GetTypeInfo().Assembly;
+
+			var sdkVersion = string.Empty;
+			var attr = CustomAttributeExtensions.GetCustomAttribute<AssemblyFileVersionAttribute>(runtimeAssembly);
+			if (attr != null)
+			{
+				var version = attr.Version;
+				string[] versions = attr.Version.Split(new[] { '.' });
+
+				// Ensure that we only look maximum of 3 part version number ie. 10.2.4
+				int partCount = 3;
+				if (versions.Count() < 3)
+					partCount = versions.Count();
+
+				for (var i = 0; i < partCount; i++)
+				{
+					if (string.IsNullOrEmpty(sdkVersion))
+						sdkVersion = versions[i];
+					else
+						sdkVersion += "." + versions[i];
+				}
+			}
+			else
+				throw new Exception("Cannot read version number from ArcGIS Runtime");
+
+			return sdkVersion;
+		}
+
+		private async void CheckDeployment()
+		{
+			try
+			{
+				// Check that all folders are deployed - assuming that symbols folder contains all 
+				// deployable dictionaries
+				var appFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
+				var runtimeFolder = await appFolder.GetFolderAsync("arcgisruntime" + GetRuntimeVersionNumber());
+				var resourcesFolder = await runtimeFolder.GetFolderAsync("resources");
+				var symbolsFolders = await resourcesFolder.GetFolderAsync("symbols");
+
+				_hasDeployment = true;
         }
+			catch (FileNotFoundException)
+			{
+				_hasDeployment = false;
+			}
+		}
 
         private async void ListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             var item = (Sample)e.ClickedItem;
+
+			// Check if sample needs symbols and if deployment is available with symbols
+			if (item.RequiresSymbols && !_hasDeployment)
+			{
+					// Deployment folder is not found show sample not available page
+					Frame.Navigate(typeof(SdkInstallNeededPage));
+					return;
+			}
 
 			// Check if the app requires local data
 			if (item.RequiresLocalData && !_sampleDataVM.HasData)
@@ -56,7 +116,7 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples
 			await _sampleDataVM.DownloadLocalDataAsync();
 		}
 		
-		public class SampleDataSource
+        public class SampleDataSource
         {
             private SampleDataSource()
             {
@@ -108,7 +168,16 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples
 									var localData = member.Descendants("localdata").FirstOrDefault();
 									if (localData != null && localData.Value is string)
 										match.RequiresLocalData = localData.Value.Trim().Equals(bool.TrueString, StringComparison.CurrentCultureIgnoreCase);
-								}
+
+									// Get information if the sample needs symbols
+									var requiresSymbols = member.Descendants("requiresSymbols").FirstOrDefault();
+									if (requiresSymbols != null && requiresSymbols.Value is string)
+									{
+										var result = false;
+										bool.TryParse(requiresSymbols.Value.Trim(), out result);
+										match.RequiresSymbols = result;
+									}
+                                }
                             }
                         }
                         catch { } //ignore
@@ -195,6 +264,16 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples
             public string Subcategory { get; set; }
             public string Description { get; set; }
             public string SampleFile { get; set; }
+
+			/// <summary>
+			/// Defines if the sample needs symbol to work. 
+			/// </summary>
+			/// <remarks>This is used for samples that need something to being deployed like military symbology or S57 symbology.</remarks>
+			public bool RequiresSymbols { get; set; }
+
+			/// <summary>
+			/// Defines if the sample needs local data to work.
+			/// </summary>
 			public bool RequiresLocalData { get; set; }
         }
     }
@@ -217,7 +296,7 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples
 				return (brush.Color == Colors.Green);
 			else
 				return DependencyProperty.UnsetValue;
-		}
-	}
+        }
+    }
 }
 

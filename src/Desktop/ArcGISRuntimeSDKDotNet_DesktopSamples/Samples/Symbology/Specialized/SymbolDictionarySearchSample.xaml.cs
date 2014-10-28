@@ -34,11 +34,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Specialized
         {
             InitializeComponent();
 
-            MyMapView.SpatialReferenceChanged += MyMapView_SpatialReferenceChanged;
-        }
-
-        void MyMapView_SpatialReferenceChanged(object sender, EventArgs e)
-        {
             Init();
         }
 

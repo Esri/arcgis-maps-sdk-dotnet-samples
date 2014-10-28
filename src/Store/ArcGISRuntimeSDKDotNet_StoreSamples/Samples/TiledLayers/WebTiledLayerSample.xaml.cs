@@ -44,13 +44,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 case 0:
                     webTiledLayer.TemplateUri = "http://{subDomain}.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{level}/{row}/{col}";
                     webTiledLayer.SubDomains = new string[] { "server", "services" };
-                    webTiledLayer.CopyrightText = "National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC";
-                    Attribution.Visibility = Visibility.Collapsed; // No attribution info here, so keep dialog collapsed.
+                    Attribution.ContentTemplate = Attribution.Resources["NatGeoAttribution"] as DataTemplate;
+                    Attribution.Visibility = Visibility.Visible;
                     break;
                 //MapQuest
                 case 1:
                     webTiledLayer.TemplateUri = "http://otile1.mqcdn.com/tiles/1.0.0/vx/map/{level}/{col}/{row}.jpg";
-                    webTiledLayer.CopyrightText = "Map Quest";
                     Attribution.ContentTemplate = Attribution.Resources["MapQuestAttribution"] as DataTemplate;
                     Attribution.Visibility = Visibility.Visible;
                     break;
@@ -58,7 +57,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 case 2:
                     webTiledLayer.TemplateUri = "http://{subDomain}.tile.opencyclemap.org/cycle/{level}/{col}/{row}.png";
                     webTiledLayer.SubDomains = new string[] { "a", "b", "c" };
-                    webTiledLayer.CopyrightText = "Open Cycle Map";
                     Attribution.ContentTemplate = Attribution.Resources["OpenCycleMapAttribution"] as DataTemplate;
                     Attribution.Visibility = Visibility.Visible;
                     break;
@@ -66,21 +64,18 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 case 3:
                     webTiledLayer.TemplateUri = "http://{subDomain}.tile.cloudmade.com/1a1b06b230af4efdbb989ea99e9841af/999/256/{level}/{col}/{row}.png";
                     webTiledLayer.SubDomains = new string[] { "a", "b", "c" };
-                    webTiledLayer.CopyrightText = "Cloudmade Midnight Commander";
                     Attribution.Visibility = Visibility.Collapsed; // No attribution info here, so keep dialog collapsed.
                     break;
                 //Cloudmade Pale Dawn
                 case 4:
                     webTiledLayer.TemplateUri = "http://{subDomain}.tile.cloudmade.com/1a1b06b230af4efdbb989ea99e9841af/998/256/{level}/{col}/{row}.png";
                     webTiledLayer.SubDomains = new string[] { "a", "b", "c" };
-                    webTiledLayer.CopyrightText = "Cloudmade Pale Dawn";
                     Attribution.Visibility = Visibility.Collapsed; // No attribution info here, so keep dialog collapsed.
                     break;
                 //MapBox Dark
                 case 5:
                     webTiledLayer.TemplateUri = "http://{subDomain}.tiles.mapbox.com/v3/examples.map-cnkhv76j/{level}/{col}/{row}.png";
                     webTiledLayer.SubDomains = new string[] { "a", "b", "c", "d" };
-                    webTiledLayer.CopyrightText = "Mapbox Dark";
                     Attribution.ContentTemplate = Attribution.Resources["MapboxAttribution"] as DataTemplate;
                     Attribution.Visibility = Visibility.Visible;
                     break;
@@ -88,7 +83,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 case 6:
                     webTiledLayer.TemplateUri = "http://{subDomain}.tiles.mapbox.com/v3/mapbox.mapbox-warden/{level}/{col}/{row}.png";
                     webTiledLayer.SubDomains = new string[] { "a", "b", "c", "d" };
-                    webTiledLayer.CopyrightText = "Mapbox Terrain";
                     Attribution.ContentTemplate = Attribution.Resources["MapboxAttribution"] as DataTemplate;
                     Attribution.Visibility = Visibility.Visible;
                     break;
@@ -96,15 +90,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 case 7:
                     webTiledLayer.TemplateUri = "http://{subDomain}.tile.stamen.com/terrain/{level}/{col}/{row}.jpg";
                     webTiledLayer.SubDomains = new string[] { "a", "b", "c", "d" };
-                    webTiledLayer.CopyrightText = "Stamen Terrain";
-                    Attribution.ContentTemplate = Attribution.Resources["StamenOtherAttribution"] as DataTemplate;
+                     Attribution.ContentTemplate = Attribution.Resources["StamenOtherAttribution"] as DataTemplate;
                     Attribution.Visibility = Visibility.Visible;
                     break;
                 //Stamen Watercolor
                 case 8:
                     webTiledLayer.TemplateUri = "http://{subDomain}.tile.stamen.com/watercolor/{level}/{col}/{row}.jpg";
                     webTiledLayer.SubDomains = new string[] { "a", "b", "c", "d" };
-                    webTiledLayer.CopyrightText = "Stamen Watercolor";
                     Attribution.ContentTemplate = Attribution.Resources["StamenOtherAttribution"] as DataTemplate;
                     Attribution.Visibility = Visibility.Visible;
                     break;
@@ -112,7 +104,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 case 9:
                     webTiledLayer.TemplateUri = "http://{subDomain}.tile.stamen.com/toner/{level}/{col}/{row}.png";
                     webTiledLayer.SubDomains = new string[] { "a", "b", "c", "d" };
-                    webTiledLayer.CopyrightText = "Stamen Toner";
                     Attribution.ContentTemplate = Attribution.Resources["StamenTonerAttribution"] as DataTemplate;
                     Attribution.Visibility = Visibility.Visible;
                     break;

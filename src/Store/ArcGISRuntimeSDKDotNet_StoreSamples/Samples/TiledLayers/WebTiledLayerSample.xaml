@@ -35,6 +35,12 @@
 
         <ContentPresenter x:Name="Attribution" VerticalAlignment="Bottom" HorizontalAlignment="Right">
             <ContentPresenter.Resources>
+                <!-- National Geographic-->
+                <DataTemplate x:Key="NatGeoAttribution">
+                    <StackPanel Background="Black">
+                        <TextBlock TextWrapping="Wrap" Padding="4">National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC</TextBlock>
+                    </StackPanel>
+                </DataTemplate>
                 <!--MapQuest Attribution-->
                 <DataTemplate x:Key="MapQuestAttribution">
                     <StackPanel Background="Black">

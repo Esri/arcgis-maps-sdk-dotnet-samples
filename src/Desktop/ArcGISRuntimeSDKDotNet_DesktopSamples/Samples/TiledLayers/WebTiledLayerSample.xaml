@@ -25,7 +25,7 @@
                 <TextBlock Text="Select Service:  " VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0"/>
 
                 <ComboBox x:Name="cboLayers" Width="250" Height="25" HorizontalAlignment="Left" 
-                          SelectedIndex="0" Grid.Column="1" SelectionChanged="cboLayers_SelectionChanged" >
+                          Grid.Column="1" SelectionChanged="cboLayers_SelectionChanged" >
                     <ComboBoxItem  Content="Esri National Geographic"/>
                     <ComboBoxItem  Content="MapQuest"/>
                     <ComboBoxItem  Content="OpenCycleMap"/>
@@ -44,6 +44,13 @@
         <ContentControl x:Name="Attribution"  HorizontalAlignment="Right" VerticalAlignment="Bottom"
             Margin="10" Visibility="Collapsed">
             <ContentControl.Resources>
+                <!-- National Geographic-->
+                <TextBlock x:Key="NatGeoAttribution" 
+                           TextWrapping="Wrap" 
+                           Background="White" 
+                           Padding="4">
+                    <Run Text="National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC"/>
+                </TextBlock>
                 <!-- MapQuest -->
                 <TextBlock x:Key="MapQuestAttribution" 
                            TextWrapping="Wrap" 

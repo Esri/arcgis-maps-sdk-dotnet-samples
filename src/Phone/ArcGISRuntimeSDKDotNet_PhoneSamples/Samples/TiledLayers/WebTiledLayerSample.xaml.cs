@@ -8,7 +8,8 @@ using Windows.UI.Xaml.Controls;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
-    /// 
+    /// Demonstrates adding a Web tiled layer to a Map in XAML, and changing layer properties in code behind.
+    /// Also demonstrates including Attribution as per Terms of Use for the various layers. 
     /// </summary>
     /// <title>Web Tiled Layer</title>
     /// <category>Tiled Layers</category>

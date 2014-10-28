@@ -90,6 +90,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers
                     // Add the dynamic map service layer to the map
                     if (dynLayer != null)
                     {
+                        dynLayer.DisplayName = dynLayer.DynamicLayerInfos[0].Name;
                         MyMapView.Map.Layers.Add(dynLayer);
                         progress.Visibility = Visibility.Collapsed;
                     }

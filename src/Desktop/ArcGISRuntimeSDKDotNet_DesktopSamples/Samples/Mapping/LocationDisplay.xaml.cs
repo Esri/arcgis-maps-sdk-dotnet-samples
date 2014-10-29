@@ -50,6 +50,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             else
             {
                 var centerPoint = new MapPoint(0, 0);
+                MyMapView.SetRotation(0);
                 MyMapView.SetView(centerPoint);
             }
         }

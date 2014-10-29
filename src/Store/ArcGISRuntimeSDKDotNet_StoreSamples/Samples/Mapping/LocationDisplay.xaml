@@ -22,11 +22,14 @@
                 <TextBlock Text="Auto Pan Mode" />
                 <ComboBox x:Name="autoPanModeSelector"
                           SelectedItem="{Binding ElementName=MyMapView, Path=LocationDisplay.AutoPanMode, Mode=TwoWay}" />
-                <TextBlock Text="Location Provider" />
+                <TextBlock Text="Location Provider" Margin="0,10,0,0" />
                 <ComboBox x:Name="providerSelector" SelectionChanged="LocationProvider_SelectionChanged">
                     <ComboBoxItem IsSelected="True">System Provider</ComboBoxItem>
                     <ComboBoxItem>Random Simulator</ComboBoxItem>
                 </ComboBox>
+                <Button x:Name="resetDisplay" Click="resetDisplay_Click" Margin="0,15,0,0" Height="40">
+                    <TextBlock Text="Reset Map" Margin="3,0,0,0" Width="135"   />
+                </Button>
             </StackPanel>
         </Border>
 

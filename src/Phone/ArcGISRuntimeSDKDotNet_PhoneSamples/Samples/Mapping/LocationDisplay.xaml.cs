@@ -8,16 +8,18 @@ using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
-	/// <summary>
-	/// Demonstrates use of the location display,
-	/// and also how to create a custom location provider
-	/// </summary>
+    /// <summary>
+    /// Demonstrates use of the location display,
+    /// and also how to create a custom location provider
+    /// </summary>
     /// <category>Mapping</category>
-	public sealed partial class LocationDisplay : Page
+    public sealed partial class LocationDisplay : Page
     {
         public LocationDisplay()
         {
             this.InitializeComponent();
+
+            autoPanModeSelector.ItemsSource = Enum.GetValues(typeof(AutoPanMode));
         }
 
         private void LocationProvider_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -25,16 +27,40 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             if (providerSelector != null)
             {
                 if (providerSelector.SelectedIndex == 0)
-                    mapView1.LocationDisplay.LocationProvider = new SystemLocationProvider();
+                    MyMapView.LocationDisplay.LocationProvider = new SystemLocationProvider();
                 else if (providerSelector.SelectedIndex == 1)
-                    mapView1.LocationDisplay.LocationProvider = new RandomProvider();
+                    MyMapView.LocationDisplay.LocationProvider = new RandomProvider();
+            }
+        }
+
+        private void resetDisplay_Click(object sender, RoutedEventArgs e)
+        {
+            // If the LocationDisplay is enabled and a Location currently exists, reset the map
+            // to zero rotation and center on the Location. Otherwise, set the MapView to center on 0,0.
+            if (MyMapView.LocationDisplay != null &&
+                MyMapView.LocationDisplay.IsEnabled &&
+                MyMapView.LocationDisplay.CurrentLocation.Location.Extent != null)
+            {
+                // Get the current AutoPanMode setting as it is automatically disabled when calling MyMapView.SetView().
+                var PanMode = MyMapView.LocationDisplay.AutoPanMode;
+
+                MyMapView.SetRotation(0);
+                MyMapView.SetView(MyMapView.LocationDisplay.CurrentLocation.Location);
+
+                // Reset the AutoPanMode 
+                MyMapView.LocationDisplay.AutoPanMode = PanMode;
+            }
+            else
+            {
+                MyMapView.SetView(new MapPoint(0, 0));
+                MyMapView.SetRotation(0);
             }
         }
     }
-	/// <summary>
-	/// This is serves as a custom location provider - in this case creating a randomly roaming location
-	/// for simulating movement, accuracy, speed and heading changes.
-	/// </summary>
+    /// <summary>
+    /// This is serves as a custom location provider - in this case creating a randomly roaming location
+    /// for simulating movement, accuracy, speed and heading changes.
+    /// </summary>
     public class RandomProvider : ILocationProvider
     {
         private static Random randomizer = new Random();

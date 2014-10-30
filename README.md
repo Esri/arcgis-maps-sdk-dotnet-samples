@@ -34,8 +34,8 @@ You might have installed full [ArcGIS Runtime SDK for .NET SDK](http://esriurl.c
   * See Installed Packages tab and remove "Esri.ArcGISRuntime" package
 2. [Add references](https://developers.arcgis.com/net/desktop/guide/add-arcgis-runtime-sdk-references.htm) to projects. 
 3. Prepare deployment
-	* Windows Desktop - Delete possible deployment folder (arcgisruntime10.2.4) from output-folder. This step makes sure that centralized developer deployment is used and no deployment is needed
-	* Windows Store / Windows Deskopt - create deployment following [guide](https://developers.arcgis.com/net/desktop/guide/deployment.htm) and make sure all extra capabilities are checked for deployment.
+	* Windows Desktop - Delete deployment folder (arcgisruntime10.2.4) from output folder if it exists. This step makes sure that centralized developer deployment is used and no deployment is needed
+	* Windows Store / Windows Phone - create deployment following [guide](https://developers.arcgis.com/net/desktop/guide/deployment.htm) and make sure all extra capabilities are checked for deployment.
 
 ## Requirements
 

@@ -17,7 +17,7 @@
             <title>ArcGIS Local Dynamic Map Service Layer</title>
             <category>Layers</category>
             <subcategory>Dynamic Service Layers</subcategory>
-            <localServer>true</localServer>
+            <requiresLocalServer>true</requiresLocalServer>
             <summary>
             ArcGISDynamicMapServiceLayerLocalSample
             </summary>
@@ -87,7 +87,7 @@
             <title>Dynamic Layer Add Data</title>
             <category>Layers</category>
             <subcategory>Dynamic Service Layers</subcategory>
-            <localServer>true</localServer>
+            <requiresLocalServer>true</requiresLocalServer>
             <summary>
             DynamicLayerAddData
             </summary>
@@ -2062,7 +2062,7 @@
             <summary>Represents a Preview Size (creatable in XAML)</summary>
         </member>
         <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.PreviewSize.Id">
-            <summary>ID or Name of the previes size</summary>
+            <summary>ID or Name of the preview size</summary>
         </member>
         <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.PreviewSize.Width">
             <summary>Width of the preview size</summary>
@@ -2275,7 +2275,7 @@
             <title>Message Processor</title>
             <category>Symbology</category>
             <subcategory>Specialized</subcategory>
-            <isSDK>true</isSDK>
+            <requiresSymbols>true</requiresSymbols>
             <summary>
             MessageProcessingSample
             </summary>
@@ -2292,7 +2292,7 @@
             <title>Symbol Dictionary Search</title>
             <category>Symbology</category>
             <subcategory>Specialized</subcategory>
-            <isSDK>true</isSDK>
+            <requiresSymbols>true</requiresSymbols>
             <summary>
             SymbolDictionarySearchSample
             </summary>
@@ -2309,7 +2309,7 @@
             <title>S57 Cell Information</title>
             <category>Symbology</category>
             <subcategory>Hydrographic</subcategory>
-            <isSDK>true</isSDK>
+            <requiresSymbols>true</requiresSymbols>
             <summary>
             S57CellInfoSample
             </summary>
@@ -2326,7 +2326,7 @@
             <title>S57 Display Properties</title>
             <category>Symbology</category>
             <subcategory>Hydrographic</subcategory>
-            <isSDK>true</isSDK>
+            <requiresSymbols>true</requiresSymbols>
             <summary>
             S57DisplayPropertiesSample
             </summary>
@@ -2343,7 +2343,7 @@
             <title>S57 Identify</title>
             <category>Symbology</category>
             <subcategory>Hydrographic</subcategory>
-            <isSDK>true</isSDK>
+            <requiresSymbols>true</requiresSymbols>
             <summary>
             S57IdentifySample
             </summary>
@@ -2360,7 +2360,7 @@
             <title>S57 Search </title>
             <category>Symbology</category>
             <subcategory>Hydrographic</subcategory>
-            <isSDK>true</isSDK>
+            <requiresSymbols>true</requiresSymbols>
             <summary>
             S57SearchSample
             </summary>
@@ -2578,6 +2578,7 @@
         <member name="T:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.WebTiledLayerSample">
             <summary>
             Demonstrates adding a Web tiled layer to a Map in XAML, and changing layer properties in code behind.
+            Also demonstrates including Attribution as per Terms of Use for the various layers. 
             </summary>
             <title>Web Tiled Layer</title>
             <category>Layers</category>
@@ -2661,13 +2662,13 @@
             InitializeComponent
             </summary>
         </member>
-        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Sample.IsSDK">
+        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Sample.RequiresSymbols">
             <summary>
-            Defines if the sample needs SDK installation to work. Defaults to false.
+            Defines if the sample needs symbols to work. Defaults to false.
             </summary>
             <remarks>This is used for sample that needs something to being deployed like military symbology or S57 symbology.</remarks>
         </member>
-        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Sample.LocalServer">
+        <member name="P:ArcGISRuntimeSDKDotNet_DesktopSamples.Sample.RequiresLocalServer">
             <summary>
             Defines if the sample needs Local server to work. Defaults to false.
             </summary>

@@ -22,7 +22,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     {
         private const string BASE_URL = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/WildfireSync/FeatureServer";
         private const string GDB_PREFIX = "DOTNET_Sample";
-        private const string GDB_NAME = "sample.geodatabase";
 
         /// <summary>Construct Generate Geodatabase sample control</summary>
         public GenerateGeodatabase()
@@ -92,7 +91,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             var client = new ArcGISHttpClient();
             var gdbStream = client.GetOrPostAsync(statusResult.ResultUri, null);
             var gdbFolder = System.IO.Path.GetTempPath();
-            var gdbPath = System.IO.Path.Combine(gdbFolder, GDB_NAME);
+            var gdbPath = System.IO.Path.Combine(gdbFolder, statusResult.GeodatabaseName);
 
             if (!System.IO.Directory.Exists(gdbFolder))
                 System.IO.Directory.CreateDirectory(gdbFolder);
@@ -121,7 +120,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 var groupLayer = MyMapView.Map.Layers["Local_Geodatabase"] as GroupLayer;
                 if (groupLayer != null)
                     MyMapView.Map.Layers.Remove(groupLayer);
-                
+
                 groupLayer = new GroupLayer()
                 {
                     ID = "Local_Geodatabase",
@@ -131,8 +130,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 Envelope extent = gdb.FeatureTables.First().Extent;
                 foreach (var table in gdb.FeatureTables)
                 {
-                  //if this call is made after FeatureTable is initialized, a call to FeatureLayer.ResetRender will be required.
-                  table.UseAdvancedSymbology = true;
+                    //if this call is made after FeatureTable is initialized, a call to FeatureLayer.ResetRender will be required.
+                    table.UseAdvancedSymbology = true;
                     var flayer = new FeatureLayer()
                     {
                         ID = table.Name,

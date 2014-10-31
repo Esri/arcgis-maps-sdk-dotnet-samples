@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Location;
 using System;
 using System.Threading.Tasks;
@@ -33,7 +34,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
         }
 
-        private void resetDisplay_Click(object sender, RoutedEventArgs e)
+        private async void resetDisplay_Click(object sender, RoutedEventArgs e)
         {
             // If the LocationDisplay is enabled and a Location currently exists, reset the map
             // to zero rotation and center on the Location. Otherwise, set the MapView to center on 0,0.
@@ -45,16 +46,15 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var PanMode = MyMapView.LocationDisplay.AutoPanMode;
 
                 MyMapView.SetRotation(0);
-                MyMapView.SetView(MyMapView.LocationDisplay.CurrentLocation.Location);
+                await MyMapView.SetViewAsync(MyMapView.LocationDisplay.CurrentLocation.Location);
 
                 // Reset the AutoPanMode 
                 MyMapView.LocationDisplay.AutoPanMode = PanMode;
             }
             else
             {
-                MyMapView.SetRotation(0);
-                MyMapView.SetView(new MapPoint(0, 0));
-
+                var viewpoint = new Viewpoint(MyMapView.Map.Layers[0].FullExtent) { Rotation = 0.0 };
+                await MyMapView.SetViewAsync(viewpoint);
             }
         }
     }

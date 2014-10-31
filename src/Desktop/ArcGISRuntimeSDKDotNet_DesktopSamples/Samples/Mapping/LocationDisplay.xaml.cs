@@ -1,5 +1,6 @@
 ﻿using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Location;
+using Esri.ArcGISRuntime.Controls;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
@@ -30,27 +31,35 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         }
 
         /// <summary>Reset the MapView by removing any map rotation and centering on the existing Location. </summary>
-        private void resetDisplay_Click(object sender, RoutedEventArgs e)
+        private async void resetDisplay_Click(object sender, RoutedEventArgs e)
         {
-            // If the LocationDisplay is enabled and a Location currently exists, reset the map
-            // to zero rotation and center on the Location. Otherwise, set the MapView to center on 0,0.
-            if (MyMapView.LocationDisplay != null &&
-                MyMapView.LocationDisplay.IsEnabled &&
-                MyMapView.LocationDisplay.CurrentLocation.Location.Extent != null)
+            try
             {
-                // Get the current AutoPanMode setting as it is automatically disabled when calling MyMapView.SetView().
-                var PanMode = MyMapView.LocationDisplay.AutoPanMode;
+                // If the LocationDisplay is enabled and a Location currently exists, reset the map
+                // to zero rotation and center on the Location. Otherwise, set the MapView to center on 0,0.
+                if (MyMapView.LocationDisplay != null &&
+                    MyMapView.LocationDisplay.IsEnabled &&
+                    MyMapView.LocationDisplay.CurrentLocation != null &&
+                    MyMapView.LocationDisplay.CurrentLocation.Location.Extent != null)
+                {
+                    // Get the current AutoPanMode setting as it is automatically disabled when calling MyMapView.SetView().
+                    var PanMode = MyMapView.LocationDisplay.AutoPanMode;
 
-                MyMapView.SetRotation(0);
-                MyMapView.SetView(MyMapView.LocationDisplay.CurrentLocation.Location);
+                    MyMapView.SetRotation(0);
+                    await MyMapView.SetViewAsync(MyMapView.LocationDisplay.CurrentLocation.Location);
 
-                // Reset the AutoPanMode 
-                MyMapView.LocationDisplay.AutoPanMode = PanMode;
+                    // Reset the AutoPanMode 
+                    MyMapView.LocationDisplay.AutoPanMode = PanMode;
+                }
+                else
+                {
+                    var viewpoint = new Viewpoint(MyMapView.Map.Layers[0].FullExtent) { Rotation = 0.0 };
+                    await MyMapView.SetViewAsync(viewpoint);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                var centerPoint = new MapPoint(0, 0);
-                MyMapView.SetView(centerPoint);
+                 MessageBox.Show(ex.Message, "Sample Error");
             }
         }
     }

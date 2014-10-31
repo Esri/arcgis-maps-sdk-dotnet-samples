@@ -23,7 +23,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
     {
         private const string BASE_URL = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/WildfireSync/FeatureServer";
         private const string GDB_PREFIX = "DOTNET_Sample";
-        private const string GDB_NAME = "sample.geodatabase";
+       // private const string GDB_NAME = "sample.geodatabase";
 
         /// <summary>Construct Generate Geodatabase sample control</summary>
         public GenerateGeodatabase()
@@ -88,7 +88,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         // Download a generated geodatabase file
         private async Task<StorageFile> DownloadGeodatabase(GeodatabaseStatusInfo statusResult)
         {
-            var file = await ApplicationData.Current.TemporaryFolder.CreateFileAsync(GDB_NAME, CreationCollisionOption.ReplaceExisting);
+            var file = await ApplicationData.Current.TemporaryFolder.CreateFileAsync(statusResult.GeodatabaseName, CreationCollisionOption.ReplaceExisting);
             var client = new ArcGISHttpClient();
             var download = await client.GetOrPostAsync(statusResult.ResultUri, null);
             using (var fileStream = await file.OpenStreamForWriteAsync())

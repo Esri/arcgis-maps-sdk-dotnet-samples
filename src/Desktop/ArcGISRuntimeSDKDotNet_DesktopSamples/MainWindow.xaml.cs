@@ -166,11 +166,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 			// Check if sample needs SDK installation and if it's available
 			// If build with using Nuget reference, deployment folder is copied under the bin folder
 			// without symbols or other deployable extensions. 
-			if (sample.RequiresSymbols && (!CheckIfHasDeploymentFolder() || !_isSdkInstalled))
+			if (sample.RequiresSymbols && !(CheckIfHasDeploymentFolder() || CheckIfSdkIsInstalledAndNoDeploymentIsFound()))
 				isSampleAvailable = false;
 
 			// Check if local server is needed and if it's available
-			if (sample.RequiresLocalServer && (!CheckIfHasDeploymentAndLocalServer() && !CheckIfSdkIsInstalledAndNoDeploymentIsFound()))
+			if (sample.RequiresLocalServer && !(CheckIfHasDeploymentAndLocalServer() || CheckIfSdkIsInstalledAndNoDeploymentIsFound()))
 				isSampleAvailable = false;
 
 			if (!isSampleAvailable)

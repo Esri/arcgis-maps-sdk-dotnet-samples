@@ -6,7 +6,7 @@
         <esri:MapView x:Name="MyMapView" WrapAround="True">
             <esri:Map>
                 <esri:ArcGISTiledMapServiceLayer
-                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" DisplayName="World Topo Map" />
             </esri:Map>
         </esri:MapView>
 
@@ -27,6 +27,20 @@
                         Click="AddRasterButton_Click" />
                 <ProgressBar x:Name="progress" IsIndeterminate="True" VerticalAlignment="Bottom" Width="113" Margin="10,10,0,10" 
                      HorizontalAlignment="Left" />
+            </StackPanel>
+        </Border>
+        <Border Background="White" BorderBrush="Black" BorderThickness="1"
+				HorizontalAlignment="Left" VerticalAlignment="Top" 
+				Margin="20" Padding="20">
+            <StackPanel>
+                <TextBlock Text="Map Layers" FontWeight="Bold" FontSize="16" Margin="0,0,0,8"/>
+                <ListView x:Name="LayersListView" ItemsSource="{Binding ElementName=MyMapView, Path=Map.Layers}" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <CheckBox Content="{Binding DisplayName}" FontSize="12" Margin="4" IsChecked="{Binding IsVisible}" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </StackPanel>
         </Border>
     </Grid>

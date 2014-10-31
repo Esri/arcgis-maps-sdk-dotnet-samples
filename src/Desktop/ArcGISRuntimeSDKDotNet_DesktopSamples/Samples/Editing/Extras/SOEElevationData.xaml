@@ -25,7 +25,7 @@
 				Margin="30" Padding="20">
 		
             <StackPanel>
-                <TextBlock Text="Enter width and height (in pixels) of a grid overlay and drag a box on the map to define the grid extent. A bitmap of average elevation values will be displayed." 
+                <TextBlock Text="Enter width and height (in pixels) of a grid overlay and click Get Elevation Data. Then drag a box on the map to define the grid extent. A bitmap of average elevation values will be displayed." 
                            TextWrapping="Wrap" Margin="0,0,0,10" MaxWidth="350"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <TextBlock Text="Width:" VerticalAlignment="Center" Margin="3" />

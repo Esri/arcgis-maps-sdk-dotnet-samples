@@ -9,7 +9,7 @@ using System.Windows.Controls;
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
-    /// This sample demonstates feature layer hit testing.  When the user clicks on the map, the applicaiton uses FeatureLayer.HitTest to retrieve the feature at the mouse point.  The HitTest method returns the row ID of the first feature found at the given point.  This sample then uses the FeatureTable.QueryAsync method to retrieve a Feature for the HitTested row ID and desiplays its attributes in the UI.
+    /// This sample demonstrates feature layer hit testing. When the user clicks on the map, the application uses FeatureLayer.HitTest to retrieve the feature at the mouse point. The HitTest method returns the row ID of the first feature found at the given point. This sample then uses the FeatureTable.QueryAsync method to retrieve a Feature for the HitTested row ID and displays its attributes in the UI.
     /// </summary>
     /// <title>Hit Testing</title>
 	/// <category>Layers</category>

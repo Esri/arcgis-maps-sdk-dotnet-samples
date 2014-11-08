@@ -78,7 +78,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show("Error occured : " + ex.ToString(), "Sample error");
+				MessageBox.Show("Error occurred : " + ex.ToString(), "Sample error");
 			}
         }
 

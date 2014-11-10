@@ -40,13 +40,16 @@
                     <TextBlock Text="Click the 'Export Tiles' button to download a local tile cache for the current Area of Interest."
                                TextWrapping="Wrap" />
                     <Button Content="Export Tiles" Margin="0,12,0,0" FontSize="14" Click="ExportTilesButton_Click" />
+                </StackPanel>
 
-                    <StackPanel x:Name="panelTOC" Margin="0,12,0,0" Visibility="Collapsed">
-                        <TextBlock Text="Step 3: Show / Hide Map Layers" FontSize="16" FontWeight="Bold" Margin="0,6,0,6" />
-                        <CheckBox Content="Show Online Basemap" Margin="4" IsChecked="{Binding ElementName=MyMapView, Path=Map.Layers[OnlineBasemap].IsVisible, Mode=TwoWay}" />
-                        <CheckBox Content="Show Local Basemap" Margin="4" IsChecked="{Binding ElementName=MyMapView, Path=Map.Layers[LocalTiles].IsVisible, Mode=TwoWay}" />
-                        <CheckBox Content="Show Area of Interest" Margin="4" 
-                                  IsChecked="True" Click="ShowAoiExtentCheckBox_Click"/>
+                <StackPanel x:Name="panelTOC" Margin="0,12,0,0" Visibility="Collapsed">
+                    <TextBlock Text="Show / Hide Map Layers" FontSize="16" FontWeight="Bold" Margin="0,6,0,6" />
+                    <CheckBox Content="Show Online Basemap" Margin="4" IsChecked="{Binding ElementName=MyMapView, Path=Map.Layers[OnlineBasemap].IsVisible, Mode=TwoWay}" />
+                    <CheckBox Content="Show Local Basemap" Margin="4" IsChecked="{Binding ElementName=MyMapView, Path=Map.Layers[LocalTiles].IsVisible, Mode=TwoWay}" />
+                    <CheckBox Content="Show Area of Interest" Margin="4" IsChecked="{Binding ElementName=MyMapView, Path=GraphicsOverlays[AOIOverlay].IsVisible}" />
+                    <StackPanel Orientation="Horizontal" >
+                        <Button x:Name="btnDeleteLocalLayer" Content="Delete local layer" Margin="4" Padding="4,0,4,0" FontSize="14" Click="btnDeleteLocalLayer_Click"/>
+                        <Button x:Name="btnResetMap" Content="Reset map" Margin="4" Padding="4,0,4,0" FontSize="14" Click="btnResetMap_Click"/>
                     </StackPanel>
                 </StackPanel>
 

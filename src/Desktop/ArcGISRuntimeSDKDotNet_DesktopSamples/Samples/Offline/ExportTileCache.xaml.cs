@@ -54,9 +54,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             await InitializeOnlineBasemap();
 
-            _aoiOverlay = new GraphicsOverlay() { 
-				Renderer = layoutGrid.Resources["AOIRenderer"] as Renderer 
-			};
+            _aoiOverlay = new GraphicsOverlay()
+            {
+                Renderer = layoutGrid.Resources["AOIRenderer"] as Renderer,
+                ID = "AOIOverlay"
+            };
             MyMapView.GraphicsOverlays.Add(_aoiOverlay);
 
             if (_onlineTiledLayer.ServiceInfo != null)
@@ -111,10 +113,12 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             {
                 panelUI.IsEnabled = false;
                 panelExport.Visibility = Visibility.Collapsed;
+                panelTOC.Visibility = Visibility.Collapsed;
                 progress.Visibility = Visibility.Visible;
 
                 _aoiOverlay.Graphics.Clear();
                 _aoiOverlay.Graphics.Add(new Graphic(MyMapView.Extent));
+                _aoiOverlay.IsVisible = true;
 
                 _genOptions = new GenerateTileCacheParameters()
                 {
@@ -170,6 +174,11 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     OverwriteExistingFiles = true
                 };
 
+                var localTiledLayer = MyMapView.Map.Layers.FirstOrDefault(lyr => lyr.ID == LOCAL_LAYER_ID);
+                if (localTiledLayer != null)
+                    MyMapView.Map.Layers.Remove(localTiledLayer);
+
+
                 var result = await _exportTilesTask.GenerateTileCacheAndDownloadAsync(
                     _genOptions, downloadOptions, TimeSpan.FromSeconds(5), CancellationToken.None, 
                     new Progress<ExportTileCacheJob>((job) => // Callback for reporting status during tile cache generation
@@ -181,19 +190,18 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                         Debug.WriteLine(getDownloadStatusMessage(downloadProgress));
                     }));
 
-                var localTiledLayer = MyMapView.Map.Layers.FirstOrDefault(lyr => lyr.ID == LOCAL_LAYER_ID);
-                if (localTiledLayer != null)
-                    MyMapView.Map.Layers.Remove(localTiledLayer);
 
                 localTiledLayer = new ArcGISLocalTiledLayer(result.OutputPath) { ID = LOCAL_LAYER_ID };
                 MyMapView.Map.Layers.Insert(1, localTiledLayer);
 
                 _onlineTiledLayer.IsVisible = false;
+                _aoiOverlay.IsVisible = true;
 
                 if (MyMapView.Scale < _genOptions.MinScale)
                     await MyMapView.SetViewAsync(MyMapView.Extent.GetCenter(), _genOptions.MinScale);
 
                 panelTOC.Visibility = Visibility.Visible;
+                panelExport.Visibility = Visibility.Collapsed;
             }
             catch (Exception ex)
             {
@@ -205,22 +213,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                 progress.Visibility = Visibility.Collapsed;
             }
         }
-
-		private void ShowAoiExtentCheckBox_Click(object sender, RoutedEventArgs e)
-		{
-			try
-			{
-				var chkbox = sender as CheckBox;
-				var graphic = _aoiOverlay.Graphics.FirstOrDefault();
-				if (chkbox != null && graphic != null)
-				{
-					graphic.IsVisible = (bool)chkbox.IsChecked;
-				}
-			}
-			catch (Exception)
-			{
-			}
-		}
 
         private static string getTileCacheGenerationStatusMessage(ExportTileCacheJob job)
         {
@@ -241,6 +233,47 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             return string.Format("Downloading file {0} of {1}...\n{2:P0} complete\n" +
                 "Bytes read: {3}", downloadProgress.FilesDownloaded, downloadProgress.TotalFiles, downloadProgress.ProgressPercentage,
                 downloadProgress.CurrentFileBytesReceived);
+        }
+
+        private void btnDeleteLocalLayer_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+				var localTiledLayer = MyMapView.Map.Layers.FirstOrDefault(lyr => lyr.ID == LOCAL_LAYER_ID);
+				if (localTiledLayer != null)
+					MyMapView.Map.Layers.Remove(localTiledLayer);
+
+                string tilePath = Path.Combine(Path.GetTempPath(), TILE_CACHE_FOLDER);
+                if (Directory.Exists(tilePath))
+                    Directory.Delete(tilePath, true);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Sample Error");
+            }
+        }
+
+        private void btnResetMap_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+				var localTiledLayer = MyMapView.Map.Layers.FirstOrDefault(lyr => lyr.ID == LOCAL_LAYER_ID);
+				if (localTiledLayer != null)
+					MyMapView.Map.Layers.Remove(localTiledLayer);
+
+                var extentWGS84 = new Envelope(-123.77, 36.80, -119.77, 38.42, SpatialReferences.Wgs84);
+                MyMapView.SetView(extentWGS84);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Sample Error");
+            }
+            finally
+            {
+                _aoiOverlay.IsVisible = false;
+                _onlineTiledLayer.IsVisible = true;
+            }
         }
     }
 }

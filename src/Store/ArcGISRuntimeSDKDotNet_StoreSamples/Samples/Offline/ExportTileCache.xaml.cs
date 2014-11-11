@@ -110,6 +110,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             try
             {
+				panelTOC.Visibility = Visibility.Collapsed;
                 panelExport.Visibility = Visibility.Collapsed;
                 progress.Visibility = Visibility.Visible;
 
@@ -150,10 +151,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             {
                 var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
             }
-            finally
-            {
-                progress.Visibility = Visibility.Collapsed;
-            }
+
         }
 
         // Download the tile cache
@@ -169,6 +167,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     OverwriteExistingFiles = true
                 };
 
+				var localTiledLayer = MyMapView.Map.Layers.FirstOrDefault(lyr => lyr.ID == LOCAL_LAYER_ID);
+				if (localTiledLayer != null)
+					MyMapView.Map.Layers.Remove(localTiledLayer);
+				
                 var result = await _exportTilesTask.GenerateTileCacheAndDownloadAsync(
                     _genOptions, downloadOptions, TimeSpan.FromSeconds(5), CancellationToken.None, 
                     new Progress<ExportTileCacheJob>((job) => // Callback for reporting status during tile cache generation
@@ -180,10 +182,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                         Debug.WriteLine(getDownloadStatusMessage(downloadProgress));
                     }));
 
-                var localTiledLayer = MyMapView.Map.Layers.FirstOrDefault(lyr => lyr.ID == LOCAL_LAYER_ID);
-                if (localTiledLayer != null)
-                    MyMapView.Map.Layers.Remove(localTiledLayer);
-
                 localTiledLayer = new ArcGISLocalTiledLayer(result.OutputPath) { ID = LOCAL_LAYER_ID };
                 MyMapView.Map.Layers.Insert(1, localTiledLayer);
 
@@ -193,6 +191,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                     await MyMapView.SetViewAsync(MyMapView.Extent.GetCenter(), _genOptions.MinScale);
 
                 panelTOC.Visibility = Visibility.Visible;
+				panelExport.Visibility = Visibility.Collapsed;
+
             }
             catch (Exception ex)
             {
@@ -240,5 +240,47 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 "Bytes read: {3}", downloadProgress.FilesDownloaded, downloadProgress.TotalFiles, downloadProgress.ProgressPercentage,
                 downloadProgress.CurrentFileBytesReceived);
         }
+
+		private void btnResetMap_Click(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				var localTiledLayer = MyMapView.Map.Layers.FirstOrDefault(lyr => lyr.ID == LOCAL_LAYER_ID);
+				if (localTiledLayer != null)
+					MyMapView.Map.Layers.Remove(localTiledLayer);
+
+				var extentWGS84 = new Envelope(-123.77, 36.80, -119.77, 38.42, SpatialReferences.Wgs84);
+				MyMapView.SetView(extentWGS84);
+
+			}
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+			}
+			finally
+			{
+				_aoiOverlay.IsVisible = false;
+				_onlineTiledLayer.IsVisible = true;
+			}
+		}
+
+		private void btnRemoveLocalLayer_Click(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				var localTiledLayer = MyMapView.Map.Layers.FirstOrDefault(lyr => lyr.ID == LOCAL_LAYER_ID);
+				if (localTiledLayer != null)
+					MyMapView.Map.Layers.Remove(localTiledLayer);
+			}
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+			}
+			finally
+			{
+				_aoiOverlay.IsVisible = false;
+				_onlineTiledLayer.IsVisible = true;
+			}
+		}
 	}
 }

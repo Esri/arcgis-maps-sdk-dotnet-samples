@@ -123,7 +123,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
       
         if (graphic != null)
       {
-          //Clear prevoius selection
+          //Clear previous selection
           foreach (GraphicsOverlay gOLay in MyMapView.GraphicsOverlays)
           {
               gOLay.ClearSelection();

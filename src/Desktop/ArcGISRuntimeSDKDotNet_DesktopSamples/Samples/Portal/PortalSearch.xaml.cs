@@ -14,7 +14,7 @@ using System.Windows.Input;
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
-    /// This sample shows how to use the Portal API to search for webmaps on ArcGIS.com that match the search critera.
+    /// This sample shows how to use the Portal API to search for web maps on ArcGIS.com that match the search criteria.
     /// </summary>
     /// <title>Search</title>
     /// <category>Portal</category>
@@ -84,7 +84,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             ShadowGrid.Visibility = Visibility.Collapsed;
         }
 
-        // Search arcgis.com for webmaps matching the query text
+        // Search arcgis.com for web maps matching the query text
         private async void DoSearch()
         {
             try

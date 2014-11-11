@@ -239,8 +239,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                if (MyMapView.Map.Layers["LocalTiles"] != null)
-                    MyMapView.Map.Layers.Remove("LocalTiles");
+				var localTiledLayer = MyMapView.Map.Layers.FirstOrDefault(lyr => lyr.ID == LOCAL_LAYER_ID);
+				if (localTiledLayer != null)
+					MyMapView.Map.Layers.Remove(localTiledLayer);
 
                 string tilePath = Path.Combine(Path.GetTempPath(), TILE_CACHE_FOLDER);
                 if (Directory.Exists(tilePath))
@@ -256,8 +257,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         {
             try
             {
-                if (MyMapView.Map.Layers["LocalTiles"] != null)
-                    MyMapView.Map.Layers.Remove("LocalTiles");
+				var localTiledLayer = MyMapView.Map.Layers.FirstOrDefault(lyr => lyr.ID == LOCAL_LAYER_ID);
+				if (localTiledLayer != null)
+					MyMapView.Map.Layers.Remove(localTiledLayer);
 
                 var extentWGS84 = new Envelope(-123.77, 36.80, -119.77, 38.42, SpatialReferences.Wgs84);
                 MyMapView.SetView(extentWGS84);

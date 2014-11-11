@@ -28,28 +28,30 @@
                     <Button Content="Estimate Cache Size" Margin="0,12,0,0" HorizontalAlignment="Stretch" FontSize="14" Click="EstimateCacheSizeButton_Click" />
                 </StackPanel>
 
-                <StackPanel x:Name="panelExport" Margin="0,12,0,0" Visibility="Collapsed">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock Text="Estimated Size:  " FontWeight="Bold" />
-                        <TextBlock x:Name="txtExportSize" />
-                    </StackPanel>
-                    
-                    <TextBlock Text="Step 2: Export Tile Cache" FontSize="16" FontWeight="Bold" Margin="0,12,0,0" />
-                    <TextBlock Text="Click the 'Export Tiles' button to download a local tile cache for the current Area of Interest."
+				<StackPanel x:Name="panelExport" Margin="0,12,0,0" Visibility="Collapsed">
+					<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+						<TextBlock Text="Estimated Size:  " FontWeight="Bold" />
+						<TextBlock x:Name="txtExportSize" />
+					</StackPanel>
+
+					<TextBlock Text="Step 2: Export Tile Cache" FontSize="16" FontWeight="Bold" Margin="0,12,0,0" />
+					<TextBlock Text="Click the 'Export Tiles' button to download a local tile cache for the current Area of Interest."
                                TextWrapping="Wrap" />
-                    <Button Content="Export Tiles" Margin="0,12,0,0" HorizontalAlignment="Stretch" FontSize="14" Click="ExportTilesButton_Click" />
-
-                    <StackPanel x:Name="panelTOC" Margin="0,12,0,0" Visibility="Collapsed">
-                        <TextBlock Text="Step 3: Show / Hide Map Layers" FontSize="16" FontWeight="Bold" Margin="0,6,0,6" />
-                        <CheckBox Content="Show Online Basemap" Margin="4" IsChecked="{Binding ElementName=MyMapView, Path=Map.Layers[OnlineBasemap].IsVisible, Mode=TwoWay}" />
-                        <CheckBox Content="Show Local Basemap" Margin="4" IsChecked="{Binding ElementName=MyMapView, Path=Map.Layers[LocalTiles].IsVisible, Mode=TwoWay}" />
-                        <CheckBox Content="Show Area of Interest" Margin="4" 
+					<Button Content="Export Tiles" Margin="0,12,0,0" HorizontalAlignment="Stretch" FontSize="14" Click="ExportTilesButton_Click" />
+				</StackPanel>
+				<StackPanel x:Name="panelTOC" Margin="0,12,0,0" Visibility="Collapsed">
+					<TextBlock Text="Show / Hide Map Layers" FontSize="16" FontWeight="Bold" Margin="0,6,0,6" />
+					<CheckBox Content="Show Online Basemap" Margin="4" IsChecked="{Binding ElementName=MyMapView, Path=Map.Layers[OnlineBasemap].IsVisible, Mode=TwoWay}" />
+					<CheckBox Content="Show Local Basemap" Margin="4" IsChecked="{Binding ElementName=MyMapView, Path=Map.Layers[LocalTiles].IsVisible, Mode=TwoWay}" />
+					<CheckBox Content="Show Area of Interest" Margin="4" 
                                   IsChecked="True" Click="ShowAoiExtentCheckBox_Click"/>
-                    </StackPanel>
-                </StackPanel>
-
-                <ProgressBar x:Name="progress" IsIndeterminate="True" Margin="24,12,24,0" Visibility="Collapsed" />
-            </StackPanel>
-        </Border>
-    </Grid>
+					<StackPanel Orientation="Horizontal">
+						<Button x:Name="btnRemoveLocalLayer" Content="Remove local layer" Margin="4" Padding="4,0,4,0" FontSize="14" Click="btnRemoveLocalLayer_Click"/>
+						<Button x:Name="btnResetMap" Content="Reset map" Margin="4" Padding="4,0,4,0" FontSize="14" Click="btnResetMap_Click"/>
+					</StackPanel>
+				</StackPanel>
+				<ProgressBar x:Name="progress" IsIndeterminate="True" Margin="24,12,24,0" Visibility="Collapsed" />
+			</StackPanel>
+		</Border>
+	</Grid>
 </Page>

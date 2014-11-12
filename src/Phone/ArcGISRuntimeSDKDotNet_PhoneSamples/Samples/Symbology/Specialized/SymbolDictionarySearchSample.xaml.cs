@@ -150,59 +150,63 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.Specialized
 						await new MessageDialog("Selected symbol is not supported in this sample", "Symbol Dictionary Search Sample").ShowAsync();
 						return;
 				}
-
-				Esri.ArcGISRuntime.Geometry.Geometry geometry = null;
-
-				try
+				while (true)
 				{
-					geometry = await MyMapView.Editor.RequestShapeAsync(requestedShape, null, null);
+					Esri.ArcGISRuntime.Geometry.Geometry geometry = null;
+
+					try
+					{
+						geometry = await MyMapView.Editor.RequestShapeAsync(requestedShape, null, null);
+					}
+					catch { }
+
+					if (geometry == null)
+						return;
+
+					// Create a new message
+					Message msg = new Message();
+
+					// Set the ID and other parts of the message
+					msg.Id = Guid.NewGuid().ToString();
+					msg.Add("_type", "position_report");
+					msg.Add("_action", "update");
+					msg.Add("_wkid", MyMapView.SpatialReference.Wkid.ToString());
+					msg.Add("sic", _selectedSymbol.SymbolID);
+					msg.Add("uniquedesignation", "1");
+
+					// Construct the Control Points based on the geometry type of the drawn geometry.
+					switch (requestedShape)
+					{
+						case DrawShape.Point:
+							MapPoint point = geometry as MapPoint;
+							msg.Add("_control_points", point.X.ToString(CultureInfo.InvariantCulture) + "," + point.Y.ToString(CultureInfo.InvariantCulture));
+							break;
+						case DrawShape.Polygon:
+							Polygon polygon = geometry as Polygon;
+							string cpts = string.Empty;
+							foreach (var pt in polygon.Parts[0].GetPoints())
+								cpts += ";" + pt.X.ToString(CultureInfo.InvariantCulture) + "," + pt.Y.ToString(CultureInfo.InvariantCulture);
+							msg.Add("_control_points", cpts);
+							break;
+						case DrawShape.Polyline:
+							Polyline polyline = geometry as Polyline;
+							cpts = string.Empty;
+							foreach (var pt in polyline.Parts[0].GetPoints())
+								cpts += ";" + pt.X.ToString(CultureInfo.InvariantCulture) + "," + pt.Y.ToString(CultureInfo.InvariantCulture);
+							msg.Add("_control_points", cpts);
+							break;
+					}
+
+					// Process the message
+					if (!_messageLayer.ProcessMessage(msg))
+						await new MessageDialog("Failed to process message.", "Symbol Dictionary Search Sample").ShowAsync();
+
+					btnClearMap.IsEnabled = true;
 				}
-				catch { }
-
-				if (geometry == null)
-					return;
-
-				// Create a new message
-				Message msg = new Message();
-
-				// Set the ID and other parts of the message
-				msg.Id = Guid.NewGuid().ToString();
-				msg.Add("_type", "position_report");
-				msg.Add("_action", "update");
-				msg.Add("_wkid", MyMapView.SpatialReference.Wkid.ToString());
-				msg.Add("sic", _selectedSymbol.SymbolID);
-				msg.Add("uniquedesignation", "1");
-
-				// Construct the Control Points based on the geometry type of the drawn geometry.
-				switch (requestedShape)
-				{
-					case DrawShape.Point:
-						MapPoint point = geometry as MapPoint;
-						msg.Add("_control_points", point.X.ToString(CultureInfo.InvariantCulture) + "," + point.Y.ToString(CultureInfo.InvariantCulture));
-						break;
-					case DrawShape.Polygon:
-						Polygon polygon = geometry as Polygon;
-						string cpts = string.Empty;
-						foreach (var pt in polygon.Parts[0].GetPoints())
-							cpts += ";" + pt.X.ToString(CultureInfo.InvariantCulture) + "," + pt.Y.ToString(CultureInfo.InvariantCulture);
-						msg.Add("_control_points", cpts);
-						break;
-					case DrawShape.Polyline:
-						Polyline polyline = geometry as Polyline;
-						cpts = string.Empty;
-						foreach (var pt in polyline.Parts[0].GetPoints())
-							cpts += ";" + pt.X.ToString(CultureInfo.InvariantCulture) + "," + pt.Y.ToString(CultureInfo.InvariantCulture);
-						msg.Add("_control_points", cpts);
-						break;
-				}
-
-				// Process the message
-				if (!_messageLayer.ProcessMessage(msg))
-					await new MessageDialog("Failed to process message.", "Symbol Dictionary Search Sample").ShowAsync();
 			}
 			catch (Exception ex)
 			{
-				var _ = new MessageDialog(ex.Message, "Symbol Dictionary Search Sample").ShowAsync();
+				var _x = new MessageDialog(ex.Message, "Symbol Dictionary Search Sample").ShowAsync();
 			}
 		}
 
@@ -296,6 +300,15 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.Specialized
 			var handler = PropertyChanged;
 			if (handler != null)
 				handler(this, new PropertyChangedEventArgs(name));
+		}
+
+		private void ClearMap_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+		{
+			if (_messageLayer != null)
+			{
+				_messageLayer.ChildLayers.Clear();
+			}
+			btnClearMap.IsEnabled = false;
 		}
 	}
 

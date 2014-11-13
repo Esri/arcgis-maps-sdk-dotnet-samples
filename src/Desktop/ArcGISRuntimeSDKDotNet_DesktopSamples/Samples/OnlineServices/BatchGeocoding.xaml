@@ -70,11 +70,14 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-
+                <TextBlock HorizontalAlignment="Center">
+                    <Run Text="Batch geocoding may"/>
+                    <Hyperlink NavigateUri="https://developers.arcgis.com/en/features/geocoding/" RequestNavigate="Hyperlink_RequestNavigate">consume credits.</Hyperlink>
+                </TextBlock>
                 <Button Content="Batch Geocode" Padding="16,6" Margin="24,12,24,0" IsDefault="True" Click="Button_Click" />
 
                 <ProgressBar x:Name="progress" IsIndeterminate="True" Visibility="Collapsed" Margin="12,12,12,0" />
-            </StackPanel>
+           </StackPanel>
         </Border>
     </Grid>
 </UserControl>

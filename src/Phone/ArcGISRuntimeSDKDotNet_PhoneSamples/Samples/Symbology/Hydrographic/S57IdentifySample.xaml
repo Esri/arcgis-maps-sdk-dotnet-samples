@@ -37,7 +37,7 @@
 					  MapViewTapped="mapView_MapViewTapped">
 			<esri:Map>
 				<lyr:ArcGISTiledMapServiceLayer ID="Ocean_BaseMap"
-                        ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer" />
+                        ServiceUri="http://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Base/MapServer" />
 
 				<!-- Using group layer to group all Hydrographic layers -->
 				<lyr:GroupLayer ID="Hydrographic"/>

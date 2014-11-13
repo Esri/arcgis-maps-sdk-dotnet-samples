@@ -108,13 +108,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 			Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
 			e.Handled = true;
 		}
-
-		private void BtnSignOut(object sender, RoutedEventArgs e)
-		{
-			// clear the credential for the server from the IdentityManager (if it exists)
-			foreach (var crd in IdentityManager.Current.Credentials.ToArray())
-				IdentityManager.Current.RemoveCredential(crd);
-		}
 	}
 
 	/// <summary>Source Address class with change notification for UI</summary>

@@ -77,8 +77,7 @@
                 <Button Content="Batch Geocode" Padding="16,6" Margin="24,12,24,0" IsDefault="True" Click="Button_Click" />
 
                 <ProgressBar x:Name="progress" IsIndeterminate="True" Visibility="Collapsed" Margin="12,12,12,0" />
-                <Button Content="Sign Out" Padding="16,6" Margin="24,12,24,0" IsDefault="True" Click="BtnSignOut"/>
-            </StackPanel>
+           </StackPanel>
         </Border>
     </Grid>
 </UserControl>

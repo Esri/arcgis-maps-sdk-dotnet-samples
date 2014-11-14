@@ -210,18 +210,6 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.Specialized
 			}
 		}
 
-		// Sets the currently selected symbol
-		private void SymbolListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			if (e.AddedItems.Count != 1)
-				return;
-
-			_selectedSymbol = e.AddedItems[0] as SymbolViewModel;
-
-			AddSymbolAsync(_selectedSymbol);
-
-		}
-
 		// Function to search the symbol dictionary based on the selected value in the style file, category and/or geometry type ListBoxes
 		private void Search()
 		{

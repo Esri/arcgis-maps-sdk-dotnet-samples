@@ -48,9 +48,6 @@
 			<ComboBox Name="cmbKeyword" Margin="10"
 					  SelectedItem="{Binding SelectedKeyword, Mode=TwoWay}"
 					  ItemsSource="{Binding Keywords}" />
-			<Button x:Name="btnClearMap" Content="clear map" Grid.Row="1"
-                        HorizontalAlignment="Left" IsEnabled="False"
-                        Margin="10,0,10,10" Click="ClearMap_Click"></Button>
 			<!-- Results -->
 			<ListView x:Name="SymbolListBox" 
 					  ItemsSource="{Binding Symbols}" 
@@ -78,4 +75,13 @@
 			</ListView>
 		</Grid>
 	</Grid>
+	<Page.BottomAppBar>
+		<CommandBar>
+			<AppBarButton Icon="Clear"
+						  Label="Clear map"
+						  IsEnabled="False"
+						  x:Name="btnClearMap"
+						  Click="ClearMap_Click"/>
+		</CommandBar>
+	</Page.BottomAppBar>
 </Page>

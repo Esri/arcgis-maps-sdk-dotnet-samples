@@ -21,7 +21,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private GraphicsOverlay _areaOverlay;
 
-        /// <summary>Construct Populattion for Area sample control</summary>
+        /// <summary>Construct Population for Area sample control</summary>
 		public PopulationForArea()
 		{
 			InitializeComponent();

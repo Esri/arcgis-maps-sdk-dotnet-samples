@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Controls;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
-    /// Demonstrates how to calculate the area and perimiter of a polygon using the GeometryEngine.
+    /// Demonstrates how to calculate the area and perimeter of a polygon using the GeometryEngine.
     /// </summary>
     /// <title>Area</title>
     /// <category>Geometry</category>

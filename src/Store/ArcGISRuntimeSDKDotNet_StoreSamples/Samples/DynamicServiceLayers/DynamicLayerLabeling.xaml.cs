@@ -13,7 +13,7 @@ using Windows.UI.Xaml.Controls;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
-    /// Demonstrates dynamic layer labeling using LayerDrawingOptions of a dyanmic layer.
+    /// Demonstrates dynamic layer labeling using LayerDrawingOptions of a dynamic layer.
     /// </summary>
     /// <title>Dynamic Layer Labeling</title>
     /// <category>Dynamic Service Layers</category>

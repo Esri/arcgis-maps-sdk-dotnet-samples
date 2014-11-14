@@ -11,7 +11,7 @@ using Windows.UI.Xaml;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
-    /// Sample shows how to to test the spatial relationship of two geometries.
+    /// Sample shows how to test the spatial relationship of two geometries.
     /// </summary>
     /// <title>Relationship</title>
 	/// <category>Geometry</category>

@@ -55,7 +55,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
         }
 
-        // Clear current graphcis and overlay map tips
+        // Clear current graphics and overlay map tips
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
             MyMapView.Overlays.Items.Clear();

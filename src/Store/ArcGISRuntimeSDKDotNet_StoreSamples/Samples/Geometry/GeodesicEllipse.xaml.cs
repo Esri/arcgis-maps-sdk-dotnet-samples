@@ -11,7 +11,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
     /// Demonstrates use of the GeometryEngine.GeodesicEllipse to calculate a geodesic ellipse. 
-    /// Also shows how to calculate a geodesic sector using GeometryEngine.GeodesicSector to create a gedesic sector emanating from point.
+    /// Also shows how to calculate a geodesic sector using GeometryEngine.GeodesicSector to create a geodesic sector emanating from point.
     /// </summary>
     /// <title>Geodesic Ellipse</title>
 	/// <category>Geometry</category>

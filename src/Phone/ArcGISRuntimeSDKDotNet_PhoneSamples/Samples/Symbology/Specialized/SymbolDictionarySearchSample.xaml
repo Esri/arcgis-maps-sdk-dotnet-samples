@@ -42,16 +42,17 @@
 			<Grid.RowDefinitions>
 				<RowDefinition Height="auto"/>
 				<RowDefinition Height="auto"/>
+				<RowDefinition Height="auto"/>
 			</Grid.RowDefinitions>
-			<ComboBox Name="cmbKeyword" 
+			<TextBlock Text="Select a keyword:"/>
+			<ComboBox Name="cmbKeyword" Margin="10"
 					  SelectedItem="{Binding SelectedKeyword, Mode=TwoWay}"
 					  ItemsSource="{Binding Keywords}" />
-
 			<!-- Results -->
 			<ListView x:Name="SymbolListBox" 
 					  ItemsSource="{Binding Symbols}" 
 				      SelectedItem="{Binding SelectedSymbol, Mode=TwoWay}"
-					  Grid.Row="1"
+					  Grid.Row="2"
 					  ScrollViewer.HorizontalScrollBarVisibility="Auto"
 					  ScrollViewer.HorizontalScrollMode="Enabled"
 					  ScrollViewer.VerticalScrollMode="Disabled" >
@@ -61,7 +62,7 @@
 							<!-- Symbol -->
 							<Image  Source="{Binding Thumbnail}"
 									Width="{Binding ImageSize}" Height="{Binding ImageSize}" 
-									Grid.Row="1" Grid.Column="0" 
+									Grid.Row="2" Grid.Column="0" 
 									VerticalAlignment="Center" Stretch="Uniform" />
 						</Grid>
 					</DataTemplate>
@@ -74,4 +75,13 @@
 			</ListView>
 		</Grid>
 	</Grid>
+	<Page.BottomAppBar>
+		<CommandBar>
+			<AppBarButton Icon="Clear"
+						  Label="Clear map"
+						  IsEnabled="False"
+						  x:Name="btnClearMap"
+						  Click="ClearMap_Click"/>
+		</CommandBar>
+	</Page.BottomAppBar>
 </Page>

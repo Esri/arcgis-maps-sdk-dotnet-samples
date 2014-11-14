@@ -60,7 +60,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show("Error occured : " + ex.Message, "Sample error");
+				MessageBox.Show("Error occurred : " + ex.Message, "Sample error");
 			}
 		}
 

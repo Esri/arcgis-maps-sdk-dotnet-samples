@@ -10,7 +10,7 @@ using System.Windows.Media;
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
-    /// This sample demonstartes the use of the GraphicsLayer.GraphicsSouce property. Here, three separate graphics source lists are initially created with random graphics. A button is used to switch the GraphicsSource property of the GraphicsLayer between the sources.
+    /// This sample demonstrates the use of the GraphicsLayer.GraphicsSouce property. Here, three separate graphics source lists are initially created with random graphics. A button is used to switch the GraphicsSource property of the GraphicsLayer between the sources.
     /// </summary>
     /// <title>Graphics Source</title>
 	/// <category>Layers</category>
@@ -95,7 +95,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             return Color.FromRgb(colorBytes[0], colorBytes[1], colorBytes[2]);
         }
 
-        // Utility: Generate a random marker sytle
+        // Utility: Generate a random marker style
         private SimpleMarkerStyle GetRandomMarkerStyle()
         {
             return (SimpleMarkerStyle)_random.Next(0, 6);

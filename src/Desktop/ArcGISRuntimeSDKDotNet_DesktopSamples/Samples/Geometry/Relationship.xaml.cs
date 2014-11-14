@@ -11,7 +11,7 @@ using System.Windows.Controls;
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
-    /// Sample shows how to to test the spatial relationship of two geometries.
+    /// Sample shows how to test the spatial relationship of two geometries.
     /// </summary>
     /// <title>Relationship</title>
 	/// <category>Geometry</category>

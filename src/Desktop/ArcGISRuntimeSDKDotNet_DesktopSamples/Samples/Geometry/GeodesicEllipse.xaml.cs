@@ -10,7 +10,7 @@ using System.Windows.Controls;
 namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
     /// <summary>
-    /// This sample demonstrates use of the GeometryEngine.GeodesicEllipse to calculate a geodesic ellipse. Also shows is how to calculate a geodesic sector using GeometryEngine.GeodesicSector to create a gedesic sector emanating from point. To use the sample, fill in the ellipse properties and click the 'Geodesic Ellipse' button, then click a center point on the map. The click point and a geodesic ellipse and sector centered at the point will be displayed.
+    /// This sample demonstrates use of the GeometryEngine.GeodesicEllipse to calculate a geodesic ellipse. Also shows is how to calculate a geodesic sector using GeometryEngine.GeodesicSector to create a geodesic sector emanating from point. To use the sample, fill in the ellipse properties and click the 'Geodesic Ellipse' button, then click a center point on the map. The click point and a geodesic ellipse and sector centered at the point will be displayed.
     /// </summary>
     /// <title>Geodesic Ellipse</title>
 	/// <category>Geometry</category>

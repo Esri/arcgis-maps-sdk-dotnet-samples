@@ -42,7 +42,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             }
             catch (Exception ex)
             {
-				MessageBox.Show("Error occured : " + ex.Message, "Label Point Sample");
+				MessageBox.Show("Error occurred : " + ex.Message, "Label Point Sample");
             }
         }
 
@@ -53,7 +53,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             await CalculateLabelPointsAsync();
         }
 
-        // Continuosly accept polygons from the user and calculate label points
+        // Continuously accept polygons from the user and calculate label points
         private async Task CalculateLabelPointsAsync()
         {
             try

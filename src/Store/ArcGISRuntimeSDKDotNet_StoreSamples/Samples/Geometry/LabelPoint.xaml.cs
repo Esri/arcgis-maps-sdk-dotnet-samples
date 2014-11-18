@@ -41,7 +41,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-				var _x = new MessageDialog("Error occurred : " + ex.Message, "Boundary Sample").ShowAsync();
+				var _x = new MessageDialog("Error occurred : " + ex.Message, "Label Point Sample").ShowAsync();
             }
         }
 

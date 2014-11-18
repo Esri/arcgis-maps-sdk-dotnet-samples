@@ -49,7 +49,7 @@
                     </Grid.RowDefinitions>
 
                     <StackPanel x:Name="Instructions" >
-                        <TextBlock x:Name="ResponseTextBlock" Style="{StaticResource TextBasicStyle}" Text="Create a polygon by clicking on map. Double-click to end.The area and perimeter are displayed here." 
+                        <TextBlock x:Name="ResponseTextBlock" Style="{StaticResource TextBasicStyle}" Text="Click the map to draw a polygon. Double-click to end. The area and perimeter are displayed here." 
                                 Width="250" TextAlignment="Left" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                         <Button x:Name="CancelCurrent" Content="Cancel" HorizontalAlignment="Right" Click="CancelCurrent_Click"/>
 

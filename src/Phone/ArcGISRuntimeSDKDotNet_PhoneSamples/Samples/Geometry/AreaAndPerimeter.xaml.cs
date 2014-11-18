@@ -23,15 +23,20 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         {
             InitializeComponent();
 
-            mapView1.Loaded += mapView1_Loaded;
 			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-130, 20, -65, 55, SpatialReferences.Wgs84));
             graphicsOverlay = mapView1.GraphicsOverlays["Graphics"] as GraphicsOverlay;
+
+			mapView1.SpatialReferenceChanged += mapView1_SpatialReferenceChanged;
         }
 
-        async void mapView1_Loaded(object sender, RoutedEventArgs e)
-        {
-            await doCalculateAreaAndLength();
-        }
+		async void mapView1_SpatialReferenceChanged(object sender, System.EventArgs e)
+		{
+			mapView1.SpatialReferenceChanged -= mapView1_SpatialReferenceChanged;
+
+			await doCalculateAreaAndLength();
+		}
+
+     
         private async Task doCalculateAreaAndLength()
         {
             try

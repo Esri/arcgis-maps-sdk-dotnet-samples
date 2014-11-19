@@ -43,7 +43,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         /// <summary>
         /// Signs out from current login so sample can trigger credential challenge.
-        /// </summary
+        /// </summary>
         private void SignOutButton_Click(object sender, RoutedEventArgs e)
         {
             SignOut();
@@ -69,7 +69,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         /// <summary>
         /// Signs out from current login so switching samples can trigger credential challenge.
-        /// </summary
+        /// </summary>
         private void MyMapView_LayerUnloaded(object sender, LayerUnloadedEventArgs e)
         {
             if (!(e.Layer is FeatureLayer))

@@ -34,7 +34,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 		// Start accepting user polygons and calculating label points
 		async void MyMapView_SpatialReferenceChanged(object sender, EventArgs e)
 		{
-			MyMapView.ExtentChanged -= MyMapView_SpatialReferenceChanged;
+			MyMapView.SpatialReferenceChanged -= MyMapView_SpatialReferenceChanged;
 			await CalculateLabelPointsAsync();
 		}
 

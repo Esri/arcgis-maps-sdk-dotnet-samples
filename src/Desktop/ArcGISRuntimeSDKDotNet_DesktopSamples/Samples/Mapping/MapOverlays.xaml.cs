@@ -10,19 +10,22 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     /// <title>Map Overlays</title>
 	/// <category>Mapping</category>
 	public partial class MapOverlays : UserControl
-    {
-        /// <summary>Construct Map Overlays sample control</summary>
-        public MapOverlays()
-        {
-            InitializeComponent();
-
-            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
-
-			esriOverlay.DataContext = new MapPoint(-117.19568, 34.056601, SpatialReferences.Wgs84);
-        }
-
-		private void MyMapView_ExtentChanged(object sender, System.EventArgs e)
+	{
+		/// <summary>Construct Map Overlays sample control</summary>
+		public MapOverlays()
 		{
+			InitializeComponent();
+			
+			esriOverlay.DataContext = new MapPoint(-117.19568, 34.056601, SpatialReferences.Wgs84);
+
+			MyMapView.SpatialReferenceChanged += MyMapView_SpatialReferenceChanged;
+
+		}
+
+		void MyMapView_SpatialReferenceChanged(object sender, System.EventArgs e)
+		{
+			MyMapView.SpatialReferenceChanged -= MyMapView_SpatialReferenceChanged;
+
 			var normalizedPoint = GeometryEngine.NormalizeCentralMeridian(MyMapView.Extent.GetCenter());
 			var projectedCenter = GeometryEngine.Project(normalizedPoint, SpatialReferences.Wgs84) as MapPoint;
 
@@ -38,5 +41,5 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 			var projectedCenter = GeometryEngine.Project(normalizedPoint, SpatialReferences.Wgs84) as MapPoint;
 			clickOverlay.DataContext = projectedCenter;
 		}
-    }
+	}
 }

@@ -63,11 +63,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
             webTiledLayerComboBox1.ItemsSource = items;
             webTiledLayerComboBox1.DisplayMemberPath = "Name";
-            MyMapView.Loaded += MyMapView_Loaded;
-        }
-
-        private void MyMapView_Loaded(object sender, RoutedEventArgs e)
-        {
             webTiledLayerComboBox1.SelectedIndex = 0;
         }
 

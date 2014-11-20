@@ -21,29 +21,29 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         public ServerPrinting()
         {
             InitializeComponent();
-            MyMapView.Loaded += MyMapView_Loaded;
+			MyMapView.SpatialReferenceChanged += MyMapView_SpatialReferenceChanged;
         }
 
-        private async void MyMapView_Loaded(object sender, RoutedEventArgs e)
-        {
-            try
-            {
+		private async void MyMapView_SpatialReferenceChanged(object sender, EventArgs e)
+		{
+			try
+			{
 				_printTask = new PrintTask(new Uri(PrintTaskUrl));
 				var info = await _printTask.GetTaskInfoAsync();
-                
-                comboLayout.ItemsSource = info.LayoutTemplates;
-                if (info.LayoutTemplates != null && info.LayoutTemplates.Count > 0)
-                    comboLayout.SelectedIndex = 0;
 
-                comboFormat.ItemsSource = info.Formats;
-                if (info.Formats != null && info.Formats.Count > 0)
-                    comboFormat.SelectedIndex = 0;
-            }
-            catch (Exception ex)
-            {
-				var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
-            }
-        }
+				comboLayout.ItemsSource = info.LayoutTemplates;
+				if (info.LayoutTemplates != null && info.LayoutTemplates.Count > 0)
+					comboLayout.SelectedIndex = 0;
+
+				comboFormat.ItemsSource = info.Formats;
+				if (info.Formats != null && info.Formats.Count > 0)
+					comboFormat.SelectedIndex = 0;
+			}
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+			}
+		}
 
         private async void ExportMap_Click(object sender, RoutedEventArgs e)
         {
@@ -64,7 +64,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-				var _ = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+				var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
             }
             finally
             {

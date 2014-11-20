@@ -7,7 +7,7 @@
 	xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
 
     <Page.Resources>
-		<!--Composite Symbol mixing simple cirkle marker with a text-->
+		<!--Composite Symbol mixing simple circle marker with a text-->
 		<symb:CompositeSymbol x:Key="NumberedMarkerSymbol1">
 			<symb:SimpleMarkerSymbol Size="20" Color="White">
 				<symb:SimpleMarkerSymbol.Outline>

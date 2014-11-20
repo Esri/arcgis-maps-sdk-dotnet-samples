@@ -25,13 +25,13 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         public AreaSample()
         {
             InitializeComponent();
-			MyMapView.ExtentChanged += MyMapView_ExtentChanged;
+			MyMapView.SpatialReferenceChanged += MyMapView_SpatialReferenceChanged;
 			_graphicsOverlay = MyMapView.GraphicsOverlays["AreaOverlay"];
         }
 
-		private async void MyMapView_ExtentChanged(object sender, EventArgs e)
+		private async void MyMapView_SpatialReferenceChanged(object sender, EventArgs e)
 		{
-			MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
+			MyMapView.SpatialReferenceChanged -= MyMapView_SpatialReferenceChanged;
 			await DoCalculateAreaAndLengthAsync();
 		}
 

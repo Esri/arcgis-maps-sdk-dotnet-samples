@@ -10,21 +10,22 @@ using Windows.UI.Xaml.Controls;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
-	/// 
+	/// This sample demonstrates how to calculate the area and perimeter of a polygon using the GeometryEngine.
 	/// </summary>
+	/// <title>Area</title>
 	/// <category>Geometry</category>
-    public sealed partial class AreaAndPerimeter : Page
+    public sealed partial class AreaSample : Page
     {
         private const double toMilesConversion = 0.0006213700922;
         private const double toSqMilesConversion = 0.0000003861003;
 
-        GraphicsOverlay graphicsOverlay;
-        public AreaAndPerimeter()
+        GraphicsOverlay _graphicsOverlay;
+        public AreaSample()
         {
             InitializeComponent();
 
 			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-130, 20, -65, 55, SpatialReferences.Wgs84));
-            graphicsOverlay = mapView1.GraphicsOverlays["Graphics"] as GraphicsOverlay;
+            _graphicsOverlay = mapView1.GraphicsOverlays["Graphics"] as GraphicsOverlay;
 
 			mapView1.SpatialReferenceChanged += mapView1_SpatialReferenceChanged;
         }
@@ -45,10 +46,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var geom = await mapView1.Editor.RequestShapeAsync(DrawShape.Polygon);
 
                 //show geometry on map
-                graphicsOverlay.Graphics.Clear();
+                _graphicsOverlay.Graphics.Clear();
 
                 var g = new Graphic { Geometry = geom, Symbol = LayoutRoot.Resources["DefaultFillSymbol"] as Esri.ArcGISRuntime.Symbology.Symbol };
-                graphicsOverlay.Graphics.Add(g);
+                _graphicsOverlay.Graphics.Add(g);
 
 
                 //Calculate results
@@ -72,14 +73,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             catch (System.Threading.Tasks.TaskCanceledException)
             {
                 var dlg = new MessageDialog("Current sketch has been canceled.", "Task Canceled!");
-                var _ = dlg.ShowAsync();
+                var _x = dlg.ShowAsync();
             }
 
         }
 
         private void ResetUI()
         {
-            graphicsOverlay.Graphics.Clear();
+            _graphicsOverlay.Graphics.Clear();
             Instructions.Visibility = Visibility.Visible;
             Results.Visibility = Visibility.Collapsed;
 

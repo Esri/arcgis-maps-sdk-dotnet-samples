@@ -4,8 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:ArcGISRuntimeSDKDotNet_StoreSamples.Samples"
     xmlns:esri="using:Esri.ArcGISRuntime.Controls"  
-    xmlns:esriLayers="using:Esri.ArcGISRuntime.Layers"
-    xmlns:esriData="using:Esri.ArcGISRuntime.Data">
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+    xmlns:data="using:Esri.ArcGISRuntime.Data">
     <Page.Resources>
         <local:BooleanToVisibilityConverter x:Key="vizBoolConv" />
     </Page.Resources>
@@ -17,34 +17,34 @@
         </Grid.ColumnDefinitions>
 
         <esri:MapView x:Name="mapView1" Grid.Column="1"><esri:Map  >
-            <esriLayers:ArcGISTiledMapServiceLayer DisplayName="Basemap"
+            <layers:ArcGISTiledMapServiceLayer DisplayName="Basemap"
 				ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" />
 
-            <esriLayers:ArcGISDynamicMapServiceLayer DisplayName="Fire Potential" Opacity=".35"
+            <layers:ArcGISDynamicMapServiceLayer DisplayName="Fire Potential" Opacity=".35"
 				ServiceUri="http://maps1.arcgisonline.com/ArcGIS/rest/services/RMRS_Wildland_Fire_Potential/MapServer" />
 
             <!--<lyr:GroupLayer DisplayName="Fire GroupLayer">-->
-            <esriLayers:FeatureLayer>
-                <esriLayers:FeatureLayer.FeatureTable>
-                    <esriData:ServiceFeatureTable
+            <layers:FeatureLayer>
+                <layers:FeatureLayer.FeatureTable>
+                    <data:ServiceFeatureTable
                         ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Fire/Sheep/FeatureServer/2" 
                         />
-                </esriLayers:FeatureLayer.FeatureTable>
-            </esriLayers:FeatureLayer>
-            <esriLayers:FeatureLayer>
-                <esriLayers:FeatureLayer.FeatureTable>
-                    <esriData:ServiceFeatureTable
+                </layers:FeatureLayer.FeatureTable>
+            </layers:FeatureLayer>
+            <layers:FeatureLayer>
+                <layers:FeatureLayer.FeatureTable>
+                    <data:ServiceFeatureTable
                         ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Fire/Sheep/FeatureServer/1" 
                         />
-                </esriLayers:FeatureLayer.FeatureTable>
-            </esriLayers:FeatureLayer>
-            <esriLayers:FeatureLayer>
-                <esriLayers:FeatureLayer.FeatureTable>
-                    <esriData:ServiceFeatureTable
+                </layers:FeatureLayer.FeatureTable>
+            </layers:FeatureLayer>
+            <layers:FeatureLayer>
+                <layers:FeatureLayer.FeatureTable>
+                    <data:ServiceFeatureTable
                         ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Fire/Sheep/FeatureServer/0" 
                         />
-                </esriLayers:FeatureLayer.FeatureTable>
-            </esriLayers:FeatureLayer>
+                </layers:FeatureLayer.FeatureTable>
+            </layers:FeatureLayer>
             <!--</lyr:GroupLayer>-->
         </esri:Map></esri:MapView>
 

@@ -5,8 +5,9 @@
     xmlns:local="using:ArcGISRuntimeSDKDotNet_StoreSamples.Samples"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-            xmlns:esri="using:Esri.ArcGISRuntime.Controls"  xmlns:esriLayers="using:Esri.ArcGISRuntime.Layers"
-        xmlns:esriData="using:Esri.ArcGISRuntime.Data"
+    xmlns:esri="using:Esri.ArcGISRuntime.Controls"  
+	xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+    xmlns:data="using:Esri.ArcGISRuntime.Data"
     mc:Ignorable="d">
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
@@ -14,20 +15,20 @@
             <esri:Map>
                 <!--PropertyChanged="HandlingLayersInitialization_PropertyChanged"-->
                 <esri:Map.Layers>
-                    <esriLayers:ArcGISTiledMapServiceLayer ID="DynamicLayer1"
+                    <layers:ArcGISTiledMapServiceLayer ID="DynamicLayer1"
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer"/>
-                    <esriLayers:ArcGISDynamicMapServiceLayer ID="DynamicLayer2"
+                    <layers:ArcGISDynamicMapServiceLayer ID="DynamicLayer2"
                     ServiceUri="http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Petroleum/KGS_OilGasFields_Kansas1/MapServer"/>
-                    <esriLayers:ArcGISDynamicMapServiceLayer ID="DynamicLayer3"
+                    <layers:ArcGISDynamicMapServiceLayer ID="DynamicLayer3"
                     ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/ServiceRequest1/MapServer"/>
-                    <esriLayers:FeatureLayer>
-                        <esriLayers:FeatureLayer.FeatureTable>
-                            <esriData:ServiceFeatureTable
+                    <layers:FeatureLayer>
+                        <layers:FeatureLayer.FeatureTable>
+                            <data:ServiceFeatureTable
                         ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Fire/Sheep/FeatureServer/0" 
                         />
-                        </esriLayers:FeatureLayer.FeatureTable>
-                    </esriLayers:FeatureLayer>
-                    <esriLayers:GraphicsLayer />
+                        </layers:FeatureLayer.FeatureTable>
+                    </layers:FeatureLayer>
+                    <layers:GraphicsLayer />
                 </esri:Map.Layers>
             </esri:Map>
         </esri:MapView>

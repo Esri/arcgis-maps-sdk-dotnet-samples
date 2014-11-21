@@ -78,6 +78,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SampleDataViewModel.cs" />
+    <Compile Include="Samples\DynamicServiceLayers\ArcGISDynamicMapServiceLayerSample.xaml.cs">
+      <DependentUpon>ArcGISDynamicMapServiceLayerSample.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\DynamicServiceLayers\DynamicAndTile.xaml.cs">
       <DependentUpon>DynamicAndTile.xaml</DependentUpon>
     </Compile>
@@ -234,9 +237,6 @@
     <Compile Include="Samples\Mapping\EnableTouchRotation.xaml.cs">
       <DependentUpon>EnableTouchRotation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Mapping\HandleErrors.xaml.cs">
-      <DependentUpon>HandleErrors.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Samples\Mapping\LayerList.xaml.cs">
       <DependentUpon>LayerList.xaml</DependentUpon>
     </Compile>
@@ -334,6 +334,10 @@
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\DynamicServiceLayers\ArcGISDynamicMapServiceLayerSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\DynamicServiceLayers\DynamicAndTile.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -540,10 +544,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Mapping\EnableTouchRotation.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Mapping\HandleErrors.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

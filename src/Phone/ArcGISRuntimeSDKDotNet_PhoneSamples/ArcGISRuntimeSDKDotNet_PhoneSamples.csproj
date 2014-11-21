@@ -147,8 +147,8 @@
     <Compile Include="Samples\GeocodingTasks\FindAnAddressUsingArcGISOnline.xaml.cs">
       <DependentUpon>FindAnAddressUsingArcGISOnline.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Geometry\AreaAndPerimeter.xaml.cs">
-      <DependentUpon>AreaAndPerimeter.xaml</DependentUpon>
+    <Compile Include="Samples\Geometry\AreaSample.xaml.cs">
+      <DependentUpon>AreaSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Geometry\BufferPoint.xaml.cs">
       <DependentUpon>BufferPoint.xaml</DependentUpon>
@@ -427,7 +427,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Geometry\AreaAndPerimeter.xaml">
+    <Page Include="Samples\Geometry\AreaSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

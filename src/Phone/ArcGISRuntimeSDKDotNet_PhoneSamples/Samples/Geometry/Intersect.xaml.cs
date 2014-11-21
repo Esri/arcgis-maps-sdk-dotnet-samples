@@ -15,6 +15,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 	/// <summary>
 	/// 
 	/// </summary>
+	/// <title>Intersect</title>
     /// <category>Geometry</category>
 	public sealed partial class Intersect : Page
     {

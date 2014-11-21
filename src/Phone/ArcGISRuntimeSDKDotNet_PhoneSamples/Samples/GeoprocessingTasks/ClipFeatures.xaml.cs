@@ -13,9 +13,10 @@ using Windows.UI.Xaml.Controls;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
-	/// 
+	/// This sample demonstrates use of the Geoprocessor to call an asynchronous Clip Features geoprocessing service.
 	/// </summary>
-    /// <category>Geoprocessing Tasks</category>
+	/// <title>Clip Features</title>
+	/// <category>Geoprocessing Tasks</category>
 	public sealed partial class ClipFeatures : Page
     {
         private static string ServiceUri = "http://serverapps10.esri.com/ArcGIS/rest/services/SamplesNET/USA_Data_ClipTools/GPServer/ClipCounties";
@@ -110,8 +111,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
             if (message != null)
                 await new MessageDialog(message, "GP Failed").ShowAsync();
-
-
         }
 
 
@@ -186,7 +185,5 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             if (message != null)
                 await new MessageDialog(message, "Service Info").ShowAsync();
         }
-
-
     }
 }

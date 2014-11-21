@@ -14,9 +14,10 @@ using Windows.UI.Xaml.Controls;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
-	/// 
+	/// This sample demonstrates use of the GeometryEngine to calculate a geodesic buffer.
 	/// </summary>
-    /// <category>Geometry</category>
+	/// <title>Geodesic Buffer</title>
+	/// <category>Geometry</category>
 	public sealed partial class GeodesicBuffer : Page
     {
         public GeodesicBuffer()

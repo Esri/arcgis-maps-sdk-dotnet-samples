@@ -6,6 +6,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     /// <summary>
 	/// Shows how to set the initial extent of the map (Map.InitialViewpoint).
     /// </summary>
+	/// <title>Set Initial Map Extent</title>
 	/// <category>Mapping</category>
 	public partial class SetInitialMapExtent : UserControl
     {

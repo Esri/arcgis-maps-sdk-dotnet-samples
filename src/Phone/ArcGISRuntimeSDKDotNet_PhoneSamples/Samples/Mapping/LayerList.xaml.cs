@@ -9,9 +9,10 @@ using Windows.UI.Xaml.Data;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
-	/// 
+	/// This sample demonstrates how to access layers in the map.
 	/// </summary>
-    /// <category>Mapping</category>
+	/// <title>Layer List</title>
+	/// <category>Mapping</category>
 	public sealed partial class LayerList : Page
     {
         public LayerList()

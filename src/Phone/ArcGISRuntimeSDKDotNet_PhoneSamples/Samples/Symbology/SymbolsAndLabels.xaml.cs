@@ -8,7 +8,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 	/// <summary>
 	/// Shows various types of the more advanced symbol types: Composite and CIM symbology.
 	/// </summary>
-    /// <category>Symbology</category>
+	/// <title>Symbols and Labels</title>
+	/// <category>Symbology</category>
 	public sealed partial class SymbolsAndLabels : Windows.UI.Xaml.Controls.Page
     {
 		public SymbolsAndLabels()

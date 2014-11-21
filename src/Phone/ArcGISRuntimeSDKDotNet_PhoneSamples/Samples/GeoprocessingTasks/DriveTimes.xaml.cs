@@ -13,9 +13,10 @@ using Windows.UI.Xaml.Controls;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
-	/// 
+	/// This sample demonstrates use of the Geoprocessor to call a DriveTimes geoprocessing service. To use the sample, click a point in the map. Drive time polygons of 1, 2, and 3 minutes will be calculated and displayed on the map.
 	/// </summary>
-    /// <category>Geoprocessing Tasks</category>
+	/// <title>Drive Times</title>
+	/// <category>Geoprocessing Tasks</category>
 	public sealed partial class DriveTimes : Page
     {
         public DriveTimes()

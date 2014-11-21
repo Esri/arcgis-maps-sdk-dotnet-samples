@@ -13,9 +13,10 @@ using Windows.UI.Xaml.Controls;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
-	/// 
+	/// This sample demonstrates routing between stops and around user-defined barriers using the OnlineLocatorTask.
 	/// </summary>
-    /// <category>Network Analyst Tasks</category>
+	/// <title>Routing Around Barriers</title>
+	/// <category>Network Analyst Tasks</category>
 	public sealed partial class RoutingWithBarriers : Page
     {
         public RoutingWithBarriers()
@@ -82,7 +83,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 }
                 catch (Exception ex)
                 {
-                    System.Diagnostics.Debug.WriteLine(ex.Message);
+					var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
                 }
             }
         }

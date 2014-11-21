@@ -8,9 +8,10 @@ using Windows.UI.Xaml.Controls;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
-	/// 
+	/// This sample demonstrates displaying an overview map to indicate the extent of the parent map.
 	/// </summary>
-    /// <category>Mapping</category>
+	/// <title>Overview Map</title>
+	/// <category>Mapping</category>
 	public sealed partial class OverviewMap : Page
     {
         public OverviewMap()

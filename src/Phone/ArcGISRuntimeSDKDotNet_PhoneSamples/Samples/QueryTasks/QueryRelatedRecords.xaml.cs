@@ -13,9 +13,10 @@ using Windows.UI.Xaml.Input;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
-	/// 
+	/// This sample demonstrates how to use a relationship query to display information from a related table for selected features.
 	/// </summary>
-    /// <category>Query Tasks</category>
+	/// <title>Query Related Tables</title>
+	/// <category>Query Tasks</category>
 	public sealed partial class QueryRelatedRecords : Page
     {
         public QueryRelatedRecords()

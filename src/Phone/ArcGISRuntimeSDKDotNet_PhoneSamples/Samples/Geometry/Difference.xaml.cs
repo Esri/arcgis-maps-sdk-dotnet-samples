@@ -9,16 +9,17 @@ using Windows.UI.Xaml.Controls;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
-	/// 
+	/// This sample demonstrates using the GeometryEngine.Difference or GeometryEngine.SymmetricDifference methods to calculate the geometric difference between feature geometries and a user defined geometry.
 	/// </summary>
-    /// <category>Geometry</category>
+	/// <title>Difference</title>
+	/// <category>Geometry</category>
 	public sealed partial class Difference : Page
     {
         GraphicsLayer inputGraphicsLayer;
         GraphicsLayer outputGraphicsLayer;
         GraphicsLayer drawGraphicsLayer;
-        Polygon inputDifferencePolygonGeometry;
-        public Difference()
+
+		public Difference()
         {
             InitializeComponent();
 

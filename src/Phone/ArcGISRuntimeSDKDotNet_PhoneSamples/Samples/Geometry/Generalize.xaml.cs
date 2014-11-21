@@ -13,9 +13,10 @@ using Windows.UI.Xaml.Controls;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
-	/// 
+	/// This sample demonstrates using the GeometryEngine.Generalize method to take a polyline with numerous vertices and return a generalized polyline with less vertices.
 	/// </summary>
-    /// <category>Geometry</category>
+	/// <title>Generalize</title>
+	/// <category>Geometry</category>
 	public sealed partial class Generalize : Page
     {
         GraphicsLayer originalGraphicsLayer;

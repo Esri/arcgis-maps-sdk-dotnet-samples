@@ -12,9 +12,9 @@ using Windows.UI.Xaml.Controls;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
-	/// 
+	/// This sample demonstrates use of the GeometryEngine.LabelPoint method to calculate the location of label points.
 	/// </summary>
-	/// <title>Label Points</title>
+	/// <title>Label Point</title>
 	/// <category>Geometry</category>
 	public sealed partial class LabelPoints : Page
 	{

@@ -12,9 +12,10 @@ using Windows.UI.Xaml.Controls;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
-	/// 
+	/// This sample demonstrates how to create an offset geometry using the Offset method of the GeometryEngine class.
 	/// </summary>
-    /// <category>Geometry</category>
+	/// <title>Offset</title>
+	/// <category>Geometry</category>
 	public sealed partial class Offset : Page
     {
         GraphicsLayer parcelGraphicsLayer;

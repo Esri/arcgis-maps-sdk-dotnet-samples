@@ -13,9 +13,10 @@ using Windows.UI.Xaml.Controls;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
-	/// 
+	/// Demonstrates performing identify operations.
 	/// </summary>
-    /// <category>Query Tasks</category>
+	/// <title>Identify</title>
+	/// <category>Query Tasks</category>
 	public sealed partial class Identify : Page
     {
         public Identify()

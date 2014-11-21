@@ -11,9 +11,10 @@ using Windows.UI.Xaml.Controls;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
-	/// 
+	/// This sample demonstrates simple point to point routing between two input locations with either OnlineLocatorTask or LocalLocatorTask.
 	/// </summary>
-    /// <category>Network Analyst Tasks</category>
+	/// <title>Routing</title>
+	/// <category>Network Analyst Tasks</category>
 	public sealed partial class Routing : Page
     {
         public Routing()
@@ -66,7 +67,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 }
                 catch (Exception ex)
                 {
-                    System.Diagnostics.Debug.WriteLine(ex.Message);
+					var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
                 }
             }
         }

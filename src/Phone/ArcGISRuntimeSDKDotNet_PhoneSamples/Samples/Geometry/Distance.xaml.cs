@@ -9,9 +9,10 @@ using Windows.UI.Xaml.Controls;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
-	/// 
+	/// This sample demonstrates using the GeometryEngine.DistanceFromGeometry method to calculate the linear distance of the shortest length between two geometries.
 	/// </summary>
-    /// <category>Geometry</category>
+	/// <title>Distance From Geometry</title>
+	/// <category>Geometry</category>
 	public sealed partial class Distance : Page
     {
         GraphicsLayer inputGraphicsLayer;

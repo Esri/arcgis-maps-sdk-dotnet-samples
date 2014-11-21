@@ -13,20 +13,21 @@ using Windows.UI.Xaml.Controls;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
-	/// 
+	/// This sample demonstrates use of the Geoprocessor to call a Viewshed geoprocessing service.
 	/// </summary>
+	/// <title>Viewshed</title>
 	/// <category>Geoprocessing Tasks</category>
 	public sealed partial class CalculateViewshed : Page
     {
         GraphicsLayer inputLayer;
-        GraphicsLayer viewShedLayer;
+        GraphicsLayer viewshedLayer;
         public CalculateViewshed()
         {
             InitializeComponent();
             InitializePMS();
 			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-12004036, 4652780, -11735714, 4808810));
             inputLayer = mapView1.Map.Layers["InputLayer"] as GraphicsLayer;
-            viewShedLayer = mapView1.Map.Layers["viewShedLayer"] as GraphicsLayer;
+            viewshedLayer = mapView1.Map.Layers["viewShedLayer"] as GraphicsLayer;
         }
 
         private async void InitializePMS()
@@ -44,13 +45,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
         }
 
-
-
         private void ClearResultsButton_Click(object sender, RoutedEventArgs e)
         {
             //remove all previous results
             inputLayer.Graphics.Clear();
-            viewShedLayer.Graphics.Clear();            
+            viewshedLayer.Graphics.Clear();            
         }
 
         private async void StartButton_Click(object sender, RoutedEventArgs e)
@@ -65,7 +64,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             MyProgressRing.Visibility = Windows.UI.Xaml.Visibility.Visible;
             MyProgressRing.IsActive = true;
 
-            viewShedLayer.Graphics.Clear();
+            viewshedLayer.Graphics.Clear();
 
             inputLayer.Graphics.Clear();
             inputLayer.Graphics.Add(new Graphic() { Geometry = inputPoint });
@@ -106,7 +105,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 {
                     foreach (var feature in viewshedResult.FeatureSet.Features)
                     {
-                        viewShedLayer.Graphics.Add((Graphic)feature);
+                        viewshedLayer.Graphics.Add((Graphic)feature);
                     }
                 }
 
@@ -118,6 +117,5 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 MyProgressRing.IsActive = false;
             }
         }
-
     }
 }

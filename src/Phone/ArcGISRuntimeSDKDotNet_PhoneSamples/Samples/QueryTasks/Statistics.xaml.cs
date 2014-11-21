@@ -10,9 +10,10 @@ using Windows.UI.Xaml.Data;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
-	/// 
+	/// This sample demonstrates how to use a QueryTask to get statistics from a map service.
 	/// </summary>
-    /// <category>Query Tasks</category>
+	/// <title>Statistics</title>
+	/// <category>Query Tasks</category>
 	public sealed partial class Statistics : Page
     {
         public Statistics()

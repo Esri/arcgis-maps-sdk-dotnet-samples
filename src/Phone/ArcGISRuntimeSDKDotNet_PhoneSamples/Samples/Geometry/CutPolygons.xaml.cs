@@ -12,14 +12,13 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
-	/// 
+	/// This sample demonstrates using the GeometryEngine.Cut method to cut feature geometries with a given polyline.
 	/// </summary>
-    /// <category>Geometry</category>
+	/// <title>Cut</title>
+	/// <category>Geometry</category>
 	public sealed partial class CutPolygons : Page
     {
 		GraphicsOverlay resultsOverlay;
@@ -42,7 +41,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
         private async void CutPolygonsButton_Click(object sender, RoutedEventArgs e)
         {
-            //hide/show ui elements
+            // Hide/show ui elements
             SetupUI();
             try
             {
@@ -52,10 +51,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             catch (Exception ex)
             {
                 var dlg = new MessageDialog(ex.Message, "Geometry Engine Failed!");
-				var _ = dlg.ShowAsync();
+				var _x = dlg.ShowAsync();
             }
 
-            //Hide/show ui elements
+            // Hide/show ui elements
             ResetUI();
         }
 

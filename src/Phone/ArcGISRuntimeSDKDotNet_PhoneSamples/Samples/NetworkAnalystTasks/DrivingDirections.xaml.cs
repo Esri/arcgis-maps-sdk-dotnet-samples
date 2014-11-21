@@ -19,10 +19,11 @@ using Windows.UI.Xaml;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
-	/// 
+	/// This sample demonstrates retrieving a route and driving directions between input locations with OnlineLocatorTask.
 	/// </summary>
+	/// <title>Routing with Directions</title>
 	/// <category>Network Analyst Tasks</category>
-    public sealed partial class DrivingDirections : Windows.UI.Xaml.Controls.Page
+	public sealed partial class DrivingDirections : Windows.UI.Xaml.Controls.Page
     {
         private const string OnlineRoutingService = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route";
 

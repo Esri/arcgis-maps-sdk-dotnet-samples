@@ -13,9 +13,10 @@ using Windows.UI.Xaml.Controls;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
-	/// 
+	/// This sample demonstrates using GeometryEngine.Densify to take an input polygon and return a densified polygon.
 	/// </summary>
-    /// <category>Geometry</category>
+	/// <title>Densify</title>
+	/// <category>Geometry</category>
 	public sealed partial class DensifyPolygons : Page
     {
         GraphicsLayer graphicsLayerVertices;

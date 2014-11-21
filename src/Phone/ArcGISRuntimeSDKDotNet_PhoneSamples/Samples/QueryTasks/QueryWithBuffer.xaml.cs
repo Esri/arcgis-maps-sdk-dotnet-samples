@@ -8,12 +8,14 @@ using Windows.Storage;
 using Windows.UI.Xaml.Controls;
 using System.Linq;
 using Esri.ArcGISRuntime.Controls;
+using Windows.UI.Popups;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
-	/// 
+	/// This sample demonstrates using a geometry service to generate query geometry.
 	/// </summary>
+	/// <title>Query with Buffer</title>
     /// <category>Query Tasks</category>
 	public sealed partial class QueryWithBuffer : Page
     {
@@ -36,7 +38,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(ex.Message);
+				var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
             }
         }
 

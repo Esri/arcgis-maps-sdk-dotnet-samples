@@ -14,6 +14,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
     /// Demonstrates use of the location display,
     /// and also how to create a custom location provider
     /// </summary>
+	/// <title>Location Display</title>
     /// <category>Mapping</category>
     public sealed partial class LocationDisplay : Page
     {

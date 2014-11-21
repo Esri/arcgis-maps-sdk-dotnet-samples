@@ -12,8 +12,9 @@ using Windows.UI.Xaml.Controls;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
-	/// 
+	/// This sample demonstrates the use of the GeometryEngine to calculate a buffer.
 	/// </summary>
+	/// <title>Buffer</title>
 	/// <category>Geometry</category>
 	public sealed partial class BufferPoint : Page
     {

@@ -7,6 +7,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 	/// <summary>
 	/// 
 	/// </summary>
+	/// <title>WMS Layer</title>
     /// <category>Dynamic Service Layers</category>
 	public sealed partial class WmsLayerSimple : Page
     {

@@ -48,7 +48,7 @@
 
                 <StackPanel x:Name="Instructions" >
                     <TextBlock x:Name="ResponseTextBlock" Style="{StaticResource TextBasicStyle}" 
-                               Text="Create a polygon by clicking on map. Double-click to end.The area and perimeter are displayed here." 
+                               Text="Create a polygon by clicking on the map. Double-click to end.The area and perimeter are displayed here." 
                                Width="250" TextAlignment="Left" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     <Button x:Name="CancelCurrent" Content="Cancel" HorizontalAlignment="Right" Padding="20,5" Margin="0,12,0,0" Click="CancelCurrent_Click"/>
                 </StackPanel>

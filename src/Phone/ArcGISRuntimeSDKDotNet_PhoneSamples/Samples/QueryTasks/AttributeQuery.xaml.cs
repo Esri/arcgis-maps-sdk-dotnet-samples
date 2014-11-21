@@ -12,10 +12,10 @@ using Windows.UI.Xaml.Controls;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
-	/// 
+	/// This sample demonstrates performing an attribute query, adding the results to the map and UI, and zooming to the resulting geometry.
 	/// </summary>
+	/// <title>Attribute Query</title>
 	/// <category>Query Tasks</category>
-
 	public sealed partial class AttributeQuery : Page
     {
         public AttributeQuery()

@@ -11,9 +11,10 @@ using Windows.UI.Xaml.Controls;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
-	/// 
+	/// Demonstrates how to use a QueryTask to query a map service without a map.
 	/// </summary>
-    /// <category>Query Tasks</category>
+	/// <title>Query Only</title>
+	/// <category>Query Tasks</category>
 	public sealed partial class QueryOnly : Page
     {
         public QueryOnly()
@@ -29,7 +30,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			}
 			catch(System.Exception ex)
 			{
-				var _ = new Windows.UI.Popups.MessageDialog(ex.Message, "Error").ShowAsync();
+				var _x = new Windows.UI.Popups.MessageDialog(ex.Message, "Error").ShowAsync();
 			}
         }
 

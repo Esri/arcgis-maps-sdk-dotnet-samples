@@ -84,6 +84,9 @@
     <Compile Include="Samples\DynamicServiceLayers\DynamicAndTile.xaml.cs">
       <DependentUpon>DynamicAndTile.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\DynamicServiceLayers\DynamicLayerLabeling.xaml.cs">
+      <DependentUpon>DynamicLayerLabeling.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\DynamicServiceLayers\DynamicLayersInCode.xaml.cs">
       <DependentUpon>DynamicLayersInCode.xaml</DependentUpon>
     </Compile>
@@ -104,9 +107,6 @@
     </Compile>
     <Compile Include="Samples\DynamicServiceLayers\Stretch.xaml.cs">
       <DependentUpon>Stretch.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\DynamicServiceLayers\SubLayerList.xaml.cs">
-      <DependentUpon>SubLayerList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\DynamicServiceLayers\WmsLayerSimple.xaml.cs">
       <DependentUpon>WmsLayerSimple.xaml</DependentUpon>
@@ -343,6 +343,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\DynamicServiceLayers\DynamicLayerLabeling.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Samples\DynamicServiceLayers\DynamicLayersInCode.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -368,10 +372,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\DynamicServiceLayers\Stretch.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\DynamicServiceLayers\SubLayerList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

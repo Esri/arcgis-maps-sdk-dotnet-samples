@@ -144,8 +144,8 @@
     <Compile Include="Samples\GeocodingTasks\BatchGeocoding.xaml.cs">
       <DependentUpon>BatchGeocoding.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GeocodingTasks\FindAnAddress.xaml.cs">
-      <DependentUpon>FindAnAddress.xaml</DependentUpon>
+    <Compile Include="Samples\GeocodingTasks\GeocodeAnAddress.xaml.cs">
+      <DependentUpon>GeocodeAnAddress.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GeocodingTasks\FindAnAddressUsingArcGISOnline.xaml.cs">
       <DependentUpon>FindAnAddressUsingArcGISOnline.xaml</DependentUpon>
@@ -327,6 +327,7 @@
     <Content Include="Assets\Icons\vector.polygon.png" />
     <Content Include="Assets\Icons\vector.rectangle.png" />
     <Content Include="Assets\Logo.scale-240.png" />
+    <Content Include="Assets\RedStickpin.png" />
     <Content Include="Assets\x-24x24.png" />
     <EmbeddedResource Include="Assets\SampleDescriptions.xml" />
     <Content Include="Assets\SmallLogo.scale-240.png" />
@@ -432,7 +433,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GeocodingTasks\FindAnAddress.xaml">
+    <Page Include="Samples\GeocodingTasks\GeocodeAnAddress.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

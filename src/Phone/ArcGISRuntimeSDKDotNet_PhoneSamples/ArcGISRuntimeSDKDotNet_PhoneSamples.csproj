@@ -138,8 +138,8 @@
     <Compile Include="Samples\FeatureLayers\FeatureLayers.xaml.cs">
       <DependentUpon>FeatureLayers.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GeocodingTasks\AddressOfLocation.xaml.cs">
-      <DependentUpon>AddressOfLocation.xaml</DependentUpon>
+    <Compile Include="Samples\GeocodingTasks\ReverseGeocode.xaml.cs">
+      <DependentUpon>ReverseGeocode.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GeocodingTasks\BatchGeocoding.xaml.cs">
       <DependentUpon>BatchGeocoding.xaml</DependentUpon>
@@ -425,7 +425,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GeocodingTasks\AddressOfLocation.xaml">
+    <Page Include="Samples\GeocodingTasks\ReverseGeocode.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

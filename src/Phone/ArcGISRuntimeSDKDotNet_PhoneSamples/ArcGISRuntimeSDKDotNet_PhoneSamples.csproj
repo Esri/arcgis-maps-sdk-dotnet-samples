@@ -204,6 +204,9 @@
     <Compile Include="Samples\Portal\PortalBasemaps.xaml.cs">
       <DependentUpon>PortalBasemaps.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Symbology\ClassBreaksRendererSample.xaml.cs">
+      <DependentUpon>ClassBreaksRendererSample.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Symbology\Specialized\MessageProcessingSample.xaml.cs">
       <DependentUpon>MessageProcessingSample.xaml</DependentUpon>
     </Compile>
@@ -288,14 +291,17 @@
     <Compile Include="Samples\Symbology\Specialized\SymbolDictionarySearchSample.xaml.cs">
       <DependentUpon>SymbolDictionarySearchSample.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Symbology\RenderingInCode.xaml.cs">
-      <DependentUpon>RenderingInCode.xaml</DependentUpon>
+    <Compile Include="Samples\Symbology\SimpleRendererSample.xaml.cs">
+      <DependentUpon>SimpleRendererSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Symbology\SymbolsAndLabels.xaml.cs">
       <DependentUpon>SymbolsAndLabels.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Symbology\SymbolSwatches.xaml.cs">
       <DependentUpon>SymbolSwatches.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\UniqueValueRendererSample.xaml.cs">
+      <DependentUpon>UniqueValueRendererSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\TiledLayers\ArcGISLocalTiledLayerSample.xaml.cs">
       <DependentUpon>ArcGISLocalTiledLayerSample.xaml</DependentUpon>
@@ -506,6 +512,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Symbology\ClassBreaksRendererSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Samples\Symbology\Specialized\MessageProcessingSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -618,7 +628,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Symbology\RenderingInCode.xaml">
+    <Page Include="Samples\Symbology\SimpleRendererSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -629,6 +639,10 @@
     <Page Include="Samples\Symbology\SymbolSwatches.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\UniqueValueRendererSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\TiledLayers\ArcGISLocalTiledLayerSample.xaml">
       <Generator>MSBuild:Compile</Generator>

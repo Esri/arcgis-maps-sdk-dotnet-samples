@@ -28,24 +28,25 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             InitializeComponent();
 
 			_earthquakes = MyMapView.GraphicsOverlays["earthquakes"];
-                
-            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
+
+			MyMapView.SpatialReferenceChanged += MyMapView_SpatialReferenceChanged;
         }
 
-        // Load earthquake data
-        private async void MyMapView_ExtentChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
-                await LoadEarthquakesAsync();
-            }
-            catch (Exception ex)
-            {
-                var _x = new MessageDialog("Error loading earthquake data: " + ex.Message, "Sample Error").ShowAsync();
-            }
-        }
+		// Load earthquake data
+		private async void MyMapView_SpatialReferenceChanged(object sender, EventArgs e)
+		{
+			try
+			{
+				MyMapView.SpatialReferenceChanged -= MyMapView_SpatialReferenceChanged;
+				await LoadEarthquakesAsync();
+			}
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog("Error loading earthquake data: " + ex.Message, "Sample Error").ShowAsync();
+			}
+		}
 
+      
         // Change the graphics layer renderer to a new ClassBreaksRenderer
         private void ChangeRendererButton_Click(object sender, RoutedEventArgs e)
         {

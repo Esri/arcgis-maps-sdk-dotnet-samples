@@ -25,14 +25,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             InitializeComponent();
 
 			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
-                
-            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
+
+			MyMapView.SpatialReferenceChanged += MyMapView_SpatialReferenceChanged;
         }
 
-        // Start map interaction
-        private async void MyMapView_ExtentChanged(object sender, EventArgs e)
-        {
-            MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
+		// Start map interaction
+		private async void MyMapView_SpatialReferenceChanged(object sender, EventArgs e)
+		{
+			MyMapView.SpatialReferenceChanged -= MyMapView_SpatialReferenceChanged;
             await AcceptPointsAsync();
         }
 

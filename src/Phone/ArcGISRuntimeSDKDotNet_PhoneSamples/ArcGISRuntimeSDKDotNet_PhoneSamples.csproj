@@ -90,9 +90,6 @@
     <Compile Include="Samples\DynamicServiceLayers\DynamicLayerReordering.xaml.cs">
       <DependentUpon>DynamicLayerReordering.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\DynamicServiceLayers\DynamicLayersInCode.xaml.cs">
-      <DependentUpon>DynamicLayersInCode.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Samples\DynamicServiceLayers\DynamicLayersInXAML.xaml.cs">
       <DependentUpon>DynamicLayersInXAML.xaml</DependentUpon>
     </Compile>
@@ -222,8 +219,8 @@
     <Compile Include="Samples\GeoprocessingTasks\MessageInABottle.xaml.cs">
       <DependentUpon>MessageInABottle.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GraphicsLayers\AddPointOnTap.xaml.cs">
-      <DependentUpon>AddPointOnTap.xaml</DependentUpon>
+    <Compile Include="Samples\GraphicsLayers\AddInteractively.xaml.cs">
+      <DependentUpon>AddInteractively.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GraphicsLayers\CsvLayerSimple.xaml.cs">
       <DependentUpon>CsvLayerSimple.xaml</DependentUpon>
@@ -234,8 +231,8 @@
     <Compile Include="Samples\GraphicsLayers\MovePoints.xaml.cs">
       <DependentUpon>MovePoints.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Mapping\DefineMapProjection.xaml.cs">
-      <DependentUpon>DefineMapProjection.xaml</DependentUpon>
+    <Compile Include="Samples\Mapping\SetSpatialReference.xaml.cs">
+      <DependentUpon>SetSpatialReference.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Mapping\EnableTouchRotation.xaml.cs">
       <DependentUpon>EnableTouchRotation.xaml</DependentUpon>
@@ -353,10 +350,6 @@
     <Page Include="Samples\DynamicServiceLayers\DynamicLayerReordering.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Samples\DynamicServiceLayers\DynamicLayersInCode.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\DynamicServiceLayers\DynamicLayersInXAML.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -530,7 +523,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GraphicsLayers\AddPointOnTap.xaml">
+    <Page Include="Samples\GraphicsLayers\AddInteractively.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -546,7 +539,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Mapping\DefineMapProjection.xaml">
+    <Page Include="Samples\Mapping\SetSpatialReference.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

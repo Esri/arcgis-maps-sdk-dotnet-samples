@@ -226,7 +226,7 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples
                     SampleGroup mappingSamplesGroup = groups.Where(i => i.Key == "Mapping").First();
                     List<Sample> mappingSamples = new List<Sample>();
                     mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Switch Basemaps").First());
-                    mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Define Map Projection").First());
+                    mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Set Spatial Reference").First());
                     mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Map Properties").First());
                     mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Enable Touch Rotation").First());
                     mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Overview Map").First());

@@ -7,12 +7,13 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 
 	/// <summary>
-	/// 
+	/// This sample demonstrates setting the extent and spatial reference of a map via the Map.InitialExtent property.
 	/// </summary>
+	/// <title>Set Spatial Reference</title>
 	/// <category>Mapping</category>
-	public sealed partial class DefineMapProjection : Page
+	public sealed partial class SetSpatialReference : Page
     {
-        public DefineMapProjection()
+        public SetSpatialReference()
         {
             this.InitializeComponent();
 			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(661140, -1420246, 3015668, 1594451, SpatialReference.Create(26777)));

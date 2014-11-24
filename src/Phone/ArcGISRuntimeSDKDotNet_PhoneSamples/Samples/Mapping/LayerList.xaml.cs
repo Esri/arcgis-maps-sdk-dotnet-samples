@@ -6,7 +6,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 
-namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 {
 	/// <summary>
 	/// This sample demonstrates how to access layers in the map.

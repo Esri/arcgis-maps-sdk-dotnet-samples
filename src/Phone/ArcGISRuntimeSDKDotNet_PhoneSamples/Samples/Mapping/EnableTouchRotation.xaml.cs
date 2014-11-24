@@ -2,7 +2,7 @@
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
-namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 {
 	/// <summary>
 	/// 

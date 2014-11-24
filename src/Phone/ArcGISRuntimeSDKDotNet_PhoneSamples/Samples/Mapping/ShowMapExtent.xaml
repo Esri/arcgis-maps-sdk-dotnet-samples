@@ -1,6 +1,6 @@
-﻿<Page x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.ShowMapExtent"
+﻿<Page x:Class="ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.ShowMapExtent"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:samples="using:ArcGISRuntimeSDKDotNet_StoreSamples.Samples"
+      xmlns:samples="using:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   	  xmlns:esri="using:Esri.ArcGISRuntime.Controls"  
 	  xmlns:layers="using:Esri.ArcGISRuntime.Layers">

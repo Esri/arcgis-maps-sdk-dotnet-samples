@@ -5,7 +5,7 @@ using Esri.ArcGISRuntime.Layers;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 {
 	/// <summary>
 	/// This sample demonstrates displaying an overview map to indicate the extent of the parent map.

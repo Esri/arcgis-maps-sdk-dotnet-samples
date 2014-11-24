@@ -14,7 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 {
 	/// <summary>
 	/// Demonstrates changing the basemap layer in a map by switching  between ArcGIS tiled map services layers hosted by ArcGIS Online.

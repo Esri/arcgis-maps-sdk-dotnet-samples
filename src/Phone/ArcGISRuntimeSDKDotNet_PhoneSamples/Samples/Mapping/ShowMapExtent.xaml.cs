@@ -1,7 +1,7 @@
 ﻿using Esri.ArcGISRuntime.Geometry;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 {
 	/// <summary>
 	/// This sample demonstrates the ExtentChanged event on the MapView and display extent properties at runtime.

@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 {
 	/// <summary>
 	/// This sample demonstrates performing an attribute query, adding the results to the map and UI, and zooming to the resulting geometry.

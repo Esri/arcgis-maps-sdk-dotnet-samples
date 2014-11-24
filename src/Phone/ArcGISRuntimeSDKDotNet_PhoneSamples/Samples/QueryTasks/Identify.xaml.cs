@@ -10,7 +10,7 @@ using System.Globalization;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 {
 	/// <summary>
 	/// Demonstrates performing identify operations.

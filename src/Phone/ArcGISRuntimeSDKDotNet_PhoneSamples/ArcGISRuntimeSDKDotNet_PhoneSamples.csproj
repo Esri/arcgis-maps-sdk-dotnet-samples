@@ -186,6 +186,9 @@
     <Compile Include="Samples\Geometry\LineLength.xaml.cs">
       <DependentUpon>LineLength.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Geometry\NearestCoordinateInGeometry.xaml.cs">
+      <DependentUpon>NearestCoordinateInGeometry.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Geometry\Relationship.xaml.cs">
       <DependentUpon>Relationship.xaml</DependentUpon>
     </Compile>
@@ -491,6 +494,10 @@
     <Page Include="Samples\Geometry\LineLength.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Geometry\NearestCoordinateInGeometry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\Geometry\Relationship.xaml">
       <SubType>Designer</SubType>

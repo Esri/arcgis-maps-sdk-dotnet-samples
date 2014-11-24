@@ -177,6 +177,9 @@
     <Compile Include="Samples\Geometry\GeodesicBuffer.xaml.cs">
       <DependentUpon>GeodesicBuffer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Geometry\GeodesicEllipse.xaml.cs">
+      <DependentUpon>GeodesicEllipse.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Geometry\Intersect.xaml.cs">
       <DependentUpon>Intersect.xaml</DependentUpon>
     </Compile>
@@ -482,6 +485,10 @@
     <Page Include="Samples\Geometry\GeodesicBuffer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Geometry\GeodesicEllipse.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\Geometry\Intersect.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 {
 	/// <summary>
 	/// Demonstrates use of the GeometryEngine.GeodesicEllipse to calculate a geodesic ellipse. 
@@ -15,7 +15,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 	/// </summary>
 	/// <title>Geodesic Ellipse</title>
 	/// <category>Geometry</category>
-	public partial class GeodesicEllipse : Windows.UI.Xaml.Controls.Page
+	public sealed partial class GeodesicEllipse : Windows.UI.Xaml.Controls.Page
 	{
 		private Symbol _pinSymbol;
 		private Symbol _sectorSymbol;
@@ -31,12 +31,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
 
 			MyMapView.SpatialReferenceChanged += MyMapView_SpatialReferenceChanged;
+
 		}
 
 		private async void MyMapView_SpatialReferenceChanged(object sender, EventArgs e)
 		{
 			MyMapView.SpatialReferenceChanged -= MyMapView_SpatialReferenceChanged;
-
 			await DrawEllipse();
 		}
 

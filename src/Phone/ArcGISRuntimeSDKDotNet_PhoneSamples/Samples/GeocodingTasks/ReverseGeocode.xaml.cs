@@ -9,7 +9,7 @@ using Esri.ArcGISRuntime.Controls;
 using Windows.UI.Popups;
 
 
-namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 {
 	/// <summary>
 	/// This sample demonstrates using the OnlineLocatorTask.ReverseGeocodeAsync method to get address information from a location on the map.

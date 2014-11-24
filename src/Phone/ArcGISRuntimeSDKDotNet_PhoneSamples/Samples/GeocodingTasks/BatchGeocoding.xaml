@@ -1,8 +1,8 @@
 ﻿<Page
-    x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.BatchGeocoding"
+    x:Class="ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.BatchGeocoding"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ArcGISRuntimeSDKDotNet_StoreSamples.Samples"
+    xmlns:local="using:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples"
     xmlns:sym="using:Esri.ArcGISRuntime.Symbology"
     xmlns:esri="using:Esri.ArcGISRuntime.Controls"  xmlns:lyr="using:Esri.ArcGISRuntime.Layers">
 

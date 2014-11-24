@@ -243,9 +243,6 @@
     <Compile Include="Samples\Mapping\SetSpatialReference.xaml.cs">
       <DependentUpon>SetSpatialReference.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Mapping\EnableTouchRotation.xaml.cs">
-      <DependentUpon>EnableTouchRotation.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Samples\Mapping\LayerList.xaml.cs">
       <DependentUpon>LayerList.xaml</DependentUpon>
     </Compile>
@@ -565,10 +562,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Mapping\SetSpatialReference.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Mapping\EnableTouchRotation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

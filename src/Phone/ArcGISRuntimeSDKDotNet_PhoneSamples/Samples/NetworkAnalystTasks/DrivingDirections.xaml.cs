@@ -16,7 +16,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
 
-namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 {
 	/// <summary>
 	/// This sample demonstrates retrieving a route and driving directions between input locations with OnlineLocatorTask.

@@ -1,4 +1,4 @@
-﻿<Page x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.RoutingWithBarriers" 
+﻿<Page x:Class="ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.RoutingWithBarriers" 
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
       xmlns:esri="using:Esri.ArcGISRuntime.Controls"  xmlns:lyr="using:Esri.ArcGISRuntime.Layers" 

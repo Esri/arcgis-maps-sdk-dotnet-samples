@@ -87,6 +87,9 @@
     <Compile Include="Samples\DynamicServiceLayers\DynamicLayerLabeling.xaml.cs">
       <DependentUpon>DynamicLayerLabeling.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\DynamicServiceLayers\DynamicLayerRendering.xaml.cs">
+      <DependentUpon>DynamicLayerRendering.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\DynamicServiceLayers\DynamicLayerReordering.xaml.cs">
       <DependentUpon>DynamicLayerReordering.xaml</DependentUpon>
     </Compile>
@@ -354,6 +357,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\DynamicServiceLayers\DynamicLayerLabeling.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\DynamicServiceLayers\DynamicLayerRendering.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

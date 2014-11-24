@@ -141,6 +141,9 @@
     <Compile Include="Samples\FeatureLayers\FeatureLayers.xaml.cs">
       <DependentUpon>FeatureLayers.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\GeocodingTasks\FindPlace.xaml.cs">
+      <DependentUpon>FindPlace.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\GeocodingTasks\ReverseGeocode.xaml.cs">
       <DependentUpon>ReverseGeocode.xaml</DependentUpon>
     </Compile>
@@ -149,9 +152,6 @@
     </Compile>
     <Compile Include="Samples\GeocodingTasks\GeocodeAnAddress.xaml.cs">
       <DependentUpon>GeocodeAnAddress.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\GeocodingTasks\FindAnAddressUsingArcGISOnline.xaml.cs">
-      <DependentUpon>FindAnAddressUsingArcGISOnline.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Geometry\AreaSample.xaml.cs">
       <DependentUpon>AreaSample.xaml</DependentUpon>
@@ -429,6 +429,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\GeocodingTasks\FindPlace.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Samples\GeocodingTasks\ReverseGeocode.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -438,10 +442,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\GeocodingTasks\GeocodeAnAddress.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\GeocodingTasks\FindAnAddressUsingArcGISOnline.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

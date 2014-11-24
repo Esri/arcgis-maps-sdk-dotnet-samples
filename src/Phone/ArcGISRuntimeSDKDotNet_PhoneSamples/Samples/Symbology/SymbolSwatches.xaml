@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.SymbolSwatches"
+    x:Class="ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.SymbolSwatches"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:sym="using:Esri.ArcGISRuntime.Symbology">

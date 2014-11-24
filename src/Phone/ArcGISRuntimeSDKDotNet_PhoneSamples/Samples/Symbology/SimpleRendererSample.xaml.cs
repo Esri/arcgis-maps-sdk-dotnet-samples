@@ -8,7 +8,7 @@ using System;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 
-namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 {
 	/// <summary>
 	/// This sample demonstrates how to create a SimpleRenderer for a graphics layer in XAML and code.

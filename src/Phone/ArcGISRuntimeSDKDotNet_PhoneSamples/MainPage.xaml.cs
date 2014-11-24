@@ -231,9 +231,9 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples
 					mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Show Map Scale").First());
                     mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Overview Map").First());
                     mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Layer List").First());
-                    mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Location Display").First());
-                    mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Simple Map Tip").First());
-					mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Interaction Options").First());
+					mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Map Overlays").First());
+					mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Location Display").First());
+                    mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Interaction Options").First());
                     SampleGroup newMappingSamplesGroup = new SampleGroup(mappingSamples) { Key = mappingSamplesGroup.Key };
                     groups[groups.FindIndex(g => g.Key == mappingSamplesGroup.Key)] = newMappingSamplesGroup;
 

@@ -198,6 +198,9 @@
     <Compile Include="Samples\Mapping\InteractionOptionsSample.xaml.cs">
       <DependentUpon>InteractionOptionsSample.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Mapping\MapOverlays.xaml.cs">
+      <DependentUpon>MapOverlays.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Mapping\ShowMapScale.xaml.cs">
       <DependentUpon>ShowMapScale.xaml</DependentUpon>
     </Compile>
@@ -254,9 +257,6 @@
     </Compile>
     <Compile Include="Samples\Mapping\OverviewMap.xaml.cs">
       <DependentUpon>OverviewMap.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Mapping\SimpleMapTip.xaml.cs">
-      <DependentUpon>SimpleMapTip.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Mapping\SwitchBasemaps.xaml.cs">
       <DependentUpon>SwitchBasemaps.xaml</DependentUpon>
@@ -505,6 +505,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Samples\Mapping\MapOverlays.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Samples\Mapping\ShowMapScale.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -578,10 +582,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Mapping\OverviewMap.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Mapping\SimpleMapTip.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

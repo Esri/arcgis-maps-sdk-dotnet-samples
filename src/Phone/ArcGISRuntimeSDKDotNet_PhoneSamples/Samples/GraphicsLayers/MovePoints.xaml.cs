@@ -8,7 +8,7 @@ using System;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Controls;
 
-namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 {
 	/// <summary>
 	/// 

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Esri.ArcGISRuntime.Controls;
 using Windows.UI.Xaml.Navigation;
 
-namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 {
 	/// <summary>
 	/// Example of how to add Graphics to a GraphicLayer by drawing shapes on the map.

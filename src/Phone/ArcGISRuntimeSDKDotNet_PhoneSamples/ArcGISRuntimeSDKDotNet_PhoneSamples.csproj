@@ -222,6 +222,9 @@
     <Compile Include="Samples\Symbology\ClassBreaksRendererSample.xaml.cs">
       <DependentUpon>ClassBreaksRendererSample.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Symbology\GenerateRenderer.xaml.cs">
+      <DependentUpon>GenerateRenderer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Symbology\Specialized\MessageProcessingSample.xaml.cs">
       <DependentUpon>MessageProcessingSample.xaml</DependentUpon>
     </Compile>
@@ -545,6 +548,10 @@
     <Page Include="Samples\Symbology\ClassBreaksRendererSample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Symbology\GenerateRenderer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Symbology\Specialized\MessageProcessingSample.xaml">
       <Generator>MSBuild:Compile</Generator>

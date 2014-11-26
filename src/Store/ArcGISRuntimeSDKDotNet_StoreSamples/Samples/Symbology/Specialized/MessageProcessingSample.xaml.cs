@@ -20,7 +20,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 	/// </summary>
 	/// <title>Message Processor</title>
 	/// <category>Symbology</category>
-	/// <subcategory>Advanced</subcategory>
+	/// <subcategory>Specialized</subcategory>
 	/// <requiresSymbols>true</requiresSymbols>
 	public sealed partial class MessageProcessingSample : Page
 	{

@@ -222,6 +222,9 @@
     <Compile Include="Samples\Mapping\ShowMapScale.xaml.cs">
       <DependentUpon>ShowMapScale.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Mapping\MapRotation.xaml.cs">
+      <DependentUpon>MapRotation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Portal\CreateWebMap.xaml.cs">
       <DependentUpon>CreateWebMap.xaml</DependentUpon>
     </Compile>
@@ -555,6 +558,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\Mapping\ShowMapScale.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Mapping\MapRotation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

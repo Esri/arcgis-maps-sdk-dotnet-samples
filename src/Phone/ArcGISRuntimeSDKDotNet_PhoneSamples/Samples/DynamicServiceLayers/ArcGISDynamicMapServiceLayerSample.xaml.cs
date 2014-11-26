@@ -38,14 +38,9 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 
 			if (e.Layer == _usaLayer)
 			{
-				if (_usaLayer.DynamicLayerInfos == null)
-					_usaLayer.DynamicLayerInfos = _usaLayer.CreateDynamicLayerInfosFromLayerInfos();
+				_usaLayer.VisibleLayers = new ObservableCollection<int>() { 0, 1, 2, 3 };
 
-				_usaLayer.VisibleLayers = new ObservableCollection<int>(_usaLayer.DynamicLayerInfos
-					.Where(info => info.DefaultVisibility == true)
-					.Select((info, idx) => idx));
-
-				visibleLayers.ItemsSource = _usaLayer.DynamicLayerInfos
+				visibleLayers.ItemsSource = _usaLayer.ServiceInfo.Layers
 					.Select((info, idx) => new Tuple<string, int, bool>(info.Name, idx, info.DefaultVisibility));
 			}
 		}

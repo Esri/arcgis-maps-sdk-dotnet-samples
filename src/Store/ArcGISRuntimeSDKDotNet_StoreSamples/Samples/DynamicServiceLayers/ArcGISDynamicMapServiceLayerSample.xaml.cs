@@ -38,16 +38,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
             if (e.Layer == _usaLayer)
             {
-                if (_usaLayer.DynamicLayerInfos == null)
-                    _usaLayer.DynamicLayerInfos = _usaLayer.CreateDynamicLayerInfosFromLayerInfos();
+				_usaLayer.VisibleLayers = new ObservableCollection<int>() { 0, 1, 2, 3 };
 
-                _usaLayer.VisibleLayers = new ObservableCollection<int>(_usaLayer.DynamicLayerInfos
-                    .Where(info => info.DefaultVisibility == true)
-                    .Select((info, idx) => idx));
-
-                visibleLayers.ItemsSource = _usaLayer.DynamicLayerInfos
-                    .Select((info, idx) => new Tuple<string, int, bool>(info.Name, idx, info.DefaultVisibility));
-            }
+				visibleLayers.ItemsSource = _usaLayer.ServiceInfo.Layers
+					.Select((info, idx) => new Tuple<string, int, bool>(info.Name, idx, info.DefaultVisibility));
+			}
         }
 
         private void LayerCheckBox_Click(object sender, RoutedEventArgs e)

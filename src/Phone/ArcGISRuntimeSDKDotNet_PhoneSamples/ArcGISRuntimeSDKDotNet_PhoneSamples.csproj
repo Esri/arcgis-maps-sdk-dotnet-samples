@@ -213,6 +213,9 @@
     <Compile Include="Samples\Mapping\MapOverlays.xaml.cs">
       <DependentUpon>MapOverlays.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Mapping\SetInitialMapExtent.xaml.cs">
+      <DependentUpon>SetInitialMapExtent.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Mapping\ShowMapScale.xaml.cs">
       <DependentUpon>ShowMapScale.xaml</DependentUpon>
     </Compile>
@@ -534,6 +537,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\Mapping\MapOverlays.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Mapping\SetInitialMapExtent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

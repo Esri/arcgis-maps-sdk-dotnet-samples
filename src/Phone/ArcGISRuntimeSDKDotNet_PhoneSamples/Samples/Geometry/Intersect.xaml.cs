@@ -23,7 +23,6 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
         GraphicsLayer intersectGraphicsLayer;
 
         Random random;
-        Geometry inputGeom;
         public Intersect()
         {
             InitializeComponent();

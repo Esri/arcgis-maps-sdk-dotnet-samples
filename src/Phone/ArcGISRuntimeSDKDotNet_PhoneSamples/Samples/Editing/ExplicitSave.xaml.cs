@@ -38,7 +38,7 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
                 };
                 await table.AddAsync(feature);
             }
-            catch (TaskCanceledException te)
+            catch (TaskCanceledException)
             {
             }
             catch (Exception ex)

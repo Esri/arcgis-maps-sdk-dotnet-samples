@@ -137,7 +137,7 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
                 }
 
             }
-            catch (TaskCanceledException te)
+            catch (TaskCanceledException)
             {
                 // Handles canceling out of Editor.
             }

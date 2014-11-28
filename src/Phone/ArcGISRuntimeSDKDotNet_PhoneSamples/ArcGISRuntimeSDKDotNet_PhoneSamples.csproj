@@ -231,6 +231,9 @@
     <Compile Include="Samples\Portal\PortalBasemaps.xaml.cs">
       <DependentUpon>PortalBasemaps.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Mapping\Swipe.xaml.cs">
+      <DependentUpon>Swipe.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Symbology\ClassBreaksRendererSample.xaml.cs">
       <DependentUpon>ClassBreaksRendererSample.xaml</DependentUpon>
     </Compile>
@@ -572,6 +575,10 @@
     <Page Include="Samples\Portal\PortalBasemaps.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Mapping\Swipe.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\Symbology\ClassBreaksRendererSample.xaml">
       <SubType>Designer</SubType>

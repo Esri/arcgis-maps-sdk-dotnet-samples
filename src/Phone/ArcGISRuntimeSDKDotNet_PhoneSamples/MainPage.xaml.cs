@@ -234,6 +234,7 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples
 					mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Map Rotation").First()); 
 					mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Overview Map").First());
                     mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Layer List").First());
+					mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Swipe").First());
 					mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Map Overlays").First());
 					mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Group Layers").First());
 					mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Location Display").First());

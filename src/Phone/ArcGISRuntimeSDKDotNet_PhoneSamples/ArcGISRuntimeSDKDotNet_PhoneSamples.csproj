@@ -102,8 +102,8 @@
     <Compile Include="Samples\DynamicServiceLayers\ArcGISImageServiceLayerSample.xaml.cs">
       <DependentUpon>ArcGISImageServiceLayerSample.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\DynamicServiceLayers\RasterFunctions.xaml.cs">
-      <DependentUpon>RasterFunctions.xaml</DependentUpon>
+    <Compile Include="Samples\DynamicServiceLayers\ImageServiceRasterFunctions.xaml.cs">
+      <DependentUpon>ImageServiceRasterFunctions.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\DynamicServiceLayers\ShadedReliefSlope.xaml.cs">
       <DependentUpon>ShadedReliefSlope.xaml</DependentUpon>
@@ -413,7 +413,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\DynamicServiceLayers\RasterFunctions.xaml">
+    <Page Include="Samples\DynamicServiceLayers\ImageServiceRasterFunctions.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

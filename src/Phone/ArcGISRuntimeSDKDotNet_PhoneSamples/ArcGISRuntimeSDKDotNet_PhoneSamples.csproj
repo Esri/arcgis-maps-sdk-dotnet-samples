@@ -336,8 +336,17 @@
     <Compile Include="Samples\TiledLayers\ArcGISTiledMapServiceLayerSample.xaml.cs">
       <DependentUpon>ArcGISTiledMapServiceLayerSample.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\TiledLayers\BingLayerSample.xaml.cs">
+      <DependentUpon>BingLayerSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\TiledLayers\OpenStreetMapLayerSample.xaml.cs">
+      <DependentUpon>OpenStreetMapLayerSample.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\TiledLayers\WebTiledLayerSample.xaml.cs">
       <DependentUpon>WebTiledLayerSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\TiledLayers\WmtsLayerSample.xaml.cs">
+      <DependentUpon>WmtsLayerSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="SdkInstallNeededPage.xaml.cs">
       <DependentUpon>SdkInstallNeededPage.xaml</DependentUpon>
@@ -716,9 +725,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\TiledLayers\BingLayerSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\TiledLayers\OpenStreetMapLayerSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Samples\TiledLayers\WebTiledLayerSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\TiledLayers\WmtsLayerSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SdkInstallNeededPage.xaml">
       <SubType>Designer</SubType>

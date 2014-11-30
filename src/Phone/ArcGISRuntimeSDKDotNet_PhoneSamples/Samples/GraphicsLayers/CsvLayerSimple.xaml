@@ -5,39 +5,40 @@
     xmlns:local="using:InteractiveSDK.Samples.Graphics"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:esri="using:Esri.ArcGISRuntime.Controls"  xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
-    xmlns:sym="using:Esri.ArcGISRuntime.Symbology"
+    xmlns:esri="using:Esri.ArcGISRuntime.Controls"  
+	xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+    xmlns:symb="using:Esri.ArcGISRuntime.Symbology"
 	mc:Ignorable="d">
 
-    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+	<Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+		<Grid.Resources>
+			<symb:SimpleMarkerSymbol x:Key="mag2to3" Color="#FF0A57FC" Size="12" Style="Triangle" />
+			<symb:SimpleMarkerSymbol x:Key="mag3to4" Color="#FF1CA2A3" Size="12" Style="Triangle" />
+			<symb:SimpleMarkerSymbol x:Key="mag4to5" Color="#FF60AD12" Size="12" Style="Triangle" />
+			<symb:SimpleMarkerSymbol x:Key="mag5to6" Color="#FFFFFE0A" Size="12" Style="Triangle" />
+			<symb:SimpleMarkerSymbol x:Key="mag6to7" Color="#FFFDA208" Size="12" Style="Triangle" />
+			<symb:SimpleMarkerSymbol x:Key="mag7to8" Color="#FFFB5107" Size="12" Style="Triangle" />
+			<symb:ClassBreaksRenderer x:Key="MyClassBreaksRenderer" Field="Magnitude" >
+				<symb:ClassBreaksRenderer.Infos>
+					<symb:ClassBreakInfo Minimum="2" Maximum="3" Symbol="{StaticResource mag2to3}" />
+					<symb:ClassBreakInfo Minimum="3" Maximum="4" Symbol="{StaticResource mag3to4}" />
+					<symb:ClassBreakInfo Minimum="4" Maximum="5" Symbol="{StaticResource mag4to5}" />
+					<symb:ClassBreakInfo Minimum="5" Maximum="6" Symbol="{StaticResource mag5to6}" />
+					<symb:ClassBreakInfo Minimum="6" Maximum="7" Symbol="{StaticResource mag6to7}" />
+					<symb:ClassBreakInfo Minimum="7" Maximum="8" Symbol="{StaticResource mag7to8}" />
+				</symb:ClassBreaksRenderer.Infos>
+			</symb:ClassBreaksRenderer>
+		</Grid.Resources>
 
-        <Grid.Resources>
-            <sym:SimpleMarkerSymbol x:Key="mag2to3" Color="#FF0A57FC" Size="12" Style="Triangle" />
-            <sym:SimpleMarkerSymbol x:Key="mag3to4" Color="#FF1CA2A3" Size="12" Style="Triangle" />
-            <sym:SimpleMarkerSymbol x:Key="mag4to5" Color="#FF60AD12" Size="12" Style="Triangle" />
-            <sym:SimpleMarkerSymbol x:Key="mag5to6" Color="#FFFFFE0A" Size="12" Style="Triangle" />
-            <sym:SimpleMarkerSymbol x:Key="mag6to7" Color="#FFFDA208" Size="12" Style="Triangle" />
-            <sym:SimpleMarkerSymbol x:Key="mag7to8" Color="#FFFB5107" Size="12" Style="Triangle" />
-            <sym:ClassBreaksRenderer x:Key="MyClassBreaksRenderer" Field="Magnitude" >
-                <sym:ClassBreaksRenderer.Infos>
-                    <sym:ClassBreakInfo Minimum="2" Maximum="3" Symbol="{StaticResource mag2to3}" />
-                    <sym:ClassBreakInfo Minimum="3" Maximum="4" Symbol="{StaticResource mag3to4}" />
-                    <sym:ClassBreakInfo Minimum="4" Maximum="5" Symbol="{StaticResource mag4to5}" />
-                    <sym:ClassBreakInfo Minimum="5" Maximum="6" Symbol="{StaticResource mag5to6}" />
-                    <sym:ClassBreakInfo Minimum="6" Maximum="7" Symbol="{StaticResource mag6to7}" />
-                    <sym:ClassBreakInfo Minimum="7" Maximum="8" Symbol="{StaticResource mag7to8}" />
-                    </sym:ClassBreaksRenderer.Infos>
-            </sym:ClassBreaksRenderer>
-        </Grid.Resources>
-
-        <esri:MapView x:Name="mapView1"><esri:Map>
-        <lyr:ArcGISTiledMapServiceLayer
-				    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-        <lyr:CsvLayer 
-                    ServiceUri="http://earthquake.usgs.gov/earthquakes/catalogs/eqs7day-M2.5.txt" 
-                           Renderer="{StaticResource MyClassBreaksRenderer}">
-
-        </lyr:CsvLayer>
-        </esri:Map></esri:MapView>
-    </Grid>
+		<esri:MapView x:Name="MyMapView">
+			<esri:Map>
+				<layers:ArcGISTiledMapServiceLayer 
+					ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+				<layers:CsvLayer 
+					ServiceUri="http://earthquake.usgs.gov/earthquakes/catalogs/eqs7day-M2.5.txt" 
+					Renderer="{StaticResource MyClassBreaksRenderer}">
+				</layers:CsvLayer>
+			</esri:Map>
+		</esri:MapView>
+	</Grid>
 </Page>

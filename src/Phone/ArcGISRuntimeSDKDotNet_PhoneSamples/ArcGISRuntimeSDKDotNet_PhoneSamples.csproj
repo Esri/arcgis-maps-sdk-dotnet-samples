@@ -216,6 +216,9 @@
     <Compile Include="Samples\GraphicsLayers\GraphicsSourceSample.xaml.cs">
       <DependentUpon>GraphicsSourceSample.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\GraphicsLayers\SmoothGraphicAnimation.xaml.cs">
+      <DependentUpon>SmoothGraphicAnimation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\ImageryTasks\ComputeClassStatistics.xaml.cs">
       <DependentUpon>ComputeClassStatistics.xaml</DependentUpon>
     </Compile>
@@ -386,7 +389,9 @@
     <Content Include="Assets\Logo.scale-240.png" />
     <Content Include="Assets\RedStickpin.png" />
     <Content Include="Assets\x-24x24.png" />
-    <EmbeddedResource Include="Assets\SampleDescriptions.xml" />
+    <EmbeddedResource Include="Assets\SampleDescriptions.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <Content Include="Assets\SmallLogo.scale-240.png" />
     <Content Include="Assets\SplashScreen.scale-240.png" />
     <Content Include="Assets\Square71x71Logo.scale-240.png" />
@@ -583,6 +588,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\GraphicsLayers\GraphicsSourceSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\GraphicsLayers\SmoothGraphicAnimation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

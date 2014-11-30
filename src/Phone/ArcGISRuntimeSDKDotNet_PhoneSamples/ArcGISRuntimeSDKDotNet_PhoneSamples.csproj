@@ -276,7 +276,7 @@
     <Compile Include="Samples\Editing\DrawAndEditGraphics.xaml.cs">
       <DependentUpon>DrawAndEditGraphics.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GraphicsLayers\MovePoints.xaml.cs">
+    <Compile Include="Samples\Editing\MovePoints.xaml.cs">
       <DependentUpon>MovePoints.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Mapping\SetSpatialReference.xaml.cs">
@@ -654,7 +654,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GraphicsLayers\MovePoints.xaml">
+    <Page Include="Samples\Editing\MovePoints.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

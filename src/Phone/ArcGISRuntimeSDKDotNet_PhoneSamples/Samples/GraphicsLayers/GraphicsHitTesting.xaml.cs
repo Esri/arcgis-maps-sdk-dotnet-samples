@@ -8,7 +8,7 @@ using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.GraphicsLayers
+namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 {
 	/// <summary>
 	/// This sample demonstrates how to hit test a graphics layer using the GraphicsLayer.HitTestAsync method.

@@ -9,7 +9,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
-namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.GraphicsLayers
+namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 {
 	/// <summary>
 	/// This sample demonstrates how to position map tips on graphics in a graphics layer.

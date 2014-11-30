@@ -3,7 +3,7 @@ using System;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.GraphicsLayers
+namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 {
 	/// <summary>
 	/// Creates a GeoRssLayer based on the United States Geological Survey earthquake feed.

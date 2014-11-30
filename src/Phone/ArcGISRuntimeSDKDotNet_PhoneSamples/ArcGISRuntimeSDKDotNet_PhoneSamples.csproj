@@ -201,8 +201,20 @@
     <Compile Include="Samples\GraphicsLayers\GraphicsHitTesting.xaml.cs">
       <DependentUpon>GraphicsHitTesting.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\GraphicsLayers\GraphicsLayerRenderingMode.xaml.cs">
+      <DependentUpon>GraphicsLayerRenderingMode.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsLayers\GraphicsLayerSample.xaml.cs">
+      <DependentUpon>GraphicsLayerSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsLayers\GraphicsLayerSelection.xaml.cs">
+      <DependentUpon>GraphicsLayerSelection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\GraphicsLayers\GraphicsMapTips.xaml.cs">
       <DependentUpon>GraphicsMapTips.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsLayers\GraphicsSourceSample.xaml.cs">
+      <DependentUpon>GraphicsSourceSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\ImageryTasks\ComputeClassStatistics.xaml.cs">
       <DependentUpon>ComputeClassStatistics.xaml</DependentUpon>
@@ -554,7 +566,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Samples\GraphicsLayers\GraphicsLayerRenderingMode.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\GraphicsLayers\GraphicsLayerSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\GraphicsLayers\GraphicsLayerSelection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Samples\GraphicsLayers\GraphicsMapTips.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\GraphicsLayers\GraphicsSourceSample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

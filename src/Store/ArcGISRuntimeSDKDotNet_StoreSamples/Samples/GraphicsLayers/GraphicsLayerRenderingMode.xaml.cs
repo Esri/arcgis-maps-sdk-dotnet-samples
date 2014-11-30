@@ -14,7 +14,7 @@ using Windows.UI.Xaml.Controls;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
-    /// Demonstates the use of the GraphicsLayer.RenderingMode property to control how a GraphicsLayer draws its graphics.
+    /// This sample demonstrates the use of the GraphicsLayer.RenderingMode property to control how a GraphicsLayer draws its graphics.
     /// </summary>
     /// <title>Rendering Mode</title>
     /// <category>Graphics Layers</category>

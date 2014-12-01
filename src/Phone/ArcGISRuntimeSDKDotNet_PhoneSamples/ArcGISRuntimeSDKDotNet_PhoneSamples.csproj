@@ -383,6 +383,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Icons\vector.circle.png" />
+    <Content Include="Assets\Icons\vector.line.curve.png" />
     <Content Include="Assets\Icons\vector.line.png" />
     <Content Include="Assets\Icons\vector.polygon.png" />
     <Content Include="Assets\Icons\vector.rectangle.png" />

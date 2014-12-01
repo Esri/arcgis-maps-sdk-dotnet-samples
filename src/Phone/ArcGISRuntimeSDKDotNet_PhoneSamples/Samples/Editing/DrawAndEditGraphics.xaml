@@ -5,122 +5,136 @@
     xmlns:local="using:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls="using:Esri.ArcGISRuntime.Controls"
+    xmlns:esri="using:Esri.ArcGISRuntime.Controls"
     xmlns:layers="using:Esri.ArcGISRuntime.Layers"
-    xmlns:geometry="using:Esri.ArcGISRuntime.Geometry"
-    xmlns:symbology="using:Esri.ArcGISRuntime.Symbology"
+    xmlns:symb="using:Esri.ArcGISRuntime.Symbology"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" x:Name="LayoutRoot">
-        <Grid.Resources>
-            <symbology:SimpleMarkerSymbol x:Key="SMS"
-                                    Color="Red"
-                                    Style="Circle"
-                                    Size="10" />
-            <symbology:SimpleLineSymbol x:Key="SLS"
-                                  Color="Red"
-                                  Width="5" />
-            <symbology:SimpleFillSymbol x:Key="SFS"
-                                  Color="#66FF0000"
-                                  Style="Solid" />
-            <symbology:SimpleRenderer x:Key="MarkerRenderer"
-                                Symbol="{StaticResource SMS}" />
-            <symbology:SimpleRenderer x:Key="PolylineRenderer"
-                                Symbol="{StaticResource SLS}" />
-            <symbology:SimpleRenderer x:Key="PolygonRenderer"
-                                Symbol="{StaticResource SFS}" />
-        </Grid.Resources>
-        <controls:MapView x:Name="mapView1" MapViewTapped="mapView1_MapViewTapped">
-            <controls:Map>
-                <controls:Map.InitialViewpoint>
-                    <controls:ViewpointExtent XMin="-15000000"
+	<Page.Resources>
+		<!--Set the Map and Editor in the Page.Resources so it is available to both the AppBar and the MapView-->
+		<esri:Map x:Key="MyMap">
+			<esri:Map.InitialViewpoint>
+				<esri:ViewpointExtent XMin="-15000000"
                                YMin="2000000"
                                XMax="-7000000"
                                YMax="8000000" />
-                </controls:Map.InitialViewpoint>
-                <layers:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
+			</esri:Map.InitialViewpoint>
+			<layers:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
                                               ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-             
-            </controls:Map>
 
-            <controls:MapView.GraphicsOverlays>
-                <controls:GraphicsOverlay ID="PointGraphicsOverlay" Renderer="{StaticResource MarkerRenderer}" />
-                <controls:GraphicsOverlay ID="PolylineGraphicsOverlay" Renderer="{StaticResource PolylineRenderer}" />
-                <controls:GraphicsOverlay ID="PolygonGraphicsOverlay" Renderer="{StaticResource PolygonRenderer}" />
-            </controls:MapView.GraphicsOverlays>
-            
-        </controls:MapView>
-
-        <Border Background="Black" BorderThickness="1" CornerRadius="5"
-                HorizontalAlignment="Center" VerticalAlignment="Top"              
-                Margin="5" BorderBrush="Black">
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="Instructions" Margin="5" FontSize="10" FontWeight="Bold"/>
-                <TextBlock Margin="10" HorizontalAlignment="Center" FontSize="8" TextWrapping="WrapWholeWords">
-                - Select Shape and click Draw to start drawing. <LineBreak/>
+		</esri:Map>
+		<esri:Editor x:Key="MyEditor" />
+	</Page.Resources>
+	<Page.BottomAppBar>
+		<CommandBar IsSticky="True" IsEnabled="True">
+			<CommandBar.PrimaryCommands>
+				<AppBarButton Icon="Document" Label="Shape">
+					<AppBarButton.Flyout>
+						<Flyout>
+							<StackPanel Orientation="Vertical">
+								<ComboBox x:Name="DrawShapes"/>
+							</StackPanel>
+						</Flyout>
+					</AppBarButton.Flyout>
+				</AppBarButton>
+				<AppBarButton Label="Draw" 
+							  Content="Draw" 
+							  Click="OnDrawButtonClicked">
+					<AppBarButton.Icon>
+						<BitmapIcon UriSource="ms-appx:///Assets/Icons/vector.line.curve.png"/>
+					</AppBarButton.Icon>
+				</AppBarButton>
+				<AppBarButton Icon="Edit"
+                              Label="Edit"
+							  Content="Edit"
+							  IsEnabled="False"
+                              x:Name="EditButton"
+                              Click="OnDrawButtonClicked" />
+				<AppBarButton Icon="Setting" Label="Settings">
+					<AppBarButton.Flyout>
+						<Flyout>
+							<StackPanel>
+								<CheckBox x:Name="AddVertex" IsChecked="True" 
+										  Content="Add Vertex"/>
+								<CheckBox x:Name="MoveVertex" IsChecked="True" 
+										  Content="Move Vertex"/>
+								<CheckBox x:Name="DeleteVertex" IsChecked="True" 
+										  Content="Delete Vertex"/>
+								<CheckBox x:Name="MoveGeometry" IsChecked="True" 
+										  Content="Move Geometry"/>
+								<CheckBox x:Name="Scale" IsChecked="True" 
+										  Content="Scale"/>
+								<CheckBox x:Name="Rotate" IsChecked="True" 
+										  Content="Rotate"/>
+								<CheckBox x:Name="MaintainAspectRatio" IsChecked="True" 
+										  Content="Maintain Aspect Ratio"/>
+							</StackPanel>
+						</Flyout>
+					</AppBarButton.Flyout>
+				</AppBarButton>
+			</CommandBar.PrimaryCommands>
+			<CommandBar.SecondaryCommands>
+				<AppBarButton Label="Delete Vertex" 
+							  DataContext="{StaticResource MyEditor}" 
+							  Command="{Binding DeleteVertex}"  />
+				<AppBarButton Label="Undo" 
+							  DataContext="{StaticResource MyEditor}"
+                              Command="{Binding Undo}" />
+				<AppBarButton Label="Redo" 
+							  DataContext="{StaticResource MyEditor}"
+                              Command="{Binding Redo}" />
+				<AppBarButton Label="Save"
+                              DataContext="{StaticResource MyEditor}"
+                              Command="{Binding Complete}" />
+				<AppBarButton Label="Cancel"
+							  DataContext="{StaticResource MyEditor}"
+                              Command="{Binding Cancel}"  />
+				<AppBarButton Label="Info">
+					<AppBarButton.Flyout>
+						<Flyout>
+							<TextBlock Margin="10" HorizontalAlignment="Center" FontSize="14" TextWrapping="WrapWholeWords">
+                - Select a Shape and click Draw to start drawing. <LineBreak/>
                 <LineBreak/>
-                - Click on shape to select and click Edit to start editing.<LineBreak/>
+                - Click on a shape to select and click Edit to start editing.<LineBreak/>
                 <LineBreak/>
                 - Click on Yellow Handles to scale.<LineBreak/>
                 <LineBreak/>
-                - Click on white mid points to add a new vertex.<LineBreak/>
+                - Click on white midpoints to add a new vertex.<LineBreak/>
                 <LineBreak/>
                 - Click on Blue Handles to rotate
-                </TextBlock>
-            </StackPanel>
-        </Border>
+							</TextBlock>
+						</Flyout>
+					</AppBarButton.Flyout>
+				</AppBarButton>
 
-        <Border Background="Black" BorderThickness="1" CornerRadius="5"
-                HorizontalAlignment="Left" VerticalAlignment="Top"               
-                Margin="5" BorderBrush="Black">
-
-            <StackPanel Orientation="Vertical">
-                <ComboBox x:Name="DrawShapes"/>
-                <Button Content="Draw"
-                    Click="OnDrawButtonClicked" />
-                <Button Content="Edit"
-                        Click="OnDrawButtonClicked" />
-                <Button Content="Undo"
-                        Command="{Binding Editor.Undo, ElementName=mapView1}" />
-                <Button Content="Redo"
-                        Command="{Binding Editor.Redo, ElementName=mapView1}" />
-                <Button Content="Cancel"
-                        Command="{Binding Editor.Cancel, ElementName=mapView1}" />
-                <Button Content="Complete"
-                        Command="{Binding Editor.Complete, ElementName=mapView1}" />
-                <Button Command="{Binding Editor.DeleteVertex, ElementName=mapView1}" Width="75" >
-                    <TextBlock Text="Delete Selected Vertex" TextWrapping="WrapWholeWords"/>
-                </Button>
-            </StackPanel>
-        </Border>
-
-        <Border Background="Black" BorderThickness="1" CornerRadius="5"
-                VerticalAlignment="Top" HorizontalAlignment="Right"               
-                Margin="5" BorderBrush="Black">
-            <StackPanel Orientation="Vertical"  Width="100">
-                <CheckBox x:Name="AddVertex" IsChecked="True">
-                    <TextBlock Text="Add Vertex" TextWrapping="WrapWholeWords"  Width="75"/>
-                </CheckBox>
-                <CheckBox x:Name="MoveVertex"                
-                          IsChecked="True">
-                    <TextBlock Text="Move Vertex" TextWrapping="WrapWholeWords"  Width="75"/>
-                </CheckBox>
-                <CheckBox x:Name="DeleteVertex" IsChecked="True" >
-                    <TextBlock Text="Delete Vertex" TextWrapping="WrapWholeWords"  Width="75"/>
-                </CheckBox>
-                <CheckBox x:Name="MoveGeometry" IsChecked="True" >
-                    <TextBlock Text="Move Geometry" TextWrapping="WrapWholeWords"  Width="75"/>
-                </CheckBox>
-                <CheckBox x:Name="Scale"  
-                          Content="Scale"
-                          IsChecked="True" />
-                <CheckBox x:Name="Rotate"  
-                          Content="Rotate"
-                          IsChecked="True" />
-                <CheckBox x:Name="MaintainAspectRatio" IsChecked="True">
-                    <TextBlock Text="Maintain Aspect Ratio" TextWrapping="WrapWholeWords" Width="75" />
-                </CheckBox>
-            </StackPanel>
-        </Border>
-    </Grid>
+			</CommandBar.SecondaryCommands>
+		</CommandBar>
+	</Page.BottomAppBar>
+	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" x:Name="LayoutRoot">
+		<Grid.Resources>
+			<symb:SimpleMarkerSymbol x:Key="SMS"
+                                    Color="Red"
+                                    Style="Circle"
+                                    Size="10" />
+			<symb:SimpleLineSymbol x:Key="SLS"
+                                  Color="Red"
+                                  Width="5" />
+			<symb:SimpleFillSymbol x:Key="SFS"
+                                  Color="#66FF0000"
+                                  Style="Solid" />
+			<symb:SimpleRenderer x:Key="MarkerRenderer"
+                                Symbol="{StaticResource SMS}" />
+			<symb:SimpleRenderer x:Key="PolylineRenderer"
+                                Symbol="{StaticResource SLS}" />
+			<symb:SimpleRenderer x:Key="PolygonRenderer"
+                                Symbol="{StaticResource SFS}" />
+		</Grid.Resources>
+		<esri:MapView x:Name="MyMapView" Map="{StaticResource MyMap}"  Editor="{StaticResource MyEditor}" MapViewTapped="MyMapView_MapViewTapped">
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="PointGraphicsOverlay" Renderer="{StaticResource MarkerRenderer}" />
+				<esri:GraphicsOverlay ID="PolylineGraphicsOverlay" Renderer="{StaticResource PolylineRenderer}" />
+				<esri:GraphicsOverlay ID="PolygonGraphicsOverlay" Renderer="{StaticResource PolygonRenderer}" />
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
+	</Grid>
 </Page>

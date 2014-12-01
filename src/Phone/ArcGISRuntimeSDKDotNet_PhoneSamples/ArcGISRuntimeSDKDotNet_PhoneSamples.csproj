@@ -168,8 +168,23 @@
     <Compile Include="Samples\Geometry\AreaSample.xaml.cs">
       <DependentUpon>AreaSample.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Geometry\Boundary.xaml.cs">
+      <DependentUpon>Boundary.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Geometry\BufferPoint.xaml.cs">
       <DependentUpon>BufferPoint.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\ConvexHull.xaml.cs">
+      <DependentUpon>ConvexHull.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\CreatePoints.xaml.cs">
+      <DependentUpon>CreatePoints.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\CreatePolygons.xaml.cs">
+      <DependentUpon>CreatePolygons.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\CreatePolylines.xaml.cs">
+      <DependentUpon>CreatePolylines.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Geometry\CutPolygons.xaml.cs">
       <DependentUpon>CutPolygons.xaml</DependentUpon>
@@ -540,9 +555,29 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Geometry\Boundary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Samples\Geometry\BufferPoint.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Geometry\ConvexHull.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Geometry\CreatePoints.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Geometry\CreatePolygons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Geometry\CreatePolylines.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\Geometry\CutPolygons.xaml">
       <Generator>MSBuild:Compile</Generator>

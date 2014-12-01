@@ -20,7 +20,7 @@ using Windows.UI.Xaml.Input;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
-    /// This sample shows how to use the Portal API to search for webmaps on ArcGIS.com that match the search critera.
+    /// This sample shows how to use the Portal API to search for web maps on ArcGIS.com that match the search criteria.
     /// </summary>
     /// <title>Search</title>
     /// <category>Portal</category>
@@ -90,7 +90,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             ShadowGrid.Visibility = Visibility.Collapsed;
         }
 
-        // Search arcgis.com for webmaps matching the query text
+        // Search arcgis.com for web maps matching the query text
         private async void DoSearch()
         {
             try
@@ -198,7 +198,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         #endregion
     }
 
-    // Helper class sto get a description string from HTML content
+    // Helper class to get a description string from HTML content
     internal class HtmlToTextConverter : IValueConverter
     {
         private static string htmlLineBreakRegex = @"(<br */>)|(\[br */\])"; //@"<br(.)*?>";	// Regular expression to strip HTML line break tag

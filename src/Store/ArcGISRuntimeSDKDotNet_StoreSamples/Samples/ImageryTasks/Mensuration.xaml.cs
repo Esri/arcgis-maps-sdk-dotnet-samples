@@ -61,7 +61,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             {
 				var polygon = await RequestUserShape(DrawShape.Polygon, _polygonSymbol) as Polygon;
 
-				// Requesting shape cancelled
+				// Requesting shape canceled
 				if (polygon == null)
 					return;
 				
@@ -86,7 +86,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             {
 				var polygon = await RequestUserShape(DrawShape.Polygon, _polygonSymbol) as Polygon;
 
-				// Requesting shape cancelled
+				// Requesting shape canceled
 				if (polygon == null)
 					return;
 
@@ -105,7 +105,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             {
 				var line = await RequestUserShape(DrawShape.LineSegment, _lineSymbol) as Polyline;
 		
-				// Requesting shape cancelled
+				// Requesting shape canceled
 				if (line == null)
 					return;
 
@@ -132,7 +132,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             {
 				var line = await RequestUserShape(DrawShape.LineSegment, _lineSymbol) as Polyline;
 
-				// Requesting shape cancelled
+				// Requesting shape canceled
 				if (line == null)
 					return;
 
@@ -158,7 +158,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             {
 				var line = await RequestUserShape(DrawShape.LineSegment, _lineSymbol) as Polyline;
 
-				// Requesting shape cancelled
+				// Requesting shape canceled
 				if (line == null)
 					return;
 
@@ -185,7 +185,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             {
 				var line = await RequestUserShape(DrawShape.LineSegment, _lineSymbol) as Polyline;
 
-				// Requesting shape cancelled
+				// Requesting shape canceled
 				if (line == null)
 					return;
 
@@ -212,7 +212,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             {
 				var point = await RequestUserShape(DrawShape.Point, _pointSymbol) as MapPoint;
 
-				// Requesting shape cancelled
+				// Requesting shape canceled
 				if (point == null)
 					return;
 

@@ -247,7 +247,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
         }
 
-        // Sychronizes local data with the online service
+        // Synchronizes local data with the online service
         private async void SyncButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -289,7 +289,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
         }
 
-        // Unregister local geoddatase from the online service
+        // Unregister local geodatabase from the online service
         private async void UnregisterButton_Click(object sender, RoutedEventArgs e)
         {
             try

@@ -138,8 +138,20 @@
     <Compile Include="Samples\Editing\DynamicLayerEditAttribute.xaml.cs">
       <DependentUpon>DynamicLayerEditAttribute.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\FeatureLayers\FeatureLayers.xaml.cs">
-      <DependentUpon>FeatureLayers.xaml</DependentUpon>
+    <Compile Include="Samples\FeatureLayers\FeatureLayerHitTesting.xaml.cs">
+      <DependentUpon>FeatureLayerHitTesting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\FeatureLayers\FeatureLayerMapTips.xaml.cs">
+      <DependentUpon>FeatureLayerMapTips.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\FeatureLayers\FeatureLayerFromService.xaml.cs">
+      <DependentUpon>FeatureLayerFromService.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\FeatureLayers\FeatureLayerSelection.xaml.cs">
+      <DependentUpon>FeatureLayerSelection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\FeatureLayers\QueryFilterSample.xaml.cs">
+      <DependentUpon>QueryFilterSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GeocodingTasks\FindPlace.xaml.cs">
       <DependentUpon>FindPlace.xaml</DependentUpon>
@@ -488,9 +500,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\FeatureLayers\FeatureLayers.xaml">
+    <Page Include="Samples\FeatureLayers\FeatureLayerHitTesting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\FeatureLayers\FeatureLayerMapTips.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\FeatureLayers\FeatureLayerFromService.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\FeatureLayers\FeatureLayerSelection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\FeatureLayers\QueryFilterSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\GeocodingTasks\FindPlace.xaml">
       <SubType>Designer</SubType>

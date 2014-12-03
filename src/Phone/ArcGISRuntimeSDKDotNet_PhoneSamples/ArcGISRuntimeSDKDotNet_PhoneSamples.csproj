@@ -204,8 +204,14 @@
     <Compile Include="Samples\Geometry\GeodesicBuffer.xaml.cs">
       <DependentUpon>GeodesicBuffer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Geometry\GeodesicDensify.xaml.cs">
+      <DependentUpon>GeodesicDensify.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Geometry\GeodesicEllipse.xaml.cs">
       <DependentUpon>GeodesicEllipse.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\GeodesicMove.xaml.cs">
+      <DependentUpon>GeodesicMove.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Geometry\Intersect.xaml.cs">
       <DependentUpon>Intersect.xaml</DependentUpon>
@@ -219,8 +225,17 @@
     <Compile Include="Samples\Geometry\NearestCoordinateInGeometry.xaml.cs">
       <DependentUpon>NearestCoordinateInGeometry.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Geometry\ProjectCoordinate.xaml.cs">
+      <DependentUpon>ProjectCoordinate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\Relate.xaml.cs">
+      <DependentUpon>Relate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Geometry\Relationship.xaml.cs">
       <DependentUpon>Relationship.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\Simplify.xaml.cs">
+      <DependentUpon>Simplify.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GraphicsLayers\GeoRssLayerSample.xaml.cs">
       <DependentUpon>GeoRssLayerSample.xaml</DependentUpon>
@@ -410,6 +425,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Icons\vector.circle.png" />
+    <Content Include="Assets\Icons\vector.group.png" />
     <Content Include="Assets\Icons\vector.line.curve.png" />
     <Content Include="Assets\Icons\vector.line.png" />
     <Content Include="Assets\Icons\vector.polygon.png" />
@@ -603,7 +619,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Geometry\GeodesicDensify.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Samples\Geometry\GeodesicEllipse.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Geometry\GeodesicMove.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -623,7 +647,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Samples\Geometry\ProjectCoordinate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Geometry\Relate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Samples\Geometry\Relationship.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Geometry\Simplify.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -94,7 +94,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             try
             {
                 if (_graphicsOverlay.Graphics.Count < 2)
-                    throw new Exception("No shapes abailable for relationship test");
+                    throw new Exception("No shapes available for relationship test");
 
                 var shape1 = _graphicsOverlay.Graphics[0].Geometry;
                 var shape2 = _graphicsOverlay.Graphics[1].Geometry;

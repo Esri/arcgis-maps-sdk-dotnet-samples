@@ -306,6 +306,12 @@
     <Compile Include="Samples\Symbology\GenerateRenderer.xaml.cs">
       <DependentUpon>GenerateRenderer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Symbology\LineFillSymbols.xaml.cs">
+      <DependentUpon>LineFillSymbols.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\MarkerSymbols.xaml.cs">
+      <DependentUpon>MarkerSymbols.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Symbology\Specialized\MessageProcessingSample.xaml.cs">
       <DependentUpon>MessageProcessingSample.xaml</DependentUpon>
     </Compile>
@@ -392,6 +398,9 @@
     </Compile>
     <Compile Include="Samples\Symbology\SymbolSwatches.xaml.cs">
       <DependentUpon>SymbolSwatches.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\TextSymbols.xaml.cs">
+      <DependentUpon>TextSymbols.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Symbology\UniqueValueRendererSample.xaml.cs">
       <DependentUpon>UniqueValueRendererSample.xaml</DependentUpon>
@@ -755,6 +764,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Symbology\LineFillSymbols.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Symbology\MarkerSymbols.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Samples\Symbology\Specialized\MessageProcessingSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -870,6 +887,10 @@
     <Page Include="Samples\Symbology\SymbolSwatches.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\TextSymbols.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\Symbology\UniqueValueRendererSample.xaml">
       <SubType>Designer</SubType>

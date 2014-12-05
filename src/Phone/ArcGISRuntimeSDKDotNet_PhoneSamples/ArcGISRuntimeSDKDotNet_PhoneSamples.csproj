@@ -237,6 +237,9 @@
     <Compile Include="Samples\Geometry\Simplify.xaml.cs">
       <DependentUpon>Simplify.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\GeoprocessingTasks\ExtractData.xaml.cs" >
+      <DependentUpon>ExtractData.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\GraphicsLayers\GeoRssLayerSample.xaml.cs">
       <DependentUpon>GeoRssLayerSample.xaml</DependentUpon>
     </Compile>
@@ -680,6 +683,10 @@
     <Page Include="Samples\Geometry\Simplify.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\GeoprocessingTasks\ExtractData.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\GraphicsLayers\GeoRssLayerSample.xaml">
       <SubType>Designer</SubType>

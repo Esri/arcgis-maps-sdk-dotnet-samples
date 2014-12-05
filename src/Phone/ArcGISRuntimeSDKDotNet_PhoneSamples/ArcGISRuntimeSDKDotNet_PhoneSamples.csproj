@@ -318,8 +318,8 @@
     <Compile Include="Samples\Geometry\Offset.xaml.cs">
       <DependentUpon>Offset.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GeoprocessingTasks\CalculateViewshed.xaml.cs">
-      <DependentUpon>CalculateViewshed.xaml</DependentUpon>
+    <Compile Include="Samples\GeoprocessingTasks\Viewshed.xaml.cs">
+      <DependentUpon>Viewshed.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GeoprocessingTasks\ClipFeatures.xaml.cs">
       <DependentUpon>ClipFeatures.xaml</DependentUpon>
@@ -780,7 +780,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GeoprocessingTasks\CalculateViewshed.xaml">
+    <Page Include="Samples\GeoprocessingTasks\Viewshed.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -300,6 +300,9 @@
     <Compile Include="Samples\Mapping\Swipe.xaml.cs">
       <DependentUpon>Swipe.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\QueryTasks\FindTaskSample.xaml.cs">
+      <DependentUpon>FindTaskSample.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Symbology\ClassBreaksRendererSample.xaml.cs">
       <DependentUpon>ClassBreaksRendererSample.xaml</DependentUpon>
     </Compile>
@@ -753,6 +756,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Mapping\Swipe.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\QueryTasks\FindTaskSample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

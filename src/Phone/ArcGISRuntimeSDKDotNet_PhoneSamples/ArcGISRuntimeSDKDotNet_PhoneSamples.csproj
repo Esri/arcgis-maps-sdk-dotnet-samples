@@ -237,7 +237,7 @@
     <Compile Include="Samples\Geometry\Simplify.xaml.cs">
       <DependentUpon>Simplify.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GeoprocessingTasks\ExtractData.xaml.cs" >
+    <Compile Include="Samples\GeoprocessingTasks\ExtractData.xaml.cs">
       <DependentUpon>ExtractData.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GraphicsLayers\GeoRssLayerSample.xaml.cs">
@@ -275,6 +275,9 @@
     </Compile>
     <Compile Include="Samples\Offline\ExportTileCache.xaml.cs">
       <DependentUpon>ExportTileCache.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Offline\GenerateGeodatabase.xaml.cs">
+      <DependentUpon>GenerateGeodatabase.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\QueryTasks\SpatialQuery.xaml.cs">
       <DependentUpon>SpatialQuery.xaml</DependentUpon>
@@ -736,6 +739,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Offline\ExportTileCache.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Offline\GenerateGeodatabase.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

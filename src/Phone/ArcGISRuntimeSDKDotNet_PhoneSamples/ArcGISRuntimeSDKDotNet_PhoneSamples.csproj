@@ -273,6 +273,9 @@
     <Compile Include="Samples\ImageryTasks\Mensuration.xaml.cs">
       <DependentUpon>Mensuration.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Offline\ExportTileCache.xaml.cs">
+      <DependentUpon>ExportTileCache.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\QueryTasks\SpatialQuery.xaml.cs">
       <DependentUpon>SpatialQuery.xaml</DependentUpon>
     </Compile>
@@ -731,6 +734,10 @@
     <Page Include="Samples\ImageryTasks\Mensuration.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Offline\ExportTileCache.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\QueryTasks\SpatialQuery.xaml">
       <SubType>Designer</SubType>

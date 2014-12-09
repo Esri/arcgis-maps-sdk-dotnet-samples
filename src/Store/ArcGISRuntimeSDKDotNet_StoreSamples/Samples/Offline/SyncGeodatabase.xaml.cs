@@ -16,10 +16,8 @@ using Esri.ArcGISRuntime.Http;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System.Runtime.CompilerServices;
 using Windows.UI.Xaml.Data;
-using System.Globalization;
 using Windows.Storage;
 using System.Collections.ObjectModel;
-using Windows.UI.Xaml.Controls;
 using Windows.Foundation;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples

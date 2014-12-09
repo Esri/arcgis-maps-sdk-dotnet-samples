@@ -279,6 +279,15 @@
     <Compile Include="Samples\Offline\GenerateGeodatabase.xaml.cs">
       <DependentUpon>GenerateGeodatabase.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Offline\OfflineGeocoding.xaml.cs">
+      <DependentUpon>OfflineGeocoding.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Offline\OfflineRouting.xaml.cs">
+      <DependentUpon>OfflineRouting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Offline\SyncGeodatabase.xaml.cs">
+      <DependentUpon>SyncGeodatabase.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\QueryTasks\SpatialQuery.xaml.cs">
       <DependentUpon>SpatialQuery.xaml</DependentUpon>
     </Compile>
@@ -451,6 +460,8 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Icons\vector.network.server.disconnect.png" />
+    <Content Include="Assets\Icons\vector.database.png" />
     <Content Include="Assets\Icons\vector.circle.png" />
     <Content Include="Assets\Icons\vector.group.png" />
     <Content Include="Assets\Icons\vector.line.curve.png" />
@@ -743,6 +754,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\Offline\GenerateGeodatabase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Offline\OfflineGeocoding.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Offline\OfflineRouting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Offline\SyncGeodatabase.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

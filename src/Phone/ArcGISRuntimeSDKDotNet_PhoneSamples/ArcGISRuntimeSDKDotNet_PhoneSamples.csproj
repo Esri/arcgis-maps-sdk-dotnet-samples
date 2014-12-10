@@ -288,6 +288,18 @@
     <Compile Include="Samples\Offline\SyncGeodatabase.xaml.cs">
       <DependentUpon>SyncGeodatabase.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Portal\LoadWebMap.xaml.cs" >
+<DependentUpon>LoadWebMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Portal\LoadWebMapMVVM.xaml.cs" >
+<DependentUpon>LoadWebMapMVVM.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Portal\PortalSearch.xaml.cs" >
+<DependentUpon>PortalSearch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Portal\ShowProperties.xaml.cs" >
+<DependentUpon>ShowProperties.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\QueryTasks\SpatialQuery.xaml.cs">
       <DependentUpon>SpatialQuery.xaml</DependentUpon>
     </Compile>
@@ -768,6 +780,22 @@
     <Page Include="Samples\Offline\SyncGeodatabase.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Portal\LoadWebMap.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Portal\LoadWebMapMVVM.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Portal\PortalSearch.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Portal\ShowProperties.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\QueryTasks\SpatialQuery.xaml">
       <SubType>Designer</SubType>

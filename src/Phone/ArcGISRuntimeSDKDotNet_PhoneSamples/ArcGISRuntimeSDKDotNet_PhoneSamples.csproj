@@ -159,7 +159,7 @@
     <Compile Include="Samples\GeocodingTasks\ReverseGeocode.xaml.cs">
       <DependentUpon>ReverseGeocode.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GeocodingTasks\BatchGeocoding.xaml.cs">
+    <Compile Include="Samples\OnlineServices\BatchGeocoding.xaml.cs">
       <DependentUpon>BatchGeocoding.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GeocodingTasks\GeocodeAnAddress.xaml.cs">
@@ -288,17 +288,18 @@
     <Compile Include="Samples\Offline\SyncGeodatabase.xaml.cs">
       <DependentUpon>SyncGeodatabase.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Portal\LoadWebMap.xaml.cs" >
-<DependentUpon>LoadWebMap.xaml</DependentUpon>
+    <Compile Include="Samples\OnlineServices\PortalSecurity.cs" />
+    <Compile Include="Samples\Portal\LoadWebMap.xaml.cs">
+      <DependentUpon>LoadWebMap.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Portal\LoadWebMapMVVM.xaml.cs" >
-<DependentUpon>LoadWebMapMVVM.xaml</DependentUpon>
+    <Compile Include="Samples\Portal\LoadWebMapMVVM.xaml.cs">
+      <DependentUpon>LoadWebMapMVVM.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Portal\PortalSearch.xaml.cs" >
-<DependentUpon>PortalSearch.xaml</DependentUpon>
+    <Compile Include="Samples\Portal\PortalSearch.xaml.cs">
+      <DependentUpon>PortalSearch.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Portal\ShowProperties.xaml.cs" >
-<DependentUpon>ShowProperties.xaml</DependentUpon>
+    <Compile Include="Samples\Portal\ShowProperties.xaml.cs">
+      <DependentUpon>ShowProperties.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\QueryTasks\SpatialQuery.xaml.cs">
       <DependentUpon>SpatialQuery.xaml</DependentUpon>
@@ -339,6 +340,7 @@
     <Compile Include="Samples\QueryTasks\FindTaskSample.xaml.cs">
       <DependentUpon>FindTaskSample.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Security\OAuthAuthorizeHandler.cs" />
     <Compile Include="Samples\Symbology\ClassBreaksRendererSample.xaml.cs">
       <DependentUpon>ClassBreaksRendererSample.xaml</DependentUpon>
     </Compile>
@@ -609,7 +611,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GeocodingTasks\BatchGeocoding.xaml">
+    <Page Include="Samples\OnlineServices\BatchGeocoding.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1020,7 +1022,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Samples\Printing\" />
-    <Folder Include="Samples\Security\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

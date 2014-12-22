@@ -289,6 +289,9 @@
       <DependentUpon>SyncGeodatabase.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\OnlineServices\PortalSecurity.cs" />
+    <Compile Include="Samples\OnlineServices\Traffic.xaml.cs">
+      <DependentUpon>Traffic.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Portal\LoadWebMap.xaml.cs">
       <DependentUpon>LoadWebMap.xaml</DependentUpon>
     </Compile>
@@ -782,6 +785,10 @@
     <Page Include="Samples\Offline\SyncGeodatabase.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\OnlineServices\Traffic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Portal\LoadWebMap.xaml">
       <Generator>MSBuild:Compile</Generator>

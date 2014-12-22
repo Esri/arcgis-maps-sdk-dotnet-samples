@@ -3,24 +3,16 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Http;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Security;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Geocoding;
-using Esri.ArcGISRuntime.Portal;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -38,9 +30,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 	{
 		private const string GEOCODE_SERVICE_URL = "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/geocodeAddresses";
 
-		public ObservableCollection<SourceAddress> SourceAddresses { get; set; }
 		private GraphicsOverlay _graphicsOverlay;
 
+		public ObservableCollection<SourceAddress> SourceAddresses { get; set; }
+		
 		public BatchGeocoding()
 		{
 			InitializeComponent();
@@ -69,7 +62,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 				progress.Visibility = Visibility.Visible;
 				_graphicsOverlay.Graphics.Clear();
 				MyMapView.Overlays.Items.Clear();
-
 
 				string records = string.Join(",", SourceAddresses.Where(s => !string.IsNullOrWhiteSpace(s.Address))
 					.Select((s, idx) => string.Format("{{ \"attributes\": {{ \"OBJECTID\": {0}, \"SingleLine\": \"{1}\" }} }}", idx, s.Address))
@@ -144,7 +136,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 				handler(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
-
 	}
 
 	[DataContract]
@@ -201,33 +192,29 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 
 		[DataMember]
 		public string Y { get; set; }
-
-
 	}
 
+	public class StringFormatConverter : IValueConverter
+	{
+		public object Convert(object value, Type targetType, object parameter, string language)
+		{
+			value = System.Convert.ToDecimal(value);
 
-
-public class StringFormatConverter : IValueConverter
-{
-    public object Convert(object value, Type targetType, object parameter, string language)
-    {
-		value = System.Convert.ToDecimal(value);
-
-        if (value == null)
-            return null;
+			if (value == null)
+				return null;
  
-        if (parameter == null)
-            return value;
+			if (parameter == null)
+				return value;
  
-        return string.Format((string)parameter, value);
-    }
+			return string.Format((string)parameter, value);
+		}
  
-    public object ConvertBack(object value, Type targetType, object parameter, 
-        string language)
-    {
-        throw new NotImplementedException();
-    }
-}
+		public object ConvertBack(object value, Type targetType, object parameter, 
+			string language)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }
 
 

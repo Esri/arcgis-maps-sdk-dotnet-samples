@@ -316,7 +316,6 @@
       <DependentUpon>BatchGeocoding.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\OnlineServices\PortalSecurity.cs" />
-    </Compile>
     <Compile Include="Samples\Portal\CreateWebMap.xaml.cs">
       <DependentUpon>CreateWebMap.xaml</DependentUpon>
     </Compile>

@@ -34,11 +34,9 @@
 			<symb:SimpleRenderer x:Key="markerRenderer" Symbol="{StaticResource markerSymbol}" />
 
 			<ControlTemplate x:Key="MapTipTemplate">
-
 				<Border Background="Black" BorderBrush="White" BorderThickness="2" Margin="4,0,0,4">
 					<StackPanel Margin="4">
 						<TextBlock Text="{Binding Match_addr}"/>
-
 						<TextBlock>				
 							<Run Text="{Binding Path=X, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:0.000}'}"/>
 							<Run Text="{Binding Path=Y, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:0.000}'}"/>
@@ -80,5 +78,4 @@
 			</StackPanel>
 		</Border>
 	</Grid>
-
 </Page>

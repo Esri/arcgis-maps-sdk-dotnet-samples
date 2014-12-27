@@ -29,7 +29,7 @@
                                 Renderer="{StaticResource PointRenderer}" />
         </esri:Map></esri:MapView>
         <Border Margin="20"
-                HorizontalAlignment="Right"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Top"
                 Background="#CC000000">
             <Grid>
@@ -38,22 +38,25 @@
                             HorizontalAlignment="Left">
                     <TextBlock Text="Message in a Bottle (Ocean Currents)"
                                HorizontalAlignment="Center"
-                               FontWeight="Bold" />
+                               FontWeight="Bold"
+							   FontSize="14"/>
                     <TextBlock x:Name="InformationTextBlock"
                                Text="Click on an ocean area in the map to track movement of currents."
-                               Width="200"
+                               FontSize="14"
+							   Margin="10,5"
                                TextAlignment="Left"
                                TextWrapping="Wrap" />
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center"
                                 Margin="5,5,5,10">
                         <TextBlock Text="Days: "
-                                   VerticalAlignment="Center" />
+                                   VerticalAlignment="Center"
+								   FontSize="14"
+								   Margin="10,5"/>
                         <TextBox x:Name="DaysTextBox"
                                  Text="365"
-                                 Width="35"
                                  TextAlignment="Right"
-                                 Margin="0,0,5,0" />
+                                 Margin="5,0,0,0" />
                     </StackPanel>
                 </StackPanel>
             </Grid>

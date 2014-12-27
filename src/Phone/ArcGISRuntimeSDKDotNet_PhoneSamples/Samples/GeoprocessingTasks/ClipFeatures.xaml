@@ -5,84 +5,84 @@
 	xmlns:esri="using:Esri.ArcGISRuntime.Controls"  xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
 	xmlns:sym="using:Esri.ArcGISRuntime.Symbology"
 	xmlns:core="using:Esri.ArcGISRuntime">
-    <Grid x:Name="LayoutRoot"
+	<Grid x:Name="LayoutRoot"
           Background="White">
 
-        <esri:MapView x:Name="mapView1">
-            <esri:Map  >
-                <lyr:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
+		<esri:MapView x:Name="mapView1">
+			<esri:Map  >
+				<lyr:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
                                              ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer" />
 
-                <lyr:GraphicsLayer ID="MyResultGraphicsLayer">
-                    <lyr:GraphicsLayer.Renderer>
-                        <sym:SimpleRenderer>
-                            <sym:SimpleFillSymbol  Color="#770000FF"  >
-                                <sym:SimpleFillSymbol.Outline>
-                                    <sym:SimpleLineSymbol  Color="#FF0000FF"   Width="1" />
-                                </sym:SimpleFillSymbol.Outline>
-                            </sym:SimpleFillSymbol>
-                        </sym:SimpleRenderer>
-                    </lyr:GraphicsLayer.Renderer>
-                </lyr:GraphicsLayer>
+				<lyr:GraphicsLayer ID="MyResultGraphicsLayer">
+					<lyr:GraphicsLayer.Renderer>
+						<sym:SimpleRenderer>
+							<sym:SimpleFillSymbol  Color="#770000FF"  >
+								<sym:SimpleFillSymbol.Outline>
+									<sym:SimpleLineSymbol  Color="#FF0000FF"   Width="1" />
+								</sym:SimpleFillSymbol.Outline>
+							</sym:SimpleFillSymbol>
+						</sym:SimpleRenderer>
+					</lyr:GraphicsLayer.Renderer>
+				</lyr:GraphicsLayer>
 
-                <lyr:GraphicsLayer ID="InputLayer">
-                    <lyr:GraphicsLayer.Renderer>
-                        <sym:SimpleRenderer>
-                            <sym:SimpleLineSymbol  Color="Red" Width="2"/>
-                        </sym:SimpleRenderer>
-                    </lyr:GraphicsLayer.Renderer>
-                </lyr:GraphicsLayer>
+				<lyr:GraphicsLayer ID="InputLayer">
+					<lyr:GraphicsLayer.Renderer>
+						<sym:SimpleRenderer>
+							<sym:SimpleLineSymbol  Color="Red" Width="2"/>
+						</sym:SimpleRenderer>
+					</lyr:GraphicsLayer.Renderer>
+				</lyr:GraphicsLayer>
 
-            </esri:Map>
-        </esri:MapView>
-        <Border Margin="20" Padding="10"
-                HorizontalAlignment="Right"
+			</esri:Map>
+		</esri:MapView>
+		<Border Margin="37,20,31,0" Padding="10"
+                HorizontalAlignment="center"
                 VerticalAlignment="Top"
-                Background="#CC000000">
-            <Grid HorizontalAlignment="Right"
-                  VerticalAlignment="Top"
+                Background="#CC000000" Width="332">
+			<Grid HorizontalAlignment="Stretch"
                  >
-                <StackPanel Orientation="Vertical"
-                            Margin="10"
-                            HorizontalAlignment="Left">
-                    <Button x:Name="StartGP"  Margin="0,10"
+				<StackPanel Orientation="Vertical"
+                            Margin="10">
+					<Button x:Name="StartGP"  Margin="10"
                                   HorizontalAlignment="Stretch"
                                   Click="StartGP_Click"
                                   Content="Start"/>
 
-                    <TextBlock x:Name="InformationTextBlock"
-                               Text="Draw a line on the map over the United States. When finished the line will be buffered and the buffer will be used to clip US county polygons. Results are returned as a GP map image."
-                               Width="200"
-                               TextAlignment="Left"
+					<TextBlock x:Name="InformationTextBlock"
+                               Text="Click Start and then draw a line on the map over the United States. The line will be buffered and the buffer will be used to clip US county polygons. Results are returned as a GP map image."
+                               Margin="10,5" FontSize="14"
+							   TextAlignment="Left"
                                TextWrapping="Wrap" />
-                    <StackPanel Orientation="Horizontal"
+					<StackPanel Orientation="Horizontal"
                                 Margin="0,10">
-                        <TextBlock Text="Distance (in miles): "
-                                   VerticalAlignment="Center" />
-                        <TextBox x:Name="DistanceTextBox"
+						<TextBlock Text="Distance (in miles): "
+                                   FontSize="14"
+								   VerticalAlignment="Center"
+								   Margin="10,5"/>
+						<TextBox x:Name="DistanceTextBox"
                                  Text="100"
                                  Width="35"
                                  TextAlignment="Right"
-                                 Margin="0,0,5,0" />
+                                 Margin="5,0,0,0" />
 
-                    </StackPanel>
-                    <Button x:Name="ClearButton"
+					</StackPanel>
+					<Button x:Name="ClearButton"
                                 Content="Clear Results"
                                 HorizontalAlignment="Stretch" Margin="0,10" Visibility="Collapsed"
                                 Click="ClearButton_Click" />
 
-                    <StackPanel x:Name="StatusPanel">
-                        <ProgressRing  x:Name="MyProgressRing" Margin="5" Height="50" Width="50" Visibility="Collapsed" />
-                        <TextBlock x:Name="ProcessingTextBlock" 
+					<StackPanel x:Name="StatusPanel">
+						<ProgressRing  x:Name="MyProgressRing" Margin="5" Height="50" Width="50" Visibility="Collapsed" />
+						<TextBlock x:Name="ProcessingTextBlock" 
                               Margin="0,15"
                                HorizontalAlignment="Center"
                                Text="Processing..."
                                Visibility="Collapsed"
                                TextWrapping="Wrap" FontSize="14" />
-                    </StackPanel>
+					</StackPanel>
 
-                </StackPanel>
-            </Grid>
-        </Border>
-    </Grid>
+				</StackPanel>
+			</Grid>
+		</Border>
+	</Grid>
 </Page>

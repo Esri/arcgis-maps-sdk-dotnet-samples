@@ -41,7 +41,8 @@
 		<Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20" Width="350">
 			<StackPanel>
 				<TextBlock Text="Click 'Summarize Population' and draw a freehand polygon on the map. A geoprocessing task is then called to summarize the population within the polygon." 
-						   TextAlignment="Left" TextWrapping="Wrap" />
+						   TextAlignment="Left" TextWrapping="Wrap"
+						   FontSize="14"/>
 
 				<Button Content="Summarize Population" Margin="12,12,12,0" HorizontalAlignment="Center" Click="SummarizePopulationButton_Click" />
 

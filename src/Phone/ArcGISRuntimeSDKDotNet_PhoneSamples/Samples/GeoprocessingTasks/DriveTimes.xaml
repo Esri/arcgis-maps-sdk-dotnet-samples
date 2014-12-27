@@ -40,8 +40,9 @@
                 Background="#CC000000">
             <Grid>
                 <TextBlock x:Name="InformationText"
-                           Text="Click on map to set location. Drive time areas of 1, 2, and 3 minutes will be displayed"
-                           Width="200"
+                           Text="Click on map to set location. Drive time areas of 1, 2, and 3 minutes will be displayed."
+                           FontSize="14"
+						   Width="200"
                            Margin="30,20,30,25"
                            HorizontalAlignment="Left"
                            TextWrapping="Wrap" />

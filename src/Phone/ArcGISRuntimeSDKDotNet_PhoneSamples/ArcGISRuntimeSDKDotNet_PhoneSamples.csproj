@@ -428,9 +428,6 @@
     <Compile Include="Samples\QueryTasks\QueryRelatedRecords.xaml.cs">
       <DependentUpon>QueryRelatedRecords.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\QueryTasks\QueryWithBuffer.xaml.cs">
-      <DependentUpon>QueryWithBuffer.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Samples\QueryTasks\Statistics.xaml.cs">
       <DependentUpon>Statistics.xaml</DependentUpon>
     </Compile>
@@ -970,10 +967,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\QueryTasks\QueryRelatedRecords.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\QueryTasks\QueryWithBuffer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

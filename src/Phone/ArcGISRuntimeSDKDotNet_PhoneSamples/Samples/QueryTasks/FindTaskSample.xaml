@@ -37,7 +37,12 @@
 			</esri:MapView.GraphicsOverlays>
 		</esri:MapView>
 
-		<Border Background="#CC000000" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="30" Padding="20">
+		<Border Background="#CC000000" 
+				HorizontalAlignment="Center" 
+				VerticalAlignment="Top" 
+				MaxHeight="400"
+				Margin="30" 
+				Padding="20">
 			<Grid>
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
@@ -46,7 +51,7 @@
 				</Grid.RowDefinitions>
 
 				<StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
-					<TextBlock Text="Find State/City/River:" Margin="0,0,6,0" VerticalAlignment="Center" />
+					<TextBlock Text="Find State/City/River:" Margin="0,0,10,0" VerticalAlignment="Center" FontSize="14"/>
 					<TextBox x:Name="txtFind" Text="Colorado" Width="150" />
 				</StackPanel>
 

@@ -9,6 +9,9 @@
 	<Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
 		<esri:MapView x:Name="MyMapView">
 			<esri:Map>
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-14675766" YMin="2695407" XMax="-6733121" YMax="6583994" SpatialReferenceID="3857"/>
+				</esri:Map.InitialViewpoint>
 				<layers:ArcGISTiledMapServiceLayer 
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
 

@@ -27,7 +27,7 @@
         <esri:MapView x:Name="MyMapView" WrapAround="True">
             <esri:Map>
 				<layers:ArcGISTiledMapServiceLayer
-                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/NGS_Topo_US_2D/MapServer" />
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/USA_Topo_Maps/MapServer" />
             </esri:Map>
 			<esri:MapView.GraphicsOverlays>
 				<esri:GraphicsOverlay ID="originalOverlay">

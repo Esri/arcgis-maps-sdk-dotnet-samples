@@ -1,10 +1,10 @@
 ﻿<Page
-    x:Class="ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.ExtractData"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	x:Class="ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.ExtractData"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="using:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:esri="using:Esri.ArcGISRuntime.Controls"
 	xmlns:layers="using:Esri.ArcGISRuntime.Layers"
 	xmlns:symb="using:Esri.ArcGISRuntime.Symbology"
@@ -13,7 +13,7 @@
 
 	<Page.BottomAppBar>
 		<CommandBar>
-			<AppBarButton Label="Settings" Icon="Setting">
+			<AppBarButton Label="Options" Icon="Setting">
 				<AppBarButton.Flyout>
 					<Flyout>
 						<StackPanel>
@@ -52,10 +52,10 @@
 				</esri:Map.InitialViewpoint>
 
 				<layers:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
-                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+					ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 
 				<layers:ArcGISDynamicMapServiceLayer ID="HomelandSecurity"
-                    ServiceUri="http://sampleserver4.arcgisonline.com/ArcGIS/rest/services/HomelandSecurity/Incident_Data_Extraction/MapServer" />
+					ServiceUri="http://sampleserver4.arcgisonline.com/ArcGIS/rest/services/HomelandSecurity/Incident_Data_Extraction/MapServer" />
 			</esri:Map>
 			<esri:MapView.GraphicsOverlays>
 				<esri:GraphicsOverlay ID="graphicsOverlay" Renderer="{StaticResource FillRenderer}"/>
@@ -65,8 +65,8 @@
 		<Border Background="#CC000000" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="30" Padding="20" Width="300">
 			<StackPanel>
 				<StackPanel>
-					<TextBlock Text="Use the Settings button to specify the layers and output format. Then click Draw Polygon and draw a polygon on the map intersecting data to be extracted." 
-                               TextWrapping="Wrap" HorizontalAlignment="Center" Width="260" FontSize="14" />
+					<TextBlock Text="Use the Options button to specify the layers and output format. Then click Draw Polygon and draw a polygon on the map intersecting data to be extracted." 
+							   TextWrapping="Wrap" HorizontalAlignment="Center" Width="260" FontSize="14" />
 					<StackPanel Orientation="Horizontal" >
 						<Button Content="Draw Polygon" HorizontalAlignment="Left" Click="AreaOfInterestButton_Click" />
 						<CheckBox x:Name="chkFreehand" Content="Freehand" Margin="12,0,0,0" Width="138" />

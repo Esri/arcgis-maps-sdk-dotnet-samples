@@ -1,16 +1,15 @@
 ﻿<Page
-    x:Class="ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.GeodesicMove"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	x:Class="ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.GeodesicMove"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="using:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:esri="using:Esri.ArcGISRuntime.Controls"
 	xmlns:layers="using:Esri.ArcGISRuntime.Layers"
 	xmlns:data="using:Esri.ArcGISRuntime.Data"
 	xmlns:symb="using:Esri.ArcGISRuntime.Symbology"
-	xmlns:geom="using:Esri.ArcGISRuntime.Geometry"
-    mc:Ignorable="d"
+	mc:Ignorable="d"
 	Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
 	<Page.BottomAppBar>
@@ -22,7 +21,7 @@
 						<BitmapIcon UriSource="ms-appx:///Assets/Icons/vector.group.png"/>
 					</AppBarButton.Icon>
 				</AppBarButton>
-				<AppBarButton Label="Settings" Icon="Setting">
+				<AppBarButton Label="Options" Icon="Setting">
 					<AppBarButton.Flyout>
 						<Flyout>
 							<StackPanel>
@@ -38,20 +37,20 @@
 									</Grid.ColumnDefinitions>
 
 									<TextBlock Grid.Row="0" Grid.Column="0" Text="Move Distance (miles):" Margin="8" 
-                               TextAlignment="Right" VerticalAlignment="Center" />
+							   TextAlignment="Right" VerticalAlignment="Center" />
 									<ComboBox x:Name="comboDistance" Grid.Row="0" Grid.Column="1" SelectedIndex="1" Width="100" 
-                              VerticalAlignment="Center" HorizontalContentAlignment="Center">
+							  VerticalAlignment="Center" HorizontalContentAlignment="Center">
 										<x:Double>500</x:Double>
 										<x:Double>1000</x:Double>
 										<x:Double>2000</x:Double>
 									</ComboBox>
 
 									<TextBlock Grid.Row="1" Grid.Column="0" Text="Azimuth (degrees):" Margin="8"
-                               TextAlignment="Right" VerticalAlignment="Center" />
+							   TextAlignment="Right" VerticalAlignment="Center" />
 									<Slider x:Name="sliderAngle" Grid.Row="1" Grid.Column="1" Margin="6"
-                            Orientation="Horizontal" Width="100" SnapsTo="Ticks"
-                            TickPlacement="BottomRight" TickFrequency="45" 
-                            Minimum="0" Maximum="360" Value="180" />
+							Orientation="Horizontal" Width="100" SnapsTo="Ticks"
+							TickPlacement="BottomRight" TickFrequency="45" 
+							Minimum="0" Maximum="360" Value="180" />
 								</Grid>
 							</StackPanel>
 						</Flyout>
@@ -61,7 +60,7 @@
 			<CommandBar.SecondaryCommands>
 				<AppBarButton Label="Info">
 					<TextBlock Text="Digitize a polygon on the map and then click the 'Geodesic Move' button to move the polygon the specified distance and angle. "
-                           Width="275" TextAlignment="Left" TextWrapping="Wrap" />
+						   Width="275" TextAlignment="Left" TextWrapping="Wrap" />
 				</AppBarButton>
 			</CommandBar.SecondaryCommands>
 		</CommandBar>
@@ -86,7 +85,7 @@
 		<esri:MapView x:Name="MyMapView" WrapAround="True">
 			<esri:Map>
 				<layers:ArcGISTiledMapServiceLayer
-                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/USA_Topo_Maps/MapServer" />
+					ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/USA_Topo_Maps/MapServer" />
 			</esri:Map>
 			<esri:MapView.GraphicsOverlays>
 				<esri:GraphicsOverlay ID="originalOverlay">
@@ -104,7 +103,7 @@
 
 
 		<Border Background="#CC000000" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="20" Padding="10"
-                Visibility="{Binding ElementName=MyMapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
+				Visibility="{Binding ElementName=MyMapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
 			<TextBlock Text="Digitize a polygon on the map." FontSize="14" />
 		</Border>
 	</Grid>

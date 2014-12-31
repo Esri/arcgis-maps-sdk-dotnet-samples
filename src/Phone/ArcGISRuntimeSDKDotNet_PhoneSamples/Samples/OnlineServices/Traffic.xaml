@@ -23,7 +23,7 @@
 	</Page.Resources>
 	<Page.BottomAppBar>
 		<CommandBar IsSticky="True" IsOpen="True">
-			<AppBarButton Icon="List" Label="TOC">
+			<AppBarButton Icon="List" Label="Contents">
 				<AppBarButton.Flyout>
 					<Flyout>
 						<StackPanel>

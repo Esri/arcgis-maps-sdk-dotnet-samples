@@ -1,17 +1,15 @@
 ﻿<Page
-    x:Class="ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.SyncGeodatabase"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples"
+	x:Class="ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.SyncGeodatabase"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="using:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples"
 	xmlns:common="using:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:esri="using:Esri.ArcGISRuntime.Controls"
 	xmlns:layers="using:Esri.ArcGISRuntime.Layers"
-	xmlns:data="using:Esri.ArcGISRuntime.Data"
 	xmlns:symb="using:Esri.ArcGISRuntime.Symbology"
-	xmlns:geom="using:Esri.ArcGISRuntime.Geometry"
-    mc:Ignorable="d"
+	mc:Ignorable="d"
 	Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
 	<Page.Resources>
@@ -30,7 +28,7 @@
 	<Page.BottomAppBar>
 		<CommandBar>
 			<CommandBar.PrimaryCommands>
-				<AppBarButton Label="TOC" Icon="List">
+				<AppBarButton Label="Contents" Icon="List">
 					<AppBarButton.Flyout>
 						<Flyout>
 							<StackPanel x:Name="panelLegend" Margin="10,5">
@@ -132,10 +130,10 @@
 				</esri:Map.InitialViewpoint>
 
 				<layers:ArcGISTiledMapServiceLayer DisplayName="Streets Basemap"
-                    ServiceUri="http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+					ServiceUri="http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 
 				<layers:ArcGISDynamicMapServiceLayer ID="onlineBirdsLayer" DisplayName="Online Birds" 
-                    ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/SaveTheBaySync/MapServer" />
+					ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/SaveTheBaySync/MapServer" />
 			</esri:Map>
 
 			<esri:MapView.GraphicsOverlays>
@@ -161,7 +159,7 @@
 
 		<Border x:Name="panelBirdSighting" 
 				Style="{StaticResource BorderStyle}"
-                Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}">
+				Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}">
 			<Grid>
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />

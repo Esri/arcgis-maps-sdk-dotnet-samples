@@ -23,6 +23,9 @@
 	<Grid>
 		<esri:MapView x:Name="MyMapView">
 			<esri:Map>
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-9054000" YMin="-4413200" XMax="964700" YMax="11650200" SpatialReferenceID="3857"/>
+				</esri:Map.InitialViewpoint>
 				<layers:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
 

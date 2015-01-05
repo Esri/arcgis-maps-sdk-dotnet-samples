@@ -33,10 +33,10 @@
                               x:Name="AddButton"
                               Label="Add"
                               Click="AddButton_Click" />
-                <AppBarButton Icon="List"
+                <AppBarButton Icon="Edit"
                               IsEnabled="False"
                               x:Name="AttachmentsButton"
-                              Label="Attachments">
+                              Label="Edit">
                     <AppBarButton.Flyout>
                         <Flyout>
                             <ListBox x:Name="AttachmentList"

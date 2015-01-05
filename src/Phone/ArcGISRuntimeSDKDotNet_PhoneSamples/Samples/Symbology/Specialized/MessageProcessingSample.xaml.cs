@@ -25,7 +25,7 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.Specialized
 	/// <requiresSymbols>true</requiresSymbols>
 	public sealed partial class MessageProcessingSample : Page
 	{
-		private const string DATA_PATH = @"samples-data\symbology\Mil2525CMessages.xml";
+		private const string DATA_PATH = @"symbology\Mil2525CMessages.xml";
 
 		private MessageLayer _messageLayer;
 
@@ -36,29 +36,30 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.Specialized
 		{
 			InitializeComponent();
 
-			MyMapView.ExtentChanged += mapView_ExtentChanged;
+			MyMapView.ExtentChanged += MyMapView_ExtentChanged;
 		}
 
 		// Load data - enable functionality after layers are loaded.
-		private async void mapView_ExtentChanged(object sender, EventArgs e)
+		private async void MyMapView_ExtentChanged(object sender, EventArgs e)
 		{
 			try
 			{
-				MyMapView.ExtentChanged -= mapView_ExtentChanged;
+				MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
 
 				// Wait until all layers are loaded
 				var layers = await MyMapView.LayersLoadedAsync();
 
 				_messageLayer = MyMapView.Map.Layers.OfType<MessageLayer>().First();
-				processMessagesBtn.IsEnabled = true;
+
+				ProcessMessages();
 			}
 			catch (Exception ex)
 			{
-				var _ = new MessageDialog(ex.Message, "Message Processing Sample").ShowAsync();
+				var _x = new MessageDialog(ex.Message, "Message Processing Sample").ShowAsync();
 			}
 		}
 
-		private async void ProcessMessagesButton_Click(object sender, RoutedEventArgs e)
+		private async void ProcessMessages()
 		{
 			try
 			{
@@ -83,17 +84,19 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.Specialized
 					XDocument xmlDocument = XDocument.Load(stream);
 
 					// Create a collection of messages
-					IEnumerable<XElement> messagesXml = from n in xmlDocument.Root.Elements() where n.Name == "message" select n;
+					IEnumerable<XElement> messagesXml = from n in xmlDocument.Root.Elements()
+														where n.Name == "message"
+														select n;
 
 					// Iterate through the messages passing each to the ProcessMessage method on the MessageProcessor.
 					foreach (XElement messageXml in messagesXml)
 					{
 						Message message = new Message(from n in messageXml.Elements() select new KeyValuePair<string, string>(n.Name.ToString(), n.Value));
-						var messageProcessingSuccesful = _messageLayer.ProcessMessage(message);
-						
-						if (messageProcessingSuccesful == false)
+						var messageProcessingSuccessful = _messageLayer.ProcessMessage(message);
+
+						if (messageProcessingSuccessful == false)
 						{
-							var _ = new MessageDialog("Could not process the message.", "Message Processing Sample").ShowAsync();
+							var _x = new MessageDialog("Could not process the message.", "Message Processing Sample").ShowAsync();
 						}
 					}
 				}
@@ -117,108 +120,50 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.Specialized
 				* // Process the message using the MessageProcessor within the MessageGroupLayer
 				* _messageLayer.ProcessMessage(msg);
 				*/
-
-				// Hide info box
-				infoBox.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-			}
-			catch(FileNotFoundException)
-			{
-				var _ = new MessageDialog("Local message data not found. Please download sample data before using this sample.", "Message Processing Sample").ShowAsync();
 			}
 			catch (Exception ex)
 			{
-				var _ = new MessageDialog(ex.Message, "Message Processing Sample").ShowAsync();
+				var _x = new MessageDialog(ex.Message, "Message Processing Sample").ShowAsync();
 			}
 		}
 
-		// Select Messages individually
-		private async void AddSelectButton_Click(object sender, RoutedEventArgs e)
-		{
-			try
-			{
-				await FindIntersectingGraphicsAsync(DrawShape.Point);
-			}
-			catch (Exception ex)
-			{
-				var _x = new MessageDialog("Selection Error: " + ex.Message, "Message Processing Sample").ShowAsync();
-			}
-		}
-
-		// Select Messages by envelope
-		private async void MultipleSelectButton_Click(object sender, RoutedEventArgs e)
-		{
-			try
-			{
-				await FindIntersectingGraphicsAsync(DrawShape.Envelope);
-			}
-			catch (Exception ex)
-			{
-				var _x = new MessageDialog("Selection Error: " + ex.Message, "Message Processing Sample").ShowAsync();
-			}
-		}
-
-		// Performs a HitTest on the rendered Messages and selects the results
 		private async Task FindIntersectingGraphicsAsync(DrawShape drawMode)
 		{
-			// Get sub layers of the MessageLayer
 			var messageSubLayers = _messageLayer.ChildLayers.Cast<MessageSubLayer>();
 
-			// Create an empty result set
 			IEnumerable<Graphic> results = Enumerable.Empty<Graphic>();
 
-			// Set the max hits to 1
 			int maxHits = 1;
 
-			// Handle the individual Message selection mode
 			if (drawMode == DrawShape.Point)
 			{
-				// Ask the user for the point of interest
 				var mapPoint = await MyMapView.Editor.RequestPointAsync();
-
-				// Get the location in screen coordinates
 				var screenPoint = MyMapView.LocationToScreen(mapPoint);
-
-				// Iterate the Message sub layers awaiting the HitTestAsync method on each
 				foreach (var l in messageSubLayers)
 					results = results.Concat(await l.HitTestAsync(MyMapView, screenPoint, maxHits));
 			}
-			// Handle the multiple Message selection mode
 			else
 			{
-				// Increase the max hits value
 				maxHits = 100;
-				// Ask the user for the area of interest
 				var geometry = await MyMapView.Editor.RequestShapeAsync(drawMode);
-				
-				// Cast to an Envelope
-				Envelope mapEnvelope = geometry as Envelope;
-				
-				// Get the screen location of the upper left
+				var mapEnvelope = (geometry as Envelope).Extent;
 				var upperLeft = MyMapView.LocationToScreen
 					(new MapPoint(mapEnvelope.XMin, mapEnvelope.YMax, geometry.SpatialReference));
-
-				// Get the screen location of the lower right
 				var lowerRight = MyMapView.LocationToScreen
 					(new MapPoint(mapEnvelope.XMax, mapEnvelope.YMin, geometry.SpatialReference));
-
-				// Create a Rect from the two corners
 				var rect = new Rect(upperLeft, lowerRight);
 
-				// Iterate the Message sub layers awaiting the HitTestAsync method on each
 				foreach (var l in messageSubLayers)
 					results = results.Concat(await l.HitTestAsync(MyMapView, rect, maxHits));
 			}
 
-			// Iterate the results and modify the Action value to Select then reprocess each Message
+			if (results.Count() == 0)
+				return;
+
 			foreach (var graphic in results)
 			{
-				// Retrieve the Message representation from the MessageLayer for each Graphic returned
 				MilitaryMessage message = _messageLayer.GetMessage(graphic.Attributes["_id"].ToString()) as MilitaryMessage;
-
-				// Modify the Action to Select
 				message.MessageAction = MilitaryMessageAction.Select;
-
-				// Reprocess the Message and add to the list
 				if (_messageLayer.ProcessMessage(message))
 				{
 					selectedMessages.Add(message);
@@ -226,27 +171,60 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.Specialized
 			}
 		}
 
-		// Clear all selected Messages
+		private async void SelectPoint_Checked(object sender, RoutedEventArgs e)
+		{
+			while (SelectPoint.IsChecked == true)
+			{
+				try
+				{
+					await FindIntersectingGraphicsAsync(DrawShape.Point);
+				}
+				catch (TaskCanceledException ex)
+				{
+					// Do nothing if it's a TaskCanceledException
+				}
+				catch (Exception ex)
+				{
+					var _x = new MessageDialog("Selection Error: " + ex.Message, "Message Processing Sample");
+				}
+			}
+		}
+
+		private async void SelectPolygon_Checked(object sender, RoutedEventArgs e)
+		{
+			while (SelectPolygon.IsChecked == true)
+			{
+				try
+				{
+					await FindIntersectingGraphicsAsync(DrawShape.Envelope);
+				}
+				catch (TaskCanceledException ex)
+				{
+					// Do nothing if it's a TaskCanceledException
+				}
+				catch (Exception ex)
+				{
+					var _x = new MessageDialog("Selection Error: " + ex.Message, "Message Processing Sample");
+				}
+			}
+		}
+
 		private void ClearSelectButton_Click(object sender, RoutedEventArgs e)
 		{
 			try
 			{
-				// Iterate the collection of Messages
 				foreach (MilitaryMessage message in selectedMessages)
 				{
-					// Modify the Action to UnSelect
 					message.MessageAction = MilitaryMessageAction.UnSelect;
-
-					// Reprocess the Message
 					_messageLayer.ProcessMessage(message);
 				}
-				// Clear the collection
-				selectedMessages.Clear();
 			}
 			catch (Exception ex)
 			{
-				var _x = new MessageDialog("Selection Error: " + ex.Message, "Message Processing Sample").ShowAsync();
+
+				var _x = new MessageDialog("Selection Error: " + ex.Message, "Message Processing Sample");
 			}
+
 		}
 	}
 }

@@ -47,7 +47,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 				var layers = await MyMapView.LayersLoadedAsync();
 
 				_messageLayer = MyMapView.Map.Layers.OfType<MessageLayer>().First();
-				processMessagesBtn.IsEnabled = true;
+
+				ProcessMessages();
 			}
 			catch (Exception ex)
 			{
@@ -55,7 +56,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 			}
 		}
 
-		private async void ProcessMessagesButton_Click(object sender, RoutedEventArgs e)
+		private async void ProcessMessages()
 		{
 			try
 			{
@@ -90,9 +91,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 				foreach (XElement messageXml in messagesXml)
 				{
 					Message message = new Message(from n in messageXml.Elements() select new KeyValuePair<string, string>(n.Name.ToString(), n.Value));
-					var messageProcessingSuccesful = _messageLayer.ProcessMessage(message);
+					var messageProcessingSuccessful = _messageLayer.ProcessMessage(message);
 
-					if (messageProcessingSuccesful == false)
+					if (messageProcessingSuccessful == false)
 					{
 						var _x = new MessageDialog("Could not process the message.", "Message Processing Sample").ShowAsync();
 					}
@@ -121,30 +122,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 			catch (Exception ex)
 			{
 				var _x = new MessageDialog(ex.Message, "Message Processing Sample").ShowAsync();
-			}
-		}
-
-		private async void AddSelectButton_Click(object sender, RoutedEventArgs e)
-		{
-			try
-			{
-				await FindIntersectingGraphicsAsync(DrawShape.Point);
-			}
-			catch (Exception ex)
-			{
-				var _x = new MessageDialog("Selection Error: " + ex.Message, "Message Processing Sample").ShowAsync();
-			}
-		}
-
-		private async void MultipleSelectButton_Click(object sender, RoutedEventArgs e)
-		{
-			try
-			{
-				await FindIntersectingGraphicsAsync(DrawShape.Envelope);
-			}
-			catch (Exception ex)
-			{
-				var _x = new MessageDialog("Selection Error: " + ex.Message, "Message Processing Sample").ShowAsync();
 			}
 		}
 
@@ -192,7 +169,44 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 			}
 		}
 
-		
+		private async void SelectPoint_Checked(object sender, RoutedEventArgs e)
+		{
+			while (SelectPoint.IsChecked == true)
+			{
+				try
+				{
+					await FindIntersectingGraphicsAsync(DrawShape.Point);
+				}
+				catch (TaskCanceledException ex)
+				{
+					// Do nothing if it's a TaskCanceledException
+				}
+				catch (Exception ex)
+				{
+					var _x = new MessageDialog("Selection Error: " + ex.Message, "Message Processing Sample");
+				}
+			}
+		}
+
+		private async void SelectPolygon_Checked(object sender, RoutedEventArgs e)
+		{
+			while (SelectPolygon.IsChecked == true)
+			{
+				try
+				{
+					await FindIntersectingGraphicsAsync(DrawShape.Envelope);
+				}
+				catch (TaskCanceledException ex)
+				{
+					// Do nothing if it's a TaskCanceledException
+				}
+				catch (Exception ex)
+				{
+					var _x = new MessageDialog("Selection Error: " + ex.Message, "Message Processing Sample");
+				}
+			}
+		}
+
 		private void ClearSelectButton_Click(object sender, RoutedEventArgs e)
 		{
 			try
@@ -202,14 +216,15 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology
 					message.MessageAction = MilitaryMessageAction.UnSelect;
 					_messageLayer.ProcessMessage(message);
 				}
-				selectedMessages.Clear();
 			}
 			catch (Exception ex)
 			{
-				var _x = new MessageDialog("Selection Error: " + ex.Message, "Message Processing Sample").ShowAsync();
+
+				var _x = new MessageDialog("Selection Error: " + ex.Message, "Message Processing Sample");
 			}
+
 		}
 
-	
+
 	}
 }

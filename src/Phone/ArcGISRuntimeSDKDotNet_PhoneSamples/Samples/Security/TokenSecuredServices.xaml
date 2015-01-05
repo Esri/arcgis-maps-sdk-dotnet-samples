@@ -6,7 +6,7 @@
 	xmlns:layers="using:Esri.ArcGISRuntime.Layers">
 	<Page.BottomAppBar>
 		<CommandBar IsSticky="True" IsOpen="True">
-			<AppBarButton Label="Login" Icon="Contact">
+			<AppBarButton Label="Login" Icon="Permissions">
 				<AppBarButton.Flyout>
 					<Flyout x:Name="LoginFlyout">
 						<Border x:Name="loginPanel" HorizontalAlignment="Center" Margin="0,0,0,20">

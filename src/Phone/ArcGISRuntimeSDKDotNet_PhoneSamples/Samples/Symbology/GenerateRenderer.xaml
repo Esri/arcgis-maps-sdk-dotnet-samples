@@ -14,7 +14,7 @@
 	<Page.BottomAppBar>
 		<CommandBar IsOpen="True">
 			<CommandBar.PrimaryCommands>
-				<AppBarButton Label="Legend" Icon="List">
+				<AppBarButton Label="Contents" Icon="List">
 					<AppBarButton.Flyout>
 						<Flyout>
 							<StackPanel HorizontalAlignment="Center">
@@ -34,7 +34,7 @@
 						</Flyout>
 					</AppBarButton.Flyout>
 				</AppBarButton>
-				<AppBarButton Label="Select field" Icon="Setting">
+				<AppBarButton Label="Options" Icon="Setting">
 					<AppBarButton.Flyout>
 						<Flyout>
 							<StackPanel Margin="12,24,12,0" HorizontalAlignment="Center">
@@ -84,7 +84,7 @@
 		</esri:MapView>
 
 		<Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
-			<TextBlock Text="Click the settings below to select a field for rendering the counties in Washington state."
+			<TextBlock Text="Click the Options below to select a field for rendering the counties in Washington state."
                            FontSize="14" Width="300" TextWrapping="Wrap" />
 		</Border>
 	</Grid>

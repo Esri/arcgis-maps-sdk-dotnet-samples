@@ -14,7 +14,7 @@
 
 	<Page.BottomAppBar>
 		<CommandBar>
-			<AppBarButton Label="Query" Icon="Setting">
+			<AppBarButton Label="Query" Icon="Find">
 				<AppBarButton.Flyout>
 					<Flyout>
 						<StackPanel>

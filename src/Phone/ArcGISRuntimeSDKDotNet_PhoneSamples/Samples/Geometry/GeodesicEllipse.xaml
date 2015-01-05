@@ -16,7 +16,7 @@
 	</Page.Resources>
 	<Page.BottomAppBar>
 		<CommandBar IsOpen="True">
-			<AppBarButton Label="options" Icon="Setting">
+			<AppBarButton Label="Options" Icon="Setting">
 				<AppBarButton.Flyout>
 					<Flyout>
 						<StackPanel>

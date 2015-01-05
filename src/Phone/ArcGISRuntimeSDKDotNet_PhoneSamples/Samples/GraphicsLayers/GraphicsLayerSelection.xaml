@@ -47,7 +47,7 @@
 			<CommandBar.PrimaryCommands>
 				<AppBarButton Label="Add" Icon="Add" Click="AddSelectButton_Click" />
 				<AppBarButton Label="Remove" Icon="Remove" Click="RemoveSelectButton_Click" />
-				<AppBarButton Label="Clear" Icon="ClearSelection" Click="ClearSelectButton_Click" />
+				<AppBarButton Label="Clear" Icon="Clear" Click="ClearSelectButton_Click" />
 			</CommandBar.PrimaryCommands>
 		</CommandBar>
 	</Page.BottomAppBar>

@@ -159,6 +159,9 @@
     <Compile Include="Samples\GeocodingTasks\ReverseGeocode.xaml.cs">
       <DependentUpon>ReverseGeocode.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Mapping\MapGrid.xaml.cs">
+      <DependentUpon>MapGrid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\OnlineServices\BatchGeocoding.xaml.cs">
       <DependentUpon>BatchGeocoding.xaml</DependentUpon>
     </Compile>
@@ -608,6 +611,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\GeocodingTasks\ReverseGeocode.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Mapping\MapGrid.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

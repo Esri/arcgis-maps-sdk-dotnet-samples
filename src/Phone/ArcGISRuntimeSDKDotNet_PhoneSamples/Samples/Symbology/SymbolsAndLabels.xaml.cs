@@ -11,13 +11,13 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 	/// <title>Symbols and Labels</title>
 	/// <category>Symbology</category>
 	public sealed partial class SymbolsAndLabels : Windows.UI.Xaml.Controls.Page
-    {
+	{
 		public SymbolsAndLabels()
-        {
-            this.InitializeComponent();
-            mapView1.InteractionOptions.RotationOptions.IsEnabled = true;            
+		{
+			this.InitializeComponent();
+			MyMapView.InteractionOptions.RotationOptions.IsEnabled = true;            
 			CreateGeometries();
-        }
+		}
 
 		/// <summary>
 		/// XAML creation of polygon and polyline geometries are currently not supported, so
@@ -25,7 +25,7 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 		/// </summary>
 		private void CreateGeometries()
 		{
-			var layer = mapView1.Map.Layers.OfType<GraphicsLayer>().First();
+			var layer = MyMapView.Map.Layers.OfType<GraphicsLayer>().First();
 
 			layer.Graphics.Add(new Graphic(new MapPoint(-6000000, 4800000), (Symbol)Resources["NumberedMarkerSymbol1"]));
 			layer.Graphics.Add(new Graphic(new MapPoint(-5000000, 3900000), (Symbol)Resources["NumberedMarkerSymbolA"]));
@@ -75,7 +75,7 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 		// Helper method
 		private static PointCollection FromArray(params double[] parameters)
 		{
-            PointCollection coll = new PointCollection(SpatialReferences.Wgs84);
+			PointCollection coll = new PointCollection(SpatialReferences.Wgs84);
 			var mapPointBuilder = new MapPointBuilder(SpatialReferences.Wgs84);
 			for (int i = 0; i < parameters.Length - 1; i+=2)
 			{
@@ -85,9 +85,9 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 			return coll;
 		}
 
-        private void RotationSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
-        {
-            mapView1.SetRotationAsync(e.NewValue);
-        }
-    }
+		private void RotationSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+		{
+			MyMapView.SetRotationAsync(e.NewValue);
+		}
+	}
 }

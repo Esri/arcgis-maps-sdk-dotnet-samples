@@ -441,6 +441,9 @@
     <Compile Include="Samples\Symbology\SimpleRendererSample.xaml.cs">
       <DependentUpon>SimpleRendererSample.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Symbology\SymbolsAndLabels.xaml.cs">
+      <DependentUpon>SymbolsAndLabels.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Symbology\TextSymbols.xaml.cs">
       <DependentUpon>TextSymbols.xaml</DependentUpon>
     </Compile>
@@ -977,6 +980,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Symbology\SimpleRendererSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\SymbolsAndLabels.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -26,11 +26,11 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 		{
 			InitializeComponent();
 
-			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-118.331, 33.7, -116.75, 34, SpatialReferences.Wgs84));
-			myGraphicsLayer = mapView1.Map.Layers["MyGraphicsLayer"] as GraphicsLayer;
+			MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-118.331, 33.7, -116.75, 34, SpatialReferences.Wgs84));
+			myGraphicsLayer = MyMapView.Map.Layers["MyGraphicsLayer"] as GraphicsLayer;
 			InitializePictureMarkerSymbol();
 
-			mapView1.SpatialReferenceChanged += mapView1_SpatialReferenceChanged;
+			MyMapView.SpatialReferenceChanged += MyMapView_SpatialReferenceChanged;
 		}
 
 		private async void InitializePictureMarkerSymbol()
@@ -48,9 +48,9 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 			}
 		}
 
-		async void mapView1_SpatialReferenceChanged(object sender, EventArgs e)
+		async void MyMapView_SpatialReferenceChanged(object sender, EventArgs e)
 		{
-			mapView1.SpatialReferenceChanged -= mapView1_SpatialReferenceChanged;
+			MyMapView.SpatialReferenceChanged -= MyMapView_SpatialReferenceChanged;
 			await DoLabelPoints();
 
 		}
@@ -58,11 +58,11 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 		{
 			try
 			{
-				if (mapView1.Editor.IsActive)
-					mapView1.Editor.Cancel.Execute(null);
+				if (MyMapView.Editor.IsActive)
+					MyMapView.Editor.Cancel.Execute(null);
 
 				//Get the input polygon geometry from the user
-				inputGeom = await mapView1.Editor.RequestShapeAsync(DrawShape.Polygon);
+				inputGeom = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon);
 
 				if (inputGeom != null)
 				{

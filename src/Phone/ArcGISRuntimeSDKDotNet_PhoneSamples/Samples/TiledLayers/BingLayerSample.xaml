@@ -12,7 +12,7 @@
 
 	<Page.BottomAppBar>
 		<CommandBar IsOpen="True" >
-			<AppBarButton Label="Enter Key" Icon="Setting">
+			<AppBarButton Label="Options" Icon="Setting">
 				<AppBarButton.Flyout>
 					<Flyout>
 						<StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="10">
@@ -39,7 +39,7 @@
 			<esri:Map x:Name="MyMap" />
 		</esri:MapView>
 		<Border x:Name="InfoText" Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
-			<TextBlock TextAlignment="Center" Text="Click Settings to enter a Bing key" FontSize="14" />
+			<TextBlock TextAlignment="Center" Text="Click Options to enter a Bing key" FontSize="14" />
 		</Border>
 		<Border x:Name="LayerStyleGrid" Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" 
                 Margin="30" Padding="20" Visibility="Collapsed">

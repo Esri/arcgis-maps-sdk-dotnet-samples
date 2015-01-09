@@ -41,12 +41,18 @@
 				<TextBlock Text="This sample demonstrates reading simulated messages from an XML file and displaying military symbols on the map using Mil2525C Symbols."
 						   FontSize="14" TextAlignment="Left" TextWrapping="Wrap" Margin="5" />
 				<StackPanel>
-					<CheckBox x:Name="EnableSelection" Content="Enable message selection" Margin="5,0"/>
+					<CheckBox x:Name="EnableSelection" 
+							  Content="Enable message selection"
+							  IsEnabled="False"
+							  Margin="10" 
+							  IsChecked="{Binding IsSelectionEnabled, Mode=TwoWay}" 
+							  Checked="EnableSelection_Checked" Unchecked="EnableSelection_Unchecked"/>
 					<StackPanel Orientation="Vertical" Visibility="{Binding ElementName=EnableSelection, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}" >
 						<TextBlock Text="Select using: " FontSize="14" Margin="5,0"/>
 						<StackPanel Margin="5,0" Orientation="Horizontal">
 							<RadioButton x:Name="SelectPoint" 
 									 Content="Point" 
+										 IsChecked="True"
 									 Checked="SelectPoint_Checked"/>
 							<RadioButton x:Name="SelectPolygon" 
 								 Content="Polygon" 

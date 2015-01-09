@@ -29,12 +29,18 @@
 						   FontSize="14" TextAlignment="Left" TextWrapping="Wrap" Margin="10" />
 
 				<StackPanel>
-					<CheckBox x:Name="EnableSelection" Content="Enable message selection" Margin="10"/>
+					<CheckBox x:Name="EnableSelection" 
+							  Content="Enable message selection"
+							  IsEnabled="False"
+							  Margin="10" 
+							  IsChecked="{Binding IsSelectionEnabled, Mode=TwoWay}" 
+							  Checked="EnableSelection_Checked" Unchecked="EnableSelection_Unchecked"/>
 					<RadioButton x:Name="SelectPoint" 
-									 Content="Select using point" 
-									 Checked="SelectPoint_Checked"
-									 Margin="10,0,0,0" 
-									 Visibility="{Binding ElementName=EnableSelection, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+								 Content="Select using point" 
+								 IsChecked="True"
+								 Checked="SelectPoint_Checked" 
+								 Margin="10,0,0,0" 
+								 Visibility="{Binding ElementName=EnableSelection, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 					<RadioButton x:Name="SelectPolygon" 
 								 Content="Select using polygon" 
 								 Checked="SelectPolygon_Checked"

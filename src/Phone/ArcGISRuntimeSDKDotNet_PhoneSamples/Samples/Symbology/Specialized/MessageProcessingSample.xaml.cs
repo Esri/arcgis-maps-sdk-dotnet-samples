@@ -4,6 +4,7 @@ using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology.Specialized;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -32,37 +33,36 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.Specialized
 		// The list of selected Messages to clear.
 		private List<MilitaryMessage> selectedMessages = new List<MilitaryMessage>();
 
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		private bool _isSelectionEnabled;
+		public bool IsSelectionEnabled
+		{
+			get { return _isSelectionEnabled; }
+			set
+			{
+				_isSelectionEnabled = value;
+				if (PropertyChanged != null)
+					PropertyChanged(this, new PropertyChangedEventArgs("IsSelectionEnabled"));
+			}
+		}
+
 		public MessageProcessingSample()
 		{
 			InitializeComponent();
+			DataContext = this;
 
-			MyMapView.ExtentChanged += MyMapView_ExtentChanged;
-		}
-
-		// Load data - enable functionality after layers are loaded.
-		private async void MyMapView_ExtentChanged(object sender, EventArgs e)
-		{
-			try
-			{
-				MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
-
-				// Wait until all layers are loaded
-				var layers = await MyMapView.LayersLoadedAsync();
-
-				_messageLayer = MyMapView.Map.Layers.OfType<MessageLayer>().First();
-
-				ProcessMessages();
-			}
-			catch (Exception ex)
-			{
-				var _x = new MessageDialog(ex.Message, "Message Processing Sample").ShowAsync();
-			}
+			ProcessMessages();
 		}
 
 		private async void ProcessMessages()
 		{
 			try
 			{
+				await MyMapView.LayersLoadedAsync();
+
+				_messageLayer = MyMapView.Map.Layers.OfType<MessageLayer>().First();
+
 				// This function simulates real time message processing by processing a static set of messages from an XML document.
 				/* 
 				* |== Example Message ==|
@@ -72,7 +72,7 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.Specialized
 				*      <_action>update</_action>
 				*      <_id>16986029-8295-48d1-aa6a-478f400a53c0</_id>
 				*      <_wkid>3857</_wkid>
-				*      <sic>GFGPOLKGS-----X</sic>
+				*      <sic>GFGPOLKGS-----X</sic>n
 				*      <_control_points>-226906.99878,6679149.88998;-228500.51759,6677576.8009;-232194.67644,6675625.78198</_control_points>
 				*      <uniquedesignation>DIRECTION OF ATTACK</uniquedesignation>
 				* </message>
@@ -100,6 +100,8 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.Specialized
 						}
 					}
 				}
+
+				EnableSelection.IsEnabled = true;
 
 				/*
 				* Alternatively you can programmatically construct the message and set the attributes.
@@ -170,42 +172,82 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.Specialized
 				}
 			}
 		}
-
-		private async void SelectPoint_Checked(object sender, RoutedEventArgs e)
+		// Select messages
+		private async Task SelectMessagesAsync()
 		{
-			while (SelectPoint.IsChecked == true)
+			try
 			{
-				try
+				while (IsSelectionEnabled)
 				{
-					await FindIntersectingGraphicsAsync(DrawShape.Point);
+					// if the map is not in a valid state - quit and turn drawing mode off
+					if (MyMapView.Extent == null)
+					{
+						IsSelectionEnabled = false;
+						break;
+					}
+
+					if (SelectPoint.IsChecked == true)
+					{
+						await FindIntersectingGraphicsAsync(DrawShape.Point);
+					}
+					else if (SelectPolygon.IsChecked == true)
+					{
+						await FindIntersectingGraphicsAsync(DrawShape.Envelope);
+					}
 				}
-				catch (TaskCanceledException ex)
-				{
-					// Do nothing if it's a TaskCanceledException
-				}
-				catch (Exception ex)
-				{
-					var _x = new MessageDialog("Selection Error: " + ex.Message, "Message Processing Sample");
-				}
+			}
+			catch (TaskCanceledException)
+			{
+				// Ignore TaskCanceledException
+			}
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog(ex.Message, "Message Processing Sample").ShowAsync();
 			}
 		}
 
+		private async void SelectPoint_Checked(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				// Cancel the current drawing and initiate new selection if enabled.
+				if (MyMapView.Editor.IsActive)
+					MyMapView.Editor.Cancel.Execute(null);
+
+
+				if (IsSelectionEnabled)
+					await SelectMessagesAsync();
+			}
+			catch (TaskCanceledException)
+			{
+				// Ignore TaskCanceledException
+			}
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog("Selection Error: " + ex.Message, "Message Processing Sample");
+			}
+		}
+
+
 		private async void SelectPolygon_Checked(object sender, RoutedEventArgs e)
 		{
-			while (SelectPolygon.IsChecked == true)
+			try
 			{
-				try
-				{
-					await FindIntersectingGraphicsAsync(DrawShape.Envelope);
-				}
-				catch (TaskCanceledException ex)
-				{
-					// Do nothing if it's a TaskCanceledException
-				}
-				catch (Exception ex)
-				{
-					var _x = new MessageDialog("Selection Error: " + ex.Message, "Message Processing Sample");
-				}
+				// Cancel the current drawing and initiate new selection if enabled.
+				if (MyMapView.Editor.IsActive)
+					MyMapView.Editor.Cancel.Execute(null);
+
+
+				if (IsSelectionEnabled)
+					await SelectMessagesAsync();
+			}
+			catch (TaskCanceledException)
+			{
+				// Ignore TaskCanceledException
+			}
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog("Selection Error: " + ex.Message, "Message Processing Sample");
 			}
 		}
 
@@ -224,6 +266,27 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Symbology.Specialized
 
 				var _x = new MessageDialog("Selection Error: " + ex.Message, "Message Processing Sample");
 			}
+
+		}
+
+		private async void EnableSelection_Checked(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				await SelectMessagesAsync();
+			}
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog("Selection Error: " + ex.Message, "Message Processing Sample");
+			}
+		}
+
+		private void EnableSelection_Unchecked(object sender, RoutedEventArgs e)
+		{
+
+			// Cancel the current drawing and initiate new selection if enabled.
+			if (MyMapView.Editor.IsActive)
+				MyMapView.Editor.Cancel.Execute(null);
 
 		}
 	}

@@ -114,5 +114,10 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 				var _x = new MessageDialog("Error generalizing line: " + ex.Message, "Sample Error").ShowAsync();
 			}
 		}
+
+		private void ClearButton_Click(object sender, RoutedEventArgs e)
+		{
+			generalizedGraphicsLayer.Graphics.Clear();
+		}
 	}
 }

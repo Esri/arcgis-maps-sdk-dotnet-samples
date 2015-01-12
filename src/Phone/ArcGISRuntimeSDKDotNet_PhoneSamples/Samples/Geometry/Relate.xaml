@@ -7,7 +7,6 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:esri="using:Esri.ArcGISRuntime.Controls"
 	xmlns:layers="using:Esri.ArcGISRuntime.Layers"
-	xmlns:data="using:Esri.ArcGISRuntime.Data"
 	xmlns:symb="using:Esri.ArcGISRuntime.Symbology"
 	mc:Ignorable="d"
 	Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -56,16 +55,6 @@
 					</AppBarButton.Flyout>
 				</AppBarButton>
 			</CommandBar.PrimaryCommands>
-			<CommandBar.SecondaryCommands>
-				<AppBarButton Label="Info">
-					<AppBarButton.Flyout>
-						<Flyout>
-							<TextBlock Text="Click Start Drawing to add two shapes to the map. Then test the relationship of Shape #1 to Shape #2 by clicking Test Relationship." 
-						   Margin="10,0,10,0" FontSize="14" TextWrapping="Wrap" />
-						</Flyout>
-					</AppBarButton.Flyout>
-				</AppBarButton>
-			</CommandBar.SecondaryCommands>
 		</CommandBar>
 	</Page.BottomAppBar>
 	<Grid x:Name="LayoutRoot" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
@@ -90,7 +79,8 @@
 
 		<Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
 			<StackPanel>
-
+				<TextBlock Text="Click Options to specify the shape types and relationship. Then click Start Drawing to draw shapes on the map. Click Test Relationship to test."
+						   FontSize="14" TextWrapping="WrapWholeWords" Margin="5"/>
 				<Button x:Name="btnDraw"  Content="Start Drawing" Margin="20,5" HorizontalAlignment="Stretch"
 						IsEnabled="False" Click="StartDrawingButton_Click"/>
 

@@ -70,6 +70,9 @@
     <Compile Include="Samples\DynamicServiceLayers\ArcGISDynamicMapServiceLayerSample.xaml.cs">
       <DependentUpon>ArcGISDynamicMapServiceLayerSample.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\DynamicServiceLayers\DynamicLayersInXAML.xaml.cs">
+      <DependentUpon>DynamicLayersInXAML.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\DynamicServiceLayers\ImageServiceRasterFunctions.xaml.cs">
       <DependentUpon>ImageServiceRasterFunctions.xaml</DependentUpon>
     </Compile>
@@ -88,8 +91,14 @@
     <Compile Include="Samples\DynamicServiceLayers\DynamicLayerReordering.xaml.cs">
       <DependentUpon>DynamicLayerReordering.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\DynamicServiceLayers\Stretch.xaml.cs">
+      <DependentUpon>Stretch.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\DynamicServiceLayers\WMSLayer.xaml.cs">
       <DependentUpon>WMSLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Editing\DrawAndEditGraphics.xaml.cs">
+      <DependentUpon>DrawAndEditGraphics.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Editing\OwnershipBasedEditing.xaml.cs">
       <DependentUpon>OwnershipBasedEditing.xaml</DependentUpon>
@@ -346,6 +355,9 @@
     <Compile Include="Samples\Offline\SyncGeodatabase.xaml.cs">
       <DependentUpon>SyncGeodatabase.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\QueryTasks\QueryOnly.xaml.cs">
+      <DependentUpon>QueryOnly.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Security\OAuthAuthorizeHandler.cs" />
     <Compile Include="Samples\OnlineServices\PortalSecurity.cs" />
     <Compile Include="Samples\OnlineServices\Traffic.xaml.cs">
@@ -491,6 +503,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\DynamicServiceLayers\DynamicLayersInXAML.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Samples\DynamicServiceLayers\ImageServiceRasterFunctions.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -515,9 +531,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\DynamicServiceLayers\Stretch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Samples\DynamicServiceLayers\WMSLayer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\DrawAndEditGraphics.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\Editing\OwnershipBasedEditing.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -910,6 +934,10 @@
     <Page Include="Samples\QueryTasks\IdentifySample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\QueryTasks\QueryOnly.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\QueryTasks\QueryRelatedTables.xaml">
       <Generator>MSBuild:Compile</Generator>

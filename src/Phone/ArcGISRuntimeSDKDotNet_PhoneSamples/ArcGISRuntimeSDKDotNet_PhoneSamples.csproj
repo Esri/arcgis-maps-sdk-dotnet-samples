@@ -105,9 +105,6 @@
     <Compile Include="Samples\DynamicServiceLayers\ImageServiceRasterFunctions.xaml.cs">
       <DependentUpon>ImageServiceRasterFunctions.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\DynamicServiceLayers\ShadedReliefSlope.xaml.cs">
-      <DependentUpon>ShadedReliefSlope.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Samples\DynamicServiceLayers\Stretch.xaml.cs">
       <DependentUpon>Stretch.xaml</DependentUpon>
     </Compile>
@@ -137,6 +134,9 @@
     </Compile>
     <Compile Include="Samples\Editing\DynamicLayerEditAttribute.xaml.cs">
       <DependentUpon>DynamicLayerEditAttribute.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\FeatureLayers\FeatureLayerFromShapefile.xaml.cs">
+      <DependentUpon>FeatureLayerFromShapefile.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\FeatureLayers\FeatureLayerHitTesting.xaml.cs">
       <DependentUpon>FeatureLayerHitTesting.xaml</DependentUpon>
@@ -542,10 +542,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\DynamicServiceLayers\ShadedReliefSlope.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Samples\DynamicServiceLayers\Stretch.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -583,6 +579,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Editing\DynamicLayerEditAttribute.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\FeatureLayers\FeatureLayerFromShapefile.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

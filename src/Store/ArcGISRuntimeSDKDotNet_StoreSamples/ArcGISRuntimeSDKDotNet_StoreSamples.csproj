@@ -117,6 +117,12 @@
     <Compile Include="Samples\DynamicServiceLayers\DynamicLayerRendering.xaml.cs">
       <DependentUpon>DynamicLayerRendering.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\DynamicServiceLayers\DynamicLayersInXAML.xaml.cs">
+      <DependentUpon>DynamicLayersInXAML.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\DynamicServiceLayers\Stretch.xaml.cs">
+      <DependentUpon>Stretch.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Editing\ExplicitSave.xaml.cs">
       <DependentUpon>ExplicitSave.xaml</DependentUpon>
     </Compile>
@@ -560,6 +566,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\DynamicServiceLayers\DynamicLayerRendering.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\DynamicServiceLayers\DynamicLayersInXAML.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\DynamicServiceLayers\Stretch.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

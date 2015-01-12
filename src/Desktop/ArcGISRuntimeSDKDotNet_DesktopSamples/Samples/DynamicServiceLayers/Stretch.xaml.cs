@@ -3,27 +3,30 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using System;
 using System.Collections.Generic;
-using Windows.UI.Popups;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+using System.Diagnostics;
+using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
 
-namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 {
 	/// <summary>
 	/// This sample demonstrates the Stretch raster function. 
 	/// </summary>
 	/// <title>Stretch</title>
-	/// <category>Dynamic Service Layers</category>
-	public sealed partial class Stretch : Page
+	/// <category>Layers</category>
+	/// <subcategory>Dynamic Service Layers</subcategory>
+	public partial class Stretch : UserControl
 	{
 		public Stretch()
 		{
-			this.InitializeComponent();
-			MyMapView.Map.InitialViewpoint =
+			InitializeComponent();
+			MyMapView.Map.InitialViewpoint = 
 				new Viewpoint(new Envelope(-8844874, 5401062, -8828990, 5420947, SpatialReference.Create(3857)));
+
 		}
 
-		private void ApplyButton_Click(object sender, RoutedEventArgs e)
+		private void ApplyButton_Click(object sender, System.Windows.RoutedEventArgs e)
 		{
 			try
 			{
@@ -82,7 +85,7 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 			}
 			catch (Exception ex)
 			{
-				var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+				MessageBox.Show(ex.Message, "Sample Error");
 			}
 		}
 	}

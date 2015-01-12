@@ -7,10 +7,10 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
 	/// <summary>
-	/// This sample demonstrates the Stretch raster function. 
+	/// This sample demonstrates the Stretch raster function.
 	/// </summary>
 	/// <title>Stretch</title>
 	/// <category>Dynamic Service Layers</category>

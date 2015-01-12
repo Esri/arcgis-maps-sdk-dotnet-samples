@@ -1,12 +1,12 @@
 ﻿<Page
-	x:Class="ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.Stretch"
+	x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Stretch"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  
 	xmlns:esri="using:Esri.ArcGISRuntime.Controls"  
 	xmlns:layers="using:Esri.ArcGISRuntime.Layers">
 
 	<Page.BottomAppBar>
-		<CommandBar IsSticky="True">
+		<CommandBar IsSticky="True" IsOpen="True">
 			<AppBarButton Icon="Setting" Label="Options">
 				<AppBarButton.Flyout>
 					<Flyout>

@@ -23,9 +23,13 @@
 			<symb:SimpleMarkerSymbol x:Key="MyDensifyVertexMarkerSymbol" 
 									 Size="8" Color="Yellow" />
 		</Grid.Resources>
-		
+
 		<esri:MapView x:Name="MyMapView">
 			<esri:Map>
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-14675766.357" YMin="2695407.734" 
+                                          XMax="-6733121.861" YMax="6583994.101" SpatialReferenceID="3857"/>
+				</esri:Map.InitialViewpoint>
 				<layers:ArcGISTiledMapServiceLayer ID="StreetMapLayer" 
 												   ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 
@@ -43,13 +47,12 @@
 						<RowDefinition Height="auto"/>
 					</Grid.RowDefinitions>
 					<StackPanel Orientation="Vertical" >
+						<TextBlock x:Name="InstructionsTextBlock" FontSize="14"
+								   Text="Click Start and draw a polygon on the map. Click the Densify Polygon button to densify the polygon. Yellow points show all vertices (original and new) in the densified polygon." 
+								   Width="250" TextAlignment="Left" TextWrapping="Wrap" 
+								   HorizontalAlignment="Left" VerticalAlignment="Center"/>
 						<Button x:Name="StartButton" Content="Start" 
 								Click="StartButton_Click" Width="250"/>
-						<TextBlock x:Name="InstructionsTextBlock" FontSize="14"
-								   Text="Draw a polygon on the map. Red points indicate digitized polygon vertices. Click the Densify Polygon button to densify the polygon. Green points show all vertices (original and new) in the densified polygon." 
-								   Visibility="Collapsed" Width="250" 
-								   TextAlignment="Left" TextWrapping="Wrap" 
-								   HorizontalAlignment="Left" VerticalAlignment="Center"/>
 						<Button x:Name="DensifyPolygonsButton" 
 								Content="Densify Polygons" 
 								IsEnabled="False" 

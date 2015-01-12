@@ -39,7 +39,7 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 		{
 			SetupUI();
 
-			InstructionsTextBlock.Visibility = Windows.UI.Xaml.Visibility.Visible;
+			// InstructionsTextBlock.Visibility = Windows.UI.Xaml.Visibility.Visible;
 			StartButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
 
 			//Get the user's input
@@ -102,7 +102,6 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 
 		private void ResetUI()
 		{
-			InstructionsTextBlock.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
 			DensifyPolygonsButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
 			DensifyPolygonsButton.IsEnabled = false;
 			StartButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
@@ -114,7 +113,6 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 			graphicsLayerVertices.Graphics.Clear();
 			graphicsLayerPolygon.Graphics.Clear();
 
-			InstructionsTextBlock.Visibility = Windows.UI.Xaml.Visibility.Visible;
 			DensifyPolygonsButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
 			DensifyPolygonsButton.IsEnabled = false;
 		}

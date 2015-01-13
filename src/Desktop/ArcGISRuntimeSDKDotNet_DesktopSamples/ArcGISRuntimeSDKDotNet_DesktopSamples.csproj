@@ -100,6 +100,9 @@
     <Compile Include="Samples\Editing\DrawAndEditGraphics.xaml.cs">
       <DependentUpon>DrawAndEditGraphics.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Editing\EditRelatedData.xaml.cs">
+      <DependentUpon>EditRelatedData.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Editing\OwnershipBasedEditing.xaml.cs">
       <DependentUpon>OwnershipBasedEditing.xaml</DependentUpon>
     </Compile>
@@ -542,6 +545,10 @@
     <Page Include="Samples\Editing\DrawAndEditGraphics.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Editing\EditRelatedData.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Editing\OwnershipBasedEditing.xaml">
       <Generator>MSBuild:Compile</Generator>

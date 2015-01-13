@@ -57,7 +57,7 @@
                               Label="Related Records">
                     <AppBarButton.Flyout>
                         <Flyout>
-                            <StackPanel>
+                            <StackPanel Margin="20" Height="275">
                                 <ComboBox x:Name="RelatedRecords"
                                           SelectionChanged="RelatedRecords_SelectionChanged"
                                           Margin="2">
@@ -120,7 +120,7 @@
                               Label="Info">
                     <AppBarButton.Flyout>
                         <Flyout>
-                            <TextBlock Text="Tao on a feature to select. 'Add' new related record or update/delete any of its existing records."
+                            <TextBlock Text="Tap on a feature to select. 'Add' new related record or update/delete any of its existing records."
                                        Width="200"
                                        TextWrapping="Wrap" />
                         </Flyout>

@@ -50,6 +50,18 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 					else
 						_isSdkInstalled = true;
 				}
+
+				if (!_isSdkInstalled) // Check 32bit registry
+				{
+					using (RegistryKey Key =
+						Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\.NETFramework\v4.5.50709\AssemblyFoldersEx\ArcGIS Runtime SDK " + GetRuntimeVersionNumber()))
+					{
+						if (Key != null)
+						{
+							_isSdkInstalled = true;
+						}
+					}
+				}
 			}
 			catch (Exception)
 			{
@@ -68,7 +80,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 				if (checkSymbolsFolder)
 				{
 					// deployment folder is found, check that symbols are deployed
-					if (Directory.Exists("arcgisruntime" + GetRuntimeVersionNumber() + "\\symbols"))
+					if (Directory.Exists("arcgisruntime" + GetRuntimeVersionNumber() + "\\resources\\symbols"))
 						return true; // found
 					else
 						return false; // not found

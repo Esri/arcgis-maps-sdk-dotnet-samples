@@ -4,6 +4,7 @@ using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -98,6 +99,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 				}
 
 			}
+			catch (TaskCanceledException tce)
+			{
+				// Ignore TaskCanceledException
+			}
 			catch (Exception ex)
 			{
 
@@ -114,6 +119,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 
 		private async void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
 		{
+			if (MyMapView.Editor.IsActive)
+				return;
+
 			var drawShape = (DrawShape)DrawShapes.SelectedItem;
 			GraphicsOverlay graphicsOverlay;
 			graphicsOverlay = drawShape == DrawShape.Point ? MyMapView.GraphicsOverlays["PointGraphicsOverlay"] as GraphicsOverlay :

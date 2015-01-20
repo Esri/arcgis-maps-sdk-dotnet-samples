@@ -2,6 +2,7 @@
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System;
+using System.Threading.Tasks;
 using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -22,8 +23,8 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 		{
 			this.InitializeComponent();
 			DrawShapes.ItemsSource = new DrawShape[]
-            {
-                DrawShape.Freehand,
+			{
+				DrawShape.Freehand,
 				DrawShape.Point,
 				DrawShape.Polygon,
 				DrawShape.Polyline,
@@ -32,7 +33,7 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 				DrawShape.Ellipse,
 				DrawShape.LineSegment,
 				DrawShape.Rectangle
-            };
+			};
 			DrawShapes.SelectedIndex = 0;
 		}
 
@@ -95,6 +96,10 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 						}
 				}
 			}
+			catch (TaskCanceledException tce)
+			{
+				// Ignore TaskCanceledException
+			}
 			catch (Exception ex)
 			{
 				message = ex.Message;
@@ -110,6 +115,9 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 
 		private async void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
 		{
+			if (MyMapView.Editor.IsActive)
+				return;
+
 			var drawShape = (DrawShape)DrawShapes.SelectedItem;
 			GraphicsOverlay graphicsOverlay;
 			graphicsOverlay = drawShape == DrawShape.Point ? MyMapView.GraphicsOverlays["PointGraphicsOverlay"] as GraphicsOverlay :
@@ -135,6 +143,6 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 				_editGraphic.IsSelected = true;
 				EditButton.IsEnabled = true;
 			}
-		}	
-    }
+		}
+	}
 }

@@ -18,7 +18,8 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples
 	{
 		private SampleDataViewModel _sampleDataVM;
 		private bool _hasDeployment;
-
+    private static Sample lastSample;
+   
 		public MainPage()
 		{
 			// Define symbology path to Resources folder. This folder is included in the solution as a Content
@@ -31,6 +32,7 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples
 			SampleDataPanel.DataContext = _sampleDataVM;
 
 			DataContext = SampleDataSource.Current;
+      
 			CheckDeployment();
 		}
 
@@ -87,6 +89,7 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples
 		private async void ListView_ItemClick(object sender, ItemClickEventArgs e)
 		{
 			var item = (Sample)e.ClickedItem;
+      lastSample = item;
 
 			// Check if sample needs symbols and if deployment is available with symbols
 			if (item.RequiresSymbols && !_hasDeployment)
@@ -281,6 +284,12 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples
 			/// </summary>
 			public bool RequiresLocalData { get; set; }
 		}
+
+    private void ListView_Loaded(object sender, RoutedEventArgs e)
+    {
+      if (lastSample!=null)
+        (sender as ListView).ScrollIntoView(lastSample, ScrollIntoViewAlignment.Leading);
+    }
 	}
 
 	// Converts a boolean to a SolidColorBrush (true = green, false = red)

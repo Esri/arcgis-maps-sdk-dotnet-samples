@@ -20,7 +20,7 @@
 	</Page.Resources>
 
 	<Grid>
-		<ListView ItemsSource="{Binding Source={StaticResource groupedItemsViewSource}}"
+        <ListView ItemsSource="{Binding Source={StaticResource groupedItemsViewSource}}" Loaded="ListView_Loaded"
 				  ItemClick="ListView_ItemClick" 
 				  SelectionMode="None" 
 				  IsSwipeEnabled="False" 

@@ -55,7 +55,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var normalizedPt = GeometryEngine.NormalizeCentralMeridian(point) as MapPoint;
 
                 // Convert from web mercator to WGS84
-                var projectedPoint = GeometryEngine.Project(point, SpatialReferences.Wgs84);
+                var projectedPoint = GeometryEngine.Project(normalizedPt, SpatialReferences.Wgs84);
 
                 gridXY.Visibility = gridLatLon.Visibility = Visibility.Visible;
                 gridXY.DataContext = point;

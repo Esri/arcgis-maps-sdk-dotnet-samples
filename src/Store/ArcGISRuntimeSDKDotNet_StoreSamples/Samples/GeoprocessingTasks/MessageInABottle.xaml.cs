@@ -37,7 +37,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
            {
                Progress.Visibility = Visibility.Visible;
 
-               _resultsOverlay.Graphics.Clear();
+               
                _inputOverlay.Graphics.Clear();
                _inputOverlay.Graphics.Add(new Graphic() { Geometry = e.Location });
 
@@ -51,6 +51,8 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                parameter.GPParameters.Add(new GPDouble("Days", Convert.ToDouble(DaysTextBox.Text)));
 
                var result = await geoprocessorTask.ExecuteAsync(parameter);
+
+               _resultsOverlay.Graphics.Clear();
 
                foreach (GPParameter gpParameter in result.OutParameters)
                {

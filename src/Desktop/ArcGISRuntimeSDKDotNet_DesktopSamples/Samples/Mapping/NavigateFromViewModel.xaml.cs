@@ -169,19 +169,20 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 				var controller = (e.NewValue as MapViewController);
 				controller.m_map = new WeakReference<MapView>(d as MapView);
 
-				var loadedListener = new WeakEventListener<MapView, object, PropertyChangedEventArgs>(d as MapView);
-				loadedListener.OnEventAction =
+				var inpcListener = new WeakEventListener<MapView, object, PropertyChangedEventArgs>(d as MapView);
+				inpcListener.OnEventAction =
 					(instance, source, eventArgs) => controller.MapViewController_PropertyChanged(source, eventArgs);
 
-				// the instance passed to the action is referenced (i.e. instance.Loaded) so the lambda expression is 
+				// the instance passed to the action is referenced (i.e. instance.ProeprtyChanged) so the lambda expression is 
 				// compiled as a static method.  Otherwise it targets the mapView instance and holds it in memory.
-				loadedListener.OnDetachAction = (instance, listener) =>
+				// This allows the MapView to get disposed even though this controller is still alive.
+				inpcListener.OnDetachAction = (instance, listener) =>
 				{
 					if (instance != null)
 						instance.PropertyChanged -= listener.OnEvent;
 				};
-				(d as MapView).PropertyChanged += loadedListener.OnEvent;
-				loadedListener = null;
+				(d as MapView).PropertyChanged += inpcListener.OnEvent;
+				inpcListener = null;
 				if (controller.m_SetViewCommand != null)
 					controller.m_SetViewCommand.OnCanExecuteChanged();
 			}

@@ -92,8 +92,6 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 							resultGeometry = r ?? resultGeometry;
 							_editGraphic.Geometry = resultGeometry;
 							_editGraphic.IsSelected = false;
-							_editGraphic.IsVisible = true;
-							_editGraphic = null;
 							break;
 						}
 				}
@@ -106,11 +104,14 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 			catch (Exception ex)
 			{
 
-				message = ex.Message;
+				message = ex.Message;				
+			}
+			finally
+			{
 				if (_editGraphic != null)
 				{
-					_editGraphic.Geometry = resultGeometry;
 					_editGraphic.IsVisible = true;
+					_editGraphic = null;
 				}
 			}
 			if (message != null)

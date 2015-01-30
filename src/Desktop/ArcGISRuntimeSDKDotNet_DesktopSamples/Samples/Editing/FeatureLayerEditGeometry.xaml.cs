@@ -7,6 +7,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -100,6 +101,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
                     }
                 }
             }
+			catch (TaskCanceledException)
+			{
+				// Ignore TaskCanceledException - usually happens if the editor gets cancelled or restarted
+			}
             catch (Exception ex)
             {
                 message = ex.Message;

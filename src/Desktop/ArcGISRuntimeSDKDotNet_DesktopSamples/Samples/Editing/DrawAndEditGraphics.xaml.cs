@@ -97,9 +97,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 				}
 
 			}
-			catch (TaskCanceledException tce)
+			catch (TaskCanceledException)
 			{
-				// Ignore TaskCanceledException
+				// Ignore TaskCanceledException - usually happens if the editor gets cancelled or restarted
 			}
 			catch (Exception ex)
 			{

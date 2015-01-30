@@ -304,6 +304,9 @@
     <Compile Include="Samples\Mapping\LayerList.xaml.cs">
       <DependentUpon>LayerList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Mapping\NavigateFromViewModel.xaml.cs">
+      <DependentUpon>NavigateFromViewModel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Mapping\SetInitialCenterAndScale.xaml.cs">
       <DependentUpon>SetInitialCenterAndScale.xaml</DependentUpon>
     </Compile>
@@ -818,6 +821,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Mapping\LayerList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Mapping\NavigateFromViewModel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

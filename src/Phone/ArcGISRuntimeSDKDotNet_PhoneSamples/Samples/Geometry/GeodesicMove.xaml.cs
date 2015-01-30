@@ -61,7 +61,9 @@ namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 				_originalOverlay.Graphics.Clear();
 
 				var polygon = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon, _origSymbol);
-
+        
+        //to accomodate for wraparound, otherwise movedpoints returned from geodesicmove are NaN
+        polygon = GeometryEngine.NormalizeCentralMeridian(polygon);
 				_originalOverlay.Graphics.Add(new Graphic(polygon));
 			}
 			catch (TaskCanceledException) { }

@@ -24,7 +24,7 @@
 						<Flyout>
 							<StackPanel Margin="10,5">
 								<TextBox x:Name="txtWebmapId" Header="Enter the ID of the webmap to load:" MinWidth="350"
-										 Text="df8bcc10430f48878b01c96e907a1fc3" />
+										 Text="d94dcdbe78e141c2b2d3a91d5ca8b9c9" />
 								<Button Content="Load Webmap" HorizontalAlignment="Center" Margin="0,6,0,0"
 										Click="LoadByIdButton_Click" />
 							</StackPanel>

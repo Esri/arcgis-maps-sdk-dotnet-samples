@@ -35,7 +35,7 @@
 								 Margin="10,0,0,0" 
 								 Visibility="{Binding ElementName=EnableSelection, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     <RadioButton x:Name="SelectPolygon" 
-                                 Content="Select using polygon" 
+                                 Content="Select using envelope" 
                                  Margin="10,5,0,0"
 								 Checked="SelectPolygon_Checked"
                                  Visibility="{Binding ElementName=EnableSelection, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}"/>

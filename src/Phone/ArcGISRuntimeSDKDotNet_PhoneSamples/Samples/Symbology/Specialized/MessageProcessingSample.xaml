@@ -55,7 +55,7 @@
 										 IsChecked="True"
 									 Checked="SelectPoint_Checked"/>
 							<RadioButton x:Name="SelectPolygon" 
-								 Content="Polygon" 
+								 Content="Envelope" 
 								 Checked="SelectPolygon_Checked"/>
 						</StackPanel>
 					</StackPanel>

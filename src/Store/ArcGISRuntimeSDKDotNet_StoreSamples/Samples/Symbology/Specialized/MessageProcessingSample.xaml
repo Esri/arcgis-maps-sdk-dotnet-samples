@@ -8,9 +8,6 @@
 	xmlns:special="using:Esri.ArcGISRuntime.Symbology.Specialized">
 
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-		<Grid.Resources>
-			<common:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-		</Grid.Resources>
 		<esri:MapView x:Name="MyMapView">
 			<esri:Map>
 				<esri:Map.InitialViewpoint>
@@ -22,32 +19,32 @@
 			</esri:Map>
 		</esri:MapView>
 
-		<Border Background="Black" BorderBrush="Black" BorderThickness="2" Margin="30"
-				HorizontalAlignment="Right" VerticalAlignment="Top" Width="260">
-			<StackPanel Margin="10">
-				<TextBlock Text="This sample demonstrates reading simulated messages from an XML file and displaying military symbols on the map using Mil2525C Symbols."
-						   FontSize="14" TextAlignment="Left" TextWrapping="Wrap" Margin="10" />
-
-				<StackPanel>
-					<CheckBox x:Name="EnableSelection" 
-							  Content="Enable message selection"
-							  IsEnabled="False"
-							  Margin="10" 
-							  IsChecked="{Binding IsSelectionEnabled, Mode=TwoWay}" 
-							  Checked="EnableSelection_Checked" Unchecked="EnableSelection_Unchecked"/>
-					<RadioButton x:Name="SelectPoint" 
-								 Content="Select using point" 
-								 IsChecked="True"
-								 Checked="SelectPoint_Checked" 
-								 Margin="10,0,0,0" 
-								 Visibility="{Binding ElementName=EnableSelection, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-					<RadioButton x:Name="SelectPolygon" 
-								 Content="Select using envelope" 
-								 Checked="SelectPolygon_Checked"
-								 Margin="10,5,0,0"
-								 Visibility="{Binding ElementName=EnableSelection, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-				</StackPanel>
-				<Button Content="Clear Selection" Click="ClearSelectButton_Click" Margin="28,12"/>
+		<Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
+			<StackPanel>
+				<TextBlock Text="Click on the button below to run the message processor. It will read simulated messages from an XML file and display military symbols on the map  using Mil2525C Symbols."
+						   FontSize="14"  Width="300" TextWrapping="Wrap" />
+				<Button x:Name="processMessagesBtn" 
+						IsEnabled="False"
+						Content="Process messages" 
+						Click="ProcessMessagesButton_Click"
+						Margin="0,12,0,0"
+						HorizontalAlignment="Center" 
+						Width="200"/>
+				<Button Content="Select Messages" 
+						Click="AddSelectButton_Click" 
+						Margin="12,12,12,0"
+						HorizontalAlignment="Center" 
+						Width="200"/>
+				<Button Content="Select Multiple Messages" 
+						Click="MultipleSelectButton_Click" 
+						Margin="12,12,12,0"
+						HorizontalAlignment="Center"
+						Width="200"/>
+				<Button Content="Clear Selection" 
+						Click="ClearSelectButton_Click" 
+						Margin="12,12,12,0"
+						HorizontalAlignment="Center" 
+						Width="200"/>
 			</StackPanel>
 		</Border>
 	</Grid>

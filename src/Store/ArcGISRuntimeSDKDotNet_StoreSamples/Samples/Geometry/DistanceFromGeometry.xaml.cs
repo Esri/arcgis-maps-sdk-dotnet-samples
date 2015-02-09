@@ -9,7 +9,7 @@ using Windows.UI.Xaml;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
-    /// Demonstrates using the GeometryEngine.DistanceFromGeometry method to calcualte the linear distance of the shortest length between two geometries.
+    /// Demonstrates using the GeometryEngine.DistanceFromGeometry method to calculate the linear distance of the shortest length between two geometries.
     /// </summary>
     /// <title>Distance From Geometry</title>
     /// <category>Geometry</category>
@@ -47,7 +47,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var point = await MyMapView.Editor.RequestPointAsync();
                 _graphicsOverlay.Graphics.Add(new Graphic(point, _pointSymbol));
 
-                // Calc distance between between line and point
+                // Calculate distance between line and point
                 double distance = GeometryEngine.Distance(line, point) * METERS_TO_MILES;
                 txtResults.Text = string.Format("Distance between geometries: {0:0.000} miles", distance);
                 txtResults.Visibility = Visibility.Visible;

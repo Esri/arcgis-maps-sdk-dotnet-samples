@@ -5,35 +5,37 @@ using Esri.ArcGISRuntime.Layers;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 {
 	/// <summary>
-	/// 
+	/// This sample demonstrates displaying an overview map to indicate the extent of the parent map.
 	/// </summary>
-    /// <category>Mapping</category>
+	/// <title>Overview Map</title>
+	/// <category>Mapping</category>
 	public sealed partial class OverviewMap : Page
-    {
-        public OverviewMap()
-        {
-            this.InitializeComponent();
+	{
+		public OverviewMap()
+		{
+			this.InitializeComponent();
 
-			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-5, 20, 50, 65, SpatialReferences.Wgs84));
-            
-        }
+			MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-5, 20, 50, 65, SpatialReferences.Wgs84));
+			
+		}
 
-        private async void mapView1_ExtentChanged(object sender, System.EventArgs e)
-        {
-            var graphicslayer = overviewMap.Map.Layers.OfType<GraphicsLayer>().FirstOrDefault();
-            Graphic g = graphicslayer.Graphics.FirstOrDefault();
-            if (g == null) //first time
-            {
-                g = new Graphic();
-                graphicslayer.Graphics.Add(g);
-            }
-            g.Geometry = mapView1.Extent;
+		private async void MyMapView_ExtentChanged(object sender, System.EventArgs e)
+		{
+			var graphicslayer = overviewMap.Map.Layers.OfType<GraphicsLayer>().FirstOrDefault();
+			Graphic g = graphicslayer.Graphics.FirstOrDefault();
+			if (g == null) //first time
+			{
+				g = new Graphic();
+				graphicslayer.Graphics.Add(g);
+			}
+			g.Geometry = MyMapView.Extent;
 
-            // Adjust overview map scale
-            await overviewMap.SetViewAsync(mapView1.Extent.GetCenter(), mapView1.Scale * 15);
-        }
-    }
+			// Adjust overview map scale
+			await overviewMap.SetViewAsync(MyMapView.Extent.GetCenter(), MyMapView.Scale * 15);
+
+		}
+	}
 }

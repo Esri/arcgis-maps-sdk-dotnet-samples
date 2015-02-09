@@ -16,10 +16,8 @@ using Esri.ArcGISRuntime.Http;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System.Runtime.CompilerServices;
 using Windows.UI.Xaml.Data;
-using System.Globalization;
 using Windows.Storage;
 using System.Collections.ObjectModel;
-using Windows.UI.Xaml.Controls;
 using Windows.Foundation;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
@@ -247,7 +245,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
         }
 
-        // Sychronizes local data with the online service
+        // Synchronizes local data with the online service
         private async void SyncButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -289,7 +287,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
         }
 
-        // Unregister local geoddatase from the online service
+        // Unregister local geodatabase from the online service
         private async void UnregisterButton_Click(object sender, RoutedEventArgs e)
         {
             try

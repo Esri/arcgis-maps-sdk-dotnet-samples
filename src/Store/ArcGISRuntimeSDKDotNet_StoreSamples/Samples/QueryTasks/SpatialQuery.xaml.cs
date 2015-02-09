@@ -46,28 +46,37 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             try
             {
 				var graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
-                graphicsOverlay.Graphics.Add(new Graphic() { Geometry = e.Location });
+				if (!(graphicsOverlay.Graphics.Count == 0))
+					graphicsOverlay.Graphics.Clear();
+
+				graphicsOverlay.Graphics.Add(new Graphic() { Geometry = e.Location });
 
 				var bufferOverlay = MyMapView.GraphicsOverlays["bufferOverlay"];
-                var bufferResult = GeometryEngine.Buffer(e.Location, 100);
-                bufferOverlay.Graphics.Add(new Graphic() { Geometry = bufferResult });
+				if (!(bufferOverlay.Graphics.Count == 0))
+					bufferOverlay.Graphics.Clear();
 
-                var queryTask = new QueryTask(
-                    new Uri("http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/BloomfieldHillsMichigan/Parcels/MapServer/2"));
-                var query = new Query("1=1")
-                {
-                    ReturnGeometry = true,
-                    OutSpatialReference = MyMapView.SpatialReference,
-                    Geometry = bufferResult
-                };
-                query.OutFields.Add("OWNERNME1");
+				var bufferResult = GeometryEngine.Buffer(e.Location, 100);
+				bufferOverlay.Graphics.Add(new Graphic() { Geometry = bufferResult });
 
-                var queryResult = await queryTask.ExecuteAsync(query);
-                if (queryResult != null && queryResult.FeatureSet != null)
-                {
+				var queryTask = new QueryTask(
+					new Uri("http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/BloomfieldHillsMichigan/Parcels/MapServer/2"));
+				var query = new Query("1=1")
+				{
+					ReturnGeometry = true,
+					OutSpatialReference = MyMapView.SpatialReference,
+					Geometry = bufferResult
+				};
+				query.OutFields.Add("OWNERNME1");
+
+				var queryResult = await queryTask.ExecuteAsync(query);
+				if (queryResult != null && queryResult.FeatureSet != null)
+				{
 					var resultOverlay = MyMapView.GraphicsOverlays["parcelOverlay"];
-                    resultOverlay.Graphics.AddRange(queryResult.FeatureSet.Features.OfType<Graphic>());
-                }
+					if (!(resultOverlay.Graphics.Count == 0))
+						resultOverlay.Graphics.Clear();
+
+					resultOverlay.Graphics.AddRange(queryResult.FeatureSet.Features.OfType<Graphic>());
+				}
             }
             catch (Exception ex)
             {

@@ -13,6 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <NuGetPackageImportStamp>b7e07af6</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -38,9 +39,6 @@
     <DocumentationFile>Assets\SampleDescriptions.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Esri.ArcGISRuntime, Version=10.2.4.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
@@ -72,6 +70,9 @@
     <Compile Include="Samples\DynamicServiceLayers\ArcGISDynamicMapServiceLayerSample.xaml.cs">
       <DependentUpon>ArcGISDynamicMapServiceLayerSample.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\DynamicServiceLayers\DynamicLayersInXAML.xaml.cs">
+      <DependentUpon>DynamicLayersInXAML.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\DynamicServiceLayers\ImageServiceRasterFunctions.xaml.cs">
       <DependentUpon>ImageServiceRasterFunctions.xaml</DependentUpon>
     </Compile>
@@ -90,8 +91,23 @@
     <Compile Include="Samples\DynamicServiceLayers\DynamicLayerReordering.xaml.cs">
       <DependentUpon>DynamicLayerReordering.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\DynamicServiceLayers\Stretch.xaml.cs">
+      <DependentUpon>Stretch.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\DynamicServiceLayers\WMSLayer.xaml.cs">
       <DependentUpon>WMSLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Editing\DrawAndEditGraphics.xaml.cs">
+      <DependentUpon>DrawAndEditGraphics.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Editing\EditRelatedData.xaml.cs">
+      <DependentUpon>EditRelatedData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Editing\ExplicitSave.xaml.cs">
+      <DependentUpon>ExplicitSave.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Editing\OwnershipBasedEditing.xaml.cs">
+      <DependentUpon>OwnershipBasedEditing.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Editing\EditAttachment.xaml.cs">
       <DependentUpon>EditAttachment.xaml</DependentUpon>
@@ -288,6 +304,9 @@
     <Compile Include="Samples\Mapping\LayerList.xaml.cs">
       <DependentUpon>LayerList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Mapping\NavigateFromViewModel.xaml.cs">
+      <DependentUpon>NavigateFromViewModel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Mapping\SetInitialCenterAndScale.xaml.cs">
       <DependentUpon>SetInitialCenterAndScale.xaml</DependentUpon>
     </Compile>
@@ -344,6 +363,9 @@
     </Compile>
     <Compile Include="Samples\Offline\SyncGeodatabase.xaml.cs">
       <DependentUpon>SyncGeodatabase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\QueryTasks\QueryOnly.xaml.cs">
+      <DependentUpon>QueryOnly.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Security\OAuthAuthorizeHandler.cs" />
     <Compile Include="Samples\OnlineServices\PortalSecurity.cs" />
@@ -440,6 +462,9 @@
     <Compile Include="Samples\Symbology\SimpleRendererSample.xaml.cs">
       <DependentUpon>SimpleRendererSample.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Symbology\SymbolsAndLabels.xaml.cs">
+      <DependentUpon>SymbolsAndLabels.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Symbology\TextSymbols.xaml.cs">
       <DependentUpon>TextSymbols.xaml</DependentUpon>
     </Compile>
@@ -464,6 +489,9 @@
     <Compile Include="Samples\TiledLayers\WmtsLayerSample.xaml.cs">
       <DependentUpon>WmtsLayerSample.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SdkInstallNeeded.xaml.cs">
+      <DependentUpon>SdkInstallNeeded.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -483,6 +511,10 @@
     <Page Include="Samples\DynamicServiceLayers\ArcGISDynamicMapServiceLayerSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\DynamicServiceLayers\DynamicLayersInXAML.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\DynamicServiceLayers\ImageServiceRasterFunctions.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -508,7 +540,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\DynamicServiceLayers\Stretch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Samples\DynamicServiceLayers\WMSLayer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\DrawAndEditGraphics.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Editing\EditRelatedData.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\ExplicitSave.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\OwnershipBasedEditing.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -772,6 +824,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Mapping\NavigateFromViewModel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Mapping\SetInitialCenterAndScale.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -900,6 +956,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\QueryTasks\QueryOnly.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Samples\QueryTasks\QueryRelatedTables.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -972,6 +1032,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Symbology\SymbolsAndLabels.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Symbology\TextSymbols.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1004,6 +1068,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="SdkInstallNeeded.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -1024,6 +1092,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -1047,6 +1116,13 @@
     <Resource Include="Assets\x-24x24.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.10.2.4.748\build\net45\Esri.ArcGISRuntime.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.10.2.4.748\build\net45\Esri.ArcGISRuntime.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.10.2.4.748\build\net45\Esri.ArcGISRuntime.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.10.2.4.748\build\net45\Esri.ArcGISRuntime.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -94,7 +94,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             }
             catch (TaskCanceledException)
             {
-                // Ignore cancelations from selecting new shape type
+                // Ignore cancellations from selecting new shape type
             }
             catch (Exception ex)
             {

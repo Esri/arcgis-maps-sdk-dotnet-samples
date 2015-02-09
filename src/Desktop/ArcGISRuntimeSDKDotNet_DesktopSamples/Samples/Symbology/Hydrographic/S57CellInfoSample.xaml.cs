@@ -18,6 +18,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 	/// <title>S57 Cell Information</title>
 	/// <category>Symbology</category>
 	/// <subcategory>Hydrographic</subcategory>
+	/// <requiresSymbols>true</requiresSymbols>
 	public partial class S57CellInfoSample : UserControl 
 	{
 		GroupLayer _hydrographicGroupLayer;
@@ -59,7 +60,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.Symbology.Hydrographic
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show("Error occured : " + ex.Message, "Sample error");
+				MessageBox.Show("Error occurred : " + ex.Message, "Sample error");
 			}
 		}
 

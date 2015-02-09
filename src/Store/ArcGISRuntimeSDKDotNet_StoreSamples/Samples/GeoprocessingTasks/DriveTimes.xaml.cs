@@ -53,7 +53,6 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 progress.Visibility = Visibility.Visible;
 
                 _inputOverlay.Graphics.Clear();
-                _resultsOverlay.Graphics.Clear();
 
                 _inputOverlay.Graphics.Add(new Graphic(e.Location));
 
@@ -64,6 +63,9 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 var result = await _gpTask.ExecuteAsync(parameter);
 
                 var features = result.OutParameters.OfType<GPFeatureRecordSetLayer>().First().FeatureSet.Features;
+
+                _resultsOverlay.Graphics.Clear();
+
                 _resultsOverlay.Graphics.AddRange(features.Select((fs, idx) => new Graphic(fs.Geometry, _bufferSymbols[idx])));
             }
             catch (Exception ex)

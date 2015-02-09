@@ -1,20 +1,18 @@
 ﻿using Windows.UI.Xaml.Controls;
 
 
-namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 {
-
 	/// <summary>
-	/// 
+	/// This sample demonstrates defining a CsvLayer in XAML and setting the serviceUri property to a .csv file hosted online by the United States Geological Survey (USGS).
 	/// </summary>
-    /// <category>Graphics Layers</category>
+	/// <title>CSV Layer</title>
+	/// <category>Graphics Layers</category>
 	public sealed partial class CsvLayerSimple : Page
     {
         public CsvLayerSimple()
         {
             this.InitializeComponent();
         }
-
-
     }
 }

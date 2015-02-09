@@ -12,98 +12,98 @@ using Windows.UI.Xaml;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
-    /// <summary>
-    /// Shows how to create a UniqueValueRenderer for a graphics layer.
-    /// US state polygons are pulled from an online source and rendered using the GraphicsLayer UniqueValueRenderer.
-    /// </summary>
-    /// <title>Unique Value Renderer</title>
+	/// <summary>
+	/// Shows how to create a UniqueValueRenderer for a graphics layer.
+	/// US state polygons are pulled from an online source and rendered using the GraphicsLayer UniqueValueRenderer.
+	/// </summary>
+	/// <title>Unique Value Renderer</title>
 	/// <category>Symbology</category>
 	public partial class UniqueValueRendererSample : Windows.UI.Xaml.Controls.Page
-    {
-        private Random _random = new Random();
-        private GraphicsOverlay _states;
+	{
+		private Random _random = new Random();
+		private GraphicsOverlay _states;
 
-        /// <summary>Construct Unique Value Renderer sample control</summary>
-        public UniqueValueRendererSample()
-        {
-            InitializeComponent();
+		/// <summary>Construct Unique Value Renderer sample control</summary>
+		public UniqueValueRendererSample()
+		{
+			InitializeComponent();
 
 			_states = MyMapView.GraphicsOverlays["states"];
-                
-            MyMapView.ExtentChanged += MyMapView_ExtentChanged;
-        }
 
-        // Load state data - set initial renderer
-        private async void MyMapView_ExtentChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
-                await LoadStatesAsync();
+			MyMapView.SpatialReferenceChanged += MyMapView_SpatialReferenceChanged;
+		}
 
-                ChangeRenderer();
-            }
-            catch (Exception ex)
-            {
-                var _x = new MessageDialog("Error loading states data: " + ex.Message, "Sample Error").ShowAsync();
-            }
-        }
+		// Load state data - set initial renderer
+		private async void MyMapView_SpatialReferenceChanged(object sender, EventArgs e)
+		{
+			try
+			{
+				MyMapView.SpatialReferenceChanged -= MyMapView_SpatialReferenceChanged;
+				await LoadStatesAsync();
 
-        // Change the graphics layer renderer to a new UniqueValueRenderer
-        private void ChangeRendererButton_Click(object sender, RoutedEventArgs e)
-        {
-            ChangeRenderer();
-        }
+				ChangeRenderer();
+			}
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog("Error loading states data: " + ex.Message, "Sample Error").ShowAsync();
+			}
+		}
 
-        private void ChangeRenderer()
-        {
-            var renderer = new UniqueValueRenderer() { Fields = new ObservableCollection<string>(new string[] { "sub_region" }) };
+		// Change the graphics layer renderer to a new UniqueValueRenderer
+		private void ChangeRendererButton_Click(object sender, RoutedEventArgs e)
+		{
+			ChangeRenderer();
+		}
 
-            renderer.Infos = new UniqueValueInfoCollection(_states.Graphics
-                .Select(g => g.Attributes["sub_region"])
-                .Distinct()
-                .Select(obj => new UniqueValueInfo { Values = new ObservableCollection<object>(new object[] { obj }), Symbol = GetRandomSymbol() }));
+		private void ChangeRenderer()
+		{
+			var renderer = new UniqueValueRenderer() { Fields = new ObservableCollection<string>(new string[] { "sub_region" }) };
 
-            _states.Renderer = renderer;
-        }
+			renderer.Infos = new UniqueValueInfoCollection(_states.Graphics
+				.Select(g => g.Attributes["sub_region"])
+				.Distinct()
+				.Select(obj => new UniqueValueInfo { Values = new ObservableCollection<object>(new object[] { obj }), Symbol = GetRandomSymbol() }));
 
-        // Load US state data from map service
-        private async Task LoadStatesAsync()
-        {
-            var queryTask = new QueryTask(
-                new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2"));
-            var query = new Query(MyMapView.Extent)
-            {
-                ReturnGeometry = true,
+			_states.Renderer = renderer;
+		}
+
+		// Load US state data from map service
+		private async Task LoadStatesAsync()
+		{
+			var queryTask = new QueryTask(
+				new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2"));
+			var query = new Query(MyMapView.Extent)
+			{
+				ReturnGeometry = true,
 				MaxAllowableOffset = MyMapView.UnitsPerPixel,
-                OutSpatialReference = MyMapView.SpatialReference,
-                OutFields = new OutFields(new string[] { "sub_region" })
-            };
-            var result = await queryTask.ExecuteAsync(query);
+				OutSpatialReference = MyMapView.SpatialReference,
+				OutFields = new OutFields(new string[] { "sub_region" })
+			};
+			var result = await queryTask.ExecuteAsync(query);
 
-            _states.Graphics.Clear();
-            _states.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
-        }
+			_states.Graphics.Clear();
+			_states.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
+		}
 
-        // Utility: Generate a random simple fill symbol
-        private SimpleFillSymbol GetRandomSymbol()
-        {
-            var color = GetRandomColor();
+		// Utility: Generate a random simple fill symbol
+		private SimpleFillSymbol GetRandomSymbol()
+		{
+			var color = GetRandomColor();
 
-            return new SimpleFillSymbol()
-            {
-                Color = Color.FromArgb(0x77, color.R, color.G, color.B),
-                Outline = new SimpleLineSymbol() { Width = 2, Style = SimpleLineStyle.Solid, Color = color },
-                Style = SimpleFillStyle.Solid
-            };
-        }
+			return new SimpleFillSymbol()
+			{
+				Color = Color.FromArgb(0x77, color.R, color.G, color.B),
+				Outline = new SimpleLineSymbol() { Width = 2, Style = SimpleLineStyle.Solid, Color = color },
+				Style = SimpleFillStyle.Solid
+			};
+		}
 
-        // Utility function: Generate a random System.Windows.Media.Color
-        private Color GetRandomColor()
-        {
-            var colorBytes = new byte[3];
-            _random.NextBytes(colorBytes);
-            return Color.FromArgb(0xFF, colorBytes[0], colorBytes[1], colorBytes[2]);
-        }
-    }
+		// Utility function: Generate a random System.Windows.Media.Color
+		private Color GetRandomColor()
+		{
+			var colorBytes = new byte[3];
+			_random.NextBytes(colorBytes);
+			return Color.FromArgb(0xFF, colorBytes[0], colorBytes[1], colorBytes[2]);
+		}
+	}
 }

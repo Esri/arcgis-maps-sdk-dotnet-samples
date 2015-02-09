@@ -10,38 +10,39 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 {
 	/// <summary>
-	/// 
+	/// This sample demonstrates using the GeometryEngine.Generalize method to take a polyline with numerous vertices and return a generalized polyline with fewer vertices.
 	/// </summary>
-    /// <category>Geometry</category>
+	/// <title>Generalize</title>
+	/// <category>Geometry</category>
 	public sealed partial class Generalize : Page
-    {
-        GraphicsLayer originalGraphicsLayer;
-        GraphicsLayer generalizedGraphicsLayer;
-        SimpleMarkerSymbol defaultMarkerSymbol;
-        SimpleLineSymbol defaultLineSymbol;
-        SimpleLineSymbol generalizedLineSymbol;
-        SimpleMarkerSymbol generalizedMarkerSymbol;
+	{
+		GraphicsLayer originalGraphicsLayer;
+		GraphicsLayer generalizedGraphicsLayer;
+		SimpleMarkerSymbol defaultMarkerSymbol;
+		SimpleLineSymbol defaultLineSymbol;
+		SimpleLineSymbol generalizedLineSymbol;
+		SimpleMarkerSymbol generalizedMarkerSymbol;
 
-        public Generalize()
-        {
-            InitializeComponent();
+		public Generalize()
+		{
+			InitializeComponent();
 
 			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
 
 			originalGraphicsLayer = MyMapView.Map.Layers["OriginalLineGraphicsLayer"] as GraphicsLayer;
 			generalizedGraphicsLayer = MyMapView.Map.Layers["GeneralizedLineGraphicsLayer"] as GraphicsLayer;
 
-            defaultMarkerSymbol = LayoutRoot.Resources["DefaultMarkerSymbol"] as SimpleMarkerSymbol;
-            defaultLineSymbol = LayoutRoot.Resources["DefaultLineSymbol"] as SimpleLineSymbol;
-            generalizedLineSymbol = LayoutRoot.Resources["GeneralizedLineSymbol"] as SimpleLineSymbol;
-            generalizedMarkerSymbol = LayoutRoot.Resources["GeneralizedMarkerSymbol"] as SimpleMarkerSymbol;
-        }
+			defaultMarkerSymbol = LayoutRoot.Resources["DefaultMarkerSymbol"] as SimpleMarkerSymbol;
+			defaultLineSymbol = LayoutRoot.Resources["DefaultLineSymbol"] as SimpleLineSymbol;
+			generalizedLineSymbol = LayoutRoot.Resources["GeneralizedLineSymbol"] as SimpleLineSymbol;
+			generalizedMarkerSymbol = LayoutRoot.Resources["GeneralizedMarkerSymbol"] as SimpleMarkerSymbol;
+		}
 
 		private async void MyMapView_NavigationCompleted(object sender, EventArgs e)
-        {
+		{
 			MyMapView.NavigationCompleted -= MyMapView_NavigationCompleted;
 			try
 			{
@@ -78,16 +79,16 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			{
 				var _x = new MessageDialog("Error loading test line: " + ex.Message, "Sample Error").ShowAsync();
 			}
-        }
+		}
 
-        private  void GeneralizeButton_Click(object sender, RoutedEventArgs e)
-        {
+		private  void GeneralizeButton_Click(object sender, RoutedEventArgs e)
+		{
 			try
 			{
 				generalizedGraphicsLayer.Graphics.Clear();
 
 				var offset = DistanceSlider.Value * 1000;
-            
+			
 				var generalizedGeometry = GeometryEngine.Generalize(originalGraphicsLayer.Graphics[0].Geometry, offset, false);
 				if (generalizedGeometry != null)
 				{
@@ -107,11 +108,16 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 						}
 					}
 				}
-            }
-            catch (Exception ex)
-            {
-                var _x = new MessageDialog("Error generalizing line: " + ex.Message, "Sample Error").ShowAsync();
-            }
-        }
-    }
+			}
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog("Error generalizing line: " + ex.Message, "Sample Error").ShowAsync();
+			}
+		}
+
+		private void ClearButton_Click(object sender, RoutedEventArgs e)
+		{
+			generalizedGraphicsLayer.Graphics.Clear();
+		}
+	}
 }

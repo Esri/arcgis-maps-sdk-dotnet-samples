@@ -57,13 +57,10 @@
 				<esri:GraphicsOverlay ID="pointResultsOverlay" Renderer="{StaticResource PointSelectionRenderer}"/>
 			</esri:MapView.GraphicsOverlays>
 		</esri:MapView>
-		
-		<Border Background="White" BorderBrush="Black" BorderThickness="1" Margin="30" Padding="20"
+
+        <Border Background="White" BorderBrush="Black" BorderThickness="1" Margin="30" Padding="20"
                 HorizontalAlignment="Right" VerticalAlignment="Top">
-			<Border.Effect>
-				<DropShadowEffect />
-			</Border.Effect>
-			<Grid>	
+            <Grid>	
 				<Grid.RowDefinitions>
 					<RowDefinition Height="auto" />
 					<RowDefinition Height="*" />
@@ -175,12 +172,20 @@
 						</StackPanel>
 					</StackPanel>
 				</GroupBox>
+                <StackPanel Orientation="Horizontal">
 				<Button x:Name="searchBtn"
 						IsEnabled="False"
 						Content="Execute Search" 
 						Click="Search_Click"
-						Margin="8" Padding="6"
-						HorizontalAlignment="Center" FontWeight="Bold"/>
+						Margin="6" Padding="6"
+						HorizontalAlignment="Left" FontWeight="Bold"/>
+                <Button x:Name="clearSearchBtn"
+                        IsEnabled="False"
+						Content="Clear Search" 
+						Click="clearSearchBtn_Click"
+						Margin="6" Padding="6"
+						HorizontalAlignment="Right" FontWeight="Bold"/>
+                </StackPanel>
 			</StackPanel>
 		</Border>
 

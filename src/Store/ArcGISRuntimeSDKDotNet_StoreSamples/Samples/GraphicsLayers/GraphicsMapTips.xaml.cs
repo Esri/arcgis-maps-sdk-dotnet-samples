@@ -12,7 +12,7 @@ using Windows.UI.Xaml.Input;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
-    /// Demonstrates how to position map tips on graphics in a graphics layer.
+    /// This sample demonstrates how to position map tips on graphics in a graphics layer.
     /// </summary>
     /// <title>Map Tips</title>
     /// <category>Graphics Layers</category>
@@ -87,7 +87,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			}
 			catch (Exception ex)
 			{
-				var _x = new MessageDialog("Error occured " + ex.ToString(), "Sample error").ShowAsync();
+				var _x = new MessageDialog("Error occurred " + ex.ToString(), "Sample error").ShowAsync();
 			}
         }
 

@@ -43,7 +43,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			await DrawPoints();
 		}
 
-        // Continuosly accepts new points from the user
+        // Continuously accepts new points from the user
 		private async Task DrawPoints()
         {
 			try

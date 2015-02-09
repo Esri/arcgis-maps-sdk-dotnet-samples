@@ -11,78 +11,77 @@ using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 {
 	/// <summary>
-	/// 
+	/// This sample demonstrates use of the GeometryEngine.GeodesicLength method to calculate the length of a line.
 	/// </summary>
-    /// <category>Geometry</category>
+	/// <title>Line Length</title>
+	/// <category>Geometry</category>
 	public sealed partial class LineLength : Page
-    {
-        GraphicsLayer myGraphicsLayer;
-        Geometry inputGeom;
-        public LineLength()
-        {
-            InitializeComponent();
+	{
+		GraphicsLayer myGraphicsLayer;
+		Geometry inputGeom;
+		public LineLength()
+		{
+			InitializeComponent();
 
-			mapView1.Map.InitialViewpoint = new Viewpoint(new Envelope(-13149423, 3997267, -12992880, 4062214, SpatialReferences.WebMercator));
-            myGraphicsLayer = mapView1.Map.Layers["MyGraphicsLayer"] as GraphicsLayer;
-        }
+			MyMapView.Map.InitialViewpoint = new Viewpoint(new Envelope(-13149423, 3997267, -12992880, 4062214, SpatialReferences.WebMercator));
+			myGraphicsLayer = MyMapView.Map.Layers["MyGraphicsLayer"] as GraphicsLayer;
+		}
 
-        private async Task DoGeodesicLength()
-        {
-            ResetButton.IsEnabled = false;
+		private async Task DoGeodesicLength()
+		{
+			ResetButton.IsEnabled = false;
 
-            try
-            {
-                if (mapView1.Editor.IsActive)
-                    mapView1.Editor.Cancel.Execute(null);
+			try
+			{
+				if (MyMapView.Editor.IsActive)
+					MyMapView.Editor.Cancel.Execute(null);
 
-                //Get the input polygon geometry from the user
-                inputGeom = await mapView1.Editor.RequestShapeAsync(DrawShape.Polyline);
+				//Get the input polygon geometry from the user
+				inputGeom = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polyline);
 
-                if (inputGeom != null)
-                {
-                    //Add the polygon drawn by the user
-                    var g = new Graphic
-                    {
-                        Geometry = inputGeom,
-                    };
-                    myGraphicsLayer.Graphics.Add(g);
-
-
-                    //Get the label point for the input geometry
-                    var length = GeometryEngine.GeodesicLength(inputGeom);
-                    LineLengthTextBlock.Text = length.ToString("N2") + " m";
-                    LineLengthTextBlock.Visibility = Windows.UI.Xaml.Visibility.Visible;
-                }
-            }
-            catch (Exception)
-            {
-
-            }
-            ResetButton.IsEnabled = true;
-
-        }
-
-        private async void ResetButton_Click(object sender, RoutedEventArgs e)
-        {
-            LineLengthTextBlock.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-
-            myGraphicsLayer.Graphics.Clear();
-            await DoGeodesicLength();
-
-        }
+				if (inputGeom != null)
+				{
+					//Add the polygon drawn by the user
+					var g = new Graphic
+					{
+						Geometry = inputGeom,
+					};
+					myGraphicsLayer.Graphics.Add(g);
 
 
-        private async void mapView1_LayerLoaded(object sender, LayerLoadedEventArgs e)
-        {
-            if (e.Layer.ID == "MyGraphicsLayer")
-            {
-                await DoGeodesicLength();
-            }
-        }
+					//Get the label point for the input geometry
+					var length = GeometryEngine.GeodesicLength(inputGeom);
+					LineLengthTextBlock.Text = length.ToString("N2") + " m";
+					LineLengthTextBlock.Visibility = Windows.UI.Xaml.Visibility.Visible;
+				}
+			}
+			catch (Exception)
+			{
+
+			}
+			ResetButton.IsEnabled = true;
+
+		}
+
+		private async void ResetButton_Click(object sender, RoutedEventArgs e)
+		{
+			LineLengthTextBlock.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+
+			myGraphicsLayer.Graphics.Clear();
+			await DoGeodesicLength();
+
+		}
 
 
-    }
+		private async void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
+		{
+			if (e.Layer.ID == "MyGraphicsLayer")
+			{
+				await DoGeodesicLength();
+			}
+		}
+	}
 }

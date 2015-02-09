@@ -1,74 +1,115 @@
 ﻿using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
+using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalyst;
 using System;
 using System.Globalization;
 using System.Linq;
+using Windows.UI;
 using Windows.UI.Popups;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 {
 	/// <summary>
-	/// 
+	/// This sample demonstrates simple point to point routing between two input locations using the OnlineLocatorTask.
 	/// </summary>
-    /// <category>Network Analyst Tasks</category>
+	/// <title>Routing</title>
+	/// <category>Network Analyst Tasks</category>
 	public sealed partial class Routing : Page
-    {
-        public Routing()
-        {
-            this.InitializeComponent();
-        }
+	{
+		private GraphicsOverlay _routeGraphicsOverlay;
+		private GraphicsOverlay _stopsGraphicsOverlay;
 
-        private async void mapView1_Tapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
-        {
-            var mp = e.Location;
-            Graphic stop = new Graphic() { Geometry = mp };
-            var stopsGraphicsLayer = mapView1.Map.Layers["MyStopsGraphicsLayer"] as GraphicsLayer;
-            stopsGraphicsLayer.Graphics.Add(stop);
+		public Routing()
+		{
+			this.InitializeComponent();
+		}
 
-            if (stopsGraphicsLayer.Graphics.Count > 1)
-            {
-                try
-                {
-                    var routeTask = new OnlineRouteTask(
+		private async void MyMapView_Tapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
+		{
+			_routeGraphicsOverlay = MyMapView.GraphicsOverlays["RouteGraphicsOverlay"];
+			_stopsGraphicsOverlay = MyMapView.GraphicsOverlays["StopsGraphicsOverlay"];
+
+			var graphicIdx = _stopsGraphicsOverlay.Graphics.Count + 1;
+			_stopsGraphicsOverlay.Graphics.Add(CreateStopGraphic(e.Location, graphicIdx));
+
+			if (_stopsGraphicsOverlay.Graphics.Count > 1)
+			{
+				try
+				{
+					progress.Visibility = Visibility.Visible;
+
+					var routeTask = new OnlineRouteTask(
 						new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route"));
-                    var routeParams = await routeTask.GetDefaultParametersAsync();
+					var routeParams = await routeTask.GetDefaultParametersAsync();
 
-                    routeParams.SetStops(stopsGraphicsLayer.Graphics);
-                    routeParams.UseTimeWindows = false;
-                    routeParams.OutSpatialReference = mapView1.SpatialReference;
-                    routeParams.DirectionsLengthUnit = LinearUnits.Miles;
+					routeParams.SetStops(_stopsGraphicsOverlay.Graphics);
+					routeParams.UseTimeWindows = false;
+					routeParams.OutSpatialReference = MyMapView.SpatialReference;
 					routeParams.DirectionsLanguage = new CultureInfo("en-Us"); // CultureInfo.CurrentCulture;
 
-                    var result = await routeTask.SolveAsync(routeParams);
-                    if (result != null)
-                    {
-                        if (result.Routes != null && result.Routes.Count > 0)
-                        {
-                            var firstRoute = result.Routes.FirstOrDefault();
-                            var direction = firstRoute.RouteDirections.FirstOrDefault();
+					var result = await routeTask.SolveAsync(routeParams);
+					if (result.Routes.Count > 0)
+					{
+						_routeGraphicsOverlay.Graphics.Clear();
 
-                            if (direction != null)
-                            {
-                                int totalMins = 0;
-                                foreach (RouteDirection dir in firstRoute.RouteDirections)
-                                    totalMins = totalMins + dir.Time.Minutes;
+						var route = result.Routes.First().RouteFeature;
+						_routeGraphicsOverlay.Graphics.Add(new Graphic(route.Geometry));
 
-                                await new MessageDialog(string.Format("{0:N2} minutes", totalMins)).ShowAsync();
-                            }
+						var meters = GeometryEngine.GeodesicLength(route.Geometry, GeodeticCurveType.Geodesic);
+						txtDistance.Text = string.Format("{0:0.00} miles", LinearUnits.Miles.ConvertFromMeters(meters));
 
-                            var routeLayer = mapView1.Map.Layers["MyRouteGraphicsLayer"] as GraphicsLayer;
-                            routeLayer.Graphics.Add(firstRoute.RouteFeature as Graphic);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine(ex.Message);
-                }
-            }
-        }
-    }
+						panelRouteInfo.Visibility = Visibility.Visible;
+					}
+				}
+				catch (Exception ex)
+				{
+					var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+				}
+				finally
+				{
+					progress.Visibility = Visibility.Collapsed;
+				}
+			}
+		}
+
+		private Graphic CreateStopGraphic(MapPoint location, int id)
+		{
+			var symbol = new CompositeSymbol();
+			symbol.Symbols.Add(new SimpleMarkerSymbol() { Style = SimpleMarkerStyle.Circle, Color = Colors.Blue, Size = 16 });
+			symbol.Symbols.Add(new TextSymbol()
+			{
+				Text = id.ToString(),
+				Color = Colors.White,
+				VerticalTextAlignment = VerticalTextAlignment.Middle,
+				HorizontalTextAlignment = HorizontalTextAlignment.Center,
+				YOffset = -1
+			});
+
+			var graphic = new Graphic()
+			{
+				Geometry = location,
+				Symbol = symbol
+			};
+
+			return graphic;
+		}
+
+		private void ClearButton_Click(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				_routeGraphicsOverlay.Graphics.Clear();
+				_stopsGraphicsOverlay.Graphics.Clear();
+				panelRouteInfo.Visibility = Visibility.Collapsed;
+			}
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+			}
+		}
+	}
 }

@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Esri.ArcGISRuntime;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
+using Windows.Storage;
 using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntimeSDKDotNet_StoreSamples
@@ -13,15 +15,81 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples
 	/// </summary>
 	public sealed partial class SampleListPage : Page
 	{
+		private bool _hasDeployment;
+
 		public SampleListPage()
 		{
+			ArcGISRuntimeEnvironment.SymbolsPath = @"arcgisruntime" + GetRuntimeVersionNumber() + @"\resources\symbols";
 			this.InitializeComponent();
 			DataContext = SampleDatasource.Current;
+
+			CheckDeployment();
+		}
+
+		private string GetRuntimeVersionNumber()
+		{
+			// Get version number that is used in the deployment folder
+			Assembly runtimeAssembly = typeof(ArcGISRuntimeEnvironment).GetTypeInfo().Assembly;
+
+			var sdkVersion = string.Empty;
+			var attr = CustomAttributeExtensions.GetCustomAttribute<AssemblyFileVersionAttribute>(runtimeAssembly);
+			if (attr != null)
+			{
+				var version = attr.Version;
+				string[] versions = attr.Version.Split(new[] { '.' });
+
+				// Ensure that we only look maximum of 3 part version number ie. 10.2.4
+				int partCount = 3;
+				if (versions.Count() < 3)
+					partCount = versions.Count();
+
+				for (var i = 0; i < partCount; i++)
+				{
+					if (string.IsNullOrEmpty(sdkVersion))
+						sdkVersion = versions[i];
+					else
+						sdkVersion += "." + versions[i];
+				}
+			}
+			else
+				throw new Exception("Cannot read version number from ArcGIS Runtime");
+
+			return sdkVersion;
+		}
+
+		private async void CheckDeployment()
+		{
+			try
+			{
+				// Check that all folders are deployed - assuming that symbols folder contains all 
+				// deployable dictionaries
+				var appFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
+				var runtimeFolder = await appFolder.GetFolderAsync("arcgisruntime" + GetRuntimeVersionNumber());
+				var resourcesFolder = await runtimeFolder.GetFolderAsync("resources");
+				var symbolsFolders = await resourcesFolder.GetFolderAsync("symbols");
+
+				_hasDeployment = true;
+			}
+			catch (FileNotFoundException)
+			{
+				_hasDeployment = false;
+			}
 		}
 
 		private void GridView_ItemClick(object sender, ItemClickEventArgs e)
 		{
 			var item = (Sample)e.ClickedItem;
+
+			// Check if sample needs symbols and if deployment is available with symbols
+			if (item.RequiresSymbols && !_hasDeployment)
+			{
+				// Deployment folder is not found show sample not available page
+				Frame.Navigate(typeof(SdkInstallNeededPage));
+				AppState.Current.CurrentSampleTitle = "Sample not available";
+				return;
+			}
+
+			// Sample is available
 			Frame.Navigate(item.Page);
 			AppState.Current.CurrentSampleTitle = item.Name;
 		}
@@ -74,6 +142,15 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples
                                     var subcategory = member.Descendants("subcategory").FirstOrDefault();
                                     if (subcategory != null && category.Value is string)
                                         match.Subcategory = subcategory.Value.Trim();
+									
+									// Get information if the sample needs symbols
+									var requiresSymbols = member.Descendants("requiresSymbols").FirstOrDefault();
+									if (requiresSymbols != null && requiresSymbols.Value is string)
+									{
+										var result = false;
+										bool.TryParse(requiresSymbols.Value.Trim(), out result);
+										match.RequiresSymbols = result;
+									}
 								}
 							}
 						}
@@ -169,6 +246,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples
 			public string Subcategory { get; set; }
 			public string Description { get; set; }
 			public string SampleFile { get; set; }
+
+			/// <summary>
+			/// Defines if the sample needs symbol to work. 
+			/// </summary>
+			/// <remarks>This is used for samples that need something to being deployed like military symbology or S57 symbology.</remarks>
+			public bool RequiresSymbols { get; set; }
 
 			public override string ToString()
 			{

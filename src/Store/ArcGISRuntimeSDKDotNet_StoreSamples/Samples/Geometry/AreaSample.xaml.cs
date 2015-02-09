@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Controls;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
-    /// Demonstrates how to calculate the area and perimiter of a polygon using the GeometryEngine.
+    /// Demonstrates how to calculate the area and perimeter of a polygon using the GeometryEngine.
     /// </summary>
     /// <title>Area</title>
     /// <category>Geometry</category>
@@ -26,14 +26,16 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			InitializeComponent();
 
 			_graphicsOverlay = MyMapView.GraphicsOverlays["AreaOverlay"];
-			MyMapView.ExtentChanged += MyMapView_ExtentChanged;
+			MyMapView.SpatialReferenceChanged += MyMapView_SpatialReferenceChanged;
 		}
 
-		private async void MyMapView_ExtentChanged(object sender, EventArgs e)
+		private async void MyMapView_SpatialReferenceChanged(object sender, EventArgs e)
 		{
-			MyMapView.ExtentChanged -= MyMapView_ExtentChanged;
+			MyMapView.SpatialReferenceChanged -= MyMapView_SpatialReferenceChanged;
+
 			await DoCalculateAreaAndLengthAsync();
 		}
+
 
 		private async Task DoCalculateAreaAndLengthAsync()
 		{

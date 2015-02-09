@@ -11,7 +11,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using Esri.ArcGISRuntime.Symbology;
 
-namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 {
     /// <summary>
     /// Shows how to create a new webmap from scratch by adding a Basemap and OperationLayers. 

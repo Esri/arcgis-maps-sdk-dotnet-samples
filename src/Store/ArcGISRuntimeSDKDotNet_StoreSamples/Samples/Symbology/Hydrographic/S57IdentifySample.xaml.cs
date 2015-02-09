@@ -15,11 +15,12 @@ using Windows.UI.Xaml.Controls;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples.Symbology.Hydrographic
 {
 	/// <summary>
-	/// This sample demostrates how to perform a point-based identify style operation on an HydrographicS57Layer using the SearchLayer method.
+	/// This sample demonstrates how to perform a point-based identify style operation on an HydrographicS57Layer using the SearchLayer method.
 	/// </summary>
 	/// <title>S57 Identify</title>
 	/// <category>Symbology</category>
 	/// <subcategory>Hydrographic</subcategory>
+	/// <requiresSymbols>true</requiresSymbols>
 	public sealed partial class S57IdentifySample : Page
 	{
 		private const string LAYER_1_PATH = @"symbology\s57-electronic-navigational-charts\us1wc01m\us1wc01m.000";

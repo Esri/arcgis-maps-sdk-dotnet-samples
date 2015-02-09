@@ -45,7 +45,7 @@
 
 				<StackPanel x:Name="Instructions">
 					<TextBlock x:Name="ResponseTextBlock" Style="{StaticResource TextBasicStyle}"
-                                   Text="Create a polygon by clicking on map. Double-click to end. The area and perimeter are displayed here." 
+                                   Text="Create a polygon by clicking on the map. Double-click to end. The area and perimeter are displayed here." 
                                    Width="250" TextWrapping="Wrap"/>
 					<Button x:Name="CancelCurrent" Content="Cancel" HorizontalAlignment="Right" Click="CancelCurrent_Click" Margin="0,6,0,0"/>
 				</StackPanel>
@@ -72,7 +72,7 @@
 							<TextBlock x:Name="ResultsPerimeterGeodesic" Style="{StaticResource TextValueStyle}" />
 						</StackPanel>
 					</StackPanel>
-					<Button Content="Re-Start" x:Name="RestartButton" Click="RestartButton_Click" Margin="8,8,8,0"/>
+					<Button Content="Restart" x:Name="RestartButton" Click="RestartButton_Click" Margin="8,8,8,0"/>
 				</StackPanel>
 			</Grid>
 		</Border>

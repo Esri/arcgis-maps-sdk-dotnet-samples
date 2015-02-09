@@ -9,12 +9,13 @@ using Windows.UI.Popups;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 {
 	/// <summary>
-	/// 
+	/// This sample demonstrates use of the Geoprocessor to call a MessageInABottle geoprocessing service. To use the sample, specify the number of days and click a point in the ocean. The path of a bottle dropped at the click point over the specified number of days will be drawn on the map.
 	/// </summary>
-    /// <category>Geoprocessing Tasks</category>
+	/// <title>Message in a Bottle</title>
+	/// <category>Geoprocessing Tasks</category>
 	public sealed partial class MessageInABottle : Page
     {
         public MessageInABottle()
@@ -77,7 +78,5 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             if (error != null)
                 await new MessageDialog(error).ShowAsync();
         }
-
-        
     }
 }

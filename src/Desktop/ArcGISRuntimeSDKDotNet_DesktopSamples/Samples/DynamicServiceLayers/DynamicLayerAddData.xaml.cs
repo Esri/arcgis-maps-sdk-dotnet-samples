@@ -18,9 +18,10 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers
     /// This sample demonstrates the dynamic layers capability to add Shapefiles and Raster datasets to the map. Single or multiple Shapefiles or Rasters can be selected in the open file dialog from within a folder. These files will be added to a local map service via the dynamic layers capability available in the API. This local map service is then used as the basis for an ArcGISDynamicMapServiceLayer which is added to the map. It would be possible to extend the sample to allows users to specify the symbol/renderer for any shapefiles added. Raster symbology is predetermined by the raster itself.
     /// </summary>
     /// <title>Dynamic Layer Add Data</title>
-	/// <category>Layers</category>
-	/// <subcategory>Dynamic Service Layers</subcategory>
-	public partial class DynamicLayerAddData : UserControl
+    /// <category>Layers</category>
+    /// <subcategory>Dynamic Service Layers</subcategory>
+    /// <requiresLocalServer>true</requiresLocalServer>
+    public partial class DynamicLayerAddData : UserControl
     {
         private const string _emptyMapPackage = @"..\..\..\..\..\samples-data\maps\water-distribution-network.mpk";
         private Random _random = new Random();
@@ -29,6 +30,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers
         public DynamicLayerAddData()
         {
             InitializeComponent();
+            progress.Visibility = Visibility.Collapsed;
         }
 
         // Add shapefiles
@@ -43,6 +45,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers
             {
                 try
                 {
+                    progress.Visibility = Visibility.Visible;
                     List<string> fileNames = new List<string>();
                     foreach (var item in openFileDialog.SafeFileNames)
                     {
@@ -50,13 +53,15 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers
                     }
 
                     // Call the add dataset method with workspace type, parent directory path and file names (without extensions)
-                    var dynLayer = await AddFileDatasetToDynamicMapServiceLayer(WorkspaceFactoryType.Shapefile, 
+                    var dynLayer = await AddFileDatasetToDynamicMapServiceLayer(WorkspaceFactoryType.Shapefile,
                         Path.GetDirectoryName(openFileDialog.FileName), fileNames);
 
                     // Add the dynamic map service layer to the map
                     if (dynLayer != null)
                     {
-						MyMapView.Map.Layers.Add(dynLayer);
+                        dynLayer.DisplayName = dynLayer.DynamicLayerInfos[0].Name;
+                        MyMapView.Map.Layers.Add(dynLayer);
+                        progress.Visibility = Visibility.Collapsed;
                     }
                 }
                 catch (Exception ex)
@@ -77,14 +82,17 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples.DynamicLayers
             {
                 try
                 {
+                    progress.Visibility = Visibility.Visible;
                     // Call the add dataset method with workspace type, parent directory path and actual file names
-                    var dynLayer = await AddFileDatasetToDynamicMapServiceLayer(WorkspaceFactoryType.Raster, 
+                    var dynLayer = await AddFileDatasetToDynamicMapServiceLayer(WorkspaceFactoryType.Raster,
                         Path.GetDirectoryName(openFileDialog.FileName), new List<string>(openFileDialog.SafeFileNames));
 
                     // Add the dynamic map service layer to the map
                     if (dynLayer != null)
                     {
-						MyMapView.Map.Layers.Add(dynLayer);
+                        dynLayer.DisplayName = dynLayer.DynamicLayerInfos[0].Name;
+                        MyMapView.Map.Layers.Add(dynLayer);
+                        progress.Visibility = Visibility.Collapsed;
                     }
                 }
                 catch (Exception ex)

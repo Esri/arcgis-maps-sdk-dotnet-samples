@@ -53,7 +53,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show("Error occured : " + ex.Message, "Find Place Sample");
+				MessageBox.Show("Error occurred : " + ex.Message, "Find Place Sample");
 			}
         }
 

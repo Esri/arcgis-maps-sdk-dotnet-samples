@@ -11,7 +11,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 {
     /// <summary>
     /// Demonstrates how to selectively import and update feature geometry in dynamic layer.
@@ -137,7 +137,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 }
 
             }
-            catch (TaskCanceledException te)
+            catch (TaskCanceledException)
             {
                 // Handles canceling out of Editor.
             }

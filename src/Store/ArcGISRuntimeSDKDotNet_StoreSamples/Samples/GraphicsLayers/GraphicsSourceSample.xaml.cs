@@ -11,7 +11,7 @@ using Windows.UI.Xaml.Controls;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
-    /// Demonstartes the GraphicsLayer.GraphicsSouce property.
+    /// This sample demonstrates the GraphicsLayer.GraphicsSource property.
     /// </summary>
     /// <title>Graphics Source</title>
     /// <category>Graphics Layers</category>
@@ -19,7 +19,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
     {
         private Random _random = new Random();
         private GraphicsLayer _graphicsLayer;
-        private List<List<Graphic>> _grahicsSources;
+        private List<List<Graphic>> _graphicsSources;
         private int _graphicSourceIndex;
 
         public GraphicsSourceSample()
@@ -34,10 +34,10 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
         private void SwitchGraphicSourceButton_Click(object sender, RoutedEventArgs e)
         {
             ++_graphicSourceIndex;
-            if (_graphicSourceIndex == _grahicsSources.Count)
+            if (_graphicSourceIndex == _graphicsSources.Count)
                 _graphicSourceIndex = 0;
 
-            _graphicsLayer.GraphicsSource = _grahicsSources[_graphicSourceIndex];
+            _graphicsLayer.GraphicsSource = _graphicsSources[_graphicSourceIndex];
         }
 
         // Create three List<Graphic> objects with random graphics to serve as layer GraphicsSources
@@ -47,14 +47,14 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			{
 				await MyMapView.LayersLoadedAsync();
 
-				_grahicsSources = new List<List<Graphic>>()
+				_graphicsSources = new List<List<Graphic>>()
 				{
 					new List<Graphic>(),
 					new List<Graphic>(),
 					new List<Graphic>()
 				};
 
-				foreach (var graphicList in _grahicsSources)
+				foreach (var graphicList in _graphicsSources)
 				{
 					for (int n = 0; n < 10; ++n)
 					{
@@ -63,11 +63,11 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 				}
 
 				_graphicSourceIndex = 0;
-				_graphicsLayer.GraphicsSource = _grahicsSources[_graphicSourceIndex];
+				_graphicsLayer.GraphicsSource = _graphicsSources[_graphicSourceIndex];
 			}
 			catch (Exception ex)
 			{
-				var _x = new MessageDialog("Exception occured : " + ex.ToString(), "Sample error").ShowAsync();
+				var _x = new MessageDialog("Exception occurred : " + ex.ToString(), "Sample error").ShowAsync();
 			}
         }
 
@@ -97,7 +97,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
             return Color.FromArgb(0xFF, colorBytes[0], colorBytes[1], colorBytes[2]);
         }
 
-        // Utility: Generate a random marker sytle
+        // Utility: Generate a random marker style
         private SimpleMarkerStyle GetRandomMarkerStyle()
         {
             return (SimpleMarkerStyle)_random.Next(0, 6);

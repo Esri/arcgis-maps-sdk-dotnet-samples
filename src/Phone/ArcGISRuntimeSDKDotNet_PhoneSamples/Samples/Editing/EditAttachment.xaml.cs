@@ -15,7 +15,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.ApplicationModel.Activation;
 using ArcGISRuntimeSDKDotNet_PhoneSamples;
 
-namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 {
     /// <summary>
     /// Demonstrates how to update feature attachments in feature layer.

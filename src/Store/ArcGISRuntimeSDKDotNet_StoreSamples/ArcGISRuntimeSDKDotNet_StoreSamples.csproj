@@ -15,6 +15,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PackageCertificateKeyFile>ArcGISRuntimeSDKDotNet_StoreSamples_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <NuGetPackageImportStamp>5458bd88</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -90,9 +91,6 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <SDKReference Include="Esri.ArcGISRuntime, Version=10.2.4">
-      <Name>ArcGIS Runtime for Windows Store apps</Name>
-    </SDKReference>
     <SDKReference Include="Microsoft.VCLibs, version=12.0">
       <Name>Microsoft Visual C++ 2013 Runtime Package for Windows</Name>
     </SDKReference>
@@ -118,6 +116,24 @@
     </Compile>
     <Compile Include="Samples\DynamicServiceLayers\DynamicLayerRendering.xaml.cs">
       <DependentUpon>DynamicLayerRendering.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\DynamicServiceLayers\DynamicLayersInXAML.xaml.cs">
+      <DependentUpon>DynamicLayersInXAML.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\DynamicServiceLayers\Stretch.xaml.cs">
+      <DependentUpon>Stretch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Editing\ExplicitSave.xaml.cs">
+      <DependentUpon>ExplicitSave.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Editing\EditRelatedData.xaml.cs">
+      <DependentUpon>EditRelatedData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Editing\Extras\SOEElevationData.xaml.cs">
+      <DependentUpon>SOEElevationData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Editing\OwnershipBasedEditing.xaml.cs">
+      <DependentUpon>OwnershipBasedEditing.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Editing\EditAttachment.xaml.cs">
       <DependentUpon>EditAttachment.xaml</DependentUpon>
@@ -305,6 +321,13 @@
     <Compile Include="Samples\Offline\SyncGeodatabase.xaml.cs">
       <DependentUpon>SyncGeodatabase.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\OnlineServices\BatchGeocoding.xaml.cs">
+      <DependentUpon>BatchGeocoding.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\OnlineServices\PortalSecurity.cs" />
+    <Compile Include="Samples\OnlineServices\Traffic.xaml.cs">
+      <DependentUpon>Traffic.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Portal\CreateWebMap.xaml.cs">
       <DependentUpon>CreateWebMap.xaml</DependentUpon>
     </Compile>
@@ -328,6 +351,10 @@
     </Compile>
     <Compile Include="Samples\QueryTasks\FindTaskSample.xaml.cs">
       <DependentUpon>FindTaskSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Security\OAuthAuthorizeHandler.cs" />
+    <Compile Include="Samples\Security\TokenSecuredServices.xaml.cs">
+      <DependentUpon>TokenSecuredServices.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Symbology\Hydrographic\S57CellInfoSample.xaml.cs">
       <DependentUpon>S57CellInfoSample.xaml</DependentUpon>
@@ -494,6 +521,9 @@
     <Compile Include="LocalDataSettingsFlyout.xaml.cs">
       <DependentUpon>LocalDataSettingsFlyout.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SdkInstallNeededPage.xaml.cs">
+      <DependentUpon>SdkInstallNeededPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -504,21 +534,7 @@
     <Content Include="Assets\Icons\vector.line.png" />
     <Content Include="Assets\Icons\vector.polygon.png" />
     <Content Include="Assets\Icons\vector.rectangle.png" />
-    <Content Include="Resources\hydrographic_s57\hydrographic_s57.dat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Mil2525c\mil2525c.dat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Mil2525c\messagetypes\Chemlight.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Mil2525c\messagetypes\PositionReport.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Mil2525c\messagetypes\SpotReport.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Logo.scale-100.png" />
@@ -553,6 +569,30 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\DynamicServiceLayers\DynamicLayerRendering.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\DynamicServiceLayers\DynamicLayersInXAML.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\DynamicServiceLayers\Stretch.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\ExplicitSave.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\EditRelatedData.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\Extras\SOEElevationData.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Editing\OwnershipBasedEditing.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -804,6 +844,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\OnlineServices\BatchGeocoding.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\OnlineServices\Traffic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Portal\CreateWebMap.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -833,6 +881,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\QueryTasks\FindTaskSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Security\TokenSecuredServices.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1056,14 +1108,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SdkInstallNeededPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Samples\Security\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.10.2.4.748\build\win81\Esri.ArcGISRuntime.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.10.2.4.748\build\win81\Esri.ArcGISRuntime.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.10.2.4.748\build\win81\Esri.ArcGISRuntime.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.10.2.4.748\build\win81\Esri.ArcGISRuntime.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

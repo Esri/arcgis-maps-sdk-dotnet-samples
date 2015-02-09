@@ -45,7 +45,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         //{
         //    try
         //    {
-        //        // Obtain credenitals from a secure source
+        //        // Obtain credentials from a secure source
         //        string username = "user1";
         //        string password = (cri.ServiceUri.Contains("USA_secure_user1")) ? "user1" : "pass.word1";
 
@@ -53,7 +53,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         //    }
         //    catch (Exception ex)
         //    {
-        //        MessageBox.Show("Acces to " + cri.ServiceUri + " denied. " + ex.Message, "Credential Error");
+        //        MessageBox.Show("Access to " + cri.ServiceUri + " denied. " + ex.Message, "Credential Error");
         //    }
 
         //    return await Task.FromResult<IdentityManager.Credential>(null);

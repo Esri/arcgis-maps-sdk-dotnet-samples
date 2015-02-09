@@ -28,40 +28,36 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
 			MyMapView.LayerLoaded += MyMapView_LayerLoaded;
 		}
 
-        private void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
-        {
-            if (e.LoadError != null)
-            {
-                MessageBox.Show(e.LoadError.Message, "Layer Error");
-                return;
-            }
+		private void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
+		{
+			if (e.LoadError != null)
+			{
+				MessageBox.Show(e.LoadError.Message, "Layer Error");
+				return;
+			}
 
-            if (e.Layer == _usaLayer)
-            {
-                if (_usaLayer.DynamicLayerInfos == null)
-                    _usaLayer.DynamicLayerInfos = _usaLayer.CreateDynamicLayerInfosFromLayerInfos();
+			if (e.Layer == _usaLayer)
+			{
 
-                _usaLayer.VisibleLayers = new ObservableCollection<int>(_usaLayer.DynamicLayerInfos
-                    .Where(info => info.DefaultVisibility == true)
-                    .Select((info, idx) => idx));
+				_usaLayer.VisibleLayers = new ObservableCollection<int>() { 0, 1, 2, 3 };
 
-                visibleLayers.ItemsSource = _usaLayer.DynamicLayerInfos
-                    .Select((info, idx) => new Tuple<string, int, bool>(info.Name, idx, info.DefaultVisibility));
-            }
-        }
+				visibleLayers.ItemsSource = _usaLayer.ServiceInfo.Layers
+					.Select((info, idx) => new Tuple<string, int, bool>(info.Name, idx, info.DefaultVisibility));
+			}
+		}
 
-        private void LayerCheckBox_Click(object sender, RoutedEventArgs e)
-        {
-            var checkBox = e.OriginalSource as CheckBox;
-            if (checkBox != null)
-            {
-                int layerIndex = ((Tuple<string, int, bool>)checkBox.Tag).Item2;
+		private void LayerCheckBox_Click(object sender, RoutedEventArgs e)
+		{
+			var checkBox = e.OriginalSource as CheckBox;
+			if (checkBox != null)
+			{
+				int layerIndex = ((Tuple<string, int, bool>)checkBox.Tag).Item2;
 
-                if (checkBox.IsChecked == true)
-                    _usaLayer.VisibleLayers.Add(layerIndex);
-                else
-                    _usaLayer.VisibleLayers.Remove(layerIndex);
-            }
-        }
-    }
+				if (checkBox.IsChecked == true)
+					_usaLayer.VisibleLayers.Add(layerIndex);
+				else
+					_usaLayer.VisibleLayers.Remove(layerIndex);
+			}
+		}
+	}
 }

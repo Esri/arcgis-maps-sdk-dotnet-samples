@@ -66,9 +66,12 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 // wait for user to draw a polygon
                 var poly = await MyMapView.Editor.RequestShapeAsync(DrawShape.Polygon);
 
+                // Take account of WrapAround
+                var normalizedPoly = GeometryEngine.NormalizeCentralMeridian(poly) as Polygon;
+
                 // get intersecting features from the feature layer
                 SpatialQueryFilter filter = new SpatialQueryFilter();
-                filter.Geometry = GeometryEngine.Project(poly, _statesLayer.FeatureTable.SpatialReference);
+                filter.Geometry = GeometryEngine.Project(normalizedPoly, _statesLayer.FeatureTable.SpatialReference);
                 filter.SpatialRelationship = SpatialRelationship.Intersects;
                 filter.MaximumRows = 52;
                 var stateFeatures = await _statesLayer.FeatureTable.QueryAsync(filter);
@@ -76,8 +79,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
                 // Union the geometries and add to graphics layer
                 var states = stateFeatures.Select(feature => feature.Geometry);
                 var unionPolys = states.ToList();
-                unionPolys.Add(poly);
-
+              
 				var unionPoly = GeometryEngine.Union(unionPolys);
                 var unionGraphic = new Graphic(unionPoly, _fillSymbol);
 

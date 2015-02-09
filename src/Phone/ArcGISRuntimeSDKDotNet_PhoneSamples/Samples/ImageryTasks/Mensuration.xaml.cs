@@ -13,7 +13,7 @@ using Windows.UI.Xaml.Controls;
 using Symbols = Esri.ArcGISRuntime.Symbology;
 
 
-namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
+namespace ArcGISRuntimeSDKDotNet_PhoneSamples.Samples
 {
     /// <summary>
     /// Demonstrates the use of the mensuration (measure) operations on an ArcGIS image service.

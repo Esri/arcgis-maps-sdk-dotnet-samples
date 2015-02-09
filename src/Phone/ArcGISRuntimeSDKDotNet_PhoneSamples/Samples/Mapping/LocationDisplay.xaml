@@ -1,8 +1,8 @@
 ﻿<Page
-    x:Class="ArcGISRuntimeSDKDotNet_StoreSamples.Samples.LocationDisplay"
+    x:Class="ArcGISRuntimeSDKDotNet_PhoneSamples.Samples.LocationDisplay"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ArcGISRuntimeSDKDotNet_StoreSamples.Samples"
+    xmlns:local="using:ArcGISRuntimeSDKDotNet_PhoneSamples.Samples"
 	xmlns:esri="using:Esri.ArcGISRuntime.Controls"  
     xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
     xmlns:loc="using:Esri.ArcGISRuntime.Location"
@@ -12,13 +12,13 @@
 
     <Page.Resources>
         <loc:LocationDisplay x:Key="locationDisplaySettings"
-                                      IsEnabled="True" 
+                                      IsEnabled="False" 
                                       AutoPanMode="Off"  />
     </Page.Resources>
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
 
-        <esri:MapView x:Name="mapView1" LocationDisplay="{StaticResource locationDisplaySettings}">
+        <esri:MapView x:Name="MyMapView" LocationDisplay="{StaticResource locationDisplaySettings}">
             <esri:Map  >
                 <lyr:ArcGISTiledMapServiceLayer
 				ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
@@ -36,17 +36,19 @@
                               IsOn="{Binding IsEnabled, Source={StaticResource locationDisplaySettings}, Mode=TwoWay}"
                               />
                 <TextBlock Text="Auto Pan Mode" />
-                <ComboBox SelectedItem="{Binding AutoPanMode, Source={StaticResource locationDisplaySettings}, Mode=TwoWay}">
-                    <loc:AutoPanMode>Off</loc:AutoPanMode>
-                    <loc:AutoPanMode>Default</loc:AutoPanMode>
-                    <loc:AutoPanMode>Navigation</loc:AutoPanMode>
-                    <loc:AutoPanMode>CompassNavigation</loc:AutoPanMode>
-                </ComboBox>
+                <ComboBox x:Name="autoPanModeSelector" 
+                          SelectedItem="{Binding ElementName=MyMapView, Path=LocationDisplay.AutoPanMode, Mode=TwoWay}"/>
                 <TextBlock Text="Location Provider" />
-                <ComboBox x:Name="providerSelector" SelectionChanged="LocationProvider_SelectionChanged">
+                <ComboBox x:Name="providerSelector" 
+                          SelectionChanged="LocationProvider_SelectionChanged" Width="180">
                     <ComboBoxItem IsSelected="True">System Provider</ComboBoxItem>
                     <ComboBoxItem>Random Simulator</ComboBoxItem>
                 </ComboBox>
+                <Button x:Name="resetDisplay" 
+                        Click="resetDisplay_Click" 
+                        Margin="0,14,0,0" Width="180">
+                    <TextBlock Text="Reset Map" FontSize="16"/>
+                </Button>
             </StackPanel>
         </Border>
     </Grid>

@@ -24,7 +24,7 @@
                              GroupName="Layers" Content="Topographic" Click="RadioButton_Click"/>
                 <RadioButton Tag="http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" Margin="5,0,0,0"  
                              GroupName="Layers" Content="Imagery" Click="RadioButton_Click"/>
-                <RadioButton Tag="http://services.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer" Margin="5,0,0,0"  
+				<RadioButton Tag="http://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Base/MapServer" Margin="5,0,0,0"  
                              GroupName="Layers" Content="Oceans" Click="RadioButton_Click"/>
                 <RadioButton Tag="http://services.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer" Margin="5,0,0,0"  
                              GroupName="Layers" Content="National Geographic" Click="RadioButton_Click"/>

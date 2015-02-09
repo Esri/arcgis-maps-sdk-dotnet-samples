@@ -51,7 +51,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			catch (Exception ex)
 			{
 				var _x = new MessageDialog(
-					string.Format("Error occured : {0}", ex.ToString(), "Boundary Sample")).ShowAsync();
+					string.Format("Error occurred : {0}", ex.ToString(), "Boundary Sample")).ShowAsync();
 			}
         }
 

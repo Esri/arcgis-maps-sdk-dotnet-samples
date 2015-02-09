@@ -1,5 +1,6 @@
 ﻿using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Location;
+using Esri.ArcGISRuntime.Controls;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,8 +13,8 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
     /// This sample demonstrates the location display using the MapView.LocationDisplay attribute to show your location on a map.  The user may change Location Provider settings and view basic details about the current location.
     /// </summary>
     /// <title>Location Display</title>
-	/// <category>Mapping</category>
-	public partial class LocationDisplay : UserControl
+    /// <category>Mapping</category>
+    public partial class LocationDisplay : UserControl
     {
         /// <summary>Construct Location Display sample user control</summary>
         public LocationDisplay()
@@ -28,9 +29,42 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
             else
                 MyMapView.LocationDisplay.LocationProvider = new RandomProvider();
         }
+
+        /// <summary>Reset the MapView by removing any map rotation and centering on the existing Location. </summary>
+        private async void resetDisplay_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // If the LocationDisplay is enabled and a Location currently exists, reset the map
+                // to zero rotation and center on the Location. Otherwise, set the MapView to center on 0,0.
+                if (MyMapView.LocationDisplay != null &&
+                    MyMapView.LocationDisplay.IsEnabled &&
+                    MyMapView.LocationDisplay.CurrentLocation != null &&
+                    MyMapView.LocationDisplay.CurrentLocation.Location.Extent != null)
+                {
+                    // Get the current AutoPanMode setting as it is automatically disabled when calling MyMapView.SetView().
+                    var PanMode = MyMapView.LocationDisplay.AutoPanMode;
+
+                    MyMapView.SetRotation(0);
+                    await MyMapView.SetViewAsync(MyMapView.LocationDisplay.CurrentLocation.Location);
+
+                    // Reset the AutoPanMode 
+                    MyMapView.LocationDisplay.AutoPanMode = PanMode;
+                }
+                else
+                {
+                    var viewpoint = new Viewpoint(MyMapView.Map.Layers[0].FullExtent) { Rotation = 0.0 };
+                    await MyMapView.SetViewAsync(viewpoint);
+                }
+            }
+            catch (Exception ex)
+            {
+                 MessageBox.Show(ex.Message, "Sample Error");
+            }
+        }
     }
 
-    /// <summary>Location provider that provides psuedo random location updates</summary>
+    /// <summary>Location provider that provides pseudo random location updates</summary>
     public class RandomProvider : ILocationProvider
     {
         private static Random randomizer = new Random();
@@ -48,7 +82,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Samples
         }
 
         // Called when the position timer triggers, and calculates the next position based on current speed and heading,
-        // and adds a little randomization to current heading, speed and accuracy.       
+        // and adds a little randomization to current heading, speed, and accuracy.       
         private void timer_Tick(object sender, object e)
         {
             if (oldPosition == null)

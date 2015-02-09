@@ -45,18 +45,20 @@
 		<Border HorizontalAlignment="Right" Style="{StaticResource overlayBorderStyle}" Padding="20,10">
 			<Grid MaxWidth="400">
 				<Grid.RowDefinitions>
-					<RowDefinition Height="auto"/>
-					<RowDefinition Height="auto"/>
-					<RowDefinition Height="auto"/>
-					<RowDefinition Height="auto"/>
-					<RowDefinition Height="auto"/>
-					<RowDefinition Height="auto"/>
-					<RowDefinition Height="auto"/>
-					<RowDefinition Height="auto"/>
-					<RowDefinition Height="auto"/>
-					<RowDefinition Height="auto"/>
-					<RowDefinition Height="*"/>
-				</Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="auto"/>
 					<ColumnDefinition />
@@ -98,34 +100,36 @@
 
 				<!-- Category -->
 				<TextBlock Text="Category:" Style="{StaticResource subHeaderTextBlockStyle}" Grid.Row="4"/>
-				<ComboBox Name="cmbCategory" 
+                <Button Name="btnClearCategory" Grid.Row="5" Grid.Column="1" Height="40" HorizontalAlignment="Right" 
+                        Margin="5,5,5,0" Width="140" Content="Clear Category" Click="btnClearCategory_Click"  />
+                <ComboBox Name="cmbCategory" 
 						  ItemsSource="{Binding Categories}" SelectionChanged="SelectionChanged"  
 						  Grid.Row="4" Grid.Column="1" 
                           Margin="5,5,10,5"/>
 
 				<TextBlock Text="Symbol ID Search:" 
 						   Style="{StaticResource headerTextBlockStyle}"
-						   Grid.Row="5"  Grid.ColumnSpan="2"/>
+						   Grid.Row="6"  Grid.ColumnSpan="2"/>
 
-				<TextBlock Text="Symbol ID:" Margin="10,5,5,5" Grid.Row="6"/>
+                <TextBlock Text="Symbol ID:" Style="{StaticResource subHeaderTextBlockStyle}" Grid.Row="7"/>
 				<TextBox Name="txtSymbolName"  
-                                  Margin="5,5,5,0" Grid.Row="6" Grid.Column="1"/>
+                                  Margin="5,5,5,0" Grid.Row="7" Grid.Column="1"/>
 
-				<Button Name="btnSearch" Margin="5,5,5,0" Click="btnSearch_Click" Grid.Row="7" Grid.Column="1" IsEnabled="False">Search</Button>
+				<Button Name="btnSearch" Margin="5,5,5,0" Click="btnSearch_Click" Grid.Row="8" Grid.Column="1" IsEnabled="False">Search</Button>
 
 				<!-- Results -->
 				<TextBlock Text="Symbol Results:" 
 						   Style="{StaticResource headerTextBlockStyle}"
-						   Grid.Row="8" Grid.ColumnSpan="2" />
-				<TextBlock Text="Symbols found:" Style="{StaticResource subHeaderTextBlockStyle}" Grid.Row="9" />
+						   Grid.Row="9" Grid.ColumnSpan="2" />
+				<TextBlock Text="Symbols found:" Style="{StaticResource subHeaderTextBlockStyle}" Grid.Row="10" />
 				<TextBlock Text="{Binding Symbols.Count}" Style="{StaticResource subHeaderTextBlockStyle}"
 						   HorizontalAlignment="Left"
-						   Margin="15,5,10,5" Grid.Row="9" Grid.Column="1" />
+						   Margin="15,5,10,5" Grid.Row="10" Grid.Column="1" />
 
 				<ListBox x:Name="SymbolListBox" 
 						 ItemsSource="{Binding Symbols}" SelectionChanged="SymbolListBox_SelectionChanged"
 						 SelectionMode="Single"
-						 Grid.ColumnSpan="2" Margin="10,0,10,15" Grid.Row="10">
+						 Grid.ColumnSpan="2" Margin="10,0,10,15" Grid.Row="11">
 					<ListBox.ItemTemplate>
 						<DataTemplate>
 							<StackPanel Orientation="Horizontal">
@@ -156,7 +160,11 @@
 						</DataTemplate>
 					</ListBox.ItemTemplate>
 				</ListBox>
-			</Grid>
+                <Button x:Name="ClearSymbols" Content="Clear Map"
+                        Grid.Row="12" Grid.ColumnSpan="2"
+                        HorizontalAlignment="Center" Height="40" Width="150"
+                        Margin="5" Click="ClearMap_Click"></Button>
+            </Grid>
 		</Border>
 	</Grid>
 </Page>

@@ -15,7 +15,7 @@ using Windows.UI.Xaml.Controls;
 namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 {
     /// <summary>
-    /// Demonstrates GraphicLayer selection management.
+    /// This sample demonstrates GraphicLayer selection management.
     /// </summary>
     /// <title>Selection</title>
     /// <category>Graphics Layers</category>
@@ -119,7 +119,7 @@ namespace ArcGISRuntimeSDKDotNet_StoreSamples.Samples
 			}
 			catch (Exception ex)
 			{
-				var _x = new MessageDialog("Error occured " + ex.ToString(), "Sample error").ShowAsync();
+				var _x = new MessageDialog("Error occurred " + ex.ToString(), "Sample error").ShowAsync();
 			}
         }
 

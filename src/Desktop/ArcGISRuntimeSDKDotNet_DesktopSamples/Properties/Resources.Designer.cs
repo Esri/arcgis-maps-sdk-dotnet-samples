@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Properties
+namespace ArcGISRuntime.Properties
 {
 
 
@@ -44,7 +44,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Properties
             {
                 if ((resourceMan == null))
                 {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ArcGISRuntimeSDKDotNet_DesktopSamples.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ArcGISRuntime.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

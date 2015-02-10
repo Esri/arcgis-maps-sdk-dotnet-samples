@@ -1,7 +1,7 @@
-﻿<Application x:Class="ArcGISRuntimeSDKDotNet_DesktopSamples.App"
+﻿<Application x:Class="ArcGISRuntime.Samples.DesktopViewer.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:ArcGISRuntimeSDKDotNet_DesktopSamples"
+             xmlns:local="clr-namespace:ArcGISRuntime.Samples.DesktopViewer"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />

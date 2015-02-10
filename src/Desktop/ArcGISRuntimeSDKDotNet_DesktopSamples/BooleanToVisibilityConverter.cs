@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Data;
 #endif
 
-namespace ArcGISRuntimeSDKDotNet_DesktopSamples
+namespace ArcGISRuntime.Samples.DesktopViewer
 {
     /// <summary>
     /// Value converter that translates true to <see cref="Visibility.Visible"/> and false to

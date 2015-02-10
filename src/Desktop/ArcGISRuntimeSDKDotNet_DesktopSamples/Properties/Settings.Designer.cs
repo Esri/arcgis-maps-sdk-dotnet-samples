@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ArcGISRuntimeSDKDotNet_DesktopSamples.Properties
+namespace ArcGISRuntime.Properties
 {
 
 

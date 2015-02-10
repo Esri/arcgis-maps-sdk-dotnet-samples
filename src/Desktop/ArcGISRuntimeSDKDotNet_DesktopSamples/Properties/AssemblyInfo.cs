@@ -7,11 +7,11 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ArcGISRuntimeSDKDotNet_DesktopSamples")]
+[assembly: AssemblyTitle("ArcGISRuntime.Samples.DesktopViewer")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ArcGISRuntimeSDKDotNet_DesktopSamples")]
+[assembly: AssemblyProduct("ArcGISRuntime.Samples.DesktopViewer")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

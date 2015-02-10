@@ -9,7 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Xml.Linq;
 
-namespace ArcGISRuntimeSDKDotNet_DesktopSamples
+namespace ArcGISRuntime.Samples.DesktopViewer
 {
 	public partial class MainWindow : Window
 	{
@@ -216,7 +216,9 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 	{
 		private SampleDatasource()
 		{
-			var pages = from t in App.Current.GetType().GetTypeInfo().Assembly.ExportedTypes
+			var samplesAssembly = Assembly.Load("ArcGISRuntimeSamples");
+
+			var pages = from t in samplesAssembly.ExportedTypes
 						where t.GetTypeInfo().IsSubclassOf(typeof(UserControl)) && t.FullName.Contains(".Samples.")
 						select t;
 
@@ -234,7 +236,7 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 			try
 			{
 				xdoc = XDocument.Load(new StreamReader(
-					this.GetType().GetTypeInfo().Assembly.GetManifestResourceStream("ArcGISRuntimeSDKDotNet_DesktopSamples.Assets.SampleDescriptions.xml")));
+					samplesAssembly.GetManifestResourceStream("ArcGISRuntimeSamples.Assets.SampleDescriptions.xml")));
 				foreach (XElement member in xdoc.Descendants("member"))
 				{
 					try
@@ -320,31 +322,31 @@ namespace ArcGISRuntimeSDKDotNet_DesktopSamples
 					groups.Add(new SampleGroup(g.Items.OrderBy(i => i.Subcategory).ThenBy(i => i.Name)) { Key = g.GroupName });
 				}
 
-                // Define order of Mapping samples
-                SampleGroup mappingSamplesGroup = groups.Where(i => i.Key == "Mapping").First();
-                List<Sample> mappingSamples = new List<Sample>();
-                mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Switch Basemaps").First());
-                mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Set Initial Map Extent").First());
+				// Define order of Mapping samples
+				SampleGroup mappingSamplesGroup = groups.Where(i => i.Key == "Mapping").First();
+				List<Sample> mappingSamples = new List<Sample>();
+				mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Switch Basemaps").First());
+				mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Set Initial Map Extent").First());
 				mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Set Initial Center and Scale").First());
 				mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Set Spatial Reference").First());
-                mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Show Map Extent").First());
-                mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Show Map Scale").First());
-                mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Show Mouse Coordinates").First());
-                mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Map Rotation").First());
-                mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Map Grid").First());
-                mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Swipe").First());
-                mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Map Overlays").First());
-                mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Group Layers").First());
-                mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Location Display").First());
-                mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Layer List").First());
-                mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Overview Map").First());
+				mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Show Map Extent").First());
+				mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Show Map Scale").First());
+				mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Show Mouse Coordinates").First());
+				mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Map Rotation").First());
+				mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Map Grid").First());
+				mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Swipe").First());
+				mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Map Overlays").First());
+				mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Group Layers").First());
+				mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Location Display").First());
+				mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Layer List").First());
+				mappingSamples.Add(mappingSamplesGroup.Items.Where(i => i.Name == "Overview Map").First());
 				//Add any missing samples
 				foreach (var item in mappingSamplesGroup.Items)
 					if (!mappingSamples.Contains(item))
 						mappingSamples.Add(item);
 
-                SampleGroup newMappingSamplesGroup = new SampleGroup(mappingSamples) { Key = mappingSamplesGroup.Key };
-                groups[groups.FindIndex(g => g.Key == mappingSamplesGroup.Key)] = newMappingSamplesGroup;
+				SampleGroup newMappingSamplesGroup = new SampleGroup(mappingSamples) { Key = mappingSamplesGroup.Key };
+				groups[groups.FindIndex(g => g.Key == mappingSamplesGroup.Key)] = newMappingSamplesGroup;
 
 				return groups;
 			}

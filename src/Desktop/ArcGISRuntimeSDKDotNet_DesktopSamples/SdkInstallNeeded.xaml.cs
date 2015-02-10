@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntimeSDKDotNet_DesktopSamples
+namespace ArcGISRuntime.Samples.DesktopViewer
 {
 	public partial class SdkInstallNeeded : UserControl
 	{

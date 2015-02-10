@@ -1,7 +1,6 @@
-﻿<Window x:Class="ArcGISRuntimeSDKDotNet_DesktopSamples.MainWindow"
+﻿<Window x:Class="ArcGISRuntime.Samples.DesktopViewer.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:samples="clr-namespace:ArcGISRuntimeSDKDotNet_DesktopSamples.Samples"
         Title="ArcGIS Runtime SDK for .NET - Samples" WindowState="Maximized">
     <Grid>
         <Grid.RowDefinitions>

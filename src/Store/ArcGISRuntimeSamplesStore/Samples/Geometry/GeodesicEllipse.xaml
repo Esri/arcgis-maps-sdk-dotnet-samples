@@ -1,0 +1,139 @@
+﻿<Page
+    x:Class="ArcGISRuntime.Samples.Store.Samples.GeodesicEllipse"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:common="using:ArcGISRuntime.Samples.Store.Common"
+    xmlns:esri="using:Esri.ArcGISRuntime.Controls"
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+    xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
+	
+    <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.Resources>
+            <common:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
+			<symb:SimpleMarkerSymbol x:Key="PointSymbol" Color="Black" Style="Circle" Size="4" />
+
+			<symb:SimpleFillSymbol x:Key="EllipseSymbol" Color="#660000FF" Style="Solid">
+				<symb:SimpleFillSymbol.Outline>
+					<symb:SimpleLineSymbol Color="Blue" Width="2" />
+                </symb:SimpleFillSymbol.Outline>
+            </symb:SimpleFillSymbol>
+
+			<symb:SimpleFillSymbol x:Key="SectorSymbol" Color="#66FF0000" Style="Solid">
+				<symb:SimpleFillSymbol.Outline>
+					<symb:SimpleLineSymbol Color="Red" Width="1" />
+                </symb:SimpleFillSymbol.Outline>
+            </symb:SimpleFillSymbol>
+        </Grid.Resources>
+
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
+            <esri:Map>
+				<layers:ArcGISTiledMapServiceLayer
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/USA_Topo_Maps/MapServer" />
+            </esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="graphicsOverlay">
+					<esri:GraphicsOverlay.Renderer>
+						<symb:SimpleRenderer Symbol="{StaticResource EllipseSymbol}" />
+					</esri:GraphicsOverlay.Renderer>
+				</esri:GraphicsOverlay>
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
+
+		<Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
+			<StackPanel>
+				<TextBlock Text="Click a point on the map to calculate a geodesic ellipse (and optionally a geodesic sector) centered around the point." Width="300" TextAlignment="Left" TextWrapping="Wrap" />
+				<Grid Margin="12,24,12,12" HorizontalAlignment="Center">
+					<Grid.RowDefinitions>
+						<RowDefinition />
+						<RowDefinition />
+						<RowDefinition />
+						<RowDefinition />
+						<RowDefinition />
+						<RowDefinition />
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="Auto" />
+					</Grid.ColumnDefinitions>
+
+					<TextBlock Grid.Row="0" Grid.Column="0" Text="Primary Radius (miles):" 
+							   Margin="8" TextAlignment="Right" VerticalAlignment="Center" />
+					<ComboBox x:Name="comboRadius1" Grid.Row="0" Grid.Column="1" 
+							  SelectedIndex="0" Width="100" VerticalAlignment="Center" 
+							  HorizontalContentAlignment="Center" Margin="0,4">
+						<x:Double>250</x:Double>
+						<x:Double>500</x:Double>
+						<x:Double>750</x:Double>
+						<x:Double>1000</x:Double>
+					</ComboBox>
+
+					<TextBlock Grid.Row="1" Grid.Column="0" Text="Secondary Radius (miles):" 
+							   Margin="8" TextAlignment="Right" VerticalAlignment="Center" />
+					<ComboBox x:Name="comboRadius2" Grid.Row="1" Grid.Column="1" 
+							  SelectedIndex="2" Width="100"  VerticalAlignment="Center" 
+							  HorizontalContentAlignment="Center" Margin="0,4">
+						<x:Double>250</x:Double>
+						<x:Double>500</x:Double>
+						<x:Double>750</x:Double>
+						<x:Double>1000</x:Double>
+					</ComboBox>
+
+					<TextBlock Grid.Row="2" Grid.Column="0" Text="Ellipse Axis (degrees):" 
+							   Margin="8" TextAlignment="Right" VerticalAlignment="Center" />
+					<Slider x:Name="sliderAxis" Grid.Row="2" Grid.Column="1" Margin="6" 
+							Orientation="Horizontal" Width="100" SnapsTo="Ticks" 
+							TickPlacement="BottomRight" TickFrequency="45" 
+							Minimum="0" Maximum="180" Value="90" />
+					
+					<TextBlock Grid.Row="3" Grid.Column="0" Text="Segment Length (miles):" 
+							   Margin="8" TextAlignment="Right" VerticalAlignment="Center" />
+					<ComboBox x:Name="comboSegmentLength" Grid.Row="3" Grid.Column="1" 
+							  SelectedIndex="2" Width="100" VerticalAlignment="Center" 
+							  HorizontalContentAlignment="Center">
+						<x:Double>10</x:Double>
+						<x:Double>50</x:Double>
+						<x:Double>250</x:Double>
+						<x:Double>500</x:Double>
+						<x:Double>1000</x:Double>
+					</ComboBox>
+
+					<CheckBox x:Name="chkSector"  Grid.Row="4" Grid.Column="0" 
+							  Grid.ColumnSpan="2" Content="Show Geodesic Sector" 
+							  IsChecked="False" Margin="18,12,12,0"/>
+					<Border Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" 
+							Margin="16,4,8,0" Padding="4" BorderBrush="Gray" 
+							BorderThickness="1" 
+							Visibility="{Binding ElementName=chkSector, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+						<StackPanel>
+							<Grid HorizontalAlignment="Center">
+								<Grid.RowDefinitions>
+									<RowDefinition />
+									<RowDefinition />
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="Auto" />
+								</Grid.ColumnDefinitions>
+
+								<TextBlock Grid.Row="0" Grid.Column="0" Text="Sector Angle:" 
+										   Margin="8" TextAlignment="Right" VerticalAlignment="Center" />
+								<Slider x:Name="sliderSectorAxis" Grid.Row="0" Grid.Column="1" 
+										Margin="6" Orientation="Horizontal" Width="100" SnapsTo="Ticks" 
+										TickPlacement="BottomRight" TickFrequency="45" 
+										Minimum="0" Maximum="360" Value="90" />
+
+								<TextBlock Grid.Row="1" Grid.Column="0" Text="Start Direction:" 
+										   Margin="8" TextAlignment="Right" VerticalAlignment="Center" />
+								<Slider x:Name="sliderSectorStart" Grid.Row="1" Grid.Column="1" 
+										Margin="6" Orientation="Horizontal" Width="100" SnapsTo="Ticks" 
+										TickPlacement="BottomRight" TickFrequency="45"  
+										Minimum="0" Maximum="360" Value="45" />
+							</Grid>
+						</StackPanel>
+					</Border>
+				</Grid>
+			</StackPanel>
+		</Border>
+	</Grid>
+</Page>

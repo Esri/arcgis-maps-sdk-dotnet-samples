@@ -1,0 +1,42 @@
+﻿<Page
+    x:Class="ArcGISRuntime.Samples.Store.Samples.CsvLayerSample"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esri="using:Esri.ArcGISRuntime.Controls"
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+    xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
+
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.Resources>
+			<symb:SimpleMarkerSymbol x:Key="mag2to3" Color="#FF0A57FC" Size="12" Style="Triangle" />
+			<symb:SimpleMarkerSymbol x:Key="mag3to4" Color="#FF1CA2A3" Size="12" Style="Triangle" />
+			<symb:SimpleMarkerSymbol x:Key="mag4to5" Color="#FF60AD12" Size="12" Style="Triangle" />
+			<symb:SimpleMarkerSymbol x:Key="mag5to6" Color="#FFFFFE0A" Size="12" Style="Triangle" />
+			<symb:SimpleMarkerSymbol x:Key="mag6to7" Color="#FFFDA208" Size="12" Style="Triangle" />
+			<symb:SimpleMarkerSymbol x:Key="mag7to8" Color="#FFFB5107" Size="12" Style="Triangle" />
+
+			<symb:ClassBreaksRenderer x:Key="classBreaksRenderer" Field="mag" >
+				<symb:ClassBreaksRenderer.Infos>
+					<symb:ClassBreakInfo Minimum="2" Maximum="3" Symbol="{StaticResource mag2to3}" />
+					<symb:ClassBreakInfo Minimum="3" Maximum="4" Symbol="{StaticResource mag3to4}" />
+					<symb:ClassBreakInfo Minimum="4" Maximum="5" Symbol="{StaticResource mag4to5}" />
+					<symb:ClassBreakInfo Minimum="5" Maximum="6" Symbol="{StaticResource mag5to6}" />
+					<symb:ClassBreakInfo Minimum="6" Maximum="7" Symbol="{StaticResource mag6to7}" />
+					<symb:ClassBreakInfo Minimum="7" Maximum="8" Symbol="{StaticResource mag7to8}" />
+                </symb:ClassBreaksRenderer.Infos>
+            </symb:ClassBreaksRenderer>
+        </Grid.Resources>
+
+        <esri:MapView>
+            <esri:Map>
+				<layers:ArcGISTiledMapServiceLayer
+				    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+
+				<layers:CsvLayer 
+                    ServiceUri="http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.csv"
+                    XFieldName="longitude" YFieldName="latitude"
+                    Renderer="{StaticResource classBreaksRenderer}" />
+            </esri:Map>
+        </esri:MapView>
+    </Grid>
+</Page>

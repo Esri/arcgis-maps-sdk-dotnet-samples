@@ -1,0 +1,71 @@
+﻿<Page
+    x:Class="ArcGISRuntime.Samples.Store.Samples.GetSamples"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esri="using:Esri.ArcGISRuntime.Controls"
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+    xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
+
+    <Page.BottomAppBar>
+        <CommandBar IsOpen="True" IsSticky="True">
+            <CommandBar.PrimaryCommands>
+                <AppBarButton Icon="Go" Label="Samples" Click="GetSamplesButton_Click" />
+            </CommandBar.PrimaryCommands>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Icon="Important" Label="Info">
+                    <AppBarButton.Flyout>
+                        <Flyout>
+                            <TextBlock Text="Click the 'Samples' button and drag a rectangle on the map to query image tiles.  Tile footprints will be displayed and their attributes will be available in map tips."
+                                       FontSize="14" TextWrapping="Wrap" Width="250" />
+                        </Flyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+
+    <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.Resources>
+            <symb:SimpleFillSymbol x:Key="FootprintFillSymbol" Color="Transparent" Style="Solid">
+                <symb:SimpleFillSymbol.Outline>
+                    <symb:SimpleLineSymbol Color="White" Style="Solid" Width="2" />
+                </symb:SimpleFillSymbol.Outline>
+            </symb:SimpleFillSymbol>
+
+            <symb:SimpleRenderer x:Key="FillRenderer" Symbol="{StaticResource FootprintFillSymbol}" />
+        </Grid.Resources>
+
+        <esri:MapView x:Name="MyMapView" WrapAround="True" MapViewTapped="MyMapView_MapViewTapped">
+            <esri:Map>
+                <layers:ArcGISTiledMapServiceLayer ID="StreetMapLayer"
+                    ServiceUri="http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
+                <layers:ArcGISImageServiceLayer ID="ImageLayer"
+                    ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Portland/Aerial/ImageServer" />
+            </esri:Map>
+
+            <esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="graphicsOverlay" Renderer="{StaticResource FillRenderer}"/>
+            </esri:MapView.GraphicsOverlays>
+
+            <esri:MapView.Overlays>
+                <esri:OverlayItemsControl>
+                    <Border HorizontalAlignment="Right" VerticalAlignment="Top" Padding="6"
+                            Background="#CC000000" Visibility="Collapsed">
+                        <StackPanel>
+                            <TextBlock FontSize="14">
+                            <Run Text="Name: " FontWeight="Bold" />
+                            <Run Text="{Binding Attributes[Name]}" />
+                            <LineBreak />
+                            <Run Text="Pixel Size (meters/pixel): " FontWeight="Bold"/>
+                            <Run Text="{Binding Attributes[LowPS]}" />
+                            </TextBlock>
+                        </StackPanel>
+                    </Border>
+                </esri:OverlayItemsControl>
+            </esri:MapView.Overlays>
+        </esri:MapView>
+
+        <ProgressBar x:Name="progress" IsIndeterminate="True" Visibility="Collapsed" Margin="25"
+                     Width="250" HorizontalAlignment="Center" VerticalAlignment="Top" />
+    </Grid>
+</Page>

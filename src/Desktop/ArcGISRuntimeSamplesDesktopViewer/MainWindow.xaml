@@ -2,7 +2,21 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="ArcGIS Runtime SDK for .NET - Samples" WindowState="Maximized">
-    <Grid>
+
+	<Window.Resources>
+		<RoutedUICommand x:Key="TakeScreenshotCommand" Text="TakeThumbnail"/>
+	</Window.Resources>
+
+	<Window.CommandBindings>
+		<CommandBinding Command="{StaticResource TakeScreenshotCommand}" 
+                    Executed="CommandBinding_Executed" />
+	</Window.CommandBindings>
+	
+	<Window.InputBindings>
+		<KeyBinding Key="T" Modifiers="Ctrl" Command="{StaticResource TakeScreenshotCommand}" />
+	</Window.InputBindings>
+
+	<Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />

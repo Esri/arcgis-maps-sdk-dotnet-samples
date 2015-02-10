@@ -4,9 +4,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Xml.Linq;
 
 namespace ArcGISRuntime.Samples.DesktopViewer
@@ -14,6 +17,7 @@ namespace ArcGISRuntime.Samples.DesktopViewer
 	public partial class MainWindow : Window
 	{
 		private bool _isSdkInstalled;
+		private Sample _currentSample;
 
 		public MainWindow()
 		{
@@ -207,8 +211,55 @@ namespace ArcGISRuntime.Samples.DesktopViewer
 			currentSampleMenuItem = menu;
 			StatusBar.DataContext = sample;
 
+			_currentSample = sample;
+
 			GC.Collect();
 			GC.WaitForPendingFinalizers();
+		}
+
+		private void CommandBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+		{
+			TakeThumbnail();
+		}
+
+		private async void TakeThumbnail()
+		{
+			if (_currentSample == null)
+			{
+				MessageBox.Show("Please select Live Sample to before creating a thumbnail.");
+				return;
+			}
+
+			var rtb = new RenderTargetBitmap((int)SampleContainer.ActualWidth, (int)SampleContainer.ActualHeight, 96, 96, PixelFormats.Pbgra32);
+			rtb.Render(SampleContainer);
+
+			// Encoding the RenderBitmapTarget as a PNG file.
+			PngBitmapEncoder png = new PngBitmapEncoder();
+			png.Frames.Add(BitmapFrame.Create(rtb));
+
+			if (!Directory.Exists("samples"))
+			{
+				Directory.CreateDirectory("samples");
+			}
+
+			var file = new System.IO.FileInfo(System.IO.Path.Combine("samples", _currentSample.Name + ".png"));
+			if (file.Exists)
+			{
+				await Task.Delay(1000);
+
+				file.Delete();
+				using (System.IO.Stream stm = System.IO.File.Create(file.FullName))
+				{
+					png.Save(stm);
+				}
+			}
+			else
+			{
+				using (System.IO.Stream stm = System.IO.File.Create(file.FullName))
+				{
+					png.Save(stm);
+				}
+			}
 		}
 	}
 

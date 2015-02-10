@@ -1,12 +1,9 @@
-﻿using System.Linq;
-using Esri.ArcGISRuntime;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
-using Windows.UI.Xaml;
+using System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using System;
-using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Controls;
 
 namespace ArcGISRuntime.Samples.Phone.Samples
 {

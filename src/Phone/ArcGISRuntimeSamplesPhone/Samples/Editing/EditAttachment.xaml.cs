@@ -4,16 +4,15 @@ using Esri.ArcGISRuntime.Layers;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Activation;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using System.Linq;
-using Windows.UI.Popups;
 using Windows.UI.Xaml.Media.Imaging;
-using Windows.ApplicationModel.Activation;
-using ArcGISRuntime.Samples.Phone;
 
 namespace ArcGISRuntime.Samples.Phone.Samples
 {

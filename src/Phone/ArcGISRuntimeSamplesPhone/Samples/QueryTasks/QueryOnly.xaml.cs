@@ -1,9 +1,5 @@
-﻿using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Layers;
-using Esri.ArcGISRuntime.Tasks.Query;
+﻿using Esri.ArcGISRuntime.Tasks.Query;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

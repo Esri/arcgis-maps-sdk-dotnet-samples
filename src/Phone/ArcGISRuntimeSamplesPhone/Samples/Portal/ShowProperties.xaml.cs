@@ -2,7 +2,6 @@
 using Esri.ArcGISRuntime.WebMap;
 using System;
 using System.Threading.Tasks;
-using System.Windows;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

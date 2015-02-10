@@ -1,6 +1,6 @@
 ﻿using Esri.ArcGISRuntime.Layers;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

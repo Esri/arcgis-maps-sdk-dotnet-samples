@@ -3,17 +3,15 @@
 // Please see http://go.microsoft.com/fwlink/?LinkID=131993 for details.
 // All other rights reserved.
 
+using Esri.ArcGISRuntime.Security;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Linq;
-using System.Windows;
+using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
-using Windows.ApplicationModel.Core;
-using Esri.ArcGISRuntime.Security;
-using Windows.UI.Core;
 using Windows.UI.Xaml.Controls.Primitives;
 
 namespace ArcGISRuntime.Samples.Phone.Samples

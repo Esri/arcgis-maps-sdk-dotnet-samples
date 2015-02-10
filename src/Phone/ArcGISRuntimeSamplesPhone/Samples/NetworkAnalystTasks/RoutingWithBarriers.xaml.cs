@@ -1,11 +1,9 @@
-﻿using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.Controls;
+﻿using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalyst;
 using System;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI;

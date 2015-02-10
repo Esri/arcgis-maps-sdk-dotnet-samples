@@ -1,5 +1,4 @@
-﻿using Esri.ArcGISRuntime;
-using Esri.ArcGISRuntime.Controls;
+﻿using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using System.Linq;

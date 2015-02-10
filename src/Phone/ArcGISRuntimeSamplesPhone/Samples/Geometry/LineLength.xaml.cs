@@ -1,13 +1,8 @@
 ﻿using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks.Query;
 using System;
-using System.Threading;
 using System.Threading.Tasks;
-using Windows.Storage;
-using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 

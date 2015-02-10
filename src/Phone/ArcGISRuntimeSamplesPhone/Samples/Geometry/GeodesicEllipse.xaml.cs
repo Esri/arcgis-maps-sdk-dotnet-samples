@@ -5,7 +5,6 @@ using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
-using Windows.UI.Xaml;
 
 namespace ArcGISRuntime.Samples.Phone.Samples
 {

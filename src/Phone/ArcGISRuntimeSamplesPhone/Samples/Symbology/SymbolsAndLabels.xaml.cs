@@ -1,7 +1,7 @@
-﻿using System.Linq;
-using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
+using System.Linq;
 
 namespace ArcGISRuntime.Samples.Phone.Samples
 {

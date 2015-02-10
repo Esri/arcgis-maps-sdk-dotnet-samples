@@ -3,10 +3,9 @@ using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using System;
-using System.Threading.Tasks;
+using System.Linq;
 using Windows.Storage;
 using Windows.UI.Popups;
-using System.Linq;
 using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.Samples.Phone.Samples

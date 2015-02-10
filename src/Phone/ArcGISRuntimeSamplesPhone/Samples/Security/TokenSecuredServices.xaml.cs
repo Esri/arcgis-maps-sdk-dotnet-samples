@@ -1,10 +1,8 @@
-﻿using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Security;
+﻿using Esri.ArcGISRuntime.Security;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using System.Windows;
 using Windows.ApplicationModel.Core;
 using Windows.UI;
 using Windows.UI.Core;

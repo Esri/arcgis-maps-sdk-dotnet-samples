@@ -1,6 +1,4 @@
-﻿using Esri.ArcGISRuntime.Controls;
-using Windows.UI.Popups;
-using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.Samples.Phone.Samples
 {

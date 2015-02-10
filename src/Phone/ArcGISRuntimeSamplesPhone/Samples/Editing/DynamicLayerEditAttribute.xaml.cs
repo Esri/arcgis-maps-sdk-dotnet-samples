@@ -9,7 +9,6 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.Samples.Phone.Samples

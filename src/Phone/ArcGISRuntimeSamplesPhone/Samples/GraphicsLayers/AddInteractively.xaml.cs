@@ -1,13 +1,11 @@
-﻿using System.Linq;
-using Esri.ArcGISRuntime;
+﻿using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Layers;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
-using System;
-using Windows.UI.Popups;
-using System.Threading.Tasks;
-using Esri.ArcGISRuntime.Controls;
 using Windows.UI.Xaml.Navigation;
 
 namespace ArcGISRuntime.Samples.Phone.Samples

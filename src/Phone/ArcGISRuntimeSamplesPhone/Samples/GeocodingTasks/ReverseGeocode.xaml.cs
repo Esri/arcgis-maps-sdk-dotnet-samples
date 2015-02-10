@@ -1,12 +1,12 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Geocoding;
 using System;
 using System.Threading;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Esri.ArcGISRuntime.Controls;
-using Windows.UI.Popups;
 
 
 namespace ArcGISRuntime.Samples.Phone.Samples

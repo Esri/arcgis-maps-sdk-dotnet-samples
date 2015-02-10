@@ -1,15 +1,15 @@
-﻿using Windows.UI;
-using Esri.ArcGISRuntime.Controls;
+﻿using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Portal;
+using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Query;
 using Esri.ArcGISRuntime.WebMap;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
-using Esri.ArcGISRuntime.Symbology;
 
 namespace ArcGISRuntime.Samples.Phone.Samples
 {

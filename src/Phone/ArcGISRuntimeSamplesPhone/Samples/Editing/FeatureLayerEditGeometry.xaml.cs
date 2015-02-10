@@ -2,15 +2,11 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
-using Esri.ArcGISRuntime.Tasks.Query;
 using System;
-using System.Collections.ObjectModel;
-using System.Globalization;
-using System.Threading.Tasks;
+using System.Linq;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using System.Linq;
 
 namespace ArcGISRuntime.Samples.Phone.Samples
 {

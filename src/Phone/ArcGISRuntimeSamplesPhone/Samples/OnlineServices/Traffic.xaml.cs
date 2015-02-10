@@ -1,12 +1,10 @@
 ﻿using Esri.ArcGISRuntime.Controls;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

@@ -153,7 +153,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Editing\Extras\SOEElevationData.xaml">
+    <Page Include="Samples\Extras\SOEElevationData.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -661,7 +661,7 @@
     <Compile Include="Samples\Editing\ExplicitSave.xaml.cs">
       <DependentUpon>ExplicitSave.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Editing\Extras\SOEElevationData.xaml.cs">
+    <Compile Include="Samples\Extras\SOEElevationData.xaml.cs">
       <DependentUpon>SOEElevationData.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Editing\FeatureLayerEditAttribute.xaml.cs">

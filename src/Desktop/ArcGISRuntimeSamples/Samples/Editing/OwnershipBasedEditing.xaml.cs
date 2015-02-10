@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
 	/// <summary>
 	/// Demonstrates how editing of features can be restricted by ownership-based access defined in the service.

@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample shows how to change interaction settings that controls the MapView.

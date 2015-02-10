@@ -1,9 +1,9 @@
-﻿<UserControl x:Class="ArcGISRuntime.Samples.LoadWebMapMVVM"
+﻿<UserControl x:Class="ArcGISRuntime.Samples.Desktop.LoadWebMapMVVM"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
-             xmlns:local="clr-namespace:ArcGISRuntime.Samples">
+             xmlns:local="clr-namespace:ArcGISRuntime.Samples.Desktop">
 
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>

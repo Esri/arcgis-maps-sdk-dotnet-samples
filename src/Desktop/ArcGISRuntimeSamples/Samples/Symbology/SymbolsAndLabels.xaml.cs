@@ -4,7 +4,7 @@ using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
 	/// <summary>
 	/// Shows various types of the more advanced symbol types: Composite and CIM symbology.

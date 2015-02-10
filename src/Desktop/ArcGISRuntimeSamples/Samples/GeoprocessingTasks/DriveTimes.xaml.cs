@@ -10,7 +10,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample demonstrates use of the Geoprocessor to call a DriveTimes geoprocessing service. To use the sample, click a point in the map. Drive time polygons of 1, 2, and 3 minutes will be calculated and displayed on the map.

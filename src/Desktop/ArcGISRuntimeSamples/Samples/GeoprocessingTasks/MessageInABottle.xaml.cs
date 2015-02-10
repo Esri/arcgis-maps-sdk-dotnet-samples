@@ -7,7 +7,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample demonstrates use of the Geoprocessor to call a MessageInABottle geoprocessing service. To use the sample, specify the number of days and click a point in the ocean. The path of a bottle dropped at the click point over the specified number of days will be drawn on the map.

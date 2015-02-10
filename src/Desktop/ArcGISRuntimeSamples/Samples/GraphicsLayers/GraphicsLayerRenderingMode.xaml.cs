@@ -10,7 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample demonstrates the use of the GraphicsLayer.RenderingMode property to control how a GraphicsOverlay draws its graphics. Zooming and Panning the map in each of the rendering modes will show the differences between them. Rendering mode differences will be more pronounced with higher numbers of graphics in the graphic layer.

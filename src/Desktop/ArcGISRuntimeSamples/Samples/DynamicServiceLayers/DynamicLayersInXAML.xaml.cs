@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
 	/// <summary>
 	/// This sample demonstrates how to load dynamic map service layers in xaml. 

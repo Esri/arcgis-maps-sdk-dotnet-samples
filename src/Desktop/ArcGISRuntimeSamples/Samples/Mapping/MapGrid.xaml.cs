@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
 	/// <summary>
 	/// This sample shows how to enable a map grid using the MapView.MapGrid property.  The user is allowed to switch between the standard grid types (Latitude / Longitude, MGRS, UTM, and USNG) by using a combobox in the upper right corner of the screen.

@@ -11,7 +11,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// Sample shows how to create a UniqueValueRenderer for a graphics layer. US state polygons are pulled from an online source and rendered using the GraphicsLayer UniqueValueRenderer.

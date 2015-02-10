@@ -7,7 +7,7 @@ using System.Runtime.Serialization.Json;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// Demonstrates adding a Bing Maps layer to a Map in code.  A Bing Maps key must be provided to view Bing Maps tiled map services.

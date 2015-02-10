@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 using Esri.ArcGISRuntime.Geometry;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
 	/// <summary>
 	/// Shows how to set the initial center and scale of the map (Map.InitialViewpoint).

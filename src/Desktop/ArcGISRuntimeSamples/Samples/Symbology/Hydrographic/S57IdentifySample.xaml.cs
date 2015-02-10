@@ -18,7 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 
-namespace ArcGISRuntime.Samples.Symbology.Hydrographic
+namespace ArcGISRuntime.Samples.Desktop.Symbology.Hydrographic
 {
 	/// <summary>
 	/// This sample demonstrates how to perform a point-based identify style operation on an HydrographicS57Layer using the SearchLayer method.

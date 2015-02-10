@@ -6,7 +6,7 @@ using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace ArcGISRuntime.Samples.DynamicLayers
+namespace ArcGISRuntime.Samples.Desktop.DynamicLayers
 {
     /// <summary>
     /// This sample demonstrates dynamic layer labeling.  Labels are configured in the LayerDrawingOptions of the dyanmic layer.  In this sample, labels are shown for major and minor US cities with different fonts and scale ranges.  Major city label info is configured in the XAML while minor city label info is added via the code-behind.

@@ -216,7 +216,7 @@ namespace ArcGISRuntime.Samples.DesktopViewer
 	{
 		private SampleDatasource()
 		{
-			var samplesAssembly = Assembly.Load("ArcGISRuntimeSamples");
+			var samplesAssembly = Assembly.Load("ArcGISRuntimeSamplesDesktop");
 
 			var pages = from t in samplesAssembly.ExportedTypes
 						where t.GetTypeInfo().IsSubclassOf(typeof(UserControl)) && t.FullName.Contains(".Samples.")
@@ -236,7 +236,7 @@ namespace ArcGISRuntime.Samples.DesktopViewer
 			try
 			{
 				xdoc = XDocument.Load(new StreamReader(
-					samplesAssembly.GetManifestResourceStream("ArcGISRuntimeSamples.Assets.SampleDescriptions.xml")));
+					samplesAssembly.GetManifestResourceStream("ArcGISRuntime.Samples.Desktop.Assets.SampleDescriptions.xml")));
 				foreach (XElement member in xdoc.Descendants("member"))
 				{
 					try

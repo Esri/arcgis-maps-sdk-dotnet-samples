@@ -9,7 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample uses an ArcGIS Server Task to generate a Class Breaks Renderer with five classes. Note that this functionality requires an ArcGIS Server 10.1 instance. The generate renderer task can also generate unique value renderers and can also generate color ramp(s) from two or more colors.

@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample demonstrates how to use the IdentityManager to gain access to a secured service. Here, the map contains a public basemap and a secure dynamic layer. The IdentityManager will challenge for credentials when the Map tries to access a secure service.

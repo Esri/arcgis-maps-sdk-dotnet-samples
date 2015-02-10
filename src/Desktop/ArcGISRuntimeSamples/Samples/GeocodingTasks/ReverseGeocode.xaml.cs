@@ -7,7 +7,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// Demonstrates using the OnlineLocatorTask.ReverseGeocodeAsync method to get address information from a location on the map.

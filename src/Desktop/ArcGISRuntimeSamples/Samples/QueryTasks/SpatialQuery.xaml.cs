@@ -9,7 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Linq;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample demonstrates how to spatially search your data using a QueryTask with its geometry attribute set. The sample spatially queries a map service using the buffer geometry around a user's click point and displays the results in a graphics layer on the map.

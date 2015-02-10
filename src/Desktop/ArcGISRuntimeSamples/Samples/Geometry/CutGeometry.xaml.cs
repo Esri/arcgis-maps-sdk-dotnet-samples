@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// Example of using the GeometryEngine.Cut method to cut feature geometries with a given polyline. To use this sample, the user draws a cut polyline intersecting the feature polygons and the system then cuts the intersecting feature geometries and displays the resulting polygons in a graphics overlay on the map.

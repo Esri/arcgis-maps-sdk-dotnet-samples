@@ -6,7 +6,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample demonstrates feature layer hit testing. When the user clicks on the map, the application uses FeatureLayer.HitTest to retrieve the feature at the mouse point. The HitTest method returns the row ID of the first feature found at the given point. This sample then uses the FeatureTable.QueryAsync method to retrieve a Feature for the HitTested row ID and displays its attributes in the UI.

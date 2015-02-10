@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample shows how to add a FeatureLayer from a local .geodatabase file to the map. A .geodatabase file may be created using the 'Create Runtime Content' tool in ArcMap.

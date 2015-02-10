@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// Example of how to add Graphics to a GraphicsOverlay by drawing shapes on the map.  The Editor.RequestShapeAsync method is used to manage map drawing and geometry creation.  Symbols for the graphics are defined in XAML.

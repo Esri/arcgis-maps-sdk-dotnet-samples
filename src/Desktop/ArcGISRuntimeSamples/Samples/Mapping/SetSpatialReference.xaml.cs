@@ -1,7 +1,7 @@
 ﻿using Esri.ArcGISRuntime.Geometry;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// Demonstrates setting the extent and spatial reference of a map via the Map.InitialExtent property.

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// Example of using the GeometryEngine.Clip method to clip feature geometries with a given envelope. To use this sample, the user draws a clipping rectangle over the feature polygons and the system then clips the intersecting feature geometries and displays the resulting polygons in a graphics layer on the map.

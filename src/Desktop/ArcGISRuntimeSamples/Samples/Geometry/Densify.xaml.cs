@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample demonstrates using GeometryEngine.Densify to take an input polygon and return a densified polygon. Original vertices to create the original polygon are shown in red. The returned polygon shows the additional densified vertices in green. To use the sample, click the 'Densify Polygon' button and create a polygon on the map. Double-click to end the polygon sketch and densify the polygon and see the original and densified vertices.

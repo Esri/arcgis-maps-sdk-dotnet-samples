@@ -10,7 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// Sample shows how to create Line and Fill Symbol (SimpleLineSymbol, SimpleFillSymbol, PictureFillSymbol) and add graphics using the symbols.

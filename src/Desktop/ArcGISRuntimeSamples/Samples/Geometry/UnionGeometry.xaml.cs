@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// Example of using the GeometryEngine.Union method to calculate the geometric union of feature geometries and a given polygon. To use this sample, the user draws a polygon over the feature polygons and the system then retrieves the union of the feature geometries and the new polygon. Resulting polygons are shown in a graphics overlay on the map.

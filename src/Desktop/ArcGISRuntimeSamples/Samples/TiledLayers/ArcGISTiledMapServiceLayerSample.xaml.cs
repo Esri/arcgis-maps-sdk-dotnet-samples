@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// Demonstrates adding an ArcGIS tiled map service to a Map in XAML.

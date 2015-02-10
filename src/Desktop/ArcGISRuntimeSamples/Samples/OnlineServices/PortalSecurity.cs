@@ -1,7 +1,7 @@
 ﻿using Esri.ArcGISRuntime.Security;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// Security class that defines global challenge method for accessing arcgis.com portal services

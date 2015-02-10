@@ -9,7 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using Geometry = Esri.ArcGISRuntime.Geometry;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// Demonstrates the GeometryEngine.Boundary method to calculate the geometric boundary of a given geometry. Here, boundaries are calculated for a multi-part polygon (returning a boundary polyline) and a multi-part polyline (returning multiple points).

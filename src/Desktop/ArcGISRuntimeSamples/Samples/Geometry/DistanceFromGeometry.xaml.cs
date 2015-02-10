@@ -6,7 +6,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample demonstrates using the GeometryEngine.DistanceFromGeometry method to calculate the linear distance of the shortest length between two geometries. To use the sample, click on the 'Calculate Distance' button and then add a polyline and a point to the map. After the point is entered the shortest distance between them is displayed.

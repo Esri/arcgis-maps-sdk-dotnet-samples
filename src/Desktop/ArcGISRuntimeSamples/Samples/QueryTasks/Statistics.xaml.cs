@@ -10,7 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// Demonstrates how to use a QueryTask to get statistics from a map service. A statistics query is executed against a US states map service that gets statistics about population in sub-regions. This is combined with another query that retrieves all state features and the result is added to a graphicslayer and a tabular list view.

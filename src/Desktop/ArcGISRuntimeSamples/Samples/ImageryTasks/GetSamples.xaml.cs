@@ -8,7 +8,7 @@ using System.Windows;
 using System.Linq;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample demonstrates using an QueryTask to Query an ArcGISImageServiceLayer to find the outlines of image tiles and display them in a GraphicOverlay. MapOverlay attribute information is displayed for selected tile graphics when they are clicked on the map.

@@ -9,7 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample demonstrates GraphicLayer selection management. Graphics are set in a selected or unselected state by using the Graphic.IsSelected property. Here, the user selects or unselects graphics by clicking on the graphic.

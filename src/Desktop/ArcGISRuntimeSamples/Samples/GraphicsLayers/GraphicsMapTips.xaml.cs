@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample demonstrates how to position map tips on graphics in a graphics layer. In this example, a random set of graphics is added to a graphics layer on the map and the MapView.MouseMove event is handled to hit test the graphics layer and position the map tip.

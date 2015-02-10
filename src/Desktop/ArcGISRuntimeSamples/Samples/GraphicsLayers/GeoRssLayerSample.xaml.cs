@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// Creates a GeoRssLayer based on the United States Geological Survey earthquake feed and assigned a SimpleRenderer.

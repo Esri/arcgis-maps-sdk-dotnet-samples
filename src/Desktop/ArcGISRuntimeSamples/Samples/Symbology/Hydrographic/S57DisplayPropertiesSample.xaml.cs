@@ -12,7 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Markup;
 
-namespace ArcGISRuntime.Samples.Symbology.Hydrographic
+namespace ArcGISRuntime.Samples.Desktop.Symbology.Hydrographic
 {
 	/// <summary>
 	/// This sample demonstrates using the global static HydrographicS52DisplayProperties object to control the display properties of an HydrographicS57Layer, such as the Color Scheme or Safety Contour Depth. 

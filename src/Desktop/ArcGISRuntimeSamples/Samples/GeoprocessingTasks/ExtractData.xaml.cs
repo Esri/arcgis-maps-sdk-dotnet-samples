@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample shows how to work with an asynchronous Extract Data geoprocessing service. The Extract Data Task lets users specify an area of interest then download a zip file that contains data for that area from one or more layers.

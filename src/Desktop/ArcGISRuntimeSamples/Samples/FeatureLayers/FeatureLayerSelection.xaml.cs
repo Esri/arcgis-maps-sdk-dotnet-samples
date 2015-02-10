@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample demonstrates how to select and unselect features in a feature layer using the SelectFeatures, UnSelectFeatures and ClearSelecteion methods of the FeatureLayer class.  The sample uses the MapView.RequestShapeAsync method to allow the user to draw a selection rectangle intersecting features that he would like to manage.  Once the selection rectangle is returned, a SpatialQueryFilter is used to spatially select features in the feature layer using FeatureLayer.QueryAsync.  When the features are identified the selected features list of the feature layer is managed using the FeatureLayer selection management methods.

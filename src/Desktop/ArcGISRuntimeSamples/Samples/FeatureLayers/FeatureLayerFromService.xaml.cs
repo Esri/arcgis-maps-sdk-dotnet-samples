@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample demonstrates the Feature Layer. Feature layers allow you to easily plot layers from a feature service on a map. As the sample XAML shows, this simply requires declaring a FeatureLayer element in the Map's layers collection and specifying the URL of the its ServiceFeatureTable attribute to the feature service layer.

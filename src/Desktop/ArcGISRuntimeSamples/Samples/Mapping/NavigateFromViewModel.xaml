@@ -1,7 +1,7 @@
-﻿<UserControl x:Class="ArcGISRuntime.Samples.NavigateFromViewModel"
+﻿<UserControl x:Class="ArcGISRuntime.Samples.Desktop.NavigateFromViewModel"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			 xmlns:local="clr-namespace:ArcGISRuntime.Samples"
+			 xmlns:local="clr-namespace:ArcGISRuntime.Samples.Desktop"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
 	<UserControl.Resources>
 		<local:NavigateFromViewModel_VM x:Key="vm" />

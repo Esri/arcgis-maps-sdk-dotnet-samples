@@ -12,7 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Esri.ArcGISRuntime.Security;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
 	/// <summary>
 	/// Desktop OAuthAuthorize handler which encapsulates the redirection of the user to the OAuth authorization URI by using a WebBrowser.

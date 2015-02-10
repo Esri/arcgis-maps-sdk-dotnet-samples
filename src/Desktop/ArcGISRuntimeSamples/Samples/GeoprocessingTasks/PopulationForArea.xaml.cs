@@ -16,7 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample uses a geoprocessing task to estimate the number of people within a polygon you draw on the map. Click 'Summarize Population', then freehand a line on the map surrounding an area to analyze. When you release the mouse button, the polygon will auto-complete and you'll see how many people are estimated to live within the polygon boundaries.

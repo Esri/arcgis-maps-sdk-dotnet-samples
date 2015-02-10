@@ -1,7 +1,7 @@
 ﻿using Esri.ArcGISRuntime.Geometry;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample demonstrates changing the order of dynamic layers. Clicking the 'Change Layer Order' button uses the DynamicLayerInfoCollection to move the top layer to the bottom.

@@ -1,8 +1,8 @@
-﻿<UserControl x:Class="ArcGISRuntime.Samples.PortalSearch"
+﻿<UserControl x:Class="ArcGISRuntime.Samples.Desktop.PortalSearch"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
-             xmlns:local="clr-namespace:ArcGISRuntime.Samples">
+             xmlns:local="clr-namespace:ArcGISRuntime.Samples.Desktop">
     <Grid x:Name="layoutGrid">
         <Grid.Resources>
             <local:HtmlToTextConverter x:Key="HtmlToTextConverter" />

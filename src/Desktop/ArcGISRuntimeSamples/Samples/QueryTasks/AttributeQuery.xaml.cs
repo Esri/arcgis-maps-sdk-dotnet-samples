@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample demonstrates performing an attribute query, adding the results to the map and UI, and zooming to the resulting geometry. To use the sample, select a state from the drop-down menu. A QueryTask is used to query a map service layer based on the selected state name. The result is then added as a Graphic to the map and the attributes displayed in a list control.

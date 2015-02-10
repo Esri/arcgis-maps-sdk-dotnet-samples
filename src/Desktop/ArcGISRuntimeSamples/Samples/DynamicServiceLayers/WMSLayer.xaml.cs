@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples.DynamicLayers
+namespace ArcGISRuntime.Samples.Desktop.DynamicLayers
 {
     /// <summary>
     /// This sample demonstrates displaying an WMSLayer draped over an ArcGISTiledMapServiceLayer. The WMSLayer allows users to display Open GIS Consortium (OGC) WMS layers.

@@ -10,7 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace ArcGISRuntime.Samples.DynamicLayers
+namespace ArcGISRuntime.Samples.Desktop.DynamicLayers
 {
     /// <summary>
     /// This sample demonstrates using the GenerateRendererTask to create a class breaks or unique value renderer on the server without having to retrieve all the data to the client. To use the sample, click either the Generate Range Values or Generate Unique Values button. This updates the renderer on the map.

@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// Sample shows how to create a SimpleRenderer for a graphics layer in XAML and code. User added points will be added to the graphics layer and rendered using the GraphicsLayer Renderer.

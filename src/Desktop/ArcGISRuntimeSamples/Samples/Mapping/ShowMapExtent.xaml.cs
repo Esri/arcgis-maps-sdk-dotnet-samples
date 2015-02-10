@@ -2,7 +2,7 @@
 using System;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample includes a Map and a ArcGISTiledMapServiceLayer and demonstrates how to handle the ExtentChanged event on the MapView.  The extent parameters of the map are displayed in a textblock as they change at runtime.  Since the Map is in wrap-around mode, absolute values represent the map extent on an infinite continuous grid where values on the X axis increase or decrease as you pan.  Normalized values represent the map extent in the real-world and take the dateline (or current central meridian) into account.

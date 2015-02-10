@@ -9,7 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample shows how to hit test a graphics layer using the GraphicsOverlay.HitTestAsync method. Here, the user may sketch a point on the map to initiate the hit testing process - the results of the hit test are then displayed in the UI.

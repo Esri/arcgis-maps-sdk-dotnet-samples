@@ -9,7 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample demonstrates use of the GeometryEngine to calculate a buffer. To use the sample, click a point on the map. The click point and a buffer of 5 miles around the point will be shown.

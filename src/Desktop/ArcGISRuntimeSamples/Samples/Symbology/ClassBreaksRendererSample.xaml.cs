@@ -10,7 +10,7 @@ using System.Windows.Media;
 using System.Linq;
 using Esri.ArcGISRuntime.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// Sample shows how to create a ClassBreaksRenderer for a graphics layer. Earthquake data points are pulled from an online source and rendered using the GraphicsLayer ClassBreaksRenderer.

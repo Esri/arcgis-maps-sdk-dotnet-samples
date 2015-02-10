@@ -13,7 +13,7 @@ using System.Xml.Linq;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntime.Samples.Symbology.Specialized
+namespace ArcGISRuntime.Samples.Desktop.Symbology.Specialized
 {
 	/// <summary>
 	/// Sample shows how to read and process Mil2525C message data from XML file. 

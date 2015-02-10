@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// Demonstrates use of the GeometryEngine.ConvexHull method to create a convex hull polygon for three or more points.  A convex hull is the smallest polygon that completely encases a set (i.e. locus) of points. To use the sample, add three or more points on the map and click the Generate Convex Hull button. A polygon containing all the points entered will be returned.

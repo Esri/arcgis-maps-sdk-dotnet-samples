@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Linq;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// Demonstrates how to accumulated edits can be saved or canceled altogether.

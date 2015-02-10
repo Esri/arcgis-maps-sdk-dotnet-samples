@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample demonstrates the use of the GraphicsLayer.GraphicsSouce property. Here, three separate graphics source lists are initially created with random graphics. A button is used to switch the GraphicsSource property of the GraphicsLayer between the sources.

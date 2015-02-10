@@ -12,7 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 
-namespace ArcGISRuntime.Samples.DynamicLayers
+namespace ArcGISRuntime.Samples.Desktop.DynamicLayers
 {
     /// <summary>
     /// This sample demonstrates the dynamic layers capability to add Shapefiles and Raster datasets to the map. Single or multiple Shapefiles or Rasters can be selected in the open file dialog from within a folder. These files will be added to a local map service via the dynamic layers capability available in the API. This local map service is then used as the basis for an ArcGISDynamicMapServiceLayer which is added to the map. It would be possible to extend the sample to allows users to specify the symbol/renderer for any shapefiles added. Raster symbology is predetermined by the raster itself.

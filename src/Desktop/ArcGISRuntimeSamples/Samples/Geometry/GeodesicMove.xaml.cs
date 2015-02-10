@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample demonstrates use of the GeometryEngine.GeodesicMove method to move a geometry be a specified distance. To use the sample, first digitize a polygon on the map. Then set the move distance and angle properties and click the 'Geodesic Move' button. The original polygon and the new moved polygon will be displayed.

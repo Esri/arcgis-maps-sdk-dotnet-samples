@@ -4,7 +4,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample demonstrates how to search for, return, and dynamically use basemaps from ArcGIS Online.

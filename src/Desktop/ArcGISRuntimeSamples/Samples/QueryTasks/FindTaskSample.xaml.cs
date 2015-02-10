@@ -9,7 +9,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample demonstrates how to search your data using the find task. The sample displays the results on the map and in tabular list view.

@@ -3,7 +3,7 @@ using System;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample includes a Map and a single ArcGIS Server layer. MouseMove events on the Map are handled to return the mouse cursor location over the map. The location is displayed in pixels and map units.

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// Demonstrates adding an ArcGIS image service layer to a Map in XAML.

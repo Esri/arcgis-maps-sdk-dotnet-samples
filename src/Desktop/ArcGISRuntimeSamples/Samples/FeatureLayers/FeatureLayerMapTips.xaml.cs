@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample shows how to display a map tip for a feature layer.  In this example, the MouseMove event of the MapView is handled with code that performs a FeatureLayer HitTest / Query combination which returns a single feature for display in the mapTip element defined in the XAML.

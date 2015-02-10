@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// Example of using the GeometryEngine.Difference or GeometryEngine.SymmetricDifference methods to calculate the geometric difference between feature geometries and a user defined geometry. To use this sample, the user draws a polygon over the feature polygons and the system then calculates the difference between the intersecting feature geometries and displays the resulting polygons in a graphics layer on the map.

@@ -15,7 +15,7 @@ using System.Web.Script.Serialization;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample shows how to perform batch geocoding using the ArcGIS Online World Geocoding service with an ArcGIS Online Organizational account.

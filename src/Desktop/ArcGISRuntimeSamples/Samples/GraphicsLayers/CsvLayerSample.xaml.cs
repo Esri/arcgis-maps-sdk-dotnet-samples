@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// Demonstrates defining a CsvLayer in XAML and setting the serviceUri property to a .csv file hosted online by the United States Geological Survey (USGS).

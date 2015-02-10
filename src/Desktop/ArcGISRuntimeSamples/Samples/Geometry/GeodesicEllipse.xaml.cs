@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample demonstrates use of the GeometryEngine.GeodesicEllipse to calculate a geodesic ellipse. Also shows is how to calculate a geodesic sector using GeometryEngine.GeodesicSector to create a geodesic sector emanating from point. To use the sample, fill in the ellipse properties and click the 'Geodesic Ellipse' button, then click a center point on the map. The click point and a geodesic ellipse and sector centered at the point will be displayed.

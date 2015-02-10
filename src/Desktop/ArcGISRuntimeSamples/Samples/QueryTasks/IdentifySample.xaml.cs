@@ -6,7 +6,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample demonstrates performing identify operations. To use the sample, click anywhere in the United States to identify features. The results will be shown in the combo box and list view on the right side of the application. View the data for different results by selecting them from the combo box. In the code-behind, an IdentifyTask is used to perform the identify operation. The tasks IdentifyParameters specify to query the geometry of the map click and to query all the layers in the target map service, which enables returning results from multiple layers.

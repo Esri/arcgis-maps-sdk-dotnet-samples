@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample demonstrates the map scale changing when you zoom in and out. The XAML textblock is bound to the MapView.Scale property to display the current map scale at the bottom of the display.

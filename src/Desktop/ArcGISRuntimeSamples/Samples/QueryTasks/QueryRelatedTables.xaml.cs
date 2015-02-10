@@ -8,7 +8,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample demonstrates how to use a relationship query to display information from a related table for selected features. Clicking on the map highlight a set of wells near the clicked point. Select a well from the list to display related features (tops). The object id of the well is used in the relationship query to return 0 to many related records displayed in the list view. Note that the code requires a relationshipId. Feature layers can have more than one relationship and each relationship is identified by a unique identifier. You can use the Services Directory to find the relationship id.

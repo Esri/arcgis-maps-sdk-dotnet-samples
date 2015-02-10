@@ -14,7 +14,7 @@ using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample demonstrates how to use a custom Server Object Extension (SOE) hosted by ArcGIS for Server. The SOE operation used in this example returns a set of interpolated elevation values for a user defined grid. The grid extent and number of rows and columns are provided as inputs to the SOE.

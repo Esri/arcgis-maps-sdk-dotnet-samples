@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// Sample shows how to create MarkerySymbols (both SimpleMarkerSymbol and PictureMarkerSymbol) and add point graphics using the symbols.

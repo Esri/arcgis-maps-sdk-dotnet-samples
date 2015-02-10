@@ -7,7 +7,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Geometry = Esri.ArcGISRuntime.Geometry;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample demonstrates how to add a GraphicsOverlay with Graphics and Symbols to the map in XAML.  The sample also shows how to add Polyline graphics to a GraphicsOverlay from the code-behind.

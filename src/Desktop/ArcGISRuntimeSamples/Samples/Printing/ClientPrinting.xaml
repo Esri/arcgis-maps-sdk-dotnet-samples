@@ -1,9 +1,9 @@
-﻿<UserControl x:Class="ArcGISRuntime.Samples.ClientPrinting"
+﻿<UserControl x:Class="ArcGISRuntime.Samples.Desktop.ClientPrinting"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
-             xmlns:local="clr-namespace:ArcGISRuntime.Samples">
+             xmlns:local="clr-namespace:ArcGISRuntime.Samples.Desktop">
     <Grid x:Name="layoutGrid" Background="LightGray">
         <Grid.Resources>
             <ResourceDictionary>

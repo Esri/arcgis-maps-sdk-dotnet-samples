@@ -4,7 +4,7 @@ using Esri.ArcGISRuntime.Layers;
 using System;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// Demonstrates one method of moving graphic points on the map.

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample shows how to create a new webmap from scratch by adding a BaseMap and OperationLayers. Here, a webmap object is created with a base map and operationlayers including an ArcGISDynamicMapService layer, a FeatureService with Popups and a FeatureCollection.

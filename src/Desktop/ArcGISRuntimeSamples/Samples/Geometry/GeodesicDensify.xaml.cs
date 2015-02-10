@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample demonstrates using GeometryEngine.GeodesicDensify to take an input shape and return a geodesic densified shape. Original vertices to create the original polygon or polyline are shown in red. The returned polygon shows the additional densified vertices in green. To use the sample, click the 'Densify' button and create a shape on the map. Double-click to end the polygon sketch and densify the shape and see the original and densified vertices.

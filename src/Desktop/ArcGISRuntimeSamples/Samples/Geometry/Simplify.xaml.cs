@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample demonstrates use of the GeometryEngine.Simplify method to simplify a polygon, and demonstrates the importance of simplification. To use the sample, click the Query with Original Polygon button. Observe the results include parcels that are not wholly within the red polygon. Then click the Simplify Polygon, then Query button. Observe the resulting parcels are now wholly within the red polygon.

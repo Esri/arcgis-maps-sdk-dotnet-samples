@@ -8,7 +8,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample demonstrates using the GeometryEngine.Generalize method to take a polyline with numerous vertices and return a generalized polyline with less vertices. Additionally a SliderControl appears after the GeometryService completes that allows adjusting the maximum offset value of the generalized polyline.

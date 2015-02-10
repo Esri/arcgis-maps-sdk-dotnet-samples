@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
     /// This sample demonstrates printing a map using a PrintTask. To use the sample, specify the print settings (Layout Template and Format) using the dropdowns and click the Export Map button to generate a printout of the map. The printout will be displayed using the systems default browser.

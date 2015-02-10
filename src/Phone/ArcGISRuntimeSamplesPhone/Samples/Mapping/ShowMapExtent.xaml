@@ -1,0 +1,52 @@
+﻿<Page x:Class="ArcGISRuntime.Samples.Phone.Samples.ShowMapExtent"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:samples="using:ArcGISRuntime.Samples.Phone.Samples"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  	  xmlns:esri="using:Esri.ArcGISRuntime.Controls"  
+	  xmlns:layers="using:Esri.ArcGISRuntime.Layers">
+    
+    <Grid>
+		<esri:MapView x:Name="MyMapView" WrapAround="True">
+			<esri:Map>
+				<layers:ArcGISTiledMapServiceLayer
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+			</esri:Map>
+		</esri:MapView>
+
+		<Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" 
+                Margin="30" Padding="20" MaxWidth="300">
+			<StackPanel Orientation="Vertical">
+				<TextBlock FontSize="11">
+                    <Run FontStyle="Italic" FontWeight="Bold">Absolute</Run>
+                    <LineBreak />
+                    <Run>MinX: </Run>
+                    <Run x:Name="MinXAbsolute" />
+                    <LineBreak />
+                    <Run>MinY: </Run>
+                    <Run x:Name="MinYAbsolute" />
+                    <LineBreak />
+                    <Run>MaxX: </Run>
+                    <Run x:Name="MaxXAbsolute" />
+                    <LineBreak />
+                    <Run>MaxY: </Run>
+                    <Run x:Name="MaxYAbsolute" />
+                    <LineBreak />
+                    <LineBreak />
+                    <Run FontStyle="Italic" FontWeight="Bold">Normalized</Run>
+                    <LineBreak />
+                    <Run>Left X: </Run>
+                    <Run x:Name="MinXNormalized" />
+                    <LineBreak />
+                    <Run>Bottom Y: </Run>
+                    <Run x:Name="MinYNormalized"/>
+                    <LineBreak />
+                    <Run>Right X: </Run>
+                    <Run x:Name="MaxXNormalized"/>
+                    <LineBreak />
+                    <Run>Top Y: </Run>
+                    <Run x:Name="MaxYNormalized"/>
+				</TextBlock>
+			</StackPanel>
+		</Border>
+	</Grid>
+</Page>

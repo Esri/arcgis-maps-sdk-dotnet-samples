@@ -1,0 +1,102 @@
+﻿<Page x:Class="ArcGISRuntime.Samples.Phone.Samples.Traffic"
+	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	  xmlns:esri="using:Esri.ArcGISRuntime.Controls"
+	  xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+	  xmlns:local="clr-namespace:ArcGISRuntime.Samples.Phone.Samples">
+	<Page.Resources>
+		<Style TargetType="ListViewItem">
+			<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+		</Style>
+
+		<DataTemplate x:Key="legendItemTemplate">
+			<TextBlock Text="{Binding LayerName}" FontSize="16"/>
+		</DataTemplate>
+
+		<DataTemplate x:Key="legendGroupTemplate">
+			<StackPanel>
+				<ContentPresenter ContentTemplate="{StaticResource legendItemTemplate}" FontWeight="Bold" />
+				<ListView ItemsSource="{Binding LayerLegendInfos}" Margin="30,0,0,0"
+							  ItemTemplate="{StaticResource legendItemTemplate}" SelectionMode="None" />
+			</StackPanel>
+		</DataTemplate>
+	</Page.Resources>
+	<Page.BottomAppBar>
+		<CommandBar IsSticky="True" IsOpen="True">
+			<AppBarButton Icon="List" Label="Contents">
+				<AppBarButton.Flyout>
+					<Flyout>
+						<StackPanel>
+							<TextBlock Text="Traffic data from the ArcGIS Online Traffic Service." 
+						   TextWrapping="Wrap" FontWeight="Bold" FontSize="14" />
+							<ListView x:Name="legendTree" Margin="0,20,0,0" ItemsSource="{Binding LayerLegendInfos}" 
+						  ItemTemplate="{StaticResource legendGroupTemplate}" SelectionMode="None" />
+						</StackPanel>
+					</Flyout>
+				</AppBarButton.Flyout>
+			</AppBarButton>
+		</CommandBar>
+	</Page.BottomAppBar>
+	<Grid x:Name="layoutGrid">
+
+		<esri:MapView x:Name="MyMapView" MapViewTapped="MyMapView_MapViewTapped">
+			<esri:Map>
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-10805000" YMin="2699000" XMax="-8258000" YMax="6450000"/>
+				</esri:Map.InitialViewpoint>
+				<layers:ArcGISTiledMapServiceLayer DisplayName="World Topo (Basemap)"
+												   ServiceUri="http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
+				<layers:ArcGISDynamicMapServiceLayer ID="Traffic" DisplayName="Traffic" 
+													 ServiceUri="https://traffic.arcgis.com/arcgis/rest/services/World/Traffic/MapServer" />
+
+			</esri:Map>
+
+			<esri:MapView.Overlays>
+				<esri:OverlayItemsControl>
+					<Border HorizontalAlignment="Right" VerticalAlignment="Top"
+						Background="Black" BorderBrush="White" BorderThickness="2" Padding="6"
+						esri:MapView.ViewOverlayAnchor="{Binding Feature.Geometry}" Visibility="Collapsed">
+						<Grid MaxWidth="350" DataContext="{Binding Feature}">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="*" />
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+
+							<Grid.Resources>
+								<Style TargetType="TextBlock">
+									<Setter Property="Foreground" Value="White" />
+									<Setter Property="Margin" Value="0,0,8,0" />
+								</Style>
+							</Grid.Resources>
+
+							<TextBlock Grid.Row="0" Grid.Column="0" Text="Incident Details" FontWeight="Bold" Margin="0,0,0,4" />
+
+							<TextBlock Grid.Row="1" Grid.Column="0" Text="Location" />
+							<TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=Attributes[location]}" />
+
+							<TextBlock Grid.Row="2" Grid.Column="0" Text="Start" />
+							<TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Path=Attributes[start_localtime]}" />
+
+							<TextBlock Grid.Row="3" Grid.Column="0" Text="End" />
+							<TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Path=Attributes[end_localtime]}" />
+
+							<TextBlock Grid.Row="4" Grid.Column="0" Text="Description" />
+							<TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Path=Attributes[description]}" TextWrapping="Wrap" />
+						</Grid>
+					</Border>
+				</esri:OverlayItemsControl>
+			</esri:MapView.Overlays>
+		</esri:MapView>
+
+
+
+	</Grid>
+
+</Page>

@@ -1,0 +1,86 @@
+﻿<Page
+	x:Class="ArcGISRuntime.Samples.Phone.Samples.ClipFeatures"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:esri="using:Esri.ArcGISRuntime.Controls"  
+	xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+	xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
+
+	<Grid x:Name="LayoutRoot">
+
+		<esri:MapView x:Name="MyMapView">
+			<esri:Map>
+				<layers:ArcGISTiledMapServiceLayer ID="StreetMapLayer" 
+												   ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer" />
+				<layers:GraphicsLayer ID="MyResultGraphicsLayer">
+					<layers:GraphicsLayer.Renderer>
+						<symb:SimpleRenderer>
+							<symb:SimpleFillSymbol  Color="#770000FF">
+								<symb:SimpleFillSymbol.Outline>
+									<symb:SimpleLineSymbol  Color="#FF0000FF" Width="1" />
+								</symb:SimpleFillSymbol.Outline>
+							</symb:SimpleFillSymbol>
+						</symb:SimpleRenderer>
+					</layers:GraphicsLayer.Renderer>
+				</layers:GraphicsLayer>
+
+				<layers:GraphicsLayer ID="InputLayer">
+					<layers:GraphicsLayer.Renderer>
+						<symb:SimpleRenderer>
+							<symb:SimpleLineSymbol  Color="Red" Width="2"/>
+						</symb:SimpleRenderer>
+					</layers:GraphicsLayer.Renderer>
+				</layers:GraphicsLayer>
+
+			</esri:Map>
+		</esri:MapView>
+		<Border Margin="37,20,31,0" Padding="10"
+				HorizontalAlignment="center"
+				VerticalAlignment="Top"
+				Background="#CC000000" Width="332">
+			<Grid HorizontalAlignment="Stretch">
+				<StackPanel Orientation="Vertical"
+							Margin="10">
+					<Button x:Name="StartGP"  Margin="10"
+								  HorizontalAlignment="Stretch"
+								  Click="StartGP_Click"
+								  Content="Start"/>
+
+					<TextBlock x:Name="InformationTextBlock"
+							   Text="Click Start and then draw a line on the map over the United States. The line will be buffered and the buffer will be used to clip US county polygons. Results are returned as a GP map image."
+							   Margin="10,5" FontSize="14"
+							   TextAlignment="Left"
+							   TextWrapping="Wrap" />
+					<StackPanel Orientation="Horizontal"
+								Margin="0,10">
+						<TextBlock Text="Distance (in miles): "
+								   FontSize="14"
+								   VerticalAlignment="Center"
+								   Margin="10,5"/>
+						<TextBox x:Name="DistanceTextBox"
+								 Text="100"
+								 Width="35"
+								 TextAlignment="Right"
+								 Margin="5,0,0,0" />
+					</StackPanel>
+					
+					<Button x:Name="ClearButton"
+								Content="Clear Results"
+								HorizontalAlignment="Stretch" Margin="0,10" Visibility="Collapsed"
+								Click="ClearButton_Click" />
+
+					<StackPanel x:Name="StatusPanel">
+						<ProgressRing  x:Name="MyProgressRing" Margin="5" Height="50" Width="50" Visibility="Collapsed" />
+						<TextBlock x:Name="ProcessingTextBlock" 
+							  Margin="0,15"
+							   HorizontalAlignment="Center"
+							   Text="Processing..."
+							   Visibility="Collapsed"
+							   TextWrapping="Wrap" FontSize="14" />
+					</StackPanel>
+					
+				</StackPanel>
+			</Grid>
+		</Border>
+	</Grid>
+</Page>

@@ -1,0 +1,63 @@
+﻿<Page
+    x:Class="ArcGISRuntime.Samples.Phone.Samples.InteractionOptionsSample"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esri="using:Esri.ArcGISRuntime.Controls"  
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+    xmlns:data="using:Esri.ArcGISRuntime.Data">
+	
+	<!-- Application command bar -->
+	<Page.BottomAppBar>
+		<CommandBar IsOpen="True">
+			<AppBarButton Label="options" Icon="Setting">
+				<AppBarButton.Flyout>
+					<Flyout>
+						<ScrollViewer>
+							<StackPanel>
+								<TextBlock Text="Interaction options" Margin="10,0" HorizontalAlignment="Center" FontSize="32" FontWeight="Bold"/>
+
+								<TextBlock Text="Enable interaction options" Margin="5"  FontSize="16"/>
+								<ToggleSwitch x:Name="OptionsToggle"
+										  Margin="20,0"
+										  Header="IsEnabled" IsOn="{Binding IsEnabled, Mode=TwoWay}"/>
+
+								<TextBlock Text="Pan options" Margin="5" FontSize="18" FontWeight="Bold"/>
+								<StackPanel Margin="20,0" x:Name="PanOptions">
+									<ToggleSwitch Header="IsEnabled" IsOn="{Binding IsEnabled, Mode=TwoWay}"/>
+									<ToggleSwitch Header="IsFlickEnabled" IsOn="{Binding IsFlickEnabled, Mode=TwoWay}"/>
+								</StackPanel>
+
+								<TextBlock Text="Zoom options" Margin="5"  FontSize="18" FontWeight="Bold"/>
+								<StackPanel Margin="20,0" x:Name="ZoomOptions">
+									<ToggleSwitch Header="IsEnabled" IsOn="{Binding IsEnabled, Mode=TwoWay}"/>
+									<ToggleSwitch Header="IsDoubleTappedEnabled" IsOn="{Binding IsDoubleTappedEnabled, Mode=TwoWay}"/>
+									<ToggleSwitch Header="IsPinchEnabled" IsOn="{Binding IsPinchEnabled, Mode=TwoWay}"/>
+								</StackPanel>
+
+								<TextBlock Text="Rotation options" Margin="5"  FontSize="18" FontWeight="Bold"/>
+								<ToggleSwitch x:Name="RotateToggle"
+											  Header="Enable rotation"
+											  Margin="20,0"
+											  IsOn="{Binding IsEnabled, Mode=TwoWay}"/>
+							</StackPanel>
+						</ScrollViewer>
+					</Flyout>
+				</AppBarButton.Flyout>
+			</AppBarButton>
+		</CommandBar>
+	</Page.BottomAppBar>
+
+	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+		<esri:MapView 
+				x:Name="MyMapView"
+				LayerLoaded="MyMapView_LayerLoaded" 
+				MapViewTapped="MyMapView_MapViewTapped"
+				MapViewDoubleTapped="MyMapView_MapViewDoubleTapped"
+				MapViewHolding="MyMapView_MapViewHolding">
+			<esri:Map>
+				<layers:ArcGISTiledMapServiceLayer ID="Basemap"
+						ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"/>
+			</esri:Map>
+		</esri:MapView>
+	</Grid>
+</Page>

@@ -1,0 +1,102 @@
+﻿<Page
+    x:Class="ArcGISRuntime.Samples.PhoneViewer.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ArcGISRuntime.Samples.PhoneViewer"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"    
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+	<Page.Resources>
+		<local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+		<local:BoolToGreenRedConverter x:Key="BoolToGreenRedConverter" />
+		<CollectionViewSource
+            x:Name="groupedItemsViewSource"
+            Source="{Binding SamplesByCategory}"
+            IsSourceGrouped="true"
+            ItemsPath="Items"
+			/>
+	</Page.Resources>
+
+	<Grid>
+        <ListView ItemsSource="{Binding Source={StaticResource groupedItemsViewSource}}" Loaded="ListView_Loaded"
+				  ItemClick="ListView_ItemClick" 
+				  SelectionMode="None" 
+				  IsSwipeEnabled="False" 
+				  IsItemClickEnabled="True">
+			<ListView.GroupStyle>
+				<GroupStyle>
+					<GroupStyle.HeaderTemplate>
+						<DataTemplate>
+							<Border Background="Transparent" Padding="5" HorizontalAlignment="Stretch">
+								<Border Background="{StaticResource PhoneAccentBrush}" 
+                                        BorderBrush="{StaticResource PhoneAccentBrush}" 
+                                        BorderThickness="2" HorizontalAlignment="Stretch">
+									<TextBlock Text="{Binding Key}" Foreground="{StaticResource PhoneForegroundBrush}" 
+											   Style="{StaticResource ListViewItemTextBlockStyle}"
+											   HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+											   Padding="5"/>
+								</Border>
+							</Border>
+						</DataTemplate>
+					</GroupStyle.HeaderTemplate>
+				</GroupStyle>
+			</ListView.GroupStyle>
+			<ListView.ItemTemplate>
+				<DataTemplate>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Text="{Binding Name}" Style="{StaticResource ListViewItemTextBlockStyle}" Padding="5" />
+						<TextBlock Text="local data" Style="{StaticResource ListViewItemTextBlockStyle}" 
+								   FontSize="10" Foreground="{StaticResource PhoneAccentBrush}"
+								   Margin="2,0,0,4" VerticalAlignment="Bottom"
+								   Visibility="{Binding RequiresLocalData, Converter={StaticResource BooleanToVisibilityConverter}}" />
+					</StackPanel>
+				</DataTemplate>
+			</ListView.ItemTemplate>
+		</ListView>
+
+		<AppBarButton x:Name="SampleDataPanel" Icon="Download" Label="Data"
+					  VerticalAlignment="Top" HorizontalAlignment="Right"
+					  Foreground="{Binding HasData, Converter={StaticResource BoolToGreenRedConverter}}">
+			<AppBarButton.Flyout>
+				<Flyout Placement="Full">
+					<StackPanel Margin="20,10">
+						<!-- Section header -->
+						<TextBlock Style="{StaticResource TitleTextBlockStyle}"
+								   FontWeight="Bold"
+								   Text="Local Sample Data" Margin="0,0,0,10" />
+
+						<TextBlock Text="Certain samples require data to be local to this device. Click Download Sample Data to download the latest data to this application's local storage folder."
+							Style="{StaticResource BodyTextBlockStyle}" />
+						<!-- Section body -->
+						<TextBlock Style="{StaticResource BodyTextBlockStyle}" Margin="0,15,0,10">
+							<Run Text="Last Download Date:" FontWeight="Bold" />
+							<LineBreak />
+							<Run Text="{Binding LastDownloadDate}" />
+						</TextBlock>
+
+						<Button Content="Download Sample Data" 
+								Click="DownloadSampleDataButton_Click" 
+								Margin="0,10,0,0"/>
+
+						<TextBlock FontSize="16" Text="{Binding CurrentAction}" 
+								   Margin="0,20,0,5" FontWeight="Bold" />
+						<StackPanel
+							Visibility="{Binding IsDownloading, Converter={StaticResource BooleanToVisibilityConverter}}">
+							<ProgressBar IsIndeterminate="{Binding IsDownloading}" Margin="2" Height="5" />
+							<TextBlock FontSize="12" Text="{Binding CurrentFileName}" 
+									   TextTrimming="CharacterEllipsis" Margin="4" />
+						</StackPanel>
+
+						<StackPanel Margin="0,10,0,0" 
+									Visibility="{Binding HasDownloadErrors, Converter={StaticResource BooleanToVisibilityConverter}}">
+							<TextBlock Text="Download Errors:" FontWeight="Bold" />
+							<ItemsControl ItemsSource="{Binding DownloadErrors}" />
+						</StackPanel>
+					</StackPanel>
+				</Flyout>
+			</AppBarButton.Flyout>
+		</AppBarButton>
+	</Grid>
+</Page>

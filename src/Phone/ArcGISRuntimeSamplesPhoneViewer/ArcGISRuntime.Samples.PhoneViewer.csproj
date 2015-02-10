@@ -7,8 +7,8 @@
     <ProjectGuid>{57912389-62B3-4A8A-B7D6-672FEF7D57B6}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ArcGISRuntimeSDKDotNet_PhoneSamples</RootNamespace>
-    <AssemblyName>ArcGISRuntimeSDKDotNet_PhoneSamples</AssemblyName>
+    <RootNamespace>ArcGISRuntime.Samples.PhoneViewer</RootNamespace>
+    <AssemblyName>ArcGISRuntimeSamplesPhoneViewer</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformVersion>8.1</TargetPlatformVersion>
     <MinimumVisualStudioVersion>12</MinimumVisualStudioVersion>

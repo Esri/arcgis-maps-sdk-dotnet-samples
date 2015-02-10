@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcGISRuntime.Samples.DesktopViewer", "ArcGISRuntimeSDKDotNet_DesktopSamples\ArcGISRuntime.Samples.DesktopViewer.csproj", "{9A0DD25A-1AD3-4D8C-99EA-CA71AB4F97DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcGISRuntime.Samples.DesktopViewer", "ArcGISRuntimeSamplesDesktopViewer\ArcGISRuntime.Samples.DesktopViewer.csproj", "{9A0DD25A-1AD3-4D8C-99EA-CA71AB4F97DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcGISRuntime.Samples.Desktop", "ArcGISRuntimeSamples\ArcGISRuntime.Samples.Desktop.csproj", "{45EEFB07-245F-41DB-9445-0CDF099B7619}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcGISRuntime.Samples.Desktop", "ArcGISRuntimeSamplesDesktop\ArcGISRuntime.Samples.Desktop.csproj", "{45EEFB07-245F-41DB-9445-0CDF099B7619}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

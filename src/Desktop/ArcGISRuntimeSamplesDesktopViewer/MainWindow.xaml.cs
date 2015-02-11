@@ -331,6 +331,18 @@ namespace ArcGISRuntime.Samples.DesktopViewer
 									bool.TryParse(requiresLocalServer.Value.Trim(), out result);
 									match.RequiresLocalServer = result;
 								}
+
+								// Get samples type
+								var sampleType = member.Descendants("sampleType").FirstOrDefault();
+								if (sampleType != null && sampleType.Value is string)
+								{
+									var value = (string)sampleType;
+									if (value == "Workflow")
+										match.Type = Sample.SampleType.Workflow;
+									else
+										match.Type = Sample.SampleType.API;
+
+								}
 							}
 						}
 					}
@@ -419,6 +431,12 @@ namespace ArcGISRuntime.Samples.DesktopViewer
 
 	public class Sample
 	{
+		public enum SampleType
+		{
+			API,
+			Workflow
+		};
+
 		public Type UserControl { get; set; }
 		public string Name { get; set; }
 		public string Category { get; set; }
@@ -427,10 +445,20 @@ namespace ArcGISRuntime.Samples.DesktopViewer
 		public string SampleFile { get; set; }
 
 		/// <summary>
+		/// Defines the type of the sample. Current options are API and Workflow. 
+		/// </summary>
+		public SampleType Type { get; set; }
+
+		/// <summary>
 		/// Defines if the sample needs symbols to work. Defaults to false.
 		/// </summary>
 		/// <remarks>This is used for sample that needs something to being deployed like military symbology or S57 symbology.</remarks>
 		public bool RequiresSymbols { get; set; }
+
+		/// <summary>
+		/// Defines if the sample needs local data to work.
+		/// </summary>
+		public bool RequiresLocalData { get; set; }
 
 		/// <summary>
 		/// Defines if the sample needs Local server to work. Defaults to false.

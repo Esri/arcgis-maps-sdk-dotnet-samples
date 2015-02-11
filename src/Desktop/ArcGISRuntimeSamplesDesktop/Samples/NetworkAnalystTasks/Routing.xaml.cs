@@ -21,7 +21,7 @@ namespace ArcGISRuntime.Samples.Desktop
     public partial class Routing : UserControl
     {
         private const string OnlineRoutingService = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route";
-        private const string LocalRoutingDatabase = @"..\..\..\..\..\samples-data\networks\san-diego\san-diego-network.geodatabase";
+        private const string LocalRoutingDatabase = @"..\..\..\..\samples-data\networks\san-diego\san-diego-network.geodatabase";
         private const string LocalNetworkName = "Streets_ND";
 
         private GraphicsOverlay _extentGraphicsOverlay;

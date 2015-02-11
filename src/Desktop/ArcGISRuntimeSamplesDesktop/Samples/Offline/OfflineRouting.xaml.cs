@@ -19,7 +19,7 @@ namespace ArcGISRuntime.Samples.Desktop
     /// <category>Offline</category>
     public partial class OfflineRouting : UserControl
     {
-        private const string _localRoutingDatabase = @"..\..\..\..\..\samples-data\networks\san-diego\san-diego-network.geodatabase";
+        private const string _localRoutingDatabase = @"..\..\..\..\samples-data\networks\san-diego\san-diego-network.geodatabase";
         private const string _networkName = "Streets_ND";
 
         private LocalRouteTask _routeTask;

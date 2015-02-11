@@ -20,7 +20,7 @@ namespace ArcGISRuntime.Samples.Desktop
 	/// <category>Offline</category>
 	public partial class OfflineGeocoding : UserControl
 	{
-		private const string LOCATOR_PATH = @"..\..\..\..\..\samples-data\locators\san-diego\san-diego-locator.loc";
+		private const string LOCATOR_PATH = @"..\..\..\..\samples-data\locators\san-diego\san-diego-locator.loc";
 
 		private LocalLocatorTask _locatorTask;
 		private GraphicsOverlay _graphicsOverlay;

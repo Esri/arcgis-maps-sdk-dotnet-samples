@@ -28,7 +28,7 @@ namespace ArcGISRuntime.Samples.Desktop
         {
             try
             {
-				LocalMapService localMapService = new LocalMapService(@"..\..\..\..\..\samples-data\maps\water-distribution-network.mpk");
+				LocalMapService localMapService = new LocalMapService(@"..\..\..\..\samples-data\maps\water-distribution-network.mpk");
                 await localMapService.StartAsync();
 
                 ArcGISDynamicMapServiceLayer arcGISDynamicMapServiceLayer = new ArcGISDynamicMapServiceLayer() 

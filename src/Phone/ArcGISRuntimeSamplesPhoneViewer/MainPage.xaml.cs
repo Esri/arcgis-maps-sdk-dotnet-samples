@@ -188,6 +188,18 @@ namespace ArcGISRuntime.Samples.PhoneViewer
 										bool.TryParse(requiresSymbols.Value.Trim(), out result);
 										match.RequiresSymbols = result;
 									}
+
+									// Get samples type
+									var sampleType = member.Descendants("sampleType").FirstOrDefault();
+									if (sampleType != null && sampleType.Value is string)
+									{
+										var value = (string)sampleType;
+										if (value == "Workflow")
+											match.Type = Sample.SampleType.Workflow;
+										else
+											match.Type = Sample.SampleType.API;
+
+									}
 								}
 							}
 						}
@@ -274,12 +286,23 @@ namespace ArcGISRuntime.Samples.PhoneViewer
 
 		public class Sample
 		{
+			public enum SampleType
+			{
+				API,
+				Workflow
+			};
+
 			public Type Page { get; set; }
 			public string Name { get; set; }
 			public string Category { get; set; }
 			public string Subcategory { get; set; }
 			public string Description { get; set; }
 			public string SampleFile { get; set; }
+
+			/// <summary>
+			/// Defines the type of the sample. Current options are API and Workflow. 
+			/// </summary>
+			public SampleType Type { get; set; }
 
 			/// <summary>
 			/// Defines if the sample needs symbol to work. 

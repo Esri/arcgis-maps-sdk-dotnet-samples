@@ -15,7 +15,7 @@ namespace ArcGISRuntime.Samples.Desktop
 	/// <subcategory>Feature Layers</subcategory>
 	public partial class FeatureLayerFromLocalGeodatabase : UserControl
     {
-        private const string GDB_PATH = @"..\..\..\..\..\samples-data\maps\usa.geodatabase";
+        private const string GDB_PATH = @"..\..\..\..\samples-data\maps\usa.geodatabase";
 
         /// <summary>Construct FeatureLayerFromLocalGeodatabase sample control</summary>
         public FeatureLayerFromLocalGeodatabase()

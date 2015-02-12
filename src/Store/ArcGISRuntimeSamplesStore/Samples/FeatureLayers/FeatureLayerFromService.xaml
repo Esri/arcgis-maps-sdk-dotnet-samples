@@ -1,0 +1,36 @@
+﻿<Page
+    x:Class="ArcGISRuntime.Samples.Store.Samples.FeatureLayerFromService"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+	xmlns:esri="using:Esri.ArcGISRuntime.Controls"  
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+    xmlns:data="using:Esri.ArcGISRuntime.Data">
+
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        <esri:MapView x:Name="MyMapView">
+            <esri:Map>
+				<layers:ArcGISTiledMapServiceLayer 
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
+
+				<layers:FeatureLayer>
+					<layers:FeatureLayer.FeatureTable>
+						<data:ServiceFeatureTable
+                            ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Wildfire/FeatureServer/2" />
+                    </layers:FeatureLayer.FeatureTable>
+                </layers:FeatureLayer>
+				<layers:FeatureLayer>
+					<layers:FeatureLayer.FeatureTable>
+						<data:ServiceFeatureTable
+                            ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Wildfire/FeatureServer/1" />
+                    </layers:FeatureLayer.FeatureTable>
+                </layers:FeatureLayer>
+				<layers:FeatureLayer>
+					<layers:FeatureLayer.FeatureTable>
+						<data:ServiceFeatureTable
+                            ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Wildfire/FeatureServer/0" />
+                    </layers:FeatureLayer.FeatureTable>
+                </layers:FeatureLayer>
+            </esri:Map>
+        </esri:MapView>
+    </Grid>
+</Page>

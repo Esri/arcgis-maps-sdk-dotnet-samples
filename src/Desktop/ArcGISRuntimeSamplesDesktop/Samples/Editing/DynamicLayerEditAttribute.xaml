@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="ArcGISRuntime.Samples.Desktop.DynamicLayerEditAttribute"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <UserControl.Resources>
+        <!-- Transparent symbol highlights on selection -->
+        <esri:SimpleFillSymbol x:Key="TransparentFillSymbol"
+                               Color="Transparent" />
+        <esri:SimpleRenderer x:Key="HighlightRenderer"
+                             Symbol="{StaticResource TransparentFillSymbol}" />
+    </UserControl.Resources>
+    <Grid>
+        <esri:MapView x:Name="MyMapView"
+                      MapViewTapped="MyMapView_MapViewTapped">
+            <esri:Map InitialViewpoint="-13075150.8872716,4015586.5093488,-13073624.4294544,4016213.20181174">
+                <esri:ArcGISTiledMapServiceLayer ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+                <!-- Renders features at current extent -->
+                <esri:ArcGISDynamicMapServiceLayer ID="PoolPermit"
+                                                   VisibleLayers="0"
+                                                   ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/PoolPermits/MapServer" />
+            </esri:Map>
+            <esri:MapView.GraphicsOverlays>
+                <!-- Highlights one feature at a time -->
+                <esri:GraphicsOverlay ID="Highlighter"
+                                      Renderer="{StaticResource HighlightRenderer}" />
+            </esri:MapView.GraphicsOverlays>
+        </esri:MapView>
+        <!-- Used for attribute editing -->
+        <Border x:Name="AttributeEditor"
+                Visibility="Collapsed"
+                Background="White"
+                BorderBrush="Black"
+                BorderThickness="1"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Margin="30"
+                Padding="20">
+            <Border.Effect>
+                <DropShadowEffect />
+            </Border.Effect>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="2"
+                               VerticalAlignment="Center"
+                               Text="Has_Pool" />
+                    <ComboBox x:Name="ChoiceList"
+                              Margin="2">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Value}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+        </Border>
+        <Border Background="White"
+                BorderBrush="Black"
+                BorderThickness="1"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="30"
+                Padding="20">
+            <Border.Effect>
+                <DropShadowEffect />
+            </Border.Effect>
+            <TextBlock Text="Click on a feature to select and edit its attribute."
+                       Width="200"
+                       TextAlignment="Left"
+                       Margin="30,20,20,30"
+                       TextWrapping="Wrap" />
+        </Border>
+    </Grid>
+</UserControl>

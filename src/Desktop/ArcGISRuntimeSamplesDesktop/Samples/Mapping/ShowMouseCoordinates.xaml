@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="ArcGISRuntime.Samples.Desktop.ShowMouseCoordinates"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" WrapAround="True" MouseMove="MyMapView_MouseMove">
+            <esri:Map>
+                <esri:ArcGISTiledMapServiceLayer
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+            </esri:Map>
+        </esri:MapView>
+
+		<Border Background="White" BorderBrush="Black" BorderThickness="1"
+				HorizontalAlignment="Right" VerticalAlignment="Top"
+				Margin="30" Padding="20" Width="355">
+			<Border.Effect>
+				<DropShadowEffect/>
+			</Border.Effect>
+			<StackPanel>
+                <TextBlock x:Name="ScreenCoordsTextBlock" Foreground="Black"
+                    HorizontalAlignment="Left" VerticalAlignment="Center" 
+					Text="Screen Coords: " TextWrapping="Wrap" FontWeight="Bold" />
+                <TextBlock x:Name="MapCoordsTextBlock" Foreground="Black"
+                    HorizontalAlignment="Left" VerticalAlignment="Center" 
+					Text="Map Coords: " TextWrapping="Wrap" FontWeight="Bold" />
+            </StackPanel>
+		</Border>
+    </Grid>
+</UserControl>

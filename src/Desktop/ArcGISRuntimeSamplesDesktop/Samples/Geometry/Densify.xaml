@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="ArcGISRuntime.Samples.Desktop.Densify"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid x:Name="layoutGrid">
+        <Grid.Resources>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
+            <esri:SimpleMarkerSymbol x:Key="OrigVertexSymbol" Color="Red" Size="12" />
+            <esri:SimpleMarkerSymbol x:Key="NewVertexSymbol" Color="LightGreen" Size="8" />
+            <esri:SimpleFillSymbol x:Key="PolySymbol" Color="#88000000" Style="Solid">
+                <esri:SimpleFillSymbol.Outline>
+                    <esri:SimpleLineSymbol Color="Black" Width="1" />
+                </esri:SimpleFillSymbol.Outline>
+            </esri:SimpleFillSymbol>
+        </Grid.Resources>
+
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
+			<esri:Map InitialViewpoint="-15000000,2000000,-7000000,8000000">
+				<esri:ArcGISTiledMapServiceLayer
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
+			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="inputOverlay" />
+				<esri:GraphicsOverlay ID="resultsOverlay" />
+			</esri:MapView.GraphicsOverlays>
+        </esri:MapView>
+
+		<Border Background="White" BorderBrush="Black" BorderThickness="1"
+				 HorizontalAlignment="Right" VerticalAlignment="Top"
+				 Margin="30" Padding="20">
+			<Border.Effect>
+				<DropShadowEffect/>
+			</Border.Effect>
+			<StackPanel>
+                <TextBlock Text="Click the 'Densify Polygon' button to digitize and densify a polygon. Red points indicate digitized polygon vertices. Green points show all vertices (original and new) in the densified polygon."
+                           Width="400" TextAlignment="Left" TextWrapping="Wrap" />
+                <Button Content="Densify Polygon" Margin="8,16,8,0" HorizontalAlignment="Center"
+                        Click="DensifyButton_Click" />
+            </StackPanel>
+        </Border>
+
+        <Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="25"
+                HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                Visibility="{Binding ElementName=MyMapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <TextBlock Text="Draw a polygon on the map." Margin="8" FontSize="14" />
+        </Border>
+    </Grid>
+</UserControl>

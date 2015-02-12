@@ -1,0 +1,73 @@
+﻿<Page
+    x:Class="ArcGISRuntime.Samples.Store.Samples.FindTaskSample"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esri="using:Esri.ArcGISRuntime.Controls"
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+    xmlns:symb="using:Esri.ArcGISRuntime.Symbology">
+
+    <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.Resources>
+			<symb:SimpleMarkerSymbol x:Key="MarkerSymbol" Size="6" Color="Red" Style="Circle" />
+			<symb:SimpleLineSymbol x:Key="LineSymbol" Color="Red" Width="4"  />
+			<symb:SimpleFillSymbol x:Key="FillSymbol" Color="#50FF0000">
+				<symb:SimpleFillSymbol.Outline>
+					<symb:SimpleLineSymbol Color="Red" Width="2" Style="Solid" />
+                </symb:SimpleFillSymbol.Outline>
+            </symb:SimpleFillSymbol>
+        </Grid.Resources>
+
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
+            <esri:Map>
+				<esri:Map.InitialViewpoint>
+                    <esri:ViewpointExtent XMin="-14675766.357" YMin="2695407.734" XMax="-6733121.861" YMax="6583994.101" SpatialReferenceID="102100" />
+				</esri:Map.InitialViewpoint>
+				<layers:ArcGISTiledMapServiceLayer 
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
+				<layers:ArcGISDynamicMapServiceLayer 
+                     ServiceUri="http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer" />
+            </esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="graphicsOverlay" />
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
+
+        <Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Text="Find State/City/River:" Margin="0,0,6,0" VerticalAlignment="Center" />
+                    <TextBox x:Name="txtFind" Text="Colorado" Width="150" />
+                </StackPanel>
+
+                <Button Grid.Row="1" Content="Find" Margin="10" Click="FindButton_Click" HorizontalAlignment="Stretch"/>
+
+                <ProgressBar x:Name="progress" Grid.Row="2" IsIndeterminate="True" Margin="10" Visibility="Collapsed"/>
+
+                <ListView x:Name="resultsGrid" Grid.Row="2" Margin="0,20,0,0" Visibility="Collapsed" ItemsSource="{x:Null}" 
+                          SelectionMode="Single" SelectionChanged="resultsGrid_SelectionChanged">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="8,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="200" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" Text="{Binding LayerName}" />
+                                <TextBlock Grid.Column="1" Text="{Binding FoundFieldName}" />
+                                <TextBlock Grid.Column="2" Text="{Binding Value}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

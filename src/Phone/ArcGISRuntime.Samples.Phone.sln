@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcGISRuntime.Samples.PhoneViewer", "ArcGISRuntimeSamplesPhoneViewer\ArcGISRuntime.Samples.PhoneViewer.csproj", "{57912389-62B3-4A8A-B7D6-672FEF7D57B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcGISRuntime.Samples.Phone", "ArcGISRuntimeSamplesPhone\ArcGISRuntime.Samples.Phone.csproj", "{5DEE53A7-7648-482A-BA7D-281C98D4F472}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM = Debug|ARM
+		Debug|x86 = Debug|x86
+		Release|ARM = Release|ARM
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{57912389-62B3-4A8A-B7D6-672FEF7D57B6}.Debug|ARM.ActiveCfg = Debug|ARM
+		{57912389-62B3-4A8A-B7D6-672FEF7D57B6}.Debug|ARM.Build.0 = Debug|ARM
+		{57912389-62B3-4A8A-B7D6-672FEF7D57B6}.Debug|ARM.Deploy.0 = Debug|ARM
+		{57912389-62B3-4A8A-B7D6-672FEF7D57B6}.Debug|x86.ActiveCfg = Debug|x86
+		{57912389-62B3-4A8A-B7D6-672FEF7D57B6}.Debug|x86.Build.0 = Debug|x86
+		{57912389-62B3-4A8A-B7D6-672FEF7D57B6}.Debug|x86.Deploy.0 = Debug|x86
+		{57912389-62B3-4A8A-B7D6-672FEF7D57B6}.Release|ARM.ActiveCfg = Release|ARM
+		{57912389-62B3-4A8A-B7D6-672FEF7D57B6}.Release|ARM.Build.0 = Release|ARM
+		{57912389-62B3-4A8A-B7D6-672FEF7D57B6}.Release|ARM.Deploy.0 = Release|ARM
+		{57912389-62B3-4A8A-B7D6-672FEF7D57B6}.Release|x86.ActiveCfg = Release|x86
+		{57912389-62B3-4A8A-B7D6-672FEF7D57B6}.Release|x86.Build.0 = Release|x86
+		{57912389-62B3-4A8A-B7D6-672FEF7D57B6}.Release|x86.Deploy.0 = Release|x86
+		{5DEE53A7-7648-482A-BA7D-281C98D4F472}.Debug|ARM.ActiveCfg = Debug|ARM
+		{5DEE53A7-7648-482A-BA7D-281C98D4F472}.Debug|ARM.Build.0 = Debug|ARM
+		{5DEE53A7-7648-482A-BA7D-281C98D4F472}.Debug|x86.ActiveCfg = Debug|x86
+		{5DEE53A7-7648-482A-BA7D-281C98D4F472}.Debug|x86.Build.0 = Debug|x86
+		{5DEE53A7-7648-482A-BA7D-281C98D4F472}.Release|ARM.ActiveCfg = Release|ARM
+		{5DEE53A7-7648-482A-BA7D-281C98D4F472}.Release|ARM.Build.0 = Release|ARM
+		{5DEE53A7-7648-482A-BA7D-281C98D4F472}.Release|x86.ActiveCfg = Release|x86
+		{5DEE53A7-7648-482A-BA7D-281C98D4F472}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,73 @@
+﻿<Page
+    x:Class="ArcGISRuntime.Samples.Phone.Samples.ExportTileCache"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ArcGISRuntime.Samples.Phone.Samples.Offline"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:esri="using:Esri.ArcGISRuntime.Controls"
+	xmlns:symb="using:Esri.ArcGISRuntime.Symbology"
+	mc:Ignorable="d"
+	Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+	<Page.BottomAppBar>
+		<CommandBar IsSticky="True">
+			<AppBarButton x:Name="AppBarOptions" Label="Options" 
+						  Icon="Setting"
+						  IsEnabled="False">
+				<AppBarButton.Flyout>
+					<Flyout>
+						<StackPanel x:Name="panelTOC" Margin="0,12,0,0" Visibility="Collapsed">
+							<TextBlock Text="Show / Hide Map Layers" FontSize="16" FontWeight="Bold" Margin="0,6,0,6" />
+							<CheckBox Content="Show Online Basemap" Margin="4" IsChecked="{Binding ElementName=MyMapView, Path=Map.Layers[OnlineBasemap].IsVisible, Mode=TwoWay}" />
+							<CheckBox Content="Show Local Basemap" Margin="4" IsChecked="{Binding ElementName=MyMapView, Path=Map.Layers[LocalTiles].IsVisible, Mode=TwoWay}" />
+							<CheckBox Content="Show Area of Interest" Margin="4" 
+                                  IsChecked="True" Click="ShowAoiExtentCheckBox_Click"/>
+							<StackPanel Orientation="Horizontal">
+								<Button x:Name="btnRemoveLocalLayer" Content="Remove local layer" Margin="4" Padding="4,0,4,0" FontSize="14" Click="btnRemoveLocalLayer_Click"/>
+								<Button x:Name="btnResetMap" Content="Reset map" Margin="4" Padding="4,0,4,0" FontSize="14" Click="btnResetMap_Click"/>
+							</StackPanel>
+						</StackPanel>
+					</Flyout>
+				</AppBarButton.Flyout>
+			</AppBarButton>
+		</CommandBar>
+	</Page.BottomAppBar>
+	<Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+		<Grid.Resources>
+			<symb:SimpleFillSymbol x:Key="AOISymbol" Color="#55FF0000" Style="Solid" />
+			<symb:SimpleRenderer x:Key="AOIRenderer" Symbol="{StaticResource AOISymbol}" />
+		</Grid.Resources>
+
+		<esri:MapView x:Name="MyMapView" />
+
+		<Border x:Name="panelUI" Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,30,30,0" Padding="20" Width="338">
+			<StackPanel>
+				<TextBlock Text="Step 1: Area of Interest" FontSize="16" FontWeight="Bold" />
+				<TextBlock Text="Zoom to an area of interest, select a target level of detail for the local tile cache and then click the 'Estimate Cache Size' button."
+                           TextWrapping="Wrap" />
+
+				<StackPanel Margin="0,12,0,0">
+					<TextBlock Text="Level of Detail:" FontWeight="Bold" />
+					<Slider x:Name="sliderLOD"
+                            SnapsTo="Ticks" TickPlacement="BottomRight" TickFrequency="1" 
+                            Minimum="0" Maximum="10" Value="0" />
+					<Button Content="Estimate Cache Size" Margin="0,12,0,0" HorizontalAlignment="Stretch" FontSize="14" Click="EstimateCacheSizeButton_Click" />
+				</StackPanel>
+
+				<StackPanel x:Name="panelExport" Margin="0,12,0,0" Visibility="Collapsed">
+					<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+						<TextBlock Text="Estimated Size:  " FontWeight="Bold" />
+						<TextBlock x:Name="txtExportSize" />
+					</StackPanel>
+
+					<TextBlock Text="Step 2: Export Tile Cache" FontSize="16" FontWeight="Bold" Margin="0,12,0,0" />
+					<TextBlock Text="Click the 'Export Tiles' button to download a local tile cache for the current Area of Interest."
+                               TextWrapping="Wrap" />
+					<Button Content="Export Tiles" Margin="0,12,0,0" HorizontalAlignment="Stretch" FontSize="14" Click="ExportTilesButton_Click" />
+				</StackPanel>
+				<ProgressBar x:Name="progress" IsIndeterminate="True" Margin="24,12,24,0" Visibility="Collapsed" />
+			</StackPanel>
+		</Border>
+	</Grid>
+</Page>

@@ -1,0 +1,46 @@
+﻿<Page
+    x:Class="ArcGISRuntime.Samples.StoreViewer.SdkInstallNeededPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ArcGISRuntime.Samples.StoreViewer"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition/>
+			<ColumnDefinition Width="9*"/>
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
+		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1">
+			<TextBlock HorizontalAlignment="Center" Style="{StaticResource HeaderTextBlockStyle}"
+				   Text="Selected sample is using additional components" />
+
+			<TextBlock HorizontalAlignment="Center" Style="{StaticResource HeaderTextBlockStyle}"
+				   Text="that are available only with deployment." Margin="0,10,0,0"/>
+
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Margin="40">
+				<TextBlock 
+				   Text="To enable these capabilities, install SDK and create a deployment." Style="{StaticResource SubheaderTextBlockStyle}" VerticalAlignment="Center"/>
+			</StackPanel>
+
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Margin="40">
+				<TextBlock 
+				   Text="Install SDK from : " Style="{StaticResource SubheaderTextBlockStyle}" VerticalAlignment="Center"/>
+				<HyperlinkButton NavigateUri="http://esriurl.com/dotnetsdk">
+					<TextBlock Text="developers.arcgis.com" Style="{StaticResource SubheaderTextBlockStyle}" VerticalAlignment="Center"></TextBlock>
+				</HyperlinkButton>
+			</StackPanel>
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1">
+				<TextBlock 
+				   Text="Read more from : " Style="{StaticResource SubheaderTextBlockStyle}" VerticalAlignment="Center"/>
+				<HyperlinkButton NavigateUri="https://github.com/Esri/arcgis-runtime-samples-dotnet/blob/master/README.md">
+					<TextBlock Text="readme" Style="{StaticResource SubheaderTextBlockStyle}" VerticalAlignment="Center"></TextBlock>
+				</HyperlinkButton>
+			</StackPanel>
+			
+		
+		</StackPanel>
+	</Grid>
+</Page>

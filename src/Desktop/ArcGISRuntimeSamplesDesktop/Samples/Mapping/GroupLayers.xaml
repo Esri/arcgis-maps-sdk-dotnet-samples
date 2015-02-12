@@ -1,0 +1,90 @@
+﻿<UserControl x:Class="ArcGISRuntime.Samples.Desktop.GroupLayers"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
+			<esri:Map x:Name="map" InitialViewpoint="-13200000,4000000,-13000000,4150000">
+                <esri:GroupLayer DisplayName="Basemap Group">
+                    <esri:ArcGISTiledMapServiceLayer DisplayName="Imagery" IsVisible="False"
+                        ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" />
+                    <esri:ArcGISTiledMapServiceLayer DisplayName="Street"
+                        ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+                </esri:GroupLayer>
+
+                <esri:GroupLayer DisplayName="Fire Group">
+                    <esri:ArcGISDynamicMapServiceLayer DisplayName="Fire Potential" Opacity=".35"
+				        ServiceUri="http://maps1.arcgisonline.com/ArcGIS/rest/services/RMRS_Wildland_Fire_Potential/MapServer" />
+
+                    <esri:FeatureLayer DisplayName="Fire Perimeter">
+                        <esri:FeatureLayer.FeatureTable>
+                            <esri:ServiceFeatureTable 
+                                ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Fire/Sheep/FeatureServer/2" />
+                        </esri:FeatureLayer.FeatureTable>
+                    </esri:FeatureLayer>
+
+                    <esri:FeatureLayer Opacity=".75" DisplayName="Evacuation Perimeter" >
+                        <esri:FeatureLayer.FeatureTable>
+                            <esri:ServiceFeatureTable 
+                                ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Fire/Sheep/FeatureServer/1" />
+                        </esri:FeatureLayer.FeatureTable>
+                    </esri:FeatureLayer>
+
+                    <esri:FeatureLayer DisplayName="Points of Interest">
+                        <esri:FeatureLayer.FeatureTable>
+                            <esri:ServiceFeatureTable 
+                                ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Fire/Sheep/FeatureServer/0" />
+                        </esri:FeatureLayer.FeatureTable>
+                    </esri:FeatureLayer>
+                </esri:GroupLayer>
+            </esri:Map>
+        </esri:MapView>
+
+		<Border Background="White" BorderBrush="Black" BorderThickness="1"
+				HorizontalAlignment="Right" VerticalAlignment="Top"
+				Margin="30" Padding="20"
+				Width="350">
+			<Border.Effect>
+				<DropShadowEffect/>
+			</Border.Effect>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Map Layers" Margin="12,12,12,6" FontWeight="Bold" FontSize="16" />
+
+                <TreeView Grid.Row="1" ItemsSource="{Binding ElementName=map, Path=Layers}" Margin="20">
+                    <TreeView.ItemContainerStyle>
+                        <Style TargetType="TreeViewItem">
+                            <Setter Property="TreeViewItem.IsExpanded" Value="True" />
+                            <Setter Property="Focusable" Value="False" />
+                        </Style>
+                    </TreeView.ItemContainerStyle>
+
+                    <TreeView.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding ChildLayers}">
+                            <Grid Width="150">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                                       Text="{Binding DisplayName}" FontSize="16" Margin="0,8,0,0"/>
+                                <CheckBox Grid.Row="1" Grid.Column="0" IsChecked="{Binding IsVisible, Mode=TwoWay}" />
+                                <Slider Grid.Row="1" Grid.Column="1" Value="{Binding Opacity, Mode=TwoWay}" 
+                                    TickFrequency="0.01" Minimum="0" Maximum="1" />
+                            </Grid>
+                        </HierarchicalDataTemplate>
+                    </TreeView.ItemTemplate>
+                </TreeView>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

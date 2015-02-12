@@ -1,0 +1,80 @@
+﻿<Page
+    x:Class="ArcGISRuntime.Samples.Store.Samples.LayerList"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esri="using:Esri.ArcGISRuntime.Controls"  
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+    xmlns:data="using:Esri.ArcGISRuntime.Data">
+    
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <esri:MapView x:Name="MyMapView" Grid.Column="1">
+            <esri:Map>
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-13279586" YMin="4010136" XMax="-12786147" YMax="4280850" SpatialReferenceID="102100" />
+				</esri:Map.InitialViewpoint>
+
+				<layers:ArcGISTiledMapServiceLayer DisplayName="Basemap"
+				    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" />
+
+				<layers:ArcGISDynamicMapServiceLayer DisplayName="Fire Potential" Opacity=".35"
+                    ServiceUri="http://maps1.arcgisonline.com/ArcGIS/rest/services/RMRS_Wildland_Fire_Potential/MapServer" />
+
+				<layers:FeatureLayer DisplayName="Fire Perimeter">
+					<layers:FeatureLayer.FeatureTable>
+						<data:ServiceFeatureTable
+                            ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Fire/Sheep/FeatureServer/2" />
+                    </layers:FeatureLayer.FeatureTable>
+                </layers:FeatureLayer>
+				<layers:FeatureLayer DisplayName="Evacuation Perimeter">
+					<layers:FeatureLayer.FeatureTable>
+						<data:ServiceFeatureTable
+                            ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Fire/Sheep/FeatureServer/1" />
+                    </layers:FeatureLayer.FeatureTable>
+                </layers:FeatureLayer>
+				<layers:FeatureLayer DisplayName="Points of Interest">
+					<layers:FeatureLayer.FeatureTable>
+						<data:ServiceFeatureTable
+                            ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Fire/Sheep/FeatureServer/0" />
+                    </layers:FeatureLayer.FeatureTable>
+                </layers:FeatureLayer>
+            </esri:Map>
+        </esri:MapView>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Drag layers to reorder them" Margin="20" FontWeight="Bold" />
+
+            <ListView x:Name="legend" ItemsSource="{Binding LegendLayers}" 
+                      Margin="20,0,0,20" Grid.Row="1" CanReorderItems="True" CanDragItems="True" AllowDrop="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding DisplayName}" FontSize="18" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel>
+                                    <ToggleSwitch IsOn="{Binding IsVisible, Mode=TwoWay}" />
+                                    <Slider Value="{Binding Opacity, Mode=TwoWay}" StepFrequency="0.01" Minimum="0" Maximum="1" />
+                                </StackPanel>
+                                <AppBarButton Icon="Delete" Label="Remove" Grid.Column="1" VerticalAlignment="Center" 
+                                              Click="RemoveLayerButton_Click" />
+                            </Grid>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </Grid>
+</Page>

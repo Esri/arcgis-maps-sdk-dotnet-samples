@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="ArcGISRuntime.Samples.Desktop.ShowMapExtent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" WrapAround="True" ExtentChanged="MapView_ExtentChanged">
+            <esri:Map>
+                <esri:ArcGISTiledMapServiceLayer
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+            </esri:Map>
+        </esri:MapView>
+
+		<Border Background="White" BorderBrush="Black" BorderThickness="1"
+				HorizontalAlignment="Right" VerticalAlignment="Top"
+				Margin="30" Padding="20" IsHitTestVisible="False">
+			<Border.Effect>
+				<DropShadowEffect/>
+			</Border.Effect>
+			<StackPanel>
+                <StackPanel.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="FontSize" Value="11" />
+                    </Style>
+                </StackPanel.Resources>
+                
+                <TextBlock Foreground="Black">
+                    <Run FontStyle="Italic">Absolute</Run>
+                    <LineBreak />
+                    <Run>MinX: </Run>
+                    <Run Text="{Binding ElementName=MyMapView, Path=Extent.XMin, StringFormat=\{0:F3\}, Mode=OneWay}" />
+                    <LineBreak />
+                    <Run>MinY: </Run>
+                    <Run Text="{Binding ElementName=MyMapView, Path=Extent.YMin, StringFormat=\{0:F3\}, Mode=OneWay}" />
+                    <LineBreak />
+                    <Run>MaxX: </Run>
+                    <Run Text="{Binding ElementName=MyMapView, Path=Extent.XMax, StringFormat=\{0:F3\}, Mode=OneWay}" />
+                    <LineBreak />
+                    <Run>MaxY: </Run>
+                    <Run Text="{Binding ElementName=MyMapView, Path=Extent.YMax, StringFormat=\{0:F3\}, Mode=OneWay}" />
+               
+                    <LineBreak />
+                    <LineBreak />
+                    <Run FontStyle="Italic">Normalized</Run>
+                    <LineBreak />
+                    <Run>Left X: </Run>
+                    <Run x:Name="MinXNormalized" />
+                    <LineBreak />
+                    <Run>Bottom Y: </Run>
+                    <Run x:Name="MinYNormalized"/>
+                    <LineBreak />
+                    <Run>Right X: </Run>
+                    <Run x:Name="MaxXNormalized"/>
+                    <LineBreak />
+                    <Run>Top Y: </Run>
+                    <Run x:Name="MaxYNormalized"/>
+                </TextBlock>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

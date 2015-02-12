@@ -1,0 +1,65 @@
+﻿<Window x:Class="ArcGISRuntime.Samples.DesktopViewer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ArcGIS Runtime SDK for .NET - Samples" WindowState="Maximized">
+
+	<Window.Resources>
+		<RoutedUICommand x:Key="TakeScreenshotCommand" Text="TakeThumbnail"/>
+	</Window.Resources>
+
+	<Window.CommandBindings>
+		<CommandBinding Command="{StaticResource TakeScreenshotCommand}" 
+                    Executed="CommandBinding_Executed" />
+	</Window.CommandBindings>
+	
+	<Window.InputBindings>
+		<KeyBinding Key="T" Modifiers="Ctrl" Command="{StaticResource TakeScreenshotCommand}" />
+	</Window.InputBindings>
+
+	<Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <Menu x:Name="menu" Grid.Row="0" />
+
+        <Border x:Name="SampleContainer"  Grid.Row="1" >
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top"
+                       Margin="0,100,0,0"
+                       >
+                <TextBlock FontSize="20"
+                           FontFamily="Segoe UI" Foreground="DarkGray"
+                           >
+                    Pick a sample from the menu
+                </TextBlock>
+                <TextBlock FontSize="16" x:Name="sampleDataNotFound" Visibility="Collapsed"
+                       FontFamily="Segoe UI" Foreground="Red"
+                       >
+                Sample data folder not found. Some samples might not run.
+                </TextBlock>
+            </StackPanel>
+        </Border>
+        <StatusBar Grid.Row="2" Height="22" x:Name="StatusBar" HorizontalContentAlignment="Stretch">
+           <StatusBarItem >
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Sample: " />
+                    <TextBlock Text="{Binding UserControl.Name}" />
+                    <TextBlock Text=".xaml" />
+                </StackPanel>
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right" >
+                <Grid Width="16" Height="16" Margin="0,1,0,-1" Background="Transparent" VerticalAlignment="Bottom">
+                    <Grid.ToolTip>
+                        <TextBlock Text="{Binding Description}" MaxWidth="300" TextWrapping="Wrap" />
+                    </Grid.ToolTip>
+                    <Ellipse Stroke="Black" StrokeThickness="1" />
+                    <TextBlock Text="i" FontWeight="Bold"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                           FontSize="14" Grid.Column="2"/>
+                </Grid>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>

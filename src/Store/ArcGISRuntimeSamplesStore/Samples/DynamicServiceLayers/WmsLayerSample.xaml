@@ -1,0 +1,19 @@
+﻿<Page 
+	x:Class="ArcGISRuntime.Samples.Store.Samples.WmsLayerSample"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esri="using:Esri.ArcGISRuntime.Controls"
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers">
+    
+	<Grid>
+		<esri:MapView x:Name="MyMapView" WrapAround="False">
+            <esri:Map >
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-15000000" YMin="2000000"  XMax="-7000000" YMax="8000000" />
+				</esri:Map.InitialViewpoint>
+				<layers:ArcGISTiledMapServiceLayer ServiceUri="http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+				<layers:WmsLayer ID="WMSLayer" Opacity="0.7" ServiceUri="http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi" />
+            </esri:Map>
+        </esri:MapView>
+    </Grid>
+</Page>

@@ -1,0 +1,30 @@
+﻿<Page
+    x:Class="ArcGISRuntime.Samples.Phone.Samples.SwitchBasemaps"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esri="using:Esri.ArcGISRuntime.Controls"
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers">
+    <Grid>
+        <esri:MapView WrapAround="True" x:Name="mapView1">
+            <esri:Map>
+                <layers:ArcGISTiledMapServiceLayer
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+            </esri:Map>
+        </esri:MapView>
+
+        <ComboBox x:Name="basemapLayerComboBox1" SelectedIndex="0"
+                  Margin="10" HorizontalAlignment="Center" VerticalAlignment="Top" Width="300" Background="Black" 
+                  BorderBrush="White" SelectionChanged="basemapLayerComboBox1_SelectionChanged">
+            <ComboBoxItem Tag="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer"                          
+                         Content="Streets" />
+            <ComboBoxItem Tag="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" 
+                         Content="Topographic" />
+            <ComboBoxItem Tag="http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" 
+                         Content="Imagery"/>
+			<ComboBoxItem Tag="http://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Base/MapServer" 
+                         Content="Oceans"/>
+            <ComboBoxItem Tag="http://services.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer" 
+                         Content="National Geographic"/>
+        </ComboBox>
+    </Grid>
+</Page>

@@ -1,0 +1,83 @@
+﻿<UserControl x:Class="ArcGISRuntime.Samples.Desktop.BatchGeocoding"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid x:Name="layoutGrid">
+        <Grid.Resources>
+            <esri:SimpleMarkerSymbol x:Key="markerSymbol" Color="Red" Size="8" Style="Diamond" />
+            <esri:SimpleRenderer x:Key="markerRenderer" Symbol="{StaticResource markerSymbol}" />
+
+            <ControlTemplate x:Key="MapTipTemplate">
+                <ControlTemplate.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="HorizontalAlignment" Value="Left" />
+                        <Setter Property="FontSize" Value="10" />
+                        <Setter Property="FontWeight" Value="Normal" />
+                        <Setter Property="Foreground" Value="White" />
+                    </Style>
+                </ControlTemplate.Resources>
+
+                <Border Background="Black" BorderBrush="White" BorderThickness="2" Margin="4,0,0,4">
+                    <StackPanel Margin="4">
+                        <TextBlock Text="{Binding .[Match_addr]}"/>
+
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0}, {1} {2}">
+                                    <Binding Path=".[City]" />
+                                    <Binding Path=".[Region]" />
+                                    <Binding Path=".[Postal]" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0:0.000}, {1:0.000}">
+                                    <Binding Path=".[X]" />
+                                    <Binding Path=".[Y]" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+            </ControlTemplate>
+        </Grid.Resources>
+
+        <esri:MapView x:Name="MyMapView">
+            <esri:Map>
+				<esri:ArcGISTiledMapServiceLayer 
+                    ServiceUri="http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="graphicsOverlay" Renderer="{StaticResource markerRenderer}"/>
+			</esri:MapView.GraphicsOverlays>
+        </esri:MapView>
+
+        <Border
+				Background="White" BorderBrush="Black" BorderThickness="1"
+				HorizontalAlignment="Right" VerticalAlignment="Top"
+				Margin="30" Padding="20" Width="350">
+			<Border.Effect>
+				<DropShadowEffect/>
+			</Border.Effect>
+            <StackPanel>
+                <TextBlock Text="Enter single line addresses to geocode:" FontWeight="Bold" Margin="0,0,0,4" />
+                <ListView x:Name="listAddresses" HorizontalContentAlignment="Stretch" BorderBrush="Transparent" Margin="0">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding Path=Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,2" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <TextBlock HorizontalAlignment="Center">
+                    <Run Text="Batch geocoding may"/>
+                    <Hyperlink NavigateUri="https://developers.arcgis.com/en/features/geocoding/" RequestNavigate="Hyperlink_RequestNavigate">consume credits.</Hyperlink>
+                </TextBlock>
+                <Button Content="Batch Geocode" Padding="16,6" Margin="24,12,24,0" IsDefault="True" Click="Button_Click" />
+
+                <ProgressBar x:Name="progress" IsIndeterminate="True" Visibility="Collapsed" Margin="12,12,12,0" />
+           </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

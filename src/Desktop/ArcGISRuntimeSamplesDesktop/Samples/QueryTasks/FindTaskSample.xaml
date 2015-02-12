@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="ArcGISRuntime.Samples.Desktop.FindTaskSample"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid x:Name="layoutGrid">
+        <Grid.Resources>
+            <esri:SimpleMarkerSymbol x:Key="MarkerSymbol" Size="6" Color="Red" Style="Circle" />
+            <esri:SimpleLineSymbol x:Key="LineSymbol" Color="Red" Width="4"  />
+            <esri:SimpleFillSymbol x:Key="FillSymbol" Color="#50FF0000">
+                <esri:SimpleFillSymbol.Outline>
+                    <esri:SimpleLineSymbol Color="Red" Width="2" Style="Solid" />
+                </esri:SimpleFillSymbol.Outline>
+            </esri:SimpleFillSymbol>
+        </Grid.Resources>
+
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
+            <esri:Map InitialViewpoint="-14675766.357,2695407.734,-6733121.861,6583994.101,102100">
+                <esri:ArcGISTiledMapServiceLayer 
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
+				<esri:ArcGISDynamicMapServiceLayer 
+                     ServiceUri="http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer" />
+			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="graphicsOverlay" />
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
+
+        <Border Background="White" BorderBrush="Black" BorderThickness="1" 
+				Margin="30" Padding="20" Width="325"
+                HorizontalAlignment="Right" VerticalAlignment="Top">
+			<Border.Effect>
+				<DropShadowEffect />
+			</Border.Effect>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Text="Find State/City/River:" Margin="0,0,6,0" VerticalAlignment="Center" />
+                    <TextBox x:Name="txtFind" Text="Colorado" Width="100" />
+                </StackPanel>
+                
+                <Button Grid.Row="1" Content="Find" IsDefault="True" Margin="24,8" Click="FindButton_Click" />
+
+                <ProgressBar x:Name="progress" Grid.Row="2" IsIndeterminate="True" Margin="10" Visibility="Collapsed"/>
+
+                <ListView x:Name="resultsGrid" Grid.Row="2" Margin="0,20,0,0" Visibility="Collapsed" ItemsSource="{x:Null}" 
+                          SelectionMode="Single" SelectionChanged="resultsGrid_SelectionChanged">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Layer" DisplayMemberBinding="{Binding LayerName}" Width="50" />
+                            <GridViewColumn Header="Field" DisplayMemberBinding="{Binding FoundFieldName}" Width="90" />
+                            <GridViewColumn Header="Value" DisplayMemberBinding="{Binding Value}" Width="200" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,56 @@
+﻿<Page
+    x:Class="ArcGISRuntime.Samples.Phone.Samples.LocationDisplay"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ArcGISRuntime.Samples.Phone.Samples"
+	xmlns:esri="using:Esri.ArcGISRuntime.Controls"  
+    xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
+    xmlns:loc="using:Esri.ArcGISRuntime.Location"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <loc:LocationDisplay x:Key="locationDisplaySettings"
+                                      IsEnabled="False" 
+                                      AutoPanMode="Off"  />
+    </Page.Resources>
+
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+
+        <esri:MapView x:Name="MyMapView" LocationDisplay="{StaticResource locationDisplaySettings}">
+            <esri:Map  >
+                <lyr:ArcGISTiledMapServiceLayer
+				ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+            </esri:Map>
+        </esri:MapView>
+
+        <Border Margin="20"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Top"
+				Background="#CC000000"
+				Padding="20" MaxWidth="300">
+            <StackPanel >
+                <TextBlock Text="Location Display Settings" FontWeight="Bold" />
+                <ToggleSwitch Header="Enabled"
+                              IsOn="{Binding IsEnabled, Source={StaticResource locationDisplaySettings}, Mode=TwoWay}"
+                              />
+                <TextBlock Text="Auto Pan Mode" />
+                <ComboBox x:Name="autoPanModeSelector" 
+                          SelectedItem="{Binding ElementName=MyMapView, Path=LocationDisplay.AutoPanMode, Mode=TwoWay}"/>
+                <TextBlock Text="Location Provider" />
+                <ComboBox x:Name="providerSelector" 
+                          SelectionChanged="LocationProvider_SelectionChanged" Width="180">
+                    <ComboBoxItem IsSelected="True">System Provider</ComboBoxItem>
+                    <ComboBoxItem>Random Simulator</ComboBoxItem>
+                </ComboBox>
+                <Button x:Name="resetDisplay" 
+                        Click="resetDisplay_Click" 
+                        Margin="0,14,0,0" Width="180">
+                    <TextBlock Text="Reset Map" FontSize="16"/>
+                </Button>
+            </StackPanel>
+        </Border>
+    </Grid>
+
+</Page>

@@ -1,0 +1,90 @@
+﻿<Page
+	x:Class="ArcGISRuntime.Samples.Phone.Samples.Generalize"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:esri="using:Esri.ArcGISRuntime.Controls"  
+	xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+	xmlns:symb="using:Esri.ArcGISRuntime.Symbology"
+	mc:Ignorable="d">
+
+	<Page.BottomAppBar>
+		<CommandBar>
+			<CommandBar.PrimaryCommands>
+				<AppBarButton Icon="Setting" Label="Options">
+					<AppBarButton.Flyout>
+						<Flyout>
+							<StackPanel Margin="0,10,0,0"  HorizontalAlignment="Center">
+								<TextBlock x:Name="InstructionsTextBlock" FontSize="14" 
+										   Text="Specify the Maximum Offset Distance below. Original line and vertices are red. Generalized line and vertices are cyan." 
+										   Visibility="Visible" Width="300" 
+										   TextAlignment="Left" TextWrapping="Wrap" 
+										   HorizontalAlignment="Left" VerticalAlignment="Center" 
+										   Margin="0,0,0,10"/>
+								<StackPanel>
+									<TextBlock Text="Maximum Offset Distance " 
+											   Style="{StaticResource TitleTextBlockStyle}" 
+											   HorizontalAlignment="Center"/>
+									<StackPanel Orientation="Horizontal" 
+												HorizontalAlignment="Center" Margin="0,10">
+										<TextBox Text="{Binding Value, ElementName=DistanceSlider, Mode=TwoWay}"/>
+										<TextBlock Text="km" Margin="10,0" 
+												   VerticalAlignment="Center" FontSize="14" />
+									</StackPanel>
+									<Slider x:Name="DistanceSlider" 
+											Minimum="1" Maximum="200" 
+											Value="10" IsThumbToolTipEnabled="False" 
+											Width="300" />
+								</StackPanel>
+
+							</StackPanel>
+						</Flyout>
+					</AppBarButton.Flyout>
+				</AppBarButton>
+				<AppBarButton Icon="Clear" Label="Clear" Click="ClearButton_Click"/>
+			</CommandBar.PrimaryCommands>
+		</CommandBar>
+	</Page.BottomAppBar>
+	<Grid x:Name="LayoutRoot" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+		<Grid.Resources>
+			<symb:SimpleLineSymbol x:Key="DefaultLineSymbol" Color="#AAFF0000"   Width="2" />
+			<symb:SimpleMarkerSymbol x:Key="DefaultMarkerSymbol" Color="Red" Size="6" />
+			<symb:SimpleMarkerSymbol x:Key="GeneralizedMarkerSymbol" Color="#FF00FFFF" Size="6" />
+			<symb:SimpleLineSymbol x:Key="GeneralizedLineSymbol" Color="#AA00FFFF" Width="2"/>
+		</Grid.Resources>
+
+		<esri:MapView x:Name="MyMapView">
+			<esri:Map>
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-12000000" YMin="3000000" XMax="-7000000" YMax="7000000" />
+				</esri:Map.InitialViewpoint>
+				<layers:ArcGISTiledMapServiceLayer ID="BaseMapLayer"
+					ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" />
+				<layers:GraphicsLayer ID="OriginalLineGraphicsLayer" />
+				<layers:GraphicsLayer ID="GeneralizedLineGraphicsLayer" />
+			</esri:Map>
+		</esri:MapView>
+
+		<Grid HorizontalAlignment="Right" 
+			  VerticalAlignment="Top" 
+			  Margin="0,15,15,0" >
+			<Border Background="Black" BorderThickness="1" 
+					BorderBrush="White" Padding="30,20,30,30">
+
+				<StackPanel Orientation="Vertical" >
+					<TextBlock FontSize="14" 
+							   Text="Specify the options below and then click Generalize." 
+							   Visibility="Visible" Width="300" 
+							   TextAlignment="Left" TextWrapping="Wrap" 
+							   HorizontalAlignment="Left" VerticalAlignment="Center"/>
+					<Button x:Name="GeneralizeButton" 
+										Content="Generalize" 
+										Click="GeneralizeButton_Click" 
+										HorizontalAlignment="Center" 
+										Width="250" Margin="0,15,0,0"/>
+				</StackPanel>
+			</Border>
+		</Grid>
+	</Grid>
+</Page>

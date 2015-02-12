@@ -1,0 +1,175 @@
+﻿<UserControl x:Class="ArcGISRuntime.Samples.Desktop.SyncGeodatabase"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+             xmlns:local="clr-namespace:ArcGISRuntime.Samples.Desktop">
+    <Grid x:Name="layoutGrid">
+        <Grid.Resources>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+            <local:CodedValueDomainConverter x:Key="DomainConverter" />
+
+            <Style TargetType="{x:Type ListViewItem}">
+                <Setter Property="Focusable" Value="False" />
+            </Style>
+        </Grid.Resources>
+
+        <esri:MapView x:Name="MyMapView" MapViewTapped="MyMapView_MapViewTapped">
+            <esri:Map InitialViewpoint="-13446093,4183762,-13432118,4190880,3857">
+                <esri:ArcGISTiledMapServiceLayer DisplayName="Streets Basemap"
+                    ServiceUri="http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+
+                <esri:ArcGISDynamicMapServiceLayer ID="onlineBirdsLayer" DisplayName="Online Birds" VisibleLayers="1"
+                    ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/SaveTheBaySync/MapServer" />
+            </esri:Map>
+
+            <esri:MapView.GraphicsOverlays>
+                <esri:GraphicsOverlay ID="graphicsOverlay">
+                    <esri:GraphicsOverlay.Renderer>
+                        <esri:SimpleRenderer>
+                            <esri:SimpleMarkerSymbol Color="Red" Style="Diamond" Size="8" />
+                        </esri:SimpleRenderer>
+                    </esri:GraphicsOverlay.Renderer>
+                </esri:GraphicsOverlay>
+            </esri:MapView.GraphicsOverlays>
+
+            <esri:MapView.Overlays>
+                <esri:OverlayItemsControl>
+                    <Border x:Name="birdSightingOverlay" Background="Beige" BorderBrush="Black" BorderThickness="2" CornerRadius="10"
+                        Padding="12" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="250" Height="200"
+                        Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}" 
+                        esri:MapView.ViewOverlayAnchor="{Binding TapLocation}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="16" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Bird Sighting" 
+                                   FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,12" />
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Bird Type: " VerticalAlignment="Center" />
+                            <ComboBox Grid.Row="1" Grid.Column="1" x:Name="comboBirdType" Margin="0,6" VerticalAlignment="Center"
+                                  ItemsSource="{Binding BirdTypeDomain.CodedValues}" DisplayMemberPath="Value" SelectedValuePath="Key" SelectedIndex="0" />
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Comment: " VerticalAlignment="Top" Margin="0,4,0,0" />
+                            <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtComment" AcceptsReturn="True" AcceptsTab="True" TextWrapping="Wrap" />
+
+                            <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Content="OK" HorizontalAlignment="Center" Padding="0,6" Width="80" Margin="0,0,16,0" Click="RegisterBirdSightingButton_Click"/>
+                                <Button Content="Cancel" HorizontalAlignment="Center" Padding="0,6" Width="80" Click="CancelBirdSightingButton_Click"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </esri:OverlayItemsControl>
+            </esri:MapView.Overlays>
+        </esri:MapView>
+
+        <Border x:Name="panelEdit" Background="White" BorderBrush="Black" 
+				BorderThickness="1" MaxHeight="250"
+                HorizontalAlignment="Left" VerticalAlignment="Bottom" 
+				Margin="30" Padding="20"
+                Visibility="{Binding CanSync, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Border.Effect>
+                <DropShadowEffect/>
+            </Border.Effect>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Birds - Local Geodatabase" FontSize="16" FontWeight="Bold" Margin="0,0,0,6" VerticalAlignment="Center" />
+
+                <ListView x:Name="listData" Grid.Row="1" ItemsSource="{Binding LocalBirdFeatures}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Attributes[objectid]}" Width="50" />
+                            <GridViewColumn Header="Type" Width="100" 
+                                            DisplayMemberBinding="{Binding Converter={StaticResource DomainConverter}, ConverterParameter=type}" />
+                            <GridViewColumn Header="Comments" DisplayMemberBinding="{Binding Attributes[comments]}" Width="200" />
+                            <GridViewColumn Header="Creator" DisplayMemberBinding="{Binding Attributes[creator]}" Width="125" />
+                            <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Attributes[created_date], StringFormat={}{0:}}" Width="150" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </Border>
+
+        <Border x:Name="panelLegend" 
+				Background="White" BorderBrush="Black" BorderThickness="2" Width="250"
+                HorizontalAlignment="Left" VerticalAlignment="Top" 
+				Margin="30" Padding="20">
+            <Border.Effect>
+                <DropShadowEffect/>
+            </Border.Effect>
+            <StackPanel>
+                <StackPanel>
+                    <TextBlock Text="Current Map Layers" FontSize="16" FontWeight="Bold" Margin="0,0,0,6" />
+                    <ListView Grid.Row="1" ItemsSource="{Binding ElementName=MyMapView, Path=Map.Layers}" Margin="12,0" 
+                          BorderBrush="Transparent">
+                        <ListView.Resources>
+                            <DataTemplate DataType="{x:Type esri:Layer}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <CheckBox Grid.Column="0" IsChecked="{Binding IsVisible, Mode=TwoWay}" Margin="0,0,6,0" />
+                                    <TextBlock Grid.Column="1" Text="{Binding DisplayName}" TextWrapping="Wrap" 
+                                                   VerticalAlignment="Center" MaxWidth="200"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.Resources>
+                    </ListView>
+                </StackPanel>
+
+                <StackPanel x:Name="panelStatus" Margin="0,12,0,0" Visibility="{Binding IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <TextBlock x:Name="txtStatusMain" Text="{Binding PrimaryStatus}" HorizontalAlignment="Left" />
+                    <ProgressBar x:Name="progress" IsIndeterminate="True" Margin="0,4" Height="6"/>
+                    <TextBlock x:Name="txtStatus" Text="{Binding SecondaryStatus}" FontWeight="Bold" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <Border x:Name="panelUI"
+				Background="White" BorderBrush="Black" BorderThickness="1" Width="375"
+                HorizontalAlignment="Right" VerticalAlignment="Top" 
+				Margin="30" Padding="20">
+            <Border.Effect>
+                <DropShadowEffect/>
+            </Border.Effect>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <StackPanel x:Name="panelGenerate" IsEnabled="{Binding CanGenerate}">
+                        <TextBlock Text="Step 1: Generate Local Geodatabase" FontSize="16" FontWeight="Bold" Margin="0,0,0,6" />
+                        <TextBlock Text="Generate and download a local dataset from the online service. This data will be edited locally and later synchronized with the server." TextWrapping="Wrap" />
+                        <Button Content="Generate Local Geodatabase" Padding="16,6" Margin="12,12,12,0" Click="GenerateButton_Click" />
+                    </StackPanel>
+
+                    <TextBlock Text="Step 2: Edit Local Geodatabase" FontSize="16" FontWeight="Bold" Margin="0,16,0,6" />
+                    <TextBlock Text="Click on the map to add new bird sightings to the local geodatabase." TextWrapping="Wrap" />
+
+                    <StackPanel x:Name="panelSync" IsEnabled="{Binding CanSync}">
+                        <TextBlock Text="Step 3: Synchronize Data" FontSize="16" FontWeight="Bold" Margin="0,16,0,6" />
+                        <TextBlock Text="Click the 'Synchronize Local / Online Data' button to push new records to the server." TextWrapping="Wrap" />
+                        <Button Content="Synchronize Local / Online Data" Padding="16,6" Margin="12,12,12,0" Click="SyncButton_Click" />
+                    </StackPanel>
+
+                    <StackPanel x:Name="panelUnregister" IsEnabled="{Binding CanUnregister}">
+                        <TextBlock Text="Step 4: Unregister Local Geodatabase" FontSize="16" FontWeight="Bold" Margin="0,16,0,6" />
+                        <TextBlock Text="Unregister the local geodatabase replica from the server." TextWrapping="Wrap" />
+                        <Button Content="Unregister Local Geodatabase" Padding="16,6" Margin="12,12,12,0" Click="UnregisterButton_Click" />
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</UserControl>

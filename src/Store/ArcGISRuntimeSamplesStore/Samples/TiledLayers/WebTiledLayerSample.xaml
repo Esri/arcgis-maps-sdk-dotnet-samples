@@ -1,0 +1,121 @@
+﻿<Page
+    x:Class="ArcGISRuntime.Samples.Store.Samples.WebTiledLayerSample"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"    
+    xmlns:esri="using:Esri.ArcGISRuntime.Controls"
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers">
+
+    <Grid>
+        <esri:MapView x:Name="MyMapView">
+            <esri:Map>
+                <esri:Map.InitialViewpoint>
+                    <esri:ViewpointExtent XMin="-9840712.566" YMin="5094828.570" XMax="-9684169.532" YMax="5187877.291" SpatialReferenceID="3857" />
+                </esri:Map.InitialViewpoint>
+                <layers:WebTiledLayer ID="WebTiledLayer" />
+            </esri:Map>
+        </esri:MapView>
+
+        <Border x:Name="BingKeyGrid" Background="#CC000000" 
+                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
+            <ComboBox x:Name="cboLayers" Width="250" 
+                      HorizontalAlignment="Left" 
+                      SelectionChanged="cboLayers_SelectionChanged">
+                <ComboBoxItem Content="Esri National Geographic"/>
+                <ComboBoxItem Content="MapQuest"/>
+                <ComboBoxItem Content="OpenCycleMap"/>
+                <ComboBoxItem Content="Cloudmade Midnight Commander"/>
+                <ComboBoxItem Content="Cloudmade Pale Dawn"/>
+                <ComboBoxItem Content="MapBox Dark"/>
+                <ComboBoxItem Content="Mapbox Terrain"/>
+                <ComboBoxItem Content="Stamen Terrain"/>
+                <ComboBoxItem Content="Stamen Watercolor"/>
+                <ComboBoxItem Content="Stamen Toner"/>
+            </ComboBox>
+        </Border>
+
+        <ContentPresenter x:Name="Attribution" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+            <ContentPresenter.Resources>
+                <!-- National Geographic-->
+                <DataTemplate x:Key="NatGeoAttribution">
+                    <StackPanel Background="Black">
+                        <TextBlock TextWrapping="Wrap" Padding="4">National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC</TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+                <!--MapQuest Attribution-->
+                <DataTemplate x:Key="MapQuestAttribution">
+                    <StackPanel Background="Black">
+                        <RichTextBlock TextWrapping="Wrap" Padding="4">
+                            <Paragraph>
+                                <Run Text="Tiles courtesy of "/>
+                                <Hyperlink NavigateUri="http://www.mapquest.com/" 
+                                       Click="Hyperlink_Click">MapQuest</Hyperlink>
+                                <InlineUIContainer>
+                                    <Image Source="http://developer.mapquest.com/content/osm/mq_logo.png" Height="16" Width="16"/>
+                                </InlineUIContainer>
+                            </Paragraph>
+                        </RichTextBlock>
+                    </StackPanel>
+                </DataTemplate>
+                <!-- OpenStreetMap Cycle Map -->
+                <DataTemplate x:Key="OpenCycleMapAttribution">
+                    <StackPanel Background="Black">
+                        <TextBlock TextWrapping="Wrap" Padding="4">
+                            <Run Text="OpenCycleMap.org - the "/>
+                            <Hyperlink NavigateUri="http://www.openstreetmap.org/#map=5/51.500/-0.100" 
+                                       Click="Hyperlink_Click">OpenStreetMap</Hyperlink>
+                            <Run Text=" Cycle Map"/>
+                        </TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+                <!-- Mapbox Attribution -->
+                <DataTemplate x:Key="MapboxAttribution">
+                    <StackPanel Background="Black">
+                        <TextBlock TextWrapping="Wrap" Padding="4">
+                            <Run Text="© Mapbox © OpenStreetMap"/>
+                            <Hyperlink NavigateUri="https://www.mapbox.com/map-feedback/" 
+                                       Click="Hyperlink_Click">Improve this map</Hyperlink>
+                        </TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+                <!--Stamen Toner Attribution-->
+                <DataTemplate x:Key="StamenTonerAttribution">
+                    <StackPanel Background="Black">
+                        <TextBlock TextWrapping="Wrap" Padding="4">
+                            <Run Text="Map tiles by "/>
+                            <Hyperlink NavigateUri="http://stamen.com/" 
+                                       Click="Hyperlink_Click">Stamen Design,</Hyperlink>
+                            <Run Text=" under "/>
+                            <Hyperlink NavigateUri="http://creativecommons.org/licenses/by/3.0" 
+                                       Click="Hyperlink_Click">CC BY 3.0.</Hyperlink>
+                            <Run Text=" Data by "/>
+                            <Hyperlink NavigateUri="http://openstreetmap.org/" 
+                                       Click="Hyperlink_Click">OpenStreetMap,</Hyperlink>
+                            <Run Text=" under "/>
+                            <Hyperlink NavigateUri="http://www.openstreetmap.org/copyright" 
+                                       Click="Hyperlink_Click">ODbl.</Hyperlink>
+                        </TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+                <!--Stamen Other Attribution-->
+                <DataTemplate x:Key="StamenOtherAttribution">
+                    <StackPanel Background="Black">
+                        <TextBlock TextWrapping="Wrap" Padding="4">
+                            <Run Text="Map tiles by "/>
+                            <Hyperlink NavigateUri="http://stamen.com/" 
+                                       Click="Hyperlink_Click">Stamen Design,</Hyperlink>
+                            <Run Text=" under "/>
+                            <Hyperlink NavigateUri="http://creativecommons.org/licenses/by/3.0" 
+                                       Click="Hyperlink_Click">CC BY 3.0.</Hyperlink>
+                            <Run Text=" Data by "/>
+                            <Hyperlink NavigateUri="http://openstreetmap.org/" 
+                                       Click="Hyperlink_Click">OpenStreetMap,</Hyperlink>
+                            <Run Text=" under "/>
+                            <Hyperlink NavigateUri="http://creativecommons.org/licenses/by-sa/3.0" 
+                                       Click="Hyperlink_Click">CC BY SA.</Hyperlink>
+                        </TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ContentPresenter.Resources>
+        </ContentPresenter>
+    </Grid>
+</Page>

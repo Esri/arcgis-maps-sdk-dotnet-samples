@@ -1,0 +1,94 @@
+﻿<Page
+    x:Class="ArcGISRuntime.Samples.Phone.Samples.SymbolsAndLabels"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esri="using:Esri.ArcGISRuntime.Controls" 
+    xmlns:symb="using:Esri.ArcGISRuntime.Symbology"
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers">
+
+    <Page.Resources>
+        <!--Composite Symbol mixing simple cirkle marker with a text-->
+        <symb:CompositeSymbol x:Key="NumberedMarkerSymbol1">
+            <symb:SimpleMarkerSymbol Size="20" Color="White">
+                <symb:SimpleMarkerSymbol.Outline>
+                    <symb:SimpleLineSymbol Color="CornflowerBlue" Width="3" />
+                </symb:SimpleMarkerSymbol.Outline>
+            </symb:SimpleMarkerSymbol>
+            <symb:TextSymbol Text="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Middle">
+                <symb:TextSymbol.Font>
+                    <symb:SymbolFont FontWeight="Bold" FontSize="14" />
+                </symb:TextSymbol.Font>
+            </symb:TextSymbol>
+        </symb:CompositeSymbol>
+        <symb:CompositeSymbol x:Key="NumberedMarkerSymbolA">
+            <symb:SimpleMarkerSymbol Size="20" Color="White">
+                <symb:SimpleMarkerSymbol.Outline>
+                    <symb:SimpleLineSymbol Color="Red" Width="3" />
+                </symb:SimpleMarkerSymbol.Outline>
+            </symb:SimpleMarkerSymbol>
+            <symb:TextSymbol Text="A" HorizontalTextAlignment="Center" VerticalTextAlignment="Middle">
+                <symb:TextSymbol.Font>
+                    <symb:SymbolFont FontWeight="Bold" FontSize="14" />
+                </symb:TextSymbol.Font>
+            </symb:TextSymbol>
+            <symb:SimpleMarkerSymbol Size="30" Color="Transparent">
+                <symb:SimpleMarkerSymbol.Outline>
+                    <symb:SimpleLineSymbol Color="#AA000000" Width="1" />
+                </symb:SimpleMarkerSymbol.Outline>
+            </symb:SimpleMarkerSymbol>
+            <symb:SimpleMarkerSymbol Size="40" Color="Transparent">
+                <symb:SimpleMarkerSymbol.Outline>
+                    <symb:SimpleLineSymbol Color="#55000000" Width="1" />
+                </symb:SimpleMarkerSymbol.Outline>
+            </symb:SimpleMarkerSymbol>
+        </symb:CompositeSymbol>
+
+        <symb:CompositeSymbol x:Key="OutlinedAndDashedSymbol">
+            <symb:SimpleLineSymbol Width="7" Color="CornflowerBlue" />
+            <symb:SimpleLineSymbol Style="Solid" Color="Black" Width="3" />
+            <symb:SimpleLineSymbol Style="Dash" Color="White" Width="3" />
+        </symb:CompositeSymbol>
+
+        <!--Uses a mix of marker, line and fill symbols to highlight vertices and create an advanced outline-->
+        <symb:CompositeSymbol x:Key="VertexFillSymbol">
+            <symb:SimpleFillSymbol Color="#44FFFF00">
+                <symb:SimpleFillSymbol.Outline>
+                    <symb:SimpleLineSymbol Width="5" Color="CornflowerBlue" />
+                </symb:SimpleFillSymbol.Outline>
+            </symb:SimpleFillSymbol>
+            <symb:SimpleLineSymbol Style="DashDot" Color="White" Width="3" />
+            <symb:SimpleMarkerSymbol Size="8" Color="Red" />
+        </symb:CompositeSymbol>
+    </Page.Resources>
+
+    <Grid>
+        <esri:MapView x:Name="MyMapView" ManipulationMode="All">
+            <esri:Map>
+                <layers:ArcGISTiledMapServiceLayer
+                ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
+
+                <layers:GraphicsLayer>
+                    <layers:GraphicsLayer.Labeling>
+                        <layers:LabelProperties>
+                            <layers:AttributeLabelClass LabelPlacement="PointAboveRight" TextExpression="[Label]">
+                                    <symb:TextSymbol Color="Blue" />
+                            </layers:AttributeLabelClass>
+                            <layers:AttributeLabelClass LabelPlacement="PointBelowLeft" TextExpression="[SymbolType] CONCAT NEWLINE CONCAT &quot;ID= &quot; CONCAT [ID]">
+                                <symb:TextSymbol Color="Black" />
+                            </layers:AttributeLabelClass>
+                        </layers:LabelProperties>
+                    </layers:GraphicsLayer.Labeling>
+                </layers:GraphicsLayer>
+            </esri:Map>
+        </esri:MapView>
+
+        <Border HorizontalAlignment="Right" VerticalAlignment="Top" Padding="20" Margin="20" Background="#99000000">
+            <StackPanel>
+            <ToggleSwitch Header="Toggle Labels"
+                IsOn="{Binding Map.Layers[1].Labeling.IsEnabled, Mode=TwoWay, ElementName=MyMapView}" />
+                <TextBlock Text="Map Rotation" Margin="7,0,0,0" />
+                <Slider Minimum="0" Maximum="360" ValueChanged="RotationSlider_ValueChanged" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>

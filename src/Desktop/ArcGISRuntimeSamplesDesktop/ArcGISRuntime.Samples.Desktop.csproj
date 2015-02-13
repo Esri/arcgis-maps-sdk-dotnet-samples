@@ -65,6 +65,9 @@
     <Compile Include="Samples\3D\ArcGISTiledMapServiceLayerSample3d.xaml.cs">
       <DependentUpon>ArcGISTiledMapServiceLayerSample3d.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\3D\CameraAnimationSample3d.xaml.cs">
+      <DependentUpon>CameraAnimationSample3d.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\3D\ElevationLayerSample3d.xaml.cs">
       <DependentUpon>ElevationLayerSample3d.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -507,6 +510,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\3D\ArcGISTiledMapServiceLayerSample3d.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\3D\CameraAnimationSample3d.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

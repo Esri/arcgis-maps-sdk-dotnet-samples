@@ -28,12 +28,12 @@ namespace ArcGISRuntime.Samples.Desktop
 			{
 				// Set viewpoint and navigate to it
 				var viewpoint = new Viewpoint3D(
-						new MapPoint(
-							-89.029982661438169,
-							34.200611952095031,
-							3525722.6715643629),
-						8.6483856492844726,
-						0.59166619557758571);
+					new MapPoint(
+						-122.41213238640989, 
+						37.78073901800655, 
+						80.497554714791477),
+						 53.719780233659428, 
+						 73.16171159612496);
 				await MySceneView.SetViewAsync(viewpoint, 1, true);
 			}
 			catch (Exception ex)

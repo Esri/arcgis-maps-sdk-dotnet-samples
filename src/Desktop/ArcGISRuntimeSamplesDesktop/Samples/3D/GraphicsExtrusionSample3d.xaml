@@ -1,6 +1,5 @@
-﻿<UserControl 
-	x:Class="ArcGISRuntime.Samples.Desktop.Samples.ArcGISDynamicMapServiceLayerSample3d"
-	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<UserControl x:Class="ArcGISRuntime.Samples.Desktop.Samples.GraphicsExtrusionSample3d"
+			xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
@@ -12,6 +11,8 @@
 			<esri:Scene>
 				<esri:ArcGISTiledMapServiceLayer ID="Imagery"
 					ServiceUri="http://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer" />
+				<esri:ElevationLayer 
+					ServiceUri="http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"/>
 				<esri:ArcGISDynamicMapServiceLayer 
 					ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer"/>
 			</esri:Scene>

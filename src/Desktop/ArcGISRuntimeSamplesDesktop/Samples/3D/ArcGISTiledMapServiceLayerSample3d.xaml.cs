@@ -5,7 +5,7 @@
 	/// </summary>
 	/// <title>3D ArcGIS Tiled Map Service Layer</title>
 	/// <category>3D</category>
-	/// <subcategory>Tiled Layers</subcategory>
+	/// <subcategory>Layers</subcategory>
 	public partial class ArcGISTiledMapServiceLayerSample3d
 	{
 		public ArcGISTiledMapServiceLayerSample3d()

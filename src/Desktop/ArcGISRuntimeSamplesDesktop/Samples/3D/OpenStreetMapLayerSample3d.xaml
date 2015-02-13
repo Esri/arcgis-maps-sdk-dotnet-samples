@@ -1,5 +1,5 @@
 ﻿<UserControl 
-	x:Class="ArcGISRuntime.Samples.Desktop.Samples.ArcGISDynamicMapServiceLayerSample3d"
+	x:Class="ArcGISRuntime.Samples.Desktop.Samples.OpenStreetMapLayerSample3d"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -10,10 +10,7 @@
 	<Grid>
 		<esri:SceneView x:Name="MySceneView">
 			<esri:Scene>
-				<esri:ArcGISTiledMapServiceLayer ID="Imagery"
-					ServiceUri="http://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer" />
-				<esri:ArcGISDynamicMapServiceLayer 
-					ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer"/>
+				<esri:OpenStreetMapLayer ID="OpenStreetMap" />
 			</esri:Scene>
 		</esri:SceneView>
 	</Grid>

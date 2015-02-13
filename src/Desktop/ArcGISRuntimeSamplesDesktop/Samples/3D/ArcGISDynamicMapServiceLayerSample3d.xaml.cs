@@ -11,7 +11,7 @@ namespace ArcGISRuntime.Samples.Desktop.Samples
 	/// </summary>
 	/// <title>3D ArcGIS Dynamic Map Service Layer</title>
 	/// <category>3D</category>
-	/// <subcategory>Dynamic Service Layers</subcategory>
+	/// <subcategory>Layers</subcategory>
 	public partial class ArcGISDynamicMapServiceLayerSample3d
 	{
 		public ArcGISDynamicMapServiceLayerSample3d()

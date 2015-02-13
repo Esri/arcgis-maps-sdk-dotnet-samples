@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ArcGISRuntime.Samples.Desktop.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
 	/// <summary>
 	/// Shows how to use extrusion which means stretching a flat 2D shape vertically to create a 3D object.

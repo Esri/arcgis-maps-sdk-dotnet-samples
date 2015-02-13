@@ -4,7 +4,7 @@ using System;
 using System.Diagnostics;
 using System.Windows;
 
-namespace ArcGISRuntime.Samples.Desktop.Samples
+namespace ArcGISRuntime.Samples.Desktop
 {
 	/// <summary>
 	/// Demonstrates adding an Elevation layer to a Scene in XAML.

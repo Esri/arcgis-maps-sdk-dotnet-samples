@@ -1,4 +1,4 @@
-﻿namespace ArcGISRuntime.Samples.Desktop.Samples
+﻿namespace ArcGISRuntime.Samples.Desktop
 {
 	/// <summary>
 	/// Demonstrates adding an 2d ArcGIS tiled map service to a Scene in XAML.

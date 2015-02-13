@@ -23,7 +23,7 @@ namespace ArcGISRuntime.Samples.Desktop.DynamicLayers
     /// <requiresLocalServer>true</requiresLocalServer>
     public partial class DynamicLayerAddData : UserControl
     {
-        private const string _emptyMapPackage = @"..\..\..\..\..\samples-data\maps\water-distribution-network.mpk";
+        private const string _emptyMapPackage = @"..\..\..\..\samples-data\maps\water-distribution-network.mpk";
         private Random _random = new Random();
 
         /// <summary>Construct DynamicLayerAddData user control</summary>

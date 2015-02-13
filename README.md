@@ -10,15 +10,18 @@ This project contains samples for the ArcGIS Runtime SDK for .NET - Desktop, Sto
   * [Windows Phone](http://developers.arcgis.com/net/store/guide/system-requirements.htm)
   * [Windows Store](http://developers.arcgis.com/net/store/guide/system-requirements.htm) 
   * The [ArcGIS Runtime SDK for .NET](http://esriurl.com/dotnetsdk) is referenced using a NuGet package. It is automatically downloaded when the solution is built for the first time.
+
 3. In Visual Studio, open the solution for the Desktop, Phone, or Store samples.   
-  * Windows Desktop: src\Desktop\ArcGISRuntimeSDKDotNet_DesktopSamples.sln  
+  * Windows Desktop: src\Desktop\ArcGISRuntime.Samples.Desktop.sln  
 	   - Clean, build, and run the application.
-  * Windows Phone: src\Phone\ArcGISRuntimeSDKDotNet_PhoneSamples.sln  
+  * Windows Phone: src\Phone\ArcGISRuntime.Samples.Phone.sln  
 	   - In Visual Studio go to Build > Configuration Manager. Select the appropriate active solution platform. If deploying to a device, use ARM. If deploying to the emulator, use x86.
 	   - Clean, build, and run the application.
-  * Windows Store: src\Store\ArcGISRuntimeSDKDotNet_StoreSamples.sln  
+  * Windows Store: src\Store\ArcGISRuntime.Samples.Store.sln  
     - In Visual Studio go to Build > Configuration Manager. Select the appropriate active solution platform. If deploying to a Windows RT 8.1 device, use ARM. If deploying to a Windows 8.1 device (or simulator), select the appropriate processor type, x86 or x64.  
     - Clean, build, and run the application.
+    
+Optional : Open all platform solutions in Visual Studio using src\ArcGISRuntime.Samples.All.sln
 
 
 Notes:
@@ -34,7 +37,7 @@ Some of the samples require either the SDK installation or deployment to work, w
   * See Installed Packages tab and remove "Esri.ArcGISRuntime" package
 2. [Add references](https://developers.arcgis.com/net/desktop/guide/add-arcgis-runtime-sdk-references.htm) to projects. 
 3. Prepare deployment
-	* Windows Desktop - Delete deployment folder (arcgisruntime10.2.4) from output folder if it exists. This step makes sure that centralized developer deployment is used and no deployment is needed
+	* Windows Desktop - Delete deployment folder (arcgisruntime10.2.5) from output folder if it exists. This step makes sure that centralized developer deployment is used and no deployment is needed
 	* Windows Store / Windows Phone - create deployment following [guide](https://developers.arcgis.com/net/desktop/guide/deployment.htm) and make sure all extra capabilities are checked for deployment.
 
 ## Requirements

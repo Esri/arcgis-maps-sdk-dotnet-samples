@@ -18,7 +18,7 @@ namespace ArcGISRuntime.Samples.Desktop
 	/// <category>Geometry</category>
 	public partial class ClipGeometry : UserControl
     {
-        private const string GDB_PATH = @"..\..\..\..\..\samples-data\maps\usa.geodatabase";
+        private const string GDB_PATH = @"..\..\..\..\samples-data\maps\usa.geodatabase";
 
         private Symbol _clipSymbol;
         private FeatureLayer _statesLayer;

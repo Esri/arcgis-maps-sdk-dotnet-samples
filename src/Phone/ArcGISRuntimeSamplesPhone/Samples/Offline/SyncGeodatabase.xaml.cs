@@ -27,6 +27,7 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 	/// </summary>
 	/// <title>Sync Geodatabase</title>
 	/// <category>Offline</category>
+	/// <sampleType>Workflow</sampleType>
 	public partial class SyncGeodatabase : Windows.UI.Xaml.Controls.Page, INotifyPropertyChanged
 	{
 		private const string BASE_URL = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/SaveTheBaySync/FeatureServer";

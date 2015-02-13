@@ -1082,6 +1082,7 @@
             </summary>
             <title>Sync Geodatabase</title>
             <category>Offline</category>
+            <sampleType>Workflow</sampleType>
         </member>
         <member name="M:ArcGISRuntime.Samples.Store.Samples.SyncGeodatabase.#ctor">
             <summary>Construct Generate Geodatabase sample control</summary>

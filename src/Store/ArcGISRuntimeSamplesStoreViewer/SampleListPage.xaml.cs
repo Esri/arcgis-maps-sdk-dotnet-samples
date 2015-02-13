@@ -159,6 +159,18 @@ namespace ArcGISRuntime.Samples.StoreViewer
 										bool.TryParse(requiresSymbols.Value.Trim(), out result);
 										match.RequiresSymbols = result;
 									}
+
+									// Get samples type
+									var sampleType = member.Descendants("sampleType").FirstOrDefault();
+									if (sampleType != null && sampleType.Value is string)
+									{
+										var value = (string)sampleType;
+										if (value == "Workflow")
+											match.Type = Sample.SampleType.Workflow;
+										else
+											match.Type = Sample.SampleType.API;
+
+									}
 								}
 							}
 						}
@@ -248,6 +260,12 @@ namespace ArcGISRuntime.Samples.StoreViewer
 
 		public class Sample
 		{
+			public enum SampleType
+			{
+				API,
+				Workflow
+			};
+
 			public Type Page { get; set; }
 			public string Name { get; set; }
 			public string Category { get; set; }
@@ -256,10 +274,20 @@ namespace ArcGISRuntime.Samples.StoreViewer
 			public string SampleFile { get; set; }
 
 			/// <summary>
+			/// Defines the type of the sample. Current options are API and Workflow. 
+			/// </summary>
+			public SampleType Type { get; set; }
+
+			/// <summary>
 			/// Defines if the sample needs symbol to work. 
 			/// </summary>
 			/// <remarks>This is used for samples that need something to being deployed like military symbology or S57 symbology.</remarks>
 			public bool RequiresSymbols { get; set; }
+
+			/// <summary>
+			/// Defines if the sample needs local data to work.
+			/// </summary>
+			public bool RequiresLocalData { get; set; }
 
 			public override string ToString()
 			{

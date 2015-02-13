@@ -5,7 +5,7 @@
     <Grid>
         <esri:MapView>
             <esri:Map>
-                <esri:ArcGISLocalTiledLayer Path="..\..\..\..\..\samples-data\basemaps\campus.tpk" />
+                <esri:ArcGISLocalTiledLayer Path="..\..\..\..\samples-data\basemaps\campus.tpk" />
             </esri:Map>
         </esri:MapView>
     </Grid>

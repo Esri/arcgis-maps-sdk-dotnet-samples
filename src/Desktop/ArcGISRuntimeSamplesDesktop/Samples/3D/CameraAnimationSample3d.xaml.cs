@@ -3,6 +3,7 @@ using Esri.ArcGISRuntime.Geometry;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -66,9 +67,12 @@ namespace ArcGISRuntime.Samples.Desktop
 
 			try
 			{
+				// Wait that all layers are loaded
+				var results = await MySceneView.LayersLoadedAsync();
+
 				// Set navigation in the order we want to animate the camera
 				await MySceneView.SetViewAsync(_animationViewpoints[0], 1, true);
-				await MySceneView.SetViewAsync(_animationViewpoints[1], 0.2, false);
+				await MySceneView.SetViewAsync(_animationViewpoints[1], 0.2, true);
 				await MySceneView.SetViewAsync(_animationViewpoints[2], 0.2, false);
 				await MySceneView.SetViewAsync(_animationViewpoints[3], 0.2, false);
 				await MySceneView.SetViewAsync(_animationViewpoints[4], 0.2, false);

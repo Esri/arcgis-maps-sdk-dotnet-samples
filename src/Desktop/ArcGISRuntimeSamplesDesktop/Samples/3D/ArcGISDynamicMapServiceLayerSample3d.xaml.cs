@@ -20,12 +20,15 @@ namespace ArcGISRuntime.Samples.Desktop
 			MySceneView.SpatialReferenceChanged += MySceneView_SpatialReferenceChanged;
 		}
 
-		private void MySceneView_SpatialReferenceChanged(object sender, System.EventArgs e)
+		private async void MySceneView_SpatialReferenceChanged(object sender, System.EventArgs e)
 		{
 			MySceneView.SpatialReferenceChanged -= MySceneView_SpatialReferenceChanged;
 
 			try
 			{
+				// Wait that all layers are loaded
+				var results = await MySceneView.LayersLoadedAsync();
+
 				// Set viewpoint and navigate to it
 				var viewpoint = new Viewpoint3D(
 						new MapPoint(
@@ -34,7 +37,7 @@ namespace ArcGISRuntime.Samples.Desktop
 							3525722.6715643629),
 						8.6483856492844726,
 						0.59166619557758571);
-				MySceneView.SetViewAsync(viewpoint, 1, true);
+				await MySceneView.SetViewAsync(viewpoint, 1, true);
 			}
 			catch (Exception ex)
 			{

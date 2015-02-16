@@ -15,8 +15,7 @@
 				<esri:ElevationLayer ID="Elevation"
 					ServiceUri="http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"/>
 				<esri:SceneLayer ID="Buildings" 
-					ServiceUri="http://5000k.esri.com/arcgis/rest/services/Hosted/SanDiegoBldgs/SceneServer/Layers/0"
-					esri:SceneView.LightMode="LightShadow" esri:SceneView.ElevationMode="Draped" />
+					ServiceUri="http://5000k.esri.com/arcgis/rest/services/Hosted/SanDiegoBldgs/SceneServer/Layers/0" />
 			</esri:Scene>
 		</esri:SceneView>
 	</Grid>

@@ -26,6 +26,7 @@ namespace ArcGISRuntime.Samples.Desktop
 		public GraphicsExtrusionSample3d()
 		{
 			InitializeComponent();
+
 		}
 	}
 }

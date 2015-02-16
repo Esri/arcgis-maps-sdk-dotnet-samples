@@ -35,7 +35,7 @@
   <ItemGroup>
     <Reference Include="Esri.ArcGISRuntime, Version=10.3.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\applications1026_fromMike\output\windesktop_api\bin\Esri.ArcGISRuntime.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\ArcGIS SDKs\DotNet10.2.6\WindowsDesktop\bin\Esri.ArcGISRuntime.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -71,6 +71,9 @@
     <Compile Include="Samples\3D\ElevationLayerSample3d.xaml.cs">
       <DependentUpon>ElevationLayerSample3d.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Samples\3D\ElevationModeSample.xaml.cs">
+      <DependentUpon>ElevationModeSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\3D\GraphicsExtrusionSample3d.xaml.cs">
       <DependentUpon>GraphicsExtrusionSample3d.xaml</DependentUpon>
@@ -518,6 +521,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\3D\ElevationLayerSample3d.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\3D\ElevationModeSample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

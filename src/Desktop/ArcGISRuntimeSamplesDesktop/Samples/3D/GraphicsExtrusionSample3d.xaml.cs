@@ -295,28 +295,30 @@ namespace ArcGISRuntime.Samples.Desktop
 		}
 
 		#endregion //INPC
-	}
 
-	internal class DelegateCommand : ICommand
-	{
-		private Action<object> m_execute;
-
-		public DelegateCommand(Action<object> execute)
+		#region DelegateCommand
+		internal class DelegateCommand : ICommand
 		{
-			m_execute = execute;
+			private Action<object> m_execute;
 
+			public DelegateCommand(Action<object> execute)
+			{
+				m_execute = execute;
+
+			}
+
+			public event EventHandler CanExecuteChanged;
+
+			public void Execute(object parameter)
+			{
+				m_execute(parameter);
+			}
+
+			public bool CanExecute(object parameter)
+			{
+				return true;
+			}
 		}
-
-		public event EventHandler CanExecuteChanged;
-
-		public void Execute(object parameter)
-		{
-			m_execute(parameter);
-		}
-
-		public bool CanExecute(object parameter)
-		{
-			return true;
-		}
+		#endregion // DelegateCommand
 	}
 }

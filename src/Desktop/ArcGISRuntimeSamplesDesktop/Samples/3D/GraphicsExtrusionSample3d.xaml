@@ -1,20 +1,69 @@
 ﻿<UserControl 
 	x:Class="ArcGISRuntime.Samples.Desktop.GraphicsExtrusionSample3d"
-	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-	xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
-	mc:Ignorable="d" 
-	d:DesignHeight="300" d:DesignWidth="300">
-	<Grid>
-		<esri:SceneView x:Name="MySceneView">
-			<esri:Scene>
-				<esri:ArcGISTiledMapServiceLayer ID="Imagery"
-					ServiceUri="http://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer" />
-				<esri:ElevationLayer 
-					ServiceUri="http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"/>
-			</esri:Scene>
-		</esri:SceneView>
+	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+			 xmlns:local="clr-namespace:ArcGISRuntime.Samples.Desktop"
+			 mc:Ignorable="d" 
+			 d:DesignHeight="300" d:DesignWidth="300">
+	<UserControl.Resources>
+		<local:ExtrusionGraphicsMainViewModel x:Key="VM">
+			<local:ExtrusionGraphicsMainViewModel.Scene>
+				<esri:Scene>
+					<esri:ArcGISTiledMapServiceLayer ID="Imagery"
+						ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+					<esri:ElevationLayer 
+						ServiceUri="http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"/>
+					<esri:GraphicsLayer ID="DynamicGraphicsLayer" RenderingMode="Dynamic" 
+						esri:SceneView.ElevationMode="Draped" IsVisible="True" 
+						ExtrusionMode="{Binding SelectedExtrusionMode, Mode=TwoWay}" 
+						ExtrusionScale="1" 
+						ExtrusionExpression="A"/>
+				</esri:Scene>
+			</local:ExtrusionGraphicsMainViewModel.Scene>
+		</local:ExtrusionGraphicsMainViewModel>
+	</UserControl.Resources>
+	<Grid DataContext="{StaticResource VM}">
+
+		<!-- Scene -->
+		<esri:SceneView x:Name="MySceneView" Scene="{Binding Path=Scene}"/>
+
+		<Border Background="White" BorderBrush="Black" BorderThickness="1"
+				 HorizontalAlignment="Right" VerticalAlignment="Top"
+				 Margin="30" Padding="20">
+			<Grid>
+				<StackPanel>
+					<!-- Geometry type that is used -->
+					<TextBlock TextAlignment="Center" Text="Select the geometry type" 
+					   FontWeight="Bold" Height="16" Margin="5" />
+					<StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Orientation="Horizontal" Background="White">
+						<RadioButton IsChecked="False" Margin="5" 
+						 GroupName="DrawShapes" Content="Add Points" Command="{Binding AddShapesCommand}" CommandParameter="Point"/>
+						<RadioButton IsChecked="False" Margin="5" 
+						 GroupName="DrawShapes" Content="Add Polyline" Command="{Binding AddShapesCommand}" CommandParameter="Polyline"/>
+						<RadioButton IsChecked="False" Margin="5" 
+						 GroupName="DrawShapes" Content="Add Polygon" Command="{Binding AddShapesCommand}" CommandParameter="Polygon"/>
+					</StackPanel>
+					<!-- Extrusion settings -->
+					<TextBlock TextAlignment="Center" Text="Select the extrusion mode" 
+					   FontWeight="Bold" Height="16" Margin="5" />
+					<ComboBox x:Name="RasterFunctionsComboBox" Margin="5" 
+						ItemsSource="{Binding ExtrusionModes}" SelectedItem="{Binding SelectedExtrusionMode, Mode=TwoWay}" 
+						IsEnabled="{Binding IsGraphicAvailable}"/>
+					<RadioButton x:Name="AttributeAExtrusionRadioButton" 
+						Command="{Binding SwitchExtrusionAttributeCommand}" CommandParameter="A"
+						IsChecked="true" Margin="5" 
+						IsEnabled="{Binding IsGraphicAvailable}"
+						GroupName="Extrusion" Content="Extrude on Value 1" />
+					<RadioButton x:Name="AttributeBExtrusionRadioButton" 
+						Command="{Binding SwitchExtrusionAttributeCommand}" CommandParameter="B"
+						IsEnabled="{Binding IsGraphicAvailable}"
+						Margin="5" 
+						GroupName="Extrusion" Content="Extrude on Value 2" />
+				</StackPanel>
+			</Grid>
+		</Border>
 	</Grid>
 </UserControl>

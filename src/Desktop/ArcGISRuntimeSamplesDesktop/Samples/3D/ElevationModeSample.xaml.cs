@@ -63,7 +63,7 @@ namespace ArcGISRuntime.Samples.Desktop
 			{
 				// Set initial viewpoint
 				MySceneView.SetView(
-					new Viewpoint3D(
+					new Camera(
 						new MapPoint(-106.882128302391, 38.7658957449754, 12994.1727461051, 
 							SpatialReferences.Wgs84),
 						358.607816178049,

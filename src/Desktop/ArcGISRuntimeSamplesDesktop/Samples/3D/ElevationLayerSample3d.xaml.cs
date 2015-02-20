@@ -28,9 +28,9 @@ namespace ArcGISRuntime.Samples.Desktop
 			{
 				// Wait that all layers are loaded
 				var results = await MySceneView.LayersLoadedAsync();
-				
-				// Set viewpoint and navigate to it
-				var viewpoint = new Viewpoint3D(
+
+				// Set camera and navigate to it
+				var viewpoint = new Camera(
 					new MapPoint(
 						-122.41213238640989, 
 						37.78073901800655, 

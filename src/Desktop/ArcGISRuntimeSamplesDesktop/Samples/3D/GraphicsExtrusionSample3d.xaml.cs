@@ -36,7 +36,7 @@ namespace ArcGISRuntime.Samples.Desktop
 				await MySceneView.LayersLoadedAsync();
 
 				// Set viewpoint and navigate to it
-				var viewpoint = new Viewpoint3D(
+				var viewpoint = new Camera(
 					new MapPoint(
 						-122.406025330049,
 						37.7890934457207,

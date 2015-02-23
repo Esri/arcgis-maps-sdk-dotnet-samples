@@ -7,14 +7,14 @@ using System.Windows;
 namespace ArcGISRuntime.Samples.Desktop
 {
 	/// <summary>
-	/// Demonstrates adding an Elevation layer to a Scene in XAML.
+	/// Demonstrates adding an ElevationSource to a Scene in XAML.
 	/// </summary>
-	/// <title>3D Elevation Layer</title>
+	/// <title>3D Elevation Source</title>
 	/// <category>3D</category>
-	/// <subcategory>Layers</subcategory>
-	public partial class ElevationLayerSample3d
+	/// <subcategory>Elevation</subcategory>
+	public partial class ElevationSourceSample3d
 	{
-		public ElevationLayerSample3d()
+		public ElevationSourceSample3d()
 		{
 			InitializeComponent();
 			MySceneView.SpatialReferenceChanged += MySceneView_SpatialReferenceChanged;

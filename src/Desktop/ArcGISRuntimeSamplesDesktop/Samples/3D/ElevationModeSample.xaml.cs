@@ -22,9 +22,9 @@ namespace ArcGISRuntime.Samples.Desktop
 	/// <summary>
 	/// Demonstrates elevevation mode works with the graphics.
 	/// </summary>
-	/// <title>3D Elevation mode</title>
+	/// <title>3D Graphics Elevation mode</title>
 	/// <category>3D</category>
-	/// <subcategory>Mapping</subcategory>
+	/// <subcategory>Elevation</subcategory>
 	public partial class ElevationModeSample : UserControl
 	{
 		private Esri.ArcGISRuntime.Geometry.PointCollection _coordinates;
@@ -96,9 +96,9 @@ namespace ArcGISRuntime.Samples.Desktop
 					foreach (MapPoint point in _coordinates)
 					{
 						// Use graphics with different ElevationModes
-						absoluteCollection.Add(new Graphic(point, GetPointSymbol(ElevationMode.Absolute)));
-						relativeCollection.Add(new Graphic(point, GetPointSymbol(ElevationMode.Relative)));
-						drapedCollection.Add(new Graphic(point, GetPointSymbol(ElevationMode.Draped)));
+						absoluteCollection.Add(new Graphic(point, GetPointSymbol(SurfacePlacement.Absolute)));
+						relativeCollection.Add(new Graphic(point, GetPointSymbol(SurfacePlacement.Relative)));
+						drapedCollection.Add(new Graphic(point, GetPointSymbol(SurfacePlacement.Draped)));
 					}
 
 					_absoluteGraphicsLayer.Graphics.AddRange(absoluteCollection);
@@ -110,53 +110,60 @@ namespace ArcGISRuntime.Samples.Desktop
 					var line = new Polyline(_coordinates, SpatialReferences.Wgs84);
 					_absoluteGraphicsLayer.Graphics.Add(
 						new Graphic(
-							line, 
-							GetPolylineSymbol(ElevationMode.Absolute)));
+							line,
+							GetPolylineSymbol(SurfacePlacement.Absolute)));
 					_drapedGraphicsLayer.Graphics.Add(
 						new Graphic(
-							line, 
-							GetPolylineSymbol(ElevationMode.Draped)));
+							line,
+							GetPolylineSymbol(SurfacePlacement.Draped)));
 					_relativeGraphicsLayer.Graphics.Add(
 						new Graphic(
-							line, 
-							GetPolylineSymbol(ElevationMode.Relative)));
+							line,
+							GetPolylineSymbol(SurfacePlacement.Relative)));
 					break;
 				case "Polygon":
 					// Create polygons using different ElevationModes
 					var polygon = new Polygon(_coordinates, SpatialReferences.Wgs84);
 					_absoluteGraphicsLayer.Graphics.Add(
-						new Graphic(polygon, GetPolygonSymbol(ElevationMode.Absolute)));
+						new Graphic(polygon, GetPolygonSymbol(SurfacePlacement.Absolute)));
 					_drapedGraphicsLayer.Graphics.Add(
-						new Graphic(polygon, GetPolygonSymbol(ElevationMode.Draped)));
+						new Graphic(polygon, GetPolygonSymbol(SurfacePlacement.Draped)));
 					_relativeGraphicsLayer.Graphics.Add(
-						new Graphic(polygon, GetPolygonSymbol(ElevationMode.Relative)));
+						new Graphic(polygon, GetPolygonSymbol(SurfacePlacement.Relative)));
 					break;
 			}
 		}
 
-		private Symbol GetPolylineSymbol(ElevationMode mode)
+		private void ClearAll()
+		{
+			IEnumerable<GraphicsLayer> graphicLayers = MySceneView.Scene.Layers.Where(l => l is GraphicsLayer).Cast<GraphicsLayer>();
+			foreach (GraphicsLayer gl in graphicLayers)
+				gl.Graphics.Clear();
+		}
+
+		private Esri.ArcGISRuntime.Symbology.Symbol GetPolylineSymbol(SurfacePlacement mode)
 		{
 			SimpleLineSymbol sls = new SimpleLineSymbol();
 			sls.Style = SimpleLineStyle.Solid;
-			sls.Color = mode == ElevationMode.Absolute ? Colors.Red : mode == ElevationMode.Draped ? Colors.Yellow : Colors.LightBlue;
+			sls.Color = mode == SurfacePlacement.Absolute ? Colors.Red : mode == SurfacePlacement.Draped ? Colors.Yellow : Colors.LightBlue;
 			sls.Width = 4;
 			return sls;
 		}
 
-		private Symbol GetPolygonSymbol(ElevationMode mode)
+		private Esri.ArcGISRuntime.Symbology.Symbol GetPolygonSymbol(SurfacePlacement mode)
 		{
 			SimpleFillSymbol sfs = new SimpleFillSymbol();
 			sfs.Style = SimpleFillStyle.Solid;
-			sfs.Color = mode == ElevationMode.Absolute ? Colors.Red : mode == ElevationMode.Draped ? Colors.Yellow : Colors.LightBlue;
+			sfs.Color = mode == SurfacePlacement.Absolute ? Colors.Red : mode == SurfacePlacement.Draped ? Colors.Yellow : Colors.LightBlue;
 			sfs.Outline = new SimpleLineSymbol() { Color = Colors.Red, Width = 2 };
 			return sfs;
 		}
 
-		private Symbol GetPointSymbol(ElevationMode mode)
+		private Esri.ArcGISRuntime.Symbology.Symbol GetPointSymbol(SurfacePlacement mode)
 		{
 			SimpleMarkerSymbol sms = new SimpleMarkerSymbol();
 			sms.Style = SimpleMarkerStyle.Circle;
-			sms.Color = mode == ElevationMode.Absolute ? Colors.Red : mode == ElevationMode.Draped ? Colors.Yellow : Colors.LightBlue;
+			sms.Color = mode == SurfacePlacement.Absolute ? Colors.Red : mode == SurfacePlacement.Draped ? Colors.Yellow : Colors.LightBlue;
 			sms.Size = 20;
 			return sms;
 		}

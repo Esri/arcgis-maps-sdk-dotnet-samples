@@ -10,10 +10,12 @@
 	<Grid>
 		<esri:SceneView x:Name="MySceneView">
 			<esri:Scene>
+				<esri:Scene.Surface>
+					<esri:ElevationSource IsEnabled="True" 
+						ServiceUri="http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"/>
+				</esri:Scene.Surface>
 				<esri:ArcGISTiledMapServiceLayer ID="Imagery"
 					ServiceUri="http://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer" />
-				<esri:ElevationLayer ID="Elevation"
-					ServiceUri="http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"/>
 				<esri:SceneLayer ID="Buildings" 
 					ServiceUri="http://5000k.esri.com/arcgis/rest/services/Hosted/SanDiegoBldgs/SceneServer/Layers/0" />
 			</esri:Scene>

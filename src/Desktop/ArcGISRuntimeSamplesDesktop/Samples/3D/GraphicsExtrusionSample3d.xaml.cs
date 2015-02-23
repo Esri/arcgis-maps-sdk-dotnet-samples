@@ -4,11 +4,14 @@ using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace ArcGISRuntime.Samples.Desktop
 {
@@ -45,7 +48,7 @@ namespace ArcGISRuntime.Samples.Desktop
 					338.125939203603,
 					72.7452621261101);
 
-				await MySceneView.SetViewAsync(viewpoint, new TimeSpan(0,0,3), false);
+				await MySceneView.SetViewAsync(viewpoint, new TimeSpan(0, 0, 3), false);
 			}
 			catch (Exception ex)
 			{
@@ -58,44 +61,53 @@ namespace ArcGISRuntime.Samples.Desktop
 
 	public class ExtrusionGraphicsMainViewModel : INotifyPropertyChanged
 	{
+		public ExtrusionGraphicsMainViewModel()
+		{
+			SelectedExtrusionRenderer = _extrusionRenderers.Where(e => e.Title == "None").First();
+		}
+		private ICommand _clearAllCommand;
+		public ICommand ClearAllCommand
+		{
+			get
+			{
+				if (_clearAllCommand == null)
+					_clearAllCommand = new DelegateCommand(
+						(parameter) => ClearAll());
+
+				return _clearAllCommand;
+			}
+		}
+
 		private ICommand _addShapesCommand;
-		private ICommand _switchExtrusionAttributeCommand;
-		private Scene _scene;
-		private ExtrusionMode _selectedExtrusionMode = ExtrusionMode.None;
-
-		private List<ExtrusionMode> _extrusionModes = new List<ExtrusionMode>() 
-		{ 
-			ExtrusionMode.AbsoluteHeight, 
-			ExtrusionMode.Baseheight, 
-			ExtrusionMode.Maximum, 
-			ExtrusionMode.Minimum, 
-			ExtrusionMode.None 
-		};
-
 		public ICommand AddShapesCommand
 		{
 			get
 			{
 				if (_addShapesCommand == null)
 					_addShapesCommand = new DelegateCommand(
-						(parameter) => AddShapes(parameter.ToString()));
+						(parameter) => addShapes(parameter.ToString())
+						);
+
 
 				return _addShapesCommand;
 			}
 		}
-		
+
+		private ICommand _switchExtrusionAttributeCommand;
 		public ICommand SwitchExtrusionAttributeCommand
 		{
 			get
 			{
 				if (_switchExtrusionAttributeCommand == null)
 					_switchExtrusionAttributeCommand = new DelegateCommand(
-						(parameter) => SwitchExtrusionAttribute(parameter.ToString()));
+						(parameter) => switchExtrusionAttribute(parameter.ToString())
+						);
 
 				return _switchExtrusionAttributeCommand;
 			}
 		}
 
+		private Scene _scene;
 		public Scene Scene
 		{
 			get { return _scene; }
@@ -106,42 +118,103 @@ namespace ArcGISRuntime.Samples.Desktop
 			}
 		}
 
-		public List<ExtrusionMode> ExtrusionModes
+		private List<SimpleExtrusionRenderer> _extrusionRenderers = new List<SimpleExtrusionRenderer>()
 		{
-			get { return _extrusionModes; }
+			new SimpleExtrusionRenderer(){Renderer=new SimpleRenderer()
+			{
+				SceneProperties=new RendererSceneProperties()
+				{
+					ExtrusionExpression="100000 * [A]",
+					ExtrusionMode=ExtrusionMode.AbsoluteHeight
+}
+},Title="Absolute Height"},
+new SimpleExtrusionRenderer(){Renderer=new SimpleRenderer()
+			{
+				SceneProperties=new RendererSceneProperties()
+				{
+					ExtrusionExpression="[A]",
+					ExtrusionMode=ExtrusionMode.Baseheight
+}
+},Title="Base Height"},
+new SimpleExtrusionRenderer(){Renderer=new SimpleRenderer()
+			{
+				SceneProperties=new RendererSceneProperties()
+				{
+					ExtrusionExpression="[A]",
+					ExtrusionMode=ExtrusionMode.Maximum
+}
+},Title="Maximum"},
+new SimpleExtrusionRenderer(){Renderer=new SimpleRenderer()
+			{
+				SceneProperties=new RendererSceneProperties()
+				{
+					ExtrusionExpression="[A]",
+					ExtrusionMode=ExtrusionMode.Minimum
+}
+},Title="Minimum"},
+new SimpleExtrusionRenderer(){Renderer=new SimpleRenderer()
+			{
+				SceneProperties=new RendererSceneProperties()
+				{
+					ExtrusionExpression="[A]",
+					ExtrusionMode=ExtrusionMode.None
+}
+},Title="None"}
+
+
+		};
+
+		public List<SimpleExtrusionRenderer> ExtrusionRenderers
+		{
+			get { return _extrusionRenderers; }
+			set
+			{
+				NotifyPropertyChanged("ExtrusionRenderers");
+			}
 		}
 
-		public GraphicsLayer GraphicsLayer
+		private SimpleExtrusionRenderer _selectedExtrusionRenderer = null;
+		public SimpleExtrusionRenderer SelectedExtrusionRenderer
 		{
-			get { return this.Scene.Layers["DynamicGraphicsLayer"] as GraphicsLayer; }
+			get { return _selectedExtrusionRenderer; }
+			set
+			{
+				_selectedExtrusionRenderer = value;
+				if (_selectedExtrusionRenderer.Renderer != null && MyGraphicsLayer != null)
+					MyGraphicsLayer.Renderer = _selectedExtrusionRenderer.Renderer;
+				NotifyPropertyChanged("SelectedExtrusionRenderer");
+
+			}
+		}
+
+		public GraphicsLayer MyGraphicsLayer
+		{
+			get { return this.Scene != null ? this.Scene.Layers["DynamicGraphicsLayer"] as GraphicsLayer : null; }
+			set
+			{
+				NotifyPropertyChanged("MyGraphicsLayer");
+			}
 		}
 
 		public bool IsGraphicAvailable
 		{
 			get { return (this.Scene.Layers["DynamicGraphicsLayer"] as GraphicsLayer).Graphics.Count > 0; }
-		}
-
-		public ExtrusionMode SelectedExtrusionMode
-		{
-			get { return _selectedExtrusionMode; }
 			set
 			{
-				_selectedExtrusionMode = value;
-				GraphicsLayer.ExtrusionMode = _selectedExtrusionMode;
-				NotifyPropertyChanged("SelectedExtrusionMode");
+				NotifyPropertyChanged("IsGraphicAvailable");
 			}
 		}
 
 		private void ClearAll()
 		{
-			GraphicsLayer.Graphics.Clear();
+			MyGraphicsLayer.Graphics.Clear();
 			NotifyPropertyChanged("IsGraphicAvailable");
 		}
 
-		private void AddPolylines()
+		private void addPolylines()
 		{
-			var cc = new PointCollection(SpatialReferences.Wgs84);
-			
+			ObservableCollection<MapPoint> cc = new ObservableCollection<MapPoint>();
+
 			cc.Add(new MapPoint(-122.410521484809, 37.7918774561425, SpatialReferences.Wgs84));
 			cc.Add(new MapPoint(-122.410324448543, 37.7919488885661, SpatialReferences.Wgs84));
 			cc.Add(new MapPoint(-122.410203882271, 37.791913618768, SpatialReferences.Wgs84));
@@ -167,23 +240,26 @@ namespace ArcGISRuntime.Samples.Desktop
 			cc.Add(new MapPoint(-122.404624092484, 37.7927069877562, SpatialReferences.Wgs84));
 			cc.Add(new MapPoint(-122.404443495634, 37.7927364457713, SpatialReferences.Wgs84));
 
-			var polyline = new Polyline(cc, SpatialReferences.Wgs84);
 
-			var sls = new SimpleLineSymbol();
+			SimpleLineSymbol sls = new SimpleLineSymbol();
 			sls.Style = SimpleLineStyle.Solid;
-			sls.Color = System.Windows.Media.Color.FromArgb(170, 255, 0, 0);
+			sls.Color = Color.FromArgb(170, 255, 0, 0);
 			sls.Width = 5;
 
-			var geometry = (Geometry)polyline;
-			var graphic = new Graphic(geometry, sls);
+			Esri.ArcGISRuntime.Geometry.Polyline polyline = new Esri.ArcGISRuntime.Geometry.Polyline(cc, SpatialReferences.Wgs84);
+
+			Esri.ArcGISRuntime.Geometry.Geometry geometry = (Esri.ArcGISRuntime.Geometry.Geometry)polyline;
+			Graphic graphic = new Graphic(geometry, sls);
 			graphic.Attributes.Add("A", 74);
 			graphic.Attributes.Add("B", 100);
-			GraphicsLayer.Graphics.Add(graphic);
+			MyGraphicsLayer.Graphics.Add(graphic);
+
 		}
 
-		private void AddPolygon()
+
+		private void addPolygon()
 		{
-			var cc = new PointCollection(SpatialReferences.Wgs84);
+			ObservableCollection<MapPoint> cc = new ObservableCollection<MapPoint>();
 
 			cc.Add(new MapPoint(-122.411033517241, 37.7928248779988, SpatialReferences.Wgs84));
 			cc.Add(new MapPoint(-122.409439828211, 37.7929574531202, SpatialReferences.Wgs84));
@@ -199,51 +275,58 @@ namespace ArcGISRuntime.Samples.Desktop
 			cc.Add(new MapPoint(-122.409274453043, 37.791057174337, SpatialReferences.Wgs84));
 			cc.Add(new MapPoint(-122.410233608604, 37.7910235416472, SpatialReferences.Wgs84));
 
-			var polygon = new Polygon(cc, SpatialReferences.Wgs84);
 
-			var sfs = new SimpleFillSymbol();
+			SimpleFillSymbol sfs = new SimpleFillSymbol();
+
+			Esri.ArcGISRuntime.Geometry.Polygon polygon = new Esri.ArcGISRuntime.Geometry.Polygon(cc, SpatialReferences.Wgs84);
+
 			sfs.Style = SimpleFillStyle.Solid;
-			sfs.Color = System.Windows.Media.Color.FromArgb(125, 255, 0, 0);
-			sfs.Outline = new SimpleLineSymbol() 
-			{ 
-				Color = System.Windows.Media.Colors.Red, 
-				Width = 2 
-			};
+			sfs.Color = Color.FromArgb(125, 255, 0, 0);
+			sfs.Outline = new SimpleLineSymbol() { Color = Colors.Red, Width = 2 };
 
-			var graphic = new Graphic(polygon, sfs);
+			Graphic graphic = new Graphic(polygon, sfs);
 			graphic.Attributes.Add("A", 76);
 			graphic.Attributes.Add("B", 100);
-			GraphicsLayer.Graphics.Add(graphic);
+			MyGraphicsLayer.Graphics.Add(graphic);
+
 		}
 
-		private void AddShapes(string shapeType)
+		private void addShapes(string shapeType)
 		{
 			ClearAll();
-			SelectedExtrusionMode = ExtrusionMode.None;
+			//SelectedExtrusionMode = ExtrusionMode.None;
 			switch (shapeType)
 			{
 				case "Point":
-					AddRandomPoints();
+					addRandomPoints();
 					break;
 				case "Polyline":
-					AddPolylines();
+					addPolylines();
 					break;
 				case "Polygon":
-					AddPolygon();
+					addPolygon();
 					break;
 			}
 
 			NotifyPropertyChanged("IsGraphicAvailable");
 		}
 
-		private void AddRandomPoints()
+		private void addRandomPoints()
 		{
-			var sms = new SimpleMarkerSymbol();
-			sms.Style = SimpleMarkerStyle.Circle;
-			sms.Color = System.Windows.Media.Color.FromArgb(155, 255, 0, 0);
-			sms.Size = 30;
+			foreach (SimpleExtrusionRenderer simpleRenderer in ExtrusionRenderers)
+			{
+				simpleRenderer.Renderer.Symbol = new SimpleMarkerSymbol()
+				{
+					Style = SimpleMarkerStyle.Circle,
+					Color = Color.FromArgb(155, 255, 0, 0),
+					Size = 30
+				};
 
-			var cc = new PointCollection(SpatialReferences.Wgs84);
+			}
+
+
+
+			ObservableCollection<MapPoint> cc = new ObservableCollection<MapPoint>();
 			cc.Add(new MapPoint(-122.410521484809, 37.7918774561425, SpatialReferences.Wgs84));
 			cc.Add(new MapPoint(-122.410324448543, 37.7919488885661, SpatialReferences.Wgs84));
 			cc.Add(new MapPoint(-122.410203882271, 37.791913618768, SpatialReferences.Wgs84));
@@ -271,20 +354,21 @@ namespace ArcGISRuntime.Samples.Desktop
 
 			foreach (MapPoint mp in cc)
 			{
-				var graphic = new Graphic(mp, sms);
-				graphic.Attributes.Add("A", 75);
+				Graphic graphic = new Graphic(mp);
+				graphic.Attributes.Add("A", 10000);
 				graphic.Attributes.Add("B", 100);
-				GraphicsLayer.Graphics.Add(graphic);
+				MyGraphicsLayer.Graphics.Add(graphic);
 			}
+			MyGraphicsLayer.Renderer = SelectedExtrusionRenderer.Renderer;
+			NotifyPropertyChanged("SelectedExtrusionRenderer");
 		}
 
-		private void SwitchExtrusionAttribute(string attribute)
+		private void switchExtrusionAttribute(string attribute)
 		{
-			GraphicsLayer.ExtrusionExpression = attribute;
+			(MyGraphicsLayer.Renderer as SimpleRenderer).SceneProperties.ExtrusionExpression = attribute;
 		}
 
 		#region INotifyPropertyChanged Members
-
 		public event PropertyChangedEventHandler PropertyChanged;
 		protected void NotifyPropertyChanged(string propertyName)
 		{
@@ -293,32 +377,42 @@ namespace ArcGISRuntime.Samples.Desktop
 				PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
+		#endregion
 
-		#endregion //INPC
 
-		#region DelegateCommand
-		internal class DelegateCommand : ICommand
-		{
-			private Action<object> m_execute;
-
-			public DelegateCommand(Action<object> execute)
-			{
-				m_execute = execute;
-
-			}
-
-			public event EventHandler CanExecuteChanged;
-
-			public void Execute(object parameter)
-			{
-				m_execute(parameter);
-			}
-
-			public bool CanExecute(object parameter)
-			{
-				return true;
-			}
-		}
-		#endregion // DelegateCommand
 	}
+
+	public class SimpleExtrusionRenderer
+	{
+		public SimpleRenderer Renderer { get; set; }
+		public string Title { get; set; }
+	}
+
+	internal class DelegateCommand : ICommand
+	{
+		private Action<object> m_execute;
+
+		public DelegateCommand(Action<object> execute)
+		{
+			m_execute = execute;
+
+		}
+
+		public event EventHandler CanExecuteChanged;
+
+		public void Execute(object parameter)
+		{
+			m_execute(parameter);
+		}
+
+		public bool CanExecute(object parameter)
+		{
+			return true;
+		}
+
+
+
+	}
+
+
 }

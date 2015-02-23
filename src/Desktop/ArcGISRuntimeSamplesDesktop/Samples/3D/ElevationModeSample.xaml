@@ -10,14 +10,27 @@
 	<Grid>
 		<esri:SceneView x:Name="MySceneView">
 			<esri:Scene>
+				<esri:Scene.Surface>
+					<esri:ElevationSource IsEnabled="True" 
+						ServiceUri="http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"/>
+				</esri:Scene.Surface>
 				<esri:ArcGISTiledMapServiceLayer ID="Imagery"
 					ServiceUri="http://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer" />
-				<esri:ElevationLayer ID="Elevation"
-					ServiceUri="http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"/>
-
-				<esri:GraphicsLayer  ID="AbsoluteModeGraphicsLayer" esri:SceneView.ElevationMode="Absolute"/>
-				<esri:GraphicsLayer  ID="DrapedModeGraphicsLayer" esri:SceneView.ElevationMode="Draped"/>
-				<esri:GraphicsLayer  ID="RelativeModeGraphicsLayer" esri:SceneView.ElevationMode="Relative" />
+				<esri:GraphicsLayer  ID="AbsoluteGraphicsLayer">
+					<esri:GraphicsLayer.SceneProperties>
+						<esri:LayerSceneProperties SurfacePlacement="Absolute"/>
+					</esri:GraphicsLayer.SceneProperties>
+				</esri:GraphicsLayer>
+				<esri:GraphicsLayer  ID="DrapedGraphicsLayer">
+					<esri:GraphicsLayer.SceneProperties>
+						<esri:LayerSceneProperties SurfacePlacement="Draped"/>
+					</esri:GraphicsLayer.SceneProperties>
+				</esri:GraphicsLayer>
+				<esri:GraphicsLayer  ID="RelativeGraphicsLayer">
+					<esri:GraphicsLayer.SceneProperties>
+						<esri:LayerSceneProperties SurfacePlacement="Relative"/>
+					</esri:GraphicsLayer.SceneProperties>
+				</esri:GraphicsLayer>
 			</esri:Scene>
 		</esri:SceneView>
 

@@ -65,15 +65,12 @@
     <Compile Include="Samples\3D\CameraAnimationSample3d.xaml.cs">
       <DependentUpon>CameraAnimationSample3d.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\3D\ElevationLayerSample3d.xaml.cs">
-      <DependentUpon>ElevationLayerSample3d.xaml</DependentUpon>
+    <Compile Include="Samples\3D\ElevationSourceSample3d.xaml.cs">
+      <DependentUpon>ElevationSourceSample3d.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Samples\3D\ElevationModeSample.xaml.cs">
       <DependentUpon>ElevationModeSample.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\3D\GraphicsExtrusionSample3d.xaml.cs">
-      <DependentUpon>GraphicsExtrusionSample3d.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\3D\OpenStreetMapLayerSample3d.xaml.cs">
       <DependentUpon>OpenStreetMapLayerSample3d.xaml</DependentUpon>
@@ -517,15 +514,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\3D\ElevationLayerSample3d.xaml">
+    <Page Include="Samples\3D\ElevationSourceSample3d.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\3D\ElevationModeSample.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Samples\3D\GraphicsExtrusionSample3d.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

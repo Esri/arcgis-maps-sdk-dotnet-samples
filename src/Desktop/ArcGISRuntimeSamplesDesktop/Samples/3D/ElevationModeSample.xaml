@@ -16,17 +16,17 @@
 				</esri:Scene.Surface>
 				<esri:ArcGISTiledMapServiceLayer ID="Imagery"
 					ServiceUri="http://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer" />
-				<esri:GraphicsLayer  ID="AbsoluteGraphicsLayer">
+				<esri:GraphicsLayer  ID="AbsoluteModeGraphicsLayer">
 					<esri:GraphicsLayer.SceneProperties>
 						<esri:LayerSceneProperties SurfacePlacement="Absolute"/>
 					</esri:GraphicsLayer.SceneProperties>
 				</esri:GraphicsLayer>
-				<esri:GraphicsLayer  ID="DrapedGraphicsLayer">
+				<esri:GraphicsLayer  ID="DrapedModeGraphicsLayer">
 					<esri:GraphicsLayer.SceneProperties>
 						<esri:LayerSceneProperties SurfacePlacement="Draped"/>
 					</esri:GraphicsLayer.SceneProperties>
 				</esri:GraphicsLayer>
-				<esri:GraphicsLayer  ID="RelativeGraphicsLayer">
+				<esri:GraphicsLayer  ID="RelativeModeGraphicsLayer">
 					<esri:GraphicsLayer.SceneProperties>
 						<esri:LayerSceneProperties SurfacePlacement="Relative"/>
 					</esri:GraphicsLayer.SceneProperties>

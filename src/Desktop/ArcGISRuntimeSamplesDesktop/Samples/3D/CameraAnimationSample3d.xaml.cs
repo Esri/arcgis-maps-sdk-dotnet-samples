@@ -69,9 +69,6 @@ namespace ArcGISRuntime.Samples.Desktop
 			{
 				// Set first one to starting point
 				MySceneView.SetView(_animationViewpoints[0]);
-				
-				// Wait that all layers are loaded
-				var results = await MySceneView.LayersLoadedAsync();
 
 				// Set navigation in the order we want to animate the camera
 				await MySceneView.SetViewAsync(_animationViewpoints[1], 0.2, true);

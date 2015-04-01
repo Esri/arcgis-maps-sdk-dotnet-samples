@@ -24,7 +24,7 @@ namespace ArcGISRuntime.Samples.Phone.Samples.Symbology.Specialized
 	/// <subcategory>Specialized</subcategory>
 	public sealed partial class MessageProcessingSample : Page
 	{
-		private const string DATA_PATH = @"samples-data\symbology\Mil2525CMessages.xml";
+		private const string DATA_PATH = @"symbology\Mil2525CMessages.xml";
 
 		private MessageLayer _messageLayer;
 

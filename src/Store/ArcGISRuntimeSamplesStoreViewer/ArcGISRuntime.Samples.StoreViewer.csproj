@@ -126,6 +126,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Logo.scale-100.png" />
+    <Content Include="Assets\RedStickpin.png" />
+    <Content Include="Assets\x-24x24.png" />
     <EmbeddedResource Include="Assets\SampleDescriptions.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -19,9 +19,11 @@
 				Margin="20"	
 				BorderBrush="White"	
 				BorderThickness="2"  
-				Background="LightGray" 
-				IsHitTestVisible="False">
+				Background="LightGray" >
 			<esri:MapView x:Name="overviewMap" Width="200" Height="200" >
+				<esri:MapView.InteractionOptions>
+					<esri:InteractionOptions IsEnabled="False"/>
+				</esri:MapView.InteractionOptions>
 				<esri:Map  >
 					<layers:ArcGISTiledMapServiceLayer ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer"  />
 					<layers:GraphicsLayer>

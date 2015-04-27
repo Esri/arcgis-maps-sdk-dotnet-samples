@@ -14,21 +14,21 @@ namespace ArcGISRuntime.Samples.Phone.Samples.Symbology
 {
 	/// <summary>
 	/// This sample demonstrates how to create a ClassBreaksRenderer for a graphics layer.
-	/// Earthquake data points are pulled from an online source and rendered using the GraphicsLayer ClassBreaksRenderer.
+	/// USA city data points are pulled from an online source and rendered using the GraphicsLayer ClassBreaksRenderer.
 	/// </summary>
 	/// <title>Class Breaks Renderer</title>
 	/// <category>Symbology</category>
 	public sealed partial class ClassBreaksRendererSample : Page
 	{
         private Random _random = new Random();
-        private GraphicsOverlay _earthquakes;
+        private GraphicsOverlay _cities;
 
         /// <summary>Construct Class Breaks Renderer sample control</summary>
         public ClassBreaksRendererSample()
         {
             InitializeComponent();
 
-			_earthquakes = MyMapView.GraphicsOverlays["earthquakes"];
+			_cities = MyMapView.GraphicsOverlays["cities"];
 
 			MyMapView.SpatialReferenceChanged += MyMapView_SpatialReferenceChanged;
         }
@@ -39,11 +39,11 @@ namespace ArcGISRuntime.Samples.Phone.Samples.Symbology
             try
             {
 				MyMapView.SpatialReferenceChanged -= MyMapView_SpatialReferenceChanged;
-                await LoadEarthquakesAsync();
+                await LoadCitiesAsync();
             }
             catch (Exception ex)
             {
-                var _x = new MessageDialog("Error loading earthquake data: " + ex.Message, "Sample Error").ShowAsync();
+                var _x = new MessageDialog("Error loading data: " + ex.Message, "Sample Error").ShowAsync();
             }
         }
 
@@ -52,37 +52,37 @@ namespace ArcGISRuntime.Samples.Phone.Samples.Symbology
         {
             SimpleMarkerStyle style = (SimpleMarkerStyle)_random.Next(0, 6);
 
-            _earthquakes.Renderer = new ClassBreaksRenderer()
+            _cities.Renderer = new ClassBreaksRenderer()
             {
-                Field = "magnitude",
+                Field = "pop2000",
                 Infos = new ClassBreakInfoCollection() 
                 { 
-                    new ClassBreakInfo() { Minimum = 2, Maximum = 3, Symbol = GetRandomSymbol(style) },
-                    new ClassBreakInfo() { Minimum = 3, Maximum = 4, Symbol = GetRandomSymbol(style) },
-                    new ClassBreakInfo() { Minimum = 4, Maximum = 5, Symbol = GetRandomSymbol(style) },
-                    new ClassBreakInfo() { Minimum = 5, Maximum = 6, Symbol = GetRandomSymbol(style) },
-                    new ClassBreakInfo() { Minimum = 6, Maximum = 7, Symbol = GetRandomSymbol(style) },
-                    new ClassBreakInfo() { Minimum = 7, Maximum = 8, Symbol = GetRandomSymbol(style) },
+                    new ClassBreakInfo() { Minimum = 0, Maximum = 50000, Symbol = GetRandomSymbol(style) },
+                    new ClassBreakInfo() { Minimum = 50000, Maximum = 100000, Symbol = GetRandomSymbol(style) },
+                    new ClassBreakInfo() { Minimum = 100000, Maximum = 250000, Symbol = GetRandomSymbol(style) },
+                    new ClassBreakInfo() { Minimum = 250000, Maximum = 500000, Symbol = GetRandomSymbol(style) },
+                    new ClassBreakInfo() { Minimum = 500000, Maximum = 1000000, Symbol = GetRandomSymbol(style) },
+                    new ClassBreakInfo() { Minimum = 1000000, Maximum = 5000000, Symbol = GetRandomSymbol(style) },
                 }
             };
         }
 
         // Load earthquakes from map service
-        private async Task LoadEarthquakesAsync()
+        private async Task LoadCitiesAsync()
         {
             var queryTask = new QueryTask(
-                new Uri("http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Earthquakes/EarthquakesFromLastSevenDays/MapServer/0"));
+                new Uri("http://sampleserver6.arcgisonline.com/ArcGIS/rest/services/USA/MapServer/0"));
             var query = new Query(MyMapView.Extent)
             {
                 ReturnGeometry = true,
                 OutSpatialReference = MyMapView.SpatialReference,
-                Where = "magnitude > 2.0",
-                OutFields = new OutFields(new string[] { "magnitude" })
+                Where = "pop2000 > 50000",
+                OutFields = new OutFields(new string[] { "pop2000" })
             };
             var result = await queryTask.ExecuteAsync(query);
 
-            _earthquakes.Graphics.Clear();
-            _earthquakes.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
+            _cities.Graphics.Clear();
+            _cities.Graphics.AddRange(result.FeatureSet.Features.OfType<Graphic>());
         }
 
         // Utility: Generate a random simple marker symbol

@@ -502,6 +502,8 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 			object fieldValue;
 			if (feature.Attributes.TryGetValue(fieldName, out fieldValue))
 			{
+        if (fieldValue == null)
+          return convertedValue;
 				var field = feature.Schema.Fields
 					.FirstOrDefault(fld => fld.Name.Equals(fieldName, StringComparison.CurrentCultureIgnoreCase));
 				if (field != null)

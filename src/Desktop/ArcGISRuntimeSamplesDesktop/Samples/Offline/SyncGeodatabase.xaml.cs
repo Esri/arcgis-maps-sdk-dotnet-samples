@@ -487,13 +487,15 @@ namespace ArcGISRuntime.Samples.Desktop
             object fieldValue;
             if (feature.Attributes.TryGetValue(fieldName, out fieldValue))
             {
+              if (fieldValue == null)
+                return convertedValue;
                 var field = feature.Schema.Fields
                     .FirstOrDefault(fld => fld.Name.Equals(fieldName, StringComparison.CurrentCultureIgnoreCase));
                 if (field != null)
                 {
                     var domain = field.Domain as CodedValueDomain;
                     if (domain != null)
-                    {
+                    {                      
                         domain.CodedValues.TryGetValue(fieldValue, out convertedValue);
                     }
                 }

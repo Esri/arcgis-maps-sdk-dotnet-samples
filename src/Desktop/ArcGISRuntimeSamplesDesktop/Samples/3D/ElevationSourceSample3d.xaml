@@ -11,7 +11,7 @@
 		<esri:SceneView x:Name="MySceneView">
 			<esri:Scene>
 				<esri:Scene.Surface>
-					<esri:ElevationServiceSource IsEnabled="True" 
+					<esri:ServiceElevationSource IsEnabled="True" 
 						ServiceUri="http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"/>
 				</esri:Scene.Surface>
 				<esri:ArcGISTiledMapServiceLayer ID="Imagery"

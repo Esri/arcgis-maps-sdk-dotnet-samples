@@ -15,9 +15,9 @@
             <esri:Map InitialViewpoint="-13279585.9811197,4010136.34579502,-12786146.5545795,4280849.94238526">
                 <esri:ArcGISTiledMapServiceLayer ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
                 <!-- Renders features at current extent -->
-                <esri:ArcGISDynamicMapServiceLayer ID="WildFire"
+				<esri:ArcGISDynamicMapServiceLayer ID="RecreationalArea"
                                                    VisibleLayers="2"
-                                                   ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Wildfire/MapServer" />
+                                                   ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/LocalGovernment/Recreation/MapServer" />
             </esri:Map>
             <esri:MapView.GraphicsOverlays>
                 <!-- Highlights one feature at a time -->

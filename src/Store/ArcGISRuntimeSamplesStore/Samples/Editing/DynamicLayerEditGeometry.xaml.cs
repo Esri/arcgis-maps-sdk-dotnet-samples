@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.Store.Samples
         public DynamicLayerEditGeometry()
         {
             InitializeComponent();
-            var layer = MyMapView.Map.Layers["WildFire"] as ArcGISDynamicMapServiceLayer;
+			var layer = MyMapView.Map.Layers["RecreationalArea"] as ArcGISDynamicMapServiceLayer;
             layer.VisibleLayers = new ObservableCollection<int>(new int[] { 2 });
         }
 
@@ -40,7 +40,7 @@ namespace ArcGISRuntime.Samples.Store.Samples
             if (inEditMode)
                 return;
 
-            var layer = MyMapView.Map.Layers["WildFire"] as ArcGISDynamicMapServiceLayer;
+			var layer = MyMapView.Map.Layers["RecreationalArea"] as ArcGISDynamicMapServiceLayer;
             var task = new IdentifyTask(new Uri(layer.ServiceUri));
             var mapPoint = MyMapView.ScreenToLocation(e.Position);
             var parameter = new IdentifyParameters(mapPoint, MyMapView.Extent, 2, (int)MyMapView.ActualHeight, (int)MyMapView.ActualWidth);
@@ -63,7 +63,7 @@ namespace ArcGISRuntime.Samples.Store.Samples
                 overlay.Graphics.Add(graphic);
 
                 // Prepares geometry editor.
-                var featureID = Convert.ToInt64(graphic.Attributes["OBJECTID"], CultureInfo.InvariantCulture);
+				var featureID = Convert.ToInt64(graphic.Attributes["Objectid"], CultureInfo.InvariantCulture);
                 SetGeometryEditor(featureID);
             }
             catch (Exception ex)
@@ -88,7 +88,7 @@ namespace ArcGISRuntime.Samples.Store.Samples
         /// </summary>
         private async void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            var layer = MyMapView.Map.Layers["WildFire"] as ArcGISDynamicMapServiceLayer;
+			var layer = MyMapView.Map.Layers["RecreationalArea"] as ArcGISDynamicMapServiceLayer;
             var overlay = MyMapView.GraphicsOverlays["Highlighter"] as GraphicsOverlay;
             var featureID = (long)EditButton.Tag;
             string message = null;
@@ -106,7 +106,7 @@ namespace ArcGISRuntime.Samples.Store.Samples
                     layer.LayerDefinitions.Add(new LayerDefinition()
                     {
                         LayerID = layer.VisibleLayers[0],
-                        Definition = string.Format("objectid <> {0}", featureID)
+                        Definition = string.Format("Objectid <> {0}", featureID)
                     });
                 }
                 if (table == null)
@@ -117,7 +117,6 @@ namespace ArcGISRuntime.Samples.Store.Samples
                     var url = layer.ServiceUri.Replace("MapServer", "FeatureServer");
                     url = string.Format("{0}/{1}", url, id);
                     table = await ServiceFeatureTable.OpenAsync(new Uri(url), null, MyMapView.SpatialReference);
-                    table.OutFields = new OutFields(new string[] { "shape" });
                 }
                 // Retrieves feature identified by ID and updates its geometry 
                 // using GeometryEngine to correct ring orientation.

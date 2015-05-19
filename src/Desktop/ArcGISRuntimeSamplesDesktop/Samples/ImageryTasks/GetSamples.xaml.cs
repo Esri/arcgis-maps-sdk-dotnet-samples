@@ -56,7 +56,7 @@ namespace ArcGISRuntime.Samples.Desktop
                 var envelope = await MyMapView.Editor.RequestShapeAsync(DrawShape.Envelope) as Envelope;
 
                 QueryTask queryTask = new QueryTask(
-                    new Uri("http://servicesbeta.esri.com/ArcGIS/rest/services/Portland/PortlandAerial/ImageServer/query"));
+					new Uri("http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Portland/Aerial/ImageServer/"));
 
                 Query query = new Query(envelope)
                 {

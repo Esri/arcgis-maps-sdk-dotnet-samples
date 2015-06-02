@@ -1,11 +1,11 @@
 ﻿<Page
-		x:Class="ArcGISRuntime.Samples.Store.Samples.InteractionOptionsSample"
+		x:Class="ArcGISRuntime.Samples.Store.Samples.InteractionOptionsSample3d"
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:esri="using:Esri.ArcGISRuntime.Controls"
 		xmlns:layers="using:Esri.ArcGISRuntime.Layers"
 		xmlns:data="using:Esri.ArcGISRuntime.Data">
-	 
+
 	<!-- Application command bar -->
 	<Page.BottomAppBar>
 		<CommandBar IsOpen="True">
@@ -31,7 +31,6 @@
 							<ToggleSwitch Header="IsKeyboardEnabled" IsOn="{Binding IsKeyboardEnabled, Mode=TwoWay}"/>
 							<ToggleSwitch Header="IsMouseWheelEnabled" IsOn="{Binding IsMouseWheelEnabled, Mode=TwoWay}"/>
 							<ToggleSwitch Header="IsPinchEnabled" IsOn="{Binding IsPinchEnabled, Mode=TwoWay}"/>
-							<ToggleSwitch Header="IsZoomBoxEnabled" IsOn="{Binding IsZoomBoxEnabled, Mode=TwoWay}"/>
 							<ToggleSwitch Header="IsStylusEnabled" IsOn="{Binding IsStylusEnabled, Mode=TwoWay}"/>
 							<StackPanel Margin="0,5">
 								<TextBlock Text="MouseWheelZoomInDirection"/>
@@ -60,16 +59,16 @@
 	</Page.BottomAppBar>
 
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-		<esri:MapView 
-				x:Name="MyMapView"
-				LayerLoaded="MyMapView_LayerLoaded" 
-			MapViewTapped="MyMapView_MapViewTapped"
-				MapViewDoubleTapped="MyMapView_MapViewDoubleTapped"
-				MapViewHolding="MyMapView_MapViewHolding">
-			<esri:Map>
+		<esri:SceneView 
+				x:Name="MySceneView"
+				LayerLoaded="MySceneView_LayerLoaded" 
+			SceneViewTapped="MySceneView_SceneViewTapped"
+				SceneViewDoubleTapped="MySceneView_SceneViewDoubleTapped"
+				SceneViewHolding="MySceneView_SceneViewHolding">
+			<esri:Scene>
 				<layers:ArcGISTiledMapServiceLayer ID="Basemap"
 						ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"/>
-			</esri:Map>
-		</esri:MapView>
+			</esri:Scene>
+		</esri:SceneView>
 	</Grid>
 </Page>

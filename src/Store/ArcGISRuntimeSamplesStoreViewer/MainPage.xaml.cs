@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-
+ 
 namespace ArcGISRuntime.Samples.StoreViewer
 {
 	public sealed partial class MainPage : Page

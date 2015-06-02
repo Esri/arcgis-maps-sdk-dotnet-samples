@@ -1,0 +1,83 @@
+﻿<UserControl 
+	x:Class="ArcGISRuntime.Samples.Desktop.ElevationModeSample"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+	xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+	mc:Ignorable="d" 
+	d:DesignHeight="300" d:DesignWidth="300">
+	<Grid>
+		<esri:SceneView x:Name="MySceneView">
+			<esri:Scene>
+				<esri:Scene.Surface>
+					<esri:ServiceElevationSource IsEnabled="True" 
+						ServiceUri="http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"/>
+				</esri:Scene.Surface>
+				<esri:ArcGISTiledMapServiceLayer ID="Imagery"
+					ServiceUri="http://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer" />
+				<esri:GraphicsLayer  ID="AbsoluteModeGraphicsLayer">
+					<esri:GraphicsLayer.SceneProperties>
+						<esri:LayerSceneProperties SurfacePlacement="Absolute"/>
+					</esri:GraphicsLayer.SceneProperties>
+				</esri:GraphicsLayer>
+				<esri:GraphicsLayer  ID="DrapedModeGraphicsLayer">
+					<esri:GraphicsLayer.SceneProperties>
+						<esri:LayerSceneProperties SurfacePlacement="Draped"/>
+					</esri:GraphicsLayer.SceneProperties>
+				</esri:GraphicsLayer>
+				<esri:GraphicsLayer  ID="RelativeModeGraphicsLayer">
+					<esri:GraphicsLayer.SceneProperties>
+						<esri:LayerSceneProperties SurfacePlacement="Relative"/>
+					</esri:GraphicsLayer.SceneProperties>
+				</esri:GraphicsLayer>
+			</esri:Scene>
+		</esri:SceneView>
+
+		<Border Background="White" BorderBrush="Black" BorderThickness="1"
+				 HorizontalAlignment="Right" VerticalAlignment="Top"
+				 Margin="30" Padding="20">
+			<Grid>
+				<StackPanel>
+					<TextBlock Text="Select geometry type" FontWeight="Bold" 
+							   HorizontalAlignment="Center"/>
+					<StackPanel Orientation="Horizontal" Margin="0,10">
+						<RadioButton 
+							Tag="Point" GroupName="Shapes" Content="Point"
+							Margin="5,0,0,0" Click="RadioButton_Click"/>
+						<RadioButton 
+							Tag="Line" GroupName="Shapes" Content="Line"
+							Margin="5,0,0,0" Click="RadioButton_Click"/>
+						<RadioButton 
+							Tag="Polygon" GroupName="Shapes" Content="Polygon"
+							Margin="5,0,0,0" Click="RadioButton_Click"/>
+					</StackPanel>
+
+					<TextBlock Text="Symbols:" FontWeight="Bold" 
+							   Margin="0,10,0,5"/>
+					<!-- Draped  -->
+					<StackPanel Orientation="Horizontal">
+						<Ellipse
+						  Fill="Yellow" Stroke="Black"
+						  Height="30" Width="30" Margin="5"/>
+						<TextBlock Text="Draped" Margin="5"/>
+					</StackPanel>
+					<!-- Absolute  -->
+					<StackPanel Orientation="Horizontal">
+						<Ellipse
+						  Fill="Red" Stroke="Black"
+						  Height="30" Width="30" Margin="5"/>
+						<TextBlock Text="Absolute" Margin="5"/>
+					</StackPanel>
+					<!-- Relative  -->
+					<StackPanel Orientation="Horizontal">
+						<Ellipse
+						  Fill="LightBlue" Stroke="Black"
+						  Height="30" Width="30" Margin="5"/>
+						<TextBlock Text="Relative (6000m)" Margin="5"/>
+					</StackPanel>
+				</StackPanel>
+			</Grid>
+		</Border>
+	</Grid>
+</UserControl>

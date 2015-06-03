@@ -145,20 +145,21 @@ namespace ArcGISRuntime.Samples.DesktopViewer
 			foreach (var group in samples)
 			{
 				MenuItem samplesItem = new MenuItem() { Header = group.Key };
-				var subGroups = group.Items.GroupBy(g => g.Subcategory);
-				foreach (var subGroup in subGroups.Where(sg => sg.Key != null))
-				{
-					MenuItem subGroupItem = new MenuItem() { Header = subGroup.Key };
-					foreach (var sample in subGroup)
-					{
-						CreateSampleMenuItem(subGroupItem, sample);
-					}
-					samplesItem.Items.Add(subGroupItem);
-				}
 				foreach (var sample in group.Items.Where(g => g.Subcategory == null))
 				{
 					CreateSampleMenuItem(samplesItem, sample);
 				}
+                var subGroups = group.Items.GroupBy(g => g.Subcategory);
+                foreach (var subGroup in subGroups.Where(sg => sg.Key != null))
+                {
+                    MenuItem subGroupItem = new MenuItem() { Header = subGroup.Key };
+                    foreach (var sample in subGroup)
+                    {
+                        CreateSampleMenuItem(subGroupItem, sample);
+                    }
+                    samplesItem.Items.Add(subGroupItem);
+                }	
+                
 				menu.Items.Add(samplesItem);
 			}
 		}

@@ -1,4 +1,5 @@
 ﻿using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Controls;
 using System;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -19,7 +20,7 @@ namespace ArcGISRuntime.Samples.Desktop
 
         private void MyMapView_MouseMove(object sender, MouseEventArgs e)
         {
-            if (MyMapView.Extent == null)
+            if (MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent == null)
                 return;
 
             System.Windows.Point screenPoint = e.GetPosition(MyMapView);

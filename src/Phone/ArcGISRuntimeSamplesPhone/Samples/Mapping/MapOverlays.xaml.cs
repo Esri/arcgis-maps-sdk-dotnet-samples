@@ -31,7 +31,7 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 			_clickOverlay = FindName("clickOverlay") as FrameworkElement;
 			_centerOverlay = FindName("centerOverlay") as FrameworkElement;
 
-			var normalizedPoint = GeometryEngine.NormalizeCentralMeridian(MyMapView.Extent.GetCenter());
+			var normalizedPoint = GeometryEngine.NormalizeCentralMeridian(MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent.GetCenter());
 			var projectedCenter = GeometryEngine.Project(normalizedPoint, SpatialReferences.Wgs84) as MapPoint;
 
 			if (!(_clickOverlay.DataContext is MapPoint))

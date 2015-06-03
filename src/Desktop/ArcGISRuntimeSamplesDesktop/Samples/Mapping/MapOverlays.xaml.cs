@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.Desktop
 		{
 			MyMapView.SpatialReferenceChanged -= MyMapView_SpatialReferenceChanged;
 
-			var normalizedPoint = GeometryEngine.NormalizeCentralMeridian(MyMapView.Extent.GetCenter());
+            var normalizedPoint = GeometryEngine.NormalizeCentralMeridian(MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent.GetCenter());
 			var projectedCenter = GeometryEngine.Project(normalizedPoint, SpatialReferences.Wgs84) as MapPoint;
 
 			if (!(clickOverlay.DataContext is MapPoint))

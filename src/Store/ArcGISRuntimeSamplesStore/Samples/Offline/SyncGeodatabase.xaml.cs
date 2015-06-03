@@ -165,7 +165,7 @@ namespace ArcGISRuntime.Samples.Store.Samples
 				IsBusy = true;
 
 				// Generate local gdb
-				await GenerateLocalGeodatabaseAsync(MyMapView.Extent);
+                await GenerateLocalGeodatabaseAsync(MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent);
 
 				// Set editing combobox itemssource from bird type domain
 				if (_localBirdsLayer != null)
@@ -449,7 +449,7 @@ namespace ArcGISRuntime.Samples.Store.Samples
 			LocalBirdFeatures = await _localBirdsLayer.FeatureTable.QueryAsync(new QueryFilter() { WhereClause = "1=1" });
 
 			QueryTask queryTask = new QueryTask(new Uri(_onlineBirdsLayer.ServiceUri + "/1"));
-			Query query = new Query("1=1") { Geometry = MyMapView.Extent, OutFields = new OutFields(new string[] { "globalid" }) };
+            Query query = new Query("1=1") { Geometry = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent, OutFields = new OutFields(new string[] { "globalid" }) };
 			var queryResult = await queryTask.ExecuteAsync(query);
 
 			var onlineBirdIds = queryResult.FeatureSet.Features.Select(f => f.Attributes["globalid"]);

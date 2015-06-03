@@ -67,7 +67,7 @@ namespace ArcGISRuntime.Samples.Desktop
             while (InDrawMode)
             {
                 // if the map is not in a valid state - quit and turn drawing mode off
-                if (MyMapView.Extent == null)
+                if (MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent == null)
                 {
                     InDrawMode = false;
                     break;

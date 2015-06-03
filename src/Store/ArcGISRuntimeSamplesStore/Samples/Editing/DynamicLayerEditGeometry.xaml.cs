@@ -43,7 +43,7 @@ namespace ArcGISRuntime.Samples.Store.Samples
 			var layer = MyMapView.Map.Layers["RecreationalArea"] as ArcGISDynamicMapServiceLayer;
             var task = new IdentifyTask(new Uri(layer.ServiceUri));
             var mapPoint = MyMapView.ScreenToLocation(e.Position);
-            var parameter = new IdentifyParameters(mapPoint, MyMapView.Extent, 2, (int)MyMapView.ActualHeight, (int)MyMapView.ActualWidth);
+            var parameter = new IdentifyParameters(mapPoint, MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent, 2, (int)MyMapView.ActualHeight, (int)MyMapView.ActualWidth);
 
             // Clears map of any highlights.
             var overlay = MyMapView.GraphicsOverlays["Highlighter"] as GraphicsOverlay;

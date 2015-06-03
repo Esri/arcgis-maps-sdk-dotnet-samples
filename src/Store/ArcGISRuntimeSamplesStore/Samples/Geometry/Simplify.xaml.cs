@@ -55,7 +55,7 @@ namespace ArcGISRuntime.Samples.Store.Samples
         // Draw the unsimplified polygon
         private void DrawPolygon()
         {
-            MapPoint center = MyMapView.Extent.GetCenter();
+            MapPoint center = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent.GetCenter();
             double lat = center.Y;
             double lon = center.X + 300;
             double latOffset = 300;

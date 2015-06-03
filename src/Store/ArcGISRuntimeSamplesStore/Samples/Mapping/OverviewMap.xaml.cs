@@ -1,4 +1,5 @@
 ﻿using Esri.ArcGISRuntime.Layers;
+using Esri.ArcGISRuntime.Controls;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
 
@@ -28,10 +29,11 @@ namespace ArcGISRuntime.Samples.Store.Samples
                 g = new Graphic();
 				graphicsOverlay.Graphics.Add(g);
             }
-            g.Geometry = MyMapView.Extent;
+            var myViewpointExtent = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent;
+            g.Geometry = myViewpointExtent;
 
             // Adjust overview map scale
-            await overviewMap.SetViewAsync(MyMapView.Extent.GetCenter(), MyMapView.Scale * 15);
+            await overviewMap.SetViewAsync(myViewpointExtent.GetCenter(), MyMapView.Scale * 15);
         }
     }
 }

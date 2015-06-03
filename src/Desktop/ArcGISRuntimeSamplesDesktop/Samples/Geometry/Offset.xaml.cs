@@ -122,7 +122,7 @@ namespace ArcGISRuntime.Samples.Desktop
 						new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/TaxParcel/AssessorsParcelCharacteristics/MapServer/1"));
 
 					//Create a geometry to use as the extent within which parcels will be returned
-					var contractRatio = MyMapView.Extent.Width / 6;
+                    var contractRatio = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent.Width / 6;
 
 					var extentGeometry = new Envelope(
 						-83.3188395774275,

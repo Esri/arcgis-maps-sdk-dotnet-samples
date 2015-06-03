@@ -97,8 +97,9 @@ namespace ArcGISRuntime.Samples.Desktop
             {
                 while (true)
                 {
+
                     var point = await MyMapView.Editor.RequestPointAsync();
-                    var polygon = GeometryEngine.Buffer(point, MyMapView.Extent.Width * .01);
+                    var polygon = GeometryEngine.Buffer(point, MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent.Width * .01);
 					var attr = new Dictionary<string, object>() { { "ID", _graphicsOverlay.Graphics.Count + 1 } };
 					_graphicsOverlay.Graphics.Add(new Graphic(polygon, attr));
                 }

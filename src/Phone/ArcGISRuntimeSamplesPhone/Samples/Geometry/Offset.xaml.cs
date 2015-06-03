@@ -126,7 +126,7 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 					QueryTask queryTask = new QueryTask(new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/TaxParcel/AssessorsParcelCharacteristics/MapServer/1"));
 
 					//Create a geometry to use as the extent within which parcels will be returned
-					var contractRatio = MyMapView.Extent.Width / 6;
+					var contractRatio =   MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent.Width / 6;
 					var extentGeometry = new Envelope(-83.3188395774275, 42.61428312652851, -83.31295664068958, 42.61670913269855, SpatialReferences.Wgs84);
 					Query query = new Query(extentGeometry);
 					query.ReturnGeometry = true;

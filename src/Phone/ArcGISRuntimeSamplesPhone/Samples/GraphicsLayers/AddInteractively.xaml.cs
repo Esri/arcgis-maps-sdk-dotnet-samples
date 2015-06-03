@@ -46,7 +46,7 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 			while (true)
 			{
 				// if the map is not in a valid state
-				if (MyMapView.Extent == null)
+				if (MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent == null)
 					break;
 
 				await AddSingleGraphicAsync();

@@ -33,7 +33,7 @@ namespace ArcGISRuntime.Samples.Desktop
 				graphicsOverlay.Graphics.Clear();
 				graphicsOverlay.Graphics.Add(new Graphic(e.Location));
 
-                IdentifyParameters identifyParams = new IdentifyParameters(e.Location, MyMapView.Extent, 2, (int)MyMapView.ActualHeight, (int)MyMapView.ActualWidth)
+                IdentifyParameters identifyParams = new IdentifyParameters(e.Location, MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent, 2, (int)MyMapView.ActualHeight, (int)MyMapView.ActualWidth)
                 {
                     LayerOption = LayerOption.Visible,
                     SpatialReference = MyMapView.SpatialReference,

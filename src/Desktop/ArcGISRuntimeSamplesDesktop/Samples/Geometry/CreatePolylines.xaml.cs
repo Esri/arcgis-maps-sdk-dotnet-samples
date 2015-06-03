@@ -32,10 +32,11 @@ namespace ArcGISRuntime.Samples.Desktop
 			MyMapView.NavigationCompleted -= MyMapView_NavigationCompleted;
 			try
 			{
-				var height = MyMapView.Extent.Height / 4;
-				var width = MyMapView.Extent.Width / 4;
+                var myViewpointExtent = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent;
+                var height = myViewpointExtent.Height / 4;
+                var width = myViewpointExtent.Width / 4;
 				var length = width / 4;
-				var center = MyMapView.Extent.GetCenter();
+                var center = myViewpointExtent.GetCenter();
 
 				var topLeft = new MapPoint(center.X - width, center.Y + height, MyMapView.SpatialReference);
 				var topRight = new MapPoint(center.X + width, center.Y + height, MyMapView.SpatialReference);

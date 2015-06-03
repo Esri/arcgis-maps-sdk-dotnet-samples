@@ -1,5 +1,6 @@
 ﻿using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
+using Esri.ArcGISRuntime.Controls;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -54,7 +55,7 @@ namespace ArcGISRuntime.Samples.Desktop
         {
             try
             {
-                while (MyMapView.Extent != null)
+                while (MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent != null)
                 {
                     var point = await MyMapView.Editor.RequestPointAsync();
 

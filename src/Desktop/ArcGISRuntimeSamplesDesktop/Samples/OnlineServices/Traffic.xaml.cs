@@ -49,7 +49,7 @@ namespace ArcGISRuntime.Samples.Desktop
 
                 var identifyTask = new IdentifyTask(new Uri(_trafficLayer.ServiceUri));
 
-                IdentifyParameters identifyParams = new IdentifyParameters(e.Location, MyMapView.Extent, 5, (int)MyMapView.ActualHeight, (int)MyMapView.ActualWidth)
+                IdentifyParameters identifyParams = new IdentifyParameters(e.Location, MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent, 5, (int)MyMapView.ActualHeight, (int)MyMapView.ActualWidth)
                 {
                     LayerIDs = new int[] { 2, 3, 4 },
                     LayerOption = LayerOption.Top,

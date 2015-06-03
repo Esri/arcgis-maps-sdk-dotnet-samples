@@ -44,7 +44,7 @@ namespace ArcGISRuntime.Samples.Store.Samples
         // - collected point is in the coordinate system of the current map
         private async Task AcceptPointsAsync()
         {
-            while (MyMapView.Extent != null)
+            while (MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent != null)
             {
                 var point = await MyMapView.Editor.RequestPointAsync();
 

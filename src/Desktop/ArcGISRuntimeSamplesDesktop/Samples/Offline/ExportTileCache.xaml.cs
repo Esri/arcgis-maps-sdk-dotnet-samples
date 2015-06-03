@@ -117,7 +117,7 @@ namespace ArcGISRuntime.Samples.Desktop
                 progress.Visibility = Visibility.Visible;
 
                 _aoiOverlay.Graphics.Clear();
-                _aoiOverlay.Graphics.Add(new Graphic(MyMapView.Extent));
+                _aoiOverlay.Graphics.Add(new Graphic(MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent));
                 _aoiOverlay.IsVisible = true;
 
                 _genOptions = new GenerateTileCacheParameters()
@@ -125,7 +125,7 @@ namespace ArcGISRuntime.Samples.Desktop
                     Format = ExportTileCacheFormat.TilePackage,
                     MinScale = _onlineTiledLayer.ServiceInfo.TileInfo.Lods[(int)sliderLOD.Value].Scale,
                     MaxScale = _onlineTiledLayer.ServiceInfo.TileInfo.Lods[0].Scale,
-                    GeometryFilter = GeometryEngine.Project(MyMapView.Extent, SpatialReferences.Wgs84)
+                    GeometryFilter = GeometryEngine.Project(MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent, SpatialReferences.Wgs84)
                 };
 
                 var job = await _exportTilesTask.EstimateTileCacheSizeAsync(_genOptions, 
@@ -198,7 +198,7 @@ namespace ArcGISRuntime.Samples.Desktop
                 _aoiOverlay.IsVisible = true;
 
                 if (MyMapView.Scale < _genOptions.MinScale)
-                    await MyMapView.SetViewAsync(MyMapView.Extent.GetCenter(), _genOptions.MinScale);
+                    await MyMapView.SetViewAsync(MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent.GetCenter(), _genOptions.MinScale);
 
                 panelTOC.Visibility = Visibility.Visible;
                 panelExport.Visibility = Visibility.Collapsed;

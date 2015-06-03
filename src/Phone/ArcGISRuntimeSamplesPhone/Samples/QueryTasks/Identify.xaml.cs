@@ -32,7 +32,7 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 
 		private async Task RunIdentify(MapPoint mp)
 		{
-			IdentifyParameters identifyParams = new IdentifyParameters(mp, MyMapView.Extent, 2, (int)MyMapView.ActualHeight, (int)MyMapView.ActualWidth)
+            IdentifyParameters identifyParams = new IdentifyParameters(mp, MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent, 2, (int)MyMapView.ActualHeight, (int)MyMapView.ActualWidth)
 			{
 				LayerOption = LayerOption.Visible,
 				SpatialReference = MyMapView.SpatialReference,

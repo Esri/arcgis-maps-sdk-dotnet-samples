@@ -58,7 +58,7 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 		{
 			try
 			{
-				while (MyMapView.Extent != null)
+                while (MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent != null)
 				{
 					var point = await MyMapView.Editor.RequestPointAsync();
 

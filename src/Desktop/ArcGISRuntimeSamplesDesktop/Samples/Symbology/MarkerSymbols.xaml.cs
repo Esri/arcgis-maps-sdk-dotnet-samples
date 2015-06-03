@@ -45,7 +45,7 @@ namespace ArcGISRuntime.Samples.Desktop
 		// Accept user map clicks and add points to the graphics layer with the selected symbol
 		private async Task AcceptPointsAsync()
 		{
-			while (MyMapView.Extent != null)
+            while (MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent != null)
 			{
 				var point = await MyMapView.Editor.RequestPointAsync();
 				_graphicsOverlay.Graphics.Add(new Graphic(point, _symbols[symbolCombo.SelectedIndex]));

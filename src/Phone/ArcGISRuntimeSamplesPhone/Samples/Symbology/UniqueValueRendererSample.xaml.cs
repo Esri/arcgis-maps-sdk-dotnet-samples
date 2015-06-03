@@ -73,7 +73,7 @@ namespace ArcGISRuntime.Samples.Phone.Samples.Symbology
 		{
 			var queryTask = new QueryTask(
 				new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2"));
-			var query = new Query(MyMapView.Extent)
+            var query = new Query(MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent)
 			{
 				ReturnGeometry = true,
 				MaxAllowableOffset = MyMapView.UnitsPerPixel,

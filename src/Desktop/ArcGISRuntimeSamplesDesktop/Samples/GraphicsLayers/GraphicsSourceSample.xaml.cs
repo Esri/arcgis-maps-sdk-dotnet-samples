@@ -1,6 +1,7 @@
 ﻿using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
+using Esri.ArcGISRuntime.Controls;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -82,8 +83,9 @@ namespace ArcGISRuntime.Samples.Desktop
         // Utility: Generate a random MapPoint within the current extent
         private MapPoint GetRandomMapPoint()
         {
-            double x = MyMapView.Extent.XMin + (_random.NextDouble() * MyMapView.Extent.Width);
-            double y = MyMapView.Extent.YMin + (_random.NextDouble() * MyMapView.Extent.Height);
+            var myMapViewExtent = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent;
+            double x = myMapViewExtent.XMin + (_random.NextDouble() * myMapViewExtent.Width);
+            double y = myMapViewExtent.YMin + (_random.NextDouble() * myMapViewExtent.Height);
             return new MapPoint(x, y, MyMapView.SpatialReference);
         }
 

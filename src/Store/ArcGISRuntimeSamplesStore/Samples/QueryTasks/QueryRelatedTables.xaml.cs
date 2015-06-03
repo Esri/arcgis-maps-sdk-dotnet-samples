@@ -39,7 +39,7 @@ namespace ArcGISRuntime.Samples.Store.Samples
 
                 Query query = new Query("1=1")
                 {
-                    Geometry = Expand(MyMapView.Extent, e.Location, 0.01),
+                    Geometry = Expand(MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent, e.Location, 0.01),
                     ReturnGeometry = true,
                     OutSpatialReference = MyMapView.SpatialReference,
                     OutFields = OutFields.All

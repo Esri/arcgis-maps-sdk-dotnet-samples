@@ -86,7 +86,7 @@ namespace ArcGISRuntime.Samples.Desktop
                     await SelectTargetGeometryAsync();
                 }
 
-                while (MyMapView.Extent != null)
+                while (MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent != null)
                 {
                     await GetNearestCoordAsync((bool)cboVertexOnly.IsChecked);
                 }
@@ -102,7 +102,8 @@ namespace ArcGISRuntime.Samples.Desktop
         private async Task LoadParcelsAsync()
         {
             var queryTask = new QueryTask(new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/TaxParcel/AssessorsParcelCharacteristics/MapServer/1"));
-            var query = new Query(MyMapView.Extent) { 
+            var query = new Query(MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent)
+            { 
 				ReturnGeometry = true, 
 				OutSpatialReference = MyMapView.SpatialReference, 
 				OutFields = OutFields.All 

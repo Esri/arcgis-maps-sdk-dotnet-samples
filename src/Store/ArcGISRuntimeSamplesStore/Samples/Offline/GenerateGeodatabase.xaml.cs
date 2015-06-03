@@ -3,6 +3,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Http;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Offline;
+using Esri.ArcGISRuntime.Controls;
 using System;
 using System.IO;
 using System.Linq;
@@ -41,7 +42,7 @@ namespace ArcGISRuntime.Samples.Store.Samples
 				ReportStatus("Creating GeodatabaseSyncTask...");
 				var syncTask = new GeodatabaseSyncTask(new Uri(BASE_URL));
 
-				var options = new GenerateGeodatabaseParameters(new int[] { 0, 1, 2 }, MyMapView.Extent)
+                var options = new GenerateGeodatabaseParameters(new int[] { 0, 1, 2 }, MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent)
 				{
 					GeodatabasePrefixName = GDB_PREFIX,
 					ReturnAttachments = false,

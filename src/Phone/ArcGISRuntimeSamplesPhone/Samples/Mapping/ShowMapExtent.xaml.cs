@@ -1,4 +1,5 @@
 ﻿using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Controls;
 using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.Samples.Phone.Samples
@@ -25,7 +26,7 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 
 			if (MyMapView.WrapAround)
 			{
-				Geometry normalizedExtent = GeometryEngine.NormalizeCentralMeridian(MyMapView.Extent);
+				Geometry normalizedExtent = GeometryEngine.NormalizeCentralMeridian(MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent);
 				if (normalizedExtent is Polygon)
 				{
 					var normalizedPolygon = (Polygon)normalizedExtent;
@@ -58,7 +59,7 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 					newExtent = normalizedExtent as Envelope;
 			}
 			else
-				newExtent = MyMapView.Extent;
+                newExtent = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent;
 
 			MinXNormalized.Text = newExtent.XMin.ToString("0.000");
 			MinYNormalized.Text = newExtent.YMin.ToString("0.000");

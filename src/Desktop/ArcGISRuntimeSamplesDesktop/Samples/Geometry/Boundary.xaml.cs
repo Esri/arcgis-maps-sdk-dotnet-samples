@@ -57,8 +57,9 @@ namespace ArcGISRuntime.Samples.Desktop
         // Creates a two-part polygon and a four-part polyline to use as test graphics for the Boundary method
         private void CreateTestGraphics()
         {
-            var center = MyMapView.Extent.GetCenter();
-            var width = MyMapView.Extent.Width / 4;
+            var myViewpointExtent = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent;
+            var center = myViewpointExtent.GetCenter();
+            var width = myViewpointExtent.Width / 4;
             var left = new MapPoint(center.X - width, center.Y, MyMapView.SpatialReference);
 			var right = new MapPoint(center.X + width, center.Y, MyMapView.SpatialReference);
 

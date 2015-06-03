@@ -1,4 +1,5 @@
 ﻿using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Controls;
 using Windows.Foundation;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -19,7 +20,7 @@ namespace ArcGISRuntime.Samples.Store.Samples
 
         private void MyMapView_PointerMoved(object sender, PointerRoutedEventArgs e)
         {
-            if (MyMapView.Extent == null)
+            if (MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent == null)
                 return;
 
             var pointerPoint = e.GetCurrentPoint(MyMapView);

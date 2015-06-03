@@ -71,7 +71,7 @@ namespace ArcGISRuntime.Samples.Desktop
 					_inputOverlay.Graphics.Add(new Graphic(mapPoint, _origVertexSymbol));
 
                 // Densify the shape
-				var densify = GeometryEngine.GeodesicDensify(normalized, MyMapView.Extent.Width / 100, LinearUnits.Meters);
+                var densify = GeometryEngine.GeodesicDensify(normalized, MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent.Width / 100, LinearUnits.Meters);
 
 				if (densify.GeometryType == GeometryType.Polygon)
 					_inputOverlay.Graphics.Add(new Graphic(densify, _fillSymbol));

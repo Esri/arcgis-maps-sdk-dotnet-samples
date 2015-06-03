@@ -55,7 +55,7 @@ namespace ArcGISRuntime.Samples.Store.Samples
                 }
 
                 // Densify the polygon
-                var densify = GeometryEngine.Densify(poly, MyMapView.Extent.Width / 100) as Polygon;
+                var densify = GeometryEngine.Densify(poly, MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent.Width / 100) as Polygon;
 
                 // Add new vertices to result graphics layer
 				foreach (var coord in densify.Parts.First().GetPoints())

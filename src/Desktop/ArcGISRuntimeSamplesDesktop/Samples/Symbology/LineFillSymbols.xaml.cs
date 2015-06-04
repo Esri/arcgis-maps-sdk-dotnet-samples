@@ -56,7 +56,7 @@ namespace ArcGISRuntime.Samples.Desktop
 		{
 			try
 			{
-                while (MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent != null)
+				while (MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent != null)
 				{
 					SampleSymbol sampleSymbol = _symbols[symbolCombo.SelectedIndex];
 

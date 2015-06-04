@@ -54,8 +54,11 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 				_trafficOverlay.DataContext = null;
 
 				var identifyTask = new IdentifyTask(new Uri(_trafficLayer.ServiceUri));
+				// Get current viewpoints extent from the MapView
+				var currentViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
+				var viewpointExtent = currentViewpoint.TargetGeometry.Extent;
 
-                IdentifyParameters identifyParams = new IdentifyParameters(e.Location, MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent, 5, (int)MyMapView.ActualHeight, (int)MyMapView.ActualWidth)
+				IdentifyParameters identifyParams = new IdentifyParameters(e.Location, viewpointExtent, 5, (int)MyMapView.ActualHeight, (int)MyMapView.ActualWidth)
 				{
 					LayerIDs = new int[] { 2, 3, 4 },
 					LayerOption = LayerOption.Top,

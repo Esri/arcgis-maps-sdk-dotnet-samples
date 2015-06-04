@@ -16,7 +16,7 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 	/// <title>Add Graphics Interactively</title>
 	/// <category>Graphics Layers</category>
 	public sealed partial class AddInteractively : Page
-    {
+	{
 		private GraphicsLayer _graphicsLayer;
 
 		/// <summary>Construct Add Graphics Interactively sample control</summary>
@@ -112,5 +112,5 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 		{
 			_graphicsLayer.Graphics.Clear();
 		}
-    }
+	}
 }

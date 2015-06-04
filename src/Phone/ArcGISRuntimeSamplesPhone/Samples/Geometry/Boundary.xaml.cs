@@ -57,9 +57,12 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 		// Creates a two-part polygon and a four-part polyline to use as test graphics for the Boundary method
 		private void CreateTestGraphics()
 		{
-            var myViewpointExtent = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent;
-            var center = myViewpointExtent.GetCenter();
-            var width = myViewpointExtent.Width / 4;
+			// Get current viewpoints extent from the MapView
+			var currentViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
+			var viewpointExtent = currentViewpoint.TargetGeometry.Extent;
+
+			var center = viewpointExtent.GetCenter();
+			var width = viewpointExtent.Width / 4;
 			var left = new MapPoint(center.X - width, center.Y, MyMapView.SpatialReference);
 			var right = new MapPoint(center.X + width, center.Y, MyMapView.SpatialReference);
 
@@ -114,28 +117,28 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 			var spacer = length / 10.0;
 
 			List<PointCollection> coords = new List<PointCollection>()
-            {
-                new PointCollection() 
-                { 
-                    new MapPoint(center.X - halfLen + spacer, center.Y + halfLen),
-                    new MapPoint(center.X + halfLen - spacer, center.Y + halfLen)
-                },
-                new PointCollection() 
-                { 
-                    new MapPoint(center.X + halfLen, center.Y + halfLen - spacer),
-                    new MapPoint(center.X + halfLen, center.Y - halfLen + spacer)
-                },
-                new PointCollection() 
-                { 
-                    new MapPoint(center.X + halfLen - spacer, center.Y - halfLen),
-                    new MapPoint(center.X - halfLen + spacer, center.Y - halfLen)
-                },
-                new PointCollection() 
-                { 
-                    new MapPoint(center.X - halfLen, center.Y - halfLen + spacer),
-                    new MapPoint(center.X - halfLen, center.Y + halfLen - spacer)
-                }
-            };
+			{
+				new PointCollection() 
+				{ 
+					new MapPoint(center.X - halfLen + spacer, center.Y + halfLen),
+					new MapPoint(center.X + halfLen - spacer, center.Y + halfLen)
+				},
+				new PointCollection() 
+				{ 
+					new MapPoint(center.X + halfLen, center.Y + halfLen - spacer),
+					new MapPoint(center.X + halfLen, center.Y - halfLen + spacer)
+				},
+				new PointCollection() 
+				{ 
+					new MapPoint(center.X + halfLen - spacer, center.Y - halfLen),
+					new MapPoint(center.X - halfLen + spacer, center.Y - halfLen)
+				},
+				new PointCollection() 
+				{ 
+					new MapPoint(center.X - halfLen, center.Y - halfLen + spacer),
+					new MapPoint(center.X - halfLen, center.Y + halfLen - spacer)
+				}
+			};
 
 			return new Polyline(coords, MyMapView.SpatialReference);
 		}

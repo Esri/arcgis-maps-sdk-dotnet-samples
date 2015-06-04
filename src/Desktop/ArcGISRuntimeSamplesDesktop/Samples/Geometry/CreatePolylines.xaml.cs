@@ -8,19 +8,19 @@ using System.Windows.Controls;
 
 namespace ArcGISRuntime.Samples.Desktop
 {
-    /// <summary>
-    /// Demonstrates how to create polyline geometries, attach them to graphics and display them on the map. Polyline geometry objects are used to store geographic lines.
-    /// </summary>
-    /// <title>Create Polylines</title>
+	/// <summary>
+	/// Demonstrates how to create polyline geometries, attach them to graphics and display them on the map. Polyline geometry objects are used to store geographic lines.
+	/// </summary>
+	/// <title>Create Polylines</title>
 	/// <category>Geometry</category>
 	public partial class CreatePolylines : UserControl
-    {
+	{
 		private GraphicsOverlay _graphicsOverlay;
 
-        /// <summary>Construct Create Polylines sample control</summary>
-        public CreatePolylines()
-        {
-            InitializeComponent();
+		/// <summary>Construct Create Polylines sample control</summary>
+		public CreatePolylines()
+		{
+			InitializeComponent();
 
 			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
 			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
@@ -32,11 +32,14 @@ namespace ArcGISRuntime.Samples.Desktop
 			MyMapView.NavigationCompleted -= MyMapView_NavigationCompleted;
 			try
 			{
-                var myViewpointExtent = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent;
-                var height = myViewpointExtent.Height / 4;
-                var width = myViewpointExtent.Width / 4;
+				// Get current viewpoints extent from the MapView
+				var currentViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
+				var viewpointExtent = currentViewpoint.TargetGeometry.Extent;
+				var myViewpointExtent = viewpointExtent;
+				var height = myViewpointExtent.Height / 4;
+				var width = myViewpointExtent.Width / 4;
 				var length = width / 4;
-                var center = myViewpointExtent.GetCenter();
+				var center = myViewpointExtent.GetCenter();
 
 				var topLeft = new MapPoint(center.X - width, center.Y + height, MyMapView.SpatialReference);
 				var topRight = new MapPoint(center.X + width, center.Y + height, MyMapView.SpatialReference);
@@ -66,12 +69,12 @@ namespace ArcGISRuntime.Samples.Desktop
 			{
 				MessageBox.Show("Error occurred : " + ex.Message, "Create Polygons Sample");
 			}
-        }
+		}
 
-        // Creates a polyline with two paths in the shape of an 'X' centered at the given point
-        private Polyline CreatePolylineX(MapPoint center, double length)
-        {
-            var halfLen = length / 2.0;
+		// Creates a polyline with two paths in the shape of an 'X' centered at the given point
+		private Polyline CreatePolylineX(MapPoint center, double length)
+		{
+			var halfLen = length / 2.0;
 
 			LineSegment segment = new LineSegment(
 				new MapPoint(center.X - halfLen, center.Y + halfLen, MyMapView.SpatialReference),
@@ -93,6 +96,6 @@ namespace ArcGISRuntime.Samples.Desktop
 
 			return new Polyline(new [] { segmentCollection, segmentCollection2},
 				MyMapView.SpatialReference);
-        }
-    }
+		}
+	}
 }

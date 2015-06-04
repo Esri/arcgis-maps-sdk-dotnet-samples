@@ -38,10 +38,14 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 
 				QueryTask queryTask =
 					new QueryTask(new Uri("http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Petroleum/KSPetro/MapServer/0"));
+				
+				// Get current viewpoints extent from the MapView
+				var currentViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
+				var viewpointExtent = currentViewpoint.TargetGeometry.Extent;
 
 				Query query = new Query("1=1")
 				{
-                    Geometry = Expand(MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent, e.Location, 0.01),
+					Geometry = Expand(viewpointExtent, e.Location, 0.01),
 					ReturnGeometry = true,
 					OutSpatialReference = MyMapView.SpatialReference,
 					OutFields = OutFields.All

@@ -34,11 +34,14 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 
 			try
 			{
-                var myViewpointExtent = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent;
-                var height = myViewpointExtent.Height / 4;
-                var width = myViewpointExtent.Width / 4;
+				// Get current viewpoints extent from the MapView
+				var currentViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
+				var viewpointExtent = currentViewpoint.TargetGeometry.Extent;
+
+				var height = viewpointExtent.Height / 4;
+				var width = viewpointExtent.Width / 4;
 				var length = width / 4;
-                var center = myViewpointExtent.GetCenter();
+				var center = viewpointExtent.GetCenter();
 				var topLeft = new MapPoint(center.X - width, center.Y + height, MyMapView.SpatialReference);
 				var topRight = new MapPoint(center.X + width, center.Y + height, MyMapView.SpatialReference);
 				var bottomLeft = new MapPoint(center.X - width, center.Y - height, MyMapView.SpatialReference);

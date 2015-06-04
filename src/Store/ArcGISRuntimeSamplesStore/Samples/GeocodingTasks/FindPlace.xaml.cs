@@ -11,36 +11,36 @@ using Windows.UI.Xaml;
 
 namespace ArcGISRuntime.Samples.Store.Samples
 {
-    /// <summary>
-    /// Demonstrates how to use the FindAsync method of an OnlineLocatorTask object to find places by name.
-    /// </summary>
-    /// <title>Find a Place</title>
-    /// <category>Geocode Tasks</category>
-    public partial class FindPlace : Windows.UI.Xaml.Controls.Page
-    {
-        private const string OnlineLocatorUrl = "http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer";
+	/// <summary>
+	/// Demonstrates how to use the FindAsync method of an OnlineLocatorTask object to find places by name.
+	/// </summary>
+	/// <title>Find a Place</title>
+	/// <category>Geocode Tasks</category>
+	public partial class FindPlace : Windows.UI.Xaml.Controls.Page
+	{
+		private const string OnlineLocatorUrl = "http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer";
 
-        private GraphicsOverlay _addressOverlay;
-        private OnlineLocatorTask _locatorTask;
+		private GraphicsOverlay _addressOverlay;
+		private OnlineLocatorTask _locatorTask;
 
-        /// <summary>Construct find place sample control</summary>
-        public FindPlace()
-        {
-            InitializeComponent();
+		/// <summary>Construct find place sample control</summary>
+		public FindPlace()
+		{
+			InitializeComponent();
 
 			_addressOverlay = MyMapView.GraphicsOverlays[0]; ;
 
-            _locatorTask = new OnlineLocatorTask(new Uri(OnlineLocatorUrl));
-            _locatorTask.AutoNormalize = true;
+			_locatorTask = new OnlineLocatorTask(new Uri(OnlineLocatorUrl));
+			_locatorTask.AutoNormalize = true;
 
-            listResults.ItemsSource = _addressOverlay.Graphics;
+			listResults.ItemsSource = _addressOverlay.Graphics;
 
-            SetSimpleRendererSymbols();
-        }
+			SetSimpleRendererSymbols();
+		}
 
-        // Setup the pin graphic and graphics overlay renderer
-        private async void SetSimpleRendererSymbols()
-        {
+		// Setup the pin graphic and graphics overlay renderer
+		private async void SetSimpleRendererSymbols()
+		{
 			try
 			{
 				var markerSymbol = new PictureMarkerSymbol() { Width = 48, Height = 48, YOffset = 24 };
@@ -53,85 +53,88 @@ namespace ArcGISRuntime.Samples.Store.Samples
 			{
 				var _x = new MessageDialog("Selection Error: " + ex.Message, "Find Place Sample").ShowAsync();
 			}
-        }
+		}
 
-        // Find matching places, create graphics and add them to the UI
-        private async void FindButton_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                progress.Visibility = Visibility.Visible;
-                listResults.Visibility = Visibility.Collapsed;
-                _addressOverlay.Graphics.Clear();
+		// Find matching places, create graphics and add them to the UI
+		private async void FindButton_Click(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				progress.Visibility = Visibility.Visible;
+				listResults.Visibility = Visibility.Collapsed;
+				_addressOverlay.Graphics.Clear();
 
-                var myViewpointExtent = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent;
-                var param = new OnlineLocatorFindParameters(SearchTextBox.Text)
-                {
-                    SearchExtent = myViewpointExtent,
-                    Location = myViewpointExtent.GetCenter(),
-                    MaxLocations = 5,
-                    OutSpatialReference = MyMapView.SpatialReference,
-                    OutFields = new string[] { "Place_addr" }
-                };
+				// Get current viewpoints extent from the MapView
+				var currentViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
+				var viewpointExtent = currentViewpoint.TargetGeometry.Extent;
 
-                var candidateResults = await _locatorTask.FindAsync(param, CancellationToken.None);
+				var param = new OnlineLocatorFindParameters(SearchTextBox.Text)
+				{
+					SearchExtent = viewpointExtent,
+					Location = viewpointExtent.GetCenter(),
+					MaxLocations = 5,
+					OutSpatialReference = MyMapView.SpatialReference,
+					OutFields = new string[] { "Place_addr" }
+				};
 
-                if (candidateResults == null || candidateResults.Count == 0)
-                    throw new Exception("No candidates found in the current map extent.");
+				var candidateResults = await _locatorTask.FindAsync(param, CancellationToken.None);
 
-                foreach (var candidate in candidateResults)
-                    AddGraphicFromLocatorCandidate(candidate);
+				if (candidateResults == null || candidateResults.Count == 0)
+					throw new Exception("No candidates found in the current map extent.");
 
-                var extent = GeometryEngine.Union(_addressOverlay.Graphics.Select(g => g.Geometry)).Extent.Expand(1.1);
-                await MyMapView.SetViewAsync(extent);
+				foreach (var candidate in candidateResults)
+					AddGraphicFromLocatorCandidate(candidate);
 
-                listResults.Visibility = Visibility.Visible;
-            }
-            catch (AggregateException ex)
-            {
-                var innermostExceptions = ex.Flatten().InnerExceptions;
-                if (innermostExceptions != null && innermostExceptions.Count > 0)
-                {
-                    var _x = new MessageDialog(string.Join(" > ", innermostExceptions.Select(i => i.Message).ToArray()), "Sample Error").ShowAsync();
-                }
-                else
-                {
-                    var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
-                }
-            }
-            catch (Exception ex)
-            {
-                var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
-            }
-            finally
-            {
-                progress.Visibility = Visibility.Collapsed;
-            }
-        }
+				var extent = GeometryEngine.Union(_addressOverlay.Graphics.Select(g => g.Geometry)).Extent.Expand(1.1);
+				await MyMapView.SetViewAsync(extent);
 
-        private void AddGraphicFromLocatorCandidate(LocatorFindResult candidate)
-        {
-            var location = GeometryEngine.Project(candidate.Feature.Geometry, SpatialReferences.Wgs84) as MapPoint;
+				listResults.Visibility = Visibility.Visible;
+			}
+			catch (AggregateException ex)
+			{
+				var innermostExceptions = ex.Flatten().InnerExceptions;
+				if (innermostExceptions != null && innermostExceptions.Count > 0)
+				{
+					var _x = new MessageDialog(string.Join(" > ", innermostExceptions.Select(i => i.Message).ToArray()), "Sample Error").ShowAsync();
+				}
+				else
+				{
+					var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+				}
+			}
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+			}
+			finally
+			{
+				progress.Visibility = Visibility.Collapsed;
+			}
+		}
 
-            var graphic = new Graphic(location);
-            graphic.Attributes["Name"] = candidate.Name;
-            graphic.Attributes["Address"] = candidate.Feature.Attributes["Place_addr"];
-            graphic.Attributes["LocationDisplay"] = string.Format("{0:0.000}, {1:0.000}", location.X, location.Y);
+		private void AddGraphicFromLocatorCandidate(LocatorFindResult candidate)
+		{
+			var location = GeometryEngine.Project(candidate.Feature.Geometry, SpatialReferences.Wgs84) as MapPoint;
 
-            _addressOverlay.Graphics.Add(graphic);
-        }
+			var graphic = new Graphic(location);
+			graphic.Attributes["Name"] = candidate.Name;
+			graphic.Attributes["Address"] = candidate.Feature.Attributes["Place_addr"];
+			graphic.Attributes["LocationDisplay"] = string.Format("{0:0.000}, {1:0.000}", location.X, location.Y);
 
-        private void listResults_SelectionChanged(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
-        {
-            _addressOverlay.ClearSelection();
+			_addressOverlay.Graphics.Add(graphic);
+		}
 
-            if (e.AddedItems != null)
-            {
-                foreach (var graphic in e.AddedItems.OfType<Graphic>())
-                {
-                    graphic.IsSelected = true;
-                }
-            }
-        }
-    }
+		private void listResults_SelectionChanged(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
+		{
+			_addressOverlay.ClearSelection();
+
+			if (e.AddedItems != null)
+			{
+				foreach (var graphic in e.AddedItems.OfType<Graphic>())
+				{
+					graphic.IsSelected = true;
+				}
+			}
+		}
+	}
 }

@@ -102,7 +102,12 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 		private async Task LoadParcelsAsync()
 		{
 			var queryTask = new QueryTask(new Uri("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/TaxParcel/AssessorsParcelCharacteristics/MapServer/1"));
-			var query = new Query(MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent) { ReturnGeometry = true, OutSpatialReference = MyMapView.SpatialReference, OutFields = OutFields.All };
+            
+            // Get current viewpoints extent from the MapView
+            var currentViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
+            var viewpointExtent = currentViewpoint.TargetGeometry.Extent;
+
+			var query = new Query(viewpointExtent) { ReturnGeometry = true, OutSpatialReference = MyMapView.SpatialReference, OutFields = OutFields.All };
 			var result = await queryTask.ExecuteAsync(query);
 
 			_graphicsOverlay.Graphics.Clear();

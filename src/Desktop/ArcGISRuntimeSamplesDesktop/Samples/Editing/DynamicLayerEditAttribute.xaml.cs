@@ -34,10 +34,14 @@ namespace ArcGISRuntime.Samples.Desktop
         /// </summary>
         private async void MyMapView_MapViewTapped(object sender, MapViewInputEventArgs e)
         {
+            // Get current viewpoints extent from the MapView
+            var currentViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
+            var viewpointExtent = currentViewpoint.TargetGeometry.Extent;
+
             var layer = MyMapView.Map.Layers["PoolPermit"] as ArcGISDynamicMapServiceLayer;
             var task = new IdentifyTask(new Uri(layer.ServiceUri));
             var mapPoint = MyMapView.ScreenToLocation(e.Position);
-            var parameter = new IdentifyParameters(mapPoint, MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent, 2, (int)MyMapView.ActualHeight, (int)MyMapView.ActualWidth);
+            var parameter = new IdentifyParameters(mapPoint, viewpointExtent, 2, (int)MyMapView.ActualHeight, (int)MyMapView.ActualWidth);
 
             // Clears map of any highlights.
             var overlay = MyMapView.GraphicsOverlays["Highlighter"] as GraphicsOverlay;

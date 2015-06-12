@@ -28,7 +28,7 @@ namespace ArcGISRuntime.Samples.Store.Samples
         {
             try
             {
-                var tpk = await GetSingleFileAsync("basemap.tpk");
+                var tpk = await GetSingleFileAsync(@"basemaps\campus.tpk");
                 var layer = new ArcGISLocalTiledLayer(tpk) { ID = "local_basemap" };
                 MyMapView.Map.Layers.Add(layer);
             }

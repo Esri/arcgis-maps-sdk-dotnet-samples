@@ -73,9 +73,6 @@
     <Compile Include="Samples\Scene\ElevationModeSample.xaml.cs">
       <DependentUpon>ElevationModeSample.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Scene\InteractionOptionsSample3d.xaml.cs">
-      <DependentUpon>InteractionOptionsSample3d.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Samples\Scene\OpenStreetMapLayerSample3d.xaml.cs">
       <DependentUpon>OpenStreetMapLayerSample3d.xaml</DependentUpon>
     </Compile>
@@ -525,10 +522,6 @@
     <Page Include="Samples\Scene\ElevationModeSample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Samples\Scene\InteractionOptionsSample3d.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Scene\OpenStreetMapLayerSample3d.xaml">
       <SubType>Designer</SubType>

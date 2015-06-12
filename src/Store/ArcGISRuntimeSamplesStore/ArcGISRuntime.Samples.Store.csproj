@@ -569,10 +569,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Scene\InteractionOptionsSample3d.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Samples\Security\TokenSecuredServices.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1008,9 +1004,6 @@
     <Compile Include="Samples\QueryTasks\Statistics.xaml.cs">
       <DependentUpon>Statistics.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Scene\InteractionOptionsSample3d.xaml.cs">
-      <DependentUpon>InteractionOptionsSample3d.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Samples\Security\OAuthAuthorizeHandler.cs" />
     <Compile Include="Samples\Security\TokenSecuredServices.xaml.cs">
       <DependentUpon>TokenSecuredServices.xaml</DependentUpon>
@@ -1092,6 +1085,9 @@
     <SDKReference Include="Microsoft.VCLibs, version=12.0">
       <Name>Microsoft Visual C++ 2013 Runtime Package for Windows</Name>
     </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Samples\Scene\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

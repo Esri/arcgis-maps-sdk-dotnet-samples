@@ -33,25 +33,6 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>Assets\SampleDescriptions.xml</DocumentationFile>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DocumentationFile>Assets\SampleDescriptions.xml</DocumentationFile>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <OutputPath>bin\x64\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Esri.ArcGISRuntime, Version=10.2.6.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL" />
     <Reference Include="PresentationCore" />
@@ -75,24 +56,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Samples\3D\ArcGISDynamicMapServiceLayerSample3d.xaml.cs">
+    <Compile Include="Samples\Scene\ArcGISDynamicMapServiceLayerSample3d.xaml.cs">
       <DependentUpon>ArcGISDynamicMapServiceLayerSample3d.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Samples\3D\ArcGISTiledMapServiceLayerSample3d.xaml.cs">
+    <Compile Include="Samples\Scene\ArcGISTiledMapServiceLayerSample3d.xaml.cs">
       <DependentUpon>ArcGISTiledMapServiceLayerSample3d.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\3D\CameraAnimationSample3d.xaml.cs">
+    <Compile Include="Samples\Scene\CameraAnimationSample3d.xaml.cs">
       <DependentUpon>CameraAnimationSample3d.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\3D\ElevationSourceSample3d.xaml.cs">
+    <Compile Include="Samples\Scene\ElevationSourceSample3d.xaml.cs">
       <DependentUpon>ElevationSourceSample3d.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Samples\3D\ElevationModeSample.xaml.cs">
+    <Compile Include="Samples\Scene\ElevationModeSample.xaml.cs">
       <DependentUpon>ElevationModeSample.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\3D\OpenStreetMapLayerSample3d.xaml.cs">
+    <Compile Include="Samples\Scene\OpenStreetMapLayerSample3d.xaml.cs">
       <DependentUpon>OpenStreetMapLayerSample3d.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\DynamicServiceLayers\ArcGISDynamicMapServiceLayerLocalSample.xaml.cs">
@@ -522,27 +503,27 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Samples\3D\ArcGISDynamicMapServiceLayerSample3d.xaml">
+    <Page Include="Samples\Scene\ArcGISDynamicMapServiceLayerSample3d.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\3D\ArcGISTiledMapServiceLayerSample3d.xaml">
+    <Page Include="Samples\Scene\ArcGISTiledMapServiceLayerSample3d.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\3D\CameraAnimationSample3d.xaml">
+    <Page Include="Samples\Scene\CameraAnimationSample3d.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\3D\ElevationSourceSample3d.xaml">
+    <Page Include="Samples\Scene\ElevationSourceSample3d.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\3D\ElevationModeSample.xaml">
+    <Page Include="Samples\Scene\ElevationModeSample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\3D\OpenStreetMapLayerSample3d.xaml">
+    <Page Include="Samples\Scene\OpenStreetMapLayerSample3d.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1112,7 +1093,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Assets\SampleDescriptions.xml" />
+    <EmbeddedResource Include="Assets\SampleDescriptions.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

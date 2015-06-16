@@ -1,11 +1,11 @@
 ﻿<Page
-    x:Class="ArcGISRuntime.Samples.Store.Samples.InteractionOptionsSample"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:esri="using:Esri.ArcGISRuntime.Controls"
-    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
-    xmlns:data="using:Esri.ArcGISRuntime.Data">
-   
+		x:Class="ArcGISRuntime.Samples.Store.Samples.InteractionOptionsSample"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:esri="using:Esri.ArcGISRuntime.Controls"
+		xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+		xmlns:data="using:Esri.ArcGISRuntime.Data">
+	 
 	<!-- Application command bar -->
 	<Page.BottomAppBar>
 		<CommandBar IsOpen="True">
@@ -17,6 +17,7 @@
 							<ToggleSwitch Header="IsDragEnabled" IsOn="{Binding IsDragEnabled, Mode=TwoWay}"/>
 							<ToggleSwitch Header="IsFlickEnabled" IsOn="{Binding IsFlickEnabled, Mode=TwoWay}"/>
 							<ToggleSwitch Header="IsKeyboardEnabled" IsOn="{Binding IsKeyboardEnabled, Mode=TwoWay}"/>
+							<ToggleSwitch Header="IsStylusEnabled" IsOn="{Binding IsStylusEnabled, Mode=TwoWay}"/>
 						</StackPanel>
 					</Flyout>
 				</AppBarButton.Flyout>
@@ -31,7 +32,7 @@
 							<ToggleSwitch Header="IsMouseWheelEnabled" IsOn="{Binding IsMouseWheelEnabled, Mode=TwoWay}"/>
 							<ToggleSwitch Header="IsPinchEnabled" IsOn="{Binding IsPinchEnabled, Mode=TwoWay}"/>
 							<ToggleSwitch Header="IsZoomBoxEnabled" IsOn="{Binding IsZoomBoxEnabled, Mode=TwoWay}"/>
-
+							<ToggleSwitch Header="IsStylusEnabled" IsOn="{Binding IsStylusEnabled, Mode=TwoWay}"/>
 							<StackPanel Margin="0,5">
 								<TextBlock Text="MouseWheelZoomInDirection"/>
 								<ComboBox 
@@ -62,7 +63,7 @@
 		<esri:MapView 
 				x:Name="MyMapView"
 				LayerLoaded="MyMapView_LayerLoaded" 
-				MapViewTapped="MyMapView_MapViewTapped"
+			MapViewTapped="MyMapView_MapViewTapped"
 				MapViewDoubleTapped="MyMapView_MapViewDoubleTapped"
 				MapViewHolding="MyMapView_MapViewHolding">
 			<esri:Map>

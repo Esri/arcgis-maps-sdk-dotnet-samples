@@ -200,7 +200,7 @@ namespace ArcGISRuntime.Samples.StoreViewer
 			{
 				get {
 					List<SampleGroup> groups = new List<SampleGroup>();
-					List<string> groupOrder = new List<string>(new[] { "Mapping", "Tiled Layers", "Dynamic Service Layers", "Feature Layers", 
+					List<string> groupOrder = new List<string>(new[] { "Mapping", "Scene", "Tiled Layers", "Dynamic Service Layers", "Feature Layers", 
 						"Graphics Layers", "Geometry", "Symbology", "Query Tasks", "Geocode Tasks", "Network Analyst Tasks", "Geoprocessing Tasks" });
 
 					var query = (from item in Samples

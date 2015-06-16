@@ -13,10 +13,10 @@ namespace ArcGISRuntime.Samples.Store.Samples
 	/// <title>Interaction Options</title>
 	/// <category>Mapping</category>
 	public sealed partial class InteractionOptionsSample : Page
-    {
+	{
 		public InteractionOptionsSample()
-        {
-            this.InitializeComponent();
+		{
+			this.InitializeComponent();
 			MouseWheelInteraction.ItemsSource = Enum.GetValues(typeof(MouseWheelDirection)).Cast<MouseWheelDirection>();
 			PanOptions.DataContext = MyMapView.InteractionOptions.PanOptions;
 			ZoomOptions.DataContext = MyMapView.InteractionOptions.ZoomOptions;
@@ -48,5 +48,5 @@ namespace ArcGISRuntime.Samples.Store.Samples
 		{
 			Debug.WriteLine("Holding");
 		}
-    }
+	}
 }

@@ -374,7 +374,7 @@ namespace ArcGISRuntime.Samples.DesktopViewer
 			get
 			{
 				List<SampleGroup> groups = new List<SampleGroup>();
-				List<string> groupOrder = new List<string>( new [] { "Mapping", "Layers", "Geometry", "Symbology", "Tasks", "Offline", "Printing", "Portal", "Security", "Extras" } );
+				List<string> groupOrder = new List<string>( new [] { "Mapping", "Scene", "Layers", "Geometry", "Symbology", "Tasks", "Offline", "Printing", "Portal", "Security", "Extras" } );
 				var query = (from item in Samples
 							 orderby item.Category
 							 group item by item.Category into g

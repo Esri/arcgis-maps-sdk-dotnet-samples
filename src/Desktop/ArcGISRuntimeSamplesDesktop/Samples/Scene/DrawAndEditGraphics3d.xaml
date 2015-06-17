@@ -30,15 +30,13 @@
 			<StackPanel Orientation="Vertical">
 				<TextBlock Text="Instructions" Margin="5" FontSize="16" FontWeight="Bold"/>
 				<TextBlock Margin="10" HorizontalAlignment="Center" FontSize="12" TextWrapping="Wrap">
-				- Select Shape and click Draw to start drawing. <LineBreak/>
+				- Select Shape and check the desired options. <LineBreak/>
+				<LineBreak/>
+				- Click Draw to start drawing. <LineBreak/>
 				<LineBreak/>
 				- Click on shape to select and click Edit to start editing.<LineBreak/>
 				<LineBreak/>
-				- Click on Yellow Handles to scale.<LineBreak/>
-				<LineBreak/>
 				- Click on white midpoints to add a new vertex.<LineBreak/>
-				<LineBreak/>
-				- Click on Blue Handles to rotate
 				</TextBlock>
 			</StackPanel>
 		</Border>
@@ -82,15 +80,6 @@
 							  Margin="5"/>
 					<CheckBox x:Name="MoveGeometry" 
 							  Content="Move Geometry" IsChecked="True"
-							  Margin="5"/>
-					<CheckBox x:Name="Scale" 
-							  Content="Scale" IsChecked="True" 
-							  Margin="5"/>
-					<CheckBox x:Name="Rotate" 
-							  Content="Rotate" IsChecked="True" 
-							  Margin="5"/>
-					<CheckBox x:Name="MaintainAspectRatio" 
-							  Content="Maintain AspectRatio" IsChecked="True"
 							  Margin="5"/>
 				</StackPanel>
 			</Grid>

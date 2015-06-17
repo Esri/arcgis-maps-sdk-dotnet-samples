@@ -12,7 +12,7 @@ namespace ArcGISRuntime.Samples.Desktop
 	/// <summary>
 	/// This sample demonstrates drawing and editing map graphics in a scene.
 	/// </summary>
-	/// <title>Draw and Edit Graphics</title>
+	/// <title>3D Draw and Edit Graphics</title>
 	/// <category>Scene</category>
 	/// <subcategory>Editing</subcategory>
 	public partial class DrawAndEditGraphics3d : UserControl
@@ -32,8 +32,7 @@ namespace ArcGISRuntime.Samples.Desktop
 				DrawShape.Arrow,
 				DrawShape.Circle,
 				DrawShape.Ellipse,
-				DrawShape.LineSegment,
-				DrawShape.Rectangle
+				DrawShape.LineSegment
 			};
 			DrawShapes.SelectedIndex = 0;
 		}
@@ -48,9 +47,6 @@ namespace ArcGISRuntime.Samples.Desktop
 			editCnfg.AllowDeleteVertex = DeleteVertex.IsChecked.HasValue && DeleteVertex.IsChecked.Value;
 			editCnfg.AllowMoveGeometry = MoveGeometry.IsChecked.HasValue && MoveGeometry.IsChecked.Value;
 			editCnfg.AllowMoveVertex = MoveVertex.IsChecked.HasValue && MoveVertex.IsChecked.Value;
-			editCnfg.AllowRotateGeometry = Rotate.IsChecked.HasValue && Rotate.IsChecked.Value;
-			editCnfg.AllowScaleGeometry = Scale.IsChecked.HasValue && Scale.IsChecked.Value;
-			editCnfg.MaintainAspectRatio = MaintainAspectRatio.IsChecked.HasValue && MaintainAspectRatio.IsChecked.Value;
 			editCnfg.VertexSymbol =
 					new SimpleMarkerSymbol() { Style = SimpleMarkerStyle.Diamond, Color = Colors.Yellow, Size = 15 };
 
@@ -58,10 +54,15 @@ namespace ArcGISRuntime.Samples.Desktop
 			{
 				var drawShape = (DrawShape)DrawShapes.SelectedItem;
 
+				var pointGraphicsOverlay = MySceneView.GraphicsOverlays["PointGraphicsOverlay"] as GraphicsOverlay;
+				var polylineGraphicsOverlay = MySceneView.GraphicsOverlays["PolylineGraphicsOverlay"] as GraphicsOverlay;
+				var polygonGraphicsOverlay = MySceneView.GraphicsOverlays["PolygonGraphicsOverlay"] as GraphicsOverlay;
+				
 				GraphicsOverlay graphicsOverlay;
-				graphicsOverlay = drawShape == DrawShape.Point ? MySceneView.GraphicsOverlays["PointGraphicsOverlay"] as GraphicsOverlay :
-						   ((drawShape == DrawShape.Polyline || drawShape == DrawShape.Freehand || drawShape == DrawShape.LineSegment) ?
-				  MySceneView.GraphicsOverlays["PolylineGraphicsOverlay"] as GraphicsOverlay : MySceneView.GraphicsOverlays["PolygonGraphicsOverlay"] as GraphicsOverlay);
+
+				graphicsOverlay = drawShape == DrawShape.Point ? pointGraphicsOverlay : 
+					((drawShape == DrawShape.Polyline || drawShape == DrawShape.Freehand || drawShape == DrawShape.LineSegment) ? 
+					polylineGraphicsOverlay: polygonGraphicsOverlay);
 
 				var progress = new Progress<GeometryEditStatus>();
 
@@ -87,7 +88,6 @@ namespace ArcGISRuntime.Samples.Desktop
 							break;
 						}
 				}
-
 			}
 			catch (TaskCanceledException)
 			{
@@ -95,7 +95,6 @@ namespace ArcGISRuntime.Samples.Desktop
 			}
 			catch (Exception ex)
 			{
-
 				message = ex.Message;
 			}
 			finally
@@ -116,20 +115,24 @@ namespace ArcGISRuntime.Samples.Desktop
 				return;
 
 			var drawShape = (DrawShape)DrawShapes.SelectedItem;
-			GraphicsOverlay graphicsOverlay;
-			graphicsOverlay = drawShape == DrawShape.Point ? MySceneView.GraphicsOverlays["PointGraphicsOverlay"] as GraphicsOverlay :
-					   ((drawShape == DrawShape.Polyline || drawShape == DrawShape.Freehand || drawShape == DrawShape.LineSegment) ?
-			  MySceneView.GraphicsOverlays["PolylineGraphicsOverlay"] as GraphicsOverlay : MySceneView.GraphicsOverlays["PolygonGraphicsOverlay"] as GraphicsOverlay);
 
+			var pointGraphicsOverlay = MySceneView.GraphicsOverlays["PointGraphicsOverlay"] as GraphicsOverlay;
+			var polylineGraphicsOverlay = MySceneView.GraphicsOverlays["PolylineGraphicsOverlay"] as GraphicsOverlay;
+			var polygonGraphicsOverlay = MySceneView.GraphicsOverlays["PolygonGraphicsOverlay"] as GraphicsOverlay;
+				
+			GraphicsOverlay graphicsOverlay;
+			graphicsOverlay = drawShape == DrawShape.Point ? pointGraphicsOverlay : 
+				((drawShape == DrawShape.Polyline || drawShape == DrawShape.Freehand || drawShape == DrawShape.LineSegment) ?
+				polylineGraphicsOverlay : polygonGraphicsOverlay);
 
 			var graphic = await graphicsOverlay.HitTestAsync(MySceneView, e.Position);
 
 			if (graphic != null)
 			{
 				//Clear previous selection
-				foreach (GraphicsOverlay gOLay in MySceneView.GraphicsOverlays)
+				foreach (GraphicsOverlay gOverlay in MySceneView.GraphicsOverlays)
 				{
-					gOLay.ClearSelection();
+					gOverlay.ClearSelection();
 				}
 
 				//Cancel editing if started
@@ -140,6 +143,5 @@ namespace ArcGISRuntime.Samples.Desktop
 				_editGraphic.IsSelected = true;
 			}
 		}
-		
 	}
 }

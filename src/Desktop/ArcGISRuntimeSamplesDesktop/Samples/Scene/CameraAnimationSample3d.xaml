@@ -17,7 +17,7 @@
 				<esri:ArcGISTiledMapServiceLayer ID="Imagery"
 					ServiceUri="http://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer" />
 				<esri:SceneLayer ID="Buildings" 
-					ServiceUri="http://5000k.esri.com/arcgis/rest/services/Hosted/SanDiegoBldgs/SceneServer/Layers/0" />
+					ServiceUri="http://5000k.esri.com/arcgis/rest/services/Hosted/SanFran/SceneServer/Layers/0" />
 			</esri:Scene>
 		</esri:SceneView>
 	</Grid>

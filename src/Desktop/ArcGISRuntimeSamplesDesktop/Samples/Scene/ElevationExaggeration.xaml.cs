@@ -12,7 +12,7 @@ namespace ArcGISRuntime.Samples.Desktop
 	/// <summary>
 	/// Demonstrates elevation exaggeration in a scene.
 	/// </summary>
-	/// <title>Elevation Exaggeration</title>
+	/// <title>3D Elevation Exaggeration</title>
 	/// <category>Scene</category>
 	/// <subcategory>Mapping</subcategory>
 	public partial class ElevationExaggeration : UserControl
@@ -32,8 +32,8 @@ namespace ArcGISRuntime.Samples.Desktop
 			_coordinates.Add(new MapPoint(-106.879, 39.014, 6000, SpatialReferences.Wgs84));
 
 			_absoluteModeGL = MySceneView.Scene.Layers["AbsoluteModeGraphicsLayer"] as GraphicsLayer;
-			_relativeModeGL = MySceneView.Scene.Layers["DrapedModeGraphicsLayer"] as GraphicsLayer;
-			_drapedModeGL = MySceneView.Scene.Layers["RelativeModeGraphicsLayer"] as GraphicsLayer;
+			_relativeModeGL = MySceneView.Scene.Layers["RelativeModeGraphicsLayer"] as GraphicsLayer;
+			_drapedModeGL = MySceneView.Scene.Layers["DrapedModeGraphicsLayer"] as GraphicsLayer;
 
 		}
 

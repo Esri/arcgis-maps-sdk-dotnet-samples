@@ -440,6 +440,9 @@
     <Compile Include="Samples\QueryTasks\Statistics.xaml.cs">
       <DependentUpon>Statistics.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Scene\SceneOverlay.xaml.cs">
+      <DependentUpon>SceneOverlay.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Security\OAuthAuthorizeHandler.cs" />
     <Compile Include="Samples\Security\TokenSecuredServices.xaml.cs">
       <DependentUpon>TokenSecuredServices.xaml</DependentUpon>
@@ -1013,6 +1016,10 @@
     <Page Include="Samples\QueryTasks\Statistics.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Scene\SceneOverlay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\Security\TokenSecuredServices.xaml">
       <Generator>MSBuild:Compile</Generator>

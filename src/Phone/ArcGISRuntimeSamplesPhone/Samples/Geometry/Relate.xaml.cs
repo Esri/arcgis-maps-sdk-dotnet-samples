@@ -34,6 +34,13 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 
 			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
 
+			cboRelation.Items.Add("T*****FF* (Contains)");
+			cboRelation.Items.Add("T******** (Intersects)");
+			cboRelation.Items.Add("T*F**F*** (Within)");
+			cboRelation.Items.Add("T*F**FFF* (Equals)");
+			cboRelation.Items.Add("FF*FF**** (Disjoint)");
+			cboRelation.SelectedIndex = 0;
+
 			MyMapView.SpatialReferenceChanged += MyMapView_SpatialReferenceChanged;
 		}
 
@@ -98,7 +105,7 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 				var shape1 = _graphicsOverlay.Graphics[0].Geometry;
 				var shape2 = _graphicsOverlay.Graphics[1].Geometry;
 
-				string relate = cboRelation.SelectionBoxItem.ToString();
+				string relate = cboRelation.SelectedValue.ToString();
 				if (relate.Length < 9)
 					throw new Exception("DE-9IM relate string must be 9 characters");
 

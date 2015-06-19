@@ -42,13 +42,7 @@
 								</StackPanel>
 								<StackPanel>
 									<TextBlock Text="Relationship:" FontSize="16" VerticalAlignment="Center"/>
-									<ComboBox x:Name="cboRelation" Margin="10,0,20,0">
-										<ComboBoxItem Content="T*****FF* (Contains)"/>
-										<ComboBoxItem Content="T******** (Intersects)"/>
-										<ComboBoxItem Content="T*F**F*** (Within)"/>
-										<ComboBoxItem Content="T*F**FFF* (Equals)"/>
-										<ComboBoxItem Content="FF*FF**** (Disjoint)"/>
-									</ComboBox>
+									<ComboBox x:Name="cboRelation" Margin="10,0,20,0"/>
 								</StackPanel>
 							</StackPanel>
 						</Flyout>

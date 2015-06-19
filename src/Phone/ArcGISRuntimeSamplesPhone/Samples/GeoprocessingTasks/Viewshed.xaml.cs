@@ -49,7 +49,7 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 		{
 			//remove all previous results
 			inputLayer.Graphics.Clear();
-			viewshedLayer.Graphics.Clear();            
+			viewshedLayer.Graphics.Clear();
 		}
 
 		private async void StartButton_Click(object sender, RoutedEventArgs e)
@@ -69,53 +69,26 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 			inputLayer.Graphics.Clear();
 			inputLayer.Graphics.Add(new Graphic() { Geometry = inputPoint });
 
-			Geoprocessor task = new Geoprocessor(new Uri("http://serverapps101.esri.com/arcgis/rest/services/ProbabilisticViewshedModel/GPServer/ProbabilisticViewshedModel"));
+			Geoprocessor gpTask = new Geoprocessor(new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Elevation/ESRI_Elevation_World/GPServer/Viewshed"));
 
-			var parameter = new GPInputParameter()
-			{
-				OutSpatialReference = new SpatialReference(102100)
-			};
-			parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Input_Features", inputPoint));
-			parameter.GPParameters.Add(new GPString("Height", HeightTextBox.Text));
-			parameter.GPParameters.Add(new GPLinearUnit("Distance", LinearUnits.Miles, Convert.ToDouble(MilesTextBox.Text)));
+			var parameter = new GPInputParameter() { OutSpatialReference = SpatialReferences.WebMercator };
+			parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Input_Observation_Point", inputPoint));
+			parameter.GPParameters.Add(new GPLinearUnit("Viewshed_Distance ", LinearUnits.Miles, Convert.ToDouble(MilesTextBox.Text)));
 
+			var result = await gpTask.ExecuteAsync(parameter);
 
-			var result = await task.SubmitJobAsync(parameter);
+			if (result == null || result.OutParameters == null || !(result.OutParameters[0] is GPFeatureRecordSetLayer))
+				throw new Exception("No viewshed graphics returned for this start point.");
 
-			//Poll the server for results every 2 seconds.
-			while (result.JobStatus != GPJobStatus.Cancelled && result.JobStatus != GPJobStatus.Deleted &&
-				 result.JobStatus != GPJobStatus.Succeeded && result.JobStatus != GPJobStatus.TimedOut)
-			{
-				result = await task.CheckJobStatusAsync(result.JobID);
+			var viewshedResult = result.OutParameters[0] as GPFeatureRecordSetLayer;
+			viewshedLayer.Graphics.AddRange(viewshedResult.FeatureSet.Features.OfType<Graphic>());
 
-				//show the status
-				StatusTextBlock.Text = string.Join(Environment.NewLine, result.Messages.Select(x => x.Description));
-
-
-				await Task.Delay(2000);
-			}
-			if (result.JobStatus == GPJobStatus.Succeeded)
-			{
-				//get the results as a ArcGISDynamicMapServiceLayer
-				StatusTextBlock.Text = "Finished processing. Retrieving results...";                
-				var viewshedResult = await task.GetResultDataAsync(result.JobID, "View") as GPFeatureRecordSetLayer;
-				var rangeResult = await task.GetResultDataAsync(result.JobID, "Range") as GPFeatureRecordSetLayer;
-
-				if (viewshedResult != null && viewshedResult.FeatureSet != null && viewshedResult.FeatureSet.Features != null)
-				{
-					foreach (var feature in viewshedResult.FeatureSet.Features)
-					{
-						viewshedLayer.Graphics.Add((Graphic)feature);
-					}
-				}
-
-				//Reset the UI
-				StatusTextBlock.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-				StartButton.IsEnabled = true;
-				ClearResultsButton.Visibility = Visibility.Visible;
-				MyProgressRing.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-				MyProgressRing.IsActive = false;
-			}
+			//Reset the UI
+			StatusTextBlock.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+			StartButton.IsEnabled = true;
+			ClearResultsButton.Visibility = Visibility.Visible;
+			MyProgressRing.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+			MyProgressRing.IsActive = false;
 		}
 	}
 }

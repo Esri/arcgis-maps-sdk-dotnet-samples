@@ -55,6 +55,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Samples\Scene\FollowTarget.xaml.cs">
+      <DependentUpon>FollowTarget.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Scene\DrawAndEditGraphics3d.xaml.cs">
       <DependentUpon>DrawAndEditGraphics3d.xaml</DependentUpon>
     </Compile>
@@ -509,6 +512,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Samples\Scene\FollowTarget.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Samples\Scene\DrawAndEditGraphics3d.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

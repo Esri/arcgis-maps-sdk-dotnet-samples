@@ -1,4 +1,5 @@
-﻿using Esri.ArcGISRuntime.Geometry;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System.Collections.Generic;
@@ -42,13 +43,13 @@ namespace ArcGISRuntime.Samples.Desktop
 			if (e.LoadError == null)
 			{
 				if (e.Layer.ID == "AGOLayer")
-					MySceneView.SetView(new Esri.ArcGISRuntime.Controls.Camera(new MapPoint(-106.882128302391, 38.7658957449754, 12994.1727461051), 358.607816178049, 70.0562968167998));
+					MySceneView.SetView(new Camera(new MapPoint(-106.882128302391, 38.7658957449754, 12994.1727461051), 
+						358.607816178049, 70.0562968167998));
 			}
 		}
 
 		private void RadioButton_Checked(object sender, RoutedEventArgs e)
 		{
-
 			ClearAll();
 
 			string shapeTag = (string)((RadioButton)sender).Tag;
@@ -67,21 +68,21 @@ namespace ArcGISRuntime.Samples.Desktop
 					}
 
 					_absoluteModeGL.Graphics.AddRange(absoluteGC);
-					_drapedModeGL.Graphics.AddRange(drapedGC);
 					_relativeModeGL.Graphics.AddRange(relativeGC);
+					_drapedModeGL.Graphics.AddRange(drapedGC);
 
 					break;
 				case "Line":
 					var line = new Polyline(_coordinates, SpatialReferences.Wgs84);
 					_absoluteModeGL.Graphics.Add(new Graphic(line, GetPolylineSymbol(SurfacePlacement.Absolute)));
-					_drapedModeGL.Graphics.Add(new Graphic(line, GetPolylineSymbol(SurfacePlacement.Draped)));
 					_relativeModeGL.Graphics.Add(new Graphic(line, GetPolylineSymbol(SurfacePlacement.Relative)));
+					_drapedModeGL.Graphics.Add(new Graphic(line, GetPolylineSymbol(SurfacePlacement.Draped)));
 					break;
 				case "Polygon":
 					var polygon = new Polygon(_coordinates, SpatialReferences.Wgs84);
 					_absoluteModeGL.Graphics.Add(new Graphic(polygon, GetPolygonSymbol(SurfacePlacement.Absolute)));
-					_drapedModeGL.Graphics.Add(new Graphic(polygon, GetPolygonSymbol(SurfacePlacement.Draped)));
 					_relativeModeGL.Graphics.Add(new Graphic(polygon, GetPolygonSymbol(SurfacePlacement.Relative)));
+					_drapedModeGL.Graphics.Add(new Graphic(polygon, GetPolygonSymbol(SurfacePlacement.Draped)));
 					break;
 			}
 		}

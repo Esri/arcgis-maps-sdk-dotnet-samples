@@ -69,6 +69,9 @@
     <Compile Include="Samples\Scene\CameraAnimationSample3d.xaml.cs">
       <DependentUpon>CameraAnimationSample3d.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Scene\ElevationExaggeration.xaml.cs">
+      <DependentUpon>ElevationExaggeration.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Scene\ElevationSourceSample3d.xaml.cs">
       <DependentUpon>ElevationSourceSample3d.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -440,8 +443,8 @@
     <Compile Include="Samples\QueryTasks\Statistics.xaml.cs">
       <DependentUpon>Statistics.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Scene\ElevationExaggeration.xaml.cs">
-      <DependentUpon>ElevationExaggeration.xaml</DependentUpon>
+    <Compile Include="Samples\Scene\SceneOverlay.xaml.cs">
+      <DependentUpon>SceneOverlay.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Security\OAuthAuthorizeHandler.cs" />
     <Compile Include="Samples\Security\TokenSecuredServices.xaml.cs">
@@ -524,6 +527,10 @@
     <Page Include="Samples\Scene\CameraAnimationSample3d.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Scene\ElevationExaggeration.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Scene\ElevationSourceSample3d.xaml">
       <SubType>Designer</SubType>
@@ -1017,7 +1024,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Scene\ElevationExaggeration.xaml">
+    <Page Include="Samples\Scene\SceneOverlay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

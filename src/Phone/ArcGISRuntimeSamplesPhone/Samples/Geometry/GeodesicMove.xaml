@@ -18,7 +18,7 @@
 				<AppBarButton Label="Draw Poly" Icon="Edit" Click="DigitizeButton_Click"/>
 				<AppBarButton Label="Move" Click="GeodesicMoveButton_Click">
 					<AppBarButton.Icon>
-						<BitmapIcon UriSource="ms-appx:///Assets/Icons/vector.group.png"/>
+						<BitmapIcon UriSource="ms-appx:///ArcGISRuntimeSamplesPhone/Assets/Icons/vector.group.png"/>
 					</AppBarButton.Icon>
 				</AppBarButton>
 				<AppBarButton Label="Options" Icon="Setting">

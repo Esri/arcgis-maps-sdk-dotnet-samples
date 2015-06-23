@@ -55,7 +55,7 @@
 							  Label="Create GDB"
 							  Click="GenerateButton_Click">
 					<AppBarButton.Icon>
-						<BitmapIcon UriSource="ms-appx:///Assets/Icons/vector.database.png"/>
+						<BitmapIcon UriSource="ms-appx:///ArcGISRuntimeSamplesPhone/Assets/Icons/vector.database.png"/>
 					</AppBarButton.Icon>
 				</AppBarButton>
 				<AppBarButton x:Name="panelSync"
@@ -68,7 +68,7 @@
 							  IsEnabled="{Binding CanUnregister}" 
 							  Click="UnregisterButton_Click">
 					<AppBarButton.Icon>
-						<BitmapIcon UriSource="ms-appx:///Assets/Icons/vector.network.server.disconnect.png"/>
+						<BitmapIcon UriSource="ms-appx:///ArcGISRuntimeSamplesPhone/Assets/Icons/vector.network.server.disconnect.png"/>
 					</AppBarButton.Icon>
 				</AppBarButton>
 

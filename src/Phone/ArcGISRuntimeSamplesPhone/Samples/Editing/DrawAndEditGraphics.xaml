@@ -41,7 +41,7 @@
 							  Content="Draw" 
 							  Click="OnDrawButtonClicked">
 					<AppBarButton.Icon>
-						<BitmapIcon UriSource="ms-appx:///Assets/Icons/vector.line.curve.png"/>
+						<BitmapIcon UriSource="ms-appx:///ArcGISRuntimeSamplesPhone/Assets/Icons/vector.line.curve.png"/>
 					</AppBarButton.Icon>
 				</AppBarButton>
 				<AppBarButton Icon="Edit"

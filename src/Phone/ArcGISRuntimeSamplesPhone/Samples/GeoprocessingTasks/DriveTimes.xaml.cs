@@ -29,7 +29,7 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 		{
 			try
 			{
-				var imageFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/car-red-16x16.png"));
+				var imageFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///ArcGISRuntimeSamplesPhone/Assets/car-red-16x16.png"));
 				var imageSource = await imageFile.OpenReadAsync();
 				var pms = LayoutRoot.Resources["DefaultMarkerSymbol"] as PictureMarkerSymbol;
 				await pms.SetSourceAsync(imageSource);

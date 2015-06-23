@@ -74,7 +74,7 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 				List<Task> setSourceTasks = new List<Task>();
 
 				var stickPinSymbol = new PictureMarkerSymbol() { Width = size, Height = size };
-				setSourceTasks.Add(stickPinSymbol.SetSourceAsync(new Uri("ms-appx:///Assets/RedStickpin.png")));
+				setSourceTasks.Add(stickPinSymbol.SetSourceAsync(new Uri("ms-appx:///ArcGISRuntimeSamplesPhone/Assets/RedStickpin.png")));
 				_symbols.Add(stickPinSymbol);
 
 				var pushPinSymbol = new PictureMarkerSymbol() { Width = size, Height = size };
@@ -82,7 +82,7 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 				_symbols.Add(pushPinSymbol);
 
 				var xPictureSymbol = new PictureMarkerSymbol() { Width = size, Height = size };
-				setSourceTasks.Add(xPictureSymbol.SetSourceAsync(new Uri("ms-appx:///Assets/x-24x24.png")));
+				setSourceTasks.Add(xPictureSymbol.SetSourceAsync(new Uri("ms-appx:///ArcGISRuntimeSamplesPhone/Assets/x-24x24.png")));
 				_symbols.Add(xPictureSymbol);
 
 				await Task.WhenAll(setSourceTasks);

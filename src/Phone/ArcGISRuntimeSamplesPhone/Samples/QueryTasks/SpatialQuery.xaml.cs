@@ -31,7 +31,7 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 		{
 			try
 			{
-				var imageFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/RedStickpin.png"));
+				var imageFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///ArcGISRuntimeSamplesPhone/Assets/RedStickpin.png"));
 				var imageSource = await imageFile.OpenReadAsync();
 				var pms = LayoutRoot.Resources["DefaultMarkerSymbol"] as PictureMarkerSymbol;
 				await pms.SetSourceAsync(imageSource);

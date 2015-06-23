@@ -34,7 +34,7 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 		{
 			try
 			{
-				var imageFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/i_pushpin.png"));
+				var imageFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///ArcGISRuntimeSamplesPhone/Assets/i_pushpin.png"));
 				var imageSource = await imageFile.OpenReadAsync();
 				var pms = LayoutRoot.Resources["StartMarkerSymbol"] as PictureMarkerSymbol;
 				await pms.SetSourceAsync(imageSource);

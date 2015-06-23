@@ -53,7 +53,7 @@
 							HorizontalAlignment="Center" VerticalAlignment="Center" esri:MapView.ViewOverlayAnchor="{Binding}"
 							Visibility="{Binding ElementName=chkCenter, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
 						<StackPanel>
-							<Image Source="ms-appx:///Assets/RedStickPin.png" Margin="0,-40,0,0" />
+							<Image Source="ms-appx:///ArcGISRuntimeSamplesPhone/Assets/RedStickPin.png" Margin="0,-40,0,0" />
 							<TextBlock Foreground="White" FontSize="11">
 								<Run Text="{Binding X}" />
 								<Run Text=", " />

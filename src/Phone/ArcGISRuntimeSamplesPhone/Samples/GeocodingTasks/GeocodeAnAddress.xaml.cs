@@ -43,7 +43,7 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 			try
 			{
 				var markerSymbol = new PictureMarkerSymbol() { Width = 48, Height = 48, YOffset = 24 };
-				await markerSymbol.SetSourceAsync(new Uri("ms-appx:///Assets/RedStickpin.png"));
+				await markerSymbol.SetSourceAsync(new Uri("ms-appx:///ArcGISRuntimeSamplesPhone/Assets/RedStickpin.png"));
 				var renderer = new SimpleRenderer() { Symbol = markerSymbol };
 
 				_addressOverlay.Renderer = renderer;

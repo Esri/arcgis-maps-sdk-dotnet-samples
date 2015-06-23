@@ -45,7 +45,7 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 			try
 			{
 				var markerSymbol = new PictureMarkerSymbol() { Width = 48, Height = 48, YOffset = 24 };
-				await markerSymbol.SetSourceAsync(new Uri("ms-appx:///Assets/RedStickpin.png"));
+				await markerSymbol.SetSourceAsync(new Uri("ms-appx:///ArcGISRuntimeSamplesPhone/Assets/RedStickpin.png"));
 				var renderer = new SimpleRenderer() { Symbol = markerSymbol };
 
 				_addressOverlay.Renderer = renderer;
@@ -65,9 +65,9 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 				listResults.Visibility = Visibility.Collapsed;
 				_addressOverlay.Graphics.Clear();
 
-                // Get current viewpoints extent from the MapView
-                var currentViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
-                var viewpointExtent = currentViewpoint.TargetGeometry.Extent;
+				// Get current viewpoints extent from the MapView
+				var currentViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
+				var viewpointExtent = currentViewpoint.TargetGeometry.Extent;
 
 				var param = new OnlineLocatorFindParameters(SearchTextBox.Text)
 				{

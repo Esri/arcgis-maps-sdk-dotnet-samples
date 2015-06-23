@@ -55,29 +55,25 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 		// Draw the unsimplified polygon
 		private void DrawPolygon()
 		{
-			// Get current viewpoints extent from the MapView
-			var currentViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
-			var viewpointExtent = currentViewpoint.TargetGeometry.Extent;
-
-			MapPoint center = viewpointExtent.GetCenter();
+			MapPoint center = MyMapView.Extent.GetCenter();
 			double lat = center.Y;
 			double lon = center.X + 300;
 			double latOffset = 300;
 			double lonOffset = 300;
 
 			var points = new PointCollection()
-			{
-				new MapPoint(lon - lonOffset, lat),
-				new MapPoint(lon, lat + latOffset),
-				new MapPoint(lon + lonOffset, lat),
-				new MapPoint(lon, lat - latOffset),
-				new MapPoint(lon - lonOffset, lat),
-				new MapPoint(lon - 2 * lonOffset, lat + latOffset),
-				new MapPoint(lon - 3 * lonOffset, lat),
-				new MapPoint(lon - 2 * lonOffset, lat - latOffset),
-				new MapPoint(lon - 1.5 * lonOffset, lat + latOffset),
-				new MapPoint(lon - lonOffset, lat)
-			};
+            {
+                new MapPoint(lon - lonOffset, lat),
+                new MapPoint(lon, lat + latOffset),
+                new MapPoint(lon + lonOffset, lat),
+                new MapPoint(lon, lat - latOffset),
+                new MapPoint(lon - lonOffset, lat),
+                new MapPoint(lon - 2 * lonOffset, lat + latOffset),
+                new MapPoint(lon - 3 * lonOffset, lat),
+                new MapPoint(lon - 2 * lonOffset, lat - latOffset),
+                new MapPoint(lon - 1.5 * lonOffset, lat + latOffset),
+                new MapPoint(lon - lonOffset, lat)
+            };
 			_unsimplifiedPolygon = new Polygon(points, MyMapView.SpatialReference);
 
 			_polygonOverlay.Graphics.Clear();

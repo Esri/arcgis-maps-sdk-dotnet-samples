@@ -44,7 +44,7 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 		// Accept user map clicks and add points to the graphics layer with the selected symbol
 		private async Task AcceptPointsAsync()
 		{
-			while (MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent != null)
+			while (MyMapView.Extent != null)
 			{
 				var point = await MyMapView.Editor.RequestPointAsync();
 				_graphicsOverlay.Graphics.Add(new Graphic(point, _symbols[symbolCombo.SelectedIndex]));
@@ -63,12 +63,12 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 				var blackOutlineSymbol = new SimpleLineSymbol() { Color = Colors.Black, Style = SimpleLineStyle.Solid, Width = 1 };
 
 				_symbols = new List<MarkerSymbol>()
-				{
-					new SimpleMarkerSymbol() { Color = Colors.Red, Size = sizePt, Style = SimpleMarkerStyle.Circle, Outline = blackOutlineSymbol },
-					new SimpleMarkerSymbol() { Color = Colors.Green, Size = sizePt, Style = SimpleMarkerStyle.Diamond, Outline = blackOutlineSymbol },
-					new SimpleMarkerSymbol() { Color = Colors.Blue, Size = sizePt, Style = SimpleMarkerStyle.Square, Outline = blackOutlineSymbol },
-					new SimpleMarkerSymbol() { Color = Colors.Purple, Size = sizePt, Style = SimpleMarkerStyle.X, Outline = blackOutlineSymbol },
-				};
+                {
+                    new SimpleMarkerSymbol() { Color = Colors.Red, Size = sizePt, Style = SimpleMarkerStyle.Circle, Outline = blackOutlineSymbol },
+                    new SimpleMarkerSymbol() { Color = Colors.Green, Size = sizePt, Style = SimpleMarkerStyle.Diamond, Outline = blackOutlineSymbol },
+                    new SimpleMarkerSymbol() { Color = Colors.Blue, Size = sizePt, Style = SimpleMarkerStyle.Square, Outline = blackOutlineSymbol },
+                    new SimpleMarkerSymbol() { Color = Colors.Purple, Size = sizePt, Style = SimpleMarkerStyle.X, Outline = blackOutlineSymbol },
+                };
 
 				// Set image sources for picture marker symbols
 				List<Task> setSourceTasks = new List<Task>();

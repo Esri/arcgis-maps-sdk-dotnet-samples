@@ -65,15 +65,10 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 				listResults.Visibility = Visibility.Collapsed;
 				_addressOverlay.Graphics.Clear();
 
-                // Get current viewpoints extent from the MapView
-                var currentViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
-                var viewpointExtent = currentViewpoint.TargetGeometry.Extent;
-
 				var param = new OnlineLocatorFindParameters(SearchTextBox.Text)
 				{
-
-					SearchExtent = viewpointExtent,
-					Location = viewpointExtent.GetCenter(),
+					SearchExtent = MyMapView.Extent,
+					Location = MyMapView.Extent.GetCenter(),
 					MaxLocations = 5,
 					OutSpatialReference = MyMapView.SpatialReference,
 					OutFields = new string[] { "Place_addr" }

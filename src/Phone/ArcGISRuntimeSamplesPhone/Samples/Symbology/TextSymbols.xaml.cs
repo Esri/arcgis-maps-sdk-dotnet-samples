@@ -58,7 +58,7 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 		{
 			try
 			{
-				while (MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent != null)
+				while (MyMapView.Extent != null)
 				{
 					var point = await MyMapView.Editor.RequestPointAsync();
 
@@ -81,13 +81,13 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 			try
 			{
 				var fontFamilies = new List<string>()
-				{
-					"Bogus", "Algerian", "Chiller", "Comic Sans MS",
-					"Cooper", "Elephant", "Forte", "Jokerman",
-					"Lindsey", "Mistral", "Motorwerk", "Old English Text MT",
-					"Parchment", "Ravie", "Script MT", "Segoe Print",
-					"Showcard Gothic", "Snap ITC", "Vivaldi", "Wingdings"
-				};
+                {
+                    "Bogus", "Algerian", "Chiller", "Comic Sans MS",
+                    "Cooper", "Elephant", "Forte", "Jokerman",
+                    "Lindsey", "Mistral", "Motorwerk", "Old English Text MT",
+                    "Parchment", "Ravie", "Script MT", "Segoe Print",
+                    "Showcard Gothic", "Snap ITC", "Vivaldi", "Wingdings"
+                };
 
 				// Create symbols from font list
 				_symbols = fontFamilies

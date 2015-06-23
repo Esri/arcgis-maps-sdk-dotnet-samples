@@ -43,7 +43,7 @@ namespace ArcGISRuntime.Samples.Store.Samples
 		{
 			try
 			{
-				while (MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent != null)
+				while (MyMapView.Extent != null)
 				{
 					// Accept user point
 					MapPoint userpoint = await MyMapView.Editor.RequestPointAsync() as MapPoint;

@@ -1,7 +1,6 @@
 ﻿using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -78,7 +77,7 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 			await MyMapView.LayersLoadedAsync();
 
 			if (_maxExtent == null)
-				_maxExtent = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent;
+				_maxExtent = MyMapView.Extent;
 
 			for (int n = 0; n < numGraphics; ++n)
 			{

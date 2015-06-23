@@ -48,7 +48,7 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 		{
 			try
 			{
-				while (MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent != null)
+				while (MyMapView.Extent != null)
 				{
 					var point = await MyMapView.Editor.RequestPointAsync();
 					_graphicsOverlay.Graphics.Add(new Graphic(point));

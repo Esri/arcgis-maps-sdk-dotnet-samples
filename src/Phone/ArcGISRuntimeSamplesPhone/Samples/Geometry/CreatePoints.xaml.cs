@@ -33,13 +33,9 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 			MyMapView.SpatialReferenceChanged -= MyMapView_SpatialReferenceChanged;
 			try
 			{
-				// Get current viewpoints extent from the MapView
-				var currentViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
-				var viewpointExtent = currentViewpoint.TargetGeometry.Extent;
-
-				var height = viewpointExtent.Height / 4;
-				var width = viewpointExtent.Width / 4;
-				var center = viewpointExtent.GetCenter();
+				var height = MyMapView.Extent.Height / 4;
+				var width = MyMapView.Extent.Width / 4;
+				var center = MyMapView.Extent.GetCenter();
 
 				var topLeft = new MapPoint(center.X - width, center.Y + height, MyMapView.SpatialReference);
 				var topRight = new MapPoint(center.X + width, center.Y + height, MyMapView.SpatialReference);

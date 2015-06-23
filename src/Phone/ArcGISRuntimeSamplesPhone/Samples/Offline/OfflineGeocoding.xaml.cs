@@ -115,7 +115,7 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 		{
 			var graphics = _graphicsOverlay.GraphicsSource;
 			if (graphics == null || graphics.Count() == 0)
-				return MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent;
+				return MyMapView.Extent;
 
 			var extent = graphics.First().Geometry.Extent;
 			foreach (var graphic in graphics)

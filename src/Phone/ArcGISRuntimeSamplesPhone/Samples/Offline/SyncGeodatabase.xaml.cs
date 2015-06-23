@@ -164,11 +164,8 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 			{
 				IsBusy = true;
 
-				// Get current viewpoints extent from the MapView
-				var currentViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
-				var viewpointExtent = currentViewpoint.TargetGeometry.Extent;
 				// Generate local gdb
-				await GenerateLocalGeodatabaseAsync(viewpointExtent);
+				await GenerateLocalGeodatabaseAsync(MyMapView.Extent);
 
 				// Set editing combobox itemssource from bird type domain
 				if (_localBirdsLayer != null)
@@ -452,11 +449,7 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 			LocalBirdFeatures = await _localBirdsLayer.FeatureTable.QueryAsync(new QueryFilter() { WhereClause = "1=1" });
 
 			QueryTask queryTask = new QueryTask(new Uri(_onlineBirdsLayer.ServiceUri + "/1"));
-            // Get current viewpoints extent from the MapView
-            var currentViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
-            var viewpointExtent = currentViewpoint.TargetGeometry.Extent;
-
-			Query query = new Query("1=1") { Geometry = viewpointExtent, OutFields = new OutFields(new string[] { "globalid" }) };
+			Query query = new Query("1=1") { Geometry = MyMapView.Extent, OutFields = new OutFields(new string[] { "globalid" }) };
 			var queryResult = await queryTask.ExecuteAsync(query);
 
 			var onlineBirdIds = queryResult.FeatureSet.Features.Select(f => f.Attributes["globalid"]);
@@ -509,8 +502,8 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 			object fieldValue;
 			if (feature.Attributes.TryGetValue(fieldName, out fieldValue))
 			{
-		if (fieldValue == null)
-		  return convertedValue;
+        if (fieldValue == null)
+          return convertedValue;
 				var field = feature.Schema.Fields
 					.FirstOrDefault(fld => fld.Name.Equals(fieldName, StringComparison.CurrentCultureIgnoreCase));
 				if (field != null)

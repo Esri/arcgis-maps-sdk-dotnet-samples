@@ -3,7 +3,6 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Http;
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.Controls;
 using System;
 using System.Linq;
 using System.Threading;
@@ -40,11 +39,7 @@ namespace ArcGISRuntime.Samples.Desktop
                 ReportStatus("Creating GeodatabaseSyncTask...");
                 var syncTask = new GeodatabaseSyncTask(new Uri(BASE_URL));
 
-                // Get current viewpoints extent from the MapView
-                var currentViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
-                var viewpointExtent = currentViewpoint.TargetGeometry.Extent;
-
-                var options = new GenerateGeodatabaseParameters(new int[] { 0, 1, 2 }, viewpointExtent)
+                var options = new GenerateGeodatabaseParameters(new int[] { 0, 1, 2 }, MyMapView.Extent)
                 {
                     GeodatabasePrefixName = GDB_PREFIX,
                     ReturnAttachments = false,

@@ -71,12 +71,8 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 				foreach (var coord in coordsOriginal)
 					_inputOverlay.Graphics.Add(new Graphic(coord, _origVertexSymbol));
 
-				// Get current viewpoints extent from the MapView
-				var currentViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
-				var viewpointExtent = currentViewpoint.TargetGeometry.Extent;
-
 				// Densify the shape
-				var densify = GeometryEngine.GeodesicDensify(normalized, viewpointExtent.Width / 100, LinearUnits.Meters);
+				var densify = GeometryEngine.GeodesicDensify(normalized, MyMapView.Extent.Width / 100, LinearUnits.Meters);
 
 				if (densify.GeometryType == GeometryType.Polygon)
 					_inputOverlay.Graphics.Add(new Graphic(densify, _fillSymbol));
@@ -90,13 +86,13 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 
 				// Results
 				var results = new List<Tuple<string, object>>()
-				{
-					new Tuple<string, object>("Length", GeometryEngine.GeodesicLength(densify) * METERS_TO_MILES),
-					new Tuple<string, object>("Area", 
-						(normalized is Polygon) ? (GeometryEngine.GeodesicArea(densify) * SQUARE_METERS_TO_MILES).ToString("0.000") : "N/A"),
-					new Tuple<string, object>("Vertices Before", coordsOriginal.Count()),
-					new Tuple<string, object>("Vertices After", coordsDensify.Count())
-				};
+                {
+                    new Tuple<string, object>("Length", GeometryEngine.GeodesicLength(densify) * METERS_TO_MILES),
+                    new Tuple<string, object>("Area", 
+                        (normalized is Polygon) ? (GeometryEngine.GeodesicArea(densify) * SQUARE_METERS_TO_MILES).ToString("0.000") : "N/A"),
+                    new Tuple<string, object>("Vertices Before", coordsOriginal.Count()),
+                    new Tuple<string, object>("Vertices After", coordsDensify.Count())
+                };
 
 				resultsListView.ItemsSource = results;
 				resultsPanel.Visibility = Visibility.Visible;

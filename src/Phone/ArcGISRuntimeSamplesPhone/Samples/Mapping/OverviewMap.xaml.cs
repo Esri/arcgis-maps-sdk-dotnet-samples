@@ -30,13 +30,10 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 				g = new Graphic();
 				graphicslayer.Graphics.Add(g);
 			}
-            // Get current viewpoints extent from the MapView
-            var currentViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
-            var viewpointExtent = currentViewpoint.TargetGeometry.Extent;
-            g.Geometry = viewpointExtent;
+			g.Geometry = MyMapView.Extent;
 
 			// Adjust overview map scale
-			await overviewMap.SetViewAsync(viewpointExtent.GetCenter(), MyMapView.Scale * 15);
+			await overviewMap.SetViewAsync(MyMapView.Extent.GetCenter(), MyMapView.Scale * 15);
 
 		}
 	}

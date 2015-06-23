@@ -43,7 +43,7 @@ namespace ArcGISRuntime.Samples.Store.Samples
 			try
 			{
 				_pictureMarkerSymbol = LayoutRoot.Resources["PictureMarkerSymbol"] as PictureMarkerSymbol;
-				await _pictureMarkerSymbol.SetSourceAsync(new Uri("ms-appx:///Assets/x-24x24.png"));
+				await _pictureMarkerSymbol.SetSourceAsync(new Uri("ms-appx:///ArcGISRuntimeSamplesStore/Assets/x-24x24.png"));
 			}
 			catch (Exception ex)
 			{

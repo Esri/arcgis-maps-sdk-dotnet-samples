@@ -11,39 +11,39 @@ using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.Samples.Store.Samples
 {
-    /// <summary>
-    /// Demonstrates how to spatially search your data using a QueryTask with its geometry attribute set.
-    /// </summary>
-    /// <title>Spatial Query</title>
-    /// <category>Query Tasks</category>
-    public sealed partial class SpatialQuery : Page
-    {
-        public SpatialQuery()
-        {
-            this.InitializeComponent();
+	/// <summary>
+	/// Demonstrates how to spatially search your data using a QueryTask with its geometry attribute set.
+	/// </summary>
+	/// <title>Spatial Query</title>
+	/// <category>Query Tasks</category>
+	public sealed partial class SpatialQuery : Page
+	{
+		public SpatialQuery()
+		{
+			this.InitializeComponent();
 
 			InitializePictureMarkerSymbol();
-        }
+		}
 
 		private async void InitializePictureMarkerSymbol()
-        {
-            try
-            {
-                var imageFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/RedStickpin.png"));
-                var imageSource = await imageFile.OpenReadAsync();
-                var pms = LayoutRoot.Resources["DefaultMarkerSymbol"] as PictureMarkerSymbol;
-                await pms.SetSourceAsync(imageSource);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-            }
-        }
+		{
+			try
+			{
+				var imageFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///ArcGISRuntimeSamplesStore/Assets/RedStickpin.png"));
+				var imageSource = await imageFile.OpenReadAsync();
+				var pms = LayoutRoot.Resources["DefaultMarkerSymbol"] as PictureMarkerSymbol;
+				await pms.SetSourceAsync(imageSource);
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine(ex.Message);
+			}
+		}
 
-        private async void MyMapView_Tapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
-        {
-            try
-            {
+		private async void MyMapView_Tapped(object sender, Esri.ArcGISRuntime.Controls.MapViewInputEventArgs e)
+		{
+			try
+			{
 				var graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
 				if (!(graphicsOverlay.Graphics.Count == 0))
 					graphicsOverlay.Graphics.Clear();
@@ -76,11 +76,11 @@ namespace ArcGISRuntime.Samples.Store.Samples
 
 					resultOverlay.Graphics.AddRange(queryResult.FeatureSet.Features.OfType<Graphic>());
 				}
-            }
-            catch (Exception ex)
-            {
-                var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
-            }
-        }
-    }
+			}
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog(ex.Message, "Sample Error").ShowAsync();
+			}
+		}
+	}
 }

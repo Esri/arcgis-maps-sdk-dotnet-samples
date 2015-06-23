@@ -83,7 +83,7 @@ namespace ArcGISRuntime.Samples.Desktop
 		// Utility: Generate a random MapPoint within the current extent
 		private MapPoint GetRandomMapPoint()
 		{
-			v// Get current viewpoints extent from the MapView
+			// Get current viewpoints extent from the MapView
             var currentViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
             var viewpointExtent = currentViewpoint.TargetGeometry.Extent;
 

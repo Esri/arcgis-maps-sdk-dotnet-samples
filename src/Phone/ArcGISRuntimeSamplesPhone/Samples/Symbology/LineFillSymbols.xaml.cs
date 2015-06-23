@@ -55,7 +55,7 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 		{
 			try
 			{
-				while (MyMapView.Extent != null)
+				while (MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent != null)
 				{
 					SampleSymbol sampleSymbol = _symbols[symbolCombo.SelectedIndex];
 
@@ -89,18 +89,18 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 				var blackOutlineSymbol = new SimpleLineSymbol() { Color = Colors.Black, Style = SimpleLineStyle.Solid, Width = 1 };
 
 				_symbols = new List<SampleSymbol>()
-                {
-                    new SampleSymbol(new SimpleLineSymbol() { Color = Colors.Black, Style = SimpleLineStyle.Solid, Width = 2 }),
-                    new SampleSymbol(new SimpleLineSymbol() { Color = Colors.Red, Style = SimpleLineStyle.Dash, Width = 2 }),
-                    new SampleSymbol(new SimpleLineSymbol() { Color = Colors.Blue, Style = SimpleLineStyle.DashDot, Width = 4 }),
+				{
+					new SampleSymbol(new SimpleLineSymbol() { Color = Colors.Black, Style = SimpleLineStyle.Solid, Width = 2 }),
+					new SampleSymbol(new SimpleLineSymbol() { Color = Colors.Red, Style = SimpleLineStyle.Dash, Width = 2 }),
+					new SampleSymbol(new SimpleLineSymbol() { Color = Colors.Blue, Style = SimpleLineStyle.DashDot, Width = 4 }),
 
-                    new SampleSymbol(new SimpleFillSymbol() { Color = Colors.Red, Style = SimpleFillStyle.Solid }),
-                    new SampleSymbol(new SimpleFillSymbol() { Color = Color.FromArgb(100, 0, 255, 0), Style = SimpleFillStyle.DiagonalCross, Outline = blackOutlineSymbol }),
-                    new SampleSymbol(new SimpleFillSymbol() { Color = Color.FromArgb(100, 0, 0, 255), Style = SimpleFillStyle.Vertical, Outline = blackOutlineSymbol }),
+					new SampleSymbol(new SimpleFillSymbol() { Color = Colors.Red, Style = SimpleFillStyle.Solid }),
+					new SampleSymbol(new SimpleFillSymbol() { Color = Color.FromArgb(100, 0, 255, 0), Style = SimpleFillStyle.DiagonalCross, Outline = blackOutlineSymbol }),
+					new SampleSymbol(new SimpleFillSymbol() { Color = Color.FromArgb(100, 0, 0, 255), Style = SimpleFillStyle.Vertical, Outline = blackOutlineSymbol }),
 
-                    new SampleSymbol(new PictureFillSymbol() { Outline = blackOutlineSymbol, Width = 24, Height = 24 }, "ms-appx:///Assets/x-24x24.png"),
-                    new SampleSymbol(new PictureFillSymbol() { Outline = blackOutlineSymbol, Width = 24, Height = 24 }, "http://static.arcgis.com/images/Symbols/Cartographic/esriCartographyMarker_79_Blue.png")
-                };
+					new SampleSymbol(new PictureFillSymbol() { Outline = blackOutlineSymbol, Width = 24, Height = 24 }, "ms-appx:///Assets/x-24x24.png"),
+					new SampleSymbol(new PictureFillSymbol() { Outline = blackOutlineSymbol, Width = 24, Height = 24 }, "http://static.arcgis.com/images/Symbols/Cartographic/esriCartographyMarker_79_Blue.png")
+				};
 
 				// Set image sources for picture fill symbols
 				await Task.WhenAll(_symbols.Where(s => s.Symbol is PictureFillSymbol)

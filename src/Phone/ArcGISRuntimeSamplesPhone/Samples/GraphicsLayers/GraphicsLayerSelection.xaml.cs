@@ -141,8 +141,12 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 		// Utility: Generate a random MapPoint within the current extent
 		private MapPoint GetRandomMapPoint()
 		{
-			double x = MyMapView.Extent.XMin + (_random.NextDouble() * MyMapView.Extent.Width);
-			double y = MyMapView.Extent.YMin + (_random.NextDouble() * MyMapView.Extent.Height);
+			// Get current viewpoints extent from the MapView
+			var currentViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
+			var viewpointExtent = currentViewpoint.TargetGeometry.Extent;
+
+			double x = viewpointExtent.XMin + (_random.NextDouble() * viewpointExtent.Width);
+			double y = viewpointExtent.YMin + (_random.NextDouble() * viewpointExtent.Height);
 			return new MapPoint(x, y, MyMapView.SpatialReference);
 		}
 	}

@@ -1,4 +1,5 @@
 ﻿using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Controls;
 using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.Samples.Phone.Samples
@@ -23,9 +24,13 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 		{
 			Envelope newExtent = null;
 
-			if (MyMapView.WrapAround)
+            // Get current viewpoints extent from the MapView
+            var currentViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
+            var viewpointExtent = currentViewpoint.TargetGeometry.Extent;
+			
+            if (MyMapView.WrapAround)
 			{
-				Geometry normalizedExtent = GeometryEngine.NormalizeCentralMeridian(MyMapView.Extent);
+				Geometry normalizedExtent = GeometryEngine.NormalizeCentralMeridian(viewpointExtent);
 				if (normalizedExtent is Polygon)
 				{
 					var normalizedPolygon = (Polygon)normalizedExtent;
@@ -58,17 +63,17 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 					newExtent = normalizedExtent as Envelope;
 			}
 			else
-				newExtent = MyMapView.Extent;
+				newExtent = viewpointExtent;
 
 			MinXNormalized.Text = newExtent.XMin.ToString("0.000");
 			MinYNormalized.Text = newExtent.YMin.ToString("0.000");
 			MaxXNormalized.Text = newExtent.XMax.ToString("0.000");
 			MaxYNormalized.Text = newExtent.YMax.ToString("0.000");
 
-			MinXAbsolute.Text = MyMapView.Extent.XMin.ToString("0.000");
-			MinYAbsolute.Text = MyMapView.Extent.YMin.ToString("0.000");
-			MaxXAbsolute.Text = MyMapView.Extent.XMax.ToString("0.000");
-			MaxYAbsolute.Text = MyMapView.Extent.YMax.ToString("0.000");
+			MinXAbsolute.Text = viewpointExtent.XMin.ToString("0.000");
+			MinYAbsolute.Text = viewpointExtent.YMin.ToString("0.000");
+			MaxXAbsolute.Text = viewpointExtent.XMax.ToString("0.000");
+			MaxYAbsolute.Text = viewpointExtent.YMax.ToString("0.000");
 		}
 	}
 }

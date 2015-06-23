@@ -110,19 +110,22 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 		{
 			try
 			{
+                // Get current viewpoints extent from the MapView
+                var currentViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
+                var viewpointExtent = currentViewpoint.TargetGeometry.Extent;
 				panelTOC.Visibility = Visibility.Collapsed;
 				panelExport.Visibility = Visibility.Collapsed;
 				progress.Visibility = Visibility.Visible;
 
 				_aoiOverlay.Graphics.Clear();
-				_aoiOverlay.Graphics.Add(new Graphic(MyMapView.Extent));
+				_aoiOverlay.Graphics.Add(new Graphic(viewpointExtent));
 
 				_genOptions = new GenerateTileCacheParameters()
 				{
 					Format = ExportTileCacheFormat.TilePackage,
 					MinScale = _onlineTiledLayer.ServiceInfo.TileInfo.Lods[(int)sliderLOD.Value].Scale,
 					MaxScale = _onlineTiledLayer.ServiceInfo.TileInfo.Lods[0].Scale,
-					GeometryFilter = GeometryEngine.Project(MyMapView.Extent, SpatialReferences.Wgs84)
+					GeometryFilter = GeometryEngine.Project(viewpointExtent, SpatialReferences.Wgs84)
 				};
 
 				var job = await _exportTilesTask.EstimateTileCacheSizeAsync(_genOptions,
@@ -187,9 +190,14 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 
 				_onlineTiledLayer.IsVisible = false;
 
-				if (MyMapView.Scale < _genOptions.MinScale)
-					await MyMapView.SetViewAsync(MyMapView.Extent.GetCenter(), _genOptions.MinScale);
-
+                if (MyMapView.Scale < _genOptions.MinScale)
+                {
+                    // Get current viewpoints extent from the MapView
+                    var currentViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
+                    var viewpointExtent = currentViewpoint.TargetGeometry.Extent;
+                    await MyMapView.SetViewAsync(viewpointExtent.GetCenter(), _genOptions.MinScale);
+                }
+					
 				panelTOC.Visibility = Visibility.Visible;
 				panelExport.Visibility = Visibility.Collapsed;
 				AppBarOptions.IsEnabled = true;

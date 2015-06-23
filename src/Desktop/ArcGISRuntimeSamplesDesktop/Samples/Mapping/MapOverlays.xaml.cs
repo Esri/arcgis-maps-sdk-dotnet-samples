@@ -4,10 +4,10 @@ using System.Windows.Controls;
 
 namespace ArcGISRuntime.Samples.Desktop
 {
-    /// <summary>
-    /// This sample demonstrates how to display map overlay elements in the MapView. Here, three map overlays are included in the MapView XAML. The first is an overlay that maintains a constant X,Y anchor point on the map. The second overlay is always anchored to the center point of the current extent. The last overlay changes its anchor point when the user clicks the map.
-    /// </summary>
-    /// <title>Map Overlays</title>
+	/// <summary>
+	/// This sample demonstrates how to display map overlay elements in the MapView. Here, three map overlays are included in the MapView XAML. The first is an overlay that maintains a constant X,Y anchor point on the map. The second overlay is always anchored to the center point of the current extent. The last overlay changes its anchor point when the user clicks the map.
+	/// </summary>
+	/// <title>Map Overlays</title>
 	/// <category>Mapping</category>
 	public partial class MapOverlays : UserControl
 	{
@@ -26,7 +26,11 @@ namespace ArcGISRuntime.Samples.Desktop
 		{
 			MyMapView.SpatialReferenceChanged -= MyMapView_SpatialReferenceChanged;
 
-			var normalizedPoint = GeometryEngine.NormalizeCentralMeridian(MyMapView.Extent.GetCenter());
+			// Get current viewpoints extent from the MapView
+			var currentViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
+			var viewpointExtent = currentViewpoint.TargetGeometry.Extent;
+
+			var normalizedPoint = GeometryEngine.NormalizeCentralMeridian(viewpointExtent.GetCenter());
 			var projectedCenter = GeometryEngine.Project(normalizedPoint, SpatialReferences.Wgs84) as MapPoint;
 
 			if (!(clickOverlay.DataContext is MapPoint))

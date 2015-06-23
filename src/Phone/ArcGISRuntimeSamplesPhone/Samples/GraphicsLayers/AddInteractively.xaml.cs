@@ -16,7 +16,7 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 	/// <title>Add Graphics Interactively</title>
 	/// <category>Graphics Layers</category>
 	public sealed partial class AddInteractively : Page
-    {
+	{
 		private GraphicsLayer _graphicsLayer;
 
 		/// <summary>Construct Add Graphics Interactively sample control</summary>
@@ -46,7 +46,7 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 			while (true)
 			{
 				// if the map is not in a valid state
-				if (MyMapView.Extent == null)
+				if (MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent == null)
 					break;
 
 				await AddSingleGraphicAsync();
@@ -112,5 +112,5 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 		{
 			_graphicsLayer.Graphics.Clear();
 		}
-    }
+	}
 }

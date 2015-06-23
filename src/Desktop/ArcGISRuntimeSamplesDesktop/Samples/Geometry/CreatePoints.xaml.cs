@@ -9,19 +9,19 @@ using System.Windows.Media;
 
 namespace ArcGISRuntime.Samples.Desktop
 {
-    /// <summary>
-    /// Demonstrates how to create point geometries, attach them to graphics and display them on the map. MapPoint geometry objects are used to store geographic points.
-    /// </summary>
-    /// <title>Create Points</title>
+	/// <summary>
+	/// Demonstrates how to create point geometries, attach them to graphics and display them on the map. MapPoint geometry objects are used to store geographic points.
+	/// </summary>
+	/// <title>Create Points</title>
 	/// <category>Geometry</category>
 	public partial class CreatePoints : UserControl
-    {
+	{
 		private GraphicsOverlay _graphicsOverlay;
 
-        /// <summary>Construct Create Points sample control</summary>
-        public CreatePoints()
-        {
-            InitializeComponent();
+		/// <summary>Construct Create Points sample control</summary>
+		public CreatePoints()
+		{
+			InitializeComponent();
 
 			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
 			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
@@ -33,9 +33,14 @@ namespace ArcGISRuntime.Samples.Desktop
 			MyMapView.NavigationCompleted -= MyMapView_NavigationCompleted;
 			try
 			{
-				var height = MyMapView.Extent.Height / 4;
-				var width = MyMapView.Extent.Width / 4;
-				var center = MyMapView.Extent.GetCenter();
+                // Get current viewpoints extent from the MapView
+                var currentViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
+                var viewpointExtent = currentViewpoint.TargetGeometry.Extent;
+
+				var myViewpointExtent = viewpointExtent;
+				var height = myViewpointExtent.Height / 4;
+				var width = myViewpointExtent.Width / 4;
+				var center = myViewpointExtent.GetCenter();
 
 				var topLeft = new MapPoint(center.X - width, center.Y + height, MyMapView.SpatialReference);
 				var topRight = new MapPoint(center.X + width, center.Y + height, MyMapView.SpatialReference);
@@ -60,5 +65,5 @@ namespace ArcGISRuntime.Samples.Desktop
 				MessageBox.Show("Error occured : " + ex.Message, "Create Points Sample");
 			}
 		}
-    }
+	}
 }

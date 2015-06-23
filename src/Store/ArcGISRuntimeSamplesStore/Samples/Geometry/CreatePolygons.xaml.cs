@@ -10,20 +10,20 @@ using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.Samples.Store.Samples
 {
-    /// <summary>
-    /// Demonstrates how to create polygon geometries, attach them to graphics and display them on the map.
-    /// Polygon geometry objects are used to store geographic polygons.
-    /// </summary>
-    /// <title>Create Polygons</title>
+	/// <summary>
+	/// Demonstrates how to create polygon geometries, attach them to graphics and display them on the map.
+	/// Polygon geometry objects are used to store geographic polygons.
+	/// </summary>
+	/// <title>Create Polygons</title>
 	/// <category>Geometry</category>
 	public partial class CreatePolygons : Page
-    {
-        private GraphicsOverlay _graphicsOverlay;
+	{
+		private GraphicsOverlay _graphicsOverlay;
 
-        /// <summary>Construct Create Polygons sample control</summary>
-        public CreatePolygons()
-        {
-            InitializeComponent();
+		/// <summary>Construct Create Polygons sample control</summary>
+		public CreatePolygons()
+		{
+			InitializeComponent();
 
 			_graphicsOverlay = MyMapView.GraphicsOverlays["graphicsOverlay"];
 			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
@@ -35,10 +35,13 @@ namespace ArcGISRuntime.Samples.Store.Samples
 			MyMapView.NavigationCompleted -= MyMapView_NavigationCompleted;
 			try
 			{
-				var height = MyMapView.Extent.Height / 4;
-				var width = MyMapView.Extent.Width / 4;
+				// Get current viewpoints extent from the MapView
+				var currentViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
+				var viewpointExtent = currentViewpoint.TargetGeometry.Extent;
+				var height = viewpointExtent.Height / 4;
+				var width = viewpointExtent.Width / 4;
 				var length = width / 4;
-				var center = MyMapView.Extent.GetCenter();
+				var center = viewpointExtent.GetCenter();
 				var topLeft = new MapPoint(center.X - width, center.Y + height, MyMapView.SpatialReference);
 				var topRight = new MapPoint(center.X + width, center.Y + height, MyMapView.SpatialReference);
 				var bottomLeft = new MapPoint(center.X - width, center.Y - height, MyMapView.SpatialReference);
@@ -57,31 +60,31 @@ namespace ArcGISRuntime.Samples.Store.Samples
 			{
 				var _x = new MessageDialog("Error occurred : " + ex.Message, "Sample Error").ShowAsync();
 			}
-        }
+		}
 
-        // Creates a square polygon with a hole centered at the given point
-        private Polygon CreatePolygonBox(MapPoint center, double length)
-        {
-            var halfLen = length / 2.0;
+		// Creates a square polygon with a hole centered at the given point
+		private Polygon CreatePolygonBox(MapPoint center, double length)
+		{
+			var halfLen = length / 2.0;
 
-            PointCollection coords = new PointCollection();
+			PointCollection coords = new PointCollection();
 			coords.Add(new MapPoint(center.X - halfLen, center.Y + halfLen));
 			coords.Add(new MapPoint(center.X + halfLen, center.Y + halfLen));
 			coords.Add(new MapPoint(center.X + halfLen, center.Y - halfLen));
 			coords.Add(new MapPoint(center.X - halfLen, center.Y - halfLen));
 			coords.Add(new MapPoint(center.X - halfLen, center.Y + halfLen));
 
-            halfLen /= 3;
-            PointCollection coordsHole = new PointCollection();
+			halfLen /= 3;
+			PointCollection coordsHole = new PointCollection();
 			coordsHole.Add(new MapPoint(center.X - halfLen, center.Y + halfLen));
 			coordsHole.Add(new MapPoint(center.X - halfLen, center.Y - halfLen));
 			coordsHole.Add(new MapPoint(center.X + halfLen, center.Y - halfLen));
 			coordsHole.Add(new MapPoint(center.X + halfLen, center.Y + halfLen));
 			coordsHole.Add(new MapPoint(center.X - halfLen, center.Y + halfLen));
 
-            return new Polygon(
+			return new Polygon(
 				new List<PointCollection> { coords, coordsHole }, 
 				MyMapView.SpatialReference);
-        }
-    }
+		}
+	}
 }

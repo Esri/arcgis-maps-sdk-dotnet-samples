@@ -59,7 +59,7 @@ namespace ArcGISRuntime.Samples.Desktop
 			{
 				await MyMapView.LayersLoadedAsync();
 
-				while (MyMapView.Extent != null)
+				while (MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent != null)
 				{
 					if (MyMapView.Editor.IsActive)
 						MyMapView.Editor.Cancel.Execute(null);

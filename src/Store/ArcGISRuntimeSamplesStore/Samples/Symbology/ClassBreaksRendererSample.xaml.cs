@@ -72,7 +72,12 @@ namespace ArcGISRuntime.Samples.Store.Samples
 		{
 			var queryTask = new QueryTask(
 				new Uri("http://sampleserver6.arcgisonline.com/ArcGIS/rest/services/USA/MapServer/0"));
-			var query = new Query(MyMapView.Extent)
+
+			// Get current viewpoints extent from the MapView
+			var currentViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
+			var viewpointExtent = currentViewpoint.TargetGeometry.Extent;
+
+			var query = new Query(viewpointExtent)
 			{
 				ReturnGeometry = true,
 				OutSpatialReference = MyMapView.SpatialReference,

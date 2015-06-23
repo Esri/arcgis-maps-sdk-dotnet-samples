@@ -36,10 +36,14 @@ namespace ArcGISRuntime.Samples.Desktop
             if (MyMapView.Editor.IsActive)
                 return;
 
-			var layer = MyMapView.Map.Layers["RecreationalArea"] as ArcGISDynamicMapServiceLayer;
+            // Get current viewpoints extent from the MapView
+            var currentViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
+            var viewpointExtent = currentViewpoint.TargetGeometry.Extent;
+
+            var layer = MyMapView.Map.Layers["RecreationalArea"] as ArcGISDynamicMapServiceLayer;
             var task = new IdentifyTask(new Uri(layer.ServiceUri));
             var mapPoint = MyMapView.ScreenToLocation(e.Position);
-            var parameter = new IdentifyParameters(mapPoint, MyMapView.Extent, 2, (int)MyMapView.ActualHeight, (int)MyMapView.ActualWidth);
+            var parameter = new IdentifyParameters(mapPoint, viewpointExtent, 2, (int)MyMapView.ActualHeight, (int)MyMapView.ActualWidth);
 
             // Clears map of any highlights.
             var overlay = MyMapView.GraphicsOverlays["Highlighter"] as GraphicsOverlay;
@@ -84,7 +88,7 @@ namespace ArcGISRuntime.Samples.Desktop
         /// </summary>
         private async void EditButton_Click(object sender, RoutedEventArgs e)
         {
-			var layer = MyMapView.Map.Layers["RecreationalArea"] as ArcGISDynamicMapServiceLayer;
+            var layer = MyMapView.Map.Layers["RecreationalArea"] as ArcGISDynamicMapServiceLayer;
             var overlay = MyMapView.GraphicsOverlays["Highlighter"] as GraphicsOverlay;
             var featureID = (long)EditButton.Tag;
             string message = null;

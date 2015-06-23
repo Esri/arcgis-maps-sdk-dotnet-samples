@@ -11,48 +11,48 @@ using Windows.UI.Xaml;
 
 namespace ArcGISRuntime.Samples.Store.Samples
 {
-    /// <summary>
-    /// Demonstrates using GeometryEngine.GeodesicDensify to take an input shape and return a geodesic densified shape.
-    /// </summary>
-    /// <title>Geodesic Densify</title>
+	/// <summary>
+	/// Demonstrates using GeometryEngine.GeodesicDensify to take an input shape and return a geodesic densified shape.
+	/// </summary>
+	/// <title>Geodesic Densify</title>
 	/// <category>Geometry</category>
 	public partial class GeodesicDensify : Windows.UI.Xaml.Controls.Page
-    {
-        private const double METERS_TO_MILES = 0.000621371192;
-        private const double SQUARE_METERS_TO_MILES = 3.86102159e-7;
+	{
+		private const double METERS_TO_MILES = 0.000621371192;
+		private const double SQUARE_METERS_TO_MILES = 3.86102159e-7;
 
-        private Symbol _lineSymbol;
-        private Symbol _fillSymbol;
-        private Symbol _origVertexSymbol;
-        private Symbol _newVertexSymbol;
-        private GraphicsOverlay _inputOverlay;
-        private GraphicsOverlay _resultsOverlay;
+		private Symbol _lineSymbol;
+		private Symbol _fillSymbol;
+		private Symbol _origVertexSymbol;
+		private Symbol _newVertexSymbol;
+		private GraphicsOverlay _inputOverlay;
+		private GraphicsOverlay _resultsOverlay;
 
-        /// <summary>Construct Densify sample control</summary>
-        public GeodesicDensify()
-        {
-            InitializeComponent();
+		/// <summary>Construct Densify sample control</summary>
+		public GeodesicDensify()
+		{
+			InitializeComponent();
 
-            _lineSymbol = LayoutRoot.Resources["LineSymbol"] as Symbol;
-            _fillSymbol = LayoutRoot.Resources["FillSymbol"] as Symbol;
-            _origVertexSymbol = LayoutRoot.Resources["OrigVertexSymbol"] as Symbol;
-            _newVertexSymbol = LayoutRoot.Resources["NewVertexSymbol"] as Symbol;
+			_lineSymbol = LayoutRoot.Resources["LineSymbol"] as Symbol;
+			_fillSymbol = LayoutRoot.Resources["FillSymbol"] as Symbol;
+			_origVertexSymbol = LayoutRoot.Resources["OrigVertexSymbol"] as Symbol;
+			_newVertexSymbol = LayoutRoot.Resources["NewVertexSymbol"] as Symbol;
 
 			_inputOverlay = MyMapView.GraphicsOverlays["inputOverlay"];
 			_resultsOverlay = MyMapView.GraphicsOverlays["resultsOverlay"];
-        }
+		}
 
-        // Draw and densify a user defined polygon
-        private async void DensifyButton_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                resultsPanel.Visibility = Visibility.Collapsed;
-                _inputOverlay.Graphics.Clear();
-                _resultsOverlay.Graphics.Clear();
+		// Draw and densify a user defined polygon
+		private async void DensifyButton_Click(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				resultsPanel.Visibility = Visibility.Collapsed;
+				_inputOverlay.Graphics.Clear();
+				_resultsOverlay.Graphics.Clear();
 
-                // Request polygon or polyline from the user
-                DrawShape drawShape = (DrawShape)comboShapeType.SelectedValue;
+				// Request polygon or polyline from the user
+				DrawShape drawShape = (DrawShape)comboShapeType.SelectedValue;
 	
 				// Use polyline as default
 				Symbol symbolToUse = _lineSymbol; 
@@ -64,42 +64,46 @@ namespace ArcGISRuntime.Samples.Store.Samples
 				// Account for WrapAround
 				var normalized = GeometryEngine.NormalizeCentralMeridian(original);
 
-                // Add original shape vertices to input graphics layer
+				// Add original shape vertices to input graphics layer
 				var coordsOriginal = (normalized as Multipart).Parts.First().GetPoints();
-                foreach (var coord in coordsOriginal)
-                    _inputOverlay.Graphics.Add(new Graphic(coord, _origVertexSymbol));
+				foreach (var coord in coordsOriginal)
+					_inputOverlay.Graphics.Add(new Graphic(coord, _origVertexSymbol));
 
-                // Densify the shape
-				var densify = GeometryEngine.GeodesicDensify(normalized, MyMapView.Extent.Width / 100, LinearUnits.Meters);
+				// Get current viewpoints extent from the MapView
+				var currentViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
+				var viewpointExtent = currentViewpoint.TargetGeometry.Extent;
+
+				// Densify the shape
+				var densify = GeometryEngine.GeodesicDensify(normalized, viewpointExtent.Width / 100, LinearUnits.Meters);
 
 				if (densify.GeometryType == GeometryType.Polygon)
 					_inputOverlay.Graphics.Add(new Graphic(densify, _fillSymbol));
 				else
 					_inputOverlay.Graphics.Add(new Graphic(densify, _lineSymbol));
 				
-                // Add new vertices to result graphics layer
+				// Add new vertices to result graphics layer
 				var coordsDensify = (densify as Multipart).Parts.First().GetPoints();
-                foreach (var coord in coordsDensify)
-                    _resultsOverlay.Graphics.Add(new Graphic(coord, _newVertexSymbol));
+				foreach (var coord in coordsDensify)
+					_resultsOverlay.Graphics.Add(new Graphic(coord, _newVertexSymbol));
 
-                // Results
-                var results = new List<Tuple<string, object>>()
-                {
-                    new Tuple<string, object>("Length", GeometryEngine.GeodesicLength(densify) * METERS_TO_MILES),
-                    new Tuple<string, object>("Area", 
-                        (normalized is Polygon) ? (GeometryEngine.GeodesicArea(densify) * SQUARE_METERS_TO_MILES).ToString("0.000") : "N/A"),
-                    new Tuple<string, object>("Vertices Before", coordsOriginal.Count()),
-                    new Tuple<string, object>("Vertices After", coordsDensify.Count())
-                };
+				// Results
+				var results = new List<Tuple<string, object>>()
+				{
+					new Tuple<string, object>("Length", GeometryEngine.GeodesicLength(densify) * METERS_TO_MILES),
+					new Tuple<string, object>("Area", 
+						(normalized is Polygon) ? (GeometryEngine.GeodesicArea(densify) * SQUARE_METERS_TO_MILES).ToString("0.000") : "N/A"),
+					new Tuple<string, object>("Vertices Before", coordsOriginal.Count()),
+					new Tuple<string, object>("Vertices After", coordsDensify.Count())
+				};
 
-                resultsListView.ItemsSource = results;
-                resultsPanel.Visibility = Visibility.Visible;
-            }
-            catch (TaskCanceledException) { }
-            catch (Exception ex)
-            {
-                var _x = new MessageDialog("Densify Error: " + ex.Message, "Sample Error").ShowAsync();
-            }
-        }
-    }
+				resultsListView.ItemsSource = results;
+				resultsPanel.Visibility = Visibility.Visible;
+			}
+			catch (TaskCanceledException) { }
+			catch (Exception ex)
+			{
+				var _x = new MessageDialog("Densify Error: " + ex.Message, "Sample Error").ShowAsync();
+			}
+		}
+	}
 }

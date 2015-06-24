@@ -17,7 +17,7 @@ namespace ArcGISRuntime.Samples.Desktop
 	/// <category>Geometry</category>
 	public partial class Difference : UserControl
     {
-        private const string GDB_PATH = @"..\..\..\..\samples-data\maps\usa.geodatabase";
+        private const string GDB_PATH = @"..\..\..\samples-data\maps\usa.geodatabase";
 
         private Symbol _fillSymbol;
         private FeatureLayer _statesLayer;

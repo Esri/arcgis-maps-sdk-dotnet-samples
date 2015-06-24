@@ -21,10 +21,10 @@
 				<!-- Using group layer to group all Hydrographic layers -->
 				<esri:GroupLayer ID="Hydrographic">
 					<hydro:HydrographicS57Layer ID="US1WCO1M" 
-						Path="..\..\..\..\samples-data\symbology\s57-electronic-navigational-charts\us1wc01m\US1WC01M.000">
+						Path="..\..\..\samples-data\symbology\s57-electronic-navigational-charts\us1wc01m\US1WC01M.000">
 					</hydro:HydrographicS57Layer>
 					<hydro:HydrographicS57Layer ID="US1WC07M" 
-						Path="..\..\..\..\samples-data\symbology\s57-electronic-navigational-charts\us1wc07m\US1WC07M.000">
+						Path="..\..\..\samples-data\symbology\s57-electronic-navigational-charts\us1wc07m\US1WC07M.000">
 					</hydro:HydrographicS57Layer>
 				</esri:GroupLayer>
 			</esri:Map>

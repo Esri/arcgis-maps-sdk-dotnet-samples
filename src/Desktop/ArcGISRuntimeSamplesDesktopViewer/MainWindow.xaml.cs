@@ -133,7 +133,7 @@ namespace ArcGISRuntime.Samples.DesktopViewer
 
 		private void CheckForLocalData()
 		{
-			if (!Directory.Exists(@"..\..\..\..\..\samples-data\"))
+			if (!Directory.Exists(@"..\..\..\samples-data\"))
 			{
 				sampleDataNotFound.Visibility = System.Windows.Visibility.Visible;
 			}

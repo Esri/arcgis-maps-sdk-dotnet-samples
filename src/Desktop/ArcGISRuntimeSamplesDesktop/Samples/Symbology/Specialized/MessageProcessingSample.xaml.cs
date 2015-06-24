@@ -22,7 +22,7 @@ namespace ArcGISRuntime.Samples.Desktop.Symbology.Specialized
 	/// <subcategory>Specialized</subcategory>
 	public partial class MessageProcessingSample : UserControl
 	{
-		private const string DATA_PATH = @"..\..\..\..\samples-data\symbology\Mil2525CMessages.xml";
+		private const string DATA_PATH = @"..\..\..\samples-data\symbology\Mil2525CMessages.xml";
 
 		private MessageLayer _messageLayer;
 

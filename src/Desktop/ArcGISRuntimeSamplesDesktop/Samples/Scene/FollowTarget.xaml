@@ -48,7 +48,7 @@
 				<Slider x:Name="sldRefresh" Width="100" Minimum="100" Maximum="1000" Value="1000" 
 						ValueChanged="sldRefresh_ValueChanged" Margin="0,5,0,10" AutoToolTipPlacement="BottomRight"/>
 
-				<ToggleButton Height="40" Width="100" Content="Start/Stop" 
+				<ToggleButton Height="30" Width="100" Content="Start/Stop" 
 							  Checked="FollowTargetChecked" Unchecked="FollowTargetUnchecked"/>
 			</StackPanel>
 		</Border>

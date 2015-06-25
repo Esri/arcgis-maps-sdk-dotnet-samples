@@ -99,7 +99,8 @@ namespace ArcGISRuntime.Samples.Desktop
 			SimpleLineSymbol sls = new SimpleLineSymbol()
 			{
 				Style = SimpleLineStyle.Solid,
-				Color = mode == SurfacePlacement.Absolute ? Colors.Red : mode == SurfacePlacement.Draped ? Colors.Yellow : Colors.LightBlue,
+				Color = mode == SurfacePlacement.Absolute ?
+                    Colors.Red : mode == SurfacePlacement.Draped ? Colors.Yellow : Colors.LightBlue,
 				Width = 4
 			};
 			
@@ -108,11 +109,11 @@ namespace ArcGISRuntime.Samples.Desktop
 
 		private Esri.ArcGISRuntime.Symbology.Symbol GetPolygonSymbol(SurfacePlacement mode)
 		{
-			SimpleFillSymbol sfs = new SimpleFillSymbol()
-			{
-				Style = SimpleFillStyle.Solid,
-				Color = mode == SurfacePlacement.Absolute ? Colors.Red : mode == SurfacePlacement.Draped ? Colors.Yellow : Colors.LightBlue,
-				Outline = new SimpleLineSymbol() { Color = Colors.Red, Width = 2 }
+            SimpleFillSymbol sfs = new SimpleFillSymbol()
+            {
+                Style = SimpleFillStyle.Solid,
+                Color = mode == SurfacePlacement.Absolute ?
+                    Colors.Red : mode == SurfacePlacement.Draped ? Colors.Yellow : Colors.LightBlue
 			};
 			
 			return sfs;
@@ -123,7 +124,8 @@ namespace ArcGISRuntime.Samples.Desktop
 			SimpleMarkerSymbol sms = new SimpleMarkerSymbol()
 			{
 				Style = SimpleMarkerStyle.Circle,
-				Color = mode == SurfacePlacement.Absolute ? Colors.Red : mode == SurfacePlacement.Draped ? Colors.Yellow : Colors.LightBlue,
+				Color = mode == SurfacePlacement.Absolute ? 
+                    Colors.Red : mode == SurfacePlacement.Draped ? Colors.Yellow : Colors.LightBlue,
 				Size = 20
 			};
 			

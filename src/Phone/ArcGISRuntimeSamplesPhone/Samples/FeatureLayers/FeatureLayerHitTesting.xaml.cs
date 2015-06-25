@@ -41,8 +41,9 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 				var rows = await _featureLayer.HitTestAsync(MyMapView, e.Position);
 				if (rows != null && rows.Length > 0)
 				{
-					var features = await _featureLayer.FeatureTable.QueryAsync(rows);
-					var feature = features.FirstOrDefault();
+                    // Forcing query to be executed against local cache
+                    var features = await (_featureLayer.FeatureTable as ServiceFeatureTable).QueryAsync(rows, true);
+                    var feature = features.FirstOrDefault();
 					if (feature != null)
 						listHitFeature.ItemsSource = feature.Attributes.Select(attr => new Tuple<string, string>(attr.Key, attr.Value.ToString()));
 					else

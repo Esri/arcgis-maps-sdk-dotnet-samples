@@ -44,7 +44,7 @@ namespace ArcGISRuntime.Samples.Desktop
                 }
             };
 
-			_animatingLayer = new GraphicsLayer()
+            _animatingLayer = new GraphicsLayer()
             {
                 Renderer = new SimpleRenderer()
                 {
@@ -56,23 +56,19 @@ namespace ArcGISRuntime.Samples.Desktop
                 }
             };
 
+            MyMapView.Map.Layers.Add(_userInteractionLayer);
+            MyMapView.Map.Layers.Add(_animatingLayer);
+
             PropertyChangedEventHandler propertyChanged = null;
             propertyChanged += async (s, e) =>
             {
                 if (e.PropertyName == "SpatialReference")
                 {
                     MyMapView.PropertyChanged -= propertyChanged;
-					AddOverlays();
                     await WaitforMapClick();
                 }
             };
 			MyMapView.PropertyChanged += propertyChanged;
-        }
-
-        private void AddOverlays()
-        {
-			MyMapView.Map.Layers.Add(_userInteractionLayer);
-			MyMapView.Map.Layers.Add(_animatingLayer);
         }
 
         private async Task WaitforMapClick()

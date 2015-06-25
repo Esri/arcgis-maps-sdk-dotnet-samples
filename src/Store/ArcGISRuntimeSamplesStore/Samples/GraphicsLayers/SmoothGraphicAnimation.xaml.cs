@@ -46,23 +46,19 @@ namespace ArcGISRuntime.Samples.Store.Samples
                 }
             };
 
+            MyMapView.Map.Layers.Add(_userInteractionLayer);
+            MyMapView.Map.Layers.Add(_animatingLayer);
+
             PropertyChangedEventHandler propertyChanged = null;
             propertyChanged += async (s, e) =>
             {
                 if (e.PropertyName == "SpatialReference")
                 {
                     MyMapView.PropertyChanged -= propertyChanged;
-                    AddLayers();
                     await WaitforMapClick();
                 }
             };
             MyMapView.PropertyChanged += propertyChanged;
-        }
-
-        private void AddLayers()
-        {
-            MyMapView.Map.Layers.Add(_userInteractionLayer);
-			MyMapView.Map.Layers.Add(_animatingLayer);
         }
 
         private async Task WaitforMapClick()

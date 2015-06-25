@@ -55,10 +55,8 @@
         <Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
             <StackPanel>
                 <TextBlock FontSize="14" FontWeight="Bold" Margin="8" HorizontalAlignment="Center">
-                    <Run Text="All Cities: " />
-                    <Run Text="{Binding ElementName=MyMapView, Path=Map.Layers[FeatureLayer].FeatureTable.Where}" />
+                    <Run Text="Query cities " />
                 </TextBlock>
-
                 <StackPanel Orientation="Horizontal" Margin="8" HorizontalAlignment="Center">
                     <TextBox x:Name="where" Margin="4" Text="pop2000 > 500000" Width="200"/>
                     <Button Content="Query" Click="QueryButton_Click" Margin="4" />

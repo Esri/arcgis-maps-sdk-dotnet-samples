@@ -65,9 +65,9 @@
 			</StackPanel>
 
 			<StackPanel Background="Transparent" Margin="10,40,15,0" HorizontalAlignment="Left" VerticalAlignment="Top">
-				<TextBlock Text="Elevation Exaggeration" Foreground="Black" Margin="10,0,0,5" />
-				<Slider x:Name="ElevationExaggerationSlider" Minimum="0" Maximum="4" Interval="1" 
-						ValueChanged="OnElevationExaggerationChanged" Margin="10,5,0,10"/>
+				<TextBlock Text="Elevation Exaggeration" Foreground="White" Margin="10,0,0,5" />
+                <Slider x:Name="ElevationExaggerationSlider" Minimum="1" Maximum="5" TickFrequency="1"
+                        ValueChanged="OnElevationExaggerationChanged" Margin="10,5,0,10"/>
 			</StackPanel>
 		</Grid>
 	</Grid>

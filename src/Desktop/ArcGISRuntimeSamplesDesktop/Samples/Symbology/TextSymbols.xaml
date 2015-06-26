@@ -14,20 +14,18 @@
 			</esri:MapView.GraphicsOverlays>
 		</esri:MapView>
 
-		<Border Background="White" BorderBrush="Black" BorderThickness="1" Margin="30" Padding="20"
+        <Border Background="White" BorderBrush="Black" BorderThickness="1" Margin="30" Padding="20"
                 HorizontalAlignment="Right" VerticalAlignment="Top">
-			<Border.Effect>
-				<DropShadowEffect />
-			</Border.Effect>
-			<StackPanel>
+            <StackPanel>
                 <TextBlock Text="Click the map to add points with the selected text symbol."
                            FontSize="14" Width="250" TextAlignment="Left" TextWrapping="Wrap" />
 
                 <StackPanel HorizontalAlignment="Stretch" Margin="12,20,12,0">
-                    <ComboBox x:Name="symbolCombo" SelectedIndex="0" SelectionChanged="symbolCombo_SelectionChanged">
+                    <ComboBox x:Name="symbolCombo" SelectedIndex="0" SelectionChanged="symbolCombo_SelectionChanged"
+                              VerticalContentAlignment="Center">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <Image Source="{Binding}" Stretch="None" Margin="5" />
+                                <Image Source="{Binding}" Stretch="None" />
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>

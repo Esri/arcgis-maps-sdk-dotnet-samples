@@ -4,6 +4,7 @@ using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -44,7 +45,7 @@ namespace ArcGISRuntime.Samples.Desktop
                 }
             };
 
-			_animatingLayer = new GraphicsLayer()
+            _animatingLayer = new GraphicsLayer()
             {
                 Renderer = new SimpleRenderer()
                 {
@@ -56,23 +57,24 @@ namespace ArcGISRuntime.Samples.Desktop
                 }
             };
 
-            PropertyChangedEventHandler propertyChanged = null;
-            propertyChanged += async (s, e) =>
-            {
-                if (e.PropertyName == "SpatialReference")
-                {
-                    MyMapView.PropertyChanged -= propertyChanged;
-					AddOverlays();
-                    await WaitforMapClick();
-                }
-            };
-			MyMapView.PropertyChanged += propertyChanged;
+            MyMapView.Map.Layers.Add(_userInteractionLayer);
+            MyMapView.Map.Layers.Add(_animatingLayer);
+
+            MyMapView.SpatialReferenceChanged += MyMapView_SpatialReferenceChanged;
         }
 
-        private void AddOverlays()
+        private async void MyMapView_SpatialReferenceChanged(object sender, EventArgs e)
         {
-			MyMapView.Map.Layers.Add(_userInteractionLayer);
-			MyMapView.Map.Layers.Add(_animatingLayer);
+            MyMapView.SpatialReferenceChanged -= MyMapView_SpatialReferenceChanged;
+
+            try
+            {
+                await WaitforMapClick();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Smooth Graphic animation sample");
+            }
         }
 
         private async Task WaitforMapClick()

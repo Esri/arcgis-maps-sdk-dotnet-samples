@@ -2,9 +2,9 @@
 using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Symbology;
 using System;
-using System.ComponentModel;
 using System.Threading.Tasks;
 using Windows.UI;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Animation;
 
@@ -46,23 +46,24 @@ namespace ArcGISRuntime.Samples.Store.Samples
                 }
             };
 
-            PropertyChangedEventHandler propertyChanged = null;
-            propertyChanged += async (s, e) =>
-            {
-                if (e.PropertyName == "SpatialReference")
-                {
-                    MyMapView.PropertyChanged -= propertyChanged;
-                    AddLayers();
-                    await WaitforMapClick();
-                }
-            };
-            MyMapView.PropertyChanged += propertyChanged;
+            MyMapView.Map.Layers.Add(_userInteractionLayer);
+            MyMapView.Map.Layers.Add(_animatingLayer);
+
+            MyMapView.SpatialReferenceChanged += MyMapView_SpatialReferenceChanged;
         }
 
-        private void AddLayers()
+        private async void MyMapView_SpatialReferenceChanged(object sender, EventArgs e)
         {
-            MyMapView.Map.Layers.Add(_userInteractionLayer);
-			MyMapView.Map.Layers.Add(_animatingLayer);
+            MyMapView.SpatialReferenceChanged -= MyMapView_SpatialReferenceChanged;
+
+            try
+            {
+                await WaitforMapClick();
+            }
+            catch (Exception ex)
+            {
+                var _x = new MessageDialog(ex.ToString(), "Smooth Graphic animation sample").ShowAsync();
+            }
         }
 
         private async Task WaitforMapClick()

@@ -1,5 +1,6 @@
 ﻿using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Layers;
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -20,6 +21,7 @@ namespace ArcGISRuntime.Samples.Desktop
         public event PropertyChangedEventHandler PropertyChanged;
 
         private Feature _resultFeature;
+        private FeatureLayer _featureLayer;
 
         /// <summary>HitTest result feature</summary>
         public Feature ResultFeature 
@@ -39,6 +41,7 @@ namespace ArcGISRuntime.Samples.Desktop
             InitializeComponent();
 
             DataContext = this;
+            _featureLayer = MyMapView.Map.Layers["FeatureLayer"] as FeatureLayer;
         }
 
         /// <summary>
@@ -51,10 +54,12 @@ namespace ArcGISRuntime.Samples.Desktop
         {
             try
             {
-				var rows = await cities.HitTestAsync(MyMapView, e.Position);
+				var rows = await _featureLayer.HitTestAsync(MyMapView, e.Position);
                 if (rows != null && rows.Length > 0)
                 {
-                    var features = await cities.FeatureTable.QueryAsync(rows);
+                    // Forcing query to be executed against local cache
+                    var features = await (_featureLayer.FeatureTable as ServiceFeatureTable).QueryAsync(rows, true);
+
                     ResultFeature = features.FirstOrDefault();
                 }
                 else

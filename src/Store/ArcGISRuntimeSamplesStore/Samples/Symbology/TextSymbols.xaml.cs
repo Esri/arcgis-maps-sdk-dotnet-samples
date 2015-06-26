@@ -103,7 +103,7 @@ namespace ArcGISRuntime.Samples.Store.Samples
 
 				// Create image swatches for the UI
 				Task<ImageSource>[] swatchTasks = _symbols
-					.Select(sym => sym.CreateSwatchAsync())
+					.Select(sym => sym.CreateSwatchAsync(200, 30, 96, Colors.Transparent))
 					.ToArray();
 
 				symbolCombo.ItemsSource = new List<ImageSource>(await Task.WhenAll(swatchTasks));

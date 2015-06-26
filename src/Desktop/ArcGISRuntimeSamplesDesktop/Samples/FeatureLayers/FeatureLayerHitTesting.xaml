@@ -9,7 +9,7 @@
                 <esri:ArcGISTiledMapServiceLayer
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 
-                <esri:FeatureLayer x:Name="cities" ID="featureLayer">
+                <esri:FeatureLayer ID="FeatureLayer">
 					<esri:FeatureLayer.Renderer>
 						<esri:SimpleRenderer>
 							<esri:SimpleMarkerSymbol Color="LightBlue" Style="Circle" Size="12">

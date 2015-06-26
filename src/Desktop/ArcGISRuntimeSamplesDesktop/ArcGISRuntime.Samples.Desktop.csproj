@@ -79,6 +79,9 @@
     <Compile Include="Samples\Scene\FollowTarget.xaml.cs">
       <DependentUpon>FollowTarget.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Scene\GraphicsOverlay3d.xaml.cs">
+      <DependentUpon>GraphicsOverlay3d.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Scene\OpenStreetMapLayerSample3d.xaml.cs">
       <DependentUpon>OpenStreetMapLayerSample3d.xaml</DependentUpon>
     </Compile>
@@ -537,6 +540,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\Scene\FollowTarget.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Scene\GraphicsOverlay3d.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

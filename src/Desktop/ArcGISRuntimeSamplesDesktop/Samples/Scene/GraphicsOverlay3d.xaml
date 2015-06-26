@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="ArcGISRuntime.Samples.Desktop.GraphicsOverlay3d"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013" >
+	<Grid>
+		<esri:SceneView x:Name="MySceneView">
+			<esri:Scene>
+				<esri:ArcGISTiledMapServiceLayer ID="Imagery"
+					ServiceUri="http://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer" />
+			</esri:Scene>
+			<esri:SceneView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="MyGraphicsOverlay" />
+			</esri:SceneView.GraphicsOverlays>
+		</esri:SceneView>
+	</Grid>
+</UserControl>

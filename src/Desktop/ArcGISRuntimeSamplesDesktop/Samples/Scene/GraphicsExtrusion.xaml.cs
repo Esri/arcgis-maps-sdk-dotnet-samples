@@ -5,32 +5,20 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Query;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ArcGISRuntime.Samples.Desktop
 {
 	/// <summary>
-	/// Shows how to use extrusion which means stretching a flat 2D shape vertically to create a 3D object.
+	/// Demonstrates how to use graphics extrusion to stretch a flat 2D shape vertically to create a 3D object.
 	/// </summary>
 	/// <title>3D Graphics Extrusion</title>
 	/// <category>Scene</category>
 	/// <subcategory>Graphics</subcategory>
 	public partial class GraphicsExtrusion : UserControl
 	{
-		private SimpleRenderer _renderer;
-
 		public GraphicsExtrusion()
 		{
 			InitializeComponent();
@@ -41,11 +29,7 @@ namespace ArcGISRuntime.Samples.Desktop
 		{
 			try
 			{
-				extrusionComboBox.ItemsSource = Enum.GetValues(typeof(ExtrusionMode));
-				extrusionComboBox.SelectedIndex = 2;
-
 				CreateExtrusionInfos();
-
 
 				// Set initial viewpoint
 				var viewpoint = new ViewpointCenter(new MapPoint(-96, 39), 15000000);
@@ -76,6 +60,7 @@ namespace ArcGISRuntime.Samples.Desktop
 				// Set graphics to the overlay
 				var statesOverlay = MySceneView.GraphicsOverlays["statesOverlay"];
 				statesOverlay.GraphicsSource = states;
+
 			}
 			catch (Exception ex)
 			{
@@ -116,55 +101,26 @@ namespace ArcGISRuntime.Samples.Desktop
 		{
 			var statesOverlay = MySceneView.GraphicsOverlays["statesOverlay"];
 			var renderingInfo = (e.AddedItems[0] as RenderingInfo);
-			_renderer = statesOverlay.Renderer as SimpleRenderer;
+			var renderer = statesOverlay.Renderer as SimpleRenderer;
 
 			// Change rendering information based on the selection
-			(_renderer.Symbol as SimpleFillSymbol).Color = renderingInfo.Color;
-			_renderer.SceneProperties.ExtrusionExpression = renderingInfo.ExtrusionExpression;
-
-			// Set extrusion mode to combobox
-			_renderer.SceneProperties.ExtrusionMode = (ExtrusionMode)Enum.Parse(typeof(ExtrusionMode), extrusionComboBox.SelectedValue.ToString());
-
+			(renderer.Symbol as SimpleFillSymbol).Color = renderingInfo.Color;
+			renderer.SceneProperties.ExtrusionExpression = renderingInfo.ExtrusionExpression;
 		}
 
-		private void extrusionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		// Simple container class for rendering information
+		public class RenderingInfo
 		{
-			//ExtrusionMode test = (ExtrusionMode)Enum.Parse(typeof(ExtrusionMode), extrusionComboBox.SelectedValue.ToString());
+			public RenderingInfo(string displayName, string extrusionExpression, Color color)
+			{
+				DisplayName = displayName;
+				ExtrusionExpression = extrusionExpression;
+				Color = color;
+			}
 
-			//_renderer.SceneProperties.ExtrusionMode = test;
-
-			//DrawMap();
-
+			public string DisplayName { get; private set; }
+			public Color Color { get; private set; }
+			public string ExtrusionExpression { get; private set; }
 		}
-
-		private void DrawMap()
-		{
-			//var statesOverlay = MySceneView.GraphicsOverlays["statesOverlay"];
-			//var renderingInfo = (e.AddedItems[0] as RenderingInfo);
-			//_renderer = statesOverlay.Renderer as SimpleRenderer;
-
-			//// Change rendering information based on the selection
-			//(_renderer.Symbol as SimpleFillSymbol).Color = renderingInfo.Color;
-			//_renderer.SceneProperties.ExtrusionExpression = renderingInfo.ExtrusionExpression;
-
-			//// Set extrusion mode to combobox
-			//_renderer.SceneProperties.ExtrusionMode = (ExtrusionMode)Enum.Parse(typeof(ExtrusionMode), extrusionComboBox.SelectedValue.ToString());
-
-		}
-	}
-
-	// Simple container class for rendering information
-	public class RenderingInfo
-	{
-		public RenderingInfo(string displayName, string extrusionExpression, Color color)
-		{
-			DisplayName = displayName;
-			ExtrusionExpression = extrusionExpression;
-			Color = color;
-		}
-
-		public string DisplayName { get; private set; }
-		public Color Color { get; private set; }
-		public string ExtrusionExpression { get; private set; }
 	}
 }

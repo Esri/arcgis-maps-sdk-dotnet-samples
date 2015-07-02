@@ -1237,13 +1237,6 @@
         <member name="T:ArcGISRuntime.Samples.Store.Samples.DoubleToStringConverter">
             <summary>Double to formatted string value converter</summary>
         </member>
-        <member name="T:ArcGISRuntime.Samples.Store.Samples.InteractionOptionsSample3d">
-            <summary>
-            This sample shows how to change interaction settings that controls the SceneView.
-            </summary>
-            <title>Interaction Options 3d</title>
-            <category>Scene</category>
-        </member>
         <member name="T:ArcGISRuntime.Samples.Store.Samples.OAuthAuthorizeHandler">
             <summary>
             Phone/Store OAuthAuthorize handler which encapsulates the redirection of the user to the OAuth authorization URI by using a WebBrowser.

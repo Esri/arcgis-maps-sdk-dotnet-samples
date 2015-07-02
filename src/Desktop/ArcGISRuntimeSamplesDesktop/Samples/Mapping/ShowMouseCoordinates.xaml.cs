@@ -20,7 +20,7 @@ namespace ArcGISRuntime.Samples.Desktop
 
 		private void MyMapView_MouseMove(object sender, MouseEventArgs e)
 		{
-			if (MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent == null)
+			if (MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry) == null)
 				return;
 
 			System.Windows.Point screenPoint = e.GetPosition(MyMapView);

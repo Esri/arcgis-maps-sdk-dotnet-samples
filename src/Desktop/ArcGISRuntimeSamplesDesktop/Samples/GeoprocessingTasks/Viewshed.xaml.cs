@@ -52,7 +52,7 @@ namespace ArcGISRuntime.Samples.Desktop
 
                 var parameter = new GPInputParameter() { OutSpatialReference = SpatialReferences.WebMercator };
 				parameter.GPParameters.Add(new GPFeatureRecordSetLayer("Input_Observation_Point", inputPoint));
-				parameter.GPParameters.Add(new GPLinearUnit("Viewshed_Distance ", LinearUnits.Miles, Convert.ToDouble(txtMiles.Text)));
+				parameter.GPParameters.Add(new GPLinearUnit("Viewshed_Distance", LinearUnits.Miles, Convert.ToDouble(txtMiles.Text)));
 
 				txtStatus.Text = "Processing on server...";
 				var result = await _gpTask.ExecuteAsync(parameter);

@@ -103,12 +103,16 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 			catch (Exception ex)
 			{
 				message = ex.Message;
-				if (_editGraphic != null)
-				{
-					_editGraphic.Geometry = resultGeometry;
-					_editGraphic.IsVisible = true;
-				}
-			}
+
+      }
+      finally
+      {
+        if (_editGraphic != null)
+        {
+          _editGraphic.Geometry = resultGeometry;
+          _editGraphic.IsVisible = true;
+        }
+      }
 			if (message != null)
 				await new MessageDialog(message).ShowAsync();
 		}

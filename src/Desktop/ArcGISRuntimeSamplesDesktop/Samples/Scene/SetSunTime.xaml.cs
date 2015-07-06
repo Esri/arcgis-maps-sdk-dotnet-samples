@@ -16,7 +16,7 @@ namespace ArcGISRuntime.Samples.Desktop
 	public partial class SetSunTime : UserControl
 	{
 		System.Windows.Threading.DispatcherTimer _myDispatcherTimer;
-		public DateTime utcBerlin;
+		private DateTime utcBerlin;
 
 		public SetSunTime()
 		{
@@ -51,7 +51,8 @@ namespace ArcGISRuntime.Samples.Desktop
 				{
 					// Start a new Timer at 1 second intervals
 					_myDispatcherTimer = new DispatcherTimer();
-					_myDispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1000); // 1000 Milliseconds 
+					_myDispatcherTimer.Interval = TimeSpan.FromSeconds(1);
+					
 
 					DateTime dt = utcBerlin;
 					AnimateSunTimeLabel.Content = utcBerlin;

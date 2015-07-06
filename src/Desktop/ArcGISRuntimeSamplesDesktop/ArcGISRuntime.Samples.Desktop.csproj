@@ -516,6 +516,9 @@
     <Compile Include="Samples\TiledLayers\WmtsLayerSample.xaml.cs">
       <DependentUpon>WmtsLayerSample.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Scene\SetSunTime.xaml.cs">
+      <DependentUpon>SetSunTime.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Samples\Scene\ArcGISDynamicMapServiceLayerSample3d.xaml">
@@ -1125,6 +1128,10 @@
     <Page Include="Samples\TiledLayers\WmtsLayerSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Scene\SetSunTime.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

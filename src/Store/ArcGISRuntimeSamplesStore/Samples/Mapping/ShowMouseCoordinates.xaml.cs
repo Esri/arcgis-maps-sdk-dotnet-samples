@@ -20,7 +20,7 @@ namespace ArcGISRuntime.Samples.Store.Samples
 
 		private void MyMapView_PointerMoved(object sender, PointerRoutedEventArgs e)
 		{
-			if (MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry.Extent == null)
+			if (MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry) == null)
 				return;
 
 			var pointerPoint = e.GetCurrentPoint(MyMapView);

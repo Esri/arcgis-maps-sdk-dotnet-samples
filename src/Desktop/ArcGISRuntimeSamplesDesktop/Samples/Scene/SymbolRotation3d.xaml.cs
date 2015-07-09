@@ -27,6 +27,7 @@ namespace ArcGISRuntime.Samples.Desktop
 			if (e.LoadError == null && e.Layer.ID == "AGOLayer")
 			{
 				MySceneView.SetViewAsync(new Camera(new MapPoint(-106.57, 39.01, 14614.24), 281.66, 74.47), new TimeSpan(0, 0, 3), true);
+ 
 				AddGraphics();
 			}
 		}
@@ -36,9 +37,9 @@ namespace ArcGISRuntime.Samples.Desktop
 			Graphic graphic = new Graphic(new MapPoint(-106.981, 39.028, 6000, SpatialReferences.Wgs84));
 
 			// Add a graphic to each graphics layer. It will use the renderer specified in the XAML to render the graphic.
-			foreach (GraphicsLayer gLayer in this.MySceneView.Scene.Layers.Where(l => l is GraphicsLayer))
+			foreach (GraphicsOverlay gOverlay in MySceneView.GraphicsOverlays)
 			{
-				gLayer.Graphics.Add(graphic);
+				gOverlay.Graphics.Add(graphic);
 			}
 		}
 
@@ -47,50 +48,50 @@ namespace ArcGISRuntime.Samples.Desktop
 		/// </summary>
 		private void OnHeadingSliderChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
 		{
-			if (MySceneView.Scene.Layers.Any(l => l is GraphicsLayer))
+			foreach (GraphicsOverlay gOverlay in MySceneView.GraphicsOverlays)
 			{
-				foreach (GraphicsLayer gLayer in MySceneView.Scene.Layers.Where(l => l is GraphicsLayer))
+				foreach (Graphic g in gOverlay.Graphics)
 				{
-					foreach (Graphic g in gLayer.Graphics)
-					{
-						g.Attributes["Heading"] = (sender as Slider).Value;
-					}
+					g.Attributes["Heading"] = (sender as Slider).Value;
 				}
 			}
+
+			// Display the slider Heading value
+			txtHeading.Text = String.Format("Heading: {0:0.00}", (sender as Slider).Value.ToString());
 		}
 
 		/// <summary>
-		/// Change the Tilt of the graphics based on the slider values (-90 to +90)
+		/// Change the Pitch of the graphics based on the slider values (0-360)
 		/// </summary>
-		private void OnTiltSliderChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+		private void OnPitchSliderChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
 		{
-			if (MySceneView.Scene.Layers.Any(l => l is GraphicsLayer))
+			foreach (GraphicsOverlay gOverlay in MySceneView.GraphicsOverlays)
 			{
-				foreach (GraphicsLayer gLayer in MySceneView.Scene.Layers.Where(l => l is GraphicsLayer))
+				foreach (Graphic g in gOverlay.Graphics)
 				{
-					foreach (Graphic g in gLayer.Graphics)
-					{
-						g.Attributes["Tilt"] = (sender as Slider).Value;
-					}
+					g.Attributes["Pitch"] = (sender as Slider).Value;
 				}
 			}
+
+			// Display the slider Pitch value
+			txtPitch.Text = String.Format("Pitch: {0:0.00}", (sender as Slider).Value.ToString());
 		}
 
 		/// <summary>
-		/// Change the Roll of the graphics based on the slider values (-90 to +90)
+		/// Change the Roll of the graphics based on the slider values (0-360)
 		/// </summary>
 		private void OnRollSliderChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
 		{
-			if (MySceneView.Scene.Layers.Any(l => l is GraphicsLayer))
+			foreach (GraphicsOverlay gOverlay in MySceneView.GraphicsOverlays)
 			{
-				foreach (GraphicsLayer gLayer in MySceneView.Scene.Layers.Where(l => l is GraphicsLayer))
+				foreach (Graphic g in gOverlay.Graphics)
 				{
-					foreach (Graphic g in gLayer.Graphics)
-					{
-						g.Attributes["Roll"] = (sender as Slider).Value;
-					}
+					g.Attributes["Roll"] = (sender as Slider).Value;
 				}
 			}
+
+			// Display the slider Roll value
+			txtRoll.Text = String.Format("Roll: {0:0.00}", (sender as Slider).Value.ToString());
 		}
 	}
 }

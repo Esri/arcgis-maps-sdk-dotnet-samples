@@ -10,7 +10,7 @@
 			<esri:SimpleRenderer x:Key="SimpleDiamondRenderer">
 				<esri:SimpleRenderer.SceneProperties>
 					<esri:RendererSceneProperties HeadingExpression="[Heading]" 
-												  PitchExpression="[Tilt]"
+												  PitchExpression="[Pitch]"
 												  RollExpression="[Roll]" />
 				</esri:SimpleRenderer.SceneProperties>
 				<esri:SimpleRenderer.Symbol>
@@ -21,7 +21,7 @@
 			<esri:SimpleRenderer x:Key="SimpleBoxRenderer">
 				<esri:SimpleRenderer.SceneProperties>
 					<esri:RendererSceneProperties HeadingExpression="[Heading]" 
-												  PitchExpression="[Tilt]" 
+												  PitchExpression="[Pitch]" 
 												  RollExpression="[Roll]" />
 				</esri:SimpleRenderer.SceneProperties>
 				<esri:SimpleRenderer.Symbol>
@@ -37,36 +37,35 @@
 												 IsEnabled="True" />
 				</esri:Scene.Surface>
 				<esri:ArcGISTiledMapServiceLayer ID="AGOLayer" 
-												 ServiceUri="http://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer" />
-				
-				<esri:GraphicsLayer ID="DiamondGraphicsLayer" Renderer="{StaticResource SimpleDiamondRenderer}">
-					<esri:GraphicsLayer.SceneProperties>
-						<esri:LayerSceneProperties SurfacePlacement="Relative"/>
-					</esri:GraphicsLayer.SceneProperties>
-				</esri:GraphicsLayer>
-
-				<esri:GraphicsLayer ID="BoxGraphicsLayer" Renderer="{StaticResource SimpleBoxRenderer}">
-					<esri:GraphicsLayer.SceneProperties>
-						<esri:LayerSceneProperties SurfacePlacement="Draped"/>
-					</esri:GraphicsLayer.SceneProperties>
-				</esri:GraphicsLayer>
-				
+												 ServiceUri="http://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer" />				
 			</esri:Scene>
+			<esri:SceneView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="DiamondGraphicsLayer" Renderer="{StaticResource SimpleDiamondRenderer}">
+					<esri:GraphicsOverlay.SceneProperties>
+						<esri:LayerSceneProperties SurfacePlacement="Relative"/>
+					</esri:GraphicsOverlay.SceneProperties>
+				</esri:GraphicsOverlay>
+				<esri:GraphicsOverlay ID="BoxGraphicsLayer" Renderer="{StaticResource SimpleBoxRenderer}">
+					<esri:GraphicsOverlay.SceneProperties>
+						<esri:LayerSceneProperties SurfacePlacement="Draped"/>
+					</esri:GraphicsOverlay.SceneProperties>
+				</esri:GraphicsOverlay>
+			</esri:SceneView.GraphicsOverlays>
 		</esri:SceneView>
 		<Grid HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Width="100">
 			<Border BorderBrush="Gray" BorderThickness="2" CornerRadius="4" Background="LightGray">
 				<StackPanel>
 					<StackPanel Background="Transparent" Margin="5">
-						<TextBlock x:Name="HeadingText"  Text="Heading" Foreground="Black"/>
-						<Slider x:Name="HeadingSlider" Minimum="0" Maximum="360" Interval="10" ValueChanged="OnHeadingSliderChanged"/>
+						<TextBlock x:Name="txtHeading" Text="Heading" Foreground="Black"/>
+						<Slider x:Name="HeadingSlider" Minimum="0" Maximum="360" ValueChanged="OnHeadingSliderChanged"/>
 					</StackPanel>
 					<StackPanel Background="Transparent" Margin="5">
-						<TextBlock Text="Pitch" Foreground="Black"/>
-						<Slider x:Name="TiltSlider" Minimum="-90" Maximum="90" Interval="10" ValueChanged="OnTiltSliderChanged"/>
+						<TextBlock x:Name="txtPitch" Text="Pitch"  Foreground="Black"/>
+						<Slider x:Name="PitchSlider" Minimum="0" Maximum="360" ValueChanged="OnPitchSliderChanged"/>
 					</StackPanel>
 					<StackPanel Background="Transparent" Margin="5">
-						<TextBlock Text="Roll" Foreground="Black"/>
-						<Slider x:Name="RollSlider" Minimum="-90" Maximum="90" Interval="10" ValueChanged="OnRollSliderChanged"/>
+						<TextBlock x:Name="txtRoll" Text="Roll"  Foreground="Black"/>
+						<Slider x:Name="RollSlider" Minimum="0" Maximum="360" ValueChanged="OnRollSliderChanged"/>
 					</StackPanel>
 				</StackPanel>
 			</Border>

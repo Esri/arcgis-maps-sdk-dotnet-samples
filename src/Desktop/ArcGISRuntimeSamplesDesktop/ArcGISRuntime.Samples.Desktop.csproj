@@ -76,6 +76,9 @@
     <Compile Include="Samples\Scene\ElevationModeSample.xaml.cs">
       <DependentUpon>ElevationModeSample.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Scene\FeatureLayerFromLocalGeodatabase3d.xaml.cs">
+      <DependentUpon>FeatureLayerFromLocalGeodatabase3d.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Scene\FollowTarget.xaml.cs">
       <DependentUpon>FollowTarget.xaml</DependentUpon>
     </Compile>
@@ -547,6 +550,10 @@
     <Page Include="Samples\Scene\ElevationModeSample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Scene\FeatureLayerFromLocalGeodatabase3d.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Scene\FollowTarget.xaml">
       <Generator>MSBuild:Compile</Generator>

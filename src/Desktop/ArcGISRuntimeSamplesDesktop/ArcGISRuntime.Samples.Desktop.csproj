@@ -519,6 +519,9 @@
     <Compile Include="Samples\Scene\SetSunTime.xaml.cs">
       <DependentUpon>SetSunTime.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Scene\SymbolRotation3d.xaml.cs">
+      <DependentUpon>SymbolRotation3d.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Samples\Scene\ArcGISDynamicMapServiceLayerSample3d.xaml">
@@ -1130,6 +1133,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Scene\SetSunTime.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Scene\SymbolRotation3d.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

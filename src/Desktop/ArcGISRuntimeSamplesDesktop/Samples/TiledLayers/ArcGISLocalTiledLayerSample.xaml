@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="ArcGISRuntime.Samples.Desktop.ArcGISLocalTiledLayerSample"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView>
+            <esri:Map>
+                <esri:ArcGISLocalTiledLayer Path="..\..\..\samples-data\basemaps\campus.tpk" />
+            </esri:Map>
+        </esri:MapView>
+    </Grid>
+</UserControl>

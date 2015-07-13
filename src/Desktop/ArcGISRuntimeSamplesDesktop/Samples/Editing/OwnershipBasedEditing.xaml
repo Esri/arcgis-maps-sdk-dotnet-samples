@@ -1,0 +1,105 @@
+﻿<UserControl x:Class="ArcGISRuntime.Samples.Desktop.OwnershipBasedEditing"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <Grid>
+        <esri:MapView x:Name="MyMapView"
+                      LayerUnloaded="MyMapView_LayerUnloaded"
+                      LayerLoaded="MyMapView_LayerLoaded"
+                      MapViewTapped="MyMapView_MapViewTapped">
+            <esri:Map InitialViewpoint="-10603931.812,3384001.576,-10595782.642,3388315.896,102100">
+                <esri:ArcGISTiledMapServiceLayer ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+                <!-- Makes all features at current extent available for editing -->
+                <esri:FeatureLayer ID="Marine">
+                    <esri:ServiceFeatureTable ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/SaveTheBay/FeatureServer/0" />
+                </esri:FeatureLayer>
+            </esri:Map>
+        </esri:MapView>
+        <Border Background="White"
+                BorderBrush="Black"
+                BorderThickness="1"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Width="200"
+                Margin="30"
+                Padding="20">
+            <Border.Effect>
+                <DropShadowEffect />
+            </Border.Effect>
+            <StackPanel>
+                <TextBlock x:Name="LoginInfo"
+                           TextWrapping="Wrap"
+                           Margin="2" />
+                <Grid>
+                    <Grid x:Name="SignOutPanel">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Button Content="Sign out"
+                                Click="SignOutButton_Click"
+                                Margin="2" />
+                        <Button Content="Add Point"
+                                ToolTipService.ToolTip="Turtle"
+                                Click="AddButton_Click"
+                                Grid.Column="1"
+                                Margin="2">
+                            <Button.Tag>
+                                <sys:Int32>10</sys:Int32>
+                            </Button.Tag>
+                        </Button>
+                    </Grid>
+                    <Grid x:Name="LoginPanel"
+                          Background="White">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Username"
+                                   Margin="2"
+                                   HorizontalAlignment="Right" />
+                        <TextBox x:Name="Username"
+                                 Grid.Column="1"
+                                 Margin="2" />
+                        <TextBlock Text="Password"
+                                   Grid.Row="1"
+                                   Margin="2"
+                                   HorizontalAlignment="Right" />
+                        <TextBox x:Name="Password"
+                                 Grid.Row="1"
+                                 Grid.Column="1"
+                                 Margin="2" />
+                        <Button Content="Sign in"
+                                Click="SignInButton_Click"
+                                Grid.Row="2"
+                                Grid.ColumnSpan="2"
+                                HorizontalAlignment="Center"
+                                Margin="2" />
+                    </Grid>
+                </Grid>
+            </StackPanel>
+        </Border>
+        <Border Background="White"
+                BorderBrush="Black"
+                BorderThickness="1"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="30"
+                Padding="20">
+            <Border.Effect>
+                <DropShadowEffect />
+            </Border.Effect>
+            <TextBlock Text="Sign in to access the service. Click on a feature to select and check whether feature is allowed for update or delete. Click 'Add Point' to create new feature or 'Sign out' to enter new credentials."
+                       Width="200"
+                       TextAlignment="Left"
+                       Margin="30,20,20,30"
+                       TextWrapping="Wrap" />
+        </Border>
+    </Grid>
+</UserControl>

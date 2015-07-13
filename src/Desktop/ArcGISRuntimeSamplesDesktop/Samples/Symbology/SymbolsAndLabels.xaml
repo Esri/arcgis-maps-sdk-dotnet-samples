@@ -1,0 +1,99 @@
+﻿<UserControl
+	x:Class="ArcGISRuntime.Samples.Desktop.SymbolsAndLabels"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"	
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013" >
+
+	<UserControl.Resources>
+		<!--Composite Symbol mixing simple circle marker with a text-->
+		<esri:CompositeSymbol x:Key="NumberedMarkerSymbol1">
+			<esri:SimpleMarkerSymbol Size="20" Color="White">
+				<esri:SimpleMarkerSymbol.Outline>
+					<esri:SimpleLineSymbol Color="CornflowerBlue" Width="3" />
+				</esri:SimpleMarkerSymbol.Outline>
+			</esri:SimpleMarkerSymbol>
+			<esri:TextSymbol Text="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Middle">
+				<esri:TextSymbol.Font>
+					<esri:SymbolFont FontWeight="Bold" FontSize="14" />
+				</esri:TextSymbol.Font>
+			</esri:TextSymbol>
+		</esri:CompositeSymbol>
+		<esri:CompositeSymbol x:Key="NumberedMarkerSymbolA">
+			<esri:SimpleMarkerSymbol Size="20" Color="White">
+				<esri:SimpleMarkerSymbol.Outline>
+					<esri:SimpleLineSymbol Color="Red" Width="3" />
+				</esri:SimpleMarkerSymbol.Outline>
+			</esri:SimpleMarkerSymbol>
+			<esri:TextSymbol Text="A" HorizontalTextAlignment="Center" VerticalTextAlignment="Middle">
+				<esri:TextSymbol.Font>
+					<esri:SymbolFont FontWeight="Bold" FontSize="14" />
+				</esri:TextSymbol.Font>
+			</esri:TextSymbol>
+			<esri:SimpleMarkerSymbol Size="30" Color="Transparent">
+				<esri:SimpleMarkerSymbol.Outline>
+					<esri:SimpleLineSymbol Color="#AA000000" Width="1" />
+				</esri:SimpleMarkerSymbol.Outline>
+			</esri:SimpleMarkerSymbol>
+			<esri:SimpleMarkerSymbol Size="40" Color="Transparent">
+				<esri:SimpleMarkerSymbol.Outline>
+					<esri:SimpleLineSymbol Color="#55000000" Width="1" />
+				</esri:SimpleMarkerSymbol.Outline>
+			</esri:SimpleMarkerSymbol>
+		</esri:CompositeSymbol>
+
+		<esri:CompositeSymbol x:Key="OutlinedAndDashedSymbol">
+			<esri:SimpleLineSymbol Width="7" Color="CornflowerBlue" />
+			<esri:SimpleLineSymbol Style="Solid" Color="Black" Width="3" />
+			<esri:SimpleLineSymbol Style="Dash" Color="White" Width="3" />
+		</esri:CompositeSymbol>
+
+		<!--Uses a mix of marker, line and fill symbols to highlight vertices and create an advanced outline-->
+		<esri:CompositeSymbol x:Key="VertexFillSymbol">
+			<esri:SimpleFillSymbol Color="#44FFFF00">
+				<esri:SimpleFillSymbol.Outline>
+					<esri:SimpleLineSymbol Width="5" Color="CornflowerBlue" />
+				</esri:SimpleFillSymbol.Outline>
+			</esri:SimpleFillSymbol>
+			<esri:SimpleLineSymbol Style="DashDot" Color="White" Width="3" />
+			<esri:SimpleMarkerSymbol Size="8" Color="Red" />
+		</esri:CompositeSymbol>
+	</UserControl.Resources>
+
+	<Grid>
+		<esri:MapView x:Name="MyMapView">
+			<esri:Map>
+				<esri:ArcGISTiledMapServiceLayer
+					ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
+			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="labelGraphicsOverlay">
+					<esri:GraphicsOverlay.Labeling>
+						<esri:LabelProperties IsEnabled="False">
+							<esri:AttributeLabelClass TextExpression="[Label]" >
+								<esri:TextSymbol Color="Blue" />
+							</esri:AttributeLabelClass>
+							<esri:AttributeLabelClass TextExpression="[SymbolType] CONCAT NEWLINE CONCAT &quot;ID= &quot; CONCAT [ID]">
+								<esri:TextSymbol Color="Black" />
+							</esri:AttributeLabelClass>
+						</esri:LabelProperties>
+					</esri:GraphicsOverlay.Labeling>
+				</esri:GraphicsOverlay>
+			</esri:MapView.GraphicsOverlays>
+
+		</esri:MapView>
+
+		<Border Background="White" BorderBrush="Black" BorderThickness="1" Margin="30" Padding="20"
+				HorizontalAlignment="Right" VerticalAlignment="Top">
+			<Border.Effect>
+				<DropShadowEffect />
+			</Border.Effect>
+			<StackPanel>
+				<CheckBox x:Name="chkBoxDisplayLabels" Content="Display Labels"
+						  IsChecked="{Binding ElementName=MyMapView, Path=GraphicsOverlays[labelGraphicsOverlay].Labeling.IsEnabled, Mode=TwoWay}" />
+				<TextBlock Text="Map Rotation" Margin="0,10,5,0" />
+				<Slider Minimum="0" Maximum="360"
+						ValueChanged="Slider_ValueChanged" />
+			</StackPanel>
+		</Border>
+	</Grid>
+</UserControl>

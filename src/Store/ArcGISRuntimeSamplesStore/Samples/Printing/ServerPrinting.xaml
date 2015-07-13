@@ -1,0 +1,63 @@
+﻿<Page
+    x:Class="ArcGISRuntime.Samples.Store.Samples.ServerPrinting"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esri="using:Esri.ArcGISRuntime.Controls"
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+    xmlns:data="using:Esri.ArcGISRuntime.Data">
+    
+    <Page.BottomAppBar>
+        <CommandBar IsOpen="True" IsSticky="True">
+            <CommandBar.PrimaryCommands>
+                <AppBarButton Icon="Preview" Label="Print">
+                    <AppBarButton.Flyout>
+                        <Flyout>
+                            <StackPanel Width="350">
+                                <ComboBox x:Name="comboLayout" Header="Layout Template:" Margin="2">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}"/>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+
+                                <ComboBox x:Name="comboFormat" Header="Format:" Margin="2">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}"/>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+
+                                <Button Content="Export Map" Click="ExportMap_Click" 
+                                        HorizontalAlignment="Center" Margin="0,8,0,0" Padding="10,6"/>
+
+                                <ProgressBar x:Name="progress" IsIndeterminate="True" 
+                                             Margin="12,12,12,0" Visibility="Collapsed" />
+                            </StackPanel>
+                        </Flyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+            </CommandBar.PrimaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+    
+    <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <esri:MapView x:Name="MyMapView">
+			<esri:Map>
+                <esri:Map.InitialViewpoint>
+                    <esri:ViewpointExtent XMin="-10929488" YMin="4525208" 
+                                          XMax="-10906777" YMax="4535252" SpatialReferenceID="102100" />
+                </esri:Map.InitialViewpoint>
+				<layers:ArcGISTiledMapServiceLayer 
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+                <layers:ArcGISDynamicMapServiceLayer 
+                    ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Petroleum/KSFields/MapServer" />
+                <layers:FeatureLayer>
+                    <data:ServiceFeatureTable Mode="OnDemand" 
+                        ServiceUri="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Petroleum/KSWells/MapServer/0" />
+                </layers:FeatureLayer>
+            </esri:Map>
+        </esri:MapView>
+    </Grid>
+</Page>

@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="ArcGISRuntime.Samples.Desktop.SimpleRendererSample"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:ArcGISRuntime.Samples.Desktop"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid x:Name="layoutGrid">
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
+			<esri:Map InitialViewpoint="-15053000,2749000,-6540000,6590000">
+				<esri:ArcGISTiledMapServiceLayer
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
+			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="graphicsOverlay">
+					<esri:GraphicsOverlay.Renderer>
+						<esri:SimpleRenderer>
+							<esri:SimpleMarkerSymbol Color="Red" Style="Circle" Size="15" />
+						</esri:SimpleRenderer>
+					</esri:GraphicsOverlay.Renderer>
+				</esri:GraphicsOverlay>
+			</esri:MapView.GraphicsOverlays>
+        </esri:MapView>
+
+		<Border Background="White" BorderBrush="Black" BorderThickness="1" Margin="30" Padding="20"
+                HorizontalAlignment="Right" VerticalAlignment="Top">
+			<Border.Effect>
+				<DropShadowEffect />
+			</Border.Effect>
+			<StackPanel>
+				<TextBlock Text="Click the map to add points with the current default renderer symbol. The 'Change Renderer' button will change the renderer to a new SimpleRenderer and redraw the map."
+                           FontSize="14"  Width="400" TextAlignment="Left" TextWrapping="Wrap" />
+                
+                <Button Content="Change Renderer" HorizontalAlignment="Center" Margin="12,12,12,0"
+                        Click="ChangeRendererButton_Click"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

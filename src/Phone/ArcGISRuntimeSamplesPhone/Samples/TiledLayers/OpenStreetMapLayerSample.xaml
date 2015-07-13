@@ -1,0 +1,23 @@
+﻿<Page
+	x:Class="ArcGISRuntime.Samples.Phone.Samples.TiledLayers.OpenStreetMapLayerSample"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="using:ArcGISRuntime.Samples.Phone.Samples.TiledLayers"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:esri="using:Esri.ArcGISRuntime.Controls"
+	xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+	mc:Ignorable="d"
+	Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+	<Grid x:Name="LayoutRoot" >
+		<esri:MapView WrapAround="True">
+			<esri:Map>
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-1422628" YMin="1740796" XMax="3586748" YMax="9772532"/>
+				</esri:Map.InitialViewpoint>
+				<layers:OpenStreetMapLayer />
+			</esri:Map>
+		</esri:MapView>
+	</Grid>
+</Page>

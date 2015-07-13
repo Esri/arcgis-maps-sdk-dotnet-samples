@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="ArcGISRuntime.Samples.Desktop.GraphicsMapTips"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" WrapAround="True" MouseMove="MyMapView_MouseMove">
+			<esri:Map>
+				<esri:ArcGISTiledMapServiceLayer
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
+
+				<esri:GraphicsLayer ID="GraphicsLayer" />
+			</esri:Map>
+			<esri:MapView.Overlays>
+                <esri:OverlayItemsControl>
+                    <Border x:Name="mapTip" Background="White" BorderBrush="Black" BorderThickness="2" 
+                            Padding="4" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4"
+                            Visibility="Collapsed" esri:ViewBase.ViewOverlayAnchor="{Binding Geometry}">
+                        <TextBlock Text="{Binding Attributes[ID], StringFormat='ID: {0}'}" />
+                    </Border>
+                </esri:OverlayItemsControl>
+            </esri:MapView.Overlays>
+		</esri:MapView>
+    </Grid>
+</UserControl>

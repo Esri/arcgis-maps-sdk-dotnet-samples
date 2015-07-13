@@ -1,0 +1,141 @@
+﻿<Page
+    x:Class="ArcGISRuntime.Samples.Store.Samples.GeocodeAddress"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:common="using:ArcGISRuntime.Samples.Store.Common"
+    xmlns:esri="using:Esri.ArcGISRuntime.Controls"
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers">
+	
+    <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.Resources>
+            <common:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            
+            <Style TargetType="TextBlock">
+                <Setter Property="FontSize" Value="14" />
+            </Style>
+        </Grid.Resources>
+        
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
+			<esri:Map>
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-122.554" YMin="37.615" XMax="-122.245" YMax="37.884" SpatialReferenceID="4326"/>
+				</esri:Map.InitialViewpoint>
+				<layers:ArcGISTiledMapServiceLayer 
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+            </esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay x:Name="AddressOverlay" />
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
+
+        <Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0">
+                    <TextBlock Text="Enter Address Information" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
+                        <RadioButton x:Name="btnSingleLine" Content="Single Line Input" Margin="0,0,30,0" IsChecked="True" Checked="btnMultipleLine_Checked" />
+                        <RadioButton x:Name="btnMultipleLine" Content="Multiple Line Input" Checked="btnMultipleLine_Checked" />
+                    </StackPanel>
+
+                    <Grid Visibility="{Binding ElementName=btnSingleLine, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBlock Grid.Column="0" Text="Address:" Margin="0,0,10,0" VerticalAlignment="Center" />
+                        <TextBox x:Name="txtSingleLine" Grid.Column="1" Text="400 Market Street, San Francisco, CA 94111" />
+                    </Grid>
+
+                    <Grid Visibility="{Binding ElementName=btnMultipleLine, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Address: " TextAlignment="Right" Margin="3" VerticalAlignment="Center" />
+                        <TextBox x:Name="InputAddress" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Text="2920 Zoo Dr" Margin="3" />
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="City: " TextAlignment="Right" Margin="3" VerticalAlignment="Center" />
+                        <TextBox x:Name="City" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" Text="San Diego" Margin="3" />
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="State: " Margin="3" TextAlignment="Right" VerticalAlignment="Center" />
+                        <TextBox x:Name="State" Grid.Row="2" Grid.Column="1" Text="CA" Margin="3" />
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Zip: " TextAlignment="Right" Margin="3" VerticalAlignment="Center" />
+                        <TextBox x:Name="Zip" Grid.Row="3" Grid.Column="1" Text="92101" Margin="3" />
+                    </Grid>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,12,0,0">
+                        <TextBlock Text="Match Score:" VerticalAlignment="Center" Margin="0,-15,10,0" />
+                        <Slider x:Name="MatchScoreSlider" Width="125" Minimum="0" Maximum="100" Value="100" 
+                                TickPlacement="Inline" SnapsTo="Ticks" TickFrequency="10"
+                                ValueChanged="MatchScoreSlider_ValueChanged" />
+                    </StackPanel>
+
+                    <Button Content="Geocode Address" Click="GeocodeButton_Click" Padding="5" HorizontalAlignment="Stretch"/>
+                </StackPanel>
+
+                <ProgressBar x:Name="progress" Grid.Row="1" IsIndeterminate="True" Visibility="Collapsed" Margin="12" />
+
+                <ListView x:Name="listResults" Grid.Row="2" Margin="0,12,0,0" Visibility="Collapsed" 
+                          SelectionMode="Single" SelectionChanged="listResults_SelectionChanged">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                            <Setter Property="Visibility" Value="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="FontSize" Value="12" />
+                                    </Style>
+                                </Grid.Resources>
+                                
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="250" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0">
+                                    <StackPanel Margin="4">
+                                        <TextBlock Text="{Binding Attributes[Address]}" FontWeight="Bold" TextWrapping="Wrap" />
+
+                                        <TextBlock>
+                                            <Run Text="Location: " />
+                                            <Run Text="{Binding Attributes[LocationDisplay]}" />
+                                        </TextBlock>
+
+                                        <TextBlock>
+                                            <Run Text="Match Type: " />
+                                            <Run Text="{Binding Attributes[MatchType]}" />
+                                        </TextBlock>
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock Text="Score" />
+                                    <TextBlock Text="{Binding Attributes[Score]}" FontSize="18" TextAlignment="Center" />
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

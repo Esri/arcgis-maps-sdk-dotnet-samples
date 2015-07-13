@@ -1,0 +1,19 @@
+﻿<Page 
+	x:Class="ArcGISRuntime.Samples.Store.Samples.ArcGISLocalTiledLayerSample"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esri="using:Esri.ArcGISRuntime.Controls"
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers">
+	
+    <Grid>
+        <esri:MapView x:Name="MyMapView">
+            <esri:Map>
+                <!-- Known Local Data Folder Tile Package -->
+				<!--<layers:ArcGISLocalTiledLayer ID="campus" Path="ms-appdata:///local/basemaps/campus.tpk" />-->
+                
+                <!-- Install Folder Tile Package -->
+				<!--<layers:ArcGISLocalTiledLayer ID="campus" Path="ms-appx:///data/basemaps/campus.tpk" />-->
+            </esri:Map>
+        </esri:MapView>
+    </Grid>
+</Page>

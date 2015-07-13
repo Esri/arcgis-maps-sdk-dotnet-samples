@@ -1,0 +1,32 @@
+﻿<Page
+	x:Class="ArcGISRuntime.Samples.StoreViewer.MainPage"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:common="using:ArcGISRuntime.Samples.StoreViewer.Common">
+	
+	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+		<Grid.Resources>
+			<common:BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+		</Grid.Resources>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="140" />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="140" />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+
+		<AppBarButton Icon="Back" VerticalAlignment="Center" Margin="0,20,0,0" 
+					  Visibility="{Binding CanGoBack, Converter={StaticResource BoolToVisConverter}}"
+					  Click="AppBarButton_Click" />
+		
+		<TextBlock Text="{Binding CurrentSampleTitle}" 
+				   Grid.Column="1" VerticalAlignment="Center" 
+				   Style="{StaticResource HeaderTextBlockStyle}" />
+		
+		<Frame x:Name="SampleFrame" Grid.ColumnSpan="2" Grid.Row="1">
+			<!--This is where the samples and the sample overview list is hosted-->
+		</Frame>
+	</Grid>
+</Page>

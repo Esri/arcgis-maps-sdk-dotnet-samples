@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="ArcGISRuntime.Samples.Desktop.GeodesicBuffer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid x:Name="layoutGrid">
+        <Grid.Resources>
+            <esri:SimpleFillSymbol x:Key="BufferSymbol" Color="#660000FF" Style="Solid">
+                <esri:SimpleFillSymbol.Outline>
+                    <esri:SimpleLineSymbol Color="Blue" Width="2" />
+                </esri:SimpleFillSymbol.Outline>
+            </esri:SimpleFillSymbol>
+        </Grid.Resources>
+
+        <esri:MapView x:Name="MyMapView" WrapAround="True" MouseMove="MyMapView_MouseMove">
+            <esri:Map>
+				<esri:ArcGISTiledMapServiceLayer
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
+			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="graphicsOverlay" />
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
+		
+		<Border Background="White" BorderBrush="Black" BorderThickness="1"
+				HorizontalAlignment="Right" VerticalAlignment="Top"
+				Margin="30" Padding="20">
+			<Border.Effect>
+				<DropShadowEffect/>
+			</Border.Effect>
+            <TextBlock x:Name="InstructionsTextBlock" Text="Move the mouse to see a 500-mile geodesic buffer around the mouse location." 
+                       Width="250" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="14" />
+        </Border>
+    </Grid>
+</UserControl>

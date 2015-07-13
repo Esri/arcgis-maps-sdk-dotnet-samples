@@ -1,0 +1,80 @@
+﻿<Page
+    x:Class="ArcGISRuntime.Samples.Phone.Samples.QueryFilterSample"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ArcGISRuntime.Samples.Phone.Samples"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:esri="using:Esri.ArcGISRuntime.Controls"
+	xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+	xmlns:data="using:Esri.ArcGISRuntime.Data"
+	xmlns:symb="using:Esri.ArcGISRuntime.Symbology"
+	mc:Ignorable="d"
+	Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+	<Page.BottomAppBar>
+		<CommandBar>
+			<AppBarButton Label="Query" Icon="Find">
+				<AppBarButton.Flyout>
+					<Flyout>
+						<StackPanel>
+							<TextBlock FontSize="14" FontWeight="Bold" Margin="8" HorizontalAlignment="Center">
+                    <Run Text="Query cities" />
+                    <Run Text="{Binding ElementName=MyMapView, Path=Map.Layers[FeatureLayer].FeatureTable.Where}" />
+							</TextBlock>
+							<StackPanel Orientation="Horizontal" Margin="8" HorizontalAlignment="Center">
+								<TextBox x:Name="where" Text="pop2000 > 500000" Width="200" Margin="0,13,5,0"/>
+								<Button Content="Query" Click="QueryButton_Click" Margin="5" />
+							</StackPanel>
+						</StackPanel>
+					</Flyout>
+				</AppBarButton.Flyout>
+			</AppBarButton>
+		</CommandBar>
+	</Page.BottomAppBar>
+	<Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+		<Grid.Resources>
+			<symb:SimpleRenderer x:Key="OrangePointRenderer">
+				<symb:SimpleRenderer.Symbol>
+					<symb:SimpleMarkerSymbol Color="Orange" Style="Circle" Size="14">
+						<symb:SimpleMarkerSymbol.Outline>
+							<symb:SimpleLineSymbol Color="Black" Width="1" Style="Solid" />
+						</symb:SimpleMarkerSymbol.Outline>
+					</symb:SimpleMarkerSymbol>
+				</symb:SimpleRenderer.Symbol>
+			</symb:SimpleRenderer>
+
+			<symb:SimpleRenderer x:Key="BluePointRenderer">
+				<symb:SimpleRenderer.Symbol>
+					<symb:SimpleMarkerSymbol Color="Blue" Style="Circle" Size="14">
+						<symb:SimpleMarkerSymbol.Outline>
+							<symb:SimpleLineSymbol Color="Black" Width="1" Style="Solid" />
+						</symb:SimpleMarkerSymbol.Outline>
+					</symb:SimpleMarkerSymbol>
+				</symb:SimpleRenderer.Symbol>
+			</symb:SimpleRenderer>
+		</Grid.Resources>
+
+		<esri:MapView x:Name="MyMapView" WrapAround="True" >
+			<esri:Map>
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-14675766" YMin="2695408" XMax="-6733122" YMax="6583994" />
+				</esri:Map.InitialViewpoint>
+
+				<layers:ArcGISTiledMapServiceLayer DisplayName="Basemap"
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
+
+				<layers:FeatureLayer ID="FeatureLayer" Renderer="{StaticResource OrangePointRenderer}">
+					<layers:FeatureLayer.FeatureTable>
+						<data:ServiceFeatureTable 
+                            ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0"
+                            Where="pop2000 > 200000" />
+					</layers:FeatureLayer.FeatureTable>
+				</layers:FeatureLayer>
+			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay x:Name="QueryResults" Renderer="{StaticResource BluePointRenderer}" />
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
+	</Grid>
+</Page>

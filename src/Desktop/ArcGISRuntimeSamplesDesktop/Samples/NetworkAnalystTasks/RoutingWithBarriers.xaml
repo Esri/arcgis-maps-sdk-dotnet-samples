@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="ArcGISRuntime.Samples.Desktop.RoutingWithBarriers"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <Grid.Resources>
+            <esri:SimpleLineSymbol x:Key="RouteSymbol" Color="#990000FF" Style="Solid" Width="3" />
+            <esri:SimpleRenderer x:Key="RouteRenderer" Symbol="{StaticResource RouteSymbol}" />
+
+            <esri:SimpleMarkerSymbol x:Key="BarrierSymbol" Color="Black" Style="X" Size="20" />
+            <esri:SimpleRenderer x:Key="BarrierRenderer" Symbol="{StaticResource BarrierSymbol}" />
+        </Grid.Resources>
+
+        <esri:MapView x:Name="MyMapView" MapViewTapped="MyMapView_MapViewTapped">
+			<esri:Map InitialViewpoint="-117.24377026205757,32.61710761167467,-116.95879261773452,32.841266856294624,4326">
+				<esri:ArcGISTiledMapServiceLayer
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="RouteGraphicsOverlay" Renderer="{StaticResource RouteRenderer}" />
+				<esri:GraphicsOverlay ID="StopGraphicsOverlay"  />
+				<esri:GraphicsOverlay ID="BarrierGraphicsOverlay" Renderer="{StaticResource BarrierRenderer}"/>
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
+
+		<Border Background="White" BorderBrush="Black" BorderThickness="1"
+				HorizontalAlignment="Right" VerticalAlignment="Top"
+				Margin="30" Padding="20" Width="250">
+			<Border.Effect>
+				<DropShadowEffect/>
+			</Border.Effect>
+			<StackPanel>
+                <TextBlock Text="Tap stop and barrier points on the map to see the calculated route." 
+                           TextWrapping="Wrap" />
+
+                <StackPanel Orientation="Horizontal" Margin="0,12,0,0" HorizontalAlignment="Center">
+                    <RadioButton x:Name="rbStops" Content="Add Stops" Margin="0,0,20,0" IsChecked="True" />
+                    <RadioButton x:Name="rbBarriers" Content="Add Barriers" />
+                </StackPanel>
+
+                <Button Content="Clear" Click="ClearButton_Click" HorizontalAlignment="Center" Padding="20,4" Margin="0,12,0,0"/>
+
+                <ProgressBar x:Name="progress" IsIndeterminate="True" Visibility="Collapsed" Margin="0,12,0,0" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

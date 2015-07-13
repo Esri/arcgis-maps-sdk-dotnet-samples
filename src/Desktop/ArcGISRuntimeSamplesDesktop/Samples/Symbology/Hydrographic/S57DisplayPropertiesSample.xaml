@@ -1,0 +1,186 @@
+﻿<UserControl x:Class="ArcGISRuntime.Samples.Desktop.Symbology.Hydrographic.S57DisplayPropertiesSample"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+			 xmlns:hydro="clr-namespace:Esri.ArcGISRuntime.Hydrographic;assembly=Esri.ArcGISRuntime"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:local="clr-namespace:ArcGISRuntime.Samples.Desktop.Symbology.Hydrographic"
+             mc:Ignorable="d" 
+             d:DesignHeight="1200" d:DesignWidth="1600">
+	<UserControl.Resources>
+		<local:FlagsEnumValueConverter x:Key="FlagsConverter"/>
+	</UserControl.Resources>
+    <Grid>
+		<esri:MapView x:Name="MyMapView" 
+					  LayerLoaded="MyMapView_LayerLoaded">
+			<esri:Map>
+				<esri:ArcGISTiledMapServiceLayer ID="Ocean_BaseMap"
+                        ServiceUri="http://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Base/MapServer" />
+
+				<!-- Using group layer to group all Hydrographic layers -->
+				<esri:GroupLayer ID="Hydrographic">
+					<hydro:HydrographicS57Layer ID="US1WCO1M" 
+						Path="..\..\..\samples-data\symbology\s57-electronic-navigational-charts\us1wc01m\US1WC01M.000">
+					</hydro:HydrographicS57Layer>
+					<hydro:HydrographicS57Layer ID="US1WC07M" 
+						Path="..\..\..\samples-data\symbology\s57-electronic-navigational-charts\us1wc07m\US1WC07M.000">
+					</hydro:HydrographicS57Layer>
+				</esri:GroupLayer>
+			</esri:Map>
+		</esri:MapView>
+		<Border Background="White" BorderBrush="Black" BorderThickness="1" Margin="30" Padding="20"
+                HorizontalAlignment="Right" VerticalAlignment="Top">
+			<Border.Effect>
+				<DropShadowEffect />
+			</Border.Effect>
+			<StackPanel x:Name="displayPropertiesArea" IsEnabled="False">
+				<TextBlock Text="S57 Display Properties"
+						   FontWeight="ExtraBold"
+                           FontSize="14"  Width="400" 
+						   TextAlignment="Left" TextWrapping="Wrap" />
+				<!-- Color Scheme, Units and Symbolization -->
+				<GroupBox>
+					<GroupBox.Header>
+						<Label>Color Scheme, Units and Symbolization</Label>
+					</GroupBox.Header>
+					<StackPanel>
+						<!-- Color Scheme & Depth Display Units -->
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="Color Scheme:"  Margin="5,0,0,0" Width="80" VerticalAlignment="Top"/>
+							<ComboBox ItemsSource="{Binding Source={local:EnumValuesExtension {x:Type hydro:S52ColorScheme}}}" 
+                                  SelectedItem="{Binding Path=ColorScheme, Mode=TwoWay}" Width="120" />
+							<TextBlock Text="Depth Units:" Margin="5,0,0,0"  Width="80" VerticalAlignment="Top"/>
+							<ComboBox ItemsSource="{Binding Source={local:EnumValuesExtension {x:Type hydro:S52DisplayDepthUnits}}}"  
+                                  SelectedItem="{Binding Path=DisplayDepthUnits, Mode=TwoWay}" Width="120" />
+						</StackPanel>
+						<!-- Point and Area Symbolization Type -->
+						<StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+							<TextBlock Text="Area:" Margin="5,0,0,0" Width="80" VerticalAlignment="Center"/>
+							<ComboBox ItemsSource="{Binding Source={local:EnumValuesExtension {x:Type hydro:S52AreaSymbolizationType}}}"
+                                   SelectedItem="{Binding Path=AreaSymbolizationType, Mode=TwoWay}" Width="120" />
+							<TextBlock Text="Point:" Margin="5,0,0,0"  Width="80" VerticalAlignment="Center"/>
+							<ComboBox ItemsSource="{Binding Source={local:EnumValuesExtension {x:Type hydro:S52PointSymbolizationType}}}" 
+                                          SelectedItem="{Binding Path=PointSymbolizationType, Mode=TwoWay}" Width="120" />
+						</StackPanel>
+					</StackPanel>
+				</GroupBox>
+				<!-- Display Categories -->
+				<GroupBox>
+					<GroupBox.Header>
+						<Label>Display Categories</Label>
+					</GroupBox.Header>
+					<StackPanel Orientation="Horizontal">
+						<CheckBox Content="Base" IsChecked="{Binding Path=DisplayCategory, Converter={StaticResource FlagsConverter},
+                            ConverterParameter={x:Static hydro:S52DisplayCategory.DisplayBase}}" Margin="5,0,0,0" />
+						<CheckBox Content="Standard" IsChecked="{Binding Path=DisplayCategory, Converter={StaticResource FlagsConverter},
+                            ConverterParameter={x:Static hydro:S52DisplayCategory.Standard}}"  Margin="5,0,0,0"/>
+						<CheckBox Content="Other" IsChecked="{Binding Path=DisplayCategory, Converter={StaticResource FlagsConverter},
+                            ConverterParameter={x:Static hydro:S52DisplayCategory.Other}}" Margin="5,0,5,0"/>
+					</StackPanel>
+				</GroupBox>
+				<!--  Depth Areas -->
+				<GroupBox>
+					<GroupBox.Header>
+						<Label>Depth Areas</Label>
+					</GroupBox.Header>
+					<StackPanel Orientation="Horizontal">
+						<ComboBox ItemsSource="{Binding Source={local:EnumValuesExtension {x:Type hydro:S52DepthShades}}}" 
+                                      SelectedItem="{Binding Path=DepthShades, Mode=TwoWay}" Width="60" />
+						<TextBlock Text="Depth Shades" Width="80" />
+						<CheckBox Content="Shallow Depth Pattern" IsChecked="{Binding Path=ShallowDepthPattern}" />
+					</StackPanel>
+				</GroupBox>
+				<!-- Depth Contours -->
+				<GroupBox>
+					<GroupBox.Header>
+						<Label>Depth Contours</Label>
+					</GroupBox.Header>
+					<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Width="50" Text="Shallow:" VerticalAlignment="Top"/>
+							<TextBox Text="{Binding Path=ShallowContourMeters}" Width="50" VerticalAlignment="Top"/>
+						</StackPanel>
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Margin="5,0,0,0"  Width="45" Text="Safety:" VerticalAlignment="Top"/>
+							<TextBox Text="{Binding Path=SafetyContourMeters}" Width="50" VerticalAlignment="Top"/>
+						</StackPanel>
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Margin="5,0,0,0"  Width="40" Text="Deep:" VerticalAlignment="Top"/>
+							<TextBox Text="{Binding Path=DeepContourMeters}" Width="50" VerticalAlignment="Top"/>
+						</StackPanel>
+					</StackPanel>
+				</GroupBox>
+				<!-- Text groups-->
+				<GroupBox>
+					<GroupBox.Header>
+						<Label>Text Groups</Label>
+					</GroupBox.Header>
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition/>
+							<ColumnDefinition/>
+						</Grid.ColumnDefinitions>
+						<StackPanel>
+							<CheckBox Content="Important Text" IsChecked="{Binding Path=TextGroupProperties.ImportantText}" />
+							<CheckBox Content="Light Descriptions" IsChecked="{Binding Path=TextGroupProperties.LightDescriptionString}" />
+							<CheckBox Content="Nature Of Seabed" IsChecked="{Binding Path=TextGroupProperties.NatureOfSeabed}" />
+							<CheckBox Content="Magnetic Variation And Swept Depth" IsChecked="{Binding Path=TextGroupProperties.MagneticVariationAndSweptDepth}" />
+						</StackPanel>
+						<StackPanel Grid.Column="1">
+							<CheckBox Content="Names For Position Reporting" IsChecked="{Binding Path=TextGroupProperties.NamesForPositionReporting}" />
+							<CheckBox Content="Notes On Chart Data" IsChecked="{Binding Path=TextGroupProperties.NoteOnChartData}" />
+							<CheckBox Content="Geographic Names" IsChecked="{Binding Path=TextGroupProperties.GeographicNames}" />
+							<CheckBox Content="Berth Number" IsChecked="{Binding Path=TextGroupProperties.BerthNumber}" />
+						</StackPanel>
+					</Grid>
+				</GroupBox>
+				<!-- View over groups -->
+				<GroupBox>
+					<GroupBox.Header>
+						<Label>View Over Groups</Label>
+					</GroupBox.Header>
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition/>
+							<ColumnDefinition/>
+						</Grid.ColumnDefinitions>
+						<StackPanel>
+							<CheckBox Content="Unknown objects" IsChecked="{Binding Path=ViewGroupProperties.UnknownObjects}" />
+							<CheckBox Content="Chart data coverage" IsChecked="{Binding Path=ViewGroupProperties.ChartDataCoverage}" />
+							<CheckBox Content="Standard land areas" IsChecked="{Binding Path=ViewGroupProperties.StandardLandAreas}" />
+							<CheckBox Content="Area Of depth less than safety contour" IsChecked="{Binding Path=ViewGroupProperties.AreaOfDepthLessThanSafetyContour}" />
+							<CheckBox Content="Water and seabed features" IsChecked="{Binding Path=ViewGroupProperties.WaterAndSeabedFeatures}" />
+							<CheckBox Content="Traffic routes" IsChecked="{Binding Path=ViewGroupProperties.TrafficRoutes}" />
+							<CheckBox Content="Cautionary areas" IsChecked="{Binding Path=ViewGroupProperties.CautionaryAreas}" />
+							<CheckBox Content="Information areas" IsChecked="{Binding Path=ViewGroupProperties.InformationAreas}" />
+							<CheckBox Content="Buoys and beacons" IsChecked="{Binding Path=ViewGroupProperties.BuoysAndBeacons}" />
+							<CheckBox Content="Lights" IsChecked="{Binding Path=Lights}" />
+						</StackPanel>
+						<StackPanel  Grid.Column="1">
+							<CheckBox Content="Fog signals" IsChecked="{Binding Path=ViewGroupProperties.FogSignals}" />
+							<CheckBox Content="Radar" IsChecked="{Binding Path=ViewGroupProperties.Radar}" />
+							<CheckBox Content="Services" IsChecked="{Binding Path=ViewGroupProperties.Services}" />
+							<CheckBox Content="Information about chart data" IsChecked="{Binding Path=ViewGroupProperties.InformationAboutChartData}" />
+							<CheckBox Content="Other land areas" IsChecked="{Binding Path=ViewGroupProperties.OtherLandAreas}" />
+							<CheckBox Content="Soundings" IsChecked="{Binding Path=ViewGroupProperties.Soundings}" />
+							<CheckBox Content="Depth contours currents magnetics" IsChecked="{Binding Path=ViewGroupProperties.DepthContoursCurrentsMagnetics}" />
+							<CheckBox Content="Seabed and obstructions" IsChecked="{Binding Path=ViewGroupProperties.SeabedAndObstructions}" />
+							<CheckBox Content="Services and small craft facilities" IsChecked="{Binding Path=ViewGroupProperties.ServicesAndSmallCraftFacilities}" />
+						</StackPanel>
+					</Grid>
+				</GroupBox>
+				<!-- Miscellaneous -->
+				<GroupBox >
+					<GroupBox.Header>
+						<Label>Miscellaneous</Label>
+					</GroupBox.Header>
+					<StackPanel Orientation="Horizontal">
+						<CheckBox Margin="5,0,0,0" Content="Display National Object Name" IsChecked="{Binding Path=DisplayNationalObjectName}" />
+						<CheckBox Margin="5,0,0,0" Content="Honor Scamin" IsChecked="{Binding Path=HonorScamin}" />
+					</StackPanel>
+				</GroupBox>
+			</StackPanel>
+		</Border>
+	</Grid>
+</UserControl>

@@ -1,0 +1,88 @@
+﻿<UserControl x:Class="ArcGISRuntime.Samples.Desktop.Mensuration"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid x:Name="layoutGrid">
+        <Grid.Resources>
+            <esri:SimpleMarkerSymbol x:Key="PointSymbol" Style="Circle" Size="12" Color="Red" />
+            <esri:SimpleLineSymbol x:Key="LineSymbol" Style="Solid" Color="Red" Width="2" />
+            <esri:SimpleFillSymbol x:Key="PolygonSymbol" Color="#AAFF0000" Style="Solid">
+                <esri:SimpleFillSymbol.Outline>
+                    <esri:SimpleLineSymbol Color="Red" Width="1" Style="Solid" />
+                </esri:SimpleFillSymbol.Outline>
+            </esri:SimpleFillSymbol>
+        </Grid.Resources>
+
+        <esri:MapView x:Name="MyMapView">
+			<esri:Map InitialViewpoint="-8838052,5409956,-8836538,5410660,3857">
+                <esri:ArcGISTiledMapServiceLayer x:Name="imageServiceLayer"  
+                    ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Toronto/ImageServer" />
+            </esri:Map>
+
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="graphicsOverlay" />
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
+
+		<Border Background="White" BorderBrush="Black" BorderThickness="1"
+				HorizontalAlignment="Right" VerticalAlignment="Top"
+				Margin="30" Padding="20"
+				Width="350">
+			<Border.Effect>
+				<DropShadowEffect/>
+			</Border.Effect>
+			<StackPanel>
+                <TextBlock TextAlignment="Center" Text="Choose a measure operation and units" 
+                           FontWeight="Bold" Height="16" Margin="5" />
+
+                <UniformGrid Columns="3">
+                    <Button Tag="Area / Perimeter" Click="AreaPerimeterButton_Click" Margin="2">
+                        <TextBlock Text="Area / Perimeter" TextWrapping="Wrap" TextAlignment="Center" />
+                    </Button>
+
+                    <Button Tag="Centroid" Content="Centroid" Click="CentroidButton_Click" Margin="2" />
+
+                    <Button Tag="Distance / Azimuth" Click="DistanceAzimuthButton_Click" Margin="2">
+                        <TextBlock Text="Distance / Azimuth" TextWrapping="Wrap" TextAlignment="Center" />
+                    </Button>
+
+                    <Button Tag="Height Base to Top" Click="HeightBaseToTopButton_Click" Margin="2">
+                        <TextBlock Text="Height Base to Top" TextWrapping="Wrap" TextAlignment="Center" />
+                    </Button>
+
+                    <Button Tag="Height Base to Top Shadow" Click="HeightBaseToTopShadowButton_Click" Margin="2">
+                        <TextBlock Text="Height Base to Top Shadow" TextWrapping="Wrap" TextAlignment="Center" />
+                    </Button>
+
+                    <Button Tag="Height Top to Top Shadow" Click="HeightTopToTopShadowButton_Click" Margin="2">
+                        <TextBlock Text="Height Top to Top Shadow" TextWrapping="Wrap" TextAlignment="Center"/>
+                    </Button>
+
+                    <Button Tag="Point" Content="Point" Click="PointButton_Click" Margin="2" />
+                    <Button Tag="Clear" Content="Clear" Click="ClearButton_Click" Margin="2" />
+                </UniformGrid>
+
+                <Grid Background="White" Margin="20,20,20,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Linear Units" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                    <ComboBox x:Name="comboLinearUnit" Grid.Row="0" Grid.Column="1" DisplayMemberPath="Name" Margin="8,4" />
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Angular Units" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                    <ComboBox x:Name="comboAngularUnit" Grid.Row="1" Grid.Column="1" DisplayMemberPath="Name" Margin="8,4" />
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Area Units" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                    <ComboBox x:Name="comboAreaUnit" Grid.Row="2" Grid.Column="1" DisplayMemberPath="Name" Margin="8,4" />
+                </Grid>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

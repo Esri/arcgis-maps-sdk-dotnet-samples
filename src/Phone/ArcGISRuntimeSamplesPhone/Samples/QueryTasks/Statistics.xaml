@@ -1,0 +1,63 @@
+﻿<Page x:Class="ArcGISRuntime.Samples.Phone.Samples.Statistics"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:ArcGISRuntime.Samples.Phone.Samples"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:esri="using:Esri.ArcGISRuntime.Controls"  xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
+      mc:Ignorable="d">
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.Resources>
+			<Style x:Key="MyItemTextStyle" BasedOn="{StaticResource BodyTextBlockStyle}" TargetType="TextBlock">
+                <Setter Property="Margin" Value="5,0"/>
+            </Style>
+			<Style x:Key="MyTitleTextStyle" BasedOn="{StaticResource BodyTextBlockStyle}" TargetType="TextBlock">
+				<Setter Property="Margin" Value="10,0"/>
+			</Style>
+		</Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition  />
+        </Grid.RowDefinitions>
+
+
+
+        <TextBlock FontSize="20" Text="US Statistics by Sub-region..." Margin="0" />
+
+
+        <GridView Grid.Row="1" x:Name="ResultGrid" HorizontalAlignment="Left"
+          Margin="0"         >
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border  Padding="20" BorderThickness="2" BorderBrush="White">
+
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.ColumnSpan="2" Text="{Binding Attributes[sub_region]}" FontSize="40"  HorizontalAlignment="Left" Margin="0" />
+
+                            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+                                <TextBlock Text="Num. States :"  Style="{StaticResource TitleTextBlockStyle}"/>
+                                <TextBlock Text="{Binding  Attributes[numberofstates]}" Style="{StaticResource MyItemTextStyle}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="0">
+								<TextBlock Text="Population :"  Style="{StaticResource TitleTextBlockStyle}"/>
+                                <TextBlock Text="{Binding Attributes[subregionpopulation]}" Style="{StaticResource MyItemTextStyle}" />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+
+        </GridView>
+
+
+    </Grid>
+</Page>

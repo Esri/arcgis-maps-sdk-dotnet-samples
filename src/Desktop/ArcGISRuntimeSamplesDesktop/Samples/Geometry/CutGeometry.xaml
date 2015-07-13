@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="ArcGISRuntime.Samples.Desktop.CutGeometry"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid x:Name="layoutGrid">
+        <Grid.Resources>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
+            <esri:SimpleLineSymbol x:Key="CutLineSymbol" Color="Red" Style="Solid" Width="1" />
+            <esri:SimpleFillSymbol x:Key="CutFillSymbol" Color="#660000FF" Style="Solid">
+                <esri:SimpleFillSymbol.Outline>
+                    <esri:SimpleLineSymbol Color="Blue" Width="2" />
+                </esri:SimpleFillSymbol.Outline>
+            </esri:SimpleFillSymbol>
+        </Grid.Resources>
+
+        <esri:MapView x:Name="MyMapView" WrapAround="True">
+			<esri:Map InitialViewpoint="-15053000,2749000,-6540000,6590000">
+				<esri:ArcGISTiledMapServiceLayer
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" />
+			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="resultsOverlay" />
+			</esri:MapView.GraphicsOverlays>
+        </esri:MapView>
+
+		<Border Background="White" BorderBrush="Black" BorderThickness="1"
+				 HorizontalAlignment="Right" VerticalAlignment="Top"
+				 Margin="30" Padding="20">
+			<Border.Effect>
+				<DropShadowEffect/>
+			</Border.Effect>
+			<StackPanel>
+				<TextBlock Text="Click the 'Cut Geometries' button to digitize a polyline and cut the polygon feature geometries with the digitized polyline. Resulting polygons will be shown as blue graphics."
+                           Width="400" TextWrapping="Wrap" />
+                <Button Content="Cut Geometries" Margin="12,12,12,0" HorizontalAlignment="Center" Click="CutButton_Click"/>
+            </StackPanel>
+        </Border>
+
+        <Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="25"
+                HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                Visibility="{Binding ElementName=MyMapView, Path=Editor.IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <TextBlock Text="Digitize a cutting polyline on the map." Margin="8" FontSize="14" />
+        </Border>
+    </Grid>
+</UserControl>

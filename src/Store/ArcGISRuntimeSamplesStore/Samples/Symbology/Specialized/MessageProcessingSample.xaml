@@ -1,0 +1,51 @@
+﻿<Page
+	x:Class="ArcGISRuntime.Samples.Store.Samples.Symbology.MessageProcessingSample"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:common="using:ArcGISRuntime.Samples.Store.Common"
+	xmlns:esri="using:Esri.ArcGISRuntime.Controls"
+	xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+	xmlns:special="using:Esri.ArcGISRuntime.Symbology.Specialized">
+
+	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+		<esri:MapView x:Name="MyMapView">
+			<esri:Map>
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-245200" YMin="6665900" XMax="-207000" YMax="6687300" SpatialReferenceID="3857"/>
+				</esri:Map.InitialViewpoint>
+				<layers:ArcGISTiledMapServiceLayer ID="Basemap" 
+					ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"/>
+				<special:MessageLayer SymbolDictionaryType="Mil2525C" />
+			</esri:Map>
+		</esri:MapView>
+
+		<Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
+			<StackPanel>
+				<TextBlock Text="Click on the button below to run the message processor. It will read simulated messages from an XML file and display military symbols on the map  using Mil2525C Symbols."
+						   FontSize="14"  Width="300" TextWrapping="Wrap" />
+				<Button x:Name="processMessagesBtn" 
+						IsEnabled="False"
+						Content="Process messages" 
+						Click="ProcessMessagesButton_Click"
+						Margin="0,12,0,0"
+						HorizontalAlignment="Center" 
+						Width="200"/>
+				<Button Content="Select Messages" 
+						Click="AddSelectButton_Click" 
+						Margin="12,12,12,0"
+						HorizontalAlignment="Center" 
+						Width="200"/>
+				<Button Content="Select Multiple Messages" 
+						Click="MultipleSelectButton_Click" 
+						Margin="12,12,12,0"
+						HorizontalAlignment="Center"
+						Width="200"/>
+				<Button Content="Clear Selection" 
+						Click="ClearSelectButton_Click" 
+						Margin="12,12,12,0"
+						HorizontalAlignment="Center" 
+						Width="200"/>
+			</StackPanel>
+		</Border>
+	</Grid>
+</Page>

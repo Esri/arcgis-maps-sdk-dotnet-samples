@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="ArcGISRuntime.Samples.Desktop.GraphicsExtrusion"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+			 mc:Ignorable="d" 
+			 d:DesignHeight="300" d:DesignWidth="300">
+	<Grid>
+		<esri:SceneView x:Name="MySceneView">
+			<esri:Scene>
+				<esri:ArcGISTiledMapServiceLayer ID="AGOLayer"
+					ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+			</esri:Scene>
+			<esri:SceneView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="statesOverlay">
+					<esri:GraphicsOverlay.Renderer>
+						<esri:SimpleRenderer>
+							<esri:SimpleRenderer.SceneProperties>
+								<esri:RendererSceneProperties ExtrusionMode="BaseHeight"  ExtrusionExpression="[]"/>
+							</esri:SimpleRenderer.SceneProperties>
+							<esri:SimpleFillSymbol>
+								<esri:SimpleFillSymbol.Outline>
+									<esri:SimpleLineSymbol Color="Transparent"/>
+								</esri:SimpleFillSymbol.Outline>
+							</esri:SimpleFillSymbol>
+						</esri:SimpleRenderer>
+					</esri:GraphicsOverlay.Renderer>
+				</esri:GraphicsOverlay>
+			</esri:SceneView.GraphicsOverlays>
+		</esri:SceneView>
+
+		<Border Background="White" BorderBrush="Black" BorderThickness="1"
+				HorizontalAlignment="Right" VerticalAlignment="Top"
+				Margin="30" Padding="20">
+			<Grid>
+				<StackPanel>
+					<TextBlock Text="Select Age Range" FontWeight="Bold" 
+							   HorizontalAlignment="Center"/>
+					<StackPanel Orientation="Horizontal" Margin="0,10">
+						<ComboBox x:Name="statisticsComboBox" DisplayMemberPath="DisplayName"
+							SelectionChanged="statisticsComboBox_SelectionChanged"/>
+					</StackPanel>
+				</StackPanel>
+			</Grid>
+		</Border>
+	</Grid>
+</UserControl>

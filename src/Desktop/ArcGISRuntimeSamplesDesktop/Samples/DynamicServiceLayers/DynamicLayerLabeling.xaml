@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="ArcGISRuntime.Samples.Desktop.DynamicLayers.DynamicLayerLabeling"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+		<esri:MapView x:Name="MyMapView" WrapAround="True">
+            <esri:Map InitialViewpoint="-14675766.357,2695407.734,-6733121.861,6583994.101,102100">
+                <esri:ArcGISDynamicMapServiceLayer x:Name="dynamicLayer" ID="USA"
+				    ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer"
+                    VisibleLayers="0,1,2">
+                    
+                    <!-- Major City Label Info -->
+                    <esri:ArcGISDynamicMapServiceLayer.LayerDrawingOptions>
+                        <esri:LayerDrawingOptionCollection>
+                            <esri:LayerDrawingOptions LayerID="0" ShowLabels="True">
+                                <esri:LayerDrawingOptions.LabelingInfos>
+                                    <esri:DynamicLabelingInfo LabelExpression="[areaname]" LabelPlacement="PointAboveRight" Where="pop2000 > 500000">
+                                        <esri:DynamicLabelingInfo.Symbol>
+                                            <esri:TextSymbol Color="Blue">
+                                                <esri:TextSymbol.Font>
+                                                    <esri:SymbolFont FontFamily="Arial" FontSize="12" FontStyle="Italic" FontWeight="Bold" />
+                                                </esri:TextSymbol.Font>
+                                            </esri:TextSymbol>
+                                        </esri:DynamicLabelingInfo.Symbol>
+                                    </esri:DynamicLabelingInfo>
+                                </esri:LayerDrawingOptions.LabelingInfos>
+                            </esri:LayerDrawingOptions>
+                        </esri:LayerDrawingOptionCollection>
+                    </esri:ArcGISDynamicMapServiceLayer.LayerDrawingOptions>
+                    
+                </esri:ArcGISDynamicMapServiceLayer>
+            </esri:Map>
+        </esri:MapView>
+    </Grid>
+</UserControl>

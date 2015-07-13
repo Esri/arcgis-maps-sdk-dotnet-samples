@@ -1,0 +1,122 @@
+﻿<UserControl x:Class="ArcGISRuntime.Samples.Desktop.EditRelatedData"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <UserControl.Resources>
+        <!-- Transparent symbol with outline highlights feature. -->
+        <esri:SimpleLineSymbol x:Key="HighlightOutlineSymbol"
+                               Color="Cyan"
+                               Width="4.5" />
+        <esri:SimpleMarkerSymbol x:Key="HighlightMarkerSymbol"
+                                 Color="Transparent"
+                                 Outline="{StaticResource HighlightOutlineSymbol}"
+                                 Size="21.5" />
+        <esri:SimpleRenderer x:Key="HighlightRenderer"
+                             Symbol="{StaticResource HighlightMarkerSymbol}" />
+    </UserControl.Resources>
+    <Grid>
+        <esri:MapView x:Name="MyMapView"
+                      MapViewTapped="MyMapView_MapViewTapped">
+            <esri:Map InitialViewpoint="-9813341.31730507,5126248.61666055, -9810989.33812169, 5127472.38082941, 102100">
+                <esri:ArcGISTiledMapServiceLayer ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+                <!-- Renders related features at current extent -->
+                <esri:ArcGISDynamicMapServiceLayer ID="ServiceRequests"
+                                                   VisibleLayers="0"
+                                                   ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/ServiceRequest/MapServer" />
+            </esri:Map>
+            <esri:MapView.GraphicsOverlays>
+                <!-- Highlights one feature at a time -->
+                <esri:GraphicsOverlay ID="Highlighter"
+                                      Renderer="{StaticResource HighlightRenderer}" />
+            </esri:MapView.GraphicsOverlays>
+        </esri:MapView>
+        <!-- Used for editing related records. -->
+        <Border Background="White"
+                BorderBrush="Black"
+                BorderThickness="1"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Width="250"
+                Margin="30"
+                Padding="20">
+            <Border.Effect>
+                <DropShadowEffect />
+            </Border.Effect>
+            <StackPanel>
+                <Button x:Name="AddButton"
+                        IsEnabled="False"
+                        Content="Add"
+                        Margin="2"
+                        Click="AddButton_Click"
+                        HorizontalAlignment="Left" />
+                <ComboBox x:Name="RelatedRecords"
+                          SelectionChanged="RelatedRecords_SelectionChanged"
+                          Margin="2">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Attributes[objectid]}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Grid x:Name="AttributeEditor"
+                      Visibility="Collapsed">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Importance"
+                               Margin="2" />
+                    <ComboBox x:Name="ChoiceList"
+                              Margin="2"
+                              Grid.Column="1">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                        <TextBlock Text="Comments"
+                               Margin="2"
+                               Grid.Row="1" />
+                    <TextBox x:Name="Comments"
+                             TextWrapping="Wrap"
+                             Margin="2"
+                             Grid.Row="1"
+                             Grid.Column="1" />
+                    <StackPanel Orientation="Horizontal"
+                                Grid.Row="2"
+                                Grid.ColumnSpan="2"
+                                HorizontalAlignment="Right">
+                        <Button Content="Apply"
+                                Margin="2"
+                                Click="EditButton_Click" />
+                        <Button Content="Delete"
+                                Margin="2"
+                                Click="DeleteButton_Click" />
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Border>
+        <Border Background="White"
+                BorderBrush="Black"
+                BorderThickness="1"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="30"
+                Padding="20">
+            <Border.Effect>
+                <DropShadowEffect />
+            </Border.Effect>
+            <TextBlock Text="Click on a feature to select. 'Add' new related record or update/delete any of its existing records."
+                       Width="200"
+                       TextAlignment="Left"
+                       Margin="30,20,20,30"
+                       TextWrapping="Wrap" />
+        </Border>
+    </Grid>
+</UserControl>

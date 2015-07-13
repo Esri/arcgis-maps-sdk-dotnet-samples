@@ -1,0 +1,92 @@
+﻿<UserControl x:Class="ArcGISRuntime.Samples.Desktop.Traffic"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+             xmlns:local="clr-namespace:ArcGISRuntime.Samples.Desktop">
+    <Grid x:Name="layoutGrid">
+        <esri:MapView x:Name="MyMapView" MapViewTapped="MyMapView_MapViewTapped">
+            <esri:Map InitialViewpoint="-15053000,2749000,-6540000,6590000,3857">
+                <esri:ArcGISTiledMapServiceLayer DisplayName="World Topo (Basemap)"
+                    ServiceUri="http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
+
+                <esri:ArcGISDynamicMapServiceLayer ID="Traffic" DisplayName="Traffic" VisibleLayers="2,3,4,6,7"
+                    ServiceUri="https://traffic.arcgis.com/arcgis/rest/services/World/Traffic/MapServer" />
+            </esri:Map>
+
+            <esri:MapView.Overlays>
+                <esri:OverlayItemsControl>
+                    <Border x:Name="incidentOverlay" HorizontalAlignment="Right" VerticalAlignment="Top"
+                        Background="Black" BorderBrush="White" BorderThickness="2" Padding="6"
+                        esri:MapView.ViewOverlayAnchor="{Binding Feature.Geometry}" Visibility="Collapsed">
+                        <Grid MaxWidth="350" DataContext="{Binding Feature}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Foreground" Value="White" />
+                                    <Setter Property="Margin" Value="0,0,8,0" />
+                                </Style>
+                            </Grid.Resources>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Incident Details" FontWeight="Bold" Margin="0,0,0,4" />
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Location" />
+                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=Attributes[location]}" />
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Start" />
+                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Path=Attributes[start_localtime]}" />
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="End" />
+                            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Path=Attributes[end_localtime]}" />
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Description" />
+                            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Path=Attributes[description]}" TextWrapping="Wrap" />
+                        </Grid>
+                    </Border>
+                </esri:OverlayItemsControl>
+            </esri:MapView.Overlays>
+        </esri:MapView>
+
+        <Border
+				Background="White" BorderBrush="Black" BorderThickness="1"
+				HorizontalAlignment="Right" VerticalAlignment="Top"
+				Margin="30" Padding="20" Width="350">
+            <Border.Effect>
+                <DropShadowEffect/>
+            </Border.Effect>
+            <StackPanel>
+                <TextBlock Text="Traffic data from the ArcGIS Online Traffic Service." 
+						   TextWrapping="Wrap" FontWeight="Bold" />
+
+                <TextBlock Text="Traffic Layers" FontSize="14" FontWeight="Bold" 
+						   Margin="0,12,0,4" HorizontalAlignment="Center" />
+                <TreeView x:Name="legendTree" Margin="12,0">
+                    <TreeView.ItemContainerStyle>
+                        <Style TargetType="TreeViewItem">
+                            <Setter Property="TreeViewItem.IsExpanded" Value="True" />
+                            <Setter Property="Focusable" Value="False" />
+                        </Style>
+                    </TreeView.ItemContainerStyle>
+
+                    <TreeView.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding LayerLegendInfos}">
+                            <StackPanel>
+                                <TextBlock Text="{Binding LayerName}" TextWrapping="Wrap" Margin="8,0,0,0" />
+                            </StackPanel>
+                        </HierarchicalDataTemplate>
+                    </TreeView.ItemTemplate>
+                </TreeView>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

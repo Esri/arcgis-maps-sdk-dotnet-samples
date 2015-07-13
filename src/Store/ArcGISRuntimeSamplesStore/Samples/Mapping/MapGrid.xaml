@@ -1,0 +1,36 @@
+﻿<Page
+    x:Class="ArcGISRuntime.Samples.Store.Samples.MapGrid"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esri="using:Esri.ArcGISRuntime.Controls"
+    xmlns:layers="using:Esri.ArcGISRuntime.Layers">
+
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+		<Grid.Resources>
+			<esri:LatLonMapGrid x:Key="LatLonGrid" LabelPosition="Geographic" LabelStyle="DecimalDegrees" />
+			<esri:MgrsMapGrid x:Key="MgrsGrid" LabelPosition="TopLeft" />
+			<esri:UtmMapGrid x:Key="UtmGrid" />
+			<esri:UsngMapGrid x:Key="UsngGrid" LabelPosition="AllSides" />
+		</Grid.Resources>
+        
+        <esri:MapView x:Name="MyMapView" WrapAround="True" MapGrid="{Binding ElementName=gridTypeCombo, Path=SelectedItem.Tag}">
+            <esri:Map>
+				<layers:ArcGISTiledMapServiceLayer
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
+            </esri:Map>
+        </esri:MapView>
+
+        <Border Background="#CC000000" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Padding="20">
+            <StackPanel>
+                <TextBlock Text="Grid Type:" FontSize="16"  Margin="0,0,0,4" />
+                <ComboBox x:Name="gridTypeCombo" Width="100" ItemsSource="{Binding GridTypes}" SelectedIndex="0">
+                    <ComboBoxItem Tag="{x:Null}">None</ComboBoxItem>
+                    <ComboBoxItem Tag="{StaticResource LatLonGrid}">Lat/Lon</ComboBoxItem>
+                    <ComboBoxItem Tag="{StaticResource MgrsGrid}">MGRS</ComboBoxItem>
+                    <ComboBoxItem Tag="{StaticResource UtmGrid}">UTM</ComboBoxItem>
+                    <ComboBoxItem Tag="{StaticResource UsngGrid}">USNG</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>

@@ -1,0 +1,239 @@
+﻿<Page
+	x:Class="ArcGISRuntime.Samples.Phone.Samples.SyncGeodatabase"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="using:ArcGISRuntime.Samples.Phone.Samples"
+	xmlns:common="using:ArcGISRuntime.Samples.Phone"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:esri="using:Esri.ArcGISRuntime.Controls"
+	xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+	xmlns:symb="using:Esri.ArcGISRuntime.Symbology"
+	mc:Ignorable="d"
+	Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+	<Page.Resources>
+		<local:CodedValueDomainConverter x:Key="DomainConverter" />
+		<Style TargetType="Border" x:Key="BorderStyle">
+			<Setter Property="Background" Value="#CC000000"/>
+			<Setter Property="Margin" Value="0,12,0,0"/>
+			<Setter Property="BorderBrush" Value="White"/>
+			<Setter Property="BorderThickness" Value="2"/>
+			<Setter Property="CornerRadius" Value="10"/>
+			<Setter Property="Padding" Value="12"/>
+			<Setter Property="HorizontalAlignment" Value="Left"/>
+			<Setter Property="VerticalAlignment" Value="Top"/>
+		</Style>
+	</Page.Resources>
+	<Page.BottomAppBar>
+		<CommandBar>
+			<CommandBar.PrimaryCommands>
+				<AppBarButton Label="Contents" Icon="List">
+					<AppBarButton.Flyout>
+						<Flyout>
+							<StackPanel x:Name="panelLegend" Margin="10,5">
+								<TextBlock Text="Current Map Layers" FontSize="16" FontWeight="Bold" Margin="0,0,0,6" />
+								<ItemsControl Grid.Row="1" x:Name="legend" ItemsSource="{Binding LegendLayers}" Margin="12,0" BorderBrush="Transparent">
+									<ItemsControl.ItemTemplate>
+										<DataTemplate>
+											<Grid>
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="Auto" />
+													<ColumnDefinition Width="*" />
+												</Grid.ColumnDefinitions>
+												<CheckBox Grid.Column="0" Content="{Binding DisplayName}" IsChecked="{Binding IsVisible, Mode=TwoWay}" Margin="0,0,6,0" />
+											</Grid>
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</ItemsControl>
+							</StackPanel>
+						</Flyout>
+					</AppBarButton.Flyout>
+				</AppBarButton>
+				<AppBarButton x:Name="panelGenerate" 
+							  IsEnabled="{Binding CanGenerate}"
+							  Label="Create GDB"
+							  Click="GenerateButton_Click">
+					<AppBarButton.Icon>
+						<BitmapIcon UriSource="ms-appx:///ArcGISRuntimeSamplesPhone/Assets/Icons/vector.database.png"/>
+					</AppBarButton.Icon>
+				</AppBarButton>
+				<AppBarButton x:Name="panelSync"
+							  Label="Sync"
+							  IsEnabled="{Binding CanSync}"
+							  Icon="Sync"
+							  Click="SyncButton_Click"/>
+				<AppBarButton x:Name="panelUnregister"
+							  Label="Unregister"
+							  IsEnabled="{Binding CanUnregister}" 
+							  Click="UnregisterButton_Click">
+					<AppBarButton.Icon>
+						<BitmapIcon UriSource="ms-appx:///ArcGISRuntimeSamplesPhone/Assets/Icons/vector.network.server.disconnect.png"/>
+					</AppBarButton.Icon>
+				</AppBarButton>
+
+			</CommandBar.PrimaryCommands>
+			<CommandBar.SecondaryCommands>
+				<AppBarButton Label="Info">
+					<AppBarButton.Flyout>
+						<Flyout>
+							<StackPanel x:Name="panelUI" Height="255">
+								<StackPanel Margin="10,5">
+									<TextBlock Text="Step 1: Generate Local Geodatabase" 
+											FontSize="16" 
+											FontWeight="Bold" 
+											Margin="0,0,0,6" />
+									<TextBlock Text="Generate and download a local dataset from the online service. This data will be edited locally and later synchronized with the server." 
+											TextWrapping="Wrap" />
+								</StackPanel>
+								<StackPanel Margin="10,5">
+									<TextBlock Text="Step 2: Edit Local Geodatabase" 
+													   FontSize="16" 
+													   FontWeight="Bold" 
+													   Margin="0,6" />
+									<TextBlock Text="Click on the map to add new bird sightings to the local geodatabase." TextWrapping="Wrap" />
+								</StackPanel>
+
+								<StackPanel Margin="10,5">
+									<TextBlock Text="Step 3: Synchronize Data" 
+												   FontSize="16" 
+												   FontWeight="Bold" 
+												   Margin="0,6" />
+									<TextBlock Text="Click Synchronize Local/Online Data to push new records to the server." TextWrapping="Wrap" />
+								</StackPanel>
+								<StackPanel Margin="10,5">
+									<TextBlock Text="Step 4: Unregister Local Geodatabase" 
+												   FontSize="16" 
+												   FontWeight="Bold" 
+												   Margin="0,6" />
+									<TextBlock Text="Unregister the local geodatabase replica from the server." 
+												   TextWrapping="Wrap" />
+								</StackPanel>
+							</StackPanel>
+						</Flyout>
+					</AppBarButton.Flyout>
+				</AppBarButton>
+			</CommandBar.SecondaryCommands>
+		</CommandBar>
+	</Page.BottomAppBar>
+
+	<Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+		<Grid.Resources>
+
+			<common:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+		</Grid.Resources>
+
+		<esri:MapView x:Name="MyMapView" MapViewTapped="MyMapView_MapViewTapped">
+			<esri:Map>
+				<esri:Map.InitialViewpoint>
+					<esri:ViewpointExtent XMin="-13446093" YMin="4183762" XMax="-13432119" YMax="4190880" SpatialReferenceID="102100" />
+				</esri:Map.InitialViewpoint>
+
+				<layers:ArcGISTiledMapServiceLayer DisplayName="Streets Basemap"
+					ServiceUri="http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+
+				<layers:ArcGISDynamicMapServiceLayer ID="onlineBirdsLayer" DisplayName="Online Birds" 
+					ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/SaveTheBaySync/MapServer" />
+			</esri:Map>
+
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="graphicsOverlay">
+					<esri:GraphicsOverlay.Renderer>
+						<symb:SimpleRenderer>
+							<symb:SimpleMarkerSymbol Color="Red" Style="Diamond" Size="8" />
+						</symb:SimpleRenderer>
+					</esri:GraphicsOverlay.Renderer>
+				</esri:GraphicsOverlay>
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
+
+		<Border x:Name="panelStatus" 
+				Style="{StaticResource BorderStyle}"
+				Visibility="{Binding IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}">
+			<StackPanel >
+				<TextBlock x:Name="txtStatusMain" FontSize="14" Text="{Binding PrimaryStatus}" HorizontalAlignment="Left" />
+				<ProgressBar x:Name="progress" IsIndeterminate="True" Margin="0,4" Height="6"/>
+				<TextBlock x:Name="txtStatus" FontSize="14" Text="{Binding SecondaryStatus}" FontWeight="Bold" />
+			</StackPanel>
+		</Border>
+
+		<Border x:Name="panelBirdSighting" 
+				Style="{StaticResource BorderStyle}"
+				Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="*" />
+					<RowDefinition Height="16" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+
+				<TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Bird Sighting" 
+						   FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,12" />
+
+				<TextBlock Grid.Row="1" Grid.Column="0" Text="Bird Type: " VerticalAlignment="Center" />
+				<ComboBox Grid.Row="1" Grid.Column="1" x:Name="comboBirdType" Margin="0,6" VerticalAlignment="Center" 
+						  ItemsSource="{Binding BirdTypeDomain}" DisplayMemberPath="Item2" SelectedValuePath="Item1" />
+
+				<TextBlock Grid.Row="2" Grid.Column="0" Text="Comment: " VerticalAlignment="Center" Margin="0,4,8,0" />
+				<TextBox Grid.Row="2" Grid.Column="1" x:Name="txtComment" AcceptsReturn="True" TextWrapping="Wrap" />
+
+				<StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
+					<Button Content="OK" HorizontalAlignment="Center" Margin="0,0,8,0" Click="RegisterBirdSightingButton_Click"/>
+					<Button Content="Cancel" HorizontalAlignment="Center" Click="CancelBirdSightingButton_Click"/>
+				</StackPanel>
+			</Grid>
+		</Border>
+
+		<Border x:Name="panelEdit" 
+				Style="{StaticResource BorderStyle}" 
+				VerticalAlignment="Bottom" MaxHeight="150" 
+				Visibility="{Binding CanSync, Converter={StaticResource BooleanToVisibilityConverter}}">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="*" />
+				</Grid.RowDefinitions>
+
+				<TextBlock Text="Birds - Local Geodatabase" FontSize="16" FontWeight="Bold" Margin="0,0,0,6" VerticalAlignment="Center" />
+
+				<StackPanel Grid.Row="1" Orientation="Horizontal">
+					<StackPanel.Resources>
+						<Style TargetType="TextBlock">
+							<Setter Property="FontWeight" Value="Bold" />
+							<Setter Property="FontSize" Value="16" />
+						</Style>
+					</StackPanel.Resources>
+
+					<TextBlock Text="ID" Width="50" />
+					<TextBlock Text="Type" Width="75" />
+					<TextBlock Text="Comments" Width="125" />
+					<TextBlock Text="Creator" Width="75" />
+					<TextBlock Text="Date" Width="50" />
+				</StackPanel>
+
+				<ScrollViewer Grid.Row="2">
+					<ItemsControl x:Name="listData" ItemsSource="{Binding LocalBirdFeatures}">
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Text="{Binding Attributes[objectid]}" Width="50" />
+									<TextBlock Text="{Binding Converter={StaticResource DomainConverter}, ConverterParameter=type}" Width="75" />
+									<TextBlock Text="{Binding Attributes[comments]}" Width="125" />
+									<TextBlock Text="{Binding Attributes[creator]}" Width="75" />
+									<TextBlock Text="{Binding Attributes[created_date]}" Width="50" />
+								</StackPanel>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+				</ScrollViewer>
+			</Grid>
+		</Border>
+	</Grid>
+</Page>

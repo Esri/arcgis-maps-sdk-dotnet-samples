@@ -1,0 +1,17 @@
+﻿<Page
+    x:Class="ArcGISRuntime.Samples.Phone.Samples.DynamicMap"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:esri="using:Esri.ArcGISRuntime.Controls"
+	xmlns:lyr="using:Esri.ArcGISRuntime.Layers"
+	xmlns:geom="using:Esri.ArcGISRuntime.Geometry">
+    
+    <Grid>
+		<esri:MapView x:Name="mapView">
+			<esri:Map >
+				<lyr:ArcGISDynamicMapServiceLayer
+					ServiceUri="http://serverapps101.esri.com/arcgis/rest/services/USAStreetMap/MapServer" />
+			</esri:Map>
+		</esri:MapView>
+	</Grid>
+</Page>

@@ -1,0 +1,61 @@
+﻿<Page
+	x:Class="ArcGISRuntime.Samples.Store.Samples.Stretch"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  
+	xmlns:esri="using:Esri.ArcGISRuntime.Controls"  
+	xmlns:layers="using:Esri.ArcGISRuntime.Layers">
+
+	<Page.BottomAppBar>
+		<CommandBar IsSticky="True" IsOpen="True">
+			<AppBarButton Icon="Setting" Label="Options">
+				<AppBarButton.Flyout>
+					<Flyout>
+						<StackPanel>
+							<StackPanel Orientation="Vertical" Margin="10">
+								<RadioButton x:Name="NoneCheckBox" Content="None" GroupName="StretchType" IsChecked="True"  Margin="3,0,0,0"/>
+								<RadioButton x:Name="StandardDevCheckBox" Content="Standard Deviation" GroupName="StretchType"  Margin="3,0,0,0"/>
+								<RadioButton x:Name="HistogramCheckBox" Content="Histogram" GroupName="StretchType" Margin="3,0,0,0" />
+								<RadioButton x:Name="MinMaxCheckBox" Content="MinMax" GroupName="StretchType"  Margin="3,0,0,0"/>
+								<StackPanel Orientation="Horizontal" Margin="3">
+									<TextBlock Text="Standard Deviations" FontSize="14" VerticalAlignment="Center" Margin="5"  />
+									<TextBox x:Name="StnDevTextBox" Text="2" />
+								</StackPanel>
+								<StackPanel Orientation="Horizontal" Margin="3">
+									<TextBlock Text="Band IDs" FontSize="14" Margin="5" VerticalAlignment="Center" />
+									<TextBox x:Name="BandIDsTextBox" Text="3,1,2" />
+								</StackPanel>
+								<TextBlock x:Name="ValidBandIdsTextBlock" Text="3 bands must be defined" Foreground="Red" 
+									   Visibility="Collapsed" />
+							</StackPanel>
+							<Button Content="Apply" Margin="10" Click="ApplyButton_Click" />
+						</StackPanel>
+					</Flyout>
+				</AppBarButton.Flyout>
+			</AppBarButton>
+		</CommandBar>
+
+	</Page.BottomAppBar>
+	<Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+		<esri:MapView x:Name="MyMapView">
+			<esri:Map >
+				<layers:ArcGISImageServiceLayer ID="ImageServiceLayer" 
+										  ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/Toronto/ImageServer" 
+										  ImageFormat="PNG8"
+										  NoData="0"/>
+				<layers:ArcGISTiledMapServiceLayer Opacity="100" 
+					ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer" />
+			</esri:Map>
+		</esri:MapView>
+
+		<Border Background="Black" HorizontalAlignment="Right" VerticalAlignment="Top"
+						Margin="30,20,20,30" Padding="10">
+			<StackPanel Orientation="Vertical">
+				<TextBlock x:Name="ResponseTextBlock" FontSize="14"
+						   Text="Click Options to define input properties for the stretch raster function." 
+						   Width="200" TextAlignment="Left" 
+						   TextWrapping="Wrap" Margin="0,0,0,5"/>
+
+			</StackPanel>
+		</Border>
+	</Grid>
+</Page>

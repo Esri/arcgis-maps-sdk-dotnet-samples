@@ -1,0 +1,27 @@
+﻿<Page
+    x:Class="ArcGISRuntime.Samples.Phone.Samples.CreatePolylines"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ArcGISRuntime.Samples.Phone.Samples"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:esri="using:Esri.ArcGISRuntime.Controls"
+	xmlns:layers="using:Esri.ArcGISRuntime.Layers"
+	xmlns:data="using:Esri.ArcGISRuntime.Data"
+	xmlns:symb="using:Esri.ArcGISRuntime.Symbology"
+	xmlns:geom="using:Esri.ArcGISRuntime.Geometry"
+    mc:Ignorable="d"
+	Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+	<Grid>
+		<esri:MapView x:Name="MyMapView" WrapAround="True">
+			<esri:Map>
+				<layers:ArcGISTiledMapServiceLayer
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
+			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="graphicsOverlay" />
+			</esri:MapView.GraphicsOverlays>
+		</esri:MapView>
+	</Grid>
+</Page>

@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="ArcGISRuntime.Samples.Desktop.RoutingWithDirections"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid x:Name="LayoutRoot">
+        <Grid.Resources>
+            <esri:SimpleLineSymbol x:Key="routeSymbol" Color="Blue" Width="2" Style="Dot" />
+            <esri:SimpleRenderer x:Key="routesRenderer" Symbol="{StaticResource routeSymbol}" />
+
+            <esri:SimpleMarkerSymbol x:Key="directionPointSymbol" Color="Blue" Size="6" Style="X" />
+            <esri:SimpleLineSymbol x:Key="directionLineSymbol" Color="Transparent" Width="2" Style="Solid" />
+            <esri:SimpleRenderer x:Key="directionsRenderer" Symbol="{StaticResource directionLineSymbol}" />
+        </Grid.Resources>
+        
+        <esri:MapView x:Name="MyMapView" 
+					  MapViewTapped="MyMapView_MapViewTapped" 
+					  MapViewDoubleTapped="MyMapView_MapViewDoubleTapped">
+			<esri:Map InitialViewpoint="-117.24377026205757,32.61710761167467,-116.95879261773452,32.841266856294624,4326">
+				<esri:ArcGISTiledMapServiceLayer
+                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+			</esri:Map>
+			<esri:MapView.GraphicsOverlays>
+				<esri:GraphicsOverlay ID="RoutesOverlay" Renderer="{StaticResource routesRenderer}"/>
+				<esri:GraphicsOverlay ID="StopsOverlay" />
+				<esri:GraphicsOverlay ID="DirectionsOverlay" Renderer="{StaticResource directionsRenderer}" SelectionColor="#CCFF0000"/>
+			</esri:MapView.GraphicsOverlays>
+        </esri:MapView>
+
+		<Border Background="White" BorderBrush="Black" BorderThickness="1"
+				HorizontalAlignment="Right" VerticalAlignment="Top"
+				Margin="30" Padding="20" Width="300">
+			<Border.Effect>
+				<DropShadowEffect/>
+			</Border.Effect>
+			<Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Tap one or more stop locations on the map then double tap the final stop to calculate a simple route with directions." 
+                           TextWrapping="Wrap"/>
+
+                <ProgressBar x:Name="progress" Grid.Row="1" IsIndeterminate="True" Visibility="Collapsed" Margin="0,12,0,0" />
+
+                <Grid x:Name="panelResults" Grid.Row="2" Margin="0,12,0,0" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Route Details:"  FontSize="16" FontWeight="Bold" />
+                    <TextBlock x:Name="txtRouteTotals" Grid.Row="1" FontStyle="Italic" />
+
+                    <ListView x:Name="listDirections" Grid.Row="2"
+                              SelectionMode="Single" SelectionChanged="listDirections_SelectionChanged">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="4,0">
+                                    <TextBlock Text="{Binding Attributes[Direction]}" FontSize="13" FontWeight="Bold" />
+                                    <TextBlock Margin="8,0,0,0" FontSize="12" FontStyle="Italic">
+                                        <Run Text="{Binding Attributes[Length]}" />
+                                        <Run Text=" mi  /  " />
+                                        <Run Text="{Binding Attributes[Time]}" />
+                                    </TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

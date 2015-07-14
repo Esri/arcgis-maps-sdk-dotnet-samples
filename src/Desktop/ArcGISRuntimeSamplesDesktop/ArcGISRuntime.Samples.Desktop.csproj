@@ -56,6 +56,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Samples\KmlLayers\AddKMLLayer.xaml.cs">
+      <DependentUpon>AddKMLLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\KmlLayers\AddLocalKMLLayer.xaml.cs">
+      <DependentUpon>AddLocalKMLLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\KmlLayers\DragDropKMLFile.xaml.cs">
+      <DependentUpon>DragDropKMLFile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\KmlLayers\NetworklinkKML.xaml.cs">
+      <DependentUpon>NetworklinkKML.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Scene\ArcGISDynamicMapServiceLayerSample3d.xaml.cs">
       <DependentUpon>ArcGISDynamicMapServiceLayerSample3d.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -84,6 +96,9 @@
     </Compile>
     <Compile Include="Samples\Scene\GraphicsOverlay3d.xaml.cs">
       <DependentUpon>GraphicsOverlay3d.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Scene\KMLLayerSample3D.xaml.cs">
+      <DependentUpon>KMLLayerSample3D.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Scene\OpenStreetMapLayerSample3d.xaml.cs">
       <DependentUpon>OpenStreetMapLayerSample3d.xaml</DependentUpon>
@@ -524,6 +539,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Samples\KmlLayers\AddKMLLayer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\KmlLayers\AddLocalKMLLayer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\KmlLayers\DragDropKMLFile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\KmlLayers\NetworklinkKML.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Samples\Scene\ArcGISDynamicMapServiceLayerSample3d.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -559,6 +590,10 @@
     <Page Include="Samples\Scene\GraphicsOverlay3d.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Scene\KMLLayerSample3D.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\Scene\OpenStreetMapLayerSample3d.xaml">
       <SubType>Designer</SubType>
@@ -1146,7 +1181,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Assets\Updating.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\DrawLineSegment.png" />
   </ItemGroup>

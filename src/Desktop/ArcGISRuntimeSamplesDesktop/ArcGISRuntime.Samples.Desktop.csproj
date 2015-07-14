@@ -62,11 +62,11 @@
     <Compile Include="Samples\KmlLayers\AddLocalKMLLayer.xaml.cs">
       <DependentUpon>AddLocalKMLLayer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\KmlLayers\DragDrop File.xaml.cs">
-      <DependentUpon>DragDrop File.xaml</DependentUpon>
+    <Compile Include="Samples\KmlLayers\DragDropKMLFile.xaml.cs">
+      <DependentUpon>DragDropKMLFile.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\KmlLayers\NetworkLink with tree view.xaml.cs">
-      <DependentUpon>NetworkLink with tree view.xaml</DependentUpon>
+    <Compile Include="Samples\KmlLayers\NetworklinkKML.xaml.cs">
+      <DependentUpon>NetworklinkKML.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Scene\ArcGISDynamicMapServiceLayerSample3d.xaml.cs">
       <DependentUpon>ArcGISDynamicMapServiceLayerSample3d.xaml</DependentUpon>
@@ -547,11 +547,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\KmlLayers\DragDrop File.xaml">
+    <Page Include="Samples\KmlLayers\DragDropKMLFile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\KmlLayers\NetworkLink with tree view.xaml">
+    <Page Include="Samples\KmlLayers\NetworklinkKML.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

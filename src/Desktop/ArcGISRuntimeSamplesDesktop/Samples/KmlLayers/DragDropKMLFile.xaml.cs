@@ -1,31 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Esri.ArcGISRuntime.Layers;
 
-namespace ArcGISRuntime.Samples.Desktop.Samples.KmlLayers
+
+namespace ArcGISRuntime.Samples.Desktop
 {
     /// <summary>
-    /// This sample show you how you can add KML or KMZ file from your machine to the map using Drag/Drop. 
+    /// This sample demonstrates how you can add KML or KMZ file from your machine to the map using Drag/Drop. 
     /// </summary>
     /// <title>DragDrop</title>
     /// <category>Layers</category>
     /// <subcategory>Kml Layers</subcategory>
-    public partial class DragDrop_File : UserControl
+    public partial class DragDropKMLFile : UserControl
     {
         /// <summary>Construct KML DragDrop sample control</summary>
-        public DragDrop_File()
+        public DragDropKMLFile()
         {
             InitializeComponent();
         }
@@ -34,7 +24,6 @@ namespace ArcGISRuntime.Samples.Desktop.Samples.KmlLayers
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                // Note that you can have more than one file.
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
 
                 KmlLayer kmlLayer = new KmlLayer(new Uri(files[0]));

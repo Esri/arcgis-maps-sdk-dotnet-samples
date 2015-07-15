@@ -4,15 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             mc:Ignorable="d" >
     <Grid>
-        <esri:MapView x:Name="MyMapView">
-            <esri:Map>
-                <esri:ArcGISTiledMapServiceLayer ServiceUri="http://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer"/>
-                <esri:KmlLayer SourceUri="..\..\..\samples-data\kml\Volcanoes.kml"/>
-            </esri:Map>
-        </esri:MapView>
-
-    </Grid>
+		<esri:MapView x:Name="MyMapView">
+			<esri:Map>
+				<esri:ArcGISTiledMapServiceLayer ServiceUri="http://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer"/>
+				<esri:KmlLayer SourceUri="..\..\..\samples-data\kml\Volcanoes.kml"/>
+			</esri:Map>
+		</esri:MapView>
+	</Grid>
 </UserControl>

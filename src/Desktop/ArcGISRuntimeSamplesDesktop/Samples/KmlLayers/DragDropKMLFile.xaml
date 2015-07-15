@@ -21,8 +21,8 @@
                 <DropShadowEffect/>
             </Border.Effect>
             <StackPanel>
-                <TextBlock Text="Drag and Drop any KML or KMZ file on the map." TextWrapping="Wrap" />
-                <Button x:Name="ResetMapButton" Content="Reset" Click="ResetMapButton_Click" Margin="15"/>
+                <TextBlock Text="Drag and drop any KML or KMZ file onto the map." TextWrapping="Wrap" />
+                <Button Content="Reset" Click="ResetMapButton_Click" Margin="15"/>
             </StackPanel>
         </Border>
     </Grid>

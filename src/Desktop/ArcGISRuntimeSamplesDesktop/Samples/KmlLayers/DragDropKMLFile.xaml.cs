@@ -9,12 +9,11 @@ namespace ArcGISRuntime.Samples.Desktop
     /// <summary>
     /// This sample demonstrates how you can add KML or KMZ file from your machine to the map using Drag/Drop. 
     /// </summary>
-    /// <title>DragDrop</title>
+    /// <title>Drag and Drop</title>
     /// <category>Layers</category>
     /// <subcategory>Kml Layers</subcategory>
     public partial class DragDropKMLFile : UserControl
     {
-        /// <summary>Construct KML DragDrop sample control</summary>
         public DragDropKMLFile()
         {
             InitializeComponent();

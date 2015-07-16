@@ -16,9 +16,8 @@ namespace ArcGISRuntime.Samples.Desktop
 	/// <subcategory>Feature Layers</subcategory>
 	public partial class FeatureLayerFromLocalGeodatabase3d : UserControl
 	{
-		private const string GDB_PATH = @"..\..\..\samples-data\maps\usa.geodatabase";
+		private const string GeodatabasePath = @"..\..\..\samples-data\maps\usa.geodatabase";
 
-		/// <summary>Construct FeatureLayerFromLocalGeodatabase sample control</summary>
 		public FeatureLayerFromLocalGeodatabase3d()
 		{
 			InitializeComponent();
@@ -29,12 +28,12 @@ namespace ArcGISRuntime.Samples.Desktop
 		{
 			try
 			{
-				var gdb = await Geodatabase.OpenAsync(GDB_PATH);
+				var geodatabase = await Geodatabase.OpenAsync(GeodatabasePath);
 
 				Envelope extent = null;
-				foreach (var table in gdb.FeatureTables)
+				foreach (var table in geodatabase.FeatureTables)
 				{
-					var flayer = new FeatureLayer()
+					var featureLayer = new FeatureLayer()
 					{
 						ID = table.Name,
 						DisplayName = table.Name,
@@ -49,7 +48,7 @@ namespace ArcGISRuntime.Samples.Desktop
 							extent = extent.Union(table.ServiceInfo.Extent);
 					}
 
-					MySceneView.Scene.Layers.Add(flayer);
+					MySceneView.Scene.Layers.Add(featureLayer);
 				}
 
 				await MySceneView.SetViewAsync(new Camera(new MapPoint(-99.343, 26.143, 5881928.401), 2.377, 10.982));

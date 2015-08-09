@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Esri.ArcGISRuntime.Controls;
+using Esri.ArcGISRuntime.Geometry;
+using System;
 using System.Windows.Controls;
 
 namespace ArcGISRuntime.Samples.Desktop
@@ -9,11 +11,17 @@ namespace ArcGISRuntime.Samples.Desktop
 	/// <title>3D KML Layer</title>
 	/// <category>Scene</category>
 	/// <subcategory>Layers</subcategory>
-	public partial class KMLLayerSample3D : UserControl
+	public partial class KMLLayerSample3d : UserControl
 	{
-		public KMLLayerSample3D()
+		public KMLLayerSample3d()
 		{
 			InitializeComponent();
+			Initialize();
+		}
+
+		public async void Initialize()
+		{
+			await MySceneView.SetViewAsync(new Camera(new MapPoint(-99.343, 26.143, 5881928.401), 2.377, 10.982));
 		}
 	}
 }

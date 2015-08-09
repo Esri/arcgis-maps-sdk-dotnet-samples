@@ -100,8 +100,8 @@
     <Compile Include="Samples\Scene\GraphicsOverlay3d.xaml.cs">
       <DependentUpon>GraphicsOverlay3d.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Scene\KMLLayerSample3D.xaml.cs">
-      <DependentUpon>KMLLayerSample3D.xaml</DependentUpon>
+    <Compile Include="Samples\Scene\KMLLayerSample3d.xaml.cs">
+      <DependentUpon>KMLLayerSample3d.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Scene\OpenStreetMapLayerSample3d.xaml.cs">
       <DependentUpon>OpenStreetMapLayerSample3d.xaml</DependentUpon>
@@ -598,7 +598,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Scene\KMLLayerSample3D.xaml">
+    <Page Include="Samples\Scene\KMLLayerSample3d.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

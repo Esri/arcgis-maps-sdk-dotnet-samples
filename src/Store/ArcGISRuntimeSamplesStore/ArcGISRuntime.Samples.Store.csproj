@@ -109,6 +109,18 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <Page Include="Samples\Scene\ElevationExaggeration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Scene\KMLLayerSample3d.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Scene\CameraAnimationSample3d.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Samples\DynamicServiceLayers\ArcGISDynamicMapServiceLayerSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -629,6 +641,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Scene\SymbolRotation3d.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Samples\TiledLayers\ArcGISLocalTiledLayerSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -658,6 +674,15 @@
     <Compile Include="Common\BooleanToVisibilityConverter.cs" />
     <Compile Include="Common\SampleDataViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Samples\Scene\ElevationExaggeration.xaml.cs">
+      <DependentUpon>ElevationExaggeration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Scene\KMLLayerSample3d.xaml.cs">
+      <DependentUpon>KMLLayerSample3d.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Scene\CameraAnimationSample3d.xaml.cs">
+      <DependentUpon>CameraAnimationSample3d.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\DynamicServiceLayers\ArcGISDynamicMapServiceLayerSample.xaml.cs">
       <DependentUpon>ArcGISDynamicMapServiceLayerSample.xaml</DependentUpon>
     </Compile>
@@ -1050,6 +1075,9 @@
     <Compile Include="Samples\Symbology\UniqueValueRendererSample.xaml.cs">
       <DependentUpon>UniqueValueRendererSample.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Scene\SymbolRotation3d.xaml.cs">
+      <DependentUpon>SymbolRotation3d.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\TiledLayers\ArcGISLocalTiledLayerSample.xaml.cs">
       <DependentUpon>ArcGISLocalTiledLayerSample.xaml</DependentUpon>
     </Compile>
@@ -1083,9 +1111,7 @@
       <Name>Microsoft Visual C++ 2013 Runtime Package for Windows</Name>
     </SDKReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Samples\Scene\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

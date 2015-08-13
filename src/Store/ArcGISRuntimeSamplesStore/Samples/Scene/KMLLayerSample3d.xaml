@@ -9,7 +9,7 @@
 	xmlns:layers="using:Esri.ArcGISRuntime.Layers"
 	mc:Ignorable="d">
 
-    <Grid>
+	<Grid>
 		<esri:SceneView x:Name="MySceneView">
 			<esri:Scene x:Name="MyScene">
 				<esri:Scene.Surface>

@@ -641,10 +641,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Scene\SymbolRotation3d.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Samples\TiledLayers\ArcGISLocalTiledLayerSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1074,9 +1070,6 @@
     </Compile>
     <Compile Include="Samples\Symbology\UniqueValueRendererSample.xaml.cs">
       <DependentUpon>UniqueValueRendererSample.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Scene\SymbolRotation3d.xaml.cs">
-      <DependentUpon>SymbolRotation3d.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\TiledLayers\ArcGISLocalTiledLayerSample.xaml.cs">
       <DependentUpon>ArcGISLocalTiledLayerSample.xaml</DependentUpon>

@@ -1,7 +1,7 @@
 ## Sample Table Of Contents
 ## Tutorials
 
-* [Example sample](https:\github.com/Esri/arcgis-runtime-samples-dotnet/tree/v.next/src/desktop/ArcGISRuntime.Desktop.Samples/Samples/Layers/ExampleSample)
+* [Example sample](src/desktop/ArcGISRuntime.Desktop.Samples/Samples/Layers/ExampleSample)
 
     This sample is here as an example how samples should be implemented. Please refere issues for details for each sample that needs to be implemented.
 

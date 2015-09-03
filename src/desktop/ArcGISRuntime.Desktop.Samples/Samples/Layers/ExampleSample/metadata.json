@@ -1,0 +1,14 @@
+{
+  "Name": "Example sample",
+  "SampleName": "ExampleSample",
+  "Description": "This sample is here as an example how samples should be implemented. Please refere issues for details for each sample that needs to be implemented.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"ExampleSample.jpg",
+  "Link":"",
+  "TypeLink": [
+  ]
+}

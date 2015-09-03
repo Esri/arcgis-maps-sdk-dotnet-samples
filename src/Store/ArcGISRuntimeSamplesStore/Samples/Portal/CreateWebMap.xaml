@@ -1,9 +1,0 @@
-﻿<Page
-    x:Class="ArcGISRuntime.Samples.Store.Samples.CreateWebMap"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:esri="using:Esri.ArcGISRuntime.Controls">
-    <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <esri:MapView x:Name="MyMapView" />
-    </Grid>
-</Page>

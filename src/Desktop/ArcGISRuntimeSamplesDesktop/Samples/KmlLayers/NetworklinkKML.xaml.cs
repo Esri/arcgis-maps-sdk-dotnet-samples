@@ -15,9 +15,9 @@ namespace ArcGISRuntime.Samples.Desktop
 	/// <title>NetworkLink with TreeView</title>
 	/// <category>Layers</category>
 	/// <subcategory>Kml Layers</subcategory>
-	public partial class NetworklinkKML : UserControl
+	public partial class NetworkLinkKML : UserControl
 	{
-		public NetworklinkKML()
+		public NetworkLinkKML()
 		{
 			InitializeComponent();
 		}

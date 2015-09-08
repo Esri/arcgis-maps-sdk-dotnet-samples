@@ -470,7 +470,7 @@
     <Compile Include="Samples\Scene\SceneOverlay.xaml.cs">
       <DependentUpon>SceneOverlay.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Security\OAuthAuthorizeHandler.cs" />
+    <Compile Include="Samples\OnlineServices\OAuthAuthorizeHandler.cs" />
     <Compile Include="Samples\Security\TokenSecuredServices.xaml.cs">
       <DependentUpon>TokenSecuredServices.xaml</DependentUpon>
     </Compile>

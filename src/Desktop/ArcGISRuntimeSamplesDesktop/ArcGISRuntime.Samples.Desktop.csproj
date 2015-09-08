@@ -65,8 +65,8 @@
     <Compile Include="Samples\KmlLayers\DragDropKMLFile.xaml.cs">
       <DependentUpon>DragDropKMLFile.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\KmlLayers\NetworklinkKML.xaml.cs">
-      <DependentUpon>NetworklinkKML.xaml</DependentUpon>
+    <Compile Include="Samples\KmlLayers\NetworkLinkKML.xaml.cs">
+      <DependentUpon>NetworkLinkKML.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Scene\ArcGISDynamicMapServiceLayerSample3d.xaml.cs">
       <DependentUpon>ArcGISDynamicMapServiceLayerSample3d.xaml</DependentUpon>
@@ -554,7 +554,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\KmlLayers\NetworklinkKML.xaml">
+    <Page Include="Samples\KmlLayers\NetworkLinkKML.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1189,11 +1189,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
- <None Include="packages.config" />
-</ItemGroup>
-<ItemGroup>
-<Resource Include="Assets\Updating.png" />
- </ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Updating.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\DrawLineSegment.png" />
   </ItemGroup>

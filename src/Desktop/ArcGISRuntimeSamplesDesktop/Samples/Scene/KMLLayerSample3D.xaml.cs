@@ -21,7 +21,7 @@ namespace ArcGISRuntime.Samples.Desktop
 
 		public async void Initialize()
 		{
-			await MySceneView.SetViewAsync(new Camera(new MapPoint(-99.343, 26.143, 5881928.401), 2.377, 10.982));
+			await MySceneView.SetViewAsync(new Camera(new MapPoint(-116.799471, 34.039555, 12819.401), 0, 40.49));
 		}
 	}
 }

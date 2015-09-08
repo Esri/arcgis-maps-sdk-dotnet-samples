@@ -13,7 +13,8 @@
 												 IsEnabled="True" />
 				</esri:Scene.Surface>
 				<esri:ArcGISTiledMapServiceLayer ServiceUri="http://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer"/>
-				<esri:KmlLayer SourceUri="http://activefiremaps.fs.fed.us/data/kml/conus.kmz"/>
+				<!--Add KML Layer for June 19, 2015-->
+				<esri:KmlLayer SourceUri="http://activefiremaps.fs.fed.us/data/kml/conus_hist/conus_20150619.kmz"/>
 			</esri:Scene>
 		</esri:SceneView>
 	</Grid>

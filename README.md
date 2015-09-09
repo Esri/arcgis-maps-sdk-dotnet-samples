@@ -1,6 +1,6 @@
 # arcgis-runtime-samples-dotnet
 
-This project contains samples for the ArcGIS Runtime SDK for .NET Samples.
+This project contains samples for the ArcGIS Runtime SDK for .NET.
 
 ## Instructions 
 
@@ -13,7 +13,7 @@ This project contains samples for the ArcGIS Runtime SDK for .NET Samples.
 
 Notes:
 
-Note to run samples in VB, you sample viewer can be started with `/vb` parameter on start up. When application is compiled, we also deploy `Launch Viewer VB.bat` file to the output folder.
+To run samples in VB, your sample viewer can be started with `/vb` parameter on start up. When the application is compiled, we also deploy `Launch Viewer VB.bat` file to the output folder.
 
 ## Requirements
 

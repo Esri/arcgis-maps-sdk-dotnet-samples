@@ -20,25 +20,9 @@ namespace TokenSecuredServices
 			IdentityManager.Current.ChallengeHandler = new ChallengeHandler(Challenge);
 		}
 
-		private void MyMapView_LayerLoaded(object sender, LayerLoadedEventArgs e)
-		{
-			if (e.LoadError == null)
-				return;
-
-			Debug.WriteLine(string.Format("Error while loading layer : {0} - {1}", e.Layer.ID, e.LoadError.Message));
-		}
-
-		// Base Challenge method that dispatches to the UI thread if necessary
 		private async Task<Credential> Challenge(CredentialRequestInfo cri)
 		{
-			if (Dispatcher == null)
-			{
 				return await Challenge_KnownCredentials(cri);
-			}
-			else
-			{
-				return await Dispatcher.Invoke(() => Challenge_KnownCredentials(cri));
-			}
 		}
 
 		// Challenge method that checks for service access with known credentials

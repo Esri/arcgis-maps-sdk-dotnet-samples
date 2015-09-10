@@ -59,33 +59,6 @@ namespace TokenSecuredServices
 
 			return await Task.FromResult<Credential>(null);
 		}
-
-		// Login button handler - checks entered credentials
-		private async void btnLogin_Click(object sender, RoutedEventArgs e)
-		{
-			if (_loginTCS == null || _loginTCS.Task == null || _loginTCS.Task.AsyncState == null)
-				return;
-
-			var loginInfo = _loginTCS.Task.AsyncState as LoginInfo;
-
-			try
-			{
-				var credentials = await IdentityManager.Current.GenerateCredentialAsync(loginInfo.ServiceUrl,
-					loginInfo.UserName, loginInfo.Password, loginInfo.RequestInfo.GenerateTokenOptions);
-
-				_loginTCS.TrySetResult(credentials);
-			}
-			catch (Exception ex)
-			{
-				loginInfo.ErrorMessage = ex.Message;
-				loginInfo.AttemptCount++;
-
-				if (loginInfo.AttemptCount >= 3)
-				{
-					_loginTCS.TrySetException(ex);
-				}
-			}
-		}
 	}
 
 	// Helper class to contain login information

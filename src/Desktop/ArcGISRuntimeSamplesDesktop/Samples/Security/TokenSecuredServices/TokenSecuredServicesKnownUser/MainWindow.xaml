@@ -10,60 +10,11 @@
 				<esri:ArcGISTiledMapServiceLayer DisplayName="World Street Map - Public"
                     ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 
-				<!-- username: user1 | password: user1 -->
 				<esri:ArcGISDynamicMapServiceLayer ID="USA" DisplayName="USA - Secure"
                     ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA_secure_user1/MapServer" />
 
 			</esri:Map>
 		</esri:MapView>
-
-		<!-- Login UI -->
-		<Border x:Name="loginPanel"
-                Background="White" BorderBrush="Black" BorderThickness="1" 
-				Margin="30" Padding="20"
-                HorizontalAlignment="Center" VerticalAlignment="Top" 
-				Visibility="Collapsed">
-			<Grid>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="100"/>
-					<ColumnDefinition Width="150" />
-				</Grid.ColumnDefinitions>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="*" />
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="*" />
-				</Grid.RowDefinitions>
-
-				<TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,8"
-                           TextWrapping="Wrap" Text="{Binding ServiceUrl, StringFormat='Login to: {0}'}" />
-
-				<TextBlock Grid.Row="1" Grid.Column="0" Margin="2" VerticalAlignment="Center" Text="Username" />
-				<TextBox Grid.Row="1" Grid.Column="1" Margin="2" Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" />
-
-				<TextBlock Grid.Row="2" Grid.Column="0" Margin="2" VerticalAlignment="Center" Text="Password" />
-				<!-- Yes, the password is visible in this example. Use a PasswordBox to mask the password text. -->
-				<TextBox Grid.Row="2" Grid.Column="1" Margin="2" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
-
-				<Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,12,0,0" 
-                        HorizontalAlignment="Center" Content="Login and Load Layer" IsDefault="True"
-                        Click="btnLogin_Click" />
-
-				<TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="8,12,8,0" 
-                           Foreground="Red" TextWrapping="Wrap" Text="{Binding ErrorMessage}">
-					<TextBlock.Style>
-						<Style TargetType="{x:Type TextBlock}">
-							<Style.Triggers>
-								<DataTrigger Binding="{Binding ErrorMessage}" Value="">
-									<Setter Property="Visibility" Value="Collapsed" />
-								</DataTrigger>
-							</Style.Triggers>
-						</Style>
-					</TextBlock.Style>
-				</TextBlock>
-			</Grid>
-		</Border>
 
 		<!-- Layer listing with status -->
 		<Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="30" MaxWidth="500"

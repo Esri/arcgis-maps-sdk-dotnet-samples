@@ -471,6 +471,9 @@
       <DependentUpon>SceneOverlay.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\OnlineServices\OAuthAuthorizeHandler.cs" />
+    <Compile Include="Samples\Security\SecuritySamples.xaml.cs">
+      <DependentUpon>SecuritySamples.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Symbology\ClassBreaksRendererSample.xaml.cs">
       <DependentUpon>ClassBreaksRendererSample.xaml</DependentUpon>
     </Compile>
@@ -1087,6 +1090,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Samples\Security\SecuritySamples.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Samples\Symbology\ClassBreaksRendererSample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1205,9 +1212,7 @@
   <ItemGroup>
     <Resource Include="Assets\x-24x24.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Samples\Security\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\..\packages\Esri.ArcGISRuntime.10.2.6.1026\build\net45\Esri.ArcGISRuntime.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.10.2.6.1026\build\net45\Esri.ArcGISRuntime.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

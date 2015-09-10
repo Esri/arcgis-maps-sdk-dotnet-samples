@@ -6,37 +6,29 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.UI;
 using Windows.UI.Core;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 
-
-namespace ArcGISRuntime.Samples.Store.Samples
+namespace TokenSecuredChallenge
 {
-	/// <summary>
-	/// This sample demonstrates how to use the IdentityManager to gain access to a secured service. Here, the map contains a public basemap and a secure dynamic layer. The IdentityManager will challenge for credentials when the Map tries to access a secure service.
-	/// </summary>
-	/// <title>ArcGIS Token Secured Services</title>
-	/// <category>Security</category>
-	public partial class TokenSecuredServices : Page
+	public sealed partial class MainPage : Page
 	{
 		private TaskCompletionSource<Credential> _loginTCS;
 
-		/// <summary>Construct Token Secured Services sample control</summary>
-		public TokenSecuredServices()
+		public MainPage()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 
 			IdentityManager.Current.ChallengeHandler = new ChallengeHandler(Challenge);
-
 		}
 
 		// Base Challenge method that dispatches to the UI thread if necessary
 		private async Task<Credential> Challenge(CredentialRequestInfo cri)
 		{
 			var dispatcher = CoreApplication.MainView.CoreWindow.Dispatcher;
-
 			if (dispatcher == null)
 			{
 				return await ChallengeUI(cri);
@@ -51,25 +43,6 @@ namespace ArcGISRuntime.Samples.Store.Samples
 				return await _loginTCS.Task;
 			}
 		}
-
-		// Challenge method that checks for service access with known credentials
-		//private async Task<Credential> Challenge_KnownCredentials(CredentialRequestInfo cri)
-		//{
-		//	try
-		//	{
-		//		// Obtain credentials from a secure source
-		//		string username = "user1";
-		//		string password = (cri.ServiceUri.Contains("USA_secure_user1")) ? "user1" : "pass.word1";
-
-		//		return await IdentityManager.Current.GenerateCredentialAsync(cri.ServiceUri, username, password, cri.GenerateTokenOptions);
-		//	}
-		//	catch (Exception ex)
-		//	{
-		//		var _x = new MessageDialog("Access to " + cri.ServiceUri + " denied. " + ex.Message, "Credential Error").ShowAsync();
-		//	}
-
-		//	return await Task.FromResult<Credential>(null);
-		//}
 
 		// Challenge method that prompts for username / password
 		private async Task<Credential> ChallengeUI(CredentialRequestInfo cri)
@@ -89,7 +62,6 @@ namespace ArcGISRuntime.Samples.Store.Samples
 			finally
 			{
 				loginPanel.Visibility = Visibility.Collapsed;
-
 			}
 		}
 
@@ -119,7 +91,6 @@ namespace ArcGISRuntime.Samples.Store.Samples
 				}
 			}
 		}
-
 	}
 
 	// Helper class to contain login information
@@ -190,7 +161,6 @@ namespace ArcGISRuntime.Samples.Store.Samples
 
 	public class ValueToForegroundColorConverter : IValueConverter
 	{
-
 		public object Convert(object value, Type targetType, object parameter, string language)
 		{
 			SolidColorBrush brush;
@@ -200,7 +170,7 @@ namespace ArcGISRuntime.Samples.Store.Samples
 				brush = new SolidColorBrush(Colors.Green);
 			else
 				brush = new SolidColorBrush(Colors.Black);
-			
+
 			return brush;
 		}
 
@@ -209,5 +179,4 @@ namespace ArcGISRuntime.Samples.Store.Samples
 			throw new NotImplementedException();
 		}
 	}
-
 }

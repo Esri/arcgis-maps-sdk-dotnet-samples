@@ -537,7 +537,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Security\TokenSecuredServices.xaml">
+    <Page Include="Samples\Security\SecuritySamples.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -951,8 +951,8 @@
       <DependentUpon>Statistics.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\OnlineServices\OAuthAuthorizeHandler.cs" />
-    <Compile Include="Samples\Security\TokenSecuredServices.xaml.cs">
-      <DependentUpon>TokenSecuredServices.xaml</DependentUpon>
+    <Compile Include="Samples\Security\SecuritySamples.xaml.cs">
+      <DependentUpon>SecuritySamples.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Symbology\ClassBreaksRendererSample.xaml.cs">
       <DependentUpon>ClassBreaksRendererSample.xaml</DependentUpon>

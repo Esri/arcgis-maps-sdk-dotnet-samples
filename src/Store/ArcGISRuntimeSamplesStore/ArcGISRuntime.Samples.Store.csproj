@@ -1025,7 +1025,7 @@
     <Compile Include="Samples\QueryTasks\Statistics.xaml.cs">
       <DependentUpon>Statistics.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Security\OAuthAuthorizeHandler.cs" />
+    <Compile Include="Samples\OnlineServices\OAuthAuthorizeHandler.cs" />
     <Compile Include="Samples\Security\TokenSecuredServices.xaml.cs">
       <DependentUpon>TokenSecuredServices.xaml</DependentUpon>
     </Compile>

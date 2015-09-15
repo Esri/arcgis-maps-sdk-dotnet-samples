@@ -65,6 +65,9 @@
     <Compile Include="Samples\KmlLayers\DragDropKMLFile.xaml.cs">
       <DependentUpon>DragDropKMLFile.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\KmlLayers\KMLPopups.xaml.cs">
+      <DependentUpon>KMLPopups.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\KmlLayers\NetworkLinkKML.xaml.cs">
       <DependentUpon>NetworkLinkKML.xaml</DependentUpon>
     </Compile>
@@ -551,6 +554,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\KmlLayers\DragDropKMLFile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\KmlLayers\KMLPopups.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

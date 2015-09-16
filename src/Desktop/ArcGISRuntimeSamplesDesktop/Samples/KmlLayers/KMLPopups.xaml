@@ -7,9 +7,9 @@
              mc:Ignorable="d" >
     <Grid>
         <esri:MapView x:Name="MyMapView" MapViewTapped="MyMapView_MapViewTapped">
-            <esri:Map>
+            <esri:Map InitialViewpoint="-15145111.1747442, 3306340.8200409, -10135736.8665589, 5855381.80915395">
                 <esri:ArcGISTiledMapServiceLayer ServiceUri="http://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer"/>
-                <esri:KmlLayer ID="kmlLayer" SourceUri="..\..\..\samples-data\kml\Volcanoes.kml"/>
+                <esri:KmlLayer ID="kmlLayer" SourceUri="http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_week_age_link.kml"/>
             </esri:Map>
         </esri:MapView>
     </Grid>

@@ -49,10 +49,7 @@ namespace TokenSecuredChallenge
 		{
 			try
 			{
-				string username = "user1";
-				string password = (cri.ServiceUri.Contains("USA_secure_user1")) ? "user1" : "pass.word1";
-
-				loginPanel.DataContext = new LoginInfo(cri, username, password);
+				loginPanel.DataContext = new LoginInfo(cri);
 				_loginTCS = new TaskCompletionSource<Credential>(loginPanel.DataContext);
 
 				loginPanel.Visibility = Visibility.Visible;
@@ -138,12 +135,10 @@ namespace TokenSecuredChallenge
 			set { _attemptCount = value; OnPropertyChanged(); }
 		}
 
-		public LoginInfo(CredentialRequestInfo cri, string user, string pwd)
+		public LoginInfo(CredentialRequestInfo cri)
 		{
 			RequestInfo = cri;
 			ServiceUrl = new Uri(cri.ServiceUri).GetComponents(UriComponents.AbsoluteUri & ~UriComponents.Query, UriFormat.UriEscaped);
-			UserName = user;
-			Password = pwd;
 			ErrorMessage = string.Empty;
 			AttemptCount = 0;
 		}

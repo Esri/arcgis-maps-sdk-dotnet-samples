@@ -17,72 +17,69 @@ namespace TokenSecuredServices
 		{
 			InitializeComponent();
 
-			IdentityManager.Current.ChallengeHandler = new ChallengeHandler(Challenge); 
+			IdentityManager.Current.ChallengeHandler = new ChallengeHandler(Challenge);
 		}
 
 		// Base Challenge method that dispatches to the UI thread if necessary
-        private async Task<Credential> Challenge(CredentialRequestInfo cri)
-        {
-            if (Dispatcher == null)
-            {
-                return await ChallengeUI(cri);
-            }
-            else
-            {
-                return await Dispatcher.Invoke(() => ChallengeUI(cri));
-            }
-        }
+		private async Task<Credential> Challenge(CredentialRequestInfo cri)
+		{
+			if (Dispatcher == null)
+			{
+				return await ChallengeUI(cri);
+			}
+			else
+			{
+				return await Dispatcher.Invoke(() => ChallengeUI(cri));
+			}
+		}
 
-        // Challenge method that prompts for username / password
-        private async Task<Credential> ChallengeUI(CredentialRequestInfo cri)
-        {
-            try
-            {
-                string username = "user1";
-                string password = (cri.ServiceUri.Contains("USA_secure_user1")) ? "user1" : "pass.word1";
+		// Challenge method that prompts for username / password
+		private async Task<Credential> ChallengeUI(CredentialRequestInfo cri)
+		{
+			try
+			{
+				loginPanel.DataContext = new LoginInfo(cri);
+				_loginTCS = new TaskCompletionSource<Credential>(loginPanel.DataContext);
 
-                loginPanel.DataContext = new LoginInfo(cri, username, password);
-                _loginTCS = new TaskCompletionSource<Credential>(loginPanel.DataContext);
+				loginPanel.Visibility = Visibility.Visible;
 
-                loginPanel.Visibility = Visibility.Visible;
+				return await _loginTCS.Task;
+			}
+			finally
+			{
+				loginPanel.Visibility = Visibility.Collapsed;
+			}
+		}
 
-                return await _loginTCS.Task;
-            }
-            finally
-            {
-                loginPanel.Visibility = Visibility.Collapsed;
-            }
-        }
+		// Login button handler - checks entered credentials
+		private async void btnLogin_Click(object sender, RoutedEventArgs e)
+		{
+			if (_loginTCS == null || _loginTCS.Task == null || _loginTCS.Task.AsyncState == null)
+				return;
 
-        // Login button handler - checks entered credentials
-        private async void btnLogin_Click(object sender, RoutedEventArgs e)
-        {
-            if (_loginTCS == null || _loginTCS.Task == null || _loginTCS.Task.AsyncState == null)
-                return;
+			var loginInfo = _loginTCS.Task.AsyncState as LoginInfo;
 
-            var loginInfo = _loginTCS.Task.AsyncState as LoginInfo;
+			try
+			{
+				var credentials = await IdentityManager.Current.GenerateCredentialAsync(loginInfo.ServiceUrl,
+					loginInfo.UserName, loginInfo.Password, loginInfo.RequestInfo.GenerateTokenOptions);
 
-            try
-            {
-                var credentials = await IdentityManager.Current.GenerateCredentialAsync(loginInfo.ServiceUrl,
-                    loginInfo.UserName, loginInfo.Password, loginInfo.RequestInfo.GenerateTokenOptions);
+				_loginTCS.TrySetResult(credentials);
+			}
+			catch (Exception ex)
+			{
+				loginInfo.ErrorMessage = ex.Message;
+				loginInfo.AttemptCount++;
 
-                _loginTCS.TrySetResult(credentials);
-            }
-            catch (Exception ex)
-            {
-                loginInfo.ErrorMessage = ex.Message;
-                loginInfo.AttemptCount++;
+				if (loginInfo.AttemptCount >= 3)
+				{
+					_loginTCS.TrySetException(ex);
+				}
+			}
+		}
+	}
 
-                if (loginInfo.AttemptCount >= 3)
-                {
-                    _loginTCS.TrySetException(ex);
-                }
-            }
-        }
-    }
-
-    // Helper class to contain login information
+	// Helper class to contain login information
 	internal class LoginInfo : INotifyPropertyChanged
 	{
 		private CredentialRequestInfo _requestInfo;
@@ -127,12 +124,10 @@ namespace TokenSecuredServices
 			set { _attemptCount = value; OnPropertyChanged(); }
 		}
 
-		public LoginInfo(CredentialRequestInfo cri, string user, string pwd)
+		public LoginInfo(CredentialRequestInfo cri)
 		{
 			RequestInfo = cri;
 			ServiceUrl = new Uri(cri.ServiceUri).GetLeftPart(UriPartial.Path);
-			UserName = user;
-			Password = pwd;
 			ErrorMessage = string.Empty;
 			AttemptCount = 0;
 		}

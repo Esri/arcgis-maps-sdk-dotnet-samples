@@ -1,27 +1,27 @@
 ﻿<Window x:Class="TokenSecuredServices.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
 		Title="Token Secured Services (Challenge)">
 	
 	<Grid x:Name="layoutGrid">
 		<esri:MapView x:Name="MyMapView" WrapAround="True">
 			<esri:Map InitialViewpoint="-17611013,2601908,-2823071,9287290,3857">
 				<esri:ArcGISTiledMapServiceLayer DisplayName="World Street Map - Public"
-                    ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+					ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 
 				<!-- username: user1 | password: user1 -->
 				<esri:ArcGISDynamicMapServiceLayer ID="USA" DisplayName="USA - Secure"
-                    ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA_secure_user1/MapServer" />
+					ServiceUri="http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA_secure_user1/MapServer" />
 
 			</esri:Map>
 		</esri:MapView>
 
 		<!-- Login UI -->
 		<Border x:Name="loginPanel"
-                Background="White" BorderBrush="Black" BorderThickness="1" 
+				Background="White" BorderBrush="Black" BorderThickness="1" 
 				Margin="30" Padding="20"
-                HorizontalAlignment="Center" VerticalAlignment="Top" 
+				HorizontalAlignment="Center" VerticalAlignment="Top" 
 				Visibility="Collapsed">
 			<Grid>
 				<Grid.ColumnDefinitions>
@@ -33,25 +33,28 @@
 					<RowDefinition Height="Auto" />
 					<RowDefinition Height="Auto" />
 					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
 					<RowDefinition Height="*" />
 				</Grid.RowDefinitions>
 
 				<TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,8"
-                           TextWrapping="Wrap" Text="{Binding ServiceUrl, StringFormat='Login to: {0}'}" />
+						   TextWrapping="Wrap" Text="{Binding ServiceUrl, StringFormat='Login to: {0}'}" />
+				<TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,8"
+						   TextWrapping="Wrap" Text="Username and Password are user1/user1" />
 
-				<TextBlock Grid.Row="1" Grid.Column="0" Margin="2" VerticalAlignment="Center" Text="Username" />
-				<TextBox Grid.Row="1" Grid.Column="1" Margin="2" Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" />
+				<TextBlock Grid.Row="2" Grid.Column="0" Margin="2" VerticalAlignment="Center" Text="Username" />
+				<TextBox Grid.Row="2" Grid.Column="1" Margin="2" Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" />
 
-				<TextBlock Grid.Row="2" Grid.Column="0" Margin="2" VerticalAlignment="Center" Text="Password" />
+				<TextBlock Grid.Row="3" Grid.Column="0" Margin="2" VerticalAlignment="Center" Text="Password" />
 				<!-- Yes, the password is visible in this example. Use a PasswordBox to mask the password text. -->
-				<TextBox Grid.Row="2" Grid.Column="1" Margin="2" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
+				<TextBox Grid.Row="3" Grid.Column="1" Margin="2" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
 
-				<Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,12,0,0" 
-                        HorizontalAlignment="Center" Content="Login and Load Layer" IsDefault="True"
-                        Click="btnLogin_Click" />
+				<Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,12,0,0" 
+						HorizontalAlignment="Center" Content="Login and Load Layer" IsDefault="True"
+						Click="btnLogin_Click" />
 
-				<TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="8,12,8,0" 
-                           Foreground="Red" TextWrapping="Wrap" Text="{Binding ErrorMessage}">
+				<TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="8,12,8,0" 
+						   Foreground="Red" TextWrapping="Wrap" Text="{Binding ErrorMessage}">
 					<TextBlock.Style>
 						<Style TargetType="{x:Type TextBlock}">
 							<Style.Triggers>
@@ -67,7 +70,7 @@
 
 		<!-- Layer listing with status -->
 		<Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="30" MaxWidth="500"
-                HorizontalAlignment="Right" VerticalAlignment="Top">
+				HorizontalAlignment="Right" VerticalAlignment="Top">
 			<StackPanel>
 				<TextBlock Text="Map Layers (with status)" Margin="4" FontSize="14" FontWeight="Bold" />
 				<ListView x:Name="listLayerStatus" Padding="6" ItemsSource="{Binding ElementName=MyMapView, Path=Map.Layers}">

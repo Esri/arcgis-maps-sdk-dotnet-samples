@@ -12,42 +12,36 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=391641
-
 namespace TokenSecuredChallenge
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class MainPage : Page
-    {
+	public sealed partial class MainPage : Page
+	{
 		private TaskCompletionSource<Credential> _loginTCS;
 
-        public MainPage()
-        {
-            this.InitializeComponent();
+		public MainPage()
+		{
+			this.InitializeComponent();
 
 			IdentityManager.Current.ChallengeHandler = new ChallengeHandler(Challenge);
 	
-            this.NavigationCacheMode = NavigationCacheMode.Required;
-        }
+			this.NavigationCacheMode = NavigationCacheMode.Required;
+		}
 
-        /// <summary>
-        /// Invoked when this page is about to be displayed in a Frame.
-        /// </summary>
-        /// <param name="e">Event data that describes how this page was reached.
-        /// This parameter is typically used to configure the page.</param>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            // TODO: Prepare page for display here.
+		/// <summary>
+		/// Invoked when this page is about to be displayed in a Frame.
+		/// </summary>
+		/// <param name="e">Event data that describes how this page was reached.
+		/// This parameter is typically used to configure the page.</param>
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			// TODO: Prepare page for display here.
 
-            // TODO: If your application contains multiple pages, ensure that you are
-            // handling the hardware Back button by registering for the
-            // Windows.Phone.UI.Input.HardwareButtons.BackPressed event.
-            // If you are using the NavigationHelper provided by some templates,
-            // this event is handled for you.
-        }
+			// TODO: If your application contains multiple pages, ensure that you are
+			// handling the hardware Back button by registering for the
+			// Windows.Phone.UI.Input.HardwareButtons.BackPressed event.
+			// If you are using the NavigationHelper provided by some templates,
+			// this event is handled for you.
+		}
 
 		// Base Challenge method that dispatches to the UI thread if necessary
 		private async Task<Credential> Challenge(CredentialRequestInfo cri)
@@ -74,10 +68,7 @@ namespace TokenSecuredChallenge
 		{
 			try
 			{
-				string username = "user1";
-				string password = (cri.ServiceUri.Contains("USA_secure_user1")) ? "user1" : "pass.word1";
-
-				loginPanel.DataContext = new LoginInfo(cri, username, password);
+				loginPanel.DataContext = new LoginInfo(cri);
 				_loginTCS = new TaskCompletionSource<Credential>(loginPanel.DataContext);
 
 				loginPanel.Visibility = Visibility.Visible;
@@ -163,12 +154,10 @@ namespace TokenSecuredChallenge
 			set { _attemptCount = value; OnPropertyChanged(); }
 		}
 
-		public LoginInfo(CredentialRequestInfo cri, string user, string pwd)
+		public LoginInfo(CredentialRequestInfo cri)
 		{
 			RequestInfo = cri;
 			ServiceUrl = new Uri(cri.ServiceUri).GetComponents(UriComponents.AbsoluteUri & ~UriComponents.Query, UriFormat.UriEscaped);
-			UserName = user;
-			Password = pwd;
 			ErrorMessage = string.Empty;
 			AttemptCount = 0;
 		}

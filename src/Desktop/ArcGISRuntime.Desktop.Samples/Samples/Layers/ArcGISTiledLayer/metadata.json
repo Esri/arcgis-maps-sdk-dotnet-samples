@@ -1,0 +1,14 @@
+{
+  "Name": "ArcGIS Tiled Layer",
+  "SampleName": "ArcGISTiledLayer",
+  "Description": "",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"ArcGISTiledLayer.jpg",
+  "Link":"",
+  "TypeLink": [
+  ]
+}

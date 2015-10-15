@@ -9,7 +9,7 @@
           "SubCategoryName": "GeneralTutorials",
           "ShowGroup": false,
           "Samples": [
-			"ExampleSample"
+            "ExampleSample"
           ]
         }
       ]
@@ -30,6 +30,7 @@
           "SubCategoryName": "Map",
           "ShowGroup": true,
           "Samples": [
+            "MapFromPortal"
           ]
         },
         {

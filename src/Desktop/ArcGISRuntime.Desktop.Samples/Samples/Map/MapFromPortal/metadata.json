@@ -1,0 +1,14 @@
+{
+  "Name": "Add Map from exsiting Portal Item",
+  "SampleName": "MapFromPortal",
+  "Description": "This sample illustrates how to open an existing web map from a portal.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"MapFromPortal.jpg",
+  "Link":"",
+  "TypeLink": [
+  ]
+}

@@ -56,9 +56,11 @@
     <Compile Include="Samples\Layers\ExampleSample\ExampleSample.xaml.cs">
       <DependentUpon>ExampleSample.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.xaml.cs">
+      <DependentUpon>ChangeViewpoint.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Samples\MapView\" />
     <Folder Include="Samples\Map\" />
     <Folder Include="Tutorials\" />
     <Folder Include="Workflows\" />
@@ -70,15 +72,27 @@
     <Content Include="Samples\Layers\ExampleSample\ExampleSample.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Samples\Layers\ExampleSample\ExampleSample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Samples\Layers\ExampleSample\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Samples\MapView\ChangeViewpoint\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

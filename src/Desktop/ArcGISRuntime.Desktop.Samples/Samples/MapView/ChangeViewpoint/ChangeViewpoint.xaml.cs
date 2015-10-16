@@ -13,28 +13,51 @@
 //limitations under the License.
 using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime.Geometry;
+using System.Windows;
+using System.Collections.Generic;
 
 namespace ArcGISRuntime.Desktop.Samples.ChangeViewpoint
 {
     public partial class ChangeViewpoint
     {
-        MapPoint londonCoords;
-        Polygon griffithParkGeometry;
+        MapPoint londonCoords = new MapPoint(-123386.348591767, 5546908.424239618, SpatialReferences.Wgs84);
 
         public ChangeViewpoint()
         {
-            InitializeComponent();
-
-            MyMapView.SetViewpointGeometryAsync(griffithParkGeometry.Extent);
-
-            MyMapView.SetViewpointCenterAsync(londonCoords);
-            MyMapView.SetViewpointScaleAsync(2.5);
-
-            var viewpoint = new Esri.ArcGISRuntime.Viewpoint(griffithParkGeometry);
-            MyMapView.SetViewpointAsync(viewpoint, System.TimeSpan.FromSeconds(2));
-                      
+            InitializeComponent(); 
         }
 
+        private void Animate_Button_Click(object sender, RoutedEventArgs e)
+        {
+            var viewpoint = new Esri.ArcGISRuntime.Viewpoint(GeometryCreate());
+            MyMapView.SetViewpointAsync(viewpoint, System.TimeSpan.FromSeconds(2));
+        }
 
+        private void Geomtry_Button_Click(object sender, RoutedEventArgs e)
+        {
+            MyMapView.SetViewpointGeometryAsync(GeometryCreate());
+        }
+
+        private void Centre_Scale_Button_Click(object sender, RoutedEventArgs e)
+        {
+            MyMapView.SetViewpointCenterAsync(londonCoords);
+            MyMapView.SetViewpointScaleAsync(2.5);
+        }
+
+        private void Rotate_Button_Click(object sender, RoutedEventArgs e)
+        {
+            var currentRotation = MyMapView.Rotation;
+            MyMapView.SetViewpointRotationAsync(currentRotation + 90.00);
+        }
+
+        private Polygon GeometryCreate()
+        {
+            var points = new List<MapPoint>();
+            points.Add(new MapPoint(-12338668.348591767, 5546908.424239618));
+            points.Add(new MapPoint(-12338247.594362013, 5547223.989911933));
+            points.Add(new MapPoint(-12338668.348591767, 5547223.989911933));
+            points.Add(new MapPoint(-12338247.594362013, 5546908.424239618));
+            return new Polygon(points, SpatialReference.Create(102100));
+        }
     }
 }

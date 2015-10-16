@@ -24,6 +24,7 @@
           "ShowGroup": true,
           "Samples": [
             "MapRotation"
+            "ChangeViewpoint"
           ]
         },
         {

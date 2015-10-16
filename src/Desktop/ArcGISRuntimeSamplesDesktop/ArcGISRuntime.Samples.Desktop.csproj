@@ -106,11 +106,8 @@
     <Compile Include="Samples\Scene\KMLLayerSample3d.xaml.cs">
       <DependentUpon>KMLLayerSample3d.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Scene\ModelMarkerSymbolSample.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Samples\Scene\ModelMarkerSymbolSample.Designer.cs">
-      <DependentUpon>ModelMarkerSymbolSample.cs</DependentUpon>
+    <Compile Include="Samples\Scene\ModelMarkerSymbolSample.xaml.cs">
+      <DependentUpon>ModelMarkerSymbolSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Scene\OpenStreetMapLayerSample3d.xaml.cs">
       <DependentUpon>OpenStreetMapLayerSample3d.xaml</DependentUpon>
@@ -612,6 +609,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Scene\KMLLayerSample3d.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Scene\ModelMarkerSymbolSample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

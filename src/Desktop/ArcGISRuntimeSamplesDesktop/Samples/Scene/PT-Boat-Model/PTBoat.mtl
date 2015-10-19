@@ -1,0 +1,684 @@
+# Created By Carrara 8.0
+
+newmtl def_surf_mat
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.498039 0.670588 0.670588
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat.jpg
+
+newmtl def_surf_mat_1
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 1 1 1
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat1.jpg
+
+newmtl def_surf_mat_2
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 1 1 1
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat1.jpg
+
+newmtl def_surf_mat_3
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 1 1 1
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat1.jpg
+
+newmtl def_surf_mat_4
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.568627 0.670588 0.670588
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat2.jpg
+
+newmtl def_surf_mat_5
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.568627 0.670588 0.670588
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat2.jpg
+
+newmtl def_surf_mat_6
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.568627 0.670588 0.670588
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat2.jpg
+
+newmtl def_surf_mat_7
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.568627 0.670588 0.670588
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat2.jpg
+
+newmtl def_surf_mat_8
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.568627 0.670588 0.670588
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat2.jpg
+
+newmtl def_surf_mat_9
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.568627 0.670588 0.670588
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat2.jpg
+
+newmtl def_surf_mat_10
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.568627 0.670588 0.670588
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat2.jpg
+
+newmtl def_surf_mat_11
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.568627 0.670588 0.670588
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat2.jpg
+
+newmtl def_surf_mat_12
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.568627 0.670588 0.670588
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat2.jpg
+
+newmtl def_surf_mat_13
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.568627 0.670588 0.670588
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat2.jpg
+
+newmtl def_surf_mat_14
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.568627 0.670588 0.670588
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat2.jpg
+
+newmtl def_surf_mat_15
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.568627 0.670588 0.670588
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat2.jpg
+
+newmtl def_surf_mat_16
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.568627 0.670588 0.670588
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat2.jpg
+
+newmtl def_surf_mat_17
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.568627 0.670588 0.670588
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat2.jpg
+
+newmtl def_surf_mat_18
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.568627 0.670588 0.670588
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat2.jpg
+
+newmtl def_surf_mat_19
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.568627 0.670588 0.670588
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat2.jpg
+
+newmtl def_surf_mat_20
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.568627 0.670588 0.670588
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat2.jpg
+
+newmtl def_surf_mat_21
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.568627 0.670588 0.670588
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat2.jpg
+
+newmtl def_surf_mat_22
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.568627 0.670588 0.670588
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat2.jpg
+
+newmtl def_surf_mat_23
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.568627 0.670588 0.670588
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat2.jpg
+
+newmtl def_surf_mat_24
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.568627 0.670588 0.670588
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat2.jpg
+
+newmtl def_surf_mat_25
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.568627 0.670588 0.670588
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat2.jpg
+
+newmtl def_surf_mat_26
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.5 0.5 0.5
+ Ks 0.25 0.25 0.25
+
+newmtl def_surf_mat_27
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 1 1 1
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat1.jpg
+
+newmtl def_surf_mat_28
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 1 1 1
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat1.jpg
+
+newmtl def_surf_mat_29
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 1 1 1
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat1.jpg
+
+newmtl def_surf_mat_30
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.5 0.5 0.5
+ Ks 0.25 0.25 0.25
+
+newmtl def_surf_mat_31
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 1 1 1
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat1.jpg
+
+newmtl def_surf_mat_32
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 1 1 1
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat1.jpg
+
+newmtl def_surf_mat_33
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 1 1 1
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat1.jpg
+
+newmtl def_surf_mat_34
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 1 1 1
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat1.jpg
+
+newmtl def_surf_mat_35
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.498039 0.670588 0.670588
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat3.jpg
+
+newmtl glass
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.277958 0.250065 0.381537
+ Ks 0.25 0.25 0.25
+
+newmtl material23
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.568627 0.670588 0.670588
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat2.jpg
+
+newmtl material23_1
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.568627 0.670588 0.670588
+ Ks 0.25 0.25 0.25
+ map_Kd material23.jpg
+
+newmtl def_surf_mat_36
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.568627 0.670588 0.670588
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat2.jpg
+
+newmtl def_surf_mat_37
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.5 0.5 0.5
+ Ks 0.25 0.25 0.25
+
+newmtl def_surf_mat_38
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.5 0.5 0.5
+ Ks 0.25 0.25 0.25
+
+newmtl def_surf_mat_39
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.568627 0.670588 0.670588
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat2.jpg
+
+newmtl def_surf_mat_40
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.568627 0.670588 0.670588
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat2.jpg
+
+newmtl def_surf_mat_41
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.568627 0.670588 0.670588
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat2.jpg
+
+newmtl def_surf_mat_42
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.568627 0.670588 0.670588
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat2.jpg
+
+newmtl def_surf_mat_43
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.568627 0.670588 0.670588
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat2.jpg
+
+newmtl def_surf_mat_44
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.498039 0.670588 0.670588
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat4.jpg
+
+newmtl Texture_1
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.98024 0.967178 0.967178
+ Ks 0.25 0.25 0.25
+
+newmtl def_surf_mat_45
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.423529 0.588235 0.588235
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat5.jpg
+
+newmtl def_surf_mat_46
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.423529 0.588235 0.588235
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat5.jpg
+
+newmtl def_surf_mat_47
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.423529 0.588235 0.588235
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat5.jpg
+
+newmtl def_surf_mat_48
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.423529 0.588235 0.588235
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat5.jpg
+
+newmtl def_surf_mat_49
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.423529 0.588235 0.588235
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat5.jpg
+
+newmtl def_surf_mat_50
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.423529 0.588235 0.588235
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat5.jpg
+
+newmtl def_surf_mat_51
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.423529 0.588235 0.588235
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat5.jpg
+
+newmtl def_surf_mat_52
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.423529 0.588235 0.588235
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat5.jpg
+
+newmtl def_surf_mat_53
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.423529 0.588235 0.588235
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat5.jpg
+
+newmtl red_light
+ Ns 10
+ d 0.350427
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.249943 0 0
+ Ks 0.111111 0.111111 0.111111
+
+newmtl def_surf_mat_54
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.423529 0.588235 0.588235
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat5.jpg
+
+newmtl green_light
+ Ns 10
+ d 0.350427
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.010986 0.249943 0.102296
+ Ks 0.111111 0.111111 0.111111
+
+newmtl def_surf_mat_55
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.423529 0.588235 0.588235
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat5.jpg
+
+newmtl def_surf_mat_56
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.423529 0.588235 0.588235
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat5.jpg
+
+newmtl def_surf_mat_57
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.423529 0.588235 0.588235
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat5.jpg
+
+newmtl def_surf_mat_58
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.423529 0.588235 0.588235
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat5.jpg
+
+newmtl def_surf_mat_59
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.423529 0.588235 0.588235
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat5.jpg
+
+newmtl def_surf_mat_60
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.423529 0.588235 0.588235
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat5.jpg
+
+newmtl def_surf_mat_61
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.423529 0.588235 0.588235
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat5.jpg
+
+newmtl def_surf_mat_62
+ Ns 163
+ d 1
+ Ni 0.001
+ illum 2
+ Ka 0 0 0
+ Kd 0.423529 0.588235 0.588235
+ Ks 0.25 0.25 0.25
+ map_Kd def_surf_mat5.jpg
+

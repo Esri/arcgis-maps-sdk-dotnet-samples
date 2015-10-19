@@ -17,7 +17,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
+
 
 namespace ArcGISRuntime.Desktop.Samples.MapFromPortal
 {
@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Desktop.Samples.MapFromPortal
     {
         private ArcGISPortal _portal;
 
-        /// <summary>Construct Load Map sample control</summary>
+        //Construct Load Map sample control
         public MapFromPortal()
         {
             InitializeComponent();
@@ -36,17 +36,24 @@ namespace ArcGISRuntime.Desktop.Samples.MapFromPortal
         // Loads UI elements and an initial Map
         private async void LoadMap_Loaded(object sender, RoutedEventArgs e)
         {
-            _portal = await ArcGISPortal.CreateAsync();
-
-            var searchParams = new SearchParameters("type: \"web map\" NOT \"web mapping application\"");
-            var result = await _portal.ArcGISPortalInfo.SearchHomePageFeaturedContentAsync(searchParams);
-            comboMap.ItemsSource = result.Results;
-
-            var map = result.Results.FirstOrDefault();
-            if (map != null)
+            try
             {
-                comboMap.SelectedIndex = 0;
-                await LoadMapAsync(map.Id);
+                _portal = await ArcGISPortal.CreateAsync();
+                var searchParams = new SearchParameters("type: \"web map\" NOT \"web mapping application\"");
+                var result = await _portal.ArcGISPortalInfo.SearchHomePageFeaturedContentAsync(searchParams);
+                comboMap.ItemsSource = result.Results;
+
+                var map = result.Results.FirstOrDefault();
+                if (map != null)
+                {
+                    comboMap.SelectedIndex = 0;
+                    await LoadMapAsync(map.Id);
+                }
+            }
+            catch (Exception ex)
+            {
+                detailsPanel.Visibility = Visibility.Visible;
+                MessageBox.Show(ex.Message, "Sample Error");
             }
         }
 
@@ -63,13 +70,13 @@ namespace ArcGISRuntime.Desktop.Samples.MapFromPortal
         }
 
         // Loads the given webmap
-        private async Task LoadMapAsync(string wmId)
+        private async Task LoadMapAsync(string mapId)
         {
             try
             {
                 progress.Visibility = Visibility.Visible;
 
-                var item = await ArcGISPortalItem.CreateAsync(_portal, wmId);
+                var item = await ArcGISPortalItem.CreateAsync(_portal, mapId);
                 var map = new Esri.ArcGISRuntime.Map(item);
                 MyMapView.Map = map;
  

@@ -14,30 +14,30 @@
             ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"/>
             </esri:Map>
         </esri:MapView>
-        <WrapPanel Grid.Row="0" Grid.Column="0">
+        <WrapPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right">
                 <Button Content="Geometry"
 		        HorizontalAlignment="Left"
 		        Margin="10,10,0,0"
 		        VerticalAlignment="Top"
-		        Width="75"
+		        Width="Auto"
 		        Click="Geomtry_Button_Click"/>
                 <Button Content="Centre and Scale"
 		        HorizontalAlignment="Center"
 		        Margin="10,10,0,0"
 		        VerticalAlignment="Top"
-		        Width="75"
+		        Width="Auto"
 		        Click="Centre_Scale_Button_Click"/>
                 <Button Content="Animation"
 		        HorizontalAlignment="Right"
 		        Margin="10,10,0,0"
 		        VerticalAlignment="Top"
-		        Width="75"
+		        Width="Auto"
 		        Click="Animate_Button_Click"/>
                 <Button Content="Rotate"
 		        HorizontalAlignment="Right"
 		        Margin="10,10,0,0"
 		        VerticalAlignment="Center"
-		        Width="75"
+		        Width="Auto"
 		        Click="Rotate_Button_Click"/>
             </WrapPanel>
         </Grid>

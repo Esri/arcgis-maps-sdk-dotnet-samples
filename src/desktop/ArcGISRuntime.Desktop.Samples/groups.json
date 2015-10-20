@@ -58,6 +58,7 @@
           "SubCategoryName": "ArcGISMapImageLayer",
           "ShowGroup": true,
           "Samples": [
+            "ArcGISMapImageLayer"
           ]
         },
         {

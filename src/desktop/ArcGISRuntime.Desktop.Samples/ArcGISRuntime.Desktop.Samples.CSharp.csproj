@@ -53,8 +53,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+<<<<<<< HEAD
     <Compile Include="Samples\Layers\ArcGISMapImageLayer\ArcGISMapImageLayer.xaml.cs">
       <DependentUpon>ArcGISMapImageLayer.xaml</DependentUpon>
+=======
+    <Compile Include="Samples\Layers\ArcGISTiledLayer\ArcGISTiledLayer.xaml.cs">
+      <DependentUpon>ArcGISTiledLayer.xaml</DependentUpon>
+>>>>>>> refs/remotes/origin/v.next
     </Compile>
     <Compile Include="Samples\Layers\ExampleSample\ExampleSample.xaml.cs">
       <DependentUpon>ExampleSample.xaml</DependentUpon>
@@ -70,7 +75,11 @@
     <Content Include="groups.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+<<<<<<< HEAD
     <Content Include="Samples\Layers\ArcGISMapImageLayer\ArcGISMapImageLayer.jpg">
+=======
+    <Content Include="Samples\Layers\ArcGISTiledLayer\ArcGISTiledLayer.jpg">
+>>>>>>> refs/remotes/origin/v.next
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Layers\ExampleSample\ExampleSample.jpg">
@@ -78,7 +87,11 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Page Include="Samples\Layers\ArcGISMapImageLayer\ArcGISMapImageLayer.xaml">
+=======
+    <Page Include="Samples\Layers\ArcGISTiledLayer\ArcGISTiledLayer.xaml">
+>>>>>>> refs/remotes/origin/v.next
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -93,7 +106,11 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Content Include="Samples\Layers\ArcGISMapImageLayer\metadata.json">
+=======
+    <Content Include="Samples\Layers\ArcGISTiledLayer\metadata.json">
+>>>>>>> refs/remotes/origin/v.next
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

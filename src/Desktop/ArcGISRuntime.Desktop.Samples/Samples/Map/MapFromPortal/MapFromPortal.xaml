@@ -8,7 +8,7 @@
     mc:Ignorable="d" 
     d:DesignHeight="300" d:DesignWidth="300">
     
-    <Grid Name="Layout">
+    <Grid>
         <esri:MapView Name="MyMapView" />
         <Border Name="uiPanel" 
                 Background="White" BorderBrush="Black" BorderThickness="1"

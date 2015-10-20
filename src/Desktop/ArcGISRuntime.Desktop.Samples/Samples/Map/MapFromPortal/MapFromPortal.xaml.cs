@@ -52,8 +52,8 @@ namespace ArcGISRuntime.Desktop.Samples.MapFromPortal
             }
             catch (Exception ex)
             {
-                detailsPanel.Visibility = Visibility.Visible;
-                MessageBox.Show(ex.Message, "Sample Error");
+                var errorMessage = $"Map cannot be loaded from a portal. \n{ex.Message}";
+                MessageBox.Show(errorMessage, "Sample error");
             }
         }
 
@@ -80,16 +80,16 @@ namespace ArcGISRuntime.Desktop.Samples.MapFromPortal
                 var map = new Esri.ArcGISRuntime.Map(item);
                 MyMapView.Map = map;
  
-                detailsPanel.DataContext = item;
-                detailsPanel.Visibility = Visibility.Visible;
+                detailsPanel.DataContext = item; 
             }
             catch (Exception ex)
             {
-                detailsPanel.Visibility = Visibility.Visible;
-                MessageBox.Show(ex.Message, "Sample Error");
+                var errorMessage = $"Map cannot be loaded from a portal. \n{ex.Message}";
+                MessageBox.Show(errorMessage, "Sample error");
             }
             finally
             {
+                detailsPanel.Visibility = Visibility.Visible;
                 progress.Visibility = Visibility.Hidden;
             }
         }

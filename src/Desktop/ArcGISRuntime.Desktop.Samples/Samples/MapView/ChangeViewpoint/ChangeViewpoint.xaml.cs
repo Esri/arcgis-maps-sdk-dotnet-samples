@@ -11,16 +11,29 @@
 //WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and
 //limitations under the License.
-using Esri.ArcGISRuntime.Controls;
+
 using Esri.ArcGISRuntime.Geometry;
-using System.Windows;
 using System.Collections.Generic;
+using System.Windows;
 
 namespace ArcGISRuntime.Desktop.Samples.ChangeViewpoint
 {
     public partial class ChangeViewpoint
-    {
-        MapPoint londonCoords = new MapPoint(-123386.348591767, 5546908.424239618, SpatialReferences.Wgs84);
+    {    
+        static MapPoint LondonCoords = new MapPoint(-13881.7678417696, 6710726.57374296, SpatialReference.Create(102100));
+        static double LondonScale = 8762.7156655228955;
+        static Polygon EdinburghEnvelope = new Polygon(new List<MapPoint> {
+            (new MapPoint(-13049785.1566222, 4032064.6003424)),
+            (new MapPoint(-13049785.1566222, 4040202.42595729)),
+            (new MapPoint(-13037033.5780234, 4032064.6003424)),
+            (new MapPoint(-13037033.5780234, 4040202.42595729))},
+            SpatialReference.Create(102100));
+        static Polygon RedlandsEnvelope = new Polygon(new List<MapPoint> {
+            (new MapPoint(-354262.156621384, 7548092.94093301)),
+            (new MapPoint(-354262.156621384, 7548901.50684376)),
+            (new MapPoint(-353039.164455303, 7548092.94093301)),
+            (new MapPoint(-353039.164455303, 7548901.50684376))},
+            SpatialReference.Create(102100));
 
         public ChangeViewpoint()
         {
@@ -29,35 +42,30 @@ namespace ArcGISRuntime.Desktop.Samples.ChangeViewpoint
 
         private void Animate_Button_Click(object sender, RoutedEventArgs e)
         {
-            var viewpoint = new Esri.ArcGISRuntime.Viewpoint(GeometryCreate());
-            MyMapView.SetViewpointAsync(viewpoint, System.TimeSpan.FromSeconds(2));
+            var viewpoint = new Esri.ArcGISRuntime.Viewpoint(EdinburghEnvelope);
+            //Animates the changing of the viewpoints givng a smooth trasistion from old to new view
+            MyMapView.SetViewpointAsync(viewpoint, System.TimeSpan.FromSeconds(5));
         }
 
         private void Geomtry_Button_Click(object sender, RoutedEventArgs e)
         {
-            MyMapView.SetViewpointGeometryAsync(GeometryCreate());
+            //Sets the viewpoint extent to the proviede bounding geometry   
+            MyMapView.SetViewpointGeometryAsync(RedlandsEnvelope);
         }
 
         private void Centre_Scale_Button_Click(object sender, RoutedEventArgs e)
         {
-            MyMapView.SetViewpointCenterAsync(londonCoords);
-            MyMapView.SetViewpointScaleAsync(2.5);
+            //Centers the viewpoint on the provided map point 
+            MyMapView.SetViewpointCenterAsync(LondonCoords);
+            //Sets the viewpoint's zoom scale to the provided double value  
+            MyMapView.SetViewpointScaleAsync(LondonScale);
         }
 
-        private void Rotate_Button_Click(object sender, RoutedEventArgs e)
+        private async void Rotate_Button_Click(object sender, RoutedEventArgs e)
         {
             var currentRotation = MyMapView.Rotation;
-            MyMapView.SetViewpointRotationAsync(currentRotation + 90.00);
-        }
-
-        private Polygon GeometryCreate()
-        {
-            var points = new List<MapPoint>();
-            points.Add(new MapPoint(-12338668.348591767, 5546908.424239618));
-            points.Add(new MapPoint(-12338247.594362013, 5547223.989911933));
-            points.Add(new MapPoint(-12338668.348591767, 5547223.989911933));
-            points.Add(new MapPoint(-12338247.594362013, 5546908.424239618));
-            return new Polygon(points, SpatialReference.Create(102100));
+            //Rotates the viewpoint by the given number of degrees 
+            await MyMapView.SetViewpointRotationAsync(currentRotation + 90.00);
         }
     }
 }

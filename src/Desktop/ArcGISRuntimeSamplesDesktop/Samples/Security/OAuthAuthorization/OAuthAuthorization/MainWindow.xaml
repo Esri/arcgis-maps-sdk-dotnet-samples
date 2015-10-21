@@ -1,0 +1,33 @@
+﻿<Window x:Class="OAuthAuthentication.MainWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+		Title="OAuth Authorization">
+	<Grid>
+		<esri:MapView x:Name="MyMapView">
+			<esri:Map>
+				<esri:ArcGISTiledMapServiceLayer ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer"/>
+			</esri:Map>
+		</esri:MapView>
+
+		<StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Background="White" Margin="10" >
+			<Border x:Name="LoadWebMapDialog" Margin="5" VerticalAlignment="Top" >
+				<StackPanel Margin="0,10,15,5" HorizontalAlignment="Center" Orientation="Vertical">
+					<StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+						<TextBlock Margin="30,0,0,0" VerticalAlignment="Center" 
+							Text="Web Map ID: " TextAlignment="Right" />
+						<TextBox x:Name="WebMapID" Width="250" />
+					</StackPanel>
+					<StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+						<TextBlock x:Name="LoggedInUserName" Visibility="Collapsed" Margin="5"/>
+					</StackPanel>
+				</StackPanel>
+			</Border>
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+				<Button x:Name="SignInButton" Content="Sign In" Click="SignInClick" Margin="2" Width="100"/>
+				<Button x:Name="SignOutButton" Content="Sign Out" Click="SignOutClick" Margin="2" Width="100" IsEnabled="False" />
+				<Button x:Name="LoadWebMapButton" Content="Load Web Map" Click="LoadWebMapButtonOnClick" Margin="2" Width="100" IsEnabled="False"/>
+			</StackPanel>
+		</StackPanel>
+	</Grid>
+</Window>

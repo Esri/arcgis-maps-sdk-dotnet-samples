@@ -38,6 +38,7 @@ namespace ArcGISRuntime.Desktop.Samples.MapFromPortal
         {
             try
             {
+                //Searches for map items that are featured on ArcGISOnline.com
                 _portal = await ArcGISPortal.CreateAsync();
                 var searchParams = new SearchParameters("type: \"web map\" NOT \"web mapping application\"");
                 var result = await _portal.ArcGISPortalInfo.SearchHomePageFeaturedContentAsync(searchParams);
@@ -69,13 +70,14 @@ namespace ArcGISRuntime.Desktop.Samples.MapFromPortal
             await LoadMapAsync(id);
         }
 
-        // Loads the given webmap
+        // Loads the given map
         private async Task LoadMapAsync(string mapId)
         {
             try
             {
                 progress.Visibility = Visibility.Visible;
 
+                //Initlisze portal map item and subsequntly load map into MapView 
                 var item = await ArcGISPortalItem.CreateAsync(_portal, mapId);
                 var map = new Esri.ArcGISRuntime.Map(item);
                 MyMapView.Map = map;

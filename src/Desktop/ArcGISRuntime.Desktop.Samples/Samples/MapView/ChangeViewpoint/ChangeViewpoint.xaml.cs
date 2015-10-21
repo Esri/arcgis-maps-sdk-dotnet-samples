@@ -13,6 +13,7 @@
 //limitations under the License.
 
 using Esri.ArcGISRuntime.Geometry;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 
@@ -48,8 +49,10 @@ namespace ArcGISRuntime.Desktop.Samples.ChangeViewpoint
                 //Animates the changing of the viewpoint givng a smooth trasistion from the old to the new view
                 MyMapView.SetViewpointAsync(viewpoint, System.TimeSpan.FromSeconds(5));
             }
-            catch
+            catch(Exception ex)
             {
+                var errorMessage = $"Viepoint could not be set. \n{ex.Message}";
+                MessageBox.Show(errorMessage, "Sample error");
             }
 
            
@@ -62,8 +65,10 @@ namespace ArcGISRuntime.Desktop.Samples.ChangeViewpoint
                 //Sets the viewpoint extent to the proviede bounding geometry   
                 MyMapView.SetViewpointGeometryAsync(RedlandsEnvelope);
             }
-            catch
+            catch(Exception ex)
             {
+                var errorMessage = $"Viepoint could not be set. \n{ex.Message}";
+                MessageBox.Show(errorMessage, "Sample error");
             }
 
             
@@ -78,8 +83,10 @@ namespace ArcGISRuntime.Desktop.Samples.ChangeViewpoint
                 //Sets the viewpoint's zoom scale to the provided double value  
                 MyMapView.SetViewpointScaleAsync(LondonScale);
             }
-            catch
+            catch(Exception ex)
             {
+                var errorMessage = $"Viepoint could not be set. \n{ex.Message}";
+                MessageBox.Show(errorMessage, "Sample error");
             }
             
         }
@@ -92,9 +99,10 @@ namespace ArcGISRuntime.Desktop.Samples.ChangeViewpoint
                 //Rotates the viewpoint by the given number of degrees 
                 await MyMapView.SetViewpointRotationAsync(currentRotation + 90.00);
             }
-            catch
+            catch(Exception ex)
             {
-                //
+                var errorMessage = $"Viepoint could not be set. \n{ex.Message}";
+                MessageBox.Show(errorMessage, "Sample error");
             }
             
         }

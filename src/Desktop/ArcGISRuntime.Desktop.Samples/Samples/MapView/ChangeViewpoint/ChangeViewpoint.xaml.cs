@@ -42,30 +42,61 @@ namespace ArcGISRuntime.Desktop.Samples.ChangeViewpoint
 
         private void OnAnimateButtonClick(object sender, RoutedEventArgs e)
         {
-            var viewpoint = new Esri.ArcGISRuntime.Viewpoint(EdinburghEnvelope);
-            //Animates the changing of the viewpoints givng a smooth trasistion from old to new view
-            MyMapView.SetViewpointAsync(viewpoint, System.TimeSpan.FromSeconds(5));
+            try
+            {
+                var viewpoint = new Esri.ArcGISRuntime.Viewpoint(EdinburghEnvelope);
+                //Animates the changing of the viewpoint givng a smooth trasistion from the old to the new view
+                MyMapView.SetViewpointAsync(viewpoint, System.TimeSpan.FromSeconds(5));
+            }
+            catch
+            {
+            }
+
+           
         }
 
         private void OnGeomtryButtonClick(object sender, RoutedEventArgs e)
         {
-            //Sets the viewpoint extent to the proviede bounding geometry   
-            MyMapView.SetViewpointGeometryAsync(RedlandsEnvelope);
+            try
+            {
+                //Sets the viewpoint extent to the proviede bounding geometry   
+                MyMapView.SetViewpointGeometryAsync(RedlandsEnvelope);
+            }
+            catch
+            {
+            }
+
+            
         }
 
         private void OnCentreScaleButtonClick(object sender, RoutedEventArgs e)
         {
-            //Centers the viewpoint on the provided map point 
-            MyMapView.SetViewpointCenterAsync(LondonCoords);
-            //Sets the viewpoint's zoom scale to the provided double value  
-            MyMapView.SetViewpointScaleAsync(LondonScale);
+            try
+            {
+                //Centers the viewpoint on the provided map point 
+                MyMapView.SetViewpointCenterAsync(LondonCoords);
+                //Sets the viewpoint's zoom scale to the provided double value  
+                MyMapView.SetViewpointScaleAsync(LondonScale);
+            }
+            catch
+            {
+            }
+            
         }
 
         private async void OnRotateButtonClick(object sender, RoutedEventArgs e)
         {
-            var currentRotation = MyMapView.Rotation;
-            //Rotates the viewpoint by the given number of degrees 
-            await MyMapView.SetViewpointRotationAsync(currentRotation + 90.00);
+            try
+            {
+                var currentRotation = MyMapView.Rotation;
+                //Rotates the viewpoint by the given number of degrees 
+                await MyMapView.SetViewpointRotationAsync(currentRotation + 90.00);
+            }
+            catch
+            {
+                //
+            }
+            
         }
     }
 }

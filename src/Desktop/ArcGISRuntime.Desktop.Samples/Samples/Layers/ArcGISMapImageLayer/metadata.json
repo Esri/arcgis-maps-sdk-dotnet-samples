@@ -1,0 +1,14 @@
+{
+  "Name": "ArcGIS map image layer",
+  "SampleName": "ArcGISMapImageLayer",
+  "Description": "The image layer from URL sample is one of the most basic .Net SDK samples. This example covers using ArcGISMapImageLayer as a Basemap, as well as adding the required map and MapView elements. By default, this map supports basic zooming and panning operations.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"ArcGISMapImageLayer.jpg",
+  "Link":"",
+  "TypeLink": [
+  ]
+}

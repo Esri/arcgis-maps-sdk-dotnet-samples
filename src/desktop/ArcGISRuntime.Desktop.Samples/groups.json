@@ -30,6 +30,7 @@
           "SubCategoryName": "Map",
           "ShowGroup": true,
           "Samples": [
+            "MapFromPortal"
           ]
         },
         {

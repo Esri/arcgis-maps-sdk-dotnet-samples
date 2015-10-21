@@ -27,28 +27,28 @@
 		                Margin="10,10,0,0"
 		                VerticalAlignment="Top"
 		                Width="Auto"
-		                Click="Geomtry_Button_Click" 
+		                Click="OnGeomtryButtonClick" 
                         ToolTip="Sets Viewpoint to a predfined Polygon's extent"/>
                     <Button Content="Centre and Scale"
 		                HorizontalAlignment="Center"
 		                Margin="10,10,0,0"
 		                VerticalAlignment="Top"
 		                Width="Auto"
-		                Click="Centre_Scale_Button_Click"
+		                Click="OnCentreScaleButtonClick"
                         ToolTip="Sets Viewpoint a predefined point and scale"/>
                     <Button Content="Animation"
 		                HorizontalAlignment="Right"
 		                Margin="10,10,0,0"
 		                VerticalAlignment="Top"
 		                Width="Auto"
-		                Click="Animate_Button_Click"
+		                Click="OnAnimateButtonClick"
                         ToolTip="Sets Viewpoint and animate repositioning of view"/>
                     <Button Content="Rotate"
 		                HorizontalAlignment="Right"
 		                Margin="10,10,0,0"
 		                VerticalAlignment="Center"
 		                Width="Auto"
-		                Click="Rotate_Button_Click"
+		                Click="OnRotateButtonClick"
                         ToolTip="Rotates the view point 90 degrees"/>
                 </WrapPanel>
             </StackPanel>

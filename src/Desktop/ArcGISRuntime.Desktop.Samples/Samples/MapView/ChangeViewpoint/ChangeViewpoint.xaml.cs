@@ -40,20 +40,20 @@ namespace ArcGISRuntime.Desktop.Samples.ChangeViewpoint
             InitializeComponent(); 
         }
 
-        private void Animate_Button_Click(object sender, RoutedEventArgs e)
+        private void OnAnimateButtonClick(object sender, RoutedEventArgs e)
         {
             var viewpoint = new Esri.ArcGISRuntime.Viewpoint(EdinburghEnvelope);
             //Animates the changing of the viewpoints givng a smooth trasistion from old to new view
             MyMapView.SetViewpointAsync(viewpoint, System.TimeSpan.FromSeconds(5));
         }
 
-        private void Geomtry_Button_Click(object sender, RoutedEventArgs e)
+        private void OnGeomtryButtonClick(object sender, RoutedEventArgs e)
         {
             //Sets the viewpoint extent to the proviede bounding geometry   
             MyMapView.SetViewpointGeometryAsync(RedlandsEnvelope);
         }
 
-        private void Centre_Scale_Button_Click(object sender, RoutedEventArgs e)
+        private void OnCentreScaleButtonClick(object sender, RoutedEventArgs e)
         {
             //Centers the viewpoint on the provided map point 
             MyMapView.SetViewpointCenterAsync(LondonCoords);
@@ -61,7 +61,7 @@ namespace ArcGISRuntime.Desktop.Samples.ChangeViewpoint
             MyMapView.SetViewpointScaleAsync(LondonScale);
         }
 
-        private async void Rotate_Button_Click(object sender, RoutedEventArgs e)
+        private async void OnRotateButtonClick(object sender, RoutedEventArgs e)
         {
             var currentRotation = MyMapView.Rotation;
             //Rotates the viewpoint by the given number of degrees 

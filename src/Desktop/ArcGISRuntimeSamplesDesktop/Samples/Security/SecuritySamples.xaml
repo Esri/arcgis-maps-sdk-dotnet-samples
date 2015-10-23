@@ -38,7 +38,7 @@
 			<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap"
 				   Text="Security Samples" Style="{StaticResource headerTextBlockStyle}" FontSize="26"/>
 			<TextBlock TextWrapping="Wrap" Width="450" TextAlignment="Justify"
-					   Text="The ArcGIS Runtime SDK for .NET Security samples are included as part of the GitHub download but are not included in this Sample Viewer. You can find them on disk under the ArcGISRuntimeSamplesDesktop\Samples\Security folder once you have downloaded or cloned the GitHub repo."
+					   Text="The ArcGIS Runtime SDK for .NET Security samples are included as part of the GitHub download but are not included in this Sample Viewer. You can find them on disk under the ArcGISRuntimeSamplesDesktop\Samples\Security folder once you have downloaded or forked the GitHub repo."
 				       Style="{StaticResource subHeaderTextBlockStyle}"/>
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40,20,40,10">
 				<Button Style="{StaticResource linkButton}" Content="Download Samples from GitHub" Click="GitHubSiteLink_Click"/>

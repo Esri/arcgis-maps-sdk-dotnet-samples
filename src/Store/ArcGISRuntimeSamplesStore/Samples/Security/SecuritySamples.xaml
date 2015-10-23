@@ -6,10 +6,10 @@
 	<Grid  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
 			<TextBlock TextWrapping="Wrap" Width="500" TextAlignment="Justify"
-					   Text="The ArcGIS Runtime SDK for .NET Security samples are included as part of the GitHub download but are not included in this Sample Viewer. You can find them on disk under the ArcGISRuntimeSamplesStore\Samples\Security folder once you have downloaded or cloned the GitHub repo."
+					   Text="The ArcGIS Runtime SDK for .NET Security samples are included as part of the GitHub download but are not included in this Sample Viewer. You can find them on disk under the ArcGISRuntimeSamplesStore\Samples\Security folder once you have downloaded or forked the GitHub repo."
 				       Style="{StaticResource SubheaderTextBlockStyle}"/>
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40,20,40,10">
-				<HyperlinkButton NavigateUri="https://github.com/Esri/arcgis-runtime-samples-dotnet">
+				<HyperlinkButton NavigateUri="https://github.com/Esri/arcgis-runtime-samples-dotnet/tree/master/src/Store/ArcGISRuntimeSamplesStore/Samples/Security">
 					<TextBlock Text="Download Samples from GitHub" Style="{StaticResource SubheaderTextBlockStyle}" VerticalAlignment="Center"></TextBlock>
 				</HyperlinkButton>
 			</StackPanel>

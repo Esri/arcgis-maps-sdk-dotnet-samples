@@ -21,7 +21,7 @@ namespace ArcGISRuntime.Samples.Desktop.Samples
 
 		private void GitHubSiteLink_Click(object sender, RoutedEventArgs e)
 		{
-			Process.Start(new ProcessStartInfo("https://github.com/Esri/arcgis-runtime-samples-dotnet"));
+			Process.Start(new ProcessStartInfo("https://github.com/Esri/arcgis-runtime-samples-dotnet/tree/master/src/Desktop/ArcGISRuntimeSamplesDesktop/Samples/Security"));
 		}
 	}
 }

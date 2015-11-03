@@ -77,7 +77,7 @@ namespace ArcGISRuntime.Desktop.Samples.MapFromPortal
             {
                 progress.Visibility = Visibility.Visible;
 
-                //Initlisze portal map item and subsequntly load map into MapView 
+                //Initilize portal map item and subsequently load map into MapView 
                 var item = await ArcGISPortalItem.CreateAsync(_portal, mapId);
                 var map = new Esri.ArcGISRuntime.Map(item);
                 MyMapView.Map = map;

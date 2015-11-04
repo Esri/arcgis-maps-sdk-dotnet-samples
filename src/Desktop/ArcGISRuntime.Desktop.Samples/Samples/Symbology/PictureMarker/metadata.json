@@ -1,0 +1,14 @@
+{
+  "Name": "Picture marker symbol",
+  "SampleName": "PictureMarker",
+  "Description": "This sample shows how to create a picture marker symbol from an online image source and use it to symbolize point graphics in the map view.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"PictureMarker.jpg",
+  "Link":"",
+  "TypeLink": [
+  ]
+}

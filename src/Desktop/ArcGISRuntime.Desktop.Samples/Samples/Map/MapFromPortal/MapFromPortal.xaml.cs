@@ -53,7 +53,7 @@ namespace ArcGISRuntime.Desktop.Samples.MapFromPortal
             }
             catch (Exception ex)
             {
-                var errorMessage = $"Map cannot be loaded from a portal. \n{ex.Message}";
+                var errorMessage = "Map cannot be loaded from a portal. " + ex.Message;
                 MessageBox.Show(errorMessage, "Sample error");
             }
         }
@@ -77,7 +77,7 @@ namespace ArcGISRuntime.Desktop.Samples.MapFromPortal
             {
                 progress.Visibility = Visibility.Visible;
 
-                //Initlisze portal map item and subsequntly load map into MapView 
+                //Initialize portal map item and load map into MapView 
                 var item = await ArcGISPortalItem.CreateAsync(_portal, mapId);
                 var map = new Esri.ArcGISRuntime.Map(item);
                 MyMapView.Map = map;
@@ -86,7 +86,7 @@ namespace ArcGISRuntime.Desktop.Samples.MapFromPortal
             }
             catch (Exception ex)
             {
-                var errorMessage = $"Map cannot be loaded from a portal. \n{ex.Message}";
+                var errorMessage = "Map cannot be loaded from a portal." + ex.Message;
                 MessageBox.Show(errorMessage, "Sample error");
             }
             finally

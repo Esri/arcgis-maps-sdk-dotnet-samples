@@ -9,6 +9,6 @@
   "RequiresLocalServer":false,
   "Image":"MapFromPortal.jpg",
   "Link":"",
-  "TypeLink": [
+  "TypeLink": ["T:Esri.ArcGISRuntime.Portal.ArcGISPortal","T:Esri.ArcGISRuntime.Portal.ArcGISPortalInfo"
   ]
 }

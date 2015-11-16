@@ -9,6 +9,6 @@
   "RequiresLocalServer":false,
   "Image":"ArcGISTiledLayer.jpg",
   "Link":"",
-  "TypeLink": [
+  "TypeLink": ["T:Esri.ArcGISRuntime.Layers.ArcGISTiledLayer"
   ]
 }

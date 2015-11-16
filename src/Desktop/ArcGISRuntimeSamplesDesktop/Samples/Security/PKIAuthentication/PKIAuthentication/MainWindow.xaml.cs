@@ -48,10 +48,10 @@ namespace PKIAuthentication
 
             try
             {
-                // Use the X509Store to get available certificates for a particular issuer
+                // Use the X509Store to get available certificates
                 var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
                 store.Open(OpenFlags.ReadOnly);
-                var certificates = store.Certificates.Find(X509FindType.FindByIssuerName, "Esri", true);
+                var certificates = store.Certificates.Find(X509FindType.FindByTimeValid, DateTime.Now, true);
 
                 // Ask the user to select a certificate to use
                 certificates = X509Certificate2UI.SelectFromCollection(certificates, "Select Certificate",

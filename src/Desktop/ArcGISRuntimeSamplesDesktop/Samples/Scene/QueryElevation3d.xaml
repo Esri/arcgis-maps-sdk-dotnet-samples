@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="ArcGISRuntime.Samples.Desktop.QueryElevation3d"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+						 xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+						 xmlns:system="clr-namespace:System;assembly=mscorlib"
+			 mc:Ignorable="d">
+	<Grid>
+		<esri:SceneView x:Name="MySceneView" ElevationExaggeration="5">
+			<esri:Scene>
+				<esri:ArcGISTiledMapServiceLayer ID="Imagery"
+					ServiceUri="http://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer" />
+			</esri:Scene>
+			<esri:SceneView.Overlays>
+				<esri:OverlayItemsControl>
+					<Border x:Name="mapTip" Background="White" BorderBrush="Black" BorderThickness="2" 
+									Padding="4" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4"
+									Visibility="Collapsed">
+						<TextBlock x:Name="txtElevation" Text="Elevation:" Padding="5,0,5,10"/>
+					</Border>
+				</esri:OverlayItemsControl>
+			</esri:SceneView.Overlays>
+		</esri:SceneView>
+	</Grid>
+</UserControl>

@@ -22,7 +22,7 @@ More information about PKI and client certificates can be found at the links bel
 
 ###Notes:###
  - When using client certificates, the following capabilities in Package.appxmanifest must be set:
-    - ##Internet (Client and Server)##
-    - ##Shared User Certificates##
-    - ##Private Networks (Client and Server) - if accessing a portal on the Intranet
+    - Internet (Client and Server)
+    - Shared User Certificates
+    - Private Networks (Client and Server) - if accessing a portal on the Intranet
  - A client certificate can also be configured for the app using the "Certificates" declaration in Package.appxmanifest.

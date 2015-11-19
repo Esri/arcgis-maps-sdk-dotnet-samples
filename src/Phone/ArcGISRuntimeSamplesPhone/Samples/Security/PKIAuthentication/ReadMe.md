@@ -16,7 +16,7 @@ More information about PKI and client certificates can be found at the links bel
  - A Personal Information Exchange (.pfx) file containing the certificate information (can be exported from the certificate).
 
 ###Project requirements###
- - Your .pfx file (certificate) must be added to the project's "Certificates" folder.
+ - Your .pfx file (certificate) must be added to the project's "Certificates" folder. In the Visual Studio properties window, set the build action property to "Content".
  - The "CertificateFileName" variable (top of MainPage.xaml.cs) must be updated with the name of the .pfx file.
  - The "SecuredPortalUrl" variable must be updated with a URL that points to your PKI-secured portal.
 

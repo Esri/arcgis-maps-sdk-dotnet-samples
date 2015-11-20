@@ -33,27 +33,33 @@ namespace ArcGISRuntime.Desktop.Samples.PictureMarker
             // Create a new picture marker symbol using an online image resource
             var campsitePictureSym = new PictureMarkerSymbol(new System.Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0/images/e82f744ebb069bb35b234b3fea46deae"));
             await campsitePictureSym.LoadAsync();
-            
+
+            // TODO: Create a new picture marker symbol from a local file
+            //var bluePinPictureSym = new PictureMarkerSymbol()
+
+            // TODO: Create a new picture marker symbol from a resource in the app
+            //var redPinPictureSym = new PictureMarkerSymbol()
+
             // Create points to display on the map
-            var campsite1 = new MapPoint(-223560, 6552021, SpatialReferences.WebMercator);
-            var campsite2 = new MapPoint(-226773, 6550477, SpatialReferences.WebMercator);
-            var campsite3 = new MapPoint(-228835, 6550763, SpatialReferences.WebMercator);
+            var site1 = new MapPoint(-223560, 6552021, SpatialReferences.WebMercator);
+            var site2 = new MapPoint(-226773, 6550477, SpatialReferences.WebMercator);
+            var site3 = new MapPoint(-228835, 6550763, SpatialReferences.WebMercator);
 
             // Create new graphics using the map points and picture marker symbol
-            var campsiteGraphic1 = new Graphic(campsite1, campsitePictureSym);
-            var campsiteGraphic2 = new Graphic(campsite2, campsitePictureSym);
-            var campsiteGraphic3 = new Graphic(campsite3, campsitePictureSym);
+            var graphic1 = new Graphic(site1, campsitePictureSym);
+            var graphic2 = new Graphic(site2, campsitePictureSym); // bluePinPictureSym); --TODO
+            var graphic3 = new Graphic(site3, campsitePictureSym); // redPinPictureSym); --TODO
 
             // Create a new graphics overlay
-            var campsiteGraphicsOverlay = new GraphicsOverlay();
+            var myGraphicsOverlay = new GraphicsOverlay();
 
             // Add graphics to the graphics overlay
-            campsiteGraphicsOverlay.Graphics.Add(campsiteGraphic1);
-            campsiteGraphicsOverlay.Graphics.Add(campsiteGraphic2);
-            campsiteGraphicsOverlay.Graphics.Add(campsiteGraphic3);
+            myGraphicsOverlay.Graphics.Add(graphic1);
+            myGraphicsOverlay.Graphics.Add(graphic2);
+            myGraphicsOverlay.Graphics.Add(graphic3);
 
             // Add the new graphics overlay to the map view
-            MyMapView.GraphicsOverlays.Add(campsiteGraphicsOverlay);
+            MyMapView.GraphicsOverlays.Add(myGraphicsOverlay);
 
             // Zoom to the extent of the new graphics
             var extent = new Envelope(new MapPoint(-228835, 6550763, SpatialReferences.WebMercator), new MapPoint(-223560, 6552021, SpatialReferences.WebMercator));

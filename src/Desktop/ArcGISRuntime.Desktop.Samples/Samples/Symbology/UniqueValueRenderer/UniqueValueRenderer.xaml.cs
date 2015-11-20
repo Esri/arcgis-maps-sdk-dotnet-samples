@@ -53,10 +53,10 @@ namespace ArcGISRuntime.Desktop.Samples.UniqueValueRenderer
             var mountainFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Colors.LawnGreen, 1, stateOutlineSymbol);
             var westSouthCentralFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Colors.SandyBrown, 1, stateOutlineSymbol);
 
-            // Add values to the renderer: define the label, description, attribute value, and symbol for each
-            regionRenderer.UniqueValues.Add(new UniqueValue("Pacific", "Pacific Region", "Pacific", pacificFillSymbol));
-            regionRenderer.UniqueValues.Add(new UniqueValue("Mountain", "Rocky Mountain Region", "Mountain", mountainFillSymbol));
-            regionRenderer.UniqueValues.Add(new UniqueValue("West South Central", "West South Central Region", "West South Central", westSouthCentralFillSymbol));
+            // Add values to the renderer: define the label, description, symbol, and attribute value for each
+            regionRenderer.UniqueValues.Add(new UniqueValue("Pacific", "Pacific Region", pacificFillSymbol, "Pacific"));
+            regionRenderer.UniqueValues.Add(new UniqueValue("Mountain", "Rocky Mountain Region", mountainFillSymbol, "Mountain"));
+            regionRenderer.UniqueValues.Add(new UniqueValue("West South Central", "West South Central Region", westSouthCentralFillSymbol, "West South Central"));
 
             // Set the default region fill symbol (transparent with no outline) for regions not explicitly defined in the renderer
             var defaultFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Null, Colors.Transparent, 1, null);

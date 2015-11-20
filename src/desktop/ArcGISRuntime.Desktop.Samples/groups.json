@@ -106,7 +106,7 @@
           "Name": "Symbology",
           "SubCategoryName": "Symbology",
           "ShowGroup": true,
-          "Samples": [ "UniqueValueRenderer"
+          "Samples": [ "UniqueValueRenderer", "SimpleMarkerSym"
           ]
         }
       ]

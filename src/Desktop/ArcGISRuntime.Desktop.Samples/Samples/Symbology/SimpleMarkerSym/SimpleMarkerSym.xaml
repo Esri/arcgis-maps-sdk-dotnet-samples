@@ -1,0 +1,18 @@
+﻿<UserControl 
+    x:Class="ArcGISRuntime.Desktop.Samples.SimpleMarkerSym.SimpleMarkerSym"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView">
+            <esri:MapView.GraphicsOverlays>
+                <esri:GraphicsOverlay x:Name="MyGraphicsOverlay"/>
+            </esri:MapView.GraphicsOverlays>
+            <esri:Map>
+                <esri:ArcGISTiledLayer Name="Imagery"
+                    Source="http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"/>
+            </esri:Map>
+        </esri:MapView>
+    </Grid>
+</UserControl>
+

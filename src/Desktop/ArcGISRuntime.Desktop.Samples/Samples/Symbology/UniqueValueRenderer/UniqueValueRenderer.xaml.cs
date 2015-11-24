@@ -44,7 +44,7 @@ namespace ArcGISRuntime.Desktop.Samples.UniqueValueRenderer
             // Create a new unique value renderer
             var regionRenderer = new Esri.ArcGISRuntime.Symbology.UniqueValueRenderer();
             // Add the "SUB_REGION" field to the renderer
-            regionRenderer.Fields.Add("SUB_REGION");
+            regionRenderer.FieldNames.Add("SUB_REGION");
 
             // Define a line symbol to use for the region fill symbols
             var stateOutlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.White, 2, 0.7);

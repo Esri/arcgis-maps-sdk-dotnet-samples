@@ -36,6 +36,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Assets\ApplicationIcons\windows-desktop-256.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -116,6 +119,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="Assets\ApplicationIcons\windows-desktop-128.png" />
+    <Resource Include="Assets\ApplicationIcons\windows-desktop-16.png" />
+    <Resource Include="Assets\ApplicationIcons\windows-desktop-256.ico" />
+    <Resource Include="Assets\ApplicationIcons\windows-desktop-256.png" />
+    <Resource Include="Assets\ApplicationIcons\windows-desktop-32.png" />
+    <Resource Include="Assets\ApplicationIcons\windows-desktop-48.png" />
     <Content Include="Launch Viewer VB.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

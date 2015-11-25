@@ -5,14 +5,15 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ArcGISRuntime.Windows.Samples")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("ArcGIS Runtime SDK for .NET Samples library")]
+[assembly: AssemblyDescription("Library containing ArcGIS Runtime SDK for .NET samples.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ArcGISRuntime.Windows.Samples")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyCompany("Esri Inc.")]
+[assembly: AssemblyProduct("ArcGIS Runtime SDK for .NET Samples")]
+[assembly: AssemblyCopyright("Copyright © Esri Inc. 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
+
 
 // Version information for an assembly consists of the following four values:
 //

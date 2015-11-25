@@ -110,6 +110,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Properties\ArcGISRuntime.Windows.Samples.rd.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="Esri.ArcGISRuntime, Version=100.0">
+      <Name>ArcGIS Runtime for Universal apps</Name>
+    </SDKReference>
+    <SDKReference Include="Microsoft.VCLibs, version=14.0">
+      <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
+    </SDKReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

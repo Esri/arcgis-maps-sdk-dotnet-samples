@@ -8,12 +8,12 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("ArcGISRuntime.Windows.SamplesVB")> 
-<Assembly: AssemblyDescription("")> 
-<Assembly: AssemblyCompany("")> 
-<Assembly: AssemblyProduct("ArcGISRuntime.Windows.SamplesVB")> 
-<Assembly: AssemblyCopyright("Copyright ©  2015")> 
-<Assembly: AssemblyTrademark("")> 
+<Assembly: AssemblyTitle("ArcGIS Runtime SDK for .NET Samples library")>
+<Assembly: AssemblyDescription("Library containing ArcGIS Runtime SDK for .NET samples.")>
+<Assembly: AssemblyCompany("Esri Inc.")>
+<Assembly: AssemblyProduct("ArcGIS Runtime SDK for .NET Samples")>
+<Assembly: AssemblyCopyright("Copyright © Esri Inc. 2015")>
+<Assembly: AssemblyTrademark("")>
 
 <Assembly: ComVisible(False)>
 

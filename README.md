@@ -2,13 +2,17 @@
 
 This project contains samples for the ArcGIS Runtime SDK for .NET.
 
+## Samples
+
+Please see [Table of Contents](TableOfContents.md).
+
 ## Instructions 
 
 1. Fork and then clone the repo or download the .zip file. 
 2. Confirm the supported system configuration for the API of interest in the ArcGIS Runtime SDK for .NET:
   * [Windows Desktop](http://developers.arcgis.com/net/desktop/guide/system-requirements.htm)
 3. In Visual Studio, open the solution for the Desktop
-  * Windows Desktop: `src\desktop\ArcGISRuntime.Desktop.Viewer.sln`  
+  * Windows Desktop: `src\Desktop\ArcGISRuntime.Desktop.Viewer.sln`  
 	   - Clean, build, and run the application.
 
 Notes:

@@ -31,7 +31,8 @@
           "SubCategoryName": "Map",
           "ShowGroup": true,
           "Samples": [
-            "MapFromPortal"
+            "MapFromPortal",
+            "SetMapSpatialReference"
           ]
         },
         {

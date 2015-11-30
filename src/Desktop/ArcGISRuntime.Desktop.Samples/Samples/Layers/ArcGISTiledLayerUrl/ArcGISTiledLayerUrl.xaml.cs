@@ -12,11 +12,11 @@
 //See the License for the specific language governing permissions and
 //limitations under the License.
 
-namespace ArcGISRuntime.Desktop.Samples.ArcGISTiledLayer
+namespace ArcGISRuntime.Desktop.Samples.ArcGISTiledLayerUrl
 {
-    public partial class ArcGISTiledLayer
+    public partial class ArcGISTiledLayerUrl
     {
-        public ArcGISTiledLayer()
+        public ArcGISTiledLayerUrl()
         {
             InitializeComponent();
         }

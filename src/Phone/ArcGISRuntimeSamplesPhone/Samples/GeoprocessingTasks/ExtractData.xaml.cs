@@ -49,7 +49,7 @@ namespace ArcGISRuntime.Samples.Phone.Samples
 			{
 				var info = await _gpTask.GetTaskInfoAsync();
 
-				listLayers.ItemsSource = info.Parameters.First(p => p.Name == "Layers_to_Clip").ChoiceList;
+				listLayers.ItemsSource = info.Parameters.First(p => p.Name == "Layers_to_Clip").DefaultValue;
 
 				comboFormat.ItemsSource = info.Parameters.First(p => p.Name == "Feature_Format").ChoiceList;
 				if (comboFormat.ItemsSource != null && comboFormat.Items.Count > 0)

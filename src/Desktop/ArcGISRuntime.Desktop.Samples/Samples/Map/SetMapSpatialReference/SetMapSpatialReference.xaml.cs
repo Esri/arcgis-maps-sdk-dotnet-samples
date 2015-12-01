@@ -11,7 +11,6 @@
 //WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and
 //limitations under the License.
-using Esri.ArcGISRuntime.Controls;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
@@ -27,8 +26,6 @@ namespace ArcGISRuntime.Desktop.Samples.SetMapSpatialReference
         {
             InitializeComponent();
             loadMap();
-            //var initVP = MyMapView.Map.InitialViewpoint;
-            var vp = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
         }
 
         private async void loadMap()

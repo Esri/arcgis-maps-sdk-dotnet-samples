@@ -21,20 +21,20 @@ namespace ArcGISRuntime.Desktop.Samples.ChangeViewpoint
 {
     public partial class ChangeViewpoint
     {
-        private MapPoint LondonCoords = new MapPoint(-13881.7678417696, 6710726.57374296, SpatialReference.Create(102100));
+        private MapPoint LondonCoords = new MapPoint(-13881.7678417696, 6710726.57374296, SpatialReferences.WebMercator);
         private double LondonScale = 8762.7156655228955;
         private Polygon EdinburghEnvelope = new Polygon(new List<MapPoint> {
             (new MapPoint(-13049785.1566222, 4032064.6003424)),
             (new MapPoint(-13049785.1566222, 4040202.42595729)),
             (new MapPoint(-13037033.5780234, 4032064.6003424)),
             (new MapPoint(-13037033.5780234, 4040202.42595729))},
-            SpatialReference.Create(102100));
+            SpatialReferences.WebMercator);
         private Polygon RedlandsEnvelope = new Polygon(new List<MapPoint> {
             (new MapPoint(-354262.156621384, 7548092.94093301)),
             (new MapPoint(-354262.156621384, 7548901.50684376)),
             (new MapPoint(-353039.164455303, 7548092.94093301)),
             (new MapPoint(-353039.164455303, 7548901.50684376))},
-            SpatialReference.Create(102100));
+            SpatialReferences.WebMercator);
         
 
         public ChangeViewpoint()

@@ -1,6 +1,6 @@
 {
-  "Name": "ArcGIS tiled layer",
-  "SampleName": "ArcGISTiledLayer",
+  "Name": "ArcGIS tiled layer (URL)",
+  "SampleName": "ArcGISTiledLayerUrl",
   "Description": "The Tiled Layer from URL sample is one of the most basic .Net SDK samples. This example covers using ArcGISTiledLayer as a Basemap, as well as adding the required map and MapView elements. By default, this map supports basic zooming and panning operations.",
   "Instructions": "",
   "Type": 0,

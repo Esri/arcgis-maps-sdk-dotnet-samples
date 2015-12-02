@@ -21,25 +21,26 @@ namespace ArcGISRuntime.Desktop.Samples.SetMapSpatialReference
 {
     public partial class SetMapSpatialReference
     {
+        private string imageLayerUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer";
 
         public SetMapSpatialReference()
         {
             InitializeComponent();
-            loadMap();
+            LoadMap();
         }
 
-        private async void loadMap()
+        private async void LoadMap()
         {
             try
             {
                 //Create a map with World_Bonne projection
-                var map = new Map(SpatialReference.Create(54024));
+                var myMap = new Map(SpatialReference.Create(54024));
                 //Create a map image layer which can re-project itself to the map's spatial reference
-                var layer = new ArcGISMapImageLayer(new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer"));
+                var layer = new ArcGISMapImageLayer(new Uri(imageLayerUrl));
                 //Set the map image layer as basemap
-                map.Basemap.BaseLayers.Add(layer);
+                myMap.Basemap.BaseLayers.Add(layer);
                 //Set the map to be displayed in this view
-                MyMapView.Map = map;
+                MyMapView.Map = myMap;
             }
             catch (Exception ex)
             {

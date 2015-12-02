@@ -29,7 +29,7 @@ namespace ArcGISRuntime.Desktop.Samples.SetMapSpatialReference
             LoadMap();
         }
 
-        private async void LoadMap()
+        private void LoadMap()
         {
             try
             {

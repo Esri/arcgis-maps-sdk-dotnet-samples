@@ -58,7 +58,7 @@ namespace ArcGISRuntime.Desktop.Samples.ChangeViewpoint
             }         
         }
 
-        private void GeomtryButton_Click(object sender, RoutedEventArgs e)
+        private void GeometryButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {

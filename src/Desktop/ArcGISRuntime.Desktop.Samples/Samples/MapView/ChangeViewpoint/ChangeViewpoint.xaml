@@ -27,7 +27,7 @@
 		                Margin="10,10,0,0"
 		                VerticalAlignment="Top"
 		                Width="Auto"
-		                Click="GeomtryButton_Click" 
+		                Click="GeometryButton_Click" 
                         ToolTip="Sets Viewpoint to a predefined Polygon's extent"/>
                     <Button Content="Centre and Scale"
 		                HorizontalAlignment="Center"

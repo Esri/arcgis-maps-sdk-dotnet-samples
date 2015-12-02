@@ -12,6 +12,7 @@
 //See the License for the specific language governing permissions and
 //limitations under the License.
 
+using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
 using System;
 using System.Collections.Generic;
@@ -21,15 +22,15 @@ namespace ArcGISRuntime.Desktop.Samples.ChangeViewpoint
 {
     public partial class ChangeViewpoint
     {
-        private MapPoint LondonCoords = new MapPoint(-13881.7678417696, 6710726.57374296, SpatialReferences.WebMercator);
-        private double LondonScale = 8762.7156655228955;
-        private Polygon EdinburghEnvelope = new Polygon(new List<MapPoint> {
+        private MapPoint londonCoords = new MapPoint(-13881.7678417696, 6710726.57374296, SpatialReferences.WebMercator);
+        private double londonScale = 8762.7156655228955;
+        private Polygon edinburghEnvelope = new Polygon(new List<MapPoint> {
             (new MapPoint(-13049785.1566222, 4032064.6003424)),
             (new MapPoint(-13049785.1566222, 4040202.42595729)),
             (new MapPoint(-13037033.5780234, 4032064.6003424)),
             (new MapPoint(-13037033.5780234, 4040202.42595729))},
             SpatialReferences.WebMercator);
-        private Polygon RedlandsEnvelope = new Polygon(new List<MapPoint> {
+        private Polygon redlandsEnvelope = new Polygon(new List<MapPoint> {
             (new MapPoint(-354262.156621384, 7548092.94093301)),
             (new MapPoint(-354262.156621384, 7548901.50684376)),
             (new MapPoint(-353039.164455303, 7548092.94093301)),
@@ -42,11 +43,11 @@ namespace ArcGISRuntime.Desktop.Samples.ChangeViewpoint
             InitializeComponent(); 
         }
 
-        private void OnAnimateButtonClick(object sender, RoutedEventArgs e)
+        private void AnimateButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                var viewpoint = new Esri.ArcGISRuntime.Viewpoint(EdinburghEnvelope);
+                var viewpoint = new Viewpoint(edinburghEnvelope);
                 //Animates the changing of the viewpoint giving a smooth transition from the old to the new view
                 MyMapView.SetViewpointAsync(viewpoint, System.TimeSpan.FromSeconds(5));
             }
@@ -57,12 +58,12 @@ namespace ArcGISRuntime.Desktop.Samples.ChangeViewpoint
             }         
         }
 
-        private void OnGeomtryButtonClick(object sender, RoutedEventArgs e)
+        private void GeomtryButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 //Sets the viewpoint extent to the provide bounding geometry   
-                MyMapView.SetViewpointGeometryAsync(RedlandsEnvelope);
+                MyMapView.SetViewpointGeometryAsync(redlandsEnvelope);
             }
             catch(Exception ex)
             {
@@ -71,14 +72,14 @@ namespace ArcGISRuntime.Desktop.Samples.ChangeViewpoint
             }           
         }
 
-        private void OnCentreScaleButtonClick(object sender, RoutedEventArgs e)
+        private void CentreScaleButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 //Centers the viewpoint on the provided map point 
-                MyMapView.SetViewpointCenterAsync(LondonCoords);
+                MyMapView.SetViewpointCenterAsync(londonCoords);
                 //Sets the viewpoint's zoom scale to the provided double value  
-                MyMapView.SetViewpointScaleAsync(LondonScale);
+                MyMapView.SetViewpointScaleAsync(londonScale);
             }
             catch(Exception ex)
             {
@@ -87,13 +88,13 @@ namespace ArcGISRuntime.Desktop.Samples.ChangeViewpoint
             }          
         }
 
-        private async void OnRotateButtonClick(object sender, RoutedEventArgs e)
+        private async void RotateButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 //Gets the current rotation value of the map view
                 var currentRotation = MyMapView.Rotation;
-                //Rotate the viewpoint by the given number of degrees, In this case the current rotation value 
+                //Rotate the viewpoint by the given number of degrees. In this case the current rotation value 
                 //plus 90 is passed, this will result in a the map rotating 90 degrees anti-clockwise  
                 await MyMapView.SetViewpointRotationAsync(currentRotation + 90.00);
             }

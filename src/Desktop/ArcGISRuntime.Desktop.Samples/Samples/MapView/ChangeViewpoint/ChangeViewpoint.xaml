@@ -19,7 +19,7 @@
                 HorizontalAlignment="Right" VerticalAlignment="Top"
                 Margin="30" Padding="20" Width="375">
             <StackPanel>
-                <TextBlock Text="Select one of the button to runt the realted Viewpoint code" 
+                <TextBlock Text="Select one of the button to runt the related Viewpoint code" 
                            Margin="0,0,0,2" TextWrapping="Wrap" />
                 <WrapPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center">
                     <Button Content="Geometry"
@@ -27,28 +27,28 @@
 		                Margin="10,10,0,0"
 		                VerticalAlignment="Top"
 		                Width="Auto"
-		                Click="OnGeomtryButtonClick" 
-                        ToolTip="Sets Viewpoint to a predfined Polygon's extent"/>
+		                Click="GeomtryButton_Click" 
+                        ToolTip="Sets Viewpoint to a predefined Polygon's extent"/>
                     <Button Content="Centre and Scale"
 		                HorizontalAlignment="Center"
 		                Margin="10,10,0,0"
 		                VerticalAlignment="Top"
 		                Width="Auto"
-		                Click="OnCentreScaleButtonClick"
+		                Click="CentreScaleButton_Click"
                         ToolTip="Sets Viewpoint a predefined point and scale"/>
                     <Button Content="Animation"
 		                HorizontalAlignment="Right"
 		                Margin="10,10,0,0"
 		                VerticalAlignment="Top"
 		                Width="Auto"
-		                Click="OnAnimateButtonClick"
+		                Click="AnimateButton_Click"
                         ToolTip="Sets Viewpoint and animate repositioning of view"/>
                     <Button Content="Rotate"
 		                HorizontalAlignment="Right"
 		                Margin="10,10,0,0"
 		                VerticalAlignment="Center"
 		                Width="Auto"
-		                Click="OnRotateButtonClick"
+		                Click="RotateButton_Click"
                         ToolTip="Rotates the view point 90 degrees"/>
                 </WrapPanel>
             </StackPanel>

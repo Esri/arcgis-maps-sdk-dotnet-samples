@@ -10,8 +10,8 @@
     <Grid>
         <esri:MapView x:Name="MyMapView">
             <esri:Map InitialViewpoint="-117.182686,32.695853,-117.133872,32.718530,4326">
-                <esri:ArcGISTiledLayer Name="Basemap"
-            ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"/>
+                <esri:ArcGISTiledLayer Name="Basemap" 
+                    Source="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"/>
             </esri:Map>
         </esri:MapView>
         <Border Name="uiPanel" 

@@ -23,7 +23,7 @@
           "SubCategoryName": "MapView",
           "ShowGroup": true,
           "Samples": [
-            "MapRotation"
+            "MapRotation",
             "ChangeViewpoint"
           ]
         },
@@ -54,7 +54,7 @@
           "SubCategoryName": "ArcGISTiledLayer",
           "ShowGroup": true,
           "Samples": [
-            "ArcGISTiledLayer"
+            "ArcGISTiledLayerUrl"
           ]
         },
         {
@@ -62,7 +62,7 @@
           "SubCategoryName": "ArcGISMapImageLayer",
           "ShowGroup": true,
           "Samples": [
-            "ArcGISMapImageLayer"
+            "ArcGISMapImageLayerUrl"
           ]
         },
         {

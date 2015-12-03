@@ -7,7 +7,7 @@
   "RequiresOnlineConnection":true,
   "RequiresOfflineData":false,
   "RequiresLocalServer":false,
-  "Image":"ArcGISTiledLayer.jpg",
+  "Image":"ArcGISTiledLayerUrl.jpg",
   "Link":"",
   "TypeLink": ["T:Esri.ArcGISRuntime.Layers.ArcGISTiledLayer"
   ]

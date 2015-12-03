@@ -13,29 +13,23 @@
 //limitations under the License.
 using System;
 using System.IO;
-using System.Windows.Data;
-using System.Windows.Media.Imaging;
-using System.Globalization;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Media.Imaging;
 
-namespace ArcGISRuntime.Desktop.Viewer.Converters
+namespace ArcGISRuntime.Windows.Viewer.Converters
 {
     public class SampleToBitmapConverter : IValueConverter  
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, string language)
         {
             var sampleImageName = value.ToString();
-
-            //var path = Path.Combine(
-            //    ApplicationManager.Current.FullDirectoryName,
-            //    sampleImageName);
 
             try
             {
                 if (File.Exists(sampleImageName))
-                    return BitmapFrame.Create(
-                        new Uri(sampleImageName, UriKind.Absolute),
-                        BitmapCreateOptions.DelayCreation,
-                        BitmapCacheOption.OnLoad);
+                    return new BitmapImage(
+                        new Uri(
+                            string.Format("ms-appx://ArcGISRuntime.Windows.Viewer/{0}", sampleImageName)));
             }
             catch (Exception)
             {
@@ -44,7 +38,7 @@ namespace ArcGISRuntime.Desktop.Viewer.Converters
             return null;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotImplementedException();
         }

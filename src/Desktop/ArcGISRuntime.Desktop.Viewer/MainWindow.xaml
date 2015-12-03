@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ArcGISRuntime.Desktop.Viewer"
         xmlns:models="clr-namespace:ArcGISRuntime.Samples.Models"
         xmlns:converters="clr-namespace:ArcGISRuntime.Desktop.Viewer.Converters"
-        xmlns:managers="clr-namespace:ArcGISRuntime.Desktop.Viewer.Managers"
+        xmlns:managers="clr-namespace:ArcGISRuntime.Samples.Managers"
         Title="ArcGIS Runtime for .NET Samples"  
         WindowState="Maximized" Icon="Assets/ApplicationIcons/windows-desktop-256.ico">
 

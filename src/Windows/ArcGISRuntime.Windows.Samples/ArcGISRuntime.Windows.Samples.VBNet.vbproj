@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{73CF6057-8AC2-40E5-90EB-F733CE87DD93}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>ArcGISRuntime.Windows.Samples.VBNet</RootNamespace>
+    <RootNamespace>ArcGISRuntime.Windows</RootNamespace>
     <AssemblyName>ArcGISRuntime.Windows.Samples.VBNet</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
@@ -119,6 +119,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <None Include="groups.json" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>

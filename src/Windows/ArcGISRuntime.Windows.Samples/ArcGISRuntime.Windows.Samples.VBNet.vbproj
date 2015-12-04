@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{73CF6057-8AC2-40E5-90EB-F733CE87DD93}</ProjectGuid>
+    <ProjectGuid>{18831557-F447-41A5-A09D-57911F6E68E0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>ArcGISRuntime.Windows</RootNamespace>
     <AssemblyName>ArcGISRuntime.Windows.Samples.VBNet</AssemblyName>

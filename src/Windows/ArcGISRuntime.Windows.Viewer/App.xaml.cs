@@ -11,6 +11,8 @@
 //WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and
 //limitations under the License.
+using ArcGISRuntime.Samples.Managers;
+using ArcGISRuntime.Samples.Models;
 using System;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
@@ -27,6 +29,11 @@ namespace ArcGISRuntime.Windows.Viewer
     /// </summary>
     sealed partial class App : Application
     {
+        // Default to use CSharp assembly for samples
+        // NOTE :
+        // Change this to Languate.VBNet to run VB samples
+        private const Language SamplesLanguageUsed = Language.CSharp;
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -37,6 +44,8 @@ namespace ArcGISRuntime.Windows.Viewer
             Suspending += OnSuspending;
             UnhandledException += App_UnhandledException;
             TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
+
+            ApplicationManager.Current.Initialize(SamplesLanguageUsed);
         }
 
         private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)

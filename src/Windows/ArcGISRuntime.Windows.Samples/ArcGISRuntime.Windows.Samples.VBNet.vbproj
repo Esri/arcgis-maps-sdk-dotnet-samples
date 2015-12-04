@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{18831557-F447-41A5-A09D-57911F6E68E0}</ProjectGuid>
+    <ProjectGuid>{73CF6057-8AC2-40E5-90EB-F733CE87DD93}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>ArcGISRuntime.Windows</RootNamespace>
-    <AssemblyName>ArcGISRuntime.Windows.Samples.VBNet</AssemblyName>
+    <RootNamespace>ArcGISRuntime.Windows.Samples</RootNamespace>
+    <AssemblyName>ArcGISRuntime.Windows.Samples.VB</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
@@ -15,56 +15,29 @@
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</ProjectTypeGuids>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <DefineDebug>true</DefineDebug>
-    <DefineTrace>true</DefineTrace>
-    <NoConfig>true</NoConfig>
-    <OutputPath>bin\Debug</OutputPath>
-    <DocumentationFile>ArcGISRuntime.Windows.Samples.VBNet.xml</DocumentationFile>
-    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
-    <DefineConstants>NETFX_CORE,WINDOWS_UWP</DefineConstants>
-    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42314</NoWarn>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <DefineDebug>false</DefineDebug>
-    <DefineTrace>true</DefineTrace>
-    <NoStdLib>true</NoStdLib>
-    <NoConfig>true</NoConfig>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release</OutputPath>
-    <DocumentationFile>ArcGISRuntime.Windows.Samples.VBNet.xml</DocumentationFile>
-    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
-    <DefineConstants>NETFX_CORE,WINDOWS_UWP</DefineConstants>
-    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42314</NoWarn>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <PlatformTarget>ARM</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
-    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <OutputPath>..\..\..\output\windows\ARM\debug\</OutputPath>
     <DefineConstants>NETFX_CORE,WINDOWS_UWP</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>ARM</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
-    <DocumentationFile>ArcGISRuntime.Windows.Samples.VBNet.xml</DocumentationFile>
+    <DocumentationFile>ArcGISRuntime.Windows.Samples.VB.xml</DocumentationFile>
     <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42314</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
     <PlatformTarget>ARM</PlatformTarget>
     <DefineTrace>true</DefineTrace>
-    <OutputPath>bin\ARM\Release\</OutputPath>
+    <OutputPath>..\..\..\output\windows\ARM\release\</OutputPath>
     <DefineConstants>NETFX_CORE,WINDOWS_UWP</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>ARM</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
-    <DocumentationFile>ArcGISRuntime.Windows.Samples.VBNet.xml</DocumentationFile>
+    <DocumentationFile>ArcGISRuntime.Windows.Samples.VB.xml</DocumentationFile>
     <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42314</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
@@ -72,24 +45,24 @@
     <DebugSymbols>true</DebugSymbols>
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
-    <OutputPath>bin\x64\Debug\</OutputPath>
+    <OutputPath>..\..\..\output\windows\x64\debug\</OutputPath>
     <DefineConstants>NETFX_CORE,WINDOWS_UWP</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
-    <DocumentationFile>ArcGISRuntime.Windows.Samples.VBNet.xml</DocumentationFile>
+    <DocumentationFile>ArcGISRuntime.Windows.Samples.VB.xml</DocumentationFile>
     <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42314</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <PlatformTarget>x64</PlatformTarget>
     <DefineTrace>true</DefineTrace>
-    <OutputPath>bin\x64\Release\</OutputPath>
+    <OutputPath>..\..\..\output\windows\x64\release\</OutputPath>
     <DefineConstants>NETFX_CORE,WINDOWS_UWP</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
-    <DocumentationFile>ArcGISRuntime.Windows.Samples.VBNet.xml</DocumentationFile>
+    <DocumentationFile>ArcGISRuntime.Windows.Samples.VB.xml</DocumentationFile>
     <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42314</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
@@ -97,34 +70,39 @@
     <DebugSymbols>true</DebugSymbols>
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
-    <OutputPath>bin\x86\Debug\</OutputPath>
+    <OutputPath>..\..\..\output\windows\x86\debug\</OutputPath>
     <DefineConstants>NETFX_CORE,WINDOWS_UWP</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
-    <DocumentationFile>ArcGISRuntime.Windows.Samples.VBNet.xml</DocumentationFile>
+    <DocumentationFile>ArcGISRuntime.Windows.Samples.VB.xml</DocumentationFile>
     <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42314</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <PlatformTarget>x86</PlatformTarget>
     <DefineTrace>true</DefineTrace>
-    <OutputPath>bin\x86\Release\</OutputPath>
+    <OutputPath>..\..\..\output\windows\x86\release\</OutputPath>
     <DefineConstants>NETFX_CORE,WINDOWS_UWP</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
-    <DocumentationFile>ArcGISRuntime.Windows.Samples.VBNet.xml</DocumentationFile>
+    <DocumentationFile>ArcGISRuntime.Windows.Samples.VB.xml</DocumentationFile>
     <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42314</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <None Include="groups.json" />
     <None Include="project.json" />
+    <None Include="Samples\Layers\ArcGISMapImageLayer\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="Samples\Layers\ArcGISMapImageLayer\ArcGISMapImageLayerVB.xaml.vb">
+      <DependentUpon>ArcGISMapImageLayerVB.xaml</DependentUpon>
+    </Compile>
     <Content Include="My Project\ArcGISRuntime.Windows.Samples.VBNet.rd.xml" />
+    <Content Include="Samples\Layers\ArcGISMapImageLayer\ArcGISMapImageLayer.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -163,6 +141,12 @@
     <SDKReference Include="Microsoft.VCLibs, version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
     </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Samples\Layers\ArcGISMapImageLayer\ArcGISMapImageLayerVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

@@ -51,6 +51,18 @@ namespace ArcGISRuntime.Windows.Viewer
             _currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
         }
 
+        private void HideLoadingIndication()
+        {
+            LoadingIndicatorArea.Visibility = Visibility.Collapsed;
+            LoadingProgressRing.IsActive = false;
+        }
+
+        private void ShowLoadingIndication()
+        {
+            LoadingIndicatorArea.Visibility = Visibility.Visible;
+            LoadingProgressRing.IsActive = true;
+        }
+
         protected override void OnNavigatedTo(Navigation.NavigationEventArgs e)
         {
             // Force GC to get invoke full clean up when ever
@@ -92,6 +104,8 @@ namespace ArcGISRuntime.Windows.Viewer
             categories.SelectedIndex = 0;
 
             Frame.Navigated += OnFrameNavigated;
+
+            HideLoadingIndication();
         }
 
         private void OnCategoriesSelectionChanged(object sender, SelectionChangedEventArgs e)

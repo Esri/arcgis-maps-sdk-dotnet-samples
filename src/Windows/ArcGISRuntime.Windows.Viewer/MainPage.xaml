@@ -42,7 +42,7 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="120"/>
-                    <ColumnDefinition MinWidth="400" MaxWidth="500"/>
+                    <ColumnDefinition Width="500"/>
                 </Grid.ColumnDefinitions>
                 <Image Margin="10" Width="100" Height="125" Grid.RowSpan="2" Stretch="Uniform"
                        Source="{Binding SampleImageName, Converter={StaticResource sampleToBitmapConverter}}">
@@ -105,7 +105,7 @@
                 </VisualState>
                 <!-- 
                 ============================
-                Handle screen over 1024 effective pixels
+                Handle screen over 1024 effective pixels but less than 1366 effective pixels
                 ============================
                 -->
                 <VisualState>
@@ -118,6 +118,24 @@
                         <Setter Target="SearchBox.Visibility" Value="Visible"/>
                         <Setter Target="SearchToggleButton.Visibility" Value="Collapsed"/>
                         <Setter Target="SearchToggleButton.IsChecked" Value="False"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <!-- 
+                ============================
+                Handle screen over 1366 effective pixels
+                ============================
+                -->
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1366" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="RootSplitView.IsPaneOpen" Value="true" />
+                        <Setter Target="RootSplitView.DisplayMode" Value="Inline"/>
+                        <Setter Target="SearchBox.Visibility" Value="Visible"/>
+                        <Setter Target="SearchToggleButton.Visibility" Value="Collapsed"/>
+                        <Setter Target="SearchToggleButton.IsChecked" Value="False"/>
+                        <Setter Target="samplesGridView.ItemTemplate" Value="{StaticResource WideSampleItemTemplate}"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -183,14 +201,20 @@
                 </ListView>
             </SplitView.Pane>
             <SplitView.Content>
-                <ContentControl HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" 
-                                HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <!--HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"--> 
+                   
                     <GridView x:Name="samplesGridView" 
                               ItemsSource="{Binding ElementName=categories, Path=SelectedItem.Items}" 
                               ItemTemplate="{StaticResource StantardSampleItemTemplate}" 
                               SelectionMode="None">
                     </GridView>
-                </ContentControl>
+
+                    <Border x:Name="LoadingIndicatorArea" Visibility="Visible">
+                        <ProgressRing Height="100" Width="100" x:Name="LoadingProgressRing" Foreground="#6B1978" IsActive="True"/>
+                    </Border>
+                </Grid>
+               
             </SplitView.Content>
         </SplitView>
     </Grid>

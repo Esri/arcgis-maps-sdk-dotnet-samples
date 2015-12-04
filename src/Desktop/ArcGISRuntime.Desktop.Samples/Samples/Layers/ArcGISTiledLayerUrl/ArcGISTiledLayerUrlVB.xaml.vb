@@ -12,13 +12,13 @@
 'See the License for the specific language governing permissions and
 'limitations under the License.
 
-Namespace ArcGISTiledLayer
+Namespace ArcGISTiledLayerUrl
 
-    Public Class ArcGISTiledLayerVB
+    Public Class ArcGISTiledLayerUrlVB
+
         Public Sub New()
             InitializeComponent()
         End Sub
 
     End Class
-
 End Namespace

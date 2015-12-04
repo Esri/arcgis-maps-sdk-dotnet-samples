@@ -165,7 +165,10 @@ namespace ArcGISRuntime.Samples.Managers
             var sampleType = _samplesAssembly.GetType(fullTypeAsString);
 
             // TODO See better way to create objects in UWP
-            var item = Activator.CreateInstance(sampleType);
+
+            var item = sampleType.GetConstructor(new Type[] { }).Invoke(new object[] { });
+
+ //           var item = Activator.CreateInstance(sampleType);
 
            return (Control)item;
         }

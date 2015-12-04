@@ -51,6 +51,14 @@ namespace ArcGISRuntime.Windows.Viewer
             _currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
         }
 
+        protected override void OnNavigatedTo(Navigation.NavigationEventArgs e)
+        {
+            // Force GC to get invoke full clean up when ever
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            base.OnNavigatedTo(e);
+        }
+
         private async void Initialize()
         {
             // Initialize manager that handles all the samples, this will load all the items from samples assembly and related files
@@ -102,10 +110,6 @@ namespace ArcGISRuntime.Windows.Viewer
             if (selectedSample == null) return;
 
             SampleManager.Current.SelectedSample = selectedSample;
-
-            // Force GC to get invoke full clean up
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
 
             // Navigate to the sample page that shows the sample and details
             Frame.Navigate(typeof(SamplePage));

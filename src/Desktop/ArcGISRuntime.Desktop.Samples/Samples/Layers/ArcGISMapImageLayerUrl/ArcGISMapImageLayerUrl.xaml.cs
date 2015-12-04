@@ -12,11 +12,11 @@
 //See the License for the specific language governing permissions and
 //limitations under the License.
 
-namespace ArcGISRuntime.Desktop.Samples.ArcGISMapImageLayer
+namespace ArcGISRuntime.Desktop.Samples.ArcGISMapImageLayerUrl
 {
-    public partial class ArcGISMapImageLayer
+    public partial class ArcGISMapImageLayerUrl
     {
-        public ArcGISMapImageLayer()
+        public ArcGISMapImageLayerUrl()
         {
             InitializeComponent();
         }

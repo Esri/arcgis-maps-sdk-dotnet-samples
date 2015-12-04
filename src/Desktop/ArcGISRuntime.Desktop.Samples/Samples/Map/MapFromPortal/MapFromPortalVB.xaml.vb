@@ -12,15 +12,13 @@
 'See the License for the specific language governing permissions and
 'limitations under the License.
 
-Namespace ArcGISMapImageLayer
+Namespace MapFromPortal
 
-    Public Class ArcGISMapImageLayerVB
+    Public Class MapFromPortalVB
 
         Public Sub New()
             InitializeComponent()
         End Sub
 
     End Class
-
 End Namespace
-

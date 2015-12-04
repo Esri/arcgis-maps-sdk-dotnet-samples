@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="MapRotation.MapRotationVB"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ArcGISRuntime.Desktop.Samples"
+             mc:Ignorable="d" 
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+
+        <esri:MapView Name="MyMapView">
+            <esri:Map InitialViewpoint="-13044000, 3855000, -13040000, 3858000, 102100">
+                <esri:Map.Basemap>
+                    <esri:Basemap>
+                        <esri:ArcGISTiledLayer Name="StreetMap" 
+                            Source="http://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer"/>
+                    </esri:Basemap>
+                </esri:Map.Basemap>
+            </esri:Map>
+        </esri:MapView>
+
+        <DockPanel VerticalAlignment="Top" Background="White" Height="30">
+            <Label DockPanel.Dock="Right">Degrees</Label>
+            <TextBox Text="{Binding ElementName=degreeSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="40" />
+            <Slider Maximum="359" TickPlacement="BottomRight" TickFrequency="10" IsSnapToTickEnabled="True" Name="degreeSlider" ValueChanged="OnDegreeSliderChange" />
+        </DockPanel>
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,14 @@
+{
+  "Name": "Change viewpoint",
+  "SampleName": "ChangeViewpoint",
+  "Description": "This sample demonstrates how the current viewpoint can be changed. This Sample opens with a default service viewpoint. Each subsequent button click will change the viewpoint using different methods (one to a provided extent, another a point and scale, and another to rotate the viewpoint by 90 degrees.",
+  "Instructions": "Click any of the available buttons to change the current viewpoint",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"ChangeViewpoint.jpg",
+  "Link":"",
+  "TypeLink": [
+  ]
+}

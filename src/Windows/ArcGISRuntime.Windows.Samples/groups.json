@@ -233,6 +233,14 @@
   ],
   "Featured": [
     {
+      "SampleName": "ArcGISTiledLayerUrl",
+      "Reason": 1
+    },
+     {
+      "SampleName": "ArcGISMapImageLayerUrl",
+      "Reason": 1
+    },
+    {
       "SampleName": "SetMapSpatialReference",
       "Reason": 1
     }

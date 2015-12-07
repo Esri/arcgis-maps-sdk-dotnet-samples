@@ -22,9 +22,10 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="120"/>
-                    <ColumnDefinition />
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Image Margin="10" Width="100" Height="125" Grid.RowSpan="2" Stretch="Uniform"
+                       HorizontalAlignment="Left"
                        Source="{Binding SampleImageName, Converter={StaticResource sampleToBitmapConverter}}">
                 </Image>
                 <TextBlock Text="{Binding Name}" FontSize="18" Grid.Column="1" Margin="10,5,10,5"/>
@@ -208,6 +209,11 @@
                               ItemsSource="{Binding ElementName=categories, Path=SelectedItem.Items}" 
                               ItemTemplate="{StaticResource StantardSampleItemTemplate}" 
                               SelectionMode="None">
+                        <GridView.ItemContainerStyle>
+                            <Style TargetType="GridViewItem">
+                                <Setter Property="HorizontalAlignment" Value="Left" />
+                            </Style>
+                        </GridView.ItemContainerStyle>
                     </GridView>
 
                     <Border x:Name="LoadingIndicatorArea" Visibility="Visible">

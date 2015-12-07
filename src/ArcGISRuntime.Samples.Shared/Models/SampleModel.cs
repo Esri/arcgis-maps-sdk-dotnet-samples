@@ -150,7 +150,7 @@ namespace ArcGISRuntime.Samples.Models
             get
             {
 #if NETFX_CORE
-                var fullNamespace = string.Format("ArcGISRuntime.Windows.Samples.{0}.{1}", SampleFolder.Parent.Name, SampleFolder.Name);
+                var fullNamespace = string.Format("ArcGISRuntime.Windows.Samples.{0}", SampleFolder.Name);
 #else
                 var fullNamespace = string.Format("ArcGISRuntime.Desktop.Samples.{0}", SampleFolder.Name);
 #endif

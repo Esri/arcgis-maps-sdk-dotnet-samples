@@ -15,9 +15,9 @@
 Imports Esri.ArcGISRuntime
 Imports Esri.ArcGISRuntime.Layers
 
-Namespace ArcGISMapImageLayer
+Namespace ArcGISMapImageLayerUrl
 
-    Public NotInheritable Class ArcGISMapImageLayerVB
+    Public NotInheritable Class ArcGISMapImageLayerUrlVB
 
         Public Sub New()
             InitializeComponent()

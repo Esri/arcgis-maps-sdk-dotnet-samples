@@ -15,17 +15,19 @@ using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Layers;
 using System;
 
-namespace ArcGISRuntime.Windows.Samples.Layers.ArcGISMapImageLayer
+namespace ArcGISRuntime.Windows.Samples.ArcGISTiledLayerUrl
 {
-    public partial class ArcGISMapImageLayer
+    public partial class ArcGISTiledLayerUrl
     {
-        public ArcGISMapImageLayer()
+        public ArcGISTiledLayerUrl()
         {
             InitializeComponent();
 
+            // TODO : Move this to XAML
             var myMap = new Map();
 
-            var baseLayer = new ArcGISTiledLayer(new Uri("http://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer"));
+            var baseLayer = new ArcGISTiledLayer(
+                new Uri("http://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer"));
             myMap.Basemap.BaseLayers.Add(baseLayer);
             MyMapView.Map = myMap;
         }

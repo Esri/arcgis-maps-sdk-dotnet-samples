@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcGISRuntime.Desktop.Samples.CSharp", "ArcGISRuntime.Desktop.Samples\ArcGISRuntime.Desktop.Samples.CSharp.csproj", "{0568FD2B-DA73-434C-B955-4A149465C535}"
 EndProject
@@ -9,7 +9,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcGISRuntime.Desktop.Viewe
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ArcGISRuntime.Desktop.Samples.VBNet", "ArcGISRuntime.Desktop.Samples\ArcGISRuntime.Desktop.Samples.VBNet.vbproj", "{586825CE-817B-45A8-BFDB-79A2F36B2C42}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ArcGISRuntime.Samples.Shared", "..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.shproj", "{0AD85845-0BA1-4DC9-8C32-E6FD7632E32D}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{5278f66e-d41f-45d2-8327-25ea13a11618}*SharedItemsImports = 4
+		..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{0ad85845-0ba1-4dc9-8c32-e6fd7632e32d}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

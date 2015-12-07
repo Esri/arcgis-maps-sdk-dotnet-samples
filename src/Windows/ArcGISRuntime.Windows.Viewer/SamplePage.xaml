@@ -1,0 +1,256 @@
+﻿<Page
+    x:Class="ArcGISRuntime.Windows.Viewer.SamplePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ArcGISRuntime.Windows.Viewer"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:ArcGISRuntime.Windows.Viewer.Converters"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <Style x:Key="TabToggleButtonStyle" TargetType="ToggleButton">
+            <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundBaseLowBrush}"/>
+            <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
+            <Setter Property="BorderBrush" Value="{ThemeResource SystemControlForegroundTransparentBrush}"/>
+            <Setter Property="BorderThickness" Value="{ThemeResource ToggleButtonBorderThemeThickness}"/>
+            <Setter Property="Padding" Value="8,4,8,4"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+            <Setter Property="UseSystemFocusVisuals" Value="True"/>
+            <Setter Property="Height" Value="48"/>
+            <Setter Property="Template">
+
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Grid x:Name="RootGrid" Background="{TemplateBinding Background}" Margin="0,4,0,0">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="TopBorder">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="100"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#6B1978"/>
+                                            </ObjectAnimationUsingKeyFrames>
+
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#6B1978"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="TopBorder">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="100"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <PointerDownThemeAnimation Storyboard.TargetName="ContentPresenter"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="RootGrid">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundBaseLowBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledBaseLowBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledTransparentBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Checked">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#6B1978"/>
+                                            </ObjectAnimationUsingKeyFrames>
+
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="TopBorder">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="100"/>
+                                            </ObjectAnimationUsingKeyFrames>
+
+                                            <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
+
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="CheckedPointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#6B1978"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="TopBorder">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="100"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="CheckedPressed">
+                                        <Storyboard>
+                                            <PointerDownThemeAnimation Storyboard.TargetName="ContentPresenter"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <Border Background="White" Margin="0,0,0,0"></Border>
+                            <Border Opacity="0" Margin="2" x:Name="TopBorder"  Background="#6B1978" BorderBrush="#6B1978" BorderThickness="2" VerticalAlignment="Top"></Border>
+
+                            <TextBlock x:Name="ContentPresenter" 
+                                            Margin="0, 0,0,0"
+                                            FontSize="24"
+                                            Foreground="Gray"
+                                            AutomationProperties.AccessibilityView="Raw"
+                                            Text="{TemplateBinding Content}" 
+                                            Padding="{TemplateBinding Padding}" 
+                                            />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <!--
+        ============================
+        Adaptive triggers
+        ============================
+        -->
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <!--
+                ============================
+                Handle screen less than 780 effective pixels
+                ============================
+                -->
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ApplicationTitle.FontSize" Value="16"/>
+                        <Setter Target="CommandBar.Visibility" Value="Visible"/>
+                        <Setter Target="Description.Visibility" Value="Collapsed"/>
+                        <Setter Target="LiveSample.Visibility" Value="Collapsed"/>
+                        <Setter Target="SampleTitle.Margin" Value="12,0,0,0"/>
+                        <Setter Target="DescriptionText.(RelativePanel.Below)" Value="ThumbnailImage"></Setter>
+                        <Setter Target="DescriptionText.(RelativePanel.RightOf)" Value=""></Setter>
+                        <Setter Target="InstructionsHeader.(RelativePanel.Below)" Value="DescriptionText"></Setter>
+                    </VisualState.Setters>
+                </VisualState>
+                <!-- 
+                ============================
+                Handle screen over 780 effective pixels but less than 1024 effective pixels
+                ============================
+                -->
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="DescriptionText.(RelativePanel.Below)" Value="ThumbnailImage"></Setter>
+                        <Setter Target="DescriptionText.(RelativePanel.RightOf)" Value=""></Setter>
+                        <Setter Target="InstructionsHeader.(RelativePanel.Below)" Value="DescriptionText"></Setter>
+                    </VisualState.Setters>
+                </VisualState>
+                <!-- 
+                ============================
+                Handle screen over 1024 effective pixels
+                ============================
+                -->
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1024" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                       
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="HeaderArea">
+            <Grid.Background>
+                <ImageBrush ImageSource="Assets/background-desktop.png" Stretch="UniformToFill"/>
+            </Grid.Background>
+            <TextBlock Margin="10,0,0,0"
+                   x:Name="ApplicationTitle"
+                   Text="ArcGIS Runtime SDK for .NET Samples" Foreground="White" FontSize="32"
+                   FontWeight="Bold" VerticalAlignment="Top"/>
+        </Grid>
+
+        <RelativePanel x:Name="CommandArea" Height="48" Background="#F7F8F8" Grid.Row="1">
+            <TextBlock x:Name="SampleTitle" Margin="12,0,0,0"
+                       RelativePanel.AlignVerticalCenterWithPanel="True"
+                       Foreground="#6B1978"
+                       Text="{Binding Name}"
+                       FontSize="24"></TextBlock>
+
+            <ToggleButton 
+                Checked="LiveSample_Checked"
+                Content="Live Sample"
+                x:Name="LiveSample" 
+                Margin="0,0,24,0" 
+                RelativePanel.LeftOf="Description" 
+                RelativePanel.AlignBottomWithPanel="True"  
+                Style="{StaticResource TabToggleButtonStyle}">
+            </ToggleButton>
+            <ToggleButton 
+                Checked="Description_Checked"
+                x:Name="Description"
+                Content="Description" 
+                RelativePanel.AlignRightWithPanel="True" 
+                RelativePanel.AlignBottomWithPanel="True"
+                Margin="0,0,48,0" 
+                Style="{StaticResource TabToggleButtonStyle}">
+            </ToggleButton>
+            <CommandBar
+                x:DeferLoadStrategy="Lazy"
+                x:Name="CommandBar"
+                RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Background="Transparent" Foreground="#6B1978"
+                        Visibility="Collapsed">
+                <CommandBar.SecondaryCommands>
+                    <AppBarToggleButton Label="Live Sample" IsChecked="{Binding ElementName=LiveSample, Path=IsChecked,Mode=TwoWay}"></AppBarToggleButton>
+                    <AppBarToggleButton Label="Description" IsChecked="{Binding ElementName=Description, Path=IsChecked,Mode=TwoWay}"></AppBarToggleButton>
+                </CommandBar.SecondaryCommands>
+            </CommandBar>
+        </RelativePanel>
+        <!-- 
+        ============================
+        Main content reagion
+        ============================
+        -->
+        <Grid Grid.Row="2">
+            <ContentControl Margin="5" Grid.Row="1" x:Name="SampleContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+
+            <ContentControl Margin="5" Visibility="Collapsed" Grid.Row="1" x:Name="DescriptionContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                <RelativePanel>
+                    <Image x:Name="ThumbnailImage" Margin="10" Stretch="Uniform" HorizontalAlignment="Center" MaxWidth="400"
+                           Source="{Binding SampleImageName, Converter={StaticResource sampleToBitmapConverter}}">
+                    </Image>
+                    <TextBlock x:Name="DescriptionText" Text="{Binding Description}" FontSize="18" RelativePanel.RightOf="ThumbnailImage"
+							    TextWrapping="Wrap" 
+								Margin="20" />
+                    <TextBlock x:Name="InstructionsHeader" Text="Instructions"  FontSize="24" Foreground="Black" RelativePanel.Below="ThumbnailImage" Margin="10"/>
+                    <TextBlock Text="{Binding Instructions}" FontSize="18" TextWrapping="Wrap" Margin="10,0"
+                               RelativePanel.Below="InstructionsHeader" />
+                </RelativePanel>
+            </ContentControl>
+        </Grid>
+    </Grid>
+</Page>

@@ -11,18 +11,37 @@ Please see [Table of Contents](TableOfContents.md).
 1. Fork and then clone the repo or download the .zip file. 
 2. Confirm the supported system configuration for the API of interest in the ArcGIS Runtime SDK for .NET:
   * [Windows Desktop](http://developers.arcgis.com/net/desktop/guide/system-requirements.htm)
-3. In Visual Studio, open the solution for the Desktop
+  * [Universal Windows Platform]((http://developers.arcgis.com/net/uwp/guide/system-requirements.htm))
+3. In Visual Studio, open the solution
   * Windows Desktop: `src\Desktop\ArcGISRuntime.Desktop.Viewer.sln`  
+	   - Clean, build, and run the application.
+  * Universal Windows Platform: `src\Windows\ArcGISRuntime.Windows.Viewer.sln`  
+	   - Make sure that you are compiling against x86/x64/ARM platform and not using AnyCPU.
+	   - Clean, build, and run the application.
+  * Both: `src\ArcGISRuntime.Viewers.All.sln`  
+	   - Make sure that you are compiling Windows project against x86/x64/ARM platform and not using AnyCPU.
 	   - Clean, build, and run the application.
 
 Notes:
 
-To run samples in VB, your sample viewer can be started with `/vb` parameter on start up. When the application is compiled, we also deploy `Launch Viewer VB.bat` file to the output folder.
+Running sample viewer so that it uses VB samples
+  * Desktop
+       To run samples in VB, your sample viewer can be started with `/vb` parameter on start up. When the application is compiled, we also deploy `Launch Viewer VB.bat` file to the output folder.
+       
+   * Universal Windows Platform
+      To run samples in VB, you need to manually change the constant in `App.cs` file. 
+      
+      ````CSharp
+      private const Language SamplesLanguageUsed = Language.CSharp;
+      // or 
+      private const Language SamplesLanguageUsed = Language.VBnet;
+      ````
 
 ## Requirements
 
 * Supported system configurations for: 
   * [Windows Destkop](http://developers.arcgis.com/net/desktop/guide/system-requirements.htm)
+  * [Universal Windows Platform]((http://developers.arcgis.com/net/uwp/guide/system-requirements.htm))
 
 ## Resources
 

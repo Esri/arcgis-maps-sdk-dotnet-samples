@@ -33,7 +33,8 @@
           "ShowGroup": false,
           "Samples": [
             "MapFromPortal",
-            "SetMapSpatialReference"
+            "SetMapSpatialReference",
+            "SetInitialMapArea"
           ]
         },
         {
@@ -255,6 +256,11 @@
     {
       "SampleName": "ChangeViewpoint",
       "Reason": 1
+    },
+     {
+      "SampleName": "SetInitialMapArea",
+      "Reason": 1
     }
+
   ]
 }

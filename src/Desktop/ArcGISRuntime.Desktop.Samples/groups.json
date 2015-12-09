@@ -9,7 +9,6 @@
           "SubCategoryName": "GeneralTutorials",
           "ShowGroup": false,
           "Samples": [
-            "FirstMapApp"
           ]
         }
       ]
@@ -23,8 +22,6 @@
           "SubCategoryName": "MapView",
           "ShowGroup": false,
           "Samples": [
-            "MapRotation",
-            "ChangeViewpoint"
           ]
         },
         {
@@ -32,7 +29,6 @@
           "SubCategoryName": "Map",
           "ShowGroup": false,
           "Samples": [
-            "MapFromPortal",
             "SetMapSpatialReference"
           ]
         },
@@ -108,10 +104,8 @@
         {
           "Name": "Symbology",
           "SubCategoryName": "Symbology",
-          "ShowGroup": false,
-          "Samples": [
-            "UniqueValueRenderer"
-          ]
+          "ShowGroup": true,
+          "Samples": [ "UniqueValueRenderer", "SimpleMarkerSym" ]
         }
       ]
     },
@@ -237,23 +231,15 @@
   ],
   "Featured": [
     {
-      "SampleName": "FirstMapApp",
+      "SampleName": "ArcGISTiledLayerUrl",
       "Reason": 1
     },
-    {
-      "SampleName": "MapFromPortal",
+     {
+      "SampleName": "ArcGISMapImageLayerUrl",
       "Reason": 1
     },
     {
       "SampleName": "SetMapSpatialReference",
-      "Reason": 1
-    },
-    {
-      "SampleName": "MapRotation",
-      "Reason": 1
-    },
-    {
-      "SampleName": "ChangeViewpoint",
       "Reason": 1
     }
   ]

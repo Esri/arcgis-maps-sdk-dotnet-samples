@@ -29,7 +29,8 @@
           "SubCategoryName": "Map",
           "ShowGroup": false,
           "Samples": [
-            "SetMapSpatialReference"
+            "SetMapSpatialReference",
+            "SetInitialMapArea"
           ]
         },
         {
@@ -233,16 +234,21 @@
   ],
   "Featured": [
     {
-      "SampleName": "ArcGISTiledLayerUrl",
+      "SampleName": "FirstMapApp",
       "Reason": 1
     },
-     {
-      "SampleName": "ArcGISMapImageLayerUrl",
+    {
+      "SampleName": "MapFromPortal",
       "Reason": 1
     },
     {
       "SampleName": "SetMapSpatialReference",
       "Reason": 1
+    },
+     {
+      "SampleName": "SetInitialMapArea",
+      "Reason": 1
     }
+
   ]
 }

@@ -8,8 +8,7 @@
           "Name": "General",
           "SubCategoryName": "GeneralTutorials",
           "ShowGroup": false,
-          "Samples": [
-            "FirstMapApp"
+          "Samples": ["FirstMapApp"
           ]
         }
       ]
@@ -22,9 +21,7 @@
           "Name": "MapView",
           "SubCategoryName": "MapView",
           "ShowGroup": false,
-          "Samples": [
-            "MapRotation",
-            "ChangeViewpoint"
+          "Samples": ["ChangeViewpoint", "MapRotation"
           ]
         },
         {
@@ -32,8 +29,8 @@
           "SubCategoryName": "Map",
           "ShowGroup": false,
           "Samples": [
-            "MapFromPortal",
             "SetMapSpatialReference",
+            "SetInitialMapLocation",
             "SetInitialMapArea"
           ]
         },
@@ -109,10 +106,8 @@
         {
           "Name": "Symbology",
           "SubCategoryName": "Symbology",
-          "ShowGroup": false,
-          "Samples": [
-            "UniqueValueRenderer"
-          ]
+          "ShowGroup": true,
+          "Samples": [ "UniqueValueRenderer", "SimpleMarkerSym" ]
         }
       ]
     },
@@ -203,7 +198,7 @@
           "Name": "Portal",
           "SubCategoryName": "Portal",
           "ShowGroup": false,
-          "Samples": [
+          "Samples": ["MapFromPortal"
           ]
         },
         {
@@ -238,11 +233,11 @@
   ],
   "Featured": [
     {
-      "SampleName": "FirstMapApp",
+      "SampleName": "ArcGISTiledLayerUrl",
       "Reason": 1
     },
     {
-      "SampleName": "MapFromPortal",
+      "SampleName": "ArcGISMapImageLayerUrl",
       "Reason": 1
     },
     {
@@ -261,6 +256,5 @@
       "SampleName": "SetInitialMapArea",
       "Reason": 1
     }
-
   ]
 }

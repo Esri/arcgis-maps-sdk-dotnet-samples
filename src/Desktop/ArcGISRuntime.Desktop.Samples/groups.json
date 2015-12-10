@@ -29,7 +29,8 @@
           "SubCategoryName": "Map",
           "ShowGroup": false,
           "Samples": [
-            "SetMapSpatialReference"
+            "SetMapSpatialReference",
+            "SetInitialMapLocation"
           ]
         },
         {

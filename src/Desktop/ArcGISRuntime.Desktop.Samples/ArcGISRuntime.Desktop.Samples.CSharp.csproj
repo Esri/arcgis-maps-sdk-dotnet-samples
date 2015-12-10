@@ -65,6 +65,9 @@
     <Compile Include="Samples\MapView\MapRotation\MapRotation.xaml.cs">
       <DependentUpon>MapRotation.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.xaml.cs">
+      <DependentUpon>SetInitialMapLocation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.xaml.cs">
       <DependentUpon>SetMapSpatialReference.xaml</DependentUpon>
     </Compile>
@@ -100,6 +103,9 @@
     <Content Include="Samples\MapView\MapRotation\MapRotation.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -130,6 +136,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\MapView\MapRotation\MapRotation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -194,6 +204,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Samples\Symbology\SimpleMarkerSym\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Samples\Map\SetInitialMapLocation\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

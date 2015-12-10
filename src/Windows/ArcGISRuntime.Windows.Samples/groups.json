@@ -21,7 +21,7 @@
           "Name": "MapView",
           "SubCategoryName": "MapView",
           "ShowGroup": false,
-          "Samples": [
+          "Samples": [          
           ]
         },
         {
@@ -29,7 +29,8 @@
           "SubCategoryName": "Map",
           "ShowGroup": false,
           "Samples": [
-            "SetMapSpatialReference"
+            "SetMapSpatialReference",
+            "SetInitialMapLocation"
           ]
         },
         {

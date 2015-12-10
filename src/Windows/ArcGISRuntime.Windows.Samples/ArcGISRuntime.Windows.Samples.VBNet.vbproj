@@ -96,14 +96,21 @@
     <None Include="project.json" />
     <None Include="Samples\Layers\ArcGISMapImageLayerUrl\metadata.json" />
     <None Include="Samples\Layers\ArcGISMapImageLayerUrl\README.md" />
+    <None Include="Samples\Map\SetInitialMapLocation\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrlVB.xaml.vb">
       <DependentUpon>ArcGISMapImageLayerUrlVB.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocationVB.xaml.vb">
+      <DependentUpon>SetInitialMapLocationVB.xaml</DependentUpon>
+    </Compile>
     <Content Include="My Project\ArcGISRuntime.Windows.Samples.VBNet.rd.xml" />
     <Content Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg" />
+    <Content Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -148,6 +155,10 @@
     <Page Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrlVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocationVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

@@ -9,6 +9,6 @@
   "RequiresLocalServer":false,
   "Image":"SimpleMarkerSym.jpg",
   "Link":"",
-  "TypeLink": ["M:Esri.ArcGISRuntime.Symbology.SimpleMarkerSymbol.#ctor(System.Windows.Media.Color,System.Double,Esri.ArcGISRuntime.Symbology.SimpleMarkerSymbolStyle)"
+  "TypeLink": ["T:Esri.ArcGISRuntime.Symbology.SimpleMarkerSymbol"
   ]
 }

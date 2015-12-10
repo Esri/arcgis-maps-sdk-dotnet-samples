@@ -97,6 +97,7 @@
     <None Include="Samples\Layers\ArcGISMapImageLayerUrl\metadata.json" />
     <None Include="Samples\Layers\ArcGISMapImageLayerUrl\README.md" />
     <None Include="Samples\Map\SetInitialMapLocation\metadata.json" />
+    <None Include="Samples\Map\SetInitialMapArea\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -106,11 +107,15 @@
     <Compile Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocationVB.xaml.vb">
       <DependentUpon>SetInitialMapLocationVB.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Map\SetInitialMapArea\SetInitialMapAreaVB.xaml.vb">
+      <DependentUpon>SetInitialMapAreaVB.xaml</DependentUpon>
+    </Compile>
     <Content Include="My Project\ArcGISRuntime.Windows.Samples.VBNet.rd.xml" />
     <Content Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg" />
     <Content Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -157,6 +162,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocationVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Map\SetInitialMapArea\SetInitialMapAreaVB.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

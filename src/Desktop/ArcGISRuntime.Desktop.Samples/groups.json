@@ -30,7 +30,8 @@
           "ShowGroup": false,
           "Samples": [
             "SetMapSpatialReference",
-            "SetInitialMapLocation"
+            "SetInitialMapLocation",
+            "SetInitialMapArea"
           ]
         },
         {
@@ -235,12 +236,24 @@
       "SampleName": "ArcGISTiledLayerUrl",
       "Reason": 1
     },
-     {
+    {
       "SampleName": "ArcGISMapImageLayerUrl",
       "Reason": 1
     },
     {
       "SampleName": "SetMapSpatialReference",
+      "Reason": 1
+    },
+    {
+      "SampleName": "MapRotation",
+      "Reason": 1
+    },
+    {
+      "SampleName": "ChangeViewpoint",
+      "Reason": 1
+    },
+     {
+      "SampleName": "SetInitialMapArea",
       "Reason": 1
     }
   ]

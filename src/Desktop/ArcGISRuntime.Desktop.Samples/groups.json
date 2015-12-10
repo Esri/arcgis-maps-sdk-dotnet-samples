@@ -8,7 +8,7 @@
           "Name": "General",
           "SubCategoryName": "GeneralTutorials",
           "ShowGroup": false,
-          "Samples": [
+          "Samples": ["FirstMapApp"
           ]
         }
       ]
@@ -21,7 +21,7 @@
           "Name": "MapView",
           "SubCategoryName": "MapView",
           "ShowGroup": false,
-          "Samples": [
+          "Samples": ["ChangeViewpoint", "MapRotation"
           ]
         },
         {
@@ -196,7 +196,7 @@
           "Name": "Portal",
           "SubCategoryName": "Portal",
           "ShowGroup": false,
-          "Samples": [
+          "Samples": ["MapFromPortal"
           ]
         },
         {

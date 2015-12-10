@@ -14,7 +14,6 @@
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Layers;
 
-
 namespace ArcGISRuntime.Windows.Samples.SetInitialMapLocation
 {
     public partial class SetInitialMapLocation
@@ -27,7 +26,6 @@ namespace ArcGISRuntime.Windows.Samples.SetInitialMapLocation
             var myMap = new Map(BasemapType.ImageryWithLabels, -33.867886, -63.985, 15);
             //assign the map to the map view
             MyMapView.Map = myMap;
-
         }
     }
 }

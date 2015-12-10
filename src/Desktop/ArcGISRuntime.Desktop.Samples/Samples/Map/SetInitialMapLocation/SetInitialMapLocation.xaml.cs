@@ -26,7 +26,6 @@ namespace ArcGISRuntime.Desktop.Samples.SetInitialMapLocation
             var myMap = new Map(BasemapType.ImageryWithLabels, -33.867886, -63.985, 15);
             //assign the map to the map view
             MyMapView.Map = myMap;
-
         }
     }
 }

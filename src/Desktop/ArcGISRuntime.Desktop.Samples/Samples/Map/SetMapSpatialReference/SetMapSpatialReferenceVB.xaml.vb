@@ -16,7 +16,6 @@
 Imports Esri.ArcGISRuntime
 Imports Esri.ArcGISRuntime.Geometry
 Imports Esri.ArcGISRuntime.Layers
-Imports System.Windows
 
 Namespace SetMapSpatialReference
     Partial Public Class SetMapSpatialReferenceVB
@@ -29,19 +28,14 @@ Namespace SetMapSpatialReference
         End Sub
 
         Private Sub LoadMap()
-            Try
-                'Create a map with World_Bonne projection
-                Dim myMap = New Map(SpatialReference.Create(54024))
-                'Create a map image layer which can re-project itself to the map's spatial reference
-                Dim layer = New ArcGISMapImageLayer(New Uri(imageLayerUrl))
-                'Set the map image layer as basemap
-                myMap.Basemap.BaseLayers.Add(layer)
-                'Set the map to be displayed in this view
-                MyMapView.Map = myMap
-            Catch ex As Exception
-                Dim errorMessage = "Map cannot be loaded. " + ex.Message
-                MessageBox.Show(errorMessage, "Sample error")
-            End Try
+            'Create a map with World_Bonne projection
+            Dim myMap = New Map(SpatialReference.Create(54024))
+            'Create a map image layer which can re-project itself to the map's spatial reference
+            Dim layer = New ArcGISMapImageLayer(New Uri(imageLayerUrl))
+            'Set the map image layer as basemap
+            myMap.Basemap.BaseLayers.Add(layer)
+            'Set the map to be displayed in this view
+            MyMapView.Map = myMap
         End Sub
 
     End Class

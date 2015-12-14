@@ -12,11 +12,9 @@
 'WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 'See the License for the specific language governing permissions and
 'limitations under the License.
-
 Imports Esri.ArcGISRuntime
 Imports Esri.ArcGISRuntime.Geometry
 Imports Esri.ArcGISRuntime.Layers
-Imports Windows.UI.Popups
 
 Namespace SetMapSpatialReference
     Partial Public Class SetMapSpatialReferenceVB
@@ -29,23 +27,14 @@ Namespace SetMapSpatialReference
         End Sub
 
         Private Sub LoadMap()
-            Dim errorDialog As MessageDialog
-            Try
-                'Create a map with World_Bonne projection
-                Dim myMap = New Map(SpatialReference.Create(54024))
-                'Create a map image layer which can re-project itself to the map's spatial reference
-                Dim layer = New ArcGISMapImageLayer(New Uri(imageLayerUrl))
-                'Set the map image layer as basemap
-                myMap.Basemap.BaseLayers.Add(layer)
-                'Set the map to be displayed in this view
-                MyMapView.Map = myMap
-            Catch ex As Exception
-                Dim errorMessage = "Map cannot be loaded. " + ex.Message
-                Dim errorDialog As New MessageDialog(errorMessage, "Sample error").ShowAsync()
-            End Try
-            If errorDialog IsNot Nothing Then
-                errorDialog.ShowAsync()
-            End If
+            'Create a map with World_Bonne projection
+            Dim myMap = New Map(SpatialReference.Create(54024))
+            'Create a map image layer which can re-project itself to the map's spatial reference
+            Dim layer = New ArcGISMapImageLayer(New Uri(imageLayerUrl))
+            'Set the map image layer as basemap
+            myMap.Basemap.BaseLayers.Add(layer)
+            'Set the map to be displayed in this view
+            MyMapView.Map = myMap
         End Sub
 
     End Class

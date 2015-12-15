@@ -32,7 +32,7 @@ namespace ArcGISRuntime.Desktop.Samples.SimpleMarkerSym
             var esriRedlandsPoint = new MapPoint(-117.195646, 34.056397, SpatialReferences.Wgs84);
 
             // Create a new red circle marker symbol
-            var circleSymbol = new SimpleMarkerSymbol(Colors.Red, 14, SimpleMarkerSymbolStyle.Circle);
+            var circleSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Colors.Red, 14);
 
             // Create a new graphic using the map point and the symbol
             var pointGraphic = new Graphic(esriRedlandsPoint, circleSymbol);

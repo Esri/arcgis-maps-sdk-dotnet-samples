@@ -12,7 +12,9 @@
 'WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 'See the License for the specific language governing permissions and
 'limitations under the License.
-Imports System.Windows
+Imports Esri.ArcGISRuntime
+Imports Esri.ArcGISRuntime.Layers
+Imports Windows.UI.Popups
 
 Namespace MapRotation
 
@@ -20,16 +22,27 @@ Namespace MapRotation
 
         Public Sub New()
             InitializeComponent()
+            ' TODO move this to xaml 
+            Dim myMap = New Map()
+
+            Dim baseLayer = New ArcGISTiledLayer(
+                New Uri("http://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer"))
+            myMap.Basemap.BaseLayers.Add(baseLayer)
+            MyMapView.Map = myMap
         End Sub
 
-        Private Async Sub OnDegreeSliderChange(sender As Object, e As EventArgs)
+        Private Async Sub OnDegreeSliderChange(sender As Object, e As RangeBaseValueChangedEventArgs)
+            Dim errorDialog As MessageDialog = Nothing
             Try
                 'Set Viewpoint's rotation to that of the slider value
                 Await MyMapView.SetViewpointRotationAsync(degreeSlider.Value)
             Catch ex As Exception
                 Dim errorMessage = "MapView Viewpoint could not be rotated. " + ex.Message
-                MessageBox.Show(errorMessage, "Sample error")
+                errorDialog = New MessageDialog(errorMessage, "Sample error")
             End Try
+            If errorDialog IsNot Nothing Then
+                Await errorDialog.ShowAsync()
+            End If
         End Sub
 
     End Class

@@ -11,20 +11,31 @@
 //WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and
 //limitations under the License.
+using Esri.ArcGISRuntime;
+using Esri.ArcGISRuntime.Layers;
 using System;
-using System.Windows;
+using Windows.UI.Popups;
+using Windows.UI.Xaml.Controls.Primitives;
 
-namespace ArcGISRuntime.Desktop.Samples.MapRotation
+namespace ArcGISRuntime.Windows.Samples.MapRotation
 {
     public partial class MapRotation
     {
         public MapRotation()
         {
-            InitializeComponent();       
+            InitializeComponent();
+            // TODO Move this to XAML
+            var myMap = new Map();
+
+            var baseLayer = new ArcGISTiledLayer(
+                new Uri("http://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer"));
+            myMap.Basemap.BaseLayers.Add(baseLayer);
+            MyMapView.Map = myMap;
         }
 
-        private async void OnDegreeSliderChange(object sender, EventArgs e)
-        {        
+        private async void OnDegreeSliderChange(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            MessageDialog errorDialog = null;
             try
             {
                 //Set Viewpoint's rotation to that of the slider value
@@ -33,8 +44,10 @@ namespace ArcGISRuntime.Desktop.Samples.MapRotation
             catch (Exception ex)
             {
                 var errorMessage = "MapView Viewpoint could not be rotated. " + ex.Message;
-                MessageBox.Show(errorMessage, "Sample error");
-            }   
+                errorDialog = new MessageDialog(errorMessage, "Sample error");
+            }
+            if (errorDialog != null)
+                await errorDialog.ShowAsync();
         }
     }
 }

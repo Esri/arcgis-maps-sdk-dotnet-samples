@@ -22,7 +22,6 @@
           "SubCategoryName": "MapView",
           "ShowGroup": false,
           "Samples": [
-            "MapRotation"
           ]
         },
         {
@@ -30,7 +29,9 @@
           "SubCategoryName": "Map",
           "ShowGroup": false,
           "Samples": [
-            "SetMapSpatialReference"
+            "SetMapSpatialReference",
+            "SetInitialMapLocation",
+            "SetInitialMapArea"
           ]
         },
         {
@@ -245,9 +246,10 @@
       "SampleName": "SetMapSpatialReference",
       "Reason": 1
     },
-    {
-      "SampleName": "MapRotation",
+     {
+      "SampleName": "SetInitialMapArea",
       "Reason": 1
     }
+
   ]
 }

@@ -85,6 +85,8 @@
     <Content Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.jpg" />
     <Content Include="Samples\MapView\MapRotation\MapRotation.jpg" />
     <Content Include="Samples\Map\MapFromPortal\MapFromPortal.jpg" />
+    <Content Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg" />
+    <Content Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg" />
     <Content Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.jpg" />
     <Content Include="Samples\Symbology\UniqueValueRenderer\UniqueValueRenderer.jpg" />
     <Content Include="Tutorials\FirstMapApp\FirstMapApp.jpg" />
@@ -112,6 +114,8 @@
     <None Include="Samples\Map\MapFromPortal\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Samples\Map\SetInitialMapLocation\metadata.json" />
+    <None Include="Samples\Map\SetInitialMapArea\metadata.json" />
     <None Include="Samples\Map\SetMapSpatialReference\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -139,6 +143,12 @@
     </Compile>
     <Compile Include="Samples\Map\MapFromPortal\MapFromPortalVB.xaml.vb">
       <DependentUpon>MapFromPortalVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocationVB.xaml.vb">
+      <DependentUpon>SetInitialMapLocationVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\SetInitialMapArea\SetInitialMapAreaVB.xaml.vb">
+      <DependentUpon>SetInitialMapAreaVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReferenceVB.xaml.vb">
       <DependentUpon>SetMapSpatialReferenceVB.xaml</DependentUpon>
@@ -170,6 +180,14 @@
     <Page Include="Samples\Map\MapFromPortal\MapFromPortalVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocationVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Map\SetInitialMapArea\SetInitialMapAreaVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReferenceVB.xaml">
       <Generator>MSBuild:Compile</Generator>

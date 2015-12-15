@@ -9,6 +9,6 @@
   "RequiresLocalServer":false,
   "Image":"ChangeViewpoint.jpg",
   "Link":"",
-  "TypeLink": [
+  "TypeLink": ["M:Esri.ArcGISRuntime.Controls.GeoView.SetViewpointAsync(Esri.ArcGISRuntime.Viewpoint,System.TimeSpan)","M:Esri.ArcGISRuntime.Controls.MapView.SetViewpointGeometryAsync(Esri.ArcGISRuntime.Geometry.Geometry)","M:Esri.ArcGISRuntime.Controls.MapView.SetViewpointCenterAsync(Esri.ArcGISRuntime.Geometry.MapPoint)","M:Esri.ArcGISRuntime.Controls.MapView.SetViewpointScaleAsync(System.Double)"
   ]
 }

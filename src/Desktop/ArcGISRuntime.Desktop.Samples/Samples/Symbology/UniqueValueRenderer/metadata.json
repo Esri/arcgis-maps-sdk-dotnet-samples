@@ -9,6 +9,6 @@
   "RequiresLocalServer":false,
   "Image":"UniqueValueRenderer.jpg",
   "Link":"",
-  "TypeLink": [
+  "TypeLink": ["T:Esri.ArcGISRuntime.Symbology.UniqueValueRenderer"
   ]
 }

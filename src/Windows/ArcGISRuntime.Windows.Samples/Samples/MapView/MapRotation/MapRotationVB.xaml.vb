@@ -32,13 +32,17 @@ Namespace MapRotation
         End Sub
 
         Private Async Sub OnDegreeSliderChange(sender As Object, e As RangeBaseValueChangedEventArgs)
+            Dim errorDialog As MessageDialog = Nothing
             Try
                 'Set Viewpoint's rotation to that of the slider value
                 Await MyMapView.SetViewpointRotationAsync(degreeSlider.Value)
             Catch ex As Exception
                 Dim errorMessage = "MapView Viewpoint could not be rotated. " + ex.Message
-                Dim dialog = New MessageDialog(errorMessage, "Sample error").ShowAsync()
+                errorDialog = New MessageDialog(errorMessage, "Sample error")
             End Try
+            If errorDialog IsNot Nothing Then
+                Await errorDialog.ShowAsync()
+            End If
         End Sub
 
     End Class

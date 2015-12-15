@@ -35,6 +35,7 @@ namespace ArcGISRuntime.Windows.Samples.MapRotation
 
         private async void OnDegreeSliderChange(object sender, RangeBaseValueChangedEventArgs e)
         {
+            MessageDialog errorDialog = null;
             try
             {
                 //Set Viewpoint's rotation to that of the slider value
@@ -43,8 +44,10 @@ namespace ArcGISRuntime.Windows.Samples.MapRotation
             catch (Exception ex)
             {
                 var errorMessage = "MapView Viewpoint could not be rotated. " + ex.Message;
-                new MessageDialog(errorMessage, "Sample error").ShowAsync();
+                errorDialog = new MessageDialog(errorMessage, "Sample error");
             }
+            if (errorDialog != null)
+                await errorDialog.ShowAsync();
         }
     }
 }

@@ -2,7 +2,7 @@
   "Name": "Map rotation",
   "SampleName": "MapRotation",
   "Description": "This sample demonstrates how to rotate a map.",
-  "Instructions": "Use the available slider to dictate the number of degree the map is rotated",
+  "Instructions": "Use the available slider to dictate the number of degrees the map is rotated",
   "Type": 0,
   "RequiresOnlineConnection":true,
   "RequiresOfflineData":false,

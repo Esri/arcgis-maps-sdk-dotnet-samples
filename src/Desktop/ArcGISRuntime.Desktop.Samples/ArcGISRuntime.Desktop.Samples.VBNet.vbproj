@@ -108,9 +108,9 @@
     <None Include="Samples\MapView\ChangeViewpoint\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Samples\MapView\MapRotation\metadata.json">
+    <Content Include="Samples\MapView\MapRotation\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="Samples\Map\MapFromPortal\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

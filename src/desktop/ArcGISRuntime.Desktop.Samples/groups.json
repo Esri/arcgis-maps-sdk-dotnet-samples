@@ -8,7 +8,8 @@
           "Name": "General",
           "SubCategoryName": "GeneralTutorials",
           "ShowGroup": false,
-          "Samples": ["FirstMapApp"
+          "Samples": [
+            "FirstMapApp"
           ]
         }
       ]
@@ -21,7 +22,9 @@
           "Name": "MapView",
           "SubCategoryName": "MapView",
           "ShowGroup": false,
-          "Samples": ["ChangeViewpoint", "MapRotation"
+          "Samples": [
+            "ChangeViewpoint",
+            "MapRotation"
           ]
         },
         {
@@ -31,7 +34,8 @@
           "Samples": [
             "SetMapSpatialReference",
             "SetInitialMapLocation",
-            "SetInitialMapArea"
+            "SetInitialMapArea",
+            "OpenExistingMap"
           ]
         },
         {
@@ -198,7 +202,7 @@
           "Name": "Portal",
           "SubCategoryName": "Portal",
           "ShowGroup": false,
-          "Samples": ["MapFromPortal"
+          "Samples": [
           ]
         },
         {

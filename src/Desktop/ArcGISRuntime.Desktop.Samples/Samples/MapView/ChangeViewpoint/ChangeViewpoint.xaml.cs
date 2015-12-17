@@ -93,7 +93,7 @@ namespace ArcGISRuntime.Desktop.Samples.ChangeViewpoint
             try
             {
                 //Gets the current rotation value of the map view
-                var currentRotation = MyMapView.Rotation;
+                var currentRotation = MyMapView.MapRotation;
                 //Rotate the viewpoint by the given number of degrees. In this case the current rotation value 
                 //plus 90 is passed, this will result in a the map rotating 90 degrees anti-clockwise  
                 await MyMapView.SetViewpointRotationAsync(currentRotation + 90.00);

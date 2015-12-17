@@ -9,8 +9,8 @@
     d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <esri:MapView x:Name="MyMapView">
-            <esri:Map InitialViewpoint="-117.182686,32.695853,-117.133872,32.718530,4326">
-                <esri:ArcGISTiledLayer Name="Basemap" 
+            <esri:Map>
+                <esri:ArcGISTiledLayer x:Name="Basemap"
                     Source="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"/>
             </esri:Map>
         </esri:MapView>
@@ -19,26 +19,29 @@
                 HorizontalAlignment="Right" VerticalAlignment="Top"
                 Margin="30" Padding="20" Width="375">
             <StackPanel>
-                <TextBlock Text="Select one of the button to runt the related Viewpoint code" 
+                <TextBlock Text="Select one of the buttons to run the related Viewpoint code" 
                            Margin="0,0,0,2" TextWrapping="Wrap" />
                 <WrapPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center">
                     <Button Content="Geometry"
 		                HorizontalAlignment="Left"
 		                Margin="10,10,0,0"
+                        Padding="4"    
 		                VerticalAlignment="Top"
 		                Width="Auto"
 		                Click="GeometryButton_Click" 
                         ToolTip="Sets Viewpoint to a predefined Polygon's extent"/>
-                    <Button Content="Centre and Scale"
+                    <Button Content="Center and Scale"
 		                HorizontalAlignment="Center"
 		                Margin="10,10,0,0"
+                        Padding="4"
 		                VerticalAlignment="Top"
 		                Width="Auto"
-		                Click="CentreScaleButton_Click"
+		                Click="CenterScaleButton_Click"
                         ToolTip="Sets Viewpoint a predefined point and scale"/>
                     <Button Content="Animation"
 		                HorizontalAlignment="Right"
 		                Margin="10,10,0,0"
+                        Padding="4"
 		                VerticalAlignment="Top"
 		                Width="Auto"
 		                Click="AnimateButton_Click"
@@ -46,6 +49,7 @@
                     <Button Content="Rotate"
 		                HorizontalAlignment="Right"
 		                Margin="10,10,0,0"
+                        Padding="4"
 		                VerticalAlignment="Center"
 		                Width="Auto"
 		                Click="RotateButton_Click"

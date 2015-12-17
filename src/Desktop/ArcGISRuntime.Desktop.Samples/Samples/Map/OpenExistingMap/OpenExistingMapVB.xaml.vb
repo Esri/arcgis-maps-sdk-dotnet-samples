@@ -1,5 +1,4 @@
-﻿
-'Copyright 2015 Esri.
+﻿'Copyright 2015 Esri.
 '
 'Licensed under the Apache License, Version 2.0 (the "License");
 'you may not use this file except in compliance with the License.
@@ -41,11 +40,13 @@ Namespace OpenExistingMap
         Private Async Sub OnLoaded(sender As Object, e As RoutedEventArgs)
 
             ' Adding items' Titles and URLs to a collection that will be used to populate the combobox's drop down. 
-            Dim comboBoxContent As ICollection(Of KeyValuePair(Of [String], [String])) = New Dictionary(Of [String], [String])() From {
-                {title1, itemURL1},
-                {title2, itemURL2},
-                {title3, itemURL3}
-            }
+            Dim comboBoxContent As ICollection(Of KeyValuePair(Of [String], [String])) =
+                New Dictionary(Of [String], [String])() From
+                {
+                    {title1, itemURL1},
+                    {title2, itemURL2},
+                    {title3, itemURL3}
+                }
 
             Try
                 comboMap.ItemsSource = comboBoxContent

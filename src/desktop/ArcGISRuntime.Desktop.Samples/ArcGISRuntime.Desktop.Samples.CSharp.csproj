@@ -53,14 +53,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Samples\Layers\ArcGISMapImageLayer\ArcGISMapImageLayer.xaml.cs">
-      <DependentUpon>ArcGISMapImageLayer.xaml</DependentUpon>
+    <Compile Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.xaml.cs">
+      <DependentUpon>ArcGISMapImageLayerUrl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Layers\ArcGISTiledLayer\ArcGISTiledLayer.xaml.cs">
-      <DependentUpon>ArcGISTiledLayer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Layers\ExampleSample\ExampleSample.xaml.cs">
-      <DependentUpon>ExampleSample.xaml</DependentUpon>
+    <Compile Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.xaml.cs">
+      <DependentUpon>ArcGISTiledLayerUrl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Map\OpenExistingMap\OpenExistingMap.xaml.cs">
       <DependentUpon>OpenExistingMap.xaml</DependentUpon>
@@ -68,11 +65,26 @@
     <Compile Include="Samples\MapView\MapRotation\MapRotation.xaml.cs">
       <DependentUpon>MapRotation.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.xaml.cs">
+      <DependentUpon>SetInitialMapLocation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.xaml.cs">
+      <DependentUpon>SetInitialMapArea.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.xaml.cs">
+      <DependentUpon>SetMapSpatialReference.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\SimpleMarkerSym\SimpleMarkerSym.xaml.cs">
+      <DependentUpon>SimpleMarkerSym.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Symbology\UniqueValueRenderer\UniqueValueRenderer.xaml.cs">
       <DependentUpon>UniqueValueRenderer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tutorials\FirstMapApp\FirstMapApp.xaml.cs">
       <DependentUpon>FirstMapApp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.xaml.cs">
+      <DependentUpon>ChangeViewpoint.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -82,13 +94,10 @@
     <Content Include="groups.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\ArcGISMapImageLayer\ArcGISMapImageLayer.jpg">
+    <Content Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\ArcGISTiledLayer\ArcGISTiledLayer.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\Layers\ExampleSample\ExampleSample.jpg">
+    <Content Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Map\OpenExistingMap\OpenExistingMap.jpg">
@@ -97,7 +106,16 @@
     <Content Include="Samples\MapView\MapRotation\MapRotation.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Symbology\UniqueValueRenderer\metadata.json">
+    <Content Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\SimpleMarkerSym\SimpleMarkerSym.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Symbology\UniqueValueRenderer\UniqueValueRenderer.jpg">
@@ -106,17 +124,16 @@
     <Content Include="Tutorials\FirstMapApp\FirstMapApp.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Samples\Layers\ArcGISMapImageLayer\ArcGISMapImageLayer.xaml">
+    <Page Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\Layers\ArcGISTiledLayer\ArcGISTiledLayer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Samples\Layers\ExampleSample\ExampleSample.xaml">
+    <Page Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -128,6 +145,22 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Symbology\SimpleMarkerSym\SimpleMarkerSym.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Symbology\UniqueValueRenderer\UniqueValueRenderer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -136,11 +169,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Samples\Layers\ExampleSample\metadata.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Page Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Samples\Map\OpenExistingMap\metadata.json">
@@ -148,10 +180,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Samples\Layers\ArcGISMapImageLayer\metadata.json">
+    <Content Include="Samples\Layers\ArcGISMapImageLayerUrl\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\ArcGISTiledLayer\metadata.json">
+    <Content Include="Samples\Layers\ArcGISTiledLayerUrl\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -161,7 +193,37 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Samples\Symbology\UniqueValueRenderer\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Samples\MapView\MapRotation\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Samples\Map\SetMapSpatialReference\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Samples\MapView\ChangeViewpoint\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Samples\Symbology\SimpleMarkerSym\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Samples\Map\SetInitialMapLocation\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Samples\Map\SetInitialMapArea\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

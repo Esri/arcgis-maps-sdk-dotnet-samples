@@ -77,11 +77,11 @@ namespace ArcGISRuntime.Desktop.Samples.OpenExistingMap
                     url = comboMap.SelectedValue as string;
                     await LoadMapAsync(url);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     var errorMessage = "Map cannot be loaded." + ex.Message;
                     MessageBox.Show(errorMessage, "Sample error");
-                }             
+                }
             }
         }
 
@@ -95,11 +95,11 @@ namespace ArcGISRuntime.Desktop.Samples.OpenExistingMap
             // Await LoadAsync so all properties of map will definitely be loaded when interrogated later. i.e Map.PortalItem. 
             await map.LoadAsync();
             MyMapView.Map = map;
-            
+
             // Get map's info to populate "Map Details" UI element.          
-            var item = MyMapView.Map.PortalItem;             
-            detailsPanel.DataContext = item; 
-  
+            var item = MyMapView.Map.PortalItem;
+            detailsPanel.DataContext = item;
+
             detailsPanel.Visibility = Visibility.Visible;
             progress.Visibility = Visibility.Hidden;
         }

@@ -92,16 +92,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Managers\ApplicationManager.cs" />
-    <Compile Include="Managers\SampleManager.cs" />
-    <Compile Include="Managers\TreeItem.cs" />
-    <Compile Include="Models\CategoryModel.cs" />
-    <Compile Include="Models\FeaturedModel.cs" />
-    <Compile Include="Models\LanguageEnum.cs" />
-    <Compile Include="Models\SubCategoryModel.cs" />
-    <Compile Include="Models\SampleModel.cs" />
-    <Compile Include="Models\SampleModelExtensions.cs" />
-    <Compile Include="Models\SampleStructureMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -156,6 +146,7 @@
       <Name>ArcGISRuntime.Desktop.Samples.VBNet</Name>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

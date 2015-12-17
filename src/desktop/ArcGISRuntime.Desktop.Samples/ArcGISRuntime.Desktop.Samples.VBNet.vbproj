@@ -80,7 +80,16 @@
     <Content Include="groups.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\ExampleSample\ExampleSample.jpg" />
+    <Content Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg" />
+    <Content Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.jpg" />
+    <Content Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.jpg" />
+    <Content Include="Samples\MapView\MapRotation\MapRotation.jpg" />
+    <Content Include="Samples\Map\MapFromPortal\MapFromPortal.jpg" />
+    <Content Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg" />
+    <Content Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg" />
+    <Content Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.jpg" />
+    <Content Include="Samples\Symbology\UniqueValueRenderer\UniqueValueRenderer.jpg" />
+    <Content Include="Tutorials\FirstMapApp\FirstMapApp.jpg" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -90,24 +99,107 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <None Include="Samples\Layers\ExampleSample\metadata.json" />
+    <Content Include="Samples\Layers\ArcGISMapImageLayerUrl\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ArcGISTiledLayerUrl\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Samples\MapView\ChangeViewpoint\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="Samples\MapView\MapRotation\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Samples\Map\MapFromPortal\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Samples\Map\SetInitialMapLocation\metadata.json" />
+    <None Include="Samples\Map\SetInitialMapArea\metadata.json" />
+    <None Include="Samples\Map\SetMapSpatialReference\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Samples\Symbology\UniqueValueRenderer\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Tutorials\FirstMapApp\metadata.json" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Samples\MapView\" />
-    <Folder Include="Samples\Map\" />
-    <Folder Include="Tutorials\" />
     <Folder Include="Workflows\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="My Project\AssemblyInfo.vb" />
-    <Compile Include="Samples\Layers\ExampleSample\ExampleSampleVB.xaml.vb">
-      <DependentUpon>ExampleSampleVB.xaml</DependentUpon>
+    <Compile Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrlVB.xaml.vb">
+      <DependentUpon>ArcGISMapImageLayerUrlVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrlVB.xaml.vb">
+      <DependentUpon>ArcGISTiledLayerUrlVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\ChangeViewpoint\ChangeViewpointVB.xaml.vb">
+      <DependentUpon>ChangeViewpointVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\MapRotation\MapRotationVB.xaml.vb">
+      <DependentUpon>MapRotationVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\MapFromPortal\MapFromPortalVB.xaml.vb">
+      <DependentUpon>MapFromPortalVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocationVB.xaml.vb">
+      <DependentUpon>SetInitialMapLocationVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\SetInitialMapArea\SetInitialMapAreaVB.xaml.vb">
+      <DependentUpon>SetInitialMapAreaVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReferenceVB.xaml.vb">
+      <DependentUpon>SetMapSpatialReferenceVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\UniqueValueRenderer\UniqueValueRendererVB.xaml.vb">
+      <DependentUpon>UniqueValueRendererVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tutorials\FirstMapApp\FirstMapAppVB.xaml.vb">
+      <DependentUpon>FirstMapAppVB.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Samples\Layers\ExampleSample\ExampleSampleVB.xaml">
+    <Page Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrlVB.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrlVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\ChangeViewpoint\ChangeViewpointVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\MapRotation\MapRotationVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\MapFromPortal\MapFromPortalVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocationVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Map\SetInitialMapArea\SetInitialMapAreaVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReferenceVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\UniqueValueRenderer\UniqueValueRendererVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Tutorials\FirstMapApp\FirstMapAppVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

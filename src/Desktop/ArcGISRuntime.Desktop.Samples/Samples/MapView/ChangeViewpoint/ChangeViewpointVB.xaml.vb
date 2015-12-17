@@ -77,7 +77,7 @@ Namespace ChangeViewpoint
         Private Async Sub RotateButton_Click(sender As Object, e As RoutedEventArgs)
             Try
                 'Gets the current rotation value of the map view
-                Dim currentRotation = MyMapView.Rotation
+                Dim currentRotation = MyMapView.MapRotation
                 'Rotate the viewpoint by the given number of degrees. In this case the current rotation value 
                 'plus 90 is passed, this will result in a the map rotating 90 degrees anti-clockwise  
                 Await MyMapView.SetViewpointRotationAsync(currentRotation + 90.0)

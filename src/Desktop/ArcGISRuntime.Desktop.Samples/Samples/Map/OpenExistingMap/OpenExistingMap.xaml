@@ -21,7 +21,7 @@
                           DisplayMemberPath="Key" SelectedValuePath="Value" />
                 <Button Content="Load Map" IsDefault="True" 
                         HorizontalAlignment="Center" Margin="0,8,0,0" 
-                        Click="OnLoadButton_Click" />
+                        Click="OnLoadButtonClicked" />
                 <ProgressBar x:Name="progress" IsIndeterminate="True"
                              Margin="12,12,12,0" Visibility="Hidden" />         
                 <Grid Name="detailsPanel" Margin="0,12,0,0" Visibility="Collapsed">

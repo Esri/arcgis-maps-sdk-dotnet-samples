@@ -19,8 +19,10 @@
                 HorizontalAlignment="Right" VerticalAlignment="Top"
                 Margin="30" Padding="20" Width="375">
             <StackPanel>
-                <TextBlock Text="Select one of the buttons to run the related Viewpoint code" 
-                           Margin="0,0,0,2" TextWrapping="Wrap" />
+                <TextBlock Text="Select one of the buttons to run the related Viewpoint code"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,2" 
+                           TextWrapping="Wrap" />
                 <WrapPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center">
                     <Button Content="Geometry"
 		                HorizontalAlignment="Left"

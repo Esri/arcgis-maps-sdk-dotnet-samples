@@ -51,7 +51,7 @@ namespace ArcGISRuntime.Desktop.Samples.ChangeViewpoint
                 await MyMapView.SetViewpointAsync(MyMapView.Map.InitialViewpoint);
                 var viewpoint = new Viewpoint(edinburghEnvelope);
                 // Animates the changing of the viewpoint giving a smooth transition from the old to the new view.
-                MyMapView.SetViewpointAsync(viewpoint, System.TimeSpan.FromSeconds(10));
+                await MyMapView.SetViewpointAsync(viewpoint, System.TimeSpan.FromSeconds(10));
             }
             catch(Exception ex)
             {

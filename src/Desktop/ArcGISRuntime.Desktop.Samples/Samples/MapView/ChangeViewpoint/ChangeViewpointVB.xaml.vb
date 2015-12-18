@@ -47,7 +47,7 @@ Namespace ChangeViewpoint
                 Await MyMapView.SetViewpointAsync(MyMapView.Map.InitialViewpoint)
                 Dim viewpoint = New Viewpoint(edinburghEnvelope)
                 'Animates the changing of the viewpoint giving a smooth transition from the old to the new view.
-                MyMapView.SetViewpointAsync(viewpoint, System.TimeSpan.FromSeconds(5))
+                Await MyMapView.SetViewpointAsync(viewpoint, System.TimeSpan.FromSeconds(5))
             Catch ex As Exception
                 Dim errorMessage = "Viewpoint could not be set. " + ex.Message
                 MessageBox.Show(errorMessage, "Sample error")

@@ -15,7 +15,6 @@ using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
 using System;
-using System.Windows;
 
 namespace ArcGISRuntime.Desktop.Samples.SetMapSpatialReference
 {
@@ -31,22 +30,14 @@ namespace ArcGISRuntime.Desktop.Samples.SetMapSpatialReference
 
         private void LoadMap()
         {
-            try
-            {
-                //Create a map with World_Bonne projection
-                var myMap = new Map(SpatialReference.Create(54024));
-                //Create a map image layer which can re-project itself to the map's spatial reference
-                var layer = new ArcGISMapImageLayer(new Uri(imageLayerUrl));
-                //Set the map image layer as basemap
-                myMap.Basemap.BaseLayers.Add(layer);
-                //Set the map to be displayed in this view
-                MyMapView.Map = myMap;
-            }
-            catch (Exception ex)
-            {
-                var errorMessage = "Map cannot be loaded. " + ex.Message;
-                MessageBox.Show(errorMessage, "Sample error");
-            }
+            //Create a map with World_Bonne projection
+            var myMap = new Map(SpatialReference.Create(54024));
+            //Create a map image layer which can re-project itself to the map's spatial reference
+            var layer = new ArcGISMapImageLayer(new Uri(imageLayerUrl));
+            //Set the map image layer as basemap
+            myMap.Basemap.BaseLayers.Add(layer);
+            //Set the map to be displayed in this view
+            MyMapView.Map = myMap;
         }
     }
 }

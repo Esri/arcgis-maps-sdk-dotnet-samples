@@ -123,10 +123,9 @@ namespace ArcGISRuntime.Samples.Store.Samples
 			}
 			EditButton.Tag = featureID;
 			EditButton.IsEnabled = featureID == 0 ? false : true;
-			if(featureID > 0)
-				ChoiceList.SelectionChanged += ChoiceList_SelectionChanged;
-			else
-				EditButton.Flyout.Hide();
+      if (featureID > 0)     
+        ChoiceList.SelectionChanged += ChoiceList_SelectionChanged;        
+      
 		}
 
 		/// <summary>
@@ -171,6 +170,7 @@ namespace ArcGISRuntime.Samples.Store.Samples
 						message = updateResult.Error.Message;
 					// Refreshes layer to reflect attribute edits.
 					layer.Invalidate();
+          EditButton.Flyout.Hide();
 				}
 
 			}

@@ -35,9 +35,11 @@
 				<layers:ArcGISTiledMapServiceLayer 
 					ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
 				<layers:CsvLayer 
-					ServiceUri="http://earthquake.usgs.gov/earthquakes/catalogs/eqs7day-M2.5.txt" 
+					ServiceUri="http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.csv"
+                    			XFieldName="longitude" YFieldName="latitude"
 					Renderer="{StaticResource MyClassBreaksRenderer}">
 				</layers:CsvLayer>
+				
 			</esri:Map>
 		</esri:MapView>
 	</Grid>

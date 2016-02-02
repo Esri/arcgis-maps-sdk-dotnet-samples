@@ -44,7 +44,7 @@ namespace ArcGISRuntime.Samples.Store.Samples
             // Get current viewpoints extent from the MapView
             var currentViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
             var viewpointExtent = currentViewpoint.TargetGeometry.Extent;
-            var parameter = new IdentifyParameters(mapPoint, viewpointExtent, 2, (int)MyMapView.ActualHeight, (int)MyMapView.ActualWidth);
+            var parameter = new IdentifyParameters(mapPoint, viewpointExtent, 10, (int)MyMapView.ActualHeight, (int)MyMapView.ActualWidth);
 
             // Clears map of any highlights.
             var overlay = MyMapView.GraphicsOverlays["Highlighter"] as GraphicsOverlay;

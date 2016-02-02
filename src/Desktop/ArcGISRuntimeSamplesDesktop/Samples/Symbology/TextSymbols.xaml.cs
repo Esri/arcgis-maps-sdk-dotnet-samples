@@ -86,17 +86,22 @@ namespace ArcGISRuntime.Samples.Desktop
 					"Showcard Gothic", "Snap ITC", "Vivaldi", "Wingdings"
 				};
 
-				// Create symbols from font list
-				_symbols = fontFamilies
-					.Select(f => new TextSymbol()
-					{
-						Text = f,
-						Color = GetRandomColor(),
-						HorizontalTextAlignment = HorizontalTextAlignment.Center,
-						VerticalTextAlignment = VerticalTextAlignment.Bottom,
-						Font = new SymbolFont(f, 20)
-					})
-					.ToList();
+                // Check what fonts are installed and remove ones that aren't
+                var notFoundFonts = fontFamilies.Where(f => !Fonts.SystemFontFamilies.Any(fs => fs.Source == f)).ToList();
+                foreach (var notInstalledFont in notFoundFonts)
+                    fontFamilies.Remove(notInstalledFont);
+
+                // Create symbols from font list
+                _symbols = fontFamilies
+                    .Select(f => new TextSymbol()
+                    {
+                        Text = f,
+                        Color = GetRandomColor(),
+                        HorizontalTextAlignment = HorizontalTextAlignment.Center,
+                        VerticalTextAlignment = VerticalTextAlignment.Bottom,
+                        Font = new SymbolFont(f, 20)
+                    })
+                    .ToList();
 
 				// Create image swatches for the UI
 				Task<ImageSource>[] swatchTasks = _symbols

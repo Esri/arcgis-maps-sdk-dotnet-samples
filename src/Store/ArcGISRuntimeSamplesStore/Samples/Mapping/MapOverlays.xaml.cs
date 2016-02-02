@@ -21,13 +21,11 @@ namespace ArcGISRuntime.Samples.Store.Samples
 			this.InitializeComponent();
 			(MyMapView.Overlays.Items[0] as Grid).DataContext = new MapPoint(-117.19568, 34.056601, SpatialReferences.Wgs84);
 			
-			MyMapView.SpatialReferenceChanged += MyMapView_SpatialReferenceChanged;
+			MyMapView.NavigationCompleted += MyMapView_NavigationCompleted;
 		}
 
-		void MyMapView_SpatialReferenceChanged(object sender, EventArgs e)
+		void MyMapView_NavigationCompleted(object sender, EventArgs e)
 		{
-			MyMapView.SpatialReferenceChanged -= MyMapView_SpatialReferenceChanged;
-
 			_clickOverlay = FindName("clickOverlay") as FrameworkElement;
 			_centerOverlay = FindName("centerOverlay") as FrameworkElement;
 

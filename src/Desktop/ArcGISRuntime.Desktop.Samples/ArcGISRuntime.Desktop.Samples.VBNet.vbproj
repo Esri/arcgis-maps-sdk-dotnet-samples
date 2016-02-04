@@ -84,7 +84,7 @@
     <Content Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.jpg" />
     <Content Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.jpg" />
     <Content Include="Samples\MapView\MapRotation\MapRotation.jpg" />
-    <Content Include="Samples\Map\MapFromPortal\MapFromPortal.jpg" />
+    <Content Include="Samples\Map\OpenExistingMap\OpenExistingMap.jpg" />
     <Content Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg" />
     <Content Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg" />
     <Content Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.jpg" />
@@ -111,9 +111,7 @@
     <Content Include="Samples\MapView\MapRotation\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Samples\Map\MapFromPortal\metadata.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Samples\Map\OpenExistingMap\metadata.json" />
     <None Include="Samples\Map\SetInitialMapLocation\metadata.json" />
     <None Include="Samples\Map\SetInitialMapArea\metadata.json" />
     <None Include="Samples\Map\SetMapSpatialReference\metadata.json">
@@ -141,8 +139,8 @@
     <Compile Include="Samples\MapView\MapRotation\MapRotationVB.xaml.vb">
       <DependentUpon>MapRotationVB.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Map\MapFromPortal\MapFromPortalVB.xaml.vb">
-      <DependentUpon>MapFromPortalVB.xaml</DependentUpon>
+    <Compile Include="Samples\Map\OpenExistingMap\OpenExistingMapVB.xaml.vb">
+      <DependentUpon>OpenExistingMapVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocationVB.xaml.vb">
       <DependentUpon>SetInitialMapLocationVB.xaml</DependentUpon>
@@ -177,7 +175,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Map\MapFromPortal\MapFromPortalVB.xaml">
+    <Page Include="Samples\Map\OpenExistingMap\OpenExistingMapVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

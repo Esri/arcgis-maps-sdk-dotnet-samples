@@ -45,7 +45,7 @@ namespace ArcGISRuntime.Samples.Phone.Samples
             var layer = MyMapView.Map.Layers["ServiceRequests"] as ArcGISDynamicMapServiceLayer;
             var task = new IdentifyTask(new Uri(layer.ServiceUri));
             var mapPoint = MyMapView.ScreenToLocation(e.Position);
-            var parameter = new IdentifyParameters(mapPoint, viewpointExtent, 2, (int)MyMapView.ActualHeight, (int)MyMapView.ActualWidth);
+            var parameter = new IdentifyParameters(mapPoint, viewpointExtent, 10, (int)MyMapView.ActualHeight, (int)MyMapView.ActualWidth);
 
             // Clears map of any highlights.
             var overlay = MyMapView.GraphicsOverlays["Highlighter"] as GraphicsOverlay;

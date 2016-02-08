@@ -37,7 +37,7 @@ Some of the samples require either the SDK installation or deployment to work, w
   * See Installed Packages tab and remove "Esri.ArcGISRuntime" package
 2. [Add references](https://developers.arcgis.com/net/desktop/guide/add-arcgis-runtime-sdk-references.htm) to projects. 
 3. Prepare deployment
-	* Windows Desktop - Delete deployment folder (arcgisruntime10.2.5) from output folder if it exists. This step makes sure that centralized developer deployment is used and no deployment is needed
+	* Windows Desktop - Delete deployment folder (arcgisruntime10.2.7) from output folder if it exists. This step makes sure that centralized developer deployment is used and no deployment is needed
 	* Windows Store / Windows Phone - create deployment following [guide](https://developers.arcgis.com/net/desktop/guide/deployment.htm) and make sure all extra capabilities are checked for deployment.
 
 ## Requirements

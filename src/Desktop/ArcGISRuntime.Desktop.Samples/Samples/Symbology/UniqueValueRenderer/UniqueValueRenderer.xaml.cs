@@ -12,7 +12,7 @@
 //See the License for the specific language governing permissions and
 //limitations under the License.
 using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Layers;
+using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using System.Windows.Media;
 
@@ -36,8 +36,7 @@ namespace ArcGISRuntime.Desktop.Samples.UniqueValueRenderer
         {
             // Create a new service feature table using the USA States url
             var statesFeatureTable = new ServiceFeatureTable(new System.Uri(StatesServiceUrl));
-            // Add the "SUB_REGION" field to the outfields, will be used to render polygons in the layer
-            statesFeatureTable.OutFields.Add("SUB_REGION");
+
             // Create a new feature layer using the service feature table
             var statesLayer = new FeatureLayer(statesFeatureTable);
 

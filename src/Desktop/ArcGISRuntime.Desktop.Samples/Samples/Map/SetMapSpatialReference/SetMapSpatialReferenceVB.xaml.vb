@@ -15,7 +15,7 @@
 
 Imports Esri.ArcGISRuntime
 Imports Esri.ArcGISRuntime.Geometry
-Imports Esri.ArcGISRuntime.Layers
+Imports Esri.ArcGISRuntime.Mapping
 Imports System.Windows
 
 Namespace SetMapSpatialReference

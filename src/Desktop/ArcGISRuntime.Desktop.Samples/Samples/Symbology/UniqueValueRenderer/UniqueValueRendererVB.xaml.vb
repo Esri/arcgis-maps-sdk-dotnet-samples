@@ -13,7 +13,7 @@
 'See the License for the specific language governing permissions and
 'limitations under the License.
 Imports Esri.ArcGISRuntime.Data
-Imports Esri.ArcGISRuntime.Layers
+Imports Esri.ArcGISRuntime.Mapping
 Imports Esri.ArcGISRuntime.Symbology
 Imports System.Windows.Media
 
@@ -34,8 +34,7 @@ Namespace UniqueValueRenderer
         Private Sub ShowRegionsWithUniqueValues(sender As Object, e As System.EventArgs)
             ' Create a new service feature table using the USA States url
             Dim statesFeatureTable = New ServiceFeatureTable(New System.Uri(StatesServiceUrl))
-            ' Add the "SUB_REGION" field to the outfields, will be used to render polygons in the layer
-            statesFeatureTable.OutFields.Add("SUB_REGION")
+
             ' Create a new feature layer using the service feature table
             Dim statesLayer = New FeatureLayer(statesFeatureTable)
 

@@ -12,6 +12,7 @@
 'See the License for the specific language governing permissions and
 'limitations under the License.
 Imports Esri.ArcGISRuntime
+Imports Esri.ArcGISRuntime.Mapping
 Imports System.Windows
 
 Namespace OpenExistingMap

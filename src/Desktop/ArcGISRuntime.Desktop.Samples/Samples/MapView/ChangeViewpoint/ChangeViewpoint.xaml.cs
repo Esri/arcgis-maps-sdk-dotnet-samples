@@ -13,6 +13,7 @@
 //limitations under the License.
 
 using Esri.ArcGISRuntime;
+using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Geometry;
 using System;
 using System.Collections.Generic;

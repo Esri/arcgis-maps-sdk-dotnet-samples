@@ -9,6 +9,6 @@
   "RequiresLocalServer":false,
   "Image":"SetInitialMapArea.jpg",
   "Link":"",
-  "TypeLink": ["P:Esri.ArcGISRuntime.Map.InitialViewpoint","T:Esri.ArcGISRuntime.Viewpoint","M:Esri.ArcGISRuntime.Viewpoint.#ctor(Esri.ArcGISRuntime.Geometry.Geometry)"
+  "TypeLink": ["P:Esri.ArcGISRuntime.Mapping.Map.InitialViewpoint","T:Esri.ArcGISRuntime.Mapping.Viewpoint","M:Esri.ArcGISRuntime.Mapping.Viewpoint.#ctor(Esri.ArcGISRuntime.Geometry.Geometry)"
   ]
 }

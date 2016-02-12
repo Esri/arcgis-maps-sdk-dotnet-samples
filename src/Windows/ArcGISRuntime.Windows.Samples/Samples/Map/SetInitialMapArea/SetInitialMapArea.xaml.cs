@@ -12,9 +12,9 @@
 //See the License for the specific language governing permissions and
 //limitations under the License.
 
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime;
-using Esri.ArcGISRuntime.Layers;
+using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Mapping;
 using System;
 
 namespace ArcGISRuntime.Windows.Samples.SetInitialMapArea
@@ -30,7 +30,7 @@ namespace ArcGISRuntime.Windows.Samples.SetInitialMapArea
         {
             InitializeComponent();
 
-            //TODO Remove and un-commnet XAML 
+            //TODO Remove and un-comment XAML 
             var myMap = new Map();
             var baseLayer = new ArcGISMapImageLayer(
                 new Uri("http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"));

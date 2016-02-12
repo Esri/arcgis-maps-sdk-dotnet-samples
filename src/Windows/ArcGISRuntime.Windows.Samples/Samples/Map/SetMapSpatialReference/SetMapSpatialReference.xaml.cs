@@ -13,7 +13,7 @@
 //limitations under the License.
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Layers;
+using Esri.ArcGISRuntime.Mapping;
 using System;
 
 namespace ArcGISRuntime.Windows.Samples.SetMapSpatialReference

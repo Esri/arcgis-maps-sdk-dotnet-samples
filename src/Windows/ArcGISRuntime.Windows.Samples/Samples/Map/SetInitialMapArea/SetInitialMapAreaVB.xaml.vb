@@ -13,7 +13,7 @@
 'limitations under the License.
 
 Imports Esri.ArcGISRuntime.Geometry
-Imports Esri.ArcGISRuntime.Layers
+Imports Esri.ArcGISRuntime.Mapping
 Imports Esri.ArcGISRuntime
 
 Namespace SetInitialMapArea

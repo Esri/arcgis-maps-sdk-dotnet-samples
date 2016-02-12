@@ -13,7 +13,7 @@
 'limitations under the License.
 
 Imports Esri.ArcGISRuntime
-Imports Esri.ArcGISRuntime.Layers
+Imports Esri.ArcGISRuntime.Mapping
 
 Namespace ArcGISMapImageLayerUrl
 

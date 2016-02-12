@@ -14,6 +14,7 @@
 'limitations under the License.
 
 Imports Esri.ArcGISRuntime
+Imports Esri.ArcGISRuntime.Mapping
 Imports Esri.ArcGISRuntime.Geometry
 Imports System.Collections.Generic
 Imports System.Windows

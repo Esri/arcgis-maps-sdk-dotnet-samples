@@ -12,6 +12,8 @@
 //See the License for the specific language governing permissions and
 //limitations under the License.
 using Esri.ArcGISRuntime;
+using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Symbology;
 using System.Windows.Media;

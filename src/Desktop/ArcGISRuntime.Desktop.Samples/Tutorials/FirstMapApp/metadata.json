@@ -9,6 +9,6 @@
   "RequiresLocalServer":false,
   "Image":"FirstMapApp.jpg",
   "Link":"https://developers.arcgis.com/net/desktop/guide/develop-your-first-map-app.htm",
-  "TypeLink": ["T:Esri.ArcGISRuntime.Controls.MapView","T:Esri.ArcGISRuntime.Layers.Basemap"
+  "TypeLink": ["T:Esri.ArcGISRuntime.UI.MapView","T:Esri.ArcGISRuntime.Mapping.Basemap"
   ]
 }

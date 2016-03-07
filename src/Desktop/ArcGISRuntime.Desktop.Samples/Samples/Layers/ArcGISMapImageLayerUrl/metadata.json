@@ -9,6 +9,6 @@
   "RequiresLocalServer":false,
   "Image":"ArcGISMapImageLayerUrl.jpg",
   "Link":"",
-  "TypeLink": ["T:Esri.ArcGISRuntime.Layers.ArcGISMapImageLayer"
+  "TypeLink": ["T:Esri.ArcGISRuntime.Mapping.ArcGISMapImageLayer"
   ]
 }

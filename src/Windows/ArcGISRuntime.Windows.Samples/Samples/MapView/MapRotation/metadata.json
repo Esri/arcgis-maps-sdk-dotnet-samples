@@ -9,6 +9,6 @@
   "RequiresLocalServer":false,
   "Image":"MapRotation.jpg",
   "Link":"",
-  "TypeLink": ["Esri.ArcGISRuntime.Controls.MapView"
+  "TypeLink": ["Esri.ArcGISRuntime.UI.MapView"
   ]
 }

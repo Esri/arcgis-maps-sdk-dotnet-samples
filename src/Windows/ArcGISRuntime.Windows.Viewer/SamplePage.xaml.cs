@@ -12,6 +12,9 @@
 //See the License for the specific language governing permissions and
 //limitations under the License.
 using ArcGISRuntime.Samples.Managers;
+using System;
+using Windows.Foundation.Metadata;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 
 namespace ArcGISRuntime.Windows.Viewer
@@ -22,11 +25,24 @@ namespace ArcGISRuntime.Windows.Viewer
         {
             InitializeComponent();
 
+            HideStatusBar();
+
             // Get selected sample and set that as a DataContext
             DataContext = SampleManager.Current.SelectedSample;
             // Set loaded sample to the UI 
             SampleContainer.Content = SampleManager.Current.SampleToControl(SampleManager.Current.SelectedSample);
             LiveSample.IsChecked = true; // Default to the live sample view
+        }
+
+        // Check if the phone contract is available (mobile) and hide status bar if it is there
+        private async void HideStatusBar()
+        {
+            // If we have a phone contract, hide the status bar
+            if (ApiInformation.IsApiContractPresent("Windows.Phone.PhoneContract", 1, 0))
+            {
+                var statusBar = StatusBar.GetForCurrentView();
+                await statusBar.HideAsync();
+            }
         }
 
         private void LiveSample_Checked(object sender, RoutedEventArgs e)

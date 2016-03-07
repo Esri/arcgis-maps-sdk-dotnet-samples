@@ -15,7 +15,9 @@ using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Models;
 using System;
 using System.Collections.Generic;
+using Windows.Foundation.Metadata;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -32,17 +34,34 @@ namespace ArcGISRuntime.Windows.Viewer
             InitializeComponent();
             // Use required cache mode so we create only one page
             NavigationCacheMode = Navigation.NavigationCacheMode.Required;
-            // Get current view that provides access to the backbutton
+            // Get current view that provides access to the back button
             _currentView = SystemNavigationManager.GetForCurrentView();
             _currentView.BackRequested += OnFrameNavigationRequested;
+
+            HideStatusBar();
             
             Initialize();
         }
 
+
+        // Check if the phone contract is available (mobile) and hide status bar if it is there
+        private async void HideStatusBar()
+        { 
+            // If we have a phone contract, hide the status bar
+            if (ApiInformation.IsApiContractPresent("Windows.Phone.PhoneContract", 1, 0))
+            {
+                var statusBar = StatusBar.GetForCurrentView();
+                await statusBar.HideAsync();
+            }
+        }
+
         private void OnFrameNavigationRequested(object sender, BackRequestedEventArgs e)
         {
-            if (Frame.CanGoBack)
+            if (Frame.CanGoBack && e.Handled == false)
+            {
+                e.Handled = true;
                 Frame.GoBack();
+            }
             _currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
         }
 

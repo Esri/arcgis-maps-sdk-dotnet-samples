@@ -1,0 +1,19 @@
+﻿<UserControl 
+    x:Class="ArcGISRuntime.Desktop.Samples.UniqueValueRenderer.UniqueValueRenderer"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013" >
+    <Grid>
+        <esri:MapView x:Name="MyMapView">
+            <esri:Map>
+                <esri:Map.Basemap>
+                    <esri:Basemap>
+                        <esri:ArcGISTiledLayer Name="WorldShadedRelief"
+                                Source="http://services.arcgisonline.com/ArcGIS/rest/services/World_Shaded_Relief/MapServer"/>
+                    </esri:Basemap>
+                </esri:Map.Basemap>
+            </esri:Map>
+        </esri:MapView>
+    </Grid>
+</UserControl>
+

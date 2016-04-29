@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.Managers
         private static readonly ApplicationManager SingleInstance = new ApplicationManager();
 
         /// <summary>
-        /// Gets the single <see cref="MapViewController"/> instance.
+        /// Gets the single <see cref="ApplicationManager"/> instance.
         /// </summary>
         public static ApplicationManager Current
         {

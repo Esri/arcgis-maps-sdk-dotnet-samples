@@ -1,45 +1,69 @@
 {
   "Categories": [
     {
-      "Name": "Tutorials",
-      "CategoryName": "Tutorials",
-      "SubCategories": [
-        {
-          "Name": "General",
-          "SubCategoryName": "GeneralTutorials",
-          "ShowGroup": false,
-          "Samples": [
-          ]
-        }
-      ]
-    },
-    {
       "Name": "Maps",
       "CategoryName": "Maps",
       "SubCategories": [
         {
           "Name": "MapView",
           "SubCategoryName": "MapView",
-          "ShowGroup": false,
-          "Samples": [
-            "MapRotation"
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "ShowMagnifier",
+              "Path": "Samples/MapView/ShowMagnifier"
+            },
+            {
+              "SampleName": "ChangeViewpoint",
+              "Path": "Samples/MapView/ChangeViewpoint"
+            },
+            {
+              "SampleName": "MapRotation",
+              "Path": "Samples/Map/MapRotation"
+            },
+            {
+              "SampleName": "DisplayDrawingStatus",
+              "Path": "Samples/MapView/DisplayDrawingStatus"
+            }
           ]
         },
         {
           "Name": "Map",
           "SubCategoryName": "Map",
-          "ShowGroup": false,
-          "Samples": [
-            "SetMapSpatialReference",
-            "SetInitialMapLocation",
-            "SetInitialMapArea"
-          ]
-        },
-        {
-          "Name": "Basic license",
-          "SubCategoryName": "BasicLicence",
-          "ShowGroup": false,
-          "Samples": [
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "DisplayMap",
+              "Path": "Samples/Map/DisplayMap"
+            },
+            {
+              "SampleName": "OpenExistingMap",
+              "Path": "Samples/Map/OpenExistingMap"
+            },
+            {
+              "SampleName": "SetMinMaxScale",
+              "Path": "Samples/Map/SetMinMaxScale"
+            },
+            {
+              "SampleName": "AccessLoadStatus",
+              "Path": "Samples/Map/AccessLoadStatus"
+            },
+            {
+              "SampleName": "SetInitialMapLocation",
+              "Path": "Samples/Map/SetInitialMapLocation"
+            },
+            {
+              "SampleName": "SetInitialMapArea",
+              "Path": "Samples/Map/SetInitialMapArea"
+            },
+            {
+              "SampleName": "SetMapSpatialReference",
+              "Path": "Samples/Map/SetMapSpatialReference"
+            },
+            {
+              "SampleName": "ChangeBasemap",
+              "Path": "Samples/Map/ChangeBasemap"
+            }
           ]
         }
       ]
@@ -51,31 +75,27 @@
         {
           "Name": "Tiled Layers",
           "SubCategoryName": "ArcGISTiledLayer",
-          "ShowGroup": false,
-          "Samples": [
-            "ArcGISTiledLayerUrl"
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "ArcGISTiledLayerUrl",
+              "Path": "Samples/Layers/ArcGISTiledLayerUrl"
+            }
           ]
         },
         {
           "Name": "Map Image Layers",
           "SubCategoryName": "ArcGISMapImageLayer",
-          "ShowGroup": false,
-          "Samples": [
-            "ArcGISMapImageLayerUrl"
-          ]
-        },
-        {
-          "Name": "KML Layers",
-          "SubCategoryName": "KMLLayers",
-          "ShowGroup": false,
-          "Samples": [
-          ]
-        },
-        {
-          "Name": "Raster Layers",
-          "SubCategoryName": "RasterLayers",
-          "ShowGroup": false,
-          "Samples": [
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "ArcGISMapImageLayerUrl",
+              "Path": "Samples/Layers/ArcGISMapImageLayerUrl"
+            },
+            {
+              "SampleName": "ChangeSublayerVisibility",
+              "Path": "Samples/Layers/ChangeSublayerVisibility"
+            }
           ]
         }
       ]
@@ -87,8 +107,47 @@
         {
           "Name": "Feature Layers",
           "SubCategoryName": "FeatureLayers",
-          "ShowGroup": false,
-          "Samples": [
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "FeatureLayerUrl",
+              "Path": "Samples/Layers/FeatureLayerUrl"
+            },
+            {
+              "SampleName": "ChangeFeatureLayerRenderer",
+              "Path": "Samples/Layers/ChangeFeatureLayerRenderer"
+            },
+            {
+              "SampleName": "FeatureLayerSelection",
+              "Path": "Samples/Layers/FeatureLayerSelection"
+            },
+            {
+              "SampleName": "FeatureLayerDefinitionExpression",
+              "Path": "Samples/Layers/FeatureLayerDefinitionExpression"
+            }
+          ]
+        },
+        {
+          "Name": "Feature Tables",
+          "SubCategoryName": "FeatureTables",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "ServiceFeatureTableCache",
+              "Path": "Samples/Data/ServiceFeatureTableCache"
+            },
+            {
+              "SampleName": "ServiceFeatureTableNoCache",
+              "Path": "Samples/Data/ServiceFeatureTableNoCache"
+            },
+            {
+              "SampleName": "ServiceFeatureTableManualCache",
+              "Path": "Samples/Data/ServiceFeatureTableManualCache"
+            },
+            {
+              "SampleName": "FeatureLayerQuery",
+              "Path": "Samples/Data/FeatureLayerQuery"
+            }
           ]
         }
       ]
@@ -98,137 +157,37 @@
       "CategoryName": "DisplayInformation",
       "SubCategories": [
         {
-          "Name": "Graphics Overlay",
-          "SubCategoryName": "GraphicOverlay",
-          "ShowGroup": false,
-          "Samples": [
+          "Name": "Graphics Overlays",
+          "SubCategoryName": "GraphicsOverlay",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "AddGraphicsRenderer",
+              "Path": "Samples/GraphicsOverlay/AddGraphicsRenderer"
+            },
+            {
+              "SampleName": "IdentifyGraphics",
+              "Path": "Samples/GraphicsOverlay/IdentifyGraphics"
+            }
           ]
         },
         {
           "Name": "Symbology",
           "SubCategoryName": "Symbology",
-          "ShowGroup": false,
-          "Samples": [
-            "UniqueValueRenderer"
-          ]
-        }
-      ]
-    },
-    {
-      "Name": "Search",
-      "CategoryName": "Search",
-      "SubCategories": [
-        {
-          "Name": "Query",
-          "SubCategoryName": "Query",
-          "ShowGroup": false,
-          "Samples": [
-          ]
-        },
-        {
-          "Name": "Geocoding",
-          "SubCategoryName": "Geocoding",
-          "ShowGroup": false,
-          "Samples": [
-          ]
-        }
-      ]
-    },
-    {
-      "Name": "Edit Data",
-      "CategoryName": "EditData",
-      "SubCategories": [
-        {
-          "Name": "Editing",
-          "SubCategoryName": "Editing",
-          "ShowGroup": false,
-          "Samples": [
-          ]
-        }
-      ]
-    },
-    {
-      "Name": "Geometry",
-      "CategoryName": "Geometry",
-      "SubCategories": [
-        {
-          "Name": "Geometry",
-          "SubCategoryName": "Geometry",
-          "ShowGroup": false,
-          "Samples": [
-          ]
-        }
-      ]
-    },
-    {
-      "Name": "Routing & Navigation",
-      "CategoryName": "RoutingNavigation",
-      "SubCategories": [
-        {
-          "Name": "Network Analysis",
-          "SubCategoryName": "NetworkAnalysis",
-          "ShowGroup": false,
-          "Samples": [
-          ]
-        }
-      ]
-    },
-    {
-      "Name": "Analysis",
-      "CategoryName": "Analysis",
-      "SubCategories": [
-        {
-          "Name": "Analysis",
-          "SubCategoryName": "Analysis",
-          "ShowGroup": false,
-          "Samples": [
-          ]
-        },
-        {
-          "Name": "Geoprocessing",
-          "SubCategoryName": "Geoprocessing",
-          "ShowGroup": false,
-          "Samples": [
-          ]
-        }
-      ]
-    },
-    {
-      "Name": "Cloud & Portal",
-      "CategoryName": "CloudPortal",
-      "SubCategories": [
-        {
-          "Name": "Portal",
-          "SubCategoryName": "Portal",
-          "ShowGroup": false,
-          "Samples": [
-          ]
-        },
-        {
-          "Name": "Security",
-          "SubCategoryName": "Security",
-          "ShowGroup": false,
-          "Samples": [
-          ]
-        }
-      ]
-    },
-    {
-      "Name": "3D",
-      "CategoryName": "3D",
-      "SubCategories": [
-        {
-          "Name": "SceneView",
-          "SubCategoryName": "SceneView",
-          "ShowGroup": false,
-          "Samples": [
-          ]
-        },
-        {
-          "Name": "Scene",
-          "SubCategoryName": "Scene",
-          "ShowGroup": false,
-          "Samples": [
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "RenderSimpleMarkers",
+              "Path": "Samples/Symbology/RenderSimpleMarkers"
+            },
+            {
+              "SampleName": "RenderPictureMarkers",
+              "Path": "Samples/Symbology/RenderPictureMarkers"
+            },
+            {
+              "SampleName": "RenderUniqueValues",
+              "Path": "Samples/Symbology/RenderUniqueValues"
+            }
           ]
         }
       ]
@@ -236,23 +195,7 @@
   ],
   "Featured": [
     {
-      "SampleName": "ArcGISTiledLayerUrl",
-      "Reason": 1
-    },
-     {
-      "SampleName": "ArcGISMapImageLayerUrl",
-      "Reason": 1
-    },
-    {
-      "SampleName": "SetMapSpatialReference",
-      "Reason": 1
-    },
-    {
-      "SampleName": "SetInitialMapArea",
-      "Reason": 1
-    },
-    {
-      "SampleName": "MapRotation",
+      "SampleName": "ExampleSample",
       "Reason": 1
     }
   ]

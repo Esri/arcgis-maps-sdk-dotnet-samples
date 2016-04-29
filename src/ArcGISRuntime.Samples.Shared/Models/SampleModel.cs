@@ -174,7 +174,7 @@ namespace ArcGISRuntime.Samples.Models
         #region Factory methods
         
         /// <summary>
-        /// Creates new instance of SampleModel by de-serializing it from the json file provided.
+        /// Creates new instance of SampleModel by deserializing it from the json file provided.
         /// </summary>
         /// <param name="metadataFilePath">Full path to the metadata JSON file</param>
         /// <returns>Deserialized SampleModel</returns>
@@ -183,7 +183,7 @@ namespace ArcGISRuntime.Samples.Models
             if (!File.Exists(metadataFilePath))
                 return null;
 
-            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(SampleModel));
+            var serializer = new DataContractJsonSerializer(typeof(SampleModel));
 
             SampleModel sampleModel = null;
 
@@ -194,7 +194,7 @@ namespace ArcGISRuntime.Samples.Models
             var json = File.ReadAllText(metadataFilePath);
 
             var jsonInBytes = Encoding.UTF8.GetBytes(json);
-            using (MemoryStream stream = new MemoryStream(jsonInBytes))
+            using (var stream = new MemoryStream(jsonInBytes))
             {
                 // De-serialize sample model
                 sampleModel = serializer.ReadObject(stream) as SampleModel;

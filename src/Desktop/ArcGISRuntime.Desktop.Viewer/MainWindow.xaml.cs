@@ -38,14 +38,21 @@ namespace ArcGISRuntime.Samples.Desktop
 
         private async void Initialize()
         {
-            await SampleManager.Current.InitializeAsync(ApplicationManager.Current.SelectedLanguage);
- 
-            // Set featured data context
-            featured.DataContext = SampleManager.Current.GetFeaturedSamples();
-            featured.SelectedIndex = 0;
+            try
+            {
+                await SampleManager.Current.InitializeAsync(ApplicationManager.Current.SelectedLanguage);
 
-            // Set category data context
-            categories.DataContext = SampleManager.Current.GetSamplesAsTree();
+                // Set featured data context
+                featured.DataContext = SampleManager.Current.GetFeaturedSamples();
+                featured.SelectedIndex = 0;
+
+                // Set category data context
+                categories.DataContext = SampleManager.Current.GetSamplesAsTree();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Initialization exception occurred.");
+            }
         }
 
         private void featured_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -69,12 +76,12 @@ namespace ArcGISRuntime.Samples.Desktop
 
         private void categories_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            var sample = (e.NewValue as SampleModel);
+            var sample = e.NewValue as SampleModel;
             if (sample == null)
             {
                 var treeItem = (e.NewValue as TreeItem);
                 var samples = treeItem.Items.OfType<SampleModel>();
-                if (samples.Count() > 0)
+                if (samples.Any())
                 {
                     categoriesList.ItemsSource = samples;
                     CategoriesRegion.Visibility = Visibility.Visible;

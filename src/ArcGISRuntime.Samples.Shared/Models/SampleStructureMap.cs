@@ -24,7 +24,7 @@ namespace ArcGISRuntime.Samples.Models
     /// <see cref="SampleStructureMap "/> is a main level model for samples structure.
     /// </summary>
     /// <remarks>
-    /// This class is constructured using <see cref="Create(string)"/> factory from the json.
+    /// This class is constructed using <see cref="Create(string,Language)"/> factory from the json.
     /// </remarks>
     [DataContract]
     public class SampleStructureMap
@@ -69,7 +69,7 @@ namespace ArcGISRuntime.Samples.Models
 
         #region Factory methods
         /// <summary>
-        /// Creates new instance of <see cref="SampleStructureMap"/> by desirialing it from the json file provided.
+        /// Creates new instance of <see cref="SampleStructureMap"/> by deserializing it from the json file provided.
         /// Returned instance will be fully loaded including other information that is not provided
         /// in the json file like samples.
         /// </summary>
@@ -83,102 +83,70 @@ namespace ArcGISRuntime.Samples.Models
             SampleStructureMap structureMap = null;
 
             // Create new instance of SampleStuctureMap
-            var metadataFile = new FileInfo(metadataFilePath);
             var json = File.ReadAllText(metadataFilePath);
 
             var jsonInBytes = Encoding.UTF8.GetBytes(json);
-            using (MemoryStream stream = new MemoryStream(jsonInBytes))
+            using (var stream = new MemoryStream(jsonInBytes))
             {
                 // De-serialize sample model
                 structureMap = serializer.ReadObject(stream) as SampleStructureMap;
                 structureMap.Samples = new List<SampleModel>();
             }
 
-            // Create all samples and add them to the groups since they are not part of
-            // main configuration file
-            var rootDirectory = metadataFile.Directory;
-
-            var samplesDirectory = new DirectoryInfo(Path.Combine(rootDirectory.FullName, "Samples"));
-            var tutorialsDirectory = new DirectoryInfo(Path.Combine(rootDirectory.FullName, "Tutorials"));
-            var workflowDirectory = new DirectoryInfo(Path.Combine(rootDirectory.FullName, "Workflows"));
-
-            var sampleGroupFolders = samplesDirectory.GetDirectories();
-
-            // Create all samples
-            foreach (var sampleGroupFolder in sampleGroupFolders) // ie. Samples\Layers
+            var pathList = new List<string>();
+            foreach (var category in structureMap.Categories)
             {
-                // This creates samples from all folders and adds them to the samples list
-                // This means that sample is created even if it's not defined in the groups list
-                var sampleFolders = sampleGroupFolder.GetDirectories();
-                foreach (var sampleFolder in sampleFolders)  // ie. Samples\Layers\ArcgISTiledLayerFromUrl
+                foreach (var subCategory in category.SubCategories)
                 {
-                    var sampleModel = SampleModel.Create(
-                        Path.Combine(sampleFolder.FullName, "metadata.json"));
-
-                    if (sampleModel != null)
-                        structureMap.Samples.Add(sampleModel);
-                }
-            }
-
-            // Create all tutorials
-            if (tutorialsDirectory.Exists)
-                foreach (var sampleFolder in tutorialsDirectory.GetDirectories()) // ie. Tutorials\AddMapToApp
-                {
-                    var sampleModel = SampleModel.Create(
-                        Path.Combine(sampleFolder.FullName, "metadata.json"));
-
-                    if (sampleModel != null)
-                        structureMap.Samples.Add(sampleModel);
-                }
-
-            // Create all workflows
-            if (workflowDirectory.Exists)
-                foreach (var sampleFolder in workflowDirectory.GetDirectories()) // ie. Workflows\SearchFeatures
-                {
-                    var sampleModel = SampleModel.Create(
-                        Path.Combine(sampleFolder.FullName, "metadata.json"));
-
-                    if (sampleModel != null)
-                        structureMap.Samples.Add(sampleModel);
-                }
-
-            // Set samples to the sub-categories
-            var addedSamples = new List<SampleModel>();
-            foreach (var cateory in structureMap.Categories)
-            {
-                foreach (var subCategory in cateory.SubCategories)
-                {
-                    if (subCategory.Samples == null)
-                        subCategory.Samples = new List<SampleModel>();
-
-                    if (subCategory.SampleNames == null)
-                        subCategory.SampleNames = new List<string>();
-
-                    foreach (var sampleName in subCategory.SampleNames)
+                    if (subCategory.SampleInfos != null)
                     {
-                        var sample = structureMap.Samples.FirstOrDefault(x => x.SampleName == sampleName);
-
-                        if (sample == null) continue;
-
-                        subCategory.Samples.Add(sample);
-                        addedSamples.Add(sample);
+                        foreach (var sample in subCategory.SampleInfos)
+                        {
+                            pathList.Add(sample.Path.Replace("/", "\\"));
+                        }
                     }
                 }
             }
 
-            // Add samples that are not defined to the end of the groups
-            var notAddedSamples = structureMap.Samples.Where(x => !addedSamples.Contains(x)).ToList();
-            foreach (var sampleModel in notAddedSamples)
+            foreach (var samplePath in pathList)
             {
-                var category = structureMap.Categories.FirstOrDefault(x => x.CategoryName == sampleModel.Category);
-                if (category == null)
-                    continue;
-
-                var subCategory = category.SubCategories.FirstOrDefault(x => x.SubCategoryName == sampleModel.SubCategory);
-                if (subCategory != null)
+#if !NETFX_CORE
+                var sampleMetadataFilePath = Path.Combine(samplePath, "metadata.json");
+#else
+                var sampleMetadataFilePath = string.Empty;
+                if (language == Language.CSharp)
                 {
-                    subCategory.SampleNames.Add(sampleModel.SampleName);
-                    subCategory.Samples.Add(sampleModel);
+                    sampleMetadataFilePath =  Path.Combine(
+                        "ArcGISRuntime.Windows.Samples",samplePath, "metadata.json");
+                }
+                else
+                {
+                   sampleMetadataFilePath =  Path.Combine(
+                        "ArcGISRuntime.Windows.Samples.VB",samplePath, "metadata.json");   
+                }
+               
+#endif
+
+                var sampleModel = SampleModel.Create(sampleMetadataFilePath);
+                if (sampleModel != null)
+                    structureMap.Samples.Add(sampleModel);
+            }
+
+            foreach (var category in structureMap.Categories)
+            {
+                foreach (var subCategory in category.SubCategories)
+                {
+                    if (subCategory.Samples == null)
+                        subCategory.Samples = new List<SampleModel>();
+
+                    foreach (var sampleInfo in subCategory.SampleInfos)
+                    {
+                        var sample = structureMap.Samples.FirstOrDefault(x => x.SampleName == sampleInfo.SampleName);
+
+                        if (sample == null) continue;
+
+                        subCategory.Samples.Add(sample);
+                    }
                 }
             }
 
@@ -195,6 +163,6 @@ namespace ArcGISRuntime.Samples.Models
 
             return structureMap;
         }
-        #endregion
+#endregion
     }
 }

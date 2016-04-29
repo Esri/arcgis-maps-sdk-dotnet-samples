@@ -70,17 +70,12 @@ namespace ArcGISRuntime.Samples.Managers
 #endif
 
             await CreateAllAsync();
-
-#if !NETFX_CORE
-            RemoveEmptySamples();
-#endif
-
         }
 
         #endregion // Constructor and unique instance management
 
         /// <summary>
-        /// Gets or sets seleted sample.
+        /// Gets or sets selected sample.
         /// </summary>
         public SampleModel SelectedSample { get; set; }
  
@@ -219,43 +214,6 @@ namespace ArcGISRuntime.Samples.Managers
             {
                 throw; //TODO
             }
-        }
-
-        /// <summary>
-        /// Remove samples that doesn't have a type registered i.e. cannot be shown.
-        /// </summary>
-        private void RemoveEmptySamples()
-        {
-            _sampleStructureMap.Featured.RemoveAll(x => !DoesSampleTypeExists(x.Sample));
-
-            // Remove samples that are empty ie. doesn't have code files
-            foreach (var category in _sampleStructureMap.Categories)
-            {
-                foreach (var subCategory in category.SubCategories)
-                {
-                    var notFoundSamples = subCategory.Samples.Where(x => !DoesSampleTypeExists(x)).ToList();
-                    foreach (var sampleToRemove in notFoundSamples)
-                    {
-                        subCategory.Samples.Remove(sampleToRemove);
-                        subCategory.SampleNames.Remove(sampleToRemove.SampleName);
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Check if the sample has a type registered.
-        /// </summary>
-        /// <param name="sampleModel">SampleModel that is checked.</param>
-        /// <returns>Returns true if the type if found. False otherwice.</returns>
-        private bool DoesSampleTypeExists(SampleModel sampleModel)
-        {
-            var fullTypeAsString = string.Format("{0}.{1}", sampleModel.SampleNamespace,
-               sampleModel.GetSampleName(_selectedLanguage));
-            var sampleType = _samplesAssembly.GetType(fullTypeAsString);
-            if (sampleType == null)
-                return false;
-            return true;
         }
     }
 }

@@ -24,7 +24,7 @@ namespace ArcGISRuntime.Samples.Models
     /// <see cref="SampleStructureMap "/> is a main level model for samples structure.
     /// </summary>
     /// <remarks>
-    /// This class is constructured using <see cref="Create(string)"/> factory from the json.
+    /// This class is constructed using <see cref="Create(string)"/> factory from the json.
     /// </remarks>
     [DataContract]
     public class SampleStructureMap
@@ -69,7 +69,7 @@ namespace ArcGISRuntime.Samples.Models
 
         #region Factory methods
         /// <summary>
-        /// Creates new instance of <see cref="SampleStructureMap"/> by desirialing it from the json file provided.
+        /// Creates new instance of <see cref="SampleStructureMap"/> by deserializing it from the json file provided.
         /// Returned instance will be fully loaded including other information that is not provided
         /// in the json file like samples.
         /// </summary>
@@ -151,34 +151,16 @@ namespace ArcGISRuntime.Samples.Models
                     if (subCategory.Samples == null)
                         subCategory.Samples = new List<SampleModel>();
 
-                    if (subCategory.SampleNames == null)
-                        subCategory.SampleNames = new List<string>();
-
-                    foreach (var sampleName in subCategory.SampleNames)
+                    foreach (var sampleInfo in subCategory.SampleInfos)
                     {
-                        var sample = structureMap.Samples.FirstOrDefault(x => x.SampleName == sampleName);
+                        var sample = structureMap.Samples
+                            .FirstOrDefault(x => x.SampleName == sampleInfo.SampleName);
 
                         if (sample == null) continue;
 
                         subCategory.Samples.Add(sample);
                         addedSamples.Add(sample);
                     }
-                }
-            }
-
-            // Add samples that are not defined to the end of the groups
-            var notAddedSamples = structureMap.Samples.Where(x => !addedSamples.Contains(x)).ToList();
-            foreach (var sampleModel in notAddedSamples)
-            {
-                var category = structureMap.Categories.FirstOrDefault(x => x.CategoryName == sampleModel.Category);
-                if (category == null)
-                    continue;
-
-                var subCategory = category.SubCategories.FirstOrDefault(x => x.SubCategoryName == sampleModel.SubCategory);
-                if (subCategory != null)
-                {
-                    subCategory.SampleNames.Add(sampleModel.SampleName);
-                    subCategory.Samples.Add(sampleModel);
                 }
             }
 

@@ -244,8 +244,8 @@
                            Source="{Binding SampleImageName, Converter={StaticResource sampleToBitmapConverter}}">
                     </Image>
                     <TextBlock x:Name="DescriptionText" Text="{Binding Description}" FontSize="18" RelativePanel.RightOf="ThumbnailImage"
-							    TextWrapping="Wrap" 
-								Margin="20" />
+                                TextWrapping="Wrap" 
+                                Margin="20" />
                     <TextBlock x:Name="InstructionsHeader" Text="Instructions"  FontSize="24" Foreground="Black" RelativePanel.Below="ThumbnailImage" Margin="10"/>
                     <TextBlock Text="{Binding Instructions}" FontSize="18" TextWrapping="Wrap" Margin="10,0"
                                RelativePanel.Below="InstructionsHeader" />

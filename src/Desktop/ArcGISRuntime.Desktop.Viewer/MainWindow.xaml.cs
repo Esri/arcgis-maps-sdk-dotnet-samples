@@ -76,12 +76,12 @@ namespace ArcGISRuntime.Samples.Desktop
 
         private void categories_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            var sample = (e.NewValue as SampleModel);
+            var sample = e.NewValue as SampleModel;
             if (sample == null)
             {
                 var treeItem = (e.NewValue as TreeItem);
                 var samples = treeItem.Items.OfType<SampleModel>();
-                if (samples.Count() > 0)
+                if (samples.Any())
                 {
                     categoriesList.ItemsSource = samples;
                     CategoriesRegion.Visibility = Visibility.Visible;

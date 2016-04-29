@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Windows.Viewer
 {
     public sealed partial class MainPage
     {
-        SystemNavigationManager _currentView = null;
+        private readonly SystemNavigationManager _currentView = null;
 
         public MainPage()
         {
@@ -116,9 +116,12 @@ namespace ArcGISRuntime.Windows.Viewer
                     }
                 }
             }
-            // Make sure that Featured is shown on top of the categories
-            categoriesList.Insert(0, new TreeItem() { Name = "Featured", Items = collectedFeaturedSamplesList });
 
+            // Make sure that Featured is shown on top of the categories
+            if (collectedFeaturedSamplesList.Count > 0)
+                categoriesList.Insert(0, new TreeItem
+                    { Name = "Featured", Items = collectedFeaturedSamplesList });
+            
             categories.ItemsSource = categoriesList;
             categories.SelectedIndex = 0;
 
@@ -131,7 +134,6 @@ namespace ArcGISRuntime.Windows.Viewer
         {
             if (e.AddedItems.Count > 0)
             {
-                var featuredItem = e.AddedItems[0] as TreeItem;
                 if (RootSplitView.DisplayMode != SplitViewDisplayMode.Inline)
                     RootSplitView.IsPaneOpen = false;
             }

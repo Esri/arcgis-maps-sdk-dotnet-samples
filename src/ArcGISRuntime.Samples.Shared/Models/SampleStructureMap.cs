@@ -110,7 +110,23 @@ namespace ArcGISRuntime.Samples.Models
 
             foreach (var samplePath in pathList)
             {
+#if !NETFX_CORE
                 var sampleMetadataFilePath = Path.Combine(samplePath, "metadata.json");
+#else
+                var sampleMetadataFilePath = string.Empty;
+                if (language == Language.CSharp)
+                {
+                    sampleMetadataFilePath =  Path.Combine(
+                        "ArcGISRuntime.Windows.Samples",samplePath, "metadata.json");
+                }
+                else
+                {
+                   sampleMetadataFilePath =  Path.Combine(
+                        "ArcGISRuntime.Windows.Samples.VB",samplePath, "metadata.json");   
+                }
+               
+#endif
+
                 var sampleModel = SampleModel.Create(sampleMetadataFilePath);
                 if (sampleModel != null)
                     structureMap.Samples.Add(sampleModel);
@@ -147,6 +163,6 @@ namespace ArcGISRuntime.Samples.Models
 
             return structureMap;
         }
-        #endregion
+#endregion
     }
 }

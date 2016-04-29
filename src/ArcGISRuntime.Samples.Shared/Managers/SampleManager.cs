@@ -15,11 +15,9 @@ using ArcGISRuntime.Samples.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization.Json;
 using System.Threading.Tasks;
-using System.Linq.Expressions;
 
 #if NETFX_CORE
 using Windows.UI.Xaml.Controls;
@@ -105,7 +103,7 @@ namespace ArcGISRuntime.Samples.Managers
                 {
                     foreach (var sample in subCategory.Samples)
                         categoryItem.Items.Add(sample);
-            }
+                }
 
                 categories.Add(categoryItem);
             }
@@ -122,8 +120,7 @@ namespace ArcGISRuntime.Samples.Managers
 
             foreach (var category in _sampleStructureMap.Categories)
             {
-                var categoryItem = new TreeItem();
-                categoryItem.Name = category.Name;
+                var categoryItem = new TreeItem { Name = category.Name };
 
                 foreach (var subCategory in category.SubCategories)
                 {
@@ -173,9 +170,6 @@ namespace ArcGISRuntime.Samples.Managers
         /// </summary>
         private async Task CreateAllAsync()
         {
-           List<DirectoryInfo> sampleDirectories = new List<DirectoryInfo>();
-           var serializer = new DataContractJsonSerializer(typeof(SampleModel));
-          
             try
             {
                 await Task.Run(() =>

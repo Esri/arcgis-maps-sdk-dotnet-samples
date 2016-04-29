@@ -24,7 +24,7 @@ namespace ArcGISRuntime.Samples.Models
     /// <see cref="SampleStructureMap "/> is a main level model for samples structure.
     /// </summary>
     /// <remarks>
-    /// This class is constructed using <see cref="Create(string)"/> factory from the json.
+    /// This class is constructed using <see cref="Create(string,Language)"/> factory from the json.
     /// </remarks>
     [DataContract]
     public class SampleStructureMap
@@ -83,83 +83,53 @@ namespace ArcGISRuntime.Samples.Models
             SampleStructureMap structureMap = null;
 
             // Create new instance of SampleStuctureMap
-            var metadataFile = new FileInfo(metadataFilePath);
             var json = File.ReadAllText(metadataFilePath);
 
             var jsonInBytes = Encoding.UTF8.GetBytes(json);
-            using (MemoryStream stream = new MemoryStream(jsonInBytes))
+            using (var stream = new MemoryStream(jsonInBytes))
             {
                 // De-serialize sample model
                 structureMap = serializer.ReadObject(stream) as SampleStructureMap;
                 structureMap.Samples = new List<SampleModel>();
             }
 
-            // Create all samples and add them to the groups since they are not part of
-            // main configuration file
-            var rootDirectory = metadataFile.Directory;
-
-            var samplesDirectory = new DirectoryInfo(Path.Combine(rootDirectory.FullName, "Samples"));
-            var tutorialsDirectory = new DirectoryInfo(Path.Combine(rootDirectory.FullName, "Tutorials"));
-            var workflowDirectory = new DirectoryInfo(Path.Combine(rootDirectory.FullName, "Workflows"));
-
-            var sampleGroupFolders = samplesDirectory.GetDirectories();
-
-            // Create all samples
-            foreach (var sampleGroupFolder in sampleGroupFolders) // ie. Samples\Layers
+            var pathList = new List<string>();
+            foreach (var category in structureMap.Categories)
             {
-                // This creates samples from all folders and adds them to the samples list
-                // This means that sample is created even if it's not defined in the groups list
-                var sampleFolders = sampleGroupFolder.GetDirectories();
-                foreach (var sampleFolder in sampleFolders)  // ie. Samples\Layers\ArcgISTiledLayerFromUrl
+                foreach (var subCategory in category.SubCategories)
                 {
-                    var sampleModel = SampleModel.Create(
-                        Path.Combine(sampleFolder.FullName, "metadata.json"));
-
-                    if (sampleModel != null)
-                        structureMap.Samples.Add(sampleModel);
+                    if (subCategory.SampleInfos != null)
+                    {
+                        foreach (var sample in subCategory.SampleInfos)
+                        {
+                            pathList.Add(sample.Path.Replace("/", "\\"));
+                        }
+                    }
                 }
             }
 
-            // Create all tutorials
-            if (tutorialsDirectory.Exists)
-                foreach (var sampleFolder in tutorialsDirectory.GetDirectories()) // ie. Tutorials\AddMapToApp
-                {
-                    var sampleModel = SampleModel.Create(
-                        Path.Combine(sampleFolder.FullName, "metadata.json"));
-
-                    if (sampleModel != null)
-                        structureMap.Samples.Add(sampleModel);
-                }
-
-            // Create all workflows
-            if (workflowDirectory.Exists)
-                foreach (var sampleFolder in workflowDirectory.GetDirectories()) // ie. Workflows\SearchFeatures
-                {
-                    var sampleModel = SampleModel.Create(
-                        Path.Combine(sampleFolder.FullName, "metadata.json"));
-
-                    if (sampleModel != null)
-                        structureMap.Samples.Add(sampleModel);
-                }
-
-            // Set samples to the sub-categories
-            var addedSamples = new List<SampleModel>();
-            foreach (var cateory in structureMap.Categories)
+            foreach (var samplePath in pathList)
             {
-                foreach (var subCategory in cateory.SubCategories)
+                var sampleMetadataFilePath = Path.Combine(samplePath, "metadata.json");
+                var sampleModel = SampleModel.Create(sampleMetadataFilePath);
+                if (sampleModel != null)
+                    structureMap.Samples.Add(sampleModel);
+            }
+
+            foreach (var category in structureMap.Categories)
+            {
+                foreach (var subCategory in category.SubCategories)
                 {
                     if (subCategory.Samples == null)
                         subCategory.Samples = new List<SampleModel>();
 
                     foreach (var sampleInfo in subCategory.SampleInfos)
                     {
-                        var sample = structureMap.Samples
-                            .FirstOrDefault(x => x.SampleName == sampleInfo.SampleName);
+                        var sample = structureMap.Samples.FirstOrDefault(x => x.SampleName == sampleInfo.SampleName);
 
                         if (sample == null) continue;
 
                         subCategory.Samples.Add(sample);
-                        addedSamples.Add(sample);
                     }
                 }
             }

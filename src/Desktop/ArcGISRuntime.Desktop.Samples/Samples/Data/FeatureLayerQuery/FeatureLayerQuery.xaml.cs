@@ -46,7 +46,7 @@ namespace ArcGISRuntime.Desktop.Samples.FeatureLayerQuery
             Map myMap = new Map(Basemap.CreateTopographic());
 
             // Create and set initial map location
-            Esri.ArcGISRuntime.Geometry.MapPoint initialLocation = new MapPoint(
+            MapPoint initialLocation = new MapPoint(
                 -11000000, 5000000, SpatialReferences.WebMercator);
             myMap.InitialViewpoint = new Viewpoint(initialLocation, 100000000);
 

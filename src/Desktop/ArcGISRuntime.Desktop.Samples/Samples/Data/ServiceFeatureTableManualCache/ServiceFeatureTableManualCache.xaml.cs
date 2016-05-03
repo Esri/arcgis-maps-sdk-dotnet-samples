@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -61,10 +62,10 @@ namespace ArcGISRuntime.Desktop.Samples.ServiceFeatureTableManualCache
             MyMapView.Map = myMap;
         }
 
-        private async void OnLoadedPopulateData(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
+        private async void OnLoadedPopulateData(object sender, LoadStatusEventArgs e)
         {
             // If layer isn't loaded, do nothing
-            if (e.Status != Esri.ArcGISRuntime.LoadStatus.Loaded)
+            if (e.Status != LoadStatus.Loaded)
                 return;
 
             // Create new query object that contains parameters to query specific request types

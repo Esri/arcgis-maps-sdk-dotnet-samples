@@ -19,9 +19,6 @@ using System.Windows.Media;
 
 namespace ArcGISRuntime.Desktop.Samples.IdentifyGraphics
 {
-    /// <summary>
-    /// Interaction logic for IdentifyGraphics.xaml
-    /// </summary>
     public partial class IdentifyGraphics : UserControl
     {
 

@@ -15,9 +15,6 @@ using System.Windows.Controls;
 
 namespace ArcGISRuntime.Desktop.Samples.ServiceFeatureTableCache
 {
-    /// <summary>
-    /// Interaction logic for ServiceFeatureTableCache.xaml
-    /// </summary>
     public partial class ServiceFeatureTableCache : UserControl
     {
         public ServiceFeatureTableCache()

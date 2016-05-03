@@ -17,9 +17,6 @@ using System.Windows.Media;
 
 namespace ArcGISRuntime.Desktop.Samples.AddGraphicsRenderer
 {
-    /// <summary>
-    /// Interaction logic for AddGraphicsRenderer.xaml
-    /// </summary>
     public partial class AddGraphicsRenderer : UserControl
     {
         public AddGraphicsRenderer()

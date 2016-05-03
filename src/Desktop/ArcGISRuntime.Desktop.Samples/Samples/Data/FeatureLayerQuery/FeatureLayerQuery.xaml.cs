@@ -20,9 +20,6 @@ using System.Windows.Media;
 
 namespace ArcGISRuntime.Desktop.Samples.FeatureLayerQuery
 {
-    /// <summary>
-    /// Interaction logic for FeatureLayerQuery.xaml
-    /// </summary>
     public partial class FeatureLayerQuery : UserControl
     {
 

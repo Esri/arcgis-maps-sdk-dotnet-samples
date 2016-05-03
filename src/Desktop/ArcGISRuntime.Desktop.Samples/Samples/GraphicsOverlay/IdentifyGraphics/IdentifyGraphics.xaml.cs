@@ -58,7 +58,7 @@ namespace ArcGISRuntime.Desktop.Samples.IdentifyGraphics
             builder.AddPoint(new MapPoint(-20e5, -20e5));
 
             // Get geometry from the builder
-            Esri.ArcGISRuntime.Geometry.Polygon polygonGeometry = builder.ToGeometry();
+            Polygon polygonGeometry = builder.ToGeometry();
 
             // Create symbol for the polygon
             SimpleFillSymbol polygonSymbol = new SimpleFillSymbol(
@@ -77,7 +77,7 @@ namespace ArcGISRuntime.Desktop.Samples.IdentifyGraphics
             MyMapView.GraphicsOverlays.Add(_polygonOverlay);
         }
 
-        private async void OnMapViewTapped(object sender, Esri.ArcGISRuntime.UI.GeoViewInputEventArgs e)
+        private async void OnMapViewTapped(object sender, GeoViewInputEventArgs e)
         {
             var tolerance = 10d; // Use larger tolerance for touch
             var maximumResults = 1; // Only return one graphic  

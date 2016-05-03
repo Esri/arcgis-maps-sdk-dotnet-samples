@@ -58,6 +58,16 @@
     </Compile>
     <Compile Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.xaml.cs">
       <DependentUpon>IdentifyGraphics.xaml</DependentUpon>
+    <Compile Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.xaml.cs">
+      <DependentUpon>ServiceFeatureTableCache.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.xaml.cs">
+      <DependentUpon>ServiceFeatureTableManualCache.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.xaml.cs">
+      <DependentUpon>ServiceFeatureTableNoCache.xaml</DependentUpon>
+    <Compile Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.xaml.cs">
+      <DependentUpon>FeatureLayerQuery.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.xaml.cs">
       <DependentUpon>ArcGISMapImageLayerUrl.xaml</DependentUpon>
@@ -94,6 +104,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Samples\NewFolder1\" />
     <Folder Include="Workflows\" />
   </ItemGroup>
   <ItemGroup>
@@ -104,6 +115,14 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.jpg">
+    <Content Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.jpg">
+    <Content Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg">
@@ -146,6 +165,16 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.xaml">
+    <Page Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.xaml">
+    <Page Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -249,11 +278,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Samples\GraphicsOverlay\AddGraphicsRenderer\metadata.json">
+    <Content Include="Samples\Data\ServiceFeatureTableCache\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Samples\GraphicsOverlay\IdentifyGraphics\metadata.json">
+    <Content Include="Samples\Data\ServiceFeatureTableManualCache\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Samples\Data\ServiceFeatureTableNoCache\metadata.json">
+    <Content Include="Samples\Data\FeatureLayerQuery\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

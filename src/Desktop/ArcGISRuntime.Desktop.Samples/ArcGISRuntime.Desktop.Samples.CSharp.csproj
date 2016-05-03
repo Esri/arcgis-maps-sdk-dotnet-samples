@@ -53,6 +53,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.xaml.cs">
+      <DependentUpon>AddGraphicsRenderer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.xaml.cs">
+      <DependentUpon>IdentifyGraphics.xaml</DependentUpon>
     <Compile Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.xaml.cs">
       <DependentUpon>ServiceFeatureTableCache.xaml</DependentUpon>
     </Compile>
@@ -106,6 +111,10 @@
     <Content Include="groups.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.jpg">
     <Content Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -151,6 +160,11 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.xaml">
     <Page Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -263,11 +277,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Samples\GraphicsOverlay\AddGraphicsRenderer\metadata.json">
     <Content Include="Samples\Data\ServiceFeatureTableCache\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Samples\GraphicsOverlay\IdentifyGraphics\metadata.json">
     <Content Include="Samples\Data\ServiceFeatureTableManualCache\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

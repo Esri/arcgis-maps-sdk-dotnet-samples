@@ -15,9 +15,6 @@ using System.Windows.Controls;
 
 namespace ArcGISRuntime.Desktop.Samples.ServiceFeatureTableNoCache
 {
-    /// <summary>
-    /// Interaction logic for ServiceFeatureTableNoCache.xaml
-    /// </summary>
     public partial class ServiceFeatureTableNoCache : UserControl
     {
         public ServiceFeatureTableNoCache()

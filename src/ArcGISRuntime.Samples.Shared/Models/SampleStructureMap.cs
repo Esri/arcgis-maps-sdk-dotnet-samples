@@ -11,6 +11,7 @@
 //WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and
 //limitations under the License.
+
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -82,6 +83,10 @@ namespace ArcGISRuntime.Samples.Models
 
             SampleStructureMap structureMap = null;
 
+            var groupsMetadataFileInfo = new FileInfo(metadataFilePath);
+            if (!groupsMetadataFileInfo.Exists || groupsMetadataFileInfo == null)
+                throw new FileNotFoundException("Groups.json file not found from given location.");
+
             // Create new instance of SampleStuctureMap
             var json = File.ReadAllText(metadataFilePath);
 
@@ -90,6 +95,8 @@ namespace ArcGISRuntime.Samples.Models
             {
                 // De-serialize sample model
                 structureMap = serializer.ReadObject(stream) as SampleStructureMap;
+                if (structureMap == null)
+                    throw new SerializationException("Couldn't create StructureMap from provided groups.json file stream.");
                 structureMap.Samples = new List<SampleModel>();
             }
 
@@ -110,23 +117,8 @@ namespace ArcGISRuntime.Samples.Models
 
             foreach (var samplePath in pathList)
             {
-#if !NETFX_CORE
-                var sampleMetadataFilePath = Path.Combine(samplePath, "metadata.json");
-#else
-                var sampleMetadataFilePath = string.Empty;
-                if (language == Language.CSharp)
-                {
-                    sampleMetadataFilePath =  Path.Combine(
-                        "ArcGISRuntime.Windows.Samples",samplePath, "metadata.json");
-                }
-                else
-                {
-                   sampleMetadataFilePath =  Path.Combine(
-                        "ArcGISRuntime.Windows.Samples.VB",samplePath, "metadata.json");   
-                }
-               
-#endif
-
+                var sampleMetadataFilePath = Path.Combine(
+                    groupsMetadataFileInfo.Directory.FullName, samplePath, "metadata.json");
                 var sampleModel = SampleModel.Create(sampleMetadataFilePath);
                 if (sampleModel != null)
                     structureMap.Samples.Add(sampleModel);
@@ -163,6 +155,6 @@ namespace ArcGISRuntime.Samples.Models
 
             return structureMap;
         }
-#endregion
+        #endregion
     }
 }

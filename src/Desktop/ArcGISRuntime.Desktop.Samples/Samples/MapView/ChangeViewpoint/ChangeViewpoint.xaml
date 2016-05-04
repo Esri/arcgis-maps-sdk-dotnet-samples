@@ -30,7 +30,7 @@
                         Padding="4"    
 		                VerticalAlignment="Top"
 		                Width="Auto"
-		                Click="GeometryButton_Click" 
+		                Click="OnGeometryButtonClick" 
                         ToolTip="Sets Viewpoint to a predefined Polygon's extent"/>
                     <Button Content="Center and Scale"
 		                HorizontalAlignment="Center"
@@ -38,7 +38,7 @@
                         Padding="4"
 		                VerticalAlignment="Top"
 		                Width="Auto"
-		                Click="CenterScaleButton_Click"
+		                Click="OnCenterScaleButtonClick"
                         ToolTip="Sets Viewpoint a predefined point and scale"/>
                     <Button Content="Animation"
 		                HorizontalAlignment="Right"
@@ -46,7 +46,7 @@
                         Padding="4"
 		                VerticalAlignment="Top"
 		                Width="Auto"
-		                Click="AnimateButton_Click"
+		                Click="OnAnimateButtonClick"
                         ToolTip="Sets Viewpoint and animate repositioning of view"/>
                     <Button Content="Rotate"
 		                HorizontalAlignment="Right"
@@ -54,7 +54,7 @@
                         Padding="4"
 		                VerticalAlignment="Center"
 		                Width="Auto"
-		                Click="RotateButton_Click"
+		                Click="OnRotateButtonClick"
                         ToolTip="Rotates the view point 90 degrees"/>
                 </WrapPanel>
             </StackPanel>

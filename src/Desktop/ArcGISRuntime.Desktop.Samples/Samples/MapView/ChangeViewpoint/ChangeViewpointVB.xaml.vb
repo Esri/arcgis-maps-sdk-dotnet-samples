@@ -22,9 +22,9 @@ Imports System.Windows
 Namespace ChangeViewpoint
     Partial Public Class ChangeViewpointVB
 
-        Private londonCoords As New MapPoint(-13881.7678417696, 6710726.57374296, SpatialReferences.WebMercator)
-        Private londonScale As Double = 8762.7156655229
-        Private redlandsEnvelope As New Polygon(New List(Of MapPoint)() From {
+        Private _londonCoords As New MapPoint(-13881.7678417696, 6710726.57374296, SpatialReferences.WebMercator)
+        Private _londonScale As Double = 8762.7156655229
+        Private _redlandsEnvelope As New Polygon(New List(Of MapPoint)() From {
             (New MapPoint(-13049785.1566222, 4032064.6003424)),
             (New MapPoint(-13049785.1566222, 4040202.42595729)),
             (New MapPoint(-13037033.5780234, 4032064.6003424)),
@@ -42,7 +42,7 @@ Namespace ChangeViewpoint
             InitializeComponent()
         End Sub
 
-        Private Async Sub AnimateButton_Click(sender As Object, e As RoutedEventArgs)
+        Private Async Sub OnAnimateButtonClick(sender As Object, e As RoutedEventArgs)
             Try
                 'Return to initial viewpoint so Animation curve can be demonstrated clearly.
                 Await MyMapView.SetViewpointAsync(MyMapView.Map.InitialViewpoint)
@@ -55,29 +55,29 @@ Namespace ChangeViewpoint
             End Try
         End Sub
 
-        Private Sub GeometryButton_Click(sender As Object, e As RoutedEventArgs)
+        Private Sub OnGeometryButtonClick(sender As Object, e As RoutedEventArgs)
             Try
                 'Sets the viewpoint extent to the provide bounding geometry.   
-                MyMapView.SetViewpointGeometryAsync(redlandsEnvelope)
+                MyMapView.SetViewpointGeometryAsync(_redlandsEnvelope)
             Catch ex As Exception
                 Dim errorMessage = "Viewpoint could not be set. " + ex.Message
                 MessageBox.Show(errorMessage, "Sample error")
             End Try
         End Sub
 
-        Private Sub CenterScaleButton_Click(sender As Object, e As RoutedEventArgs)
+        Private Sub OnCenterScaleButtonClick(sender As Object, e As RoutedEventArgs)
             Try
                 'Centers the viewpoint on the provided map point. 
-                MyMapView.SetViewpointCenterAsync(londonCoords)
+                MyMapView.SetViewpointCenterAsync(_londonCoords)
                 'Sets the viewpoint's zoom scale to the provided double value.  
-                MyMapView.SetViewpointScaleAsync(londonScale)
+                MyMapView.SetViewpointScaleAsync(_londonScale)
             Catch ex As Exception
                 Dim errorMessage = "Viewpoint could not be set. " + ex.Message
                 MessageBox.Show(errorMessage, "Sample error")
             End Try
         End Sub
 
-        Private Async Sub RotateButton_Click(sender As Object, e As RoutedEventArgs)
+        Private Async Sub OnRotateButtonClick(sender As Object, e As RoutedEventArgs)
             Try
                 'Gets the current rotation value of the map view.
                 Dim currentRotation = MyMapView.MapRotation

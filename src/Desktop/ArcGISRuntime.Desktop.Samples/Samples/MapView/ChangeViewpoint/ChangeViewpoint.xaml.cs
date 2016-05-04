@@ -23,15 +23,15 @@ namespace ArcGISRuntime.Desktop.Samples.ChangeViewpoint
 {
     public partial class ChangeViewpoint
     {
-        private MapPoint londonCoords = new MapPoint(-13881.7678417696, 6710726.57374296, SpatialReferences.WebMercator);
-        private double londonScale = 8762.7156655228955;
+        private MapPoint _londonCoords = new MapPoint(-13881.7678417696, 6710726.57374296, SpatialReferences.WebMercator);
+        private double _londonScale = 8762.7156655228955;
         private Polygon redlandsEnvelope = new Polygon(new List<MapPoint> {
             (new MapPoint(-13049785.1566222, 4032064.6003424)),
             (new MapPoint(-13049785.1566222, 4040202.42595729)),
             (new MapPoint(-13037033.5780234, 4032064.6003424)),
             (new MapPoint(-13037033.5780234, 4040202.42595729))},
             SpatialReferences.WebMercator);
-        private Polygon edinburghEnvelope = new Polygon(new List<MapPoint> {
+        private Polygon _edinburghEnvelope = new Polygon(new List<MapPoint> {
             (new MapPoint(-354262.156621384, 7548092.94093301)),
             (new MapPoint(-354262.156621384, 7548901.50684376)),
             (new MapPoint(-353039.164455303, 7548092.94093301)),
@@ -44,13 +44,13 @@ namespace ArcGISRuntime.Desktop.Samples.ChangeViewpoint
             InitializeComponent(); 
         }
 
-        private async void AnimateButton_Click(object sender, RoutedEventArgs e)
+        private async void OnAnimateButtonClick(object sender, RoutedEventArgs e)
         {
             try
             {
                 // Return to initial viewpoint so Animation curve can be demonstrated clearly. 
                 await MyMapView.SetViewpointAsync(MyMapView.Map.InitialViewpoint);
-                var viewpoint = new Viewpoint(edinburghEnvelope);
+                var viewpoint = new Viewpoint(_edinburghEnvelope);
                 // Animates the changing of the viewpoint giving a smooth transition from the old to the new view.
                 await MyMapView.SetViewpointAsync(viewpoint, System.TimeSpan.FromSeconds(10));
             }
@@ -61,7 +61,7 @@ namespace ArcGISRuntime.Desktop.Samples.ChangeViewpoint
             }         
         }
 
-        private void GeometryButton_Click(object sender, RoutedEventArgs e)
+        private void OnGeometryButtonClick(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -75,14 +75,14 @@ namespace ArcGISRuntime.Desktop.Samples.ChangeViewpoint
             }           
         }
 
-        private void CenterScaleButton_Click(object sender, RoutedEventArgs e)
+        private void OnCenterScaleButtonClick(object sender, RoutedEventArgs e)
         {
             try
             {
                 // Centers the viewpoint on the provided map point. 
-                MyMapView.SetViewpointCenterAsync(londonCoords);
+                MyMapView.SetViewpointCenterAsync(_londonCoords);
                 // Sets the viewpoint's zoom scale to the provided double value.  
-                MyMapView.SetViewpointScaleAsync(londonScale);
+                MyMapView.SetViewpointScaleAsync(_londonScale);
             }
             catch(Exception ex)
             {
@@ -91,7 +91,7 @@ namespace ArcGISRuntime.Desktop.Samples.ChangeViewpoint
             }          
         }
 
-        private async void RotateButton_Click(object sender, RoutedEventArgs e)
+        private async void OnRotateButtonClick(object sender, RoutedEventArgs e)
         {
             try
             {

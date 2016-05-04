@@ -109,7 +109,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Samples\NewFolder1\" />
     <Folder Include="Workflows\" />
   </ItemGroup>
   <ItemGroup>

@@ -23,6 +23,8 @@ namespace ArcGISRuntime.Desktop.Viewer
         {
             var selectedLanguage = Language.CSharp;
 
+            Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.Initialize();
+
             // Check application parameters:
             // parameter definitions:
             //     /vb = launch application using VBNet samples, defaults to C#

@@ -40,6 +40,7 @@ namespace ArcGISRuntime.Windows.Viewer
         /// </summary>
         public App()
         {
+            Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.Initialize();
             InitializeComponent();
             Suspending += OnSuspending;
             UnhandledException += App_UnhandledException;

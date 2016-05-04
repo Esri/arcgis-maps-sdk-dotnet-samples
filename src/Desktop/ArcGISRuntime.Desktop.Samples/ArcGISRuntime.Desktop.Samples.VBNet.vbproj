@@ -82,6 +82,9 @@
     </Content>
     <Content Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg" />
     <Content Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.jpg" />
+    <Content Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.jpg" />
     <Content Include="Samples\MapView\MapRotation\MapRotation.jpg" />
     <Content Include="Samples\Map\OpenExistingMap\OpenExistingMap.jpg" />
@@ -103,6 +106,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Layers\ArcGISTiledLayerUrl\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\FeatureLayerDefinitionExpression\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Samples\MapView\ChangeViewpoint\metadata.json">
@@ -132,6 +138,9 @@
     </Compile>
     <Compile Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrlVB.xaml.vb">
       <DependentUpon>ArcGISTiledLayerUrlVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpressionVB.xaml.vb">
+      <DependentUpon>FeatureLayerDefinitionExpressionVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\MapView\ChangeViewpoint\ChangeViewpointVB.xaml.vb">
       <DependentUpon>ChangeViewpointVB.xaml</DependentUpon>
@@ -164,6 +173,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrlVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpressionVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

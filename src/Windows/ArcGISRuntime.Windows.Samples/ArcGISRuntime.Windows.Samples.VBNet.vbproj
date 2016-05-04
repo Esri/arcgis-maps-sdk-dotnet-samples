@@ -96,7 +96,11 @@
     <None Include="project.json" />
     <None Include="Samples\Layers\ArcGISMapImageLayerUrl\metadata.json" />
     <None Include="Samples\Layers\ArcGISMapImageLayerUrl\README.md" />
+    <Content Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.jpg" />
     <Content Include="Samples\MapView\MapRotation\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\ChangeViewpoint\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Samples\Map\SetInitialMapLocation\metadata.json" />
@@ -106,6 +110,9 @@
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrlVB.xaml.vb">
       <DependentUpon>ArcGISMapImageLayerUrlVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\ChangeViewpoint\ChangeViewpointVB.xaml.vb">
+      <DependentUpon>ChangeViewpointVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\MapView\MapRotation\MapRotationVB.xaml.vb">
       <DependentUpon>MapRotationVB.xaml</DependentUpon>
@@ -167,6 +174,10 @@
   <ItemGroup />
   <ItemGroup>
     <Page Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrlVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\ChangeViewpoint\ChangeViewpointVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

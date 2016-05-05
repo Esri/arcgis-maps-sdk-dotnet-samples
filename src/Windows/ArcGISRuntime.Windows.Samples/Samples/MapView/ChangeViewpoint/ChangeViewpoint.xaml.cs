@@ -12,12 +12,10 @@
 //See the License for the specific language governing permissions and
 //limitations under the License.
 
-using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Collections.Generic;
-using System.Windows;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
@@ -25,33 +23,49 @@ namespace ArcGISRuntime.Windows.Samples.ChangeViewpoint
 {
     public partial class ChangeViewpoint
     {
-        private MapPoint _londonCoords = new MapPoint(-13881.7678417696, 6710726.57374296, SpatialReferences.WebMercator);
+        // Coordinates for London
+        private MapPoint _londonCoords = new MapPoint(
+            -13881.7678417696, 6710726.57374296, SpatialReferences.WebMercator);
         private double _londonScale = 8762.7156655228955;
-        private Polygon _redlandsEnvelope = new Polygon(new List<MapPoint> {
-            (new MapPoint(-13049785.1566222, 4032064.6003424)),
-            (new MapPoint(-13049785.1566222, 4040202.42595729)),
-            (new MapPoint(-13037033.5780234, 4032064.6003424)),
-            (new MapPoint(-13037033.5780234, 4040202.42595729))},
-            SpatialReferences.WebMercator);
-        private Polygon _edinburghEnvelope = new Polygon(new List<MapPoint> {
-            (new MapPoint(-354262.156621384, 7548092.94093301)),
-            (new MapPoint(-354262.156621384, 7548901.50684376)),
-            (new MapPoint(-353039.164455303, 7548092.94093301)),
-            (new MapPoint(-353039.164455303, 7548901.50684376))},
+
+        // Coordinates for Redlands
+        private Polygon _redlandsEnvelope = new Polygon(
+            new List<MapPoint>
+                {
+                    new MapPoint(-13049785.1566222, 4032064.6003424),
+                    new MapPoint(-13049785.1566222, 4040202.42595729),
+                    new MapPoint(-13037033.5780234, 4032064.6003424),
+                    new MapPoint(-13037033.5780234, 4040202.42595729)
+                },
             SpatialReferences.WebMercator);
 
-        MessageDialog errorDialog = null;
+        // Coordinates for Edinburgh
+        private Polygon _edinburghEnvelope = new Polygon(
+            new List<MapPoint>
+            {
+                new MapPoint(-354262.156621384, 7548092.94093301),
+                new MapPoint(-354262.156621384, 7548901.50684376),
+                new MapPoint(-353039.164455303, 7548092.94093301),
+                new MapPoint(-353039.164455303, 7548901.50684376)},
+            SpatialReferences.WebMercator); 
+
+        MessageDialog _errorDialog;
 
 
         public ChangeViewpoint()
         {
             InitializeComponent();
 
-            var myMap = new Map();
+            // Create the UI, setup the control references and execute initialization 
+            Initialize();
+        }
 
-            var baseLayer = new ArcGISTiledLayer(
-                new Uri("http://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer"));
-            myMap.Basemap.BaseLayers.Add(baseLayer);
+        private void Initialize()
+        {
+            // Create new Map with basemap
+            Map myMap = new Map(Basemap.CreateImagery());
+
+            // Assign the map to the MapView
             MyMapView.Map = myMap;
         }
 
@@ -63,15 +77,15 @@ namespace ArcGISRuntime.Windows.Samples.ChangeViewpoint
                 await MyMapView.SetViewpointAsync(MyMapView.Map.InitialViewpoint);
                 var viewpoint = new Viewpoint(_edinburghEnvelope);
                 // Animates the changing of the viewpoint giving a smooth transition from the old to the new view.
-                await MyMapView.SetViewpointAsync(viewpoint, System.TimeSpan.FromSeconds(10));
+                await MyMapView.SetViewpointAsync(viewpoint, TimeSpan.FromSeconds(10));
             }
             catch (Exception ex)
             {
                 var errorMessage = ex.Message;
-                errorDialog = new MessageDialog(errorMessage, "Sample error");
+                _errorDialog = new MessageDialog(errorMessage, "Sample error");
             }
-            if (errorDialog != null)
-                await errorDialog.ShowAsync();
+            if (_errorDialog != null)
+                await _errorDialog.ShowAsync();
         }
 
         private async void OnGeometryButtonClick(object sender, RoutedEventArgs e)
@@ -79,15 +93,15 @@ namespace ArcGISRuntime.Windows.Samples.ChangeViewpoint
             try
             {
                 //Sets the viewpoint extent to the provide bounding geometry   
-                MyMapView.SetViewpointGeometryAsync(_redlandsEnvelope);
+                await MyMapView.SetViewpointGeometryAsync(_redlandsEnvelope);
             }
             catch (Exception ex)
             {
                 var errorMessage = ex.Message;
-                errorDialog = new MessageDialog(errorMessage, "Sample error");
+                _errorDialog = new MessageDialog(errorMessage, "Sample error");
             }
-            if (errorDialog != null)
-                await errorDialog.ShowAsync();
+            if (_errorDialog != null)
+                await _errorDialog.ShowAsync();
         }
 
         private async void OnCentreScaleButtonClick(object sender, RoutedEventArgs e)
@@ -102,10 +116,10 @@ namespace ArcGISRuntime.Windows.Samples.ChangeViewpoint
             catch (Exception ex)
             {
                 var errorMessage = ex.Message;
-                errorDialog = new MessageDialog(errorMessage, "Sample error");
+                _errorDialog = new MessageDialog(errorMessage, "Sample error");
             }
-            if (errorDialog != null)
-                await errorDialog.ShowAsync();
+            if (_errorDialog != null)
+                await _errorDialog.ShowAsync();
         }
 
         private async void OnRotateButtonClick(object sender, RoutedEventArgs e)
@@ -121,10 +135,10 @@ namespace ArcGISRuntime.Windows.Samples.ChangeViewpoint
             catch (Exception ex)
             {
                 var errorMessage = ex.Message;
-                errorDialog = new MessageDialog(errorMessage, "Sample error");
+                _errorDialog = new MessageDialog(errorMessage, "Sample error");
             }
-            if (errorDialog != null)
-                await errorDialog.ShowAsync();
+            if (_errorDialog != null)
+                await _errorDialog.ShowAsync();
         }
     }
 }

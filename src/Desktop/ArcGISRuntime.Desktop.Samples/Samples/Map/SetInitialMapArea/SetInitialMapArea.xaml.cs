@@ -14,13 +14,12 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime;
 
 namespace ArcGISRuntime.Desktop.Samples.SetInitialMapArea
 {
     public partial class SetInitialMapArea
     {
-        private Envelope myEnvelope = new Envelope(
+        private Envelope _myEnvelope = new Envelope(
             -12211308.778729, 4645116.003309, 
             -12208257.879667, 4650542.535773, 
             SpatialReferences.WebMercator);
@@ -30,7 +29,7 @@ namespace ArcGISRuntime.Desktop.Samples.SetInitialMapArea
             InitializeComponent();
 
             //Create a viewpoint from envelope
-            var myViewPoint = new Viewpoint(myEnvelope);
+            var myViewPoint = new Viewpoint(_myEnvelope);
             //Set MapView's Map initial extent
             MyMapView.Map.InitialViewpoint = myViewPoint;
         }

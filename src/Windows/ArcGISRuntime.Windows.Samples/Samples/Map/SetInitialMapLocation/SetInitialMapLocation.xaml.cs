@@ -11,7 +11,7 @@
 //WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and
 //limitations under the License.
-using Esri.ArcGISRuntime;
+
 using Esri.ArcGISRuntime.Mapping;
 
 namespace ArcGISRuntime.Windows.Samples.SetInitialMapLocation
@@ -22,9 +22,16 @@ namespace ArcGISRuntime.Windows.Samples.SetInitialMapLocation
         {
             InitializeComponent();
 
-            //initialize map with `imagery with labels` basemap and an initial location
-            var myMap = new Map(BasemapType.ImageryWithLabels, -33.867886, -63.985, 15);
-            //assign the map to the map view
+            // Create the UI, setup the control references and execute initialization 
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            // Create a map with 'Imagery with Labels' basemap and an initial location
+            Map myMap = new Map(BasemapType.ImageryWithLabels, -33.867886, -63.985, 16);
+
+            // Assign the map to the MapView
             MyMapView.Map = myMap;
         }
     }

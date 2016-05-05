@@ -33,7 +33,7 @@ namespace ArcGISRuntime.Windows.Samples.FeatureLayerDefinitionExpression
             Initialize();
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Create new Map with basemap
             Map myMap = new Map(Basemap.CreateTopographic());
@@ -49,7 +49,7 @@ namespace ArcGISRuntime.Windows.Samples.FeatureLayerDefinitionExpression
             MyMapView.Map = myMap;
 
             // Create the uri for the feature service
-            Uri featureServiceUri = new Uri(
+            var featureServiceUri = new Uri(
                 "http://sampleserver6.arcgisonline.com/arcgis/rest/services/SF311/FeatureServer/0");
 
             // Initialize feature table using a url to feature server url

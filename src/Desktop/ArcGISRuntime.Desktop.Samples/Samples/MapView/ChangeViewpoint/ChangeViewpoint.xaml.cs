@@ -23,14 +23,20 @@ namespace ArcGISRuntime.Desktop.Samples.ChangeViewpoint
 {
     public partial class ChangeViewpoint
     {
-        private MapPoint _londonCoords = new MapPoint(-13881.7678417696, 6710726.57374296, SpatialReferences.WebMercator);
+        // Coordinates for London
+        private MapPoint _londonCoords = new MapPoint(
+            -13881.7678417696, 6710726.57374296, SpatialReferences.WebMercator);
         private double _londonScale = 8762.7156655228955;
-        private Polygon redlandsEnvelope = new Polygon(new List<MapPoint> {
+
+        // Coordinates for Redlands
+        private Polygon _redlandsEnvelope = new Polygon(new List<MapPoint> {
             (new MapPoint(-13049785.1566222, 4032064.6003424)),
             (new MapPoint(-13049785.1566222, 4040202.42595729)),
             (new MapPoint(-13037033.5780234, 4032064.6003424)),
             (new MapPoint(-13037033.5780234, 4040202.42595729))},
             SpatialReferences.WebMercator);
+
+        // Coordinates for Edinburgh
         private Polygon _edinburghEnvelope = new Polygon(new List<MapPoint> {
             (new MapPoint(-354262.156621384, 7548092.94093301)),
             (new MapPoint(-354262.156621384, 7548901.50684376)),
@@ -66,7 +72,7 @@ namespace ArcGISRuntime.Desktop.Samples.ChangeViewpoint
             try
             {
                 // Sets the viewpoint extent to the provided bounding geometry.   
-                MyMapView.SetViewpointGeometryAsync(redlandsEnvelope);
+                MyMapView.SetViewpointGeometryAsync(_redlandsEnvelope);
             }
             catch(Exception ex)
             {
@@ -97,6 +103,7 @@ namespace ArcGISRuntime.Desktop.Samples.ChangeViewpoint
             {
                 // Gets the current rotation value of the map view.
                 var currentRotation = MyMapView.MapRotation;
+
                 // Rotate the viewpoint by the given number of degrees. In this case the current rotation value 
                 // plus 90 is passed, this will result in a the map rotating 90 degrees anti-clockwise.  
                 await MyMapView.SetViewpointRotationAsync(currentRotation + 90.00);

@@ -11,10 +11,9 @@
 //WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and
 //limitations under the License.
-using Esri.ArcGISRuntime;
+
 using Esri.ArcGISRuntime.Mapping;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Collections.Generic;
@@ -24,41 +23,53 @@ namespace ArcGISRuntime.Desktop.Samples.OpenExistingMap
 {
     public partial class OpenExistingMap
     {
-        // Below are three URLs corresponding to Portal Items. In this example the items are Maps. 
-        private string itemURL1 = "http://www.arcgis.com/home/item.html?id=2d6fa24b357d427f9c737774e7b0f977";
-        private string itemURL2 = "http://www.arcgis.com/home/item.html?id=01f052c8995e4b9e889d73c3e210ebe3";
-        private string itemURL3 = "http://www.arcgis.com/home/item.html?id=74a8f6645ab44c4f82d537f1aa0e375d";
+        // String array to hold urls to publicly available web maps
+        private string[] _itemURLs = new string[]
+        {
+            "http://www.arcgis.com/home/item.html?id=2d6fa24b357d427f9c737774e7b0f977",
+            "http://www.arcgis.com/home/item.html?id=01f052c8995e4b9e889d73c3e210ebe3",
+            "http://www.arcgis.com/home/item.html?id=74a8f6645ab44c4f82d537f1aa0e375d"
+        };
 
-        // Corresponding Title strings for the itemUrls.  
-        private string title1 = "Housing with Mortgages";
-        private string title2 = "USA Tapestry Segmentation";
-        private string title3 = "Geology of United States";
+        // String array to store titles for the webmaps specified above. These titles are in the same order as the urls above
+        private string[] _titles = new string[]
+        {
+            "Housing with Mortgages",
+            "USA Tapestry Segmentation",
+            "Geology of United States"
+        };
 
         // Construct Load Map sample control.
         public OpenExistingMap()
         {
             InitializeComponent();
 
-            Loaded += OnLoaded;
+            // Create the UI, setup the control references and execute initialization 
+            Initialize();
         }
 
-        // Loads UI elements and an initial Map.
-        private async void OnLoaded(object sender, RoutedEventArgs e)
+        private void Initialize()
         {
             // Adding items' Titles and URLs to a collection that will be used to populate the combobox's drop down. 
-            ICollection<KeyValuePair<String, String>> comboBoxContent =
-                new Dictionary<String, String>()
+            ICollection<KeyValuePair<string, string>> comboBoxContent =
+                new Dictionary<string, string>
                 {
-                    { title1, itemURL1 },
-                    { title2, itemURL2 },
-                    { title3, itemURL3 }
+                    { _titles[0], _itemURLs[0] },
+                    { _titles[1], _itemURLs[1] },
+                    { _titles[2], _itemURLs[2] }
                 };
 
             try
             {
+                // Set items to combobox
                 comboMap.ItemsSource = comboBoxContent;
                 comboMap.SelectedIndex = 0;
-                await LoadMapAsync(comboBoxContent.FirstOrDefault().Value);
+
+                // Create a new Map instance with url of the webmap that is displayed by default
+                Map myMap = new Map(new Uri(_itemURLs[0]));
+
+                // Provide used Map to the MapView
+                MyMapView.Map = myMap;
             }
             catch (Exception ex)
             {
@@ -70,7 +81,7 @@ namespace ArcGISRuntime.Desktop.Samples.OpenExistingMap
         // Loads a webmap on load button click.
         private async void OnLoadButtonClicked(object sender, RoutedEventArgs e)
         {
-            string url = string.Empty;
+            var url = string.Empty;
             if (comboMap.SelectedIndex >= 0)
             {
                 try

@@ -13,8 +13,7 @@
         </esriUI:MapView>
         <Border Background="White" Margin="20" Padding="20" VerticalAlignment="Top" HorizontalAlignment="Right" Width="320">
             <RelativePanel HorizontalAlignment="Stretch">
-                <Button x:Name="ResetButton"
-                        Content="Reset Expression"
+                <Button Content="Reset Expression"
 		                HorizontalAlignment="Left"
 		                Margin="10,10,0,0"
                         Padding="4"    

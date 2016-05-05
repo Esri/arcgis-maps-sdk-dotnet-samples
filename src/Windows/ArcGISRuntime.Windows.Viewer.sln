@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcGISRuntime.Windows.Viewer", "ArcGISRuntime.Windows.Viewer\ArcGISRuntime.Windows.Viewer.csproj", "{BE5076AF-ECE0-4EA9-994E-37BAD4B19828}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcGISRuntime.Windows.Samples.CSharp", "ArcGISRuntime.Windows.Samples\ArcGISRuntime.Windows.Samples.CSharp.csproj", "{6820B615-C568-4A13-B026-A77CDD348BFA}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ArcGISRuntime.Windows.Samples.VBNet", "ArcGISRuntime.Windows.Samples\ArcGISRuntime.Windows.Samples.VBNet.vbproj", "{18831557-F447-41A5-A09D-57911F6E68E0}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ArcGISRuntime.Windows.Samples.VBNet", "ArcGISRuntime.Windows.Samples\ArcGISRuntime.Windows.Samples.VBNet.vbproj", "{73CF6057-8AC2-40E5-90EB-F733CE87DD93}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ArcGISRuntime.Samples.Shared", "..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.shproj", "{0AD85845-0BA1-4DC9-8C32-E6FD7632E32D}"
 EndProject
@@ -61,20 +61,20 @@ Global
 		{6820B615-C568-4A13-B026-A77CDD348BFA}.Release|x64.Build.0 = Release|x64
 		{6820B615-C568-4A13-B026-A77CDD348BFA}.Release|x86.ActiveCfg = Release|x86
 		{6820B615-C568-4A13-B026-A77CDD348BFA}.Release|x86.Build.0 = Release|x86
-		{18831557-F447-41A5-A09D-57911F6E68E0}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{18831557-F447-41A5-A09D-57911F6E68E0}.Debug|ARM.ActiveCfg = Debug|ARM
-		{18831557-F447-41A5-A09D-57911F6E68E0}.Debug|ARM.Build.0 = Debug|ARM
-		{18831557-F447-41A5-A09D-57911F6E68E0}.Debug|x64.ActiveCfg = Debug|x64
-		{18831557-F447-41A5-A09D-57911F6E68E0}.Debug|x64.Build.0 = Debug|x64
-		{18831557-F447-41A5-A09D-57911F6E68E0}.Debug|x86.ActiveCfg = Debug|x86
-		{18831557-F447-41A5-A09D-57911F6E68E0}.Debug|x86.Build.0 = Debug|x86
-		{18831557-F447-41A5-A09D-57911F6E68E0}.Release|Any CPU.ActiveCfg = Release|x86
-		{18831557-F447-41A5-A09D-57911F6E68E0}.Release|ARM.ActiveCfg = Release|ARM
-		{18831557-F447-41A5-A09D-57911F6E68E0}.Release|ARM.Build.0 = Release|ARM
-		{18831557-F447-41A5-A09D-57911F6E68E0}.Release|x64.ActiveCfg = Release|x64
-		{18831557-F447-41A5-A09D-57911F6E68E0}.Release|x64.Build.0 = Release|x64
-		{18831557-F447-41A5-A09D-57911F6E68E0}.Release|x86.ActiveCfg = Release|x86
-		{18831557-F447-41A5-A09D-57911F6E68E0}.Release|x86.Build.0 = Release|x86
+		{73CF6057-8AC2-40E5-90EB-F733CE87DD93}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{73CF6057-8AC2-40E5-90EB-F733CE87DD93}.Debug|ARM.ActiveCfg = Debug|ARM
+		{73CF6057-8AC2-40E5-90EB-F733CE87DD93}.Debug|ARM.Build.0 = Debug|ARM
+		{73CF6057-8AC2-40E5-90EB-F733CE87DD93}.Debug|x64.ActiveCfg = Debug|x64
+		{73CF6057-8AC2-40E5-90EB-F733CE87DD93}.Debug|x64.Build.0 = Debug|x64
+		{73CF6057-8AC2-40E5-90EB-F733CE87DD93}.Debug|x86.ActiveCfg = Debug|x86
+		{73CF6057-8AC2-40E5-90EB-F733CE87DD93}.Debug|x86.Build.0 = Debug|x86
+		{73CF6057-8AC2-40E5-90EB-F733CE87DD93}.Release|Any CPU.ActiveCfg = Release|x86
+		{73CF6057-8AC2-40E5-90EB-F733CE87DD93}.Release|ARM.ActiveCfg = Release|ARM
+		{73CF6057-8AC2-40E5-90EB-F733CE87DD93}.Release|ARM.Build.0 = Release|ARM
+		{73CF6057-8AC2-40E5-90EB-F733CE87DD93}.Release|x64.ActiveCfg = Release|x64
+		{73CF6057-8AC2-40E5-90EB-F733CE87DD93}.Release|x64.Build.0 = Release|x64
+		{73CF6057-8AC2-40E5-90EB-F733CE87DD93}.Release|x86.ActiveCfg = Release|x86
+		{73CF6057-8AC2-40E5-90EB-F733CE87DD93}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

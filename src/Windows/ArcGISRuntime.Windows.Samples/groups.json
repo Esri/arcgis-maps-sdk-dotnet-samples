@@ -19,7 +19,7 @@
             },
             {
               "SampleName": "MapRotation",
-              "Path": "Samples/Map/MapRotation"
+              "Path": "Samples/MapView/MapRotation"
             },
             {
               "SampleName": "DisplayDrawingStatus",

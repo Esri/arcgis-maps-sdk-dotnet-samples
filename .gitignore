@@ -112,4 +112,5 @@ SampleDescriptions.xml
 /src/.vs/config/applicationhost.config
 /src/Windows/ArcGISRuntime.Windows.Samples/project.lock.json
 /src/Windows/ArcGISRuntime.Windows.Viewer/project.lock.json
+/src/Windows/.vs/config/applicationhost.config
 /src/Windows/.vs/config

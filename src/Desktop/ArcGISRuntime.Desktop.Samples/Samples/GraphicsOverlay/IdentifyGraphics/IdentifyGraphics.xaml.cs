@@ -11,15 +11,13 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace ArcGISRuntime.Desktop.Samples.IdentifyGraphics
 {
-    public partial class IdentifyGraphics : UserControl
+    public partial class IdentifyGraphics
     {
 
         // Graphics overlay to host graphics

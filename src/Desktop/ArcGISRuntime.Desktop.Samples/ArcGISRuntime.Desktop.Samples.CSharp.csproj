@@ -80,9 +80,6 @@
     <Compile Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.xaml.cs">
       <DependentUpon>ChangeFeatureLayerRenderer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.xaml.cs">
-      <DependentUpon>FeatureLayerDefinitionExpression.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.xaml.cs">
       <DependentUpon>FeatureLayerSelection.xaml</DependentUpon>
     </Compile>
@@ -94,6 +91,9 @@
     </Compile>
     <Compile Include="Samples\Map\DisplayMap\DisplayMap.xaml.cs">
       <DependentUpon>DisplayMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.xaml.cs">
+      <DependentUpon>FeatureLayerDefinitionExpression.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Map\OpenExistingMap\OpenExistingMap.xaml.cs">
       <DependentUpon>OpenExistingMap.xaml</DependentUpon>
@@ -124,7 +124,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Samples\NewFolder1\" />
     <Folder Include="Workflows\" />
   </ItemGroup>
   <ItemGroup>
@@ -158,9 +157,6 @@
     <Content Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -171,6 +167,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Map\DisplayMap\DisplayMap.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Map\OpenExistingMap\OpenExistingMap.jpg">
@@ -238,10 +237,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -257,6 +252,10 @@
     <Page Include="Samples\Map\DisplayMap\DisplayMap.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Map\OpenExistingMap\OpenExistingMap.xaml">
       <SubType>Designer</SubType>
@@ -378,11 +377,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Samples\Layers\FeatureLayerDefinitionExpression\metadata.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Samples\Layers\FeatureLayerSelection\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -399,6 +393,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Samples\Map\DisplayMap\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Samples\Layers\FeatureLayerDefinitionExpression\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

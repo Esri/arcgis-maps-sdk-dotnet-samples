@@ -11,7 +11,7 @@
 //WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and
 //limitations under the License.
-using Esri.ArcGISRuntime;
+
 using Esri.ArcGISRuntime.Mapping;
 using System;
 using Windows.UI.Popups;
@@ -24,14 +24,21 @@ namespace ArcGISRuntime.Windows.Samples.MapRotation
         public MapRotation()
         {
             InitializeComponent();
-            // TODO Move this to XAML
-            var myMap = new Map();
 
-            var baseLayer = new ArcGISTiledLayer(
-                new Uri("http://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer"));
-            myMap.Basemap.BaseLayers.Add(baseLayer);
+            // Create the UI, setup the control references and execute initialization 
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            // Create a new Map instance with the basemap  
+            Basemap myBasemap = Basemap.CreateStreets();
+            Map myMap = new Map(myBasemap);
+
+            // Assign the map to the MapView
             MyMapView.Map = myMap;
         }
+    
 
         private async void OnDegreeSliderChange(object sender, RangeBaseValueChangedEventArgs e)
         {

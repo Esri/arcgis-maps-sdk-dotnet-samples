@@ -12,36 +12,34 @@
 //See the License for the specific language governing permissions and
 //limitations under the License.
 
-using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using System;
 
 namespace ArcGISRuntime.Windows.Samples.SetInitialMapArea
 {
     public partial class SetInitialMapArea
     {
-        private Envelope myEnvelope = new Envelope(
-            -12211308.778729, 4645116.003309, 
-            -12208257.879667, 4650542.535773, 
-            SpatialReferences.WebMercator);
-
         public SetInitialMapArea()
         {
             InitializeComponent();
 
-            //TODO Remove and un-comment XAML 
-            var myMap = new Map();
-            var baseLayer = new ArcGISMapImageLayer(
-                new Uri("http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"));
-            myMap.Basemap.BaseLayers.Add(baseLayer);
-            MyMapView.Map = myMap;
-            //TODO
+            // Create the UI, setup the control references and execute initialization 
+            Initialize();
+        }
 
-            //Create a viewpoint from envelope
-            var myViewPoint = new Viewpoint(myEnvelope);
-            //Set MapView's Map initial extent
-            MyMapView.Map.InitialViewpoint = myViewPoint;
+        private void Initialize()
+        {
+            // Create new Map with basemap
+            Map myMap = new Map(Basemap.CreateImagery());
+
+            // Create and set initial map area
+            Envelope initialLocation = new Envelope(
+                -12211308.778729, 4645116.003309, -12208257.879667, 4650542.535773,
+                SpatialReferences.WebMercator);
+            myMap.InitialViewpoint = new Viewpoint(initialLocation);
+
+            // Assign the map to the MapView
+            MyMapView.Map = myMap;
         }
     }
 }

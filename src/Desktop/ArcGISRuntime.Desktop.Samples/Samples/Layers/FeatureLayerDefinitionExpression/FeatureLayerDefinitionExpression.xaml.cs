@@ -1,36 +1,38 @@
-﻿// Copyright 2016 Esri.
+﻿//Copyright 2015 Esri.
 //
-// Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
+//Licensed under the Apache License, Version 2.0 (the "License");
+//you may not use this file except in compliance with the License.
+//You may obtain a copy of the License at
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
-// language governing permissions and limitations under the License.
+//http://www.apache.org/licenses/LICENSE-2.0
+//
+//Unless required by applicable law or agreed to in writing, software
+//distributed under the License is distributed on an "AS IS" BASIS,
+//WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//See the License for the specific language governing permissions and
+//limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using System;
-using System.Windows;
-using System.Windows.Controls;
 
 namespace ArcGISRuntime.Desktop.Samples.FeatureLayerDefinitionExpression
 {
-    public partial class FeatureLayerDefinitionExpression : UserControl
+    public partial class FeatureLayerDefinitionExpression
     {
-
-        // Create and hold reference to the feature layer
+        //Create and hold reference to the feature layer
         private FeatureLayer _featureLayer;
 
         public FeatureLayerDefinitionExpression()
         {
             InitializeComponent();
 
-            // Setup the control references and execute initialization 
+            //setup the control references and execute initialization 
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
             // Create new Map with basemap
             Map myMap = new Map(Basemap.CreateTopographic());
@@ -55,21 +57,21 @@ namespace ArcGISRuntime.Desktop.Samples.FeatureLayerDefinitionExpression
             // Initialize a new feature layer based on the feature table
             _featureLayer = new FeatureLayer(featureTable);
 
-            // Add the feature layer to the map
+            //Add the feature layer to the map
             myMap.OperationalLayers.Add(_featureLayer);
+  
         }
 
-        private void OnApplyExpressionClicked(object sender, RoutedEventArgs e)
+        private void OnApplyExpressionClicked(object sender, EventArgs e)
         {
             // Adding definition expression to show specific features only
             _featureLayer.DefinitionExpression = "req_Type = 'Tree Maintenance or Damage'";
         }
 
-        private void OnResetButtonClicked(object sender, RoutedEventArgs e)
+        private void OnResetButtonClicked(object sender, EventArgs e)
         {
             // Reset the definition expression to see all features again
             _featureLayer.DefinitionExpression = "";
         }
-
     }
 }

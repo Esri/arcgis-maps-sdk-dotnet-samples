@@ -15,12 +15,11 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace ArcGISRuntime.Desktop.Samples.FeatureLayerQuery
 {
-    public partial class FeatureLayerQuery : UserControl
+    public partial class FeatureLayerQuery
     {
 
         // Create reference to service of US States  

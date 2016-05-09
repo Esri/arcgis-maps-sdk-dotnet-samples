@@ -11,11 +11,10 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using System;
-using System.Windows.Controls;
 
 namespace ArcGISRuntime.Desktop.Samples.ServiceFeatureTableNoCache
 {
-    public partial class ServiceFeatureTableNoCache : UserControl
+    public partial class ServiceFeatureTableNoCache
     {
         public ServiceFeatureTableNoCache()
         {

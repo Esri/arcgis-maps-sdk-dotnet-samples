@@ -8,6 +8,6 @@
     mc:Ignorable="d" 
     d:DesignHeight="300" d:DesignWidth="400">
     <Grid>
-        <esriUI:MapView Name="MyMapView"/>
+        <esriUI:MapView x:Name="MyMapView"/>
     </Grid>
 </UserControl>

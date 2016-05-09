@@ -11,7 +11,7 @@
 //WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and
 //limitations under the License.
-using Esri.ArcGISRuntime;
+
 using Esri.ArcGISRuntime.Mapping;
 using System;
 
@@ -23,12 +23,26 @@ namespace ArcGISRuntime.Windows.Samples.ArcGISTiledLayerUrl
         {
             InitializeComponent();
 
-            // TODO : Move this to XAML
-            var myMap = new Map();
+            // Create the UI, setup the control references and execute initialization 
+            Initialize();
+        }
 
-            var baseLayer = new ArcGISTiledLayer(
-                new Uri("http://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer"));
-            myMap.Basemap.BaseLayers.Add(baseLayer);
+        private void Initialize()
+        {
+            // Create new Map
+            Map myMap = new Map();
+
+            // Create uri to the tiled service
+            var serviceUri = new Uri(
+               "http://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer");
+
+            // Create new tiled layer from the url
+            ArcGISTiledLayer imageLayer = new ArcGISTiledLayer(serviceUri);
+
+            // Add created layer to the basemaps collection
+            myMap.Basemap.BaseLayers.Add(imageLayer);
+
+            // Assign the map to the MapView
             MyMapView.Map = myMap;
         }
     }

@@ -12,12 +12,11 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
-using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace ArcGISRuntime.Desktop.Samples.AddGraphicsRenderer
 {
-    public partial class AddGraphicsRenderer : UserControl
+    public partial class AddGraphicsRenderer
     {
         public AddGraphicsRenderer()
         {

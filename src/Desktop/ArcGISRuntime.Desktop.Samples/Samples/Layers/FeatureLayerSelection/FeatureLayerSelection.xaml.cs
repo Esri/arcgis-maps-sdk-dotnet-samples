@@ -14,12 +14,11 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using System;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace ArcGISRuntime.Desktop.Samples.FeatureLayerSelection
 {
-    public partial class FeatureLayerSelection : UserControl
+    public partial class FeatureLayerSelection
     {
 
         // Create and hold reference to the feature layer

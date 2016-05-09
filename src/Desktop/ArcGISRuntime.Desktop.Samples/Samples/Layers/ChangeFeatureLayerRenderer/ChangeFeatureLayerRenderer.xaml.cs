@@ -13,12 +13,11 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace ArcGISRuntime.Desktop.Samples.ChangeFeatureLayerRenderer
 {
-    public partial class ChangeFeatureLayerRenderer : UserControl
+    public partial class ChangeFeatureLayerRenderer
     {
 
         // Create and hold reference to the feature layer

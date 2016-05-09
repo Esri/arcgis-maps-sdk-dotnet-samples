@@ -10,11 +10,10 @@
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
 using System.Threading;
-using System.Windows.Controls;
 
 namespace ArcGISRuntime.Desktop.Samples.AccessLoadStatus
 {
-    public partial class AccessLoadStatus : UserControl
+    public partial class AccessLoadStatus
     {
         public AccessLoadStatus()
         {
@@ -39,7 +38,10 @@ namespace ArcGISRuntime.Desktop.Samples.AccessLoadStatus
         private void OnMapsLoadStatusChanged(object sender, LoadStatusEventArgs e)
         {
             // Update the load status information
-            Dispatcher.BeginInvoke(new ThreadStart(() => loadStatusLabel.Content = string.Format("Maps' load status : {0}", e.Status.ToString())));
+            Dispatcher.BeginInvoke(
+                new ThreadStart(() => 
+                loadStatusLabel.Content = string.Format("Maps' load status : {0}", e.Status.ToString())
+                ));
         }
     }
 }

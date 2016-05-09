@@ -8,11 +8,10 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
-using System.Windows.Controls;
 
 namespace ArcGISRuntime.Desktop.Samples.DisplayMap
 {
-    public partial class DisplayMap : UserControl
+    public partial class DisplayMap
     {
         public DisplayMap()
         {

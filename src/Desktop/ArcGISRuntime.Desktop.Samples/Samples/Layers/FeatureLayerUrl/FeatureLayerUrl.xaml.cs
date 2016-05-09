@@ -10,14 +10,10 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using System;
-using System.Windows.Controls;
 
 namespace ArcGISRuntime.Desktop.Samples.FeatureLayerUrl
 {
-    /// <summary>
-    /// Interaction logic for FeatureLayerUrl.xaml
-    /// </summary>
-    public partial class FeatureLayerUrl : UserControl
+    public partial class FeatureLayerUrl
     {
         public FeatureLayerUrl()
         {

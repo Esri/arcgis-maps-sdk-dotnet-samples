@@ -26,6 +26,7 @@ Namespace ServiceFeatureTableNoCache
         End Sub
 
         Private Sub Initialize()
+
             ' Create new Map with basemap
             Dim myMap As New Map(Basemap.CreateTopographic())
 
@@ -50,6 +51,7 @@ Namespace ServiceFeatureTableNoCache
 
             ' Assign the map to the MapView
             MyMapView.Map = myMap
+
         End Sub
 
     End Class

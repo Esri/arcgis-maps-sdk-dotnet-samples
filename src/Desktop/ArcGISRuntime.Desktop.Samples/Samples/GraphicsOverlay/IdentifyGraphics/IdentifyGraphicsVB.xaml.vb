@@ -79,7 +79,10 @@ Namespace IdentifyGraphics
             Dim maximumResults = 1 ' Only return one graphic
 
             ' Use the following method to identify graphics in a specific graphics overlay
-            Dim identifyResults As IReadOnlyList(Of Graphic) = Await MyMapView.IdentifyGraphicsOverlayAsync(_polygonOverlay, e.Position, tolerance, maximumResults)
+            Dim identifyResults As IReadOnlyList(Of Graphic) = Await MyMapView.IdentifyGraphicsOverlayAsync(
+                _polygonOverlay,
+                e.Position,
+                tolerance, maximumResults)
 
             ' Check if we got results
             If identifyResults.Count > 0 Then

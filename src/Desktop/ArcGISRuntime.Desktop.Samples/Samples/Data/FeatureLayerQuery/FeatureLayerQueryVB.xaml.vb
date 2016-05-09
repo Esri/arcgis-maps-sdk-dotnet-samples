@@ -65,6 +65,7 @@ Namespace FeatureLayerQuery
 
             ' Assign the map to the MapView
             myMapView.Map = myMap
+
         End Sub
 
         Private Async Sub OnQueryClicked(sender As Object, e As System.Windows.RoutedEventArgs)
@@ -78,7 +79,9 @@ Namespace FeatureLayerQuery
         End Sub
 
         Private Async Function QueryStateFeature(ByVal stateName As String) As Task
+
             Try
+
                 ' Create a query parameters that will be used to Query the feature table  
                 Dim queryParams As New QueryParameters()
 
@@ -92,6 +95,7 @@ Namespace FeatureLayerQuery
                 Dim features = queryResult.ToList()
 
                 If features.Any() Then
+
                     ' Get the first feature returned in the Query result 
                     Dim feature As Feature = features(0)
 
@@ -100,12 +104,19 @@ Namespace FeatureLayerQuery
 
                     ' Zoom to the extent of the newly selected feature
                     Await myMapView.SetViewpointGeometryAsync(feature.Geometry.Extent)
+
                 Else
+
                     MessageBox.Show("State Not Found!", "Add a valid state name.")
+
                 End If
+
             Catch ex As Exception
+
                 MessageBox.Show("Sample error", "An error occurred" & ex.ToString())
+
             End Try
+
         End Function
 
     End Class

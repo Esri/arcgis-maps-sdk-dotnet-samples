@@ -10,11 +10,11 @@
 Imports Esri.ArcGISRuntime.Data
 Imports Esri.ArcGISRuntime.Geometry
 Imports Esri.ArcGISRuntime.Mapping
-Imports System
 
 Namespace ServiceFeatureTableCache
 
     Public Class ServiceFeatureTableCacheVB
+
         Public Sub New()
 
             InitializeComponent()

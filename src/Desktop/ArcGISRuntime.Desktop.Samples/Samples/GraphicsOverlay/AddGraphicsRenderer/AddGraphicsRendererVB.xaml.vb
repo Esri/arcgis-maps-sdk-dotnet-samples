@@ -27,6 +27,7 @@ Namespace AddGraphicsRenderer
         End Sub
 
         Private Sub Initialize()
+
             ' Create a map with 'Imagery with Labels' basemap and an initial location
             Dim myMap As New Map(BasemapType.ImageryWithLabels, 34.056295, -117.1958, 14)
 
@@ -35,9 +36,11 @@ Namespace AddGraphicsRenderer
 
             ' Assign the map to the MapView
             MyMapView.Map = myMap
+
         End Sub
 
         Private Sub OnViewpointChanged(ByVal sender As Object, ByVal e As EventArgs)
+
             ' Unhook the event
             RemoveHandler MyMapView.ViewpointChanged, AddressOf OnViewpointChanged
 
@@ -68,8 +71,10 @@ Namespace AddGraphicsRenderer
 
             ' Add points to the graphics overlay
             For Each point In points
+
                 ' Create new graphic and add it to the overlay
                 overlay.Graphics.Add(New Graphic(point))
+
             Next point
 
             ' Create symbol for points

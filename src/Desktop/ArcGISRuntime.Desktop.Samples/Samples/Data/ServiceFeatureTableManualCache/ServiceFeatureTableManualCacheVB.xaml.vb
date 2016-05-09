@@ -11,7 +11,6 @@ Imports Esri.ArcGISRuntime
 Imports Esri.ArcGISRuntime.Data
 Imports Esri.ArcGISRuntime.Geometry
 Imports Esri.ArcGISRuntime.Mapping
-Imports System
 
 Namespace ServiceFeatureTableManualCache
 
@@ -29,6 +28,7 @@ Namespace ServiceFeatureTableManualCache
         End Sub
 
         Private Sub Initialize()
+
             ' Create new Map with basemap
             Dim myMap As New Map(Basemap.CreateTopographic())
 
@@ -56,22 +56,28 @@ Namespace ServiceFeatureTableManualCache
 
             ' Assign the map to the MapView
             MyMapView.Map = myMap
+
         End Sub
 
         Private Async Sub OnLoadedPopulateData(ByVal sender As Object, ByVal e As LoadStatusEventArgs)
+
             ' If layer isn't loaded, do nothing
             If e.Status <> LoadStatus.Loaded Then
                 Return
             End If
 
             ' Create new query object that contains parameters to query specific request types
-            Dim queryParameters As New QueryParameters() With {.WhereClause = "req_Type = 'Tree Maintenance or Damage'"}
+            Dim queryParameters As New QueryParameters() With
+                {
+                .WhereClause = "req_Type = 'Tree Maintenance or Damage'"
+                }
 
             ' Create list of the fields that are returned from the service
             Dim outputFields = New String() {"*"}
 
             ' Populate feature table with the data based on query
             Await _incidentsFeatureTable.PopulateFromServiceAsync(queryParameters, True, outputFields)
+
         End Sub
 
     End Class

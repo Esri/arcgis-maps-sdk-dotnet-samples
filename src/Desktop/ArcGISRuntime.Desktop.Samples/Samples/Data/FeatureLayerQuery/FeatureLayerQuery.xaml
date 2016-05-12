@@ -12,7 +12,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackPanel  Orientation="Vertical" Grid.Row="0">
-            <TextBlock x:Name="queryEntry" Text="New York"/>
+            <TextBox x:Name="queryEntry" Text="New York"/>
             <Button Content="Query" Click="OnQueryClicked"/>
         </StackPanel>
         <esri:MapView x:Name="myMapView" Grid.Row="1"/>

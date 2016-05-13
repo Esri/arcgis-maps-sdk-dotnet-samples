@@ -52,6 +52,13 @@
 
     This sample demonstrates how to apply definition expression to a feature layer for filtering features. It also shows how to reset the definition expression.
 
+
+- **Feature Tables**
+
+    * [Feature layer query](ArcGISRuntime.Windows.Samples/Samples/Data/FeatureLayerQuery)
+
+    This sample demonstrates how to return features from a feature layer using an attribute query on the underlying feature table.
+
 ## Display Information
 
 

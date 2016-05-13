@@ -15,9 +15,17 @@
 
 - **Map**
 
+    * [Display a map](ArcGISRuntime.Desktop.Samples/Samples/Map/DisplayMap)
+
+    This samples demonstrates how to display a map with a basemap
+
     * [Open an existing map](ArcGISRuntime.Desktop.Samples/Samples/Map/OpenExistingMap)
 
     This sample demonstrates how to open an existing map from a portal. The sample opens with a map displayed by default. You can change the shown map by selecting a new one from the populated list.
+
+    * [Access load status](ArcGISRuntime.Desktop.Samples/Samples/Map/AccessLoadStatus)
+
+    This sample demonstrates how to access the Maps' LoadStatus. The LoadStatus will be considered loaded when the following are true: The Map has a valid SpatialReference and the Map has an been set to the MapView.
 
     * [Set initial map location](ArcGISRuntime.Desktop.Samples/Samples/Map/SetInitialMapLocation)
 
@@ -51,6 +59,18 @@
 
 
 - **Feature Layers**
+
+    * [Feature layer (feature service)](ArcGISRuntime.Desktop.Samples/Samples/Layers/FeatureLayerUrl)
+
+    This sample demonstrates how to show a feature layer on a map using the URL to the service.
+
+    * [Change feature layer renderer](ArcGISRuntime.Desktop.Samples/Samples/Layers/ChangeFeatureLayerRenderer)
+
+    This sample demonstrates how to change renderer for a feature layer. It also shows how to reset the renderer back to the default.
+
+    * [Feature layer selection](ArcGISRuntime.Desktop.Samples/Samples/Layers/FeatureLayerSelection)
+
+    This sample demonstrates how to select features in a feature layer by tapping a MapView.
 
     * [Feature layer definition expression](ArcGISRuntime.Desktop.Samples/Samples/Layers/FeatureLayerDefinitionExpression)
 

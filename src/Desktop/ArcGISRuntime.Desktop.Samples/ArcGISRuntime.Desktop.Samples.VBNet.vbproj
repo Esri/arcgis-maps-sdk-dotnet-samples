@@ -80,6 +80,7 @@
     <Content Include="groups.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
     <Content Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.jpg" />
     <Content Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.jpg" />
     <Content Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.jpg" />
@@ -97,9 +98,9 @@
     <Content Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg" />
     <Content Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg" />
     <Content Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.jpg" />
-    <Content Include="Samples\Symbology\SimpleMarkerSym\SimpleMarkerSym.jpg" />
-    <Content Include="Samples\Symbology\SimpleMarkerSym\SimpleMarkerSym.xaml.cs" />
-    <Content Include="Samples\Symbology\UniqueValueRenderer\UniqueValueRenderer.jpg" />
+    <Content Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.jpg" />
+    <Content Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.jpg" />
+    <Content Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.jpg" />
     <Content Include="Tutorials\FirstMapApp\FirstMapApp.jpg" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
@@ -143,10 +144,9 @@
     <None Include="Samples\Map\SetMapSpatialReference\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Samples\Symbology\SimpleMarkerSym\metadata.json" />
-    <None Include="Samples\Symbology\UniqueValueRenderer\metadata.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Samples\Symbology\RenderPictureMarkers\metadata.json" />
+    <None Include="Samples\Symbology\RenderSimpleMarkers\metadata.json" />
+    <None Include="Samples\Symbology\RenderUniqueValues\metadata.json" />
     <None Include="Tutorials\FirstMapApp\metadata.json" />
   </ItemGroup>
   <ItemGroup>
@@ -199,8 +199,14 @@
     <Compile Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReferenceVB.xaml.vb">
       <DependentUpon>SetMapSpatialReferenceVB.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Symbology\UniqueValueRenderer\UniqueValueRendererVB.xaml.vb">
-      <DependentUpon>UniqueValueRendererVB.xaml</DependentUpon>
+    <Compile Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkersVB.xaml.vb">
+      <DependentUpon>RenderPictureMarkersVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkersVB.xaml.vb">
+      <DependentUpon>RenderSimpleMarkersVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValuesVB.xaml.vb">
+      <DependentUpon>RenderUniqueValuesVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tutorials\FirstMapApp\FirstMapAppVB.xaml.vb">
       <DependentUpon>FirstMapAppVB.xaml</DependentUpon>
@@ -267,13 +273,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Symbology\SimpleMarkerSym\SimpleMarkerSym.xaml">
+    <Page Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkersVB.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\Symbology\UniqueValueRenderer\UniqueValueRendererVB.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkersVB.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValuesVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Tutorials\FirstMapApp\FirstMapAppVB.xaml">
       <Generator>MSBuild:Compile</Generator>

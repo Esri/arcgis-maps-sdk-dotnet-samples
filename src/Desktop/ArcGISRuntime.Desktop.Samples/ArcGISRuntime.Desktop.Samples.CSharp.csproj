@@ -110,11 +110,14 @@
     <Compile Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.xaml.cs">
       <DependentUpon>SetMapSpatialReference.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Symbology\SimpleMarkerSym\SimpleMarkerSym.xaml.cs">
-      <DependentUpon>SimpleMarkerSym.xaml</DependentUpon>
+    <Compile Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.xaml.cs">
+      <DependentUpon>RenderPictureMarkers.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Symbology\UniqueValueRenderer\UniqueValueRenderer.xaml.cs">
-      <DependentUpon>UniqueValueRenderer.xaml</DependentUpon>
+    <Compile Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.xaml.cs">
+      <DependentUpon>RenderSimpleMarkers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.xaml.cs">
+      <DependentUpon>RenderUniqueValues.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tutorials\FirstMapApp\FirstMapApp.xaml.cs">
       <DependentUpon>FirstMapApp.xaml</DependentUpon>
@@ -130,6 +133,7 @@
     <Content Include="groups.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
     <Content Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -187,10 +191,13 @@
     <Content Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Symbology\SimpleMarkerSym\SimpleMarkerSym.jpg">
+    <Content Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Symbology\UniqueValueRenderer\UniqueValueRenderer.jpg">
+    <Content Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Tutorials\FirstMapApp\FirstMapApp.jpg">
@@ -277,11 +284,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\Symbology\SimpleMarkerSym\SimpleMarkerSym.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\Symbology\UniqueValueRenderer\UniqueValueRenderer.xaml">
+    <Page Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -313,11 +324,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Samples\Symbology\UniqueValueRenderer\metadata.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Samples\MapView\MapRotation\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -329,11 +335,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Samples\MapView\ChangeViewpoint\metadata.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Samples\Symbology\SimpleMarkerSym\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -398,6 +399,21 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Samples\Layers\FeatureLayerDefinitionExpression\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Samples\Symbology\RenderPictureMarkers\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Samples\Symbology\RenderSimpleMarkers\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Samples\Symbology\RenderUniqueValues\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -10,7 +10,6 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using System;
-using System.Windows;
 
 namespace ArcGISRuntime.Desktop.Samples.SetMapSpatialReference
 {
@@ -21,27 +20,27 @@ namespace ArcGISRuntime.Desktop.Samples.SetMapSpatialReference
         public SetMapSpatialReference()
         {
             InitializeComponent();
+
+            // Create the UI, setup the control references and execute initialization 
             Initialize();
         }
 
         private void Initialize()
         {
-            try
-            {
-                //Create a map with World_Bonne projection
-                var myMap = new Map(SpatialReference.Create(54024));
-                //Create a map image layer which can re-project itself to the map's spatial reference
-                var layer = new ArcGISMapImageLayer(new Uri(_imageLayerUrl));
-                //Set the map image layer as basemap
-                myMap.Basemap.BaseLayers.Add(layer);
-                //Set the map to be displayed in this view
-                MyMapView.Map = myMap;
-            }
-            catch (Exception ex)
-            {
-                var errorMessage = "Map cannot be loaded. " + ex.Message;
-                MessageBox.Show(errorMessage, "Sample error");
-            }
+            // Create new Map using spatial reference as world bonne (54024)
+            Map myMap = new Map(SpatialReference.Create(54024));
+
+            // Adding a map image layer which can reproject itself to the map's spatial reference
+            // Note: Some layer such as tiled layer cannot reproject and will fail to draw if their spatial 
+            // reference is not the same as the map's spatial reference
+            ArcGISMapImageLayer operationalLayer = new ArcGISMapImageLayer(new Uri(
+                "http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer"));
+
+            // Add operational layer to the Map
+            myMap.OperationalLayers.Add(operationalLayer);
+
+            // Assign the map to the MapView
+            MyMapView.Map = myMap;
         }
     }
 }

@@ -14,19 +14,29 @@ namespace ArcGISRuntime.Desktop.Samples.SetInitialMapArea
 {
     public partial class SetInitialMapArea
     {
-        private Envelope _myEnvelope = new Envelope(
-            -12211308.778729, 4645116.003309, 
-            -12208257.879667, 4650542.535773, 
-            SpatialReferences.WebMercator);
 
         public SetInitialMapArea()
         {
             InitializeComponent();
 
-            //Create a viewpoint from envelope
-            var myViewPoint = new Viewpoint(_myEnvelope);
-            //Set MapView's Map initial extent
-            MyMapView.Map.InitialViewpoint = myViewPoint;
+            // Create the UI, setup the control references and execute initialization 
+            Initialize();
+
+        }
+
+        private void Initialize()
+        {
+            // Create new Map with basemap
+            Map myMap = new Map(Basemap.CreateImagery());
+
+            // Create and set initial map area
+            Envelope initialLocation = new Envelope(
+                -12211308.778729, 4645116.003309, -12208257.879667, 4650542.535773,
+                SpatialReferences.WebMercator);
+            myMap.InitialViewpoint = new Viewpoint(initialLocation);
+
+            // Assign the map to the MapView
+            MyMapView.Map = myMap;
         }
     }
 }

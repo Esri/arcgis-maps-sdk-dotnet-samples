@@ -15,7 +15,6 @@ namespace ArcGISRuntime.Desktop.Samples.SetMapSpatialReference
 {
     public partial class SetMapSpatialReference
     {
-        private string _imageLayerUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer";
 
         public SetMapSpatialReference()
         {

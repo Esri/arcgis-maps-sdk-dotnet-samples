@@ -11,22 +11,32 @@ Imports Esri.ArcGISRuntime.Geometry
 Imports Esri.ArcGISRuntime.Mapping
 
 Namespace SetInitialMapArea
+
     Partial Public Class SetInitialMapAreaVB
 
-        Private myEnvelope As New Envelope(
-            -12211308.778729, 4645116.003309,
-            -12208257.879667, 4650542.535773,
-            SpatialReferences.WebMercator)
 
         Public Sub New()
             InitializeComponent()
 
-            'Create a viewpoint from envelope
-            Dim myViewPoint = New Viewpoint(myEnvelope)
-            'Set MapView's Map initial extent
-            MyMapView.Map.InitialViewpoint = myViewPoint
+            ' Create the UI, setup the control references and execute initialization 
+            Initialize()
+
+        End Sub
+
+        Private Sub Initialize()
+
+            ' Create new Map with basemap
+            Dim myMap As New Map(Basemap.CreateImagery())
+
+            ' Create and set initial map area
+            Dim initialLocation As New Envelope(-12211308.778729, 4645116.003309, -12208257.879667, 4650542.535773, SpatialReferences.WebMercator)
+            myMap.InitialViewpoint = New Viewpoint(initialLocation)
+
+            ' Assign the map to the MapView
+            MyMapView.Map = myMap
 
         End Sub
 
     End Class
+
 End Namespace

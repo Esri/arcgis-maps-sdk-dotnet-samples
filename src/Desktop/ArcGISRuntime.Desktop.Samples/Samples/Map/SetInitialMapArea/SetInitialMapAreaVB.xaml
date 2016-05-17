@@ -5,19 +5,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
-    xmlns:local="clr-namespace:ArcGISRuntime.Desktop.Samples"
     mc:Ignorable="d" 
     d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <esri:MapView Name="MyMapView">
-            <esri:Map>
-                <esri:Map.Basemap>
-                    <esri:Basemap>
-                        <esri:ArcGISTiledLayer Name="Topographic"
-                            Source="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"/>
-                    </esri:Basemap>
-                </esri:Map.Basemap>
-            </esri:Map>
-        </esri:MapView>
+        <esri:MapView x:Name="MyMapView"/>
     </Grid>
 </UserControl>

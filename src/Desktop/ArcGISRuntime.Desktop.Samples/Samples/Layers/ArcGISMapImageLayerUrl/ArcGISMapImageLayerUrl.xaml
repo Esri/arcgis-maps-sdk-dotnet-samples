@@ -8,15 +8,8 @@
     mc:Ignorable="d" 
     d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <esri:MapView>
-            <esri:Map>
-                <esri:Map.Basemap>
-                    <esri:Basemap>
-                        <esri:ArcGISMapImageLayer Name="Topographic"
-                            Source="http://sampleserver5.arcgisonline.com/arcgis/rest/services/Elevation/WorldElevations/MapServer"/>
-                    </esri:Basemap>
-                </esri:Map.Basemap>                  
-            </esri:Map>
+        <esri:MapView x:Name="MyMapView">
+            <esri:Map/>
         </esri:MapView>
     </Grid>
 </UserControl>

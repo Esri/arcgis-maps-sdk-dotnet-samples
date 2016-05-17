@@ -9,34 +9,38 @@
 
 Imports Esri.ArcGISRuntime.Geometry
 Imports Esri.ArcGISRuntime.Mapping
-Imports System.Windows
 
 Namespace SetMapSpatialReference
     Partial Public Class SetMapSpatialReferenceVB
 
-        Private imageLayerUrl As String = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer"
-
         Public Sub New()
+
             InitializeComponent()
-            LoadMap()
+
+            ' Create the UI, setup the control references and execute initialization 
+            Initialize()
+
         End Sub
 
-        Private Sub LoadMap()
-            Try
-                'Create a map with World_Bonne projection
-                Dim myMap = New Map(SpatialReference.Create(54024))
-                'Create a map image layer which can re-project itself to the map's spatial reference
-                Dim layer = New ArcGISMapImageLayer(New Uri(imageLayerUrl))
-                'Set the map image layer as basemap
-                myMap.Basemap.BaseLayers.Add(layer)
-                'Set the map to be displayed in this view
-                MyMapView.Map = myMap
-            Catch ex As Exception
-                Dim errorMessage = "Map cannot be loaded. " + ex.Message
-                MessageBox.Show(errorMessage, "Sample error")
-            End Try
+        Private Sub Initialize()
+
+            ' Create new Map using spatial reference as world bonne (54024)
+            Dim myMap As New Map(SpatialReference.Create(54024))
+
+            ' Adding a map image layer which can reproject itself to the map's spatial reference
+            ' Note: Some layer such as tiled layer cannot reproject and will fail to draw if their spatial 
+            ' reference is not the same as the map's spatial reference
+            Dim operationalLayer As New ArcGISMapImageLayer(New Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer"))
+
+            ' Add operational layer to the Map
+            myMap.OperationalLayers.Add(operationalLayer)
+
+            ' Assign the map to the MapView
+            MyMapView.Map = myMap
+
         End Sub
 
     End Class
+
 End Namespace
 

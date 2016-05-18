@@ -7,11 +7,12 @@
 ' "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 ' language governing permissions and limitations under the License.
 
+Imports Esri.ArcGISRuntime.Geometry
 Imports Esri.ArcGISRuntime.Mapping
 
-Namespace ArcGISMapImageLayerUrl
+Namespace SetMapSpatialReference
 
-    Public Class ArcGISMapImageLayerUrlVB
+    Public Class SetMapSpatialReferenceVB
 
         Public Sub New()
 
@@ -24,17 +25,17 @@ Namespace ArcGISMapImageLayerUrl
 
         Private Sub Initialize()
 
-            ' Create new Map
-            Dim myMap As New Map()
+            ' Create new Map using spatial reference as world bonne (54024)
+            Dim myMap As New Map(SpatialReference.Create(54024))
 
-            ' Create uri to the map image layer
-            Dim serviceUri = New Uri("http://sampleserver5.arcgisonline.com/arcgis/rest/services/Elevation/WorldElevations/MapServer")
+            ' Adding a map image layer which can reproject itself to the map's spatial reference
+            ' Note: Some layer such as tiled layer cannot reproject and will fail to draw if their spatial 
+            ' reference is not the same as the map's spatial reference
+            Dim operationalLayer As New ArcGISMapImageLayer(New Uri(
+                   "http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer"))
 
-            ' Create new image layer from the url
-            Dim imageLayer As New ArcGISMapImageLayer(serviceUri)
-
-            ' Add created layer to the basemaps collection
-            myMap.Basemap.BaseLayers.Add(imageLayer)
+            ' Add operational layer to the Map
+            myMap.OperationalLayers.Add(operationalLayer)
 
             ' Assign the map to the MapView
             MyMapView.Map = myMap
@@ -44,4 +45,3 @@ Namespace ArcGISMapImageLayerUrl
     End Class
 
 End Namespace
-

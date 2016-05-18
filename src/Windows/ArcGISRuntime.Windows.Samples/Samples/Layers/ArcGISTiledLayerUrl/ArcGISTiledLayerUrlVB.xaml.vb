@@ -9,13 +9,15 @@
 
 Imports Esri.ArcGISRuntime.Mapping
 
-Namespace ArcGISMapImageLayerUrl
+Namespace ArcGISTiledLayerUrl
 
-    Public Class ArcGISMapImageLayerUrlVB
+    Public Class ArcGISTiledLayerUrlVB
 
         Public Sub New()
 
             InitializeComponent()
+
+            ' Add any initialization after the InitializeComponent() call.
 
             ' Create the UI, setup the control references and execute initialization 
             Initialize()
@@ -27,11 +29,11 @@ Namespace ArcGISMapImageLayerUrl
             ' Create new Map
             Dim myMap As New Map()
 
-            ' Create uri to the map image layer
-            Dim serviceUri = New Uri("http://sampleserver5.arcgisonline.com/arcgis/rest/services/Elevation/WorldElevations/MapServer")
+            ' Create uri to the tiled service
+            Dim serviceUri = New Uri("http://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer")
 
-            ' Create new image layer from the url
-            Dim imageLayer As New ArcGISMapImageLayer(serviceUri)
+            ' Create new tiled layer from the url
+            Dim imageLayer As New ArcGISTiledLayer(serviceUri)
 
             ' Add created layer to the basemaps collection
             myMap.Basemap.BaseLayers.Add(imageLayer)
@@ -44,4 +46,3 @@ Namespace ArcGISMapImageLayerUrl
     End Class
 
 End Namespace
-

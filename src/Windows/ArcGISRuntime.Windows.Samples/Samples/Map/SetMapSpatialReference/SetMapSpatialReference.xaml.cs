@@ -15,8 +15,6 @@ namespace ArcGISRuntime.Windows.Samples.SetMapSpatialReference
 {
     public partial class SetMapSpatialReference
     {
-        private string _imageLayerUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer";
-
         public SetMapSpatialReference()
         {
             InitializeComponent();
@@ -34,7 +32,7 @@ namespace ArcGISRuntime.Windows.Samples.SetMapSpatialReference
             // Note: Some layer such as tiled layer cannot reproject and will fail to draw if their spatial 
             // reference is not the same as the map's spatial reference
             ArcGISMapImageLayer operationalLayer = new ArcGISMapImageLayer(new Uri(
-                _imageLayerUrl));
+                "http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer"));
 
             // Add operational layer to the Map
             myMap.OperationalLayers.Add(operationalLayer);

@@ -95,9 +95,17 @@
     <None Include="groups.json" />
     <None Include="project.json" />
     <None Include="Samples\Data\FeatureLayerQuery\metadata.json" />
+    <None Include="Samples\Data\ServiceFeatureTableCache\metadata.json" />
+    <None Include="Samples\Data\ServiceFeatureTableManualCache\metadata.json" />
+    <None Include="Samples\Data\ServiceFeatureTableNoCache\metadata.json" />
+    <None Include="Samples\GraphicsOverlay\AddGraphicsRenderer\metadata.json" />
     <None Include="Samples\Layers\ArcGISMapImageLayerUrl\metadata.json" />
     <None Include="Samples\Layers\ArcGISMapImageLayerUrl\README.md" />
     <Content Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.jpg" />
+    <Content Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.jpg" />
+    <Content Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.jpg" />
+    <Content Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.jpg" />
+    <Content Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.jpg" />
     <Content Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -118,6 +126,18 @@
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="Samples\Data\FeatureLayerQuery\FeatureLayerQueryVB.xaml.vb">
       <DependentUpon>FeatureLayerQueryVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCacheVB.xaml.vb">
+      <DependentUpon>ServiceFeatureTableCacheVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCacheVB.xaml.vb">
+      <DependentUpon>ServiceFeatureTableManualCacheVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCacheVB.xaml.vb">
+      <DependentUpon>ServiceFeatureTableNoCacheVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRendererVB.xaml.vb">
+      <DependentUpon>AddGraphicsRendererVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrlVB.xaml.vb">
       <DependentUpon>ArcGISMapImageLayerUrlVB.xaml</DependentUpon>
@@ -192,6 +212,22 @@
     <Page Include="Samples\Data\FeatureLayerQuery\FeatureLayerQueryVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCacheVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCacheVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCacheVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRendererVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrlVB.xaml">
       <Generator>MSBuild:Compile</Generator>

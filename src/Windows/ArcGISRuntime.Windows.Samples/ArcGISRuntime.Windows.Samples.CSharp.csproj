@@ -88,6 +88,18 @@
     <Content Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -145,11 +157,35 @@
     <Content Include="Samples\Data\FeatureLayerQuery\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Data\ServiceFeatureTableCache\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\ServiceFeatureTableManualCache\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\ServiceFeatureTableNoCache\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GraphicsOverlay\AddGraphicsRenderer\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.xaml.cs">
       <DependentUpon>FeatureLayerQuery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.xaml.cs">
+      <DependentUpon>ServiceFeatureTableCache.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.xaml.cs">
+      <DependentUpon>ServiceFeatureTableManualCache.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.xaml.cs">
+      <DependentUpon>ServiceFeatureTableNoCache.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.xaml.cs">
+      <DependentUpon>AddGraphicsRenderer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.xaml.cs">
       <DependentUpon>ArcGISMapImageLayerUrl.xaml</DependentUpon>
@@ -189,6 +225,22 @@
     <Page Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.xaml">
       <Generator>MSBuild:Compile</Generator>

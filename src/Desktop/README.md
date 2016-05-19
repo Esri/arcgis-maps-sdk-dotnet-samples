@@ -33,7 +33,7 @@
 
     * [Set initial map area](ArcGISRuntime.Desktop.Samples/Samples/Map/SetInitialMapArea)
 
-    This sample displays a map at a specific viewpoint. In this sample a viewpoint is constructed from an envelope defined by minimum (x,y) and maximum (x,y) values. The map's initialViewpoint is set to this viewpoint before the map is loaded. Upon loading the map zooms to this initial area.
+    This sample demonstrates how to set the initial viewpoint from envelope defined by minimum (x,y) and maximum (x,y) values. The map's InitialViewpoint is set to this viewpoint before the map is loaded into the MapView. Upon loading the map zoom to this initial area.
 
     * [Set map spatial reference](ArcGISRuntime.Desktop.Samples/Samples/Map/SetMapSpatialReference)
 
@@ -46,7 +46,7 @@
 
     * [ArcGIS tiled layer (URL)](ArcGISRuntime.Desktop.Samples/Samples/Layers/ArcGISTiledLayerUrl)
 
-    The Tiled Layer from URL sample is one of the most basic .Net SDK samples. This example covers using ArcGISTiledLayer as a Basemap, as well as adding the required map and MapView elements. By default, this map supports basic zooming and panning operations.
+    This sample demonstrates how to add an ArcGISTiledLayer as a base layer in a map. The ArcGISTiledLayer comes from an ArcGIS Server sample web service.
 
 
 - **Map Image Layers**
@@ -107,6 +107,21 @@
     * [Identify graphics](ArcGISRuntime.Desktop.Samples/Samples/GraphicsOverlay/IdentifyGraphics)
 
     This sample demonstrates how to identify graphics in a graphics overlay. When you tap on a graphic on the map, you will see an alert message displayed.
+
+
+- **Symbology**
+
+    * [Render simple markers](ArcGISRuntime.Desktop.Samples/Samples/Symbology/RenderSimpleMarkers)
+
+    This sample adds a point graphic to a graphics overlay symbolized with a red circle specified via a SimpleMarkerSymbol.
+
+    * [Render picture markers](ArcGISRuntime.Desktop.Samples/Samples/Symbology/RenderPictureMarkers)
+
+    This sample demonstrates how to create picture marker symbols from a URL and embedded resources.
+
+    * [Render unique values](ArcGISRuntime.Desktop.Samples/Samples/Symbology/RenderUniqueValues)
+
+    This sample demonstrate how to use a unique value renderer to style different features in a feature layer with different symbols. Features do not have a symbol property for you to set, renderers should be used to define the symbol for features in feature layers. The unique value renderer allows for separate symbols to be used for features that have specific attribute values in a defined field.
 
 
 

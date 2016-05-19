@@ -15,6 +15,10 @@
 
 - **Map**
 
+    * [Access load status](ArcGISRuntime.Windows.Samples/Samples/Map/AccessLoadStatus)
+
+    This sample demonstrates how to access the Maps' LoadStatus. The LoadStatus will be considered loaded when the following are true: The Map has a valid SpatialReference and the Map has an been set to the MapView.
+
     * [Set initial map location](ArcGISRuntime.Windows.Samples/Samples/Map/SetInitialMapLocation)
 
     This sample creates a map with a standard ESRI Imagery with Labels basemap that is centered on a latitude and longitude location and zoomed into a specific level of detail.
@@ -55,11 +59,45 @@
 
 - **Feature Tables**
 
+    * [Service feature table (cache)](ArcGISRuntime.Windows.Samples/Samples/Data/ServiceFeatureTableCache)
+
+    This sample demonstrates how to use a feature service in on interaction cache mode.
+
+    * [Service feature table (no cache)](ArcGISRuntime.Windows.Samples/Samples/Data/ServiceFeatureTableNoCache)
+
+    This sample demonstrates how to use a feature service in on interaction no cache mode.
+
+    * [Service feature table (manual cache)](ArcGISRuntime.Windows.Samples/Samples/Data/ServiceFeatureTableManualCache)
+
+    This sample demonstrates how to use a feature service in manual cache mode.
+
     * [Feature layer query](ArcGISRuntime.Windows.Samples/Samples/Data/FeatureLayerQuery)
 
     This sample demonstrates how to return features from a feature layer using an attribute query on the underlying feature table.
 
 ## Display Information
+
+
+- **Graphics Overlays**
+
+    * [Add graphics (Renderer)](ArcGISRuntime.Windows.Samples/Samples/GraphicsOverlay/AddGraphicsRenderer)
+
+    This sample demonstrates how you add graphics and set a renderer on a graphic overlays.
+
+
+- **Symbology**
+
+    * [Render simple markers](ArcGISRuntime.Windows.Samples/Samples/Symbology/RenderSimpleMarkers)
+
+    This sample adds a point graphic to a graphics overlay symbolized with a red circle specified via a SimpleMarkerSymbol.
+
+    * [Render picture markers](ArcGISRuntime.Windows.Samples/Samples/Symbology/RenderPictureMarkers)
+
+    This sample demonstrates how to create picture marker symbols from a URL and embedded resources.
+
+    * [Render unique values](ArcGISRuntime.Windows.Samples/Samples/Symbology/RenderUniqueValues)
+
+    This sample demonstrate how to use a unique value renderer to style different features in a feature layer with different symbols. Features do not have a symbol property for you to set, renderers should be used to define the symbol for features in feature layers. The unique value renderer allows for separate symbols to be used for features that have specific attribute values in a defined field.
 
 
 

@@ -2,9 +2,11 @@
 
 This project contains samples for the ArcGIS Runtime SDK for .NET.
 
-## Samples
+## Samples - Table of Contents
 
-Please see [Table of Contents](TableOfContents.md).
+See Table of Contents under different platforms
+  * [Desktop](src/Desktop)
+  * [Universal Windows Platform](src/Windows)
 
 ## Instructions 
 

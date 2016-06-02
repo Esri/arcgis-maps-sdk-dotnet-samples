@@ -24,6 +24,14 @@
             {
               "SampleName": "DisplayDrawingStatus",
               "Path": "Samples/MapView/DisplayDrawingStatus"
+            },
+            {
+              "SampleName": "DisplayLayerViewState",
+              "Path": "Samples/MapView/DisplayLayerViewState"
+            },
+              {
+              "SampleName":"TakeScreenshot",
+              "Path":"Samples/MapView/TakeScreenshot"
             }
           ]
         },
@@ -75,7 +83,7 @@
         {
           "Name": "Tiled Layers",
           "SubCategoryName": "ArcGISTiledLayer",
-          "ShowGroup": true,
+          "ShowGroup": false,
           "SampleInfos": [
             {
               "SampleName": "ArcGISTiledLayerUrl",
@@ -86,7 +94,7 @@
         {
           "Name": "Map Image Layers",
           "SubCategoryName": "ArcGISMapImageLayer",
-          "ShowGroup": true,
+          "ShowGroup": false,
           "SampleInfos": [
             {
               "SampleName": "ArcGISMapImageLayerUrl",
@@ -107,7 +115,7 @@
         {
           "Name": "Feature Layers",
           "SubCategoryName": "FeatureLayers",
-          "ShowGroup": true,
+          "ShowGroup": false,
           "SampleInfos": [
             {
               "SampleName": "FeatureLayerUrl",
@@ -130,7 +138,7 @@
         {
           "Name": "Feature Tables",
           "SubCategoryName": "FeatureTables",
-          "ShowGroup": true,
+          "ShowGroup": false,
           "SampleInfos": [
             {
               "SampleName": "ServiceFeatureTableCache",
@@ -159,7 +167,7 @@
         {
           "Name": "Graphics Overlays",
           "SubCategoryName": "GraphicsOverlay",
-          "ShowGroup": true,
+          "ShowGroup": false,
           "SampleInfos": [
             {
               "SampleName": "AddGraphicsRenderer",
@@ -174,7 +182,7 @@
         {
           "Name": "Symbology",
           "SubCategoryName": "Symbology",
-          "ShowGroup": true,
+          "ShowGroup": false,
           "SampleInfos": [
             {
               "SampleName": "RenderSimpleMarkers",
@@ -191,11 +199,36 @@
           ]
         }
       ]
+    },
+     {
+      "Name": "Location",
+      "CategoryName": "Location",
+      "SubCategories": [
+        {
+          "Name": "Display Location",
+          "SubCategoryName": "DisplayLocation",
+          "ShowGroup": false,
+          "SampleInfos": [
+            {
+              "SampleName": "DisplayDeviceLocation",
+              "Path": "Samples/Location/DisplayDeviceLocation"
+            }
+          ]
+        }
+      ]
     }
   ],
   "Featured": [
     {
-      "SampleName": "ExampleSample",
+      "SampleName": "ChangeBasemap",
+      "Reason": 1
+    },
+    {
+      "SampleName": "ChangeBasemap",
+      "Reason": 1
+    },
+     {
+      "SampleName": "ChangeBasemap",
       "Reason": 1
     }
   ]

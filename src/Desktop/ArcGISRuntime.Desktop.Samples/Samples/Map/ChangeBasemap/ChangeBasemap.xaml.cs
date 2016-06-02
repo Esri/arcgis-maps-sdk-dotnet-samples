@@ -49,29 +49,21 @@ namespace ArcGISRuntime.Desktop.Samples.ChangeBasemap
             switch (selectedBasemap)
             {
                 case "Topo":
-
                     // Set the basemap to Topographic
                     MyMapView.Map.Basemap = Basemap.CreateTopographic();
                     break;
-
-                case "Streets":
-
+                case "Streets":  
                     // Set the basemap to Streets
                     MyMapView.Map.Basemap = Basemap.CreateStreets();
                     break;
-
                 case "Imagery":
-
                     // Set the basemap to Imagery
                     MyMapView.Map.Basemap = Basemap.CreateImagery();
                     break;
-
                 case "Ocean":
-
-                    // Set the basemap to Imagery
+                    // Set the basemap to Oceans
                     MyMapView.Map.Basemap = Basemap.CreateOceans();
                     break;
-
                 default:
                     break;
             }

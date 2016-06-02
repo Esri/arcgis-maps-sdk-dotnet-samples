@@ -1,7 +1,7 @@
 {
   "Name": "Take Screenshot",
   "SampleName": "TakeScreenshot",
-  "Description": "This sample demonstrates how you can take screenshot of a map. The app has a Screenshot button in the bottom toolbar you can tap to take screenshot of the visible area of the map. You can pan or zoom to a specific location and tap on the button, which also shows you the preview of the image produced. You can tap on the Close Preview button to close image preview.",
+  "Description": "This sample demonstrates how you can take screenshot of a map. Click 'take screenshot' button to take a screenshot of the visible area of the map. Created image is shown in the sample after creation.",
   "Instructions": "",
   "Type": 0,
   "RequiresOnlineConnection":true,

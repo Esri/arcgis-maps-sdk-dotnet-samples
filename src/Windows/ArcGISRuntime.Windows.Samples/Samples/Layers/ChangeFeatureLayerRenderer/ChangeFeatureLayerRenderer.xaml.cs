@@ -12,10 +12,10 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using System;
-using System.Windows;
-using System.Windows.Media;
+using Windows.UI;
+using Windows.UI.Xaml;
 
-namespace ArcGISRuntime.Desktop.Samples.ChangeFeatureLayerRenderer
+namespace ArcGISRuntime.Windows.Samples.ChangeFeatureLayerRenderer
 {
     public partial class ChangeFeatureLayerRenderer
     {

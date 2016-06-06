@@ -8,9 +8,9 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
-using System.Windows.Controls;
+using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntime.Desktop.Samples.ChangeBasemap
+namespace ArcGISRuntime.Windows.Samples.ChangeBasemap
 {
     public partial class ChangeBasemap
     {
@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Desktop.Samples.ChangeBasemap
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Setup the control references and execute initialization 
             Initialize();
         }
 
@@ -36,14 +36,14 @@ namespace ArcGISRuntime.Desktop.Samples.ChangeBasemap
             // Create new Map with basemap
             Map myMap = new Map(Basemap.CreateTopographic());
 
-            // Set titles as a items source
-            basemapChooser.ItemsSource = titles;
-
             // Assign the map to the MapView
             MyMapView.Map = myMap;
+
+            // Set titles as a items source
+            basemapChooser.ItemsSource = titles;
         }
 
-        private void OnBasemapChooserSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void OnBasemapListSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selectedBasemap = e.AddedItems[0].ToString();
 
@@ -53,7 +53,7 @@ namespace ArcGISRuntime.Desktop.Samples.ChangeBasemap
                     // Set the basemap to Topographic
                     MyMapView.Map.Basemap = Basemap.CreateTopographic();
                     break;
-                case "Streets":  
+                case "Streets":
                     // Set the basemap to Streets
                     MyMapView.Map.Basemap = Basemap.CreateStreets();
                     break;

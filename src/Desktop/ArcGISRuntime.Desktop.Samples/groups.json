@@ -7,7 +7,7 @@
         {
           "Name": "MapView",
           "SubCategoryName": "MapView",
-          "ShowGroup": true,
+          "ShowGroup": false,
           "SampleInfos": [
             {
               "SampleName": "ShowMagnifier",
@@ -38,7 +38,7 @@
         {
           "Name": "Map",
           "SubCategoryName": "Map",
-          "ShowGroup": true,
+          "ShowGroup": false,
           "SampleInfos": [
             {
               "SampleName": "DisplayMap",
@@ -220,7 +220,7 @@
   ],
   "Featured": [
     {
-      "SampleName": "ChangeBasemap",
+      "SampleName": "OpenExistingMap",
       "Reason": 1
     },
     {
@@ -228,7 +228,7 @@
       "Reason": 1
     },
      {
-      "SampleName": "ChangeBasemap",
+      "SampleName": "DisplayDeviceLocation",
       "Reason": 1
     }
   ]

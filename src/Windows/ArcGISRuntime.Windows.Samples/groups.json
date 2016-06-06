@@ -24,6 +24,14 @@
             {
               "SampleName": "DisplayDrawingStatus",
               "Path": "Samples/MapView/DisplayDrawingStatus"
+            },
+            {
+              "SampleName": "DisplayLayerViewState",
+              "Path": "Samples/MapView/DisplayLayerViewState"
+            },
+                                    {
+              "SampleName": "TakeScreenshot",
+              "Path": "Samples/MapView/TakeScreenshot"
             }
           ]
         },

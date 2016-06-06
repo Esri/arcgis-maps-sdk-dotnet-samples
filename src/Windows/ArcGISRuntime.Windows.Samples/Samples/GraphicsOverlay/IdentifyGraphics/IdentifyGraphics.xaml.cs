@@ -12,19 +12,19 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Media;
+using Windows.UI;
+using Windows.UI.Popups;
 
-namespace ArcGISRuntime.Desktop.Samples.IdentifyGraphics
+namespace ArcGISRuntime.Windows.Samples.IdentifyGraphics
 {
-    public partial class IdentifyGraphics
+    public sealed partial class IdentifyGraphics
     {
         // Graphics overlay to host graphics
         private GraphicsOverlay _polygonOverlay;
 
         public IdentifyGraphics()
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization 
             Initialize();
@@ -89,7 +89,7 @@ namespace ArcGISRuntime.Desktop.Samples.IdentifyGraphics
             if (identifyResults.Count > 0)
             {
                 //  Display to the user the identify worked.
-                MessageBox.Show("Tapped on graphic", "");
+                var message = new MessageDialog("Tapped on graphic", "").ShowAsync();
             }
         }
     }

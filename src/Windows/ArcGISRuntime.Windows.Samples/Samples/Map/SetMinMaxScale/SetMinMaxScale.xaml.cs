@@ -9,14 +9,17 @@
 
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using System;
 
-namespace ArcGISRuntime.Desktop.Samples.SetMinMaxScale
+namespace ArcGISRuntime.Windows.Samples.SetMinMaxScale
 {
     public partial class SetMinMaxScale
     {
         public SetMinMaxScale()
         {
             InitializeComponent();
+
+            // Create the UI, setup the control references and execute initialization 
             Initialize();
         }
 

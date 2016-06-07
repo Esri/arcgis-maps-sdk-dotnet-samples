@@ -10,7 +10,6 @@
 Imports Esri.ArcGISRuntime.Mapping
 
 Namespace ArcGISMapImageLayerUrl
-
     Public Class ArcGISMapImageLayerUrlVB
 
         Public Sub New()
@@ -19,9 +18,7 @@ Namespace ArcGISMapImageLayerUrl
 
             ' Create the UI, setup the control references and execute initialization 
             Initialize()
-
         End Sub
-
 
         Private Sub Initialize()
 
@@ -39,10 +36,7 @@ Namespace ArcGISMapImageLayerUrl
 
             ' Assign the map to the MapView
             MyMapView.Map = myMap
-
         End Sub
-
     End Class
-
 End Namespace
 

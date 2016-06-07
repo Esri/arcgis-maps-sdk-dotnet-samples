@@ -19,7 +19,6 @@ namespace ArcGISRuntime.Desktop.Samples.IdentifyGraphics
 {
     public partial class IdentifyGraphics
     {
-
         // Graphics overlay to host graphics
         private GraphicsOverlay _polygonOverlay;
 
@@ -93,6 +92,5 @@ namespace ArcGISRuntime.Desktop.Samples.IdentifyGraphics
                 MessageBox.Show("Tapped on graphic", "");
             }
         }
-
     }
 }

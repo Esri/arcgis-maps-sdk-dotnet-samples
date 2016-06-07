@@ -9,11 +9,9 @@
 
 Imports Esri.ArcGISRuntime.Mapping
 
-Namespace ArcGISMapImageLayerUrl
-    Public Class ArcGISMapImageLayerUrlVB
-
+Namespace DisplayMap
+    Partial Public Class DisplayMapVB
         Public Sub New()
-
             InitializeComponent()
 
             ' Create the UI, setup the control references and execute initialization 
@@ -21,22 +19,11 @@ Namespace ArcGISMapImageLayerUrl
         End Sub
 
         Private Sub Initialize()
-
-            ' Create new Map
-            Dim myMap As New Map()
-
-            ' Create uri to the map image layer
-            Dim serviceUri = New Uri("http://sampleserver5.arcgisonline.com/arcgis/rest/services/Elevation/WorldElevations/MapServer")
-
-            ' Create new image layer from the url
-            Dim imageLayer As New ArcGISMapImageLayer(serviceUri)
-
-            ' Add created layer to the basemaps collection
-            myMap.Basemap.BaseLayers.Add(imageLayer)
+            ' Create new Map with basemap
+            Dim myMap As New Map(Basemap.CreateImagery())
 
             ' Assign the map to the MapView
             MyMapView.Map = myMap
         End Sub
     End Class
 End Namespace
-

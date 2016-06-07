@@ -1,8 +1,8 @@
-#Display a map
+#Display Device Location
 
-This samples demonstrates how to display a map with a basemap
+This sample demonstrates how you can enable location services and switch between different types of auto pan modes.
 
-<img src="DisplayMap.jpg" width="350"/>
+<img src="DisplayDeviceLocation.jpg" width="350"/>
 
 ### Instructions
 

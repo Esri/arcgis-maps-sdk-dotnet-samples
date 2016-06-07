@@ -1,8 +1,8 @@
-#Add graphics (Renderer)
+#Identify graphics
 
-This sample demonstrates how you add graphics and set a renderer on a graphic overlays.
+This sample demonstrates how to identify graphics in a graphics overlay. When you tap on a graphic on the map, you will see an alert message displayed.
 
-<img src="AddGraphicsRenderer.jpg" width="350"/>
+<img src="IdentifyGraphics.jpg" width="350"/>
 
 ### Instructions
 

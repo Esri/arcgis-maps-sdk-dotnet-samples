@@ -1,8 +1,8 @@
-#Change feature layer renderer
+#Change sublayer visibility
 
-This sample demonstrates how to change renderer for a feature layer. It also shows how to reset the renderer back to the default.
+This sample demonstrates how to show or hide sublayers of a map image layer.
 
-<img src="ChangeFeatureLayerRenderer.jpg" width="350"/>
+<img src="ChangeSublayerVisibility.jpg" width="350"/>
 
 ### Instructions
 

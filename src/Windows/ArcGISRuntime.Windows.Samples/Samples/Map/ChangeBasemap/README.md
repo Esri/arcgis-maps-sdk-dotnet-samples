@@ -1,8 +1,8 @@
-#Feature layer definition expression
+#Change basemap
 
-This sample demonstrates how to apply definition expression to a feature layer for filtering features. It also shows how to reset the definition expression.
+This sample demonstrates how to dynamically change the basemap displayed in a Map.
 
-<img src="FeatureLayerDefinitionExpression.jpg" width="350"/>
+<img src="ChangeBasemap.jpg" width="350"/>
 
 ### Instructions
 

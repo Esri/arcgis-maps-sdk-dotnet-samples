@@ -1,8 +1,8 @@
-#Access load status
+#Display drawing status
 
-This sample demonstrates how to access the Maps' LoadStatus. The LoadStatus will be considered loaded when the following are true: The Map has a valid SpatialReference and the Map has an been set to the MapView.
+This sample demonstrates how to use the DrawStatus value of the MapView to notify user that the MapView is drawing.
 
-<img src="AccessLoadStatus.jpg" width="350"/>
+<img src="DisplayDrawingStatus.jpg" width="350"/>
 
 ### Instructions
 

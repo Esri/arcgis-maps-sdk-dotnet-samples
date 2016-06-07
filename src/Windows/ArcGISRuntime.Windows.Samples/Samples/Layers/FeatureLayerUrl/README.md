@@ -1,8 +1,8 @@
-#Feature layer definition expression
+#Feature layer (feature service)
 
-This sample demonstrates how to apply definition expression to a feature layer for filtering features. It also shows how to reset the definition expression.
+This sample demonstrates how to show a feature layer on a map using the URL to the service.
 
-<img src="FeatureLayerDefinitionExpression.jpg" width="350"/>
+<img src="FeatureLayerUrl.jpg" width="350"/>
 
 ### Instructions
 

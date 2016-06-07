@@ -1,8 +1,8 @@
-#Feature layer definition expression
+#Open an existing map
 
-This sample demonstrates how to apply definition expression to a feature layer for filtering features. It also shows how to reset the definition expression.
+This sample demonstrates how to open an existing map from a portal. The sample opens with a map displayed by default. You can change the shown map by selecting a new one from the populated list.
 
-<img src="FeatureLayerDefinitionExpression.jpg" width="350"/>
+<img src="OpenExistingMap.jpg" width="350"/>
 
 ### Instructions
 

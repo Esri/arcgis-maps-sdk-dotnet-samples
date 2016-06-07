@@ -1,8 +1,8 @@
-#Feature layer definition expression
+#Take Screenshot
 
-This sample demonstrates how to apply definition expression to a feature layer for filtering features. It also shows how to reset the definition expression.
+This sample demonstrates how you can take screenshot of a map. Click 'capture' button to take a screenshot of the visible area of the map. Created image is shown in the sample after creation.
 
-<img src="FeatureLayerDefinitionExpression.jpg" width="350"/>
+<img src="TakeScreenshot.jpg" width="350"/>
 
 ### Instructions
 

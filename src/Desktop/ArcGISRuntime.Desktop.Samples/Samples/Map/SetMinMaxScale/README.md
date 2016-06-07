@@ -1,8 +1,8 @@
-#Access load status
+#Set Min & Max Scale
 
-This sample demonstrates how to access the Maps' LoadStatus. The LoadStatus will be considered loaded when the following are true: The Map has a valid SpatialReference and the Map has an been set to the MapView.
+This sample demonstrates how to set the minimum and maximum scale of a Map. Setting the minimum and maximum scale for the Map can be useful in keeping the user focused at a certain level of detail.
 
-<img src="AccessLoadStatus.jpg" width="350"/>
+<img src="SetMinMaxScale.jpg" width="350"/>
 
 ### Instructions
 

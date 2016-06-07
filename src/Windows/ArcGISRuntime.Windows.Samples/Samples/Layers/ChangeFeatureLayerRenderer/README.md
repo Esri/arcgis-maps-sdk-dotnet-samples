@@ -1,8 +1,8 @@
-#Feature layer definition expression
+#Change feature layer renderer
 
-This sample demonstrates how to apply definition expression to a feature layer for filtering features. It also shows how to reset the definition expression.
+This sample demonstrates how to change renderer for a feature layer. It also shows how to reset the renderer back to the default.
 
-<img src="FeatureLayerDefinitionExpression.jpg" width="350"/>
+<img src="ChangeFeatureLayerRenderer.jpg" width="350"/>
 
 ### Instructions
 

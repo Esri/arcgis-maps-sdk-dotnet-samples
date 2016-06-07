@@ -1,8 +1,8 @@
-#Feature layer definition expression
+#Change sublayer visibility
 
-This sample demonstrates how to apply definition expression to a feature layer for filtering features. It also shows how to reset the definition expression.
+This sample demonstrates how to show or hide sublayers of a map image layer.
 
-<img src="FeatureLayerDefinitionExpression.jpg" width="350"/>
+<img src="ChangeSublayerVisibility.jpg" width="350"/>
 
 ### Instructions
 

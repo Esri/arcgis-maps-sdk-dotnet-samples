@@ -1,8 +1,8 @@
-#Feature layer definition expression
+#Feature layer selection
 
-This sample demonstrates how to apply definition expression to a feature layer for filtering features. It also shows how to reset the definition expression.
+This sample demonstrates how to select features in a feature layer by tapping a MapView.
 
-<img src="FeatureLayerDefinitionExpression.jpg" width="350"/>
+<img src="FeatureLayerSelection.jpg" width="350"/>
 
 ### Instructions
 

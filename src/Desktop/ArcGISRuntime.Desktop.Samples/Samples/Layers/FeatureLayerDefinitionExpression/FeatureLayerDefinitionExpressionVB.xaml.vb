@@ -11,7 +11,7 @@ Imports Esri.ArcGISRuntime.Data
 Imports Esri.ArcGISRuntime.Geometry
 Imports Esri.ArcGISRuntime.Mapping
 
-Namespace ArcGISRuntime.Desktop.Samples.FeatureLayerDefinitionExpression
+Namespace FeatureLayerDefinitionExpression
     Partial Public Class FeatureLayerDefinitionExpressionVB
         'Create and hold reference to the feature layer
         Private _featureLayer As FeatureLayer

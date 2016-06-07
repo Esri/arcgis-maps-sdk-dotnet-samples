@@ -1,8 +1,8 @@
-#Set initial map area
+#Display a map
 
-This sample displays a map at a specific viewpoint. In this sample a viewpoint is constructed from an envelope defined by minimum (x,y) and maximum (x,y) values. The map's initialViewpoint is set to this viewpoint before the map is loaded. Upon loading the map zooms to this initial area.
+This samples demonstrates how to display a map with a basemap
 
-<img src="SetInitialMapArea.jpg" width="350"/>
+<img src="DisplayMap.jpg" width="350"/>
 
 ### Instructions
 

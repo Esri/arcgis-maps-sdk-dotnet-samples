@@ -9,7 +9,6 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace ArcGISRuntime.Desktop.Samples.TakeScreenshot
 {

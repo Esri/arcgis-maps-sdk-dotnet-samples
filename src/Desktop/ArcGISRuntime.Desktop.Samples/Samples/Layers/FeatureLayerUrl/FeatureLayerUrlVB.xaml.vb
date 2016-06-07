@@ -7,13 +7,12 @@
 ' "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 ' language governing permissions and limitations under the License.
 
+Imports Esri.ArcGISRuntime.Geometry
 Imports Esri.ArcGISRuntime.Mapping
 
-Namespace ArcGISMapImageLayerUrl
-    Public Class ArcGISMapImageLayerUrlVB
-
+Namespace FeatureLayerUrl
+    Partial Public Class FeatureLayerUrlVB
         Public Sub New()
-
             InitializeComponent()
 
             ' Create the UI, setup the control references and execute initialization 
@@ -21,22 +20,24 @@ Namespace ArcGISMapImageLayerUrl
         End Sub
 
         Private Sub Initialize()
+            ' Create new Map with basemap
+            Dim myMap As New Map(Basemap.CreateTerrainWithLabels())
 
-            ' Create new Map
-            Dim myMap As New Map()
+            ' Create and set initial map location
+            Dim initialLocation As New MapPoint(-13176752, 4090404, SpatialReferences.WebMercator)
+            myMap.InitialViewpoint = New Viewpoint(initialLocation, 300000)
 
-            ' Create uri to the map image layer
-            Dim serviceUri = New Uri("http://sampleserver5.arcgisonline.com/arcgis/rest/services/Elevation/WorldElevations/MapServer")
+            ' Create uri to the used feature service
+            Dim serviceUri = New Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Energy/Geology/FeatureServer/9")
 
-            ' Create new image layer from the url
-            Dim imageLayer As New ArcGISMapImageLayer(serviceUri)
+            ' Create new FeatureLayer from service uri and
+            Dim geologyLayer As New FeatureLayer(serviceUri)
 
-            ' Add created layer to the basemaps collection
-            myMap.Basemap.BaseLayers.Add(imageLayer)
+            ' Add created layer to the map
+            myMap.OperationalLayers.Add(geologyLayer)
 
             ' Assign the map to the MapView
             MyMapView.Map = myMap
         End Sub
     End Class
 End Namespace
-

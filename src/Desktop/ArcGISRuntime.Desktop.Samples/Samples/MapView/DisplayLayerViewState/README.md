@@ -1,8 +1,8 @@
-#Access load status
+#Display layer view state
 
-This sample demonstrates how to access the Maps' LoadStatus. The LoadStatus will be considered loaded when the following are true: The Map has a valid SpatialReference and the Map has an been set to the MapView.
+This sample demonstrates how to get view status for layers in a map.
 
-<img src="AccessLoadStatus.jpg" width="350"/>
+<img src="DisplayLayerViewState.jpg" width="350"/>
 
 ### Instructions
 

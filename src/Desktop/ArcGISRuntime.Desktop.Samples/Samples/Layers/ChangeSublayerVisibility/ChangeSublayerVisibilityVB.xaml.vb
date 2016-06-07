@@ -9,34 +9,38 @@
 
 Imports Esri.ArcGISRuntime.Mapping
 
-Namespace ArcGISMapImageLayerUrl
-    Public Class ArcGISMapImageLayerUrlVB
-
+Namespace ChangeSublayerVisibility
+    Partial Public Class ChangeSublayerVisibilityVB
         Public Sub New()
-
             InitializeComponent()
 
-            ' Create the UI, setup the control references and execute initialization 
+            ' Setup the control references and execute initialization 
             Initialize()
         End Sub
 
-        Private Sub Initialize()
-
+        Private Async Sub Initialize()
             ' Create new Map
             Dim myMap As New Map()
 
             ' Create uri to the map image layer
-            Dim serviceUri = New Uri("http://sampleserver5.arcgisonline.com/arcgis/rest/services/Elevation/WorldElevations/MapServer")
+            Dim serviceUri = New Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer")
 
             ' Create new image layer from the url
-            Dim imageLayer As New ArcGISMapImageLayer(serviceUri)
+            Dim imageLayer As New ArcGISMapImageLayer(serviceUri) With {
+                .Name = "World Cities Population"
+            }
 
             ' Add created layer to the basemaps collection
             myMap.Basemap.BaseLayers.Add(imageLayer)
 
             ' Assign the map to the MapView
             MyMapView.Map = myMap
+
+            ' Wait that the image layer is loaded and sublayer information is fetched
+            Await imageLayer.LoadAsync()
+
+            ' Assign sublayers to the listview
+            sublayerListView.ItemsSource = imageLayer.Sublayers
         End Sub
     End Class
 End Namespace
-

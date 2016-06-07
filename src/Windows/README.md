@@ -12,8 +12,32 @@
 
     This sample demonstrates how to rotate a map.
 
+    * [Display drawing status](ArcGISRuntime.Windows.Samples/Samples/MapView/DisplayDrawingStatus)
+
+    This sample demonstrates how to use the DrawStatus value of the MapView to notify user that the MapView is drawing.
+
+    * [Display layer view state](ArcGISRuntime.Windows.Samples/Samples/MapView/DisplayLayerViewState)
+
+    This sample demonstrates how to get view status for layers in a map.
+
+    * [Take Screenshot](ArcGISRuntime.Windows.Samples/Samples/MapView/TakeScreenshot)
+
+    This sample demonstrates how you can take screenshot of a map. Click 'capture' button to take a screenshot of the visible area of the map. Created image is shown in the sample after creation.
+
 
 - **Map**
+
+    * [Display a map](ArcGISRuntime.Windows.Samples/Samples/Map/DisplayMap)
+
+    This samples demonstrates how to display a map with a basemap
+
+    * [Open an existing map](ArcGISRuntime.Windows.Samples/Samples/Map/OpenExistingMap)
+
+    This sample demonstrates how to open an existing map from a portal. The sample opens with a map displayed by default. You can change the shown map by selecting a new one from the populated list.
+
+    * [Set Min & Max Scale](ArcGISRuntime.Windows.Samples/Samples/Map/SetMinMaxScale)
+
+    This sample demonstrates how to set the minimum and maximum scale of a Map. Setting the minimum and maximum scale for the Map can be useful in keeping the user focused at a certain level of detail.
 
     * [Access load status](ArcGISRuntime.Windows.Samples/Samples/Map/AccessLoadStatus)
 
@@ -31,6 +55,10 @@
 
     This sample demonstrates how you can set the spatial reference on a Map and all the layers would project accordingly.
 
+    * [Change basemap](ArcGISRuntime.Windows.Samples/Samples/Map/ChangeBasemap)
+
+    This sample demonstrates how to dynamically change the basemap displayed in a Map.
+
 ## Layers
 
 
@@ -47,10 +75,26 @@
 
     The image layer from URL sample is one of the most basic .Net SDK samples. This example covers using ArcGISMapImageLayer as a Basemap, as well as adding the required map and MapView elements. By default, this map supports basic zooming and panning operations.
 
+    * [Change sublayer visibility](ArcGISRuntime.Windows.Samples/Samples/Layers/ChangeSublayerVisibility)
+
+    This sample demonstrates how to show or hide sublayers of a map image layer.
+
 ## Features
 
 
 - **Feature Layers**
+
+    * [Feature layer (feature service)](ArcGISRuntime.Windows.Samples/Samples/Layers/FeatureLayerUrl)
+
+    This sample demonstrates how to show a feature layer on a map using the URL to the service.
+
+    * [Change feature layer renderer](ArcGISRuntime.Windows.Samples/Samples/Layers/ChangeFeatureLayerRenderer)
+
+    This sample demonstrates how to change renderer for a feature layer. It also shows how to reset the renderer back to the default.
+
+    * [Feature layer selection](ArcGISRuntime.Windows.Samples/Samples/Layers/FeatureLayerSelection)
+
+    This sample demonstrates how to select features in a feature layer by tapping a MapView.
 
     * [Feature layer definition expression](ArcGISRuntime.Windows.Samples/Samples/Layers/FeatureLayerDefinitionExpression)
 
@@ -83,6 +127,10 @@
     * [Add graphics (Renderer)](ArcGISRuntime.Windows.Samples/Samples/GraphicsOverlay/AddGraphicsRenderer)
 
     This sample demonstrates how you add graphics and set a renderer on a graphic overlays.
+
+    * [Identify graphics](ArcGISRuntime.Windows.Samples/Samples/GraphicsOverlay/IdentifyGraphics)
+
+    This sample demonstrates how to identify graphics in a graphics overlay. When you tap on a graphic on the map, you will see an alert message displayed.
 
 
 - **Symbology**

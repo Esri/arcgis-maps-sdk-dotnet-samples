@@ -1,8 +1,8 @@
-#Display a map
+#Change basemap
 
-This samples demonstrates how to display a map with a basemap
+This sample demonstrates how to dynamically change the basemap displayed in a Map.
 
-<img src="DisplayMap.jpg" width="350"/>
+<img src="ChangeBasemap.jpg" width="350"/>
 
 ### Instructions
 

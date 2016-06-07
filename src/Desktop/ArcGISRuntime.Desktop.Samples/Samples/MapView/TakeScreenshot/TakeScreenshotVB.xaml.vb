@@ -7,13 +7,12 @@
 ' "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 ' language governing permissions and limitations under the License.
 
+Imports System.Windows
 Imports Esri.ArcGISRuntime.Mapping
 
-Namespace ArcGISMapImageLayerUrl
-    Public Class ArcGISMapImageLayerUrlVB
-
+Namespace TakeScreenshot
+    Partial Public Class TakeScreenshotVB
         Public Sub New()
-
             InitializeComponent()
 
             ' Create the UI, setup the control references and execute initialization 
@@ -21,22 +20,16 @@ Namespace ArcGISMapImageLayerUrl
         End Sub
 
         Private Sub Initialize()
+            ' Create new Map with basemap
+            Dim myMap As New Map(Basemap.CreateImagery())
 
-            ' Create new Map
-            Dim myMap As New Map()
-
-            ' Create uri to the map image layer
-            Dim serviceUri = New Uri("http://sampleserver5.arcgisonline.com/arcgis/rest/services/Elevation/WorldElevations/MapServer")
-
-            ' Create new image layer from the url
-            Dim imageLayer As New ArcGISMapImageLayer(serviceUri)
-
-            ' Add created layer to the basemaps collection
-            myMap.Basemap.BaseLayers.Add(imageLayer)
-
-            ' Assign the map to the MapView
+            ' Provide used Map to the MapView
             MyMapView.Map = myMap
+        End Sub
+
+        Private Async Sub OnScreenshotButtonClicked(sender As Object, e As RoutedEventArgs)
+            ' Export the image from mapview and assign it to the imageview
+            imageView.Source = Await MyMapView.ExportImageAsync()
         End Sub
     End Class
 End Namespace
-

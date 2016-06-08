@@ -12,7 +12,6 @@ using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 
 namespace ArcGISRuntime.Windows.Samples.TakeScreenshot
 {
@@ -39,8 +38,6 @@ namespace ArcGISRuntime.Windows.Samples.TakeScreenshot
         {
             // Export the image from mapview and assign it to the imageview
             var exportedImage = await MyMapView.ExportImageAsync();
-
-            var exportedWritableBitmap = exportedImage as WriteableBitmap;
 
             // Create dialog that is used to show the picture
             var dialog = new ContentDialog()

@@ -10,38 +10,36 @@
 Imports Esri.ArcGISRuntime.Geometry
 Imports Esri.ArcGISRuntime.Mapping
 
-Namespace SetMapSpatialReference
-
-    Public Class SetMapSpatialReferenceVB
-
+Namespace SetMinMaxScale
+    Partial Public Class SetMinMaxScaleVB
         Public Sub New()
-
             InitializeComponent()
 
             ' Create the UI, setup the control references and execute initialization 
             Initialize()
-
         End Sub
 
         Private Sub Initialize()
+            ' Create new Map with Streets basemap 
+            Dim myMap As New Map(Basemap.CreateStreets())
 
-            ' Create new Map using spatial reference as world bonne (54024)
-            Dim myMap As New Map(SpatialReference.Create(54024))
-
-            ' Adding a map image layer which can reproject itself to the map's spatial reference
-            ' Note: Some layer such as tiled layer cannot reproject and will fail to draw if their spatial 
-            ' reference is not the same as the map's spatial reference
-            Dim operationalLayer As New ArcGISMapImageLayer(New Uri(
-                   "http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer"))
-
-            ' Add operational layer to the Map
-            myMap.OperationalLayers.Add(operationalLayer)
+            ' Set the scale at which this layer can be viewed
+            ' MinScale defines how far 'out' you can zoom where
+            ' MaxScale defines how far 'in' you can zoom.
+            myMap.MinScale = 8000
+            myMap.MaxScale = 2000
 
             ' Assign the map to the MapView
             MyMapView.Map = myMap
 
+            ' Create central point where map is centered
+            Dim centralPoint As New MapPoint(-355453, 7548720, SpatialReferences.WebMercator)
+
+            ' Create starting viewpoint
+            Dim startingViewpoint As New Viewpoint(centralPoint, 3000)
+
+            ' Set starting viewpoint
+            MyMapView.SetViewpoint(startingViewpoint)
         End Sub
-
     End Class
-
 End Namespace

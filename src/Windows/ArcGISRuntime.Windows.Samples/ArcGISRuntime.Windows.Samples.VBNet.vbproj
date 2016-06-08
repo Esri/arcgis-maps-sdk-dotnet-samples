@@ -93,7 +93,19 @@
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
+    <Content Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.jpg" />
+    <Content Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.jpg" />
+    <Content Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.jpg" />
+    <Content Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.jpg" />
+    <Content Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.jpg" />
+    <Content Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.jpg" />
+    <Content Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.jpg" />
+    <Content Include="Samples\MapView\TakeScreenshot\TakeScreenshot.jpg" />
+    <Content Include="Samples\Map\ChangeBasemap\ChangeBasemap.jpg" />
+    <Content Include="Samples\Map\DisplayMap\DisplayMap.jpg" />
+    <Content Include="Samples\Map\OpenExistingMap\OpenExistingMap.jpg" />
     <Content Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.jpg" />
+    <Content Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.jpg" />
     <Content Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.jpg" />
     <Content Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.jpg" />
     <Content Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.jpg" />
@@ -104,6 +116,7 @@
     <None Include="Samples\Data\ServiceFeatureTableManualCache\metadata.json" />
     <None Include="Samples\Data\ServiceFeatureTableNoCache\metadata.json" />
     <None Include="Samples\GraphicsOverlay\AddGraphicsRenderer\metadata.json" />
+    <None Include="Samples\GraphicsOverlay\IdentifyGraphics\metadata.json" />
     <None Include="Samples\Layers\ArcGISMapImageLayerUrl\metadata.json" />
     <None Include="Samples\Layers\ArcGISMapImageLayerUrl\README.md" />
     <Content Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.jpg" />
@@ -127,11 +140,22 @@
     </Content>
     <None Include="Samples\Layers\ArcGISTiledLayerUrl\metadata.json" />
     <None Include="Samples\Layers\ArcGISTiledLayerUrl\README.md" />
+    <None Include="Samples\Layers\ChangeFeatureLayerRenderer\metadata.json" />
+    <None Include="Samples\Layers\ChangeSublayerVisibility\metadata.json" />
+    <None Include="Samples\Layers\FeatureLayerSelection\metadata.json" />
+    <None Include="Samples\Layers\FeatureLayerUrl\metadata.json" />
+    <None Include="Samples\MapView\DisplayDrawingStatus\metadata.json" />
+    <None Include="Samples\MapView\DisplayLayerViewState\metadata.json" />
+    <None Include="Samples\MapView\TakeScreenshot\metadata.json" />
     <None Include="Samples\Map\AccessLoadStatus\metadata.json" />
+    <None Include="Samples\Map\ChangeBasemap\metadata.json" />
+    <None Include="Samples\Map\DisplayMap\metadata.json" />
+    <None Include="Samples\Map\OpenExistingMap\metadata.json" />
     <None Include="Samples\Map\SetInitialMapLocation\metadata.json" />
     <None Include="Samples\Map\SetInitialMapArea\metadata.json" />
     <None Include="Samples\Map\SetMapSpatialReference\metadata.json" />
     <None Include="Samples\Map\SetMapSpatialReference\README.md" />
+    <None Include="Samples\Map\SetMinMaxScale\metadata.json" />
     <None Include="Samples\Symbology\RenderPictureMarkers\metadata.json" />
     <None Include="Samples\Symbology\RenderSimpleMarkers\metadata.json" />
     <None Include="Samples\Symbology\RenderUniqueValues\metadata.json" />
@@ -153,23 +177,56 @@
     <Compile Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRendererVB.xaml.vb">
       <DependentUpon>AddGraphicsRendererVB.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphicsVB.xaml.vb">
+      <DependentUpon>IdentifyGraphicsVB.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrlVB.xaml.vb">
       <DependentUpon>ArcGISMapImageLayerUrlVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrlVB.xaml.vb">
       <DependentUpon>ArcGISTiledLayerUrlVB.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRendererVB.xaml.vb">
+      <DependentUpon>ChangeFeatureLayerRendererVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibilityVB.xaml.vb">
+      <DependentUpon>ChangeSublayerVisibilityVB.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpressionVB.xaml.vb">
       <DependentUpon>FeatureLayerDefinitionExpressionVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelectionVB.xaml.vb">
+      <DependentUpon>FeatureLayerSelectionVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrlVB.xaml.vb">
+      <DependentUpon>FeatureLayerUrlVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\MapView\ChangeViewpoint\ChangeViewpointVB.xaml.vb">
       <DependentUpon>ChangeViewpointVB.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatusVB.xaml.vb">
+      <DependentUpon>DisplayDrawingStatusVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewStateVB.xaml.vb">
+      <DependentUpon>DisplayLayerViewStateVB.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\MapView\MapRotation\MapRotationVB.xaml.vb">
       <DependentUpon>MapRotationVB.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\MapView\TakeScreenshot\TakeScreenshotVB.xaml.vb">
+      <DependentUpon>TakeScreenshotVB.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Map\AccessLoadStatus\AccessLoadStatusVB.xaml.vb">
       <DependentUpon>AccessLoadStatusVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\ChangeBasemap\ChangeBasemapVB.xaml.vb">
+      <DependentUpon>ChangeBasemapVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\DisplayMap\DisplayMapVB.xaml.vb">
+      <DependentUpon>DisplayMapVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\OpenExistingMap\OpenExistingMapVB.xaml.vb">
+      <DependentUpon>OpenExistingMapVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocationVB.xaml.vb">
       <DependentUpon>SetInitialMapLocationVB.xaml</DependentUpon>
@@ -179,6 +236,9 @@
     </Compile>
     <Compile Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReferenceVB.xaml.vb">
       <DependentUpon>SetMapSpatialReferenceVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\SetMinMaxScale\SetMinMaxScaleVB.xaml.vb">
+      <DependentUpon>SetMinMaxScaleVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkersVB.xaml.vb">
       <DependentUpon>RenderPictureMarkersVB.xaml</DependentUpon>
@@ -238,9 +298,7 @@
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
     </SDKReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Samples\NewFolder1\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Page Include="Samples\Data\FeatureLayerQuery\FeatureLayerQueryVB.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -262,6 +320,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphicsVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrlVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -270,7 +332,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRendererVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibilityVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpressionVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelectionVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrlVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -278,13 +356,37 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatusVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewStateVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\MapView\MapRotation\MapRotationVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\TakeScreenshot\TakeScreenshotVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Map\AccessLoadStatus\AccessLoadStatusVB.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Map\ChangeBasemap\ChangeBasemapVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\DisplayMap\DisplayMapVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\OpenExistingMap\OpenExistingMapVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocationVB.xaml">
       <SubType>Designer</SubType>
@@ -297,6 +399,10 @@
     <Page Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReferenceVB.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Map\SetMinMaxScale\SetMinMaxScaleVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkersVB.xaml">
       <SubType>Designer</SubType>

@@ -7,7 +7,7 @@
         <esriUI:MapView x:Name="MyMapView"/>
         <Border Background="White" 
                 Margin="20" Padding="20" 
-                VerticalAlignment="Top" HorizontalAlignment="Center" 
+                VerticalAlignment="Top" HorizontalAlignment="Right" 
                 Width="280">
             <RelativePanel HorizontalAlignment="Center">
                 <TextBlock x:Name="StateNameLabel" 

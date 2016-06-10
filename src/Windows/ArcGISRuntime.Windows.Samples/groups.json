@@ -199,6 +199,23 @@
           ]
         }
       ]
+    },
+     {
+      "Name": "Location",
+      "CategoryName": "Location",
+      "SubCategories": [
+        {
+          "Name": "Display Location",
+          "SubCategoryName": "DisplayLocation",
+          "ShowGroup": false,
+          "SampleInfos": [
+            {
+              "SampleName": "DisplayDeviceLocation",
+              "Path": "Samples/Location/DisplayDeviceLocation"
+            }
+          ]
+        }
+      ]
     }
   ],
   "Featured": [

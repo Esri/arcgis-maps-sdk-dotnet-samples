@@ -12,6 +12,7 @@ using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace ArcGISRuntime.Windows.Samples.TakeScreenshot
 {
@@ -25,7 +26,7 @@ namespace ArcGISRuntime.Windows.Samples.TakeScreenshot
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
             // Create new Map with basemap
             Map myMap = new Map(Basemap.CreateImagery());

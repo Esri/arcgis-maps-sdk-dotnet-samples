@@ -7,13 +7,13 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Location;
 using Esri.ArcGISRuntime.Mapping;
 using System.Linq;
-using System.Windows;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntime.Desktop.Samples.DisplayDeviceLocation
+namespace ArcGISRuntime.Windows.Samples.DisplayDeviceLocation
 {
     public partial class DisplayDeviceLocation
     {
@@ -25,45 +25,45 @@ namespace ArcGISRuntime.Desktop.Samples.DisplayDeviceLocation
             "Navigation",
             "Compass"
         };
-
+        
         public DisplayDeviceLocation()
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Setup the control references and execute initialization 
             Initialize();
         }
 
         private void Initialize()
         {
             // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateImagery());
+            Map myMap = new Map(Basemap.CreateTopographic());
 
-            // Provide used Map to the MapView
+            // Assign the map to the MapView
             MyMapView.Map = myMap;
 
-            // Set navigation types as items source and set default value
-            modeChooser.ItemsSource = _navigationTypes;
-            modeChooser.SelectedIndex = 0;
+            // Set titles as a items source
+            locationModes.ItemsSource = _navigationTypes;
         }
 
-        private void OnStartButtonClicked(object sender, RoutedEventArgs e)
-        {
-            //TODO Remove this IsStarted check https://github.com/Esri/arcgis-runtime-samples-xamarin/issues/182
-            if (!MyMapView.LocationDisplay.IsStarted)
-                MyMapView.LocationDisplay.Start();
-        }
-        private void OnStopButtonClicked(object sender, RoutedEventArgs e)
+        private void OnStopClicked(object sender, RoutedEventArgs e)
         {
             //TODO Remove this IsStarted check https://github.com/Esri/arcgis-runtime-samples-xamarin/issues/182
             if (MyMapView.LocationDisplay.IsStarted)
                 MyMapView.LocationDisplay.Stop();
+
+            locationModes.SelectedItem = null;
         }
 
-        private void OnModeChooserSelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void OnLocationModesSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            // Selection cleared, don't do anything.
+            if (!e.AddedItems.Any()) return;
+
+            var selectedBasemap = e.AddedItems[0].ToString();
+            
             // Get index that is used to get the selected url
-            var selectedIndex = _navigationTypes.ToList().IndexOf(modeChooser.SelectedValue.ToString());
+            var selectedIndex = _navigationTypes.ToList().IndexOf(locationModes.SelectedValue.ToString());
 
             switch (selectedIndex)
             {

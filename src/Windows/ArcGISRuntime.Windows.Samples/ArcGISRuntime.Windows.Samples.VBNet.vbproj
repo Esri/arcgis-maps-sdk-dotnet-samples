@@ -98,6 +98,7 @@
     <Content Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.jpg" />
     <Content Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.jpg" />
     <Content Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.jpg" />
+    <Content Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.jpg" />
     <Content Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.jpg" />
     <Content Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.jpg" />
     <Content Include="Samples\MapView\TakeScreenshot\TakeScreenshot.jpg" />
@@ -144,6 +145,7 @@
     <None Include="Samples\Layers\ChangeSublayerVisibility\metadata.json" />
     <None Include="Samples\Layers\FeatureLayerSelection\metadata.json" />
     <None Include="Samples\Layers\FeatureLayerUrl\metadata.json" />
+    <None Include="Samples\Location\DisplayDeviceLocation\metadata.json" />
     <None Include="Samples\MapView\DisplayDrawingStatus\metadata.json" />
     <None Include="Samples\MapView\DisplayLayerViewState\metadata.json" />
     <None Include="Samples\MapView\TakeScreenshot\metadata.json" />
@@ -200,6 +202,9 @@
     </Compile>
     <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrlVB.xaml.vb">
       <DependentUpon>FeatureLayerUrlVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocationVB.xaml.vb">
+      <DependentUpon>DisplayDeviceLocationVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\MapView\ChangeViewpoint\ChangeViewpointVB.xaml.vb">
       <DependentUpon>ChangeViewpointVB.xaml</DependentUpon>
@@ -349,6 +354,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrlVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocationVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -10,10 +10,6 @@
           "ShowGroup": true,
           "SampleInfos": [
             {
-              "SampleName": "ShowMagnifier",
-              "Path": "Samples/MapView/ShowMagnifier"
-            },
-            {
               "SampleName": "ChangeViewpoint",
               "Path": "Samples/MapView/ChangeViewpoint"
             },

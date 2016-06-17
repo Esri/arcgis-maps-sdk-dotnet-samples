@@ -1,7 +1,7 @@
 {
   "Name": "Change viewpoint",
   "SampleName": "ChangeViewpoint",
-  "Description": "This sample demonstrates how the current viewpoint can be changed. This Sample opens with a default service viewpoint. Each subsequent button click will change the viewpoint using different methods (one to a provided extent, another a point and scale, and another to rotate the viewpoint by 90 degrees.",
+  "Description": "This sample demonstrates different ways in which you can change the viewpoint or visible area of the map.",
   "Instructions": "Click any of the available buttons to change the current viewpoint",
   "Type": 0,
   "RequiresOnlineConnection":true,
@@ -9,6 +9,6 @@
   "RequiresLocalServer":false,
   "Image":"ChangeViewpoint.jpg",
   "Link":"",
-  "TypeLink": ["M:Esri.ArcGISRuntime.UI.MapView.SetViewpointScaleAsync(System.Double)","M:Esri.ArcGISRuntime.UI.GeoView.SetViewpointAsync(Esri.ArcGISRuntime.Viewpoint,System.TimeSpan)","M:Esri.ArcGISRuntime.UI.MapView.SetViewpointGeometryAsync(Esri.ArcGISRuntime.Geometry.Geometry)","M:Esri.ArcGISRuntime.UI.MapView.SetViewpointCenterAsync(Esri.ArcGISRuntime.Geometry.MapPoint)"
+  "TypeLink": ["T:Esri.ArcGISRuntime.Mapping.Viewpoint","M:Esri.ArcGISRuntime.Mapping.Viewpoint.#ctor(Esri.ArcGISRuntime.Geometry.Geometry)"
   ]
 }

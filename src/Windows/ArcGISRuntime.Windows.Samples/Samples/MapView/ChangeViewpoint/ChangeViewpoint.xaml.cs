@@ -58,7 +58,7 @@ namespace ArcGISRuntime.Windows.Samples.ChangeViewpoint
         private void Initialize()
         {
             // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateImagery());
+            Map myMap = new Map(Basemap.CreateTopographic());
 
             // Assign the map to the MapView
             MyMapView.Map = myMap;

@@ -9,6 +9,6 @@
    "RequiresLocalServer":false,
    "Image":"DisplayDeviceLocation.jpg",
    "Link":"",
-   "TypeLink": [],
+   "TypeLink": ["T:Esri.ArcGISRuntime.Location.LocationDisplay","T:Esri.ArcGISRuntime.Location.LocationDisplayAutoPanMode","P:Esri.ArcGISRuntime.UI.MapView.LocationDisplay"],
   "SampleFolder": "DisplayDeviceLocation"
 } 

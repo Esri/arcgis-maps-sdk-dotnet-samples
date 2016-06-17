@@ -48,7 +48,7 @@ Namespace ChangeViewpoint
 
         Private Sub Initialize()
             ' Create new Map with basemap
-            Dim myMap As New Map(Basemap.CreateImagery())
+            Dim myMap As New Map(Basemap.CreateTopographic())
 
             ' Assign the map to the MapView
             MyMapView.Map = myMap

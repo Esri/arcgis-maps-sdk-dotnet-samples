@@ -8,10 +8,22 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
+using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.UI;
 using System;
+using System.IO;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation.Metadata;
+using Windows.Graphics.Imaging;
+using Windows.Storage;
+using Windows.System;
+using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
+using Windows.UI.Xaml.Navigation;
 
 namespace ArcGISRuntime.Windows.Viewer
 {
@@ -59,6 +71,110 @@ namespace ArcGISRuntime.Windows.Viewer
 
             DescriptionContainer.Visibility = Visibility.Visible;
             SampleContainer.Visibility = Visibility.Collapsed;
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+#if DEBUG
+            Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
+#endif
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+#if DEBUG
+            Window.Current.CoreWindow.KeyDown -= CoreWindow_KeyDown;
+#endif
+        }
+
+        private bool isResized = false;
+        private double originalHeight;
+        private double originalWidth;
+
+        private async void CoreWindow_KeyDown(global::Windows.UI.Core.CoreWindow sender, global::Windows.UI.Core.KeyEventArgs args)
+        {
+            var ctrl = Window.Current.CoreWindow.GetKeyState(VirtualKey.Control);
+            if (ctrl.HasFlag(CoreVirtualKeyStates.Down) && args.VirtualKey == VirtualKey.T)
+            {
+                if (!isResized)
+                {
+                    originalHeight = SampleContainer.ActualHeight;
+                    originalWidth = SampleContainer.ActualWidth;
+                    SampleContainer.Height = 600;
+                    SampleContainer.Width = 800;
+                    isResized = true;
+                    return;
+                }
+
+                var layoutRoot = new Grid();
+                var mapViewImage = new Image() { VerticalAlignment = VerticalAlignment.Bottom };
+                var uiImage = new Image();
+
+                // Create image from the non-map UI
+                var uiLayerImage = await CreateBitmapFromElement(SampleContainer.Content as UIElement);
+
+                // Find mapview from the sample. This expects that we use the same name in all samples
+                var mapview = (SampleContainer.Content as UserControl).FindName("MyMapView") as MapView;
+   
+                // Create snapshot from MapView
+                var exportedWritableBitmap = await mapview.ExportImageAsync() as WriteableBitmap;
+
+                // Set sources to the images and add them to the layout
+                uiImage.Source = uiLayerImage;
+                mapViewImage.Source = exportedWritableBitmap;
+                layoutRoot.Children.Add(mapViewImage);
+                layoutRoot.Children.Add(uiImage);
+
+                // Add layout to the view
+                var sample = SampleContainer.Content;
+                SampleContainer.Content = layoutRoot;
+
+                // Wait that images are rendered
+                await Task.Delay(TimeSpan.FromSeconds(1));
+
+                // Save image to the disk
+                var combinedImage = await CreateBitmapFromElement(SampleContainer.Content as UIElement);
+                await SaveBitmapToFileAsync(combinedImage, SampleManager.Current.SelectedSample.SampleName);
+
+                // Reset view
+                SampleContainer.Content = sample;
+                SampleContainer.Height = originalHeight;
+                SampleContainer.Width = originalWidth;
+                isResized = false;
+            }
+        }
+
+        private static async Task<WriteableBitmap> CreateBitmapFromElement(UIElement element)
+        {
+            RenderTargetBitmap bitmap = new RenderTargetBitmap();
+            await bitmap.RenderAsync(element);
+            var pixelBuffer = await bitmap.GetPixelsAsync();
+            byte[] pixels = pixelBuffer.ToArray();
+            var writableBitmap = new WriteableBitmap((int)bitmap.PixelWidth, (int)bitmap.PixelHeight);
+            using (Stream stream = writableBitmap.PixelBuffer.AsStream())
+                await stream.WriteAsync(pixels, 0, pixels.Length);
+
+            return writableBitmap;
+        }
+
+
+        public static async Task SaveBitmapToFileAsync(WriteableBitmap image, string fileName = "screenshot")
+        {
+            // This stores image to  C:\Users\{user}\AppData\Local\Packages\b13e56ac-7531-429d-baf2-003653d989c1_cc4tdm0yr4r3t\LocalState\Screenshots 
+            StorageFolder pictureFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("Screenshots", CreationCollisionOption.OpenIfExists);
+            var file = await pictureFolder.CreateFileAsync(fileName + ".png", CreationCollisionOption.ReplaceExisting);
+
+            using (var stream = await file.OpenStreamForWriteAsync())
+            {
+                BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, stream.AsRandomAccessStream());
+                var pixelStream = image.PixelBuffer.AsStream();
+                byte[] pixels = new byte[image.PixelBuffer.Length];
+                await pixelStream.ReadAsync(pixels, 0, pixels.Length);
+                encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Straight, (uint)image.PixelWidth, (uint)image.PixelHeight, 96, 96, pixels);
+                await encoder.FlushAsync();
+            }
         }
     }
 }

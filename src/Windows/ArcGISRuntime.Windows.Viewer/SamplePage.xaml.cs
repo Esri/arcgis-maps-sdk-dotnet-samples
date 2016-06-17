@@ -14,6 +14,7 @@ using System;
 using System.IO;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Windows.Foundation;
 using Windows.Foundation.Metadata;
 using Windows.Graphics.Imaging;
 using Windows.Storage;
@@ -109,7 +110,7 @@ namespace ArcGISRuntime.Windows.Viewer
                 }
 
                 var layoutRoot = new Grid();
-                var mapViewImage = new Image() { VerticalAlignment = VerticalAlignment.Bottom };
+                var mapViewImage = new Image() { VerticalAlignment = VerticalAlignment.Top };
                 var uiImage = new Image();
 
                 // Create image from the non-map UI
@@ -117,7 +118,14 @@ namespace ArcGISRuntime.Windows.Viewer
 
                 // Find mapview from the sample. This expects that we use the same name in all samples
                 var mapview = (SampleContainer.Content as UserControl).FindName("MyMapView") as MapView;
-   
+
+                // Retrieve general transform 
+                var tranform = mapview.TransformToVisual((SampleContainer.Content as UIElement));
+                // Retrieve the point value relative to the child.
+                var currentPoint = tranform.TransformPoint(new Point(0, 0));
+                // Setup the location where the mapview was in the view to respect the ui layout
+                mapViewImage.Margin = new Thickness(currentPoint.X, currentPoint.Y, 0, 0);
+
                 // Create snapshot from MapView
                 var exportedWritableBitmap = await mapview.ExportImageAsync() as WriteableBitmap;
 

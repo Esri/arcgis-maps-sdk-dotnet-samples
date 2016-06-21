@@ -9,6 +9,6 @@
   "RequiresLocalServer":false,
   "Image":"DisplayLayerViewState.jpg",
   "Link":"",
-  "TypeLink": [],
+  "TypeLink": ["T:Esri.ArcGISRuntime.Mapping.LayerViewState","T:Esri.ArcGISRuntime.Mapping.LayerViewStateChangedEventArgs","T:Esri.ArcGISRuntime.Mapping.LayerViewStatus"],
   "SampleFolder": "DisplayLayerViewState"
 }

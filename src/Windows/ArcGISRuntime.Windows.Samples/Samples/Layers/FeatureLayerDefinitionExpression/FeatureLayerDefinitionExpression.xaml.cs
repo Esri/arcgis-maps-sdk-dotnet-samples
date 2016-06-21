@@ -17,14 +17,14 @@ namespace ArcGISRuntime.Windows.Samples.FeatureLayerDefinitionExpression
 {
     public partial class FeatureLayerDefinitionExpression
     {
-        //Create and hold reference to the feature layer
+        // Create and hold reference to the feature layer
         private FeatureLayer _featureLayer;
 
         public FeatureLayerDefinitionExpression()
         {
             InitializeComponent();
 
-            //setup the control references and execute initialization 
+            // Setup the control references and execute initialization 
             Initialize();
         }
 
@@ -53,7 +53,7 @@ namespace ArcGISRuntime.Windows.Samples.FeatureLayerDefinitionExpression
             // Initialize a new feature layer based on the feature table
             _featureLayer = new FeatureLayer(featureTable);
 
-            //Add the feature layer to the map
+            // Add the feature layer to the map
             myMap.OperationalLayers.Add(_featureLayer);
   
         }

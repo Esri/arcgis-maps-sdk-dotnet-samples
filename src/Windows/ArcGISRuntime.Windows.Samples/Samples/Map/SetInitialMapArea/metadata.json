@@ -9,6 +9,6 @@
   "RequiresLocalServer":false,
   "Image":"SetInitialMapArea.jpg",
   "Link":"",
-  "TypeLink": [
+  "TypeLink": ["T:Esri.ArcGISRuntime.Geometry.Envelope","M:Esri.ArcGISRuntime.Geometry.Envelope.#ctor(System.Double,System.Double,System.Double,System.Double,Esri.ArcGISRuntime.Geometry.SpatialReference)","P:Esri.ArcGISRuntime.Mapping.Map.InitialViewpoint","M:Esri.ArcGISRuntime.Mapping.Map.#ctor(Esri.ArcGISRuntime.Mapping.Basemap)"
   ]
 }

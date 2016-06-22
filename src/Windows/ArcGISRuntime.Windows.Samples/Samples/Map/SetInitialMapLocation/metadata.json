@@ -9,6 +9,6 @@
   "RequiresLocalServer":false,
   "Image":"SetInitialMapLocation.jpg",
   "Link":"",
-  "TypeLink": [
+  "TypeLink": ["T:Esri.ArcGISRuntime.Mapping.BasemapType","P:Esri.ArcGISRuntime.UI.MapView.Map","M:Esri.ArcGISRuntime.Mapping.Map.#ctor(Esri.ArcGISRuntime.Layers.BasemapType,System.Double,System.Double,System.Int32)"
   ]
 }

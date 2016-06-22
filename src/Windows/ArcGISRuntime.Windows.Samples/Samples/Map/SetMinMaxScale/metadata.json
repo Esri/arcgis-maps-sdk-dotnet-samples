@@ -9,7 +9,7 @@
   "RequiresLocalServer":false,
   "Image":"SetMinMaxScale.jpg",
   "Link":"",
-  "TypeLink": ["P:Esri.ArcGISRuntime.Mapping.Map.MaxScale","P:Esri.ArcGISRuntime.Mapping.Map.MinScale"
+  "TypeLink": ["T:Esri.ArcGISRuntime.Geometry.MapPoint","P:Esri.ArcGISRuntime.Mapping.Map.MaxScale","P:Esri.ArcGISRuntime.Mapping.Map.MinScale","M:Esri.ArcGISRuntime.Geometry.MapPoint.#ctor(System.Double,System.Double,Esri.ArcGISRuntime.Geometry.SpatialReference)"
   ],
   "SampleFolder": "SetMinMaxScale"
 }

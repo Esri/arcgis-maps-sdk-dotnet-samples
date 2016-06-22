@@ -9,6 +9,6 @@
   "RequiresLocalServer": false,
   "Image": "SetMapSpatialReference.jpg",
   "Link": "",
-  "TypeLink": ["T:Esri.ArcGISRuntime.Geometry.SpatialReference"
+  "TypeLink": ["M:Esri.ArcGISRuntime.Geometry.SpatialReference.Create(System.Int32)","M:Esri.ArcGISRuntime.Mapping.ArcGISMapImageLayer.#ctor(System.Uri)","M:Esri.ArcGISRuntime.Mapping.Map.#ctor(Esri.ArcGISRuntime.Geometry.SpatialReference)"
   ]
 }

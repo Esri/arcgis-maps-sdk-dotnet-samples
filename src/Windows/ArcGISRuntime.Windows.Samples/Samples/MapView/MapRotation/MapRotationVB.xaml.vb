@@ -8,36 +8,40 @@
 ' language governing permissions and limitations under the License.
 
 Imports Esri.ArcGISRuntime.Mapping
-Imports Windows.UI.Popups
 
 Namespace MapRotation
 
     Partial Public Class MapRotationVB
 
         Public Sub New()
-            InitializeComponent()
-            ' TODO move this to xaml 
-            Dim myMap = New Map()
 
-            Dim baseLayer = New ArcGISTiledLayer(
-                New Uri("http://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer"))
-            myMap.Basemap.BaseLayers.Add(baseLayer)
-            MyMapView.Map = myMap
+            InitializeComponent()
+
+            Initialize()
+
         End Sub
 
-        Private Async Sub OnDegreeSliderChange(sender As Object, e As RangeBaseValueChangedEventArgs)
-            Dim errorDialog As MessageDialog = Nothing
-            Try
-                'Set Viewpoint's rotation to that of the slider value
-                Await MyMapView.SetViewpointRotationAsync(degreeSlider.Value)
-            Catch ex As Exception
-                Dim errorMessage = "MapView Viewpoint could not be rotated. " + ex.Message
-                errorDialog = New MessageDialog(errorMessage, "Sample error")
-            End Try
-            If errorDialog IsNot Nothing Then
-                Await errorDialog.ShowAsync()
-            End If
+        Private Sub Initialize()
+
+            ' Create a new Map instance with the basemap  
+            Dim myBasemap As Basemap = Basemap.CreateStreets()
+            Dim myMap As New Map(myBasemap)
+
+            ' Assign the map to the MapView
+            MyMapView.Map = myMap
+
+        End Sub
+
+        Private Sub MySlider_ValueChanged(sender As Object, e As RangeBaseValueChangedEventArgs)
+
+            ' Set the MapView rotation to that of the Slider.
+            MyMapView.SetViewpointRotationAsync(e.NewValue)
+
+            ' Display the rotation value in the Label formatted nicely with degree symbol.
+            MyTextBlock.Text = String.Format("{0:0}° VB", MyMapView.MapRotation)
+
         End Sub
 
     End Class
+
 End Namespace

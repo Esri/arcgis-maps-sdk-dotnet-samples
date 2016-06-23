@@ -6,32 +6,19 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:esri="using:Esri.ArcGISRuntime"
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI"
-    xmlns:mapping="using:Esri.ArcGISRuntime.Layers"
     mc:Ignorable="d" 
     d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <esriUI:MapView x:Name="MyMapView">
-            <!-- TODO move to use XAML -->
-            <!--<esri:Map>
-             <esri:Map>
-                <esri:Map.Basemap>
-                    <esri:Basemap>
-                        <esri:ArcGISTiledLayer Name="StreetMap" 
-                            Source="http://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer"/>
-                    </esri:Basemap>
-                </esri:Map.Basemap>
-            </esri:Map>     
-            </esri:Map>-->
-        </esriUI:MapView>
 
-        <Border Background="White" Margin="20" Padding="20" VerticalAlignment="Top" HorizontalAlignment="Right" Width="320">
-            <RelativePanel HorizontalAlignment="Stretch">
-                <TextBlock x:Name="degreeHeader" Style="{ThemeResource TitleTextBlockStyle}" Text="Degrees"/>
-                <TextBlock x:Name="degreesValue" Text="{Binding ElementName=degreeSlider, Path=Value}" Style="{ThemeResource TitleTextBlockStyle}" 
-                           RelativePanel.RightOf="degreeHeader" Margin="10,0"/>
-                <Slider x:Name="degreeSlider" Minimum="0" Maximum="359" ValueChanged="OnDegreeSliderChange" 
-                        RelativePanel.Below="degreeHeader" Width="280" />
-            </RelativePanel>
-        </Border>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel x:Name="MyStackPanel" Orientation="Horizontal" Grid.Row="0">
+            <Slider x:Name="MySlider" Minimum="0" Maximum="180" Value="0" ValueChanged="MySlider_ValueChanged" Width="500"/>
+            <TextBlock x:Name="MyTextBlock" />
+        </StackPanel>
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="1"/>
+
     </Grid>
 </UserControl>

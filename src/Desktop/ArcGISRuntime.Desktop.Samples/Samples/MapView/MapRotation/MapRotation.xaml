@@ -8,24 +8,19 @@
     mc:Ignorable="d" 
     d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        
-        <esri:MapView Name="MyMapView">
-            <esri:Map InitialViewpoint="-13044000, 3855000, -13040000, 3858000, 102100">
-                <esri:Map.Basemap>
-                    <esri:Basemap>
-                        <esri:ArcGISTiledLayer Name="StreetMap" 
-                            Source="http://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer"/>
-                    </esri:Basemap>
-                </esri:Map.Basemap>
-            </esri:Map>
-        </esri:MapView>
-        
-        <DockPanel VerticalAlignment="Top" Background="White" Height="30">
-            <Label DockPanel.Dock="Right">Degrees</Label>
-            <TextBox Text="{Binding ElementName=degreeSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="40" />
-            <Slider Maximum="359" TickPlacement="BottomRight" TickFrequency="10" IsSnapToTickEnabled="True" Name="degreeSlider" ValueChanged="OnDegreeSliderChange" />
-        </DockPanel>
-        
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel x:Name="MyStackPanel" Orientation="Horizontal" Grid.Row="0">
+            <DockPanel VerticalAlignment="Top" Background="White" Height="30">
+                <Slider x:Name="MySlider" Minimum="0" Maximum="180" Value="0" ValueChanged="MySlider_ValueChanged" Width="500"/>
+                <Label x:Name="MyLabel" DockPanel.Dock="Right"/>
+            </DockPanel>
+        </StackPanel>
+        <esri:MapView x:Name="MyMapView" Grid.Row="1"/>
+
     </Grid>
 </UserControl>
 

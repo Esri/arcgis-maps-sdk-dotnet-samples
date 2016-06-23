@@ -7,6 +7,7 @@
 ' "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 ' language governing permissions and limitations under the License.
 
+Imports Esri.ArcGISRuntime.Mapping
 Imports System.Windows
 
 Namespace MapRotation
@@ -14,18 +15,34 @@ Namespace MapRotation
     Partial Public Class MapRotationVB
 
         Public Sub New()
+
             InitializeComponent()
+
+            Initialize()
+
         End Sub
 
-        Private Async Sub OnDegreeSliderChange(sender As Object, e As EventArgs)
-            Try
-                'Set Viewpoint's rotation to that of the slider value
-                Await MyMapView.SetViewpointRotationAsync(degreeSlider.Value)
-            Catch ex As Exception
-                Dim errorMessage = "MapView Viewpoint could not be rotated. " + ex.Message
-                MessageBox.Show(errorMessage, "Sample error")
-            End Try
+        Private Sub Initialize()
+
+            ' Create a new Map instance with the basemap  
+            Dim myBasemap As Basemap = Basemap.CreateStreets()
+            Dim myMap As New Map(myBasemap)
+
+            ' Assign the map to the MapView
+            MyMapView.Map = myMap
+
+        End Sub
+
+        Private Sub MySlider_ValueChanged(ByVal sender As Object, ByVal e As RoutedPropertyChangedEventArgs(Of Double))
+
+            ' Set the MapView rotation to that of the Slider.
+            MyMapView.SetViewpointRotationAsync(e.NewValue)
+
+            ' Display the rotation value in the Label formatted nicely with degree symbol.
+            MyLabel.Content = String.Format("{0:0}°", MyMapView.MapRotation)
+
         End Sub
 
     End Class
+
 End Namespace

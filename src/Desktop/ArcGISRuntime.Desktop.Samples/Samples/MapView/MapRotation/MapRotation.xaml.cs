@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using System;
+using Esri.ArcGISRuntime.Mapping;
 using System.Windows;
 
 namespace ArcGISRuntime.Desktop.Samples.MapRotation
@@ -16,21 +16,28 @@ namespace ArcGISRuntime.Desktop.Samples.MapRotation
     {
         public MapRotation()
         {
-            InitializeComponent();       
+            InitializeComponent();
+
+            Initialize();
         }
 
-        private async void OnDegreeSliderChange(object sender, EventArgs e)
-        {        
-            try
-            {
-                //Set Viewpoint's rotation to that of the slider value
-                await MyMapView.SetViewpointRotationAsync(degreeSlider.Value);
-            }
-            catch (Exception ex)
-            {
-                var errorMessage = "MapView Viewpoint could not be rotated. " + ex.Message;
-                MessageBox.Show(errorMessage, "Sample error");
-            }   
+        private void Initialize()
+        {
+            // Create a new Map instance with the basemap  
+            Basemap myBasemap = Basemap.CreateStreets();
+            Map myMap = new Map(myBasemap);
+
+            // Assign the map to the MapView
+            MyMapView.Map = myMap;
+        }
+
+        private void MySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            // Set the MapView rotation to that of the Slider.
+            MyMapView.SetViewpointRotationAsync(e.NewValue);
+
+            // Display the rotation value in the Label formatted nicely with degree symbol.
+            MyLabel.Content = string.Format("{0:0}°", MyMapView.MapRotation);
         }
     }
 }

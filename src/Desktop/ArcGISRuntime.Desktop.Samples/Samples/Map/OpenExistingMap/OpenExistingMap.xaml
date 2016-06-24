@@ -9,46 +9,15 @@
     d:DesignHeight="300" d:DesignWidth="300">
 
     <Grid>
-        <esri:MapView Name="MyMapView" />
+        <esri:MapView x:Name="MyMapView" />
         <Border
                 Background="White" BorderBrush="Black" BorderThickness="1"
                 HorizontalAlignment="Right" VerticalAlignment="Top"
                 Margin="30" Padding="20" Width="375">
             <StackPanel>
-                <TextBlock Text="Select a featured map or enter the ID of a Map to load:" 
+                <TextBlock Text="Select map" 
                            Margin="0,0,0,2" TextWrapping="Wrap" />
-                <ComboBox Name="comboMap" IsEditable="True" 
-                          DisplayMemberPath="Key" SelectedValuePath="Value" />
-                <Button Content="Load Map" IsDefault="True" 
-                        HorizontalAlignment="Center" Margin="0,8,0,0" 
-                        Click="OnLoadButtonClicked" />
-                <ProgressBar x:Name="progress" IsIndeterminate="True"
-                             Margin="12,12,12,0" Visibility="Hidden" />
-                <Grid Name="detailsPanel" Margin="0,12,0,0" Visibility="Collapsed">
-                    <Grid.Resources>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="Margin" Value="4,2" />
-                        </Style>
-                    </Grid.Resources>
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
-                               Text="Map Details" FontSize="14" FontWeight="Bold" />
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Title:" FontStyle="Italic" />
-                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Title}" TextWrapping="Wrap" />
-                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Snippet:" FontStyle="Italic" />
-                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Snippet}" TextWrapping="Wrap" />
-                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Owner:" FontStyle="Italic" />
-                    <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Owner}" TextWrapping="Wrap" />
-                </Grid>
+                <ComboBox Name="mapsChooser" SelectionChanged="OnMapsChooseSelectionChanged"/>
             </StackPanel>
         </Border>
     </Grid>

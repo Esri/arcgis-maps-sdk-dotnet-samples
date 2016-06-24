@@ -8,90 +8,63 @@
 ' language governing permissions and limitations under the License.
 
 Imports Esri.ArcGISRuntime.Mapping
-Imports System.Windows
 
 Namespace OpenExistingMap
 
     Partial Public Class OpenExistingMapVB
 
-        ' Below are three URLs corresponding to Portal Items. In this example the items are Maps. 
-        Private itemURL1 As String = "http://www.arcgis.com/home/item.html?id=2d6fa24b357d427f9c737774e7b0f977"
-        Private itemURL2 As String = "http://www.arcgis.com/home/item.html?id=01f052c8995e4b9e889d73c3e210ebe3"
-        Private itemURL3 As String = "http://www.arcgis.com/home/item.html?id=74a8f6645ab44c4f82d537f1aa0e375d"
+        ' String array to hold urls to publicly available web maps
+        Private _itemURLs() As String =
+            {"http://www.arcgis.com/home/item.html?id=2d6fa24b357d427f9c737774e7b0f977",
+            "http://www.arcgis.com/home/item.html?id=01f052c8995e4b9e889d73c3e210ebe3",
+            "http://www.arcgis.com/home/item.html?id=74a8f6645ab44c4f82d537f1aa0e375d"}
 
-        ' Corresponding Title strings for the itemUrls.  
-        Private title1 As String = "Housing with Mortgages"
-        Private title2 As String = "USA Tapestry Segmentation"
-        Private title3 As String = "Geology of United States"
+        ' String array to store titles for the webmaps specified above. These titles are in the same order as the urls above
+        Private _titles() As String =
+            {"Housing with Mortgages",
+            "USA Tapestry Segmentation",
+            "Geology of United States"}
 
         ' Construct Load Map sample control.
         Public Sub New()
 
             InitializeComponent()
-            AddHandler Loaded, AddressOf OnLoaded
+
+            ' Create the UI, setup the control references and execute initialization 
+            Initialize()
 
         End Sub
 
-        ' Loads UI elements and an initial Map.
-        Private Async Sub OnLoaded(sender As Object, e As RoutedEventArgs)
+        Private Sub Initialize()
 
-            ' Adding items' Titles and URLs to a collection that will be used to populate the combobox's drop down. 
-            Dim comboBoxContent As ICollection(Of KeyValuePair(Of [String], [String])) =
-                New Dictionary(Of [String], [String])() From
-                {
-                    {title1, itemURL1},
-                    {title2, itemURL2},
-                    {title3, itemURL3}
-                }
+            ' Set titles as a items source
+            mapsChooser.ItemsSource = _titles
 
-            Try
-                comboMap.ItemsSource = comboBoxContent
-                comboMap.SelectedIndex = 0
-                Await LoadMapAsync(comboBoxContent.FirstOrDefault().Value)
-            Catch ex As Exception
-                Dim errorMessage = "Map cannot be loaded. " + ex.Message
-                MessageBox.Show(errorMessage, "Sample error")
-            End Try
+            ' Select the first option in the map titles. 
+            mapsChooser.SelectedIndex = 0
+
+            ' Create a new Map instance with url of the webmap that is displayed by default
+            Dim myMap As New Map(New Uri(_itemURLs(0)))
+
+            ' Provide used Map to the MapView
+            MyMapView.Map = myMap
 
         End Sub
 
-        ' Loads a webmap on load button click.
-        Private Async Sub OnLoadButtonClicked(sender As Object, e As RoutedEventArgs)
+        Private Sub OnMapsChooseSelectionChanged(ByVal sender As Object, ByVal e As System.Windows.Controls.SelectionChangedEventArgs)
 
-            Dim url As String = String.Empty
+            Dim selectedMap = e.AddedItems(0).ToString()
 
-            If comboMap.SelectedIndex >= 0 Then
-                Try
-                    url = TryCast(comboMap.SelectedValue, String)
-                    Await LoadMapAsync(url)
-                Catch ex As Exception
-                    Dim errorMessage = "Map cannot be loaded." + ex.Message
-                    MessageBox.Show(errorMessage, "Sample error")
-                End Try
+            ' Get index that is used to get the selected url
+            Dim selectedIndex = _titles.ToList().IndexOf(selectedMap)
 
-            End If
+            ' Create a new Map instance with url of the webmap that selected
+            MyMapView.Map = New Map(New Uri(_itemURLs(selectedIndex)))
+
         End Sub
-
-        ' Loads the given map.
-        Private Async Function LoadMapAsync(mapUrl As String) As Task
-
-            progress.Visibility = Visibility.Visible
-
-            ' Initialize map from a portal item URI and load map into MapView. 
-            Dim map = New Map(New Uri(mapUrl))
-            ' Await LoadAsync so all properties of map will definitely be loaded when interrogated later. i.e Map.PortalItem. 
-            Await map.LoadAsync()
-            MyMapView.Map = map
-
-            ' Get map's info to populate "Map Details" UI element.          
-            Dim item = MyMapView.Map.PortalItem
-            detailsPanel.DataContext = item
-
-            detailsPanel.Visibility = Visibility.Visible
-            progress.Visibility = Visibility.Hidden
-        End Function
 
     End Class
+
 End Namespace
 
 

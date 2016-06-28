@@ -4,33 +4,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI">
     <Grid>
-        <esriUI:MapView x:Name="MyMapView"/>
-        <Border Background="White" 
-                Margin="20" Padding="20" 
-                VerticalAlignment="Top" HorizontalAlignment="Right" 
-                Width="280">
-            <RelativePanel HorizontalAlignment="Center">
-                <TextBlock x:Name="StateNameLabel" 
-                           Margin="0,5"
-                           Text="State name:"/>
-                <TextBox x:Name="StateNameTextBox"
-                         RelativePanel.RightOf="StateNameLabel"
-                         Margin="10,0"
-                         Width="130"
-                         Text="Utah"/>
-                <Button x:Name="QueryStatesButton"
-                        RelativePanel.Below="StateNameTextBox"
-                        HorizontalAlignment="Center"
-                        Margin="5"
-                        Width="220"
-                        Content="Query"
-                        Click="OnQueryClicked"/>
-                <TextBlock x:Name="MessagesTextBlock"
-                           RelativePanel.Below="QueryStatesButton"
-                           Margin="5"
-                           TextWrapping="Wrap"
-                           Foreground="Red"/>
-            </RelativePanel>
-        </Border>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel  Orientation="Vertical" Grid.Row="0">
+            <TextBox x:Name="queryEntry" Text="New York"/>
+            <Button Content="Query" Click="OnQueryClicked"/>
+        </StackPanel>
+        <esriUI:MapView x:Name="myMapView" Grid.Row="1"/>
     </Grid>
 </UserControl>

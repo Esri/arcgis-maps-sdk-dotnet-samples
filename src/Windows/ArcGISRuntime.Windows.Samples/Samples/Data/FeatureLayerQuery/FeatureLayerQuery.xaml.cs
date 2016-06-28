@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -34,108 +35,92 @@ namespace ArcGISRuntime.Windows.Samples.FeatureLayerQuery
         {
             InitializeComponent();
 
-            // Call a function that will create a basemap, the US states layer, and load a new map into the map view
-            InitializeMap();
+            // Create the UI, setup the control references and execute initialization 
+            Initialize();
         }
 
-        private void InitializeMap()
+        private void Initialize()
         {
-            // Create a new Map with the Topographic basemap
+            // Create new Map with basemap
             Map myMap = new Map(Basemap.CreateTopographic());
 
-            // Set an initial map location that shows the entire United States
-            MapPoint initialLocation = new MapPoint(-11000000, 5000000, SpatialReferences.WebMercator);
+            // Create and set initial map location
+            MapPoint initialLocation = new MapPoint(
+                -11000000, 5000000, SpatialReferences.WebMercator);
             myMap.InitialViewpoint = new Viewpoint(initialLocation, 100000000);
 
-            // Create a feature table using the US states service endpoint url
+            // Create feature table using a url
             _featureTable = new ServiceFeatureTable(new Uri(_statesUrl));
-            
-            // Create a feature layer using this feature table
+
+            // Create feature layer using this feature table
             _featureLayer = new FeatureLayer(_featureTable);
 
-            // Set the Opacity of the Feature Layer so it's semi-transparent
+            // Set the Opacity of the Feature Layer
             _featureLayer.Opacity = 0.6;
 
-            // Create an outline and fill symbol for rendering the States layer
-            SimpleLineSymbol lineSymbol = new SimpleLineSymbol
-            {
-                Style =SimpleLineSymbolStyle.Solid,
-                Color = Colors.Black,
-                Width = 1
-            };
-            SimpleFillSymbol fillSymbol = new SimpleFillSymbol
-            {
-                Style = SimpleFillSymbolStyle.Solid,
-                Color = Colors.Yellow,
-                Outline = lineSymbol
-            };
-            
-            // Apply the fill symbol to the States feature layer using a simple renderer
+            // Create a new renderer for the States Feature Layer
+            SimpleLineSymbol lineSymbol = new SimpleLineSymbol(
+                SimpleLineSymbolStyle.Solid, Colors.Black, 1);
+            SimpleFillSymbol fillSymbol = new SimpleFillSymbol(
+                SimpleFillSymbolStyle.Solid, Colors.Yellow, lineSymbol);
+
+            // Set States feature layer renderer
             _featureLayer.Renderer = new SimpleRenderer(fillSymbol);
 
-            // Define selection symbol properties for the layer (color and line width)
-            _featureLayer.SelectionColor = Colors.Red;
-            _featureLayer.SelectionWidth = 10;
-
-            // Add the feature layer to the map
+            // Add feature layer to the map
             myMap.OperationalLayers.Add(_featureLayer);
 
             // Assign the map to the MapView
-            MyMapView.Map = myMap;            
+            myMapView.Map = myMap;
         }
 
-        // Handler for the QueryStatesButton button click event
-        private void OnQueryClicked(object sender, RoutedEventArgs e)
+        private async void OnQueryClicked(object sender, RoutedEventArgs e)
         {
-            // Remove any previous feature selections and messages
+            // Remove any previous feature selections that may have been made 
             _featureLayer.ClearSelection();
-            MessagesTextBlock.Text = string.Empty;
 
-            // Call a function that will query states using the text entered 
-            QueryStatesTable(StateNameTextBox.Text);
+            // Begin query process 
+            await QueryStateFeature(queryEntry.Text);
         }
 
-        // Query features in the US States layer using STATE_NAME attribute values
-        private async void QueryStatesTable(string stateName)
+        private async Task QueryStateFeature(string stateName)
         {
             try
             {
-                // Create a QueryParameters object to define the query  
+                // Create a query parameters that will be used to Query the feature table  
                 QueryParameters queryParams = new QueryParameters();
-                
-                // Assign a where clause that finds features with a matching STATE_NAME value
-                queryParams.WhereClause = "upper(STATE_NAME) = '" + (stateName.ToUpper().Trim() + "'");
 
-                // Restrict the query results to a single feature
-                queryParams.MaxFeatures = 1;
-                
-                // Query the feature table using the QueryParameters
+                // Construct and assign the where clause that will be used to query the feature table 
+                queryParams.WhereClause = "upper(STATE_NAME) LIKE '%" + (stateName.ToUpper()) + "%'";
+
+                // Query the feature table 
                 FeatureQueryResult queryResult = await _featureTable.QueryFeaturesAsync(queryParams);
 
-                // Check for a valid feature in the results
-                Feature stateResult = queryResult.FirstOrDefault();
-                
-                // If a result was found, select it in the map and zoom to its extent
-                if (stateResult != null)
-                {
-                    // Select (highlight) the matching state in the layer
-                    _featureLayer.SelectFeature(stateResult);
+                // Cast the QueryResult to a List so the results can be interrogated
+                var features = queryResult.ToList();
 
-                    // Zoom to the extent of the feature (with 100 pixels of padding around the shape)
-                    await MyMapView.SetViewpointGeometryAsync(stateResult.Geometry.Extent, 100);
+                if (features.Any())
+                {
+                    // Get the first feature returned in the Query result 
+                    Feature feature = features[0];
+
+                    // Add the returned feature to the collection of currently selected features
+                    _featureLayer.SelectFeature(feature);
+
+                    // Zoom to the extent of the newly selected feature
+                    await myMapView.SetViewpointGeometryAsync(feature.Geometry.Extent);
                 }
                 else
                 {
-                    //Inform the user that the query was unsuccessful
-                    MessagesTextBlock.Text = stateName + " was not found.";
+                    var message = new MessageDialog("State Not Found!", "Add a valid state name.");
+                    await message.ShowAsync();
                 }
             }
             catch (Exception ex)
             {
-                // Inform the user that an exception was encountered
-                var message = new MessageDialog("An error occurred: " + ex.ToString(), "Sample error");
+                var message = new MessageDialog("Sample error: " + ex.ToString(), "An error occurred");
                 await message.ShowAsync();
             }
-        }          
+        }
     }
 }

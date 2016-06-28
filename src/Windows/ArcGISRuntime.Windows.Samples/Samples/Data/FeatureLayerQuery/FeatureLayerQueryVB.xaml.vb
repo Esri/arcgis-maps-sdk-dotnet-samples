@@ -15,6 +15,7 @@ Imports Windows.UI
 Imports Windows.UI.Popups
 
 Namespace FeatureLayerQuery
+
     Partial Public Class FeatureLayerQueryVB
 
         ' Create reference to service of US States  
@@ -27,103 +28,100 @@ Namespace FeatureLayerQuery
         Private _featureLayer As FeatureLayer
 
         Public Sub New()
+
             InitializeComponent()
 
-            'Call a function that will create a basemap, the US states layer, and load a new map into the map view
-            InitializeMap()
+            ' Create the UI, setup the control references and execute initialization 
+            Initialize()
+
         End Sub
 
+        Private Sub Initialize()
 
-        Private Sub InitializeMap()
-            ' Create a New Map with the Topographic basemap
-            Dim myMap As Map = New Map(Basemap.CreateTopographic())
+            ' Create new Map with basemap
+            Dim myMap As New Map(Basemap.CreateTopographic())
 
-            ' Set an initial map location that shows the entire United States
-            Dim initialLocation As MapPoint = New MapPoint(-11000000, 5000000, SpatialReferences.WebMercator)
+            ' Create and set initial map location
+            Dim initialLocation As New MapPoint(-11000000, 5000000, SpatialReferences.WebMercator)
             myMap.InitialViewpoint = New Viewpoint(initialLocation, 100000000)
 
-            ' Create a feature table using the US states service endpoint url
+            ' Create feature table using a url
             _featureTable = New ServiceFeatureTable(New Uri(_statesUrl))
 
-            ' Create a feature layer using this feature table
+            ' Create feature layer using this feature table
             _featureLayer = New FeatureLayer(_featureTable)
 
-            ' Set the Opacity of the Feature Layer so it's semi-transparent
+            ' Set the Opacity of the Feature Layer
             _featureLayer.Opacity = 0.6
 
-            ' Create a line symbol to use for state boundaries
-            Dim lineSymbol As SimpleLineSymbol = New SimpleLineSymbol
-            With lineSymbol
-                .Style = SimpleLineSymbolStyle.Solid
-                .Color = Colors.Black
-                .Width = 1
-            End With
-            ' Create a fill symbol that uses the line symbol for the outline
-            Dim fillSymbol As SimpleFillSymbol = New SimpleFillSymbol
-            With fillSymbol
-                .Style = SimpleFillSymbolStyle.Solid
-                .Color = Colors.Yellow
-                .Outline = lineSymbol
-            End With
+            ' Create a new renderer for the States Feature Layer
+            Dim lineSymbol As New SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Black, 1)
+            Dim fillSymbol As New SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Colors.Yellow, lineSymbol)
 
-            ' Apply the fill symbol to the States feature layer using a simple renderer
+            ' Set States feature layer renderer
             _featureLayer.Renderer = New SimpleRenderer(fillSymbol)
 
-            ' Define selection symbol properties for the layer (color And line width)
-            _featureLayer.SelectionColor = Colors.Red
-            _featureLayer.SelectionWidth = 10
-
-            ' Add the feature layer to the map
+            ' Add feature layer to the map
             myMap.OperationalLayers.Add(_featureLayer)
 
             ' Assign the map to the MapView
-            MyMapView.Map = myMap
+            myMapView.Map = myMap
+
         End Sub
 
-        ' Handler for the QueryStatesButton button click event
-        Private Sub OnQueryClicked(sender As Object, e As RoutedEventArgs)
-            ' Remove any previous feature selections And messages
+        Private Async Sub OnQueryClicked(ByVal sender As Object, ByVal e As RoutedEventArgs)
+
+            ' Remove any previous feature selections that may have been made 
             _featureLayer.ClearSelection()
-            MessagesTextBlock.Text = String.Empty
 
-            ' Call a function that will query states using the text entered 
-            QueryStatesTable(StateNameTextBox.Text)
+            ' Begin query process 
+            Await QueryStateFeature(queryEntry.Text)
+
         End Sub
 
-        ' Query features in the US States layer using STATE_NAME attribute values
-        Private Async Sub QueryStatesTable(stateName As String)
+        Private Async Function QueryStateFeature(ByVal stateName As String) As Task
+
             Try
-                ' Create a QueryParameters object to define the query  
-                Dim queryParams As QueryParameters = New QueryParameters()
 
-                ' Assign a where clause that finds features with a matching STATE_NAME value
-                queryParams.WhereClause = "upper(STATE_NAME) = '" + (stateName.ToUpper().Trim() + "'")
+                ' Create a query parameters that will be used to Query the feature table  
+                Dim queryParams As New QueryParameters()
 
-                ' Restrict the query results to a single feature
-                queryParams.MaxFeatures = 1
+                ' Construct and assign the where clause that will be used to query the feature table 
+                queryParams.WhereClause = "upper(STATE_NAME) LIKE '%" & (stateName.ToUpper()) & "%'"
 
-                ' Query the feature table using the QueryParameters
+                ' Query the feature table 
                 Dim queryResult As FeatureQueryResult = Await _featureTable.QueryFeaturesAsync(queryParams)
 
-                ' Check for a valid feature in the results
-                Dim stateResult As Feature = queryResult.FirstOrDefault()
+                ' Cast the QueryResult to a List so the results can be interrogated
+                Dim features = queryResult.ToList()
 
-                ' If a result was found, select it in the map And zoom to its extent
-                If Not stateResult Is Nothing Then
-                    ' Select (highlight) the matching state in the layer
-                    _featureLayer.SelectFeature(stateResult)
+                If features.Any() Then
 
-                    ' Zoom to the extent of the feature (with 100 pixels of padding around the shape)
-                    Await MyMapView.SetViewpointGeometryAsync(stateResult.Geometry.Extent, 100)
+                    ' Get the first feature returned in the Query result 
+                    Dim feature As Feature = features(0)
+
+                    ' Add the returned feature to the collection of currently selected features
+                    _featureLayer.SelectFeature(feature)
+
+                    ' Zoom to the extent of the newly selected feature
+                    Await myMapView.SetViewpointGeometryAsync(feature.Geometry.Extent)
+
                 Else
-                    ' Inform the user that the query was unsuccessful
-                    MessagesTextBlock.Text = stateName + " was not found."
+
+                    Dim message = New MessageDialog("State Not Found!", "Add a valid state name.")
+                    Await message.ShowAsync()
+
                 End If
+
             Catch ex As Exception
-                ' Inform the user that an exception was encountered
-                Dim message As New MessageDialog("An error occurred: " + ex.ToString(), "Sample error")
-                message.ShowAsync()
+
+                Dim message = New MessageDialog("Sample error: " & ex.ToString(), "An error occurred")
+                Dim x As UICommand = message.ShowAsync()
+
             End Try
-        End Sub
+
+        End Function
+
     End Class
+
 End Namespace

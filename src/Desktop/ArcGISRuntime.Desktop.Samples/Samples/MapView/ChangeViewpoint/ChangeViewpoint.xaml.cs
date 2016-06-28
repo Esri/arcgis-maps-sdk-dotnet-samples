@@ -11,7 +11,9 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Geometry;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace ArcGISRuntime.Desktop.Samples.ChangeViewpoint
 {
@@ -37,76 +39,63 @@ namespace ArcGISRuntime.Desktop.Samples.ChangeViewpoint
             (new MapPoint(-353039.164455303, 7548092.94093301)),
             (new MapPoint(-353039.164455303, 7548901.50684376))},
             SpatialReferences.WebMercator);
-        
 
         public ChangeViewpoint()
         {
-            InitializeComponent(); 
+            InitializeComponent();
+
+            // Create the UI, setup the control references and execute initialization 
+            Initialize();
         }
 
-        private async void OnAnimateButtonClick(object sender, RoutedEventArgs e)
+        private void Initialize()
         {
-            try
-            {
-                // Return to initial viewpoint so Animation curve can be demonstrated clearly. 
-                await MyMapView.SetViewpointAsync(MyMapView.Map.InitialViewpoint);
-                var viewpoint = new Viewpoint(_edinburghEnvelope);
-                // Animates the changing of the viewpoint giving a smooth transition from the old to the new view.
-                await MyMapView.SetViewpointAsync(viewpoint, System.TimeSpan.FromSeconds(10));
-            }
-            catch(Exception ex)
-            {
-                var errorMessage = "Viewpoint could not be set. "+ex.Message;
-                MessageBox.Show(errorMessage, "Sample error");
-            }         
+            // Create new Map with basemap and initial location
+            Map myMap = new Map(Esri.ArcGISRuntime.Mapping.Basemap.CreateTopographic());
+
+            // Assign the map to the MapView
+            MyMapView.Map = myMap;
         }
 
-        private void OnGeometryButtonClick(object sender, RoutedEventArgs e)
+        private async void OnButtonClick(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                // Sets the viewpoint extent to the provided bounding geometry.   
-                MyMapView.SetViewpointGeometryAsync(_redlandsEnvelope);
-            }
-            catch(Exception ex)
-            {
-                var errorMessage = "Viewpoint could not be set. " + ex.Message;
-                MessageBox.Show(errorMessage, "Sample error");
-            }           
-        }
+            // Get .Content from the selected item
+            Button myButton = sender as Button;
+            var selectedMapTitle = myButton.Content.ToString();
 
-        private void OnCenterScaleButtonClick(object sender, RoutedEventArgs e)
-        {
-            try
+            switch (selectedMapTitle)
             {
-                // Centers the viewpoint on the provided map point. 
-                MyMapView.SetViewpointCenterAsync(_londonCoords);
-                // Sets the viewpoint's zoom scale to the provided double value.  
-                MyMapView.SetViewpointScaleAsync(_londonScale);
-            }
-            catch(Exception ex)
-            {
-                var errorMessage = "Viewpoint could not be set. " + ex.Message;
-                MessageBox.Show(errorMessage, "Sample error");
-            }          
-        }
+                case "Geometry":
 
-        private async void OnRotateButtonClick(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                // Gets the current rotation value of the map view.
-                var currentRotation = MyMapView.MapRotation;
+                    // Set Viewpoint using Redlands envelope defined above and a padding of 20
+                    await MyMapView.SetViewpointGeometryAsync(_redlandsEnvelope, 20);
+                    break;
 
-                // Rotate the viewpoint by the given number of degrees. In this case the current rotation value 
-                // plus 90 is passed, this will result in a the map rotating 90 degrees anti-clockwise.  
-                await MyMapView.SetViewpointRotationAsync(currentRotation + 90.00);
+                case "Center and Scale":
+
+                    // Set Viewpoint so that it is centered on the London coordinates defined above
+                    await MyMapView.SetViewpointCenterAsync(_londonCoords);
+
+                    // Set the Viewpoint scale to match the specified scale 
+                    await MyMapView.SetViewpointScaleAsync(_londonScale);
+                    break;
+
+                case "Animate":
+
+                    // Navigate to full extent of the first baselayer before animating to specified geometry
+                    await MyMapView.SetViewpointAsync(
+                        new Viewpoint(MyMapView.Map.Basemap.BaseLayers.First().FullExtent));
+
+                    // Create a new Viewpoint using the specified geometry
+                    var viewpoint = new Viewpoint(_edinburghEnvelope);
+
+                    // Set Viewpoint of MapView to the Viewpoint created above and animate to it using a timespan of 5 seconds
+                    await MyMapView.SetViewpointAsync(viewpoint, TimeSpan.FromSeconds(5));
+                    break;
+
+                default:
+                    break;
             }
-            catch(Exception ex)
-            {
-                var errorMessage = "Viewpoint could not be set. " + ex.Message;
-                MessageBox.Show(errorMessage, "Sample error");
-            }         
         }
     }
 }

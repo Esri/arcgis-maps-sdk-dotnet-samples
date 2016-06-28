@@ -21,25 +21,19 @@
                         Content="Geometry"
                         Margin="10,10,0,0"
                         Width="Auto"
-                        Click="OnGeometryButtonClick" />
+                        Click="OnButtonClick" />
                     <Button x:Name="ScaleButton"
-                        Content="Centre and Scale"
+                        Content="Center and Scale"
                         Margin="10,10,0,0"
                         Width="Auto"
-                        Click="OnCentreScaleButtonClick"
+                        Click="OnButtonClick"
                         RelativePanel.RightOf="GeomButton"/>
                     <Button x:Name="AnimateButton"
-                        Content="Animation"
+                        Content="Animate"
                         Margin="10,10,0,0"
                         Width="Auto"
-                        Click="OnAnimateButtonClick"
+                        Click="OnButtonClick"
                         RelativePanel.RightOf="ScaleButton"/>
-                    <Button x:Name="RotateButton"
-                        Content="Rotate"
-                        Margin="10,10,0,0"
-                        Width="Auto"
-                        Click="OnRotateButtonClick"
-                        RelativePanel.RightOf="AnimateButton"/>
                 </RelativePanel>
             </StackPanel>
         </Border>

@@ -10,78 +10,89 @@
 Imports Esri.ArcGISRuntime.Mapping
 Imports Esri.ArcGISRuntime.Geometry
 Imports System.Windows
+Imports System.Windows.Controls
+
 
 Namespace ChangeViewpoint
+
     Partial Public Class ChangeViewpointVB
 
+        ' Coordinates for London
         Private _londonCoords As New MapPoint(-13881.7678417696, 6710726.57374296, SpatialReferences.WebMercator)
         Private _londonScale As Double = 8762.7156655229
+
+        ' Coordinates for Redlands
         Private _redlandsEnvelope As New Polygon(New List(Of MapPoint)() From {
             (New MapPoint(-13049785.1566222, 4032064.6003424)),
             (New MapPoint(-13049785.1566222, 4040202.42595729)),
             (New MapPoint(-13037033.5780234, 4032064.6003424)),
             (New MapPoint(-13037033.5780234, 4040202.42595729))
         }, SpatialReferences.WebMercator)
-        Private edinburghEnvelope As New Polygon(New List(Of MapPoint)() From {
+
+        ' Coordinates for Edinburgh
+        Private _edinburghEnvelope As New Polygon(New List(Of MapPoint)() From {
             (New MapPoint(-354262.156621384, 7548092.94093301)),
             (New MapPoint(-354262.156621384, 7548901.50684376)),
             (New MapPoint(-353039.164455303, 7548092.94093301)),
             (New MapPoint(-353039.164455303, 7548901.50684376))
         }, SpatialReferences.WebMercator)
 
-
         Public Sub New()
+
             InitializeComponent()
+
+            ' Create the UI, setup the control references and execute initialization 
+            Initialize()
+
         End Sub
 
-        Private Async Sub OnAnimateButtonClick(sender As Object, e As RoutedEventArgs)
-            Try
-                'Return to initial viewpoint so Animation curve can be demonstrated clearly.
-                Await MyMapView.SetViewpointAsync(MyMapView.Map.InitialViewpoint)
-                Dim viewpoint = New Viewpoint(edinburghEnvelope)
-                'Animates the changing of the viewpoint giving a smooth transition from the old to the new view.
-                Await MyMapView.SetViewpointAsync(viewpoint, System.TimeSpan.FromSeconds(5))
-            Catch ex As Exception
-                Dim errorMessage = "Viewpoint could not be set. " + ex.Message
-                MessageBox.Show(errorMessage, "Sample error")
-            End Try
+        Private Sub Initialize()
+            ' Create new Map with basemap and initial location
+            Dim myMap As New Map(Esri.ArcGISRuntime.Mapping.Basemap.CreateTopographic())
+
+            ' Assign the map to the MapView
+            MyMapView.Map = myMap
         End Sub
 
-        Private Sub OnGeometryButtonClick(sender As Object, e As RoutedEventArgs)
-            Try
-                'Sets the viewpoint extent to the provide bounding geometry.   
-                MyMapView.SetViewpointGeometryAsync(_redlandsEnvelope)
-            Catch ex As Exception
-                Dim errorMessage = "Viewpoint could not be set. " + ex.Message
-                MessageBox.Show(errorMessage, "Sample error")
-            End Try
+        Private Async Sub OnButtonClick(sender As Object, e As RoutedEventArgs)
+
+            ' Get .Content from the selected item
+            Dim myButton As Button = TryCast(sender, Button)
+            Dim selectedMapTitle = myButton.Content.ToString()
+
+            Select Case selectedMapTitle
+                Case "Geometry"
+
+                    ' Set Viewpoint using Redlands envelope defined above and a padding of 20
+                    Await MyMapView.SetViewpointGeometryAsync(_redlandsEnvelope, 20)
+
+                Case "Center and Scale"
+
+                    ' Set Viewpoint so that it is centered on the London coordinates defined above
+                    Await MyMapView.SetViewpointCenterAsync(_londonCoords)
+
+                    ' Set the Viewpoint scale to match the specified scale 
+                    Await MyMapView.SetViewpointScaleAsync(_londonScale)
+
+                Case "Animate"
+
+                    ' Navigate to full extent of the first baselayer before animating to specified geometry
+                    Await MyMapView.SetViewpointAsync(New Viewpoint(MyMapView.Map.Basemap.BaseLayers.First().FullExtent))
+
+                    ' Create a new Viewpoint using the specified geometry
+                    Dim viewpoint = New Viewpoint(_edinburghEnvelope)
+
+                    ' Set Viewpoint of MapView to the Viewpoint created above and animate to it using a timespan of 5 seconds
+                    Await MyMapView.SetViewpointAsync(viewpoint, TimeSpan.FromSeconds(5))
+
+                Case Else
+
+            End Select
+
         End Sub
 
-        Private Sub OnCenterScaleButtonClick(sender As Object, e As RoutedEventArgs)
-            Try
-                'Centers the viewpoint on the provided map point. 
-                MyMapView.SetViewpointCenterAsync(_londonCoords)
-                'Sets the viewpoint's zoom scale to the provided double value.  
-                MyMapView.SetViewpointScaleAsync(_londonScale)
-            Catch ex As Exception
-                Dim errorMessage = "Viewpoint could not be set. " + ex.Message
-                MessageBox.Show(errorMessage, "Sample error")
-            End Try
-        End Sub
-
-        Private Async Sub OnRotateButtonClick(sender As Object, e As RoutedEventArgs)
-            Try
-                'Gets the current rotation value of the map view.
-                Dim currentRotation = MyMapView.MapRotation
-                'Rotate the viewpoint by the given number of degrees. In this case the current rotation value
-                'plus 90 is passed, this will result in a the map rotating 90 degrees anti-clockwise.  
-                Await MyMapView.SetViewpointRotationAsync(currentRotation + 90.0)
-            Catch ex As Exception
-                Dim errorMessage = "Viewpoint could not be set. " + ex.Message
-                MessageBox.Show(errorMessage, "Sample error")
-            End Try
-        End Sub
     End Class
+
 End Namespace
 
 

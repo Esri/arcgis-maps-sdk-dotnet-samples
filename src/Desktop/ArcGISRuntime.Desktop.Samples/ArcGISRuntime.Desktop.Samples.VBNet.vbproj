@@ -208,6 +208,9 @@
     <Compile Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrlVB.xaml.vb">
       <DependentUpon>ArcGISTiledLayerUrlVB.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRendererVB.xaml.vb">
+      <DependentUpon>ChangeFeatureLayerRendererVB.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrlVB.xaml.vb">
       <DependentUpon>ArcGISVectorTiledLayerUrlVB.xaml</DependentUpon>
     </Compile>
@@ -310,6 +313,9 @@
     <Page Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrlVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRendererVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrlVB.xaml">
       <SubType>Designer</SubType>

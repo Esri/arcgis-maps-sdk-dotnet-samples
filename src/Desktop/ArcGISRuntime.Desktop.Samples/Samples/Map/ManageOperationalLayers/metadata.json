@@ -1,0 +1,14 @@
+{
+  "Name": "Manage operational layers",
+  "SampleName": "ManageOperationalLayers",
+  "Description": "This samples demonstrates how to access layers in the map.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"ManageOperationalLayers.jpg",
+  "Link":"",
+  "TypeLink": ["P:Esri.ArcGISRuntime.Mapping.Map.Basemap"
+  ]
+}

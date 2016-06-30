@@ -23,8 +23,8 @@ namespace ArcGISRuntime.Desktop.Samples.ArcGISVectorTiledLayerUrl
         private string _vectorTiledLayerUrl;
         private ArcGISVectorTiledLayer _vectorTiledLayer;
 
-        // String array to store titles for the viewpoints specified above.
-        private string[] titles = new string[]
+        // String array to store some vector layer choices
+        private string[] _vectorLayerNames = new string[]
         {
             "Topo",
             "Streets",
@@ -49,30 +49,34 @@ namespace ArcGISRuntime.Desktop.Samples.ArcGISVectorTiledLayerUrl
             Map myMap = new Map(new Basemap(_vectorTiledLayer));
 
             // Set titles as a items source
-            basemapChooser.ItemsSource = titles;
+            vectorLayersChooser.ItemsSource = _vectorLayerNames;
 
             // Assign the map to the MapView
             MyMapView.Map = myMap;
         }
 
-        private void OnBasemapChooserSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void OnVectorLayersChooserSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var selectedBasemap = e.AddedItems[0].ToString();
+            var selectedVectorLayer = e.AddedItems[0].ToString();
 
-            switch (selectedBasemap)
+            switch (selectedVectorLayer)
             {
                 case "Topo":
                     _vectorTiledLayerUrl = _topographicUrl;
                     break;
+
                 case "Streets":
                     _vectorTiledLayerUrl = _streetUrl;
                     break;
+
                 case "Night":
                     _vectorTiledLayerUrl = _nightUrl;
                     break;
+
                 case "Navigation":
                     _vectorTiledLayerUrl = _navigationUrl;
                     break;
+
                 default:
                     break;
             }

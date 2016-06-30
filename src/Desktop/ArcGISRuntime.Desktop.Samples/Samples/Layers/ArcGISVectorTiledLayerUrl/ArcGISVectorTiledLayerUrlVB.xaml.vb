@@ -12,7 +12,6 @@ Imports System.Windows.Controls
 
 Namespace ArcGISVectorTiledLayerUrl
     Partial Public Class ArcGISVectorTiledLayerUrlVB
-
         Private _navigationUrl As String = "http://www.arcgis.com/sharing/rest/content/items/00cd8e843bae49b3a040423e5d65416b/resources/styles/root.json"
         Private _streetUrl As String = "http://www.arcgis.com/sharing/rest/content/items/3b8814f6ddbd485cae67e8018992246e/resources/styles/root.json"
         Private _nightUrl As String = "http://www.arcgis.com/sharing/rest/content/items/f96366254a564adda1dc468b447ed956/resources/styles/root.json"
@@ -21,8 +20,8 @@ Namespace ArcGISVectorTiledLayerUrl
         Private _vectorTiledLayerUrl As String
         Private _vectorTiledLayer As ArcGISVectorTiledLayer
 
-        ' String array to store titles for the viewpoints specified above.
-        Private titles As String() = New String() {"Topo", "Streets", "Night", "Navigation"}
+        ' String array to store some vector layer choices
+        Private _vectorLayerNames As String() = New String() {"Topo", "Streets", "Night", "Navigation"}
 
         Public Sub New()
             InitializeComponent()
@@ -39,29 +38,33 @@ Namespace ArcGISVectorTiledLayerUrl
             Dim myMap As New Map(New Basemap(_vectorTiledLayer))
 
             ' Set titles as a items source
-            basemapChooser.ItemsSource = titles
+            vectorLayersChooser.ItemsSource = _vectorLayerNames
 
             ' Assign the map to the MapView
             MyMapView.Map = myMap
         End Sub
 
-        Private Sub OnBasemapChooserSelectionChanged(sender As Object, e As SelectionChangedEventArgs)
-            Dim selectedBasemap = e.AddedItems(0).ToString()
+        Private Sub OnVectorLayersChooserSelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+            Dim selectedVectorLayer = e.AddedItems(0).ToString()
 
-            Select Case selectedBasemap
+            Select Case selectedVectorLayer
                 Case "Topo"
                     _vectorTiledLayerUrl = _topographicUrl
                     Exit Select
+
                 Case "Streets"
                     _vectorTiledLayerUrl = _streetUrl
                     Exit Select
+
                 Case "Night"
                     _vectorTiledLayerUrl = _nightUrl
                     Exit Select
+
                 Case "Navigation"
                     _vectorTiledLayerUrl = _navigationUrl
                     Exit Select
                 Case Else
+
                     Exit Select
             End Select
 

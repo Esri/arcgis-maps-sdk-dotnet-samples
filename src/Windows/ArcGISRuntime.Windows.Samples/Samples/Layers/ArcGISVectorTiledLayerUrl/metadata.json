@@ -1,0 +1,15 @@
+{
+  "Name": "ArcGIS vector tiled layer (URL)",
+  "SampleName": "ArcGISVectorTiledLayerUrl",
+  "Description": "This sample demonstrates how to create a ArcGISVectorTiledLayer and bind this to a Basemap which is used in the creation of a map.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"ArcGISVectorTiledLayerUrl.jpg",
+  "Link":"",
+  "TypeLink": [""
+  ],
+  "SampleFolder": "ArcGISVectorTiledLayerUrl"
+}

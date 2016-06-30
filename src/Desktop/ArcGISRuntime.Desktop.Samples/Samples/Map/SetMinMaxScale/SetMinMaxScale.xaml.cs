@@ -31,9 +31,6 @@ namespace ArcGISRuntime.Desktop.Samples.SetMinMaxScale
             myMap.MinScale = 8000;
             myMap.MaxScale = 2000;
 
-            // Assign the map to the MapView
-            MyMapView.Map = myMap;
-
             // Create central point where map is centered
             MapPoint centralPoint = new MapPoint(-355453, 7548720, SpatialReferences.WebMercator);
 
@@ -41,9 +38,11 @@ namespace ArcGISRuntime.Desktop.Samples.SetMinMaxScale
             Viewpoint startingViewpoint = new Viewpoint(
                 centralPoint,
                 3000);
-
             // Set starting viewpoint
-            MyMapView.SetViewpoint(startingViewpoint);
+            myMap.InitialViewpoint = startingViewpoint;
+
+            // Assign the map to the MapView
+            MyMapView.Map = myMap;
         }
     }
 }

@@ -89,6 +89,9 @@
     <Content Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.jpg" />
     <Content Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg" />
     <Content Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.jpg" />
+    <Content Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.jpg" />
     <Content Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.jpg" />
     <Content Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.jpg">
@@ -144,6 +147,9 @@
     <None Include="Samples\GraphicsOverlay\AddGraphicsRenderer\README.md" />
     <None Include="Samples\GraphicsOverlay\IdentifyGraphics\metadata.json" />
     <None Include="Samples\GraphicsOverlay\IdentifyGraphics\README.md" />
+    <Content Include="Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Samples\Layers\ChangeFeatureLayerRenderer\metadata.json" />
     <None Include="Samples\Layers\ChangeSublayerVisibility\metadata.json" />
     <None Include="Samples\Layers\FeatureLayerSelection\metadata.json" />
@@ -204,6 +210,9 @@
     </Compile>
     <Compile Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRendererVB.xaml.vb">
       <DependentUpon>ChangeFeatureLayerRendererVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrlVB.xaml.vb">
+      <DependentUpon>ArcGISVectorTiledLayerUrlVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibilityVB.xaml.vb">
       <DependentUpon>ChangeSublayerVisibilityVB.xaml</DependentUpon>
@@ -307,7 +316,10 @@
     </Page>
     <Page Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRendererVB.xaml">
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrlVB.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibilityVB.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -94,6 +94,7 @@
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
     <Content Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.jpg" />
+    <Content Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.jpg" />
     <Content Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.jpg" />
     <Content Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.jpg" />
     <Content Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.jpg" />
@@ -141,6 +142,7 @@
     </Content>
     <None Include="Samples\Layers\ArcGISTiledLayerUrl\metadata.json" />
     <None Include="Samples\Layers\ArcGISTiledLayerUrl\README.md" />
+    <None Include="Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json" />
     <None Include="Samples\Layers\ChangeFeatureLayerRenderer\metadata.json" />
     <None Include="Samples\Layers\ChangeSublayerVisibility\metadata.json" />
     <None Include="Samples\Layers\FeatureLayerSelection\metadata.json" />
@@ -187,6 +189,9 @@
     </Compile>
     <Compile Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrlVB.xaml.vb">
       <DependentUpon>ArcGISTiledLayerUrlVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrlVB.xaml.vb">
+      <DependentUpon>ArcGISVectorTiledLayerUrlVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRendererVB.xaml.vb">
       <DependentUpon>ChangeFeatureLayerRendererVB.xaml</DependentUpon>
@@ -336,6 +341,10 @@
     <Page Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrlVB.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrlVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRendererVB.xaml">
       <Generator>MSBuild:Compile</Generator>

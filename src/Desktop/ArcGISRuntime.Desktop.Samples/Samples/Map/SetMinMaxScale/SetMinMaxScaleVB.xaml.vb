@@ -27,17 +27,16 @@ Namespace SetMinMaxScale
             myMap.MinScale = 8000
             myMap.MaxScale = 2000
 
-            ' Assign the map to the MapView
-            MyMapView.Map = myMap
-
             ' Create central point where map is centered
             Dim centralPoint As New MapPoint(-355453, 7548720, SpatialReferences.WebMercator)
 
             ' Create starting viewpoint
             Dim startingViewpoint As New Viewpoint(centralPoint, 3000)
-
             ' Set starting viewpoint
-            MyMapView.SetViewpoint(startingViewpoint)
+            myMap.InitialViewpoint = startingViewpoint
+
+            ' Assign the map to the MapView
+            MyMapView.Map = myMap
         End Sub
     End Class
 End Namespace

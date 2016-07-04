@@ -111,7 +111,9 @@
     <Content Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.jpg" />
     <Content Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.jpg" />
     <Content Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.jpg" />
-    <None Include="groups.json" />
+    <None Include="groups.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="project.json" />
     <None Include="Samples\Data\FeatureLayerQuery\metadata.json" />
     <None Include="Samples\Data\ServiceFeatureTableCache\metadata.json" />
@@ -142,7 +144,9 @@
     </Content>
     <None Include="Samples\Layers\ArcGISTiledLayerUrl\metadata.json" />
     <None Include="Samples\Layers\ArcGISTiledLayerUrl\README.md" />
-    <None Include="Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json" />
+    <Content Include="Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Samples\Layers\ChangeFeatureLayerRenderer\metadata.json" />
     <None Include="Samples\Layers\ChangeSublayerVisibility\metadata.json" />
     <None Include="Samples\Layers\FeatureLayerSelection\metadata.json" />

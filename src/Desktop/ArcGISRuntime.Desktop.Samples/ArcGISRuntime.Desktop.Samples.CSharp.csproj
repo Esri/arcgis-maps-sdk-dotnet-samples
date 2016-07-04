@@ -531,7 +531,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json" />
+    <Content Include="Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

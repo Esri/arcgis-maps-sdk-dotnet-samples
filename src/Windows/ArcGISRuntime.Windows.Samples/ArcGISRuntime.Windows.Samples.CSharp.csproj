@@ -273,7 +273,9 @@
     <Content Include="Samples\Location\DisplayDeviceLocation\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json" />
+    <Content Include="Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />

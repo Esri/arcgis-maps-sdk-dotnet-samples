@@ -82,6 +82,10 @@
           "ShowGroup": true,
           "SampleInfos": [
             {
+              "SampleName": "ArcGISVectorTiledLayerUrl",
+              "Path": "Samples/Layers/ArcGISVectorTiledLayerUrl"
+            },
+            {
               "SampleName": "ArcGISTiledLayerUrl",
               "Path": "Samples/Layers/ArcGISTiledLayerUrl"
             }
@@ -99,7 +103,7 @@
             {
               "SampleName": "ChangeSublayerVisibility",
               "Path": "Samples/Layers/ChangeSublayerVisibility"
-            }
+            } 
           ]
         }
       ]

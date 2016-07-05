@@ -42,7 +42,7 @@ namespace ArcGISRuntime.Windows.Samples.ArcGISVectorTiledLayerUrl
 
         private void Initialize()
         {
-            // Create a new ArcGISVectorTiledLayer with the navigation serice Url
+            // Create a new ArcGISVectorTiledLayer with the navigation service Url
             _vectorTiledLayer = new ArcGISVectorTiledLayer(new Uri(_navigationUrl));
 
             // Create new Map with basemap
@@ -84,9 +84,8 @@ namespace ArcGISRuntime.Windows.Samples.ArcGISVectorTiledLayerUrl
             // Create a new ArcGISVectorTiledLayer with the Url Selected by the user
             _vectorTiledLayer = new ArcGISVectorTiledLayer(new Uri(_vectorTiledLayerUrl));
 
-            // // Create new Map with basemap and assing to the Mapviews Map
+            // // Create new Map with basemap and assigning to the Mapviews Map
             MyMapView.Map = new Map(new Basemap(_vectorTiledLayer));
-
         }
     }
 }

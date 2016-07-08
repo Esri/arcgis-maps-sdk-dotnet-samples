@@ -14,8 +14,10 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <esriUI:MapView x:Name="MyMapView"/>
+      <StackPanel Orientation="Vertical">
         <TextBlock x:Name="StatusLabel_TiledLayer" Text=""/>
         <TextBlock x:Name="StatusLabel_ImageLayer" Text=""/>
         <TextBlock x:Name="StatusLabel_FeatureLayer" Text=""/>
+      </StackPanel>
     </Grid>
 </UserControl>

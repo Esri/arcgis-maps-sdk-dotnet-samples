@@ -15,19 +15,9 @@
             <StackPanel>
                 <TextBlock Text="Layer display status" 
                       Margin="0,0,0,2" TextWrapping="Wrap" />
-                <ListView x:Name="layerStatusListView">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Margin="2">
-                                    <Run Text="{Binding LayerName, Mode=OneWay}"/>
-                                    <Run Text=" - " />
-                                    <Run Text="{Binding LayerViewStatus, Mode=OneWay}"/>
-                                </TextBlock>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                <Label x:Name="StatusLabel_TiledLayer" Content=""/>
+                <Label x:Name="StatusLabel_ImageLayer" Content=""/>
+                <Label x:Name="StatusLabel_FeatureLayer" Content=""/>
             </StackPanel>
         </Border>
     </Grid>

@@ -14,16 +14,8 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <esriUI:MapView x:Name="MyMapView"/>
-        <ListView x:Name="layerStatusListView" Grid.Row="1">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Margin="2">
-                        <Run Text="{Binding LayerName, Mode=OneWay}"/>
-                        <Run Text=" - " />
-                        <Run Text="{Binding LayerViewStatus, Mode=OneWay}"/>
-                    </TextBlock>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <TextBlock x:Name="StatusLabel_TiledLayer" Text=""/>
+        <TextBlock x:Name="StatusLabel_ImageLayer" Text=""/>
+        <TextBlock x:Name="StatusLabel_FeatureLayer" Text=""/>
     </Grid>
 </UserControl>

@@ -7,24 +7,23 @@
 ' "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 ' language governing permissions and limitations under the License.
 
-Imports System.ComponentModel
-Imports System.Runtime.CompilerServices
 Imports Esri.ArcGISRuntime.Geometry
 Imports Esri.ArcGISRuntime.Mapping
 
 Namespace DisplayLayerViewState
     Partial Public Class DisplayLayerViewStateVB
-        ' Reference to list of view status for each layer
-        Private _layerStatusModels As New List(Of LayerStatusModel)()
 
         Public Sub New()
+
             InitializeComponent()
 
             ' Create the UI, setup the control references and execute initialization 
             Initialize()
+
         End Sub
 
         Private Sub Initialize()
+
             ' Create new Map
             Dim myMap As New Map()
 
@@ -62,73 +61,40 @@ Namespace DisplayLayerViewState
             ' Add the feature layer to map
             myMap.OperationalLayers.Add(myFeatureLayer)
 
-            ' Create a mappoint the map should zoom to
+            ' Create a map point the map should zoom to
             Dim mapPoint As New MapPoint(-11000000, 4500000, SpatialReferences.WebMercator)
 
             ' Set the initial viewpoint for map
             myMap.InitialViewpoint = New Viewpoint(mapPoint, 50000000)
-
-            ' Initialize the model list with unknown status for each layer
-            For Each layer As Layer In myMap.OperationalLayers
-                _layerStatusModels.Add(New LayerStatusModel(layer.Name, "Unknown"))
-            Next
-
-            ' Set models list as a itemssource
-            layerStatusListView.ItemsSource = _layerStatusModels
 
             ' Event for layer view state changed
             AddHandler MyMapView.LayerViewStateChanged, AddressOf OnLayerViewStateChanged
 
             ' Provide used Map to the MapView
             MyMapView.Map = myMap
+
         End Sub
 
         Private Sub OnLayerViewStateChanged(sender As Object, e As LayerViewStateChangedEventArgs)
-            ' State changed event is sent by a layer. In the list, find the layer which sends this event. 
-            ' If it exists then update the status
-            Dim model = _layerStatusModels.FirstOrDefault(Function(l) l.LayerName = e.Layer.Name)
-            If model IsNot Nothing Then
-                model.LayerViewStatus = e.LayerViewState.Status.ToString()
-            End If
+
+            ' For each execution of the MapView.LayerViewStateChanged Event, get the name of
+            ' the layer and its LayerViewState.Status
+            Dim lName As String = e.Layer.Name
+            Dim lViewStatus As String = e.LayerViewState.Status.ToString()
+
+            ' Display the layer name and view status in the appropriate Label control
+            Select Case lName
+                Case "Tiled Layer"
+                    StatusLabel_TiledLayer.Content = lName & " - " & lViewStatus
+                Case "Image Layer"
+                    StatusLabel_ImageLayer.Content = lName & " - " & lViewStatus
+                Case "Feature Layer"
+                    StatusLabel_FeatureLayer.Content = lName & " - " & lViewStatus
+                Case Else
+            End Select
+
         End Sub
 
-        ''' <summary>
-        ''' This is a custom class that holds information for layer name and status
-        ''' </summary>
-        Public Class LayerStatusModel
-            Implements INotifyPropertyChanged
-            Private m_layerViewStatus As String
-
-            Public Property LayerName() As String
-                Get
-                    Return m_LayerName
-                End Get
-                Private Set
-                    m_LayerName = Value
-                End Set
-            End Property
-            Private m_LayerName As String
-
-            Public Property LayerViewStatus() As String
-                Get
-                    Return m_layerViewStatus
-                End Get
-                Set
-                    m_layerViewStatus = Value
-                    NotifyPropertyChanged()
-                End Set
-            End Property
-
-            Public Sub New(layerName__1 As String, layerStatus As String)
-                LayerName = layerName__1
-                LayerViewStatus = layerStatus
-            End Sub
-
-            Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
-
-            Private Sub NotifyPropertyChanged(<CallerMemberName> Optional propertyName As String = "")
-                RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
-            End Sub
-        End Class
     End Class
+
 End Namespace

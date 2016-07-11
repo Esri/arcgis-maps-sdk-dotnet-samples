@@ -10,17 +10,11 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace ArcGISRuntime.Desktop.Samples.DisplayLayerViewState
 {
     public partial class DisplayLayerViewState
     {
-        // Reference to list of view status for each layer
-        private List<LayerStatusModel> _layerStatusModels = new List<LayerStatusModel>();
 
         public DisplayLayerViewState()
         {
@@ -72,20 +66,11 @@ namespace ArcGISRuntime.Desktop.Samples.DisplayLayerViewState
             // Add the feature layer to map
             myMap.OperationalLayers.Add(myFeatureLayer);
 
-            // Create a mappoint the map should zoom to
+            // Create a map point the map should zoom to
             MapPoint mapPoint = new MapPoint(-11000000, 4500000, SpatialReferences.WebMercator);
 
             // Set the initial viewpoint for map
             myMap.InitialViewpoint = new Viewpoint(mapPoint, 50000000);
-
-            // Initialize the model list with unknown status for each layer
-            foreach (Layer layer in myMap.OperationalLayers)
-            {
-                _layerStatusModels.Add(new LayerStatusModel(layer.Name, "Unknown"));
-            }
-
-            // Set models list as a itemssource
-            layerStatusListView.ItemsSource = _layerStatusModels;
 
             // Event for layer view state changed
             MyMapView.LayerViewStateChanged += OnLayerViewStateChanged;
@@ -96,42 +81,25 @@ namespace ArcGISRuntime.Desktop.Samples.DisplayLayerViewState
 
         private void OnLayerViewStateChanged(object sender, LayerViewStateChangedEventArgs e)
         {
-            // State changed event is sent by a layer. In the list, find the layer which sends this event. 
-            // If it exists then update the status
-            var model = _layerStatusModels.FirstOrDefault(l => l.LayerName == e.Layer.Name);
-            if (model != null)
-                model.LayerViewStatus = e.LayerViewState.Status.ToString();
-        }
+            // For each execution of the MapView.LayerViewStateChanged Event, get the name of
+            // the layer and its LayerViewState.Status
+            string lName = e.Layer.Name;
+            string lViewStatus = e.LayerViewState.Status.ToString();
 
-        /// <summary>
-        /// This is a custom class that holds information for layer name and status
-        /// </summary>
-        public class LayerStatusModel : INotifyPropertyChanged
-        {
-            private string layerViewStatus;
-
-            public string LayerName { get; private set; }
-
-            public string LayerViewStatus
+            // Display the layer name and view status in the appropriate Label control
+            switch (lName)
             {
-                get { return layerViewStatus; }
-                set { layerViewStatus = value; NotifyPropertyChanged(); }
-            }
-
-            public LayerStatusModel(string layerName, string layerStatus)
-            {
-                LayerName = layerName;
-                LayerViewStatus = layerStatus;
-            }
-
-            public event PropertyChangedEventHandler PropertyChanged;
-
-            private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-            {
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-                }
+                case "Tiled Layer":
+                    StatusLabel_TiledLayer.Content = lName + " - " + lViewStatus;
+                    break;
+                case "Image Layer":
+                    StatusLabel_ImageLayer.Content = lName + " - " + lViewStatus;
+                    break;
+                case "Feature Layer":
+                    StatusLabel_FeatureLayer.Content = lName + " - " + lViewStatus;
+                    break;
+                default:
+                    break;
             }
         }
     }

@@ -62,7 +62,7 @@ Namespace DisplayLayerViewState
             ' Add the feature layer to map
             myMap.OperationalLayers.Add(myFeatureLayer)
 
-            ' Create a mappoint the map should zoom to
+            ' Create a map point the map should zoom to
             Dim mapPoint As New MapPoint(-11000000, 4500000, SpatialReferences.WebMercator)
 
             ' Set the initial viewpoint for map
@@ -78,8 +78,8 @@ Namespace DisplayLayerViewState
 
         Private Sub OnLayerViewStateChanged(sender As Object, e As LayerViewStateChangedEventArgs)
 
-            ' For each execution of the MapView.LayerViewStateChanges Event, get the name of
-            ' the layer and it's LayerViewState.Status
+            ' For each execution of the MapView.LayerViewStateChanged Event, get the name of
+            ' the layer and its LayerViewState.Status
             Dim lName As String = e.Layer.Name
             Dim lViewStatus As String = e.LayerViewState.Status.ToString()
 

@@ -66,7 +66,7 @@ namespace ArcGISRuntime.Windows.Samples.DisplayLayerViewState
             // Add the feature layer to map
             myMap.OperationalLayers.Add(myFeatureLayer);
 
-            // Create a mappoint the map should zoom to
+            // Create a map point the map should zoom to
             MapPoint mapPoint = new MapPoint(-11000000, 4500000, SpatialReferences.WebMercator);
 
             // Set the initial viewpoint for map
@@ -81,8 +81,8 @@ namespace ArcGISRuntime.Windows.Samples.DisplayLayerViewState
 
         private void OnLayerViewStateChanged(object sender, LayerViewStateChangedEventArgs e)
         {
-            // For each execution of the MapView.LayerViewStateChanges Event, get the name of
-            // the layer and it's LayerViewState.Status
+            // For each execution of the MapView.LayerViewStateChanged Event, get the name of
+            // the layer and its LayerViewState.Status
             string lName = e.Layer.Name;
             string lViewStatus = e.LayerViewState.Status.ToString();
 

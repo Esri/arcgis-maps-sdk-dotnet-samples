@@ -11,10 +11,10 @@
         <Border
             Background="White" BorderBrush="Black" BorderThickness="1"
             HorizontalAlignment="Right" VerticalAlignment="Top"
-            Margin="30" Padding="20" Width="375">
+            Margin="30" Padding="20" Width="250">
             <StackPanel>
-                <TextBlock Text="Layer display status" 
-                      Margin="0,0,0,2" TextWrapping="Wrap" />
+                <TextBlock Text="Layer display status" FontWeight="Bold" 
+                      HorizontalAlignment="Center" />
                 <Label x:Name="StatusLabel_TiledLayer" Content=""/>
                 <Label x:Name="StatusLabel_ImageLayer" Content=""/>
                 <Label x:Name="StatusLabel_FeatureLayer" Content=""/>

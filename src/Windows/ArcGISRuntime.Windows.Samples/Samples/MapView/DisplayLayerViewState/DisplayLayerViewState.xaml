@@ -14,10 +14,15 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <esriUI:MapView x:Name="MyMapView"/>
-        <StackPanel Orientation="Vertical">
-            <TextBlock x:Name="StatusLabel_TiledLayer" Text=""/>
-            <TextBlock x:Name="StatusLabel_ImageLayer" Text=""/>
-            <TextBlock x:Name="StatusLabel_FeatureLayer" Text=""/>
-        </StackPanel>
+        <Border
+            Background="White" BorderBrush="Black" BorderThickness="1"
+            HorizontalAlignment="Left" VerticalAlignment="Top"
+            Margin="30" Padding="20" Width="250">
+            <StackPanel Orientation="Vertical">
+                <TextBlock x:Name="StatusLabel_TiledLayer" Text=""/>
+                <TextBlock x:Name="StatusLabel_ImageLayer" Text=""/>
+                <TextBlock x:Name="StatusLabel_FeatureLayer" Text=""/>
+            </StackPanel>
+        </Border>
     </Grid>
 </UserControl>

@@ -55,8 +55,10 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -106,6 +108,7 @@
     <Content Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.jpg" />
     <Content Include="Samples\Map\ChangeBasemap\ChangeBasemap.jpg" />
     <Content Include="Samples\Map\DisplayMap\DisplayMap.jpg" />
+    <Content Include="Samples\Map\ManageBookmarks\ManageBookmarks.jpg" />
     <Content Include="Samples\Map\OpenExistingMap\OpenExistingMap.jpg" />
     <Content Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg" />
     <Content Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg" />
@@ -165,6 +168,7 @@
     <None Include="Samples\Map\AccessLoadStatus\metadata.json" />
     <None Include="Samples\Map\ChangeBasemap\metadata.json" />
     <None Include="Samples\Map\DisplayMap\metadata.json" />
+    <None Include="Samples\Map\ManageBookmarks\metadata.json" />
     <None Include="Samples\Map\OpenExistingMap\metadata.json" />
     <None Include="Samples\Map\SetInitialMapLocation\metadata.json" />
     <None Include="Samples\Map\SetInitialMapArea\metadata.json" />
@@ -250,6 +254,9 @@
     </Compile>
     <Compile Include="Samples\Map\DisplayMap\DisplayMapVB.xaml.vb">
       <DependentUpon>DisplayMapVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarksVB.xaml.vb">
+      <DependentUpon>ManageBookmarksVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Map\OpenExistingMap\OpenExistingMapVB.xaml.vb">
       <DependentUpon>OpenExistingMapVB.xaml</DependentUpon>
@@ -372,6 +379,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Map\ManageBookmarks\ManageBookmarksVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Map\OpenExistingMap\OpenExistingMapVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -408,6 +419,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

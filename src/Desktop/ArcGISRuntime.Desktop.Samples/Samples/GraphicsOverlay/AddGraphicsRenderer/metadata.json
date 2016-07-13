@@ -1,5 +1,5 @@
 {
-  "Name": "Add graphics (Renderer)",
+  "Name": "Add graphics (SimpleRenderer)",
   "SampleName": "AddGraphicsRenderer",
   "Description": "This sample demonstrates how you add graphics and set a renderer on a graphic overlays.",
   "Instructions": "",

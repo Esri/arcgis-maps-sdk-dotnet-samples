@@ -65,15 +65,15 @@ Namespace FeatureLayerSelection
                 ' Add the feature layer to the map
                 myMap.OperationalLayers.Add(_featureLayer)
 
-                ' Add tap event handler for mapview
+                ' Add tap event handler for map view
                 AddHandler MyMapView.GeoViewTapped, AddressOf OnMapViewTapped
             End If
         End Sub
 
         Private Async Sub OnMapViewTapped(sender As Object, e As GeoViewInputEventArgs)
             Try
-                ' Define the selection tolerance
-                Dim tolerance As Double = 5
+                ' Define the selection tolerance (half the marker symbol size so that any click on the symbol will select the feature)
+                Dim tolerance As Double = 14
 
                 ' Convert the tolerance to map units
                 Dim mapTolerance As Double = tolerance * MyMapView.UnitsPerPixel

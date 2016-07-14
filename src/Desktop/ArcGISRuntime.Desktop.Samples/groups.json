@@ -45,6 +45,10 @@
               "Path": "Samples/Map/OpenExistingMap"
             },
             {
+              "SampleName": "AuthorMap",
+              "Path": "Samples/Map/AuthorMap"
+            },
+            {
               "SampleName": "SetMinMaxScale",
               "Path": "Samples/Map/SetMinMaxScale"
             },

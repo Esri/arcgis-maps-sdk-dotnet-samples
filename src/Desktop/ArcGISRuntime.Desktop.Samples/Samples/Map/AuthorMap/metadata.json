@@ -1,0 +1,14 @@
+{
+  "Name": "Author a map",
+  "SampleName": "AuthorMap",
+  "Description": "This samples demonstrates how to author and save a map with a basemap and operational layers.",
+  "Instructions": "",
+  "Type": 1,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"AuthorMap.jpg",
+  "Link":"",
+  "TypeLink": ["T:Esri.ArcGISRuntime.Mapping.Basemap","T:Esri.ArcGISRuntime.Mapping.Map"
+  ]
+}

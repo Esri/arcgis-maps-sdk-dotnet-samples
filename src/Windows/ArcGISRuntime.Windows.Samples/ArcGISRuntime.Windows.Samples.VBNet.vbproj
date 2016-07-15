@@ -306,7 +306,7 @@
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="Esri.ArcGISRuntime, Version=100.0">
-      <Name>ArcGIS Runtime for Universal apps</Name>
+      <Name>ArcGIS Runtime SDK for .NET - Universal Windows Platform</Name>
     </SDKReference>
     <SDKReference Include="Microsoft.VCLibs, version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>

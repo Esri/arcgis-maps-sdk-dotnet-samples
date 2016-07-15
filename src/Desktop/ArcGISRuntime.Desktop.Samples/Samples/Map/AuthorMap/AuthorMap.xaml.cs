@@ -29,12 +29,10 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
         // URL of the server to authenticate with
         private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
         // TODO: Add Client ID for an app registered with the server
-        private const string ClientId = "b4tmQpgU92eu3XAR";
-        // TODO: Add Client Secret for the same app (only needed for the OAuthAuthorizationCode auth type)
-        private const string ClientSecret = "";
+        private const string AppClientId = "b4tmQpgU92eu3XAR";
         // TODO: Add URL registered with the server for redirecting after a successful authorization
         //       Note - this must be an existing URL registered with your app
-        private const string RedirectUrl = "https://developers.arcgis.com/";
+        private const string OAuthRedirectUrl = "https://developers.arcgis.com/";
 
         // String array to store names of the available basemaps
         private string[] _basemapNames = new string[]
@@ -45,11 +43,12 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
             "Ocean"
         };
 
-        // Operational layer URLs
+        // Dictionary of operational layer names and URLs
         private Dictionary<string, string> _operationalLayerUrls = new Dictionary<string, string>
         {
             {"World Elevations", "http://sampleserver5.arcgisonline.com/arcgis/rest/services/Elevation/WorldElevations/MapServer"},
-            {"Census Data", "http://sampleserver5.arcgisonline.com/arcgis/rest/services/Census/MapServer"}
+            {"World Cities", "http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/" },
+            {"US Census Data", "http://sampleserver5.arcgisonline.com/arcgis/rest/services/Census/MapServer"}
         };
 
         public AuthorMap()
@@ -75,38 +74,14 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
 
             // Setup the AuthenticationManager to challenge for credentials
             UpdateAuthenticationManager();
-        }
-
-        /// <summary>
-        /// Register the server and OAuthAuthorize class with the Authentication Manager.
-        /// </summary>
-        private void UpdateAuthenticationManager()
-        {
-            // Register the server information with the AuthenticationManager
-            Esri.ArcGISRuntime.Security.ServerInfo serverInfo = new ServerInfo
-            {
-                ServerUri = new Uri(ServerUrl),
-                OAuthClientInfo = new OAuthClientInfo
-                {
-                    ClientId = ClientId,
-                    //ClientSecret = ClientSecret,
-                    RedirectUri = new Uri(RedirectUrl)
-                },
-                // Specify OAuthAuthorizationCode if you need a refresh token (and have specified a valid client secret)
-                // Otherwise, use OAuthImplicit
-                TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
-            };
-            AuthenticationManager.Current.RegisterServer(serverInfo);
-
-            // Use the OAuthAuthorize class in this project to create a new web view that contains the OAuth challenge handler.
-            AuthenticationManager.Current.OAuthAuthorizeHandler = new OAuthAuthorize();
-
-            // Create a new ChallengeHandler that uses a method in this class to challenge for credentials
-            AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(CreateCredentialAsync);
-        }
+            
+            // Update the extent labels whenever the view point (extent) changes
+            MyMapView.ViewpointChanged += (s, evt) => UpdateViewExtentLabels();
+        }            
 
         private void ApplyBasemap(string basemapName)
         {
+            // Set the basemap for the map according to the user's choice in the list box
             switch (basemapName)
             {
                 case "Topographic":
@@ -132,10 +107,13 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
 
         private void AddOperationalLayers()
         {
+            // Loop through the selected items in the operational layers list box
             foreach(var item in OperationalLayerListBox.SelectedItems)
             {               
+                // Get the service uri for each selected item 
                 var layerInfo = (KeyValuePair<string, string>)item;
                 var layerUri = new Uri(layerInfo.Value);
+                // Create a new map image layer, set it 50% opaque, and add it to the map
                 ArcGISMapImageLayer layer = new ArcGISMapImageLayer(layerUri);
                 layer.Opacity = 0.5;
                 _myMap.OperationalLayers.Add(layer);
@@ -145,53 +123,180 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
         private void UpdateMap(object sender, System.Windows.RoutedEventArgs e)
         {
             // Create a new (empty) map
-            _myMap = new Map();
+            if (_myMap == null || _myMap.PortalItem == null)
+            {
+                _myMap = new Map();
+            }
 
-
-            // Apply the selected basemap and operational layers
+            // Call functions that apply the selected basemap and operational layers
             ApplyBasemap(BasemapListBox.SelectedValue.ToString());
             AddOperationalLayers();
 
-            // Set the initial viewpoint to the one currently displayed
+            // Use the current extent to set the initial viewpoint for the map
             _myMap.InitialViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
 
-            // Show the new map
+            // Show the new map in the map view
             MyMapView.Map = _myMap;
         }
 
         private async void SaveMap(object sender, System.Windows.RoutedEventArgs e)
         {
+            // Make sure the map is not null
+            if(_myMap == null)
+            {
+                MessageBox.Show("Please update the map before saving.", "Map is empty");
+                return;
+            }
+
+            // See if the map has already been saved (has an associated portal item)
             if(_myMap.PortalItem == null)
             {
-                CredentialRequestInfo loginInfo = new CredentialRequestInfo();
-                loginInfo.GenerateTokenOptions = new GenerateTokenOptions { TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit };
-                loginInfo.ServiceUri = new Uri("http://www.arcgis.com/sharing/rest");
-                await AuthenticationManager.Current.GetCredentialAsync(loginInfo, false);
+                // This is the initial save for this map
 
+                // Call a function that will challenge the user for ArcGIS Online credentials
+                var isLoggedIn = await EnsureLoginToArcGISAsync();
+                // If the user could not log in (or canceled the login), exit
+                if (!isLoggedIn) { return; }
+
+                // Get the ArcGIS Online portal
                 ArcGISPortal agsOnline = await ArcGISPortal.CreateAsync();
 
-                var tags = new List<string> { "test", "map", "runtime" };
+                // Get information for the new portal item
+                var title = TitleTextBox.Text;
+                var description = DescriptionTextBox.Text;
+                var tags = TagsTextBox.Text.Split(',');
+
                 try
                 {
-                    await _myMap.SaveAsAsync(agsOnline, null, "Test map", "this is a test ...", tags, null);
+                    // Show the progress bar so the user knows it's working
+                    SaveProgressBar.Visibility = Visibility.Visible;
+
+                    // Save the current state of the map as a portal item in the user's default folder
+                    await _myMap.SaveAsAsync(agsOnline, null, title, description, tags, null);
+                    MessageBox.Show("Saved '" + title + "' to ArcGIS Online!", "Map Saved");
                 }
                 catch(Exception ex)
                 {
-                    
+                    MessageBox.Show("Unable to save map to ArcGIS Online: " + ex.Message);                    
+                }
+                finally
+                {
+                    // Hide the progress bar
+                    SaveProgressBar.Visibility = Visibility.Hidden;
                 }
             }
             else
             {
-                await _myMap.SaveAsync();
+                try
+                {
+                    // Show the progress bar so the user knows it's working
+                    SaveProgressBar.Visibility = Visibility.Visible;
+
+                    // This is not the initial save, call SaveAsync to save changes to the existing portal item
+                    await _myMap.SaveAsync();
+                    MessageBox.Show("Saved changes to '" + _myMap.PortalItem.Title + "'", "Updates Saved");
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("Unable to save map updates: " + ex.Message);
+                }
+                finally
+                {
+                    // Hide the progress bar
+                    SaveProgressBar.Visibility = Visibility.Hidden;
+                }
             }
         }
 
-        /// <summary>
-        /// ChallengeHandler function for AuthenticationManager that will be called whenever access to a secured
-        /// resource is attempted
-        /// </summary>
-        /// <param name="info">Contains information about the secure request, including the URL of the resource</param>
-        /// <returns></returns>
+        private void ClearMap(object sender, RoutedEventArgs e)
+        {
+            // Set the map to null
+            _myMap = null;
+
+            // Show a plain gray map in the map view
+            MyMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
+        }
+        
+        private void UpdateViewExtentLabels()
+        {
+            // Get the current view point for the map view
+            Viewpoint currentViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
+            if (currentViewpoint == null) { return; }
+
+            // Get the current map extent (envelope) from the view point
+            Envelope currentExtent = currentViewpoint.TargetGeometry as Envelope;
+            // Project the current extent to geographic coordinates (longitude / latitude)
+            Envelope currentGeoExtent = GeometryEngine.Project(currentExtent, SpatialReferences.Wgs84) as Envelope;
+
+            // Fill the app text boxes with min / max longitude (x) and latitude (y) to four decimal places
+            XMinTextBox.Text = currentGeoExtent.XMin.ToString("0.####");
+            YMinTextBox.Text = currentGeoExtent.YMin.ToString("0.####");
+            XMaxTextBox.Text = currentGeoExtent.XMax.ToString("0.####");
+            YMaxTextBox.Text = currentGeoExtent.YMax.ToString("0.####");
+        }
+
+        #region OAuth helpers
+        private void UpdateAuthenticationManager()
+        {
+            // Register the server information with the AuthenticationManager
+            Esri.ArcGISRuntime.Security.ServerInfo portalServerInfo = new ServerInfo
+            {
+                ServerUri = new Uri(ServerUrl),
+                OAuthClientInfo = new OAuthClientInfo
+                {
+                    ClientId = AppClientId,
+                    RedirectUri = new Uri(OAuthRedirectUrl)
+                },
+                // Specify OAuthAuthorizationCode if you need a refresh token (and have specified a valid client secret)
+                // Otherwise, use OAuthImplicit
+                TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
+            };
+            AuthenticationManager.Current.RegisterServer(portalServerInfo);
+
+            // Use the OAuthAuthorize class in this project to create a new web view that contains the OAuth challenge handler.
+            AuthenticationManager.Current.OAuthAuthorizeHandler = new OAuthAuthorize();
+
+            // Create a new ChallengeHandler that uses a method in this class to challenge for credentials
+            AuthenticationManager.Current.ChallengeHandler = new Esri.ArcGISRuntime.Security.ChallengeHandler(CreateCredentialAsync);
+        }
+
+        private async Task<bool> EnsureLoginToArcGISAsync()
+        {
+            var authenticated = false;
+
+            // Create an OAuth credential request for arcgis.com
+            CredentialRequestInfo loginInfo = new CredentialRequestInfo();
+
+            // Use the OAuth implicit grant flow
+            loginInfo.GenerateTokenOptions = new GenerateTokenOptions
+            {
+                TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
+            };
+
+            // Indicate the url (portal) to authenticate with (ArcGIS Online)
+            loginInfo.ServiceUri = new Uri("http://www.arcgis.com/sharing/rest");
+
+            try
+            {
+                // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
+                await AuthenticationManager.Current.GetCredentialAsync(loginInfo, false);
+                authenticated = true;
+            }
+            catch(OperationCanceledException)
+            {
+                // user canceled the login
+                MessageBox.Show("Maps cannot be saved unless logged in to ArcGIS Online.");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error logging in: " + ex.Message);
+            }
+
+            return authenticated;
+        }
+
+        // ChallengeHandler function for AuthenticationManager that will be called whenever access to a secured
+        // resource is attempted
         public async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
         {
             OAuthTokenCredential credential = null;
@@ -219,21 +324,10 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
 
             return credential;
         }
-        
-        private void OnNavigationCompleted(object sender, EventArgs e)
-        {
-            Envelope currentExtent = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry as Envelope;
-            Envelope currentGeoExtent = GeometryEngine.Project(currentExtent, SpatialReferences.Wgs84) as Envelope;
-            XMinTextBox.Text = currentGeoExtent.XMin.ToString("0.####");
-            YMinTextBox.Text = currentGeoExtent.YMin.ToString("0.####");
-            XMaxTextBox.Text = currentGeoExtent.XMax.ToString("0.####");
-            YMaxTextBox.Text = currentGeoExtent.YMax.ToString("0.####");
-        }
+        #endregion
     }
 
-    /// <summary>
-    /// Helper class to display the OAuth authorization challenge using a web browser in a defined window
-    /// </summary>
+    #region Helper class to display the OAuth authorization challenge
     public class OAuthAuthorize : IOAuthAuthorizeHandler
     {
         private Window _window;
@@ -244,7 +338,10 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
             if (_tcs != null || _window != null)
-                throw new Exception(); // only one authorization process at a time
+            {
+                // Allow only one authorization process at a time
+                throw new Exception(); 
+            }
 
             _authorizeUrl = authorizeUri.AbsoluteUri;
             _callbackUrl = callbackUri.AbsoluteUri;
@@ -263,6 +360,7 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
             return tcs.Task;
         }
 
+        // Challenge for OAuth credentials on the UI thread
         private void AuthorizeOnUIThread(string authorizeUri)
         {
             // Set an embedded WebBrowser that displays the authorize page
@@ -281,6 +379,7 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
                             : null
             };
 
+            // Handle the window closed event and navigate to the authorize url
             _window.Closed += OnWindowClosed;
             webBrowser.Navigate(authorizeUri);
 
@@ -291,9 +390,16 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
         void OnWindowClosed(object sender, EventArgs e)
         {
             if (_window != null && _window.Owner != null)
+            {
                 _window.Owner.Focus();
+            }
+
             if (_tcs != null && !_tcs.Task.IsCompleted)
-                _tcs.SetException(new OperationCanceledException()); // user closed the window
+            {
+                // The user closed the window
+                _tcs.SetException(new OperationCanceledException());
+            }
+
             _tcs = null;
             _window = null;
         }
@@ -301,17 +407,25 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
         // Check if the web browser is redirected to the callback url
         void WebBrowserOnNavigating(object sender, NavigatingCancelEventArgs e)
         {
+            // Check for a response to the callback url
             const string portalApprovalMarker = "/oauth2/approval";
             var webBrowser = sender as WebBrowser;
             Uri uri = e.Uri;
+
+            // If no browser, uri, task completion source, or an empty url, return
             if (webBrowser == null || uri == null || _tcs == null || string.IsNullOrEmpty(uri.AbsoluteUri))
                 return;
 
+            // Check for redirect
             bool isRedirected = uri.AbsoluteUri.StartsWith(_callbackUrl) ||
-                _callbackUrl.Contains(portalApprovalMarker) && uri.AbsoluteUri.Contains(portalApprovalMarker); // Portal OAuth workflow with org defined at runtime --> the redirect uri can change
+                _callbackUrl.Contains(portalApprovalMarker) && uri.AbsoluteUri.Contains(portalApprovalMarker); 
+
             if (isRedirected)
             {
-                // The web browser is redirected to the callbackUrl ==> close the window, decode the parameters returned as fragments or query, and return these parameters as result of the Task
+                // If the web browser is redirected to the callbackUrl:
+                //    -close the window 
+                //    -decode the parameters (returned as fragments or query)
+                //    -return these parameters as result of the Task
                 e.Cancel = true;
                 var tcs = _tcs;
                 _tcs = null;
@@ -319,15 +433,13 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
                 {
                     _window.Close();
                 }
+
+                // Call a function to decode the response parameters
                 tcs.SetResult(DecodeParameters(uri));
             }
         }
 
-        /// <summary>
-        /// Decodes the parameters returned when the user agent is redirected to the callback url
-        /// The parameters can be returned as fragments (e.g. access_token for Browser based app) or as query parameter (e.g. code for Server based app)
-        /// </summary>
-        /// <param name="uri">The URI.</param>
+        // Decodes the parameters returned when the user agent is redirected to the callback url
         private static IDictionary<string, string> DecodeParameters(Uri uri)
         {
             string answer = !string.IsNullOrEmpty(uri.Fragment)
@@ -338,4 +450,5 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
             return answer.Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries).Select(p => p.Split('=')).ToDictionary(pair => pair[0], pair => pair.Length > 1 ? Uri.UnescapeDataString(pair[1]) : null);
         }
     }
+    #endregion
 }

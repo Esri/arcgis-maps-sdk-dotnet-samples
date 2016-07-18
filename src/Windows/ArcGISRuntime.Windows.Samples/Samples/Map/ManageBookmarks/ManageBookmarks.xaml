@@ -11,34 +11,52 @@
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
 
-        <Border
-                Background="White" BorderBrush="Black" BorderThickness="1"
-                HorizontalAlignment="Right" VerticalAlignment="Top"
-                Margin="30" Padding="20" Width="375">
-            <StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Bookmarks" Margin="0,0,0,2" TextWrapping="Wrap" />
-                    <Button x:Name="ButtonAddBookmark" Content="Add" Click="ButtonAddBookmark_Click" Margin="200,0,0,5"/>
-                </StackPanel>
-                <ComboBox x:Name="bookmarkChooser" SelectionChanged="OnBookmarkChooserSelectionChanged" />
+        <Border 
+        Background="White" BorderBrush="Black" BorderThickness="1"
+        HorizontalAlignment="Right" VerticalAlignment="Top"
+        Margin="30" Padding="20" Width="375">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Bookmarks:"
+                        VerticalAlignment="Center"
+                        Margin="5,0"/>
+                <ComboBox x:Name="bookmarkChooser" 
+                        DisplayMemberPath="Name" 
+                        Width="160"
+                        SelectionChanged="OnBookmarkChooserSelectionChanged" />
+                <Button x:Name="ButtonAddBookmark"  
+                    Margin="5,0" Padding="5"
+                    Content="Add ..." 
+                    Click="ButtonAddBookmark_Click"/>
             </StackPanel>
         </Border>
-
-        <Border Background="AntiqueWhite" BorderBrush="Black" BorderThickness="1"
-                HorizontalAlignment="Right" VerticalAlignment="Top"
-                Margin="30,130" Padding="10" Width="375" x:Name="BorderAddBookmark">
+        
+        <Border x:Name="BorderAddBookmark"
+        Background="AntiqueWhite" BorderBrush="Black" BorderThickness="1"
+        HorizontalAlignment="Right" VerticalAlignment="Top"
+        Margin="0,105,30,0" Padding="10" 
+        Width="375" Height="80">
             <StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Enter Bookmark Name: " />
-                    <TextBox x:Name="TextBoxBookmarkName" Text="" Width="180" />
+                    <TextBlock Text="Bookmark Name:"
+                        Margin="0,0,7,0"/>
+                    <TextBox x:Name="TextBoxBookmarkName" Text="" Width="200" />
                 </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Button x:Name="ButtonAddDone" Content="OK" Margin="0,10,10,0" Click="ButtonAddDone_Click"/>
-                    <Button x:Name="ButtonCanel" Content="Cancel" Margin="0,10,10,0" Click="ButtonCanel_Click"/>
+                <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+                    <Button x:Name="ButtonAddDone" 
+                    Content="OK" 
+                    Margin="0,10,10,0" Padding="5"
+                    Width="50"
+                    Click="ButtonAddDone_Click"/>
+                    <Button x:Name="ButtonCanel" 
+                    Content="Cancel" 
+                    Width="50"
+                    Margin="0,10,10,0" Padding="5"
+                    Click="ButtonCanel_Click"/>
                 </StackPanel>
             </StackPanel>
-
         </Border>
+        
     </Grid>
 </UserControl>
 

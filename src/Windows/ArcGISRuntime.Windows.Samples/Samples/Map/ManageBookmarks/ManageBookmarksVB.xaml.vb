@@ -17,17 +17,17 @@ Namespace ManageBookmarks
 
             InitializeComponent()
 
-            ' Create the UI, setup the control references and execute initialization. 
+            ' Create the UI, setup the control references and execute initialization
             Initialize()
 
         End Sub
 
         Private Sub Initialize()
 
-            ' Create new map with a basemap.
+            ' Create new map with a base map
             Dim myMap As New Map(Basemap.CreateImageryWithLabels())
 
-            ' Set the mapview, map property to the basemap.
+            ' Set the map view, map property to the base map
             MyMapView.Map = myMap
 
             ' Create a set of predefined bookmarks; each one follows the pattern of:
@@ -36,7 +36,7 @@ Namespace ManageBookmarks
             ' ~ Give the bookmark a name
             ' ~ Assign the viewpoint
             ' ~ Add the bookmark to bookmark collection of the map
-            ' ~ Add the bookmark name to the UI combobox for the user to choose from 
+            ' ~ Add the bookmark to the UI combobox for the user to choose from 
 
             ' Bookmark-1
             Dim myViewpoint1 As New Viewpoint(27.3805833, 33.6321389, 6000)
@@ -44,7 +44,7 @@ Namespace ManageBookmarks
             myBookmark1.Name = "Mysterious Desert Pattern"
             myBookmark1.Viewpoint = myViewpoint1
             MyMapView.Map.Bookmarks.Add(myBookmark1)
-            bookmarkChooser.Items.Add(myBookmark1.Name)
+            bookmarkChooser.Items.Add(myBookmark1)
 
             ' Bookmark-2
             Dim myViewpoint2 As New Viewpoint(37.401573, -116.867808, 6000)
@@ -52,7 +52,7 @@ Namespace ManageBookmarks
             myBookmark2.Name = "Strange Symbol"
             myBookmark2.Viewpoint = myViewpoint2
             MyMapView.Map.Bookmarks.Add(myBookmark2)
-            bookmarkChooser.Items.Add(myBookmark2.Name)
+            bookmarkChooser.Items.Add(myBookmark2)
 
             ' Bookmark-3
             Dim myViewpoint3 As New Viewpoint(-33.867886, -63.985, 40000)
@@ -60,7 +60,7 @@ Namespace ManageBookmarks
             myBookmark3.Name = "Guitar-Shaped Forest"
             myBookmark3.Viewpoint = myViewpoint3
             MyMapView.Map.Bookmarks.Add(myBookmark3)
-            bookmarkChooser.Items.Add(myBookmark3.Name)
+            bookmarkChooser.Items.Add(myBookmark3)
 
             ' Bookmark-4
             Dim myViewpoint4 As New Viewpoint(44.525049, -110.83819, 6000)
@@ -68,46 +68,30 @@ Namespace ManageBookmarks
             myBookmark4.Name = "Grand Prismatic Spring"
             myBookmark4.Viewpoint = myViewpoint4
             MyMapView.Map.Bookmarks.Add(myBookmark4)
-            bookmarkChooser.Items.Add(myBookmark4.Name)
+            bookmarkChooser.Items.Add(myBookmark4)
 
-            ' Set the initial combobox selection to the lat bookmark added.
-            bookmarkChooser.SelectedIndex = 3
+            ' Set the initial combo box selection to the last bookmark added
+            bookmarkChooser.SelectedItem = MyMapView.Map.Bookmarks.Last()
 
             ' Zoom to the last bookmark.
             myMap.InitialViewpoint = myMap.Bookmarks.Last().Viewpoint
 
-            ' Hide the controls for adding an additional bookmark.
+            ' Hide the controls for adding an additional bookmark
             BorderAddBookmark.Visibility = Visibility.Collapsed
 
         End Sub
 
         Private Sub OnBookmarkChooserSelectionChanged(ByVal sender As Object, ByVal e As SelectionChangedEventArgs)
 
-            ' Get the selected bookmarks name.
-            Dim selectedBookmarkName = e.AddedItems(0).ToString()
-
-            ' Get the collection of bookmarks in the map.
-            Dim myBookmarkCollection As BookmarkCollection = MyMapView.Map.Bookmarks
-
-            ' Loop through each bookmark. 
-            For Each myBookmark In myBookmarkCollection
-
-                ' Get the bookmarks name.
-                Dim theBookmarkName = myBookmark.Name
-
-                ' If the selected bookmarks name matches one in the bookmark collection
-                ' set that to be the maps viewpoint.
-                If theBookmarkName = selectedBookmarkName.ToString() Then
-                    MyMapView.SetViewpoint(myBookmark.Viewpoint)
-                End If
-
-            Next myBookmark
+            ' Get the selected bookmark And apply the view point to the map
+            Dim selectedBookmark = TryCast(e.AddedItems(0), Bookmark)
+            MyMapView.SetViewpoint(selectedBookmark.Viewpoint)
 
         End Sub
 
         Private Sub ButtonAddBookmark_Click(ByVal sender As Object, ByVal e As RoutedEventArgs)
 
-            ' Show the controls to add a bookmark.
+            ' Show the controls to add a bookmark
             BorderAddBookmark.Visibility = Visibility.Visible
             ButtonAddBookmark.Visibility = Visibility.Collapsed
             TextBoxBookmarkName.Text = ""
@@ -116,7 +100,7 @@ Namespace ManageBookmarks
 
         Private Sub ButtonCanel_Click(ByVal sender As Object, ByVal e As RoutedEventArgs)
 
-            ' Hide the controls to add a bookmark.
+            ' Hide the controls to add a bookmark
             BorderAddBookmark.Visibility = Visibility.Collapsed
             ButtonAddBookmark.Visibility = Visibility.Visible
 
@@ -124,37 +108,37 @@ Namespace ManageBookmarks
 
         Private Sub ButtonAddDone_Click(ByVal sender As Object, ByVal e As RoutedEventArgs)
 
-            ' Get the name from the text field.
+            ' Get the name from the text field
             Dim name = TextBoxBookmarkName.Text
 
-            ' Exit if the name is empty.
+            ' Exit if the name is empty
             If String.IsNullOrEmpty(name) Then
                 Return
             End If
 
-            ' Check to see if there is a bookmark with same name.
+            ' Check to see if there is a bookmark with same name
             Dim doesNameExist As Boolean = MyMapView.Map.Bookmarks.Any(Function(b) b.Name = name)
             If doesNameExist Then
                 Return
             End If
 
-            ' Create a new bookmark.
+            ' Create a new bookmark
             Dim myBookmark As New Bookmark()
             myBookmark.Name = name
 
-            ' Get the current viewpoint from map and assign it to bookmark. 
+            ' Get the current viewpoint from map and assign it to bookmark
             myBookmark.Viewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry)
 
-            ' Add the bookmark to bookmark collection of the map.
+            ' Add the bookmark to bookmark collection of the map
             MyMapView.Map.Bookmarks.Add(myBookmark)
 
-            ' Add the bookmark name to the list of choices in the combobox.
-            bookmarkChooser.Items.Add(name)
+            ' Add the bookmark name to the list of choices in the combo box
+            bookmarkChooser.Items.Add(myBookmark)
 
-            ' Set the newly added bookmark to be the one selected in the combobox.
-            bookmarkChooser.SelectedValue = name
+            ' Set the newly added bookmark to be the one selected in the combo box
+            bookmarkChooser.SelectedItem = myBookmark
 
-            ' Hide the controls to add a bookmark.
+            ' Hide the controls to add a bookmark
             BorderAddBookmark.Visibility = Visibility.Collapsed
             ButtonAddBookmark.Visibility = Visibility.Visible
 

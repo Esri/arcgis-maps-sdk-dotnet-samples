@@ -15,14 +15,14 @@
         <Border 
         Background="White" BorderBrush="Black" BorderThickness="1"
         HorizontalAlignment="Right" VerticalAlignment="Top"
-        Margin="30" Padding="20" Width="375">
+        Margin="30" Padding="20" Width="400">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Bookmarks:"
                         VerticalAlignment="Center"
                         Margin="5,0"/>
                 <ComboBox x:Name="bookmarkChooser" 
                         DisplayMemberPath="Name" 
-                        Width="160"
+                        Width="200"
                         SelectionChanged="OnBookmarkChooserSelectionChanged" />
                 <Button x:Name="ButtonAddBookmark"  
                     Margin="5,0" Padding="5"
@@ -35,7 +35,7 @@
         Background="AntiqueWhite" BorderBrush="Black" BorderThickness="1"
         HorizontalAlignment="Right" VerticalAlignment="Top"
         Margin="0,105,30,0" Padding="10" 
-        Width="375" Height="80">
+        Width="375" Height="110">
             <StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Bookmark Name:"
@@ -51,7 +51,7 @@
                     Click="ButtonAddDone_Click"/>
                     <Button x:Name="ButtonCanel" 
                     Content="Cancel" 
-                    Width="50"
+                    Width="60"
                     Margin="0,10,10,0" Padding="5"
                     Click="ButtonCanel_Click"/>
                 </StackPanel>

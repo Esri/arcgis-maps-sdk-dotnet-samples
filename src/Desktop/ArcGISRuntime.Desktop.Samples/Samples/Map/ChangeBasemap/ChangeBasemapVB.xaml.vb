@@ -23,14 +23,14 @@ Namespace ChangeBasemap
         End Sub
 
         Private Sub Initialize()
-            ' Create new Map with basemap
-            Dim myMap As New Map(Basemap.CreateTopographic())
+            ' Assign the map to the MapView
+            MyMapView.Map = New Map()
 
-            ' Set titles as a items source
+            ' Set basemap titles as a items source
             basemapChooser.ItemsSource = titles
 
-            ' Assign the map to the MapView
-            MyMapView.Map = myMap
+            ' Show the first basemap in the list
+            basemapChooser.SelectedIndex = 0
         End Sub
 
         Private Sub OnBasemapChooserSelectionChanged(sender As Object, e As SelectionChangedEventArgs)

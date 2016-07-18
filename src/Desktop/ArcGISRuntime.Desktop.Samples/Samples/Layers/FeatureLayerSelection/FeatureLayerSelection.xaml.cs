@@ -83,8 +83,8 @@ namespace ArcGISRuntime.Desktop.Samples.FeatureLayerSelection
         {
             try
             {
-                // Define the selection tolerance
-                double tolerance = 5;
+                // Define the selection tolerance (half the marker symbol size so that any click on the symbol will select the feature)
+                double tolerance = 14;
 
                 // Convert the tolerance to map units
                 double mapTolerance = tolerance * MyMapView.UnitsPerPixel;

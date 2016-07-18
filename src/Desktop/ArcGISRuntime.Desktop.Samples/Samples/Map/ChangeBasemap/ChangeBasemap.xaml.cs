@@ -33,14 +33,14 @@ namespace ArcGISRuntime.Desktop.Samples.ChangeBasemap
 
         private void Initialize()
         {
-            // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateTopographic());
+            // Assign a new map to the MapView
+            MyMapView.Map = new Map();
 
-            // Set titles as a items source
+            // Set basemap titles as a items source
             basemapChooser.ItemsSource = titles;
 
-            // Assign the map to the MapView
-            MyMapView.Map = myMap;
+            // Show the first basemap in the list
+            basemapChooser.SelectedIndex = 0;
         }
 
         private void OnBasemapChooserSelectionChanged(object sender, SelectionChangedEventArgs e)

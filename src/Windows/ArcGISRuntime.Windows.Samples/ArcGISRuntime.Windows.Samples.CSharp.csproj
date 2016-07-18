@@ -149,6 +149,9 @@
     <Content Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Map\ManageBookmarks\ManageBookmarks.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Map\OpenExistingMap\OpenExistingMap.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -278,6 +281,9 @@
     <Content Include="Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Map\ManageBookmarks\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -343,6 +349,9 @@
     </Compile>
     <Compile Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.xaml.cs">
       <DependentUpon>AccessLoadStatus.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarks.xaml.cs">
+      <DependentUpon>ManageBookmarks.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Map\OpenExistingMap\OpenExistingMap.xaml.cs">
       <DependentUpon>OpenExistingMap.xaml</DependentUpon>
@@ -468,6 +477,10 @@
     <Page Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Map\ManageBookmarks\ManageBookmarks.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Map\OpenExistingMap\OpenExistingMap.xaml">
       <Generator>MSBuild:Compile</Generator>

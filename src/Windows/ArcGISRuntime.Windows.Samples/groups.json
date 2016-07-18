@@ -67,6 +67,10 @@
             {
               "SampleName": "ChangeBasemap",
               "Path": "Samples/Map/ChangeBasemap"
+            },
+            {
+              "SampleName": "ManageBookmarks",
+              "Path": "Samples/Map/ManageBookmarks"
             }
           ]
         }

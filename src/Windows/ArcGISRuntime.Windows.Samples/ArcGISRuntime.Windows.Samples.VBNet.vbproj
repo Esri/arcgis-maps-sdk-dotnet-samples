@@ -105,6 +105,7 @@
     <Content Include="Samples\MapView\TakeScreenshot\TakeScreenshot.jpg" />
     <Content Include="Samples\Map\ChangeBasemap\ChangeBasemap.jpg" />
     <Content Include="Samples\Map\DisplayMap\DisplayMap.jpg" />
+    <Content Include="Samples\Map\ManageBookmarks\ManageBookmarks.jpg" />
     <Content Include="Samples\Map\OpenExistingMap\OpenExistingMap.jpg" />
     <Content Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.jpg" />
     <Content Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.jpg" />
@@ -158,6 +159,7 @@
     <None Include="Samples\Map\AccessLoadStatus\metadata.json" />
     <None Include="Samples\Map\ChangeBasemap\metadata.json" />
     <None Include="Samples\Map\DisplayMap\metadata.json" />
+    <None Include="Samples\Map\ManageBookmarks\metadata.json" />
     <None Include="Samples\Map\OpenExistingMap\metadata.json" />
     <None Include="Samples\Map\SetInitialMapLocation\metadata.json" />
     <None Include="Samples\Map\SetInitialMapArea\metadata.json" />
@@ -238,6 +240,9 @@
     </Compile>
     <Compile Include="Samples\Map\DisplayMap\DisplayMapVB.xaml.vb">
       <DependentUpon>DisplayMapVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarksVB.xaml.vb">
+      <DependentUpon>ManageBookmarksVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Map\OpenExistingMap\OpenExistingMapVB.xaml.vb">
       <DependentUpon>OpenExistingMapVB.xaml</DependentUpon>
@@ -403,6 +408,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Map\DisplayMap\DisplayMapVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\ManageBookmarks\ManageBookmarksVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

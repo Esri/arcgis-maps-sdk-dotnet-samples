@@ -14,7 +14,7 @@ namespace ArcGISRuntime.Desktop.Samples.ChangeBasemap
 {
     public partial class ChangeBasemap
     {
-        // String array to store titles for the viewpoints specified above.
+        // String array to store titles for the available basemaps
         private string[] titles = new string[]
         {
             "Topo",

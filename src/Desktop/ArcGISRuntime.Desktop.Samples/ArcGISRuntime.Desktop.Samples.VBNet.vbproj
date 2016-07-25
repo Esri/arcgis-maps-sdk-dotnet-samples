@@ -104,6 +104,7 @@
     <Content Include="Samples\MapView\MapRotation\MapRotation.jpg" />
     <Content Include="Samples\MapView\TakeScreenshot\TakeScreenshot.jpg" />
     <Content Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.jpg" />
+    <Content Include="Samples\Map\AuthorMap\AuthorMap.jpg" />
     <Content Include="Samples\Map\ChangeBasemap\ChangeBasemap.jpg" />
     <Content Include="Samples\Map\DisplayMap\DisplayMap.jpg" />
     <Content Include="Samples\Map\OpenExistingMap\OpenExistingMap.jpg" />
@@ -163,6 +164,7 @@
     <None Include="Samples\MapView\DisplayLayerViewState\metadata.json" />
     <None Include="Samples\MapView\TakeScreenshot\metadata.json" />
     <None Include="Samples\Map\AccessLoadStatus\metadata.json" />
+    <None Include="Samples\Map\AuthorMap\metadata.json" />
     <None Include="Samples\Map\ChangeBasemap\metadata.json" />
     <None Include="Samples\Map\DisplayMap\metadata.json" />
     <None Include="Samples\Map\OpenExistingMap\metadata.json" />
@@ -244,6 +246,9 @@
     </Compile>
     <Compile Include="Samples\Map\AccessLoadStatus\AccessLoadStatusVB.xaml.vb">
       <DependentUpon>AccessLoadStatusVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\AuthorMap\AuthorMapVB.xaml.vb">
+      <DependentUpon>AuthorMapVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Map\ChangeBasemap\ChangeBasemapVB.xaml.vb">
       <DependentUpon>ChangeBasemapVB.xaml</DependentUpon>
@@ -361,6 +366,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Map\AccessLoadStatus\AccessLoadStatusVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\AuthorMap\AuthorMapVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

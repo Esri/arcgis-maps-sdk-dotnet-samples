@@ -12,7 +12,7 @@ Imports System.Windows.Controls
 
 Namespace ChangeBasemap
     Partial Public Class ChangeBasemapVB
-        ' String array to store titles for the viewpoints specified above.
+        ' String array to store titles for the available basemaps
         Private titles As String() = New String() {"Topo", "Streets", "Imagery", "Ocean"}
 
         Public Sub New()

@@ -29,10 +29,10 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
         // URL of the server to authenticate with
         private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
         // TODO: Add Client ID for an app registered with the server
-        private const string AppClientId = "b4tmQpgU92eu3XAR";
-        // TODO: Add URL registered with the server for redirecting after a successful authorization
-        //       Note - this must be an existing URL registered with your app
-        private const string OAuthRedirectUrl = "https://developers.arcgis.com/";
+        private const string AppClientId = "2Gh53JRzkPtOENQq"; 
+        // TODO: Add URL for redirecting after a successful authorization
+        //       Note - this must be a URL configured as a valid Redirect URI with your app
+        private const string OAuthRedirectUrl = "http://myapps.portalmapapp"; 
 
         // String array to store names of the available basemaps
         private string[] _basemapNames = new string[]
@@ -187,6 +187,7 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
             }
             else
             {
+                // This is an update to the existing portal item
                 try
                 {
                     // Show the progress bar so the user knows it's working
@@ -279,8 +280,8 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
             try
             {
                 // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
-                await AuthenticationManager.Current.GetCredentialAsync(loginInfo, false);
-                authenticated = true;
+                var cred = await AuthenticationManager.Current.GetCredentialAsync(loginInfo, false);
+                authenticated = (cred != null);
             }
             catch(OperationCanceledException)
             {
@@ -309,7 +310,7 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
                     info.GenerateTokenOptions = new GenerateTokenOptions();
                 }
 
-                // AuthenticationManager will handle challenging the user for credentials
+                // IOAuthAuthorizeHandler will challenge the user for credentials
                 credential = await AuthenticationManager.Current.GenerateCredentialAsync
                     (
                             info.ServiceUri,
@@ -330,56 +331,67 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
     #region Helper class to display the OAuth authorization challenge
     public class OAuthAuthorize : IOAuthAuthorizeHandler
     {
+        // Window to contain the OAuth UI
         private Window _window;
+        // Use a TaskCompletionSource to track the completion of the authorization
         private TaskCompletionSource<IDictionary<string, string>> _tcs;
+        // URL for the authorization callback result (the redirect URI configured for your application)
         private string _callbackUrl;
+        // URL that handles the OAuth request
         private string _authorizeUrl;
 
+        // Function to handle authorization requests, takes the URIs for the secured service, the authorization endpoint, and the redirect URI
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
+            // If the TaskCompletionSource or Window are not null, authorization is in progress
             if (_tcs != null || _window != null)
             {
                 // Allow only one authorization process at a time
                 throw new Exception(); 
             }
 
+            // Store the authorization and redirect URLs
             _authorizeUrl = authorizeUri.AbsoluteUri;
             _callbackUrl = callbackUri.AbsoluteUri;
+
+            // Create a task completion source
             _tcs = new TaskCompletionSource<IDictionary<string, string>>();
             var tcs = _tcs;
 
+            // Call a function to show the login controls, make sure it runs on the UI thread for this app
             var dispatcher = Application.Current.Dispatcher;
-
             if (dispatcher == null || dispatcher.CheckAccess())
                 AuthorizeOnUIThread(_authorizeUrl);
             else
             {
                 dispatcher.BeginInvoke((Action)(() => AuthorizeOnUIThread(_authorizeUrl)));
             }
-
+            
+            // Return the task associated with the TaskCompletionSource
             return tcs.Task;
         }
 
         // Challenge for OAuth credentials on the UI thread
         private void AuthorizeOnUIThread(string authorizeUri)
         {
-            // Set an embedded WebBrowser that displays the authorize page
+            // Create a WebBrowser control to display the authorize page
             var webBrowser = new WebBrowser();
+            // Handle the navigation event for the browser to check for a response to the redirect URL
             webBrowser.Navigating += WebBrowserOnNavigating;
 
-            // Display the web browser in a window (default behavior, may be customized by an application)
+            // Display the web browser in a new window 
             _window = new Window
             {
                 Content = webBrowser,
-                Height = 480,
-                Width = 480,
+                Height = 430,
+                Width = 395,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
                 Owner = Application.Current != null && Application.Current.MainWindow != null
                             ? Application.Current.MainWindow
                             : null
             };
 
-            // Handle the window closed event and navigate to the authorize url
+            // Handle the window closed event then navigate to the authorize url
             _window.Closed += OnWindowClosed;
             webBrowser.Navigate(authorizeUri);
 
@@ -400,11 +412,12 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
                 _tcs.SetException(new OperationCanceledException());
             }
 
+            // Set the task completion source and window to null to indicate the authorization process is complete
             _tcs = null;
             _window = null;
         }
 
-        // Check if the web browser is redirected to the callback url
+        // Handle browser navigation (content changing)
         void WebBrowserOnNavigating(object sender, NavigatingCancelEventArgs e)
         {
             // Check for a response to the callback url
@@ -434,12 +447,15 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
                     _window.Close();
                 }
 
-                // Call a function to decode the response parameters
-                tcs.SetResult(DecodeParameters(uri));
+                // Call a helper function to decode the response parameters
+                var authResponse = DecodeParameters(uri);
+
+                // Set the result for the task completion source
+                tcs.SetResult(authResponse);
             }
         }
 
-        // Decodes the parameters returned when the user agent is redirected to the callback url
+        // Decodes the parameters returned when the browser is redirected to the callback url
         private static IDictionary<string, string> DecodeParameters(Uri uri)
         {
             string answer = !string.IsNullOrEmpty(uri.Fragment)
@@ -447,7 +463,9 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
                                 : (!string.IsNullOrEmpty(uri.Query) ? uri.Query.Substring(1) : string.Empty);
 
             // decode parameters from format key1=value1&key2=value2&...
-            return answer.Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries).Select(p => p.Split('=')).ToDictionary(pair => pair[0], pair => pair.Length > 1 ? Uri.UnescapeDataString(pair[1]) : null);
+            return answer.Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(p => p.Split('='))
+                .ToDictionary(pair => pair[0], pair => pair.Length > 1 ? Uri.UnescapeDataString(pair[1]) : null);
         }
     }
     #endregion

@@ -67,6 +67,10 @@
             {
               "SampleName": "ChangeBasemap",
               "Path": "Samples/Map/ChangeBasemap"
+            },
+            {
+              "SampleName": "AuthorMap",
+              "Path": "Samples/Map/AuthorMap"
             }
           ]
         }

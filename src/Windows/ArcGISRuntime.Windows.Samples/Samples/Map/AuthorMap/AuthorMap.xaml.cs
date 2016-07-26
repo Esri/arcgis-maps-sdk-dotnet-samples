@@ -13,13 +13,14 @@ using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Navigation;
+using WinUI = Windows.UI;
+using WinCore = Windows.UI.Core;
+using Windows.UI.Popups;
+using Windows.Security.Authentication.Web;
+using Windows.ApplicationModel.Core;
 
-namespace ArcGISRuntime.Desktop.Samples.AuthorMap
+namespace ArcGISRuntime.Windows.Samples.AuthorMap
 {
     public partial class AuthorMap
     {
@@ -61,24 +62,19 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
 
         private void Initialize()
         {
+            BasemapListView.ItemsSource = _basemapNames;
+            LayerListView.ItemsSource = _operationalLayerUrls;
+
             // Show a plain gray map in the map view
             MyMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
 
-            // Fill the basemap combo box with basemap names
-            BasemapListBox.ItemsSource = _basemapNames;
-            // Select the first basemap in the list by default
-            BasemapListBox.SelectedIndex = 0;
-
-            // Fill the operational layers list box with layer names
-            OperationalLayerListBox.ItemsSource = _operationalLayerUrls;
-
             // Setup the AuthenticationManager to challenge for credentials
             UpdateAuthenticationManager();
-            
+
             // Update the extent labels whenever the view point (extent) changes
             MyMapView.ViewpointChanged += (s, evt) => UpdateViewExtentLabels();
-        }            
-
+        }        
+        
         private void ApplyBasemap(string basemapName)
         {
             // Set the basemap for the map according to the user's choice in the list box
@@ -108,8 +104,8 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
         private void AddOperationalLayers()
         {
             // Loop through the selected items in the operational layers list box
-            foreach(var item in OperationalLayerListBox.SelectedItems)
-            {               
+            foreach (var item in LayerListView.SelectedItems)
+            {
                 // Get the service uri for each selected item 
                 var layerInfo = (KeyValuePair<string, string>)item;
                 var layerUri = new Uri(layerInfo.Value);
@@ -119,8 +115,8 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
                 _myMap.OperationalLayers.Add(layer);
             }
         }
-        
-        private void UpdateMap(object sender, System.Windows.RoutedEventArgs e)
+
+        private void UpdateMap(object sender, WinUI.Xaml.RoutedEventArgs e)
         {
             // Create a new (empty) map
             if (_myMap == null || _myMap.PortalItem == null)
@@ -129,7 +125,7 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
             }
 
             // Call functions that apply the selected basemap and operational layers
-            ApplyBasemap(BasemapListBox.SelectedValue.ToString());
+            ApplyBasemap(_basemapName);
             AddOperationalLayers();
 
             // Use the current extent to set the initial viewpoint for the map
@@ -139,17 +135,27 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
             MyMapView.Map = _myMap;
         }
 
-        private async void SaveMap(object sender, System.Windows.RoutedEventArgs e)
+        private string _basemapName = string.Empty;
+        private void BasemapItemClick(object sender, WinUI.Xaml.RoutedEventArgs e)
+        {
+            // Store the name of the desired basemap when one is selected
+            // (will be applied to the map view when "Update Map" is clicked)
+            var radioBtn = sender as WinUI.Xaml.Controls.RadioButton;
+            _basemapName = radioBtn.Content.ToString();
+        }
+
+        private async void SaveMap(object sender, WinUI.Xaml.RoutedEventArgs e)
         {
             // Make sure the map is not null
-            if(_myMap == null)
+            if (_myMap == null)
             {
-                MessageBox.Show("Please update the map before saving.", "Map is empty");
+                var dialog = new MessageDialog("Please update the map before saving.", "Map is empty");
+                dialog.ShowAsync();
                 return;
             }
 
             // See if the map has already been saved (has an associated portal item)
-            if(_myMap.PortalItem == null)
+            if (_myMap.PortalItem == null)
             {
                 // This is the initial save for this map
 
@@ -169,20 +175,22 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
                 try
                 {
                     // Show the progress bar so the user knows it's working
-                    SaveProgressBar.Visibility = Visibility.Visible;
-
+                   SaveProgressBar.Visibility = WinUI.Xaml.Visibility.Visible;
+                   
                     // Save the current state of the map as a portal item in the user's default folder
                     await _myMap.SaveAsAsync(agsOnline, null, title, description, tags, null);
-                    MessageBox.Show("Saved '" + title + "' to ArcGIS Online!", "Map Saved");
+                    var dialog = new MessageDialog("Saved '" + title + "' to ArcGIS Online!", "Map Saved");
+                    dialog.ShowAsync();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Unable to save map to ArcGIS Online: " + ex.Message);                    
+                    var dialog = new MessageDialog("Unable to save map to ArcGIS Online: " + ex.Message);
+                    dialog.ShowAsync();
                 }
                 finally
                 {
                     // Hide the progress bar
-                    SaveProgressBar.Visibility = Visibility.Hidden;
+                    SaveProgressBar.Visibility = WinUI.Xaml.Visibility.Collapsed;
                 }
             }
             else
@@ -191,25 +199,27 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
                 try
                 {
                     // Show the progress bar so the user knows it's working
-                    SaveProgressBar.Visibility = Visibility.Visible;
+                    SaveProgressBar.Visibility = WinUI.Xaml.Visibility.Visible;
 
                     // This is not the initial save, call SaveAsync to save changes to the existing portal item
                     await _myMap.SaveAsync();
-                    MessageBox.Show("Saved changes to '" + _myMap.PortalItem.Title + "'", "Updates Saved");
+                    var dialog = new MessageDialog("Saved changes to '" + _myMap.PortalItem.Title + "'", "Updates Saved");
+                    dialog.ShowAsync();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Unable to save map updates: " + ex.Message);
+                    var dialog = new MessageDialog("Unable to save map updates: " + ex.Message);
+                    dialog.ShowAsync();
                 }
                 finally
                 {
                     // Hide the progress bar
-                    SaveProgressBar.Visibility = Visibility.Hidden;
+                    SaveProgressBar.Visibility = WinUI.Xaml.Visibility.Collapsed;
                 }
             }
         }
 
-        private void ClearMap(object sender, RoutedEventArgs e)
+        private void ClearMap(object sender, WinUI.Xaml.RoutedEventArgs e)
         {
             // Set the map to null
             _myMap = null;
@@ -217,7 +227,7 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
             // Show a plain gray map in the map view
             MyMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
         }
-        
+
         private void UpdateViewExtentLabels()
         {
             // Get the current view point for the map view
@@ -253,10 +263,7 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
                 TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
             };
             AuthenticationManager.Current.RegisterServer(portalServerInfo);
-
-            // Use the OAuthAuthorize class in this project to create a new web view that contains the OAuth challenge handler.
-            AuthenticationManager.Current.OAuthAuthorizeHandler = new OAuthAuthorize();
-
+            
             // Create a new ChallengeHandler that uses a method in this class to challenge for credentials
             AuthenticationManager.Current.ChallengeHandler = new Esri.ArcGISRuntime.Security.ChallengeHandler(CreateCredentialAsync);
         }
@@ -283,14 +290,16 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
                 var cred = await AuthenticationManager.Current.GetCredentialAsync(loginInfo, false);
                 authenticated = (cred != null);
             }
-            catch(OperationCanceledException)
+            catch (OperationCanceledException)
             {
                 // user canceled the login
-                MessageBox.Show("Maps cannot be saved unless logged in to ArcGIS Online.");
+                var dialog = new MessageDialog("Maps cannot be saved unless logged in to ArcGIS Online.", "Save to Portal");
+                dialog.ShowAsync();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show("Error logging in: " + ex.Message);
+                var dialog = new MessageDialog("Error logging in: " + ex.Message, "Save to Portal");
+                dialog.ShowAsync();
             }
 
             return authenticated;
@@ -326,172 +335,5 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
             return credential;
         }
         #endregion
-    }
-
-    #region Helper class to display the OAuth authorization challenge
-    public class OAuthAuthorize : IOAuthAuthorizeHandler
-    {
-        // Window to contain the OAuth UI
-        private Window _window;
-        // Use a TaskCompletionSource to track the completion of the authorization
-        private TaskCompletionSource<IDictionary<string, string>> _tcs;
-        // URL for the authorization callback result (the redirect URI configured for your application)
-        private string _callbackUrl;
-        // URL that handles the OAuth request
-        private string _authorizeUrl;
-
-        // Function to handle authorization requests, takes the URIs for the secured service, the authorization endpoint, and the redirect URI
-        public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
-        {
-            // If the TaskCompletionSource or Window are not null, authorization is in progress
-            if (_tcs != null || _window != null)
-            {
-                // Allow only one authorization process at a time
-                throw new Exception(); 
-            }
-
-            // Store the authorization and redirect URLs
-            _authorizeUrl = authorizeUri.AbsoluteUri;
-            _callbackUrl = callbackUri.AbsoluteUri;
-
-            // Create a task completion source
-            _tcs = new TaskCompletionSource<IDictionary<string, string>>();
-            var tcs = _tcs;
-
-            // Call a function to show the login controls, make sure it runs on the UI thread for this app
-            var dispatcher = Application.Current.Dispatcher;
-            if (dispatcher == null || dispatcher.CheckAccess())
-                AuthorizeOnUIThread(_authorizeUrl);
-            else
-            {
-                dispatcher.BeginInvoke((Action)(() => AuthorizeOnUIThread(_authorizeUrl)));
-            }
-            
-            // Return the task associated with the TaskCompletionSource
-            return tcs.Task;
-        }
-
-        // Challenge for OAuth credentials on the UI thread
-        private void AuthorizeOnUIThread(string authorizeUri)
-        {
-            // Create a WebBrowser control to display the authorize page
-            var webBrowser = new WebBrowser();
-            // Handle the navigation event for the browser to check for a response to the redirect URL
-            webBrowser.Navigating += WebBrowserOnNavigating;
-
-            // Display the web browser in a new window 
-            _window = new Window
-            {
-                Content = webBrowser,
-                Height = 430,
-                Width = 395,
-                WindowStartupLocation = WindowStartupLocation.CenterOwner,
-                Owner = Application.Current != null && Application.Current.MainWindow != null
-                            ? Application.Current.MainWindow
-                            : null
-            };
-
-            // Handle the window closed event then navigate to the authorize url
-            _window.Closed += OnWindowClosed;
-            webBrowser.Navigate(authorizeUri);
-
-            // Display the Window
-            _window.ShowDialog();
-        }
-
-        void OnWindowClosed(object sender, EventArgs e)
-        {
-            if (_window != null && _window.Owner != null)
-            {
-                _window.Owner.Focus();
-            }
-
-            if (_tcs != null && !_tcs.Task.IsCompleted)
-            {
-                // The user closed the window
-                _tcs.SetException(new OperationCanceledException());
-            }
-
-            // Set the task completion source and window to null to indicate the authorization process is complete
-            _tcs = null;
-            _window = null;
-        }
-
-        // Handle browser navigation (content changing)
-        void WebBrowserOnNavigating(object sender, NavigatingCancelEventArgs e)
-        {
-            // Check for a response to the callback url
-            const string portalApprovalMarker = "/oauth2/approval";
-            var webBrowser = sender as WebBrowser;
-            Uri uri = e.Uri;
-
-            // If no browser, uri, task completion source, or an empty url, return
-            if (webBrowser == null || uri == null || _tcs == null || string.IsNullOrEmpty(uri.AbsoluteUri))
-                return;
-
-            // Check for redirect
-            bool isRedirected = uri.AbsoluteUri.StartsWith(_callbackUrl) ||
-                _callbackUrl.Contains(portalApprovalMarker) && uri.AbsoluteUri.Contains(portalApprovalMarker); 
-
-            if (isRedirected)
-            {
-                // If the web browser is redirected to the callbackUrl:
-                //    -close the window 
-                //    -decode the parameters (returned as fragments or query)
-                //    -return these parameters as result of the Task
-                e.Cancel = true;
-                var tcs = _tcs;
-                _tcs = null;
-                if (_window != null)
-                {
-                    _window.Close();
-                }
-
-                // Call a helper function to decode the response parameters
-                var authResponse = DecodeParameters(uri);
-
-                // Set the result for the task completion source
-                tcs.SetResult(authResponse);
-            }
-        }
-
-        private static IDictionary<string, string> DecodeParameters(Uri uri)
-        {
-            // Create a dictionary of key value pairs returned in an OAuth authorization response URI query string
-            var answer = string.Empty;
-
-            // Get the values from the URI fragment or query string
-            if (!string.IsNullOrEmpty(uri.Fragment))
-            {
-                answer = uri.Fragment.Substring(1);
-            }
-            else
-            {
-                if (!string.IsNullOrEmpty(uri.Query))
-                {
-                    answer = uri.Query.Substring(1);
-                }
-            }
-
-            // Parse parameters into key / value pairs
-            var keyValueDictionary = new Dictionary<string, string>();
-            var keysAndValues = answer.Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var kvString in keysAndValues)
-            {
-                var pair = kvString.Split('=');
-                string key = pair[0];
-                string value = string.Empty;
-                if (key.Length > 1)
-                {
-                    value = Uri.UnescapeDataString(pair[1]);
-                }
-
-                keyValueDictionary.Add(key, value);
-            }
-
-            // Return the dictionary of string keys/values
-            return keyValueDictionary;
-        }
-    }
-    #endregion
+    }    
 }

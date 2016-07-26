@@ -45,10 +45,6 @@
               "Path": "Samples/Map/OpenExistingMap"
             },
             {
-              "SampleName": "AuthorMap",
-              "Path": "Samples/Map/AuthorMap"
-            },
-            {
               "SampleName": "SetMinMaxScale",
               "Path": "Samples/Map/SetMinMaxScale"
             },
@@ -90,7 +86,7 @@
               "Path": "Samples/Layers/ArcGISTiledLayerUrl"
             },
             {
-              "SampleName": "ArcGISVectorTiledLayerUrl",
+               "SampleName": "ArcGISVectorTiledLayerUrl",
               "Path": "Samples/Layers/ArcGISVectorTiledLayerUrl"
             }
           ]

@@ -103,7 +103,6 @@
     <Content Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.jpg" />
     <Content Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.jpg" />
     <Content Include="Samples\MapView\TakeScreenshot\TakeScreenshot.jpg" />
-    <Content Include="Samples\Map\AuthorMap\AuthorMap.jpg" />
     <Content Include="Samples\Map\ChangeBasemap\ChangeBasemap.jpg" />
     <Content Include="Samples\Map\DisplayMap\DisplayMap.jpg" />
     <Content Include="Samples\Map\OpenExistingMap\OpenExistingMap.jpg" />
@@ -112,9 +111,7 @@
     <Content Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.jpg" />
     <Content Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.jpg" />
     <Content Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.jpg" />
-    <None Include="groups.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="groups.json" />
     <None Include="project.json" />
     <None Include="Samples\Data\FeatureLayerQuery\metadata.json" />
     <None Include="Samples\Data\ServiceFeatureTableCache\metadata.json" />
@@ -145,9 +142,7 @@
     </Content>
     <None Include="Samples\Layers\ArcGISTiledLayerUrl\metadata.json" />
     <None Include="Samples\Layers\ArcGISTiledLayerUrl\README.md" />
-    <Content Include="Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <None Include="Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json" />
     <None Include="Samples\Layers\ChangeFeatureLayerRenderer\metadata.json" />
     <None Include="Samples\Layers\ChangeSublayerVisibility\metadata.json" />
     <None Include="Samples\Layers\FeatureLayerSelection\metadata.json" />
@@ -157,7 +152,6 @@
     <None Include="Samples\MapView\DisplayLayerViewState\metadata.json" />
     <None Include="Samples\MapView\TakeScreenshot\metadata.json" />
     <None Include="Samples\Map\AccessLoadStatus\metadata.json" />
-    <None Include="Samples\Map\AuthorMap\metadata.json" />
     <None Include="Samples\Map\ChangeBasemap\metadata.json" />
     <None Include="Samples\Map\DisplayMap\metadata.json" />
     <None Include="Samples\Map\OpenExistingMap\metadata.json" />
@@ -235,9 +229,6 @@
     <Compile Include="Samples\Map\AccessLoadStatus\AccessLoadStatusVB.xaml.vb">
       <DependentUpon>AccessLoadStatusVB.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Map\AuthorMap\AuthorMapVB.xaml.vb">
-      <DependentUpon>AuthorMapVB.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Samples\Map\ChangeBasemap\ChangeBasemapVB.xaml.vb">
       <DependentUpon>ChangeBasemapVB.xaml</DependentUpon>
     </Compile>
@@ -311,7 +302,7 @@
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="Esri.ArcGISRuntime, Version=100.0">
-      <Name>ArcGIS Runtime SDK for .NET - Universal Windows Platform</Name>
+      <Name>ArcGIS Runtime for Universal apps</Name>
     </SDKReference>
     <SDKReference Include="Microsoft.VCLibs, version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
@@ -402,10 +393,6 @@
     <Page Include="Samples\Map\AccessLoadStatus\AccessLoadStatusVB.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Samples\Map\AuthorMap\AuthorMapVB.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Map\ChangeBasemap\ChangeBasemapVB.xaml">
       <Generator>MSBuild:Compile</Generator>

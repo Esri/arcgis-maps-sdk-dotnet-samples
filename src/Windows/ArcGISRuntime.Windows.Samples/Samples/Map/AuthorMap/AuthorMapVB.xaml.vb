@@ -15,13 +15,16 @@ Imports Windows.UI.Popups
 
 Namespace AuthorMap
     Partial Public Class AuthorMapVB
+        ' The map object that will be saved as a portal item
         Private _myMap As Map
 
         ' Constants for OAuth-related values ...
         ' URL of the server to authenticate with
         Private Const ServerUrl As String = "https://www.arcgis.com/sharing/rest"
+
         ' TODO: Add Client ID For an app registered With the server
         Private Const AppClientId As String = "2Gh53JRzkPtOENQq"
+
         ' TODO: Add URL For redirecting after a successful authorization
         '       Note - this must be a URL configured as a valid Redirect URI with your app
         Private Const OAuthRedirectUrl As String = "http://myapps.portalmapapp"
@@ -53,6 +56,7 @@ Namespace AuthorMap
         Private Sub Initialize()
             ' Fill the basemap combo box with basemap names
             BasemapListView.ItemsSource = _basemapNames
+
             ' Fill the operational layers list box with layer names
             LayerListView.ItemsSource = _operationalLayerUrls
 
@@ -90,6 +94,7 @@ Namespace AuthorMap
             For Each item As KeyValuePair(Of String, String) In LayerListView.SelectedItems
                 ' Get the service uri for each selected item 
                 Dim layerUri As Uri = New Uri(item.Value)
+
                 ' Create a New map image layer, set it 50% opaque, And add it to the map
                 Dim mapServiceLayer As ArcGISMapImageLayer = New ArcGISMapImageLayer(layerUri)
                 mapServiceLayer.Opacity = 0.5
@@ -136,6 +141,7 @@ Namespace AuthorMap
 
                 ' Call a function that will challenge the user for ArcGIS Online credentials
                 Dim isLoggedIn As Boolean = Await EnsureLoginToArcGISAsync()
+
                 ' If the user could Not log in (Or canceled the login), exit
                 If Not isLoggedIn Then Return
 
@@ -197,6 +203,7 @@ Namespace AuthorMap
 
             ' Get the current map extent (envelope) from the view point
             Dim currentExtent As Envelope = TryCast(currentViewpoint.TargetGeometry, Envelope)
+
             ' Project the current extent to geographic coordinates (longitude / latitude)
             Dim currentGeoExtent As Envelope = TryCast(GeometryEngine.Project(currentExtent, SpatialReferences.Wgs84), Envelope)
 
@@ -209,7 +216,7 @@ Namespace AuthorMap
 
         Private Sub UpdateAuthenticationManager()
             ' Register the server information with the AuthenticationManager
-            Dim portalServerInfo As Esri.ArcGISRuntime.Security.ServerInfo = New ServerInfo With
+            Dim portalServerInfo As ServerInfo = New ServerInfo With
             {
                 .TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit,
                 .ServerUri = New Uri(ServerUrl),
@@ -220,10 +227,14 @@ Namespace AuthorMap
                 }
             }
 
-            AuthenticationManager.Current.RegisterServer(portalServerInfo)
+            ' Get a reference to the (singleton) AuthenticationManager for the app
+            Dim thisAuthenticationManager As AuthenticationManager = AuthenticationManager.Current
+
+            ' Register the server information
+            thisAuthenticationManager.RegisterServer(portalServerInfo)
 
             ' Create a New ChallengeHandler that uses a method in this class to challenge for credentials
-            AuthenticationManager.Current.ChallengeHandler = New Esri.ArcGISRuntime.Security.ChallengeHandler(AddressOf CreateCredentialAsync)
+            thisAuthenticationManager.ChallengeHandler = New ChallengeHandler(AddressOf CreateCredentialAsync)
         End Sub
 
         Private Async Function EnsureLoginToArcGISAsync() As Task(Of Boolean)
@@ -242,8 +253,11 @@ Namespace AuthorMap
             loginInfo.ServiceUri = New Uri("http://www.arcgis.com/sharing/rest")
 
             Try
+                ' Get a reference to the (singleton) AuthenticationManager for the app
+                Dim thisAuthenticationManager As AuthenticationManager = AuthenticationManager.Current
+
                 ' Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
-                Dim cred As Credential = Await AuthenticationManager.Current.GetCredentialAsync(loginInfo, False)
+                Dim cred As Credential = Await thisAuthenticationManager.GetCredentialAsync(loginInfo, False)
                 authenticated = Not cred Is Nothing
             Catch canceledEx As OperationCanceledException
                 ' user canceled the login

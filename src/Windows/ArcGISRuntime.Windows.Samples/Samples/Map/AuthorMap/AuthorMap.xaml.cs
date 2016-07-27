@@ -15,22 +15,22 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using WinUI = Windows.UI;
-using WinCore = Windows.UI.Core;
 using Windows.UI.Popups;
-using Windows.Security.Authentication.Web;
-using Windows.ApplicationModel.Core;
 
 namespace ArcGISRuntime.Windows.Samples.AuthorMap
 {
     public partial class AuthorMap
     {
+        // The map object that will be saved as a portal item
         private Map _myMap;
 
         // Constants for OAuth-related values ...
         // URL of the server to authenticate with
         private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
+
         // TODO: Add Client ID for an app registered with the server
         private const string AppClientId = "2Gh53JRzkPtOENQq"; 
+
         // TODO: Add URL for redirecting after a successful authorization
         //       Note - this must be a URL configured as a valid Redirect URI with your app
         private const string OAuthRedirectUrl = "http://myapps.portalmapapp"; 
@@ -109,6 +109,7 @@ namespace ArcGISRuntime.Windows.Samples.AuthorMap
                 // Get the service uri for each selected item 
                 var layerInfo = (KeyValuePair<string, string>)item;
                 var layerUri = new Uri(layerInfo.Value);
+
                 // Create a new map image layer, set it 50% opaque, and add it to the map
                 ArcGISMapImageLayer layer = new ArcGISMapImageLayer(layerUri);
                 layer.Opacity = 0.5;
@@ -161,6 +162,7 @@ namespace ArcGISRuntime.Windows.Samples.AuthorMap
 
                 // Call a function that will challenge the user for ArcGIS Online credentials
                 var isLoggedIn = await EnsureLoginToArcGISAsync();
+
                 // If the user could not log in (or canceled the login), exit
                 if (!isLoggedIn) { return; }
 
@@ -236,6 +238,7 @@ namespace ArcGISRuntime.Windows.Samples.AuthorMap
 
             // Get the current map extent (envelope) from the view point
             Envelope currentExtent = currentViewpoint.TargetGeometry as Envelope;
+
             // Project the current extent to geographic coordinates (longitude / latitude)
             Envelope currentGeoExtent = GeometryEngine.Project(currentExtent, SpatialReferences.Wgs84) as Envelope;
 
@@ -250,7 +253,7 @@ namespace ArcGISRuntime.Windows.Samples.AuthorMap
         private void UpdateAuthenticationManager()
         {
             // Register the server information with the AuthenticationManager
-            Esri.ArcGISRuntime.Security.ServerInfo portalServerInfo = new ServerInfo
+            ServerInfo portalServerInfo = new ServerInfo
             {
                 ServerUri = new Uri(ServerUrl),
                 OAuthClientInfo = new OAuthClientInfo
@@ -262,10 +265,15 @@ namespace ArcGISRuntime.Windows.Samples.AuthorMap
                 // Otherwise, use OAuthImplicit
                 TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
             };
-            AuthenticationManager.Current.RegisterServer(portalServerInfo);
+
+            // Get a reference to the (singleton) AuthenticationManager for the app
+            AuthenticationManager thisAuthenticationManager = AuthenticationManager.Current;
+
+            // Register the server information
+            thisAuthenticationManager.RegisterServer(portalServerInfo);
             
             // Create a new ChallengeHandler that uses a method in this class to challenge for credentials
-            AuthenticationManager.Current.ChallengeHandler = new Esri.ArcGISRuntime.Security.ChallengeHandler(CreateCredentialAsync);
+            thisAuthenticationManager.ChallengeHandler = new ChallengeHandler(CreateCredentialAsync);
         }
 
         private async Task<bool> EnsureLoginToArcGISAsync()
@@ -286,8 +294,11 @@ namespace ArcGISRuntime.Windows.Samples.AuthorMap
 
             try
             {
+                // Get a reference to the (singleton) AuthenticationManager for the app
+                AuthenticationManager thisAuthenticationManager = AuthenticationManager.Current;
+
                 // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
-                var cred = await AuthenticationManager.Current.GetCredentialAsync(loginInfo, false);
+                var cred = await thisAuthenticationManager.GetCredentialAsync(loginInfo, false);
                 authenticated = (cred != null);
             }
             catch (OperationCanceledException)

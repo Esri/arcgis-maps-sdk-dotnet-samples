@@ -24,7 +24,7 @@ namespace ArcGISRuntime.Windows.Viewer
     {
         // Default to use CSharp assembly for samples
         // NOTE :
-        // Change this to Languate.VBNet to run VB samples
+        // Change this to Language.VBNet to run VB samples
         private const Language SamplesLanguageUsed = Language.CSharp;
 
         /// <summary>

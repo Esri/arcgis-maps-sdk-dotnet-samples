@@ -7,25 +7,26 @@
 ' "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 ' language governing permissions and limitations under the License.
 
-Imports Esri.ArcGISRuntime
-Imports Esri.ArcGISRuntime.Mapping
-Imports System.Threading
-Imports System.Windows
-Imports Esri.ArcGISRuntime.Portal
 Imports Esri.ArcGISRuntime.Geometry
+Imports Esri.ArcGISRuntime.Mapping
+Imports Esri.ArcGISRuntime.Portal
 Imports Esri.ArcGISRuntime.Security
+Imports System.Windows
 Imports System.Windows.Controls
 Imports System.Windows.Navigation
 
 Namespace AuthorMap
     Partial Public Class AuthorMapVB
+        ' The map object that will be saved as a portal item
         Private _myMap As Map
 
         ' Constants for OAuth-related values ...
         ' URL of the server to authenticate with
         Private Const ServerUrl As String = "https://www.arcgis.com/sharing/rest"
+
         ' TODO: Add Client ID For an app registered With the server
         Private Const AppClientId As String = "2Gh53JRzkPtOENQq"
+
         ' TODO: Add URL For redirecting after a successful authorization
         '       Note - this must be a URL configured as a valid Redirect URI with your app
         Private Const OAuthRedirectUrl As String = "http://myapps.portalmapapp"
@@ -60,6 +61,7 @@ Namespace AuthorMap
 
             ' Fill the basemap combo box with basemap names
             BasemapListBox.ItemsSource = _basemapNames
+
             ' Select the first basemap in the list by default
             BasemapListBox.SelectedIndex = 0
 
@@ -97,6 +99,7 @@ Namespace AuthorMap
             For Each item As KeyValuePair(Of String, String) In OperationalLayerListBox.SelectedItems
                 ' Get the service uri for each selected item 
                 Dim layerUri As Uri = New Uri(item.Value)
+
                 ' Create a New map image layer, set it 50% opaque, And add it to the map
                 Dim mapServiceLayer As ArcGISMapImageLayer = New ArcGISMapImageLayer(layerUri)
                 mapServiceLayer.Opacity = 0.5
@@ -134,6 +137,7 @@ Namespace AuthorMap
 
                 ' Call a function that will challenge the user for ArcGIS Online credentials
                 Dim isLoggedIn As Boolean = Await EnsureLoginToArcGISAsync()
+
                 ' If the user could Not log in (Or canceled the login), exit
                 If Not isLoggedIn Then Return
 
@@ -191,6 +195,7 @@ Namespace AuthorMap
 
             ' Get the current map extent (envelope) from the view point
             Dim currentExtent As Envelope = TryCast(currentViewpoint.TargetGeometry, Envelope)
+
             ' Project the current extent to geographic coordinates (longitude / latitude)
             Dim currentGeoExtent As Envelope = TryCast(GeometryEngine.Project(currentExtent, SpatialReferences.Wgs84), Envelope)
 
@@ -203,7 +208,7 @@ Namespace AuthorMap
 
         Private Sub UpdateAuthenticationManager()
             ' Register the server information with the AuthenticationManager
-            Dim portalServerInfo As Esri.ArcGISRuntime.Security.ServerInfo = New ServerInfo With
+            Dim portalServerInfo As ServerInfo = New ServerInfo With
             {
                 .TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit,
                 .ServerUri = New Uri(ServerUrl),
@@ -214,13 +219,17 @@ Namespace AuthorMap
                 }
             }
 
-            AuthenticationManager.Current.RegisterServer(portalServerInfo)
+            ' Get a reference to the (singleton) AuthenticationManager for the app
+            Dim thisAuthenticationManager As AuthenticationManager = AuthenticationManager.Current
+
+            ' Register the server information
+            thisAuthenticationManager.RegisterServer(portalServerInfo)
 
             ' Use the OAuthAuthorize class in this project to create a New web view that contains the OAuth challenge handler.
-            AuthenticationManager.Current.OAuthAuthorizeHandler = New OAuthAuthorize()
+            thisAuthenticationManager.OAuthAuthorizeHandler = New OAuthAuthorize()
 
             ' Create a New ChallengeHandler that uses a method in this class to challenge for credentials
-            AuthenticationManager.Current.ChallengeHandler = New Esri.ArcGISRuntime.Security.ChallengeHandler(AddressOf CreateCredentialAsync)
+            thisAuthenticationManager.ChallengeHandler = New ChallengeHandler(AddressOf CreateCredentialAsync)
         End Sub
 
         Private Async Function EnsureLoginToArcGISAsync() As Task(Of Boolean)
@@ -239,8 +248,11 @@ Namespace AuthorMap
             loginInfo.ServiceUri = New Uri("http://www.arcgis.com/sharing/rest")
 
             Try
+                ' Get a reference to the (singleton) AuthenticationManager for the app
+                Dim thisAuthenticationManager As AuthenticationManager = AuthenticationManager.Current
+
                 ' Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
-                Dim cred As Credential = Await AuthenticationManager.Current.GetCredentialAsync(loginInfo, False)
+                Dim cred As Credential = Await thisAuthenticationManager.GetCredentialAsync(loginInfo, False)
                 authenticated = Not cred Is Nothing
             Catch canceledEx As OperationCanceledException
                 ' user canceled the login
@@ -281,10 +293,13 @@ Namespace AuthorMap
         Implements IOAuthAuthorizeHandler
         ' Window to contain the OAuth UI
         Private _window As Window
+
         ' Use a TaskCompletionSource to track the completion of the authorization
         Private _tcs As TaskCompletionSource(Of IDictionary(Of String, String))
+
         ' URL for the authorization callback result (the redirect URI configured for your application)
         Private _callbackUrl As String
+
         ' URL that handles the OAuth request
         Private _authorizeUrl As String
 
@@ -309,7 +324,8 @@ Namespace AuthorMap
             If thisDispatcher Is Nothing Or thisDispatcher.CheckAccess() Then
                 AuthorizeOnUIThread(_authorizeUrl)
             Else
-                thisDispatcher.BeginInvoke(New AuthorizeDelegate(AddressOf AuthorizeOnUIThread), _authorizeUrl)
+                Dim authorizeOnUIDelegate As AuthorizeDelegate = New AuthorizeDelegate(AddressOf AuthorizeOnUIThread)
+                thisDispatcher.BeginInvoke(authorizeOnUIDelegate, _authorizeUrl)
             End If
 
             ' Return the task associated with the TaskCompletionSource
@@ -332,10 +348,11 @@ Namespace AuthorMap
                 .Content = browser,
                 .Height = 430,
                 .Width = 395,
-                .WindowStartupLocation = WindowStartupLocation.CenterOwner,
-                .Owner = Nothing
+                .WindowStartupLocation = WindowStartupLocation.CenterOwner
             }
 
+
+            ' Set the app's window as the owner of the browser window (if main window closes, so will the browser)
             If Not Application.Current Is Nothing And Not Application.Current.MainWindow Is Nothing Then
                 _window.Owner = Application.Current.MainWindow
             End If
@@ -348,17 +365,20 @@ Namespace AuthorMap
             _window.ShowDialog()
         End Sub
 
+        ' Handle the browser window closing
         Private Sub OnWindowClosed(sender As Object, e As EventArgs)
+            ' If the browser window closes, return the focus to the main window
             If Not _window Is Nothing AndAlso Not _window.Owner Is Nothing Then
                 _window.Owner.Focus()
             End If
 
+            ' If the task wasn't completed, the user must have closed the window without logging in
             If Not _tcs Is Nothing AndAlso Not _tcs.Task.IsCompleted Then
-                ' The user closed the window
+                ' Set the task completion source exception to indicate a canceled operation
                 _tcs.SetException(New OperationCanceledException())
             End If
 
-            ' Set the task completion source And window to null to indicate the authorization process Is complete
+            ' Set the task completion source and window to Nothing to indicate the authorization process is complete
             _tcs = Nothing
             _window = Nothing
         End Sub

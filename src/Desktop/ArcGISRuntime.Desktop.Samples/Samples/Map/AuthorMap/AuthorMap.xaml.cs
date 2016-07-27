@@ -13,7 +13,6 @@ using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,13 +22,16 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
 {
     public partial class AuthorMap
     {
+        // The map object that will be saved as a portal item
         private Map _myMap;
 
         // Constants for OAuth-related values ...
         // URL of the server to authenticate with
         private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
+
         // TODO: Add Client ID for an app registered with the server
         private const string AppClientId = "2Gh53JRzkPtOENQq"; 
+
         // TODO: Add URL for redirecting after a successful authorization
         //       Note - this must be a URL configured as a valid Redirect URI with your app
         private const string OAuthRedirectUrl = "http://myapps.portalmapapp"; 
@@ -66,6 +68,7 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
 
             // Fill the basemap combo box with basemap names
             BasemapListBox.ItemsSource = _basemapNames;
+
             // Select the first basemap in the list by default
             BasemapListBox.SelectedIndex = 0;
 
@@ -113,6 +116,7 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
                 // Get the service uri for each selected item 
                 var layerInfo = (KeyValuePair<string, string>)item;
                 var layerUri = new Uri(layerInfo.Value);
+
                 // Create a new map image layer, set it 50% opaque, and add it to the map
                 ArcGISMapImageLayer layer = new ArcGISMapImageLayer(layerUri);
                 layer.Opacity = 0.5;
@@ -155,6 +159,7 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
 
                 // Call a function that will challenge the user for ArcGIS Online credentials
                 var isLoggedIn = await EnsureLoginToArcGISAsync();
+
                 // If the user could not log in (or canceled the login), exit
                 if (!isLoggedIn) { return; }
 
@@ -226,6 +231,7 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
 
             // Get the current map extent (envelope) from the view point
             Envelope currentExtent = currentViewpoint.TargetGeometry as Envelope;
+
             // Project the current extent to geographic coordinates (longitude / latitude)
             Envelope currentGeoExtent = GeometryEngine.Project(currentExtent, SpatialReferences.Wgs84) as Envelope;
 
@@ -240,7 +246,7 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
         private void UpdateAuthenticationManager()
         {
             // Register the server information with the AuthenticationManager
-            Esri.ArcGISRuntime.Security.ServerInfo portalServerInfo = new ServerInfo
+            ServerInfo portalServerInfo = new ServerInfo
             {
                 ServerUri = new Uri(ServerUrl),
                 OAuthClientInfo = new OAuthClientInfo
@@ -252,13 +258,18 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
                 // Otherwise, use OAuthImplicit
                 TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
             };
-            AuthenticationManager.Current.RegisterServer(portalServerInfo);
+
+            // Get a reference to the (singleton) AuthenticationManager for the app
+            AuthenticationManager thisAuthenticationManager = AuthenticationManager.Current;
+
+            // Register the server information
+            thisAuthenticationManager.RegisterServer(portalServerInfo);
 
             // Use the OAuthAuthorize class in this project to create a new web view that contains the OAuth challenge handler.
-            AuthenticationManager.Current.OAuthAuthorizeHandler = new OAuthAuthorize();
+            thisAuthenticationManager.OAuthAuthorizeHandler = new OAuthAuthorize();
 
             // Create a new ChallengeHandler that uses a method in this class to challenge for credentials
-            AuthenticationManager.Current.ChallengeHandler = new Esri.ArcGISRuntime.Security.ChallengeHandler(CreateCredentialAsync);
+            thisAuthenticationManager.ChallengeHandler = new ChallengeHandler(CreateCredentialAsync);
         }
 
         private async Task<bool> EnsureLoginToArcGISAsync()
@@ -279,8 +290,11 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
 
             try
             {
+                // Get a reference to the (singleton) AuthenticationManager for the app
+                AuthenticationManager thisAuthenticationManager = AuthenticationManager.Current;
+
                 // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
-                var cred = await AuthenticationManager.Current.GetCredentialAsync(loginInfo, false);
+                var cred = await thisAuthenticationManager.GetCredentialAsync(loginInfo, false);
                 authenticated = (cred != null);
             }
             catch(OperationCanceledException)
@@ -333,10 +347,13 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
     {
         // Window to contain the OAuth UI
         private Window _window;
+
         // Use a TaskCompletionSource to track the completion of the authorization
         private TaskCompletionSource<IDictionary<string, string>> _tcs;
+
         // URL for the authorization callback result (the redirect URI configured for your application)
         private string _callbackUrl;
+
         // URL that handles the OAuth request
         private string _authorizeUrl;
 
@@ -356,7 +373,6 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
 
             // Create a task completion source
             _tcs = new TaskCompletionSource<IDictionary<string, string>>();
-            var tcs = _tcs;
 
             // Call a function to show the login controls, make sure it runs on the UI thread for this app
             var dispatcher = Application.Current.Dispatcher;
@@ -364,11 +380,12 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
                 AuthorizeOnUIThread(_authorizeUrl);
             else
             {
-                dispatcher.BeginInvoke((Action)(() => AuthorizeOnUIThread(_authorizeUrl)));
+                var authorizeOnUIAction = new Action((() => AuthorizeOnUIThread(_authorizeUrl)));
+                dispatcher.BeginInvoke(authorizeOnUIAction);
             }
             
             // Return the task associated with the TaskCompletionSource
-            return tcs.Task;
+            return _tcs.Task;
         }
 
         // Challenge for OAuth credentials on the UI thread
@@ -376,6 +393,7 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
         {
             // Create a WebBrowser control to display the authorize page
             var webBrowser = new WebBrowser();
+
             // Handle the navigation event for the browser to check for a response to the redirect URL
             webBrowser.Navigating += WebBrowserOnNavigating;
 
@@ -385,11 +403,14 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
                 Content = webBrowser,
                 Height = 430,
                 Width = 395,
-                WindowStartupLocation = WindowStartupLocation.CenterOwner,
-                Owner = Application.Current != null && Application.Current.MainWindow != null
-                            ? Application.Current.MainWindow
-                            : null
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
+
+            // Set the app's window as the owner of the browser window (if main window closes, so will the browser)
+            if(Application.Current != null && Application.Current.MainWindow != null)
+            {
+                _window.Owner = Application.Current.MainWindow;
+            }            
 
             // Handle the window closed event then navigate to the authorize url
             _window.Closed += OnWindowClosed;
@@ -399,16 +420,19 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
             _window.ShowDialog();
         }
 
+        // Handle the browser window closing
         void OnWindowClosed(object sender, EventArgs e)
         {
+            // If the browser window closes, return the focus to the main window
             if (_window != null && _window.Owner != null)
             {
                 _window.Owner.Focus();
             }
 
+            // If the task wasn't completed, the user must have closed the window without logging in
             if (_tcs != null && !_tcs.Task.IsCompleted)
             {
-                // The user closed the window
+                // Set the task completion source exception to indicate a canceled operation
                 _tcs.SetException(new OperationCanceledException());
             }
 

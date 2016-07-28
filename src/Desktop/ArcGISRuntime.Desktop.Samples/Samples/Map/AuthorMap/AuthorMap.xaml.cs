@@ -258,32 +258,39 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
         private async Task<string> WriteThumbnailImageAsync(string imageName)
         {
             // Export the current map view display
-            var imageSource = await MyMapView.ExportImageAsync();
+            var mapImageSource = await MyMapView.ExportImageAsync();
 
-            // Encode the image as a JPG file
-            JpegBitmapEncoder jpg = new JpegBitmapEncoder() { QualityLevel = 70 };
-            jpg.Frames.Add(BitmapFrame.Create(imageSource as BitmapSource));
+            // Create a new encoder for jpeg images
+            var jpegEncoder = new JpegBitmapEncoder{ QualityLevel = 70};
+
+            // Create a bitmap frame to represent the image
+            var mapImageBitmapSource = mapImageSource as BitmapSource;
+            var mapImageFrame = BitmapFrame.Create(mapImageBitmapSource);
+
+            // Add the frame to the jpeg encoder frames collection
+            jpegEncoder.Frames.Add(mapImageFrame);
 
             // Get the folder for the current executable
             var folder = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
-            // Save the image (delete any existing one first)
-            var file = new FileInfo(Path.Combine(folder, imageName));
-            if (file.Exists)
+            // Build the output file name with the executable directory and the name passed in
+            var outFile = new FileInfo(Path.Combine(folder, imageName));
+
+            // If the file already exists, delete it
+            if(outFile.Exists)
             {
                 await Task.Delay(1000);
-                file.Delete();
-                using (Stream stm = File.Create(file.FullName))
-                    jpg.Save(stm);
-            }
-            else
-            {
-                using (Stream stm = File.Create(file.FullName))
-                    jpg.Save(stm);
+                outFile.Delete();
             }
 
-            // Return the path to the jpg file
-            return file.FullName;
+            // Create the output image file
+            using (var stm = File.Create(outFile.FullName))
+            {
+                jpegEncoder.Save(stm);
+            }
+
+            // Return the path to the file
+            return outFile.FullName;
         }
 
         private void ClearMap(object sender, RoutedEventArgs e)

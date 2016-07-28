@@ -44,12 +44,12 @@ namespace ArcGISRuntime.Windows.Viewer
 
         private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
         {
-            var message = new MessageDialog(e.Exception.ToString(), "An error occured").ShowAsync();
+            var message = new MessageDialog(e.Exception.ToString(), "An error occurred").ShowAsync();
         }
 
         private void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            var message = new MessageDialog(e.ToString(), "An error occured").ShowAsync();
+            var message = new MessageDialog(e.ToString(), "An error occurred").ShowAsync();
             e.Handled = true;
         }
 

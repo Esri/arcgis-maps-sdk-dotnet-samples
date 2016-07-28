@@ -16,6 +16,12 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using WinUI = Windows.UI;
 using Windows.UI.Popups;
+using System.IO;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.UI.Xaml.Media.Imaging;
+using Windows.Graphics.Imaging;
+using Windows.Storage;
+using Windows.Storage.Streams;
 
 namespace ArcGISRuntime.Windows.Samples.AuthorMap
 {
@@ -218,6 +224,90 @@ namespace ArcGISRuntime.Windows.Samples.AuthorMap
                     // Hide the progress bar
                     SaveProgressBar.Visibility = WinUI.Xaml.Visibility.Collapsed;
                 }
+            }
+
+            // Call a function to make sure the portal item thumbnail gets updated with the current map view display
+            UpdatePortalItemThumbnailAsync();
+        }
+
+        private async void UpdatePortalItemThumbnailAsync()
+        {
+            // Update the portal item with a thumbnail image of the current map
+            try
+            {
+                // Get the map's portal item
+                ArcGISPortalItem newPortalItem = MyMapView.Map.PortalItem;
+
+                // Portal item will be null if the map hasn't been saved
+                if (newPortalItem == null)
+                {
+                    throw new Exception("Map has not been saved to the portal");
+                }
+
+                // Call a function that will create an image from the map              
+                var imageFileName = newPortalItem.Title + ".jpg";
+                await WriteCurrentMapImageAsync(imageFileName);
+
+                // Open the image file (stored in the device's Pictures folder)
+                var mapImageFile = await KnownFolders.PicturesLibrary.GetFileAsync(imageFileName);
+
+                if (mapImageFile != null)
+                {
+                    // Get a thumbnail image (scaled down version) of the original
+                    var thumbnailData = await mapImageFile.GetScaledImageAsThumbnailAsync(0);
+
+                    // Create a new ArcGISPortalItemContent object to contain the thumbnail image
+                    ArcGISPortalItemContent portalItemContent = new ArcGISPortalItemContent();
+
+                    // Assign the thumbnail data (stream) to the content object
+                    portalItemContent.Thumbnail = thumbnailData.AsStreamForRead();
+
+                    // Update the portal item with the new content (just the thumbnail will be updated)
+                    await newPortalItem.UpdateAsync(portalItemContent);
+
+                    // Delete the map image file from disk
+                    mapImageFile.DeleteAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Warn the user that the thumbnail could not be updated
+                var dialog = new MessageDialog("Unable to update thumbnail for portal item: " + ex.Message, "Portal Item Thumbnail");
+                dialog.ShowAsync();
+            }
+        }
+
+        // Export the map view and store it in a local file
+        private async Task WriteCurrentMapImageAsync(string imageName)
+        {
+            try
+            {
+                // Export the current map view display to a bitmap
+                var mapImage = await MyMapView.ExportImageAsync() as WriteableBitmap;
+
+                // Create a new file in the device's Pictures folder
+                var outStorageFile = await KnownFolders.PicturesLibrary.CreateFileAsync(imageName);
+
+                // Open the new file for read/write
+                using (var stream = await outStorageFile.OpenAsync(FileAccessMode.ReadWrite))
+                {
+                    // Create a bitmap encoder to encode the image to Jpeg
+                    var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, stream);
+
+                    // Read the pixels from the map image into a byte array
+                    var pixelStream = mapImage.PixelBuffer.AsStream();
+                    var pixels = new byte[pixelStream.Length];
+                    await pixelStream.ReadAsync(pixels, 0, pixels.Length);
+
+                    // Use the encoder to write the map image pixels to the output file
+                    encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore, (uint)mapImage.PixelWidth, (uint)mapImage.PixelHeight, 96.0, 96.0, pixels);
+                    await encoder.FlushAsync();
+                }
+            }
+            catch
+            {
+                // Exception message will be shown in the calling function
+                throw;
             }
         }
 

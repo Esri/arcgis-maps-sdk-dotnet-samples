@@ -29,6 +29,7 @@
   </Applications>
   <Capabilities>
     <Capability Name="internetClient" />
+    <uap:Capability Name="picturesLibrary" />
     <DeviceCapability Name="location" />
   </Capabilities>
 </Package>

@@ -13,9 +13,11 @@ using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 
 namespace ArcGISRuntime.Desktop.Samples.AuthorMap
@@ -30,11 +32,11 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
         private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
 
         // TODO: Add Client ID for an app registered with the server
-        private const string AppClientId = "2Gh53JRzkPtOENQq"; 
+        private const string AppClientId = "2Gh53JRzkPtOENQq";
 
         // TODO: Add URL for redirecting after a successful authorization
         //       Note - this must be a URL configured as a valid Redirect URI with your app
-        private const string OAuthRedirectUrl = "http://myapps.portalmapapp"; 
+        private const string OAuthRedirectUrl = "http://myapps.portalmapapp";
 
         // String array to store names of the available basemaps
         private string[] _basemapNames = new string[]
@@ -77,10 +79,10 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
 
             // Setup the AuthenticationManager to challenge for credentials
             UpdateAuthenticationManager();
-            
+
             // Update the extent labels whenever the view point (extent) changes
             MyMapView.ViewpointChanged += (s, evt) => UpdateViewExtentLabels();
-        }            
+        }
 
         private void ApplyBasemap(string basemapName)
         {
@@ -111,8 +113,8 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
         private void AddOperationalLayers()
         {
             // Loop through the selected items in the operational layers list box
-            foreach(var item in OperationalLayerListBox.SelectedItems)
-            {               
+            foreach (var item in OperationalLayerListBox.SelectedItems)
+            {
                 // Get the service uri for each selected item 
                 var layerInfo = (KeyValuePair<string, string>)item;
                 var layerUri = new Uri(layerInfo.Value);
@@ -123,7 +125,7 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
                 _myMap.OperationalLayers.Add(layer);
             }
         }
-        
+
         private void UpdateMap(object sender, System.Windows.RoutedEventArgs e)
         {
             // Create a new (empty) map
@@ -143,17 +145,17 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
             MyMapView.Map = _myMap;
         }
 
-        private async void SaveMap(object sender, System.Windows.RoutedEventArgs e)
+        private async void SaveMap(object sender, RoutedEventArgs e)
         {
             // Make sure the map is not null
-            if(_myMap == null)
+            if (_myMap == null)
             {
                 MessageBox.Show("Please update the map before saving.", "Map is empty");
                 return;
             }
 
             // See if the map has already been saved (has an associated portal item)
-            if(_myMap.PortalItem == null)
+            if (_myMap.PortalItem == null)
             {
                 // This is the initial save for this map
 
@@ -180,9 +182,9 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
                     await _myMap.SaveAsAsync(agsOnline, null, title, description, tags, null);
                     MessageBox.Show("Saved '" + title + "' to ArcGIS Online!", "Map Saved");
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Unable to save map to ArcGIS Online: " + ex.Message);                    
+                    MessageBox.Show("Error saving map to ArcGIS Online: " + ex.Message);
                 }
                 finally
                 {
@@ -202,7 +204,7 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
                     await _myMap.SaveAsync();
                     MessageBox.Show("Saved changes to '" + _myMap.PortalItem.Title + "'", "Updates Saved");
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show("Unable to save map updates: " + ex.Message);
                 }
@@ -212,6 +214,83 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
                     SaveProgressBar.Visibility = Visibility.Hidden;
                 }
             }
+
+            // Call a function to make sure the portal item thumbnail gets updated with the current map view display
+            UpdatePortalItemThumbnailAsync();
+        }
+
+        private async void UpdatePortalItemThumbnailAsync()
+        {
+            // Update the portal item with a thumbnail image of the current map
+            try
+            {
+                // Get the map's portal item
+                ArcGISPortalItem newPortalItem = MyMapView.Map.PortalItem;
+
+                // Call a function that will create an image from the map and return the path               
+                var thumbnailPath = await WriteThumbnailImageAsync(newPortalItem.Title);
+
+                if (!string.IsNullOrEmpty(thumbnailPath))
+                {
+                    // Open the file
+                    var thumbnailData = new FileStream(thumbnailPath, FileMode.Open);
+
+                    // Create a new ArcGISPortalItemContent object to contain the thumbnail
+                    ArcGISPortalItemContent portalItemContent = new ArcGISPortalItemContent();
+
+                    // Assign the thumbnail data (file stream) to the content object
+                    portalItemContent.Thumbnail = thumbnailData;
+
+                    // Update the portal item with the new content (just the thumbnail will be updated)
+                    await newPortalItem.UpdateAsync(portalItemContent);
+
+                    // Close the stream and delete the local jpg file from disk
+                    thumbnailData.Close();
+                    File.Delete(thumbnailPath);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to update thumbnail for portal item: " + ex.Message, "Portal Item Thumbnail");
+            }
+        }
+
+        private async Task<string> WriteThumbnailImageAsync(string imageName)
+        {
+            // Export the current map view display
+            var mapImageSource = await MyMapView.ExportImageAsync();
+
+            // Create a new encoder for jpeg images
+            var jpegEncoder = new JpegBitmapEncoder{ QualityLevel = 70};
+
+            // Create a bitmap frame to represent the image
+            var mapImageBitmapSource = mapImageSource as BitmapSource;
+            var mapImageFrame = BitmapFrame.Create(mapImageBitmapSource);
+
+            // Add the frame to the jpeg encoder frames collection
+            jpegEncoder.Frames.Add(mapImageFrame);
+
+            // Get the folder for the current executable
+            var folder = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+
+            // Build the output file name with the executable directory and the name passed in
+            var outFile = new FileInfo(Path.Combine(folder, imageName));
+
+            // If the file already exists, delete it
+            if(outFile.Exists)
+            {
+                await Task.Delay(1000);
+                outFile.Delete();
+            }
+
+            // Create the output image file
+            using (var stm = File.Create(outFile.FullName))
+            {
+                jpegEncoder.Save(stm);
+            }
+
+            // Return the path to the file
+            return outFile.FullName;
         }
 
         private void ClearMap(object sender, RoutedEventArgs e)
@@ -222,7 +301,7 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
             // Show a plain gray map in the map view
             MyMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
         }
-        
+
         private void UpdateViewExtentLabels()
         {
             // Get the current view point for the map view
@@ -297,12 +376,12 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
                 var cred = await thisAuthenticationManager.GetCredentialAsync(loginInfo, false);
                 authenticated = (cred != null);
             }
-            catch(OperationCanceledException)
+            catch (OperationCanceledException)
             {
                 // user canceled the login
                 MessageBox.Show("Maps cannot be saved unless logged in to ArcGIS Online.");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Error logging in: " + ex.Message);
             }
@@ -364,7 +443,7 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
             if (_tcs != null || _window != null)
             {
                 // Allow only one authorization process at a time
-                throw new Exception(); 
+                throw new Exception();
             }
 
             // Store the authorization and redirect URLs
@@ -383,7 +462,7 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
                 var authorizeOnUIAction = new Action((() => AuthorizeOnUIThread(_authorizeUrl)));
                 dispatcher.BeginInvoke(authorizeOnUIAction);
             }
-            
+
             // Return the task associated with the TaskCompletionSource
             return _tcs.Task;
         }
@@ -407,10 +486,10 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
             };
 
             // Set the app's window as the owner of the browser window (if main window closes, so will the browser)
-            if(Application.Current != null && Application.Current.MainWindow != null)
+            if (Application.Current != null && Application.Current.MainWindow != null)
             {
                 _window.Owner = Application.Current.MainWindow;
-            }            
+            }
 
             // Handle the window closed event then navigate to the authorize url
             _window.Closed += OnWindowClosed;
@@ -455,7 +534,7 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
 
             // Check for redirect
             bool isRedirected = uri.AbsoluteUri.StartsWith(_callbackUrl) ||
-                _callbackUrl.Contains(portalApprovalMarker) && uri.AbsoluteUri.Contains(portalApprovalMarker); 
+                _callbackUrl.Contains(portalApprovalMarker) && uri.AbsoluteUri.Contains(portalApprovalMarker);
 
             if (isRedirected)
             {

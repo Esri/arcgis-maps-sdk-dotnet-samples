@@ -95,7 +95,8 @@
             <AppBarButton Content="Update"
                           Margin="5,0"
                           Click="UpdateMap"/>
-            <AppBarButton Content="Clear"/>
+            <AppBarButton Content="Clear"
+                          Click="ClearMap"/>
             <AppBarButton Content="Save ..."
                           Margin="5,0">
                 <AppBarButton.Flyout>

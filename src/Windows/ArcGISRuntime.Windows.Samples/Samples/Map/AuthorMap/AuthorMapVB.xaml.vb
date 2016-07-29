@@ -11,6 +11,9 @@ Imports Esri.ArcGISRuntime.Geometry
 Imports Esri.ArcGISRuntime.Mapping
 Imports Esri.ArcGISRuntime.Portal
 Imports Esri.ArcGISRuntime.Security
+Imports Windows.Graphics.Imaging
+Imports Windows.Storage
+Imports Windows.Storage.Streams
 Imports Windows.UI.Popups
 
 Namespace AuthorMap
@@ -186,7 +189,81 @@ Namespace AuthorMap
                     SaveProgressBar.Visibility = Visibility.Collapsed
                 End Try
             End If
+
+            UpdatePortalItemThumbnailAsync()
         End Sub
+
+
+        Private Async Sub UpdatePortalItemThumbnailAsync()
+            ' Update the portal item with a thumbnail image of the current map
+            Try
+                ' Get the map's portal item
+                Dim newPortalItem As ArcGISPortalItem = MyMapView.Map.PortalItem
+
+                ' Portal item will be null if the map hasn't been saved
+                If newPortalItem Is Nothing Then
+                    Throw New Exception("Map has not been saved to the portal")
+                End If
+
+                ' Call a function that will create an image from the map              
+                Dim imageFileName As String = newPortalItem.Title + ".jpg"
+                Await WriteCurrentMapImageAsync(imageFileName)
+
+                ' Open the image file (stored in the device's Pictures folder)
+                Dim mapImageFile As StorageFile = Await KnownFolders.PicturesLibrary.GetFileAsync(imageFileName)
+
+                If Not mapImageFile Is Nothing Then
+                    ' Get a thumbnail image (scaled down version) of the original
+                    Dim thumbnailData As FileProperties.StorageItemThumbnail = Await mapImageFile.GetScaledImageAsThumbnailAsync(0)
+
+                    ' Create a New ArcGISPortalItemContent object to contain the thumbnail image
+                    Dim portalItemContent As ArcGISPortalItemContent = New ArcGISPortalItemContent()
+
+                    ' Assign the thumbnail data (stream) to the content object
+                    portalItemContent.Thumbnail = thumbnailData.AsStreamForRead()
+
+                    ' Update the portal item with the New content (just the thumbnail will be updated)
+                    Await newPortalItem.UpdateAsync(portalItemContent)
+
+                    ' Delete the map image file from disk
+                    mapImageFile.DeleteAsync()
+                End If
+            Catch ex As Exception
+                ' Warn the user that the thumbnail could Not be updated
+                Dim dialog As MessageDialog = New MessageDialog("Unable to update thumbnail for portal item: " + ex.Message, "Portal Item Thumbnail")
+                dialog.ShowAsync()
+            End Try
+        End Sub
+
+        ' Export the map view And store it in a local file
+        Private Async Function WriteCurrentMapImageAsync(imageName As String) As Task
+            Try
+                ' Export the current map view display to a bitmap
+                Dim mapImage As WriteableBitmap = TryCast(Await MyMapView.ExportImageAsync(), WriteableBitmap)
+
+                ' Create a New file in the device's Pictures folder
+                Dim outStorageFile As StorageFile = Await KnownFolders.PicturesLibrary.CreateFileAsync(imageName)
+
+                ' Open the New file for read/write
+                Using outStream As IRandomAccessStream = Await outStorageFile.OpenAsync(FileAccessMode.ReadWrite)
+                    ' Create a bitmap encoder to encode the image to Jpeg
+                    Dim encoder As BitmapEncoder = Await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, outStream)
+
+                    ' Read the pixels from the map image into a byte array
+                    Dim pixelStream As Stream = mapImage.PixelBuffer.AsStream()
+                    Dim pixels(pixelStream.Length) As Byte
+                    Await pixelStream.ReadAsync(pixels, 0, pixels.Length)
+
+                    ' Use the encoder to write the map image pixels to the output file
+                    encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore, mapImage.PixelWidth, mapImage.PixelHeight, 96.0, 96.0, pixels)
+                    Await encoder.FlushAsync()
+                End Using
+            Catch
+                ' Exception message will be shown in the calling function
+                Throw
+            End Try
+        End Function
+
 
         Private Sub ClearMap(sender As Object, e As RoutedEventArgs)
             ' Set the map to null

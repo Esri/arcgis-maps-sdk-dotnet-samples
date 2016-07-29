@@ -14,6 +14,9 @@ Imports Esri.ArcGISRuntime.Security
 Imports System.Windows
 Imports System.Windows.Controls
 Imports System.Windows.Navigation
+Imports System.Windows.Media
+Imports System.Windows.Media.Imaging
+Imports System.IO
 
 Namespace AuthorMap
     Partial Public Class AuthorMapVB
@@ -28,7 +31,7 @@ Namespace AuthorMap
         Private Const AppClientId As String = "2Gh53JRzkPtOENQq"
 
         ' TODO: Add URL For redirecting after a successful authorization
-        '       Note - this must be a URL configured as a valid Redirect URI with your app
+        '      Note - this must be a URL configured as a valid Redirect URI with your app
         Private Const OAuthRedirectUrl As String = "http://myapps.portalmapapp"
 
         ' String array to store names of the available basemaps
@@ -125,7 +128,7 @@ Namespace AuthorMap
         End Sub
 
         Private Async Sub SaveMap(sender As Object, e As System.Windows.RoutedEventArgs)
-            ' Make sure the map Is Not null
+            ' Make sure the map is not null
             If _myMap Is Nothing Then
                 MessageBox.Show("Please update the map before saving.", "Map is empty")
                 Return
@@ -138,7 +141,7 @@ Namespace AuthorMap
                 ' Call a function that will challenge the user for ArcGIS Online credentials
                 Dim isLoggedIn As Boolean = Await EnsureLoginToArcGISAsync()
 
-                ' If the user could Not log in (Or canceled the login), exit
+                ' If the user could not log in (or canceled the login), exit
                 If Not isLoggedIn Then Return
 
                 ' Get the ArcGIS Online portal
@@ -163,12 +166,12 @@ Namespace AuthorMap
                     SaveProgressBar.Visibility = Visibility.Hidden
                 End Try
             Else
-                ' This Is an update to the existing portal item
+                ' This is an update to the existing portal item
                 Try
                     ' Show the progress bar so the user knows it's working
                     SaveProgressBar.Visibility = Visibility.Visible
 
-                    ' This Is Not the initial save, call SaveAsync to save changes to the existing portal item
+                    ' This is not the initial save, call SaveAsync to save changes to the existing portal item
                     Await _myMap.SaveAsync()
                     MessageBox.Show("Saved changes to '" + _myMap.PortalItem.Title + "'", "Updates Saved")
                 Catch ex As Exception
@@ -178,7 +181,77 @@ Namespace AuthorMap
                     SaveProgressBar.Visibility = Visibility.Hidden
                 End Try
             End If
+
+            ' Call a sub that will update the portal item's thumbnail with the current map display
+            UpdatePortalItemThumbnailAsync()
         End Sub
+
+        Private Async Sub UpdatePortalItemThumbnailAsync()
+            ' Update the portal item with a thumbnail image of the current map
+            Try
+                ' Get the map's portal item
+                Dim newPortalItem As ArcGISPortalItem = MyMapView.Map.PortalItem
+
+                ' Call a function that will create an image from the map and return the path               
+                Dim thumbnailPath As String = Await WriteThumbnailImageAsync(newPortalItem.Title)
+
+                If Not String.IsNullOrEmpty(thumbnailPath) Then
+                    ' Open the file
+                    Dim thumbnailData As FileStream = New FileStream(thumbnailPath, FileMode.Open)
+
+                    ' Create a New ArcGISPortalItemContent object to contain the thumbnail
+                    Dim portalItemContent As ArcGISPortalItemContent = New ArcGISPortalItemContent()
+
+                    ' Assign the thumbnail data (file stream) to the content object
+                    portalItemContent.Thumbnail = thumbnailData
+
+                    ' Update the portal item with the New content (just the thumbnail will be updated)
+                    Await newPortalItem.UpdateAsync(portalItemContent)
+
+                    ' Close the stream And delete the local jpg file from disk
+                    thumbnailData.Close()
+                    File.Delete(thumbnailPath)
+                End If
+            Catch ex As Exception
+                MessageBox.Show("Unable to update thumbnail for portal item: " + ex.Message, "Portal Item Thumbnail")
+            End Try
+        End Sub
+
+        Private Async Function WriteThumbnailImageAsync(imageName As String) As Task(Of String)
+            ' Export the current map view display
+            Dim mapImageSource As ImageSource = Await MyMapView.ExportImageAsync()
+
+            ' Create a new encoder for jpeg images
+            Dim jpegEncoder As JpegBitmapEncoder = New JpegBitmapEncoder()
+            jpegEncoder.QualityLevel = 70
+
+            ' Create a bitmap frame to represent the image
+            Dim mapImageBitmapSource As BitmapSource = TryCast(mapImageSource, BitmapSource)
+            Dim mapImageFrame As BitmapFrame = BitmapFrame.Create(mapImageBitmapSource)
+
+            ' Add the frame to the jpeg encoder frames collection
+            jpegEncoder.Frames.Add(mapImageFrame)
+
+            ' Get the folder for the current executable
+            Dim folder As String = Path.GetDirectoryName(Reflection.Assembly.GetExecutingAssembly().Location)
+
+            ' Build the output file name with the executable directory and the name passed in
+            Dim outFile As FileInfo = New FileInfo(Path.Combine(folder, imageName))
+
+            ' If the file already exists, delete it
+            If outFile.Exists Then
+                Await Task.Delay(1000)
+                outFile.Delete()
+            End If
+
+            ' Create the output image file
+            Using stm As Stream = File.Create(outFile.FullName)
+                jpegEncoder.Save(stm)
+            End Using
+
+            ' Return the path to the file
+            Return outFile.FullName
+        End Function
 
         Private Sub ClearMap(sender As Object, e As RoutedEventArgs)
             ' Set the map to null
@@ -289,6 +362,7 @@ Namespace AuthorMap
         End Function
     End Class
 
+#Region "OAuth Authorization class (IOAuthAuthorizeHandler)"
     Public Class OAuthAuthorize
         Implements IOAuthAuthorizeHandler
         ' Window to contain the OAuth UI
@@ -399,9 +473,9 @@ Namespace AuthorMap
 
             If isRedirected Then
                 ' If the web browser Is redirected to the callbackUrl:
-                '    -close the window 
-                '    -decode the parameters (returned as fragments Or query)
-                '    -return these parameters as result of the Task
+                '   -close the window 
+                '   -decode the parameters (returned as fragments Or query)
+                '   -return these parameters as result of the Task
                 e.Cancel = True
                 Dim localTcs As TaskCompletionSource(Of IDictionary(Of String, String)) = _tcs
                 _tcs = Nothing
@@ -446,4 +520,5 @@ Namespace AuthorMap
             Return parametersDictionary
         End Function
     End Class
+#End Region
 End Namespace

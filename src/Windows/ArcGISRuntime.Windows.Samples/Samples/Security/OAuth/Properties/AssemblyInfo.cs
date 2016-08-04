@@ -1,15 +1,14 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("OAuth")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("ArcGIS Runtime SDK for .NET OAuth Sample")]
+[assembly: AssemblyDescription("Sample to illustrate configuring an ArcGIS Runtime SDK app for OAuth 2.0 authentication.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("OAuth")]
+[assembly: AssemblyCompany("Esri, Inc.")]
+[assembly: AssemblyProduct("ArcGIS Runtime SDK for .NET OAuth Sample")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

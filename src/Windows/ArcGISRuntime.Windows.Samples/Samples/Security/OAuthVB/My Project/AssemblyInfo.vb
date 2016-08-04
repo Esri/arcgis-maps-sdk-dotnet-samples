@@ -1,5 +1,4 @@
-﻿Imports System
-Imports System.Reflection
+﻿Imports System.Reflection
 Imports System.Runtime.InteropServices
 
 ' General Information about an assembly is controlled through the following 
@@ -8,10 +7,10 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("OAuthVB")>
-<Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("")>
-<Assembly: AssemblyProduct("OAuthVB")>
+<Assembly: AssemblyTitle("ArcGIS Runtime SDK for .NET OAuth Sample")>
+<Assembly: AssemblyDescription("Sample to illustrate configuring an ArcGIS Runtime SDK app for OAuth 2.0 authentication.")>
+<Assembly: AssemblyCompany("Esri, Inc.")>
+<Assembly: AssemblyProduct("ArcGIS Runtime SDK for .NET OAuth Sample")>
 <Assembly: AssemblyCopyright("Copyright ©  2016")>
 <Assembly: AssemblyTrademark("")>
 

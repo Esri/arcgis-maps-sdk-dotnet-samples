@@ -1,9 +1,5 @@
-﻿Imports System
-Imports System.Reflection
+﻿Imports System.Reflection
 Imports System.Runtime.InteropServices
-Imports System.Globalization
-Imports System.Resources
-Imports System.Windows
 
 ' General Information about an assembly is controlled through the following 
 ' set of attributes. Change these attribute values to modify the information
@@ -11,17 +7,17 @@ Imports System.Windows
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("OAuthVB")>
-<Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("")>
-<Assembly: AssemblyProduct("OAuthVB")>
+<Assembly: AssemblyTitle("ArcGIS Runtime SDK for .NET OAuth Sample")>
+<Assembly: AssemblyDescription("Sample to illustrate configuring an ArcGIS Runtime SDK app for OAuth 2.0 authentication.")>
+<Assembly: AssemblyCompany("Esri, Inc.")>
+<Assembly: AssemblyProduct("ArcGIS Runtime SDK for .NET OAuth Sample")>
 <Assembly: AssemblyCopyright("Copyright ©  2016")>
 <Assembly: AssemblyTrademark("")>
-<Assembly: ComVisible(false)>
+<Assembly: ComVisible(False)>
 
 'In order to begin building localizable applications, set 
 '<UICulture>CultureYouAreCodingWith</UICulture> in your .vbproj file
-'inside a <PropertyGroup>.  For example, if you are using US english 
+'inside a <PropertyGroup>.  For example, if you are using US English 
 'in your source files, set the <UICulture> to "en-US".  Then uncomment the
 'NeutralResourceLanguage attribute below.  Update the "en-US" in the line
 'below to match the UICulture setting in the project file.

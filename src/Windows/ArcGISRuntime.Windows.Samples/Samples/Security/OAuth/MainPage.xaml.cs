@@ -26,13 +26,19 @@ namespace OAuth
         {
             this.InitializeComponent();
 
-            // Call a function to set up the AuthenticationManager
+            // Call a function to initialize the app
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            // Set up the AuthenticationManager to use OAuth for secure ArcGIS Online requests
             UpdateAuthenticationManager();
 
-            // Call a function to display a secured web map (will be challenged to log in)
+            // Display a secured web map from ArcGIS Online (will be challenged to log in)
             DisplayWebMap();
         }
-        
+
         private void UpdateAuthenticationManager()
         {
             // Register the server information with the AuthenticationManager
@@ -64,8 +70,12 @@ namespace OAuth
             
             // Use a function in this class to challenge for credentials
             AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(CreateCredentialAsync);
+
+            // Note: In a WPF app, you need to associate a custom IOAuthAuthorizeHandler component with the AuthenticationManager to 
+            //     handle showing OAuth login controls (AuthenticationManager.Current.OAuthAuthorizeHandler = new MyOAuthAuthorize();).
+            //     The UWP AuthenticationManager, however, uses a built-in IOAuthAuthorizeHandler (based on WebAuthenticationBroker).
         }
-        
+
         private async void DisplayWebMap()
         {
             // Display a web map hosted in a portal. If the web map item is secured, AuthenticationManager will

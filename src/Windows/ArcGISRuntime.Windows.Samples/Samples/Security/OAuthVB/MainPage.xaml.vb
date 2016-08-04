@@ -22,10 +22,15 @@ Public NotInheritable Class MainPage
         ' This call is required by the designer
         InitializeComponent()
 
-        ' Call a function to set up the AuthenticationManager
+        ' Call a sub to initialize the app
+        Initialize()
+    End Sub
+
+    Private Sub Initialize()
+        ' Set up the AuthenticationManager to authenticate requests for secure ArcGIS Online resources with OAuth
         UpdateAuthenticationManager()
 
-        ' Call a function to display a secured web map (will be challenged to log in)
+        ' Display a secured web map from ArcGIS Online (will be challenged to log in)
         DisplayWebMap()
     End Sub
 
@@ -56,6 +61,10 @@ Public NotInheritable Class MainPage
 
         ' Use a function in this class to challenge for credentials
         AuthenticationManager.Current.ChallengeHandler = New ChallengeHandler(AddressOf CreateCredentialAsync)
+
+        ' Note In a WPF app, you need to associate a custom IOAuthAuthorizeHandler component with the AuthenticationManager to 
+        '     handle showing OAuth login controls (AuthenticationManager.Current.OAuthAuthorizeHandler = New MyOAuthAuthorize()).
+        '     The UWP AuthenticationManager, however, uses a built-in IOAuthAuthorizeHandler (based on WebAuthenticationBroker).
     End Sub
 
     Private Async Sub DisplayWebMap()

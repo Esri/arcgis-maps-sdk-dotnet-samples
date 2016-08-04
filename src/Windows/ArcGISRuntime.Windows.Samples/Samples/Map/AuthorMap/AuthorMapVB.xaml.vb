@@ -13,14 +13,12 @@ Imports Esri.ArcGISRuntime.Portal
 Imports Esri.ArcGISRuntime.Security
 Imports Windows.Graphics.Imaging
 Imports Windows.Storage
+Imports Windows.Storage.FileProperties
 Imports Windows.Storage.Streams
 Imports Windows.UI.Popups
 
 Namespace AuthorMap
     Partial Public Class AuthorMapVB
-        ' The map object that will be saved as a portal item
-        Private _myMap As Map
-
         ' Constants for OAuth-related values ...
         ' URL of the server to authenticate with
         Private Const ServerUrl As String = "https://www.arcgis.com/sharing/rest"
@@ -35,6 +33,7 @@ Namespace AuthorMap
         ' String array to store names of the available basemaps
         Private _basemapNames As String() =
         {
+            "Light Gray",
             "Topographic",
             "Streets",
             "Imagery",
@@ -73,26 +72,40 @@ Namespace AuthorMap
             AddHandler MyMapView.ViewpointChanged, AddressOf UpdateViewExtentLabels
         End Sub
 
+#Region "UI event handlers"
+        Private Sub LayerSelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+            ' Call a sub to add operational layers to the map
+            AddOperationalLayers()
+        End Sub
+#End Region
+
         Private Sub ApplyBasemap(basemapName As String)
             ' Set the basemap for the map according to the user's choice in the list box
+            Dim myMap As Map = MyMapView.Map
             Select Case basemapName
+                Case "Light Gray"
+                    ' Set the basemap to Light Gray Canvas
+                    myMap.Basemap = Basemap.CreateLightGrayCanvas()
                 Case "Topographic"
                     ' Set the basemap to Topographic
-                    _myMap.Basemap = Basemap.CreateTopographic()
+                    myMap.Basemap = Basemap.CreateTopographic()
                 Case "Streets"
                     ' Set the basemap to Streets
-                    _myMap.Basemap = Basemap.CreateStreets()
+                    myMap.Basemap = Basemap.CreateStreets()
                 Case "Imagery"
                     ' Set the basemap to Imagery
-                    _myMap.Basemap = Basemap.CreateImagery()
+                    myMap.Basemap = Basemap.CreateImagery()
                 Case "Ocean"
                     ' Set the basemap to Oceans
-                    _myMap.Basemap = Basemap.CreateOceans()
+                    myMap.Basemap = Basemap.CreateOceans()
                 Case Else
             End Select
         End Sub
 
         Private Sub AddOperationalLayers()
+            ' Get the current map
+            Dim myMap As Map = MyMapView.Map
+
             ' Loop through the selected items in the operational layers list box
             For Each item As KeyValuePair(Of String, String) In LayerListView.SelectedItems
                 ' Get the service uri for each selected item 
@@ -101,120 +114,122 @@ Namespace AuthorMap
                 ' Create a New map image layer, set it 50% opaque, And add it to the map
                 Dim mapServiceLayer As ArcGISMapImageLayer = New ArcGISMapImageLayer(layerUri)
                 mapServiceLayer.Opacity = 0.5
-                _myMap.OperationalLayers.Add(mapServiceLayer)
+                myMap.OperationalLayers.Add(mapServiceLayer)
             Next
         End Sub
 
-        Private _basemapName As String = String.Empty
         Private Sub BasemapItemClick(sender As Object, e As RoutedEventArgs)
-            ' Store the name of the desired basemap when one Is selected
-            ' (will be applied to the map view when "Update Map" Is clicked)
+            ' Get the name of the desired basemap 
             Dim radioBtn As RadioButton = TryCast(sender, RadioButton)
-            _basemapName = radioBtn.Content.ToString()
+            Dim basemapName As String = radioBtn.Content.ToString()
+
+            ' Apply the basemap to the current map
+            ApplyBasemap(basemapName)
         End Sub
 
-        Private Sub UpdateMap(sender As Object, e As RoutedEventArgs)
-            ' Create a New (empty) map
-            If _myMap Is Nothing OrElse _myMap.PortalItem Is Nothing Then
-                _myMap = New Map()
-            End If
+        Private Async Sub SaveMapClicked(sender As Object, e As RoutedEventArgs)
+            Try
+                ' Show the progress bar so the user knows work is happening
+                SaveProgressBar.Visibility = Visibility.Visible
 
-            ' Call functions that apply the selected basemap And operational layers
-            ApplyBasemap(_basemapName)
-            AddOperationalLayers()
+                ' Get the current map
+                Dim myMap As Map = MyMapView.Map
 
-            ' Use the current extent to set the initial viewpoint for the map
-            _myMap.InitialViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry)
+                ' Apply the current extent as the map's initial extent
+                myMap.InitialViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry)
 
-            ' Show the New map in the map view
-            MyMapView.Map = _myMap
-        End Sub
+                ' See if the map has already been saved (has an associated portal item)
+                If myMap.PortalItem Is Nothing Then
+                    ' Get information for the New portal item
+                    Dim title As String = TitleTextBox.Text
+                    Dim description As String = DescriptionTextBox.Text
+                    Dim tags As String() = TagsTextBox.Text.Split(",".ToCharArray())
+                    ' Make sure all required info was entered
+                    If String.IsNullOrEmpty(title) Or String.IsNullOrEmpty(description) Or tags.Length = 0 Then
+                        Throw New Exception("Please enter a title, description, and some tags to describe the map.")
+                    End If
 
-        Private Async Sub SaveMap(sender As Object, e As RoutedEventArgs)
-            ' Make sure the map Is Not null
-            If _myMap Is Nothing Then
-                Dim dialog = New MessageDialog("Please update the map before saving.", "Map is empty")
-                dialog.ShowAsync()
-                Return
-            End If
+                    ' Call a function to save the map as a new portal item
+                    Await SaveNewMapAsync(myMap, title, description, tags)
 
-            ' See if the map has already been saved (has an associated portal item)
-            If _myMap.PortalItem Is Nothing Then
-                ' This Is the initial save for this map
-
-                ' Call a function that will challenge the user for ArcGIS Online credentials
-                Dim isLoggedIn As Boolean = Await EnsureLoginToArcGISAsync()
-
-                ' If the user could Not log in (Or canceled the login), exit
-                If Not isLoggedIn Then Return
-
-                ' Get the ArcGIS Online portal
-                Dim agsOnline As ArcGISPortal = Await ArcGISPortal.CreateAsync()
-
-                ' Get information for the New portal item
-                Dim title As String = TitleTextBox.Text
-                Dim description As String = DescriptionTextBox.Text
-                Dim tags As String() = TagsTextBox.Text.Split(",".ToCharArray())
-
-                Try
-                    ' Show the progress bar so the user knows it's working
-                    SaveProgressBar.Visibility = Visibility.Visible
-
-                    ' Save the current state of the map as a portal item in the user's default folder
-                    Await _myMap.SaveAsAsync(agsOnline, Nothing, title, description, tags, Nothing)
+                    ' Report a successful save
                     Dim dialog = New MessageDialog("Saved '" + title + "' to ArcGIS Online!", "Map Saved")
-                    dialog.ShowAsync()
-                Catch ex As Exception
-                    Dim dialog = New MessageDialog("Unable to save map to ArcGIS Online: " + ex.Message)
-                    dialog.ShowAsync()
-                Finally
-                    ' Hide the progress bar
-                    SaveProgressBar.Visibility = Visibility.Collapsed
-                End Try
-            Else
-                ' This Is an update to the existing portal item
+                    Await dialog.ShowAsync()
+                Else
+                    ' This is not the initial save, call SaveAsync to save changes to the existing portal item
+                    Await myMap.SaveAsync()
+
+                    ' Report update was successful
+                    Dim dialog As MessageDialog = New MessageDialog("Saved changes to '" + myMap.PortalItem.Title + "'", "Updates Saved")
+                    Await dialog.ShowAsync
+                End If
+
+                ' Update the portal item thumbnail with the current map image
                 Try
-                    ' Show the progress bar so the user knows it's working
-                    SaveProgressBar.Visibility = Visibility.Visible
+                    ' Export the current map view
+                    Dim mapImage As ImageSource = Await MyMapView.ExportImageAsync()
 
-                    ' This Is Not the initial save, call SaveAsync to save changes to the existing portal item
-                    Await _myMap.SaveAsync()
-                    Dim dialog = New MessageDialog("Saved changes to '" + _myMap.PortalItem.Title + "'", "Updates Saved")
-                    dialog.ShowAsync()
-                Catch ex As Exception
-                    Dim dialog = New MessageDialog("Unable to save map updates: " + ex.Message)
-                    dialog.ShowAsync()
-                Finally
-                    ' Hide the progress bar
-                    SaveProgressBar.Visibility = Visibility.Collapsed
+                    ' Call a function that writes a temporary jpeg file of the map
+                    Dim imagePath As String = Await WriteTempThumbnailImageAsync(mapImage)
+
+                    ' Call a sub to update the portal item's thumbnail with the image
+                    UpdatePortalItemThumbnailAsync(imagePath)
+                Catch
+                    ' Throw an exception to let the user know the thumbnail was Not saved (the map item was)
+                    Throw New Exception("Thumbnail was not updated.")
                 End Try
-            End If
-
-            UpdatePortalItemThumbnailAsync()
+            Catch ex As Exception
+                ' Report error message
+                Dim dialog As MessageDialog = New MessageDialog("Error saving map to ArcGIS Online: " + ex.Message)
+                dialog.ShowAsync()
+            Finally
+                ' Hide the progress bar
+                SaveProgressBar.Visibility = Visibility.Collapsed
+            End Try
         End Sub
 
+        Private Async Function SaveNewMapAsync(myMap As Map, title As String, description As String, tags As String()) As Task
+            ' Challenge the user for portal credentials (OAuth credential request for arcgis.com)
+            Dim loginInfo As CredentialRequestInfo = New CredentialRequestInfo()
 
-        Private Async Sub UpdatePortalItemThumbnailAsync()
+            ' Use the OAuth implicit grant flow
+            loginInfo.GenerateTokenOptions = New GenerateTokenOptions With
+            {
+                .TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
+            }
+
+            ' Indicate the url (portal) to authenticate with (ArcGIS Online)
+            loginInfo.ServiceUri = New Uri("http://www.arcgis.com/sharing/rest")
+
+            Try
+                ' Get a reference to the (singleton) AuthenticationManager for the app
+                Dim thisAuthenticationManager As AuthenticationManager = AuthenticationManager.Current
+
+                ' Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
+                Await thisAuthenticationManager.GetCredentialAsync(loginInfo, False)
+            Catch canceledEx As OperationCanceledException
+                ' user canceled the login
+                Throw New Exception("Portal log in was canceled.")
+            End Try
+
+            ' Get the ArcGIS Online portal
+            Dim agsOnline As ArcGISPortal = Await ArcGISPortal.CreateAsync()
+            ' Save the current state of the map as a portal item in the user's default folder
+            Await myMap.SaveAsAsync(agsOnline, Nothing, title, description, tags, Nothing)
+        End Function
+
+        Private Async Function UpdatePortalItemThumbnailAsync(imageFileName As String) As Task
             ' Update the portal item with a thumbnail image of the current map
             Try
                 ' Get the map's portal item
                 Dim newPortalItem As ArcGISPortalItem = MyMapView.Map.PortalItem
-
-                ' Portal item will be null if the map hasn't been saved
-                If newPortalItem Is Nothing Then
-                    Throw New Exception("Map has not been saved to the portal")
-                End If
-
-                ' Call a function that will create an image from the map              
-                Dim imageFileName As String = newPortalItem.Title + ".jpg"
-                Await WriteCurrentMapImageAsync(imageFileName)
 
                 ' Open the image file (stored in the device's Pictures folder)
                 Dim mapImageFile As StorageFile = Await KnownFolders.PicturesLibrary.GetFileAsync(imageFileName)
 
                 If Not mapImageFile Is Nothing Then
                     ' Get a thumbnail image (scaled down version) of the original
-                    Dim thumbnailData As FileProperties.StorageItemThumbnail = Await mapImageFile.GetScaledImageAsThumbnailAsync(0)
+                    Dim thumbnailData As StorageItemThumbnail = Await mapImageFile.GetScaledImageAsThumbnailAsync(0)
 
                     ' Create a New ArcGISPortalItemContent object to contain the thumbnail image
                     Dim portalItemContent As ArcGISPortalItemContent = New ArcGISPortalItemContent()
@@ -226,28 +241,30 @@ Namespace AuthorMap
                     Await newPortalItem.UpdateAsync(portalItemContent)
 
                     ' Delete the map image file from disk
-                    mapImageFile.DeleteAsync()
+                    Await mapImageFile.DeleteAsync()
                 End If
             Catch ex As Exception
                 ' Warn the user that the thumbnail could Not be updated
                 Dim dialog As MessageDialog = New MessageDialog("Unable to update thumbnail for portal item: " + ex.Message, "Portal Item Thumbnail")
                 dialog.ShowAsync()
             End Try
-        End Sub
+        End Function
 
-        ' Export the map view And store it in a local file
-        Private Async Function WriteCurrentMapImageAsync(imageName As String) As Task
+        Private Async Function WriteTempThumbnailImageAsync(mapImageSource As ImageSource) As Task(Of String)
+            Dim outputFilename As String = String.Empty
+
             Try
                 ' Export the current map view display to a bitmap
-                Dim mapImage As WriteableBitmap = TryCast(Await MyMapView.ExportImageAsync(), WriteableBitmap)
+                Dim mapImage As WriteableBitmap = TryCast(mapImageSource, WriteableBitmap)
 
                 ' Create a New file in the device's Pictures folder
-                Dim outStorageFile As StorageFile = Await KnownFolders.PicturesLibrary.CreateFileAsync(imageName)
+                Dim outStorageFile As StorageFile = Await KnownFolders.PicturesLibrary.CreateFileAsync("MapImage_Temp.jpg", CreationCollisionOption.GenerateUniqueName)
+                outputFilename = outStorageFile.Name
 
                 ' Open the New file for read/write
-                Using outStream As IRandomAccessStream = Await outStorageFile.OpenAsync(FileAccessMode.ReadWrite)
+                Using stream As IRandomAccessStream = Await outStorageFile.OpenAsync(FileAccessMode.ReadWrite)
                     ' Create a bitmap encoder to encode the image to Jpeg
-                    Dim encoder As BitmapEncoder = Await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, outStream)
+                    Dim encoder As BitmapEncoder = Await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, stream)
 
                     ' Read the pixels from the map image into a byte array
                     Dim pixelStream As Stream = mapImage.PixelBuffer.AsStream()
@@ -258,18 +275,16 @@ Namespace AuthorMap
                     encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore, mapImage.PixelWidth, mapImage.PixelHeight, 96.0, 96.0, pixels)
                     Await encoder.FlushAsync()
                 End Using
-            Catch
+            Catch ex As Exception
                 ' Exception message will be shown in the calling function
                 Throw
             End Try
+
+            Return outputFilename
         End Function
 
-
-        Private Sub ClearMap(sender As Object, e As RoutedEventArgs)
-            ' Set the map to null
-            _myMap = Nothing
-
-            ' Show a plain gray map in the map view
+        Private Sub ClearMapClicked(sender As Object, e As RoutedEventArgs)
+            ' Create a new map (will not have an associated PortalItem)
             MyMapView.Map = New Map(Basemap.CreateLightGrayCanvas())
         End Sub
 
@@ -313,40 +328,6 @@ Namespace AuthorMap
             ' Create a New ChallengeHandler that uses a method in this class to challenge for credentials
             thisAuthenticationManager.ChallengeHandler = New ChallengeHandler(AddressOf CreateCredentialAsync)
         End Sub
-
-        Private Async Function EnsureLoginToArcGISAsync() As Task(Of Boolean)
-            Dim authenticated As Boolean = False
-
-            ' Create an OAuth credential request for arcgis.com
-            Dim loginInfo As CredentialRequestInfo = New CredentialRequestInfo()
-
-            ' Use the OAuth implicit grant flow
-            loginInfo.GenerateTokenOptions = New GenerateTokenOptions With
-            {
-                .TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
-            }
-
-            ' Indicate the url (portal) to authenticate with (ArcGIS Online)
-            loginInfo.ServiceUri = New Uri("http://www.arcgis.com/sharing/rest")
-
-            Try
-                ' Get a reference to the (singleton) AuthenticationManager for the app
-                Dim thisAuthenticationManager As AuthenticationManager = AuthenticationManager.Current
-
-                ' Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
-                Dim cred As Credential = Await thisAuthenticationManager.GetCredentialAsync(loginInfo, False)
-                authenticated = Not cred Is Nothing
-            Catch canceledEx As OperationCanceledException
-                ' user canceled the login
-                Dim dialog = New MessageDialog("Maps cannot be saved unless logged in to ArcGIS Online.")
-                dialog.ShowAsync()
-            Catch ex As Exception
-                Dim dialog = New MessageDialog("Error logging in: " + ex.Message)
-                dialog.ShowAsync()
-            End Try
-
-            Return authenticated
-        End Function
 
         ' ChallengeHandler function for AuthenticationManager that will be called whenever access to a secured
         ' resource is attempted

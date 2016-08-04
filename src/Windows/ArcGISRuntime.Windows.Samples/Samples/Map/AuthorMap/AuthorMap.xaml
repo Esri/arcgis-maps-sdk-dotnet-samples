@@ -88,15 +88,13 @@
                     <Flyout>
                         <ListView x:Name="LayerListView"
                                   SelectionMode="Multiple"
-                                  DisplayMemberPath="Key"/>
+                                  DisplayMemberPath="Key"
+                                  SelectionChanged="LayerSelectionChanged"/>
                     </Flyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
-            <AppBarButton Content="Update"
-                          Margin="5,0"
-                          Click="UpdateMap"/>
             <AppBarButton Content="Clear"
-                          Click="ClearMap"/>
+                          Click="ClearMapClicked"/>
             <AppBarButton Content="Save ..."
                           Margin="5,0">
                 <AppBarButton.Flyout>
@@ -147,7 +145,7 @@
                                     Width="170" Height="35"
                                     Margin="10"
                                     VerticalAlignment="Center" HorizontalAlignment="Center"
-                                    Click="SaveMap"/>
+                                    Click="SaveMapClicked"/>
                         </Grid>
                     </Flyout>
                 </AppBarButton.Flyout>

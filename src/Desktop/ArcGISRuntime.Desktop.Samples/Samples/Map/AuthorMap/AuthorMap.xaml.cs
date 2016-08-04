@@ -17,6 +17,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 
@@ -24,9 +25,6 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
 {
     public partial class AuthorMap
     {
-        // The map object that will be saved as a portal item
-        private Map _myMap;
-
         // Constants for OAuth-related values ...
         // URL of the server to authenticate with
         private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
@@ -41,6 +39,7 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
         // String array to store names of the available basemaps
         private string[] _basemapNames = new string[]
         {
+            "Light Gray",
             "Topographic",
             "Streets",
             "Imagery",
@@ -84,26 +83,123 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
             MyMapView.ViewpointChanged += (s, evt) => UpdateViewExtentLabels();
         }
 
+        #region UI event handlers
+        private void BasemapSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Call a function to set the basemap to the one selected
+            ApplyBasemap(e.AddedItems[0].ToString());
+        }
+
+        private void OperationalLayerSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Call a function to add the chosen layers to the map
+            AddOperationalLayers();
+        }
+
+        private void ClearMapClicked(object sender, RoutedEventArgs e)
+        {
+            // Create a new map (will not have an associated PortalItem)
+            MyMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
+        }
+
+        private async void SaveMapClicked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Show the progress bar so the user knows work is happening
+                SaveProgressBar.Visibility = Visibility.Visible;
+
+                // Get the current map
+                var myMap = MyMapView.Map;
+
+                // Apply the current extent as the map's initial extent
+                myMap.InitialViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
+
+                // See if the map has already been saved (has an associated portal item)
+                if (myMap.PortalItem == null)
+                {
+                    // Get information for the new portal item
+                    var title = TitleTextBox.Text;
+                    var description = DescriptionTextBox.Text;
+                    var tags = TagsTextBox.Text.Split(',');
+
+                    // Make sure all required info was entered
+                    if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(description) || tags.Length == 0)
+                    {
+                        throw new Exception("Please enter a title, description, and some tags to describe the map.");
+                    }
+
+                    // Call a function to save the map as a new portal item
+                    await SaveNewMapAsync(MyMapView.Map, title, description, tags);
+
+                    // Report a successful save
+                    MessageBox.Show("Saved '" + title + "' to ArcGIS Online!", "Map Saved");
+                }
+                else
+                {
+                    // This is not the initial save, call SaveAsync to save changes to the existing portal item
+                    await myMap.SaveAsync();
+
+                    // Report update was successful
+                    MessageBox.Show("Saved changes to '" + myMap.PortalItem.Title + "'", "Updates Saved");
+                }
+
+                // Update the portal item thumbnail with the current map image
+                try
+                {
+                    // Export the current map view
+                    var mapImage = await MyMapView.ExportImageAsync();
+
+                    // Call a function that writes a temporary jpeg file of the map
+                    var imagePath = await WriteTempThumbnailImageAsync(mapImage);
+
+                    // Call a function to update the portal item's thumbnail with the image
+                    UpdatePortalItemThumbnailAsync(imagePath);
+                }
+                catch 
+                {
+                    // Throw an exception to let the user know the thumbnail was not saved (the map item was)
+                    throw new Exception("Thumbnail was not updated.");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Report error message
+                MessageBox.Show("Error saving map to ArcGIS Online: " + ex.Message);
+            }
+            finally
+            {
+                // Hide the progress bar
+                SaveProgressBar.Visibility = Visibility.Hidden;
+            }            
+        }
+        #endregion
+
         private void ApplyBasemap(string basemapName)
         {
             // Set the basemap for the map according to the user's choice in the list box
+            var myMap = MyMapView.Map;
             switch (basemapName)
             {
+                case "Light Gray":
+                    // Set the basemap to Light Gray Canvas
+                    myMap.Basemap = Basemap.CreateLightGrayCanvas();
+                    break;
                 case "Topographic":
                     // Set the basemap to Topographic
-                    _myMap.Basemap = Basemap.CreateTopographic();
+                    myMap.Basemap = Basemap.CreateTopographic();
                     break;
                 case "Streets":
                     // Set the basemap to Streets
-                    _myMap.Basemap = Basemap.CreateStreets();
+                    myMap.Basemap = Basemap.CreateStreets();
                     break;
                 case "Imagery":
                     // Set the basemap to Imagery
-                    _myMap.Basemap = Basemap.CreateImagery();
+                    myMap.Basemap = Basemap.CreateImagery();
                     break;
                 case "Ocean":
                     // Set the basemap to Oceans
-                    _myMap.Basemap = Basemap.CreateOceans();
+                    myMap.Basemap = Basemap.CreateOceans();
                     break;
                 default:
                     break;
@@ -112,6 +208,10 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
 
         private void AddOperationalLayers()
         {
+            // Clear all operational layers from the map
+            var myMap = MyMapView.Map;
+            myMap.OperationalLayers.Clear();
+
             // Loop through the selected items in the operational layers list box
             foreach (var item in OperationalLayerListBox.SelectedItems)
             {
@@ -122,146 +222,49 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
                 // Create a new map image layer, set it 50% opaque, and add it to the map
                 ArcGISMapImageLayer layer = new ArcGISMapImageLayer(layerUri);
                 layer.Opacity = 0.5;
-                _myMap.OperationalLayers.Add(layer);
+                myMap.OperationalLayers.Add(layer);
             }
         }
 
-        private void UpdateMap(object sender, System.Windows.RoutedEventArgs e)
+        private async Task SaveNewMapAsync(Map myMap, string title, string description, string[] tags)
         {
-            // Create a new (empty) map
-            if (_myMap == null || _myMap.PortalItem == null)
+            // Challenge the user for portal credentials (OAuth credential request for arcgis.com)
+            CredentialRequestInfo loginInfo = new CredentialRequestInfo();
+
+            // Use the OAuth implicit grant flow
+            loginInfo.GenerateTokenOptions = new GenerateTokenOptions
             {
-                _myMap = new Map();
-            }
+                TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
+            };
 
-            // Call functions that apply the selected basemap and operational layers
-            ApplyBasemap(BasemapListBox.SelectedValue.ToString());
-            AddOperationalLayers();
+            // Indicate the url (portal) to authenticate with (ArcGIS Online)
+            loginInfo.ServiceUri = new Uri("http://www.arcgis.com/sharing/rest");
 
-            // Use the current extent to set the initial viewpoint for the map
-            _myMap.InitialViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
-
-            // Show the new map in the map view
-            MyMapView.Map = _myMap;
-        }
-
-        private async void SaveMap(object sender, RoutedEventArgs e)
-        {
-            // Make sure the map is not null
-            if (_myMap == null)
-            {
-                MessageBox.Show("Please update the map before saving.", "Map is empty");
-                return;
-            }
-
-            // See if the map has already been saved (has an associated portal item)
-            if (_myMap.PortalItem == null)
-            {
-                // This is the initial save for this map
-
-                // Call a function that will challenge the user for ArcGIS Online credentials
-                var isLoggedIn = await EnsureLoginToArcGISAsync();
-
-                // If the user could not log in (or canceled the login), exit
-                if (!isLoggedIn) { return; }
-
-                // Get the ArcGIS Online portal
-                ArcGISPortal agsOnline = await ArcGISPortal.CreateAsync();
-
-                // Get information for the new portal item
-                var title = TitleTextBox.Text;
-                var description = DescriptionTextBox.Text;
-                var tags = TagsTextBox.Text.Split(',');
-
-                try
-                {
-                    // Show the progress bar so the user knows it's working
-                    SaveProgressBar.Visibility = Visibility.Visible;
-
-                    // Save the current state of the map as a portal item in the user's default folder
-                    await _myMap.SaveAsAsync(agsOnline, null, title, description, tags, null);
-                    MessageBox.Show("Saved '" + title + "' to ArcGIS Online!", "Map Saved");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error saving map to ArcGIS Online: " + ex.Message);
-                }
-                finally
-                {
-                    // Hide the progress bar
-                    SaveProgressBar.Visibility = Visibility.Hidden;
-                }
-            }
-            else
-            {
-                // This is an update to the existing portal item
-                try
-                {
-                    // Show the progress bar so the user knows it's working
-                    SaveProgressBar.Visibility = Visibility.Visible;
-
-                    // This is not the initial save, call SaveAsync to save changes to the existing portal item
-                    await _myMap.SaveAsync();
-                    MessageBox.Show("Saved changes to '" + _myMap.PortalItem.Title + "'", "Updates Saved");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Unable to save map updates: " + ex.Message);
-                }
-                finally
-                {
-                    // Hide the progress bar
-                    SaveProgressBar.Visibility = Visibility.Hidden;
-                }
-            }
-
-            // Call a function to make sure the portal item thumbnail gets updated with the current map view display
-            UpdatePortalItemThumbnailAsync();
-        }
-
-        private async void UpdatePortalItemThumbnailAsync()
-        {
-            // Update the portal item with a thumbnail image of the current map
             try
             {
-                // Get the map's portal item
-                ArcGISPortalItem newPortalItem = MyMapView.Map.PortalItem;
+                // Get a reference to the (singleton) AuthenticationManager for the app
+                AuthenticationManager thisAuthenticationManager = AuthenticationManager.Current;
 
-                // Call a function that will create an image from the map and return the path               
-                var thumbnailPath = await WriteThumbnailImageAsync(newPortalItem.Title);
-
-                if (!string.IsNullOrEmpty(thumbnailPath))
-                {
-                    // Open the file
-                    var thumbnailData = new FileStream(thumbnailPath, FileMode.Open);
-
-                    // Create a new ArcGISPortalItemContent object to contain the thumbnail
-                    ArcGISPortalItemContent portalItemContent = new ArcGISPortalItemContent();
-
-                    // Assign the thumbnail data (file stream) to the content object
-                    portalItemContent.Thumbnail = thumbnailData;
-
-                    // Update the portal item with the new content (just the thumbnail will be updated)
-                    await newPortalItem.UpdateAsync(portalItemContent);
-
-                    // Close the stream and delete the local jpg file from disk
-                    thumbnailData.Close();
-                    File.Delete(thumbnailPath);
-                }
+                // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
+                await thisAuthenticationManager.GetCredentialAsync(loginInfo, false);
             }
-            catch (Exception ex)
+            catch (OperationCanceledException)
             {
-                MessageBox.Show("Unable to update thumbnail for portal item: " + ex.Message, "Portal Item Thumbnail");
+                // user canceled the login
+                throw new Exception("Portal log in was canceled.");
             }
+
+            // Get the ArcGIS Online portal (will use credential from login above)
+            ArcGISPortal agsOnline = await ArcGISPortal.CreateAsync();
+
+            // Save the current state of the map as a portal item in the user's default folder
+            await myMap.SaveAsAsync(agsOnline, null, title, description, tags, null);                      
         }
 
-        private async Task<string> WriteThumbnailImageAsync(string imageName)
+        private async Task<string> WriteTempThumbnailImageAsync(ImageSource mapImageSource)
         {
-            // Export the current map view display
-            var mapImageSource = await MyMapView.ExportImageAsync();
-
             // Create a new encoder for jpeg images
-            var jpegEncoder = new JpegBitmapEncoder{ QualityLevel = 70};
+            var jpegEncoder = new JpegBitmapEncoder { QualityLevel = 70 };
 
             // Create a bitmap frame to represent the image
             var mapImageBitmapSource = mapImageSource as BitmapSource;
@@ -273,11 +276,11 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
             // Get the folder for the current executable
             var folder = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
-            // Build the output file name with the executable directory and the name passed in
-            var outFile = new FileInfo(Path.Combine(folder, imageName));
+            // Build the output file name with the executable directory
+            var outFile = new FileInfo(Path.Combine(folder, "MapThumbnail_Temp"));
 
             // If the file already exists, delete it
-            if(outFile.Exists)
+            if (outFile.Exists)
             {
                 await Task.Delay(1000);
                 outFile.Delete();
@@ -293,13 +296,34 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
             return outFile.FullName;
         }
 
-        private void ClearMap(object sender, RoutedEventArgs e)
+        private async void UpdatePortalItemThumbnailAsync(string thumbnailImagePath)
         {
-            // Set the map to null
-            _myMap = null;
+            // Update the portal item with the thumbnail image passed in
+            try
+            {
+                // Get the map's portal item
+                ArcGISPortalItem newPortalItem = MyMapView.Map.PortalItem;
 
-            // Show a plain gray map in the map view
-            MyMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
+                // Open the image file
+                var thumbnailData = new FileStream(thumbnailImagePath, FileMode.Open);
+
+                // Create a new ArcGISPortalItemContent object to contain the thumbnail
+                ArcGISPortalItemContent portalItemContent = new ArcGISPortalItemContent();
+
+                // Assign the thumbnail data (file stream) to the content object
+                portalItemContent.Thumbnail = thumbnailData;
+
+                // Update the portal item with the new content (just the thumbnail will be updated)
+                await newPortalItem.UpdateAsync(portalItemContent);
+
+                // Close the stream and delete the local jpg file from disk
+                thumbnailData.Close();
+                File.Delete(thumbnailImagePath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to update thumbnail for portal item: " + ex.Message, "Portal Item Thumbnail");
+            }
         }
 
         private void UpdateViewExtentLabels()
@@ -350,65 +374,17 @@ namespace ArcGISRuntime.Desktop.Samples.AuthorMap
             // Create a new ChallengeHandler that uses a method in this class to challenge for credentials
             thisAuthenticationManager.ChallengeHandler = new ChallengeHandler(CreateCredentialAsync);
         }
-
-        private async Task<bool> EnsureLoginToArcGISAsync()
-        {
-            var authenticated = false;
-
-            // Create an OAuth credential request for arcgis.com
-            CredentialRequestInfo loginInfo = new CredentialRequestInfo();
-
-            // Use the OAuth implicit grant flow
-            loginInfo.GenerateTokenOptions = new GenerateTokenOptions
-            {
-                TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
-            };
-
-            // Indicate the url (portal) to authenticate with (ArcGIS Online)
-            loginInfo.ServiceUri = new Uri("http://www.arcgis.com/sharing/rest");
-
-            try
-            {
-                // Get a reference to the (singleton) AuthenticationManager for the app
-                AuthenticationManager thisAuthenticationManager = AuthenticationManager.Current;
-
-                // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
-                var cred = await thisAuthenticationManager.GetCredentialAsync(loginInfo, false);
-                authenticated = (cred != null);
-            }
-            catch (OperationCanceledException)
-            {
-                // user canceled the login
-                MessageBox.Show("Maps cannot be saved unless logged in to ArcGIS Online.");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error logging in: " + ex.Message);
-            }
-
-            return authenticated;
-        }
-
+        
         // ChallengeHandler function for AuthenticationManager that will be called whenever access to a secured
         // resource is attempted
         public async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
         {
-            OAuthTokenCredential credential = null;
+            Credential credential = null;
 
             try
             {
-                // Create generate token options if necessary
-                if (info.GenerateTokenOptions == null)
-                {
-                    info.GenerateTokenOptions = new GenerateTokenOptions();
-                }
-
-                // IOAuthAuthorizeHandler will challenge the user for credentials
-                credential = await AuthenticationManager.Current.GenerateCredentialAsync
-                    (
-                            info.ServiceUri,
-                            info.GenerateTokenOptions
-                    ) as OAuthTokenCredential;
+                // IOAuthAuthorizeHandler will challenge the user for OAuth credentials
+                credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
             }
             catch (Exception ex)
             {

@@ -12,7 +12,7 @@
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="120"/>
-                <RowDefinition Height="60"/>
+                <RowDefinition Height="90"/>
                 <RowDefinition Height="110"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="60"/>
@@ -32,7 +32,8 @@
                      Grid.Column="1"
                      VerticalAlignment="Top" HorizontalAlignment="Left"
                      Height="100" Width="150"
-                     Margin="10"/>
+                     Margin="10"
+                     SelectionChanged="BasemapSelectionChanged"/>
             <TextBlock Text="Choose Layers:"
                        VerticalAlignment="Top" HorizontalAlignment="Right"
                        Margin="10,0"
@@ -41,8 +42,9 @@
                      SelectionMode="Multiple"
                      Grid.Row="1" Grid.Column="1"
                      VerticalAlignment="Top" HorizontalAlignment="Left"
-                     Height="50" Width="150"
-                     Margin="10,0">
+                     Height="75" Width="150"
+                     Margin="10,0"
+                     SelectionChanged="OperationalLayerSelectionChanged">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Key}"/>
@@ -94,18 +96,13 @@
                              Text=""/>
                 </StackPanel>
             </StackPanel>
-            <StackPanel Orientation="Horizontal"
-                        Grid.Row="3" Grid.ColumnSpan="2"
-                        VerticalAlignment="Top" HorizontalAlignment="Center">
-                <Button Content="New Map"
+            <Button Content="New Map"                        
+                    Grid.Row="3" Grid.ColumnSpan="2"
+                    VerticalAlignment="Top" HorizontalAlignment="Center"
                     Width="120" Height="25"
                     Margin="10,0"
-                    Click="ClearMap"/>
-                <Button Content="Update Map"
-                    Width="120" Height="25"
-                    Click="UpdateMap"/>
-            </StackPanel>
-            <TextBlock Grid.Row="4"
+                    Click="ClearMapClicked"/>
+                <TextBlock Grid.Row="4"
                        VerticalAlignment="Bottom" HorizontalAlignment="Right"
                        Text="Title:"/>
             <TextBox x:Name="TitleTextBox" 
@@ -139,7 +136,7 @@
                     Width="170" Height="25"
                     Margin="10,0"
                     VerticalAlignment="Center" HorizontalAlignment="Center"
-                    Click="SaveMap"/>
+                    Click="SaveMapClicked"/>
             <ProgressBar x:Name="SaveProgressBar" 
                          Grid.Row="8" Grid.ColumnSpan="2"
                          Height="15"

@@ -1,4 +1,13 @@
-﻿using Esri.ArcGISRuntime.Mapping;
+﻿// Copyright 2016 Esri.
+//
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// language governing permissions and limitations under the License.
+
+using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.UI;
@@ -15,7 +24,7 @@ namespace IntegratedWindowsAuth
     public partial class MainWindow : Window
     {
         //TODO - Add the URL for your IWA-secured portal
-        const string SecuredPortalUrl = "https://portaliwaqa.ags.esri.com/gis/sharing";
+        const string SecuredPortalUrl = "https://my.secured.portal/gis/sharing";
 
         //TODO - Add the URL for a portal containing public content (your ArcGIS Online Organization, e.g.)
         const string PublicPortalUrl = "http://www.arcgis.com/sharing/rest"; 
@@ -58,13 +67,16 @@ namespace IntegratedWindowsAuth
                 !string.IsNullOrEmpty(NetworkPassword) &&
                 !string.IsNullOrEmpty(NetworkDomain))
             {
-                // Add a hard-coded network credential (other than the one that started the app, in other words)
+                // Create a hard-coded network credential (other than the one that started the app, in other words)
                 ArcGISNetworkCredential hardcodedCredential = new ArcGISNetworkCredential
                 {
                     Credentials = new System.Net.NetworkCredential(NetworkUsername, NetworkPassword, NetworkDomain),
                     ServiceUri = new Uri(SecuredPortalUrl)
                 };
+
+                // Add the credential to the AuthenticationManager and report that a non-default credential is being used
                 AuthenticationManager.Current.AddCredential(hardcodedCredential);
+                MessagesTextBlock.Text = "Using credentials for user '" + NetworkUsername + "'";
             }
         }
         
@@ -188,7 +200,7 @@ namespace IntegratedWindowsAuth
         }
 
         // Search the IWA-secured portal for web maps and display the results in a list box.        
-        private async void SearchSecureMapsButton_Click(object sender, RoutedEventArgs e)
+        private async void SearchSecureMapsButtonClick(object sender, RoutedEventArgs e)
         {
             // Set the flag variable to indicate this is the secure portal
             // (if the user wants to load a map, will need to know which portal it came from)

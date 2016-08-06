@@ -137,7 +137,6 @@ namespace IntegratedWindowsAuth
             return credential;
         }
         
-        // Search the public portal for web maps and display the results in a list box.
         private async void SearchPublicMapsClick(object sender, RoutedEventArgs e)
         {
             // Set the flag variable to indicate this is the public portal
@@ -198,8 +197,7 @@ namespace IntegratedWindowsAuth
                 ProgressStatus.Visibility = Visibility.Hidden;
             }
         }
-
-        // Search the IWA-secured portal for web maps and display the results in a list box.        
+       
         private async void SearchSecureMapsButtonClick(object sender, RoutedEventArgs e)
         {
             // Set the flag variable to indicate this is the secure portal

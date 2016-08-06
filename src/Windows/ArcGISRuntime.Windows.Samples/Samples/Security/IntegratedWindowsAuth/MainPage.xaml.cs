@@ -1,33 +1,34 @@
-﻿using Esri.ArcGISRuntime.Mapping;
+﻿// Copyright 2016 Esri.
+//
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// language governing permissions and limitations under the License.
+
+using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.UI;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace IntegratedWindowsAuth
 {
+    // Important:
+    //    You must add the "Private Networks" capability to use Integrated Windows Authentication (IWA)
+    //    in your UWP project. Add this capability by checking "Private Networks (Client and Server)"
+    //    in your project's Package.appxmanifest file.
     public sealed partial class MainPage : Page
     {
         //TODO - Add the URL for your IWA-secured portal
@@ -37,7 +38,6 @@ namespace IntegratedWindowsAuth
         const string PublicPortalUrl = "http://www.arcgis.com/sharing/rest";
 
         //TODO [optional] - Add hard-coded account information (if present, a network credential will be created on app initialize)
-        // Note: adding bogus credential info can provide a way to verify unauthorized users will be challenged for a log in
         const string NetworkUsername = "";
         const string NetworkPassword = "";
         const string NetworkDomain = "";
@@ -88,14 +88,10 @@ namespace IntegratedWindowsAuth
             }
         }
 
-        /// <summary>
-        /// Base Challenge method that dispatches to the UI thread if necessary to create a credential
-        /// </summary>
-        /// <param name="info">Information about a secured resource (its URI, for example)</param>
-        /// <returns>A task that returns a credential for attempting access to a secured resource</returns>
+        // Function that prompts the user for login information to create a credential
         private async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
         {
-            // Get the dispatcher for the UI thread
+            // Prompting the user must happen on the UI thread, use Dispatcher if necessary
             var dispatcher = CoreApplication.MainView.CoreWindow.Dispatcher;
 
             // If no dispatcher, call the ChallengeUI method directly to get user input
@@ -124,23 +120,19 @@ namespace IntegratedWindowsAuth
             }
         }
 
-        /// <summary> 
-        /// Challenge method that prompts the user for network credential information (user name / password / domain)
-        /// </summary>
-        /// <param name="info">Information about a secured resource (its URI, for example)</param>
-        /// <returns>A task that returns a credential for attempting access to a secured resource</returns>
-		private async Task<Credential> ChallengeUI(CredentialRequestInfo info)
+        // Challenge method that prompts the user for network credential information (user name / password / domain)
+        private async Task<Credential> ChallengeUI(CredentialRequestInfo info)
         {
             try
             {
-                // Create a new instance of the LoginInfo helper to store info needed to create a credential
+                // Create a new instance of LoginInfo (defined in this project) to store credential info
                 var loginInfo = new LoginInfo(info);
 
-                // Set the login panel data context with the helper class
+                // Set the login panel data context with the LoginInfo object
                 // (two-way binding will provide access to the data entered by the user)
                 LoginPanel.DataContext = loginInfo;
 
-                // Show the login UI; hide the load map UI
+                // Show the login UI and hide the load map UI
                 LoginPanel.Visibility = Visibility.Visible;
                 LoadMapPanel.Visibility = Visibility.Collapsed;
 
@@ -159,21 +151,19 @@ namespace IntegratedWindowsAuth
             }
         }
 
-        /// <summary>
-        /// Search the public portal for web maps and display the results in a list box.
-        /// </summary>
-        private async void SearchPublicMapsButton_Click(object sender, RoutedEventArgs e)
+        private async void SearchPublicMapsButtonClick(object sender, RoutedEventArgs e)
         {
-            // Set the flag variable to indicate we're working with the public portal
-            // (if the user wants to load a map, we'll need to know which portal it came from)
+            // Set the flag variable to indicate this is the public portal
+            // (if the user wants to load a map, will need to know which portal it came from)
             _usingPublicPortal = true;
 
             MapItemListBox.Items.Clear();
 
             // Show status message and the status bar
             MessagesTextBlock.Text = "Searching for web map items on the public portal.";
-            ProgressStatus.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            var sb = new StringBuilder();
+            ProgressStatus.Visibility = Visibility.Visible;
+            // Store information about the portal connection
+            var connectionInfo = new StringBuilder();
 
             try
             {
@@ -181,20 +171,26 @@ namespace IntegratedWindowsAuth
                 _publicPortal = await ArcGISPortal.CreateAsync(new Uri(PublicPortalUrl));
 
                 // Report a successful connection
-                sb.AppendLine("Connected to the portal on " + _publicPortal.Uri.Host);
-                sb.AppendLine("Version: " + _publicPortal.CurrentVersion);
+                connectionInfo.AppendLine("Connected to the portal on " + _publicPortal.Uri.Host);
+                connectionInfo.AppendLine("Version: " + _publicPortal.CurrentVersion);
 
                 // Report the user name used for this connection
                 if (_publicPortal.CurrentUser != null)
-                    sb.AppendLine("Connected as: " + _publicPortal.CurrentUser.UserName);
+                {
+                    connectionInfo.AppendLine("Connected as: " + _publicPortal.CurrentUser.UserName);
+                }
                 else
-                    sb.AppendLine("Anonymous"); // connected anonymously
+                {
+                    connectionInfo.AppendLine("Anonymous");
+                }
 
                 // Search the public portal for web maps
+                // (exclude the term "web mapping application" since it also contains the string "web map")
                 var items = await _publicPortal.SearchItemsAsync(new SearchParameters("type:(\"web map\" NOT \"web mapping application\")"));
 
                 // Build a list of items from the results that shows the map title and stores the item ID (with the Tag property)
                 var resultItems = from r in items.Results select new ListBoxItem { Tag = r.Id, Content = r.Title };
+
                 // Add the list items
                 foreach (var itm in resultItems)
                 {
@@ -204,31 +200,31 @@ namespace IntegratedWindowsAuth
             catch (Exception ex)
             {
                 // Report errors connecting to or searching the public portal
-                sb.AppendLine(ex.Message);
+                connectionInfo.AppendLine(ex.Message);
             }
             finally
             {
                 // Show messages, hide progress bar
-                MessagesTextBlock.Text = sb.ToString();
-                ProgressStatus.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                MessagesTextBlock.Text = connectionInfo.ToString();
+                ProgressStatus.Visibility = Visibility.Collapsed;
             }
         }
 
-        /// <summary>
-        /// Search the IWA-secured portal for web maps and display the results in a list box.
-        /// </summary>
-        private async void SearchSecureMapsButton_Click(object sender, RoutedEventArgs e)
+        private async void SearchSecureMapsButtonClick(object sender, RoutedEventArgs e)
         {
-            // Set the flag variable to indicate we're working with the secure portal
-            // (if the user wants to load a map, we'll need to know which portal it came from)
+            // Set the flag variable to indicate this is the secure portal
+            // (if the user wants to load a map, will need to know which portal it came from)
             _usingPublicPortal = false;
 
+            // Clear any current items in the list
             MapItemListBox.Items.Clear();
 
             // Show status message and the status bar
             MessagesTextBlock.Text = "Searching for web map items on the secure portal.";
-            ProgressStatus.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            var sb = new StringBuilder();
+            ProgressStatus.Visibility = Visibility.Visible;
+
+            // Store connection information to report 
+            var connectionInfo = new StringBuilder();
 
             try
             {
@@ -236,60 +232,63 @@ namespace IntegratedWindowsAuth
                 _iwaSecuredPortal = await ArcGISPortal.CreateAsync(new Uri(SecuredPortalUrl));
 
                 // Report a successful connection
-                sb.AppendLine("Connected to the portal on " + _iwaSecuredPortal.Uri.Host);
-                sb.AppendLine("Version: " + _iwaSecuredPortal.CurrentVersion);
+                connectionInfo.AppendLine("Connected to the portal on " + _iwaSecuredPortal.Uri.Host);
+                connectionInfo.AppendLine("Version: " + _iwaSecuredPortal.CurrentVersion);
 
                 // Report the user name used for this connection
                 if (_iwaSecuredPortal.CurrentUser != null)
-                    sb.AppendLine("Connected as: " + _iwaSecuredPortal.CurrentUser.UserName);
+                {
+                    connectionInfo.AppendLine("Connected as: " + _iwaSecuredPortal.CurrentUser.UserName);
+                }
                 else
-                    sb.AppendLine("Anonymous"); // THIS SHOULDN'T HAPPEN!
+                {
+                    // This shouldn't happen, need to authentication to connect
+                    connectionInfo.AppendLine("Anonymous?!");
+                }
 
                 // Search the secured portal for web maps
+                // (exclude the term "web mapping application" since it also contains the string "web map")
                 var items = await _iwaSecuredPortal.SearchItemsAsync(new SearchParameters("type:(\"web map\" NOT \"web mapping application\")"));
 
                 // Build a list of items from the results that shows the map title and stores the item ID (with the Tag property)
                 var resultItems = from r in items.Results select new ListBoxItem { Tag = r.Id, Content = r.Title };
+
                 // Add the list items
                 foreach (var itm in resultItems)
                 {
                     MapItemListBox.Items.Add(itm);
                 }
             }
-            catch (TaskCanceledException tce)
-            {
-                sb.AppendLine(tce.Message);
-            }
             catch (Exception ex)
             {
                 // Report errors connecting to or searching the secured portal
-                sb.AppendLine(ex.Message);
+                connectionInfo.AppendLine(ex.Message);
             }
             finally
             {
                 // Show messages, hide progress bar
-                MessagesTextBlock.Text = sb.ToString();
-                ProgressStatus.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                MessagesTextBlock.Text = connectionInfo.ToString();
+                ProgressStatus.Visibility = Visibility.Collapsed;
             }
         }
 
-        /// <summary>
-        /// Get a web map from the selected portal item and display it in the app.
-        /// </summary>
-        private async void AddMapItem_Click(object sender, RoutedEventArgs e)
+        private async void AddMapItemClick(object sender, RoutedEventArgs e)
         {
+            // Get a web map from the selected portal item and display it in the app
             if (this.MapItemListBox.SelectedItem == null) { return; }
 
             // Clear status messages
             MessagesTextBlock.Text = string.Empty;
-            var sb = new StringBuilder();
+
+            // Store status (or errors) when adding the map
+            var statusInfo = new StringBuilder();
 
             try
             {
                 // Clear the current MapView control from the app
                 MyMapGrid.Children.Clear();
 
-                // See if we're using the public or secured portal; get the appropriate object reference
+                // See if using the public or secured portal; get the appropriate object reference
                 ArcGISPortal portal = null;
                 if (_usingPublicPortal)
                 {
@@ -308,40 +307,39 @@ namespace IntegratedWindowsAuth
 
                 // Get the portal item ID from the selected list box item (read it from the Tag property)
                 var itemId = (this.MapItemListBox.SelectedItem as ListBoxItem).Tag.ToString();
+
                 // Use the item ID to create an ArcGISPortalItem from the appropriate portal 
                 var portalItem = await ArcGISPortalItem.CreateAsync(portal, itemId);
-                // Create a WebMap from the portal item (all items in the list represent web maps)
-                var webMap = new Map(portalItem); // await  WebMap.FromPortalItemAsync(portalItem);
 
-                if (webMap != null)
+                if (portalItem != null)
                 {
-                    // Create a WebMapViewModel using the WebMap
-                    //var myWebMapViewModel = await WebMapViewModel.LoadAsync(webMap, portal);
+                    // Create a Map using the web map (portal item)
+                    Map webMap = new Map(portalItem);
 
-                    // Create a new MapView control to display the WebMapViewModel's Map; add it to the app
-                    var mv = new MapView { Map = webMap }; // myWebMapViewModel.Map };
-                    MyMapGrid.Children.Add(mv);
+                    // Create a new MapView control to display the Map
+                    MapView myMapView = new MapView();
+                    myMapView.Map = webMap;
+
+                    // Add the MapView to the app
+                    MyMapGrid.Children.Add(myMapView);
                 }
 
                 // Report success
-                sb.AppendLine("Successfully loaded web map from item #" + itemId + " from " + portal.Uri.Host);
+                statusInfo.AppendLine("Successfully loaded web map from item #" + itemId + " from " + portal.Uri.Host);
             }
             catch (Exception ex)
             {
                 // Add an error message
-                sb.AppendLine("Error accessing web map: " + ex.Message);
+                statusInfo.AppendLine("Error accessing web map: " + ex.Message);
             }
             finally
             {
                 // Show messages
-                MessagesTextBlock.Text = sb.ToString();
+                MessagesTextBlock.Text = statusInfo.ToString();
             }
         }
 
-        /// <summary>
-        /// Click handler for the login button. Uses the provided info to create a network credential.
-        /// </summary>
-        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        private void LoginButtonClick(object sender, RoutedEventArgs e)
         {
             // If no login information is available from the Task, return
             if (_loginTaskCompletionSrc == null || _loginTaskCompletionSrc.Task == null || _loginTaskCompletionSrc.Task.AsyncState == null)
@@ -364,7 +362,6 @@ namespace IntegratedWindowsAuth
 
                 // Set the result of the login task with the new ArcGISNetworkCredential
                 _loginTaskCompletionSrc.TrySetResult(credential);
-
             }
             catch (Exception ex)
             {
@@ -372,42 +369,34 @@ namespace IntegratedWindowsAuth
                 loginInfo.ErrorMessage = ex.Message;
             }
         }
-
-        /// <summary>
-        /// Click handler for the Cancel login button
-        /// </summary>
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        
+        private void CancelButtonClick(object sender, RoutedEventArgs e)
         {
             // Set the login task status to canceled
             _loginTaskCompletionSrc.TrySetCanceled();
         }
     }
 
+    // A helper class to hold information about a network credential
     public class LoginInfo : INotifyPropertyChanged
     {
-        /// <summary>
-        /// Esri.ArcGISRuntime.Security.CredentialRequestInfo with information about a credential challenge
-        /// </summary>
+        // Esri.ArcGISRuntime.Security.CredentialRequestInfo with information about a credential challenge
         private CredentialRequestInfo _requestInfo;
         public CredentialRequestInfo RequestInfo
         {
             get { return _requestInfo; }
             set { _requestInfo = value; OnPropertyChanged(); }
         }
-
-        /// <summary>
-        /// URL of the secure resource
-        /// </summary>
+        
+        // URL of the secure resource
         private string _serviceUrl;
         public string ServiceUrl
         {
             get { return _serviceUrl; }
             set { _serviceUrl = value; OnPropertyChanged(); }
         }
-
-        /// <summary>
-        /// User name for the credential
-        /// </summary>
+        
+        // User name for the credential
         private string _userName;
         public string UserName
         {
@@ -415,9 +404,7 @@ namespace IntegratedWindowsAuth
             set { _userName = value; OnPropertyChanged(); }
         }
 
-        /// <summary>
-        /// Password for the credential
-        /// </summary>
+        // Password for the credential
         private string _password;
         public string Password
         {
@@ -425,9 +412,7 @@ namespace IntegratedWindowsAuth
             set { _password = value; OnPropertyChanged(); }
         }
 
-        /// <summary>
-        /// Domain for the network credential
-        /// </summary>
+        // Domain for the network credential
         private string _domain;
         public string Domain
         {
@@ -435,36 +420,30 @@ namespace IntegratedWindowsAuth
             set { _domain = value; OnPropertyChanged(); }
         }
 
-        /// <summary>
-        /// Login error messages
-        /// </summary>
+        // Login error messages
         private string _errorMessage;
         public string ErrorMessage
         {
             get { return _errorMessage; }
             set { _errorMessage = value; OnPropertyChanged(); }
         }
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="cri">information about a credential challenge</param>
-        public LoginInfo(CredentialRequestInfo cri)
+        
+        public LoginInfo(CredentialRequestInfo requestInfo)
         {
             // Store the request info
-            RequestInfo = cri;
+            RequestInfo = requestInfo;
+
             // Build the service URL from the request info
-            ServiceUrl = cri.ServiceUri.AbsoluteUri; // new Uri(cri.ServiceUri).GetComponents(UriComponents.AbsoluteUri & ~UriComponents.Query, UriFormat.UriEscaped);
-                                                     // Login info is empty by default, will be populated by the user
+            ServiceUrl = requestInfo.ServiceUri.AbsoluteUri; 
+            
+            // Login info is empty by default, will be populated by the user
             UserName = string.Empty;
             Password = string.Empty;
             Domain = string.Empty;
             ErrorMessage = string.Empty;
         }
 
-        /// <summary>
-        /// Raise an event when properties change to make sure data bindings are updated
-        /// </summary>
+        // Raise an event when properties change to make sure data bindings are updated
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

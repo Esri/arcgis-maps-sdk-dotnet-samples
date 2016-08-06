@@ -69,9 +69,9 @@
                         HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Button Content="Cancel" 
                             Margin="0,0,20,0"
-						    Click="CancelButton_Click" />
+						    Click="CancelButtonClick" />
                     <Button Content="Login" 
-						    Click="LoginButton_Click" />
+						    Click="LoginButtonClick" />
                 </StackPanel>
                 <TextBlock x:Name="ErrorText" 
                         Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
@@ -98,13 +98,13 @@
 						Width="265" Height="45"
                         HorizontalAlignment="Center"
                         Margin="0,50,0,0"
-                        Click="SearchPublicMapsButton_Click"/>
+                        Click="SearchPublicMapsButtonClick"/>
                 <Button x:Name="SearchSecureMapsButton" 
                         Grid.Row="1"
 						Content="Search IWA Secured Maps"													
 						Width="265" Height="45"
                         HorizontalAlignment="Center"
-                        Click="SearchSecureMapsButton_Click"/>
+                        Click="SearchSecureMapsButtonClick"/>
                 <ListBox x:Name="MapItemListBox"
                         Grid.Row="2"                         
                         FontSize="12"
@@ -114,7 +114,7 @@
                         Content="Load Web Map"
                         Width="150" Height="45"
                         HorizontalAlignment="Center"
-                        Click="AddMapItem_Click"/>
+                        Click="AddMapItemClick"/>
                 <StackPanel x:Name="MessagePanel"
 						Grid.Row="4" 
                         Orientation="Vertical"							

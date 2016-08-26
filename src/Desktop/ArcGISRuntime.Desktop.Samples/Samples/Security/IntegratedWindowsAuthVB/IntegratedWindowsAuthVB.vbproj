@@ -78,7 +78,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="IntegratedWindowsAuthVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -89,8 +89,8 @@
     <Compile Include="LoginWindow.xaml.vb">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow.xaml.vb">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="IntegratedWindowsAuthVB.xaml.vb">
+      <DependentUpon>IntegratedWindowsAuthVB.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

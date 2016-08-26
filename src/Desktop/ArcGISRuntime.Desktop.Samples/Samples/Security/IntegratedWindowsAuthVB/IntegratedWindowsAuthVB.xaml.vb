@@ -15,7 +15,7 @@ Imports Esri.ArcGISRuntime.UI
 
 Class MainWindow
     ' TODO - Add the URL for your IWA-secured portal
-    Const SecuredPortalUrl As String = "https://my.secured.portal/gis/sharing"
+    Const SecuredPortalUrl As String = "https://my.secure.server.com/gis/sharing"
 
     ' TODO - Add the URL for a portal containing public content (your ArcGIS Online Organization, e.g.)
     Const PublicPortalUrl As String = "http://www.arcgis.com/sharing/rest"
@@ -37,7 +37,6 @@ Class MainWindow
     Dim _canceledLogin As Boolean
 
     Public Sub New()
-
         InitializeComponent()
 
         ' Call a function to set up the AuthenticationManager and add a hard-coded credential (if defined)
@@ -124,109 +123,80 @@ Class MainWindow
         Return credenshul
     End Function
 
-
     ' Search the public portal for web maps And display the results in a list box.
     Private Async Sub SearchPublicMapsClick(sender As Object, e As RoutedEventArgs)
         ' Set the flag variable to indicate this Is the public portal
         ' (if the user wants to load a map, will need to know which portal it came from)
         _usingPublicPortal = True
 
-        ' Clear any current items from the list 
-        MapItemListBox.Items.Clear()
-
-        ' Show status message And the status bar
-        MessagesTextBlock.Text = "Searching for web map items on the public portal."
-        ProgressStatus.Visibility = Visibility.Visible
-
-        ' Store information about the portal connection
-        Dim connectionInfo = New StringBuilder()
-
         Try
             ' Create an instance of the public portal
             _publicPortal = Await ArcGISPortal.CreateAsync(New Uri(PublicPortalUrl))
 
-            ' Report a successful connection
-            connectionInfo.AppendLine("Connected to the portal on " + _publicPortal.Uri.Host)
-            connectionInfo.AppendLine("Version: " + _publicPortal.CurrentVersion)
-
-            ' Report the username used for this connection
-            If Not _publicPortal.CurrentUser Is Nothing Then
-                connectionInfo.AppendLine("Connected as: " + _publicPortal.CurrentUser.UserName)
-            Else
-                connectionInfo.AppendLine("Anonymous")
-            End If
-
-            ' Search the public portal for web maps
-            ' (exclude the term "web mapping application" since it also contains the string "web map")
-            Dim items = Await _publicPortal.SearchItemsAsync(New SearchParameters("type:(""web map"" NOT ""web mapping application"")"))
-
-            ' Build a list of items from the results that shows the map title And stores the item ID (with the Tag property)
-            Dim resultItems = From r In items.Results Select New ListBoxItem With {.Tag = r.Id, .Content = r.Title}
-
-            ' Add the list items
-            For Each itm As ListBoxItem In resultItems
-                MapItemListBox.Items.Add(itm)
-            Next
-
+            ' Call a sub to search the portal
+            SearchPortal(_publicPortal)
         Catch ex As Exception
-            ' Report errors connecting to Or searching the public portal
-            connectionInfo.AppendLine(ex.Message)
-        Finally
-            ' Show messages, hide progress bar
-            MessagesTextBlock.Text = connectionInfo.ToString()
-            ProgressStatus.Visibility = Visibility.Hidden
+            ' Report errors connecting to the public portal
+            MessagesTextBlock.Text = ex.Message
         End Try
     End Sub
 
     'Search the IWA-secured portal for web maps And display the results in a list box.        
     Private Async Sub SearchSecureMapsButtonClick(sender As Object, e As RoutedEventArgs)
-        'Set the flag variable to indicate this Is the secure portal
-        '(if the user wants to load a map, will need to know which portal it came from)
+        ' Set the flag variable to indicate this is the secured portal
+        ' (if the user wants to load a map, will need to know which portal it came from)
         _usingPublicPortal = False
 
-        'Clear any current items in the list
-        MapItemListBox.Items.Clear()
-
-        'Show status message And the status bar
-        MessagesTextBlock.Text = "Searching for web map items on the secure portal."
-        ProgressStatus.Visibility = Visibility.Visible
-
-        'Store connection information to report 
-        Dim connectionInfo = New StringBuilder()
-
         Try
-            'Create an instance of the IWA-secured portal
+            ' Create an instance of the secure portal
             _iwaSecuredPortal = Await ArcGISPortal.CreateAsync(New Uri(SecuredPortalUrl))
 
-            'Report a successful connection
-            connectionInfo.AppendLine("Connected to the portal on " + _iwaSecuredPortal.Uri.Host)
-            connectionInfo.AppendLine("Version: " + _iwaSecuredPortal.CurrentVersion)
+            ' Call a sub to search the portal
+            SearchPortal(_iwaSecuredPortal)
+        Catch ex As Exception
+            ' Report errors connecting to the secured portal
+            MessagesTextBlock.Text = ex.Message
+        End Try
+    End Sub
 
-            'Report the username used for this connection
-            If Not _iwaSecuredPortal.CurrentUser Is Nothing Then
-                connectionInfo.AppendLine("Connected as: " + _iwaSecuredPortal.CurrentUser.UserName)
+    Private Async Sub SearchPortal(currentPortal As ArcGISPortal)
+        ' Show status message and the status bar
+        MessagesTextBlock.Text = "Searching for web map items on portal at " + currentPortal.Uri.AbsoluteUri
+        ProgressStatus.Visibility = Visibility.Visible
+
+        ' Clear the map list
+        MapItemListBox.Items.Clear()
+        Dim messageBuilder As StringBuilder = New StringBuilder()
+
+        Try
+            ' Report connection info
+            messageBuilder.AppendLine("Connected to the portal on " + currentPortal.Uri.Host)
+            messageBuilder.AppendLine("Version: " + currentPortal.CurrentVersion)
+
+            ' Report the user name used for this connection
+            If Not currentPortal.CurrentUser Is Nothing Then
+                messageBuilder.AppendLine("Connected as: " + currentPortal.CurrentUser.UserName)
             Else
-                'This shouldn't happen, need to authentication to connect
-                connectionInfo.AppendLine("Anonymous?!")
+                ' Connected anonymously
+                messageBuilder.AppendLine("Anonymous")
             End If
 
-            'Search the secured portal for web maps
-            '(exclude the term "web mapping application" since it also contains the string "web map")
-            Dim items = Await _iwaSecuredPortal.SearchItemsAsync(New SearchParameters("type:(""web map"" NOT ""web mapping application"")"))
+            ' Search the portal for web maps
+            Dim items As SearchResultInfo(Of ArcGISPortalItem) = Await currentPortal.SearchItemsAsync(New SearchParameters("type:(""web map"" NOT ""web mapping application"")"))
 
-            'Build a list of items from the results that shows the map title And stores the item ID (with the Tag property)
-            Dim resultItems = From r In items.Results Select New ListBoxItem With {.Tag = r.Id, .Content = r.Title}
+            ' Build a list of items from the results that shows the map name and stores the item ID (with the Tag property)
+            Dim resultItems As IEnumerable(Of ListBoxItem) = From r In items.Results Select New ListBoxItem With {.Tag = r.Id, .Content = r.Title}
 
-            'Add the list items
+            ' Add the list items
             For Each itm As ListBoxItem In resultItems
                 MapItemListBox.Items.Add(itm)
             Next
         Catch ex As Exception
-            'Report errors connecting to or searching the secured portal
-            connectionInfo.AppendLine(ex.Message)
+            ' Report errors searching the portal
+            messageBuilder.AppendLine(ex.Message)
         Finally
-            'Show messages, hide progress bar
-            MessagesTextBlock.Text = connectionInfo.ToString()
+            ' Show messages, hide progress bar
+            MessagesTextBlock.Text = messageBuilder.ToString()
             ProgressStatus.Visibility = Visibility.Hidden
         End Try
     End Sub

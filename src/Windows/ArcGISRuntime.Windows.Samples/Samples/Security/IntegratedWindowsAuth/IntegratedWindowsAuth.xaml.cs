@@ -32,7 +32,7 @@ namespace IntegratedWindowsAuth
     public sealed partial class MainPage : Page
     {
         //TODO - Add the URL for your IWA-secured portal
-        const string SecuredPortalUrl = "https://portaliwaqa.ags.esri.com/gis/sharing";
+        const string SecuredPortalUrl = "https://my.secure.server.com/gis/sharing";
 
         //TODO - Add the URL for a portal containing public content (your ArcGIS Online Organization, e.g.)
         const string PublicPortalUrl = "http://www.arcgis.com/sharing/rest";
@@ -66,7 +66,7 @@ namespace IntegratedWindowsAuth
             // (this method handles getting credentials when a secured resource is encountered)
             AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(CreateCredentialAsync);
 
-            // Note: unlike a WPF app, your current system credentials will NOT be used by default in a Store app and
+            // Note: unlike a WPF app, your current system credentials will NOT be used by default in a UWP app and
             //       you will be (initially) challenged even for resources to which your system account has access.
             //       Once you provide your credentials, you will not be challenged again for them
 
@@ -151,106 +151,80 @@ namespace IntegratedWindowsAuth
             }
         }
 
+        // Search the public portal for web maps and display the results in a list box
         private async void SearchPublicMapsButtonClick(object sender, RoutedEventArgs e)
         {
             // Set the flag variable to indicate this is the public portal
             // (if the user wants to load a map, will need to know which portal it came from)
             _usingPublicPortal = true;
 
-            MapItemListBox.Items.Clear();
-
-            // Show status message and the status bar
-            MessagesTextBlock.Text = "Searching for web map items on the public portal.";
-            ProgressStatus.Visibility = Visibility.Visible;
-            // Store information about the portal connection
-            var connectionInfo = new StringBuilder();
-
             try
             {
                 // Create an instance of the public portal
                 _publicPortal = await ArcGISPortal.CreateAsync(new Uri(PublicPortalUrl));
 
-                // Report a successful connection
-                connectionInfo.AppendLine("Connected to the portal on " + _publicPortal.Uri.Host);
-                connectionInfo.AppendLine("Version: " + _publicPortal.CurrentVersion);
-
-                // Report the user name used for this connection
-                if (_publicPortal.CurrentUser != null)
-                {
-                    connectionInfo.AppendLine("Connected as: " + _publicPortal.CurrentUser.UserName);
-                }
-                else
-                {
-                    connectionInfo.AppendLine("Anonymous");
-                }
-
-                // Search the public portal for web maps
-                // (exclude the term "web mapping application" since it also contains the string "web map")
-                var items = await _publicPortal.SearchItemsAsync(new SearchParameters("type:(\"web map\" NOT \"web mapping application\")"));
-
-                // Build a list of items from the results that shows the map title and stores the item ID (with the Tag property)
-                var resultItems = from r in items.Results select new ListBoxItem { Tag = r.Id, Content = r.Title };
-
-                // Add the list items
-                foreach (var itm in resultItems)
-                {
-                    MapItemListBox.Items.Add(itm);
-                }
+                // Call a function to search the portal
+                SearchPortal(_publicPortal);
             }
             catch (Exception ex)
             {
-                // Report errors connecting to or searching the public portal
-                connectionInfo.AppendLine(ex.Message);
-            }
-            finally
-            {
-                // Show messages, hide progress bar
-                MessagesTextBlock.Text = connectionInfo.ToString();
-                ProgressStatus.Visibility = Visibility.Collapsed;
+                // Report errors connecting to the secured portal
+                MessagesTextBlock.Text = ex.Message;
             }
         }
 
+        // Search the IWA-secured portal for web maps and display the results in a list box
         private async void SearchSecureMapsButtonClick(object sender, RoutedEventArgs e)
         {
             // Set the flag variable to indicate this is the secure portal
             // (if the user wants to load a map, will need to know which portal it came from)
             _usingPublicPortal = false;
 
-            // Clear any current items in the list
-            MapItemListBox.Items.Clear();
-
-            // Show status message and the status bar
-            MessagesTextBlock.Text = "Searching for web map items on the secure portal.";
-            ProgressStatus.Visibility = Visibility.Visible;
-
-            // Store connection information to report 
-            var connectionInfo = new StringBuilder();
-
             try
             {
                 // Create an instance of the IWA-secured portal
                 _iwaSecuredPortal = await ArcGISPortal.CreateAsync(new Uri(SecuredPortalUrl));
 
-                // Report a successful connection
-                connectionInfo.AppendLine("Connected to the portal on " + _iwaSecuredPortal.Uri.Host);
-                connectionInfo.AppendLine("Version: " + _iwaSecuredPortal.CurrentVersion);
+                // Call a function to search the portal
+                SearchPortal(_iwaSecuredPortal);
+            }
+            catch (Exception ex)
+            {
+                // Report errors connecting to the secured portal
+                MessagesTextBlock.Text = ex.Message;
+            }
+        }
+
+        private async void SearchPortal(ArcGISPortal currentPortal)
+        {
+            MapItemListBox.Items.Clear();
+
+            // Show status message and the status bar
+            MessagesTextBlock.Text = "Searching for web map items on the portal at " + currentPortal.Uri.AbsoluteUri;
+            ProgressStatus.Visibility = Visibility.Visible;
+            var messageBuilder = new StringBuilder();
+
+            try
+            {
+                // Report connection info
+                messageBuilder.AppendLine("Connected to the portal on " + currentPortal.Uri.Host);
+                messageBuilder.AppendLine("Version: " + currentPortal.CurrentVersion);
 
                 // Report the user name used for this connection
-                if (_iwaSecuredPortal.CurrentUser != null)
+                if (currentPortal.CurrentUser != null)
                 {
-                    connectionInfo.AppendLine("Connected as: " + _iwaSecuredPortal.CurrentUser.UserName);
+                    messageBuilder.AppendLine("Connected as: " + currentPortal.CurrentUser.UserName);
                 }
                 else
                 {
-                    // This shouldn't happen, need to authentication to connect
-                    connectionInfo.AppendLine("Anonymous?!");
+                    // (this shouldn't happen for a secure portal)
+                    messageBuilder.AppendLine("Anonymous");
                 }
 
-                // Search the secured portal for web maps
-                // (exclude the term "web mapping application" since it also contains the string "web map")
-                var items = await _iwaSecuredPortal.SearchItemsAsync(new SearchParameters("type:(\"web map\" NOT \"web mapping application\")"));
+                // Search the portal for web maps
+                var items = await currentPortal.SearchItemsAsync(new SearchParameters("type:(\"web map\" NOT \"web mapping application\")"));
 
-                // Build a list of items from the results that shows the map title and stores the item ID (with the Tag property)
+                // Build a list of items from the results that shows the map name and stores the item ID (with the Tag property)
                 var resultItems = from r in items.Results select new ListBoxItem { Tag = r.Id, Content = r.Title };
 
                 // Add the list items
@@ -261,13 +235,13 @@ namespace IntegratedWindowsAuth
             }
             catch (Exception ex)
             {
-                // Report errors connecting to or searching the secured portal
-                connectionInfo.AppendLine(ex.Message);
+                // Report errors searching the portal
+                messageBuilder.AppendLine(ex.Message);
             }
             finally
             {
                 // Show messages, hide progress bar
-                MessagesTextBlock.Text = connectionInfo.ToString();
+                MessagesTextBlock.Text = messageBuilder.ToString();
                 ProgressStatus.Visibility = Visibility.Collapsed;
             }
         }

@@ -56,7 +56,7 @@ namespace TokenSecuredServices
 			catch (Exception ex)
 			{
                 // Report error accessing a secured resource
-				MessageBox.Show("Access to " + info.ServiceUri + " denied. " + ex.Message, "Credential Error");
+				MessageBox.Show("Access to " + info.ServiceUri.AbsoluteUri + " denied. " + ex.Message, "Credential Error");
 			}
 
             // Return the credential

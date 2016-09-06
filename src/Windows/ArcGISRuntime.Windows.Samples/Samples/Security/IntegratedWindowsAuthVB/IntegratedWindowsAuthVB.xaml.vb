@@ -363,9 +363,9 @@ Public Class LoginInfo
         End Set
     End Property
 
-    Public Sub New(requestInfo As CredentialRequestInfo)
+    Public Sub New(info As CredentialRequestInfo)
         ' Store the request info
-        requestInfo = requestInfo
+        RequestInfo = info
 
         ' Build the service URL from the request info
         ServiceUrl = requestInfo.ServiceUri.AbsoluteUri

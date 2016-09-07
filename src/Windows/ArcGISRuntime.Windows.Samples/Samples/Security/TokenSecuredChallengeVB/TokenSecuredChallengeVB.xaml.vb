@@ -62,7 +62,7 @@ Public NotInheritable Class MainPage
         ' Call code to get user credentials
         ' Make sure it runs on the UI thread
         If Me.Dispatcher Is Nothing Then
-            ' No current dispatcher, code Is already running on the UI thread
+            ' No current dispatcher, code is already running on the UI thread
             Return Await GetUserCredentialsFromUI(info)
         Else
             ' Use the dispatcher to invoke the challenge UI
@@ -71,7 +71,7 @@ Public NotInheritable Class MainPage
                                              Try
                                                  Await GetUserCredentialsFromUI(info)
                                              Catch
-                                                 ' Login was canceled Or unsuccessful, dialog will close
+                                                 ' Login was canceled or unsuccessful, dialog will close
                                              End Try
                                          End Sub)
         End If
@@ -93,12 +93,12 @@ Public NotInheritable Class MainPage
             ' Show the login UI
             loginPanel.Visibility = Visibility.Visible
 
-            ' Create a New task completion source to return the user's login when complete
+            ' Create a new task completion source to return the user's login when complete
             ' Set the login UI data context (LoginInfo object) as the AsyncState so it can be retrieved later
             _loginTaskCompletionSource = New TaskCompletionSource(Of Credential)(loginPanel.DataContext)
 
             ' Return the task from the completion source
-            ' When the login button on the UI Is clicked, the info will be returned for creating the credential
+            ' When the login button on the UI is clicked, the info will be returned for creating the credential
             Return Await _loginTaskCompletionSource.Task
         Finally
             ' Hide the login UI
@@ -119,7 +119,7 @@ Public NotInheritable Class MainPage
         Dim loginEntry As LoginInfo = TryCast(_loginTaskCompletionSource.Task.AsyncState, LoginInfo)
 
         Try
-            ' Create a token credential using the provided username And password
+            ' Create a token credential using the provided username and password
             Dim userCredentials As TokenCredential = Await AuthenticationManager.Current.GenerateCredentialAsync(New Uri(loginEntry.ServiceUrl),
                                              loginEntry.UserName,
                                              loginEntry.Password,
@@ -147,6 +147,7 @@ End Class
 Friend Class LoginInfo
     Implements INotifyPropertyChanged
 
+    ' Credential request information (from the challenge handler)
     Private _requestInfo As CredentialRequestInfo
     Public Property RequestInfo As CredentialRequestInfo
         Get

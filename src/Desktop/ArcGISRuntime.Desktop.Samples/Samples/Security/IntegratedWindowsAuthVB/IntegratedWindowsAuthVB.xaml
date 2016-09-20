@@ -18,12 +18,12 @@
                     <RowDefinition Height="50"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Button x:Name="SearchPublicMapsButton" 
-						Grid.Row="0"
-                        Content="Search Public Maps"														
-						Width="265" Height="35"
-                        Margin="0,50,0,0"
-                        Click="SearchPublicMapsClick"/>
+                <Button x:Name="SearchPublicMapsButton"
+                    Grid.Row="0"
+                    Content="Search Public Maps"														
+                    Width="265" Height="35"
+                    Margin="0,50,0,0"
+                    Click="SearchPublicMapsClick"/>
                 <Button x:Name="SearchSecureMapsButton" 
                         Grid.Row="1"
 						Content="Search IWA Secured Maps"													

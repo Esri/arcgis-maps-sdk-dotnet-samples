@@ -92,13 +92,13 @@
                     <RowDefinition Height="50"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Button x:Name="SearchPublicMapsButton" 
-						Grid.Row="0"
-                        Content="Search Public Maps"														
-						Width="265" Height="45"
-                        HorizontalAlignment="Center"
-                        Margin="0,50,0,0"
-                        Click="SearchPublicMapsButtonClick"/>
+                <Button x:Name="SearchPublicMapsButton"
+                    Grid.Row="0"
+                    Content="Search Public Maps"														
+                    Width="265" Height="45"
+                    HorizontalAlignment="Center"
+                    Margin="0,50,0,0"
+                    Click="SearchPublicMapsButtonClick"/>
                 <Button x:Name="SearchSecureMapsButton" 
                         Grid.Row="1"
 						Content="Search IWA Secured Maps"													

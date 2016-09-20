@@ -1,4 +1,4 @@
-Token Secured Services (Known User)
+####Token Secured Services (Known User)####
 
 This sample demonstrates accessing secured services using ArcGIS token-based authentication. 
 Token-based authentication is supported for ArcGIS Server, ArcGIS Online, and Portal for ArcGIS version 10.2 or earlier. 
@@ -10,6 +10,6 @@ To see an example of using the ArcGIS Runtime SDK for .NET AuthenticationManager
 
 --------------------
 
-Additional Resources:
-https://developers.arcgis.com/authentication/
-https://developers.arcgis.com/net/desktop/guide/use-arcgis-token-authentication.htm
+Additional Resources:    
+ - https://developers.arcgis.com/authentication/    
+ - https://developers.arcgis.com/net/desktop/guide/use-arcgis-token-authentication.htm

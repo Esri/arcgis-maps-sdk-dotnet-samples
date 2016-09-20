@@ -1,4 +1,4 @@
-Token Secured Services (Challenge method)
+####Token Secured Services (Challenge method)####
 
 This sample demonstrates accessing secured services using ArcGIS token-based authentication. 
 Token-based authentication is supported for ArcGIS Server, ArcGIS Online, and Portal for ArcGIS version 10.2 or earlier. 

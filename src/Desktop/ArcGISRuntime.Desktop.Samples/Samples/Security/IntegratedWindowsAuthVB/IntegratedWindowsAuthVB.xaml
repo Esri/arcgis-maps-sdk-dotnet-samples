@@ -26,8 +26,8 @@
                     Click="SearchPublicMapsClick"/>
                 <Button x:Name="SearchSecureMapsButton" 
                         Grid.Row="1"
-						Content="Search IWA Secured Maps"													
-						Width="265" Height="35"
+			Content="Search IWA Secured Maps"													
+			Width="265" Height="35"
                         Click="SearchSecureMapsButtonClick"/>
                 <ListBox x:Name="MapItemListBox"
                         Grid.Row="2"                         
@@ -39,17 +39,17 @@
                         Width="100" Height="35"
                         Click="AddMapItemClick"/>
                 <StackPanel x:Name="MessagePanel"
-						Grid.Row="4" 
+			Grid.Row="4" 
                         Orientation="Vertical"							
-						Margin="10">
+			Margin="10">
                     <ScrollViewer>
                         <TextBlock x:Name="MessagesTextBlock" 
                                 Text="Using default system credentials." 
                                 TextWrapping="Wrap"/>
                     </ScrollViewer>
                     <ProgressBar x:Name="ProgressStatus" 
-							IsIndeterminate="True"
-                            Visibility="Collapsed"/>
+			IsIndeterminate="True"
+                        Visibility="Collapsed"/>
                 </StackPanel>
             </Grid>
         </Border>
@@ -59,7 +59,7 @@
             <esri:MapView>
                 <esri:Map>
                     <esri:ArcGISTiledLayer 
-					    Source="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"/>
+			Source="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"/>
                 </esri:Map>
             </esri:MapView>
         </Grid>

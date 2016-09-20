@@ -8,6 +8,6 @@ With the ArcGIS Runtime SDK for .NET, you can use the AuthenticationManager to c
 
 --------------------
 
-Additional Resources:
-https://developers.arcgis.com/authentication/    
-https://developers.arcgis.com/net/desktop/guide/use-arcgis-token-authentication.htm
+Additional Resources:    
+ - https://developers.arcgis.com/authentication/    
+ - https://developers.arcgis.com/net/desktop/guide/use-arcgis-token-authentication.htm

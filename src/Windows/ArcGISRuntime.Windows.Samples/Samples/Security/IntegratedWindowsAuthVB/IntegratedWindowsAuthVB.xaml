@@ -39,9 +39,9 @@
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                         Width="300"
-						TextWrapping="Wrap" >
-					    <Run Text="Login to: "/>
-					    <Run Text="{Binding ServiceUrl}"/>
+			TextWrapping="Wrap" >
+			<Run Text="Login to: "/>
+			<Run Text="{Binding ServiceUrl}"/>
                 </TextBlock>
                 <TextBlock Grid.Row="1" Grid.Column="0"
                         HorizontalAlignment="Right" VerticalAlignment="Center" 
@@ -68,14 +68,14 @@
                         Grid.Row="4" Grid.Column="1"
                         HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Button Content="Cancel" 
-                            Margin="0,0,20,0"
-						    Click="CancelButtonClick" />
+                        Margin="0,0,20,0"
+			Click="CancelButtonClick" />
                     <Button Content="Login" 
-						    Click="LoginButtonClick" />
+			Click="LoginButtonClick" />
                 </StackPanel>
                 <TextBlock x:Name="ErrorText" 
                         Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
-						Foreground="Red" 
+			Foreground="Red" 
                         TextWrapping="Wrap" 
                         Text="{Binding ErrorMessage}" />
             </Grid>
@@ -101,8 +101,8 @@
                     Click="SearchPublicMapsClick"/>
                 <Button x:Name="SearchSecureMapsButton" 
                         Grid.Row="1"
-						Content="Search IWA Secured Maps"													
-						Width="265" Height="45"
+			Content="Search IWA Secured Maps"													
+			Width="265" Height="45"
                         HorizontalAlignment="Center"
                         Click="SearchSecureMapsClick"/>
                 <ListBox x:Name="MapItemListBox"
@@ -116,17 +116,17 @@
                         HorizontalAlignment="Center"
                         Click="AddMapItemClick"/>
                 <StackPanel x:Name="MessagePanel"
-						Grid.Row="4" 
+			Grid.Row="4" 
                         Orientation="Vertical"							
-						Margin="10,10,23,10">
+			Margin="10,10,23,10">
                     <ScrollViewer>
                         <TextBlock x:Name="MessagesTextBlock" 
                                 Text="Using default system credentials." 
                                 TextWrapping="Wrap"/>
                     </ScrollViewer>
                     <ProgressBar x:Name="ProgressStatus" 
-							IsIndeterminate="True"
-                            Visibility="Collapsed"/>
+			IsIndeterminate="True"
+                        Visibility="Collapsed"/>
                 </StackPanel>
             </Grid>
         </Border>

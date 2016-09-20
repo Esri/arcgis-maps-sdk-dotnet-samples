@@ -136,10 +136,10 @@ Public NotInheritable Class MainPage
 
             ' Set an exception on the login task completion source after three login attempts
             If (loginEntry.AttemptCount >= 3) Then
-                    ' This causes the login attempt to fail
-                    _loginTaskCompletionSource.TrySetException(New Exception("Exceeded the number of allowed login attempts"))
-                End If
-            End Try
+                ' This causes the login attempt to fail
+                _loginTaskCompletionSource.TrySetException(New Exception("Exceeded the number of allowed login attempts"))
+            End If
+        End Try
     End Sub
 End Class
 

@@ -14,38 +14,38 @@ using System.Windows;
 
 namespace TokenSecuredServices
 {
-	public partial class MainWindow : Window
-	{
-		public MainWindow()
-		{
-			InitializeComponent();
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
 
             // Define a method that will try to create the required credentials when a secured resource is encountered
             // (Access to the secure resource will be seamless to the user)
             AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(CreateKnownCredentials);
-		}
+        }
 
-		// Challenge method that checks for service access with known (hard coded) credentials
-		private async Task<Credential> CreateKnownCredentials(CredentialRequestInfo info)
-		{
+        // Challenge method that checks for service access with known (hard coded) credentials
+        private async Task<Credential> CreateKnownCredentials(CredentialRequestInfo info)
+        {
             // If this isn't the expected resource, the credential will stay null
             Credential knownCredential = null;
 
-			try
-			{
+            try
+            {
                 // Check the URL of the requested resource
                 if (info.ServiceUri.AbsoluteUri.ToLower().Contains("usa_secure_user1"))
                 {
                     // Username and password is hard-coded for this resource
                     // (Would be better to read them from a secure source)
-				    string username = "user1";
-				    string password = "user1";
+                    string username = "user1";
+                    string password = "user1";
 
                     // Create a credential for this resource
                     knownCredential = await AuthenticationManager.Current.GenerateCredentialAsync
-                                            (info.ServiceUri, 
-                                             username, 
-                                             password, 
+                                            (info.ServiceUri,
+                                             username,
+                                             password,
                                              info.GenerateTokenOptions);
                 }
                 else
@@ -53,14 +53,14 @@ namespace TokenSecuredServices
                     // Another option would be to prompt the user here if the username and password is not known
                 }
             }
-			catch (Exception ex)
-			{
+            catch (Exception ex)
+            {
                 // Report error accessing a secured resource
-				MessageBox.Show("Access to " + info.ServiceUri.AbsoluteUri + " denied. " + ex.Message, "Credential Error");
-			}
+                MessageBox.Show("Access to " + info.ServiceUri.AbsoluteUri + " denied. " + ex.Message, "Credential Error");
+            }
 
             // Return the credential
             return knownCredential;
-		}
-	}
+        }
+    }
 }

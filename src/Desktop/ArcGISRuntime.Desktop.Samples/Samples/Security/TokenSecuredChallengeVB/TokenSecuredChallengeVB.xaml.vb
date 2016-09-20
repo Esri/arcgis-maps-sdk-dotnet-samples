@@ -72,25 +72,25 @@ Class MainWindow
         ' Get the login info from the task completion source
         Dim loginEntry As LoginInfo = TryCast(_loginTaskCompletionSource.Task.AsyncState, LoginInfo)
 
-            Try
-                ' Create a token credential using the provided username And password
-                Dim userCredentials As TokenCredential = Await AuthenticationManager.Current.GenerateCredentialAsync(New Uri(loginEntry.ServiceUrl), loginEntry.UserName, loginEntry.Password, loginEntry.RequestInfo.GenerateTokenOptions)
+        Try
+            ' Create a token credential using the provided username And password
+            Dim userCredentials As TokenCredential = Await AuthenticationManager.Current.GenerateCredentialAsync(New Uri(loginEntry.ServiceUrl), loginEntry.UserName, loginEntry.Password, loginEntry.RequestInfo.GenerateTokenOptions)
 
-                ' Set the result on the task completion source
-                _loginTaskCompletionSource.TrySetResult(userCredentials)
-            Catch ex As Exception
-                ' Show exceptions on the login UI
-                loginEntry.ErrorMessage = ex.Message
+            ' Set the result on the task completion source
+            _loginTaskCompletionSource.TrySetResult(userCredentials)
+        Catch ex As Exception
+            ' Show exceptions on the login UI
+            loginEntry.ErrorMessage = ex.Message
 
-                ' Increment the login attempt count
-                loginEntry.AttemptCount += 1
+            ' Increment the login attempt count
+            loginEntry.AttemptCount += 1
 
-                ' Set an exception on the login task completion source after three login attempts
-                If loginEntry.AttemptCount >= 3 Then
-                    ' This causes the login attempt to fail
-                    _loginTaskCompletionSource.TrySetException(ex)
-                End If
-            End Try
+            ' Set an exception on the login task completion source after three login attempts
+            If loginEntry.AttemptCount >= 3 Then
+                ' This causes the login attempt to fail
+                _loginTaskCompletionSource.TrySetException(ex)
+            End If
+        End Try
     End Sub
 End Class
 

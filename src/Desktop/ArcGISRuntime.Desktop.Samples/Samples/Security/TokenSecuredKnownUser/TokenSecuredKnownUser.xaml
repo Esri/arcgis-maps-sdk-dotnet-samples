@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
 		Title="Token Secured Services (Known User)">
-	
-	<Grid x:Name="layoutGrid">
+
+    <Grid x:Name="layoutGrid">
         <esri:MapView x:Name="MyMapView">
             <esri:Map>
                 <!-- This layer is public and does not require credentials -->

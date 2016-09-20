@@ -22,7 +22,7 @@ namespace TokenSecuredChallenge
     public sealed partial class MainPage : Page
     {
         // Constants for the public and secured map service URLs
-        private const string PublicMapServiceUrl= "http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer";
+        private const string PublicMapServiceUrl = "http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer";
         private const string SecureMapServiceUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA_secure_user1/MapServer";
 
         // Constants for the public and secured layer names
@@ -58,7 +58,7 @@ namespace TokenSecuredChallenge
 
             // Set the data context for the secure layer stack panel controls (to report name and load status)
             SecureLayerPanel.DataContext = tokenSecuredLayer;
-            
+
             // Create a new map and add the layers
             var myMap = new Map();
             myMap.OperationalLayers.Add(publicLayer);
@@ -67,7 +67,7 @@ namespace TokenSecuredChallenge
             // Add the map to the map view
             MyMapView.Map = myMap;
         }
-        
+
         private async Task<Credential> Challenge(CredentialRequestInfo info)
         {
             // Call code to get user credentials

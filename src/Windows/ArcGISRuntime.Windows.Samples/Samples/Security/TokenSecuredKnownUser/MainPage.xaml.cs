@@ -59,7 +59,7 @@ namespace TokenSecuredKnownUser
             myMap.OperationalLayers.Add(publicLayer);
             myMap.OperationalLayers.Add(tokenSecuredLayer);
             var t = new TextBlock();
-            
+
             // Add the map to the map view
             MyMapView.Map = myMap;
         }

@@ -1,0 +1,15 @@
+{
+  "Name": "Feature layer definition expression",
+  "SampleName": "FeatureLayerDefinitionExpression",
+  "Description": "This sample demonstrates how to apply definition expression to a feature layer for filtering features. It also shows how to reset the definition expression.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"FeatureLayerDefinitionExpression.jpg",
+  "Link":"",
+  "TypeLink": ["T:Esri.ArcGISRuntime.Data.FeatureTable","T:Esri.ArcGISRuntime.Data.ServiceFeatureTable","P:Esri.ArcGISRuntime.Mapping.FeatureLayer.DefinitionExpression"
+  ],
+  "SampleFolder": "FeatureLayerDefinitionExpression"
+}

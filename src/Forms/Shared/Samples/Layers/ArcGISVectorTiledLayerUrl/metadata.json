@@ -1,0 +1,15 @@
+{
+  "Name": "ArcGIS vector tiled layer (URL)",
+  "SampleName": "ArcGISVectorTiledLayerUrl",
+  "Description": "This sample demonstrates how to add an ArcVectorGISTiledLayer as a base layer in a map.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"ArcGISVectorTiledLayerUrl.jpg",
+  "Link":"",
+  "TypeLink": ["T:Esri.ArcGISRuntime.Mapping.ArcGISVectorTiledLayer"
+  ],
+  "SampleFolder": "ArcGISVectorTiledLayerUrl"
+}

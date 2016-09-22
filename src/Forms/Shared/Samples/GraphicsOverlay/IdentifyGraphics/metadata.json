@@ -1,0 +1,15 @@
+{
+  "Name": "Identify graphics",
+  "SampleName": "IdentifyGraphics",
+  "Description": "This sample demonstrates how to identify graphics in a graphics overlay. When you tap on a graphic on the map, you will see an alert message displayed.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"IdentifyGraphics.jpg",
+  "Link":"",
+  "TypeLink": ["P:Esri.ArcGISRuntime.UI.GeoViewInputEventArgs.Position","M:Esri.ArcGISRuntime.UI.GeoView.IdentifyGraphicsOverlayAsync(Esri.ArcGISRuntime.UI.GraphicsOverlay,Android.Graphics.PointF,System.Double,System.Int64)"
+  ],
+ "SampleFolder":  "IdentifyGraphics"
+}

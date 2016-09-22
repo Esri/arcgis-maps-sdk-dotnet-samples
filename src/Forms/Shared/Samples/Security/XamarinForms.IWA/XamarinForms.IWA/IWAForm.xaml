@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             x:Class="XamarinForms.IWA.IWAForm">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="50"/>
+      <RowDefinition/>
+    </Grid.RowDefinitions>
+    <Button x:Name="LoadSecureMapButton"
+            Grid.Row="0"
+            WidthRequest="80"
+            Text="Load secure map"
+            Clicked="LoadSecureMapButtonClicked"/>
+    <esriUI:MapView x:Name="MyMapView"
+                    Grid.Row="1"/>
+  </Grid>
+</ContentPage>

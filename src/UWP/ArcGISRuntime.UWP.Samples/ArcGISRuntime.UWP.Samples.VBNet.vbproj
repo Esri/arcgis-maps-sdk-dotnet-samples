@@ -1,0 +1,486 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{73CF6057-8AC2-40E5-90EB-F733CE87DD93}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>ArcGISRuntime.UWP.Samples</RootNamespace>
+    <AssemblyName>ArcGISRuntime.UWP.Samples.VB</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>..\..\..\output\UWP\ARM\debug\</OutputPath>
+    <DefineConstants>NETFX_CORE,WINDOWS_UWP</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <DocumentationFile>ArcGISRuntime.UWP.Samples.VB.xml</DocumentationFile>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42314</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>..\..\..\output\UWP\ARM\release\</OutputPath>
+    <DefineConstants>NETFX_CORE,WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <DocumentationFile>ArcGISRuntime.UWP.Samples.VB.xml</DocumentationFile>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42314</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>..\..\..\output\UWP\x64\debug\</OutputPath>
+    <DefineConstants>NETFX_CORE,WINDOWS_UWP</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <DocumentationFile>ArcGISRuntime.UWP.Samples.VB.xml</DocumentationFile>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42314</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>..\..\..\output\UWP\x64\release\</OutputPath>
+    <DefineConstants>NETFX_CORE,WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <DocumentationFile>ArcGISRuntime.UWP.Samples.VB.xml</DocumentationFile>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42314</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>..\..\..\output\UWP\x86\debug\</OutputPath>
+    <DefineConstants>NETFX_CORE,WINDOWS_UWP</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <DocumentationFile>ArcGISRuntime.UWP.Samples.VB.xml</DocumentationFile>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42314</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>..\..\..\output\UWP\x86\release\</OutputPath>
+    <DefineConstants>NETFX_CORE,WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <DocumentationFile>ArcGISRuntime.UWP.Samples.VB.xml</DocumentationFile>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42314</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
+    <Content Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.jpg" />
+    <Content Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.jpg" />
+    <Content Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.jpg" />
+    <Content Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.jpg" />
+    <Content Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.jpg" />
+    <Content Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.jpg" />
+    <Content Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.jpg" />
+    <Content Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.jpg" />
+    <Content Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.jpg" />
+    <Content Include="Samples\MapView\TakeScreenshot\TakeScreenshot.jpg" />
+    <Content Include="Samples\Map\AuthorMap\AuthorMap.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\ChangeBasemap\ChangeBasemap.jpg" />
+    <Content Include="Samples\Map\DisplayMap\DisplayMap.jpg" />
+    <Content Include="Samples\Map\ManageBookmarks\ManageBookmarks.jpg" />
+    <Content Include="Samples\Map\OpenExistingMap\OpenExistingMap.jpg" />
+    <Content Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.jpg" />
+    <Content Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.jpg" />
+    <Content Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.jpg" />
+    <Content Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.jpg" />
+    <Content Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.jpg" />
+    <None Include="groups.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="project.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Samples\Data\FeatureLayerQuery\metadata.json" />
+    <None Include="Samples\Data\ServiceFeatureTableCache\metadata.json" />
+    <None Include="Samples\Data\ServiceFeatureTableManualCache\metadata.json" />
+    <None Include="Samples\Data\ServiceFeatureTableNoCache\metadata.json" />
+    <None Include="Samples\GraphicsOverlay\AddGraphicsRenderer\metadata.json" />
+    <None Include="Samples\GraphicsOverlay\IdentifyGraphics\metadata.json" />
+    <None Include="Samples\Layers\ArcGISMapImageLayerUrl\metadata.json" />
+    <None Include="Samples\Layers\ArcGISMapImageLayerUrl\README.md" />
+    <Content Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.jpg" />
+    <Content Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.jpg" />
+    <Content Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.jpg" />
+    <Content Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.jpg" />
+    <Content Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.jpg" />
+    <Content Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.jpg" />
+    <Content Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.jpg" />
+    <Content Include="Samples\MapView\MapRotation\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\FeatureLayerDefinitionExpression\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\ChangeViewpoint\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Samples\Layers\ArcGISTiledLayerUrl\metadata.json" />
+    <None Include="Samples\Layers\ArcGISTiledLayerUrl\README.md" />
+    <Content Include="Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Samples\Layers\ChangeFeatureLayerRenderer\metadata.json" />
+    <None Include="Samples\Layers\ChangeSublayerVisibility\metadata.json" />
+    <None Include="Samples\Layers\FeatureLayerSelection\metadata.json" />
+    <None Include="Samples\Layers\FeatureLayerUrl\metadata.json" />
+    <None Include="Samples\Location\DisplayDeviceLocation\metadata.json" />
+    <None Include="Samples\MapView\DisplayDrawingStatus\metadata.json" />
+    <None Include="Samples\MapView\DisplayLayerViewState\metadata.json" />
+    <None Include="Samples\MapView\TakeScreenshot\metadata.json" />
+    <None Include="Samples\Map\AccessLoadStatus\metadata.json" />
+    <Content Include="Samples\Map\AuthorMap\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Samples\Map\ChangeBasemap\metadata.json" />
+    <None Include="Samples\Map\DisplayMap\metadata.json" />
+    <None Include="Samples\Map\ManageBookmarks\metadata.json" />
+    <None Include="Samples\Map\OpenExistingMap\metadata.json" />
+    <None Include="Samples\Map\SetInitialMapLocation\metadata.json" />
+    <None Include="Samples\Map\SetInitialMapArea\metadata.json" />
+    <None Include="Samples\Map\SetMapSpatialReference\metadata.json" />
+    <None Include="Samples\Map\SetMapSpatialReference\README.md" />
+    <None Include="Samples\Map\SetMinMaxScale\metadata.json" />
+    <None Include="Samples\Symbology\RenderPictureMarkers\metadata.json" />
+    <None Include="Samples\Symbology\RenderSimpleMarkers\metadata.json" />
+    <None Include="Samples\Symbology\RenderUniqueValues\metadata.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="Samples\Data\FeatureLayerQuery\FeatureLayerQueryVB.xaml.vb">
+      <DependentUpon>FeatureLayerQueryVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCacheVB.xaml.vb">
+      <DependentUpon>ServiceFeatureTableCacheVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCacheVB.xaml.vb">
+      <DependentUpon>ServiceFeatureTableManualCacheVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCacheVB.xaml.vb">
+      <DependentUpon>ServiceFeatureTableNoCacheVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRendererVB.xaml.vb">
+      <DependentUpon>AddGraphicsRendererVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphicsVB.xaml.vb">
+      <DependentUpon>IdentifyGraphicsVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrlVB.xaml.vb">
+      <DependentUpon>ArcGISMapImageLayerUrlVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrlVB.xaml.vb">
+      <DependentUpon>ArcGISTiledLayerUrlVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrlVB.xaml.vb">
+      <DependentUpon>ArcGISVectorTiledLayerUrlVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRendererVB.xaml.vb">
+      <DependentUpon>ChangeFeatureLayerRendererVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibilityVB.xaml.vb">
+      <DependentUpon>ChangeSublayerVisibilityVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpressionVB.xaml.vb">
+      <DependentUpon>FeatureLayerDefinitionExpressionVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelectionVB.xaml.vb">
+      <DependentUpon>FeatureLayerSelectionVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrlVB.xaml.vb">
+      <DependentUpon>FeatureLayerUrlVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocationVB.xaml.vb">
+      <DependentUpon>DisplayDeviceLocationVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\ChangeViewpoint\ChangeViewpointVB.xaml.vb">
+      <DependentUpon>ChangeViewpointVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatusVB.xaml.vb">
+      <DependentUpon>DisplayDrawingStatusVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewStateVB.xaml.vb">
+      <DependentUpon>DisplayLayerViewStateVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\MapRotation\MapRotationVB.xaml.vb">
+      <DependentUpon>MapRotationVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\TakeScreenshot\TakeScreenshotVB.xaml.vb">
+      <DependentUpon>TakeScreenshotVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\AccessLoadStatus\AccessLoadStatusVB.xaml.vb">
+      <DependentUpon>AccessLoadStatusVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\AuthorMap\AuthorMapVB.xaml.vb">
+      <DependentUpon>AuthorMapVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\ChangeBasemap\ChangeBasemapVB.xaml.vb">
+      <DependentUpon>ChangeBasemapVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\DisplayMap\DisplayMapVB.xaml.vb">
+      <DependentUpon>DisplayMapVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarksVB.xaml.vb">
+      <DependentUpon>ManageBookmarksVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\OpenExistingMap\OpenExistingMapVB.xaml.vb">
+      <DependentUpon>OpenExistingMapVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocationVB.xaml.vb">
+      <DependentUpon>SetInitialMapLocationVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\SetInitialMapArea\SetInitialMapAreaVB.xaml.vb">
+      <DependentUpon>SetInitialMapAreaVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReferenceVB.xaml.vb">
+      <DependentUpon>SetMapSpatialReferenceVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\SetMinMaxScale\SetMinMaxScaleVB.xaml.vb">
+      <DependentUpon>SetMinMaxScaleVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkersVB.xaml.vb">
+      <DependentUpon>RenderPictureMarkersVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkersVB.xaml.vb">
+      <DependentUpon>RenderSimpleMarkersVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValuesVB.xaml.vb">
+      <DependentUpon>RenderUniqueValuesVB.xaml</DependentUpon>
+    </Compile>
+    <Content Include="My Project\ArcGISRuntime.Windows.Samples.VBNet.rd.xml" />
+    <Content Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg" />
+    <Content Include="Samples\MapView\MapRotation\MapRotation.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.jpg" />
+    <Content Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Collections.ObjectModel" />
+    <Import Include="System.ComponentModel" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.IO" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Runtime.CompilerServices" />
+    <Import Include="System.Threading.Tasks" />
+    <Import Include="System.Runtime.InteropServices.WindowsRuntime" />
+    <Import Include="System.Windows.Input" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="Windows.ApplicationModel" />
+    <Import Include="Windows.ApplicationModel.Activation" />
+    <Import Include="Windows.Foundation" />
+    <Import Include="Windows.Foundation.Collections" />
+    <Import Include="Windows.Graphics.Display" />
+    <Import Include="Windows.UI.ViewManagement" />
+    <Import Include="Windows.UI.Xaml" />
+    <Import Include="Windows.UI.Xaml.Controls" />
+    <Import Include="Windows.UI.Xaml.Controls.Primitives" />
+    <Import Include="Windows.UI.Xaml.Data" />
+    <Import Include="Windows.UI.Xaml.Input" />
+    <Import Include="Windows.UI.Xaml.Media" />
+    <Import Include="Windows.UI.Xaml.Media.Imaging" />
+    <Import Include="Windows.UI.Xaml.Navigation" />
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="Microsoft.VCLibs, version=14.0">
+      <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
+    </SDKReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Page Include="Samples\Data\FeatureLayerQuery\FeatureLayerQueryVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCacheVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCacheVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCacheVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRendererVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphicsVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrlVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrlVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrlVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRendererVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibilityVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpressionVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelectionVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrlVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocationVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\ChangeViewpoint\ChangeViewpointVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatusVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewStateVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\MapRotation\MapRotationVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\TakeScreenshot\TakeScreenshotVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\AccessLoadStatus\AccessLoadStatusVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Map\AuthorMap\AuthorMapVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\ChangeBasemap\ChangeBasemapVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\DisplayMap\DisplayMapVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\ManageBookmarks\ManageBookmarksVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\OpenExistingMap\OpenExistingMapVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocationVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Map\SetInitialMapArea\SetInitialMapAreaVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReferenceVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Map\SetMinMaxScale\SetMinMaxScaleVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkersVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkersVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValuesVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

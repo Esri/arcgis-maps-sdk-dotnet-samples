@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcGISRuntime.Xamarin.Samples.iOS", "Xamarin.iOS\ArcGISRuntime.Xamarin.Samples.iOS.csproj", "{3192A404-34AC-4083-A3B9-44610EE92E68}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Ad-Hoc|iPhone = Ad-Hoc|iPhone
+		Ad-Hoc|iPhoneSimulator = Ad-Hoc|iPhoneSimulator
+		AppStore|iPhone = AppStore|iPhone
+		AppStore|iPhoneSimulator = AppStore|iPhoneSimulator
+		Debug|iPhone = Debug|iPhone
+		Debug|iPhoneSimulator = Debug|iPhoneSimulator
+		Release|iPhone = Release|iPhone
+		Release|iPhoneSimulator = Release|iPhoneSimulator
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3192A404-34AC-4083-A3B9-44610EE92E68}.Ad-Hoc|iPhone.ActiveCfg = Ad-Hoc|iPhone
+		{3192A404-34AC-4083-A3B9-44610EE92E68}.Ad-Hoc|iPhone.Build.0 = Ad-Hoc|iPhone
+		{3192A404-34AC-4083-A3B9-44610EE92E68}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Ad-Hoc|iPhoneSimulator
+		{3192A404-34AC-4083-A3B9-44610EE92E68}.Ad-Hoc|iPhoneSimulator.Build.0 = Ad-Hoc|iPhoneSimulator
+		{3192A404-34AC-4083-A3B9-44610EE92E68}.AppStore|iPhone.ActiveCfg = AppStore|iPhone
+		{3192A404-34AC-4083-A3B9-44610EE92E68}.AppStore|iPhone.Build.0 = AppStore|iPhone
+		{3192A404-34AC-4083-A3B9-44610EE92E68}.AppStore|iPhoneSimulator.ActiveCfg = AppStore|iPhoneSimulator
+		{3192A404-34AC-4083-A3B9-44610EE92E68}.AppStore|iPhoneSimulator.Build.0 = AppStore|iPhoneSimulator
+		{3192A404-34AC-4083-A3B9-44610EE92E68}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{3192A404-34AC-4083-A3B9-44610EE92E68}.Debug|iPhone.Build.0 = Debug|iPhone
+		{3192A404-34AC-4083-A3B9-44610EE92E68}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{3192A404-34AC-4083-A3B9-44610EE92E68}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{3192A404-34AC-4083-A3B9-44610EE92E68}.Release|iPhone.ActiveCfg = Release|iPhone
+		{3192A404-34AC-4083-A3B9-44610EE92E68}.Release|iPhone.Build.0 = Release|iPhone
+		{3192A404-34AC-4083-A3B9-44610EE92E68}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{3192A404-34AC-4083-A3B9-44610EE92E68}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

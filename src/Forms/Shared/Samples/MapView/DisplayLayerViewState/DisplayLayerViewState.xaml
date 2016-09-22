@@ -13,11 +13,11 @@
     <ListView x:Name="layerStatusListView" Grid.Row="1">
       <ListView.ItemTemplate>
         <DataTemplate>
-          <TextBlock Margin="2">
-            <Run Text="{Binding LayerName, Mode=OneWay}"/>
-            <Run Text=" - " />
-            <Run Text="{Binding LayerViewStatus, Mode=OneWay}"/>
-          </TextBlock>
+          <StackLayout Orientation="Horizontal">
+            <Label Text="{Binding LayerName, Mode=OneWay}"/>
+            <Label Text=" - " />
+            <Label Text="{Binding LayerViewStatus, Mode=OneWay}"/>
+          </StackLayout>
         </DataTemplate>
       </ListView.ItemTemplate>
     </ListView>

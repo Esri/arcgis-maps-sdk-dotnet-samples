@@ -14,8 +14,12 @@
               "Path":"Samples/MapView/ChangeViewpoint"
             },
             {
-              "SampleName": "DisplayDrawStatus",
-              "Path": "Samples/MapView/DisplayDrawStatus"
+              "SampleName": "DisplayDrawingStatus",
+              "Path": "Samples/MapView/DisplayDrawingStatus"
+            },
+            {
+              "SampleName": "DisplayLayerViewState",
+              "Path": "Samples/MapView/DisplayLayerViewState"
             },
             {
               "SampleName":"MapRotation",
@@ -76,6 +80,10 @@
             {
               "SampleName":"ArcGISTiledLayerUrl",
               "Path":"Samples/Layers/ArcGISTiledLayerUrl"
+            },
+            {
+               "SampleName": "ArcGISVectorTiledLayerUrl",
+              "Path": "Samples/Layers/ArcGISVectorTiledLayerUrl"
             }
           ]
         },

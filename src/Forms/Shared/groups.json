@@ -8,7 +8,7 @@
           "Name":"MapView",
           "SubCategoryName":"MapView",
           "ShowGroup":true,
-          "SampleInfos":[
+          "SampleInfos": [
             {
               "SampleName": "ChangeViewpoint",
               "Path": "Samples/MapView/ChangeViewpoint"
@@ -21,13 +21,17 @@
               "SampleName": "DisplayDrawingStatus",
               "Path": "Samples/MapView/DisplayDrawingStatus"
             },
-             {
+            {
               "SampleName": "DisplayLayerViewState",
               "Path": "Samples/MapView/DisplayLayerViewState"
             },
-             {
-              "SampleName":"TakeScreenshot",
-              "Path":"Samples/MapView/TakeScreenshot"
+            {
+              "SampleName": "TakeScreenshot",
+              "Path": "Samples/MapView/TakeScreenshot"
+            },
+            {
+              "SampleName": "ShowMagnifier",
+              "Path": "Samples/MapView/ShowMagnifier"
             }
           ]
         },
@@ -64,9 +68,13 @@
               "SampleName": "SetMapSpatialReference",
               "Path": "Samples/Map/SetMapSpatialReference"
             },
-              {
+            {
               "SampleName":"ChangeBasemap",
               "Path":"Samples/Map/ChangeBasemap"
+            },
+            {
+              "SampleName":"ManageBookmarks",
+              "Path":"Samples/Map/ManageBookmarks"
             }
           ]
         }
@@ -82,8 +90,12 @@
           "ShowGroup":true,
           "SampleInfos":[
             {
-              "SampleName":"ArcGISTiledLayerUrl",
-              "Path":"Samples/Layers/ArcGISTiledLayerUrl"
+              "SampleName": "ArcGISTiledLayerUrl",
+              "Path": "Samples/Layers/ArcGISTiledLayerUrl"
+            },
+            {
+              "SampleName":"ArcGISVectorTiledLayerUrl",
+              "Path":"Samples/Layers/ArcGISVectorTiledLayerUrl"
             }
           ]
         },
@@ -216,8 +228,6 @@
   ],
   "Featured":[
     {
-      "SampleName":"ExampleSample",
-      "Reason":1
     }
   ]
 }

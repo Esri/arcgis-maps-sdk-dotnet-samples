@@ -1,0 +1,14 @@
+{
+  "Name": "Display drawing status",
+  "SampleName": "DisplayDrawingStatus",
+  "Description": "This sample demonstrates how to use the DrawStatus value of the MapView to notify user that the MapView is drawing.",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"DisplayDrawingStatus.jpg",
+  "Link":"",
+  "TypeLink": ["T:Esri.ArcGISRuntime.UI.DrawStatus","E:Esri.ArcGISRuntime.UI.GeoView.DrawStatusChanged"
+  ],
+  "SampleFolder": "DisplayDrawingStatus"
+}

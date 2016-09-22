@@ -83,6 +83,7 @@
     <Compile Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.cs" />
     <Compile Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.cs" />
     <Compile Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.cs" />
+    <Compile Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.cs" />
     <Compile Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.cs" />
     <Compile Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.cs" />
     <Compile Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.cs" />
@@ -93,8 +94,10 @@
     <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.cs" />
     <Compile Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.cs" />
     <Compile Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.cs" />
+    <Compile Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.cs" />
+    <Compile Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.cs" />
+    <Compile Include="Samples\MapView\ShowMagnifier\ShowMagnifier.cs" />
     <Compile Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.cs" />
-    <Compile Include="Samples\MapView\DisplayDrawStatus\DisplayDrawStatus.cs" />
     <Compile Include="Samples\MapView\MapRotation\MapRotation.cs" />
     <Compile Include="Samples\Map\ChangeBasemap\ChangeBasemap.cs" />
     <Compile Include="Samples\Map\DisplayMap\DisplayMap.cs" />
@@ -147,13 +150,16 @@
     <EmbeddedResource Include="Samples\GraphicsOverlay\AddGraphicsRenderer\metadata.json" />
     <EmbeddedResource Include="Samples\Data\FeatureLayerQuery\metadata.json" />
     <EmbeddedResource Include="Samples\GraphicsOverlay\IdentifyGraphics\metadata.json" />
-    <EmbeddedResource Include="Samples\MapView\DisplayDrawStatus\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\ChangeFeatureLayerRenderer\metadata.json" />
     <EmbeddedResource Include="Samples\Map\ChangeBasemap\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\ChangeSublayerVisibility\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\FeatureLayerSelection\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\FeatureLayerDefinitionExpression\metadata.json" />
     <EmbeddedResource Include="Samples\Location\DisplayDeviceLocation\metadata.json" />
+    <None Include="Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json" />
+    <None Include="Samples\MapView\DisplayDrawingStatus\metadata.json" />
+    <None Include="Samples\MapView\DisplayLayerViewState\metadata.json" />
+    <None Include="Samples\MapView\ShowMagnifier\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml" />
@@ -175,6 +181,7 @@
     <Content Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.jpg" />
     <Content Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.jpg" />
     <Content Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.jpg" />
+    <Content Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.jpg" />
     <Content Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.jpg" />
     <Content Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.jpg" />
     <Content Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.jpg" />
@@ -185,8 +192,10 @@
     <Content Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.jpg" />
     <Content Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.jpg" />
     <Content Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.jpg" />
+    <Content Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.jpg" />
+    <Content Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.jpg" />
+    <Content Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg" />
     <Content Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.jpg" />
-    <Content Include="Samples\MapView\DisplayDrawStatus\DisplayDrawStatus.jpg" />
     <Content Include="Samples\MapView\MapRotation\MapRotation.jpg" />
     <Content Include="Samples\Map\ChangeBasemap\ChangeBasemap.jpg" />
     <Content Include="Samples\Map\DisplayMap\DisplayMap.jpg" />

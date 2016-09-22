@@ -16,7 +16,7 @@ See Table of Contents under different platforms
 1. Fork and then clone the repo or download the .zip file. 
 2. Confirm the supported system configuration for the API of interest in the ArcGIS Runtime SDK for .NET:
   * [WPF](http://developers.arcgis.com/net/desktop/guide/system-requirements.htm)
-  * [UWP]((http://developers.arcgis.com/net/uwp/guide/system-requirements.htm))
+  * [UWP](http://developers.arcgis.com/net/uwp/guide/system-requirements.htm)
   * [Xamarin Android](https://developers.arcgis.com/net/android/guide/system-requirements.htm)
   * [Xamarin iOS](https://developers.arcgis.com/net/ios/guide/system-requirements.htm)
   * [Xamarin Forms](https://developers.arcgis.com/net/forms/guide/system-requirements.htm) 
@@ -35,8 +35,8 @@ See Table of Contents under different platforms
   
 Notes:
 
-Running sample viewer so that it uses VB samples
-  * Desktop
+Running sample viewer for WPF / UWP so that it uses VB samples
+  * WPF
        To run samples in VB, your sample viewer can be started with `/vb` parameter on start up. When the application is compiled, we also deploy `Launch Viewer VB.bat` file to the output folder.
        
    * Universal Windows Platform
@@ -53,7 +53,7 @@ When compiling Universal Windows Platform samples, make sure that you are compil
 
 * Supported system configurations for: 
   * [WPF](http://developers.arcgis.com/net/desktop/guide/system-requirements.htm)
-  * [UWP]((http://developers.arcgis.com/net/uwp/guide/system-requirements.htm))
+  * [UWP](http://developers.arcgis.com/net/uwp/guide/system-requirements.htm)
   * [Xamarin Android](https://developers.arcgis.com/net/android/guide/system-requirements.htm)
   * [Xamarin iOS](https://developers.arcgis.com/net/ios/guide/system-requirements.htm)
   * [Xamarin Forms](https://developers.arcgis.com/net/forms/guide/system-requirements.htm) 

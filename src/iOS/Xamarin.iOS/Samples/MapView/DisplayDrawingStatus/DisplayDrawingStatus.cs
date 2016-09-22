@@ -10,6 +10,7 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
 using UIKit;
@@ -71,13 +72,13 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayDrawingStatus
             _activityIndicator.StartAnimating();
         }
 
-        private void OnMapViewDrawStatusChanged(object sender, DrawStatus e)
+        private void OnMapViewDrawStatusChanged(object sender, DrawStatusChangedEventArgs e)
         {
             // Make sure that the UI changes are done in the UI thread
             BeginInvokeOnMainThread(() =>
             {
                 // Show the activity indicator if the map is drawing
-                if (e == DrawStatus.InProgress)
+                if (e.Status == DrawStatus.InProgress)
                     _activityIndicator.Hidden = false;
                 else
                     _activityIndicator.Hidden = true;

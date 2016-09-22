@@ -9,7 +9,7 @@
 
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using UIKit;
 

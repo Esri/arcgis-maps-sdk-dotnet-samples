@@ -7,10 +7,12 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System.Collections.Generic;
 using UIKit;
@@ -91,16 +93,16 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyGraphics
         {
             var tolerance = 10d; // Use larger tolerance for touch
             var maximumResults = 1; // Only return one graphic  
+            var identifyReturns = IdentifyReturns.GeoElementsOnly; // Only return geoelements
 
             // Use the following method to identify graphics in a specific graphics overlay
-            IReadOnlyList<Graphic> identifyResults = await _myMapView.IdentifyGraphicsOverlayAsync(
-                _polygonOverlay, 
-                e.Position, 
-                tolerance, 
-                maximumResults);
+            IdentifyGraphicsOverlayResult identifyResults = await _myMapView.IdentifyGraphicsOverlayAsync(
+                 _polygonOverlay,
+                 e.Position,
+                 tolerance, identifyReturns, maximumResults);
 
             // Check if we got results
-            if (identifyResults.Count > 0)
+            if (identifyResults.Graphics.Count > 0)
             {
                 // Make sure that the UI changes are done in the UI thread
                 InvokeOnMainThread(() =>

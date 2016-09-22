@@ -10,10 +10,12 @@
 using Android.App;
 using Android.OS;
 using Android.Widget;
+using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Controls;
 using System.Collections.Generic;
 
 namespace ArcGISRuntimeXamarin.Samples.IdentifyGraphics
@@ -85,16 +87,16 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyGraphics
         {
             var tolerance = 10d; // Use larger tolerance for touch
             var maximumResults = 1; // Only return one graphic  
+            var identifyReturns = IdentifyReturns.GeoElementsOnly; // Only return geoelements
 
             // Use the following method to identify graphics in a specific graphics overlay
-            IReadOnlyList<Graphic> identifyResults = await _myMapView.IdentifyGraphicsOverlayAsync
-                (_polygonOverlay, 
-                e.Position, 
-                tolerance, 
-                maximumResults);
+            IdentifyGraphicsOverlayResult identifyResults = await _myMapView.IdentifyGraphicsOverlayAsync(
+                 _polygonOverlay,
+                 e.Position,
+                 tolerance, identifyReturns, maximumResults);
 
             // Check if we got results
-            if (identifyResults.Count > 0)
+            if (identifyResults.Graphics.Count > 0)
             {
                 // Make sure that the UI changes are done in the UI thread
                 RunOnUiThread(() =>

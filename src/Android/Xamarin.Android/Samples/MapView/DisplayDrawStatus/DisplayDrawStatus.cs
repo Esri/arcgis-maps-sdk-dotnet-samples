@@ -13,6 +13,7 @@ using Android.Widget;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
 namespace ArcGISRuntimeXamarin.Samples.DisplayDrawStatus
@@ -60,13 +61,13 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayDrawStatus
             _myMapView.Map = myMap;               
         }
 
-        private void OnDrawStatusChanged(object sender, DrawStatus e)
+        private void OnDrawStatusChanged(object sender, DrawStatusChangedEventArgs e)
         {
             // Make sure that the UI changes are done in the UI thread
             RunOnUiThread(() =>
             {
                 // Show the activity indicator if the map is drawing
-                if (e == DrawStatus.InProgress)
+                if (e.Status == DrawStatus.InProgress)
                 {
                     _activityIndicator.SetMessage("Drawing is in progress");
                     _activityIndicator.Show();

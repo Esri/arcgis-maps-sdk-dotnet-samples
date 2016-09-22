@@ -1,0 +1,15 @@
+{
+  "Name": "Display a map",
+  "SampleName": "DisplayMap",
+  "Description": "This samples demonstrates how to display a map with a basemap",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"DisplayMap.jpg",
+  "Link":"",
+  "TypeLink": ["P:Esri.ArcGISRuntime.Mapping.Map.Basemap"
+  ],
+  "SampleFolder": "DisplayMap"
+}

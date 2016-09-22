@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
+             x:Class="ArcGISRuntimeXamarin.Samples.DisplayLayerViewState.DisplayLayerViewState">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*" />
+      <RowDefinition Height="auto" />
+    </Grid.RowDefinitions>
+    <esriUI:MapView x:Name="MyMapView"/>
+    <ListView x:Name="layerStatusListView" Grid.Row="1">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <TextBlock Margin="2">
+            <Run Text="{Binding LayerName, Mode=OneWay}"/>
+            <Run Text=" - " />
+            <Run Text="{Binding LayerViewStatus, Mode=OneWay}"/>
+          </TextBlock>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+  </Grid>
+</ContentPage>

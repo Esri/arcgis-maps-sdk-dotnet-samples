@@ -51,15 +51,15 @@ namespace ArcGISRuntime.Samples.Managers
             _selectedLanguage = language;
             if (language == Language.CSharp)
 #if NETFX_CORE
-                _samplesAssembly = Assembly.Load(new AssemblyName("ArcGISRuntime.Windows.Samples"));
+                _samplesAssembly = Assembly.Load(new AssemblyName("ArcGISRuntime.UWP.Samples"));
 #else
-                _samplesAssembly = Assembly.Load("ArcGISRuntime.Desktop.Samples");
+                _samplesAssembly = Assembly.Load("ArcGISRuntime.WPF.Samples");
 #endif
             else
 #if NETFX_CORE
-                _samplesAssembly = Assembly.Load(new AssemblyName("ArcGISRuntime.Windows.Samples.VB"));
+                _samplesAssembly = Assembly.Load(new AssemblyName("ArcGISRuntime.UWP.Samples.VB"));
 #else
-                _samplesAssembly = Assembly.Load("ArcGISRuntime.Desktop.Samples.VB");
+                _samplesAssembly = Assembly.Load("ArcGISRuntime.WPF.Samples.VB");
 #endif
 
             await CreateAllAsync();
@@ -166,10 +166,10 @@ namespace ArcGISRuntime.Samples.Managers
                 await Task.Run(() =>
                 {
 #if NETFX_CORE
-                    var filePath = string.Format("ms-appx:///{0}", "ArcGISRuntime.Windows.Samples/groups.json");
+                    var filePath = string.Format("ms-appx:///{0}", "ArcGISRuntime.UWP.Samples/groups.json");
                     try
                     {
-                        filePath = Path.Combine(Package.Current.InstalledLocation.Path, "ArcGISRuntime.Windows.Samples", "groups.json");
+                        filePath = Path.Combine(Package.Current.InstalledLocation.Path, "ArcGISRuntime.UWP.Samples", "groups.json");
                     }
                     catch (Exception)
                     {

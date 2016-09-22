@@ -1,0 +1,57 @@
+{
+  "images": [
+    {
+      "orientation": "portrait",
+      "extent": "full-screen",
+      "minimum-system-version": "7.0",
+      "idiom": "iphone",
+      "scale": "2x",
+      "size": "640x960"
+    },
+    {
+      "orientation": "portrait",
+      "extent": "full-screen",
+      "minimum-system-version": "7.0",
+      "subtype": "retina4",
+      "idiom": "iphone",
+      "scale": "2x",
+      "size": "640x1136"
+    },
+    {
+      "orientation": "portrait",
+      "extent": "full-screen",
+      "minimum-system-version": "7.0",
+      "idiom": "ipad",
+      "scale": "1x",
+      "size": "768x1024"
+    },
+    {
+      "orientation": "landscape",
+      "extent": "full-screen",
+      "minimum-system-version": "7.0",
+      "idiom": "ipad",
+      "scale": "1x",
+      "size": "1024x768"
+    },
+    {
+      "orientation": "portrait",
+      "extent": "full-screen",
+      "minimum-system-version": "7.0",
+      "idiom": "ipad",
+      "scale": "2x",
+      "size": "1536x2048"
+    },
+    {
+      "orientation": "landscape",
+      "extent": "full-screen",
+      "minimum-system-version": "7.0",
+      "idiom": "ipad",
+      "scale": "2x",
+      "size": "2048x1536"
+    }
+  ],
+  "info": {
+    "version": 1,
+    "author": ""
+  }
+}

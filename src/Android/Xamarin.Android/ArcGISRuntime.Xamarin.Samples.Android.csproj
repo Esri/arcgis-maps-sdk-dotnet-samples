@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BF0E3CEE-E88E-44E0-80CE-46EDA6CD4B54}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ArcGISRuntimeXamarin</RootNamespace>
+    <AssemblyName>ArcGISRuntimeXamarin</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <AndroidApplication>true</AndroidApplication>
+    <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
+    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
+    <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\output\android\debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
+    <AndroidLinkMode>None</AndroidLinkMode>
+    <AndroidLinkSkip />
+    <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+    <BundleAssemblies>False</BundleAssemblies>
+    <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+    <AndroidSupportedAbis>armeabi,armeabi-v7a,x86</AndroidSupportedAbis>
+    <AndroidStoreUncompressedFileExtensions />
+    <MandroidI18n />
+    <Debugger>Xamarin</Debugger>
+    <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
+    <DevInstrumentationEnabled>True</DevInstrumentationEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\output\android\release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
+    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Esri.ArcGISRuntime, Version=100.0.0.0, Culture=neutral, PublicKeyToken=29c6dd6e8553d944, processorArchitecture=MSIL">
+      <HintPath>..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.0.0.1369-beta\lib\MonoAndroid10\Esri.ArcGISRuntime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Mono.Android" />
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CategoriesAdapter.cs" />
+    <Compile Include="MainActivity.cs" />
+    <Compile Include="Managers\SampleManager.cs" />
+    <Compile Include="Managers\TreeItem.cs" />
+    <Compile Include="Models\CategoryModel.cs" />
+    <Compile Include="Models\FeaturedModel.cs" />
+    <Compile Include="Models\SampleModel.cs" />
+    <Compile Include="Models\SampleModelExtensions.cs" />
+    <Compile Include="Models\SampleStructureMap.cs" />
+    <Compile Include="Models\SubCategoryModel.cs" />
+    <Compile Include="Resources\Resource.Designer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SamplesListActivity.cs" />
+    <Compile Include="SamplesListAdapter.cs" />
+    <Compile Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.cs" />
+    <Compile Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.cs" />
+    <Compile Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.cs" />
+    <Compile Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.cs" />
+    <Compile Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.cs" />
+    <Compile Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.cs" />
+    <Compile Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.cs" />
+    <Compile Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.cs" />
+    <Compile Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.cs" />
+    <Compile Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.cs" />
+    <Compile Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.cs" />
+    <Compile Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.cs" />
+    <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.cs" />
+    <Compile Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.cs" />
+    <Compile Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.cs" />
+    <Compile Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.cs" />
+    <Compile Include="Samples\MapView\DisplayDrawStatus\DisplayDrawStatus.cs" />
+    <Compile Include="Samples\MapView\MapRotation\MapRotation.cs" />
+    <Compile Include="Samples\Map\ChangeBasemap\ChangeBasemap.cs" />
+    <Compile Include="Samples\Map\DisplayMap\DisplayMap.cs" />
+    <Compile Include="Samples\Map\OpenExistingMap\OpenExistingMap.cs" />
+    <Compile Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.cs" />
+    <Compile Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.cs" />
+    <Compile Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.cs" />
+    <Compile Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.cs" />
+    <Compile Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.cs" />
+    <Compile Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.cs" />
+    <Compile Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="groups.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Samples\MapView\MapRotation\metadata.json" />
+    <None Include="packages.config" />
+    <None Include="Resources\AboutResources.txt" />
+    <None Include="Assets\AboutAssets.txt" />
+    <AndroidResource Include="Resources\layout\CategoriesList.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\CategoriesLayout.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\SamplesList.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\SamplesLayout.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <EmbeddedResource Include="Samples\Symbology\RenderSimpleMarkers\metadata.json" />
+    <EmbeddedResource Include="Samples\Map\SetMinMaxScale\metadata.json" />
+    <EmbeddedResource Include="Samples\Map\AccessLoadStatus\metadata.json" />
+    <EmbeddedResource Include="Samples\Map\SetInitialMapLocation\metadata.json" />
+    <EmbeddedResource Include="Samples\Map\SetInitialMapArea\metadata.json" />
+    <EmbeddedResource Include="Samples\Map\SetMapSpatialReference\metadata.json" />
+    <EmbeddedResource Include="Samples\Map\DisplayMap\metadata.json" />
+    <EmbeddedResource Include="Samples\Map\OpenExistingMap\metadata.json" />
+    <EmbeddedResource Include="Samples\MapView\ChangeViewpoint\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\FeatureLayerUrl\metadata.json" />
+    <EmbeddedResource Include="Samples\Data\ServiceFeatureTableCache\metadata.json" />
+    <EmbeddedResource Include="Samples\Data\ServiceFeatureTableNoCache\metadata.json" />
+    <EmbeddedResource Include="Samples\Data\ServiceFeatureTableManualCache\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\ArcGISMapImageLayerUrl\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\ArcGISTiledLayerUrl\metadata.json" />
+    <EmbeddedResource Include="Samples\Symbology\RenderUniqueValues\metadata.json" />
+    <EmbeddedResource Include="Samples\Symbology\RenderPictureMarkers\metadata.json" />
+    <EmbeddedResource Include="Samples\GraphicsOverlay\AddGraphicsRenderer\metadata.json" />
+    <EmbeddedResource Include="Samples\Data\FeatureLayerQuery\metadata.json" />
+    <EmbeddedResource Include="Samples\GraphicsOverlay\IdentifyGraphics\metadata.json" />
+    <EmbeddedResource Include="Samples\MapView\DisplayDrawStatus\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\ChangeFeatureLayerRenderer\metadata.json" />
+    <EmbeddedResource Include="Samples\Map\ChangeBasemap\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\ChangeSublayerVisibility\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\FeatureLayerSelection\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\FeatureLayerDefinitionExpression\metadata.json" />
+    <EmbeddedResource Include="Samples\Location\DisplayDeviceLocation\metadata.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\Strings.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\AndroidManifest.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\Icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\Icon.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\Icon.png" />
+    <AndroidResource Include="Resources\drawable\Android_512.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\Icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\Icon.png" />
+    <AndroidResource Include="Resources\drawable\Icon.png" />
+    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
+    <Content Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.jpg" />
+    <Content Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.jpg" />
+    <Content Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.jpg" />
+    <Content Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.jpg" />
+    <Content Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.jpg" />
+    <Content Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.jpg" />
+    <Content Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.jpg" />
+    <Content Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.jpg" />
+    <Content Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.jpg" />
+    <Content Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg" />
+    <Content Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.jpg" />
+    <Content Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.jpg" />
+    <Content Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.jpg" />
+    <Content Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.jpg" />
+    <Content Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.jpg" />
+    <Content Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.jpg" />
+    <Content Include="Samples\MapView\DisplayDrawStatus\DisplayDrawStatus.jpg" />
+    <Content Include="Samples\MapView\MapRotation\MapRotation.jpg" />
+    <Content Include="Samples\Map\ChangeBasemap\ChangeBasemap.jpg" />
+    <Content Include="Samples\Map\DisplayMap\DisplayMap.jpg" />
+    <Content Include="Samples\Map\OpenExistingMap\OpenExistingMap.jpg" />
+    <Content Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.jpg" />
+    <Content Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg" />
+    <Content Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg" />
+    <Content Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.jpg" />
+    <Content Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.jpg" />
+    <Content Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.jpg" />
+    <Content Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.jpg" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+     Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

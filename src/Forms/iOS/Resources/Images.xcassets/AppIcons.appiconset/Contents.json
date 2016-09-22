@@ -1,0 +1,88 @@
+{
+  "properties": {
+    "pre-rendered": false
+  },
+  "images": [
+    {
+      "idiom": "iphone",
+      "scale": "2x",
+      "filename": "iOS_58.png",
+      "size": "29x29"
+    },
+    {
+      "idiom": "iphone",
+      "scale": "3x",
+      "filename": "iOS_87.png",
+      "size": "29x29"
+    },
+    {
+      "idiom": "iphone",
+      "scale": "2x",
+      "filename": "iOS_80.png",
+      "size": "40x40"
+    },
+    {
+      "idiom": "iphone",
+      "scale": "3x",
+      "filename": "iOS_120.png",
+      "size": "40x40"
+    },
+    {
+      "idiom": "iphone",
+      "scale": "2x",
+      "filename": "iOS_120.png",
+      "size": "60x60"
+    },
+    {
+      "idiom": "iphone",
+      "scale": "3x",
+      "filename": "iOS_180.png",
+      "size": "60x60"
+    },
+    {
+      "idiom": "ipad",
+      "scale": "1x",
+      "filename": "iOS_29.png",
+      "size": "29x29"
+    },
+    {
+      "idiom": "ipad",
+      "scale": "2x",
+      "filename": "iOS_58.png",
+      "size": "29x29"
+    },
+    {
+      "idiom": "ipad",
+      "scale": "1x",
+      "filename": "iOS_40.png",
+      "size": "40x40"
+    },
+    {
+      "idiom": "ipad",
+      "scale": "2x",
+      "filename": "iOS_80.png",
+      "size": "40x40"
+    },
+    {
+      "idiom": "ipad",
+      "scale": "1x",
+      "filename": "iOS_76.png",
+      "size": "76x76"
+    },
+    {
+      "idiom": "ipad",
+      "scale": "2x",
+      "filename": "iOS_152.png",
+      "size": "76x76"
+    },
+    {
+      "idiom": "ipad",
+      "scale": "2x",
+      "size": "83.5x83.5"
+    }
+  ],
+  "info": {
+    "version": 1,
+    "author": ""
+  }
+}

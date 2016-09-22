@@ -1,0 +1,14 @@
+{
+  "Name": "Take Screenshot",
+  "SampleName": "TakeScreenshot",
+  "Description": "This sample demonstrates how you can take screenshot of a map. Click 'take screenshot' button to take a screenshot of the visible area of the map. Created image is shown in the sample after creation.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"TakeScreenshot.jpg",
+  "Link":"",
+  "TypeLink": ["M:Esri.ArcGISRuntime.UI.Controls.GeoView.ExportImageAsync"],
+  "SampleFolder": "TakeScreenshot"
+}

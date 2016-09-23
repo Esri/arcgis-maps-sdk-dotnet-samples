@@ -155,7 +155,7 @@
       <Name>SharedFormsCode</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="..\TokenSecuredKnownUser\TokenSecuredKnownUser.projitems" Label="Shared" />
+  <Import Project="..\TokenUser\TokenSecuredKnownUser.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\..\..\..\..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.0.0.1468-beta\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets" Condition="Exists('..\..\..\..\..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.0.0.1468-beta\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

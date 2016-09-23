@@ -136,8 +136,7 @@
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
-  <Import Project="..\TokenSecuredKnownUser\TokenSecuredKnownUser.projitems" Label="Shared" Condition="Exists('..\TokenSecuredKnownUser\TokenSecuredKnownUser.projitems')" />
-  <Import Project="..\TokenSecuredKnownUser\TokenSecuredKnownUser.projitems" Label="Shared" />
+  <Import Project="..\TokenUser\TokenSecuredKnownUser.projitems" Label="Shared" Condition="Exists('..\TokenUser\TokenSecuredKnownUser.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

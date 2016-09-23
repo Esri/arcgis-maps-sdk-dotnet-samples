@@ -3,20 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TokenSecuredChallenge.Droid", "TokenSecuredChallenge.Droid\TokenSecuredChallenge.Droid.csproj", "{468A5491-21F9-4ABA-B9DE-1EFE07CC309B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TokenChallenge.Droid", "TokenChallenge.Droid\TokenChallenge.Droid.csproj", "{468A5491-21F9-4ABA-B9DE-1EFE07CC309B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TokenSecuredChallenge.iOS", "TokenSecuredChallenge.iOS\TokenSecuredChallenge.iOS.csproj", "{BE66B22B-5B66-432A-ACB1-6DC2E61FB3CC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TokenChallenge.iOS", "TokenChallenge.iOS\TokenChallenge.iOS.csproj", "{BE66B22B-5B66-432A-ACB1-6DC2E61FB3CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TokenSecuredChallenge.UWP", "TokenSecuredChallenge.UWP\TokenSecuredChallenge.UWP.csproj", "{A874C943-8A4C-4CAA-BC72-E23DF6E5D87C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TokenChallenge.UWP", "TokenChallenge.UWP\TokenChallenge.UWP.csproj", "{A874C943-8A4C-4CAA-BC72-E23DF6E5D87C}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TokenSecuredChallenge", "TokenSecuredChallenge\TokenSecuredChallenge.shproj", "{D05751C6-91AF-4938-92F1-0AE4A5CB4810}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TokenChallenge", "TokenChallenge\TokenChallenge.shproj", "{D05751C6-91AF-4938-92F1-0AE4A5CB4810}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		TokenSecuredChallenge\TokenSecuredChallenge.projitems*{468a5491-21f9-4aba-b9de-1efe07cc309b}*SharedItemsImports = 4
-		TokenSecuredChallenge\TokenSecuredChallenge.projitems*{a874c943-8a4c-4caa-bc72-e23df6e5d87c}*SharedItemsImports = 4
-		TokenSecuredChallenge\TokenSecuredChallenge.projitems*{be66b22b-5b66-432a-acb1-6dc2e61fb3cc}*SharedItemsImports = 4
-		TokenSecuredChallenge\TokenSecuredChallenge.projitems*{d05751c6-91af-4938-92f1-0ae4a5cb4810}*SharedItemsImports = 13
+		TokenChallenge\TokenSecuredChallenge.projitems*{468a5491-21f9-4aba-b9de-1efe07cc309b}*SharedItemsImports = 4
+		TokenChallenge\TokenSecuredChallenge.projitems*{a874c943-8a4c-4caa-bc72-e23df6e5d87c}*SharedItemsImports = 4
+		TokenChallenge\TokenSecuredChallenge.projitems*{be66b22b-5b66-432a-acb1-6dc2e61fb3cc}*SharedItemsImports = 4
+		TokenChallenge\TokenSecuredChallenge.projitems*{d05751c6-91af-4938-92f1-0ae4a5cb4810}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU

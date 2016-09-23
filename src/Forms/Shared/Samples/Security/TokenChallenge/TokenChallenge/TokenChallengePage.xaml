@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:TokenSecuredChallenge;assembly=TokenSecuredChallengeForms"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             x:Class="TokenSecuredChallenge.TokenChallengePage">
+             x:Class="TokenChallenge.TokenChallengePage">
   <ContentPage.Resources>
     <ResourceDictionary>
       <local:LoadStatusToColorConverter x:Key="StatusToColor"/>

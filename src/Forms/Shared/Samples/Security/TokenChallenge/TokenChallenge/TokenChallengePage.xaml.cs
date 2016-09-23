@@ -13,7 +13,7 @@ using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace TokenSecuredChallenge
+namespace TokenChallenge
 {
     public partial class TokenChallengePage : ContentPage
     {

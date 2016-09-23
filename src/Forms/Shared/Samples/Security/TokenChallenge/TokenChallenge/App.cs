@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace TokenSecuredChallenge
+namespace TokenChallenge
 {
 	public class App : Application
 	{

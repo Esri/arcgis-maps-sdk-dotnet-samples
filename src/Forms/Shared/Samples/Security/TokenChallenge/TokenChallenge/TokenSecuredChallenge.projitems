@@ -6,7 +6,7 @@
     <SharedGUID>d05751c6-91af-4938-92f1-0ae4a5cb4810</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>TokenSecuredChallenge</Import_RootNamespace>
+    <Import_RootNamespace>TokenChallenge</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.cs" />

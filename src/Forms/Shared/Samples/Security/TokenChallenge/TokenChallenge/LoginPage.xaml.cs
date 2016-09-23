@@ -2,7 +2,7 @@
 
 using Xamarin.Forms;
 
-namespace TokenSecuredChallenge
+namespace TokenChallenge
 {
 	public partial class LoginPage : ContentPage
 	{

@@ -7,8 +7,8 @@
     <ProjectGuid>{A874C943-8A4C-4CAA-BC72-E23DF6E5D87C}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TokenSecuredChallenge.Forms</RootNamespace>
-    <AssemblyName>TokenSecuredChallengeForms</AssemblyName>
+    <RootNamespace>TokenChallenge.Forms</RootNamespace>
+    <AssemblyName>TokenChallengeForms</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
@@ -129,7 +129,7 @@
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
-  <Import Project="..\TokenSecuredChallenge\TokenSecuredChallenge.projitems" Label="Shared" />
+  <Import Project="..\TokenChallenge\TokenSecuredChallenge.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

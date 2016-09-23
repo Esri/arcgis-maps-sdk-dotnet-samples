@@ -13,7 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace TokenSecuredChallenge.Forms
+namespace TokenChallenge.Forms
 {
     public sealed partial class MainPage
     {
@@ -21,7 +21,7 @@ namespace TokenSecuredChallenge.Forms
         {
             this.InitializeComponent();
 
-            LoadApplication(new TokenSecuredChallenge.App());
+            LoadApplication(new TokenChallenge.App());
         }
     }
 }

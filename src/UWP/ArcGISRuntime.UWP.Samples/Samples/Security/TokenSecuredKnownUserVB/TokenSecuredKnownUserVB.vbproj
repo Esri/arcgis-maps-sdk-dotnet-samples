@@ -104,8 +104,8 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="LoadStatusToColorConverter.vb" />
-    <Compile Include="MainPage.xaml.vb">
-      <DependentUpon>MainPage.xaml</DependentUpon>
+    <Compile Include="TokenKnownUser.xaml.vb">
+      <DependentUpon>TokenKnownUser.xaml</DependentUpon>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
   </ItemGroup>
@@ -113,7 +113,6 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="TokenSecuredKnownUserVB_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="My Project\Default.rd.xml" />
@@ -130,7 +129,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainPage.xaml">
+    <Page Include="TokenKnownUser.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

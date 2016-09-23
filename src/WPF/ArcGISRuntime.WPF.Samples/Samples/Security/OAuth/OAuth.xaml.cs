@@ -96,7 +96,7 @@ namespace OAuth
                 ArcGISPortal arcgisPortal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
                 // Get a web map portal item using its ID
                 // If the item is secured (not shared publicly) the user will be challenged for credentials at this point
-                ArcGISPortalItem portalItem = await ArcGISPortalItem.CreateAsync(arcgisPortal, WebMapId);
+                PortalItem portalItem = await PortalItem.CreateAsync(arcgisPortal, WebMapId);
                 // Create a new map with the portal item
                 Map myMap = new Map(portalItem);
 

@@ -7,17 +7,22 @@
 ' "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 ' language governing permissions and limitations under the License.
 
-Imports System.Net
 Imports System.Text
 Imports Esri.ArcGISRuntime.Mapping
 Imports Esri.ArcGISRuntime.Portal
 Imports Esri.ArcGISRuntime.Security
-Imports Esri.ArcGISRuntime.UI
-Imports Windows.ApplicationModel.Core
-Imports Windows.UI.Core
+Imports Esri.ArcGISRuntime.UI.Controls
+
+' Important
+'    You must add the "Private Networks" capability to use Integrated Windows Authentication (IWA)
+'    in your UWP project. Add this capability by checking "Private Networks (Client and Server)"
+'    in your project's Package.appxmanifest file.
 
 Public NotInheritable Class MainPage
     Inherits Page
+    ' Note: The Universal Windows Platform handles challenging For Windows credentials.
+    '       You do not need to surface your own UI to prompt the user for username, password, and domain.
+
     ' TODO - Add the URL for your IWA-secured portal
     Const SecuredPortalUrl As String = "https://my.secure.server.com/gis/sharing"
 
@@ -25,7 +30,6 @@ Public NotInheritable Class MainPage
     Const PublicPortalUrl As String = "http://www.arcgis.com/sharing/rest"
 
     ' TODO [optional] - Add hard-coded account information (if present, a network credential will be created on app initialize)
-    ' Note: adding bogus credential info can provide a way to verify unauthorized users will be challenged For a log in
     Const NetworkUsername As String = ""
     Const NetworkPassword As String = ""
     Const NetworkDomain As String = ""
@@ -37,9 +41,6 @@ Public NotInheritable Class MainPage
     ' Flag variable to track if the user is looking at maps from the public or secured portal
     Dim _usingPublicPortal As Boolean
 
-    ' Variable to store the result of the login task
-    Private _loginTaskCompletionSrc As TaskCompletionSource(Of Credential)
-
     Public Sub New()
         InitializeComponent()
 
@@ -48,10 +49,6 @@ Public NotInheritable Class MainPage
     End Sub
 
     Public Sub Initialize()
-        ' Define a challenge handler method for the AuthenticationManager 
-        ' (this method handles getting credentials when a secured resource Is encountered)
-        AuthenticationManager.Current.ChallengeHandler = New ChallengeHandler(AddressOf CreateCredentialAsync)
-
         ' Note unlike a WPF app, your current system credentials will not be used by default in a UWP app and
         '       you will be (initially) challenged even for resources to which your system account has access.
         '       Once you provide your credentials, you will not be challenged again for them
@@ -67,62 +64,11 @@ Public NotInheritable Class MainPage
                 .ServiceUri = New Uri(SecuredPortalUrl)
             }
 
-            ' Add the credential to the AuthenticationManager And report that a non-default credential Is being used
+            ' Add the credential to the AuthenticationManager and report that a non-default credential is being used
             AuthenticationManager.Current.AddCredential(hardcodedCredential)
             MessagesTextBlock.Text = "Using credentials for user '" + NetworkUsername + "'"
         End If
     End Sub
-
-    Public Async Function CreateCredentialAsync(info As CredentialRequestInfo) As Task(Of Credential)
-        ' Prompting the user must happen on the UI thread, use Dispatcher if necessary
-        Dim myDispatcher = CoreApplication.MainView.CoreWindow.Dispatcher
-
-        ' If no dispatcher, call the ChallengeUI method directly to get user input
-        If myDispatcher Is Nothing Then
-            Return Await ChallengeUI(info)
-        Else
-            ' Use the dispatcher to show the login panel on the UI thread, then await completion of the task
-            Await Dispatcher.RunAsync(
-                CoreDispatcherPriority.Normal,
-                Async Sub()
-                    Try
-                        ' Call the method that shows the login panel And creates a credential 
-                        Await ChallengeUI(info)
-                    Catch tce As TaskCanceledException
-                        ' The user clicked the "Cancel" button, login panel will close
-                    End Try
-                End Sub)
-
-            ' return the task
-            Return Await _loginTaskCompletionSrc.Task
-        End If
-    End Function
-
-    Public Async Function ChallengeUI(info As CredentialRequestInfo) As Task(Of Credential)
-        Try
-            ' Create a New instance of LoginInfo (defined in this project) to store credential info
-            Dim loginInfo As LoginInfo = New LoginInfo(info)
-
-            ' Set the login panel data context with the LoginInfo object
-            ' (two-way binding will provide access to the data entered by the user)
-            LoginPanel.DataContext = loginInfo
-
-            ' Show the login UI And hide the load map UI
-            LoginPanel.Visibility = Visibility.Visible
-            LoadMapPanel.Visibility = Visibility.Collapsed
-
-            ' Create a New TaskCompletionSource for the login operation
-            ' (passing the loginInfo helper to the constructor will make it available from the Task's AsyncState property) 
-            _loginTaskCompletionSrc = New TaskCompletionSource(Of Credential)(loginInfo)
-
-            ' Return the login task, result will be ready when completed (user provides login info And clicks the "Login" button)
-            Return Await _loginTaskCompletionSrc.Task
-        Finally
-            ' The user Is done logging in (Or canceled); hide the login UI, show the load map UI
-            LoginPanel.Visibility = Visibility.Collapsed
-            LoadMapPanel.Visibility = Visibility.Visible
-        End Try
-    End Function
 
     ' Search the public portal for web maps And display the results in a list box.
     Private Async Sub SearchPublicMapsClick(sender As Object, e As RoutedEventArgs)
@@ -183,10 +129,10 @@ Public NotInheritable Class MainPage
             End If
 
             ' Search the portal for web maps
-            Dim items As SearchResultInfo(Of ArcGISPortalItem) = Await currentPortal.SearchItemsAsync(New SearchParameters("type:(""web map"" NOT ""web mapping application"")"))
+            Dim items As SearchResultInfoItems = Await currentPortal.SearchItemsAsync(New SearchParameters("type:(""web map"" NOT ""web mapping application"")"))
 
             ' Build a list of items from the results that shows the map name and stores the item ID (with the Tag property)
-            Dim resultItems As IEnumerable(Of ListBoxItem) = From r In items.Results Select New ListBoxItem With {.Tag = r.Id, .Content = r.Title}
+            Dim resultItems As IEnumerable(Of ListBoxItem) = From r In items.Results Select New ListBoxItem With {.Tag = r.ItemId, .Content = r.Title}
 
             ' Add the list items
             For Each itm As ListBoxItem In resultItems
@@ -233,11 +179,11 @@ Public NotInheritable Class MainPage
             Dim itemId = TryCast(MapItemListBox.SelectedItem, ListBoxItem).Tag.ToString()
 
             'Use the item ID to create an ArcGISPortalItem from the appropriate portal 
-            Dim portalItem = Await ArcGISPortalItem.CreateAsync(portal, itemId)
+            Dim portalItm As PortalItem = Await PortalItem.CreateAsync(portal, itemId)
 
-            If Not portalItem Is Nothing Then
+            If Not portalItm Is Nothing Then
                 'Create a Map using the web map (portal item)
-                Dim webMap As Map = New Map(portalItem)
+                Dim webMap As Map = New Map(portalItm)
 
                 'Create a New MapView control to display the Map
                 Dim myMapView As MapView = New MapView()
@@ -256,135 +202,5 @@ Public NotInheritable Class MainPage
             'Show messages
             MessagesTextBlock.Text = statusInfo.ToString()
         End Try
-    End Sub
-
-    Private Sub LoginButtonClick(sender As Object, e As RoutedEventArgs)
-        'If no login information is available from the Task, return
-        If _loginTaskCompletionSrc Is Nothing _
-            Or _loginTaskCompletionSrc.Task Is Nothing _
-            Or _loginTaskCompletionSrc.Task.AsyncState Is Nothing Then Return
-
-        ' Get the login info (helper class) that was stored with the task
-        Dim userInfo As LoginInfo = TryCast(_loginTaskCompletionSrc.Task.AsyncState, LoginInfo)
-
-        Try
-            ' Create a New System.Net.NetworkCredential with the user name, password, And domain provided
-            Dim networkCred As NetworkCredential = New NetworkCredential(userInfo.UserName, userInfo.Password, userInfo.Domain)
-
-            ' Create a New ArcGISNetworkCredential with the NetworkCredential And URI of the secured resource
-            Dim cred As Credential = New ArcGISNetworkCredential With
-                {
-                    .Credentials = networkCred,
-                    .ServiceUri = New Uri(userInfo.ServiceUrl)
-                }
-
-            ' Set the result of the login task with the New ArcGISNetworkCredential
-            _loginTaskCompletionSrc.TrySetResult(cred)
-        Catch ex As Exception
-            ' Report login exceptions at the bottom of the dialog
-            userInfo.ErrorMessage = ex.Message
-        End Try
-    End Sub
-
-    Private Sub CancelButtonClick(sender As Object, e As RoutedEventArgs)
-        'Set the login task status to canceled
-        _loginTaskCompletionSrc.TrySetCanceled()
-    End Sub
-
-End Class
-
-' A helper class to hold information about a network credential
-Public Class LoginInfo
-    Implements INotifyPropertyChanged
-
-    Private _requestInfo As CredentialRequestInfo
-    Public Property RequestInfo As CredentialRequestInfo
-        Get
-            Return _requestInfo
-        End Get
-        Set
-            _requestInfo = Value
-            OnPropertyChanged()
-        End Set
-    End Property
-
-    ' URL of the secure resource
-    Private _serviceUrl As String
-    Public Property ServiceUrl As String
-        Get
-            Return _serviceUrl
-        End Get
-        Set
-            _serviceUrl = Value
-            OnPropertyChanged()
-        End Set
-    End Property
-
-    ' User name for the credential
-    Private _userName As String
-    Public Property UserName As String
-        Get
-            Return _userName
-        End Get
-        Set
-            _userName = Value
-            OnPropertyChanged()
-        End Set
-    End Property
-
-    ' Password for the credential
-    Private _password As String
-    Public Property Password As String
-        Get
-            Return _password
-        End Get
-        Set
-            _password = Value
-            OnPropertyChanged()
-        End Set
-    End Property
-
-    ' Domain for the network credential
-    Private _domain As String
-    Public Property Domain As String
-        Get
-            Return _domain
-        End Get
-        Set
-            _domain = Value
-            OnPropertyChanged()
-        End Set
-    End Property
-
-    ' Login error messages
-    Private _errorMessage As String
-    Public Property ErrorMessage As String
-        Get
-            Return _errorMessage
-        End Get
-        Set
-            _errorMessage = Value
-            OnPropertyChanged()
-        End Set
-    End Property
-
-    Public Sub New(info As CredentialRequestInfo)
-        ' Store the request info
-        RequestInfo = info
-
-        ' Build the service URL from the request info
-        ServiceUrl = requestInfo.ServiceUri.AbsoluteUri
-
-        ' Login info Is empty by default, will be populated by the user
-        UserName = String.Empty
-        Password = String.Empty
-        Domain = String.Empty
-        ErrorMessage = String.Empty
-    End Sub
-
-    ' Raise an Event When properties change To make sure data bindings are updated
-    Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
-    Private Sub OnPropertyChanged(<CallerMemberName> Optional propertyName As String = Nothing)
-        RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
     End Sub
 End Class

@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
-using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -211,7 +211,7 @@ namespace IntegratedWindowsAuth
                 var items = await currentPortal.SearchItemsAsync(new SearchParameters("type:(\"web map\" NOT \"web mapping application\")"));
 
                 // Build a list of items from the results that shows the map name and stores the item ID (with the Tag property)
-                var resultItems = from r in items.Results select new ListBoxItem { Tag = r.Id, Content = r.Title };
+                var resultItems = from r in items.Results select new ListBoxItem { Tag = r.ItemId, Content = r.Title };
 
                 // Add the list items
                 foreach (var itm in resultItems)
@@ -269,7 +269,7 @@ namespace IntegratedWindowsAuth
                 var itemId = (this.MapItemListBox.SelectedItem as ListBoxItem).Tag.ToString();
 
                 // Use the item ID to create an ArcGISPortalItem from the appropriate portal 
-                var portalItem = await ArcGISPortalItem.CreateAsync(portal, itemId);
+                var portalItem = await PortalItem.CreateAsync(portal, itemId);
                 
                 if (portalItem != null)
                 {

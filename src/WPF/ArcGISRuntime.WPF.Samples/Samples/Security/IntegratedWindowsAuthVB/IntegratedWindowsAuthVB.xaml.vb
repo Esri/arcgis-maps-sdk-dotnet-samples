@@ -11,7 +11,7 @@ Imports Esri.ArcGISRuntime.Portal
 Imports Esri.ArcGISRuntime.Security
 Imports System.Text
 Imports Esri.ArcGISRuntime.Mapping
-Imports Esri.ArcGISRuntime.UI
+Imports Esri.ArcGISRuntime.UI.Controls
 
 Class MainWindow
     ' TODO - Add the URL for your IWA-secured portal
@@ -182,10 +182,10 @@ Class MainWindow
             End If
 
             ' Search the portal for web maps
-            Dim items As SearchResultInfo(Of ArcGISPortalItem) = Await currentPortal.SearchItemsAsync(New SearchParameters("type:(""web map"" NOT ""web mapping application"")"))
+            Dim items As SearchResultInfoItems = Await currentPortal.SearchItemsAsync(New SearchParameters("type:(""web map"" NOT ""web mapping application"")"))
 
             ' Build a list of items from the results that shows the map name and stores the item ID (with the Tag property)
-            Dim resultItems As IEnumerable(Of ListBoxItem) = From r In items.Results Select New ListBoxItem With {.Tag = r.Id, .Content = r.Title}
+            Dim resultItems As IEnumerable(Of ListBoxItem) = From r In items.Results Select New ListBoxItem With {.Tag = r.ItemId, .Content = r.Title}
 
             ' Add the list items
             For Each itm As ListBoxItem In resultItems
@@ -232,11 +232,11 @@ Class MainWindow
             Dim itemId = TryCast(MapItemListBox.SelectedItem, ListBoxItem).Tag.ToString()
 
             'Use the item ID to create an ArcGISPortalItem from the appropriate portal 
-            Dim portalItem = Await ArcGISPortalItem.CreateAsync(portal, itemId)
+            Dim portalItm = Await PortalItem.CreateAsync(portal, itemId)
 
-            If Not portalItem Is Nothing Then
+            If Not portalItm Is Nothing Then
                 'Create a Map using the web map (portal item)
-                Dim webMap As Map = New Map(portalItem)
+                Dim webMap As Map = New Map(portalItm)
 
                 'Create a New MapView control to display the Map
                 Dim myMapView As MapView = New MapView()

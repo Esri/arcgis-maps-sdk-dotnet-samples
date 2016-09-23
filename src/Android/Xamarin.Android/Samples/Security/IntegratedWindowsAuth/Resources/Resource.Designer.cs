@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("IntegratedWindowsAuthentication.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("IntegratedWindowsAuth.Resource", IsApplication=true)]
 
-namespace IntegratedWindowsAuthentication
+namespace IntegratedWindowsAuth
 {
 	
 	

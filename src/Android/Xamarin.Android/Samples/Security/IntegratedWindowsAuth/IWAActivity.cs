@@ -14,7 +14,7 @@ using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
-using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Threading.Tasks;
 
@@ -133,7 +133,7 @@ namespace IntegratedWindowsAuth
                 }
 
                 // Get the web map (portal item) to display                
-                var webMap = await ArcGISPortalItem.CreateAsync(iwaSecuredPortal, WebMapId);
+                var webMap = await PortalItem.CreateAsync(iwaSecuredPortal, WebMapId);
                 if (webMap != null)
                 {
                     // Create a new map from the portal item and display it in the map view

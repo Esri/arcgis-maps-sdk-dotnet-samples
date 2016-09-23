@@ -1,6 +1,6 @@
 ﻿{
   "dependencies": {
-    "Esri.ArcGISRuntime.UWP": "100.0.0.1369-beta",
+    "Esri.ArcGISRuntime.UWP": "100.0.0.1468-beta",
     "Microsoft.ApplicationInsights": "1.0.0",
     "Microsoft.ApplicationInsights.PersistenceChannel": "1.0.0",
     "Microsoft.ApplicationInsights.WindowsApps": "1.0.0",

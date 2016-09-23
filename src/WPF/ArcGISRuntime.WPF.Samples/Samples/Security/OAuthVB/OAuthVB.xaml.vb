@@ -80,7 +80,7 @@ Class MainWindow
             Dim arcgisPortal As ArcGISPortal = Await ArcGISPortal.CreateAsync(New Uri(ServerUrl))
             ' Get a web map portal item using its ID
             ' If the item Is secured (Not shared publicly) the user will be challenged for credentials at this point
-            Dim portalItem As ArcGISPortalItem = Await ArcGISPortalItem.CreateAsync(arcgisPortal, WebMapId)
+            Dim portalItem As PortalItem = Await PortalItem.CreateAsync(arcgisPortal, WebMapId)
             ' Create a New map with the portal item
             Dim myMap As Map = New Map(portalItem)
 

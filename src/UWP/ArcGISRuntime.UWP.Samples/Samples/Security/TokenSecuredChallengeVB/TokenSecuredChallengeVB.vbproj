@@ -113,7 +113,6 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="TokenSecuredChallenge_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="My Project\Default.rd.xml" />

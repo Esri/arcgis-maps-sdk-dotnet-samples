@@ -156,10 +156,10 @@
     <EmbeddedResource Include="Samples\Layers\FeatureLayerSelection\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\FeatureLayerDefinitionExpression\metadata.json" />
     <EmbeddedResource Include="Samples\Location\DisplayDeviceLocation\metadata.json" />
-    <None Include="Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json" />
-    <None Include="Samples\MapView\DisplayDrawingStatus\metadata.json" />
-    <None Include="Samples\MapView\DisplayLayerViewState\metadata.json" />
-    <None Include="Samples\MapView\ShowMagnifier\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json" />
+    <EmbeddedResource Include="Samples\MapView\DisplayDrawingStatus\metadata.json" />
+    <EmbeddedResource Include="Samples\MapView\DisplayLayerViewState\metadata.json" />
+    <EmbeddedResource Include="Samples\MapView\ShowMagnifier\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml" />

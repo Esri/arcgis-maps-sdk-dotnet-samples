@@ -84,6 +84,9 @@
     <Compile Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.cs" />
     <Compile Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.cs" />
     <Compile Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.cs" />
+    <Compile Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.cs" />
+    <Compile Include="Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortal.cs" />
+    <Compile Include="Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQuery.cs" />
     <Compile Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.cs" />
     <Compile Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.cs" />
     <Compile Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.cs" />
@@ -160,6 +163,9 @@
     <EmbeddedResource Include="Samples\MapView\DisplayDrawingStatus\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\DisplayLayerViewState\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\ShowMagnifier\metadata.json" />
+    <None Include="Samples\Layers\CreateFeatureCollectionLayer\metadata.json" />
+    <None Include="Samples\Layers\FeatureCollectionLayerFromPortal\metadata.json" />
+    <None Include="Samples\Layers\FeatureCollectionLayerFromQuery\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml" />
@@ -182,6 +188,9 @@
     <Content Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.jpg" />
     <Content Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.jpg" />
     <Content Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.jpg" />
+    <Content Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.jpg" />
+    <Content Include="Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortal.jpg" />
+    <Content Include="Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQuery.jpg" />
     <Content Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.jpg" />
     <Content Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.jpg" />
     <Content Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.jpg" />

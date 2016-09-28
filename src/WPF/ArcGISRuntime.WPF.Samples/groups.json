@@ -140,6 +140,18 @@
             {
               "SampleName": "FeatureLayerDefinitionExpression",
               "Path": "Samples/Layers/FeatureLayerDefinitionExpression"
+            },
+            {
+              "SampleName": "CreateFeatureCollectionLayer",
+              "Path": "Samples/Layers/CreateFeatureCollectionLayer"
+            },
+            {
+              "SampleName": "FeatureCollectionLayerFromPortal",
+              "Path": "Samples/Layers/FeatureCollectionLayerFromPortal"
+            },
+            {
+              "SampleName": "FeatureCollectionLayerFromQuery",
+              "Path": "Samples/Layers/FeatureCollectionLayerFromQuery"
             }
           ]
         },

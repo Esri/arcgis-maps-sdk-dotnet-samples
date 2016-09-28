@@ -1,0 +1,153 @@
+﻿// Copyright 2016 Esri.
+//
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// language governing permissions and limitations under the License.
+
+using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Layers;
+using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Portal;
+using Esri.ArcGISRuntime.UI.Controls;
+using Foundation;
+using System;
+using UIKit;
+
+namespace ArcGISRuntimeXamarin.Samples.FeatureCollectionLayerFromPortal
+{
+    [Register("FeatureCollectionLayerFromPortal")]
+    public class FeatureCollectionLayerFromPortal : UIViewController
+    {
+        // Reference to the MapView used in the app
+        private MapView _myMapView;
+
+        // Default portal item Id to load features from
+        private const string FeatureCollectionItemId = "5ffe7733754f44a9af12a489250fe12b";
+
+        // Text field for specifying a portal item Id
+        UITextField _collectionItemIdTextBox;
+
+        public FeatureCollectionLayerFromPortal()
+        {
+            Title = "Create a feature collection layer from a portal item";
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+
+            // Create the layout
+            CreateLayout();
+
+            // Initialize the app
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            // Add a default value for the portal item Id
+            _collectionItemIdTextBox.Text = FeatureCollectionItemId;
+
+            // Create a new map with the oceans basemap and add it to the map view
+            var map = new Map(Basemap.CreateOceans());
+            _myMapView.Map = map;
+        }
+
+        private void CreateLayout()
+        {
+            // Store the main view's width and height
+            var appViewWidth = View.Bounds.Width;
+            var appViewHeight = View.Bounds.Height;
+
+            // Define an offset from the top of the page (to account for the iOS status bar)
+            var yPageOffset = 60;
+
+            // Define the bottom of the map view (accommodate for additional controls below)
+            var bottom = appViewHeight - yPageOffset - 80;
+
+            // Create a new MapView
+            _myMapView = new MapView();
+
+            // Setup the visual frame for the MapView
+            var mapViewFrame = new CoreGraphics.CGRect(0, yPageOffset, appViewWidth, bottom);
+            _myMapView.Frame = mapViewFrame;
+
+            // Create a text input for the portal item Id
+            bottom += 70;
+            var textInputFrame = new CoreGraphics.CGRect(10, bottom, appViewWidth-10, 20);
+            _collectionItemIdTextBox = new UITextField(textInputFrame);
+            _collectionItemIdTextBox.BackgroundColor = UIColor.LightGray;
+
+            // Create a button for adding features from a portal item
+            bottom += 30;
+            var buttonFrame = new CoreGraphics.CGRect(0, bottom, appViewWidth, 30);
+            UIButton addFeaturesButton = new UIButton(UIButtonType.Custom)
+            {
+                Frame = buttonFrame,
+                BackgroundColor = UIColor.White
+            };
+            addFeaturesButton.SetTitle("Add from portal item", UIControlState.Normal);
+            addFeaturesButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+
+            // Assign a click handler to the UIButton
+            addFeaturesButton.TouchUpInside += OpenPortalFeatureCollectionClick;
+
+            // Add the MapView, UITextField, and UIButton to the page
+            View.AddSubviews(_myMapView, _collectionItemIdTextBox, addFeaturesButton);
+            View.BackgroundColor = UIColor.White;
+        }
+
+        private async void OpenFeaturesFromArcGISOnline(string itemId)
+        {
+            try
+            {
+                // Open a portal item containing a feature collection
+                var portal = await ArcGISPortal.CreateAsync();
+                var collectionItem = await PortalItem.CreateAsync(portal, itemId);
+
+                // Verify that the item is a feature collection
+                if (collectionItem.Type == PortalItemType.FeatureCollection)
+                {
+                    // Create a new FeatureCollection from the item
+                    var featureCollection = new FeatureCollection(collectionItem);
+
+                    // Create a layer to display the collection and add it to the map as an operational layer
+                    var featureCollectionLayer = new FeatureCollectionLayer(featureCollection);
+                    featureCollectionLayer.Name = collectionItem.Title;
+
+                    _myMapView.Map.OperationalLayers.Add(featureCollectionLayer);
+                }
+                else
+                {
+                    UIAlertView alert = new UIAlertView("Feature Collection", "Portal item with ID '" + itemId + "' is not a feature collection.", null, "OK");
+                    alert.Show();
+                }
+            }
+            catch (Exception ex)
+            {
+                UIAlertView alert = new UIAlertView("Error", "Unable to open item with ID '" + itemId + "': " + ex.Message, null, "OK");
+                alert.Show();
+            }
+        }
+
+        private void OpenPortalFeatureCollectionClick(object sender, EventArgs e)
+        {
+            // Get the portal item Id from the user
+            var collectionItemId = _collectionItemIdTextBox.Text.Trim();
+
+            // Make sure an Id was entered
+            if (string.IsNullOrEmpty(collectionItemId))
+            {
+                UIAlertView alert = new UIAlertView("Feature Collection ID", "Please enter a portal item ID", null, "OK");
+                alert.Show();
+                return;
+            }
+
+            // Call a function to add the feature collection from the specified portal item
+            OpenFeaturesFromArcGISOnline(collectionItemId);
+        }
+    }
+}

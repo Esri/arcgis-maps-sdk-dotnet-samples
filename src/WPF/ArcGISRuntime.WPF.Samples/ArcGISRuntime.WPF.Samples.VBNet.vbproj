@@ -53,7 +53,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Esri.ArcGISRuntime, Version=100.0.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.WPF.100.0.0.1467-beta\lib\net452\Esri.ArcGISRuntime.dll</HintPath>
+      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.WPF.100.0.0.1473-beta\lib\net452\Esri.ArcGISRuntime.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />
@@ -99,6 +99,9 @@
     <Content Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.jpg" />
     <Content Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.jpg" />
     <Content Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.jpg" />
+    <Content Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.jpg" />
+    <Content Include="Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortal.jpg" />
+    <Content Include="Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQuery.jpg" />
     <Content Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -162,6 +165,9 @@
     </Content>
     <None Include="Samples\Layers\ChangeFeatureLayerRenderer\metadata.json" />
     <None Include="Samples\Layers\ChangeSublayerVisibility\metadata.json" />
+    <None Include="Samples\Layers\CreateFeatureCollectionLayer\metadata.json" />
+    <None Include="Samples\Layers\FeatureCollectionLayerFromPortal\metadata.json" />
+    <None Include="Samples\Layers\FeatureCollectionLayerFromQuery\metadata.json" />
     <None Include="Samples\Layers\FeatureLayerSelection\metadata.json" />
     <None Include="Samples\Layers\FeatureLayerUrl\metadata.json" />
     <None Include="Samples\Location\DisplayDeviceLocation\metadata.json" />
@@ -228,11 +234,17 @@
     <Compile Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRendererVB.xaml.vb">
       <DependentUpon>ChangeFeatureLayerRendererVB.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrlVB.xaml.vb">
-      <DependentUpon>ArcGISVectorTiledLayerUrlVB.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibilityVB.xaml.vb">
       <DependentUpon>ChangeSublayerVisibilityVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayerVB.xaml.vb">
+      <DependentUpon>CreateFeatureCollectionLayerVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortalVB.xaml.vb">
+      <DependentUpon>FeatureCollectionLayerFromPortalVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQueryVB.xaml.vb">
+      <DependentUpon>FeatureCollectionLayerFromQueryVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpressionVB.xaml.vb">
       <DependentUpon>FeatureLayerDefinitionExpressionVB.xaml</DependentUpon>
@@ -344,11 +356,19 @@
     <Page Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRendererVB.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrlVB.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibilityVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayerVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortalVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQueryVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -449,12 +469,12 @@
     <Service Include="{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.WPF.100.0.0.1467-beta\build\net452\Esri.ArcGISRuntime.WPF.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.0.0.1467-beta\build\net452\Esri.ArcGISRuntime.WPF.targets')" />
+  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.WPF.100.0.0.1473-beta\build\net452\Esri.ArcGISRuntime.WPF.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.0.0.1473-beta\build\net452\Esri.ArcGISRuntime.WPF.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.0.0.1467-beta\build\net452\Esri.ArcGISRuntime.WPF.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.WPF.100.0.0.1467-beta\build\net452\Esri.ArcGISRuntime.WPF.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.0.0.1473-beta\build\net452\Esri.ArcGISRuntime.WPF.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.WPF.100.0.0.1473-beta\build\net452\Esri.ArcGISRuntime.WPF.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

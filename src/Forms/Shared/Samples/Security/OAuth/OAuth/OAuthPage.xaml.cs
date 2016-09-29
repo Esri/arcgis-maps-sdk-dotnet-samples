@@ -13,17 +13,17 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
         public const string PortalUrl = "https://www.arcgis.com/sharing/rest";
 
         // TODO: Add item ID for a web map on the portal (secured with OAuth)
-        public const string WebMapId = "709c8dd95ab540a78184de064667f479";
+        public const string WebMapId = "";
 
         // TODO: Add Client ID for an app registered with the server
-        public const string AppClientId = "2Gh53JRzkPtOENQq";
+        public const string AppClientId = "";
 
         // TODO: [optional] Provide the client secret for the app (only needed for the OAuthAuthorizationCode auth type)
         public const string ClientSecret = "";
 
         // TODO: Add URL for redirecting after a successful authorization
         //       Note - this must be a URL configured as a valid Redirect URI with your app
-        public const string OAuthRedirectUrl = "http://myapps.portalmapapp";
+        public const string OAuthRedirectUrl = "";
 
         // URL used by the server for authorization
         public const string AuthorizeUrl = "https://www.arcgis.com/sharing/oauth2/authorize";

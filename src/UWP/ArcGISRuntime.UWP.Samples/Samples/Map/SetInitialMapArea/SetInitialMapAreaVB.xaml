@@ -10,7 +10,7 @@
     mc:Ignorable="d" 
     d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <esriUI:MapView Name="MyMapView">
+        <esriUI:MapView x:Name="MyMapView">
             <!--TODO Uncomment and remove code equivalent--> 
             <!--<esri:Map>
                 <esri:Map.Basemap>

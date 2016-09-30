@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
 
-namespace ArcGISRuntime.Desktop.Samples.CreateFeatureCollectionLayer
+namespace ArcGISRuntime.WPF.Samples.CreateFeatureCollectionLayer
 {
     public partial class CreateFeatureCollectionLayer
     {

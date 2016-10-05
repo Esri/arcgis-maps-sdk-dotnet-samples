@@ -231,14 +231,11 @@ Namespace AuthorMap
                     ' Get a thumbnail image (scaled down version) of the original
                     Dim thumbnailData As StorageItemThumbnail = Await mapImageFile.GetScaledImageAsThumbnailAsync(0)
 
-                    ' Create a New ArcGISPortalItemContent object to contain the thumbnail image
-                    Dim portalItemContent As ItemContent = New ItemContent()
+                    ' Assign the thumbnail data (file stream) to the content object
+                    newPortalItem.SetThumbnailWithImage(thumbnailData.AsStreamForRead())
 
-                    ' Assign the thumbnail data (stream) to the content object
-                    portalItemContent.Thumbnail = thumbnailData.AsStreamForRead()
-
-                    ' Update the portal item with the New content (just the thumbnail will be updated)
-                    Await newPortalItem.UpdateAsync(portalItemContent)
+                    ' Update the portal item with the new content (just the thumbnail will be updated)
+                    Await newPortalItem.UpdateItemPropertiesAsync()
 
                     ' Delete the map image file from disk
                     Await mapImageFile.DeleteAsync()

@@ -282,14 +282,11 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
                     // Get a thumbnail image (scaled down version) of the original
                     var thumbnailData = await mapImageFile.GetScaledImageAsThumbnailAsync(0);
 
-                    // Create a new ArcGISPortalItemContent object to contain the thumbnail image
-                    ItemContent portalItemContent = new ItemContent();
-
-                    // Assign the thumbnail data (stream) to the content object
-                    portalItemContent.Thumbnail = thumbnailData.AsStreamForRead();
+                    // Assign the thumbnail data (file stream) to the content object
+                    newPortalItem.SetThumbnailWithImage(thumbnailData.AsStreamForRead());
 
                     // Update the portal item with the new content (just the thumbnail will be updated)
-                    await newPortalItem.UpdateAsync(portalItemContent);
+                    await newPortalItem.UpdateItemPropertiesAsync();
 
                     // Delete the map image file from disk
                     mapImageFile.DeleteAsync();

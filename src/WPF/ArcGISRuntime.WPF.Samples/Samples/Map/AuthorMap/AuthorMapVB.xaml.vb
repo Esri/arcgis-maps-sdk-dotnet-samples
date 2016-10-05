@@ -264,14 +264,11 @@ Namespace AuthorMap
                 ' Open the image file
                 Dim thumbnailData = New FileStream(thumbnailImagePath, FileMode.Open)
 
-                ' Create a new ArcGISPortalItemContent object to contain the thumbnail
-                Dim portalItemContent As New ItemContent()
-
                 ' Assign the thumbnail data (file stream) to the content object
-                portalItemContent.Thumbnail = thumbnailData
+                newPortalItem.SetThumbnailWithImage(thumbnailData)
 
                 ' Update the portal item with the new content (just the thumbnail will be updated)
-                Await newPortalItem.UpdateAsync(portalItemContent)
+                Await newPortalItem.UpdateItemPropertiesAsync()
 
                 ' Close the stream and delete the local jpg file from disk
                 thumbnailData.Close()

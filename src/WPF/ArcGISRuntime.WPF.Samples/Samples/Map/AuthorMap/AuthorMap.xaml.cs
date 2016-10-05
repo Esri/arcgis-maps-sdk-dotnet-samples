@@ -307,14 +307,11 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
                 // Open the image file
                 var thumbnailData = new FileStream(thumbnailImagePath, FileMode.Open);
 
-                // Create a new ArcGISPortalItemContent object to contain the thumbnail
-                ItemContent portalItemContent = new ItemContent();
-
                 // Assign the thumbnail data (file stream) to the content object
-                portalItemContent.Thumbnail = thumbnailData;
+                newPortalItem.SetThumbnailWithImage(thumbnailData);
 
                 // Update the portal item with the new content (just the thumbnail will be updated)
-                await newPortalItem.UpdateAsync(portalItemContent);
+                await newPortalItem.UpdateItemPropertiesAsync();               
 
                 // Close the stream and delete the local jpg file from disk
                 thumbnailData.Close();

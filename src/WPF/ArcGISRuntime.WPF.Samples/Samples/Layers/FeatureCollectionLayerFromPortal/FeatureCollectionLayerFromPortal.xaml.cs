@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Portal;
 using System;
 using System.Windows;
 
-namespace ArcGISRuntime.Desktop.Samples.FeatureCollectionLayerFromPortal
+namespace ArcGISRuntime.WPF.Samples.FeatureCollectionLayerFromPortal
 {
     public partial class FeatureCollectionLayerFromPortal
     {
@@ -55,14 +55,14 @@ namespace ArcGISRuntime.Desktop.Samples.FeatureCollectionLayerFromPortal
                     // Create a layer to display the collection and add it to the map as an operational layer
                     var featureCollectionLayer = new FeatureCollectionLayer(featureCollection);
                     featureCollectionLayer.Name = collectionItem.Title;
-
                     MyMapView.Map.OperationalLayers.Add(featureCollectionLayer);
                 }
                 else
                 {
                     MessageBox.Show("Portal item with ID '" + itemId + "' is not a feature collection.", "Feature Collection");
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("Unable to open item with ID '" + itemId + "': " + ex.Message, "Error");
             }

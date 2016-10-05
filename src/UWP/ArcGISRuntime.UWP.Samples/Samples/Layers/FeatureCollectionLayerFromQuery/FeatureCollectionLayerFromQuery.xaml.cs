@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using Windows.UI.Popups;
 
-namespace ArcGISRuntime.Windows.Samples.FeatureCollectionLayerFromQuery
+namespace ArcGISRuntime.UWP.Samples.FeatureCollectionLayerFromQuery
 {
     public partial class FeatureCollectionLayerFromQuery
     {

@@ -110,8 +110,11 @@ namespace ArcGISRuntime.WPF.Samples.CreateFeatureCollectionLayer
             MyMapView.Map.OperationalLayers.Add(collectionLayer);
 
             // Zoom the map view to the extent of the feature collection
-            MyMapView.SetViewpointAsync(new Viewpoint(collectionLayer.FullExtent));
-        }
+            collectionLayer.Loaded += (s, e) => 
+            {
+                Dispatcher.InvokeAsync(() => MyMapView.SetViewpointGeometryAsync(collectionLayer.FullExtent));
+            };
+        }        
 
         private Renderer CreateRenderer(GeometryType rendererType)
         {
@@ -142,5 +145,4 @@ namespace ArcGISRuntime.WPF.Samples.CreateFeatureCollectionLayer
             return new SimpleRenderer(sym);
         }     
     }
-    
 }

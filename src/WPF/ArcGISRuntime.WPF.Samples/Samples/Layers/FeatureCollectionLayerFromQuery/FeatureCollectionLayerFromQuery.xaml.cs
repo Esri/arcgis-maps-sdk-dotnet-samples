@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Windows;
 
-namespace ArcGISRuntime.Desktop.Samples.FeatureCollectionLayerFromQuery
+namespace ArcGISRuntime.WPF.Samples.FeatureCollectionLayerFromQuery
 {
     public partial class FeatureCollectionLayerFromQuery
     {

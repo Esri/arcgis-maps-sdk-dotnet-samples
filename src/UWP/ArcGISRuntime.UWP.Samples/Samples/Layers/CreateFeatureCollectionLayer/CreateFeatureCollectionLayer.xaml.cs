@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using Windows.UI;
 using Windows.UI.Popups;
 
-namespace ArcGISRuntime.Windows.Samples.CreateFeatureCollectionLayer
+namespace ArcGISRuntime.UWP.Samples.CreateFeatureCollectionLayer
 {
     public partial class CreateFeatureCollectionLayer
     {
@@ -111,7 +111,10 @@ namespace ArcGISRuntime.Windows.Samples.CreateFeatureCollectionLayer
             MyMapView.Map.OperationalLayers.Add(collectionLayer);
 
             // Zoom the map view to the extent of the feature collection
-            MyMapView.SetViewpointAsync(new Viewpoint(collectionLayer.FullExtent));
+            collectionLayer.Loaded += (s, e) =>
+            {
+                Dispatcher.TryRunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => MyMapView.SetViewpointGeometryAsync(collectionLayer.FullExtent));
+            };
         }
 
         private Renderer CreateRenderer(GeometryType rendererType)

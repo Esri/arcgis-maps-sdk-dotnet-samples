@@ -14,14 +14,14 @@ using System;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISRuntime.Windows.Samples.FeatureLayerCollectionFromPortal
+namespace ArcGISRuntime.UWP.Samples.FeatureCollectionLayerFromPortal
 {
-    public partial class FeatureLayerCollectionFromPortal
+    public partial class FeatureCollectionLayerFromPortal
     {
         // Default portal item Id to load features from
         private const string FeatureCollectionItemId = "5ffe7733754f44a9af12a489250fe12b";
 
-        public FeatureLayerCollectionFromPortal()
+        public FeatureCollectionLayerFromPortal()
         {
             InitializeComponent();
 

@@ -100,8 +100,16 @@ Namespace CreateFeatureCollectionLayer
             Dim collectionLayer As FeatureCollectionLayer = New FeatureCollectionLayer(featuresCollection)
             MyMapView.Map.OperationalLayers.Add(collectionLayer)
 
-            ' Zoom the map view to the extent of the feature collection
-            MyMapView.SetViewpointAsync(New Viewpoint(collectionLayer.FullExtent))
+            ' When the layer loads, zoom the map view to the extent of the feature collection
+            AddHandler collectionLayer.Loaded, AddressOf ZoomToLayer
+        End Sub
+
+        Private Sub ZoomToLayer(sender As Object, e As EventArgs)
+            ' Get the layer that raised the loaded event
+            Dim collectionLayer As Layer = TryCast(sender, Layer)
+
+            ' Use the UI thread to run code that zooms the map to the layer's extent
+            Dispatcher.RunAsync(Core.CoreDispatcherPriority.Normal, Function() MyMapView.SetViewpointGeometryAsync(collectionLayer.FullExtent))
         End Sub
 
         Private Function CreateRenderer(rendererType As GeometryType) As Renderer

@@ -2,46 +2,41 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls"    
     x:Class="ArcGISRuntime.UWP.Samples.FeatureCollectionLayerFromPortal.FeatureCollectionLayerFromPortalVB">
-
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="80"/>
-                <RowDefinition Height="60"/>
-                <RowDefinition Height="60"/>
-                <RowDefinition/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="90"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
             <TextBlock Text="Create a feature collection layer:"
-                       Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                       VerticalAlignment="Center" HorizontalAlignment="Left"
+                       Grid.Row="0" Grid.Column="1"
+                       VerticalAlignment="Center" HorizontalAlignment="Center"
                        Margin="20,0"/>
-            <Button x:Name="OpenPortalFeatureCollectionButton" 
-                    Click="OpenPortalFeatureCollectionClick"
-                    Content="Open from portal item"
-                    VerticalAlignment="Bottom" HorizontalAlignment="Left"
-                    Grid.Row="1" Grid.Column="1" 
-                    Height="30" Width="150"/>
-            <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
+            <StackPanel Grid.Row="1" 
                         Orientation="Horizontal"
-                        Margin="20,3"
-                        Height="25">
+                        VerticalAlignment="Center" HorizontalAlignment="Center"
+                        Margin="20,0"
+                        Height="30" Width="320">
                 <TextBlock Text="Item Id:"
                            VerticalAlignment="Center"/>
                 <TextBox x:Name="CollectionItemIdTextBox" 
                          Margin="6,0"
                          VerticalAlignment="Center"
-                         Height="20" Width="200"/>
+                         Height="30" Width="240"/>
             </StackPanel>
+            <Button x:Name="OpenPortalFeatureCollectionButton" 
+                    Click="OpenPortalFeatureCollectionClick"
+                    Content="Open from portal item"
+                    VerticalAlignment="Center" HorizontalAlignment="Center"
+                    Grid.Row="2"
+                    Height="30" Width="250"/>
         </Grid>
         <esriUI:MapView x:Name="MyMapView"
-                      Grid.Column="1"/>
+                      Grid.Row="1"/>
     </Grid>
 </UserControl>

@@ -83,7 +83,7 @@ Namespace RenderPictureMarkers
             ' Get image as a stream from the resources
             ' Picture is defined as EmbeddedResource and DoNotCopy
             Dim resourceStream = currentAssembly.GetManifestResourceStream(
-                "ArcGISRuntime.UWP.Samples.pin_star_blue.png")
+                "ArcGISRuntime.UWP.Resources.PictureMarkerSymbols.pin_star_blue.png")
 
             ' Create new symbol using asynchronous factory method from stream
             Dim pinSymbol As PictureMarkerSymbol = Await PictureMarkerSymbol.CreateAsync(resourceStream)

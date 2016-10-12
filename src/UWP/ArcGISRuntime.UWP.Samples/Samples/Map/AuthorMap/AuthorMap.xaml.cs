@@ -110,7 +110,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
                 myMap.InitialViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
 
                 // See if the map has already been saved (has an associated portal item)
-                if (myMap.ArcGISItem == null)
+                if (myMap.Item == null)
                 {
                     // Get information for the new portal item
                     var title = TitleTextBox.Text;
@@ -136,7 +136,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
                     await myMap.SaveAsync();
 
                     // Report update was successful
-                    var messageDialog = new MessageDialog("Saved changes to '" + myMap.ArcGISItem.Title + "'", "Updates Saved");
+                    var messageDialog = new MessageDialog("Saved changes to '" + myMap.Item.Title + "'", "Updates Saved");
                     await messageDialog.ShowAsync();
                 }
 
@@ -272,7 +272,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
             try
             {
                 // Get the map's portal item
-                PortalItem newPortalItem = MyMapView.Map.ArcGISItem as PortalItem;
+                PortalItem newPortalItem = MyMapView.Map.Item as PortalItem;
 
                 // Open the image file (stored in the device's Pictures folder)
                 var mapImageFile = await KnownFolders.PicturesLibrary.GetFileAsync(imageFileName);

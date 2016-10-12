@@ -96,12 +96,14 @@ Namespace CreateFeatureCollectionLayer
             featuresCollection.Tables.Add(linesTable)
             featuresCollection.Tables.Add(polysTable)
 
-            ' Create a FeatureCollectionLayer And add to the Map's Operational Layers collection
+            ' Create a FeatureCollectionLayer
             Dim collectionLayer As FeatureCollectionLayer = New FeatureCollectionLayer(featuresCollection)
-            MyMapView.Map.OperationalLayers.Add(collectionLayer)
 
             ' When the layer loads, zoom the map view to the extent of the feature collection
             AddHandler collectionLayer.Loaded, AddressOf ZoomToLayer
+
+            ' Add to the Map's Operational Layers collection
+            MyMapView.Map.OperationalLayers.Add(collectionLayer)
         End Sub
 
         Private Sub ZoomToLayer(sender As Object, e As EventArgs)

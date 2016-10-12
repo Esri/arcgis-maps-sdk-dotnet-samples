@@ -139,7 +139,7 @@ Namespace AuthorMap
                 myMap.InitialViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry)
 
                 ' See if the map has already been saved (has an associated portal item)
-                If myMap.ArcGISItem Is Nothing Then
+                If myMap.Item Is Nothing Then
                     ' Get information for the New portal item
                     Dim title As String = TitleTextBox.Text
                     Dim description As String = DescriptionTextBox.Text
@@ -160,7 +160,7 @@ Namespace AuthorMap
                     Await myMap.SaveAsync()
 
                     ' Report update was successful
-                    Dim dialog As MessageDialog = New MessageDialog("Saved changes to '" + myMap.ArcGISItem.Title + "'", "Updates Saved")
+                    Dim dialog As MessageDialog = New MessageDialog("Saved changes to '" + myMap.Item.Title + "'", "Updates Saved")
                     Await dialog.ShowAsync
                 End If
 
@@ -222,7 +222,7 @@ Namespace AuthorMap
             ' Update the portal item with a thumbnail image of the current map
             Try
                 ' Get the map's portal item
-                Dim newPortalItem As PortalItem = MyMapView.Map.ArcGISItem
+                Dim newPortalItem As PortalItem = MyMapView.Map.Item
 
                 ' Open the image file (stored in the device's Pictures folder)
                 Dim mapImageFile As StorageFile = Await KnownFolders.PicturesLibrary.GetFileAsync(imageFileName)

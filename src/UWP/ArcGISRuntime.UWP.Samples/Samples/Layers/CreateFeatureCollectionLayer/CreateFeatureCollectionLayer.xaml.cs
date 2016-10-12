@@ -106,15 +106,17 @@ namespace ArcGISRuntime.UWP.Samples.CreateFeatureCollectionLayer
             featuresCollection.Tables.Add(linesTable);
             featuresCollection.Tables.Add(polysTable);
 
-            // Create a FeatureCollectionLayer and add to the Map's Operational Layers collection
+            // Create a FeatureCollectionLayer 
             var collectionLayer = new FeatureCollectionLayer(featuresCollection);
-            MyMapView.Map.OperationalLayers.Add(collectionLayer);
 
             // Zoom the map view to the extent of the feature collection
             collectionLayer.Loaded += (s, e) =>
             {
                 Dispatcher.TryRunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => MyMapView.SetViewpointGeometryAsync(collectionLayer.FullExtent));
             };
+
+            // Add to the Map's Operational Layers collection
+            MyMapView.Map.OperationalLayers.Add(collectionLayer);
         }
 
         private Renderer CreateRenderer(GeometryType rendererType)

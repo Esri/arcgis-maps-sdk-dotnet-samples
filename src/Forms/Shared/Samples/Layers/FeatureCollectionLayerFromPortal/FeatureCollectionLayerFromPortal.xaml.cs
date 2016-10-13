@@ -16,14 +16,14 @@ using Xamarin.Forms;
 namespace ArcGISRuntimeXamarin.Samples.FeatureCollectionLayerFromPortal
 {
     public partial class FeatureCollectionLayerFromPortal : ContentPage
-    {
+    { 
         // Default portal item Id to load features from
         private const string FeatureCollectionItemId = "5ffe7733754f44a9af12a489250fe12b";
 
         public FeatureCollectionLayerFromPortal()
         {
             InitializeComponent();
-
+            
             Title = "Feature collection layer from portal";
 
             // call a function to initialize a map to display in the MyMapView control

@@ -7,11 +7,8 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using CoreFoundation;
-using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Layers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -138,12 +135,14 @@ namespace ArcGISRuntimeXamarin.Samples.CreateFeatureCollectionLayer
             featuresCollection.Tables.Add(linesTable);
             featuresCollection.Tables.Add(polysTable);
 
-            // Create a FeatureCollectionLayer and add to the Map's Operational Layers collection
+            // Create a FeatureCollectionLayer
             var collectionLayer = new FeatureCollectionLayer(featuresCollection);
-            _myMapView.Map.OperationalLayers.Add(collectionLayer);
 
-            // Zoom the map view to the extent of the feature collection
-            _myMapView.SetViewpointAsync(new Viewpoint(collectionLayer.FullExtent));
+            // When the layer loads, zoom the map view to the extent of the feature collection
+            collectionLayer.Loaded += (s,e)=> _myMapView.SetViewpointAsync(new Viewpoint(collectionLayer.FullExtent));
+
+            // Add to the Map's Operational Layers collection
+            _myMapView.Map.OperationalLayers.Add(collectionLayer);
         }
 
         private Renderer CreateRenderer(GeometryType rendererType)

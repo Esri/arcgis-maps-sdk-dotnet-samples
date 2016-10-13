@@ -52,7 +52,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Esri.ArcGISRuntime, Version=100.0.0.0, Culture=neutral, PublicKeyToken=29c6dd6e8553d944, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.0.0.1479-beta\lib\MonoAndroid10\Esri.ArcGISRuntime.dll</HintPath>
+      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.0.0\lib\MonoAndroid10\Esri.ArcGISRuntime.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Mono.Android" />
@@ -163,9 +163,15 @@
     <EmbeddedResource Include="Samples\MapView\DisplayDrawingStatus\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\DisplayLayerViewState\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\ShowMagnifier\metadata.json" />
-    <None Include="Samples\Layers\CreateFeatureCollectionLayer\metadata.json" />
-    <None Include="Samples\Layers\FeatureCollectionLayerFromPortal\metadata.json" />
-    <None Include="Samples\Layers\FeatureCollectionLayerFromQuery\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\CreateFeatureCollectionLayer\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Samples\Layers\FeatureCollectionLayerFromPortal\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Samples\Layers\FeatureCollectionLayerFromQuery\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml" />

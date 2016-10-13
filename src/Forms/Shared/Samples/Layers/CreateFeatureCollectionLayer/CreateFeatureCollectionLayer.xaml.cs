@@ -110,12 +110,14 @@ namespace ArcGISRuntimeXamarin.Samples.CreateFeatureCollectionLayer
             featuresCollection.Tables.Add(linesTable);
             featuresCollection.Tables.Add(polysTable);
 
-            // Create a FeatureCollectionLayer and add to the Map's Operational Layers collection
+            // Create a FeatureCollectionLayer 
             var collectionLayer = new FeatureCollectionLayer(featuresCollection);
-            MyMapView.Map.OperationalLayers.Add(collectionLayer);
 
             // Zoom the map view to the extent of the feature collection
-            MyMapView.SetViewpointAsync(new Viewpoint(collectionLayer.FullExtent));
+            collectionLayer.Loaded += (s,e) => MyMapView.SetViewpointAsync(new Viewpoint(collectionLayer.FullExtent));
+
+            // Add the layer to the Map's Operational Layers collection
+            MyMapView.Map.OperationalLayers.Add(collectionLayer);
         }
 
         private Renderer CreateRenderer(GeometryType rendererType)

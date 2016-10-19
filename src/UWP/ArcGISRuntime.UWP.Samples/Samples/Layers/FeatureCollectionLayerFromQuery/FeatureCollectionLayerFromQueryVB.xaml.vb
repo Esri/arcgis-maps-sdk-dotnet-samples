@@ -38,25 +38,25 @@ Namespace FeatureCollectionLayerFromQuery
 
         Private Async Sub GetFeaturesFromQuery()
             ' Create a service feature table to get features from
-            Dim feachurTable As ServiceFeatureTable = New ServiceFeatureTable(New Uri(FeatureLayerUrl))
+            Dim featTable As ServiceFeatureTable = New ServiceFeatureTable(New Uri(FeatureLayerUrl))
 
             ' Create a query to get all features in the table
-            Dim kweryParams As QueryParameters = New QueryParameters()
-            kweryParams.WhereClause = "1=1"
+            Dim queryParams As QueryParameters = New QueryParameters()
+            queryParams.WhereClause = "1=1"
 
             ' Query the table to get all features
-            Dim kweryResult As FeatureQueryResult = Await feachurTable.QueryFeaturesAsync(kweryParams)
+            Dim featureResult As FeatureQueryResult = Await featTable.QueryFeaturesAsync(queryParams)
 
             ' Create a New feature collection table from the result features
-            Dim klectionTable As FeatureCollectionTable = New FeatureCollectionTable(kweryResult)
+            Dim collectionTable As FeatureCollectionTable = New FeatureCollectionTable(featureResult)
 
             ' Create a feature collection And add the table
-            Dim feachurKlection As FeatureCollection = New FeatureCollection()
-            feachurKlection.Tables.Add(klectionTable)
+            Dim featCollection As FeatureCollection = New FeatureCollection()
+            featCollection.Tables.Add(collectionTable)
 
             ' Create a layer to display the feature collection, add it to the map's operational layers
-            Dim feachurKlectionTable As FeatureCollectionLayer = New FeatureCollectionLayer(feachurKlection)
-            MyMapView.Map.OperationalLayers.Add(feachurKlectionTable)
+            Dim featCollectionTable As FeatureCollectionLayer = New FeatureCollectionLayer(featCollection)
+            MyMapView.Map.OperationalLayers.Add(featCollectionTable)
         End Sub
     End Class
 End Namespace

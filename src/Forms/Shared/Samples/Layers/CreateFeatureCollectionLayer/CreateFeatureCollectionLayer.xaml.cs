@@ -54,24 +54,24 @@ namespace ArcGISRuntimeXamarin.Samples.CreateFeatureCollectionLayer
         private async void CreateNewFeatureCollection()
         {
             // Create the schema for a points table (one text field to contain a name attribute)
-            var pointFields = new List<Field>();
-            var placeField = new Field(FieldType.Text, "Place", "Place Name", 50);
+            List<Field> pointFields = new List<Field>();
+            Field placeField = new Field(FieldType.Text, "Place", "Place Name", 50);
             pointFields.Add(placeField);
 
             // Create the schema for a lines table (one text field to contain a name attribute)
-            var lineFields = new List<Field>();
-            var boundaryField = new Field(FieldType.Text, "Boundary", "Boundary Name", 50);
+            List<Field> lineFields = new List<Field>();
+            Field boundaryField = new Field(FieldType.Text, "Boundary", "Boundary Name", 50);
             lineFields.Add(boundaryField);
 
             // Create the schema for a polygon table (one text field to contain a name attribute)
-            var polyFields = new List<Field>();
-            var areaField = new Field(FieldType.Text, "AreaName", "Area Name", 50);
+            List<Field> polyFields = new List<Field>();
+            Field areaField = new Field(FieldType.Text, "AreaName", "Area Name", 50);
             polyFields.Add(areaField);
 
             // Instantiate FeatureCollectionTables with schema and geometry type
-            var pointsTable = new FeatureCollectionTable(pointFields, GeometryType.Point, SpatialReferences.Wgs84);
-            var linesTable = new FeatureCollectionTable(lineFields, GeometryType.Polyline, SpatialReferences.Wgs84);
-            var polysTable = new FeatureCollectionTable(polyFields, GeometryType.Polygon, SpatialReferences.Wgs84);
+            FeatureCollectionTable pointsTable = new FeatureCollectionTable(pointFields, GeometryType.Point, SpatialReferences.Wgs84);
+            FeatureCollectionTable linesTable = new FeatureCollectionTable(lineFields, GeometryType.Polyline, SpatialReferences.Wgs84);
+            FeatureCollectionTable polysTable = new FeatureCollectionTable(polyFields, GeometryType.Polygon, SpatialReferences.Wgs84);
 
             // Set rendering for each table
             pointsTable.Renderer = CreateRenderer(GeometryType.Point);
@@ -79,24 +79,24 @@ namespace ArcGISRuntimeXamarin.Samples.CreateFeatureCollectionLayer
             polysTable.Renderer = CreateRenderer(GeometryType.Polygon);
 
             // Create a new point feature, provide geometry and attribute values
-            var pointFeature = pointsTable.CreateFeature();
+            Feature pointFeature = pointsTable.CreateFeature();
             pointFeature.SetAttributeValue(placeField, "Current location");
-            var point1 = new MapPoint(-79.497238, 8.849289, SpatialReferences.Wgs84);
+            MapPoint point1 = new MapPoint(-79.497238, 8.849289, SpatialReferences.Wgs84);
             pointFeature.Geometry = point1;
 
             // Create a new line feature, provide geometry and attribute values
-            var lineFeature = linesTable.CreateFeature();
+            Feature lineFeature = linesTable.CreateFeature();
             lineFeature.SetAttributeValue(boundaryField, "AManAPlanACanalPanama");
-            var point2 = new MapPoint(-80.035568, 9.432302, SpatialReferences.Wgs84);
-            var line = new Polyline(new MapPoint[] { point1, point2 });
+            MapPoint point2 = new MapPoint(-80.035568, 9.432302, SpatialReferences.Wgs84);
+            Polyline line = new Polyline(new MapPoint[] { point1, point2 });
             lineFeature.Geometry = line;
 
             // Create a new polygon feature, provide geometry and attribute values
-            var polyFeature = polysTable.CreateFeature();
+            Feature polyFeature = polysTable.CreateFeature();
             polyFeature.SetAttributeValue(areaField, "Restricted area");
-            var point3 = new MapPoint(-79.337936, 8.638903, SpatialReferences.Wgs84);
-            var point4 = new MapPoint(-79.11409, 8.895422, SpatialReferences.Wgs84);
-            var poly = new Polygon(new MapPoint[] { point1, point3, point4 });
+            MapPoint point3 = new MapPoint(-79.337936, 8.638903, SpatialReferences.Wgs84);
+            MapPoint point4 = new MapPoint(-79.11409, 8.895422, SpatialReferences.Wgs84);
+            Polygon poly = new Polygon(new MapPoint[] { point1, point3, point4 });
             polyFeature.Geometry = poly;
 
             // Add the new features to the appropriate feature collection table 
@@ -105,16 +105,16 @@ namespace ArcGISRuntimeXamarin.Samples.CreateFeatureCollectionLayer
             await polysTable.AddFeatureAsync(polyFeature);
 
             // Create a feature collection and add the feature collection tables
-            var featuresCollection = new FeatureCollection();
+            FeatureCollection featuresCollection = new FeatureCollection();
             featuresCollection.Tables.Add(pointsTable);
             featuresCollection.Tables.Add(linesTable);
             featuresCollection.Tables.Add(polysTable);
 
             // Create a FeatureCollectionLayer 
-            var collectionLayer = new FeatureCollectionLayer(featuresCollection);
+            FeatureCollectionLayer collectionLayer = new FeatureCollectionLayer(featuresCollection);
 
-            // Zoom the map view to the extent of the feature collection
-            collectionLayer.Loaded += (s,e) => MyMapView.SetViewpointAsync(new Viewpoint(collectionLayer.FullExtent));
+            // When the layer loads, zoom the map view to the extent of the feature collection
+            collectionLayer.Loaded += (s, e) => MyMapView.SetViewpointAsync(new Viewpoint(collectionLayer.FullExtent));
 
             // Add the layer to the Map's Operational Layers collection
             MyMapView.Map.OperationalLayers.Add(collectionLayer);

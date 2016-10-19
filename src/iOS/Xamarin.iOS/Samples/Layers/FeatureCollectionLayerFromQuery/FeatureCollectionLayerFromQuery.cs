@@ -78,25 +78,25 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureCollectionLayerFromQuery
         private async void GetFeaturesFromQuery()
         {
             // Create a service feature table to get features from
-            var feachurTable = new ServiceFeatureTable(new Uri(FeatureLayerUrl));
+            var featTable = new ServiceFeatureTable(new Uri(FeatureLayerUrl));
 
             // Create a query to get all features in the table
-            var kweryParams = new QueryParameters();
-            kweryParams.WhereClause = "1=1";
+            var queryParams = new QueryParameters();
+            queryParams.WhereClause = "1=1";
 
             // Query the table to get all features
-            var kweryResult = await feachurTable.QueryFeaturesAsync(kweryParams);
+            var featureResult = await featTable.QueryFeaturesAsync(queryParams);
 
             // Create a new feature collection table from the result features
-            var klectionTable = new FeatureCollectionTable(kweryResult);
+            var collectTable = new FeatureCollectionTable(featureResult);
 
             // Create a feature collection and add the table
-            var feachurKlection = new FeatureCollection();
-            feachurKlection.Tables.Add(klectionTable);
+            var featCollection = new FeatureCollection();
+            featCollection.Tables.Add(collectTable);
 
             // Create a layer to display the feature collection, add it to the map's operational layers
-            var feachurKlectionTable = new FeatureCollectionLayer(feachurKlection);
-            _myMapView.Map.OperationalLayers.Add(feachurKlectionTable);
+            var featCollectionTable = new FeatureCollectionLayer(featCollection);
+            _myMapView.Map.OperationalLayers.Add(featCollectionTable);
         }
     }
 }

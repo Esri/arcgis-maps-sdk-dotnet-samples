@@ -2,7 +2,7 @@
     x:Class="OAuth.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:esriUI="using:Esri.ArcGISRuntime.UI"
+    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls"
     xmlns:mapping="using:Esri.ArcGISRuntime.Mapping">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">

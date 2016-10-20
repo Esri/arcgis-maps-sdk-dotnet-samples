@@ -8,9 +8,6 @@ NotInheritable Class App
     ''' Initializes a new instance of the App class.
     ''' </summary>
     Public Sub New()
-        Microsoft.ApplicationInsights.WindowsAppInitializer.InitializeAsync(
-            Microsoft.ApplicationInsights.WindowsCollectors.Metadata Or
-            Microsoft.ApplicationInsights.WindowsCollectors.Session)
         InitializeComponent()
     End Sub
 

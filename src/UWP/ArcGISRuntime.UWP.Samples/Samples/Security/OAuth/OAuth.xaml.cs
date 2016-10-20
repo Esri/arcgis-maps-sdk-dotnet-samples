@@ -92,14 +92,14 @@ namespace OAuth
             try
             {
                 // Connect to a portal (ArcGIS Online, for example)
-                var arcgisPortal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
+                ArcGISPortal arcgisPortal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
 
                 // Get a web map portal item using its ID
                 // If the item is secured (not shared publicly) the user will be challenged for credentials at this point
-                var portalItem = await PortalItem.CreateAsync(arcgisPortal, WebMapId);
+                PortalItem portalItem = await PortalItem.CreateAsync(arcgisPortal, WebMapId);
 
                 // Create a new map with the portal item
-                var myMap = new Map(portalItem);
+                Map myMap = new Map(portalItem);
 
                 // Assign the map to the MapView.Map property to display it in the app
                 MyMapView.Map = myMap;

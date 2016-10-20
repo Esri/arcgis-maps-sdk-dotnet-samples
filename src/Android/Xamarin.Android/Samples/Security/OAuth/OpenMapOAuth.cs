@@ -35,10 +35,10 @@ namespace ArcGISRuntimeXamarin.Samples.OpenMapOAuth
         private const string PortalUrl = "https://www.arcgis.com/sharing/rest";
 
         // TODO: Add item ID for a web map on the portal (secured with OAuth)
-        private const string WebMapId = "";
+        private const string WebMapId = "72b6671b89194220b44c4361a17f4fcb";
 
         // TODO: Add Client ID for an app registered with the portal
-        private const string AppClientId = "";
+        private const string AppClientId = "2Gh53JRzkPtOENQq";
 
         // TODO: [optional] Provide the client secret for the app (only needed for the OAuthAuthorizationCode auth type)
         private const string ClientSecret = "";
@@ -71,26 +71,6 @@ namespace ArcGISRuntimeXamarin.Samples.OpenMapOAuth
             _myMapView.Map = myMap;
         }
 
-        private void CreateLayout()
-        {                        
-            // Create a button to load the web map from the portal
-            var loadMapButton = new Button(this);
-            loadMapButton.Text = "Open web map";
-            loadMapButton.Click += OnLoadMapClicked;
-            
-            // Create a new vertical layout for the app (button followed by map view)
-            var mainLayout = new LinearLayout(this) { Orientation = Orientation.Vertical };
-
-            // Add the load map button
-            mainLayout.AddView(loadMapButton);
-
-            // Add the map view to the layout
-            mainLayout.AddView(_myMapView);
-
-            // Show the layout in the app
-            SetContentView(mainLayout);
-        }
-        
         private async void OnLoadMapClicked(object sender, EventArgs e)
         {
             // Challenge the user for portal credentials
@@ -114,10 +94,10 @@ namespace ArcGISRuntimeXamarin.Samples.OpenMapOAuth
                 await thisAuthenticationManager.GetCredentialAsync(loginInfo, false);
 
                 // Access the portal
-                var portal = await ArcGISPortal.CreateAsync(new Uri(PortalUrl));
+                ArcGISPortal portal = await ArcGISPortal.CreateAsync(new Uri(PortalUrl));
 
                 // Get the item (web map) from the portal
-                var item = await PortalItem.CreateAsync(portal, WebMapId);
+                PortalItem item = await PortalItem.CreateAsync(portal, WebMapId);
 
                 // Make sure it's a web map
                 if (item.Type != PortalItemType.WebMap)
@@ -126,7 +106,7 @@ namespace ArcGISRuntimeXamarin.Samples.OpenMapOAuth
                 }
 
                 // Display the web map in the map view
-                var webMap = new Map(item);
+                Map webMap = new Map(item);
                 _myMapView.Map = webMap;
             }
             catch (System.OperationCanceledException)
@@ -145,6 +125,26 @@ namespace ArcGISRuntimeXamarin.Samples.OpenMapOAuth
                 alertBuilder.SetMessage(ex.Message);
                 alertBuilder.Show();
             }
+        }
+
+        private void CreateLayout()
+        {
+            // Create a button to load the web map from the portal
+            var loadMapButton = new Button(this);
+            loadMapButton.Text = "Open web map";
+            loadMapButton.Click += OnLoadMapClicked;
+
+            // Create a new vertical layout for the app (button followed by map view)
+            var mainLayout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+
+            // Add the load map button
+            mainLayout.AddView(loadMapButton);
+
+            // Add the map view to the layout
+            mainLayout.AddView(_myMapView);
+
+            // Show the layout in the app
+            SetContentView(mainLayout);
         }
 
         #region OAuth helpers

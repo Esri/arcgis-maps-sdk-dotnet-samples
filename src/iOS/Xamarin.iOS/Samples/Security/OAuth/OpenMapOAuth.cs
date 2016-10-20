@@ -68,41 +68,13 @@ namespace ArcGISRuntimeXamarin.Samples.OpenMapOAuth
         private void Initialize()
         {
             // Create new Map with a light gray canvas basemap
-            var myMap = new Map(Basemap.CreateLightGrayCanvas());
+            Map myMap = new Map(Basemap.CreateLightGrayCanvas());
 
             // Add the Map to the MapView
             _myMapView.Map = myMap;
 
             // Set up the challenge handler and OAuth authorization 
             UpdateAuthenticationManager();
-        }
-
-        private void CreateLayout()
-        {
-            // Define an offset from the top of the page (to account for the iOS status bar)
-            var yPageOffset = 60;
-
-            // Create a new MapView control
-            _myMapView = new MapView();
-            
-            // Define the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height - yPageOffset);
-
-
-            // Add a button control to add a portal web map
-            var loadMapButton = new UIBarButtonItem() { Title = "Load Web Map", Style = UIBarButtonItemStyle.Plain, Enabled = true };
-
-            // Handle the button click event
-            loadMapButton.Clicked += OnLoadMapClicked;
-            
-            // Add the button to the toolbar
-            SetToolbarItems(new UIBarButtonItem[] {loadMapButton}, false);
-
-            // Show the toolbar
-            NavigationController.ToolbarHidden = false;        
-
-            // Add the MapView 
-            View.AddSubviews(_myMapView);
         }
 
         private async void OnLoadMapClicked(object sender, EventArgs e)
@@ -128,10 +100,10 @@ namespace ArcGISRuntimeXamarin.Samples.OpenMapOAuth
                 await thisAuthenticationManager.GetCredentialAsync(loginInfo, false);
 
                 // Access the portal
-                var portal = await ArcGISPortal.CreateAsync(new Uri(PortalUrl));
+                ArcGISPortal portal = await ArcGISPortal.CreateAsync(new Uri(PortalUrl));
 
                 // Get the item (web map) from the portal
-                var item = await PortalItem.CreateAsync(portal, WebMapId);
+                PortalItem item = await PortalItem.CreateAsync(portal, WebMapId);
 
                 // Make sure it's a web map
                 if (item.Type != PortalItemType.WebMap)
@@ -140,23 +112,51 @@ namespace ArcGISRuntimeXamarin.Samples.OpenMapOAuth
                 }
 
                 // Display the web map in the map view
-                var webMap = new Map(item);
+                Map webMap = new Map(item);
                 _myMapView.Map = webMap;
             }
             catch (OperationCanceledException)
             {
                 // User canceled the login
-                UIAlertController alert = UIAlertController.Create("Cancel", "Portal login was canceled.", UIAlertControllerStyle.Alert);
+                var alert = UIAlertController.Create("Cancel", "Portal login was canceled.", UIAlertControllerStyle.Alert);
                 alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                 PresentViewController(alert, true, null);
             }
             catch (Exception ex)
             {
                 // Other exception
-                UIAlertController alert = UIAlertController.Create("Error", ex.Message, UIAlertControllerStyle.Alert);
+                var alert = UIAlertController.Create("Error", ex.Message, UIAlertControllerStyle.Alert);
                 alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                 PresentViewController(alert, true, null);
             }
+        }
+
+        private void CreateLayout()
+        {
+            // Define an offset from the top of the page (to account for the iOS status bar)
+            var yPageOffset = 60;
+
+            // Create a new MapView control
+            _myMapView = new MapView();
+
+            // Define the visual frame for the MapView
+            _myMapView.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height - yPageOffset);
+
+
+            // Add a button control to add a portal web map
+            var loadMapButton = new UIBarButtonItem() { Title = "Load Web Map", Style = UIBarButtonItemStyle.Plain, Enabled = true };
+
+            // Handle the button click event
+            loadMapButton.Clicked += OnLoadMapClicked;
+
+            // Add the button to the toolbar
+            SetToolbarItems(new UIBarButtonItem[] { loadMapButton }, false);
+
+            // Show the toolbar
+            NavigationController.ToolbarHidden = false;
+
+            // Add the MapView 
+            View.AddSubviews(_myMapView);
         }
 
         #region OAuth helpers

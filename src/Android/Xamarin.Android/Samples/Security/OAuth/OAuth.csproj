@@ -44,7 +44,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Esri.ArcGISRuntime, Version=100.0.0.0, Culture=neutral, PublicKeyToken=29c6dd6e8553d944, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.0.0.1473-beta\lib\MonoAndroid10\Esri.ArcGISRuntime.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.0.0\lib\MonoAndroid10\Esri.ArcGISRuntime.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Mono.Android" />

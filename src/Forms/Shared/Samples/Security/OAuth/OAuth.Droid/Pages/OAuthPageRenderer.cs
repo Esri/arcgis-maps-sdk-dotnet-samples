@@ -46,7 +46,7 @@ namespace ArcGISRuntimeXamarin.Forms.Droid
             UpdateAuthenticationManager();
 
             // Force an OAuth challenge
-            var info = new CredentialRequestInfo
+            CredentialRequestInfo info = new CredentialRequestInfo
             {
                 AuthenticationType = AuthenticationType.Token,
                 ServiceUri = new Uri(OAuthPage.PortalUrl)
@@ -54,15 +54,15 @@ namespace ArcGISRuntimeXamarin.Forms.Droid
             await AuthenticationManager.Current.GetCredentialAsync(info, false);
 
             // Open the desired web map (portal item)
-            var portal = await ArcGISPortal.CreateAsync(new Uri(OAuthPage.PortalUrl));
-            var item = await PortalItem.CreateAsync(portal, OAuthPage.WebMapId);
+            ArcGISPortal portal = await ArcGISPortal.CreateAsync(new Uri(OAuthPage.PortalUrl));
+            PortalItem item = await PortalItem.CreateAsync(portal, OAuthPage.WebMapId);
 
             // Create a map
-            var map = new Map(item);
+            Map myMap = new Map(item);
 
             // Set the MyMap property on the shared form to display the map in the map view
             var oauthPage = e.NewElement as OAuthPage;
-            oauthPage.MyMap = map;
+            oauthPage.MyMap = myMap;
         }
 
         protected override void OnLayout(bool changed, int l, int t, int r, int b)

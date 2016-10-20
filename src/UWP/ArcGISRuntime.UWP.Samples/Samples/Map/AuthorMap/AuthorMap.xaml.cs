@@ -110,7 +110,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
                 myMap.InitialViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
 
                 // See if the map has already been saved (has an associated portal item)
-                if (myMap.ArcGISItem == null)
+                if (myMap.Item == null)
                 {
                     // Get information for the new portal item
                     var title = TitleTextBox.Text;
@@ -136,7 +136,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
                     await myMap.SaveAsync();
 
                     // Report update was successful
-                    var messageDialog = new MessageDialog("Saved changes to '" + myMap.ArcGISItem.Title + "'", "Updates Saved");
+                    var messageDialog = new MessageDialog("Saved changes to '" + myMap.Item.Title + "'", "Updates Saved");
                     await messageDialog.ShowAsync();
                 }
 
@@ -272,7 +272,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
             try
             {
                 // Get the map's portal item
-                PortalItem newPortalItem = MyMapView.Map.ArcGISItem as PortalItem;
+                PortalItem newPortalItem = MyMapView.Map.Item as PortalItem;
 
                 // Open the image file (stored in the device's Pictures folder)
                 var mapImageFile = await KnownFolders.PicturesLibrary.GetFileAsync(imageFileName);
@@ -282,14 +282,11 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
                     // Get a thumbnail image (scaled down version) of the original
                     var thumbnailData = await mapImageFile.GetScaledImageAsThumbnailAsync(0);
 
-                    // Create a new ArcGISPortalItemContent object to contain the thumbnail image
-                    ItemContent portalItemContent = new ItemContent();
-
-                    // Assign the thumbnail data (stream) to the content object
-                    portalItemContent.Thumbnail = thumbnailData.AsStreamForRead();
+                    // Assign the thumbnail data (file stream) to the content object
+                    newPortalItem.SetThumbnailWithImage(thumbnailData.AsStreamForRead());
 
                     // Update the portal item with the new content (just the thumbnail will be updated)
-                    await newPortalItem.UpdateAsync(portalItemContent);
+                    await newPortalItem.UpdateItemPropertiesAsync();
 
                     // Delete the map image file from disk
                     mapImageFile.DeleteAsync();

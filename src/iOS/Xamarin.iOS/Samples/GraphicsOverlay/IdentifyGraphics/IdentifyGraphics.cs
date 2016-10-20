@@ -93,13 +93,15 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyGraphics
         {
             var tolerance = 10d; // Use larger tolerance for touch
             var maximumResults = 1; // Only return one graphic  
-            var identifyReturns = IdentifyReturns.GeoElementsOnly; // Only return geoelements
+            var onlyReturnPopups = false; // Don't only return popups
 
             // Use the following method to identify graphics in a specific graphics overlay
             IdentifyGraphicsOverlayResult identifyResults = await _myMapView.IdentifyGraphicsOverlayAsync(
                  _polygonOverlay,
                  e.Position,
-                 tolerance, identifyReturns, maximumResults);
+                 tolerance, 
+                 onlyReturnPopups, 
+                 maximumResults);
 
             // Check if we got results
             if (identifyResults.Graphics.Count > 0)

@@ -69,15 +69,18 @@ Namespace IdentifyGraphics
         End Sub
 
         Private Async Sub OnMapViewTapped(sender As Object, e As GeoViewInputEventArgs)
-            Dim tolerance = 10.0
             ' Use larger tolerance for touch
-            Dim maximumResults = 1
+            Dim tolerance = 10.0
+
             ' Only return one graphic  
-            Dim identifyReturns__1 = IdentifyReturns.GeoElementsOnly
-            ' Only return geoelements
+            Dim maximumResults = 1
+
+            ' Don't return only popups
+            Dim onlyReturnPopups As Boolean = False
+
             ' Use the following method to identify graphics in a specific graphics overlay
             Dim identifyResults As IdentifyGraphicsOverlayResult =
-                Await MyMapView.IdentifyGraphicsOverlayAsync(_polygonOverlay, e.Position, tolerance, identifyReturns__1, maximumResults)
+                Await MyMapView.IdentifyGraphicsOverlayAsync(_polygonOverlay, e.Position, tolerance, onlyReturnPopups, maximumResults)
 
             ' Check if we got results
             If identifyResults.Graphics.Count > 0 Then

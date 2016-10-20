@@ -104,7 +104,7 @@ Namespace AuthorMap
                 myMap.InitialViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry)
 
                 ' See if the map has already been saved (has an associated portal item)
-                If myMap.ArcGISItem Is Nothing Then
+                If myMap.Item Is Nothing Then
                     ' Get information for the New portal item
                     Dim title As String = TitleTextBox.Text
                     Dim description As String = DescriptionTextBox.Text
@@ -124,7 +124,7 @@ Namespace AuthorMap
                     Await myMap.SaveAsync()
 
                     ' Report update was successful
-                    MessageBox.Show("Saved changes to '" + myMap.ArcGISItem.Title + "'", "Updates Saved")
+                    MessageBox.Show("Saved changes to '" + myMap.Item.Title + "'", "Updates Saved")
                 End If
 
                 ' Update the portal item thumbnail with the current map image
@@ -259,19 +259,16 @@ Namespace AuthorMap
             ' Update the portal item with the thumbnail image passed in
             Try
                 ' Get the map's portal item
-                Dim newPortalItem As PortalItem = TryCast(MyMapView.Map.ArcGISItem, PortalItem)
+                Dim newPortalItem As PortalItem = TryCast(MyMapView.Map.Item, PortalItem)
 
                 ' Open the image file
                 Dim thumbnailData = New FileStream(thumbnailImagePath, FileMode.Open)
 
-                ' Create a new ArcGISPortalItemContent object to contain the thumbnail
-                Dim portalItemContent As New ItemContent()
-
                 ' Assign the thumbnail data (file stream) to the content object
-                portalItemContent.Thumbnail = thumbnailData
+                newPortalItem.SetThumbnailWithImage(thumbnailData)
 
                 ' Update the portal item with the new content (just the thumbnail will be updated)
-                Await newPortalItem.UpdateAsync(portalItemContent)
+                Await newPortalItem.UpdateItemPropertiesAsync()
 
                 ' Close the stream and delete the local jpg file from disk
                 thumbnailData.Close()

@@ -1,0 +1,13 @@
+{
+  "Name": "Create a new feature collection layer",
+  "SampleName": "CreateFeatureCollectionLayer",
+  "Description": "This samples demonstrates how to create a new feature collection with several feature collection tables. The collection is displayed in the map as a feature collection layer.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": false,
+  "RequiresLocalServer": false,
+  "Image": "CreateFeatureCollectionLayer.jpg",
+  "Link": "",
+  "TypeLink": [ "T:Esri.ArcGISRuntime.Data.FeatureCollection", "T:Esri.ArcGISRuntime.Data.FeatureCollectionTable", "T:Esri.ArcGISRuntime.Mapping.FeatureCollectionLayer" ]
+}

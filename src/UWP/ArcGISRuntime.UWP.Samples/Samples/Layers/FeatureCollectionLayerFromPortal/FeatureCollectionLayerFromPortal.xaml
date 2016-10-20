@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="ArcGISRuntime.UWP.Samples.FeatureCollectionLayerFromPortal.FeatureCollectionLayerFromPortal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Create a feature collection layer:"
+                       Grid.Row="0" Grid.Column="1"
+                       VerticalAlignment="Center" HorizontalAlignment="Center"
+                       Margin="20,0"/>
+            <StackPanel Grid.Row="1" 
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center" HorizontalAlignment="Center"
+                        Margin="20,0"
+                        Height="30" Width="320">
+                <TextBlock Text="Item Id:"
+                           VerticalAlignment="Center"/>
+                <TextBox x:Name="CollectionItemIdTextBox" 
+                         Margin="6,0"
+                         VerticalAlignment="Center"
+                         Height="30" Width="240"/>
+            </StackPanel>
+            <Button x:Name="OpenPortalFeatureCollectionButton" 
+                    Click="OpenPortalFeatureCollectionClick"
+                    Content="Open from portal item"
+                    VerticalAlignment="Center" HorizontalAlignment="Center"
+                    Grid.Row="2"
+                    Height="30" Width="250"/>
+        </Grid>
+        <esriUI:MapView x:Name="MyMapView"
+                      Grid.Row="1"/>
+    </Grid>
+</UserControl>

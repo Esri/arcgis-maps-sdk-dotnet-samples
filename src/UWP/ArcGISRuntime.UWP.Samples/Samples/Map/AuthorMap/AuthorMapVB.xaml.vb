@@ -139,7 +139,7 @@ Namespace AuthorMap
                 myMap.InitialViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry)
 
                 ' See if the map has already been saved (has an associated portal item)
-                If myMap.ArcGISItem Is Nothing Then
+                If myMap.Item Is Nothing Then
                     ' Get information for the New portal item
                     Dim title As String = TitleTextBox.Text
                     Dim description As String = DescriptionTextBox.Text
@@ -160,7 +160,7 @@ Namespace AuthorMap
                     Await myMap.SaveAsync()
 
                     ' Report update was successful
-                    Dim dialog As MessageDialog = New MessageDialog("Saved changes to '" + myMap.ArcGISItem.Title + "'", "Updates Saved")
+                    Dim dialog As MessageDialog = New MessageDialog("Saved changes to '" + myMap.Item.Title + "'", "Updates Saved")
                     Await dialog.ShowAsync
                 End If
 
@@ -222,7 +222,7 @@ Namespace AuthorMap
             ' Update the portal item with a thumbnail image of the current map
             Try
                 ' Get the map's portal item
-                Dim newPortalItem As PortalItem = MyMapView.Map.ArcGISItem
+                Dim newPortalItem As PortalItem = MyMapView.Map.Item
 
                 ' Open the image file (stored in the device's Pictures folder)
                 Dim mapImageFile As StorageFile = Await KnownFolders.PicturesLibrary.GetFileAsync(imageFileName)
@@ -231,14 +231,11 @@ Namespace AuthorMap
                     ' Get a thumbnail image (scaled down version) of the original
                     Dim thumbnailData As StorageItemThumbnail = Await mapImageFile.GetScaledImageAsThumbnailAsync(0)
 
-                    ' Create a New ArcGISPortalItemContent object to contain the thumbnail image
-                    Dim portalItemContent As ItemContent = New ItemContent()
+                    ' Assign the thumbnail data (file stream) to the content object
+                    newPortalItem.SetThumbnailWithImage(thumbnailData.AsStreamForRead())
 
-                    ' Assign the thumbnail data (stream) to the content object
-                    portalItemContent.Thumbnail = thumbnailData.AsStreamForRead()
-
-                    ' Update the portal item with the New content (just the thumbnail will be updated)
-                    Await newPortalItem.UpdateAsync(portalItemContent)
+                    ' Update the portal item with the new content (just the thumbnail will be updated)
+                    Await newPortalItem.UpdateItemPropertiesAsync()
 
                     ' Delete the map image file from disk
                     Await mapImageFile.DeleteAsync()

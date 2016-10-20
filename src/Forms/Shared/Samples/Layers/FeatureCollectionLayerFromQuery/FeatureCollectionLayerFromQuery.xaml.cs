@@ -34,8 +34,8 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureCollectionLayerFromQuery
             try
             {
                 // Create a new map with the oceans basemap and add it to the map view
-                var map = new Map(Basemap.CreateOceans());
-                MyMapView.Map = map;
+                Map myMap = new Map(Basemap.CreateOceans());
+                MyMapView.Map = myMap;
 
                 // Call a function that will create a new feature collection layer from a service query
                 GetFeaturesFromQuery();
@@ -49,24 +49,24 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureCollectionLayerFromQuery
         private async void GetFeaturesFromQuery()
         {
             // Create a service feature table to get features from
-            var featTable = new ServiceFeatureTable(new Uri(FeatureLayerUrl));
+            ServiceFeatureTable featTable = new ServiceFeatureTable(new Uri(FeatureLayerUrl));
 
             // Create a query to get all features in the table
-            var queryParams = new QueryParameters();
+            QueryParameters queryParams = new QueryParameters();
             queryParams.WhereClause = "1=1";
 
             // Query the table to get all features
-            var featureResult = await featTable.QueryFeaturesAsync(queryParams);
+            FeatureQueryResult featureResult = await featTable.QueryFeaturesAsync(queryParams);
 
             // Create a new feature collection table from the result features
-            var collectTable = new FeatureCollectionTable(featureResult);
+            FeatureCollectionTable collectTable = new FeatureCollectionTable(featureResult);
 
             // Create a feature collection and add the table
-            var featCollection = new FeatureCollection();
+            FeatureCollection featCollection = new FeatureCollection();
             featCollection.Tables.Add(collectTable);
 
             // Create a layer to display the feature collection, add it to the map's operational layers
-            var featCollectionTable = new FeatureCollectionLayer(featCollection);
+            FeatureCollectionLayer featCollectionTable = new FeatureCollectionLayer(featCollection);
             MyMapView.Map.OperationalLayers.Add(featCollectionTable);
         }
     }

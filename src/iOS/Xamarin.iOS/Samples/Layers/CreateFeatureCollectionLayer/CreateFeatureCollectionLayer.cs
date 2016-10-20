@@ -47,8 +47,8 @@ namespace ArcGISRuntimeXamarin.Samples.CreateFeatureCollectionLayer
             try
             {
                 // Create a new map with the oceans basemap and add it to the map view
-                var map = new Map(Basemap.CreateOceans());
-                _myMapView.Map = map;
+                Map myMap = new Map(Basemap.CreateOceans());
+                _myMapView.Map = myMap;
 
                 // Call a function that will create a new feature collection layer and zoom to it
                 CreateNewFeatureCollection();
@@ -58,22 +58,6 @@ namespace ArcGISRuntimeXamarin.Samples.CreateFeatureCollectionLayer
                 UIAlertView alert = new UIAlertView("Error", "Unable to create feature collection layer: " + ex.Message, null, "OK");
                 alert.Show();
             }
-        }
-
-        private void CreateLayout()
-        {
-            // Define an offset from the top of the page (to account for the iOS status bar)
-            var yPageOffset = 60;
-
-            // Create a new MapView
-            _myMapView = new MapView();
-
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(
-                0, yPageOffset + 40, View.Bounds.Width, View.Bounds.Height - yPageOffset - 40);            
-
-            // Add the MapView to the page
-            View.AddSubview(_myMapView);
         }
 
         private async void CreateNewFeatureCollection()
@@ -173,5 +157,22 @@ namespace ArcGISRuntimeXamarin.Samples.CreateFeatureCollectionLayer
             // Return a new renderer that uses the symbol created above
             return new SimpleRenderer(sym);
         }
+
+        private void CreateLayout()
+        {
+            // Define an offset from the top of the page (to account for the iOS status bar)
+            var yPageOffset = 60;
+
+            // Create a new MapView
+            _myMapView = new MapView();
+
+            // Setup the visual frame for the MapView
+            _myMapView.Frame = new CoreGraphics.CGRect(
+                0, yPageOffset + 40, View.Bounds.Width, View.Bounds.Height - yPageOffset - 40);
+
+            // Add the MapView to the page
+            View.AddSubview(_myMapView);
+        }
+
     }
 }

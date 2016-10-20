@@ -35,8 +35,8 @@ namespace ArcGISRuntime.UWP.Samples.FeatureCollectionLayerFromPortal
             CollectionItemIdTextBox.Text = FeatureCollectionItemId;
 
             // Create a new map with the oceans basemap and add it to the map view
-            var map = new Map(Basemap.CreateOceans());
-            MyMapView.Map = map;
+            Map myMap = new Map(Basemap.CreateOceans());
+            MyMapView.Map = myMap;
         }
 
         private async void OpenFeaturesFromArcGISOnline(string itemId)
@@ -44,17 +44,17 @@ namespace ArcGISRuntime.UWP.Samples.FeatureCollectionLayerFromPortal
             try
             {
                 // Open a portal item containing a feature collection
-                var portal = await ArcGISPortal.CreateAsync();
-                var collectionItem = await PortalItem.CreateAsync(portal, itemId);
+                ArcGISPortal portal = await ArcGISPortal.CreateAsync();
+                PortalItem collectionItem = await PortalItem.CreateAsync(portal, itemId);
 
                 // Verify that the item is a feature collection
                 if (collectionItem.Type == PortalItemType.FeatureCollection)
                 {
                     // Create a new FeatureCollection from the item
-                    var featureCollection = new FeatureCollection(collectionItem);
+                    FeatureCollection featureCollection = new FeatureCollection(collectionItem);
 
                     // Create a layer to display the collection and add it to the map as an operational layer
-                    var featureCollectionLayer = new FeatureCollectionLayer(featureCollection);
+                    FeatureCollectionLayer featureCollectionLayer = new FeatureCollectionLayer(featureCollection);
                     featureCollectionLayer.Name = collectionItem.Title;
 
                     MyMapView.Map.OperationalLayers.Add(featureCollectionLayer);

@@ -23,7 +23,6 @@ Namespace CreateFeatureCollectionLayer
             Initialize()
         End Sub
 
-
         Private Sub Initialize()
             Try
                 ' Create a New map with the oceans basemap And add it to the map view

@@ -12,7 +12,6 @@ using Android.OS;
 using Android.Widget;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
-
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -45,8 +44,8 @@ namespace ArcGISRuntimeXamarin.Samples.CreateFeatureCollectionLayer
             try
             {
                 // Create a new map with the oceans basemap and add it to the map view
-                var map = new Map(Basemap.CreateOceans());
-                _myMapView.Map = map;
+                Map myMap = new Map(Basemap.CreateOceans());
+                _myMapView.Map = myMap;
 
                 // Call a function that will create a new feature collection layer and zoom to it
                 CreateNewFeatureCollection();
@@ -60,22 +59,10 @@ namespace ArcGISRuntimeXamarin.Samples.CreateFeatureCollectionLayer
             }
         }
 
-        private void CreateLayout()
-        {
-            // Create a new layout
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
-
-            // Add the map view to the layout
-            layout.AddView(_myMapView);
-
-            // Show the layout in the app
-            SetContentView(layout);
-        }
-
         private async void CreateNewFeatureCollection()
         {
             // Create the schema for a points table (one text field to contain a name attribute)
-            var pointFields = new List<Field>();
+            List<Field> pointFields = new List<Field>();
             Field placeField = new Field(FieldType.Text, "Place", "Place Name", 50);
             pointFields.Add(placeField);
 
@@ -169,5 +156,18 @@ namespace ArcGISRuntimeXamarin.Samples.CreateFeatureCollectionLayer
             // Return a new renderer that uses the symbol created above
             return new SimpleRenderer(sym);
         }
+
+        private void CreateLayout()
+        {
+            // Create a new layout
+            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+
+            // Add the map view to the layout
+            layout.AddView(_myMapView);
+
+            // Show the layout in the app
+            SetContentView(layout);
+        }
+
     }
 }

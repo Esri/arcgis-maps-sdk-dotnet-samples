@@ -42,29 +42,8 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureCollectionLayerFromPortal
 
             // Initialize the app
             Initialize();
-        }        
-
-        private void CreateLayout()
-        {
-            // Create a new layout
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
-
-            // Create a button to load features from a portal item, add it to the layout
-            var loadFeaturesButton = new Button(this) { Text = "Load features" };
-            loadFeaturesButton.Click += OpenPortalFeatureCollectionClick;
-            layout.AddView(loadFeaturesButton);
-
-            // Create an edit text for the user to enter a portal item Id
-            _portalItemIdEditText = new EditText(this);
-            _portalItemIdEditText.Hint = "Portal Item Id";
-            layout.AddView(_portalItemIdEditText);
-
-            // Add the map view to the layout
-            layout.AddView(_myMapView);
-
-            // Show the layout in the app
-            SetContentView(layout);
         }
+
         private void Initialize()
         {
             // Add a default value for the portal item Id
@@ -129,6 +108,28 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureCollectionLayerFromPortal
 
             // Call a function to add the feature collection from the specified portal item
             OpenFeaturesFromArcGISOnline(collectionItemId);
+        }
+
+        private void CreateLayout()
+        {
+            // Create a new layout
+            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+
+            // Create a button to load features from a portal item, add it to the layout
+            var loadFeaturesButton = new Button(this) { Text = "Load features" };
+            loadFeaturesButton.Click += OpenPortalFeatureCollectionClick;
+            layout.AddView(loadFeaturesButton);
+
+            // Create an edit text for the user to enter a portal item Id
+            _portalItemIdEditText = new EditText(this);
+            _portalItemIdEditText.Hint = "Portal Item Id";
+            layout.AddView(_portalItemIdEditText);
+
+            // Add the map view to the layout
+            layout.AddView(_myMapView);
+
+            // Show the layout in the app
+            SetContentView(layout);
         }
     }
 }

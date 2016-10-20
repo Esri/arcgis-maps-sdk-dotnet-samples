@@ -75,7 +75,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateFeatureCollectionLayer
         private async void CreateNewFeatureCollection()
         {
             // Create the schema for a points table (one text field to contain a name attribute)
-            List<Field> pointFields = new List<Field>();
+            var pointFields = new List<Field>();
             Field placeField = new Field(FieldType.Text, "Place", "Place Name", 50);
             pointFields.Add(placeField);
 
@@ -93,7 +93,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateFeatureCollectionLayer
             FeatureCollectionTable pointsTable = new FeatureCollectionTable(pointFields, GeometryType.Point, SpatialReferences.Wgs84);
             FeatureCollectionTable linesTable = new FeatureCollectionTable(lineFields, GeometryType.Polyline, SpatialReferences.Wgs84);
             FeatureCollectionTable polysTable = new FeatureCollectionTable(polyFields, GeometryType.Polygon, SpatialReferences.Wgs84);
-
+            
             // Set rendering for each table
             pointsTable.Renderer = CreateRenderer(GeometryType.Point);
             linesTable.Renderer = CreateRenderer(GeometryType.Polyline);

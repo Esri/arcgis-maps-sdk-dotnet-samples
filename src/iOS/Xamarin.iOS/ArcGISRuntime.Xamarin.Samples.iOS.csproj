@@ -257,7 +257,7 @@
     <EmbeddedResource Include="Samples\Map\ManageBookmarks\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <BundleResource Include="Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json" />
     <BundleResource Include="Samples\MapView\ShowMagnifier\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\CreateFeatureCollectionLayer\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

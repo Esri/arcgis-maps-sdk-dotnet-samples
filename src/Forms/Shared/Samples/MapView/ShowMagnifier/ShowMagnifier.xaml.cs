@@ -30,7 +30,7 @@ namespace ArcGISRuntimeXamarin.Samples.ShowMagnifier
             Map myMap = new Map(BasemapType.Topographic, 34.056295, -117.195800, 10);
 
             // Enable magnifier
-            MyMapView.IsMagnifierEnabled = true;
+            MyMapView.InteractionOptions.IsMagnifierEnabled = true;
 
             // Assign the map to the MapView
             MyMapView.Map = myMap;

@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
+using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -151,7 +152,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
                     var mapImage = await MyMapView.ExportImageAsync();
 
                     // Call a function that writes a temporary jpeg file of the map
-                    var imagePath = await WriteTempThumbnailImageAsync(mapImage);
+                    var imagePath = await WriteTempThumbnailImageAsync(await RuntimeImageExtensions.ToImageSourceAsync(mapImage));
 
                     // Call a function to update the portal item's thumbnail with the image
                     UpdatePortalItemThumbnailAsync(imagePath);

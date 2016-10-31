@@ -9,6 +9,7 @@
 
 Imports System.Windows
 Imports Esri.ArcGISRuntime.Mapping
+Imports Esri.ArcGISRuntime.UI
 
 Namespace TakeScreenshot
     Partial Public Class TakeScreenshotVB
@@ -29,7 +30,7 @@ Namespace TakeScreenshot
 
         Private Async Sub OnScreenshotButtonClicked(sender As Object, e As RoutedEventArgs)
             ' Export the image from mapview and assign it to the imageview
-            imageView.Source = Await MyMapView.ExportImageAsync()
+            imageView.Source = Await RuntimeImageExtensions.ToImageSourceAsync(Await MyMapView.ExportImageAsync())
         End Sub
     End Class
 End Namespace

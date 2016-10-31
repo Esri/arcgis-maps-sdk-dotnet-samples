@@ -7,6 +7,7 @@
 ' "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 ' language governing permissions and limitations under the License.
 
+Imports System.Windows.Media.Imaging
 Imports Esri.ArcGISRuntime.Geometry
 Imports Esri.ArcGISRuntime.Mapping
 Imports Esri.ArcGISRuntime.Symbology
@@ -57,7 +58,8 @@ Namespace RenderPictureMarkers
                 "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0/images/e82f744ebb069bb35b234b3fea46deae")
 
             ' Create new symbol using asynchronous factory method from uri
-            Dim campsiteSymbol As PictureMarkerSymbol = Await PictureMarkerSymbol.CreateAsync(symbolUri)
+            Dim bitmapSource As BitmapSource = New BitmapImage(symbolUri)
+            Dim campsiteSymbol As PictureMarkerSymbol = New PictureMarkerSymbol(Await RuntimeImageExtensions.ToRuntimeImageAsync(bitmapSource))
 
             ' Optionally set the size (if not set, the size in pixels of the image will be used)
             campsiteSymbol.Height = 18

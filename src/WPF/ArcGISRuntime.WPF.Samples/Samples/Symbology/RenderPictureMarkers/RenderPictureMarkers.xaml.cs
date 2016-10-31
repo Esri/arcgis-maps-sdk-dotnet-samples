@@ -15,6 +15,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 namespace ArcGISRuntime.WPF.Samples.RenderPictureMarkers
 {
@@ -61,7 +62,8 @@ namespace ArcGISRuntime.WPF.Samples.RenderPictureMarkers
                 "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0/images/e82f744ebb069bb35b234b3fea46deae");
 
             // Create new symbol using asynchronous factory method from uri
-            PictureMarkerSymbol campsiteSymbol = await PictureMarkerSymbol.CreateAsync(symbolUri);
+            BitmapSource bitmapSource = new BitmapImage(symbolUri);
+            PictureMarkerSymbol campsiteSymbol = new PictureMarkerSymbol(await RuntimeImageExtensions.ToRuntimeImageAsync(bitmapSource));
 
             // Optionally set the size (if not set, the size in pixels of the image will be used)
             campsiteSymbol.Height = 18;

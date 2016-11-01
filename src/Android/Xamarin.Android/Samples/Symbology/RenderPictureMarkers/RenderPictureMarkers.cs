@@ -70,7 +70,7 @@ namespace ArcGISRuntimeXamarin.Samples.RenderPictureMarkers
                 "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0/images/e82f744ebb069bb35b234b3fea46deae");
 
             // Create new symbol using asynchronous factory method from uri
-            PictureMarkerSymbol campsiteSymbol = await PictureMarkerSymbol.CreateAsync(symbolUri);
+            PictureMarkerSymbol campsiteSymbol = new PictureMarkerSymbol(symbolUri);
 
             // Optionally set the size (if not set, the size in pixels of the image will be used)
             campsiteSymbol.Height = 18;
@@ -96,6 +96,7 @@ namespace ArcGISRuntimeXamarin.Samples.RenderPictureMarkers
             var resourceStream = currentAssembly.GetManifestResourceStream(
                 "ArcGISRuntimeXamarin.Resources.PictureMarkerSymbols.pin_star_blue.png");
 
+            
             // Create new symbol using asynchronous factory method from stream
             PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);
 

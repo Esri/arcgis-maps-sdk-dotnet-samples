@@ -34,7 +34,7 @@ namespace ArcGISRuntime.WPF.Samples.TakeScreenshot
         private async void OnScreenshotButtonClicked(object sender, RoutedEventArgs e)
         {
             // Export the image from mapview and assign it to the imageview
-            imageView.Source = await MyMapView.ExportImageAsync();
+            imageView.Source = await Esri.ArcGISRuntime.UI.RuntimeImageExtensions.ToImageSourceAsync(await MyMapView.ExportImageAsync());
         }
     }
 }

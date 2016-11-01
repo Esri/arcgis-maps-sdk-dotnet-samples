@@ -29,7 +29,7 @@ Namespace TakeScreenshot
 
         Private Async Sub OnTakeScreenshotButtonClicked(sender As Object, e As RoutedEventArgs)
             ' Export the image from mapview and assign it to the imageview
-            Dim exportedImage = Await MyMapView.ExportImageAsync()
+            Dim exportedImage = Await Esri.ArcGISRuntime.UI.RuntimeImageExtensions.ToImageSourceAsync(Await MyMapView.ExportImageAsync())
 
             ' Create dialog that is used to show the picture
             Dim dialog = New ContentDialog() With {

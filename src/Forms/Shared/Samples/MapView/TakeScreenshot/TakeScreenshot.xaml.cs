@@ -52,7 +52,7 @@ namespace ArcGISRuntimeXamarin.Samples.TakeScreenshot
             // Create image using exported image source
             var image = new Image()
             {
-                Source = exportedImage,
+                Source = exportedImage.Source,
                 Margin = new Thickness(10)
             };
 

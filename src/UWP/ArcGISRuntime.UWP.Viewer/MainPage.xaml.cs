@@ -9,6 +9,7 @@
 
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Models;
+using ArcGISRuntime.UWP.Viewer.Dialogs;
 using System;
 using System.Collections.Generic;
 using Windows.Foundation.Metadata;
@@ -17,6 +18,8 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Navigation = Windows.UI.Xaml.Navigation;
 
 namespace ArcGISRuntime.UWP.Viewer
@@ -168,6 +171,42 @@ namespace ArcGISRuntime.UWP.Viewer
             {
                 SearchBox.Visibility = Visibility.Collapsed;
             }
+        }
+
+        private async void OnInfoClicked(object sender, RoutedEventArgs e)
+        {
+            var sampleModel = (sender as Button).DataContext as SampleModel;
+            if (sampleModel == null)
+                return;
+
+            // Create dialog that is used to show the picture
+            var dialog = new ContentDialog()
+            {
+                Title = sampleModel.Name,
+                //MaxWidth = ActualWidth,
+                //MaxHeight = ActualHeight
+            };
+
+            dialog.PrimaryButtonText = "close";
+            dialog.SecondaryButtonText = "show";
+            dialog.PrimaryButtonClick += (s, args) =>
+            {
+               
+            };
+            dialog.SecondaryButtonClick += (s, args) =>
+            {
+                OnSampleItemTapped(sender, new TappedRoutedEventArgs());
+            };
+
+            dialog.Content = new SampleInfoDialog() { DataContext = sampleModel };
+
+            // Show dialog as a full screen overlay. 
+            await dialog.ShowAsync();
+        }
+
+        private void OnInfoTapped(object sender, TappedRoutedEventArgs e)
+        {
+            e.Handled = true;
         }
     }
 }

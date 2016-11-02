@@ -12,6 +12,24 @@
                 <ResourceDictionary Source="Resources\ControlStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <SolidColorBrush x:Key="PrimaryColor" Color="#005e95"></SolidColorBrush>
+            <SolidColorBrush x:Key="SecondaryColor" Color="#0079C1"></SolidColorBrush>
+            <SolidColorBrush x:Key="PrimaryBackgroundColor" Color="#f8f8f8"></SolidColorBrush>
+            <SolidColorBrush x:Key="SecondaryBackgroundColor" Color="#D3CFCF"></SolidColorBrush>
+            <SolidColorBrush x:Key="PrimaryTextColor" Color="#323232"></SolidColorBrush>
+            <SolidColorBrush x:Key="SecondaryTextColor" Color="#595959"></SolidColorBrush>
+            <SolidColorBrush x:Key="OverlayColor" Color="#8C000000"></SolidColorBrush>
+
+            <Style x:Key="HeaderTextBlock" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="{StaticResource PrimaryColor}"/>
+            </Style>
+            <Style x:Key="PrimaryTextBlock" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="{StaticResource PrimaryTextColor}"/>
+            </Style>
+            <Style x:Key="SecondaryTextBlock" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="{StaticResource PrimaryTextColor}"/>
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

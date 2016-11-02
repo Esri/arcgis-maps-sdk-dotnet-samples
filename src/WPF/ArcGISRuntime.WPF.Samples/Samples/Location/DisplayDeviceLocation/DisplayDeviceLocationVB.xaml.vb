@@ -11,7 +11,6 @@ Imports System.Windows
 Imports Esri.ArcGISRuntime.Geometry
 Imports Esri.ArcGISRuntime.Location
 Imports Esri.ArcGISRuntime.Mapping
-Imports Esri.ArcGISRuntime.UI
 
 Namespace DisplayDeviceLocation
     Partial Public Class DisplayDeviceLocationVB

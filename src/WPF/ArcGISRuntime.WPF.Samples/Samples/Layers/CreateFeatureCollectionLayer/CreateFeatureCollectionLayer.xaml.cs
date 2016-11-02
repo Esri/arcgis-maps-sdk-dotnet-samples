@@ -109,7 +109,7 @@ namespace ArcGISRuntime.WPF.Samples.CreateFeatureCollectionLayer
             FeatureCollectionLayer collectionLayer = new FeatureCollectionLayer(featuresCollection);
 
             // When the layer loads, zoom the map view to the extent of the feature collection
-            collectionLayer.Loaded += (s, e) => Dispatcher.Invoke(() => { MyMapView.SetViewpointAsync(new Viewpoint(collectionLayer.FullExtent)); });
+            collectionLayer.Loaded += (s, e) => MyMapView.SetViewpointAsync(new Viewpoint(collectionLayer.FullExtent));
 
             // Add the layer to the Map's Operational Layers collection
             MyMapView.Map.OperationalLayers.Add(collectionLayer);
@@ -142,6 +142,6 @@ namespace ArcGISRuntime.WPF.Samples.CreateFeatureCollectionLayer
 
             // Return a new renderer that uses the symbol created above
             return new SimpleRenderer(sym);
-        }
+        }     
     }
 }

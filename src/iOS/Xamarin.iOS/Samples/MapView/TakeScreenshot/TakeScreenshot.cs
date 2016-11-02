@@ -63,7 +63,7 @@ namespace ArcGISRuntimeXamarin.Samples.TakeScreenshot
         private async void OnScreenshotButtonClicked(object sender, EventArgs e)
         {
             // Export the image from mapview and assign it to the imageview
-            _overlayImageView.Image = await Esri.ArcGISRuntime.UI.RuntimeImageExtensions.ToImageSourceAsync(await _myMapView.ExportImageAsync());
+            _overlayImageView.Image = await _myMapView.ExportImageAsync();
             // Enable the button to close image view
             _closeImageViewButton.Enabled = true;
             // Show the overlay view

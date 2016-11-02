@@ -167,7 +167,7 @@ Namespace AuthorMap
                 ' Update the portal item thumbnail with the current map image
                 Try
                     ' Export the current map view
-                    Dim mapImage As ImageSource = Await Esri.ArcGISRuntime.UI.RuntimeImageExtensions.ToImageSourceAsync(Await MyMapView.ExportImageAsync())
+                    Dim mapImage As ImageSource = Await MyMapView.ExportImageAsync()
 
                     ' Call a function that writes a temporary jpeg file of the map
                     Dim imagePath As String = Await WriteTempThumbnailImageAsync(mapImage)

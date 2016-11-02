@@ -38,7 +38,7 @@ namespace ArcGISRuntime.UWP.Samples.TakeScreenshot
         private async void OnTakeScreenshotButtonClicked(object sender, RoutedEventArgs e)
         {
             // Export the image from mapview and assign it to the imageview
-            var exportedImage = await Esri.ArcGISRuntime.UI.RuntimeImageExtensions.ToImageSourceAsync(await MyMapView.ExportImageAsync());
+            var exportedImage = await MyMapView.ExportImageAsync();
 
             // Create dialog that is used to show the picture
             var dialog = new ContentDialog()

@@ -127,7 +127,7 @@ namespace ArcGISRuntime.UWP.Viewer
                 mapViewImage.Margin = new Thickness(currentPoint.X, currentPoint.Y, 0, 0);
 
                 // Create snapshot from MapView
-                var exportedWritableBitmap = await Esri.ArcGISRuntime.UI.RuntimeImageExtensions.ToImageSourceAsync(await mapview.ExportImageAsync());
+                var exportedWritableBitmap = await mapview.ExportImageAsync() as WriteableBitmap;
 
                 // Set sources to the images and add them to the layout
                 uiImage.Source = uiLayerImage;

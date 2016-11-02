@@ -57,7 +57,7 @@ Namespace RenderPictureMarkers
                 "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0/images/e82f744ebb069bb35b234b3fea46deae")
 
             ' Create new symbol using asynchronous factory method from uri
-            Dim campsiteSymbol As PictureMarkerSymbol = New PictureMarkerSymbol(symbolUri)
+            Dim campsiteSymbol As PictureMarkerSymbol = Await PictureMarkerSymbol.CreateAsync(symbolUri)
 
             ' Optionally set the size (if not set, the size in pixels of the image will be used)
             campsiteSymbol.Height = 18

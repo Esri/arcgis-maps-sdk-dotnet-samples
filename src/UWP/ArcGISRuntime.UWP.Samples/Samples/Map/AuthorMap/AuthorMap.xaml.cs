@@ -144,7 +144,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
                 try
                 {
                     // Export the current map view
-                    var mapImage = await Esri.ArcGISRuntime.UI.RuntimeImageExtensions.ToImageSourceAsync(await MyMapView.ExportImageAsync());
+                    var mapImage = await MyMapView.ExportImageAsync();
 
                     // Call a function that writes a temporary jpeg file of the map
                     var imagePath = await WriteTempThumbnailImageAsync(mapImage);

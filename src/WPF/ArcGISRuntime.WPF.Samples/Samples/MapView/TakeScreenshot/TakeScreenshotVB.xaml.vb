@@ -29,7 +29,7 @@ Namespace TakeScreenshot
 
         Private Async Sub OnScreenshotButtonClicked(sender As Object, e As RoutedEventArgs)
             ' Export the image from mapview and assign it to the imageview
-            imageView.Source = Await Esri.ArcGISRuntime.UI.RuntimeImageExtensions.ToImageSourceAsync(Await MyMapView.ExportImageAsync())
+            imageView.Source = Await MyMapView.ExportImageAsync()
         End Sub
     End Class
 End Namespace

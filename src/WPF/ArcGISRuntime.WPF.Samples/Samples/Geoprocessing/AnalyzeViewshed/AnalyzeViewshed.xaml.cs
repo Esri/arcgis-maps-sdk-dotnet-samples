@@ -94,7 +94,6 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeViewshed
                  new GeoprocessingParameters(GeoprocessingExecutionType.SynchronousExecute);
 
             // Request output features in same SpatialReference as view.
-            // viewshedParameters.ProcessSpatialReference = inputFeatures.SpatialReference; 
             viewshedParameters.OutputSpatialReference = MyMapView.SpatialReference;
 
             // Add input location to geoprocessing parameters

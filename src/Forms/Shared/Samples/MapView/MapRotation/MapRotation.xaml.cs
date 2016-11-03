@@ -34,11 +34,11 @@ namespace ArcGISRuntimeXamarin.Samples.MapRotation
 
         private void MySlider_ValueChanged(object sender, ValueChangedEventArgs e)
         {
+            // Display the rotation value in the Label formatted nicely with degree symbol.
+            MyLabel.Text = string.Format("{0:0}°", MySlider.Value);
+
             // Set the MapView rotation to that of the Slider.
             MyMapView.SetViewpointRotationAsync(e.NewValue);
-
-            // Display the rotation value in the Label formatted nicely with degree symbol.
-            MyLabel.Text = string.Format("{0:0}°", MyMapView.MapRotation);
         }
     }
 }

@@ -107,6 +107,10 @@ namespace ArcGISRuntime.Samples.Desktop
 
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
             }
             catch (Exception exception)
             {

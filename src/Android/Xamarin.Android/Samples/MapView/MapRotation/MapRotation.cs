@@ -52,7 +52,7 @@ namespace ArcGISRuntimeXamarin.Samples.MapRotation
                     _myMapView.SetViewpointRotationAsync(e.Progress);
 
                     // Display the MapView's rotation.
-                    _loadStatusTextView.Text = string.Format("{0:0}°", _myMapView.MapRotation);
+                    _loadStatusTextView.Text = string.Format("{0:0}°", angleSlider.Progress);
                 }
             };
 

@@ -34,11 +34,11 @@ Namespace MapRotation
 
         Private Sub MySlider_ValueChanged(sender As Object, e As RangeBaseValueChangedEventArgs)
 
+            ' Display the rotation value in the Label formatted nicely with degree symbol.
+            MyTextBlock.Text = String.Format("{0:0}° VB", MySlider.Value)
+
             ' Set the MapView rotation to that of the Slider.
             MyMapView.SetViewpointRotationAsync(e.NewValue)
-
-            ' Display the rotation value in the Label formatted nicely with degree symbol.
-            MyTextBlock.Text = String.Format("{0:0}° VB", MyMapView.MapRotation)
 
         End Sub
 

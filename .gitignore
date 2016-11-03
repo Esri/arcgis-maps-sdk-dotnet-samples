@@ -121,3 +121,4 @@ src/Windows/ArcGISRuntime.Windows.Samples/Samples/Security/TokenSecuredKnownUser
 *project.lock.json
 *_TemporaryKey.pfx
 src/Windows/ArcGISRuntime.Windows.Samples/Samples/Security/TokenSecuredChallengeVB/.vs/
+*.userprefs

@@ -15,50 +15,47 @@
         </DataTemplate>
 
         <DataTemplate x:Key="StantardSampleItemTemplate">
-            <Grid Tapped="OnSampleItemTapped">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="35"/>
-                    <RowDefinition Height="55"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="120"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Image Margin="10" Width="100" Height="125" Grid.RowSpan="2" Stretch="Uniform"
-                       HorizontalAlignment="Left"
+            <Border Background="{StaticResource PrimaryBackgroundColor}" BorderBrush="{StaticResource AppBarBorderThemeBrush}" BorderThickness="1" Margin="1">
+                <Grid Tapped="OnSampleItemTapped" Width="285" Margin="2" Height="285">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="200"/>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="60"/>
+                    </Grid.RowDefinitions>
+                    <Image Width="280" Height="200" Stretch="Uniform"
+                       HorizontalAlignment="Center"
                        Source="{Binding SampleImageName, Converter={StaticResource sampleToBitmapConverter}}">
-                </Image>
-                <TextBlock Text="{Binding Name}" FontSize="18" Grid.Column="1" Margin="10,5,10,5"/>
-                <TextBlock Text="{Binding Description}" FontSize="13" 
-										   TextWrapping="Wrap" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" 
-										   Margin="10,-5,10,5" FontWeight="Normal" TextTrimming="CharacterEllipsis"/>
-            </Grid>
-        </DataTemplate>
-
-        <DataTemplate x:Key="WideSampleItemTemplate">
-            <Grid Tapped="OnSampleItemTapped">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="35"/>
-                    <RowDefinition Height="55"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="120"/>
-                    <ColumnDefinition Width="500"/>
-                </Grid.ColumnDefinitions>
-                <Image Margin="10" Width="100" Height="125" Grid.RowSpan="2" Stretch="Uniform"
-                       Source="{Binding SampleImageName, Converter={StaticResource sampleToBitmapConverter}}">
-                </Image>
-                <TextBlock Text="{Binding Name}" FontSize="18" Grid.Column="1" Margin="10,5,10,5"/>
-                <TextBlock Text="{Binding Description}" FontSize="13" 
-										   TextWrapping="Wrap" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" 
-										   Margin="10,-5,10,5" FontWeight="Normal" TextTrimming="CharacterEllipsis"/>
-            </Grid>
+                    </Image>
+                    <TextBlock Text="{Binding Name}" FontSize="18" Grid.Row="1" Margin="10,5,10,5"  Style="{StaticResource HeaderTextBlock}" />
+                    <TextBlock Text="{Binding Description}" FontSize="13" 
+										   TextWrapping="Wrap" Grid.Row="2" VerticalAlignment="Top" 
+										   Margin="10,-5,10,5" FontWeight="Normal" TextTrimming="CharacterEllipsis"  Style="{StaticResource PrimaryTextBlock}" />
+                </Grid>
+            </Border>
         </DataTemplate>
 
         <DataTemplate x:Key="SmallSampleItemTemplate">
-            <Grid>
-                <TextBlock Text="{Binding Sample.Name}" FontSize="18" Grid.Column="1" Margin="10,5,10,5"/>
-            </Grid>
+            <Border 
+                    Background="{StaticResource PrimaryBackgroundColor}"
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                    BorderBrush="{StaticResource AppBarBorderThemeBrush}" BorderThickness="1" Margin="0,2,0,2">
+                <Grid Tapped="OnSampleItemTapped"
+                    HorizontalAlignment="Stretch" Height="48">
+                    <TextBlock Text="{Binding Name}" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="18" Margin="10,0" 
+                               Style="{StaticResource PrimaryTextBlock}" />
+                    <Button  
+                            Tapped="OnInfoTapped"
+                            Click="OnInfoClicked"
+                            Style="{StaticResource GeneralButtonStyle}"
+                            HorizontalAlignment="Right">
+                        <Grid>
+                            <Ellipse Height="30" Width="30" Stroke="{StaticResource PrimaryColor}" StrokeThickness="1" 
+                                     HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Text="i" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="{StaticResource PrimaryColor}" />
+                        </Grid>
+                    </Button>
+                </Grid>
+            </Border>
         </DataTemplate>
     </Page.Resources>
 
@@ -72,10 +69,9 @@
             <VisualStateGroup>
                 <!--
                 ============================
-                Handle screen less than 780 effective pixels
+                Handle screen less than 600 effective pixels
                 ============================
                 -->
-
                 <VisualState>
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="0" />
@@ -85,12 +81,29 @@
                         <Setter Target="ApplicationTitle.Margin" Value="12,0,0,0"/>
                         <Setter Target="SearchToggleButton.Visibility" Value="Visible"/>
                         <Setter Target="SearchBox.Visibility" Value="Collapsed"/>
-                        <!--<Setter Target="samplesGridView.ItemTemplate" Value="{StaticResource WideSampleItemTemplate}"/>-->
+                        <Setter Target="samplesListView.Visibility" Value="Visible"/>
+                        <Setter Target="samplesGridView.Visibility" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <!--
+                ============================
+                Handle screen over 600 effective pixels but less than 720 effective pixels
+                ============================
+                -->
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="600" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ApplicationTitle.FontSize" Value="16"/>
+                        <Setter Target="ApplicationTitle.Margin" Value="12,0,0,0"/>
+                        <Setter Target="SearchToggleButton.Visibility" Value="Visible"/>
+                        <Setter Target="SearchBox.Visibility" Value="Collapsed"/>
                     </VisualState.Setters>
                 </VisualState>
                 <!-- 
                 ============================
-                Handle screen over 780 effective pixels but less than 1024 effective pixels
+                Handle screen over 720 effective pixels but less than 1024 effective pixels
                 ============================
                 -->
                 <VisualState>
@@ -136,7 +149,7 @@
                         <Setter Target="SearchBox.Visibility" Value="Visible"/>
                         <Setter Target="SearchToggleButton.Visibility" Value="Collapsed"/>
                         <Setter Target="SearchToggleButton.IsChecked" Value="False"/>
-                        <Setter Target="samplesGridView.ItemTemplate" Value="{StaticResource WideSampleItemTemplate}"/>
+                        <!--<Setter Target="samplesGridView.ItemTemplate" Value="{StaticResource WideSampleItemTemplate}"/>-->
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -148,10 +161,10 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        
+
         <Grid x:Name="HeaderArea">
             <Grid.Background>
-                <ImageBrush ImageSource="Assets/background-desktop.png" Stretch="UniformToFill"/>
+                <ImageBrush ImageSource="Assets/banner-background-blue.png" Stretch="UniformToFill"/>
             </Grid.Background>
             <TextBlock Margin="12,0,0,0"
                    x:Name="ApplicationTitle"
@@ -161,16 +174,21 @@
 
         <RelativePanel Height="48" Background="#F7F8F8" Grid.Row="1">
             <ToggleButton x:Name="TogglePaneButton" 
-                      Foreground="#6B1978"
-                      Style="{StaticResource SplitViewTogglePaneButtonStyle}"
+                      Foreground="{StaticResource PrimaryColor}"
+                        Style="{StaticResource SplitViewTogglePaneButtonStyle}"
                       IsChecked="{Binding IsPaneOpen, ElementName=RootSplitView, Mode=TwoWay}"
                       RelativePanel.AlignLeftWithPanel="True" />
+
+            
+
+
+
             <TextBlock x:Name="CatetoryTitle" 
                        Margin="0,0,0,0"
                        RelativePanel.RightOf="TogglePaneButton"
                        RelativePanel.AlignVerticalCenterWith="TogglePaneButton"
                        Text="{Binding ElementName=categories, Path=SelectedItem.Name}"
-                       Foreground="#6B1978"
+                       Foreground="{StaticResource PrimaryColor}"
                        FontSize="24"></TextBlock>
             <AutoSuggestBox x:Name="SearchBox" RelativePanel.AlignRightWithPanel="True" 
                             RelativePanel.AlignVerticalCenterWith="CatetoryTitle" 
@@ -179,13 +197,13 @@
             <ToggleButton Style="{StaticResource SearchToggleButtonStyle}" x:Name="SearchToggleButton"
                           Visibility="Collapsed"
                           Width="60"
-                          Foreground="#6B1978"
+                          Foreground="{StaticResource SecondaryColor}"
                           RelativePanel.AlignRightWithPanel="true" Checked="OnSearchToggleChecked"
                           RelativePanel.AlignBottomWithPanel="true"></ToggleButton>
         </RelativePanel>
         <!-- 
         ============================
-        Main content reagion
+        Main content region
         ============================
         -->
         <SplitView 
@@ -202,25 +220,36 @@
                 </ListView>
             </SplitView.Pane>
             <SplitView.Content>
-                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                    <!--HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"--> 
-                   
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource SecondaryBackgroundColor}">
+                    <!--HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"-->
+
                     <GridView x:Name="samplesGridView" 
                               ItemsSource="{Binding ElementName=categories, Path=SelectedItem.Items}" 
                               ItemTemplate="{StaticResource StantardSampleItemTemplate}" 
-                              SelectionMode="None">
+                              SelectionMode="None"
+                              Background="Transparent" Margin="1,0,0,0">
                         <GridView.ItemContainerStyle>
                             <Style TargetType="GridViewItem">
-                                <Setter Property="HorizontalAlignment" Value="Left" />
+                                <Setter Property="HorizontalAlignment" Value="Center" />
                             </Style>
                         </GridView.ItemContainerStyle>
                     </GridView>
 
-                    <Border x:Name="LoadingIndicatorArea" Visibility="Visible">
-                        <ProgressRing Height="100" Width="100" x:Name="LoadingProgressRing" Foreground="#6B1978" IsActive="True"/>
+                    <ListView x:Name="samplesListView" Visibility="Collapsed" 
+                              SelectionMode="None" ItemsSource="{Binding ElementName=categories, Path=SelectedItem.Items}" 
+                              ItemTemplate="{StaticResource SmallSampleItemTemplate}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
+
+                    <Border x:Name="LoadingIndicatorArea" Visibility="Visible" Background="{StaticResource OverlayColor}">
+                        <ProgressRing Height="100" Width="100" x:Name="LoadingProgressRing" Foreground="{StaticResource PrimaryColor}" IsActive="True"/>
                     </Border>
                 </Grid>
-               
+
             </SplitView.Content>
         </SplitView>
     </Grid>

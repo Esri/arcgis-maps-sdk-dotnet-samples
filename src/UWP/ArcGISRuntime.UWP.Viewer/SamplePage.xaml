@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:ArcGISRuntime.UWP.Viewer.Converters"
+    RequestedTheme="Light"
     mc:Ignorable="d">
     <Page.Resources>
         <Style x:Key="TabToggleButtonStyle" TargetType="ToggleButton">
@@ -39,7 +40,7 @@
                                                 <DiscreteObjectKeyFrame KeyTime="0" Value="100"/>
                                             </ObjectAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#6B1978"/>
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PrimaryColor}"/>
                                             </ObjectAnimationUsingKeyFrames>
 
                                         </Storyboard>
@@ -47,7 +48,7 @@
                                     <VisualState x:Name="Pressed">
                                         <Storyboard>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#6B1978"/>
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PrimaryColor}"/>
                                             </ObjectAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="TopBorder">
                                                 <DiscreteObjectKeyFrame KeyTime="0" Value="100"/>
@@ -71,7 +72,7 @@
                                     <VisualState x:Name="Checked">
                                         <Storyboard>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#6B1978"/>
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PrimaryColor}"/>
                                             </ObjectAnimationUsingKeyFrames>
 
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="TopBorder">
@@ -85,7 +86,7 @@
                                     <VisualState x:Name="CheckedPointerOver">
                                         <Storyboard>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#6B1978"/>
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PrimaryColor}"/>
                                             </ObjectAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="TopBorder">
                                                 <DiscreteObjectKeyFrame KeyTime="0" Value="100"/>
@@ -102,7 +103,7 @@
                             </VisualStateManager.VisualStateGroups>
 
                             <Border Background="White" Margin="0,0,0,0"></Border>
-                            <Border Opacity="0" Margin="2" x:Name="TopBorder"  Background="#6B1978" BorderBrush="#6B1978" BorderThickness="2" VerticalAlignment="Top"></Border>
+                            <Border Opacity="0" Margin="2" x:Name="TopBorder"  Background="{StaticResource PrimaryColor}" BorderBrush="{StaticResource PrimaryColor}" BorderThickness="2" VerticalAlignment="Top"></Border>
 
                             <TextBlock x:Name="ContentPresenter" 
                                             Margin="0, 0,0,0"
@@ -186,7 +187,7 @@
 
         <Grid x:Name="HeaderArea">
             <Grid.Background>
-                <ImageBrush ImageSource="Assets/background-desktop.png" Stretch="UniformToFill"/>
+                <ImageBrush ImageSource="Assets/banner-background-blue.png" Stretch="UniformToFill"/>
             </Grid.Background>
             <TextBlock Margin="10,0,0,0"
                    x:Name="ApplicationTitle"
@@ -194,10 +195,10 @@
                    FontWeight="Bold" VerticalAlignment="Top"/>
         </Grid>
 
-        <RelativePanel x:Name="CommandArea" Height="48" Background="#F7F8F8" Grid.Row="1">
+        <RelativePanel x:Name="CommandArea" Height="48" Background="{StaticResource PrimaryBackgroundColor}" Grid.Row="1">
             <TextBlock x:Name="SampleTitle" Margin="12,0,0,0"
                        RelativePanel.AlignVerticalCenterWithPanel="True"
-                       Foreground="#6B1978"
+                       Foreground="{StaticResource PrimaryColor}"
                        Text="{Binding Name}"
                        FontSize="24"></TextBlock>
 
@@ -222,17 +223,17 @@
             <CommandBar
                 x:DeferLoadStrategy="Lazy"
                 x:Name="CommandBar"
-                RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Background="Transparent" Foreground="#6B1978"
+                RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Background="Transparent" Foreground="{StaticResource PrimaryColor}"
                         Visibility="Collapsed">
                 <CommandBar.SecondaryCommands>
-                    <AppBarToggleButton Label="Live Sample" IsChecked="{Binding ElementName=LiveSample, Path=IsChecked,Mode=TwoWay}"></AppBarToggleButton>
-                    <AppBarToggleButton Label="Description" IsChecked="{Binding ElementName=Description, Path=IsChecked,Mode=TwoWay}"></AppBarToggleButton>
+                    <AppBarToggleButton Label="Live Sample" IsChecked="{Binding ElementName=LiveSample, Path=IsChecked,Mode=TwoWay}" Foreground="{StaticResource PrimaryColor}"></AppBarToggleButton>
+                    <AppBarToggleButton Label="Description" IsChecked="{Binding ElementName=Description, Path=IsChecked,Mode=TwoWay}" Foreground="{StaticResource PrimaryColor}"></AppBarToggleButton>
                 </CommandBar.SecondaryCommands>
             </CommandBar>
         </RelativePanel>
         <!-- 
         ============================
-        Main content reagion
+        Main content region
         ============================
         -->
         <Grid Grid.Row="2">
@@ -245,10 +246,11 @@
                     </Image>
                     <TextBlock x:Name="DescriptionText" Text="{Binding Description}" FontSize="18" RelativePanel.RightOf="ThumbnailImage"
                                 TextWrapping="Wrap" 
-                                Margin="20" />
-                    <TextBlock x:Name="InstructionsHeader" Text="Instructions"  FontSize="24" Foreground="Black" RelativePanel.Below="ThumbnailImage" Margin="10"/>
+                                Margin="20" Style="{StaticResource SecondaryTextBlock}" />
+                    <TextBlock x:Name="InstructionsHeader" Text="Instructions"  FontSize="24" Foreground="Black" RelativePanel.Below="ThumbnailImage"
+                               Margin="10"  Style="{StaticResource PrimaryTextBlock}" />
                     <TextBlock Text="{Binding Instructions}" FontSize="18" TextWrapping="Wrap" Margin="10,0"
-                               RelativePanel.Below="InstructionsHeader" />
+                               RelativePanel.Below="InstructionsHeader"  Style="{StaticResource SecondaryTextBlock}"  />
                 </RelativePanel>
             </ContentControl>
         </Grid>

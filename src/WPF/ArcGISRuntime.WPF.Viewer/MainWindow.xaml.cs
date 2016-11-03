@@ -10,6 +10,7 @@
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Models;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -43,7 +44,7 @@ namespace ArcGISRuntime.Samples.Desktop
                 featured.SelectedIndex = 0;
 
                 // Set category data context
-                categories.DataContext = SampleManager.Current.GetSamplesAsTree();
+                categories.DataContext = SampleManager.Current.GetSamplesInTreeViewCategories();
             }
             catch (Exception ex)
             {
@@ -72,11 +73,17 @@ namespace ArcGISRuntime.Samples.Desktop
 
         private void categories_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            var sample = e.NewValue as SampleModel;
+            var sample = ((e.NewValue as TreeViewItem).DataContext as SampleModel);
             if (sample == null)
             {
-                var treeItem = (e.NewValue as TreeItem);
-                var samples = treeItem.Items.OfType<SampleModel>();
+                var category = ((e.NewValue  as TreeViewItem).DataContext as CategoryModel);
+                var subcategories = category.SubCategories;
+                var samples = new List<SampleModel>();
+                foreach (var subCategory in subcategories)
+                {
+                    if (subCategory.Samples.Count > 0)
+                        samples.AddRange(subCategory.Samples);
+                }
                 if (samples.Any())
                 {
                     categoriesList.ItemsSource = samples;
@@ -100,6 +107,10 @@ namespace ArcGISRuntime.Samples.Desktop
 
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
             }
             catch (Exception exception)
             {
@@ -115,8 +126,25 @@ namespace ArcGISRuntime.Samples.Desktop
             featured.Visibility = Visibility.Visible;
         }
 
+        private bool _openCategoryLeafs = true;
+
         private void Categories_Click(object sender, RoutedEventArgs e)
         {
+            if (_openCategoryLeafs)
+            {
+                _openCategoryLeafs = false;
+                if (categories.Items.Count > 0)
+                {
+                    var firstTreeViewItem = categories.Items[0] as TreeViewItem;
+                    firstTreeViewItem.IsSelected = true;
+
+                    foreach (var item in categories.Items)
+                    {
+                        var treeViewItem = item as TreeViewItem;
+                        treeViewItem.IsExpanded = true;
+                    }
+                }
+            }
             featured.Visibility = Visibility.Collapsed;
             categories.Visibility = Visibility.Visible;
         }
@@ -144,7 +172,7 @@ namespace ArcGISRuntime.Samples.Desktop
                 return;
             }
 
-            var rtb = new RenderTargetBitmap((int)SampleContainer.ActualWidth, 
+            var rtb = new RenderTargetBitmap((int)SampleContainer.ActualWidth,
                 (int)SampleContainer.ActualHeight, 96, 96, PixelFormats.Default);
             rtb.Render(SampleContainer.Content as UIElement);
 
@@ -153,7 +181,7 @@ namespace ArcGISRuntime.Samples.Desktop
             jpg.Frames.Add(BitmapFrame.Create(rtb));
 
             var file = new FileInfo(Path.Combine(
-                SampleManager.Current.SelectedSample.GetSampleFolderInRelativeSolution(), 
+                SampleManager.Current.SelectedSample.GetSampleFolderInRelativeSolution(),
                 SampleManager.Current.SelectedSample.Image));
             if (file.Exists)
             {
@@ -192,14 +220,14 @@ namespace ArcGISRuntime.Samples.Desktop
             closeNavigation.Visibility = Visibility.Collapsed;
             openNavigation.Visibility = Visibility.Visible;
             root.ColumnDefinitions[0].MaxWidth = 0;
-        } 
+        }
 
         private void Open_Click(object sender, RoutedEventArgs e)
         {
             openNavigation.Visibility = Visibility.Collapsed;
             closeNavigation.Visibility = Visibility.Visible;
             root.ColumnDefinitions[0].MaxWidth = 535;
-        }
+        } 
     }
 }
 

@@ -9,6 +9,7 @@
 
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
+using esriUI = Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.IO;
@@ -127,11 +128,11 @@ namespace ArcGISRuntime.UWP.Viewer
                 mapViewImage.Margin = new Thickness(currentPoint.X, currentPoint.Y, 0, 0);
 
                 // Create snapshot from MapView
-                var exportedWritableBitmap = await mapview.ExportImageAsync() as WriteableBitmap;
+                var exportImage = await mapview.ExportImageAsync();
 
                 // Set sources to the images and add them to the layout
                 uiImage.Source = uiLayerImage;
-                mapViewImage.Source = exportedWritableBitmap;
+                mapViewImage.Source = await esriUI.RuntimeImageExtensions.ToImageSourceAsync(exportImage);
                 layoutRoot.Children.Add(mapViewImage);
                 layoutRoot.Children.Add(uiImage);
 
@@ -166,7 +167,6 @@ namespace ArcGISRuntime.UWP.Viewer
 
             return writableBitmap;
         }
-
 
         public static async Task SaveBitmapToFileAsync(WriteableBitmap image, string fileName = "screenshot")
         {

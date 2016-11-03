@@ -25,9 +25,9 @@
               "SampleName": "DisplayLayerViewState",
               "Path": "Samples/MapView/DisplayLayerViewState"
             },
-              {
-              "SampleName":"TakeScreenshot",
-              "Path":"Samples/MapView/TakeScreenshot"
+            {
+              "SampleName": "TakeScreenshot",
+              "Path": "Samples/MapView/TakeScreenshot"
             }
           ]
         },
@@ -94,7 +94,7 @@
               "Path": "Samples/Layers/ArcGISTiledLayerUrl"
             },
             {
-               "SampleName": "ArcGISVectorTiledLayerUrl",
+              "SampleName": "ArcGISVectorTiledLayerUrl",
               "Path": "Samples/Layers/ArcGISVectorTiledLayerUrl"
             }
           ]
@@ -220,7 +220,32 @@
         }
       ]
     },
-     {
+    {
+      "Name": "Analysis",
+      "CategoryName": "Analysis",
+      "SubCategories": [
+        {
+          "Name": "Geoprocessing",
+          "SubCategoryName": "Geoprocessing",
+          "ShowGroup": false,
+          "SampleInfos": [
+            {
+              "SampleName": "AnalyzeHotspots",
+              "Path": "Samples/Geoprocessing/AnalyzeHotspots"
+            },
+            {
+              "SampleName": "AnalyzeViewshed",
+              "Path": "Samples/Geoprocessing/AnalyzeViewshed"
+            },
+            {
+              "SampleName": "ListGeodatabaseVersions",
+              "Path": "Samples/Geoprocessing/ListGeodatabaseVersions"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "Name": "Location",
       "CategoryName": "Location",
       "SubCategories": [

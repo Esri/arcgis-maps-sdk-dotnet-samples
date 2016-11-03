@@ -57,7 +57,7 @@ namespace ArcGISRuntimeXamarin.Samples.MapRotation
             rotationSlider.ValueChanged += (Object s, EventArgs e) =>
             {
                 myMapView.SetViewpointRotationAsync(rotationSlider.Value);
-                rotationLabel.Text = string.Format("{0:0}°", myMapView.MapRotation);
+                rotationLabel.Text = string.Format("{0:0}°", rotationSlider.Value);
             };
 
             // Create a UIBarButtonItem where its view is the rotation slider

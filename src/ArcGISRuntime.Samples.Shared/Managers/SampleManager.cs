@@ -104,7 +104,30 @@ namespace ArcGISRuntime.Samples.Managers
             }
             return categories;
         }
-   
+
+#if !NETFX_CORE
+        public List<TreeViewItem> GetSamplesInTreeViewCategories()
+        {
+            var categories = new List<TreeViewItem>();
+
+            foreach (var category in _sampleStructureMap.Categories)
+            {
+                var categoryItem = new TreeViewItem();
+                categoryItem.Header = category.Name;
+                categoryItem.DataContext = category;
+
+                foreach (var subCategory in category.SubCategories)
+                {
+                    foreach (var sample in subCategory.Samples)
+                        categoryItem.Items.Add( new TreeViewItem { Header = sample.Name, DataContext = sample });
+                }
+
+                categories.Add(categoryItem);
+            }
+            return categories;
+        }
+#endif
+
         /// <summary>
         /// Gets all samples as a tree.
         /// </summary>

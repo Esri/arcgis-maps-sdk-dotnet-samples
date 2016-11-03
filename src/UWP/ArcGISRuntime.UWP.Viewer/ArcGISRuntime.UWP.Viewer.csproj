@@ -103,6 +103,9 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\SampleToBitmapConverter.cs" />
+    <Compile Include="Dialogs\SampleInfoDialog.xaml.cs">
+      <DependentUpon>SampleInfoDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -118,15 +121,14 @@
     <None Include="ArcGISRuntime.UWP.Viewer_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\background-desktop.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Assets\BadgeLogo.scale-200.png" />
+    <Content Include="Assets\banner-background-blue.png" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\square-310-400.scale-100.png" />
     <Content Include="Assets\square-310-400.scale-125.png" />
     <Content Include="Assets\square-310-400.scale-150.png" />
     <Content Include="Assets\square-310-400.scale-200.png" />
+    <Content Include="Assets\square-310-400.scale-400.png" />
     <Content Include="Assets\square-71-400.scale-100.png" />
     <Content Include="Assets\square-71-400.scale-125.png" />
     <Content Include="Assets\square-71-400.scale-150.png" />
@@ -163,6 +165,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Dialogs\SampleInfoDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

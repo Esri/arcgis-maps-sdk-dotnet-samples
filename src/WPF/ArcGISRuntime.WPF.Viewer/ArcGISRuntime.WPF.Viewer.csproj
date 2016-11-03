@@ -92,10 +92,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\CustomAccents.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -121,6 +117,7 @@
     <Resource Include="Assets\ApplicationIcons\windows-desktop-256.png" />
     <Resource Include="Assets\ApplicationIcons\windows-desktop-32.png" />
     <Resource Include="Assets\ApplicationIcons\windows-desktop-48.png" />
+    <Resource Include="Assets\banner-background-blue.png" />
     <Content Include="Launch Viewer VB.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -141,7 +138,6 @@
     <Resource Include="Assets\appbar.layout.collapse.left.variant.png" />
     <Resource Include="Assets\appbar.layout.expand.right.variant.png" />
     <Resource Include="Assets\appbar.window.maximize.png" />
-    <Resource Include="Assets\background-desktop.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ArcGISRuntime.WPF.Samples\ArcGISRuntime.WPF.Samples.CSharp.csproj">

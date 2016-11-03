@@ -49,10 +49,14 @@ namespace ArcGISRuntimeXamarin.Samples.TakeScreenshot
             };
             closeButton.Clicked += CloseButton_Clicked;
 
-            // Create image using exported image source
+            // Create image bitmap by getting stream from the exported image
+            var buffer = await exportedImage.GetEncodedBufferAsync();
+            byte[] data = new byte[buffer.Length];
+            buffer.Read(data, 0, data.Length);
+            var bitmap = ImageSource.FromStream(() => new System.IO.MemoryStream(data));
             var image = new Image()
             {
-                Source = exportedImage.Source,
+                Source = bitmap,
                 Margin = new Thickness(10)
             };
 

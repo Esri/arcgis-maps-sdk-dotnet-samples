@@ -87,12 +87,6 @@ namespace ArcGISRuntime.UWP.Viewer
             // Force GC to get invoke full clean up when ever
             GC.Collect();
             GC.WaitForPendingFinalizers();
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
             base.OnNavigatedTo(e);
         }
 

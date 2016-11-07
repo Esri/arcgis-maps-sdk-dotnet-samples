@@ -10,6 +10,7 @@
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Models;
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -44,12 +45,16 @@ namespace ArcGISRuntime.UWP.Viewer
 
         private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
         {
-            var message = new MessageDialog(e.Exception.ToString(), "An error occurred").ShowAsync();
+            var errorMessage = e.Exception.ToString();
+            Debug.WriteLine(errorMessage);
+            var message = new MessageDialog(errorMessage, "An error occurred").ShowAsync();
         }
 
         private void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            var message = new MessageDialog(e.ToString(), "An error occurred").ShowAsync();
+            var errorMessage = e.Exception.ToString();
+            Debug.WriteLine(errorMessage);
+            var message = new MessageDialog(errorMessage, "An error occurred").ShowAsync();
             e.Handled = true;
         }
 

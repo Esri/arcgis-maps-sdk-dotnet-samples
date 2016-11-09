@@ -14,16 +14,16 @@ Namespace ArcGISVectorTiledLayerUrl
 
     Partial Public Class ArcGISVectorTiledLayerUrlVB
 
-        Private _navigationUrl As String = "http://www.arcgis.com/sharing/rest/content/items/00cd8e843bae49b3a040423e5d65416b/resources/styles/root.json"
-        Private _streetUrl As String = "http://www.arcgis.com/sharing/rest/content/items/3b8814f6ddbd485cae67e8018992246e/resources/styles/root.json"
-        Private _nightUrl As String = "http://www.arcgis.com/sharing/rest/content/items/f96366254a564adda1dc468b447ed956/resources/styles/root.json"
-        Private _topographicUrl As String = "http://www.arcgis.com/sharing/rest/content/items/be44936bcdd24db588a1ae5076e36f34/resources/styles/root.json"
+        Private _navigationUrl As String = "http://www.arcgis.com/home/item.html?id=dcbbba0edf094eaa81af19298b9c6247"
+        Private _streetUrl As String = "http://www.arcgis.com/home/item.html?id=4e1133c28ac04cca97693cf336cd49ad"
+        Private _nightUrl As String = "http://www.arcgis.com/home/item.html?id=bf79e422e9454565ae0cbe9553cf6471"
+        Private _darkGrayUrl As String = "http://www.arcgis.com/home/item.html?id=850db44b9eb845d3bd42b19e8aa7a024"
 
         Private _vectorTiledLayerUrl As String
         Private _vectorTiledLayer As ArcGISVectorTiledLayer
 
         ' String array to store some vector layer choices
-        Private _vectorLayerNames As String() = New String() {"Topo", "Streets", "Night", "Navigation"}
+        Private _vectorLayerNames As String() = New String() {"Dark gray", "Streets", "Night", "Navigation"}
 
         Public Sub New()
 
@@ -56,9 +56,9 @@ Namespace ArcGISVectorTiledLayerUrl
 
             Select Case selectedVectorLayer
 
-                Case "Topo"
+                Case "Dark gray"
 
-                    _vectorTiledLayerUrl = _topographicUrl
+                    _vectorTiledLayerUrl = _darkGrayUrl
                     Exit Select
 
                 Case "Streets"

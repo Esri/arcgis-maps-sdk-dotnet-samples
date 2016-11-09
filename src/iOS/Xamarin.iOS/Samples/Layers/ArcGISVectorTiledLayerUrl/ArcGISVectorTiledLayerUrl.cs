@@ -22,10 +22,10 @@ namespace ArcGISRuntimeXamarin.Samples.ArcGISVectorTiledLayerUrl
          // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 
-        private string _navigationUrl = "http://www.arcgis.com/sharing/rest/content/items/00cd8e843bae49b3a040423e5d65416b/resources/styles/root.json";
-        private string _streetUrl = "http://www.arcgis.com/sharing/rest/content/items/3b8814f6ddbd485cae67e8018992246e/resources/styles/root.json";
-        private string _nightUrl = "http://www.arcgis.com/sharing/rest/content/items/f96366254a564adda1dc468b447ed956/resources/styles/root.json";
-        private string _topographicUrl = "http://www.arcgis.com/sharing/rest/content/items/be44936bcdd24db588a1ae5076e36f34/resources/styles/root.json";
+        private string _navigationUrl = "http://www.arcgis.com/home/item.html?id=dcbbba0edf094eaa81af19298b9c6247";
+        private string _streetUrl = "http://www.arcgis.com/home/item.html?id=4e1133c28ac04cca97693cf336cd49ad";
+        private string _nightUrl = "http://www.arcgis.com/home/item.html?id=bf79e422e9454565ae0cbe9553cf6471";
+        private string _darkGrayUrl = "http://www.arcgis.com/home/item.html?id=850db44b9eb845d3bd42b19e8aa7a024";
 
         private string _vectorTiledLayerUrl;
         private ArcGISVectorTiledLayer _vectorTiledLayer;
@@ -66,7 +66,7 @@ namespace ArcGISRuntimeXamarin.Samples.ArcGISVectorTiledLayerUrl
             // Create a segmented control to display buttons
             UISegmentedControl segmentControl = new UISegmentedControl();
             segmentControl.Frame = new CoreGraphics.CGRect(10, 8, View.Bounds.Width - 20, 24);
-            segmentControl.InsertSegment("Topo", 0, false);
+            segmentControl.InsertSegment("Dark gray", 0, false);
             segmentControl.InsertSegment("Streets", 1, false);
             segmentControl.InsertSegment("Night", 2, false);
             segmentControl.InsertSegment("Navigation", 3, false);
@@ -81,7 +81,7 @@ namespace ArcGISRuntimeXamarin.Samples.ArcGISVectorTiledLayerUrl
                 {
                     case 0:
  
-                        _vectorTiledLayerUrl = _topographicUrl;
+                        _vectorTiledLayerUrl = _darkGrayUrl;
                         break;
 
                     case 1:

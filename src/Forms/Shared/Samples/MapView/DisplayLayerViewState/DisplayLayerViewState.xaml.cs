@@ -120,8 +120,10 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayLayerViewState
             public string LayerViewStatus
             {
                 get { return layerViewStatus; }
-                set { layerViewStatus = value; NotifyPropertyChanged(); }
+                set { layerViewStatus = value; NotifyPropertyChanged(); NotifyPropertyChanged("Message"); }
             }
+
+            public string Message {  get { return LayerName + " - " + LayerViewStatus; } }
 
             public LayerStatusModel(string layerName, string layerStatus)
             {

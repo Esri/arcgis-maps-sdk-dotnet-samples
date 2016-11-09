@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Collections.Generic;
 using Windows.UI;
+using Windows.UI.Core;
 using Windows.UI.Popups;
 
 namespace ArcGISRuntime.UWP.Samples.CreateFeatureCollectionLayer
@@ -46,7 +47,7 @@ namespace ArcGISRuntime.UWP.Samples.CreateFeatureCollectionLayer
                 messageDlg.ShowAsync();
             }
         }
-
+        
         private async void CreateNewFeatureCollection()
         {
             // Create the schema for a points table (one text field to contain a name attribute)
@@ -110,10 +111,18 @@ namespace ArcGISRuntime.UWP.Samples.CreateFeatureCollectionLayer
             FeatureCollectionLayer collectionLayer = new FeatureCollectionLayer(featuresCollection);
 
             // When the layer loads, zoom the map view to the extent of the feature collection
-            collectionLayer.Loaded += (s, e) => MyMapView.SetViewpointAsync(new Viewpoint(collectionLayer.FullExtent));
-
+            collectionLayer.Loaded += CollectionLayer_Loaded;
             // Add the layer to the Map's Operational Layers collection
             MyMapView.Map.OperationalLayers.Add(collectionLayer);
+        }
+
+        private async void CollectionLayer_Loaded(object sender, EventArgs e)
+        {
+            var collectionLayer = sender as FeatureCollectionLayer;
+             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+             {
+                 MyMapView.SetViewpointAsync(new Viewpoint(collectionLayer.FullExtent));
+             });
         }
 
         private Renderer CreateRenderer(GeometryType rendererType)

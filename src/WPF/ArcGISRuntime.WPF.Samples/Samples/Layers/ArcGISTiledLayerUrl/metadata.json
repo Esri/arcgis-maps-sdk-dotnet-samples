@@ -9,6 +9,6 @@
   "RequiresLocalServer":false,
   "Image":"ArcGISTiledLayerUrl.jpg",
   "Link":"",
-  "TypeLink": ["T:Esri.ArcGISRuntime.Mapping.ArcGISTiledLayer"
+  "TypeLink": ["T:Esri.ArcGISRuntime.Mapping.ArcGISTiledLayer","M:Esri.ArcGISRuntime.Mapping.ArcGISTiledLayer.#ctor(System.Uri)","M:Esri.ArcGISRuntime.Mapping.Map.#ctor","P:Esri.ArcGISRuntime.Mapping.Map.Basemap"
   ]
 }

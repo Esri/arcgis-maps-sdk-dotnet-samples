@@ -9,6 +9,6 @@
   "RequiresLocalServer": false,
   "Image": "AnalyzeViewshed.jpg",
   "Link": "",
-  "TypeLink": [
+  "TypeLink": ["T:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingJob","T:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingFeatures","M:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingFeatures.#ctor(Esri.ArcGISRuntime.Data.IFeatureSet)","M:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingTask.CreateJob(Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingParameters)"
   ]
 }

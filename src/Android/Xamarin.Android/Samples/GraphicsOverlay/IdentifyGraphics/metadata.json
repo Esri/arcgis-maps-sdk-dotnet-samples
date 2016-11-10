@@ -9,7 +9,7 @@
   "RequiresLocalServer":false,
   "Image":"IdentifyGraphics.jpg",
   "Link":"",
-  "TypeLink": ["P:Esri.ArcGISRuntime.UI.GeoViewInputEventArgs.Position","M:Esri.ArcGISRuntime.UI.GeoView.IdentifyGraphicsOverlayAsync(Esri.ArcGISRuntime.UI.GraphicsOverlay,Android.Graphics.PointF,System.Double,System.Int64)"
+  "TypeLink": ["T:Esri.ArcGISRuntime.UI.Graphic","T:Esri.ArcGISRuntime.UI.GraphicsOverlay","P:Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs.Position","M:Esri.ArcGISRuntime.UI.Controls.GeoView.IdentifyGraphicsOverlayAsync(Esri.ArcGISRuntime.UI.Controls.GraphicsOverlay,System.Windows.Point,System.Double,System.Int64)"
   ],
   "SampleFolder":  "IdentifyGraphics"
 }

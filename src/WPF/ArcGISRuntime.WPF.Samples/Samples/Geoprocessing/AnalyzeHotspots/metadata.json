@@ -9,6 +9,6 @@
   "RequiresLocalServer": false,
   "Image": "AnalyzeHotspots.jpg",
   "Link": "",
-  "TypeLink": [
+  "TypeLink": ["T:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingExecutionType","T:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingParameter","T:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingParameters","T:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingString"
   ]
 }

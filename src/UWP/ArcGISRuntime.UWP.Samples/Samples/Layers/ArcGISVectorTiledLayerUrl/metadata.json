@@ -9,7 +9,7 @@
   "RequiresLocalServer":false,
   "Image":"ArcGISVectorTiledLayerUrl.jpg",
   "Link":"",
-  "TypeLink": [""
+  "TypeLink": ["T:Esri.ArcGISRuntime.Mapping.ArcGISVectorTiledLayer","M:Esri.ArcGISRuntime.Mapping.ArcGISVectorTiledLayer.#ctor(System.Uri)","M:Esri.ArcGISRuntime.Mapping.Basemap.#ctor(Esri.ArcGISRuntime.Mapping.Layer)"
   ],
   "SampleFolder": "ArcGISVectorTiledLayerUrl"
 }

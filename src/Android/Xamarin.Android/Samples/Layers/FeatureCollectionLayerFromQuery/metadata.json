@@ -1,5 +1,5 @@
 {
-  "Name": "Add a query result as a feature collection layer",
+  "Name": "Feature collection layer from query result",
   "SampleName": "FeatureCollectionLayerFromQuery",
   "Description": "This samples demonstrates how to create a feature collection layer to show a query result from a service feature table.",
   "Instructions": "",
@@ -9,6 +9,6 @@
   "RequiresLocalServer":false,
   "Image":"FeatureCollectionLayerFromQuery.jpg",
   "Link":"",
-  "TypeLink": [ "T:Esri.ArcGISRuntime.Data.FeatureCollection", "T:Esri.ArcGISRuntime.Data.FeatureCollectionTable", "T:Esri.ArcGISRuntime.Mapping.FeatureCollectionLayer" ],
+  "TypeLink": [ "M:Esri.ArcGISRuntime.Data.FeatureCollectionTable.#ctor(Esri.ArcGISRuntime.Data.IFeatureSet)","M:Esri.ArcGISRuntime.Data.FeatureCollection.#ctor","M:Esri.ArcGISRuntime.Mapping.FeatureCollectionLayer.#ctor(Esri.ArcGISRuntime.Data.FeatureCollection)" ],
   "SampleFolder": "FeatureCollectionLayerFromQuery"
 }

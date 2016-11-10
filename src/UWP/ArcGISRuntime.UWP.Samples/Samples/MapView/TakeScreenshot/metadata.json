@@ -9,6 +9,6 @@
   "RequiresLocalServer":false,
   "Image":"TakeScreenshot.jpg",
   "Link":"",
-  "TypeLink": ["M:Esri.ArcGISRuntime.UI.Controls.GeoView.ExportImageAsync"],
+  "TypeLink": ["T:Esri.ArcGISRuntime.UI.RuntimeImage","M:Esri.ArcGISRuntime.UI.RuntimeImageExtensions.ToImageSourceAsync(Esri.ArcGISRuntime.UI.RuntimeImage)","M:Esri.ArcGISRuntime.UI.Controls.GeoView.ExportImageAsync"],
   "SampleFolder": "TakeScreenshot"
 }

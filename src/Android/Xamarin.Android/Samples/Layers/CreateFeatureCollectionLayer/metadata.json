@@ -9,6 +9,6 @@
   "RequiresLocalServer":false,
   "Image":"CreateFeatureCollectionLayer.jpg",
   "Link":"",
-  "TypeLink": ["T:Esri.ArcGISRuntime.Data.FeatureCollection", "T:Esri.ArcGISRuntime.Data.FeatureCollectionTable", "T:Esri.ArcGISRuntime.Mapping.FeatureCollectionLayer"  ],
+  "TypeLink": ["T:Esri.ArcGISRuntime.Data.FeatureCollection","T:Esri.ArcGISRuntime.Mapping.FeatureCollectionLayer","T:Esri.ArcGISRuntime.Data.FeatureCollectionTable","P:Esri.ArcGISRuntime.Data.FeatureCollectionTable.Renderer" ],
   "SampleFolder": "CreateFeatureCollectionLayer"
 }

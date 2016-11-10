@@ -9,6 +9,6 @@
   "RequiresLocalServer":false,
   "Image":"AddGraphicsRenderer.jpg",
   "Link":"",
-  "TypeLink": ["T:Esri.ArcGISRuntime.UI.Controls.GraphicCollection","T:Esri.ArcGISRuntime.UI.Controls.GraphicsOverlayCollection","P:Esri.ArcGISRuntime.UI.Controls.GraphicsOverlay.Graphics"
+  "TypeLink": ["T:Esri.ArcGISRuntime.UI.GraphicCollection","T:Esri.ArcGISRuntime.UI.GraphicsOverlayCollection","P:Esri.ArcGISRuntime.UI.GraphicsOverlay.Graphics"
   ]
 }

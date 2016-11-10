@@ -184,14 +184,17 @@ namespace ArcGISRuntimeXamarin.Models
                 // TODO: Wondering if we can rework this to not have to open two different MemoryStreams.
                 using (Stream stream = metadataStream)
                 {
-                    using (MemoryStream ms = new MemoryStream())
+                    if (stream != null)
                     {
-                        stream.CopyTo(ms);
-                        var jsonInBytes = ms.ToArray();
-
-                        using (MemoryStream ms2 = new MemoryStream(jsonInBytes))
+                        using (MemoryStream ms = new MemoryStream())
                         {
-                            sampleModel = serializer.ReadObject(ms2) as SampleModel;
+                            stream.CopyTo(ms);
+                            var jsonInBytes = ms.ToArray();
+
+                            using (MemoryStream ms2 = new MemoryStream(jsonInBytes))
+                            {
+                                sampleModel = serializer.ReadObject(ms2) as SampleModel;
+                            }
                         }
                     }
                 }

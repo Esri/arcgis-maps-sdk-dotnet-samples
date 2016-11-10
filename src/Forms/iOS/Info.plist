@@ -19,7 +19,7 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>MinimumOSVersion</key>
-	<string></string>
+	<string>9.0</string>
 	<key>CFBundleDisplayName</key>
 	<string>ArcGISRuntimeXamarinSamples</string>
 	<key>CFBundleIdentifier</key>
@@ -34,10 +34,10 @@
 	<string>1.0</string>
 	<key>XSAppIconAssets</key>
 	<string>Resources/Images.xcassets/AppIcons.appiconset</string>
-  <key>NSLocationAlwaysUsageDescription</key>
-  <string></string>
-  <key>NSLocationWhenInUseUsageDescription</key>
-  <string></string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string></string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string></string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>

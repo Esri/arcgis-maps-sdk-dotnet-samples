@@ -9,6 +9,6 @@
   "RequiresLocalServer": false,
   "Image": "FeatureCollectionLayerFromPortal.jpg",
   "Link": "",
-  "TypeLink": [ "T:Esri.ArcGISRuntime.Portal.ArcGISPortal","M:Esri.ArcGISRuntime.Mapping.FeatureCollectionLayer.#ctor(Esri.ArcGISRuntime.Data.FeatureCollection)","M:Esri.ArcGISRuntime.Portal.ArcGISPortal.CreateAsync","T:Esri.ArcGISRuntime.Portal.Item"
+  "TypeLink": [ "T:Esri.ArcGISRuntime.Portal.ArcGISPortal","M:Esri.ArcGISRuntime.Portal.ArcGISPortal.CreateAsync","T:Esri.ArcGISRuntime.Portal.Item"
  ]
 }

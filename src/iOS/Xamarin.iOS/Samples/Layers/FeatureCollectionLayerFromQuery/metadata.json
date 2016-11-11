@@ -9,5 +9,5 @@
   "RequiresLocalServer":false,
   "Image":"FeatureCollectionLayerFromQuery.jpg",
   "Link":"",
-  "TypeLink": ["M:Esri.ArcGISRuntime.Data.FeatureCollectionTable.#ctor(Esri.ArcGISRuntime.Data.IFeatureSet)","M:Esri.ArcGISRuntime.Data.FeatureCollection.#ctor","M:Esri.ArcGISRuntime.Mapping.FeatureCollectionLayer.#ctor(Esri.ArcGISRuntime.Data.FeatureCollection)"
+  "TypeLink": ["M:Esri.ArcGISRuntime.Data.FeatureCollectionTable.#ctor(Esri.ArcGISRuntime.Data.IFeatureSet)","M:Esri.ArcGISRuntime.Data.FeatureCollection.#ctor","M:Esri.ArcGISRuntime.Mapping.FeatureCollectionLayer.#ctor(Esri.ArcGISRuntime.Data.FeatureCollection)"]
 }

@@ -52,10 +52,7 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Esri.ArcGISRuntime, Version=100.0.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.WPF.100.0.0\lib\net452\Esri.ArcGISRuntime.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="Esri.ArcGISRuntime, Version=100.0.0.0" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />

@@ -265,14 +265,34 @@
   ],
   "Featured": [
     {
+      "SampleName": "DisplayMap",
+      "Reason": 1
+    },
+    {
       "SampleName": "OpenExistingMap",
       "Reason": 1
     },
     {
-      "SampleName": "ChangeBasemap",
+      "SampleName": "ArcGISVectorTiledLayerUrl",
       "Reason": 1
     },
-     {
+    {
+      "SampleName": "ServiceFeatureTableCache",
+      "Reason": 1
+    },
+    {
+      "SampleName": "SetMapSpatialReference",
+      "Reason": 1
+    },
+    {
+      "SampleName": "RenderUniqueValues",
+      "Reason": 1
+    },
+    {
+      "SampleName": "AnalyzeViewshed",
+      "Reason": 1
+    },
+    {
       "SampleName": "DisplayDeviceLocation",
       "Reason": 1
     }

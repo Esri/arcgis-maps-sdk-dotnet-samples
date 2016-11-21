@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcGISRuntime.WPF.Samples.CSharp", "ArcGISRuntime.WPF.Samples\ArcGISRuntime.WPF.Samples.CSharp.csproj", "{0568FD2B-DA73-434C-B955-4A149465C535}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcGISRuntime.WPF.Viewer", "ArcGISRuntime.WPF.Viewer\ArcGISRuntime.WPF.Viewer.csproj", "{5278F66E-D41F-45D2-8327-25EA13A11618}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcGISRuntime.WPF.Samples.CSharp", "ArcGISRuntime.WPF.Samples\ArcGISRuntime.WPF.Samples.CSharp.csproj", "{0568FD2B-DA73-434C-B955-4A149465C535}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ArcGISRuntime.WPF.Samples.VBNet", "ArcGISRuntime.WPF.Samples\ArcGISRuntime.WPF.Samples.VBNet.vbproj", "{586825CE-817B-45A8-BFDB-79A2F36B2C42}"
 EndProject

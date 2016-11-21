@@ -7,31 +7,31 @@ This project contains samples for the ArcGIS Runtime SDK for .NET including WPF,
 See Table of Contents under different platforms
   * [WPF](src/WPF)
   * [Universal Windows Platform](src/UWP)
-  * [Xamarin Android](src/Android)
-  * [Xamarin iOS](src/iOS)
-  * [Xamarin Forms](src/Forms) 
+  * [Xamarin.Android](src/Android)
+  * [Xamarin.iOS](src/iOS)
+  * [Xamarin.Forms](src/Forms) 
 
 ## Instructions 
 
 1. Fork and then clone the repo or download the .zip file. 
 2. Confirm the supported system configuration for the API of interest in the ArcGIS Runtime SDK for .NET:
-  * [WPF](http://developers.arcgis.com/net/desktop/guide/system-requirements.htm)
-  * [UWP](http://developers.arcgis.com/net/uwp/guide/system-requirements.htm)
-  * [Xamarin Android](https://developers.arcgis.com/net/android/guide/system-requirements.htm)
-  * [Xamarin iOS](https://developers.arcgis.com/net/ios/guide/system-requirements.htm)
-  * [Xamarin Forms](https://developers.arcgis.com/net/forms/guide/system-requirements.htm) 
+  * [WPF](https://developers.arcgis.com/net/latest/wpf/guide/system-requirements.htm)
+  * [UWP](https://developers.arcgis.com/net/latest/uwp/guide/system-requirements.htm)
+  * [Xamarin.Android](https://developers.arcgis.com/net/latest/android/guide/system-requirements.htm)
+  * [Xamarin.iOS](https://developers.arcgis.com/net/latest/ios/guide/system-requirements.htm)
+  * [Xamarin.Forms](https://developers.arcgis.com/net/latest/forms/guide/system-requirements.htm) 
 3. In Visual Studio, open the solution, clean, build and run the application
   * WPF: `src\Desktop\ArcGISRuntime.WPF.Viewer.sln`  
   * UWP: `src\Windows\ArcGISRuntime.UWP.Viewer.sln`  
-  * Xamarin Android: `src\Android\ArcGISRuntime.Xamarin.Samples.Android.sln`  
-  * Xamarin iOS: `src\iOS\ArcGISRuntime.Xamari.Samples.iOS.sln`  
-  * Xamarin Forms: `src\Windows\ArcGISRuntime.Xamarin.Samples.Forms.sln`  
+  * Xamarin.Android: `src\Android\ArcGISRuntime.Xamarin.Samples.Android.sln`  
+  * Xamarin.iOS: `src\iOS\ArcGISRuntime.Xamari.Samples.iOS.sln`  
+  * Xamarin.Forms: `src\Windows\ArcGISRuntime.Xamarin.Samples.Forms.sln`  
   
   or
   
   * All: `src\ArcGISRuntime.Viewers.All.sln`
   * Windows ( WPF / UWP ): `src\ArcGISRuntime.Viewers.Windows.sln`
-  * Xamarin (iOs, Android, Forms): `src\ArcGISRuntime.Viewers.Xamarin.sln`  
+  * Xamarin (iOS, Android, Forms): `src\ArcGISRuntime.Viewers.Xamarin.sln`  
   
 Notes:
 
@@ -52,11 +52,11 @@ When compiling Universal Windows Platform samples, make sure that you are compil
 ## Requirements
 
 * Supported system configurations for: 
-  * [WPF](http://developers.arcgis.com/net/desktop/guide/system-requirements.htm)
-  * [UWP](http://developers.arcgis.com/net/uwp/guide/system-requirements.htm)
-  * [Xamarin Android](https://developers.arcgis.com/net/android/guide/system-requirements.htm)
-  * [Xamarin iOS](https://developers.arcgis.com/net/ios/guide/system-requirements.htm)
-  * [Xamarin Forms](https://developers.arcgis.com/net/forms/guide/system-requirements.htm) 
+  * [WPF](https://developers.arcgis.com/net/latest/wpf/guide/system-requirements.htm)
+  * [UWP](https://developers.arcgis.com/net/latest/uwp/guide/system-requirements.htm)
+  * [Xamarin.Android](https://developers.arcgis.com/net/latest/android/guide/system-requirements.htm)
+  * [Xamarin.iOS](https://developers.arcgis.com/net/latest/ios/guide/system-requirements.htm)
+  * [Xamarin.Forms](https://developers.arcgis.com/net/latest/forms/guide/system-requirements.htm) 
 
 ## Resources
 
@@ -90,5 +90,5 @@ A copy of the license is available in the repository's [license.txt](/license.tx
 ### Modern UI Icons
 Icons included under the Assets folder in the Phone and Store projects are from [Modern UI Icons](http://modernuiicons.com/). License information can be found at https://github.com/Templarian/WindowsIcons/blob/master/WindowsPhone/license.txt 
 
-[](Esri Tags: ArcGIS Runtime SDK Windows Desktop Store Phone C-Sharp C# XAML)
+[](Esri Tags: ArcGIS Runtime SDK Windows WPF UWP Xamarin Xamarin.Android Xamarin.iOS Xamarin.Forms C-Sharp C# XAML)
 [](Esri Language: DotNet)

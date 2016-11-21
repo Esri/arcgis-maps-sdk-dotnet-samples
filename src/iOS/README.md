@@ -72,6 +72,10 @@
 
     This sample demonstrates how to add an ArcGISTiledLayer as a base layer in a map. The ArcGISTiledLayer comes from an ArcGIS Server sample web service.
 
+    * [ArcGIS vector tiled layer (URL)](Xamarin.iOS/Samples/Layers/ArcGISVectorTiledLayerUrl)
+
+    This sample demonstrates how to create a ArcGISVectorTiledLayer and bind this to a Basemap which is used in the creation of a map.
+
 
 - **Map Image Layers**
 
@@ -104,6 +108,18 @@
 
     This sample demonstrates how to apply definition expression to a feature layer for filtering features. It also shows how to reset the definition expression.
 
+    * [Create a feature collection layer](Xamarin.iOS/Samples/Layers/CreateFeatureCollectionLayer)
+
+    This samples demonstrates how to create a new feature collection with several feature collection tables. The collection is displayed in the map as a feature collection layer.
+
+    * [Feature collection layer from portal item](Xamarin.iOS/Samples/Layers/FeatureCollectionLayerFromPortal)
+
+    This samples demonstrates opening a feature collection saved as a portal item.
+
+    * [Feature collection layer from query result](Xamarin.iOS/Samples/Layers/FeatureCollectionLayerFromQuery)
+
+    This samples demonstrates how to create a feature collection layer to show a query result from a service feature table.
+
 
 - **Feature Tables**
 
@@ -128,7 +144,7 @@
 
 - **Graphics Overlay**
 
-    * [Add graphics (Renderer)](Xamarin.iOS/Samples/GraphicsOverlay/AddGraphicsRenderer)
+    * [Add graphics (SimpleRenderer)](Xamarin.iOS/Samples/GraphicsOverlay/AddGraphicsRenderer)
 
     This sample demonstrates how you add graphics and set a renderer on a graphic overlays.
 

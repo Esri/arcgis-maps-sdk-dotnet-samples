@@ -128,7 +128,6 @@
     <Content Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.jpg" />
     <Content Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.jpg" />
     <Content Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.jpg" />
-    <Content Include="Tutorials\FirstMapApp\FirstMapApp.jpg" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -197,11 +196,8 @@
     <None Include="Samples\Symbology\RenderPictureMarkers\metadata.json" />
     <None Include="Samples\Symbology\RenderSimpleMarkers\metadata.json" />
     <None Include="Samples\Symbology\RenderUniqueValues\metadata.json" />
-    <None Include="Tutorials\FirstMapApp\metadata.json" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Workflows\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="Samples\Data\FeatureLayerQuery\FeatureLayerQueryVB.xaml.vb">
@@ -311,9 +307,6 @@
     </Compile>
     <Compile Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValuesVB.xaml.vb">
       <DependentUpon>RenderUniqueValuesVB.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Tutorials\FirstMapApp\FirstMapAppVB.xaml.vb">
-      <DependentUpon>FirstMapAppVB.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -459,10 +452,6 @@
     <Page Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValuesVB.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Tutorials\FirstMapApp\FirstMapAppVB.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

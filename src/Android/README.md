@@ -8,9 +8,13 @@
 
     This sample demonstrates different ways in which you can change the viewpoint or visible area of the map.
 
-    * [Display draw status](Xamarin.Android/Samples/MapView/DisplayDrawStatus)
+    * [Display drawing status](Xamarin.Android/Samples/MapView/DisplayDrawingStatus)
 
-    This sample demonstrates how to display the draw status of a Map
+    This sample demonstrates how to use the DrawStatus value of the MapView to notify user that the MapView is drawing.
+
+    * [Display layer view state](Xamarin.Android/Samples/MapView/DisplayLayerViewState)
+
+    This sample demonstrates how to get view status for layers in a map.
 
     * [Map rotation](Xamarin.Android/Samples/MapView/MapRotation)
 
@@ -60,6 +64,10 @@
 
     This sample demonstrates how to add an ArcGISTiledLayer as a base layer in a map. The ArcGISTiledLayer comes from an ArcGIS Server sample web service.
 
+    * [ArcGIS vector tiled layer (URL)](Xamarin.Android/Samples/Layers/ArcGISVectorTiledLayerUrl)
+
+    This sample demonstrates how to create a ArcGISVectorTiledLayer and bind this to a Basemap which is used in the creation of a map.
+
 
 - **Map Image Layers**
 
@@ -96,6 +104,18 @@
 
     This sample demonstrates how to apply definition expression to a feature layer for filtering features. It also shows how to reset the definition expression.
 
+    * [Create feature collection layer](Xamarin.Android/Samples/Layers/CreateFeatureCollectionLayer)
+
+    This samples demonstrates how to create a new feature collection with several feature collection tables. The collection is displayed in the map as a feature collection layer.
+
+    * [Create a feature collection layer from a portal item](Xamarin.Android/Samples/Layers/FeatureCollectionLayerFromPortal)
+
+    This samples demonstrates opening a feature collection saved as a portal item.
+
+    * [Feature collection layer from query result](Xamarin.Android/Samples/Layers/FeatureCollectionLayerFromQuery)
+
+    This samples demonstrates how to create a feature collection layer to show a query result from a service feature table.
+
 
 - **Feature Tables**
 
@@ -116,7 +136,7 @@
 
 - **Graphics Overlay**
 
-    * [Add graphics (Renderer)](Xamarin.Android/Samples/GraphicsOverlay/AddGraphicsRenderer)
+    * [Add graphics (SimpleRenderer)](Xamarin.Android/Samples/GraphicsOverlay/AddGraphicsRenderer)
 
     This sample demonstrates how you add graphics and set a renderer on a graphic overlays.
 

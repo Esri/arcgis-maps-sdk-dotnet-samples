@@ -24,6 +24,10 @@
 
     This sample demonstrates how you can take screenshot of a map. Click 'capture' button to take a screenshot of the visible area of the map. Created image is shown in the sample after creation.
 
+    * [Show magnifier](Shared/Samples/MapView/ShowMagnifier)
+
+    This sample demonstrates how you can tap and hold on a map to get the magnifier. You can also pan while tapping and holding to move the magnifier across the map.
+
 
 - **Map**
 
@@ -59,6 +63,10 @@
 
     This sample demonstrates how to dynamically change the basemap displayed in a Map.
 
+    * [Manage Bookmarks](Shared/Samples/Map/ManageBookmarks)
+
+    This sample demonstrates how to access and add bookmarks to a map.
+
 ## Layers
 
 
@@ -67,6 +75,10 @@
     * [ArcGIS tiled layer (URL)](Shared/Samples/Layers/ArcGISTiledLayerUrl)
 
     This sample demonstrates how to add an ArcGISTiledLayer as a base layer in a map. The ArcGISTiledLayer comes from an ArcGIS Server sample web service.
+
+    * [ArcGIS vector tiled layer (URL)](Shared/Samples/Layers/ArcGISVectorTiledLayerUrl)
+
+    This sample demonstrates how to add an ArcVectorGISTiledLayer as a base layer in a map.
 
 
 - **Map Image Layers**
@@ -100,6 +112,18 @@
 
     This sample demonstrates how to apply definition expression to a feature layer for filtering features. It also shows how to reset the definition expression.
 
+    * [Create a feature collection layer](Shared/Samples/Layers/CreateFeatureCollectionLayer)
+
+    This samples demonstrates how to create a new feature collection with several feature collection tables. The collection is displayed in the map as a feature collection layer.
+
+    * [Create a feature collection layer from a portal item](Shared/Samples/Layers/FeatureCollectionLayerFromPortal)
+
+    This samples demonstrates opening a feature collection saved as a portal item.
+
+    * [Feature collection layer from query result](Shared/Samples/Layers/FeatureCollectionLayerFromQuery)
+
+    This samples demonstrates how to create a feature collection layer to show a query result from a service feature table.
+
 
 - **Feature Tables**
 
@@ -124,7 +148,7 @@
 
 - **Graphics Overlays**
 
-    * [Add graphics (Renderer)](Shared/Samples/GraphicsOverlay/AddGraphicsRenderer)
+    * [Add graphics (SimpleRenderer)](Shared/Samples/GraphicsOverlay/AddGraphicsRenderer)
 
     This sample demonstrates how you add graphics and set a renderer on a graphic overlays.
 

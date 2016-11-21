@@ -1,8 +1,8 @@
-#Open an existing map
+#Manage Bookmarks
 
-This sample demonstrates loading a webmap in a map from a Uri.
+This sample demonstrates how to access and add bookmarks to a map.
 
-<img src="OpenExistingMap.jpg" width="350"/>
+<img src="ManageBookmarks.jpg" width="350"/>
 
 ### Instructions
 

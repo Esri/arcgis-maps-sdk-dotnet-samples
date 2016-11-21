@@ -20,7 +20,7 @@ See Table of Contents under different platforms
   * [Xamarin.Android](https://developers.arcgis.com/net/latest/android/guide/system-requirements.htm)
   * [Xamarin.iOS](https://developers.arcgis.com/net/latest/ios/guide/system-requirements.htm)
   * [Xamarin.Forms](https://developers.arcgis.com/net/latest/forms/guide/system-requirements.htm) 
-3. In Visual Studio, open the solution, clean, build and run the application
+3. For the platform you want to view: open the solution, restore NuGet packages, build, and run the application
   * WPF: `src\Desktop\ArcGISRuntime.WPF.Viewer.sln`  
   * UWP: `src\Windows\ArcGISRuntime.UWP.Viewer.sln`  
   * Xamarin.Android: `src\Android\ArcGISRuntime.Xamarin.Samples.Android.sln`  

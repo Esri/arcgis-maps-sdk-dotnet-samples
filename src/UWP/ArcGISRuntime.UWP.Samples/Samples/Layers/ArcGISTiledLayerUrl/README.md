@@ -1,6 +1,6 @@
 #ArcGIS tiled layer (URL)
 
-The Tiled Layer from URL sample is one of the most basic .Net SDK samples. This example covers using ArcGISTiledLayer as a Basemap, as well as adding the required map and MapView elements. By default, this map supports basic zooming and panning operations.
+This sample demonstrates how to add an ArcGISTiledLayer as a base layer in a map. The ArcGISTiledLayer comes from an ArcGIS Server sample web service.
 
 <img src="ArcGISTiledLayerUrl.jpg" width="350"/>
 

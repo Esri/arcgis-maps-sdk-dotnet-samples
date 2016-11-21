@@ -1,4 +1,4 @@
-#Add graphics (Renderer)
+#Add graphics (SimpleRenderer)
 
 This sample demonstrates how you add graphics and set a renderer on a graphic overlays.
 

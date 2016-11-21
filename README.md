@@ -21,11 +21,11 @@ See Table of Contents under different platforms
   * [Xamarin iOS](https://developers.arcgis.com/net/ios/guide/system-requirements.htm)
   * [Xamarin Forms](https://developers.arcgis.com/net/forms/guide/system-requirements.htm) 
 3. In Visual Studio, open the solution, clean, build and run the application
-  * WPF: `src\Desktop\ArcGISRuntime.Desktop.Viewer.sln`  
-  * UWP: `src\Windows\ArcGISRuntime.Windows.Viewer.sln`  
-  * Xamarin Android: `src\Windows\ArcGISRuntime.Windows.Viewer.sln`  
-  * Xamarin iOS: `src\Windows\ArcGISRuntime.Windows.Viewer.sln`  
-  * Xamarin Forms: `src\Windows\ArcGISRuntime.Windows.Viewer.sln`  
+  * WPF: `src\Desktop\ArcGISRuntime.WPF.Viewer.sln`  
+  * UWP: `src\Windows\ArcGISRuntime.UWP.Viewer.sln`  
+  * Xamarin Android: `src\Android\ArcGISRuntime.Xamarin.Samples.Android.sln`  
+  * Xamarin iOS: `src\iOS\ArcGISRuntime.Xamari.Samples.iOS.sln`  
+  * Xamarin Forms: `src\Windows\ArcGISRuntime.Xamarin.Samples.Forms.sln`  
   
   or
   

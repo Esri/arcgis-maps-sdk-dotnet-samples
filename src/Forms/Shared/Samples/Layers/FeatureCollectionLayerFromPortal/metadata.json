@@ -1,0 +1,14 @@
+{
+  "Name": "Create a feature collection layer from a portal item",
+  "SampleName": "FeatureCollectionLayerFromPortal",
+  "Description": "This samples demonstrates opening a feature collection saved as a portal item.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"FeatureCollectionLayerFromPortal.jpg",
+  "Link":"",
+  "TypeLink": ["T:Esri.ArcGISRuntime.Portal.ArcGISPortal","M:Esri.ArcGISRuntime.Portal.ArcGISPortal.CreateAsync","T:Esri.ArcGISRuntime.Portal.Item" ],
+  "SampleFolder": "FeatureCollectionLayerFromPortal"
+}

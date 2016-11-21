@@ -1,0 +1,67 @@
+﻿<Window x:Class="IntegratedWindowsAuth.LoginWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		Title="Please Login" Height="185" Width="350">
+	<Grid>
+		<Canvas x:Name="LoginPanel"
+				Margin="10">
+			<Border x:Name="ToolsPanel" 
+					CornerRadius="10" 
+					Background="DarkGray" Opacity="0.85"
+					Width="320" 
+					Canvas.Top="0">
+				<Grid x:Name="AddDataGrid" 
+						Margin="0,10,0,0">
+					<Grid.RowDefinitions>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition/>
+						<ColumnDefinition Width="2*"/>
+					</Grid.ColumnDefinitions>
+					<TextBlock Text="User:"
+							Grid.Row="0" Grid.Column="0"
+							FontSize="14"
+							HorizontalAlignment="Right" VerticalAlignment="Center"/>
+					<TextBox x:Name="UsernameTextBox"
+							Grid.Row="0" Grid.Column="1"
+							Margin="5"
+							FontSize="14"/>
+					<TextBlock Text="Password:"
+							Grid.Row="1" Grid.Column="0"
+							FontSize="14"
+							HorizontalAlignment="Right" VerticalAlignment="Center"/>
+					<PasswordBox x:Name="PasswordTextBox"
+							Grid.Row="1" Grid.Column="1"
+							Margin="5"
+							FontSize="14"/>
+					<TextBlock Text="Domain:"
+							Grid.Row="2" Grid.Column="0"
+							FontSize="14"
+							HorizontalAlignment="Right" VerticalAlignment="Center"/>
+					<TextBox x:Name="DomainTextBox"
+							Grid.Row="2" Grid.Column="1"
+							Margin="5"
+							FontSize="14"/>
+					<Button x:Name="CancelButton" 
+							Grid.Row="3" Grid.Column="0"
+							HorizontalAlignment="Right" VerticalAlignment="Center"
+							Margin="5"
+							Content="Cancel" 
+							Width="75"
+							Click="ButtonClick" IsCancel="True"/>
+					<Button x:Name="LoginButton" 
+							Grid.Row="3" Grid.Column="1"
+							HorizontalAlignment="Center" VerticalAlignment="Center"
+							Margin="5"
+							Content="Login" 
+							Width="75"
+							Click="ButtonClick"/>
+				</Grid>
+			</Border>
+		</Canvas>
+	</Grid>
+</Window>

@@ -1,0 +1,15 @@
+{
+  "Name": "Render picture markers",
+  "SampleName": "RenderPictureMarkers",
+  "Description": "This sample demonstrates how to create picture marker symbols from a URL and embedded resources.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"RenderPictureMarkers.jpg",
+  "Link":"",
+  "TypeLink": ["T:Esri.ArcGISRuntime.Symbology.PictureMarkerSymbol","P:Esri.ArcGISRuntime.Symbology.PictureMarkerSymbol.Height","P:Esri.ArcGISRuntime.Symbology.PictureMarkerSymbol.Width"
+  ],
+  "SampleFolder": "RenderPictureMarkers"
+}

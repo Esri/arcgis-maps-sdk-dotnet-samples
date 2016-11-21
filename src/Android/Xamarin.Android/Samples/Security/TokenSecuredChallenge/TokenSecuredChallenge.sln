@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TokenSecuredChallenge", "TokenSecuredChallenge.csproj", "{EC0324CF-4F26-4078-ACF1-91E8E0FD49DC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EC0324CF-4F26-4078-ACF1-91E8E0FD49DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC0324CF-4F26-4078-ACF1-91E8E0FD49DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC0324CF-4F26-4078-ACF1-91E8E0FD49DC}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{EC0324CF-4F26-4078-ACF1-91E8E0FD49DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC0324CF-4F26-4078-ACF1-91E8E0FD49DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC0324CF-4F26-4078-ACF1-91E8E0FD49DC}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
+             x:Class="ArcGISRuntimeXamarin.Samples.ArcGISVectorTiledLayerUrl.ArcGISVectorTiledLayerUrl">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*" />
+      <RowDefinition Height="auto" />
+    </Grid.RowDefinitions>
+    <esriUI:MapView x:Name="MyMapView" />
+    <Button x:Name="changeLayerButton" Text="Change VectorLayer" Clicked="OnChangeLayerButtonClicked" Grid.Row="1"/>
+  </Grid>
+</ContentPage>

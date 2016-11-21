@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:TokenSecuredChallenge;assembly=TokenSecuredChallengeForms"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             x:Class="TokenChallenge.TokenChallengePage">
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <local:LoadStatusToColorConverter x:Key="StatusToColor"/>
+    </ResourceDictionary>
+  </ContentPage.Resources>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="30"/>
+      <RowDefinition Height="30"/>
+      <RowDefinition/>
+    </Grid.RowDefinitions>
+    <StackLayout x:Name="PublicLayerStatusPanel"
+                 Grid.Row="0"
+                 Orientation="Horizontal"
+                 Margin="10,3">
+      <Label Text="{Binding Name}"
+             Margin="5,0"/>
+      <Label Text="{Binding LoadStatus}"
+             TextColor="{Binding LoadStatus, Converter={StaticResource StatusToColor}}"/>
+    </StackLayout>
+    <StackLayout x:Name="SecureLayerStatusPanel"
+                 Grid.Row="1"
+                 Orientation="Horizontal"
+                 Margin="10,3">
+      <Label Text="{Binding Name}"
+             Margin="5,0"/>
+      <Label Text="{Binding LoadStatus}"
+             TextColor="{Binding LoadStatus, Converter={StaticResource StatusToColor}}"/>
+    </StackLayout>
+    <esriUI:MapView x:Name="MyMapView"
+                    Grid.Row="2"/>
+  </Grid>
+</ContentPage>

@@ -1,0 +1,33 @@
+﻿<Page
+    x:Class="TokenSecuredKnownUser.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TokenSecuredKnownUser"
+    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <Page.Resources>
+        <local:LoadStatusToColorConverter x:Key="StatusToColor"/>
+    </Page.Resources>
+    <Grid x:Name="layoutGrid">
+        <esriUI:MapView x:Name="MyMapView"/>
+
+        <!-- Layer listing with status -->
+        <Border Background="White" BorderBrush="Black" BorderThickness="2" 
+                Margin="30" 
+                MaxWidth="500"
+				HorizontalAlignment="Right" VerticalAlignment="Top">
+            <StackPanel>
+                <TextBlock FontSize="14" FontWeight="Bold"
+                           Margin="4" 
+                           Text="Map Layers (with status)" />
+                <StackPanel x:Name="PublicLayerPanel" Orientation="Vertical" Margin="10,5">
+                    <TextBlock Text="{Binding Name}"/>
+                    <TextBlock Text="{Binding LoadStatus}" Foreground="{Binding LoadStatus, Converter={StaticResource StatusToColor}}" Margin="10,0"/>
+                </StackPanel>
+                <StackPanel x:Name="SecureLayerPanel" Orientation="Vertical" Margin="10,5">
+                    <TextBlock Text="{Binding Name}"/>
+                    <TextBlock Text="{Binding LoadStatus}" Foreground="{Binding LoadStatus, Converter={StaticResource StatusToColor}}" Margin="10,0"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TokenChallenge.LoginPage">
+
+  <Grid Margin="20,50,20,0">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="55"/>
+      <RowDefinition Height="55"/>
+      <RowDefinition Height="55"/>
+      <RowDefinition Height="55"/>
+      <RowDefinition/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition/>
+      <ColumnDefinition/>
+    </Grid.ColumnDefinitions>
+    <Label x:Name="LoginLabel" 
+           Text="Login to access token-secured service"
+           FontSize="14"
+           Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+    <Entry x:Name="UsernameEntry"
+           Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+           Margin="10"
+           Placeholder="Username = user1"/>
+    <Entry x:Name="PasswordEntry"
+           Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+           Margin="10"
+           IsPassword="True"
+           Placeholder="Password = user1"/>
+    <Button x:Name="LoginButton"
+            Grid.Row="3" Grid.Column="0"
+            Text="Login"
+            Clicked="LoginButtonClicked"/>
+    <Button x:Name="CancelButton"
+            Grid.Row="3" Grid.Column="1"
+            Text="Cancel"
+            Clicked="CancelButtonClicked"/>
+  </Grid>
+</ContentPage>

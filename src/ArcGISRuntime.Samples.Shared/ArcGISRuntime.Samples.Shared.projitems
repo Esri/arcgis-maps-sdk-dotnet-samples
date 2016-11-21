@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>0ad85845-0ba1-4dc9-8c32-e6fd7632e32d</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>ArcGISRuntime.Samples.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Managers\ApplicationManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Managers\SampleManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Managers\TreeItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\CategoryModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\FeaturedModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\LanguageEnum.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SampleInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SampleModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SampleModelExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SampleStructureMap.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SubCategoryModel.cs" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,14 @@
+{
+  "Name": "Service feature table (manual cache)",
+  "SampleName": "ServiceFeatureTableManualCache",
+  "Description": "This sample demonstrates how to use a feature service in manual cache mode.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"ServiceFeatureTableManualCache.jpg",
+  "Link":"",
+  "TypeLink": ["E:Esri.ArcGISRuntime.Data.FeatureTable.LoadStatusChanged","M:Esri.ArcGISRuntime.Data.ServiceFeatureTable.PopulateFromServiceAsync(Esri.ArcGISRuntime.Data.QueryParameters,System.Boolean,System.Collections.Generic.IEnumerable{System.String})"
+  ]
+}

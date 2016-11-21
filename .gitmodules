@@ -1,3 +1,0 @@
-[submodule "samples-data"]
-	path = samples-data
-	url = https://github.com/ArcGIS/arcgis-runtime-samples-data

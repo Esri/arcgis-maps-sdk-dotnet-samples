@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="XamarinForms.IWA.LoginPage">
+  <Grid Margin="20,50,20,0">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="25"/>
+      <RowDefinition Height="25"/>
+      <RowDefinition Height="25"/>
+      <RowDefinition Height="60"/>
+      <RowDefinition/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition/>
+      <ColumnDefinition/>
+    </Grid.ColumnDefinitions>
+    <Entry x:Name="UsernameEntry"
+           Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+           Margin="20,0"
+           Placeholder="Username"/>
+    <Entry x:Name="PasswordEntry"
+           Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+           Margin="20,0"
+           IsPassword="True"
+           Placeholder="Password"/>
+    <Entry x:Name="DomainEntry"
+           Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+           Margin="20,0"
+           Placeholder="Domain"/>
+    <Button x:Name="LoginButton"
+            Grid.Row="3" Grid.Column="0" 
+            Text="Login"
+            Clicked="LoginButtonClicked"/>
+    <Button x:Name="CancelButton"
+            Grid.Row="3" Grid.Column="1"
+            Text="Cancel"
+            Clicked="CancelButtonClicked"/>    
+  </Grid>
+</ContentPage>

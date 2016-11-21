@@ -1,7 +1,0 @@
-﻿1. Create a client certificate.
-2. Export it (*.pfx) and add it to the project's "Certificates" folder.
-3. Update the CertificateFileName variable in MainPage.xaml.cs with the certificate file name.
-
-More info:
-https://support.quovadisglobal.com/KB/a46/exporting-a-pfx-using-mmc.aspx
-https://wiki.cac.washington.edu/display/infra/Exporting+Certificates+from+the+Windows+Certificate+Store

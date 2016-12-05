@@ -22,10 +22,10 @@ namespace ArcGISRuntimeXamarin.Samples.ArcGISVectorTiledLayerUrl
          // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 
-        private string _navigationUrl = "http://www.arcgis.com/home/item.html?id=dcbbba0edf094eaa81af19298b9c6247";
-        private string _streetUrl = "http://www.arcgis.com/home/item.html?id=4e1133c28ac04cca97693cf336cd49ad";
-        private string _nightUrl = "http://www.arcgis.com/home/item.html?id=bf79e422e9454565ae0cbe9553cf6471";
-        private string _darkGrayUrl = "http://www.arcgis.com/home/item.html?id=850db44b9eb845d3bd42b19e8aa7a024";
+        private string _navigationUrl = "https://www.arcgis.com/home/item.html?id=dcbbba0edf094eaa81af19298b9c6247";
+        private string _streetUrl = "https://www.arcgis.com/home/item.html?id=4e1133c28ac04cca97693cf336cd49ad";
+        private string _nightUrl = "https://www.arcgis.com/home/item.html?id=bf79e422e9454565ae0cbe9553cf6471";
+        private string _darkGrayUrl = "https://www.arcgis.com/home/item.html?id=850db44b9eb845d3bd42b19e8aa7a024";
 
         private string _vectorTiledLayerUrl;
         private ArcGISVectorTiledLayer _vectorTiledLayer;

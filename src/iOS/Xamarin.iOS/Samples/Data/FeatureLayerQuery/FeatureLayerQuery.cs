@@ -31,7 +31,7 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerQuery
         private MapView _myMapView = new MapView();
 
         // Create reference to service of US States  
-        private string _statesUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2";
+        private string _statesUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2";
 
         // Create globally available text box for easy referencing 
         private UITextField _queryTextView;

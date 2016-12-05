@@ -27,7 +27,7 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerQuery
     public partial class FeatureLayerQuery : ContentPage
     {
         // Create reference to service of US States  
-        private string _statesUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2";
+        private string _statesUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2";
 
         // Create globally available feature table for easy referencing 
         private ServiceFeatureTable _featureTable;

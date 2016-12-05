@@ -31,7 +31,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeSublayerVisibility
 
             // Create a new ArcGISMapImageLayer instance and pass a Url to the service
             var mapImageLayer = new ArcGISMapImageLayer(
-                new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer"));
+                new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer"));
 
             // Await the load call for the layer.
             await mapImageLayer.LoadAsync();

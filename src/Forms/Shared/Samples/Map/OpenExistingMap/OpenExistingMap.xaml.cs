@@ -19,9 +19,9 @@ namespace ArcGISRuntimeXamarin.Samples.OpenExistingMap
         // String array to hold urls to publicly available web maps
         private string[] itemURLs = new string[]
         {
-            "http://www.arcgis.com/home/item.html?id=2d6fa24b357d427f9c737774e7b0f977",
-            "http://www.arcgis.com/home/item.html?id=01f052c8995e4b9e889d73c3e210ebe3",
-            "http://www.arcgis.com/home/item.html?id=92ad152b9da94dee89b9e387dfe21acd"
+            "https://www.arcgis.com/home/item.html?id=2d6fa24b357d427f9c737774e7b0f977",
+            "https://www.arcgis.com/home/item.html?id=01f052c8995e4b9e889d73c3e210ebe3",
+            "https://www.arcgis.com/home/item.html?id=92ad152b9da94dee89b9e387dfe21acd"
         };
 
         // String array to store titles for the webmaps specified above. These titles are in the same order as the urls above

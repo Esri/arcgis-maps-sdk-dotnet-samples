@@ -23,7 +23,7 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureCollectionLayerFromQuery
         private MapView _myMapView;
 
         // URL for a feature service layer to query
-        private const string FeatureLayerUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Wildfire/FeatureServer/0";
+        private const string FeatureLayerUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Wildfire/FeatureServer/0";
 
         public FeatureCollectionLayerFromQuery()
         {

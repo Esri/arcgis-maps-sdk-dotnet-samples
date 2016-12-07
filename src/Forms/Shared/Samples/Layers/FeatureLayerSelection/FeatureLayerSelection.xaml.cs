@@ -55,7 +55,7 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerSelection
 
             // Create Uri for the feature service
             Uri featureServiceUri = new Uri(
-                "http://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessment/FeatureServer/0");
+                "https://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessment/FeatureServer/0");
 
             // Initialize feature table using a url to feature server url
             var featureTable = new ServiceFeatureTable(featureServiceUri);

@@ -17,7 +17,7 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureCollectionLayerFromQuery
     public partial class FeatureCollectionLayerFromQuery : ContentPage
     {
         // Feature service URL to query for features
-        private const string FeatureLayerUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Wildfire/FeatureServer/0";
+        private const string FeatureLayerUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Wildfire/FeatureServer/0";
 
         public FeatureCollectionLayerFromQuery()
         {

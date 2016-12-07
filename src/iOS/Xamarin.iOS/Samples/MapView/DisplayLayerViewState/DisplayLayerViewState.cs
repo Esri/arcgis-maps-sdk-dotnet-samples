@@ -48,7 +48,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayLayerViewState
             Map myMap = new Map();
 
             // Create the uri for the tiled layer
-            Uri tiledLayerUri = new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer");
+            Uri tiledLayerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer");
 
             // Create a tiled layer using url
             ArcGISTiledLayer tiledLayer = new ArcGISTiledLayer(tiledLayerUri);
@@ -58,7 +58,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayLayerViewState
             myMap.OperationalLayers.Add(tiledLayer);
 
             // Create the uri for the ArcGISMapImage layer
-            var imageLayerUri = new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer");
+            var imageLayerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer");
 
             // Create ArcGISMapImage layer using a url
             ArcGISMapImageLayer imageLayer = new ArcGISMapImageLayer(imageLayerUri);
@@ -72,7 +72,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayLayerViewState
             myMap.OperationalLayers.Add(imageLayer);
 
             //Create Uri for feature layer
-            var featureLayerUri = new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0");
+            var featureLayerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0");
 
             //Create a feature layer using url
             FeatureLayer myFeatureLayer = new FeatureLayer(featureLayerUri);

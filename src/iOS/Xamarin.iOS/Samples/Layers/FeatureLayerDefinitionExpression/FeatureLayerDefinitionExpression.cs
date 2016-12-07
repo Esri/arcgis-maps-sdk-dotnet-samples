@@ -55,7 +55,7 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerDefinitionExpression
             _myMapView.Map = myMap;
 
             // Create the uri for the feature service
-            Uri featureServiceUri = new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/SF311/FeatureServer/0");
+            Uri featureServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/SF311/FeatureServer/0");
 
             // Initialize feature table using a url to feature server url
             ServiceFeatureTable featureTable = new ServiceFeatureTable(featureServiceUri);

@@ -59,7 +59,7 @@ namespace ArcGISRuntimeXamarin.Samples.RenderPictureMarkers
         {
             // Create uri to the used image
             var symbolUri = new Uri(
-                "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0/images/e82f744ebb069bb35b234b3fea46deae");
+                "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0/images/e82f744ebb069bb35b234b3fea46deae");
 
             // Create new symbol using asynchronous factory method from uri
             PictureMarkerSymbol campsiteSymbol = new PictureMarkerSymbol(symbolUri);

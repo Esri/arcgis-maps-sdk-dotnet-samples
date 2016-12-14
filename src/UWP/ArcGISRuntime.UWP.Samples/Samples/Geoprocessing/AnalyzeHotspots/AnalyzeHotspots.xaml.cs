@@ -12,14 +12,15 @@ using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using System;
 using System.Threading.Tasks;
-using System.Windows;
+using Windows.UI.Popups;
+using Windows.UI.Xaml;
 
-namespace ArcGISRuntime.WPF.Samples.AnalyzeHotspots
+namespace ArcGISRuntime.UWP.Samples.AnalyzeHotspots
 {
     public partial class AnalyzeHotspots
     {
         // Url for the geoprocessing service
-        private const string _hotspotUrl = 
+        private const string _hotspotUrl =
             "http://sampleserver6.arcgisonline.com/arcgis/rest/services/911CallsHotspot/GPServer/911%20Calls%20Hotspot";
 
         // The geoprocessing task for hot spot analysis 
@@ -30,7 +31,7 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeHotspots
 
         public AnalyzeHotspots()
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization 
             Initialize();
@@ -46,6 +47,24 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeHotspots
 
             // Assign the map to the MapView
             MyMapView.Map = myMap;
+
+            // Set the initial start date for the DatePicker defined in xaml
+            var myFromDate = new DateTimeOffset(new DateTime(1998, 1, 1));
+            FromDate.Date = myFromDate;
+
+            // Set the initial end date for the DatePicker defined in xaml
+            var myToDate = new DateTimeOffset(new DateTime(1998, 1, 31));
+            ToDate.Date = myToDate;
+        }
+
+        private void OnCancelTaskClicked(object sender, RoutedEventArgs e)
+        {
+            // Cancel current geoprocessing job
+            if (_hotspotJob.Status == JobStatus.Started)
+                _hotspotJob.Cancel();
+
+            // Hide the busyOverlay indication
+            ShowBusyOverlay(false);
         }
 
         private async void OnAnalyzeHotspotsClicked(object sender, RoutedEventArgs e)
@@ -54,17 +73,16 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeHotspots
             ShowBusyOverlay();
 
             // Get the 'from' and 'to' dates from the date pickers for the geoprocessing analysis
-            var myFromDate = FromDate.SelectedDate.Value;
-            var myToDate = ToDate.SelectedDate.Value;
-
+            var myFromDate = FromDate.Date;
+            var myToDate = ToDate.Date;
 
             // The end date must be at least one day after the start date
             if (myToDate <= myFromDate.AddDays(1))
             {
                 // Show error message
-                MessageBox.Show(
-                    "Please select valid time range. There has to be at least one day in between To and From dates.", 
+                var message = new MessageDialog("Please select valid time range. There has to be at least one day in between To and From dates.", 
                     "Invalid date range");
+                await message.ShowAsync();
 
                 // Remove the busyOverlay
                 ShowBusyOverlay(false);
@@ -72,7 +90,7 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeHotspots
             }
 
             // Create the parameters that are passed to the used geoprocessing task
-           GeoprocessingParameters myHotspotParameters = new GeoprocessingParameters(GeoprocessingExecutionType.AsynchronousSubmit);
+            GeoprocessingParameters myHotspotParameters = new GeoprocessingParameters(GeoprocessingExecutionType.AsynchronousSubmit);
 
             // Construct the date query
             var myQueryString = string.Format("(\"DATE\" > date '{0} 00:00:00' AND \"DATE\" < date '{1} 00:00:00')",
@@ -107,25 +125,21 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeHotspots
             {
                 // Display error messages if the geoprocessing task fails
                 if (_hotspotJob.Status == JobStatus.Failed && _hotspotJob.Error != null)
-                    MessageBox.Show("Executing geoprocessing failed. " + _hotspotJob.Error.Message, "Geoprocessing error");
+                {
+                    var message = new MessageDialog("Executing geoprocessing failed. " + _hotspotJob.Error.Message, "Geoprocessing error");
+                    await message.ShowAsync();
+                }
                 else
-                    MessageBox.Show("An error occurred. " + ex.ToString(), "Sample error");
+                {
+                    var message = new MessageDialog("An error occurred. " + ex.ToString(), "Sample error");
+                    await message.ShowAsync();
+                }
             }
             finally
             {
                 // Remove the busyOverlay
                 ShowBusyOverlay(false);
             }
-        }
-
-        private void OnCancelTaskClicked(object sender, RoutedEventArgs e)
-        {
-            // Cancel current geoprocessing job
-            if (_hotspotJob.Status == JobStatus.Started)
-                _hotspotJob.Cancel();
-
-            // Hide the busyOverlay indication
-            ShowBusyOverlay(false);
         }
 
         private void ShowBusyOverlay(bool visibility = true)

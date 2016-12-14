@@ -220,6 +220,31 @@
         }
       ]
     },
+    {
+      "Name": "Analysis",
+      "CategoryName": "Analysis",
+      "SubCategories": [
+        {
+          "Name": "Geoprocessing",
+          "SubCategoryName": "Geoprocessing",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "AnalyzeHotspots",
+              "Path": "Samples/Geoprocessing/AnalyzeHotspots"
+            },
+            {
+              "SampleName": "AnalyzeViewshed",
+              "Path": "Samples/Geoprocessing/AnalyzeViewshed"
+            },
+            {
+              "SampleName": "ListGeodatabaseVersions",
+              "Path": "Samples/Geoprocessing/ListGeodatabaseVersions"
+            }
+          ]
+        }
+      ]
+    },
      {
       "Name": "Location",
       "CategoryName": "Location",

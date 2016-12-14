@@ -93,6 +93,7 @@
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
+    <Content Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.jpg" />
     <Content Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.jpg" />
     <Content Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.jpg" />
     <Content Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.jpg" />
@@ -134,6 +135,8 @@
     <None Include="Samples\Data\ServiceFeatureTableCache\metadata.json" />
     <None Include="Samples\Data\ServiceFeatureTableManualCache\metadata.json" />
     <None Include="Samples\Data\ServiceFeatureTableNoCache\metadata.json" />
+    <None Include="Samples\Geoprocessing\AnalyzeHotspots\metadata.json" />
+    <None Include="Samples\Geoprocessing\AnalyzeHotspots\README.md" />
     <None Include="Samples\GraphicsOverlay\AddGraphicsRenderer\metadata.json" />
     <None Include="Samples\GraphicsOverlay\IdentifyGraphics\metadata.json" />
     <None Include="Samples\Layers\ArcGISMapImageLayerUrl\metadata.json" />
@@ -209,6 +212,9 @@
     </Compile>
     <Compile Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCacheVB.xaml.vb">
       <DependentUpon>ServiceFeatureTableNoCacheVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspotsVB.xaml.vb">
+      <DependentUpon>AnalyzeHotspotsVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRendererVB.xaml.vb">
       <DependentUpon>AddGraphicsRendererVB.xaml</DependentUpon>
@@ -365,6 +371,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCacheVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspotsVB.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

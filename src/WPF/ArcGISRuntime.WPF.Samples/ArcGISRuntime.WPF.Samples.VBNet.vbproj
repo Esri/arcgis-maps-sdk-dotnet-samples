@@ -91,6 +91,11 @@
     <Content Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.jpg" />
     <Content Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.jpg" />
     <Content Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.jpg" />
+    <Content Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.jpg" />
+    <Content Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.jpg" />
+    <Content Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.xaml.cs" />
+    <Content Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.jpg" />
+    <Content Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.xaml.cs" />
     <Content Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.jpg" />
     <Content Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.jpg" />
     <Content Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg" />
@@ -154,6 +159,12 @@
     <None Include="Samples\Data\ServiceFeatureTableManualCache\README.md" />
     <None Include="Samples\Data\ServiceFeatureTableNoCache\metadata.json" />
     <None Include="Samples\Data\ServiceFeatureTableNoCache\README.md" />
+    <None Include="Samples\Geoprocessing\AnalyzeHotspots\metadata.json" />
+    <None Include="Samples\Geoprocessing\AnalyzeHotspots\README.md" />
+    <None Include="Samples\Geoprocessing\AnalyzeViewshed\metadata.json" />
+    <None Include="Samples\Geoprocessing\AnalyzeViewshed\README.md" />
+    <None Include="Samples\Geoprocessing\ListGeodatabaseVersions\metadata.json" />
+    <None Include="Samples\Geoprocessing\ListGeodatabaseVersions\README.md" />
     <None Include="Samples\GraphicsOverlay\AddGraphicsRenderer\metadata.json" />
     <None Include="Samples\GraphicsOverlay\AddGraphicsRenderer\README.md" />
     <None Include="Samples\GraphicsOverlay\IdentifyGraphics\metadata.json" />
@@ -210,6 +221,9 @@
     </Compile>
     <Compile Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCacheVB.xaml.vb">
       <DependentUpon>ServiceFeatureTableNoCacheVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspotsVB.xaml.vb">
+      <DependentUpon>AnalyzeHotspotsVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRendererVB.xaml.vb">
       <DependentUpon>AddGraphicsRendererVB.xaml</DependentUpon>
@@ -324,6 +338,18 @@
     <Page Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCacheVB.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspotsVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRendererVB.xaml">
       <SubType>Designer</SubType>

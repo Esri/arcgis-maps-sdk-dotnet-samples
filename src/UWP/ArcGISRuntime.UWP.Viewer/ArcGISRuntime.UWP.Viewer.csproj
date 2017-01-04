@@ -102,6 +102,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Converters\SampleToBitmapConverter.cs" />
     <Compile Include="Dialogs\SampleInfoDialog.xaml.cs">
       <DependentUpon>SampleInfoDialog.xaml</DependentUpon>

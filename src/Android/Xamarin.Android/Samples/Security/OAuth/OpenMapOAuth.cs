@@ -31,6 +31,7 @@ namespace ArcGISRuntimeXamarin.Samples.OpenMapOAuth
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
         
         // Constants for OAuth-related values ...
+        // Note: the default values are subject to change, in which case the sample will not work 'out-of-the-box'       
         // TODO: URL of the portal to authenticate with
         private const string PortalUrl = "https://www.arcgis.com/sharing/rest";
 
@@ -45,7 +46,7 @@ namespace ArcGISRuntimeXamarin.Samples.OpenMapOAuth
 
         // TODO: Add URL for redirecting after a successful authorization
         //       Note - this must be a URL configured as a valid Redirect URI with your app
-        private const string OAuthRedirectUrl = "http://myapps.portalmapapp";
+        private const string OAuthRedirectUrl = "https://developers.arcgis.com";
 
         // URL used by the server for authorization
         private const string AuthorizeUrl = "https://www.arcgis.com/sharing/oauth2/authorize";

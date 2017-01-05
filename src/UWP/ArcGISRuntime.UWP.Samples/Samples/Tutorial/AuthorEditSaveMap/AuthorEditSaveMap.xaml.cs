@@ -49,6 +49,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorEditSaveMap
             // Call a function to update the authentication manager settings
             UpdateAuthenticationManager();
         }
+
         private void OnBasemapsClicked(object sender, SelectionChangedEventArgs e)
         {
             // Get the text (basemap name) selected in the list box

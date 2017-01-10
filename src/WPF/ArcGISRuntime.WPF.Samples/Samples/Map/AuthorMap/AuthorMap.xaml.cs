@@ -27,14 +27,14 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
     {
         // Constants for OAuth-related values ...
         // URL of the server to authenticate with
-        private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
+        private string ServerUrl = "https://www.arcgis.com/sharing/rest";
 
         // TODO: Add Client ID for an app registered with the server
-        private const string AppClientId = "2Gh53JRzkPtOENQq";
+        private string AppClientId = "2Gh53JRzkPtOENQq";
 
         // TODO: Add URL for redirecting after a successful authorization
         //       Note - this must be a URL configured as a valid Redirect URI with your app
-        private const string OAuthRedirectUrl = "http://myapps.portalmapapp";
+        private string OAuthRedirectUrl = "https://developers.arcgis.com";
 
         // String array to store names of the available basemaps
         private string[] _basemapNames = new string[]
@@ -76,8 +76,9 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
             // Fill the operational layers list box with layer names
             OperationalLayerListBox.ItemsSource = _operationalLayerUrls;
 
-            // Setup the AuthenticationManager to challenge for credentials
-            UpdateAuthenticationManager();
+            // Show the OAuth settings in the page
+            ClientIdTextBox.Text = AppClientId;
+            RedirectUrlTextBox.Text = OAuthRedirectUrl;
 
             // Update the extent labels whenever the view point (extent) changes
             MyMapView.ViewpointChanged += (s, evt) => UpdateViewExtentLabels();
@@ -100,6 +101,20 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
         {
             // Create a new map (will not have an associated PortalItem)
             MyMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
+        }
+
+        private void SaveOAuthSettingsClicked(object sender, RoutedEventArgs e)
+        {
+            // Store the OAuth information that was entered
+            AppClientId = ClientIdTextBox.Text.Trim();
+            OAuthRedirectUrl = RedirectUrlTextBox.Text.Trim();
+
+            // Hide the OAuth settings, show the save map controls
+            OAuthSettingsGrid.Visibility = Visibility.Collapsed;
+            SaveMapGrid.Visibility = Visibility.Visible;
+
+            // Update authentication manager with the OAuth settings
+            UpdateAuthenticationManager();
         }
 
         private async void SaveMapClicked(object sender, RoutedEventArgs e)

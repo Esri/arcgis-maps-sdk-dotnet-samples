@@ -26,6 +26,8 @@ namespace ArcGISRuntimeXamarin
 		
 		public static void UpdateIdValues()
 		{
+			global::PCLCrypto.Resource.String.ApplicationName = global::ArcGISRuntimeXamarin.Resource.String.ApplicationName;
+			global::PCLCrypto.Resource.String.Hello = global::ArcGISRuntimeXamarin.Resource.String.Hello;
 		}
 		
 		public partial class Attribute

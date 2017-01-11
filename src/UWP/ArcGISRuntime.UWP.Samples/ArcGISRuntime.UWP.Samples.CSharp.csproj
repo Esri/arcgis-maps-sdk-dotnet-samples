@@ -101,6 +101,9 @@
     <Content Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -317,6 +320,9 @@
     <Content Include="Samples\Geoprocessing\AnalyzeHotspots\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Geoprocessing\ListGeodatabaseVersions\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Geoprocessing\AnalyzeViewshed\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -337,6 +343,9 @@
     </Compile>
     <Compile Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.xaml.cs">
       <DependentUpon>AnalyzeHotspots.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.xaml.cs">
+      <DependentUpon>ListGeodatabaseVersions.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.xaml.cs">
       <DependentUpon>AnalyzeViewshed.xaml</DependentUpon>
@@ -462,6 +471,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

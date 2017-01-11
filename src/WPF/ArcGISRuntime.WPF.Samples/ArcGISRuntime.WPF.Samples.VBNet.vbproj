@@ -94,7 +94,6 @@
     <Content Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.jpg" />
     <Content Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.jpg" />
     <Content Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.jpg" />
-    <Content Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.xaml.cs" />
     <Content Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.jpg" />
     <Content Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.jpg" />
     <Content Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg" />
@@ -224,6 +223,9 @@
     <Compile Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspotsVB.xaml.vb">
       <DependentUpon>AnalyzeHotspotsVB.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersionsVB.xaml.vb">
+      <DependentUpon>ListGeodatabaseVersionsVB.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshedVB.xaml.vb">
       <DependentUpon>AnalyzeViewshedVB.xaml</DependentUpon>
     </Compile>
@@ -349,9 +351,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersionsVB.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRendererVB.xaml">
       <SubType>Designer</SubType>

@@ -30,16 +30,16 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
         // Dictionary of operational layer names and URLs
         private Dictionary<string, string> _operationalLayerUrls = new Dictionary<string, string>
         {
-            {"World Elevations", "http://sampleserver5.arcgisonline.com/arcgis/rest/services/Elevation/WorldElevations/MapServer"},
-            {"World Cities", "http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/" },
-            {"US Census Data", "http://sampleserver5.arcgisonline.com/arcgis/rest/services/Census/MapServer"}
+            {"World Elevations", "https://sampleserver5.arcgisonline.com/arcgis/rest/services/Elevation/WorldElevations/MapServer"},
+            {"World Cities", "https://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/" },
+            {"US Census Data", "https://sampleserver5.arcgisonline.com/arcgis/rest/services/Census/MapServer"}
         };
 
         // Use a TaskCompletionSource to track the completion of the authorization
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
 
         // Overlay with entry controls for OAuth configuration (client ID and redirect Url)
-        private SetOAuthPropsDialogOverlay _oauthInfoUI;
+        private OAuthPropsDialogOverlay _oauthInfoUI;
 
         // Overlay with entry controls for map item details (title, description, and tags)
         private SaveMapDialogOverlay _mapInfoUI;
@@ -205,7 +205,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             this.PresentViewController(layersActionSheet, true, null);
         }
 
-        private void AddOrRemoveLayer(string layerName)
+        private async void AddOrRemoveLayer(string layerName)
         {
             // See if the layer already exists
             ArcGISMapImageLayer layer = _myMapView.Map.OperationalLayers.FirstOrDefault(l => l.Name == layerName) as ArcGISMapImageLayer;
@@ -224,6 +224,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 // Create a new map image layer
                 layer = new ArcGISMapImageLayer(layerUri);
                 layer.Name = layerName;
+                await layer.LoadAsync();
 
                 // Set it 50% opaque, and add it to the map
                 layer.Opacity = 0.5;
@@ -236,8 +237,8 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             if (_oauthInfoUI != null) { return; }
 
             // Create a view to show entry controls over the map view
-            var ovBounds = _myMapView.Bounds;
-            _oauthInfoUI = new SetOAuthPropsDialogOverlay(ovBounds, 0.75f, UIColor.White, AppClientId, OAuthRedirectUrl);
+            var ovBounds = new CoreGraphics.CGRect(0, 60, View.Bounds.Width, View.Bounds.Height - 60);
+            _oauthInfoUI = new OAuthPropsDialogOverlay(ovBounds, 0.75f, UIColor.White, AppClientId, OAuthRedirectUrl);
 
             // Handle the OnOAuthPropsInfoEntered event to get the info entered by the user
             _oauthInfoUI.OnOAuthPropsInfoEntered += (s,e) => 
@@ -246,6 +247,10 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 AppClientId = e.ClientId;
                 OAuthRedirectUrl = e.RedirectUrl;
                 UpdateAuthenticationManager();
+
+                // Hide the OAuth entry
+                _oauthInfoUI.Hide();
+                _oauthInfoUI = null;
             };
 
             // Handle the cancel event when the user closes the dialog without choosing to save
@@ -264,7 +269,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             if (_mapInfoUI != null) { return; }
 
             // Create a view to show map item info entry controls over the map view
-            var ovBounds = _myMapView.Bounds;
+            var ovBounds = new CoreGraphics.CGRect(0, 60, View.Bounds.Width, View.Bounds.Height - 60); 
             _mapInfoUI = new SaveMapDialogOverlay(ovBounds, 0.75f, UIColor.White, (PortalItem)_myMapView.Map.Item);
 
             // Handle the OnMapInfoEntered event to get the info entered by the user
@@ -356,7 +361,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             };
 
             // Indicate the url (portal) to authenticate with (ArcGIS Online)
-            loginInfo.ServiceUri = new Uri("http://www.arcgis.com/sharing/rest");
+            loginInfo.ServiceUri = new Uri("https://www.arcgis.com/sharing/rest");
 
             try
             {
@@ -373,7 +378,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             }
 
             // Get the ArcGIS Online portal (will use credential from login above)
-            ArcGISPortal agsOnline = await ArcGISPortal.CreateAsync();
+            ArcGISPortal agsOnline = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
 
             // Save the current state of the map as a portal item in the user's default folder
             await myMap.SaveAsAsync(agsOnline, null, title, description, tags, null);
@@ -552,7 +557,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
     }
 
     // View containing "configure OAuth" controls (client id and redirect url inputs with save/cancel buttons)
-    public class SetOAuthPropsDialogOverlay : UIView
+    public class OAuthPropsDialogOverlay : UIView
     {
         // Event to provide information the user entered when the user dismisses the view
         public event EventHandler<OAuthPropsSavedEventArgs> OnOAuthPropsInfoEntered;
@@ -564,7 +569,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
         private UITextField _clientIdTextField;
         private UITextField _redirectUrlTextField;
         
-        public SetOAuthPropsDialogOverlay(CoreGraphics.CGRect frame, nfloat transparency, UIColor color, string clientId, string redirectUrl) : base(frame)
+        public OAuthPropsDialogOverlay(CoreGraphics.CGRect frame, nfloat transparency, UIColor color, string clientId, string redirectUrl) : base(frame)
         {
             // Create a semi-transparent overlay with the specified background color
             BackgroundColor = color;
@@ -573,12 +578,13 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             // Set size and spacing for controls
             nfloat controlHeight = 25;
             nfloat rowSpace = 11;
+            nfloat lessRowSpace = 4;
             nfloat buttonSpace = 15;
             nfloat textViewWidth = Frame.Width - 60;
             nfloat buttonWidth = 60;
 
             // Get the total height and width of the control set (four rows of controls, three sets of space)
-            nfloat totalHeight = (4 * controlHeight) + (3 * rowSpace);
+            nfloat totalHeight = (6 * controlHeight) + (5 * rowSpace);
             nfloat totalWidth = textViewWidth;
 
             // Find the center x and y of the view
@@ -589,7 +595,20 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             nfloat controlX = centerX - (totalWidth / 2);
             nfloat controlY = centerY - (totalHeight / 2);
 
-            // Client ID text input
+            // Label for inputs
+            var description = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
+            description.Text = "OAuth Settings";
+            description.TextColor = UIColor.Blue;
+
+            // Adjust the Y position for the next control
+            controlY = controlY + controlHeight + rowSpace;
+
+            // Client ID text input and label
+            var clientIdLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
+            clientIdLabel.Text = "Client ID";
+            
+            controlY = controlY + controlHeight + lessRowSpace;
+
             _clientIdTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
             _clientIdTextField.Placeholder = "Client ID";
             _clientIdTextField.Text = clientId;
@@ -599,7 +618,12 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;
 
-            // Redirect Url text input
+            // Redirect Url text input and label
+            var redirectLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
+            redirectLabel.Text = "Redirect URL";
+
+            controlY = controlY + controlHeight + lessRowSpace;
+
             _redirectUrlTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
             _redirectUrlTextField.Placeholder = "Redirect URI";
             _redirectUrlTextField.Text = redirectUrl;
@@ -625,7 +649,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             cancelButton.TouchUpInside += (s, e) => { OnCanceled.Invoke(this, null); };
 
             // Add the controls
-            AddSubviews(_clientIdTextField, _redirectUrlTextField, saveButton, cancelButton);
+            AddSubviews(description, clientIdLabel, _clientIdTextField, redirectLabel, _redirectUrlTextField, saveButton, cancelButton);
         }
 
         // Animate increasing transparency to completely hide the view, then remove it
@@ -719,8 +743,8 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             nfloat textViewWidth = Frame.Width - 60;
             nfloat buttonWidth = 60;
 
-            // Get the total height and width of the control set (four rows of controls, three sets of space)
-            nfloat totalHeight = (4 * controlHeight) + (3 * rowSpace);
+            // Get the total height and width of the control set (five rows of controls, four sets of space)
+            nfloat totalHeight = (5 * controlHeight) + (4 * rowSpace);
             nfloat totalWidth = textViewWidth;
 
             // Find the center x and y of the view
@@ -730,6 +754,14 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             // Find the start x and y for the control layout
             nfloat controlX = centerX - (totalWidth / 2);
             nfloat controlY = centerY - (totalHeight / 2);
+
+            // Label for inputs
+            var description = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
+            description.Text = "Portal item info";
+            description.TextColor = UIColor.Blue;
+
+            // Adjust the Y position for the next control
+            controlY = controlY + controlHeight + rowSpace;
 
             // Title text input
             _titleTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
@@ -774,7 +806,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             cancelButton.TouchUpInside += (s, e) => { OnCanceled.Invoke(this, null); };
 
             // Add the controls
-            AddSubviews(_titleTextField, _descriptionTextField, _tagsTextField, saveButton, cancelButton);
+            AddSubviews(description, _titleTextField, _descriptionTextField, _tagsTextField, saveButton, cancelButton);
 
             // If there's an existing portal item, configure the dialog for "update" (read-only entries)
             if (this._portalItem != null)

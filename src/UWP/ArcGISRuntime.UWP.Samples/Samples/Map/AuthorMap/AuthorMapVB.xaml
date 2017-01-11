@@ -67,6 +67,41 @@
                          Margin="0,3"/>
             </Grid>
         </Border>
+        <ContentDialog x:Name="OAuthSettingsDialog" 
+                       PrimaryButtonText="Save" SecondaryButtonText="Cancel"
+                       Title="OAuth Configuration Settings">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Client ID:"
+                           Grid.Row="0"
+                           HorizontalAlignment="Right" VerticalAlignment="Center"
+                           Margin="5,0"/>
+                <TextBox x:Name="ClientIdTextBox"
+                         Grid.Row="0" Grid.Column="1"
+                         HorizontalAlignment="Left" VerticalAlignment="Center"
+                         Width="220"
+                         IsReadOnly="True"
+                         Margin="0,3"/>
+                <TextBlock Text="Redirect URL:"
+                           Grid.Row="1"
+                           HorizontalAlignment="Right" VerticalAlignment="Center"
+                           Margin="5,0"/>
+                <TextBox x:Name="RedirectUrlTextBox" 
+                         Grid.Row="1" Grid.Column="1"
+                         HorizontalAlignment="Left" VerticalAlignment="Center"
+                         Width="220"
+                         IsReadOnly="True"
+                         Margin="0,3"/>
+            </Grid>
+        </ContentDialog>
         <CommandBar>
             <AppBarButton Content="Basemap"
                           Margin="5,0">
@@ -99,7 +134,7 @@
             <AppBarButton Content="Save ..."
                           Margin="5,0">
                 <AppBarButton.Flyout>
-                    <Flyout>
+                    <Flyout x:Name="SaveMapFlyout">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>

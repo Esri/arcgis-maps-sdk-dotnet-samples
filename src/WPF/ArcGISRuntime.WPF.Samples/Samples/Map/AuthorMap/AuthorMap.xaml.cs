@@ -447,7 +447,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
                 AuthorizeOnUIThread(_authorizeUrl);
             else
             {
-                var authorizeOnUIAction = new Action((() => AuthorizeOnUIThread(_authorizeUrl)));
+                var authorizeOnUIAction = new Action(() => AuthorizeOnUIThread(_authorizeUrl));
                 dispatcher.BeginInvoke(authorizeOnUIAction);
             }
 

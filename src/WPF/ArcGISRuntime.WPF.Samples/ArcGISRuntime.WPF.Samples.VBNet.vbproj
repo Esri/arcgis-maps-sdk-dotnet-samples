@@ -86,6 +86,7 @@
     <Content Include="groups.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg" />
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
     <Content Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.jpg" />
     <Content Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.jpg" />
@@ -204,6 +205,8 @@
     <None Include="Samples\Symbology\RenderPictureMarkers\metadata.json" />
     <None Include="Samples\Symbology\RenderSimpleMarkers\metadata.json" />
     <None Include="Samples\Symbology\RenderUniqueValues\metadata.json" />
+    <None Include="Samples\Tutorial\AuthorEditSaveMap\metadata.json" />
+    <None Include="Samples\Tutorial\AuthorEditSaveMap\README.md" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -324,6 +327,9 @@
     </Compile>
     <Compile Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValuesVB.xaml.vb">
       <DependentUpon>RenderUniqueValuesVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMapVB.xaml.vb">
+      <DependentUpon>AuthorEditSaveMapVB.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -481,6 +487,10 @@
     <Page Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValuesVB.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMapVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

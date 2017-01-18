@@ -25,10 +25,10 @@ Namespace AuthorEditSaveMap
         ' URL of the server to authenticate with
         Private Const ArcGISOnlineUrl As String = "https://www.arcgis.com/sharing/rest"
 
-        ' TODO: Add Client ID For an app registered With the server
+        ' Client ID For an app registered With the server
         Private Const AppClientId As String = "2Gh53JRzkPtOENQq"
 
-        ' TODO: Add URL For redirecting after a successful authorization
+        ' URL For redirecting after a successful authorization
         '       Note - this must be a URL configured as a valid Redirect URI with your app
         Private Const OAuthRedirectUrl As String = "https://developers.arcgis.com"
 
@@ -328,10 +328,8 @@ Namespace AuthorEditSaveMap
     End Class
 #End Region
 
-    ' <summary>
     ' Provides map data to an application
-    ' Note: in a ArcGIS Runtime for .NET template project, this class will be in a separate file: "MapViewModel.cs"
-    ' </summary>
+    ' Note: in a ArcGIS Runtime for .NET (C#) template project, this class will be in a separate file: "MapViewModel.cs"
     Public Class MapViewModel
         Implements INotifyPropertyChanged
 
@@ -359,9 +357,7 @@ Namespace AuthorEditSaveMap
 
         Private _map As Map = New Map(Basemap.CreateStreetsVector())
 
-        ' <summary>
-        ' Gets Or sets the map
-        ' </summary>
+        ' Gets or sets the map
         Public Property MyMap As Map
             Get
                 Return _map
@@ -432,10 +428,7 @@ Namespace AuthorEditSaveMap
             _map.SaveAsync()
         End Sub
 
-        ' <summary>
-        ' Raises the <see cref="MapViewModel.PropertyChanged" /> event
-        ' </summary>
-        ' <param name="propertyName">The name of the property that has changed</param>
+        ' Raises the PropertyChanged event for a property
         Protected Sub OnPropertyChanged(<CallerMemberName> Optional ByVal propertyName As String = Nothing)
             RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
         End Sub

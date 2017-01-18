@@ -7,20 +7,16 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 
 namespace ArcGISRuntime.WPF.Samples.AuthorEditSaveMap
@@ -155,8 +151,10 @@ namespace ArcGISRuntime.WPF.Samples.AuthorEditSaveMap
         {
             // Define the server information for ArcGIS Online
             ServerInfo portalServerInfo = new ServerInfo();
+
             // ArcGIS Online URI
             portalServerInfo.ServerUri = new Uri(ArcGISOnlineUrl);
+
             // Type of token authentication to use
             portalServerInfo.TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit;
 
@@ -176,11 +174,14 @@ namespace ArcGISRuntime.WPF.Samples.AuthorEditSaveMap
 
             // Use the OAuthAuthorize class in this project to create a new web view to show the login UI
             thisAuthenticationManager.OAuthAuthorizeHandler = new OAuthAuthorize();
+
             // Create a new ChallengeHandler that uses a method in this class to challenge for credentials
             thisAuthenticationManager.ChallengeHandler = new ChallengeHandler(CreateCredentialAsync);
         }
     }
 
+    // ViewModel class that is bound to the View (AuthorEditSaveMap)
+    // Note: in a ArcGIS Runtime for .NET template project, this class will be in a separate file: "MapViewModel.cs"
     public class MapViewModel : INotifyPropertyChanged
     {
         private Map _map = new Map(Basemap.CreateStreetsVector());

@@ -1,4 +1,4 @@
-// Copyright 2016 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using Android.App;
-using Android.Content.PM;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
@@ -19,7 +18,6 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -36,13 +34,13 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
 
         // OAuth-related values ...
         // URL of the server to authenticate with (ArcGIS Online)
-        private string ArcGISOnlineUrl = "https://www.arcgis.com/sharing/rest";
+        private const string ArcGISOnlineUrl = "https://www.arcgis.com/sharing/rest";
 
         // Client ID for the app registered with the server (Portal Maps)
-        private string AppClientId = "2Gh53JRzkPtOENQq";
+        private const string AppClientId = "2Gh53JRzkPtOENQq";
 
         // Redirect URL after a successful authorization (configured for the Portal Maps application)
-        private string OAuthRedirectUrl = "https://developers.arcgis.com";
+        private const string OAuthRedirectUrl = "https://developers.arcgis.com";
 
         // Store the OAuth dialog and controls for updating OAuth configuration
         private AlertDialog _configOAuthDialog = null;
@@ -58,14 +56,14 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
         {
             base.OnCreate(bundle);
 
+            // (This line is not in the tutorial) Display the name of the sample in the viewer
             Title = "Author and save a map";
 
             // Create the UI
             CreateLayout();
 
-            // Set up AuthenticationManager (prompt user for OAuth config first)
-            ShowOAuthConfigDialog();
-            // Note: the code above calls UpdateAuthenticationManager()
+            // Set up AuthenticationManager
+            UpdateAuthenticationManager();
 
             // Assign map from view model Map property
             _mapView.Map = _mapViewModel.Map;
@@ -173,6 +171,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                 // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
                 await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
 
+                // See if the map has already been saved
                 if (!_mapViewModel.MapIsSaved)
                 {
                     // Map has not been saved ... save to portal for the first time
@@ -182,6 +181,12 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                 {
                     // Map has previously been saved as a portal item, update it (title and description will remain the same)
                     _mapViewModel.UpdateMapItem();
+                    
+                    // Report a successful update
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+                    dialogBuilder.SetTitle("Map Updated!");
+                    dialogBuilder.SetMessage("Changes to map ('" + _mapViewModel.Map.Item.Title + "' were saved to ArcGIS Online");
+                    dialogBuilder.Show();
                 }
             }
             catch (System.OperationCanceledException)
@@ -281,73 +286,6 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
         #endregion
 
         #region OAuth
-
-        // Prompt for portal item information 
-        private void ShowOAuthConfigDialog()
-        {
-            // Create a dialog to get OAuth information (client id, redirect url, etc.)
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-
-            // Create the layout
-            LinearLayout dialogLayout = new LinearLayout(this);
-            dialogLayout.Orientation = Orientation.Vertical;
-
-            // Create a text box for entering the client id
-            LinearLayout clientIdLayout = new LinearLayout(this);
-            clientIdLayout.Orientation = Orientation.Horizontal;
-            var clientIdLabel = new TextView(this);
-            clientIdLabel.Text = "Client ID:";
-            _clientIdText = new EditText(this);
-            if(!string.IsNullOrEmpty(AppClientId)) { _clientIdText.Text = AppClientId; }
-            clientIdLayout.AddView(clientIdLabel);
-            clientIdLayout.AddView(_clientIdText);
-
-            // Create a text box for entering the redirect url
-            LinearLayout redirectUrlLayout = new LinearLayout(this);
-            redirectUrlLayout.Orientation = Orientation.Horizontal;
-            var redirectUrlLabel = new TextView(this);
-            redirectUrlLabel.Text = "Redirect:";
-            _redirectUrlText = new EditText(this);
-            _redirectUrlText.Hint = "https://my.redirect/url";
-            if (!string.IsNullOrEmpty(OAuthRedirectUrl)) { _redirectUrlText.Text = OAuthRedirectUrl; }
-            redirectUrlLayout.AddView(redirectUrlLabel);
-            redirectUrlLayout.AddView(_redirectUrlText);
-
-            // Create a button to dismiss the dialog (and proceed with updating the values)
-            Button okButton = new Button(this);
-            okButton.Text = "Update";
-
-            // Handle the click event for the OK button
-            okButton.Click += OnCloseOAuthDialog;
-
-            // Add the controls to the dialog
-            dialogLayout.AddView(clientIdLayout);
-            dialogLayout.AddView(redirectUrlLayout);
-            dialogLayout.AddView(okButton);
-            dialogBuilder.SetView(dialogLayout);
-            dialogBuilder.SetTitle("Configure OAuth");
-
-            // Show the dialog
-            _configOAuthDialog = dialogBuilder.Show();
-        }
-
-        // Click event for the OK button on the save map dialog
-        private void OnCloseOAuthDialog(object sender, EventArgs e)
-        {
-            if (_configOAuthDialog != null)
-            {
-                // Get title and description text
-                AppClientId = _clientIdText.Text;
-                OAuthRedirectUrl = _redirectUrlText.Text;
-
-                // Dismiss the dialog
-                _configOAuthDialog.Dismiss();
-
-                // Update the OAuth settings
-                UpdateAuthenticationManager();
-            }
-        }
-
         private void UpdateAuthenticationManager()
         {
             // Register the server information with the AuthenticationManager
@@ -474,6 +412,9 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
         #endregion
     }
 
+    // The ViewModel class used by the View (AuthorEditSaveMap)
+    // Note: When creating an app from the ArcGIS Runtime SDK for .NET project template,
+    //       this class will be in a separate file (MapViewModel.cs)
     public class MapViewModel : INotifyPropertyChanged
     {
         // String array to store basemap constructor types
@@ -494,10 +435,8 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
         }
 
         private Map _map = new Map(Basemap.CreateTopographicVector());
-
-        /// <summary>
-        /// Gets or sets the map
-        /// </summary>
+        
+        // Gets or sets the map
         public Map Map
         {
             get { return _map; }
@@ -577,11 +516,8 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             // Store the new map 
             this.Map = newMap;
         }
-
-        /// <summary>
-        /// Raises the <see cref="MapViewModel.PropertyChanged" /> event
-        /// </summary>
-        /// <param name="propertyName">The name of the property that has changed</param>
+        
+        // Raises the PropertyChanged event for a property
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             var propertyChangedHandler = PropertyChanged;

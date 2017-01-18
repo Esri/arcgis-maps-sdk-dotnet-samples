@@ -9,6 +9,7 @@
     RequestedTheme="Light"
     mc:Ignorable="d">
     <Page.Resources>
+        <converters:NullToVisibilityConverter x:Key="nullToVisibilityConverter" />
         <Style x:Key="TabToggleButtonStyle" TargetType="ToggleButton">
             <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundBaseLowBrush}"/>
             <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
@@ -248,9 +249,13 @@
                                 TextWrapping="Wrap" 
                                 Margin="20" Style="{StaticResource SecondaryTextBlock}" />
                     <TextBlock x:Name="InstructionsHeader" Text="Instructions"  FontSize="24" Foreground="Black" RelativePanel.Below="ThumbnailImage"
+                               Visibility="{Binding Instructions, Converter={StaticResource nullToVisibilityConverter}}"
                                Margin="10"  Style="{StaticResource PrimaryTextBlock}" />
-                    <TextBlock Text="{Binding Instructions}" FontSize="18" TextWrapping="Wrap" Margin="10,0"
+                    <TextBlock x:Name="InstructionsText" Text="{Binding Instructions}" FontSize="18" TextWrapping="Wrap" Margin="10,0"
                                RelativePanel.Below="InstructionsHeader"  Style="{StaticResource SecondaryTextBlock}"  />
+                    <HyperlinkButton NavigateUri="{Binding Link}" FontSize="18" Margin="10,10" Content="Open tutorial ..."
+                                     Visibility="{Binding Link, Converter={StaticResource nullToVisibilityConverter}}"                                     
+                                     RelativePanel.Below="InstructionsText" />
                 </RelativePanel>
             </ContentControl>
         </Grid>

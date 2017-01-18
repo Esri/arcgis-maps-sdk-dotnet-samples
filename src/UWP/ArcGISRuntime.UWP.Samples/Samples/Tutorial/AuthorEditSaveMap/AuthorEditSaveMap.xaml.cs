@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+﻿// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -133,8 +133,10 @@ namespace ArcGISRuntime.UWP.Samples.AuthorEditSaveMap
         {
             // Define the server information for ArcGIS Online
             ServerInfo portalServerInfo = new ServerInfo();
+
             // ArcGIS Online URI
             portalServerInfo.ServerUri = new Uri(ArcGISOnlineUrl);
+            
             // Type of token authentication to use
             portalServerInfo.TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit;
 
@@ -174,11 +176,9 @@ namespace ArcGISRuntime.UWP.Samples.AuthorEditSaveMap
             return credential;
         }
     }
-
-    /// <summary>
-    /// Provides map data to an application
-    /// Note: in a ArcGIS Runtime for .NET template project, this class will be in a separate file: "MapViewModel.cs"
-    /// </summary>
+    
+    // Provides map data to an application
+    // Note: in a ArcGIS Runtime for .NET template project, this class will be in a separate file: "MapViewModel.cs"
     public class MapViewModel : INotifyPropertyChanged
     {
         // String array to store basemap constructor types
@@ -203,11 +203,10 @@ namespace ArcGISRuntime.UWP.Samples.AuthorEditSaveMap
             // Default constructor
         }
 
+        // Create a default map with the vector streets basemap
         private Map _map = new Map(Basemap.CreateStreetsVector());
-
-        /// <summary>
-        /// Gets or sets the map
-        /// </summary>
+        
+        // Gets or sets the map        
         public Map Map
         {
             get { return _map; }
@@ -271,10 +270,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorEditSaveMap
             _map.SaveAsync();
         }
 
-        /// <summary>
-        /// Raises the <see cref="MapViewModel.PropertyChanged" /> event
-        /// </summary>
-        /// <param name="propertyName">The name of the property that has changed</param>
+        // Raises the PropertyChanged event for a property
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             var propertyChangedHandler = PropertyChanged;

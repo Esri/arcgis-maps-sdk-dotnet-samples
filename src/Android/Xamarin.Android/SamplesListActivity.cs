@@ -67,16 +67,29 @@ namespace ArcGISRuntimeXamarin
 
         private void SamplesListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            // Get the clicked item along with its name and namespace
-            var item = _listSampleItems[e.Position];
-            var sampleName = item.SampleName;
-            var sampleNamespace = item.SampleNamespace;
+            var sampleName = string.Empty;
 
-            // Each sample is an Activity, so locate it and launch it via an Intent
-            Type t = Type.GetType(sampleNamespace + "." + sampleName);
-            var newActivity = new Intent(this, t);
+            try
+            {
+                // Get the clicked item along with its name and namespace
+                var item = _listSampleItems[e.Position];
+                sampleName = item.SampleName;
+                var sampleNamespace = item.SampleNamespace;
 
-            StartActivity(newActivity);
+                // Each sample is an Activity, so locate it and launch it via an Intent
+                Type t = Type.GetType(sampleNamespace + "." + sampleName);
+                var newActivity = new Intent(this, t);
+
+                StartActivity(newActivity);
+            }
+            catch (Exception ex)
+            {
+                AlertDialog.Builder bldr = new AlertDialog.Builder(this);
+                var dialog = bldr.Create();
+                dialog.SetTitle("Unable to load " + sampleName);
+                dialog.SetMessage(ex.Message);
+                dialog.Show();
+            }
         }
     }
 }

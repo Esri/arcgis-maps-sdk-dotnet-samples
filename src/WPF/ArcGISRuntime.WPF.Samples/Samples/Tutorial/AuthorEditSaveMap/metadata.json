@@ -9,6 +9,6 @@
   "RequiresLocalServer":false,
   "Image":"AuthorEditSaveMap.jpg",
   "Link":"https://developers.arcgis.com/net/latest/wpf/guide/author-edit-and-save-maps-to-your-portal.htm",
-  "TypeLink": ["M:Esri.ArcGISRuntime.Portal.ArcGISPortal.CreateAsync","T:Esri.ArcGISRuntime.Security.ServerInfo","T:Esri.ArcGISRuntime.Security.AuthenticationManager","P:Esri.ArcGISRuntime.Security.AuthenticationManager.Current","T:Esri.ArcGISRuntime.Security.CredentialRequestInfo","T:Esri.ArcGISRuntime.Security.TokenAuthenticationType"]
-  "SampleFolder": "AuthorMap"
+  "TypeLink": ["M:Esri.ArcGISRuntime.Portal.ArcGISPortal.CreateAsync","T:Esri.ArcGISRuntime.Security.ServerInfo","T:Esri.ArcGISRuntime.Security.AuthenticationManager","P:Esri.ArcGISRuntime.Security.AuthenticationManager.Current","T:Esri.ArcGISRuntime.Security.CredentialRequestInfo","T:Esri.ArcGISRuntime.Security.TokenAuthenticationType"],
+  "SampleFolder": "AuthorEditSaveMap"
 }

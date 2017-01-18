@@ -22,6 +22,8 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.Graphics.Imaging;
 using Windows.Storage;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml;
 
 namespace ArcGISRuntime.UWP.Samples.AuthorMap
 {
@@ -29,14 +31,14 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
     {
         // Constants for OAuth-related values ...
         // URL of the server to authenticate with
-        private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
+        private string ServerUrl = "https://www.arcgis.com/sharing/rest";
 
         // TODO: Add Client ID for an app registered with the server
-        private const string AppClientId = "2Gh53JRzkPtOENQq"; 
+        private string AppClientId = "2Gh53JRzkPtOENQq";
 
         // TODO: Add URL for redirecting after a successful authorization
         //       Note - this must be a URL configured as a valid Redirect URI with your app
-        private const string OAuthRedirectUrl = "http://myapps.portalmapapp"; 
+        private string OAuthRedirectUrl = "https://developers.arcgis.com";
 
         // String array to store names of the available basemaps
         private string[] _basemapNames = new string[]
@@ -60,6 +62,9 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
         {
             InitializeComponent();
 
+            // When the map view loads, show a dialog for entering OAuth settings
+            MyMapView.Loaded += (s,e) => ShowOAuthSettingsDialog();
+
             // Create the UI, setup the control references and execute initialization 
             Initialize();
         }
@@ -71,37 +76,45 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
 
             // Show a plain gray map in the map view
             MyMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
-
-            // Setup the AuthenticationManager to challenge for credentials
-            UpdateAuthenticationManager();
-
+            
             // Update the extent labels whenever the view point (extent) changes
             MyMapView.ViewpointChanged += (s, evt) => UpdateViewExtentLabels();
         }
 
         #region UI event handlers
-        private void BasemapItemClick(object sender, WinUI.Xaml.RoutedEventArgs e)
+        private void BasemapItemClick(object sender, RoutedEventArgs e)
         {
             // Get the name of the desired basemap 
-            var radioBtn = sender as WinUI.Xaml.Controls.RadioButton;
+            var radioBtn = sender as RadioButton;
             var basemapName = radioBtn.Content.ToString();
 
             // Apply the basemap to the current map
             ApplyBasemap(basemapName);
         }
 
-        private void LayerSelectionChanged(object sender, WinUI.Xaml.Controls.SelectionChangedEventArgs e)
+        private void LayerSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Call a function to add operational layers to the map
             AddOperationalLayers();
         }
 
-        private async void SaveMapClicked(object sender, WinUI.Xaml.RoutedEventArgs e)
+        private async void SaveMapClicked(object sender, RoutedEventArgs e)
         {
             try
             {
+                // Don't attempt to save if the OAuth settings weren't provided
+                if(string.IsNullOrEmpty(AppClientId) || string.IsNullOrEmpty(OAuthRedirectUrl))
+                {
+                    var dialog = new MessageDialog("OAuth settings were not provided.", "Cannot Save");
+                    await dialog.ShowAsync();
+
+                    SaveMapFlyout.Hide();
+
+                    return;
+                }
+
                 // Show the progress bar so the user knows work is happening
-                SaveProgressBar.Visibility = WinUI.Xaml.Visibility.Visible;
+                SaveProgressBar.Visibility = Visibility.Visible;
 
                 // Get the current map
                 var myMap = MyMapView.Map;
@@ -167,11 +180,11 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
             finally
             {
                 // Hide the progress bar
-                SaveProgressBar.Visibility = WinUI.Xaml.Visibility.Collapsed;
+                SaveProgressBar.Visibility = Visibility.Collapsed;
             }
         }
 
-        private void ClearMapClicked(object sender, WinUI.Xaml.RoutedEventArgs e)
+        private void ClearMapClicked(object sender, RoutedEventArgs e)
         {
             // Create a new map (will not have an associated PortalItem)
             MyMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
@@ -229,7 +242,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
                 layer.Opacity = 0.5;
                 myMap.OperationalLayers.Add(layer);
             }
-        }        
+        }
 
         private async Task SaveNewMapAsync(Map myMap, string title, string description, string[] tags)
         {
@@ -358,6 +371,34 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
         }
 
         #region OAuth helpers
+        private async void ShowOAuthSettingsDialog()
+        {
+            // Show default settings for client ID and redirect URL
+            ClientIdTextBox.Text = AppClientId;
+            RedirectUrlTextBox.Text = OAuthRedirectUrl;
+
+            // Display inputs for a client ID and redirect URL to use for OAuth authentication
+            ContentDialogResult result = await OAuthSettingsDialog.ShowAsync();
+            if (result == ContentDialogResult.Primary)
+            {
+                // Settings were provided, update the configuration settings for OAuth authorization
+                AppClientId = ClientIdTextBox.Text.Trim();
+                OAuthRedirectUrl = RedirectUrlTextBox.Text.Trim();
+
+                // Update authentication manager with the OAuth settings
+                UpdateAuthenticationManager();
+            }
+            else
+            {
+                // User canceled, warn that won't be able to save
+                var messageDlg = new MessageDialog("No OAuth settings entered, you will not be able to save your map.");
+                await messageDlg.ShowAsync();
+
+                AppClientId = string.Empty;
+                OAuthRedirectUrl = string.Empty;
+            }
+        }
+
         private void UpdateAuthenticationManager()
         {
             // Register the server information with the AuthenticationManager
@@ -379,7 +420,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
 
             // Register the server information
             thisAuthenticationManager.RegisterServer(portalServerInfo);
-            
+
             // Create a new ChallengeHandler that uses a method in this class to challenge for credentials
             thisAuthenticationManager.ChallengeHandler = new ChallengeHandler(CreateCredentialAsync);
         }
@@ -413,6 +454,6 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
 
             return credential;
         }
-        #endregion        
-    }    
+        #endregion
+    }
 }

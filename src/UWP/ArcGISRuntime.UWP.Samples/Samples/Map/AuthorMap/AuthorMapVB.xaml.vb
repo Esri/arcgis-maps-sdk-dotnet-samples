@@ -21,14 +21,14 @@ Namespace AuthorMap
     Partial Public Class AuthorMapVB
         ' Constants for OAuth-related values ...
         ' URL of the server to authenticate with
-        Private Const ServerUrl As String = "https://www.arcgis.com/sharing/rest"
+        Private ServerUrl As String = "https://www.arcgis.com/sharing/rest"
 
         ' TODO: Add Client ID For an app registered With the server
-        Private Const AppClientId As String = "2Gh53JRzkPtOENQq"
+        Private AppClientId As String = "2Gh53JRzkPtOENQq"
 
         ' TODO: Add URL For redirecting after a successful authorization
         '       Note - this must be a URL configured as a valid Redirect URI with your app
-        Private Const OAuthRedirectUrl As String = "http://myapps.portalmapapp"
+        Private OAuthRedirectUrl As String = "https://developers.arcgis.com"
 
         ' String array to store names of the available basemaps
         Private _basemapNames As String() =
@@ -51,6 +51,9 @@ Namespace AuthorMap
         Public Sub New()
             InitializeComponent()
 
+            ' When the map view loads, show a dialog for entering OAuth settings
+            AddHandler MyMapView.Loaded, AddressOf ShowOAuthSettingsDialog
+
             ' Create the UI, setup the control references and execute initialization 
             Initialize()
         End Sub
@@ -64,9 +67,6 @@ Namespace AuthorMap
 
             ' Show a plain gray map in the map view
             MyMapView.Map = New Map(Basemap.CreateLightGrayCanvas())
-
-            ' Setup the AuthenticationManager to challenge for credentials
-            UpdateAuthenticationManager()
 
             ' Update the extent labels whenever the view point (extent) changes
             AddHandler MyMapView.ViewpointChanged, AddressOf UpdateViewExtentLabels
@@ -129,6 +129,16 @@ Namespace AuthorMap
 
         Private Async Sub SaveMapClicked(sender As Object, e As RoutedEventArgs)
             Try
+                ' Don't attempt to save if the OAuth settings weren't provided
+                If (String.IsNullOrEmpty(AppClientId) Or String.IsNullOrEmpty(OAuthRedirectUrl)) Then
+                    Dim dialog = New MessageDialog("OAuth settings were not provided.", "Cannot Save")
+                    Await dialog.ShowAsync()
+
+                    SaveMapFlyout.Hide()
+
+                    Return
+                End If
+
                 ' Show the progress bar so the user knows work is happening
                 SaveProgressBar.Visibility = Visibility.Visible
 
@@ -301,6 +311,30 @@ Namespace AuthorMap
             YMinTextBox.Text = currentGeoExtent.YMin.ToString("0.####")
             XMaxTextBox.Text = currentGeoExtent.XMax.ToString("0.####")
             YMaxTextBox.Text = currentGeoExtent.YMax.ToString("0.####")
+        End Sub
+
+        Private Async Sub ShowOAuthSettingsDialog()
+            ' Show default settings for client ID And redirect URL
+            ClientIdTextBox.Text = AppClientId
+            RedirectUrlTextBox.Text = OAuthRedirectUrl
+
+            ' Display inputs for a client ID And redirect URL to use for OAuth authentication
+            Dim result As ContentDialogResult = Await OAuthSettingsDialog.ShowAsync()
+            If (result = ContentDialogResult.Primary) Then
+                ' Settings were provided, update the configuration settings for OAuth authorization
+                AppClientId = ClientIdTextBox.Text.Trim()
+                OAuthRedirectUrl = RedirectUrlTextBox.Text.Trim()
+
+                ' Update authentication manager with the OAuth settings
+                UpdateAuthenticationManager()
+            Else
+                ' User canceled, warn that won't be able to save
+                Dim messageDlg = New MessageDialog("No OAuth settings entered, you will not be able to save your map.")
+                Await messageDlg.ShowAsync()
+
+                AppClientId = String.Empty
+                OAuthRedirectUrl = String.Empty
+            End If
         End Sub
 
         Private Sub UpdateAuthenticationManager()

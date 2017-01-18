@@ -22,14 +22,14 @@ Namespace AuthorMap
     Partial Public Class AuthorMapVB
         ' Constants for OAuth-related values ...
         ' URL of the server to authenticate with
-        Private Const ServerUrl As String = "https://www.arcgis.com/sharing/rest"
+        Private ServerUrl As String = "https://www.arcgis.com/sharing/rest"
 
         ' TODO: Add Client ID For an app registered With the server
-        Private Const AppClientId As String = "2Gh53JRzkPtOENQq"
+        Private AppClientId As String = "2Gh53JRzkPtOENQq"
 
         ' TODO: Add URL For redirecting after a successful authorization
         '      Note - this must be a URL configured as a valid Redirect URI with your app
-        Private Const OAuthRedirectUrl As String = "http://myapps.portalmapapp"
+        Private OAuthRedirectUrl As String = "https://developers.arcgis.com"
 
         ' String array to store names of the available basemaps
         Private _basemapNames As String() =
@@ -58,7 +58,7 @@ Namespace AuthorMap
 
         Private Sub Initialize()
             ' Show a plain gray map in the map view
-            MyMapView.Map = New Map(Basemap.CreateLightGrayCanvas())
+            MyMapView.Map = New Map(Basemap.CreateNavigationVector())
 
             ' Fill the basemap combo box with basemap names
             BasemapListBox.ItemsSource = _basemapNames
@@ -69,8 +69,9 @@ Namespace AuthorMap
             ' Fill the operational layers list box with layer names
             OperationalLayerListBox.ItemsSource = _operationalLayerUrls
 
-            ' Setup the AuthenticationManager to challenge for credentials
-            UpdateAuthenticationManager()
+            ' Show the OAuth settings in the page
+            ClientIdTextBox.Text = AppClientId
+            RedirectUrlTextBox.Text = OAuthRedirectUrl
 
             ' Update the extent labels whenever the view point (extent) changes
             AddHandler MyMapView.ViewpointChanged, AddressOf UpdateViewExtentLabels
@@ -90,6 +91,19 @@ Namespace AuthorMap
         Private Sub ClearMapClicked(sender As Object, e As RoutedEventArgs)
             ' Create a new map (will not have an associated PortalItem)
             MyMapView.Map = New Map(Basemap.CreateLightGrayCanvas())
+        End Sub
+
+        Private Sub SaveOAuthSettingsClicked(sender As Object, e As RoutedEventArgs)
+            ' Store the OAuth information that was entered
+            AppClientId = ClientIdTextBox.Text.Trim()
+            OAuthRedirectUrl = RedirectUrlTextBox.Text.Trim()
+
+            ' Hide the OAuth settings, show the save map controls
+            OAuthSettingsGrid.Visibility = Visibility.Collapsed
+            SaveMapGrid.Visibility = Visibility.Visible
+
+            ' Update authentication manager with the OAuth settings
+            UpdateAuthenticationManager()
         End Sub
 
         Private Async Sub SaveMapClicked(sender As Object, e As RoutedEventArgs)

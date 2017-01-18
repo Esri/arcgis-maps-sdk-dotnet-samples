@@ -18,12 +18,13 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media;
+using Windows.UI;
+using Windows.UI.Popups;
+using Windows.UI.Xaml;
 
-namespace ArcGISRuntime.WPF.Samples.AnalyzeViewshed
+namespace ArcGISRuntime.UWP.Samples.AnalyzeViewshed
 {
-    public partial class AnalyzeViewshed
+    public partial class AnalyzeViewshed 
     {
         // Url for the geoprocessing service
         private const string _viewshedUrl =
@@ -40,7 +41,7 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeViewshed
 
         public AnalyzeViewshed()
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization 
             Initialize();
@@ -90,7 +91,7 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeViewshed
             // This function will define a new geoprocessing task that performs a custom viewshed analysis based upon a 
             // user click on the map and then display the results back as a polygon fill graphics overlay. If there
             // is a problem with the execution of the geoprocessing task an error message will be displayed 
-            
+
             // Create new geoprocessing task using the url defined in the member variables section
             var myViewshedTask = new GeoprocessingTask(new Uri(_viewshedUrl));
 
@@ -107,7 +108,7 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeViewshed
             await myInputFeatures.AddFeatureAsync(myInputFeature);
 
             // Create the parameters that are passed to the used geoprocessing task
-            GeoprocessingParameters myViewshedParameters = 
+            GeoprocessingParameters myViewshedParameters =
                 new GeoprocessingParameters(GeoprocessingExecutionType.SynchronousExecute);
 
             // Request the output features to use the same SpatialReference as the map view
@@ -138,9 +139,15 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeViewshed
             {
                 // Display an error message if there is a problem
                 if (myViewshedJob.Status == JobStatus.Failed && myViewshedJob.Error != null)
-                    MessageBox.Show("Executing geoprocessing failed. " + myViewshedJob.Error.Message, "Geoprocessing error");
+                {
+                    var message = new MessageDialog("Executing geoprocessing failed. " + myViewshedJob.Error.Message, "Geoprocessing error");
+                    await message.ShowAsync();
+                }
                 else
-                    MessageBox.Show("An error occurred. " + ex.ToString(), "Sample error");
+                {
+                    var message = new MessageDialog("An error occurred. " + ex.ToString(), "Sample error");
+                    await message.ShowAsync();
+                }
             }
             finally
             {

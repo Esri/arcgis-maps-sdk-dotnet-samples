@@ -86,6 +86,7 @@
     <Content Include="groups.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg" />
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
     <Content Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.jpg" />
     <Content Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.jpg" />
@@ -93,9 +94,7 @@
     <Content Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.jpg" />
     <Content Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.jpg" />
     <Content Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.jpg" />
-    <Content Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.xaml.cs" />
     <Content Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.jpg" />
-    <Content Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.xaml.cs" />
     <Content Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.jpg" />
     <Content Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.jpg" />
     <Content Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg" />
@@ -206,6 +205,8 @@
     <None Include="Samples\Symbology\RenderPictureMarkers\metadata.json" />
     <None Include="Samples\Symbology\RenderSimpleMarkers\metadata.json" />
     <None Include="Samples\Symbology\RenderUniqueValues\metadata.json" />
+    <None Include="Samples\Tutorial\AuthorEditSaveMap\metadata.json" />
+    <None Include="Samples\Tutorial\AuthorEditSaveMap\README.md" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -224,6 +225,12 @@
     </Compile>
     <Compile Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspotsVB.xaml.vb">
       <DependentUpon>AnalyzeHotspotsVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersionsVB.xaml.vb">
+      <DependentUpon>ListGeodatabaseVersionsVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshedVB.xaml.vb">
+      <DependentUpon>AnalyzeViewshedVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRendererVB.xaml.vb">
       <DependentUpon>AddGraphicsRendererVB.xaml</DependentUpon>
@@ -321,6 +328,9 @@
     <Compile Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValuesVB.xaml.vb">
       <DependentUpon>RenderUniqueValuesVB.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMapVB.xaml.vb">
+      <DependentUpon>AuthorEditSaveMapVB.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Samples\Data\FeatureLayerQuery\FeatureLayerQueryVB.xaml">
@@ -343,13 +353,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshedVB.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersionsVB.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRendererVB.xaml">
       <SubType>Designer</SubType>
@@ -477,6 +487,10 @@
     <Page Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValuesVB.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMapVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

@@ -261,6 +261,23 @@
           ]
         }
       ]
+    },
+    {
+      "Name": "Tutorial",
+      "CategoryName": "Tutorial",
+      "SubCategories": [
+        {
+          "Name": "Tutorial",
+          "SubCategoryName": "Tutorial",
+          "ShowGroup": false,
+          "SampleInfos": [
+            {
+              "SampleName": "AuthorEditSaveMap",
+              "Path": "Samples/Tutorial/AuthorEditSaveMap"
+            }
+          ]
+        }
+      ]
     }
   ],
   "Featured": [

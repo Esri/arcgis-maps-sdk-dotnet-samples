@@ -12,11 +12,13 @@ using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using System;
 using System.Threading.Tasks;
-using System.Windows;
+using Windows.UI.Popups;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntime.WPF.Samples.ListGeodatabaseVersions
+namespace ArcGISRuntime.UWP.Samples.ListGeodatabaseVersions
 {
-    public partial class ListGeodatabaseVersions
+    public sealed partial class ListGeodatabaseVersions
     {
         // Url to used geoprocessing service
         private const string ListVersionsUrl =
@@ -24,7 +26,7 @@ namespace ArcGISRuntime.WPF.Samples.ListGeodatabaseVersions
 
         public ListGeodatabaseVersions()
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization 
             Initialize();
@@ -45,29 +47,29 @@ namespace ArcGISRuntime.WPF.Samples.ListGeodatabaseVersions
                 // task to display in the UI 
                 var myStringBuilder = new System.Text.StringBuilder();
 
-                    // Loop through each Feature in the FeatureSet 
-                    foreach (var version in versionsFeatureSet)
+                // Loop through each Feature in the FeatureSet 
+                foreach (var version in versionsFeatureSet)
+                {
+                    // Get the attributes (a dictionary of <key,value> pairs) from the Feature
+                    var myDictionary = version.Attributes;
+
+                    // Loop through each attribute (a <key,value> pair)
+                    foreach (var oneAttribute in myDictionary)
                     {
-                            // Get the attributes (a dictionary of <key,value> pairs) from the Feature
-                            var myDictionary = version.Attributes;
 
-                            // Loop through each attribute (a <key,value> pair)
-                            foreach (var oneAttribute in myDictionary)
-                            {
+                        // Get the key
+                        var myKey = oneAttribute.Key;
 
-                                // Get the key
-                                var myKey = oneAttribute.Key;
+                        // Get the value
+                        var myValue = oneAttribute.Value;
 
-                                // Get the value
-                                var myValue = oneAttribute.Value;
-
-                                // Add the key and value strings to the string builder 
-                                myStringBuilder.AppendLine(myKey + ": " + myValue);
-                            }
-
-                            // Add a blank line after each Feature (the listing of geodatabase versions)
-                            myStringBuilder.AppendLine();
+                        // Add the key and value strings to the string builder 
+                        myStringBuilder.AppendLine(myKey + ": " + myValue);
                     }
+
+                    // Add a blank line after each Feature (the listing of geodatabase versions)
+                    myStringBuilder.AppendLine();
+                }
 
                 // Display the result in the textbox
                 theTextBox.Text = myStringBuilder.ToString();
@@ -80,7 +82,7 @@ namespace ArcGISRuntime.WPF.Samples.ListGeodatabaseVersions
         private async Task<IFeatureSet> GetGeodatabaseVersionsAsync()
         {
             // Results will be returned as a feature set
-            IFeatureSet results = null; 
+            IFeatureSet results = null;
 
             // Create new geoprocessing task 
             var listVersionsTask = new GeoprocessingTask(new Uri(ListVersionsUrl));
@@ -88,7 +90,7 @@ namespace ArcGISRuntime.WPF.Samples.ListGeodatabaseVersions
             // Create parameters that are passed to the used geoprocessing task
             GeoprocessingParameters listVersionsParameters =
                  new GeoprocessingParameters(GeoprocessingExecutionType.SynchronousExecute);
-         
+
             // Create job that handles the communication between the application and the geoprocessing task
             var listVersionsJob = listVersionsTask.CreateJob(listVersionsParameters);
             try
@@ -106,9 +108,16 @@ namespace ArcGISRuntime.WPF.Samples.ListGeodatabaseVersions
             {
                 // Error handling if something goes wrong
                 if (listVersionsJob.Status == JobStatus.Failed && listVersionsJob.Error != null)
-                    MessageBox.Show("Executing geoprocessing failed. " + listVersionsJob.Error.Message, "Geoprocessing error");
+                {
+                    var message = new MessageDialog("Executing geoprocessing failed. " + listVersionsJob.Error.Message, "Geoprocessing error");
+                    await message.ShowAsync();
+                }
+
                 else
-                    MessageBox.Show("An error occurred. " + ex.ToString(), "Sample error");
+                {
+                    var message = new MessageDialog("An error occurred. " + ex.ToString(), "Sample error");
+                    await message.ShowAsync();
+                }
             }
             finally
             {
@@ -118,7 +127,7 @@ namespace ArcGISRuntime.WPF.Samples.ListGeodatabaseVersions
 
             return results;
         }
-     
+
         private void SetBusy(bool isBusy = true)
         {
             if (isBusy)

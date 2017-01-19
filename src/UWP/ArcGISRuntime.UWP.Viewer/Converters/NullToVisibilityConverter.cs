@@ -8,33 +8,23 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using System.IO;
+using System.Globalization;
+using System.Windows;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Media.Imaging;
 
 namespace ArcGISRuntime.UWP.Viewer.Converters
 {
-    public class SampleToBitmapConverter : IValueConverter  
+    public class NullToVisibilityConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, string language)
+        public object Convert(object value, Type targetType, object parameter, string culture)
         {
-            var sampleImageName = value.ToString();
-
-            try
-            {
-                if (File.Exists(sampleImageName))
-                    return new BitmapImage(
-                        new Uri(
-                            string.Format("ms-appx://ArcGISRuntime.UWP.Viewer/{0}", sampleImageName)));
-            }
-            catch (Exception)
-            {
-            }
-
-            return null;
+            if (value == null || string.IsNullOrEmpty(value.ToString()))
+                return Visibility.Collapsed;
+            return Visibility.Visible;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        public object ConvertBack(object value, Type targetType, object parameter, string culture)
         {
             throw new NotImplementedException();
         }

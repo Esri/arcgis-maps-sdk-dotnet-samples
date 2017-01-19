@@ -92,8 +92,11 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <None Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg" />
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
     <Content Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.jpg" />
+    <Content Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.jpg" />
+    <Content Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.jpg" />
     <Content Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.jpg" />
     <Content Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.jpg" />
     <Content Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.jpg" />
@@ -137,6 +140,9 @@
     <None Include="Samples\Data\ServiceFeatureTableNoCache\metadata.json" />
     <None Include="Samples\Geoprocessing\AnalyzeHotspots\metadata.json" />
     <None Include="Samples\Geoprocessing\AnalyzeHotspots\README.md" />
+    <None Include="Samples\Geoprocessing\ListGeodatabaseVersions\metadata.json" />
+    <None Include="Samples\Geoprocessing\ListGeodatabaseVersions\README.md" />
+    <None Include="Samples\Geoprocessing\AnalyzeViewshed\metadata.json" />
     <None Include="Samples\GraphicsOverlay\AddGraphicsRenderer\metadata.json" />
     <None Include="Samples\GraphicsOverlay\IdentifyGraphics\metadata.json" />
     <None Include="Samples\Layers\ArcGISMapImageLayerUrl\metadata.json" />
@@ -198,6 +204,7 @@
     <None Include="Samples\Symbology\RenderPictureMarkers\metadata.json" />
     <None Include="Samples\Symbology\RenderSimpleMarkers\metadata.json" />
     <None Include="Samples\Symbology\RenderUniqueValues\metadata.json" />
+    <None Include="Samples\Tutorial\AuthorEditSaveMap\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -215,6 +222,12 @@
     </Compile>
     <Compile Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspotsVB.xaml.vb">
       <DependentUpon>AnalyzeHotspotsVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersionsVB.xaml.vb">
+      <DependentUpon>ListGeodatabaseVersionsVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshedVB.xaml.vb">
+      <DependentUpon>AnalyzeViewshedVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRendererVB.xaml.vb">
       <DependentUpon>AddGraphicsRendererVB.xaml</DependentUpon>
@@ -310,6 +323,9 @@
     <Compile Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValuesVB.xaml.vb">
       <DependentUpon>RenderUniqueValuesVB.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMapVB.xaml.vb">
+      <DependentUpon>AuthorEditSaveMapVB.xaml</DependentUpon>
+    </Compile>
     <Content Include="My Project\ArcGISRuntime.Windows.Samples.VBNet.rd.xml" />
     <Content Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg" />
     <Content Include="Samples\MapView\MapRotation\MapRotation.jpg">
@@ -375,6 +391,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspotsVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersionsVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshedVB.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -505,6 +529,10 @@
     <Page Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValuesVB.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMapVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

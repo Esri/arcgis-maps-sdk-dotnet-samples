@@ -48,6 +48,9 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             // Define a click handler for the Save button (show a form for entering portal item info)
             SaveMapButton.Clicked += ShowSaveMapDialog;
 
+            // Define a click handler for the New button
+            NewMapButton.Clicked += (s, e) => _mapViewModel.ResetMap();
+
             // Set up the AuthencticationManager to challenge for ArcGIS Online credentials
             UpdateAuthenticationManager();
 
@@ -128,7 +131,12 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                 }
                 else
                 {
-                    // TODO: update existing portal item
+                    // Map has previously been saved as a portal item, update it (title, description, and tags will remain the same)
+                    _mapViewModel.UpdateMapItem();
+
+                    // Report success
+
+                    DisplayAlert("Map Updated", "Saved changes to '" + title + "'", "OK");
                 }
             }
             catch (Exception ex)
@@ -272,6 +280,24 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
         {
             // Return True if the current map has a value for the Item property
             get { return (_map != null && _map.Item != null); }
+        }
+
+        public void UpdateMapItem()
+        {
+            // Save the map
+            _map.SaveAsync();
+        }
+
+        public void ResetMap()
+        {
+            // Set the current map to null
+            _map = null;
+
+            // Create a new map with light gray canvas basemap
+            Map newMap = new Map(Basemap.CreateLightGrayCanvasVector());
+
+            // Store the new map 
+            this.Map = newMap;
         }
 
         // Raises the PropertyChanged event        

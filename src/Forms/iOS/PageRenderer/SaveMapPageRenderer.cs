@@ -1,15 +1,15 @@
-using Android.App;
 using ArcGISRuntime.Samples.AuthorEditSaveMap;
-using ArcGISRuntimeXamarin.AndroidPageRenderer;
+using ArcGISRuntimeXamarin.iOSPageRenderer;
 using Esri.ArcGISRuntime.Security;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Xamarin.Auth;
 using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
+using Xamarin.Forms.Platform.iOS;
 
 [assembly: ExportRenderer(typeof(SaveMapPage), typeof(SaveMapPageRenderer))]
-namespace ArcGISRuntimeXamarin.AndroidPageRenderer
+namespace ArcGISRuntimeXamarin.iOSPageRenderer
 {
     public class SaveMapPageRenderer : PageRenderer, IOAuthAuthorizeHandler
     {
@@ -24,7 +24,6 @@ namespace ArcGISRuntimeXamarin.AndroidPageRenderer
         }
 
         #region IOAuthAuthorizationHandler implementation
-        // IOAuthAuthorizeHandler.AuthorizeAsync implementation
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
             // If the TaskCompletionSource is not null, authorization is in progress
@@ -37,11 +36,8 @@ namespace ArcGISRuntimeXamarin.AndroidPageRenderer
             // Create a task completion source
             _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
 
-            // Get the current Android Activity
-            var activity = this.Context as Activity;
-
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in
-            Xamarin.Auth.OAuth2Authenticator authenticator = new Xamarin.Auth.OAuth2Authenticator(
+            var authenticator = new OAuth2Authenticator(
                 clientId: Samples.AuthorEditSaveMap.AuthorEditSaveMap.AppClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
@@ -55,25 +51,25 @@ namespace ArcGISRuntimeXamarin.AndroidPageRenderer
             {
                 try
                 {
-                    // Check if the user is authenticated
-                    if (authArgs.IsAuthenticated)
-                    {
-                        // If authorization was successful, get the user's account
-                        Xamarin.Auth.Account authenticatedAccount = authArgs.Account;
+                    // Dismiss the OAuth UI when complete
+                    this.DismissViewController(true, null);
 
-                        // Set the result (Credential) for the TaskCompletionSource
-                        _taskCompletionSource.SetResult(authenticatedAccount.Properties);
+                    // Throw an exception if the user could not be authenticated
+                    if (!authArgs.IsAuthenticated)
+                    {
+                        throw new Exception("Unable to authenticate user.");
                     }
+
+                    // If authorization was successful, get the user's account
+                    Xamarin.Auth.Account authenticatedAccount = authArgs.Account;
+
+                    // Set the result (Credential) for the TaskCompletionSource
+                    _taskCompletionSource.SetResult(authenticatedAccount.Properties);
                 }
                 catch (Exception ex)
                 {
                     // If authentication failed, set the exception on the TaskCompletionSource
                     _taskCompletionSource.SetException(ex);
-                }
-                finally
-                {
-                    // Dismiss the OAuth login
-                    activity.FinishActivity(99);
                 }
             };
 
@@ -83,22 +79,19 @@ namespace ArcGISRuntimeXamarin.AndroidPageRenderer
                 // If the user cancels, the Error event is raised but there is no exception ... best to check first
                 if (errArgs.Exception != null)
                 {
-                    _taskCompletionSource.SetException(errArgs.Exception);
+                    _taskCompletionSource.TrySetException(errArgs.Exception);
                 }
                 else
                 {
-                    // Login canceled: dismiss the OAuth login
-                    if (_taskCompletionSource != null)
-                    {
-                        _taskCompletionSource.TrySetCanceled();
-                        activity.FinishActivity(99);
-                    }
+                    _taskCompletionSource.TrySetException(new Exception(errArgs.Message));
                 }
             };
 
-            // Present the OAuth UI so the user can enter user name and password
-            var intent = authenticator.GetUI(activity);
-            activity.StartActivityForResult(intent, 99);
+            // Present the OAuth UI (on the app's UI thread) so the user can enter user name and password
+            InvokeOnMainThread(() =>
+            {
+                this.PresentViewController(authenticator.GetUI(), true, null);
+            });
 
             // Return completion source task so the caller can await completion
             return _taskCompletionSource.Task;

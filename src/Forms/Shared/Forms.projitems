@@ -121,6 +121,12 @@
       <SubType>Code</SubType>
       <DependentUpon>AccessLoadStatus.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\AuthorMap\AuthorMap.xaml.cs">
+      <DependentUpon>AuthorMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\AuthorMap\SaveMapPage.xaml.cs">
+      <DependentUpon>SaveMapPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\ChangeBasemap\ChangeBasemap.xaml.cs">
       <DependentUpon>ChangeBasemap.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -355,6 +361,10 @@
     <Content Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.jpg" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\AuthorMap\AuthorMap.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\AuthorMap\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -423,6 +433,14 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\AuthorMap\AuthorMap.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\AuthorMap\SaveMapPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

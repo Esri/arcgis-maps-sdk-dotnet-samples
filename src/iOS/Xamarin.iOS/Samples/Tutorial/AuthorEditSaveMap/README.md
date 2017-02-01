@@ -14,5 +14,5 @@ This samples demonstrates how to author and save a map as an ArcGIS portal item 
 
 You can make additional changes, update the map, and then re-save to store changes in the portal item.
 
-[](Esri Tags: ArcGIS Runtime SDK .NET WPF C# C-Sharp DotNet XAML MVVM)
+[](Esri Tags: ArcGIS Runtime SDK .NET iOS C# C-Sharp DotNet XAML MVVM)
 [](Esri Language: DotNet)

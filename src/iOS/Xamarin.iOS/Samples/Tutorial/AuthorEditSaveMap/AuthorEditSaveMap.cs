@@ -93,6 +93,144 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             View.AddSubviews(_mapView, segmentButton);
         }
 
+        private void MapViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            // Update the map view with the view model's new map
+            if (e.PropertyName == "Map" && _mapView != null)
+                _mapView.Map = _mapViewModel.Map;
+        }
+
+        #region OAuth
+        private void UpdateAuthenticationManager()
+        {
+            // Register the server information with the AuthenticationManager
+            ServerInfo portalServerInfo = new ServerInfo
+            {
+                ServerUri = new Uri(ArcGISOnlineUrl),
+                OAuthClientInfo = new OAuthClientInfo
+                {
+                    ClientId = AppClientId,
+                    RedirectUri = new Uri(OAuthRedirectUrl)
+                },
+                // Specify OAuthAuthorizationCode if you need a refresh token (and have specified a valid client secret)
+                // Otherwise, use OAuthImplicit
+                TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
+            };
+
+            // Get a reference to the (singleton) AuthenticationManager for the app
+            AuthenticationManager thisAuthenticationManager = AuthenticationManager.Current;
+
+            // Register the server information
+            thisAuthenticationManager.RegisterServer(portalServerInfo);
+
+            // Assign the method that AuthenticationManager will call to challenge for secured resources
+            thisAuthenticationManager.ChallengeHandler = new ChallengeHandler(CreateCredentialAsync);
+
+            // Set the OAuth authorization handler to this class (Implements IOAuthAuthorize interface)
+            thisAuthenticationManager.OAuthAuthorizeHandler = this;
+        }
+
+        // IOAuthAuthorizeHandler.AuthorizeAsync implementation
+        public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
+        {
+            // If the TaskCompletionSource is not null, authorization is in progress
+            if (_taskCompletionSource != null)
+            {
+                // Allow only one authorization process at a time
+                throw new Exception();
+            }
+
+            // Create a task completion source
+            _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
+
+            // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in
+            Xamarin.Auth.OAuth2Authenticator authenticator = new Xamarin.Auth.OAuth2Authenticator(
+                clientId: AppClientId,
+                scope: "",
+                authorizeUrl: authorizeUri,
+                redirectUrl: callbackUri);
+
+            // Allow the user to cancel the OAuth attempt
+            authenticator.AllowCancel = true;
+
+            // Define a handler for the OAuth2Authenticator.Completed event
+            authenticator.Completed += (sender, authArgs) =>
+            {
+                try
+                {
+                    // Check if the user is authenticated
+                    if (authArgs.IsAuthenticated)
+                    {
+                        // If authorization was successful, get the user's account
+                        Xamarin.Auth.Account authenticatedAccount = authArgs.Account;
+
+                        // Set the result (Credential) for the TaskCompletionSource
+                        _taskCompletionSource.SetResult(authenticatedAccount.Properties);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // If authentication failed, set the exception on the TaskCompletionSource
+                    _taskCompletionSource.SetException(ex);
+                }
+                finally
+                {
+                    // Dismiss the OAuth login
+                    this.DismissViewController(true, null);
+                }
+            };
+
+            // If an error was encountered when authenticating, set the exception on the TaskCompletionSource
+            authenticator.Error += (sndr, errArgs) =>
+            {
+                // If the user cancels, the Error event is raised but there is no exception ... best to check first
+                if (errArgs.Exception != null)
+                {
+                    _taskCompletionSource.SetException(errArgs.Exception);
+                }
+                else
+                {
+                    // Login canceled: dismiss the OAuth login
+                    if (_taskCompletionSource != null)
+                    {
+                        _taskCompletionSource.TrySetCanceled();
+                        this.DismissViewController(true, null);
+                    }
+                }
+            };
+
+            // Present the OAuth UI so the user can enter user name and password
+            InvokeOnMainThread(() =>
+            {
+                this.PresentViewController(authenticator.GetUI(), true, null);
+            });
+
+            // Return completion source task so the caller can await completion
+            return _taskCompletionSource.Task;
+        }
+
+        // ChallengeHandler function that will be called whenever access to a secured resource is attempted
+        public async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
+        {
+            Credential credential = null;
+
+            try
+            {
+                // IOAuthAuthorizeHandler will challenge the user for OAuth credentials
+                credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
+            }
+            catch (Exception ex)
+            {
+                // Exception will be reported in calling function
+                throw (ex);
+            }
+
+            return credential;
+        }
+        #endregion
+
+        #region UI Event Handlers
+
         private async void SegmentButtonClicked(object sender, EventArgs e)
         {
             // Get the segmented button control that raised the event
@@ -234,141 +372,6 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                 _mapInfoUI.Hide();
                 _mapInfoUI = null;
             }
-        }
-
-        private void MapViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            // Update the map view with the view model's new map
-            if (e.PropertyName == "Map" && _mapView != null)
-                _mapView.Map = _mapViewModel.Map;
-        }
-
-        #region OAuth
-        private void UpdateAuthenticationManager()
-        {
-            // Register the server information with the AuthenticationManager
-            ServerInfo portalServerInfo = new ServerInfo
-            {
-                ServerUri = new Uri(ArcGISOnlineUrl),
-                OAuthClientInfo = new OAuthClientInfo
-                {
-                    ClientId = AppClientId,
-                    RedirectUri = new Uri(OAuthRedirectUrl)
-                },
-                // Specify OAuthAuthorizationCode if you need a refresh token (and have specified a valid client secret)
-                // Otherwise, use OAuthImplicit
-                TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
-            };
-
-            // Get a reference to the (singleton) AuthenticationManager for the app
-            AuthenticationManager thisAuthenticationManager = AuthenticationManager.Current;
-
-            // Register the server information
-            thisAuthenticationManager.RegisterServer(portalServerInfo);
-
-            // Assign the method that AuthenticationManager will call to challenge for secured resources
-            thisAuthenticationManager.ChallengeHandler = new ChallengeHandler(CreateCredentialAsync);
-
-            // Set the OAuth authorization handler to this class (Implements IOAuthAuthorize interface)
-            thisAuthenticationManager.OAuthAuthorizeHandler = this;
-        }
-
-        // IOAuthAuthorizeHandler.AuthorizeAsync implementation
-        public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
-        {
-            // If the TaskCompletionSource is not null, authorization is in progress
-            if (_taskCompletionSource != null)
-            {
-                // Allow only one authorization process at a time
-                throw new Exception();
-            }
-
-            // Create a task completion source
-            _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
-
-            // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in
-            Xamarin.Auth.OAuth2Authenticator authenticator = new Xamarin.Auth.OAuth2Authenticator(
-                clientId: AppClientId,
-                scope: "",
-                authorizeUrl: authorizeUri,
-                redirectUrl: callbackUri);
-
-            // Allow the user to cancel the OAuth attempt
-            authenticator.AllowCancel = true;
-
-            // Define a handler for the OAuth2Authenticator.Completed event
-            authenticator.Completed += (sender, authArgs) =>
-            {
-                try
-                {
-                    // Check if the user is authenticated
-                    if (authArgs.IsAuthenticated)
-                    {
-                        // If authorization was successful, get the user's account
-                        Xamarin.Auth.Account authenticatedAccount = authArgs.Account;
-
-                        // Set the result (Credential) for the TaskCompletionSource
-                        _taskCompletionSource.SetResult(authenticatedAccount.Properties);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // If authentication failed, set the exception on the TaskCompletionSource
-                    _taskCompletionSource.SetException(ex);
-                }
-                finally
-                {
-                    // Dismiss the OAuth login
-                    this.DismissViewController(true, null);
-                }
-            };
-
-            // If an error was encountered when authenticating, set the exception on the TaskCompletionSource
-            authenticator.Error += (sndr, errArgs) =>
-            {
-                // If the user cancels, the Error event is raised but there is no exception ... best to check first
-                if (errArgs.Exception != null)
-                {
-                    _taskCompletionSource.SetException(errArgs.Exception);
-                }
-                else
-                {
-                    // Login canceled: dismiss the OAuth login
-                    if (_taskCompletionSource != null)
-                    {
-                        _taskCompletionSource.TrySetCanceled();
-                        this.DismissViewController(true, null);
-                    }
-                }
-            };
-
-            // Present the OAuth UI so the user can enter user name and password
-            InvokeOnMainThread(() =>
-            {
-                this.PresentViewController(authenticator.GetUI(), true, null);
-            });
-
-            // Return completion source task so the caller can await completion
-            return _taskCompletionSource.Task;
-        }
-
-        // ChallengeHandler function that will be called whenever access to a secured resource is attempted
-        public async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
-        {
-            Credential credential = null;
-
-            try
-            {
-                // IOAuthAuthorizeHandler will challenge the user for OAuth credentials
-                credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
-            }
-            catch (Exception ex)
-            {
-                // Exception will be reported in calling function
-                throw (ex);
-            }
-
-            return credential;
         }
         #endregion
     }

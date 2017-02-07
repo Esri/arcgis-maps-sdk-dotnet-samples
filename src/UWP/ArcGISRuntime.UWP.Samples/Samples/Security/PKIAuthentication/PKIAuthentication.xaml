@@ -62,12 +62,12 @@
                     <RowDefinition Height="50"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Button x:Name="LoadClientCertButton" 
-                        Grid.Row="0" 
+                <Button x:Name="LoadClientCertButton"
+                        Grid.Row="0"
                         Content="Load Client Certificate"
-                        HorizontalAlignment="Center" VerticalAlignment="Center"						 
-						Width="265" Height="45"
-						Click="ChooseCertificateFile"/>
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Width="265" Height="45"
+                        Click="ChooseCertificateFile"/>
                 <Button x:Name="SearchPublicMapsButton" 
 						Grid.Row="1"
                         Content="Search Public Maps"														

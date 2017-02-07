@@ -173,7 +173,7 @@ namespace PKIAuthentication
             MessagesTextBlock.Text = "Searching for web map items on the portal at " + currentPortal.Uri.AbsoluteUri;
             ProgressStatus.Visibility = Visibility.Visible;
 
-            // Use a StringBuilder to store messges
+            // Use a StringBuilder to store messages
             var messageBuilder = new StringBuilder();
 
             try

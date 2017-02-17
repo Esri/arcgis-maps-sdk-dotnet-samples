@@ -12,10 +12,10 @@ This samples demonstrates how to author and save a map as an ArcGIS portal item 
 4. Choose one or more operational layers to include.
 5. Click 'Save' to open the save dialog.
 6. Provide info for the new portal item, such as a Title, Description, and Tags. 
-7. Click 'Save Map to Portal'. 
+7. Click 'Save'. 
 8. After successfully logging in to your ArcGIS Online account, the map will be saved to your default folder. 
  
 You can make additional changes, update the map, and then re-save to store changes in the portal item.
 
-[](Esri Tags: ArcGIS Runtime SDK .NET UWP C# C-Sharp DotNet XAML MVVM)
+[](Esri Tags: ArcGIS Runtime SDK .NET Xamarin iOS C# C-Sharp DotNet MVVM)
 [](Esri Language: DotNet)

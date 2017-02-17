@@ -71,6 +71,10 @@
             {
               "SampleName": "ManageBookmarks",
               "Path": "Samples/Map/ManageBookmarks"
+            },
+            {
+              "SampleName": "AuthorMap",
+              "Path": "Samples/Map/AuthorMap"
             }
           ]
         }

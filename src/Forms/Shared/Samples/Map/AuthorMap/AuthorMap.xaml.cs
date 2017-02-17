@@ -72,6 +72,10 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             // Call a function to create a new map with a light gray canvas basemap
             CreateNewMap();
 
+            // Show the default OAuth settings in the entry controls
+            ClientIDEntry.Text = _appClientId;
+            RedirectUrlEntry.Text = _oAuthRedirectUrl;
+
             // Change the style of the layer list view for Android and UWP
             Device.OnPlatform(
                 Android: () =>

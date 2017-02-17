@@ -1,0 +1,113 @@
+﻿<Page
+    x:Class="PKIAuthentication.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <Grid Background="DarkGray">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="350" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <!--Login UI: shown after choosing a certificate file to import (*.pfx)-->
+        <Border x:Name="LoginPanel"
+                Grid.Row="0" Grid.Column="0"
+                Visibility="Collapsed"
+                Margin="0,50"
+                Background="DarkGray" BorderBrush="Black" BorderThickness="0,0,2,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="20"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Row="0" Grid.Column="0" 
+                    Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <TextBlock Text="Certificate Password:"
+                            FontSize="14"
+                            VerticalAlignment="Center"/>
+                    <PasswordBox x:Name="CertPasswordBox"
+                            Margin="5,0"
+                            FontSize="14"
+                            Width="160"/>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Grid.Column="0"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Right">
+                    <Button Content="Cancel"
+                            Margin="20,5"
+                            Click="HideCertLogin"/>
+                    <Button Content="Load"
+                            Click="LoadClientCertButton_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Search web maps UI-->
+        <Border x:Name="LoadMapPanel" 
+                Grid.Row="1" Grid.Column="0"
+                Background="DarkGray" BorderBrush="Black" BorderThickness="0,0,2,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Button x:Name="LoadClientCertButton"
+                        Grid.Row="0"
+                        Content="Load Client Certificate"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Width="265" Height="45"
+                        Click="ChooseCertificateFile"/>
+                <Button x:Name="SearchPublicMapsButton" 
+						Grid.Row="1"
+                        Content="Search Public Maps"														
+						Width="265" Height="45"
+                        HorizontalAlignment="Center"
+                        Click="SearchPublicMapsButton_Click"/>
+                <Button x:Name="SearchSecureMapsButton" 
+                        Grid.Row="2"
+						Content="Search PKI Secured Maps"													
+						Width="265" Height="45"
+                        HorizontalAlignment="Center"
+                        Click="SearchSecureMapsButton_Click"/>
+                <ListBox x:Name="MapItemListBox"
+                        Grid.Row="3"                         
+                        FontSize="12"
+                        Width="265" Height="250"/>
+                <Button x:Name="AddMapItem"
+                        Grid.Row="4"
+                        Content="Load Web Map"
+                        Width="150" Height="45"
+                        HorizontalAlignment="Center"
+                        Click="AddMapItem_Click"/>
+                <StackPanel x:Name="MessagePanel"
+						Grid.Row="5" 
+                        Orientation="Vertical"							
+						Margin="10,10,23,10">
+                    <ScrollViewer>
+                        <TextBlock x:Name="MessagesTextBlock" 
+                                Text="Using default system credentials." 
+                                TextWrapping="Wrap"/>
+                    </ScrollViewer>
+                    <ProgressBar x:Name="ProgressStatus" 
+							IsIndeterminate="True"
+                            Visibility="Collapsed"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
+            <esriUI:MapView x:Name="MyMapView"/>
+        </Grid>
+    </Grid>
+</Page>

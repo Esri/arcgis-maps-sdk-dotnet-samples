@@ -71,6 +71,10 @@
             {
               "SampleName": "ManageBookmarks",
               "Path": "Samples/Map/ManageBookmarks"
+            },
+            {
+              "SampleName": "AuthorMap",
+              "Path": "Samples/Map/AuthorMap"
             }
           ]
         }
@@ -216,7 +220,7 @@
         }
       ]
     },
-        {
+    {
       "Name": "Location",
       "CategoryName": "Location",
       "SubCategories": [
@@ -228,6 +232,23 @@
             {
               "SampleName": "DisplayDeviceLocation",
               "Path": "Samples/Location/DisplayDeviceLocation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Tutorial",
+      "CategoryName": "Tutorial",
+      "SubCategories": [
+        {
+          "Name": "Author, edit, and save a map",
+          "SubCategoryName": "AuthorEditSaveMap",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "AuthorEditSaveMap",
+              "Path": "Samples/Tutorial/AuthorEditSaveMap"
             }
           ]
         }

@@ -1,0 +1,69 @@
+﻿<Window x:Class="MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="350" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <!--Search web maps UI-->
+        <Border x:Name="LoadMapPanel"
+				Grid.Column="0"
+				Background="LightGray" BorderBrush="Black" BorderThickness="0,0,2,0">
+            <Grid x:Name="AddDataGrid" 
+						Margin="0,10,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Button x:Name="SearchPublicMapsButton" 
+								Content="Search Public Maps"
+								Click="SearchPublicMapsButton_Click"
+								Grid.Row="0"
+								HorizontalAlignment="Center" VerticalAlignment="Center" 
+								Width="265" Height="35"/>
+                <Button x:Name="SearchSecureMapsButton" 
+								Content="Search PKI Secured Maps"
+								Click="SearchSecureMapsButton_Click"
+								Grid.Row="1"
+								HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+								Width="265" Height="35"/>
+                <ListBox x:Name="MapItemListBox"
+						Grid.Row="2"                         
+						FontSize="12"
+						Width="265" Height="150"/>
+                <Button x:Name="AddMapItem"
+						Grid.Row="3"
+						Content="Load Web Map"
+						Width="100" Height="35"
+						Click="AddMapItem_Click"/>
+                <StackPanel x:Name="MessagePanel"
+							Orientation="Vertical"
+							Grid.Row="4" 
+							Margin="10">
+                    <ScrollViewer>
+                        <TextBlock x:Name="MessagesTextBlock" 
+									   Text="No client certificate" 
+									   TextWrapping="Wrap"
+									   Height="60"/>
+                    </ScrollViewer>
+                    <ProgressBar x:Name="ProgressStatus" 
+								IsIndeterminate="True"
+								Visibility="Collapsed"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+        <Grid Grid.Column="1">
+            <esri:MapView x:Name="MyMapView">
+                <esri:Map>
+                    <esri:ArcGISTiledLayer
+					Source="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"/>
+                </esri:Map>
+            </esri:MapView>
+        </Grid>
+    </Grid>
+</Window>

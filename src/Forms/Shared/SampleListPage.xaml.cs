@@ -68,7 +68,7 @@ namespace ArcGISRuntimeXamarin
       }
       catch (Exception ex)
       {
-         Logger.WriteLine(string.Format("Exception occured on OnItemTapped. Exception = ", ex)); 
+         Logger.WriteLine(string.Format("Exception occurred on OnItemTapped. Exception = ", ex)); 
       }
     }
   }

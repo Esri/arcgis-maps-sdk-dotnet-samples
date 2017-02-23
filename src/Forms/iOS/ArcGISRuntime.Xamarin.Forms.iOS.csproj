@@ -152,6 +152,7 @@
     <None Include="Info.plist">
       <SubType>Designer</SubType>
     </None>
+    <Compile Include="PageRenderer\SaveMapPageRenderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="packages.config" />
   </ItemGroup>

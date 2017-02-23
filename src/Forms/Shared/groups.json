@@ -240,6 +240,23 @@
           ]
         }
       ]
+    },
+    {
+      "Name": "Tutorial",
+      "CategoryName": "Tutorial",
+      "SubCategories": [
+        {
+          "Name": "Author, edit, and save a map",
+          "SubCategoryName": "AuthorEditSaveMap",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "AuthorEditSaveMap",
+              "Path": "Samples/Tutorial/AuthorEditSaveMap"
+            }
+          ]
+        }
+      ]
     }
   ],
   "Featured":[

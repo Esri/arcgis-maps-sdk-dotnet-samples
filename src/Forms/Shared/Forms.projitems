@@ -123,6 +123,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\AuthorMap\AuthorMap.xaml.cs">
       <DependentUpon>AuthorMap.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\AuthorMap\SaveMapPage.xaml.cs">
       <DependentUpon>SaveMapPage.xaml</DependentUpon>
@@ -169,6 +170,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderUniqueValues\RenderUniqueValues.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>RenderUniqueValues.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.xaml.cs">
+      <DependentUpon>AuthorEditSaveMap.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Tutorial\AuthorEditSaveMap\SaveMapPage.xaml.cs">
+      <DependentUpon>SaveMapPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -361,9 +370,13 @@
     <Content Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.jpg" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\AuthorMap\AuthorMap.jpg">
+    <Content Include="$(MSBuildThisFileDirectory)Samples\Map\AuthorMap\AuthorMap.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Tutorial\AuthorEditSaveMap\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\AuthorMap\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -438,9 +451,25 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\AuthorMap\AuthorMap.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\AuthorMap\SaveMapPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Tutorial\AuthorEditSaveMap\SaveMapPage.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UIKit;
 using ArcGISRuntimeXamarin.Managers;
 using ArcGISRuntimeXamarin.Models;
@@ -77,11 +78,28 @@ namespace ArcGISRuntimeXamarin
                     Type t = Type.GetType(sampleNamespace + "." + sampleName);
                     UIViewController vc = Activator.CreateInstance(t) as UIViewController;
 
+                    // Call a function to clear existing credentials
+                    ClearCredentials();
+
                     controller.NavigationController.PushViewController(vc, true);
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
+                }
+            }
+
+            private void ClearCredentials()
+            {
+                // Clear credentials (if any) from previous sample runs
+                var creds = Esri.ArcGISRuntime.Security.AuthenticationManager.Current.Credentials;
+                for (var i = creds.Count() - 1; i >= 0; i--)
+                {
+                    var c = creds.ElementAtOrDefault(i);
+                    if (c != null)
+                    {
+                        Esri.ArcGISRuntime.Security.AuthenticationManager.Current.RemoveCredential(c);
+                    }
                 }
             }
         }

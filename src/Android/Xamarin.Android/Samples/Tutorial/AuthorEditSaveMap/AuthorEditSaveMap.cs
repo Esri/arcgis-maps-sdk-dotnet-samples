@@ -166,7 +166,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                 };
 
                 // Indicate the url (portal) to authenticate with (ArcGIS Online)
-                challengeRequest.ServiceUri = new Uri("http://www.arcgis.com/sharing/rest");
+                challengeRequest.ServiceUri = new Uri("https://www.arcgis.com/sharing/rest");
 
                 // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
                 await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);

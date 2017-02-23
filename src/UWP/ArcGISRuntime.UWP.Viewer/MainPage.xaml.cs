@@ -12,6 +12,7 @@ using ArcGISRuntime.Samples.Models;
 using ArcGISRuntime.UWP.Viewer.Dialogs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Windows.Foundation.Metadata;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
@@ -144,10 +145,27 @@ namespace ArcGISRuntime.UWP.Viewer
             var selectedSample = (sender as FrameworkElement).DataContext as SampleModel;
             if (selectedSample == null) return;
 
+            // Call a function to clear existing credentials
+            ClearCredentials();
+
             SampleManager.Current.SelectedSample = selectedSample;
 
             // Navigate to the sample page that shows the sample and details
             Frame.Navigate(typeof(SamplePage));
+        }
+
+        private void ClearCredentials()
+        {
+            // Clear credentials (if any) from previous sample runs
+            var creds = Esri.ArcGISRuntime.Security.AuthenticationManager.Current.Credentials;
+            for (var i = creds.Count() - 1; i >= 0; i--)
+            {
+                var c = creds.ElementAtOrDefault(i);
+                if (c != null)
+                {
+                    Esri.ArcGISRuntime.Security.AuthenticationManager.Current.RemoveCredential(c);
+                }
+            }
         }
 
         private void OnSearchQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)

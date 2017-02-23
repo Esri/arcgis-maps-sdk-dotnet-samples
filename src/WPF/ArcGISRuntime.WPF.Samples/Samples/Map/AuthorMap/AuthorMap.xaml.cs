@@ -452,7 +452,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
             }
 
             // Return the task associated with the TaskCompletionSource
-            return _tcs.Task;
+            return _tcs != null ? _tcs.Task : null;
         }
 
         // Challenge for OAuth credentials on the UI thread

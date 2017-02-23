@@ -17,59 +17,76 @@ using Xamarin.Forms;
 namespace ArcGISRuntimeXamarin
 {
     public partial class SampleListPage : ContentPage
-  {
-    private string _categoryName;
-    private List<SampleModel> _listSampleItems;
-
-    public SampleListPage(string name)
     {
-      _categoryName = name;
-      Initialize();
+        private string _categoryName;
+        private List<SampleModel> _listSampleItems;
 
-      InitializeComponent();
-
-      Title = _categoryName;
-    }
-
-    void Initialize()
-    {
-      var sampleCategories = SampleManager.Current.GetSamplesAsTree();
-      var category = sampleCategories.FirstOrDefault(x => x.Name == _categoryName) as TreeItem;
-
-      List<object> listSubCategories = new List<object>();
-      for (int i = 0; i < category.Items.Count; i++)
-      {
-        listSubCategories.Add((category.Items[i] as TreeItem).Items);
-      }
-
-      _listSampleItems = new List<SampleModel>();
-      foreach (List<object> subCategoryItem in listSubCategories)
-      {
-        foreach (var sample in subCategoryItem)
+        public SampleListPage(string name)
         {
-          _listSampleItems.Add(sample as SampleModel);
+            _categoryName = name;
+            Initialize();
+
+            InitializeComponent();
+
+            Title = _categoryName;
         }
-      }
 
-      BindingContext = _listSampleItems;
+        void Initialize()
+        {
+            var sampleCategories = SampleManager.Current.GetSamplesAsTree();
+            var category = sampleCategories.FirstOrDefault(x => x.Name == _categoryName) as TreeItem;
+
+            List<object> listSubCategories = new List<object>();
+            for (int i = 0; i < category.Items.Count; i++)
+            {
+                listSubCategories.Add((category.Items[i] as TreeItem).Items);
+            }
+
+            _listSampleItems = new List<SampleModel>();
+            foreach (List<object> subCategoryItem in listSubCategories)
+            {
+                foreach (var sample in subCategoryItem)
+                {
+                    _listSampleItems.Add(sample as SampleModel);
+                }
+            }
+
+            BindingContext = _listSampleItems;
+        }
+
+        async void OnItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            try
+            {
+                var item = (SampleModel)e.Item;
+                var sampleName = item.SampleName;
+                var sampleNamespace = item.SampleNamespace;
+
+                Type t = Type.GetType(sampleNamespace + "." + sampleName);
+
+                await Navigation.PushAsync((ContentPage)Activator.CreateInstance(t));
+
+                // Call a function to clear existing credentials
+                ClearCredentials();
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteLine(string.Format("Exception occurred on OnItemTapped. Exception = ", ex));
+            }
+        }
+
+        private void ClearCredentials()
+        {
+            // Clear credentials (if any) from previous sample runs
+            var creds = Esri.ArcGISRuntime.Security.AuthenticationManager.Current.Credentials;
+            for (var i = creds.Count() - 1; i >= 0; i--)
+            {
+                var c = creds.ElementAtOrDefault(i);
+                if (c != null)
+                {
+                    Esri.ArcGISRuntime.Security.AuthenticationManager.Current.RemoveCredential(c);
+                }
+            }
+        }
     }
-
-    async void OnItemTapped(object sender, ItemTappedEventArgs e)
-    {
-      try
-      {
-        var item = (SampleModel)e.Item;
-        var sampleName = item.SampleName;
-        var sampleNamespace = item.SampleNamespace;
-
-        Type t = Type.GetType(sampleNamespace + "." + sampleName);
-
-        await Navigation.PushAsync((ContentPage)Activator.CreateInstance(t));
-      }
-      catch (Exception ex)
-      {
-         Logger.WriteLine(string.Format("Exception occured on OnItemTapped. Exception = ", ex)); 
-      }
-    }
-  }
 }

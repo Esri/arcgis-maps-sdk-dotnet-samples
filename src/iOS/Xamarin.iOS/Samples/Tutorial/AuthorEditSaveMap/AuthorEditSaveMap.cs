@@ -206,7 +206,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             });
 
             // Return completion source task so the caller can await completion
-            return _taskCompletionSource.Task;
+            return _taskCompletionSource != null ? _taskCompletionSource.Task : null;
         }
 
         // ChallengeHandler function that will be called whenever access to a secured resource is attempted

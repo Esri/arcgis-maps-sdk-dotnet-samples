@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGISRuntimeXamarin.Samples.AuthorMap.AuthorMap"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition/>
+      <RowDefinition Height="70"/>
+    </Grid.RowDefinitions>
+    <esriUI:MapView x:Name="MyMapView"
+                    Grid.Row="0"/>
+    <ProgressBar x:Name="SaveMapProgressBar"
+                  IsVisible="False"/>
+    <ListView x:Name="LayersList"
+              Grid.Row="0"
+              IsVisible="False"
+              ItemTapped="LayerSelected">
+    </ListView>
+    <Grid x:Name="OAuthSettingsGrid" 
+          Grid.Row="0"
+          HorizontalOptions="Center" VerticalOptions="Center"
+          WidthRequest="300">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="60"/>
+        <RowDefinition Height="40"/>
+        <RowDefinition Height="40"/>
+        <RowDefinition/>
+    </Grid.RowDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="100"/>
+        <ColumnDefinition/>
+      </Grid.ColumnDefinitions>
+      <Label Grid.Row="0" Grid.ColumnSpan="2" 
+             HorizontalOptions="Center" VerticalOptions="Start"
+             Text="OAuth Settings"/>
+      <Label Grid.Row="1"
+             HorizontalOptions="End" VerticalOptions="Center"
+             Text="Client ID:"/>
+      <Entry x:Name="ClientIDEntry" 
+             Grid.Row="1" Grid.Column="1" 
+             Placeholder="mYCl1enTiD"
+             HorizontalOptions="Start" VerticalOptions="Center"
+             WidthRequest="240"/>
+      <Label Grid.Row="2"
+             HorizontalOptions="End" VerticalOptions="Center"
+             Text="Redirect URL:"/>
+      <Entry x:Name="RedirectUrlEntry" 
+             Grid.Row="2" Grid.Column="1" 
+             Placeholder="http://my.redirect/url"
+             HorizontalOptions="Start" VerticalOptions="Center"
+             WidthRequest="240"/>
+      <Button Grid.Row="3" Grid.Column="0"
+              HorizontalOptions="End" VerticalOptions="End"
+              Text="Cancel"
+              Clicked="OAuthSettingsCancel"/>
+      <Button Grid.Row="3" Grid.Column="1"
+              HorizontalOptions="CenterAndExpand" VerticalOptions="End"
+              Text="Use Settings"
+              Clicked="SaveOAuthSettings"/>
+    </Grid>
+    <Grid Grid.Row="1"
+          Margin="5,2">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition/>
+        <ColumnDefinition/>
+        <ColumnDefinition/>
+        <ColumnDefinition/>
+      </Grid.ColumnDefinitions>
+      <Button Grid.Column="0"
+              Text="Base map"
+              Clicked="ShowLayerList"/>
+      <Button Grid.Column="1"
+              Text="Layers"
+              Clicked="ShowLayerList"/>
+      <Button Grid.Column="2"
+              Text="New"
+              Clicked="NewMapButtonClick"/>
+      <Button Grid.Column="3"
+              Text="Save ..."
+              Clicked="ShowSaveMapUI"/>
+    </Grid>
+  </Grid>
+</ContentPage>

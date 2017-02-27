@@ -65,8 +65,8 @@
               "Path": "Samples/Map/ChangeBasemap"
             },
             {
-              "SampleName": "AuthorMap",
-              "Path": "Samples/Map/AuthorMap"
+              "SampleName": "ManageBookmarks",
+              "Path": "Samples/Map/ManageBookmarks"
             }
           ]
         }

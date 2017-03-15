@@ -5,8 +5,8 @@ This sample demonstrates how to create a `DistanceCompositeSceneSymbol` with uni
 <img src="UseDistanceCompositeSym.jpg" width="350"/>
 
 ### Instructions
- 1. When the Scene initially loads, you will be looking at a point graphic symbolized with a 3D cone symbol.
- 2. Zoom slightly closer to the graphic and the symbol will change to a 3D model symbol of a helicopter.
+ 1. When the Scene initially loads, you will be looking at a point graphic symbolized with a red 3D cone symbol.
+ 2. Zoom slightly closer to the graphic and the symbol will change to a blue 3D cube symbol.
  3. Zoom farther from the graphic and the symbol will change back to a 3D cone and then to a simple marker symbol.
 
 

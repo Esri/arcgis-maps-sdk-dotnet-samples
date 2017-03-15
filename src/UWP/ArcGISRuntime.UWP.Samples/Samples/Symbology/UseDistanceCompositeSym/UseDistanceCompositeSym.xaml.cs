@@ -12,16 +12,12 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
-using System.Threading.Tasks;
 using Windows.UI;
 
 namespace ArcGISRuntime.UWP.Samples.UseDistanceCompositeSym
 {
     public sealed partial class UseDistanceCompositeSym
     {
-        // Path to the model used to render the ModelSceneSymbol (helicopter)
-        private string _modelFilePath = "ms-appx:///ArcGISRuntime.UWP.Samples/Resources/SkyCrane/SkyCrane.lwo";
-
         // URL for an image service to use as an elevation source
         private string _elevationSourceUrl = @"http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
 
@@ -33,7 +29,7 @@ namespace ArcGISRuntime.UWP.Samples.UseDistanceCompositeSym
             Initialize();
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Create a new Scene with an imagery basemap
             Scene myScene = new Scene(Basemap.CreateImagery());
@@ -51,7 +47,7 @@ namespace ArcGISRuntime.UWP.Samples.UseDistanceCompositeSym
             MySceneView.GraphicsOverlays.Add(grafixOverlay);
 
             // Call a function to create a new distance composite symbol with three ranges
-            DistanceCompositeSceneSymbol compositeSymbol = await CreateCompositeSymbolAsync();
+            DistanceCompositeSceneSymbol compositeSymbol = CreateCompositeSymbol();
             
             // Create a new point graphic with the composite symbol, add it to the graphics overlay
             MapPoint heliPoint = new MapPoint(-2.708471, 56.096575, 5000, SpatialReferences.Wgs84);
@@ -63,20 +59,20 @@ namespace ArcGISRuntime.UWP.Samples.UseDistanceCompositeSym
             MySceneView.SetViewpointCameraAsync(newCamara);
         }
 
-        private async Task<DistanceCompositeSceneSymbol> CreateCompositeSymbolAsync()
+        private DistanceCompositeSceneSymbol CreateCompositeSymbol()
         {
             // Create three symbols for displaying a feature according to its distance from the camera
-            // First, a model symbol for when the camera is near the feature
-            ModelSceneSymbol modelSym = await ModelSceneSymbol.CreateAsync(new Uri(_modelFilePath), 0.01);
+            // First, a 3D (blue cube) symbol for when the camera is near the feature
+            SimpleMarkerSceneSymbol cubeSym = new SimpleMarkerSceneSymbol(SimpleMarkerSceneSymbolStyle.Cube, Colors.Blue, 125, 125, 125, SceneSymbolAnchorPosition.Center);
 
-            // 3D (cone) symbol for when the feature is at an intermediate range
+            // 3D (red cone) symbol for when the feature is at an intermediate range
             SimpleMarkerSceneSymbol coneSym = new SimpleMarkerSceneSymbol(SimpleMarkerSceneSymbolStyle.Cone, Colors.Red, 75, 75, 75, SceneSymbolAnchorPosition.Bottom);
 
             // Simple marker symbol (circle) when the feature is far from the camera
-            SimpleMarkerSymbol markerSym = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Colors.Red, 10.0);
+            SimpleMarkerSymbol markerSym = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Colors.Yellow, 10.0);
 
             // Create three new ranges for displaying each symbol
-            DistanceSymbolRange closeRange = new DistanceSymbolRange(modelSym, 0, 999);
+            DistanceSymbolRange closeRange = new DistanceSymbolRange(cubeSym, 0, 999);
             DistanceSymbolRange midRange = new DistanceSymbolRange(coneSym, 1000, 1999);
             DistanceSymbolRange farRange = new DistanceSymbolRange(markerSym, 2000, 0);
 

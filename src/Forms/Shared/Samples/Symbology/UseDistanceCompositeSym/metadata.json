@@ -1,0 +1,17 @@
+{
+  "Name": "Render a graphic with a distance composite scene symbol",
+  "SampleName": "UseDistanceCompositeSym",
+  "Description": "This sample demonstrates how to create a DistanceCompositeSceneSymbol with unique marker symbols to display at various distances from the camera.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"UseDistanceCompositeSym.jpg",
+  "Link":"",
+  "TypeLink": [
+    "T:Esri.ArcGISRuntime.Symbology.DistanceCompositeSceneSymbol",
+    "M:Esri.ArcGISRuntime.Symbology.DistanceCompositeSceneSymbol.Ranges"
+  ],
+  "SampleFolder": "UseDistanceCompositeSym"
+}

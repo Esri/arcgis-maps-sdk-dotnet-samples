@@ -171,6 +171,10 @@
       <SubType>Code</SubType>
       <DependentUpon>RenderUniqueValues.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>UseDistanceCompositeSym.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.xaml.cs">
       <DependentUpon>AuthorEditSaveMap.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -351,6 +355,9 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderUniqueValues\RenderUniqueValues.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)CategoryListPage.xaml">
@@ -373,6 +380,8 @@
     <Content Include="$(MSBuildThisFileDirectory)Samples\Map\AuthorMap\AuthorMap.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\UseDistanceCompositeSym\metadata.json" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>

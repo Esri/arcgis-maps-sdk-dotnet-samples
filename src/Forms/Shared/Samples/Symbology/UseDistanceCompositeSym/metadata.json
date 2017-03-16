@@ -1,5 +1,5 @@
 {
-  "Name": "Render a graphic with a distance composite scene symbol",
+  "Name": "Distance composite symbol",
   "SampleName": "UseDistanceCompositeSym",
   "Description": "This sample demonstrates how to create a DistanceCompositeSceneSymbol with unique marker symbols to display at various distances from the camera.",
   "Instructions": "",

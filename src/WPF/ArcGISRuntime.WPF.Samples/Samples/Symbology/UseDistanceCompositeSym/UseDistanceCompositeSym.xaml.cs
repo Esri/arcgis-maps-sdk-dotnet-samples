@@ -43,17 +43,17 @@ namespace ArcGISRuntime.WPF.Samples.UseDistanceCompositeSym
             MySceneView.Scene = myScene;
 
             // Create a new GraphicsOverlay and add it to the SceneView
-            GraphicsOverlay grafixOverlay = new GraphicsOverlay();
-            grafixOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Relative;
-            MySceneView.GraphicsOverlays.Add(grafixOverlay);
+            GraphicsOverlay graphicsOverlay = new GraphicsOverlay();
+            graphicsOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Relative;
+            MySceneView.GraphicsOverlays.Add(graphicsOverlay);
 
             // Call a function to create a new distance composite symbol with three ranges
             DistanceCompositeSceneSymbol compositeSymbol = CreateCompositeSymbol();
 
             // Create a new point graphic with the composite symbol, add it to the graphics overlay
-            MapPoint heliPoint = new MapPoint(-2.708471, 56.096575, 5000, SpatialReferences.Wgs84);
-            Graphic heliGraphic = new Graphic(heliPoint, compositeSymbol);
-            grafixOverlay.Graphics.Add(heliGraphic);
+            MapPoint locationPoint = new MapPoint(-2.708471, 56.096575, 5000, SpatialReferences.Wgs84);
+            Graphic pointGraphic = new Graphic(locationPoint, compositeSymbol);
+            graphicsOverlay.Graphics.Add(pointGraphic);
 
             // Set the viewpoint with a new camera focused on the graphic
             Camera newCamara = new Camera(new MapPoint(-2.708471, 56.096575, 5000, SpatialReferences.Wgs84), 1500, 0, 80, 0);

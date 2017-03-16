@@ -42,17 +42,17 @@ Namespace UseDistanceCompositeSym
             MySceneView.Scene = myScene
 
             ' Create a new GraphicsOverlay and add it to the SceneView
-            Dim grafixOverlay As GraphicsOverlay = New GraphicsOverlay()
-            grafixOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Relative
-            MySceneView.GraphicsOverlays.Add(grafixOverlay)
+            Dim graphicOverlay As GraphicsOverlay = New GraphicsOverlay()
+            graphicOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Relative
+            MySceneView.GraphicsOverlays.Add(graphicOverlay)
 
             ' Call a function to create a new distance composite symbol with three ranges
             Dim compositeSym As DistanceCompositeSceneSymbol = CreateCompositeSymbol()
 
             ' Create a new point graphic with the composite symbol, add it to the graphics overlay
-            Dim heliPoint As MapPoint = New MapPoint(-2.708471, 56.096575, 5000, SpatialReferences.Wgs84)
-            Dim heliGraphic As Graphic = New Graphic(heliPoint, compositeSym)
-            grafixOverlay.Graphics.Add(heliGraphic)
+            Dim locationPoint As MapPoint = New MapPoint(-2.708471, 56.096575, 5000, SpatialReferences.Wgs84)
+            Dim pointGraphic As Graphic = New Graphic(locationPoint, compositeSym)
+            graphicOverlay.Graphics.Add(pointGraphic)
 
             ' Set the viewpoint with a New camera focused on the graphic
             Dim newCamara As Camera = New Camera(New MapPoint(-2.708471, 56.096575, 5000, SpatialReferences.Wgs84), 1500, 0, 80, 0)

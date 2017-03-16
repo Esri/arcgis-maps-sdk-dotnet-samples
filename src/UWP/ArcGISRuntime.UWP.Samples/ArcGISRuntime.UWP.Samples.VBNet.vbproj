@@ -92,6 +92,8 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <Content Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg" />
+    <None Include="Samples\Symbology\UseDistanceCompositeSym\metadata.json" />
     <None Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg" />
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
     <Content Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.jpg" />
@@ -323,6 +325,9 @@
     <Compile Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValuesVB.xaml.vb">
       <DependentUpon>RenderUniqueValuesVB.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSymVB.xaml.vb">
+      <DependentUpon>UseDistanceCompositeSymVB.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMapVB.xaml.vb">
       <DependentUpon>AuthorEditSaveMapVB.xaml</DependentUpon>
     </Compile>
@@ -529,6 +534,10 @@
     <Page Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValuesVB.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSymVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMapVB.xaml">
       <Generator>MSBuild:Compile</Generator>

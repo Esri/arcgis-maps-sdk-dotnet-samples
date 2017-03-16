@@ -246,6 +246,23 @@
       ]
     },
     {
+      "Name": "Scenes",
+      "CategoryName": "Scenes",
+      "SubCategories": [
+        {
+          "Name": "Scene symbols",
+          "SubCategoryName": "SceneSymbols",
+          "ShowGroup": false,
+          "SampleInfos": [
+            {
+              "SampleName": "UseDistanceCompositeSym",
+              "Path": "Samples/Symbology/UseDistanceCompositeSym"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "Name": "Location",
       "CategoryName": "Location",
       "SubCategories": [

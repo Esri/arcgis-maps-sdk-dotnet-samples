@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using Android.App;
 using Android.Content;
@@ -80,6 +81,9 @@ namespace ArcGISRuntimeXamarin
                 Type t = Type.GetType(sampleNamespace + "." + sampleName);
                 var newActivity = new Intent(this, t);
 
+                // Call a function to clear existing credentials
+                ClearCredentials();
+
                 StartActivity(newActivity);
             }
             catch (Exception ex)
@@ -89,6 +93,20 @@ namespace ArcGISRuntimeXamarin
                 dialog.SetTitle("Unable to load " + sampleName);
                 dialog.SetMessage(ex.Message);
                 dialog.Show();
+            }
+        }
+
+        private void ClearCredentials()
+        {
+            // Clear credentials (if any) from previous sample runs
+            var creds = Esri.ArcGISRuntime.Security.AuthenticationManager.Current.Credentials;
+            for (var i = creds.Count() - 1; i >= 0; i--)
+            {
+                var c = creds.ElementAtOrDefault(i);
+                if (c != null)
+                {
+                    Esri.ArcGISRuntime.Security.AuthenticationManager.Current.RemoveCredential(c);
+                }
             }
         }
     }

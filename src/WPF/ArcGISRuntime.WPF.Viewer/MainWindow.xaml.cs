@@ -105,6 +105,9 @@ namespace ArcGISRuntime.Samples.Desktop
             {
                 SampleContainer.Content = SampleManager.Current.SampleToControl(selectedSample);
 
+                // Call a function to clear any existing credentials from AuthenticationManager
+                ClearCredentials();
+
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
                 GC.Collect();
@@ -118,6 +121,20 @@ namespace ArcGISRuntime.Samples.Desktop
                 // TODO handle
             }
             CategoriesRegion.Visibility = Visibility.Collapsed;
+        }
+
+        private void ClearCredentials()
+        {
+            // Clear credentials (if any) from previous sample runs
+            var creds = Esri.ArcGISRuntime.Security.AuthenticationManager.Current.Credentials;
+            for (var i = creds.Count() - 1; i >= 0; i--)
+            {
+                var c = creds.ElementAtOrDefault(i);
+                if (c != null)
+                {
+                    Esri.ArcGISRuntime.Security.AuthenticationManager.Current.RemoveCredential(c);
+                }
+            }
         }
 
         private void Featured_Click(object sender, RoutedEventArgs e)

@@ -20,7 +20,7 @@ Class MainWindow
     ' TODO: [optional] Provide the client secret for the app (only needed for the OAuthAuthorizationCode auth type)
     Private Const ClientSecret As String = ""
     ' TODO: Provide a URL registered for the app for redirecting after a successful authorization
-    Private Const RedirectUrl As String = "http://my.redirect.url"
+    Private Const RedirectUrl As String = "https://my.redirect.url"
     ' TODO: Provide an ID for a secured web map item hosted on the server
     Private Const WebMapId As String = ""
 
@@ -135,10 +135,10 @@ Public Class OAuthAuthorize
 
     ' Function to handle authorization requests, takes the URIs for the secured service, the authorization endpoint, And the redirect URI
     Public Function AuthorizeAsync(serviceUri As Uri, authorizeUri As Uri, callbackUri As Uri) As Task(Of IDictionary(Of String, String)) Implements IOAuthAuthorizeHandler.AuthorizeAsync
-        ' If the TaskCompletionSource Or Window are Not null, authorization Is in progress
-        If Not _tcs Is Nothing Or Not _window Is Nothing Then
+        ' If the TaskCompletionSource.Task hasn't completed, authorization is still in progress
+        If Not _tcs Is Nothing AndAlso Not _tcs.Task.IsCompleted Then
             ' Allow only one authorization process at a time
-            Throw New Exception()
+            Throw New Exception("Task in progress")
         End If
 
         ' Store the authorization And redirect URLs
@@ -153,7 +153,8 @@ Public Class OAuthAuthorize
         If thisDispatcher Is Nothing Or thisDispatcher.CheckAccess() Then
             AuthorizeOnUIThread(_authorizeUrl)
         Else
-            thisDispatcher.BeginInvoke(New AuthorizeDelegate(AddressOf AuthorizeOnUIThread), _authorizeUrl)
+            Dim authorizeSub As AuthorizeDelegate = New AuthorizeDelegate(AddressOf AuthorizeOnUIThread)
+            thisDispatcher.BeginInvoke(authorizeSub, _authorizeUrl)
         End If
 
         ' Return the task associated with the TaskCompletionSource
@@ -193,17 +194,18 @@ Public Class OAuthAuthorize
     End Sub
 
     Private Sub OnWindowClosed(sender As Object, e As EventArgs)
+
+        ' If the browser window closes, return the focus to the main window
         If Not _window Is Nothing AndAlso Not _window.Owner Is Nothing Then
             _window.Owner.Focus()
         End If
 
-        If Not _tcs Is Nothing AndAlso Not _tcs.Task.IsCompleted Then
+        If Not _tcs.Task.IsCompleted Then
             ' The user closed the window
-            _tcs.SetException(New OperationCanceledException())
+            _tcs.SetCanceled()
         End If
 
-        ' Set the task completion source And window to null to indicate the authorization process Is complete
-        _tcs = Nothing
+        ' Set the window to null
         _window = Nothing
     End Sub
 
@@ -214,8 +216,8 @@ Public Class OAuthAuthorize
         Dim browser As WebBrowser = TryCast(sender, WebBrowser)
         Dim currentUri As Uri = e.Uri
 
-        ' If no browser, uri, task completion source, Or an empty url, return
-        If browser Is Nothing Or currentUri Is Nothing Or _tcs Is Nothing OrElse String.IsNullOrEmpty(currentUri.AbsoluteUri) Then Return
+        ' If no browser, uri, or an empty url, return
+        If browser Is Nothing Or currentUri Is Nothing OrElse String.IsNullOrEmpty(currentUri.AbsoluteUri) Then Return
 
         ' Check for redirect
         Dim isRedirected As Boolean = currentUri.AbsoluteUri.StartsWith(_callbackUrl) Or
@@ -226,18 +228,18 @@ Public Class OAuthAuthorize
             '    -close the window 
             '    -decode the parameters (returned as fragments Or query)
             '    -return these parameters as result of the Task
-            e.Cancel = True
-            Dim localTcs As TaskCompletionSource(Of IDictionary(Of String, String)) = _tcs
-            _tcs = Nothing
-            If Not _window Is Nothing Then
-                _window.Close()
-            End If
-
             ' Call a helper function to decode the response parameters
             Dim authResponse As IDictionary(Of String, String) = DecodeParameters(currentUri)
 
             ' Set the result for the task completion source
-            localTcs.SetResult(authResponse)
+            _tcs.SetResult(authResponse)
+
+            ' Close the window
+            If Not _window Is Nothing Then
+                _window.Close()
+            End If
+
+            e.Cancel = True
         End If
     End Sub
 

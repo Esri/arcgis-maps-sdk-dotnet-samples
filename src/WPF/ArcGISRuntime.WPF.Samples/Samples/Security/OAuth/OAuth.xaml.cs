@@ -157,15 +157,15 @@ namespace OAuth
         private string _callbackUrl;
         // URL that handles the OAuth request
         private string _authorizeUrl;
-        
+
         // Function to handle authorization requests, takes the URIs for the secured service, the authorization endpoint, and the redirect URI
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
-            // If the TaskCompletionSource or Window are not null, authorization is in progress
-            if (_tcs != null || _window != null)
-            {
+            // If the TaskCompletionSource.Task has not completed, authorization is in progress
+            if (_tcs != null && !_tcs.Task.IsCompleted)
+            { 
                 // Allow only one authorization process at a time
-                throw new Exception();
+                throw new Exception("Task in progress");
             }
 
             // Store the authorization and redirect URLs
@@ -181,7 +181,8 @@ namespace OAuth
                 AuthorizeOnUIThread(_authorizeUrl);
             else
             {
-                dispatcher.BeginInvoke((Action)(() => AuthorizeOnUIThread(_authorizeUrl)));
+                var authorizeOnUIAction = new Action((() => AuthorizeOnUIThread(_authorizeUrl)));
+                dispatcher.BeginInvoke(authorizeOnUIAction);
             }
 
             // Return the task associated with the TaskCompletionSource
@@ -200,13 +201,16 @@ namespace OAuth
             _window = new Window
             {
                 Content = webBrowser,
-                Height = 330,
-                Width = 295,
+                Height = 400,
+                Width = 330,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
-                Owner = Application.Current != null && Application.Current.MainWindow != null
-                            ? Application.Current.MainWindow
-                            : null
             };
+
+            // Set the app's window as the owner of the browser window (if main window closes, so will the browser)
+            if (Application.Current != null && Application.Current.MainWindow != null)
+            {
+                _window.Owner = Application.Current.MainWindow;
+            }
 
             // Handle the window closed event then navigate to the authorize url
             _window.Closed += OnWindowClosed;
@@ -218,19 +222,19 @@ namespace OAuth
 
         void OnWindowClosed(object sender, EventArgs e)
         {
+            // If the browser window closes, return the focus to the main window
             if (_window != null && _window.Owner != null)
             {
                 _window.Owner.Focus();
             }
 
-            if (_tcs != null && !_tcs.Task.IsCompleted)
+            // If the task wasn't completed, the user must have closed the window without logging in
+            if (!_tcs.Task.IsCompleted)
             {
-                // The user closed the window
-                _tcs.SetException(new OperationCanceledException());
+                // Set the task completion source exception to indicate a canceled operation
+                _tcs.SetCanceled();
             }
 
-            // Set the task completion source and window to null to indicate the authorization process is complete
-            _tcs = null;
             _window = null;
         }
 
@@ -242,8 +246,8 @@ namespace OAuth
             var webBrowser = sender as WebBrowser;
             Uri uri = e.Uri;
 
-            // If no browser, uri, task completion source, or an empty url, return
-            if (webBrowser == null || uri == null || _tcs == null || string.IsNullOrEmpty(uri.AbsoluteUri))
+            // If no browser, uri, or an empty url, return
+            if (webBrowser == null || uri == null || string.IsNullOrEmpty(uri.AbsoluteUri))
                 return;
 
             // Check for redirect
@@ -252,23 +256,22 @@ namespace OAuth
 
             if (isRedirected)
             {
-                // If the web browser is redirected to the callbackUrl:
+                // Browser was redirected to the callbackUrl (success!)
                 //    -close the window 
                 //    -decode the parameters (returned as fragments or query)
                 //    -return these parameters as result of the Task
                 e.Cancel = true;
-                var tcs = _tcs;
-                _tcs = null;
-                if (_window != null)
-                {
-                    _window.Close();
-                }
 
                 // Call a helper function to decode the response parameters
                 var authResponse = DecodeParameters(uri);
 
                 // Set the result for the task completion source
-                tcs.SetResult(authResponse);
+                _tcs.SetResult(authResponse);
+
+                if (_window != null)
+                {
+                    _window.Close();
+                }
             }
         }
 

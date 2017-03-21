@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
+             x:Class="ArcGISRuntimeXamarin.Samples.AnalyzeHotspots.AnalyzeHotspots">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="auto" />
+      <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+    <StackLayout Orientation="Vertical">
+      <StackLayout Orientation="Horizontal">
+        <Label Margin="10,0,0,0">Start Date:</Label>
+        <Entry Text="1/01/98" x:Name="StartDate"/>
+      </StackLayout>
+      <StackLayout Orientation="Horizontal">
+      <Label Margin="10,0,0,0">EndDate:</Label>
+        <Entry Text="1/31/98" x:Name="EndDate"/>
+      </StackLayout>
+      <Button Text="Run Analysis" Clicked="OnRunAnalysisClicked"/>       
+    </StackLayout>
+    <ActivityIndicator x:Name="MyActivityInidicator" IsVisible="False"/>
+    <esriUI:MapView x:Name="MyMapView" Grid.Row="1"/>
+  </Grid>
+</ContentPage>

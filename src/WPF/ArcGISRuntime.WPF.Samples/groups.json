@@ -28,6 +28,10 @@
             {
               "SampleName": "TakeScreenshot",
               "Path": "Samples/MapView/TakeScreenshot"
+            },
+            {
+              "SampleName": "ShowMagnifier",
+              "Path": "Samples/MapView/ShowMagnifier"
             }
           ]
         },

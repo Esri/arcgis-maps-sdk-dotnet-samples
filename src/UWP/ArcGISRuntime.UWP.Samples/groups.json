@@ -25,9 +25,13 @@
               "SampleName": "DisplayLayerViewState",
               "Path": "Samples/MapView/DisplayLayerViewState"
             },
-                                    {
+            {
               "SampleName": "TakeScreenshot",
               "Path": "Samples/MapView/TakeScreenshot"
+            },
+            {
+              "SampleName": "ShowMagnifier",
+              "Path": "Samples/MapView/ShowMagnifier"
             }
           ]
         },

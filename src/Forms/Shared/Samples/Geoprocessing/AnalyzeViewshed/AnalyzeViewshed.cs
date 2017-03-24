@@ -17,7 +17,6 @@ using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-//using Windows.UI;
 using Xamarin.Forms;
 
 namespace ArcGISRuntimeXamarin.Samples.AnalyzeViewshed
@@ -37,7 +36,7 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeViewshed
 
         public AnalyzeViewshed()
         {
-            InitializeComponent ();
+            InitializeComponent();
 
             Title = "Analyze Viewshed";
 
@@ -161,7 +160,7 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeViewshed
                     #if WINDOWS_UWP
                         Color = Windows.UI.Colors.Red
                     #else
-                         Color = System.Drawing.Color.Red
+                        Color = System.Drawing.Color.Red
                     #endif
                 }
             };

@@ -1,0 +1,15 @@
+{
+  "Name": "Search a portal for maps",
+  "SampleName": "SearchPortalMaps",
+  "Description": "This sample demonstrates searching a portal for webmaps and loading them in the map view.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": false,
+  "RequiresLocalServer": false,
+  "Image": "SearchPortalMaps.jpg",
+  "Link": "",
+  "TypeLink": [
+    "M:Esri.ArcGISRuntime.Mapping.Map.#ctor(PortalItem)"
+  ]
+}

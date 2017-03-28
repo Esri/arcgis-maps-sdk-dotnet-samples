@@ -37,6 +37,9 @@ namespace ArcGISRuntimeXamarin.Samples.ShowMagnifier
             // Create new Map with basemap and initial location
             Map myMap = new Map(BasemapType.Topographic, 34.056295, -117.195800, 10);
 
+            // Enable the ability to interact with the map view (including enabling the magnifier) 
+            _myMapView.InteractionOptions = new Esri.ArcGISRuntime.UI.MapViewInteractionOptions();
+                        
             // Enable magnifier
             _myMapView.InteractionOptions.IsMagnifierEnabled = true;
 

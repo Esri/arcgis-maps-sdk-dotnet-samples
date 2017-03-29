@@ -49,20 +49,6 @@ Namespace SearchPortalMaps
 
         End Sub
 
-        Private Sub LoadMapButton_Click(sender As Object, e As System.Windows.RoutedEventArgs)
-
-            ' Get the selected web map item in the list box
-            Dim selectedMap As PortalItem = TryCast(MapListBox.SelectedItem, PortalItem)
-            If selectedMap Is Nothing Then Return
-
-            ' Create a new map, pass the web map portal item to the constructor
-            Dim webMap As Map = New Map(selectedMap)
-
-            ' Show the web map in the map view
-            MyMapView.Map = webMap
-
-        End Sub
-
         Private Async Sub SearchButton_Click(sender As Object, e As System.Windows.RoutedEventArgs)
 
             ' Get web map portal items in the current user's folder or from a keyword search
@@ -107,6 +93,20 @@ Namespace SearchPortalMaps
             MapListBox.ItemsSource = mapItems
         End Sub
 
+        Private Sub LoadMapButton_Click(sender As Object, e As System.Windows.RoutedEventArgs)
+
+            ' Get the selected web map item in the list box
+            Dim selectedMap As PortalItem = TryCast(MapListBox.SelectedItem, PortalItem)
+            If selectedMap Is Nothing Then Return
+
+            ' Create a new map, pass the web map portal item to the constructor
+            Dim webMap As Map = New Map(selectedMap)
+
+            ' Show the web map in the map view
+            MyMapView.Map = webMap
+
+        End Sub
+
         Private Sub RadioButtonUnchecked(sender As Object, e As System.Windows.RoutedEventArgs)
 
             ' When the search/user radio buttons are unchecked, clear the list box
@@ -126,7 +126,9 @@ Namespace SearchPortalMaps
                 Dim challengeRequest As CredentialRequestInfo = New CredentialRequestInfo()
 
                 ' Use the OAuth implicit grant flow
-                challengeRequest.GenerateTokenOptions.TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
+                Dim tokenOptions = New GenerateTokenOptions()
+                tokenOptions.TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
+                challengeRequest.GenerateTokenOptions = tokenOptions
 
                 ' Indicate the url (portal) to authenticate with (ArcGIS Online)
                 challengeRequest.ServiceUri = New Uri(ArcGISOnlineUrl)
@@ -211,7 +213,7 @@ Namespace SearchPortalMaps
         ' Function to handle authorization requests, takes the URIs for the secured service, the authorization endpoint, And the redirect URI
         Public Function AuthorizeAsync(serviceUri As Uri, authorizeUri As Uri, callbackUri As Uri) As Task(Of IDictionary(Of String, String)) Implements IOAuthAuthorizeHandler.AuthorizeAsync
             ' If the TaskCompletionSource Or Window are Not null, authorization Is in progress
-            If Not _tcs Is Nothing Or Not _window Is Nothing Then
+            If Not _tcs Is Nothing AndAlso Not _tcs.Task.IsCompleted Then
                 ' Allow only one authorization process at a time
                 Throw New Exception()
             End If
@@ -279,12 +281,11 @@ Namespace SearchPortalMaps
 
             ' If the task wasn't completed, the user must have closed the window without logging in
             If Not _tcs Is Nothing AndAlso Not _tcs.Task.IsCompleted Then
-                ' Set the task completion source exception to indicate a canceled operation
-                _tcs.SetException(New OperationCanceledException())
+                ' Indicate a canceled operation
+                _tcs.SetCanceled()
             End If
 
             ' Set the task completion source and window to Nothing to indicate the authorization process is complete
-            _tcs = Nothing
             _window = Nothing
         End Sub
 

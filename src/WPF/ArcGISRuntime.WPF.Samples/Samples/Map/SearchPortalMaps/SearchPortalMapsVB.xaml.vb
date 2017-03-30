@@ -71,26 +71,27 @@ Namespace SearchPortalMaps
                 mapItems = findResult.Results
             Else
                 ' Call a sub that will force the user to log in to ArcGIS Online (if they haven't already)
-                Await EnsureLoggedInAsync()
+                Dim loggedIn As Boolean = Await EnsureLoggedInAsync()
+                If Not loggedIn Then Return
 
                 ' Connect to the portal (will connect using the provided credentials)
                 portal = Await ArcGISPortal.CreateAsync(New Uri(ArcGISOnlineUrl))
 
-                ' Get the user's content (items in the root folder and a collection of sub-folders)
-                Dim myContent As PortalUserContent = Await portal.User.GetContentAsync()
+                    ' Get the user's content (items in the root folder and a collection of sub-folders)
+                    Dim myContent As PortalUserContent = Await portal.User.GetContentAsync()
 
-                ' Get the web map items in the root folder
-                mapItems = From item In myContent.Items Where item.Type = PortalItemType.WebMap Select item
+                    ' Get the web map items in the root folder
+                    mapItems = From item In myContent.Items Where item.Type = PortalItemType.WebMap Select item
 
-                ' Loop through all sub-folders and get web map items, add them to the mapItems collection
-                For Each folder As PortalFolder In myContent.Folders
-                    Dim folderItems As IEnumerable(Of PortalItem) = Await portal.User.GetContentAsync(folder.FolderId)
-                    mapItems.Concat(From item In folderItems Where item.Type = PortalItemType.WebMap Select item)
-                Next
-            End If
+                    ' Loop through all sub-folders and get web map items, add them to the mapItems collection
+                    For Each folder As PortalFolder In myContent.Folders
+                        Dim folderItems As IEnumerable(Of PortalItem) = Await portal.User.GetContentAsync(folder.FolderId)
+                        mapItems.Concat(From item In folderItems Where item.Type = PortalItemType.WebMap Select item)
+                    Next
+                End If
 
-            ' Show the web map portal items in the list box
-            MapListBox.ItemsSource = mapItems
+                ' Show the web map portal items in the list box
+                MapListBox.ItemsSource = mapItems
         End Sub
 
         Private Sub LoadMapButton_Click(sender As Object, e As System.Windows.RoutedEventArgs)
@@ -119,7 +120,9 @@ Namespace SearchPortalMaps
 
         End Sub
 
-        Private Async Function EnsureLoggedInAsync() As Task
+        Private Async Function EnsureLoggedInAsync() As Task(Of Boolean)
+
+            Dim loggedIn As Boolean = False
 
             Try
                 ' Create a challenge request for portal credentials (OAuth credential request for arcgis.com)
@@ -135,12 +138,16 @@ Namespace SearchPortalMaps
 
                 ' Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
                 Dim cred As Credential = Await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, False)
+                loggedIn = Not cred Is Nothing
 
             Catch ex As OperationCanceledException
                 'TODO: handle login cancellation
             Catch ex As Exception
                 'TODO: handle login failure
             End Try
+
+            Return loggedIn
+
         End Function
 
         Private Sub UpdateAuthenticationManager()

@@ -42,14 +42,31 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
 
         public SearchPortalMaps()
         {
-            InitializeComponent ();
+            InitializeComponent();
 
             // Set up the authentication manager and display a default map
             UpdateAuthenticationManager();
             DisplayDefaultMap();
+
+            // Change the style of the layer list view for Android and UWP
+            Device.OnPlatform(
+                Android: () =>
+                {
+                    // Black background on Android (transparent by default)
+                    MapsListView.BackgroundColor = Color.Black;
+                    SearchMapsUI.BackgroundColor = Color.Black;
+                },
+                WinPhone: () =>
+                {
+                    // Semi-transparent background on Windows with a small margin around the control
+                    MapsListView.BackgroundColor = Color.FromRgba(255, 255, 255, 0.3);
+                    MapsListView.Margin = new Thickness(50);
+                    SearchMapsUI.BackgroundColor = Color.FromRgba(255, 255, 255, 0.3);
+                    SearchMapsUI.Margin = new Thickness(50);
+                });
         }
 
-        private async void DisplayDefaultMap()
+        private void DisplayDefaultMap()
         {
             // Create a new Map instance
             Map myMap = new Map(Basemap.CreateStreets());
@@ -58,93 +75,90 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             MyMapView.Map = myMap;
         }
 
-        private async void SearchButton_Click(object sender, EventArgs e)
+        private async void SearchPublicMaps(string searchText)
         {
             // Get web map portal items in the current user's folder or from a keyword search
             IEnumerable<PortalItem> mapItems = null;
             ArcGISPortal portal;
 
-            var showMapButton = sender as Button;
+            // Connect to the portal (anonymously)
+            portal = await ArcGISPortal.CreateAsync(new Uri(ArcGISOnlineUrl));
 
-            // See if the user wants to search public web map items
-            if (showMapButton.Text == "Search Maps")
+            // Create a query expression that will get public items of type 'web map' with the keyword(s) in the items tags
+            var queryExpression = string.Format("tags:\"{0}\" access:public type: (\"web map\" NOT \"web mapping application\")", searchText);
+            // Create a query parameters object with the expression and a limit of 10 results
+            PortalQueryParameters queryParams = new PortalQueryParameters(queryExpression, 10);
+
+            // Search the portal using the query parameters and await the results
+            PortalQueryResultSet<PortalItem> findResult = await portal.FindItemsAsync(queryParams);
+            // Get the items from the query results
+            mapItems = findResult.Results;
+
+            // Hide the search controls
+            SearchMapsUI.IsVisible = false;
+
+            // Show the list of web maps
+            MapsListView.ItemsSource = mapItems;
+            MapsListView.IsVisible = true;
+        }
+
+        private void ShowSearchUI(object sender, EventArgs e)
+        {
+            // Show the map search controls
+            SearchMapsUI.IsVisible = true;
+        }
+
+        private async void GetMyMaps(object sender, EventArgs e)
+        {
+            // Get web map portal items in the current user's folder or from a keyword search
+            IEnumerable<PortalItem> mapItems = null;
+            ArcGISPortal portal;
+
+            // Call a sub that will force the user to log in to ArcGIS Online (if they haven't already)
+            var loggedIn = await EnsureLoggedInAsync();
+            if (!loggedIn) { return; }
+
+            // Connect to the portal (will connect using the provided credentials)
+            portal = await ArcGISPortal.CreateAsync(new Uri(ArcGISOnlineUrl));
+
+            // Get the user's content (items in the root folder and a collection of sub-folders)
+            PortalUserContent myContent = await portal.User.GetContentAsync();
+
+            // Get the web map items in the root folder
+            mapItems = from item in myContent.Items where item.Type == PortalItemType.WebMap select item;
+
+            // Loop through all sub-folders and get web map items, add them to the mapItems collection
+            foreach (PortalFolder folder in myContent.Folders)
             {
-                // Connect to the portal (anonymously)
-                portal = await ArcGISPortal.CreateAsync();
-
-                // Create a query expression that will get public items of type 'web map' with the keyword(s) in the items tags
-                var queryExpression = string.Format("tags:\"{0}\" access:public type: (\"web map\" NOT \"web mapping application\")", "Zone");
-                // Create a query parameters object with the expression and a limit of 10 results
-                PortalQueryParameters queryParams = new PortalQueryParameters(queryExpression, 10);
-
-                // Search the portal using the query parameters and await the results
-                PortalQueryResultSet<PortalItem> findResult = await portal.FindItemsAsync(queryParams);
-                // Get the items from the query results
-                mapItems = findResult.Results;
-            }
-            else
-            {
-                // Call a sub that will force the user to log in to ArcGIS Online (if they haven't already)
-                await EnsureLoggedInAsync();
-
-                // Connect to the portal (will connect using the provided credentials)
-                portal = await ArcGISPortal.CreateAsync(new Uri(ArcGISOnlineUrl));
-
-                // Get the user's content (items in the root folder and a collection of sub-folders)
-                PortalUserContent myContent = await portal.User.GetContentAsync();
-
-                // Get the web map items in the root folder
-                mapItems = from item in myContent.Items where item.Type == PortalItemType.WebMap select item;
-
-                // Loop through all sub-folders and get web map items, add them to the mapItems collection
-                foreach (PortalFolder folder in myContent.Folders)
-                {
-                    IEnumerable<PortalItem> folderItems = await portal.User.GetContentAsync(folder.FolderId);
-                    mapItems.Concat(from item in folderItems where item.Type == PortalItemType.WebMap select item);
-                }
+                IEnumerable<PortalItem> folderItems = await portal.User.GetContentAsync(folder.FolderId);
+                mapItems.Concat(from item in folderItems where item.Type == PortalItemType.WebMap select item);
             }
 
-            // Show the web map portal items in the list box
-           // MapListBox.ItemsSource = mapItems;
+            // Show the list of web maps
+            MapsListView.ItemsSource = mapItems;
+            MapsListView.IsVisible = true;
         }
-
-        private async void ShowSearchUI(object sender, EventArgs e)
+        
+        private void MapItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
+            // Get the selected web map item in the list box
+            PortalItem selectedMap = e.SelectedItem as PortalItem;
+            if (selectedMap == null) { return; }
 
-        }
+            // Create a new map, pass the web map portal item to the constructor
+            Map webMap = new Map(selectedMap);
 
-        private async void ShowMyMaps(object sender, EventArgs e)
+            // Show the web map in the map view
+            MyMapView.Map = webMap;
+
+            // Hide the list of maps
+            MapsListView.IsVisible = false;
+        }        
+
+        private async Task<bool> EnsureLoggedInAsync()
         {
+            bool loggedIn = false;
 
-        }
-
-        private void LoadMapButton_Click(object sender, EventArgs e)
-        {
-            //// Get the selected web map item in the list box
-            //PortalItem selectedMap = MapListBox.SelectedItem as PortalItem;
-            //if (selectedMap == null) { return; }
-
-            //// Create a new map, pass the web map portal item to the constructor
-            //Map webMap = new Map(selectedMap);
-
-            //// Show the web map in the map view
-            //MyMapView.Map = webMap;
-        }
-
-        private void RadioButtonUnchecked(object sender, EventArgs e)
-        {
-            // When the search/user radio buttons are unchecked, clear the list box
-          //  MapListBox.ItemsSource = null;
-
-            // Set the map to the default (if necessary)
-            if (MyMapView.Map.Item != null)
-            {
-                DisplayDefaultMap();
-            }
-        }
-
-        private async Task EnsureLoggedInAsync()
-        {
             try
             {
                 // Create a challenge request for portal credentials (OAuth credential request for arcgis.com)
@@ -161,6 +175,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
 
                 // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
                 var cred = await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
+                loggedIn = cred != null;
             }
             catch (OperationCanceledException ex)
             {
@@ -170,6 +185,20 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             {
                 // TODO: handle login failure
             }
+
+            return loggedIn;
+        }
+
+        private void CancelSearchClicked(object sender, EventArgs e)
+        {
+            // Hide the search controls if the cancel button is clicked
+            SearchMapsUI.IsVisible = false;
+        }
+
+        private void SearchMapsClicked(object sender, EventArgs e)
+        {
+            // Search ArcGIS Online maps with the text entered
+            SearchPublicMaps(SearchTextEntry.Text);
         }
 
         #region OAuth
@@ -244,7 +273,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
 
 #if __ANDROID__
             // Get the current Android Activity
-            var activity = Xamarin.Forms.Forms.Context as Activity; 
+            var activity = Xamarin.Forms.Forms.Context as Activity;
 #endif
 #if __IOS__
             // Get the current iOS ViewController
@@ -337,9 +366,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             return _taskCompletionSource.Task;
         }
         #endregion
+
         #endregion
-
     }
-
-
 }

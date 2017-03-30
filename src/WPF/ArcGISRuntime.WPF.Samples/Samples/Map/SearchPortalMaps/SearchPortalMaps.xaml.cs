@@ -76,7 +76,8 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
             else
             {
                 // Call a sub that will force the user to log in to ArcGIS Online (if they haven't already)
-                await EnsureLoggedInAsync();
+                var loggedIn = await EnsureLoggedInAsync();
+                if (!loggedIn) { return; }
 
                 // Connect to the portal (will connect using the provided credentials)
                 portal = await ArcGISPortal.CreateAsync(new Uri(ArcGISOnlineUrl));
@@ -124,8 +125,10 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
             }
         }
 
-        private async Task EnsureLoggedInAsync()
+        private async Task<bool> EnsureLoggedInAsync()
         {
+            bool loggedIn = false;
+
             try
             {
                 // Create a challenge request for portal credentials (OAuth credential request for arcgis.com)
@@ -142,6 +145,7 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
 
                 // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
                 var cred = await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
+                loggedIn = cred != null;
             }
             catch(OperationCanceledException ex)
             {
@@ -151,6 +155,8 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
             {
                 // TODO: handle login failure
             }
+
+            return loggedIn;
         }
 
         private void UpdateAuthenticationManager()

@@ -80,7 +80,8 @@ Namespace SearchPortalMaps
             If Not MyMapsList.ItemsSource Is Nothing Then Return
 
             ' Call a sub that will force the user to log in to ArcGIS Online (if they haven't already)
-            Await EnsureLoggedInAsync()
+            Dim loggedIn As Boolean = Await EnsureLoggedInAsync()
+            If Not loggedIn Then Return
 
             ' Connect to the portal (will connect using the provided credentials)
             portal = Await ArcGISPortal.CreateAsync(New Uri(ArcGISOnlineUrl))
@@ -128,10 +129,12 @@ Namespace SearchPortalMaps
             ' Show the search result items in the list
             SearchMapsList.ItemsSource = mapItems
 
-        end sub
+        end Sub
 
 
-        Private Async Function EnsureLoggedInAsync() As Task
+        Private Async Function EnsureLoggedInAsync() As Task(Of Boolean)
+
+            Dim loggedIn As Boolean = False
 
             Try
                 ' Create a challenge request for portal credentials (OAuth credential request for arcgis.com)
@@ -147,12 +150,16 @@ Namespace SearchPortalMaps
 
                 ' Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
                 Dim cred As Credential = Await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, False)
+                loggedIn = Not cred Is Nothing
 
             Catch ex As OperationCanceledException
                 'TODO: handle login cancellation
             Catch ex As Exception
                 'TODO: handle login failure
             End Try
+
+            Return loggedIn
+
         End Function
 
         Private Sub UpdateAuthenticationManager()

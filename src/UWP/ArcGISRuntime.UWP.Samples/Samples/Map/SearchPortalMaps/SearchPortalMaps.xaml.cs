@@ -81,17 +81,18 @@ namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
             ArcGISPortal portal;
 
             // If the list has already been populated, return
-            if(MyMapsList.ItemsSource != null) { return; }
+            if (MyMapsList.ItemsSource != null) { return; }
 
             // Call a sub that will force the user to log in to ArcGIS Online (if they haven't already)
-            await EnsureLoggedInAsync();
-
+            var loggedIn = await EnsureLoggedInAsync();
+            if(!loggedIn) { return; }
+            
             // Connect to the portal (will connect using the provided credentials)
             portal = await ArcGISPortal.CreateAsync(new Uri(ArcGISOnlineUrl));
 
             // Get the user's content (items in the root folder and a collection of sub-folders)
             PortalUserContent myContent = await portal.User.GetContentAsync();
-
+            
             // Get the web map items in the root folder
             mapItems = from item in myContent.Items where item.Type == PortalItemType.WebMap select item;
 
@@ -101,7 +102,7 @@ namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
                 IEnumerable<PortalItem> folderItems = await portal.User.GetContentAsync(folder.FolderId);
                 mapItems.Concat(from item in folderItems where item.Type == PortalItemType.WebMap select item);
             }
-
+            
             // Show the web maps in the list box
             MyMapsList.ItemsSource = mapItems;
 
@@ -132,8 +133,9 @@ namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
             SearchMapsList.ItemsSource = mapItems;
         }
 
-        private async Task EnsureLoggedInAsync()
+        private async Task<bool> EnsureLoggedInAsync()
         {
+            bool loggedIn = false;
             try
             {
                 // Create a challenge request for portal credentials (OAuth credential request for arcgis.com)
@@ -150,6 +152,7 @@ namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
 
                 // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
                 var cred = await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
+                loggedIn = cred != null;
             }
             catch (OperationCanceledException ex)
             {
@@ -159,7 +162,9 @@ namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
             {
                 // TODO: handle login failure
             }
-        }
+
+            return loggedIn;
+        }        
 
         private void UpdateAuthenticationManager()
         {
@@ -185,10 +190,10 @@ namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
 
             // Register the ArcGIS Online server information with the AuthenticationManager
             thisAuthenticationManager.RegisterServer(portalServerInfo);
-            
+
             // Create a new ChallengeHandler that uses a method in this class to challenge for credentials
             thisAuthenticationManager.ChallengeHandler = new ChallengeHandler(CreateCredentialAsync);
-        }
+        }        
 
         // ChallengeHandler function that will be called whenever access to a secured resource is attempted
         public async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
@@ -208,5 +213,5 @@ namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
 
             return credential;
         }
-    }    
+    }
 }

@@ -33,8 +33,11 @@ Namespace SearchPortalMaps
 
             InitializeComponent()
 
-            ' Set up the authentication manager and display a default map
-            UpdateAuthenticationManager()
+            ' Show the OAuth settings in the page
+            ClientIdTextBox.Text = AppClientId
+            RedirectUrlTextBox.Text = OAuthRedirectUrl
+
+            ' Display a default map
             DisplayDefaultMap()
 
         End Sub
@@ -149,6 +152,37 @@ Namespace SearchPortalMaps
             Return loggedIn
 
         End Function
+
+
+        Private Sub SaveOAuthSettingsClicked(sender As Object, e As RoutedEventArgs)
+
+            ' Settings were provided, update the configuration settings for OAuth authorization
+            AppClientId = ClientIdTextBox.Text.Trim()
+            OAuthRedirectUrl = RedirectUrlTextBox.Text.Trim()
+
+            ' Update authentication manager with the OAuth settings
+            UpdateAuthenticationManager()
+
+            ' Hide the OAuth input, show the search UI
+            OAuthSettingsGrid.Visibility = Visibility.Collapsed
+            SearchUI.Visibility = Visibility.Visible
+
+        End Sub
+
+        Private Sub CancelOAuthSettingsClicked(sender As Object, e As RoutedEventArgs)
+
+            ' Warn that browsing user's ArcGIS Online maps won't be available without OAuth settings
+            Dim noAuth As Boolean = MessageBox.Show("Without OAuth settings, you will not be able to browse maps from your ArcGIS Online account.", "No OAuth Settings", MessageBoxButton.OKCancel) = MessageBoxResult.OK
+
+            If noAuth Then
+                ' Disable browsing maps from your ArcGIS Online account
+                BrowseMyMaps.IsEnabled = False
+
+                ' Hide the OAuth input, show the search UI
+                OAuthSettingsGrid.Visibility = Visibility.Collapsed
+                SearchUI.Visibility = Visibility.Visible
+            End If
+        End Sub
 
         Private Sub UpdateAuthenticationManager()
             ' Register the server information with the AuthenticationManager

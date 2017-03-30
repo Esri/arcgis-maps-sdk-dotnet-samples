@@ -35,18 +35,21 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
         private const string ArcGISOnlineUrl = "https://www.arcgis.com/sharing/rest";
 
         // Client ID for the app registered with the server (Portal Maps)
-        private const string AppClientId = "2Gh53JRzkPtOENQq";
+        public string _appClientId = "2Gh53JRzkPtOENQq";
 
         // Redirect URL after a successful authorization (configured for the Portal Maps application)
-        private const string OAuthRedirectUrl = "https://developers.arcgis.com";
+        private string _oAuthRedirectUrl = "https://developers.arcgis.com";
 
         public SearchPortalMaps()
         {
             InitializeComponent();
 
-            // Set up the authentication manager and display a default map
-            UpdateAuthenticationManager();
+            // Display a default map
             DisplayDefaultMap();
+
+            // Show the default OAuth settings in the entry controls
+            ClientIDEntry.Text = _appClientId;
+            RedirectUrlEntry.Text = _oAuthRedirectUrl;
 
             // Change the style of the layer list view for Android and UWP
             Device.OnPlatform(
@@ -55,6 +58,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                     // Black background on Android (transparent by default)
                     MapsListView.BackgroundColor = Color.Black;
                     SearchMapsUI.BackgroundColor = Color.Black;
+                    OAuthSettingsGrid.BackgroundColor = Color.Black;
                 },
                 WinPhone: () =>
                 {
@@ -63,6 +67,8 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                     MapsListView.Margin = new Thickness(50);
                     SearchMapsUI.BackgroundColor = Color.FromRgba(255, 255, 255, 0.3);
                     SearchMapsUI.Margin = new Thickness(50);
+                    OAuthSettingsGrid.BackgroundColor = Color.FromRgba(255, 255, 255, 0.3);
+                    OAuthSettingsGrid.Margin = new Thickness(50);
                 });
         }
 
@@ -75,9 +81,25 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             MyMapView.Map = myMap;
         }
 
+        private void OAuthSettingsCancel(object sender, EventArgs e)
+        {
+            OAuthSettingsGrid.IsVisible = false;
+        }
+
+        private void SaveOAuthSettings(object sender, EventArgs e)
+        {
+            _appClientId = ClientIDEntry.Text.Trim();
+            _oAuthRedirectUrl = RedirectUrlEntry.Text.Trim();
+
+            OAuthSettingsGrid.IsVisible = false;
+
+            // Call a function to set up the AuthenticationManager
+            UpdateAuthenticationManager();
+        }
+
         private async void SearchPublicMaps(string searchText)
         {
-            // Get web map portal items in the current user's folder or from a keyword search
+            // Get web map portal items from a keyword search
             IEnumerable<PortalItem> mapItems = null;
             ArcGISPortal portal;
 
@@ -214,8 +236,8 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             // Define the OAuth information
             OAuthClientInfo oAuthInfo = new OAuthClientInfo
             {
-                ClientId = AppClientId,
-                RedirectUri = new Uri(OAuthRedirectUrl)
+                ClientId = _appClientId,
+                RedirectUri = new Uri(_oAuthRedirectUrl)
             };
             portalServerInfo.OAuthClientInfo = oAuthInfo;
 
@@ -281,7 +303,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
 #endif
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in
             Xamarin.Auth.OAuth2Authenticator authenticator = new Xamarin.Auth.OAuth2Authenticator(
-                clientId: AppClientId,
+                clientId: _appClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
                 redirectUrl: callbackUri);

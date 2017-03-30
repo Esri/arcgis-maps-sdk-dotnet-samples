@@ -136,6 +136,7 @@
     <Compile Include="Samples\Map\DisplayMap\DisplayMap.cs" />
     <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarks.cs" />
     <Compile Include="Samples\Map\OpenExistingMap\OpenExistingMap.cs" />
+    <Compile Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.cs" />
     <Compile Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.cs" />
     <Compile Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.cs" />
     <Compile Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.cs" />
@@ -214,6 +215,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Samples\Map\AuthorMap\metadata.json" />
     <EmbeddedResource Include="Samples\Symbology\UseDistanceCompositeSym\metadata.json" />
+    <EmbeddedResource Include="Samples\Map\SearchPortalMaps\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml" />

@@ -10,6 +10,7 @@
 Imports Esri.ArcGISRuntime.Mapping
 Imports Esri.ArcGISRuntime.Portal
 Imports Esri.ArcGISRuntime.Security
+Imports Windows.UI.Popups
 
 Namespace SearchPortalMaps
     Partial Public Class SearchPortalMapsVB
@@ -28,9 +29,10 @@ Namespace SearchPortalMaps
 
             InitializeComponent()
 
-            ' Set up the authentication manager and display a default map
-            UpdateAuthenticationManager()
             DisplayDefaultMap()
+
+            ' When the map view loads, show a dialog for entering OAuth settings
+            AddHandler MyMapView.Loaded, AddressOf ShowOAuthSettingsDialog
 
         End Sub
 
@@ -44,6 +46,29 @@ Namespace SearchPortalMaps
 
         End Sub
 
+        Private Async Sub ShowOAuthSettingsDialog()
+            ' Show default settings for client ID And redirect URL
+            ClientIdTextBox.Text = AppClientId
+            RedirectUrlTextBox.Text = OAuthRedirectUrl
+
+            ' Display inputs for a client ID And redirect URL to use for OAuth authentication
+            Dim result As ContentDialogResult = Await OAuthSettingsDialog.ShowAsync()
+            If (result = ContentDialogResult.Primary) Then
+                ' Settings were provided, update the configuration settings for OAuth authorization
+                AppClientId = ClientIdTextBox.Text.Trim()
+                OAuthRedirectUrl = RedirectUrlTextBox.Text.Trim()
+
+                ' Update authentication manager with the OAuth settings
+                UpdateAuthenticationManager()
+            Else
+                ' User canceled, warn that won't be able to save
+                Dim messageDlg = New MessageDialog("No OAuth settings entered, you will not be able to save your map.")
+                Await messageDlg.ShowAsync()
+
+                AppClientId = String.Empty
+                OAuthRedirectUrl = String.Empty
+            End If
+        End Sub
 
         Private Sub OnMapSelectionChanged(sender As Object, e As SelectionChangedEventArgs)
 
@@ -129,7 +154,7 @@ Namespace SearchPortalMaps
             ' Show the search result items in the list
             SearchMapsList.ItemsSource = mapItems
 
-        end Sub
+        End Sub
 
 
         Private Async Function EnsureLoggedInAsync() As Task(Of Boolean)

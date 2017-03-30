@@ -14,22 +14,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
 {
     public partial class SearchPortalMaps
     {
-        // Constants for OAuth-related values ...
+        // OAuth configuration and default values ...
         // URL of the server to authenticate with (ArcGIS Online)
         private const string ArcGISOnlineUrl = "https://www.arcgis.com/sharing/rest";
 
         // Client ID for the app registered with the server (Portal Maps)
-        private const string AppClientId = "2Gh53JRzkPtOENQq";
+        private string AppClientId = "2Gh53JRzkPtOENQq";
 
         // Redirect URL after a successful authorization (configured for the Portal Maps application)
-        private const string OAuthRedirectUrl = "https://developers.arcgis.com";
-
+        private string OAuthRedirectUrl = "https://developers.arcgis.com";
 
         public SearchPortalMaps()
         {
@@ -38,8 +38,8 @@ namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
             // Show the default map
             DisplayDefaultMap();
 
-            // Update the authentication manager
-            UpdateAuthenticationManager();
+            // When the map view loads, show a dialog for entering OAuth settings
+            MyMapView.Loaded += (s, e) => ShowOAuthSettingsDialog();
         }
 
         private void DisplayDefaultMap()
@@ -49,6 +49,34 @@ namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
 
             // Assign Map to the MapView
             MyMapView.Map = myMap;
+        }
+
+        private async void ShowOAuthSettingsDialog()
+        {
+            // Show default settings for client ID and redirect URL
+            ClientIdTextBox.Text = AppClientId;
+            RedirectUrlTextBox.Text = OAuthRedirectUrl;
+
+            // Display inputs for a client ID and redirect URL to use for OAuth authentication
+            ContentDialogResult result = await OAuthSettingsDialog.ShowAsync();
+            if (result == ContentDialogResult.Primary)
+            {
+                // Settings were provided, update the configuration settings for OAuth authorization
+                AppClientId = ClientIdTextBox.Text.Trim();
+                OAuthRedirectUrl = RedirectUrlTextBox.Text.Trim();
+
+                // Update authentication manager with the OAuth settings
+                UpdateAuthenticationManager();
+            }
+            else
+            {
+                // User canceled, warn that won't be able to save
+                var messageDlg = new MessageDialog("No OAuth settings entered, you will not be able to browse maps from your ArcGIS Online account.");
+                await messageDlg.ShowAsync();
+
+                AppClientId = string.Empty;
+                OAuthRedirectUrl = string.Empty;
+            }
         }
 
         private void OnMapSelectionChanged(object sender, SelectionChangedEventArgs e)

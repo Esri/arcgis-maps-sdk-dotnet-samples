@@ -57,7 +57,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             {"US Census Data", "http://sampleserver5.arcgisonline.com/arcgis/rest/services/Census/MapServer"}
         };
 
-        // Constants for OAuth-related values ...
+        // Variables for OAuth-related values ...
         // URL of the server to authenticate with
         private string ServerUrl = "https://www.arcgis.com/sharing/rest";
 
@@ -259,7 +259,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             // Create a menu to show basemaps
             var mapsMenu = new PopupMenu(mapsButton.Context, mapsButton);
             mapsMenu.MenuItemClick += OnBasemapsMenuItemClicked;
-
+            
             // Create a menu option for each basemap type
             foreach (var basemapType in _basemapTypes)
             {
@@ -346,7 +346,6 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             }
         }
         #endregion
-
 
         #region OAuth helpers
 

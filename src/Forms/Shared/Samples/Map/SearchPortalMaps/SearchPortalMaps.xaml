@@ -48,6 +48,48 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <Grid x:Name="OAuthSettingsGrid" 
+          Grid.Row="0"
+          HorizontalOptions="Center" VerticalOptions="Center"
+          WidthRequest="300">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.ColumnSpan="2" 
+             HorizontalOptions="Center" VerticalOptions="Start"
+             Text="OAuth Settings"/>
+            <Label Grid.Row="1"
+             HorizontalOptions="End" VerticalOptions="Center"
+             Text="Client ID:"/>
+            <Entry x:Name="ClientIDEntry" 
+             Grid.Row="1" Grid.Column="1" 
+             Placeholder="mYCl1enTiD"
+             HorizontalOptions="Start" VerticalOptions="Center"
+             WidthRequest="240"/>
+            <Label Grid.Row="2"
+             HorizontalOptions="End" VerticalOptions="Center"
+             Text="Redirect URL:"/>
+            <Entry x:Name="RedirectUrlEntry" 
+             Grid.Row="2" Grid.Column="1" 
+             Placeholder="http://my.redirect/url"
+             HorizontalOptions="Start" VerticalOptions="Center"
+             WidthRequest="240"/>
+            <Button Grid.Row="3" Grid.Column="0"
+              HorizontalOptions="End" VerticalOptions="End"
+              Text="Cancel"
+              Clicked="OAuthSettingsCancel"/>
+            <Button Grid.Row="3" Grid.Column="1"
+              HorizontalOptions="CenterAndExpand" VerticalOptions="End"
+              Text="Use Settings"
+              Clicked="SaveOAuthSettings"/>
+        </Grid>
         <StackLayout Grid.Row="1"
                      Orientation="Horizontal"
                      HorizontalOptions="Center">

@@ -1,4 +1,4 @@
-#Author a map
+# Author a map
 
 This samples demonstrates how to author and save a map as an ArcGIS portal item (web map). Saving a map to arcgis.com requires an ArcGIS Online login.
 

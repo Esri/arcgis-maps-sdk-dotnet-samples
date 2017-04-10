@@ -10,6 +10,7 @@
 Imports System.Windows
 Imports System.Windows.Controls
 Imports System.Windows.Navigation
+Imports Esri.ArcGISRuntime
 Imports Esri.ArcGISRuntime.Mapping
 Imports Esri.ArcGISRuntime.Portal
 Imports Esri.ArcGISRuntime.Security
@@ -20,13 +21,13 @@ Namespace SearchPortalMaps
 
         ' Constants for OAuth-related values ...
         ' URL of the server to authenticate with (ArcGIS Online)
-        Private ArcGISOnlineUrl As String = "https://www.arcgis.com/sharing/rest"
+        Private Const ArcGISOnlineUrl As String = "https://www.arcgis.com/sharing/rest"
 
         ' Client ID for the app registered with the server (Portal Maps)
-        Private AppClientId As String = "2Gh53JRzkPtOENQq"
+        Private _appClientId As String = "2Gh53JRzkPtOENQq"
 
         ' Redirect URL after a successful authorization (configured for the Portal Maps application)
-        Private OAuthRedirectUrl As String = "https://developers.arcgis.com"
+        Private _oAuthRedirectUrl As String = "https://developers.arcgis.com"
 
         ' Construct sample class
         Public Sub New()
@@ -34,8 +35,8 @@ Namespace SearchPortalMaps
             InitializeComponent()
 
             ' Show the OAuth settings in the page
-            ClientIdTextBox.Text = AppClientId
-            RedirectUrlTextBox.Text = OAuthRedirectUrl
+            ClientIdTextBox.Text = _appClientId
+            RedirectUrlTextBox.Text = _oAuthRedirectUrl
 
             ' Display a default map
             DisplayDefaultMap()
@@ -80,21 +81,21 @@ Namespace SearchPortalMaps
                 ' Connect to the portal (will connect using the provided credentials)
                 portal = Await ArcGISPortal.CreateAsync(New Uri(ArcGISOnlineUrl))
 
-                    ' Get the user's content (items in the root folder and a collection of sub-folders)
-                    Dim myContent As PortalUserContent = Await portal.User.GetContentAsync()
+                ' Get the user's content (items in the root folder and a collection of sub-folders)
+                Dim myContent As PortalUserContent = Await portal.User.GetContentAsync()
 
-                    ' Get the web map items in the root folder
-                    mapItems = From item In myContent.Items Where item.Type = PortalItemType.WebMap Select item
+                ' Get the web map items in the root folder
+                mapItems = From item In myContent.Items Where item.Type = PortalItemType.WebMap Select item
 
-                    ' Loop through all sub-folders and get web map items, add them to the mapItems collection
-                    For Each folder As PortalFolder In myContent.Folders
-                        Dim folderItems As IEnumerable(Of PortalItem) = Await portal.User.GetContentAsync(folder.FolderId)
-                        mapItems.Concat(From item In folderItems Where item.Type = PortalItemType.WebMap Select item)
-                    Next
-                End If
+                ' Loop through all sub-folders and get web map items, add them to the mapItems collection
+                For Each folder As PortalFolder In myContent.Folders
+                    Dim folderItems As IEnumerable(Of PortalItem) = Await portal.User.GetContentAsync(folder.FolderId)
+                    mapItems.Concat(From item In folderItems Where item.Type = PortalItemType.WebMap Select item)
+                Next
+            End If
 
-                ' Show the web map portal items in the list box
-                MapListBox.ItemsSource = mapItems
+            ' Show the web map portal items in the list box
+            MapListBox.ItemsSource = mapItems
         End Sub
 
         Private Sub LoadMapButton_Click(sender As Object, e As System.Windows.RoutedEventArgs)
@@ -106,9 +107,31 @@ Namespace SearchPortalMaps
             ' Create a new map, pass the web map portal item to the constructor
             Dim webMap As Map = New Map(selectedMap)
 
+            ' Handle changes in the load status (to report errors)
+            AddHandler webMap.LoadStatusChanged, AddressOf WebMapLoadStatusChanged
+
             ' Show the web map in the map view
             MyMapView.Map = webMap
 
+        End Sub
+
+
+        Private Sub WebMapLoadStatusChanged(sender As Object, e As Esri.ArcGISRuntime.LoadStatusEventArgs)
+
+            ' Get the current status
+            Dim status As LoadStatus = e.Status
+
+            ' Report errors if map failed to load
+            If status = Esri.ArcGISRuntime.LoadStatus.FailedToLoad Then
+
+                Dim myMap As Map = TryCast(sender, Map)
+                Dim loadErr As Exception = myMap.LoadError
+                If Not loadErr Is Nothing Then
+
+                    MessageBox.Show(loadErr.Message, "Map Load Error")
+
+                End If
+            End If
         End Sub
 
         Private Sub RadioButtonUnchecked(sender As Object, e As System.Windows.RoutedEventArgs)
@@ -157,8 +180,8 @@ Namespace SearchPortalMaps
         Private Sub SaveOAuthSettingsClicked(sender As Object, e As RoutedEventArgs)
 
             ' Settings were provided, update the configuration settings for OAuth authorization
-            AppClientId = ClientIdTextBox.Text.Trim()
-            OAuthRedirectUrl = RedirectUrlTextBox.Text.Trim()
+            _appClientId = ClientIdTextBox.Text.Trim()
+            _oAuthRedirectUrl = RedirectUrlTextBox.Text.Trim()
 
             ' Update authentication manager with the OAuth settings
             UpdateAuthenticationManager()
@@ -192,8 +215,8 @@ Namespace SearchPortalMaps
                 .ServerUri = New Uri(ArcGISOnlineUrl),
                 .OAuthClientInfo = New OAuthClientInfo With
                 {
-                    .ClientId = AppClientId,
-                    .RedirectUri = New Uri(OAuthRedirectUrl)
+                    .ClientId = _appClientId,
+                    .RedirectUri = New Uri(_oAuthRedirectUrl)
                 }
             }
 

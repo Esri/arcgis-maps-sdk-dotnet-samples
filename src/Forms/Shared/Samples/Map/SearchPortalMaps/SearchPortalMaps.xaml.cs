@@ -108,11 +108,13 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
 
             // Create a query expression that will get public items of type 'web map' with the keyword(s) in the items tags
             var queryExpression = string.Format("tags:\"{0}\" access:public type: (\"web map\" NOT \"web mapping application\")", searchText);
+            
             // Create a query parameters object with the expression and a limit of 10 results
             PortalQueryParameters queryParams = new PortalQueryParameters(queryExpression, 10);
 
             // Search the portal using the query parameters and await the results
             PortalQueryResultSet<PortalItem> findResult = await portal.FindItemsAsync(queryParams);
+            
             // Get the items from the query results
             mapItems = findResult.Results;
 
@@ -170,12 +172,32 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             // Create a new map, pass the web map portal item to the constructor
             Map webMap = new Map(selectedMap);
 
+            // Handle change in the load status (to report load errors)
+            webMap.LoadStatusChanged += WebMapLoadStatusChanged;
+
             // Show the web map in the map view
             MyMapView.Map = webMap;
 
             // Hide the list of maps
             MapsListView.IsVisible = false;
-        }        
+        }
+
+        private void WebMapLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
+        {
+            // Get the current status
+            var status = e.Status;
+
+            // Report errors if map failed to load
+            if (status == Esri.ArcGISRuntime.LoadStatus.FailedToLoad)
+            {
+                var map = sender as Map;
+                var err = map.LoadError;
+                if (err != null)
+                {
+                    DisplayAlert(err.Message, "Map Load Error", "OK");
+                }
+            }
+        }
 
         private async Task<bool> EnsureLoggedInAsync()
         {
@@ -201,11 +223,13 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             }
             catch (OperationCanceledException ex)
             {
-                // TODO: handle login canceled
+                // Login was canceled
+                // .. ignore, user can still search public maps without logging in
             }
             catch (Exception ex)
             {
-                // TODO: handle login failure
+                // Login failure
+                DisplayAlert("Login Error", ex.Message, "OK");
             }
 
             return loggedIn;

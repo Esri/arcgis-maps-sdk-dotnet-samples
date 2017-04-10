@@ -42,14 +42,14 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
 
         // Variables for OAuth config and default values ...
         // URL of the server to authenticate with
-        private string ServerUrl = "https://www.arcgis.com/sharing/rest";
+        private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
 
         // TODO: Add Client ID for an app registered with the server
-        private string AppClientId = "2Gh53JRzkPtOENQq";
+        private string _appClientId = "2Gh53JRzkPtOENQq";
 
         // TODO: Add URL for redirecting after a successful authorization
         //       Note - this must be a URL configured as a valid Redirect URI with your app
-        private string OAuthRedirectUrl = "https://developers.arcgis.com";
+        private string _oAuthRedirectUrl = "https://developers.arcgis.com";
 
         // Button layout at the top of the page
         private LinearLayout _buttonPanel;
@@ -130,11 +130,13 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
 
             // Create a query expression that will get public items of type 'web map' with the keyword(s) in the items tags
             var queryExpression = string.Format("tags:\"{0}\" access:public type: (\"web map\" NOT \"web mapping application\")", e.SearchText);
+            
             // Create a query parameters object with the expression and a limit of 10 results
             PortalQueryParameters queryParams = new PortalQueryParameters(queryExpression, 10);
 
             // Search the portal using the query parameters and await the results
             PortalQueryResultSet<PortalItem> findResult = await portal.FindItemsAsync(queryParams);
+            
             // Get the items from the query results
             mapItems = findResult.Results;
 
@@ -171,8 +173,31 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             // Create a new map, pass the web map portal item to the constructor
             Map webMap = new Map(selectedMapUri);
 
+            // Handle change in the load status (to report load errors)
+            webMap.LoadStatusChanged += WebMapLoadStatusChanged;
+
             // Show the web map in the map view
             _myMapView.Map = webMap;
+        }
+
+        private void WebMapLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
+        {
+            // Get the current status
+            var status = e.Status;
+
+            // Report errors if map failed to load
+            if (status == Esri.ArcGISRuntime.LoadStatus.FailedToLoad)
+            {
+                var map = sender as Map;
+                var err = map.LoadError;
+                if (err != null)
+                {
+                    var alertBuilder = new AlertDialog.Builder(this);
+                    alertBuilder.SetTitle("Map Load Error");
+                    alertBuilder.SetMessage(err.Message);
+                    alertBuilder.Show();
+                }
+            }
         }
 
         private void CreateLayout()
@@ -224,7 +249,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             var clientIdLabel = new TextView(this);
             clientIdLabel.Text = "Client ID:";
             _clientIdText = new EditText(this);
-            if (!string.IsNullOrEmpty(AppClientId)) { _clientIdText.Text = AppClientId; }
+            if (!string.IsNullOrEmpty(_appClientId)) { _clientIdText.Text = _appClientId; }
             clientIdLayout.AddView(clientIdLabel);
             clientIdLayout.AddView(_clientIdText);
 
@@ -235,7 +260,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             redirectUrlLabel.Text = "Redirect:";
             _redirectUrlText = new EditText(this);
             _redirectUrlText.Hint = "https://my.redirect/url";
-            if (!string.IsNullOrEmpty(OAuthRedirectUrl)) { _redirectUrlText.Text = OAuthRedirectUrl; }
+            if (!string.IsNullOrEmpty(_oAuthRedirectUrl)) { _redirectUrlText.Text = _oAuthRedirectUrl; }
             redirectUrlLayout.AddView(redirectUrlLabel);
             redirectUrlLayout.AddView(_redirectUrlText);
 
@@ -263,8 +288,8 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             if (_configOAuthDialog != null)
             {
                 // Get title and description text
-                AppClientId = _clientIdText.Text;
-                OAuthRedirectUrl = _redirectUrlText.Text;
+                _appClientId = _clientIdText.Text;
+                _oAuthRedirectUrl = _redirectUrlText.Text;
 
                 // Dismiss the dialog
                 _configOAuthDialog.Dismiss();
@@ -282,8 +307,8 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                 ServerUri = new Uri(ServerUrl),
                 OAuthClientInfo = new OAuthClientInfo
                 {
-                    ClientId = AppClientId,
-                    RedirectUri = new Uri(OAuthRedirectUrl)
+                    ClientId = _appClientId,
+                    RedirectUri = new Uri(_oAuthRedirectUrl)
                 },
                 // Specify OAuthAuthorizationCode if you need a refresh token (and have specified a valid client secret)
                 // Otherwise, use OAuthImplicit
@@ -327,11 +352,16 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             }
             catch (System.OperationCanceledException ex)
             {
-                // TODO: handle login canceled
+                // Login was canceled
+                // .. ignore, user can still search public maps without logging in
             }
             catch (Exception ex)
             {
-                // TODO: handle login failure
+                // Login failure
+                var alertBuilder = new AlertDialog.Builder(this);
+                alertBuilder.SetTitle("Login Error");
+                alertBuilder.SetMessage(ex.Message);
+                alertBuilder.Show();
             }
 
             return loggedIn;
@@ -381,7 +411,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
 
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in
             Xamarin.Auth.OAuth2Authenticator authenticator = new OAuth2Authenticator(
-                clientId: AppClientId,
+                clientId: _appClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
                 redirectUrl: callbackUri);

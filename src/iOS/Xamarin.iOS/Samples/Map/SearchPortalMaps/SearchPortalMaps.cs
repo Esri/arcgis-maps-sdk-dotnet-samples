@@ -41,14 +41,14 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
 
         // Variables for OAuth config and default values ...
         // URL of the server to authenticate with
-        private string ServerUrl = "https://www.arcgis.com/sharing/rest";
+        private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
 
         // TODO: Add Client ID for an app registered with the server
-        private string AppClientId = "2Gh53JRzkPtOENQq";
+        private string _appClientId = "2Gh53JRzkPtOENQq";
 
         // TODO: Add URL for redirecting after a successful authorization
         //       Note - this must be a URL configured as a valid Redirect URI with your app
-        private string OAuthRedirectUrl = "https://developers.arcgis.com";
+        private string _oAuthRedirectUrl = "https://developers.arcgis.com";
 
 
         public SearchPortalMaps()
@@ -83,14 +83,14 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
 
             // Create a view to show entry controls over the map view
             var ovBounds = new CoreGraphics.CGRect(0, 60, View.Bounds.Width, View.Bounds.Height - 60);
-            _oauthInfoUI = new OAuthPropsDialogOverlay(ovBounds, 0.75f, UIColor.White, AppClientId, OAuthRedirectUrl);
+            _oauthInfoUI = new OAuthPropsDialogOverlay(ovBounds, 0.75f, UIColor.White, _appClientId, _oAuthRedirectUrl);
 
             // Handle the OnOAuthPropsInfoEntered event to get the info entered by the user
             _oauthInfoUI.OnOAuthPropsInfoEntered += (s, e) =>
             {
                 // Store the settings entered and use them to update the AuthenticationManager
-                AppClientId = e.ClientId;
-                OAuthRedirectUrl = e.RedirectUrl;
+                _appClientId = e.ClientId;
+                _oAuthRedirectUrl = e.RedirectUrl;
                 UpdateAuthenticationManager();
 
                 // Hide the OAuth entry
@@ -215,11 +215,13 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
 
                 // Create a query expression that will get public items of type 'web map' with the keyword(s) in the items tags
                 var queryExpression = string.Format("tags:\"{0}\" access:public type: (\"web map\" NOT \"web mapping application\")", e.SearchText);
+                
                 // Create a query parameters object with the expression and a limit of 10 results
                 PortalQueryParameters queryParams = new PortalQueryParameters(queryExpression, 10);
 
                 // Search the portal using the query parameters and await the results
                 PortalQueryResultSet<PortalItem> findResult = await portal.FindItemsAsync(queryParams);
+                
                 // Get the items from the query results
                 mapItems = findResult.Results;
 
@@ -270,7 +272,29 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
         private void DisplayMap(Uri webMapUri)
         {
             var webMap = new Map(webMapUri);
+
+            // Handle change in the load status (to report load errors)
+            webMap.LoadStatusChanged += WebMapLoadStatusChanged;
+
             _myMapView.Map = webMap;
+        }
+
+        private void WebMapLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
+        {
+            // Get the current status
+            var status = e.Status;
+
+            // Report errors if map failed to load
+            if (status == Esri.ArcGISRuntime.LoadStatus.FailedToLoad)
+            {
+                var map = sender as Map;
+                var err = map.LoadError;
+                if (err != null)
+                {
+                    var alert = new UIAlertView("Map Load Error", err.Message, null, "OK", null);
+                    alert.Show();
+                }
+            }
         }
 
         private void SearchCanceled(object sender, EventArgs e)
@@ -289,8 +313,8 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                 ServerUri = new Uri(ServerUrl),
                 OAuthClientInfo = new OAuthClientInfo
                 {
-                    ClientId = AppClientId,
-                    RedirectUri = new Uri(OAuthRedirectUrl)
+                    ClientId = _appClientId,
+                    RedirectUri = new Uri(_oAuthRedirectUrl)
                 },
                 // Specify OAuthAuthorizationCode if you need a refresh token (and have specified a valid client secret)
                 // Otherwise, use OAuthImplicit
@@ -334,11 +358,14 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             }
             catch (System.OperationCanceledException ex)
             {
-                // TODO: handle login canceled
+                // Login was canceled
+                // .. ignore, user can still search public maps without logging in
             }
             catch (Exception ex)
             {
-                // TODO: handle login failure
+                // Login failure
+                var alert = new UIAlertView("Login Error", ex.Message, null, "OK", null);
+                alert.Show();
             }
 
             return loggedIn;
@@ -388,7 +415,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
 
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in
             Xamarin.Auth.OAuth2Authenticator auth = new OAuth2Authenticator(
-                clientId: AppClientId,
+                clientId: _appClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
                 redirectUrl: callbackUri);
@@ -609,7 +636,8 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             // Make sure all required info was entered
             if (string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(redirectUrl))
             {
-                new UIAlertView("Error", "Please enter a client ID and redirect URL for OAuth authentication.", null, "OK", null).Show();
+                var alert = new UIAlertView("Error", "Please enter a client ID and redirect URL for OAuth authentication.", null, "OK", null);
+                alert.Show();
                 return;
             }
 

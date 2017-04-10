@@ -7,6 +7,7 @@
 ' "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 ' language governing permissions and limitations under the License.
 
+Imports Esri.ArcGISRuntime
 Imports Esri.ArcGISRuntime.Mapping
 Imports Esri.ArcGISRuntime.Portal
 Imports Esri.ArcGISRuntime.Security
@@ -17,13 +18,13 @@ Namespace SearchPortalMaps
 
         ' Constants for OAuth-related values ...
         ' URL of the server to authenticate with (ArcGIS Online)
-        Private ArcGISOnlineUrl As String = "https://www.arcgis.com/sharing/rest"
+        Private Const ArcGISOnlineUrl As String = "https://www.arcgis.com/sharing/rest"
 
         ' Client ID for the app registered with the server (Portal Maps)
-        Private AppClientId As String = "2Gh53JRzkPtOENQq"
+        Private _appClientId As String = "2Gh53JRzkPtOENQq"
 
         ' Redirect URL after a successful authorization (configured for the Portal Maps application)
-        Private OAuthRedirectUrl As String = "https://developers.arcgis.com"
+        Private _oAuthRedirectUrl As String = "https://developers.arcgis.com"
 
         Public Sub New()
 
@@ -48,15 +49,15 @@ Namespace SearchPortalMaps
 
         Private Async Sub ShowOAuthSettingsDialog()
             ' Show default settings for client ID And redirect URL
-            ClientIdTextBox.Text = AppClientId
-            RedirectUrlTextBox.Text = OAuthRedirectUrl
+            ClientIdTextBox.Text = _appClientId
+            RedirectUrlTextBox.Text = _oAuthRedirectUrl
 
             ' Display inputs for a client ID And redirect URL to use for OAuth authentication
             Dim result As ContentDialogResult = Await OAuthSettingsDialog.ShowAsync()
             If (result = ContentDialogResult.Primary) Then
                 ' Settings were provided, update the configuration settings for OAuth authorization
-                AppClientId = ClientIdTextBox.Text.Trim()
-                OAuthRedirectUrl = RedirectUrlTextBox.Text.Trim()
+                _appClientId = ClientIdTextBox.Text.Trim()
+                _oAuthRedirectUrl = RedirectUrlTextBox.Text.Trim()
 
                 ' Update authentication manager with the OAuth settings
                 UpdateAuthenticationManager()
@@ -65,8 +66,8 @@ Namespace SearchPortalMaps
                 Dim messageDlg = New MessageDialog("No OAuth settings entered, you will not be able to save your map.")
                 Await messageDlg.ShowAsync()
 
-                AppClientId = String.Empty
-                OAuthRedirectUrl = String.Empty
+                _appClientId = String.Empty
+                _oAuthRedirectUrl = String.Empty
             End If
         End Sub
 
@@ -81,6 +82,10 @@ Namespace SearchPortalMaps
 
                 ' Create a New map And display it
                 Dim webMap As Map = New Map(selectedMap)
+
+                ' Handle changes in the load status (to report errors)
+                AddHandler webMap.LoadStatusChanged, AddressOf WebMapLoadStatusChanged
+
                 MyMapView.Map = webMap
 
             End If
@@ -93,6 +98,25 @@ Namespace SearchPortalMaps
             Dim mapList As ListView = TryCast(sender, ListView)
             mapList.SelectedItem = Nothing
 
+        End Sub
+
+        Private Sub WebMapLoadStatusChanged(sender As Object, e As Esri.ArcGISRuntime.LoadStatusEventArgs)
+
+            ' Get the current status
+            Dim status As LoadStatus = e.Status
+
+            ' Report errors if map failed to load
+            If status = Esri.ArcGISRuntime.LoadStatus.FailedToLoad Then
+
+                Dim myMap As Map = TryCast(sender, Map)
+                Dim loadErr As Exception = myMap.LoadError
+                If Not loadErr Is Nothing Then
+
+                    Dim dialog As MessageDialog = New MessageDialog(loadErr.Message, "Map Load Error")
+                    dialog.ShowAsync()
+
+                End If
+            End If
         End Sub
 
         Private Async Sub MyMapsClicked(sender As Object, e As RoutedEventArgs)
@@ -195,8 +219,8 @@ Namespace SearchPortalMaps
                 .ServerUri = New Uri(ArcGISOnlineUrl),
                 .OAuthClientInfo = New OAuthClientInfo With
                 {
-                    .ClientId = AppClientId,
-                    .RedirectUri = New Uri(OAuthRedirectUrl)
+                    .ClientId = _appClientId,
+                    .RedirectUri = New Uri(_oAuthRedirectUrl)
                 }
             }
 

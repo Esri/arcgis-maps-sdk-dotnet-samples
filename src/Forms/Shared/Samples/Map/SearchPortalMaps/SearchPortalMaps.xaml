@@ -19,7 +19,7 @@
                 <TableSection Title="Search Public Maps">
                     <EntryCell x:Name="SearchTextEntry"
                                Label="Search Text:"
-                               Text="Zoning"/>
+                               Text=""/>
                     <ViewCell>
                         <StackLayout Orientation="Horizontal"
                                      HorizontalOptions="CenterAndExpand">

@@ -27,10 +27,10 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
         private const string ArcGISOnlineUrl = "https://www.arcgis.com/sharing/rest";
 
         // Client ID for the app registered with the server (Portal Maps)
-        private string AppClientId = "2Gh53JRzkPtOENQq";
+        private string _appClientId = "2Gh53JRzkPtOENQq";
 
         // Redirect URL after a successful authorization (configured for the Portal Maps application)
-        private string OAuthRedirectUrl = "https://developers.arcgis.com";
+        private string _oAuthRedirectUrl = "https://developers.arcgis.com";
 
         // Constructor for sample class
         public SearchPortalMaps()
@@ -38,8 +38,8 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
             InitializeComponent();
 
             // Show the OAuth settings in the page
-            ClientIdTextBox.Text = AppClientId;
-            RedirectUrlTextBox.Text = OAuthRedirectUrl;
+            ClientIdTextBox.Text = _appClientId;
+            RedirectUrlTextBox.Text = _oAuthRedirectUrl;
 
             // Display a default map
             DisplayDefaultMap();
@@ -68,11 +68,13 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
 
                 // Create a query expression that will get public items of type 'web map' with the keyword(s) in the items tags
                 var queryExpression = string.Format("tags:\"{0}\" access:public type: (\"web map\" NOT \"web mapping application\")", SearchText.Text);
+                
                 // Create a query parameters object with the expression and a limit of 10 results
                 PortalQueryParameters queryParams = new PortalQueryParameters(queryExpression, 10);
 
                 // Search the portal using the query parameters and await the results
                 PortalQueryResultSet<PortalItem> findResult = await portal.FindItemsAsync(queryParams);
+                
                 // Get the items from the query results
                 mapItems = findResult.Results;
             }
@@ -112,8 +114,28 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
             // Create a new map, pass the web map portal item to the constructor
             Map webMap = new Map(selectedMap);
 
+            // Handle change in the load status (to report load errors)
+            webMap.LoadStatusChanged += WebMapLoadStatusChanged;
+            
             // Show the web map in the map view
             MyMapView.Map = webMap;
+        }
+
+        private void WebMapLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
+        {
+            // Get the current status
+            var status = e.Status;
+
+            // Report errors if map failed to load
+            if(status == Esri.ArcGISRuntime.LoadStatus.FailedToLoad)
+            {
+                var map = sender as Map;
+                var err = map.LoadError;
+                if(err != null)
+                {
+                    MessageBox.Show(err.Message, "Map Load Error");
+                }
+            }
         }
 
         private void RadioButtonUnchecked(object sender, RoutedEventArgs e)
@@ -152,11 +174,13 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
             }
             catch (OperationCanceledException ex)
             {
-                // TODO: handle login canceled
+                // OAuth login was canceled
+                // .. ignore this, the user can still search public maps
             }
             catch (Exception ex)
             {
-                // TODO: handle login failure
+                // Login failure
+                MessageBox.Show("Login failed: " + ex.Message);
             }
 
             return loggedIn;
@@ -176,8 +200,8 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
             // Define the OAuth information
             OAuthClientInfo oAuthInfo = new OAuthClientInfo
             {
-                ClientId = AppClientId,
-                RedirectUri = new Uri(OAuthRedirectUrl)
+                ClientId = _appClientId,
+                RedirectUri = new Uri(_oAuthRedirectUrl)
             };
             portalServerInfo.OAuthClientInfo = oAuthInfo;
 
@@ -216,8 +240,8 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
         private void SaveOAuthSettingsClicked(object sender, RoutedEventArgs e)
         {
             // Settings were provided, update the configuration settings for OAuth authorization
-            AppClientId = ClientIdTextBox.Text.Trim();
-            OAuthRedirectUrl = RedirectUrlTextBox.Text.Trim();
+            _appClientId = ClientIdTextBox.Text.Trim();
+            _oAuthRedirectUrl = RedirectUrlTextBox.Text.Trim();
 
             // Update authentication manager with the OAuth settings
             UpdateAuthenticationManager();
@@ -230,7 +254,8 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
         private void CancelOAuthSettingsClicked(object sender, RoutedEventArgs e)
         {
             // Warn that browsing user's ArcGIS Online maps won't be available without OAuth settings
-            var noAuth = MessageBox.Show("Without OAuth settings, you will not be able to browse maps from your ArcGIS Online account.", "No OAuth Settings", MessageBoxButton.OKCancel) == MessageBoxResult.OK;
+            var warning = "Without OAuth settings, you will not be able to browse maps from your ArcGIS Online account.";
+            var noAuth = MessageBox.Show(warning, "No OAuth Settings", MessageBoxButton.OKCancel) == MessageBoxResult.OK;
 
             if (noAuth)
             {

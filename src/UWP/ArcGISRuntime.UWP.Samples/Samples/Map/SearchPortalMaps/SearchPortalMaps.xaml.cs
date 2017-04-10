@@ -90,6 +90,10 @@ namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
 
                 // Create a new map and display it
                 var webMap = new Map(selectedMap);
+
+                // Handle change in the load status (to report load errors)
+                webMap.LoadStatusChanged += WebMapLoadStatusChanged;
+
                 MyMapView.Map = webMap;
             }
 
@@ -100,6 +104,24 @@ namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
             // Unselect the map item
             var list = sender as ListView;
             list.SelectedItem = null;
+        }
+
+        private void WebMapLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
+        {
+            // Get the current status
+            var status = e.Status;
+
+            // Report errors if map failed to load
+            if (status == Esri.ArcGISRuntime.LoadStatus.FailedToLoad)
+            {
+                var map = sender as Map;
+                var err = map.LoadError;
+                if (err != null)
+                {
+                    var dialog = new MessageDialog(err.Message, "Map Load Error");
+                    dialog.ShowAsync();
+                }
+            }
         }
 
         private async void MyMapsClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)

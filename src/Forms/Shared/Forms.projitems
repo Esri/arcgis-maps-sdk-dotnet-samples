@@ -155,6 +155,10 @@
       <SubType>Code</SubType>
       <DependentUpon>OpenExistingMap.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\SearchPortalMaps\SearchPortalMaps.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>SearchPortalMaps.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\SetInitialMapArea\SetInitialMapArea.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>SetInitialMapArea.xaml</DependentUpon>
@@ -328,6 +332,9 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\OpenExistingMap\OpenExistingMap.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\SearchPortalMaps\SearchPortalMaps.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\SetInitialMapArea\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -389,6 +396,9 @@
     <Content Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.jpg" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\SearchPortalMaps\metadata.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\ListGeodatabaseVersions\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\AnalyzeViewshed\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\AnalyzeHotspots\metadata.json" />

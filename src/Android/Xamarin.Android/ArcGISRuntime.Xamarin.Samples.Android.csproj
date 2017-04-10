@@ -140,6 +140,7 @@
     <Compile Include="Samples\Map\DisplayMap\DisplayMap.cs" />
     <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarks.cs" />
     <Compile Include="Samples\Map\OpenExistingMap\OpenExistingMap.cs" />
+    <Compile Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.cs" />
     <Compile Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.cs" />
     <Compile Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.cs" />
     <Compile Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.cs" />
@@ -222,6 +223,7 @@
     <EmbeddedResource Include="Samples\Geoprocessing\AnalyzeViewshed\metadata.json" />
     <EmbeddedResource Include="Samples\Geoprocessing\ListGeodatabaseVersions\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\TakeScreenshot\metadata.json" />
+    <EmbeddedResource Include="Samples\Map\SearchPortalMaps\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml" />

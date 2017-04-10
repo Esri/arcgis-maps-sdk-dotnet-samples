@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+﻿// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -26,11 +26,11 @@ using Android.App;
 using Xamarin.Auth;
 #endif
 
-namespace ArcGISRuntimeXamarin.Samples.AuthorMap
+namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
 {
-    public partial class AuthorMap : ContentPage, IOAuthAuthorizeHandler
+    public partial class SearchPortalMaps : ContentPage, IOAuthAuthorizeHandler
     {
-        // OAuth-related values ...
+        // Constants for OAuth-related values ...
         // URL of the server to authenticate with (ArcGIS Online)
         private const string ArcGISOnlineUrl = "https://www.arcgis.com/sharing/rest";
 
@@ -40,37 +40,12 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
         // Redirect URL after a successful authorization (configured for the Portal Maps application)
         private string _oAuthRedirectUrl = "https://developers.arcgis.com";
 
-        // String array to store basemap constructor types
-        private string[] _basemapTypes = new string[]
-        {
-            "Topographic",
-            "Streets",
-            "Imagery",
-            "Oceans"
-        };
-
-        // Dictionary of operational layer names and URLs
-        private Dictionary<string, string> _operationalLayerUrls = new Dictionary<string, string>
-        {
-            {"World Elevations", "http://sampleserver5.arcgisonline.com/arcgis/rest/services/Elevation/WorldElevations/MapServer"},
-            {"World Cities", "http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/" },
-            {"US Census Data", "http://sampleserver5.arcgisonline.com/arcgis/rest/services/Census/MapServer"}
-        };
-
-        public AuthorMap()
+        public SearchPortalMaps()
         {
             InitializeComponent();
 
-            Title = "Author and save a map";
-
-            // call a function to initialize the app (display a map, etc.)
-            Initialize();
-        }
-
-        private void Initialize()
-        {
-            // Call a function to create a new map with a light gray canvas basemap
-            CreateNewMap();
+            // Display a default map
+            DisplayDefaultMap();
 
             // Show the default OAuth settings in the entry controls
             ClientIDEntry.Text = _appClientId;
@@ -81,15 +56,29 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 Android: () =>
                 {
                     // Black background on Android (transparent by default)
-                    LayersList.BackgroundColor = Color.Black;
+                    MapsListView.BackgroundColor = Color.Black;
+                    SearchMapsUI.BackgroundColor = Color.Black;
                     OAuthSettingsGrid.BackgroundColor = Color.Black;
                 },
                 WinPhone: () =>
                 {
                     // Semi-transparent background on Windows with a small margin around the control
-                    LayersList.BackgroundColor = Color.FromRgba(255, 255, 255, 0.3);
-                    LayersList.Margin = new Thickness(50);
+                    MapsListView.BackgroundColor = Color.FromRgba(255, 255, 255, 0.3);
+                    MapsListView.Margin = new Thickness(50);
+                    SearchMapsUI.BackgroundColor = Color.FromRgba(255, 255, 255, 0.3);
+                    SearchMapsUI.Margin = new Thickness(50);
+                    OAuthSettingsGrid.BackgroundColor = Color.FromRgba(255, 255, 255, 0.3);
+                    OAuthSettingsGrid.Margin = new Thickness(50);
                 });
+        }
+
+        private void DisplayDefaultMap()
+        {
+            // Create a new Map instance
+            Map myMap = new Map(Basemap.CreateStreets());
+
+            // Provide Map to the MapView
+            MyMapView.Map = myMap;
         }
 
         private void OAuthSettingsCancel(object sender, EventArgs e)
@@ -108,204 +97,154 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             UpdateAuthenticationManager();
         }
 
-        private void LayerSelected(object sender, ItemTappedEventArgs e)
+        private async void SearchPublicMaps(string searchText)
         {
-            // Handle the event when a layer item is selected (tapped) in the layer list
-            var selectedItem = e.Item.ToString();
+            // Get web map portal items from a keyword search
+            IEnumerable<PortalItem> mapItems = null;
+            ArcGISPortal portal;
 
-            // See if this is one of the layers in the operational layers list 
-            if (_operationalLayerUrls.ContainsKey(selectedItem))
-            {
-                // Get the service URL from the operational layers dictionary
-                var value = _operationalLayerUrls[selectedItem];
+            // Connect to the portal (anonymously)
+            portal = await ArcGISPortal.CreateAsync(new Uri(ArcGISOnlineUrl));
 
-                // Call a function to add the chosen operational layer
-                AddLayer(selectedItem, value);
-            }
-            else
-            {
-                // Add the chosen basemap (replace the current one)
-                AddBasemap(selectedItem);
-            }
+            // Create a query expression that will get public items of type 'web map' with the keyword(s) in the items tags
+            var queryExpression = string.Format("tags:\"{0}\" access:public type: (\"web map\" NOT \"web mapping application\")", searchText);
+            
+            // Create a query parameters object with the expression and a limit of 10 results
+            PortalQueryParameters queryParams = new PortalQueryParameters(queryExpression, 10);
 
-            // Hide the layer list
-            LayersList.IsVisible = false;
+            // Search the portal using the query parameters and await the results
+            PortalQueryResultSet<PortalItem> findResult = await portal.FindItemsAsync(queryParams);
+            
+            // Get the items from the query results
+            mapItems = findResult.Results;
+
+            // Hide the search controls
+            SearchMapsUI.IsVisible = false;
+
+            // Show the list of web maps
+            MapsListView.ItemsSource = mapItems;
+            MapsListView.IsVisible = true;
         }
 
-        private void ShowLayerList(object sender, EventArgs e)
+        private void ShowSearchUI(object sender, EventArgs e)
         {
-            // Clear the items currently shown in the list
-            LayersList.ItemsSource = null;
-
-            // See which button was used to show the list and fill it accordingly
-            var button = sender as Button;
-            if (button.Text == "Base map")
-            {
-                // Show the basemap list
-                LayersList.ItemsSource = _basemapTypes;
-            }
-            else if (button.Text == "Layers")
-            {
-                // Show the operational layers list (names)
-                LayersList.ItemsSource = _operationalLayerUrls.Keys;
-            }
-
-            // Show the layer list view control
-            LayersList.IsVisible = true;
+            // Show the map search controls
+            SearchMapsUI.IsVisible = true;
         }
 
-        private async void ShowSaveMapUI(object sender, EventArgs e)
+        private async void GetMyMaps(object sender, EventArgs e)
         {
-            // Create a SaveMapPage page for getting user input for the new web map item
-            var mapInputForm = new SaveMapPage();
+            // Get web map portal items in the current user's folder or from a keyword search
+            IEnumerable<PortalItem> mapItems = null;
+            ArcGISPortal portal;
 
-            // Handle the save button click event on the page
-            mapInputForm.OnSaveClicked += SaveMapAsync;
+            // Call a sub that will force the user to log in to ArcGIS Online (if they haven't already)
+            var loggedIn = await EnsureLoggedInAsync();
+            if (!loggedIn) { return; }
 
-            // Navigate to the SaveMapPage UI
-            // Note: in each platform's project, there is a custom PageRenderer class called SaveMapPage that provides
-            //       platform-specific logic to challenge the user for OAuth credentials for ArcGIS Online when the page launches
-            await Navigation.PushAsync(mapInputForm);
+            // Connect to the portal (will connect using the provided credentials)
+            portal = await ArcGISPortal.CreateAsync(new Uri(ArcGISOnlineUrl));
+
+            // Get the user's content (items in the root folder and a collection of sub-folders)
+            PortalUserContent myContent = await portal.User.GetContentAsync();
+
+            // Get the web map items in the root folder
+            mapItems = from item in myContent.Items where item.Type == PortalItemType.WebMap select item;
+
+            // Loop through all sub-folders and get web map items, add them to the mapItems collection
+            foreach (PortalFolder folder in myContent.Folders)
+            {
+                IEnumerable<PortalItem> folderItems = await portal.User.GetContentAsync(folder.FolderId);
+                mapItems.Concat(from item in folderItems where item.Type == PortalItemType.WebMap select item);
+            }
+
+            // Show the list of web maps
+            MapsListView.ItemsSource = mapItems;
+            MapsListView.IsVisible = true;
+        }
+        
+        private void MapItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            // Get the selected web map item in the list box
+            PortalItem selectedMap = e.SelectedItem as PortalItem;
+            if (selectedMap == null) { return; }
+
+            // Create a new map, pass the web map portal item to the constructor
+            Map webMap = new Map(selectedMap);
+
+            // Handle change in the load status (to report load errors)
+            webMap.LoadStatusChanged += WebMapLoadStatusChanged;
+
+            // Show the web map in the map view
+            MyMapView.Map = webMap;
+
+            // Hide the list of maps
+            MapsListView.IsVisible = false;
         }
 
-        // Event handler to get information entered by the user and save the map
-        private async void SaveMapAsync(object sender, SaveMapEventArgs e)
+        private void WebMapLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
         {
-            // Get the current map
-            var myMap = MyMapView.Map;
+            // Get the current status
+            var status = e.Status;
+
+            // Report errors if map failed to load
+            if (status == Esri.ArcGISRuntime.LoadStatus.FailedToLoad)
+            {
+                var map = sender as Map;
+                var err = map.LoadError;
+                if (err != null)
+                {
+                    DisplayAlert(err.Message, "Map Load Error", "OK");
+                }
+            }
+        }
+
+        private async Task<bool> EnsureLoggedInAsync()
+        {
+            bool loggedIn = false;
 
             try
             {
-                // Show the progress bar so the user knows work is happening
-                SaveMapProgressBar.IsVisible = true;
+                // Create a challenge request for portal credentials (OAuth credential request for arcgis.com)
+                CredentialRequestInfo challengeRequest = new CredentialRequestInfo();
 
-                // Make sure the user is logged in to ArcGIS Online
-                var cred = await EnsureLoggedInAsync();
-                AuthenticationManager.Current.AddCredential(cred);
-
-                // Get information entered by the user for the new portal item properties
-                var title = e.MapTitle;
-                var description = e.MapDescription;
-                var tags = e.Tags;
-
-                // Apply the current extent as the map's initial extent
-                myMap.InitialViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
-
-                // See if the map has already been saved (has an associated portal item)
-                if (myMap.Item == null)
+                // Use the OAuth implicit grant flow
+                challengeRequest.GenerateTokenOptions = new GenerateTokenOptions
                 {
-                    // Get the ArcGIS Online portal (will use credential from login above)
-                    ArcGISPortal agsOnline = await ArcGISPortal.CreateAsync(new Uri(ArcGISOnlineUrl));
+                    TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
+                };
 
-                    // Save the current state of the map as a portal item in the user's default folder
-                    await myMap.SaveAsAsync(agsOnline, null, title, description, tags, null);
+                // Indicate the url (portal) to authenticate with (ArcGIS Online)
+                challengeRequest.ServiceUri = new Uri(ArcGISOnlineUrl);
 
-                    // Report a successful save
-                    DisplayAlert("Map Saved", "Saved '" + title + "' to ArcGIS Online!", "OK");
-                }
-                else
-                {
-                    // This is not the initial save, call SaveAsync to save changes to the existing portal item
-                    await myMap.SaveAsync();
-
-                    // Report update was successful
-                    DisplayAlert("Updates Saved", "Saved changes to '" + myMap.Item.Title + "'", "OK");
-                }
+                // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
+                var cred = await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
+                loggedIn = cred != null;
+            }
+            catch (OperationCanceledException ex)
+            {
+                // Login was canceled
+                // .. ignore, user can still search public maps without logging in
             }
             catch (Exception ex)
             {
-                // Show the exception message
-                DisplayAlert("Unable to save map", ex.Message, "OK");
+                // Login failure
+                DisplayAlert("Login Error", ex.Message, "OK");
             }
-            finally
-            {
-                // Hide the progress bar
-                SaveMapProgressBar.IsVisible = false;
-            }
+
+            return loggedIn;
         }
 
-        private async Task<Credential> EnsureLoggedInAsync()
+        private void CancelSearchClicked(object sender, EventArgs e)
         {
-            // Challenge the user for portal credentials (OAuth credential request for arcgis.com)
-            Credential cred = null;
-            CredentialRequestInfo loginInfo = new CredentialRequestInfo();
-
-            // Use the OAuth implicit grant flow
-            loginInfo.GenerateTokenOptions = new GenerateTokenOptions
-            {
-                TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
-            };
-
-            // Indicate the url (portal) to authenticate with (ArcGIS Online)
-            loginInfo.ServiceUri = new Uri(ArcGISOnlineUrl);
-
-            // Get the users credentials for ArcGIS Online (should have logged in when launching the page)
-            cred = await AuthenticationManager.Current.GetCredentialAsync(loginInfo, false);
-
-            return cred;
+            // Hide the search controls if the cancel button is clicked
+            SearchMapsUI.IsVisible = false;
         }
 
-        private void NewMapButtonClick(object sender, EventArgs e)
+        private void SearchMapsClicked(object sender, EventArgs e)
         {
-            // Call a function to create a new map
-            CreateNewMap();
-        }
-
-        private void CreateNewMap()
-        {
-            // Create new Map with a light gray canvas basemap
-            var myMap = new Map(Basemap.CreateLightGrayCanvas());
-
-            // Add the Map to the MapView
-            MyMapView.Map = myMap;
-        }
-
-        private void AddBasemap(string basemapName)
-        {
-            // Apply the chosen basemap
-            switch (basemapName)
-            {
-                case "Topographic":
-                    // Set the basemap to Topographic
-                    MyMapView.Map.Basemap = Basemap.CreateTopographic();
-                    break;
-                case "Streets":
-                    // Set the basemap to Streets
-                    MyMapView.Map.Basemap = Basemap.CreateStreets();
-                    break;
-                case "Imagery":
-                    // Set the basemap to Imagery
-                    MyMapView.Map.Basemap = Basemap.CreateImagery();
-                    break;
-                case "Oceans":
-                    // Set the basemap to Oceans
-                    MyMapView.Map.Basemap = Basemap.CreateOceans();
-                    break;
-            }
-        }
-
-        private void AddLayer(string layerName, string url)
-        {
-            // See if the layer already exists
-            ArcGISMapImageLayer layer = MyMapView.Map.OperationalLayers.FirstOrDefault(l => l.Name == layerName) as ArcGISMapImageLayer;
-
-            // If the layer is in the map, remove it
-            if (layer != null)
-            {
-                MyMapView.Map.OperationalLayers.Remove(layer);
-            }
-            else
-            {
-                var layerUri = new Uri(url);
-
-                // Create a new map image layer
-                layer = new ArcGISMapImageLayer(layerUri);
-                layer.Name = layerName;
-
-                // Set it 50% opaque, and add it to the map
-                layer.Opacity = 0.5;
-                MyMapView.Map.OperationalLayers.Add(layer);
-            }
+            // Search ArcGIS Online maps with the text entered
+            SearchPublicMaps(SearchTextEntry.Text);
         }
 
         #region OAuth
@@ -380,7 +319,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
 
 #if __ANDROID__
             // Get the current Android Activity
-            var activity = Xamarin.Forms.Forms.Context as Activity; 
+            var activity = Xamarin.Forms.Forms.Context as Activity;
 #endif
 #if __IOS__
             // Get the current iOS ViewController
@@ -472,8 +411,8 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             // Return completion source task so the caller can await completion
             return _taskCompletionSource.Task;
         }
-#endregion 
-#endregion 
+        #endregion
 
+        #endregion
     }
 }

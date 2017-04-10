@@ -9,19 +9,18 @@
 
 using Android.App;
 using Android.OS;
-using Android.Views;
 using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI;
 using System;
-using System.Linq;
 
 namespace ArcGISRuntimeXamarin.Samples.TakeScreenshot
 {
     [Activity]
     public class TakeScreenshot : Activity
     {
-        // Create and hold reference to the used MapView
+        // Create and hold reference to the used map view
         private MapView _myMapView = new MapView();
 
         protected override void OnCreate(Bundle bundle)
@@ -37,43 +36,52 @@ namespace ArcGISRuntimeXamarin.Samples.TakeScreenshot
 
         private void Initialize()
         {
-            // Create a new Map instance with the basemap  
+            // Create a new map instance with the basemap  
             Basemap myBasemap = Basemap.CreateStreets();
             Map myMap = new Map(myBasemap);
 
-            // Assign the map to the MapView
+            // Assign the map to the map view
             _myMapView.Map = myMap;
         }
 
         private async void OnTakeScreenshotClicked(object sender, EventArgs e)
         {
-            // Export the image from mapview and assign it to the imageview
-            var exportedImage = await _myMapView.ExportImageAsync();
+            try
+            {
+                // Export the image from map view
+                var exportedImage = await _myMapView.ExportImageAsync();
 
-            //var sublayersButton = sender as Button;
+                // Create an image button (this will display the exported map view image)
+                var myImageButton = new ImageButton(this);
 
-            //// Create menu to change sublayer visibility
-            //var sublayersMenu = new PopupMenu(this, sublayersButton);
-            //sublayersMenu.MenuItemClick += OnSublayersMenuItemClicked;
+                // Define the size of the image button to be 2/3 the size of the map view
+                myImageButton.LayoutParameters = new Android.Views.ViewGroup.LayoutParams((int)(_myMapView.Width *.667) , (int)(_myMapView.Height * .667));
 
-            //// Create menu options
-            //foreach (ArcGISSublayer sublayer in _imageLayer.Sublayers)
-            //    sublayersMenu.Menu.Add(sublayer.Name);
+                // Set the source of the image button to be that of the exported map view image
+                myImageButton.SetImageBitmap(await exportedImage.ToImageSourceAsync());
 
-            //// Set values to the menu items
-            //for (int i = 0; i < sublayersMenu.Menu.Size(); i++)
-            //{
-            //    var menuItem = sublayersMenu.Menu.GetItem(i);
+                // Make the image that was captured from the map view export to fit within (aka scale-to-fit) the image button
+                myImageButton.SetScaleType(ImageView.ScaleType.FitCenter);
 
-            //    // Set menu item to contain checkbox
-            //    menuItem.SetCheckable(true);
-    
-            //    // Set default value
-            //    menuItem.SetChecked(_imageLayer.Sublayers[i].IsVisible);
-            //}
+                // Define a popup with a single image button control and make the size of the popup to be 2/3 the size of the map view 
+                var myPopupWindow = new PopupWindow(myImageButton, (int)(_myMapView.Width * .667), (int)(_myMapView.Height * .667));
 
-            // Show menu in the view
-           // sublayersMenu.Show();
+                // Display the popup in the middle of the map view
+                myPopupWindow.ShowAtLocation(this._myMapView, Android.Views.GravityFlags.Center, 0, 0);
+
+                // Define a lambda event handler to close the popup when the user clicks on the image button 
+                myImageButton.Click += (s, a) => myPopupWindow.Dismiss();
+
+            }
+            catch (Exception ex)
+            {
+                // Display any errors to the user if capturing the map view image did not work
+                var alertBuilder = new AlertDialog.Builder(this);
+                alertBuilder.SetTitle("ExportImageAsync error");
+                alertBuilder.SetMessage("Capturing image failed. " + ex.Message);
+                alertBuilder.Show();
+            }
+
         }
 
         private void CreateLayout()
@@ -81,12 +89,10 @@ namespace ArcGISRuntimeXamarin.Samples.TakeScreenshot
             // Create a new vertical layout for the app
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
-            // Create button to show possible map options
+            // Add a button to take a screen shot, with wired up event
             var takeScreenshotButton = new Button(this);
             takeScreenshotButton.Text = "Capture";
             takeScreenshotButton.Click += OnTakeScreenshotClicked;
-
-            // Add maps button to the layout
             layout.AddView(takeScreenshotButton);
 
             // Add the map view to the layout

@@ -14,6 +14,10 @@
               "Path":"Samples/MapView/ChangeViewpoint"
             },
             {
+              "SampleName":"MapRotation",
+              "Path":"Samples/MapView/MapRotation"
+            },
+            {
               "SampleName": "DisplayDrawingStatus",
               "Path": "Samples/MapView/DisplayDrawingStatus"
             },
@@ -22,8 +26,12 @@
               "Path": "Samples/MapView/DisplayLayerViewState"
             },
             {
-              "SampleName":"MapRotation",
-              "Path":"Samples/MapView/MapRotation"
+              "SampleName": "TakeScreenshot",
+              "Path": "Samples/MapView/TakeScreenshot"
+            },
+            {
+              "SampleName": "ShowMagnifier",
+              "Path": "Samples/MapView/ShowMagnifier"
             }
           ]
         },
@@ -215,6 +223,31 @@
             {
               "SampleName": "RenderUniqueValues",
               "Path": "Samples/Symbology/RenderUniqueValues"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Analysis",
+      "CategoryName": "Analysis",
+      "SubCategories": [
+        {
+          "Name": "Geoprocessing",
+          "SubCategoryName": "Geoprocessing",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "AnalyzeHotspots",
+              "Path": "Samples/Geoprocessing/AnalyzeHotspots"
+            },
+            {
+              "SampleName": "AnalyzeViewshed",
+              "Path": "Samples/Geoprocessing/AnalyzeViewshed"
+            },
+            {
+              "SampleName": "ListGeodatabaseVersions",
+              "Path": "Samples/Geoprocessing/ListGeodatabaseVersions"
             }
           ]
         }

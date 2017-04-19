@@ -29,9 +29,9 @@ namespace ArcGISRuntimeXamarin.Samples.ArcGISMapImageLayerUrl
             Title = "ArcGIS map image layer (URL)";
         }
 
-        public override void ViewDidLoad()
+        public override void ViewDidLayoutSubviews()
         {
-            base.ViewDidLoad();
+            base.ViewDidLayoutSubviews();
 
             // Create the UI, setup the control references and execute initialization 
             CreateLayout();

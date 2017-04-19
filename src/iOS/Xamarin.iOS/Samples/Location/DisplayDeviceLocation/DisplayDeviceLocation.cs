@@ -29,9 +29,9 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayDeviceLocation
             Title = "Display Device Location";
         }
 
-        public override void ViewDidLoad()
+        public override void ViewDidLayoutSubviews()
         {
-            base.ViewDidLoad();
+            base.ViewDidLayoutSubviews();
 
             // Create the UI, setup the control references and execute initialization 
             CreateLayout();

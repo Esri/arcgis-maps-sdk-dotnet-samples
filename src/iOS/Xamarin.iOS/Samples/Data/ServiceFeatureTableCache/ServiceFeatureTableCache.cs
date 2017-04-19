@@ -31,9 +31,9 @@ namespace ArcGISRuntimeXamarin.Samples.ServiceFeatureTableCache
             Title = "Service feature table (cache)";
         }
 
-        public override void ViewDidLoad()
+        public override void ViewDidLayoutSubviews()
         {
-            base.ViewDidLoad();
+            base.ViewDidLayoutSubviews();
 
             // Create the UI, setup the control references and execute initialization 
             CreateLayout();

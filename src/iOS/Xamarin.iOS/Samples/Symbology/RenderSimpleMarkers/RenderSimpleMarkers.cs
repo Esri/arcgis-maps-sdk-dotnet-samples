@@ -32,9 +32,9 @@ namespace ArcGISRuntimeXamarin.Samples.RenderSimpleMarkers
             Title = "Render simple markers";
         }
 
-        public override void ViewDidLoad()
+        public override void ViewDidLayoutSubviews()
         {
-            base.ViewDidLoad();
+            base.ViewDidLayoutSubviews();
 
             // Create the UI, setup the control references and execute initialization 
             CreateLayout();

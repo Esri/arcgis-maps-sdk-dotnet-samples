@@ -35,9 +35,9 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayLayerViewState
             Title = "Display Layer View State";
         }
 
-        public override void ViewDidLoad()
+        public override void ViewDidLayoutSubviews()
         {
-            base.ViewDidLoad();
+            base.ViewDidLayoutSubviews();
             CreateLayout();
             Initialize();
         }

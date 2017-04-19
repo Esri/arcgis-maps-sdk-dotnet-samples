@@ -31,9 +31,9 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerDefinitionExpression
             this.Title = "Feature layer definition expression";
         }
 
-        public override void ViewDidLoad()
+        public override void ViewDidLayoutSubviews()
         {
-            base.ViewDidLoad();
+            base.ViewDidLayoutSubviews();
 
             // Create the UI, setup the control references and execute initialization 
             CreateLayout();

@@ -31,9 +31,9 @@ namespace ArcGISRuntimeXamarin.Samples.CreateFeatureCollectionLayer
             Title = "Create a new feature collection layer";
         }
 
-        public override void ViewDidLoad()
+        public override void ViewDidLayoutSubviews()
         {
-            base.ViewDidLoad();
+            base.ViewDidLayoutSubviews();
 
             // Create the layout
             CreateLayout();

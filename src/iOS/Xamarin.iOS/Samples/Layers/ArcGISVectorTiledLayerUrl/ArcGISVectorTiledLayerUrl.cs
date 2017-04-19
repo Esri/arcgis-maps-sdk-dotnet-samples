@@ -41,9 +41,9 @@ namespace ArcGISRuntimeXamarin.Samples.ArcGISVectorTiledLayerUrl
             base.DidReceiveMemoryWarning();
         }
 
-        public override void ViewDidLoad()
+        public override void ViewDidLayoutSubviews()
         {
-            base.ViewDidLoad();
+            base.ViewDidLayoutSubviews();
 
             // Create a variable to hold the yOffset where the MapView control should start
             var yOffset = 60;

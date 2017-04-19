@@ -47,9 +47,9 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerQuery
             Title = "Feature layer query";
         }
 
-        public override void ViewDidLoad()
+        public override void ViewDidLayoutSubviews()
         {
-            base.ViewDidLoad();
+            base.ViewDidLayoutSubviews();
 
             // Create the UI, setup the control references and execute initialization 
             CreateLayout();

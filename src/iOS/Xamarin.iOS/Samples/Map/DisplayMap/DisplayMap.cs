@@ -25,7 +25,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayMap
 
         public DisplayMap()
         {
-            Title = "Display a map test";
+            Title = "Display a map";
         }
 
         private void Initialize()

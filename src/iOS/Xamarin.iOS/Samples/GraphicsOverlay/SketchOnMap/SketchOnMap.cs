@@ -45,10 +45,10 @@ namespace ArcGISRuntimeXamarin.Samples.SketchOnMap
         {
             Title = "Sketch on map";
         }
-
-        public override void ViewDidLoad()
+        
+        public override void ViewDidLayoutSubviews()
         {
-            base.ViewDidLoad();
+            base.ViewDidLayoutSubviews();
 
             // Create the UI 
             CreateLayout();

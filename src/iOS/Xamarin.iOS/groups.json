@@ -45,6 +45,10 @@
               "Path":"Samples/Map/OpenExistingMap"
             },
             {
+              "SampleName":"SearchPortalMaps",
+              "Path":"Samples/Map/SearchPortalMaps"
+            },
+            {
               "SampleName":"ChangeBasemap",
               "Path":"Samples/Map/ChangeBasemap"
             },

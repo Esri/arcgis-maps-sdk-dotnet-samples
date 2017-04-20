@@ -34,9 +34,9 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureCollectionLayerFromPortal
             Title = "Create a feature collection layer from a portal item";
         }
 
-        public override void ViewDidLoad()
+        public override void ViewDidLayoutSubviews()
         {
-            base.ViewDidLoad();
+            base.ViewDidLayoutSubviews();
 
             // Create the layout
             CreateLayout();

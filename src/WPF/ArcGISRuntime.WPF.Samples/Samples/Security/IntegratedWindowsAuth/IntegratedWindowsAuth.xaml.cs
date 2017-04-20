@@ -24,10 +24,10 @@ namespace IntegratedWindowsAuth
     public partial class MainWindow : Window
     {
         //TODO - Add the URL for your IWA-secured portal
-        const string SecuredPortalUrl = "https://my.secure.server.com/gis/sharing";
+        const string SecuredPortalUrl = "https://my.portal.com/gis/sharing/rest";
 
         //TODO - Add the URL for a portal containing public content (your ArcGIS Online Organization, e.g.)
-        const string PublicPortalUrl = "http://www.arcgis.com/sharing/rest"; 
+        const string PublicPortalUrl = "http://www.arcgis.com/sharing/rest";
 
         //TODO [optional] - Add hard-coded account information (if present, a network credential will be created on app initialize)
         // Note: adding bogus credential info can provide a way to verify unauthorized users will be challenged for a log in
@@ -194,12 +194,11 @@ namespace IntegratedWindowsAuth
             {
                 // Report connection info
                 messageBuilder.AppendLine("Connected to the portal on " + currentPortal.Uri.Host);
-                messageBuilder.AppendLine("Version: " + currentPortal.CurrentVersion);
 
                 // Report the user name used for this connection
-                if (currentPortal.CurrentUser != null)
+                if (currentPortal.User != null)
                 {
-                    messageBuilder.AppendLine("Connected as: " + currentPortal.CurrentUser.UserName);
+                    messageBuilder.AppendLine("Connected as: " + currentPortal.User.UserName);
                 }
                 else
                 {
@@ -208,7 +207,7 @@ namespace IntegratedWindowsAuth
                 }
 
                 // Search the portal for web maps
-                var items = await currentPortal.SearchItemsAsync(new SearchParameters("type:(\"web map\" NOT \"web mapping application\")"));
+                var items = await currentPortal.FindItemsAsync(new PortalQueryParameters("type:(\"web map\" NOT \"web mapping application\")"));
 
                 // Build a list of items from the results that shows the map name and stores the item ID (with the Tag property)
                 var resultItems = from r in items.Results select new ListBoxItem { Tag = r.ItemId, Content = r.Title };

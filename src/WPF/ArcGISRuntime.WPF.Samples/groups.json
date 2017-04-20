@@ -49,6 +49,10 @@
               "Path": "Samples/Map/OpenExistingMap"
             },
             {
+              "SampleName": "SearchPortalMaps",
+              "Path": "Samples/Map/SearchPortalMaps"
+            },
+            {
               "SampleName": "SetMinMaxScale",
               "Path": "Samples/Map/SetMinMaxScale"
             },

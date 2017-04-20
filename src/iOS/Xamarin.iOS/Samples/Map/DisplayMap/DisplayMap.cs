@@ -28,15 +28,6 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayMap
             Title = "Display a map";
         }
 
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            // Create the UI, setup the control references and execute initialization 
-            CreateLayout();
-            Initialize();
-        }
-
         private void Initialize()
         {
             // Create new Map with basemap
@@ -55,5 +46,13 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayMap
             // Add MapView to the page
             View.AddSubviews(_myMapView);
         }
-    }
+
+        public override void ViewDidLayoutSubviews()
+        {
+            CreateLayout();
+            Initialize();
+
+            base.ViewDidLayoutSubviews();
+        }
+}
 }

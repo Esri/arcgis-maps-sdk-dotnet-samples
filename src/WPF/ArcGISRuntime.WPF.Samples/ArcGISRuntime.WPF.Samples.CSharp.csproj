@@ -130,6 +130,9 @@
     <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarks.xaml.cs">
       <DependentUpon>ManageBookmarks.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.xaml.cs">
+      <DependentUpon>SearchPortalMaps.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.xaml.cs">
       <DependentUpon>SetMinMaxScale.xaml</DependentUpon>
     </Compile>
@@ -190,10 +193,13 @@
     <Content Include="groups.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <Content Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg">
@@ -419,6 +425,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Map\ManageBookmarks\ManageBookmarks.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -684,6 +694,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\GraphicsOverlay\SketchOnMap\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\SearchPortalMaps\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

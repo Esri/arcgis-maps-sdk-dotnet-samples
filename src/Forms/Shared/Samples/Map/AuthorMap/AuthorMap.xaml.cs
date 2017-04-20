@@ -90,9 +90,6 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                     LayersList.BackgroundColor = Color.FromRgba(255, 255, 255, 0.3);
                     LayersList.Margin = new Thickness(50);
                 });
-
-            // Call a function to set up the AuthenticationManager
-            UpdateAuthenticationManager();
         }
 
         private void OAuthSettingsCancel(object sender, EventArgs e)
@@ -106,6 +103,9 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             _oAuthRedirectUrl = RedirectUrlEntry.Text.Trim();
 
             OAuthSettingsGrid.IsVisible = false;
+
+            // Call a function to set up the AuthenticationManager
+            UpdateAuthenticationManager();
         }
 
         private void LayerSelected(object sender, ItemTappedEventArgs e)

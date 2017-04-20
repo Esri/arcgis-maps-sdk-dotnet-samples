@@ -52,10 +52,10 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             // Listen for changes on the view model
             _mapViewModel.PropertyChanged += MapViewModel_PropertyChanged;
         }
-        
-        public override void ViewDidLoad()
+
+        public override void ViewDidLayoutSubviews()
         {
-            base.ViewDidLoad();
+            base.ViewDidLayoutSubviews();
 
             // Call the function that creates the UI
             CreateLayout();
@@ -64,7 +64,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             UpdateAuthenticationManager();
 
             // Use the map from the view-model
-            _mapView.Map = _mapViewModel.Map;
+            _mapViewModel.ResetMap();
         }
 
         private void CreateLayout()

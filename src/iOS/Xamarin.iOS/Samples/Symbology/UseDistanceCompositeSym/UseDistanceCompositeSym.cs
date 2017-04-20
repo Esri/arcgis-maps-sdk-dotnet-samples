@@ -17,7 +17,7 @@ using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.UseDistanceCompositeSym
 {
-    [Register("RenderSimpleMarkers")]
+    [Register("UseDistanceCompositeSym")]
     public class UseDistanceCompositeSym : UIViewController
     {
         // Create and hold reference to the used MapView

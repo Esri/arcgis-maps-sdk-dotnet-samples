@@ -30,9 +30,9 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureCollectionLayerFromQuery
             Title = "Add a query result as a feature collection layer";
         }
         
-        public override void ViewDidLoad()
+        public override void ViewDidLayoutSubviews()
         {
-            base.ViewDidLoad();
+            base.ViewDidLayoutSubviews();
 
             // Create the layout
             CreateLayout();

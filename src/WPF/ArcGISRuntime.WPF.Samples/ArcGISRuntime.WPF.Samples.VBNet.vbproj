@@ -88,6 +88,7 @@
     </Content>
     <Content Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg" />
     <Content Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg" />
+    <Content Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg" />
     <Content Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg" />
     <Content Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg" />
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
@@ -203,6 +204,7 @@
     <None Include="Samples\Map\DisplayMap\metadata.json" />
     <None Include="Samples\Map\ManageBookmarks\metadata.json" />
     <None Include="Samples\Map\OpenExistingMap\metadata.json" />
+    <None Include="Samples\Map\SearchPortalMaps\metadata.json" />
     <None Include="Samples\Map\SetInitialMapLocation\metadata.json" />
     <None Include="Samples\Map\SetInitialMapArea\metadata.json" />
     <None Include="Samples\Map\SetMapSpatialReference\metadata.json">
@@ -320,6 +322,9 @@
     </Compile>
     <Compile Include="Samples\Map\OpenExistingMap\OpenExistingMapVB.xaml.vb">
       <DependentUpon>OpenExistingMapVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\SearchPortalMaps\SearchPortalMapsVB.xaml.vb">
+      <DependentUpon>SearchPortalMapsVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocationVB.xaml.vb">
       <DependentUpon>SetInitialMapLocationVB.xaml</DependentUpon>
@@ -482,6 +487,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Map\OpenExistingMap\OpenExistingMapVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\SearchPortalMaps\SearchPortalMapsVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

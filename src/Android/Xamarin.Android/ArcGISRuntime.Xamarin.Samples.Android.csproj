@@ -115,6 +115,7 @@
     <Compile Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.cs" />
     <Compile Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.cs" />
     <Compile Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.cs" />
+    <Compile Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.cs" />
     <Compile Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.cs" />
     <Compile Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.cs" />
     <Compile Include="Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortal.cs" />
@@ -224,6 +225,7 @@
     <EmbeddedResource Include="Samples\Geoprocessing\ListGeodatabaseVersions\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\TakeScreenshot\metadata.json" />
     <EmbeddedResource Include="Samples\Map\SearchPortalMaps\metadata.json" />
+    <EmbeddedResource Include="Samples\GraphicsOverlay\SketchOnMap\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml" />
@@ -242,6 +244,7 @@
     <Content Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.jpg" />
     <Content Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.jpg" />
     <Content Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.jpg" />
+    <Content Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg" />
     <Content Include="Samples\MapView\TakeScreenshot\TakeScreenshot.jpg" />
     <Content Include="Samples\Map\AuthorMap\AuthorMap.jpg" />
     <Content Include="Samples\Map\ManageBookmarks\ManageBookmarks.jpg">

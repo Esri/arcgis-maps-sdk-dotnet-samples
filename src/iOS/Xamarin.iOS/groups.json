@@ -200,6 +200,10 @@
             {
               "SampleName": "IdentifyGraphics",
               "Path": "Samples/GraphicsOverlay/IdentifyGraphics"
+            },
+            {
+              "SampleName": "SketchOnMap",
+              "Path": "Samples/GraphicsOverlay/SketchOnMap"
             }
           ]
         },

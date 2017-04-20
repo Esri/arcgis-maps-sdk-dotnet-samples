@@ -1,0 +1,89 @@
+﻿<UserControl x:Class="ArcGISRuntime.WPF.Samples.SketchOnMap.SketchOnMap"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013" 
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="600">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <esri:MapView x:Name="MyMapView" 
+                      Grid.Column="1"/>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="1" Grid.Column="0" 
+                       HorizontalAlignment="Right" VerticalAlignment="Center"
+                       Text="Sketch shape:"/>
+            <ComboBox x:Name="SketchModeComboBox"
+                      Grid.Row="1" Grid.Column="1"
+                      HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                      Margin="5"/>
+            <Button Grid.Row="2" Grid.Column="1"
+                    Content="Draw"
+                    Margin="5"
+                    Width="100" Height="25"
+                    HorizontalAlignment="Center" VerticalAlignment="Top"
+                    Click="DrawButtonClick"/>
+            <Button x:Name="EditButton" 
+                    Grid.Row="3" Grid.Column="1"
+                    Content="Edit"
+                    Margin="5"
+                    Width="100" Height="25"
+                    HorizontalAlignment="Center" VerticalAlignment="Top"
+                    IsEnabled="False"
+                    Click="EditButtonClick"/>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center" VerticalAlignment="Top"
+                        Grid.Row="5" Grid.Column="1">
+                <Button Content="Undo"
+                        Margin="5"
+                        Width="50" Height="25"
+                        Command="{Binding UndoCommand}"/>
+                <Button Content="Redo"
+                        Margin="5"
+                        Width="50" Height="25"
+                        Command="{Binding RedoCommand}"/>
+            </StackPanel>
+            <Button Grid.Row="6" Grid.Column="1"
+                    Content="Complete"
+                    Margin="5"
+                    Width="100" Height="25"
+                    HorizontalAlignment="Center" VerticalAlignment="Top"
+                    Command="{Binding CompleteCommand}"/>
+            <Button Grid.Row="8" Grid.Column="1"
+                    Content="Cancel"
+                    Margin="5"
+                    Width="100" Height="25"
+                    HorizontalAlignment="Center" VerticalAlignment="Top"
+                    Command="{Binding CancelCommand}"/>
+            <Button x:Name="ClearButton" 
+                    Grid.Row="9" Grid.Column="1"
+                    Content="Clear"
+                    Margin="5"
+                    Width="100" Height="25"
+                    IsEnabled="False"
+                    HorizontalAlignment="Center" VerticalAlignment="Top"
+                    Click="ClearButtonClick"/>
+        </Grid>
+    </Grid>
+</UserControl>

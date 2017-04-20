@@ -92,6 +92,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <Content Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg" />
     <Content Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -103,6 +104,7 @@
     <None Include="Samples\Map\SearchPortalMaps\metadata.json" />
     <None Include="Samples\Symbology\UseDistanceCompositeSym\metadata.json" />
     <Content Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg" />
+    <None Include="Samples\GraphicsOverlay\SketchOnMap\metadata.json" />
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
     <Content Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.jpg" />
     <Content Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.jpg" />
@@ -240,6 +242,9 @@
     </Compile>
     <Compile Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphicsVB.xaml.vb">
       <DependentUpon>IdentifyGraphicsVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMapVB.xaml.vb">
+      <DependentUpon>SketchOnMapVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrlVB.xaml.vb">
       <DependentUpon>ArcGISMapImageLayerUrlVB.xaml</DependentUpon>
@@ -422,6 +427,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphicsVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMapVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -86,6 +86,7 @@
     <Content Include="groups.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg" />
     <Content Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg" />
     <Content Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg" />
     <Content Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg" />
@@ -174,6 +175,7 @@
     <Content Include="Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Samples\GraphicsOverlay\SketchOnMap\metadata.json" />
     <None Include="Samples\Layers\ChangeFeatureLayerRenderer\metadata.json" />
     <None Include="Samples\Layers\ChangeSublayerVisibility\metadata.json" />
     <None Include="Samples\Layers\CreateFeatureCollectionLayer\metadata.json" />
@@ -245,6 +247,9 @@
     </Compile>
     <Compile Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphicsVB.xaml.vb">
       <DependentUpon>IdentifyGraphicsVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMapVB.xaml.vb">
+      <DependentUpon>SketchOnMapVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrlVB.xaml.vb">
       <DependentUpon>ArcGISMapImageLayerUrlVB.xaml</DependentUpon>
@@ -385,6 +390,10 @@
     <Page Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphicsVB.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMapVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrlVB.xaml">
       <SubType>Designer</SubType>

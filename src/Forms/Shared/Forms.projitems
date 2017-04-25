@@ -43,15 +43,15 @@
       <SubType>Code</SubType>
       <DependentUpon>ServiceFeatureTableNoCache.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>AnalyzeHotspots.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>AnalyzeViewshed.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>ListGeodatabaseVersions.xaml</DependentUpon>
     </Compile>

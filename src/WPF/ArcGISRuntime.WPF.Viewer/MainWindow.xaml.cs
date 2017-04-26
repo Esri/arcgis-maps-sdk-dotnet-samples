@@ -103,15 +103,18 @@ namespace ArcGISRuntime.Samples.Desktop
 
             try
             {
+                if (SampleManager.Current.SelectedSample.RequiresOfflineData == true)
+                {
+                    foreach (var id in SampleManager.Current.SelectedSample.DataItemIds)
+                    {
+                        DataManager.GetData(id, SampleManager.Current.SelectedSample.Name);
+                    }
+                }
                 SampleContainer.Content = SampleManager.Current.SampleToControl(selectedSample);
 
                 // Call a function to clear any existing credentials from AuthenticationManager
                 ClearCredentials();
 
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
             }
@@ -224,14 +227,22 @@ namespace ArcGISRuntime.Samples.Desktop
         {
             SampleContainer.Visibility = Visibility.Visible;
             DescriptionContainer.Visibility = Visibility.Collapsed;
+            DataContainer.Visibility = Visibility.Collapsed;
         }
 
         private void Description_Click(object sender, RoutedEventArgs e)
         {
             SampleContainer.Visibility = Visibility.Collapsed;
             DescriptionContainer.Visibility = Visibility.Visible;
+            DataContainer.Visibility = Visibility.Collapsed;
         }
 
+        private void Data_Click(object sender, RoutedEventArgs e)
+        {
+            SampleContainer.Visibility = Visibility.Collapsed;
+            DescriptionContainer.Visibility = Visibility.Collapsed;
+            DataContainer.Visibility = Visibility.Visible;
+        }
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             closeNavigation.Visibility = Visibility.Collapsed;
@@ -244,7 +255,9 @@ namespace ArcGISRuntime.Samples.Desktop
             openNavigation.Visibility = Visibility.Collapsed;
             closeNavigation.Visibility = Visibility.Visible;
             root.ColumnDefinitions[0].MaxWidth = 535;
-        } 
+        }
+
+        
     }
 }
 

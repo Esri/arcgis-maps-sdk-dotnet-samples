@@ -39,6 +39,16 @@ namespace ArcGISRuntime.UWP.Viewer
 
             // Get selected sample and set that as a DataContext
             DataContext = SampleManager.Current.SelectedSample;
+
+
+            if(SampleManager.Current.SelectedSample.RequiresOfflineData == true)
+            {
+                foreach (var id in SampleManager.Current.SelectedSample.DataItemIds)
+                {
+                    DataManager.GetData(id, SampleManager.Current.SelectedSample.Name);
+                }
+            }
+
             // Set loaded sample to the UI 
             SampleContainer.Content = SampleManager.Current.SampleToControl(SampleManager.Current.SelectedSample);
             LiveSample.IsChecked = true; // Default to the live sample view

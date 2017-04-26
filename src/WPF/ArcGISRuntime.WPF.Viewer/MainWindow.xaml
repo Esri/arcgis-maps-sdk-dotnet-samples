@@ -170,12 +170,15 @@
                     <StackPanel Orientation="Horizontal" Margin="60,0,0,0">
                         <RadioButton x:Name="liveSample" Margin="5,5,0,0" IsChecked="True" Content="Live sample" Click="LiveSample_Click" GroupName="DetailsTabs"  Background="{StaticResource PrimaryBackgroundColor}" BorderBrush="Transparent" FontSize="24" Style="{DynamicResource SampleHeaderToggleButtonStyle}"/>
                         <RadioButton x:Name="description" Margin="5,5,0,0" Content="Description" Click="Description_Click" GroupName="DetailsTabs" Background="Transparent" BorderBrush="{StaticResource PrimaryBackgroundColor}" FontSize="24" Style="{DynamicResource SampleHeaderToggleButtonStyle}"/>
+                        <RadioButton x:Name="data" Margin="5,5,0,0" Content="Local Data" Click="Data_Click" GroupName="DetailsTabs"  Background="{StaticResource PrimaryBackgroundColor}" BorderBrush="Transparent" FontSize="24" Style="{DynamicResource SampleHeaderToggleButtonStyle}"/>
                     </StackPanel>
                 </Grid>
                 <!-- Details area -->
                 <Grid Background="{StaticResource PrimaryBackgroundColor}" Grid.Row="1">
                     <ContentControl x:Name="SampleContainer" Margin="5"/>
                     <local:Description x:Name="DescriptionContainer" Visibility="Collapsed" Margin="5"
+                                       Background="White"/>
+                    <local:Data x:Name="DataContainer" Visibility="Collapsed" Margin="5"
                                        Background="White"/>
                 </Grid>
             </Grid>

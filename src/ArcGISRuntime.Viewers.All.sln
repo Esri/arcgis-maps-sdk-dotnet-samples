@@ -43,6 +43,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04 Windows", "04 Windows", 
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{0568fd2b-da73-434c-b955-4a149465c535}*SharedItemsImports = 4
 		Forms\Shared\Forms.projitems*{05baeb1e-03dd-4bdc-b0eb-07b2679d9db8}*SharedItemsImports = 13
 		ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{0ad85845-0ba1-4dc9-8c32-e6fd7632e32d}*SharedItemsImports = 13
 		Forms\Shared\Forms.projitems*{183e6918-b2cd-4eeb-9666-8889a151bc7d}*SharedItemsImports = 4

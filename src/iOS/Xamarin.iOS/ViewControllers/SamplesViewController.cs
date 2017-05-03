@@ -67,13 +67,23 @@ namespace ArcGISRuntimeXamarin
                 return data.Count;
             }
 
-            public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
+            public override async void RowSelected(UITableView tableView, NSIndexPath indexPath)
             {
                 try
                 {
                     var item = data[indexPath.Row];
                     var sampleName = (item as SampleModel).SampleName;
                     var sampleNamespace = (item as SampleModel).SampleNamespace;
+
+                    //If Offline data is required for the sample to work download it 
+                    if ((item as SampleModel).RequiresOfflineData)
+                    {
+                        foreach (string id in ((item as SampleModel).DataItemIds))
+                        {
+                            //TODO - Add splash screen/progress bar
+                            await DataManager.GetData(id, sampleName);
+                        }
+                    }
 
                     Type t = Type.GetType(sampleNamespace + "." + sampleName);
                     UIViewController vc = Activator.CreateInstance(t) as UIViewController;

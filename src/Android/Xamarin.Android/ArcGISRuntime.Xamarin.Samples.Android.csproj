@@ -79,6 +79,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Json" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
@@ -95,6 +96,7 @@
   <ItemGroup>
     <Compile Include="CategoriesAdapter.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Managers\DataManager.cs" />
     <Compile Include="Managers\SampleManager.cs" />
     <Compile Include="Managers\TreeItem.cs" />
     <Compile Include="Models\CategoryModel.cs" />

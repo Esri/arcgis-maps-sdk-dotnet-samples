@@ -311,10 +311,6 @@
   ],
   "Featured": [
     {
-      "SampleName": "DisplayMap",
-      "Reason": 1
-    },
-    {
       "SampleName": "OpenExistingMap",
       "Reason": 1
     },
@@ -340,6 +336,10 @@
     },
     {
       "SampleName": "DisplayDeviceLocation",
+      "Reason": 1
+    },
+    {
+      "SampleName": "DisplayMap",
       "Reason": 1
     }
   ]

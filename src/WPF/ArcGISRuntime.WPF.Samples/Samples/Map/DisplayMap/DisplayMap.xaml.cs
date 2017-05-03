@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
+using System.IO;
 
 namespace ArcGISRuntime.WPF.Samples.DisplayMap
 {
@@ -19,6 +20,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayMap
 
             // Create the UI, setup the control references and execute initialization 
             Initialize();
+            var dataPath = Path.Combine(ArcGISRuntime.Samples.Managers.DataManager.GetDataFolder(), "SampleData", "DisplayMap"); 
         }
 
         private void Initialize()

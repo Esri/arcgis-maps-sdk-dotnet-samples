@@ -154,6 +154,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Json" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
@@ -319,6 +320,7 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Managers\DataManager.cs" />
     <Compile Include="Managers\SampleManager.cs" />
     <Compile Include="Managers\TreeItem.cs" />
     <Compile Include="Models\CategoryModel.cs" />

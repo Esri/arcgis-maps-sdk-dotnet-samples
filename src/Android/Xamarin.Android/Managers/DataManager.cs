@@ -7,14 +7,9 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using System;
 using System.IO;
 using System.Threading.Tasks;
 using Esri.ArcGISRuntime.Portal;
-#if NETFX_CORE
-using Windows.Storage;
-#endif
-
 
 namespace ArcGISRuntime.Samples.Managers
 {
@@ -47,36 +42,7 @@ namespace ArcGISRuntime.Samples.Managers
 
         private static async Task UnpackData(string zipFile, string folder)
         {
-            using (var zipStream = File.OpenRead(zipFile))
-            {
-                using (var archive = new System.IO.Compression.ZipArchive(zipStream, System.IO.Compression.ZipArchiveMode.Read))
-                {
-                    Action<DirectoryInfo> createDir = null;
-                    createDir = (s) =>
-                    {
-                        System.Diagnostics.Debug.WriteLine(s.FullName);
-                        if (Directory.Exists(s.FullName)) return;
-                        if (!Directory.Exists(s.Parent.FullName))
-                            createDir(s.Parent);
-                        Directory.CreateDirectory(s.FullName);
-                    };
-                    foreach (var entry in archive.Entries)
-                    {
-                        if (entry.FullName.EndsWith("/")) continue;
-                        var fileInfo = new System.IO.FileInfo(Path.Combine(folder, entry.FullName));
-                        System.Diagnostics.Debug.WriteLine("Unzipping " + fileInfo.FullName);
-                        createDir(fileInfo.Directory);
-                        using (var fileStream = File.Create(fileInfo.FullName))
-                        {
-                            using (var entryStream = entry.Open())
-                            {
-                                await entryStream.CopyToAsync(fileStream).ConfigureAwait(false);
-                            }
-                        }
-                    }
-                }
-
-            }
+                        await Task.Run(() => System.IO.Compression.ZipFile.ExtractToDirectory(zipFile, folder));
         }
 
         /// <summary>
@@ -85,12 +51,7 @@ namespace ArcGISRuntime.Samples.Managers
         /// <returns></returns>
         internal static string GetDataFolder()
         {
-            string appDataFolder = "";
-#if NETFX_CORE
-            appDataFolder  = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
-#else
-            appDataFolder = System.IO.Directory.GetCurrentDirectory();
-#endif
+            var appDataFolder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData);
             return appDataFolder;
         }
     }

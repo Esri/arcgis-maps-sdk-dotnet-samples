@@ -105,13 +105,17 @@ namespace ArcGISRuntime.Samples.Desktop
             {
                 if (SampleManager.Current.SelectedSample.RequiresOfflineData == true)
                 {
-                    foreach (var id in SampleManager.Current.SelectedSample.DataItemIds)
-                    {
-                        DataManager.GetData(id, SampleManager.Current.SelectedSample.Name);
-                    }
+                    var sampleDataPath = Path.Combine(DataManager.GetDataFolder(), "SampleData", SampleManager.Current.SelectedSample.Name);
+                    if (!Directory.Exists(sampleDataPath))
+                        {
+                        data.IsChecked = true;
+                        SampleContainer.Visibility = Visibility.Collapsed;
+                        DescriptionContainer.Visibility = Visibility.Collapsed;
+                        DataContainer.Visibility = Visibility.Visible;
+                        }               
                 }
                 SampleContainer.Content = SampleManager.Current.SampleToControl(selectedSample);
-
+                
                 // Call a function to clear any existing credentials from AuthenticationManager
                 ClearCredentials();
 

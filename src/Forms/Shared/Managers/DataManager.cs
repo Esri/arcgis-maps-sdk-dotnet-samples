@@ -7,7 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using System;
 using System.IO;
 using System.Threading.Tasks;
 using Esri.ArcGISRuntime.Portal;
@@ -47,6 +46,7 @@ namespace ArcGISRuntime.Samples.Managers
 
         private static async Task UnpackData(string zipFile, string folder)
         {
+#if NETFX_CORE
             using (var zipStream = File.OpenRead(zipFile))
             {
                 using (var archive = new System.IO.Compression.ZipArchive(zipStream, System.IO.Compression.ZipArchiveMode.Read))
@@ -75,8 +75,10 @@ namespace ArcGISRuntime.Samples.Managers
                         }
                     }
                 }
-
             }
+#elif __ANDROID__ || __IOS__
+            await Task.Run(() => System.IO.Compression.ZipFile.ExtractToDirectory(zipFile, folder));
+#endif
         }
 
         /// <summary>
@@ -85,11 +87,13 @@ namespace ArcGISRuntime.Samples.Managers
         /// <returns></returns>
         internal static string GetDataFolder()
         {
-            string appDataFolder = "";
+            var appDataFolder =
 #if NETFX_CORE
-            appDataFolder  = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
-#else
-            appDataFolder = System.IO.Directory.GetCurrentDirectory();
+                Windows.Storage.ApplicationData.Current.LocalFolder.Path;
+#elif __ANDROID__
+                System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData);
+#elif __IOS__
+                "Library/";
 #endif
             return appDataFolder;
         }

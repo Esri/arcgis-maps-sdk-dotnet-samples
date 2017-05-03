@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ArcGISRuntime.Samples.Managers;
+using System.Threading;
 
 namespace ArcGISRuntime.WPF.Viewer
 {
@@ -23,6 +25,21 @@ namespace ArcGISRuntime.WPF.Viewer
         public Data()
         {
             InitializeComponent();
+        }
+
+        private async void DownloadData_Click(object sender, RoutedEventArgs e)
+        {
+
+            // TODO loading screen Start
+            if(SampleManager.Current.SelectedSample.DataItemIds != null)
+            {
+                foreach (string id in SampleManager.Current.SelectedSample.DataItemIds)
+                {
+                    await DataManager.GetData(id, SampleManager.Current.SelectedSample.Name);
+                }
+            }
+           
+            // TODO loading screen Stop        
         }
     }
 }

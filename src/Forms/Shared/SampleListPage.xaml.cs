@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntimeXamarin.Managers;
 using ArcGISRuntimeXamarin.Models;
 using System;
@@ -63,6 +64,16 @@ namespace ArcGISRuntimeXamarin
                 var sampleNamespace = item.SampleNamespace;
 
                 Type t = Type.GetType(sampleNamespace + "." + sampleName);
+
+                //If Offline data is required for the sample to work download it 
+                if (item.RequiresOfflineData)
+                {
+                    foreach (string id in item.DataItemIds)
+                    {
+                        //TODO - Add splash screen/progress bar
+                        await DataManager.GetData(id, sampleName);
+                    }
+                }
 
                 await Navigation.PushAsync((ContentPage)Activator.CreateInstance(t));
 

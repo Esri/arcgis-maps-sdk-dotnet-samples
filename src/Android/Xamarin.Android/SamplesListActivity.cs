@@ -66,7 +66,7 @@ namespace ArcGISRuntimeXamarin
             samplesListView.ItemClick += SamplesListView_ItemClick;
         }
 
-        private void SamplesListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        private async void SamplesListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             var sampleName = string.Empty;
 
@@ -76,6 +76,16 @@ namespace ArcGISRuntimeXamarin
                 var item = _listSampleItems[e.Position];
                 sampleName = item.SampleName;
                 var sampleNamespace = item.SampleNamespace;
+
+                //If Offline data is required for the sample to work download it 
+                if (item.RequiresOfflineData)
+                {
+                    foreach (string id in item.DataItemIds)
+                    { 
+                        //TODO - Add splash screen/progress bar
+                        await DataManager.GetData(id, item.SampleName);
+                    }
+                }
 
                 // Each sample is an Activity, so locate it and launch it via an Intent
                 Type t = Type.GetType(sampleNamespace + "." + sampleName);

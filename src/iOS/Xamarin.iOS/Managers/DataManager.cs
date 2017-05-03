@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using Esri.ArcGISRuntime.Portal;
 
 
-namespace ArcGISRuntime.Samples.Managers
+namespace ArcGISRuntimeXamarin.Managers
 {
     public class DataManager
     {

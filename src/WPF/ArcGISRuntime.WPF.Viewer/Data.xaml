@@ -34,14 +34,14 @@
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <StackPanel>
-                    <TextBlock Text="Offline Data Required" Style="{StaticResource HeaderTextBlock}" FontSize="36" />
-                    <TextBlock Text="The sample that you have selected, requires offline data to demonstrate Runtime functionality. To have the sample viewer download and store the appropriate data please select the download option below. " FontSize="18" 
+                    <TextBlock Text="Required Offline Data" Style="{StaticResource HeaderTextBlock}" FontSize="36" />
+                    <TextBlock Text="Some samples may require offline data to demonstrate Runtime functionality. To have the sample viewer download and store the appropriate data please select the download option below. " FontSize="18" 
 									TextWrapping="Wrap" 
                                     Style="{StaticResource PrimaryTextBlock}"
 									VerticalAlignment="Top" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="1">
-                    <TextBlock Text="Download all"                                     
+                    <TextBlock Text="Download"                                     
                                Style="{StaticResource PrimaryTextBlock}" FontSize="24" VerticalAlignment="Center" />
                     <Button Margin="5" FontSize="24" VerticalAlignment="Center" Content="Data" Cursor="Hand" 
                             Click="DownloadData_Click">

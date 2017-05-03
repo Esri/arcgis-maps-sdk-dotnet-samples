@@ -17,7 +17,7 @@ using Windows.Storage;
 #endif
 
 
-namespace ArcGISRuntime.Samples.Managers
+namespace ArcGISRuntimeXamarin.Managers
 {
     public class DataManager
     {

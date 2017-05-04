@@ -20,7 +20,6 @@ namespace ArcGISRuntime.WPF.Samples.DisplayMap
 
             // Create the UI, setup the control references and execute initialization 
             Initialize();
-            var dataPath = Path.Combine(ArcGISRuntime.Samples.Managers.DataManager.GetDataFolder(), "SampleData", "DisplayMap"); 
         }
 
         private void Initialize()

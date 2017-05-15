@@ -52,8 +52,7 @@ namespace ArcGISRuntime.UWP.Samples.TakeScreenshot
             var imageView = new Image()
             {
                 Source = exportedImage,
-                Margin = new Thickness(10),
-                Stretch = Stretch.Uniform
+                Margin = new Thickness(10)  
             };
 
             // Set image as a content

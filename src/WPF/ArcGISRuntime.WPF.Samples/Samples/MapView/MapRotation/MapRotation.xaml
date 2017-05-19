@@ -14,7 +14,8 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackPanel x:Name="MyStackPanel" Orientation="Horizontal" Grid.Row="0">
-            <DockPanel VerticalAlignment="Top" Background="White" Height="30">
+            <DockPanel VerticalAlignment="Top" Background="White" Height="30" Margin="5">
+                <TextBlock>Slide to rotate Map   </TextBlock>
                 <Slider x:Name="MySlider" Minimum="0" Maximum="180" Value="0" ValueChanged="MySlider_ValueChanged" Width="500"/>
                 <Label x:Name="MyLabel" DockPanel.Dock="Right"/>
             </DockPanel>

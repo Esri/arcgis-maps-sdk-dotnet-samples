@@ -12,7 +12,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
-            <Label x:Name="loadStatusLabel" Content="Maps' load status : "/>
+            <Label x:Name="loadStatusLabel" Content="Maps' load status : " Background="Yellow"/>
         </StackPanel>
         <esri:MapView x:Name="myMapView"  Grid.Row="1"/>
     </Grid>

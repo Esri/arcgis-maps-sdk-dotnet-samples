@@ -5,13 +5,11 @@
              xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
              x:Class="ArcGISRuntimeXamarin.Samples.DisplayDrawingStatus.DisplayDrawingStatus">
   <Grid>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="*" />
-      <RowDefinition Height="auto" />
-    </Grid.RowDefinitions>
-    <esriUI:MapView x:Name="myMapView" />
-    <StackLayout Padding="5" Grid.Row="1">
-      <ActivityIndicator x:Name="activityIndicator" />
-    </StackLayout>
-  </Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <esriUI:MapView x:Name="myMapView" />
+        <ActivityIndicator x:Name="activityIndicator" Color="Black" />
+    </Grid>
 </ContentPage>

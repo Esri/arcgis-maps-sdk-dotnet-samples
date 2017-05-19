@@ -58,11 +58,13 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayDrawingStatus
                 // Show the activity indicator if the map is drawing
                 if (e.Status == DrawStatus.InProgress)
                 {
+                    activityIndicator.IsVisible = true;
                     activityIndicator.IsRunning = true;
                 }
                 else
                 {
                     activityIndicator.IsRunning = false;
+                    activityIndicator.IsVisible = false;
                 }
             });
         }

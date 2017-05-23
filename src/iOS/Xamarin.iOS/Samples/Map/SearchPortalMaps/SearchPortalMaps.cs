@@ -56,9 +56,9 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             Title = "Open an existing map";
         }
 
-        public override void ViewDidLayoutSubviews()
+        public override void ViewDidLoad()
         {
-            base.ViewDidLayoutSubviews();
+            base.ViewDidLoad();
 
             // Create the UI, setup the control references and execute initialization 
             CreateLayout();

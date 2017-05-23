@@ -36,9 +36,9 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyGraphics
             Title = "Identify graphics";
         }
 
-        public override void ViewDidLayoutSubviews()
+        public override void ViewDidLoad()
         {
-            base.ViewDidLayoutSubviews();
+            base.ViewDidLoad();
 
             // Create the UI, setup the control references and execute initialization 
             CreateLayout();

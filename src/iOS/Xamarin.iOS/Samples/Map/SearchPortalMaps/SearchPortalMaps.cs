@@ -53,12 +53,12 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
 
         public SearchPortalMaps()
         {
-            Title = "Open an existing map";
+            Title = "Search a portal for maps";
         }
 
-        public override void ViewDidLayoutSubviews()
+        public override void ViewDidLoad()
         {
-            base.ViewDidLayoutSubviews();
+            base.ViewDidLoad();
 
             // Create the UI, setup the control references and execute initialization 
             CreateLayout();
@@ -722,6 +722,13 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             _searchTextField.Placeholder = "Search text";
             _searchTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
             _searchTextField.BackgroundColor = UIColor.LightGray;
+
+            // Hide the keyboard when "Enter" is clicked
+            _searchTextField.ShouldReturn += (input) =>
+            {
+                input.ResignFirstResponder();
+                return true;
+            };
 
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;

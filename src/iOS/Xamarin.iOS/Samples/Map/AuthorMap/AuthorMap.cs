@@ -66,9 +66,9 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             Title = "Author and save a map";
         }
 
-        public override void ViewDidLayoutSubviews()
+        public override void ViewDidLoad()
         {
-            base.ViewDidLayoutSubviews();
+            base.ViewDidLoad();
 
             // Create the layout
             CreateLayout();

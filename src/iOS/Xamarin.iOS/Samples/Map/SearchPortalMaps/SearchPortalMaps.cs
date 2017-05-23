@@ -723,6 +723,13 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             _searchTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
             _searchTextField.BackgroundColor = UIColor.LightGray;
 
+            // Hide the keyboard when "Enter" is clicked
+            _searchTextField.ShouldReturn += (input) =>
+            {
+                input.ResignFirstResponder();
+                return true;
+            };
+
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;
 

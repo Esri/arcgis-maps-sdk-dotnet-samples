@@ -53,7 +53,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
 
         public SearchPortalMaps()
         {
-            Title = "Open an existing map";
+            Title = "Search a portal for maps";
         }
 
         public override void ViewDidLoad()

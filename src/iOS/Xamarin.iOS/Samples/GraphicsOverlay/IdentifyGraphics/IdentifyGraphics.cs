@@ -14,7 +14,6 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using System.Collections.Generic;
 using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.IdentifyGraphics
@@ -30,6 +29,9 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyGraphics
 
         // Graphics overlay to host graphics
         private GraphicsOverlay _polygonOverlay;
+
+        // Flag to indicate that an Identify operation is in progress
+        private bool identifying = false;
 
         public IdentifyGraphics()
         { 
@@ -55,7 +57,7 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyGraphics
 
             // Hook into tapped event
             _myMapView.GeoViewTapped += OnMapViewTapped;
-
+            
             // Assign the map to the MapView
             _myMapView.Map = myMap;
         }
@@ -80,7 +82,7 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyGraphics
 
             // Create new graphic
             Graphic polygonGraphic = new Graphic(polygonGeometry, polygonSymbol);
-
+            
             // Create overlay to where graphics are shown
             _polygonOverlay = new GraphicsOverlay();
             _polygonOverlay.Graphics.Add(polygonGraphic);
@@ -91,9 +93,15 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyGraphics
 
         private async void OnMapViewTapped(object sender, GeoViewInputEventArgs e)
         {
+            // If an IdentifyGraphicsOverlayAsync operation is in progress, ignore this click
+            if(identifying) { return; }
+
             var tolerance = 10d; // Use larger tolerance for touch
             var maximumResults = 1; // Only return one graphic  
             var onlyReturnPopups = false; // Don't only return popups
+
+            // Set the flag that indicates an identify is in progress (in case the user clicks again immediately)
+            identifying = true;
 
             // Use the following method to identify graphics in a specific graphics overlay
             IdentifyGraphicsOverlayResult identifyResults = await _myMapView.IdentifyGraphicsOverlayAsync(
@@ -102,6 +110,9 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyGraphics
                  tolerance, 
                  onlyReturnPopups, 
                  maximumResults);
+
+            // Clear the flag for an identify in progress
+            identifying = false;
 
             // Check if we got results
             if (identifyResults.Graphics.Count > 0)

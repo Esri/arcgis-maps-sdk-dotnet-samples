@@ -9,5 +9,5 @@
   "RequiresLocalServer": false,
   "Image": "FeatureCollectionLayerFromPortal.jpg",
   "Link": "",
-  "TypeLink": [ "T:Esri.ArcGISRuntime.Portal.ArcGISPortal","M:Esri.ArcGISRuntime.Portal.ArcGISPortal.CreateAsync","T:Esri.ArcGISRuntime.Portal.Item" ]
+  "TypeLink": ["T:Esri.ArcGISRuntime.Portal.ArcGISPortal","M:Esri.ArcGISRuntime.Portal.ArcGISPortal.CreateAsync","T:Esri.ArcGISRuntime.Portal.Item","T:Esri.ArcGISRuntime.Portal.PortalItem","M:Esri.ArcGISRuntime.Data.FeatureCollection.#ctor(Esri.ArcGISRuntime.Portal.Item)","T:Esri.ArcGISRuntime.Portal.PortalItemType","P:Esri.ArcGISRuntime.Portal.Item.Title","P:Esri.ArcGISRuntime.Portal.PortalItem.Type","M:Esri.ArcGISRuntime.Portal.PortalItem.CreateAsync(Esri.ArcGISRuntime.Portal.ArcGISPortal,System.String)"]
 }

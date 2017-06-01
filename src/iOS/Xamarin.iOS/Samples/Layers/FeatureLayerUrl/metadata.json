@@ -9,7 +9,6 @@
   "RequiresLocalServer":false,
   "Image":"FeatureLayerUrl.jpg",
   "Link":"",
-  "TypeLink": ["T:Esri.ArcGISRuntime.Mapping.FeatureLayer","P:Esri.ArcGISRuntime.Mapping.Map.OperationalLayers"
-  ],
+  "TypeLink": ["M:Esri.ArcGISRuntime.Mapping.Basemap.CreateTerrainWithLabels","T:Esri.ArcGISRuntime.Mapping.FeatureLayer","M:Esri.ArcGISRuntime.Mapping.FeatureLayer.#ctor(System.Uri)","P:Esri.ArcGISRuntime.Mapping.Map.OperationalLayers"],
   "SampleFolder": "FeatureLayerUrl"
 }

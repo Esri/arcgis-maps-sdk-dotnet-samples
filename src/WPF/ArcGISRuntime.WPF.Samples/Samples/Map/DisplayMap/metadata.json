@@ -10,6 +10,5 @@
   "RequiresLocalServer":false,
   "Image":"DisplayMap.jpg",
   "Link":"",
-  "TypeLink": ["T:Esri.ArcGISRuntime.Mapping.Basemap","T:Esri.ArcGISRuntime.Mapping.Map"
-  ]
+  "TypeLink": ["T:Esri.ArcGISRuntime.Mapping.Basemap","M:Esri.ArcGISRuntime.Mapping.Map.#ctor(Esri.ArcGISRuntime.Mapping.Basemap)","T:Esri.ArcGISRuntime.UI.Controls.MapView"]
 }

@@ -9,7 +9,6 @@
   "RequiresLocalServer":false,
   "Image":"RenderSimpleMarkers.jpg",
   "Link":"",
-  "TypeLink": ["T:Esri.ArcGISRuntime.Symbology.SimpleMarkerSymbol","T:Esri.ArcGISRuntime.Symbology.SimpleMarkerSymbolStyle","P:Esri.ArcGISRuntime.Symbology.SimpleMarkerSymbol.Color"
-  ],
+  "TypeLink": ["T:Esri.ArcGISRuntime.Symbology.SimpleMarkerSymbol","T:Esri.ArcGISRuntime.Symbology.SimpleMarkerSymbolStyle","P:Esri.ArcGISRuntime.Symbology.SimpleMarkerSymbol.Color","P:Esri.ArcGISRuntime.Symbology.SimpleMarkerSymbol.Style","P:Esri.ArcGISRuntime.Symbology.SimpleMarkerSymbol.Size","M:Esri.ArcGISRuntime.Symbology.SimpleMarkerSymbol.#ctor","P:Esri.ArcGISRuntime.UI.Controls.GeoView.GraphicsOverlays"],
  "SampleFolder":  "RenderSimpleMarkers"
 }

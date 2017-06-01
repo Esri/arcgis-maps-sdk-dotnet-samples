@@ -9,7 +9,6 @@
   "RequiresLocalServer":false,
   "Image":"DisplayDrawingStatus.jpg",
   "Link":"",
-  "TypeLink": ["T:Esri.ArcGISRuntime.UI.DrawStatus","E:Esri.ArcGISRuntime.UI.Controls.GeoView.DrawStatusChanged"
-  ],
+  "TypeLink": ["E:Esri.ArcGISRuntime.UI.Controls.GeoView.DrawStatusChanged","T:Esri.ArcGISRuntime.UI.DrawStatus","T:Esri.ArcGISRuntime.UI.DrawStatusChangedEventArgs","P:Esri.ArcGISRuntime.UI.DrawStatusChangedEventArgs.Status"],
   "SampleFolder": "DisplayDrawingStatus"
 }

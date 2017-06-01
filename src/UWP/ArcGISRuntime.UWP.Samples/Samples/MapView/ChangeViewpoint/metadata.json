@@ -9,6 +9,5 @@
   "RequiresLocalServer":false,
   "Image":"ChangeViewpoint.jpg",
   "Link":"",
-  "TypeLink": ["T:Esri.ArcGISRuntime.Mapping.Viewpoint","M:Esri.ArcGISRuntime.Mapping.Viewpoint.#ctor(Esri.ArcGISRuntime.Geometry.Geometry)"
-  ]
+  "TypeLink": ["T:Esri.ArcGISRuntime.Mapping.Viewpoint","M:Esri.ArcGISRuntime.Mapping.Viewpoint.#ctor(Esri.ArcGISRuntime.Geometry.Geometry)","M:Esri.ArcGISRuntime.UI.Controls.GeoView.SetViewpointAsync(Esri.ArcGISRuntime.Mapping.Viewpoint)","M:Esri.ArcGISRuntime.UI.Controls.GeoView.SetViewpointAsync(Esri.ArcGISRuntime.Mapping.Viewpoint,System.TimeSpan)","P:Esri.ArcGISRuntime.Mapping.ArcGISTiledLayer.Source","M:Esri.ArcGISRuntime.UI.Controls.MapView.SetViewpointCenterAsync(Esri.ArcGISRuntime.Geometry.MapPoint)","M:Esri.ArcGISRuntime.UI.Controls.MapView.SetViewpointGeometryAsync(Esri.ArcGISRuntime.Geometry.Geometry,System.Double)","M:Esri.ArcGISRuntime.UI.Controls.MapView.SetViewpointScaleAsync(System.Double)"]
 }

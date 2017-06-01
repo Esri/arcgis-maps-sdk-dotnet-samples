@@ -9,7 +9,6 @@
   "RequiresLocalServer":false,
   "Image":"ServiceFeatureTableNoCache.jpg",
   "Link":"",
-  "TypeLink": ["T:Esri.ArcGISRuntime.Data.FeatureRequestMode"
-  ],
+  "TypeLink": ["T:Esri.ArcGISRuntime.Data.FeatureRequestMode","P:Esri.ArcGISRuntime.Geometry.SpatialReferences.WebMercator","M:Esri.ArcGISRuntime.Mapping.FeatureLayer.#ctor(Esri.ArcGISRuntime.Data.FeatureTable)"],
   "SampleFolder": "ServiceFeatureTableNoCache"
 }

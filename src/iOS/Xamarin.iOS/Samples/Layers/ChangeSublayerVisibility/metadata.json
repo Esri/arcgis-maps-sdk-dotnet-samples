@@ -9,7 +9,6 @@
   "RequiresLocalServer":false,
   "Image":"ChangeSublayerVisibility.jpg",
   "Link":"",
-  "TypeLink": ["T:Esri.ArcGISRuntime.Mapping.ArcGISSublayer","P:Esri.ArcGISRuntime.Mapping.ArcGISSublayer.IsVisible","P:Esri.ArcGISRuntime.Mapping.ArcGISMapImageLayer.Sublayers"
-  ],
+  "TypeLink": ["T:Esri.ArcGISRuntime.Mapping.ArcGISSublayer","P:Esri.ArcGISRuntime.Mapping.ArcGISSublayer.IsVisible","P:Esri.ArcGISRuntime.Mapping.ArcGISMapImageLayer.Sublayers","P:Esri.ArcGISRuntime.Mapping.Layer.Name","E:Esri.ArcGISRuntime.Mapping.Layer.LoadAsync"],
   "SampleFolder": "ChangeSublayerVisibility"
 }

@@ -9,6 +9,5 @@
   "RequiresLocalServer":false,
   "Image":"ServiceFeatureTableManualCache.jpg",
   "Link":"",
-  "TypeLink": ["E:Esri.ArcGISRuntime.Data.FeatureTable.LoadStatusChanged","M:Esri.ArcGISRuntime.Data.ServiceFeatureTable.PopulateFromServiceAsync(Esri.ArcGISRuntime.Data.QueryParameters,System.Boolean,System.Collections.Generic.IEnumerable{System.String})"
-  ]
+  "TypeLink": ["E:Esri.ArcGISRuntime.Data.FeatureTable.LoadStatusChanged","M:Esri.ArcGISRuntime.Data.QueryParameters.#ctor","T:Esri.ArcGISRuntime.LoadStatusEventArgs","M:Esri.ArcGISRuntime.Mapping.Viewpoint.#ctor(Esri.ArcGISRuntime.Geometry.MapPoint,System.Double)"]
 }

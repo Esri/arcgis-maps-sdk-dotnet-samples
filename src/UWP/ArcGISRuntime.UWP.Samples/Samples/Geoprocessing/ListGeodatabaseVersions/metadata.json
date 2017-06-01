@@ -9,6 +9,5 @@
   "RequiresLocalServer":false,
   "Image":"ListGeodatabaseVersions.jpg",
   "Link":"",
-  "TypeLink": ["T:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingResult","P:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingResult.Outputs","T:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingTask","M:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingTask.#ctor(System.Uri)"
-  ]
+  "TypeLink": ["T:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingResult","P:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingResult.Outputs","T:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingTask","M:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingTask.#ctor(System.Uri)","P:Esri.ArcGISRuntime.Data.GeoElement.Attributes","P:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingFeatures.Features","M:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingParameters.#ctor(Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingExecutionType)"]
 }

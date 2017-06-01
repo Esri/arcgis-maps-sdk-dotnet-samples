@@ -9,6 +9,5 @@
   "RequiresLocalServer":false,
   "Image":"ChangeFeatureLayerRenderer.jpg",
   "Link":"",
-  "TypeLink": ["P:Esri.ArcGISRuntime.Mapping.FeatureLayer.Renderer","T:Esri.ArcGISRuntime.Symbology.Renderer","M:Esri.ArcGISRuntime.Mapping.FeatureLayer.ResetRenderer","T:Esri.ArcGISRuntime.Symbology.SimpleLineSymbol"
-  ]
+  "TypeLink": ["P:Esri.ArcGISRuntime.Mapping.FeatureLayer.Renderer","T:Esri.ArcGISRuntime.Symbology.Renderer","M:Esri.ArcGISRuntime.Mapping.FeatureLayer.ResetRenderer","T:Esri.ArcGISRuntime.Symbology.SimpleLineSymbol","T:Esri.ArcGISRuntime.Symbology.SimpleLineSymbolStyle","P:Esri.ArcGISRuntime.Symbology.LineSymbol.Color","P:Esri.ArcGISRuntime.Symbology.LineSymbol.Width","P:Esri.ArcGISRuntime.Symbology.SimpleLineSymbol.Style"]
 }

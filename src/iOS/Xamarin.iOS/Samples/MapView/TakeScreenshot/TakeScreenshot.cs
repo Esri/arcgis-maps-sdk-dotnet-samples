@@ -38,12 +38,24 @@ namespace ArcGISRuntimeXamarin.Samples.TakeScreenshot
             this.Title = "Take Screenshot";
         }
 
-        public override void ViewDidLayoutSubviews()
+        public override void ViewDidLoad()
         {
-            base.ViewDidLayoutSubviews();
+            base.ViewDidLoad();
             // Create the UI, setup the control references and execute initialization 
             CreateLayout();
             Initialize();
+        }
+
+        public override void ViewDidLayoutSubviews()
+        {
+            // Setup the visual frame for the MapView
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+
+            _overlayView.Frame = new CoreGraphics.CGRect(10, 80, _myMapView.Frame.Width - 20, _myMapView.Frame.Height - 75);
+
+            _overlayImageView.Frame = new CoreGraphics.CGRect(0, 0, _overlayView.Frame.Width, _overlayView.Frame.Height);
+           
+            base.ViewDidLayoutSubviews();
         }
 
         private void Initialize()
@@ -73,11 +85,8 @@ namespace ArcGISRuntimeXamarin.Samples.TakeScreenshot
         private void CreateLayout()
         {
             // Setup the visual frame for the MapView
-            _myMapView = new MapView()
-            {
-                Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height- yPageOffset)
-            };
-
+            _myMapView = new MapView();
+    
             // Create a button to take the screenshot
             var screenshotButton = new UIBarButtonItem() { Title = "Screenshot", Style = UIBarButtonItemStyle.Plain };
             screenshotButton.Clicked += OnScreenshotButtonClicked;
@@ -96,16 +105,10 @@ namespace ArcGISRuntimeXamarin.Samples.TakeScreenshot
             NavigationController.ToolbarHidden = false;
 
             // Add the new View as an overlayview
-            _overlayView = new UIView()
-            {
-                Frame = new CoreGraphics.CGRect(10, 80, _myMapView.Frame.Width-20, _myMapView.Frame.Height-75)
-            };
+            _overlayView = new UIView();
 
             // Create a new image view to hold the screenshot image
-            _overlayImageView = new UIImageView()
-            {
-                Frame = new CoreGraphics.CGRect(0, 0, _overlayView.Frame.Width, _overlayView.Frame.Height)
-            };
+            _overlayImageView = new UIImageView();
             _overlayImageView.Layer.BorderColor = UIColor.White.CGColor;
             _overlayImageView.Layer.BorderWidth = 2;
 

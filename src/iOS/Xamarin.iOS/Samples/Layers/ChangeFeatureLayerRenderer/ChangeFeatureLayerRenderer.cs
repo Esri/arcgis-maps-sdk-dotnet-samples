@@ -23,7 +23,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeFeatureLayerRenderer
     public class ChangeFeatureLayerRenderer : UIViewController
     {
         // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        private MapView _myMapView;
 
         //Create and hold reference to the feature layer
         private FeatureLayer _featureLayer;

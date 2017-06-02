@@ -30,6 +30,8 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 
+        UISegmentedControl _segmentButton;
+
         // Use a TaskCompletionSource to track the completion of the authorization
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
 
@@ -65,6 +67,34 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             Initialize();
         }
 
+        public override void ViewDidLayoutSubviews()
+        {
+            // Setup the visual frame for the MapView
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+
+            if (_searchMapsUI != null)
+            {
+                _searchMapsUI.Bounds = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height);
+                _searchMapsUI.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height);
+                _searchMapsUI.Center = View.Center;
+            }
+                
+
+            if (_oauthInfoUI != null)
+            {
+                _oauthInfoUI.Bounds = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height);
+                _oauthInfoUI.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height);
+                _oauthInfoUI.Center = View.Center;
+            }
+                
+
+            _segmentButton.Frame = new CoreGraphics.CGRect(0, _myMapView.Bounds.Height, View.Bounds.Width, 30);
+
+
+
+            base.ViewDidLayoutSubviews();
+        }
+
         private void Initialize()
         {
             // Create a new Map instance to display by default
@@ -82,7 +112,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             if (_oauthInfoUI != null) { return; }
 
             // Create a view to show entry controls over the map view
-            var ovBounds = new CoreGraphics.CGRect(0, 60, View.Bounds.Width, View.Bounds.Height - 60);
+            var ovBounds = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height); ;
             _oauthInfoUI = new OAuthPropsDialogOverlay(ovBounds, 0.75f, UIColor.White, _appClientId, _oAuthRedirectUrl);
 
             // Handle the OnOAuthPropsInfoEntered event to get the info entered by the user
@@ -111,21 +141,17 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
 
         private void CreateLayout()
         {
-            // Define the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height - yPageOffset);
-
             // Add a segmented button control
-            var segmentButton = new UISegmentedControl();
-            segmentButton.BackgroundColor = UIColor.White;
-            segmentButton.Frame = new CoreGraphics.CGRect(0, _myMapView.Bounds.Height, View.Bounds.Width, 30);
-            segmentButton.InsertSegment("Search Maps", 0, false);
-            segmentButton.InsertSegment("My Maps", 1, false);
+            _segmentButton = new UISegmentedControl();
+            _segmentButton.BackgroundColor = UIColor.White;
+            _segmentButton.InsertSegment("Search Maps", 0, false);
+            _segmentButton.InsertSegment("My Maps", 1, false);
 
             // Handle the "click" for each segment (new segment is selected)
-            segmentButton.ValueChanged += SegmentButtonClicked;
+            _segmentButton.ValueChanged += SegmentButtonClicked;
 
             // Add the MapView and segmented button to the page
-            View.AddSubviews(_myMapView, segmentButton);
+            View.AddSubviews(_myMapView, _segmentButton);
         }
 
         private void SegmentButtonClicked(object sender, EventArgs e)
@@ -157,7 +183,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             if (_searchMapsUI != null) { return; }
 
             // Create a view to show map item info entry controls over the map view
-            var ovBounds = new CoreGraphics.CGRect(0, 60, View.Bounds.Width, View.Bounds.Height - 60);
+            var ovBounds = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height);
             _searchMapsUI = new SearchMapsDialogOverlay(ovBounds, 0.75f, UIColor.White);
 
             // Handle the OnSearchMapsTextEntered event to get the info entered by the user

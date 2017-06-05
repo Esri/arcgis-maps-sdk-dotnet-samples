@@ -32,13 +32,21 @@ namespace ArcGISRuntimeXamarin.Samples.AccessLoadStatus
             Title = "Access load status";
         }
 
-        public override void ViewDidLayoutSubviews()
+        public override void ViewDidLoad()
         {
-            base.ViewDidLayoutSubviews();
+            base.ViewDidLoad();
 
             // Create the UI, setup the control references and execute initialization 
             CreateLayout();
             Initialize();
+        }
+
+        public override void ViewDidLayoutSubviews()
+        {
+            // Setup the visual frame for the MapView
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+
+            base.ViewDidLayoutSubviews();
         }
 
         private void Initialize()
@@ -73,11 +81,7 @@ namespace ArcGISRuntimeXamarin.Samples.AccessLoadStatus
                 Frame = new CoreGraphics.CGRect(
                     0, yPageOffset, View.Bounds.Width, 40)
             };
-
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(
-                0, yPageOffset + 40, View.Bounds.Width, View.Bounds.Height - yPageOffset - 40);
-          
+  
             // Add MapView to the page
             View.AddSubviews(_myMapView, _loadStatusTextView);
         }

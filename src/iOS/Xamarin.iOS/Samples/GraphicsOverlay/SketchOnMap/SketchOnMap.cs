@@ -46,15 +46,21 @@ namespace ArcGISRuntimeXamarin.Samples.SketchOnMap
             Title = "Sketch on map";
         }
         
-        public override void ViewDidLayoutSubviews()
+        public override void ViewDidLoad()
         {
-            base.ViewDidLayoutSubviews();
+            base.ViewDidLoad();
 
             // Create the UI 
             CreateLayout();
 
             // Initialize controls, set up event handlers, etc.
             Initialize();
+        }
+
+        public override void ViewDidLayoutSubviews()
+        {
+           // Setup the visual frame for the MapView
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
         }
 
         private void Initialize()
@@ -88,9 +94,6 @@ namespace ArcGISRuntimeXamarin.Samples.SketchOnMap
         {
             // Create a new MapView control
             _myMapView = new MapView();
-
-            // Define the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height - yPageOffset);
 
             // Add a segmented button control
             _segmentButton = new UISegmentedControl();

@@ -18,45 +18,46 @@ namespace ArcGISRuntimeXamarin.Samples.MapRotation
     [Register("MapRotation")]
     public class MapRotation : UIViewController
     {
+
+        private MapView _myMapView;
+        private int _yOffset = 60;
+        private UIToolbar _toolbar;
+
         public MapRotation()
         {
             Title = "Map rotation";
         }
 
-        public override void ViewDidLayoutSubviews()
+        public override void ViewDidLoad()
         {
-            base.ViewDidLayoutSubviews();
-
-            // Create a variable to hold the yOffset where the MapView control should start
-            var yOffset = 60;
+            base.ViewDidLoad();
 
             // Create a new MapView control and provide its location coordinates on the frame
-            MapView myMapView = new MapView();
-            myMapView.Frame = new CoreGraphics.CGRect(0, yOffset, View.Bounds.Width, View.Bounds.Height - yOffset);
-
+            _myMapView = new MapView();
+            
             // Create a new Map instance with the basemap  
             var myBasemap = Basemap.CreateStreets();
             Map myMap = new Map(myBasemap);
 
             // Assign the Map to the MapView
-            myMapView.Map = myMap;
+            _myMapView.Map = myMap;
 
             // Create a label to display the MapView rotation value
             UILabel rotationLabel = new UILabel();
             rotationLabel.Frame = new CoreGraphics.CGRect(View.Bounds.Width - 60, 8, View.Bounds.Width, 24);
-            rotationLabel.Text = string.Format("{0:0}°", myMapView.MapRotation);
+            rotationLabel.Text = string.Format("{0:0}°", _myMapView.MapRotation);
 
             // Create a slider to control the MapView rotation
             UISlider rotationSlider = new UISlider()
             {
                 MinValue = 0,
                 MaxValue = 360,
-                Value = (float)myMapView.MapRotation
+                Value = (float)_myMapView.MapRotation
             };
             rotationSlider.Frame = new CoreGraphics.CGRect(10, 8, View.Bounds.Width - 100, 24);
             rotationSlider.ValueChanged += (Object s, EventArgs e) =>
             {
-                myMapView.SetViewpointRotationAsync(rotationSlider.Value);
+                _myMapView.SetViewpointRotationAsync(rotationSlider.Value);
                 rotationLabel.Text = string.Format("{0:0}°", rotationSlider.Value);
             };
 
@@ -69,17 +70,27 @@ namespace ArcGISRuntimeXamarin.Samples.MapRotation
             barButtonLabel.CustomView = rotationLabel;
 
             // Create a toolbar on the bottom of the display 
-            UIToolbar toolbar = new UIToolbar();
-            toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, View.Bounds.Height);
-            toolbar.AutosizesSubviews = true;
+            _toolbar = new UIToolbar();
+            _toolbar.AutosizesSubviews = true;
 
             // Add the bar button items to an array of UIBarButtonItems
             UIBarButtonItem[] barButtonItems = new UIBarButtonItem[] { barButtonSlider, barButtonLabel };
 
             // Add the UIBarButtonItems array to the toolbar
-            toolbar.SetItems(barButtonItems, true);
+            _toolbar.SetItems(barButtonItems, true);
 
-            View.AddSubviews(myMapView, toolbar);
+            View.AddSubviews(_myMapView, _toolbar);
+        }
+
+        public override void ViewDidLayoutSubviews()
+        {
+            // Setup the visual frame for the MapView
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            // Setup the visual frame for the Toolbar
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, View.Bounds.Height);
+
+
+            base.ViewDidLayoutSubviews();
         }
     }
 }

@@ -62,8 +62,7 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerQuery
         public override void ViewDidLayoutSubviews()
         {
             // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(
-                0, yPageOffset + 80, View.Bounds.Width, View.Bounds.Height - yPageOffset - 80);
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
             // Setup the visual frame for the text field used in query
             _queryTextView.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, 40);

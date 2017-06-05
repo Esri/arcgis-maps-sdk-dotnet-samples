@@ -29,20 +29,34 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureCollectionLayerFromPortal
         // Text field for specifying a portal item Id
         UITextField _collectionItemIdTextBox;
 
+        UIButton _addFeaturesButton;
+
         public FeatureCollectionLayerFromPortal()
         {
             Title = "Create a feature collection layer from a portal item";
         }
 
-        public override void ViewDidLayoutSubviews()
+        public override void ViewDidLoad()
         {
-            base.ViewDidLayoutSubviews();
+            base.ViewDidLoad();
 
             // Create the layout
             CreateLayout();
 
             // Initialize the app
             Initialize();
+        }
+
+        public override void ViewDidLayoutSubviews()
+        {
+            // Setup the visual frame for the MapView
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height - 50);
+
+            _collectionItemIdTextBox.Frame = new CoreGraphics.CGRect(10, View.Bounds.Height - 50, View.Bounds.Width - 10, 20);
+
+            _addFeaturesButton.Frame =  new CoreGraphics.CGRect(0, View.Bounds.Height -30, View.Bounds.Width, 30);
+
+            base.ViewDidLayoutSubviews();
         }
 
         private void Initialize()
@@ -114,38 +128,25 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureCollectionLayerFromPortal
             // Define an offset from the top of the page (to account for the iOS status bar)
             var yPageOffset = 60;
 
-            // Define the bottom of the map view (accommodate for additional controls below)
-            var bottom = appViewHeight - yPageOffset - 80;
 
             // Create a new MapView
             _myMapView = new MapView();
 
-            // Setup the visual frame for the MapView
-            var mapViewFrame = new CoreGraphics.CGRect(0, yPageOffset, appViewWidth, bottom);
-            _myMapView.Frame = mapViewFrame;
-
             // Create a text input for the portal item Id
-            bottom += 70;
-            var textInputFrame = new CoreGraphics.CGRect(10, bottom, appViewWidth - 10, 20);
-            _collectionItemIdTextBox = new UITextField(textInputFrame);
+            _collectionItemIdTextBox = new UITextField();
             _collectionItemIdTextBox.BackgroundColor = UIColor.LightGray;
 
             // Create a button for adding features from a portal item
-            bottom += 30;
-            var buttonFrame = new CoreGraphics.CGRect(0, bottom, appViewWidth, 30);
-            UIButton addFeaturesButton = new UIButton(UIButtonType.Custom)
-            {
-                Frame = buttonFrame,
-                BackgroundColor = UIColor.White
-            };
-            addFeaturesButton.SetTitle("Add from portal item", UIControlState.Normal);
-            addFeaturesButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _addFeaturesButton = new UIButton(UIButtonType.Custom);
+            _addFeaturesButton.SetTitle("Add from portal item", UIControlState.Normal);
+            _addFeaturesButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _addFeaturesButton.BackgroundColor = UIColor.White;
 
             // Assign a click handler to the UIButton
-            addFeaturesButton.TouchUpInside += OpenPortalFeatureCollectionClick;
+            _addFeaturesButton.TouchUpInside += OpenPortalFeatureCollectionClick;
 
             // Add the MapView, UITextField, and UIButton to the page
-            View.AddSubviews(_myMapView, _collectionItemIdTextBox, addFeaturesButton);
+            View.AddSubviews(_myMapView, _collectionItemIdTextBox, _addFeaturesButton);
             View.BackgroundColor = UIColor.White;
         }
     }

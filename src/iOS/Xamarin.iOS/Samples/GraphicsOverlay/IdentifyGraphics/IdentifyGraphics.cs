@@ -45,6 +45,12 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyGraphics
             Initialize();
         }
 
+        public override void ViewDidLayoutSubviews()
+        {
+            // Setup the visual frame for the MapView
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+        }
+
         private void Initialize()
         {
             // Create a map with 'Imagery with Labels' basemap and an initial location
@@ -117,10 +123,6 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyGraphics
 
         private void CreateLayout()
         {
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(
-                0, yPageOffset, View.Bounds.Width, View.Bounds.Height - yPageOffset);
-
             // Add MapView to the page
             View.AddSubviews(_myMapView);
         }

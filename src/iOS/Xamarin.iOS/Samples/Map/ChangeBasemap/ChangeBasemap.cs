@@ -18,6 +18,13 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBasemap
     [Register("ChangeBasemap")]
     public class ChangeBasemap : UIViewController
     {
+
+        // Create a variable to hold the yOffset where the MapView control should start
+        int _yOffset = 60;
+
+        MapView _myMapView;
+
+
         public ChangeBasemap()
         {
             Title = "Change basemap";
@@ -29,23 +36,23 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBasemap
             base.DidReceiveMemoryWarning();
         }
 
-        public override void ViewDidLayoutSubviews()
+        public override void ViewDidLoad()
         {
-            base.ViewDidLayoutSubviews();
+            base.ViewDidLoad();
 
             // Create a variable to hold the yOffset where the MapView control should start
             var yOffset = 60;
 
             // Create a new MapView control and provide its location coordinates on the frame
-            MapView myMapView = new MapView();
-            myMapView.Frame = new CoreGraphics.CGRect(0, yOffset, View.Bounds.Width, View.Bounds.Height - yOffset);
+            _myMapView = new MapView();
+            _myMapView.Frame = new CoreGraphics.CGRect(0, yOffset, View.Bounds.Width, View.Bounds.Height - yOffset);
 
             // Create a new Map instance with the basemap               
             Map myMap = new Map(SpatialReferences.WebMercator);
             myMap.Basemap = Basemap.CreateTopographic();
 
             // Assign the Map to the MapView
-            myMapView.Map = myMap;
+            _myMapView.Map = myMap;
 
             // Create a segmented control to display buttons
             UISegmentedControl segmentControl = new UISegmentedControl();
@@ -66,25 +73,25 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBasemap
                     case 0:
 
                         // Set the basemap to Topographic
-                        myMapView.Map.Basemap = Basemap.CreateTopographic();
+                        _myMapView.Map.Basemap = Basemap.CreateTopographic();
                         break;
 
                     case 1:
                     
                         // Set the basemap to Streets
-                        myMapView.Map.Basemap = Basemap.CreateStreets();
+                        _myMapView.Map.Basemap = Basemap.CreateStreets();
                         break;
 
                     case 2:
                     
                         // Set the basemap to Imagery
-                        myMapView.Map.Basemap = Basemap.CreateImagery();
+                        _myMapView.Map.Basemap = Basemap.CreateImagery();
                         break;
 
                     case 3:
                     
                         // Set the basemap to Oceans
-                        myMapView.Map.Basemap = Basemap.CreateOceans();
+                        _myMapView.Map.Basemap = Basemap.CreateOceans();
                         break;
                 }
             };
@@ -104,7 +111,15 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBasemap
             // Add the UIBarButtonItems array to the toolbar
             toolbar.SetItems(barButtonItems, true);
 
-            View.AddSubviews(myMapView, toolbar);
+            View.AddSubviews(_myMapView, toolbar);
+        }
+
+        public override void ViewDidLayoutSubviews()
+        {
+            // Setup the visual frame for the MapView
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+
+            base.ViewDidLayoutSubviews();
         }
     }
 }

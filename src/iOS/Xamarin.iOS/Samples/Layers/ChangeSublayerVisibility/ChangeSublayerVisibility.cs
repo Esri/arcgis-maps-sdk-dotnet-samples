@@ -20,6 +20,12 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeSublayerVisibility
     [Register("ChangeSublayerVisibility")]
     public class ChangeSublayerVisibility : UIViewController
     {
+        // Create a new MapView control and provide its location coordinates on the frame.
+        MapView myMapView = new MapView();
+
+        // Create a button to show sublayers
+        UIButton sublayersButton = new UIButton(UIButtonType.Custom);
+
         public ChangeSublayerVisibility()
         {
             Title = "Change sublayer visibility";
@@ -43,16 +49,9 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeSublayerVisibility
             // Add the map image layer to the map's operational layers
             myMap.OperationalLayers.Add(mapImageLayer);
 
-            // Create a new MapView control and provide its location coordinates on the frame.
-            MapView myMapView = new MapView();
-            myMapView.Frame = new CoreGraphics.CGRect(0, 60, View.Bounds.Width, View.Bounds.Height - 40);
-
             // Assign the Map to the MapView
             myMapView.Map = myMap;
-
-            // Create a button to show sublayers
-            UIButton sublayersButton = new UIButton(UIButtonType.Custom);
-            sublayersButton.Frame = new CoreGraphics.CGRect(0, myMapView.Bounds.Height, View.Bounds.Width, 40);
+            
             sublayersButton.BackgroundColor = UIColor.White;
             sublayersButton.SetTitle("Sublayers", UIControlState.Normal);
             sublayersButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
@@ -74,6 +73,17 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeSublayerVisibility
             // Add the MapView and Sublayers button to the View
             View.AddSubviews(myMapView, sublayersButton);
         }
+
+        public override void ViewDidLayoutSubviews()
+        {
+            // Setup the visual frame for the MapView
+            myMapView.Frame = new CoreGraphics.CGRect(0, 60, View.Bounds.Width, View.Bounds.Height - 40);
+
+            sublayersButton.Frame = new CoreGraphics.CGRect(0, myMapView.Bounds.Height, View.Bounds.Width, 40);
+
+            base.ViewDidLayoutSubviews();
+        }
+        
 
         public override void DidReceiveMemoryWarning()
         {

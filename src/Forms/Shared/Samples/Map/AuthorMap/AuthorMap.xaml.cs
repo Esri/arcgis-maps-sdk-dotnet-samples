@@ -15,8 +15,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.Xamarin.Forms;
 
-#if __IOS__ 
+#if __IOS__
 using Xamarin.Forms.Platform.iOS;
 using Xamarin.Auth;
 #endif
@@ -198,7 +200,8 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                     ArcGISPortal agsOnline = await ArcGISPortal.CreateAsync(new Uri(ArcGISOnlineUrl));
 
                     // Save the current state of the map as a portal item in the user's default folder
-                    await myMap.SaveAsAsync(agsOnline, null, title, description, tags, null);
+                    RuntimeImage img = null;
+                    await myMap.SaveAsAsync(agsOnline, null, title, description, tags, img, false);
 
                     // Report a successful save
                     DisplayAlert("Map Saved", "Saved '" + title + "' to ArcGIS Online!", "OK");

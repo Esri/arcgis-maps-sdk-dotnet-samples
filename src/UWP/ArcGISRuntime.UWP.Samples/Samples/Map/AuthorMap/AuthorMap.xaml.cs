@@ -24,6 +24,7 @@ using Windows.Storage;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml;
+using Esri.ArcGISRuntime.UI;
 
 namespace ArcGISRuntime.UWP.Samples.AuthorMap
 {
@@ -276,7 +277,8 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
             ArcGISPortal agsOnline = await ArcGISPortal.CreateAsync();
 
             // Save the current state of the map as a portal item in the user's default folder
-            await myMap.SaveAsAsync(agsOnline, null, title, description, tags, null);
+            RuntimeImage img = null;
+            await myMap.SaveAsAsync(agsOnline, null, title, description, tags, img, false);
         }
 
         private async void UpdatePortalItemThumbnailAsync(string imageFileName)

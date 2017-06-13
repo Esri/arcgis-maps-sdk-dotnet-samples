@@ -70,14 +70,21 @@ namespace ArcGISRuntime.WPF.Samples.ShowMobileMapPackage
                 creditsText.Text = myMobileMapPackage.Item.AccessInformation;
 
                 loadingIndicator.Visibility = Visibility.Collapsed;
+                mapPackageMetadataRegion.Visibility = Visibility.Visible;
             }
             catch (FileNotFoundException ex)
             {
-                MessageBox.Show(ex.Message, "File not found");
+                loadingIndicator.Visibility = Visibility.Collapsed;
+                dataNotFoundMessage.Visibility = Visibility.Visible;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("An error occurred. " + ex.ToString(), "Sample error");
+            }
+            finally
+            {
+                // Hide loading UI
+                loadingIndicator.Visibility = Visibility.Collapsed;
             }
         }
 

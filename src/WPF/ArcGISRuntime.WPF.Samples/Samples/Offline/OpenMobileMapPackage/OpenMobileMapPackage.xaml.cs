@@ -31,7 +31,7 @@ namespace ArcGISRuntime.WPF.Samples.OpenMobileMapPackage
                 // Get path to the used data. This can be a mobile map package (.mmpk) file or 
                 // an exploded mobile map package (folder that contains .info file).
                 var dataPath = Path.Combine(DataManager.GetDataFolder(), "SampleData", "Open mobile map (map package)");
-
+                
                 // Open a local mobile map package
                 MobileMapPackage myMobileMapPackage = await MobileMapPackage.OpenAsync(dataPath);
 
@@ -40,16 +40,19 @@ namespace ArcGISRuntime.WPF.Samples.OpenMobileMapPackage
 
                 // Assign the map to the MapView
                 MyMapView.Map = myMap;
-
-                // Load the map before hiding the loading UI.
-                await myMap.LoadAsync();
-
-                // Hide loading UI
-                loadingIndicator.Visibility = Visibility.Collapsed;
+            }
+            catch (FileNotFoundException ex)
+            {
+                dataNotFoundMessage.Visibility = Visibility.Visible;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("An error occurred. " + ex.ToString(), "Sample error");
+            }
+            finally
+            {
+                // Hide loading UI
+                loadingIndicator.Visibility = Visibility.Collapsed;
             }
         }
     }

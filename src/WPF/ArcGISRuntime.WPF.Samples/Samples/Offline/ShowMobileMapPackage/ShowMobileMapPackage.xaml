@@ -9,7 +9,7 @@
     d:DesignHeight="300" d:DesignWidth="300">
 
     <Grid Background="White">
-        <StackPanel>
+        <StackPanel x:Name="mapPackageMetadataRegion" Visibility="Collapsed">
             <TextBlock x:Name="TitleText" FontSize="22" Margin="10"/>
 
             <Grid>
@@ -44,6 +44,9 @@
             </TextBlock>
         </StackPanel>
 
+        <Grid x:Name="dataNotFoundMessage" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="Please download the data for the sample." Foreground="Black" FontSize="18"/>
+        </Grid>
         <Grid x:Name="loadingIndicator" Background="#807f7f7f" Visibility="Visible">
             <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid.RowDefinitions>

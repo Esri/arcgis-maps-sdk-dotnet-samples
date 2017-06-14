@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             x:Class="ArcGISRuntimeXamarin.Samples.ShowMapsOfflineSupport.ShowMapsOfflineSupport">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" /> <!-- Select map label -->
+            <RowDefinition Height="Auto" /> <!-- Map picker -->
+            <RowDefinition Height="Auto" /> <!-- OfflineMapCapabilityResult label -->
+            <RowDefinition Height="Auto" /> <!-- Layer list label -->
+            <RowDefinition Height="*" />    <!-- LayerOfflineCapabilities view -->
+            <RowDefinition Height="Auto" /> <!-- Table list label -->
+            <RowDefinition Height="*" />    <!-- TableOfflineCapabilities view -->
+        </Grid.RowDefinitions>
+        <Label Text="Select map" />
+        <Picker x:Name="MapPicker"
+                Grid.Row="1"
+                SelectedIndexChanged="OnMapPickerSelectionChanged" />
+        <Label x:Name="OfflineMapCapabilityResult"
+               Grid.Row="2" />
+        <Label Text="Layer list"
+               Grid.Row="3" />
+        <ListView x:Name="LayerOfflineCapabilities"
+                  Grid.Row="4" />
+        <Label Text="Table list"
+               Grid.Row="5" />
+        <ListView x:Name="TableOfflineCapabilities"
+                  Grid.Row="6" />
+    </Grid>
+</ContentPage>

@@ -83,6 +83,22 @@
             {
               "SampleName": "AuthorMap",
               "Path": "Samples/Map/AuthorMap"
+            },
+            {
+              "SampleName": "GenerateOfflineMap",
+              "Path": "Samples/Offline/GenerateOfflineMap"
+            },
+            {
+              "SampleName": "OpenMobileMapPackage",
+              "Path": "Samples/Offline/OpenMobileMapPackage"
+            },
+			      {
+              "SampleName": "ShowMobileMapPackage",
+              "Path": "Samples/Offline/ShowMobileMapPackage"
+            },
+            {
+              "SampleName": "ShowMapsOfflineSupport",
+              "Path": "Samples/Offline/ShowMapsOfflineSupport"
             }
           ]
         }

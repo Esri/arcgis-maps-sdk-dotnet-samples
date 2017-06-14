@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             x:Class="ArcGISRuntimeXamarin.Samples.ShowMobileMapPackage.ShowMobileMapPackage">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <!-- Status label -->
+            <RowDefinition Height="Auto" />
+            <!-- Download button -->
+            <RowDefinition Height="*" />
+            <!-- MapView -->
+        </Grid.RowDefinitions>
+        <Label x:Name="Status"
+               Text="Opening offline map..." />
+        <Button x:Name="Download"
+                Text="Download Data"
+                Clicked="OnDownloadDataClicked"
+                IsVisible="False"
+                Grid.Row="1" />
+    </Grid>
+</ContentPage>

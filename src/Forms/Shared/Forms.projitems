@@ -179,6 +179,22 @@
       <SubType>Code</SubType>
       <DependentUpon>SetMinMaxScale.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Offline\GenerateOfflineMap\GenerateOfflineMap.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>GenerateOfflineMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Offline\OpenMobileMapPackage\OpenMobileMapPackage.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>OpenMobileMapPackage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Offline\ShowMapsOfflineSupport\ShowMapsOfflineSupport.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>ShowMapsOfflineSupport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Offline\ShowMobileMapPackage\ShowMobileMapPackage.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>ShowMobileMapPackage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>RenderSimpleMarkers.xaml</DependentUpon>
@@ -367,6 +383,26 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\SetMinMaxScale\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Offline\GenerateOfflineMap\GenerateOfflineMap.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Offline\GenerateOfflineMap\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Offline\OpenMobileMapPackage\OpenMobileMapPackage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Offline\OpenMobileMapPackage\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Offline\ShowMapsOfflineSupport\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Offline\ShowMapsOfflineSupport\ShowMapsOfflineSupport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Offline\ShowMobileMapPackage\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Offline\ShowMobileMapPackage\ShowMobileMapPackage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderSimpleMarkers\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -400,6 +436,18 @@
     <Content Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Samples\Offline\GenerateOfflineMap\GenerateOfflineMap.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Samples\Offline\OpenMobileMapPackage\OpenMobileMapPackage.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Samples\Offline\ShowMapsOfflineSupport\ShowMapsOfflineSupport.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Samples\Offline\ShowMobileMapPackage\ShowMobileMapPackage.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SketchOnMap\metadata.json" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\SearchPortalMaps\metadata.json">

@@ -34,8 +34,14 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayDeviceLocation
             base.ViewDidLoad();
 
             // Create the UI, setup the control references and execute initialization 
-            CreateLayout();
             Initialize();
+            CreateLayout();
+
+        }
+
+        public override void ViewWillDisappear(bool animated) {
+            base.ViewWillDisappear(animated);
+            NavigationController.ToolbarHidden = true;
         }
 
         public override void ViewDidLayoutSubviews()

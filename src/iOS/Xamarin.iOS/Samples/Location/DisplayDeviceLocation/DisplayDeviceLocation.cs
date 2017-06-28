@@ -40,13 +40,9 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayDeviceLocation
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
-            _myMapView = new MapView()
-            {
-                Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height)
-            };
-
             base.ViewDidLayoutSubviews();
+            // Setup the visual frame for the MapView
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
         }
 
         private void Initialize()

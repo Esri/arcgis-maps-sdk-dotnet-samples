@@ -154,6 +154,7 @@
     </None>
     <Compile Include="PageRenderer\SaveMapPageRenderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <InterfaceDefinition Include="Main.storyboard" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

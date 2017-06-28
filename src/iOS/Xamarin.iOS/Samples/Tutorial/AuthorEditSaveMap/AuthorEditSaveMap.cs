@@ -29,6 +29,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
     {
         MapViewModel _mapViewModel = new MapViewModel();
         MapView _mapView;
+        UISegmentedControl _segmentButton = new UISegmentedControl();
 
         // Overlay with entry controls for map item details (title, description, and tags)
         private SaveMapDialogOverlay _mapInfoUI;
@@ -54,44 +55,45 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             _mapViewModel.PropertyChanged += MapViewModel_PropertyChanged;
         }
 
-        public override void ViewDidLayoutSubviews()
-        {
-            base.ViewDidLayoutSubviews();
+        public override void ViewDidLoad() {
+            // Called on initial page load
+            base.ViewDidLoad();
 
             // Call the function that creates the UI
             CreateLayout();
 
-            // Set up AuthenticationManager
+            // Set up the AuthenticationManager
             UpdateAuthenticationManager();
 
             // Use the map from the view-model
             _mapViewModel.ResetMap();
         }
 
+        public override void ViewDidLayoutSubviews()
+        {
+            // Called when the layout of the view changes (e.g. phone is rotated)
+			// Define the visual frame for the MapView & Segment Buttons
+			_mapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _segmentButton.Frame = new CoreGraphics.CGRect(0, _mapView.Bounds.Height - 60, View.Bounds.Width, 30);
+        }
+
         private void CreateLayout()
         {
-            // Define an offset from the top of the page (to account for the iOS status bar)
-            var yPageOffset = 60;
 
             // Create a new MapView control
             _mapView = new MapView();
 
-            // Define the visual frame for the MapView
-            _mapView.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height - yPageOffset);
-
-            // Add a segmented button control
-            var segmentButton = new UISegmentedControl();
-            segmentButton.BackgroundColor = UIColor.White;
-            segmentButton.Frame = new CoreGraphics.CGRect(0, _mapView.Bounds.Height, View.Bounds.Width, 30);
-            segmentButton.InsertSegment("Basemap", 0, false);
-            segmentButton.InsertSegment("New", 1, false);
-            segmentButton.InsertSegment("Save", 2, false);
+            // Define the Segment Button contents
+            _segmentButton.BackgroundColor = UIColor.White;
+            _segmentButton.InsertSegment("Basemap", 0, false);
+            _segmentButton.InsertSegment("New", 1, false);
+            _segmentButton.InsertSegment("Save", 2, false);
 
             // Handle the "click" for each segment (new segment is selected)
-            segmentButton.ValueChanged += SegmentButtonClicked;
+            _segmentButton.ValueChanged += SegmentButtonClicked;
 
-            // Add the MapView and UIButton to the page
-            View.AddSubviews(_mapView, segmentButton);
+            // Add the MapView and Segment Button to the page
+            View.AddSubviews(_mapView, _segmentButton);
         }
 
         private void MapViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)

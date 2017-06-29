@@ -88,7 +88,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             }
                 
 
-            _segmentButton.Frame = new CoreGraphics.CGRect(0, _myMapView.Bounds.Height, View.Bounds.Width, 30);
+            _segmentButton.Frame = new CoreGraphics.CGRect(0, _myMapView.Bounds.Height - 30, View.Bounds.Width, 30);
 
 
 
@@ -295,9 +295,16 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             this.PresentViewController(mapListActionSheet, true, null);
         }
 
-        private void DisplayMap(Uri webMapUri)
+        private async void DisplayMap(Uri webMapUri)
         {
             var webMap = new Map(webMapUri);
+            try
+            {
+                await webMap.LoadAsync();
+            } catch (Esri.ArcGISRuntime.ArcGISRuntimeException e){
+				var alert = new UIAlertView("Map Load Error", e.Message, null, "OK", null);
+				alert.Show();
+            }
 
             // Handle change in the load status (to report load errors)
             webMap.LoadStatusChanged += WebMapLoadStatusChanged;

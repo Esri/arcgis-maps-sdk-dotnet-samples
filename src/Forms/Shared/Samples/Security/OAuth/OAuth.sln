@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "OAuth", "OAuth\OAuth.shproj", "{59BB9A58-8030-4D3F-B600-8302FBC22B2F}"
 EndProject
@@ -186,6 +186,7 @@ Global
 		{BD0BC931-6E95-49BC-ABAA-305A62C7774C}.AppStore|x86.Build.0 = Release|x86
 		{BD0BC931-6E95-49BC-ABAA-305A62C7774C}.AppStore|x86.Deploy.0 = Release|x86
 		{BD0BC931-6E95-49BC-ABAA-305A62C7774C}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{BD0BC931-6E95-49BC-ABAA-305A62C7774C}.Debug|Any CPU.Build.0 = Debug|x86
 		{BD0BC931-6E95-49BC-ABAA-305A62C7774C}.Debug|ARM.ActiveCfg = Debug|ARM
 		{BD0BC931-6E95-49BC-ABAA-305A62C7774C}.Debug|ARM.Build.0 = Debug|ARM
 		{BD0BC931-6E95-49BC-ABAA-305A62C7774C}.Debug|ARM.Deploy.0 = Debug|ARM

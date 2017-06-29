@@ -51,9 +51,8 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Esri.ArcGISRuntime, Version=100.0.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\..\..\packages\Esri.ArcGISRuntime.WPF.100.0.0\lib\net452\Esri.ArcGISRuntime.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Esri.ArcGISRuntime, Version=100.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\..\packages\Esri.ArcGISRuntime.WPF.100.1.0\lib\net452\Esri.ArcGISRuntime.dll</HintPath>
     </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Security" />
@@ -111,10 +110,6 @@
     <Compile Include="My Project\AssemblyInfo.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="My Project\MyExtensions\MyWpfExtension.vb">
-      <VBMyExtensionTemplateID>Microsoft.VisualBasic.WPF.MyExtension</VBMyExtensionTemplateID>
-      <VBMyExtensionTemplateVersion>1.0.0.0</VBMyExtensionTemplateVersion>
-    </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -141,11 +136,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
-  <Import Project="..\..\..\..\..\..\packages\Esri.ArcGISRuntime.WPF.100.0.0\build\net452\Esri.ArcGISRuntime.WPF.targets" Condition="Exists('..\..\..\..\..\..\packages\Esri.ArcGISRuntime.WPF.100.0.0\build\net452\Esri.ArcGISRuntime.WPF.targets')" />
+  <Import Project="..\..\..\..\..\..\packages\Esri.ArcGISRuntime.WPF.100.1.0\build\net452\Esri.ArcGISRuntime.WPF.targets" Condition="Exists('..\..\..\..\..\..\packages\Esri.ArcGISRuntime.WPF.100.1.0\build\net452\Esri.ArcGISRuntime.WPF.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\..\..\..\packages\Esri.ArcGISRuntime.WPF.100.0.0\build\net452\Esri.ArcGISRuntime.WPF.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\..\..\packages\Esri.ArcGISRuntime.WPF.100.0.0\build\net452\Esri.ArcGISRuntime.WPF.targets'))" />
+    <Error Condition="!Exists('..\..\..\..\..\..\packages\Esri.ArcGISRuntime.WPF.100.1.0\build\net452\Esri.ArcGISRuntime.WPF.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\..\..\packages\Esri.ArcGISRuntime.WPF.100.1.0\build\net452\Esri.ArcGISRuntime.WPF.targets'))" />
   </Target>
 </Project>

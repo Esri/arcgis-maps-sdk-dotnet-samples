@@ -1,6 +1,6 @@
 ﻿{
   "dependencies": {
-    "Esri.ArcGISRuntime.UWP": "100.0.0",
+    "Esri.ArcGISRuntime.UWP": "100.1.0",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0"
   },
   "frameworks": {

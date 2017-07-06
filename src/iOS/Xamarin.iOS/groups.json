@@ -257,6 +257,10 @@
             {
               "SampleName": "DisplayDeviceLocation",
               "Path": "Samples/Location/DisplayDeviceLocation"
+            },
+            {
+              "SampleName": "FindAddress",
+              "Path": "Samples/Location/FindAddress"
             }
           ]
         }

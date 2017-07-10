@@ -203,6 +203,7 @@
       <DependentUpon>SaveMapPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Location\FindAddress\FindAddress.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableManualCache\metadata.json" />
@@ -381,6 +382,9 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Location\FindAddress\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Location\FindAddress\FindAddress.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\PictureMarkerSymbols\pin_star_red.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)CategoryListPage.xaml">
@@ -538,5 +542,8 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Samples\Location\FindAddress\FindAddress.jpg" />
   </ItemGroup>
 </Project>

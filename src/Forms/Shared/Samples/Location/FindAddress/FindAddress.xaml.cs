@@ -44,8 +44,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
 
             // Create the UI, setup the control references and execute initialization 
             Initialize();
-
-            MyMapView.GeoViewTapped += _myMapView_GeoViewTapped;
+            MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
         private async void Initialize()
@@ -129,8 +128,8 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
 		/// <summary>
 		/// Handle tap event on the map; displays callouts showing the address for a tapped search result
 		/// </summary>
-		async void _myMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
-		{
+        async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        {
 			// Search for the graphics underneath the user's tap
 			var results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
 
@@ -148,6 +147,6 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
 				}
 
 			}
-		}
+        }
     }
 }

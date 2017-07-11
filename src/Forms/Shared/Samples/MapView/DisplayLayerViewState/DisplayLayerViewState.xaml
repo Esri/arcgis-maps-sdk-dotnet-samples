@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
@@ -7,9 +7,9 @@
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="*" />
-      <RowDefinition Height="auto" />
+      <RowDefinition Height="100" />
     </Grid.RowDefinitions>
-    <esriUI:MapView x:Name="MyMapView"/>
+    <esriUI:MapView x:Name="MyMapView" Grid.Row="0"/>
     <ListView x:Name="layerStatusListView" Grid.Row="1">
       <ListView.ItemTemplate>
         <DataTemplate>

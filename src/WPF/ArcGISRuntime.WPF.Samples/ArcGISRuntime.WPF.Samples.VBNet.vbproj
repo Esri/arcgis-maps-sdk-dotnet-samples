@@ -87,9 +87,11 @@
     <Content Include="groups.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_red.png" />
     <Content Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg" />
     <Content Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg" />
     <Content Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg" />
+    <Content Include="Samples\Search\FindAddress\FindAddress.jpg" />
     <Content Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg" />
     <Content Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg" />
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
@@ -212,6 +214,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Samples\Map\SetMinMaxScale\metadata.json" />
+    <EmbeddedResource Include="Samples\Search\FindAddress\metadata.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <None Include="Samples\Symbology\RenderPictureMarkers\metadata.json" />
     <None Include="Samples\Symbology\RenderSimpleMarkers\metadata.json" />
     <None Include="Samples\Symbology\RenderUniqueValues\metadata.json" />
@@ -338,6 +343,9 @@
     </Compile>
     <Compile Include="Samples\Map\SetMinMaxScale\SetMinMaxScaleVB.xaml.vb">
       <DependentUpon>SetMinMaxScaleVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Search\FindAddress\FindAddressVB.xaml.vb">
+      <DependentUpon>FindAddressVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkersVB.xaml.vb">
       <DependentUpon>RenderPictureMarkersVB.xaml</DependentUpon>
@@ -510,6 +518,10 @@
     <Page Include="Samples\Map\SetMinMaxScale\SetMinMaxScaleVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Search\FindAddress\FindAddressVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkersVB.xaml">
       <SubType>Designer</SubType>

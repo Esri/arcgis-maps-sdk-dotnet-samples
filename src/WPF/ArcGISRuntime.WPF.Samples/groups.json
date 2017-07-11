@@ -292,6 +292,23 @@
       ]
     },
     {
+      "Name": "Search",
+      "CategoryName": "Search",
+      "SubCategories": [
+        {
+          "Name": "Work with Addresses",
+          "SubCategoryName": "WorkWithAddresses",
+          "ShowGroup": false,
+          "SampleInfos": [
+            {
+              "SampleName": "FindAddress",
+              "Path": "Samples/Search/FindAddress"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "Name": "Tutorial",
       "CategoryName": "Tutorial",
       "SubCategories": [

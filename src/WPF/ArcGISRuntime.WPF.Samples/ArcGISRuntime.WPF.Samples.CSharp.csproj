@@ -170,6 +170,9 @@
     <Compile Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.xaml.cs">
       <DependentUpon>SetMapSpatialReference.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Search\FindAddress\FindAddress.xaml.cs">
+      <DependentUpon>FindAddress.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml.cs">
       <DependentUpon>UseDistanceCompositeSym.xaml</DependentUpon>
     </Compile>
@@ -203,6 +206,7 @@
     <Content Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Search\FindAddress\FindAddress.jpg" />
     <Content Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -481,6 +485,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Samples\Search\FindAddress\FindAddress.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -700,6 +708,8 @@
     <Content Include="Samples\Map\SearchPortalMaps\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Samples\Search\FindAddress\metadata.json" />
+    <None Include="Samples\Search\FindAddress\readme.md" />
   </ItemGroup>
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

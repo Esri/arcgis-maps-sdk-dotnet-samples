@@ -1,0 +1,105 @@
+﻿
+' Copyright 2016 Esri.
+'
+' Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+' You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
+' "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+' language governing permissions and limitations under the License.
+
+Imports Esri.ArcGISRuntime.Location
+Imports Esri.ArcGISRuntime.Mapping
+Imports Esri.ArcGISRuntime.UI
+Imports Esri.ArcGISRuntime.Tasks.Geocoding
+Imports Esri.ArcGISRuntime.Symbology
+Imports Esri.ArcGISRuntime.UI.Controls
+Imports Esri.ArcGISRuntime.Geometry
+Imports System.Collections.Generic
+Imports System.Reflection
+Imports System.Threading.Tasks
+
+Namespace FindAddress
+    Partial Public Class FindAddressVB
+        ' String array to store the different device location options.
+        Private _navigationTypes As String() = New String() {"On", "Re-Center", "Navigation", "Compass"}
+        Private _geocoder As LocatorTask = New LocatorTask(New Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"))
+
+        Public Sub New()
+            InitializeComponent()
+
+            ' Setup the control references and execute initialization 
+            Initialize()
+        End Sub
+
+        Private Sub Initialize()
+            ' Create new Map with basemap
+            Dim myMap As New Map(Basemap.CreateTopographic())
+
+            ' Assign the map to the MapView
+            MyMapView.Map = myMap
+
+        End Sub
+
+        Private Async Sub updateSearch()
+            Dim enteredText = MySearchBox.Text
+
+            ' Clear existing marker
+            MyMapView.GraphicsOverlays.Clear()
+
+            ' Return gracefully if the textbox Is empty
+            If String.IsNullOrWhiteSpace(enteredText) Then Return
+
+            ' Get the nearest suggestion to entered text
+            Dim suggestions As IReadOnlyList(Of SuggestResult) = Await _geocoder.SuggestAsync(enteredText)
+
+            ' Stop gracefully if there are no suggestions
+            If suggestions.Count < 1 Then Return
+
+            ' Get the full address for the first suggestion
+            Dim addresses As IReadOnlyList(Of GeocodeResult) = Await _geocoder.GeocodeAsync(suggestions.First().Label)
+
+            ' Stop gracegully if the geocoder does not return a result
+            If addresses.Count < 1 Then Return
+
+            ' Place a marker on the map
+            Dim resultOverlay = New GraphicsOverlay()
+            Dim point = Await _graphicForPoint(addresses.First().DisplayLocation)
+
+            ' Record the address with the overlay for easy recall when the graphic is tapped
+            point.Attributes.Add("Address", addresses.First().Label)
+            resultOverlay.Graphics.Add(point)
+            MyMapView.GraphicsOverlays.Add(resultOverlay)
+            Await MyMapView.SetViewpointGeometryAsync(addresses.First().Extent)
+        End Sub
+
+        Private Async Function _graphicForPoint(point As MapPoint) As Task(Of Graphic)
+            ' Get current assembly that contains the image
+            Dim currentAssembly = Me.GetType().GetTypeInfo().Assembly
+
+            ' Get image as a stream from the resources
+            ' Picture Is defined as EmbeddedResource And DoNotCopy
+            Dim resourceStream = currentAssembly.GetManifestResourceStream(
+                "ArcGISRuntime.UWP.Samples.pin_star_red.png")
+
+            ' Create New symbol using asynchronous factory method from stream
+            Dim pinSymbol As PictureMarkerSymbol = Await PictureMarkerSymbol.CreateAsync(resourceStream)
+            pinSymbol.Width = 15
+            pinSymbol.Height = 30
+            pinSymbol.OffsetX = pinSymbol.Width / 2
+            pinSymbol.OffsetY = pinSymbol.Height / 2
+            Return New Graphic(point, pinSymbol)
+        End Function
+
+        Private Sub MySearchBox_TextChanged(sender As Object, e As TextChangedEventArgs)
+            updateSearch()
+        End Sub
+
+        Private Sub MenuFlyoutItem_Click(sender As Object, e As RoutedEventArgs)
+            Dim menuItem As MenuFlyoutItem = sender
+            Dim textValue As String = menuItem.Text
+            MySearchBox.Text = textValue
+            updateSearch()
+        End Sub
+    End Class
+End Namespace

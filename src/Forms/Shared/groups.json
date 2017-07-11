@@ -286,21 +286,23 @@
             {
               "SampleName": "DisplayDeviceLocation",
               "Path": "Samples/Location/DisplayDeviceLocation"
-            },
-            {
-              "SampleName": "FindAddress",
-              "Path": "Samples/Location/FindAddress"
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "Name": "Search",
+      "CategoryName": "Search",
+      "SubCategories": [
         {
-          "Name": "Addressing & Geocoding",
-          "SubCategoryName": "AddressingAndGeocoding",
+          "Name": "Work with Addresses",
+          "SubCategoryName": "WorkWithAddresses",
           "ShowGroup": true,
           "SampleInfos": [
             {
-              "SampleName": "FindLocation",
-              "Path": "Samples/Location/FindAddress"
+              "SampleName": "FindAddress",
+              "Path": "Samples/Search/FindAddress"
             }
           ]
         }

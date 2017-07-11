@@ -257,10 +257,23 @@
             {
               "SampleName": "DisplayDeviceLocation",
               "Path": "Samples/Location/DisplayDeviceLocation"
-            },
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Search",
+      "CategoryName": "Search",
+      "SubCategories": [
+        {
+          "Name": "Work with Addresses",
+          "SubCategoryName": "WorkWithAddresses",
+          "ShowGroup": true,
+          "SampleInfos": [
             {
               "SampleName": "FindAddress",
-              "Path": "Samples/Location/FindAddress"
+              "Path": "Samples/Search/FindAddress"
             }
           ]
         }

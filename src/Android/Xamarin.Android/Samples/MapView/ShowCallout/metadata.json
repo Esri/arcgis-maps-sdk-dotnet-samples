@@ -1,0 +1,14 @@
+{
+  "Name": "Show callout",
+  "SampleName": "ShowCallout",
+  "Description": "This sample illustrates how to show callouts on a map in response to user interaction.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"ShowCallout.jpg",
+  "Link":"",
+  "TypeLink": ["M:Esri.ArcGISRuntime.Mapping.Basemap.CreateStreets","M:Esri.ArcGISRuntime.UI.Controls.MapView.SetViewpointRotationAsync(System.Double)"],
+  "SampleFolder": "ShowCallout"
+}

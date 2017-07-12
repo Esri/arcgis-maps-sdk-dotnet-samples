@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             x:Class="ArcGISRuntimeXamarin.Samples.ShowMobileMapPackage.ShowMobileMapPackage">
+    <Grid>
+        <Grid x:Name="ItemInfo"
+              IsVisible="False">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />                <!-- title -->
+                <RowDefinition Height="Auto" />                <!-- thumbnail, creation date, size, snippet -->
+                <RowDefinition Height="Auto" />                <!-- description label -->
+                <RowDefinition Height="Auto" />                <!-- description -->
+                <RowDefinition Height="Auto" />                <!-- credits -->
+                <RowDefinition Height="Auto" />                <!-- tags -->
+            </Grid.RowDefinitions>
+            <Label x:Name="ItemTitle"
+                   FontSize="Large"
+                   FontAttributes="Bold" />
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Image x:Name="ItemImage"
+                       HeightRequest="200" 
+                       WidthRequest="200"/>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />                       <!-- Creation date -->
+                        <RowDefinition Height="Auto" />                       <!-- Size -->
+                        <RowDefinition Height="Auto" />                       <!-- Snippet -->
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Created: "
+                           FontAttributes="Bold" />
+                    <Label x:Name="ItemCreationDate"
+                           Grid.Column="1" />
+                    <Label Text="Offline size: "
+                           FontAttributes="Bold"
+                           Grid.Row="1" />
+                    <Label x:Name="ItemSize"
+                           Grid.Row="1"
+                           Grid.Column="1" />
+                    <Label x:Name="ItemSnippet"
+                           Grid.Row="2"
+                           Grid.ColumnSpan="2" />
+                </Grid>
+            </Grid>
+            <Label Text="Description"
+                   FontSize="14"
+                   FontAttributes="Bold"
+                   Grid.Row="2" />
+            <Label x:Name="ItemDescription"
+                   Grid.Row="3" />
+            <Label x:Name="ItemCredits"
+                   Grid.Row="4" />
+            <Label x:Name="ItemTags"
+                   Grid.Row="5" />
+        </Grid>
+        <Grid x:Name="DownloadInfo"
+              BackgroundColor="Black"
+              IsVisible="False">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <!-- Status -->
+                <RowDefinition Height="Auto" />
+                <!-- Download button -->
+            </Grid.RowDefinitions>
+            <Label Text="Please download the data for the sample." />
+            <Button Text="Download Data"
+                    Clicked="OnDownloadDataClicked"
+                    Grid.Row="1" />
+        </Grid>
+    </Grid>
+</ContentPage>

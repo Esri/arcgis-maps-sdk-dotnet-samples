@@ -1,0 +1,15 @@
+{
+  "Name": "Show mobile map package metadata",
+  "SampleName": "ShowMobileMapPackage",
+  "Description": "This sample demonstrates how to show a metadata related to the mobile map package.",
+  "Instructions": "Click button to generate an offline map and load it to the view.",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"ShowMobileMapPackage.jpg",
+  "Link":"",
+  "TypeLink": ["T:Esri.ArcGISRuntime.Mapping.MobileMapPackage", "M:Esri.ArcGISRuntime.Mapping.MobileMapPackage.OpenAsync(System.String)", "P:Esri.ArcGISRuntime.Mapping.MobileMapPackage.Item" ],
+  "DataItemIds": ["f06ef457380b47d6ae3a99640ac79288"],
+  "SampleFolder":  "ShowMobileMapPackage"
+}

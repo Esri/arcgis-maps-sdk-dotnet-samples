@@ -62,6 +62,8 @@ namespace ArcGISRuntimeXamarin
                 var sampleName = item.SampleName;
                 var sampleNamespace = item.SampleNamespace;
 
+                SampleManager.Current.SelectedSample = item;
+
                 Type t = Type.GetType(sampleNamespace + "." + sampleName);
 
                 //If Offline data is required for the sample to work download it 

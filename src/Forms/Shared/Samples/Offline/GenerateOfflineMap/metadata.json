@@ -1,0 +1,14 @@
+{
+  "Name": "Generate an offline map",
+  "SampleName": "GenerateOfflineMap",
+  "Description": "This sample demonstrates how to take a map offline using a map that is loaded from ArcGIS Portal. The map contains water network data set and used feature service is enabled for offline use. Generated offline map is saved to the device as exploded mobile map package and it can be opened using `MobileMapPackage`. This sample requires user to sign in so the basemap can be taken offline. ",
+  "Instructions": "Click button to generate an offline map and load it to the view.",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"GenerateOfflineMap.jpg",
+  "Link":"",
+  "TypeLink": [ "T:Esri.ArcGISRuntime.Tasks.Offline.OfflineMapTask", "T:Esri.ArcGISRuntime.Tasks.Offline.GenerateOfflineMapParameters", "T:Esri.ArcGISRuntime.Tasks.Offline.GenerateOfflineMapResult" ],
+  "SampleFolder":  "GenerateOfflineMap"
+}

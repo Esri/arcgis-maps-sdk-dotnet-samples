@@ -1,0 +1,15 @@
+{
+  "Name": "Show maps' offline support",
+  "SampleName": "ShowMapsOfflineSupport",
+  "Description": "This sample demonstrates how to check wether the map and it's layers supports taking it offline.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"ShowMapsOfflineSupport.jpg",
+  "Link":"",
+  "TypeLink": ["T:Esri.ArcGISRuntime.Tasks.Offline.OfflineMapTask", "T:Esri.ArcGISRuntime.Tasks.Offline.OfflineMapCapabilities", "M:Esri.ArcGISRuntime.Tasks.Offline.OfflineMapTask.CreateDefaultGenerateOfflineMapParametersAsync(Esri.ArcGISRuntime.Geometry.Geometry)" ],
+  "DataItemIds": [],
+  "SampleFolder":  "ShowMapsOfflineSupport"
+}

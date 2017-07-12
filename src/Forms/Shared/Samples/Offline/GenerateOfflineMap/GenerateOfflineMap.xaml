@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             x:Class="ArcGISRuntimeXamarin.Samples.GenerateOfflineMap.GenerateOfflineMap">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" /> <!-- Status label -->
+            <RowDefinition Height="Auto" /> <!-- Progress bar -->
+            <RowDefinition Height="Auto" /> <!-- Cancel/TakeOffline button -->
+            <RowDefinition Height="*" />    <!-- Map/Login view -->
+        </Grid.RowDefinitions>
+        <Label x:Name="Status" 
+               Text="Loading online map..." />
+        <ProgressBar x:Name="Progress"
+                     IsVisible="False"
+                     Grid.Row="1" />
+        <Grid Grid.Row="2">
+            <!-- Cancels login/job -->
+            <Button x:Name="Cancel"
+                    Text="Cancel"
+                    Clicked="OnCancelClicked" />
+            <!-- Generates offline map from current online map-->
+            <Button x:Name="TakeOffline"
+                    Text="Take map offline"
+                    Clicked="OnTakeMapOfflineClicked" />
+        </Grid>
+        <!-- Container for online/offline map -->
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="3"/>
+        <!-- Displays prompt for ArcGIS Portal login -->
+        <Grid x:Name="LoginView"
+              BackgroundColor="Black"
+              IsVisible="False"
+              Grid.Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Text="ArcGIS Portal Sign In"
+                   Grid.ColumnSpan="2" />
+            <Label Text="Username"
+                   Grid.Row="1"/>
+            <Entry x:Name="Username"
+                   Grid.Row="1"
+                   Grid.Column="1" />
+            <Label Text="Password"
+                   Grid.Row="2" />
+            <Entry x:Name="Password"
+                   IsPassword="True"
+                   Grid.Row="2"
+                   Grid.Column="1" />
+            <Button Text="Sign In"
+                    Clicked="OnSignInClicked"
+                    Grid.Row="3"
+                    Grid.ColumnSpan="2" />
+        </Grid>
+    </Grid>
+</ContentPage>

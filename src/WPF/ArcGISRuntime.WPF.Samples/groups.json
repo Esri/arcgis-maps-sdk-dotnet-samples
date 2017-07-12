@@ -83,6 +83,22 @@
             {
               "SampleName": "AuthorMap",
               "Path": "Samples/Map/AuthorMap"
+            },
+			{
+              "SampleName": "GenerateOfflineMap",
+              "Path": "Samples/Offline/GenerateOfflineMap"
+            },
+			{
+              "SampleName": "OpenMobileMapPackage",
+              "Path": "Samples/Offline/OpenMobileMapPackage"
+            },
+			{
+              "SampleName": "ShowMobileMapPackage",
+              "Path": "Samples/Offline/ShowMobileMapPackage"
+            },
+			{
+              "SampleName": "ShowMapsOfflineSupport",
+              "Path": "Samples/Offline/ShowMapsOfflineSupport"
             }
           ]
         }
@@ -311,19 +327,19 @@
   ],
   "Featured": [
     {
-      "SampleName": "OpenExistingMap",
+      "SampleName": "GenerateOfflineMap",
       "Reason": 1
     },
     {
-      "SampleName": "ArcGISVectorTiledLayerUrl",
+      "SampleName": "OpenMobileMapPackage",
       "Reason": 1
     },
     {
-      "SampleName": "ServiceFeatureTableCache",
+      "SampleName": "ShowMobileMapPackage",
       "Reason": 1
     },
     {
-      "SampleName": "SetMapSpatialReference",
+      "SampleName": "ShowMapsOfflineSupport",
       "Reason": 1
     },
     {

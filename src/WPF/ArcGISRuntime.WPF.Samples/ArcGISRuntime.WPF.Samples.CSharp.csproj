@@ -170,6 +170,18 @@
     <Compile Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.xaml.cs">
       <DependentUpon>SetMapSpatialReference.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Offline\ShowMapsOfflineSupport\ShowMapsOfflineSupport.xaml.cs">
+      <DependentUpon>ShowMapsOfflineSupport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Offline\ShowMobileMapPackage\ShowMobileMapPackage.xaml.cs">
+      <DependentUpon>ShowMobileMapPackage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Offline\OpenMobileMapPackage\OpenMobileMapPackage.xaml.cs">
+      <DependentUpon>OpenMobileMapPackage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Offline\GenerateOfflineMap\GenerateOfflineMap.xaml.cs">
+      <DependentUpon>GenerateOfflineMap.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml.cs">
       <DependentUpon>UseDistanceCompositeSym.xaml</DependentUpon>
     </Compile>
@@ -201,6 +213,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Offline\ShowMapsOfflineSupport\ShowMapsOfflineSupport.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Offline\ShowMobileMapPackage\ShowMobileMapPackage.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Offline\OpenMobileMapPackage\OpenMobileMapPackage.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Offline\GenerateOfflineMap\GenerateOfflineMap.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg">
@@ -481,6 +505,22 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Samples\Offline\ShowMapsOfflineSupport\ShowMapsOfflineSupport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Offline\ShowMobileMapPackage\ShowMobileMapPackage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Offline\OpenMobileMapPackage\OpenMobileMapPackage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Offline\GenerateOfflineMap\GenerateOfflineMap.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -698,6 +738,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Map\SearchPortalMaps\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Offline\GenerateOfflineMap\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Offline\OpenMobileMapPackage\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Offline\ShowMobileMapPackage\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Offline\ShowMapsOfflineSupport\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

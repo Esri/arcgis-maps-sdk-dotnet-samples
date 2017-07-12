@@ -1,0 +1,47 @@
+﻿<UserControl 
+    x:Class="ArcGISRuntime.WPF.Samples.ShowMapsOfflineSupport.ShowMapsOfflineSupport"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013" 
+    mc:Ignorable="d" 
+    d:DesignHeight="300" d:DesignWidth="300">
+
+    <Grid Background="White">
+        <StackPanel>
+            <TextBlock Text="Select map" Margin="10"  FontWeight="Bold" />
+            <ComboBox Name="mapsChooser" SelectionChanged="OnMapsChooseSelectionChanged" Margin="10,0"/>
+            <Border x:Name="noErrorsMessage" Background="Green" Height="40" Margin="10" Visibility="Collapsed">
+                <TextBlock Foreground="White" Text="All map content supports offline" 
+                           FontSize="18"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <Border x:Name="someErrorsMessage" Background="Yellow" Height="40" Margin="10" Visibility="Collapsed">
+                <TextBlock Foreground="Black" Text="Map content partially supports offline" 
+                           FontSize="18"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <Border x:Name="allErrorsMessage" Background="Red" Height="40" Margin="10" Visibility="Collapsed">
+                <TextBlock Foreground="White" Text="Map content doesn't support offline" 
+                           FontSize="18"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <TextBlock Text="Layer list" FontWeight="Bold" Margin="10" />
+            <ListView x:Name="layerResultList" Margin="10 ,0"/>
+            <TextBlock Text="Table list" FontWeight="Bold" Margin="10" />
+            <ListView x:Name="tableResultList" Margin="10,0"/>
+        </StackPanel>
+
+        <Grid x:Name="analyzingIndicator" Background="#807f7f7f" Visibility="Collapsed">
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Analyzing online map..." Foreground="White" Margin="10" FontSize="18"/>
+                <ProgressBar IsEnabled="True" IsIndeterminate="True" Width="100" Height="10" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

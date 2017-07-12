@@ -218,6 +218,7 @@
     <None Include="Samples\Symbology\UseDistanceCompositeSym\metadata.json" />
     <None Include="Samples\Tutorial\AuthorEditSaveMap\metadata.json" />
     <None Include="Samples\Tutorial\AuthorEditSaveMap\README.md" />
+    <None Include="Samples\MapView\ShowCallout\metadata.json" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -353,6 +354,9 @@
     </Compile>
     <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMapVB.xaml.vb">
       <DependentUpon>AuthorEditSaveMapVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\ShowCallout\ShowCalloutVB.xaml.vb">
+      <DependentUpon>ShowCalloutVB.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -528,6 +532,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMapVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\ShowCallout\ShowCalloutVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

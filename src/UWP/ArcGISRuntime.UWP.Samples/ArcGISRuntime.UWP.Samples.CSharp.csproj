@@ -356,6 +356,7 @@
     <Content Include="Samples\Map\SearchPortalMaps\metadata.json">
      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Samples\MapView\ShowCallout\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -492,6 +493,9 @@
       <DependentUpon>AuthorEditSaveMap.xaml</DependentUpon>
     </Compile>
     <Content Include="Properties\ArcGISRuntime.Windows.Samples.rd.xml" />
+    <Compile Include="Samples\MapView\ShowCallout\ShowCallout.xaml.cs">
+      <DependentUpon>ShowCallout.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="Microsoft.VCLibs, version=14.0">
@@ -675,8 +679,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\MapView\ShowCallout\ShowCallout.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Samples\MapView\ShowCallout\" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

@@ -9,6 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Foundation;
 using System;
 using UIKit;
@@ -23,7 +24,7 @@ namespace ArcGISRuntimeXamarin.Samples.ShowCallout
 
         public ShowCallout()
         {
-            Title = "Map rotation";
+            Title = "Show callout";
         }
 
         public override void ViewDidLoad()
@@ -32,6 +33,7 @@ namespace ArcGISRuntimeXamarin.Samples.ShowCallout
 
             // Create a new MapView control and provide its location coordinates on the frame
             _myMapView = new MapView();
+            _myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
             
             // Create a new Map instance with the basemap  
             var myBasemap = Basemap.CreateImageryWithLabels();
@@ -50,5 +52,15 @@ namespace ArcGISRuntimeXamarin.Samples.ShowCallout
 
             base.ViewDidLayoutSubviews();
         }
+
+		void _myMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+		{
+			// Get tap location
+			MapPoint mapLocation = e.Location;
+			string mapLocationString = "x: " + mapLocation.X.ToString() + " Y: " + mapLocation.Y.ToString();
+
+			// Display Callout
+			_myMapView.ShowCalloutAt(mapLocation, new Esri.ArcGISRuntime.UI.CalloutDefinition(mapLocationString));
+		}
     }
 }

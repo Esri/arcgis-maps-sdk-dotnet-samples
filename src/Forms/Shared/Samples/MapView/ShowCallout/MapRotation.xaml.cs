@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Geometry;
 using Xamarin.Forms;
 
 namespace ArcGISRuntimeXamarin.Samples.ShowCallout
@@ -25,11 +26,23 @@ namespace ArcGISRuntimeXamarin.Samples.ShowCallout
         private void Initialize()
         {
             // Create a new Map instance with the basemap  
-            Basemap myBasemap = Basemap.CreateStreets();
+            Basemap myBasemap = Basemap.CreateImageryWithLabels();
             Map myMap = new Map(myBasemap);
 
             // Assign the map to the MapView
             MyMapView.Map = myMap;
+
+            MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
+
+		void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+		{
+			// Get tap location
+			MapPoint mapLocation = e.Location;
+			string mapLocationString = "x: " + mapLocation.X.ToString() + " Y: " + mapLocation.Y.ToString();
+
+			// Display Callout
+			MyMapView.ShowCalloutAt(mapLocation, new Esri.ArcGISRuntime.UI.CalloutDefinition(mapLocationString));
+		}
     }
 }

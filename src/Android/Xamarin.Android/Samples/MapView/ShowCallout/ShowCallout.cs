@@ -11,6 +11,7 @@ using Android.App;
 using Android.OS;
 using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.UI.Controls;
 
 namespace ArcGISRuntimeXamarin.Samples.ShowCallout
@@ -41,11 +42,22 @@ namespace ArcGISRuntimeXamarin.Samples.ShowCallout
             // Create a new map view control to display the map
             _myMapView = new MapView();
             _myMapView.Map = myMap;
+            _myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
 
             layout.AddView(_myMapView);
 
             // Apply the layout to the app
             SetContentView(layout);
+        }
+
+        void _myMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        {
+            // Get tap location
+            MapPoint mapLocation = e.Location;
+            string mapLocationString = "x: " + mapLocation.X.ToString() + " Y: " + mapLocation.Y.ToString();
+
+            // Display Callout
+            _myMapView.ShowCalloutAt(mapLocation, new Esri.ArcGISRuntime.UI.CalloutDefinition(mapLocationString));
         }
     }
 }

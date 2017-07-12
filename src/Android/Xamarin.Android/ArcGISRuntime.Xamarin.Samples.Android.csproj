@@ -230,6 +230,7 @@
     <EmbeddedResource Include="Samples\Map\SearchPortalMaps\metadata.json" />
     <EmbeddedResource Include="Samples\GraphicsOverlay\SketchOnMap\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\ShowCallout\metadata.json" />
+    <None Include="Samples\MapView\ShowCallout\ShowCallout.jpg" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml" />

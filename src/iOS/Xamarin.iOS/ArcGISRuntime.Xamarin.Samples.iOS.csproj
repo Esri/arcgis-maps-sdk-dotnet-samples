@@ -311,6 +311,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Samples\MapView\ShowCallout\metadata.json" />
+    <BundleResource Include="Samples\MapView\ShowCallout\ShowCallout.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />

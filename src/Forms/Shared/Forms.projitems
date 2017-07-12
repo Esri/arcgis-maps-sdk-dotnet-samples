@@ -548,4 +548,7 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Samples\MapView\ShowCallout\ShowCallout.jpg" />
+  </ItemGroup>
 </Project>

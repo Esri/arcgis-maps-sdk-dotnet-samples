@@ -10,6 +10,7 @@
 Imports Esri.ArcGISRuntime.Mapping
 Imports Esri.ArcGISRuntime.Portal
 Imports Esri.ArcGISRuntime.Security
+Imports Esri.ArcGISRuntime.UI
 Imports Windows.UI.Popups
 
 Namespace AuthorEditSaveMap
@@ -236,7 +237,8 @@ Namespace AuthorEditSaveMap
             _map.InitialViewpoint = initialViewpoint
 
             ' Save the current state of the map as a portal item in the user's default folder
-            Await _map.SaveAsAsync(agsOnline, Nothing, title, description, tags, Nothing)
+            Dim img As RuntimeImage = Nothing
+            Await MyMap.SaveAsAsync(agsOnline, Nothing, title, description, tags, img)
         End Function
 
         Public ReadOnly Property MapIsSaved As Boolean

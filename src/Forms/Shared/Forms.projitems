@@ -203,7 +203,7 @@
       <DependentUpon>SaveMapPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\ShowCallout\MapRotation.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\ShowCallout\ShowCallout.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>ShowCallout.xaml</DependentUpon>
     </Compile>

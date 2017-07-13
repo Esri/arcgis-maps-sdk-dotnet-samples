@@ -8,7 +8,9 @@
 ' language governing permissions and limitations under the License.
 
 Imports Esri.ArcGISRuntime.Mapping
+Imports Esri.ArcGISRuntime.UI.Controls
 Imports System.Windows
+Imports System
 
 Namespace ShowCallout
 
@@ -31,6 +33,20 @@ Namespace ShowCallout
             ' Assign the map to the MapView
             MyMapView.Map = myMap
 
+        End Sub
+
+        Private Sub MyMapView_GeoViewTapped(sender As Object, e As GeoViewInputEventArgs) Handles MyMapView.GeoViewTapped
+            ' Get tap location
+            Dim mapLocation As MapPoint = e.Location
+
+            '' Convert to Traditional Lat/Lng display
+            Dim projectedLocation As MapPoint = (MapPoint)GeometryEngine.Project(mapLocation, SpatialReferences.Wgs84)
+
+            ' Format string for display
+            Dim mapLocationString As String = String.Format("Lat: {0:F3} Lng:{1:F3}", projectedLocation.Y, projectedLocation.X)
+
+            ' Display Callout
+            MyMapView.ShowCalloutAt(mapLocation, new Esri.ArcGISRuntime.UI.CalloutDefinition("Location:", mapLocationString))
         End Sub
 
     End Class

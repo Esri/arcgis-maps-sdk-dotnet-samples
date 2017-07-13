@@ -10,6 +10,7 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Geometry;
 using Xamarin.Forms;
+using System;
 
 namespace ArcGISRuntimeXamarin.Samples.ShowCallout
 {
@@ -26,7 +27,7 @@ namespace ArcGISRuntimeXamarin.Samples.ShowCallout
         private void Initialize()
         {
             // Create a new Map instance with the basemap  
-            Basemap myBasemap = Basemap.CreateImageryWithLabels();
+            Basemap myBasemap = Basemap.CreateStreets();
             Map myMap = new Map(myBasemap);
 
             // Assign the map to the MapView
@@ -39,10 +40,15 @@ namespace ArcGISRuntimeXamarin.Samples.ShowCallout
 		{
 			// Get tap location
 			MapPoint mapLocation = e.Location;
-			string mapLocationString = "x: " + mapLocation.X.ToString() + " Y: " + mapLocation.Y.ToString();
+
+			// Convert to Traditional Lat/Lng display
+			MapPoint projectedLocation = (MapPoint)GeometryEngine.Project(mapLocation, SpatialReferences.Wgs84);
+
+			// Format string for display
+			string mapLocationString = String.Format("Lat: {0:F3} Lng:{1:F3}", projectedLocation.Y, projectedLocation.X);
 
 			// Display Callout
-			MyMapView.ShowCalloutAt(mapLocation, new Esri.ArcGISRuntime.UI.CalloutDefinition(mapLocationString));
+			MyMapView.ShowCalloutAt(mapLocation, new Esri.ArcGISRuntime.UI.CalloutDefinition("Location:", mapLocationString));
 		}
     }
 }

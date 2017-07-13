@@ -8,6 +8,9 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.UI.Controls;
+using System;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.ShowCallout
@@ -29,6 +32,23 @@ namespace ArcGISRuntime.WPF.Samples.ShowCallout
 
             // Assign the map to the MapView
             MyMapView.Map = myMap;
+
+            MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
+
+		void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+		{
+			// Get tap location
+			MapPoint mapLocation = e.Location;
+
+			// Convert to Traditional Lat/Lng display
+			MapPoint projectedLocation = (MapPoint)GeometryEngine.Project(mapLocation, SpatialReferences.Wgs84);
+
+			// Format string for display
+			string mapLocationString = String.Format("Lat: {0:F3} Lng:{1:F3}", projectedLocation.Y, projectedLocation.X);
+
+			// Display Callout
+			MyMapView.ShowCalloutAt(mapLocation, new Esri.ArcGISRuntime.UI.CalloutDefinition("Location:", mapLocationString));
+		}
     }
 }

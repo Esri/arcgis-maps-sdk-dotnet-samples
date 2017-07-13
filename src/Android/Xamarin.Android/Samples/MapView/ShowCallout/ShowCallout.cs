@@ -13,6 +13,7 @@ using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.UI.Controls;
+using System;
 
 namespace ArcGISRuntimeXamarin.Samples.ShowCallout
 {
@@ -36,7 +37,7 @@ namespace ArcGISRuntimeXamarin.Samples.ShowCallout
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create a new Map instance with the basemap  
-            Basemap myBasemap = Basemap.CreateImageryWithLabels();
+            Basemap myBasemap = Basemap.CreateStreets();
             Map myMap = new Map(myBasemap);
 
             // Create a new map view control to display the map
@@ -52,12 +53,17 @@ namespace ArcGISRuntimeXamarin.Samples.ShowCallout
 
         void _myMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            // Get tap location
-            MapPoint mapLocation = e.Location;
-            string mapLocationString = "x: " + mapLocation.X.ToString() + " Y: " + mapLocation.Y.ToString();
+			// Get tap location
+			MapPoint mapLocation = e.Location;
 
-            // Display Callout
-            _myMapView.ShowCalloutAt(mapLocation, new Esri.ArcGISRuntime.UI.CalloutDefinition(mapLocationString));
+			// Convert to Traditional Lat/Lng display
+			MapPoint projectedLocation = (MapPoint)GeometryEngine.Project(mapLocation, SpatialReferences.Wgs84);
+
+			// Format string for display
+			string mapLocationString = String.Format("Lat: {0:F3} Lng:{1:F3}", projectedLocation.Y, projectedLocation.X);
+
+			// Display Callout
+			_myMapView.ShowCalloutAt(mapLocation, new Esri.ArcGISRuntime.UI.CalloutDefinition("Location:", mapLocationString));
         }
     }
 }

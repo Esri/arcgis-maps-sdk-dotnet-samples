@@ -36,7 +36,8 @@ namespace ArcGISRuntimeXamarin.Samples.ShowCallout
             _myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
             
             // Create a new Map instance with the basemap  
-            var myBasemap = Basemap.CreateImageryWithLabels();
+            var myBasemap = Basemap.CreateStreetsVector();
+
             Map myMap = new Map(myBasemap);
 
             // Assign the Map to the MapView
@@ -56,11 +57,16 @@ namespace ArcGISRuntimeXamarin.Samples.ShowCallout
 		void _myMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
 		{
 			// Get tap location
-			MapPoint mapLocation = e.Location;
-			string mapLocationString = "x: " + mapLocation.X.ToString() + " Y: " + mapLocation.Y.ToString();
+            MapPoint mapLocation = e.Location;
+
+            // Convert to Traditional Lat/Lng display
+            MapPoint projectedLocation = (MapPoint)GeometryEngine.Project(mapLocation, SpatialReferences.Wgs84);
+
+            // Format string for display
+            string mapLocationString = String.Format("Lat: {0:F3} Lng:{1:F3}", projectedLocation.Y, projectedLocation.X);
 
 			// Display Callout
-			_myMapView.ShowCalloutAt(mapLocation, new Esri.ArcGISRuntime.UI.CalloutDefinition(mapLocationString));
+			_myMapView.ShowCalloutAt(mapLocation, new Esri.ArcGISRuntime.UI.CalloutDefinition("Location:",mapLocationString));
 		}
     }
 }

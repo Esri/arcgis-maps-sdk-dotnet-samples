@@ -27,7 +27,7 @@ namespace ArcGISRuntime.UWP.Samples.ShowCallout
         private void Initialize()
         {
             // Create a new Map instance with the basemap  
-            Basemap myBasemap = Basemap.CreateImageryWithLabels();
+            Basemap myBasemap = Basemap.CreateStreets();
             Map myMap = new Map(myBasemap);
 
             // Assign the map to the MapView

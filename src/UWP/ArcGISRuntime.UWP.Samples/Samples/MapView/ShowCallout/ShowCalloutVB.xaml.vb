@@ -27,7 +27,7 @@ Namespace ShowCallout
         Private Sub Initialize()
 
             ' Create a new Map instance with the basemap  
-            Dim myBasemap As Basemap = Basemap.CreateImageryWithLabels()
+            Dim myBasemap As Basemap = Basemap.CreateStreets()
             Dim myMap As New Map(myBasemap)
 
             ' Assign the map to the MapView
@@ -40,7 +40,7 @@ Namespace ShowCallout
             Dim mapLocation As MapPoint = e.Location
 
             '' Convert to Traditional Lat/Lng display
-            Dim projectedLocation As MapPoint = (MapPoint)GeometryEngine.Project(mapLocation, SpatialReferences.Wgs84)
+            Dim projectedLocation As MapPoint = CType(GeometryEngine.Project(mapLocation, SpatialReferences.Wgs84), MapPoint)
 
             ' Format string for display
             Dim mapLocationString As String = String.Format("Lat: {0:F3} Lng:{1:F3}", projectedLocation.Y, projectedLocation.X)

@@ -15,6 +15,7 @@ using Esri.ArcGISRuntime.UI;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
+using Esri.ArcGISRuntime.UI.Controls;
 
 namespace ArcGISRuntime.WPF.Samples.FindAddress
 {
@@ -47,6 +48,9 @@ namespace ArcGISRuntime.WPF.Samples.FindAddress
 
             // Provide used Map to the MapView
             MyMapView.Map = myMap;
+
+            // Enable tap-for-info pattern on results
+            MyMapView.GeoViewTapped += _myMapView_GeoViewTapped;
 
             // Set navigation types as items source and set default value
             modeChooser.ItemsSource = _addresses;
@@ -120,6 +124,30 @@ namespace ArcGISRuntime.WPF.Samples.FindAddress
         private void MySearchBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
             updateSearch();
+        }
+
+        /// <summary>
+        /// Handle tap event on the map; displays callouts showing the address for a tapped search result
+        /// </summary>
+        async void _myMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        {
+            // Search for the graphics underneath the user's tap
+            var results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
+
+            // Return gracefully if there was no result
+            if (results.Count == 0) { return; }
+
+            // Display the callout
+            if (results[0].Graphics.Count > 0)
+            {
+                object addr = "";
+                if (results[0].Graphics[0].Attributes.TryGetValue("address", out addr))
+                {
+                    MapPoint point = MyMapView.ScreenToLocation(e.Position);
+                    MyMapView.ShowCalloutAt(point, new CalloutDefinition(addr.ToString()));
+                }
+
+            }
         }
     }
 }

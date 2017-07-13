@@ -14,8 +14,10 @@ Imports Esri.ArcGISRuntime.Symbology
 Imports Esri.ArcGISRuntime.Mapping
 Imports Esri.ArcGISRuntime.UI
 Imports System.Collections.Generic
+Imports Esri.ArcGISRuntime.UI.Controls
 Imports System.Reflection
 Imports System.Threading.Tasks
+Imports Esri.ArcGISRuntime.Data
 
 Namespace FindAddress
     Partial Public Class FindAddressVB
@@ -115,6 +117,26 @@ Namespace FindAddress
 
         Private Sub MySearchBox_TextChanged(sender As Object, e As System.Windows.Controls.TextChangedEventArgs)
             updateSearch()
+        End Sub
+
+        ''' <summary>
+        ''' Handle tap event on the map; displays callouts showing the address for a tapped search result
+        ''' </summary>
+        Private Async Sub MyMapView_GeoViewTapped(sender As Object, e As GeoViewInputEventArgs) Handles MyMapView.GeoViewTapped
+            ' Search for the graphics underneath the user's tap
+            Dim results As IReadOnlyList(Of IdentifyGraphicsOverlayResult) = Await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, False)
+
+            ' Return gracefully if there was no result
+            If results.Count = 0 Then Return
+
+            ' Display the callout
+            If results.First().Graphics.Count > 0 Then
+                Dim addr As Object = ""
+                If results.First().Graphics.First().Attributes.TryGetValue("address", addr) Then
+                    Dim Point As MapPoint = MyMapView.ScreenToLocation(e.Position)
+                    MyMapView.ShowCalloutAt(Point, New CalloutDefinition(addr.ToString()))
+                End If
+            End If
         End Sub
     End Class
 End Namespace

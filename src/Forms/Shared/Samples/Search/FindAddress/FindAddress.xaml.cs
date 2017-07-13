@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.Tasks.Geocoding;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Symbology;
+using Esri.ArcGISRuntime.Data;
 using System.Threading.Tasks;
 using System;
 using System.Linq;
@@ -78,8 +79,8 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             if (locations.Count < 1) { return; }
 
 			// Set up a graphics overlay 
-			var resultOverlay = new GraphicsOverlay();
-			var point = await _graphicForPoint(locations[0].DisplayLocation);
+			GraphicsOverlay resultOverlay = new GraphicsOverlay();
+			Graphic point = await _graphicForPoint(locations[0].DisplayLocation);
 
 			// Record the address with the overlay for easy recall when the graphic is tapped
 			point.Attributes.Add("Address", locations[0].Label);
@@ -131,21 +132,24 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
         async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
         {
 			// Search for the graphics underneath the user's tap
-			var results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
+			IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
 
 			// Return gracefully if there was no result
 			if (results.Count == 0) { return; }
 
+			// Reverse geocode to get addresses
+			IReadOnlyList<GeocodeResult> addresses = await _GeocodeTask.ReverseGeocodeAsync(e.Location);
+
+			// Format addresses
+			GeocodeResult address = addresses.First();
+			String calloutTitle = $"{address.Attributes["City"]}, {address.Attributes["Region"]}";
+			String calloutDetail = $"{address.Attributes["MetroArea"]}";
+
 			// Display the callout
 			if (results[0].Graphics.Count > 0)
 			{
-				object addr = "";
-				if (results[0].Graphics[0].Attributes.TryGetValue("address", out addr))
-				{
-					MapPoint point = MyMapView.ScreenToLocation(e.Position);
-					MyMapView.ShowCalloutAt(point, new CalloutDefinition(addr.ToString()));
-				}
-
+				MapPoint point = MyMapView.ScreenToLocation(e.Position);
+				MyMapView.ShowCalloutAt(point, new CalloutDefinition(calloutTitle, calloutDetail));
 			}
         }
     }

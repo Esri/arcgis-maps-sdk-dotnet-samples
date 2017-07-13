@@ -8,16 +8,17 @@
 ' "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 ' language governing permissions and limitations under the License.
 
-Imports Esri.ArcGISRuntime.Location
 Imports Esri.ArcGISRuntime.Mapping
 Imports Esri.ArcGISRuntime.UI
 Imports Esri.ArcGISRuntime.Tasks.Geocoding
 Imports Esri.ArcGISRuntime.Symbology
 Imports Esri.ArcGISRuntime.UI.Controls
 Imports Esri.ArcGISRuntime.Geometry
+Imports Esri.ArcGISRuntime.Data
 Imports System.Collections.Generic
 Imports System.Reflection
 Imports System.Threading.Tasks
+Imports System.Linq
 
 Namespace FindAddress
     Partial Public Class FindAddressVB
@@ -34,7 +35,7 @@ Namespace FindAddress
 
         Private Sub Initialize()
             ' Create new Map with basemap
-            Dim myMap As New Map(Basemap.CreateTopographic())
+            Dim myMap As New Map(Basemap.CreateImageryWithLabels())
 
             ' Assign the map to the MapView
             MyMapView.Map = myMap
@@ -100,6 +101,31 @@ Namespace FindAddress
             Dim textValue As String = menuItem.Text
             MySearchBox.Text = textValue
             updateSearch()
+        End Sub
+
+        '<summary>
+        ' Handle tap event on the map; displays callouts showing the address for a tapped search result
+        ' </summary>
+        Private Async Sub MyMapView_GeoViewTapped(sender As Object, e As GeoViewInputEventArgs) Handles MyMapView.GeoViewTapped
+            ' Search for the graphics underneath the user's tap
+            Dim results As IReadOnlyList(Of IdentifyGraphicsOverlayResult) = Await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, False)
+
+            ' Return gracefully if there was no result
+            If results.Count = 0 Then Return
+
+            ' Reverse geocode to get addresses
+            Dim addresses As IReadOnlyList(Of GeocodeResult) = Await _geocoder.ReverseGeocodeAsync(e.Location)
+
+            ' Format addresses
+            Dim address As GeocodeResult = addresses.First()
+            Dim calloutTitle As String = $"{address.Attributes("City")}, {address.Attributes("Region")}"
+            Dim calloutDetail As String = $"{address.Attributes("MetroArea")}"
+
+            ' Display the callout
+            If results.First().Graphics.Count > 0 Then
+                Dim point As MapPoint = MyMapView.ScreenToLocation(e.Position)
+                MyMapView.ShowCalloutAt(Point, New CalloutDefinition(calloutTitle, calloutDetail))
+            End If
         End Sub
     End Class
 End Namespace

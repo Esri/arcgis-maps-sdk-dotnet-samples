@@ -139,8 +139,6 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             var resultOverlay = new GraphicsOverlay();
             var point = await _graphicForPoint(addresses[0].DisplayLocation);
 
-            // Record the address with the overlay for easy recall when the graphic is tapped
-            point.Attributes.Add("Address", addresses[0].Label);
             resultOverlay.Graphics.Add(point);
             _myMapView.GraphicsOverlays.Add(resultOverlay);
             await _myMapView.SetViewpointGeometryAsync(addresses[0].Extent);
@@ -172,7 +170,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
         }
 
         /// <summary>
-        /// Responds to map-tapped events to provide popups for markers
+        /// Responds to map-tapped events to provide callouts for markers
         /// </summary>
         async void _myMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
@@ -182,16 +180,19 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             // Return gracefully if there was no result
             if (results.Count == 0) { return; }
 
+			// Reverse geocode to get addresses
+			IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(e.Location);
+
+            // Format addresses
+            GeocodeResult address = addresses.First();
+            String calloutTitle = $"{address.Attributes["City"]}, {address.Attributes["Region"]}";
+            String calloutDetail = $"{address.Attributes["MetroArea"]}";
+
             // Display the callout
             if (results[0].Graphics.Count > 0)
             {
-                object addr = "";
-                if (results[0].Graphics[0].Attributes.TryGetValue("address", out addr))
-                {
-                    MapPoint point = _myMapView.ScreenToLocation(e.Position);
-                    _myMapView.ShowCalloutAt(point, new CalloutDefinition(addr.ToString()));
-                }
-
+                MapPoint point = _myMapView.ScreenToLocation(e.Position);
+                _myMapView.ShowCalloutAt(point, new CalloutDefinition(calloutTitle, calloutDetail));
             }
         }
     }

@@ -129,13 +129,18 @@ Namespace FindAddress
             ' Return gracefully if there was no result
             If results.Count = 0 Then Return
 
+            ' Reverse geocode to get addresses
+            Dim addresses As IReadOnlyList(Of GeocodeResult) = Await _geocoder.ReverseGeocodeAsync(e.Location)
+
+            ' Format addresses
+            Dim address As GeocodeResult = addresses.First()
+            Dim calloutTitle As String = $"{address.Attributes("City")}, {address.Attributes("Region")}"
+            Dim calloutDetail As String = $"{address.Attributes("MetroArea")}"
+
             ' Display the callout
             If results.First().Graphics.Count > 0 Then
-                Dim addr As Object = ""
-                If results.First().Graphics.First().Attributes.TryGetValue("address", addr) Then
-                    Dim Point As MapPoint = MyMapView.ScreenToLocation(e.Position)
-                    MyMapView.ShowCalloutAt(Point, New CalloutDefinition(addr.ToString()))
-                End If
+                Dim point As MapPoint = MyMapView.ScreenToLocation(e.Position)
+                MyMapView.ShowCalloutAt(point, New CalloutDefinition(calloutTitle, calloutDetail))
             End If
         End Sub
     End Class

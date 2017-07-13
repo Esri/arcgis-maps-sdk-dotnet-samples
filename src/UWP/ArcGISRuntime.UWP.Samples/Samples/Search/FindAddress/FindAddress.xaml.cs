@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Location;
+using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Tasks.Geocoding;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -49,12 +49,17 @@ namespace ArcGISRuntime.UWP.Samples.FindAddress
         private void Initialize()
         {
             // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateTopographic());
+            Map myMap = new Map(Basemap.CreateImageryWithLabels());
+
+            // Enable tap-for-info pattern on results
+            MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
 
             // Assign the map to the MapView
             MyMapView.Map = myMap;
             
         }
+
+        
 
         private void mySearchField_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -122,6 +127,33 @@ namespace ArcGISRuntime.UWP.Samples.FindAddress
         {
             MySearchBox.Text = ((MenuFlyoutItem)sender).Text;
             updateSearch();
+        }
+
+        /// <summary>
+        /// Handle tap event on the map; displays callouts showing the address for a tapped search result
+        /// </summary>
+        private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        {
+            // Search for the graphics underneath the user's tap
+            IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
+
+            // Return gracefully if there was no result
+            if (results.Count == 0) { return; }
+
+            // Reverse geocode to get addresses
+            IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(e.Location);
+
+            // Format addresses
+            GeocodeResult address = addresses.First();
+            string calloutTitle = $"{address.Attributes["City"]}, {address.Attributes["Region"]}";
+            string calloutDetail = $"{address.Attributes["MetroArea"]}";
+
+            // Display the callout
+            if (results[0].Graphics.Count > 0)
+            {
+                MapPoint point = MyMapView.ScreenToLocation(e.Position);
+                MyMapView.ShowCalloutAt(point, new CalloutDefinition(calloutTitle, calloutDetail));
+            }
         }
     }
 }

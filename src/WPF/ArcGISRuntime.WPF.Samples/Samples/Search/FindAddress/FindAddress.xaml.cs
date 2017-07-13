@@ -12,10 +12,13 @@ using Esri.ArcGISRuntime.Tasks.Geocoding;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Controls;
+using Esri.ArcGISRuntime.Data;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
-using Esri.ArcGISRuntime.UI.Controls;
+using System.Linq;
+
 
 namespace ArcGISRuntime.WPF.Samples.FindAddress
 {
@@ -132,21 +135,24 @@ namespace ArcGISRuntime.WPF.Samples.FindAddress
         async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             // Search for the graphics underneath the user's tap
-            var results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
+            IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
 
             // Return gracefully if there was no result
             if (results.Count == 0) { return; }
 
+            // Reverse geocode to get addresses
+            IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(e.Location);
+
+            // Format addresses
+            GeocodeResult address = addresses.First();
+            string calloutTitle = $"{address.Attributes["City"]}, {address.Attributes["Region"]}";
+            string calloutDetail = $"{address.Attributes["MetroArea"]}";
+
             // Display the callout
             if (results[0].Graphics.Count > 0)
             {
-                object addr = "";
-                if (results[0].Graphics[0].Attributes.TryGetValue("address", out addr))
-                {
-                    MapPoint point = MyMapView.ScreenToLocation(e.Position);
-                    MyMapView.ShowCalloutAt(point, new CalloutDefinition(addr.ToString()));
-                }
-
+                MapPoint point = MyMapView.ScreenToLocation(e.Position);
+                MyMapView.ShowCalloutAt(point, new CalloutDefinition(calloutTitle, calloutDetail));
             }
         }
     }

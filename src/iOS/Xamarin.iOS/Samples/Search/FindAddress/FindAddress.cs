@@ -8,8 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using System.Reflection;
-using System.Threading.Tasks;
 using UIKit;
 using Foundation;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -18,6 +16,11 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Geocoding;
+using Esri.ArcGISRuntime.Data;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace ArcGISRuntimeXamarin.Samples.FindAddress
 {
@@ -107,18 +110,18 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             if (String.IsNullOrWhiteSpace(e.SearchText)) { return; }
 
             // Get suggestions from the geocoding service
-            var suggestions = await _GeocodeTask.SuggestAsync(e.SearchText);
+            IReadOnlyList<SuggestResult> suggestions = await _GeocodeTask.SuggestAsync(e.SearchText);
             if (suggestions.Count > 0) 
             {
                 // Get the location for the first suggestion
-                var locations = await _GeocodeTask.GeocodeAsync(suggestions[0]);
+                IReadOnlyList<GeocodeResult> locations = await _GeocodeTask.GeocodeAsync(suggestions[0]);
 
                 // Return gracefully if there are no results
                 if (locations.Count == 0) { return; }
 
                 // Set up a graphics overlay 
-				var resultOverlay = new GraphicsOverlay();
-                var point = await _graphicForPoint(locations[0].DisplayLocation);
+				GraphicsOverlay resultOverlay = new GraphicsOverlay();
+                Graphic point = await _graphicForPoint(locations[0].DisplayLocation);
 
                 // Record the address with the overlay for easy recall when the graphic is tapped
                 point.Attributes.Add("Address", locations[0].Label);
@@ -155,10 +158,10 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
         void _addressSearch_ListButtonClicked(object sender, EventArgs e)
         {
             // Create the alert view
-			var alert = UIAlertController.Create("Suggestions", "Location searches to try", UIAlertControllerStyle.Alert);
+			UIAlertController alert = UIAlertController.Create("Suggestions", "Location searches to try", UIAlertControllerStyle.Alert);
 
             // Populate the view with one action per address suggestion
-			foreach (var address in _addresses)
+			foreach (string address in _addresses)
 			{
                 alert.AddAction(UIAlertAction.Create(address, UIAlertActionStyle.Default, (obj) => { 
                     _addressSearch.Text = address; 
@@ -174,23 +177,26 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
         /// Handle tap event on the map; displays callouts showing the address for a tapped search result
         /// </summary>
         async void _myMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
-        { 
-            // Search for the graphics underneath the user's tap
-            var results = await _myMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
+        {
+			// Search for the graphics underneath the user's tap
+			IReadOnlyList<IdentifyGraphicsOverlayResult> results = await _myMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
 
-            // Return gracefully if there was no result
-            if (results.Count == 0) { return; }
+			// Return gracefully if there was no result
+			if (results.Count == 0) { return; }
 
-            // Display the callout
-            if (results[0].Graphics.Count > 0)
-            {
-                object addr = "";
-				if (results[0].Graphics[0].Attributes.TryGetValue("address", out addr))
-				{
-                    MapPoint point = _myMapView.ScreenToLocation(e.Position);
-					_myMapView.ShowCalloutAt(point, new CalloutDefinition(addr.ToString()));
-				}
+			// Reverse geocode to get addresses
+			IReadOnlyList<GeocodeResult> addresses = await _GeocodeTask.ReverseGeocodeAsync(e.Location);
 
+			// Format addresses
+			GeocodeResult address = addresses.First();
+			String calloutTitle = $"{address.Attributes["City"]}, {address.Attributes["Region"]}";
+			String calloutDetail = $"{address.Attributes["MetroArea"]}";
+
+			// Display the callout
+			if (results[0].Graphics.Count > 0)
+			{
+				MapPoint point = _myMapView.ScreenToLocation(e.Position);
+				_myMapView.ShowCalloutAt(point, new CalloutDefinition(calloutTitle, calloutDetail));
 			}
         }
     }

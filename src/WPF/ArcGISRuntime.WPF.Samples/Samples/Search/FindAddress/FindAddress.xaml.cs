@@ -50,7 +50,7 @@ namespace ArcGISRuntime.WPF.Samples.FindAddress
             MyMapView.Map = myMap;
 
             // Enable tap-for-info pattern on results
-            MyMapView.GeoViewTapped += _myMapView_GeoViewTapped;
+            MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
 
             // Set navigation types as items source and set default value
             modeChooser.ItemsSource = _addresses;
@@ -129,7 +129,7 @@ namespace ArcGISRuntime.WPF.Samples.FindAddress
         /// <summary>
         /// Handle tap event on the map; displays callouts showing the address for a tapped search result
         /// </summary>
-        async void _myMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             // Search for the graphics underneath the user's tap
             var results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);

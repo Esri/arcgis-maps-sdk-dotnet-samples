@@ -85,6 +85,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_red.png" />
     <Content Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -92,6 +93,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Search\FindAddress\FindAddress.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg">
@@ -354,7 +358,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Map\SearchPortalMaps\metadata.json">
-     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Search\FindAddress\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
@@ -475,6 +482,9 @@
     </Compile>
     <Compile Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.xaml.cs">
       <DependentUpon>SetMapSpatialReference.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Search\FindAddress\FindAddress.xaml.cs">
+      <DependentUpon>FindAddress.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.xaml.cs">
       <DependentUpon>RenderPictureMarkers.xaml</DependentUpon>
@@ -652,6 +662,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Search\FindAddress\FindAddress.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

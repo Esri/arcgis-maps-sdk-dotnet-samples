@@ -118,7 +118,7 @@ Namespace FindAddress
 
             ' Format addresses
             Dim address As GeocodeResult = addresses.First()
-            Dim calloutTitle As String = address.Attributes("City") & ", " & address.Attributes("Region")
+            Dim calloutTitle As String = address.Attributes("City").ToString() & ", " & address.Attributes("Region").ToString()
             Dim calloutDetail As String = address.Attributes("MetroArea").ToString()
 
             ' Display the callout

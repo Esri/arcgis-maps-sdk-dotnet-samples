@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Linq;
+using System;
 
 
 namespace ArcGISRuntime.WPF.Samples.FindAddress
@@ -145,8 +146,8 @@ namespace ArcGISRuntime.WPF.Samples.FindAddress
 
             // Format addresses
             GeocodeResult address = addresses.First();
-            string calloutTitle = $"{address.Attributes["City"]}, {address.Attributes["Region"]}";
-            string calloutDetail = $"{address.Attributes["MetroArea"]}";
+			String calloutTitle = address.Attributes["City"] + ", " + address.Attributes["Region"];
+			String calloutDetail = address.Attributes["MetroArea"].ToString();
 
             // Display the callout
             if (results[0].Graphics.Count > 0)

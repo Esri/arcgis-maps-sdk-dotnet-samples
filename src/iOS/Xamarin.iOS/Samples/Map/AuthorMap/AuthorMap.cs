@@ -29,6 +29,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
         private MapView _myMapView;
 
         private UISegmentedControl _segmentButton;
+        private UIToolbar _toolbar;
 
         // Dictionary of operational layer names and URLs
         private Dictionary<string, string> _operationalLayerUrls = new Dictionary<string, string>
@@ -74,7 +75,8 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             base.ViewDidLayoutSubviews();
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
-            _segmentButton.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 30, View.Bounds.Width, 30);
+            _segmentButton.Frame = new CoreGraphics.CGRect(10, 10, View.Bounds.Width - 20, 24);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
         }
 
         public override void ViewDidLoad()
@@ -124,8 +126,23 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             // Handle the "click" for each segment (new segment is selected)
             _segmentButton.ValueChanged += SegmentButtonClicked;
 
+			// Create a UIBarButtonItem where its view is the SegmentControl
+			UIBarButtonItem barButtonItem = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
+			barButtonItem.CustomView = _segmentButton;
+
+			// Create a toolbar on the bottom of the display 
+			_toolbar = new UIToolbar();
+			_toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
+			_toolbar.AutosizesSubviews = true;
+
+			// Add the bar button item to an array of UIBarButtonItems
+			UIBarButtonItem[] barButtonItems = new UIBarButtonItem[] { barButtonItem };
+
+			// Add the UIBarButtonItems array to the toolbar
+			_toolbar.SetItems(barButtonItems, true);
+
             // Add the MapView, progress bar, and UIButton to the page
-            View.AddSubviews(_myMapView, _activityIndicator, _segmentButton);
+            View.AddSubviews(_myMapView, _activityIndicator, _toolbar);
         }
 
         private void SegmentButtonClicked(object sender, EventArgs e)

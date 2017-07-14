@@ -21,6 +21,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBasemap
 
         MapView _myMapView;
         UIToolbar _toolbar;
+        UISegmentedControl _segmentControl;
 
         public ChangeBasemap()
         {
@@ -49,16 +50,16 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBasemap
             _myMapView.Map = myMap;
 
             // Create a segmented control to display buttons
-            UISegmentedControl segmentControl = new UISegmentedControl();
-            segmentControl.Frame = new CoreGraphics.CGRect(10, 8, View.Bounds.Width - 20, 24);
-            segmentControl.InsertSegment("Topo", 0, false);
-            segmentControl.InsertSegment("Streets", 1, false);
-            segmentControl.InsertSegment("Imagery", 2, false);
-            segmentControl.InsertSegment("Ocean", 3, false);
+            _segmentControl = new UISegmentedControl();
+            _segmentControl.Frame = new CoreGraphics.CGRect(8, 8, View.Bounds.Width - 16, 24);
+            _segmentControl.InsertSegment("Topo", 0, false);
+            _segmentControl.InsertSegment("Streets", 1, false);
+            _segmentControl.InsertSegment("Imagery", 2, false);
+            _segmentControl.InsertSegment("Ocean", 3, false);
 
-            segmentControl.SelectedSegment = 0;
+            _segmentControl.SelectedSegment = 0;
 
-            segmentControl.ValueChanged += (sender, e) =>
+            _segmentControl.ValueChanged += (sender, e) =>
             {
                 var selectedSegmentId = (sender as UISegmentedControl).SelectedSegment;
 
@@ -92,7 +93,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBasemap
 
             // Create a UIBarButtonItem where its view is the SegmentControl
             UIBarButtonItem barButtonItem = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
-            barButtonItem.CustomView = segmentControl;
+            barButtonItem.CustomView = _segmentControl;
 
             // Create a toolbar on the bottom of the display 
             _toolbar = new UIToolbar();
@@ -113,6 +114,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBasemap
             // Setup the visual frame for the MapView
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
             _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
+            _segmentControl.Frame = new CoreGraphics.CGRect(8, 8, View.Bounds.Width - 16, 24);
             base.ViewDidLayoutSubviews();
         }
     }

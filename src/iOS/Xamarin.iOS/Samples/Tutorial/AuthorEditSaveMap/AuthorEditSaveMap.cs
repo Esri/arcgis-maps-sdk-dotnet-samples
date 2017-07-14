@@ -30,6 +30,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
         MapViewModel _mapViewModel = new MapViewModel();
         MapView _mapView;
         UISegmentedControl _segmentButton = new UISegmentedControl();
+        UIToolbar _toolbar;
 
         // Overlay with entry controls for map item details (title, description, and tags)
         private SaveMapDialogOverlay _mapInfoUI;
@@ -74,7 +75,8 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             // Called when the layout of the view changes (e.g. phone is rotated)
 			// Define the visual frame for the MapView & Segment Buttons
 			_mapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _segmentButton.Frame = new CoreGraphics.CGRect(0, _mapView.Bounds.Height - 60, View.Bounds.Width, 30);
+            _segmentButton.Frame = new CoreGraphics.CGRect(10, 10, View.Bounds.Width - 20, 24);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
         }
 
         private void CreateLayout()
@@ -92,8 +94,23 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             // Handle the "click" for each segment (new segment is selected)
             _segmentButton.ValueChanged += SegmentButtonClicked;
 
+			// Create a UIBarButtonItem where its view is the SegmentControl
+			UIBarButtonItem barButtonItem = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
+			barButtonItem.CustomView = _segmentButton;
+
+			// Create a toolbar on the bottom of the display 
+			_toolbar = new UIToolbar();
+			_toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
+			_toolbar.AutosizesSubviews = true;
+
+			// Add the bar button item to an array of UIBarButtonItems
+			UIBarButtonItem[] barButtonItems = new UIBarButtonItem[] { barButtonItem };
+
+			// Add the UIBarButtonItems array to the toolbar
+			_toolbar.SetItems(barButtonItems, true);
+
             // Add the MapView and Segment Button to the page
-            View.AddSubviews(_mapView, _segmentButton);
+            View.AddSubviews(_mapView, _toolbar);
         }
 
         private void MapViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)

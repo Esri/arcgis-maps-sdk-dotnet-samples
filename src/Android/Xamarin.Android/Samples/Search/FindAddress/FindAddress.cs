@@ -75,7 +75,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             var searchBarLayout = new RelativeLayout(this);
             _searchBar = new EditText(this);
             var _searchHintButton = new Button(this);
-            _searchHintButton.Text = "Choose";
+            _searchHintButton.Text = "Suggest";
             layout.AddView(searchBarLayout);
             searchBarLayout.AddView(_searchBar);
             searchBarLayout.AddView(_searchHintButton);

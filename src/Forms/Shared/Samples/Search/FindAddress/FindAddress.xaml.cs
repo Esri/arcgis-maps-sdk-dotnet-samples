@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using Xamarin.Forms;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -20,9 +21,10 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Reflection;
 
+
 namespace ArcGISRuntimeXamarin.Samples.FindAddress
 {
-    public partial class FindAddress : Xamarin.Forms.ContentPage
+    public partial class FindAddress : ContentPage
     {
         private LocatorTask _GeocodeTask;
         // URL pointing to geocoding service
@@ -129,8 +131,8 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
 		/// <summary>
 		/// Handle tap event on the map; displays callouts showing the address for a tapped search result
 		/// </summary>
-        async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
-        {
+		async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+		{
 			// Search for the graphics underneath the user's tap
 			IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
 

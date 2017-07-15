@@ -117,8 +117,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             alert.Show();
         }
 
-        // Search for the newly emptied address
-        private async void _searchBar_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
+        private void _searchBar_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
         {
             updateSearch();
         }

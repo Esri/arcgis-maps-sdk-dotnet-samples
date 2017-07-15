@@ -1,7 +1,7 @@
 {
    "Name": "Find Address",
    "SampleName": "FindAddress",
-   "Description": "This sample demonstrates how you can use the LocatorTask api to look up an address and display it on the map.",
+   "Description": "This sample demonstrates how you can use the LocatorTask API to geocode an address and display it with a pin on the map. Tapping the pin displays the reverse-geocoded address in a callout.",
    "Instructions": "",
    "Type": 0,
    "RequiresOnlineConnection":true,

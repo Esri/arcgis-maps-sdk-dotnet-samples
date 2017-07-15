@@ -26,7 +26,7 @@ namespace ArcGISRuntime.UWP.Viewer
         // Default to use CSharp assembly for samples
         // NOTE :
         // Change this to Language.VBNet to run VB samples
-        private const Language SamplesLanguageUsed = Language.VBNet;
+        private const Language SamplesLanguageUsed = Language.CSharp;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code

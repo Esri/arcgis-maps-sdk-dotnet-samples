@@ -3,24 +3,25 @@
 ' Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 ' You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 '
-' Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-' "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+' Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+' "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 ' language governing permissions and limitations under the License.
 
-Imports System.Windows
-Imports Esri.ArcGISRuntime.Geometry
-Imports Esri.ArcGISRuntime.Tasks.Geocoding
-Imports Esri.ArcGISRuntime.Symbology
-Imports Esri.ArcGISRuntime.Mapping
-Imports Esri.ArcGISRuntime.UI
-Imports System.Collections.Generic
 Imports System.Reflection
-Imports System.Threading.Tasks
+Imports Esri.ArcGISRuntime.Data
+Imports Esri.ArcGISRuntime.Geometry
+Imports Esri.ArcGISRuntime.Mapping
+Imports Esri.ArcGISRuntime.Symbology
+Imports Esri.ArcGISRuntime.Tasks.Geocoding
+Imports Esri.ArcGISRuntime.UI
+Imports Esri.ArcGISRuntime.UI.Controls
 
 Namespace FindAddress
+
     Partial Public Class FindAddressVB
+
         ' Addresses for suggestion
-        Private _addresses As String() = New String() {
+        Private _addresses As String() = {
             "277 N Avenida Caballeros, Palm Springs, CA",
             "380 New York St, Redlands, CA 92373",
             "Београд",
@@ -28,26 +29,30 @@ Namespace FindAddress
             "北京"
         }
 
-        ' Create the LocatorTask to perform geocoding work with an online service
-        Private _geocoder As LocatorTask = New LocatorTask(New System.Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"))
+        ' The LocatorTask provides geocoding services via a service
+        Private _geocoder As LocatorTask
+
+        Private _serviceUri As Uri = New Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer")
 
         Public Sub New()
             InitializeComponent()
 
-            ' Create the UI, setup the control references and execute initialization 
+            ' Create the UI, setup the control references and execute initialization
             Initialize()
         End Sub
 
-        Private Sub Initialize()
+        Private Async Sub Initialize()
             ' Create New Map with basemap
             Dim myMap As Map = New Map(Basemap.CreateImagery())
 
             ' Provide used Map to the MapView
             MyMapView.Map = myMap
 
-            ' Set navigation types as items source And set default value
+            ' Set addresses as items source
             modeChooser.ItemsSource = _addresses
-            modeChooser.SelectedIndex = 0
+
+            ' Initialize the LocatorTask with the provided service Uri
+            _geocoder = Await LocatorTask.CreateAsync(_serviceUri)
         End Sub
 
         Private Async Sub updateSearch()
@@ -69,7 +74,7 @@ Namespace FindAddress
             ' Get the full address for the first suggestion
             Dim addresses As IReadOnlyList(Of GeocodeResult) = Await _geocoder.GeocodeAsync(suggestions.First().Label)
 
-            ' Stop gracegully if the geocoder does Not return a result
+            ' Stop gracefully if the geocoder does Not return a result
             If addresses.Count < 1 Then Return
 
             ' Place a marker on the map
@@ -116,5 +121,32 @@ Namespace FindAddress
         Private Sub MySearchBox_TextChanged(sender As Object, e As System.Windows.Controls.TextChangedEventArgs)
             updateSearch()
         End Sub
+
+        ''' <summary>
+        ''' Handle tap event on the map; displays callouts showing the address for a tapped search result
+        ''' </summary>
+        Private Async Sub MyMapView_GeoViewTapped(sender As Object, e As GeoViewInputEventArgs) Handles MyMapView.GeoViewTapped
+            ' Search for the graphics underneath the user's tap
+            Dim results As IReadOnlyList(Of IdentifyGraphicsOverlayResult) = Await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, False)
+
+            ' Return gracefully if there was no result
+            If results.Count = 0 Then Return
+
+            ' Reverse geocode to get addresses
+            Dim addresses As IReadOnlyList(Of GeocodeResult) = Await _geocoder.ReverseGeocodeAsync(e.Location)
+
+            ' Format addresses
+            Dim address As GeocodeResult = addresses.First()
+            Dim calloutTitle As String = address.Attributes("City").ToString() & ", " & address.Attributes("Region").ToString()
+            Dim calloutDetail As String = address.Attributes("MetroArea").ToString()
+
+            ' Display the callout
+            If results.First().Graphics.Count > 0 Then
+                Dim point As MapPoint = MyMapView.ScreenToLocation(e.Position)
+                MyMapView.ShowCalloutAt(point, New CalloutDefinition(calloutTitle, calloutDetail))
+            End If
+        End Sub
+
     End Class
+
 End Namespace

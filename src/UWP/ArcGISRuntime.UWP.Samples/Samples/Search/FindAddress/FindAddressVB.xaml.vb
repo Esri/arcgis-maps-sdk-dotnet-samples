@@ -1,43 +1,49 @@
-﻿
-' Copyright 2016 Esri.
+﻿' Copyright 2016 Esri.
 '
 ' Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 ' You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 '
-' Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-' "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+' Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+' "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 ' language governing permissions and limitations under the License.
 
-Imports Esri.ArcGISRuntime.Location
-Imports Esri.ArcGISRuntime.Mapping
-Imports Esri.ArcGISRuntime.UI
-Imports Esri.ArcGISRuntime.Tasks.Geocoding
-Imports Esri.ArcGISRuntime.Symbology
-Imports Esri.ArcGISRuntime.UI.Controls
-Imports Esri.ArcGISRuntime.Geometry
-Imports System.Collections.Generic
 Imports System.Reflection
-Imports System.Threading.Tasks
+Imports Esri.ArcGISRuntime.Data
+Imports Esri.ArcGISRuntime.Geometry
+Imports Esri.ArcGISRuntime.Mapping
+Imports Esri.ArcGISRuntime.Symbology
+Imports Esri.ArcGISRuntime.Tasks.Geocoding
+Imports Esri.ArcGISRuntime.UI
+Imports Esri.ArcGISRuntime.UI.Controls
 
 Namespace FindAddress
+
     Partial Public Class FindAddressVB
+
         ' String array to store the different device location options.
         Private _navigationTypes As String() = New String() {"On", "Re-Center", "Navigation", "Compass"}
-        Private _geocoder As LocatorTask = New LocatorTask(New Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"))
+
+        ' The LocatorTask provides geocoding services via a Service
+        Private _geocoder As LocatorTask
+
+        Private _serviceUri As Uri = New Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer")
 
         Public Sub New()
             InitializeComponent()
 
-            ' Setup the control references and execute initialization 
+            ' Setup the control references and execute initialization
             Initialize()
         End Sub
 
-        Private Sub Initialize()
+        Private Async Sub Initialize()
             ' Create new Map with basemap
-            Dim myMap As New Map(Basemap.CreateTopographic())
+            Dim myMap As New Map(Basemap.CreateImageryWithLabels())
 
             ' Assign the map to the MapView
             MyMapView.Map = myMap
+
+            ' Initialize the LocatorTask with the provided service Uri
+            _geocoder = Await LocatorTask.CreateAsync(_serviceUri)
 
         End Sub
 
@@ -59,7 +65,7 @@ Namespace FindAddress
             ' Get the full address for the first suggestion
             Dim addresses As IReadOnlyList(Of GeocodeResult) = Await _geocoder.GeocodeAsync(suggestions.First().Label)
 
-            ' Stop gracegully if the geocoder does not return a result
+            ' Stop gracefully if the geocoder does not return a result
             If addresses.Count < 1 Then Return
 
             ' Place a marker on the map
@@ -101,5 +107,32 @@ Namespace FindAddress
             MySearchBox.Text = textValue
             updateSearch()
         End Sub
+
+        '<summary>
+        ' Handle tap event on the map; displays callouts showing the address for a tapped search result
+        ' </summary>
+        Private Async Sub MyMapView_GeoViewTapped(sender As Object, e As GeoViewInputEventArgs) Handles MyMapView.GeoViewTapped
+            ' Search for the graphics underneath the user's tap
+            Dim results As IReadOnlyList(Of IdentifyGraphicsOverlayResult) = Await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, False)
+
+            ' Return gracefully if there was no result
+            If results.Count = 0 Then Return
+
+            ' Reverse geocode to get addresses
+            Dim addresses As IReadOnlyList(Of GeocodeResult) = Await _geocoder.ReverseGeocodeAsync(e.Location)
+
+            ' Format addresses
+            Dim address As GeocodeResult = addresses.First()
+            Dim calloutTitle As String = address.Attributes("City").ToString() & ", " & address.Attributes("Region").ToString()
+            Dim calloutDetail As String = address.Attributes("MetroArea").ToString()
+
+            ' Display the callout
+            If results.First().Graphics.Count > 0 Then
+                Dim point As MapPoint = MyMapView.ScreenToLocation(e.Position)
+                MyMapView.ShowCalloutAt(point, New CalloutDefinition(calloutTitle, calloutDetail))
+            End If
+        End Sub
+
     End Class
+
 End Namespace

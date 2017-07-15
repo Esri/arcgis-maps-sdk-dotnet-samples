@@ -119,7 +119,7 @@
             {
               "SampleName": "ChangeSublayerVisibility",
               "Path": "Samples/Layers/ChangeSublayerVisibility"
-            } 
+            }
           ]
         }
       ]
@@ -274,7 +274,7 @@
         }
       ]
     },
-     {
+    {
       "Name": "Location",
       "CategoryName": "Location",
       "SubCategories": [
@@ -286,16 +286,29 @@
             {
               "SampleName": "DisplayDeviceLocation",
               "Path": "Samples/Location/DisplayDeviceLocation"
-            },
-            {
-              "SampleName": "FindAddress",
-              "Path":  "Samples/Location/FindAddress"
             }
           ]
         }
       ]
     },
-     {
+    {
+      "Name": "Search",
+      "CategoryName": "Search",
+      "SubCategories": [
+        {
+          "Name": "Work with Addresses",
+          "SubCategoryName": "WorkWithAddresses",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "FindAddress",
+              "Path": "Samples/Search/FindAddress"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "Name": "Tutorial",
       "CategoryName": "Tutorial",
       "SubCategories": [

@@ -62,7 +62,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             _geocoder = await LocatorTask.CreateAsync(_serviceUri);
         }
 
-        private async void Handle_TextChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
+        private void Handle_TextChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
         {
             updateSearch();
         }
@@ -140,7 +140,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
         /// <summary>
         /// Handle tap event on the map; displays callouts showing the address for a tapped search result
         /// </summary>
-        private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
         {
             // Search for the graphics underneath the user's tap
             IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);

@@ -3,30 +3,29 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Tasks.Geocoding;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.UI.Controls;
-using Esri.ArcGISRuntime.Data;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using System.Linq;
-using System;
-
+using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Symbology;
+using Esri.ArcGISRuntime.Tasks.Geocoding;
+using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Controls;
 
 namespace ArcGISRuntime.WPF.Samples.FindAddress
 {
     public partial class FindAddress
     {
         // Addresses for suggestion
-        string[] _addresses = {
+        private string[] _addresses = {
             "277 N Avenida Caballeros, Palm Springs, CA",
             "380 New York St, Redlands, CA 92373",
             "Београд",
@@ -34,18 +33,20 @@ namespace ArcGISRuntime.WPF.Samples.FindAddress
             "北京"
         };
 
-        // Create the LocatorTask to perform geocoding work with an online service
-        private LocatorTask _geocoder = new LocatorTask(new System.Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"));
+        // The LocatorTask provides geocoding services via a service
+        private LocatorTask _geocoder;
+
+        private Uri _serviceUri = new Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
 
         public FindAddress()
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Setup the control references and execute initialization
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
             // Create new Map with basemap
             Map myMap = new Map(Basemap.CreateImagery());
@@ -53,12 +54,14 @@ namespace ArcGISRuntime.WPF.Samples.FindAddress
             // Provide used Map to the MapView
             MyMapView.Map = myMap;
 
+            // Set addresses as items source
+            modeChooser.ItemsSource = _addresses;
+
             // Enable tap-for-info pattern on results
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
 
-            // Set navigation types as items source and set default value
-            modeChooser.ItemsSource = _addresses;
-            modeChooser.SelectedIndex = 0;
+            // Initialize the LocatorTask with the provided service Uri
+            _geocoder = await LocatorTask.CreateAsync(_serviceUri);
         }
 
         private async void updateSearch()
@@ -80,7 +83,7 @@ namespace ArcGISRuntime.WPF.Samples.FindAddress
             // Get the full address for the first suggestion
             IReadOnlyList<GeocodeResult> addresses = await _geocoder.GeocodeAsync(suggestions[0].Label);
 
-            // Stop gracegully if the geocoder does not return a result
+            // Stop gracefully if the geocoder does not return a result
             if (addresses.Count < 1) { return; }
 
             // Place a marker on the map
@@ -133,7 +136,7 @@ namespace ArcGISRuntime.WPF.Samples.FindAddress
         /// <summary>
         /// Handle tap event on the map; displays callouts showing the address for a tapped search result
         /// </summary>
-        async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             // Search for the graphics underneath the user's tap
             IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
@@ -146,8 +149,8 @@ namespace ArcGISRuntime.WPF.Samples.FindAddress
 
             // Format addresses
             GeocodeResult address = addresses.First();
-			String calloutTitle = address.Attributes["City"] + ", " + address.Attributes["Region"];
-			String calloutDetail = address.Attributes["MetroArea"].ToString();
+            String calloutTitle = address.Attributes["City"] + ", " + address.Attributes["Region"];
+            String calloutDetail = address.Attributes["MetroArea"].ToString();
 
             // Display the callout
             if (results[0].Graphics.Count > 0)

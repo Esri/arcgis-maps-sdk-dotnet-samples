@@ -3,41 +3,32 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Android.App;
-using Android.OS;
-using Android.Widget;
-using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.UI.Controls;
-using Esri.ArcGISRuntime.Tasks.Geocoding;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Geometry;
 using System.Reflection;
+using System.Threading.Tasks;
+using Android.App;
+using Android.OS;
+using Android.Widget;
+using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Symbology;
+using Esri.ArcGISRuntime.Tasks.Geocoding;
+using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Controls;
 
 namespace ArcGISRuntimeXamarin.Samples.FindAddress
 {
     [Activity]
     public class FindAddress : Activity
     {
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
-
-        // Create the Locator Task to perform geocoding work with an online service
-        private LocatorTask _geocoder = new LocatorTask(new System.Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"));
-
-        // UI elements
-        private EditText _searchBar;
-
-        // List of addresses for use in suggestions
-        string[] _addresses = {
+        // Addresses for suggestion
+        private string[] _addresses = {
             "277 N Avenida Caballeros, Palm Springs, CA",
             "380 New York St, Redlands, CA 92373",
             "Београд",
@@ -45,27 +36,43 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             "北京"
         };
 
+        // The LocatorTask provides geocoding services via a service
+        private LocatorTask _geocoder;
+
+        private Uri _serviceUri = new Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
+
+        // UI Elements
+        private MapView _myMapView;
+
+        private EditText _addressSearchBar;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 
             Title = "Find Address";
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             CreateLayout();
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
             // Create new Map with basemap
             Map myMap = new Map(Basemap.CreateImagery());
+
+            // Create the MapView
+            _myMapView = new MapView();
 
             // Provide Map to the MapView
             _myMapView.Map = myMap;
 
             // Wire up the map view to support tapping on address markers
             _myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
+
+            // Initialize the LocatorTask with the provided service Uri
+            _geocoder = await LocatorTask.CreateAsync(_serviceUri);
         }
 
         private void CreateLayout()
@@ -73,39 +80,37 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             //initialize the layout
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
             var searchBarLayout = new RelativeLayout(this);
-            _searchBar = new EditText(this);
-            var _searchHintButton = new Button(this);
-            _searchHintButton.Text = "Suggest";
+            _addressSearchBar = new EditText(this);
+            var _suggestButton = new Button(this) { Text = "Suggest" };
             layout.AddView(searchBarLayout);
-            searchBarLayout.AddView(_searchBar);
-            searchBarLayout.AddView(_searchHintButton);
+            searchBarLayout.AddView(_addressSearchBar);
+            searchBarLayout.AddView(_suggestButton);
             layout.AddView(_myMapView);
-            var x = (RelativeLayout.LayoutParams)_searchHintButton.LayoutParameters;
+            var x = (RelativeLayout.LayoutParams)_suggestButton.LayoutParameters;
             x.AddRule(LayoutRules.AlignParentEnd);
-            var y = (RelativeLayout.LayoutParams)_searchBar.LayoutParameters;
+            var y = (RelativeLayout.LayoutParams)_addressSearchBar.LayoutParameters;
             y.AddRule(LayoutRules.AlignParentStart);
-            _searchBar.SetMaxLines(1);
+            _addressSearchBar.SetMaxLines(1);
             // Show the layout in the app
             SetContentView(layout);
 
             // Hook up the UI event handlers for suggestion & search
-            _searchHintButton.Click += _searchHintButton_Click;
-            _searchBar.TextChanged += _searchBar_TextChanged;
+            _suggestButton.Click += _searchHintButton_Click;
+            _addressSearchBar.TextChanged += _searchBar_TextChanged;
         }
 
         /// <summary>
         /// Provide address suggestions
         /// </summary>
-        void _searchHintButton_Click(object sender, EventArgs e)
+        private void _searchHintButton_Click(object sender, EventArgs e)
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.SetTitle("Suggestions")
                    .SetItems(_addresses, (_sender, _e) =>
             {
                 var address = _addresses[_e.Which]; // get the selected address
-                _searchBar.Text = address;
-                // invoke the "text changed" event
-                _searchBar_TextChanged(_sender, new Android.Text.TextChangedEventArgs(address.ToString(), 0, 0, address.Length));
+                _addressSearchBar.Text = address;
+                updateSearch();
             });
 
             AlertDialog alert = builder.Create();
@@ -113,15 +118,20 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
         }
 
         // Search for the newly emptied address
-        async void _searchBar_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
+        private async void _searchBar_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
         {
-            var enteredText = e.Text.ToString();
+            updateSearch();
+        }
+
+        private async void updateSearch()
+        {
+            var enteredText = _addressSearchBar.Text;
 
             // Clear existing marker
             _myMapView.GraphicsOverlays.Clear();
 
             // Return gracefully if the textbox is empty
-            if (String.IsNullOrWhiteSpace(e.Text.ToString())) { return; }
+            if (string.IsNullOrWhiteSpace(enteredText)) { return; }
 
             // Get the nearest suggestion to entered text
             IReadOnlyList<SuggestResult> suggestions = await _geocoder.SuggestAsync(enteredText);
@@ -132,17 +142,18 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             // Get the full address for the first suggestion
             IReadOnlyList<GeocodeResult> addresses = await _geocoder.GeocodeAsync(suggestions[0].Label);
 
-            // Stop gracegully if the geocoder does not return a result
+            // Stop gracefully if the geocoder does not return a result
             if (addresses.Count < 1) { return; }
 
             // Place a marker on the map
             var resultOverlay = new GraphicsOverlay();
             var point = await _graphicForPoint(addresses[0].DisplayLocation);
 
+            // Record the address with the overlay for easy recall when the graphic is tapped
+            point.Attributes.Add("Address", addresses[0].Label);
             resultOverlay.Graphics.Add(point);
             _myMapView.GraphicsOverlays.Add(resultOverlay);
             await _myMapView.SetViewpointGeometryAsync(addresses[0].Extent);
-
         }
 
         /// <summary>
@@ -172,7 +183,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
         /// <summary>
         /// Responds to map-tapped events to provide callouts for markers
         /// </summary>
-        async void _myMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        private async void _myMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             // Search for the graphics underneath the user's tap
             var results = await _myMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
@@ -180,8 +191,8 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             // Return gracefully if there was no result
             if (results.Count == 0) { return; }
 
-			// Reverse geocode to get addresses
-			IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(e.Location);
+            // Reverse geocode to get addresses
+            IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(e.Location);
 
             // Format addresses
             GeocodeResult address = addresses.First();

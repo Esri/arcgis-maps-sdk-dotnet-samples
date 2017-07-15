@@ -62,8 +62,6 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             // Create new Map with basemap
             Map myMap = new Map(Basemap.CreateImagery());
 
-            // Create the MapView
-            _myMapView = new MapView();
 
             // Provide Map to the MapView
             _myMapView.Map = myMap;
@@ -85,6 +83,8 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             layout.AddView(searchBarLayout);
             searchBarLayout.AddView(_addressSearchBar);
             searchBarLayout.AddView(_suggestButton);
+			// Create the MapView
+			_myMapView = new MapView();
             layout.AddView(_myMapView);
             var x = (RelativeLayout.LayoutParams)_suggestButton.LayoutParameters;
             x.AddRule(LayoutRules.AlignParentEnd);

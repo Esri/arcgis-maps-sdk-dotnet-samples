@@ -118,18 +118,17 @@ Public NotInheritable Class MainPage
         Try
             ' Report connection info
             messageBuilder.AppendLine("Connected to the portal on " + currentPortal.Uri.Host)
-            messageBuilder.AppendLine("Version: " + currentPortal.CurrentVersion)
 
             ' Report the user name used for this connection
-            If Not currentPortal.CurrentUser Is Nothing Then
-                messageBuilder.AppendLine("Connected as: " + currentPortal.CurrentUser.UserName)
+            If Not currentPortal.User Is Nothing Then
+                messageBuilder.AppendLine("Connected as: " + currentPortal.User.UserName)
             Else
                 ' Connected anonymously
                 messageBuilder.AppendLine("Anonymous")
             End If
 
             ' Search the portal for web maps
-            Dim items As SearchResultInfoItems = Await currentPortal.SearchItemsAsync(New SearchParameters("type:(""web map"" NOT ""web mapping application"")"))
+            Dim items As PortalQueryResultSet(Of PortalItem) = Await currentPortal.FindItemsAsync(New PortalQueryParameters("type:(""web map"" NOT ""web mapping application"")"))
 
             ' Build a list of items from the results that shows the map name and stores the item ID (with the Tag property)
             Dim resultItems As IEnumerable(Of ListBoxItem) = From r In items.Results Select New ListBoxItem With {.Tag = r.ItemId, .Content = r.Title}

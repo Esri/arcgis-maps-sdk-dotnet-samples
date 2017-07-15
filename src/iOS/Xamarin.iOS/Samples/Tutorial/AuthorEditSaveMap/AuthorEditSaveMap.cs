@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.UI.Controls;
+using Esri.ArcGISRuntime.UI;
 using Foundation;
 using System;
 using System.Collections.Generic;
@@ -52,10 +53,10 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             // Listen for changes on the view model
             _mapViewModel.PropertyChanged += MapViewModel_PropertyChanged;
         }
-        
-        public override void ViewDidLoad()
+
+        public override void ViewDidLayoutSubviews()
         {
-            base.ViewDidLoad();
+            base.ViewDidLayoutSubviews();
 
             // Call the function that creates the UI
             CreateLayout();
@@ -64,7 +65,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             UpdateAuthenticationManager();
 
             // Use the map from the view-model
-            _mapView.Map = _mapViewModel.Map;
+            _mapViewModel.ResetMap();
         }
 
         private void CreateLayout()
@@ -618,7 +619,8 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             _map.InitialViewpoint = initialViewpoint;
 
             // Save the current state of the map as a portal item in the user's default folder
-            await _map.SaveAsAsync(agsOnline, null, title, description, tags, null);
+            RuntimeImage img = null;
+            await _map.SaveAsAsync(agsOnline, null, title, description, tags, img);
         }
 
         public bool MapIsSaved

@@ -9,6 +9,5 @@
   "RequiresLocalServer":false,
   "Image":"FeatureLayerSelection.jpg",
   "Link":"",
-  "TypeLink": ["T:Esri.ArcGISRuntime.Mapping.SelectionMode","P:Esri.ArcGISRuntime.Mapping.FeatureLayer.SelectionColor","P:Esri.ArcGISRuntime.Mapping.FeatureLayer.SelectionWidth","M:Esri.ArcGISRuntime.Mapping.FeatureLayer.SelectFeaturesAsync(Esri.ArcGISRuntime.Data.QueryParameters,Esri.ArcGISRuntime.Mapping.SelectionMode)"
-  ]
+  "TypeLink": ["T:Esri.ArcGISRuntime.Mapping.SelectionMode","P:Esri.ArcGISRuntime.Mapping.FeatureLayer.SelectionColor","P:Esri.ArcGISRuntime.Mapping.FeatureLayer.SelectionWidth","M:Esri.ArcGISRuntime.Mapping.FeatureLayer.SelectFeaturesAsync(Esri.ArcGISRuntime.Data.QueryParameters,Esri.ArcGISRuntime.Mapping.SelectionMode)","P:Esri.ArcGISRuntime.Data.QueryParameters.Geometry","P:Esri.ArcGISRuntime.Mapping.Map.SpatialReference","P:Esri.ArcGISRuntime.UI.Controls.MapView.UnitsPerPixel"]
 }

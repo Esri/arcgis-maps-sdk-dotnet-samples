@@ -9,7 +9,6 @@
   "RequiresLocalServer":false,
   "Image":"ServiceFeatureTableCache.jpg",
   "Link":"",
-  "TypeLink": ["P:Esri.ArcGISRuntime.Data.ServiceFeatureTable.FeatureRequestMode"
-  ],
+  "TypeLink": ["M:Esri.ArcGISRuntime.Data.ServiceFeatureTable.#ctor(System.Uri)","P:Esri.ArcGISRuntime.Data.ServiceFeatureTable.FeatureRequestMode","T:Esri.ArcGISRuntime.Geometry.SpatialReference"],
   "SampleFolder": "ServiceFeatureTableCache"
 }

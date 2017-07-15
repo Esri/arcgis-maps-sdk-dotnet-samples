@@ -40,6 +40,14 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerDefinitionExpression
             Initialize();
         }
 
+        public override void ViewDidLayoutSubviews()
+        {
+            // Setup the visual frame for the MapView
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+
+            base.ViewDidLayoutSubviews();
+        }
+
         private async void Initialize()
         {
             // Create new Map with basemap
@@ -88,11 +96,8 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerDefinitionExpression
 
         private void CreateLayout()
         {
-            // Setup the visual frame for the MapView
-            _myMapView = new MapView()
-            {
-                Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height)
-            };
+            // Create MapView
+            _myMapView = new MapView();
 
             // Create a button to reset the renderer
             var resetButton = new UIBarButtonItem() { Title = "Reset", Style = UIBarButtonItemStyle.Plain };

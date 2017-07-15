@@ -64,6 +64,16 @@ namespace ArcGISRuntimeXamarin
 
                 Type t = Type.GetType(sampleNamespace + "." + sampleName);
 
+                //If Offline data is required for the sample to work download it 
+                if (item.RequiresOfflineData)
+                {
+                    foreach (string id in item.DataItemIds)
+                    {
+                        //TODO - Add splash screen/progress bar
+                        await DataManager.GetData(id, sampleName);
+                    }
+                }
+
                 await Navigation.PushAsync((ContentPage)Activator.CreateInstance(t));
 
                 // Call a function to clear existing credentials

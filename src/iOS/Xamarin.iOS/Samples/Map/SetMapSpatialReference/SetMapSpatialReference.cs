@@ -39,6 +39,14 @@ namespace ArcGISRuntimeXamarin.Samples.SetMapSpatialReference
             Initialize();
         }
 
+        public override void ViewDidLayoutSubviews()
+        {
+            // Setup the visual frame for the MapView
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+
+            base.ViewDidLayoutSubviews();
+        }
+
         private void Initialize()
         {
             // Create new Map using spatial reference as world bonne (54024)
@@ -59,11 +67,7 @@ namespace ArcGISRuntimeXamarin.Samples.SetMapSpatialReference
 
         private void CreateLayout()
         {
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(
-                0, yPageOffset, View.Bounds.Width, View.Bounds.Height - yPageOffset);
-
-            // Add MapView to the page
+           // Add MapView to the page
             View.AddSubviews(_myMapView);
         }
     }

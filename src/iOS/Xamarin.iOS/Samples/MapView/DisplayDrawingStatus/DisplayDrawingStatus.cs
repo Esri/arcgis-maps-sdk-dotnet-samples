@@ -26,6 +26,8 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayDrawingStatus
         // Create and hold reference to the used MapView
         private MapView _myMapView;
 
+        private UIToolbar _toolbar;
+
         // Control to show the drawing status
         UIActivityIndicatorView _activityIndicator;
 
@@ -41,6 +43,19 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayDrawingStatus
             // Create the UI, setup the control references and execute initialization 
             CreateLayout();
             Initialize();
+        }
+
+        public override void ViewDidLayoutSubviews()
+        {
+            // Setup the visual frame for the MapView
+            _myMapView.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height);
+
+            // Setup the visual frame for the tool bar
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 30, View.Bounds.Width, 30);
+
+            _activityIndicator.Frame = new CoreGraphics.CGRect(0, 0, _toolbar.Bounds.Width, _toolbar.Bounds.Height);
+
+            base.ViewDidLayoutSubviews();
         }
 
         private async void Initialize()
@@ -89,16 +104,13 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayDrawingStatus
         {
             // Create a new MapView control and provide its location coordinates on the frame
             _myMapView = new MapView();
-            _myMapView.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height - 30);
-
+            
             // Create a toolbar on the bottom of the display 
-            UIToolbar toolbar = new UIToolbar();
-            toolbar.Frame = new CoreGraphics.CGRect(0, _myMapView.Bounds.Height, View.Bounds.Width, 30);
-
+            _toolbar = new UIToolbar();
+           
             // Create an activity indicator
             _activityIndicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.Gray);
-            _activityIndicator.Frame = new CoreGraphics.CGRect(0, 0, toolbar.Bounds.Width, toolbar.Bounds.Height);
-
+           
             // Create a UIBarButtonItem to show the activity indicator
             UIBarButtonItem indicatorButton = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
             indicatorButton.CustomView = _activityIndicator;
@@ -107,10 +119,10 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayDrawingStatus
             var barButtonItems = new UIBarButtonItem[] { indicatorButton };
 
             // Add the UIBarButtonItems to the toolbar
-            toolbar.SetItems(barButtonItems, true);
+            _toolbar.SetItems(barButtonItems, true);
 
             // Add the MapView to the Subview
-            View.AddSubviews(_myMapView, toolbar);
+            View.AddSubviews(_myMapView, _toolbar);
         }
     }
 }

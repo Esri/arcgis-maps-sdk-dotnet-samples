@@ -118,13 +118,12 @@ namespace IntegratedWindowsAuth
                 ArcGISPortal iwaSecuredPortal = await ArcGISPortal.CreateAsync(new Uri(SecuredPortalUrl));
 
                 // Report a successful connection
-                messageBuilder.AppendLine("Connected to the portal on " + iwaSecuredPortal.Uri.Host);
-                messageBuilder.AppendLine("Version: " + iwaSecuredPortal.CurrentVersion);                
+                messageBuilder.AppendLine("Connected to the portal on " + iwaSecuredPortal.Uri.Host);         
 
                 // Report the username for this connection
-                if (iwaSecuredPortal.CurrentUser != null)
+                if (iwaSecuredPortal.User != null)
                 {
-                    messageBuilder.AppendLine("Connected as: " + iwaSecuredPortal.CurrentUser.UserName);
+                    messageBuilder.AppendLine("Connected as: " + iwaSecuredPortal.User.UserName);
                 }
                 else
                 {

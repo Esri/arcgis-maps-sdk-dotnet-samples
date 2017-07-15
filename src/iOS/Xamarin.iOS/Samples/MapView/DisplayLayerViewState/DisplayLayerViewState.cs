@@ -42,6 +42,16 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayLayerViewState
             Initialize();
         }
 
+        public override void ViewDidLayoutSubviews()
+        {
+            // Setup the visual frame for the MapView
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height -120);
+
+            _tableView.Frame = new CoreGraphics.CGRect(0, _myMapView.Frame.Height, View.Bounds.Width, 120);
+
+            base.ViewDidLayoutSubviews();
+        }
+
         private void Initialize()
         {
             // Create new Map
@@ -126,16 +136,13 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayLayerViewState
             stackView.Distribution = UIStackViewDistribution.FillProportionally;
             stackView.BackgroundColor = UIColor.Gray;
 
-            // Setup the visual frame for the MapView
-            _myMapView = new MapView()
-            {
-                Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height-80)
-            };
-
+            _myMapView = new MapView();
+           
             stackView.AddArrangedSubview(_myMapView);
 
             // Create a tableview for displaying layer view status for each layer
-            _tableView = new UITableView(new CoreGraphics.CGRect(0, _myMapView.Frame.Height, View.Bounds.Width, height));
+            _tableView = new UITableView();
+
             stackView.AddArrangedSubview(_tableView);
 
             // Add MapView to the page

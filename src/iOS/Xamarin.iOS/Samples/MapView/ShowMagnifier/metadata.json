@@ -9,7 +9,7 @@
   "RequiresLocalServer":false,
   "Image":"ShowMagnifier.jpg",
   "Link":"",
-  "TypeLink": ["P:Esri.ArcGISRuntime.UI.MapView.IsMagnifierEnabled"
+  "TypeLink": ["P:Esri.ArcGISRuntime.UI.MapViewInteractionOptions.IsMagnifierEnabled","T:Esri.ArcGISRuntime.UI.MapViewInteractionOptions","M:Esri.ArcGISRuntime.Mapping.Map.#ctor(Esri.ArcGISRuntime.Mapping.BasemapType,System.Double,System.Double,System.Int32)","P:Esri.ArcGISRuntime.UI.Controls.MapView.InteractionOptions"
   ],
   "SampleFolder": "ShowMagnifier"
 }

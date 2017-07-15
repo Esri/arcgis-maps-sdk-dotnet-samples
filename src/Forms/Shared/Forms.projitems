@@ -15,6 +15,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Logger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Managers\DataManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Managers\SampleManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Managers\TreeItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\CategoryModel.cs" />
@@ -43,15 +44,15 @@
       <SubType>Code</SubType>
       <DependentUpon>ServiceFeatureTableNoCache.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>AnalyzeHotspots.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>AnalyzeViewshed.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>ListGeodatabaseVersions.xaml</DependentUpon>
     </Compile>
@@ -62,6 +63,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>IdentifyGraphics.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.xaml.cs">
+      <DependentUpon>SketchOnMap.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.xaml.cs">
       <DependentUpon>ArcGISVectorTiledLayerUrl.xaml</DependentUpon>
@@ -198,6 +202,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Tutorial\AuthorEditSaveMap\SaveMapPage.xaml.cs">
       <DependentUpon>SaveMapPage.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Search\FindAddress\FindAddress.xaml.cs">
+      <DependentUpon>FindAddress.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -377,6 +384,11 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\PictureMarkerSymbols\pin_star_red.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Search\FindAddress\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Search\FindAddress\FindAddress.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)CategoryListPage.xaml">
@@ -396,8 +408,9 @@
     <Content Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.jpg" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SketchOnMap\metadata.json" />
+    <Content Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\SearchPortalMaps\metadata.json">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\ListGeodatabaseVersions\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\AnalyzeViewshed\metadata.json" />
@@ -411,7 +424,6 @@
     <Content Include="$(MSBuildThisFileDirectory)Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\UseDistanceCompositeSym\metadata.json" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Tutorial\AuthorEditSaveMap\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\AuthorMap\metadata.json" />
@@ -420,15 +432,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\DisplayLayerViewState\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.jpg">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\CreateFeatureCollectionLayer\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortal.jpg">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureCollectionLayerFromPortal\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQuery.jpg">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureCollectionLayerFromQuery\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json" />
@@ -527,5 +536,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Samples\Search\FindAddress\FindAddress.jpg" />
   </ItemGroup>
 </Project>

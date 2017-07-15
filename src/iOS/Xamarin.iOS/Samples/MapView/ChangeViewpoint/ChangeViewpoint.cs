@@ -24,6 +24,8 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeViewpoint
         // Constant holding offset where the MapView control should start
         private const int yPageOffset = 60;
 
+        private UIButton _viewpointsButton;
+
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 
@@ -75,6 +77,17 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeViewpoint
             Initialize();
         }
 
+        public override void ViewDidLayoutSubviews()
+        {
+            // Setup the visual frame for the MapView
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+
+            // Setup the visual frame for the Button
+            _viewpointsButton.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
+
+            base.ViewDidLayoutSubviews();
+        }
+
         private void Initialize()
         {
             // Create new Map with basemap and initial location
@@ -124,25 +137,19 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeViewpoint
 
         private void CreateLayout()
         {
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(
-                0, yPageOffset, View.Bounds.Width, View.Bounds.Height - yPageOffset);
-
             // Add a button at the bottom to show viewpoint choices
-            UIButton viewpointsButton = new UIButton(UIButtonType.Custom)
+            _viewpointsButton = new UIButton(UIButtonType.Custom)
             {
-                Frame = new CoreGraphics.CGRect(
-                    0, View.Bounds.Height - 40, View.Bounds.Width, 40),
                 BackgroundColor = UIColor.White
             };
 
             // Create button to show map options
-            viewpointsButton.SetTitle("Viewpoints", UIControlState.Normal);
-            viewpointsButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            viewpointsButton.TouchUpInside += OnViewpointsButtonTouch;
+            _viewpointsButton.SetTitle("Viewpoints", UIControlState.Normal);
+            _viewpointsButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _viewpointsButton.TouchUpInside += OnViewpointsButtonTouch;
 
             // Add MapView to the page
-            View.AddSubviews(_myMapView, viewpointsButton);
+            View.AddSubviews(_myMapView, _viewpointsButton);
         }
     }
 }

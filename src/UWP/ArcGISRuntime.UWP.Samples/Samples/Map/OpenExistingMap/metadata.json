@@ -9,6 +9,5 @@
   "RequiresLocalServer":false,
   "Image":"OpenExistingMap.jpg",
   "Link":"",
-  "TypeLink": ["M:Esri.ArcGISRuntime.Mapping.Map.#ctor(System.Uri)"
-  ]
+  "TypeLink": ["M:Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.Initialize","T:Esri.ArcGISRuntime.Mapping.Map","M:Esri.ArcGISRuntime.Mapping.Map.#ctor(System.Uri)"]
 }

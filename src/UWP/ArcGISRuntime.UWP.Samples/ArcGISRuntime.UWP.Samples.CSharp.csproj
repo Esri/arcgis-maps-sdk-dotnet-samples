@@ -11,8 +11,8 @@
     <AssemblyName>ArcGISRuntime.UWP.Samples</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -85,12 +85,17 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_red.png" />
+    <Content Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Search\FindAddress\FindAddress.jpg" />
     <Content Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -347,9 +352,13 @@
     <Content Include="Samples\MapView\ShowMagnifier\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\GraphicsOverlay\SketchOnMap\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Map\SearchPortalMaps\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Search\FindAddress\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -379,6 +388,9 @@
     </Compile>
     <Compile Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.xaml.cs">
       <DependentUpon>IdentifyGraphics.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.xaml.cs">
+      <DependentUpon>SketchOnMap.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.xaml.cs">
       <DependentUpon>ArcGISMapImageLayerUrl.xaml</DependentUpon>
@@ -412,6 +424,9 @@
     </Compile>
     <Compile Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.xaml.cs">
       <DependentUpon>DisplayDeviceLocation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Search\FindAddress\FindAddress.xaml.cs">
+      <DependentUpon>FindAddress.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\MapView\ShowMagnifier\ShowMagnifier.xaml.cs">
       <DependentUpon>ShowMagnifier.xaml</DependentUpon>
@@ -526,6 +541,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -571,6 +590,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Search\FindAddress\FindAddress.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

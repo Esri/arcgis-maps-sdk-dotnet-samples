@@ -36,6 +36,14 @@ namespace ArcGISRuntimeXamarin.Samples.ManageBookmarks
             Initialize();
         }
 
+        public override void ViewDidLayoutSubviews()
+        {
+            // Setup the visual frame for the MapView
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+
+            base.ViewDidLayoutSubviews();
+        }
+
         private void Initialize()
         {
             // Create new Map with basemap
@@ -153,10 +161,7 @@ namespace ArcGISRuntimeXamarin.Samples.ManageBookmarks
         private void CreateLayout()
         {
             // Setup the visual frame for the MapView
-            _myMapView = new MapView()
-            {
-                Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height)
-            };
+            _myMapView = new MapView();
 
             // Create a bookmark button to show existing bookmarks
             var showBookmarksButton = new UIBarButtonItem() { Title = "Bookmarks", Style = UIBarButtonItemStyle.Plain };

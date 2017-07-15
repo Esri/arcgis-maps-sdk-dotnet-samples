@@ -10,6 +10,7 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
+using Esri.ArcGISRuntime.UI;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -273,7 +274,9 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             _map.InitialViewpoint = initialViewpoint;
 
             // Save the current state of the map as a portal item in the user's default folder
-            await _map.SaveAsAsync(agsOnline, null, title, description, tags, null);
+            Esri.ArcGISRuntime.Xamarin.Forms.MapView mv = new Esri.ArcGISRuntime.Xamarin.Forms.MapView();
+            RuntimeImage img = null;  
+            await _map.SaveAsAsync(agsOnline, null, title, description, tags, img, false);
         }
 
         public bool MapIsSaved

@@ -17,6 +17,7 @@ Imports System.Windows.Navigation
 Imports System.Windows.Media
 Imports System.Windows.Media.Imaging
 Imports System.IO
+Imports Esri.ArcGISRuntime.UI
 
 Namespace AuthorMap
     Partial Public Class AuthorMapVB
@@ -156,11 +157,11 @@ Namespace AuthorMap
                     Throw New Exception("Thumbnail was not updated.")
                 End Try
             Catch ex As Exception
-                    ' Report error message
-                    MessageBox.Show("Error saving map to ArcGIS Online: " + ex.Message)
-                Finally
-                    ' Hide the progress bar
-                    SaveProgressBar.Visibility = Visibility.Hidden
+                ' Report error message
+                MessageBox.Show("Error saving map to ArcGIS Online: " + ex.Message)
+            Finally
+                ' Hide the progress bar
+                SaveProgressBar.Visibility = Visibility.Hidden
             End Try
         End Sub
 #End Region
@@ -232,8 +233,10 @@ Namespace AuthorMap
 
             ' Get the ArcGIS Online portal
             Dim agsOnline As ArcGISPortal = Await ArcGISPortal.CreateAsync()
+
             ' Save the current state of the map as a portal item in the user's default folder
-            Await myMap.SaveAsAsync(agsOnline, Nothing, title, description, tags, Nothing)
+            Dim img As RuntimeImage = Nothing
+            Await myMap.SaveAsAsync(agsOnline, Nothing, title, description, tags, img, True)
         End Function
 
         Private Async Function WriteTempThumbnailImageAsync(mapImageSource As ImageSource) As Task(Of String)

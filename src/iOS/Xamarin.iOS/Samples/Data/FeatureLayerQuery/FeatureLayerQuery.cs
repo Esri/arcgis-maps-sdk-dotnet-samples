@@ -36,6 +36,9 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerQuery
         // Create globally available text box for easy referencing 
         private UITextField _queryTextView;
 
+        // Create button to invoke the query
+        private UIButton _queryButton;
+
         // Create globally available feature table for easy referencing 
         private ServiceFeatureTable _featureTable;
         
@@ -54,6 +57,20 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerQuery
             // Create the UI, setup the control references and execute initialization 
             CreateLayout();
             Initialize();
+        }
+
+        public override void ViewDidLayoutSubviews()
+        {
+            // Setup the visual frame for the MapView
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+
+            // Setup the visual frame for the text field used in query
+            _queryTextView.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, 40);
+
+            // Setup the visual frame for the button used to invoke query
+            _queryButton.Frame = new CoreGraphics.CGRect(0, yPageOffset + 40, View.Bounds.Width, 40);
+
+            base.ViewDidLayoutSubviews();
         }
 
         private void Initialize()
@@ -145,29 +162,24 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerQuery
 
         private void CreateLayout()
         {
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(
-                0, yPageOffset + 80, View.Bounds.Width, View.Bounds.Height - yPageOffset - 80);
 
             // Create text view for query input
-            _queryTextView = new UITextField(
-                new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, 40));
+            _queryTextView = new UITextField();
             _queryTextView.Placeholder = "State name";
             _queryTextView.AdjustsFontSizeToFitWidth = true;
             _queryTextView.BackgroundColor = UIColor.White;
 
             // Create button to invoke the query
-            var queryButton = new UIButton(
-               new CoreGraphics.CGRect(0, yPageOffset + 40, View.Bounds.Width, 40));
-            queryButton.SetTitle("Query", UIControlState.Normal);
-            queryButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            queryButton.BackgroundColor = UIColor.White;
+            _queryButton = new UIButton();
+            _queryButton.SetTitle("Query", UIControlState.Normal);
+            _queryButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _queryButton.BackgroundColor = UIColor.White;
 
             // Hook to touch event to do querying
-            queryButton.TouchUpInside += OnQueryClicked;
+            _queryButton.TouchUpInside += OnQueryClicked;
 
             // Add MapView to the page
-            View.AddSubviews(_myMapView, _queryTextView, queryButton);
+            View.AddSubviews(_myMapView, _queryTextView, _queryButton);
         }
     }
 }

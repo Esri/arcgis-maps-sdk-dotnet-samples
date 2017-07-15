@@ -135,12 +135,11 @@ namespace IntegratedWindowsAuth
             {
                 // Report connection info
                 messageBuilder.AppendLine("Connected to the portal on " + currentPortal.Uri.Host);
-                messageBuilder.AppendLine("Version: " + currentPortal.CurrentVersion);
 
                 // Report the user name used for this connection
-                if (currentPortal.CurrentUser != null)
+                if (currentPortal.User != null)
                 {
-                    messageBuilder.AppendLine("Connected as: " + currentPortal.CurrentUser.UserName);
+                    messageBuilder.AppendLine("Connected as: " + currentPortal.User.UserName);
                 }
                 else
                 {
@@ -149,7 +148,7 @@ namespace IntegratedWindowsAuth
                 }
 
                 // Search the portal for web maps
-                var items = await currentPortal.SearchItemsAsync(new SearchParameters("type:(\"web map\" NOT \"web mapping application\")"));
+                var items = await currentPortal.FindItemsAsync(new PortalQueryParameters("type:(\"web map\" NOT \"web mapping application\")"));
 
                 // Build a list of items from the results that shows the map name and stores the item ID (with the Tag property)
                 var resultItems = from r in items.Results select new ListBoxItem { Tag = r.ItemId, Content = r.Title };

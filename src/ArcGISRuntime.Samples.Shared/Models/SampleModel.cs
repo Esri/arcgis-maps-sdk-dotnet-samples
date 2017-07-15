@@ -97,6 +97,12 @@ namespace ArcGISRuntime.Samples.Models
         public bool RequiresOfflineData { get; set; }
 
         /// <summary>
+        /// Get or sets the value indicating whether the sample requires offline data.
+        /// </summary>
+        [DataMember]
+        public List<string> DataItemIds { get; set; }
+
+        /// <summary>
         /// Get or sets the value indicating whether the sample requires local server.
         /// </summary>
         [DataMember]

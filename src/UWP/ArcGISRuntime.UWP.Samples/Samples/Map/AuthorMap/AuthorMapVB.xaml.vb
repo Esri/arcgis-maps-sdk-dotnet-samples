@@ -11,6 +11,7 @@ Imports Esri.ArcGISRuntime.Geometry
 Imports Esri.ArcGISRuntime.Mapping
 Imports Esri.ArcGISRuntime.Portal
 Imports Esri.ArcGISRuntime.Security
+Imports Esri.ArcGISRuntime.UI
 Imports Windows.Graphics.Imaging
 Imports Windows.Storage
 Imports Windows.Storage.FileProperties
@@ -225,7 +226,8 @@ Namespace AuthorMap
             ' Get the ArcGIS Online portal
             Dim agsOnline As ArcGISPortal = Await ArcGISPortal.CreateAsync()
             ' Save the current state of the map as a portal item in the user's default folder
-            Await myMap.SaveAsAsync(agsOnline, Nothing, title, description, tags, Nothing)
+            Dim img As RuntimeImage = Nothing
+            Await myMap.SaveAsAsync(agsOnline, Nothing, title, description, tags, img)
         End Function
 
         Private Async Function UpdatePortalItemThumbnailAsync(imageFileName As String) As Task

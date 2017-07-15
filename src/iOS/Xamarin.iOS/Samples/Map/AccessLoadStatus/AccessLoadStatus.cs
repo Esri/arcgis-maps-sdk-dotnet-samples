@@ -41,6 +41,14 @@ namespace ArcGISRuntimeXamarin.Samples.AccessLoadStatus
             Initialize();
         }
 
+        public override void ViewDidLayoutSubviews()
+        {
+            // Setup the visual frame for the MapView
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+
+            base.ViewDidLayoutSubviews();
+        }
+
         private void Initialize()
         {
             // Create new Map with basemap
@@ -73,11 +81,7 @@ namespace ArcGISRuntimeXamarin.Samples.AccessLoadStatus
                 Frame = new CoreGraphics.CGRect(
                     0, yPageOffset, View.Bounds.Width, 40)
             };
-
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(
-                0, yPageOffset + 40, View.Bounds.Width, View.Bounds.Height - yPageOffset - 40);
-          
+  
             // Add MapView to the page
             View.AddSubviews(_myMapView, _loadStatusTextView);
         }

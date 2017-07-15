@@ -23,6 +23,9 @@ namespace ArcGISRuntimeXamarin.Samples.CreateFeatureCollectionLayer
     [Register("CreateFeatureCollectionLayer")]
     public class CreateFeatureCollectionLayer : UIViewController
     {
+        // Constant holding offset where the MapView control should start
+        private const int yPageOffset = 60;
+
         // Reference to the MapView used in the app
         private MapView _myMapView;
 
@@ -40,6 +43,14 @@ namespace ArcGISRuntimeXamarin.Samples.CreateFeatureCollectionLayer
 
             // Initialize the app
             Initialize();
+        }
+
+        public override void ViewDidLayoutSubviews()
+        {
+            // Setup the visual frame for the MapView
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+
+            base.ViewDidLayoutSubviews();
         }
 
         private void Initialize()
@@ -160,15 +171,8 @@ namespace ArcGISRuntimeXamarin.Samples.CreateFeatureCollectionLayer
 
         private void CreateLayout()
         {
-            // Define an offset from the top of the page (to account for the iOS status bar)
-            var yPageOffset = 60;
-
             // Create a new MapView
             _myMapView = new MapView();
-
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(
-                0, yPageOffset + 40, View.Bounds.Width, View.Bounds.Height - yPageOffset - 40);
 
             // Add the MapView to the page
             View.AddSubview(_myMapView);

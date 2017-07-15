@@ -17,7 +17,7 @@ using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.UseDistanceCompositeSym
 {
-    [Register("RenderSimpleMarkers")]
+    [Register("UseDistanceCompositeSym")]
     public class UseDistanceCompositeSym : UIViewController
     {
         // Create and hold reference to the used MapView
@@ -38,6 +38,18 @@ namespace ArcGISRuntimeXamarin.Samples.UseDistanceCompositeSym
             // Create the UI, setup the control references and execute initialization 
             CreateLayout();
             Initialize();
+        }
+
+        public override void ViewDidLayoutSubviews()
+        {
+            // Define an offset from the top of the page (to account for the iOS status bar)
+            var yPageOffset = 60;
+
+            // Setup the visual frame for the MapView
+            _mySceneView.Frame = new CoreGraphics.CGRect(
+                0, yPageOffset, View.Bounds.Width, View.Bounds.Height - yPageOffset);
+
+            base.ViewDidLayoutSubviews();
         }
 
         private void Initialize()
@@ -98,14 +110,7 @@ namespace ArcGISRuntimeXamarin.Samples.UseDistanceCompositeSym
         }
 
         private void CreateLayout()
-        {
-            // Define an offset from the top of the page (to account for the iOS status bar)
-            var yPageOffset = 60;
-
-            // Setup the visual frame for the MapView
-            _mySceneView.Frame = new CoreGraphics.CGRect(
-                0, yPageOffset, View.Bounds.Width, View.Bounds.Height - yPageOffset);
-
+        {        
             // Add MapView to the page
             View.AddSubviews(_mySceneView);
         }

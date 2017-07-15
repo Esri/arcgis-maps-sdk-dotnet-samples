@@ -45,9 +45,9 @@ namespace ArcGISRuntimeXamarin.Samples.OpenExistingMap
             Title = "Open an existing map";
         }
 
-        public override void ViewDidLoad()
+        public override void ViewDidLayoutSubviews()
         {
-            base.ViewDidLoad();
+            base.ViewDidLayoutSubviews();
 
             // Create the UI, setup the control references and execute initialization 
             CreateLayout();
@@ -89,8 +89,7 @@ namespace ArcGISRuntimeXamarin.Samples.OpenExistingMap
         private void CreateLayout()
         {
             // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(
-                0, yPageOffset, View.Bounds.Width, View.Bounds.Height - yPageOffset);
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
             // Add a button at the bottom to show webmap choices
             UIButton mapsButton = new UIButton(UIButtonType.Custom)

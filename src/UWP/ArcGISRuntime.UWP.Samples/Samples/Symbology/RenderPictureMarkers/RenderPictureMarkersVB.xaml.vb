@@ -10,25 +10,22 @@
 Imports Esri.ArcGISRuntime.Geometry
 Imports Esri.ArcGISRuntime.Mapping
 Imports Esri.ArcGISRuntime.Symbology
+Imports Esri.ArcGISRuntime.UI
 Imports Esri.ArcGISRuntime.UI.Controls
 Imports System.Reflection
-Imports Esri.ArcGISRuntime.UI
+Imports System.Threading.Tasks
 
 Namespace RenderPictureMarkers
 
     Public Class RenderPictureMarkersVB
-
         Public Sub New()
-
             InitializeComponent()
 
             ' Create the UI, setup the control references and execute initialization 
             Initialize()
-
         End Sub
 
         Private Async Sub Initialize()
-
             ' Create new Map with basemap
             Dim myMap As New Map(Basemap.CreateTopographic())
 
@@ -48,17 +45,14 @@ Namespace RenderPictureMarkers
             ' Add graphics using different source types
             Await CreatePictureMarkerSymbolFromUrl(overlay)
             Await CreatePictureMarkerSymbolFromResources(overlay)
-
         End Sub
 
-        Private Async Function CreatePictureMarkerSymbolFromUrl(ByVal overlay As GraphicsOverlay) As Task
-
+        Private Async Function CreatePictureMarkerSymbolFromUrl(overlay As GraphicsOverlay) As Task
             ' Create uri to the used image
-            Dim symbolUri = New Uri(
-                "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0/images/e82f744ebb069bb35b234b3fea46deae")
+            Dim symbolUri = New Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0/images/e82f744ebb069bb35b234b3fea46deae")
 
             ' Create new symbol using asynchronous factory method from uri
-            Dim campsiteSymbol As PictureMarkerSymbol = New PictureMarkerSymbol(symbolUri)
+            Dim campsiteSymbol As New PictureMarkerSymbol(symbolUri)
 
             ' Optionally set the size (if not set, the size in pixels of the image will be used)
             campsiteSymbol.Height = 18
@@ -72,18 +66,14 @@ Namespace RenderPictureMarkers
 
             ' Add graphic to the graphics overlay
             overlay.Graphics.Add(campsiteGraphic)
-
         End Function
 
-        Private Async Function CreatePictureMarkerSymbolFromResources(ByVal overlay As GraphicsOverlay) As Task
-
+        Private Async Function CreatePictureMarkerSymbolFromResources(overlay As GraphicsOverlay) As Task
             ' Get current assembly that contains the image
-            Dim currentAssembly = Me.GetType().GetTypeInfo().Assembly
+            Dim currentAssembly = Me.[GetType]().GetTypeInfo().Assembly
 
             ' Get image as a stream from the resources
-            ' Picture is defined as EmbeddedResource and DoNotCopy
-            Dim resourceStream = currentAssembly.GetManifestResourceStream(
-                "ArcGISRuntime.UWP.Resources.PictureMarkerSymbols.pin_star_blue.png")
+            Dim resourceStream = currentAssembly.GetManifestResourceStream("ArcGISRuntime.UWP.Samples.pin_star_blue.png")
 
             ' Create new symbol using asynchronous factory method from stream
             Dim pinSymbol As PictureMarkerSymbol = Await PictureMarkerSymbol.CreateAsync(resourceStream)
@@ -96,9 +86,7 @@ Namespace RenderPictureMarkers
 
             ' Add graphic to the graphics overlay
             overlay.Graphics.Add(pinGraphic)
-
         End Function
-
     End Class
-
 End Namespace
+

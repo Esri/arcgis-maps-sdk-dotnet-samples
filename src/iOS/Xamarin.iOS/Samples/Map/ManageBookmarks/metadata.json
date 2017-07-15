@@ -9,6 +9,6 @@
   "RequiresLocalServer":false,
   "Image":"ManageBookmarks.jpg",
   "Link":"",
-  "TypeLink": [],
+  "TypeLink": ["T:Esri.ArcGISRuntime.Mapping.Bookmark","T:Esri.ArcGISRuntime.Mapping.BookmarkCollection","P:Esri.ArcGISRuntime.Mapping.Map.Bookmarks","M:Esri.ArcGISRuntime.Mapping.Bookmark.#ctor","M:Esri.ArcGISRuntime.Mapping.Viewpoint.#ctor(System.Double,System.Double,System.Double)","T:Esri.ArcGISRuntime.Mapping.ViewpointType","P:Esri.ArcGISRuntime.Mapping.Bookmark.Name","P:Esri.ArcGISRuntime.Mapping.Bookmark.Viewpoint","M:Esri.ArcGISRuntime.Mapping.Basemap.CreateImageryWithLabels","M:Esri.ArcGISRuntime.UI.Controls.GeoView.GetCurrentViewpoint(Esri.ArcGISRuntime.Mapping.ViewpointType)","M:Esri.ArcGISRuntime.UI.Controls.GeoView.SetViewpoint(Esri.ArcGISRuntime.Mapping.Viewpoint)"],
   "SampleFolder": "ManageBookmarks"
 }

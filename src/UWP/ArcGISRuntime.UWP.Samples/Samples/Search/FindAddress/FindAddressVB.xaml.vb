@@ -45,6 +45,10 @@ Namespace FindAddress
             ' Initialize the LocatorTask with the provided service Uri
             _geocoder = Await LocatorTask.CreateAsync(_serviceUri)
 
+            ' Enable user controls now that the geocoder is ready
+            MyAppBarSearchButton.IsEnabled = True
+            MyAppBarSuggestButton.IsEnabled = True
+
         End Sub
 
         Private Async Sub updateSearch()

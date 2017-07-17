@@ -29,7 +29,7 @@
         </Grid.RowDefinitions>
         <esriUI:MapView x:Name="MyMapView" Grid.Row="1" GeoViewTapped="MyMapView_GeoViewTapped"/>
         <CommandBar x:Name="appBar" Grid.Row="2">
-            <AppBarButton Icon="Find" Label="Search">
+            <AppBarButton Icon="Find" Label="Search" x:Name="MyAppBarSearchButton" IsEnabled="False">
                 <AppBarButton.Flyout>
                     <Flyout>
                         <StackPanel Width="200">
@@ -38,7 +38,7 @@
                     </Flyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
-            <AppBarButton Icon="List" Label="Suggest">
+            <AppBarButton Icon="List" Label="Suggest" x:Name="MyAppBarSuggestButton" IsEnabled="False">
                 <AppBarButton.Flyout>
                     <MenuFlyout>
                         <MenuFlyout.Items>

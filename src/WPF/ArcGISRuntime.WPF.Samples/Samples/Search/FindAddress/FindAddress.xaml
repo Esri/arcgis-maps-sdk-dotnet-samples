@@ -22,8 +22,8 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Search" Grid.Row="0" Grid.Column="0" />
-                <TextBox Grid.Row="0" Grid.Column="1" x:Name="MySearchBox" TextChanged="MySearchBox_TextChanged"/>
-                <ComboBox x:Name="MySuggestionBox" SelectionChanged="OnSugguestionChosen" Grid.Row="1" Grid.ColumnSpan="2"/>
+                <TextBox Grid.Row="0" Grid.Column="1" x:Name="MySearchBox" TextChanged="MySearchBox_TextChanged" IsEnabled="False"/>
+                <ComboBox x:Name="MySuggestionBox" SelectionChanged="OnSugguestionChosen" Grid.Row="1" Grid.ColumnSpan="2" IsEnabled="False"/>
             </Grid>
         </Border>
     </Grid>

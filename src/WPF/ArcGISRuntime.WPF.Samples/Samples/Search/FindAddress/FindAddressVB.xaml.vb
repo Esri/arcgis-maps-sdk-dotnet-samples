@@ -54,6 +54,10 @@ Namespace FindAddress
 
             ' Initialize the LocatorTask with the provided service Uri
             _geocoder = Await LocatorTask.CreateAsync(_serviceUri)
+
+            ' Enable UI controls now that the geocoder is ready
+            MySearchBox.IsEnabled = True
+            MySuggestionBox.IsEnabled = True
         End Sub
 
         Private Async Sub UpdateSearch()
@@ -63,8 +67,8 @@ Namespace FindAddress
             ' Clear existing marker
             MyMapView.GraphicsOverlays.Clear()
 
-            ' Return gracefully if the textbox Is empty
-            If String.IsNullOrWhiteSpace(enteredText) Then Return
+            ' Return gracefully if the textbox is empty or the geocoder isn't ready
+            If String.IsNullOrWhiteSpace(enteredText) Or _geocoder Is Nothing Then Return
 
             ' Get the nearest suggestion to entered text
             Dim suggestions As IReadOnlyList(Of SuggestResult) = Await _geocoder.SuggestAsync(enteredText)

@@ -61,6 +61,10 @@ namespace ArcGISRuntime.UWP.Samples.FindAddress
 
             // Initialize the LocatorTask with the provided service Uri
             _geocoder = await LocatorTask.CreateAsync(_serviceUri);
+
+            // Enable UI controls now that the geocoder is ready
+            MyAppBarSearchButton.IsEnabled = true;
+            MyAppBarSuggestButton.IsEnabled = true;
         }
 
         private void MySearchField_TextChanged(object sender, TextChangedEventArgs e)

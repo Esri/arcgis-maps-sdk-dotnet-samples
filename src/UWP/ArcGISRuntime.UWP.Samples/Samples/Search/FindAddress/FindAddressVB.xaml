@@ -32,8 +32,8 @@
             <AppBarButton Icon="Find" Label="Search">
                 <AppBarButton.Flyout>
                     <Flyout>
-                        <StackPanel Width="100">
-                            <TextBox x:Name="MySearchBox" PlaceholderText="Esri" TextChanged="MySearchBox_TextChanged"  Width="100" />
+                        <StackPanel Width="200">
+                            <TextBox x:Name="MySearchBox" PlaceholderText="Esri" TextChanged="MySearchBox_TextChanged"  Width="200" />
                         </StackPanel>
                     </Flyout>
                 </AppBarButton.Flyout>

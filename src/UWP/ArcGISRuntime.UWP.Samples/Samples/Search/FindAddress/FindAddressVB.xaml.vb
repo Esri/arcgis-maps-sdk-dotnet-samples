@@ -23,7 +23,7 @@ Namespace FindAddress
         ' String array to store the different device location options.
         Private _navigationTypes As String() = New String() {"On", "Re-Center", "Navigation", "Compass"}
 
-        ' The LocatorTask provides geocoding services via a Service
+        ' The LocatorTask provides geocoding services
         Private _geocoder As LocatorTask
 
         Private _serviceUri As Uri = New Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer")
@@ -53,8 +53,8 @@ Namespace FindAddress
             ' Clear existing marker
             MyMapView.GraphicsOverlays.Clear()
 
-            ' Return gracefully if the textbox Is empty
-            If String.IsNullOrWhiteSpace(enteredText) Then Return
+            ' Return gracefully if the textbox Is empty or LocatorTask isn't ready
+            If String.IsNullOrWhiteSpace(enteredText) Or _geocoder Is Nothing Then Return
 
             ' Get the nearest suggestion to entered text
             Dim suggestions As IReadOnlyList(Of SuggestResult) = Await _geocoder.SuggestAsync(enteredText)
@@ -72,10 +72,11 @@ Namespace FindAddress
             Dim resultOverlay = New GraphicsOverlay()
             Dim point = Await _graphicForPoint(addresses.First().DisplayLocation)
 
-            ' Record the address with the overlay for easy recall when the graphic is tapped
-            point.Attributes.Add("Address", addresses.First().Label)
+            ' Add the marker to the GraphicsOverlay
             resultOverlay.Graphics.Add(point)
             MyMapView.GraphicsOverlays.Add(resultOverlay)
+
+            ' Update the map extent to show the marker
             Await MyMapView.SetViewpointGeometryAsync(addresses.First().Extent)
         End Sub
 
@@ -101,7 +102,7 @@ Namespace FindAddress
             updateSearch()
         End Sub
 
-        Private Sub MenuFlyoutItem_Click(sender As Object, e As RoutedEventArgs)
+        Private Sub OnSuggestionChosen(sender As Object, e As RoutedEventArgs)
             Dim menuItem As MenuFlyoutItem = sender
             Dim textValue As String = menuItem.Text
             MySearchBox.Text = textValue
@@ -111,12 +112,13 @@ Namespace FindAddress
         '<summary>
         ' Handle tap event on the map; displays callouts showing the address for a tapped search result
         ' </summary>
-        Private Async Sub MyMapView_GeoViewTapped(sender As Object, e As GeoViewInputEventArgs) Handles MyMapView.GeoViewTapped
+        Private Async Sub MyMapView_GeoViewTapped(sender As Object, e As GeoViewInputEventArgs)
             ' Search for the graphics underneath the user's tap
-            Dim results As IReadOnlyList(Of IdentifyGraphicsOverlayResult) = Await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, False)
+            Dim results As IReadOnlyList(Of IdentifyGraphicsOverlayResult) =
+                Await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, False)
 
             ' Return gracefully if there was no result
-            If results.Count = 0 Then Return
+            If results.Count < 1 Or results.First().Graphics.Count < 1 Then Return
 
             ' Reverse geocode to get addresses
             Dim addresses As IReadOnlyList(Of GeocodeResult) = Await _geocoder.ReverseGeocodeAsync(e.Location)
@@ -127,10 +129,8 @@ Namespace FindAddress
             Dim calloutDetail As String = address.Attributes("MetroArea").ToString()
 
             ' Display the callout
-            If results.First().Graphics.Count > 0 Then
-                Dim point As MapPoint = MyMapView.ScreenToLocation(e.Position)
-                MyMapView.ShowCalloutAt(point, New CalloutDefinition(calloutTitle, calloutDetail))
-            End If
+            Dim point As MapPoint = MyMapView.ScreenToLocation(e.Position)
+            MyMapView.ShowCalloutAt(point, New CalloutDefinition(calloutTitle, calloutDetail))
         End Sub
 
     End Class

@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    xmlns:esri="using:Esri.ArcGISRuntime"
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls" 
     mc:Ignorable="d" 
     d:DesignHeight="300" d:DesignWidth="300">
@@ -33,20 +32,20 @@
                 <AppBarButton.Flyout>
                     <Flyout>
                         <StackPanel Width="100">
-                            <TextBox x:Name="MySearchBox" PlaceholderText="Esri" TextChanged="mySearchField_TextChanged" Width="100" />
+                            <TextBox x:Name="MySearchBox" PlaceholderText="Esri" TextChanged="MySearchField_TextChanged" Width="200" />
                         </StackPanel>
                     </Flyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
             <AppBarButton Icon="List" Label="Suggest">
                 <AppBarButton.Flyout>
-                    <MenuFlyout x:Name="myFlyoutSuggestor">
+                    <MenuFlyout>
                         <MenuFlyout.Items>
-                            <MenuFlyoutItem Text="277 N Avenida Caballeros, Palm Springs, CA" Click="MenuFlyoutItem_Click" />
-                            <MenuFlyoutItem Text="380 New York St, Redlands, CA 92373" Click="MenuFlyoutItem_Click" />
-                            <MenuFlyoutItem Text="Београд" Click="MenuFlyoutItem_Click" />
-                            <MenuFlyoutItem Text="Москва" Click="MenuFlyoutItem_Click" />
-                            <MenuFlyoutItem Text="北京" Click="MenuFlyoutItem_Click" />
+                            <MenuFlyoutItem Text="277 N Avenida Caballeros, Palm Springs, CA" Click="OnSuggestionChosen" />
+                            <MenuFlyoutItem Text="380 New York St, Redlands, CA 92373" Click="OnSuggestionChosen" />
+                            <MenuFlyoutItem Text="Београд" Click="OnSuggestionChosen" />
+                            <MenuFlyoutItem Text="Москва" Click="OnSuggestionChosen" />
+                            <MenuFlyoutItem Text="北京" Click="OnSuggestionChosen" />
                         </MenuFlyout.Items>
                     </MenuFlyout>
                 </AppBarButton.Flyout>

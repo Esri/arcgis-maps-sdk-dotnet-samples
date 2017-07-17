@@ -8,6 +8,7 @@
 ' language governing permissions and limitations under the License.
 
 Imports System.Reflection
+Imports System.Windows.Controls
 Imports Esri.ArcGISRuntime.Data
 Imports Esri.ArcGISRuntime.Geometry
 Imports Esri.ArcGISRuntime.Mapping
@@ -29,7 +30,7 @@ Namespace FindAddress
             "北京"
         }
 
-        ' The LocatorTask provides geocoding services via a service
+        ' The LocatorTask provides geocoding services
         Private _geocoder As LocatorTask
 
         Private _serviceUri As Uri = New Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer")
@@ -43,19 +44,19 @@ Namespace FindAddress
 
         Private Async Sub Initialize()
             ' Create New Map with basemap
-            Dim myMap As Map = New Map(Basemap.CreateImagery())
+            Dim myMap As Map = New Map(Basemap.CreateImageryWithLabels())
 
             ' Provide used Map to the MapView
             MyMapView.Map = myMap
 
             ' Set addresses as items source
-            modeChooser.ItemsSource = _addresses
+            MySuggestionBox.ItemsSource = _addresses
 
             ' Initialize the LocatorTask with the provided service Uri
             _geocoder = Await LocatorTask.CreateAsync(_serviceUri)
         End Sub
 
-        Private Async Sub updateSearch()
+        Private Async Sub UpdateSearch()
 
             Dim enteredText As String = MySearchBox.Text
 
@@ -78,22 +79,21 @@ Namespace FindAddress
             If addresses.Count < 1 Then Return
 
             ' Place a marker on the map
-            Dim resultOverlay = New GraphicsOverlay()
-            Dim point As Graphic = Await _graphicForPoint(addresses.First().DisplayLocation)
+            Dim resultOverlay As GraphicsOverlay = New GraphicsOverlay()
+            Dim point As Graphic = Await GraphicForPoint(addresses.First().DisplayLocation)
 
-            ' Record the address with the overlay for easy recall when the graphic Is tapped
-            point.Attributes.Add("Address", addresses.First().Label)
+            ' Add the marker to the GraphicsOverlay
             resultOverlay.Graphics.Add(point)
             MyMapView.GraphicsOverlays.Add(resultOverlay)
+
+            ' Update the map extent to show the marker
             Await MyMapView.SetViewpointGeometryAsync(addresses.First().Extent)
         End Sub
 
         ''' <summary>
         ''' Creates a graphic for the specified map point asynchronously
         ''' </summary>
-        ''' <returns>The for point.</returns>
-        ''' <param name="point">Point.</param>
-        Private Async Function _graphicForPoint(point As MapPoint) As Task(Of Graphic)
+        Private Async Function GraphicForPoint(point As MapPoint) As Task(Of Graphic)
 
             ' Get current assembly that contains the image
             Dim currentAssembly = Assembly.GetExecutingAssembly()
@@ -112,14 +112,14 @@ Namespace FindAddress
             Return New Graphic(point, pinSymbol)
         End Function
 
-        Private Sub OnModeChooserSelectionChanged(sender As Object, e As System.Windows.Controls.SelectionChangedEventArgs)
-            Dim address = modeChooser.SelectedValue.ToString()
+        Private Sub OnSuggestionChosen(sender As Object, e As SelectionChangedEventArgs)
+            Dim address = MySuggestionBox.SelectedValue.ToString()
             MySearchBox.Text = address
-            updateSearch()
+            UpdateSearch()
         End Sub
 
-        Private Sub MySearchBox_TextChanged(sender As Object, e As System.Windows.Controls.TextChangedEventArgs)
-            updateSearch()
+        Private Sub MySearchBox_TextChanged(sender As Object, e As TextChangedEventArgs)
+            UpdateSearch()
         End Sub
 
         ''' <summary>
@@ -130,7 +130,7 @@ Namespace FindAddress
             Dim results As IReadOnlyList(Of IdentifyGraphicsOverlayResult) = Await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, False)
 
             ' Return gracefully if there was no result
-            If results.Count = 0 Then Return
+            If results.Count < 1 Or results.First().Graphics.Count < 1 Then Return
 
             ' Reverse geocode to get addresses
             Dim addresses As IReadOnlyList(Of GeocodeResult) = Await _geocoder.ReverseGeocodeAsync(e.Location)
@@ -141,10 +141,8 @@ Namespace FindAddress
             Dim calloutDetail As String = address.Attributes("MetroArea").ToString()
 
             ' Display the callout
-            If results.First().Graphics.Count > 0 Then
-                Dim point As MapPoint = MyMapView.ScreenToLocation(e.Position)
-                MyMapView.ShowCalloutAt(point, New CalloutDefinition(calloutTitle, calloutDetail))
-            End If
+            Dim point As MapPoint = MyMapView.ScreenToLocation(e.Position)
+            MyMapView.ShowCalloutAt(point, New CalloutDefinition(calloutTitle, calloutDetail))
         End Sub
 
     End Class

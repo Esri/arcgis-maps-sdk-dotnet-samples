@@ -35,7 +35,7 @@ namespace ArcGISRuntime.UWP.Samples.FindAddress
             "北京"
         };
 
-        // The LocatorTask provides geocoding services via a service
+        // The LocatorTask provides geocoding services
         private LocatorTask _geocoder;
 
         private Uri _serviceUri = new Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
@@ -63,20 +63,20 @@ namespace ArcGISRuntime.UWP.Samples.FindAddress
             _geocoder = await LocatorTask.CreateAsync(_serviceUri);
         }
 
-        private void mySearchField_TextChanged(object sender, TextChangedEventArgs e)
+        private void MySearchField_TextChanged(object sender, TextChangedEventArgs e)
         {
-            updateSearch();
+            UpdateSearch();
         }
 
-        private async void updateSearch()
+        private async void UpdateSearch()
         {
-            var enteredText = MySearchBox.Text;
+            String enteredText = MySearchBox.Text;
 
             // Clear existing marker
             MyMapView.GraphicsOverlays.Clear();
 
-            // Return gracefully if the textbox is empty
-            if (string.IsNullOrWhiteSpace(enteredText)) { return; }
+            // Return gracefully if the textbox is empty or LocatorTask isn't ready
+            if (string.IsNullOrWhiteSpace(enteredText) || _geocoder == null) { return; }
 
             // Get the nearest suggestion to entered text
             IReadOnlyList<SuggestResult> suggestions = await _geocoder.SuggestAsync(enteredText);
@@ -91,22 +91,21 @@ namespace ArcGISRuntime.UWP.Samples.FindAddress
             if (addresses.Count < 1) { return; }
 
             // Place a marker on the map
-            var resultOverlay = new GraphicsOverlay();
-            var point = await _graphicForPoint(addresses[0].DisplayLocation);
+            GraphicsOverlay resultOverlay = new GraphicsOverlay();
+            Graphic point = await GraphicForPoint(addresses.First().DisplayLocation);
 
-            // Record the address with the overlay for easy recall when the graphic is tapped
-            point.Attributes.Add("Address", addresses[0].Label);
+            // Show the marker on the map
             resultOverlay.Graphics.Add(point);
             MyMapView.GraphicsOverlays.Add(resultOverlay);
+
+            // Update the map extent to show the marker
             await MyMapView.SetViewpointGeometryAsync(addresses[0].Extent);
         }
 
         /// <summary>
         /// Creates a graphic for the specified map point asynchronously
         /// </summary>
-        /// <returns>The for point.</returns>
-        /// <param name="point">Point.</param>
-        private async Task<Graphic> _graphicForPoint(MapPoint point)
+        private async Task<Graphic> GraphicForPoint(MapPoint point)
         {
             // Get current assembly that contains the image
             var currentAssembly = this.GetType().GetTypeInfo().Assembly;
@@ -125,10 +124,10 @@ namespace ArcGISRuntime.UWP.Samples.FindAddress
             return new Graphic(point, pinSymbol);
         }
 
-        private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        private void OnSuggestionChosen(object sender, RoutedEventArgs e)
         {
             MySearchBox.Text = ((MenuFlyoutItem)sender).Text;
-            updateSearch();
+            UpdateSearch();
         }
 
         /// <summary>
@@ -140,7 +139,7 @@ namespace ArcGISRuntime.UWP.Samples.FindAddress
             IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
 
             // Return gracefully if there was no result
-            if (results.Count == 0) { return; }
+            if (results.Count < 1 || results.First().Graphics.Count < 1) { return; }
 
             // Reverse geocode to get addresses
             IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(e.Location);
@@ -151,11 +150,8 @@ namespace ArcGISRuntime.UWP.Samples.FindAddress
             String calloutDetail = address.Attributes["MetroArea"].ToString();
 
             // Display the callout
-            if (results[0].Graphics.Count > 0)
-            {
-                MapPoint point = MyMapView.ScreenToLocation(e.Position);
-                MyMapView.ShowCalloutAt(point, new CalloutDefinition(calloutTitle, calloutDetail));
-            }
+            MapPoint point = MyMapView.ScreenToLocation(e.Position);
+            MyMapView.ShowCalloutAt(point, new CalloutDefinition(calloutTitle, calloutDetail));
         }
     }
 }

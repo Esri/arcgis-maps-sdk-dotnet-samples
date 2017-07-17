@@ -27,7 +27,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <esriUI:MapView x:Name="MyMapView" Grid.Row="1"/>
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" GeoViewTapped="MyMapView_GeoViewTapped"/>
         <CommandBar x:Name="appBar" Grid.Row="2">
             <AppBarButton Icon="Find" Label="Search">
                 <AppBarButton.Flyout>
@@ -40,13 +40,13 @@
             </AppBarButton>
             <AppBarButton Icon="List" Label="Suggest">
                 <AppBarButton.Flyout>
-                    <MenuFlyout x:Name="myFlyoutSuggestor">
+                    <MenuFlyout>
                         <MenuFlyout.Items>
-                            <MenuFlyoutItem Text="277 N Avenida Caballeros, Palm Springs, CA" Click="MenuFlyoutItem_Click"/>
-                            <MenuFlyoutItem Text="380 New York St, Redlands, CA 92373" Click="MenuFlyoutItem_Click" />
-                            <MenuFlyoutItem Text="Београд" Click="MenuFlyoutItem_Click" />
-                            <MenuFlyoutItem Text="Москва" Click="MenuFlyoutItem_Click" />
-                            <MenuFlyoutItem Text="北京" Click="MenuFlyoutItem_Click" />
+                            <MenuFlyoutItem Text="277 N Avenida Caballeros, Palm Springs, CA" Click="OnSuggestionChosen"/>
+                            <MenuFlyoutItem Text="380 New York St, Redlands, CA 92373" Click="OnSuggestionChosen" />
+                            <MenuFlyoutItem Text="Београд" Click="OnSuggestionChosen" />
+                            <MenuFlyoutItem Text="Москва" Click="OnSuggestionChosen" />
+                            <MenuFlyoutItem Text="北京" Click="OnSuggestionChosen" />
                         </MenuFlyout.Items>
                     </MenuFlyout>
                 </AppBarButton.Flyout>

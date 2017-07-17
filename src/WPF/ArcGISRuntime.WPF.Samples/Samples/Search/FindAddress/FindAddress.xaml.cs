@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -33,7 +34,7 @@ namespace ArcGISRuntime.WPF.Samples.FindAddress
             "北京"
         };
 
-        // The LocatorTask provides geocoding services via a service
+        // The LocatorTask provides geocoding services
         private LocatorTask _geocoder;
 
         private Uri _serviceUri = new Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
@@ -49,13 +50,13 @@ namespace ArcGISRuntime.WPF.Samples.FindAddress
         private async void Initialize()
         {
             // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateImagery());
+            Map myMap = new Map(Basemap.CreateImageryWithLabels());
 
             // Provide used Map to the MapView
             MyMapView.Map = myMap;
 
             // Set addresses as items source
-            modeChooser.ItemsSource = _addresses;
+            MySuggestionBox.ItemsSource = _addresses;
 
             // Enable tap-for-info pattern on results
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
@@ -64,9 +65,9 @@ namespace ArcGISRuntime.WPF.Samples.FindAddress
             _geocoder = await LocatorTask.CreateAsync(_serviceUri);
         }
 
-        private async void updateSearch()
+        private async void UpdateSearch()
         {
-            var enteredText = MySearchBox.Text;
+            String enteredText = MySearchBox.Text;
 
             // Clear existing marker
             MyMapView.GraphicsOverlays.Clear();
@@ -87,22 +88,21 @@ namespace ArcGISRuntime.WPF.Samples.FindAddress
             if (addresses.Count < 1) { return; }
 
             // Place a marker on the map
-            var resultOverlay = new GraphicsOverlay();
-            var point = await _graphicForPoint(addresses[0].DisplayLocation);
+            GraphicsOverlay resultOverlay = new GraphicsOverlay();
+            Graphic point = await GraphicForPoint(addresses[0].DisplayLocation);
 
-            // Record the address with the overlay for easy recall when the graphic is tapped
-            point.Attributes.Add("Address", addresses[0].Label);
+            // Add the marker to the GraphicsOverlay
             resultOverlay.Graphics.Add(point);
             MyMapView.GraphicsOverlays.Add(resultOverlay);
+
+            // Update the map extent to show the marker
             await MyMapView.SetViewpointGeometryAsync(addresses[0].Extent);
         }
 
         /// <summary>
         /// Creates a graphic for the specified map point asynchronously
         /// </summary>
-        /// <returns>The for point.</returns>
-        /// <param name="point">Point.</param>
-        private async Task<Graphic> _graphicForPoint(MapPoint point)
+        private async Task<Graphic> GraphicForPoint(MapPoint point)
         {
             // Get current assembly that contains the image
             var currentAssembly = Assembly.GetExecutingAssembly();
@@ -121,16 +121,16 @@ namespace ArcGISRuntime.WPF.Samples.FindAddress
             return new Graphic(point, pinSymbol);
         }
 
-        private void OnModeChooserSelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void OnSugguestionChosen(object sender, SelectionChangedEventArgs e)
         {
-            string address = modeChooser.SelectedValue.ToString();
+            string address = MySuggestionBox.SelectedValue.ToString();
             MySearchBox.Text = address;
-            updateSearch();
+            UpdateSearch();
         }
 
-        private void MySearchBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void MySearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            updateSearch();
+            UpdateSearch();
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace ArcGISRuntime.WPF.Samples.FindAddress
             IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
 
             // Return gracefully if there was no result
-            if (results.Count == 0) { return; }
+            if (results.Count < 1 || results.First().Graphics.Count < 1) { return; }
 
             // Reverse geocode to get addresses
             IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(e.Location);
@@ -153,11 +153,8 @@ namespace ArcGISRuntime.WPF.Samples.FindAddress
             String calloutDetail = address.Attributes["MetroArea"].ToString();
 
             // Display the callout
-            if (results[0].Graphics.Count > 0)
-            {
-                MapPoint point = MyMapView.ScreenToLocation(e.Position);
-                MyMapView.ShowCalloutAt(point, new CalloutDefinition(calloutTitle, calloutDetail));
-            }
+            MapPoint point = MyMapView.ScreenToLocation(e.Position);
+            MyMapView.ShowCalloutAt(point, new CalloutDefinition(calloutTitle, calloutDetail));
         }
     }
 }

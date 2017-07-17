@@ -36,7 +36,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             "北京"
         };
 
-        // The LocatorTask provides geocoding services via a service
+        // The LocatorTask provides geocoding services
         private LocatorTask _geocoder;
 
         private Uri _serviceUri = new Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
@@ -63,8 +63,8 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
 
         public override void ViewDidLayoutSubviews()
         {
-            // Set up the visual frame for mapview and search bar.
-            // Ensures that the layout is updated appropriately upon rotation/relayout
+            // Set up the visual frame for the MapView and search bar.
+            // Ensures that the layout is updated appropriately on rotation
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
             _addressSearchBar.Frame = new CoreGraphics.CGRect(0, TopLayoutGuide.Length, View.Bounds.Width, 44);
 
@@ -83,7 +83,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             // Configure the search bar to support search-as-you-type
             _addressSearchBar.TextChanged += _AddressSearch_TextChanged;
 
-            //Configure the search bar to support flyout address suggestion
+            // Configure the search bar to support popover address suggestion
             _addressSearchBar.ShowsSearchResultsButton = true;
             _addressSearchBar.ListButtonClicked += _addressSearch_ListButtonClicked;
         }
@@ -103,12 +103,12 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
 
         private async void _AddressSearch_TextChanged(object sender, UISearchBarTextChangedEventArgs e)
         {
-            updateSearch();
+            UpdateSearch();
         }
 
-        private async void updateSearch()
+        private async void UpdateSearch()
         {
-            var enteredText = _addressSearchBar.Text;
+            String enteredText = _addressSearchBar.Text;
 
             // Clear existing marker
             _myMapView.GraphicsOverlays.Clear();
@@ -129,22 +129,21 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             if (addresses.Count < 1) { return; }
 
             // Place a marker on the map
-            var resultOverlay = new GraphicsOverlay();
-            var point = await _graphicForPoint(addresses[0].DisplayLocation);
+            GraphicsOverlay resultOverlay = new GraphicsOverlay();
+            Graphic point = await GraphicForPoint(addresses[0].DisplayLocation);
 
-            // Record the address with the overlay for easy recall when the graphic is tapped
-            point.Attributes.Add("Address", addresses[0].Label);
+            // Show the marker on the map
             resultOverlay.Graphics.Add(point);
             _myMapView.GraphicsOverlays.Add(resultOverlay);
+
+            // Update the map extent to show the marker
             await _myMapView.SetViewpointGeometryAsync(addresses[0].Extent);
         }
 
         /// <summary>
         /// Returns a graphic for use in an overlay corresponding with a search result
         /// </summary>
-        /// <returns>Graphic/Symbol ready for use in a graphicsOverlay</returns>
-        /// <param name="point">MapPoint representing the graphic's map location</param>
-        private async Task<Graphic> _graphicForPoint(MapPoint point)
+        private async Task<Graphic> GraphicForPoint(MapPoint point)
         {
             // Get current assembly that contains the image
             var currentAssembly = Assembly.GetExecutingAssembly();
@@ -174,7 +173,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
                 alert.AddAction(UIAlertAction.Create(address, UIAlertActionStyle.Default, (obj) =>
                 {
                     _addressSearchBar.Text = address;
-                    updateSearch();
+                    UpdateSearch();
                 }));
             }
 
@@ -191,7 +190,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             IReadOnlyList<IdentifyGraphicsOverlayResult> results = await _myMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
 
             // Return gracefully if there was no result
-            if (results.Count == 0) { return; }
+            if (results.Count < 1 || results.First().Graphics.Count < 1) { return; }
 
             // Reverse geocode to get addresses
             IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(e.Location);
@@ -202,11 +201,8 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             String calloutDetail = address.Attributes["MetroArea"].ToString();
 
             // Display the Callout
-            if (results[0].Graphics.Count > 0)
-            {
-                MapPoint point = _myMapView.ScreenToLocation(e.Position);
-                _myMapView.ShowCalloutAt(point, new CalloutDefinition(calloutTitle, calloutDetail));
-            }
+            MapPoint point = _myMapView.ScreenToLocation(e.Position);
+            _myMapView.ShowCalloutAt(point, new CalloutDefinition(calloutTitle, calloutDetail));
         }
     }
 }

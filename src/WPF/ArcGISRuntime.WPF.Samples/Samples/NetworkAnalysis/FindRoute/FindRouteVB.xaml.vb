@@ -79,7 +79,7 @@ Namespace FindRoute
             AddHandler MyMapView.SpatialReferenceChanged, Sub(s, e) MyMapView.SetViewpoint(sanDiegoViewpoint)
 
             ' Add a New Map And the graphics overlay to the map view
-            MyMapView.Map = New Map(Basemap.CreateStreets())
+            MyMapView.Map = New Map(Basemap.CreateStreetsVector())
             MyMapView.GraphicsOverlays.Add(_routeGraphicsOverlay)
         End Sub
 

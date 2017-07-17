@@ -79,7 +79,7 @@ namespace ArcGISRuntime.UWP.Samples.FindRoute
             MyMapView.SpatialReferenceChanged += (s, e) => MyMapView.SetViewpoint(sanDiegoViewpoint);
 
             // Add a new Map and the graphics overlay to the map view
-            MyMapView.Map = new Map(Basemap.CreateStreets());
+            MyMapView.Map = new Map(Basemap.CreateStreetsVector());
             MyMapView.GraphicsOverlays.Add(_routeGraphicsOverlay);
         }
 

@@ -86,6 +86,12 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             // Configure the search bar to support popover address suggestion
             _addressSearchBar.ShowsSearchResultsButton = true;
             _addressSearchBar.ListButtonClicked += _addressSearch_ListButtonClicked;
+
+            // Disable user interaction until the geocoder is ready
+            _addressSearchBar.UserInteractionEnabled = false;
+
+			// Enable tap-for-info pattern on results
+			_myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
         }
 
         private async void Initialize()
@@ -97,8 +103,8 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             // Initialize the geocoder with the provided service Uri
             _geocoder = await LocatorTask.CreateAsync(_serviceUri);
 
-            // Enable tap-for-info pattern on results
-            _myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
+            // Enable controls now that the geocoder is ready
+            _addressSearchBar.UserInteractionEnabled = true;
         }
 
         private async void _AddressSearch_TextChanged(object sender, UISearchBarTextChangedEventArgs e)
@@ -113,8 +119,8 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             // Clear existing marker
             _myMapView.GraphicsOverlays.Clear();
 
-            // Return gracefully if the textbox is empty
-            if (string.IsNullOrWhiteSpace(enteredText)) { return; }
+            // Return gracefully if the textbox is empty or the geocoder isn't ready
+            if (string.IsNullOrWhiteSpace(enteredText) || _geocoder == null) { return; }
 
             // Get the nearest suggestion to entered text
             IReadOnlyList<SuggestResult> suggestions = await _geocoder.SuggestAsync(enteredText);

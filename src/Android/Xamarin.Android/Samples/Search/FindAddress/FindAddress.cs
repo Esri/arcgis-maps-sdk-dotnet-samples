@@ -43,8 +43,8 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
 
         // UI Elements
         private MapView _myMapView;
-
         private EditText _addressSearchBar;
+        private Button _suggestButton;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -71,6 +71,10 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
 
             // Initialize the LocatorTask with the provided service Uri
             _geocoder = await LocatorTask.CreateAsync(_serviceUri);
+
+			// Enable interaction now that the geocoder is ready
+			_suggestButton.Enabled = true;
+			_addressSearchBar.Enabled = true;
         }
 
         private void CreateLayout()
@@ -79,7 +83,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
             var searchBarLayout = new RelativeLayout(this);
             _addressSearchBar = new EditText(this);
-            var _suggestButton = new Button(this) { Text = "Suggest" };
+            _suggestButton = new Button(this) { Text = "Suggest" };
             layout.AddView(searchBarLayout);
             searchBarLayout.AddView(_addressSearchBar);
             searchBarLayout.AddView(_suggestButton);
@@ -94,9 +98,14 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             // Show the layout in the app
             SetContentView(layout);
 
+            // Disable the buttons and search bar until the geocoder is ready
+            _suggestButton.Enabled = false;
+            _addressSearchBar.Enabled = false;
+
             // Hook up the UI event handlers for suggestion & search
             _suggestButton.Click += _searchHintButton_Click;
             _addressSearchBar.TextChanged += _searchBar_TextChanged;
+
         }
 
         /// <summary>
@@ -130,7 +139,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             _myMapView.GraphicsOverlays.Clear();
 
             // Return gracefully if the textbox is empty
-            if (string.IsNullOrWhiteSpace(enteredText)) { return; }
+            if (string.IsNullOrWhiteSpace(enteredText) || _geocoder == null) { return; }
 
             // Get the nearest suggestion to entered text
             IReadOnlyList<SuggestResult> suggestions = await _geocoder.SuggestAsync(enteredText);

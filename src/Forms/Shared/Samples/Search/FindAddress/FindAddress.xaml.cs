@@ -59,6 +59,8 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
 
             // Initialize the LocatorTask with the provided service Uri
             _geocoder = await LocatorTask.CreateAsync(_serviceUri);
+            MySuggestButton.IsEnabled = true;
+            MySearchBar.IsEnabled = true;
         }
 
         private void Handle_TextChanged(object sender, TextChangedEventArgs e)
@@ -73,8 +75,8 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             // Clear existing marker
             MyMapView.GraphicsOverlays.Clear();
 
-            // Return gracefully if the textbox is empty
-            if (string.IsNullOrWhiteSpace(enteredText)) { return; }
+            // Return gracefully if the textbox is empty or the geocoder isn't ready
+            if (string.IsNullOrWhiteSpace(enteredText) || _geocoder == null) { return; }
 
             // Get the nearest suggestion to entered text
             IReadOnlyList<SuggestResult> suggestions = await _geocoder.SuggestAsync(enteredText);

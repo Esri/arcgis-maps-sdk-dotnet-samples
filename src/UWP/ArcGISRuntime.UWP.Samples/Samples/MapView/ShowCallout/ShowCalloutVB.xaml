@@ -8,5 +8,5 @@
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls"
     mc:Ignorable="d" 
     d:DesignHeight="300" d:DesignWidth="300">
-    <esriUI:MapView x:Name="MyMapView" Grid.Row="1"/>
+    <esriUI:MapView x:Name="MyMapView" />
 </UserControl>

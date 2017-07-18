@@ -218,6 +218,8 @@
     <None Include="Samples\Symbology\UseDistanceCompositeSym\metadata.json" />
     <None Include="Samples\Tutorial\AuthorEditSaveMap\metadata.json" />
     <None Include="Samples\Tutorial\AuthorEditSaveMap\README.md" />
+    <Content Include="Samples\Search\FindAddress\FindAddress.jpg" />
+    <None Include="Samples\Search\FindAddress\metadata.json" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -354,6 +356,7 @@
     <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMapVB.xaml.vb">
       <DependentUpon>AuthorEditSaveMapVB.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Search\FindAddress\FindAddressVB.xaml.vb" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Samples\Data\FeatureLayerQuery\FeatureLayerQueryVB.xaml">
@@ -530,6 +533,9 @@
     <Page Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMapVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Search\FindAddress\FindAddressVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

@@ -203,6 +203,9 @@
       <DependentUpon>SaveMapPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Search\FindAddress\FindAddress.xaml.cs">
+      <DependentUpon>FindAddress.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableManualCache\metadata.json" />
@@ -381,6 +384,10 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Search\FindAddress\FindAddress.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Search\FindAddress\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)CategoryListPage.xaml">
@@ -450,6 +457,7 @@
     <Content Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.jpg" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderUniqueValues\metadata.json" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderUniqueValues\RenderUniqueValues.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Samples\Search\FindAddress\FindAddress.jpg" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\ChangeBasemap\ChangeBasemap.xaml">

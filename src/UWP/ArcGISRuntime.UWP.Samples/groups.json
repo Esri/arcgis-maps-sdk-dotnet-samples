@@ -274,7 +274,7 @@
         }
       ]
     },
-     {
+    {
       "Name": "Location",
       "CategoryName": "Location",
       "SubCategories": [
@@ -291,7 +291,24 @@
         }
       ]
     },
-     {
+    {
+      "Name": "Search",
+      "CategoryName": "Search",
+      "SubCategories": [
+        {
+          "Name": "Working with Addressing",
+          "SubCategoryName": "WorkingWithAddressing",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "FindAddress",
+              "Path": "Samples/Search/FindAddress"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "Name": "Tutorial",
       "CategoryName": "Tutorial",
       "SubCategories": [

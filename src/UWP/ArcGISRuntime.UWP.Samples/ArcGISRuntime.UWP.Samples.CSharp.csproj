@@ -85,6 +85,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_red.png" />
     <Content Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -94,6 +95,7 @@
     <Content Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Search\FindAddress\FindAddress.jpg" />
     <Content Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -354,8 +356,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Map\SearchPortalMaps\metadata.json">
-     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Search\FindAddress\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -421,6 +424,9 @@
     </Compile>
     <Compile Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.xaml.cs">
       <DependentUpon>DisplayDeviceLocation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Search\FindAddress\FindAddress.xaml.cs">
+      <DependentUpon>FindAddress.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\MapView\ShowMagnifier\ShowMagnifier.xaml.cs">
       <DependentUpon>ShowMagnifier.xaml</DependentUpon>
@@ -584,6 +590,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Search\FindAddress\FindAddress.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

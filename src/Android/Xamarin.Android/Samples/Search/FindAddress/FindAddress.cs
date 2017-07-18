@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+﻿// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using Android.App;
 using Android.OS;
 using Android.Widget;
+using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -61,7 +62,6 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
         {
             // Create new Map with basemap
             Map myMap = new Map(Basemap.CreateImagery());
-
 
             // Provide Map to the MapView
             _myMapView.Map = myMap;
@@ -154,8 +154,8 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             if (addresses.Count < 1) { return; }
 
             // Place a marker on the map
-            var resultOverlay = new GraphicsOverlay();
-            var point = await _graphicForPoint(addresses[0].DisplayLocation);
+            GraphicsOverlay resultOverlay = new GraphicsOverlay();
+            Graphic point = await _graphicForPoint(addresses[0].DisplayLocation);
 
             // Record the address with the overlay for easy recall when the graphic is tapped
             point.Attributes.Add("Address", addresses[0].Label);
@@ -167,8 +167,6 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
         /// <summary>
         /// Creates a graphic for the specified map point asynchronously
         /// </summary>
-        /// <returns>The for point.</returns>
-        /// <param name="point">Point.</param>
         private async Task<Graphic> _graphicForPoint(MapPoint point)
         {
             // Get current assembly that contains the image
@@ -194,7 +192,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
         private async void _myMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             // Search for the graphics underneath the user's tap
-            var results = await _myMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
+            IReadOnlyList<IdentifyGraphicsOverlayResult> results = await _myMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
 
             // Return gracefully if there was no result
             if (results.Count == 0) { return; }

@@ -93,6 +93,7 @@
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <Content Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg" />
+    <Content Include="Samples\Layers\WMTSLayer\WMTSLayer.jpg" />
     <Content Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -101,6 +102,8 @@
     <Content Include="Samples\MapView\ShowMagnifier\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Samples\Layers\WMTSLayer\metadata.json" />
+    <None Include="Samples\Layers\WMTSLayer\README.md" />
     <None Include="Samples\Map\SearchPortalMaps\metadata.json" />
     <None Include="Samples\Symbology\UseDistanceCompositeSym\metadata.json" />
     <Content Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg" />
@@ -278,6 +281,9 @@
     </Compile>
     <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrlVB.xaml.vb">
       <DependentUpon>FeatureLayerUrlVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\WMTSLayer\WMTSLayerVB.xaml.vb">
+      <DependentUpon>WMTSLayerVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocationVB.xaml.vb">
       <DependentUpon>DisplayDeviceLocationVB.xaml</DependentUpon>
@@ -477,6 +483,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrlVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\WMTSLayer\WMTSLayerVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -9,6 +9,7 @@
 
 Imports Esri.ArcGISRuntime.Geometry
 Imports Esri.ArcGISRuntime.Mapping
+Imports Esri.ArcGISRuntime.UI
 Imports Esri.ArcGISRuntime.UI.Controls
 
 Namespace ShowCallout
@@ -25,8 +26,10 @@ Namespace ShowCallout
 
         Private Sub Initialize()
 
-            ' Create a new Map instance with the basemap
+            ' Create a new basemap using the streets base layer
             Dim myBasemap As Basemap = Basemap.CreateStreets()
+
+            ' Create a new map based on the streets basemap
             Dim myMap As New Map(myBasemap)
 
             ' Assign the map to the MapView
@@ -35,17 +38,23 @@ Namespace ShowCallout
         End Sub
 
         Private Sub MyMapView_GeoViewTapped(sender As Object, e As GeoViewInputEventArgs) Handles MyMapView.GeoViewTapped
-            ' Get tap location
+            ' Get the user-tapped location
             Dim mapLocation As MapPoint = e.Location
 
-            '' Convert to Traditional Lat/Lng display
-            Dim projectedLocation As MapPoint = CType(GeometryEngine.Project(mapLocation, SpatialReferences.Wgs84), MapPoint)
+            ' Project the user-tapped map point location to a geometry
+            Dim myGeometry As Geometry = GeometryEngine.Project(mapLocation, SpatialReferences.Wgs84)
 
-            ' Format string for display
-            Dim mapLocationString As String = String.Format("Lat: {0:F3} Lng:{1:F3}", projectedLocation.Y, projectedLocation.X)
+            ' Convert to geometry to a traditional Lat/Long map point
+            Dim projectedLocation As MapPoint = CType(myGeometry, MapPoint)
 
-            ' Display Callout
-            MyMapView.ShowCalloutAt(mapLocation, New Esri.ArcGISRuntime.UI.CalloutDefinition("Location:", mapLocationString))
+            ' Format the display callout string based upon the projected map point (example "Lat: 100.123, Long: 100.234")
+            Dim mapLocationDescription As String = String.Format("Lat: {0:F3} Long:{1:F3}", projectedLocation.Y, projectedLocation.X)
+
+            ' Create a New callout definition using the formatted string
+            Dim myCalloutDefinition As CalloutDefinition = New CalloutDefinition("Location:", mapLocationDescription)
+
+            ' Display the callout
+            MyMapView.ShowCalloutAt(mapLocation, myCalloutDefinition)
         End Sub
 
     End Class

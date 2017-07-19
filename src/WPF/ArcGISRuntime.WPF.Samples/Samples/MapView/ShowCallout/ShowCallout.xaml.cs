@@ -9,8 +9,8 @@
 
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Controls;
 
 namespace ArcGISRuntime.WPF.Samples.ShowCallout
 {
@@ -49,7 +49,7 @@ namespace ArcGISRuntime.WPF.Samples.ShowCallout
             // Convert to geometry to a traditional Lat/Long map point
             MapPoint projectedLocation = (MapPoint)myGeometry;
 
-            // Format the display callout string based upon the projected map point (example: "Lat: 100.1123, Long: 100.1234")
+            // Format the display callout string based upon the projected map point (example: "Lat: 100.123, Long: 100.234")
             string mapLocationDescription = string.Format("Lat: {0:F3} Long:{1:F3}", projectedLocation.Y, projectedLocation.X);
 
             // Create a new callout definition using the formatted string

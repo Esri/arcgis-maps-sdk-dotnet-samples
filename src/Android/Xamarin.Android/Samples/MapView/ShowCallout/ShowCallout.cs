@@ -7,12 +7,12 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
 using Android.App;
 using Android.OS;
 using Android.Widget;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 
 namespace ArcGISRuntimeXamarin.Samples.ShowCallout
@@ -36,15 +36,19 @@ namespace ArcGISRuntimeXamarin.Samples.ShowCallout
         {
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
-            // Create a new Map instance with the basemap
+            // Create a new basemap using the streets base layer
             Basemap myBasemap = Basemap.CreateStreets();
+
+            // Create a new map based on the streets basemap
             Map myMap = new Map(myBasemap);
 
-            // Create a new map view control to display the map
-            _myMapView = new MapView();
+            // Assign the map to the MapView
             _myMapView.Map = myMap;
+
+            // Wire up the MapView GeoVewTapped event
             _myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
 
+            // Add the MapView to the page
             layout.AddView(_myMapView);
 
             // Apply the layout to the app
@@ -53,17 +57,23 @@ namespace ArcGISRuntimeXamarin.Samples.ShowCallout
 
         private void _myMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            // Get tap location
+            // Get the user-tapped location
             MapPoint mapLocation = e.Location;
 
-            // Convert to Traditional Lat/Lng display
-            MapPoint projectedLocation = (MapPoint)GeometryEngine.Project(mapLocation, SpatialReferences.Wgs84);
+            // Project the user-tapped map point location to a geometry
+            Geometry myGeometry = GeometryEngine.Project(mapLocation, SpatialReferences.Wgs84);
 
-            // Format string for display
-            string mapLocationString = String.Format("Lat: {0:F3} Lng:{1:F3}", projectedLocation.Y, projectedLocation.X);
+            // Convert to geometry to a traditional Lat/Long map point
+            MapPoint projectedLocation = (MapPoint)myGeometry;
 
-            // Display Callout
-            _myMapView.ShowCalloutAt(mapLocation, new Esri.ArcGISRuntime.UI.CalloutDefinition("Location:", mapLocationString));
+            // Format the display callout string based upon the projected map point (example: "Lat: 100.123, Long: 100.234")
+            string mapLocationDescription = string.Format("Lat: {0:F3} Long:{1:F3}", projectedLocation.Y, projectedLocation.X);
+
+            // Create a new callout definition using the formatted string
+            CalloutDefinition myCalloutDefinition = new CalloutDefinition("Location:", mapLocationDescription);
+
+            // Display the callout
+            _myMapView.ShowCalloutAt(mapLocation, myCalloutDefinition);
         }
     }
 }

@@ -42,12 +42,9 @@ namespace ArcGISRuntimeXamarin.Samples.UseDistanceCompositeSym
 
         public override void ViewDidLayoutSubviews()
         {
-            // Define an offset from the top of the page (to account for the iOS status bar)
-            var yPageOffset = 60;
-
             // Setup the visual frame for the MapView
             _mySceneView.Frame = new CoreGraphics.CGRect(
-                0, yPageOffset, View.Bounds.Width, View.Bounds.Height - yPageOffset);
+                0, 0, View.Bounds.Width, View.Bounds.Height);
 
             base.ViewDidLayoutSubviews();
         }

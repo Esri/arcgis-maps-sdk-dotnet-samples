@@ -89,6 +89,7 @@
     </Content>
     <Content Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg" />
     <Content Include="Samples\MapView\ShowCallout\ShowCallout.jpg" />
+    <Content Include="Samples\Layers\WMTSLayer\WMTSLayer.jpg" />
     <Content Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg" />
     <Content Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg" />
     <Content Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg" />
@@ -185,6 +186,8 @@
     <None Include="Samples\Layers\FeatureCollectionLayerFromQuery\metadata.json" />
     <None Include="Samples\Layers\FeatureLayerSelection\metadata.json" />
     <None Include="Samples\Layers\FeatureLayerUrl\metadata.json" />
+    <None Include="Samples\Layers\WMTSLayer\metadata.json" />
+    <None Include="Samples\Layers\WMTSLayer\README.md" />
     <None Include="Samples\Location\DisplayDeviceLocation\metadata.json" />
     <None Include="Samples\MapView\ChangeViewpoint\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -288,6 +291,9 @@
     </Compile>
     <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrlVB.xaml.vb">
       <DependentUpon>FeatureLayerUrlVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\WMTSLayer\WMTSLayerVB.xaml.vb">
+      <DependentUpon>WMTSLayerVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocationVB.xaml.vb">
       <DependentUpon>DisplayDeviceLocationVB.xaml</DependentUpon>
@@ -443,6 +449,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrlVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\WMTSLayer\WMTSLayerVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

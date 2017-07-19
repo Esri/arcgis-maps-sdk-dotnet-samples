@@ -34,19 +34,21 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayDeviceLocation
             base.ViewDidLoad();
 
             // Create the UI, setup the control references and execute initialization 
-            CreateLayout();
             Initialize();
+            CreateLayout();
+
+        }
+
+        public override void ViewWillDisappear(bool animated) {
+            base.ViewWillDisappear(animated);
+            NavigationController.ToolbarHidden = true;
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
-            _myMapView = new MapView()
-            {
-                Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height)
-            };
-
             base.ViewDidLayoutSubviews();
+            // Setup the visual frame for the MapView
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
         }
 
         private void Initialize()

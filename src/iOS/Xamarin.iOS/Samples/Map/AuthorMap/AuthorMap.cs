@@ -28,6 +28,9 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
         // Reference to the MapView used in the app
         private MapView _myMapView;
 
+        private UISegmentedControl _segmentButton;
+        private UIToolbar _toolbar;
+
         // Dictionary of operational layer names and URLs
         private Dictionary<string, string> _operationalLayerUrls = new Dictionary<string, string>
         {
@@ -67,6 +70,15 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             Title = "Author and save a map";
         }
 
+        public override void ViewDidLayoutSubviews() {
+            // correctly handle re-layout events (e.g. rotated phone)
+            base.ViewDidLayoutSubviews();
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+
+            _segmentButton.Frame = new CoreGraphics.CGRect(10, 10, View.Bounds.Width - 20, 24);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
+        }
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
@@ -92,9 +104,6 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
 
         private void CreateLayout()
         {
-            // Define an offset from the top of the page (to account for the iOS status bar)
-            var yPageOffset = 60;
-
             // Create a new MapView control
             _myMapView = new MapView();
 
@@ -104,22 +113,36 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             _activityIndicator.Frame = centerRect;
 
             // Define the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height - yPageOffset);
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
             // Add a segmented button control
-            var segmentButton = new UISegmentedControl();
-            segmentButton.BackgroundColor = UIColor.White;
-            segmentButton.Frame = new CoreGraphics.CGRect(0, _myMapView.Bounds.Height, View.Bounds.Width, 30);
-            segmentButton.InsertSegment("Basemap", 0, false);
-            segmentButton.InsertSegment("Layers", 1, false);
-            segmentButton.InsertSegment("New", 2, false);
-            segmentButton.InsertSegment("Save", 3, false);
+            _segmentButton = new UISegmentedControl();
+            _segmentButton.BackgroundColor = UIColor.White;
+            _segmentButton.InsertSegment("Basemap", 0, false);
+            _segmentButton.InsertSegment("Layers", 1, false);
+            _segmentButton.InsertSegment("New", 2, false);
+            _segmentButton.InsertSegment("Save", 3, false);
 
             // Handle the "click" for each segment (new segment is selected)
-            segmentButton.ValueChanged += SegmentButtonClicked;
+            _segmentButton.ValueChanged += SegmentButtonClicked;
+
+			// Create a UIBarButtonItem where its view is the SegmentControl
+			UIBarButtonItem barButtonItem = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
+			barButtonItem.CustomView = _segmentButton;
+
+			// Create a toolbar on the bottom of the display 
+			_toolbar = new UIToolbar();
+			_toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
+			_toolbar.AutosizesSubviews = true;
+
+			// Add the bar button item to an array of UIBarButtonItems
+			UIBarButtonItem[] barButtonItems = new UIBarButtonItem[] { barButtonItem };
+
+			// Add the UIBarButtonItems array to the toolbar
+			_toolbar.SetItems(barButtonItems, true);
 
             // Add the MapView, progress bar, and UIButton to the page
-            View.AddSubviews(_myMapView, _activityIndicator, segmentButton);
+            View.AddSubviews(_myMapView, _activityIndicator, _toolbar);
         }
 
         private void SegmentButtonClicked(object sender, EventArgs e)
@@ -237,8 +260,9 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
         {
             if (_oauthInfoUI != null) { return; }
 
-            // Create a view to show entry controls over the map view
-            var ovBounds = new CoreGraphics.CGRect(0, 60, View.Bounds.Width, View.Bounds.Height - 60);
+			// Create a view to show entry controls over the map view
+
+			var ovBounds = new CoreGraphics.CGRect(30, 60, (View.Bounds.Width - 60), (View.Bounds.Height - 120));
             _oauthInfoUI = new OAuthPropsDialogOverlay(ovBounds, 0.75f, UIColor.White, AppClientId, OAuthRedirectUrl);
 
             // Handle the OnOAuthPropsInfoEntered event to get the info entered by the user
@@ -570,6 +594,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
         // Store the input controls so the values can be read
         private UITextField _clientIdTextField;
         private UITextField _redirectUrlTextField;
+
         
         public OAuthPropsDialogOverlay(CoreGraphics.CGRect frame, nfloat transparency, UIColor color, string clientId, string redirectUrl) : base(frame)
         {
@@ -579,23 +604,19 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
 
             // Set size and spacing for controls
             nfloat controlHeight = 25;
-            nfloat rowSpace = 11;
+            nfloat rowSpace = 7;
             nfloat lessRowSpace = 4;
             nfloat buttonSpace = 15;
-            nfloat textViewWidth = Frame.Width - 60;
+            nfloat textViewWidth = 200;
             nfloat buttonWidth = 60;
 
             // Get the total height and width of the control set (four rows of controls, three sets of space)
             nfloat totalHeight = (6 * controlHeight) + (5 * rowSpace);
             nfloat totalWidth = textViewWidth;
 
-            // Find the center x and y of the view
-            nfloat centerX = Frame.Width / 2;
-            nfloat centerY = Frame.Height / 2;
-
             // Find the start x and y for the control layout
-            nfloat controlX = centerX - (totalWidth / 2);
-            nfloat controlY = centerY - (totalHeight / 2);
+            nfloat controlX = 10;
+            nfloat controlY = 10;
 
             // Label for inputs
             var description = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));

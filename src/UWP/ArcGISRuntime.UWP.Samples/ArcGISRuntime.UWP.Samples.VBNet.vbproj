@@ -93,6 +93,9 @@
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <Content Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg" />
+    <Content Include="Samples\MapView\ShowCallout\ShowCallout.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Layers\WMTSLayer\WMTSLayer.jpg" />
     <Content Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -218,6 +221,9 @@
     <None Include="Samples\Symbology\RenderSimpleMarkers\metadata.json" />
     <None Include="Samples\Symbology\RenderUniqueValues\metadata.json" />
     <None Include="Samples\Tutorial\AuthorEditSaveMap\metadata.json" />
+    <Content Include="Samples\MapView\ShowCallout\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -364,6 +370,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg" />
+    <Compile Include="Samples\MapView\ShowCallout\ShowCalloutVB.xaml.vb">
+      <DependentUpon>ShowCalloutVB.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -579,6 +588,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMapVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\ShowCallout\ShowCalloutVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

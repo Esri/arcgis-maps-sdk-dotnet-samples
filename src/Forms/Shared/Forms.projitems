@@ -107,6 +107,7 @@
       <SubType>Code</SubType>
       <DependentUpon>FeatureLayerUrl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\WMTSLayer\WMTSLayer.xaml.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>DisplayDeviceLocation.xaml</DependentUpon>
@@ -400,6 +401,10 @@
     <Content Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.jpg" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\WMTSLayer\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\WMTSLayer\WMTSLayer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SketchOnMap\metadata.json" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\SearchPortalMaps\metadata.json">
@@ -536,6 +541,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\WMTSLayer\WMTSLayer.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

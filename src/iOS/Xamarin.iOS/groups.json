@@ -113,8 +113,12 @@
               "Path":"Samples/Layers/ArcGISMapImageLayerUrl"
             },
             {
-              "SampleName":"ChangeSublayerVisibility",
-              "Path":"Samples/Layers/ChangeSublayerVisibility"
+              "SampleName": "ChangeSublayerVisibility",
+              "Path": "Samples/Layers/ChangeSublayerVisibility"
+            },
+            {
+              "SampleName":"WMTSLayer",
+              "Path":"Samples/Layers/WMTSLayer"
             }
           ]
         }

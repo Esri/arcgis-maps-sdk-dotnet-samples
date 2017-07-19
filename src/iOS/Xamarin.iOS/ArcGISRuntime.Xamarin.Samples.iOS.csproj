@@ -322,7 +322,6 @@
     <EmbeddedResource Include="Samples\Layers\WMTSLayer\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <None Include="Samples\Layers\WMTSLayer\README.md" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />

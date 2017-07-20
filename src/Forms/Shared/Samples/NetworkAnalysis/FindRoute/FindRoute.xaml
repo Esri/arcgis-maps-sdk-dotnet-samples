@@ -25,17 +25,18 @@
         </Frame>
         <StackLayout Grid.Row="1"
                      Orientation="Horizontal"
-                     HeightRequest="30">
+                     HeightRequest="50"
+                     Margin="5,10">
             <Button x:Name="SolveRouteButton"
-                        HorizontalOptions="StartAndExpand"
+                        HorizontalOptions="FillAndExpand"
                         Text="Solve Route"
                         Clicked="SolveRouteClick"/>
             <Button x:Name="ResetButton"
-                        HorizontalOptions="StartAndExpand"
+                        HorizontalOptions="FillAndExpand"
                         Text="Reset"
                         Clicked="ResetClick"/>
             <Button x:Name="ShowHideDirectionsButton"
-                        HorizontalOptions="StartAndExpand"
+                        HorizontalOptions="FillAndExpand"
                         Text="Directions"
                         Clicked="ShowHideDirectionsList"/>
         </StackLayout>

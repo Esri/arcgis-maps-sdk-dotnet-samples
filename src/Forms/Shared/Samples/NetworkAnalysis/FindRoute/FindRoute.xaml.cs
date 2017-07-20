@@ -87,7 +87,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindRoute
             MyMapView.SpatialReferenceChanged += (s, e) => MyMapView.SetViewpoint(sanDiegoViewpoint);
 
             // Add a new Map and the graphics overlay to the map view
-            MyMapView.Map = new Map(Basemap.CreateStreetsVector());
+            MyMapView.Map = new Map(Basemap.CreateStreets());
             MyMapView.GraphicsOverlays.Add(_routeGraphicsOverlay);
         }
         

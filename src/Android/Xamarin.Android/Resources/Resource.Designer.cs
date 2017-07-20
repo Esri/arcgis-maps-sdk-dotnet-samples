@@ -28,33 +28,6 @@ namespace ArcGISRuntimeXamarin
 		{
 			global::PCLCrypto.Resource.String.ApplicationName = global::ArcGISRuntimeXamarin.Resource.String.ApplicationName;
 			global::PCLCrypto.Resource.String.Hello = global::ArcGISRuntimeXamarin.Resource.String.Hello;
-			global::Xamarin.Auth.Resource.Animation.slide_in_right = global::ArcGISRuntimeXamarin.Resource.Animation.slide_in_right;
-			global::Xamarin.Auth.Resource.Animation.slide_out_left = global::ArcGISRuntimeXamarin.Resource.Animation.slide_out_left;
-			global::Xamarin.Auth.Resource.Drawable.ic_arrow_back = global::ArcGISRuntimeXamarin.Resource.Drawable.ic_arrow_back;
-			global::Xamarin.Auth.Resource.Id.webview = global::ArcGISRuntimeXamarin.Resource.Id.webview;
-			global::Xamarin.Auth.Resource.Layout.activity_webview = global::ArcGISRuntimeXamarin.Resource.Layout.activity_webview;
-			global::Xamarin.Auth.Resource.String.ApplicationName = global::ArcGISRuntimeXamarin.Resource.String.ApplicationName;
-			global::Xamarin.Auth.Resource.String.Hello = global::ArcGISRuntimeXamarin.Resource.String.Hello;
-			global::Xamarin.Auth.Resource.String.title_activity_webview = global::ArcGISRuntimeXamarin.Resource.String.title_activity_webview;
-		}
-		
-		public partial class Animation
-		{
-			
-			// aapt resource value: 0x7f040000
-			public const int slide_in_right = 2130968576;
-			
-			// aapt resource value: 0x7f040001
-			public const int slide_out_left = 2130968577;
-			
-			static Animation()
-			{
-				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
-			}
-			
-			private Animation()
-			{
-			}
 		}
 		
 		public partial class Attribute
@@ -80,10 +53,7 @@ namespace ArcGISRuntimeXamarin
 			public const int esri = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int ic_arrow_back = 2130837506;
-			
-			// aapt resource value: 0x7f020003
-			public const int Icon = 2130837507;
+			public const int Icon = 2130837506;
 			
 			static Drawable()
 			{
@@ -98,20 +68,17 @@ namespace ArcGISRuntimeXamarin
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f060002
-			public const int categoriesListView = 2131099650;
+			// aapt resource value: 0x7f050001
+			public const int categoriesListView = 2131034113;
 			
-			// aapt resource value: 0x7f060001
-			public const int nameTextView = 2131099649;
+			// aapt resource value: 0x7f050000
+			public const int nameTextView = 2131034112;
 			
-			// aapt resource value: 0x7f060003
-			public const int sampleNameTextView = 2131099651;
+			// aapt resource value: 0x7f050002
+			public const int sampleNameTextView = 2131034114;
 			
-			// aapt resource value: 0x7f060004
-			public const int samplesListView = 2131099652;
-			
-			// aapt resource value: 0x7f060000
-			public const int webview = 2131099648;
+			// aapt resource value: 0x7f050003
+			public const int samplesListView = 2131034115;
 			
 			static Id()
 			{
@@ -127,19 +94,16 @@ namespace ArcGISRuntimeXamarin
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int activity_webview = 2130903040;
+			public const int CategoriesLayout = 2130903040;
 			
 			// aapt resource value: 0x7f030001
-			public const int CategoriesLayout = 2130903041;
+			public const int CategoriesList = 2130903041;
 			
 			// aapt resource value: 0x7f030002
-			public const int CategoriesList = 2130903042;
+			public const int SamplesLayout = 2130903042;
 			
 			// aapt resource value: 0x7f030003
-			public const int SamplesLayout = 2130903043;
-			
-			// aapt resource value: 0x7f030004
-			public const int SamplesList = 2130903044;
+			public const int SamplesList = 2130903043;
 			
 			static Layout()
 			{
@@ -154,14 +118,11 @@ namespace ArcGISRuntimeXamarin
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f050002
-			public const int ApplicationName = 2131034114;
+			// aapt resource value: 0x7f040001
+			public const int ApplicationName = 2130968577;
 			
-			// aapt resource value: 0x7f050001
-			public const int Hello = 2131034113;
-			
-			// aapt resource value: 0x7f050000
-			public const int title_activity_webview = 2131034112;
+			// aapt resource value: 0x7f040000
+			public const int Hello = 2130968576;
 			
 			static String()
 			{

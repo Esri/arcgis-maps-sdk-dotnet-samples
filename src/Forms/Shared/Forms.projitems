@@ -107,6 +107,10 @@
       <SubType>Code</SubType>
       <DependentUpon>FeatureLayerUrl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\SceneLayerUrl\SceneLayerUrl.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>SceneLayerUrl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\WMTSLayer\WMTSLayer.xaml.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.xaml.cs">
       <SubType>Code</SubType>
@@ -282,6 +286,13 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <Content Include="$(MSBuildThisFileDirectory)Samples\Layers\SceneLayerUrl\SceneLayerUrl.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\SceneLayerUrl\SceneLayerUrl.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\SceneLayerUrl\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.jpg" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.xaml">
       <SubType>Designer</SubType>

@@ -89,6 +89,3 @@ A copy of the license is available in the repository's [license.txt](/license.tx
 
 ### Modern UI Icons
 Icons included under the Assets folder in the Phone and Store projects are from [Modern UI Icons](http://modernuiicons.com/). License information can be found at https://github.com/Templarian/WindowsIcons/blob/master/WindowsPhone/license.txt 
-
-[](Esri Tags: ArcGIS Runtime SDK Windows WPF UWP Xamarin Xamarin.Android Xamarin.iOS Xamarin.Forms C-Sharp C# XAML)
-[](Esri Language: DotNet)

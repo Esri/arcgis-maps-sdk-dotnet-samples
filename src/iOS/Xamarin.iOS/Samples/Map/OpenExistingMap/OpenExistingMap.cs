@@ -23,6 +23,7 @@ namespace ArcGISRuntimeXamarin.Samples.OpenExistingMap
 
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
+        private UIButton _mapsButton;
 
         // String array to hold urls to publicly available web maps
         private string[] itemURLs = new string[] 
@@ -45,13 +46,20 @@ namespace ArcGISRuntimeXamarin.Samples.OpenExistingMap
             Title = "Open an existing map";
         }
 
+        public override void ViewDidLoad() {
+            base.ViewDidLoad();
+			CreateLayout();
+			Initialize();
+        }
+
         public override void ViewDidLayoutSubviews()
         {
             base.ViewDidLayoutSubviews();
 
             // Create the UI, setup the control references and execute initialization 
-            CreateLayout();
-            Initialize();
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _mapsButton.Frame = new CoreGraphics.CGRect(
+                0, View.Bounds.Height - 40, View.Bounds.Width, 40);
         }
 
         private void Initialize()
@@ -92,7 +100,7 @@ namespace ArcGISRuntimeXamarin.Samples.OpenExistingMap
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
             // Add a button at the bottom to show webmap choices
-            UIButton mapsButton = new UIButton(UIButtonType.Custom)
+            _mapsButton = new UIButton(UIButtonType.Custom)
             {
                 Frame = new CoreGraphics.CGRect(
                     0, View.Bounds.Height - 40, View.Bounds.Width, 40),
@@ -100,12 +108,12 @@ namespace ArcGISRuntimeXamarin.Samples.OpenExistingMap
             };
 
             // Create button to show map options
-            mapsButton.SetTitle("Maps", UIControlState.Normal);
-            mapsButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            mapsButton.TouchUpInside += OnMapsButtonTouch;
+            _mapsButton.SetTitle("Maps", UIControlState.Normal);
+            _mapsButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _mapsButton.TouchUpInside += OnMapsButtonTouch;
 
             // Add MapView to the page
-            View.AddSubviews(_myMapView, mapsButton);
+            View.AddSubviews(_myMapView, _mapsButton);
         }
     }
 }

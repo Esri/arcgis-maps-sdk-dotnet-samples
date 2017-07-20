@@ -22,10 +22,6 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureCollectionLayerFromQuery
         // Reference to the MapView used in the app
         private MapView _myMapView;
 
-        // Define an offset from the top of the page (to account for the iOS status bar)
-        int yPageOffset = 60;
-
-
         // URL for a feature service layer to query
         private const string FeatureLayerUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Wildfire/FeatureServer/0";
 

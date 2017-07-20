@@ -36,7 +36,8 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
 		// The LocatorTask provides geocoding services
 		private LocatorTask _geocoder;
 
-		private Uri _serviceUri = new Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
+        // Service Uri to be provided to the LocatorTask (geocoder)
+        private Uri _serviceUri = new Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
 
 		public FindAddress()
 		{
@@ -59,6 +60,8 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
 
 			// Initialize the LocatorTask with the provided service Uri
 			_geocoder = await LocatorTask.CreateAsync(_serviceUri);
+
+            // Enable the UI controls now that the LocatorTask is ready
 			MySuggestButton.IsEnabled = true;
 			MySearchBar.IsEnabled = true;
 		}
@@ -70,42 +73,45 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
 
 		private async void updateSearch()
 		{
-			String enteredText = MySearchBar.Text;
+            // Get the text in the search bar
+            String enteredText = MySearchBar.Text;
 
-			// Clear existing marker
-			MyMapView.GraphicsOverlays.Clear();
+            // Clear existing marker
+            MyMapView.GraphicsOverlays.Clear();
 
-			// Return gracefully if the textbox is empty or the geocoder isn't ready
-			if (string.IsNullOrWhiteSpace(enteredText) || _geocoder == null) { return; }
+            // Return gracefully if the textbox is empty or the geocoder isn't ready
+            if (string.IsNullOrWhiteSpace(enteredText) || _geocoder == null) { return; }
 
-			// Get the nearest suggestion to entered text
-			IReadOnlyList<SuggestResult> suggestions = await _geocoder.SuggestAsync(enteredText);
+            // Get suggestions based on the input text
+            IReadOnlyList<SuggestResult> suggestions = await _geocoder.SuggestAsync(enteredText);
 
-			// Stop gracefully if there are no suggestions
-			if (suggestions.Count < 1) { return; }
+            // Stop gracefully if there are no suggestions
+            if (suggestions.Count < 1) { return; }
 
-			// Get the full address for the first suggestion
-			IReadOnlyList<GeocodeResult> addresses = await _geocoder.GeocodeAsync(suggestions[0].Label);
+            // Get the full address for the first suggestion
+            SuggestResult firstSuggestion = suggestions.First();
+            IReadOnlyList<GeocodeResult> addresses = await _geocoder.GeocodeAsync(firstSuggestion.Label);
 
-			// Stop gracefully if the geocoder does not return a result
-			if (addresses.Count < 1) { return; }
+            // Stop gracefully if the geocoder does not return a result
+            if (addresses.Count < 1) { return; }
 
-			// Place a marker on the map
-			GraphicsOverlay resultOverlay = new GraphicsOverlay();
-			Graphic point = await _graphicForPoint(addresses[0].DisplayLocation);
+            // Place a marker on the map - 1. Create the overlay
+            GraphicsOverlay resultOverlay = new GraphicsOverlay();
+            // 2. Get the Graphic to display
+            Graphic point = await GraphicForPoint(addresses.First().DisplayLocation);
+            // 3. Add the Graphic to the GraphicsOverlay
+            resultOverlay.Graphics.Add(point);
+            // 4. Add the GraphicsOverlay to the MapView
+            MyMapView.GraphicsOverlays.Add(resultOverlay);
 
-			// Show the marker on the map
-			resultOverlay.Graphics.Add(point);
-			MyMapView.GraphicsOverlays.Add(resultOverlay);
+            // Update the map extent to show the marker
+            await MyMapView.SetViewpointGeometryAsync(addresses.First().Extent);
+        }
 
-			// Update the map extent to show the marker
-			await MyMapView.SetViewpointGeometryAsync(addresses[0].Extent);
-		}
-
-		/// <summary>
-		/// Returns a graphic for use in an overlay corresponding with a search result
-		/// </summary>
-		private async Task<Graphic> _graphicForPoint(MapPoint point)
+        /// <summary>
+        /// Creates and returns a Graphic associated with the given MapPoint
+        /// </summary>
+		private async Task<Graphic> GraphicForPoint(MapPoint point)
 		{
 #if WINDOWS_UWP
             // Get current assembly that contains the image
@@ -124,15 +130,18 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
 			PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);
 			pinSymbol.Width = 60;
 			pinSymbol.Height = 60;
-			pinSymbol.OffsetX = pinSymbol.Width / 2;
+            // The image is a pin; offset the image so that the pinpoint 
+            //     is on the point rather than the image's true center
+            pinSymbol.OffsetX = pinSymbol.Width / 2;
 			pinSymbol.OffsetY = pinSymbol.Height / 2;
 			return new Graphic(point, pinSymbol);
 		}
 
 		private async void SuggestionButtonTapped(object sender, System.EventArgs e)
 		{
+            // Display the list of suggestions; returns the selected option
 			String action = await DisplayActionSheet("Choose an address to geocode", "Cancel", null, _addresses);
-			String oldValue = MySearchBar.Text;
+            // Update the search
 			MySearchBar.Text = action;
 			updateSearch();
 		}
@@ -142,23 +151,30 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
 		/// </summary>
 		private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
 		{
-			// Search for the graphics underneath the user's tap
-			IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
+            // Search for the graphics underneath the user's tap
+            IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
 
-			// Return gracefully if there was no result
-			if (results.Count < 1 || results.First().Graphics.Count < 1) { return; }
+            // Return gracefully if there was no result
+            if (results.Count < 1 || results.First().Graphics.Count < 1) { return; }
 
-			// Reverse geocode to get addresses
-			IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(e.Location);
+            // Reverse geocode to get addresses
+            IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(e.Location);
 
-			// Format addresses
-			GeocodeResult address = addresses.First();
-			String calloutTitle = address.Attributes["City"] + ", " + address.Attributes["Region"];
-			String calloutDetail = address.Attributes["MetroArea"].ToString();
+            // Get the first result
+            GeocodeResult address = addresses.First();
+            // Use the city and region for the Callout Title
+            String calloutTitle = address.Attributes["City"] + ", " + address.Attributes["Region"];
+            // Use the metro area for the Callout Detail
+            String calloutDetail = address.Attributes["MetroArea"].ToString();
 
-			// Display the callout
-			MapPoint point = MyMapView.ScreenToLocation(e.Position);
-			MyMapView.ShowCalloutAt(point, new CalloutDefinition(calloutTitle, calloutDetail));
-		}
+            // Use the MapView to convert from the on-screen location to the on-map location
+            MapPoint point = MyMapView.ScreenToLocation(e.Position);
+
+            // Define the callout
+            CalloutDefinition calloutBody = new CalloutDefinition(calloutTitle, calloutDetail);
+
+            // Show the callout on the map at the tapped location
+            MyMapView.ShowCalloutAt(point, calloutBody);
+        }
 	}
 }

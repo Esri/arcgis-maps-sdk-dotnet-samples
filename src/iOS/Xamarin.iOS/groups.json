@@ -25,9 +25,13 @@
               "SampleName": "DisplayLayerViewState",
               "Path": "Samples/MapView/DisplayLayerViewState"
             },
-              {
-              "SampleName":"TakeScreenshot",
-              "Path":"Samples/MapView/TakeScreenshot"
+            {
+              "SampleName": "TakeScreenshot",
+              "Path": "Samples/MapView/TakeScreenshot"
+            },
+            {
+              "SampleName": "ShowCallout",
+              "Path": "Samples/MapView/ShowCallout"
             }
           ]
         },
@@ -113,8 +117,12 @@
               "Path":"Samples/Layers/ArcGISMapImageLayerUrl"
             },
             {
-              "SampleName":"ChangeSublayerVisibility",
-              "Path":"Samples/Layers/ChangeSublayerVisibility"
+              "SampleName": "ChangeSublayerVisibility",
+              "Path": "Samples/Layers/ChangeSublayerVisibility"
+            },
+            {
+              "SampleName":"WMTSLayer",
+              "Path":"Samples/Layers/WMTSLayer"
             }
           ]
         }

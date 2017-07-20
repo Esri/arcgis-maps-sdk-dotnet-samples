@@ -40,10 +40,11 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
         // The LocatorTask provides geocoding services via a service
         private LocatorTask _geocoder;
 
+        // Service Uri to be provided to the LocatorTask (geocoder)
         private Uri _serviceUri = new Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
 
         // UI Elements
-        private MapView _myMapView;
+        private MapView _myMapView = new MapView();
         private EditText _addressSearchBar;
         private Button _suggestButton;
 
@@ -82,18 +83,19 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             //initialize the layout
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
             var searchBarLayout = new RelativeLayout(this);
+            // Add the search bar and suggest button
             _addressSearchBar = new EditText(this);
             _suggestButton = new Button(this) { Text = "Suggest" };
             layout.AddView(searchBarLayout);
             searchBarLayout.AddView(_addressSearchBar);
             searchBarLayout.AddView(_suggestButton);
-			// Create the MapView
-			_myMapView = new MapView();
+			// Add the MapView to the layout
             layout.AddView(_myMapView);
             var x = (RelativeLayout.LayoutParams)_suggestButton.LayoutParameters;
             x.AddRule(LayoutRules.AlignParentEnd);
             var y = (RelativeLayout.LayoutParams)_addressSearchBar.LayoutParameters;
             y.AddRule(LayoutRules.AlignParentStart);
+            // Keep the search bar from overflowing into multiple lines
             _addressSearchBar.SetMaxLines(1);
             // Show the layout in the app
             SetContentView(layout);
@@ -113,15 +115,16 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
         /// </summary>
         private void _searchHintButton_Click(object sender, EventArgs e)
         {
+            // Create an AlertDialog
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.SetTitle("Suggestions")
-                   .SetItems(_addresses, (_sender, _e) =>
+            // Provide the addresses; lambda updates the search with the selected item
+            builder.SetTitle("Suggestions").SetItems(_addresses, (_sender, _e) =>
             {
                 var address = _addresses[_e.Which]; // get the selected address
                 _addressSearchBar.Text = address;
                 updateSearch();
             });
-
+            // Show the dialog
             AlertDialog alert = builder.Create();
             alert.Show();
         }
@@ -133,41 +136,45 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
 
         private async void updateSearch()
         {
-            var enteredText = _addressSearchBar.Text;
+            // Get the text in the search bar
+            String enteredText = _addressSearchBar.Text;
 
             // Clear existing marker
             _myMapView.GraphicsOverlays.Clear();
 
-            // Return gracefully if the textbox is empty
+            // Return gracefully if the textbox is empty or the geocoder isn't ready
             if (string.IsNullOrWhiteSpace(enteredText) || _geocoder == null) { return; }
 
-            // Get the nearest suggestion to entered text
+            // Get suggestions based on the input text
             IReadOnlyList<SuggestResult> suggestions = await _geocoder.SuggestAsync(enteredText);
 
             // Stop gracefully if there are no suggestions
             if (suggestions.Count < 1) { return; }
 
             // Get the full address for the first suggestion
-            IReadOnlyList<GeocodeResult> addresses = await _geocoder.GeocodeAsync(suggestions[0].Label);
+            SuggestResult firstSuggestion = suggestions.First();
+            IReadOnlyList<GeocodeResult> addresses = await _geocoder.GeocodeAsync(firstSuggestion.Label);
 
             // Stop gracefully if the geocoder does not return a result
             if (addresses.Count < 1) { return; }
 
-            // Place a marker on the map
+            // Place a marker on the map - 1. Create the overlay
             GraphicsOverlay resultOverlay = new GraphicsOverlay();
-            Graphic point = await _graphicForPoint(addresses[0].DisplayLocation);
-
-            // Record the address with the overlay for easy recall when the graphic is tapped
-            point.Attributes.Add("Address", addresses[0].Label);
+            // 2. Get the Graphic to display
+            Graphic point = await GraphicForPoint(addresses.First().DisplayLocation);
+            // 3. Add the Graphic to the GraphicsOverlay
             resultOverlay.Graphics.Add(point);
+            // 4. Add the GraphicsOverlay to the MapView
             _myMapView.GraphicsOverlays.Add(resultOverlay);
-            await _myMapView.SetViewpointGeometryAsync(addresses[0].Extent);
+
+            // Update the map extent to show the marker
+            await _myMapView.SetViewpointGeometryAsync(addresses.First().Extent);
         }
 
         /// <summary>
-        /// Creates a graphic for the specified map point asynchronously
+        /// Creates and returns a Graphic associated with the given MapPoint
         /// </summary>
-        private async Task<Graphic> _graphicForPoint(MapPoint point)
+        private async Task<Graphic> GraphicForPoint(MapPoint point)
         {
             // Get current assembly that contains the image
             var currentAssembly = Assembly.GetExecutingAssembly();
@@ -181,6 +188,8 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);
             pinSymbol.Width = 60;
             pinSymbol.Height = 60;
+            // The image is a pin; offset the image so that the pinpoint 
+            //     is on the point rather than the image's true center
             pinSymbol.OffsetX = pinSymbol.Width / 2;
             pinSymbol.OffsetY = pinSymbol.Height / 2;
             return new Graphic(point, pinSymbol);
@@ -195,22 +204,26 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             IReadOnlyList<IdentifyGraphicsOverlayResult> results = await _myMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
 
             // Return gracefully if there was no result
-            if (results.Count == 0) { return; }
+            if (results.Count < 1 || results.First().Graphics.Count < 1) { return; }
 
             // Reverse geocode to get addresses
             IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(e.Location);
 
-            // Format addresses
+            // Get the first result
             GeocodeResult address = addresses.First();
+            // Use the city and region for the Callout Title
             String calloutTitle = address.Attributes["City"] + ", " + address.Attributes["Region"];
+            // Use the metro area for the Callout Detail
             String calloutDetail = address.Attributes["MetroArea"].ToString();
 
-            // Display the callout
-            if (results[0].Graphics.Count > 0)
-            {
-                MapPoint point = _myMapView.ScreenToLocation(e.Position);
-                _myMapView.ShowCalloutAt(point, new CalloutDefinition(calloutTitle, calloutDetail));
-            }
+            // Use the MapView to convert from the on-screen location to the on-map location
+            MapPoint point = _myMapView.ScreenToLocation(e.Position);
+
+            // Define the callout
+            CalloutDefinition calloutBody = new CalloutDefinition(calloutTitle, calloutDetail);
+
+            // Show the callout on the map at the tapped location
+            _myMapView.ShowCalloutAt(point, calloutBody);
         }
     }
 }

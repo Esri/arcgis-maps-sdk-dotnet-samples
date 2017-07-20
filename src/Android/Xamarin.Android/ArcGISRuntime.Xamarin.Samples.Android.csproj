@@ -130,6 +130,7 @@
     <Compile Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.cs" />
     <Compile Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.cs" />
     <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.cs" />
+    <Compile Include="Samples\Layers\WMTSLayer\WMTSLayer.cs" />
     <Compile Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.cs" />
     <Compile Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.cs" />
     <Compile Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.cs" />
     <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.cs" />
     <Compile Include="Samples\Search\FindAddress\FindAddress.cs" />
+    <Compile Include="Samples\MapView\ShowCallout\ShowCallout.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="groups.json">
@@ -230,6 +232,8 @@
     <EmbeddedResource Include="Samples\Map\SearchPortalMaps\metadata.json" />
     <EmbeddedResource Include="Samples\GraphicsOverlay\SketchOnMap\metadata.json" />
     <EmbeddedResource Include="Samples\Search\FindAddress\metadata.json" />
+    <EmbeddedResource Include="Samples\MapView\ShowCallout\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\WMTSLayer\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml" />
@@ -249,6 +253,7 @@
     <Content Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.jpg" />
     <Content Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.jpg" />
     <Content Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg" />
+    <Content Include="Samples\Layers\WMTSLayer\WMTSLayer.jpg" />
     <Content Include="Samples\MapView\TakeScreenshot\TakeScreenshot.jpg" />
     <Content Include="Samples\Map\AuthorMap\AuthorMap.jpg" />
     <Content Include="Samples\Map\ManageBookmarks\ManageBookmarks.jpg">
@@ -294,6 +299,9 @@
     <Content Include="Samples\Search\FindAddress\FindAddress.jpg" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Samples\MapView\ShowCallout\" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.1.0\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.1.0\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

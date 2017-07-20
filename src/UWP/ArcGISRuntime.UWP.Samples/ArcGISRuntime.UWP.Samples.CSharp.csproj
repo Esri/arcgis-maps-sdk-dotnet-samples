@@ -88,6 +88,12 @@
     <Content Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\MapView\ShowCallout\ShowCallout.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\WMTSLayer\WMTSLayer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -354,7 +360,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Map\SearchPortalMaps\metadata.json">
-     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\ShowCallout\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\WMTSLayer\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Search\FindAddress\FindAddress.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -424,6 +436,9 @@
     </Compile>
     <Compile Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.xaml.cs">
       <DependentUpon>ChangeFeatureLayerRenderer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\WMTSLayer\WMTSLayer.xaml.cs">
+      <DependentUpon>WMTSLayer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.xaml.cs">
       <DependentUpon>DisplayDeviceLocation.xaml</DependentUpon>
@@ -498,7 +513,12 @@
       <DependentUpon>AuthorEditSaveMap.xaml</DependentUpon>
     </Compile>
     <Content Include="Properties\ArcGISRuntime.Windows.Samples.rd.xml" />
-    <Compile Include="Samples\Search\FindAddress\FindAddress.xaml.cs" />
+    <Compile Include="Samples\Search\FindAddress\FindAddress.xaml.cs">
+        <DependentUpon>FindAddress.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\ShowCallout\ShowCallout.xaml.cs">
+      <DependentUpon>ShowCallout.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="Microsoft.VCLibs, version=14.0">
@@ -587,6 +607,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\WMTSLayer\WMTSLayer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -682,8 +706,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Search\FindAddress\FindAddress.xaml" />
+    <Page Include="Samples\Search\FindAddress\FindAddress.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\ShowCallout\ShowCallout.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

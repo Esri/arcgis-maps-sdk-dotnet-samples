@@ -32,6 +32,10 @@
             {
               "SampleName": "ShowMagnifier",
               "Path": "Samples/MapView/ShowMagnifier"
+            },
+            {
+              "SampleName": "ShowCallout",
+              "Path": "Samples/MapView/ShowCallout"
             }
           ]
         },
@@ -119,7 +123,11 @@
             {
               "SampleName": "ChangeSublayerVisibility",
               "Path": "Samples/Layers/ChangeSublayerVisibility"
-            } 
+            },
+            {
+              "SampleName": "WMTSLayer",
+              "Path": "Samples/Layers/WMTSLayer"
+            }
           ]
         }
       ]

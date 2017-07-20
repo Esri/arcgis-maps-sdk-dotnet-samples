@@ -93,6 +93,10 @@
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <Content Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg" />
+    <Content Include="Samples\MapView\ShowCallout\ShowCallout.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\WMTSLayer\WMTSLayer.jpg" />
     <Content Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -101,6 +105,8 @@
     <Content Include="Samples\MapView\ShowMagnifier\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Samples\Layers\WMTSLayer\metadata.json" />
+    <None Include="Samples\Layers\WMTSLayer\README.md" />
     <None Include="Samples\Map\SearchPortalMaps\metadata.json" />
     <None Include="Samples\Symbology\UseDistanceCompositeSym\metadata.json" />
     <Content Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg" />
@@ -216,7 +222,9 @@
     <None Include="Samples\Symbology\RenderUniqueValues\metadata.json" />
     <None Include="Samples\Tutorial\AuthorEditSaveMap\metadata.json" />
     <None Include="Samples\Search\FindAddress\metadata.json" />
-    <Content Include="Samples\Search\FindAddress\FindAddress.jpg" />
+    <Content Include="Samples\MapView\ShowCallout\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -280,6 +288,9 @@
     </Compile>
     <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrlVB.xaml.vb">
       <DependentUpon>FeatureLayerUrlVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\WMTSLayer\WMTSLayerVB.xaml.vb">
+      <DependentUpon>WMTSLayerVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocationVB.xaml.vb">
       <DependentUpon>DisplayDeviceLocationVB.xaml</DependentUpon>
@@ -360,7 +371,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg" />
-    <Compile Include="Samples\Search\FindAddress\FindAddressVB.xaml.vb" />
+    <Compile Include="Samples\Search\FindAddress\FindAddressVB.xaml.vb">
+        <DependentUpon>FindAddressVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\ShowCallout\ShowCalloutVB.xaml.vb">
+      <DependentUpon>ShowCalloutVB.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -483,6 +499,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Layers\WMTSLayer\WMTSLayerVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocationVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -575,7 +595,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Search\FindAddress\FindAddressVB.xaml" />
+    <Page Include="Samples\Search\FindAddress\FindAddressVB.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\ShowCallout\ShowCalloutVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

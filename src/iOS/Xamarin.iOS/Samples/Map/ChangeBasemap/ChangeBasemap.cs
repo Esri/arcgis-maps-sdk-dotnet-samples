@@ -19,11 +19,9 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBasemap
     public class ChangeBasemap : UIViewController
     {
 
-        // Create a variable to hold the yOffset where the MapView control should start
-        int _yOffset = 60;
-
         MapView _myMapView;
-
+        UIToolbar _toolbar;
+        UISegmentedControl _segmentControl;
 
         public ChangeBasemap()
         {
@@ -40,12 +38,9 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBasemap
         {
             base.ViewDidLoad();
 
-            // Create a variable to hold the yOffset where the MapView control should start
-            var yOffset = 60;
-
             // Create a new MapView control and provide its location coordinates on the frame
             _myMapView = new MapView();
-            _myMapView.Frame = new CoreGraphics.CGRect(0, yOffset, View.Bounds.Width, View.Bounds.Height - yOffset);
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
             // Create a new Map instance with the basemap               
             Map myMap = new Map(SpatialReferences.WebMercator);
@@ -55,16 +50,16 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBasemap
             _myMapView.Map = myMap;
 
             // Create a segmented control to display buttons
-            UISegmentedControl segmentControl = new UISegmentedControl();
-            segmentControl.Frame = new CoreGraphics.CGRect(10, 8, View.Bounds.Width - 20, 24);
-            segmentControl.InsertSegment("Topo", 0, false);
-            segmentControl.InsertSegment("Streets", 1, false);
-            segmentControl.InsertSegment("Imagery", 2, false);
-            segmentControl.InsertSegment("Ocean", 3, false);
+            _segmentControl = new UISegmentedControl();
+            _segmentControl.Frame = new CoreGraphics.CGRect(8, 8, View.Bounds.Width - 16, 24);
+            _segmentControl.InsertSegment("Topo", 0, false);
+            _segmentControl.InsertSegment("Streets", 1, false);
+            _segmentControl.InsertSegment("Imagery", 2, false);
+            _segmentControl.InsertSegment("Ocean", 3, false);
 
-            segmentControl.SelectedSegment = 0;
+            _segmentControl.SelectedSegment = 0;
 
-            segmentControl.ValueChanged += (sender, e) =>
+            _segmentControl.ValueChanged += (sender, e) =>
             {
                 var selectedSegmentId = (sender as UISegmentedControl).SelectedSegment;
 
@@ -98,27 +93,28 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBasemap
 
             // Create a UIBarButtonItem where its view is the SegmentControl
             UIBarButtonItem barButtonItem = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
-            barButtonItem.CustomView = segmentControl;
+            barButtonItem.CustomView = _segmentControl;
 
             // Create a toolbar on the bottom of the display 
-            UIToolbar toolbar = new UIToolbar();
-            toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, View.Bounds.Height);
-            toolbar.AutosizesSubviews = true;
+            _toolbar = new UIToolbar();
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
+            _toolbar.AutosizesSubviews = true;
 
             // Add the bar button item to an array of UIBarButtonItems
             UIBarButtonItem[] barButtonItems = new UIBarButtonItem[] { barButtonItem };
 
             // Add the UIBarButtonItems array to the toolbar
-            toolbar.SetItems(barButtonItems, true);
+            _toolbar.SetItems(barButtonItems, true);
 
-            View.AddSubviews(_myMapView, toolbar);
+            View.AddSubviews(_myMapView, _toolbar);
         }
 
         public override void ViewDidLayoutSubviews()
         {
             // Setup the visual frame for the MapView
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
+            _segmentControl.Frame = new CoreGraphics.CGRect(8, 8, View.Bounds.Width - 16, 24);
             base.ViewDidLayoutSubviews();
         }
     }

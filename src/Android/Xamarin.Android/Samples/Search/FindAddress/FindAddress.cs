@@ -99,7 +99,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             layout.AddView(_suggestButton);
             // Add the MapView to the layout
             layout.AddView(_myMapView);
-            var x = (RelativeLayout.LayoutParams)_suggestButton.LayoutParameters;
+            var x = (RelativeLayout.LayoutParams)_searchButton.LayoutParameters;
             x.AddRule(LayoutRules.AlignParentEnd);
             var y = (RelativeLayout.LayoutParams)_addressSearchBar.LayoutParameters;
             y.AddRule(LayoutRules.AlignParentStart);

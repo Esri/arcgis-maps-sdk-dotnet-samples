@@ -7,7 +7,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
-            <RowDefinition Height="30" />
+            <RowDefinition Height="40" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <SearchBar Grid.Row="0" x:Name="MySearchBar" Placeholder="Find Address" IsEnabled="false" SearchButtonPressed="Handle_TextChanged" />

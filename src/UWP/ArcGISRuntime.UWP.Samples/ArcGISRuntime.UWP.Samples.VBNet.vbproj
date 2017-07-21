@@ -109,7 +109,6 @@
     <None Include="Samples\Layers\RasterLayerImageServiceRaster\metadata.json" />
     <None Include="Samples\Layers\RasterLayerImageServiceRaster\README.md" />
     <None Include="Samples\Layers\WMTSLayer\metadata.json" />
-    <None Include="Samples\Layers\WMTSLayer\README.md" />
     <None Include="Samples\Map\SearchPortalMaps\metadata.json" />
     <None Include="Samples\Symbology\UseDistanceCompositeSym\metadata.json" />
     <Content Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg" />
@@ -224,9 +223,11 @@
     <None Include="Samples\Symbology\RenderSimpleMarkers\metadata.json" />
     <None Include="Samples\Symbology\RenderUniqueValues\metadata.json" />
     <None Include="Samples\Tutorial\AuthorEditSaveMap\metadata.json" />
+    <None Include="Samples\Search\FindAddress\metadata.json" />
     <Content Include="Samples\MapView\ShowCallout\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Search\FindAddress\FindAddress.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -376,6 +377,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg" />
+    <Compile Include="Samples\Search\FindAddress\FindAddressVB.xaml.vb">
+      <DependentUpon>FindAddressVB.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\MapView\ShowCallout\ShowCalloutVB.xaml.vb">
       <DependentUpon>ShowCalloutVB.xaml</DependentUpon>
     </Compile>
@@ -598,6 +602,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMapVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Search\FindAddress\FindAddressVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

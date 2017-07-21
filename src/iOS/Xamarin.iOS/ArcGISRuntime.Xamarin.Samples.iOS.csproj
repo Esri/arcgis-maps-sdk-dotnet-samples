@@ -319,6 +319,7 @@
     <EmbeddedResource Include="Samples\Map\SearchPortalMaps\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Samples\Search\FindAddress\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\ShowCallout\metadata.json" />
     <BundleResource Include="Samples\MapView\ShowCallout\ShowCallout.jpg" />
     <EmbeddedResource Include="Samples\Layers\WMTSLayer\metadata.json">
@@ -393,6 +394,7 @@
     <Compile Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.designer.cs">
       <DependentUpon>ChangeSublayerVisibility.cs</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Search\FindAddress\FindAddress.cs" />
     <Compile Include="Samples\MapView\ShowCallout\ShowCallout.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
@@ -514,6 +516,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Search\FindAddress\FindAddress.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg">

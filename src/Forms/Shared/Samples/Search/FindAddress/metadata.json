@@ -9,6 +9,14 @@
    "RequiresLocalServer":false,
    "Image":"FindAddress.jpg",
    "Link":"",
-  "TypeLink": [ "T:Esri.ArcGISRuntime.Tasks.Geocoding.LocatorTask", "T:Esri.ArcGISRuntime.Tasks.Geocoding.GeocodeResult", "T:Esri.ArcGISRuntime.Tasks.Geocoding.SuggestResult" ],
+  "TypeLink": [
+    "T:Esri.ArcGISRuntime.Tasks.Geocoding.LocatorTask",
+    "T:Esri.ArcGISRuntime.Tasks.Geocoding.GeocodeResult",
+    "T:Esri.ArcGISRuntime.Tasks.Geocoding.SuggestResult",
+    "M:Esri.ArcGISRuntime.Tasks.Geocoding.LocatorTask.CreateAsync(System.Uri,Esri.ArcGISRuntime.Security.Credential)",
+    "M:Esri.ArcGISRuntime.Tasks.Geocoding.LocatorTask.SuggestAsync(System.String)",
+    "M:Esri.ArcGISRuntime.Tasks.Geocoding.LocatorTask.ReverseGeocodeAsync(Esri.ArcGISRuntime.Geometry.MapPoint)",
+    "P:Esri.ArcGISRuntime.Tasks.Geocoding.GeocodeResult.Attributes"
+  ],
   "SampleFolder": "FindAddress"
 } 

@@ -32,6 +32,10 @@
             {
               "SampleName": "ShowMagnifier",
               "Path": "Samples/MapView/ShowMagnifier"
+            },
+            {
+              "SampleName": "ShowCallout",
+              "Path": "Samples/MapView/ShowCallout"
             }
           ]
         },
@@ -117,8 +121,12 @@
               "Path": "Samples/Layers/ArcGISMapImageLayerUrl"
             },
             {
-              "SampleName": "ChangeSublayerVisibility",
-              "Path": "Samples/Layers/ChangeSublayerVisibility"
+              "SampleName":"ChangeSublayerVisibility",
+              "Path":"Samples/Layers/ChangeSublayerVisibility"
+            },
+            {
+              "SampleName":"WMTSLayer",
+              "Path":"Samples/Layers/WMTSLayer"
             }
           ]
         }

@@ -36,6 +36,12 @@ namespace ArcGISRuntimeXamarin.Samples.ManageBookmarks
             Initialize();
         }
 
+		public override void ViewWillDisappear(bool animated)
+		{
+			base.ViewWillDisappear(animated);
+			NavigationController.ToolbarHidden = true;
+		}
+
         public override void ViewDidLayoutSubviews()
         {
             // Setup the visual frame for the MapView

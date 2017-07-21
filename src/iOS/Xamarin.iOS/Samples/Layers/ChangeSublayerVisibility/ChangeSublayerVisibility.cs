@@ -77,9 +77,9 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeSublayerVisibility
         public override void ViewDidLayoutSubviews()
         {
             // Setup the visual frame for the MapView
-            myMapView.Frame = new CoreGraphics.CGRect(0, 60, View.Bounds.Width, View.Bounds.Height - 40);
+            myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
-            sublayersButton.Frame = new CoreGraphics.CGRect(0, myMapView.Bounds.Height, View.Bounds.Width, 40);
+            sublayersButton.Frame = new CoreGraphics.CGRect(0, myMapView.Bounds.Height - 40, View.Bounds.Width, 40);
 
             base.ViewDidLayoutSubviews();
         }

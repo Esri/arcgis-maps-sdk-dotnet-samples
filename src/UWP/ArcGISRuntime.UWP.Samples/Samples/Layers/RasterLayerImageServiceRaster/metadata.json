@@ -1,5 +1,5 @@
 {
-  "Name": "RasterLayer from ImageServiceRaster",
+  "Name": "ArcGIS raster layer (service)",
   "SampleName": "RasterLayerImageServiceRaster",
   "Description": "This sample demonstrates how to show a raster layer on a map based on an image service layer.",
   "Instructions": "",

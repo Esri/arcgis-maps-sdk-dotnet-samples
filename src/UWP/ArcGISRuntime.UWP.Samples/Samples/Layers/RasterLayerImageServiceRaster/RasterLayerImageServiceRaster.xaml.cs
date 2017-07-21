@@ -44,14 +44,8 @@ namespace ArcGISRuntime.UWP.Samples.RasterLayerImageServiceRaster
             // Create a new raster layer from the image service raster
             RasterLayer myRasterLayer = new RasterLayer(myImageServiceRaster);
 
-            // Get the basemap from the map
-            Basemap myBaseMap = myMap.Basemap;
-
-            // Get the layer collection from the basemap
-            LayerCollection myLayerCollection = myBaseMap.BaseLayers;
-
             // Add the raster layer to the maps layer collection
-            myLayerCollection.Add(myRasterLayer);
+            myMap.Basemap.BaseLayers.Add(myRasterLayer);
 
             // Assign the map to the map view
             MyMapView.Map = myMap;

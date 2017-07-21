@@ -44,14 +44,8 @@ Namespace RasterLayerImageServiceRaster
             ' Create a new raster layer from the image service raster
             Dim myRasterLayer As RasterLayer = New RasterLayer(myImageServiceRaster)
 
-            ' Get the basemap from the map
-            Dim myBaseMap As Basemap = myMap.Basemap
-
-            ' Get the layer collection from the basemap
-            Dim myLayerCollection As LayerCollection = myBaseMap.BaseLayers
-
             ' Add the raster layer to the maps layer collection
-            myLayerCollection.Add(myRasterLayer)
+            myMap.Basemap.BaseLayers.Add(myRasterLayer)
 
             ' Assign the map to the map view
             MyMapView.Map = myMap

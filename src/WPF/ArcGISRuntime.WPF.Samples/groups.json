@@ -129,7 +129,19 @@
               "Path": "Samples/Layers/WMTSLayer"
             }
           ]
+        },
+        {
+          "Name": "Raster Layers",
+          "SubCategoryName": "RasterLayer",
+          "ShowGroup": false,
+          "SampleInfos": [
+            {
+              "SampleName": "RasterLayerImageServiceRaster",
+              "Path": "Samples/Layers/RasterLayerImageServiceRaster"
+            }
+          ]
         }
+
       ]
     },
     {
@@ -311,6 +323,23 @@
             {
               "SampleName": "DisplayDeviceLocation",
               "Path": "Samples/Location/DisplayDeviceLocation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Search",
+      "CategoryName": "Search",
+      "SubCategories": [
+        {
+          "Name": "Working with Addressing",
+          "SubCategoryName": "WorkingWithAddressing",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "FindAddress",
+              "Path": "Samples/Search/FindAddress"
             }
           ]
         }

@@ -129,6 +129,17 @@
               "Path": "Samples/Layers/WMTSLayer"
             }
           ]
+        },
+        {
+          "Name": "Raster Layers",
+          "SubCategoryName": "RasterLayer",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "RasterLayerImageServiceRaster",
+              "Path": "Samples/Layers/RasterLayerImageServiceRaster"
+            }
+          ]
         }
       ]
     },

@@ -104,14 +104,14 @@ Namespace FindAddress
             Dim pinSymbol As PictureMarkerSymbol = Await PictureMarkerSymbol.CreateAsync(resourceStream)
             pinSymbol.Width = 60
             pinSymbol.Height = 60
-            ' The map marker Is a pin; offset the pin so that the pinpoint 
+            ' The map marker Is a pin; offset the pin so that the pinpoint
             '     Is on the point rather than the image's true center
             pinSymbol.OffsetX = pinSymbol.Width / 2
             pinSymbol.OffsetY = pinSymbol.Height / 2
             Return New Graphic(point, pinSymbol)
         End Function
 
-        Private Sub MySearchBox_TextChanged(sender As Object, e As TextChangedEventArgs)
+        Private Sub SearchButton_Click(sender As Object, e As RoutedEventArgs)
             updateSearch()
         End Sub
 

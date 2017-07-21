@@ -59,6 +59,7 @@ Namespace FindAddress
             ' Enable UI controls now that the geocoder is ready
             MySearchBox.IsEnabled = True
             MySuggestionBox.IsEnabled = True
+            MySearchButton.IsEnabled = True
         End Sub
 
         Private Async Sub UpdateSearch()
@@ -114,7 +115,7 @@ Namespace FindAddress
             Dim pinSymbol As PictureMarkerSymbol = Await PictureMarkerSymbol.CreateAsync(resourceStream)
             pinSymbol.Width = 60
             pinSymbol.Height = 60
-            ' The map marker Is a pin; offset the pin so that the pinpoint 
+            ' The map marker Is a pin; offset the pin so that the pinpoint
             '     Is on the point rather than the image's true center
             pinSymbol.OffsetX = pinSymbol.Width / 2
             pinSymbol.OffsetY = pinSymbol.Height / 2
@@ -129,7 +130,7 @@ Namespace FindAddress
             UpdateSearch()
         End Sub
 
-        Private Sub MySearchBox_TextChanged(sender As Object, e As TextChangedEventArgs)
+        Private Sub Button_Click(sender As Object, e As System.Windows.RoutedEventArgs)
             UpdateSearch()
         End Sub
 

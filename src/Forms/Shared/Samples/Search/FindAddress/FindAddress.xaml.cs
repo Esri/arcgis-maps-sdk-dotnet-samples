@@ -22,57 +22,57 @@ using Xamarin.Forms;
 
 namespace ArcGISRuntimeXamarin.Samples.FindAddress
 {
-	public partial class FindAddress : ContentPage
-	{
-		// Addresses for suggestion
-		private string[] _addresses = {
-			"277 N Avenida Caballeros, Palm Springs, CA",
-			"380 New York St, Redlands, CA 92373",
-			"Београд",
-			"Москва",
-			"北京"
-		};
+    public partial class FindAddress : ContentPage
+    {
+        // Addresses for suggestion
+        private string[] _addresses = {
+            "277 N Avenida Caballeros, Palm Springs, CA",
+            "380 New York St, Redlands, CA 92373",
+            "Београд",
+            "Москва",
+            "北京"
+        };
 
-		// The LocatorTask provides geocoding services
-		private LocatorTask _geocoder;
+        // The LocatorTask provides geocoding services
+        private LocatorTask _geocoder;
 
         // Service Uri to be provided to the LocatorTask (geocoder)
         private Uri _serviceUri = new Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
 
-		public FindAddress()
-		{
-			InitializeComponent();
+        public FindAddress()
+        {
+            InitializeComponent();
 
-			Title = "Find Address";
+            Title = "Find Address";
 
-			// Create the UI, setup the control references and execute initialization
-			Initialize();
-			MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
-		}
+            // Create the UI, setup the control references and execute initialization
+            Initialize();
+            MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+        }
 
-		private async void Initialize()
-		{
-			// Create new Map with basemap
-			Map myMap = new Map(Basemap.CreateImageryWithLabels());
+        private async void Initialize()
+        {
+            // Create new Map with basemap
+            Map myMap = new Map(Basemap.CreateImageryWithLabels());
 
-			// Assign the map to the MapView
-			MyMapView.Map = myMap;
+            // Assign the map to the MapView
+            MyMapView.Map = myMap;
 
-			// Initialize the LocatorTask with the provided service Uri
-			_geocoder = await LocatorTask.CreateAsync(_serviceUri);
+            // Initialize the LocatorTask with the provided service Uri
+            _geocoder = await LocatorTask.CreateAsync(_serviceUri);
 
             // Enable the UI controls now that the LocatorTask is ready
-			MySuggestButton.IsEnabled = true;
-			MySearchBar.IsEnabled = true;
-		}
+            MySuggestButton.IsEnabled = true;
+            MySearchBar.IsEnabled = true;
+        }
 
-		private void Handle_TextChanged(object sender, TextChangedEventArgs e)
-		{
-			updateSearch();
-		}
+        private void Handle_TextChanged(object sender, System.EventArgs e)
+        {
+            updateSearch();
+        }
 
-		private async void updateSearch()
-		{
+        private async void updateSearch()
+        {
             // Get the text in the search bar
             String enteredText = MySearchBar.Text;
 
@@ -112,45 +112,45 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
         /// Creates and returns a Graphic associated with the given MapPoint
         /// </summary>
 		private async Task<Graphic> GraphicForPoint(MapPoint point)
-		{
+        {
 #if WINDOWS_UWP
             // Get current assembly that contains the image
             var currentAssembly = GetType().GetTypeInfo().Assembly;
 #else
-			// Get current assembly that contains the image
-			var currentAssembly = Assembly.GetExecutingAssembly();
+            // Get current assembly that contains the image
+            var currentAssembly = Assembly.GetExecutingAssembly();
 #endif
 
-			// Get image as a stream from the resources
-			// Picture is defined as EmbeddedResource and DoNotCopy
-			var resourceStream = currentAssembly.GetManifestResourceStream(
-				"ArcGISRuntimeXamarin.Resources.PictureMarkerSymbols.pin_star_blue.png");
+            // Get image as a stream from the resources
+            // Picture is defined as EmbeddedResource and DoNotCopy
+            var resourceStream = currentAssembly.GetManifestResourceStream(
+                "ArcGISRuntimeXamarin.Resources.PictureMarkerSymbols.pin_star_blue.png");
 
-			// Create new symbol using asynchronous factory method from stream
-			PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);
-			pinSymbol.Width = 60;
-			pinSymbol.Height = 60;
-            // The image is a pin; offset the image so that the pinpoint 
+            // Create new symbol using asynchronous factory method from stream
+            PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);
+            pinSymbol.Width = 60;
+            pinSymbol.Height = 60;
+            // The image is a pin; offset the image so that the pinpoint
             //     is on the point rather than the image's true center
             pinSymbol.OffsetX = pinSymbol.Width / 2;
-			pinSymbol.OffsetY = pinSymbol.Height / 2;
-			return new Graphic(point, pinSymbol);
-		}
+            pinSymbol.OffsetY = pinSymbol.Height / 2;
+            return new Graphic(point, pinSymbol);
+        }
 
-		private async void SuggestionButtonTapped(object sender, System.EventArgs e)
-		{
+        private async void SuggestionButtonTapped(object sender, System.EventArgs e)
+        {
             // Display the list of suggestions; returns the selected option
-			String action = await DisplayActionSheet("Choose an address to geocode", "Cancel", null, _addresses);
+            String action = await DisplayActionSheet("Choose an address to geocode", "Cancel", null, _addresses);
             // Update the search
-			MySearchBar.Text = action;
-			updateSearch();
-		}
+            MySearchBar.Text = action;
+            updateSearch();
+        }
 
-		/// <summary>
-		/// Handle tap event on the map; displays callouts showing the address for a tapped search result
-		/// </summary>
-		private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
-		{
+        /// <summary>
+        /// Handle tap event on the map; displays callouts showing the address for a tapped search result
+        /// </summary>
+        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        {
             // Search for the graphics underneath the user's tap
             IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
 
@@ -176,5 +176,5 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             // Show the callout on the map at the tapped location
             MyMapView.ShowCalloutAt(point, calloutBody);
         }
-	}
+    }
 }

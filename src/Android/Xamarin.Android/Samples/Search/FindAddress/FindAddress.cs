@@ -45,8 +45,10 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
 
         // UI Elements
         private MapView _myMapView = new MapView();
+
         private EditText _addressSearchBar;
         private Button _suggestButton;
+        private Button _searchButton;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -73,9 +75,10 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             // Initialize the LocatorTask with the provided service Uri
             _geocoder = await LocatorTask.CreateAsync(_serviceUri);
 
-			// Enable interaction now that the geocoder is ready
-			_suggestButton.Enabled = true;
-			_addressSearchBar.Enabled = true;
+            // Enable interaction now that the geocoder is ready
+            _suggestButton.Enabled = true;
+            _addressSearchBar.Enabled = true;
+            _searchButton.Enabled = true;
         }
 
         private void CreateLayout()
@@ -83,13 +86,18 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             //initialize the layout
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
             var searchBarLayout = new RelativeLayout(this);
-            // Add the search bar and suggest button
+            // Add the search bar
             _addressSearchBar = new EditText(this);
-            _suggestButton = new Button(this) { Text = "Suggest" };
+
             layout.AddView(searchBarLayout);
             searchBarLayout.AddView(_addressSearchBar);
-            searchBarLayout.AddView(_suggestButton);
-			// Add the MapView to the layout
+            // Add a search button
+            _searchButton = new Button(this) { Text = "Search" };
+            searchBarLayout.AddView(_searchButton);
+            // Add a suggestion button
+            _suggestButton = new Button(this) { Text = "Suggest" };
+            layout.AddView(_suggestButton);
+            // Add the MapView to the layout
             layout.AddView(_myMapView);
             var x = (RelativeLayout.LayoutParams)_suggestButton.LayoutParameters;
             x.AddRule(LayoutRules.AlignParentEnd);
@@ -103,11 +111,11 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             // Disable the buttons and search bar until the geocoder is ready
             _suggestButton.Enabled = false;
             _addressSearchBar.Enabled = false;
+            _searchButton.Enabled = false;
 
             // Hook up the UI event handlers for suggestion & search
             _suggestButton.Click += _searchHintButton_Click;
-            _addressSearchBar.TextChanged += _searchBar_TextChanged;
-
+            _searchButton.Click += SearchButton_Click;
         }
 
         /// <summary>
@@ -129,7 +137,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             alert.Show();
         }
 
-        private void _searchBar_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
+        private void SearchButton_Click(object sender, EventArgs e)
         {
             updateSearch();
         }
@@ -188,7 +196,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);
             pinSymbol.Width = 60;
             pinSymbol.Height = 60;
-            // The image is a pin; offset the image so that the pinpoint 
+            // The image is a pin; offset the image so that the pinpoint
             //     is on the point rather than the image's true center
             pinSymbol.OffsetX = pinSymbol.Width / 2;
             pinSymbol.OffsetY = pinSymbol.Height / 2;

@@ -47,6 +47,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
 
         // Create UI elements
         private UISearchBar _addressSearchBar = new UISearchBar();
+
         private UIButton _suggestButton = new UIButton();
 
         public FindAddress()
@@ -81,8 +82,8 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             View.AddSubviews(_myMapView);
             View.AddSubview(_addressSearchBar);
 
-            // Configure the search bar to support search-as-you-type
-            _addressSearchBar.TextChanged += _AddressSearch_TextChanged;
+            // Configure the search bar to support search
+            _addressSearchBar.SearchButtonClicked += _addressSearchBar_Clicked;
 
             // Configure the search bar to support popover address suggestion
             _addressSearchBar.ShowsSearchResultsButton = true;
@@ -91,8 +92,8 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             // Disable user interaction until the geocoder is ready
             _addressSearchBar.UserInteractionEnabled = false;
 
-			// Enable tap-for-info pattern on results
-			_myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
+            // Enable tap-for-info pattern on results
+            _myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
         }
 
         private async void Initialize()
@@ -113,9 +114,11 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             _addressSearchBar.UserInteractionEnabled = true;
         }
 
-        private void _AddressSearch_TextChanged(object sender, UISearchBarTextChangedEventArgs e)
+        private void _addressSearchBar_Clicked(object sender, EventArgs e)
         {
             UpdateSearch();
+            // Dismiss the keyboard
+            _addressSearchBar.ResignFirstResponder();
         }
 
         private async void UpdateSearch()
@@ -172,7 +175,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);
             pinSymbol.Width = 60;
             pinSymbol.Height = 60;
-            // The image is a pin; offset the image so that the pinpoint 
+            // The image is a pin; offset the image so that the pinpoint
             //     is on the point rather than the image's true center
             pinSymbol.OffsetX = pinSymbol.Width / 2;
             pinSymbol.OffsetY = pinSymbol.Height / 2;
@@ -224,7 +227,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
 
             // Define the callout
             CalloutDefinition calloutBody = new CalloutDefinition(calloutTitle, calloutDetail);
-            
+
             // Show the callout on the map at the tapped location
             _myMapView.ShowCalloutAt(point, calloutBody);
         }

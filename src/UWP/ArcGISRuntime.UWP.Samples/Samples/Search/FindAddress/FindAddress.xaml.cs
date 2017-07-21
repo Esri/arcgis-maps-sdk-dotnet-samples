@@ -68,7 +68,7 @@ namespace ArcGISRuntime.UWP.Samples.FindAddress
             MyAppBarSuggestButton.IsEnabled = true;
         }
 
-        private void MySearchField_TextChanged(object sender, TextChangedEventArgs e)
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
             UpdateSearch();
         }
@@ -127,7 +127,7 @@ namespace ArcGISRuntime.UWP.Samples.FindAddress
             PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);
             pinSymbol.Width = 60;
             pinSymbol.Height = 60;
-            // The image is a pin; offset the image so that the pinpoint 
+            // The image is a pin; offset the image so that the pinpoint
             //     is on the point rather than the image's true center
             pinSymbol.OffsetX = pinSymbol.Width / 2;
             pinSymbol.OffsetY = pinSymbol.Height / 2;

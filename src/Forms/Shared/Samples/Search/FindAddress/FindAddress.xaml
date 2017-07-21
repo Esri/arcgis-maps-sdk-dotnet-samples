@@ -2,16 +2,16 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
+             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime"
              x:Class="ArcGISRuntimeXamarin.Samples.FindAddress.FindAddress">
-  <Grid>
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
-            <RowDefinition Height="40" />
+            <RowDefinition Height="30" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <SearchBar Grid.Row="0" x:Name="MySearchBar" TextChanged="Handle_TextChanged" Placeholder="Find Address" IsEnabled="false" />
-        <Button Grid.Row="1" Text="Suggest" x:Name="MySuggestButton" Clicked="SuggestionButtonTapped" IsEnabled="false" />
+        <SearchBar Grid.Row="0" x:Name="MySearchBar" Placeholder="Find Address" IsEnabled="false" SearchButtonPressed="Handle_TextChanged" />
+        <Button Text="Suggest" x:Name="MySuggestButton" Clicked="SuggestionButtonTapped" IsEnabled="false" Grid.Row="1" />
         <esriUI:MapView x:Name="MyMapView" Grid.Row="2" />
-  </Grid>
+    </Grid>
 </ContentPage>

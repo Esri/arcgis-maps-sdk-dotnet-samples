@@ -68,6 +68,7 @@ namespace ArcGISRuntime.WPF.Samples.FindAddress
             // Enable UI controls now that the LocatorTask is ready
             MySearchBox.IsEnabled = true;
             MySuggestionBox.IsEnabled = true;
+            MySearchButton.IsEnabled = true;
         }
 
         private async void UpdateSearch()
@@ -124,7 +125,7 @@ namespace ArcGISRuntime.WPF.Samples.FindAddress
             PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);
             pinSymbol.Width = 60;
             pinSymbol.Height = 60;
-            // The image is a pin; offset the image so that the pinpoint 
+            // The image is a pin; offset the image so that the pinpoint
             //     is on the point rather than the image's true center
             pinSymbol.OffsetX = pinSymbol.Width / 2;
             pinSymbol.OffsetY = pinSymbol.Height / 2;
@@ -140,7 +141,7 @@ namespace ArcGISRuntime.WPF.Samples.FindAddress
             UpdateSearch();
         }
 
-        private void MySearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             UpdateSearch();
         }

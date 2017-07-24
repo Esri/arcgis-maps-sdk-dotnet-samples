@@ -93,6 +93,7 @@
     <Content Include="Samples\Layers\WMTSLayer\WMTSLayer.jpg" />
     <Content Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg" />
     <Content Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg" />
+    <Content Include="Samples\NetworkAnalysis\FindRoute\FindRoute.jpg" />
     <Content Include="Samples\Search\FindAddress\FindAddress.jpg" />
     <Content Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg" />
     <Content Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg" />
@@ -219,6 +220,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Samples\Map\SetMinMaxScale\metadata.json" />
+    <None Include="Samples\NetworkAnalysis\FindRoute\metadata.json" />
     <None Include="Samples\Symbology\RenderPictureMarkers\metadata.json" />
     <None Include="Samples\Symbology\RenderSimpleMarkers\metadata.json" />
     <None Include="Samples\Symbology\RenderUniqueValues\metadata.json" />
@@ -353,6 +355,9 @@
     </Compile>
     <Compile Include="Samples\Map\SetMinMaxScale\SetMinMaxScaleVB.xaml.vb">
       <DependentUpon>SetMinMaxScaleVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\NetworkAnalysis\FindRoute\FindRouteVB.xaml.vb">
+      <DependentUpon>FindRouteVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkersVB.xaml.vb">
       <DependentUpon>RenderPictureMarkersVB.xaml</DependentUpon>
@@ -537,6 +542,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Map\SetMinMaxScale\SetMinMaxScaleVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\NetworkAnalysis\FindRoute\FindRouteVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

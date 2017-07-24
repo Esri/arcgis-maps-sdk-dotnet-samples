@@ -294,6 +294,23 @@
       ]
     },
     {
+      "Name": "Network Analysis",
+      "CategoryName": "NetworkAnalysis",
+      "SubCategories": [
+        {
+          "Name": "Route",
+          "SubCategoryName": "Route",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "FindRoute",
+              "Path": "Samples/NetworkAnalysis/FindRoute"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "Name": "Location",
       "CategoryName": "Location",
       "SubCategories": [

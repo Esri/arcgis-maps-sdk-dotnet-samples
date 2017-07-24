@@ -129,6 +129,17 @@
               "Path": "Samples/Layers/WMTSLayer"
             }
           ]
+        },
+        {
+          "Name": "Raster Layers",
+          "SubCategoryName": "RasterLayer",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "RasterLayerImageServiceRaster",
+              "Path": "Samples/Layers/RasterLayerImageServiceRaster"
+            }
+          ]
         }
       ]
     },
@@ -293,7 +304,24 @@
         }
       ]
     },
-     {
+    {
+      "Name": "Network Analysis",
+      "CategoryName": "NetworkAnalysis",
+      "SubCategories": [
+        {
+          "Name": "Routes",
+          "SubCategoryName": "Routes",
+          "ShowGroup": false,
+          "SampleInfos": [
+            {
+              "SampleName": "FindRoute",
+              "Path": "Samples/NetworkAnalysis/FindRoute"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "Name": "Location",
       "CategoryName": "Location",
       "SubCategories": [
@@ -310,7 +338,24 @@
         }
       ]
     },
-     {
+    {
+      "Name": "Search",
+      "CategoryName": "Search",
+      "SubCategories": [
+        {
+          "Name": "Working with Addressing",
+          "SubCategoryName": "WorkingWithAddressing",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "FindAddress",
+              "Path": "Samples/Search/FindAddress"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "Name": "Tutorial",
       "CategoryName": "Tutorial",
       "SubCategories": [

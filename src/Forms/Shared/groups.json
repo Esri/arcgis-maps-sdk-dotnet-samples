@@ -1,13 +1,13 @@
 {
-  "Categories":[
+  "Categories": [
     {
-      "Name":"Maps",
-      "CategoryName":"Maps",
-      "SubCategories":[
+      "Name": "Maps",
+      "CategoryName": "Maps",
+      "SubCategories": [
         {
-          "Name":"MapView",
-          "SubCategoryName":"MapView",
-          "ShowGroup":true,
+          "Name": "MapView",
+          "SubCategoryName": "MapView",
+          "ShowGroup": true,
           "SampleInfos": [
             {
               "SampleName": "ChangeViewpoint",
@@ -40,9 +40,9 @@
           ]
         },
         {
-          "Name":"Map",
-          "SubCategoryName":"Map",
-          "ShowGroup":true,
+          "Name": "Map",
+          "SubCategoryName": "Map",
+          "ShowGroup": true,
           "SampleInfos": [
             {
               "SampleName": "DisplayMap",
@@ -93,49 +93,60 @@
       ]
     },
     {
-      "Name":"Layers",
-      "CategoryName":"Layers",
-      "SubCategories":[
+      "Name": "Layers",
+      "CategoryName": "Layers",
+      "SubCategories": [
         {
-          "Name":"Tiled Layers",
-          "SubCategoryName":"ArcGISTiledLayer",
-          "ShowGroup":true,
-          "SampleInfos":[
+          "Name": "Tiled Layers",
+          "SubCategoryName": "ArcGISTiledLayer",
+          "ShowGroup": true,
+          "SampleInfos": [
             {
               "SampleName": "ArcGISTiledLayerUrl",
               "Path": "Samples/Layers/ArcGISTiledLayerUrl"
             },
             {
-              "SampleName":"ArcGISVectorTiledLayerUrl",
-              "Path":"Samples/Layers/ArcGISVectorTiledLayerUrl"
+              "SampleName": "ArcGISVectorTiledLayerUrl",
+              "Path": "Samples/Layers/ArcGISVectorTiledLayerUrl"
             }
           ]
         },
         {
-          "Name":"Map Image Layers",
-          "SubCategoryName":"ArcGISMapImageLayer",
-          "ShowGroup":true,
-          "SampleInfos":[
+          "Name": "Map Image Layers",
+          "SubCategoryName": "ArcGISMapImageLayer",
+          "ShowGroup": true,
+          "SampleInfos": [
             {
               "SampleName": "ArcGISMapImageLayerUrl",
               "Path": "Samples/Layers/ArcGISMapImageLayerUrl"
             },
             {
-              "SampleName":"ChangeSublayerVisibility",
-              "Path":"Samples/Layers/ChangeSublayerVisibility"
+              "SampleName": "ChangeSublayerVisibility",
+              "Path": "Samples/Layers/ChangeSublayerVisibility"
             },
             {
-              "SampleName":"WMTSLayer",
-              "Path":"Samples/Layers/WMTSLayer"
+              "SampleName": "WMTSLayer",
+              "Path": "Samples/Layers/WMTSLayer"
+            }
+          ]
+        },
+        {
+          "Name":"Raster Layers",
+          "SubCategoryName":"RasterLayer",
+          "ShowGroup":true,
+          "SampleInfos":[
+            {
+              "SampleName": "RasterLayerImageServiceRaster",
+              "Path": "Samples/Layers/RasterLayerImageServiceRaster"
             }
           ]
         }
       ]
     },
     {
-      "Name":"Features",
-      "CategoryName":"Features",
-      "SubCategories":[
+      "Name": "Features",
+      "CategoryName": "Features",
+      "SubCategories": [
         {
           "Name": "Feature Layers",
           "SubCategoryName": "FeatureLayers",
@@ -172,13 +183,13 @@
           ]
         },
         {
-          "Name":"Feature Tables",
-          "SubCategoryName":"FeatureTables",
-          "ShowGroup":true,
+          "Name": "Feature Tables",
+          "SubCategoryName": "FeatureTables",
+          "ShowGroup": true,
           "SampleInfos": [
-             {
-              "SampleName":"ServiceFeatureTableCache",
-              "Path":"Samples/Data/ServiceFeatureTableCache"
+            {
+              "SampleName": "ServiceFeatureTableCache",
+              "Path": "Samples/Data/ServiceFeatureTableCache"
             },
             {
               "SampleName": "ServiceFeatureTableNoCache",
@@ -294,6 +305,23 @@
       ]
     },
     {
+      "Name": "Network Analysis",
+      "CategoryName": "NetworkAnalysis",
+      "SubCategories": [
+        {
+          "Name": "Route",
+          "SubCategoryName": "Route",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "FindRoute",
+              "Path": "Samples/NetworkAnalysis/FindRoute"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "Name": "Location",
       "CategoryName": "Location",
       "SubCategories": [
@@ -305,6 +333,23 @@
             {
               "SampleName": "DisplayDeviceLocation",
               "Path": "Samples/Location/DisplayDeviceLocation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Search",
+      "CategoryName": "Search",
+      "SubCategories": [
+        {
+          "Name": "Working with Addressing",
+          "SubCategoryName": "WorkingWithAddressing",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "FindAddress",
+              "Path": "Samples/Search/FindAddress"
             }
           ]
         }

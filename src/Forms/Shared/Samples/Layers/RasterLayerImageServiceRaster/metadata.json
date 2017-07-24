@@ -1,7 +1,7 @@
 {
   "Name": "ArcGIS raster layer (service)",
   "SampleName": "RasterLayerImageServiceRaster",
-  "Description": "This sample demonstrates how to show a feature layer on a map using the URL to the service.",
+  "Description": "This sample demonstrates how to show a raster layer on a map based on an image service layer.",
   "Instructions": "",
   "Type": 0,
   "RequiresOnlineConnection":true,

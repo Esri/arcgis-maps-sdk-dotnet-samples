@@ -94,6 +94,7 @@
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <Content Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg" />
     <Content Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.jpg" />
+    <Content Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg" />
     <Content Include="Samples\MapView\ShowCallout\ShowCallout.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -109,6 +110,8 @@
     </Content>
     <None Include="Samples\Layers\RasterLayerImageServiceRaster\metadata.json" />
     <None Include="Samples\Layers\RasterLayerImageServiceRaster\README.md" />
+    <None Include="Samples\Layers\RasterLayerRasterFunction\metadata.json" />
+    <None Include="Samples\Layers\RasterLayerRasterFunction\README.md" />
     <None Include="Samples\Layers\WMTSLayer\metadata.json" />
     <None Include="Samples\Map\SearchPortalMaps\metadata.json" />
     <None Include="Samples\NetworkAnalysis\FindRoute\metadata.json" />
@@ -296,6 +299,9 @@
     </Compile>
     <Compile Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRasterVB.xaml.vb">
       <DependentUpon>RasterLayerImageServiceRasterVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunctionVB.xaml.vb">
+      <DependentUpon>RasterLayerRasterFunctionVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\WMTSLayer\WMTSLayerVB.xaml.vb">
       <DependentUpon>WMTSLayerVB.xaml</DependentUpon>
@@ -511,6 +517,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRasterVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunctionVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

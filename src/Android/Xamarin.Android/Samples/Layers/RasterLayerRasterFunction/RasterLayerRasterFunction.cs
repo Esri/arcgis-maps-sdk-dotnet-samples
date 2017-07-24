@@ -67,25 +67,22 @@ namespace ArcGISRuntimeXamarin.Samples.RasterLayerRasterFunction
             //  "type":"Raster_function_template"
             //}
 
-            // Use a string builder to load in the ASCII text of the JSON string
-            System.Text.StringBuilder myStringBuilder = new System.Text.StringBuilder();
-            myStringBuilder.AppendLine("{");
-            myStringBuilder.AppendLine("  " + "\"" + "raster_function_arguments" + "\"" + ":");
-            myStringBuilder.AppendLine("  {");
-            myStringBuilder.AppendLine("    " + "\"" + "z_factor" + "\"" + ":{" + "\"" + "double" + "\"" + ":25.0," + "\"" + "type" + "\"" + ":" + "\"" + "Raster_function_variable" + "\"" + "},");
-            myStringBuilder.AppendLine("    " + "\"" + "slope_type" + "\"" + ":{" + "\"" + "raster_slope_type" + "\"" + ":" + "\"" + "none" + "\"" + "," + "\"" + "type" + "\"" + ":" + "\"" + "Raster_function_variable" + "\"" + "},");
-            myStringBuilder.AppendLine("    " + "\"" + "azimuth" + "\"" + ":{" + "\"" + "double" + "\"" + ":315," + "\"" + "type" + "\"" + ":" + "\"" + "Raster_function_variable" + "\"" + "},");
-            myStringBuilder.AppendLine("    " + "\"" + "altitude" + "\"" + ":{" + "\"" + "double" + "\"" + ":45," + "\"" + "type" + "\"" + ":" + "\"" + "Raster_function_variable" + "\"" + "},");
-            myStringBuilder.AppendLine("    " + "\"" + "type" + "\"" + ":" + "\"" + "Raster_function_arguments" + "\"" + ",");
-            myStringBuilder.AppendLine("    " + "\"" + "raster" + "\"" + ":{" + "\"" + "name" + "\"" + ":" + "\"" + "raster" + "\"" + "," + "\"" + "is_raster" + "\"" + ":true," + "\"" + "type" + "\"" + ":" + "\"" + "Raster_function_variable" + "\"" + "},");
-            myStringBuilder.AppendLine("    " + "\"" + "nbits" + "\"" + ":{" + "\"" + "int" + "\"" + ":8," + "\"" + "type" + "\"" + ":" + "\"" + "Raster_function_variable" + "\"" + "}");
-            myStringBuilder.AppendLine("  },");
-            myStringBuilder.AppendLine("  " + "\"" + "raster_function" + "\"" + ":{" + "\"" + "type" + "\"" + ":" + "\"" + "Hillshade_function" + "\"" + "},");
-            myStringBuilder.AppendLine("  " + "\"" + "type" + "\"" + ":" + "\"" + "Raster_function_template" + "\"");
-            myStringBuilder.AppendLine("}");
-
-            // Get the JSON string from the string builder
-            string theJSON_String = myStringBuilder.ToString();
+            // Define the JSON string needed for the raster function
+            String theJSON_String =
+             @"{
+                ""raster_function_arguments"":
+                {
+                  ""z_factor"":{ ""double"":25.0,""type"":""Raster_function_variable""},
+                  ""slope_type"":{ ""raster_slope_type"":""none"",""type"":""Raster_function_variable""},
+                  ""azimuth"":{ ""double"":315,""type"":""Raster_function_variable""},
+                  ""altitude"":{ ""double"":45,""type"":""Raster_function_variable""},
+                  ""type"":""Raster_function_arguments"",
+                  ""raster"":{ ""name"":""raster"",""is_raster"":true,""type"":""Raster_function_variable""},
+                  ""nbits"":{ ""int"":8,""type"":""Raster_function_variable""}
+                },
+              ""raster_function"":{ ""type"":""Hillshade_function""},
+              ""type"":""Raster_function_template""
+            }";
 
             // Create a raster function from the JSON string using the static/Shared method called: RasterFunction.FromJson(json as String)
             RasterFunction myRasterFunction = RasterFunction.FromJson(theJSON_String);

@@ -1,8 +1,8 @@
 # Find Address
 
-This sample demonstrates how you can use a LocatorTask to geocode an address. The app allows you to see geocode results as you type. Tap the button to see suggestions for possible addresses. Once a marker is on the map, you can tap it to see its address. 
+This sample demonstrates how you can use the LocatorTask API to geocode an address and display it with a pin on the map. Tapping the pin displays the reverse-geocoded address in a callout.
 
-<img src="FindAddress.jpg" width="350" />
+<img src="FindAddress.jpg" width="350"/>
 
-[](Esri Tags: ArcGIS Runtime SDK .NET WinRT WinStore WPF WinPhone C# C-Sharp DotNet XAML MVVM)
-[](Esri Language: DotNet)
+
+

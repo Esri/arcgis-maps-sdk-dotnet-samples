@@ -1,4 +1,4 @@
-#Map rotation
+# Map rotation
 
 This sample demonstrates how to rotate a map.
 
@@ -7,6 +7,3 @@ This sample demonstrates how to rotate a map.
 ### Instructions
 
 Use the available slider to dictate the number of degrees the map is rotated
-
-[](Esri Tags: ArcGIS Runtime SDK .NET WinRT WinStore WPF WinPhone C# C-Sharp DotNet XAML MVVM)
-[](Esri Language: DotNet)

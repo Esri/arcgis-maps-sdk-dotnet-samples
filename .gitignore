@@ -127,3 +127,4 @@ src/Windows/ArcGISRuntime.Windows.Samples/Samples/Security/TokenSecuredKnownUser
 src/Windows/ArcGISRuntime.Windows.Samples/Samples/Security/TokenSecuredChallengeVB/.vs/
 *.userprefs
 output
+/src/UpgradeLog.htm

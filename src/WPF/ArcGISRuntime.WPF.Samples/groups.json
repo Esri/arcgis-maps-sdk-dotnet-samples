@@ -311,6 +311,17 @@
               "Path": "Samples/Symbology/UseDistanceCompositeSym"
             }
           ]
+        },
+        {
+          "Name": "Scene Layers",
+          "SubCategoryName": "SceneLayers",
+          "ShowGroup": false,
+          "SampleInfos": [
+            {
+              "SampleName": "SceneLayerUrl",
+              "Path": "Samples/Layers/SceneLayerUrl"
+            }
+          ]
         }
       ]
     },

@@ -1,7 +1,7 @@
 {
   "Name": "Manage bookmarks",
   "SampleName": "ManageBookmarks",
-  "Description": "This samples demonstrates how to access and add bookmarks to a map",
+  "Description": "This sample demonstrates how to access and add bookmarks to a map.",
   "Instructions": "",
   "Type": 0,
   "RequiresOnlineConnection":true,

@@ -1,7 +1,7 @@
 {
   "Name": "Feature collection layer from query result",
   "SampleName": "FeatureCollectionLayerFromQuery",
-  "Description": "This samples demonstrates how to create a feature collection layer to show a query result from a service feature table.",
+  "Description": "This sample demonstrates how to create a feature collection layer to show a query result from a service feature table.",
   "Instructions": "",
   "Type": 0,
   "RequiresOnlineConnection":true,

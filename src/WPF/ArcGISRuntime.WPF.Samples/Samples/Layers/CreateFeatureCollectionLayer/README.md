@@ -4,9 +4,5 @@ This samples demonstrates how to create a new feature collection with several fe
 
 <img src="CreateFeatureCollectionLayer.jpg" width="350"/>
 
-### Instructions
 
 
-
-[](Esri Tags: ArcGIS Runtime SDK .NET WinRT WinStore WPF WinPhone C# C-Sharp DotNet XAML MVVM)
-[](Esri Language: DotNet)

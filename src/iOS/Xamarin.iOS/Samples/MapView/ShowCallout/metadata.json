@@ -2,7 +2,7 @@
   "Name": "Show callout",
   "SampleName": "ShowCallout",
   "Description": "This sample illustrates how to show callouts on a map in response to user interaction.",
-  "Instructions": "",
+  "Instructions": "Tap on the map to show that point's coordinates.",
   "Type": 0,
   "RequiresOnlineConnection": true,
   "RequiresOfflineData": false,

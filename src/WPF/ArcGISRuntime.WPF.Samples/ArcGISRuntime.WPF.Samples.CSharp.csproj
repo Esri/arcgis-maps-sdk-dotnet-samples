@@ -119,6 +119,9 @@
     <Compile Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.xaml.cs">
       <DependentUpon>RasterLayerImageServiceRaster.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.xaml.cs">
+      <DependentUpon>RasterLayerRasterFunction.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\WMTSLayer\WMTSLayer.xaml.cs">
       <DependentUpon>WMTSLayer.xaml</DependentUpon>
     </Compile>
@@ -198,7 +201,7 @@
       <DependentUpon>AuthorEditSaveMap.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Search\FindAddress\FindAddress.xaml.cs">
-        <DependentUpon>FindAddress.xaml</DependentUpon>
+      <DependentUpon>FindAddress.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\MapView\ShowCallout\ShowCallout.xaml.cs">
       <DependentUpon>ShowCallout.xaml</DependentUpon>
@@ -213,6 +216,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\MapView\ShowCallout\ShowCallout.jpg">
@@ -446,6 +452,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Layers\WMTSLayer\WMTSLayer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -551,8 +561,8 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Search\FindAddress\FindAddress.xaml">
-        <SubType>Designer</SubType>
-        <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\MapView\ShowCallout\ShowCallout.xaml">
       <SubType>Designer</SubType>
@@ -763,6 +773,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Layers\RasterLayerImageServiceRaster\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\RasterLayerRasterFunction\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

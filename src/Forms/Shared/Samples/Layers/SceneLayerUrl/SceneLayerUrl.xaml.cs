@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+﻿// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -21,7 +21,7 @@ namespace ArcGISRuntimeXamarin.Samples.SceneLayerUrl
 
             Title = "ArcGIS scene layer (URL)";
 
-            // Create the UI, setup the control references and execute initialization 
+            // Execute initialization 
             Initialize();
         }
 
@@ -30,7 +30,7 @@ namespace ArcGISRuntimeXamarin.Samples.SceneLayerUrl
             // Create new Scene
             Scene myScene = new Scene();
 
-            // Set Scenes base map property
+            // Set Scene's base map property
             myScene.Basemap = Basemap.CreateImagery();
 
             // Create uri to the scene layer
@@ -49,7 +49,7 @@ namespace ArcGISRuntimeXamarin.Samples.SceneLayerUrl
             // Assign the Scene to the SceneView
             MySceneView.Scene = myScene;
 
-            // Set View point of Scene view using camera 
+            // Set view point of scene view using camera 
             MySceneView.SetViewpointCameraAsync(camera);
         }
     }

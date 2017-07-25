@@ -19,7 +19,7 @@ namespace ArcGISRuntimeXamarin.Samples.SceneLayerUrl
     [Activity]
     public class SceneLayerUrl : Activity
     {
-        // Create and hold reference to the used SceneView
+        // Create a new SceneView control
         private SceneView _mySceneView = new SceneView();
 
         protected override void OnCreate(Bundle bundle)
@@ -28,7 +28,7 @@ namespace ArcGISRuntimeXamarin.Samples.SceneLayerUrl
 
             Title = "ArcGIS scene layer (URL)";
 
-            // Create the UI, setup the control references and execute initialization 
+            // Execute initialization 
             CreateLayout();
             Initialize();
         }
@@ -38,7 +38,7 @@ namespace ArcGISRuntimeXamarin.Samples.SceneLayerUrl
             // Create new Scene
             Scene myScene = new Scene();
 
-            // Set Scenes base map property
+            // Set Scene's base map property
             myScene.Basemap = Basemap.CreateImagery();
 
             // Create uri to the scene layer
@@ -57,7 +57,7 @@ namespace ArcGISRuntimeXamarin.Samples.SceneLayerUrl
             // Assign the Scene to the SceneView
             _mySceneView.Scene = myScene;
 
-            // Set View point of Scene view using camera 
+            // Set view point of scene view using camera 
             _mySceneView.SetViewpointCameraAsync(camera);
         }
 

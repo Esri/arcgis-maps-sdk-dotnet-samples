@@ -18,7 +18,7 @@ namespace ArcGISRuntime.UWP.Samples.SceneLayerUrl
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Execute initialization 
             Initialize();
         }
 
@@ -27,7 +27,7 @@ namespace ArcGISRuntime.UWP.Samples.SceneLayerUrl
             // Create new Scene
             Scene myScene = new Scene();
 
-            // Set Scenes base map property
+            // Set Scene's base map property
             myScene.Basemap = Basemap.CreateImagery();
 
             // Create uri to the scene layer
@@ -40,13 +40,13 @@ namespace ArcGISRuntime.UWP.Samples.SceneLayerUrl
             // Add created layer to the operational layers collection
             myScene.OperationalLayers.Add(sceneLayer);
 
-            // Create a camera with cordinates showing layer data 
+            // Create a camera with coordinates showing layer data 
             Camera camera = new Camera(48.378, -4.494, 200, 345, 65, 0);
 
             // Assign the Scene to the SceneView
             MySceneView.Scene = myScene;
 
-            // Set View point of Scene view using camera 
+            // Set view point of scene view using camera 
             MySceneView.SetViewpointCameraAsync(camera);
 
         }

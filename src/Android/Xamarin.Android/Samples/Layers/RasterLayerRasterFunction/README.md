@@ -1,12 +1,8 @@
-#ArcGIS raster function (service)
+# ArcGIS raster function (service)
 
 This sample demonstrates how to show a raster layer on a map based on an image service layer that has a raster function applied.
 
 <img src="RasterLayerRasterFunction.jpg" width="350"/>
 
-### Instructions
 
 
-
-[](Esri Tags: ArcGIS Runtime SDK .NET WinRT WinStore WPF WinPhone C# C-Sharp DotNet XAML MVVM)
-[](Esri Language: DotNet)

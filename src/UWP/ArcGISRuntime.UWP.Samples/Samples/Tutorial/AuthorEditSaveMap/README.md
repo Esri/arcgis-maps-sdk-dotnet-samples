@@ -1,6 +1,6 @@
 # Author, edit, and save a map
 
-This samples demonstrates how to author and save a map as an ArcGIS portal item (web map). It is also the solution to the [Author, edit, and save maps to your portal tutorial](https://developers.arcgis.com/net/latest/android/guide/author-edit-and-save-maps-to-your-portal.htm) Saving a map to arcgis.com requires an ArcGIS Online login.
+This sample demonstrates how to author and save a map as an ArcGIS portal item (web map). It is also the solution to the [Author, edit, and save maps to your portal tutorial](https://developers.arcgis.com/net/latest/uwp/guide/author-edit-and-save-maps-to-your-portal.htm). Saving a map to arcgis.com requires an ArcGIS Online login.
 
 <img src="AuthorEditSaveMap.jpg" width="350"/>
 

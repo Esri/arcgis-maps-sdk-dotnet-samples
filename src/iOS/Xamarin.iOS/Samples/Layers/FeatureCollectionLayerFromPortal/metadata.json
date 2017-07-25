@@ -1,7 +1,7 @@
 {
   "Name": "Feature collection layer from portal item",
   "SampleName": "FeatureCollectionLayerFromPortal",
-  "Description": "This samples demonstrates opening a feature collection saved as a portal item.",
+  "Description": "This sample demonstrates opening a feature collection saved as a portal item.",
   "Instructions": "",
   "Type": 0,
   "RequiresOnlineConnection":true,

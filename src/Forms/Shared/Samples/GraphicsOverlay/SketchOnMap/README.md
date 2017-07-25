@@ -6,9 +6,9 @@ This sample demonstrates how to interactively sketch and edit graphics in the ma
 
 ### Instructions
 
-1. Choose a sketch type from the drop down list.
-2. Click the 'Draw' button and click in the map view to create the sketch.
+1. Click the 'Sketch' button.
+2. Choose a sketch type from the drop down list.
 3. While sketching, you can undo/redo operations.
-4. Click 'Complete' to finish the sketch.
+4. Click 'Done' to finish the sketch.
 5. Click 'Edit', then click a graphic to start editing.
-6. Make edits then click 'Complete' or 'Cancel' to finish editing.
+6. Make edits then click 'Done' or 'Cancel' to finish editing.

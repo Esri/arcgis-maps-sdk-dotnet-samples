@@ -229,4 +229,4 @@ output
 
 # Xamarin
 Components
-Resource.[Dd]esigner.cs
+*.[Dd]esigner.cs

@@ -447,6 +447,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <BundleResource Include="Samples\NetworkAnalysis\FindRoute\FindRoute.jpg" />
+    <EmbeddedResource Include="Samples\Map\OpenMobileMap\OpenMobileMap.jpg" />
     <Content Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -45,8 +45,12 @@
               "Path":"Samples/Map/DisplayMap"
             },
             {
-              "SampleName":"OpenExistingMap",
-              "Path":"Samples/Map/OpenExistingMap"
+              "SampleName": "OpenExistingMap",
+              "Path": "Samples/Map/OpenExistingMap"
+            },
+            {
+              "SampleName": "OpenMobileMap",
+              "Path": "Samples/Map/OpenMobileMap"
             },
             {
               "SampleName":"SearchPortalMaps",

@@ -333,6 +333,8 @@
     <EmbeddedResource Include="Samples\Layers\RasterLayerRasterFunction\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Samples\Map\OpenMobileMap\metadata.json" />
+    <BundleResource Include="Resources\MobileMapPackages\Yellowstone.mmpk" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -379,6 +381,7 @@
     <Compile Include="Samples\Map\DisplayMap\DisplayMap.cs" />
     <Compile Include="Samples\MapView\MapRotation\MapRotation.cs" />
     <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarks.cs" />
+    <Compile Include="Samples\Map\OpenMobileMap\OpenMobileMap.cs" />
     <Compile Include="Samples\Map\OpenExistingMap\OpenExistingMap.cs" />
     <Compile Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.cs" />
     <Compile Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.cs" />

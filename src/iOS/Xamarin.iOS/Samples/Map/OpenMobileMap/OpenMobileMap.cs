@@ -3,14 +3,14 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System.Linq;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using System.Linq;
 using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.OpenMobileMap
@@ -29,10 +29,11 @@ namespace ArcGISRuntimeXamarin.Samples.OpenMobileMap
             Title = "Open mobile map (map package)";
         }
 
-        public override void ViewDidLoad() {
+        public override void ViewDidLoad()
+        {
             base.ViewDidLoad();
-			CreateLayout();
-			Initialize();
+            CreateLayout();
+            Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
@@ -50,8 +51,12 @@ namespace ArcGISRuntimeXamarin.Samples.OpenMobileMap
             //     Build Action is BundleResource; Do not copy to Output Directory
             _myMapPackage = await MobileMapPackage.OpenAsync("MobileMapPackages/Yellowstone.mmpk");
 
-            // Display the first map in the package
-            _myMapView.Map = _myMapPackage.Maps.First();
+            // Check that there is at least one map
+            if (_myMapPackage.Maps.Count > 0)
+            {
+                // Display the first map in the package
+                _myMapView.Map = _myMapPackage.Maps.First();
+            }
         }
 
         private void CreateLayout()

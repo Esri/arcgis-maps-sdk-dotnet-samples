@@ -10,6 +10,8 @@
 using System.Linq;
 using Esri.ArcGISRuntime.Mapping;
 using Xamarin.Forms;
+using System;
+using System.IO;
 
 namespace ArcGISRuntimeXamarin.Samples.OpenMobileMap
 {
@@ -30,25 +32,46 @@ namespace ArcGISRuntimeXamarin.Samples.OpenMobileMap
 
         private async void Initialize()
         {
-            // Choose the appropriate file path for the MMPK based on platform
-            string filepath;
-            switch (Device.RuntimePlatform)
-            {
-                case Device.Windows:
-                    filepath = "Resources\\MobileMapPackages\\Yellowstone.mmpk";
-                    break;
+            // Because each platform handles resource embedding differently, 
+            //     we take a three-part approach:
+            //     1. Include the mobile map pack as an 'embedded resource'
+            //     2. Copy the embedded resource (opened with a stream) to the platform-specific home directory
+            //     3. Get the platform-specific file path
 
-                case Device.iOS:
-                case Device.Android:
-                default:
-                    filepath = "MobileMapPackages/Yellowstone.mmpk";
-                    break;
-            }
+            // Compute the platform-specific details
+            string mmpkName = "Yellowstone.mmpk";
+#if NETFX_CORE //UWP
+             var assembly = typeof(App).GetTypeInfo().Assembly;
+             var folder = ApplicationData.Current.LocalFolder.Path;
+             var resourcePrefix="ArcGISRuntime.Xamarin.Forms.UWP.";
+#elif __IOS__
+             var resourcePrefix = "ArcGISRuntimeXamarin.";
+             var assembly = this.GetType().Assembly;
+             var folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+#elif __ANDROID__
+			var resourcePrefix = "ArcGISRuntimeXamarin.";
+			var assembly = this.GetType().Assembly;
+			var folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+#endif
+            // The path on disk for the file
+			var path = Path.Combine(folder, mmpkName);
 
-            // Load the Mobile Map Package from the Bundle
-            //     File is located in Resources/MobileMapPackages/Yellowstone.mmpk
-            //     Build Action is Content; Do not copy to Output Directory
-            MyMapPackage = await MobileMapPackage.OpenAsync(filepath);
+            // Copy the file to disk if it isn't already there
+			if (!File.Exists(path))
+			{
+				var resourceName = resourcePrefix + "Resources.MobileMapPackages.Yellowstone.mmpk";
+				using (var stream = assembly.GetManifestResourceStream(resourceName))
+				{
+					using (var mem = new MemoryStream())
+					{
+						stream.CopyTo(mem);
+						File.WriteAllBytes(path, mem.ToArray());
+					}
+				}
+			}
+
+            // Load the Mobile Map Package from the path computed earlier
+            MyMapPackage = await MobileMapPackage.OpenAsync(path);
 
             // Check that there is at least one map
             if (MyMapPackage.Maps.Count > 0)

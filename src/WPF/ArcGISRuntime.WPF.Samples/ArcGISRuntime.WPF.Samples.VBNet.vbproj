@@ -93,6 +93,7 @@
     <Content Include="Samples\MapView\ShowCallout\ShowCallout.jpg" />
     <Content Include="Samples\Layers\WMTSLayer\WMTSLayer.jpg" />
     <Content Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg" />
+    <Content Include="Samples\Map\OpenMobileMap\OpenMobileMap.jpg" />
     <Content Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg" />
     <Content Include="Samples\NetworkAnalysis\FindRoute\FindRoute.jpg" />
     <Content Include="Samples\Search\FindAddress\FindAddress.jpg" />
@@ -161,6 +162,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
+    <Content Include="Resources\MobileMapPackages\Yellowstone.mmpk">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Samples\Data\FeatureLayerQuery\metadata.json" />
     <None Include="Samples\Data\FeatureLayerQuery\README.md" />
     <None Include="Samples\Data\ServiceFeatureTableCache\metadata.json" />
@@ -215,6 +219,7 @@
     <None Include="Samples\Map\DisplayMap\metadata.json" />
     <None Include="Samples\Map\ManageBookmarks\metadata.json" />
     <None Include="Samples\Map\OpenExistingMap\metadata.json" />
+    <None Include="Samples\Map\OpenMobileMap\metadata.json" />
     <None Include="Samples\Map\SearchPortalMaps\metadata.json" />
     <None Include="Samples\Map\SetInitialMapLocation\metadata.json" />
     <None Include="Samples\Map\SetInitialMapArea\metadata.json" />
@@ -345,6 +350,9 @@
     </Compile>
     <Compile Include="Samples\Map\OpenExistingMap\OpenExistingMapVB.xaml.vb">
       <DependentUpon>OpenExistingMapVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\OpenMobileMap\OpenMobileMapVB.xaml.vb">
+      <DependentUpon>OpenMobileMapVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Map\SearchPortalMaps\SearchPortalMapsVB.xaml.vb">
       <DependentUpon>SearchPortalMapsVB.xaml</DependentUpon>
@@ -533,6 +541,10 @@
     <Page Include="Samples\Map\OpenExistingMap\OpenExistingMapVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\OpenMobileMap\OpenMobileMapVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\Map\SearchPortalMaps\SearchPortalMapsVB.xaml">
       <Generator>MSBuild:Compile</Generator>

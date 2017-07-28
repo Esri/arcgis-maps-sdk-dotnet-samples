@@ -9,5 +9,5 @@
   "RequiresLocalServer":false,
   "Image":"OpenMobileMap.jpg",
   "Link":"",
-  "TypeLink": []
+  "TypeLink": ["T:Esri.ArcGISRuntime.Mapping.MobileMapPackage", "P:Esri.ArcGISRuntime.Mapping.MobileMapPackage.Maps", "M:Esri.ArcGISRuntime.Mapping.MobileMapPackage.OpenAsync(System.String)"]
 }

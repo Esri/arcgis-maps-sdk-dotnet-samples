@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Xamarin.Forms;
 using System;
 using System.IO;
+using System.Reflection;
 
 namespace ArcGISRuntimeXamarin.Samples.OpenMobileMap
 {
@@ -42,8 +43,8 @@ namespace ArcGISRuntimeXamarin.Samples.OpenMobileMap
             string mmpkName = "Yellowstone.mmpk";
 #if NETFX_CORE //UWP
              var assembly = typeof(App).GetTypeInfo().Assembly;
-             var folder = ApplicationData.Current.LocalFolder.Path;
-             var resourcePrefix="ArcGISRuntime.Xamarin.Forms.UWP.";
+             var folder = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
+             var resourcePrefix= "ArcGISRuntimeXamarin.";
 #elif __IOS__
              var resourcePrefix = "ArcGISRuntimeXamarin.";
              var assembly = this.GetType().Assembly;

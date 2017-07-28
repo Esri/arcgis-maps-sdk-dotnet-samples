@@ -13,9 +13,9 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -29,10 +29,13 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
         private Uri _featureServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/WildfireSync/FeatureServer");
 
         // Path to the geodatabase file on disk
-        private string _geoDbPath;
+        private string _gdbPath;
 
         // Task to be used for generating the geodatabase
-        private GeodatabaseSyncTask gdbSyncTask;
+        private GeodatabaseSyncTask _gdbSyncTask;
+
+        // Job used to generate the geodatabase
+        GenerateGeodatabaseJob _generateGdbJob;
 
         public GenerateGeodatabase()
         {
@@ -42,14 +45,19 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
-            // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateTopographic());
+            // Create a tile cache and load it with the SanFrancisco streets tpk
+            TileCache _tileCache = new TileCache(GetTpkPath());
 
-            // Create and set initial map location
-            MapPoint initialLocation = new MapPoint(-118.33, 38.00, SpatialReferences.Wgs84);
-            myMap.InitialViewpoint = new Viewpoint(initialLocation, 100000);
+            // Create the corresponding layer based on the tile cache
+            ArcGISTiledLayer _tileLayer = new ArcGISTiledLayer(_tileCache);
+
+            // Create the basemap based on the tile cache
+            Basemap _sfBasemap = new Basemap(_tileLayer);
+
+            // Create the map with the tile-based basemap
+            Map myMap = new Map(_sfBasemap);
 
             // Assign the map to the MapView
             MyMapView.Map = myMap;
@@ -69,6 +77,25 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
 
             // Update the local data path for the geodatabase file
             SetGdbPath();
+
+            // Create a task for generating a geodatabase (GeodatabaseSyncTask)
+            _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
+
+            // Add all graphics from the service to the map
+            foreach (var layer in _gdbSyncTask.ServiceInfo.LayerInfos)
+            {
+                // Create the ServiceFeatureTable for this particular layer
+                ServiceFeatureTable onlineTable = new ServiceFeatureTable(new Uri(_featureServiceUri + "/" + layer.Id));
+
+                // Wait for the table to load
+                await onlineTable.LoadAsync();
+
+                // Add the layer to the map's operational layers if load succeeds
+                if (onlineTable.LoadStatus == Esri.ArcGISRuntime.LoadStatus.Loaded)
+                {
+                    myMap.OperationalLayers.Add(new FeatureLayer(onlineTable));
+                }
+            }
         }
 
         private void UpdateMapExtent()
@@ -109,31 +136,40 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
         private async void StartGeodatabaseGeneration()
         {
             // Create a task for generating a geodatabase (GeodatabaseSyncTask)
-            gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
+            _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
             // Get the current extent of the map view
             Envelope extent = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry as Envelope;
 
             // Get the default parameters for the generate geodatabase task
-            GenerateGeodatabaseParameters generateParams = await gdbSyncTask.CreateDefaultGenerateGeodatabaseParametersAsync(extent);
+            GenerateGeodatabaseParameters generateParams = await _gdbSyncTask.CreateDefaultGenerateGeodatabaseParametersAsync(extent);
 
             // Create a generate geodatabase job
-            GenerateGeodatabaseJob _generateGdbJob = gdbSyncTask.GenerateGeodatabase(generateParams, _geoDbPath);
+            _generateGdbJob = _gdbSyncTask.GenerateGeodatabase(generateParams, _gdbPath);
 
             // Handle the job changed event
             _generateGdbJob.JobChanged += GenerateGdbJobChanged;
+
+            // Handle the progress changed event (to show progress bar)
+            _generateGdbJob.ProgressChanged += ((object sender, EventArgs e) =>
+            {
+                UpdateProgressBar();
+            });
 
             // Start the job
             _generateGdbJob.Start();
         }
 
-        private async void HandleGenerationStatusChange(GenerateGeodatabaseJob job)
+        private async void HandleGenerationStatusChange(GenerateGeodatabaseJob job, MapView mmv)
         {
             JobStatus status = job.Status;
 
             // If the job completed successfully, add the geodatabase data to the map
             if (status == JobStatus.Succeeded)
             {
+                // Clear out the existing layers
+                mmv.Map.OperationalLayers.Clear();
+
                 // Get the new geodatabase
                 Geodatabase resultGdb = await job.GetResultAsync();
 
@@ -141,13 +177,13 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
                 foreach (GeodatabaseFeatureTable table in resultGdb.GeodatabaseFeatureTables)
                 {
                     // Create a new feature layer for the table
-                    FeatureLayer lyr = new FeatureLayer(table);
+                    FeatureLayer _layer = new FeatureLayer(table);
 
                     // Add the new layer to the map
-                    MyMapView.Map.OperationalLayers.Add(lyr);
+                    mmv.Map.OperationalLayers.Add(_layer);
                 }
                 // Best practice is to unregister the geodatabase
-                await gdbSyncTask.UnregisterGeodatabaseAsync(resultGdb);
+                await _gdbSyncTask.UnregisterGeodatabaseAsync(resultGdb);
 
                 // Tell the user that the geodatabase was unregistered
                 ShowStatusMessage("Geodatabase was unregistered per best practice");
@@ -175,12 +211,20 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
             }
         }
 
-        // Platform-specific functionality:
+        // Platform-specific implementations & handlers
+        #region platform-specific
+
+        // Get the path to the tile package used for the basemap
+        private string GetTpkPath()
+        {
+            return "ArcGISRuntime.UWP.Samples\\Resources\\TileCaches\\SanFrancisco.tpk";
+        }
 
         private void SetGdbPath()
         {
-            _geoDbPath = Windows.Storage.ApplicationData.Current.LocalFolder.Path.ToString();
-            _geoDbPath += "\\wildfire.geodatabase";
+            // Set the UWP-specific path for storing the geodatabase
+            _gdbPath = Windows.Storage.ApplicationData.Current.LocalFolder.Path.ToString();
+            _gdbPath += "\\wildfire.geodatabase";
         }
 
         private void ShowStatusMessage(string message)
@@ -190,22 +234,55 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
             dialog.ShowAsync();
         }
 
+        // Handler for the generate button clicked event
         private async void GenerateButton_Clicked(object sender, RoutedEventArgs e)
         {
+            // Call the cross-platform geodatabase generation method
             StartGeodatabaseGeneration();
         }
 
+        // Handler for the MapView Extent Changed event
         private async void MapViewExtentChanged(object sender, EventArgs e)
         {
+            // Call the cross-platform map extent update method
             UpdateMapExtent();
         }
 
         // Handler for the job changed event
         private async void GenerateGdbJobChanged(object sender, EventArgs e)
         {
+            // Get the job object; will be passed to HandleGenerationStatusChange
             GenerateGeodatabaseJob job = sender as GenerateGeodatabaseJob;
-            HandleGenerationStatusChange(job);
+
+            // Due to the nature of the threading implementation,
+            //     the dispatcher needs to be used to interact with the UI
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                 // Hide the progress bar if the job is finished
+                 if (job.Status == JobStatus.Succeeded || job.Status == JobStatus.Failed)
+                 {
+                     MyProgressBar.Visibility = Visibility.Collapsed;
+                 } else // Show it otherwise
+                 {
+                     MyProgressBar.Visibility = Visibility.Visible;
+                 }
+
+                 // Do the remainder of the job status changed work
+                 HandleGenerationStatusChange(job, MyMapView);
+            });
         }
+
+        private async void UpdateProgressBar()
+        {
+            // Due to the nature of the threading implementation,
+            //     the dispatcher needs to be used to interact with the UI
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                // Update the progress bar value
+                MyProgressBar.Value = _generateGdbJob.Progress / 1.0;
+            });
+        }
+        #endregion
 
     }
 }

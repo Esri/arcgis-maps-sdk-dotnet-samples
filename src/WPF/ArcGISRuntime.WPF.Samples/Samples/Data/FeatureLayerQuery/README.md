@@ -1,9 +1,12 @@
-# Feature layer query
+# Generate geodatabase
 
-This sample demonstrates how to query a feature layer via feature table.
+This sample demonstrates how to take a feature service offline by generating a geodatabase.
 
-<img src="FeatureLayerQuery.jpg" width="350"/>
+
+<img src="GenerateGeodatabase.jpg" width="350"/>
 
 ### Instructions
 
-The sample provides a search bar on the top, where you can input the name of a US State. When you hit search the app performs a query on the feature table and based on the result either highlights the state geometry or provides an error.
+1. Pan and zoom to the area you would like to download features for, ensuring that all features are within the rectangle.
+2. Tap on the button. This will start the process of generating the offline geodatabase.
+3. Observe that the sample unregisters the geodatabase. This is best practice when changes won't be edited and synced back to the service.

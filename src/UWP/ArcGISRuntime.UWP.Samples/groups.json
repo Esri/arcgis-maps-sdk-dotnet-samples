@@ -206,6 +206,10 @@
             {
               "SampleName": "FeatureLayerQuery",
               "Path": "Samples/Data/FeatureLayerQuery"
+            },
+            {
+              "SampleName": "GenerateGeodatabase",
+              "Path": "Samples/Data/GenerateGeodatabase"
             }
           ]
         }

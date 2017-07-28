@@ -1,0 +1,14 @@
+{
+  "Name": "Open mobile map (map package)",
+  "SampleName": "OpenMobileMap",
+  "Description": "This sample demonstrates how to open a map from a mobile map package.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"OpenMobileMap.jpg",
+  "Link":"",
+  "TypeLink": [],
+ "SampleFolder":  "OpenMobileMap"
+}

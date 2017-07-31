@@ -356,7 +356,6 @@
     <Compile Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.cs" />
     <Compile Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.cs" />
     <Compile Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.cs" />
-    <Compile Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.cs" />
     <Compile Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.cs" />
     <Compile Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.cs" />
     <Compile Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.cs" />
@@ -416,9 +415,6 @@
   <ItemGroup />
   <ItemGroup>
     <BundleResource Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Samples\Map\OpenExistingMap\OpenExistingMap.jpg" />

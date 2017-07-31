@@ -100,8 +100,17 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
 
         private void UpdateMapExtent()
         {
-            // Get the updated extent for the new viewpoint
-            Envelope extent = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry as Envelope;
+			// Return if mapview is null
+			if (MyMapView == null) { return; }
+
+			// Get the new viewpoint
+			Viewpoint myViewPoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
+
+			// Return if viewpoint is null
+			if (myViewPoint == null) { return; }
+
+			// Get the updated extent for the new viewpoint
+			Envelope extent = myViewPoint.TargetGeometry as Envelope;
 
             // Return if extent is null 
             if (extent == null) { return; }

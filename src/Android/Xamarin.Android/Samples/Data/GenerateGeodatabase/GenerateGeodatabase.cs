@@ -10,6 +10,8 @@
 using Android.App;
 using Android.OS;
 using Android.Widget;
+using Android.Content;
+using Android.Util;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -20,9 +22,7 @@ using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using System;
 using System.IO;
-using System.Drawing;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
 {
@@ -68,12 +68,15 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
 
             // Add the progress bar
             myProgressBar = new ProgressBar(this);
+            myProgressBar.Visibility = Android.Views.ViewStates.Gone;
             layout.AddView(myProgressBar);
 
             // Add the generate button
             myGenerateButton = new Button(this);
             myGenerateButton.Text = "Generate";
+            myGenerateButton.Click += GenerateButton_Clicked;
             layout.AddView(myGenerateButton);
+
 
             // Add the mapview
             myMapView = new MapView(this);
@@ -140,8 +143,14 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
 			// Return if mapview is null
 			if (myMapView == null) { return; }
 
+            // Get the new viewpoint
+            Viewpoint myViewPoint = myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
+
+            // Return if viewpoint is null
+            if (myViewPoint == null) { return; }
+
 			// Get the updated extent for the new viewpoint
-			Envelope extent = myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry as Envelope;
+			Envelope extent = myViewPoint.TargetGeometry as Envelope;
 
 			// Return if extent is null 
 			if (extent == null) { return; }
@@ -256,17 +265,19 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
 		// Get the path to the tile package used for the basemap
 		private string GetTpkPath()
 		{
-			// File is located in Resources/TileCaches/SanFrancisco.tpk
-			// Build Action is BundleResource; Do not copy to output directory
-			return "TileCaches/SanFrancisco.tpk";
+			var tpkName = "SanFrancisco.tpk";
+			var tpkPath = GetFileStreamPath(tpkName).AbsolutePath;
+            using (var gdbAsset = Assets.Open(tpkName))
+            using (var gdbTarget = OpenFileOutput(tpkName, FileCreationMode.WorldWriteable))
+            {
+                gdbAsset.CopyTo(gdbTarget);
+            }
+			return tpkPath;
 		}
 
 		private void SetGdbPath()
 		{
-			// Set the platform-specific path for storing the geodatabase
-			String folder = "";
-			// Set the final path
-			_gdbPath = Path.Combine(folder + "/wildfire.geodatabase");
+			_gdbPath = GetFileStreamPath("wildfire.geodatabase").AbsolutePath;
 		}
 
 		private void ShowStatusMessage(string message)
@@ -277,21 +288,21 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
 		}
 
 		// Handler for the generate button clicked event
-		private async void GenerateButton_Clicked(object sender, EventArgs e)
+		private void GenerateButton_Clicked(object sender, EventArgs e)
 		{
 			// Call the cross-platform geodatabase generation method
 			StartGeodatabaseGeneration();
 		}
 
 		// Handler for the MapView Extent Changed event
-		private async void MapViewExtentChanged(object sender, EventArgs e)
+		private void MapViewExtentChanged(object sender, EventArgs e)
 		{
 			// Call the cross-platform map extent update method
 			UpdateMapExtent();
 		}
 
 		// Handler for the job changed event
-		private async void GenerateGdbJobChanged(object sender, EventArgs e)
+		private void GenerateGdbJobChanged(object sender, EventArgs e)
 		{
 			// Get the job object; will be passed to HandleGenerationStatusChange
 			GenerateGeodatabaseJob job = sender as GenerateGeodatabaseJob;
@@ -300,12 +311,18 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
             //     the dispatcher needs to be used to interact with the UI
             RunOnUiThread(() =>
             {
+                // Update progress bar visibility
+                if (job.Status == JobStatus.Started) {
+                    myProgressBar.Visibility = Android.Views.ViewStates.Visible;
+                } else {
+                    myProgressBar.Visibility = Android.Views.ViewStates.Gone;
+                }
 				// Do the remainder of the job status changed work
 				HandleGenerationStatusChange(job, myMapView);
             });
 		}
 
-		private async void UpdateProgressBar()
+		private void UpdateProgressBar()
 		{
 			// Due to the nature of the threading implementation,
 			//     the dispatcher needs to be used to interact with the UI

@@ -124,7 +124,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
             myMapView.ViewpointChanged += MapViewExtentChanged;
 
             // Update the local data path for the geodatabase file
-            SetGdbPath();
+            _gdbPath = GetGdbPath();
 
             // Create a task for generating a geodatabase (GeodatabaseSyncTask)
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
@@ -275,12 +275,12 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
             return "TileCaches/SanFrancisco.tpk";
         }
 
-        private void SetGdbPath()
+        private string GetGdbPath()
         {
-            // Set the platform-specific path for storing the geodatabase
+            // Get the platform-specific path for storing the geodatabase
             String folder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            // Set the final path
-            _gdbPath = Path.Combine(folder + "/wildfire.geodatabase");
+            // Return the final path
+            return Path.Combine(folder, "wildfire.geodatabase");
         }
 
         private void ShowStatusMessage(string message)

@@ -9,6 +9,7 @@
 
 using System;
 using System.Linq;
+using System.IO;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -76,7 +77,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
             MyMapView.ViewpointChanged += MapViewExtentChanged;
 
             // Update the local data path for the geodatabase file
-            SetGdbPath();
+            _gdbPath = GetGdbPath();
 
             // Create a task for generating a geodatabase (GeodatabaseSyncTask)
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
@@ -225,11 +226,11 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
             return "ArcGISRuntime.UWP.Samples\\Resources\\TileCaches\\SanFrancisco.tpk";
         }
 
-        private void SetGdbPath()
+        private string GetGdbPath()
         {
-            // Set the UWP-specific path for storing the geodatabase
-            _gdbPath = Windows.Storage.ApplicationData.Current.LocalFolder.Path.ToString();
-            _gdbPath += "\\wildfire.geodatabase";
+            // Get the UWP-specific path for storing the geodatabase
+            string folder = Windows.Storage.ApplicationData.Current.LocalFolder.Path.ToString();
+            return Path.Combine(folder, "wildfire.geodatabase");
         }
 
         private void ShowStatusMessage(string message)

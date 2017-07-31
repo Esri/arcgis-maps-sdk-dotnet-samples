@@ -86,7 +86,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
             myMapView.ViewpointChanged += MapViewExtentChanged;
 
             // Update the local data path for the geodatabase file
-            SetGdbPath();
+            _gdbPath = GetGdbPath();
 
             // Create a task for generating a geodatabase (GeodatabaseSyncTask)
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
@@ -274,22 +274,20 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
             return path;
         }
 
-        private void SetGdbPath()
+        private string GetGdbPath()
         {
             // Set the platform-specific path for storing the geodatabase
             String folder = "";
 
 #if NETFX_CORE //UWP
             folder = Windows.Storage.ApplicationData.Current.LocalFolder.Path.ToString();
-            _gdbPath = folder + "\\wildfire.geodatabase";
-            return;
 #elif __IOS__
             folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 #elif __ANDROID__
             folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 #endif
             // Set the final path
-            _gdbPath = Path.Combine(folder + "wildfire.geodatabase");
+            return Path.Combine(folder, "wildfire.geodatabase");
         }
 
         private void ShowStatusMessage(string message)

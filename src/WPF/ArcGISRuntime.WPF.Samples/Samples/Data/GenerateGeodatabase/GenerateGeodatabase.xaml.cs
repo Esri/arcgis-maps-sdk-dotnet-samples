@@ -75,7 +75,7 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
             MyMapView.ViewpointChanged += MapViewExtentChanged;
 
             // Update the local data path for the geodatabase file
-            SetGdbPath();
+            _gdbPath = GetGdbPath();
 
             // Create a task for generating a geodatabase (GeodatabaseSyncTask)
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
@@ -225,10 +225,10 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
             return "Resources\\TileCaches\\SanFrancisco.tpk";
         }
 
-        private void SetGdbPath()
+        private string GetGdbPath()
         {
-            // Set the WPF-specific path for storing the geodatabase
-            _gdbPath = Environment.ExpandEnvironmentVariables("%TEMP%\\wildfire.geodatabase");
+            // Return the WPF-specific path for storing the geodatabase
+            return Environment.ExpandEnvironmentVariables("%TEMP%\\wildfire.geodatabase");
         }
 
         private void ShowStatusMessage(string message)

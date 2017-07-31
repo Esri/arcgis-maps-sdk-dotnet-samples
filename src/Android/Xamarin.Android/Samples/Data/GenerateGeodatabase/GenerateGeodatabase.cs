@@ -114,7 +114,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
             myMapView.ViewpointChanged += MapViewExtentChanged;
 
             // Update the local data path for the geodatabase file
-            SetGdbPath();
+            _gdbPath = GetGdbPath();
 
             // Create a task for generating a geodatabase (GeodatabaseSyncTask)
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
@@ -270,9 +270,9 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
             return tpkPath;
         }
 
-        private void SetGdbPath()
+        private string GetGdbPath()
         {
-            _gdbPath = GetFileStreamPath("wildfire.geodatabase").AbsolutePath;
+            return GetFileStreamPath("wildfire.geodatabase").AbsolutePath;
         }
 
         private void ShowStatusMessage(string message)

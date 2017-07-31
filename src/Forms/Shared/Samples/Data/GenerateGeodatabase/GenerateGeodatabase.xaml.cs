@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
@@ -18,14 +18,15 @@ using Esri.ArcGISRuntime.Tasks.Offline;
 using System;
 using System.Linq;
 using System.IO;
-using System.Threading.Tasks;
 using System.Reflection;
 using Xamarin.Forms;
 
 #if WINDOWS_UWP
 using Colors = Windows.UI.Colors;
 #else
+
 using Colors = System.Drawing.Color;
+
 #endif
 
 namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
@@ -42,15 +43,15 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
         private GeodatabaseSyncTask _gdbSyncTask;
 
         // Job used to generate the geodatabase
-        GenerateGeodatabaseJob _generateGdbJob;
+        private GenerateGeodatabaseJob _generateGdbJob;
 
         public GenerateGeodatabase()
         {
-            InitializeComponent ();
+            InitializeComponent();
 
             Title = "Generate geodatabase";
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             Initialize();
         }
 
@@ -109,46 +110,45 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
 
         private void UpdateMapExtent()
         {
-			// Return if mapview is null
-			if (myMapView == null) { return; }
+            // Return if mapview is null
+            if (myMapView == null) { return; }
 
-			// Get the new viewpoint
-			Viewpoint myViewPoint = myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
+            // Get the new viewpoint
+            Viewpoint myViewPoint = myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
 
-			// Return if viewpoint is null
-			if (myViewPoint == null) { return; }
+            // Return if viewpoint is null
+            if (myViewPoint == null) { return; }
 
-			// Get the updated extent for the new viewpoint
-			Envelope extent = myViewPoint.TargetGeometry as Envelope;
+            // Get the updated extent for the new viewpoint
+            Envelope extent = myViewPoint.TargetGeometry as Envelope;
 
-			// Return if extent is null 
-			if (extent == null) { return; }
+            // Return if extent is null
+            if (extent == null) { return; }
 
-			// Create an envelope that is a bit smaller than the extent
-			EnvelopeBuilder envelopeBldr = new EnvelopeBuilder(extent);
-			envelopeBldr.Expand(0.70);
+            // Create an envelope that is a bit smaller than the extent
+            EnvelopeBuilder envelopeBldr = new EnvelopeBuilder(extent);
+            envelopeBldr.Expand(0.70);
 
-			// Get the (only) graphics overlay in the map view (make sure it exists)
-			var extentOverlay = myMapView.GraphicsOverlays.FirstOrDefault();
-			if (extentOverlay == null)
-			{
-				return;
-			}
+            // Get the (only) graphics overlay in the map view
+            var extentOverlay = myMapView.GraphicsOverlays.FirstOrDefault();
 
-			// Get the extent graphic 
-			Graphic extentGraphic = extentOverlay.Graphics.FirstOrDefault();
+            // Return if extent overlay is null
+            if (extentOverlay == null) { return; }
 
-			// Create the extent graphic and add it to the overlay if it doesn't exist
-			if (extentGraphic == null)
-			{
-				extentGraphic = new Graphic(envelopeBldr.ToGeometry());
-				extentOverlay.Graphics.Add(extentGraphic);
-			}
-			else
-			{
-				// Otherwise, simply update the graphic's geometry
-				extentGraphic.Geometry = envelopeBldr.ToGeometry();
-			}
+            // Get the extent graphic
+            Graphic extentGraphic = extentOverlay.Graphics.FirstOrDefault();
+
+            // Create the extent graphic and add it to the overlay if it doesn't exist
+            if (extentGraphic == null)
+            {
+                extentGraphic = new Graphic(envelopeBldr.ToGeometry());
+                extentOverlay.Graphics.Add(extentGraphic);
+            }
+            else
+            {
+                // Otherwise, simply update the graphic's geometry
+                extentGraphic.Geometry = envelopeBldr.ToGeometry();
+            }
         }
 
         private async void StartGeodatabaseGeneration()
@@ -228,8 +228,6 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
                 ShowStatusMessage(message);
             }
         }
-        // Platform-specific implementations & handlers
-        #region platform-specific
 
         // Get the path to the tile package used for the basemap
         private string GetTpkPath()
@@ -274,7 +272,6 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
 
             // Return the final path
             return path;
-
         }
 
         private void SetGdbPath()
@@ -283,7 +280,9 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
             String folder = "";
 
 #if NETFX_CORE //UWP
-            folder = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
+            folder = Windows.Storage.ApplicationData.Current.LocalFolder.Path.ToString();
+            _gdbPath = folder + "\\wildfire.geodatabase";
+            return;
 #elif __IOS__
             folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 #elif __ANDROID__
@@ -348,7 +347,5 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
                 myProgressBar.Progress = _generateGdbJob.Progress / 100.0;
             });
         }
-#endregion
-
     }
 }

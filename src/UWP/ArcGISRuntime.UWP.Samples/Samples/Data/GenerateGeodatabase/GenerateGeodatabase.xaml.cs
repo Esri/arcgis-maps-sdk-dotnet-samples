@@ -3,23 +3,23 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
+using System.Linq;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
+using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
-using System;
-using System.Linq;
 using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
-using Esri.ArcGISRuntime.Tasks;
 
 namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
 {
@@ -35,13 +35,13 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
         private GeodatabaseSyncTask _gdbSyncTask;
 
         // Job used to generate the geodatabase
-        GenerateGeodatabaseJob _generateGdbJob;
+        private GenerateGeodatabaseJob _generateGdbJob;
 
         public GenerateGeodatabase()
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             Initialize();
         }
 
@@ -100,33 +100,32 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
 
         private void UpdateMapExtent()
         {
-			// Return if mapview is null
-			if (MyMapView == null) { return; }
+            // Return if mapview is null
+            if (MyMapView == null) { return; }
 
-			// Get the new viewpoint
-			Viewpoint myViewPoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
+            // Get the new viewpoint
+            Viewpoint myViewPoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
 
-			// Return if viewpoint is null
-			if (myViewPoint == null) { return; }
+            // Return if viewpoint is null
+            if (myViewPoint == null) { return; }
 
-			// Get the updated extent for the new viewpoint
-			Envelope extent = myViewPoint.TargetGeometry as Envelope;
+            // Get the updated extent for the new viewpoint
+            Envelope extent = myViewPoint.TargetGeometry as Envelope;
 
-            // Return if extent is null 
+            // Return if extent is null
             if (extent == null) { return; }
 
             // Create an envelope that is a bit smaller than the extent
             EnvelopeBuilder envelopeBldr = new EnvelopeBuilder(extent);
             envelopeBldr.Expand(0.80);
 
-            // Get the (only) graphics overlay in the map view (make sure it exists)
+            // Get the (only) graphics overlay in the map view
             var extentOverlay = MyMapView.GraphicsOverlays.FirstOrDefault();
-            if (extentOverlay == null)
-            {
-                return;
-            }
 
-            // Get the extent graphic 
+            // Return if extent overlay is null
+            if (extentOverlay == null) { return; }
+
+            // Get the extent graphic
             Graphic extentGraphic = extentOverlay.Graphics.FirstOrDefault();
 
             // Create the extent graphic and add it to the overlay if it doesn't exist
@@ -220,9 +219,6 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
             }
         }
 
-        // Platform-specific implementations & handlers
-        #region platform-specific
-
         // Get the path to the tile package used for the basemap
         private string GetTpkPath()
         {
@@ -267,17 +263,18 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
             //     the dispatcher needs to be used to interact with the UI
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
-                 // Hide the progress bar if the job is finished
-                 if (job.Status == JobStatus.Succeeded || job.Status == JobStatus.Failed)
-                 {
-                     MyProgressBar.Visibility = Visibility.Collapsed;
-                 } else // Show it otherwise
-                 {
-                     MyProgressBar.Visibility = Visibility.Visible;
-                 }
+                // Hide the progress bar if the job is finished
+                if (job.Status == JobStatus.Succeeded || job.Status == JobStatus.Failed)
+                {
+                    MyProgressBar.Visibility = Visibility.Collapsed;
+                }
+                else // Show it otherwise
+                {
+                    MyProgressBar.Visibility = Visibility.Visible;
+                }
 
-                 // Do the remainder of the job status changed work
-                 HandleGenerationStatusChange(job, MyMapView);
+                // Do the remainder of the job status changed work
+                HandleGenerationStatusChange(job, MyMapView);
             });
         }
 
@@ -291,7 +288,5 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
                 MyProgressBar.Value = _generateGdbJob.Progress / 1.0;
             });
         }
-        #endregion
-
     }
 }

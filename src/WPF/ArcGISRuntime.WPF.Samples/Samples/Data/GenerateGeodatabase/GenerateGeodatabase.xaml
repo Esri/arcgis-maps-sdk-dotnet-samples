@@ -13,7 +13,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Button Grid.Row="0" Content="Generate Geodatabase" Click="GenerateButton_Clicked" />
-        <ProgressBar x:Name="MyProgressBar" Grid.Row="1" Visibility="Collapsed" />
+        <ProgressBar x:Name="MyProgressBar" Grid.Row="1" Visibility="Collapsed" MinHeight="10" />
         <esri:MapView x:Name="MyMapView" Grid.Row="2"/>
     </Grid>
 

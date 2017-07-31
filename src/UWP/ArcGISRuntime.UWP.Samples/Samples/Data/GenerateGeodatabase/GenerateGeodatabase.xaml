@@ -12,7 +12,7 @@
         <CommandBar Grid.Row="0">
             <AppBarButton Label="Generate" Icon="Download" Click="GenerateButton_Clicked"/>
         </CommandBar>
-        <ProgressBar Grid.Row="1" x:Name="MyProgressBar" Visibility="Collapsed" />
+        <ProgressBar Grid.Row="1" x:Name="MyProgressBar" Visibility="Collapsed" MinHeight="10" />
         <esriUI:MapView x:Name="MyMapView" Grid.Row="2"/>
     </Grid>
 </UserControl>

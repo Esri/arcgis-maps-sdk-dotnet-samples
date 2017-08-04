@@ -254,6 +254,17 @@
               "Path": "Samples/Geoprocessing/ListGeodatabaseVersions"
             }
           ]
+        },
+        {
+          "Name": "Statistics",
+          "SubCategoryName": "Statistics",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "StatisticalQuery",
+              "Path": "Samples/Data/StatisticalQuery"
+            }
+          ]
         }
       ]
     },

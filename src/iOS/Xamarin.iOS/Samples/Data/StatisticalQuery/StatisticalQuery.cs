@@ -59,6 +59,12 @@ namespace ArcGISRuntimeXamarin.Samples.StatisticalQuery
 
         public override void ViewDidLayoutSubviews()
         {
+            // Setup the visual frame for the query controls
+            _controlsStackView.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, 110);
+
+            // Setup the visual frame for the MapView
+            _myMapView.Frame = new CoreGraphics.CGRect(0, yPageOffset + 110, View.Bounds.Width, View.Bounds.Height - (yPageOffset + 110));
+
             base.ViewDidLayoutSubviews();
         }
 
@@ -79,21 +85,27 @@ namespace ArcGISRuntimeXamarin.Samples.StatisticalQuery
             // Assign the map to the MapView
             _myMapView.Map = myMap;
         }
-        
+
         private void CreateLayout()
         {
+            this.View.BackgroundColor = UIColor.White;
+
             // Create a stack view to organize the query controls
             _controlsStackView = new UIStackView();
             _controlsStackView.Axis = UILayoutConstraintAxis.Vertical;
-            _controlsStackView.Alignment = UIStackViewAlignment.Fill;
+            _controlsStackView.Alignment = UIStackViewAlignment.Center;
             _controlsStackView.Distribution = UIStackViewDistribution.EqualSpacing;
-            _controlsStackView.BackgroundColor = UIColor.Gray;
-            _controlsStackView.Opaque = true;
+            _controlsStackView.Spacing = 5;
 
-            // Create switches (and associated labels) to control query filter options
-            UILabel citySwitchLabel = new UILabel();
-            citySwitchLabel.Text = "Only cities over 5M";
+            // Create a switch (and associated label) to include only big cities in the query
             _onlyBigCitiesSwitch = new UISwitch();
+            _onlyBigCitiesSwitch.BackgroundColor = UIColor.White;
+            UILabel citySwitchLabel = new UILabel();
+            citySwitchLabel.BackgroundColor = UIColor.White;
+            citySwitchLabel.TextColor = UIColor.Blue;
+            citySwitchLabel.Text = "Only cities over 5M";
+
+            // Add the switch and label to a horizontal panel
             UIStackView citySwitchStackView = new UIStackView();
             citySwitchStackView.Axis = UILayoutConstraintAxis.Horizontal;
             citySwitchStackView.Alignment = UIStackViewAlignment.Fill;
@@ -101,9 +113,23 @@ namespace ArcGISRuntimeXamarin.Samples.StatisticalQuery
             citySwitchStackView.AddArrangedSubview(citySwitchLabel);
             citySwitchStackView.AddArrangedSubview(_onlyBigCitiesSwitch);
 
+            // Create a switch (and associated label) to include only cities in the current extent
             _onlyInExtentSwitch = new UISwitch();
+            _onlyBigCitiesSwitch.BackgroundColor = UIColor.White;
+            UILabel extentSwitchLabel = new UILabel();
+            extentSwitchLabel.BackgroundColor = UIColor.White;
+            extentSwitchLabel.TextColor = UIColor.Blue;
+            extentSwitchLabel.Text = "Only cities in extent";
 
-            // Create button to invoke the query
+            // Add the switch and label to a horizontal panel
+            UIStackView extentSwitchStackView = new UIStackView(); 
+            extentSwitchStackView.Axis = UILayoutConstraintAxis.Horizontal;
+            extentSwitchStackView.Alignment = UIStackViewAlignment.Fill;
+            extentSwitchStackView.Distribution = UIStackViewDistribution.EqualSpacing;
+            extentSwitchStackView.AddArrangedSubview(extentSwitchLabel);
+            extentSwitchStackView.AddArrangedSubview(_onlyInExtentSwitch);
+
+            // Create a button to invoke the query
             var getStatsButton = new UIButton();
             getStatsButton.SetTitle("Get Statistics", UIControlState.Normal);
             getStatsButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
@@ -113,17 +139,11 @@ namespace ArcGISRuntimeXamarin.Samples.StatisticalQuery
             getStatsButton.TouchUpInside += OnExecuteStatisticsQueryClicked;
 
             // Add controls to the stack view
-            //_controlsStackView.AddArrangedSubview(_onlyInExtentSwitch);
+            _controlsStackView.AddArrangedSubview(extentSwitchStackView);
             _controlsStackView.AddArrangedSubview(citySwitchStackView);
             _controlsStackView.AddArrangedSubview(getStatsButton);
 
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 120, View.Bounds.Width, View.Bounds.Height-120);
-
-            // Setup the visual frame for the query controls
-            _controlsStackView.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, 160);
-
-            // Add MapView to the page
+            // Add MapView and UI controls to the page
             View.AddSubviews(_myMapView, _controlsStackView);
         }
 
@@ -142,14 +162,14 @@ namespace ArcGISRuntimeXamarin.Samples.StatisticalQuery
 
             // Add the statistics definitions to a list
             List<StatisticDefinition> statDefinitions = new List<StatisticDefinition>
-                          { statDefinitionAvgPop,
-                            statDefinitionCount,
-                            statDefinitionMinPop,
-                            statDefinitionMaxPop,
-                            statDefinitionSumPop,
-                            statDefinitionStdDevPop,
-                            statDefinitionVarPop
-                          };
+                        { statDefinitionAvgPop,
+                        statDefinitionCount,
+                        statDefinitionMinPop,
+                        statDefinitionMaxPop,
+                        statDefinitionSumPop,
+                        statDefinitionStdDevPop,
+                        statDefinitionVarPop
+                        };
 
             // Create the statistics query parameters, pass in the list of definitions
             StatisticsQueryParameters statQueryParams = new StatisticsQueryParameters(statDefinitions);
@@ -177,9 +197,49 @@ namespace ArcGISRuntimeXamarin.Samples.StatisticalQuery
             // Execute the statistical query with these parameters and await the results
             StatisticsQueryResult statQueryResult = await _worldCitiesTable.QueryStatisticsAsync(statQueryParams);
 
-            // Display results in the list box
-            //StatResultsList.ItemsSource = statQueryResult.FirstOrDefault().Statistics.ToList();
-            //ResultsGrid.IsVisible = true;
+            // Get the first (only) StatisticRecord in the results
+            StatisticRecord record = statQueryResult.FirstOrDefault();
+
+            // Make sure a record was returned
+            if (record == null || record.Statistics.Count == 0)
+            {
+                // Notify the user that no results were returned
+                UIAlertView alert = new UIAlertView();
+                alert.Message = "No results were returned";
+                alert.Title = "Statistical Query";
+                alert.Show();
+                return;
+            }
+
+            // Display results
+            IReadOnlyDictionary<string, object> statistics = record.Statistics;
+            ShowStatsList(statistics);
+        }
+
+        private void ShowStatsList(IReadOnlyDictionary<string, object> stats)
+        {
+            // Create a new Alert Controller
+            UIAlertController statsAlert = UIAlertController.Create("Statistics", string.Empty, UIAlertControllerStyle.Alert);
+
+            // Loop through all key/value pairs in the results
+            foreach (KeyValuePair<string, object> kvp in stats)
+            {
+                // If the value is null, display "--"
+                var value = "--";
+                if (kvp.Value != null)
+                {
+                    value = kvp.Value.ToString();
+                }
+
+                // Add the statistics info as an alert action
+                statsAlert.AddAction(UIAlertAction.Create(kvp.Key + " : " + value, UIAlertActionStyle.Default, null));
+            }
+
+            // Add an Action to dismiss the alert
+            statsAlert.AddAction(UIAlertAction.Create("Dismiss", UIAlertActionStyle.Cancel, null));
+
+            // Display the alert
+            PresentViewController(statsAlert, true, null);
         }
     }
 }

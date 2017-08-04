@@ -109,9 +109,6 @@
     <Content Include="Samples\MapView\ShowMagnifier\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\MobileMapPackages\Yellowstone.mmpk">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="Samples\Layers\RasterLayerImageServiceRaster\metadata.json" />
     <None Include="Samples\Layers\RasterLayerImageServiceRaster\README.md" />
     <None Include="Samples\Layers\RasterLayerRasterFunction\metadata.json" />

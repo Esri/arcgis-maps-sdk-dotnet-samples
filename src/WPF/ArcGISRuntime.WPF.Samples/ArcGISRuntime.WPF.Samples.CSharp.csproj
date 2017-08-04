@@ -814,9 +814,6 @@
     <Content Include="Samples\Map\OpenMobileMap\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\MobileMapPackages\Yellowstone.mmpk">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Samples\Data\GenerateGeodatabase\metadata.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

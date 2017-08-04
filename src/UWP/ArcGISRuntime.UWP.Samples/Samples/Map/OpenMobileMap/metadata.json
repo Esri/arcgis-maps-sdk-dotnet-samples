@@ -5,8 +5,9 @@
   "Instructions": "",
   "Type": 0,
   "RequiresOnlineConnection":true,
-  "RequiresOfflineData":false,
-  "RequiresLocalServer":false,
+  "RequiresOfflineData":true,
+  "RequiresLocalServer": false,
+  "DataItemIds": [ "e1f3a7254cb845b09450f54937c16061" ],
   "Image":"OpenMobileMap.jpg",
   "Link":"",
   "TypeLink": ["T:Esri.ArcGISRuntime.Mapping.MobileMapPackage", "P:Esri.ArcGISRuntime.Mapping.MobileMapPackage.Maps", "M:Esri.ArcGISRuntime.Mapping.MobileMapPackage.OpenAsync(System.String)"]

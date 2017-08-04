@@ -407,9 +407,6 @@
     <Content Include="Samples\Map\OpenMobileMap\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\MobileMapPackages\Yellowstone.mmpk">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Samples\Data\GenerateGeodatabase\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -801,6 +798,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup />
+  <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

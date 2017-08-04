@@ -213,7 +213,7 @@
     <None Include="Entitlements.plist" />
     <EmbeddedResource Include="Samples\Layers\ArcGISTiledLayerUrl\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\ArcGISMapImageLayerUrl\metadata.json" />
-    <EmbeddedResource Include="Samples\Map\OpenExistingMap\metadata.json" />
+    <EmbeddedResource Include="Samples\Map\OpenMapURL\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\ChangeViewpoint\metadata.json" />
     <EmbeddedResource Include="Samples\Symbology\RenderSimpleMarkers\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -319,7 +319,7 @@
     <EmbeddedResource Include="Samples\Map\SearchPortalMaps\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-     <EmbeddedResource Include="Samples\NetworkAnalysis\FindRoute\metadata.json" />
+    <EmbeddedResource Include="Samples\NetworkAnalysis\FindRoute\metadata.json" />
     <EmbeddedResource Include="Samples\Search\FindAddress\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\ShowCallout\metadata.json" />
     <BundleResource Include="Samples\MapView\ShowCallout\ShowCallout.jpg" />
@@ -360,7 +360,6 @@
     <Compile Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.cs" />
     <Compile Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.cs" />
     <Compile Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.cs" />
-    <Compile Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.cs" />
     <Compile Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.cs" />
     <Compile Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.cs" />
     <Compile Include="Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortal.cs" />
@@ -383,7 +382,7 @@
     <Compile Include="Samples\Map\DisplayMap\DisplayMap.cs" />
     <Compile Include="Samples\MapView\MapRotation\MapRotation.cs" />
     <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarks.cs" />
-    <Compile Include="Samples\Map\OpenExistingMap\OpenExistingMap.cs" />
+    <Compile Include="Samples\Map\OpenMapURL\OpenMapURL.cs" />
     <Compile Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.cs" />
     <Compile Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.cs" />
     <Compile Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.cs" />
@@ -418,6 +417,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Samples\Map\OpenExistingMap\OpenExistingMap.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Samples\Map\OpenMapURL\OpenMapURL.jpg" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.jpg" />

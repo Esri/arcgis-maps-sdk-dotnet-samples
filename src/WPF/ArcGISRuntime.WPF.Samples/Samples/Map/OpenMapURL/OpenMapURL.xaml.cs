@@ -10,11 +10,10 @@
 using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Linq;
-using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntime.UWP.Samples.OpenExistingMap
+namespace ArcGISRuntime.WPF.Samples.OpenMapURL
 {
-    public partial class OpenExistingMap
+    public partial class OpenMapURL
     {
         // String array to hold urls to publicly available web maps
         private string[] _itemURLs = new string[]
@@ -32,27 +31,31 @@ namespace ArcGISRuntime.UWP.Samples.OpenExistingMap
             "Geology of United States"
         };
 
-        public OpenExistingMap()
+        // Construct Load Map sample control.
+        public OpenMapURL()
         {
             InitializeComponent();
 
-            // Setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization 
             Initialize();
         }
 
         private void Initialize()
         {
+            // Set titles as a items source
+            mapsChooser.ItemsSource = _titles;
+            
+            // Select the first option in the map titles. 
+            mapsChooser.SelectedIndex = 0;
+
             // Create a new Map instance with url of the webmap that is displayed by default
             Map myMap = new Map(new Uri(_itemURLs[0]));
 
             // Provide used Map to the MapView
             MyMapView.Map = myMap;
-   
-            // Set titles as a items source
-            mapsChooser.ItemsSource = _titles;
         }
 
-        private void OnMapsChooseSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void OnMapsChooseSelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             var selectedMap = e.AddedItems[0].ToString();
 

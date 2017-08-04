@@ -146,7 +146,7 @@
     <Compile Include="Samples\Map\ChangeBasemap\ChangeBasemap.cs" />
     <Compile Include="Samples\Map\DisplayMap\DisplayMap.cs" />
     <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarks.cs" />
-    <Compile Include="Samples\Map\OpenExistingMap\OpenExistingMap.cs" />
+    <Compile Include="Samples\Map\OpenMapURL\OpenMapURL.cs" />
     <Compile Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.cs" />
     <Compile Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.cs" />
     <Compile Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.cs" />
@@ -195,7 +195,7 @@
     <EmbeddedResource Include="Samples\Map\SetInitialMapArea\metadata.json" />
     <EmbeddedResource Include="Samples\Map\SetMapSpatialReference\metadata.json" />
     <EmbeddedResource Include="Samples\Map\DisplayMap\metadata.json" />
-    <EmbeddedResource Include="Samples\Map\OpenExistingMap\metadata.json" />
+    <EmbeddedResource Include="Samples\Map\OpenMapURL\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\ChangeViewpoint\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\FeatureLayerUrl\metadata.json" />
     <EmbeddedResource Include="Samples\Data\ServiceFeatureTableCache\metadata.json" />
@@ -306,7 +306,7 @@
     <Content Include="Samples\MapView\MapRotation\MapRotation.jpg" />
     <Content Include="Samples\Map\ChangeBasemap\ChangeBasemap.jpg" />
     <Content Include="Samples\Map\DisplayMap\DisplayMap.jpg" />
-    <Content Include="Samples\Map\OpenExistingMap\OpenExistingMap.jpg" />
+    <Content Include="Samples\Map\OpenMapURL\OpenMapURL.jpg" />
     <Content Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.jpg" />
     <Content Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg" />
     <Content Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg" />

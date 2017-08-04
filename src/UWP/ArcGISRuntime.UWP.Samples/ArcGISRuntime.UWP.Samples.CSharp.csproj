@@ -212,7 +212,7 @@
     <Content Include="Samples\Map\ManageBookmarks\ManageBookmarks.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Map\OpenExistingMap\OpenExistingMap.jpg">
+    <Content Include="Samples\Map\OpenMapURL\OpenMapURL.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Map\ChangeBasemap\ChangeBasemap.jpg">
@@ -320,7 +320,7 @@
     <Content Include="Samples\Map\DisplayMap\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Map\OpenExistingMap\metadata.json">
+    <Content Include="Samples\Map\OpenMapURL\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Map\SetMinMaxScale\metadata.json">
@@ -478,7 +478,7 @@
     </Compile>
     <Compile Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.xaml.cs">
       <DependentUpon>SceneLayerUrl.xaml</DependentUpon>
-    </Compile>    
+    </Compile>
     <Compile Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.xaml.cs">
       <DependentUpon>RasterLayerRasterFunction.xaml</DependentUpon>
     </Compile>
@@ -518,8 +518,8 @@
     <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarks.xaml.cs">
       <DependentUpon>ManageBookmarks.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Map\OpenExistingMap\OpenExistingMap.xaml.cs">
-      <DependentUpon>OpenExistingMap.xaml</DependentUpon>
+    <Compile Include="Samples\Map\OpenMapURL\OpenMapURL.xaml.cs">
+      <DependentUpon>OpenMapURL.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Map\ChangeBasemap\ChangeBasemap.xaml.cs">
       <DependentUpon>ChangeBasemap.xaml</DependentUpon>
@@ -669,7 +669,7 @@
     <Page Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>    
+    </Page>
     <Page Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -718,7 +718,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Map\OpenExistingMap\OpenExistingMap.xaml">
+    <Page Include="Samples\Map\OpenMapURL\OpenMapURL.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

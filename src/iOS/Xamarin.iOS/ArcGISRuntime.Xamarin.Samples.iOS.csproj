@@ -334,7 +334,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Samples\Map\OpenMobileMap\metadata.json" />
-    <BundleResource Include="Resources\MobileMapPackages\Yellowstone.mmpk" />
     <EmbeddedResource Include="Samples\Data\GenerateGeodatabase\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>

@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System;
 using System.IO;
 using System.Threading.Tasks;
 using Esri.ArcGISRuntime.Portal;
@@ -27,18 +28,48 @@ namespace ArcGISRuntimeXamarin.Managers
         /// <returns></returns>
         public static async Task GetData(string itemId, string sampleName)
         {
-            var portal = await ArcGISPortal.CreateAsync().ConfigureAwait(false);
-            var item = await PortalItem.CreateAsync(portal, itemId).ConfigureAwait(false);  
-            var tempFile = Path.GetTempFileName();
+            // Method for creating directories as needed
+            Action<DirectoryInfo> createDir = null;
+            createDir = (s) =>
+            {
+                System.Diagnostics.Debug.WriteLine(s.FullName);
+                if (Directory.Exists(s.FullName)) return;
+                if (!Directory.Exists(s.Parent.FullName))
+                    createDir(s.Parent);
+                Directory.CreateDirectory(s.FullName);
+            };
 
+            // Create the portal
+            var portal = await ArcGISPortal.CreateAsync().ConfigureAwait(false);
+
+            // Create the portal item
+            var item = await PortalItem.CreateAsync(portal, itemId).ConfigureAwait(false);
+
+            // Create the SampleData folder
+            var tempFile = Path.Combine(GetDataFolder(), "SampleData");
+            createDir(new DirectoryInfo(tempFile));
+
+            // Create the sample-specific folder
+            tempFile = Path.Combine(tempFile, sampleName);
+            createDir(new DirectoryInfo(tempFile));
+
+            // Get the full path to the specific file
+            tempFile = Path.Combine(tempFile, item.Name);
+
+            // Download the file
             using (var s = await item.GetDataAsync().ConfigureAwait(false))
             {
                 using (var f = File.Create(tempFile))
                 {
                     await s.CopyToAsync(f).ConfigureAwait(false);
                 }
-            }      
-            await UnpackData(tempFile, Path.Combine(GetDataFolder(),"SampleData", sampleName));
+            }
+
+            // Unzip the file if it is a zip file
+            if (tempFile.EndsWith(".zip"))
+            {
+                await UnpackData(tempFile, Path.Combine(GetDataFolder(), "SampleData", sampleName));
+            }
         }
 
         private static async Task UnpackData(string zipFile, string folder)

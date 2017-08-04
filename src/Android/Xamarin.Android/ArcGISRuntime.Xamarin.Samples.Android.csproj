@@ -248,7 +248,6 @@
     <EmbeddedResource Include="Samples\Layers\WMTSLayer\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\RasterLayerRasterFunction\metadata.json" />
     <EmbeddedResource Include="Samples\Map\OpenMobileMap\metadata.json" />
-    <AndroidAsset Include="Assets\Yellowstone.mmpk" />
     <EmbeddedResource Include="Samples\Data\GenerateGeodatabase\metadata.json" />
     <AndroidAsset Include="Assets\SanFrancisco.tpk" />
   </ItemGroup>

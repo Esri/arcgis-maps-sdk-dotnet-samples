@@ -8,12 +8,14 @@
 // language governing permissions and limitations under the License.
 
 using System.Linq;
+using System.IO;
 using Android.App;
-using Android.Content;
 using Android.OS;
 using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
+using ArcGISRuntimeXamarin.Managers;
+
 
 namespace ArcGISRuntimeXamarin.Samples.OpenMobileMap
 {
@@ -35,18 +37,34 @@ namespace ArcGISRuntimeXamarin.Samples.OpenMobileMap
 
         private async void Initialize()
         {
-            // Load the Mobile Map Package
-            //     The mobile map package is in the Assets folder
-            //     Build action is 'AndroidAsset'; Do not copy to output directory
-            var mmpkName = "Yellowstone.mmpk";
-            var mmpkPath = GetFileStreamPath(mmpkName).AbsolutePath;
-            using (var gdbAsset = Assets.Open(mmpkName))
-            using (var gdbTarget = OpenFileOutput(mmpkName, FileCreationMode.WorldWriteable))
-            {
-                gdbAsset.CopyTo(gdbTarget);
-            }
+            // The mobile map package will be downloaded from ArcGIS Online
+            // The data manager (a component of the sample viewer, *NOT* the runtime
+            //     handles the offline data process
 
-            MobileMapPackage myMapPackage = await MobileMapPackage.OpenAsync(mmpkPath);
+            // The desired MMPK is expected to be called Yellowstone.mmpk
+            string filename = "Yellowstone.mmpk";
+
+            // The data manager provides a method to get the folder
+            string folder = DataManager.GetDataFolder();
+
+            // Get the full path
+            string filepath = Path.Combine(folder, "SampleData", "OpenMobileMap", filename);
+
+            // Variable to hold the MobileMapPackage
+            MobileMapPackage myMapPackage;
+
+            // Open the package, try downloading if that fails
+            try
+            {
+                myMapPackage = await MobileMapPackage.OpenAsync(filepath);
+            }
+            catch (FileNotFoundException)
+            {
+                // Download the package
+                await DataManager.GetData("e1f3a7254cb845b09450f54937c16061", "OpenMobileMap");
+                // try again
+                myMapPackage = await MobileMapPackage.OpenAsync(filepath);
+            }
 
             // Check that there is at least one map
             if (myMapPackage.Maps.Count > 0)

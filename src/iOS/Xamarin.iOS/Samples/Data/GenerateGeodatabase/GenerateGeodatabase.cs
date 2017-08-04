@@ -10,6 +10,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Drawing;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -111,7 +112,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
             myMapView.Map = myMap;
 
             // Create a new symbol for the extent graphic
-            SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Red, 2);
+            SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 2);
 
             // Create graphics overlay for the extent graphic and apply a renderer
             GraphicsOverlay extentOverlay = new GraphicsOverlay();
@@ -194,8 +195,8 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
             // Create a task for generating a geodatabase (GeodatabaseSyncTask)
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
-            // Get the current extent of the map view
-            Envelope extent = myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry as Envelope;
+            // Get the current extent of the red preview box
+            Envelope extent = myMapView.GraphicsOverlays.FirstOrDefault().Extent as Envelope;
 
             // Get the default parameters for the generate geodatabase task
             GenerateGeodatabaseParameters generateParams = await _gdbSyncTask.CreateDefaultGenerateGeodatabaseParametersAsync(extent);
@@ -216,7 +217,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
             _generateGdbJob.Start();
         }
 
-        private async void HandleGenerationStatusChange(GenerateGeodatabaseJob job, MapView mmv)
+        private async void HandleGenerationStatusChange(GenerateGeodatabaseJob job)
         {
             JobStatus status = job.Status;
 
@@ -224,7 +225,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
             if (status == JobStatus.Succeeded)
             {
                 // Clear out the existing layers
-                mmv.Map.OperationalLayers.Clear();
+                myMapView.Map.OperationalLayers.Clear();
 
                 // Get the new geodatabase
                 Geodatabase resultGdb = await job.GetResultAsync();
@@ -236,13 +237,13 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
                     FeatureLayer _layer = new FeatureLayer(table);
 
                     // Add the new layer to the map
-                    mmv.Map.OperationalLayers.Add(_layer);
+                    myMapView.Map.OperationalLayers.Add(_layer);
                 }
                 // Best practice is to unregister the geodatabase
                 await _gdbSyncTask.UnregisterGeodatabaseAsync(resultGdb);
 
                 // Tell the user that the geodatabase was unregistered
-                ShowStatusMessage("Geodatabase was unregistered per best practice");
+                ShowStatusMessage("Since no edits will be made, the local geodatabase has been unregistered per best practice.");
             }
 
             // See if the job failed
@@ -291,21 +292,21 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
         }
 
         // Handler for the generate button clicked event
-        private async void GenerateButton_Clicked(object sender, EventArgs e)
+        private void GenerateButton_Clicked(object sender, EventArgs e)
         {
             // Call the cross-platform geodatabase generation method
             StartGeodatabaseGeneration();
         }
 
         // Handler for the MapView Extent Changed event
-        private async void MapViewExtentChanged(object sender, EventArgs e)
+        private void MapViewExtentChanged(object sender, EventArgs e)
         {
             // Call the cross-platform map extent update method
             UpdateMapExtent();
         }
 
         // Handler for the job changed event
-        private async void GenerateGdbJobChanged(object sender, EventArgs e)
+        private void GenerateGdbJobChanged(object sender, EventArgs e)
         {
             // Get the job object; will be passed to HandleGenerationStatusChange
             GenerateGeodatabaseJob job = sender as GenerateGeodatabaseJob;
@@ -315,7 +316,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
             InvokeOnMainThread(() =>
             {
                 // Do the remainder of the job status changed work
-                HandleGenerationStatusChange(job, myMapView);
+                HandleGenerationStatusChange(job);
             });
         }
 

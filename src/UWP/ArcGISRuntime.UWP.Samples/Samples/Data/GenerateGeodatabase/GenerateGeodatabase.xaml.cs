@@ -17,7 +17,6 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.UI.Controls;
 using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -123,7 +122,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
             // Get the (only) graphics overlay in the map view
             var extentOverlay = MyMapView.GraphicsOverlays.FirstOrDefault();
 
-            // Return if extent overlay is null
+            // Return if the extent overlay is null
             if (extentOverlay == null) { return; }
 
             // Get the extent graphic
@@ -147,8 +146,8 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
             // Create a task for generating a geodatabase (GeodatabaseSyncTask)
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
-            // Get the current extent of the map view
-            Envelope extent = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry as Envelope;
+            // Get the current extent of the red preview box
+            Envelope extent = MyMapView.GraphicsOverlays.FirstOrDefault().Extent as Envelope;
 
             // Get the default parameters for the generate geodatabase task
             GenerateGeodatabaseParameters generateParams = await _gdbSyncTask.CreateDefaultGenerateGeodatabaseParametersAsync(extent);
@@ -169,7 +168,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
             _generateGdbJob.Start();
         }
 
-        private async void HandleGenerationStatusChange(GenerateGeodatabaseJob job, MapView mmv)
+        private async void HandleGenerationStatusChange(GenerateGeodatabaseJob job)
         {
             JobStatus status = job.Status;
 
@@ -177,7 +176,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
             if (status == JobStatus.Succeeded)
             {
                 // Clear out the existing layers
-                mmv.Map.OperationalLayers.Clear();
+                MyMapView.Map.OperationalLayers.Clear();
 
                 // Get the new geodatabase
                 Geodatabase resultGdb = await job.GetResultAsync();
@@ -189,13 +188,13 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
                     FeatureLayer _layer = new FeatureLayer(table);
 
                     // Add the new layer to the map
-                    mmv.Map.OperationalLayers.Add(_layer);
+                    MyMapView.Map.OperationalLayers.Add(_layer);
                 }
                 // Best practice is to unregister the geodatabase
                 await _gdbSyncTask.UnregisterGeodatabaseAsync(resultGdb);
 
                 // Tell the user that the geodatabase was unregistered
-                ShowStatusMessage("Geodatabase was unregistered per best practice");
+                ShowStatusMessage("Since no edits will be made, the local geodatabase has been unregistered per best practice.");
             }
 
             // See if the job failed
@@ -233,22 +232,22 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
             return Path.Combine(folder, "wildfire.geodatabase");
         }
 
-        private void ShowStatusMessage(string message)
+        private async void ShowStatusMessage(string message)
         {
             // Display the message to the user
             MessageDialog dialog = new MessageDialog(message);
-            dialog.ShowAsync();
+            await dialog.ShowAsync();
         }
 
         // Handler for the generate button clicked event
-        private async void GenerateButton_Clicked(object sender, RoutedEventArgs e)
+        private void GenerateButton_Clicked(object sender, RoutedEventArgs e)
         {
             // Call the cross-platform geodatabase generation method
             StartGeodatabaseGeneration();
         }
 
         // Handler for the MapView Extent Changed event
-        private async void MapViewExtentChanged(object sender, EventArgs e)
+        private void MapViewExtentChanged(object sender, EventArgs e)
         {
             // Call the cross-platform map extent update method
             UpdateMapExtent();
@@ -275,7 +274,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
                 }
 
                 // Do the remainder of the job status changed work
-                HandleGenerationStatusChange(job, MyMapView);
+                HandleGenerationStatusChange(job);
             });
         }
 

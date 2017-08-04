@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using System.Drawing;
 using System.Linq;
 using Android.App;
 using Android.Content;
@@ -101,7 +102,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
             myMapView.Map = myMap;
 
             // Create a new symbol for the extent graphic
-            SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Red, 2);
+            SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 2);
 
             // Create graphics overlay for the extent graphic and apply a renderer
             GraphicsOverlay extentOverlay = new GraphicsOverlay();
@@ -155,12 +156,12 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
 
             // Create an envelope that is a bit smaller than the extent
             EnvelopeBuilder envelopeBldr = new EnvelopeBuilder(extent);
-            envelopeBldr.Expand(0.70);
+            envelopeBldr.Expand(0.80);
 
             // Get the (only) graphics overlay in the map view
             var extentOverlay = myMapView.GraphicsOverlays.FirstOrDefault();
 
-            // Return if extent overlay is null
+            // Return if the extent overlay is null
             if (extentOverlay == null) { return; }
 
             // Get the extent graphic
@@ -184,8 +185,8 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
             // Create a task for generating a geodatabase (GeodatabaseSyncTask)
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
-            // Get the current extent of the map view
-            Envelope extent = myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry as Envelope;
+            // Get the current extent of the red preview box
+            Envelope extent = myMapView.GraphicsOverlays.FirstOrDefault().Extent as Envelope;
 
             // Get the default parameters for the generate geodatabase task
             GenerateGeodatabaseParameters generateParams = await _gdbSyncTask.CreateDefaultGenerateGeodatabaseParametersAsync(extent);
@@ -206,7 +207,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
             _generateGdbJob.Start();
         }
 
-        private async void HandleGenerationStatusChange(GenerateGeodatabaseJob job, MapView mmv)
+        private async void HandleGenerationStatusChange(GenerateGeodatabaseJob job)
         {
             JobStatus status = job.Status;
 
@@ -214,7 +215,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
             if (status == JobStatus.Succeeded)
             {
                 // Clear out the existing layers
-                mmv.Map.OperationalLayers.Clear();
+                myMapView.Map.OperationalLayers.Clear();
 
                 // Get the new geodatabase
                 Geodatabase resultGdb = await job.GetResultAsync();
@@ -226,13 +227,13 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
                     FeatureLayer _layer = new FeatureLayer(table);
 
                     // Add the new layer to the map
-                    mmv.Map.OperationalLayers.Add(_layer);
+                    myMapView.Map.OperationalLayers.Add(_layer);
                 }
                 // Best practice is to unregister the geodatabase
                 await _gdbSyncTask.UnregisterGeodatabaseAsync(resultGdb);
 
                 // Tell the user that the geodatabase was unregistered
-                ShowStatusMessage("Geodatabase was unregistered per best practice");
+                ShowStatusMessage("Since no edits will be made, the local geodatabase has been unregistered per best practice.");
             }
 
             // See if the job failed
@@ -316,7 +317,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
                     myProgressBar.Visibility = Android.Views.ViewStates.Gone;
                 }
                 // Do the remainder of the job status changed work
-                HandleGenerationStatusChange(job, myMapView);
+                HandleGenerationStatusChange(job);
             });
         }
 

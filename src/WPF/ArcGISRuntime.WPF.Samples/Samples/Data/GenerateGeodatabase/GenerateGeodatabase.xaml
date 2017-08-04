@@ -7,14 +7,16 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Button Grid.Row="0" Content="Generate Geodatabase" Click="GenerateButton_Clicked" />
-        <ProgressBar x:Name="MyProgressBar" Grid.Row="1" Visibility="Collapsed" MinHeight="10" />
-        <esri:MapView x:Name="MyMapView" Grid.Row="2"/>
+        <esri:MapView x:Name="MyMapView"/>
+        <Border
+                Background="White" BorderBrush="Black" BorderThickness="1"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Margin="30" Padding="20" Width="375">
+            <StackPanel>
+                <Button Content="Generate Geodatabase" Click="GenerateButton_Clicked" />
+                <ProgressBar x:Name="MyProgressBar" Visibility="Collapsed" MinHeight="10" />
+            </StackPanel>
+        </Border>
     </Grid>
 
 </UserControl>

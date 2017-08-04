@@ -16,10 +16,10 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Linq;
 
-namespace ArcGISRuntimeXamarin.Samples.OpenExistingMap
+namespace ArcGISRuntimeXamarin.Samples.OpenMapURL
 {
     [Activity]
-    public class OpenExistingMap : Activity
+    public class OpenMapURL : Activity
     {
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
@@ -44,7 +44,7 @@ namespace ArcGISRuntimeXamarin.Samples.OpenExistingMap
         {
             base.OnCreate(bundle);
 
-            Title = "Open an existing map";
+            Title = "Open Map (URL)";
 
             // Create the UI, setup the control references and execute initialization 
             CreateLayout();

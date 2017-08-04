@@ -168,9 +168,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\ManageBookmarks\ManageBookmarks.xaml.cs">
       <DependentUpon>ManageBookmarks.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\OpenExistingMap\OpenExistingMap.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\OpenMapURL\OpenMapURL.xaml.cs">
       <SubType>Code</SubType>
-      <DependentUpon>OpenExistingMap.xaml</DependentUpon>
+      <DependentUpon>OpenMapURL.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\SearchPortalMaps\SearchPortalMaps.xaml.cs">
       <SubType>Code</SubType>
@@ -371,11 +371,11 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\DisplayMap\DisplayMap.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\OpenExistingMap\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\OpenExistingMap\OpenExistingMap.jpg">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\OpenMapURL\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\OpenMapURL\OpenMapURL.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\OpenExistingMap\OpenExistingMap.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\OpenMapURL\OpenMapURL.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\SearchPortalMaps\SearchPortalMaps.xaml">

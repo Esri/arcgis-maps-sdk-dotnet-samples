@@ -93,6 +93,7 @@
     <Content Include="Samples\MapView\ShowCallout\ShowCallout.jpg" />
     <Content Include="Samples\Layers\WMTSLayer\WMTSLayer.jpg" />
     <Content Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg" />
+    <Content Include="Samples\Map\OpenMapURL\OpenMapURL.jpg" />
     <Content Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg" />
     <Content Include="Samples\NetworkAnalysis\FindRoute\FindRoute.jpg" />
     <Content Include="Samples\Search\FindAddress\FindAddress.jpg" />
@@ -134,7 +135,6 @@
     <Content Include="Samples\Map\ChangeBasemap\ChangeBasemap.jpg" />
     <Content Include="Samples\Map\DisplayMap\DisplayMap.jpg" />
     <Content Include="Samples\Map\ManageBookmarks\ManageBookmarks.jpg" />
-    <Content Include="Samples\Map\OpenExistingMap\OpenExistingMap.jpg" />
     <Content Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg" />
     <Content Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg" />
     <Content Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.jpg" />
@@ -214,7 +214,8 @@
     <None Include="Samples\Map\ChangeBasemap\metadata.json" />
     <None Include="Samples\Map\DisplayMap\metadata.json" />
     <None Include="Samples\Map\ManageBookmarks\metadata.json" />
-    <None Include="Samples\Map\OpenExistingMap\metadata.json" />
+    <None Include="Samples\Map\OpenMapURL\metadata.json" />
+    <None Include="Samples\Map\OpenMapURL\README.md" />
     <None Include="Samples\Map\SearchPortalMaps\metadata.json" />
     <None Include="Samples\Map\SetInitialMapLocation\metadata.json" />
     <None Include="Samples\Map\SetInitialMapArea\metadata.json" />
@@ -343,8 +344,8 @@
     <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarksVB.xaml.vb">
       <DependentUpon>ManageBookmarksVB.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Map\OpenExistingMap\OpenExistingMapVB.xaml.vb">
-      <DependentUpon>OpenExistingMapVB.xaml</DependentUpon>
+    <Compile Include="Samples\Map\OpenMapURL\OpenMapURLVB.xaml.vb">
+      <DependentUpon>OpenMapURLVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Map\SearchPortalMaps\SearchPortalMapsVB.xaml.vb">
       <DependentUpon>SearchPortalMapsVB.xaml</DependentUpon>
@@ -530,7 +531,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Map\OpenExistingMap\OpenExistingMapVB.xaml">
+    <Page Include="Samples\Map\OpenMapURL\OpenMapURLVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

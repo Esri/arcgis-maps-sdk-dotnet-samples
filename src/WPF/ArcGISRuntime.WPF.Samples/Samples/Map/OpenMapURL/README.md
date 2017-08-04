@@ -1,8 +1,8 @@
-# Open an existing map
+# Open Map (URL)
 
 This sample demonstrates loading a webmap in a map from a Uri.
 
-<img src="OpenExistingMap.jpg" width="350"/>
+<img src="OpenMapURL.jpg" width="350"/>
 
 
 

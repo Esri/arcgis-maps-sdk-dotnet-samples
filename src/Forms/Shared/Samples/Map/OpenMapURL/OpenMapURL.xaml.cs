@@ -10,31 +10,33 @@
 using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Linq;
+using Xamarin.Forms;
 
-namespace ArcGISRuntime.WPF.Samples.OpenExistingMap
+namespace ArcGISRuntimeXamarin.Samples.OpenMapURL
 {
-    public partial class OpenExistingMap
+    public partial class OpenMapURL : ContentPage
     {
         // String array to hold urls to publicly available web maps
-        private string[] _itemURLs = new string[]
+        private string[] itemURLs = new string[]
         {
-            "http://www.arcgis.com/home/item.html?id=2d6fa24b357d427f9c737774e7b0f977",
-            "http://www.arcgis.com/home/item.html?id=01f052c8995e4b9e889d73c3e210ebe3",
-            "http://www.arcgis.com/home/item.html?id=92ad152b9da94dee89b9e387dfe21acd"
+            "https://www.arcgis.com/home/item.html?id=2d6fa24b357d427f9c737774e7b0f977",
+            "https://www.arcgis.com/home/item.html?id=01f052c8995e4b9e889d73c3e210ebe3",
+            "https://www.arcgis.com/home/item.html?id=92ad152b9da94dee89b9e387dfe21acd"
         };
 
         // String array to store titles for the webmaps specified above. These titles are in the same order as the urls above
-        private string[] _titles = new string[]
+        private string[] titles = new string[]
         {
             "Housing with Mortgages",
             "USA Tapestry Segmentation",
             "Geology of United States"
         };
 
-        // Construct Load Map sample control.
-        public OpenExistingMap()
+        public OpenMapURL()
         {
-            InitializeComponent();
+            InitializeComponent ();
+
+            Title = "Open Map (URL)";
 
             // Create the UI, setup the control references and execute initialization 
             Initialize();
@@ -42,28 +44,27 @@ namespace ArcGISRuntime.WPF.Samples.OpenExistingMap
 
         private void Initialize()
         {
-            // Set titles as a items source
-            mapsChooser.ItemsSource = _titles;
-            
-            // Select the first option in the map titles. 
-            mapsChooser.SelectedIndex = 0;
-
             // Create a new Map instance with url of the webmap that is displayed by default
-            Map myMap = new Map(new Uri(_itemURLs[0]));
+            Map myMap = new Map(new Uri(itemURLs[0]));
 
             // Provide used Map to the MapView
             MyMapView.Map = myMap;
         }
 
-        private void OnMapsChooseSelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private async void OnMapsClicked(object sender, EventArgs e)
         {
-            var selectedMap = e.AddedItems[0].ToString();
+            // Show sheet and get title from the selection
+            var selectedMapTitle = 
+                await DisplayActionSheet("Select map", "Cancel",null, titles);
+
+            // If selected cancel do nothing
+            if (selectedMapTitle == "Cancel") return;
 
             // Get index that is used to get the selected url
-            var selectedIndex = _titles.ToList().IndexOf(selectedMap);
+            var selectedIndex = titles.ToList().IndexOf(selectedMapTitle);
 
             // Create a new Map instance with url of the webmap that selected
-            MyMapView.Map = new Map(new Uri(_itemURLs[selectedIndex]));
+            MyMapView.Map = new Map(new Uri(itemURLs[selectedIndex]));
         }
     }
 }

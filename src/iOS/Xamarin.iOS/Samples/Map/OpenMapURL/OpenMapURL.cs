@@ -13,10 +13,10 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.OpenExistingMap
+namespace ArcGISRuntimeXamarin.Samples.OpenMapURL
 {
-    [Register("OpenExistingMap")]
-    public class OpenExistingMap : UIViewController
+    [Register("OpenMapURL")]
+    public class OpenMapURL : UIViewController
     {
         // Constant holding offset where the MapView control should start
         private const int yPageOffset = 60;
@@ -41,9 +41,9 @@ namespace ArcGISRuntimeXamarin.Samples.OpenExistingMap
             "Geology of United States"
         };
 
-        public OpenExistingMap()
+        public OpenMapURL()
         {
-            Title = "Open an existing map";
+            Title = "Open Map (URL)";
         }
 
         public override void ViewDidLoad() {

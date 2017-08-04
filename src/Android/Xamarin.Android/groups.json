@@ -206,6 +206,10 @@
             {
               "SampleName": "ServiceFeatureTableManualCache",
               "Path": "Samples/Data/ServiceFeatureTableManualCache"
+            },
+            {
+              "SampleName": "GenerateGeodatabase",
+              "Path": "Samples/Data/GenerateGeodatabase"
             }
           ]
         }

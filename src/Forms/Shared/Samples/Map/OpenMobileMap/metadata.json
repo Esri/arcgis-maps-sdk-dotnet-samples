@@ -1,0 +1,14 @@
+{
+  "Name": "Open mobile map (map package)",
+  "SampleName": "OpenMobileMap",
+  "Description": "This sample demonstrates how to open a mobile map from a map package.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"OpenMobileMap.jpg",
+  "Link":"",
+  "TypeLink": ["T:Esri.ArcGISRuntime.Mapping.MobileMapPackage", "P:Esri.ArcGISRuntime.Mapping.MobileMapPackage.Maps", "M:Esri.ArcGISRuntime.Mapping.MobileMapPackage.OpenAsync(System.String)"],
+ "SampleFolder":  "OpenMobileMap"
+}

@@ -53,6 +53,10 @@
               "Path": "Samples/Map/OpenMapURL"
             },
             {
+              "SampleName": "OpenMobileMap",
+              "Path": "Samples/Map/OpenMobileMap"
+            },
+            {
               "SampleName": "SearchPortalMaps",
               "Path": "Samples/Map/SearchPortalMaps"
             },

@@ -21,9 +21,6 @@ namespace ArcGISRuntimeXamarin.Samples.OpenMobileMap
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 
-        // Hold a reference to a Mobile Map Package
-        private MobileMapPackage _myMapPackage;
-
         public OpenMobileMap()
         {
             Title = "Open mobile map (map package)";
@@ -49,13 +46,13 @@ namespace ArcGISRuntimeXamarin.Samples.OpenMobileMap
             // Load the Mobile Map Package from the Bundle
             //     File is located in Resources/MobileMapPackages/Yellowstone.mmpk
             //     Build Action is BundleResource; Do not copy to Output Directory
-            _myMapPackage = await MobileMapPackage.OpenAsync("MobileMapPackages/Yellowstone.mmpk");
+            MobileMapPackage myMapPackage = await MobileMapPackage.OpenAsync("MobileMapPackages/Yellowstone.mmpk");
 
             // Check that there is at least one map
-            if (_myMapPackage.Maps.Count > 0)
+            if (myMapPackage.Maps.Count > 0)
             {
                 // Display the first map in the package
-                _myMapView.Map = _myMapPackage.Maps.First();
+                _myMapView.Map = myMapPackage.Maps.First();
             }
         }
 

@@ -18,9 +18,6 @@ namespace ArcGISRuntimeXamarin.Samples.OpenMobileMap
 {
     public partial class OpenMobileMap : ContentPage
     {
-        // Hold a reference to a Mobile Map Package
-        private MobileMapPackage MyMapPackage;
-
         public OpenMobileMap()
         {
             InitializeComponent();
@@ -72,13 +69,13 @@ namespace ArcGISRuntimeXamarin.Samples.OpenMobileMap
             }
 
             // Load the Mobile Map Package from the path computed earlier
-            MyMapPackage = await MobileMapPackage.OpenAsync(path);
+            MobileMapPackage myMapPackage = await MobileMapPackage.OpenAsync(path);
 
             // Check that there is at least one map
-            if (MyMapPackage.Maps.Count > 0)
+            if (myMapPackage.Maps.Count > 0)
             {
                 // Display the first map in the package
-                MyMapView.Map = MyMapPackage.Maps.First();
+                MyMapView.Map = myMapPackage.Maps.First();
             }
         }
     }

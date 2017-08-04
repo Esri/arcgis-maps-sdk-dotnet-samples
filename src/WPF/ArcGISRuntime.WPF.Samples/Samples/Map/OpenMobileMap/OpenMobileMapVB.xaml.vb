@@ -7,14 +7,10 @@
 ' "AS IS" BASIS, WITHOUT WARRANTIES Or CONDITIONS OF ANY KIND, either express Or implied. See the License for the specific
 ' language governing permissions And limitations under the License.
 
-Imports System.Linq
 Imports Esri.ArcGISRuntime.Mapping
 
 Namespace OpenMobileMap
     Public Class OpenMobileMapVB
-
-        ' Hold a reference to a Mobile Map Package
-        Dim MyMapPackage As MobileMapPackage
 
         Public Sub New()
 
@@ -29,12 +25,12 @@ Namespace OpenMobileMap
             ' Load the Mobile Map Package from the Bundle
             '     File Is located in Resources/MobileMapPackages/Yellowstone.mmpk
             '     Build Action Is Content; Copy if newer
-            MyMapPackage = Await MobileMapPackage.OpenAsync("Resources\\MobileMapPackages\\Yellowstone.mmpk")
+            Dim myMapPackage As MobileMapPackage = Await MobileMapPackage.OpenAsync("Resources\\MobileMapPackages\\Yellowstone.mmpk")
 
             ' Check that there Is at least one map
-            If MyMapPackage.Maps.Count > 0 Then
+            If myMapPackage.Maps.Count > 0 Then
                 ' Display the first map in the package
-                MyMapView.Map = MyMapPackage.Maps.First()
+                MyMapView.Map = myMapPackage.Maps.First()
             End If
         End Sub
     End Class

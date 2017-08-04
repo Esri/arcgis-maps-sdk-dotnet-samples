@@ -22,9 +22,6 @@ namespace ArcGISRuntimeXamarin.Samples.OpenMobileMap
     {
         private MapView _myMapView;
 
-        // Hold a reference to a Mobile Map Package
-        private MobileMapPackage _myMapPackage;
-
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -49,13 +46,13 @@ namespace ArcGISRuntimeXamarin.Samples.OpenMobileMap
                 gdbAsset.CopyTo(gdbTarget);
             }
 
-            _myMapPackage = await MobileMapPackage.OpenAsync(mmpkPath);
+            MobileMapPackage myMapPackage = await MobileMapPackage.OpenAsync(mmpkPath);
 
             // Check that there is at least one map
-            if (_myMapPackage.Maps.Count > 0)
+            if (myMapPackage.Maps.Count > 0)
             {
                 // Display the first map in the package
-                _myMapView.Map = _myMapPackage.Maps.First();
+                _myMapView.Map = myMapPackage.Maps.First();
             }
         }
 

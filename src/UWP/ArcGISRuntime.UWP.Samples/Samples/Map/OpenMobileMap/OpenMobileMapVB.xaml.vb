@@ -12,8 +12,6 @@ Imports Esri.ArcGISRuntime.Mapping
 
 Namespace OpenMobileMap
     Partial Public Class OpenMobileMapVB
-        ' Hold a reference to a Mobile Map Package
-        Private MyMapPackage As MobileMapPackage
 
         Public Sub New()
             InitializeComponent()
@@ -26,12 +24,12 @@ Namespace OpenMobileMap
             ' Load the Mobile Map Package
             '     File Is located in Resources/MobileMapPackages/Yellowstone.mmpk
             '     Build Action Is Content; Copy if newer
-            MyMapPackage = Await MobileMapPackage.OpenAsync("ArcGISRuntime.UWP.Samples\\Resources\\MobileMapPackages\\Yellowstone.mmpk")
+            Dim myMapPackage As MobileMapPackage = Await MobileMapPackage.OpenAsync("ArcGISRuntime.UWP.Samples\\Resources\\MobileMapPackages\\Yellowstone.mmpk")
 
             ' Check that there Is at least one map
-            If MyMapPackage.Maps.Count > 0 Then
+            If myMapPackage.Maps.Count > 0 Then
                 ' Display the first map in the package
-                MyMapView.Map = MyMapPackage.Maps.First()
+                MyMapView.Map = myMapPackage.Maps.First()
             End If
         End Sub
     End Class

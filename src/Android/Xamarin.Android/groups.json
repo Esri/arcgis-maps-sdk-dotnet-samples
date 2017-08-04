@@ -49,12 +49,12 @@
               "Path":"Samples/Map/DisplayMap"
             },
             {
-              "SampleName": "OpenExistingMap",
-              "Path": "Samples/Map/OpenExistingMap"
-            },
-            {
               "SampleName": "OpenMobileMap",
               "Path": "Samples/Map/OpenMobileMap"
+            },
+			{
+              "SampleName":"OpenMapURL",
+              "Path":"Samples/Map/OpenMapURL"
             },
             {
               "SampleName":"SearchPortalMaps",
@@ -210,6 +210,10 @@
             {
               "SampleName": "ServiceFeatureTableManualCache",
               "Path": "Samples/Data/ServiceFeatureTableManualCache"
+            },
+            {
+              "SampleName": "GenerateGeodatabase",
+              "Path": "Samples/Data/GenerateGeodatabase"
             }
           ]
         }

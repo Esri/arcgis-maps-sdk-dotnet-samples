@@ -249,7 +249,6 @@
     <EmbeddedResource Include="Samples\Layers\RasterLayerRasterFunction\metadata.json" />
     <EmbeddedResource Include="Samples\Map\OpenMobileMap\metadata.json" />
     <EmbeddedResource Include="Samples\Data\GenerateGeodatabase\metadata.json" />
-    <AndroidAsset Include="Assets\SanFrancisco.tpk" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml" />

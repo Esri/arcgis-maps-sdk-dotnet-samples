@@ -14,10 +14,12 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
+using ArcGISRuntimeXamarin.Managers;
 using System;
 using System.Linq;
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 #if WINDOWS_UWP
@@ -57,7 +59,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
         private async void Initialize()
         {
             // Create a tile cache and load it with the SanFrancisco streets tpk
-            TileCache _tileCache = new TileCache(GetTpkPath());
+            TileCache _tileCache = new TileCache(await GetTpkPath());
 
             // Create the corresponding layer based on the tile cache
             ArcGISTiledLayer _tileLayer = new ArcGISTiledLayer(_tileCache);
@@ -229,48 +231,24 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
         }
 
         // Get the path to the tile package used for the basemap
-        private string GetTpkPath()
+        private async Task<string> GetTpkPath()
         {
-            // Because each platform handles resource embedding differently,
-            //     we take a three-part approach:
-            //     1. Include the tile package as an 'embedded resource'
-            //     2. Copy the embedded resource (opened with a stream) to the platform-specific home directory
-            //     3. Get the platform-specific file path
+            // The desired tpk is expected to be called SanFrancisco.tpk
+            string filename = "SanFrancisco.tpk";
 
-            string tpkName = "SanFrancisco.tpk";
-#if NETFX_CORE // UWP
-            var assembly = typeof(App).GetTypeInfo().Assembly;
-            var folder = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
-            var resourcePrefix = "ArcGISRuntimeXamarin.";
-#elif __IOS__
-            var resourcePrefix = "ArcGISRuntimeXamarin.";
-            var assembly = this.GetType().Assembly;
-            var folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-#elif __ANDROID__
-            var resourcePrefix = "ArcGISRuntimeXamarin.";
-            var assembly = this.GetType().Assembly;
-            var folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-#endif
+            // The data manager provides a method to get the folder
+            string folder = DataManager.GetDataFolder();
 
-            // The path on disk for the file
-            var path = Path.Combine(folder, tpkName);
+            // Get the full path
+            string filepath = Path.Combine(folder, "SampleData", "GenerateGeodatabase", filename);
 
-            // Copy the file to disk if it isn't already there
-            if (!File.Exists(path))
+            // Check if the file exists
+            if (!File.Exists(filepath))
             {
-                var resourceName = resourcePrefix + "Resources.TileCaches.SanFrancisco.tpk";
-                using (var stream = assembly.GetManifestResourceStream(resourceName))
-                {
-                    using (var mem = new MemoryStream())
-                    {
-                        stream.CopyTo(mem);
-                        File.WriteAllBytes(path, mem.ToArray());
-                    }
-                }
+                // Download the map package file
+                await DataManager.GetData("3f1bbf0ec70b409a975f5c91f363fe7d", "GenerateGeodatabase");
             }
-
-            // Return the final path
-            return path;
+            return filepath;
         }
 
         private string GetGdbPath()

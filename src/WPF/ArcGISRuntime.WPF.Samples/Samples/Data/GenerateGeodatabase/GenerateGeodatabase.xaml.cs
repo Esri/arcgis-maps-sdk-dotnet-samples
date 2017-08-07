@@ -11,6 +11,8 @@ using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
+using System.IO;
+using System.Threading.Tasks;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -18,6 +20,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
+using ArcGISRuntime.Samples.Managers;
 
 namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
 {
@@ -46,7 +49,7 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
         private async void Initialize()
         {
             // Create a tile cache and load it with the SanFrancisco streets tpk
-            TileCache _tileCache = new TileCache(GetTpkPath());
+            TileCache _tileCache = new TileCache(await GetTpkPath());
 
             // Create the corresponding layer based on the tile cache
             ArcGISTiledLayer _tileLayer = new ArcGISTiledLayer(_tileCache);
@@ -218,10 +221,24 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
         }
 
         // Get the path to the tile package used for the basemap
-        private string GetTpkPath()
+        private async Task<string> GetTpkPath()
         {
-            // Get the sample-specific path for the tile package
-            return "Resources\\TileCaches\\SanFrancisco.tpk";
+            // The desired tpk is expected to be called SanFrancisco.tpk
+            string filename = "SanFrancisco.tpk";
+
+            // The data manager provides a method to get the folder
+            string folder = DataManager.GetDataFolder();
+
+            // Get the full path
+            string filepath = Path.Combine(folder, "SampleData", "GenerateGeodatabase", filename);
+
+            // Check if the file exists
+            if (!File.Exists(filepath))
+            {
+                // Download the map package file
+                await DataManager.GetData("3f1bbf0ec70b409a975f5c91f363fe7d", "GenerateGeodatabase");
+            }
+            return filepath;
         }
 
         private string GetGdbPath()

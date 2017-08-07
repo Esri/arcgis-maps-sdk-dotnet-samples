@@ -49,6 +49,7 @@ Global
 		Forms\Shared\Forms.projitems*{183e6918-b2cd-4eeb-9666-8889a151bc7d}*SharedItemsImports = 4
 		ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{5278f66e-d41f-45d2-8327-25ea13a11618}*SharedItemsImports = 4
 		Forms\Shared\Forms.projitems*{5da4dcda-0167-4eda-b6cf-5711458ca9bf}*SharedItemsImports = 4
+		ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{6820b615-c568-4a13-b026-a77cdd348bfa}*SharedItemsImports = 4
 		ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{be5076af-ece0-4ea9-994e-37bad4b19828}*SharedItemsImports = 4
 		Forms\Shared\Forms.projitems*{db2fc14a-7608-44f9-bcf4-88ec7c1aa949}*SharedItemsImports = 4
 	EndGlobalSection

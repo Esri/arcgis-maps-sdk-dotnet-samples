@@ -115,7 +115,6 @@
     <None Include="Samples\Layers\RasterLayerRasterFunction\README.md" />
     <None Include="Samples\Layers\WMTSLayer\metadata.json" />
     <None Include="Samples\Map\OpenMapURL\metadata.json" />
-    <None Include="Samples\Map\OpenMapURL\README.md" />
     <None Include="Samples\Map\SearchPortalMaps\metadata.json" />
     <None Include="Samples\NetworkAnalysis\FindRoute\metadata.json" />
     <None Include="Samples\Symbology\UseDistanceCompositeSym\metadata.json" />

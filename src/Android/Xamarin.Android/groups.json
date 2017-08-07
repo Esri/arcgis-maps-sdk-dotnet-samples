@@ -49,6 +49,10 @@
               "Path":"Samples/Map/DisplayMap"
             },
             {
+              "SampleName": "OpenMobileMap",
+              "Path": "Samples/Map/OpenMobileMap"
+            },
+            {
               "SampleName":"OpenMapURL",
               "Path":"Samples/Map/OpenMapURL"
             },

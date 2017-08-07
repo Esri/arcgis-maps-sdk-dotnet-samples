@@ -162,6 +162,7 @@
     <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.cs" />
     <Compile Include="Samples\Search\FindAddress\FindAddress.cs" />
     <Compile Include="Samples\MapView\ShowCallout\ShowCallout.cs" />
+    <Compile Include="Samples\Map\OpenMobileMap\OpenMobileMap.cs" />
     <Compile Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -246,6 +247,7 @@
     <EmbeddedResource Include="Samples\Layers\RasterLayerImageServiceRaster\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\WMTSLayer\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\RasterLayerRasterFunction\metadata.json" />
+    <EmbeddedResource Include="Samples\Map\OpenMobileMap\metadata.json" />
     <EmbeddedResource Include="Samples\Data\GenerateGeodatabase\metadata.json" />
     <AndroidAsset Include="Assets\SanFrancisco.tpk" />
   </ItemGroup>
@@ -316,10 +318,12 @@
     <Content Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.jpg" />
     <Content Include="Samples\Search\FindAddress\FindAddress.jpg" />
     <Content Include="Samples\MapView\ShowCallout\ShowCallout.jpg" />
+    <Content Include="Samples\Map\OpenMobileMap\OpenMobileMap.jpg" />
     <Content Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.jpg" />
   </ItemGroup>
-  <ItemGroup />
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Samples\Map\OpenMobileMap\" />
+  </ItemGroup>
   <ItemGroup>
     <Folder Include="Samples\Data\GenerateGeodatabase\" />
   </ItemGroup>

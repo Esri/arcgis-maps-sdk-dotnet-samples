@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Android.App;
@@ -23,9 +23,6 @@ namespace ArcGISRuntimeXamarin.Samples.StatisticalQuery
     [Activity]
     public class StatisticalQuery : Activity
     {
-        // Constant holding offset where the MapView control should start
-        private const int yPageOffset = 60;
-
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 
@@ -45,9 +42,10 @@ namespace ArcGISRuntimeXamarin.Samples.StatisticalQuery
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+
             Title = "Statistical query";
 
-            // Create the UI 
+            // Create the UI
             CreateLayout();
 
             // Initialize the map and layers
@@ -134,13 +132,14 @@ namespace ArcGISRuntimeXamarin.Samples.StatisticalQuery
             foreach (var kvp in stats)
             {
                 // If the value is null, display "--"
-                var value = "--";
+                var displayString = "--";
+
                 if (kvp.Value != null)
                 {
-                    value = kvp.Value.ToString();
+                    displayString = kvp.Value.ToString();
                 }
 
-                statInfoList.Add(kvp.Key + " : " + value);
+                statInfoList.Add(kvp.Key + " : " + displayString);
             }
 
             // Create an array adapter for the stats list
@@ -156,7 +155,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatisticalQuery
             dialogBuilder.SetView(statsListView);
             dialogBuilder.Show();
         }
-        
+
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
@@ -173,7 +172,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatisticalQuery
             getStatsButton.Text = "Get Statistics";
             getStatsButton.Click += OnExecuteStatisticsQueryClicked;
 
-            // Add the query controls to the layout  
+            // Add the query controls to the layout
             _controlsLayout.AddView(_onlyBigCitiesSwitch);
             _controlsLayout.AddView(_onlyInExtentSwitch);
             _controlsLayout.AddView(getStatsButton);

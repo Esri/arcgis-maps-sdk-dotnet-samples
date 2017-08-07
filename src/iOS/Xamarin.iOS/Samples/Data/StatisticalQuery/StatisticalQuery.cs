@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
@@ -22,9 +22,6 @@ namespace ArcGISRuntimeXamarin.Samples.StatisticalQuery
     [Register("StatisticalQuery")]
     public class StatisticalQuery : UIViewController
     {
-        // Constant holding offset where the MapView control should start
-        private const int yPageOffset = 60;
-
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 
@@ -50,7 +47,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatisticalQuery
         {
             base.ViewDidLoad();
 
-            // Create the UI 
+            // Create the UI
             CreateLayout();
 
             // Initialize the map and layers
@@ -63,7 +60,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatisticalQuery
             _controlsStackView.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, 110);
 
             // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, yPageOffset + 110, View.Bounds.Width, View.Bounds.Height - (yPageOffset + 110));
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
             base.ViewDidLayoutSubviews();
         }
@@ -122,7 +119,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatisticalQuery
             extentSwitchLabel.Text = "Only cities in extent";
 
             // Add the switch and label to a horizontal panel
-            UIStackView extentSwitchStackView = new UIStackView(); 
+            UIStackView extentSwitchStackView = new UIStackView();
             extentSwitchStackView.Axis = UILayoutConstraintAxis.Horizontal;
             extentSwitchStackView.Alignment = UIStackViewAlignment.Fill;
             extentSwitchStackView.Distribution = UIStackViewDistribution.EqualSpacing;
@@ -225,10 +222,11 @@ namespace ArcGISRuntimeXamarin.Samples.StatisticalQuery
             foreach (KeyValuePair<string, object> kvp in stats)
             {
                 // If the value is null, display "--"
-                var value = "--";
+                string displayString = "--";
+
                 if (kvp.Value != null)
                 {
-                    value = kvp.Value.ToString();
+                    displayString = kvp.Value.ToString();
                 }
 
                 // Add the statistics info as an alert action

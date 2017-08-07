@@ -1,4 +1,4 @@
-#Statistical query
+# Statistical query
 
 This sample demonstrates how to query a feature table to get statistics for a specified field.
 
@@ -8,5 +8,3 @@ This sample demonstrates how to query a feature table to get statistics for a sp
 
 Check the appropriate switches to evaluate only features representing the largest cities and/or those within the current extent. Click the button to see basic statistics displayed for world cities.
 
-[](Esri Tags: ArcGIS Runtime SDK .NET Xamarin Android C# C-Sharp DotNet)
-[](Esri Language: DotNet)

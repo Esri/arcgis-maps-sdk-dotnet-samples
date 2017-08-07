@@ -337,7 +337,6 @@
     <EmbeddedResource Include="Samples\Data\GenerateGeodatabase\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <BundleResource Include="Resources\TileCaches\SanFrancisco.tpk" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />

@@ -42,21 +42,15 @@ namespace ArcGISRuntimeXamarin.Samples.OpenMobileMap
             // Get the full path
             string filepath = Path.Combine(folder, "SampleData", "OpenMobileMap", filename);
 
-            // Variable to hold the MobileMapPackage
-            MobileMapPackage myMapPackage;
-
-            // Open the package, try downloading if that fails
-            try
+            // Check if the file exists
+            if (!File.Exists(filepath))
             {
-                myMapPackage = await MobileMapPackage.OpenAsync(filepath);
-            }
-            catch (FileNotFoundException)
-            {
-                // Download the package
+                // Download the map package file
                 await DataManager.GetData("e1f3a7254cb845b09450f54937c16061", "OpenMobileMap");
-                // try again
-                myMapPackage = await MobileMapPackage.OpenAsync(filepath);
             }
+
+            // Open the map package
+            MobileMapPackage myMapPackage = await MobileMapPackage.OpenAsync(filepath);
 
             // Check that there is at least one map
             if (myMapPackage.Maps.Count > 0)

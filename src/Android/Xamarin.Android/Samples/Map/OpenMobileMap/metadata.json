@@ -2,7 +2,7 @@
   "Name": "Open mobile map (map package)",
   "SampleName": "OpenMobileMap",
   "Description": "This sample demonstrates how to open a map from a mobile map package.",
-  "Instructions": "",
+  "Instructions": "The map package will be downloaded from an ArcGIS Online portal automatically.",
   "Type": 0,
   "RequiresOnlineConnection":true,
   "RequiresOfflineData":true,

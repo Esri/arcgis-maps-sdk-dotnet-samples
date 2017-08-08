@@ -143,7 +143,7 @@ namespace ArcGISRuntime.Samples.Models
         public DirectoryInfo SampleFolder { get; set; }
 
         /// <summary>
-        /// Gets the full namespace and typename for the VB sample
+        /// Gets the (expected) assembly-qualified name for the VB sample
         /// </summary>
         [IgnoreDataMember]
         public String SampleVbTypeName

@@ -150,10 +150,10 @@ namespace ArcGISRuntime.Samples.Models
         {
             get
             {
-#if !NETFX_CORE
-                return String.Format("{0}.{1}VB, ArcGISRuntime.WPF.Samples.VB, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", SampleNamespace, SampleName);
-#else
+#if NETFX_CORE
                 return String.Format("{0}.{1}VB, ArcGISRuntime.UWP.Samples.VB, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", SampleNamespace, SampleName);
+#else
+                return String.Format("{0}.{1}VB, ArcGISRuntime.WPF.Samples.VB, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", SampleNamespace, SampleName);
 #endif
             }
         }

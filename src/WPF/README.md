@@ -222,7 +222,7 @@
 ## Search
 
 
-- **Working with Addressing**
+- **Working with Addresses**
 
     * [Find Address](ArcGISRuntime.WPF.Samples/Samples/Search/FindAddress)
 

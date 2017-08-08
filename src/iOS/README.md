@@ -243,7 +243,7 @@
 ## Search
 
 
-- **Working with Addressing**
+- **Working with Addresses**
 
     * [Find Address](Xamarin.iOS/Samples/Search/FindAddress)
 

@@ -252,7 +252,7 @@
 ## Search
 
 
-- **Working with Addressing**
+- **Working with Addresses**
 
     * [Find Address](ArcGISRuntime.UWP.Samples/Samples/Search/FindAddress)
 

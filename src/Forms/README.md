@@ -264,7 +264,7 @@
 ## Search
 
 
-- **Working with Addressing**
+- **Working with Addresses**
 
     * [Find Address](Shared/Samples/Search/FindAddress)
 

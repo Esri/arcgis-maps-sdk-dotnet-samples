@@ -264,7 +264,7 @@
 ## Search
 
 
-- **Working with Addressing**
+- **Working with Addresses**
 
     * [Find Address](Xamarin.Android/Samples/Search/FindAddress)
 

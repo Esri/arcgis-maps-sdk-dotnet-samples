@@ -327,8 +327,8 @@
       "CategoryName": "Search",
       "SubCategories": [
         {
-          "Name": "Working with Addressing",
-          "SubCategoryName": "WorkingWithAddressing",
+          "Name": "Working with Addresses",
+          "SubCategoryName": "WorkingWithAddresses",
           "ShowGroup": true,
           "SampleInfos": [
             {

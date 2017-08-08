@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
@@ -24,12 +24,12 @@ namespace ArcGISRuntime.WPF.Samples.StatisticalQuery
 
         // World cities feature table
         private FeatureTable _worldCitiesTable;
-               
+
         public StatisticalQuery()
         {
             InitializeComponent();
 
-            // Initialize the base map and world cities feature layer 
+            // Initialize the base map and world cities feature layer
             Initialize();
         }
 
@@ -42,7 +42,7 @@ namespace ArcGISRuntime.WPF.Samples.StatisticalQuery
             _worldCitiesTable = new ServiceFeatureTable(_worldCitiesServiceUri);
 
             // Create a new feature layer to display features in the world cities table
-            FeatureLayer worldCitiesLayer = new FeatureLayer(_worldCitiesTable);            
+            FeatureLayer worldCitiesLayer = new FeatureLayer(_worldCitiesTable);
 
             // Add the world cities layer to the map
             myMap.OperationalLayers.Add(worldCitiesLayer);
@@ -54,7 +54,7 @@ namespace ArcGISRuntime.WPF.Samples.StatisticalQuery
         private async void OnExecuteStatisticsQueryClicked(object sender, RoutedEventArgs e)
         {
             // Create definitions for each statistic to calculate
-            StatisticDefinition statDefinitionAvgPop = new StatisticDefinition("POP", StatisticType.Average, "");            
+            StatisticDefinition statDefinitionAvgPop = new StatisticDefinition("POP", StatisticType.Average, "");
             StatisticDefinition statDefinitionMinPop = new StatisticDefinition("POP", StatisticType.Minimum, "");
             StatisticDefinition statDefinitionMaxPop = new StatisticDefinition("POP", StatisticType.Maximum, "");
             StatisticDefinition statDefinitionSumPop = new StatisticDefinition("POP", StatisticType.Sum, "");
@@ -79,7 +79,7 @@ namespace ArcGISRuntime.WPF.Samples.StatisticalQuery
             StatisticsQueryParameters statQueryParams = new StatisticsQueryParameters(statDefinitions);
 
             // If only using features in the current extent, set up the spatial filter for the statistics query parameters
-            if(OnlyInExtentCheckbox.IsChecked == true)
+            if (OnlyInExtentCheckbox.IsChecked == true)
             {
                 // Get the current extent (envelope) from the map view
                 Envelope currentExtent = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry as Envelope;
@@ -88,11 +88,11 @@ namespace ArcGISRuntime.WPF.Samples.StatisticalQuery
                 statQueryParams.Geometry = currentExtent;
 
                 // Set the spatial relationship to Intersects (which is the default)
-                statQueryParams.SpatialRelationship = SpatialRelationship.Intersects; 
+                statQueryParams.SpatialRelationship = SpatialRelationship.Intersects;
             }
 
             // If only evaluating the largest cities (over 5 million in population), set up an attribute filter
-            if(OnlyBigCitiesCheckbox.IsChecked == true)
+            if (OnlyBigCitiesCheckbox.IsChecked == true)
             {
                 // Set a where clause to get the largest cities (could also use "POP_CLASS = '5,000,000 and greater'")
                 statQueryParams.WhereClause = "POP_RANK = 1";

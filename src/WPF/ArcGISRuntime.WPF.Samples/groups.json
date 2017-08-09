@@ -214,6 +214,10 @@
             {
               "SampleName": "GenerateGeodatabase",
               "Path": "Samples/Data/GenerateGeodatabase"
+            },
+            {
+              "SampleName": "EditAndSyncFeatures",
+              "Path": "Samples/Data/EditAndSyncFeatures"
             }
           ]
         }

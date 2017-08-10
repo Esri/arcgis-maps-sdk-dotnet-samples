@@ -7,15 +7,10 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Drawing;
-using System.Linq;
-using System.IO;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using Android.App;
 using Android.OS;
 using Android.Widget;
+using ArcGISRuntimeXamarin.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -24,7 +19,12 @@ using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
-using ArcGISRuntimeXamarin.Managers;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
 {

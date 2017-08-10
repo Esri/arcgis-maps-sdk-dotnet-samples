@@ -378,7 +378,7 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
             job.ProgressChanged += Job_ProgressChanged;
 
             // Start the sync
-            
+
             job.Start();
         }
 

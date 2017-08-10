@@ -110,7 +110,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
             mySyncButton.SetTitle("Synchronize", UIControlState.Normal);
             mySyncButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
             mySyncButton.BackgroundColor = UIColor.LightTextColor;
-            mySyncButton.TouchUpInside += MySyncButton_TouchUpInside;
+            mySyncButton.TouchUpInside += SyncButton_Click;
             mySyncButton.Enabled = false;
 
             // Place the progress bar
@@ -118,11 +118,6 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
 
             // Add the views
             View.AddSubviews(myMapView, myProgressBar, myGenerateButton);
-        }
-
-        private void MySyncButton_TouchUpInside(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
         }
 
         private async void Initialize()
@@ -457,7 +452,6 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
             // Update the progress bar
             UpdateProgressBar(job.Progress);
         }
-
 
         // Get the path to the tile package used for the basemap
         private async Task<string> GetTpkPath()

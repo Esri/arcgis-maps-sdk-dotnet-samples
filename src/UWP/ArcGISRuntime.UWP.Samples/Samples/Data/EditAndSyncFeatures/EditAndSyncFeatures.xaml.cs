@@ -372,11 +372,24 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
             // Create job
             SyncGeodatabaseJob job = _gdbSyncTask.SyncGeodatabase(parameters, _resultGdb);
 
-            // Subscribe to status updates (including progress updates)
+            // Subscribe to status updates
             job.JobChanged += Job_JobChanged;
 
+            // Subscribe to progress updates
+            job.ProgressChanged += Job_ProgressChanged;
+
             // Start the sync
+
             job.Start();
+        }
+
+        private void Job_ProgressChanged(object sender, EventArgs e)
+        {
+            // Get the job object
+            SyncGeodatabaseJob job = sender as SyncGeodatabaseJob;
+
+            // Update the progress bar
+            UpdateProgressBar(job.Progress);
         }
 
         // Get the path to the tile package used for the basemap
@@ -489,9 +502,6 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
                 }
                 else
                 {
-                    // Update the progress bar's value
-                    UpdateProgressBar(job.Progress);
-
                     // Show the progress bar
                     MyProgressBar.Visibility = Visibility.Visible;
                 }

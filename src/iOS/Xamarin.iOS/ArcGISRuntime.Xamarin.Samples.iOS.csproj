@@ -337,7 +337,9 @@
     <EmbeddedResource Include="Samples\Data\GenerateGeodatabase\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Samples\Data\EditAndSyncFeatures\metadata.json" />
+    <EmbeddedResource Include="Samples\Data\EditAndSyncFeatures\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />

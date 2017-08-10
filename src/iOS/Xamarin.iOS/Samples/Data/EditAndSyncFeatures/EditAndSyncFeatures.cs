@@ -25,7 +25,7 @@ using ArcGISRuntimeXamarin.Managers;
 using Foundation;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
+namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
 {
     [Register("EditAndSyncFeatures")]
     public class EditAndSyncFeatures : UIViewController
@@ -82,6 +82,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
         public override void ViewDidLayoutSubviews()
         {
             base.ViewDidLayoutSubviews();
+
             // Place the MapView
             myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
@@ -113,11 +114,8 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
             mySyncButton.TouchUpInside += SyncButton_Click;
             mySyncButton.Enabled = false;
 
-            // Place the progress bar
-            myProgressBar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 10, View.Bounds.Width, 10);
-
             // Add the views
-            View.AddSubviews(myMapView, myProgressBar, myGenerateButton);
+            View.AddSubviews(myMapView, myProgressBar, mySyncButton, myGenerateButton);
         }
 
         private async void Initialize()
@@ -149,6 +147,9 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
 
             // Set up an event handler for when the viewpoint (extent) changes
             myMapView.ViewpointChanged += MapViewExtentChanged;
+
+            // Set up an event handler for 'tapped' events
+            myMapView.GeoViewTapped += GeoViewTapped;
 
             // Update the local data path for the geodatabase file
             _gdbPath = GetGdbPath();
@@ -267,7 +268,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
 
             // Create an envelope that is a bit smaller than the extent
             EnvelopeBuilder envelopeBldr = new EnvelopeBuilder(extent);
-            envelopeBldr.Expand(0.80);
+            envelopeBldr.Expand(0.70);
 
             // Get the (only) graphics overlay in the map view
             var extentOverlay = myMapView.GraphicsOverlays.FirstOrDefault();
@@ -463,13 +464,13 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
             string folder = DataManager.GetDataFolder();
 
             // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "GenerateGeodatabase", filename);
+            string filepath = Path.Combine(folder, "SampleData", "EditAndSyncFeatures", filename);
 
             // Check if the file exists
             if (!File.Exists(filepath))
             {
                 // Download the map package file
-                await DataManager.GetData("3f1bbf0ec70b409a975f5c91f363fe7d", "GenerateGeodatabase");
+                await DataManager.GetData("3f1bbf0ec70b409a975f5c91f363fe7d", "EditAndSyncFeatures");
             }
             return filepath;
         }
@@ -526,7 +527,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
             InvokeOnMainThread(() =>
             {
                 // Update the progress bar value
-                myProgressBar.Progress = (float)progress;
+                myProgressBar.Progress = progress / 100.0f;
             });
         }
 

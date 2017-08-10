@@ -137,6 +137,9 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
             // Set up an event handler for when the viewpoint (extent) changes
             myMapView.ViewpointChanged += MapViewExtentChanged;
 
+            // Set up event handler for mapview taps
+            myMapView.GeoViewTapped += GeoViewTapped;
+
             // Update the local data path for the geodatabase file
             _gdbPath = GetGdbPath();
 
@@ -450,13 +453,13 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
             string folder = DataManager.GetDataFolder();
 
             // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "GenerateGeodatabase", filename);
+            string filepath = Path.Combine(folder, "SampleData", "EditAndSyncFeatures", filename);
 
             // Check if the file exists
             if (!File.Exists(filepath))
             {
                 // Download the map package file
-                await DataManager.GetData("3f1bbf0ec70b409a975f5c91f363fe7d", "GenerateGeodatabase");
+                await DataManager.GetData("3f1bbf0ec70b409a975f5c91f363fe7d", "EditAndSyncFeatures");
             }
             return filepath;
         }
@@ -541,11 +544,14 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
                 {
                     // Update the progress bar's value
                     UpdateProgressBar(0);
+
+                    // Hide the progress bar
+                    myProgressBar.Visibility = Android.Views.ViewStates.Gone;
                 }
                 else
                 {
-                    // Update the progress bar's value
-                    UpdateProgressBar(job.Progress);
+                    // Show the progress bar
+                    myProgressBar.Visibility = Android.Views.ViewStates.Visible;
                 }
 
                 // Do the remainder of the job status changed work

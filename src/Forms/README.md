@@ -178,6 +178,10 @@
 
     This sample demonstrates how to take a feature service offline by generating a geodatabase.
 
+    * [Edit and sync features](Shared/Samples/Data/EditAndSyncFeatures)
+
+    This sample demonstrates how to synchronize offline edits with a feature service.
+
 ## Display Information
 
 

@@ -387,7 +387,6 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
             job.ProgressChanged += Job_ProgressChanged;
 
             // Start the sync
-
             job.Start();
         }
 

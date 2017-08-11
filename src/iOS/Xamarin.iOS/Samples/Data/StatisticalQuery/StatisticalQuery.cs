@@ -56,8 +56,11 @@ namespace ArcGISRuntimeXamarin.Samples.StatisticalQuery
 
         public override void ViewDidLayoutSubviews()
         {
+            // Get height of status bar and navigation bar
+            nfloat pageOffset = NavigationController.NavigationBar.Frame.Size.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+
             // Setup the visual frame for the query controls
-            _controlsStackView.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, 110);
+            _controlsStackView.Frame = new CoreGraphics.CGRect(0,  pageOffset, View.Bounds.Width, 150);
 
             // Setup the visual frame for the MapView
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
@@ -230,7 +233,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatisticalQuery
                 }
 
                 // Add the statistics info as an alert action
-                statsAlert.AddAction(UIAlertAction.Create(kvp.Key + " : " + value, UIAlertActionStyle.Default, null));
+                statsAlert.AddAction(UIAlertAction.Create(kvp.Key + " : " + displayString, UIAlertActionStyle.Default, null));
             }
 
             // Add an Action to dismiss the alert

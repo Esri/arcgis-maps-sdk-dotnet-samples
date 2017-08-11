@@ -70,7 +70,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            Title = "Generate geodatabase";
+            Title = "Edit and Sync Features";
 
             // Create the UI, setup the control references and execute initialization
             CreateLayout();

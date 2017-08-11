@@ -27,7 +27,6 @@ namespace ArcGISRuntimeXamarin.Samples.SketchOnMap
     public class SketchOnMap : UIViewController
     {
         // Constant holding offset where the MapView control should start
-        private const int yPageOffset = 60;
 
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
@@ -50,17 +49,20 @@ namespace ArcGISRuntimeXamarin.Samples.SketchOnMap
         {
             base.ViewDidLoad();
 
+			// Initialize controls, set up event handlers, etc.
+			Initialize();
+
             // Create the UI 
             CreateLayout();
 
-            // Initialize controls, set up event handlers, etc.
-            Initialize();
+
         }
 
         public override void ViewDidLayoutSubviews()
         {
            // Setup the visual frame for the MapView
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _segmentButton.Frame = new CoreGraphics.CGRect(0, _myMapView.Bounds.Height - 60, View.Bounds.Width, 30);
         }
 
         private void Initialize()
@@ -93,12 +95,12 @@ namespace ArcGISRuntimeXamarin.Samples.SketchOnMap
         private void CreateLayout()
         {
             // Create a new MapView control
-            _myMapView = new MapView();
+
 
             // Add a segmented button control
             _segmentButton = new UISegmentedControl();
             _segmentButton.BackgroundColor = UIColor.White;
-            _segmentButton.Frame = new CoreGraphics.CGRect(0, _myMapView.Bounds.Height, View.Bounds.Width, 30);
+            _segmentButton.Frame = new CoreGraphics.CGRect(0, _myMapView.Bounds.Height - 60, View.Bounds.Width, 30);
             _segmentButton.InsertSegment("Sketch", 0, false);
             _segmentButton.InsertSegment("Edit", 1, false);
             _segmentButton.InsertSegment("Undo", 2, false);

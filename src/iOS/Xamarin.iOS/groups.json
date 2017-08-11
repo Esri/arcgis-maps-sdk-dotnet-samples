@@ -25,9 +25,13 @@
               "SampleName": "DisplayLayerViewState",
               "Path": "Samples/MapView/DisplayLayerViewState"
             },
-              {
-              "SampleName":"TakeScreenshot",
-              "Path":"Samples/MapView/TakeScreenshot"
+            {
+              "SampleName": "TakeScreenshot",
+              "Path": "Samples/MapView/TakeScreenshot"
+            },
+            {
+              "SampleName": "ShowCallout",
+              "Path": "Samples/MapView/ShowCallout"
             }
           ]
         },
@@ -41,8 +45,13 @@
               "Path":"Samples/Map/DisplayMap"
             },
             {
-              "SampleName":"OpenExistingMap",
-              "Path":"Samples/Map/OpenExistingMap"
+              "SampleName": "OpenMobileMap",
+              "Path": "Samples/Map/OpenMobileMap"
+
+            },
+            {
+              "SampleName":"OpenMapURL",
+              "Path":"Samples/Map/OpenMapURL"
             },
             {
               "SampleName":"SearchPortalMaps",
@@ -104,17 +113,36 @@
           ]
         },
         {
-          "Name":"Map Image Layers",
-          "SubCategoryName":"ArcGISMapImageLayer",
+          "Name": "Map Image Layers",
+          "SubCategoryName": "ArcGISMapImageLayer",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "ArcGISMapImageLayerUrl",
+              "Path": "Samples/Layers/ArcGISMapImageLayerUrl"
+            },
+            {
+              "SampleName": "ChangeSublayerVisibility",
+              "Path": "Samples/Layers/ChangeSublayerVisibility"
+            },
+            {
+              "SampleName": "WMTSLayer",
+              "Path": "Samples/Layers/WMTSLayer"
+            }
+          ]
+        },
+        {
+          "Name":"Raster Layers",
+          "SubCategoryName":"RasterLayer",
           "ShowGroup":true,
           "SampleInfos":[
             {
-              "SampleName":"ArcGISMapImageLayerUrl",
-              "Path":"Samples/Layers/ArcGISMapImageLayerUrl"
+              "SampleName": "RasterLayerImageServiceRaster",
+              "Path": "Samples/Layers/RasterLayerImageServiceRaster"
             },
             {
-              "SampleName":"ChangeSublayerVisibility",
-              "Path":"Samples/Layers/ChangeSublayerVisibility"
+              "SampleName": "RasterLayerRasterFunction",
+              "Path": "Samples/Layers/RasterLayerRasterFunction"
             }
           ]
         }
@@ -176,9 +204,13 @@
               "SampleName": "ServiceFeatureTableManualCache",
               "Path": "Samples/Data/ServiceFeatureTableManualCache"
             },
-             {
+            {
               "SampleName": "FeatureLayerQuery",
               "Path": "Samples/Data/FeatureLayerQuery"
+            },
+            {
+              "SampleName": "GenerateGeodatabase",
+              "Path": "Samples/Data/GenerateGeodatabase"
             }
           ]
         }
@@ -273,6 +305,23 @@
       ]
     },
     {
+      "Name": "Network Analysis",
+      "CategoryName": "NetworkAnalysis",
+      "SubCategories": [
+        {
+          "Name": "Routes",
+          "SubCategoryName": "Routes",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "FindRoute",
+              "Path": "Samples/NetworkAnalysis/FindRoute"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "Name": "Scenes",
       "CategoryName": "Scenes",
       "SubCategories": [
@@ -284,6 +333,17 @@
             {
               "SampleName": "UseDistanceCompositeSym",
               "Path": "Samples/Symbology/UseDistanceCompositeSym"
+            }
+          ]
+        },
+        {
+          "Name": "Scene Layers",
+          "SubCategoryName": "SceneLayers",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "SceneLayerUrl",
+              "Path": "Samples/Layers/SceneLayerUrl"
             }
           ]
         }
@@ -301,6 +361,23 @@
             {
               "SampleName": "DisplayDeviceLocation",
               "Path": "Samples/Location/DisplayDeviceLocation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Search",
+      "CategoryName": "Search",
+      "SubCategories": [
+        {
+          "Name": "Working with Addresses",
+          "SubCategoryName": "WorkingWithAddresses",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "FindAddress",
+              "Path": "Samples/Search/FindAddress"
             }
           ]
         }

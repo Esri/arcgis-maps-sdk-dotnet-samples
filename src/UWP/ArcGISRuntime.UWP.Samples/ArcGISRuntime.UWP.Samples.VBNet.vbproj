@@ -93,15 +93,30 @@
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <Content Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg" />
+    <Content Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.jpg" />
+    <Content Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg" />
+    <Content Include="Samples\MapView\ShowCallout\ShowCallout.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\WMTSLayer\WMTSLayer.jpg" />
     <Content Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Map\OpenMapURL\OpenMapURL.jpg" />
     <Content Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg" />
+    <Content Include="Samples\NetworkAnalysis\FindRoute\FindRoute.jpg" />
     <Content Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg" />
     <Content Include="Samples\MapView\ShowMagnifier\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Samples\Layers\RasterLayerImageServiceRaster\metadata.json" />
+    <None Include="Samples\Layers\RasterLayerImageServiceRaster\README.md" />
+    <None Include="Samples\Layers\RasterLayerRasterFunction\metadata.json" />
+    <None Include="Samples\Layers\RasterLayerRasterFunction\README.md" />
+    <None Include="Samples\Layers\WMTSLayer\metadata.json" />
+    <None Include="Samples\Map\OpenMapURL\metadata.json" />
     <None Include="Samples\Map\SearchPortalMaps\metadata.json" />
+    <None Include="Samples\NetworkAnalysis\FindRoute\metadata.json" />
     <None Include="Samples\Symbology\UseDistanceCompositeSym\metadata.json" />
     <Content Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg" />
     <None Include="Samples\GraphicsOverlay\SketchOnMap\metadata.json" />
@@ -134,7 +149,6 @@
     <Content Include="Samples\Map\ChangeBasemap\ChangeBasemap.jpg" />
     <Content Include="Samples\Map\DisplayMap\DisplayMap.jpg" />
     <Content Include="Samples\Map\ManageBookmarks\ManageBookmarks.jpg" />
-    <Content Include="Samples\Map\OpenExistingMap\OpenExistingMap.jpg" />
     <Content Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.jpg" />
     <Content Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.jpg" />
     <Content Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.jpg" />
@@ -205,7 +219,6 @@
     <None Include="Samples\Map\ChangeBasemap\metadata.json" />
     <None Include="Samples\Map\DisplayMap\metadata.json" />
     <None Include="Samples\Map\ManageBookmarks\metadata.json" />
-    <None Include="Samples\Map\OpenExistingMap\metadata.json" />
     <None Include="Samples\Map\SetInitialMapLocation\metadata.json" />
     <None Include="Samples\Map\SetInitialMapArea\metadata.json" />
     <None Include="Samples\Map\SetMapSpatialReference\metadata.json" />
@@ -215,6 +228,11 @@
     <None Include="Samples\Symbology\RenderSimpleMarkers\metadata.json" />
     <None Include="Samples\Symbology\RenderUniqueValues\metadata.json" />
     <None Include="Samples\Tutorial\AuthorEditSaveMap\metadata.json" />
+    <None Include="Samples\Search\FindAddress\metadata.json" />
+    <Content Include="Samples\MapView\ShowCallout\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Search\FindAddress\FindAddress.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -279,6 +297,15 @@
     <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrlVB.xaml.vb">
       <DependentUpon>FeatureLayerUrlVB.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRasterVB.xaml.vb">
+      <DependentUpon>RasterLayerImageServiceRasterVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunctionVB.xaml.vb">
+      <DependentUpon>RasterLayerRasterFunctionVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\WMTSLayer\WMTSLayerVB.xaml.vb">
+      <DependentUpon>WMTSLayerVB.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocationVB.xaml.vb">
       <DependentUpon>DisplayDeviceLocationVB.xaml</DependentUpon>
     </Compile>
@@ -315,8 +342,8 @@
     <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarksVB.xaml.vb">
       <DependentUpon>ManageBookmarksVB.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Map\OpenExistingMap\OpenExistingMapVB.xaml.vb">
-      <DependentUpon>OpenExistingMapVB.xaml</DependentUpon>
+    <Compile Include="Samples\Map\OpenMapURL\OpenMapURLVB.xaml.vb">
+      <DependentUpon>OpenMapURLVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Map\SearchPortalMaps\SearchPortalMapsVB.xaml.vb">
       <DependentUpon>SearchPortalMapsVB.xaml</DependentUpon>
@@ -332,6 +359,9 @@
     </Compile>
     <Compile Include="Samples\Map\SetMinMaxScale\SetMinMaxScaleVB.xaml.vb">
       <DependentUpon>SetMinMaxScaleVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\NetworkAnalysis\FindRoute\FindRouteVB.xaml.vb">
+      <DependentUpon>FindRouteVB.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkersVB.xaml.vb">
       <DependentUpon>RenderPictureMarkersVB.xaml</DependentUpon>
@@ -358,6 +388,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg" />
+    <Compile Include="Samples\Search\FindAddress\FindAddressVB.xaml.vb">
+      <DependentUpon>FindAddressVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\ShowCallout\ShowCalloutVB.xaml.vb">
+      <DependentUpon>ShowCalloutVB.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -480,6 +516,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRasterVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunctionVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\WMTSLayer\WMTSLayerVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocationVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -528,7 +576,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Map\OpenExistingMap\OpenExistingMapVB.xaml">
+    <Page Include="Samples\Map\OpenMapURL\OpenMapURLVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -552,6 +600,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\NetworkAnalysis\FindRoute\FindRouteVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkersVB.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -569,6 +621,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMapVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Search\FindAddress\FindAddressVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\ShowCallout\ShowCalloutVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

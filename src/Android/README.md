@@ -8,6 +8,10 @@
 
     This sample demonstrates different ways in which you can change the viewpoint or visible area of the map.
 
+    * [Map rotation](Xamarin.Android/Samples/MapView/MapRotation)
+
+    This sample illustrates how to rotate a map.
+
     * [Display drawing status](Xamarin.Android/Samples/MapView/DisplayDrawingStatus)
 
     This sample demonstrates how to use the DrawStatus value of the MapView to notify user that the MapView is drawing.
@@ -16,20 +20,36 @@
 
     This sample demonstrates how to get view status for layers in a map.
 
-    * [Map rotation](Xamarin.Android/Samples/MapView/MapRotation)
+    * [Take Screenshot](Xamarin.Android/Samples/MapView/TakeScreenshot)
 
-    This sample illustrates how to rotate a map.
+    This sample demonstrates how you can take screenshot of a map. Click 'capture' button to take a screenshot of the visible area of the map. Created image is shown in the sample after creation.
+
+    * [Show magnifier](Xamarin.Android/Samples/MapView/ShowMagnifier)
+
+    This sample demonstrates how you can tap and hold on a map to get the magnifier. You can also pan while tapping and holding to move the magnifier across the map.
+
+    * [Show callout](Xamarin.Android/Samples/MapView/ShowCallout)
+
+    This sample illustrates how to show callouts on a map in response to user interaction.
 
 
 - **Map**
 
     * [Display a map](Xamarin.Android/Samples/Map/DisplayMap)
 
-    This samples demonstrates how to display a map with a basemap
+    This sample demonstrates how to display a map with a basemap.
 
-    * [Open an existing map](Xamarin.Android/Samples/Map/OpenExistingMap)
+    * [Open mobile map (map package)](Xamarin.Android/Samples/Map/OpenMobileMap)
+
+    This sample demonstrates how to open a map from a mobile map package.
+
+    * [Open Map (URL)](Xamarin.Android/Samples/Map/OpenMapURL)
 
     This sample demonstrates how to open an existing map from a portal. The sample opens with a map displayed by default. You can change the shown map by selecting a new one from the populated list.
+
+    * [Search a portal for maps](Xamarin.Android/Samples/Map/SearchPortalMaps)
+
+    This sample demonstrates searching a portal for web maps and loading them in the map view. You can search ArcGIS Online public web maps using tag values or browse the web maps in your account. OAuth is used to authenticate with ArcGIS Online to access items in your account.
 
     * [Set Min & Max Scale](Xamarin.Android/Samples/Map/SetMinMaxScale)
 
@@ -55,6 +75,14 @@
 
     This sample demonstrates how to dynamically change the basemap displayed in a Map.
 
+    * [Manage bookmarks](Xamarin.Android/Samples/Map/ManageBookmarks)
+
+    This sample demonstrates how to access and add bookmarks to a map.
+
+    * [Author and save a map](Xamarin.Android/Samples/Map/AuthorMap)
+
+    This sample demonstrates how to author and save a map as an ArcGIS portal item (web map). Saving a map to arcgis.com requires an ArcGIS Online login.
+
 ## Layers
 
 
@@ -78,6 +106,21 @@
     * [Change sublayer visibility](Xamarin.Android/Samples/Layers/ChangeSublayerVisibility)
 
     This sample demonstrates how to show or hide sublayers of a map image layer.
+
+    * [WMTS layer](Xamarin.Android/Samples/Layers/WMTSLayer)
+
+    This sample demonstrates how to display a WMTS layer on a map via a Uri and WmtsLayerInfo.
+
+
+- **Raster Layers**
+
+    * [ArcGIS raster layer (service)](Xamarin.Android/Samples/Layers/RasterLayerImageServiceRaster)
+
+    This sample demonstrates how to show a raster layer on a map based on an image service layer.
+
+    * [ArcGIS raster function (service)](Xamarin.Android/Samples/Layers/RasterLayerRasterFunction)
+
+    This sample demonstrates how to show a raster layer on a map based on an image service layer that has a raster function applied.
 
 ## Features
 
@@ -106,15 +149,15 @@
 
     * [Create feature collection layer](Xamarin.Android/Samples/Layers/CreateFeatureCollectionLayer)
 
-    This samples demonstrates how to create a new feature collection with several feature collection tables. The collection is displayed in the map as a feature collection layer.
+    This sample demonstrates how to create a new feature collection with several feature collection tables. The collection is displayed in the map as a feature collection layer.
 
     * [Create a feature collection layer from a portal item](Xamarin.Android/Samples/Layers/FeatureCollectionLayerFromPortal)
 
-    This samples demonstrates opening a feature collection saved as a portal item.
+    This sample demonstrates opening a feature collection saved as a portal item.
 
     * [Feature collection layer from query result](Xamarin.Android/Samples/Layers/FeatureCollectionLayerFromQuery)
 
-    This samples demonstrates how to create a feature collection layer to show a query result from a service feature table.
+    This sample demonstrates how to create a feature collection layer to show a query result from a service feature table.
 
 
 - **Feature Tables**
@@ -131,6 +174,10 @@
 
     This sample demonstrates how to use a feature service in manual cache mode.
 
+    * [Generate geodatabase](Xamarin.Android/Samples/Data/GenerateGeodatabase)
+
+    This sample demonstrates how to take a feature service offline by generating a geodatabase.
+
 ## Display Information
 
 
@@ -143,6 +190,10 @@
     * [Identify graphics](Xamarin.Android/Samples/GraphicsOverlay/IdentifyGraphics)
 
     This sample demonstrates how to identify graphics in a graphics overlay. When you tap on a graphic on the map, you will see an alert message displayed.
+
+    * [Sketch graphics on the map](Xamarin.Android/Samples/GraphicsOverlay/SketchOnMap)
+
+    This sample demonstrates how to interactively sketch and edit graphics in the map view and display them in a graphics overlay. You can sketch a variety of geometry types and undo or redo operations.
 
 
 - **Symbology**
@@ -159,6 +210,48 @@
 
     This sample demonstrate how to use a unique value renderer to style different features in a feature layer with different symbols. Features do not have a symbol property for you to set, renderers should be used to define the symbol for features in feature layers. The unique value renderer allows for separate symbols to be used for features that have specific attribute values in a defined field.
 
+## Analysis
+
+
+- **Geoprocessing**
+
+    * [Analyze hotspots](Xamarin.Android/Samples/Geoprocessing/AnalyzeHotspots)
+
+    This sample demonstrates how to execute the GeoprocessingTask asynchronously to calculate a hotspot analysis based on the frequency of 911 calls. It calculates the frequency of these calls within a given study area during a specified constrained time period set between 1/1/1998 and 5/31/1998.
+
+    * [Analyze viewshed](Xamarin.Android/Samples/Geoprocessing/AnalyzeViewshed)
+
+    This sample demonstrates how to use GeoprocessingTask to calculate a viewshed using a geoprocessing service. Click any point on the map to see all areas that are visible within a 1 kilometer radius. It may take a few seconds for the model to run and send back the results.
+
+    * [List geodatabase versions](Xamarin.Android/Samples/Geoprocessing/ListGeodatabaseVersions)
+
+    This sample demonstrates how to use GeoprocessingTask to get available geodatabase versions from the enterprise geodatabase. Geoprocessing task will return the versions as a table that is shown to the user in a list. This is a good example how to use geoprocessing on mapless application.
+
+## Scenes
+
+
+- **Scene symbols**
+
+    * [Distance composite symbol](Xamarin.Android/Samples/Symbology/UseDistanceCompositeSym)
+
+    This sample demonstrates how to create a `DistanceCompositeSceneSymbol` with unique marker symbols to display at various distances from the camera.
+
+
+- **Scene Layers**
+
+    * [ArcGIS Scene layer (URL)](Xamarin.Android/Samples/Layers/SceneLayerUrl)
+
+    This sample demonstrates how to add an ArcGISSceneLayer as a layer in a Scene.
+
+## Network Analysis
+
+
+- **Route**
+
+    * [Find a route](Xamarin.Android/Samples/NetworkAnalysis/FindRoute)
+
+    This sample demonstrates how to solve for the best route between two locations on the map and display driving directions between them.
+
 ## Location
 
 
@@ -168,7 +261,22 @@
 
     This sample demonstrates how you can enable location services and switch between different types of auto pan modes.
 
+## Search
 
 
-[](Esri Tags: ArcGIS Runtime SDK .NET WinRT WinStore WPF WinPhone C# C-Sharp DotNet XAML MVVM)
-[](Esri Language: DotNet)
+- **Working with Addresses**
+
+    * [Find Address](Xamarin.Android/Samples/Search/FindAddress)
+
+    This sample demonstrates how you can use the LocatorTask API to geocode an address and display it with a pin on the map. Tapping the pin displays the reverse-geocoded address in a callout.
+
+## Tutorial
+
+
+- **Author edit and save map**
+
+    * [Author, edit, and save a map](Xamarin.Android/Samples/Tutorial/AuthorEditSaveMap)
+
+    This sample demonstrates how to author and save a map as an ArcGIS portal item (web map). It is also the solution to the [Author, edit, and save maps to your portal tutorial](https://developers.arcgis.com/net/latest/android/guide/author-edit-and-save-maps-to-your-portal.htm). Saving a map to arcgis.com requires an ArcGIS Online login.
+
+

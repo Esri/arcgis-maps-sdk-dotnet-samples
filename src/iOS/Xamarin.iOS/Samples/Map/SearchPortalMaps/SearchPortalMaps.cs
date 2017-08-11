@@ -31,6 +31,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
         private MapView _myMapView = new MapView();
 
         UISegmentedControl _segmentButton;
+        UIToolbar _toolbar;
 
         // Use a TaskCompletionSource to track the completion of the authorization
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
@@ -88,8 +89,8 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             }
                 
 
-            _segmentButton.Frame = new CoreGraphics.CGRect(0, _myMapView.Bounds.Height, View.Bounds.Width, 30);
-
+            _segmentButton.Frame = new CoreGraphics.CGRect(10, 10, View.Bounds.Width - 20, 24);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
 
 
             base.ViewDidLayoutSubviews();
@@ -150,8 +151,23 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             // Handle the "click" for each segment (new segment is selected)
             _segmentButton.ValueChanged += SegmentButtonClicked;
 
+			// Create a UIBarButtonItem where its view is the SegmentControl
+			UIBarButtonItem barButtonItem = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
+			barButtonItem.CustomView = _segmentButton;
+
+			// Create a toolbar on the bottom of the display 
+			_toolbar = new UIToolbar();
+			_toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
+			_toolbar.AutosizesSubviews = true;
+
+			// Add the bar button item to an array of UIBarButtonItems
+			UIBarButtonItem[] barButtonItems = new UIBarButtonItem[] { barButtonItem };
+
+			// Add the UIBarButtonItems array to the toolbar
+			_toolbar.SetItems(barButtonItems, true);
+
             // Add the MapView and segmented button to the page
-            View.AddSubviews(_myMapView, _segmentButton);
+            View.AddSubviews(_myMapView, _toolbar);
         }
 
         private void SegmentButtonClicked(object sender, EventArgs e)
@@ -295,9 +311,16 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             this.PresentViewController(mapListActionSheet, true, null);
         }
 
-        private void DisplayMap(Uri webMapUri)
+        private async void DisplayMap(Uri webMapUri)
         {
             var webMap = new Map(webMapUri);
+            try
+            {
+                await webMap.LoadAsync();
+            } catch (Esri.ArcGISRuntime.ArcGISRuntimeException e){
+				var alert = new UIAlertView("Map Load Error", e.Message, null, "OK", null);
+				alert.Show();
+            }
 
             // Handle change in the load status (to report load errors)
             webMap.LoadStatusChanged += WebMapLoadStatusChanged;

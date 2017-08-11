@@ -1,7 +1,7 @@
 {
   "Name": "Create a feature collection layer",
   "SampleName": "CreateFeatureCollectionLayer",
-  "Description": "This samples demonstrates how to create a new feature collection with several feature collection tables. The collection is displayed in the map as a feature collection layer.",
+  "Description": "This sample demonstrates how to create a new feature collection with several feature collection tables. The collection is displayed in the map as a feature collection layer.",
   "Instructions": "",
   "Type": 0,
   "RequiresOnlineConnection":true,

@@ -213,7 +213,7 @@
     <None Include="Entitlements.plist" />
     <EmbeddedResource Include="Samples\Layers\ArcGISTiledLayerUrl\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\ArcGISMapImageLayerUrl\metadata.json" />
-    <EmbeddedResource Include="Samples\Map\OpenExistingMap\metadata.json" />
+    <EmbeddedResource Include="Samples\Map\OpenMapURL\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\ChangeViewpoint\metadata.json" />
     <EmbeddedResource Include="Samples\Symbology\RenderSimpleMarkers\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -319,7 +319,23 @@
     <EmbeddedResource Include="Samples\Map\SearchPortalMaps\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Samples\Data\StatisticalQuery\metadata.json">
+    <EmbeddedResource Include="Samples\Data\StatisticalQuery\metadata.json" />
+    <EmbeddedResource Include="Samples\NetworkAnalysis\FindRoute\metadata.json" />
+    <EmbeddedResource Include="Samples\Search\FindAddress\metadata.json" />
+    <EmbeddedResource Include="Samples\MapView\ShowCallout\metadata.json" />
+    <BundleResource Include="Samples\MapView\ShowCallout\ShowCallout.jpg" />
+    <EmbeddedResource Include="Samples\Layers\WMTSLayer\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Samples\Layers\RasterLayerImageServiceRaster\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Samples\Layers\SceneLayerUrl\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\RasterLayerRasterFunction\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Samples\Map\OpenMobileMap\metadata.json" />
+    <EmbeddedResource Include="Samples\Data\GenerateGeodatabase\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
@@ -335,6 +351,7 @@
     <Compile Include="Models\SampleModelExtensions.cs" />
     <Compile Include="Models\SampleStructureMap.cs" />
     <Compile Include="Models\SubCategoryModel.cs" />
+    <Compile Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.cs" />
     <Compile Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.cs" />
     <Compile Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.cs" />
     <Compile Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.cs" />
@@ -345,7 +362,6 @@
     <Compile Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.cs" />
     <Compile Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.cs" />
     <Compile Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.cs" />
-    <Compile Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.cs" />
     <Compile Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.cs" />
     <Compile Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.cs" />
     <Compile Include="Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortal.cs" />
@@ -353,6 +369,10 @@
     <Compile Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.cs" />
     <Compile Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.cs" />
     <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.cs" />
+    <Compile Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.cs" />
+    <Compile Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.cs" />
+    <Compile Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.cs" />
+    <Compile Include="Samples\Layers\WMTSLayer\WMTSLayer.cs" />
     <Compile Include="Samples\MapView\ShowMagnifier\ShowMagnifier.cs" />
     <Compile Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.cs" />
     <Compile Include="Samples\Map\AuthorMap\AuthorMap.cs" />
@@ -364,13 +384,15 @@
     <Compile Include="Samples\Map\DisplayMap\DisplayMap.cs" />
     <Compile Include="Samples\MapView\MapRotation\MapRotation.cs" />
     <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarks.cs" />
-    <Compile Include="Samples\Map\OpenExistingMap\OpenExistingMap.cs" />
+    <Compile Include="Samples\Map\OpenMobileMap\OpenMobileMap.cs" />
+    <Compile Include="Samples\Map\OpenMapURL\OpenMapURL.cs" />
     <Compile Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.cs" />
     <Compile Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.cs" />
     <Compile Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.cs" />
     <Compile Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.cs" />
     <Compile Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.cs" />
     <Compile Include="Samples\MapView\TakeScreenshot\TakeScreenshot.cs" />
+    <Compile Include="Samples\NetworkAnalysis\FindRoute\FindRoute.cs" />
     <Compile Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.cs" />
     <Compile Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.cs" />
     <Compile Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.cs" />
@@ -387,6 +409,8 @@
     <Compile Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.designer.cs">
       <DependentUpon>ChangeSublayerVisibility.cs</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Search\FindAddress\FindAddress.cs" />
+    <Compile Include="Samples\MapView\ShowCallout\ShowCallout.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup />
@@ -398,7 +422,7 @@
     <BundleResource Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Samples\Map\OpenExistingMap\OpenExistingMap.jpg" />
+    <EmbeddedResource Include="Samples\Map\OpenMapURL\OpenMapURL.jpg" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.jpg" />
@@ -411,12 +435,28 @@
     <Content Include="Samples\Data\StatisticalQuery\StatisticalQuery.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <BundleResource Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.jpg" />
+    <BundleResource Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg" />
+    <Content Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\WMTSLayer\WMTSLayer.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Map\AuthorMap\AuthorMap.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <BundleResource Include="Samples\NetworkAnalysis\FindRoute\FindRoute.jpg" />
+    <EmbeddedResource Include="Samples\Map\OpenMobileMap\OpenMobileMap.jpg" />
     <Content Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -506,6 +546,12 @@
     <Content Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Search\FindAddress\FindAddress.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -516,4 +562,9 @@
   </Target>
   <Import Project="..\..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.2.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.2.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets')" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties groups_1json__JSONSchema="http://jsonapi.org/schema" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

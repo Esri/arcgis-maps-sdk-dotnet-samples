@@ -1,0 +1,14 @@
+{
+  "Name": "Show callout",
+  "SampleName": "ShowCallout",
+  "Description": "This sample illustrates how to show callouts on a map in response to user interaction.",
+  "Instructions": "Tap on the map to show that point's coordinates.",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"ShowCallout.jpg",
+  "Link":"",
+  "TypeLink": ["T:Esri.ArcGISRuntime.UI.CalloutDefinition","M:Esri.ArcGISRuntime.Geometry.GeometryEngine.Project(Esri.ArcGISRuntime.Geometry.Geometry,Esri.ArcGISRuntime.Geometry.SpatialReference)","E:Esri.ArcGISRuntime.UI.Controls.GeoView.GeoViewTapped","M:Esri.ArcGISRuntime.UI.CalloutDefinition.#ctor(System.String,System.String)","P:Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs.Location"],
+  "SampleFolder": "ShowCallout"
+}

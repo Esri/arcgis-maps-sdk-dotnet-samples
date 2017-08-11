@@ -20,8 +20,6 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayDrawingStatus
     [Register("DisplayDrawingStatus")]
     public class DisplayDrawingStatus : UIViewController
     {
-        // Constant holding offset where the MapView control should start
-        private const int yPageOffset = 60;
 
         // Create and hold reference to the used MapView
         private MapView _myMapView;
@@ -48,7 +46,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayDrawingStatus
         public override void ViewDidLayoutSubviews()
         {
             // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height);
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
             // Setup the visual frame for the tool bar
             _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 30, View.Bounds.Width, 30);

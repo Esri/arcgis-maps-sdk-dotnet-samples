@@ -62,6 +62,18 @@ When compiling Universal Windows Platform samples, make sure that you are compil
 
 * [ArcGIS Runtime SDK for .NET](http://esriurl.com/dotnetsdk)
 
+## Offline Data
+
+Several samples require local data to function properly. That data is downloaded to local storage automatically at runtime. 
+This process is handled by the `DataManager` class (located in the 'Managers' folder in each view project). Samples
+that use the data manager to download their data are differentiated as follows:
+
+* They have `RequiresOfflineData` set to true in their metadata.json files
+* They have one or more entries under `DataItemIds` in their metadata.json files (these are portal item Ids)
+* They use the data manager to identify the correct path for their offline files at run time
+
+See the [contribution guidelines] (https://github.com/Esri/arcgis-runtime-samples-dotnet/wiki/Contributing) for more detailed information.
+
 ## Issues
 
 Find a bug or want to request a new feature?  Please let us know by submitting an issue.
@@ -89,6 +101,3 @@ A copy of the license is available in the repository's [license.txt](/license.tx
 
 ### Modern UI Icons
 Icons included under the Assets folder in the Phone and Store projects are from [Modern UI Icons](http://modernuiicons.com/). License information can be found at https://github.com/Templarian/WindowsIcons/blob/master/WindowsPhone/license.txt 
-
-[](Esri Tags: ArcGIS Runtime SDK Windows WPF UWP Xamarin Xamarin.Android Xamarin.iOS Xamarin.Forms C-Sharp C# XAML)
-[](Esri Language: DotNet)

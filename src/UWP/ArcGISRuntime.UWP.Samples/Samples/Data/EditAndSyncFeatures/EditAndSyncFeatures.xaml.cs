@@ -15,6 +15,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.ArcGISServices;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -62,16 +63,16 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
         private async void Initialize()
         {
             // Create a tile cache and load it with the SanFrancisco streets tpk
-            TileCache _tileCache = new TileCache(await GetTpkPath());
+            TileCache tileCache = new TileCache(await GetTpkPath());
 
             // Create the corresponding layer based on the tile cache
-            ArcGISTiledLayer _tileLayer = new ArcGISTiledLayer(_tileCache);
+            ArcGISTiledLayer tileLayer = new ArcGISTiledLayer(tileCache);
 
             // Create the basemap based on the tile cache
-            Basemap _sfBasemap = new Basemap(_tileLayer);
+            Basemap sfBasemap = new Basemap(tileLayer);
 
             // Create the map with the tile-based basemap
-            Map myMap = new Map(_sfBasemap);
+            Map myMap = new Map(sfBasemap);
 
             // Assign the map to the MapView
             MyMapView.Map = myMap;
@@ -90,16 +91,20 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
             MyMapView.ViewpointChanged += MapViewExtentChanged;
 
             // Update the local data path for the geodatabase file
-            _gdbPath = GetGdbPath();
+            string uwpFolder = Windows.Storage.ApplicationData.Current.LocalFolder.Path.ToString();
+            _gdbPath = Path.Combine(uwpFolder, "wildfire.geodatabase");
 
             // Create a task for generating a geodatabase (GeodatabaseSyncTask)
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
             // Add all graphics from the service to the map
-            foreach (var layer in _gdbSyncTask.ServiceInfo.LayerInfos)
+            foreach (IdInfo layer in _gdbSyncTask.ServiceInfo.LayerInfos)
             {
-                // Create the ServiceFeatureTable for this particular layer
-                ServiceFeatureTable onlineTable = new ServiceFeatureTable(new Uri(_featureServiceUri + "/" + layer.Id));
+                // Get the Uri for this particular layer
+                Uri onlineTableUri = new Uri(_featureServiceUri + "/" + layer.Id);
+
+                // Create the ServiceFeatureTable
+                ServiceFeatureTable onlineTable = new ServiceFeatureTable(onlineTableUri);
 
                 // Wait for the table to load
                 await onlineTable.LoadAsync();
@@ -235,20 +240,23 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
             // Create a task for generating a geodatabase (GeodatabaseSyncTask)
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
+            // Get the (only) graphic in the map view
+            GraphicsOverlay redPreviewBox = MyMapView.GraphicsOverlays.FirstOrDefault();
+
             // Get the current extent of the red preview box
-            Envelope extent = MyMapView.GraphicsOverlays.FirstOrDefault().Extent as Envelope;
+            Envelope extent = redPreviewBox.Extent as Envelope;
 
             // Get the default parameters for the generate geodatabase task
             GenerateGeodatabaseParameters generateParams = await _gdbSyncTask.CreateDefaultGenerateGeodatabaseParametersAsync(extent);
 
             // Create a generate geodatabase job
-            GenerateGeodatabaseJob _generateGdbJob = _gdbSyncTask.GenerateGeodatabase(generateParams, _gdbPath);
+            GenerateGeodatabaseJob generateGdbJob = _gdbSyncTask.GenerateGeodatabase(generateParams, _gdbPath);
 
             // Handle the job changed event
-            _generateGdbJob.JobChanged += GenerateGdbJobChanged;
+            generateGdbJob.JobChanged += GenerateGdbJobChanged;
 
-            // Handle the progress changed event (to show progress bar)
-            _generateGdbJob.ProgressChanged += ((object sender, EventArgs e) =>
+            // Handle the progress changed event with an inline (lambda) function to show the progress bar
+            generateGdbJob.ProgressChanged += ((object sender, EventArgs e) =>
             {
                 // Get the job
                 GenerateGeodatabaseJob job = sender as GenerateGeodatabaseJob;
@@ -258,7 +266,7 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
             });
 
             // Start the job
-            _generateGdbJob.Start();
+            generateGdbJob.Start();
         }
 
         private async void HandleGenerationStatusChange(GenerateGeodatabaseJob job)
@@ -278,10 +286,10 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
                 foreach (GeodatabaseFeatureTable table in _resultGdb.GeodatabaseFeatureTables)
                 {
                     // Create a new feature layer for the table
-                    FeatureLayer _layer = new FeatureLayer(table);
+                    FeatureLayer layer = new FeatureLayer(table);
 
                     // Add the new layer to the map
-                    MyMapView.Map.OperationalLayers.Add(_layer);
+                    MyMapView.Map.OperationalLayers.Add(layer);
                 }
 
                 // Enable editing features
@@ -302,8 +310,11 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
                 else
                 {
                     // If no error, show messages from the job
-                    var m = from msg in job.Messages select msg.Message;
-                    message += ": " + string.Join<string>("\n", m);
+                    foreach (JobMessage m in job.Messages)
+                    {
+                        // Get the text from the JobMessage and add it to the output string
+                        message += "\n" + m.Message;
+                    }
                 }
 
                 // Show the message
@@ -335,8 +346,11 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
                 else
                 {
                     // If no error, show messages from the job
-                    var m = from msg in job.Messages select msg.Message;
-                    message += ": " + string.Join<string>("\n", m);
+                    foreach (JobMessage m in job.Messages)
+                    {
+                        // Get the text from the JobMessage and add it to the output string
+                        message += "\n" + m.Message;
+                    }
                 }
 
                 // Show the message
@@ -356,7 +370,7 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
                 RollbackOnFailure = false
             };
 
-            // Add each layer to the sync job
+            // Get the layer Id for each feature table in the geodatabase, then add to the sync job
             foreach (GeodatabaseFeatureTable table in _resultGdb.GeodatabaseFeatureTables)
             {
                 // Get the ID for the layer
@@ -379,7 +393,6 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
             job.ProgressChanged += Job_ProgressChanged;
 
             // Start the sync
-
             job.Start();
         }
 
@@ -393,6 +406,7 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
         }
 
         // Get the path to the tile package used for the basemap
+        // (this is plumbing for the sample viewer)
         private async Task<string> GetTpkPath()
         {
             // The desired tpk is expected to be called SanFrancisco.tpk
@@ -402,22 +416,15 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
             string folder = DataManager.GetDataFolder();
 
             // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "GenerateGeodatabase", filename);
+            string filepath = Path.Combine(folder, "SampleData", "EditAndSyncFeatures", filename);
 
             // Check if the file exists
             if (!File.Exists(filepath))
             {
                 // Download the map package file
-                await DataManager.GetData("3f1bbf0ec70b409a975f5c91f363fe7d", "GenerateGeodatabase");
+                await DataManager.GetData("3f1bbf0ec70b409a975f5c91f363fe7d", "EditAndSyncFeatures");
             }
             return filepath;
-        }
-
-        private string GetGdbPath()
-        {
-            // Get the UWP-specific path for storing the geodatabase
-            string folder = Windows.Storage.ApplicationData.Current.LocalFolder.Path.ToString();
-            return Path.Combine(folder, "wildfire.geodatabase");
         }
 
         private async void ShowStatusMessage(string message)
@@ -449,6 +456,7 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
 
             // Due to the nature of the threading implementation,
             //     the dispatcher needs to be used to interact with the UI
+            // The dispatcher takes an Action, provided here as a lambda function
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 // Hide the progress bar if the job is finished
@@ -470,6 +478,7 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
         {
             // Due to the nature of the threading implementation,
             //     the dispatcher needs to be used to interact with the UI
+            // The dispatcher takes an Action, provided here as a lambda function
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 // Update the progress bar value
@@ -489,6 +498,7 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
 
             // Due to the nature of the threading implementation,
             //     the dispatcher needs to be used to interact with the UI
+            // The dispatcher takes an Action, provided here as a lambda function
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 // Update the progress bar as appropriate

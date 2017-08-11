@@ -19,6 +19,7 @@ using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
+using Esri.ArcGISRuntime.ArcGISServices;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -110,16 +111,16 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
         private async void Initialize()
         {
             // Create a tile cache and load it with the SanFrancisco streets tpk
-            TileCache _tileCache = new TileCache(await GetTpkPath());
+            TileCache tileCache = new TileCache(await GetTpkPath());
 
             // Create the corresponding layer based on the tile cache
-            ArcGISTiledLayer _tileLayer = new ArcGISTiledLayer(_tileCache);
+            ArcGISTiledLayer tileLayer = new ArcGISTiledLayer(tileCache);
 
             // Create the basemap based on the tile cache
-            Basemap _sfBasemap = new Basemap(_tileLayer);
+            Basemap sfBasemap = new Basemap(tileLayer);
 
             // Create the map with the tile-based basemap
-            Map myMap = new Map(_sfBasemap);
+            Map myMap = new Map(sfBasemap);
 
             // Assign the map to the MapView
             myMapView.Map = myMap;
@@ -141,16 +142,19 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
             myMapView.GeoViewTapped += GeoViewTapped;
 
             // Update the local data path for the geodatabase file
-            _gdbPath = GetGdbPath();
+            _gdbPath = GetFileStreamPath("wildfire.geodatabase").AbsolutePath;
 
             // Create a task for generating a geodatabase (GeodatabaseSyncTask)
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
             // Add all graphics from the service to the map
-            foreach (var layer in _gdbSyncTask.ServiceInfo.LayerInfos)
+            foreach (IdInfo layer in _gdbSyncTask.ServiceInfo.LayerInfos)
             {
-                // Create the ServiceFeatureTable for this particular layer
-                ServiceFeatureTable onlineTable = new ServiceFeatureTable(new Uri(_featureServiceUri + "/" + layer.Id));
+                // Get the Uri for this particular layer
+                Uri onlineTableUri = new Uri(_featureServiceUri + "/" + layer.Id);
+
+                // Create the ServiceFeatureTable
+                ServiceFeatureTable onlineTable = new ServiceFeatureTable(onlineTableUri);
 
                 // Wait for the table to load
                 await onlineTable.LoadAsync();
@@ -286,20 +290,23 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
             // Create a task for generating a geodatabase (GeodatabaseSyncTask)
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
+            // Get the (only) graphic in the map view
+            GraphicsOverlay redPreviewBox = myMapView.GraphicsOverlays.FirstOrDefault();
+
             // Get the current extent of the red preview box
-            Envelope extent = myMapView.GraphicsOverlays.FirstOrDefault().Extent as Envelope;
+            Envelope extent = redPreviewBox.Extent as Envelope;
 
             // Get the default parameters for the generate geodatabase task
             GenerateGeodatabaseParameters generateParams = await _gdbSyncTask.CreateDefaultGenerateGeodatabaseParametersAsync(extent);
 
             // Create a generate geodatabase job
-            GenerateGeodatabaseJob _generateGdbJob = _gdbSyncTask.GenerateGeodatabase(generateParams, _gdbPath);
+            GenerateGeodatabaseJob generateGdbJob = _gdbSyncTask.GenerateGeodatabase(generateParams, _gdbPath);
 
             // Handle the job changed event
-            _generateGdbJob.JobChanged += GenerateGdbJobChanged;
+            generateGdbJob.JobChanged += GenerateGdbJobChanged;
 
-            // Handle the progress changed event (to show progress bar)
-            _generateGdbJob.ProgressChanged += ((object sender, EventArgs e) =>
+            // Handle the progress changed event with an inline (lambda) function to show the progress bar
+            generateGdbJob.ProgressChanged += ((object sender, EventArgs e) =>
             {
                 // Get the job
                 GenerateGeodatabaseJob job = sender as GenerateGeodatabaseJob;
@@ -309,7 +316,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
             });
 
             // Start the job
-            _generateGdbJob.Start();
+            generateGdbJob.Start();
         }
 
         private async void HandleGenerationStatusChange(GenerateGeodatabaseJob job)
@@ -329,10 +336,10 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
                 foreach (GeodatabaseFeatureTable table in _resultGdb.GeodatabaseFeatureTables)
                 {
                     // Create a new feature layer for the table
-                    FeatureLayer _layer = new FeatureLayer(table);
+                    FeatureLayer layer = new FeatureLayer(table);
 
                     // Add the new layer to the map
-                    myMapView.Map.OperationalLayers.Add(_layer);
+                    myMapView.Map.OperationalLayers.Add(layer);
                 }
 
                 // Enable editing features
@@ -353,8 +360,11 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
                 else
                 {
                     // If no error, show messages from the job
-                    var m = from msg in job.Messages select msg.Message;
-                    message += ": " + string.Join<string>("\n", m);
+                    foreach (JobMessage m in job.Messages)
+                    {
+                        // Get the text from the JobMessage and add it to the output string
+                        message += "\n" + m.Message;
+                    }
                 }
 
                 // Show the message
@@ -386,8 +396,11 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
                 else
                 {
                     // If no error, show messages from the job
-                    var m = from msg in job.Messages select msg.Message;
-                    message += ": " + string.Join<string>("\n", m);
+                    foreach (JobMessage m in job.Messages)
+                    {
+                        // Get the text from the JobMessage and add it to the output string
+                        message += "\n" + m.Message;
+                    }
                 }
 
                 // Show the message
@@ -407,7 +420,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
                 RollbackOnFailure = false
             };
 
-            // Add each layer to the sync job
+            // Get the layer Id for each feature table in the geodatabase, then add to the sync job
             foreach (GeodatabaseFeatureTable table in _resultGdb.GeodatabaseFeatureTables)
             {
                 // Get the ID for the layer
@@ -430,7 +443,6 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
             job.ProgressChanged += Job_ProgressChanged;
 
             // Start the sync
-
             job.Start();
         }
 
@@ -444,6 +456,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
         }
 
         // Get the path to the tile package used for the basemap
+        // (this is plumbing for the sample viewer)
         private async Task<string> GetTpkPath()
         {
             // The desired tpk is expected to be called SanFrancisco.tpk
@@ -462,11 +475,6 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
                 await DataManager.GetData("3f1bbf0ec70b409a975f5c91f363fe7d", "EditAndSyncFeatures");
             }
             return filepath;
-        }
-
-        private string GetGdbPath()
-        {
-            return GetFileStreamPath("wildfire.geodatabase").AbsolutePath;
         }
 
         private void ShowStatusMessage(string message)
@@ -498,6 +506,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
 
             // Due to the nature of the threading implementation,
             //     the dispatcher needs to be used to interact with the UI
+            // The dispatcher takes an Action, provided here as a lambda function
             RunOnUiThread(() =>
             {
                 // Update progress bar visibility
@@ -518,6 +527,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
         {
             // Due to the nature of the threading implementation,
             //     the dispatcher needs to be used to interact with the UI
+            // The dispatcher takes an Action, provided here as a lambda function
             RunOnUiThread(() =>
             {
                 // Update the progress bar value
@@ -537,6 +547,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
 
             // Due to the nature of the threading implementation,
             //     the dispatcher needs to be used to interact with the UI
+            // The dispatcher takes an Action, provided here as a lambda function
             RunOnUiThread(() =>
             {
                 // Update the progress bar as appropriate

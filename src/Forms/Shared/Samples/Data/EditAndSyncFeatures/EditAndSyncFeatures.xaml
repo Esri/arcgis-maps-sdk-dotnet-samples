@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime"
+             x:Class="ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures.EditAndSyncFeatures"
+             Title="Edit and Sync Features">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Button Text="Generate" Grid.Row="0" Clicked="GenerateButton_Clicked" />
+        <Button Text="Synchronize" Grid.Row="1" Clicked="SyncButton_Click" IsEnabled="False" x:Name="mySyncButton" />
+        <ProgressBar IsVisible="False" Grid.Row="2" x:Name="myProgressBar" MinimumHeightRequest="10" />
+        <esriUI:MapView x:Name="myMapView"  Grid.Row="3" GeoViewTapped="GeoViewTapped" />
+    </Grid>
+</ContentPage>

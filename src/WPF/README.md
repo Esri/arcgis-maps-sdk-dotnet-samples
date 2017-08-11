@@ -157,6 +157,10 @@
 
     This sample demonstrates how to take a feature service offline by generating a geodatabase.
 
+* [Edit and sync features](ArcGISRuntime.WPF.Samples/Samples/Data/EditAndSyncFeatures)
+
+    This sample demonstrates how to synchronize offline edits with a feature service.
+
 ## Display Information
 
 * [Add graphics (SimpleRenderer)](ArcGISRuntime.WPF.Samples/Samples/GraphicsOverlay/AddGraphicsRenderer)

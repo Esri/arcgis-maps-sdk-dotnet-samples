@@ -261,6 +261,50 @@
       ]
     },
     {
+      "Name": "Analysis",
+      "CategoryName": "Analysis",
+      "SubCategories": [
+        {
+          "Name": "Geoprocessing",
+          "SubCategoryName": "Geoprocessing",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "AnalyzeHotspots",
+              "Path": "Samples/Geoprocessing/AnalyzeHotspots"
+            },
+            {
+              "SampleName": "AnalyzeViewshed",
+              "Path": "Samples/Geoprocessing/AnalyzeViewshed"
+            },
+            {
+              "SampleName": "ListGeodatabaseVersions",
+              "Path": "Samples/Geoprocessing/ListGeodatabaseVersions"
+            }
+          ]
+        },
+        {
+          "Name": "Statistics",
+          "SubCategoryName": "Statistics",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "StatisticalQuery",
+              "Path": "Samples/Data/StatisticalQuery"
+            },
+            {
+              "SampleName": "StatisticsGroupSort",
+              "Path": "Samples/Data/StatisticsGroupSort"
+            },
+            {
+              "SampleName": "QueryCountExtent",
+              "Path": "Samples/Data/QueryCountExtent"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "Name": "Network Analysis",
       "CategoryName": "NetworkAnalysis",
       "SubCategories": [

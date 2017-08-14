@@ -142,10 +142,10 @@ namespace ArcGISRuntime.Samples.Models
         public DirectoryInfo SampleFolder { get; set; }
 
         /// <summary>
-        /// Gets the (expected) assembly-qualified name for the VB sample
+        /// Gets the (expected) assembly-qualified name for the VB sample; useful when determining if VB implementation is present
         /// </summary>
         [IgnoreDataMember]
-        public String SampleVbTypeName
+        public String ExpectedVbAssemblyQualifiedType
         {
             get
             {
@@ -222,7 +222,7 @@ namespace ArcGISRuntime.Samples.Models
             }
 
             // Stop if the sample doesn't have a VB implementation (VB sample viewer only)
-            if (ApplicationManager.Current.SelectedLanguage == Language.VBNet && System.Type.GetType(sampleModel.SampleVbTypeName, false) == null)
+            if (ApplicationManager.Current.SelectedLanguage == Language.VBNet && System.Type.GetType(sampleModel.ExpectedVbAssemblyQualifiedType, false) == null)
             {
                 return null;
             }

@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -42,6 +43,9 @@ namespace ArcGISRuntime.WPF.Samples.AuthorEditSaveMap
 
             // Get the view model (defined as a resource in the XAML)
             _mapViewModel = this.FindResource("MapViewModel") as MapViewModel;
+
+            // Pass the current map view to the view model
+            _mapViewModel.AppMapView = MyMapView;
 
             // Define a selection handler on the basemap list
             BasemapListBox.SelectionChanged += OnBasemapsClicked;
@@ -185,6 +189,13 @@ namespace ArcGISRuntime.WPF.Samples.AuthorEditSaveMap
     // Note: in a ArcGIS Runtime for .NET template project, this class will be in a separate file: "MapViewModel.cs"
     public class MapViewModel : INotifyPropertyChanged
     {
+        // Store the map view used by the app
+        private MapView _mapView;
+        public MapView AppMapView
+        {
+            set { _mapView = value; }
+        }
+
         private Map _map = new Map(Basemap.CreateStreetsVector());
 
         // Gets or sets the map
@@ -252,8 +263,10 @@ namespace ArcGISRuntime.WPF.Samples.AuthorEditSaveMap
             // Set the map's initial viewpoint using the extent (viewpoint) passed in
             _map.InitialViewpoint = initialViewpoint;
 
+            // Export the current map view to use as the item's thumbnail
+            RuntimeImage img = await _mapView.ExportImageAsync();
+
             // Save the current state of the map as a portal item in the user's default folder
-            RuntimeImage img = null;
             await _map.SaveAsAsync(agsOnline, null, title, description, tags, img);
         }
 

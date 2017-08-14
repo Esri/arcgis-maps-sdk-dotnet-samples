@@ -17,7 +17,6 @@ using Foundation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using UIKit;
@@ -27,8 +26,13 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
     [Register("AuthorEditSaveMap")]
     public class AuthorEditSaveMap : UIViewController, IOAuthAuthorizeHandler
     {
-        MapViewModel _mapViewModel = new MapViewModel();
+        // View model that stores the map
+        MapViewModel _mapViewModel;
+
+        // Map view to display the map
         MapView _mapView;
+
+        // UI controls that need to be referenced
         UISegmentedControl _segmentButton = new UISegmentedControl();
         UIToolbar _toolbar;
 
@@ -51,6 +55,13 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
         public AuthorEditSaveMap()
         {
             Title = "Author edit and save maps";
+
+            // Create a new MapView control
+            _mapView = new MapView();
+
+            // Create a new view model and pass the map view control
+            _mapViewModel = new MapViewModel();
+            _mapViewModel.AppMapView = _mapView;
 
             // Listen for changes on the view model
             _mapViewModel.PropertyChanged += MapViewModel_PropertyChanged;
@@ -81,10 +92,6 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
 
         private void CreateLayout()
         {
-
-            // Create a new MapView control
-            _mapView = new MapView();
-
             // Define the Segment Button contents
             _segmentButton.BackgroundColor = UIColor.White;
             _segmentButton.InsertSegment("Basemap", 0, false);
@@ -570,6 +577,13 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
     // Note: in a ArcGIS Runtime for .NET template project, this class will be in a separate file: "MapViewModel.cs"
     public class MapViewModel : INotifyPropertyChanged
     {
+        // Store the map view used by the app
+        private MapView _mapView;
+        public MapView AppMapView
+        {
+            set { _mapView = value; }
+        }
+
         private Map _map = new Map(Basemap.CreateStreetsVector());
 
         // Gets or sets the map
@@ -637,8 +651,10 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             // Set the map's initial viewpoint using the extent (viewpoint) passed in
             _map.InitialViewpoint = initialViewpoint;
 
+            // Export the current map view for the item's thumbnail
+            RuntimeImage img = await _mapView.ExportImageAsync();
+
             // Save the current state of the map as a portal item in the user's default folder
-            RuntimeImage img = null;
             await _map.SaveAsAsync(agsOnline, null, title, description, tags, img);
         }
 

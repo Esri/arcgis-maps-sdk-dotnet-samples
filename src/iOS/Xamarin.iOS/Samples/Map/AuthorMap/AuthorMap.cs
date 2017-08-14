@@ -405,8 +405,10 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             // Get the ArcGIS Online portal (will use credential from login above)
             ArcGISPortal agsOnline = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
 
+            // Export the current map view for the item's thumbnail
+            RuntimeImage img = await _myMapView.ExportImageAsync();
+
             // Save the current state of the map as a portal item in the user's default folder
-            RuntimeImage img = null;
             await myMap.SaveAsAsync(agsOnline, null, title, description, tags, img);
         }
 

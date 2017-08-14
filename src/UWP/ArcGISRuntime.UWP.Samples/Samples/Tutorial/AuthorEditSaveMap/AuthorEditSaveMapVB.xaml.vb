@@ -11,6 +11,7 @@ Imports Esri.ArcGISRuntime.Mapping
 Imports Esri.ArcGISRuntime.Portal
 Imports Esri.ArcGISRuntime.Security
 Imports Esri.ArcGISRuntime.UI
+Imports Esri.ArcGISRuntime.UI.Controls
 Imports Windows.UI.Popups
 
 Namespace AuthorEditSaveMap
@@ -36,6 +37,9 @@ Namespace AuthorEditSaveMap
 
         Public Sub New()
             InitializeComponent()
+
+            ' Pass the map view to the map view model
+            MyViewModel.AppMapView = MyMapView
 
             ' Define a handler for selection changed on the basemap list
             AddHandler BasemapListBox.SelectionChanged, AddressOf OnBasemapsClicked
@@ -167,6 +171,14 @@ Namespace AuthorEditSaveMap
     Public Class MapViewModel
         Implements INotifyPropertyChanged
 
+        ' Store the map view used by the app
+        Private _mapView As MapView
+        Public WriteOnly Property AppMapView As MapView
+            Set
+                _mapView = Value
+            End Set
+        End Property
+
         ' String array to store basemap constructor types
         Private _basemapTypes As String() =
         {
@@ -236,8 +248,10 @@ Namespace AuthorEditSaveMap
             ' Set the map's initial viewpoint using the extent (viewpoint) passed in
             _map.InitialViewpoint = initialViewpoint
 
+            ' Export the current map view as the item thumbnail
+            Dim img As RuntimeImage = Await _mapView.ExportImageAsync()
+
             ' Save the current state of the map as a portal item in the user's default folder
-            Dim img As RuntimeImage = Nothing
             Await MyMap.SaveAsAsync(agsOnline, Nothing, title, description, tags, img)
         End Function
 

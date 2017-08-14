@@ -276,8 +276,10 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
             // Get the ArcGIS Online portal (will use credential from login above)
             ArcGISPortal agsOnline = await ArcGISPortal.CreateAsync();
 
+            // Export the current map view to use as the item's thumbnail
+            RuntimeImage img = await MyMapView.ExportImageAsync();
+
             // Save the current state of the map as a portal item in the user's default folder
-            RuntimeImage img = null;
             await myMap.SaveAsAsync(agsOnline, null, title, description, tags, img, false);
         }
 

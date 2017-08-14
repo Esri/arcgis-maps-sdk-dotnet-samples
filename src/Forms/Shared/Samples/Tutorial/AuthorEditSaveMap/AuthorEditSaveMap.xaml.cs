@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.Xamarin.Forms;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -39,6 +40,9 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
 
             // Get the view model (defined as a resource in the XAML)
             _mapViewModel = this.Resources["MapViewModel"] as MapViewModel;
+
+            // Pass the map view to the map view model
+            _mapViewModel.AppMapView = MyMapView;
 
             // Define a click handler for the Basemaps button (show the basemap choice list)
             BasemapsButton.Clicked += (s, e) => BasemapListBox.IsVisible = true;
@@ -204,7 +208,15 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
     {
         public MapViewModel()
         {
-        }        
+            
+        }
+
+        // Store the map view used by the app
+        private MapView _mapView;
+        public MapView AppMapView
+        {
+            set { _mapView = value; }
+        }
 
         private Map _map = new Map(Basemap.CreateLightGrayCanvas());
         
@@ -273,9 +285,10 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             // Set the map's initial viewpoint using the extent (viewpoint) passed in
             _map.InitialViewpoint = initialViewpoint;
 
+            // Export the current map view for the item's thumbnail
+            RuntimeImage img = await _mapView.ExportImageAsync();
+
             // Save the current state of the map as a portal item in the user's default folder
-            Esri.ArcGISRuntime.Xamarin.Forms.MapView mv = new Esri.ArcGISRuntime.Xamarin.Forms.MapView();
-            RuntimeImage img = null;  
             await _map.SaveAsAsync(agsOnline, null, title, description, tags, img, false);
         }
 

@@ -27,8 +27,11 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
     [Activity]
     public class AuthorEditSaveMap : Activity, IOAuthAuthorizeHandler
     {
-        MapViewModel _mapViewModel = new MapViewModel();
-        MapView _mapView;
+        // Store the app's map view
+        MapView _mapView = new MapView();
+
+        // Store the view model used by the app to display the map
+        MapViewModel _mapViewModel;
 
         // Use a TaskCompletionSource to track the completion of the authorization
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
@@ -59,6 +62,9 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
 
             // (This line is not in the tutorial) Display the name of the sample in the viewer
             Title = "Author and save a map";
+
+            // Create the view model (pass in the app's map view)
+            _mapViewModel = new MapViewModel(_mapView);
 
             // Create the UI
             CreateLayout();
@@ -112,7 +118,6 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             mainLayout.AddView(buttonLayout);
 
             // Add the map view to the layout
-            _mapView = new MapView();
             mainLayout.AddView(_mapView);
 
             // Show the layout in the app
@@ -435,6 +440,8 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             get { return _basemapTypes; }
         }
 
+        // Fields to store the current map view and map
+        private MapView _mapView;
         private Map _map = new Map(Basemap.CreateTopographicVector());
         
         // Gets or sets the map
@@ -444,9 +451,10 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             set { _map = value; OnPropertyChanged(); }
         }
 
-        public MapViewModel()
+        public MapViewModel(MapView mapView)
         {
-
+            // Store the app's map view when the view model is created
+            _mapView = mapView;
         }
 
         public bool MapIsSaved
@@ -496,8 +504,10 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             // Set the map's initial viewpoint using the extent (viewpoint) passed in
             _map.InitialViewpoint = initialViewpoint;
 
+            // Export the current map view for the item's thumbnail
+            RuntimeImage img = await _mapView.ExportImageAsync();
+
             // Save the current state of the map as a portal item in the user's default folder
-            RuntimeImage img = null; 
             await _map.SaveAsAsync(agsOnline, null, title, description, tags, img);
         }
 

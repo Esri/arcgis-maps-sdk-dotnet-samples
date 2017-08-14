@@ -225,8 +225,11 @@ Namespace AuthorMap
 
             ' Get the ArcGIS Online portal
             Dim agsOnline As ArcGISPortal = Await ArcGISPortal.CreateAsync()
+
+            ' Export the current map view as the item thumbnail
+            Dim img As RuntimeImage = Await MyMapView.ExportImageAsync()
+
             ' Save the current state of the map as a portal item in the user's default folder
-            Dim img As RuntimeImage = Nothing
             Await myMap.SaveAsAsync(agsOnline, Nothing, title, description, tags, img)
         End Function
 

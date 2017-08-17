@@ -280,7 +280,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
             RuntimeImage img = await MyMapView.ExportImageAsync();
 
             // Save the current state of the map as a portal item in the user's default folder
-            await myMap.SaveAsAsync(agsOnline, null, title, description, tags, img, false);
+            await myMap.SaveAsAsync(agsOnline, null, title, description, tags, img);
         }
 
         private async void UpdatePortalItemThumbnailAsync(string imageFileName)

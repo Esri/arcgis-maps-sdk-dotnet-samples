@@ -15,9 +15,8 @@ Imports System.Windows
 Imports System.Windows.Controls
 Imports System.Windows.Navigation
 Imports System.Windows.Media
-Imports System.Windows.Media.Imaging
-Imports System.IO
 Imports Esri.ArcGISRuntime.UI
+Imports System.IO
 
 Namespace AuthorMap
     Partial Public Class AuthorMapVB
@@ -118,6 +117,9 @@ Namespace AuthorMap
                 ' Apply the current extent as the map's initial extent
                 myMap.InitialViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry)
 
+                ' Export the current map view for the thumbnail
+                Dim thumbnailImg As RuntimeImage = Await MyMapView.ExportImageAsync()
+
                 ' See if the map has already been saved (has an associated portal item)
                 If myMap.Item Is Nothing Then
                     ' Get information for the New portal item
@@ -130,7 +132,7 @@ Namespace AuthorMap
                     End If
 
                     ' Call a function to save the map as a new portal item
-                    Await SaveNewMapAsync(myMap, title, description, tags)
+                    Await SaveNewMapAsync(myMap, title, description, tags, thumbnailImg)
 
                     ' Report a successful save
                     MessageBox.Show("Saved '" + title + "' to ArcGIS Online!", "Map Saved")
@@ -138,24 +140,14 @@ Namespace AuthorMap
                     ' This is not the initial save, call SaveAsync to save changes to the existing portal item
                     Await myMap.SaveAsync()
 
+                    ' Update the thumbnail image
+                    Dim mapItem As PortalItem = TryCast(myMap.Item, PortalItem)
+                    Dim thumbnailStream As Stream = Await thumbnailImg.GetRawBufferAsync()
+                    mapItem.SetThumbnailWithImage(thumbnailStream)
+
                     ' Report update was successful
                     MessageBox.Show("Saved changes to '" + myMap.Item.Title + "'", "Updates Saved")
                 End If
-
-                ' Update the portal item thumbnail with the current map image
-                Try
-                    ' Export the current map view
-                    Dim mapImage As ImageSource = Await Esri.ArcGISRuntime.UI.RuntimeImageExtensions.ToImageSourceAsync((Await MyMapView.ExportImageAsync()))
-
-                    ' Call a function that writes a temporary jpeg file of the map
-                    Dim imagePath As String = Await WriteTempThumbnailImageAsync(mapImage)
-
-                    ' Call a sub to update the portal item's thumbnail with the image
-                    UpdatePortalItemThumbnailAsync(imagePath)
-                Catch
-                    ' Throw an exception to let the user know the thumbnail was Not saved (the map item was)
-                    Throw New Exception("Thumbnail was not updated.")
-                End Try
             Catch ex As Exception
                 ' Report error message
                 MessageBox.Show("Error saving map to ArcGIS Online: " + ex.Message)
@@ -207,7 +199,7 @@ Namespace AuthorMap
             Next
         End Sub
 
-        Private Async Function SaveNewMapAsync(myMap As Map, title As String, description As String, tags As String()) As Task
+        Private Async Function SaveNewMapAsync(myMap As Map, title As String, description As String, tags As String(), thumbnail As RuntimeImage) As Task
             ' Challenge the user for portal credentials (OAuth credential request for arcgis.com)
             Dim loginInfo As CredentialRequestInfo = New CredentialRequestInfo()
 
@@ -234,11 +226,8 @@ Namespace AuthorMap
             ' Get the ArcGIS Online portal
             Dim agsOnline As ArcGISPortal = Await ArcGISPortal.CreateAsync()
 
-            ' Export the current map view as the item thumbnail
-            Dim img As RuntimeImage = Await MyMapView.ExportImageAsync()
-
             ' Save the current state of the map as a portal item in the user's default folder
-            Await myMap.SaveAsAsync(agsOnline, Nothing, title, description, tags, img, True)
+            Await myMap.SaveAsAsync(agsOnline, Nothing, title, description, tags, thumbnail, True)
         End Function
 
         Private Sub UpdateViewExtentLabels(sender As Object, e As EventArgs)

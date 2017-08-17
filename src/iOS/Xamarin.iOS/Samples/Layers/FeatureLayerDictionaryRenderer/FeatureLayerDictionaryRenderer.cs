@@ -3,20 +3,20 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntimeXamarin.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.Symbology;
+using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System.IO;
 using System.Threading.Tasks;
 using UIKit;
-using ArcGISRuntimeXamarin.Managers;
 
 namespace ArcGISRuntimeXamarin.Samples.FeatureLayerDictionaryRenderer
 {
@@ -28,10 +28,12 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerDictionaryRenderer
 
         // Name and ID of the geodatabase file providing features
         private string _geodatabaseName = "militaryoverlay.geodatabase";
+
         private string _geodatabaseId = "e0d41b4b409a49a5a7ba11939d8535dc";
 
         // Name and ID of the symbol dictionary file
         private string _symbolDefName = "mil2525d.stylx";
+
         private string _symbolDefId = "e34835bf5ec5430da7cf16bb8c0b075c";
 
         public FeatureLayerDictionaryRenderer()
@@ -43,7 +45,7 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerDictionaryRenderer
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             CreateLayout();
             Initialize();
         }
@@ -55,7 +57,6 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerDictionaryRenderer
 
             base.ViewDidLayoutSubviews();
         }
-
 
         private void CreateLayout()
         {

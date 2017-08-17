@@ -3,17 +3,17 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Geometry;
-using System.Threading.Tasks;
 using ArcGISRuntime.Samples.Managers;
+using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Symbology;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WPF.Samples.FeatureLayerDictionaryRenderer
 {
@@ -21,17 +21,19 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerDictionaryRenderer
     {
         // Name and ID of the geodatabase file providing features
         private string _geodatabaseName = "militaryoverlay.geodatabase";
+
         private string _geodatabaseId = "e0d41b4b409a49a5a7ba11939d8535dc";
 
         // Name and ID of the symbol dictionary file
         private string _symbolDefName = "mil2525d.stylx";
+
         private string _symbolDefId = "e34835bf5ec5430da7cf16bb8c0b075c";
 
         public FeatureLayerDictionaryRenderer()
         {
             InitializeComponent();
 
-            // Setup the control references and execute initialization 
+            // Setup the control references and execute initialization
             Initialize();
         }
 
@@ -64,7 +66,7 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerDictionaryRenderer
             DictionarySymbolStyle symbolStyle = await DictionarySymbolStyle.OpenAsync("mil2525d", symbolFilepath);
 
             // Add geodatabase features to the map, using the defined symbology
-            foreach(FeatureTable table in baseGeodatabase.GeodatabaseFeatureTables)
+            foreach (FeatureTable table in baseGeodatabase.GeodatabaseFeatureTables)
             {
                 // Load the table
                 await table.LoadAsync();

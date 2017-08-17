@@ -101,7 +101,7 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerDictionaryRenderer
             // Check if the file exists
             if (!File.Exists(filepath))
             {
-                // Download the map package file
+                // Download the file
                 await DataManager.GetData(fileId, "FeatureLayerDictionaryRenderer");
             }
 

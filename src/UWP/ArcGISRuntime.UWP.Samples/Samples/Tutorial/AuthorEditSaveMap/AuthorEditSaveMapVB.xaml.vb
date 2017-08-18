@@ -91,10 +91,13 @@ Namespace AuthorEditSaveMap
                 ' Get current map extent (viewpoint) for the map initial extent
                 Dim currentViewpoint As Viewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry)
 
+                ' Export the current map view as the item thumbnail
+                Dim thumbnailImg As RuntimeImage = Await MyMapView.ExportImageAsync()
+
                 ' See if the map has already been saved
                 If (Not MyViewModel.MapIsSaved) Then
                     ' Call the SaveNewMapAsync method on the view model, pass in the required info
-                    Await MyViewModel.SaveNewMapAsync(currentViewpoint, title, description, tags)
+                    Await MyViewModel.SaveNewMapAsync(currentViewpoint, title, description, tags, thumbnailImg)
 
                     ' Report success
                     Dim dialog As New MessageDialog("Map '" + title + "' was saved to the portal.", "Saved Map")
@@ -241,15 +244,12 @@ Namespace AuthorEditSaveMap
         End Sub
 
         ' Save the current map to ArcGIS Online. The initial extent, title, description, And tags are passed in.
-        Public Async Function SaveNewMapAsync(initialViewpoint As Viewpoint, title As String, description As String, tags As String()) As Task
+        Public Async Function SaveNewMapAsync(initialViewpoint As Viewpoint, title As String, description As String, tags As String(), img As RuntimeImage) As Task
             ' Get the ArcGIS Online portal 
             Dim agsOnline As ArcGISPortal = Await ArcGISPortal.CreateAsync(New Uri("https://www.arcgis.com/sharing/rest"))
 
             ' Set the map's initial viewpoint using the extent (viewpoint) passed in
             _map.InitialViewpoint = initialViewpoint
-
-            ' Export the current map view as the item thumbnail
-            Dim img As RuntimeImage = Await _mapView.ExportImageAsync()
 
             ' Save the current state of the map as a portal item in the user's default folder
             Await MyMap.SaveAsAsync(agsOnline, Nothing, title, description, tags, img)
@@ -262,9 +262,19 @@ Namespace AuthorEditSaveMap
             End Get
         End Property
 
-        Public Sub UpdateMapItem()
+        Public Async Sub UpdateMapItem()
             ' Save the map
-            _map.SaveAsync()
+            Await _map.SaveAsync()
+
+            ' Export the current map view as the item thumbnail
+            Dim thumbnailImg As RuntimeImage = Await _mapView.ExportImageAsync()
+
+            ' Get the file stream from the New thumbnail image
+            Dim imageStream As Stream = Await thumbnailImg.GetEncodedBufferAsync()
+
+            ' Update the item thumbnail
+            Dim portalMapItem As PortalItem = TryCast(MyMap.Item, PortalItem)
+            portalMapItem.SetThumbnailWithImage(imageStream)
         End Sub
 
         ' Raises the PropertyChanged event for a property

@@ -149,8 +149,12 @@ Namespace AuthorMap
                 ' Apply the current extent as the map's initial extent
                 myMap.InitialViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry)
 
+                ' Export the current map view as the item thumbnail
+                Dim thumbnailImg As RuntimeImage = Await MyMapView.ExportImageAsync()
+
                 ' See if the map has already been saved (has an associated portal item)
                 If myMap.Item Is Nothing Then
+
                     ' Get information for the New portal item
                     Dim title As String = TitleTextBox.Text
                     Dim description As String = DescriptionTextBox.Text
@@ -161,14 +165,23 @@ Namespace AuthorMap
                     End If
 
                     ' Call a function to save the map as a new portal item
-                    Await SaveNewMapAsync(myMap, title, description, tags)
+                    Await SaveNewMapAsync(myMap, title, description, tags, thumbnailImg)
 
                     ' Report a successful save
                     Dim dialog = New MessageDialog("Saved '" + title + "' to ArcGIS Online!", "Map Saved")
                     Await dialog.ShowAsync()
+
                 Else
+
                     ' This is not the initial save, call SaveAsync to save changes to the existing portal item
                     Await myMap.SaveAsync()
+
+                    ' Get the file stream from the New thumbnail image
+                    Dim imageStream As Stream = Await thumbnailImg.GetEncodedBufferAsync()
+
+                    ' Update the item thumbnail
+                    Dim portalMapItem As PortalItem = TryCast(myMap.Item, PortalItem)
+                    portalMapItem.SetThumbnailWithImage(imageStream)
 
                     ' Report update was successful
                     Dim dialog As MessageDialog = New MessageDialog("Saved changes to '" + myMap.Item.Title + "'", "Updates Saved")
@@ -199,7 +212,7 @@ Namespace AuthorMap
             End Try
         End Sub
 
-        Private Async Function SaveNewMapAsync(myMap As Map, title As String, description As String, tags As String()) As Task
+        Private Async Function SaveNewMapAsync(myMap As Map, title As String, description As String, tags As String(), img As RuntimeImage) As Task
             ' Challenge the user for portal credentials (OAuth credential request for arcgis.com)
             Dim loginInfo As CredentialRequestInfo = New CredentialRequestInfo()
 
@@ -225,9 +238,6 @@ Namespace AuthorMap
 
             ' Get the ArcGIS Online portal
             Dim agsOnline As ArcGISPortal = Await ArcGISPortal.CreateAsync()
-
-            ' Export the current map view as the item thumbnail
-            Dim img As RuntimeImage = Await MyMapView.ExportImageAsync()
 
             ' Save the current state of the map as a portal item in the user's default folder
             Await myMap.SaveAsAsync(agsOnline, Nothing, title, description, tags, img)

@@ -95,19 +95,19 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerDictionaryRenderer
                 await table.LoadAsync();
 
                 // Create the feature layer from the table
-                FeatureLayer layer = new FeatureLayer(table);
+                FeatureLayer myLayer = new FeatureLayer(table);
 
                 // Load the layer
-                await layer.LoadAsync();
+                await myLayer.LoadAsync();
 
                 // Create a Dictionary Renderer using the DictionarySymbolStyle
                 DictionaryRenderer dictRenderer = new DictionaryRenderer(symbolStyle);
 
                 // Apply the dictionary renderer to the layer
-                layer.Renderer = dictRenderer;
+                myLayer.Renderer = dictRenderer;
 
                 // Add the layer to the map
-                myMap.OperationalLayers.Add(layer);
+                myMap.OperationalLayers.Add(myLayer);
             }
         }
 

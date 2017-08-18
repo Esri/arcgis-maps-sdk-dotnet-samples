@@ -187,6 +187,10 @@
             {
               "SampleName": "FeatureCollectionLayerFromQuery",
               "Path": "Samples/Layers/FeatureCollectionLayerFromQuery"
+            },
+            {
+              "SampleName": "FeatureLayerDictionaryRenderer",
+              "Path": "Samples/Layers/FeatureLayerDictionaryRenderer"
             }
           ]
         },

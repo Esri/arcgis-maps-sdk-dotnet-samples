@@ -18,6 +18,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Auth;
@@ -181,11 +182,14 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 // Apply the current extent as the map's initial extent
                 myMap.InitialViewpoint = _myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
 
+                // Export the current map view for the item's thumbnail
+                RuntimeImage thumbnailImg = await _myMapView.ExportImageAsync();
+
                 // See if the map has already been saved (has an associated portal item)
                 if (myMap.Item == null)
                 {
                     // Call a function to save the map as a new portal item
-                    await SaveNewMapAsync(myMap, title, description, tags);
+                    await SaveNewMapAsync(myMap, title, description, tags, thumbnailImg);
 
                     // Report a successful save
                     alertBuilder.SetTitle("Map Saved");
@@ -195,6 +199,13 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 else
                 {
                     // This is not the initial save, call SaveAsync to save changes to the existing portal item
+                    await myMap.SaveAsync();
+                    
+                    // Get the file stream from the new thumbnail image
+                    Stream imageStream = await thumbnailImg.GetEncodedBufferAsync();
+
+                    // Update the item thumbnail
+                    (myMap.Item as PortalItem).SetThumbnailWithImage(imageStream);
                     await myMap.SaveAsync();
 
                     // Report update was successful
@@ -217,7 +228,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             }
         }
 
-        private async Task SaveNewMapAsync(Map myMap, string title, string description, string[] tags)
+        private async Task SaveNewMapAsync(Map myMap, string title, string description, string[] tags, RuntimeImage img)
         {
             // Challenge the user for portal credentials (OAuth credential request for arcgis.com)
             CredentialRequestInfo loginInfo = new CredentialRequestInfo();
@@ -229,7 +240,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             };
 
             // Indicate the url (portal) to authenticate with (ArcGIS Online)
-            loginInfo.ServiceUri = new Uri("http://www.arcgis.com/sharing/rest");
+            loginInfo.ServiceUri = new Uri("https://www.arcgis.com/sharing/rest");
 
             try
             {
@@ -249,7 +260,6 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             ArcGISPortal agsOnline = await ArcGISPortal.CreateAsync();
 
             // Save the current state of the map as a portal item in the user's default folder
-            RuntimeImage img = null;
             await myMap.SaveAsAsync(agsOnline, null, title, description, tags, img);
         }
 

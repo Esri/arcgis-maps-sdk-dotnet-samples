@@ -156,7 +156,8 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
                     Stream imageStream = await thumbnailImg.GetEncodedBufferAsync();
 
                     // Update the item thumbnail
-                    (myMap.Item as PortalItem).SetThumbnailWithImage(imageStream);
+                    (myMap.Item as PortalItem).SetThumbnailWithImage(imageStream);                    
+                    await myMap.SaveAsync();
 
                     // Report update was successful
                     var messageDialog = new MessageDialog("Saved changes to '" + myMap.Item.Title + "'", "Updates Saved");

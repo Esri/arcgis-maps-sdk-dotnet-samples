@@ -275,6 +275,7 @@ Namespace AuthorEditSaveMap
             ' Update the item thumbnail
             Dim portalMapItem As PortalItem = TryCast(MyMap.Item, PortalItem)
             portalMapItem.SetThumbnailWithImage(imageStream)
+            Await _map.SaveAsync()
         End Sub
 
         ' Raises the PropertyChanged event for a property

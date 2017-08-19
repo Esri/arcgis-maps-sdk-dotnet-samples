@@ -284,7 +284,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorEditSaveMap
         {
             // Save the map
             await _map.SaveAsync();
-
+            
             // Export the current map view for the item thumbnail
             RuntimeImage thumbnailImg = await _mapView.ExportImageAsync();
 
@@ -293,6 +293,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorEditSaveMap
 
             // Update the item thumbnail
             (_map.Item as PortalItem).SetThumbnailWithImage(imageStream);
+            await _map.SaveAsync();
         }
 
         // Raises the PropertyChanged event for a property

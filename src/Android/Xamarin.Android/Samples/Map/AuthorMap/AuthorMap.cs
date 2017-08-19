@@ -200,12 +200,13 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 {
                     // This is not the initial save, call SaveAsync to save changes to the existing portal item
                     await myMap.SaveAsync();
-
+                    
                     // Get the file stream from the new thumbnail image
                     Stream imageStream = await thumbnailImg.GetEncodedBufferAsync();
 
                     // Update the item thumbnail
                     (myMap.Item as PortalItem).SetThumbnailWithImage(imageStream);
+                    await myMap.SaveAsync();
 
                     // Report update was successful
                     alertBuilder.SetTitle("Updates Saved");

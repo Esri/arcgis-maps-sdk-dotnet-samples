@@ -23,7 +23,8 @@
               <Button Text="Cancel"
                       Clicked="CancelButtonClicked"
                       Margin="20,0"/>
-              <Button Text="Save"
+              <Button x:Name="SaveMapButton"
+                      Text="Save"
                       Clicked="SaveButtonClicked"/>
             </StackLayout>
           </ViewCell>

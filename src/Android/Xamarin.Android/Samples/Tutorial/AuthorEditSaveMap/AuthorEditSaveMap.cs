@@ -516,7 +516,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
         {
             // Save the map
             await _map.SaveAsync();
-
+            
             // Export the current map view for the item's thumbnail
             RuntimeImage thumbnailImg = await _mapView.ExportImageAsync();
 
@@ -525,6 +525,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
 
             // Update the item thumbnail
             (_map.Item as PortalItem).SetThumbnailWithImage(imageStream);
+            await _map.SaveAsync();
         }
 
         public void ResetMap()

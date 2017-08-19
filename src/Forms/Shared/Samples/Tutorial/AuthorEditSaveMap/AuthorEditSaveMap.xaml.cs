@@ -311,6 +311,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
 
             // Update the item thumbnail
             (_map.Item as PortalItem).SetThumbnailWithImage(imageStream);
+            await _map.SaveAsync();
         }
 
         public void ResetMap()

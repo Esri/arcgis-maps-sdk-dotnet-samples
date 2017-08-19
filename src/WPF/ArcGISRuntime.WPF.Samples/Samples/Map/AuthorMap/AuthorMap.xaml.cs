@@ -162,6 +162,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
 
                     // Update the item thumbnail
                     (myMap.Item as PortalItem).SetThumbnailWithImage(imageStream);
+                    await myMap.SaveAsync();
 
                     // Report update was successful
                     MessageBox.Show("Saved changes to '" + myMap.Item.Title + "'", "Updates Saved");

@@ -137,13 +137,14 @@ Namespace AuthorMap
                     ' Report a successful save
                     MessageBox.Show("Saved '" + title + "' to ArcGIS Online!", "Map Saved")
                 Else
-                    ' This is not the initial save, call SaveAsync to save changes to the existing portal item
+                    ' Save the map
                     Await myMap.SaveAsync()
 
                     ' Update the thumbnail image
                     Dim mapItem As PortalItem = TryCast(myMap.Item, PortalItem)
                     Dim thumbnailStream As Stream = Await thumbnailImg.GetRawBufferAsync()
                     mapItem.SetThumbnailWithImage(thumbnailStream)
+                    Await myMap.SaveAsync()
 
                     ' Report update was successful
                     MessageBox.Show("Saved changes to '" + myMap.Item.Title + "'", "Updates Saved")

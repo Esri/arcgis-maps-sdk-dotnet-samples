@@ -351,7 +351,8 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                     Stream imageStream = await thumbnailImg.GetEncodedBufferAsync();
 
                     // Update the item thumbnail
-                    (myMap.Item as PortalItem).SetThumbnailWithImage(imageStream);
+                    (myMap.Item as PortalItem).SetThumbnailWithImage(imageStream);                    
+                    await myMap.SaveAsync();
 
                     // Report update was successful
                     UIAlertController alert = UIAlertController.Create("Updated map", "Saved changes to " + title, UIAlertControllerStyle.Alert);

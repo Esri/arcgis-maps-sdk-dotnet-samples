@@ -159,6 +159,10 @@
 
     This sample demonstrates how to create a feature collection layer to show a query result from a service feature table.
 
+    * [Feature layer dictionary renderer](Xamarin.Android/Samples/Layers/FeatureLayerDictionaryRenderer)
+
+    Demonstrates how to apply a dictionary renderer to a feature layer and display mil2525d graphics. The dictionary renderer creates these graphics using a mil2525d style file and the attributes attached to each feature within the geodatabase.
+
 
 - **Feature Tables**
 

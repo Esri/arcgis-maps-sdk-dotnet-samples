@@ -123,6 +123,7 @@
     <Compile Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.cs" />
     <Compile Include="Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortal.cs" />
     <Compile Include="Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQuery.cs" />
+    <Compile Include="Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.cs" />
     <Compile Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.cs" />
     <Compile Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.cs" />
     <Compile Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.cs" />
@@ -245,6 +246,7 @@
     <EmbeddedResource Include="Samples\MapView\ShowCallout\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\SceneLayerUrl\metadata.json" />
     <EmbeddedResource Include="Samples\Data\EditAndSyncFeatures\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\FeatureLayerDictionaryRenderer\metadata.json" />
     <None Include="Samples\MapView\ShowCallout\ShowCallout.jpg" />
     <EmbeddedResource Include="Samples\Layers\RasterLayerImageServiceRaster\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\WMTSLayer\metadata.json" />
@@ -271,6 +273,7 @@
     <Content Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.jpg" />
     <Content Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.jpg" />
     <Content Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg" />
+    <Content Include="Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.jpg" />
     <Content Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.jpg" />
     <Content Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.jpg" />
     <Content Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg" />

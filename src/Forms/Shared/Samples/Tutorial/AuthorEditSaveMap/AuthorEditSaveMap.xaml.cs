@@ -107,10 +107,25 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             };
 
             // Get the credential
-            Credential cred = await AuthenticationManager.Current.GetCredentialAsync(info, false);
+            try
+            {
+                Credential cred = await AuthenticationManager.Current.GetCredentialAsync(info, false);
 
-            // Add the credential to the AuthenticationManager
-            AuthenticationManager.Current.AddCredential(cred);
+                // Add the credential to the AuthenticationManager
+                AuthenticationManager.Current.AddCredential(cred);
+            } catch (System.Threading.Tasks.TaskCanceledException ex)
+            {
+                // Handle situation where the user closes the login window
+                return;
+            } catch (System.OperationCanceledException ex )
+            {
+                // Handle situation where the user presses 'cancel' in the login UI
+                return;
+            } catch (Exception ex)
+            {
+                // Handle all other exceptions related to canceled login
+                return;
+            }
         }
 
         // Event handler to get information entered by the user and save the map

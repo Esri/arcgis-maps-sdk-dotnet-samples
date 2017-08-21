@@ -58,8 +58,22 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeHotspots
             MyActivityInidicator.IsRunning = true;
 
             // Get the 'from' and 'to' dates from the date pickers for the geoprocessing analysis
-            DateTime myFromDate = Convert.ToDateTime(StartDate.Text);
-            DateTime myToDate = Convert.ToDateTime(EndDate.Text); 
+            DateTime myFromDate;
+            DateTime myToDate;
+            try
+            {
+                myFromDate = Convert.ToDateTime(StartDate.Text);
+                myToDate = Convert.ToDateTime(EndDate.Text);
+            } catch (Exception)
+            {
+                // Handle badly formatted dates
+                await DisplayAlert("Invalid date", "Please enter a valid date", "OK");
+
+                // Remove the busy activity indication
+                MyActivityInidicator.IsRunning = false;
+                MyActivityInidicator.IsVisible = false;
+                return;
+            }
 
             // The end date must be at least one day after the start date
             if (myToDate <= myFromDate.AddDays(1))

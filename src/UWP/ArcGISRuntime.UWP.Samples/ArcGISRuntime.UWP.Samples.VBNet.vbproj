@@ -227,7 +227,7 @@
     <None Include="Samples\Symbology\RenderPictureMarkers\metadata.json" />
     <None Include="Samples\Symbology\RenderSimpleMarkers\metadata.json" />
     <None Include="Samples\Symbology\RenderUniqueValues\metadata.json" />
-    <None Include="Samples\Tutorial\AuthorEditSaveMap\metadata.json" />
+    <Content Include="Samples\Tutorial\AuthorEditSaveMap\metadata.json" />
     <None Include="Samples\Search\FindAddress\metadata.json" />
     <Content Include="Samples\MapView\ShowCallout\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

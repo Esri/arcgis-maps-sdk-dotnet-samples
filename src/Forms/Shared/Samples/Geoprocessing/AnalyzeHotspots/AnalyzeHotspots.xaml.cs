@@ -39,13 +39,13 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeHotspots
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
             // Create a map with a topographic basemap
             Map myMap = new Map(Basemap.CreateTopographic());
 
             // Create a new geoprocessing task
-            _hotspotTask = new GeoprocessingTask(new Uri(_hotspotUrl));
+            _hotspotTask = await GeoprocessingTask.CreateAsync(new Uri(_hotspotUrl));
 
             // Assign the map to the MapView
             MyMapView.Map = myMap;

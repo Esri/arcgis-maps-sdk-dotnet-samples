@@ -35,13 +35,13 @@ Namespace AnalyzeHotspots
 
         End Sub
 
-        Private Sub Initialize()
+        Private Async Sub Initialize()
 
             ' Create a map with a topographic basemap
             Dim myMap As New Map(Basemap.CreateTopographic())
 
             ' Create a new geoprocessing task
-            _hotspotTask = New GeoprocessingTask(New Uri(HotspotsUrl))
+            _hotspotTask = Await GeoprocessingTask.CreateAsync(New Uri(HotspotsUrl))
 
             ' Assign the map to the MapView
             MyMapView.Map = myMap

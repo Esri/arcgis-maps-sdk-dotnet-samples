@@ -55,6 +55,9 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
             // Initialize the LocatorTask with the provided service Uri
             _geocoder = await LocatorTask.CreateAsync(_serviceUri);
 
+            // Enable location display
+            MyMapView.LocationDisplay.IsEnabled = true;
+
             // Enable all controls now that the locator task is ready
             MySearchBox.IsEnabled = true;
             MyLocationBox.IsEnabled = true;
@@ -322,7 +325,7 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
         }
 
         /// <summary>
-        /// Method called to start a search that is restricted to results within the current extent.
+        /// Method called to start a search that is restricted to results within the current extent
         /// </summary>
         private void MySearchRestrictedButton_Click(object sender, RoutedEventArgs e)
         {

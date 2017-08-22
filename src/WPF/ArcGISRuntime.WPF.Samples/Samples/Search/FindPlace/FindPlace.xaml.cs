@@ -64,6 +64,12 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             MySearchRestrictedButton.IsEnabled = true;
         }
 
+        /// <summary>
+        /// Gets the map point corresponding to the text in the location textbox.
+        /// If the text is 'Current Location', the returned map point will be the device's location.
+        /// </summary>
+        /// <param name="locationText"></param>
+        /// <returns></returns>
         private async Task<MapPoint> GetSearchMapPoint(string locationText)
         {
             // Get the map point for the search text
@@ -88,6 +94,12 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             }
         }
 
+        /// <summary>
+        /// Runs a search and populates the map with results based on the provided information
+        /// </summary>
+        /// <param name="enteredText">Results to search for</param>
+        /// <param name="locationText">Location around which to find results</param>
+        /// <param name="restrictToExtent">If true, limits results to only those that are within the current extent</param>
         private async void UpdateSearch(string enteredText, string locationText, bool restrictToExtent = false)
         {
             // Clear any existing markers
@@ -183,6 +195,9 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             return new Graphic(point, pinSymbol);
         }
 
+        /// <summary>
+        /// Shows a callout for any tapped graphics
+        /// </summary>
         private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             // Search for the graphics underneath the user's tap
@@ -207,6 +222,14 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             MyMapView.ShowCalloutAt(e.Location, calloutBody);
         }
 
+        /// <summary>
+        /// Returns a list of suggestions based on the input search text and limited by the specified paramters
+        /// </summary>
+        /// <param name="searchText">Text to get suggestions for</param>
+        /// <param name="location">Location around which to look for suggestions</param>
+        /// <param name="poiOnly">If true, restricts suggestions to only Points of Interest (e.g. businesses, parks),
+        /// rather than all matching results</param>
+        /// <returns>List of suggestions as strings</returns>
         private async Task<IEnumerable<String>> GetSuggestResults(string searchText, string location = "", bool poiOnly = false)
         {
             // Quit if string is null, empty, or whitespace
@@ -244,12 +267,19 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             return formattedResults;
         }
 
+        /// <summary>
+        /// Method abstracts the platform-specific message box functionality to maximize re-use of common code
+        /// </summary>
+        /// <param name="message">Text of the message to show.</param>
         private void ShowStatusMessage(string message)
         {
             // Display the message to the user
             MessageBox.Show(message);
         }
 
+        /// <summary>
+        /// Method used to keep the suggestions up-to-date for the search box
+        /// </summary>
         private async void MySearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             // Get the current text
@@ -268,6 +298,9 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             MySearchBox.ItemsSource = results;
         }
 
+        /// <summary>
+        /// Method used to keep the suggestions up-to-date for the location box
+        /// </summary>
         private async void MyLocationBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             // Get the current text
@@ -289,6 +322,9 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             MyLocationBox.ItemsSource = mutableResults;
         }
 
+        /// <summary>
+        /// Method called to start a search that is restricted to results within the current extent.
+        /// </summary>
         private void MySearchRestrictedButton_Click(object sender, RoutedEventArgs e)
         {
             // Get the search text
@@ -301,6 +337,9 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             UpdateSearch(searchText, locationText, true);
         }
 
+        /// <summary>
+        /// Method called to start an unrestricted search
+        /// </summary>
         private void MySearchButton_Click(object sender, RoutedEventArgs e)
         {
             // Get the search text

@@ -296,8 +296,8 @@
               "Path": "Samples/Data/StatisticalQuery"
             },
             {
-              "SampleName": "StatisticsGroupSort",
-              "Path": "Samples/Data/StatisticsGroupSort"
+              "SampleName": "StatsQueryGroupAndSort",
+              "Path": "Samples/Data/StatsQueryGroupAndSort"
             },
             {
               "SampleName": "QueryCountExtent",

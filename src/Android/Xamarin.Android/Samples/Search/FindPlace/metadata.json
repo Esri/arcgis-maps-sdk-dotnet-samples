@@ -9,6 +9,6 @@
    "RequiresLocalServer":false,
    "Image":"FindPlace.jpg",
    "Link":"",
-  "TypeLink": [],
+  "TypeLink": [ "M:Esri.ArcGISRuntime.Tasks.Geocoding.LocatorTask.SuggestAsync(System.String,Esri.ArcGISRuntime.Tasks.Geocoding.SuggestParameters)", "T:Esri.ArcGISRuntime.Tasks.Geocoding.SuggestParameters", "M:Esri.ArcGISRuntime.Tasks.Geocoding.SuggestParameters.#ctor", "P:Esri.ArcGISRuntime.Tasks.Geocoding.SuggestParameters.Categories", "P:Esri.ArcGISRuntime.Tasks.Geocoding.SuggestParameters.PreferredSearchLocation", "T:Esri.ArcGISRuntime.Tasks.Geocoding.GeocodeParameters", "M:Esri.ArcGISRuntime.Tasks.Geocoding.GeocodeParameters.#ctor", "P:Esri.ArcGISRuntime.Tasks.Geocoding.GeocodeParameters.PreferredSearchLocation", "P:Esri.ArcGISRuntime.Tasks.Geocoding.GeocodeParameters.SearchArea", "M:Esri.ArcGISRuntime.Tasks.Geocoding.LocatorTask.GeocodeAsync(System.String,Esri.ArcGISRuntime.Tasks.Geocoding.GeocodeParameters)" ],
   "SampleFolder": "FindPlace"
 } 

@@ -1,0 +1,14 @@
+{
+   "Name": "Find Place",
+   "SampleName": "FindPlace",
+   "Description": "This sample demonstrates how to use geocode functionality to search for points of interest, around a location or within an extent.",
+   "Instructions": "",
+   "Type": 0,
+   "RequiresOnlineConnection":true,
+   "RequiresOfflineData":false,
+   "RequiresLocalServer":false,
+   "Image":"FindPlace.jpg",
+   "Link":"",
+  "TypeLink": [ ],
+  "SampleFolder": "FindPlace"
+} 

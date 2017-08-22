@@ -211,6 +211,9 @@
       <SubType>Code</SubType>
       <DependentUpon>FindRoute.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Search\FindPlace\FindPlace.xaml.cs">
+      <DependentUpon>FindPlace.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>RenderSimpleMarkers.xaml</DependentUpon>
@@ -453,6 +456,10 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\NetworkAnalysis\FindRoute\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Search\FindPlace\FindPlace.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Search\FindPlace\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderSimpleMarkers\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -492,6 +499,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Samples\Search\FindPlace\FindPlace.jpg" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerDictionaryRenderer\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>

@@ -237,7 +237,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             View.AddSubviews(_myMapView, _mySearchBox, _myLocationBox, _mySearchButton, _mySearchRestrictedButton, _mySuggestionView);
         }
 
-        private async Task Initialize()
+        private async void Initialize()
 		{
 			// Get a new instance of the Imagery with Labels basemap
 			Basemap _basemap = Basemap.CreateStreets();
@@ -297,7 +297,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         /// <param name="enteredText">Results to search for</param>
         /// <param name="locationText">Location around which to find results</param>
         /// <param name="restrictToExtent">If true, limits results to only those that are within the current extent</param>
-        private async Task UpdateSearch(string enteredText, string locationText, bool restrictToExtent = false)
+        private async void UpdateSearch(string enteredText, string locationText, bool restrictToExtent = false)
         {
             // Clear any existing markers
             _myMapView.GraphicsOverlays.Clear();
@@ -508,6 +508,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
 
             // Force the view to refresh
             _mySuggestionView.ReloadData();
+
+			// Show the view
+			_mySuggestionView.Hidden = false;
         }
 
         /// <summary>
@@ -535,12 +538,15 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
 
             // Force the view to refresh
             _mySuggestionView.ReloadData();
+
+			// Show the view
+			_mySuggestionView.Hidden = false;
         }
 
         /// <summary>
         /// Method called to start a search that is restricted to results within the current extent
         /// </summary>
-        private async void _mySearchRestrictedButton_Click(object sender, EventArgs e)
+        private void _mySearchRestrictedButton_Click(object sender, EventArgs e)
         {
             // Get the search text
             string searchText = _mySearchBox.Text;
@@ -549,13 +555,13 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             string locationText = _myLocationBox.Text;
 
             // Run the search
-            await UpdateSearch(searchText, locationText, true);
+            UpdateSearch(searchText, locationText, true);
         }
 
         /// <summary>
         /// Method called to start an unrestricted search
         /// </summary>
-        private async void _mySearchButton_Clicked(object sender, EventArgs e)
+        private void _mySearchButton_Clicked(object sender, EventArgs e)
         {
             // Get the search text
             string searchText = _mySearchBox.Text;
@@ -564,7 +570,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             string locationText = _myLocationBox.Text;
 
             // Run the search
-            await UpdateSearch(searchText, locationText, false);
+            UpdateSearch(searchText, locationText, false);
         }
 
 
@@ -574,7 +580,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         /// <param name="text">The selected suggestion</param>
         public void AcceptSuggestion(string text)
         {
-            // Update the correct text
+            // Update the text for the currently active text box
             if (_locationSearchActive)
             {
                 _myLocationBox.Text = text;

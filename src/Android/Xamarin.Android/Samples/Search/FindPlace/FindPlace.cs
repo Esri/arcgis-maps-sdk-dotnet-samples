@@ -7,11 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 using Android.App;
 using Android.OS;
 using Android.Widget;
@@ -22,13 +17,17 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Geocoding;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntimeXamarin.Samples.FindPlace
 {
     [Activity]
     public class FindPlace : Activity
     {
-
         // The LocatorTask provides geocoding services via a service
         private LocatorTask _geocoder;
 
@@ -37,10 +36,8 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
 
         // UI Elements
         private MapView _myMapView = new MapView();
-
         private AutoCompleteTextView _mySearchBox;
         private AutoCompleteTextView _myLocationBox;
-
         private Button _mySearchButton;
         private Button _mySearchRestrictedButton;
 
@@ -134,8 +131,6 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         /// Gets the map point corresponding to the text in the location textbox.
         /// If the text is 'Current Location', the returned map point will be the device's location.
         /// </summary>
-        /// <param name="locationText"></param>
-        /// <returns></returns>
         private async Task<MapPoint> GetSearchMapPoint(string locationText)
         {
             // Get the map point for the search text
@@ -410,6 +405,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             await UpdateSearch(searchText, locationText, false);
         }
 
+        /// <summary>
+        /// Method called to start a search that is restricted to results within the current extent
+        /// </summary>
         private async void _mySearchRestrictedButton_Click(object sender, EventArgs e)
         {
             // Get the search text

@@ -83,6 +83,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             return TableItems.Count;
         }
 
+        /// <summary>
+        /// Method called when a row is selected; notifies the primary view
+        /// </summary>
         public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
         {
             // Deselect the row
@@ -116,9 +119,6 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
 
         // Create the restricted search button
         private UIButton _mySearchRestrictedButton = new UIButton();
-
-        // Hold a list of suggestions
-        //List<String> _suggestions = new List<string>();
 
         // Hold a suggestion source for the suggestion list view
         private SuggestionSource _mySuggestionSource;
@@ -238,35 +238,33 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         }
 
         private async void Initialize()
-		{
-			// Get a new instance of the Imagery with Labels basemap
-			Basemap _basemap = Basemap.CreateStreets();
+        {
+            // Get a new instance of the Imagery with Labels basemap
+            Basemap _basemap = Basemap.CreateStreets();
 
-			// Create a new Map with the basemap
-			Map myMap = new Map(_basemap);
+            // Create a new Map with the basemap
+            Map myMap = new Map(_basemap);
 
-			// Populate the MapView with the Map
-			_myMapView.Map = myMap;
+            // Populate the MapView with the Map
+            _myMapView.Map = myMap;
 
-			// Initialize the geocoder with the provided service Uri
-			_geocoder = await LocatorTask.CreateAsync(_serviceUri);
+            // Initialize the geocoder with the provided service Uri
+            _geocoder = await LocatorTask.CreateAsync(_serviceUri);
 
-			// Enable location display on the map
-			_myMapView.LocationDisplay.IsEnabled = true;
+            // Enable location display on the map
+            _myMapView.LocationDisplay.IsEnabled = true;
 
-			// Enable controls now that the geocoder is ready
-			_myLocationBox.Enabled = true;
-			_mySearchBox.Enabled = true;
-			_mySearchButton.Enabled = true;
-			_mySearchRestrictedButton.Enabled = true;
-		}
+            // Enable controls now that the geocoder is ready
+            _myLocationBox.Enabled = true;
+            _mySearchBox.Enabled = true;
+            _mySearchButton.Enabled = true;
+            _mySearchRestrictedButton.Enabled = true;
+        }
 
         /// <summary>
         /// Gets the map point corresponding to the text in the location textbox.
         /// If the text is 'Current Location', the returned map point will be the device's location.
         /// </summary>
-        /// <param name="locationText"></param>
-        /// <returns></returns>
         private async Task<MapPoint> GetSearchMapPoint(string locationText)
         {
             // Get the map point for the search text
@@ -509,8 +507,8 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             // Force the view to refresh
             _mySuggestionView.ReloadData();
 
-			// Show the view
-			_mySuggestionView.Hidden = false;
+            // Show the view
+            _mySuggestionView.Hidden = false;
         }
 
         /// <summary>
@@ -539,8 +537,8 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             // Force the view to refresh
             _mySuggestionView.ReloadData();
 
-			// Show the view
-			_mySuggestionView.Hidden = false;
+            // Show the view
+            _mySuggestionView.Hidden = false;
         }
 
         /// <summary>
@@ -572,7 +570,6 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             // Run the search
             UpdateSearch(searchText, locationText, false);
         }
-
 
         /// <summary>
         /// Called by the UITableView's data source to indicate that a suggestion was selected

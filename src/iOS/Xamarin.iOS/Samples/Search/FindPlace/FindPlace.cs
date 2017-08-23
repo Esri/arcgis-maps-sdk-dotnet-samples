@@ -237,6 +237,30 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             View.AddSubviews(_myMapView, _mySearchBox, _myLocationBox, _mySearchButton, _mySearchRestrictedButton, _mySuggestionView);
         }
 
+        private async Task Initialize()
+		{
+			// Get a new instance of the Imagery with Labels basemap
+			Basemap _basemap = Basemap.CreateStreets();
+
+			// Create a new Map with the basemap
+			Map myMap = new Map(_basemap);
+
+			// Populate the MapView with the Map
+			_myMapView.Map = myMap;
+
+			// Initialize the geocoder with the provided service Uri
+			_geocoder = await LocatorTask.CreateAsync(_serviceUri);
+
+			// Enable location display on the map
+			_myMapView.LocationDisplay.IsEnabled = true;
+
+			// Enable controls now that the geocoder is ready
+			_myLocationBox.Enabled = true;
+			_mySearchBox.Enabled = true;
+			_mySearchButton.Enabled = true;
+			_mySearchRestrictedButton.Enabled = true;
+		}
+
         /// <summary>
         /// Gets the map point corresponding to the text in the location textbox.
         /// If the text is 'Current Location', the returned map point will be the device's location.
@@ -273,7 +297,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         /// <param name="enteredText">Results to search for</param>
         /// <param name="locationText">Location around which to find results</param>
         /// <param name="restrictToExtent">If true, limits results to only those that are within the current extent</param>
-        private async void UpdateSearch(string enteredText, string locationText, bool restrictToExtent = false)
+        private async Task UpdateSearch(string enteredText, string locationText, bool restrictToExtent = false)
         {
             // Clear any existing markers
             _myMapView.GraphicsOverlays.Clear();
@@ -516,7 +540,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         /// <summary>
         /// Method called to start a search that is restricted to results within the current extent
         /// </summary>
-        private void _mySearchRestrictedButton_Click(object sender, EventArgs e)
+        private async void _mySearchRestrictedButton_Click(object sender, EventArgs e)
         {
             // Get the search text
             string searchText = _mySearchBox.Text;
@@ -525,13 +549,13 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             string locationText = _myLocationBox.Text;
 
             // Run the search
-            UpdateSearch(searchText, locationText, true);
+            await UpdateSearch(searchText, locationText, true);
         }
 
         /// <summary>
         /// Method called to start an unrestricted search
         /// </summary>
-        private void _mySearchButton_Clicked(object sender, EventArgs e)
+        private async void _mySearchButton_Clicked(object sender, EventArgs e)
         {
             // Get the search text
             string searchText = _mySearchBox.Text;
@@ -540,75 +564,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             string locationText = _myLocationBox.Text;
 
             // Run the search
-            UpdateSearch(searchText, locationText, false);
+            await UpdateSearch(searchText, locationText, false);
         }
 
-        private async void Initialize()
-        {
-            // Get a new instance of the Imagery with Labels basemap
-            Basemap _basemap = Basemap.CreateStreets();
-
-            // Create a new Map with the basemap
-            Map myMap = new Map(_basemap);
-
-            // Populate the MapView with the Map
-            _myMapView.Map = myMap;
-
-            // Initialize the geocoder with the provided service Uri
-            _geocoder = await LocatorTask.CreateAsync(_serviceUri);
-
-            // Enable location display on the map
-            _myMapView.LocationDisplay.IsEnabled = true;
-
-            // Enable controls now that the geocoder is ready
-            _myLocationBox.Enabled = true;
-            _mySearchBox.Enabled = true;
-            _mySearchButton.Enabled = true;
-            _mySearchRestrictedButton.Enabled = true;
-        }
-
-        /// <summary>
-        /// Runs a search and populates the map with results based on the provided information
-        /// </summary>
-        /// <param name="enteredText">Results to search for</param>
-        /// <param name="locationText">Location around which to find results</param>
-        /// <param name="restrictToExtent">If true, limits results to only those that are within the current extent</param>
-        private async void UpdateSearch()
-        {
-            // Get the text in the search bar
-            String enteredText = "";
-
-            // Clear existing marker
-            _myMapView.GraphicsOverlays.Clear();
-
-            // Return gracefully if the textbox is empty or the geocoder isn't ready
-            if (string.IsNullOrWhiteSpace(enteredText) || _geocoder == null) { return; }
-
-            // Get suggestions based on the input text
-            IReadOnlyList<SuggestResult> suggestions = await _geocoder.SuggestAsync(enteredText);
-
-            // Stop gracefully if there are no suggestions
-            if (suggestions.Count < 1) { return; }
-
-            // Get the full address for the first suggestion
-            SuggestResult firstSuggestion = suggestions.First();
-            IReadOnlyList<GeocodeResult> addresses = await _geocoder.GeocodeAsync(firstSuggestion.Label);
-
-            // Stop gracefully if the geocoder does not return a result
-            if (addresses.Count < 1) { return; }
-
-            // Place a marker on the map - 1. Create the overlay
-            GraphicsOverlay resultOverlay = new GraphicsOverlay();
-            // 2. Get the Graphic to display
-            Graphic point = await GraphicForPoint(addresses.First().DisplayLocation);
-            // 3. Add the Graphic to the GraphicsOverlay
-            resultOverlay.Graphics.Add(point);
-            // 4. Add the GraphicsOverlay to the MapView
-            _myMapView.GraphicsOverlays.Add(resultOverlay);
-
-            // Update the map extent to show the marker
-            await _myMapView.SetViewpointGeometryAsync(addresses.First().Extent);
-        }
 
         /// <summary>
         /// Called by the UITableView's data source to indicate that a suggestion was selected

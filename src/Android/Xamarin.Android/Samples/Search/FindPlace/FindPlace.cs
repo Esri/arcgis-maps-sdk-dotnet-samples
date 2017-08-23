@@ -38,15 +38,20 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         // UI Elements
         private MapView _myMapView = new MapView();
 
-        private EditText _addressSearchBar;
-        private Button _suggestButton;
-        private Button _searchButton;
+        private AutoCompleteTextView _mySearchBox;
+        private AutoCompleteTextView _myLocationBox;
+
+        private Button _mySearchButton;
+        private Button _mySearchRestrictedButton;
+
+        // List of suggestions
+        private List<String> _suggestions = new List<string>();
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 
-            Title = "Find Address";
+            Title = "Find Place";
 
             // Create the UI, setup the control references and execute initialization
             CreateLayout();
@@ -56,7 +61,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         private async void Initialize()
         {
             // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateImagery());
+            Map myMap = new Map(Basemap.CreateStreets());
 
             // Provide Map to the MapView
             _myMapView.Map = myMap;
@@ -64,99 +69,172 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             // Wire up the map view to support tapping on address markers
             _myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
 
+            // Enable location display
+            _myMapView.LocationDisplay.IsEnabled = true;
+
             // Initialize the LocatorTask with the provided service Uri
             _geocoder = await LocatorTask.CreateAsync(_serviceUri);
 
-            // Enable interaction now that the geocoder is ready
-            _suggestButton.Enabled = true;
-            _addressSearchBar.Enabled = true;
-            _searchButton.Enabled = true;
+            // Enable controls now that the geocoder is ready
+            _mySearchBox.Enabled = true;
+            _myLocationBox.Enabled = true;
+            _mySearchButton.Enabled = true;
+            _mySearchRestrictedButton.Enabled = true;
         }
 
         private void CreateLayout()
         {
-            //initialize the layout
+            // Vertical stack layout
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
-            var searchBarLayout = new RelativeLayout(this);
-            // Add the search bar
-            _addressSearchBar = new EditText(this);
 
-            layout.AddView(searchBarLayout);
-            searchBarLayout.AddView(_addressSearchBar);
-            // Add a search button
-            _searchButton = new Button(this) { Text = "Search" };
-            searchBarLayout.AddView(_searchButton);
-            // Add a suggestion button
-            _suggestButton = new Button(this) { Text = "Suggest" };
-            layout.AddView(_suggestButton);
-            // Add the MapView to the layout
+            // Search bar
+            _mySearchBox = new AutoCompleteTextView(this);
+            layout.AddView(_mySearchBox);
+
+            // Location search bar
+            _myLocationBox = new AutoCompleteTextView(this) { Text = "Current Location" };
+            layout.AddView(_myLocationBox);
+
+            // Disable multi-line searches
+            _mySearchBox.SetMaxLines(1);
+            _myLocationBox.SetMaxLines(1);
+
+            // Search buttons; horizontal layout
+            var searchButtonLayout = new LinearLayout(this) { Orientation = Orientation.Horizontal };
+            _mySearchButton = new Button(this) { Text = "Search All" };
+            _mySearchRestrictedButton = new Button(this) { Text = "Search View" };
+
+            // Add the buttons to the layout
+            searchButtonLayout.AddView(_mySearchButton);
+            searchButtonLayout.AddView(_mySearchRestrictedButton);
+
+            // Add the layout to the view
+            layout.AddView(searchButtonLayout);
+
+            // Add the mapview to the view
             layout.AddView(_myMapView);
-            var x = (RelativeLayout.LayoutParams)_searchButton.LayoutParameters;
-            x.AddRule(LayoutRules.AlignParentEnd);
-            var y = (RelativeLayout.LayoutParams)_addressSearchBar.LayoutParameters;
-            y.AddRule(LayoutRules.AlignParentStart);
-            // Keep the search bar from overflowing into multiple lines
-            _addressSearchBar.SetMaxLines(1);
+
             // Show the layout in the app
             SetContentView(layout);
 
             // Disable the buttons and search bar until the geocoder is ready
-            _suggestButton.Enabled = false;
-            _addressSearchBar.Enabled = false;
-            _searchButton.Enabled = false;
+            _mySearchBox.Enabled = false;
+            _myLocationBox.Enabled = false;
+            _mySearchButton.Enabled = false;
+            _mySearchRestrictedButton.Enabled = false;
 
             // Hook up the UI event handlers for suggestion & search
-            _suggestButton.Click += _searchHintButton_Click;
-            _searchButton.Click += SearchButton_Click;
+            _mySearchBox.TextChanged += _mySearchBox_TextChanged;
+            _myLocationBox.TextChanged += _myLocationBox_TextChanged;
+            _mySearchButton.Click += _mySearchButton_Click;
+            _mySearchRestrictedButton.Click += _mySearchRestrictedButton_Click;
         }
 
         /// <summary>
-        /// Provide address suggestions
+        /// Gets the map point corresponding to the text in the location textbox.
+        /// If the text is 'Current Location', the returned map point will be the device's location.
         /// </summary>
-        private void _searchHintButton_Click(object sender, EventArgs e)
+        /// <param name="locationText"></param>
+        /// <returns></returns>
+        private async Task<MapPoint> GetSearchMapPoint(string locationText)
         {
+            // Get the map point for the search text
+            if (locationText != "Current Location")
+            {
+                // Geocode the location
+                IReadOnlyList<GeocodeResult> locations = await _geocoder.GeocodeAsync(locationText);
+
+                // return if there are no results
+                if (locations.Count() < 1) { return null; }
+
+                // Get the first result
+                GeocodeResult result = locations.First();
+
+                // Return the map point
+                return result.DisplayLocation;
+            }
+            else
+            {
+                // Get the current device location
+                return _myMapView.LocationDisplay.Location.Position;
+            }
         }
 
-        private void SearchButton_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Runs a search and populates the map with results based on the provided information
+        /// </summary>
+        /// <param name="enteredText">Results to search for</param>
+        /// <param name="locationText">Location around which to find results</param>
+        /// <param name="restrictToExtent">If true, limits results to only those that are within the current extent</param>
+        private async Task UpdateSearch(string enteredText, string locationText, bool restrictToExtent = false)
         {
-            updateSearch();
-        }
-
-        private async void updateSearch()
-        {
-            // Get the text in the search bar
-            String enteredText = _addressSearchBar.Text;
-
-            // Clear existing marker
+            // Clear any existing markers
             _myMapView.GraphicsOverlays.Clear();
 
             // Return gracefully if the textbox is empty or the geocoder isn't ready
             if (string.IsNullOrWhiteSpace(enteredText) || _geocoder == null) { return; }
 
-            // Get suggestions based on the input text
-            IReadOnlyList<SuggestResult> suggestions = await _geocoder.SuggestAsync(enteredText);
+            // Create the geocode parameters
+            GeocodeParameters parameters = new GeocodeParameters();
 
-            // Stop gracefully if there are no suggestions
-            if (suggestions.Count < 1) { return; }
+            // Get the MapPoint for the current search location
+            MapPoint searchLocation = await GetSearchMapPoint(locationText);
 
-            // Get the full address for the first suggestion
-            SuggestResult firstSuggestion = suggestions.First();
-            IReadOnlyList<GeocodeResult> addresses = await _geocoder.GeocodeAsync(firstSuggestion.Label);
+            // Update the geocode parameters if the map point is not null
+            if (searchLocation != null)
+            {
+                parameters.PreferredSearchLocation = searchLocation;
+            }
 
-            // Stop gracefully if the geocoder does not return a result
-            if (addresses.Count < 1) { return; }
+            // Update the search area if desired
+            if (restrictToExtent)
+            {
+                // Get the current map extent
+                Geometry extent = _myMapView.VisibleArea;
 
-            // Place a marker on the map - 1. Create the overlay
+                // Update the search parameters
+                parameters.SearchArea = extent;
+            }
+
+            // Get the location information
+            IReadOnlyList<GeocodeResult> locations = await _geocoder.GeocodeAsync(enteredText, parameters);
+
+            // Stop gracefully and show a message if the geocoder does not return a result
+            if (locations.Count < 1) { ShowStatusMessage("No results found"); return; }
+
+            // Create the GraphicsOverlay so that results can be drawn on the map
             GraphicsOverlay resultOverlay = new GraphicsOverlay();
-            // 2. Get the Graphic to display
-            Graphic point = await GraphicForPoint(addresses.First().DisplayLocation);
-            // 3. Add the Graphic to the GraphicsOverlay
-            resultOverlay.Graphics.Add(point);
-            // 4. Add the GraphicsOverlay to the MapView
+
+            // Add each address to the map
+            foreach (GeocodeResult location in locations)
+            {
+                // Get the Graphic to display
+                Graphic point = await GraphicForPoint(location.DisplayLocation);
+
+                // Add the specific result data to the point
+                point.Attributes["Match_Title"] = location.Label;
+
+                // Get the address for the point
+                IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(location.DisplayLocation);
+
+                // Add the first suitable address if possible
+                if (addresses.Count() > 0)
+                {
+                    point.Attributes["Match_Address"] = addresses.First().Label;
+                }
+
+                // Add the Graphic to the GraphicsOverlay
+                resultOverlay.Graphics.Add(point);
+            }
+
+            // Add the GraphicsOverlay to the MapView
             _myMapView.GraphicsOverlays.Add(resultOverlay);
 
-            // Update the map extent to show the marker
-            await _myMapView.SetViewpointGeometryAsync(addresses.First().Extent);
+            // Create a viewpoint for the extent containing all graphics
+            Viewpoint viewExtent = new Viewpoint(resultOverlay.Extent);
+
+            // Update the map viewpoint
+            _myMapView.SetViewpoint(viewExtent);
         }
 
         /// <summary>
@@ -184,34 +262,164 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         }
 
         /// <summary>
-        /// Responds to map-tapped events to provide callouts for markers
+        /// Shows a callout for any tapped graphics
         /// </summary>
         private async void _myMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             // Search for the graphics underneath the user's tap
             IReadOnlyList<IdentifyGraphicsOverlayResult> results = await _myMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
 
-            // Return gracefully if there was no result
-            if (results.Count < 1 || results.First().Graphics.Count < 1) { return; }
+            // Clear callouts and return if there was no result
+            if (results.Count < 1 || results.First().Graphics.Count < 1) { _myMapView.DismissCallout(); return; }
 
-            // Reverse geocode to get addresses
-            IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(e.Location);
+            // Get the first graphic from the first result
+            Graphic matchingGraphic = results.First().Graphics.First();
 
-            // Get the first result
-            GeocodeResult address = addresses.First();
-            // Use the city and region for the Callout Title
-            String calloutTitle = address.Attributes["City"] + ", " + address.Attributes["Region"];
-            // Use the metro area for the Callout Detail
-            String calloutDetail = address.Attributes["MetroArea"].ToString();
+            // Get the title; manually added to the point's attributes in UpdateSearch
+            String title = matchingGraphic.Attributes["Match_Title"] as String;
 
-            // Use the MapView to convert from the on-screen location to the on-map location
-            MapPoint point = _myMapView.ScreenToLocation(e.Position);
+            // Get the address; manually added to the point's attributes in UpdateSearch
+            String address = matchingGraphic.Attributes["Match_Address"] as String;
 
             // Define the callout
-            CalloutDefinition calloutBody = new CalloutDefinition(calloutTitle, calloutDetail);
+            CalloutDefinition calloutBody = new CalloutDefinition(title, address);
 
             // Show the callout on the map at the tapped location
-            _myMapView.ShowCalloutAt(point, calloutBody);
+            _myMapView.ShowCalloutAt(e.Location, calloutBody);
+        }
+
+        /// <summary>
+        /// Returns a list of suggestions based on the input search text and limited by the specified paramters
+        /// </summary>
+        /// <param name="searchText">Text to get suggestions for</param>
+        /// <param name="location">Location around which to look for suggestions</param>
+        /// <param name="poiOnly">If true, restricts suggestions to only Points of Interest (e.g. businesses, parks),
+        /// rather than all matching results</param>
+        /// <returns>List of suggestions as strings</returns>
+        private async Task<IEnumerable<String>> GetSuggestResults(string searchText, string location = "", bool poiOnly = false)
+        {
+            // Quit if string is null, empty, or whitespace
+            if (String.IsNullOrWhiteSpace(searchText)) { return null; }
+
+            // Quit if the geocoder isn't ready
+            if (_geocoder == null) { return null; }
+
+            // Create geocode parameters
+            SuggestParameters parameters = new SuggestParameters();
+
+            // Restrict suggestions to points of interest if desired
+            if (poiOnly) { parameters.Categories.Add("POI"); }
+
+            // Set the location for the suggest parameters
+            if (!String.IsNullOrWhiteSpace(location))
+            {
+                // Get the MapPoint for the current search location
+                MapPoint searchLocation = await GetSearchMapPoint(location);
+
+                // Update the geocode parameters if the map point is not null
+                if (searchLocation != null)
+                {
+                    parameters.PreferredSearchLocation = searchLocation;
+                }
+            }
+
+            // Get the updated results from the query so far
+            IReadOnlyList<SuggestResult> results = await _geocoder.SuggestAsync(searchText, parameters);
+
+            // Convert the list into a list of strings (corresponding to the label property on each result)
+            IEnumerable<String> formattedResults = results.Select(result => result.Label);
+
+            // Return the list
+            return formattedResults;
+        }
+
+        /// <summary>
+        /// Method abstracts the platform-specific message box functionality to maximize re-use of common code
+        /// </summary>
+        /// <param name="message">Text of the message to show.</param>
+        private void ShowStatusMessage(string message)
+        {
+            // Display the message to the user
+            var builder = new AlertDialog.Builder(this);
+            builder.SetMessage(message).SetTitle("Alert").Show();
+        }
+
+        /// <summary>
+        /// Method used to keep the suggestions up-to-date for the search box
+        /// </summary>
+        private async void _mySearchBox_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
+        {
+            // Get the current text
+            string searchText = _mySearchBox.Text;
+
+            // Get the current search location
+            string locationText = _myLocationBox.Text;
+
+            // Convert the list into a usable format for the suggest box
+            List<String> results = (await GetSuggestResults(searchText, locationText, true)).ToList();
+
+            // Quit if there are no results
+            if (results == null || results.Count() == 0) { return; }
+
+            // Create an array adapter to provide autocomplete suggestions
+            ArrayAdapter adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, results);
+
+            // Apply the adapter
+            _mySearchBox.Adapter = adapter;
+        }
+
+        /// <summary>
+        /// Method used to keep the suggestions up-to-date for the location box
+        /// </summary>
+        private async void _myLocationBox_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
+        {
+            // Get the current text
+            string searchText = _myLocationBox.Text;
+
+            // Get the results
+            IEnumerable<String> results = await GetSuggestResults(searchText);
+
+            // Quit if there are no results
+            if (results == null || results.Count() == 0) { return; }
+
+            // Get a modifiable list from the results
+            List<String> mutableResults = results.ToList();
+
+            // Add a 'current location' option to the list
+            mutableResults.Insert(0, "Current Location");
+
+            // Create an array adapter to provide autocomplete suggestions
+            ArrayAdapter adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, mutableResults);
+
+            // Apply the adapter
+            _myLocationBox.Adapter = adapter;
+        }
+
+        /// <summary>
+        /// Method called to start an unrestricted search
+        /// </summary>
+        private async void _mySearchButton_Click(object sender, EventArgs e)
+        {
+            // Get the search text
+            string searchText = _mySearchBox.Text;
+
+            // Get the location text
+            string locationText = _myLocationBox.Text;
+
+            // Run the search
+            await UpdateSearch(searchText, locationText, false);
+        }
+
+        private async void _mySearchRestrictedButton_Click(object sender, EventArgs e)
+        {
+            // Get the search text
+            string searchText = _mySearchBox.Text;
+
+            // Get the location text
+            string locationText = _myLocationBox.Text;
+
+            // Run the search
+            await UpdateSearch(searchText, locationText, true);
         }
     }
 }

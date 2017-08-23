@@ -7,11 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -20,14 +15,87 @@ using Esri.ArcGISRuntime.Tasks.Geocoding;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
 using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.FindPlace
 {
+    /// <summary>
+    /// Class defines how a UITableView renders its contents.
+    /// This implements the suggestion UI for the table view.
+    /// </summary>
+    public class SuggestionSource : UITableViewSource
+    {
+        // List of strings; these will be the suggestions
+        public List<String> TableItems = new List<string>();
+
+        // Used when re-using cells to ensure that a cell of the right type is used
+        private string CellId = "TableCell";
+
+        // Hold a reference to the owning view controller; this will be the active instance of FindPlace
+        public FindPlace Owner { get; set; }
+
+        public SuggestionSource(List<String> items, FindPlace owner)
+        {
+            // Set the items
+            if (items != null)
+            {
+                TableItems = items;
+            }
+
+            // Set the owner
+            Owner = owner;
+        }
+
+        /// <summary>
+        /// This method gets a table view cell for the suggestion at the specified index
+        /// </summary>
+        public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
+        {
+            // Try to get a re-usable cell (this is for performance)
+            UITableViewCell cell = tableView.DequeueReusableCell(CellId);
+
+            // If there are no cells, create a new one
+            if (cell == null)
+            {
+                cell = new UITableViewCell(UITableViewCellStyle.Default, CellId);
+            }
+
+            // Get the specific item to display
+            String item = TableItems[indexPath.Row];
+
+            // Set the text on the cell
+            cell.TextLabel.Text = item;
+
+            // Return the cell
+            return cell;
+        }
+
+        /// <summary>
+        /// This method allows the UITableView to know how many rows to render
+        /// </summary>
+        public override nint RowsInSection(UITableView tableview, nint section)
+        {
+            return TableItems.Count;
+        }
+
+        public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
+        {
+            // Deselect the row
+            tableView.DeselectRow(indexPath, true);
+
+            // Accept the suggestion
+            Owner.AcceptSuggestion(TableItems[indexPath.Row]);
+        }
+    }
+
     [Register("FindPlace")]
     public class FindPlace : UIViewController
     {
-
         // The LocatorTask provides geocoding services
         private LocatorTask _geocoder;
 
@@ -49,11 +117,17 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         // Create the restricted search button
         private UIButton _mySearchRestrictedButton = new UIButton();
 
-        // Create the view for showing suggestions
-        private UITableView _mySuggestionView;// = new UITableView();
+        // Hold a list of suggestions
+        //List<String> _suggestions = new List<string>();
 
-        // Hold a list of suggestion strings
-        private List<String> _suggestions = new List<string>();
+        // Hold a suggestion source for the suggestion list view
+        private SuggestionSource _mySuggestionSource;
+
+        // Create the view for showing suggestions
+        private UITableView _mySuggestionView = new UITableView();
+
+        // Keep track of whether the search or location is being actively edited
+        private bool _locationSearchActive = false;
 
         public FindPlace()
         {
@@ -102,7 +176,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
             // The table view appears on top of the map view
-            //_mySuggestionView.Frame = new CoreGraphics.CGRect(2 * margin, (topHeight += height), width - 2 * margin, 8 * height);
+            _mySuggestionView.Frame = new CoreGraphics.CGRect(2 * margin, (topHeight += height), width - 2 * margin, 8 * height);
 
             base.ViewDidLayoutSubviews();
         }
@@ -115,6 +189,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             // Set the text on the two buttons
             _mySearchButton.SetTitle("Search All", UIControlState.Normal);
             _mySearchRestrictedButton.SetTitle("Search in View", UIControlState.Normal);
+
+            // Set the default location text
+            _myLocationBox.Text = "Current Location";
 
             // Gray out the buttons when they are disabled
             _mySearchButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
@@ -136,29 +213,28 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             _myLocationBox.Layer.CornerRadius = 5;
             _mySearchBox.Layer.CornerRadius = 5;
 
-            // Set padding to make the text fields look nice
-            _mySearchBox.LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 0));
+            // Make sure the suggestion list is hidden by default
+            _mySuggestionView.Hidden = true;
+
+            // Create the suggestion source
+            _mySuggestionSource = new SuggestionSource(null, this);
+
+            // Set the source for the table view
+            _mySuggestionView.Source = _mySuggestionSource;
 
             // Enable tap-for-info pattern on results
             _myMapView.GeoViewTapped += _myMapView_GeoViewTapped; ;
-
-            // Enable displaying and hiding the suggestion list
-            //_mySearchBox.TouchUpOutside += _mySearchBox_LostFocus;
-            //_myLocationBox.TouchUpOutside += _mySearchBox_LostFocus;
-            //_mySearchBox.TouchUpInside += _mySearchBox_GainedFocus;
-            //_myLocationBox.TouchUpInside += _mySearchBox_GainedFocus;
 
             // Listen for taps on the search buttons
             _mySearchButton.TouchUpInside += _mySearchButton_Clicked;
             _mySearchRestrictedButton.TouchUpInside += _mySearchRestrictedButton_Click;
 
             // Listen for text-changed events
-            _mySearchBox.ValueChanged += _mySearchBox_TextChanged;
-            _myLocationBox.ValueChanged += _myLocationBox_TextChanged;
+            _mySearchBox.AllEditingEvents += _mySearchBox_TextChanged;
+            _myLocationBox.AllEditingEvents += _myLocationBox_TextChanged;
 
             // Add the views
-            View.AddSubviews(_myMapView, _mySearchBox, _myLocationBox, _mySearchButton, _mySearchRestrictedButton);//, _mySuggestionView);
-
+            View.AddSubviews(_myMapView, _mySearchBox, _myLocationBox, _mySearchButton, _mySearchRestrictedButton, _mySuggestionView);
         }
 
         /// <summary>
@@ -369,6 +445,10 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             return formattedResults;
         }
 
+        /// <summary>
+        /// Method abstracts the platform-specific message box functionality to maximize re-use of common code
+        /// </summary>
+        /// <param name="message">Text of the message to show.</param>
         private void ShowStatusMessage(string message)
         {
             // Display the message to the user
@@ -376,8 +456,14 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             alertView.Show();
         }
 
+        /// <summary>
+        /// Method used to keep the suggestions up-to-date for the location box
+        /// </summary>
         private async void _myLocationBox_TextChanged(object sender, EventArgs e)
         {
+            // Set the currently-updated text field
+            _locationSearchActive = true;
+
             // Get the current text
             string searchText = _myLocationBox.Text;
 
@@ -394,11 +480,20 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             mutableResults.Insert(0, "Current Location");
 
             // Update the list of options
-            _suggestions = mutableResults;
+            _mySuggestionSource.TableItems = mutableResults.ToList();
+
+            // Force the view to refresh
+            _mySuggestionView.ReloadData();
         }
 
+        /// <summary>
+        /// Method used to keep the suggestions up-to-date for the search box
+        /// </summary>
         private async void _mySearchBox_TextChanged(object sender, EventArgs e)
         {
+            // Set the currently-updated text field
+            _locationSearchActive = false;
+
             // Get the current text
             string searchText = _mySearchBox.Text;
 
@@ -412,9 +507,15 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             if (results == null || results.Count() == 0) { return; }
 
             // Update the list of options
-            _suggestions = results.ToList();
+            _mySuggestionSource.TableItems = results.ToList();
+
+            // Force the view to refresh
+            _mySuggestionView.ReloadData();
         }
 
+        /// <summary>
+        /// Method called to start a search that is restricted to results within the current extent
+        /// </summary>
         private void _mySearchRestrictedButton_Click(object sender, EventArgs e)
         {
             // Get the search text
@@ -427,6 +528,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             UpdateSearch(searchText, locationText, true);
         }
 
+        /// <summary>
+        /// Method called to start an unrestricted search
+        /// </summary>
         private void _mySearchButton_Clicked(object sender, EventArgs e)
         {
             // Get the search text
@@ -437,18 +541,6 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
 
             // Run the search
             UpdateSearch(searchText, locationText, false);
-        }
-
-        private void _mySearchBox_GainedFocus(object sender, EventArgs e)
-        {
-            // Add the suggestions to the view
-            View.AddSubview(_mySuggestionView);
-        }
-
-        private void _mySearchBox_LostFocus(object sender, EventArgs e)
-        {
-            // Remove the suggestions from the view
-            _mySuggestionView.RemoveFromSuperview();
         }
 
         private async void Initialize()
@@ -475,13 +567,12 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             _mySearchRestrictedButton.Enabled = true;
         }
 
-        private void _addressSearchBar_Clicked(object sender, EventArgs e)
-        {
-            UpdateSearch();
-            // Dismiss the keyboard
-            //_addressSearchBar.ResignFirstResponder();
-        }
-
+        /// <summary>
+        /// Runs a search and populates the map with results based on the provided information
+        /// </summary>
+        /// <param name="enteredText">Results to search for</param>
+        /// <param name="locationText">Location around which to find results</param>
+        /// <param name="restrictToExtent">If true, limits results to only those that are within the current extent</param>
         private async void UpdateSearch()
         {
             // Get the text in the search bar
@@ -517,6 +608,29 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
 
             // Update the map extent to show the marker
             await _myMapView.SetViewpointGeometryAsync(addresses.First().Extent);
+        }
+
+        /// <summary>
+        /// Called by the UITableView's data source to indicate that a suggestion was selected
+        /// </summary>
+        /// <param name="text">The selected suggestion</param>
+        public void AcceptSuggestion(string text)
+        {
+            // Update the correct text
+            if (_locationSearchActive)
+            {
+                _myLocationBox.Text = text;
+            }
+            else
+            {
+                _mySearchBox.Text = text;
+            }
+
+            // Hide the suggestion view
+            _mySuggestionView.Hidden = true;
+
+            // Reset the suggestion items
+            _mySuggestionSource.TableItems = new List<string>();
         }
     }
 }

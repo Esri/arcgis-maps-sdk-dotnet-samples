@@ -81,6 +81,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.xaml.cs">
       <DependentUpon>CreateFeatureCollectionLayer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ExportTiles\ExportTiles.xaml.cs">
+      <DependentUpon>ExportTiles.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.xaml.cs">
       <DependentUpon>FeatureLayerDictionaryRenderer.xaml</DependentUpon>
     </Compile>
@@ -295,6 +298,12 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\IdentifyGraphics\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ExportTiles\ExportTiles.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ExportTiles\ExportTiles.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -491,6 +500,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ExportTiles\metadata.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Content Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.jpg" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerDictionaryRenderer\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

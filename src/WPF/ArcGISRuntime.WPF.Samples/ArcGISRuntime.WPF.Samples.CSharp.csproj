@@ -110,6 +110,9 @@
     <Compile Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.xaml.cs">
       <DependentUpon>CreateFeatureCollectionLayer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Layers\ExportTiles\ExportTiles.xaml.cs">
+      <DependentUpon>ExportTiles.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortal.xaml.cs">
       <DependentUpon>FeatureCollectionLayerFromPortal.xaml</DependentUpon>
     </Compile>
@@ -234,6 +237,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ExportTiles\ExportTiles.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.jpg">
@@ -467,6 +473,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\ExportTiles\ExportTiles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -841,6 +851,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Layers\FeatureLayerDictionaryRenderer\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ExportTiles\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

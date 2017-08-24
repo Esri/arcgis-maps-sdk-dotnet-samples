@@ -304,7 +304,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
                     _myProgressBar.StopAnimating();
 
                     // Change the export button text
-                    _myExportButton.SetTitle("Export tiles", UIControlState.Normal);
+                    _myExportButton.SetTitle("Export Tiles", UIControlState.Normal);
 
                     // Set the preview open flag
                     _previewOpen = false;

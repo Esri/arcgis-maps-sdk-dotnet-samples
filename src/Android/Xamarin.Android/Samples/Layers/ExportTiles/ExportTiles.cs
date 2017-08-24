@@ -29,7 +29,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
         private MapView _myMapView;
 
         // Reference to the base tiled map
-        Map _basemap;
+        private Map _basemap;
 
         // Reference to the progress bar
         private ProgressBar _myProgressBar;
@@ -43,18 +43,18 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
         // Flag to indicate if an exported cache is being previewed
         private bool _previewOpen = false;
 
-		protected override void OnCreate(Bundle bundle)
-		{
-			base.OnCreate(bundle);
+        protected override void OnCreate(Bundle bundle)
+        {
+            base.OnCreate(bundle);
 
-			Title = "Export tiles";
+            Title = "Export tiles";
 
-			// Create the layout
-			CreateLayout();
+            // Create the layout
+            CreateLayout();
 
-			// Initialize the app
-			Initialize();
-		}
+            // Initialize the app
+            Initialize();
+        }
 
         private void CreateLayout()
         {
@@ -83,39 +83,39 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
             // Add views to the layout
             layout.AddView(_myProgressBar);
             layout.AddView(_myExportButton);
-			layout.AddView(_myMapView);
+            layout.AddView(_myMapView);
 
             // Set the layout as the sample view
             SetContentView(layout);
         }
 
-		private async void Initialize()
-		{
-			// Create the tile layer
-			ArcGISTiledLayer layer = new ArcGISTiledLayer(_serviceUri);
+        private async void Initialize()
+        {
+            // Create the tile layer
+            ArcGISTiledLayer layer = new ArcGISTiledLayer(_serviceUri);
 
-			// Load the layer
-			await layer.LoadAsync();
+            // Load the layer
+            await layer.LoadAsync();
 
-			// Create the basemap with the layer
-			_basemap = new Map(new Basemap(layer));
+            // Create the basemap with the layer
+            _basemap = new Map(new Basemap(layer));
 
-			// Assign the map to the mapview
-			_myMapView.Map = _basemap;
+            // Assign the map to the mapview
+            _myMapView.Map = _basemap;
 
-			// Create a new symbol for the extent graphic
-			SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 2);
+            // Create a new symbol for the extent graphic
+            SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 2);
 
-			// Create graphics overlay for the extent graphic and apply a renderer
-			GraphicsOverlay extentOverlay = new GraphicsOverlay();
-			extentOverlay.Renderer = new SimpleRenderer(lineSymbol);
+            // Create graphics overlay for the extent graphic and apply a renderer
+            GraphicsOverlay extentOverlay = new GraphicsOverlay();
+            extentOverlay.Renderer = new SimpleRenderer(lineSymbol);
 
-			// Add graphics overlay to the map view
-			_myMapView.GraphicsOverlays.Add(extentOverlay);
+            // Add graphics overlay to the map view
+            _myMapView.GraphicsOverlays.Add(extentOverlay);
 
-			// Subscribe to changes in the mapview's viewpoint so the preview box can be kept in position
-			_myMapView.ViewpointChanged += MyMapView_ViewpointChanged;
-		}
+            // Subscribe to changes in the mapview's viewpoint so the preview box can be kept in position
+            _myMapView.ViewpointChanged += MyMapView_ViewpointChanged;
+        }
 
         private void MyMapView_ViewpointChanged(object sender, EventArgs e)
         {
@@ -313,7 +313,6 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
             {
                 // Show the progress bar
                 _myProgressBar.Visibility = Android.Views.ViewStates.Visible;
-
 
                 // Start the export
                 StartExport();

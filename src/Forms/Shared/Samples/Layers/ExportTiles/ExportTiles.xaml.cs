@@ -236,7 +236,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
                     MyProgressBar.IsVisible = false;
 
                     // Change the export button text
-                    MyExportPreviewButton.Text = "Export tiles";
+                    MyExportPreviewButton.Text = "Export Tiles";
 
                     // Set the preview open flag
                     _previewOpen = false;
@@ -284,7 +284,6 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
             }
             else // Otherwise, close the preview
             {
-
                 // Change the button text
                 MyExportPreviewButton.Text = "Export Tiles";
 

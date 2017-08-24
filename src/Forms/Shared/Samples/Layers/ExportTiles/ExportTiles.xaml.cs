@@ -33,6 +33,9 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
         // Flag to indicate whether an exported tile cache is being previewed
         private bool _previewOpen = false;
 
+        // Reference to the original basemap
+        private Map _basemap;
+
         public ExportTiles()
         {
             InitializeComponent();
@@ -50,10 +53,10 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
             await layer.LoadAsync();
 
             // Create the basemap with the layer
-            Map myMap = new Map(new Basemap(layer));
+            _basemap = new Map(new Basemap(layer));
 
             // Assign the map to the mapview
-            MyMapView.Map = myMap;
+            MyMapView.Map = _basemap;
 
             // Create a new symbol for the extent graphic
             SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Red, 2);
@@ -210,12 +213,6 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
                     // Show the exported tiles on the preview map
                     UpdatePreviewMap();
 
-                    // Show the preview map view
-                    MyPreviewMapView.IsVisible = true;
-
-                    // Hide the original map view
-                    MyMapView.IsVisible = false;
-
                     // Hide the progress bar
                     MyProgressBar.IsVisible = false;
 
@@ -237,12 +234,6 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
                 {
                     // Hide the progress bar
                     MyProgressBar.IsVisible = false;
-
-                    // Hide the preview map view
-                    MyPreviewMapView.IsVisible = false;
-
-                    // Show the original map view
-                    MyMapView.IsVisible = true;
 
                     // Change the export button text
                     MyExportPreviewButton.Text = "Export tiles";
@@ -274,7 +265,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
             Map previewMap = new Map(new Basemap(layer));
 
             // Apply the map to the preview mapview
-            MyPreviewMapView.Map = previewMap;
+            MyMapView.Map = previewMap;
         }
 
         /// <summary>
@@ -288,25 +279,20 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
                 // Show the progress bar
                 MyProgressBar.IsVisible = true;
 
-                // Hide the preview window if not already hidden
-                MyPreviewMapView.IsVisible = false;
-
                 // Start the export
                 StartExport();
             }
             else // Otherwise, close the preview
             {
-                // Hide the preview
-                MyPreviewMapView.IsVisible = false;
-
-                // Show the original map
-                MyMapView.IsVisible = true;
 
                 // Change the button text
                 MyExportPreviewButton.Text = "Export Tiles";
 
                 // Clear the preview open flag
                 _previewOpen = false;
+
+                // Re-apply the original map
+                MyMapView.Map = _basemap;
             }
         }
 

@@ -162,8 +162,12 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
             // Get the highest possible export quality
             parameters.CompressionQuality = 100;
 
-            // Set the min and max scale
-            parameters.LevelIds.Add((int)MyMapView.MapScale);
+            // Add level IDs 1-9
+            //     Note: Failing to add at least one Level ID will result in job failure
+            for (int x = 1; x < 10; x++)
+            {
+                parameters.LevelIds.Add(x);
+            }
 
             // Return the parameters
             return parameters;

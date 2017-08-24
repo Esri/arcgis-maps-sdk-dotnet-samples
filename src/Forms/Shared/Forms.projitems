@@ -52,6 +52,9 @@
       <SubType>Code</SubType>
       <DependentUpon>StatisticalQuery.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.xaml.cs">
+      <DependentUpon>StatsQueryGroupAndSort.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>AnalyzeHotspots.xaml</DependentUpon>
@@ -483,6 +486,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\StatsQueryGroupAndSort\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\GenerateGeodatabase\metadata.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -638,6 +645,11 @@
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)Samples\MapView\ShowCallout\ShowCallout.jpg" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\WMTSLayer\WMTSLayer.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

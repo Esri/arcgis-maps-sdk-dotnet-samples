@@ -87,6 +87,10 @@
 
     This sample demonstrates how to create a ArcGISVectorTiledLayer and bind this to a Basemap which is used in the creation of a map.
 
+* [Export tiles](ArcGISRuntime.WPF.Samples/Samples/Layers/ExportTiles)
+
+    This sample demonstrates how to export tiles from a map server.
+
 * [ArcGIS map image layer (URL)](ArcGISRuntime.WPF.Samples/Samples/Layers/ArcGISMapImageLayerUrl)
 
     This sample demonstrates how to add an ArcGISMapImageLayer as a base layer in a map. The ArcGISMapImageLayer comes from an ArcGIS Server sample web service.

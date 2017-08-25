@@ -92,6 +92,10 @@
 
     This sample demonstrates how to create a ArcGISVectorTiledLayer and bind this to a Basemap which is used in the creation of a map.
 
+    * [Export tiles](Xamarin.iOS/Samples/Layers/ExportTiles)
+
+    This sample demonstrates how to export tiles from a map server.
+
 
 - **Map Image Layers**
 

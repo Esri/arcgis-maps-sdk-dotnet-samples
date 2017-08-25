@@ -4,11 +4,11 @@
              x:Class="ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort.StatsQueryGroupAndSort">
     <Grid HorizontalOptions="Center" VerticalOptions="Center">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50"/>
-            <ColumnDefinition Width="110"/>
-            <ColumnDefinition Width="40"/>
-            <ColumnDefinition Width="110"/>
-            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -26,22 +26,19 @@
                FontSize="18" TextColor="Blue"
                HorizontalOptions="Center" VerticalOptions="Center"
                Text="Statistics: US States"/>
-        <Label Grid.Row="1" 
-                   HorizontalOptions="End" VerticalOptions="Center"
-                   Text="Field:"/>
         <Picker x:Name="FieldsComboBox" 
                   Grid.Row="1" Grid.Column="1"
+                Title="Field"
                   HorizontalOptions="Fill" VerticalOptions="Center"
                   Margin="5"/>
-        <Label Grid.Row="1" Grid.Column="2"
-                   HorizontalOptions="End" VerticalOptions="Center"
-                   Text="Type:"/>
         <Picker x:Name="StatTypeComboBox" 
                   Grid.Row="1" Grid.Column="3"
+                Title="Statistic"
                   HorizontalOptions="Fill" VerticalOptions="Center"
                   Margin="5"/>
         <Button x:Name="AddStatisticButton"
                 Grid.Row="1" Grid.Column="4"
+                HorizontalOptions="Start"
                 Margin="3"
                 Text="+"
                 Clicked="AddStatisticClicked"/>
@@ -118,8 +115,8 @@
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="2*"/>
                                 </Grid.ColumnDefinitions>
                                 <Switch IsToggled="{Binding OrderWith}"/>
                                 <Label Text="{Binding OrderInfo.FieldName}" 

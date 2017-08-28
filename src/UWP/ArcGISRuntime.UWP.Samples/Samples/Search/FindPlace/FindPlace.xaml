@@ -24,12 +24,26 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="2*" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="Search" Grid.Row="0" Grid.Column="0" />
-                <TextBlock Text="Location" Grid.Row="1" Grid.Column="0" />
-                <AutoSuggestBox x:Name="MySearchBox" Grid.Row="0" Grid.Column="1" IsEnabled="False"  Grid.ColumnSpan="2" TextChanged="MySearchBox_TextChanged" />
-                <AutoSuggestBox x:Name="MyLocationBox" Text="Current Location"  Grid.Row="1" Grid.Column="1" IsEnabled="False" Grid.ColumnSpan="2" TextChanged="MyLocationBox_TextChanged" />
-                <Button Content="Search All" Grid.Row="2" Grid.Column="0" x:Name="MySearchButton" Click="MySearchButton_Click" Grid.ColumnSpan="2" IsEnabled="False" HorizontalAlignment="Stretch" />
-                <Button Content="Search in View" Grid.Row="3" Grid.Column="2" x:Name="MySearchRestrictedButton" Click="MySearchRestrictedButton_Click" IsEnabled="False" HorizontalAlignment="Stretch" />
+                <TextBlock Text="Search"
+                           Grid.Row="0" Grid.Column="0" />
+                <TextBlock Text="Location"
+                           Grid.Row="1" Grid.Column="0" />
+                <AutoSuggestBox x:Name="MySearchBox"
+                                Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
+                                IsEnabled="False"
+                                TextChanged="MySearchBox_TextChanged" />
+                <AutoSuggestBox x:Name="MyLocationBox" Text="Current Location"
+                                Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                                IsEnabled="False"
+                                TextChanged="MyLocationBox_TextChanged" />
+                <Button x:Name="MySearchButton" Content="Search All"
+                        Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch"
+                        IsEnabled="False"
+                        Click="MySearchButton_Click" />
+                <Button x:Name="MySearchRestrictedButton" Content="Search in View"
+                        Grid.Row="3" Grid.Column="2" HorizontalAlignment="Stretch"
+                        IsEnabled="False"
+                        Click="MySearchRestrictedButton_Click" />
             </Grid>
         </Border>
     </Grid>

@@ -25,10 +25,22 @@
                 </Grid.ColumnDefinitions>
                 <Label Content="Search" Grid.Row="0" Grid.Column="0" />
                 <Label Content="Location" Grid.Row="1" Grid.Column="0" />
-                <ComboBox x:Name="MySearchBox" IsEditable="True" Grid.Row="0" Grid.Column="1" IsEnabled="False" TextBoxBase.TextChanged="MySearchBox_TextChanged" Grid.ColumnSpan="2" />
-                <ComboBox x:Name="MyLocationBox" Text="Current Location" IsEditable="True" Grid.Row="1" Grid.Column="1" IsEnabled="False" TextBoxBase.TextChanged="MyLocationBox_TextChanged"  Grid.ColumnSpan="2"/>
-                <Button Content="Search All" Grid.Row="2" Grid.Column="0" x:Name="MySearchButton" Click="MySearchButton_Click" Grid.ColumnSpan="2" IsEnabled="False" />
-                <Button Content="Search in View" Grid.Row="3" Grid.Column="2" x:Name="MySearchRestrictedButton" Click="MySearchRestrictedButton_Click" IsEnabled="False" />
+                <ComboBox x:Name="MySearchBox"
+                          Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
+                          IsEnabled="False" IsEditable="True"
+                          TextBoxBase.TextChanged="MySearchBox_TextChanged" />
+                <ComboBox x:Name="MyLocationBox" Text="Current Location"
+                          Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                          IsEditable="True" IsEnabled="False"
+                          TextBoxBase.TextChanged="MyLocationBox_TextChanged" />
+                <Button x:Name="MySearchButton" Content="Search All"
+                        Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                        IsEnabled="False"
+                        Click="MySearchButton_Click" />
+                <Button x:Name="MySearchRestrictedButton" Content="Search in View"
+                        Grid.Row="3" Grid.Column="2"
+                        IsEnabled="False"
+                        Click="MySearchRestrictedButton_Click" />
             </Grid>
         </Border>
     </Grid>

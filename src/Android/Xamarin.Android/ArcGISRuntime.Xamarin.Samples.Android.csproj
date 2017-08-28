@@ -157,6 +157,7 @@
     <Compile Include="Samples\NetworkAnalysis\FindRoute\FindRoute.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Samples\Search\FindPlace\FindPlace.cs" />
     <Compile Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.cs" />
     <Compile Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.cs" />
     <Compile Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.cs" />
@@ -253,6 +254,7 @@
     <EmbeddedResource Include="Samples\Layers\RasterLayerRasterFunction\metadata.json" />
     <EmbeddedResource Include="Samples\Map\OpenMobileMap\metadata.json" />
     <EmbeddedResource Include="Samples\Data\GenerateGeodatabase\metadata.json" />
+    <EmbeddedResource Include="Samples\Search\FindPlace\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml" />
@@ -284,6 +286,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\NetworkAnalysis\FindRoute\FindRoute.jpg" />
+    <Content Include="Samples\Search\FindPlace\FindPlace.jpg" />
     <Content Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg" />
     <Content Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg" />
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />

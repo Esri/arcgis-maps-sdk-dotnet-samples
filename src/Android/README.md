@@ -272,11 +272,15 @@
 ## Search
 
 
-- **Working with Addresses**
+- **Working with Places**
 
     * [Find Address](Xamarin.Android/Samples/Search/FindAddress)
 
     This sample demonstrates how you can use the LocatorTask API to geocode an address and display it with a pin on the map. Tapping the pin displays the reverse-geocoded address in a callout.
+
+    * [Find Place](Xamarin.Android/Samples/Search/FindPlace)
+
+    This sample demonstrates how to use geocode functionality to search for points of interest, around a location or within an extent.
 
 ## Tutorial
 

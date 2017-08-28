@@ -9,6 +9,7 @@
             <RowDefinition Height="40" />
             <RowDefinition Height="40" />
             <RowDefinition Height="40" />
+            <RowDefinition Height="20" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -18,7 +19,7 @@
         </Grid.ColumnDefinitions>
         <Label Text="Search" Grid.Row="0" Grid.Column="0" />
         <Label Text="Location" Grid.Row="1" Grid.Column="0" />
-        <SearchBar x:Name="MySearchBox"
+        <SearchBar x:Name="MySearchBox" Text="Coffee"
                    Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
                    IsEnabled="False"
                    Unfocused="MyLocationBox_Unfocused" Focused="MySearchBox_Focused"
@@ -36,7 +37,10 @@
                 Grid.Column="2" Grid.Row="2"
                 IsEnabled="False"
                 Clicked="MySearchRestrictedButton_Clicked" />
-        <Grid Grid.Row="3" Grid.ColumnSpan="3">
+        <ActivityIndicator x:Name="MyProgressBar" IsRunning="True"
+                Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
+                IsVisible="False" />
+        <Grid Grid.Row="4" Grid.ColumnSpan="3">
             <ListView x:Name="lstViewSuggestions"
                       IsVisible="False"
                       ItemSelected="lstViewSuggestions_ItemSelected">

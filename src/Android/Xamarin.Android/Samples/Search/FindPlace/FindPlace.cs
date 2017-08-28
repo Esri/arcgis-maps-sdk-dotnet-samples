@@ -40,6 +40,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         private AutoCompleteTextView _myLocationBox;
         private Button _mySearchButton;
         private Button _mySearchRestrictedButton;
+        private ProgressBar _myProgressBar;
 
         // List of suggestions
         private List<String> _suggestions = new List<string>();
@@ -85,7 +86,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Search bar
-            _mySearchBox = new AutoCompleteTextView(this);
+            _mySearchBox = new AutoCompleteTextView(this) { Text = "Coffee" };
             layout.AddView(_mySearchBox);
 
             // Location search bar
@@ -104,6 +105,10 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             // Add the buttons to the layout
             searchButtonLayout.AddView(_mySearchButton);
             searchButtonLayout.AddView(_mySearchRestrictedButton);
+
+            // Progress bar
+            _myProgressBar = new ProgressBar(this) { Indeterminate = true, Visibility = Android.Views.ViewStates.Gone };
+            layout.AddView(_myProgressBar);
 
             // Add the layout to the view
             layout.AddView(searchButtonLayout);
@@ -191,11 +196,19 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
                 parameters.SearchArea = extent;
             }
 
+            // Show the progress bar
+            _myProgressBar.Visibility = Android.Views.ViewStates.Visible;
+
             // Get the location information
             IReadOnlyList<GeocodeResult> locations = await _geocoder.GeocodeAsync(enteredText, parameters);
 
             // Stop gracefully and show a message if the geocoder does not return a result
-            if (locations.Count < 1) { ShowStatusMessage("No results found"); return; }
+            if (locations.Count < 1)
+            {
+                _myProgressBar.Visibility = Android.Views.ViewStates.Gone; // 1. Hide the progress bar
+                ShowStatusMessage("No results found"); // 2. Show a message
+                return; // 3. Stop
+            }
 
             // Create the GraphicsOverlay so that results can be drawn on the map
             GraphicsOverlay resultOverlay = new GraphicsOverlay();
@@ -221,6 +234,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
                 // Add the Graphic to the GraphicsOverlay
                 resultOverlay.Graphics.Add(point);
             }
+
+            // Hide the progress bar
+            _myProgressBar.Visibility = Android.Views.ViewStates.Gone;
 
             // Add the GraphicsOverlay to the MapView
             _myMapView.GraphicsOverlays.Add(resultOverlay);

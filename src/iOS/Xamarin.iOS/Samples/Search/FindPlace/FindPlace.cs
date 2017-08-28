@@ -120,6 +120,12 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         // Create the restricted search button
         private UIButton _mySearchRestrictedButton = new UIButton();
 
+        // Create the progress indicator
+        private UIActivityIndicatorView _myProgressBar = new UIActivityIndicatorView()
+        {
+            Hidden = true
+        };
+
         // Hold a suggestion source for the suggestion list view
         private SuggestionSource _mySuggestionSource;
 
@@ -172,6 +178,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             // The search restricted button takes up half the width in the third row
             _mySearchRestrictedButton.Frame = new CoreGraphics.CGRect(halfWidth + 3 * margin, topHeight, halfWidth, height);
 
+            // The progress bar is below the buttons
+            _myProgressBar.Frame = new CoreGraphics.CGRect(margin, topHeight + margin + height, width, height);
+
             // The mapview fills the entire view
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
@@ -190,8 +199,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             _mySearchButton.SetTitle("Search All", UIControlState.Normal);
             _mySearchRestrictedButton.SetTitle("Search in View", UIControlState.Normal);
 
-            // Set the default location text
+            // Set the default location and search text
             _myLocationBox.Text = "Current Location";
+            _mySearchBox.Text = "Coffee";
 
             // Gray out the buttons when they are disabled
             _mySearchButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
@@ -202,10 +212,15 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             _mySearchRestrictedButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
 
             // Color the textboxes and buttons to appear over the mapview
-            _mySearchBox.BackgroundColor = UIColor.FromWhiteAlpha(.85f, .95f);
-            _myLocationBox.BackgroundColor = UIColor.FromWhiteAlpha(.85f, .95f);
-            _mySearchButton.BackgroundColor = UIColor.FromWhiteAlpha(.85f, .95f);
-            _mySearchRestrictedButton.BackgroundColor = UIColor.FromWhiteAlpha(.85f, .95f);
+            UIColor background = UIColor.FromWhiteAlpha(.85f, .95f);
+            _mySearchBox.BackgroundColor = background;
+            _myLocationBox.BackgroundColor = background;
+            _mySearchButton.BackgroundColor = background;
+            _mySearchRestrictedButton.BackgroundColor = background;
+            _myProgressBar.BackgroundColor = background;
+
+            // Hide the activity indicator (progress bar) when stopped
+            _myProgressBar.HidesWhenStopped = true;
 
             // Set radii to make it look nice
             _mySearchRestrictedButton.Layer.CornerRadius = 5;
@@ -234,7 +249,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             _myLocationBox.AllEditingEvents += _myLocationBox_TextChanged;
 
             // Add the views
-            View.AddSubviews(_myMapView, _mySearchBox, _myLocationBox, _mySearchButton, _mySearchRestrictedButton, _mySuggestionView);
+            View.AddSubviews(_myMapView, _mySearchBox, _myLocationBox, _mySearchButton, _mySearchRestrictedButton, _myProgressBar, _mySuggestionView);
         }
 
         private async void Initialize()
@@ -325,11 +340,19 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
                 parameters.SearchArea = extent;
             }
 
+            // Show the progress bar
+            _myProgressBar.StartAnimating();
+
             // Get the location information
             IReadOnlyList<GeocodeResult> locations = await _geocoder.GeocodeAsync(enteredText, parameters);
 
             // Stop gracefully and show a message if the geocoder does not return a result
-            if (locations.Count < 1) { ShowStatusMessage("No results found"); return; }
+            if (locations.Count < 1)
+            {
+                _myProgressBar.StopAnimating(); // 1. Hide the progress bar
+                ShowStatusMessage("No results found"); // 2. Show a message
+                return; // 3. Stop
+            }
 
             // Create the GraphicsOverlay so that results can be drawn on the map
             GraphicsOverlay resultOverlay = new GraphicsOverlay();
@@ -355,6 +378,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
                 // Add the Graphic to the GraphicsOverlay
                 resultOverlay.Graphics.Add(point);
             }
+
+            // Hide the progress bar
+            _myProgressBar.StopAnimating();
 
             // Add the GraphicsOverlay to the MapView
             _myMapView.GraphicsOverlays.Add(resultOverlay);

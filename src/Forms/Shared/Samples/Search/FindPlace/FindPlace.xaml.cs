@@ -128,11 +128,19 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
                 parameters.SearchArea = extent;
             }
 
+            // Show the progress bar
+            MyProgressBar.IsVisible = true;
+
             // Get the location information
             IReadOnlyList<GeocodeResult> locations = await _geocoder.GeocodeAsync(enteredText, parameters);
 
             // Stop gracefully and show a message if the geocoder does not return a result
-            if (locations.Count < 1) { ShowStatusMessage("No results found"); return; }
+            if (locations.Count < 1)
+            {
+                MyProgressBar.IsVisible = false; // 1. Hide the progress bar
+                ShowStatusMessage("No results found"); // 2. Show a message
+                return; // 3. Stop
+            }
 
             // Create the GraphicsOverlay so that results can be drawn on the map
             GraphicsOverlay resultOverlay = new GraphicsOverlay();
@@ -158,6 +166,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
                 // Add the Graphic to the GraphicsOverlay
                 resultOverlay.Graphics.Add(point);
             }
+
+            // Hide the progress bar
+            MyProgressBar.IsVisible = false;
 
             // Add the GraphicsOverlay to the MapView
             MyMapView.GraphicsOverlays.Add(resultOverlay);

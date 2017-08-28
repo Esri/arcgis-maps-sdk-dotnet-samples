@@ -224,7 +224,7 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
         }
 
         /// <summary>
-        /// Returns a list of suggestions based on the input search text and limited by the specified paramters
+        /// Returns a list of suggestions based on the input search text and limited by the specified parameters
         /// </summary>
         /// <param name="searchText">Text to get suggestions for</param>
         /// <param name="location">Location around which to look for suggestions</param>

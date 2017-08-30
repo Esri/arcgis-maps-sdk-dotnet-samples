@@ -346,6 +346,7 @@
     <EmbeddedResource Include="Samples\Layers\ExportTiles\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Samples\Search\FindPlace\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -403,6 +404,7 @@
     <Compile Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.cs" />
     <Compile Include="Samples\MapView\TakeScreenshot\TakeScreenshot.cs" />
     <Compile Include="Samples\NetworkAnalysis\FindRoute\FindRoute.cs" />
+    <Compile Include="Samples\Search\FindPlace\FindPlace.cs" />
     <Compile Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.cs" />
     <Compile Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.cs" />
     <Compile Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.cs" />
@@ -473,6 +475,9 @@
     </Content>
     <BundleResource Include="Samples\NetworkAnalysis\FindRoute\FindRoute.jpg" />
     <EmbeddedResource Include="Samples\Map\OpenMobileMap\OpenMobileMap.jpg" />
+    <Content Include="Samples\Search\FindPlace\FindPlace.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

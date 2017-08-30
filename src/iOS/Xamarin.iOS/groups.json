@@ -339,13 +339,17 @@
       "CategoryName": "Search",
       "SubCategories": [
         {
-          "Name": "Working with Addresses",
-          "SubCategoryName": "WorkingWithAddresses",
+          "Name": "Working with Places",
+          "SubCategoryName": "WorkingWithPlaces",
           "ShowGroup": true,
           "SampleInfos": [
             {
               "SampleName": "FindAddress",
               "Path": "Samples/Search/FindAddress"
+            },
+            {
+              "SampleName": "FindPlace",
+              "Path": "Samples/Search/FindPlace"
             }
           ]
         }

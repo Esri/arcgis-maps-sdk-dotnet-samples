@@ -207,6 +207,9 @@ namespace ArcGISRuntime.UWP.Samples.ExportTiles
                     // Show the 'close preview' button
                     MyClosePreviewButton.Visibility = Visibility.Visible;
 
+                    // Hide the 'export tiles' button
+                    MyExportButton.Visibility = Visibility.Collapsed;
+
                     // Hide the progress bar
                     MyProgressBar.Visibility = Visibility.Collapsed;
                 });
@@ -267,6 +270,9 @@ namespace ArcGISRuntime.UWP.Samples.ExportTiles
             // Hide the 'close preview' button if not already hidden
             MyClosePreviewButton.Visibility = Visibility.Collapsed;
 
+            // Show the 'export tiles' button
+            MyExportButton.Visibility = Visibility.Visible;
+
             // Start the export
             StartExport();
         }
@@ -288,6 +294,9 @@ namespace ArcGISRuntime.UWP.Samples.ExportTiles
 
             // Hide the 'close preview' button
             MyClosePreviewButton.Visibility = Visibility.Collapsed;
+
+            // Show the 'export tiles' button
+            MyExportButton.Visibility = Visibility.Visible;
         }
     }
 }

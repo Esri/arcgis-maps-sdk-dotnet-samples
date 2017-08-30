@@ -11,7 +11,9 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <esriUI:MapView x:Name="MyMapView" IsVisible="True" Grid.Row="0"/>
+        <Grid Grid.Row="0" BackgroundColor="MediumVioletRed">
+            <esriUI:MapView x:Name="MyMapView" IsVisible="True"/>
+        </Grid>
         <ActivityIndicator x:Name="MyProgressBar" IsVisible="False" Grid.Row="1" IsRunning="True" />
         <Button x:Name="MyExportPreviewButton" Text="Export" Grid.Row="2" Clicked="MyExportPreviewButton_Clicked" />
     </Grid>

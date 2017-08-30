@@ -280,7 +280,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
             MyMapView.Map = previewMap;
 
             // Re-size the mapview
-            MyMapView.Margin = new Thickness(20);
+            MyMapView.Margin = new Thickness(40);
         }
 
         /// <summary>

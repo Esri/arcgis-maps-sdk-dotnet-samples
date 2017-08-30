@@ -31,6 +31,9 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
         // Reference to the base tiled map
         private Map _basemap;
 
+        // Reference to the viewpoint (for previewing)
+        private Viewpoint _originalViewpoint;
+
         // Reference to the progress bar
         private ProgressBar _myProgressBar;
 
@@ -42,6 +45,9 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
 
         // Flag to indicate if an exported cache is being previewed
         private bool _previewOpen = false;
+
+        // Layout container for setting a margin on the mapview
+        private RelativeLayout _layoutContainer;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -64,6 +70,10 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
             // Create the mapview
             _myMapView = new MapView();
 
+            // Create the mapview's container
+            _layoutContainer = new RelativeLayout(this);
+            _layoutContainer.AddView(_myMapView);
+
             // Create the progress bar
             _myProgressBar = new ProgressBar(this)
             {
@@ -83,7 +93,10 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
             // Add views to the layout
             layout.AddView(_myProgressBar);
             layout.AddView(_myExportButton);
-            layout.AddView(_myMapView);
+            layout.AddView(_layoutContainer);
+
+            // Set the layout background color
+            layout.SetBackgroundColor(Android.Graphics.Color.MediumVioletRed);
 
             // Set the layout as the sample view
             SetContentView(layout);
@@ -248,6 +261,9 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
                 //     this method is called from a thread other than the UI thread
                 RunOnUiThread(() =>
                 {
+                    // Store the original map viewpoint
+                    _originalViewpoint = _myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
+
                     // Show the exported tiles on the preview map
                     UpdatePreviewMap();
 
@@ -304,6 +320,9 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
 
             // Apply the map to the mapview
             _myMapView.Map = previewMap;
+
+			// Set the margin
+			SetMapviewMargin(40);
         }
 
         /// <summary>
@@ -325,6 +344,12 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
                 // Apply the old basemap
                 _myMapView.Map = _basemap;
 
+                // Apply the old viewpoint
+                _myMapView.SetViewpoint(_originalViewpoint);
+
+                // Reset the margin
+                SetMapviewMargin(0);
+
                 // Change the button text
                 _myExportButton.Text = "Export Tiles";
 
@@ -341,6 +366,21 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
             // Display the message to the user
             var builder = new AlertDialog.Builder(this);
             builder.SetMessage(message).SetTitle("Alert").Show();
+        }
+
+        /// <summary>
+        /// Helper method applies the specified margin to the mapview's container 
+        /// </summary>
+        private void SetMapviewMargin(int margin)
+        {
+            // Get the layout parameters for the container
+            RelativeLayout.LayoutParams paramaters = (RelativeLayout.LayoutParams)_layoutContainer.LayoutParameters;
+
+            // Set the margins
+            paramaters.SetMargins(margin,margin,margin,margin);
+
+            // Apply the layout
+            _layoutContainer.LayoutParameters = paramaters;
         }
     }
 }

@@ -24,6 +24,9 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
         // URL to the service tiles will be exported from
         private Uri _serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer");
 
+        // Keep count of how many times sample has run to avoid overwriting cache files
+        private int _runcount = 0;
+
         public ExportTiles()
         {
             InitializeComponent();
@@ -35,23 +38,24 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
         private async void Initialize()
         {
             // Create the tile layer
-            ArcGISTiledLayer layer = new ArcGISTiledLayer(_serviceUri);
+            ArcGISTiledLayer myLayer = new ArcGISTiledLayer(_serviceUri);
 
             // Load the layer
-            await layer.LoadAsync();
+            await myLayer.LoadAsync();
 
             // Create the basemap with the layer
-            Map myMap = new Map(new Basemap(layer));
+            Map myMap = new Map(new Basemap(myLayer));
 
             // Assign the map to the mapview
             MyMapView.Map = myMap;
 
             // Create a new symbol for the extent graphic
-            SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Red, 2);
+            //     This is the red box that visualizes the extent for which tiles will be exported
+            SimpleLineSymbol myExtentSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Red, 2);
 
             // Create graphics overlay for the extent graphic and apply a renderer
             GraphicsOverlay extentOverlay = new GraphicsOverlay();
-            extentOverlay.Renderer = new SimpleRenderer(lineSymbol);
+            extentOverlay.Renderer = new SimpleRenderer(myExtentSymbol);
 
             // Add graphics overlay to the map view
             MyMapView.GraphicsOverlays.Add(extentOverlay);
@@ -62,13 +66,15 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
 
         private void MyMapView_ViewpointChanged(object sender, EventArgs e)
         {
-            UpdateMapExtent();
+            UpdateMapExtentGraphic();
         }
 
         /// <summary>
         /// Function used to keep the overlaid preview area marker in position
+        /// This is called by MyMapView_ViewpointChanged every time the user pans/zooms
+        ///     and updates the red box graphic to outline 80% of the current view
         /// </summary>
-        private void UpdateMapExtent()
+        private void UpdateMapExtentGraphic()
         {
             // Return if mapview is null
             if (MyMapView == null) { return; }
@@ -114,11 +120,11 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
         private string GetTilePath()
         {
             // Return the platform-specific path for storing the tile cache
-            return Environment.ExpandEnvironmentVariables("%TEMP%\\myTileCache.tpk");
+            return Environment.ExpandEnvironmentVariables(String.Format("%TEMP%\\myTileCache{0}.tpk", _runcount));
         }
 
         /// <summary>
-        /// Starts the export job and registers callbacks to keep aprised of job status
+        /// Starts the export job and registers callbacks to be notified of changes to job status
         /// </summary>
         private async void StartExport()
         {
@@ -194,6 +200,9 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
                     // Show the preview window
                     MyPreviewMapView.Visibility = Visibility.Visible;
 
+                    // Show the 'close preview' button
+                    MyClosePreviewButton.Visibility = Visibility.Visible;
+
                     // Hide the progress bar
                     MyProgressBar.Visibility = Visibility.Collapsed;
                 });
@@ -228,10 +237,10 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
             await cache.LoadAsync();
 
             // Create a tile layer with the cache
-            ArcGISTiledLayer layer = new ArcGISTiledLayer(cache);
+            ArcGISTiledLayer myLayer = new ArcGISTiledLayer(cache);
 
             // Create a new map with the layer as basemap
-            Map previewMap = new Map(new Basemap(layer));
+            Map previewMap = new Map(new Basemap(myLayer));
 
             // Apply the map to the preview mapview
             MyPreviewMapView.Map = previewMap;
@@ -242,11 +251,17 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
         /// </summary>
         private void MyExportButton_Click(object sender, RoutedEventArgs e)
         {
+            // Increment run count
+            _runcount++;
+
             // Show the progress bar
             MyProgressBar.Visibility = Visibility.Visible;
 
             // Hide the preview window if not already hidden
             MyPreviewMapView.Visibility = Visibility.Collapsed;
+
+            // Hide the 'close preview' button if not already hidden
+            MyClosePreviewButton.Visibility = Visibility.Collapsed;
 
             // Start the export
             StartExport();
@@ -259,6 +274,15 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
         {
             // Display the message to the user
             MessageBox.Show(message);
+        }
+
+        private void ClosePreview_Click(object sender, RoutedEventArgs e)
+        {
+            // Hide the preview map
+            MyPreviewMapView.Visibility = Visibility.Collapsed;
+
+            // Hide the close preview button
+            MyClosePreviewButton.Visibility = Visibility.Collapsed;
         }
     }
 }

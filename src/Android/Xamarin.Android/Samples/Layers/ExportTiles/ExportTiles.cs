@@ -92,23 +92,24 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
         private async void Initialize()
         {
             // Create the tile layer
-            ArcGISTiledLayer layer = new ArcGISTiledLayer(_serviceUri);
+            ArcGISTiledLayer myLayer = new ArcGISTiledLayer(_serviceUri);
 
             // Load the layer
-            await layer.LoadAsync();
+            await myLayer.LoadAsync();
 
             // Create the basemap with the layer
-            _basemap = new Map(new Basemap(layer));
+            _basemap = new Map(new Basemap(myLayer));
 
             // Assign the map to the mapview
             _myMapView.Map = _basemap;
 
             // Create a new symbol for the extent graphic
-            SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 2);
+            //     This is the red box that visualizes the extent for which tiles will be exported
+            SimpleLineSymbol myExtentSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 2);
 
             // Create graphics overlay for the extent graphic and apply a renderer
             GraphicsOverlay extentOverlay = new GraphicsOverlay();
-            extentOverlay.Renderer = new SimpleRenderer(lineSymbol);
+            extentOverlay.Renderer = new SimpleRenderer(myExtentSymbol);
 
             // Add graphics overlay to the map view
             _myMapView.GraphicsOverlays.Add(extentOverlay);
@@ -119,13 +120,15 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
 
         private void MyMapView_ViewpointChanged(object sender, EventArgs e)
         {
-            UpdateMapExtent();
+            UpdateMapExtentGraphic();
         }
 
         /// <summary>
-        /// Function used to keep the overlaid preview area marker in position
+        /// Function used to keep the overlaid preview area marker in position.
+        /// This is called by MyMapView_ViewpointChanged every time the user pans/zooms
+        ///     and updates the red box graphic to outline 80% of the current view
         /// </summary>
-        private void UpdateMapExtent()
+        private void UpdateMapExtentGraphic()
         {
             // Return if mapview is null
             if (_myMapView == null) { return; }
@@ -175,7 +178,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
         }
 
         /// <summary>
-        /// Starts the export job and registers callbacks to keep aprised of job status
+        /// Starts the export job and registers callbacks to be notified of changes to job status
         /// </summary>
         private async void StartExport()
         {
@@ -294,10 +297,10 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
             await cache.LoadAsync();
 
             // Create a tile layer with the cache
-            ArcGISTiledLayer layer = new ArcGISTiledLayer(cache);
+            ArcGISTiledLayer myLayer = new ArcGISTiledLayer(cache);
 
             // Create a new map with the layer as basemap
-            Map previewMap = new Map(new Basemap(layer));
+            Map previewMap = new Map(new Basemap(myLayer));
 
             // Apply the map to the mapview
             _myMapView.Map = previewMap;

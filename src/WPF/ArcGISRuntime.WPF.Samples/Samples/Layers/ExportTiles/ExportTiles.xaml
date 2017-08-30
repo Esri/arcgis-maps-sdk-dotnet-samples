@@ -12,6 +12,7 @@
                 <Button Content="Export Tiles" x:Name="MyExportButton" Click="MyExportButton_Click" />
                 <ProgressBar x:Name="MyProgressBar" Visibility="Collapsed" MinHeight="10" IsIndeterminate="True" />
                 <esri:MapView x:Name="MyPreviewMapView" Width="375" Height="400" Visibility="Collapsed" />
+                <Button Content="Close Preview" Click="ClosePreview_Click" Visibility="Collapsed" x:Name="MyClosePreviewButton" />
             </StackPanel>
         </Border>
     </Grid>

@@ -9,6 +9,6 @@
   "RequiresLocalServer": false,
   "Image": "ExportTiles.jpg",
   "Link": "",
-  "TypeLink": [],
+  "TypeLink": [ "T:Esri.ArcGISRuntime.Tasks.Offline.ExportTileCacheParameters", "T:Esri.ArcGISRuntime.Tasks.Offline.ExportTileCacheTask", "T:Esri.ArcGISRuntime.Tasks.Offline.ExportTileCacheJob", "M:Esri.ArcGISRuntime.Tasks.Offline.ExportTileCacheParameters.#ctor", "M:Esri.ArcGISRuntime.Mapping.TileCache.LoadAsync", "P:Esri.ArcGISRuntime.Mapping.Viewpoint.TargetGeometry", "M:Esri.ArcGISRuntime.Tasks.Job`1.Start" ],
   "SampleFolder": "ExportTiles"
 }

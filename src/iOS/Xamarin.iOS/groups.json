@@ -107,8 +107,12 @@
               "Path": "Samples/Layers/ArcGISTiledLayerUrl"
             },
             {
-              "SampleName":"ArcGISVectorTiledLayerUrl",
-              "Path":"Samples/Layers/ArcGISVectorTiledLayerUrl"
+              "SampleName": "ArcGISVectorTiledLayerUrl",
+              "Path": "Samples/Layers/ArcGISVectorTiledLayerUrl"
+            },
+            {
+              "SampleName": "ExportTiles",
+              "Path": "Samples/Layers/ExportTiles"
             }
           ]
         },

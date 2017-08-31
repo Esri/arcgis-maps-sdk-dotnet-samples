@@ -96,6 +96,10 @@
 
     This sample demonstrates how to add an ArcVectorGISTiledLayer as a base layer in a map.
 
+    * [Export tiles](Shared/Samples/Layers/ExportTiles)
+
+    This sample demonstrates how to export tiles from a map server.
+
 
 - **Map Image Layers**
 

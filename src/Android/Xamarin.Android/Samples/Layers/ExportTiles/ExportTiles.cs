@@ -10,6 +10,7 @@
 using Android.App;
 using Android.OS;
 using Android.Widget;
+using Android.Views;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -66,6 +67,8 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
         {
             // Create a stack layout
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+
+			layout.LayoutParameters = new ViewGroup.MarginLayoutParams(ViewGroup.MarginLayoutParams.MatchParent, ViewGroup.MarginLayoutParams.MatchParent);
 
             // Create the mapview
             _myMapView = new MapView();
@@ -374,7 +377,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
         private void SetMapviewMargin(int margin)
         {
             // Get the layout parameters for the container
-            RelativeLayout.LayoutParams paramaters = (RelativeLayout.LayoutParams)_layoutContainer.LayoutParameters;
+            ViewGroup.MarginLayoutParams paramaters = (ViewGroup.MarginLayoutParams)_layoutContainer.LayoutParameters;
 
             // Set the margins
             paramaters.SetMargins(margin,margin,margin,margin);

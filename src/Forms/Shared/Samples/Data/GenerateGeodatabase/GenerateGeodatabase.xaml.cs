@@ -233,6 +233,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
         // Get the path to the tile package used for the basemap
         private async Task<string> GetTpkPath()
         {
+            #region offlinedata
             // The desired tpk is expected to be called SanFrancisco.tpk
             string filename = "SanFrancisco.tpk";
 
@@ -249,6 +250,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
                 await DataManager.GetData("3f1bbf0ec70b409a975f5c91f363fe7d", "GenerateGeodatabase");
             }
             return filepath;
+            #endregion offlinedata
         }
 
         private string GetGdbPath()

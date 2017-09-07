@@ -72,8 +72,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             // Verify that there is at least one statistic definition
             if (_statDefinitions.Count() == 0)
             {
-                //! MessageDialog messageDialog = new MessageDialog("Please define at least one statistic for the query.", "Statistical Query");
-                //! messageDialog.ShowAsync();
+                DisplayAlert("Please define at least one statistic for the query.", "Statistical Query","OK");
                 return;
             }
 
@@ -231,8 +230,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             var selectedFieldName = GroupFieldsListBox.SelectedItem.ToString();
             if (!_groupByFields.Contains(selectedFieldName))
             {
-                //! MessageDialog messageDialog = new MessageDialog("Only fields used for grouping can be used to order results.");
-                //!messageDialog.ShowAsync();
+                DisplayAlert("Only fields used for grouping can be used to order results.", "Query", "OK");
                 return;
             }
 

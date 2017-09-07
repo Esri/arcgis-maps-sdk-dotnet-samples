@@ -426,7 +426,7 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
                 await DataManager.GetData("3f1bbf0ec70b409a975f5c91f363fe7d", "EditAndSyncFeatures");
             }
             return filepath;
-            #region offlinedata
+            #endregion offlinedata
         }
 
         private async void ShowStatusMessage(string message)

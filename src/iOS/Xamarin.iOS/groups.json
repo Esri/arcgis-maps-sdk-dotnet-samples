@@ -316,6 +316,10 @@
             {
               "SampleName": "SceneLayerUrl",
               "Path": "Samples/Layers/SceneLayerUrl"
+            },
+            {
+              "SampleName": "DisplayScene",
+              "Path": "Samples/Layers/DisplayScene"
             }
           ]
         }

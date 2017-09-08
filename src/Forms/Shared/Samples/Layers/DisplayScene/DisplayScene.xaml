@@ -4,8 +4,7 @@
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
              xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
              x:Class="ArcGISRuntimeXamarin.Samples.DisplayScene.DisplayScene">
-  <Grid>
-        <esriUI:SceneView x:Name="MySceneView">
-        </esriUI:SceneView>
-  </Grid>
+    <Grid>
+        <esriUI:SceneView x:Name="MySceneView"/>
+    </Grid>
 </ContentPage>

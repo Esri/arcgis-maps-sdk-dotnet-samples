@@ -81,6 +81,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.xaml.cs">
       <DependentUpon>CreateFeatureCollectionLayer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayScene\DisplayScene.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>DisplayScene.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ExportTiles\ExportTiles.xaml.cs">
       <DependentUpon>ExportTiles.xaml</DependentUpon>
     </Compile>
@@ -305,6 +309,10 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\IdentifyGraphics\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayScene\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayScene\DisplayScene.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ExportTiles\ExportTiles.jpg">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -515,6 +523,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayScene\DisplayScene.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Content Include="$(MSBuildThisFileDirectory)Samples\Symbology\SimpleRenderers\SimpleRenderers.jpg" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ExportTiles\metadata.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>

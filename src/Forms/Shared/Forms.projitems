@@ -229,6 +229,10 @@
       <SubType>Code</SubType>
       <DependentUpon>RenderUniqueValues.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Symbology\SimpleRenderers\SimpleRenderers.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>SimpleRenderers.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>UseDistanceCompositeSym.xaml</DependentUpon>
@@ -480,6 +484,10 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderUniqueValues\RenderUniqueValues.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\SimpleRenderers\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\SimpleRenderers\SimpleRenderers.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -507,6 +515,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Samples\Symbology\SimpleRenderers\SimpleRenderers.jpg" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ExportTiles\metadata.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>

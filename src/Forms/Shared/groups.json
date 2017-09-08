@@ -270,6 +270,10 @@
             {
               "SampleName": "RenderUniqueValues",
               "Path": "Samples/Symbology/RenderUniqueValues"
+            },
+            {
+              "SampleName": "SimpleRenderers",
+              "Path": "Samples/Symbology/SimpleRenderers"
             }
           ]
         }

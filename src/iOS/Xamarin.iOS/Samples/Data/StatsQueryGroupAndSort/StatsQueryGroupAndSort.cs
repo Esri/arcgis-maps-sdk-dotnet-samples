@@ -29,23 +29,23 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
         // US states feature table
         private FeatureTable _usStatesTable;
 
-        // Collection of (user-defined) statistics to use in the query
-        private ObservableCollection<StatisticDefinition> _statDefinitions = new ObservableCollection<StatisticDefinition>();
+        // List of field names from the table
+        private List<string> _fieldNames;
 
         // Selected fields for grouping results
-        private List<string> _groupByFields = new List<string>();
+        private Dictionary<string, bool> _groupByFields;
 
         // Collection to hold fields to order results by
-        private ObservableCollection<OrderFieldOption> _orderByFields = new ObservableCollection<OrderFieldOption>();
+        private List<OrderFieldOption> _orderByFields = new List<OrderFieldOption>();
 
         // Stack view UI control for arranging query controls
         private UIStackView _controlsStackView;
 
-        // UI controls that will need to be referenced
-        private UIPickerView _statisticPicker;
-       // private UITextView _statisticDefinitionsList;
-
+        // Model for defining choices in the statistics definition UIPickerView
         private StatDefinitionModel _statsPickerModel;
+
+        // List of statistics definitions to use in the query
+        private List<StatisticDefinition> _statisticDefinitions;
 
         public StatsQueryGroupAndSort()
         {
@@ -83,11 +83,17 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             await _usStatesTable.LoadAsync();
 
             // Fill the fields combo and "group by" list with field names from the table
-            var fieldNames = _usStatesTable.Fields.Select(f => f.Name).ToList();
+            _fieldNames = _usStatesTable.Fields.Select(f => f.Name).ToList();
 
-            // TODO: figure out how to fill the pickers, lists, whatever
-            _statsPickerModel = new StatDefinitionModel(fieldNames.ToArray());
-            _statisticPicker.Model = _statsPickerModel;
+            // Create a model that will provide statistic definition choices for the picker
+            _statsPickerModel = new StatDefinitionModel(_fieldNames.ToArray());
+
+            // Create a list of fields the user can select for grouping
+            _groupByFields = new Dictionary<string, bool>();
+            foreach(var name in _fieldNames)
+            {
+                _groupByFields.Add(name, false);
+            }
         }
 
         private void CreateLayout()
@@ -101,44 +107,21 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             _controlsStackView.Distribution = UIStackViewDistribution.EqualSpacing;
             _controlsStackView.Spacing = 5;
 
-            // TODO: create list boxes, etc.
-            _statisticPicker = new UIPickerView();
+            // Button for launching the UI to view or define statistics definitions for the query
+            var showStatDefinitionsButton = new UIButton();
+            showStatDefinitionsButton.SetTitle("Statistic Definitions", UIControlState.Normal);
+            showStatDefinitionsButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            showStatDefinitionsButton.BackgroundColor = UIColor.White;
+            showStatDefinitionsButton.Frame = new CoreGraphics.CGRect(30, 20, 220, 30);
+            showStatDefinitionsButton.TouchUpInside += ShowStatDefinitions;
 
-            // Text view to show/add statistic definitions
-            //_statisticDefinitionsList = new UITextView();
-            //_statisticDefinitionsList.Frame = new CoreGraphics.CGRect(10,10,200,80);
-            //_statisticDefinitionsList.BackgroundColor = UIColor.LightGray;
-            //_statisticDefinitionsList.Text = "ABC : 123";
-            //_statisticDefinitionsList.InputView = _statisticPicker;
-            //_statisticDefinitionsList.ScrollEnabled = true;
-            //_statisticDefinitionsList.ShowsHorizontalScrollIndicator = true;
-
-            var addStatButton = new UIButton();
-            addStatButton.SetTitle("Statistic Definitions", UIControlState.Normal);
-            addStatButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            addStatButton.BackgroundColor = UIColor.White;
-            addStatButton.Frame = new CoreGraphics.CGRect(30, 20, 220, 30);
-            addStatButton.TouchUpInside += AddStatButton_TouchUpInside;
-
-            UIToolbar toolbar = new UIToolbar();
-            toolbar.BarStyle = UIBarStyle.Black;
-            toolbar.Translucent = true;
-            toolbar.SizeToFit();
-            UIBarButtonItem doneButton = new UIBarButtonItem("Done", UIBarButtonItemStyle.Done, (s, e) =>
-            {
-                var newStatDefinition = _statsPickerModel.SelectedStatDefinition;
-                if (newStatDefinition != null)
-                {
-                    var statDefText = newStatDefinition.OnFieldName + " (" + newStatDefinition.StatisticType.ToString() + ")";
-                  //  _statisticDefinitionsList.Text = statDefText;
-                }
-
-             //   _statisticDefinitionsList.ResignFirstResponder();
-
-            });
-            toolbar.SetItems(new UIBarButtonItem[] { doneButton }, true);
-
-           // _statisticDefinitionsList.InputAccessoryView = toolbar;
+            // Button to choose fields with which to group results
+            var showGroupFieldsButton = new UIButton();
+            showGroupFieldsButton.SetTitle("Group Fields", UIControlState.Normal);
+            showGroupFieldsButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            showGroupFieldsButton.BackgroundColor = UIColor.White;
+            showGroupFieldsButton.Frame = new CoreGraphics.CGRect(30, 60, 220, 30);
+            showGroupFieldsButton.TouchUpInside += ShowGroupFields;
 
             // Create a button to invoke the query
             var getStatsButton = new UIButton();
@@ -151,23 +134,56 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
 
             // Add controls to the stack view
             // TODO: add other UI controls
-            _controlsStackView.AddSubview(addStatButton);// (_statisticPicker);
+            _controlsStackView.AddSubviews(showStatDefinitionsButton, showGroupFieldsButton);
+
             //_controlsStackView.AddArrangedSubview(getStatsButton);
 
             // Add UI controls to the page
             View.AddSubview(_controlsStackView);
         }
 
-        private void AddStatButton_TouchUpInside(object sender, EventArgs e)
+        private void ShowGroupFields(object sender, EventArgs e)
         {
-            var statsTable = new StatsDefinitionTable();
-            statsTable.statPickerUI = _statisticPicker;
-            var statDefs = new List<StatisticDefinition>();
-            statDefs.Add(new StatisticDefinition("POP200", StatisticType.Average, "2000_avg"));
-            var src = new StatisticDefinitionsDataSource(statDefs, null);
-            statsTable.TableView.Source = src;
-            src.WillBeginTableEditing(statsTable.TableView);
+            // Create a new table 
+            var fieldsTable = new UITableViewController(UITableViewStyle.Plain);
+
+            // Create a data source to show fields the user can choose to group results with
+            var groupFieldsDataSource = new GroupFieldsDataSource(_groupByFields);
+
+            // Set the data source on the table
+            fieldsTable.TableView.Source = groupFieldsDataSource;
+
+            // Show the table view
+            this.NavigationController.PushViewController(fieldsTable, true);
+        }
+
+        private void ShowStatDefinitions(object sender, EventArgs e)
+        {
+            // Create a list to store statistic definitions (if it doesn't exist)
+            if (_statisticDefinitions == null)
+            {
+                _statisticDefinitions = new List<StatisticDefinition>();
+            }
+
+            // Create a new UIPickerView and assign a model that will show fields and statistic types
+            var statisticPicker = new UIPickerView();
+            statisticPicker.Model = _statsPickerModel;
+
+            // Create a new table 
+            var statsTable = new UITableViewController(UITableViewStyle.Plain);
+
+            // Create a data source to show statistic definitions in the table
+            // Pass in the list of statistic definitions and the picker (for defining new ones)
+            var statDefsDataSource = new StatisticDefinitionsDataSource(_statisticDefinitions, statisticPicker);
+            
+            // Set the data source on the table
+            statsTable.TableView.Source = statDefsDataSource;
+
+            // Put the table in edit mode (to show add and delete buttons)
+            statDefsDataSource.WillBeginTableEditing(statsTable.TableView);
             statsTable.SetEditing(true, true);
+
+            // Show the table view
             this.NavigationController.PushViewController(statsTable, true);
         }
 
@@ -312,147 +328,300 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             return 40f;
         }
     }
-
-
-    [Register("StatsDefinitionTable")]
-    public class StatsDefinitionTable : UITableViewController
-    {
-       // public List<StatisticDefinition> statDefinitions;
-        public UIPickerView statPickerUI;
-
-        public StatsDefinitionTable()
-        {
-            Title = "Statistics Definitions";
-        }
-
-        public override void DidReceiveMemoryWarning()
-        {
-            // Releases the view if it doesn't have a superview.
-            base.DidReceiveMemoryWarning();
-        }
-
-        public override UIView InputView
-        {
-            get
-            {
-                return statPickerUI;
-            }
-        }
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            
-            //if (statDefinitions != null)
-            //{
-            //    var src = new StatisticDefinitionsDataSource(statDefinitions, statPickerUI);
-            //    TableView.Source = src;
-            //    TableView.Frame = new CoreGraphics.CGRect(0, 0, 100, 100);
-            //}
-        }
-    }
-
+    
     public class StatisticDefinitionsDataSource : UITableViewSource
     {
+        // List of statistic definitions for the current query
         private List<StatisticDefinition> _statisticDefinitions;
 
-        static string CELL_ID = "cellid";
+        // Picker for choosing a field and statistic type
+        private UIPickerView _statPicker;
+
+        // Custom UI to show the statistics picker and associated buttons
+        private ChooseStatisticOverlay _chooseStatOverlay;
         
+        // Text to display for the placeholder row used to add new statistic definitions
+        private const string  AddNewStatFieldName = "(Add statistic)";
+
         public StatisticDefinitionsDataSource(List<StatisticDefinition> statDefs, UIPickerView picker)
         {
+            // Store the list of statistic definitions and the statistic picker
             _statisticDefinitions = statDefs;
+            _statPicker = picker;
         }
 
         public override void CommitEditingStyle(UITableView tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath indexPath)
         {
+            // Respond to the user's edit request: Insert a new statistic definition, or delete an existing one
             if(editingStyle == UITableViewCellEditingStyle.Insert)
             {
-                // show picker?
-                
+                // Get the bounds of the table
+                var ovBounds = tableView.Bounds;
+                ovBounds.Height = ovBounds.Height + 60;
+
+                // Create an overlay UI that lets the user choose a field and statistic type to add
+                _chooseStatOverlay = new ChooseStatisticOverlay(ovBounds, 0.90f, UIColor.White, _statPicker);
+
+                // Handle the OnStatisticDefined event to get the info entered by the user
+                _chooseStatOverlay.OnStatisticDefined += (s,statDef) => 
+                {
+                    // Verify the selected statistic doesn't exist in the collection (check for an alias with the same value)
+                    StatisticDefinition existingItem = _statisticDefinitions.Find(itm => itm.OutputAlias == statDef.OutputAlias);
+                    if (existingItem != null) { return; }
+
+                    // Make updates to the table (add the chosen statistic)
+                    tableView.BeginUpdates();
+                                        
+                    // Insert a new row at the top of table display
+                    tableView.InsertRows(new NSIndexPath[] { NSIndexPath.FromRowSection(0, 0)}, UITableViewRowAnimation.Fade);
+                    
+                    // Insert the chosen statistic in the underlying collection
+                    _statisticDefinitions.Insert(0, statDef);
+
+                    // Apply table edits
+                    tableView.EndUpdates();
+                };
+
+                // Handle when the user chooses to close the dialog 
+                _chooseStatOverlay.OnCanceled += (s,e)=> 
+                { 
+                    // Remove the item input UI
+                    _chooseStatOverlay.Hide();
+                    _chooseStatOverlay = null;
+                };
+
+                // Add the map item info UI view (will display semi-transparent over the map view)
+                tableView.Add(_chooseStatOverlay);
+            }
+            else if(editingStyle == UITableViewCellEditingStyle.Delete)
+            {
+                // Remove the selected row from the table and the underlying collection of statistic definitions
+                _statisticDefinitions.RemoveAt(indexPath.Row);
+                tableView.DeleteRows(new NSIndexPath[] { indexPath }, UITableViewRowAnimation.Fade);
             }
         }
 
+        // Define the (confirmation) text to display when the user chooses to delete a row 
         public override string TitleForDeleteConfirmation(UITableView tableView, NSIndexPath indexPath)
         {
-            return "Axe it!";
+            return "Remove";
         }
 
+        // Allow all rows to be edited
         public override bool CanEditRow(UITableView tableView, NSIndexPath indexPath)
         {
             return true;
         }
+
+        // Allow all rows to be deleted except the last row, which is a placeholder for creating new statistic definitions
         public override UITableViewCellEditingStyle EditingStyleForRow(UITableView tableView, NSIndexPath indexPath)
         {
-            if (tableView.Editing)
+            // Get the index of the last row in the table view
+            var lastRowIndex = tableView.NumberOfRowsInSection(0) - 1;
+
+            // Set the editing style as delete for all but the final row (insert)
+            if (indexPath.Row == lastRowIndex)
             {
-                if (indexPath.Row == tableView.NumberOfRowsInSection(0) - 1)
-                    return UITableViewCellEditingStyle.Insert;
-                else
-                    return UITableViewCellEditingStyle.Delete;
+                return UITableViewCellEditingStyle.Insert;
             }
-            else // not in editing mode, enable swipe-to-delete for all rows
+            else
+            {
                 return UITableViewCellEditingStyle.Delete;
+            }
         }
 
         public void WillBeginTableEditing(UITableView tableView)
         {
+            // See if the table already has a placeholder row for the "Add New" button
+            StatisticDefinition existingItem = _statisticDefinitions.Find((itm) => itm.OnFieldName == AddNewStatFieldName);
+
+            // Return if there is already a placeholder row
+            if(existingItem != null) { return; }
+
+            // Begin updating the table
             tableView.BeginUpdates();
-            // insert the 'ADD NEW' row at the end of table display
-            tableView.InsertRows(new NSIndexPath[] {
-            NSIndexPath.FromRowSection (tableView.NumberOfRowsInSection (0), 0)
-        }, UITableViewRowAnimation.Fade);
-            // create a new item and add it to our underlying data (it is not intended to be permanent)
-            _statisticDefinitions.Add(new StatisticDefinition("(add new)", StatisticType.Count, ""));
-            tableView.EndUpdates(); // applies the changes
+
+            // Create an index path for the last row in the table
+            var lastRowIndex = NSIndexPath.FromRowSection(tableView.NumberOfRowsInSection(0), 0);
+
+            // Add the insert placeholder row at the end of table display
+            tableView.InsertRows(new NSIndexPath[] { lastRowIndex }, UITableViewRowAnimation.Fade);
+
+            // Create a new StatisticDefinition and add it to the underlying data
+            _statisticDefinitions.Add(new StatisticDefinition(AddNewStatFieldName, StatisticType.Count, ""));
+
+            // Apply the table edits
+            tableView.EndUpdates();
         }
-        
-        public void DidFinishTableEditing(UITableView tableView)
-        {
-            tableView.BeginUpdates();
-            // remove our 'ADD NEW' row from the underlying data
-            _statisticDefinitions.RemoveAt((int)tableView.NumberOfRowsInSection(0) - 1); // zero based :)
-                                                                              // remove the row from the table display
-            tableView.DeleteRows(new NSIndexPath[] { NSIndexPath.FromRowSection(tableView.NumberOfRowsInSection(0) - 1, 0) }, UITableViewRowAnimation.Fade);
-            tableView.EndUpdates(); // applies the changes
-        }
+
+        // This is called each time a cell needs to be created in the table
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
-            // Create the cells in the table
-            var cell = new UITableViewCell(UITableViewCellStyle.Subtitle, CELL_ID);
+            // Create a new cell with a main and detail label style
+            var cell = new UITableViewCell(UITableViewCellStyle.Subtitle, null);
 
+            // Get the corresponding StatisticDefinition for this row
             var definition = _statisticDefinitions[indexPath.Row] as StatisticDefinition;
+
+            // Set the cell text with the field name
             cell.TextLabel.Text = definition.OnFieldName;
-            if (!definition.OnFieldName.ToLower().Contains("add new"))
+
+            // If this is not the placeholder (insert) row, set the detail text with the statistic type
+            if (definition.OnFieldName != AddNewStatFieldName)
             {
                 cell.DetailTextLabel.Text = definition.StatisticType.ToString();
             }
-            //// Create a UISwitch for controlling the layer visibility
-            //var visibilitySwitch = new UISwitch()
-            //{
-            //    Frame = new CoreGraphics.CGRect(cell.Bounds.Width - 60, 7, 50, cell.Bounds.Height)
-            //};
-            //visibilitySwitch.Tag = indexPath.Row;
-            //visibilitySwitch.On = sublayer.IsVisible;
-            //visibilitySwitch.ValueChanged += VisibilitySwitch_ValueChanged;
 
-            //// Add the UISwitch to the cell's content view
-            //cell.ContentView.AddSubview(visibilitySwitch);
+            // Return the new cell
+            return cell;
+        }
+
+        // Return the number of rows for the table (count of the statistics definition list)
+        public override nint RowsInSection(UITableView tableView, nint section)
+        {
+            return _statisticDefinitions.Count;
+        }
+    }
+
+    public class GroupFieldsDataSource : UITableViewSource
+    {
+        private Dictionary<string, bool> _potentialGroupFields;        
+
+        public GroupFieldsDataSource(Dictionary<string, bool> fields)
+        {
+            _potentialGroupFields = fields;
+        }
+
+        public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
+        {
+            var cell = new UITableViewCell(UITableViewCellStyle.Default, null);
+
+            string fieldName = _potentialGroupFields.ElementAt(indexPath.Row).Key;
+            bool isForGrouping = _potentialGroupFields.ElementAt(indexPath.Row).Value;
+
+            cell.TextLabel.Text = fieldName;
+
+            // Create a UISwitch for selecting the field for grouping
+            var groupFieldSwitch = new UISwitch()
+            {
+                Frame = new CoreGraphics.CGRect(cell.Bounds.Width - 60, 7, 50, cell.Bounds.Height)
+            };
+            groupFieldSwitch.Tag = indexPath.Row;
+            groupFieldSwitch.On = isForGrouping;
+            groupFieldSwitch.ValueChanged += GroupBySwitched;
+
+            // Add the UISwitch to the cell's content view
+            cell.ContentView.AddSubview(groupFieldSwitch);
 
             return cell;
         }
 
-        private void VisibilitySwitch_ValueChanged(object sender, EventArgs e)
+        private void GroupBySwitched(object sender, EventArgs e)
         {
-            //// Get the row containing the UISwitch that was changed
-            //var index = (sender as UISwitch).Tag;
+            // Get the row containing the UISwitch that was changed
+            var index = (sender as UISwitch).Tag;
 
-            //// Set the sublayer visibility according to the UISwitch setting
-            //var sublayer = sublayers[(int)index] as ArcGISMapImageSublayer;
-            //sublayer.IsVisible = (sender as UISwitch).On;
+            // Set the sublayer visibility according to the UISwitch setting
+            var key = _potentialGroupFields.ElementAt((int)index).Key;
+            _potentialGroupFields[key] = (sender as UISwitch).On;
         }
 
         public override nint RowsInSection(UITableView tableView, nint section)
         {
-            return _statisticDefinitions.Count;
+            return _potentialGroupFields.Count;
+        }
+    }
+
+    // View containing "define statistic" controls (picker for fields/stat type, add/cancel buttons)
+    public class ChooseStatisticOverlay : UIView
+    {
+        // Event to provide the statistic definition the user entered when the view closes
+        public event EventHandler<StatisticDefinition> OnStatisticDefined;
+
+        // Event to report that the choice was canceled
+        public event EventHandler OnCanceled;
+
+        // Store the input controls so the values can be read
+        private UIPickerView _statisticPicker;
+        
+        public ChooseStatisticOverlay(CoreGraphics.CGRect frame, nfloat transparency, UIColor color, UIPickerView statPicker) : base(frame)
+        {
+            // Store the statistics picker
+            _statisticPicker = statPicker;
+            
+            // Create a semi-transparent overlay with the specified background color
+            BackgroundColor = color;
+            Alpha = transparency;
+
+            // Set the total height and width of the control set
+            nfloat totalHeight = 400;
+            nfloat totalWidth = 320;
+
+            // Find the bottom x and y of the view
+            nfloat centerX = Frame.Width / 2;
+            nfloat centerY = Frame.Bottom - 40;
+
+            // Find the start x and y for the control layout (aligned to the bottom of the view)
+            nfloat controlX = centerX - (totalWidth / 2);
+            nfloat controlY = centerY - totalHeight;
+
+            // Toolbar with "Add" and "Done" buttons
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.BarStyle = UIBarStyle.Black;
+            toolbar.Translucent = false;
+            toolbar.SizeToFit();
+
+            // Add Button (add the new stat and don't dismiss the UI)
+            UIBarButtonItem addButton = new UIBarButtonItem("Add", UIBarButtonItemStyle.Done, (s, e) =>
+            {
+                // Get the selected StatisticDefinition
+                var statPickerModel = _statisticPicker.Model as StatDefinitionModel;
+                var newStatDefinition = statPickerModel.SelectedStatDefinition;
+                if (newStatDefinition != null)
+                {
+                    // Fire the OnMapInfoEntered event and provide the statistic definition
+                    if (OnStatisticDefined != null)
+                    {
+                        // Raise the event
+                        OnStatisticDefined(this, newStatDefinition);
+                    }
+                }
+            });
+
+            // Done Button (dismiss the UI, don't use the selected statistic)
+            UIBarButtonItem doneButton = new UIBarButtonItem("Done", UIBarButtonItemStyle.Plain, (s, e) =>
+            {
+                OnCanceled.Invoke(this, null);
+            });
+
+            toolbar.SetItems(new UIBarButtonItem[] { addButton, doneButton }, true);
+
+            // Define the location of the statistic picker
+            controlY = controlY + 200;
+            _statisticPicker.Frame = new CoreGraphics.CGRect(controlX, controlY, totalWidth, 200);
+
+            // Set the location for the toolbar
+            controlY = controlY + 220;
+            toolbar.Frame = new CoreGraphics.CGRect(controlX, controlY, totalWidth, 30);
+
+            // Add the controls
+            AddSubviews(toolbar, _statisticPicker);
+        }
+
+        // Animate increasing transparency to completely hide the view, then remove it
+        public void Hide()
+        {
+            // Action to make the view transparent
+            Action makeTransparentAction = () => Alpha = 0;
+
+            // Action to remove the view
+            Action removeViewAction = () => RemoveFromSuperview();
+
+            // Time to complete the animation (seconds)
+            double secondsToComplete = 0.75;
+
+            // Animate transparency to zero, then remove the view
+            Animate(secondsToComplete, makeTransparentAction, removeViewAction);
         }
     }
 }

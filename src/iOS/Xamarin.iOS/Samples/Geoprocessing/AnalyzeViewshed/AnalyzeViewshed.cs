@@ -157,9 +157,6 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeViewshed
                     PresentViewController(alert, true, null);
                 }
             }
-            finally
-            {
-            }
         }
 
         private void CreateOverlays()

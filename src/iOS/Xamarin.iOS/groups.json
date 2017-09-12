@@ -277,6 +277,23 @@
       ]
     },
     {
+      "Name": "Analysis",
+      "CategoryName": "Analysis",
+      "SubCategories": [
+        {
+          "Name": "Geoprocessing",
+          "SubCategoryName": "Geoprocessing",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "AnalyzeViewshed",
+              "Path": "Samples/Geoprocessing/AnalyzeViewshed"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "Name": "Network Analysis",
       "CategoryName": "NetworkAnalysis",
       "SubCategories": [

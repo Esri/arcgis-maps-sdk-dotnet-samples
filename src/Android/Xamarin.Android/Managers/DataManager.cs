@@ -8,7 +8,9 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Esri.ArcGISRuntime.Portal;
 
@@ -73,7 +75,18 @@ namespace ArcGISRuntimeXamarin.Managers
 
         private static async Task UnpackData(string zipFile, string folder)
         {
-                        await Task.Run(() => System.IO.Compression.ZipFile.ExtractToDirectory(zipFile, folder));
+			await Task.Run(() => System.IO.Compression.ZipFile.ExtractToDirectory(zipFile, folder, true));
+			var info = new DirectoryInfo(folder);
+			List<DirectoryInfo> directoryContents = info.GetDirectories().ToList();
+			// copy the files from the directories into the parent
+			foreach (var directory in directoryContents)
+			{
+				// For each file in the directory
+				foreach (var file in directory.GetFiles())
+				{
+					File.Copy(file.FullName, Path.Combine(file.Directory.Parent.FullName, file.Name));
+				}
+			}
         }
 
         /// <summary>

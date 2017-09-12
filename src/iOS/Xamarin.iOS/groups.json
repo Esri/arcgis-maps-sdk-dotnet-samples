@@ -147,6 +147,10 @@
             {
               "SampleName": "RasterLayerRasterFunction",
               "Path": "Samples/Layers/RasterLayerRasterFunction"
+            },
+            {
+              "SampleName": "RasterLayerFile",
+              "Path": "Samples/Layers/RasterLayerFile"
             }
           ]
         }

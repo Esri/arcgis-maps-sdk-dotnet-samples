@@ -15,19 +15,11 @@ using Xamarin.Forms;
 using System.IO;
 using System.Threading.Tasks;
 
-#if WINDOWS_UWP
-using Colors = Windows.UI.Colors;
-#else
-using Colors = System.Drawing.Color;
-#endif
 
 namespace ArcGISRuntimeXamarin.Samples.RasterLayerFile
 {
     public partial class RasterLayerFile : ContentPage
     {
-// Reference to the original basemap
-        private Map _basemap;
-
         public RasterLayerFile()
         {
             InitializeComponent();

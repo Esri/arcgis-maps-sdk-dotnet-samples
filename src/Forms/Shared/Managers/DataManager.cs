@@ -9,6 +9,7 @@
 
 using System;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
@@ -81,37 +82,15 @@ namespace ArcGISRuntimeXamarin.Managers
         private static async Task UnpackData(string zipFile, string folder)
         {
 #if NETFX_CORE
-            using (var zipStream = File.OpenRead(zipFile))
+            using (var archive = ZipFile.OpenRead(zipFile))
             {
-                using (var archive = new System.IO.Compression.ZipArchive(zipStream, System.IO.Compression.ZipArchiveMode.Read))
+                foreach(var entry in archive.Entries.Where(m => !String.IsNullOrWhiteSpace(m.Name)))
                 {
-                    Action<DirectoryInfo> createDir = null;
-                    createDir = (s) =>
-                    {
-                        System.Diagnostics.Debug.WriteLine(s.FullName);
-                        if (Directory.Exists(s.FullName)) return;
-                        if (!Directory.Exists(s.Parent.FullName))
-                            createDir(s.Parent);
-                        Directory.CreateDirectory(s.FullName);
-                    };
-                    foreach (var entry in archive.Entries)
-                    {
-                        if (entry.FullName.EndsWith("/")) continue;
-                        var fileInfo = new System.IO.FileInfo(Path.Combine(folder, entry.FullName));
-                        System.Diagnostics.Debug.WriteLine("Unzipping " + fileInfo.FullName);
-                        createDir(fileInfo.Directory);
-                        using (var fileStream = File.Create(fileInfo.FullName))
-                        {
-                            using (var entryStream = entry.Open())
-                            {
-                                await entryStream.CopyToAsync(fileStream).ConfigureAwait(false);
-                            }
-                        }
-                    }
+                    entry.ExtractToFile(Path.Combine(folder, entry.Name), true);
                 }
             }
 #elif __ANDROID__ || __IOS__
-            await Task.Run(() => System.IO.Compression.ZipFile.ExtractToDirectory(zipFile, folder, true));
+            await Task.Run(() => ZipFile.ExtractToDirectory(zipFile, folder, true));
             var info = new DirectoryInfo(folder);
             List<DirectoryInfo> directoryContents = info.GetDirectories().ToList();
             // copy the files from the directories into the parent

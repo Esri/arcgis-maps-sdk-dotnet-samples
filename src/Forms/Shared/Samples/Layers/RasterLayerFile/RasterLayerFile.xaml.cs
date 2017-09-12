@@ -59,8 +59,8 @@ namespace ArcGISRuntimeXamarin.Samples.RasterLayerFile
 			// Get the raster's extent in a viewpoint
 			Viewpoint myFullRasterExtent = new Viewpoint(myRasterLayer.FullExtent);
 
-			// Zoom to the extent
-			MyMapView.SetViewpoint(myFullRasterExtent);
+            // Zoom to the extent
+            MyMapView.Map.InitialViewpoint = myFullRasterExtent;
         }
 
 		private async Task<string> GetRasterPath()

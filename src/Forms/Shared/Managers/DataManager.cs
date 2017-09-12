@@ -9,7 +9,9 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using Esri.ArcGISRuntime.Portal;
 #if NETFX_CORE
 using Windows.Storage;
@@ -109,7 +111,16 @@ namespace ArcGISRuntimeXamarin.Managers
                 }
             }
 #elif __ANDROID__ || __IOS__
-            await Task.Run(() => System.IO.Compression.ZipFile.ExtractToDirectory(zipFile, folder));
+            await Task.Run(() => System.IO.Compression.ZipFile.ExtractToDirectory(zipFile, folder, true));
+            var info = new DirectoryInfo(folder);
+            List<DirectoryInfo> directoryContents = info.GetDirectories().ToList();
+            // copy the files from the directories into the parent
+            foreach(var directory in directoryContents){
+                // For each file in the directory
+                foreach (var file in directory.GetFiles()){
+                    File.Copy(file.FullName, Path.Combine(file.Directory.Parent.FullName, file.Name));
+                }
+            }
 #endif
         }
 

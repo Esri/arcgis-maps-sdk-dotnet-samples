@@ -1,0 +1,16 @@
+{
+  "Name": "Raster layer (file)",
+  "SampleName": "RasterLayerFile",
+  "Description": "This sample demonstrates how to use a raster layer created from a local raster file.",
+  "Instructions": "The raster file is downloaded by the sample viewer automatically.",
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": true,
+  "RequiresLocalServer": false,
+  "DataItemIds": [ "7c4c679ab06a4df19dc497f577f111bd" ],
+  "DataFileNames": [ "Shasta.tif" ],
+  "Image": "RasterLayerFile.jpg",
+  "Link": "",
+  "TypeLink": [ ],
+  "SampleFolder": "RasterLayerFile"
+}

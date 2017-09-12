@@ -50,7 +50,7 @@ namespace ArcGISRuntime.UWP.Samples.RasterLayerFile
             Viewpoint myFullRasterExtent = new Viewpoint(myRasterLayer.FullExtent);
 
             // Zoom to the extent
-            MyMapView.SetViewpoint(myFullRasterExtent);
+            MyMapView.Map.InitialViewpoint = myFullRasterExtent;
         }
 
         private async Task<string> GetRasterPath()

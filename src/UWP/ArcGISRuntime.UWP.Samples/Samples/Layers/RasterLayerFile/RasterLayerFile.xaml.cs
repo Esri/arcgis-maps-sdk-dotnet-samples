@@ -7,9 +7,9 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
-using ArcGISRuntime.Samples.Managers;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -56,6 +56,7 @@ namespace ArcGISRuntime.UWP.Samples.RasterLayerFile
         private async Task<string> GetRasterPath()
         {
             #region offlinedata
+
             // The desired raster is expected to be called Shasta.tif
             string filename = "Shasta.tif";
 
@@ -72,6 +73,7 @@ namespace ArcGISRuntime.UWP.Samples.RasterLayerFile
                 await DataManager.GetData("7c4c679ab06a4df19dc497f577f111bd", "RasterLayerFile");
             }
             return filepath;
+
             #endregion offlinedata
         }
     }

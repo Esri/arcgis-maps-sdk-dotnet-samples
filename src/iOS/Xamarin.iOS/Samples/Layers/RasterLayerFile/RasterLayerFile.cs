@@ -7,21 +7,15 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Geometry;
+using ArcGISRuntimeXamarin.Managers;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.Rasters;
+using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using UIKit;
-using ArcGISRuntimeXamarin.Managers;
 
 namespace ArcGISRuntimeXamarin.Samples.RasterLayerFile
 {
@@ -57,20 +51,20 @@ namespace ArcGISRuntimeXamarin.Samples.RasterLayerFile
 
         private async void Initialize()
         {
-			// Get the file name
-			String filepath = await GetRasterPath();
+            // Get the file name
+            String filepath = await GetRasterPath();
 
-			// Load the raster file
-			Raster myRasterFile = new Raster(filepath);
+            // Load the raster file
+            Raster myRasterFile = new Raster(filepath);
 
-			// Create the layer
-			RasterLayer myRasterLayer = new RasterLayer(myRasterFile);
+            // Create the layer
+            RasterLayer myRasterLayer = new RasterLayer(myRasterFile);
 
             // Load the layer
             await myRasterLayer.LoadAsync();
 
-			// Add the layer to the map
-			_myMapView.Map.OperationalLayers.Add(myRasterLayer);
+            // Add the layer to the map
+            _myMapView.Map.OperationalLayers.Add(myRasterLayer);
 
             // Get the raster's extent in a viewpoint
             Viewpoint myFullRasterExtent = new Viewpoint(myRasterLayer.FullExtent);
@@ -91,26 +85,28 @@ namespace ArcGISRuntimeXamarin.Samples.RasterLayerFile
             View.AddSubviews(_myMapView);
         }
 
-		private async Task<string> GetRasterPath()
-		{
-			#region offlinedata
-			// The desired raster is expected to be called Shasta.tif
-			string filename = "Shasta.tif";
+        private async Task<string> GetRasterPath()
+        {
+            #region offlinedata
 
-			// The data manager provides a method to get the folder
-			string folder = DataManager.GetDataFolder();
+            // The desired raster is expected to be called Shasta.tif
+            string filename = "Shasta.tif";
 
-			// Get the full path
-			string filepath = Path.Combine(folder, "SampleData", "RasterLayerFile", filename);
+            // The data manager provides a method to get the folder
+            string folder = DataManager.GetDataFolder();
 
-			// Check if the file exists
-			if (!File.Exists(filepath))
-			{
-				// Download the map package file
-				await DataManager.GetData("7c4c679ab06a4df19dc497f577f111bd", "RasterLayerFile");
-			}
-			return filepath;
-			#endregion offlinedata
-		}
+            // Get the full path
+            string filepath = Path.Combine(folder, "SampleData", "RasterLayerFile", filename);
+
+            // Check if the file exists
+            if (!File.Exists(filepath))
+            {
+                // Download the map package file
+                await DataManager.GetData("7c4c679ab06a4df19dc497f577f111bd", "RasterLayerFile");
+            }
+            return filepath;
+
+            #endregion offlinedata
+        }
     }
 }

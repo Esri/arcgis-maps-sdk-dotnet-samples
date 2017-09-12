@@ -10,14 +10,13 @@
 using Android.App;
 using Android.OS;
 using Android.Widget;
-using Android.Views;
+using ArcGISRuntimeXamarin.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
-using System.Threading.Tasks;
-using ArcGISRuntimeXamarin.Managers;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntimeXamarin.Samples.RasterLayerFile
 {
@@ -48,8 +47,8 @@ namespace ArcGISRuntimeXamarin.Samples.RasterLayerFile
             // Create the mapview
             _myMapView = new MapView(this);
 
-			// Add an imagery basemap
-			_myMapView.Map = new Map(Basemap.CreateImagery());
+            // Add an imagery basemap
+            _myMapView.Map = new Map(Basemap.CreateImagery());
 
             // Add the mapview to the layout
             layout.AddView(_myMapView);
@@ -69,22 +68,23 @@ namespace ArcGISRuntimeXamarin.Samples.RasterLayerFile
             // Create the layer
             RasterLayer myRasterLayer = new RasterLayer(myRasterFile);
 
-			// Load the layer
-			await myRasterLayer.LoadAsync();
+            // Load the layer
+            await myRasterLayer.LoadAsync();
 
             // Add the layer to the map
             _myMapView.Map.OperationalLayers.Add(myRasterLayer);
 
-			// Get the raster's extent in a viewpoint
-			Viewpoint myFullRasterExtent = new Viewpoint(myRasterLayer.FullExtent);
+            // Get the raster's extent in a viewpoint
+            Viewpoint myFullRasterExtent = new Viewpoint(myRasterLayer.FullExtent);
 
-			// Zoom to the extent
-			_myMapView.SetViewpoint(myFullRasterExtent);
+            // Zoom to the extent
+            _myMapView.SetViewpoint(myFullRasterExtent);
         }
 
         private async Task<string> GetRasterPath()
         {
             #region offlinedata
+
             // The desired raster is expected to be called Shasta.tif
             string filename = "Shasta.tif";
 
@@ -101,6 +101,7 @@ namespace ArcGISRuntimeXamarin.Samples.RasterLayerFile
                 await DataManager.GetData("7c4c679ab06a4df19dc497f577f111bd", "RasterLayerFile");
             }
             return filepath;
+
             #endregion offlinedata
         }
     }

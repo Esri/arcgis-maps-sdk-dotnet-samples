@@ -11,8 +11,8 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System;
-using System.Threading.Tasks;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WPF.Samples.RasterLayerFile
 {
@@ -56,6 +56,7 @@ namespace ArcGISRuntime.WPF.Samples.RasterLayerFile
         private async Task<string> GetRasterPath()
         {
             #region offlinedata
+
             // The desired raster is expected to be called Shasta.tif
             string filename = "Shasta.tif";
 
@@ -72,6 +73,7 @@ namespace ArcGISRuntime.WPF.Samples.RasterLayerFile
                 await DataManager.GetData("7c4c679ab06a4df19dc497f577f111bd", "RasterLayerFile");
             }
             return filepath;
+
             #endregion offlinedata
         }
     }

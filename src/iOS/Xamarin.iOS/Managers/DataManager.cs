@@ -83,7 +83,7 @@ namespace ArcGISRuntimeXamarin.Managers
             foreach(var directory in directoryContents){
                 // For each file in the directory
                 foreach (var file in directory.GetFiles()){
-                    File.Copy(file.FullName, Path.Combine(file.Directory.Parent.FullName, file.Name));
+                    File.Copy(file.FullName, Path.Combine(file.Directory.Parent.FullName, file.Name), true);
                 }
             }
         }

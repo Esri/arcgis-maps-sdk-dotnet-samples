@@ -70,7 +70,7 @@ namespace ArcGISRuntimeXamarin.Samples.RasterLayerFile
             Viewpoint myFullRasterExtent = new Viewpoint(myRasterLayer.FullExtent);
 
             // Zoom to the extent
-            _myMapView.SetViewpoint(myFullRasterExtent);
+            _myMapView.Map.InitialViewpoint = myFullRasterExtent;
         }
 
         private void CreateLayout()

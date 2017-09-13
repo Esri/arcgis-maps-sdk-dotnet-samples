@@ -9,25 +9,39 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
-using System.IO;
-using System.Collections.Generic;
+using Esri.ArcGISRuntime.UI.Controls;
+using Foundation;
 using System;
+using System.Collections.Generic;
+using UIKit;
 
-namespace ArcGISRuntime.WPF.Samples.WMSLayerUrl
+namespace ArcGISRuntimeXamarin.Samples.WMSLayerUrl
 {
-    public partial class WMSLayerUrl
+    [Register("WMSLayerUrl")]
+    public class WMSLayerUrl : UIViewController
     {
+        // Create and hold reference to the used MapView
+        private MapView _myMapView = new MapView();
+
         // Hold the URL to the service
         private Uri wmsUrl = new Uri("http://certmapper.cr.usgs.gov/arcgis/services/geology/africa/MapServer/WMSServer?request=GetCapabilities&service=WMS");
 
-        // Hold a list of unique identifiers for the layers to display
+        // Hold a list of unique identifiers of WMS layers that will be displayed
         private List<String> wmsLayerNames = new List<string> { "0" };
 
         public WMSLayerUrl()
         {
-            InitializeComponent();
+            Title = "WMS layer (URL)";
+        }
 
-            // Execute initialization 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+
+            // Create the UI, setup the control references
+            CreateLayout();
+
+            // Initialize the map
             Initialize();
         }
 
@@ -46,5 +60,18 @@ namespace ArcGISRuntime.WPF.Samples.WMSLayerUrl
             MyMapView.Map.OperationalLayers.Add(myWmsLayer);
         }
 
+        public override void ViewDidLayoutSubviews()
+        {
+            // Setup the visual frame for the MapView
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+
+            base.ViewDidLayoutSubviews();
+        }
+
+        private void CreateLayout()
+        {
+            // Add the mapview to the view
+            View.AddSubviews(_myMapView);
+        }
     }
 }

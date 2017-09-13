@@ -9,13 +9,13 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
-using System.IO;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
+using Xamarin.Forms;
 
-namespace ArcGISRuntime.WPF.Samples.WMSLayerUrl
+namespace ArcGISRuntimeXamarin.Samples.WMSLayerUrl
 {
-    public partial class WMSLayerUrl
+    public partial class WMSLayerUrl : ContentPage
     {
         // Hold the URL to the service
         private Uri wmsUrl = new Uri("http://certmapper.cr.usgs.gov/arcgis/services/geology/africa/MapServer/WMSServer?request=GetCapabilities&service=WMS");
@@ -25,9 +25,11 @@ namespace ArcGISRuntime.WPF.Samples.WMSLayerUrl
 
         public WMSLayerUrl()
         {
-            InitializeComponent();
+            InitializeComponent ();
 
-            // Execute initialization 
+            Title = "WMS layer (URL)";
+
+            // Initialize the map
             Initialize();
         }
 
@@ -45,6 +47,5 @@ namespace ArcGISRuntime.WPF.Samples.WMSLayerUrl
             // Add the layer to the map
             MyMapView.Map.OperationalLayers.Add(myWmsLayer);
         }
-
     }
 }

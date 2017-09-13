@@ -9,11 +9,12 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
-using System.IO;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
+using Windows.UI.Popups;
+using Windows.UI.Xaml;
 
-namespace ArcGISRuntime.WPF.Samples.WMSLayerUrl
+namespace ArcGISRuntime.UWP.Samples.WMSLayerUrl
 {
     public partial class WMSLayerUrl
     {
@@ -27,7 +28,6 @@ namespace ArcGISRuntime.WPF.Samples.WMSLayerUrl
         {
             InitializeComponent();
 
-            // Execute initialization 
             Initialize();
         }
 
@@ -45,6 +45,5 @@ namespace ArcGISRuntime.WPF.Samples.WMSLayerUrl
             // Add the layer to the map
             MyMapView.Map.OperationalLayers.Add(myWmsLayer);
         }
-
     }
 }

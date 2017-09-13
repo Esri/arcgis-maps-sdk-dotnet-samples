@@ -419,7 +419,9 @@
     <Content Include="Samples\Data\GenerateGeodatabase\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Samples\Layers\WMSLayerUrl\metadata.json" />
+    <Content Include="Samples\Layers\WMSLayerUrl\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />

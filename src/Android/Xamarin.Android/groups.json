@@ -134,7 +134,7 @@
             },
             {
               "SampleName": "WMSLayerUrl",
-              "Path": "Samples/Layer/WMSLayerUrl"
+              "Path": "Samples/Layers/WMSLayerUrl"
             }
           ]
         },

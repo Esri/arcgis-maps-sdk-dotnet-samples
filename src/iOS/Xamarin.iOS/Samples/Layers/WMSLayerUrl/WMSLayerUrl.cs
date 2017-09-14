@@ -24,7 +24,7 @@ namespace ArcGISRuntimeXamarin.Samples.WMSLayerUrl
         private MapView _myMapView = new MapView();
 
         // Hold the URL to the service
-        private Uri wmsUrl = new Uri("http://certmapper.cr.usgs.gov/arcgis/services/geology/africa/MapServer/WMSServer?request=GetCapabilities&service=WMS");
+        private Uri wmsUrl = new Uri("https://certmapper.cr.usgs.gov/arcgis/services/geology/africa/MapServer/WMSServer?request=GetCapabilities&service=WMS");
 
         // Hold a list of unique identifiers of WMS layers that will be displayed
         private List<String> wmsLayerNames = new List<string> { "0" };
@@ -48,7 +48,7 @@ namespace ArcGISRuntimeXamarin.Samples.WMSLayerUrl
         private async void Initialize()
         {
             // Apply an imagery basemap to the map
-            MyMapView.Map = new Map(Basemap.CreateImagery());
+            _myMapView.Map = new Map(Basemap.CreateImagery());
 
             // Create the layer
             WmsLayer myWmsLayer = new WmsLayer(wmsUrl, wmsLayerNames);
@@ -57,7 +57,7 @@ namespace ArcGISRuntimeXamarin.Samples.WMSLayerUrl
             await myWmsLayer.LoadAsync();
 
             // Add the layer to the map
-            MyMapView.Map.OperationalLayers.Add(myWmsLayer);
+            _myMapView.Map.OperationalLayers.Add(myWmsLayer);
         }
 
         public override void ViewDidLayoutSubviews()

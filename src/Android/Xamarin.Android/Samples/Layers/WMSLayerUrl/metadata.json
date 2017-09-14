@@ -9,5 +9,6 @@
   "RequiresLocalServer":false,
   "Image":"WMSLayerUrl.jpg",
   "Link":"",
-  "TypeLink": []
+  "TypeLink": [],
+  "SampleFolder": "WMSLayerUrl"
 }

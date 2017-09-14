@@ -126,6 +126,10 @@
 
     This sample demonstrates how to show a raster layer on a map based on an image service layer that has a raster function applied.
 
+    * [Raster layer (file)](ArcGISRuntime.UWP.Samples/Samples/Layers/RasterLayerFile)
+
+    This sample demonstrates how to use a raster layer created from a local raster file.
+
 ## Features
 
 
@@ -222,6 +226,10 @@
 
     This sample demonstrate how to use a unique value renderer to style different features in a feature layer with different symbols. Features do not have a symbol property for you to set, renderers should be used to define the symbol for features in feature layers. The unique value renderer allows for separate symbols to be used for features that have specific attribute values in a defined field.
 
+    * [Simple renderer](ArcGISRuntime.UWP.Samples/Samples/Symbology/SimpleRenderers)
+
+    This sample demonstrates how to create a simple renderer and add it to a graphics overlay. Renderers define the symbology for all graphics in a graphics overlay (unless they are overridden by setting the symbol directly on the graphic). Simple renderers can also be defined on feature layers using the same code.
+
 ## Analysis
 
 
@@ -248,6 +256,10 @@
 * [ArcGIS Scene layer (URL)](ArcGISRuntime.UWP.Samples/Samples/Layers/SceneLayerUrl)
 
     This sample demonstrates how to add an ArcGISSceneLayer as a layer in a Scene.
+
+* [Display scene](ArcGISRuntime.UWP.Samples/Samples/Layers/DisplayScene)
+
+    Demonstrates how to display a scene with an elevation data source. An elevation data source allows objects to be viewed in 3D, like this picture of Mt. Everest.
 
 ## Network Analysis
 

@@ -170,6 +170,7 @@
     <Compile Include="Samples\MapView\ShowCallout\ShowCallout.cs" />
     <Compile Include="Samples\Map\OpenMobileMap\OpenMobileMap.cs" />
     <Compile Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.cs" />
+    <Compile Include="Samples\Layers\RasterLayerFile\RasterLayerFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="groups.json">
@@ -263,6 +264,9 @@
     <EmbeddedResource Include="Samples\Data\GenerateGeodatabase\metadata.json" />
     <EmbeddedResource Include="Samples\Search\FindPlace\metadata.json" />
     <EmbeddedResource Include="Samples\Symbology\SimpleRenderers\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\RasterLayerFile\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml" />
@@ -339,9 +343,13 @@
     <Content Include="Samples\MapView\ShowCallout\ShowCallout.jpg" />
     <Content Include="Samples\Map\OpenMobileMap\OpenMobileMap.jpg" />
     <Content Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.jpg" />
+    <Content Include="Samples\Layers\RasterLayerFile\RasterLayerFile.jpg" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Samples\Layers\RasterLayerFile\" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.1.0\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.1.0\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

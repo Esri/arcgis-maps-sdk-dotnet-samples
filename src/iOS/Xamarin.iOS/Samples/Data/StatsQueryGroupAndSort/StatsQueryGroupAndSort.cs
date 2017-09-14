@@ -48,17 +48,6 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             Title = "Stats query with grouped results";
         }
 
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            // Create the UI
-            CreateLayout();
-
-            // Initialize the map and layers
-            Initialize();
-        }
-
         public override void ViewDidLayoutSubviews()
         {
             // Get height of status bar and navigation bar
@@ -70,26 +59,15 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             base.ViewDidLayoutSubviews();
         }
 
-        private async void Initialize()
+        public override void ViewDidLoad()
         {
-            // Create the US states feature table
-            _usStatesTable = new ServiceFeatureTable(_usStatesServiceUri);
+            base.ViewDidLoad();
 
-            // Load the table
-            await _usStatesTable.LoadAsync();
+            // Create the UI
+            CreateLayout();
 
-            // Fill the fields combo and "group by" list with field names from the table
-            _fieldNames = _usStatesTable.Fields.Select(f => f.Name).ToList();
-
-            // Create a model that will provide statistic definition choices for the picker
-            _statsPickerModel = new StatDefinitionModel(_fieldNames.ToArray());
-
-            // Create a list of fields the user can select for grouping
-            _groupByFields = new Dictionary<string, bool>();
-            foreach(var name in _fieldNames)
-            {
-                _groupByFields.Add(name, false);
-            }
+            // Initialize the service feature table
+            Initialize();
         }
 
         private void CreateLayout()
@@ -135,13 +113,35 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             getStatsButton.Frame = new CoreGraphics.CGRect(30, 340, 220, 30);
 
             // Handle the button tap to execute the statistics query
-            getStatsButton.TouchUpInside += OnExecuteStatisticsQueryClicked;
+            getStatsButton.TouchUpInside += ExecuteStatisticsQuery;
 
             // Add controls to the stack view
             _controlsStackView.AddSubviews(showStatDefinitionsButton, showGroupFieldsButton, showOrderByFieldsButton, getStatsButton);
 
             // Add UI controls to the page
             View.AddSubview(_controlsStackView);
+        }
+
+        private async void Initialize()
+        {
+            // Create the US states feature table
+            _usStatesTable = new ServiceFeatureTable(_usStatesServiceUri);
+
+            // Load the table
+            await _usStatesTable.LoadAsync();
+
+            // Fill the fields combo and "group by" list with field names from the table
+            _fieldNames = _usStatesTable.Fields.Select(f => f.Name).ToList();
+
+            // Create a model that will provide statistic definition choices for the picker
+            _statsPickerModel = new StatDefinitionModel(_fieldNames.ToArray());
+
+            // Create a list of fields the user can select for grouping
+            _groupByFields = new Dictionary<string, bool>();
+            foreach (var name in _fieldNames)
+            {
+                _groupByFields.Add(name, false);
+            }
         }
 
         private void ShowGroupFields(object sender, EventArgs e)
@@ -174,6 +174,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             var sortFieldChoices = _groupByFields.Where((f) => f.Value == true);
             foreach (var f in sortFieldChoices)
             {
+                // If this group field is not in the list of available order fields, add it to the list
                 var existingOption = _orderByFields.Find((opt) => opt.OrderInfo.FieldName == f.Key);
                 if (existingOption == null)
                 {
@@ -182,9 +183,10 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
                 }
             }
 
-            // Also make sure to remove any order by fields that were removed as group by fields
-            for(var i = _orderByFields.Count-1;i>=0;i--)
+            // Also make sure to remove any order by fields that were removed as 'group by' fields
+            for(var i = _orderByFields.Count-1; i>=0; i--)
             {
+                // If this field is not in the grouped field list, remove it from the order fields list
                 var opt = _orderByFields.ElementAt(i);
                 var existingGroupField = sortFieldChoices.FirstOrDefault((f) => f.Key == opt.OrderInfo.FieldName);
                 if (existingGroupField.Key == null)
@@ -193,6 +195,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
                 }
             }
 
+            // Create an instance of a custom data source to show the order fields
             var sortFieldsDataSource = new OrderByFieldsDataSource(_orderByFields);
 
             // Set the data source on the table
@@ -204,12 +207,6 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
 
         private void ShowStatDefinitions(object sender, EventArgs e)
         {
-            // Create a list to store statistic definitions (if it doesn't exist)
-            //if (_statisticDefinitions == null)
-            //{
-            //    _statisticDefinitions = new List<StatisticDefinition>();
-            //}
-
             // Create a new UIPickerView and assign a model that will show fields and statistic types
             var statisticPicker = new UIPickerView();
             statisticPicker.Model = _statsPickerModel;
@@ -217,7 +214,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             // Create a new table 
             var statsTable = new UITableViewController(UITableViewStyle.Plain);
 
-            // Create a data source to show statistic definitions in the table
+            // Create an instance of a custom data source to show statistic definitions in the table
             // Pass in the list of statistic definitions and the picker (for defining new ones)
             var statDefsDataSource = new StatisticDefinitionsDataSource(_statisticDefinitions, statisticPicker);
             
@@ -232,10 +229,10 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             this.NavigationController.PushViewController(statsTable, true);
         }
 
-        private async void OnExecuteStatisticsQueryClicked(object sender, EventArgs e)
+        private async void ExecuteStatisticsQuery(object sender, EventArgs e)
         {
             // Remove the placeholder "Add statistic" row (if it exists)
-            var placeholderRow = _statisticDefinitions.LastOrDefault(); //.ElementAt(_statisticDefinitions.Count-1);
+            var placeholderRow = _statisticDefinitions.LastOrDefault();
             if (placeholderRow != null && placeholderRow.OutputAlias == "")
             {
                 _statisticDefinitions.Remove(placeholderRow);
@@ -272,14 +269,16 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             // Execute the statistical query with these parameters and await the results
             StatisticsQueryResult statQueryResult = await _usStatesTable.QueryStatisticsAsync(statQueryParams);
 
-            // Get results formatted as a lookup (list of group names and their associated dictionary of results)
+            // Get results formatted as a dictionary (group names and their associated dictionary of results)
             var resultsLookup = statQueryResult.ToDictionary(r => string.Join(", ", r.Group.Values), r => r.Statistics);
 
-            // Create a data source to display the results
-            StatisticQueryResultsDataSource statResultsDataSource = new StatisticQueryResultsDataSource(resultsLookup);
+            // Create an instance of a custom data source to display the results
+            var statResultsDataSource = new StatisticQueryResultsDataSource(resultsLookup);
 
-            // Create a new table 
+            // Create a new table with a grouped style for displaying rows
             var statResultsTable = new UITableViewController(UITableViewStyle.Grouped);
+
+            // Set the table view data source
             statResultsTable.TableView.Source = statResultsDataSource;
             
             // Show the table view
@@ -315,65 +314,102 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
         }
     }
 
+    // Class that defines a view model for showing field names and statistic types in a picker
     public class StatDefinitionModel : UIPickerViewModel
     {
+        // Array of field names
         private string[] _fieldNames;
+
+        // Array of available statistic types
         private Array _statTypes = Enum.GetValues(typeof(StatisticType));
+
+        // Currently selected statistic definition
         private StatisticDefinition _selectedStatDefinition = null;
 
-        public StatisticDefinition SelectedStatDefinition
-        {
-            get { return _selectedStatDefinition; }
-        }
-
-        public override nint GetComponentCount(UIPickerView pickerView)
-        {
-            return 2;
-        }
-
+        // Constructor that takes an array of the available field names
         public StatDefinitionModel(string[] fieldNames)
         {
             this._fieldNames = fieldNames;
         }
 
+        // Property to expose the currently selected definition in the picker
+        public StatisticDefinition SelectedStatDefinition
+        {
+            get { return _selectedStatDefinition; }
+        }
+
+        // Return the number of picker components (two sections: field names and statistic types)
+        public override nint GetComponentCount(UIPickerView pickerView)
+        {
+            return 2;
+        }
+
+        // Return the number of rows in each of the two sections
         public override nint GetRowsInComponent(UIPickerView pickerView, nint component)
         {
+            // first component is the fields list, second is the statistic types
             if (component == 0)
+            {
                 return _fieldNames.Length;
+            }
             else
+            {
                 return _statTypes.Length;
+            }
         }
 
+        // Get the title to display in each picker component
         public override string GetTitle(UIPickerView pickerView, nint row, nint component)
         {
+            // first component is the fields list, second is the statistic types
             if (component == 0)
+            {
                 return _fieldNames[row];
+            }
             else
+            {
                 return _statTypes.GetValue(row).ToString();
+            }
         }
 
+        // Handle the selection event for the picker to create a statistic definition with the values chosen
         public override void Selected(UIPickerView pickerView, nint row, nint component)
         {
+            // Get the field name
             var onFieldName = _fieldNames[pickerView.SelectedRowInComponent(0)];
+
+            // Get the statistic type
             var statType = (StatisticType)_statTypes.GetValue(pickerView.SelectedRowInComponent(1));
+
+            // Create an output field alias by concatenating the field name and statistic type
             var outAlias = onFieldName + "_" + statType.ToString();
+
+            // Create a new statistic definition (available from the SelectedStatDefinition public property)
             _selectedStatDefinition = new StatisticDefinition(onFieldName, statType, outAlias);
         }
 
+        // Return the desired width for each component in the picker
         public override nfloat GetComponentWidth(UIPickerView picker, nint component)
         {
+            // first component is the fields list, second is the statistic types
             if (component == 0)
+            {
                 return 160f;
+            }
             else
+            {
                 return 120f;
+            }
         }
 
+        // Return the desired height for rows in the picker
         public override nfloat GetRowHeight(UIPickerView picker, nint component)
         {
             return 40f;
         }
     }
     
+    // Class that defines a custom data source for showing statistic definitions
     public class StatisticDefinitionsDataSource : UITableViewSource
     {
         // List of statistic definitions for the current query
@@ -388,6 +424,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
         // Text to display for the placeholder row used to add new statistic definitions
         private const string  AddNewStatFieldName = "(Add statistic)";
 
+        // Constructor that takes a list of statistic definitions and a picker for selecting fields and statistic types
         public StatisticDefinitionsDataSource(List<StatisticDefinition> statDefs, UIPickerView picker)
         {
             // Store the list of statistic definitions and the statistic picker
@@ -395,6 +432,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             _statPicker = picker;
         }
 
+        // Handle supported edits to the data source (inserts and deletes)
         public override void CommitEditingStyle(UITableView tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath indexPath)
         {
             // Respond to the user's edit request: Insert a new statistic definition, or delete an existing one
@@ -435,7 +473,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
                     _chooseStatOverlay = null;
                 };
 
-                // Add the map item info UI view (will display semi-transparent over the map view)
+                // Add the picker UI view (will display semi-transparent over the table view)
                 tableView.Add(_chooseStatOverlay);
             }
             else if(editingStyle == UITableViewCellEditingStyle.Delete)
@@ -475,6 +513,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             }
         }
 
+        // Prepare the data source for editing
         public void WillBeginTableEditing(UITableView tableView)
         {
             // See if the table already has a placeholder row for the "Add New" button
@@ -528,22 +567,29 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
         }
     }
 
+    // Class that defines a custom data source for display group fields
     public class GroupFieldsDataSource : UITableViewSource
     {
+        // Dictionary of available fields for grouping results 
         private Dictionary<string, bool> _potentialGroupFields;        
 
+        // Constructor that takes a dictionary of fields
         public GroupFieldsDataSource(Dictionary<string, bool> fields)
         {
             _potentialGroupFields = fields;
         }
 
+        // Create a view to display the value of each item in the dictionary
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
+            // Create a UITableViewCell with default style
             var cell = new UITableViewCell(UITableViewCellStyle.Default, null);
 
+            // Get the field name and whether it's set as a group field 
             string fieldName = _potentialGroupFields.ElementAt(indexPath.Row).Key;
             bool isForGrouping = _potentialGroupFields.ElementAt(indexPath.Row).Value;
 
+            // Display the field name in the cell
             cell.TextLabel.Text = fieldName;
 
             // Create a UISwitch for selecting the field for grouping
@@ -551,8 +597,14 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             {
                 Frame = new CoreGraphics.CGRect(cell.Bounds.Width - 60, 7, 50, cell.Bounds.Height)
             };
+
+            // Set the switch control tag with the row position
             groupFieldSwitch.Tag = indexPath.Row;
+
+            // Set the initial switch value to show whether it's been selected for grouping
             groupFieldSwitch.On = isForGrouping;
+
+            // Handle the value changed for the switch so the dictionary value can be updated
             groupFieldSwitch.ValueChanged += GroupBySwitched;
 
             // Add the UISwitch to the cell's content view
@@ -563,45 +615,59 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
 
         private void GroupBySwitched(object sender, EventArgs e)
         {
-            // Get the row containing the UISwitch that was changed
+            // Use the control's tag to get the row that was changed
             var index = (sender as UISwitch).Tag;
 
-            // Set the sublayer visibility according to the UISwitch setting
+            // Set or clear the group field according to the UISwitch setting
             var key = _potentialGroupFields.ElementAt((int)index).Key;
             _potentialGroupFields[key] = (sender as UISwitch).On;
         }
 
+        // Return the number of rows to display
         public override nint RowsInSection(UITableView tableView, nint section)
         {
             return _potentialGroupFields.Count;
         }
     }
 
+    // Class that defines a custom data source for displaying fields to order results with
     public class OrderByFieldsDataSource : UITableViewSource
     {
+        // List of order field options
         private List<OrderFieldOption> _potentialOrderByFields;
 
+        // Constructor that takes a list of order field options to display
         public OrderByFieldsDataSource(List<OrderFieldOption> fields)
         {
             _potentialOrderByFields = fields;
         }
 
+        // Create a cell to display information for each order field option
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
+            // Default table cell
             var cell = new UITableViewCell(UITableViewCellStyle.Default, null);
 
+            // Get the field name and whether it's been selected for sorting
             string fieldName = _potentialOrderByFields.ElementAt(indexPath.Row).OrderInfo.FieldName;
             bool isForSorting = _potentialOrderByFields.ElementAt(indexPath.Row).OrderWith;
 
+            // Show the field name in the cell
             cell.TextLabel.Text = fieldName;
 
-            // Create a UISwitch for selecting the field for grouping
+            // Create a UISwitch for selecting the field for ordering results
             var sortFieldSwitch = new UISwitch()
             {
                 Frame = new CoreGraphics.CGRect(cell.Bounds.Width - 60, 7, 50, cell.Bounds.Height)
             };
+
+            // Set the control's tag with the row index
             sortFieldSwitch.Tag = indexPath.Row;
+
+            // Set the initial switch value to show if this field will be used for sorting
             sortFieldSwitch.On = isForSorting;
+
+            // Handle the value changed event to update the dictionary value for this field
             sortFieldSwitch.ValueChanged += OrderBySwitched;
 
             // Add the UISwitch to the cell's content view
@@ -612,58 +678,72 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
 
         private void OrderBySwitched(object sender, EventArgs e)
         {
-            // Get the row containing the UISwitch that was changed
+            // Use the control's tag to get the row that was changed
             var index = (sender as UISwitch).Tag;
 
-            // Set the if this field will be used for sorting according to the UISwitch setting
+            // Get the corresponding field and update it's choice as a sort field
             var orderByOption = _potentialOrderByFields.ElementAt((int)index);
             orderByOption.OrderWith = (sender as UISwitch).On;
         }
 
+        // Return the number of rows to display
         public override nint RowsInSection(UITableView tableView, nint section)
         {
             return _potentialOrderByFields.Count;
         }
     }
 
+    // Class that defines a custom data source for showing statistic query results
     public class StatisticQueryResultsDataSource : UITableViewSource
     {
+        // Dictionary of group names and statistic results
         private Dictionary<string, IReadOnlyDictionary<string, object>> _statisticsResults;
         
+        // Constructor that takes a dictionary of group names and statistic results
         public StatisticQueryResultsDataSource(Dictionary<string, IReadOnlyDictionary<string, object>> results)
         {
             _statisticsResults = results;
         }
 
+        // Create a cell for each item in the results
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
             // Create a new cell with a main and detail label style
             var cell = new UITableViewCell(UITableViewCellStyle.Subtitle, null);
 
-            // Get the result (key/value)
+            // Get the group name
             var group = _statisticsResults.ElementAt(indexPath.Section);
+
+            // Get the results for this group (dictionary)
             var stats = group.Value;
+
+            // Get the result (field alias and value)
             var field = stats.Keys.ElementAt(indexPath.Row);
             var value = stats.Values.ElementAt(indexPath.Row);
 
-            // Set the cell text with the field name
+            // Set the main text with the statistic value
             cell.TextLabel.Text = value.ToString();
+
+            // Set the sub text with the field alias name
             cell.DetailTextLabel.Text = field;
 
             // Return the new cell
             return cell;
         }
 
+        // Return the number of sections (groups)
         public override nint NumberOfSections(UITableView tableView)
         {
             return _statisticsResults.Keys.Count;
         }
 
+        // Return the number of rows in the specified section (group)
         public override nint RowsInSection(UITableView tableView, nint section)
         {
             return _statisticsResults[_statisticsResults.Keys.ElementAt((int)section)].Count;
         }
 
+        // Return the header text for the specified section (group)
         public override string TitleForHeader(UITableView tableView, nint section)
         {
             return _statisticsResults.Keys.ElementAt((int)section);
@@ -682,6 +762,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
         // Store the input controls so the values can be read
         private UIPickerView _statisticPicker;
         
+        // Constructor that takes a picker for defining new statistics
         public ChooseStatisticOverlay(CoreGraphics.CGRect frame, nfloat transparency, UIColor color, UIPickerView statPicker) : base(frame)
         {
             // Store the statistics picker
@@ -732,6 +813,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
                 OnCanceled.Invoke(this, null);
             });
 
+            // Add the buttons to the toolbar
             toolbar.SetItems(new UIBarButtonItem[] { addButton, doneButton }, true);
 
             // Define the location of the statistic picker

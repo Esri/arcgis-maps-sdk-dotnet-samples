@@ -1,5 +1,5 @@
 {
-  "Name": "Statistical query group and sort results",
+  "Name": "Group and sort statistics",
   "SampleName": "StatsQueryGroupAndSort",
   "Description": "This sample demonstrates how to query a feature table to get statistics for a specified field and to group and sort the results.",
   "Instructions": "",

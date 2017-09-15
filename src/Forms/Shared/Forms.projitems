@@ -129,6 +129,10 @@
       <SubType>Code</SubType>
       <DependentUpon>RasterLayerImageServiceRaster.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterRenderingRule\RasterRenderingRule.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>RasterRenderingRule.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\SceneLayerUrl\SceneLayerUrl.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>SceneLayerUrl.xaml</DependentUpon>
@@ -365,6 +369,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterRenderingRule\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterRenderingRule\RasterRenderingRule.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterRenderingRule\RasterRenderingRule.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\SceneLayerUrl\metadata.json" />

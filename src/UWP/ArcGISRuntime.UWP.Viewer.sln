@@ -14,6 +14,7 @@ EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{0ad85845-0ba1-4dc9-8c32-e6fd7632e32d}*SharedItemsImports = 13
+		..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{6820b615-c568-4a13-b026-a77cdd348bfa}*SharedItemsImports = 4
 		..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{be5076af-ece0-4ea9-994e-37bad4b19828}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

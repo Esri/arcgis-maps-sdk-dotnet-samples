@@ -352,7 +352,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Samples\Layers\DisplayScene\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\RasterLayerFile\metadata.json" />
-    <EmbeddedResource Include="Samples\Geoprocessing\AnalyzeViewshed\metadata.json" />
     <EmbeddedResource Include="Samples\Geoprocessing\AnalyzeViewshed\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>

@@ -151,6 +151,10 @@
             {
               "SampleName": "RasterLayerFile",
               "Path": "Samples/Layers/RasterLayerFile"
+            },
+            {
+              "SampleName": "RasterRenderingRule",
+              "Path": "Samples/Layers/RasterRenderingRule"
             }
           ]
         }

@@ -7,14 +7,16 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using Esri.ArcGISRuntime.ArcGISServices;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
-using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
 using UIKit;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntimeXamarin.Samples.RasterRenderingRule
 {
@@ -24,122 +26,165 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRenderingRule
         // Constant holding offset where the MapView control should start
         private const int yPageOffset = 60;
 
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Create a global scope MapView
+        private MapView _myMapView; // = new MapView();
+
+        // Create a global scope UIToolbar control (used to hold the UISegmentedControl)
+        UIToolbar _myUIToolbar;
+
+        // Create a global scope UISementedControl  
+        // (used to hold buttons with the names of the rendering rules of the image service raster) 
+        UISegmentedControl _myUISegmentedControl;
+
+        // Create a global scope empty read-only list for the various rendering rules of the image service raster
+        private IReadOnlyList<RenderingRuleInfo> _myReadOnlyListRenderRuleInfos;
+
+        // Create a global scope Uri for the image server
+        private Uri _myUri;
 
         public RasterRenderingRule()
         {
             Title = "Raster rendering rule";
         }
 
-        public override void ViewDidLoad()
+        public async override void ViewDidLoad()
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization 
-            CreateLayout();
-            Initialize();
+            // Create a new MapView control and provide its location coordinates on the frame
+            _myMapView = new MapView();
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+
+            // Create a new Map instance with the basemap               
+            Map myMap = new Map(SpatialReferences.WebMercator);
+            myMap.Basemap = Basemap.CreateTopographic();
+
+            // Assign the Map to the MapView
+            _myMapView.Map = myMap;
+
+            // Create a segmented control to display buttons
+            _myUISegmentedControl = new UISegmentedControl();
+            _myUISegmentedControl.Frame = new CoreGraphics.CGRect(8, 8, View.Bounds.Width - 16, 24);
+
+            // Make the text for the buttons in the UISegmentedControl small to display the names of the rendering rules
+            var myUIFont = UIFont.FromName("Helvetica-Bold", 8f);
+            _myUISegmentedControl.SetTitleTextAttributes(new UITextAttributes() { Font = myUIFont }, UIControlState.Normal);
+
+            // Wire-up the UISegmentedControl's value change event handler
+            _myUISegmentedControl.ValueChanged += _segmentControl_ValueChanged;
+
+            // Create a UIBarButtonItem where its view is the SegmentControl
+            UIBarButtonItem myUIBarButtonItem = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
+            myUIBarButtonItem.CustomView = _myUISegmentedControl;
+
+            // Create a toolbar on the bottom of the display 
+            _myUIToolbar = new UIToolbar();
+            _myUIToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
+            _myUIToolbar.AutosizesSubviews = true;
+
+            // Add the bar button item to an array of UIBarButtonItems
+            UIBarButtonItem[] barButtonItems = new UIBarButtonItem[] { myUIBarButtonItem };
+
+            // Add the UIBarButtonItems array to the toolbar
+            _myUIToolbar.SetItems(barButtonItems, true);
+
+            // Add the map view and toolbar to the view
+            View.AddSubviews(_myMapView, _myUIToolbar);
+
+            // Load of the rendering rules of the image service raster and display their names on the buttons in the toolbar
+            await LoadRenderingRules();
+        }
+
+        public async Task LoadRenderingRules()
+        {
+            // Set the Uri for the image server
+            _myUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/CharlotteLAS/ImageServer");
+
+            // Create a new image service raster from the Uri
+            ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(_myUri);
+
+            // Load the image service raster
+            await myImageServiceRaster.LoadAsync();
+
+            // Get the ArcGIS image service info (aka. metadata) from the image service raster
+            ArcGISImageServiceInfo myArcGISImageServiceInfo = myImageServiceRaster.ServiceInfo;
+
+            // Get the full extent envelope of the image service raster (the Charlotte, NC area) 
+            Envelope myEnvelope = myArcGISImageServiceInfo.FullExtent;
+
+            // Define a new view point from the full extent envelope
+            Viewpoint myViewPoint = new Viewpoint(myEnvelope);
+
+            // Zoom to the area of the full extent envelope of the image service raster
+            await _myMapView.SetViewpointAsync(myViewPoint);
+
+            // Get the rendering rule info (i.e. definitions of how the image should be drawn) info from the image service raster
+            _myReadOnlyListRenderRuleInfos = myArcGISImageServiceInfo.RenderingRuleInfos;
+
+            // Define an index counter to be used by the UISegmentedControl
+            int myCounter = 0;
+
+            // Make sure that we have at least one render rule info to proceed 
+            if (_myReadOnlyListRenderRuleInfos.Count > 0)
+            {
+                // Loop through each rendering rule info
+                foreach (RenderingRuleInfo myRenderingRuleInfo in _myReadOnlyListRenderRuleInfos)
+                {
+                    // Get the name of the rendering rule info
+                    string myRenderingRuleName = myRenderingRuleInfo.Name;
+
+                    // Add the rendering rule info name to the UISegmentedControl 
+                    _myUISegmentedControl.InsertSegment(myRenderingRuleName, myCounter, false);
+
+                    // Increment the counter for adding segments into the UISegmentedControl 
+                    myCounter = myCounter + 1;
+                }
+            }
+        }
+
+        private void _segmentControl_ValueChanged(object sender, EventArgs e)
+        {
+            // Get the index number of the user choice of render rule names
+            var selectedSegmentId = (sender as UISegmentedControl).SelectedSegment;
+
+            // Get the rendering rule info name from the UISegmentedControl that was chosen by the user
+            string myRenderingRuleInfoName = (sender as UISegmentedControl).TitleAt(selectedSegmentId);
+
+            // Loop through each rendering rule info in the image service raster
+            foreach (RenderingRuleInfo myRenderingRuleInfo in _myReadOnlyListRenderRuleInfos)
+            {
+                // Get the name of the rendering rule info
+                string myRenderingRuleName = myRenderingRuleInfo.Name;
+
+                // If the name of the rendering rule info matches what was chosen by the user, proceed 
+                if (myRenderingRuleName == myRenderingRuleInfoName)
+                {
+                    // Create a new rendering rule from the rendering rule info
+                    RenderingRule myRenderingRule = new RenderingRule(myRenderingRuleInfo);
+
+                    // Create a new image service raster from the global scope Uri
+                    ImageServiceRaster myImageServiceRaster2 = new ImageServiceRaster(_myUri);
+
+                    // Set the image service raster's rendering rule to the rendering rule created earlier
+                    myImageServiceRaster2.RenderingRule = myRenderingRule;
+
+                    // Create a new raster layer from the image service raster
+                    RasterLayer myRasterLayer = new RasterLayer(myImageServiceRaster2);
+
+                    // Add the raster layer to the operational layers of the  map view
+                    _myMapView.Map.OperationalLayers.Add(myRasterLayer);
+                }
+            }
         }
 
         public override void ViewDidLayoutSubviews()
         {
             // Setup the visual frame for the MapView
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-
+            _myUIToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
+            _myUISegmentedControl.Frame = new CoreGraphics.CGRect(8, 8, View.Bounds.Width - 16, 24);
             base.ViewDidLayoutSubviews();
         }
 
-        private async void Initialize()
-        {
-            // Create new map with the streets basemap
-            Map myMap = new Map(Basemap.CreateStreets());
-
-            // Create a Uri to the image service raster (NOTE: iOS applications require the use of Uri's to be https:// and not http://)
-            var myUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NLCDLandCover2001/ImageServer");
-
-            // Create new image service raster from the Uri
-            ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(myUri);
-
-            // Load the image service raster
-            await myImageServiceRaster.LoadAsync();
-
-            // NOTE: This is the ASCII text for actual raw JSON string:
-            // ========================================================
-            //{
-            //  "raster_function_arguments":
-            //  {
-            //    "z_factor":{"double":25.0,"type":"Raster_function_variable"},
-            //    "slope_type":{"raster_slope_type":"none","type":"Raster_function_variable"},
-            //    "azimuth":{"double":315,"type":"Raster_function_variable"},
-            //    "altitude":{"double":45,"type":"Raster_function_variable"},
-            //    "type":"Raster_function_arguments",
-            //    "raster":{"name":"raster","is_raster":true,"type":"Raster_function_variable"},
-            //    "nbits":{"int":8,"type":"Raster_function_variable"}
-            //  },
-            //  "raster_function":{"type":"Hillshade_function"},
-            //  "type":"Raster_function_template"
-            //}
-
-            // Define the JSON string needed for the raster function
-            String theJSON_String =
-             @"{
-                ""raster_function_arguments"":
-                {
-                  ""z_factor"":{ ""double"":25.0,""type"":""Raster_function_variable""},
-                  ""slope_type"":{ ""raster_slope_type"":""none"",""type"":""Raster_function_variable""},
-                  ""azimuth"":{ ""double"":315,""type"":""Raster_function_variable""},
-                  ""altitude"":{ ""double"":45,""type"":""Raster_function_variable""},
-                  ""type"":""Raster_function_arguments"",
-                  ""raster"":{ ""name"":""raster"",""is_raster"":true,""type"":""Raster_function_variable""},
-                  ""nbits"":{ ""int"":8,""type"":""Raster_function_variable""}
-                },
-              ""raster_function"":{ ""type"":""Hillshade_function""},
-              ""type"":""Raster_function_template""
-            }";
-
-            // Create a raster function from the JSON string using the static/Shared method called: RasterFunction.FromJson(json as String)
-            RasterFunction myRasterFunction = RasterFunction.FromJson(theJSON_String);
-
-            // NOTE: Depending on your platform/device, you could have alternatively created the raster function via a JSON string that is contained in a 
-            // file on disk (ex: hillshade_simplified.json) via the constructor: Esri.ArcGISRuntime.Rasters.RasterFuntion(path as String)
-
-            // Get the raster function arguments
-            RasterFunctionArguments myRasterFunctionArguments = myRasterFunction.Arguments;
-
-            // Get the list of names from the raster function arguments
-            IReadOnlyList<string> myRasterNames = myRasterFunctionArguments.GetRasterNames();
-
-            // Apply the first raster name and image service raster in the raster function arguments
-            myRasterFunctionArguments.SetRaster(myRasterNames[0], myImageServiceRaster);
-
-            // Create a new raster based on the raster function
-            Raster myRaster = new Raster(myRasterFunction);
-
-            // Create a new raster layer from the raster
-            RasterLayer myRasterLayer = new RasterLayer(myRaster);
-
-            // Add the raster layer to the maps layer collection
-            myMap.Basemap.BaseLayers.Add(myRasterLayer);
-
-            // Assign the map to the map view
-            _myMapView.Map = myMap;
-
-            // Get the service information (aka. metadata) about the image service raster
-            ArcGISImageServiceInfo myArcGISImageServiceInfo = myImageServiceRaster.ServiceInfo;
-
-            // Zoom the map to the extent of the image service raster (which also the extent of the raster layer)
-            await _myMapView.SetViewpointGeometryAsync(myArcGISImageServiceInfo.FullExtent);
-
-            // NOTE: The sample zooms to the extent of the ImageServiceRaster. Currently the ArcGIS Runtime does not 
-            // support zooming a RasterLayer out beyond 4 times it's published level of detail. The sample uses 
-            // MapView.SetViewpointCenterAsync() method to ensure the image shows when the app starts. You can see 
-            // the effect of the image service not showing when you zoom out to the full extent of the image and beyond.
-        }
-
-        private void CreateLayout()
-        {
-            // Add MapView to the page
-            View.AddSubviews(_myMapView);
-        }
     }
 }

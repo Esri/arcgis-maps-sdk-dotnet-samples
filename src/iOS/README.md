@@ -126,6 +126,10 @@
 
     This sample demonstrates how to use a raster layer created from a local raster file.
 
+    * [Raster rendering rule](Xamarin.iOS/Samples/Layers/RasterRenderingRule)
+
+    This sample demonstrates how to create an `ImageServiceRaster`, fetch the `RenderingRule`s from the service info, and use a `RenderingRule` to create an `ImageServiceRaster` and add it to a raster layer.
+
 ## Features
 
 
@@ -225,6 +229,15 @@
     * [Simple renderer](Xamarin.iOS/Samples/Symbology/SimpleRenderers)
 
     This sample demonstrates how to create a simple renderer and add it to a graphics overlay. Renderers define the symbology for all graphics in a graphics overlay (unless they are overridden by setting the symbol directly on the graphic). Simple renderers can also be defined on feature layers using the same code.
+
+## Analysis
+
+
+- **Geoprocessing**
+
+    * [Analyze viewshed](Xamarin.iOS/Samples/Geoprocessing/AnalyzeViewshed)
+
+    This sample demonstrates how to use GeoprocessingTask to calculate a viewshed using a geoprocessing service. Click any point on the map to see all areas that are visible within a 1 kilometer radius. It may take a few seconds for the model to run and send back the results.
 
 ## Network Analysis
 

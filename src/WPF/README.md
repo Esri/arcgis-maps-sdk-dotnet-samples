@@ -115,6 +115,10 @@
 
     This sample demonstrates how to use a raster layer created from a local raster file.
 
+* [Raster rendering rule](ArcGISRuntime.WPF.Samples/Samples/Layers/RasterRenderingRule)
+
+    This sample demonstrates how to create an `ImageServiceRaster`, fetch the `RenderingRule`s from the service info, and use a `RenderingRule` to create an `ImageServiceRaster` and add it to a raster layer.
+
 ## Features
 
 * [Feature layer (feature service)](ArcGISRuntime.WPF.Samples/Samples/Layers/FeatureLayerUrl)

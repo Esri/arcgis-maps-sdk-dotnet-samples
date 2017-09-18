@@ -130,6 +130,10 @@
 
     This sample demonstrates how to use a raster layer created from a local raster file.
 
+    * [Raster rendering rule](Xamarin.Android/Samples/Layers/RasterRenderingRule)
+
+    This sample demonstrates how to create an `ImageServiceRaster`, fetch the `RenderingRule`s from the service info, and use a `RenderingRule` to create an `ImageServiceRaster` and add it to a raster layer.
+
 ## Features
 
 

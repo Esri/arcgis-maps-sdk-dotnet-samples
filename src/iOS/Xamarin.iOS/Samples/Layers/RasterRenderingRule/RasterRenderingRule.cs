@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.ArcGISServices;
@@ -14,9 +14,9 @@ using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
-using UIKit;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.RasterRenderingRule
 {
@@ -26,21 +26,21 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRenderingRule
         // Constant holding offset where the MapView control should start
         private const int yPageOffset = 60;
 
-        // Create a global scope MapView
-        private MapView _myMapView; // = new MapView();
+        // Hold a reference to the MapView
+        private MapView _myMapView;
 
-        // Create a global scope UIToolbar control (used to hold the UISegmentedControl)
-        UIToolbar _myUIToolbar;
+        // Hold a reference to the UIToolbar control (used to hold the UISegmentedControl)
+        private UIToolbar _myUIToolbar;
 
-        // Create a global scope UISementedControl  
-        // (used to hold buttons with the names of the rendering rules of the image service raster) 
-        UISegmentedControl _myUISegmentedControl;
+        // Hold a reference to a UISementedControl
+        // (used to hold buttons with the names of the rendering rules of the image service raster)
+        private UISegmentedControl _myUISegmentedControl;
 
-        // Create a global scope empty read-only list for the various rendering rules of the image service raster
+        // Hold a reference to a read-only list for the various rendering rules of the image service raster
         private IReadOnlyList<RenderingRuleInfo> _myReadOnlyListRenderRuleInfos;
 
-        // Create a global scope Uri for the image server
-        private Uri _myUri;
+        // Uri for the image server
+        private Uri _myUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/CharlotteLAS/ImageServer");
 
         public RasterRenderingRule()
         {
@@ -55,7 +55,7 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRenderingRule
             _myMapView = new MapView();
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
-            // Create a new Map instance with the basemap               
+            // Create a new Map instance with the basemap
             Map myMap = new Map(SpatialReferences.WebMercator);
             myMap.Basemap = Basemap.CreateTopographic();
 
@@ -67,7 +67,7 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRenderingRule
             _myUISegmentedControl.Frame = new CoreGraphics.CGRect(8, 8, View.Bounds.Width - 16, 24);
 
             // Make the text for the buttons in the UISegmentedControl small to display the names of the rendering rules
-            var myUIFont = UIFont.FromName("Helvetica-Bold", 8f);
+            UIFont myUIFont = UIFont.FromName("Helvetica-Bold", 8f);
             _myUISegmentedControl.SetTitleTextAttributes(new UITextAttributes() { Font = myUIFont }, UIControlState.Normal);
 
             // Wire-up the UISegmentedControl's value change event handler
@@ -77,7 +77,7 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRenderingRule
             UIBarButtonItem myUIBarButtonItem = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
             myUIBarButtonItem.CustomView = _myUISegmentedControl;
 
-            // Create a toolbar on the bottom of the display 
+            // Create a toolbar on the bottom of the display
             _myUIToolbar = new UIToolbar();
             _myUIToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
             _myUIToolbar.AutosizesSubviews = true;
@@ -97,19 +97,16 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRenderingRule
 
         public async Task LoadRenderingRules()
         {
-            // Set the Uri for the image server
-            _myUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/CharlotteLAS/ImageServer");
-
             // Create a new image service raster from the Uri
             ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(_myUri);
 
             // Load the image service raster
             await myImageServiceRaster.LoadAsync();
 
-            // Get the ArcGIS image service info (aka. metadata) from the image service raster
+            // Get the ArcGIS image service info (metadata) from the image service raster
             ArcGISImageServiceInfo myArcGISImageServiceInfo = myImageServiceRaster.ServiceInfo;
 
-            // Get the full extent envelope of the image service raster (the Charlotte, NC area) 
+            // Get the full extent envelope of the image service raster (the Charlotte, NC area)
             Envelope myEnvelope = myArcGISImageServiceInfo.FullExtent;
 
             // Define a new view point from the full extent envelope
@@ -124,28 +121,24 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRenderingRule
             // Define an index counter to be used by the UISegmentedControl
             int myCounter = 0;
 
-            // Make sure that we have at least one render rule info to proceed 
-            if (_myReadOnlyListRenderRuleInfos.Count > 0)
+            // Loop through each rendering rule info
+            foreach (RenderingRuleInfo myRenderingRuleInfo in _myReadOnlyListRenderRuleInfos)
             {
-                // Loop through each rendering rule info
-                foreach (RenderingRuleInfo myRenderingRuleInfo in _myReadOnlyListRenderRuleInfos)
-                {
-                    // Get the name of the rendering rule info
-                    string myRenderingRuleName = myRenderingRuleInfo.Name;
+                // Get the name of the rendering rule info
+                string myRenderingRuleName = myRenderingRuleInfo.Name;
 
-                    // Add the rendering rule info name to the UISegmentedControl 
-                    _myUISegmentedControl.InsertSegment(myRenderingRuleName, myCounter, false);
+                // Add the rendering rule info name to the UISegmentedControl
+                _myUISegmentedControl.InsertSegment(myRenderingRuleName, myCounter, false);
 
-                    // Increment the counter for adding segments into the UISegmentedControl 
-                    myCounter = myCounter + 1;
-                }
+                // Increment the counter for adding segments into the UISegmentedControl
+                myCounter = myCounter + 1;
             }
         }
 
         private void _segmentControl_ValueChanged(object sender, EventArgs e)
         {
             // Get the index number of the user choice of render rule names
-            var selectedSegmentId = (sender as UISegmentedControl).SelectedSegment;
+            nint selectedSegmentId = (sender as UISegmentedControl).SelectedSegment;
 
             // Get the rendering rule info name from the UISegmentedControl that was chosen by the user
             string myRenderingRuleInfoName = (sender as UISegmentedControl).TitleAt(selectedSegmentId);
@@ -156,13 +149,13 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRenderingRule
                 // Get the name of the rendering rule info
                 string myRenderingRuleName = myRenderingRuleInfo.Name;
 
-                // If the name of the rendering rule info matches what was chosen by the user, proceed 
+                // If the name of the rendering rule info matches what was chosen by the user, proceed
                 if (myRenderingRuleName == myRenderingRuleInfoName)
                 {
                     // Create a new rendering rule from the rendering rule info
                     RenderingRule myRenderingRule = new RenderingRule(myRenderingRuleInfo);
 
-                    // Create a new image service raster from the global scope Uri
+                    // Create a new image service raster
                     ImageServiceRaster myImageServiceRaster2 = new ImageServiceRaster(_myUri);
 
                     // Set the image service raster's rendering rule to the rendering rule created earlier
@@ -185,6 +178,5 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRenderingRule
             _myUISegmentedControl.Frame = new CoreGraphics.CGRect(8, 8, View.Bounds.Width - 16, 24);
             base.ViewDidLayoutSubviews();
         }
-
     }
 }

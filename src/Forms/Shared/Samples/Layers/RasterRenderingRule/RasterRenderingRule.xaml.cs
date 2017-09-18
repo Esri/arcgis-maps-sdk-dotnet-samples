@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.ArcGISServices;
@@ -12,9 +12,9 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System;
-using Xamarin.Forms;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace ArcGISRuntimeXamarin.Samples.RasterRenderingRule
 {
@@ -22,21 +22,21 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRenderingRule
     {
         public RasterRenderingRule()
         {
-            InitializeComponent ();
+            InitializeComponent();
 
             Title = "Raster rendering rule";
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             Initialize();
         }
 
-        // Create a global scope empty read-only list for the various rendering rules of the image service raster
+        // Create an empty read-only list for the various rendering rules of the image service raster
         private IReadOnlyList<RenderingRuleInfo> _myReadOnlyListRenderRuleInfos;
 
-        // Create a global scope Uri for the image server
-        private Uri _myUri;
+        // Create a Uri for the image server
+        private Uri _myUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/CharlotteLAS/ImageServer");
 
-        // Create a global list to store the names of the rendering rule info for the image service raster
+        // Create a list to store the names of the rendering rule info for the image service raster
         private List<string> _names = new List<string>();
 
         private async void Initialize()
@@ -47,19 +47,16 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRenderingRule
             // Set the basemap to Streets
             MyMapView.Map.Basemap = Basemap.CreateStreets();
 
-            // Set the Uri for the image server
-            _myUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/CharlotteLAS/ImageServer");
-
             // Create a new image service raster from the Uri
             ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(_myUri);
 
             // Load the image service raster
             await myImageServiceRaster.LoadAsync();
 
-            // Get the ArcGIS image service info (aka. metadata) from the image service raster
+            // Get the ArcGIS image service info (metadata) from the image service raster
             ArcGISImageServiceInfo myArcGISImageServiceInfo = myImageServiceRaster.ServiceInfo;
 
-            // Get the full extent envelope of the image service raster (the Charlotte, NC area) 
+            // Get the full extent envelope of the image service raster (the Charlotte, NC area)
             Envelope myEnvelope = myArcGISImageServiceInfo.FullExtent;
 
             // Define a new view point from the full extent envelope
@@ -71,25 +68,21 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRenderingRule
             // Get the rendering rule info (i.e. definitions of how the image should be drawn) info from the image service raster
             _myReadOnlyListRenderRuleInfos = myArcGISImageServiceInfo.RenderingRuleInfos;
 
-            // Make sure that we have at least one render rule info to proceed 
-            if (_myReadOnlyListRenderRuleInfos.Count > 0)
+            // Loop through each rendering rule info
+            foreach (RenderingRuleInfo myRenderingRuleInfo in _myReadOnlyListRenderRuleInfos)
             {
-                // Loop through each rendering rule info
-                foreach (RenderingRuleInfo myRenderingRuleInfo in _myReadOnlyListRenderRuleInfos)
-                {
-                    // Get the name of the rendering rule info
-                    string myRenderingRuleName = myRenderingRuleInfo.Name;
+                // Get the name of the rendering rule info
+                string myRenderingRuleName = myRenderingRuleInfo.Name;
 
-                    // Add the name of the rendering rule info into the global list of names
-                    _names.Add(myRenderingRuleName);
-                }
+                // Add the name of the rendering rule info into the list of names
+                _names.Add(myRenderingRuleName);
             }
 
             // Call the function to display the image service raster based up on user choice of rendering rules
-           await ChangeRenderingRuleAsync();
+            await ChangeRenderingRuleAsync();
         }
 
-        private async Task ChangeRenderingRuleAsync ()
+        private async Task ChangeRenderingRuleAsync()
         {
             // Display a picker to the user to choose among the available rendering rules for the image service raster
             string myRenderingRuleInfoName = await DisplayActionSheet("Select a Rendering Rule", "Cancel", null, _names.ToArray());
@@ -100,13 +93,13 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRenderingRule
                 // Get the name of the rendering rule info
                 string myRenderingRuleName = myRenderingRuleInfo.Name;
 
-                // If the name of the rendering rule info matches what was chosen by the user, proceed 
+                // If the name of the rendering rule info matches what was chosen by the user, proceed
                 if (myRenderingRuleName == myRenderingRuleInfoName)
                 {
                     // Create a new rendering rule from the rendering rule info
                     RenderingRule myRenderingRule = new RenderingRule(myRenderingRuleInfo);
 
-                    // Create a new image service raster from the global scope Uri
+                    // Create a new image service raster
                     ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(_myUri);
 
                     // Set the image service raster's rendering rule to the rendering rule created earlier
@@ -126,6 +119,5 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRenderingRule
             // Call the function to display the image service raster based up on user choice of rendering rules
             await ChangeRenderingRuleAsync();
         }
-
     }
 }

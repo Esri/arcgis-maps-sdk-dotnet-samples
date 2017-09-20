@@ -16,7 +16,7 @@ namespace ArcGISRuntime.WPF.Samples.WMSLayerUrl
     public partial class WMSLayerUrl
     {
         // Hold the URL to the WMS service showing the geology of Africa
-        private Uri wmsUrl = new Uri("http://certmapper.cr.usgs.gov/arcgis/services/geology/africa/MapServer/WMSServer?request=GetCapabilities&service=WMS");
+        private Uri wmsUrl = new Uri("https://certmapper.cr.usgs.gov/arcgis/services/geology/africa/MapServer/WMSServer?request=GetCapabilities&service=WMS");
 
         // Hold a list of uniquely-identifying WMS layer names to display
         private List<String> wmsLayerNames = new List<string> { "0" };
@@ -34,7 +34,7 @@ namespace ArcGISRuntime.WPF.Samples.WMSLayerUrl
             // Apply an imagery basemap to the map
             MyMapView.Map = new Map(Basemap.CreateImagery());
 
-            // Create the layer
+            // Create a new WMS layer displaying the specified layers from the service
             WmsLayer myWmsLayer = new WmsLayer(wmsUrl, wmsLayerNames);
 
             // Load the layer

@@ -55,7 +55,7 @@ namespace ArcGISRuntimeXamarin.Samples.WMSLayerUrl
             // Apply an imagery basemap to the map
             _myMapView.Map = new Map(Basemap.CreateImagery());
 
-            // Create the layer
+            // Create a new WMS layer displaying the specified layers from the service
             WmsLayer myWmsLayer = new WmsLayer(wmsUrl, wmsLayerNames);
 
             // Load the layer

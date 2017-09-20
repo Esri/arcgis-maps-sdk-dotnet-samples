@@ -124,6 +124,13 @@
 				<key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 			</dict>
+      <key>usgs.gov</key>
+      <dict>
+        <key>NSIncludesSubdomains</key>
+        <true />
+        <key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
+        <true/>
+      </dict>
 		</dict>
 		</dict>
 </dict>

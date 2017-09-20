@@ -128,6 +128,10 @@
             {
               "SampleName": "WMTSLayer",
               "Path": "Samples/Layers/WMTSLayer"
+            },
+            {
+              "SampleName": "WMSLayerUrl",
+              "Path": "Samples/Layers/WMSLayerUrl"
             }
           ]
         },

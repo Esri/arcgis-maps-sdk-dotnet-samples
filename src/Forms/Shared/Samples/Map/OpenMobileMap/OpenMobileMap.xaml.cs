@@ -12,7 +12,6 @@ using System.Linq;
 using Esri.ArcGISRuntime.Mapping;
 using ArcGISRuntimeXamarin.Managers;
 using Xamarin.Forms;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntimeXamarin.Samples.OpenMobileMap
 {

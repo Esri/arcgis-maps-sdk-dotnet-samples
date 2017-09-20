@@ -14,7 +14,6 @@ using Foundation;
 using UIKit;
 using System.IO;
 using ArcGISRuntimeXamarin.Managers;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntimeXamarin.Samples.OpenMobileMap
 {
@@ -47,7 +46,7 @@ namespace ArcGISRuntimeXamarin.Samples.OpenMobileMap
         private async void Initialize()
         {
             // Get the path to the mobile map package
-            string filepath = await GetMmpkPath();
+            string filepath = GetMmpkPath();
 
             // Open the map package
             MobileMapPackage myMapPackage = await MobileMapPackage.OpenAsync(filepath);
@@ -64,31 +63,19 @@ namespace ArcGISRuntimeXamarin.Samples.OpenMobileMap
         /// This abstracts away platform & sample viewer-specific code for accessing local files
         /// </summary>
         /// <returns>String that is the path to the file on disk</returns>
-        private async Task<string> GetMmpkPath()
+        private string GetMmpkPath()
         {
             #region offlinedata
 
             // The mobile map package will be downloaded from ArcGIS Online
-            // The data manager (a component of the sample viewer, *NOT* the runtime
-            //     handles the offline data process
-
             // The desired MMPK is expected to be called Yellowstone.mmpk
             string filename = "Yellowstone.mmpk";
 
             // The data manager provides a method to get the folder
             string folder = DataManager.GetDataFolder();
 
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "OpenMobileMap", filename);
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the map package file
-                await DataManager.GetData("e1f3a7254cb845b09450f54937c16061", "OpenMobileMap");
-            }
-            return filepath;
-
+			// Return the full path; Item ID is e1f3a7254cb845b09450f54937c16061
+			return Path.Combine(folder, "SampleData", "OpenMobileMap", filename);
             #endregion offlinedata
         }
 

@@ -13,7 +13,6 @@ using ArcGISRuntimeXamarin.Managers;
 using System;
 using Xamarin.Forms;
 using System.IO;
-using System.Threading.Tasks;
 
 
 namespace ArcGISRuntimeXamarin.Samples.RasterLayerFile
@@ -34,7 +33,7 @@ namespace ArcGISRuntimeXamarin.Samples.RasterLayerFile
             MyMapView.Map = new Map(Basemap.CreateImagery());
 
 			// Get the file name
-			String filepath = await GetRasterPath();
+			String filepath = GetRasterPath();
 
 			// Load the raster file
 			Raster myRasterFile = new Raster(filepath);
@@ -55,25 +54,18 @@ namespace ArcGISRuntimeXamarin.Samples.RasterLayerFile
             MyMapView.Map.InitialViewpoint = myFullRasterExtent;
         }
 
-		private async Task<string> GetRasterPath()
+		private string GetRasterPath()
 		{
 			#region offlinedata
 			// The desired raster is expected to be called Shasta.tif
+			// The ID is 7c4c679ab06a4df19dc497f577f111bd
 			string filename = "Shasta.tif";
 
 			// The data manager provides a method to get the folder
 			string folder = DataManager.GetDataFolder();
 
 			// Get the full path
-			string filepath = Path.Combine(folder, "SampleData", "RasterLayerFile", filename);
-
-			// Check if the file exists
-			if (!File.Exists(filepath))
-			{
-				// Download the map package file
-				await DataManager.GetData("7c4c679ab06a4df19dc497f577f111bd", "RasterLayerFile");
-			}
-			return filepath;
+			return Path.Combine(folder, "SampleData", "RasterLayerFile", filename);
 			#endregion offlinedata
 		}
     }

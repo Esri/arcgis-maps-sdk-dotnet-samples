@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
@@ -122,7 +121,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
         private async void Initialize()
         {
             // Create a tile cache and load it with the SanFrancisco streets tpk
-            TileCache tileCache = new TileCache(await GetTpkPath());
+            TileCache tileCache = new TileCache(GetTpkPath());
 
             // Create the corresponding layer based on the tile cache
             ArcGISTiledLayer tileLayer = new ArcGISTiledLayer(tileCache);
@@ -469,24 +468,18 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
 
         // Get the path to the tile package used for the basemap
         // (this is plumbing for the sample viewer)
-        private async Task<string> GetTpkPath()
+        private string GetTpkPath()
         {
+            #region offlinedata
             // The desired tpk is expected to be called SanFrancisco.tpk
             string filename = "SanFrancisco.tpk";
 
             // The data manager provides a method to get the folder
             string folder = DataManager.GetDataFolder();
 
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "EditAndSyncFeatures", filename);
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the map package file
-                await DataManager.GetData("3f1bbf0ec70b409a975f5c91f363fe7d", "EditAndSyncFeatures");
-            }
-            return filepath;
+			// Return the full path; Item ID is 3f1bbf0ec70b409a975f5c91f363fe7d
+			return Path.Combine(folder, "SampleData", "EditAndSyncFeatures", filename);
+            #endregion offlinedata
         }
 
         private void ShowStatusMessage(string message)

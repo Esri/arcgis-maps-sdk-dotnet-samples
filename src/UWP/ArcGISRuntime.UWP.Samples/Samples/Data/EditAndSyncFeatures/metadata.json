@@ -8,6 +8,7 @@
   "RequiresOfflineData": true,
   "RequiresLocalServer": false,
   "DataItemIds": [ "3f1bbf0ec70b409a975f5c91f363fe7d" ],
+  "DataFileNames": [ "SanFrancisco.tpk" ],
   "Image": "EditAndSyncFeatures.jpg",
   "Link": "",
   "TypeLink": [ "M:Esri.ArcGISRuntime.Data.FeatureTable.LoadAsync", "T:Esri.ArcGISRuntime.Tasks.Offline.SyncGeodatabaseParameters", "T:Esri.ArcGISRuntime.Tasks.Offline.SyncGeodatabaseJob", "T:Esri.ArcGISRuntime.Tasks.JobStatus", "T:Esri.ArcGISRuntime.Tasks.Offline.SyncLayerOption", "M:Esri.ArcGISRuntime.Tasks.Offline.SyncLayerOption.#ctor(System.Int64)", "M:Esri.ArcGISRuntime.Tasks.Offline.GeodatabaseSyncTask.SyncGeodatabase(Esri.ArcGISRuntime.Tasks.Offline.SyncGeodatabaseParameters,Esri.ArcGISRuntime.Data.Geodatabase)" ]

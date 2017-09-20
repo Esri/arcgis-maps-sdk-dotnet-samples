@@ -13,23 +13,12 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using System.IO;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntimeXamarin.Samples.FeatureLayerDictionaryRenderer
 {
     public partial class FeatureLayerDictionaryRenderer : ContentPage
     {
-        // Name and ID of the geodatabase file providing features
-        private string _geodatabaseName = "militaryoverlay.geodatabase";
-
-        private string _geodatabaseId = "e0d41b4b409a49a5a7ba11939d8535dc";
-
-        // Name and ID of the symbol dictionary file
-        private string _symbolDefName = "mil2525d.stylx";
-
-        private string _symbolDefId = "e34835bf5ec5430da7cf16bb8c0b075c";
-
         public FeatureLayerDictionaryRenderer()
         {
             InitializeComponent();
@@ -54,13 +43,13 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerDictionaryRenderer
             await MyMapView.SetViewpointScaleAsync(201555.279);
 
             // Get the path to the geodatabase
-            string geodbFilePath = await GetPreparedFilePath(_geodatabaseName, _geodatabaseId);
+            string geodbFilePath = GetGeodatabasePath();
 
             // Load the geodatabase from local storage
             Geodatabase baseGeodatabase = await Geodatabase.OpenAsync(geodbFilePath);
 
             // Get the path to the symbol dictionary
-            string symbolFilepath = await GetPreparedFilePath(_symbolDefName, _symbolDefId);
+            string symbolFilepath = GetStyleDictionaryPath();
 
             // Load the symbol dictionary from local storage
             //     Note that the type of the symbol definition must be explicitly provided along with the file name
@@ -89,23 +78,28 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerDictionaryRenderer
             }
         }
 
-        // Get the file path for the specified offline data
-        private async Task<string> GetPreparedFilePath(string fileName, string fileId)
+        // Get the file path for the style dictionary
+        private string GetStyleDictionaryPath()
         {
+            #region offlinedata
             // The data manager provides a method to get the folder
             string folder = DataManager.GetDataFolder();
 
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "FeatureLayerDictionaryRenderer", fileName);
+            // Return the full path; Item ID is e34835bf5ec5430da7cf16bb8c0b075c
+            return Path.Combine(folder, "SampleData", "FeatureLayerDictionaryRenderer", "mil2525d.stylx");
+            #endregion offlinedata
+        }
 
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the file
-                await DataManager.GetData(fileId, "FeatureLayerDictionaryRenderer");
-            }
+        // Get the file path for the geodatabase
+        private string GetGeodatabasePath()
+        {
+            #region offlinedata
+            // The data manager provides a method to get the folder
+            string folder = DataManager.GetDataFolder();
 
-            return filepath;
+            // Return the full path; Item ID is e0d41b4b409a49a5a7ba11939d8535dc
+            return Path.Combine(folder, "SampleData", "FeatureLayerDictionaryRenderer", "militaryoverlay.geodatabase");
+            #endregion offlinedata
         }
     }
 }

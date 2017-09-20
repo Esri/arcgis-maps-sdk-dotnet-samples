@@ -19,7 +19,6 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Reflection;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 #if WINDOWS_UWP
@@ -59,7 +58,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
         private async void Initialize()
         {
             // Create a tile cache and load it with the SanFrancisco streets tpk
-            TileCache _tileCache = new TileCache(await GetTpkPath());
+            TileCache _tileCache = new TileCache(GetTpkPath());
 
             // Create the corresponding layer based on the tile cache
             ArcGISTiledLayer _tileLayer = new ArcGISTiledLayer(_tileCache);
@@ -231,24 +230,18 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
         }
 
         // Get the path to the tile package used for the basemap
-        private async Task<string> GetTpkPath()
+        private string GetTpkPath()
         {
+            #region offlinedata
             // The desired tpk is expected to be called SanFrancisco.tpk
             string filename = "SanFrancisco.tpk";
 
             // The data manager provides a method to get the folder
             string folder = DataManager.GetDataFolder();
 
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "GenerateGeodatabase", filename);
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the map package file
-                await DataManager.GetData("3f1bbf0ec70b409a975f5c91f363fe7d", "GenerateGeodatabase");
-            }
-            return filepath;
+            // Return the full path; Item ID is 3f1bbf0ec70b409a975f5c91f363fe7d
+            return Path.Combine(folder, "SampleData", "GenerateGeodatabase", filename);
+            #endregion offlinedata
         }
 
         private string GetGdbPath()

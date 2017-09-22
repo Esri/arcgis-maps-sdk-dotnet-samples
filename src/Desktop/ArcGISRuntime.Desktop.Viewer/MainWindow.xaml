@@ -1,0 +1,195 @@
+﻿<Window x:Class="ArcGISRuntime.Samples.Desktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ArcGISRuntime.Desktop.Viewer"
+        xmlns:models="clr-namespace:ArcGISRuntime.Samples.Models"
+        xmlns:converters="clr-namespace:ArcGISRuntime.Desktop.Viewer.Converters"
+        xmlns:managers="clr-namespace:ArcGISRuntime.Samples.Managers"
+        Title="ArcGIS Runtime for .NET Samples"  
+        WindowState="Maximized" Icon="Assets/ApplicationIcons/windows-desktop-256.ico">
+
+    <Window.Resources>
+        <RoutedUICommand x:Key="TakeScreenshotCommand" Text="TakeThumbnail"/>
+        <converters:SampleToBitmapConverter x:Key="sampleToBitmapConverter" />
+
+        <DataTemplate x:Key="StantardFeaturedItemTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="55"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="380"/>
+                </Grid.ColumnDefinitions>
+                <Image Margin="10" Width="100" Height="125" Grid.RowSpan="2" Stretch="Uniform"
+                       Source="{Binding Sample.SampleImageName, Converter={StaticResource sampleToBitmapConverter}}">
+                </Image>
+                <TextBlock Text="{Binding Sample.Name}" FontSize="18" Grid.Column="1" Margin="10,5,10,5"/>
+                <TextBlock Text="{Binding Sample.Description}" FontSize="13" 
+										   TextWrapping="Wrap" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" 
+										   Margin="10,-5,10,5" FontWeight="Normal" TextTrimming="CharacterEllipsis"/>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="StandardSampleItemTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="55"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="380"/>
+                </Grid.ColumnDefinitions>
+                <Image Margin="10" Width="100" Height="125" Grid.RowSpan="2" Stretch="Uniform"
+                         Source="{Binding SampleImageName, Converter={StaticResource sampleToBitmapConverter}}">
+                </Image>
+                <TextBlock Text="{Binding Name}" FontSize="18" Grid.Column="1" Margin="10,5,10,5"/>
+                <TextBlock Text="{Binding Description}" FontSize="13" 
+										   TextWrapping="Wrap" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" 
+										   Margin="10,-5,10,5" FontWeight="Normal" TextTrimming="CharacterEllipsis"/>
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Window.CommandBindings>
+        <CommandBinding Command="{StaticResource TakeScreenshotCommand}" 
+                    Executed="CommandBinding_Executed" />
+    </Window.CommandBindings>
+
+    <Window.InputBindings>
+        <KeyBinding Key="T" Modifiers="Ctrl" Command="{StaticResource TakeScreenshotCommand}" />
+    </Window.InputBindings>
+
+    <Grid x:Name="root">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="535" MaxWidth="535"/>
+            <ColumnDefinition Width="*" MinWidth="450"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Header-->
+        <Grid Grid.ColumnSpan="5">
+            <Grid.Background>
+                <ImageBrush ImageSource="Assets/background-desktop.png" TileMode="Tile" />
+            </Grid.Background>
+            <TextBlock Text="ArcGIS Runtime SDK for .NET Samples" Foreground="White" FontSize="32" 
+                       FontWeight="Bold" VerticalAlignment="Center" Margin="40,0,0,0"/>
+        </Grid>
+
+        <!-- Tab level-->
+        <Grid Grid.Row="1" Grid.ColumnSpan="5">
+            <!-- Main navigation  -->
+            <Grid Margin="60,0,0,0" Grid.Column="1">
+                <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
+                    <RadioButton Content="FEATURED" Click="Featured_Click" Margin="5" 
+                             GroupName="MainTabs" IsChecked="True" 
+                             Background="Transparent" BorderBrush="Transparent" 
+                             FontSize="24" Style="{DynamicResource HeaderToggleButtonStyle}"></RadioButton>
+                    <RadioButton Content="ALL" Click="Categories_Click" Margin="5" 
+                             GroupName="MainTabs" IsChecked="false" 
+                             Background="Transparent" BorderBrush="Transparent" 
+                             FontSize="24" Style="{DynamicResource HeaderToggleButtonStyle}"></RadioButton>
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="2" Background="#F7F8F8" x:Name="navigationPane">
+            <!-- Featured list -->
+            <ListView x:Name="featured" 
+					ItemsSource="{Binding}" 
+				    SelectionChanged="featured_SelectionChanged"
+				    Background="Transparent"
+				    BorderBrush="Transparent"
+                    ItemTemplate="{StaticResource StantardFeaturedItemTemplate}">
+            </ListView>
+            <!-- Categories treeview -->
+            <TreeView x:Name="categories" 
+						  Background="#F7F8F8"
+						  ItemsSource="{Binding}" 
+						  Visibility="Collapsed" 
+                          Margin="20,5,5,5"
+						  SelectedItemChanged="categories_SelectedItemChanged"
+                          BorderBrush="Transparent">
+                <TreeView.Resources>
+                    <HierarchicalDataTemplate DataType="{x:Type managers:TreeItem}" ItemsSource="{Binding Items}">
+                        <TextBlock Text="{Binding Path=Name}"  FontSize="20"/>
+                    </HierarchicalDataTemplate>
+                    <DataTemplate DataType="{x:Type models:SampleModel}" >
+                        <TextBlock Text="{Binding Path=Name}"  FontSize="16"/>
+                    </DataTemplate>
+                </TreeView.Resources>
+            </TreeView>
+        </Grid>
+
+        <GridSplitter Width="5" Grid.Row="2" Grid.Column="0" ResizeDirection="Columns"></GridSplitter>
+
+        <!-- Details region -->
+        <Grid x:Name="DetailsRegion" Background="#F7F8F8" Grid.Row="1" Grid.Column="1" Grid.RowSpan="2">
+            <Grid Background="#F7F8F8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!-- Secondary navigation -->
+                <Grid>
+                    <StackPanel Orientation="Horizontal" Margin="60,0,0,0">
+                        <RadioButton x:Name="liveSample" Margin="5,5,0,0" IsChecked="True" Content="Live sample" Click="LiveSample_Click" GroupName="DetailsTabs"  Background="Transparent" BorderBrush="Transparent" FontSize="24" Style="{DynamicResource SampleHeaderToggleButtonStyle}"/>
+                        <RadioButton x:Name="description" Margin="5,5,0,0" Content="Description" Click="Description_Click" GroupName="DetailsTabs" Background="Transparent" BorderBrush="Transparent" FontSize="24" Style="{DynamicResource SampleHeaderToggleButtonStyle}"/>
+                    </StackPanel>
+                </Grid>
+                <!-- Details area -->
+                <Grid Background="White" Grid.Row="1">
+                    <ContentControl x:Name="SampleContainer" Margin="5"/>
+                    <local:Description x:Name="DescriptionContainer" Visibility="Collapsed" Margin="5"
+                                       Background="White"/>
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <!-- Categories region -->
+        <Grid x:Name="CategoriesRegion" Background="#F7F8F8" Grid.Row="1" Grid.Column="1" Grid.RowSpan="2">
+            <Grid Background="#F7F8F8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!-- Secondary navigation -->
+                <Grid Grid.Row="1" Background="White">
+                    <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                              x:Name="categoriesList"
+                              BorderBrush="Transparent"
+                              Margin="5"
+                              ItemTemplate="{StaticResource StandardSampleItemTemplate}"
+                              SelectionChanged="categoriesList_SelectionChanged">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ListView>
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <Grid Margin="0,80,0,0" Grid.ColumnSpan="2" Grid.RowSpan="4" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Button x:Name="closeNavigation" 
+                                Click="Close_Click" Margin="5" BorderBrush="Transparent" Background="Transparent"
+                        ToolTip="Hide navigation pane" >
+                <Image Source="Assets/appbar.layout.collapse.left.variant.png" Width="40" Height="40"></Image>
+            </Button>
+            <Button x:Name="openNavigation" Visibility="Collapsed"
+                                Click="Open_Click" Margin="5" BorderBrush="Transparent" Background="Transparent"
+                        ToolTip="Show navigation pane">
+                <Image Source="Assets/appbar.layout.expand.right.variant.png" Width="40" Height="40"></Image>
+            </Button>
+        </Grid>
+    </Grid>
+</Window>

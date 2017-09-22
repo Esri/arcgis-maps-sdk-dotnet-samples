@@ -1,0 +1,551 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6820B615-C568-4A13-B026-A77CDD348BFA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ArcGISRuntime.Windows</RootNamespace>
+    <AssemblyName>ArcGISRuntime.Windows.Samples</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\..\..\output\windows\ARM\debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <OutputPath>..\..\..\output\windows\ARM\release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\..\..\output\windows\x64\debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>..\..\..\output\windows\x64\release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\..\..\output\windows\x86\debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>..\..\..\output\windows\x86\release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
+    <Content Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\TakeScreenshot\TakeScreenshot.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\MapRotation\MapRotation.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\AuthorMap\AuthorMap.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\ManageBookmarks\ManageBookmarks.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\OpenExistingMap\OpenExistingMap.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\ChangeBasemap\ChangeBasemap.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\DisplayMap\DisplayMap.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="groups.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="project.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="Samples\Layers\ArcGISMapImageLayerUrl\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ArcGISTiledLayerUrl\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\SetMapSpatialReference\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\SetInitialMapLocation\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\SetInitialMapArea\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\MapRotation\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\ChangeViewpoint\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\FeatureLayerDefinitionExpression\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\FeatureLayerQuery\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\ServiceFeatureTableCache\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\ServiceFeatureTableManualCache\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\ServiceFeatureTableNoCache\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GraphicsOverlay\AddGraphicsRenderer\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\AccessLoadStatus\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\RenderUniqueValues\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\RenderSimpleMarkers\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\RenderPictureMarkers\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GraphicsOverlay\IdentifyGraphics\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ChangeFeatureLayerRenderer\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ChangeSublayerVisibility\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\FeatureLayerSelection\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\FeatureLayerUrl\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\ChangeBasemap\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\DisplayMap\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\OpenExistingMap\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\SetMinMaxScale\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\DisplayDrawingStatus\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\DisplayLayerViewState\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\TakeScreenshot\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Location\DisplayDeviceLocation\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\ManageBookmarks\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\AuthorMap\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.xaml.cs">
+      <DependentUpon>FeatureLayerQuery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.xaml.cs">
+      <DependentUpon>ServiceFeatureTableCache.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.xaml.cs">
+      <DependentUpon>ServiceFeatureTableManualCache.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.xaml.cs">
+      <DependentUpon>ServiceFeatureTableNoCache.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.xaml.cs">
+      <DependentUpon>AddGraphicsRenderer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.xaml.cs">
+      <DependentUpon>IdentifyGraphics.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.xaml.cs">
+      <DependentUpon>ArcGISMapImageLayerUrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.xaml.cs">
+      <DependentUpon>ArcGISTiledLayerUrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.xaml.cs">
+      <DependentUpon>ArcGISVectorTiledLayerUrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.xaml.cs">
+      <DependentUpon>FeatureLayerUrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.xaml.cs">
+      <DependentUpon>FeatureLayerSelection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.xaml.cs">
+      <DependentUpon>ChangeSublayerVisibility.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.xaml.cs">
+      <DependentUpon>ChangeFeatureLayerRenderer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.xaml.cs">
+      <DependentUpon>DisplayDeviceLocation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\TakeScreenshot\TakeScreenshot.xaml.cs">
+      <DependentUpon>TakeScreenshot.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.xaml.cs">
+      <DependentUpon>DisplayLayerViewState.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.xaml.cs">
+      <DependentUpon>DisplayDrawingStatus.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.xaml.cs">
+      <DependentUpon>ChangeViewpoint.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.xaml.cs">
+      <DependentUpon>FeatureLayerDefinitionExpression.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\MapRotation\MapRotation.xaml.cs">
+      <DependentUpon>MapRotation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.xaml.cs">
+      <DependentUpon>AccessLoadStatus.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\AuthorMap\AuthorMap.xaml.cs">
+      <DependentUpon>AuthorMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarks.xaml.cs">
+      <DependentUpon>ManageBookmarks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\OpenExistingMap\OpenExistingMap.xaml.cs">
+      <DependentUpon>OpenExistingMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\ChangeBasemap\ChangeBasemap.xaml.cs">
+      <DependentUpon>ChangeBasemap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\DisplayMap\DisplayMap.xaml.cs">
+      <DependentUpon>DisplayMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.xaml.cs">
+      <DependentUpon>SetInitialMapLocation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.xaml.cs">
+      <DependentUpon>SetInitialMapArea.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.xaml.cs">
+      <DependentUpon>SetMinMaxScale.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.xaml.cs">
+      <DependentUpon>SetMapSpatialReference.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.xaml.cs">
+      <DependentUpon>RenderPictureMarkers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.xaml.cs">
+      <DependentUpon>RenderSimpleMarkers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.xaml.cs">
+      <DependentUpon>RenderUniqueValues.xaml</DependentUpon>
+    </Compile>
+    <Content Include="Properties\ArcGISRuntime.Windows.Samples.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="Esri.ArcGISRuntime, Version=100.0">
+      <Name>ArcGIS Runtime for Universal apps</Name>
+    </SDKReference>
+    <SDKReference Include="Microsoft.VCLibs, version=14.0">
+      <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
+    </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\TakeScreenshot\TakeScreenshot.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\MapRotation\MapRotation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Map\AuthorMap\AuthorMap.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\ManageBookmarks\ManageBookmarks.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\OpenExistingMap\OpenExistingMap.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\ChangeBasemap\ChangeBasemap.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\DisplayMap\DisplayMap.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

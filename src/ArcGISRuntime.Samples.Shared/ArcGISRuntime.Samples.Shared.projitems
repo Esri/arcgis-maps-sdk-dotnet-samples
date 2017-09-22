@@ -10,7 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Managers\ApplicationManager.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Managers\DataManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Managers\SampleManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Managers\TreeItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\CategoryModel.cs" />

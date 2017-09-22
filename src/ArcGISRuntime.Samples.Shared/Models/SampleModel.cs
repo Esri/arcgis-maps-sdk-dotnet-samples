@@ -97,12 +97,6 @@ namespace ArcGISRuntime.Samples.Models
         public bool RequiresOfflineData { get; set; }
 
         /// <summary>
-        /// Get or sets the value indicating whether the sample requires offline data.
-        /// </summary>
-        [DataMember]
-        public List<string> DataItemIds { get; set; }
-
-        /// <summary>
         /// Get or sets the value indicating whether the sample requires local server.
         /// </summary>
         [DataMember]
@@ -152,9 +146,9 @@ namespace ArcGISRuntime.Samples.Models
             get
             {
 #if NETFX_CORE
-                var fullNamespace = string.Format("ArcGISRuntime.UWP.Samples.{0}", SampleFolder.Name);
+                var fullNamespace = string.Format("ArcGISRuntime.Windows.Samples.{0}", SampleFolder.Name);
 #else
-                var fullNamespace = string.Format("ArcGISRuntime.WPF.Samples.{0}", SampleFolder.Name);
+                var fullNamespace = string.Format("ArcGISRuntime.Desktop.Samples.{0}", SampleFolder.Name);
 #endif
                 return fullNamespace;
             }

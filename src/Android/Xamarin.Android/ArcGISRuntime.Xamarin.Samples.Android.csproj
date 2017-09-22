@@ -137,6 +137,7 @@
     <Compile Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.cs" />
     <Compile Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.cs" />
     <Compile Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.cs" />
+    <Compile Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.cs" />
     <Compile Include="Samples\Layers\WMTSLayer\WMTSLayer.cs" />
     <Compile Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.cs" />
     <Compile Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.cs" />
@@ -253,6 +254,8 @@
     <EmbeddedResource Include="Samples\Layers\RasterLayerRasterFunction\metadata.json" />
     <EmbeddedResource Include="Samples\Map\OpenMobileMap\metadata.json" />
     <EmbeddedResource Include="Samples\Data\GenerateGeodatabase\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\WMSLayerUrl\metadata.json" />
+    <None Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.jpg" />
     <EmbeddedResource Include="Samples\Data\StatsQueryGroupAndSort\metadata.json" />
     <AndroidResource Include="Resources\layout\GroupedResultsList_GroupItem.axml">
       <SubType>Designer</SubType>

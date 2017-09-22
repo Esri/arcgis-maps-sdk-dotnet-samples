@@ -64,6 +64,10 @@
       <SubType>Code</SubType>
       <DependentUpon>ListGeodatabaseVersions.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>SurfacePlacements.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>AddGraphicsRenderer.xaml</DependentUpon>
@@ -308,6 +312,10 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableNoCache\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SurfacePlacements\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\AddGraphicsRenderer\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -542,6 +550,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.jpg" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayScene\DisplayScene.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>

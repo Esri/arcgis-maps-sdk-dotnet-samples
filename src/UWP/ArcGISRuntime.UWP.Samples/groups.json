@@ -253,6 +253,10 @@
               "Path": "Samples/GraphicsOverlay/AddGraphicsRenderer"
             },
             {
+              "SampleName": "SurfacePlacements",
+              "Path": "Samples/GraphicsOverlay/SurfacePlacements"
+            },
+            {
               "SampleName": "IdentifyGraphics",
               "Path": "Samples/GraphicsOverlay/IdentifyGraphics"
             },

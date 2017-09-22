@@ -94,6 +94,7 @@
     <Content Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.jpg" />
     <Content Include="Samples\Layers\DisplayScene\DisplayScene.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -142,12 +143,9 @@
     <Content Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg" />
+    <Content Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSymVB.xaml.vb" />
+    <Content Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg" />
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
     <Content Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -392,12 +390,6 @@
     <Content Include="Samples\Geoprocessing\AnalyzeViewshed\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Tutorial\AuthorEditSaveMap\metadata.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\Symbology\UseDistanceCompositeSym\metadata.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Samples\MapView\ShowMagnifier\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -458,6 +450,13 @@
     <Content Include="Samples\Layers\RasterRenderingRule\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\GraphicsOverlay\SurfacePlacements\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Samples\Symbology\UseDistanceCompositeSym\metadata.json" />
+    <None Include="Samples\Symbology\UseDistanceCompositeSym\ReadMe.md" />
+    <None Include="Samples\Tutorial\AuthorEditSaveMap\metadata.json" />
+    <None Include="Samples\Tutorial\AuthorEditSaveMap\README.md" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -496,6 +495,9 @@
     </Compile>
     <Compile Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.xaml.cs">
       <DependentUpon>SketchOnMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.xaml.cs">
+      <DependentUpon>SurfacePlacements.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.xaml.cs">
       <DependentUpon>ArcGISMapImageLayerUrl.xaml</DependentUpon>
@@ -700,6 +702,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -881,6 +887,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSymVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

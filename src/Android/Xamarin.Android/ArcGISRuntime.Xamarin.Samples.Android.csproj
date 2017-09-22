@@ -116,6 +116,7 @@
     <Compile Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.cs" />
     <Compile Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.cs" />
     <Compile Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.cs" />
+    <Compile Include="Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.cs" />
     <Compile Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.cs" />
     <Compile Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.cs" />
     <Compile Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.cs" />
@@ -258,6 +259,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Samples\Layers\DisplayScene\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\RasterRenderingRule\metadata.json" />
+    <EmbeddedResource Include="Samples\GraphicsOverlay\SurfacePlacements\metadata.json" />
     <None Include="Samples\MapView\ShowCallout\ShowCallout.jpg" />
     <EmbeddedResource Include="Samples\Layers\RasterLayerImageServiceRaster\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\WMTSLayer\metadata.json" />
@@ -288,6 +290,7 @@
     <Content Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.jpg" />
     <Content Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.jpg" />
     <Content Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.jpg" />
+    <Content Include="Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.jpg" />
     <Content Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg" />
     <Content Include="Samples\Layers\DisplayScene\DisplayScene.jpg" />
     <Content Include="Samples\Layers\ExportTiles\ExportTiles.jpg" />
@@ -350,9 +353,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup />
-  <ItemGroup>
-    <Folder Include="Samples\Layers\RasterLayerFile\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.1.0\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.1.0\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

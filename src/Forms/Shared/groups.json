@@ -257,6 +257,10 @@
               "Path": "Samples/GraphicsOverlay/IdentifyGraphics"
             },
             {
+              "SampleName": "SurfacePlacements",
+              "Path": "Samples/GraphicsOverlay/SurfacePlacements"
+            },
+            {
               "SampleName": "SketchOnMap",
               "Path": "Samples/GraphicsOverlay/SketchOnMap"
             }

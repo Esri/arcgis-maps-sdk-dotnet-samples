@@ -10,6 +10,7 @@
 using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Esri.ArcGISRuntime.Data;
@@ -29,13 +30,13 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
         private FeatureTable _usStatesTable;
 
         // List of field names from the table
-        private List<string> _fieldNames;
+        private List<string> _fieldNames = new List<string>();
 
         // Selected fields for grouping results
-        private Dictionary<string, bool> _groupByFields;
+        private Dictionary<string, bool> _groupByFields = new Dictionary<string, bool>();
 
         // Collection to hold fields to order results by
-        private List<OrderFieldOption> _orderByFields;
+        private List<OrderFieldOption> _orderByFields = new List<OrderFieldOption>();
 
         // List of statistics definitions to use in the query
         private List<StatisticDefinition> _statisticDefinitions = new List<StatisticDefinition>();
@@ -62,27 +63,27 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             _controlsLayout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Button for launching the UI to view or define statistics definitions for the query
-            var showStatDefinitionsButton = new Button(this);
+            Button showStatDefinitionsButton = new Button(this);
             showStatDefinitionsButton.Text = "Statistic Definitions";
-            showStatDefinitionsButton.Click += ShowStatDefinitions;          
+            showStatDefinitionsButton.Click += ShowStatDefinitions;
 
             // Button to choose fields with which to group results
-            var showGroupFieldsButton = new Button(this);
+            Button showGroupFieldsButton = new Button(this);
             showGroupFieldsButton.Text = "Group Fields";
             showGroupFieldsButton.Click += ShowGroupFields;
 
             // Button to choose fields with which to sort results (must be one of the 'group by' fields)
-            var showOrderByFieldsButton = new Button(this);
+            Button showOrderByFieldsButton = new Button(this);
             showOrderByFieldsButton.Text = "Order By Fields";
             showOrderByFieldsButton.Click += ShowOrderByFields;
 
             // Create a Button to execute the statistical query
-            var getStatsButton = new Button(this);
+            Button getStatsButton = new Button(this);
             getStatsButton.Text = "Execute Query";
             getStatsButton.Click += ExecuteStatisticsQuery;
 
             // Define additional space (margin) between the execute button and the others
-            var space = new Space(this);
+            Space space = new Space(this);
             space.SetMinimumHeight(200);
 
             // Add the query controls to the layout
@@ -91,7 +92,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             _controlsLayout.AddView(showOrderByFieldsButton);
             _controlsLayout.AddView(space);
             _controlsLayout.AddView(getStatsButton);
-            
+
             // Show the layout in the app
             SetContentView(_controlsLayout);
         }
@@ -105,23 +106,20 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             await _usStatesTable.LoadAsync();
 
             // Get a list of field names from the table
-            _fieldNames = _usStatesTable.Fields.Select(f => f.Name).ToList();
+            _fieldNames = _usStatesTable.Fields.Select(field => field.Name).ToList();
 
             // Create a dictionary of fields the user can select for grouping
-            _groupByFields = new Dictionary<string, bool>();
-            foreach (var name in _fieldNames)
-            {
-                _groupByFields.Add(name, false);
-            }
+            // The value for each is set to false initially, as nothing is selected by default
+            _groupByFields = _fieldNames.ToDictionary(name => name, name => false);
 
-            // Create a list of field options for ordering results
+            // Create a list of field options for ordering results (initially empty)
             _orderByFields = new List<OrderFieldOption>();
         }
 
         private void ShowStatDefinitions(object sender, EventArgs e)
         {
             // Create a dialog for choosing statistics (field names and statistic types)
-            var statsDefDialog = new StatDefinitionsDialog(_fieldNames, _statisticDefinitions);
+            StatDefinitionsDialog statsDefDialog = new StatDefinitionsDialog(_fieldNames, _statisticDefinitions);
 
             // Begin a transaction to show a UI fragment (stats definitions dialog)
             FragmentTransaction trans = FragmentManager.BeginTransaction();
@@ -131,7 +129,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
         private void ShowGroupFields(object sender, EventArgs e)
         {
             // Create a dialog for choosing fields to group results with
-            var groupFieldsDialog = new GroupFieldsDialog(_groupByFields);
+            GroupFieldsDialog groupFieldsDialog = new GroupFieldsDialog(_groupByFields);
 
             // Handle the dialog closing event to read the selected fields
             groupFieldsDialog.GroupFieldDialogClosed += (s, args) =>
@@ -141,27 +139,27 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
 
                 // Get the current list of group fields and create/update the sort field choices
                 // (only fields selected for grouping can be used to order results)
-                var currentGroupFields = _groupByFields.Where((f) => f.Value == true);
+                IEnumerable<KeyValuePair<string, bool>> currentGroupFields = _groupByFields.Where(field => field.Value == true);
 
                 // Loop through the group fields
-                foreach (var f in currentGroupFields)
+                foreach (KeyValuePair<string, bool> groupField in currentGroupFields)
                 {
                     // Check if this field is missing from the current sort field options
-                    var existingOption = _orderByFields.Find((opt) => opt.OrderInfo.FieldName == f.Key);
+                    OrderFieldOption existingOption = _orderByFields.Find((opt) => opt.OrderInfo.FieldName == groupField.Key);
                     if (existingOption == null)
                     {
                         // If the field is missing, create a new OrderFieldOption and add it to the list
-                        existingOption = new OrderFieldOption(false, new OrderBy(f.Key, SortOrder.Ascending));
+                        existingOption = new OrderFieldOption(false, new OrderBy(groupField.Key, SortOrder.Ascending));
                         _orderByFields.Add(existingOption);
                     }
                 }
 
                 // Also make sure to remove any 'order by' fields that were removed from the 'group by' list
-                for (var i = _orderByFields.Count - 1; i >= 0; i--)
+                for (int i = _orderByFields.Count - 1; i >= 0; i--)
                 {
                     // If the order by field is not also one of the group fields, remove it from the list
-                    var opt = _orderByFields.ElementAt(i);
-                    var existingGroupField = currentGroupFields.FirstOrDefault((f) => f.Key == opt.OrderInfo.FieldName);
+                    OrderFieldOption opt = _orderByFields.ElementAt(i);
+                    KeyValuePair<string, bool> existingGroupField = currentGroupFields.FirstOrDefault(field => field.Key == opt.OrderInfo.FieldName);
                     if (existingGroupField.Key == null)
                     {
                         _orderByFields.RemoveAt(i);
@@ -180,16 +178,12 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             if (_orderByFields.Count == 0)
             {
                 // Warn the user to choose group fields first
-                var alertBuilder = new AlertDialog.Builder(this);
-                alertBuilder.SetTitle("No Group Fields");
-                alertBuilder.SetMessage("Results can only be ordered by group fields.");
-                alertBuilder.Show();
-
+                ShowMessage("Results can only be ordered by group fields.", "No Group Fields");
                 return;
             }
 
             // Create a new dialog for choosing fields to order with
-            var orderFieldsDialog = new OrderByFieldsDialog(_orderByFields);
+            OrderByFieldsDialog orderFieldsDialog = new OrderByFieldsDialog(_orderByFields);
 
             // Handle the dialog closing event to capture the current order field choices
             orderFieldsDialog.OrderFieldDialogClosed += (s, args) =>
@@ -207,12 +201,8 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             // Verify that there is at least one statistic definition
             if (_statisticDefinitions.Count() == 0)
             {
-                // Warn the user to define at least one statistic to query for
-                var alertBuilder = new AlertDialog.Builder(this);
-                alertBuilder.SetTitle("Statistical Query");
-                alertBuilder.SetMessage("Please define at least one statistic for the query.");
-                alertBuilder.Show();
-
+                // Warn the user to define a statistic to query
+                ShowMessage("Please define at least one statistic for the query.", "Statistical Query");
                 return;
             }
 
@@ -223,7 +213,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             if (_groupByFields != null)
             {
                 // Find fields in the dictionary with a 'true' value and add them to the group by field names
-                foreach (var groupField in _groupByFields.Where((f) => f.Value == true))
+                foreach (KeyValuePair<string, bool> groupField in _groupByFields.Where(field => field.Value == true))
                 {
                     statQueryParams.GroupByFieldNames.Add(groupField.Key);
                 }
@@ -232,7 +222,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             // Specify the fields to order by (if any)
             if (_orderByFields != null)
             {
-                foreach (var orderBy in _orderByFields)
+                foreach (OrderFieldOption orderBy in _orderByFields)
                 {
                     statQueryParams.OrderByFields.Add(orderBy.OrderInfo);
                 }
@@ -242,19 +232,27 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             StatisticsQueryResult statQueryResult = await _usStatesTable.QueryStatisticsAsync(statQueryParams);
 
             // Get results formatted as a dictionary (group names and their associated dictionary of results)
-            var resultsLookup = statQueryResult.ToDictionary(r => string.Join(", ", r.Group.Values), r => r.Statistics);
+            Dictionary<string, IReadOnlyDictionary<string, object>> resultsLookup = statQueryResult.ToDictionary(r => string.Join(", ", r.Group.Values), r => r.Statistics);
 
             // Create an instance of a custom list adapter that has logic to show results as expandable groups
-            var expandableListAdapter = new ExpandableResultsListAdapter(this, resultsLookup);
+            ExpandableResultsListAdapter expandableListAdapter = new ExpandableResultsListAdapter(this, resultsLookup);
 
             // Create an expandable list view and assign the expandable adapter
-            var expandableResultsListView = new ExpandableListView(this);
+            ExpandableListView expandableResultsListView = new ExpandableListView(this);
             expandableResultsListView.SetAdapter(expandableListAdapter);
 
             // Show the expandable list view in a dialog
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             dialogBuilder.SetView(expandableResultsListView);
             dialogBuilder.Show();
+        }
+
+        private void ShowMessage(string message, string title)
+        {
+            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+            alertBuilder.SetTitle(title);
+            alertBuilder.SetMessage(message);
+            alertBuilder.Show();
         }
     }
 
@@ -282,7 +280,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
 
         // List of statistic definitions for the query
         private List<StatisticDefinition> _statisticDefinitions;
-        
+
         // Spinner (drop down) to display fields from the table 
         private Spinner _fieldSpinner;
 
@@ -291,7 +289,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
 
         // ListView to show chosen statistic definitions (field name and statistic type)
         private ListView _statDefListView;
-        
+
         public StatDefinitionsDialog(List<string> fieldNames, List<StatisticDefinition> statisticDefs)
         {
             // Store field names for the table being queried
@@ -312,116 +310,106 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             // Set a dialog title
             this.Dialog.SetTitle("Statistics Definitions");
 
-            try
+            // Call OnCreateView on the base
+            base.OnCreateView(inflater, container, savedInstanceState);
+
+            // The container for the dialog is a vertical linear layout
+            dialogView = new LinearLayout(ctx);
+            dialogView.Orientation = Orientation.Vertical;
+
+            // Spinner for choosing a field to get statistics for
+            _fieldSpinner = new Spinner(ctx);
+
+            // Create an array adapter to display the fields
+            ArrayAdapter fieldsAdapter = new ArrayAdapter(ctx, Android.Resource.Layout.SimpleSpinnerItem);
+            foreach (string field in _fieldNames)
             {
-                base.OnCreateView(inflater, container, savedInstanceState);
-
-                // The container for the dialog is a vertical linear layout
-                dialogView = new LinearLayout(ctx);
-                dialogView.Orientation = Orientation.Vertical;
-
-                // Spinner for choosing a field to get statistics for
-                _fieldSpinner = new Spinner(ctx);
-
-                // Create an array adapter to display the fields
-                var fieldsAdapter = new ArrayAdapter(ctx, Android.Resource.Layout.SimpleSpinnerItem);
-                foreach (var fld in _fieldNames)
-                {
-                    fieldsAdapter.Add(fld);
-                }
-
-                // Set the drop down style for the array adapter, then assign it to the field spinner control
-                fieldsAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-                _fieldSpinner.Adapter = fieldsAdapter;
-
-                // Create a horizontal layout to display the field spinner (with a label)
-                var fieldView = new LinearLayout(ctx);
-                fieldView.Orientation = Orientation.Horizontal;
-
-                // Create a label for the spinner
-                var fieldLabel = new TextView(ctx);
-                fieldLabel.Text = "Field:";
-                fieldLabel.LabelFor = _fieldSpinner.Id;
-
-                // Add field controls to the horizontal layout
-                fieldView.AddView(fieldLabel);
-                fieldView.AddView(_fieldSpinner);
-                fieldView.SetPadding(140, 0, 0, 0);
-                dialogView.AddView(fieldView);
-
-                // Spinner for selecting the statistic type
-                _statSpinner = new Spinner(ctx);
-
-                // Create an array adapter to display the statistic types
-                var statTypeAdapter = new ArrayAdapter(ctx, Android.Resource.Layout.SimpleSpinnerItem);
-
-                // Read the statistic types from the StatisticType enum
-                var statTypes = Enum.GetValues(typeof(StatisticType));
-                foreach (var stat in statTypes)
-                {
-                    // Add each statistic type to the adapter
-                    statTypeAdapter.Add(stat.ToString());
-                }
-
-                // Set the drop down style for the array adapter, then assign it to the statistic type spinner control
-                statTypeAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-                _statSpinner.Adapter = statTypeAdapter;
-
-                // Create a horizontal layout to display the statistic type spinner (with a label)
-                var statTypeView = new LinearLayout(ctx);
-                statTypeView.Orientation = Orientation.Horizontal;
-
-                // Create the label for the statistic type list
-                var typeLabel = new TextView(ctx);
-                typeLabel.Text = "Type:";
-                typeLabel.LabelFor = _statSpinner.Id;
-
-                // Add statistic type controls to the horizontal layout
-                statTypeView.AddView(typeLabel);
-                statTypeView.AddView(_statSpinner);
-                statTypeView.SetPadding(140, 0, 0, 0);
-
-                // Add the statistic type layout to the dialog
-                dialogView.AddView(statTypeView);
-
-                // Create a button to add a new statistic definition (selected field and statistic type)
-                var addStatDefButton = new Button(ctx);
-                addStatDefButton.Text = "Add";
-                addStatDefButton.Click += AddStatisticDefinition;
-                
-                // Create a button to remove the selected statistic definition
-                var removeStatDefButton = new Button(ctx);
-                removeStatDefButton.Text = "Remove";
-                removeStatDefButton.Click += RemoveStatisticDefinition;
-
-                // Create a horizontal layout to contain the add and remove buttons
-                var buttonView = new LinearLayout(ctx);
-                buttonView.Orientation = Orientation.Horizontal;
-                buttonView.AddView(addStatDefButton);
-                buttonView.AddView(removeStatDefButton);
-
-                // Add the button layout to the dialog
-                dialogView.AddView(buttonView);
-
-                // Create a list view and an instance of a custom list adapter to show the statistic definitions
-                var listAdapter = new StatDefinitionListAdapter(this.Activity, _statisticDefinitions);
-                _statDefListView = new ListView(ctx);
-                _statDefListView.Adapter = listAdapter;
-
-                // Only allow one choice in the statistic definitions list ('remove' button will work on the selected row)
-                _statDefListView.ChoiceMode = ChoiceMode.Single;
-
-                // Add the statistic definitions list to the dialog
-                dialogView.AddView(_statDefListView);
+                fieldsAdapter.Add(field);
             }
-            catch (Exception exp)
+
+            // Set the drop down style for the array adapter, then assign it to the field spinner control
+            fieldsAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            _fieldSpinner.Adapter = fieldsAdapter;
+
+            // Create a horizontal layout to display the field spinner (with a label)
+            LinearLayout fieldView = new LinearLayout(ctx);
+            fieldView.Orientation = Orientation.Horizontal;
+
+            // Create a label for the spinner
+            TextView fieldLabel = new TextView(ctx);
+            fieldLabel.Text = "Field:";
+            fieldLabel.LabelFor = _fieldSpinner.Id;
+
+            // Add field controls to the horizontal layout
+            fieldView.AddView(fieldLabel);
+            fieldView.AddView(_fieldSpinner);
+            fieldView.SetPadding(140, 0, 0, 0);
+            dialogView.AddView(fieldView);
+
+            // Spinner for selecting the statistic type
+            _statSpinner = new Spinner(ctx);
+
+            // Create an array adapter to display the statistic types
+            ArrayAdapter statTypeAdapter = new ArrayAdapter(ctx, Android.Resource.Layout.SimpleSpinnerItem);
+
+            // Read the statistic types from the StatisticType enum
+            Array statTypes = Enum.GetValues(typeof(StatisticType));
+            foreach (object stat in statTypes)
             {
-                // Show the exception message 
-                var alertBuilder = new AlertDialog.Builder(this.Activity);
-                alertBuilder.SetTitle("Error");
-                alertBuilder.SetMessage(exp.Message);
-                alertBuilder.Show();
+                // Add each statistic type to the adapter
+                statTypeAdapter.Add(stat.ToString());
             }
+
+            // Set the drop down style for the array adapter, then assign it to the statistic type spinner control
+            statTypeAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            _statSpinner.Adapter = statTypeAdapter;
+
+            // Create a horizontal layout to display the statistic type spinner (with a label)
+            LinearLayout statTypeView = new LinearLayout(ctx);
+            statTypeView.Orientation = Orientation.Horizontal;
+
+            // Create the label for the statistic type list
+            TextView typeLabel = new TextView(ctx);
+            typeLabel.Text = "Type:";
+            typeLabel.LabelFor = _statSpinner.Id;
+
+            // Add statistic type controls to the horizontal layout
+            statTypeView.AddView(typeLabel);
+            statTypeView.AddView(_statSpinner);
+            statTypeView.SetPadding(140, 0, 0, 0);
+
+            // Add the statistic type layout to the dialog
+            dialogView.AddView(statTypeView);
+
+            // Create a button to add a new statistic definition (selected field and statistic type)
+            Button addStatDefButton = new Button(ctx);
+            addStatDefButton.Text = "Add";
+            addStatDefButton.Click += AddStatisticDefinition;
+
+            // Create a button to remove the selected statistic definition
+            Button removeStatDefButton = new Button(ctx);
+            removeStatDefButton.Text = "Remove";
+            removeStatDefButton.Click += RemoveStatisticDefinition;
+
+            // Create a horizontal layout to contain the add and remove buttons
+            LinearLayout buttonView = new LinearLayout(ctx);
+            buttonView.Orientation = Orientation.Horizontal;
+            buttonView.AddView(addStatDefButton);
+            buttonView.AddView(removeStatDefButton);
+
+            // Add the button layout to the dialog
+            dialogView.AddView(buttonView);
+
+            // Create a list view and an instance of a custom list adapter to show the statistic definitions
+            StatDefinitionListAdapter listAdapter = new StatDefinitionListAdapter(this.Activity, _statisticDefinitions);
+            _statDefListView = new ListView(ctx);
+            _statDefListView.Adapter = listAdapter;
+
+            // Only allow one choice in the statistic definitions list ('remove' button will work on the selected row)
+            _statDefListView.ChoiceMode = ChoiceMode.Single;
+
+            // Add the statistic definitions list to the dialog
+            dialogView.AddView(_statDefListView);
 
             // Return the new view for display
             return dialogView;
@@ -431,7 +419,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
         private void RemoveStatisticDefinition(object sender, EventArgs e)
         {
             // Check for a selected row in the list view
-            var selectedPosition = _statDefListView.CheckedItemPosition;
+            int selectedPosition = _statDefListView.CheckedItemPosition;
             if (selectedPosition >= 0)
             {
                 // Call a function in the custom list adapter that will remove the statistic definition at this position (and update the data in the list view)
@@ -443,17 +431,17 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
         private void AddStatisticDefinition(object sender, EventArgs e)
         {
             // Get the selected field name in the dialog
-            var fieldName = _fieldSpinner.SelectedItem.ToString();
+            string fieldName = _fieldSpinner.SelectedItem.ToString();
 
             // Get the selected statistic type name in the dialog and get the corresponding enum value
-            var statTypeName = _statSpinner.SelectedItem.ToString();
+            string statTypeName = _statSpinner.SelectedItem.ToString();
             StatisticType statType = (StatisticType)Enum.Parse(typeof(StatisticType), statTypeName);
 
             // Build a field alias for the statistic results that use the field name and statistic type
-            var alias = fieldName + "_" + statTypeName;
+            string alias = fieldName + "_" + statTypeName;
 
             // Create a new StatisticDefinition with the field name, statistic type, and output field alias
-            var statisticDefinition = new StatisticDefinition(fieldName, statType, alias);
+            StatisticDefinition statisticDefinition = new StatisticDefinition(fieldName, statType, alias);
 
             // Call a function in the custom list adapter that will add the new statistic definition (and update the data in the list view)
             (_statDefListView.Adapter as StatDefinitionListAdapter).AddStatisticDefinition(statisticDefinition);
@@ -475,7 +463,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             _ctx = context;
             _statisticDefinitions = statDefs;
         }
-        
+
         // Return the statistic definition at the specified position in the list
         public override StatisticDefinition this[int position]
         {
@@ -489,7 +477,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
         public void AddStatisticDefinition(StatisticDefinition statDef)
         {
             // See if this definition already exists in the list (output alias name is unique)
-            var existingDef = _statisticDefinitions.Find((d) => d.OutputAlias == statDef.OutputAlias);
+            StatisticDefinition existingDef = _statisticDefinitions.Find((d) => d.OutputAlias == statDef.OutputAlias);
 
             // If the definition is not found in the list, add it
             if (existingDef == null)
@@ -505,7 +493,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
         public void RemoveStatisticDefinitionAt(int position)
         {
             // Verify that the position is within the correct range
-            if(position >= 0 && position < _statisticDefinitions.Count)
+            if (position >= 0 && position < _statisticDefinitions.Count)
             {
                 // Remove the definition from the list
                 _statisticDefinitions.RemoveAt(position);
@@ -538,7 +526,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
 
             // Find the text view for the main text and use it to display the field name
             cellView.FindViewById<TextView>(Android.Resource.Id.Text1).Text = _statisticDefinitions[position].OnFieldName;
-            
+
             // Find the text view for the details text and use it to display the statistic type
             cellView.FindViewById<TextView>(Android.Resource.Id.Text2).Text = _statisticDefinitions[position].StatisticType.ToString();
 
@@ -574,20 +562,20 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             if (GroupFieldDialogClosed != null)
             {
                 // Get an array of all checked row positions in the list
-                var checkedItemsArray = _groupFieldsListView.CheckedItemPositions;
+                SparseBooleanArray checkedItemsArray = _groupFieldsListView.CheckedItemPositions;
 
                 // Loop through all fields in the dictionary
-                for (var i = 0; i < _potentialGroupByFields.Count; i++)
+                for (int i = 0; i < _potentialGroupByFields.Count; i++)
                 {
                     // Set the corresponding value for the field to false (will not be used for grouping results)
-                    var key = _potentialGroupByFields.Keys.ElementAt(i);
+                    string key = _potentialGroupByFields.Keys.ElementAt(i);
                     _potentialGroupByFields[key] = false;
 
                     // If the corresponding row in the list view is checked, set the field's value in the dictionary to true
                     if (checkedItemsArray.KeyAt(i) == i && checkedItemsArray.ValueAt(i))
                     {
                         _potentialGroupByFields[key] = true;
-                    }                    
+                    }
                 }
 
                 // Raise the GroupFieldDialogClosed event to pass back the updated dictionary
@@ -606,43 +594,33 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             // Set a dialog title
             this.Dialog.SetTitle("Group Results By");
 
-            try
+            // Call OnCreateView on the base
+            base.OnCreateView(inflater, container, savedInstanceState);
+
+            // The container for the dialog is a vertical linear layout
+            dialogView = new LinearLayout(ctx);
+            dialogView.Orientation = Orientation.Vertical;
+
+            // Create an instance of a custom list adapter to show the available group fields
+            GroupFieldListAdapter listAdapter = new GroupFieldListAdapter(this.Activity, _potentialGroupByFields);
+
+            // Create a new list view that uses the adapter and allows for multiple row selection
+            _groupFieldsListView = new ListView(ctx);
+            _groupFieldsListView.Adapter = listAdapter;
+            _groupFieldsListView.ChoiceMode = ChoiceMode.Multiple;
+
+            // Loop through all the available fields
+            for (int i = 0; i < _potentialGroupByFields.Count; i++)
             {
-                base.OnCreateView(inflater, container, savedInstanceState);
+                // See if this field have been selected for grouping results or not
+                bool chosenForGroup = _potentialGroupByFields.ElementAt(i).Value;
 
-                // The container for the dialog is a vertical linear layout
-                dialogView = new LinearLayout(ctx);
-                dialogView.Orientation = Orientation.Vertical;             
-
-                // Create an instance of a custom list adapter to show the available group fields
-                var listAdapter = new GroupFieldListAdapter(this.Activity, _potentialGroupByFields);
-
-                // Create a new list view that uses the adapter and allows for multiple row selection
-                _groupFieldsListView = new ListView(ctx);
-                _groupFieldsListView.Adapter = listAdapter;
-                _groupFieldsListView.ChoiceMode = ChoiceMode.Multiple;
-
-                // Loop through all the available fields
-                for(var i=0; i < _potentialGroupByFields.Count; i++)
-                {
-                    // See if this field have been selected for grouping results or not
-                    var chosenForGroup = _potentialGroupByFields.ElementAt(i).Value;
-
-                    // Set the checked state in the list view to show the chosen fields
-                    _groupFieldsListView.SetItemChecked(i, chosenForGroup);
-                }
-                
-                // Add the list view to the dialog UI
-                dialogView.AddView(_groupFieldsListView);
+                // Set the checked state in the list view to show the chosen fields
+                _groupFieldsListView.SetItemChecked(i, chosenForGroup);
             }
-            catch (Exception exp)
-            {
-                // Show the exception message 
-                var alertBuilder = new AlertDialog.Builder(this.Activity);
-                alertBuilder.SetTitle("Error");
-                alertBuilder.SetMessage(exp.Message);
-                alertBuilder.Show();
-            }
+
+            // Add the list view to the dialog UI
+            dialogView.AddView(_groupFieldsListView);
 
             // Return the new view for display
             return dialogView;
@@ -650,13 +628,13 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
     }
 
     // A class that defines a custom list adapter to show fields for grouping results
-    public class GroupFieldListAdapter : BaseAdapter<KeyValuePair<string,bool>>
+    public class GroupFieldListAdapter : BaseAdapter<KeyValuePair<string, bool>>
     {
         // Store the current activity
         private Activity _ctx;
 
         // Dictionary of field names and a value to indicate whether they are used for grouping
-        private Dictionary<string,bool> _groupFields;
+        private Dictionary<string, bool> _groupFields;
 
         // Constructor that takes the current activity and a dictionary of fields
         public GroupFieldListAdapter(Activity context, Dictionary<string, bool> groupFields) : base()
@@ -666,14 +644,14 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
         }
 
         // Get the group field option at the specified position
-        public override KeyValuePair<string,bool> this[int position]
+        public override KeyValuePair<string, bool> this[int position]
         {
             get
             {
                 return _groupFields.ElementAt(position);
             }
         }
-        
+
         // Return the count of fields in the dictionary
         public override int Count
         {
@@ -734,13 +712,13 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             if (OrderFieldDialogClosed != null)
             {
                 // Get an array of checked list item positions (indices)
-                var checkedItemsArray = _orderFieldsListView.CheckedItemPositions;
+                SparseBooleanArray checkedItemsArray = _orderFieldsListView.CheckedItemPositions;
 
                 // Loop through all the available order fields
-                for (var i = 0; i < _potentialOrderByFields.Count; i++)
+                for (int i = 0; i < _potentialOrderByFields.Count; i++)
                 {
                     // Initially set each order option to false
-                    var orderOption = _potentialOrderByFields[i];
+                    OrderFieldOption orderOption = _potentialOrderByFields[i];
                     orderOption.OrderWith = false;
 
                     // If the item was checked in the list view, set the order option to true
@@ -767,43 +745,33 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             // Set a dialog title
             this.Dialog.SetTitle("Order Results");
 
-            try
+            // Call OnCreateView on the base
+            base.OnCreateView(inflater, container, savedInstanceState);
+
+            // The container for the dialog is a vertical linear layout
+            dialogView = new LinearLayout(ctx);
+            dialogView.Orientation = Orientation.Vertical;
+
+            // Create an instance of a custom list adapter for showing the order fields
+            OrderFieldListAdapter listAdapter = new OrderFieldListAdapter(this.Activity, _potentialOrderByFields);
+
+            // Create a new list view that uses the adapter
+            _orderFieldsListView = new ListView(ctx);
+            _orderFieldsListView.Adapter = listAdapter;
+
+            // Allow the user to select multiple fields in the list view
+            _orderFieldsListView.ChoiceMode = ChoiceMode.Multiple;
+
+            // Loop through all order fields in the list
+            for (int i = 0; i < _potentialOrderByFields.Count; i++)
             {
-                base.OnCreateView(inflater, container, savedInstanceState);
-
-                // The container for the dialog is a vertical linear layout
-                dialogView = new LinearLayout(ctx);
-                dialogView.Orientation = Orientation.Vertical;
-
-                // Create an instance of a custom list adapter for showing the order fields
-                var listAdapter = new OrderFieldListAdapter(this.Activity, _potentialOrderByFields);
-                
-                // Create a new list view that uses the adapter
-                _orderFieldsListView = new ListView(ctx);
-                _orderFieldsListView.Adapter = listAdapter;
-
-                // Allow the user to select multiple fields in the list view
-                _orderFieldsListView.ChoiceMode = ChoiceMode.Multiple;
-
-                // Loop through all order fields in the list
-                for (var i = 0; i < _potentialOrderByFields.Count; i++)
-                {
-                    // If this field has been selected to order with, check it in the list view
-                    var chosenForOrder = _potentialOrderByFields[i].OrderWith;
-                    _orderFieldsListView.SetItemChecked(i, chosenForOrder);
-                }
-
-                // Add the list view to the dialog
-                dialogView.AddView(_orderFieldsListView);
+                // If this field has been selected to order with, check it in the list view
+                bool chosenForOrder = _potentialOrderByFields[i].OrderWith;
+                _orderFieldsListView.SetItemChecked(i, chosenForOrder);
             }
-            catch (Exception exp)
-            {
-                // Show the exception message 
-                var alertBuilder = new AlertDialog.Builder(this.Activity);
-                alertBuilder.SetTitle("Error");
-                alertBuilder.SetMessage(exp.Message);
-                alertBuilder.Show();
-            }
+
+            // Add the list view to the dialog
+            dialogView.AddView(_orderFieldsListView);
 
             // Return the new view for display
             return dialogView;
@@ -909,7 +877,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
         public override Java.Lang.Object GetChild(int groupPosition, int childPosition)
         {
             // Get the result dictionary for the specified group
-            IReadOnlyDictionary<string,object> result = new Dictionary<string, object>();
+            IReadOnlyDictionary<string, object> result = new Dictionary<string, object>();
             _resultsDictionary.TryGetValue(_groupNames[groupPosition], out result);
 
             // Return a string concatenated from the field name and value at the specified position
@@ -932,10 +900,10 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
         public override View GetChildView(int groupPosition, int childPosition, bool isLastChild, View convertView, ViewGroup parent)
         {
             // Reuse the current view, if available
-            if(convertView == null)
+            if (convertView == null)
             {
                 // Inflate a view from a resource that defines a result list item
-                var inflator = (LayoutInflater)_ctx.GetSystemService(Context.LayoutInflaterService);
+                LayoutInflater inflator = (LayoutInflater)_ctx.GetSystemService(Context.LayoutInflaterService);
                 convertView = inflator.Inflate(Resource.Layout.GroupedResultsList_DataItem, null);
             }
 
@@ -953,7 +921,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
         public override Java.Lang.Object GetGroup(int groupPosition)
         {
             // Find the group name in the array
-            var groupName = _groupNames[groupPosition];
+            string groupName = _groupNames[groupPosition];
 
             // If the group name is empty (maybe results weren't grouped), return "Results" for the group name
             if (string.IsNullOrEmpty(groupName))
@@ -974,10 +942,10 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
         public override View GetGroupView(int groupPosition, bool isExpanded, View convertView, ViewGroup parent)
         {
             // Reuse the view, if available
-            if(convertView == null)
+            if (convertView == null)
             {
                 // Inflate a view from a resource that defines a result group item
-                var inflator = (LayoutInflater)_ctx.GetSystemService(Context.LayoutInflaterService);
+                LayoutInflater inflator = (LayoutInflater)_ctx.GetSystemService(Context.LayoutInflaterService);
                 convertView = inflator.Inflate(Resource.Layout.GroupedResultsList_GroupItem, null);
             }
 

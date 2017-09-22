@@ -52,7 +52,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             await _usStatesTable.LoadAsync();
 
             // Fill the fields combo and "group by" list with field names from the table
-            var fieldNames = _usStatesTable.Fields.Select(f => f.Name).ToList();
+            List<string> fieldNames = _usStatesTable.Fields.Select(field => field.Name).ToList();
             FieldsComboBox.ItemsSource = fieldNames;
             GroupFieldsListBox.ItemsSource = _usStatesTable.Fields;
 
@@ -80,13 +80,13 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             StatisticsQueryParameters statQueryParams = new StatisticsQueryParameters(_statDefinitions);
 
             // Specify the group fields (if any)
-            foreach (var groupField in _groupByFields)
+            foreach (string groupField in _groupByFields)
             {
                 statQueryParams.GroupByFieldNames.Add(groupField);
             }
 
             // Specify the fields to order by (if any)
-            foreach (var orderBy in _orderByFields)
+            foreach (OrderFieldOption orderBy in _orderByFields)
             {
                 statQueryParams.OrderByFields.Add(orderBy.OrderInfo);
             }
@@ -95,19 +95,19 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             StatisticsQueryResult statQueryResult = await _usStatesTable.QueryStatisticsAsync(statQueryParams);
 
             // Get results formatted as a lookup (list of group names and their associated dictionary of results)
-            var resultsLookup = statQueryResult.ToLookup(r => string.Join(", ", r.Group.Values), r => r.Statistics);
+            ILookup<string,IReadOnlyDictionary<string,object>> resultsLookup = statQueryResult.ToLookup(result => string.Join(", ", result.Group.Values), result => result.Statistics);
             
             // Loop through the formatted results and build a list of classes to display as grouped results in the list view
-            var resultsGroupCollection = new ObservableCollection<ResultGroup>();
-            foreach (var group in resultsLookup)
+            ObservableCollection<ResultGroup> resultsGroupCollection = new ObservableCollection<ResultGroup>();
+            foreach (IGrouping<string,IReadOnlyDictionary<string,object>> group in resultsLookup)
             {
                 // Create a new group
-                var resultGroup = new ResultGroup() { GroupName = group.Key };
+                ResultGroup resultGroup = new ResultGroup() { GroupName = group.Key };
 
                 // Loop through all the results for this group and add them to the collection
-                foreach (var resultSet in group)
+                foreach (IReadOnlyDictionary<string,object> resultSet in group)
                 {
-                    foreach(var result in resultSet)
+                    foreach(KeyValuePair<string,object> result in resultSet)
                     {
                         resultGroup.Add(new StatisticResult { FieldName = result.Key, StatValue = result.Value});
                     }
@@ -126,16 +126,16 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
         private void GroupFieldCheckChanged(object sender, EventArgs e)
         {
             // Get the check box that raised the event (group field)
-            var groupFieldCheckBox = (sender as Switch);
+            Switch groupFieldCheckBox = (sender as Switch);
 
             // Get the field name
-            var fieldName = groupFieldCheckBox.BindingContext.ToString();
+            string fieldName = groupFieldCheckBox.BindingContext.ToString();
 
             // See if the field is being added or removed from the "group by" list
-            var fieldAdded = groupFieldCheckBox.IsToggled;
+            bool fieldAdded = groupFieldCheckBox.IsToggled;
 
             // See if the field already exists in the "group by" list
-            var fieldIsInList = _groupByFields.Contains(fieldName);
+            bool fieldIsInList = _groupByFields.Contains(fieldName);
 
             // If the field is being added, and is NOT in the list, add it ...
             if (fieldAdded && !fieldIsInList)
@@ -143,8 +143,8 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
                 _groupByFields.Add(fieldName);
 
                 // Also add it to the "order by" list
-                var orderBy = new OrderBy(fieldName, SortOrder.Ascending);
-                var orderOption = new OrderFieldOption(false, orderBy);
+                OrderBy orderBy = new OrderBy(fieldName, SortOrder.Ascending);
+                OrderFieldOption orderOption = new OrderFieldOption(false, orderBy);
                 _orderByFields.Add(orderOption);
             }
             // If the field is being removed and it IS in the list, remove it ...
@@ -153,7 +153,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
                 _groupByFields.Remove(fieldName);
 
                 // Also check for this field in the "order by" list and remove if necessary (only group fields can be used to order results)
-                var orderBy = _orderByFields.FirstOrDefault(f => f.OrderInfo.FieldName == fieldName);
+                OrderFieldOption orderBy = _orderByFields.FirstOrDefault(field => field.OrderInfo.FieldName == fieldName);
                 if (orderBy != null)
                 {
                     // Remove the field from the "order by" list
@@ -169,11 +169,11 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             if (FieldsComboBox.SelectedItem == null || StatTypeComboBox.SelectedItem == null) { return; }
 
             // Get the chosen field name and statistic type from the combo boxes
-            var fieldName = FieldsComboBox.SelectedItem.ToString();
-            var statType = (StatisticType)StatTypeComboBox.SelectedItem;
+            string fieldName = FieldsComboBox.SelectedItem.ToString();
+            StatisticType statType = (StatisticType)StatTypeComboBox.SelectedItem;
 
             // Check if this statistic definition has already be created (same field name and statistic type)
-            var existingStatDefinition = _statDefinitions.FirstOrDefault(def => def.OnFieldName == fieldName && def.StatisticType == statType);
+            StatisticDefinition existingStatDefinition = _statDefinitions.FirstOrDefault(def => def.OnFieldName == fieldName && def.StatisticType == statType);
 
             // If it doesn't exist, create it and add it to the collection (use the field name and statistic type to build the output alias)
             if (existingStatDefinition == null)
@@ -187,12 +187,12 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
         private void ChangeFieldSortOrder(object sender, EventArgs e)
         {
             // Verify that there is a selected sort field in the list
-            var selectedSortField = OrderByFieldsListBox.SelectedItem as OrderFieldOption;
+            OrderFieldOption selectedSortField = OrderByFieldsListBox.SelectedItem as OrderFieldOption;
             if (selectedSortField == null) { return; }
 
             // Create a new order field info to define the sort for the selected field
             OrderBy newOrderBy = new OrderBy(selectedSortField.OrderInfo.FieldName, selectedSortField.OrderInfo.SortOrder);
-            var newSortDefinition = new OrderFieldOption(true, newOrderBy);
+            OrderFieldOption newSortDefinition = new OrderFieldOption(true, newOrderBy);
 
             // Toggle the sort order from the current value
             if (newSortDefinition.OrderInfo.SortOrder == SortOrder.Ascending)
@@ -216,7 +216,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             if (StatFieldsListBox.SelectedItem == null) { return; }
 
             // Get the selected statistic definition and remove it from the collection
-            var selectedStat = StatFieldsListBox.SelectedItem as StatisticDefinition;
+            StatisticDefinition selectedStat = StatFieldsListBox.SelectedItem as StatisticDefinition;
             _statDefinitions.Remove(selectedStat);
         }
 
@@ -227,7 +227,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             if (GroupFieldsListBox.SelectedItem == null) { return; }
 
             // Get the name of the selected field and ensure that it's in the list of selected group fields (checked on in the list, e.g.)
-            var selectedFieldName = GroupFieldsListBox.SelectedItem.ToString();
+            string selectedFieldName = GroupFieldsListBox.SelectedItem.ToString();
             if (!_groupByFields.Contains(selectedFieldName))
             {
                 DisplayAlert("Only fields used for grouping can be used to order results.", "Query", "OK");
@@ -235,12 +235,12 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             }
 
             // Verify that the field isn't already in the "order by" list
-            var existingOrderBy = _orderByFields.FirstOrDefault(f => f.OrderInfo.FieldName == selectedFieldName);
+            OrderFieldOption existingOrderBy = _orderByFields.FirstOrDefault(field => field.OrderInfo.FieldName == selectedFieldName);
             if (existingOrderBy == null)
             {
                 // Create a new OrderBy for this field and add it to the collection (default to ascending sort order)
-                var newOrderBy = new OrderBy(selectedFieldName, SortOrder.Ascending);
-                var orderField = new OrderFieldOption(false, newOrderBy);
+                OrderBy newOrderBy = new OrderBy(selectedFieldName, SortOrder.Ascending);
+                OrderFieldOption orderField = new OrderFieldOption(false, newOrderBy);
                 _orderByFields.Add(orderField);
             }
         }
@@ -252,7 +252,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             if (OrderByFieldsListBox.SelectedItem == null) { return; }
 
             // Get the selected OrderFieldOption object and remove it from the collection
-            var selectedOrderBy = OrderByFieldsListBox.SelectedItem as OrderFieldOption;
+            OrderFieldOption selectedOrderBy = OrderByFieldsListBox.SelectedItem as OrderFieldOption;
             _orderByFields.Remove(selectedOrderBy);
         }
 

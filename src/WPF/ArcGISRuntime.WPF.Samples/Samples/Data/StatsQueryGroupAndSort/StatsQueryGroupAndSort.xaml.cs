@@ -78,39 +78,46 @@ namespace ArcGISRuntime.WPF.Samples.StatsQueryGroupAndSort
             StatisticsQueryParameters statQueryParams = new StatisticsQueryParameters(_statDefinitions);
 
             // Specify the group fields (if any)
-            foreach(var groupField in _groupByFields)
+            foreach(string groupField in _groupByFields)
             {
                 statQueryParams.GroupByFieldNames.Add(groupField);
             }
 
             // Specify the fields to order by (if any)
-            foreach(var orderBy in _orderByFields)
+            foreach(OrderBy orderBy in _orderByFields)
             {
                 statQueryParams.OrderByFields.Add(orderBy);
             }
 
-            // Execute the statistical query with these parameters and await the results
-            StatisticsQueryResult statQueryResult = await _usStatesTable.QueryStatisticsAsync(statQueryParams);
+            try
+            {
+                // Execute the statistical query with these parameters and await the results
+                StatisticsQueryResult statQueryResult = await _usStatesTable.QueryStatisticsAsync(statQueryParams);
 
-            // Format the output, and display results in the tree view
-            var groupedResults = statQueryResult.ToLookup(r => string.Join(", ", r.Group.Values), r => r.Statistics);
-            ResultsTreeView.ItemsSource = groupedResults;
+                // Format the output, and display results in the tree view
+                ILookup<string,IReadOnlyDictionary<string,object>> groupedResults = statQueryResult.ToLookup(r => string.Join(", ", r.Group.Values), r => r.Statistics);
+                ResultsTreeView.ItemsSource = groupedResults;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Invalid statistics definitions");
+            }
         }
 
         // Handle when the check box for a "group by" field is checked on or off by adding or removing the field from the collection
         private void GroupFieldCheckChanged(object sender, RoutedEventArgs e)
         {
             // Get the check box that raised the event (group field)
-            var groupFieldCheckBox = (sender as CheckBox);
+            CheckBox groupFieldCheckBox = (sender as CheckBox);
 
             // The check box is tagged with the field name, read that info
-            var fieldName = groupFieldCheckBox.Tag.ToString();
+            string fieldName = groupFieldCheckBox.Tag.ToString();
 
             // See if the field is being added or removed from the "group by" list
-            var fieldAdded = groupFieldCheckBox.IsChecked == true;
+            bool fieldAdded = groupFieldCheckBox.IsChecked == true;
 
             // See if the field already exists in the "group by" list
-            var fieldIsInList = _groupByFields.Contains(fieldName);
+            bool fieldIsInList = _groupByFields.Contains(fieldName);
 
             // If the field is being added, and is NOT in the list, add it ...
             if (fieldAdded && !fieldIsInList)
@@ -123,7 +130,7 @@ namespace ArcGISRuntime.WPF.Samples.StatsQueryGroupAndSort
                 _groupByFields.Remove(fieldName);
 
                 // Also check for this field in the order by list (only group fields can be used to order by)
-                var orderBy = _orderByFields.FirstOrDefault(f => f.FieldName == fieldName);
+                OrderBy orderBy = _orderByFields.FirstOrDefault(field => field.FieldName == fieldName);
                 if(orderBy != null)
                 {
                     // Remove the field from the "order by" list
@@ -139,11 +146,11 @@ namespace ArcGISRuntime.WPF.Samples.StatsQueryGroupAndSort
             if (FieldsComboBox.SelectedValue == null || StatTypeComboBox.SelectedValue == null) { return; }
 
             // Get the chosen field name and statistic type from the combo boxes
-            var fieldName = FieldsComboBox.SelectedValue.ToString();
-            var statType = (StatisticType)StatTypeComboBox.SelectedValue;
+            string fieldName = FieldsComboBox.SelectedValue.ToString();
+            StatisticType statType = (StatisticType)StatTypeComboBox.SelectedValue;
 
             // Check if this statistic definition has already be created (same field name and statistic type)
-            var existingStatDefinition = _statDefinitions.FirstOrDefault(def => def.OnFieldName == fieldName && def.StatisticType == statType);
+            StatisticDefinition existingStatDefinition = _statDefinitions.FirstOrDefault(def => def.OnFieldName == fieldName && def.StatisticType == statType);
 
             // If it doesn't exist, create it and add it to the collection (use the field name and statistic type to build the output alias)
             if (existingStatDefinition == null)
@@ -157,11 +164,11 @@ namespace ArcGISRuntime.WPF.Samples.StatsQueryGroupAndSort
         private void ChangeFieldSortOrder(object sender, RoutedEventArgs e)
         {
             // Verify that there is a selected sort field in the list
-            var selectedSortField = OrderByFieldsListBox.SelectedItem as OrderBy; 
+            OrderBy selectedSortField = OrderByFieldsListBox.SelectedItem as OrderBy; 
             if(selectedSortField == null) { return; }
 
             // Create a new OrderBy object to define the sort for the selected field
-            var newSortDefinition = new OrderBy(selectedSortField.FieldName, selectedSortField.SortOrder);
+            OrderBy newSortDefinition = new OrderBy(selectedSortField.FieldName, selectedSortField.SortOrder);
 
             // Toggle the sort order from the current value
             if (newSortDefinition.SortOrder == SortOrder.Ascending)
@@ -185,7 +192,7 @@ namespace ArcGISRuntime.WPF.Samples.StatsQueryGroupAndSort
             if(StatFieldsListBox.SelectedItem == null) { return; }
 
             // Get the selected statistic definition and remove it from the collection
-            var selectedStat = StatFieldsListBox.SelectedItem as StatisticDefinition; 
+            StatisticDefinition selectedStat = StatFieldsListBox.SelectedItem as StatisticDefinition; 
             _statDefinitions.Remove(selectedStat);
         }
 
@@ -196,7 +203,7 @@ namespace ArcGISRuntime.WPF.Samples.StatsQueryGroupAndSort
             if(GroupFieldsListBox.SelectedItem == null) { return; }
 
             // Get the name of the selected field and ensure that it's in the list of selected group fields (checked on in the list, e.g.)
-            var selectedFieldName = GroupFieldsListBox.SelectedItem.ToString();
+            string selectedFieldName = GroupFieldsListBox.SelectedItem.ToString();
             if (!_groupByFields.Contains(selectedFieldName))
             {
                 MessageBox.Show("Only fields used for grouping can be used to order results.");
@@ -204,11 +211,11 @@ namespace ArcGISRuntime.WPF.Samples.StatsQueryGroupAndSort
             }
 
             // Verify that the field isn't already in the "order by" list
-            var existingOrderBy = _orderByFields.FirstOrDefault(f => f.FieldName == selectedFieldName);
+            OrderBy existingOrderBy = _orderByFields.FirstOrDefault(field => field.FieldName == selectedFieldName);
             if(existingOrderBy == null)
             {
                 // Create a new OrderBy for this field and add it to the collection (default to ascending sort order)
-                var newOrderBy = new OrderBy(selectedFieldName, SortOrder.Ascending);
+                OrderBy newOrderBy = new OrderBy(selectedFieldName, SortOrder.Ascending);
                 _orderByFields.Add(newOrderBy);
             }
         }
@@ -220,7 +227,7 @@ namespace ArcGISRuntime.WPF.Samples.StatsQueryGroupAndSort
             if (OrderByFieldsListBox.SelectedItem == null) { return; }
 
             // Get the selected OrderBy object and remove it from the collection
-            var selectedOrderBy = OrderByFieldsListBox.SelectedItem as OrderBy;
+            OrderBy selectedOrderBy = OrderByFieldsListBox.SelectedItem as OrderBy;
             _orderByFields.Remove(selectedOrderBy);
         }
     }

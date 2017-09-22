@@ -72,8 +72,7 @@ namespace ArcGISRuntime.UWP.Samples.StatsQueryGroupAndSort
             // Verify that there is at least one statistic definition
             if (_statDefinitions.Count == 0)
             {
-                MessageDialog messageDialog = new MessageDialog("Please define at least one statistic for the query.", "Statistical Query");
-                messageDialog.ShowAsync();
+                ShowMessage("Please define at least one statistic for the query.", "Statistical Query");
                 return;
             }
 
@@ -81,13 +80,13 @@ namespace ArcGISRuntime.UWP.Samples.StatsQueryGroupAndSort
             StatisticsQueryParameters statQueryParams = new StatisticsQueryParameters(_statDefinitions);
 
             // Specify the group fields (if any)
-            foreach (var groupField in _groupByFields)
+            foreach (string groupField in _groupByFields)
             {
                 statQueryParams.GroupByFieldNames.Add(groupField);
             }
 
             // Specify the fields to order by (if any)
-            foreach (var orderBy in _orderByFields)
+            foreach (OrderFieldOption orderBy in _orderByFields)
             {
                 statQueryParams.OrderByFields.Add(orderBy.OrderInfo);
             }
@@ -96,26 +95,33 @@ namespace ArcGISRuntime.UWP.Samples.StatsQueryGroupAndSort
             StatisticsQueryResult statQueryResult = await _usStatesTable.QueryStatisticsAsync(statQueryParams);
 
             // Format the output for display of grouped results in the list view
-            var groupedResults = statQueryResult.GroupBy(r => string.Join(", ", r.Group.Values), r => r.Statistics);
+            IEnumerable<IGrouping<string,IReadOnlyDictionary<string,object>>> groupedResults = statQueryResult.GroupBy(r => string.Join(", ", r.Group.Values), r => r.Statistics);
 
             // Apply the results to the list view data source
             GroupedResultData.Source = groupedResults;
         }
         
+        // Helper function to show a message
+        private void ShowMessage(string message, string title)
+        {
+            MessageDialog messageDialog = new MessageDialog(message, title);
+            messageDialog.ShowAsync();
+        }
+
         // Handle when the check box for a "group by" field is checked on or off by adding or removing the field from the collection
         private void GroupFieldCheckChanged(object sender, RoutedEventArgs e)
         {
             // Get the check box that raised the event (group field)
-            var groupFieldCheckBox = (sender as CheckBox);
+            CheckBox groupFieldCheckBox = (sender as CheckBox);
 
             // Get the field name
-            var fieldName = groupFieldCheckBox.Content.ToString();
+            string fieldName = groupFieldCheckBox.Content.ToString();
 
             // See if the field is being added or removed from the "group by" list
-            var fieldAdded = groupFieldCheckBox.IsChecked == true;
+            bool fieldAdded = groupFieldCheckBox.IsChecked == true;
 
             // See if the field already exists in the "group by" list
-            var fieldIsInList = _groupByFields.Contains(fieldName);
+            bool fieldIsInList = _groupByFields.Contains(fieldName);
 
             // If the field is being added, and is NOT in the list, add it ...
             if (fieldAdded && !fieldIsInList)
@@ -123,8 +129,8 @@ namespace ArcGISRuntime.UWP.Samples.StatsQueryGroupAndSort
                 _groupByFields.Add(fieldName);
 
                 // Also add it to the "order by" list
-                var orderBy = new OrderBy(fieldName, SortOrder.Ascending);
-                var orderOption = new OrderFieldOption(false, orderBy);
+                OrderBy orderBy = new OrderBy(fieldName, SortOrder.Ascending);
+                OrderFieldOption orderOption = new OrderFieldOption(false, orderBy);
                 _orderByFields.Add(orderOption);
             }
             // If the field is being removed and it IS in the list, remove it ...
@@ -133,7 +139,7 @@ namespace ArcGISRuntime.UWP.Samples.StatsQueryGroupAndSort
                 _groupByFields.Remove(fieldName);
 
                 // Also check for this field in the "order by" list and remove if necessary (only group fields can be used to order results)
-                var orderBy = _orderByFields.FirstOrDefault(f => f.OrderInfo.FieldName == fieldName);
+                OrderFieldOption orderBy = _orderByFields.FirstOrDefault(field => field.OrderInfo.FieldName == fieldName);
                 if (orderBy != null)
                 {
                     // Remove the field from the "order by" list
@@ -149,11 +155,11 @@ namespace ArcGISRuntime.UWP.Samples.StatsQueryGroupAndSort
             if (FieldsComboBox.SelectedValue == null || StatTypeComboBox.SelectedValue == null) { return; }
 
             // Get the chosen field name and statistic type from the combo boxes
-            var fieldName = FieldsComboBox.SelectedValue.ToString();
-            var statType = (StatisticType)StatTypeComboBox.SelectedValue;
+            string fieldName = FieldsComboBox.SelectedValue.ToString();
+            StatisticType statType = (StatisticType)StatTypeComboBox.SelectedValue;
 
             // Check if this statistic definition has already be created (same field name and statistic type)
-            var existingStatDefinition = _statDefinitions.FirstOrDefault(def => def.OnFieldName == fieldName && def.StatisticType == statType);
+            StatisticDefinition existingStatDefinition = _statDefinitions.FirstOrDefault(def => def.OnFieldName == fieldName && def.StatisticType == statType);
 
             // If it doesn't exist, create it and add it to the collection (use the field name and statistic type to build the output alias)
             if (existingStatDefinition == null)
@@ -167,12 +173,12 @@ namespace ArcGISRuntime.UWP.Samples.StatsQueryGroupAndSort
         private void ChangeFieldSortOrder(object sender, RoutedEventArgs e)
         {
             // Verify that there is a selected sort field in the list
-            var selectedSortField = OrderByFieldsListBox.SelectedItem as OrderFieldOption;
+            OrderFieldOption selectedSortField = OrderByFieldsListBox.SelectedItem as OrderFieldOption;
             if (selectedSortField == null) { return; }
 
             // Create a new order field info to define the sort for the selected field
             OrderBy newOrderBy = new OrderBy(selectedSortField.OrderInfo.FieldName, selectedSortField.OrderInfo.SortOrder);
-            var newSortDefinition = new OrderFieldOption(true, newOrderBy);
+            OrderFieldOption newSortDefinition = new OrderFieldOption(true, newOrderBy);
 
             // Toggle the sort order from the current value
             if (newSortDefinition.OrderInfo.SortOrder == SortOrder.Ascending)
@@ -196,7 +202,7 @@ namespace ArcGISRuntime.UWP.Samples.StatsQueryGroupAndSort
             if (StatFieldsListBox.SelectedItem == null) { return; }
 
             // Get the selected statistic definition and remove it from the collection
-            var selectedStat = StatFieldsListBox.SelectedItem as StatisticDefinition;
+            StatisticDefinition selectedStat = StatFieldsListBox.SelectedItem as StatisticDefinition;
             _statDefinitions.Remove(selectedStat);
         }
 
@@ -207,21 +213,20 @@ namespace ArcGISRuntime.UWP.Samples.StatsQueryGroupAndSort
             if (GroupFieldsListBox.SelectedItem == null) { return; }
 
             // Get the name of the selected field and ensure that it's in the list of selected group fields (checked on in the list, e.g.)
-            var selectedFieldName = GroupFieldsListBox.SelectedItem.ToString();
+            string selectedFieldName = GroupFieldsListBox.SelectedItem.ToString();
             if (!_groupByFields.Contains(selectedFieldName))
             {
-                MessageDialog messageDialog = new MessageDialog("Only fields used for grouping can be used to order results.");
-                messageDialog.ShowAsync();
+                ShowMessage("Only fields used for grouping can be used to order results.", "Order fields");
                 return;
             }
 
             // Verify that the field isn't already in the "order by" list
-            var existingOrderBy = _orderByFields.FirstOrDefault(f => f.OrderInfo.FieldName == selectedFieldName);
+            OrderFieldOption existingOrderBy = _orderByFields.FirstOrDefault(f => f.OrderInfo.FieldName == selectedFieldName);
             if (existingOrderBy == null)
             {
                 // Create a new OrderBy for this field and add it to the collection (default to ascending sort order)
-                var newOrderBy = new OrderBy(selectedFieldName, SortOrder.Ascending);
-                var orderField = new OrderFieldOption(false, newOrderBy);
+                OrderBy newOrderBy = new OrderBy(selectedFieldName, SortOrder.Ascending);
+                OrderFieldOption orderField = new OrderFieldOption(false, newOrderBy);
                 _orderByFields.Add(orderField);
             }
         }
@@ -233,7 +238,7 @@ namespace ArcGISRuntime.UWP.Samples.StatsQueryGroupAndSort
             if (OrderByFieldsListBox.SelectedItem == null) { return; }
 
             // Get the selected OrderFieldOption object and remove it from the collection
-            var selectedOrderBy = OrderByFieldsListBox.SelectedItem as OrderFieldOption;
+            OrderFieldOption selectedOrderBy = OrderByFieldsListBox.SelectedItem as OrderFieldOption;
             _orderByFields.Remove(selectedOrderBy);
         }        
     }

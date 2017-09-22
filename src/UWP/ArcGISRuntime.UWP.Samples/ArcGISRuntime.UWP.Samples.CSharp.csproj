@@ -106,6 +106,9 @@
     <Content Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\MapView\ShowCallout\ShowCallout.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -422,6 +425,9 @@
     <Content Include="Samples\Data\StatsQueryGroupAndSort\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Layers\WMSLayerUrl\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -502,6 +508,9 @@
     </Compile>
     <Compile Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.xaml.cs">
       <DependentUpon>RasterLayerRasterFunction.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.xaml.cs">
+      <DependentUpon>WMSLayerUrl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\WMTSLayer\WMTSLayer.xaml.cs">
       <DependentUpon>WMTSLayer.xaml</DependentUpon>
@@ -703,6 +712,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

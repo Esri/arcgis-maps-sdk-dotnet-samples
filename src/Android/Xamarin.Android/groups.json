@@ -298,10 +298,6 @@
             {
               "SampleName": "StatisticalQuery",
               "Path": "Samples/Data/StatisticalQuery"
-            },
-            {
-              "SampleName": "StatsQueryGroupAndSort",
-              "Path": "Samples/Data/StatsQueryGroupAndSort"
             }
           ]
         }

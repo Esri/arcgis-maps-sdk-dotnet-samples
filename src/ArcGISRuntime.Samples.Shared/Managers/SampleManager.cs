@@ -51,15 +51,15 @@ namespace ArcGISRuntime.Samples.Managers
             _selectedLanguage = language;
             if (language == Language.CSharp)
 #if NETFX_CORE
-                _samplesAssembly = Assembly.Load(new AssemblyName("ArcGISRuntime.Windows.Samples"));
+                _samplesAssembly = Assembly.Load(new AssemblyName("ArcGISRuntime.UWP.Samples"));
 #else
-                _samplesAssembly = Assembly.Load("ArcGISRuntime.Desktop.Samples");
+                _samplesAssembly = Assembly.Load("ArcGISRuntime.WPF.Samples");
 #endif
             else
 #if NETFX_CORE
-                _samplesAssembly = Assembly.Load(new AssemblyName("ArcGISRuntime.Windows.Samples.VB"));
+                _samplesAssembly = Assembly.Load(new AssemblyName("ArcGISRuntime.UWP.Samples.VB"));
 #else
-                _samplesAssembly = Assembly.Load("ArcGISRuntime.Desktop.Samples.VB");
+                _samplesAssembly = Assembly.Load("ArcGISRuntime.WPF.Samples.VB");
 #endif
 
             await CreateAllAsync();
@@ -104,7 +104,30 @@ namespace ArcGISRuntime.Samples.Managers
             }
             return categories;
         }
-   
+
+#if !NETFX_CORE
+        public List<TreeViewItem> GetSamplesInTreeViewCategories()
+        {
+            var categories = new List<TreeViewItem>();
+
+            foreach (var category in _sampleStructureMap.Categories)
+            {
+                var categoryItem = new TreeViewItem();
+                categoryItem.Header = category.Name;
+                categoryItem.DataContext = category;
+
+                foreach (var subCategory in category.SubCategories)
+                {
+                    foreach (var sample in subCategory.Samples)
+                        categoryItem.Items.Add( new TreeViewItem { Header = sample.Name, DataContext = sample });
+                }
+
+                categories.Add(categoryItem);
+            }
+            return categories;
+        }
+#endif
+
         /// <summary>
         /// Gets all samples as a tree.
         /// </summary>
@@ -166,10 +189,10 @@ namespace ArcGISRuntime.Samples.Managers
                 await Task.Run(() =>
                 {
 #if NETFX_CORE
-                    var filePath = string.Format("ms-appx:///{0}", "ArcGISRuntime.Windows.Samples/groups.json");
+                    var filePath = string.Format("ms-appx:///{0}", "ArcGISRuntime.UWP.Samples/groups.json");
                     try
                     {
-                        filePath = Path.Combine(Package.Current.InstalledLocation.Path, "ArcGISRuntime.Windows.Samples", "groups.json");
+                        filePath = Path.Combine(Package.Current.InstalledLocation.Path, "ArcGISRuntime.UWP.Samples", "groups.json");
                     }
                     catch (Exception)
                     {

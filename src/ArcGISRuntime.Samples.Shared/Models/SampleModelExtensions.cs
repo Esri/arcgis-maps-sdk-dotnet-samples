@@ -54,14 +54,14 @@ namespace ArcGISRuntime.Samples.Models
             {
                 case SampleModel.SampleType.API:
                     return string.Format(
-                        "..\\..\\..\\src\\WPF\\ArcGISRuntime.WPF.Samples\\{0}\\{1}\\{2}",
+                        "..\\..\\..\\src\\desktop\\ArcGISRuntime.Desktop.Samples\\{0}\\{1}\\{2}",
                             model.SampleFolder.Parent.Parent.Name,
                             model.SampleFolder.Parent.Name,
                             model.SampleFolder.Name);
                 case SampleModel.SampleType.Workflow:
                 case SampleModel.SampleType.Tutorial:
                     return string.Format(
-                        "..\\..\\..\\src\\WPF\\ArcGISRuntime.WPF.Samples\\{0}\\{1}",
+                        "..\\..\\..\\src\\desktop\\ArcGISRuntime.Desktop.Samples\\{0}\\{1}",
                             model.SampleFolder.Parent.Name,
                             model.SampleFolder.Name);
                 default:

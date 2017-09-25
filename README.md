@@ -1,42 +1,33 @@
 # arcgis-runtime-samples-dotnet
 
-This project contains samples for the ArcGIS Runtime SDK for .NET including WPF, UWP and Xamarin platforms.
+This project contains samples for the ArcGIS Runtime SDK for .NET.
 
 ## Samples - Table of Contents
 
 See Table of Contents under different platforms
-  * [WPF](src/WPF)
-  * [Universal Windows Platform](src/UWP)
-  * [Xamarin.Android](src/Android)
-  * [Xamarin.iOS](src/iOS)
-  * [Xamarin.Forms](src/Forms) 
+  * [Desktop](src/Desktop)
+  * [Universal Windows Platform](src/Windows)
 
 ## Instructions 
 
 1. Fork and then clone the repo or download the .zip file. 
 2. Confirm the supported system configuration for the API of interest in the ArcGIS Runtime SDK for .NET:
-  * [WPF](https://developers.arcgis.com/net/latest/wpf/guide/system-requirements.htm)
-  * [UWP](https://developers.arcgis.com/net/latest/uwp/guide/system-requirements.htm)
-  * [Xamarin.Android](https://developers.arcgis.com/net/latest/android/guide/system-requirements.htm)
-  * [Xamarin.iOS](https://developers.arcgis.com/net/latest/ios/guide/system-requirements.htm)
-  * [Xamarin.Forms](https://developers.arcgis.com/net/latest/forms/guide/system-requirements.htm) 
-3. For the platform you want to view: open the solution, restore NuGet packages, build, and run the application
-  * WPF: `src\Desktop\ArcGISRuntime.WPF.Viewer.sln`  
-  * UWP: `src\Windows\ArcGISRuntime.UWP.Viewer.sln`  
-  * Xamarin.Android: `src\Android\ArcGISRuntime.Xamarin.Samples.Android.sln`  
-  * Xamarin.iOS: `src\iOS\ArcGISRuntime.Xamari.Samples.iOS.sln`  
-  * Xamarin.Forms: `src\Windows\ArcGISRuntime.Xamarin.Samples.Forms.sln`  
-  
-  or
-  
-  * All: `src\ArcGISRuntime.Viewers.All.sln`
-  * Windows ( WPF / UWP ): `src\ArcGISRuntime.Viewers.Windows.sln`
-  * Xamarin (iOS, Android, Forms): `src\ArcGISRuntime.Viewers.Xamarin.sln`  
-  
+  * [Windows Desktop](http://developers.arcgis.com/net/desktop/guide/system-requirements.htm)
+  * [Universal Windows Platform]((http://developers.arcgis.com/net/uwp/guide/system-requirements.htm))
+3. In Visual Studio, open the solution
+  * Windows Desktop: `src\Desktop\ArcGISRuntime.Desktop.Viewer.sln`  
+	   - Clean, build, and run the application.
+  * Universal Windows Platform: `src\Windows\ArcGISRuntime.Windows.Viewer.sln`  
+	   - Make sure that you are compiling against x86/x64/ARM platform and not using AnyCPU.
+	   - Clean, build, and run the application.
+  * Both: `src\ArcGISRuntime.Viewers.All.sln`  
+	   - Make sure that you are compiling Windows project against x86/x64/ARM platform and not using AnyCPU.
+	   - Clean, build, and run the application.
+
 Notes:
 
-Running sample viewer for WPF / UWP so that it uses VB samples
-  * WPF
+Running sample viewer so that it uses VB samples
+  * Desktop
        To run samples in VB, your sample viewer can be started with `/vb` parameter on start up. When the application is compiled, we also deploy `Launch Viewer VB.bat` file to the output folder.
        
    * Universal Windows Platform
@@ -47,32 +38,16 @@ Running sample viewer for WPF / UWP so that it uses VB samples
       // or 
       private const Language SamplesLanguageUsed = Language.VBnet;
       ````
-When compiling Universal Windows Platform samples, make sure that you are compiling against x86/x64/ARM platform and not using AnyCPU.
-	  
+
 ## Requirements
 
 * Supported system configurations for: 
-  * [WPF](https://developers.arcgis.com/net/latest/wpf/guide/system-requirements.htm)
-  * [UWP](https://developers.arcgis.com/net/latest/uwp/guide/system-requirements.htm)
-  * [Xamarin.Android](https://developers.arcgis.com/net/latest/android/guide/system-requirements.htm)
-  * [Xamarin.iOS](https://developers.arcgis.com/net/latest/ios/guide/system-requirements.htm)
-  * [Xamarin.Forms](https://developers.arcgis.com/net/latest/forms/guide/system-requirements.htm) 
+  * [Windows Destkop](http://developers.arcgis.com/net/desktop/guide/system-requirements.htm)
+  * [Universal Windows Platform]((http://developers.arcgis.com/net/uwp/guide/system-requirements.htm))
 
 ## Resources
 
 * [ArcGIS Runtime SDK for .NET](http://esriurl.com/dotnetsdk)
-
-## Offline Data
-
-Several samples require local data to function properly. That data is downloaded to local storage automatically at runtime. 
-This process is handled by the `DataManager` class (located in the 'Managers' folder in each view project). Samples
-that use the data manager to download their data are differentiated as follows:
-
-* They have `RequiresOfflineData` set to true in their metadata.json files
-* They have one or more entries under `DataItemIds` in their metadata.json files (these are portal item Ids)
-* They use the data manager to identify the correct path for their offline files at run time
-
-See the [contribution guidelines] (https://github.com/Esri/arcgis-runtime-samples-dotnet/wiki/Contributing) for more detailed information.
 
 ## Issues
 
@@ -83,7 +58,7 @@ Find a bug or want to request a new feature?  Please let us know by submitting a
 Anyone and everyone is welcome to [contribute] (https://github.com/Esri/arcgis-runtime-samples-dotnet/wiki/Contributing). 
 
 ## Licensing
-Copyright 2016 Esri
+Copyright 2014 Esri
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -101,3 +76,6 @@ A copy of the license is available in the repository's [license.txt](/license.tx
 
 ### Modern UI Icons
 Icons included under the Assets folder in the Phone and Store projects are from [Modern UI Icons](http://modernuiicons.com/). License information can be found at https://github.com/Templarian/WindowsIcons/blob/master/WindowsPhone/license.txt 
+
+[](Esri Tags: ArcGIS Runtime SDK Windows Desktop Store Phone C-Sharp C# XAML)
+[](Esri Language: DotNet)

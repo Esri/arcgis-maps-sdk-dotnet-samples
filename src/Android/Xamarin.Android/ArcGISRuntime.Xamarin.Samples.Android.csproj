@@ -114,6 +114,7 @@
     <Compile Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.cs" />
     <Compile Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.cs" />
     <Compile Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.cs" />
+    <Compile Include="Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.cs" />
     <Compile Include="Samples\Data\StatisticalQuery\StatisticalQuery.cs" />
     <Compile Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.cs" />
     <Compile Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.cs" />
@@ -255,6 +256,13 @@
     <EmbeddedResource Include="Samples\Data\GenerateGeodatabase\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\WMSLayerUrl\metadata.json" />
     <None Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.jpg" />
+    <EmbeddedResource Include="Samples\Data\StatsQueryGroupAndSort\metadata.json" />
+    <AndroidResource Include="Resources\layout\GroupedResultsList_GroupItem.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\GroupedResultsList_DataItem.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml" />
@@ -270,6 +278,7 @@
     <AndroidResource Include="Resources\drawable-xhdpi\Icon.png" />
     <AndroidResource Include="Resources\drawable-hdpi\Icon.png" />
     <AndroidResource Include="Resources\drawable\Icon.png" />
+    <Content Include="Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.jpg" />
     <Content Include="Samples\Data\StatisticalQuery\StatisticalQuery.jpg" />
     <Content Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.jpg" />
     <Content Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.jpg" />

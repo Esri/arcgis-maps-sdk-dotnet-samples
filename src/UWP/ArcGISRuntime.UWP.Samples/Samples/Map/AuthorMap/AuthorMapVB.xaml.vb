@@ -149,8 +149,12 @@ Namespace AuthorMap
                 ' Apply the current extent as the map's initial extent
                 myMap.InitialViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry)
 
+                ' Export the current map view as the item thumbnail
+                Dim thumbnailImg As RuntimeImage = Await MyMapView.ExportImageAsync()
+
                 ' See if the map has already been saved (has an associated portal item)
                 If myMap.Item Is Nothing Then
+
                     ' Get information for the New portal item
                     Dim title As String = TitleTextBox.Text
                     Dim description As String = DescriptionTextBox.Text
@@ -161,13 +165,23 @@ Namespace AuthorMap
                     End If
 
                     ' Call a function to save the map as a new portal item
-                    Await SaveNewMapAsync(myMap, title, description, tags)
+                    Await SaveNewMapAsync(myMap, title, description, tags, thumbnailImg)
 
                     ' Report a successful save
                     Dim dialog = New MessageDialog("Saved '" + title + "' to ArcGIS Online!", "Map Saved")
                     Await dialog.ShowAsync()
+
                 Else
-                    ' This is not the initial save, call SaveAsync to save changes to the existing portal item
+
+                    ' Not the initial save, call SaveAsync
+                    Await myMap.SaveAsync()
+
+                    ' Get the file stream from the New thumbnail image
+                    Dim imageStream As Stream = Await thumbnailImg.GetEncodedBufferAsync()
+
+                    ' Update the item thumbnail
+                    Dim portalMapItem As PortalItem = TryCast(myMap.Item, PortalItem)
+                    portalMapItem.SetThumbnailWithImage(imageStream)
                     Await myMap.SaveAsync()
 
                     ' Report update was successful
@@ -175,20 +189,6 @@ Namespace AuthorMap
                     Await dialog.ShowAsync
                 End If
 
-                ' Update the portal item thumbnail with the current map image
-                Try
-                    ' Export the current map view
-                    Dim mapImage As ImageSource = Await Esri.ArcGISRuntime.UI.RuntimeImageExtensions.ToImageSourceAsync(Await MyMapView.ExportImageAsync())
-
-                    ' Call a function that writes a temporary jpeg file of the map
-                    Dim imagePath As String = Await WriteTempThumbnailImageAsync(mapImage)
-
-                    ' Call a sub to update the portal item's thumbnail with the image
-                    UpdatePortalItemThumbnailAsync(imagePath)
-                Catch
-                    ' Throw an exception to let the user know the thumbnail was Not saved (the map item was)
-                    Throw New Exception("Thumbnail was not updated.")
-                End Try
             Catch ex As Exception
                 ' Report error message
                 Dim dialog As MessageDialog = New MessageDialog("Error saving map to ArcGIS Online: " + ex.Message)
@@ -199,7 +199,7 @@ Namespace AuthorMap
             End Try
         End Sub
 
-        Private Async Function SaveNewMapAsync(myMap As Map, title As String, description As String, tags As String()) As Task
+        Private Async Function SaveNewMapAsync(myMap As Map, title As String, description As String, tags As String(), img As RuntimeImage) As Task
             ' Challenge the user for portal credentials (OAuth credential request for arcgis.com)
             Dim loginInfo As CredentialRequestInfo = New CredentialRequestInfo()
 
@@ -225,71 +225,9 @@ Namespace AuthorMap
 
             ' Get the ArcGIS Online portal
             Dim agsOnline As ArcGISPortal = Await ArcGISPortal.CreateAsync()
+
             ' Save the current state of the map as a portal item in the user's default folder
-            Dim img As RuntimeImage = Nothing
             Await myMap.SaveAsAsync(agsOnline, Nothing, title, description, tags, img)
-        End Function
-
-        Private Async Function UpdatePortalItemThumbnailAsync(imageFileName As String) As Task
-            ' Update the portal item with a thumbnail image of the current map
-            Try
-                ' Get the map's portal item
-                Dim newPortalItem As PortalItem = MyMapView.Map.Item
-
-                ' Open the image file (stored in the device's Pictures folder)
-                Dim mapImageFile As StorageFile = Await KnownFolders.PicturesLibrary.GetFileAsync(imageFileName)
-
-                If Not mapImageFile Is Nothing Then
-                    ' Get a thumbnail image (scaled down version) of the original
-                    Dim thumbnailData As StorageItemThumbnail = Await mapImageFile.GetScaledImageAsThumbnailAsync(0)
-
-                    ' Assign the thumbnail data (file stream) to the content object
-                    newPortalItem.SetThumbnailWithImage(thumbnailData.AsStreamForRead())
-
-                    ' Update the portal item with the new content (just the thumbnail will be updated)
-                    Await newPortalItem.UpdateItemPropertiesAsync()
-
-                    ' Delete the map image file from disk
-                    Await mapImageFile.DeleteAsync()
-                End If
-            Catch ex As Exception
-                ' Warn the user that the thumbnail could Not be updated
-                Dim dialog As MessageDialog = New MessageDialog("Unable to update thumbnail for portal item: " + ex.Message, "Portal Item Thumbnail")
-                dialog.ShowAsync()
-            End Try
-        End Function
-
-        Private Async Function WriteTempThumbnailImageAsync(mapImageSource As ImageSource) As Task(Of String)
-            Dim outputFilename As String = String.Empty
-
-            Try
-                ' Export the current map view display to a bitmap
-                Dim mapImage As WriteableBitmap = TryCast(mapImageSource, WriteableBitmap)
-
-                ' Create a New file in the device's Pictures folder
-                Dim outStorageFile As StorageFile = Await KnownFolders.PicturesLibrary.CreateFileAsync("MapImage_Temp.jpg", CreationCollisionOption.GenerateUniqueName)
-                outputFilename = outStorageFile.Name
-
-                ' Open the New file for read/write
-                Using stream As IRandomAccessStream = Await outStorageFile.OpenAsync(FileAccessMode.ReadWrite)
-                    ' Create a bitmap encoder to encode the image to Jpeg
-                    Dim encoder As BitmapEncoder = Await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, stream)
-
-                    ' Read the pixels from the map image into a byte array
-                    Dim pixelStream As Stream = mapImage.PixelBuffer.AsStream()
-                    Dim pixels(pixelStream.Length) As Byte
-                    Await pixelStream.ReadAsync(pixels, 0, pixels.Length)
-
-                    ' Use the encoder to write the map image pixels to the output file
-                    encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore, mapImage.PixelWidth, mapImage.PixelHeight, 96.0, 96.0, pixels)
-                    Await encoder.FlushAsync()
-                End Using
-            Catch ex As Exception
-                ' Exception message will be shown in the calling function
-                Throw
-            End Try
-
-            Return outputFilename
         End Function
 
         Private Sub ClearMapClicked(sender As Object, e As RoutedEventArgs)

@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.Xamarin.Forms;
+using System.IO;
 
 #if __IOS__
 using Xamarin.Forms.Platform.iOS;
@@ -26,6 +27,7 @@ using Xamarin.Auth;
 #if __ANDROID__
 using Android.App;
 using Xamarin.Auth;
+using System.IO;
 #endif
 
 namespace ArcGISRuntimeXamarin.Samples.AuthorMap
@@ -161,6 +163,13 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             // Create a SaveMapPage page for getting user input for the new web map item
             var mapInputForm = new SaveMapPage();
 
+            // If an existing map, show the UI for updating the item
+            var mapItem = MyMapView.Map.Item;
+            if (mapItem != null)
+            {
+                mapInputForm.ShowForUpdate(mapItem.Title,mapItem.Description, mapItem.Tags.ToArray());
+            }
+
             // Handle the save button click event on the page
             mapInputForm.OnSaveClicked += SaveMapAsync;
 
@@ -193,6 +202,9 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 // Apply the current extent as the map's initial extent
                 myMap.InitialViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
 
+                // Export the current map view for the item's thumbnail
+                RuntimeImage thumbnailImage = await MyMapView.ExportImageAsync();
+
                 // See if the map has already been saved (has an associated portal item)
                 if (myMap.Item == null)
                 {
@@ -200,8 +212,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                     ArcGISPortal agsOnline = await ArcGISPortal.CreateAsync(new Uri(ArcGISOnlineUrl));
 
                     // Save the current state of the map as a portal item in the user's default folder
-                    RuntimeImage img = null;
-                    await myMap.SaveAsAsync(agsOnline, null, title, description, tags, img, false);
+                    await myMap.SaveAsAsync(agsOnline, null, title, description, tags, thumbnailImage);
 
                     // Report a successful save
                     DisplayAlert("Map Saved", "Saved '" + title + "' to ArcGIS Online!", "OK");
@@ -209,6 +220,13 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 else
                 {
                     // This is not the initial save, call SaveAsync to save changes to the existing portal item
+                    await myMap.SaveAsync();
+
+                    // Get the file stream from the new thumbnail image
+                    Stream imageStream = await thumbnailImage.GetEncodedBufferAsync();
+
+                    // Update the item thumbnail
+                    (myMap.Item as PortalItem).SetThumbnailWithImage(imageStream);
                     await myMap.SaveAsync();
 
                     // Report update was successful

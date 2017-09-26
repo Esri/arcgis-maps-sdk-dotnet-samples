@@ -1,21 +1,21 @@
 {
-  "Categories":[
+  "Categories": [
     {
-      "Name":"Maps",
-      "CategoryName":"Maps",
-      "SubCategories":[
+      "Name": "Maps",
+      "CategoryName": "Maps",
+      "SubCategories": [
         {
-          "Name":"MapView",
-          "SubCategoryName":"MapView",
-          "ShowGroup":true,
-          "SampleInfos":[
+          "Name": "MapView",
+          "SubCategoryName": "MapView",
+          "ShowGroup": true,
+          "SampleInfos": [
             {
-              "SampleName":"ChangeViewpoint",
-              "Path":"Samples/MapView/ChangeViewpoint"
+              "SampleName": "ChangeViewpoint",
+              "Path": "Samples/MapView/ChangeViewpoint"
             },
             {
-              "SampleName":"MapRotation",
-              "Path":"Samples/MapView/MapRotation"
+              "SampleName": "MapRotation",
+              "Path": "Samples/MapView/MapRotation"
             },
             {
               "SampleName": "DisplayDrawingStatus",
@@ -40,41 +40,41 @@
           ]
         },
         {
-          "Name":"Map",
-          "SubCategoryName":"Map",
-          "ShowGroup":true,
-          "SampleInfos":[
+          "Name": "Map",
+          "SubCategoryName": "Map",
+          "ShowGroup": true,
+          "SampleInfos": [
             {
-              "SampleName":"DisplayMap",
-              "Path":"Samples/Map/DisplayMap"
+              "SampleName": "DisplayMap",
+              "Path": "Samples/Map/DisplayMap"
             },
             {
               "SampleName": "OpenMobileMap",
               "Path": "Samples/Map/OpenMobileMap"
             },
             {
-              "SampleName":"OpenMapURL",
-              "Path":"Samples/Map/OpenMapURL"
+              "SampleName": "OpenMapURL",
+              "Path": "Samples/Map/OpenMapURL"
             },
             {
-              "SampleName":"SearchPortalMaps",
-              "Path":"Samples/Map/SearchPortalMaps"
+              "SampleName": "SearchPortalMaps",
+              "Path": "Samples/Map/SearchPortalMaps"
             },
             {
-              "SampleName":"SetMinMaxScale",
-              "Path":"Samples/Map/SetMinMaxScale"
+              "SampleName": "SetMinMaxScale",
+              "Path": "Samples/Map/SetMinMaxScale"
             },
             {
-              "SampleName":"SetInitialMapLocation",
-              "Path":"Samples/Map/SetInitialMapLocation"
+              "SampleName": "SetInitialMapLocation",
+              "Path": "Samples/Map/SetInitialMapLocation"
             },
             {
-              "SampleName":"SetInitialMapArea",
-              "Path":"Samples/Map/SetInitialMapArea"
+              "SampleName": "SetInitialMapArea",
+              "Path": "Samples/Map/SetInitialMapArea"
             },
             {
-              "SampleName":"SetMapSpatialReference",
-              "Path":"Samples/Map/SetMapSpatialReference"
+              "SampleName": "SetMapSpatialReference",
+              "Path": "Samples/Map/SetMapSpatialReference"
             },
             {
               "SampleName": "AccessLoadStatus",
@@ -97,21 +97,25 @@
       ]
     },
     {
-      "Name":"Layers",
-      "CategoryName":"Layers",
-      "SubCategories":[
+      "Name": "Layers",
+      "CategoryName": "Layers",
+      "SubCategories": [
         {
-          "Name":"Tiled Layers",
-          "SubCategoryName":"ArcGISTiledLayer",
-          "ShowGroup":true,
+          "Name": "Tiled Layers",
+          "SubCategoryName": "ArcGISTiledLayer",
+          "ShowGroup": true,
           "SampleInfos": [
             {
-              "SampleName":"ArcGISTiledLayerUrl",
-              "Path":"Samples/Layers/ArcGISTiledLayerUrl"
+              "SampleName": "ArcGISTiledLayerUrl",
+              "Path": "Samples/Layers/ArcGISTiledLayerUrl"
             },
             {
-               "SampleName": "ArcGISVectorTiledLayerUrl",
+              "SampleName": "ArcGISVectorTiledLayerUrl",
               "Path": "Samples/Layers/ArcGISVectorTiledLayerUrl"
+            },
+            {
+              "SampleName": "ExportTiles",
+              "Path": "Samples/Layers/ExportTiles"
             }
           ]
         },
@@ -139,10 +143,21 @@
           ]
         },
         {
-          "Name":"Raster Layers",
-          "SubCategoryName":"RasterLayer",
-          "ShowGroup":true,
-          "SampleInfos":[
+          "Name": "OGC Layers",
+          "SubCategoryName": "OGCLayers",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "KmlLayerUrl",
+              "Path": "Samples/Layers/KmlLayerUrl"
+            }
+          ]
+        },
+        {
+          "Name": "Raster Layers",
+          "SubCategoryName": "RasterLayer",
+          "ShowGroup": true,
+          "SampleInfos": [
             {
               "SampleName": "RasterLayerImageServiceRaster",
               "Path": "Samples/Layers/RasterLayerImageServiceRaster"
@@ -150,15 +165,23 @@
             {
               "SampleName": "RasterLayerRasterFunction",
               "Path": "Samples/Layers/RasterLayerRasterFunction"
+            },
+            {
+              "SampleName": "RasterLayerFile",
+              "Path": "Samples/Layers/RasterLayerFile"
+            },
+            {
+              "SampleName": "RasterRenderingRule",
+              "Path": "Samples/Layers/RasterRenderingRule"
             }
           ]
         }
       ]
     },
     {
-      "Name":"Features",
-      "CategoryName":"Features",
-      "SubCategories":[
+      "Name": "Features",
+      "CategoryName": "Features",
+      "SubCategories": [
         {
           "Name": "Feature Layers",
           "SubCategoryName": "FeatureLayers",
@@ -195,17 +218,21 @@
             {
               "SampleName": "FeatureCollectionLayerFromQuery",
               "Path": "Samples/Layers/FeatureCollectionLayerFromQuery"
+            },
+            {
+              "SampleName": "FeatureLayerDictionaryRenderer",
+              "Path": "Samples/Layers/FeatureLayerDictionaryRenderer"
             }
           ]
         },
         {
-          "Name":"Feature Tables",
-          "SubCategoryName":"FeatureTables",
-          "ShowGroup":true,
+          "Name": "Feature Tables",
+          "SubCategoryName": "FeatureTables",
+          "ShowGroup": true,
           "SampleInfos": [
-             {
-              "SampleName":"ServiceFeatureTableCache",
-              "Path":"Samples/Data/ServiceFeatureTableCache"
+            {
+              "SampleName": "ServiceFeatureTableCache",
+              "Path": "Samples/Data/ServiceFeatureTableCache"
             },
             {
               "SampleName": "ServiceFeatureTableNoCache",
@@ -218,6 +245,10 @@
             {
               "SampleName": "GenerateGeodatabase",
               "Path": "Samples/Data/GenerateGeodatabase"
+            },
+            {
+              "SampleName": "EditAndSyncFeatures",
+              "Path": "Samples/Data/EditAndSyncFeatures"
             }
           ]
         }
@@ -262,6 +293,10 @@
             {
               "SampleName": "RenderUniqueValues",
               "Path": "Samples/Symbology/RenderUniqueValues"
+            },
+            {
+              "SampleName": "SimpleRenderers",
+              "Path": "Samples/Symbology/SimpleRenderers"
             }
           ]
         }
@@ -326,6 +361,10 @@
             {
               "SampleName": "SceneLayerUrl",
               "Path": "Samples/Layers/SceneLayerUrl"
+            },
+            {
+              "SampleName": "DisplayScene",
+              "Path": "Samples/Layers/DisplayScene"
             }
           ]
         }
@@ -370,13 +409,17 @@
       "CategoryName": "Search",
       "SubCategories": [
         {
-          "Name": "Working with Addresses",
-          "SubCategoryName": "WorkingWithAddresses",
+          "Name": "Working with Places",
+          "SubCategoryName": "WorkingWithPlaces",
           "ShowGroup": true,
           "SampleInfos": [
             {
               "SampleName": "FindAddress",
               "Path": "Samples/Search/FindAddress"
+            },
+            {
+              "SampleName": "FindPlace",
+              "Path": "Samples/Search/FindPlace"
             }
           ]
         }
@@ -400,10 +443,10 @@
       ]
     }
   ],
-  "Featured":[
+  "Featured": [
     {
-      "SampleName":"ExampleSample",
-      "Reason":1
+      "SampleName": "ExampleSample",
+      "Reason": 1
     }
   ]
 }

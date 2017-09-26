@@ -91,7 +91,7 @@ Namespace AnalyzeViewshed
             ' is a problem with the execution of the geoprocessing task an error message will be displayed 
 
             ' Create new geoprocessing task using the url defined in the member variables section
-            Dim myViewshedTask = New GeoprocessingTask(New Uri(_viewshedUrl))
+            Dim myViewshedTask = Await GeoprocessingTask.CreateAsync(New Uri(_viewshedUrl))
 
             ' Create a new feature collection table based upon point geometries using the current map view spatial reference
             Dim myInputFeatures = New FeatureCollectionTable(New List(Of Field)(), GeometryType.Point, MyMapView.SpatialReference)

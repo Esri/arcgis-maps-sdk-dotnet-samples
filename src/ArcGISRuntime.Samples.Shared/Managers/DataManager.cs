@@ -11,6 +11,9 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using Esri.ArcGISRuntime.Portal;
+using System.Collections.Generic;
+using System.Linq;
+using System.IO.Compression;
 #if NETFX_CORE
 using Windows.Storage;
 #endif
@@ -77,35 +80,12 @@ namespace ArcGISRuntime.Samples.Managers
 
         private static async Task UnpackData(string zipFile, string folder)
         {
-            using (var zipStream = File.OpenRead(zipFile))
+            using (var archive = ZipFile.OpenRead(zipFile))
             {
-                using (var archive = new System.IO.Compression.ZipArchive(zipStream, System.IO.Compression.ZipArchiveMode.Read))
+                foreach(var entry in archive.Entries.Where(m => !String.IsNullOrWhiteSpace(m.Name)))
                 {
-                    Action<DirectoryInfo> createDir = null;
-                    createDir = (s) =>
-                    {
-                        System.Diagnostics.Debug.WriteLine(s.FullName);
-                        if (Directory.Exists(s.FullName)) return;
-                        if (!Directory.Exists(s.Parent.FullName))
-                            createDir(s.Parent);
-                        Directory.CreateDirectory(s.FullName);
-                    };
-                    foreach (var entry in archive.Entries)
-                    {
-                        if (entry.FullName.EndsWith("/")) continue;
-                        var fileInfo = new System.IO.FileInfo(Path.Combine(folder, entry.FullName));
-                        System.Diagnostics.Debug.WriteLine("Unzipping " + fileInfo.FullName);
-                        createDir(fileInfo.Directory);
-                        using (var fileStream = File.Create(fileInfo.FullName))
-                        {
-                            using (var entryStream = entry.Open())
-                            {
-                                await entryStream.CopyToAsync(fileStream).ConfigureAwait(false);
-                            }
-                        }
-                    }
+                    entry.ExtractToFile(Path.Combine(folder, entry.Name), true);
                 }
-
             }
         }
 

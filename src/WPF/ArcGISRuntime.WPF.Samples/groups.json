@@ -141,7 +141,7 @@
         {
           "Name": "OGC Layers",
           "SubCategoryName": "OGCLayers",
-          "ShowGroup": false,
+          "ShowGroup": true,
           "SampleInfos": [
             {
               "SampleName": "KmlLayerUrl",

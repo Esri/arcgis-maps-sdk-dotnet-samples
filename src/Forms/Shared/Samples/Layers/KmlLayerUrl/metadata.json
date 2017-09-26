@@ -9,5 +9,6 @@
   "RequiresLocalServer": false,
   "Image": "KmlLayerUrl.jpg",
   "Link": "",
-  "TypeLink": [ "T:Esri.ArcGISRuntime.Mapping.KmlLayer", "T:Esri.ArcGISRuntime.Ogc.KmlDataset", "M:Esri.ArcGISRuntime.Mapping.KmlLayer.#ctor(Esri.ArcGISRuntime.Ogc.KmlDataset)", "M:Esri.ArcGISRuntime.Ogc.KmlDataset.#ctor(System.Uri)" ]
+  "TypeLink": [ "T:Esri.ArcGISRuntime.Mapping.KmlLayer", "T:Esri.ArcGISRuntime.Ogc.KmlDataset", "M:Esri.ArcGISRuntime.Mapping.KmlLayer.#ctor(Esri.ArcGISRuntime.Ogc.KmlDataset)", "M:Esri.ArcGISRuntime.Ogc.KmlDataset.#ctor(System.Uri)" ],
+  "SampleFolder": "KmlLayerUrl"
 }

@@ -428,9 +428,9 @@
     <Content Include="Samples\Layers\KmlLayerUrl\KmlLayerUrl.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Samples\Layers\KmlLayerUrl\KmlLayerUrl.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
+    <Page Include="Samples\Layers\KmlLayerUrl\KmlLayerUrl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />

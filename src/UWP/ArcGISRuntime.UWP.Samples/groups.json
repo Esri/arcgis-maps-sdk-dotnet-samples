@@ -139,6 +139,17 @@
           ]
         },
         {
+          "Name": "OGC Layers",
+          "SubCategoryName": "OGCLayers",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "KmlLayerUrl",
+              "Path": "Samples/Layers/KmlLayerUrl"
+            }
+          ]
+        },
+        {
           "Name": "Raster Layers",
           "SubCategoryName": "RasterLayer",
           "ShowGroup": true,

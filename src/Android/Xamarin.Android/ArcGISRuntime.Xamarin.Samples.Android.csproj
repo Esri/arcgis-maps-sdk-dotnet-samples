@@ -172,6 +172,7 @@
     <Compile Include="Samples\Map\OpenMobileMap\OpenMobileMap.cs" />
     <Compile Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.cs" />
     <Compile Include="Samples\Layers\RasterLayerFile\RasterLayerFile.cs" />
+    <Compile Include="Samples\Layers\KmlLayerUrl\KmlLayerUrl.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="groups.json">
@@ -269,6 +270,9 @@
     <EmbeddedResource Include="Samples\Layers\RasterLayerFile\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Samples\Layers\KmlLayerUrl\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml" />
@@ -347,6 +351,7 @@
     <Content Include="Samples\Map\OpenMobileMap\OpenMobileMap.jpg" />
     <Content Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.jpg" />
     <Content Include="Samples\Layers\RasterLayerFile\RasterLayerFile.jpg" />
+    <Content Include="Samples\Layers\KmlLayerUrl\KmlLayerUrl.jpg" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup />

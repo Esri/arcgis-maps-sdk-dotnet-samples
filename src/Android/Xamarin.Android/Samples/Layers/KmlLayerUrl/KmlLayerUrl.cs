@@ -30,7 +30,7 @@ namespace ArcGISRuntimeXamarin.Samples.KmlLayerUrl
         {
             base.OnCreate(bundle);
 
-            Title = "WMTS layer";
+            Title = "KML layer (URL)";
 
             // Create the UI, setup the control references
             CreateLayout();

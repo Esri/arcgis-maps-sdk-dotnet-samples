@@ -103,6 +103,13 @@
 
     This sample demonstrates how to display a WMTS layer on a map via a Uri and WmtsLayerInfo.
 
+
+- **OGC Layers**
+
+    * [KML layer (URL)](ArcGISRuntime.WPF.Samples/Samples/Layers/KmlLayerUrl)
+
+    This sample demonstrates how to display a KML file from a URL.
+
 * [ArcGIS raster layer (service)](ArcGISRuntime.WPF.Samples/Samples/Layers/RasterLayerImageServiceRaster)
 
     This sample demonstrates how to show a raster layer on a map based on an image service layer.

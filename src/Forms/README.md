@@ -116,6 +116,13 @@
     This sample demonstrates how to display a WMTS layer on a map via a Uri and WmtsLayerInfo.
 
 
+- **OGC Layers**
+
+    * [KML layer (URL)](Shared/Samples/Layers/KmlLayerUrl)
+
+    This sample demonstrates how to display a KML file from a URL.
+
+
 - **Raster Layers**
 
     * [ArcGIS raster layer (service)](Shared/Samples/Layers/RasterLayerImageServiceRaster)

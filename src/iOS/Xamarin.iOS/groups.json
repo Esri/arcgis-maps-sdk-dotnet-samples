@@ -96,12 +96,12 @@
     {
       "Name":"Layers",
       "CategoryName":"Layers",
-      "SubCategories":[
+      "SubCategories": [
         {
-          "Name":"Tiled Layers",
-          "SubCategoryName":"ArcGISTiledLayer",
-          "ShowGroup":true,
-          "SampleInfos":[
+          "Name": "Tiled Layers",
+          "SubCategoryName": "ArcGISTiledLayer",
+          "ShowGroup": true,
+          "SampleInfos": [
             {
               "SampleName": "ArcGISTiledLayerUrl",
               "Path": "Samples/Layers/ArcGISTiledLayerUrl"
@@ -136,10 +136,21 @@
           ]
         },
         {
-          "Name":"Raster Layers",
-          "SubCategoryName":"RasterLayer",
-          "ShowGroup":true,
-          "SampleInfos":[
+          "Name": "OGC Layers",
+          "SubCategoryName": "OGCLayers",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "KmlLayerUrl",
+              "Path": "Samples/Layers/KmlLayerUrl"
+            }
+          ]
+        },
+        {
+          "Name": "Raster Layers",
+          "SubCategoryName": "RasterLayer",
+          "ShowGroup": true,
+          "SampleInfos": [
             {
               "SampleName": "RasterLayerImageServiceRaster",
               "Path": "Samples/Layers/RasterLayerImageServiceRaster"

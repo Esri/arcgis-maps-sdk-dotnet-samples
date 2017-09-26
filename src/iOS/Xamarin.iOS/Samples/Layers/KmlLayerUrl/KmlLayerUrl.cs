@@ -9,29 +9,42 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
+using Esri.ArcGISRuntime.UI.Controls;
+using Foundation;
 using System;
-using Xamarin.Forms;
+using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.KmlLayerUrl
 {
-    public partial class KmlLayerUrl : ContentPage
+    [Register("KmlLayerUrl")]
+    public class KmlLayerUrl : UIViewController
     {
+        // Create and hold reference to the used MapView
+        private MapView _myMapView = new MapView();
+
         // Hold the Uri for the service
         private Uri _serviceUri = new Uri("http://www.wpc.ncep.noaa.gov/kml/noaa_chart/WPC_Day1_SigWx.kml");
 
         public KmlLayerUrl()
         {
-            InitializeComponent();
-
             Title = "KML layer (URL)";
+        }
 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+
+            // Create the UI, setup the control references
+            CreateLayout();
+
+            // Initialize the sample
             Initialize();
         }
 
         private void Initialize()
         {
             // Initialize the map with a dark gray basemap
-            MyMapView.Map = new Map(Basemap.CreateDarkGrayCanvasVector());
+            _myMapView.Map = new Map(Basemap.CreateDarkGrayCanvasVector());
 
             // Create a KML dataset
             KmlDataset fileDataSource = new KmlDataset(_serviceUri);
@@ -40,7 +53,21 @@ namespace ArcGISRuntimeXamarin.Samples.KmlLayerUrl
             KmlLayer displayLayer = new KmlLayer(fileDataSource);
 
             // Add the layer to the map
-            MyMapView.Map.OperationalLayers.Add(displayLayer);
+            _myMapView.Map.OperationalLayers.Add(displayLayer);
+        }
+
+        public override void ViewDidLayoutSubviews()
+        {
+            // Setup the visual frame for the MapView
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+
+            base.ViewDidLayoutSubviews();
+        }
+
+        private void CreateLayout()
+        {
+            // Add MapView to the page
+            View.AddSubviews(_myMapView);
         }
     }
 }

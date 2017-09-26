@@ -116,6 +116,13 @@
     This sample demonstrates how to display a WMTS layer on a map via a Uri and WmtsLayerInfo.
 
 
+- **OGC Layers**
+
+    * [KML layer (URL)](Xamarin.Android/Samples/Layers/KmlLayerUrl)
+
+    This sample demonstrates how to display a KML file from a URL.
+
+
 - **Raster Layers**
 
     * [ArcGIS raster layer (service)](Xamarin.Android/Samples/Layers/RasterLayerImageServiceRaster)

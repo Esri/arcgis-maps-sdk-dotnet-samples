@@ -147,6 +147,9 @@
     <Compile Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.xaml.cs">
       <DependentUpon>SceneLayerUrl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Layers\KmlLayerUrl\KmlLayerUrl.xaml.cs">
+      <DependentUpon>KmlLayerUrl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\WMTSLayer\WMTSLayer.xaml.cs">
       <DependentUpon>WMTSLayer.xaml</DependentUpon>
     </Compile>
@@ -258,6 +261,7 @@
     <Content Include="Samples\Layers\DisplayScene\DisplayScene.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Layers\KmlLayerUrl\KmlLayerUrl.jpg" />
     <Content Include="Samples\Layers\RasterLayerFile\RasterLayerFile.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -552,6 +556,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\KmlLayerUrl\KmlLayerUrl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -920,6 +928,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Layers\RasterRenderingRule\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\KmlLayerUrl\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

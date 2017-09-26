@@ -85,7 +85,8 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <Content Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg">
+    <Content Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg"/>
+    <Content Include="Samples\Data\StatisticalQuery\StatisticalQuery.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.jpg">
@@ -117,6 +118,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\MapView\ShowCallout\ShowCallout.jpg">
@@ -408,6 +412,9 @@
     <Content Include="Samples\Map\SearchPortalMaps\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Data\StatisticalQuery\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\NetworkAnalysis\FindRoute\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -460,6 +467,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Layers\KmlLayerUrl\metadata.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\WMSLayerUrl\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -482,6 +492,9 @@
     </Compile>
     <Compile Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.xaml.cs">
       <DependentUpon>ServiceFeatureTableNoCache.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\StatisticalQuery\StatisticalQuery.xaml.cs">
+      <DependentUpon>StatisticalQuery.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.xaml.cs">
       <DependentUpon>AnalyzeHotspots.xaml</DependentUpon>
@@ -557,6 +570,9 @@
     </Compile>
     <Compile Include="Samples\Layers\KmlLayerUrl\KmlLayerUrl.xaml.cs">
       <DependentUpon>KmlLayerUrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.xaml.cs">
+      <DependentUpon>WMSLayerUrl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\WMTSLayer\WMTSLayer.xaml.cs">
       <DependentUpon>WMTSLayer.xaml</DependentUpon>
@@ -683,6 +699,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Samples\Data\StatisticalQuery\StatisticalQuery.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -784,6 +804,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Layers\KmlLayerUrl\KmlLayerUrl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

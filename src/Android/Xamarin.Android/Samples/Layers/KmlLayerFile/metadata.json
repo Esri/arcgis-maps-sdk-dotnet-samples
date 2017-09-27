@@ -1,0 +1,16 @@
+{
+  "Name": "KML layer (file)",
+  "SampleName": "KmlLayerFile",
+  "Description": "This sample demonstrates how to display a KML file from local storage.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": true,
+  "RequiresLocalServer": false,
+  "DataItemIds": [ "324e4742820e46cfbe5029ff2c32cb1f" ],
+  "DataFileNames": [ "US_State_Capitals.kml" ],
+  "Image": "KmlLayerFile.jpg",
+  "Link": "",
+  "TypeLink": [],
+  "SampleFolder": "KmlLayerFile"
+}

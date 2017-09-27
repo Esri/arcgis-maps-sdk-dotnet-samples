@@ -143,6 +143,10 @@
             {
               "SampleName": "KmlLayerUrl",
               "Path": "Samples/Layers/KmlLayerUrl"
+            },
+            {
+              "SampleName": "KmlLayerFile",
+              "Path": "Samples/Layers/KmlLayerFile"
             }
           ]
         },

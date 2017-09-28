@@ -1,0 +1,13 @@
+{
+  "Name": "WMS service catalog",
+  "SampleName": "WmsServiceCatalog",
+  "Description": "This sample demonstrates how to enable and disable the display of layers discovered from a WMS service.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"WmsServiceCatalog.jpg",
+  "Link":"",
+  "TypeLink": []
+}

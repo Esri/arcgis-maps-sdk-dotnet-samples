@@ -16,9 +16,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-#if __IOS__ 
+
+#if __IOS__
 using Xamarin.Forms.Platform.iOS;
 using Xamarin.Auth;
+using UIKit;
 #endif
 
 #if __ANDROID__
@@ -323,7 +325,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
 #endif
 #if __IOS__
             // Get the current iOS ViewController
-            var viewController = Platform.GetRenderer(this).ViewController;
+            var viewController = UIApplication.SharedApplication.KeyWindow.RootViewController;
 #endif
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in
             Xamarin.Auth.OAuth2Authenticator authenticator = new Xamarin.Auth.OAuth2Authenticator(

@@ -9,5 +9,5 @@
   "RequiresLocalServer":false,
   "Image":"WmsServiceCatalog.jpg",
   "Link":"",
-  "TypeLink": []
+  "TypeLink": [ "M:Esri.ArcGISRuntime.Mapping.WmsLayer.#ctor(System.Collections.Generic.IEnumerable{Esri.ArcGISRuntime.Ogc.WmsLayerInfo})", "T:Esri.ArcGISRuntime.Ogc.WmsService", "T:Esri.ArcGISRuntime.Ogc.WmsServiceInfo", "P:Esri.ArcGISRuntime.Ogc.WmsService.ServiceInfo", "M:Esri.ArcGISRuntime.Ogc.WmsService.#ctor(System.Uri)" ]
 }

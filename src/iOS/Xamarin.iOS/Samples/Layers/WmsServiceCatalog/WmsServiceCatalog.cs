@@ -159,7 +159,7 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
 
             // Recursively build up a list of all the layers in the service and get their IDs as a flat list
             List<WmsLayerInfo> expandedList = new List<WmsLayerInfo>();
-            GetLayerIds(topLevelLayers, expandedList);
+            BuildLayerInfoList(topLevelLayers, expandedList);
 
             List<LayerDisplayVM> displayList = new List<LayerDisplayVM>();
 
@@ -180,7 +180,12 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
             _myDisplayList.ReloadData();
         }
 
-        private void GetLayerIds(IReadOnlyList<WmsLayerInfo> info, List<WmsLayerInfo> result)
+        /// <summary>
+        /// Recursively builds a list of WmsLayerInfo metadata starting from a collection of root WmsLayerInfo
+        /// </summary>
+        /// <param name="info">Collection of starting WmsLayerInfo object</param>
+        /// <param name="result">Result list to build</param>
+        private void BuildLayerInfoList(IReadOnlyList<WmsLayerInfo> info, List<WmsLayerInfo> result)
         {
             // Return if there are no more layers to explore
             if (info.Count < 1) { return; }
@@ -192,12 +197,12 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
                 result.Add(layer);
 
                 // Recursively add children
-                GetLayerIds(layer.LayerInfos, result);
+                BuildLayerInfoList(layer.LayerInfos, result);
             }
         }
 
         /// <summary>
-        /// Updates the map layer
+        /// Updates the map with the latest layer selection
         /// </summary>
         private void UpdateMapDisplay(List<LayerDisplayVM> displayList)
         {
@@ -214,6 +219,9 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
             _myMapView.Map.OperationalLayers.Add(myLayer);
         }
 
+        /// <summary>
+        /// Takes action once a new layer selection is made
+        /// </summary>
         public void LayerSelectionChanged(int selectedIndex)
         {
             // Clear existing selection

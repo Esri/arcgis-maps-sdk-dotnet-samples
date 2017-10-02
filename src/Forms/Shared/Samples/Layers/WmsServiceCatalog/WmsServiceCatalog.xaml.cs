@@ -54,7 +54,7 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
 
             // Recursively build up a list of all the layers in the service and get their IDs as a flat list
             List<WmsLayerInfo> expandedList = new List<WmsLayerInfo>();
-            GetLayerIds(topLevelLayers, expandedList);
+            BuildLayerInfoList(topLevelLayers, expandedList);
 
             // Build the ViewModel from the expanded list of layer infos
             foreach (WmsLayerInfo layerInfo in expandedList)
@@ -70,7 +70,12 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
             MyDisplayList.ItemsSource = _viewModel;
         }
 
-        private void GetLayerIds(IReadOnlyList<WmsLayerInfo> info, List<WmsLayerInfo> result)
+        /// <summary>
+        /// Recursively builds a list of WmsLayerInfo metadata starting from a collection of root WmsLayerInfo
+        /// </summary>
+        /// <param name="info">Collection of starting WmsLayerInfo object</param>
+        /// <param name="result">Result list to build</param>
+        private void BuildLayerInfoList(IReadOnlyList<WmsLayerInfo> info, List<WmsLayerInfo> result)
         {
             // Return if there are no more layers to explore
             if (info.Count < 1) { return; }
@@ -82,12 +87,12 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
                 result.Add(layer);
 
                 // Recursively add children
-                GetLayerIds(layer.LayerInfos, result);
+                BuildLayerInfoList(layer.LayerInfos, result);
             }
         }
 
         /// <summary>
-        /// Updates the map layer
+        /// Updates the map with the latest layer selection
         /// </summary>
         private void UpdateMapDisplay(ObservableCollection<LayerDisplayVM> displayList)
         {
@@ -104,6 +109,9 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
             MyMapView.Map.OperationalLayers.Add(myLayer);
         }
 
+        /// <summary>
+        /// Takes action once a new layer selection is made
+        /// </summary>
         private void MyDisplayList_SelectionChanged(object sender, SelectedItemChangedEventArgs e)
         {
             // Clear existing selection

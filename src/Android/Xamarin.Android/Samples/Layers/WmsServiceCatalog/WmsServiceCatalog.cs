@@ -53,6 +53,9 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
             // Create a new vertical layout for the app
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
+            // Create the list view
+            _myDisplayList = new ListView(this);
+
             // Add the listview and mapview to the layout
             layout.AddView(_myDisplayList);
             layout.AddView(_myMapView);
@@ -96,7 +99,7 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
 			_myDisplayList.Adapter = adapter;
 
             // Subscribe to seleciton change notifications
-            _myDisplayList.ItemSelected += _myDisplayList_ItemSelected;
+            _myDisplayList.ItemClick += _myDisplayList_ItemClick;;
 
 			// Update the map display based on the viewModel
 			UpdateMapDisplay(_viewModel);
@@ -136,7 +139,7 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
 			_myMapView.Map.OperationalLayers.Add(myLayer);
 		}
 
-        void _myDisplayList_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        void _myDisplayList_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
 			// Clear existing selection
 			foreach (LayerDisplayVM item in _viewModel)
@@ -177,5 +180,10 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
 		{
 			this.Info = info;
 		}
+
+        public override string ToString()
+        {
+            return Title;
+        }
 	}
 }

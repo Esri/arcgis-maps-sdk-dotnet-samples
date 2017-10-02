@@ -21,7 +21,7 @@ namespace ArcGISRuntime.WPF.Samples.WmsServiceCatalog
         // Hold the URL to the WMS service providing the US NOAA National Weather Service forecast weather chart
         private Uri wmsUrl = new Uri("https://idpgis.ncep.noaa.gov/arcgis/services/NWS_Forecasts_Guidance_Warnings/natl_fcst_wx_chart/MapServer/WMSServer?request=GetCapabilities&service=WMS");
 
-        // Hold a list of DisplayObjects; this is the ViewModel
+        // Hold a list of LayerDisplayVM; this is the ViewModel
         private ObservableCollection<LayerDisplayVM> _viewModel = new ObservableCollection<LayerDisplayVM>();
 
         public WmsServiceCatalog()
@@ -56,7 +56,7 @@ namespace ArcGISRuntime.WPF.Samples.WmsServiceCatalog
             // Build the ViewModel from the expanded list of layer infos
             foreach (WmsLayerInfo layerInfo in expandedList)
             {
-                // DisplayObject is a custom type made for this sample to serve as the ViewModel; it is not a part of the ArcGIS Runtime
+                // LayerDisplayVM is a custom type made for this sample to serve as the ViewModel; it is not a part of the ArcGIS Runtime
                 _viewModel.Add(new LayerDisplayVM(layerInfo));
             }
 

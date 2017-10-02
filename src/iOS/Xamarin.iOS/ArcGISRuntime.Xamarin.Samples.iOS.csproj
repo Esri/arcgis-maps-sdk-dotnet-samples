@@ -342,6 +342,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Samples\Data\StatsQueryGroupAndSort\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\WmsServiceCatalog\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -377,6 +380,7 @@
     <Compile Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.cs" />
     <Compile Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.cs" />
     <Compile Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.cs" />
+    <Compile Include="Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.cs" />
     <Compile Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.cs" />
     <Compile Include="Samples\Layers\WMTSLayer\WMTSLayer.cs" />
     <Compile Include="Samples\MapView\ShowMagnifier\ShowMagnifier.cs" />
@@ -459,6 +463,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <BundleResource Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.jpg" />
+    <BundleResource Include="Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.jpg" />
     <Content Include="Samples\Layers\WMTSLayer\WMTSLayer.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

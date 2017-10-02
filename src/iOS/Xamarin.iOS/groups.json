@@ -132,6 +132,10 @@
             {
               "SampleName": "WMSLayerUrl",
               "Path": "Samples/Layers/WMSLayerUrl"
+            },
+            {
+              "SampleName": "WmsServiceCatalog",
+              "Path": "Samples/Layers/WmsServiceCatalog"
             }
           ]
         },

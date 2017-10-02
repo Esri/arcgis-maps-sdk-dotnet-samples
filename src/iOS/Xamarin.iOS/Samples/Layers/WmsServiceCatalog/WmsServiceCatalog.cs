@@ -175,6 +175,9 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
 
             // Set the source for the table view (layer list)
             _myDisplayList.Source = _layerListSource;
+
+            // Force an update of the list display
+            _myDisplayList.ReloadData();
         }
 
         private void GetLayerIds(IReadOnlyList<WmsLayerInfo> info, List<WmsLayerInfo> result)
@@ -196,7 +199,7 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
         /// <summary>
         /// Updates the map layer
         /// </summary>
-        private async void UpdateMapDisplay(List<LayerDisplayVM> displayList)
+        private void UpdateMapDisplay(List<LayerDisplayVM> displayList)
         {
             // Remove all existing layers
             _myMapView.Map.OperationalLayers.Clear();
@@ -206,8 +209,6 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
 
             // Create a new WmsLayer from the selected layers
             WmsLayer myLayer = new WmsLayer(selectedLayers);
-
-            await myLayer.LoadAsync();
 
             // Add the layer to the map
             _myMapView.Map.OperationalLayers.Add(myLayer);

@@ -10,9 +10,9 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using System;
-using System.Linq;
-using System.Collections.ObjectModel;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace ArcGISRuntime.WPF.Samples.WmsServiceCatalog
 {
@@ -22,7 +22,7 @@ namespace ArcGISRuntime.WPF.Samples.WmsServiceCatalog
         private Uri wmsUrl = new Uri("https://idpgis.ncep.noaa.gov/arcgis/services/NWS_Forecasts_Guidance_Warnings/natl_fcst_wx_chart/MapServer/WMSServer?request=GetCapabilities&service=WMS");
 
         // Hold a list of DisplayObjects; this is the ViewModel
-        public ObservableCollection<DisplayObject> _viewModel = new ObservableCollection<DisplayObject>();
+        private ObservableCollection<LayerDisplayVM> _viewModel = new ObservableCollection<LayerDisplayVM>();
 
         public WmsServiceCatalog()
         {
@@ -54,10 +54,10 @@ namespace ArcGISRuntime.WPF.Samples.WmsServiceCatalog
             GetLayerIds(topLevelLayers, expandedList);
 
             // Build the ViewModel from the expanded list of layer infos
-            foreach(WmsLayerInfo layerInfo in expandedList)
+            foreach (WmsLayerInfo layerInfo in expandedList)
             {
                 // DisplayObject is a custom type made for this sample to serve as the ViewModel; it is not a part of the ArcGIS Runtime
-                _viewModel.Add(new DisplayObject(layerInfo));
+                _viewModel.Add(new LayerDisplayVM(layerInfo));
             }
 
             // Update the map display based on the viewModel
@@ -73,13 +73,10 @@ namespace ArcGISRuntime.WPF.Samples.WmsServiceCatalog
             if (info.Count < 1) { return; }
 
             // Add each layer and each layer's children
-            foreach(WmsLayerInfo layer in info)
+            foreach (WmsLayerInfo layer in info)
             {
-                // Add this layer if it is a valid display layer
-                //if (!String.IsNullOrWhiteSpace(layer.Name))
-                {
-                    result.Add(layer);
-                }
+                // Add the layer
+                result.Add(layer);
 
                 // Recursively add children
                 GetLayerIds(layer.LayerInfos, result);
@@ -87,9 +84,9 @@ namespace ArcGISRuntime.WPF.Samples.WmsServiceCatalog
         }
 
         /// <summary>
-        /// Updates the map layer 
+        /// Updates the map layer
         /// </summary>
-        private void UpdateMapDisplay(ObservableCollection<DisplayObject> displayList)
+        private void UpdateMapDisplay(ObservableCollection<LayerDisplayVM> displayList)
         {
             // Remove all existing layers
             MyMapView.Map.OperationalLayers.Clear();
@@ -107,12 +104,12 @@ namespace ArcGISRuntime.WPF.Samples.WmsServiceCatalog
         private void MyDisplayList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             // Update items
-            foreach(DisplayObject item in e.AddedItems)
+            foreach (LayerDisplayVM item in e.AddedItems)
             {
                 item.IsEnabled = true;
             }
 
-            foreach(DisplayObject item in e.RemovedItems)
+            foreach (LayerDisplayVM item in e.RemovedItems)
             {
                 item.IsEnabled = false;
             }
@@ -122,13 +119,23 @@ namespace ArcGISRuntime.WPF.Samples.WmsServiceCatalog
         }
     }
 
-    public class DisplayObject
+    /// <summary>
+    /// This is a ViewModel class for maintaining the state of a layer selection.
+    /// Typically, this would go in a separate file, but it is included here for clarity
+    /// </summary>
+    public class LayerDisplayVM
     {
+        /// <summary>
+        /// Metadata for the individual selected layer
+        /// </summary>
         public WmsLayerInfo Info { get; set; }
 
+        /// <summary>
+        /// True if the layer is selected for display
+        /// </summary>
         public Boolean IsEnabled { get; set; } = false;
 
-        public DisplayObject(WmsLayerInfo info)
+        public LayerDisplayVM(WmsLayerInfo info)
         {
             this.Info = info;
         }

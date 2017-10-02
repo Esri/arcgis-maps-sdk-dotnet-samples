@@ -13,10 +13,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Xamarin.Forms;
 
-namespace ArcGISRuntime.UWP.Samples.WmsServiceCatalog
+namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
 {
-    public partial class WmsServiceCatalog
+    public partial class WmsServiceCatalog : ContentPage
     {
         // Hold the URL to the WMS service providing the US NOAA National Weather Service forecast weather chart
         private Uri wmsUrl = new Uri("https://idpgis.ncep.noaa.gov/arcgis/services/NWS_Forecasts_Guidance_Warnings/natl_fcst_wx_chart/MapServer/WMSServer?request=GetCapabilities&service=WMS");
@@ -28,6 +29,9 @@ namespace ArcGISRuntime.UWP.Samples.WmsServiceCatalog
         {
             InitializeComponent();
 
+            Title = "WMS service catalog";
+
+            // Initialize the map
             Initialize();
         }
 
@@ -59,10 +63,11 @@ namespace ArcGISRuntime.UWP.Samples.WmsServiceCatalog
                 _viewModel.Add(new LayerDisplayVM(layerInfo));
             }
 
-            MyDisplayList.ItemsSource = _viewModel;
-
             // Update the map display based on the viewModel
             UpdateMapDisplay(_viewModel);
+
+            // Update the list of layers
+            MyDisplayList.ItemsSource = _viewModel;
         }
 
         private void GetLayerIds(IReadOnlyList<WmsLayerInfo> info, List<WmsLayerInfo> result)
@@ -99,18 +104,19 @@ namespace ArcGISRuntime.UWP.Samples.WmsServiceCatalog
             MyMapView.Map.OperationalLayers.Add(myLayer);
         }
 
-        private void MyDisplayList_SelectionChanged_1(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
+        private void MyDisplayList_SelectionChanged(object sender, SelectedItemChangedEventArgs e)
         {
-            // Update items
-            foreach (LayerDisplayVM item in e.AddedItems)
-            {
-                item.IsEnabled = true;
-            }
-
-            foreach (LayerDisplayVM item in e.RemovedItems)
+            // Clear existing selection
+            foreach (LayerDisplayVM item in _viewModel)
             {
                 item.IsEnabled = false;
             }
+
+            // Hold a reference to the selected item
+            LayerDisplayVM selectedItem = e.SelectedItem as LayerDisplayVM;
+
+            // Update the selection
+            selectedItem.IsEnabled = true;
 
             // Update the map
             UpdateMapDisplay(_viewModel);
@@ -133,14 +139,14 @@ namespace ArcGISRuntime.UWP.Samples.WmsServiceCatalog
         /// </summary>
         public Boolean IsEnabled { get; set; } = false;
 
+        /// <summary>
+        /// Title property to facilitate binding
+        /// </summary>
+        public String Title { get { return Info.Title; } }
+
         public LayerDisplayVM(WmsLayerInfo info)
         {
             this.Info = info;
-        }
-
-        public override string ToString()
-        {
-            return Info.Title;
         }
     }
 }

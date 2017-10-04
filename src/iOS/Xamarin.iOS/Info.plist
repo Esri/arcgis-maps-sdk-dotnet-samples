@@ -28,8 +28,8 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-    <string>UIInterfaceOrientationLandscapeLeft</string>
-    <string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>CFBundleIconFiles</key>
 	<array>
@@ -48,7 +48,7 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>NSAppTransportSecurity</key>
-		<dict>
+	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
 			<key>atlasmaps.esri.com</key>
@@ -89,7 +89,7 @@
 				<key>NSRequiresCertificateTransparency</key>
 				<false/>
 			</dict>
-    <key>arcgis.com</key>
+			<key>arcgis.com</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>
 				<true/>
@@ -124,14 +124,23 @@
 				<key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 			</dict>
-      <key>usgs.gov</key>
-      <dict>
-        <key>NSIncludesSubdomains</key>
-        <true />
-        <key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
-        <true/>
-      </dict>
+			<key>usgs.gov</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+			<key>noaa.gov</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
 		</dict>
-		</dict>
+	</dict>
+	<key>CFBundleName</key>
+	<string>ArcGIS Runtime SDK for .NET</string>
 </dict>
 </plist>

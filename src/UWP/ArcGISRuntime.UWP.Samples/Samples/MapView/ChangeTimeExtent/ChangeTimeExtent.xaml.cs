@@ -7,15 +7,15 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Portal;
+using Esri.ArcGISRuntime.Mapping;
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using System.Collections;
+using System.Linq;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntime.WPF.Samples.ChangeTimeExtent
+namespace ArcGISRuntime.UWP.Samples.ChangeTimeExtent
 {
     public partial class ChangeTimeExtent
     {
@@ -27,23 +27,23 @@ namespace ArcGISRuntime.WPF.Samples.ChangeTimeExtent
             Initialize();
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
-            // Create new Map with basemap and initial location
+            // Create new Map with basemap
             Map myMap = new Map(Basemap.CreateTopographic());
 
             // Assign the map to the MapView
             MyMapView.Map = myMap;
         }
 
-        private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void Button_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
-            
+
         }
 
-        private void Button_Click_1(object sender, System.Windows.RoutedEventArgs e)
+        private void Button_Tapped_1(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
-            
+
         }
     }
 }

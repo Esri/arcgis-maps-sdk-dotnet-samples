@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime"
+             x:Class="ArcGISRuntimeXamarin.Samples.ChangeTimeExtent.ChangeTimeExtent">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Button Text="Interval 1" Grid.Row="0" Clicked="Button1_Clicked" />
+        <Button Text="Interval 2" Grid.Row="1" Clicked="Button2_Clicked" />
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="2" />
+    </Grid>
+</ContentPage>

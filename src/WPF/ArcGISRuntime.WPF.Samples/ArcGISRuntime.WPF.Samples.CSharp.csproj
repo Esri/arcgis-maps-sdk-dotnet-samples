@@ -144,6 +144,9 @@
     <Compile Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.xaml.cs">
       <DependentUpon>DisplayDeviceLocation.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.xaml.cs">
+      <DependentUpon>ChangeTimeExtent.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\MapView\ShowMagnifier\ShowMagnifier.xaml.cs">
       <DependentUpon>ShowMagnifier.xaml</DependentUpon>
     </Compile>
@@ -520,6 +523,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\MapView\ShowMagnifier\ShowMagnifier.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -858,6 +865,8 @@
     <Content Include="Samples\Data\StatsQueryGroupAndSort\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\MapView\ChangeTimeExtent\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
   </ItemGroup>
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

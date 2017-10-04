@@ -105,8 +105,6 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
         // Create the view for the layer list display
         private UITableView _myDisplayList = new UITableView();
 
-        private WmsService service;
-
         public WmsServiceCatalog()
         {
             Title = "WMS service catalog";
@@ -146,7 +144,7 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
             _myMapView.Map = new Map(Basemap.CreateDarkGrayCanvasVector());
 
             // Create the WMS Service
-            service = new WmsService(wmsUrl);
+            WmsService service = new WmsService(wmsUrl);
 
             // Load the WMS Service
             await service.LoadAsync();

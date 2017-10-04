@@ -24,6 +24,7 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
 
         // Hold a list of LayerDisplayVM; this is the ViewModel
         private ObservableCollection<LayerDisplayVM> _viewModelList = new ObservableCollection<LayerDisplayVM>();
+
         public WmsServiceCatalog()
         {
             InitializeComponent();

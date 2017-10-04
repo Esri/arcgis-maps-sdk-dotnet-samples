@@ -25,7 +25,7 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
     public class LayerListSource : UITableViewSource
     {
         // List of strings; these will be the suggestions
-        public List<LayerDisplayVM> TableItems = new List<LayerDisplayVM>();
+        public List<LayerDisplayVM> _viewModelList = new List<LayerDisplayVM>();
 
         // Used when re-using cells to ensure that a cell of the right type is used
         private string CellId = "TableCell";
@@ -38,7 +38,7 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
             // Set the items
             if (items != null)
             {
-                TableItems = items;
+                _viewModelList = items;
             }
 
             // Set the owner
@@ -60,7 +60,7 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
             }
 
             // Get the specific item to display
-            LayerDisplayVM item = TableItems[indexPath.Row];
+            LayerDisplayVM item = _viewModelList[indexPath.Row];
 
             // Set the text on the cell
             cell.TextLabel.Text = item.Title;
@@ -74,7 +74,7 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
         /// </summary>
         public override nint RowsInSection(UITableView tableview, nint section)
         {
-            return TableItems.Count;
+            return _viewModelList.Count;
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
         // Hold the URL to the WMS service providing the US NOAA National Weather Service forecast weather chart
         private Uri wmsUrl = new Uri("https://idpgis.ncep.noaa.gov/arcgis/services/NWS_Forecasts_Guidance_Warnings/natl_fcst_wx_chart/MapServer/WMSServer?request=GetCapabilities&service=WMS");
 
-        // Hold a source for the tableview that shows the available WMS layers
+        // Hold a source for the UITableView that shows the available WMS layers
         private LayerListSource _layerListSource;
 
         // Create the view for the layer list display
@@ -125,7 +125,7 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
 
         private void CreateLayout()
         {
-            // Add the mapview to the view
+            // Add the MapView to the view
             View.AddSubviews(_myMapView, _myDisplayList);
         }
 
@@ -145,7 +145,7 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
             // Apply an imagery basemap to the map
             _myMapView.Map = new Map(Basemap.CreateDarkGrayCanvasVector());
 
-            // Create the Wms Service
+            // Create the WMS Service
             service = new WmsService(wmsUrl);
 
             // Load the WMS Service
@@ -154,7 +154,7 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
             // Get the service info (metadata) from the service
             WmsServiceInfo info = service.ServiceInfo;
 
-            // Get the list of layer names
+            // Get the list of layer ifnos
             IReadOnlyList<WmsLayerInfo> topLevelLayers = info.LayerInfos;
 
             // Recursively build up a list of all the layers in the service and get their IDs as a flat list
@@ -225,16 +225,16 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
         public void LayerSelectionChanged(int selectedIndex)
         {
             // Clear existing selection
-            foreach (LayerDisplayVM item in _layerListSource.TableItems)
+            foreach (LayerDisplayVM item in _layerListSource._viewModelList)
             {
                 item.IsEnabled = false;
             }
 
             // Update the selection
-            _layerListSource.TableItems[selectedIndex].IsEnabled = true;
+            _layerListSource._viewModelList[selectedIndex].IsEnabled = true;
 
             // Update the map
-            UpdateMapDisplay(_layerListSource.TableItems);
+            UpdateMapDisplay(_layerListSource._viewModelList);
         }
     }
 

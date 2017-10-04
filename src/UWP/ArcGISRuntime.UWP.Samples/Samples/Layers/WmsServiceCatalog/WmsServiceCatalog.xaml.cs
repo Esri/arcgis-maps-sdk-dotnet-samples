@@ -22,8 +22,7 @@ namespace ArcGISRuntime.UWP.Samples.WmsServiceCatalog
         private Uri wmsUrl = new Uri("https://idpgis.ncep.noaa.gov/arcgis/services/NWS_Forecasts_Guidance_Warnings/natl_fcst_wx_chart/MapServer/WMSServer?request=GetCapabilities&service=WMS");
 
         // Hold a list of LayerDisplayVM; this is the ViewModel
-        private ObservableCollection<LayerDisplayVM> _viewModel = new ObservableCollection<LayerDisplayVM>();
-
+        private ObservableCollection<LayerDisplayVM> _viewModelList = new ObservableCollection<LayerDisplayVM>();
         public WmsServiceCatalog()
         {
             InitializeComponent();
@@ -36,7 +35,7 @@ namespace ArcGISRuntime.UWP.Samples.WmsServiceCatalog
             // Apply an imagery basemap to the map
             MyMapView.Map = new Map(Basemap.CreateDarkGrayCanvasVector());
 
-            // Create the Wms Service
+            // Create the WMS Service
             WmsService service = new WmsService(wmsUrl);
 
             // Load the WMS Service
@@ -45,7 +44,7 @@ namespace ArcGISRuntime.UWP.Samples.WmsServiceCatalog
             // Get the service info (metadata) from the service
             WmsServiceInfo info = service.ServiceInfo;
 
-            // Get the list of layer names
+            // Get the list of layer infos
             IReadOnlyList<WmsLayerInfo> topLevelLayers = info.LayerInfos;
 
             // Recursively build up a list of all the layers in the service and get their IDs as a flat list
@@ -56,13 +55,13 @@ namespace ArcGISRuntime.UWP.Samples.WmsServiceCatalog
             foreach (WmsLayerInfo layerInfo in expandedList)
             {
                 // LayerDisplayVM is a custom type made for this sample to serve as the ViewModel; it is not a part of the ArcGIS Runtime
-                _viewModel.Add(new LayerDisplayVM(layerInfo));
+                _viewModelList.Add(new LayerDisplayVM(layerInfo));
             }
 
-            MyDisplayList.ItemsSource = _viewModel;
+            MyDisplayList.ItemsSource = _viewModelList;
 
             // Update the map display based on the viewModel
-            UpdateMapDisplay(_viewModel);
+            UpdateMapDisplay(_viewModelList);
         }
 
         /// <summary>
@@ -121,7 +120,7 @@ namespace ArcGISRuntime.UWP.Samples.WmsServiceCatalog
             }
 
             // Update the map
-            UpdateMapDisplay(_viewModel);
+            UpdateMapDisplay(_viewModelList);
         }
     }
 

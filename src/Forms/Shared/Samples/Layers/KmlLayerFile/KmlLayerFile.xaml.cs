@@ -34,7 +34,7 @@ namespace ArcGISRuntimeXamarin.Samples.KmlLayerFile
             MyMapView.Map = new Map(Basemap.CreateDarkGrayCanvasVector());
 
             // Get the path of the KML file
-            Uri filePath = new Uri(await GetKmlPath());
+            Uri filePath = new Uri(await GetKmlPath(), UriKind.RelativeOrAbsolute);
 
             // Create a KML dataset
             KmlDataset fileDataSource = new KmlDataset(filePath);

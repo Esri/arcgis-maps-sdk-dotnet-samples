@@ -11,6 +11,6 @@
   "DataFileNames": [ "US_State_Capitals.kml" ],
   "Image": "KmlLayerFile.jpg",
   "Link": "",
-  "TypeLink": [],
+  "TypeLink": ["T:Esri.ArcGISRuntime.Mapping.KmlLayer", "T:Esri.ArcGISRuntime.Ogc.KmlDataset"],
   "SampleFolder": "KmlLayerFile"
 }

@@ -135,6 +135,10 @@
             {
               "SampleName": "WMSLayerUrl",
               "Path": "Samples/Layers/WMSLayerUrl"
+            },
+            {
+              "SampleName": "WmsServiceCatalog",
+              "Path": "Samples/Layers/WmsServiceCatalog"
             }
           ]
         },
@@ -313,6 +317,10 @@
             {
               "SampleName": "StatisticalQuery",
               "Path": "Samples/Data/StatisticalQuery"
+            },
+            {
+              "SampleName": "StatsQueryGroupAndSort",
+              "Path": "Samples/Data/StatsQueryGroupAndSort"
             }
           ]
         }

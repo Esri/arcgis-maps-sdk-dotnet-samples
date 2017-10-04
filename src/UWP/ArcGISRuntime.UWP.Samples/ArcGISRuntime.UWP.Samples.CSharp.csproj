@@ -91,6 +91,9 @@
     <Content Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -104,6 +107,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.jpg">
@@ -441,6 +447,12 @@
     <Page Include="Samples\Layers\KmlLayerUrl\KmlLayerUrl.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Content Include="Samples\Data\StatsQueryGroupAndSort\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\WmsServiceCatalog\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -461,6 +473,9 @@
     </Compile>
     <Compile Include="Samples\Data\StatisticalQuery\StatisticalQuery.xaml.cs">
       <DependentUpon>StatisticalQuery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.xaml.cs">
+      <DependentUpon>StatsQueryGroupAndSort.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.xaml.cs">
       <DependentUpon>AnalyzeHotspots.xaml</DependentUpon>
@@ -521,6 +536,9 @@
     </Compile>
     <Compile Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.xaml.cs">
       <DependentUpon>RasterLayerRasterFunction.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.xaml.cs">
+      <DependentUpon>WmsServiceCatalog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.xaml.cs">
       <DependentUpon>WMSLayerUrl.xaml</DependentUpon>
@@ -647,6 +665,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -724,6 +746,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

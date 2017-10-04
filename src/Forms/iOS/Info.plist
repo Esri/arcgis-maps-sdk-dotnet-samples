@@ -129,8 +129,6 @@
 				<key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 			</dict>
-			<key>Custom Property</key>
-			<string></string>
 		</dict>
 	</dict>
 	<key>CFBundleName</key>

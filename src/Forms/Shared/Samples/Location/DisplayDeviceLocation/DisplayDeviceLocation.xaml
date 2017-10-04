@@ -5,8 +5,8 @@
              xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
              x:Class="ArcGISRuntimeXamarin.Samples.DisplayDeviceLocation.DisplayDeviceLocation">
   <ContentPage.ToolbarItems>
-    <ToolbarItem Name="StopButton" Activated="OnStopClicked"  Order="Secondary" Priority="0" Text="Stop"/>
-    <ToolbarItem Name="StartButton" Activated="OnStartClicked"  Order="Secondary" Priority="1" Text="Start" />
+    <ToolbarItem Name="StopButton" Activated="OnStopClicked"  Order="Primary" Priority="0" Text="Stop"/>
+    <ToolbarItem Name="StartButton" Activated="OnStartClicked"  Order="Primary" Priority="1" Text="Start" />
   </ContentPage.ToolbarItems>
   <Grid>
     <esriUI:MapView x:Name="MyMapView"/>

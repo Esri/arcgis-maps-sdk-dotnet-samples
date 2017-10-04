@@ -107,6 +107,21 @@
 
     This sample demonstrates how to display a WMTS layer on a map via a Uri and WmtsLayerInfo.
 
+    * [WMS layer (URL)](Xamarin.iOS/Samples/Layers/WMSLayerUrl)
+
+    This sample demonstrates how to add a layer from a WMS service to a map.
+
+
+- **OGC Layers**
+
+    * [KML layer (URL)](Xamarin.iOS/Samples/Layers/KmlLayerUrl)
+
+    This sample demonstrates how to display a KML file from a URL.
+
+    * [KML layer (file)](Xamarin.iOS/Samples/Layers/KmlLayerFile)
+
+    This sample demonstrates how to display a KML file from local storage.
+
 
 - **Raster Layers**
 
@@ -205,6 +220,15 @@
     * [Unique value renderer](Xamarin.iOS/Samples/Symbology/RenderUniqueValues)
 
     This sample demonstrate how to use a unique value renderer to style different features in a feature layer with different symbols. Features do not have a symbol property for you to set, renderers should be used to define the symbol for features in feature layers. The unique value renderer allows for separate symbols to be used for features that have specific attribute values in a defined field.
+
+## Analysis
+
+
+- **Statistics**
+
+    * [Statistical query](Xamarin.iOS/Samples/Data/StatisticalQuery)
+
+    This sample demonstrates how to query a feature table to get statistics for a specified field.
 
 ## Network Analysis
 

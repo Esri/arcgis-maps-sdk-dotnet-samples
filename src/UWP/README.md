@@ -111,6 +111,21 @@
 
     This sample demonstrates how to display a WMTS layer on a map via a Uri and WmtsLayerInfo.
 
+    * [WMS layer (URL)](ArcGISRuntime.UWP.Samples/Samples/Layers/WMSLayerUrl)
+
+    This sample demonstrates how to add a layer from a WMS service to a map.
+
+
+- **OGC Layers**
+
+    * [KML layer (URL)](ArcGISRuntime.UWP.Samples/Samples/Layers/KmlLayerUrl)
+
+    This sample demonstrates how to display a KML file from a URL.
+
+    * [KML layer (file)](ArcGISRuntime.UWP.Samples/Samples/Layers/KmlLayerFile)
+
+    This sample demonstrates how to display a KML file from local storage.
+
 
 - **Raster Layers**
 
@@ -226,6 +241,13 @@
     * [List geodatabase versions](ArcGISRuntime.UWP.Samples/Samples/Geoprocessing/ListGeodatabaseVersions)
 
     This sample demonstrates how to use GeoprocessingTask to get available geodatabase versions from the enterprise geodatabase. Geoprocessing task will return the versions as a table that is shown to the user in a list. This is a good example how to use geoprocessing on mapless application.
+
+
+- **Statistics**
+
+    * [Statistical query](ArcGISRuntime.UWP.Samples/Samples/Data/StatisticalQuery)
+
+    This sample demonstrates how to query a feature table to get statistics for a specified field.
 
 ## Scenes
 

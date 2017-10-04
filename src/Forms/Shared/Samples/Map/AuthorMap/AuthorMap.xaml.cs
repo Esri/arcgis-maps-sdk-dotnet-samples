@@ -18,9 +18,11 @@ using Xamarin.Forms;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.Xamarin.Forms;
 
+
 #if __IOS__
 using Xamarin.Forms.Platform.iOS;
 using Xamarin.Auth;
+using UIKit;
 #endif
 
 #if __ANDROID__
@@ -387,7 +389,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
 #endif
 #if __IOS__
             // Get the current iOS ViewController
-            var viewController = Platform.GetRenderer(this).ViewController;
+            var viewController = Xamarin.Forms.Platform.iOS.Platform.GetRenderer(this).ViewController;
 #endif
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in
             Xamarin.Auth.OAuth2Authenticator authenticator = new Xamarin.Auth.OAuth2Authenticator(

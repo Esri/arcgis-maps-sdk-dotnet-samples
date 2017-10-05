@@ -338,13 +338,12 @@
     <EmbeddedResource Include="Samples\Data\GenerateGeodatabase\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Samples\Layers\WMSLayerUrl\metadata.json"/>
-    <EmbeddedResource Include="Samples\Layers\KmlLayerUrl\metadata.json"/>
+    <EmbeddedResource Include="Samples\Layers\WMSLayerUrl\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\KmlLayerUrl\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\KmlLayerFile\metadata.json" />
     <EmbeddedResource Include="Samples\Data\StatsQueryGroupAndSort\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\WmsServiceCatalog\metadata.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Samples\Layers\WmsServiceCatalog\metadata.json" />
+    <EmbeddedResource Include="Samples\MapView\ChangeTimeExtent\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />

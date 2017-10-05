@@ -1,0 +1,14 @@
+{
+  "Name": "Feature layer time offset",
+  "SampleName": "FeatureLayerTimeOffset",
+  "Description": "This sample demonstrates how to show data from the same service side-by-side with a time offset. This allows for the comparison of data over time.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": false,
+  "RequiresLocalServer": false,
+  "Image": "FeatureLayerTimeOffset.jpg",
+  "Link": "",
+  "TypeLink": [],
+  "SampleFolder": "FeatureLayerTimeOffset"
+}

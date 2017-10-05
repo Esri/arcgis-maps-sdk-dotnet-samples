@@ -32,6 +32,10 @@
 
     This sample illustrates how to show callouts on a map in response to user interaction.
 
+    * [Change time extent](Shared/Samples/MapView/ChangeTimeExtent)
+
+    This sample demonstrates how to filter data in layers by applying a time extent to a MapView.
+
 
 - **Map**
 
@@ -114,6 +118,10 @@
     * [WMS layer (URL)](Shared/Samples/Layers/WMSLayerUrl)
 
     This sample demonstrates how to add a layer from a WMS service to a map.
+
+    * [WMS service catalog](Shared/Samples/Layers/WmsServiceCatalog)
+
+    This sample demonstrates how to enable and disable the display of layers discovered from a WMS service.
 
 
 - **OGC Layers**
@@ -248,6 +256,10 @@
     * [Statistical query](Shared/Samples/Data/StatisticalQuery)
 
     This sample demonstrates how to query a feature table to get statistics for a specified field.
+
+    * [Statistical query group and sort results](Shared/Samples/Data/StatsQueryGroupAndSort)
+
+    This sample demonstrates how to query a feature table to get statistics for a specified field and to group and sort the results.
 
 ## Scenes
 

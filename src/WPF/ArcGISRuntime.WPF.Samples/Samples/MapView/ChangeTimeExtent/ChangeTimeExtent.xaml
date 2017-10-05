@@ -12,8 +12,8 @@
                 HorizontalAlignment="Right" VerticalAlignment="Top"
                 Margin="30" Padding="20" Width="375">
             <StackPanel>
-                <Button Content="Interval 1" Click="Button_Click" />
-                <Button Content="Interval 2" Click="Button_Click_1" />
+                <Button Content="Interval 1" Click="Button_Click_1" />
+                <Button Content="Interval 2" Click="Button_Click_2" />
             </StackPanel>
         </Border>
     </Grid>

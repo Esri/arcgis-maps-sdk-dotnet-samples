@@ -99,6 +99,21 @@
 
     This sample demonstrates how to display a WMTS layer on a map via a Uri and WmtsLayerInfo.
 
+* [WMS layer (URL)](ArcGISRuntime.WPF.Samples/Samples/Layers/WMSLayerUrl)
+
+    This sample demonstrates how to add a layer from a WMS service to a map.
+
+
+- **OGC Layers**
+
+    * [KML layer (URL)](ArcGISRuntime.WPF.Samples/Samples/Layers/KmlLayerUrl)
+
+    This sample demonstrates how to display a KML file from a URL.
+
+    * [KML layer (file)](ArcGISRuntime.WPF.Samples/Samples/Layers/KmlLayerFile)
+
+    This sample demonstrates how to display a KML file from local storage.
+
 * [ArcGIS raster layer (service)](ArcGISRuntime.WPF.Samples/Samples/Layers/RasterLayerImageServiceRaster)
 
     This sample demonstrates how to show a raster layer on a map based on an image service layer.
@@ -196,6 +211,10 @@
 * [List geodatabase versions](ArcGISRuntime.WPF.Samples/Samples/Geoprocessing/ListGeodatabaseVersions)
 
     This sample demonstrates how to use GeoprocessingTask to get available geodatabase versions from the enterprise geodatabase. Geoprocessing task will return the versions as a table that is shown to the user in a list. This is a good example how to use geoprocessing on mapless application.
+
+* [Statistical query](ArcGISRuntime.WPF.Samples/Samples/Data/StatisticalQuery)
+
+    This sample demonstrates how to query a feature table to get statistics for a specified field.
 
 ## Network Analysis
 

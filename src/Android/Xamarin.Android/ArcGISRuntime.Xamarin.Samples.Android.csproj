@@ -134,6 +134,7 @@
     <Compile Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.cs" />
     <Compile Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.cs" />
     <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.cs" />
+    <Compile Include="Samples\Layers\KmlLayerFile\KmlLayerFile.cs" />
     <Compile Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.cs" />
     <Compile Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.cs" />
     <Compile Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.cs" />
@@ -170,6 +171,7 @@
     <Compile Include="Samples\MapView\ShowCallout\ShowCallout.cs" />
     <Compile Include="Samples\Map\OpenMobileMap\OpenMobileMap.cs" />
     <Compile Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.cs" />
+    <Compile Include="Samples\Layers\KmlLayerUrl\KmlLayerUrl.cs" />
     <Compile Include="Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -257,6 +259,9 @@
     <EmbeddedResource Include="Samples\Map\OpenMobileMap\metadata.json" />
     <EmbeddedResource Include="Samples\Data\GenerateGeodatabase\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\WMSLayerUrl\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\KmlLayerFile\metadata.json" />
+    <None Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.jpg" />
+    <EmbeddedResource Include="Samples\Layers\KmlLayerUrl\metadata.json" />
     <EmbeddedResource Include="Samples\Data\StatsQueryGroupAndSort\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\ChangeTimeExtent\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\WmsServiceCatalog\metadata.json" />
@@ -283,6 +288,7 @@
     <Content Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.jpg" />
     <Content Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.jpg" />
     <Content Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg" />
+    <Content Include="Samples\Layers\KmlLayerFile\KmlLayerFile.jpg" />
     <Content Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.jpg" />
     <Content Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.jpg" />
     <Content Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg" />
@@ -335,6 +341,7 @@
     <Content Include="Samples\Map\OpenMobileMap\OpenMobileMap.jpg" />
     <Content Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.jpg" />
     <Content Include="Samples\MapView\ShowCallout\ShowCallout.jpg" />
+    <Content Include="Samples\Layers\KmlLayerUrl\KmlLayerUrl.jpg" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup />

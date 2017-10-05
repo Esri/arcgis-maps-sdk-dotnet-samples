@@ -10,10 +10,11 @@
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
 using System;
+using Xamarin.Forms;
 
-namespace ArcGISRuntime.UWP.Samples.FeatureLayerTimeOffset
+namespace ArcGISRuntimeXamarin.Samples.FeatureLayerTimeOffset
 {
-    public sealed partial class FeatureLayerTimeOffset
+    public partial class FeatureLayerTimeOffset : ContentPage
     {
         // Hold the feature layer URI "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer/0"
         private Uri _featureLayerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer");
@@ -23,7 +24,9 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerTimeOffset
 
         public FeatureLayerTimeOffset()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+
+            Title = "Feature layer time offset";
 
             // Create the UI, setup the control references and execute initialization
             Initialize();
@@ -55,7 +58,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerTimeOffset
             originalExtent = noOffsetLayer.FullTimeExtent;
         }
 
-        private void MyTimeSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        private void MyTimeSlider_ValueChanged(object sender, ValueChangedEventArgs e)
         {
             // Get the value of the slider
             double value = e.NewValue / 100;

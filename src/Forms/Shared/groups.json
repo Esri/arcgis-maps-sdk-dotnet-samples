@@ -36,6 +36,10 @@
             {
               "SampleName": "ShowCallout",
               "Path": "Samples/MapView/ShowCallout"
+            },
+            {
+              "SampleName": "FeatureLayerTimeOffset",
+              "Path": "Samples/MapView/FeatureLayerTimeOffset"
             }
           ]
         },

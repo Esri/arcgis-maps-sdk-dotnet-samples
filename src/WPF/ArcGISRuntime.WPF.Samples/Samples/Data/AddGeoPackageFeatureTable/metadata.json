@@ -1,0 +1,14 @@
+{
+  "Name": "Add GeoPackage feature table",
+  "SampleName": "AddGeoPackageFeatureTable",
+  "Description": "This sample demonstrates how to open a GeoPackage and show a GeoPackage feature table in a feature layer.",
+  "Instructions": "The GeoPackage will be downloaded from an ArcGIS Online portal automatically.",
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": true,
+  "DataItemIds": [ "e1f3a7254cb845b09450f54937c16061" ],
+  "RequiresLocalServer": false,
+  "Image": "AddGeoPackageFeatureTable.jpg",
+  "Link": "",
+  "TypeLink": [ "T:Esri.ArcGISRuntime.Data.GeoPackage", "T:Esri.ArcGISRuntime.Data.GeoPackageFeatureTable", "P:Esri.ArcGISRuntime.Data.GeoPackage.GeoPackageFeatureTables", "M:Esri.ArcGISRuntime.Data.GeoPackage.OpenAsync(System.String)" ]
+}

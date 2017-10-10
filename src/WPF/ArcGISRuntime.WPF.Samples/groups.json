@@ -91,6 +91,10 @@
             {
               "SampleName": "AuthorMap",
               "Path": "Samples/Map/AuthorMap"
+            },
+            {
+              "SampleName": "ReadGeoPackage",
+              "Path": "Samples/Data/ReadGeoPackage"
             }
           ]
         }
@@ -160,7 +164,7 @@
         {
           "Name": "Raster Layers",
           "SubCategoryName": "RasterLayer",
-          "ShowGroup": false,
+          "ShowGroup": true,
           "SampleInfos": [
             {
               "SampleName": "RasterLayerImageServiceRaster",
@@ -169,6 +173,10 @@
             {
               "SampleName": "RasterLayerRasterFunction",
               "Path": "Samples/Layers/RasterLayerRasterFunction"
+            },
+            {
+              "SampleName": "AddGeoPackageRaster",
+              "Path": "Samples/Data/AddGeoPackageRaster"
             }
           ]
         }
@@ -237,6 +245,10 @@
             {
               "SampleName": "GenerateGeodatabase",
               "Path": "Samples/Data/GenerateGeodatabase"
+            },
+            {
+              "SampleName": "AddGeoPackageFeatureTable",
+              "Path": "Samples/Data/AddGeoPackageFeatureTable"
             }
           ]
         }

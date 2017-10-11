@@ -18,7 +18,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Drawing;
 
-namespace ArcGISRuntimeXamarin.Samples.AddGraphicsRenderer
+namespace ArcGISRuntimeXamarin.Samples.SurfacePlacements 
 {
     [Activity]
     public class SurfacePlacements : Activity

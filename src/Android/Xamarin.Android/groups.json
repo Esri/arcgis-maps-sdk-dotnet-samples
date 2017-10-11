@@ -253,7 +253,7 @@
               "Path": "Samples/GraphicsOverlay/AddGraphicsRenderer"
             },
             {
-              "SampleName": "Surface Placement",
+              "SampleName": "SurfacePlacements",
               "Path": "Samples/GraphicsOverlay/SurfacePlacements"
             },
             {

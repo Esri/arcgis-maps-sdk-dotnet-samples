@@ -20,7 +20,7 @@ namespace ArcGISRuntime.WPF.Samples.AddGeoPackageFeatureTable
         public AddGeoPackageFeatureTable()
         {
             InitializeComponent();
-
+            
             // Read data from the GeoPackage
             Initialize();
         }
@@ -46,7 +46,7 @@ namespace ArcGISRuntime.WPF.Samples.AddGeoPackageFeatureTable
             if (!File.Exists(geoPackagePath))
             {
                 // If it's missing, download the GeoPackage file
-                await DataManager.GetData("e1f3a7254cb845b09450f54937c16061", "ReadGeoPackage");
+                await DataManager.GetData("68ec42517cdd439e81b036210483e8e7", "ReadGeoPackage");
             }
 
             // Open the GeoPackage

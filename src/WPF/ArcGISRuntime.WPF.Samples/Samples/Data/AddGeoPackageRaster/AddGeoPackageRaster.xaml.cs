@@ -47,7 +47,7 @@ namespace ArcGISRuntime.WPF.Samples.AddGeoPackageRaster
             if (!File.Exists(geoPackagePath))
             {
                 // If it's missing, download the GeoPackage file
-                await DataManager.GetData("e1f3a7254cb845b09450f54937c16061", "ReadGeoPackage");
+                await DataManager.GetData("68ec42517cdd439e81b036210483e8e7", "ReadGeoPackage");
             }
 
             // Open the GeoPackage
@@ -62,6 +62,12 @@ namespace ArcGISRuntime.WPF.Samples.AddGeoPackageRaster
             // Add the raster as a layer to the map 
             RasterLayer newLayer = new RasterLayer(geoPackageRaster);
             MyMapView.Map.OperationalLayers.Add(newLayer);
+
+            // Close the GeoPackage
+            myGeoPackage.Close();
+
+            // When the sample unloads, clear the layers to ensure the package database isn't locked
+            this.Unloaded += (s, e) => { MyMapView.Map.OperationalLayers.Clear(); };
         }
     }
 }

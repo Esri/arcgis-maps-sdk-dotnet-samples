@@ -6,7 +6,7 @@
   "Type": 0,
   "RequiresOnlineConnection": true,
   "RequiresOfflineData": true,
-  "DataItemIds": [ "e1f3a7254cb845b09450f54937c16061" ],
+  "DataItemIds": [ "68ec42517cdd439e81b036210483e8e7" ],
   "RequiresLocalServer": false,
   "Image": "AddGeoPackageFeatureTable.jpg",
   "Link": "",

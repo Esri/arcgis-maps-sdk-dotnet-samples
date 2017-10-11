@@ -22,8 +22,8 @@
                 <TextBlock Grid.Row="0"
                    HorizontalAlignment="Left" VerticalAlignment="Center"
                    Text="Feature tables:"/>
-                <ListBox x:Name="GeoPackageDatasetListBox"
-                         DisplayMemberPath="Description"
+                <ListBox x:Name="GeoPackageFeatureTablesListBox"
+                         DisplayMemberPath="Name"
                          SelectionMode="Multiple"
                          Grid.Row="1" 
                          Margin="5"
@@ -31,8 +31,8 @@
                 <TextBlock Grid.Row="3"
                    HorizontalAlignment="Left" VerticalAlignment="Center"
                    Text="Images:"/>
-                <ListBox x:Name="GeoPackageImageListBox"
-                         DisplayMemberPath="Description"
+                <ListBox x:Name="GeoPackageImagesListBox"
+                         DisplayMemberPath="Name"
                          SelectionMode="Multiple"
                          Grid.Row="4" 
                          Margin="5"
@@ -42,12 +42,12 @@
                             HorizontalAlignment="Center"
                             Margin="10">
                     <Button x:Name="AddGeoPackageDataButton"
-                            Content="Add Datasets"
-                            Click="AddGeoPackageData"
+                            Content="Add Layers"
+                            Click="AddGeoPackageLayers"
                             Padding="5" Margin="5"/>
                     <Button x:Name="ClearMapButton"
                             Content="Clear"
-                            Click="ClearGeoPackageData"
+                            Click="ClearGeoPackageLayers"
                             Padding="5" Margin="5"/>
                 </StackPanel>
             </Grid>

@@ -350,16 +350,16 @@ namespace ArcGISRuntime.WPF.Samples.AuthorEditSaveMap
 
             // Call a function to show the login controls, make sure it runs on the UI thread for this app
             var dispatcher = Application.Current.Dispatcher;
-            if (dispatcher == null || dispatcher.CheckAccess())
+            if (dispatcher == null)
                 AuthorizeOnUIThread(_authorizeUrl);
             else
             {
-                var authorizeOnUIAction = new Action((() => AuthorizeOnUIThread(_authorizeUrl)));
+                var authorizeOnUIAction = new Action(() => AuthorizeOnUIThread(_authorizeUrl));
                 dispatcher.BeginInvoke(authorizeOnUIAction);
             }
 
             // Return the task associated with the TaskCompletionSource
-            return _tcs.Task;
+            return _tcs != null ? _tcs.Task : null;
         }
 
         // Challenge for OAuth credentials on the UI thread

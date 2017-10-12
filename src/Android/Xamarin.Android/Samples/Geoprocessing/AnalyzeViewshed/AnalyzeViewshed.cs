@@ -49,7 +49,7 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeViewshed
         {
             base.OnCreate(bundle);
 
-            Title = "Analyze Viewshed";
+            Title = "Viewshed (Geoprocessing)";
 
             // Create the UI, setup the control references and execute initialization 
             CreateLayout();

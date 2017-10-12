@@ -44,7 +44,7 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeViewshed
 
         public AnalyzeViewshed()
         {
-            Title = "Analyze viewshed";
+            Title = "Viewshed (Geoprocessing)";
         }
 
         public override void ViewDidLoad()

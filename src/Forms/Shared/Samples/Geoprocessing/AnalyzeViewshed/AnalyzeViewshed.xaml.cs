@@ -38,7 +38,7 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeViewshed
         {
             InitializeComponent();
 
-            Title = "Analyze Viewshed";
+            Title = "Viewshed (Geoprocessing)";
 
             // Create the UI, setup the control references and execute initialization
             Initialize();

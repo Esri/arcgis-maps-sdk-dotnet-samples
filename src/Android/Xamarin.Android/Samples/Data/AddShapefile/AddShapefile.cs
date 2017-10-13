@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -7,30 +7,37 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using Android.App;
+using Android.OS;
+using Android.Widget;
 using ArcGISRuntimeXamarin.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.UI.Controls;
 using System.IO;
-using Xamarin.Forms;
 
 namespace ArcGISRuntimeXamarin.Samples.AddShapefile
 {
-    public partial class AddShapefile : ContentPage
+    [Activity]
+    public class AddShapefile : Activity
     {
-        public AddShapefile()
+        private MapView _myMapView;
+
+        protected override void OnCreate(Bundle bundle)
         {
-            InitializeComponent();
+            base.OnCreate(bundle);
 
             Title = "Add shapefile";
+            CreateLayout();
 
-            // Open a shapefile stored locally and add it to the map as a feature layer
+            // Download (if necessary) and add a local shapefile dataset to the map
             Initialize();
         }
 
         private async void Initialize()
         {
             // Create a new map to display in the map view with a streets basemap
-            MyMapView.Map = new Map(Basemap.CreateStreets());
+            _myMapView.Map = new Map(Basemap.CreateStreets());
 
             // The shapefile will be downloaded from ArcGIS Online
             // The data manager (a component of the sample viewer, *NOT* the runtime
@@ -59,10 +66,23 @@ namespace ArcGISRuntimeXamarin.Samples.AddShapefile
             FeatureLayer newFeatureLayer = new FeatureLayer(myShapefile);
 
             // Add the feature layer to the map
-            MyMapView.Map.OperationalLayers.Add(newFeatureLayer);
+            _myMapView.Map.OperationalLayers.Add(newFeatureLayer);
 
             // Zoom the map to the extent of the shapefile
-            await MyMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent);
+            await _myMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent);
+        }
+
+        private void CreateLayout()
+        {
+            // Create a new vertical layout for the app
+            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+
+            // Add a map view to the layout
+            _myMapView = new MapView(this);
+            layout.AddView(_myMapView);
+
+            // Show the layout in the app
+            SetContentView(layout);
         }
     }
 }

@@ -1,0 +1,14 @@
+{
+  "Name": "Symbolize shapefile",
+  "SampleName": "SymbolizeShapefile",
+  "Description": "This sample demonstrates how to open a shapefile stored on the device, display it as a feature layer, and modify the default symbology.",
+  "Instructions": "The shapefile will be downloaded from an ArcGIS Online portal automatically.",
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": true,
+  "DataItemIds": [ "d98b3e5293834c5f852f13c569930caa" ],
+  "RequiresLocalServer": false,
+  "Image": "SymbolizeShapefile.jpg",
+  "Link": "",
+  "TypeLink": [ "T:Esri.ArcGISRuntime.Data.ShapefileFeatureTable", "T:Esri.ArcGISRuntime.Data.ShapefileInfo", "M:Esri.ArcGISRuntime.Data.ShapefileFeatureTable.OpenAsync(System.String)" ]
+}

@@ -28,9 +28,21 @@
       <DependentUpon>SampleListPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>SymbolizeShapefile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>ReadShapefileMetadata.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\GenerateGeodatabase\GenerateGeodatabase.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>GenerateGeodatabase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\AddShapefile\AddShapefile.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>AddShapefile.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.xaml.cs">
       <SubType>Code</SubType>
@@ -254,10 +266,25 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\SymbolizeShapefile\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.jpg" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ReadShapefileMetadata\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\GenerateGeodatabase\GenerateGeodatabase.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\GenerateGeodatabase\GenerateGeodatabase.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\AddShapefile\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\AddShapefile\AddShapefile.jpg" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\AddShapefile\AddShapefile.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableManualCache\metadata.json" />

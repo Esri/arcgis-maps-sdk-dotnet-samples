@@ -85,12 +85,6 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <Content Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Samples\Data\AddShapefile\AddShapefile.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -452,20 +446,6 @@
     <Content Include="Samples\Data\AddShapefile\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Data\ReadShapefileMetadata\metadata.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\Data\SymbolizeShapefile\metadata.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Page Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Samples\Data\AddShapefile\AddShapefile.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -486,12 +466,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml.cs">
-      <DependentUpon>SymbolizeShapefile.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.xaml.cs">
-      <DependentUpon>ReadShapefileMetadata.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.xaml.cs">
       <DependentUpon>FeatureLayerQuery.xaml</DependentUpon>
     </Compile>

@@ -158,30 +158,27 @@ namespace ArcGISRuntime.WPF.Samples.AuthorEditSaveMap
 
         private void UpdateAuthenticationManager()
         {
-            // Define the server information for ArcGIS Online
-            ServerInfo portalServerInfo = new ServerInfo();
-
-            // ArcGIS Online URI
-            portalServerInfo.ServerUri = new Uri(ArcGISOnlineUrl);
-
-            // Type of token authentication to use
-            portalServerInfo.TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit;
-
-            // Define the OAuth information
-            OAuthClientInfo oAuthInfo = new OAuthClientInfo
+            // Register the server information with the AuthenticationManager
+            ServerInfo portalServerInfo = new ServerInfo
             {
-                ClientId = AppClientId,
-                RedirectUri = new Uri(OAuthRedirectUrl)
+                ServerUri = new Uri(ArcGISOnlineUrl),
+                OAuthClientInfo = new OAuthClientInfo
+                {
+                    ClientId = AppClientId,
+                    RedirectUri = new Uri(OAuthRedirectUrl)
+                },
+                // Specify OAuthAuthorizationCode if you need a refresh token (and have specified a valid client secret)
+                // Otherwise, use OAuthImplicit
+                TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
             };
-            portalServerInfo.OAuthClientInfo = oAuthInfo;
 
             // Get a reference to the (singleton) AuthenticationManager for the app
             AuthenticationManager thisAuthenticationManager = AuthenticationManager.Current;
 
-            // Register the ArcGIS Online server information with the AuthenticationManager
+            // Register the server information
             thisAuthenticationManager.RegisterServer(portalServerInfo);
 
-            // Use the OAuthAuthorize class in this project to create a new web view to show the login UI
+            // Use the OAuthAuthorize class in this project to create a new web view that contains the OAuth challenge handler.
             thisAuthenticationManager.OAuthAuthorizeHandler = new OAuthAuthorize();
 
             // Create a new ChallengeHandler that uses a method in this class to challenge for credentials
@@ -440,7 +437,6 @@ namespace ArcGISRuntime.WPF.Samples.AuthorEditSaveMap
                 e.Cancel = true;
                 var tcs = _tcs;
                 _tcs = null;
-
                 if (_window != null)
                 {
                     _window.Close();

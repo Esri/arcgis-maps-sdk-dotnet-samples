@@ -29,6 +29,10 @@
 
     This sample illustrates how to show callouts on a map in response to user interaction.
 
+* [Change time extent](ArcGISRuntime.WPF.Samples/Samples/MapView/ChangeTimeExtent)
+
+    This sample demonstrates how to filter data in layers by applying a time extent to a MapView.
+
 * [Display a map](ArcGISRuntime.WPF.Samples/Samples/Map/DisplayMap)
 
     This sample demonstrates how to display a map with a basemap.
@@ -102,6 +106,10 @@
 * [WMS layer (URL)](ArcGISRuntime.WPF.Samples/Samples/Layers/WMSLayerUrl)
 
     This sample demonstrates how to add a layer from a WMS service to a map.
+
+* [WMS service catalog](ArcGISRuntime.WPF.Samples/Samples/Layers/WmsServiceCatalog)
+
+    This sample demonstrates how to enable and disable the display of layers discovered from a WMS service.
 
 
 - **OGC Layers**
@@ -215,6 +223,10 @@
 * [Statistical query](ArcGISRuntime.WPF.Samples/Samples/Data/StatisticalQuery)
 
     This sample demonstrates how to query a feature table to get statistics for a specified field.
+
+* [Statistical query group and sort results](ArcGISRuntime.WPF.Samples/Samples/Data/StatsQueryGroupAndSort)
+
+    This sample demonstrates how to query a feature table to get statistics for a specified field and to group and sort the results.
 
 ## Network Analysis
 

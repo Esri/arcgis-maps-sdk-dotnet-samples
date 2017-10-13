@@ -1,0 +1,14 @@
+{
+  "Name": "Change time extent",
+  "SampleName": "ChangeTimeExtent",
+  "Description": "This sample demonstrates how to filter data in layers by applying a time extent to a MapView.",
+  "Instructions": "Switch between the available options and observe how the data is filtered.",
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": false,
+  "RequiresLocalServer": false,
+  "Image": "ChangeTimeExtent.jpg",
+  "Link": "",
+  "TypeLink": [],
+  "SampleFolder": "ChangeTimeExtent"
+}

@@ -32,6 +32,10 @@
             {
               "SampleName": "ShowCallout",
               "Path": "Samples/MapView/ShowCallout"
+            },
+            {
+              "SampleName": "ChangeTimeExtent",
+              "Path": "Samples/MapView/ChangeTimeExtent"
             }
           ]
         },

@@ -28,6 +28,10 @@
 
     This sample illustrates how to show callouts on a map in response to user interaction.
 
+    * [Change time extent](Xamarin.iOS/Samples/MapView/ChangeTimeExtent)
+
+    This sample demonstrates how to filter data in layers by applying a time extent to a MapView.
+
 
 - **Map**
 
@@ -110,6 +114,10 @@
     * [WMS layer (URL)](Xamarin.iOS/Samples/Layers/WMSLayerUrl)
 
     This sample demonstrates how to add a layer from a WMS service to a map.
+
+    * [WMS service catalog](Xamarin.iOS/Samples/Layers/WmsServiceCatalog)
+
+    This sample demonstrates how to enable and disable the display of layers discovered from a WMS service.
 
 
 - **OGC Layers**
@@ -229,6 +237,10 @@
     * [Statistical query](Xamarin.iOS/Samples/Data/StatisticalQuery)
 
     This sample demonstrates how to query a feature table to get statistics for a specified field.
+
+    * [Group and sort statistics](Xamarin.iOS/Samples/Data/StatsQueryGroupAndSort)
+
+    This sample demonstrates how to query a feature table to get statistics for a specified field and to group and sort the results.
 
 ## Network Analysis
 

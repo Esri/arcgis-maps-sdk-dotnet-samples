@@ -342,9 +342,8 @@
     <EmbeddedResource Include="Samples\Layers\KmlLayerUrl\metadata.json"/>
     <EmbeddedResource Include="Samples\Layers\KmlLayerFile\metadata.json" />
     <EmbeddedResource Include="Samples\Data\StatsQueryGroupAndSort\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\WmsServiceCatalog\metadata.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Samples\MapView\ChangeTimeExtent\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\WmsServiceCatalog\metadata.json"/>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -384,6 +383,7 @@
     <Compile Include="Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.cs" />
     <Compile Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.cs" />
     <Compile Include="Samples\Layers\WMTSLayer\WMTSLayer.cs" />
+    <Compile Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.cs" />
     <Compile Include="Samples\MapView\ShowMagnifier\ShowMagnifier.cs" />
     <Compile Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.cs" />
     <Compile Include="Samples\Map\AuthorMap\AuthorMap.cs" />
@@ -472,6 +472,7 @@
     <Content Include="Samples\Layers\WMTSLayer\WMTSLayer.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <BundleResource Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.jpg" />
     <Content Include="Samples\Map\AuthorMap\AuthorMap.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -8,8 +8,7 @@
     mc:Ignorable="d" 
     d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <esri:SceneView x:Name="MySceneView">
-        </esri:SceneView>
+        <esri:SceneView x:Name="MySceneView"/>
     </Grid>
 </UserControl>
 

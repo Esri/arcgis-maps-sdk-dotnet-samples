@@ -27,13 +27,13 @@ namespace ArcGISRuntimeXamarin.Samples.SurfacePlacements
 
         public SurfacePlacements()
         {
-            Title = "Surface Placement";
+            Title = "Surface placement";
         }
         
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-			Initialize();
+            Initialize();
 
             // Create the UI 
             CreateLayout();

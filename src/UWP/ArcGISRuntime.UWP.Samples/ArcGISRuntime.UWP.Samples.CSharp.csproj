@@ -144,7 +144,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg" />
-    <Content Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSymVB.xaml.vb" />
     <Content Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg" />
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
     <Content Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.jpg">
@@ -454,7 +453,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Samples\Symbology\UseDistanceCompositeSym\metadata.json" />
-    <None Include="Samples\Symbology\UseDistanceCompositeSym\ReadMe.md" />
     <None Include="Samples\Tutorial\AuthorEditSaveMap\metadata.json" />
     <None Include="Samples\Tutorial\AuthorEditSaveMap\README.md" />
   </ItemGroup>
@@ -887,10 +885,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSymVB.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

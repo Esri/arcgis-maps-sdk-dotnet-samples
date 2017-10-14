@@ -237,6 +237,10 @@
             {
               "SampleName": "GenerateGeodatabase",
               "Path": "Samples/Data/GenerateGeodatabase"
+            },
+            {
+              "SampleName": "AddGeoPackageFeatureTable",
+              "Path": "Samples/Data/AddGeoPackageFeatureTable"
             }
           ]
         }

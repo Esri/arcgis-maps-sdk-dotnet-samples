@@ -32,6 +32,10 @@
       <SubType>Code</SubType>
       <DependentUpon>GenerateGeodatabase.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\AddGeoPackageFeatureTable\AddGeoPackageFeatureTable.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>AddGeoPackageFeatureTable.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>ServiceFeatureTableManualCache.xaml</DependentUpon>
@@ -258,6 +262,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\GenerateGeodatabase\GenerateGeodatabase.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\AddGeoPackageFeatureTable\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\AddGeoPackageFeatureTable\AddGeoPackageFeatureTable.jpg" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\AddGeoPackageFeatureTable\AddGeoPackageFeatureTable.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableManualCache\metadata.json" />

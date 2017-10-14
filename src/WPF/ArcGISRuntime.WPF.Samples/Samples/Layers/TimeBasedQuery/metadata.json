@@ -9,6 +9,6 @@
   "RequiresLocalServer":false,
   "Image":"TimeBasedQuery.jpg",
   "Link":"",
-  "TypeLink": [],
+  "TypeLink": [ "P:Esri.ArcGISRuntime.Data.QueryParameters.TimeExtent", "T:Esri.ArcGISRuntime.TimeExtent" ],
   "SampleFolder": "TimeBasedQuery"
 }

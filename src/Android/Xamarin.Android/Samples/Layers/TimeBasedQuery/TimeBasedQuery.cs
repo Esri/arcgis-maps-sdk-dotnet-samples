@@ -7,16 +7,12 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntimeXamarin.Managers;
 using Android.App;
 using Android.OS;
 using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
-using System.IO;
-using System.Threading.Tasks;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Data;
 
@@ -32,7 +28,7 @@ namespace ArcGISRuntimeXamarin.Samples.TimeBasedQuery
         private Uri _serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer/0");
 
         // Hold a reference to the feature table used by the sample
-        ServiceFeatureTable _myFeatureTable;
+        private ServiceFeatureTable _myFeatureTable;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -74,8 +70,7 @@ namespace ArcGISRuntimeXamarin.Samples.TimeBasedQuery
         private async void OnLoadedPopulateData(object sender, LoadStatusEventArgs e)
         {
             // If layer isn't loaded, do nothing
-            if (e.Status != LoadStatus.Loaded)
-                return;
+            if (e.Status != LoadStatus.Loaded) { return; }
 
             // Create new query object that contains parameters to query specific request types
             QueryParameters queryParameters = new QueryParameters()
@@ -83,11 +78,11 @@ namespace ArcGISRuntimeXamarin.Samples.TimeBasedQuery
                 WhereClause = "1=1"
             };
 
-            // Create a new time extent that covers the desired interval (beginning of time to October 5th, 2000)
-            TimeExtent myExtent = new TimeExtent(new DateTime(1, 1, 1), new DateTime(2000, 10, 05));
+            // Create a new time extent that covers the desired interval (beginning of time to September 16th, 2000)
+            TimeExtent myExtent = new TimeExtent(new DateTime(1, 1, 1), new DateTime(2000, 9, 16));
 
             // Apply the time extent to the query parameters
-            //queryParameters.TimeExtent = myExtent;
+            queryParameters.TimeExtent = myExtent;
 
             // Create list of the fields that are returned from the service
             var outputFields = new string[] { "*" };

@@ -11,6 +11,7 @@ using System.IO;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Data;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WPF.Samples.AddShapefile
 {
@@ -19,7 +20,7 @@ namespace ArcGISRuntime.WPF.Samples.AddShapefile
         public AddShapefile()
         {
             InitializeComponent();
-            
+
             // Open a shapefile stored locally and add it to the map as a feature layer
             Initialize();
         }
@@ -29,13 +30,32 @@ namespace ArcGISRuntime.WPF.Samples.AddShapefile
             // Create a new map to display in the map view with a streets basemap
             MyMapView.Map = new Map(Basemap.CreateStreetsVector());
 
+            // Get the path to the downloaded shapefile
+            string filepath = await GetShapefilePath();
+
+            // Open the shapefile
+            ShapefileFeatureTable myShapefile = await ShapefileFeatureTable.OpenAsync(filepath);
+
+            // Create a feature layer to display the shapefile
+            FeatureLayer newFeatureLayer = new FeatureLayer(myShapefile);
+
+            // Add the feature layer to the map
+            MyMapView.Map.OperationalLayers.Add(newFeatureLayer);
+
+            // Zoom the map to the extent of the shapefile
+            await MyMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent);
+        }
+
+        private async Task<string> GetShapefilePath()
+        {
+            #region offlinedata
             // The shapefile will be downloaded from ArcGIS Online
             // The data manager (a component of the sample viewer, *NOT* the runtime
             //     handles the offline data process
 
             // The desired shapefile is expected to be called "Public_Art.shp"
             string filename = "Public_Art.shp";
-            
+
             // The data manager provides a method to get the folder
             string folder = DataManager.GetDataFolder();
 
@@ -49,17 +69,9 @@ namespace ArcGISRuntime.WPF.Samples.AddShapefile
                 await DataManager.GetData("d98b3e5293834c5f852f13c569930caa", "AddShapefile");
             }
 
-            // Open the shapefile
-            ShapefileFeatureTable myShapefile = await ShapefileFeatureTable.OpenAsync(filepath);
-
-            // Create a feature layer to display the shapefile
-            FeatureLayer newFeatureLayer = new FeatureLayer(myShapefile);
-
-            // Add the feature layer to the map
-            MyMapView.Map.OperationalLayers.Add(newFeatureLayer);
-
-            // Zoom the map to the extent of the shapefile
-            await MyMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent);
+            // Return the path
+            return filepath;
+            #endregion offlinedata
         }
     }
 }

@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System.IO;
+using System.Threading.Tasks;
 using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.AddShapefile
@@ -51,6 +52,25 @@ namespace ArcGISRuntimeXamarin.Samples.AddShapefile
             // Create a new map to display in the map view with a streets basemap
             _myMapView.Map = new Map(Basemap.CreateStreetsVector());
 
+            // Get the path to the downloaded shapefile
+            string filepath = await GetShapefilePath();
+
+            // Open the shapefile
+            ShapefileFeatureTable myShapefile = await ShapefileFeatureTable.OpenAsync(filepath);
+
+            // Create a feature layer to display the shapefile
+            FeatureLayer newFeatureLayer = new FeatureLayer(myShapefile);
+
+            // Add the feature layer to the map
+            _myMapView.Map.OperationalLayers.Add(newFeatureLayer);
+
+            // Zoom the map to the extent of the shapefile
+            await _myMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent);
+        }
+
+        private async Task<string> GetShapefilePath()
+        {
+            #region offlinedata
             // The shapefile will be downloaded from ArcGIS Online
             // The data manager (a component of the sample viewer, *NOT* the runtime
             //     handles the offline data process
@@ -71,17 +91,9 @@ namespace ArcGISRuntimeXamarin.Samples.AddShapefile
                 await DataManager.GetData("d98b3e5293834c5f852f13c569930caa", "AddShapefile");
             }
 
-            // Open the shapefile
-            ShapefileFeatureTable myShapefile = await ShapefileFeatureTable.OpenAsync(filepath);
-
-            // Create a feature layer to display the shapefile
-            FeatureLayer newFeatureLayer = new FeatureLayer(myShapefile);
-
-            // Add the feature layer to the map
-            _myMapView.Map.OperationalLayers.Add(newFeatureLayer);
-
-            // Zoom the map to the extent of the shapefile
-            await _myMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent);
+            // Return the path
+            return filepath;
+            #endregion offlinedata
         }
 
         private void CreateLayout()

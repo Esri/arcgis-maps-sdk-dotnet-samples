@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime.Mapping;
 using ArcGISRuntime.Samples.Managers;
 using System.IO;
 using Esri.ArcGISRuntime.Data;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.UWP.Samples.AddShapefile
 {
@@ -29,6 +30,25 @@ namespace ArcGISRuntime.UWP.Samples.AddShapefile
             // Create a new map to display in the map view with a streets basemap
             MyMapView.Map = new Map(Basemap.CreateStreetsVector());
 
+            // Get the path to the downloaded shapefile
+            string filepath = await GetShapefilePath();
+
+            // Open the shapefile
+            ShapefileFeatureTable myShapefile = await ShapefileFeatureTable.OpenAsync(filepath);
+
+            // Create a feature layer to display the shapefile
+            FeatureLayer newFeatureLayer = new FeatureLayer(myShapefile);
+
+            // Add the feature layer to the map
+            MyMapView.Map.OperationalLayers.Add(newFeatureLayer);
+
+            // Zoom the map to the extent of the shapefile
+            await MyMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent);
+        }
+
+        private async Task<string> GetShapefilePath()
+        {
+            #region offlinedata
             // The shapefile will be downloaded from ArcGIS Online
             // The data manager (a component of the sample viewer, *NOT* the runtime
             //     handles the offline data process
@@ -49,17 +69,9 @@ namespace ArcGISRuntime.UWP.Samples.AddShapefile
                 await DataManager.GetData("d98b3e5293834c5f852f13c569930caa", "AddShapefile");
             }
 
-            // Open the shapefile
-            ShapefileFeatureTable myShapefile = await ShapefileFeatureTable.OpenAsync(filepath);
-
-            // Create a feature layer to display the shapefile
-            FeatureLayer newFeatureLayer = new FeatureLayer(myShapefile);
-
-            // Add the feature layer to the map
-            MyMapView.Map.OperationalLayers.Add(newFeatureLayer);
-
-            // Zoom the map to the extent of the shapefile
-            await MyMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent);
+            // Return the path
+            return filepath;
+            #endregion offlinedata
         }
     }
 }

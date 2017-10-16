@@ -134,6 +134,7 @@
     <Compile Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.cs" />
     <Compile Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.cs" />
     <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.cs" />
+    <Compile Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.cs" />
     <Compile Include="Samples\Layers\KmlLayerFile\KmlLayerFile.cs" />
     <Compile Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.cs" />
     <Compile Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.cs" />
@@ -261,12 +262,9 @@
     <EmbeddedResource Include="Samples\Layers\WMSLayerUrl\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\KmlLayerFile\metadata.json" />
     <EmbeddedResource Include="Samples\Data\AddShapefile\metadata.json" />
-    <AndroidResource Include="Resources\layout\GroupedResultsList_DataItem.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\GroupedResultsList_GroupItem.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
+    <EmbeddedResource Include="Samples\Layers\TimeBasedQuery\metadata.json" />
+    <AndroidResource Include="Resources\layout\GroupedResultsList_DataItem.axml" />
+    <AndroidResource Include="Resources\layout\GroupedResultsList_GroupItem.axml" />
     <None Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.jpg" />
     <EmbeddedResource Include="Samples\Layers\KmlLayerUrl\metadata.json" />
     <EmbeddedResource Include="Samples\Data\StatsQueryGroupAndSort\metadata.json" />
@@ -295,6 +293,7 @@
     <Content Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.jpg" />
     <Content Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.jpg" />
     <Content Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg" />
+    <Content Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.jpg" />
     <Content Include="Samples\Layers\KmlLayerFile\KmlLayerFile.jpg" />
     <Content Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.jpg" />
     <Content Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.jpg" />

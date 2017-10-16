@@ -214,6 +214,10 @@
             {
               "SampleName": "FeatureCollectionLayerFromQuery",
               "Path": "Samples/Layers/FeatureCollectionLayerFromQuery"
+            },
+            {
+              "SampleName": "TimeBasedQuery",
+              "Path": "Samples/Layers/TimeBasedQuery"
             }
           ]
         },

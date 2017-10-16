@@ -35,7 +35,7 @@ namespace ArcGISRuntime.UWP.Samples.TimeBasedQuery
             // Create a new map with oceans basemap
             Map myMap = new Map(Basemap.CreateOceans());
 
-            // Create feature table for the incident feature service
+            // Create feature table for the hurricane feature service
             _myFeatureTable = new ServiceFeatureTable(_serviceUri);
 
             // Define the request mode

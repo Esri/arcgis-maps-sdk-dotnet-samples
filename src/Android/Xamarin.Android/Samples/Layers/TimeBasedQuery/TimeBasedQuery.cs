@@ -10,11 +10,11 @@
 using Android.App;
 using Android.OS;
 using Android.Widget;
+using Esri.ArcGISRuntime;
+using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
-using Esri.ArcGISRuntime;
-using Esri.ArcGISRuntime.Data;
 
 namespace ArcGISRuntimeXamarin.Samples.TimeBasedQuery
 {
@@ -48,7 +48,7 @@ namespace ArcGISRuntimeXamarin.Samples.TimeBasedQuery
             // Create a new map with oceans basemap
             Map myMap = new Map(Basemap.CreateOceans());
 
-            // Create feature table for the incident feature service
+            // Create feature table for the hurricane feature service
             _myFeatureTable = new ServiceFeatureTable(_serviceUri);
 
             // Define the request mode
@@ -72,7 +72,7 @@ namespace ArcGISRuntimeXamarin.Samples.TimeBasedQuery
             // If layer isn't loaded, do nothing
             if (e.Status != LoadStatus.Loaded) { return; }
 
-            // Create new query object that contains parameters to query specific request types
+            // Create new query object that contains a basic 'include everything' clause
             QueryParameters queryParameters = new QueryParameters()
             {
                 WhereClause = "1=1"

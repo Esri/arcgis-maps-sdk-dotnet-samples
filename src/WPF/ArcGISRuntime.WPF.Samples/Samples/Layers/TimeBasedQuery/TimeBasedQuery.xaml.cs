@@ -7,10 +7,10 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Data;
-using System;
 using Esri.ArcGISRuntime;
+using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Mapping;
+using System;
 
 namespace ArcGISRuntime.WPF.Samples.TimeBasedQuery
 {
@@ -35,7 +35,7 @@ namespace ArcGISRuntime.WPF.Samples.TimeBasedQuery
             // Create a new map with oceans basemap
             Map myMap = new Map(Basemap.CreateOceans());
 
-            // Create feature table for the incident feature service
+            // Create feature table for the hurricane feature service
             _myFeatureTable = new ServiceFeatureTable(_serviceUri);
 
             // Define the request mode
@@ -59,7 +59,7 @@ namespace ArcGISRuntime.WPF.Samples.TimeBasedQuery
             // If layer isn't loaded, do nothing
             if (e.Status != LoadStatus.Loaded) { return; }
 
-            // Create new query object that contains parameters to query specific request types
+            // Create new query object that contains a basic 'include everything' clause
             QueryParameters queryParameters = new QueryParameters()
             {
                 WhereClause = "1=1"

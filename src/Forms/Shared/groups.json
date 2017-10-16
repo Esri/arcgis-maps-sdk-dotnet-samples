@@ -241,6 +241,10 @@
             {
               "SampleName": "GenerateGeodatabase",
               "Path": "Samples/Data/GenerateGeodatabase"
+            },
+            {
+              "SampleName": "AddShapefile",
+              "Path": "Samples/Data/AddShapefile"
             }
           ]
         }

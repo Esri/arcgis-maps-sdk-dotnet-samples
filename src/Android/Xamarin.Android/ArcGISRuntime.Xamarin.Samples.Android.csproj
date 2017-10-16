@@ -55,7 +55,6 @@
   <ItemGroup>
     <Reference Include="Esri.ArcGISRuntime, Version=100.2.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.2.0\lib\MonoAndroid10\Esri.ArcGISRuntime.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
@@ -111,6 +110,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SamplesListActivity.cs" />
     <Compile Include="SamplesListAdapter.cs" />
+    <Compile Include="Samples\Data\AddShapefile\AddShapefile.cs" />
     <Compile Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.cs" />
     <Compile Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.cs" />
     <Compile Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.cs" />
@@ -179,6 +179,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Samples\Data\StatisticalQuery\metadata.json" />
+    <EmbeddedResource Include="Samples\Data\StatsQueryGroupAndSort\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\MapRotation\metadata.json" />
     <None Include="app.config" />
     <None Include="packages.config" />
@@ -260,6 +261,7 @@
     <EmbeddedResource Include="Samples\Data\GenerateGeodatabase\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\WMSLayerUrl\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\KmlLayerFile\metadata.json" />
+    <EmbeddedResource Include="Samples\Data\AddShapefile\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\TimeBasedQuery\metadata.json" />
     <AndroidResource Include="Resources\layout\GroupedResultsList_DataItem.axml" />
     <AndroidResource Include="Resources\layout\GroupedResultsList_GroupItem.axml" />
@@ -284,6 +286,7 @@
     <AndroidResource Include="Resources\drawable-xhdpi\Icon.png" />
     <AndroidResource Include="Resources\drawable-hdpi\Icon.png" />
     <AndroidResource Include="Resources\drawable\Icon.png" />
+    <Content Include="Samples\Data\AddShapefile\AddShapefile.jpg" />
     <Content Include="Samples\Data\StatisticalQuery\StatisticalQuery.jpg" />
     <Content Include="Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.jpg" />
     <Content Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.jpg" />

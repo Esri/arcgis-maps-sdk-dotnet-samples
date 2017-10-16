@@ -207,6 +207,10 @@
             {
               "SampleName": "FeatureCollectionLayerFromQuery",
               "Path": "Samples/Layers/FeatureCollectionLayerFromQuery"
+            },
+            {
+              "SampleName": "TimeBasedQuery",
+              "Path": "Samples/Layers/TimeBasedQuery"
             }
           ]
         },
@@ -234,6 +238,10 @@
             {
               "SampleName": "GenerateGeodatabase",
               "Path": "Samples/Data/GenerateGeodatabase"
+            },
+            {
+              "SampleName": "AddShapefile",
+              "Path": "Samples/Data/AddShapefile"
             },
             {
               "SampleName": "AddGeoPackageFeatureTable",

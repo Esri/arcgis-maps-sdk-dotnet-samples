@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.UWP.Samples.AddGeoPackageFeatureTable
 {
@@ -30,24 +31,8 @@ namespace ArcGISRuntime.UWP.Samples.AddGeoPackageFeatureTable
             // Create a new map centered on Aurora Colorado
             MyMapView.Map = new Map(BasemapType.LightGrayCanvasVector, 39.7294, -104.8319, 9);
 
-            // The GeoPackage will be downloaded from ArcGIS Online
-            // The data manager (a component of the sample viewer), *NOT* the runtime handles the offline data process
-
-            // The desired GPKG is expected to be called Yellowstone.gpkg
-            string filename = "AuroraCO.gpkg";
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
             // Get the full path
-            string geoPackagePath = Path.Combine(folder, "SampleData", "ReadGeoPackage", filename);
-
-            // Check if the file exists
-            if (!File.Exists(geoPackagePath))
-            {
-                // If it's missing, download the GeoPackage file
-                await DataManager.GetData("68ec42517cdd439e81b036210483e8e7", "ReadGeoPackage");
-            }
+            string geoPackagePath = await GetGeoPackagePath();
 
             // Open the GeoPackage
             GeoPackage myGeoPackage = await GeoPackage.OpenAsync(geoPackagePath);
@@ -64,6 +49,36 @@ namespace ArcGISRuntime.UWP.Samples.AddGeoPackageFeatureTable
 
             // Add the feature table as a layer to the map (with default symbology)
             MyMapView.Map.OperationalLayers.Add(newLayer);
+        }
+
+        private async Task<string> GetGeoPackagePath()
+
+        {
+            #region offline data
+
+            // The GeoPackage will be downloaded from ArcGIS Online.
+            // The data manager (a component of the sample viewer), *NOT* the runtime handles the offline data process
+
+            // The desired GPKG is expected to be called "AuroraCO.shp"
+            string filename = "AuroraCO.gpkg";
+
+            // The data manager provides a method to get the folder
+            string folder = DataManager.GetDataFolder();
+
+            // Get the full path
+            string filepath = Path.Combine(folder, "SampleData", "ReadGeoPackage", filename);
+
+            // Check if the file exists
+            if (!File.Exists(filepath))
+            {
+                // If it's missing, download the GeoPackage
+                await DataManager.GetData("68ec42517cdd439e81b036210483e8e7", "ReadGeoPackage");
+            }
+
+            // Return the path
+            return filepath;
+
+            #endregion offlinedata
         }
     }
 }

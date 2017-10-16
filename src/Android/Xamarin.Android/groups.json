@@ -222,9 +222,9 @@
           "SubCategoryName":"FeatureTables",
           "ShowGroup":true,
           "SampleInfos": [
-             {
-              "SampleName":"ServiceFeatureTableCache",
-              "Path":"Samples/Data/ServiceFeatureTableCache"
+            {
+              "SampleName": "ServiceFeatureTableCache",
+              "Path": "Samples/Data/ServiceFeatureTableCache"
             },
             {
               "SampleName": "ServiceFeatureTableNoCache",
@@ -237,6 +237,10 @@
             {
               "SampleName": "GenerateGeodatabase",
               "Path": "Samples/Data/GenerateGeodatabase"
+            },
+            {
+              "SampleName": "AddGeoPackageFeatureTable",
+              "Path": "Samples/Data/AddGeoPackageFeatureTable"
             }
           ]
         }

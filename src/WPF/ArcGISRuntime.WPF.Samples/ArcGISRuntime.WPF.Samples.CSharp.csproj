@@ -57,8 +57,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Samples\Data\AddShapefile\AddShapefile.xaml.cs">
-      <DependentUpon>AddShapefile.xaml</DependentUpon>
+    <Compile Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.xaml.cs">
+      <DependentUpon>FeatureLayerShapefile.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Data\StatisticalQuery\StatisticalQuery.xaml.cs">
       <DependentUpon>StatisticalQuery.xaml</DependentUpon>
@@ -245,7 +245,7 @@
     <Content Include="groups.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Data\AddShapefile\AddShapefile.jpg">
+    <Content Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Data\StatisticalQuery\StatisticalQuery.jpg">
@@ -437,7 +437,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Samples\Data\AddShapefile\AddShapefile.xaml">
+    <Page Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -917,7 +917,7 @@
     <Content Include="Samples\Layers\WmsServiceCatalog\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Data\AddShapefile\metadata.json">
+    <Content Include="Samples\Data\FeatureLayerShapefile\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Layers\TimeBasedQuery\metadata.json">

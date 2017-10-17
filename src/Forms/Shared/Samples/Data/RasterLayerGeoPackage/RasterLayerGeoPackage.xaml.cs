@@ -15,11 +15,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureLayerGeoPackage
+namespace ArcGISRuntimeXamarin.Samples.RasterLayerGeoPackage
 {
-    public partial class FeatureLayerGeoPackage : ContentPage
+    public partial class RasterLayerGeoPackage : ContentPage
     {
-        public FeatureLayerGeoPackage()
+        public RasterLayerGeoPackage()
         {
             InitializeComponent();
 

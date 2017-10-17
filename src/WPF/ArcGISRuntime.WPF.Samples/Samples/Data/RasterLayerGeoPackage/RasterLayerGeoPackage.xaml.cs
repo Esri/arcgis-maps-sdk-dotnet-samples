@@ -14,11 +14,11 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntime.WPF.Samples.FeatureLayerGeoPackage
+namespace ArcGISRuntime.WPF.Samples.RasterLayerGeoPackage
 {
-    public partial class FeatureLayerGeoPackage
+    public partial class RasterLayerGeoPackage
     {
-        public FeatureLayerGeoPackage()
+        public RasterLayerGeoPackage()
         {
             InitializeComponent();
             

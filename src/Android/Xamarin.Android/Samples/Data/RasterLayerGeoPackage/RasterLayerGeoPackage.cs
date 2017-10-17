@@ -8,47 +8,38 @@
 // language governing permissions and limitations under the License.
 
 using System.Linq;
+using System.IO;
+using Android.App;
+using Android.OS;
+using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
-using Foundation;
-using UIKit;
-using System.IO;
 using ArcGISRuntimeXamarin.Managers;
 using System.Threading.Tasks;
 using Esri.ArcGISRuntime.Data;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureLayerGeoPackage
+namespace ArcGISRuntimeXamarin.Samples.RasterLayerGeoPackage
 {
-    [Register("FeatureLayerGeoPackage")]
-    public class FeatureLayerGeoPackage : UIViewController
+    [Activity]
+    public class RasterLayerGeoPackage : Activity
     {
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        private MapView _myMapView;
 
-        public FeatureLayerGeoPackage()
+        protected override void OnCreate(Bundle bundle)
         {
+            base.OnCreate(bundle);
+
             Title = "Feature layer (GeoPackage)";
-        }
 
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
+            // Create the UI, setup the control references and execute initialization
             CreateLayout();
             Initialize();
         }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            base.ViewDidLayoutSubviews();
-
-            // Update the UI to account for new layout
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-        }
-
+        
         private async void Initialize()
         {
             // Create a new map centered on Aurora Colorado
-            _myMapView.Map = new Map(BasemapType.LightGrayCanvasVector, 39.7294, -104.8319, 9);
+            _myMapView.Map = new Map(BasemapType.LightGrayCanvas, 39.7294, -104.8319, 9);
 
             // Get the full path
             string geoPackagePath = await GetGeoPackagePath();
@@ -101,8 +92,15 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerGeoPackage
 
         private void CreateLayout()
         {
-            // Add MapView to the page
-            View.AddSubview(_myMapView);
+            // Create a new vertical layout for the app
+            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+
+            // Add a map view to the layout
+            _myMapView = new MapView(this);
+            layout.AddView(_myMapView);
+
+            // Show the layout in the app
+            SetContentView(layout);
         }
     }
 }

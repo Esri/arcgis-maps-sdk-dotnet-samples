@@ -244,8 +244,8 @@
               "Path": "Samples/Data/AddShapefile"
             },
             {
-              "SampleName": "FeatureLayerGeoPackage",
-              "Path": "Samples/Data/FeatureLayerGeoPackage"
+              "SampleName": "RasterLayerGeoPackage",
+              "Path": "Samples/Data/RasterLayerGeoPackage"
             }
           ]
         }

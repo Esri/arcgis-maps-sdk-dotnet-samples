@@ -1,4 +1,4 @@
-// Copyright 2017 Esri.
+﻿// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -7,39 +7,29 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System.Linq;
-using System.IO;
-using Android.App;
-using Android.OS;
-using Android.Widget;
-using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.UI.Controls;
-using ArcGISRuntimeXamarin.Managers;
-using System.Threading.Tasks;
+using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Mapping;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureLayerGeoPackage
+namespace ArcGISRuntime.UWP.Samples.RasterLayerGeoPackage
 {
-    [Activity]
-    public class FeatureLayerGeoPackage : Activity
+    public partial class RasterLayerGeoPackage
     {
-        private MapView _myMapView;
-
-        protected override void OnCreate(Bundle bundle)
+        public RasterLayerGeoPackage()
         {
-            base.OnCreate(bundle);
+            InitializeComponent();
 
-            Title = "Feature layer (GeoPackage)";
-
-            // Create the UI, setup the control references and execute initialization
-            CreateLayout();
+            // Read data from the GeoPackage
             Initialize();
         }
-        
+
         private async void Initialize()
         {
             // Create a new map centered on Aurora Colorado
-            _myMapView.Map = new Map(BasemapType.LightGrayCanvas, 39.7294, -104.8319, 9);
+            MyMapView.Map = new Map(BasemapType.LightGrayCanvasVector, 39.7294, -104.8319, 9);
 
             // Get the full path
             string geoPackagePath = await GetGeoPackagePath();
@@ -58,10 +48,11 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerGeoPackage
             await newLayer.LoadAsync();
 
             // Add the feature table as a layer to the map (with default symbology)
-            _myMapView.Map.OperationalLayers.Add(newLayer);
+            MyMapView.Map.OperationalLayers.Add(newLayer);
         }
 
         private async Task<string> GetGeoPackagePath()
+
         {
             #region offline data
 
@@ -88,19 +79,6 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerGeoPackage
             return filepath;
 
             #endregion offlinedata
-        }
-
-        private void CreateLayout()
-        {
-            // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
-
-            // Add a map view to the layout
-            _myMapView = new MapView(this);
-            layout.AddView(_myMapView);
-
-            // Show the layout in the app
-            SetContentView(layout);
         }
     }
 }

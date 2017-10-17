@@ -111,7 +111,7 @@
     <Compile Include="SamplesListActivity.cs" />
     <Compile Include="SamplesListAdapter.cs" />
     <Compile Include="Samples\Data\AddShapefile\AddShapefile.cs" />
-    <Compile Include="Samples\Data\AddGeoPackageFeatureTable\AddGeoPackageFeatureTable.cs" />
+    <Compile Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.cs" />
     <Compile Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.cs" />
     <Compile Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.cs" />
     <Compile Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.cs" />
@@ -179,7 +179,7 @@
     <EmbeddedResource Include="groups.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Samples\Data\AddGeoPackageFeatureTable\metadata.json" />
+    <EmbeddedResource Include="Samples\Data\FeatureLayerGeoPackage\metadata.json" />
     <EmbeddedResource Include="Samples\Data\StatisticalQuery\metadata.json" />
     <EmbeddedResource Include="Samples\Data\StatsQueryGroupAndSort\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\MapRotation\metadata.json" />
@@ -288,7 +288,7 @@
     <AndroidResource Include="Resources\drawable-hdpi\Icon.png" />
     <AndroidResource Include="Resources\drawable\Icon.png" />
     <Content Include="Samples\Data\AddShapefile\AddShapefile.jpg" />
-    <Content Include="Samples\Data\AddGeoPackageFeatureTable\AddGeoPackageFeatureTable.jpg" />
+    <Content Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.jpg" />
     <Content Include="Samples\Data\StatisticalQuery\StatisticalQuery.jpg" />
     <Content Include="Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.jpg" />
     <Content Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.jpg" />

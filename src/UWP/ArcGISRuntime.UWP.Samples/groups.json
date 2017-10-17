@@ -243,8 +243,8 @@
               "Path": "Samples/Data/GenerateGeodatabase"
             },
             {
-              "SampleName": "AddGeoPackageFeatureTable",
-              "Path": "Samples/Data/AddGeoPackageFeatureTable"
+              "SampleName": "FeatureLayerGeoPackage",
+              "Path": "Samples/Data/FeatureLayerGeoPackage"
             },
             {
               "SampleName": "AddShapefile",

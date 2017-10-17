@@ -247,8 +247,8 @@
               "Path": "Samples/Data/AddShapefile"
             },
             {
-              "SampleName": "AddGeoPackageFeatureTable",
-              "Path": "Samples/Data/AddGeoPackageFeatureTable"
+              "SampleName": "FeatureLayerGeoPackage",
+              "Path": "Samples/Data/FeatureLayerGeoPackage"
             }
           ]
         }

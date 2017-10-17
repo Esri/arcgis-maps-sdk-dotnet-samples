@@ -15,15 +15,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.AddGeoPackageFeatureTable
+namespace ArcGISRuntimeXamarin.Samples.FeatureLayerGeoPackage
 {
-    public partial class AddGeoPackageFeatureTable : ContentPage
+    public partial class FeatureLayerGeoPackage : ContentPage
     {
-        public AddGeoPackageFeatureTable()
+        public FeatureLayerGeoPackage()
         {
             InitializeComponent();
 
-            Title = "Add GeoPackage feature table";
+            Title = "Feature layer (GeoPackage)";
 
             // Read data from the GeoPackage
             Initialize();

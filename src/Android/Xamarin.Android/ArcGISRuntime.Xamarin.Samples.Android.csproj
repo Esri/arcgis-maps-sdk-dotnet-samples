@@ -269,7 +269,6 @@
     <AndroidResource Include="Resources\layout\GroupedResultsList_GroupItem.axml" />
     <None Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.jpg" />
     <EmbeddedResource Include="Samples\Layers\KmlLayerUrl\metadata.json" />
-    <EmbeddedResource Include="Samples\Data\StatsQueryGroupAndSort\metadata.json" />
     <None Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.jpg" />
     <EmbeddedResource Include="Samples\Layers\WmsServiceCatalog\metadata.json" />
     <None Include="Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.jpg" />

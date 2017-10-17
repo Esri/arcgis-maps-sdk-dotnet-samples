@@ -240,8 +240,8 @@
               "Path": "Samples/Data/GenerateGeodatabase"
             },
             {
-              "SampleName": "AddShapefile",
-              "Path": "Samples/Data/AddShapefile"
+              "SampleName": "FeatureLayerShapefile",
+              "Path": "Samples/Data/FeatureLayerShapefile"
             },
             {
               "SampleName": "RasterLayerGeoPackage",

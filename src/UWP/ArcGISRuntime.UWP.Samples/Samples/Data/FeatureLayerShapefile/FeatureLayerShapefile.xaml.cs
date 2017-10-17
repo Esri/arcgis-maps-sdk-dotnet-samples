@@ -1,4 +1,4 @@
-// Copyright 2017 Esri.
+﻿// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -7,50 +7,28 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntimeXamarin.Managers;
-using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.UI.Controls;
-using Foundation;
+using ArcGISRuntime.Samples.Managers;
 using System.IO;
+using Esri.ArcGISRuntime.Data;
 using System.Threading.Tasks;
-using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.AddShapefile
+namespace ArcGISRuntime.UWP.Samples.FeatureLayerShapefile
 {
-    [Register("AddShapefile")]
-    public class AddShapefile : UIViewController
+    public partial class FeatureLayerShapefile
     {
-        // Create a MapView control to display a map
-        private MapView _myMapView = new MapView();
-
-        public AddShapefile()
+        public FeatureLayerShapefile()
         {
-            Title = "Add a shapefile";
-        }
+            InitializeComponent();
 
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            CreateLayout();
-
-            // Download (if necessary) and add a local shapefile dataset to the map
+            // Open a shapefile stored locally and add it to the map as a feature layer
             Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            base.ViewDidLayoutSubviews();
-
-            // Update the UI to account for new layout
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
         }
 
         private async void Initialize()
         {
             // Create a new map to display in the map view with a streets basemap
-            _myMapView.Map = new Map(Basemap.CreateStreetsVector());
+            MyMapView.Map = new Map(Basemap.CreateStreetsVector());
 
             // Get the path to the downloaded shapefile
             string filepath = await GetShapefilePath();
@@ -62,10 +40,10 @@ namespace ArcGISRuntimeXamarin.Samples.AddShapefile
             FeatureLayer newFeatureLayer = new FeatureLayer(myShapefile);
 
             // Add the feature layer to the map
-            _myMapView.Map.OperationalLayers.Add(newFeatureLayer);
+            MyMapView.Map.OperationalLayers.Add(newFeatureLayer);
 
             // Zoom the map to the extent of the shapefile
-            await _myMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent);
+            await MyMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent);
         }
 
         private async Task<string> GetShapefilePath()
@@ -82,24 +60,18 @@ namespace ArcGISRuntimeXamarin.Samples.AddShapefile
             string folder = DataManager.GetDataFolder();
 
             // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "AddShapefile", filename);
+            string filepath = Path.Combine(folder, "SampleData", "FeatureLayerShapefile", filename);
 
             // Check if the file exists
             if (!File.Exists(filepath))
             {
                 // Download the shapefile
-                await DataManager.GetData("d98b3e5293834c5f852f13c569930caa", "AddShapefile");
+                await DataManager.GetData("d98b3e5293834c5f852f13c569930caa", "FeatureLayerShapefile");
             }
 
             // Return the path
             return filepath;
             #endregion offlinedata
-        }
-
-        private void CreateLayout()
-        {
-            // Add MapView to the page
-            View.AddSubview(_myMapView);
         }
     }
 }

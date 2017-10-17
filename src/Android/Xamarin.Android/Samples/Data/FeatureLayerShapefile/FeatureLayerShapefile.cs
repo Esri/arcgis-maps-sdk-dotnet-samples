@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -7,28 +7,38 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Mapping;
-using ArcGISRuntime.Samples.Managers;
-using System.IO;
+using Android.App;
+using Android.OS;
+using Android.Widget;
+using ArcGISRuntimeXamarin.Managers;
 using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.UI.Controls;
+using System.IO;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntime.UWP.Samples.AddShapefile
+namespace ArcGISRuntimeXamarin.Samples.FeatureLayerShapefile
 {
-    public partial class AddShapefile
+    [Activity]
+    public class FeatureLayerShapefile : Activity
     {
-        public AddShapefile()
-        {
-            InitializeComponent();
+        private MapView _myMapView;
 
-            // Open a shapefile stored locally and add it to the map as a feature layer
+        protected override void OnCreate(Bundle bundle)
+        {
+            base.OnCreate(bundle);
+
+            Title = "Feature layer (shapefile)";
+            CreateLayout();
+
+            // Download (if necessary) and add a local shapefile dataset to the map
             Initialize();
         }
 
         private async void Initialize()
         {
             // Create a new map to display in the map view with a streets basemap
-            MyMapView.Map = new Map(Basemap.CreateStreetsVector());
+            _myMapView.Map = new Map(Basemap.CreateStreets());
 
             // Get the path to the downloaded shapefile
             string filepath = await GetShapefilePath();
@@ -40,10 +50,10 @@ namespace ArcGISRuntime.UWP.Samples.AddShapefile
             FeatureLayer newFeatureLayer = new FeatureLayer(myShapefile);
 
             // Add the feature layer to the map
-            MyMapView.Map.OperationalLayers.Add(newFeatureLayer);
+            _myMapView.Map.OperationalLayers.Add(newFeatureLayer);
 
             // Zoom the map to the extent of the shapefile
-            await MyMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent);
+            await _myMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent);
         }
 
         private async Task<string> GetShapefilePath()
@@ -60,18 +70,31 @@ namespace ArcGISRuntime.UWP.Samples.AddShapefile
             string folder = DataManager.GetDataFolder();
 
             // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "AddShapefile", filename);
+            string filepath = Path.Combine(folder, "SampleData", "FeatureLayerShapefile", filename);
 
             // Check if the file exists
             if (!File.Exists(filepath))
             {
                 // Download the shapefile
-                await DataManager.GetData("d98b3e5293834c5f852f13c569930caa", "AddShapefile");
+                await DataManager.GetData("d98b3e5293834c5f852f13c569930caa", "FeatureLayerShapefile");
             }
 
             // Return the path
             return filepath;
             #endregion offlinedata
+        }
+
+        private void CreateLayout()
+        {
+            // Create a new vertical layout for the app
+            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+
+            // Add a map view to the layout
+            _myMapView = new MapView(this);
+            layout.AddView(_myMapView);
+
+            // Show the layout in the app
+            SetContentView(layout);
         }
     }
 }

@@ -88,7 +88,7 @@
     <Content Include="Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Data\AddShapefile\AddShapefile.jpg">
+    <Content Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Data\StatisticalQuery\StatisticalQuery.jpg">
@@ -452,10 +452,10 @@
     <Content Include="Samples\Layers\TimeBasedQuery\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Data\AddShapefile\metadata.json">
+    <Content Include="Samples\Data\FeatureLayerShapefile\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Page Include="Samples\Data\AddShapefile\AddShapefile.xaml">
+    <Page Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -495,8 +495,8 @@
     <Compile Include="Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.xaml.cs">
       <DependentUpon>RasterLayerGeoPackage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Data\AddShapefile\AddShapefile.xaml.cs">
-      <DependentUpon>AddShapefile.xaml</DependentUpon>
+    <Compile Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.xaml.cs">
+      <DependentUpon>FeatureLayerShapefile.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.xaml.cs">
       <DependentUpon>ServiceFeatureTableCache.xaml</DependentUpon>

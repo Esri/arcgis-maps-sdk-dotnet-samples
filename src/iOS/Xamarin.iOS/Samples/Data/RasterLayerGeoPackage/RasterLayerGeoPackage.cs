@@ -7,15 +7,16 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System.Linq;
+using ArcGISRuntimeXamarin.Managers;
+using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using UIKit;
 using System.IO;
-using ArcGISRuntimeXamarin.Managers;
+using System.Linq;
 using System.Threading.Tasks;
-using Esri.ArcGISRuntime.Data;
+using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.RasterLayerGeoPackage
 {
@@ -27,7 +28,7 @@ namespace ArcGISRuntimeXamarin.Samples.RasterLayerGeoPackage
 
         public RasterLayerGeoPackage()
         {
-            Title = "Feature layer (GeoPackage)";
+            Title = "Raster layer (GeoPackage)";
         }
 
         public override void ViewDidLoad()
@@ -48,7 +49,7 @@ namespace ArcGISRuntimeXamarin.Samples.RasterLayerGeoPackage
         private async void Initialize()
         {
             // Create a new map centered on Aurora Colorado
-            _myMapView.Map = new Map(BasemapType.LightGrayCanvasVector, 39.7294, -104.8319, 9);
+            _myMapView.Map = new Map(BasemapType.LightGrayCanvas, 39.7294, -104.8319, 9);
 
             // Get the full path
             string geoPackagePath = await GetGeoPackagePath();
@@ -56,17 +57,17 @@ namespace ArcGISRuntimeXamarin.Samples.RasterLayerGeoPackage
             // Open the GeoPackage
             GeoPackage myGeoPackage = await GeoPackage.OpenAsync(geoPackagePath);
 
-            // Read the feature tables and get the first one
-            FeatureTable geoPackageTable = myGeoPackage.GeoPackageFeatureTables.FirstOrDefault();
+            // Read the raster images and get the first one
+            Raster geoPackageRaster = myGeoPackage.GeoPackageRasters.FirstOrDefault();
 
-            // Make sure a feature table was found in the package
-            if (geoPackageTable == null) { return; }
+            // Make sure an image was found in the package
+            if (geoPackageRaster == null) { return; }
 
-            // Create a layer to show the feature table
-            FeatureLayer newLayer = new FeatureLayer(geoPackageTable);
+            // Create a layer to show the raster
+            RasterLayer newLayer = new RasterLayer(geoPackageRaster);
             await newLayer.LoadAsync();
 
-            // Add the feature table as a layer to the map (with default symbology)
+            // Add the image as a raster layer to the map (with default symbology)
             _myMapView.Map.OperationalLayers.Add(newLayer);
         }
 

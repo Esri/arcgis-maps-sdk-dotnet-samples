@@ -10,6 +10,7 @@
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Rasters;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,25 +30,25 @@ namespace ArcGISRuntime.WPF.Samples.RasterLayerGeoPackage
         private async void Initialize()
         {
             // Create a new map centered on Aurora Colorado
-            MyMapView.Map = new Map(BasemapType.LightGrayCanvasVector, 39.7294, -104.8319, 9);
-            
+            MyMapView.Map = new Map(BasemapType.LightGrayCanvas, 39.7294, -104.8319, 9);
+
             // Get the full path
             string geoPackagePath = await GetGeoPackagePath();
 
             // Open the GeoPackage
             GeoPackage myGeoPackage = await GeoPackage.OpenAsync(geoPackagePath);
 
-            // Read the feature tables and get the first one
-            FeatureTable geoPackageTable = myGeoPackage.GeoPackageFeatureTables.FirstOrDefault();
+            // Read the raster images and get the first one
+            Raster geoPackageRaster = myGeoPackage.GeoPackageRasters.FirstOrDefault();
 
-            // Make sure a feature table was found in the package
-            if(geoPackageTable == null) { return; }
+            // Make sure an image was found in the package
+            if (geoPackageRaster == null) { return; }
 
-            // Create a layer to show the feature table
-            FeatureLayer newLayer = new FeatureLayer(geoPackageTable);
+            // Create a layer to show the raster
+            RasterLayer newLayer = new RasterLayer(geoPackageRaster);
             await newLayer.LoadAsync();
 
-            // Add the feature table as a layer to the map (with default symbology)
+            // Add the image as a raster layer to the map (with default symbology)
             MyMapView.Map.OperationalLayers.Add(newLayer);
         }
 

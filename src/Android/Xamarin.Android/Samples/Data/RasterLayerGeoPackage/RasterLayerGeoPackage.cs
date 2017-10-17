@@ -17,6 +17,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using ArcGISRuntimeXamarin.Managers;
 using System.Threading.Tasks;
 using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Rasters;
 
 namespace ArcGISRuntimeXamarin.Samples.RasterLayerGeoPackage
 {
@@ -29,7 +30,7 @@ namespace ArcGISRuntimeXamarin.Samples.RasterLayerGeoPackage
         {
             base.OnCreate(bundle);
 
-            Title = "Feature layer (GeoPackage)";
+            Title = "Raster layer (GeoPackage)";
 
             // Create the UI, setup the control references and execute initialization
             CreateLayout();
@@ -47,17 +48,17 @@ namespace ArcGISRuntimeXamarin.Samples.RasterLayerGeoPackage
             // Open the GeoPackage
             GeoPackage myGeoPackage = await GeoPackage.OpenAsync(geoPackagePath);
 
-            // Read the feature tables and get the first one
-            FeatureTable geoPackageTable = myGeoPackage.GeoPackageFeatureTables.FirstOrDefault();
+            // Read the raster images and get the first one
+            Raster geoPackageRaster = myGeoPackage.GeoPackageRasters.FirstOrDefault();
 
-            // Make sure a feature table was found in the package
-            if (geoPackageTable == null) { return; }
+            // Make sure an image was found in the package
+            if (geoPackageRaster == null) { return; }
 
-            // Create a layer to show the feature table
-            FeatureLayer newLayer = new FeatureLayer(geoPackageTable);
+            // Create a layer to show the raster
+            RasterLayer newLayer = new RasterLayer(geoPackageRaster);
             await newLayer.LoadAsync();
 
-            // Add the feature table as a layer to the map (with default symbology)
+            // Add the image as a raster layer to the map (with default symbology)
             _myMapView.Map.OperationalLayers.Add(newLayer);
         }
 

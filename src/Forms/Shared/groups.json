@@ -161,7 +161,7 @@
           "Name":"Raster Layers",
           "SubCategoryName":"RasterLayer",
           "ShowGroup":true,
-          "SampleInfos":[
+          "SampleInfos": [
             {
               "SampleName": "RasterLayerImageServiceRaster",
               "Path": "Samples/Layers/RasterLayerImageServiceRaster"
@@ -169,6 +169,10 @@
             {
               "SampleName": "RasterLayerRasterFunction",
               "Path": "Samples/Layers/RasterLayerRasterFunction"
+            },
+            {
+              "SampleName": "RasterLayerGeoPackage",
+              "Path": "Samples/Data/RasterLayerGeoPackage"
             }
           ]
         }
@@ -245,10 +249,6 @@
             {
               "SampleName": "FeatureLayerShapefile",
               "Path": "Samples/Data/FeatureLayerShapefile"
-            },
-            {
-              "SampleName": "RasterLayerGeoPackage",
-              "Path": "Samples/Data/RasterLayerGeoPackage"
             }
           ]
         }

@@ -169,6 +169,10 @@
             {
               "SampleName": "RasterLayerRasterFunction",
               "Path": "Samples/Layers/RasterLayerRasterFunction"
+            },
+            {
+              "SampleName": "RasterLayerGeoPackage",
+              "Path": "Samples/Data/RasterLayerGeoPackage"
             }
           ]
         }
@@ -241,10 +245,6 @@
             {
               "SampleName": "GenerateGeodatabase",
               "Path": "Samples/Data/GenerateGeodatabase"
-            },
-            {
-              "SampleName": "RasterLayerGeoPackage",
-              "Path": "Samples/Data/RasterLayerGeoPackage"
             },
             {
               "SampleName": "FeatureLayerShapefile",

@@ -49,7 +49,7 @@ namespace ArcGISRuntimeXamarin.Samples.RasterLayerGeoPackage
         private async void Initialize()
         {
             // Create a new map centered on Aurora Colorado
-            _myMapView.Map = new Map(BasemapType.LightGrayCanvas, 39.7294, -104.8319, 9);
+            _myMapView.Map = new Map(BasemapType.LightGrayCanvas, 39.5517, -104.8589, 12);
 
             // Get the full path
             string geoPackagePath = await GetGeoPackagePath();

@@ -36,6 +36,10 @@
       <SubType>Code</SubType>
       <DependentUpon>FeatureLayerShapefile.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>RasterLayerGeoPackage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>ServiceFeatureTableManualCache.xaml</DependentUpon>
@@ -270,6 +274,11 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerShapefile\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.jpg" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\RasterLayerGeoPackage\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.jpg" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableManualCache\metadata.json" />

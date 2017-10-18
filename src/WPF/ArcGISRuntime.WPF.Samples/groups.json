@@ -164,7 +164,7 @@
         {
           "Name": "Raster Layers",
           "SubCategoryName": "RasterLayer",
-          "ShowGroup": false,
+          "ShowGroup": true,
           "SampleInfos": [
             {
               "SampleName": "RasterLayerImageServiceRaster",
@@ -265,6 +265,10 @@
             {
               "SampleName": "EditAndSyncFeatures",
               "Path": "Samples/Data/EditAndSyncFeatures"
+            },
+            {
+              "SampleName": "FeatureLayerGeoPackage",
+              "Path": "Samples/Data/FeatureLayerGeoPackage"
             }
           ]
         }

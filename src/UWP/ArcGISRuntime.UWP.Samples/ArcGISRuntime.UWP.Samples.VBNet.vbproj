@@ -131,9 +131,9 @@
     <None Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg" />
     <None Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.jpg" />
     <None Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg" />
-    <None Include="Samples\MapView\ShowCallout\ShowCallout.jpg"/>
+    <None Include="Samples\MapView\ShowCallout\ShowCallout.jpg" />
     <None Include="Samples\Layers\WMTSLayer\WMTSLayer.jpg" />
-    <None Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg"/>
+    <None Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg" />
     <None Include="Samples\Map\OpenMapURL\OpenMapURL.jpg" />
     <None Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg" />
     <None Include="Samples\NetworkAnalysis\FindRoute\FindRoute.jpg" />
@@ -146,9 +146,9 @@
     <None Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.jpg" />
     <None Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.jpg" />
     <None Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.jpg" />
-    <None Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.jpg"/>
-    <None Include="Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortal.jpg"/>
-    <None Include="Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQuery.jpg"/>
+    <None Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.jpg" />
+    <None Include="Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortal.jpg" />
+    <None Include="Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQuery.jpg" />
     <None Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.jpg" />
     <None Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.jpg" />
     <None Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.jpg" />
@@ -170,13 +170,13 @@
     <None Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.jpg" />
     <None Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.jpg" />
     <None Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.jpg" />
-    <None Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.jpg"/>
+    <None Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.jpg" />
     <None Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.jpg" />
     <None Include="Samples\Search\FindAddress\FindAddress.jpg" />
     <None Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg" />
-    <None Include="Samples\MapView\MapRotation\MapRotation.jpg"/>
+    <None Include="Samples\MapView\MapRotation\MapRotation.jpg" />
     <None Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.jpg" />
-    <None Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg"/>
+    <None Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg" />
     <None Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -189,7 +189,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata-->
-    <None Include="Samples\MapView\ShowMagnifier\metadata.json"/>
+    <None Include="Samples\MapView\ShowMagnifier\metadata.json" />
     <None Include="Samples\Layers\RasterLayerImageServiceRaster\metadata.json" />
     <None Include="Samples\Layers\RasterLayerRasterFunction\metadata.json" />
     <None Include="Samples\Layers\WMTSLayer\metadata.json" />
@@ -210,16 +210,16 @@
     <None Include="Samples\GraphicsOverlay\AddGraphicsRenderer\metadata.json" />
     <None Include="Samples\GraphicsOverlay\IdentifyGraphics\metadata.json" />
     <None Include="Samples\Layers\ArcGISMapImageLayerUrl\metadata.json" />
-    <None Include="Samples\MapView\MapRotation\metadata.json"/>
-    <None Include="Samples\Layers\FeatureLayerDefinitionExpression\metadata.json"/>
-    <None Include="Samples\MapView\ChangeViewpoint\metadata.json"/>
+    <None Include="Samples\MapView\MapRotation\metadata.json" />
+    <None Include="Samples\Layers\FeatureLayerDefinitionExpression\metadata.json" />
+    <None Include="Samples\MapView\ChangeViewpoint\metadata.json" />
     <None Include="Samples\Layers\ArcGISTiledLayerUrl\metadata.json" />
-    <None Include="Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json"/>
+    <None Include="Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json" />
     <None Include="Samples\Layers\ChangeFeatureLayerRenderer\metadata.json" />
     <None Include="Samples\Layers\ChangeSublayerVisibility\metadata.json" />
-    <None Include="Samples\Layers\CreateFeatureCollectionLayer\metadata.json"/>
-    <None Include="Samples\Layers\FeatureCollectionLayerFromPortal\metadata.json"/>
-    <None Include="Samples\Layers\FeatureCollectionLayerFromQuery\metadata.json"/>
+    <None Include="Samples\Layers\CreateFeatureCollectionLayer\metadata.json" />
+    <None Include="Samples\Layers\FeatureCollectionLayerFromPortal\metadata.json" />
+    <None Include="Samples\Layers\FeatureCollectionLayerFromQuery\metadata.json" />
     <None Include="Samples\Layers\FeatureLayerSelection\metadata.json" />
     <None Include="Samples\Layers\FeatureLayerUrl\metadata.json" />
     <None Include="Samples\Location\DisplayDeviceLocation\metadata.json" />
@@ -241,7 +241,7 @@
     <None Include="Samples\Symbology\RenderUniqueValues\metadata.json" />
     <None Include="Samples\Tutorial\AuthorEditSaveMap\metadata.json" />
     <None Include="Samples\Search\FindAddress\metadata.json" />
-    <None Include="Samples\MapView\ShowCallout\metadata.json"/>
+    <None Include="Samples\MapView\ShowCallout\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code-->

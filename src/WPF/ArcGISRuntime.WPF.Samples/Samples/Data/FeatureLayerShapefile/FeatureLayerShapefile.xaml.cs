@@ -13,11 +13,11 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Data;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntime.WPF.Samples.AddShapefile
+namespace ArcGISRuntime.WPF.Samples.FeatureLayerShapefile
 {
-    public partial class AddShapefile
+    public partial class FeatureLayerShapefile
     {
-        public AddShapefile()
+        public FeatureLayerShapefile()
         {
             InitializeComponent();
 
@@ -60,13 +60,13 @@ namespace ArcGISRuntime.WPF.Samples.AddShapefile
             string folder = DataManager.GetDataFolder();
 
             // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "AddShapefile", filename);
+            string filepath = Path.Combine(folder, "SampleData", "FeatureLayerShapefile", filename);
 
             // Check if the file exists
             if (!File.Exists(filepath))
             {
                 // Download the shapefile
-                await DataManager.GetData("d98b3e5293834c5f852f13c569930caa", "AddShapefile");
+                await DataManager.GetData("d98b3e5293834c5f852f13c569930caa", "FeatureLayerShapefile");
             }
 
             // Return the path

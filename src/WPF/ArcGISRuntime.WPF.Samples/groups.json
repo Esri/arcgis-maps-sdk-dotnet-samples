@@ -160,7 +160,7 @@
         {
           "Name": "Raster Layers",
           "SubCategoryName": "RasterLayer",
-          "ShowGroup": false,
+          "ShowGroup": true,
           "SampleInfos": [
             {
               "SampleName": "RasterLayerImageServiceRaster",
@@ -245,6 +245,10 @@
             {
               "SampleName": "FeatureLayerShapefile",
               "Path": "Samples/Data/FeatureLayerShapefile"
+            },
+            {
+              "SampleName": "FeatureLayerGeoPackage",
+              "Path": "Samples/Data/FeatureLayerGeoPackage"
             }
           ]
         }

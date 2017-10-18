@@ -85,6 +85,9 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <Content Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -456,6 +459,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Content Include="Samples\Data\FeatureLayerGeoPackage\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Page Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Layers\KmlLayerFile\KmlLayerFile.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -481,6 +491,9 @@
     </Compile>
     <Compile Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.xaml.cs">
       <DependentUpon>GenerateGeodatabase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.xaml.cs">
+      <DependentUpon>FeatureLayerGeoPackage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.xaml.cs">
       <DependentUpon>FeatureLayerShapefile.xaml</DependentUpon>

@@ -242,6 +242,10 @@
             {
               "SampleName": "FeatureLayerShapefile",
               "Path": "Samples/Data/FeatureLayerShapefile"
+            },
+            {
+              "SampleName": "FeatureLayerGeoPackage",
+              "Path": "Samples/Data/FeatureLayerGeoPackage"
             }
           ]
         }

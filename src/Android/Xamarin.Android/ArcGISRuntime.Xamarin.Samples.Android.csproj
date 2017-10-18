@@ -16,7 +16,7 @@
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -54,7 +54,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Esri.ArcGISRuntime, Version=100.2.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.2.0\lib\MonoAndroid10\Esri.ArcGISRuntime.dll</HintPath>
+      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.2.0-daily1856\lib\MonoAndroid10\Esri.ArcGISRuntime.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
@@ -95,6 +95,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <!-- Sample Manager Code -->
     <Compile Include="CategoriesAdapter.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Managers\DataManager.cs" />
@@ -110,7 +111,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SamplesListActivity.cs" />
     <Compile Include="SamplesListAdapter.cs" />
+    <!-- Samples -->
     <Compile Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.cs" />
+    <Compile Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.cs" />
     <Compile Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.cs" />
     <Compile Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.cs" />
     <Compile Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.cs" />
@@ -119,13 +122,17 @@
     <Compile Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.cs" />
     <Compile Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.cs" />
     <Compile Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.cs" />
+    <Compile Include="Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.cs" />
     <Compile Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.cs" />
     <Compile Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.cs" />
     <Compile Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.cs" />
     <Compile Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.cs" />
     <Compile Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.cs" />
+    <Compile Include="Samples\Layers\DisplayScene\DisplayScene.cs" />
+    <Compile Include="Samples\Layers\ExportTiles\ExportTiles.cs" />
     <Compile Include="Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortal.cs" />
     <Compile Include="Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQuery.cs" />
+    <Compile Include="Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.cs" />
     <Compile Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.cs" />
     <Compile Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.cs" />
     <Compile Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.cs" />
@@ -136,6 +143,7 @@
     <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.cs" />
     <Compile Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.cs" />
     <Compile Include="Samples\Layers\KmlLayerFile\KmlLayerFile.cs" />
+    <Compile Include="Samples\Layers\RasterRenderingRule\RasterRenderingRule.cs" />
     <Compile Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.cs" />
     <Compile Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.cs" />
     <Compile Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.cs" />
@@ -159,12 +167,12 @@
     <Compile Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.cs" />
     <Compile Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.cs" />
     <Compile Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.cs" />
-    <Compile Include="Samples\NetworkAnalysis\FindRoute\FindRoute.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Samples\NetworkAnalysis\FindRoute\FindRoute.cs" />
+    <Compile Include="Samples\Search\FindPlace\FindPlace.cs" />
     <Compile Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.cs" />
     <Compile Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.cs" />
     <Compile Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.cs" />
+    <Compile Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.cs" />
     <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.cs" />
     <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.cs" />
     <Compile Include="Samples\Search\FindAddress\FindAddress.cs" />
@@ -173,14 +181,15 @@
     <Compile Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.cs" />
     <Compile Include="Samples\Layers\KmlLayerUrl\KmlLayerUrl.cs" />
     <Compile Include="Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.cs" />
+    <Compile Include="Samples\Layers\RasterLayerFile\RasterLayerFile.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="groups.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Samples\Data\StatisticalQuery\metadata.json" />
-    <EmbeddedResource Include="Samples\Data\StatsQueryGroupAndSort\metadata.json" />
-    <EmbeddedResource Include="Samples\MapView\MapRotation\metadata.json" />
+    <!-- Android Layouts -->
+    <AndroidResource Include="Resources\layout\GroupedResultsList_DataItem.axml" />
+    <AndroidResource Include="Resources\layout\GroupedResultsList_GroupItem.axml" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- MISC -->
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
@@ -199,6 +208,15 @@
     <AndroidResource Include="Resources\layout\SamplesLayout.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\values\Strings.xml" />
+    <None Include="Properties\AndroidManifest.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- JSON Metadata-->
+    <EmbeddedResource Include="groups.json" />
+    <EmbeddedResource Include="Samples\Data\StatisticalQuery\metadata.json" />
+    <EmbeddedResource Include="Samples\Data\StatsQueryGroupAndSort\metadata.json" />
+    <EmbeddedResource Include="Samples\MapView\MapRotation\metadata.json" />
     <EmbeddedResource Include="Samples\NetworkAnalysis\FindRoute\metadata.json" />
     <EmbeddedResource Include="Samples\Symbology\RenderSimpleMarkers\metadata.json" />
     <EmbeddedResource Include="Samples\Map\SetMinMaxScale\metadata.json" />
@@ -230,19 +248,11 @@
     <EmbeddedResource Include="Samples\MapView\DisplayDrawingStatus\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\DisplayLayerViewState\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\ShowMagnifier\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\CreateFeatureCollectionLayer\metadata.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Samples\Layers\FeatureCollectionLayerFromPortal\metadata.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Samples\Layers\FeatureCollectionLayerFromQuery\metadata.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Samples\Layers\CreateFeatureCollectionLayer\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\FeatureCollectionLayerFromPortal\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\FeatureCollectionLayerFromQuery\metadata.json" />
     <EmbeddedResource Include="Samples\Tutorial\AuthorEditSaveMap\metadata.json" />
-    <EmbeddedResource Include="Samples\Map\ManageBookmarks\metadata.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Samples\Map\ManageBookmarks\metadata.json" />
     <EmbeddedResource Include="Samples\Map\AuthorMap\metadata.json" />
     <EmbeddedResource Include="Samples\Symbology\UseDistanceCompositeSym\metadata.json" />
     <EmbeddedResource Include="Samples\Geoprocessing\AnalyzeHotspots\metadata.json" />
@@ -254,6 +264,12 @@
     <EmbeddedResource Include="Samples\Search\FindAddress\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\ShowCallout\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\SceneLayerUrl\metadata.json" />
+    <EmbeddedResource Include="Samples\Data\EditAndSyncFeatures\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\FeatureLayerDictionaryRenderer\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\ExportTiles\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\DisplayScene\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\RasterRenderingRule\metadata.json" />
+    <EmbeddedResource Include="Samples\GraphicsOverlay\SurfacePlacements\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\RasterLayerImageServiceRaster\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\WMTSLayer\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\RasterLayerRasterFunction\metadata.json" />
@@ -263,21 +279,15 @@
     <EmbeddedResource Include="Samples\Layers\KmlLayerFile\metadata.json" />
     <EmbeddedResource Include="Samples\Data\FeatureLayerShapefile\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\TimeBasedQuery\metadata.json" />
-    <AndroidResource Include="Resources\layout\GroupedResultsList_DataItem.axml" />
-    <AndroidResource Include="Resources\layout\GroupedResultsList_GroupItem.axml" />
-    <None Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.jpg" />
     <EmbeddedResource Include="Samples\Layers\KmlLayerUrl\metadata.json" />
-    <None Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.jpg" />
     <EmbeddedResource Include="Samples\Layers\WmsServiceCatalog\metadata.json" />
-    <None Include="Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.jpg" />
+    <EmbeddedResource Include="Samples\Search\FindPlace\metadata.json" />
+    <EmbeddedResource Include="Samples\Symbology\SimpleRenderers\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\RasterLayerFile\metadata.json" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\values\Strings.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\AndroidManifest.xml" />
-  </ItemGroup>
-  <ItemGroup>
+    <!-- Embedded Resources -->
+    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\Icon.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\Icon.png" />
     <AndroidResource Include="Resources\drawable-mdpi\Icon.png" />
@@ -285,28 +295,38 @@
     <AndroidResource Include="Resources\drawable-xhdpi\Icon.png" />
     <AndroidResource Include="Resources\drawable-hdpi\Icon.png" />
     <AndroidResource Include="Resources\drawable\Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- All Sample Screenshots -->
+    <Content Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.jpg" />
+    <Content Include="Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.jpg" />
     <Content Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.jpg" />
     <Content Include="Samples\Data\StatisticalQuery\StatisticalQuery.jpg" />
     <Content Include="Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.jpg" />
+    <Content Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg" />
     <Content Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.jpg" />
     <Content Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.jpg" />
     <Content Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.jpg" />
+    <Content Include="Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.jpg" />
     <Content Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg" />
     <Content Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.jpg" />
     <Content Include="Samples\Layers\KmlLayerFile\KmlLayerFile.jpg" />
+    <Content Include="Samples\Layers\DisplayScene\DisplayScene.jpg" />
+    <Content Include="Samples\Layers\ExportTiles\ExportTiles.jpg" />
+    <Content Include="Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.jpg" />
+    <Content Include="Samples\Layers\RasterRenderingRule\RasterRenderingRule.jpg" />
     <Content Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.jpg" />
     <Content Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.jpg" />
     <Content Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg" />
     <Content Include="Samples\Layers\WMTSLayer\WMTSLayer.jpg" />
     <Content Include="Samples\MapView\TakeScreenshot\TakeScreenshot.jpg" />
     <Content Include="Samples\Map\AuthorMap\AuthorMap.jpg" />
-    <Content Include="Samples\Map\ManageBookmarks\ManageBookmarks.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Samples\Map\ManageBookmarks\ManageBookmarks.jpg" />
     <Content Include="Samples\NetworkAnalysis\FindRoute\FindRoute.jpg" />
+    <Content Include="Samples\Search\FindPlace\FindPlace.jpg" />
+    <Content Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.jpg" />
     <Content Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg" />
     <Content Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg" />
-    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
     <Content Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.jpg" />
     <Content Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.jpg" />
     <Content Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.jpg" />
@@ -346,23 +366,14 @@
     <Content Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.jpg" />
     <Content Include="Samples\MapView\ShowCallout\ShowCallout.jpg" />
     <Content Include="Samples\Layers\KmlLayerUrl\KmlLayerUrl.jpg" />
+    <Content Include="Samples\Layers\RasterLayerFile\RasterLayerFile.jpg" />
   </ItemGroup>
-  <ItemGroup />
-  <ItemGroup />
-  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.2.0\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.2.0\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.2.0\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.2.0\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.2.0-daily1856\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.2.0-daily1856\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets'))" />
   </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-     Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.2.0-daily1856\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.2.0-daily1856\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets')" />
 </Project>

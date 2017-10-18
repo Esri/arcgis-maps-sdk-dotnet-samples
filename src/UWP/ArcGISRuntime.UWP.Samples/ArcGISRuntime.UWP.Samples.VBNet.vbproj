@@ -91,123 +91,135 @@
     <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42314</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <Content Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg" />
-    <Content Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.jpg" />
-    <Content Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg" />
-    <Content Include="Samples\MapView\ShowCallout\ShowCallout.jpg">
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Collections.ObjectModel" />
+    <Import Include="System.ComponentModel" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.IO" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Runtime.CompilerServices" />
+    <Import Include="System.Threading.Tasks" />
+    <Import Include="System.Runtime.InteropServices.WindowsRuntime" />
+    <Import Include="System.Windows.Input" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="Windows.ApplicationModel" />
+    <Import Include="Windows.ApplicationModel.Activation" />
+    <Import Include="Windows.Foundation" />
+    <Import Include="Windows.Foundation.Collections" />
+    <Import Include="Windows.Graphics.Display" />
+    <Import Include="Windows.UI.ViewManagement" />
+    <Import Include="Windows.UI.Xaml" />
+    <Import Include="Windows.UI.Xaml.Controls" />
+    <Import Include="Windows.UI.Xaml.Controls.Primitives" />
+    <Import Include="Windows.UI.Xaml.Data" />
+    <Import Include="Windows.UI.Xaml.Input" />
+    <Import Include="Windows.UI.Xaml.Media" />
+    <Import Include="Windows.UI.Xaml.Media.Imaging" />
+    <Import Include="Windows.UI.Xaml.Navigation" />
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="Microsoft.VCLibs, version=14.0">
+      <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
+    </SDKReference>
+  </ItemGroup>
+  <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+  <ItemGroup>
+    <!-- Screenshots -->
+    <None Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg" />
+    <None Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.jpg" />
+    <None Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg" />
+    <None Include="Samples\MapView\ShowCallout\ShowCallout.jpg"/>
+    <None Include="Samples\Layers\WMTSLayer\WMTSLayer.jpg" />
+    <None Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg"/>
+    <None Include="Samples\Map\OpenMapURL\OpenMapURL.jpg" />
+    <None Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg" />
+    <None Include="Samples\NetworkAnalysis\FindRoute\FindRoute.jpg" />
+    <None Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg" />
+    <None Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg" />
+    <None Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.jpg" />
+    <None Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.jpg" />
+    <None Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.jpg" />
+    <None Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.jpg" />
+    <None Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.jpg" />
+    <None Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.jpg" />
+    <None Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.jpg" />
+    <None Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.jpg"/>
+    <None Include="Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortal.jpg"/>
+    <None Include="Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQuery.jpg"/>
+    <None Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.jpg" />
+    <None Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.jpg" />
+    <None Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.jpg" />
+    <None Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.jpg" />
+    <None Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.jpg" />
+    <None Include="Samples\MapView\TakeScreenshot\TakeScreenshot.jpg" />
+    <None Include="Samples\Map\AuthorMap\AuthorMap.jpg" />
+    <None Include="Samples\Map\ChangeBasemap\ChangeBasemap.jpg" />
+    <None Include="Samples\Map\DisplayMap\DisplayMap.jpg" />
+    <None Include="Samples\Map\ManageBookmarks\ManageBookmarks.jpg" />
+    <None Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.jpg" />
+    <None Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.jpg" />
+    <None Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.jpg" />
+    <None Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.jpg" />
+    <None Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.jpg" />
+    <None Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.jpg" />
+    <None Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.jpg" />
+    <None Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.jpg" />
+    <None Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.jpg" />
+    <None Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.jpg" />
+    <None Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.jpg" />
+    <None Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.jpg"/>
+    <None Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.jpg" />
+    <None Include="Samples\Search\FindAddress\FindAddress.jpg" />
+    <None Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg" />
+    <None Include="Samples\MapView\MapRotation\MapRotation.jpg"/>
+    <None Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.jpg" />
+    <None Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg"/>
+    <None Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- MISC Resources -->
+    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\Layers\WMTSLayer\WMTSLayer.jpg" />
-    <Content Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\Map\OpenMapURL\OpenMapURL.jpg" />
-    <Content Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg" />
-    <Content Include="Samples\NetworkAnalysis\FindRoute\FindRoute.jpg" />
-    <Content Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg" />
-    <Content Include="Samples\MapView\ShowMagnifier\metadata.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </EmbeddedResource>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Content Include="My Project\ArcGISRuntime.Windows.Samples.VBNet.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- JSON Metadata-->
+    <None Include="Samples\MapView\ShowMagnifier\metadata.json"/>
     <None Include="Samples\Layers\RasterLayerImageServiceRaster\metadata.json" />
-    <None Include="Samples\Layers\RasterLayerImageServiceRaster\README.md" />
     <None Include="Samples\Layers\RasterLayerRasterFunction\metadata.json" />
-    <None Include="Samples\Layers\RasterLayerRasterFunction\README.md" />
     <None Include="Samples\Layers\WMTSLayer\metadata.json" />
     <None Include="Samples\Map\OpenMapURL\metadata.json" />
     <None Include="Samples\Map\SearchPortalMaps\metadata.json" />
     <None Include="Samples\NetworkAnalysis\FindRoute\metadata.json" />
     <None Include="Samples\Symbology\UseDistanceCompositeSym\metadata.json" />
-    <Content Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg" />
     <None Include="Samples\GraphicsOverlay\SketchOnMap\metadata.json" />
-    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <Content Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.jpg" />
-    <Content Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.jpg" />
-    <Content Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.jpg" />
-    <Content Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.jpg" />
-    <Content Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.jpg" />
-    <Content Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.jpg" />
-    <Content Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.jpg" />
-    <Content Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortal.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQuery.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.jpg" />
-    <Content Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.jpg" />
-    <Content Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.jpg" />
-    <Content Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.jpg" />
-    <Content Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.jpg" />
-    <Content Include="Samples\MapView\TakeScreenshot\TakeScreenshot.jpg" />
-    <Content Include="Samples\Map\AuthorMap\AuthorMap.jpg" />
-    <Content Include="Samples\Map\ChangeBasemap\ChangeBasemap.jpg" />
-    <Content Include="Samples\Map\DisplayMap\DisplayMap.jpg" />
-    <Content Include="Samples\Map\ManageBookmarks\ManageBookmarks.jpg" />
-    <Content Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.jpg" />
-    <Content Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.jpg" />
-    <Content Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.jpg" />
-    <Content Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.jpg" />
-    <Content Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.jpg" />
-    <None Include="groups.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="project.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="groups.json" />
+    <None Include="project.json" />
     <None Include="Samples\Data\FeatureLayerQuery\metadata.json" />
     <None Include="Samples\Data\ServiceFeatureTableCache\metadata.json" />
     <None Include="Samples\Data\ServiceFeatureTableManualCache\metadata.json" />
     <None Include="Samples\Data\ServiceFeatureTableNoCache\metadata.json" />
     <None Include="Samples\Geoprocessing\AnalyzeHotspots\metadata.json" />
-    <None Include="Samples\Geoprocessing\AnalyzeHotspots\README.md" />
     <None Include="Samples\Geoprocessing\ListGeodatabaseVersions\metadata.json" />
-    <None Include="Samples\Geoprocessing\ListGeodatabaseVersions\README.md" />
     <None Include="Samples\Geoprocessing\AnalyzeViewshed\metadata.json" />
     <None Include="Samples\GraphicsOverlay\AddGraphicsRenderer\metadata.json" />
     <None Include="Samples\GraphicsOverlay\IdentifyGraphics\metadata.json" />
     <None Include="Samples\Layers\ArcGISMapImageLayerUrl\metadata.json" />
-    <None Include="Samples\Layers\ArcGISMapImageLayerUrl\README.md" />
-    <Content Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.jpg" />
-    <Content Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.jpg" />
-    <Content Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.jpg" />
-    <Content Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.jpg" />
-    <Content Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.jpg" />
-    <Content Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.jpg" />
-    <Content Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.jpg" />
-    <Content Include="Samples\MapView\MapRotation\metadata.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\Layers\FeatureLayerDefinitionExpression\metadata.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\MapView\ChangeViewpoint\metadata.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <None Include="Samples\MapView\MapRotation\metadata.json"/>
+    <None Include="Samples\Layers\FeatureLayerDefinitionExpression\metadata.json"/>
+    <None Include="Samples\MapView\ChangeViewpoint\metadata.json"/>
     <None Include="Samples\Layers\ArcGISTiledLayerUrl\metadata.json" />
-    <None Include="Samples\Layers\ArcGISTiledLayerUrl\README.md" />
-    <Content Include="Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <None Include="Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json"/>
     <None Include="Samples\Layers\ChangeFeatureLayerRenderer\metadata.json" />
     <None Include="Samples\Layers\ChangeSublayerVisibility\metadata.json" />
-    <None Include="Samples\Layers\CreateFeatureCollectionLayer\metadata.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <Content Include="Samples\Layers\FeatureCollectionLayerFromPortal\metadata.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\Layers\FeatureCollectionLayerFromQuery\metadata.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <None Include="Samples\Layers\CreateFeatureCollectionLayer\metadata.json"/>
+    <None Include="Samples\Layers\FeatureCollectionLayerFromPortal\metadata.json"/>
+    <None Include="Samples\Layers\FeatureCollectionLayerFromQuery\metadata.json"/>
     <None Include="Samples\Layers\FeatureLayerSelection\metadata.json" />
     <None Include="Samples\Layers\FeatureLayerUrl\metadata.json" />
     <None Include="Samples\Location\DisplayDeviceLocation\metadata.json" />
@@ -229,13 +241,10 @@
     <None Include="Samples\Symbology\RenderUniqueValues\metadata.json" />
     <None Include="Samples\Tutorial\AuthorEditSaveMap\metadata.json" />
     <None Include="Samples\Search\FindAddress\metadata.json" />
-    <Content Include="Samples\MapView\ShowCallout\metadata.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\Search\FindAddress\FindAddress.jpg" />
+    <None Include="Samples\MapView\ShowCallout\metadata.json"/>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="My Project\AssemblyInfo.vb" />
+    <!-- Sample Code-->
     <Compile Include="Samples\Data\FeatureLayerQuery\FeatureLayerQueryVB.xaml.vb">
       <DependentUpon>FeatureLayerQueryVB.xaml</DependentUpon>
     </Compile>
@@ -284,7 +293,9 @@
     <Compile Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayerVB.xaml.vb">
       <DependentUpon>CreateFeatureCollectionLayerVB.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortalVB.xaml.vb" />
+    <Compile Include="Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortalVB.xaml.vb">
+      <DependentUpon>FeatureCollectionLayerFromPortalVB.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQueryVB.xaml.vb">
       <DependentUpon>FeatureCollectionLayerFromQueryVB.xaml</DependentUpon>
     </Compile>
@@ -378,16 +389,6 @@
     <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMapVB.xaml.vb">
       <DependentUpon>AuthorEditSaveMapVB.xaml</DependentUpon>
     </Compile>
-    <Content Include="My Project\ArcGISRuntime.Windows.Samples.VBNet.rd.xml" />
-    <Content Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg" />
-    <Content Include="Samples\MapView\MapRotation\MapRotation.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.jpg" />
-    <Content Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg" />
     <Compile Include="Samples\Search\FindAddress\FindAddressVB.xaml.vb">
       <DependentUpon>FindAddressVB.xaml</DependentUpon>
     </Compile>
@@ -395,42 +396,6 @@
       <DependentUpon>ShowCalloutVB.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Import Include="Microsoft.VisualBasic" />
-    <Import Include="System" />
-    <Import Include="System.Collections" />
-    <Import Include="System.Collections.Generic" />
-    <Import Include="System.Collections.ObjectModel" />
-    <Import Include="System.ComponentModel" />
-    <Import Include="System.Diagnostics" />
-    <Import Include="System.IO" />
-    <Import Include="System.Linq" />
-    <Import Include="System.Runtime.CompilerServices" />
-    <Import Include="System.Threading.Tasks" />
-    <Import Include="System.Runtime.InteropServices.WindowsRuntime" />
-    <Import Include="System.Windows.Input" />
-    <Import Include="System.Xml.Linq" />
-    <Import Include="Windows.ApplicationModel" />
-    <Import Include="Windows.ApplicationModel.Activation" />
-    <Import Include="Windows.Foundation" />
-    <Import Include="Windows.Foundation.Collections" />
-    <Import Include="Windows.Graphics.Display" />
-    <Import Include="Windows.UI.ViewManagement" />
-    <Import Include="Windows.UI.Xaml" />
-    <Import Include="Windows.UI.Xaml.Controls" />
-    <Import Include="Windows.UI.Xaml.Controls.Primitives" />
-    <Import Include="Windows.UI.Xaml.Data" />
-    <Import Include="Windows.UI.Xaml.Input" />
-    <Import Include="Windows.UI.Xaml.Media" />
-    <Import Include="Windows.UI.Xaml.Media.Imaging" />
-    <Import Include="Windows.UI.Xaml.Navigation" />
-  </ItemGroup>
-  <ItemGroup>
-    <SDKReference Include="Microsoft.VCLibs, version=14.0">
-      <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
-    </SDKReference>
-  </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Page Include="Samples\Data\FeatureLayerQuery\FeatureLayerQueryVB.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -649,11 +614,4 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.VisualBasic.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

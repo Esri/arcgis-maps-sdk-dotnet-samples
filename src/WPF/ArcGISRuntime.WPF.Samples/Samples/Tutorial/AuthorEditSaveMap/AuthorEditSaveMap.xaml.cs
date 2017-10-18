@@ -11,9 +11,11 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
@@ -42,6 +44,9 @@ namespace ArcGISRuntime.WPF.Samples.AuthorEditSaveMap
 
             // Get the view model (defined as a resource in the XAML)
             _mapViewModel = this.FindResource("MapViewModel") as MapViewModel;
+
+            // Pass the current map view to the view model
+            _mapViewModel.AppMapView = MyMapView;
 
             // Define a selection handler on the basemap list
             BasemapListBox.SelectionChanged += OnBasemapsClicked;
@@ -97,12 +102,15 @@ namespace ArcGISRuntime.WPF.Samples.AuthorEditSaveMap
 
                 // Get current map extent (viewpoint) for the map initial extent
                 var currentViewpoint = MyMapView.GetCurrentViewpoint(Esri.ArcGISRuntime.Mapping.ViewpointType.BoundingGeometry);
-                
+
+                // Export the current map view to use as the item's thumbnail
+                RuntimeImage thumbnailImg = await MyMapView.ExportImageAsync();
+
                 // See if the map has already been saved
                 if (!_mapViewModel.MapIsSaved)
                 {
                     // Call the SaveNewMapAsync method on the view model, pass in the required info
-                    await _mapViewModel.SaveNewMapAsync(currentViewpoint, title, description, tags);
+                    await _mapViewModel.SaveNewMapAsync(currentViewpoint, title, description, tags, thumbnailImg);
 
                     // Report success
                     MessageBox.Show("Map '" + title + "' was saved to your portal");
@@ -150,30 +158,27 @@ namespace ArcGISRuntime.WPF.Samples.AuthorEditSaveMap
 
         private void UpdateAuthenticationManager()
         {
-            // Define the server information for ArcGIS Online
-            ServerInfo portalServerInfo = new ServerInfo();
-
-            // ArcGIS Online URI
-            portalServerInfo.ServerUri = new Uri(ArcGISOnlineUrl);
-
-            // Type of token authentication to use
-            portalServerInfo.TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit;
-
-            // Define the OAuth information
-            OAuthClientInfo oAuthInfo = new OAuthClientInfo
+            // Register the server information with the AuthenticationManager
+            ServerInfo portalServerInfo = new ServerInfo
             {
-                ClientId = AppClientId,
-                RedirectUri = new Uri(OAuthRedirectUrl)
+                ServerUri = new Uri(ArcGISOnlineUrl),
+                OAuthClientInfo = new OAuthClientInfo
+                {
+                    ClientId = AppClientId,
+                    RedirectUri = new Uri(OAuthRedirectUrl)
+                },
+                // Specify OAuthAuthorizationCode if you need a refresh token (and have specified a valid client secret)
+                // Otherwise, use OAuthImplicit
+                TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
             };
-            portalServerInfo.OAuthClientInfo = oAuthInfo;
 
             // Get a reference to the (singleton) AuthenticationManager for the app
             AuthenticationManager thisAuthenticationManager = AuthenticationManager.Current;
 
-            // Register the ArcGIS Online server information with the AuthenticationManager
+            // Register the server information
             thisAuthenticationManager.RegisterServer(portalServerInfo);
 
-            // Use the OAuthAuthorize class in this project to create a new web view to show the login UI
+            // Use the OAuthAuthorize class in this project to create a new web view that contains the OAuth challenge handler.
             thisAuthenticationManager.OAuthAuthorizeHandler = new OAuthAuthorize();
 
             // Create a new ChallengeHandler that uses a method in this class to challenge for credentials
@@ -185,6 +190,13 @@ namespace ArcGISRuntime.WPF.Samples.AuthorEditSaveMap
     // Note: in a ArcGIS Runtime for .NET template project, this class will be in a separate file: "MapViewModel.cs"
     public class MapViewModel : INotifyPropertyChanged
     {
+        // Store the map view used by the app
+        private MapView _mapView;
+        public MapView AppMapView
+        {
+            set { _mapView = value; }
+        }
+
         private Map _map = new Map(Basemap.CreateStreetsVector());
 
         // Gets or sets the map
@@ -244,7 +256,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorEditSaveMap
         }
 
         // Save the current map to ArcGIS Online. The initial extent, title, description, and tags are passed in.
-        public async Task SaveNewMapAsync(Viewpoint initialViewpoint, string title, string description, string[] tags)
+        public async Task SaveNewMapAsync(Viewpoint initialViewpoint, string title, string description, string[] tags, RuntimeImage img)
         {
             // Get the ArcGIS Online portal 
             ArcGISPortal agsOnline = await ArcGISPortal.CreateAsync(new Uri("https://www.arcgis.com/sharing/rest"));
@@ -253,14 +265,23 @@ namespace ArcGISRuntime.WPF.Samples.AuthorEditSaveMap
             _map.InitialViewpoint = initialViewpoint;
 
             // Save the current state of the map as a portal item in the user's default folder
-            RuntimeImage img = null;
             await _map.SaveAsAsync(agsOnline, null, title, description, tags, img);
         }
 
-        public void UpdateMapItem()
+        public async void UpdateMapItem()
         {
             // Save the map
-            _map.SaveAsync();
+            await _map.SaveAsync();
+
+            // Export the current map view for the thumbnail
+            RuntimeImage thumbnailImg = await _mapView.ExportImageAsync();
+
+            // Get the file stream from the new thumbnail image
+            Stream imageStream = await thumbnailImg.GetEncodedBufferAsync();
+
+            // Update the item thumbnail
+            (_map.Item as PortalItem).SetThumbnailWithImage(imageStream);
+            await _map.SaveAsync();
         }
 
         public void ResetMap()
@@ -416,7 +437,6 @@ namespace ArcGISRuntime.WPF.Samples.AuthorEditSaveMap
                 e.Cancel = true;
                 var tcs = _tcs;
                 _tcs = null;
-
                 if (_window != null)
                 {
                     _window.Close();

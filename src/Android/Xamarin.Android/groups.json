@@ -110,8 +110,12 @@
               "Path":"Samples/Layers/ArcGISTiledLayerUrl"
             },
             {
-               "SampleName": "ArcGISVectorTiledLayerUrl",
+              "SampleName": "ArcGISVectorTiledLayerUrl",
               "Path": "Samples/Layers/ArcGISVectorTiledLayerUrl"
+            },
+            {
+              "SampleName": "ExportTiles",
+              "Path": "Samples/Layers/ExportTiles"
             }
           ]
         },
@@ -169,6 +173,14 @@
             {
               "SampleName": "RasterLayerRasterFunction",
               "Path": "Samples/Layers/RasterLayerRasterFunction"
+            },
+            {
+              "SampleName": "RasterLayerFile",
+              "Path": "Samples/Layers/RasterLayerFile"
+            },
+            {
+              "SampleName": "RasterRenderingRule",
+              "Path": "Samples/Layers/RasterRenderingRule"
             }
           ]
         }
@@ -218,6 +230,10 @@
             {
               "SampleName": "TimeBasedQuery",
               "Path": "Samples/Layers/TimeBasedQuery"
+            },
+            {
+              "SampleName": "FeatureLayerDictionaryRenderer",
+              "Path": "Samples/Layers/FeatureLayerDictionaryRenderer"
             }
           ]
         },
@@ -245,6 +261,10 @@
             {
               "SampleName": "FeatureLayerShapefile",
               "Path": "Samples/Data/FeatureLayerShapefile"
+            },
+            {
+              "SampleName": "EditAndSyncFeatures",
+              "Path": "Samples/Data/EditAndSyncFeatures"
             }
           ]
         }
@@ -262,6 +282,10 @@
             {
               "SampleName": "AddGraphicsRenderer",
               "Path": "Samples/GraphicsOverlay/AddGraphicsRenderer"
+            },
+            {
+              "SampleName": "SurfacePlacements",
+              "Path": "Samples/GraphicsOverlay/SurfacePlacements"
             },
             {
               "SampleName": "IdentifyGraphics",
@@ -289,6 +313,10 @@
             {
               "SampleName": "RenderUniqueValues",
               "Path": "Samples/Symbology/RenderUniqueValues"
+            },
+            {
+              "SampleName": "SimpleRenderers",
+              "Path": "Samples/Symbology/SimpleRenderers"
             }
           ]
         }
@@ -357,6 +385,10 @@
             {
               "SampleName": "SceneLayerUrl",
               "Path": "Samples/Layers/SceneLayerUrl"
+            },
+            {
+              "SampleName": "DisplayScene",
+              "Path": "Samples/Layers/DisplayScene"
             }
           ]
         }
@@ -401,13 +433,17 @@
       "CategoryName": "Search",
       "SubCategories": [
         {
-          "Name": "Working with Addresses",
-          "SubCategoryName": "WorkingWithAddresses",
+          "Name": "Working with Places",
+          "SubCategoryName": "WorkingWithPlaces",
           "ShowGroup": true,
           "SampleInfos": [
             {
               "SampleName": "FindAddress",
               "Path": "Samples/Search/FindAddress"
+            },
+            {
+              "SampleName": "FindPlace",
+              "Path": "Samples/Search/FindPlace"
             }
           ]
         }

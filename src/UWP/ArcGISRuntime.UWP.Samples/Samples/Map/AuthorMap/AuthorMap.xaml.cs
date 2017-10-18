@@ -123,6 +123,9 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
                 // Apply the current extent as the map's initial extent
                 myMap.InitialViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
 
+                // Export the current map view to use as the item's thumbnail
+                RuntimeImage thumbnailImg = await MyMapView.ExportImageAsync();
+
                 // See if the map has already been saved (has an associated portal item)
                 if (myMap.Item == null)
                 {
@@ -138,7 +141,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
                     }
 
                     // Call a function to save the map as a new portal item
-                    await SaveNewMapAsync(MyMapView.Map, title, description, tagText.Split(','));
+                    await SaveNewMapAsync(MyMapView.Map, title, description, tagText.Split(','), thumbnailImg);
 
                     // Report a successful save
                     var messageDialog = new MessageDialog("Saved '" + title + "' to ArcGIS Online!", "Map Saved");
@@ -149,27 +152,16 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
                     // This is not the initial save, call SaveAsync to save changes to the existing portal item
                     await myMap.SaveAsync();
 
+                    // Get the file stream from the new thumbnail image
+                    Stream imageStream = await thumbnailImg.GetEncodedBufferAsync();
+
+                    // Update the item thumbnail
+                    (myMap.Item as PortalItem).SetThumbnailWithImage(imageStream);                    
+                    await myMap.SaveAsync();
+
                     // Report update was successful
                     var messageDialog = new MessageDialog("Saved changes to '" + myMap.Item.Title + "'", "Updates Saved");
                     await messageDialog.ShowAsync();
-                }
-
-                // Update the portal item thumbnail with the current map image
-                try
-                {
-                    // Export the current map view
-                    var mapImage = await Esri.ArcGISRuntime.UI.RuntimeImageExtensions.ToImageSourceAsync(await MyMapView.ExportImageAsync());
-
-                    // Call a function that writes a temporary jpeg file of the map
-                    var imagePath = await WriteTempThumbnailImageAsync(mapImage);
-
-                    // Call a function to update the portal item's thumbnail with the image
-                    UpdatePortalItemThumbnailAsync(imagePath);
-                }
-                catch
-                {
-                    // Throw an exception to let the user know the thumbnail was not saved (the map item was)
-                    throw new Exception("Thumbnail was not updated.");
                 }
             }
             catch (Exception ex)
@@ -245,7 +237,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
             }
         }
 
-        private async Task SaveNewMapAsync(Map myMap, string title, string description, string[] tags)
+        private async Task SaveNewMapAsync(Map myMap, string title, string description, string[] tags, RuntimeImage img)
         {
             // Challenge the user for portal credentials (OAuth credential request for arcgis.com)
             CredentialRequestInfo loginInfo = new CredentialRequestInfo();
@@ -277,80 +269,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
             ArcGISPortal agsOnline = await ArcGISPortal.CreateAsync();
 
             // Save the current state of the map as a portal item in the user's default folder
-            RuntimeImage img = null;
-            await myMap.SaveAsAsync(agsOnline, null, title, description, tags, img, false);
-        }
-
-        private async void UpdatePortalItemThumbnailAsync(string imageFileName)
-        {
-            // Update the portal item with a thumbnail image of the current map
-            try
-            {
-                // Get the map's portal item
-                PortalItem newPortalItem = MyMapView.Map.Item as PortalItem;
-
-                // Open the image file (stored in the device's Pictures folder)
-                var mapImageFile = await KnownFolders.PicturesLibrary.GetFileAsync(imageFileName);
-
-                if (mapImageFile != null)
-                {
-                    // Get a thumbnail image (scaled down version) of the original
-                    var thumbnailData = await mapImageFile.GetScaledImageAsThumbnailAsync(0);
-
-                    // Assign the thumbnail data (file stream) to the content object
-                    newPortalItem.SetThumbnailWithImage(thumbnailData.AsStreamForRead());
-
-                    // Update the portal item with the new content (just the thumbnail will be updated)
-                    await newPortalItem.UpdateItemPropertiesAsync();
-
-                    // Delete the map image file from disk
-                    mapImageFile.DeleteAsync();
-                }
-            }
-            catch (Exception ex)
-            {
-                // Warn the user that the thumbnail could not be updated
-                var dialog = new MessageDialog("Unable to update thumbnail for portal item: " + ex.Message, "Portal Item Thumbnail");
-                dialog.ShowAsync();
-            }
-        }
-
-        private async Task<string> WriteTempThumbnailImageAsync(ImageSource mapImageSource)
-        {
-            string outputFilename = string.Empty;
-
-            try
-            {
-                // Export the current map view display to a bitmap
-                var mapImage = mapImageSource as WriteableBitmap;
-
-                // Create a new file in the device's Pictures folder
-                var outStorageFile = await KnownFolders.PicturesLibrary.CreateFileAsync("MapImage_Temp.jpg", CreationCollisionOption.GenerateUniqueName);
-                outputFilename = outStorageFile.Name;
-
-                // Open the new file for read/write
-                using (var stream = await outStorageFile.OpenAsync(FileAccessMode.ReadWrite))
-                {
-                    // Create a bitmap encoder to encode the image to Jpeg
-                    var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, stream);
-
-                    // Read the pixels from the map image into a byte array
-                    var pixelStream = mapImage.PixelBuffer.AsStream();
-                    var pixels = new byte[pixelStream.Length];
-                    await pixelStream.ReadAsync(pixels, 0, pixels.Length);
-
-                    // Use the encoder to write the map image pixels to the output file
-                    encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore, (uint)mapImage.PixelWidth, (uint)mapImage.PixelHeight, 96.0, 96.0, pixels);
-                    await encoder.FlushAsync();
-                }
-            }
-            catch
-            {
-                // Exception message will be shown in the calling function
-                throw;
-            }
-
-            return outputFilename;
+            await myMap.SaveAsAsync(agsOnline, null, title, description, tags, img);
         }
 
         private void UpdateViewExtentLabels()

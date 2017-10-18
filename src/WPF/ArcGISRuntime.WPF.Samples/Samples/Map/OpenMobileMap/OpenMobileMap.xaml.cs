@@ -11,6 +11,7 @@ using System.Linq;
 using System.IO;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WPF.Samples.OpenMobileMap
 {
@@ -26,6 +27,28 @@ namespace ArcGISRuntime.WPF.Samples.OpenMobileMap
 
         private async void Initialize()
         {
+            // Get the path to the mobile map package
+            string filepath = await GetMmpkPath();
+
+            // Open the map package
+            MobileMapPackage myMapPackage = await MobileMapPackage.OpenAsync(filepath);
+
+            // Check that there is at least one map
+            if (myMapPackage.Maps.Count > 0)
+            {
+                // Display the first map in the package
+                MyMapView.Map = myMapPackage.Maps.First();
+            }
+        }
+
+        /// <summary>
+        /// This abstracts away platform & sample viewer-specific code for accessing local files
+        /// </summary>
+        /// <returns>String that is the path to the file on disk</returns>
+        private async Task<string> GetMmpkPath()
+        {
+            #region offlinedata
+
             // The mobile map package will be downloaded from ArcGIS Online
             // The data manager (a component of the sample viewer, *NOT* the runtime
             //     handles the offline data process
@@ -45,16 +68,9 @@ namespace ArcGISRuntime.WPF.Samples.OpenMobileMap
                 // Download the map package file
                 await DataManager.GetData("e1f3a7254cb845b09450f54937c16061", "OpenMobileMap");
             }
+            return filepath;
 
-            // Open the map package
-            MobileMapPackage myMapPackage = await MobileMapPackage.OpenAsync(filepath);
-
-            // Check that there is at least one map
-            if (myMapPackage.Maps.Count > 0)
-            {
-                // Display the first map in the package
-                MyMapView.Map = myMapPackage.Maps.First();
-            }
+            #endregion offlinedata
         }
     }
 }

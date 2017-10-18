@@ -92,6 +92,10 @@
 
     This sample demonstrates how to create a ArcGISVectorTiledLayer and bind this to a Basemap which is used in the creation of a map.
 
+    * [Export tiles](Xamarin.iOS/Samples/Layers/ExportTiles)
+
+    This sample demonstrates how to export tiles from a map server.
+
 
 - **Map Image Layers**
 
@@ -133,6 +137,14 @@
 
     This sample demonstrates how to show a raster layer on a map based on an image service layer that has a raster function applied.
 
+    * [Raster layer (file)](Xamarin.iOS/Samples/Layers/RasterLayerFile)
+
+    This sample demonstrates how to use a raster layer created from a local raster file.
+
+    * [Raster rendering rule](Xamarin.iOS/Samples/Layers/RasterRenderingRule)
+
+    This sample demonstrates how to create an `ImageServiceRaster`, fetch the `RenderingRule`s from the service info, and use a `RenderingRule` to create an `ImageServiceRaster` and add it to a raster layer.
+
 ## Features
 
 
@@ -166,6 +178,10 @@
 
     This sample demonstrates how to create a feature collection layer to show a query result from a service feature table.
 
+    * [Feature layer dictionary renderer](Xamarin.iOS/Samples/Layers/FeatureLayerDictionaryRenderer)
+
+    Demonstrates how to apply a dictionary renderer to a feature layer and display mil2525d graphics. The dictionary renderer creates these graphics using a mil2525d style file and the attributes attached to each feature within the geodatabase.
+
 
 - **Feature Tables**
 
@@ -188,6 +204,10 @@
     * [Generate geodatabase](Xamarin.iOS/Samples/Data/GenerateGeodatabase)
 
     This sample demonstrates how to take a feature service offline by generating a geodatabase.
+
+    * [Edit and sync features](Xamarin.iOS/Samples/Data/EditAndSyncFeatures)
+
+    This sample demonstrates how to synchronize offline edits with a feature service.
 
 ## Display Information
 
@@ -221,6 +241,7 @@
 
     This sample demonstrate how to use a unique value renderer to style different features in a feature layer with different symbols. Features do not have a symbol property for you to set, renderers should be used to define the symbol for features in feature layers. The unique value renderer allows for separate symbols to be used for features that have specific attribute values in a defined field.
 
+<<<<<<< HEAD
 ## Analysis
 
 
@@ -229,6 +250,20 @@
     * [Statistical query](Xamarin.iOS/Samples/Data/StatisticalQuery)
 
     This sample demonstrates how to query a feature table to get statistics for a specified field.
+=======
+    * [Simple renderer](Xamarin.iOS/Samples/Symbology/SimpleRenderers)
+
+    This sample demonstrates how to create a simple renderer and add it to a graphics overlay. Renderers define the symbology for all graphics in a graphics overlay (unless they are overridden by setting the symbol directly on the graphic). Simple renderers can also be defined on feature layers using the same code.
+
+## Analysis
+
+
+- **Geoprocessing**
+
+    * [Analyze viewshed](Xamarin.iOS/Samples/Geoprocessing/AnalyzeViewshed)
+
+    This sample demonstrates how to use GeoprocessingTask to calculate a viewshed using a geoprocessing service. Click any point on the map to see all areas that are visible within a 1 kilometer radius. It may take a few seconds for the model to run and send back the results.
+>>>>>>> refs/remotes/origin/master
 
 ## Network Analysis
 
@@ -255,6 +290,10 @@
 
     This sample demonstrates how to add an ArcGISSceneLayer as a layer in a Scene.
 
+    * [Display scene](Xamarin.iOS/Samples/Layers/DisplayScene)
+
+    Demonstrates how to display a scene with an elevation data source. An elevation data source allows objects to be viewed in 3D, like this picture of Mt. Everest.
+
 ## Location
 
 
@@ -267,11 +306,15 @@
 ## Search
 
 
-- **Working with Addresses**
+- **Working with Places**
 
     * [Find Address](Xamarin.iOS/Samples/Search/FindAddress)
 
     This sample demonstrates how you can use the LocatorTask API to geocode an address and display it with a pin on the map. Tapping the pin displays the reverse-geocoded address in a callout.
+
+    * [Find Place](Xamarin.iOS/Samples/Search/FindPlace)
+
+    This sample demonstrates how to use geocode functionality to search for points of interest, around a location or within an extent.
 
 ## Tutorial
 

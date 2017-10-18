@@ -158,11 +158,4 @@
   <Import Project="..\ArcGISRuntime.Xamarin.Samples\ArcGISRuntime.Xamarin.Samples.projitems" Label="Shared" Condition="Exists('..\ArcGISRuntime.Xamarin.Samples\ArcGISRuntime.Xamarin.Samples.projitems')" />
   <Import Project="..\Shared\Forms.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

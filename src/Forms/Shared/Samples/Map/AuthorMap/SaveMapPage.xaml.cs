@@ -13,6 +13,25 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
 			InitializeComponent ();
 		}
 
+        // If updating an existing map item, show the existing item info and disable changing info
+        public void ShowForUpdate(string title, string description, string[] tags)
+        {
+            // Item title
+            MapTitleEntry.Text = title;
+            MapTitleEntry.IsEnabled = false;
+
+            // Item description
+            MapDescriptionEntry.Text = description;
+            MapDescriptionEntry.IsEnabled = false;
+
+            // Item tags
+            MapTagsEntry.Text = string.Join(",", tags);
+            MapTagsEntry.IsEnabled = false;
+
+            // Show 'Update' rather than 'Save' for button text
+            SaveMapButton.Text = "Update";
+        }
+
         // A click handler for the save map button
         private void SaveButtonClicked(object sender, EventArgs e)
         {

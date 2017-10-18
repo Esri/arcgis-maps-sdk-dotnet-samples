@@ -38,7 +38,7 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeViewshed
         {
             InitializeComponent();
 
-            Title = "Analyze Viewshed";
+            Title = "Viewshed (Geoprocessing)";
 
             // Create the UI, setup the control references and execute initialization
             Initialize();
@@ -83,7 +83,7 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeViewshed
             // is a problem with the execution of the geoprocessing task an error message will be displayed 
 
             // Create new geoprocessing task using the url defined in the member variables section
-            var myViewshedTask = new GeoprocessingTask(new Uri(_viewshedUrl));
+            var myViewshedTask = await GeoprocessingTask.CreateAsync(new Uri(_viewshedUrl));
 
             // Create a new feature collection table based upon point geometries using the current map view spatial reference
             var myInputFeatures = new FeatureCollectionTable(new List<Field>(), GeometryType.Point, MyMapView.SpatialReference);

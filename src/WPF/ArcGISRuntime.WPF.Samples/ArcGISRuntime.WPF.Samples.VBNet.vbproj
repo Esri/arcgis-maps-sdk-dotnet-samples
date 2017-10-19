@@ -95,7 +95,10 @@
   <ItemGroup>
     <!-- Sample Manager Code-->
     <Compile Include="My Project\AssemblyInfo.vb" />
-    <None Include="My Project\Application.myapp"><Generator>MyApplicationCodeGenerator</Generator><LastGenOutput>Application.Designer.vb</LastGenOutput></None>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>
@@ -214,109 +217,359 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-    <Compile Include="Samples\Data\FeatureLayerQuery\FeatureLayerQueryVB.xaml.vb"><DependentUpon>FeatureLayerQueryVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCacheVB.xaml.vb"><DependentUpon>ServiceFeatureTableCacheVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCacheVB.xaml.vb"><DependentUpon>ServiceFeatureTableManualCacheVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCacheVB.xaml.vb"><DependentUpon>ServiceFeatureTableNoCacheVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspotsVB.xaml.vb"><DependentUpon>AnalyzeHotspotsVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshedVB.xaml.vb"><DependentUpon>AnalyzeViewshedVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersionsVB.xaml.vb"><DependentUpon>ListGeodatabaseVersionsVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRendererVB.xaml.vb"><DependentUpon>AddGraphicsRendererVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphicsVB.xaml.vb"><DependentUpon>IdentifyGraphicsVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMapVB.xaml.vb"><DependentUpon>SketchOnMapVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrlVB.xaml.vb"><DependentUpon>ArcGISMapImageLayerUrlVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrlVB.xaml.vb"><DependentUpon>ArcGISTiledLayerUrlVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrlVB.xaml.vb"><DependentUpon>ArcGISVectorTiledLayerUrlVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRendererVB.xaml.vb"><DependentUpon>ChangeFeatureLayerRendererVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibilityVB.xaml.vb"><DependentUpon>ChangeSublayerVisibilityVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayerVB.xaml.vb"><DependentUpon>CreateFeatureCollectionLayerVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortalVB.xaml.vb"><DependentUpon>FeatureCollectionLayerFromPortalVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQueryVB.xaml.vb"><DependentUpon>FeatureCollectionLayerFromQueryVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpressionVB.xaml.vb"><DependentUpon>FeatureLayerDefinitionExpressionVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelectionVB.xaml.vb"><DependentUpon>FeatureLayerSelectionVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrlVB.xaml.vb"><DependentUpon>FeatureLayerUrlVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRasterVB.xaml.vb"><DependentUpon>RasterLayerImageServiceRasterVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunctionVB.xaml.vb"><DependentUpon>RasterLayerRasterFunctionVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Layers\WMTSLayer\WMTSLayerVB.xaml.vb"><DependentUpon>WMTSLayerVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocationVB.xaml.vb"><DependentUpon>DisplayDeviceLocationVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Map\AccessLoadStatus\AccessLoadStatusVB.xaml.vb"><DependentUpon>AccessLoadStatusVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Map\AuthorMap\AuthorMapVB.xaml.vb"><DependentUpon>AuthorMapVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Map\ChangeBasemap\ChangeBasemapVB.xaml.vb"><DependentUpon>ChangeBasemapVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Map\DisplayMap\DisplayMapVB.xaml.vb"><DependentUpon>DisplayMapVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarksVB.xaml.vb"><DependentUpon>ManageBookmarksVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Map\OpenMapURL\OpenMapURLVB.xaml.vb"><DependentUpon>OpenMapURLVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Map\SearchPortalMaps\SearchPortalMapsVB.xaml.vb"><DependentUpon>SearchPortalMapsVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Map\SetInitialMapArea\SetInitialMapAreaVB.xaml.vb"><DependentUpon>SetInitialMapAreaVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocationVB.xaml.vb"><DependentUpon>SetInitialMapLocationVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReferenceVB.xaml.vb"><DependentUpon>SetMapSpatialReferenceVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Map\SetMinMaxScale\SetMinMaxScaleVB.xaml.vb"><DependentUpon>SetMinMaxScaleVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\MapView\ChangeViewpoint\ChangeViewpointVB.xaml.vb"><DependentUpon>ChangeViewpointVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatusVB.xaml.vb"><DependentUpon>DisplayDrawingStatusVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewStateVB.xaml.vb"><DependentUpon>DisplayLayerViewStateVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\MapView\MapRotation\MapRotationVB.xaml.vb"><DependentUpon>MapRotationVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\MapView\ShowCallout\ShowCalloutVB.xaml.vb"><DependentUpon>ShowCalloutVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\MapView\ShowMagnifier\ShowMagnifierVB.xaml.vb"><DependentUpon>ShowMagnifierVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\MapView\TakeScreenshot\TakeScreenshotVB.xaml.vb"><DependentUpon>TakeScreenshotVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\NetworkAnalysis\FindRoute\FindRouteVB.xaml.vb"><DependentUpon>FindRouteVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Search\FindAddress\FindAddressVB.xaml.vb"><DependentUpon>FindAddressVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkersVB.xaml.vb"><DependentUpon>RenderPictureMarkersVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkersVB.xaml.vb"><DependentUpon>RenderSimpleMarkersVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValuesVB.xaml.vb"><DependentUpon>RenderUniqueValuesVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSymVB.xaml.vb"><DependentUpon>UseDistanceCompositeSymVB.xaml</DependentUpon></Compile>
-    <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMapVB.xaml.vb"><DependentUpon>AuthorEditSaveMapVB.xaml</DependentUpon></Compile>
+    <Compile Include="Samples\Data\FeatureLayerQuery\FeatureLayerQueryVB.xaml.vb">
+      <DependentUpon>FeatureLayerQueryVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCacheVB.xaml.vb">
+      <DependentUpon>ServiceFeatureTableCacheVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCacheVB.xaml.vb">
+      <DependentUpon>ServiceFeatureTableManualCacheVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCacheVB.xaml.vb">
+      <DependentUpon>ServiceFeatureTableNoCacheVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspotsVB.xaml.vb">
+      <DependentUpon>AnalyzeHotspotsVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshedVB.xaml.vb">
+      <DependentUpon>AnalyzeViewshedVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersionsVB.xaml.vb">
+      <DependentUpon>ListGeodatabaseVersionsVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRendererVB.xaml.vb">
+      <DependentUpon>AddGraphicsRendererVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphicsVB.xaml.vb">
+      <DependentUpon>IdentifyGraphicsVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMapVB.xaml.vb">
+      <DependentUpon>SketchOnMapVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrlVB.xaml.vb">
+      <DependentUpon>ArcGISMapImageLayerUrlVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrlVB.xaml.vb">
+      <DependentUpon>ArcGISTiledLayerUrlVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrlVB.xaml.vb">
+      <DependentUpon>ArcGISVectorTiledLayerUrlVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRendererVB.xaml.vb">
+      <DependentUpon>ChangeFeatureLayerRendererVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibilityVB.xaml.vb">
+      <DependentUpon>ChangeSublayerVisibilityVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayerVB.xaml.vb">
+      <DependentUpon>CreateFeatureCollectionLayerVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortalVB.xaml.vb">
+      <DependentUpon>FeatureCollectionLayerFromPortalVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQueryVB.xaml.vb">
+      <DependentUpon>FeatureCollectionLayerFromQueryVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpressionVB.xaml.vb">
+      <DependentUpon>FeatureLayerDefinitionExpressionVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelectionVB.xaml.vb">
+      <DependentUpon>FeatureLayerSelectionVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrlVB.xaml.vb">
+      <DependentUpon>FeatureLayerUrlVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRasterVB.xaml.vb">
+      <DependentUpon>RasterLayerImageServiceRasterVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunctionVB.xaml.vb">
+      <DependentUpon>RasterLayerRasterFunctionVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\WMTSLayer\WMTSLayerVB.xaml.vb">
+      <DependentUpon>WMTSLayerVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocationVB.xaml.vb">
+      <DependentUpon>DisplayDeviceLocationVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\AccessLoadStatus\AccessLoadStatusVB.xaml.vb">
+      <DependentUpon>AccessLoadStatusVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\AuthorMap\AuthorMapVB.xaml.vb">
+      <DependentUpon>AuthorMapVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\ChangeBasemap\ChangeBasemapVB.xaml.vb">
+      <DependentUpon>ChangeBasemapVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\DisplayMap\DisplayMapVB.xaml.vb">
+      <DependentUpon>DisplayMapVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarksVB.xaml.vb">
+      <DependentUpon>ManageBookmarksVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\OpenMapURL\OpenMapURLVB.xaml.vb">
+      <DependentUpon>OpenMapURLVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\SearchPortalMaps\SearchPortalMapsVB.xaml.vb">
+      <DependentUpon>SearchPortalMapsVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\SetInitialMapArea\SetInitialMapAreaVB.xaml.vb">
+      <DependentUpon>SetInitialMapAreaVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocationVB.xaml.vb">
+      <DependentUpon>SetInitialMapLocationVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReferenceVB.xaml.vb">
+      <DependentUpon>SetMapSpatialReferenceVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\SetMinMaxScale\SetMinMaxScaleVB.xaml.vb">
+      <DependentUpon>SetMinMaxScaleVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\ChangeViewpoint\ChangeViewpointVB.xaml.vb">
+      <DependentUpon>ChangeViewpointVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatusVB.xaml.vb">
+      <DependentUpon>DisplayDrawingStatusVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewStateVB.xaml.vb">
+      <DependentUpon>DisplayLayerViewStateVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\MapRotation\MapRotationVB.xaml.vb">
+      <DependentUpon>MapRotationVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\ShowCallout\ShowCalloutVB.xaml.vb">
+      <DependentUpon>ShowCalloutVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\ShowMagnifier\ShowMagnifierVB.xaml.vb">
+      <DependentUpon>ShowMagnifierVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\TakeScreenshot\TakeScreenshotVB.xaml.vb">
+      <DependentUpon>TakeScreenshotVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\NetworkAnalysis\FindRoute\FindRouteVB.xaml.vb">
+      <DependentUpon>FindRouteVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Search\FindAddress\FindAddressVB.xaml.vb">
+      <DependentUpon>FindAddressVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkersVB.xaml.vb">
+      <DependentUpon>RenderPictureMarkersVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkersVB.xaml.vb">
+      <DependentUpon>RenderSimpleMarkersVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValuesVB.xaml.vb">
+      <DependentUpon>RenderUniqueValuesVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSymVB.xaml.vb">
+      <DependentUpon>UseDistanceCompositeSymVB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMapVB.xaml.vb">
+      <DependentUpon>AuthorEditSaveMapVB.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-    <Page Include="Samples\Data\FeatureLayerQuery\FeatureLayerQueryVB.xaml"><SubType>Designer</SubType><Generator>MSBuild:Compile</Generator></Page>
-    <Page Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCacheVB.xaml"><SubType>Designer</SubType><Generator>MSBuild:Compile</Generator></Page>
-    <Page Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCacheVB.xaml"><SubType>Designer</SubType><Generator>MSBuild:Compile</Generator></Page>
-    <Page Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCacheVB.xaml"><SubType>Designer</SubType><Generator>MSBuild:Compile</Generator></Page>
-    <Page Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspotsVB.xaml"><SubType>Designer</SubType><Generator>MSBuild:Compile</Generator></Page>
-    <Page Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshedVB.xaml"><SubType>Designer</SubType><Generator>MSBuild:Compile</Generator></Page>
-    <Page Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersionsVB.xaml"><SubType>Designer</SubType><Generator>MSBuild:Compile</Generator></Page>
-    <Page Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRendererVB.xaml"><SubType>Designer</SubType><Generator>MSBuild:Compile</Generator></Page>
-    <Page Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphicsVB.xaml"><SubType>Designer</SubType><Generator>MSBuild:Compile</Generator></Page>
-    <Page Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMapVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrlVB.xaml"><SubType>Designer</SubType><Generator>MSBuild:Compile</Generator></Page>
-    <Page Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrlVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrlVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRendererVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibilityVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayerVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortalVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQueryVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpressionVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelectionVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrlVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRasterVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunctionVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\Layers\WMTSLayer\WMTSLayerVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocationVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\Map\AccessLoadStatus\AccessLoadStatusVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\Map\AuthorMap\AuthorMapVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\Map\ChangeBasemap\ChangeBasemapVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\Map\DisplayMap\DisplayMapVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\Map\ManageBookmarks\ManageBookmarksVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\Map\OpenMapURL\OpenMapURLVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\Map\SearchPortalMaps\SearchPortalMapsVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\Map\SetInitialMapArea\SetInitialMapAreaVB.xaml"><SubType>Designer</SubType><Generator>MSBuild:Compile</Generator></Page>
-    <Page Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocationVB.xaml"><SubType>Designer</SubType><Generator>MSBuild:Compile</Generator></Page>
-    <Page Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReferenceVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\Map\SetMinMaxScale\SetMinMaxScaleVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\MapView\ChangeViewpoint\ChangeViewpointVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatusVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewStateVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\MapView\MapRotation\MapRotationVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\MapView\ShowCallout\ShowCalloutVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\MapView\ShowMagnifier\ShowMagnifierVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\MapView\TakeScreenshot\TakeScreenshotVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\NetworkAnalysis\FindRoute\FindRouteVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\Search\FindAddress\FindAddressVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkersVB.xaml"><SubType>Designer</SubType><Generator>MSBuild:Compile</Generator></Page>
-    <Page Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkersVB.xaml"><SubType>Designer</SubType><Generator>MSBuild:Compile</Generator></Page>
-    <Page Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValuesVB.xaml"><SubType>Designer</SubType><Generator>MSBuild:Compile</Generator></Page>
-    <Page Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSymVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
-    <Page Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMapVB.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
+    <Page Include="Samples\Data\FeatureLayerQuery\FeatureLayerQueryVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCacheVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCacheVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCacheVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspotsVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshedVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersionsVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRendererVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphicsVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMapVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrlVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrlVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrlVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRendererVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibilityVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayerVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortalVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQueryVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpressionVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelectionVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrlVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRasterVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunctionVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\WMTSLayer\WMTSLayerVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocationVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\AccessLoadStatus\AccessLoadStatusVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\AuthorMap\AuthorMapVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\ChangeBasemap\ChangeBasemapVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\DisplayMap\DisplayMapVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\ManageBookmarks\ManageBookmarksVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\OpenMapURL\OpenMapURLVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\SearchPortalMaps\SearchPortalMapsVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\SetInitialMapArea\SetInitialMapAreaVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocationVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReferenceVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\SetMinMaxScale\SetMinMaxScaleVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\ChangeViewpoint\ChangeViewpointVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatusVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewStateVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\MapRotation\MapRotationVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\ShowCallout\ShowCalloutVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\ShowMagnifier\ShowMagnifierVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\TakeScreenshot\TakeScreenshotVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\NetworkAnalysis\FindRoute\FindRouteVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Search\FindAddress\FindAddressVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkersVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkersVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValuesVB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSymVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMapVB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

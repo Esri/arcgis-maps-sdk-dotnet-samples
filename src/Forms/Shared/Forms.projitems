@@ -30,9 +30,16 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\SampleModelExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SampleStructureMap.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SubCategoryModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SampleListPage.xaml.cs"><DependentUpon>SampleListPage.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)CategoryListPage.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)SampleListPage.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
+    <Compile Include="$(MSBuildThisFileDirectory)SampleListPage.xaml.cs">
+      <DependentUpon>SampleListPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)CategoryListPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)SampleListPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
@@ -92,7 +99,9 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\SetInitialMapLocation\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\SetMapSpatialReference\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\SetMinMaxScale\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\ChangeViewpoint\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\ChangeViewpoint\metadata.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\DisplayDrawingStatus\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\DisplayLayerViewState\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\MapRotation\metadata.json" />
@@ -184,154 +193,519 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.xaml.cs"><DependentUpon>EditAndSyncFeatures.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.xaml.cs"><SubType>Code</SubType><DependentUpon>FeatureLayerGeoPackage.xaml</DependentUpon></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerQuery\FeatureLayerQuery.xaml.cs"><DependentUpon>FeatureLayerQuery.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.xaml.cs"><DependentUpon>FeatureLayerShapefile.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\GenerateGeodatabase\GenerateGeodatabase.xaml.cs"><DependentUpon>GenerateGeodatabase.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.xaml.cs"><DependentUpon>ServiceFeatureTableCache.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.xaml.cs"><DependentUpon>ServiceFeatureTableManualCache.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.xaml.cs"><DependentUpon>ServiceFeatureTableNoCache.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\StatisticalQuery\StatisticalQuery.xaml.cs"><DependentUpon>StatisticalQuery.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.xaml.cs"><DependentUpon>StatsQueryGroupAndSort.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.xaml.cs"><DependentUpon>AnalyzeHotspots.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.xaml.cs"><DependentUpon>AnalyzeViewshed.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.xaml.cs"><DependentUpon>ListGeodatabaseVersions.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.xaml.cs"><DependentUpon>AddGraphicsRenderer.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.xaml.cs"><DependentUpon>IdentifyGraphics.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.xaml.cs"><DependentUpon>SketchOnMap.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.xaml.cs"><DependentUpon>SurfacePlacements.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.xaml.cs"><DependentUpon>ArcGISMapImageLayerUrl.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.xaml.cs"><DependentUpon>ArcGISTiledLayerUrl.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.xaml.cs"><DependentUpon>ArcGISVectorTiledLayerUrl.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.xaml.cs"><DependentUpon>ChangeFeatureLayerRenderer.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.xaml.cs"><DependentUpon>ChangeSublayerVisibility.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.xaml.cs"><DependentUpon>CreateFeatureCollectionLayer.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayScene\DisplayScene.xaml.cs"><DependentUpon>DisplayScene.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ExportTiles\ExportTiles.xaml.cs"><DependentUpon>ExportTiles.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortal.xaml.cs"><DependentUpon>FeatureCollectionLayerFromPortal.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQuery.xaml.cs"><DependentUpon>FeatureCollectionLayerFromQuery.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.xaml.cs"><DependentUpon>FeatureLayerDefinitionExpression.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.xaml.cs"><DependentUpon>FeatureLayerDictionaryRenderer.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.xaml.cs"><DependentUpon>FeatureLayerSelection.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.xaml.cs"><DependentUpon>FeatureLayerUrl.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\KmlLayerFile\KmlLayerFile.xaml.cs"><DependentUpon>KmlLayerFile.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\KmlLayerUrl\KmlLayerUrl.xaml.cs"><DependentUpon>KmlLayerUrl.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterLayerFile\RasterLayerFile.xaml.cs"><DependentUpon>RasterLayerFile.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.xaml.cs"><DependentUpon>RasterLayerImageServiceRaster.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.xaml.cs"><DependentUpon>RasterLayerRasterFunction.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterRenderingRule\RasterRenderingRule.xaml.cs"><DependentUpon>RasterRenderingRule.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\SceneLayerUrl\SceneLayerUrl.xaml.cs"><DependentUpon>SceneLayerUrl.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\TimeBasedQuery\TimeBasedQuery.xaml.cs"><DependentUpon>TimeBasedQuery.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\WMSLayerUrl\WMSLayerUrl.xaml.cs"><DependentUpon>WMSLayerUrl.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.xaml.cs"><DependentUpon>WmsServiceCatalog.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\WMTSLayer\WMTSLayer.xaml.cs"><DependentUpon>WMTSLayer.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.xaml.cs"><DependentUpon>DisplayDeviceLocation.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\AccessLoadStatus\AccessLoadStatus.xaml.cs"><DependentUpon>AccessLoadStatus.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\AuthorMap\AuthorMap.xaml.cs"><DependentUpon>AuthorMap.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\AuthorMap\SaveMapPage.xaml.cs"><DependentUpon>SaveMapPage.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\ChangeBasemap\ChangeBasemap.xaml.cs"><DependentUpon>ChangeBasemap.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\DisplayMap\DisplayMap.xaml.cs"><DependentUpon>DisplayMap.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\ManageBookmarks\ManageBookmarks.xaml.cs"><DependentUpon>ManageBookmarks.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\OpenMapURL\OpenMapURL.xaml.cs"><DependentUpon>OpenMapURL.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\OpenMobileMap\OpenMobileMap.xaml.cs"><DependentUpon>OpenMobileMap.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\SearchPortalMaps\SearchPortalMaps.xaml.cs"><DependentUpon>SearchPortalMaps.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\SetInitialMapArea\SetInitialMapArea.xaml.cs"><DependentUpon>SetInitialMapArea.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\SetInitialMapLocation\SetInitialMapLocation.xaml.cs"><DependentUpon>SetInitialMapLocation.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\SetMapSpatialReference\SetMapSpatialReference.xaml.cs"><DependentUpon>SetMapSpatialReference.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\SetMinMaxScale\SetMinMaxScale.xaml.cs"><DependentUpon>SetMinMaxScale.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\ChangeViewpoint\ChangeViewpoint.xaml.cs"><DependentUpon>ChangeViewpoint.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.xaml.cs"><DependentUpon>DisplayDrawingStatus.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.xaml.cs"><DependentUpon>DisplayLayerViewState.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\MapRotation\MapRotation.xaml.cs"><DependentUpon>MapRotation.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\ShowCallout\ShowCallout.xaml.cs"><DependentUpon>ShowCallout.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\ShowMagnifier\ShowMagnifier.xaml.cs"><DependentUpon>ShowMagnifier.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\TakeScreenshot\TakeScreenshot.xaml.cs"><DependentUpon>TakeScreenshot.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\NetworkAnalysis\FindRoute\FindRoute.xaml.cs"><DependentUpon>FindRoute.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Search\FindAddress\FindAddress.xaml.cs"><DependentUpon>FindAddress.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Search\FindPlace\FindPlace.xaml.cs"><DependentUpon>FindPlace.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.xaml.cs"><DependentUpon>RenderPictureMarkers.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.xaml.cs"><DependentUpon>RenderSimpleMarkers.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderUniqueValues\RenderUniqueValues.xaml.cs"><DependentUpon>RenderUniqueValues.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Symbology\SimpleRenderers\SimpleRenderers.xaml.cs"><DependentUpon>SimpleRenderers.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml.cs"><DependentUpon>UseDistanceCompositeSym.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.xaml.cs"><DependentUpon>AuthorEditSaveMap.xaml</DependentUpon><SubType>Code</SubType></Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Tutorial\AuthorEditSaveMap\SaveMapPage.xaml.cs"><DependentUpon>SaveMapPage.xaml</DependentUpon><SubType>Code</SubType></Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.xaml.cs">
+      <DependentUpon>EditAndSyncFeatures.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>FeatureLayerGeoPackage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerQuery\FeatureLayerQuery.xaml.cs">
+      <DependentUpon>FeatureLayerQuery.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.xaml.cs">
+      <DependentUpon>FeatureLayerShapefile.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\GenerateGeodatabase\GenerateGeodatabase.xaml.cs">
+      <DependentUpon>GenerateGeodatabase.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.xaml.cs">
+      <DependentUpon>ServiceFeatureTableCache.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.xaml.cs">
+      <DependentUpon>ServiceFeatureTableManualCache.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.xaml.cs">
+      <DependentUpon>ServiceFeatureTableNoCache.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\StatisticalQuery\StatisticalQuery.xaml.cs">
+      <DependentUpon>StatisticalQuery.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.xaml.cs">
+      <DependentUpon>StatsQueryGroupAndSort.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.xaml.cs">
+      <DependentUpon>AnalyzeHotspots.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.xaml.cs">
+      <DependentUpon>AnalyzeViewshed.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.xaml.cs">
+      <DependentUpon>ListGeodatabaseVersions.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.xaml.cs">
+      <DependentUpon>AddGraphicsRenderer.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.xaml.cs">
+      <DependentUpon>IdentifyGraphics.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.xaml.cs">
+      <DependentUpon>SketchOnMap.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.xaml.cs">
+      <DependentUpon>SurfacePlacements.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.xaml.cs">
+      <DependentUpon>ArcGISMapImageLayerUrl.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.xaml.cs">
+      <DependentUpon>ArcGISTiledLayerUrl.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.xaml.cs">
+      <DependentUpon>ArcGISVectorTiledLayerUrl.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.xaml.cs">
+      <DependentUpon>ChangeFeatureLayerRenderer.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.xaml.cs">
+      <DependentUpon>ChangeSublayerVisibility.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.xaml.cs">
+      <DependentUpon>CreateFeatureCollectionLayer.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayScene\DisplayScene.xaml.cs">
+      <DependentUpon>DisplayScene.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ExportTiles\ExportTiles.xaml.cs">
+      <DependentUpon>ExportTiles.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortal.xaml.cs">
+      <DependentUpon>FeatureCollectionLayerFromPortal.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQuery.xaml.cs">
+      <DependentUpon>FeatureCollectionLayerFromQuery.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.xaml.cs">
+      <DependentUpon>FeatureLayerDefinitionExpression.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.xaml.cs">
+      <DependentUpon>FeatureLayerDictionaryRenderer.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.xaml.cs">
+      <DependentUpon>FeatureLayerSelection.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.xaml.cs">
+      <DependentUpon>FeatureLayerUrl.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\KmlLayerFile\KmlLayerFile.xaml.cs">
+      <DependentUpon>KmlLayerFile.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\KmlLayerUrl\KmlLayerUrl.xaml.cs">
+      <DependentUpon>KmlLayerUrl.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterLayerFile\RasterLayerFile.xaml.cs">
+      <DependentUpon>RasterLayerFile.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.xaml.cs">
+      <DependentUpon>RasterLayerImageServiceRaster.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.xaml.cs">
+      <DependentUpon>RasterLayerRasterFunction.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterRenderingRule\RasterRenderingRule.xaml.cs">
+      <DependentUpon>RasterRenderingRule.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\SceneLayerUrl\SceneLayerUrl.xaml.cs">
+      <DependentUpon>SceneLayerUrl.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\TimeBasedQuery\TimeBasedQuery.xaml.cs">
+      <DependentUpon>TimeBasedQuery.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\WMSLayerUrl\WMSLayerUrl.xaml.cs">
+      <DependentUpon>WMSLayerUrl.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.xaml.cs">
+      <DependentUpon>WmsServiceCatalog.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\WMTSLayer\WMTSLayer.xaml.cs">
+      <DependentUpon>WMTSLayer.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.xaml.cs">
+      <DependentUpon>DisplayDeviceLocation.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\AccessLoadStatus\AccessLoadStatus.xaml.cs">
+      <DependentUpon>AccessLoadStatus.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\AuthorMap\AuthorMap.xaml.cs">
+      <DependentUpon>AuthorMap.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\AuthorMap\SaveMapPage.xaml.cs">
+      <DependentUpon>SaveMapPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\ChangeBasemap\ChangeBasemap.xaml.cs">
+      <DependentUpon>ChangeBasemap.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\DisplayMap\DisplayMap.xaml.cs">
+      <DependentUpon>DisplayMap.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\ManageBookmarks\ManageBookmarks.xaml.cs">
+      <DependentUpon>ManageBookmarks.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\OpenMapURL\OpenMapURL.xaml.cs">
+      <DependentUpon>OpenMapURL.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\OpenMobileMap\OpenMobileMap.xaml.cs">
+      <DependentUpon>OpenMobileMap.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\SearchPortalMaps\SearchPortalMaps.xaml.cs">
+      <DependentUpon>SearchPortalMaps.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\SetInitialMapArea\SetInitialMapArea.xaml.cs">
+      <DependentUpon>SetInitialMapArea.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\SetInitialMapLocation\SetInitialMapLocation.xaml.cs">
+      <DependentUpon>SetInitialMapLocation.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\SetMapSpatialReference\SetMapSpatialReference.xaml.cs">
+      <DependentUpon>SetMapSpatialReference.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\SetMinMaxScale\SetMinMaxScale.xaml.cs">
+      <DependentUpon>SetMinMaxScale.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\ChangeViewpoint\ChangeViewpoint.xaml.cs">
+      <DependentUpon>ChangeViewpoint.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.xaml.cs">
+      <DependentUpon>DisplayDrawingStatus.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.xaml.cs">
+      <DependentUpon>DisplayLayerViewState.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\MapRotation\MapRotation.xaml.cs">
+      <DependentUpon>MapRotation.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\ShowCallout\ShowCallout.xaml.cs">
+      <DependentUpon>ShowCallout.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\ShowMagnifier\ShowMagnifier.xaml.cs">
+      <DependentUpon>ShowMagnifier.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\TakeScreenshot\TakeScreenshot.xaml.cs">
+      <DependentUpon>TakeScreenshot.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\NetworkAnalysis\FindRoute\FindRoute.xaml.cs">
+      <DependentUpon>FindRoute.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Search\FindAddress\FindAddress.xaml.cs">
+      <DependentUpon>FindAddress.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Search\FindPlace\FindPlace.xaml.cs">
+      <DependentUpon>FindPlace.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.xaml.cs">
+      <DependentUpon>RenderPictureMarkers.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.xaml.cs">
+      <DependentUpon>RenderSimpleMarkers.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderUniqueValues\RenderUniqueValues.xaml.cs">
+      <DependentUpon>RenderUniqueValues.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Symbology\SimpleRenderers\SimpleRenderers.xaml.cs">
+      <DependentUpon>SimpleRenderers.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml.cs">
+      <DependentUpon>UseDistanceCompositeSym.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.xaml.cs">
+      <DependentUpon>AuthorEditSaveMap.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Tutorial\AuthorEditSaveMap\SaveMapPage.xaml.cs">
+      <DependentUpon>SaveMapPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerQuery\FeatureLayerQuery.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\GenerateGeodatabase\GenerateGeodatabase.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\StatisticalQuery\StatisticalQuery.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayScene\DisplayScene.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ExportTiles\ExportTiles.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortal.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQuery.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\KmlLayerFile\KmlLayerFile.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\KmlLayerUrl\KmlLayerUrl.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterLayerFile\RasterLayerFile.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterRenderingRule\RasterRenderingRule.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\SceneLayerUrl\SceneLayerUrl.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\TimeBasedQuery\TimeBasedQuery.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\WMSLayerUrl\WMSLayerUrl.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\WMTSLayer\WMTSLayer.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\AccessLoadStatus\AccessLoadStatus.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\AuthorMap\AuthorMap.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\AuthorMap\SaveMapPage.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\ChangeBasemap\ChangeBasemap.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\DisplayMap\DisplayMap.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\ManageBookmarks\ManageBookmarks.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\OpenMapURL\OpenMapURL.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\OpenMobileMap\OpenMobileMap.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\SearchPortalMaps\SearchPortalMaps.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\SetInitialMapArea\SetInitialMapArea.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\SetInitialMapLocation\SetInitialMapLocation.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\SetMapSpatialReference\SetMapSpatialReference.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\SetMinMaxScale\SetMinMaxScale.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\ChangeViewpoint\ChangeViewpoint.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\MapRotation\MapRotation.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\ShowCallout\ShowCallout.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\ShowMagnifier\ShowMagnifier.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\TakeScreenshot\TakeScreenshot.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\NetworkAnalysis\FindRoute\FindRoute.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Search\FindAddress\FindAddress.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Search\FindPlace\FindPlace.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderUniqueValues\RenderUniqueValues.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\SimpleRenderers\SimpleRenderers.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Tutorial\AuthorEditSaveMap\SaveMapPage.xaml"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerQuery\FeatureLayerQuery.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\GenerateGeodatabase\GenerateGeodatabase.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\StatisticalQuery\StatisticalQuery.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayScene\DisplayScene.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ExportTiles\ExportTiles.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortal.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQuery.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\KmlLayerFile\KmlLayerFile.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\KmlLayerUrl\KmlLayerUrl.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterLayerFile\RasterLayerFile.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterRenderingRule\RasterRenderingRule.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\SceneLayerUrl\SceneLayerUrl.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\TimeBasedQuery\TimeBasedQuery.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\WMSLayerUrl\WMSLayerUrl.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\WMTSLayer\WMTSLayer.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\AccessLoadStatus\AccessLoadStatus.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\AuthorMap\AuthorMap.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\AuthorMap\SaveMapPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\ChangeBasemap\ChangeBasemap.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\DisplayMap\DisplayMap.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\ManageBookmarks\ManageBookmarks.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\OpenMapURL\OpenMapURL.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\OpenMobileMap\OpenMobileMap.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\SearchPortalMaps\SearchPortalMaps.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\SetInitialMapArea\SetInitialMapArea.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\SetInitialMapLocation\SetInitialMapLocation.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\SetMapSpatialReference\SetMapSpatialReference.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\SetMinMaxScale\SetMinMaxScale.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\ChangeViewpoint\ChangeViewpoint.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\MapRotation\MapRotation.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\ShowCallout\ShowCallout.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\ShowMagnifier\ShowMagnifier.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\TakeScreenshot\TakeScreenshot.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\NetworkAnalysis\FindRoute\FindRoute.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Search\FindAddress\FindAddress.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Search\FindPlace\FindPlace.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderUniqueValues\RenderUniqueValues.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\SimpleRenderers\SimpleRenderers.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Tutorial\AuthorEditSaveMap\SaveMapPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

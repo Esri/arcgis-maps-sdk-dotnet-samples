@@ -59,10 +59,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <!-- Misc Config -->
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <!-- Misc Resources -->
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
   </ItemGroup>
@@ -1004,6 +1000,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

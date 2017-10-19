@@ -154,7 +154,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <!-- MISC Configuration -->
+    <!-- Misc Configuration -->
     <None Include="app.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
@@ -163,7 +163,7 @@
     <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>
   <ItemGroup>
-    <!-- MISC Resources -->
+    <!-- Misc Resources -->
     <Content Include="Properties\AndroidManifest.xml">
       <SubType>Designer</SubType>
     </Content>

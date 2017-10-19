@@ -98,7 +98,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <!-- Resources -->
+    <!-- Misc Resources -->
     <Content Include="Assets\background-desktop.png" />
     <Content Include="Assets\BadgeLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-100.png" />

@@ -169,7 +169,7 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <!-- iOS-Specific Configuration-->
+    <!-- Misc Config -->
     <None Include="app.config" />
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />

@@ -383,7 +383,7 @@
     <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.cs" />
   </ItemGroup>
   <ItemGroup>
-    <!-- Screenshots-->
+    <!-- Screenshots -->
     <None Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg" />
     <None Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.jpg" />
     <None Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.jpg" />
@@ -455,7 +455,7 @@
     <None Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <!-- MISC Resources-->
+    <!-- MISC Resources -->
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
     <BundleResource Include="Resources\Default-568h%402x.png" />
   </ItemGroup>

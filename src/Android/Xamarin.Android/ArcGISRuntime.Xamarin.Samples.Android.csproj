@@ -188,16 +188,12 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Android Layouts -->
-    <AndroidResource Include="Resources\layout\GroupedResultsList_DataItem.axml" />
-    <AndroidResource Include="Resources\layout\GroupedResultsList_GroupItem.axml" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
-    <None Include="Resources\AboutResources.txt" />
-    <AndroidAsset Include="Assets\AboutAssets.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidAsset>
+    <AndroidResource Include="Resources\layout\GroupedResultsList_DataItem.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\GroupedResultsList_GroupItem.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\layout\CategoriesList.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
@@ -211,10 +207,18 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\values\Strings.xml" />
+    <AndroidAsset Include="Assets\AboutAssets.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <!-- JSON Metadata-->
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Resources\AboutResources.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- JSON Metadata -->
     <EmbeddedResource Include="groups.json" />
     <EmbeddedResource Include="Samples\Data\EditAndSyncFeatures\metadata.json" />
     <EmbeddedResource Include="Samples\Data\FeatureLayerGeoPackage\metadata.json" />
@@ -300,7 +304,7 @@
     <AndroidResource Include="Resources\drawable\Icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <!-- All Sample Screenshots -->
+    <!-- Screenshots -->
     <None Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg" />
     <None Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.jpg" />
     <None Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.jpg" />

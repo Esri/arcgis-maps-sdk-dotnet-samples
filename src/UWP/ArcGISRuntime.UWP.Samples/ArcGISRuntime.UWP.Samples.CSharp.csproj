@@ -234,14 +234,12 @@
     <Content Include="Samples\Tutorial\AuthorEditSaveMap\metadata.json" />
   </ItemGroup>
   <ItemGroup>
-    <!-- Sample Code -->
-  </ItemGroup>
-  <ItemGroup>
     <SDKReference Include="Microsoft.VCLibs, version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
+    <!-- Sample XAML -->
     <Page Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -529,10 +527,7 @@
   <ItemGroup>
     <!-- MISC -->
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
-    <!-- Special -->
     <Content Include="Properties\ArcGISRuntime.Windows.Samples.rd.xml" />
-    <!--<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>-->
     <None Include="project.json" />
     <Content Include="Properties\ArcGISRuntime.Windows.Samples.rd.xml" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -15,9 +15,8 @@ Imports System.Windows
 Imports System.Windows.Controls
 Imports System.Windows.Navigation
 Imports System.Windows.Media
-Imports System.Windows.Media.Imaging
-Imports System.IO
 Imports Esri.ArcGISRuntime.UI
+Imports System.IO
 
 Namespace AuthorMap
     Partial Public Class AuthorMapVB
@@ -118,6 +117,9 @@ Namespace AuthorMap
                 ' Apply the current extent as the map's initial extent
                 myMap.InitialViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry)
 
+                ' Export the current map view for the thumbnail
+                Dim thumbnailImg As RuntimeImage = Await MyMapView.ExportImageAsync()
+
                 ' See if the map has already been saved (has an associated portal item)
                 If myMap.Item Is Nothing Then
                     ' Get information for the New portal item
@@ -130,32 +132,23 @@ Namespace AuthorMap
                     End If
 
                     ' Call a function to save the map as a new portal item
-                    Await SaveNewMapAsync(myMap, title, description, tags)
+                    Await SaveNewMapAsync(myMap, title, description, tags, thumbnailImg)
 
                     ' Report a successful save
                     MessageBox.Show("Saved '" + title + "' to ArcGIS Online!", "Map Saved")
                 Else
-                    ' This is not the initial save, call SaveAsync to save changes to the existing portal item
+                    ' Save the map
+                    Await myMap.SaveAsync()
+
+                    ' Update the thumbnail image
+                    Dim mapItem As PortalItem = TryCast(myMap.Item, PortalItem)
+                    Dim thumbnailStream As Stream = Await thumbnailImg.GetRawBufferAsync()
+                    mapItem.SetThumbnailWithImage(thumbnailStream)
                     Await myMap.SaveAsync()
 
                     ' Report update was successful
                     MessageBox.Show("Saved changes to '" + myMap.Item.Title + "'", "Updates Saved")
                 End If
-
-                ' Update the portal item thumbnail with the current map image
-                Try
-                    ' Export the current map view
-                    Dim mapImage As ImageSource = Await Esri.ArcGISRuntime.UI.RuntimeImageExtensions.ToImageSourceAsync((Await MyMapView.ExportImageAsync()))
-
-                    ' Call a function that writes a temporary jpeg file of the map
-                    Dim imagePath As String = Await WriteTempThumbnailImageAsync(mapImage)
-
-                    ' Call a sub to update the portal item's thumbnail with the image
-                    UpdatePortalItemThumbnailAsync(imagePath)
-                Catch
-                    ' Throw an exception to let the user know the thumbnail was Not saved (the map item was)
-                    Throw New Exception("Thumbnail was not updated.")
-                End Try
             Catch ex As Exception
                 ' Report error message
                 MessageBox.Show("Error saving map to ArcGIS Online: " + ex.Message)
@@ -207,7 +200,7 @@ Namespace AuthorMap
             Next
         End Sub
 
-        Private Async Function SaveNewMapAsync(myMap As Map, title As String, description As String, tags As String()) As Task
+        Private Async Function SaveNewMapAsync(myMap As Map, title As String, description As String, tags As String(), thumbnail As RuntimeImage) As Task
             ' Challenge the user for portal credentials (OAuth credential request for arcgis.com)
             Dim loginInfo As CredentialRequestInfo = New CredentialRequestInfo()
 
@@ -235,65 +228,8 @@ Namespace AuthorMap
             Dim agsOnline As ArcGISPortal = Await ArcGISPortal.CreateAsync()
 
             ' Save the current state of the map as a portal item in the user's default folder
-            Dim img As RuntimeImage = Nothing
-            Await myMap.SaveAsAsync(agsOnline, Nothing, title, description, tags, img, True)
+            Await myMap.SaveAsAsync(agsOnline, Nothing, title, description, tags, thumbnail, True)
         End Function
-
-        Private Async Function WriteTempThumbnailImageAsync(mapImageSource As ImageSource) As Task(Of String)
-            ' Create a New encoder for jpeg images
-            Dim jpegEncoder As JpegBitmapEncoder = New JpegBitmapEncoder()
-            jpegEncoder.QualityLevel = 70
-
-            ' Create a bitmap frame to represent the image
-            Dim mapImageBitmapSource As BitmapSource = TryCast(mapImageSource, BitmapSource)
-            Dim mapImageFrame As BitmapFrame = BitmapFrame.Create(mapImageBitmapSource)
-
-            ' Add the frame to the jpeg encoder frames collection
-            jpegEncoder.Frames.Add(mapImageFrame)
-
-            ' Get the folder for the current executable
-            Dim folder As String = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)
-
-            ' Build the output file name with the executable directory
-            Dim outFile As FileInfo = New FileInfo(Path.Combine(folder, "MapThumbnail_Temp"))
-
-            ' If the file already exists, delete it
-            If outFile.Exists Then
-                Await Task.Delay(1000)
-                outFile.Delete()
-            End If
-
-            ' Create the output image file
-            Using stm As Stream = File.Create(outFile.FullName)
-                jpegEncoder.Save(stm)
-            End Using
-
-            ' Return the path to the file
-            Return outFile.FullName
-        End Function
-
-        Private Async Sub UpdatePortalItemThumbnailAsync(thumbnailImagePath As String)
-            ' Update the portal item with the thumbnail image passed in
-            Try
-                ' Get the map's portal item
-                Dim newPortalItem As PortalItem = TryCast(MyMapView.Map.Item, PortalItem)
-
-                ' Open the image file
-                Dim thumbnailData = New FileStream(thumbnailImagePath, FileMode.Open)
-
-                ' Assign the thumbnail data (file stream) to the content object
-                newPortalItem.SetThumbnailWithImage(thumbnailData)
-
-                ' Update the portal item with the new content (just the thumbnail will be updated)
-                Await newPortalItem.UpdateItemPropertiesAsync()
-
-                ' Close the stream and delete the local jpg file from disk
-                thumbnailData.Close()
-                File.Delete(thumbnailImagePath)
-            Catch ex As Exception
-                MessageBox.Show("Unable to update thumbnail for portal item: " + ex.Message, "Portal Item Thumbnail")
-            End Try
-        End Sub
 
         Private Sub UpdateViewExtentLabels(sender As Object, e As EventArgs)
             ' Get the current view point for the map view

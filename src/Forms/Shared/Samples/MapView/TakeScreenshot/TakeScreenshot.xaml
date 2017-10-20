@@ -11,5 +11,9 @@
         </Grid.RowDefinitions>
         <Button x:Name="TakeScreenshotButton" Text="Capture" Clicked="OnTakeScreenshotClicked"></Button>
         <esriUI:MapView x:Name="MyMapView" Grid.Row="1"/>
+        <ActivityIndicator x:Name="CreatingImageIndicator"
+                           Grid.Row="1" Color="Fuchsia"
+                           HorizontalOptions="Center" VerticalOptions="Center"
+                           IsRunning="True" IsVisible="False"/>
     </Grid>
 </ContentPage>

@@ -249,6 +249,10 @@
             {
               "SampleName": "FeatureLayerShapefile",
               "Path": "Samples/Data/FeatureLayerShapefile"
+            },
+            {
+              "SampleName": "ReadShapefileMetadata",
+              "Path": "Samples/Data/ReadShapefileMetadata"
             }
           ]
         }

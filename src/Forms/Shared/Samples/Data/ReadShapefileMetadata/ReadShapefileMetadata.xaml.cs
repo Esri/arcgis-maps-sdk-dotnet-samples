@@ -11,6 +11,7 @@ using ArcGISRuntimeXamarin.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using System.IO;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntimeXamarin.Samples.ReadShapefileMetadata
@@ -30,8 +31,61 @@ namespace ArcGISRuntimeXamarin.Samples.ReadShapefileMetadata
         private async void Initialize()
         {
             // Create a new map to display in the map view with a streets basemap
-            MyMapView.Map = new Map(Basemap.CreateStreetsVector());
+            Map streetMap = new Map(Basemap.CreateStreets());
 
+            // Get the path to the downloaded shapefile
+            string filepath = await GetShapefilePath();
+
+            // Open the shapefile
+            ShapefileFeatureTable myShapefile = await ShapefileFeatureTable.OpenAsync(filepath);
+
+            // Read metadata about the shapefile and display it in the UI
+            ShapefileInfo fileInfo = myShapefile.Info;
+            InfoPanel.BindingContext = fileInfo;
+
+            // Read the thumbnail image data into a byte array
+            Stream imageStream = await fileInfo.Thumbnail.GetEncodedBufferAsync();
+            byte[] imageData = new byte[imageStream.Length];
+            imageStream.Read(imageData, 0, imageData.Length);
+
+            // Create a new image source from the thumbnail data
+            ImageSource streamImageSource = ImageSource.FromStream(() => new MemoryStream(imageData));
+
+            // Create a new image to display the thumbnail
+            var image = new Image()
+            {
+                Source = streamImageSource,
+                Margin = new Thickness(10)
+            };
+
+            // Show the thumbnail image in a UI control
+            ShapefileThumbnailImage.Source = image.Source;
+
+            // Create a feature layer to display the shapefile
+            FeatureLayer newFeatureLayer = new FeatureLayer(myShapefile);
+
+            // Zoom the map to the extent of the shapefile
+            MyMapView.SpatialReferenceChanged += async (s, e) =>
+            {
+                await MyMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent);
+            };
+
+            // Add the feature layer to the map
+            streetMap.OperationalLayers.Add(newFeatureLayer);
+
+            // Show the map in the MapView
+            MyMapView.Map = streetMap;
+        }
+
+        private void ShowMetadataClicked(object sender, System.EventArgs e)
+        {
+            // Toggle the visibility of the metadata panel
+            MetadataFrame.IsVisible = !MetadataFrame.IsVisible;
+        }
+
+        private async Task<string> GetShapefilePath()
+        {
+            #region offlinedata
             // The shapefile will be downloaded from ArcGIS Online
             // The data manager (a component of the sample viewer, *NOT* the runtime
             //     handles the offline data process
@@ -43,43 +97,18 @@ namespace ArcGISRuntimeXamarin.Samples.ReadShapefileMetadata
             string folder = DataManager.GetDataFolder();
 
             // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "AddShapefile", filename);
+            string filepath = Path.Combine(folder, "SampleData", "FeatureLayerShapefile", filename);
 
             // Check if the file exists
             if (!File.Exists(filepath))
             {
                 // Download the shapefile
-                await DataManager.GetData("d98b3e5293834c5f852f13c569930caa", "AddShapefile");
+                await DataManager.GetData("d98b3e5293834c5f852f13c569930caa", "FeatureLayerShapefile");
             }
 
-            // Open the shapefile
-            ShapefileFeatureTable myShapefile = await ShapefileFeatureTable.OpenAsync(filepath);
-
-            // Create a feature layer to display the shapefile
-            FeatureLayer newFeatureLayer = new FeatureLayer(myShapefile);
-
-            // Add the feature layer to the map
-            MyMapView.Map.OperationalLayers.Add(newFeatureLayer);
-
-            // Zoom the map to the extent of the shapefile
-            await MyMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent);
-
-            // Read metadata about the shapefile and display it in the UI
-            ShapefileInfo fileInfo = myShapefile.Info;
-            InfoPanel.BindingContext = fileInfo;
-
-            // Create bitmap from the thumbnail image
-            var buffer = await fileInfo.Thumbnail.GetEncodedBufferAsync();
-            byte[] data = new byte[buffer.Length];
-            buffer.Read(data, 0, data.Length);
-            var bitmap = ImageSource.FromStream(() => new MemoryStream(data));
-            var image = new Image()
-            {
-                Source = bitmap,
-                Margin = new Thickness(10)
-            };
-
-            ShapefileThumbnailImage.Source = image.Source; 
+            // Return the path
+            return filepath;
+            #endregion offlinedata
         }
     }
 }

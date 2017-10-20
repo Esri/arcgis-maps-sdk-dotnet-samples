@@ -349,6 +349,9 @@
     <EmbeddedResource Include="Samples\Data\FeatureLayerShapefile\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Samples\Data\ReadShapefileMetadata\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -366,6 +369,7 @@
     <Compile Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.cs" />
     <Compile Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.cs" />
     <Compile Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.cs" />
+    <Compile Include="Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.cs" />
     <Compile Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.cs" />
     <Compile Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.cs" />
     <Compile Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.cs" />
@@ -453,6 +457,7 @@
     <BundleResource Include="Samples\Map\ChangeBasemap\ChangeBasemap.jpg" />
     <EmbeddedResource Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.jpg" />
     <EmbeddedResource Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.jpg" />
+    <EmbeddedResource Include="Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.jpg" />
     <Content Include="Samples\Data\StatisticalQuery\StatisticalQuery.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

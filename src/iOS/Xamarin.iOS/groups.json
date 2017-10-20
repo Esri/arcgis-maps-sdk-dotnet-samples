@@ -246,6 +246,10 @@
             {
               "SampleName": "FeatureLayerGeoPackage",
               "Path": "Samples/Data/FeatureLayerGeoPackage"
+            },
+            {
+              "SampleName": "ReadShapefileMetadata",
+              "Path": "Samples/Data/ReadShapefileMetadata"
             }
           ]
         }

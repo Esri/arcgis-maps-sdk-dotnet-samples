@@ -63,6 +63,7 @@ namespace ArcGISRuntimeXamarin.Samples.ReadShapefileMetadata
 
             // Create a feature layer to display the shapefile
             FeatureLayer newFeatureLayer = new FeatureLayer(myShapefile);
+            await newFeatureLayer.LoadAsync();
 
             // Zoom the map to the extent of the shapefile
             MyMapView.SpatialReferenceChanged += async (s, e) =>

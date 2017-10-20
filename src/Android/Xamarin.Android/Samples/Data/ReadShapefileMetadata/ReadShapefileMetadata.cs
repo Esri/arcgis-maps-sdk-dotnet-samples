@@ -43,7 +43,7 @@ namespace ArcGISRuntimeXamarin.Samples.ReadShapefileMetadata
         private async void Initialize()
         {
             // Create a new map to display in the map view with a streets basemap
-            Map streetMap = new Map(Basemap.CreateStreetsVector());
+            Map streetMap = new Map(Basemap.CreateStreets());
 
             // Get the path to the downloaded shapefile
             string filepath = await GetShapefilePath();
@@ -56,6 +56,7 @@ namespace ArcGISRuntimeXamarin.Samples.ReadShapefileMetadata
 
             // Create a feature layer to display the shapefile
             FeatureLayer newFeatureLayer = new FeatureLayer(myShapefile);
+            await newFeatureLayer.LoadAsync();
 
             // Zoom the map to the extent of the shapefile
             _myMapView.SpatialReferenceChanged += async (s, e) =>
@@ -84,13 +85,13 @@ namespace ArcGISRuntimeXamarin.Samples.ReadShapefileMetadata
             string folder = DataManager.GetDataFolder();
 
             // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "FeatureLayerShapefile", filename);
+            string filepath = Path.Combine(folder, "SampleData", "ReadShapefileMetadata", filename);
 
             // Check if the file exists
             if (!File.Exists(filepath))
             {
                 // Download the shapefile
-                await DataManager.GetData("d98b3e5293834c5f852f13c569930caa", "FeatureLayerShapefile");
+                await DataManager.GetData("d98b3e5293834c5f852f13c569930caa", "ReadShapefileMetadata");
             }
 
             // Return the path
@@ -103,15 +104,15 @@ namespace ArcGISRuntimeXamarin.Samples.ReadShapefileMetadata
             // Create a new vertical layout for the app
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
             
-            // Add a map view to the layout
-            _myMapView = new MapView(this);
-            layout.AddView(_myMapView);
-
             // Add a button to show the metadata
             Button showMetadataButton = new Button(this);
             showMetadataButton.Text = "Metadata";
             showMetadataButton.Click += ShowMetadataDialog;
             layout.AddView(showMetadataButton);
+
+            // Add the map view to the layout
+            _myMapView = new MapView(this);
+            layout.AddView(_myMapView);
 
             // Show the layout in the app
             SetContentView(layout);
@@ -140,6 +141,8 @@ namespace ArcGISRuntimeXamarin.Samples.ReadShapefileMetadata
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
+            base.OnCreateView(inflater, container, savedInstanceState);
+
             // Dialog to display
             LinearLayout dialogView = null;
 
@@ -147,19 +150,12 @@ namespace ArcGISRuntimeXamarin.Samples.ReadShapefileMetadata
             Android.Content.Context ctx = this.Activity.ApplicationContext;
 
             // Set a dialog title
-            this.Dialog.SetTitle("Shapefile Metadata");
-
-            base.OnCreateView(inflater, container, savedInstanceState);
+            this.Dialog.SetTitle(_metadata.Credits);            
 
             // The container for the dialog is a vertical linear layout
             dialogView = new LinearLayout(ctx);
             dialogView.Orientation = Orientation.Vertical;
-
-            // Add a text box for showing metadata credits
-            TextView creditsTextView = new TextView(ctx);
-            creditsTextView.Text = _metadata.Credits;
-            dialogView.AddView(creditsTextView);
-
+            
             // Add a text box for showing metadata summary
             TextView summaryTextView = new TextView(ctx);
             summaryTextView.Text = _metadata.Summary;
@@ -167,17 +163,22 @@ namespace ArcGISRuntimeXamarin.Samples.ReadShapefileMetadata
 
             // Add an image to show the thumbnail
             _thumbnailImageView = new ImageView(ctx);
-            _thumbnailImageView.SetMaxHeight(160);
-            _thumbnailImageView.SetMaxWidth(160);
+            _thumbnailImageView.SetMinimumHeight(200);
+            _thumbnailImageView.SetMinimumWidth(200);
             dialogView.AddView(_thumbnailImageView);
 
             // Call a function to load the thumbnail image from the metadata
             LoadThumbnail();
 
-            // Add a button to hide the dialog
+            // Add a text box for showing metadata tags
+            TextView tagsTextView = new TextView(ctx);
+            tagsTextView.Text = string.Join(",", _metadata.Tags);
+            dialogView.AddView(tagsTextView);
+
+            // Add a button to close the dialog
             Button dismissButton = new Button(ctx);
             dismissButton.Text = "OK";
-            //dismissButton.Click += SearchMapsButtonClick;
+            dismissButton.Click += (s,e)=> this.Dismiss();
             dialogView.AddView(dismissButton);
 
             // Return the new view for display

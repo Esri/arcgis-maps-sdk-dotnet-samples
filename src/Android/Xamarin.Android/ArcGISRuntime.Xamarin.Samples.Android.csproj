@@ -112,6 +112,7 @@
     <Compile Include="SamplesListAdapter.cs" />
     <Compile Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.cs" />
     <Compile Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.cs" />
+    <Compile Include="Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.cs" />
     <Compile Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.cs" />
     <Compile Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.cs" />
     <Compile Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.cs" />
@@ -267,6 +268,7 @@
     <EmbeddedResource Include="Samples\Layers\TimeBasedQuery\metadata.json" />
     <AndroidResource Include="Resources\layout\GroupedResultsList_DataItem.axml" />
     <AndroidResource Include="Resources\layout\GroupedResultsList_GroupItem.axml" />
+    <EmbeddedResource Include="Samples\Data\ReadShapefileMetadata\metadata.json" />
     <None Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.jpg" />
     <EmbeddedResource Include="Samples\Layers\KmlLayerUrl\metadata.json" />
     <None Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.jpg" />
@@ -289,6 +291,7 @@
     <AndroidResource Include="Resources\drawable\Icon.png" />
     <Content Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.jpg" />
     <Content Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.jpg" />
+    <Content Include="Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.jpg" />
     <Content Include="Samples\Data\StatisticalQuery\StatisticalQuery.jpg" />
     <Content Include="Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.jpg" />
     <Content Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.jpg" />

@@ -1,0 +1,13 @@
+{
+  "Name": "Feature layer query",
+  "SampleName": "FeatureLayerQuery",
+  "Description": "This sample demonstrates how to return features from a feature layer using an attribute query on the underlying feature table.",
+  "Instructions": "The sample provides a panel with two controls: a text box where you can input the name of a US State, and a button that executes an attribute query using that value. A successful query will select (highlight) the state and zoom the map to its extent.",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineLayersAndData":false,
+  "RequiresLocalServer":false,
+  "Image":"FeatureLayerQuery.jpg",
+  "Link":"",
+  "TypeLink": ["T:Esri.ArcGISRuntime.LayersAndData.FeatureQueryResult","T:Esri.ArcGISRuntime.LayersAndData.QueryParameters","M:Esri.ArcGISRuntime.LayersAndData.FeatureTable.QueryFeaturesAsync(Esri.ArcGISRuntime.LayersAndData.QueryParameters)","P:Esri.ArcGISRuntime.LayersAndData.QueryParameters.WhereClause","P:Esri.ArcGISRuntime.Mapping.Layer.Opacity","M:Esri.ArcGISRuntime.Mapping.FeatureLayer.ClearSelection","M:Esri.ArcGISRuntime.Mapping.FeatureLayer.SelectFeature(Esri.ArcGISRuntime.LayersAndData.Feature)","M:Esri.ArcGISRuntime.UI.Controls.MapView.SetViewpointGeometryAsync(Esri.ArcGISRuntime.Geometry.Geometry)"]
+}

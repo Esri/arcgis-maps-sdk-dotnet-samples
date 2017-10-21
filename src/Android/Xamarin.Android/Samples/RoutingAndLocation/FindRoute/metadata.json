@@ -1,0 +1,14 @@
+{
+  "Name": "Find a route",
+  "SampleName": "FindRoute",
+  "Description": "This sample demonstrates how to solve for the best route between two locations on the map and display driving directions between them.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"FindRoute.jpg",
+  "Link":"",
+  "TypeLink": ["T:Esri.ArcGISRuntime.Tasks.RoutingAndLocation.RouteTask", "M:Esri.ArcGISRuntime.Tasks.RoutingAndLocation.RouteTask.CreateDefaultParametersAsync", "M:Esri.ArcGISRuntime.Tasks.RoutingAndLocation.RouteTask.SolveRouteAsync", "T:Esri.ArcGISRuntime.Tasks.RoutingAndLocation.RouteParameters"],
+  "SampleFolder": "FindRoute"
+}

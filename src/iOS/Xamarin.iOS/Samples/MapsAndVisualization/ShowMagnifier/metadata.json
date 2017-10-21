@@ -1,0 +1,15 @@
+{
+  "Name": "Show magnifier",
+  "SampleName": "ShowMagnifier",
+  "Description": "This sample demonstrates how you can tap and hold on a map to get the magnifier. You can also pan while tapping and holding to move the magnifier across the map.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"ShowMagnifier.jpg",
+  "Link":"",
+  "TypeLink": ["P:Esri.ArcGISRuntime.UI.MapsAndVisualizationInteractionOptions.IsMagnifierEnabled","T:Esri.ArcGISRuntime.UI.MapsAndVisualizationInteractionOptions","M:Esri.ArcGISRuntime.Mapping.Map.#ctor(Esri.ArcGISRuntime.Mapping.BasemapType,System.Double,System.Double,System.Int32)","P:Esri.ArcGISRuntime.UI.Controls.MapsAndVisualization.InteractionOptions"
+  ],
+  "SampleFolder": "ShowMagnifier"
+}

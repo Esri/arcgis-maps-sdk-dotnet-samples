@@ -1,0 +1,14 @@
+{
+  "Name": "Change basemap",
+  "SampleName": "ChangeBasemap",
+  "Description": "This sample demonstrates how to dynamically change the basemap displayed in a MapsAndVisualization.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"ChangeBasemap.jpg",
+  "Link":"",
+  "TypeLink": ["M:Esri.ArcGISRuntime.MapsAndVisualizationping.Basemap.CreateTopographic","M:Esri.ArcGISRuntime.MapsAndVisualizationping.Basemap.CreateImagery","M:Esri.ArcGISRuntime.MapsAndVisualizationping.Basemap.CreateOceans"],
+  "SampleFolder": "ChangeBasemap"
+}

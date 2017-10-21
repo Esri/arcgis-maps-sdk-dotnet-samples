@@ -1,0 +1,13 @@
+{
+  "Name": "Service feature table (manual cache)",
+  "SampleName": "ServiceFeatureTableManualCache",
+  "Description": "This sample demonstrates how to use a feature service in manual cache mode.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineLayersAndData":false,
+  "RequiresLocalServer":false,
+  "Image":"ServiceFeatureTableManualCache.jpg",
+  "Link":"",
+  "TypeLink": ["E:Esri.ArcGISRuntime.LayersAndData.FeatureTable.LoadStatusChanged","M:Esri.ArcGISRuntime.LayersAndData.QueryParameters.#ctor","T:Esri.ArcGISRuntime.LoadStatusEventArgs","M:Esri.ArcGISRuntime.Mapping.Viewpoint.#ctor(Esri.ArcGISRuntime.Geometry.MapPoint,System.Double)"]
+}

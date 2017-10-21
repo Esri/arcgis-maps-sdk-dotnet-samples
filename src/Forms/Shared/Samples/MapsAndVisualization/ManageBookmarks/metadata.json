@@ -1,0 +1,14 @@
+{
+  "Name": "Manage Bookmarks",
+  "SampleName": "ManageBookmarks",
+  "Description": "This sample demonstrates how to access and add bookmarks to a map.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"ManageBookmarks.jpg",
+  "Link":"",
+  "TypeLink": ["T:Esri.ArcGISRuntime.MapsAndVisualizationping.Bookmark","T:Esri.ArcGISRuntime.MapsAndVisualizationping.BookmarkCollection","P:Esri.ArcGISRuntime.MapsAndVisualizationping.MapsAndVisualization.Bookmarks","M:Esri.ArcGISRuntime.MapsAndVisualizationping.Bookmark.#ctor","M:Esri.ArcGISRuntime.MapsAndVisualizationping.Viewpoint.#ctor(System.Double,System.Double,System.Double)","T:Esri.ArcGISRuntime.MapsAndVisualizationping.ViewpointType","P:Esri.ArcGISRuntime.MapsAndVisualizationping.Bookmark.Name","P:Esri.ArcGISRuntime.MapsAndVisualizationping.Bookmark.Viewpoint","M:Esri.ArcGISRuntime.MapsAndVisualizationping.Basemap.CreateImageryWithLabels","M:Esri.ArcGISRuntime.UI.Controls.GeoView.GetCurrentViewpoint(Esri.ArcGISRuntime.MapsAndVisualizationping.ViewpointType)","M:Esri.ArcGISRuntime.UI.Controls.GeoView.SetViewpoint(Esri.ArcGISRuntime.MapsAndVisualizationping.Viewpoint)"],
+ "SampleFolder":  "ManageBookmarks"
+}

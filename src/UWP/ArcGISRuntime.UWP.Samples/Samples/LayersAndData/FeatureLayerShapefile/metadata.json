@@ -1,0 +1,15 @@
+{
+  "Name": "Feature layer (shapefile)",
+  "SampleName": "FeatureLayerShapefile",
+  "Description": "This sample demonstrates how to open a shapefile stored on the device and display it as a feature layer with default symbology.",
+  "Instructions": "The shapefile will be downloaded from an ArcGIS Online portal automatically.",
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineLayersAndData": true,
+  "RequiresLocalServer": false,
+  "LayersAndDataItemIds": [ "d98b3e5293834c5f852f13c569930caa" ],
+  "LayersAndDataFileNames": [ "Public_Art.shp" ],
+  "Image": "FeatureLayerShapefile.jpg",
+  "Link": "",
+  "TypeLink": [ "T:Esri.ArcGISRuntime.LayersAndData.ShapefileFeatureTable", "M:Esri.ArcGISRuntime.LayersAndData.ShapefileFeatureTable.OpenAsync(System.String)" ]
+}

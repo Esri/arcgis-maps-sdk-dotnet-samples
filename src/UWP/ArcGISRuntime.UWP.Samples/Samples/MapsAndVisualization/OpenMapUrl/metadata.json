@@ -1,0 +1,13 @@
+{
+  "Name": "Open MapsAndVisualization (URL)",
+  "SampleName": "OpenMapsAndVisualizationURL",
+  "Description": "This sample demonstrates loading a webmap in a map from a Uri.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"OpenMapsAndVisualizationURL.jpg",
+  "Link":"",
+  "TypeLink": ["M:Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.Initialize","T:Esri.ArcGISRuntime.MapsAndVisualizationping.MapsAndVisualization","M:Esri.ArcGISRuntime.MapsAndVisualizationping.MapsAndVisualization.#ctor(System.Uri)"]
+}

@@ -1,0 +1,16 @@
+{
+  "Name": "Open mobile map (map package)",
+  "SampleName": "OpenMobileMapsAndVisualization",
+  "Description": "This sample demonstrates how to open a map from a mobile map package.",
+  "Instructions": "The map package will be downloaded from an ArcGIS Online portal automatically.",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":true,
+  "RequiresLocalServer": false,
+  "DataItemIds": [ "e1f3a7254cb845b09450f54937c16061" ],
+  "DataFileNames": [ "Yellowstone.mmpk" ],
+  "Image":"OpenMobileMapsAndVisualization.jpg",
+  "Link":"",
+  "TypeLink": ["T:Esri.ArcGISRuntime.MapsAndVisualizationping.MobileMapsAndVisualizationPackage", "P:Esri.ArcGISRuntime.MapsAndVisualizationping.MobileMapsAndVisualizationPackage.MapsAndVisualizations", "M:Esri.ArcGISRuntime.MapsAndVisualizationping.MobileMapsAndVisualizationPackage.OpenAsync(System.String)"],
+ "SampleFolder":  "OpenMobileMapsAndVisualization"
+}

@@ -1,0 +1,14 @@
+{
+  "Name": "Service feature table (no cache)",
+  "SampleName": "ServiceFeatureTableNoCache",
+  "Description": "This sample demonstrates how to use a feature service in on interaction no cache mode.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineLayersAndData":false,
+  "RequiresLocalServer":false,
+  "Image":"ServiceFeatureTableNoCache.jpg",
+  "Link":"",
+  "TypeLink": ["T:Esri.ArcGISRuntime.LayersAndData.FeatureRequestMode","P:Esri.ArcGISRuntime.Geometry.SpatialReferences.WebMercator","M:Esri.ArcGISRuntime.Mapping.FeatureLayer.#ctor(Esri.ArcGISRuntime.LayersAndData.FeatureTable)"],
+  "SampleFolder": "ServiceFeatureTableNoCache"
+}

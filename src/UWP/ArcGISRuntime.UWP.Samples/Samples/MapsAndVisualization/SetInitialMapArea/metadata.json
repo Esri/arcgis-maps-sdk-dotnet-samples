@@ -1,0 +1,13 @@
+{
+  "Name": "Set initial map area",
+  "SampleName": "SetInitialMapsAndVisualizationArea",
+  "Description": "This sample displays a map at a specific viewpoint. In this sample a viewpoint is constructed from an envelope defined by minimum (x,y) and maximum (x,y) values. The map's initialViewpoint is set to this viewpoint before the map is loaded. Upon loading the map zooms to this initial area.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"SetInitialMapsAndVisualizationArea.jpg",
+  "Link":"",
+  "TypeLink": ["T:Esri.ArcGISRuntime.Geometry.Envelope","M:Esri.ArcGISRuntime.Geometry.Envelope.#ctor(System.Double,System.Double,System.Double,System.Double,Esri.ArcGISRuntime.Geometry.SpatialReference)","P:Esri.ArcGISRuntime.MapsAndVisualizationping.MapsAndVisualization.InitialViewpoint","T:Esri.ArcGISRuntime.Geometry.Geometry"]
+}

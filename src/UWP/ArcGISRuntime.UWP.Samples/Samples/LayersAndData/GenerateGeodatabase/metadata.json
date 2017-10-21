@@ -1,0 +1,15 @@
+{
+  "Name": "Generate geodatabase",
+  "SampleName": "GenerateGeodatabase",
+  "Description": "This sample demonstrates how to take a feature service offline by generating a geodatabase.",
+  "Instructions": "1. Pan and zoom to the area you would like to download features for, ensuring that all features are within the rectangle.\n2. Tap on the button. This will start the process of generating the offline geodatabase.\n3. Observe that the sample unregisters the geodatabase. This is best practice when changes won't be edited and synced back to the service.\n\nNote that the basemap will be automatically downloaded from an ArcGIS Online portal.",
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineLayersAndData": true,
+  "RequiresLocalServer": false,
+  "LayersAndDataItemIds": [ "3f1bbf0ec70b409a975f5c91f363fe7d" ],
+  "LayersAndDataFileNames": [ "SanFrancisco.tpk" ],
+  "Image": "GenerateGeodatabase.jpg",
+  "Link": "",
+  "TypeLink": [ "T:Esri.ArcGISRuntime.Tasks.Offline.GeodatabaseSyncTask", "T:Esri.ArcGISRuntime.Tasks.Offline.GenerateGeodatabaseJob", "T:Esri.ArcGISRuntime.Mapping.TileCache", "M:Esri.ArcGISRuntime.Mapping.ArcGISTiledLayer.#ctor(Esri.ArcGISRuntime.Mapping.TileCache)", "M:Esri.ArcGISRuntime.Tasks.Offline.GeodatabaseSyncTask.CreateAsync(System.Uri,Esri.ArcGISRuntime.Security.Credential)", "P:Esri.ArcGISRuntime.Tasks.Offline.GeodatabaseSyncTask.ServiceInfo", "P:Esri.ArcGISRuntime.ArcGISServices.ArcGISMapServiceInfo.LayerInfos", "M:Esri.ArcGISRuntime.Geometry.EnvelopeBuilder.#ctor(Esri.ArcGISRuntime.Geometry.Envelope)", "T:Esri.ArcGISRuntime.Geometry.EnvelopeBuilder", "T:Esri.ArcGISRuntime.Tasks.Offline.GenerateGeodatabaseParameters", "T:Esri.ArcGISRuntime.LayersAndData.GeodatabaseFeatureTable", "T:Esri.ArcGISRuntime.LayersAndData.Geodatabase", "M:Esri.ArcGISRuntime.Tasks.Offline.GeodatabaseSyncTask.UnregisterGeodatabaseAsync(Esri.ArcGISRuntime.LayersAndData.Geodatabase)" ]
+}

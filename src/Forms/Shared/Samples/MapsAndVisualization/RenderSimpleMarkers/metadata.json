@@ -1,0 +1,14 @@
+{
+  "Name": "Render simple markers",
+  "SampleName": "RenderSimpleMarkers",
+  "Description": "This sample adds a point graphic to a graphics overlay symbolized with a red circle specified via a SimpleMarkerSymbol.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"RenderSimpleMarkers.jpg",
+  "Link":"",
+  "TypeLink": ["T:Esri.ArcGISRuntime.MapsAndVisualization.SimpleMarkerSymbol","T:Esri.ArcGISRuntime.MapsAndVisualization.SimpleMarkerSymbolStyle","P:Esri.ArcGISRuntime.MapsAndVisualization.SimpleMarkerSymbol.Color","P:Esri.ArcGISRuntime.MapsAndVisualization.SimpleMarkerSymbol.Style","P:Esri.ArcGISRuntime.MapsAndVisualization.SimpleMarkerSymbol.Size","M:Esri.ArcGISRuntime.MapsAndVisualization.SimpleMarkerSymbol.#ctor","P:Esri.ArcGISRuntime.UI.Controls.GeoView.GraphicsOverlays"],
+ "SampleFolder":  "RenderSimpleMarkers"
+}

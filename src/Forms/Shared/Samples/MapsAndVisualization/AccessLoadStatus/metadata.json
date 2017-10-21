@@ -1,0 +1,15 @@
+{
+  "Name": "Access load status",
+  "SampleName": "AccessLoadStatus",
+  "Description": "This sample demonstrates how to access the MapsAndVisualizations' LoadStatus. The LoadStatus will be considered loaded when the following are true: The MapsAndVisualization has a valid SpatialReference and the MapsAndVisualization has an been set to the MapsAndVisualizationView.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"AccessLoadStatus.jpg",
+  "Link":"",
+  "TypeLink": ["T:Esri.ArcGISRuntime.LoadStatus","E:Esri.ArcGISRuntime.MapsAndVisualizationping.MapsAndVisualization.LoadStatusChanged","P:Esri.ArcGISRuntime.LoadStatusEventArgs.Status"
+  ],
+  "SampleFolder": "AccessLoadStatus"
+}

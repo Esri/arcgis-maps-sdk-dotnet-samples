@@ -1,0 +1,13 @@
+{
+  "Name": "Viewshed (Analysis)",
+  "SampleName": "AnalyzeViewshed",
+  "Description": "This sample demonstrates how to use AnalysisTask to calculate a viewshed using a geoprocessing service. Click any point on the map to see all areas that are visible within a 1 kilometer radius. It may take a few seconds for the model to run and send back the results.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": false,
+  "RequiresLocalServer": false,
+  "Image": "AnalyzeViewshed.jpg",
+  "Link": "",
+  "TypeLink": [ "T:Esri.ArcGISRuntime.Tasks.Analysis.AnalysisJob", "T:Esri.ArcGISRuntime.Tasks.Analysis.AnalysisFeatures", "M:Esri.ArcGISRuntime.Tasks.Analysis.AnalysisFeatures.#ctor(Esri.ArcGISRuntime.Data.IFeatureSet)", "M:Esri.ArcGISRuntime.Tasks.Analysis.AnalysisTask.CreateJob(Esri.ArcGISRuntime.Tasks.Analysis.AnalysisParameters)", "T:Esri.ArcGISRuntime.Symbology.SimpleFillSymbol", "M:Esri.ArcGISRuntime.Symbology.SimpleRenderer.#ctor", "P:Esri.ArcGISRuntime.Symbology.FillSymbol.Color", "P:Esri.ArcGISRuntime.Symbology.SimpleRenderer.Symbol", "P:Esri.ArcGISRuntime.Tasks.Analysis.AnalysisParameters.OutputSpatialReference", "P:Esri.ArcGISRuntime.UI.Controls.GeoView.SpatialReference", "M:Esri.ArcGISRuntime.RuntimeCollection`1.Clear" ]
+}

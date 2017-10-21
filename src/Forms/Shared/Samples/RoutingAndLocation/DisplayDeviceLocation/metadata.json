@@ -1,0 +1,14 @@
+{
+   "Name": "Display device location",
+   "SampleName": "DisplayDeviceRoutingAndLocation",
+   "Description": "This sample demonstrates how you can enable location services and switch between different types of auto pan modes.",
+   "Instructions": "",
+   "Type": 0,
+   "RequiresOnlineConnection":true,
+   "RequiresOfflineData":false,
+   "RequiresLocalServer":false,
+   "Image":"DisplayDeviceRoutingAndLocation.jpg",
+   "Link":"",
+   "TypeLink": ["T:Esri.ArcGISRuntime.RoutingAndLocation.RoutingAndLocationDisplay","T:Esri.ArcGISRuntime.RoutingAndLocation.RoutingAndLocationDisplayAutoPanMode","P:Esri.ArcGISRuntime.UI.Controls.MapView.RoutingAndLocationDisplay","T:Esri.ArcGISRuntime.UI.RoutingAndLocationDisplay","T:Esri.ArcGISRuntime.UI.RoutingAndLocationDisplayAutoPanMode","P:Esri.ArcGISRuntime.UI.RoutingAndLocationDisplay.AutoPanMode","P:Esri.ArcGISRuntime.UI.RoutingAndLocationDisplay.IsEnabled"],
+   "SampleFolder": "DisplayDeviceRoutingAndLocation"
+} 

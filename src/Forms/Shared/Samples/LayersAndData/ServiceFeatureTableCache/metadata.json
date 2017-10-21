@@ -1,0 +1,14 @@
+{
+  "Name": "Service feature table (cache)",
+  "SampleName": "ServiceFeatureTableCache",
+  "Description": "This sample demonstrates how to use a feature service in on interaction cache mode.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineLayersAndData":false,
+  "RequiresLocalServer":false,
+  "Image":"ServiceFeatureTableCache.jpg",
+  "Link":"",
+  "TypeLink": ["M:Esri.ArcGISRuntime.LayersAndData.ServiceFeatureTable.#ctor(System.Uri)","P:Esri.ArcGISRuntime.LayersAndData.ServiceFeatureTable.FeatureRequestMode","T:Esri.ArcGISRuntime.Geometry.SpatialReference"],
+  "SampleFolder": "ServiceFeatureTableCache"
+}

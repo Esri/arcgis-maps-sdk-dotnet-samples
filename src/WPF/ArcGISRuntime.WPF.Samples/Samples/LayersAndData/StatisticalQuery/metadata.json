@@ -1,0 +1,13 @@
+{
+  "Name": "Statistical query",
+  "SampleName": "StatisticalQuery",
+  "Description": "This sample demonstrates how to query a feature table to get statistics for a specified field.",
+  "Instructions": "Check the appropriate boxes to filter features by attributes and/or within the current extent. Click the button to see basic statistics displayed for world cities.",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineLayersAndData":false,
+  "RequiresLocalServer":false,
+  "Image":"StatisticalQuery.jpg",
+  "Link":"",
+  "TypeLink": ["T:Esri.ArcGISRuntime.LayersAndData.StatisticDefinition","T:Esri.ArcGISRuntime.LayersAndData.StatisticsQueryParameters","T:Esri.ArcGISRuntime.LayersAndData.StatisticsQueryResult","M:Esri.ArcGISRuntime.LayersAndData.FeatureTable.QueryStatisticsAsync(Esri.ArcGISRuntime.LayersAndData.StatisticsQueryParameters)"]
+}

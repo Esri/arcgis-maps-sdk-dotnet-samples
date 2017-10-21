@@ -1,0 +1,14 @@
+{
+  "Name": "Set initial map location",
+  "SampleName": "SetInitialMapsAndVisualizationLocation",
+  "Description": "This sample demonstrates how to create a map with a standard ESRI Imagery with Labels basemap that is centered on a latitude and longitude location and zoomed into a specific level of detail.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"SetInitialMapsAndVisualizationLocation.jpg",
+  "Link":"",
+  "TypeLink": ["T:Esri.ArcGISRuntime.MapsAndVisualizationping.BasemapType","P:Esri.ArcGISRuntime.UI.Controls.MapsAndVisualizationView.MapsAndVisualization","M:Esri.ArcGISRuntime.MapsAndVisualizationping.MapsAndVisualization.#ctor(Esri.ArcGISRuntime.Layers.BasemapType,System.Double,System.Double,System.Int32)"],
+  "SampleFolder": "SetInitialMapsAndVisualizationLocation"
+}

@@ -1,0 +1,14 @@
+{
+  "Name": "Feature layer (feature service)",
+  "SampleName": "FeatureLayerUrl",
+  "Description": "This sample demonstrates how to show a feature layer on a map using the URL to the service.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"FeatureLayerUrl.jpg",
+  "Link":"",
+  "TypeLink": ["M:Esri.ArcGISRuntime.Mapping.Basemap.CreateTerrainWithLabels","T:Esri.ArcGISRuntime.Mapping.FeatureLayer","M:Esri.ArcGISRuntime.Mapping.FeatureLayer.#ctor(System.Uri)","P:Esri.ArcGISRuntime.Mapping.Map.OperationalLayersAndData"],
+  "SampleFolder": "FeatureLayerUrl"
+}

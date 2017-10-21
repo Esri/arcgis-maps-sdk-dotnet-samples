@@ -1,0 +1,14 @@
+{
+  "Name": "Display a map",
+  "SampleName": "DisplayMapsAndVisualization",
+  "Description": "This sample demonstrates how to display a map with a basemap.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"DisplayMapsAndVisualization.jpg",
+  "Link":"",
+  "TypeLink": ["T:Esri.ArcGISRuntime.MapsAndVisualizationping.Basemap","M:Esri.ArcGISRuntime.MapsAndVisualizationping.MapsAndVisualization.#ctor(Esri.ArcGISRuntime.MapsAndVisualizationping.Basemap)","T:Esri.ArcGISRuntime.UI.Controls.MapsAndVisualizationView"],
+  "SampleFolder": "DisplayMapsAndVisualization"
+}

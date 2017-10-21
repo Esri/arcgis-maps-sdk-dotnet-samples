@@ -1,0 +1,14 @@
+{
+  "Name": "Set map spatial reference",
+  "SampleName": "SetMapsAndVisualizationSpatialReference",
+  "Description": "This sample demonstrates how you can set the spatial reference on a MapsAndVisualization and all the layers would project accordingly.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": false,
+  "RequiresLocalServer": false,
+  "Image": "SetMapsAndVisualizationSpatialReference.jpg",
+  "Link": "",
+  "TypeLink": ["M:Esri.ArcGISRuntime.Geometry.SpatialReference.Create(System.Int32)","M:Esri.ArcGISRuntime.MapsAndVisualizationping.ArcGISMapsAndVisualizationImageLayer.#ctor(System.Uri)","M:Esri.ArcGISRuntime.MapsAndVisualizationping.MapsAndVisualization.#ctor(Esri.ArcGISRuntime.Geometry.SpatialReference)"
+  ]
+}

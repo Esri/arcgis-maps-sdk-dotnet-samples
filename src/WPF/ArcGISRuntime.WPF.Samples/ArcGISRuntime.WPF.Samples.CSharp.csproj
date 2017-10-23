@@ -89,6 +89,9 @@
     <Content Include="Samples\LayersAndData\ServiceFeatureTableCache\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\LayersAndData\ReadShapefileMetadata\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\LayersAndData\ServiceFeatureTableManualCache\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -104,8 +107,9 @@
     <Content Include="Samples\Analysis\AnalyzeViewshed\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\LayersAndData\WmsLayerUrl\metadata.json" />
-    <Content Include="Samples\LayersAndData\WmsLayerUrl\WmsLayerUrl.jpg" />
+    <Content Include="Samples\LayersAndData\WmsLayerUrl\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\MapsAndVisualization\AddGraphicsRenderer\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -301,6 +305,9 @@
     <Content Include="Samples\LayersAndData\EditAndSyncFeatures\EditAndSyncFeatures.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\LayersAndData\ReadShapefileMetadata\ReadShapefileMetadata.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\LayersAndData\FeatureLayerQuery\FeatureLayerQuery.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -409,6 +416,9 @@
     <Content Include="Samples\LayersAndData\WmsServiceCatalog\WmsServiceCatalog.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\LayersAndData\WmsLayerUrl\WmsLayerUrl.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\LayersAndData\WMTSLayer\WMTSLayer.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -501,6 +511,9 @@
     <!-- Sample Code -->
     <Compile Include="Samples\Analysis\AnalyzeHotspots\AnalyzeHotspots.xaml.cs">
       <DependentUpon>AnalyzeHotspots.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LayersAndData\ReadShapefileMetadata\ReadShapefileMetadata.xaml.cs">
+      <DependentUpon>ReadShapefileMetadata.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\LayersAndData\EditAndSyncFeatures\EditAndSyncFeatures.xaml.cs">
       <DependentUpon>EditAndSyncFeatures.xaml</DependentUpon>
@@ -716,6 +729,10 @@
   <ItemGroup>
     <!-- Sample XAML -->
     <Page Include="Samples\Analysis\AnalyzeHotspots\AnalyzeHotspots.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\LayersAndData\ReadShapefileMetadata\ReadShapefileMetadata.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

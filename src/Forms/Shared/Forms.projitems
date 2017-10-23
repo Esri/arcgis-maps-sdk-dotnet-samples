@@ -34,45 +34,6 @@
       <DependentUpon>SampleListPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Analysis\AnalyzeHotspots\AnalyzeHotspots.xaml.cs">
-      <DependentUpon>AnalyzeHotspots.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\LayersAndData\ListGeodatabaseVersions\ListGeodatabaseVersions.xaml.cs">
-      <DependentUpon>ListGeodatabaseVersions.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapsAndVisualization\AuthorMap\AuthorMap.xaml.cs">
-      <DependentUpon>AuthorMap.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapsAndVisualization\AuthorMap\SaveMapPage.xaml.cs">
-      <DependentUpon>SaveMapPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapsAndVisualization\DisplayMap\DisplayMap.xaml.cs">
-      <DependentUpon>DisplayMap.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapsAndVisualization\MapRotation\MapRotation.xaml.cs">
-      <DependentUpon>MapRotation.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapsAndVisualization\OpenMapUrl\OpenMapUrl.xaml.cs">
-      <DependentUpon>OpenMapUrl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapsAndVisualization\OpenMobileMap\OpenMobileMap.xaml.cs">
-      <DependentUpon>OpenMobileMap.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapsAndVisualization\SearchPortalMaps\SearchPortalMaps.xaml.cs">
-      <DependentUpon>SearchPortalMaps.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapsAndVisualization\SetInitialMapArea\SetInitialMapArea.xaml.cs">
-      <DependentUpon>SetInitialMapArea.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapsAndVisualization\SetInitialMapLocation\SetInitialMapLocation.xaml.cs">
-      <DependentUpon>SetInitialMapLocation.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapsAndVisualization\SetMapSpatialReference\SetMapSpatialReference.xaml.cs">
-      <DependentUpon>SetMapSpatialReference.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\RoutingAndLocation\DisplayDeviceLocation\DisplayDeviceLocation.xaml.cs">
-      <DependentUpon>DisplayDeviceLocation.xaml</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)CategoryListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -111,6 +72,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\LayersAndData\RasterLayerImageServiceRaster\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\LayersAndData\RasterLayerRasterFunction\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\LayersAndData\RasterRenderingRule\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\LayersAndData\ReadShapefileMetadata\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\LayersAndData\SceneLayerUrl\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\LayersAndData\ServiceFeatureTableCache\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\LayersAndData\ServiceFeatureTableManualCache\metadata.json" />
@@ -185,6 +147,7 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\LayersAndData\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\LayersAndData\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\LayersAndData\RasterRenderingRule\RasterRenderingRule.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\LayersAndData\ReadShapefileMetadata\ReadShapefileMetadata.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\LayersAndData\SceneLayerUrl\SceneLayerUrl.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\LayersAndData\ServiceFeatureTableCache\ServiceFeatureTableCache.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\LayersAndData\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.jpg" />
@@ -471,6 +434,48 @@
       <DependentUpon>SaveMapPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Analysis\AnalyzeHotspots\AnalyzeHotspots.xaml.cs">
+      <DependentUpon>AnalyzeHotspots.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\LayersAndData\ReadShapefileMetadata\ReadShapefileMetadata.xaml.cs">
+      <DependentUpon>ReadShapefileMetadata.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\LayersAndData\ListGeodatabaseVersions\ListGeodatabaseVersions.xaml.cs">
+      <DependentUpon>ListGeodatabaseVersions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapsAndVisualization\AuthorMap\AuthorMap.xaml.cs">
+      <DependentUpon>AuthorMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapsAndVisualization\AuthorMap\SaveMapPage.xaml.cs">
+      <DependentUpon>SaveMapPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapsAndVisualization\DisplayMap\DisplayMap.xaml.cs">
+      <DependentUpon>DisplayMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapsAndVisualization\MapRotation\MapRotation.xaml.cs">
+      <DependentUpon>MapRotation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapsAndVisualization\OpenMapUrl\OpenMapUrl.xaml.cs">
+      <DependentUpon>OpenMapUrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapsAndVisualization\OpenMobileMap\OpenMobileMap.xaml.cs">
+      <DependentUpon>OpenMobileMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapsAndVisualization\SearchPortalMaps\SearchPortalMaps.xaml.cs">
+      <DependentUpon>SearchPortalMaps.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapsAndVisualization\SetInitialMapArea\SetInitialMapArea.xaml.cs">
+      <DependentUpon>SetInitialMapArea.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapsAndVisualization\SetInitialMapLocation\SetInitialMapLocation.xaml.cs">
+      <DependentUpon>SetInitialMapLocation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapsAndVisualization\SetMapSpatialReference\SetMapSpatialReference.xaml.cs">
+      <DependentUpon>SetMapSpatialReference.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\RoutingAndLocation\DisplayDeviceLocation\DisplayDeviceLocation.xaml.cs">
+      <DependentUpon>DisplayDeviceLocation.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
@@ -691,6 +696,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\RoutingAndLocation\DisplayDeviceLocation\DisplayDeviceLocation.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\LayersAndData\ReadShapefileMetadata\ReadShapefileMetadata.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

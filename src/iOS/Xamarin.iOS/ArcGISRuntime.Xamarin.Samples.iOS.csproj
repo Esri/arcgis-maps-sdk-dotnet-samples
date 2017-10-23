@@ -227,7 +227,6 @@
     <Compile Include="Models\SampleModelExtensions.cs" />
     <Compile Include="Models\SampleStructureMap.cs" />
     <Compile Include="Models\SubCategoryModel.cs" />
-    <Compile Include="Samples\LayersAndData\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.cs" />
     <Compile Include="ViewControllers\SamplesViewController.cs" />
     <Compile Include="ViewControllers\SearchResultsUpdater.cs" />
     <Compile Include="ViewControllers\SearchResultsViewController.cs" />
@@ -265,6 +264,7 @@
     <EmbeddedResource Include="Samples\LayersAndData\RasterLayerImageServiceRaster\metadata.json" />
     <EmbeddedResource Include="Samples\LayersAndData\RasterLayerRasterFunction\metadata.json" />
     <EmbeddedResource Include="Samples\LayersAndData\RasterRenderingRule\metadata.json" />
+    <EmbeddedResource Include="Samples\LayersAndData\ReadShapefileMetadata\metadata.json" />
     <EmbeddedResource Include="Samples\LayersAndData\SceneLayerUrl\metadata.json" />
     <EmbeddedResource Include="Samples\LayersAndData\ServiceFeatureTableCache\metadata.json" />
     <EmbeddedResource Include="Samples\LayersAndData\ServiceFeatureTableManualCache\metadata.json" />
@@ -313,6 +313,7 @@
     <!-- Screenshots -->
     <None Include="Samples\Analysis\AnalyzeViewshed\AnalyzeViewshed.jpg" />
     <None Include="Samples\CloudAndPortal\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortal.jpg" />
+    <None Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.jpg" />
     <None Include="Samples\LayersAndData\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg" />
     <None Include="Samples\LayersAndData\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.jpg" />
     <None Include="Samples\LayersAndData\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.jpg" />
@@ -337,6 +338,7 @@
     <None Include="Samples\LayersAndData\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.jpg" />
     <None Include="Samples\LayersAndData\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg" />
     <None Include="Samples\LayersAndData\RasterRenderingRule\RasterRenderingRule.jpg" />
+    <None Include="Samples\LayersAndData\ReadShapefileMetadata\ReadShapefileMetadata.jpg" />
     <None Include="Samples\LayersAndData\SceneLayerUrl\SceneLayerUrl.jpg" />
     <None Include="Samples\LayersAndData\ServiceFeatureTableCache\ServiceFeatureTableCache.jpg" />
     <None Include="Samples\LayersAndData\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.jpg" />
@@ -387,6 +389,7 @@
     <Compile Include="Samples\CloudAndPortal\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortal.cs" />
     <Compile Include="Samples\LayersAndData\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.cs" />
     <Compile Include="Samples\LayersAndData\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.cs" />
+    <Compile Include="Samples\LayersAndData\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.cs" />
     <Compile Include="Samples\LayersAndData\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.cs" />
     <Compile Include="Samples\LayersAndData\ChangeSublayerVisibility\ChangeSublayerVisibility.cs" />
     <Compile Include="Samples\LayersAndData\ChangeSublayerVisibility\ChangeSublayerVisibility.designer.cs">
@@ -411,6 +414,7 @@
     <Compile Include="Samples\LayersAndData\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.cs" />
     <Compile Include="Samples\LayersAndData\RasterLayerRasterFunction\RasterLayerRasterFunction.cs" />
     <Compile Include="Samples\LayersAndData\RasterRenderingRule\RasterRenderingRule.cs" />
+    <Compile Include="Samples\LayersAndData\ReadShapefileMetadata\ReadShapefileMetadata.cs" />
     <Compile Include="Samples\LayersAndData\SceneLayerUrl\SceneLayerUrl.cs" />
     <Compile Include="Samples\LayersAndData\ServiceFeatureTableCache\ServiceFeatureTableCache.cs" />
     <Compile Include="Samples\LayersAndData\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.cs" />

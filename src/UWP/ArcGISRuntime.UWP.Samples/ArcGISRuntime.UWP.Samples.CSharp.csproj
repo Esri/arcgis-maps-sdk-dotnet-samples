@@ -131,6 +131,7 @@
     <Content Include="Samples\LayersAndData\RasterLayerImageServiceRaster\metadata.json" />
     <Content Include="Samples\LayersAndData\RasterLayerRasterFunction\metadata.json" />
     <Content Include="Samples\LayersAndData\RasterRenderingRule\metadata.json" />
+    <Content Include="Samples\LayersAndData\ReadShapefileMetadata\metadata.json" />
     <Content Include="Samples\LayersAndData\SceneLayerUrl\metadata.json" />
     <Content Include="Samples\LayersAndData\ServiceFeatureTableCache\metadata.json" />
     <Content Include="Samples\LayersAndData\ServiceFeatureTableManualCache\metadata.json" />
@@ -205,6 +206,7 @@
     <Content Include="Samples\LayersAndData\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.jpg" />
     <Content Include="Samples\LayersAndData\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg" />
     <Content Include="Samples\LayersAndData\RasterRenderingRule\RasterRenderingRule.jpg" />
+    <Content Include="Samples\LayersAndData\ReadShapefileMetadata\ReadShapefileMetadata.jpg" />
     <Content Include="Samples\LayersAndData\SceneLayerUrl\SceneLayerUrl.jpg" />
     <Content Include="Samples\LayersAndData\ServiceFeatureTableCache\ServiceFeatureTableCache.jpg" />
     <Content Include="Samples\LayersAndData\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.jpg" />
@@ -271,6 +273,9 @@
     </Compile>
     <Compile Include="Samples\LayersAndData\ListGeodatabaseVersions\ListGeodatabaseVersions.xaml.cs">
       <DependentUpon>ListGeodatabaseVersions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LayersAndData\ReadShapefileMetadata\ReadShapefileMetadata.xaml.cs">
+      <DependentUpon>ReadShapefileMetadata.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\LayersAndData\ServiceFeatureTableCache\ServiceFeatureTableCache.xaml.cs">
       <DependentUpon>ServiceFeatureTableCache.xaml</DependentUpon>
@@ -492,6 +497,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\LayersAndData\ListGeodatabaseVersions\ListGeodatabaseVersions.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\LayersAndData\ReadShapefileMetadata\ReadShapefileMetadata.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

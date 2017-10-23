@@ -148,6 +148,10 @@
               "Path": "Samples/LayersAndData/RasterRenderingRule"
             },
             {
+              "SampleName": "ReadShapefileMetadata",
+              "Path": "Samples/LayersAndData/ReadShapefileMetadata"
+            },
+            {
               "SampleName": "SceneLayerUrl",
               "Path": "Samples/LayersAndData/SceneLayerUrl"
             },
@@ -229,6 +233,7 @@
               "Path": "Samples/MapsAndVisualization/DisplayDrawingStatus"
             },
             {
+
               "SampleName": "DisplayLayerViewState",
               "Path": "Samples/MapsAndVisualization/DisplayLayerViewState"
             },

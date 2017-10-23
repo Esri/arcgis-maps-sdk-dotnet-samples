@@ -148,6 +148,10 @@
               "Path": "Samples/LayersAndData/RasterRenderingRule"
             },
             {
+              "SampleName": "ReadShapefileMetadata",
+              "Path": "Samples/LayersAndData/ReadShapefileMetadata"
+            },
+            {
               "SampleName": "SceneLayerUrl",
               "Path": "Samples/LayersAndData/SceneLayerUrl"
             },

@@ -269,6 +269,10 @@
             {
               "SampleName": "EditAndSyncFeatures",
               "Path": "Samples/Data/EditAndSyncFeatures"
+            },
+            {
+              "SampleName": "ReadShapefileMetadata",
+              "Path": "Samples/Data/ReadShapefileMetadata"
             }
           ]
         }

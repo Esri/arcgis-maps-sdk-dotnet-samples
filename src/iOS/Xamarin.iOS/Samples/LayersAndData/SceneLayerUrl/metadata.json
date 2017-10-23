@@ -9,6 +9,6 @@
   "RequiresLocalServer": false,
   "Image": "SceneLayerUrl.jpg",
   "Link": "",
-  "TypeLink": [ "T:Esri.ArcGISRuntime.Mapping.ArcGISSceneLayer", "P:Esri.ArcGISRuntime.Mapping.Basemap.BaseLayersAndData", "T:Esri.ArcGISRuntime.Mapping.Layer" ],
+  "TypeLink": [ "T:Esri.ArcGISRuntime.Mapping.ArcGISSceneLayer", "P:Esri.ArcGISRuntime.Mapping.Basemap.BaseLayers", "T:Esri.ArcGISRuntime.Mapping.Layer" ],
   "SampleFolder": "SceneLayerUrl"
 }

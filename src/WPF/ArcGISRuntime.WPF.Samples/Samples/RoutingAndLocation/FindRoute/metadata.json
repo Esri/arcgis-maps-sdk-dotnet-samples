@@ -9,6 +9,6 @@
   "RequiresLocalServer":false,
   "Image":"FindRoute.jpg",
   "Link":"",
-  "TypeLink": ["T:Esri.ArcGISRuntime.Tasks.RoutingAndLocation.RouteTask","M:Esri.ArcGISRuntime.Tasks.RoutingAndLocation.RouteTask.CreateDefaultParametersAsync","M:Esri.ArcGISRuntime.Tasks.RoutingAndLocation.RouteTask.SolveRouteAsync","T:Esri.ArcGISRuntime.Tasks.RoutingAndLocation.RouteParameters"],
+  "TypeLink": ["T:Esri.ArcGISRuntime.Tasks.NetworkAnalysis.RouteTask","M:Esri.ArcGISRuntime.Tasks.NetworkAnalysis.RouteTask.CreateDefaultParametersAsync","M:Esri.ArcGISRuntime.Tasks.NetworkAnalysis.RouteTask.SolveRouteAsync","T:Esri.ArcGISRuntime.Tasks.NetworkAnalysis.RouteParameters"],
   "SampleFolder": "FindRoute"
 }

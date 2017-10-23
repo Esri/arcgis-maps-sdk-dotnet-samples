@@ -6,11 +6,11 @@
 
     * [Analyze hotspots](Xamarin.Android/Samples/Analysis/AnalyzeHotspots)
 
-    This sample demonstrates how to execute the AnalysisTask asynchronously to calculate a hotspot analysis based on the frequency of 911 calls. It calculates the frequency of these calls within a given study area during a specified constrained time period set between 1/1/1998 and 5/31/1998.
+    This sample demonstrates how to execute the GeoprocessingTask asynchronously to calculate a hotspot analysis based on the frequency of 911 calls. It calculates the frequency of these calls within a given study area during a specified constrained time period set between 1/1/1998 and 5/31/1998.
 
-    * [Viewshed (Analysis)](Xamarin.Android/Samples/Analysis/AnalyzeViewshed)
+    * [Viewshed (Geoprocessing)](Xamarin.Android/Samples/Analysis/AnalyzeViewshed)
 
-    This sample demonstrates how to use AnalysisTask to calculate a viewshed using a geoprocessing service. Click any point on the map to see all areas that are visible within a 1 kilometer radius. It may take a few seconds for the model to run and send back the results.
+    This sample demonstrates how to use GeoprocessingTask to calculate a viewshed using a geoprocessing service. Click any point on the map to see all areas that are visible within a 1 kilometer radius. It may take a few seconds for the model to run and send back the results.
 
 ## Cloud and Portal
 
@@ -108,7 +108,7 @@
 
     * [List geodatabase versions](Xamarin.Android/Samples/LayersAndData/ListGeodatabaseVersions)
 
-    This sample demonstrates how to use LayersAndDataTask to get available geodatabase versions from the enterprise geodatabase. LayersAndData task will return the versions as a table that is shown to the user in a list. This is a good example how to use geoprocessing on mapless application.
+    This sample demonstrates how to use GeoprocessingTask to get available geodatabase versions from the enterprise geodatabase. Geoprocessing task will return the versions as a table that is shown to the user in a list. This is a good example how to use geoprocessing on mapless application.
 
     * [Raster layer (file)](Xamarin.Android/Samples/LayersAndData/RasterLayerFile)
 
@@ -173,7 +173,7 @@
 
     * [Access load status](Xamarin.Android/Samples/MapsAndVisualization/AccessLoadStatus)
 
-    This sample demonstrates how to access the MapsAndVisualizations' LoadStatus. The LoadStatus will be considered loaded when the following are true: The MapsAndVisualization has a valid SpatialReference and the MapsAndVisualization has an been set to the MapsAndVisualizationView.
+    This sample demonstrates how to access the Maps' LoadStatus. The LoadStatus will be considered loaded when the following are true: The Map has a valid SpatialReference and the Map has an been set to the MapView.
 
     * [Add graphics (SimpleRenderer)](Xamarin.Android/Samples/MapsAndVisualization/AddGraphicsRenderer)
 
@@ -183,9 +183,13 @@
 
     This sample demonstrates how to author and save a map as an ArcGIS portal item (web map). It is also the solution to the [Author, edit, and save maps to your portal tutorial](https://developers.arcgis.com/net/latest/android/guide/author-edit-and-save-maps-to-your-portal.htm). Saving a map to arcgis.com requires an ArcGIS Online login.
 
+    * [Author and save a map](Xamarin.Android/Samples/MapsAndVisualization/AuthorMap)
+
+    This sample demonstrates how to author and save a map as an ArcGIS portal item (web map). Saving a map to arcgis.com requires an ArcGIS Online login.
+
     * [Change basemap](Xamarin.Android/Samples/MapsAndVisualization/ChangeBasemap)
 
-    This sample demonstrates how to dynamically change the basemap displayed in a MapsAndVisualization.
+    This sample demonstrates how to dynamically change the basemap displayed in a Map.
 
     * [Change viewpoint](Xamarin.Android/Samples/MapsAndVisualization/ChangeViewpoint)
 
@@ -193,11 +197,15 @@
 
     * [Display drawing status](Xamarin.Android/Samples/MapsAndVisualization/DisplayDrawingStatus)
 
-    This sample demonstrates how to use the DrawStatus value of the MapsAndVisualization to notify user that the MapsAndVisualization is drawing.
+    This sample demonstrates how to use the DrawStatus value of the MapView to notify user that the MapView is drawing.
 
     * [Display layer view state](Xamarin.Android/Samples/MapsAndVisualization/DisplayLayerViewState)
 
     This sample demonstrates how to get view status for layers in a map.
+
+    * [Display a map](Xamarin.Android/Samples/MapsAndVisualization/DisplayMap)
+
+    This sample demonstrates how to display a map with a basemap.
 
     * [Identify graphics](Xamarin.Android/Samples/MapsAndVisualization/IdentifyGraphics)
 
@@ -211,6 +219,10 @@
 
     This sample illustrates how to rotate a map.
 
+    * [Open mobile map (map package)](Xamarin.Android/Samples/MapsAndVisualization/OpenMobileMap)
+
+    This sample demonstrates how to open a map from a mobile map package.
+
     * [Render picture markers](Xamarin.Android/Samples/MapsAndVisualization/RenderPictureMarkers)
 
     This sample demonstrates how to create picture marker symbols from a URL and embedded resources.
@@ -223,9 +235,25 @@
 
     This sample demonstrate how to use a unique value renderer to style different features in a feature layer with different symbols. Features do not have a symbol property for you to set, renderers should be used to define the symbol for features in feature layers. The unique value renderer allows for separate symbols to be used for features that have specific attribute values in a defined field.
 
+    * [Search a portal for maps](Xamarin.Android/Samples/MapsAndVisualization/SearchPortalMaps)
+
+    This sample demonstrates searching a portal for web maps and loading them in the map view. You can search ArcGIS Online public web maps using tag values or browse the web maps in your account. OAuth is used to authenticate with ArcGIS Online to access items in your account.
+
+    * [Set initial map area](Xamarin.Android/Samples/MapsAndVisualization/SetInitialMapArea)
+
+    This sample demonstrates how to set the initial viewpoint from envelope defined by minimum (x,y) and maximum (x,y) values. The map's InitialViewpoint is set to this viewpoint before the map is loaded into the MapView. Upon loading the map zoom to this initial area.
+
+    * [Set initial map location](Xamarin.Android/Samples/MapsAndVisualization/SetInitialMapLocation)
+
+    This sample demonstrates how to create a map with a standard ESRI Imagery with Labels basemap that is centered on a latitude and longitude location and zoomed into a specific level of detail.
+
+    * [Set map spatial reference](Xamarin.Android/Samples/MapsAndVisualization/SetMapSpatialReference)
+
+    This sample demonstrates how you can set the spatial reference on a Map and all the operational layers would project accordingly.
+
     * [Set Min & Max Scale](Xamarin.Android/Samples/MapsAndVisualization/SetMinMaxScale)
 
-    This sample demonstrates how to set the minimum and maximum scale of a MapsAndVisualization. Setting the minimum and maximum scale for the MapsAndVisualization can be useful in keeping the user focused at a certain level of detail.
+    This sample demonstrates how to set the minimum and maximum scale of a Map. Setting the minimum and maximum scale for the Map can be useful in keeping the user focused at a certain level of detail.
 
     * [Show callout](Xamarin.Android/Samples/MapsAndVisualization/ShowCallout)
 
@@ -259,6 +287,10 @@
 
 
 - **Routing and Location**
+
+    * [Display Device Location](Xamarin.Android/Samples/RoutingAndLocation/DisplayDeviceLocation)
+
+    This sample demonstrates how you can enable location services and switch between different types of auto pan modes.
 
     * [Find Address](Xamarin.Android/Samples/RoutingAndLocation/FindAddress)
 

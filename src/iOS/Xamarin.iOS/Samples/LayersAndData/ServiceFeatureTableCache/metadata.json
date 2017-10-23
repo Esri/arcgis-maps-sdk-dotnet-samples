@@ -5,10 +5,10 @@
   "Instructions": "",
   "Type": 0,
   "RequiresOnlineConnection":true,
-  "RequiresOfflineLayersAndData":false,
+  "RequiresOfflineData":false,
   "RequiresLocalServer":false,
   "Image":"ServiceFeatureTableCache.jpg",
   "Link":"",
-  "TypeLink": ["M:Esri.ArcGISRuntime.LayersAndData.ServiceFeatureTable.#ctor(System.Uri)","P:Esri.ArcGISRuntime.LayersAndData.ServiceFeatureTable.FeatureRequestMode","T:Esri.ArcGISRuntime.Geometry.SpatialReference"],
+  "TypeLink": ["M:Esri.ArcGISRuntime.Data.ServiceFeatureTable.#ctor(System.Uri)","P:Esri.ArcGISRuntime.Data.ServiceFeatureTable.FeatureRequestMode","T:Esri.ArcGISRuntime.Geometry.SpatialReference"],
   "SampleFolder": "ServiceFeatureTableCache"
 }

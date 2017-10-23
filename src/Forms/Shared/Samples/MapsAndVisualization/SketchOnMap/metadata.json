@@ -9,7 +9,7 @@
   "RequiresLocalServer":false,
   "Image":"SketchOnMap.jpg",
   "Link":"",
-  "TypeLink": ["T:Esri.ArcGISRuntime.UI.SketchEditor","T:Esri.ArcGISRuntime.UI.Graphic","T:Esri.ArcGISRuntime.UI.MapsAndVisualization"
+  "TypeLink": ["T:Esri.ArcGISRuntime.UI.SketchEditor","T:Esri.ArcGISRuntime.UI.Graphic","T:Esri.ArcGISRuntime.UI.MapView"
   ],
  "SampleFolder":  "SketchOnMap"
 }

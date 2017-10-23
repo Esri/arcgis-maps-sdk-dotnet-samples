@@ -9,6 +9,6 @@
   "RequiresLocalServer":false,
   "Image":"RenderPictureMarkers.jpg",
   "Link":"",
-  "TypeLink": ["T:Esri.ArcGISRuntime.MapsAndVisualization.PictureMarkerSymbol","P:Esri.ArcGISRuntime.MapsAndVisualization.PictureMarkerSymbol.Height","P:Esri.ArcGISRuntime.MapsAndVisualization.PictureMarkerSymbol.Width","M:Esri.ArcGISRuntime.MapsAndVisualization.PictureMarkerSymbol.#ctor(System.Uri)","M:Esri.ArcGISRuntime.MapsAndVisualization.PictureMarkerSymbol.CreateAsync(System.IO.Stream)","M:Esri.ArcGISRuntime.UI.Graphic.#ctor(Esri.ArcGISRuntime.Geometry.Geometry,Esri.ArcGISRuntime.MapsAndVisualization.Symbol)","M:Esri.ArcGISRuntime.UI.GraphicsOverlay.#ctor"],
+  "TypeLink": ["T:Esri.ArcGISRuntime.Symbology.PictureMarkerSymbol","P:Esri.ArcGISRuntime.Symbology.PictureMarkerSymbol.Height","P:Esri.ArcGISRuntime.Symbology.PictureMarkerSymbol.Width","M:Esri.ArcGISRuntime.Symbology.PictureMarkerSymbol.#ctor(System.Uri)","M:Esri.ArcGISRuntime.Symbology.PictureMarkerSymbol.CreateAsync(System.IO.Stream)","M:Esri.ArcGISRuntime.UI.Graphic.#ctor(Esri.ArcGISRuntime.Geometry.Geometry,Esri.ArcGISRuntime.Symbology.Symbol)","M:Esri.ArcGISRuntime.UI.GraphicsOverlay.#ctor"],
   "SampleFolder": "RenderPictureMarkers"
 }

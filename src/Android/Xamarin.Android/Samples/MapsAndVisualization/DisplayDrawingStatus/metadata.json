@@ -1,7 +1,7 @@
 {
   "Name": "Display drawing status",
   "SampleName": "DisplayDrawingStatus",
-  "Description": "This sample demonstrates how to use the DrawStatus value of the MapsAndVisualization to notify user that the MapsAndVisualization is drawing.",
+  "Description": "This sample demonstrates how to use the DrawStatus value of the MapView to notify user that the MapView is drawing.",
   "Type": 0,
   "RequiresOnlineConnection":true,
   "RequiresOfflineData":false,

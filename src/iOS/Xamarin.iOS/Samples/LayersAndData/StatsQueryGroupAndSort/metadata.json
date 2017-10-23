@@ -5,10 +5,10 @@
   "Instructions": "",
   "Type": 0,
   "RequiresOnlineConnection": true,
-  "RequiresOfflineLayersAndData": false,
+  "RequiresOfflineData": false,
   "RequiresLocalServer": false,
   "Image": "StatsQueryGroupAndSort.jpg",
   "Link": "",
-  "TypeLink": [ "T:Esri.ArcGISRuntime.LayersAndData.StatisticDefinition", "T:Esri.ArcGISRuntime.LayersAndData.StatisticsQueryParameters", "T:Esri.ArcGISRuntime.LayersAndData.StatisticsQueryResult", "M:Esri.ArcGISRuntime.LayersAndData.FeatureTable.QueryStatisticsAsync(Esri.ArcGISRuntime.LayersAndData.StatisticsQueryParameters)" ],
+  "TypeLink": [ "T:Esri.ArcGISRuntime.Data.StatisticDefinition", "T:Esri.ArcGISRuntime.Data.StatisticsQueryParameters", "T:Esri.ArcGISRuntime.Data.StatisticsQueryResult", "M:Esri.ArcGISRuntime.Data.FeatureTable.QueryStatisticsAsync(Esri.ArcGISRuntime.Data.StatisticsQueryParameters)" ],
   "SampleFolder": "StatsQueryGroupAndSort"
 }

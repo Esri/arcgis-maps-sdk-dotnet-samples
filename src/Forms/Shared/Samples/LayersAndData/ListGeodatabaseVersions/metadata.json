@@ -1,7 +1,7 @@
 {
   "Name": "List geodatabase versions",
   "SampleName": "ListGeodatabaseVersions",
-  "Description": "This sample demonstrates how to use LayersAndDataTask to get available geodatabase versions from the enterprise geodatabase. LayersAndData task will return the versions as a table that is shown to the user in a list. This is a good example how to use geoprocessing on mapless application.",
+  "Description": "This sample demonstrates how to use GeoprocessingTask to get available geodatabase versions from the enterprise geodatabase. Geoprocessing task will return the versions as a table that is shown to the user in a list. This is a good example how to use geoprocessing on mapless application.",
   "Instructions": "",
   "Type": 0,
   "RequiresOnlineConnection":true,
@@ -9,6 +9,6 @@
   "RequiresLocalServer":false,
   "Image":"ListGeodatabaseVersions.jpg",
   "Link":"",
-  "TypeLink": ["T:Esri.ArcGISRuntime.Tasks.LayersAndData.LayersAndDataResult","P:Esri.ArcGISRuntime.Tasks.LayersAndData.LayersAndDataResult.Outputs","T:Esri.ArcGISRuntime.Tasks.LayersAndData.LayersAndDataTask","M:Esri.ArcGISRuntime.Tasks.LayersAndData.LayersAndDataTask.#ctor(System.Uri)","P:Esri.ArcGISRuntime.Data.GeoElement.Attributes","P:Esri.ArcGISRuntime.Tasks.LayersAndData.LayersAndDataFeatures.Features","M:Esri.ArcGISRuntime.Tasks.LayersAndData.LayersAndDataParameters.#ctor(Esri.ArcGISRuntime.Tasks.LayersAndData.LayersAndDataExecutionType)"],
+  "TypeLink": ["T:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingResult","P:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingResult.Outputs","T:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingTask","M:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingTask.#ctor(System.Uri)","P:Esri.ArcGISRuntime.Data.GeoElement.Attributes","P:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingFeatures.Features","M:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingParameters.#ctor(Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingExecutionType)"],
   "SampleFolder": "ListGeodatabaseVersions"
 }

@@ -9,5 +9,5 @@
   "RequiresLocalServer":false,
   "Image":"FeatureLayerUrl.jpg",
   "Link":"",
-  "TypeLink": ["M:Esri.ArcGISRuntime.Mapping.Basemap.CreateTerrainWithLabels","T:Esri.ArcGISRuntime.Mapping.FeatureLayer","M:Esri.ArcGISRuntime.Mapping.FeatureLayer.#ctor(System.Uri)","P:Esri.ArcGISRuntime.Mapping.Map.OperationalLayersAndData"]
+  "TypeLink": ["M:Esri.ArcGISRuntime.Mapping.Basemap.CreateTerrainWithLabels","T:Esri.ArcGISRuntime.Mapping.FeatureLayer","M:Esri.ArcGISRuntime.Mapping.FeatureLayer.#ctor(System.Uri)","P:Esri.ArcGISRuntime.Mapping.Map.OperationalLayers"]
 }

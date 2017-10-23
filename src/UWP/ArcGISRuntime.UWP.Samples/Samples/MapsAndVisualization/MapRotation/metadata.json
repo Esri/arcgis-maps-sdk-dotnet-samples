@@ -9,5 +9,5 @@
   "RequiresLocalServer":false,
   "Image":"MapRotation.jpg",
   "Link":"",
-  "TypeLink": ["M:Esri.ArcGISRuntime.Mapping.Basemap.CreateStreets","M:Esri.ArcGISRuntime.UI.Controls.MapsAndVisualization.SetViewpointRotationAsync(System.Double)"]
+  "TypeLink": ["M:Esri.ArcGISRuntime.Mapping.Basemap.CreateStreets","M:Esri.ArcGISRuntime.UI.Controls.MapView.SetViewpointRotationAsync(System.Double)"]
 }

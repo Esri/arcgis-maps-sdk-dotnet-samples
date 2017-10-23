@@ -9,6 +9,6 @@
   "RequiresLocalServer":false,
   "Image":"SimpleRenderers.jpg",
   "Link":"",
-  "TypeLink": ["T:Esri.ArcGISRuntime.Geometry.SpatialReferences","P:Esri.ArcGISRuntime.Geometry.SpatialReferences.Wgs84","M:Esri.ArcGISRuntime.Geometry.Envelope.#ctor(Esri.ArcGISRuntime.Geometry.MapPoint,Esri.ArcGISRuntime.Geometry.MapPoint)","M:Esri.ArcGISRuntime.UI.Graphic.#ctor(Esri.ArcGISRuntime.Geometry.Geometry)","M:Esri.ArcGISRuntime.Geometry.RuntimePartCollection`1.Add(`0)","T:Esri.ArcGISRuntime.MapsAndVisualization.SimpleRenderer","M:Esri.ArcGISRuntime.MapsAndVisualization.SimpleRenderer.#ctor(Esri.ArcGISRuntime.MapsAndVisualization.Symbol)","P:Esri.ArcGISRuntime.UI.GraphicsOverlay.Renderer"],
+  "TypeLink": ["T:Esri.ArcGISRuntime.Geometry.SpatialReferences","P:Esri.ArcGISRuntime.Geometry.SpatialReferences.Wgs84","M:Esri.ArcGISRuntime.Geometry.Envelope.#ctor(Esri.ArcGISRuntime.Geometry.MapPoint,Esri.ArcGISRuntime.Geometry.MapPoint)","M:Esri.ArcGISRuntime.UI.Graphic.#ctor(Esri.ArcGISRuntime.Geometry.Geometry)","M:Esri.ArcGISRuntime.Geometry.RuntimePartCollection`1.Add(`0)","T:Esri.ArcGISRuntime.Symbology.SimpleRenderer","M:Esri.ArcGISRuntime.Symbology.SimpleRenderer.#ctor(Esri.ArcGISRuntime.Symbology.Symbol)","P:Esri.ArcGISRuntime.UI.GraphicsOverlay.Renderer"],
   "SampleFolder": "SimpleRenderers"
 }

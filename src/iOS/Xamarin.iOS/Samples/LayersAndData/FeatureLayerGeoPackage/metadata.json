@@ -5,11 +5,11 @@
   "Instructions": "The GeoPackage will be downloaded from an ArcGIS Online portal automatically.",
   "Type": 0,
   "RequiresOnlineConnection": true,
-  "RequiresOfflineLayersAndData": true,
+  "RequiresOfflineData": true,
   "RequiresLocalServer": false,
-  "LayersAndDataItemIds": [ "68ec42517cdd439e81b036210483e8e7" ],
+  "DataItemIds": [ "68ec42517cdd439e81b036210483e8e7" ],
   "Image": "FeatureLayerGeoPackage.jpg",
   "Link": "",
-  "TypeLink": [ "T:Esri.ArcGISRuntime.LayersAndData.GeoPackage", "T:Esri.ArcGISRuntime.LayersAndData.GeoPackageFeatureTable", "P:Esri.ArcGISRuntime.LayersAndData.GeoPackage.GeoPackageFeatureTables", "M:Esri.ArcGISRuntime.LayersAndData.GeoPackage.OpenAsync(System.String)" ],
+  "TypeLink": [ "T:Esri.ArcGISRuntime.Data.GeoPackage", "T:Esri.ArcGISRuntime.Data.GeoPackageFeatureTable", "P:Esri.ArcGISRuntime.Data.GeoPackage.GeoPackageFeatureTables", "M:Esri.ArcGISRuntime.Data.GeoPackage.OpenAsync(System.String)" ],
   "SampleFolder": "FeatureLayerGeoPackage"
 }

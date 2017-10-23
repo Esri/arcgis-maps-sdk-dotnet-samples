@@ -14,6 +14,6 @@
     "T:Esri.ArcGISRuntime.Symbology;",
     "T:Esri.ArcGISRuntime.Geometry;",
     "T:Esri.ArcGISRuntime.UI.Graphic",
-    "T:Esri.ArcGISRuntime.UI.MapsAndVisualization"
+    "T:Esri.ArcGISRuntime.UI.Symbology"
   ]
 }

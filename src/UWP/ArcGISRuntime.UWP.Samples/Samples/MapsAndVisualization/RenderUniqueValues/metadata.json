@@ -9,5 +9,5 @@
   "RequiresLocalServer":false,
   "Image":"RenderUniqueValues.jpg",
   "Link":"",
-  "TypeLink": ["T:Esri.ArcGISRuntime.MapsAndVisualization.UniqueValueRenderer","T:Esri.ArcGISRuntime.MapsAndVisualization.UniqueValueCollection","P:Esri.ArcGISRuntime.MapsAndVisualization.UniqueValueRenderer.UniqueValues","P:Esri.ArcGISRuntime.MapsAndVisualization.UniqueValueRenderer.FieldNames","T:Esri.ArcGISRuntime.StringCollection","T:Esri.ArcGISRuntime.MapsAndVisualization.UniqueValue","P:Esri.ArcGISRuntime.MapsAndVisualization.UniqueValueRenderer.DefaultLabel","P:Esri.ArcGISRuntime.MapsAndVisualization.UniqueValueRenderer.DefaultSymbol"]
+  "TypeLink": ["T:Esri.ArcGISRuntime.Symbology.UniqueValueRenderer","T:Esri.ArcGISRuntime.Symbology.UniqueValueCollection","P:Esri.ArcGISRuntime.Symbology.UniqueValueRenderer.UniqueValues","P:Esri.ArcGISRuntime.Symbology.UniqueValueRenderer.FieldNames","T:Esri.ArcGISRuntime.StringCollection","T:Esri.ArcGISRuntime.Symbology.UniqueValue","P:Esri.ArcGISRuntime.Symbology.UniqueValueRenderer.DefaultLabel","P:Esri.ArcGISRuntime.Symbology.UniqueValueRenderer.DefaultSymbol"]
 }

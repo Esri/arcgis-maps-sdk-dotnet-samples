@@ -74,13 +74,13 @@ namespace ArcGISRuntime.WPF.Samples.ReadShapefileMetadata
             string folder = DataManager.GetDataFolder();
 
             // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "FeatureLayerShapefile", filename);
+            string filepath = Path.Combine(folder, "SampleData", "ReadShapefileMetadata", filename);
 
             // Check if the file exists
             if (!File.Exists(filepath))
             {
                 // Download the shapefile
-                await DataManager.GetData("d98b3e5293834c5f852f13c569930caa", "FeatureLayerShapefile");
+                await DataManager.GetData("d98b3e5293834c5f852f13c569930caa", "ReadShapefileMetadata");
             }
 
             // Return the path

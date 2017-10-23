@@ -7,6 +7,7 @@
   "RequiresOnlineConnection": true,
   "RequiresOfflineData": true,
   "DataItemIds": [ "d98b3e5293834c5f852f13c569930caa" ],
+  "DataFileNames": [ "TrailBikeNetwork.shp" ],
   "RequiresLocalServer": false,
   "Image": "ReadShapefileMetadata.jpg",
   "Link": "",

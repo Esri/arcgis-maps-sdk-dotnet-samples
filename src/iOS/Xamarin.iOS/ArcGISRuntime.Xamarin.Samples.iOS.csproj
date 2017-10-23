@@ -243,6 +243,7 @@
     <EmbeddedResource Include="Samples\Data\FeatureLayerQuery\metadata.json" />
     <EmbeddedResource Include="Samples\Data\FeatureLayerShapefile\metadata.json" />
     <EmbeddedResource Include="Samples\Data\GenerateGeodatabase\metadata.json" />
+    <EmbeddedResource Include="Samples\Data\ReadShapefileMetadata\metadata.json" />
     <EmbeddedResource Include="Samples\Data\ServiceFeatureTableCache\metadata.json" />
     <EmbeddedResource Include="Samples\Data\ServiceFeatureTableManualCache\metadata.json" />
     <EmbeddedResource Include="Samples\Data\ServiceFeatureTableNoCache\metadata.json" />
@@ -315,6 +316,7 @@
     <None Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.jpg" />
     <None Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.jpg" />
     <None Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.jpg" />
+    <None Include="Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.jpg" />
     <None Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.jpg" />
     <None Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.jpg" />
     <None Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.jpg" />
@@ -387,6 +389,7 @@
     <Compile Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.cs" />
     <Compile Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.cs" />
     <Compile Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.cs" />
+    <Compile Include="Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.cs" />
     <Compile Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.cs" />
     <Compile Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.cs" />
     <Compile Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.cs" />

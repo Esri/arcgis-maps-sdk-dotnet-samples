@@ -49,6 +49,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerQuery\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerShapefile\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\GenerateGeodatabase\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ReadShapefileMetadata\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableCache\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableManualCache\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableNoCache\metadata.json" />
@@ -123,6 +124,7 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerQuery\FeatureLayerQuery.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\GenerateGeodatabase\GenerateGeodatabase.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.jpg" />
@@ -209,6 +211,10 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\GenerateGeodatabase\GenerateGeodatabase.xaml.cs">
       <DependentUpon>GenerateGeodatabase.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.xaml.cs">
+      <DependentUpon>ReadShapefileMetadata.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.xaml.cs">
@@ -705,9 +711,6 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Tutorial\AuthorEditSaveMap\SaveMapPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)Samples\Data\ReadShapefileMetadata\README.md" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

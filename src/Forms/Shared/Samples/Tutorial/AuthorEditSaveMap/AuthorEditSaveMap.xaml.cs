@@ -11,8 +11,10 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.Xamarin.Forms;
 using System;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -39,6 +41,9 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
 
             // Get the view model (defined as a resource in the XAML)
             _mapViewModel = this.Resources["MapViewModel"] as MapViewModel;
+
+            // Pass the map view to the map view model
+            _mapViewModel.AppMapView = MyMapView;
 
             // Define a click handler for the Basemaps button (show the basemap choice list)
             BasemapsButton.Clicked += (s, e) => BasemapListBox.IsVisible = true;
@@ -102,10 +107,25 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             };
 
             // Get the credential
-            Credential cred = await AuthenticationManager.Current.GetCredentialAsync(info, false);
+            try
+            {
+                Credential cred = await AuthenticationManager.Current.GetCredentialAsync(info, false);
 
-            // Add the credential to the AuthenticationManager
-            AuthenticationManager.Current.AddCredential(cred);
+                // Add the credential to the AuthenticationManager
+                AuthenticationManager.Current.AddCredential(cred);
+            } catch (System.Threading.Tasks.TaskCanceledException ex)
+            {
+                // Handle situation where the user closes the login window
+                return;
+            } catch (System.OperationCanceledException ex )
+            {
+                // Handle situation where the user presses 'cancel' in the login UI
+                return;
+            } catch (Exception ex)
+            {
+                // Handle all other exceptions related to canceled login
+                return;
+            }
         }
 
         // Event handler to get information entered by the user and save the map
@@ -121,11 +141,14 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                 // Get the current extent displayed in the map view
                 var currentViewpoint = MyMapView.GetCurrentViewpoint(Esri.ArcGISRuntime.Mapping.ViewpointType.BoundingGeometry);
 
+                // Export the current map view for the item's thumbnail
+                RuntimeImage thumbnailImg = await MyMapView.ExportImageAsync();
+
                 // See if the map has already been saved 
                 if (!_mapViewModel.MapIsSaved)
                 {
                     // Save the map as a portal item
-                    await _mapViewModel.SaveNewMapAsync(currentViewpoint, title, description, tags);
+                    await _mapViewModel.SaveNewMapAsync(currentViewpoint, title, description, tags, thumbnailImg);
 
                     // Report a successful save
                     DisplayAlert("Map Saved", "Saved '" + title + "' to ArcGIS Online!", "OK");
@@ -136,7 +159,6 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                     _mapViewModel.UpdateMapItem();
 
                     // Report success
-
                     DisplayAlert("Map Updated", "Saved changes to '" + title + "'", "OK");
                 }
             }
@@ -204,7 +226,15 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
     {
         public MapViewModel()
         {
-        }        
+            
+        }
+
+        // Store the map view used by the app
+        private MapView _mapView;
+        public MapView AppMapView
+        {
+            set { _mapView = value; }
+        }
 
         private Map _map = new Map(Basemap.CreateLightGrayCanvas());
         
@@ -265,17 +295,15 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
         }
 
         // Save the current map to ArcGIS Online. The initial extent, title, description, and tags are passed in.
-        public async Task SaveNewMapAsync(Viewpoint initialViewpoint, string title, string description, string[] tags)
+        public async Task SaveNewMapAsync(Viewpoint initialViewpoint, string title, string description, string[] tags, RuntimeImage img)
         {
             // Get the ArcGIS Online portal 
             ArcGISPortal agsOnline = await ArcGISPortal.CreateAsync(new Uri("https://www.arcgis.com/sharing/rest"));
 
             // Set the map's initial viewpoint using the extent (viewpoint) passed in
             _map.InitialViewpoint = initialViewpoint;
-
+            
             // Save the current state of the map as a portal item in the user's default folder
-            Esri.ArcGISRuntime.Xamarin.Forms.MapView mv = new Esri.ArcGISRuntime.Xamarin.Forms.MapView();
-            RuntimeImage img = null;  
             await _map.SaveAsAsync(agsOnline, null, title, description, tags, img, false);
         }
 
@@ -285,10 +313,20 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             get { return (_map != null && _map.Item != null); }
         }
 
-        public void UpdateMapItem()
+        public async void UpdateMapItem()
         {
             // Save the map
-            _map.SaveAsync();
+            await _map.SaveAsync();
+
+            // Export the current map view for the item's thumbnail
+            RuntimeImage thumbnailImg = await _mapView.ExportImageAsync();
+
+            // Get the file stream from the new thumbnail image
+            Stream imageStream = await thumbnailImg.GetEncodedBufferAsync();
+
+            // Update the item thumbnail
+            (_map.Item as PortalItem).SetThumbnailWithImage(imageStream);
+            await _map.SaveAsync();
         }
 
         public void ResetMap()

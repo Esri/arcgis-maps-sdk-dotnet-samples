@@ -11,8 +11,10 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
@@ -40,6 +42,9 @@ namespace ArcGISRuntime.UWP.Samples.AuthorEditSaveMap
         public AuthorEditSaveMap()
         {
             this.InitializeComponent();
+
+            // Pass the current map view to the map view model
+            ViewModel.AppMapView = MyMapView;
 
             // Define a handler for selection changed on the basemap list
             BasemapListBox.SelectionChanged += OnBasemapsClicked;
@@ -96,11 +101,14 @@ namespace ArcGISRuntime.UWP.Samples.AuthorEditSaveMap
                 // Get current map extent (viewpoint) for the map initial extent
                 var currentViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
 
+                // Export the current map view to use as the item's thumbnail
+                RuntimeImage thumbnailImg = await MyMapView.ExportImageAsync();
+
                 // See if the map has already been saved
                 if (!ViewModel.MapIsSaved)
                 {
                     // Call the SaveNewMapAsync method on the view model, pass in the required info
-                    await ViewModel.SaveNewMapAsync(currentViewpoint, title, description, tags);
+                    await ViewModel.SaveNewMapAsync(currentViewpoint, title, description, tags, thumbnailImg);
 
                     // Report success
                     MessageDialog dialog = new MessageDialog("Map '" + title + "' was saved to the portal.", "Saved Map");
@@ -181,7 +189,14 @@ namespace ArcGISRuntime.UWP.Samples.AuthorEditSaveMap
     // Provides map data to an application
     // Note: in a ArcGIS Runtime for .NET template project, this class will be in a separate file: "MapViewModel.cs"
     public class MapViewModel : INotifyPropertyChanged
-    {
+    {        
+        // Store the map view used by the app
+        private MapView _mapView;
+        public MapView AppMapView
+        {
+            set { _mapView = value; }
+        }
+
         // String array to store basemap constructor types
         private string[] _basemapTypes = new string[]
         {
@@ -247,7 +262,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorEditSaveMap
         }
 
         // Save the current map to ArcGIS Online. The initial extent, title, description, and tags are passed in.
-        public async Task SaveNewMapAsync(Viewpoint initialViewpoint, string title, string description, string[] tags)
+        public async Task SaveNewMapAsync(Viewpoint initialViewpoint, string title, string description, string[] tags, RuntimeImage img)
         {
             // Get the ArcGIS Online portal 
             ArcGISPortal agsOnline = await ArcGISPortal.CreateAsync(new Uri("https://www.arcgis.com/sharing/rest"));
@@ -256,7 +271,6 @@ namespace ArcGISRuntime.UWP.Samples.AuthorEditSaveMap
             _map.InitialViewpoint = initialViewpoint;
 
             // Save the current state of the map as a portal item in the user's default folder
-            RuntimeImage img = null;
             await _map.SaveAsAsync(agsOnline, null, title, description, tags, img, false);
         }
 
@@ -266,10 +280,20 @@ namespace ArcGISRuntime.UWP.Samples.AuthorEditSaveMap
             get { return (_map != null && _map.Item != null); }
         }
 
-        public void UpdateMapItem()
+        public async void UpdateMapItem()
         {
             // Save the map
-            _map.SaveAsync();
+            await _map.SaveAsync();
+            
+            // Export the current map view for the item thumbnail
+            RuntimeImage thumbnailImg = await _mapView.ExportImageAsync();
+
+            // Get the file stream from the new thumbnail image
+            Stream imageStream = await thumbnailImg.GetEncodedBufferAsync();
+
+            // Update the item thumbnail
+            (_map.Item as PortalItem).SetThumbnailWithImage(imageStream);
+            await _map.SaveAsync();
         }
 
         // Raises the PropertyChanged event for a property

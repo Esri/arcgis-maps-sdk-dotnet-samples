@@ -16,6 +16,8 @@ Imports System.Windows.Navigation
 Imports System.Runtime.CompilerServices
 Imports System.ComponentModel
 Imports Esri.ArcGISRuntime.UI
+Imports Esri.ArcGISRuntime.UI.Controls
+Imports System.IO
 
 Namespace AuthorEditSaveMap
     Partial Public Class AuthorEditSaveMapVB
@@ -38,6 +40,9 @@ Namespace AuthorEditSaveMap
 
             ' Get the view model (static resource defined in the page XAML)
             _mapViewModel = TryCast(Me.FindResource("MapViewModel"), MapViewModel)
+
+            ' Pass the map view to the view model
+            _mapViewModel.AppMapView = MyMapView
 
             ' Define a handler for selection changed on the basemap list
             AddHandler BasemapListBox.SelectionChanged, AddressOf OnBasemapsClicked
@@ -89,10 +94,13 @@ Namespace AuthorEditSaveMap
                 ' Get current map extent (viewpoint) for the map initial extent
                 Dim currentViewpoint As Viewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry)
 
+                ' Export the current map view as the item thumbnail
+                Dim thumbnailImg As RuntimeImage = Await MyMapView.ExportImageAsync()
+
                 ' See if the map has already been saved
                 If (Not _mapViewModel.MapIsSaved) Then
                     ' Call the SaveNewMapAsync method on the view model, pass in the required info
-                    Await _mapViewModel.SaveNewMapAsync(currentViewpoint, title, description, tags)
+                    Await _mapViewModel.SaveNewMapAsync(currentViewpoint, title, description, tags, thumbnailImg)
 
                     ' Report success
                     MessageBox.Show("Map '" + title + "' was saved to the portal.", "Saved Map")
@@ -334,6 +342,14 @@ Namespace AuthorEditSaveMap
     Public Class MapViewModel
         Implements INotifyPropertyChanged
 
+        ' Store the map view used by the app
+        Private _mapView As MapView
+        Public WriteOnly Property AppMapView As MapView
+            Set
+                _mapView = Value
+            End Set
+        End Property
+
         ' String array to store basemap constructor types
         Private _basemapTypes As String() =
         {
@@ -395,7 +411,7 @@ Namespace AuthorEditSaveMap
         End Sub
 
         ' Save the current map to ArcGIS Online. The initial extent, title, description, And tags are passed in.
-        Public Async Function SaveNewMapAsync(initialViewpoint As Viewpoint, title As String, description As String, tags As String()) As Task
+        Public Async Function SaveNewMapAsync(initialViewpoint As Viewpoint, title As String, description As String, tags As String(), img As RuntimeImage) As Task
             ' Get the ArcGIS Online portal 
             Dim agsOnline As ArcGISPortal = Await ArcGISPortal.CreateAsync(New Uri("https://www.arcgis.com/sharing/rest"))
 
@@ -403,7 +419,6 @@ Namespace AuthorEditSaveMap
             _map.InitialViewpoint = initialViewpoint
 
             ' Save the current state of the map as a portal item in the user's default folder
-            Dim img As RuntimeImage = Nothing
             Await MyMap.SaveAsAsync(agsOnline, Nothing, title, description, tags, img, True)
         End Function
 
@@ -425,9 +440,20 @@ Namespace AuthorEditSaveMap
             End Get
         End Property
 
-        Public Sub UpdateMapItem()
-            ' Save the map
-            _map.SaveAsync()
+        Public Async Sub UpdateMapItem()
+            'Save the map
+            Await _map.SaveAsync()
+
+            ' Export the current map view as the item thumbnail
+            Dim thumbnailImg As RuntimeImage = Await _mapView.ExportImageAsync()
+
+            ' Get the file stream from the New thumbnail image
+            Dim imageStream As Stream = Await thumbnailImg.GetEncodedBufferAsync()
+
+            ' Update the item thumbnail
+            Dim portalMapItem As PortalItem = TryCast(MyMap.Item, PortalItem)
+            portalMapItem.SetThumbnailWithImage(imageStream)
+            Await _map.SaveAsync()
         End Sub
 
         ' Raises the PropertyChanged event for a property

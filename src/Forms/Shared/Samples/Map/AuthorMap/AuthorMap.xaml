@@ -69,7 +69,7 @@
         <ColumnDefinition/>
       </Grid.ColumnDefinitions>
       <Button Grid.Column="0"
-              Text="Base map"
+              Text="Basemap"
               Clicked="ShowLayerList"/>
       <Button Grid.Column="1"
               Text="Layers"

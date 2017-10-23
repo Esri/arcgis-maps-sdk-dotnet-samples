@@ -83,7 +83,7 @@ namespace ArcGISRuntime.WPF.Samples.ListGeodatabaseVersions
             IFeatureSet results = null; 
 
             // Create new geoprocessing task 
-            var listVersionsTask = new GeoprocessingTask(new Uri(ListVersionsUrl));
+            var listVersionsTask = await GeoprocessingTask.CreateAsync(new Uri(ListVersionsUrl));
 
             // Create parameters that are passed to the used geoprocessing task
             GeoprocessingParameters listVersionsParameters =

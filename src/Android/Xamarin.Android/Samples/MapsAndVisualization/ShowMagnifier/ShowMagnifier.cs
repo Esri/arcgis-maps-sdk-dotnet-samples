@@ -11,6 +11,7 @@ using Android.App;
 using Android.OS;
 using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 
 namespace ArcGISRuntimeXamarin.Samples.ShowMagnifier
@@ -37,9 +38,9 @@ namespace ArcGISRuntimeXamarin.Samples.ShowMagnifier
             // Create new Map with basemap and initial location
             Map myMap = new Map(BasemapType.Topographic, 34.056295, -117.195800, 10);
 
-            // Enable the ability to interact with the map view (including enabling the magnifier) 
-            _myMapView.InteractionOptions = new Esri.ArcGISRuntime.UI.MapViewInteractionOptions();
-                        
+            // Create a new instance of MapViewInteractionOptions to enable configuring the MapView
+            _myMapView.InteractionOptions = new MapViewInteractionOptions();
+
             // Enable magnifier
             _myMapView.InteractionOptions.IsMagnifierEnabled = true;
 

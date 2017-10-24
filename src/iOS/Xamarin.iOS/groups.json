@@ -10,6 +10,10 @@
           "ShowGroup": true,
           "SampleInfos": [
             {
+              "SampleName": "AnalyzeHotspots",
+              "Path": "Samples/Analysis/AnalyzeHotspots"
+            },
+            {
               "SampleName": "AnalyzeViewshed",
               "Path": "Samples/Analysis/AnalyzeViewshed"
             }

@@ -9,6 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
+using Esri.ArcGISRuntime.UI;
 using Foundation;
 using UIKit;
 
@@ -49,6 +50,9 @@ namespace ArcGISRuntimeXamarin.Samples.ShowMagnifier
         {
             // Create new Map with basemap and initial location
             Map myMap = new Map(BasemapType.Topographic, 34.056295, -117.195800, 10);
+
+            // Create a new instance of MapViewInteractionOptions to enable configuring the MapView
+            _myMapView.InteractionOptions = new MapViewInteractionOptions();
 
             // Enable magnifier
             _myMapView.InteractionOptions.IsMagnifierEnabled = true;

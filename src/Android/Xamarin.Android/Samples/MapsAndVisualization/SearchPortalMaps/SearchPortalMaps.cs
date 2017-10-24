@@ -154,8 +154,11 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             _webMapUris = new Dictionary<string, Uri>();
             foreach (var item in webmapItems)
             {
-                _webMapUris.Add(item.Title, item.Url);
-                mapsMenu.Menu.Add(item.Title);
+                if (!_webMapUris.Keys.ToList().Contains(item.Title))
+                {
+                    _webMapUris.Add(item.Title, item.Url);
+                    mapsMenu.Menu.Add(item.Title);
+                }
             }
 
             //Show menu in the view

@@ -12,7 +12,7 @@
       <RowDefinition Height="auto" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
-        <Label Text="Red hurricanes offset 1 Year" FontAttributes="Bold"
+        <Label Text="Red hurricanes offset 10 days" FontAttributes="Bold"
                       HorizontalTextAlignment="Center" TextColor="Red" Grid.Row="0"/>
         <Label Text="Blue hurricanes not offset" FontAttributes="Bold"
                       HorizontalTextAlignment="Center" TextColor="Blue" Grid.Row="1"/>

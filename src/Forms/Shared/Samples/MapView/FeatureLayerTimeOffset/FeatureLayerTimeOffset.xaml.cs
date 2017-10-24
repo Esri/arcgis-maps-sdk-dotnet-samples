@@ -9,6 +9,7 @@
 
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Symbology;
 using System;
 using Xamarin.Forms;
 
@@ -16,8 +17,7 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerTimeOffset
 {
     public partial class FeatureLayerTimeOffset : ContentPage
     {
-        // Hold the feature layer URI "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer/0"
-        private Uri _featureLayerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer");
+        private Uri _featureLayerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer/0");
 
         // Hold a reference to the original time extent
         private TimeExtent originalExtent;
@@ -37,15 +37,25 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerTimeOffset
             // Create new Map
             Map myMap = new Map(Basemap.CreateOceans());
 
-            // Add the hurricanes feature layer once
-            ArcGISMapImageLayer noOffsetLayer = new ArcGISMapImageLayer(_featureLayerUri); // TODO - Change to FeatureLayer
-            //noOffsetLayer.Renderer = new SimpleRenderer(new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Windows.Media.Color.FromRgb(255, 0, 0), 10));
+            // Create the hurricanes feature layer once
+            FeatureLayer noOffsetLayer = new FeatureLayer(_featureLayerUri);
+
+            // Apply a blue dot renderer to distinguish hurricanes without offsets
+            noOffsetLayer.Renderer = new SimpleRenderer(new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Windows.UI.Colors.Blue, 10));
+
+            // Add the non-offset layer to the map
             myMap.OperationalLayers.Add(noOffsetLayer);
 
-            // Add the hurricanes feature layer again, now with 10 day offset
-            ArcGISMapImageLayer withOffsetLayer = new ArcGISMapImageLayer(_featureLayerUri); // TODO - Change to FeatureLayer
-            //withOffsetLayer.Renderer = new SimpleRenderer(new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Windows.Media.Color.FromRgb(0, 0, 255), 10));
-            withOffsetLayer.TimeOffset = new TimeValue(1, Esri.ArcGISRuntime.ArcGISServices.TimeUnit.Years);
+            // Create the offset hurricanes feature layer
+            FeatureLayer withOffsetLayer = new FeatureLayer(_featureLayerUri);
+
+            // Apply a red dot renderer to distinguish these hurricanes from the non-offset hurricanes
+            withOffsetLayer.Renderer = new SimpleRenderer(new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Windows.UI.Colors.Red, 10));
+
+            // Apply the time offset (red hurricane dots will be from 10 days before the current extent)
+            withOffsetLayer.TimeOffset = new TimeValue(10, Esri.ArcGISRuntime.ArcGISServices.TimeUnit.Days);
+
+            // Add the layer to the map
             myMap.OperationalLayers.Add(withOffsetLayer);
 
             // Apply the Map to the MapView
@@ -56,12 +66,20 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerTimeOffset
 
             // Store a reference to the original time extent
             originalExtent = noOffsetLayer.FullTimeExtent;
+
+            // Update the time extent set on the map
+            UpdateTimeExtent();
         }
 
         private void MyTimeSlider_ValueChanged(object sender, ValueChangedEventArgs e)
         {
+            UpdateTimeExtent();
+        }
+
+        private void UpdateTimeExtent()
+        {
             // Get the value of the slider
-            double value = e.NewValue / 100;
+            double value = MyTimeSlider.Value / 100;
 
             // Calculate the number of days that value corresponds to
             // 1. Get the interval

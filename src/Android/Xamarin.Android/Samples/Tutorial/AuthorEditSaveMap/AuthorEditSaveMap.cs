@@ -19,6 +19,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -27,8 +28,11 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
     [Activity]
     public class AuthorEditSaveMap : Activity, IOAuthAuthorizeHandler
     {
-        MapViewModel _mapViewModel = new MapViewModel();
-        MapView _mapView;
+        // Store the app's map view
+        MapView _mapView = new MapView();
+
+        // Store the view model used by the app to display the map
+        MapViewModel _mapViewModel;
 
         // Use a TaskCompletionSource to track the completion of the authorization
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
@@ -59,6 +63,9 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
 
             // (This line is not in the tutorial) Display the name of the sample in the viewer
             Title = "Author and save a map";
+
+            // Create the view model (pass in the app's map view)
+            _mapViewModel = new MapViewModel(_mapView);
 
             // Create the UI
             CreateLayout();
@@ -112,7 +119,6 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             mainLayout.AddView(buttonLayout);
 
             // Add the map view to the layout
-            _mapView = new MapView();
             mainLayout.AddView(_mapView);
 
             // Show the layout in the app
@@ -253,13 +259,16 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                 // Get the map view's current extent (viewpoint) to use as the web map initial extent
                 Viewpoint initialMapViewpoint = _mapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
 
+                // Export the current map view for the item's thumbnail
+                RuntimeImage thumbnailImg = await _mapView.ExportImageAsync();
+
                 // Provide some default tags for the item
                 var tags = new string[] { "ArcGIS Runtime SDK", "tutorial" };
 
                 try
                 {
                     // Call a function on the view model to save the map as a new portal item
-                    await _mapViewModel.SaveNewMapAsync(initialMapViewpoint, title, description, tags);
+                    await _mapViewModel.SaveNewMapAsync(initialMapViewpoint, title, description, tags, thumbnailImg);
 
                     // Report a successful save
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -435,6 +444,8 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             get { return _basemapTypes; }
         }
 
+        // Fields to store the current map view and map
+        private MapView _mapView;
         private Map _map = new Map(Basemap.CreateTopographicVector());
         
         // Gets or sets the map
@@ -444,9 +455,10 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             set { _map = value; OnPropertyChanged(); }
         }
 
-        public MapViewModel()
+        public MapViewModel(MapView mapView)
         {
-
+            // Store the app's map view when the view model is created
+            _mapView = mapView;
         }
 
         public bool MapIsSaved
@@ -488,7 +500,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
         }
 
         // Save the current map to ArcGIS Online. The initial extent, title, description, and tags are passed in.
-        public async Task SaveNewMapAsync(Viewpoint initialViewpoint, string title, string description, string[] tags)
+        public async Task SaveNewMapAsync(Viewpoint initialViewpoint, string title, string description, string[] tags, RuntimeImage img)
         {
             // Get the ArcGIS Online portal 
             ArcGISPortal agsOnline = await ArcGISPortal.CreateAsync(new Uri("https://www.arcgis.com/sharing/rest"));
@@ -497,14 +509,23 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             _map.InitialViewpoint = initialViewpoint;
 
             // Save the current state of the map as a portal item in the user's default folder
-            RuntimeImage img = null; 
             await _map.SaveAsAsync(agsOnline, null, title, description, tags, img);
         }
 
-        public void UpdateMapItem()
+        public async void UpdateMapItem()
         {
             // Save the map
-            _map.SaveAsync();
+            await _map.SaveAsync();
+            
+            // Export the current map view for the item's thumbnail
+            RuntimeImage thumbnailImg = await _mapView.ExportImageAsync();
+
+            // Get the file stream from the new thumbnail image
+            Stream imageStream = await thumbnailImg.GetEncodedBufferAsync();
+
+            // Update the item thumbnail
+            (_map.Item as PortalItem).SetThumbnailWithImage(imageStream);
+            await _map.SaveAsync();
         }
 
         public void ResetMap()

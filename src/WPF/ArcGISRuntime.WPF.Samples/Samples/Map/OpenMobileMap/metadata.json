@@ -7,6 +7,7 @@
   "RequiresOnlineConnection": true,
   "RequiresOfflineData": true,
   "DataItemIds": [ "e1f3a7254cb845b09450f54937c16061" ],
+  "DataFileNames": [ "Yellowstone.mmpk" ],
   "RequiresLocalServer": false,
   "Image": "OpenMobileMap.jpg",
   "Link": "",

@@ -87,7 +87,7 @@ Namespace ListGeodatabaseVersions
             Dim results As IFeatureSet = Nothing
 
             ' Create new geoprocessing task 
-            Dim listVersionsTask = New GeoprocessingTask(New Uri(ListVersionsUrl))
+            Dim listVersionsTask = Await GeoprocessingTask.CreateAsync(New Uri(ListVersionsUrl))
 
             ' Create parameters that are passed to the used geoprocessing task
             Dim listVersionsParameters As New GeoprocessingParameters(GeoprocessingExecutionType.SynchronousExecute)

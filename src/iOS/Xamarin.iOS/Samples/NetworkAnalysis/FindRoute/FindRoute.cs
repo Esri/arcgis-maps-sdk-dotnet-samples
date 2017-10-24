@@ -199,7 +199,6 @@ namespace ArcGISRuntimeXamarin.Samples.FindRoute
 
         private void ShowDirections(object sender, EventArgs e)
         {
-          //  ShowDirectionsController routeDirections = new ShowDirectionsController(_directionsList);
             UITableViewController directionsTableController = new UITableViewController();
             DirectionsTableSource directionsSource = new DirectionsTableSource(_directionsList);
             directionsTableController.TableView.Source = directionsSource;

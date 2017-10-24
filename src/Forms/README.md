@@ -126,6 +126,10 @@
 
     This sample demonstrates how to create an `ImageServiceRaster`, fetch the `RenderingRule`s from the service info, and use a `RenderingRule` to create an `ImageServiceRaster` and add it to a raster layer.
 
+    * [Read shapefile metadata](Shared/Samples/LayersAndData/ReadShapefileMetadata)
+
+    This sample demonstrates how to open a shapefile stored on the device, read metadata that describes the dataset, and display it as a feature layer with default symbology.
+
     * [ArcGIS Scene layer (URL)](Shared/Samples/LayersAndData/SceneLayerUrl)
 
     This sample demonstrates how to add an ArcGISSceneLayer as a layer in a Scene.
@@ -218,6 +222,10 @@
     * [Map rotation](Shared/Samples/MapsAndVisualization/MapRotation)
 
     This sample illustrates how to rotate a map.
+
+    * [Open Map (URL)](Shared/Samples/MapsAndVisualization/OpenMapUrl)
+
+    This sample demonstrates how to open an existing map from a portal. The sample opens with a map displayed by default. You can change the shown map by selecting a new one from the populated list.
 
     * [Open mobile map (map package)](Shared/Samples/MapsAndVisualization/OpenMobileMap)
 

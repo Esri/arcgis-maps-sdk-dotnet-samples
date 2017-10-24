@@ -126,6 +126,10 @@
 
     This sample demonstrates how to create an `ImageServiceRaster`, fetch the `RenderingRule`s from the service info, and use a `RenderingRule` to create an `ImageServiceRaster` and add it to a raster layer.
 
+    * [Read shapefile metadata](ArcGISRuntime.WPF.Samples/Samples/LayersAndData/ReadShapefileMetadata)
+
+    This sample demonstrates how to open a shapefile stored on the device, read metadata that describes the dataset, and display it as a feature layer with default symbology.
+
     * [ArcGIS Scene layer (URL)](ArcGISRuntime.WPF.Samples/Samples/LayersAndData/SceneLayerUrl)
 
     This sample demonstrates how to add an ArcGISSceneLayer as a layer in a Scene.
@@ -218,6 +222,10 @@
     * [Map rotation](ArcGISRuntime.WPF.Samples/Samples/MapsAndVisualization/MapRotation)
 
     This sample demonstrates how to rotate a map.
+
+    * [Open map (URL)](ArcGISRuntime.WPF.Samples/Samples/MapsAndVisualization/OpenMapUrl)
+
+    This sample demonstrates loading a webmap in a map from a Uri.
 
     * [Open mobile map (map package)](ArcGISRuntime.WPF.Samples/Samples/MapsAndVisualization/OpenMobileMap)
 

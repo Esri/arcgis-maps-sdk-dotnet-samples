@@ -214,6 +214,7 @@
     <EmbeddedResource Include="Samples\MapView\ChangeViewpoint\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\DisplayDrawingStatus\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\DisplayLayerViewState\metadata.json" />
+    <EmbeddedResource Include="Samples\MapView\FeatureLayerTimeOffset\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\MapRotation\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\ShowCallout\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\ShowMagnifier\metadata.json" />
@@ -289,6 +290,7 @@
     <None Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.jpg" />
     <None Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.jpg" />
     <None Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.jpg" />
+    <None Include="Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.jpg" />
     <None Include="Samples\MapView\MapRotation\MapRotation.jpg" />
     <None Include="Samples\MapView\ShowCallout\ShowCallout.jpg" />
     <None Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg" />
@@ -364,6 +366,7 @@
     <Compile Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.cs" />
     <Compile Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.cs" />
     <Compile Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.cs" />
+    <Compile Include="Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.cs" />
     <Compile Include="Samples\MapView\MapRotation\MapRotation.cs" />
     <Compile Include="Samples\MapView\ShowCallout\ShowCallout.cs" />
     <Compile Include="Samples\MapView\ShowMagnifier\ShowMagnifier.cs" />

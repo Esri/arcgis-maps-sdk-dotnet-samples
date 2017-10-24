@@ -227,7 +227,6 @@
     <Compile Include="Models\SampleModelExtensions.cs" />
     <Compile Include="Models\SampleStructureMap.cs" />
     <Compile Include="Models\SubCategoryModel.cs" />
-    <Compile Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.cs" />
     <Compile Include="ViewControllers\SamplesViewController.cs" />
     <Compile Include="ViewControllers\SearchResultsUpdater.cs" />
     <Compile Include="ViewControllers\SearchResultsViewController.cs" />
@@ -250,6 +249,7 @@
     <EmbeddedResource Include="Samples\Data\ServiceFeatureTableNoCache\metadata.json" />
     <EmbeddedResource Include="Samples\Data\StatisticalQuery\metadata.json" />
     <EmbeddedResource Include="Samples\Data\StatsQueryGroupAndSort\metadata.json" />
+    <EmbeddedResource Include="Samples\Geoprocessing\AnalyzeHotspots\metadata.json" />
     <EmbeddedResource Include="Samples\Geoprocessing\AnalyzeViewshed\metadata.json" />
     <EmbeddedResource Include="Samples\GraphicsOverlay\AddGraphicsRenderer\metadata.json" />
     <EmbeddedResource Include="Samples\GraphicsOverlay\IdentifyGraphics\metadata.json" />
@@ -296,6 +296,7 @@
     <EmbeddedResource Include="Samples\MapView\ChangeViewpoint\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\DisplayDrawingStatus\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\DisplayLayerViewState\metadata.json" />
+    <EmbeddedResource Include="Samples\MapView\FeatureLayerTimeOffset\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\MapRotation\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\ShowCallout\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\ShowMagnifier\metadata.json" />
@@ -323,7 +324,7 @@
     <None Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.jpg" />
     <None Include="Samples\Data\StatisticalQuery\StatisticalQuery.jpg" />
     <None Include="Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.jpg" />
-    <EmbeddedResource Include="Samples\Geoprocessing\AnalyzeHotspots\metadata.json" />
+    <None Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.jpg" />
     <None Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.jpg" />
     <None Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.jpg" />
     <None Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.jpg" />
@@ -370,6 +371,7 @@
     <None Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.jpg" />
     <None Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.jpg" />
     <None Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.jpg" />
+    <None Include="Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.jpg" />
     <None Include="Samples\MapView\MapRotation\MapRotation.jpg" />
     <None Include="Samples\MapView\ShowCallout\ShowCallout.jpg" />
     <None Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg" />
@@ -397,6 +399,7 @@
     <Compile Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.cs" />
     <Compile Include="Samples\Data\StatisticalQuery\StatisticalQuery.cs" />
     <Compile Include="Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.cs" />
+    <Compile Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.cs" />
     <Compile Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.cs" />
     <Compile Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.cs" />
     <Compile Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.cs" />
@@ -406,9 +409,7 @@
     <Compile Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.cs" />
     <Compile Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.cs" />
     <Compile Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.cs" />
-    <Compile Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.designer.cs">
-      <DependentUpon>ChangeSublayerVisibility.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.designer.cs"><DependentUpon>ChangeSublayerVisibility.cs</DependentUpon></Compile>
     <Compile Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.cs" />
     <Compile Include="Samples\Layers\DisplayScene\DisplayScene.cs" />
     <Compile Include="Samples\Layers\ExportTiles\ExportTiles.cs" />
@@ -445,6 +446,7 @@
     <Compile Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.cs" />
     <Compile Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.cs" />
     <Compile Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.cs" />
+    <Compile Include="Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.cs" />
     <Compile Include="Samples\MapView\MapRotation\MapRotation.cs" />
     <Compile Include="Samples\MapView\ShowCallout\ShowCallout.cs" />
     <Compile Include="Samples\MapView\ShowMagnifier\ShowMagnifier.cs" />
@@ -458,9 +460,6 @@
     <Compile Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.cs" />
     <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.cs" />
     <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

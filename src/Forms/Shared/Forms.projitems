@@ -103,6 +103,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\ChangeViewpoint\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\DisplayDrawingStatus\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\DisplayLayerViewState\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\FeatureLayerTimeOffset\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\MapRotation\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\ShowCallout\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\ShowMagnifier\metadata.json" />
@@ -177,6 +178,7 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\MapView\ChangeViewpoint\ChangeViewpoint.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\MapView\MapRotation\MapRotation.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\MapView\ShowCallout\ShowCallout.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\MapView\ShowMagnifier\ShowMagnifier.jpg" />
@@ -433,6 +435,10 @@
       <DependentUpon>DisplayLayerViewState.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.xaml.cs">
+      <DependentUpon>FeatureLayerTimeOffset.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\MapRotation\MapRotation.xaml.cs">
       <DependentUpon>MapRotation.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -667,6 +673,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\MapRotation\MapRotation.xaml">

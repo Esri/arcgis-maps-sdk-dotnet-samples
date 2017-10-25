@@ -3,18 +3,18 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Mapping;
-using System;
-using System.Linq;
-using Windows.UI.Xaml.Controls;
-using System.Collections.Generic;
-using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Ogc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.UWP.Samples.WmsIdentify
 {
@@ -27,13 +27,13 @@ namespace ArcGISRuntime.UWP.Samples.WmsIdentify
         private List<String> wmsLayerNames = new List<string> { "4" };
 
         // Hold the WMS layer
-        WmsLayer myWmsLayer;
+        private WmsLayer myWmsLayer;
 
         public WmsIdentify()
         {
             InitializeComponent();
 
-            // Setup the control references and execute initialization 
+            // Setup the control references and execute initialization
             Initialize();
         }
 

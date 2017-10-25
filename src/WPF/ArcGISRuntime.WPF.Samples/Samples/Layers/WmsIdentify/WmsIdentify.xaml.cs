@@ -27,7 +27,7 @@ namespace ArcGISRuntime.WPF.Samples.WmsIdentify
         private List<String> wmsLayerNames = new List<string> { "4" };
 
         // Hold the WMS layer
-        WmsLayer myWmsLayer;
+        private WmsLayer myWmsLayer;
 
         public WmsIdentify()
         {
@@ -44,7 +44,7 @@ namespace ArcGISRuntime.WPF.Samples.WmsIdentify
 
             // Create a new WMS layer displaying the specified layers from the service
             myWmsLayer = new WmsLayer(wmsUrl, wmsLayerNames);
-            
+
             // Load the layer
             await myWmsLayer.LoadAsync();
 
@@ -79,7 +79,7 @@ namespace ArcGISRuntime.WPF.Samples.WmsIdentify
         private void ShowHtmlCallout(string htmlContent, MapPoint position)
         {
             // Create the web browser control
-            WebBrowser htmlView = new WebBrowser() { Height = 100, Width = 200 };
+            WebBrowser htmlView = new WebBrowser() { Height = 200, Width = 400 };
 
             // Display the string content as an HTML document
             htmlView.NavigateToString(htmlContent);

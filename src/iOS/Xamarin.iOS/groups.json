@@ -155,6 +155,10 @@
             {
               "SampleName": "KmlLayerFile",
               "Path": "Samples/Layers/KmlLayerFile"
+            },
+            {
+              "SampleName": "WmsIdentify",
+              "Path": "Samples/Layers/WmsIdentify"
             }
           ]
         },

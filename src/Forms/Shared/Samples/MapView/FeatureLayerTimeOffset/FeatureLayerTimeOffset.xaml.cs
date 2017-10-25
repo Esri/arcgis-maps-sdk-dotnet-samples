@@ -13,6 +13,12 @@ using Esri.ArcGISRuntime.Symbology;
 using System;
 using Xamarin.Forms;
 
+#if WINDOWS_UWP
+using Colors = Windows.UI.Colors;
+#else
+using Colors = System.Drawing.Color;
+#endif
+
 namespace ArcGISRuntimeXamarin.Samples.FeatureLayerTimeOffset
 {
     public partial class FeatureLayerTimeOffset : ContentPage
@@ -41,7 +47,7 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerTimeOffset
             FeatureLayer noOffsetLayer = new FeatureLayer(_featureLayerUri);
 
             // Apply a blue dot renderer to distinguish hurricanes without offsets
-            noOffsetLayer.Renderer = new SimpleRenderer(new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Windows.UI.Colors.Blue, 10));
+            noOffsetLayer.Renderer = new SimpleRenderer(new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Colors.Blue, 10));
 
             // Add the non-offset layer to the map
             myMap.OperationalLayers.Add(noOffsetLayer);
@@ -50,7 +56,7 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerTimeOffset
             FeatureLayer withOffsetLayer = new FeatureLayer(_featureLayerUri);
 
             // Apply a red dot renderer to distinguish these hurricanes from the non-offset hurricanes
-            withOffsetLayer.Renderer = new SimpleRenderer(new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Windows.UI.Colors.Red, 10));
+            withOffsetLayer.Renderer = new SimpleRenderer(new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Colors.Red, 10));
 
             // Apply the time offset (red hurricane dots will be from 10 days before the current extent)
             withOffsetLayer.TimeOffset = new TimeValue(10, Esri.ArcGISRuntime.ArcGISServices.TimeUnit.Days);

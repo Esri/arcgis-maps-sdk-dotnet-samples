@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Android.App;
@@ -25,11 +25,11 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerTimeOffset
         private MapView _myMapView = new MapView();
 
         // Hold references to the UI controls
-        TextView _redLabel;
-        TextView _blueLabel;
-        TextView _timeLabel;
-        SeekBar _timeSlider;
-        
+        private TextView _redLabel;
+        private TextView _blueLabel;
+        private TextView _timeLabel;
+        private SeekBar _timeSlider;
+
         private Uri _featureLayerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer/0");
 
         // Hold a reference to the original time extent
@@ -41,7 +41,7 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerTimeOffset
 
             Title = "Feature layer time offset";
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             CreateLayout();
             Initialize();
         }
@@ -91,7 +91,7 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerTimeOffset
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create the UI controls
-            _redLabel = new TextView(this) { Text = "Red hurricanes offset 1 Year" };
+            _redLabel = new TextView(this) { Text = "Red hurricanes offset 10 days" };
             _redLabel.SetTextColor(Android.Graphics.Color.Red);
             _blueLabel = new TextView(this) { Text = "Blue hurricanes not offset" };
             _blueLabel.SetTextColor(Android.Graphics.Color.Blue);
@@ -114,7 +114,7 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerTimeOffset
             _timeSlider.ProgressChanged += _timeSlider_ProgressChanged;
         }
 
-        void _timeSlider_ProgressChanged(object sender, SeekBar.ProgressChangedEventArgs e)
+        private void _timeSlider_ProgressChanged(object sender, SeekBar.ProgressChangedEventArgs e)
         {
             UpdateTimeExtent();
         }
@@ -122,7 +122,7 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerTimeOffset
         private void UpdateTimeExtent()
         {
             // Get the value of the slider
-            double value = _timeSlider.Progress / 100;
+            double value = (double)_timeSlider.Progress / 100.0;
 
             // Calculate the number of days that value corresponds to
             // 1. Get the interval

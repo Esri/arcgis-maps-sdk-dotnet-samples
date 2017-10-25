@@ -9,6 +9,6 @@
   "RequiresLocalServer": false,
   "Image": "FeatureLayerTimeOffset.jpg",
   "Link": "",
-  "TypeLink": [],
+  "TypeLink": [ "P:Esri.ArcGISRuntime.Mapping.FeatureLayer.TimeOffset", "M:Esri.ArcGISRuntime.TimeExtent.#ctor(System.DateTimeOffset,System.DateTimeOffset)" ],
   "SampleFolder": "FeatureLayerTimeOffset"
 }

@@ -99,6 +99,7 @@
     <None Include="project.json" />
     <Content Include="Properties\ArcGISRuntime.Windows.Samples.rd.xml" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Samples\Layers\KmlNetworkLinks\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
@@ -137,6 +138,7 @@
     <Content Include="Samples\Layers\FeatureLayerUrl\metadata.json" />
     <Content Include="Samples\Layers\KmlLayerFile\metadata.json" />
     <Content Include="Samples\Layers\KmlLayerUrl\metadata.json" />
+    <Content Include="Samples\Layers\KmlNetworkLinks\KmlNetworkLinks.jpg" />
     <Content Include="Samples\Layers\RasterLayerFile\metadata.json" />
     <Content Include="Samples\Layers\RasterLayerImageServiceRaster\metadata.json" />
     <Content Include="Samples\Layers\RasterLayerRasterFunction\metadata.json" />
@@ -354,6 +356,9 @@
     </Compile>
     <Compile Include="Samples\Layers\KmlLayerUrl\KmlLayerUrl.xaml.cs">
       <DependentUpon>KmlLayerUrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\KmlNetworkLinks\KmlNetworkLinks.xaml.cs">
+      <DependentUpon>KmlNetworkLinks.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\RasterLayerFile\RasterLayerFile.xaml.cs">
       <DependentUpon>RasterLayerFile.xaml</DependentUpon>
@@ -606,6 +611,10 @@
     </Page>
     <Page Include="Samples\Layers\KmlLayerUrl\KmlLayerUrl.xaml">
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\Layers\KmlNetworkLinks\KmlNetworkLinks.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Layers\RasterLayerFile\RasterLayerFile.xaml">
       <Generator>MSBuild:Compile</Generator>

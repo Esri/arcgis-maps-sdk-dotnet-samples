@@ -11,6 +11,10 @@
   <ItemGroup>
     <!-- Misc Resources -->
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\PictureMarkerSymbols\pin_star_blue.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\KmlNetworkLinks\KmlNetworkLinks.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\KmlNetworkLinks\metadata.json" />
     <Folder Include="$(MSBuildThisFileDirectory)Assets\" />
   </ItemGroup>
   <ItemGroup>
@@ -33,6 +37,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)SampleListPage.xaml.cs">
       <DependentUpon>SampleListPage.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\KmlNetworkLinks\KmlNetworkLinks.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>KmlNetworkLinks.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)CategoryListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -153,6 +161,7 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\KmlLayerFile\KmlLayerFile.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\KmlLayerUrl\KmlLayerUrl.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\KmlNetworkLinks\KmlNetworkLinks.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterLayerFile\RasterLayerFile.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg" />

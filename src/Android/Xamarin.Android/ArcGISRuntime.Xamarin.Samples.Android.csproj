@@ -264,6 +264,7 @@
     <None Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.jpg" />
     <None Include="Samples\Layers\KmlLayerFile\KmlLayerFile.jpg" />
     <None Include="Samples\Layers\KmlLayerUrl\KmlLayerUrl.jpg" />
+    <EmbeddedResource Include="Samples\Layers\KmlNetworkLinks\metadata.json" />
     <None Include="Samples\Layers\RasterLayerFile\RasterLayerFile.jpg" />
     <None Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.jpg" />
     <None Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg" />
@@ -339,6 +340,7 @@
     <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.cs" />
     <Compile Include="Samples\Layers\KmlLayerFile\KmlLayerFile.cs" />
     <Compile Include="Samples\Layers\KmlLayerUrl\KmlLayerUrl.cs" />
+    <Compile Include="Samples\Layers\KmlNetworkLinks\KmlNetworkLinks.cs" />
     <Compile Include="Samples\Layers\RasterLayerFile\RasterLayerFile.cs" />
     <Compile Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.cs" />
     <Compile Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.cs" />
@@ -377,6 +379,9 @@
     <Compile Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.cs" />
     <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.cs" />
     <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Layers\KmlNetworkLinks\KmlNetworkLinks.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

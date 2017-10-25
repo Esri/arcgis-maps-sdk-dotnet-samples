@@ -173,6 +173,9 @@
     <Content Include="Samples\Layers\KmlLayerUrl\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Layers\KmlNetworkLinks\KmlNetworkLinks.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Layers\RasterLayerFile\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -608,6 +611,9 @@
     <Compile Include="Samples\Layers\KmlLayerUrl\KmlLayerUrl.xaml.cs">
       <DependentUpon>KmlLayerUrl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Layers\KmlNetworkLinks\KmlNetworkLinks.xaml.cs">
+      <DependentUpon>KmlNetworkLinks.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\RasterLayerFile\RasterLayerFile.xaml.cs">
       <DependentUpon>RasterLayerFile.xaml</DependentUpon>
     </Compile>
@@ -861,6 +867,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Samples\Layers\KmlNetworkLinks\KmlNetworkLinks.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Layers\RasterLayerFile\RasterLayerFile.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1016,7 +1026,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="Samples\Layers\KmlNetworkLinks\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

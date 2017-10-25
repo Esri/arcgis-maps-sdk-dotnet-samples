@@ -158,6 +158,10 @@
             {
               "SampleName": "KmlLayerFile",
               "Path": "Samples/Layers/KmlLayerFile"
+            },
+            {
+              "SampleName": "KmlNetworkLinks",
+              "Path": "Samples/Layers/KmlNetworkLinks"
             }
           ]
         },

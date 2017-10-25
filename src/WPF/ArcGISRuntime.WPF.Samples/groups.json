@@ -135,13 +135,40 @@
             {
               "SampleName": "WMTSLayer",
               "Path": "Samples/Layers/WMTSLayer"
+            },
+            {
+              "SampleName": "WMSLayerUrl",
+              "Path": "Samples/Layers/WMSLayerUrl"
+            },
+            {
+              "SampleName": "WmsServiceCatalog",
+              "Path": "Samples/Layers/WmsServiceCatalog"
+            }
+          ]
+        },
+        {
+          "Name": "OGC Layers",
+          "SubCategoryName": "OGCLayers",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "KmlLayerUrl",
+              "Path": "Samples/Layers/KmlLayerUrl"
+            },
+            {
+              "SampleName": "KmlLayerFile",
+              "Path": "Samples/Layers/KmlLayerFile"
+            },
+            {
+              "SampleName": "KmlNetworkLinks",
+              "Path": "Samples/Layers/KmlNetworkLinks"
             }
           ]
         },
         {
           "Name": "Raster Layers",
           "SubCategoryName": "RasterLayer",
-          "ShowGroup": false,
+          "ShowGroup": true,
           "SampleInfos": [
             {
               "SampleName": "RasterLayerImageServiceRaster",
@@ -201,6 +228,10 @@
               "Path": "Samples/Layers/FeatureCollectionLayerFromQuery"
             },
             {
+              "SampleName": "TimeBasedQuery",
+              "Path": "Samples/Layers/TimeBasedQuery"
+            },
+            {
               "SampleName": "FeatureLayerDictionaryRenderer",
               "Path": "Samples/Layers/FeatureLayerDictionaryRenderer"
             }
@@ -232,8 +263,20 @@
               "Path": "Samples/Data/GenerateGeodatabase"
             },
             {
+              "SampleName": "FeatureLayerShapefile",
+              "Path": "Samples/Data/FeatureLayerShapefile"
+            },
+            {
               "SampleName": "EditAndSyncFeatures",
               "Path": "Samples/Data/EditAndSyncFeatures"
+            },
+            {
+              "SampleName": "FeatureLayerGeoPackage",
+              "Path": "Samples/Data/FeatureLayerGeoPackage"
+            },
+            {
+              "SampleName": "ReadShapefileMetadata",
+              "Path": "Samples/Data/ReadShapefileMetadata"
             }
           ]
         }
@@ -311,6 +354,25 @@
             {
               "SampleName": "ListGeodatabaseVersions",
               "Path": "Samples/Geoprocessing/ListGeodatabaseVersions"
+            }
+          ]
+        },
+        {
+          "Name": "Statistics",
+          "SubCategoryName": "Statistics",
+          "ShowGroup": false,
+          "SampleInfos": [
+            {
+              "SampleName": "StatisticalQuery",
+              "Path": "Samples/Data/StatisticalQuery"
+            },
+            {
+              "SampleName": "StatsQueryGroupAndSort",
+              "Path": "Samples/Data/StatsQueryGroupAndSort"
+            },
+            {
+              "SampleName": "QueryCountExtent",
+              "Path": "Samples/Data/QueryCountExtent"
             }
           ]
         }

@@ -1,0 +1,13 @@
+{
+  "Name": "Open map (URL)",
+  "SampleName": "OpenMapUrl",
+  "Description": "This sample demonstrates loading a webmap in a map from a Uri.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"OpenMapUrl.jpg",
+  "Link":"",
+  "TypeLink": ["M:Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.Initialize","T:Esri.ArcGISRuntime.Mapping.Map","M:Esri.ArcGISRuntime.Mapping.Map.#ctor(System.Uri)"]
+}

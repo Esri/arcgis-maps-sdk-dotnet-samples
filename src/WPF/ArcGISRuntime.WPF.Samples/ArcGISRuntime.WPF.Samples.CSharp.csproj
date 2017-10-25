@@ -71,945 +71,948 @@
     <Content Include="groups.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Data\EditAndSyncFeatures\metadata.json">
+    <Content Include="Samples\LayersAndData\EditAndSyncFeatures\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Data\FeatureLayerGeoPackage\metadata.json">
+    <Content Include="Samples\LayersAndData\FeatureLayerGeoPackage\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Data\FeatureLayerQuery\metadata.json">
+    <Content Include="Samples\LayersAndData\FeatureLayerQuery\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Data\FeatureLayerShapefile\metadata.json">
+    <Content Include="Samples\LayersAndData\FeatureLayerShapefile\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Data\GenerateGeodatabase\metadata.json">
+    <Content Include="Samples\LayersAndData\GenerateGeodatabase\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Data\ReadShapefileMetadata\metadata.json">
+    <Content Include="Samples\LayersAndData\ServiceFeatureTableCache\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Data\ServiceFeatureTableCache\metadata.json">
+    <Content Include="Samples\LayersAndData\ReadShapefileMetadata\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Data\ServiceFeatureTableManualCache\metadata.json">
+    <Content Include="Samples\LayersAndData\ServiceFeatureTableManualCache\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Data\ServiceFeatureTableNoCache\metadata.json">
+    <Content Include="Samples\LayersAndData\ServiceFeatureTableNoCache\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Data\StatisticalQuery\metadata.json">
+    <Content Include="Samples\LayersAndData\StatisticalQuery\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Data\StatsQueryGroupAndSort\metadata.json">
+    <Content Include="Samples\LayersAndData\StatsQueryGroupAndSort\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Geoprocessing\AnalyzeHotspots\metadata.json">
+    <Content Include="Samples\Analysis\AnalyzeViewshed\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Geoprocessing\AnalyzeViewshed\metadata.json">
+    <Content Include="Samples\LayersAndData\WmsLayerUrl\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Geoprocessing\ListGeodatabaseVersions\metadata.json">
+    <Content Include="Samples\MapsAndVisualization\AddGraphicsRenderer\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\GraphicsOverlay\AddGraphicsRenderer\metadata.json">
+    <Content Include="Samples\MapsAndVisualization\IdentifyGraphics\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\GraphicsOverlay\IdentifyGraphics\metadata.json">
+    <Content Include="Samples\MapsAndVisualization\SketchOnMap\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\GraphicsOverlay\SketchOnMap\metadata.json">
+    <Content Include="Samples\MapsAndVisualization\SurfacePlacements\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\GraphicsOverlay\SurfacePlacements\metadata.json">
+    <Content Include="Samples\LayersAndData\ArcGISMapImageLayerUrl\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\ArcGISMapImageLayerUrl\metadata.json">
+    <Content Include="Samples\LayersAndData\ArcGISTiledLayerUrl\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\ArcGISTiledLayerUrl\metadata.json">
+    <Content Include="Samples\LayersAndData\ArcGISVectorTiledLayerUrl\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json">
+    <Content Include="Samples\LayersAndData\ChangeFeatureLayerRenderer\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\ChangeFeatureLayerRenderer\metadata.json">
+    <Content Include="Samples\LayersAndData\ChangeSublayerVisibility\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\ChangeSublayerVisibility\metadata.json">
+    <Content Include="Samples\LayersAndData\CreateFeatureCollectionLayer\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\CreateFeatureCollectionLayer\metadata.json">
+    <Content Include="Samples\LayersAndData\DisplayScene\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\DisplayScene\metadata.json">
+    <Content Include="Samples\LayersAndData\ExportTiles\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\ExportTiles\metadata.json">
+    <Content Include="Samples\CloudAndPortal\FeatureCollectionLayerFromPortal\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\FeatureCollectionLayerFromPortal\metadata.json">
+    <Content Include="Samples\LayersAndData\FeatureCollectionLayerFromQuery\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\FeatureCollectionLayerFromQuery\metadata.json">
+    <Content Include="Samples\LayersAndData\FeatureLayerDefinitionExpression\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\FeatureLayerDefinitionExpression\metadata.json">
+    <Content Include="Samples\LayersAndData\FeatureLayerDictionaryRenderer\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\FeatureLayerDictionaryRenderer\metadata.json">
+    <Content Include="Samples\LayersAndData\FeatureLayerSelection\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\FeatureLayerSelection\metadata.json">
+    <Content Include="Samples\LayersAndData\FeatureLayerUrl\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\FeatureLayerUrl\metadata.json">
+    <Content Include="Samples\LayersAndData\KmlLayerFile\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\KmlLayerFile\metadata.json">
+    <Content Include="Samples\LayersAndData\KmlLayerUrl\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\KmlLayerUrl\metadata.json">
+    <Content Include="Samples\LayersAndData\RasterLayerFile\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\RasterLayerFile\metadata.json">
+    <Content Include="Samples\LayersAndData\RasterLayerImageServiceRaster\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\RasterLayerImageServiceRaster\metadata.json">
+    <Content Include="Samples\LayersAndData\RasterLayerRasterFunction\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\RasterLayerRasterFunction\metadata.json">
+    <Content Include="Samples\LayersAndData\RasterRenderingRule\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\RasterRenderingRule\metadata.json">
+    <Content Include="Samples\LayersAndData\SceneLayerUrl\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\SceneLayerUrl\metadata.json">
+    <Content Include="Samples\LayersAndData\TimeBasedQuery\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\TimeBasedQuery\metadata.json">
+    <Content Include="Samples\LayersAndData\WmsServiceCatalog\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\WMSLayerUrl\metadata.json">
+    <Content Include="Samples\LayersAndData\WMTSLayer\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\WmsServiceCatalog\metadata.json">
+    <Content Include="Samples\RoutingAndLocation\DisplayDeviceLocation\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\WMTSLayer\metadata.json">
+    <Content Include="Samples\MapsAndVisualization\AccessLoadStatus\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Location\DisplayDeviceLocation\metadata.json">
+    <Content Include="Samples\MapsAndVisualization\AuthorMap\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Map\AccessLoadStatus\metadata.json">
+    <Content Include="Samples\MapsAndVisualization\ChangeBasemap\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Map\AuthorMap\metadata.json">
+    <Content Include="Samples\MapsAndVisualization\DisplayMap\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Map\ChangeBasemap\metadata.json">
+    <Content Include="Samples\MapsAndVisualization\ManageBookmarks\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Map\DisplayMap\metadata.json">
+    <Content Include="Samples\MapsAndVisualization\OpenMapUrl\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Map\ManageBookmarks\metadata.json">
+    <Content Include="Samples\MapsAndVisualization\OpenMobileMap\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Map\OpenMapURL\metadata.json">
+    <Content Include="Samples\MapsAndVisualization\SearchPortalMaps\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Map\OpenMobileMap\metadata.json">
+    <Content Include="Samples\MapsAndVisualization\SetInitialMapArea\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Map\SearchPortalMaps\metadata.json">
+    <Content Include="Samples\MapsAndVisualization\SetInitialMapLocation\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Map\SetInitialMapArea\metadata.json">
+    <Content Include="Samples\MapsAndVisualization\SetMapSpatialReference\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Map\SetInitialMapLocation\metadata.json">
+    <Content Include="Samples\MapsAndVisualization\SetMinMaxScale\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Map\SetMapSpatialReference\metadata.json">
+    <Content Include="Samples\MapsAndVisualization\ChangeViewpoint\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Map\SetMinMaxScale\metadata.json">
+    <Content Include="Samples\MapsAndVisualization\DisplayDrawingStatus\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\MapView\ChangeViewpoint\metadata.json">
+    <Content Include="Samples\MapsAndVisualization\DisplayLayerViewState\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\MapView\DisplayDrawingStatus\metadata.json">
+    <Content Include="Samples\MapsAndVisualization\ShowCallout\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\MapView\DisplayLayerViewState\metadata.json">
+    <Content Include="Samples\MapsAndVisualization\ShowMagnifier\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\MapView\MapRotation\metadata.json">
+    <Content Include="Samples\MapsAndVisualization\TakeScreenshot\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\MapView\ShowCallout\metadata.json">
+    <Content Include="Samples\RoutingAndLocation\FindRoute\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\MapView\ShowMagnifier\metadata.json">
+    <Content Include="Samples\RoutingAndLocation\FindAddress\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\MapView\TakeScreenshot\metadata.json">
+    <Content Include="Samples\RoutingAndLocation\FindPlace\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\NetworkAnalysis\FindRoute\metadata.json">
+    <Content Include="Samples\MapsAndVisualization\RenderPictureMarkers\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Search\FindAddress\metadata.json">
+    <Content Include="Samples\MapsAndVisualization\RenderSimpleMarkers\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Search\FindPlace\metadata.json">
+    <Content Include="Samples\MapsAndVisualization\RenderUniqueValues\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Symbology\RenderPictureMarkers\metadata.json">
+    <Content Include="Samples\MapsAndVisualization\SimpleRenderers\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Symbology\RenderSimpleMarkers\metadata.json">
+    <Content Include="Samples\MapsAndVisualization\UseDistanceCompositeSym\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Symbology\RenderUniqueValues\metadata.json">
+    <Content Include="Samples\MapsAndVisualization\AuthorEditSaveMap\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Symbology\SimpleRenderers\metadata.json">
+    <Content Include="Samples\Analysis\AnalyzeHotspots\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Symbology\UseDistanceCompositeSym\metadata.json">
+    <Content Include="Samples\LayersAndData\ListGeodatabaseVersions\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Tutorial\AuthorEditSaveMap\metadata.json">
+    <Content Include="Samples\MapsAndVisualization\MapRotation\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-    <Content Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg">
+    <Content Include="Samples\MapsAndVisualization\MapRotation\MapRotation.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.jpg">
+    <Content Include="Samples\LayersAndData\ListGeodatabaseVersions\ListGeodatabaseVersions.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.jpg">
+    <Content Include="Samples\LayersAndData\FeatureLayerGeoPackage\FeatureLayerGeoPackage.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.jpg">
+    <Content Include="Samples\Analysis\AnalyzeHotspots\AnalyzeHotspots.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.jpg">
+    <Content Include="Samples\LayersAndData\EditAndSyncFeatures\EditAndSyncFeatures.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.jpg">
+    <Content Include="Samples\LayersAndData\ReadShapefileMetadata\ReadShapefileMetadata.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.jpg">
+    <Content Include="Samples\LayersAndData\FeatureLayerQuery\FeatureLayerQuery.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.jpg">
+    <Content Include="Samples\LayersAndData\FeatureLayerShapefile\FeatureLayerShapefile.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Data\StatisticalQuery\StatisticalQuery.jpg">
+    <Content Include="Samples\LayersAndData\GenerateGeodatabase\GenerateGeodatabase.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.jpg">
+    <Content Include="Samples\LayersAndData\ServiceFeatureTableCache\ServiceFeatureTableCache.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.jpg">
+    <Content Include="Samples\LayersAndData\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.jpg">
+    <Content Include="Samples\LayersAndData\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.jpg">
+    <Content Include="Samples\LayersAndData\StatisticalQuery\StatisticalQuery.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.jpg">
+    <Content Include="Samples\LayersAndData\StatsQueryGroupAndSort\StatsQueryGroupAndSort.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.jpg">
+    <Content Include="Samples\Analysis\AnalyzeViewshed\AnalyzeViewshed.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg">
+    <Content Include="Samples\MapsAndVisualization\AddGraphicsRenderer\AddGraphicsRenderer.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.jpg">
+    <Content Include="Samples\MapsAndVisualization\IdentifyGraphics\IdentifyGraphics.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg">
+    <Content Include="Samples\MapsAndVisualization\SketchOnMap\SketchOnMap.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.jpg">
+    <Content Include="Samples\MapsAndVisualization\SurfacePlacements\SurfacePlacements.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.jpg">
+    <Content Include="Samples\LayersAndData\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.jpg">
+    <Content Include="Samples\LayersAndData\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.jpg">
+    <Content Include="Samples\LayersAndData\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.jpg">
+    <Content Include="Samples\LayersAndData\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\DisplayScene\DisplayScene.jpg">
+    <Content Include="Samples\LayersAndData\ChangeSublayerVisibility\ChangeSublayerVisibility.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\ExportTiles\ExportTiles.jpg">
+    <Content Include="Samples\LayersAndData\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortal.jpg">
+    <Content Include="Samples\LayersAndData\DisplayScene\DisplayScene.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQuery.jpg">
+    <Content Include="Samples\LayersAndData\ExportTiles\ExportTiles.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.jpg">
+    <Content Include="Samples\CloudAndPortal\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortal.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.jpg">
+    <Content Include="Samples\LayersAndData\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQuery.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.jpg">
+    <Content Include="Samples\LayersAndData\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.jpg">
+    <Content Include="Samples\LayersAndData\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\KmlLayerFile\KmlLayerFile.jpg">
+    <Content Include="Samples\LayersAndData\FeatureLayerSelection\FeatureLayerSelection.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\KmlLayerUrl\KmlLayerUrl.jpg">
+    <Content Include="Samples\LayersAndData\FeatureLayerUrl\FeatureLayerUrl.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\RasterLayerFile\RasterLayerFile.jpg">
+    <Content Include="Samples\LayersAndData\KmlLayerFile\KmlLayerFile.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.jpg">
+    <Content Include="Samples\LayersAndData\KmlLayerUrl\KmlLayerUrl.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg">
+    <Content Include="Samples\LayersAndData\RasterLayerFile\RasterLayerFile.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\RasterRenderingRule\RasterRenderingRule.jpg">
+    <Content Include="Samples\LayersAndData\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.jpg">
+    <Content Include="Samples\LayersAndData\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.jpg">
+    <Content Include="Samples\LayersAndData\RasterRenderingRule\RasterRenderingRule.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.jpg">
+    <Content Include="Samples\LayersAndData\SceneLayerUrl\SceneLayerUrl.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.jpg">
+    <Content Include="Samples\LayersAndData\TimeBasedQuery\TimeBasedQuery.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\WMTSLayer\WMTSLayer.jpg">
+    <Content Include="Samples\LayersAndData\WmsServiceCatalog\WmsServiceCatalog.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.jpg">
+    <Content Include="Samples\LayersAndData\WmsLayerUrl\WmsLayerUrl.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.jpg">
+    <Content Include="Samples\LayersAndData\WMTSLayer\WMTSLayer.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Map\AuthorMap\AuthorMap.jpg">
+    <Content Include="Samples\RoutingAndLocation\DisplayDeviceLocation\DisplayDeviceLocation.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Map\ChangeBasemap\ChangeBasemap.jpg">
+    <Content Include="Samples\MapsAndVisualization\AccessLoadStatus\AccessLoadStatus.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Map\DisplayMap\DisplayMap.jpg">
+    <Content Include="Samples\MapsAndVisualization\AuthorMap\AuthorMap.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Map\ManageBookmarks\ManageBookmarks.jpg">
+    <Content Include="Samples\MapsAndVisualization\ChangeBasemap\ChangeBasemap.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Map\OpenMapURL\OpenMapURL.jpg">
+    <Content Include="Samples\MapsAndVisualization\DisplayMap\DisplayMap.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Map\OpenMobileMap\OpenMobileMap.jpg">
+    <Content Include="Samples\MapsAndVisualization\ManageBookmarks\ManageBookmarks.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg">
+    <Content Include="Samples\MapsAndVisualization\OpenMapUrl\OpenMapUrl.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg">
+    <Content Include="Samples\MapsAndVisualization\OpenMobileMap\OpenMobileMap.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg">
+    <Content Include="Samples\MapsAndVisualization\SearchPortalMaps\SearchPortalMaps.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.jpg">
+    <Content Include="Samples\MapsAndVisualization\SetInitialMapArea\SetInitialMapArea.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.jpg">
+    <Content Include="Samples\MapsAndVisualization\SetInitialMapLocation\SetInitialMapLocation.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.jpg">
+    <Content Include="Samples\MapsAndVisualization\SetMapSpatialReference\SetMapSpatialReference.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.jpg">
+    <Content Include="Samples\MapsAndVisualization\SetMinMaxScale\SetMinMaxScale.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.jpg">
+    <Content Include="Samples\MapsAndVisualization\ChangeViewpoint\ChangeViewpoint.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\MapView\MapRotation\MapRotation.jpg">
+    <Content Include="Samples\MapsAndVisualization\DisplayDrawingStatus\DisplayDrawingStatus.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\MapView\ShowCallout\ShowCallout.jpg">
+    <Content Include="Samples\MapsAndVisualization\DisplayLayerViewState\DisplayLayerViewState.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg">
+    <Content Include="Samples\MapsAndVisualization\ShowCallout\ShowCallout.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\MapView\TakeScreenshot\TakeScreenshot.jpg">
+    <Content Include="Samples\MapsAndVisualization\ShowMagnifier\ShowMagnifier.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\NetworkAnalysis\FindRoute\FindRoute.jpg">
+    <Content Include="Samples\MapsAndVisualization\TakeScreenshot\TakeScreenshot.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Search\FindAddress\FindAddress.jpg">
+    <Content Include="Samples\RoutingAndLocation\FindRoute\FindRoute.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Search\FindPlace\FindPlace.jpg">
+    <Content Include="Samples\RoutingAndLocation\FindAddress\FindAddress.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.jpg">
+    <Content Include="Samples\RoutingAndLocation\FindPlace\FindPlace.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.jpg">
+    <Content Include="Samples\MapsAndVisualization\RenderPictureMarkers\RenderPictureMarkers.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.jpg">
+    <Content Include="Samples\MapsAndVisualization\RenderSimpleMarkers\RenderSimpleMarkers.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.jpg">
+    <Content Include="Samples\MapsAndVisualization\RenderUniqueValues\RenderUniqueValues.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg">
+    <Content Include="Samples\MapsAndVisualization\SimpleRenderers\SimpleRenderers.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg">
+    <Content Include="Samples\MapsAndVisualization\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapsAndVisualization\AuthorEditSaveMap\AuthorEditSaveMap.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-    <Compile Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.xaml.cs">
-      <DependentUpon>EditAndSyncFeatures.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.xaml.cs">
-      <DependentUpon>FeatureLayerGeoPackage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.xaml.cs">
-      <DependentUpon>FeatureLayerQuery.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.xaml.cs">
-      <DependentUpon>FeatureLayerShapefile.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.xaml.cs">
-      <DependentUpon>GenerateGeodatabase.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.xaml.cs">
-      <DependentUpon>ReadShapefileMetadata.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.xaml.cs">
-      <DependentUpon>ServiceFeatureTableCache.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.xaml.cs">
-      <DependentUpon>ServiceFeatureTableManualCache.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.xaml.cs">
-      <DependentUpon>ServiceFeatureTableNoCache.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Data\StatisticalQuery\StatisticalQuery.xaml.cs">
-      <DependentUpon>StatisticalQuery.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.xaml.cs">
-      <DependentUpon>StatsQueryGroupAndSort.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.xaml.cs">
+    <Compile Include="Samples\Analysis\AnalyzeHotspots\AnalyzeHotspots.xaml.cs">
       <DependentUpon>AnalyzeHotspots.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.xaml.cs">
-      <DependentUpon>AnalyzeViewshed.xaml</DependentUpon>
+    <Compile Include="Samples\LayersAndData\ReadShapefileMetadata\ReadShapefileMetadata.xaml.cs">
+      <DependentUpon>ReadShapefileMetadata.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.xaml.cs">
+    <Compile Include="Samples\LayersAndData\EditAndSyncFeatures\EditAndSyncFeatures.xaml.cs">
+      <DependentUpon>EditAndSyncFeatures.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LayersAndData\FeatureLayerGeoPackage\FeatureLayerGeoPackage.xaml.cs">
+      <DependentUpon>FeatureLayerGeoPackage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LayersAndData\FeatureLayerQuery\FeatureLayerQuery.xaml.cs">
+      <DependentUpon>FeatureLayerQuery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LayersAndData\FeatureLayerShapefile\FeatureLayerShapefile.xaml.cs">
+      <DependentUpon>FeatureLayerShapefile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LayersAndData\GenerateGeodatabase\GenerateGeodatabase.xaml.cs">
+      <DependentUpon>GenerateGeodatabase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LayersAndData\ListGeodatabaseVersions\ListGeodatabaseVersions.xaml.cs">
       <DependentUpon>ListGeodatabaseVersions.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.xaml.cs">
-      <DependentUpon>AddGraphicsRenderer.xaml</DependentUpon>
+    <Compile Include="Samples\LayersAndData\ServiceFeatureTableCache\ServiceFeatureTableCache.xaml.cs">
+      <DependentUpon>ServiceFeatureTableCache.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.xaml.cs">
-      <DependentUpon>IdentifyGraphics.xaml</DependentUpon>
+    <Compile Include="Samples\LayersAndData\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.xaml.cs">
+      <DependentUpon>ServiceFeatureTableManualCache.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.xaml.cs">
-      <DependentUpon>SketchOnMap.xaml</DependentUpon>
+    <Compile Include="Samples\LayersAndData\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.xaml.cs">
+      <DependentUpon>ServiceFeatureTableNoCache.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.xaml.cs">
-      <DependentUpon>SurfacePlacements.xaml</DependentUpon>
+    <Compile Include="Samples\LayersAndData\StatisticalQuery\StatisticalQuery.xaml.cs">
+      <DependentUpon>StatisticalQuery.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.xaml.cs">
-      <DependentUpon>ArcGISMapImageLayerUrl.xaml</DependentUpon>
+    <Compile Include="Samples\LayersAndData\StatsQueryGroupAndSort\StatsQueryGroupAndSort.xaml.cs">
+      <DependentUpon>StatsQueryGroupAndSort.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.xaml.cs">
-      <DependentUpon>ArcGISTiledLayerUrl.xaml</DependentUpon>
+    <Compile Include="Samples\Analysis\AnalyzeViewshed\AnalyzeViewshed.xaml.cs">
+      <DependentUpon>AnalyzeViewshed.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.xaml.cs">
-      <DependentUpon>ArcGISVectorTiledLayerUrl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.xaml.cs">
-      <DependentUpon>ChangeFeatureLayerRenderer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.xaml.cs">
-      <DependentUpon>ChangeSublayerVisibility.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.xaml.cs">
-      <DependentUpon>CreateFeatureCollectionLayer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Layers\DisplayScene\DisplayScene.xaml.cs">
-      <DependentUpon>DisplayScene.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Layers\ExportTiles\ExportTiles.xaml.cs">
-      <DependentUpon>ExportTiles.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortal.xaml.cs">
-      <DependentUpon>FeatureCollectionLayerFromPortal.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQuery.xaml.cs">
-      <DependentUpon>FeatureCollectionLayerFromQuery.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.xaml.cs">
-      <DependentUpon>FeatureLayerDefinitionExpression.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.xaml.cs">
-      <DependentUpon>FeatureLayerDictionaryRenderer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.xaml.cs">
-      <DependentUpon>FeatureLayerSelection.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.xaml.cs">
-      <DependentUpon>FeatureLayerUrl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Layers\KmlLayerFile\KmlLayerFile.xaml.cs">
-      <DependentUpon>KmlLayerFile.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Layers\KmlLayerUrl\KmlLayerUrl.xaml.cs">
-      <DependentUpon>KmlLayerUrl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Layers\RasterLayerFile\RasterLayerFile.xaml.cs">
-      <DependentUpon>RasterLayerFile.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.xaml.cs">
-      <DependentUpon>RasterLayerImageServiceRaster.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.xaml.cs">
-      <DependentUpon>RasterLayerRasterFunction.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Layers\RasterRenderingRule\RasterRenderingRule.xaml.cs">
-      <DependentUpon>RasterRenderingRule.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.xaml.cs">
-      <DependentUpon>SceneLayerUrl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.xaml.cs">
-      <DependentUpon>TimeBasedQuery.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.xaml.cs">
+    <Compile Include="Samples\LayersAndData\WmsLayerUrl\WmsLayerUrl.xaml.cs">
       <DependentUpon>WmsLayerUrl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.xaml.cs">
-      <DependentUpon>WmsServiceCatalog.xaml</DependentUpon>
+    <Compile Include="Samples\MapsAndVisualization\AddGraphicsRenderer\AddGraphicsRenderer.xaml.cs">
+      <DependentUpon>AddGraphicsRenderer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Layers\WMTSLayer\WMTSLayer.xaml.cs">
-      <DependentUpon>WMTSLayer.xaml</DependentUpon>
+    <Compile Include="Samples\MapsAndVisualization\IdentifyGraphics\IdentifyGraphics.xaml.cs">
+      <DependentUpon>IdentifyGraphics.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.xaml.cs">
-      <DependentUpon>DisplayDeviceLocation.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.xaml.cs">
-      <DependentUpon>AccessLoadStatus.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Map\AuthorMap\AuthorMap.xaml.cs">
-      <DependentUpon>AuthorMap.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Map\ChangeBasemap\ChangeBasemap.xaml.cs">
-      <DependentUpon>ChangeBasemap.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Map\DisplayMap\DisplayMap.xaml.cs">
-      <DependentUpon>DisplayMap.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarks.xaml.cs">
-      <DependentUpon>ManageBookmarks.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Map\OpenMapURL\OpenMapURL.xaml.cs">
-      <DependentUpon>OpenMapURL.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Map\OpenMobileMap\OpenMobileMap.xaml.cs">
-      <DependentUpon>OpenMobileMap.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.xaml.cs">
-      <DependentUpon>SearchPortalMaps.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.xaml.cs">
-      <DependentUpon>SetInitialMapArea.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.xaml.cs">
-      <DependentUpon>SetInitialMapLocation.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.xaml.cs">
-      <DependentUpon>SetMapSpatialReference.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.xaml.cs">
-      <DependentUpon>SetMinMaxScale.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.xaml.cs">
-      <DependentUpon>ChangeViewpoint.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.xaml.cs">
-      <DependentUpon>DisplayDrawingStatus.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.xaml.cs">
-      <DependentUpon>DisplayLayerViewState.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\MapView\MapRotation\MapRotation.xaml.cs">
+    <Compile Include="Samples\MapsAndVisualization\MapRotation\MapRotation.xaml.cs">
       <DependentUpon>MapRotation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\MapView\ShowCallout\ShowCallout.xaml.cs">
+    <Compile Include="Samples\MapsAndVisualization\SketchOnMap\SketchOnMap.xaml.cs">
+      <DependentUpon>SketchOnMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapsAndVisualization\SurfacePlacements\SurfacePlacements.xaml.cs">
+      <DependentUpon>SurfacePlacements.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LayersAndData\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.xaml.cs">
+      <DependentUpon>ArcGISMapImageLayerUrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LayersAndData\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.xaml.cs">
+      <DependentUpon>ArcGISTiledLayerUrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LayersAndData\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.xaml.cs">
+      <DependentUpon>ArcGISVectorTiledLayerUrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LayersAndData\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.xaml.cs">
+      <DependentUpon>ChangeFeatureLayerRenderer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LayersAndData\ChangeSublayerVisibility\ChangeSublayerVisibility.xaml.cs">
+      <DependentUpon>ChangeSublayerVisibility.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LayersAndData\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.xaml.cs">
+      <DependentUpon>CreateFeatureCollectionLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LayersAndData\DisplayScene\DisplayScene.xaml.cs">
+      <DependentUpon>DisplayScene.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LayersAndData\ExportTiles\ExportTiles.xaml.cs">
+      <DependentUpon>ExportTiles.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\CloudAndPortal\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortal.xaml.cs">
+      <DependentUpon>FeatureCollectionLayerFromPortal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LayersAndData\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQuery.xaml.cs">
+      <DependentUpon>FeatureCollectionLayerFromQuery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LayersAndData\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.xaml.cs">
+      <DependentUpon>FeatureLayerDefinitionExpression.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LayersAndData\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.xaml.cs">
+      <DependentUpon>FeatureLayerDictionaryRenderer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LayersAndData\FeatureLayerSelection\FeatureLayerSelection.xaml.cs">
+      <DependentUpon>FeatureLayerSelection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LayersAndData\FeatureLayerUrl\FeatureLayerUrl.xaml.cs">
+      <DependentUpon>FeatureLayerUrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LayersAndData\KmlLayerFile\KmlLayerFile.xaml.cs">
+      <DependentUpon>KmlLayerFile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LayersAndData\KmlLayerUrl\KmlLayerUrl.xaml.cs">
+      <DependentUpon>KmlLayerUrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LayersAndData\RasterLayerFile\RasterLayerFile.xaml.cs">
+      <DependentUpon>RasterLayerFile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LayersAndData\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.xaml.cs">
+      <DependentUpon>RasterLayerImageServiceRaster.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LayersAndData\RasterLayerRasterFunction\RasterLayerRasterFunction.xaml.cs">
+      <DependentUpon>RasterLayerRasterFunction.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LayersAndData\RasterRenderingRule\RasterRenderingRule.xaml.cs">
+      <DependentUpon>RasterRenderingRule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LayersAndData\SceneLayerUrl\SceneLayerUrl.xaml.cs">
+      <DependentUpon>SceneLayerUrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LayersAndData\TimeBasedQuery\TimeBasedQuery.xaml.cs">
+      <DependentUpon>TimeBasedQuery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LayersAndData\WmsServiceCatalog\WmsServiceCatalog.xaml.cs">
+      <DependentUpon>WmsServiceCatalog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LayersAndData\WMTSLayer\WMTSLayer.xaml.cs">
+      <DependentUpon>WMTSLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\RoutingAndLocation\DisplayDeviceLocation\DisplayDeviceLocation.xaml.cs">
+      <DependentUpon>DisplayDeviceRoutingAndLocation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapsAndVisualization\AccessLoadStatus\AccessLoadStatus.xaml.cs">
+      <DependentUpon>AccessLoadStatus.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapsAndVisualization\AuthorMap\AuthorMap.xaml.cs">
+      <DependentUpon>AuthorMapsAndVisualization.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapsAndVisualization\ChangeBasemap\ChangeBasemap.xaml.cs">
+      <DependentUpon>ChangeBasemap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapsAndVisualization\DisplayMap\DisplayMap.xaml.cs">
+      <DependentUpon>DisplayMapsAndVisualization.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapsAndVisualization\ManageBookmarks\ManageBookmarks.xaml.cs">
+      <DependentUpon>ManageBookmarks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapsAndVisualization\OpenMapUrl\OpenMapUrl.xaml.cs">
+      <DependentUpon>OpenMapsAndVisualizationUrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapsAndVisualization\OpenMobileMap\OpenMobileMap.xaml.cs">
+      <DependentUpon>OpenMobileMapsAndVisualization.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapsAndVisualization\SearchPortalMaps\SearchPortalMaps.xaml.cs">
+      <DependentUpon>SearchPortalMapsAndVisualizations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapsAndVisualization\SetInitialMapArea\SetInitialMapArea.xaml.cs">
+      <DependentUpon>SetInitialMapsAndVisualizationArea.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapsAndVisualization\SetInitialMapLocation\SetInitialMapLocation.xaml.cs">
+      <DependentUpon>SetInitialMapsAndVisualizationLocation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapsAndVisualization\SetMapSpatialReference\SetMapSpatialReference.xaml.cs">
+      <DependentUpon>SetMapsAndVisualizationSpatialReference.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapsAndVisualization\SetMinMaxScale\SetMinMaxScale.xaml.cs">
+      <DependentUpon>SetMinMaxScale.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapsAndVisualization\ChangeViewpoint\ChangeViewpoint.xaml.cs">
+      <DependentUpon>ChangeViewpoint.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapsAndVisualization\DisplayDrawingStatus\DisplayDrawingStatus.xaml.cs">
+      <DependentUpon>DisplayDrawingStatus.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapsAndVisualization\DisplayLayerViewState\DisplayLayerViewState.xaml.cs">
+      <DependentUpon>DisplayLayerViewState.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapsAndVisualization\ShowCallout\ShowCallout.xaml.cs">
       <DependentUpon>ShowCallout.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\MapView\ShowMagnifier\ShowMagnifier.xaml.cs">
+    <Compile Include="Samples\MapsAndVisualization\ShowMagnifier\ShowMagnifier.xaml.cs">
       <DependentUpon>ShowMagnifier.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\MapView\TakeScreenshot\TakeScreenshot.xaml.cs">
+    <Compile Include="Samples\MapsAndVisualization\TakeScreenshot\TakeScreenshot.xaml.cs">
       <DependentUpon>TakeScreenshot.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\NetworkAnalysis\FindRoute\FindRoute.xaml.cs">
+    <Compile Include="Samples\RoutingAndLocation\FindRoute\FindRoute.xaml.cs">
       <DependentUpon>FindRoute.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Search\FindAddress\FindAddress.xaml.cs">
+    <Compile Include="Samples\RoutingAndLocation\FindAddress\FindAddress.xaml.cs">
       <DependentUpon>FindAddress.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Search\FindPlace\FindPlace.xaml.cs">
+    <Compile Include="Samples\RoutingAndLocation\FindPlace\FindPlace.xaml.cs">
       <DependentUpon>FindPlace.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.xaml.cs">
+    <Compile Include="Samples\MapsAndVisualization\RenderPictureMarkers\RenderPictureMarkers.xaml.cs">
       <DependentUpon>RenderPictureMarkers.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.xaml.cs">
+    <Compile Include="Samples\MapsAndVisualization\RenderSimpleMarkers\RenderSimpleMarkers.xaml.cs">
       <DependentUpon>RenderSimpleMarkers.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.xaml.cs">
+    <Compile Include="Samples\MapsAndVisualization\RenderUniqueValues\RenderUniqueValues.xaml.cs">
       <DependentUpon>RenderUniqueValues.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.xaml.cs">
+    <Compile Include="Samples\MapsAndVisualization\SimpleRenderers\SimpleRenderers.xaml.cs">
       <DependentUpon>SimpleRenderers.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml.cs">
+    <Compile Include="Samples\MapsAndVisualization\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml.cs">
       <DependentUpon>UseDistanceCompositeSym.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.xaml.cs">
+    <Compile Include="Samples\MapsAndVisualization\AuthorEditSaveMap\AuthorEditSaveMap.xaml.cs">
       <DependentUpon>AuthorEditSaveMap.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-    <Page Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.xaml">
+    <Page Include="Samples\Analysis\AnalyzeHotspots\AnalyzeHotspots.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.xaml">
+    <Page Include="Samples\LayersAndData\ReadShapefileMetadata\ReadShapefileMetadata.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.xaml">
+    <Page Include="Samples\LayersAndData\EditAndSyncFeatures\EditAndSyncFeatures.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\LayersAndData\FeatureLayerGeoPackage\FeatureLayerGeoPackage.xaml">
+      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\LayersAndData\FeatureLayerQuery\FeatureLayerQuery.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.xaml">
+    <Page Include="Samples\LayersAndData\FeatureLayerShapefile\FeatureLayerShapefile.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.xaml">
+    <Page Include="Samples\LayersAndData\GenerateGeodatabase\GenerateGeodatabase.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.xaml">
+    <Page Include="Samples\LayersAndData\ListGeodatabaseVersions\ListGeodatabaseVersions.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.xaml">
+    <Page Include="Samples\LayersAndData\ServiceFeatureTableCache\ServiceFeatureTableCache.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.xaml">
+    <Page Include="Samples\LayersAndData\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.xaml">
+    <Page Include="Samples\LayersAndData\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\Data\StatisticalQuery\StatisticalQuery.xaml">
+    <Page Include="Samples\LayersAndData\StatisticalQuery\StatisticalQuery.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.xaml">
+    <Page Include="Samples\LayersAndData\StatsQueryGroupAndSort\StatsQueryGroupAndSort.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.xaml">
+    <Page Include="Samples\Analysis\AnalyzeViewshed\AnalyzeViewshed.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Samples\LayersAndData\WmsLayerUrl\WmsLayerUrl.xaml">
       <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
-    <Page Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Samples\MapsAndVisualization\AddGraphicsRenderer\AddGraphicsRenderer.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.xaml">
+    <Page Include="Samples\MapsAndVisualization\IdentifyGraphics\IdentifyGraphics.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Samples\MapsAndVisualization\MapRotation\MapRotation.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.xaml">
+    <Page Include="Samples\MapsAndVisualization\SketchOnMap\SketchOnMap.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.xaml">
+    <Page Include="Samples\MapsAndVisualization\SurfacePlacements\SurfacePlacements.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.xaml">
+    <Page Include="Samples\LayersAndData\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.xaml">
+    <Page Include="Samples\LayersAndData\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.xaml">
+    <Page Include="Samples\LayersAndData\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.xaml">
+    <Page Include="Samples\LayersAndData\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.xaml">
+    <Page Include="Samples\LayersAndData\ChangeSublayerVisibility\ChangeSublayerVisibility.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.xaml">
+    <Page Include="Samples\LayersAndData\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Layers\DisplayScene\DisplayScene.xaml">
+    <Page Include="Samples\LayersAndData\DisplayScene\DisplayScene.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Layers\ExportTiles\ExportTiles.xaml">
+    <Page Include="Samples\LayersAndData\ExportTiles\ExportTiles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortal.xaml">
+    <Page Include="Samples\CloudAndPortal\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortal.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQuery.xaml">
+    <Page Include="Samples\LayersAndData\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQuery.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.xaml">
+    <Page Include="Samples\LayersAndData\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.xaml">
+    <Page Include="Samples\LayersAndData\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.xaml">
+    <Page Include="Samples\LayersAndData\FeatureLayerSelection\FeatureLayerSelection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.xaml">
+    <Page Include="Samples\LayersAndData\FeatureLayerUrl\FeatureLayerUrl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\Layers\KmlLayerFile\KmlLayerFile.xaml">
+    <Page Include="Samples\LayersAndData\KmlLayerFile\KmlLayerFile.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Layers\KmlLayerUrl\KmlLayerUrl.xaml">
+    <Page Include="Samples\LayersAndData\KmlLayerUrl\KmlLayerUrl.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Samples\Layers\RasterLayerFile\RasterLayerFile.xaml">
       <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.xaml">
+    <Page Include="Samples\LayersAndData\RasterLayerFile\RasterLayerFile.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.xaml">
+    <Page Include="Samples\LayersAndData\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Layers\RasterRenderingRule\RasterRenderingRule.xaml">
+    <Page Include="Samples\LayersAndData\RasterLayerRasterFunction\RasterLayerRasterFunction.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.xaml">
+    <Page Include="Samples\LayersAndData\RasterRenderingRule\RasterRenderingRule.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.xaml">
+    <Page Include="Samples\LayersAndData\SceneLayerUrl\SceneLayerUrl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Layers\WMSLayerUrl\WmsLayerUrl.xaml">
+    <Page Include="Samples\LayersAndData\TimeBasedQuery\TimeBasedQuery.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.xaml">
+    <Page Include="Samples\LayersAndData\WmsServiceCatalog\WmsServiceCatalog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Layers\WMTSLayer\WMTSLayer.xaml">
+    <Page Include="Samples\LayersAndData\WMTSLayer\WMTSLayer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.xaml">
+    <Page Include="Samples\RoutingAndLocation\DisplayDeviceLocation\DisplayDeviceLocation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.xaml">
+    <Page Include="Samples\MapsAndVisualization\AccessLoadStatus\AccessLoadStatus.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\Map\AuthorMap\AuthorMap.xaml">
+    <Page Include="Samples\MapsAndVisualization\AuthorMap\AuthorMap.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Map\ChangeBasemap\ChangeBasemap.xaml">
+    <Page Include="Samples\MapsAndVisualization\ChangeBasemap\ChangeBasemap.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Map\DisplayMap\DisplayMap.xaml">
+    <Page Include="Samples\MapsAndVisualization\DisplayMap\DisplayMap.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\Map\ManageBookmarks\ManageBookmarks.xaml">
+    <Page Include="Samples\MapsAndVisualization\ManageBookmarks\ManageBookmarks.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Map\OpenMapURL\OpenMapURL.xaml">
+    <Page Include="Samples\MapsAndVisualization\OpenMapUrl\OpenMapUrl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\Map\OpenMobileMap\OpenMobileMap.xaml">
+    <Page Include="Samples\MapsAndVisualization\OpenMobileMap\OpenMobileMap.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.xaml">
+    <Page Include="Samples\MapsAndVisualization\SearchPortalMaps\SearchPortalMaps.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.xaml">
+    <Page Include="Samples\MapsAndVisualization\SetInitialMapArea\SetInitialMapArea.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.xaml">
+    <Page Include="Samples\MapsAndVisualization\SetInitialMapLocation\SetInitialMapLocation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.xaml">
+    <Page Include="Samples\MapsAndVisualization\SetMapSpatialReference\SetMapSpatialReference.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.xaml">
+    <Page Include="Samples\MapsAndVisualization\SetMinMaxScale\SetMinMaxScale.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.xaml">
+    <Page Include="Samples\MapsAndVisualization\ChangeViewpoint\ChangeViewpoint.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.xaml">
+    <Page Include="Samples\MapsAndVisualization\DisplayDrawingStatus\DisplayDrawingStatus.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.xaml">
+    <Page Include="Samples\MapsAndVisualization\DisplayLayerViewState\DisplayLayerViewState.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\MapView\MapRotation\MapRotation.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\MapView\ShowCallout\ShowCallout.xaml">
+    <Page Include="Samples\MapsAndVisualization\ShowCallout\ShowCallout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\MapView\ShowMagnifier\ShowMagnifier.xaml">
+    <Page Include="Samples\MapsAndVisualization\ShowMagnifier\ShowMagnifier.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\MapView\TakeScreenshot\TakeScreenshot.xaml">
+    <Page Include="Samples\MapsAndVisualization\TakeScreenshot\TakeScreenshot.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\NetworkAnalysis\FindRoute\FindRoute.xaml">
+    <Page Include="Samples\RoutingAndLocation\FindRoute\FindRoute.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Search\FindAddress\FindAddress.xaml">
+    <Page Include="Samples\RoutingAndLocation\FindAddress\FindAddress.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\Search\FindPlace\FindPlace.xaml">
+    <Page Include="Samples\RoutingAndLocation\FindPlace\FindPlace.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.xaml">
+    <Page Include="Samples\MapsAndVisualization\RenderPictureMarkers\RenderPictureMarkers.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.xaml">
+    <Page Include="Samples\MapsAndVisualization\RenderSimpleMarkers\RenderSimpleMarkers.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.xaml">
+    <Page Include="Samples\MapsAndVisualization\RenderUniqueValues\RenderUniqueValues.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.xaml">
+    <Page Include="Samples\MapsAndVisualization\SimpleRenderers\SimpleRenderers.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml">
+    <Page Include="Samples\MapsAndVisualization\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.xaml">
+    <Page Include="Samples\MapsAndVisualization\AuthorEditSaveMap\AuthorEditSaveMap.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1024,5 +1027,6 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
   </Target>
+  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.WPF.100.2.0\build\net452\Esri.ArcGISRuntime.WPF.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.2.0\build\net452\Esri.ArcGISRuntime.WPF.targets')" />
   <Import Project="..\..\..\packages\Esri.ArcGISRuntime.WPF.100.2.0\build\net452\Esri.ArcGISRuntime.WPF.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.2.0\build\net452\Esri.ArcGISRuntime.WPF.targets')" />
 </Project>

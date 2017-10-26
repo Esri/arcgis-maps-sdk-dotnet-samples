@@ -67,9 +67,9 @@ namespace ArcGISRuntime.WPF.Samples.WmsIdentify
             }
 
             // Retrieve the identified feature, which is always a WmsFeature for WMS layers
-            WmsFeature identifiedFeature = myIdentifyResult.GeoElements.First() as WmsFeature;
+            WmsFeature identifiedFeature = (WmsFeature)myIdentifyResult.GeoElements[0];
 
-            // Retrieve teh WmsFeature's HTML content
+            // Retrieve the WmsFeature's HTML content
             string htmlContent = identifiedFeature.Attributes["HTML"].ToString();
 
             // Show a callout with the HTML content

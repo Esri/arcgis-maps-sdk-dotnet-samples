@@ -71,18 +71,13 @@ namespace ArcGISRuntimeXamarin.Samples.WmsIdentify
             }
 
             // Retrieve the identified feature, which is always a WmsFeature for WMS layers
-            WmsFeature identifiedFeature = myIdentifyResult.GeoElements[0] as WmsFeature;
+            WmsFeature identifiedFeature = (WmsFeature)myIdentifyResult.GeoElements[0];
 
-            // Retrieve teh WmsFeature's HTML content
+            // Retrieve the WmsFeature's HTML content
             string htmlContent = identifiedFeature.Attributes["HTML"].ToString();
 
             // Show a page with the HTML content
-            ShowHtmlPage(htmlContent, e.Location);
-        }
-
-        private void ShowHtmlPage(string htmlContent, MapPoint position)
-        {
-            Navigation.PushAsync(new WmsIdentifyResultDisplayPage(htmlContent));
+            await Navigation.PushAsync(new WmsIdentifyResultDisplayPage(htmlContent));
         }
     }
 

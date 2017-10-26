@@ -17,28 +17,25 @@ using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.KmlNetworkLinks
 {
-	public partial class KmlNetworkLinks
+    public partial class KmlNetworkLinks
     {
         // Member (aka global) variable to hold a reference to the KML dataset
-        KmlDataset _myKmlDataset;
+        private KmlDataset _myKmlDataset;
 
         public KmlNetworkLinks()
-		{
-			InitializeComponent();
+        {
+            InitializeComponent();
 
-			// Initialize the map
-			Initialize();
-		}
+            // Initialize the map
+            Initialize();
+        }
 
         private async void Initialize()
-		{
+        {
             try
             {
                 // Set up the map with a basemap
                 MyMap.Basemap = Basemap.CreateDarkGrayCanvasVector();
-
-                // First clear the operational layers
-                MyMap.OperationalLayers.Clear();
 
                 // Create the ArcGIS Portal
                 ArcGISPortal myPortal = await ArcGISPortal.CreateAsync();
@@ -58,9 +55,6 @@ namespace ArcGISRuntime.WPF.Samples.KmlNetworkLinks
                 // Subscribe to status changes
                 myKmlLayer.LoadStatusChanged += KmlLayer_LoadStatusChanged;
 
-                // Ensure the KML layer is loaded
-                await myKmlLayer.LoadAsync();
-
                 // Add the KML layer to the operational layers
                 MyMap.OperationalLayers.Add(myKmlLayer);
 
@@ -69,9 +63,6 @@ namespace ArcGISRuntime.WPF.Samples.KmlNetworkLinks
 
                 // Zoom to the extent
                 await MyMapView.SetViewpointGeometryAsync(myExtent);
-
-                // Traverse the file and display the refresh intervals for network links
-                TraverseNodesUpdateStatus(_myKmlDataset.RootNodes);
             }
             catch (Exception ex)
             {
@@ -95,13 +86,16 @@ namespace ArcGISRuntime.WPF.Samples.KmlNetworkLinks
             }
         }
 
-        private void TraverseNodesUpdateStatus(IReadOnlyList<KmlNode> sublayers)
+        private void TraverseNodesUpdateStatus(IReadOnlyList<KmlNode> nodes)
         {
-            // Iterate through each sublayer content
-            foreach (KmlNode content in sublayers)
+            // Iterate through each node
+            foreach (KmlNode content in nodes)
             {
+                // Get the type of the node
+                Type nodeType = content.GetType();
+
                 // Update the UI if the content is a Network Link
-                if (typeof(KmlNetworkLink) == content.GetType())
+                if (nodeType == typeof(KmlNetworkLink))
                 {
                     // Get a reference to the item as a KmlNetworkLink
                     KmlNetworkLink netLink = content as KmlNetworkLink;
@@ -117,15 +111,40 @@ namespace ArcGISRuntime.WPF.Samples.KmlNetworkLinks
                     MyNetworkLinkLabel.Content = existingLabel;
                 }
 
-                // Update the UI if the content is a Network Link
-                if (typeof(KmlNetworkLink) == content.GetType())
+                // Recur if the node type has children
+                if (nodeType == typeof(KmlNetworkLink))
                 {
+                    // Cast the node to the correct type
                     KmlNetworkLink myKmlNetworkLink = (KmlNetworkLink)content;
-                    // Recurse on the contents of this sublayer
+
+                    // Recur on the children of the node
                     TraverseNodesUpdateStatus(myKmlNetworkLink.ChildNodes);
                 }
+                else if (nodeType == typeof(KmlContainer))
+                {
+                    // Cast the node to the correct type
+                    KmlContainer myKmlNetworkLink = (KmlContainer)content;
 
-                // Note: recursion ends when there are no more sublayer contents to visit
+                    // Recur on the children of the node
+                    TraverseNodesUpdateStatus(myKmlNetworkLink.ChildNodes);
+                }
+                else if (nodeType == typeof(KmlFolder))
+                {
+                    // Cast the node to the correct type
+                    KmlFolder myKmlNetworkLink = (KmlFolder)content;
+
+                    // Recur on the children of the node
+                    TraverseNodesUpdateStatus(myKmlNetworkLink.ChildNodes);
+                }
+                else if (nodeType == typeof(KmlDocument))
+                {
+                    // Cast the node to the correct type
+                    KmlDocument myKmlNetworkLink = (KmlDocument)content;
+
+                    // Recur on the children of the node
+                    TraverseNodesUpdateStatus(myKmlNetworkLink.ChildNodes);
+                }
+                // Note: recursion ends when there are no more nodes to visit
             }
         }
     }

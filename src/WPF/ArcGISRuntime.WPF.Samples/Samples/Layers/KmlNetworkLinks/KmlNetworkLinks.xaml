@@ -6,7 +6,7 @@
         <esri:MapView x:Name="MyMapView">
             <esri:Map x:Name="MyMap" />
         </esri:MapView>
-        <Border Margin="30" Padding="10" 
+        <Border Margin="30" Padding="10"
                 BorderThickness="1" Background="White"
                 Width="500"
                 MinHeight="10" HorizontalAlignment="Right" VerticalAlignment="Top">

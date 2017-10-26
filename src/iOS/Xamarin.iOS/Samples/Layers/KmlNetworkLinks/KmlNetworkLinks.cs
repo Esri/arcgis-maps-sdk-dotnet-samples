@@ -22,14 +22,13 @@ namespace ArcGISRuntimeXamarin.Samples.KmlNetworkLinks
     [Register("KmlNetworkLinks")]
     public class KmlNetworkLinks : UIViewController
     {
-
         // Constant holding offset where the MapView control should start
         private const int _yPageOffset = 60;
 
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 
-        // Create a new instance of the map 
+        // Create a new instance of the map
         private Map _myMap = new Map();
 
         // Create a label to hold the network link names and refresh intervals
@@ -64,9 +63,6 @@ namespace ArcGISRuntimeXamarin.Samples.KmlNetworkLinks
                 // Set up the map with a basemap
                 _myMap.Basemap = Basemap.CreateDarkGrayCanvasVector();
 
-                // First clear the operational layers
-                _myMap.OperationalLayers.Clear();
-
                 // Create the ArcGIS Portal
                 ArcGISPortal myPortal = await ArcGISPortal.CreateAsync();
 
@@ -85,9 +81,6 @@ namespace ArcGISRuntimeXamarin.Samples.KmlNetworkLinks
                 // Subscribe to status changes
                 myKmlLayer.LoadStatusChanged += KmlLayer_LoadStatusChanged;
 
-                // Ensure the KML layer is loaded
-                await myKmlLayer.LoadAsync();
-
                 // Add the KML layer to the operational layers
                 _myMap.OperationalLayers.Add(myKmlLayer);
 
@@ -96,16 +89,12 @@ namespace ArcGISRuntimeXamarin.Samples.KmlNetworkLinks
 
                 // Zoom to the extent
                 await _myMapView.SetViewpointGeometryAsync(myExtent);
-
-                // Traverse the file and display the refresh intervals for network links
-                TraverseNodesUpdateStatus(_myKmlDataset.RootNodes);
             }
             catch (Exception ex)
             {
                 UIAlertController alert = UIAlertController.Create("Sample error", ex.ToString(), UIAlertControllerStyle.Alert);
                 alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                 PresentViewController(alert, true, null);
-
             }
         }
 
@@ -125,37 +114,65 @@ namespace ArcGISRuntimeXamarin.Samples.KmlNetworkLinks
             }
         }
 
-        private void TraverseNodesUpdateStatus(IReadOnlyList<KmlNode> sublayers)
+        private void TraverseNodesUpdateStatus(IReadOnlyList<KmlNode> nodes)
         {
-            // Iterate through each sublayer content
-            foreach (KmlNode content in sublayers)
+            // Iterate through each node
+            foreach (KmlNode content in nodes)
             {
+                // Get the type of the node
+                Type nodeType = content.GetType();
+
                 // Update the UI if the content is a Network Link
-                if (typeof(KmlNetworkLink) == content.GetType())
+                if (nodeType == typeof(KmlNetworkLink))
                 {
                     // Get a reference to the item as a KmlNetworkLink
                     KmlNetworkLink netLink = content as KmlNetworkLink;
 
                     // Get the existing text of the label
-                    string existingTextBlock = _myLabel.Text as string;
+                    string existingLabel = _myLabel.Text as string;
 
                     // Update the text with information about the layer
-                    existingTextBlock += String.Format("Name: {0} - Refresh Interval: {1}" +
-                        System.Environment.NewLine, netLink.Name, netLink.RefreshInterval);
+                    existingLabel += String.Format("Name: {0} - Refresh Interval: {1}" +
+                        Environment.NewLine, netLink.Name, netLink.RefreshInterval);
 
                     // Update the label with the new text
-                    _myLabel.Text = existingTextBlock;
+                    _myLabel.Text = existingLabel;
                 }
 
-                // Update the UI if the content is a Network Link
-                if (typeof(KmlNetworkLink) == content.GetType())
+                // Recur if the node type has children
+                if (nodeType == typeof(KmlNetworkLink))
                 {
+                    // Cast the node to the correct type
                     KmlNetworkLink myKmlNetworkLink = (KmlNetworkLink)content;
-                    // Recurse on the contents of this sublayer
+
+                    // Recur on the children of the node
                     TraverseNodesUpdateStatus(myKmlNetworkLink.ChildNodes);
                 }
+                else if (nodeType == typeof(KmlContainer))
+                {
+                    // Cast the node to the correct type
+                    KmlContainer myKmlNetworkLink = (KmlContainer)content;
 
-                // Note: recursion ends when there are no more sublayer contents to visit
+                    // Recur on the children of the node
+                    TraverseNodesUpdateStatus(myKmlNetworkLink.ChildNodes);
+                }
+                else if (nodeType == typeof(KmlFolder))
+                {
+                    // Cast the node to the correct type
+                    KmlFolder myKmlNetworkLink = (KmlFolder)content;
+
+                    // Recur on the children of the node
+                    TraverseNodesUpdateStatus(myKmlNetworkLink.ChildNodes);
+                }
+                else if (nodeType == typeof(KmlDocument))
+                {
+                    // Cast the node to the correct type
+                    KmlDocument myKmlNetworkLink = (KmlDocument)content;
+
+                    // Recur on the children of the node
+                    TraverseNodesUpdateStatus(myKmlNetworkLink.ChildNodes);
+                }
+                // Note: recursion ends when there are no more nodes to visit
             }
         }
 
@@ -167,13 +184,11 @@ namespace ArcGISRuntimeXamarin.Samples.KmlNetworkLinks
             // Setup the visual frame for the start date UILabel
             _myLabel.Frame = new CoreGraphics.CGRect(0, _yPageOffset, View.Bounds.Width, 100);
 
-
             base.ViewDidLayoutSubviews();
         }
 
         private void CreateLayout()
         {
-
             // Create a label for the KML network links name and refresh interval
             _myLabel = new UILabel();
             _myLabel.AdjustsFontSizeToFitWidth = true;

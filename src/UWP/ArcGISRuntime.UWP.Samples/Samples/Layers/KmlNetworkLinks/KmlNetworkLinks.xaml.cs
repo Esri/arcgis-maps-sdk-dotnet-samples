@@ -93,14 +93,11 @@ namespace ArcGISRuntime.UWP.Samples.KmlNetworkLinks
             // Iterate through each node
             foreach (KmlNode content in nodes)
             {
-                // Get the type of the node
-                Type nodeType = content.GetType();
-
                 // Update the UI if the content is a Network Link
-                if (nodeType == typeof(KmlNetworkLink))
+                if (content is KmlNetworkLink)
                 {
                     // Get a reference to the item as a KmlNetworkLink
-                    KmlNetworkLink netLink = content as KmlNetworkLink;
+                    KmlNetworkLink netLink = (KmlNetworkLink)content;
 
                     // Get the existing text of the label
                     string existingLabel = MyNetworkLinkTextBlock.Text as string;
@@ -114,7 +111,7 @@ namespace ArcGISRuntime.UWP.Samples.KmlNetworkLinks
                 }
 
                 // Recur if the node type has children
-                if (nodeType == typeof(KmlNetworkLink))
+                if (content is KmlNetworkLink)
                 {
                     // Cast the node to the correct type
                     KmlNetworkLink myKmlNetworkLink = (KmlNetworkLink)content;

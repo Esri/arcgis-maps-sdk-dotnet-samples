@@ -120,26 +120,10 @@ namespace ArcGISRuntime.WPF.Samples.KmlNetworkLinks
                     // Recur on the children of the node
                     TraverseNodesUpdateStatus(myKmlNetworkLink.ChildNodes);
                 }
-                else if (nodeType == typeof(KmlContainer))
+                else if (content is KmlContainer)
                 {
                     // Cast the node to the correct type
                     KmlContainer myKmlNetworkLink = (KmlContainer)content;
-
-                    // Recur on the children of the node
-                    TraverseNodesUpdateStatus(myKmlNetworkLink.ChildNodes);
-                }
-                else if (nodeType == typeof(KmlFolder))
-                {
-                    // Cast the node to the correct type
-                    KmlFolder myKmlNetworkLink = (KmlFolder)content;
-
-                    // Recur on the children of the node
-                    TraverseNodesUpdateStatus(myKmlNetworkLink.ChildNodes);
-                }
-                else if (nodeType == typeof(KmlDocument))
-                {
-                    // Cast the node to the correct type
-                    KmlDocument myKmlNetworkLink = (KmlDocument)content;
 
                     // Recur on the children of the node
                     TraverseNodesUpdateStatus(myKmlNetworkLink.ChildNodes);

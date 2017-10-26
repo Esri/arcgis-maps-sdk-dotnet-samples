@@ -111,6 +111,25 @@
 
     This sample demonstrates how to display a WMTS layer on a map via a Uri and WmtsLayerInfo.
 
+    * [WMS layer (URL)](Xamarin.iOS/Samples/Layers/WMSLayerUrl)
+
+    This sample demonstrates how to add a layer from a WMS service to a map.
+
+    * [WMS service catalog](Xamarin.iOS/Samples/Layers/WmsServiceCatalog)
+
+    This sample demonstrates how to enable and disable the display of layers discovered from a WMS service.
+
+
+- **OGC Layers**
+
+    * [KML layer (URL)](Xamarin.iOS/Samples/Layers/KmlLayerUrl)
+
+    This sample demonstrates how to display a KML file from a URL.
+
+    * [KML layer (file)](Xamarin.iOS/Samples/Layers/KmlLayerFile)
+
+    This sample demonstrates how to display a KML file from local storage.
+
 
 - **Raster Layers**
 
@@ -163,6 +182,10 @@
 
     This sample demonstrates how to create a feature collection layer to show a query result from a service feature table.
 
+    * [Time-based query](Xamarin.iOS/Samples/Layers/TimeBasedQuery)
+
+    This sample demonstrates how to apply a time-based parameter to a feature layer query.
+
     * [Feature layer dictionary renderer](Xamarin.iOS/Samples/Layers/FeatureLayerDictionaryRenderer)
 
     Demonstrates how to apply a dictionary renderer to a feature layer and display mil2525d graphics. The dictionary renderer creates these graphics using a mil2525d style file and the attributes attached to each feature within the geodatabase.
@@ -190,9 +213,17 @@
 
     This sample demonstrates how to take a feature service offline by generating a geodatabase.
 
+    * [Feature layer (shapefile)](Xamarin.iOS/Samples/Data/FeatureLayerShapefile)
+
+    This sample demonstrates how to open a shapefile stored on the device and display it as a feature layer with default symbology.
+
     * [Edit and sync features](Xamarin.iOS/Samples/Data/EditAndSyncFeatures)
 
     This sample demonstrates how to synchronize offline edits with a feature service.
+
+    * [Feature layer (GeoPackage)](Xamarin.iOS/Samples/Data/FeatureLayerGeoPackage)
+
+    This sample demonstrates how to open a GeoPackage and show a GeoPackage feature table in a feature layer.
 
 ## Display Information
 
@@ -202,6 +233,10 @@
     * [Add graphics (SimpleRenderer)](Xamarin.iOS/Samples/GraphicsOverlay/AddGraphicsRenderer)
 
     This sample demonstrates how you add graphics and set a renderer on a graphic overlays.
+
+    * [Surface placement](Xamarin.iOS/Samples/GraphicsOverlay/SurfacePlacements)
+
+    This sample demonstrates how to position graphics using different Surface Placements.
 
     * [Identify graphics](Xamarin.iOS/Samples/GraphicsOverlay/IdentifyGraphics)
 
@@ -235,9 +270,29 @@
 
 - **Geoprocessing**
 
-    * [Analyze viewshed](Xamarin.iOS/Samples/Geoprocessing/AnalyzeViewshed)
+    * [Viewshed (Geoprocessing)](Xamarin.iOS/Samples/Geoprocessing/AnalyzeViewshed)
 
     This sample demonstrates how to use GeoprocessingTask to calculate a viewshed using a geoprocessing service. Click any point on the map to see all areas that are visible within a 1 kilometer radius. It may take a few seconds for the model to run and send back the results.
+
+## Analysis
+
+
+- **Geoprocessing**
+
+    * [Viewshed (Geoprocessing)](Xamarin.iOS/Samples/Geoprocessing/AnalyzeViewshed)
+
+    This sample demonstrates how to use GeoprocessingTask to calculate a viewshed using a geoprocessing service. Click any point on the map to see all areas that are visible within a 1 kilometer radius. It may take a few seconds for the model to run and send back the results.
+
+
+- **Statistics**
+
+    * [Statistical query](Xamarin.iOS/Samples/Data/StatisticalQuery)
+
+    This sample demonstrates how to query a feature table to get statistics for a specified field.
+
+    * [Group and sort statistics](Xamarin.iOS/Samples/Data/StatsQueryGroupAndSort)
+
+    This sample demonstrates how to query a feature table to get statistics for a specified field and to group and sort the results.
 
 ## Network Analysis
 

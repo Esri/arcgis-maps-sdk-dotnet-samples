@@ -1,0 +1,14 @@
+{
+  "Name": "Identify WMS Features",
+  "SampleName": "WmsIdentify",
+  "Description": "This sample demonstrates how to identify WMS features and display the associated content for an identified WMS feature.",
+  "Instructions": "Tap or click on a feature. A callout appears with the returned content for the WMS feature.",
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": false,
+  "RequiresLocalServer": false,
+  "Image": "WmsIdentify.jpg",
+  "Link": "",
+  "TypeLink": [ "T:Esri.ArcGISRuntime.Ogc.WmsFeature" ],
+  "SampleFolder": "WmsIdentify"
+}

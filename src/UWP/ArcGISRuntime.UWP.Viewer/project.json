@@ -1,10 +1,10 @@
 ﻿{
   "dependencies": {
-    "Esri.ArcGISRuntime.UWP": "100.1.0",
+    "Esri.ArcGISRuntime.UWP": "100.2.0",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.3"
   },
   "frameworks": {
-    "uap10.0": {}
+    "uap10.0.14393": {}
   },
   "runtimes": {
     "win10-arm": {},

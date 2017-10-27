@@ -102,7 +102,6 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
-	<Content Include="Samples\LocalServer\DynamicWorkspaceShapefile\metadata.json" />
     <Content Include="groups.json" />
     <Content Include="Samples\Data\EditAndSyncFeatures\metadata.json" />
     <Content Include="Samples\Data\FeatureLayerGeoPackage\metadata.json" />
@@ -179,7 +178,6 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<Content Include="Samples\LocalServer\DynamicWorkspaceShapefile\DynamicWorkspaceShapefile.jpg" />
     <Content Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg" />
     <Content Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.jpg" />
     <Content Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.jpg" />
@@ -255,9 +253,6 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="Samples\LocalServer\DynamicWorkspaceShapefile\DynamicWorkspaceShapefile.xaml.cs">
-		<DependentUpon>DynamicWorkspaceShapefile.xaml</DependentUpon>
-	</Compile>
     <Compile Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.xaml.cs">
       <DependentUpon>EditAndSyncFeatures.xaml</DependentUpon>
     </Compile>
@@ -477,10 +472,6 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-	<Page Include="Samples\LocalServer\DynamicWorkspaceShapefile\DynamicWorkspaceShapefile.xaml">
-		<Generator>MSBuild:Compile</Generator>
-		<SubType>Designer</SubType>
-	</Page>
     <Page Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

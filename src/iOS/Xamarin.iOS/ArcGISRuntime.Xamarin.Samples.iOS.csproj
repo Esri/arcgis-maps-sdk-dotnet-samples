@@ -238,7 +238,6 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
-	<EmbeddedResource Include="Samples\LocalServer\DynamicWorkspaceShapefile\metadata.json" />
     <EmbeddedResource Include="groups.json" />
     <EmbeddedResource Include="Samples\Data\EditAndSyncFeatures\metadata.json" />
     <EmbeddedResource Include="Samples\Data\FeatureLayerGeoPackage\metadata.json" />
@@ -313,7 +312,6 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<None Include="Samples\LocalServer\DynamicWorkspaceShapefile\DynamicWorkspaceShapefile.jpg" />
     <None Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg" />
     <None Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.jpg" />
     <None Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.jpg" />
@@ -388,7 +386,6 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="Samples\LocalServer\DynamicWorkspaceShapefile\DynamicWorkspaceShapefile.cs" />
     <Compile Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.cs" />
     <Compile Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.cs" />
     <Compile Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.cs" />

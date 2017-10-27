@@ -1,14 +1,16 @@
 {
   "Name": "Dynamic workspace shapefile",
   "SampleName": "DynamicWorkspaceShapefile",
-  "Description": "",
-  "Instructions": "", 
+  "Description": "This sample demonstrates how to dynamically add a local shapefile to a map using Local Server.",
+  "Instructions": "This sample depends on the local server being installed and configured. See https://developers.arcgis.com/net/latest/wpf/guide/local-server.htm for details and instructions. ",
   "Type": 0,
   "RequiresOnlineConnection": true,
-  "RequiresOfflineData": false,
+  "RequiresOfflineData": true,
   "RequiresLocalServer": false,
+  "DataItemIds": [ "ea619b4f0f8f4d108c5b87e90c1b5be0" ],
+  "DataFileNames": [ "mpk_blank.mpk" ],
   "Image": "DynamicWorkspaceShapefile.jpg",
   "Link": "",
-  "TypeLink": [ ],
+  "TypeLink": [ "T:Esri.ArcGISRuntime.Mapping.TableSublayerSource", "M:Esri.ArcGISRuntime.Mapping.TableSublayerSource.#ctor(System.String,System.String)" ],
   "SampleFolder": "DynamicWorkspaceShapefile"
 }

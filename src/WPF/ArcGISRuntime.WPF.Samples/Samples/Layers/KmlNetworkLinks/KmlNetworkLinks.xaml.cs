@@ -10,7 +10,6 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
-using Esri.ArcGISRuntime.Portal;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -37,14 +36,8 @@ namespace ArcGISRuntime.WPF.Samples.KmlNetworkLinks
                 // Set up the map with a basemap
                 MyMap.Basemap = Basemap.CreateDarkGrayCanvasVector();
 
-                // Create the ArcGIS Portal
-                ArcGISPortal myPortal = await ArcGISPortal.CreateAsync();
-
-                // Create the portal item with the known ID
-                PortalItem item = await PortalItem.CreateAsync(myPortal, "5d56deb77c0d424799a522d8a13f079e");
-
                 // Get the service Url
-                Uri serviceUri = item.ServiceUrl;
+                Uri serviceUri = new Uri("http://radar.vlieghinder.nl?networkstart=1169241299");
 
                 // Create a KML Dataset with the Url
                 _myKmlDataset = new KmlDataset(serviceUri);
@@ -109,15 +102,7 @@ namespace ArcGISRuntime.WPF.Samples.KmlNetworkLinks
                 }
 
                 // Recur if the node type has children
-                if (content is KmlNetworkLink)
-                {
-                    // Cast the node to the correct type
-                    KmlNetworkLink myKmlNetworkLink = (KmlNetworkLink)content;
-
-                    // Recur on the children of the node
-                    TraverseNodesUpdateStatus(myKmlNetworkLink.ChildNodes);
-                }
-                else if (content is KmlContainer)
+                if (content is KmlContainer)
                 {
                     // Cast the node to the correct type
                     KmlContainer myKmlNetworkLink = (KmlContainer)content;
@@ -125,6 +110,8 @@ namespace ArcGISRuntime.WPF.Samples.KmlNetworkLinks
                     // Recur on the children of the node
                     TraverseNodesUpdateStatus(myKmlNetworkLink.ChildNodes);
                 }
+                // Note: This sample does not recursively explore KmlNetworkLinks. Due to how KmlNetworkLinks are loaded,
+                //        reliably exploring their children is an advanced topic
                 // Note: recursion ends when there are no more nodes to visit
             }
         }

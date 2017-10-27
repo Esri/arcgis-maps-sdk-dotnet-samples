@@ -22,9 +22,6 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceShapefile
 {
     public partial class DynamicWorkspaceShapefile
     {
-        // Hold a reference to the local server
-        private LocalServer _localServer;
-
         // Hold a reference to the local map service
         private LocalMapService _localMapService;
 
@@ -46,9 +43,9 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceShapefile
         private async void ShutdownSample(object sender, EventArgs e)
         {
             // Shut down the local server if it has started
-            if (_localServer.Status == LocalServerStatus.Started)
+            if (LocalServer.Instance.Status == LocalServerStatus.Started)
             {
-                await _localServer.StopAsync();
+                await LocalServer.Instance.StopAsync();
             }
         }
 
@@ -57,14 +54,11 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceShapefile
             // Create a map and add it to the view
             MyMapView.Map = new Map(Basemap.CreateTopographic());
 
-            // Get the singleton LocalServer object using the static "Instance" property
-            _localServer = LocalServer.Instance;
-
             // Hnadle the StatusChanged event to react when the server is started
-            _localServer.StatusChanged += ServerStatusChanged;
+            LocalServer.Instance.StatusChanged += ServerStatusChanged;
 
             // Start the local server instance
-            await _localServer.StartAsync();
+            await LocalServer.Instance.StartAsync();
         }
 
         private void ServerStatusChanged(object sender, StatusChangedEventArgs e)

@@ -42,13 +42,13 @@ namespace ArcGISRuntimeXamarin.Samples.RasterLayerGeoPackage
             GeoPackage myGeoPackage = await GeoPackage.OpenAsync(geoPackagePath);
 
             // Read the raster images and get the first one
-            Raster geoPackageRaster = myGeoPackage.GeoPackageRasters.FirstOrDefault();
+            Raster gpkgRaster = myGeoPackage.GeoPackageRasters.FirstOrDefault();
 
             // Make sure an image was found in the package
-            if (geoPackageRaster == null) { return; }
+            if (gpkgRaster == null) { return; }
 
             // Create a layer to show the raster
-            RasterLayer newLayer = new RasterLayer(geoPackageRaster);
+            RasterLayer newLayer = new RasterLayer(gpkgRaster);
             await newLayer.LoadAsync();
 
             // Add the image as a raster layer to the map (with default symbology)
@@ -70,13 +70,13 @@ namespace ArcGISRuntimeXamarin.Samples.RasterLayerGeoPackage
             string folder = DataManager.GetDataFolder();
 
             // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "ReadGeoPackage", filename);
+            string filepath = Path.Combine(folder, "SampleData", "RasterLayerGeoPackage", filename);
 
             // Check if the file exists
             if (!File.Exists(filepath))
             {
                 // If it's missing, download the GeoPackage
-                await DataManager.GetData("68ec42517cdd439e81b036210483e8e7", "ReadGeoPackage");
+                await DataManager.GetData("68ec42517cdd439e81b036210483e8e7", "RasterLayerGeoPackage");
             }
 
             // Return the path

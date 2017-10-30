@@ -34,6 +34,9 @@
       <DependentUpon>SampleListPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.xaml.cs">
+      <DependentUpon>RasterLayerGeoPackage.xaml</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)CategoryListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -712,6 +715,16 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\RasterLayerGeoPackage\metadata.json" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

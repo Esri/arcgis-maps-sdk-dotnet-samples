@@ -59,6 +59,9 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceShapefile
 
             // Start the local server instance
             await LocalServer.Instance.StartAsync();
+
+            // Load the sample data
+            await LoadShapefilePaths();
         }
 
         private void ServerStatusChanged(object sender, StatusChangedEventArgs e)
@@ -164,13 +167,38 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceShapefile
             #endregion offlinedata
         }
 
+        private async Task<String> LoadShapefilePaths()
+        {
+            // Gets the path to the shapefile package
+
+            #region offlinedata
+
+            // The data manager provides a method to get the folder
+            string folder = DataManager.GetDataFolder();
+
+            // Get the full path
+            string filepath = Path.Combine(folder, "SampleData", "DynamicWorkspaceShapefile", "TrailBikeNetwork.shp");
+
+            // Check if the file exists
+            if (!File.Exists(filepath))
+            {
+                // Download the file
+                await DataManager.GetData("d98b3e5293834c5f852f13c569930caa", "DynamicWorkspaceShapefile");
+            }
+
+            return filepath;
+
+            #endregion offlinedata
+        }
+
         private void MyChooseButton_Click(object sender, RoutedEventArgs e)
         {
             // Allow the user to specify a file path - create the dialog
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog()
             {
                 DefaultExt = ".shp",
-                Filter = "Shapefiles|*.shp"
+                Filter = "Shapefiles|*.shp",
+                InitialDirectory = GetDataFolder()
             };
 
             // Show the dialog and get the results
@@ -183,6 +211,11 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceShapefile
                 string path = Path.GetDirectoryName(dlg.FileName);
                 StartLocalMapService(filename, path);
             }
+        }
+
+        private string GetDataFolder()
+        {
+            return Path.Combine(DataManager.GetDataFolder(), "SampleData", "DynamicWorkspaceShapefile");
         }
     }
 }

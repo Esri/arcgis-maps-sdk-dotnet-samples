@@ -54,14 +54,21 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceShapefile
             // Create a map and add it to the view
             MyMapView.Map = new Map(Basemap.CreateTopographic());
 
-            // Hnadle the StatusChanged event to react when the server is started
-            LocalServer.Instance.StatusChanged += ServerStatusChanged;
+            try
+            {
+                // Hnadle the StatusChanged event to react when the server is started
+                LocalServer.Instance.StatusChanged += ServerStatusChanged;
 
-            // Start the local server instance
-            await LocalServer.Instance.StartAsync();
+                // Start the local server instance
+                await LocalServer.Instance.StartAsync();
 
-            // Load the sample data
-            await LoadShapefilePaths();
+                // Load the sample data
+                await LoadShapefilePaths();
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show(String.Format("Please ensure that local server is installed prior to using the sample. See instructions in readme.me or metadata.json. Message: {0}", ex.Message));
+            }
         }
 
         private void ServerStatusChanged(object sender, StatusChangedEventArgs e)

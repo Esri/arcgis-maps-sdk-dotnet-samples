@@ -42,10 +42,18 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceShapefile
 
         private async void ShutdownSample(object sender, EventArgs e)
         {
-            // Shut down the local server if it has started
-            if (LocalServer.Instance.Status == LocalServerStatus.Started)
+            try
             {
-                await LocalServer.Instance.StopAsync();
+                // Shut down the local server if it has started
+                if (LocalServer.Instance.Status == LocalServerStatus.Started)
+                {
+                    await LocalServer.Instance.StopAsync();
+                }
+            }
+            catch (InvalidOperationException)
+            {
+                // Local server isn't installed, just return
+                return;
             }
         }
 

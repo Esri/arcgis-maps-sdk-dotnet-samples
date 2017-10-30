@@ -26,7 +26,7 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerTimeOffset
         private Uri _featureLayerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer/0");
 
         // Hold a reference to the original time extent
-        private TimeExtent originalExtent;
+        private TimeExtent _originalExtent;
 
         public FeatureLayerTimeOffset()
         {
@@ -47,7 +47,8 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerTimeOffset
             FeatureLayer noOffsetLayer = new FeatureLayer(_featureLayerUri);
 
             // Apply a blue dot renderer to distinguish hurricanes without offsets
-            noOffsetLayer.Renderer = new SimpleRenderer(new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Colors.Blue, 10));
+            SimpleMarkerSymbol blueDot = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Colors.Blue, 10);
+            noOffsetLayer.Renderer = new SimpleRenderer(blueDot);
 
             // Add the non-offset layer to the map
             myMap.OperationalLayers.Add(noOffsetLayer);
@@ -56,7 +57,8 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerTimeOffset
             FeatureLayer withOffsetLayer = new FeatureLayer(_featureLayerUri);
 
             // Apply a red dot renderer to distinguish these hurricanes from the non-offset hurricanes
-            withOffsetLayer.Renderer = new SimpleRenderer(new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Colors.Red, 10));
+            SimpleMarkerSymbol redDot = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Colors.Red, 10);
+            withOffsetLayer.Renderer = new SimpleRenderer(redDot);
 
             // Apply the time offset (red hurricane dots will be from 10 days before the current extent)
             withOffsetLayer.TimeOffset = new TimeValue(10, Esri.ArcGISRuntime.ArcGISServices.TimeUnit.Days);
@@ -71,7 +73,7 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerTimeOffset
             await noOffsetLayer.LoadAsync();
 
             // Store a reference to the original time extent
-            originalExtent = noOffsetLayer.FullTimeExtent;
+            _originalExtent = noOffsetLayer.FullTimeExtent;
 
             // Update the time extent set on the map
             UpdateTimeExtent();
@@ -89,24 +91,27 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerTimeOffset
 
             // Calculate the number of days that value corresponds to
             // 1. Get the interval
-            TimeSpan interval = originalExtent.EndTime - originalExtent.StartTime;
+            TimeSpan interval = _originalExtent.EndTime - _originalExtent.StartTime;
+
             // 2. Store the interval as days
             double days = interval.TotalDays;
+
             // 3. Scale the interval by the value from the slider
             double desiredInterval = value * days;
+
             // 4. Create a new TimeSpan
             TimeSpan newOffset = new TimeSpan((int)desiredInterval, 0, 0, 0);
 
             // Determine the new starting offset
-            DateTime newStart = originalExtent.StartTime.DateTime.Add(newOffset);
+            DateTime newStart = _originalExtent.StartTime.DateTime.Add(newOffset);
 
             // Determine the new ending offset
             DateTime newEnd = newStart.AddDays(10);
 
             // Reset the new DateTimeOffset if it is outside of the extent
-            if (newEnd > originalExtent.EndTime)
+            if (newEnd > _originalExtent.EndTime)
             {
-                newEnd = originalExtent.EndTime.DateTime;
+                newEnd = _originalExtent.EndTime.DateTime;
             }
 
             // Do nothing if out of bounds

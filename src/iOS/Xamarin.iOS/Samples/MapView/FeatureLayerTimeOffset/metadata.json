@@ -9,6 +9,6 @@
   "RequiresLocalServer": false,
   "Image": "FeatureLayerTimeOffset.jpg",
   "Link": "",
-  "TypeLink": [ "P:Esri.ArcGISRuntime.Mapping.FeatureLayer.TimeOffset", "M:Esri.ArcGISRuntime.TimeExtent.#ctor(System.DateTimeOffset,System.DateTimeOffset)" ],
+  "TypeLink": [ "T:Esri.ArcGISRuntime.TimeExtent", "T:Esri.ArcGISRuntime.TimeValue", "T:Esri.ArcGISRuntime.ArcGISServices.TimeUnit", "P:Esri.ArcGISRuntime.ITimeAware.TimeOffset", "P:Esri.ArcGISRuntime.ITimeAware.FullTimeExtent", "P:Esri.ArcGISRuntime.Mapping.FeatureLayer.FullTimeExtent", "P:Esri.ArcGISRuntime.Mapping.FeatureLayer.TimeOffset", "M:Esri.ArcGISRuntime.TimeExtent.#ctor(System.DateTimeOffset,System.DateTimeOffset)", "P:Esri.ArcGISRuntime.UI.Controls.GeoView.TimeExtent" ],
   "SampleFolder": "FeatureLayerTimeOffset"
 }

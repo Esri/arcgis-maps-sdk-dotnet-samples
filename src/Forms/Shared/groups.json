@@ -169,7 +169,7 @@
           "Name":"Raster Layers",
           "SubCategoryName":"RasterLayer",
           "ShowGroup":true,
-          "SampleInfos":[
+          "SampleInfos": [
             {
               "SampleName": "RasterLayerImageServiceRaster",
               "Path": "Samples/Layers/RasterLayerImageServiceRaster"
@@ -185,6 +185,10 @@
             {
               "SampleName": "RasterRenderingRule",
               "Path": "Samples/Layers/RasterRenderingRule"
+            },
+            {
+              "SampleName": "RasterLayerGeoPackage",
+              "Path": "Samples/Data/RasterLayerGeoPackage"
             }
           ]
         }

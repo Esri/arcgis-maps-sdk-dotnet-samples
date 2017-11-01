@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Geometry;
@@ -19,9 +19,11 @@ namespace ArcGISRuntimeXamarin.Samples.ArcGISVectorTiledLayerUrl
     [Register("ArcGISVectorTiledLayerUrl")]
     public class ArcGISVectorTiledLayerUrl : UIViewController
     {
-         // Create and hold reference to the used MapView
+        // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
-        UIToolbar _toolbar;
+
+        private UIToolbar _toolbar = new UIToolbar();
+        private UISegmentedControl _segmentControl = new UISegmentedControl();
 
         private string _navigationUrl = "https://www.arcgis.com/home/item.html?id=dcbbba0edf094eaa81af19298b9c6247";
         private string _streetUrl = "https://www.arcgis.com/home/item.html?id=4e1133c28ac04cca97693cf336cd49ad";
@@ -31,7 +33,7 @@ namespace ArcGISRuntimeXamarin.Samples.ArcGISVectorTiledLayerUrl
         private string _vectorTiledLayerUrl;
         private ArcGISVectorTiledLayer _vectorTiledLayer;
 
-    public ArcGISVectorTiledLayerUrl()
+        public ArcGISVectorTiledLayerUrl()
         {
             Title = "ArcGIS vector tiled layer (URL)";
         }
@@ -49,7 +51,7 @@ namespace ArcGISRuntimeXamarin.Samples.ArcGISVectorTiledLayerUrl
             // Create a new MapView control and provide its location coordinates on the frame
             _myMapView = new MapView();
 
-            // Create a new Map instance with the basemap               
+            // Create a new Map instance with the basemap
             Map myMap = new Map(SpatialReferences.WebMercator);
 
             // Create a new ArcGISVectorTiledLayer with the navigation serice Url
@@ -60,24 +62,22 @@ namespace ArcGISRuntimeXamarin.Samples.ArcGISVectorTiledLayerUrl
             // Assign the Map to the MapView
             _myMapView.Map = myMap;
 
-            // Create a segmented control to display buttons
-            UISegmentedControl segmentControl = new UISegmentedControl();
-            segmentControl.Frame = new CoreGraphics.CGRect(10, 8, View.Bounds.Width - 20, 24);
-            segmentControl.InsertSegment("Dark gray", 0, false);
-            segmentControl.InsertSegment("Streets", 1, false);
-            segmentControl.InsertSegment("Night", 2, false);
-            segmentControl.InsertSegment("Navigation", 3, false);
+            // Update the segmented control to display buttons
+            _segmentControl.InsertSegment("Dark gray", 0, false);
+            _segmentControl.InsertSegment("Streets", 1, false);
+            _segmentControl.InsertSegment("Night", 2, false);
+            _segmentControl.InsertSegment("Navigation", 3, false);
 
-            segmentControl.SelectedSegment = 0;
+            _segmentControl.SelectedSegment = 0;
 
-            segmentControl.ValueChanged += (sender, e) =>
+            _segmentControl.ValueChanged += (sender, e) =>
             {
                 var selectedSegmentId = (sender as UISegmentedControl).SelectedSegment;
 
                 switch (selectedSegmentId)
                 {
                     case 0:
- 
+
                         _vectorTiledLayerUrl = _darkGrayUrl;
                         break;
 
@@ -104,22 +104,7 @@ namespace ArcGISRuntimeXamarin.Samples.ArcGISVectorTiledLayerUrl
                 _myMapView.Map = new Map(new Basemap(_vectorTiledLayer));
             };
 
-            // Create a UIBarButtonItem where its view is the SegmentControl
-            UIBarButtonItem barButtonItem = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
-            barButtonItem.CustomView = segmentControl;
-
-            // Create a toolbar on the bottom of the display 
-            _toolbar = new UIToolbar();
-            
-            _toolbar.AutosizesSubviews = true;
-
-            // Add the bar button item to an array of UIBarButtonItems
-            UIBarButtonItem[] barButtonItems = new UIBarButtonItem[] { barButtonItem };
-
-            // Add the UIBarButtonItems array to the toolbar
-            _toolbar.SetItems(barButtonItems, true);
-
-            View.AddSubviews(_myMapView, _toolbar);
+            View.AddSubviews(_myMapView, _toolbar, _segmentControl);
         }
 
         public override void ViewDidLayoutSubviews()
@@ -127,7 +112,9 @@ namespace ArcGISRuntimeXamarin.Samples.ArcGISVectorTiledLayerUrl
             // Setup the visual frame for the MapView
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
-            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, View.Bounds.Height);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 50, View.Bounds.Width, 50);
+
+            _segmentControl.Frame = new CoreGraphics.CGRect(10, _toolbar.Frame.Top + 10, View.Bounds.Width - 20, 30);
 
             base.ViewDidLayoutSubviews();
         }

@@ -30,11 +30,11 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRenderingRule
         private MapView _myMapView;
 
         // Hold a reference to the UIToolbar control (used to hold the UISegmentedControl)
-        private UIToolbar _myUIToolbar;
+        private UIToolbar _myUIToolbar = new UIToolbar();
 
         // Hold a reference to a UISementedControl
         // (used to hold buttons with the names of the rendering rules of the image service raster)
-        private UISegmentedControl _myUISegmentedControl;
+        private UISegmentedControl _myUISegmentedControl = new UISegmentedControl();
 
         // Hold a reference to a read-only list for the various rendering rules of the image service raster
         private IReadOnlyList<RenderingRuleInfo> _myReadOnlyListRenderRuleInfos;
@@ -62,10 +62,6 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRenderingRule
             // Assign the Map to the MapView
             _myMapView.Map = myMap;
 
-            // Create a segmented control to display buttons
-            _myUISegmentedControl = new UISegmentedControl();
-            _myUISegmentedControl.Frame = new CoreGraphics.CGRect(8, 8, View.Bounds.Width - 16, 24);
-
             // Make the text for the buttons in the UISegmentedControl small to display the names of the rendering rules
             UIFont myUIFont = UIFont.FromName("Helvetica-Bold", 8f);
             _myUISegmentedControl.SetTitleTextAttributes(new UITextAttributes() { Font = myUIFont }, UIControlState.Normal);
@@ -73,23 +69,8 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRenderingRule
             // Wire-up the UISegmentedControl's value change event handler
             _myUISegmentedControl.ValueChanged += _segmentControl_ValueChanged;
 
-            // Create a UIBarButtonItem where its view is the SegmentControl
-            UIBarButtonItem myUIBarButtonItem = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
-            myUIBarButtonItem.CustomView = _myUISegmentedControl;
-
-            // Create a toolbar on the bottom of the display
-            _myUIToolbar = new UIToolbar();
-            _myUIToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
-            _myUIToolbar.AutosizesSubviews = true;
-
-            // Add the bar button item to an array of UIBarButtonItems
-            UIBarButtonItem[] barButtonItems = new UIBarButtonItem[] { myUIBarButtonItem };
-
-            // Add the UIBarButtonItems array to the toolbar
-            _myUIToolbar.SetItems(barButtonItems, true);
-
             // Add the map view and toolbar to the view
-            View.AddSubviews(_myMapView, _myUIToolbar);
+            View.AddSubviews(_myMapView, _myUIToolbar, _myUISegmentedControl);
 
             // Load of the rendering rules of the image service raster and display their names on the buttons in the toolbar
             await LoadRenderingRules();
@@ -174,8 +155,8 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRenderingRule
         {
             // Setup the visual frame for the MapView
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myUIToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
-            _myUISegmentedControl.Frame = new CoreGraphics.CGRect(8, 8, View.Bounds.Width - 16, 24);
+            _myUIToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 50, View.Bounds.Width, 50);
+            _myUISegmentedControl.Frame = new CoreGraphics.CGRect(10, _myUIToolbar.Frame.Top + 10, View.Bounds.Width - 20, 30);
             base.ViewDidLayoutSubviews();
         }
     }

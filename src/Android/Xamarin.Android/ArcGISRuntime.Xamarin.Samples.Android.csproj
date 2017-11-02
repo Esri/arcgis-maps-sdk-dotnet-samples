@@ -231,6 +231,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <AndroidResource Include="Resources\layout\GeoViewSync.axml" />
     <None Include="Samples\MapView\GeoViewSync\GeoViewSync.jpg" />
     <None Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg" />
     <None Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.jpg" />

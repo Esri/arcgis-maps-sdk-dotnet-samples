@@ -28,6 +28,10 @@
 
     This sample illustrates how to show callouts on a map in response to user interaction.
 
+    * [GeoView viewpoint synchronization](Xamarin.iOS/Samples/MapView/GeoViewSync)
+
+    This sample demonstrates how to keep two geo views (MapView/SceneView) in sync with eachother.
+
 
 - **Map**
 
@@ -149,6 +153,10 @@
 
     This sample demonstrates how to create an `ImageServiceRaster`, fetch the `RenderingRule`s from the service info, and use a `RenderingRule` to create an `ImageServiceRaster` and add it to a raster layer.
 
+    * [Raster layer (GeoPackage)](Xamarin.iOS/Samples/Data/RasterLayerGeoPackage)
+
+    This sample demonstrates how to open a GeoPackage and show a GeoPackage raster in a raster layer.
+
 ## Features
 
 
@@ -225,6 +233,10 @@
 
     This sample demonstrates how to open a GeoPackage and show a GeoPackage feature table in a feature layer.
 
+    * [Read shapefile metadata](Xamarin.iOS/Samples/Data/ReadShapefileMetadata)
+
+    This sample demonstrates how to open a shapefile stored on the device, read metadata that describes the dataset, and display it as a feature layer with default symbology.
+
 ## Display Information
 
 
@@ -270,14 +282,9 @@
 
 - **Geoprocessing**
 
-    * [Viewshed (Geoprocessing)](Xamarin.iOS/Samples/Geoprocessing/AnalyzeViewshed)
+    * [Analyze hotspots](Xamarin.iOS/Samples/Geoprocessing/AnalyzeHotspots)
 
-    This sample demonstrates how to use GeoprocessingTask to calculate a viewshed using a geoprocessing service. Click any point on the map to see all areas that are visible within a 1 kilometer radius. It may take a few seconds for the model to run and send back the results.
-
-## Analysis
-
-
-- **Geoprocessing**
+    This sample demonstrates how to execute the GeoprocessingTask asynchronously to calculate a hotspot analysis based on the frequency of 911 calls. It calculates the frequency of these calls within a given study area during a specified constrained time period set between 1/1/1998 and 5/31/1998.
 
     * [Viewshed (Geoprocessing)](Xamarin.iOS/Samples/Geoprocessing/AnalyzeViewshed)
 

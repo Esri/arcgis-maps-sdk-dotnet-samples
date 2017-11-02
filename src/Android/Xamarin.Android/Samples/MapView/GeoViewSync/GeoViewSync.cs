@@ -77,24 +77,12 @@ namespace ArcGISRuntimeXamarin.Samples.GeoViewSync
 
         private void CreateLayout()
         {
-            // Create the mapviews and sceneviews
-            _myMapView = new MapView(this);
-            _mySceneView = new SceneView(this);
-
-            // Create a new vertical layout for the app
-            var layout = new GridLayout(this);
-
-            Spec rowSpec1 = GridLayout.InvokeSpec(0, GridLayout.Center);
-            Spec rowSpec2 = GridLayout.InvokeSpec(1, GridLayout.Center);
-            Spec colSpec1 = GridLayout.InvokeSpec(0);
-
-            // Add the geo views to the layout
-            layout.AddView(_myMapView, new GridLayout.LayoutParams(rowSpec1, colSpec1));
-            layout.AddView(_mySceneView, new GridLayout.LayoutParams(rowSpec2, colSpec1));
-
             // Show the layout in the app
-            SetContentView(layout);
+            SetContentView(Resource.Layout.GeoViewSync);
 
+            // Create the mapviews and sceneviews
+            _myMapView = FindViewById<MapView>(Resource.Id.GeoViewSync_MyMapView);
+            _mySceneView = FindViewById<SceneView>(Resource.Id.GeoViewSync_MySceneView);
         }
     }
 }

@@ -38,6 +38,7 @@
     <!-- References -->
     <Reference Include="Esri.ArcGISRuntime, Version=100.2.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Esri.ArcGISRuntime.WPF.100.2.0\lib\net452\Esri.ArcGISRuntime.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PresentationCore" />
@@ -174,6 +175,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Layers\KmlLayerUrl\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\KmlNetworkLinks\KmlNetworkLinks.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\KmlNodeVisibility\KmlNodeVisibility.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Layers\RasterLayerFile\metadata.json">
@@ -614,6 +621,12 @@
     <Compile Include="Samples\Layers\KmlLayerUrl\KmlLayerUrl.xaml.cs">
       <DependentUpon>KmlLayerUrl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Layers\KmlNetworkLinks\KmlNetworkLinks.xaml.cs">
+      <DependentUpon>KmlNetworkLinks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\KmlNodeVisibility\KmlNodeVisibility.xaml.cs">
+      <DependentUpon>KmlNodeVisibility.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\RasterLayerFile\RasterLayerFile.xaml.cs">
       <DependentUpon>RasterLayerFile.xaml</DependentUpon>
     </Compile>
@@ -871,6 +884,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Samples\Layers\KmlNetworkLinks\KmlNetworkLinks.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\KmlNodeVisibility\KmlNodeVisibility.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Layers\RasterLayerFile\RasterLayerFile.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1025,10 +1046,16 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <Content Include="Samples\Data\RasterLayerGeoPackage\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="packages.config" />
+    <None Include="Samples\Layers\KmlNetworkLinks\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Samples\Layers\KmlNodeVisibility\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -1036,6 +1063,7 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.2.0\build\net452\Esri.ArcGISRuntime.WPF.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.WPF.100.2.0\build\net452\Esri.ArcGISRuntime.WPF.targets'))" />
   </Target>
   <Import Project="..\..\..\packages\Esri.ArcGISRuntime.WPF.100.2.0\build\net452\Esri.ArcGISRuntime.WPF.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.2.0\build\net452\Esri.ArcGISRuntime.WPF.targets')" />
 </Project>

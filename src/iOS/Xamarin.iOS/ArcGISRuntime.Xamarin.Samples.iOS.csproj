@@ -126,9 +126,11 @@
     <!-- References -->
     <Reference Include="Esri.ArcGISRuntime, Version=100.2.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.2.0\lib\Xamarin.iOS10\Esri.ArcGISRuntime.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Esri.ArcGISRuntime.Hydrography, Version=100.2.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.2.0\lib\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="MonoTouch.Dialog-1" />
     <Reference Include="OpenTK-1.0" />
@@ -229,6 +231,8 @@
     <Compile Include="Models\SubCategoryModel.cs" />
     <Compile Include="Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.cs" />
     <Compile Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.cs" />
+    <Compile Include="Samples\Layers\KmlNetworkLinks\KmlNetworkLinks.cs" />
+    <Compile Include="Samples\Layers\KmlNodeVisibility\KmlNodeVisibility.cs" />
     <Compile Include="ViewControllers\SamplesViewController.cs" />
     <Compile Include="ViewControllers\SearchResultsUpdater.cs" />
     <Compile Include="ViewControllers\SearchResultsViewController.cs" />
@@ -347,6 +351,8 @@
     <None Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.jpg" />
     <None Include="Samples\Layers\KmlLayerFile\KmlLayerFile.jpg" />
     <None Include="Samples\Layers\KmlLayerUrl\KmlLayerUrl.jpg" />
+    <EmbeddedResource Include="Samples\Layers\KmlNetworkLinks\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\KmlNodeVisibility\metadata.json" />
     <None Include="Samples\Layers\RasterLayerFile\RasterLayerFile.jpg" />
     <None Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.jpg" />
     <None Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg" />
@@ -467,6 +473,12 @@
   <ItemGroup>
     <None Include="Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Layers\KmlNetworkLinks\KmlNetworkLinks.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Layers\KmlNodeVisibility\KmlNodeVisibility.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -475,6 +487,5 @@
     <Error Condition="!Exists('..\..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
   </Target>
   <Import Project="..\..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.2.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.2.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets')" />
   <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.2.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.2.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets')" />
 </Project>

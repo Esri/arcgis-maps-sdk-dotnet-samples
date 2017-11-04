@@ -1,0 +1,16 @@
+{
+  "Name": "KmlNode visibility",
+  "SampleName": "KmlNodeVisibility",
+  "Description": "This sample demonstrates how to toggle on/off the Kml nodes of GroundOverlay, ScreenOverlay and Placemark in a SceneView.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": true,
+  "RequiresLocalServer": false,
+  "DataItemIds": ["b32481af00c94d638d51c58332d2c742"],
+  "DataFileNames": ["LakesTest.kml"],
+  "Image": "KmlNodeVisibility.jpg",
+  "Link": "",
+  "TypeLink": ["T:Esri.ArcGISRuntime.Mapping.KmlLayer","T:Esri.ArcGISRuntime.Ogc.KmlDataset","T:Esri.ArcGISRuntime.Ogc.KmlGroundOverlay","T:Esri.ArcGISRuntime.Ogc.KmlScreenOverlay","T:Esri.ArcGISRuntime.Ogc.KmlPlacemark","T:Esri.ArcGISRuntime.Ogc.KmlNode"],
+  "SampleFolder": "KmlNodeVisibility"
+}

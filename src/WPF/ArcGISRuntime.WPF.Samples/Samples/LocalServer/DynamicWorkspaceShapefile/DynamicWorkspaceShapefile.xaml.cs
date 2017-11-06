@@ -26,7 +26,7 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceShapefile
         private LocalMapService _localMapService;
 
         // Hold a reference to the layer that will display the shapefile data
-        private ArcGISMapImageSublayer shapefileSublayer;
+        private ArcGISMapImageSublayer _shapefileSublayer;
 
         public DynamicWorkspaceShapefile()
         {
@@ -60,11 +60,11 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceShapefile
         private async void Initialize()
         {
             // Create a map and add it to the view
-            MyMapView.Map = new Map(Basemap.CreateTopographic());
-
+            MyMapView.Map = new Map(BasemapType.Topographic, 39.7294, -104.8319, 12);
+            
             try
             {
-                // Hnadle the StatusChanged event to react when the server is started
+                // Handle the StatusChanged event to react when the server is started
                 LocalServer.Instance.StatusChanged += ServerStatusChanged;
 
                 // Start the local server instance
@@ -104,7 +104,7 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceShapefile
             TableSublayerSource source = new TableSublayerSource(_shapefileWorkspace.Id, filename);
 
             // Create a sublayer instance from the table source
-            shapefileSublayer = new ArcGISMapImageSublayer(0, source);
+            _shapefileSublayer = new ArcGISMapImageSublayer(0, source);
 
             // Add the dynamic workspace to the map service
             _localMapService.SetDynamicWorkspaces(new List<DynamicWorkspace>() { _shapefileWorkspace });
@@ -125,6 +125,7 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceShapefile
                 ArcGISMapImageLayer imageryLayer = new ArcGISMapImageLayer(_localMapService.Url);
 
                 // Subscribe to image layer load status change events
+                // Only set up the sublayer renderer for the shapefile after the parent layer has finished loading
                 imageryLayer.LoadStatusChanged += (q, ex) =>
                 {
                     // Add the layer to the map once loaded
@@ -134,16 +135,10 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceShapefile
                         SimpleLineSymbol _lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Red, 3);
 
                         // Apply the symbol style with a renderer
-                        shapefileSublayer.Renderer = new SimpleRenderer(_lineSymbol);
+                        _shapefileSublayer.Renderer = new SimpleRenderer(_lineSymbol);
 
                         // Add the shapefile sublayer to the imagery layer
-                        imageryLayer.Sublayers.Add(shapefileSublayer);
-
-                        // Center the view once the shapefile loads
-                        shapefileSublayer.Loaded += (r, n) =>
-                        {
-                            MyMapView.SetViewpointGeometryAsync(shapefileSublayer.MapServiceSublayerInfo.Extent);
-                        };
+                        imageryLayer.Sublayers.Add(_shapefileSublayer);
                     }
                 };
 

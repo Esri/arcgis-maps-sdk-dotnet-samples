@@ -2,7 +2,7 @@
   "Name": "Dynamic workspace shapefile",
   "SampleName": "DynamicWorkspaceShapefile",
   "Description": "This sample demonstrates how to dynamically add a local shapefile to a map using Local Server.",
-  "Instructions": "This sample depends on the local server being installed and configured. See https://developers.arcgis.com/net/latest/wpf/guide/local-server.htm for details and instructions. ",
+  "Instructions": "This sample depends on the local server being installed and configured. See https://developers.arcgis.com/net/latest/wpf/guide/local-server.htm for details and instructions.\nClick on the 'Choose Shapefile' button to select a shapefile. The file picker will start in the sample viewer's offline data directory. Sample shapefiles are loaded in the background. ",
   "Type": 0,
   "RequiresOnlineConnection": true,
   "RequiresOfflineData": true,
@@ -11,6 +11,6 @@
   "DataFileNames": [ "mpk_blank.mpk", "TrailBikeNetwork.shp" ],
   "Image": "DynamicWorkspaceShapefile.jpg",
   "Link": "",
-  "TypeLink": [ "T:Esri.ArcGISRuntime.Mapping.TableSublayerSource", "M:Esri.ArcGISRuntime.Mapping.TableSublayerSource.#ctor(System.String,System.String)" ],
+  "TypeLink": [ "T:Esri.ArcGISRuntime.Mapping.TableSublayerSource", "M:Esri.ArcGISRuntime.Mapping.TableSublayerSource.#ctor(System.String,System.String)", "T:Esri.ArcGISRuntime.LocalServices.LocalMapService", "P:Esri.ArcGISRuntime.LocalServices.LocalServer.Instance", "T:Esri.ArcGISRuntime.LocalServices.ShapefileWorkspace", "T:Esri.ArcGISRuntime.LocalServices.DynamicWorkspace" ],
   "SampleFolder": "DynamicWorkspaceShapefile"
 }

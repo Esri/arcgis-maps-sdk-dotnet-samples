@@ -137,8 +137,6 @@
     <Content Include="Samples\Layers\FeatureLayerDictionaryRenderer\metadata.json" />
     <Content Include="Samples\Layers\FeatureLayerSelection\metadata.json" />
     <Content Include="Samples\Layers\FeatureLayerUrl\metadata.json" />
-    <Content Include="Samples\Layers\KmlLayerFile\metadata.json" />
-    <Content Include="Samples\Layers\KmlLayerUrl\metadata.json" />
     <Content Include="Samples\Layers\RasterLayerFile\metadata.json" />
     <Content Include="Samples\Layers\RasterLayerImageServiceRaster\metadata.json" />
     <Content Include="Samples\Layers\RasterLayerRasterFunction\metadata.json" />
@@ -212,8 +210,6 @@
     <Content Include="Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.jpg" />
     <Content Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.jpg" />
     <Content Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.jpg" />
-    <Content Include="Samples\Layers\KmlLayerFile\KmlLayerFile.jpg" />
-    <Content Include="Samples\Layers\KmlLayerUrl\KmlLayerUrl.jpg" />
     <Content Include="Samples\Layers\RasterLayerFile\RasterLayerFile.jpg" />
     <Content Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.jpg" />
     <Content Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg" />
@@ -353,12 +349,6 @@
     </Compile>
     <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.xaml.cs">
       <DependentUpon>FeatureLayerUrl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Layers\KmlLayerFile\KmlLayerFile.xaml.cs">
-      <DependentUpon>KmlLayerFile.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Layers\KmlLayerUrl\KmlLayerUrl.xaml.cs">
-      <DependentUpon>KmlLayerUrl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\RasterLayerFile\RasterLayerFile.xaml.cs">
       <DependentUpon>RasterLayerFile.xaml</DependentUpon>
@@ -608,13 +598,6 @@
     <Page Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Layers\KmlLayerFile\KmlLayerFile.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Layers\KmlLayerUrl\KmlLayerUrl.xaml">
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\Layers\RasterLayerFile\RasterLayerFile.xaml">
       <Generator>MSBuild:Compile</Generator>

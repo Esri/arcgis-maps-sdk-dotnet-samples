@@ -270,8 +270,6 @@
     <EmbeddedResource Include="Samples\Layers\FeatureLayerDictionaryRenderer\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\FeatureLayerSelection\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\FeatureLayerUrl\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\KmlLayerFile\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\KmlLayerUrl\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\RasterLayerFile\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\RasterLayerImageServiceRaster\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\RasterLayerRasterFunction\metadata.json" />
@@ -345,8 +343,6 @@
     <None Include="Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.jpg" />
     <None Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.jpg" />
     <None Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.jpg" />
-    <None Include="Samples\Layers\KmlLayerFile\KmlLayerFile.jpg" />
-    <None Include="Samples\Layers\KmlLayerUrl\KmlLayerUrl.jpg" />
     <None Include="Samples\Layers\RasterLayerFile\RasterLayerFile.jpg" />
     <None Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.jpg" />
     <None Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg" />
@@ -420,8 +416,6 @@
     <Compile Include="Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.cs" />
     <Compile Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.cs" />
     <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.cs" />
-    <Compile Include="Samples\Layers\KmlLayerFile\KmlLayerFile.cs" />
-    <Compile Include="Samples\Layers\KmlLayerUrl\KmlLayerUrl.cs" />
     <Compile Include="Samples\Layers\RasterLayerFile\RasterLayerFile.cs" />
     <Compile Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.cs" />
     <Compile Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.cs" />

@@ -79,8 +79,6 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerDictionaryRenderer\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerSelection\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerUrl\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\KmlLayerFile\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\KmlLayerUrl\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterLayerFile\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterLayerImageServiceRaster\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterLayerRasterFunction\metadata.json" />
@@ -154,8 +152,6 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\KmlLayerFile\KmlLayerFile.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\KmlLayerUrl\KmlLayerUrl.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterLayerFile\RasterLayerFile.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg" />
@@ -322,14 +318,6 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.xaml.cs">
       <DependentUpon>FeatureLayerUrl.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\KmlLayerFile\KmlLayerFile.xaml.cs">
-      <DependentUpon>KmlLayerFile.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\KmlLayerUrl\KmlLayerUrl.xaml.cs">
-      <DependentUpon>KmlLayerUrl.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterLayerFile\RasterLayerFile.xaml.cs">
@@ -586,12 +574,6 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\KmlLayerFile\KmlLayerFile.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\KmlLayerUrl\KmlLayerUrl.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterLayerFile\RasterLayerFile.xaml">

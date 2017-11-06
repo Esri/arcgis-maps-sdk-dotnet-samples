@@ -112,17 +112,6 @@
     This sample demonstrates how to enable and disable the display of layers discovered from a WMS service.
 
 
-- **OGC Layers**
-
-    * [KML layer (URL)](ArcGISRuntime.WPF.Samples/Samples/Layers/KmlLayerUrl)
-
-    This sample demonstrates how to display a KML file from a URL.
-
-    * [KML layer (file)](ArcGISRuntime.WPF.Samples/Samples/Layers/KmlLayerFile)
-
-    This sample demonstrates how to display a KML file from local storage.
-
-
 - **Raster Layers**
 
     * [ArcGIS raster layer (service)](ArcGISRuntime.WPF.Samples/Samples/Layers/RasterLayerImageServiceRaster)
@@ -140,6 +129,10 @@
     * [Raster rendering rule](ArcGISRuntime.WPF.Samples/Samples/Layers/RasterRenderingRule)
 
     This sample demonstrates how to create an `ImageServiceRaster`, fetch the `RenderingRule`s from the service info, and use a `RenderingRule` to create an `ImageServiceRaster` and add it to a raster layer.
+
+    * [Raster layer (GeoPackage)](ArcGISRuntime.WPF.Samples/Samples/Data/RasterLayerGeoPackage)
+
+    This sample demonstrates how to open a GeoPackage and show a GeoPackage raster in a raster layer.
 
 ## Features
 
@@ -210,6 +203,10 @@
 * [Feature layer (GeoPackage)](ArcGISRuntime.WPF.Samples/Samples/Data/FeatureLayerGeoPackage)
 
     This sample demonstrates how to open a GeoPackage and show a GeoPackage feature table in a feature layer.
+
+* [Read shapefile metadata](ArcGISRuntime.WPF.Samples/Samples/Data/ReadShapefileMetadata)
+
+    This sample demonstrates how to open a shapefile stored on the device, read metadata that describes the dataset, and display it as a feature layer with default symbology.
 
 ## Display Information
 
@@ -286,6 +283,12 @@
 * [Display scene](ArcGISRuntime.WPF.Samples/Samples/Layers/DisplayScene)
 
     Demonstrates how to display a scene with an elevation data source. An elevation data source allows objects to be viewed in 3D, like this picture of Mt. Everest.
+
+## Local Server
+
+* [Dynamic workspace shapefile](ArcGISRuntime.WPF.Samples/Samples/LocalServer/DynamicWorkspaceShapefile)
+
+    This sample demonstrates how to dynamically add a local shapefile to a map using Local Server.
 
 ## Location
 

@@ -124,17 +124,6 @@
     This sample demonstrates how to enable and disable the display of layers discovered from a WMS service.
 
 
-- **OGC Layers**
-
-    * [KML layer (URL)](ArcGISRuntime.UWP.Samples/Samples/Layers/KmlLayerUrl)
-
-    This sample demonstrates how to display a KML file from a URL.
-
-    * [KML layer (file)](ArcGISRuntime.UWP.Samples/Samples/Layers/KmlLayerFile)
-
-    This sample demonstrates how to display a KML file from local storage.
-
-
 - **Raster Layers**
 
     * [ArcGIS raster layer (service)](ArcGISRuntime.UWP.Samples/Samples/Layers/RasterLayerImageServiceRaster)
@@ -152,6 +141,10 @@
     * [Raster rendering rule](ArcGISRuntime.UWP.Samples/Samples/Layers/RasterRenderingRule)
 
     This sample demonstrates how to create an `ImageServiceRaster`, fetch the `RenderingRule`s from the service info, and use a `RenderingRule` to create an `ImageServiceRaster` and add it to a raster layer.
+
+    * [Raster layer (GeoPackage)](ArcGISRuntime.UWP.Samples/Samples/Data/RasterLayerGeoPackage)
+
+    This sample demonstrates how to open a GeoPackage and show a GeoPackage raster in a raster layer.
 
 ## Features
 
@@ -228,6 +221,10 @@
     * [Edit and sync features](ArcGISRuntime.UWP.Samples/Samples/Data/EditAndSyncFeatures)
 
     This sample demonstrates how to synchronize offline edits with a feature service.
+
+    * [Read shapefile metadata](ArcGISRuntime.UWP.Samples/Samples/Data/ReadShapefileMetadata)
+
+    This sample demonstrates how to open a shapefile stored on the device, read metadata that describes the dataset, and display it as a feature layer with default symbology.
 
 ## Display Information
 

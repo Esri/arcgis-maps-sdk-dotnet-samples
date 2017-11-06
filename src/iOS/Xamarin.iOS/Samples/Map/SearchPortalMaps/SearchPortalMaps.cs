@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
@@ -30,8 +30,8 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 
-        UISegmentedControl _segmentButton;
-        UIToolbar _toolbar;
+        private UISegmentedControl _segmentButton = new UISegmentedControl();
+        private UIToolbar _toolbar = new UIToolbar();
 
         // Use a TaskCompletionSource to track the completion of the authorization
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
@@ -53,7 +53,6 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
         //       Note - this must be a URL configured as a valid Redirect URI with your app
         private string _oAuthRedirectUrl = "https://developers.arcgis.com";
 
-
         public SearchPortalMaps()
         {
             Title = "Search a portal for maps";
@@ -63,7 +62,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             CreateLayout();
             Initialize();
         }
@@ -79,7 +78,6 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                 _searchMapsUI.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height);
                 _searchMapsUI.Center = View.Center;
             }
-                
 
             if (_oauthInfoUI != null)
             {
@@ -87,11 +85,9 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                 _oauthInfoUI.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height);
                 _oauthInfoUI.Center = View.Center;
             }
-                
 
-            _segmentButton.Frame = new CoreGraphics.CGRect(10, 10, View.Bounds.Width - 20, 24);
-            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
-
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 50, View.Bounds.Width, 50);
+            _segmentButton.Frame = new CoreGraphics.CGRect(10, _toolbar.Frame.Top + 10, View.Bounds.Width - 20, _toolbar.Frame.Height - 20);
 
             base.ViewDidLayoutSubviews();
         }
@@ -142,8 +138,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
 
         private void CreateLayout()
         {
-            // Add a segmented button control
-            _segmentButton = new UISegmentedControl();
+            // Configure segmented button control
             _segmentButton.BackgroundColor = UIColor.White;
             _segmentButton.InsertSegment("Search Maps", 0, false);
             _segmentButton.InsertSegment("My Maps", 1, false);
@@ -151,23 +146,8 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             // Handle the "click" for each segment (new segment is selected)
             _segmentButton.ValueChanged += SegmentButtonClicked;
 
-			// Create a UIBarButtonItem where its view is the SegmentControl
-			UIBarButtonItem barButtonItem = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
-			barButtonItem.CustomView = _segmentButton;
-
-			// Create a toolbar on the bottom of the display 
-			_toolbar = new UIToolbar();
-			_toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
-			_toolbar.AutosizesSubviews = true;
-
-			// Add the bar button item to an array of UIBarButtonItems
-			UIBarButtonItem[] barButtonItems = new UIBarButtonItem[] { barButtonItem };
-
-			// Add the UIBarButtonItems array to the toolbar
-			_toolbar.SetItems(barButtonItems, true);
-
             // Add the MapView and segmented button to the page
-            View.AddSubviews(_myMapView, _toolbar);
+            View.AddSubviews(_myMapView, _toolbar, _segmentButton);
         }
 
         private void SegmentButtonClicked(object sender, EventArgs e)
@@ -257,13 +237,13 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
 
                 // Create a query expression that will get public items of type 'web map' with the keyword(s) in the items tags
                 var queryExpression = string.Format("tags:\"{0}\" access:public type: (\"web map\" NOT \"web mapping application\")", e.SearchText);
-                
+
                 // Create a query parameters object with the expression and a limit of 10 results
                 PortalQueryParameters queryParams = new PortalQueryParameters(queryExpression, 10);
 
                 // Search the portal using the query parameters and await the results
                 PortalQueryResultSet<PortalItem> findResult = await portal.FindItemsAsync(queryParams);
-                
+
                 // Get the items from the query results
                 mapItems = findResult.Results;
 
@@ -317,9 +297,11 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             try
             {
                 await webMap.LoadAsync();
-            } catch (Esri.ArcGISRuntime.ArcGISRuntimeException e){
-				var alert = new UIAlertView("Map Load Error", e.Message, null, "OK", null);
-				alert.Show();
+            }
+            catch (Esri.ArcGISRuntime.ArcGISRuntimeException e)
+            {
+                var alert = new UIAlertView("Map Load Error", e.Message, null, "OK", null);
+                alert.Show();
             }
 
             // Handle change in the load status (to report load errors)
@@ -354,6 +336,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
         }
 
         #region OAuth helpers
+
         private void UpdateAuthenticationManager()
         {
             // Register the server information with the AuthenticationManager
@@ -477,25 +460,25 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             {
                 try
                 {
-                // Dismiss the OAuth UI when complete
-                this.DismissViewController(true, null);
+                    // Dismiss the OAuth UI when complete
+                    this.DismissViewController(true, null);
 
-                // Throw an exception if the user could not be authenticated
-                if (!authArgs.IsAuthenticated)
+                    // Throw an exception if the user could not be authenticated
+                    if (!authArgs.IsAuthenticated)
                     {
                         throw new Exception("Unable to authenticate user.");
                     }
 
-                // If authorization was successful, get the user's account
-                Xamarin.Auth.Account authenticatedAccount = authArgs.Account;
+                    // If authorization was successful, get the user's account
+                    Xamarin.Auth.Account authenticatedAccount = authArgs.Account;
 
-                // Set the result (Credential) for the TaskCompletionSource
-                _taskCompletionSource.SetResult(authenticatedAccount.Properties);
+                    // Set the result (Credential) for the TaskCompletionSource
+                    _taskCompletionSource.SetResult(authenticatedAccount.Properties);
                 }
                 catch (Exception ex)
                 {
-                // If authentication failed, set the exception on the TaskCompletionSource
-                _taskCompletionSource.SetException(ex);
+                    // If authentication failed, set the exception on the TaskCompletionSource
+                    _taskCompletionSource.SetException(ex);
                 }
             };
 
@@ -559,11 +542,12 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             // Return the dictionary of string keys/values
             return keyValueDictionary;
         }
-        #endregion
 
+        #endregion OAuth helpers
     }
 
     #region UI for entering OAuth configuration settings
+
     // View containing "configure OAuth" controls (client id and redirect url inputs with save/cancel buttons)
     public class OAuthPropsDialogOverlay : UIView
     {
@@ -575,6 +559,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
 
         // Store the input controls so the values can be read
         private UITextField _clientIdTextField;
+
         private UITextField _redirectUrlTextField;
 
         public OAuthPropsDialogOverlay(CoreGraphics.CGRect frame, nfloat transparency, UIColor color, string clientId, string redirectUrl) : base(frame)
@@ -641,7 +626,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;
 
-            // Button to save the values 
+            // Button to save the values
             UIButton saveButton = new UIButton(new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight));
             saveButton.SetTitle("Save", UIControlState.Normal);
             saveButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
@@ -718,9 +703,11 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             RedirectUrl = redirectUrl;
         }
     }
-    #endregion
+
+    #endregion UI for entering OAuth configuration settings
 
     #region UI for entering web map search text
+
     // View containing "search map" controls (search text input and search/cancel buttons)
     public class SearchMapsDialogOverlay : UIView
     {
@@ -846,5 +833,6 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             SearchText = searchText;
         }
     }
-    #endregion
+
+    #endregion UI for entering web map search text
 }

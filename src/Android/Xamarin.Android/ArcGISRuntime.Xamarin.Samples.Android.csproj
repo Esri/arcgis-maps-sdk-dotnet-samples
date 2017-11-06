@@ -17,7 +17,7 @@
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -265,6 +265,8 @@
     <None Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.jpg" />
     <None Include="Samples\Layers\KmlLayerFile\KmlLayerFile.jpg" />
     <None Include="Samples\Layers\KmlLayerUrl\KmlLayerUrl.jpg" />
+    <EmbeddedResource Include="Samples\Layers\KmlNetworkLinks\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\KmlNodeVisibility\metadata.json" />
     <None Include="Samples\Layers\RasterLayerFile\RasterLayerFile.jpg" />
     <None Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.jpg" />
     <None Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg" />
@@ -341,6 +343,8 @@
     <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.cs" />
     <Compile Include="Samples\Layers\KmlLayerFile\KmlLayerFile.cs" />
     <Compile Include="Samples\Layers\KmlLayerUrl\KmlLayerUrl.cs" />
+    <Compile Include="Samples\Layers\KmlNetworkLinks\KmlNetworkLinks.cs" />
+    <Compile Include="Samples\Layers\KmlNodeVisibility\KmlNodeVisibility.cs" />
     <Compile Include="Samples\Layers\RasterLayerFile\RasterLayerFile.cs" />
     <Compile Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.cs" />
     <Compile Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.cs" />
@@ -382,6 +386,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Layers\KmlNetworkLinks\KmlNetworkLinks.jpg" />
+    <None Include="Samples\Layers\KmlNodeVisibility\KmlNodeVisibility.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

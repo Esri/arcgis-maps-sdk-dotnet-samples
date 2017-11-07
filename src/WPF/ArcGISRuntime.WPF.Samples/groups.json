@@ -166,6 +166,10 @@
             {
               "SampleName": "KmlNodeVisibility",
               "Path": "Samples/Layers/KmlNodeVisibility"
+            },
+            {
+              "SampleName": "IdentifyKMLFeatures",
+              "Path": "Samples/Layers/IdentifyKMLFeatures"
             }
           ]
         },

@@ -1,0 +1,13 @@
+{
+  "Name": "Identify KML features",
+  "SampleName": "IdentifyKMLFeatures",
+  "Description": "This sample demonstrates how to perform an identify on a KML layer to display attribute features via a Callout.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"IdentifyKMLFeatures.jpg",
+  "Link":"",
+  "TypeLink": ["T:Esri.ArcGISRuntime.Mapping.KmlLayer","T:Esri.ArcGISRuntime.Ogc.KmlDataset"]
+}

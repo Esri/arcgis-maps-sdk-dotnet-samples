@@ -31,7 +31,7 @@
 
 * [GeoView viewpoint synchronization](ArcGISRuntime.WPF.Samples/Samples/MapView/GeoViewSync)
 
-    This sample demonstrates how to keep two geo views (MapView/SceneView) in sync with eachother.
+    This sample demonstrates how to keep two geo views (MapView/SceneView) in sync with each other.
 
 * [Display a map](ArcGISRuntime.WPF.Samples/Samples/Map/DisplayMap)
 
@@ -298,6 +298,12 @@
 * [Display scene](ArcGISRuntime.WPF.Samples/Samples/Layers/DisplayScene)
 
     Demonstrates how to display a scene with an elevation data source. An elevation data source allows objects to be viewed in 3D, like this picture of Mt. Everest.
+
+## Local Server
+
+* [Dynamic workspace shapefile](ArcGISRuntime.WPF.Samples/Samples/LocalServer/DynamicWorkspaceShapefile)
+
+    This sample demonstrates how to dynamically add a local shapefile to a map using Local Server.
 
 ## Location
 

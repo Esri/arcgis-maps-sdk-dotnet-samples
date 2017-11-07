@@ -34,7 +34,7 @@
 
     * [GeoView viewpoint synchronization](ArcGISRuntime.UWP.Samples/Samples/MapView/GeoViewSync)
 
-    This sample demonstrates how to keep two geo views (MapView/SceneView) in sync with eachother.
+    This sample demonstrates how to keep two geo views (MapView/SceneView) in sync with each other.
 
 
 - **Map**

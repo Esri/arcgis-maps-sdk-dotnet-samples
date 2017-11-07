@@ -133,6 +133,10 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyKMLFeatures
                             // Create overlay to where graphics are shown
                             MyMapView.GraphicsOverlays[0].Graphics.Add(myPolygonGraphic);
 
+                            // TODO:
+                            // It might be confusing to have GraphicsOverlays in the mix. 
+                            // It might be simpler to use ShowCalloutAt and not do any other presentation part.
+
                             string keyValues = "";
 
                             // NOTE: the field names that are returned are the alias and not the actual field name. If the

@@ -124,17 +124,6 @@
     This sample demonstrates how to enable and disable the display of layers discovered from a WMS service.
 
 
-- **OGC Layers**
-
-    * [KML layer (URL)](Xamarin.iOS/Samples/Layers/KmlLayerUrl)
-
-    This sample demonstrates how to display a KML file from a URL.
-
-    * [KML layer (file)](Xamarin.iOS/Samples/Layers/KmlLayerFile)
-
-    This sample demonstrates how to display a KML file from local storage.
-
-
 - **Raster Layers**
 
     * [ArcGIS raster layer (service)](Xamarin.iOS/Samples/Layers/RasterLayerImageServiceRaster)

@@ -30,11 +30,11 @@ namespace ArcGISRuntime.WPF.Samples.GeoViewSync
             MySceneView.Scene = new Scene(Basemap.CreateImageryWithLabels());
 
             // Subscribe to viewpoint change events for both views
-            MyMapView.ViewpointChanged += MySceneView_ViewpointChanged;
-            MySceneView.ViewpointChanged += MySceneView_ViewpointChanged;
+            MyMapView.ViewpointChanged += view_viewpointChanged;
+            MySceneView.ViewpointChanged += view_viewpointChanged;
         }
 
-        private void MySceneView_ViewpointChanged(object sender, EventArgs e)
+        private void view_viewpointChanged(object sender, EventArgs e)
         {
             // Get the MapView or SceneView that sent the event
             GeoView sendingView = sender as GeoView;

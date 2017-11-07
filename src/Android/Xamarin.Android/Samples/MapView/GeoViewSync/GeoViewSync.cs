@@ -42,11 +42,11 @@ namespace ArcGISRuntimeXamarin.Samples.GeoViewSync
             _mySceneView.Scene = new Scene(Basemap.CreateImageryWithLabels());
 
             // Subscribe to viewpoint change events for both views
-            _myMapView.ViewpointChanged += MySceneView_ViewpointChanged;
-            _mySceneView.ViewpointChanged += MySceneView_ViewpointChanged;
+            _myMapView.ViewpointChanged += view_viewpointChanged;
+            _mySceneView.ViewpointChanged += view_viewpointChanged;
         }
 
-        private void MySceneView_ViewpointChanged(object sender, EventArgs e)
+        private void view_viewpointChanged(object sender, EventArgs e)
         {
             // Get the MapView or SceneView that sent the event
             GeoView sendingView = sender as GeoView;

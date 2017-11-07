@@ -1,7 +1,7 @@
 {
   "Name": "GeoView viewpoint synchronization",
   "SampleName": "GeoViewSync",
-  "Description": "This sample demonstrates how to keep two geo views (MapView/SceneView) in sync with eachother.",
+  "Description": "This sample demonstrates how to keep two geo views (MapView/SceneView) in sync with each other.",
   "Instructions": "",
   "Type": 0,
   "RequiresOnlineConnection": true,

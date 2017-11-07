@@ -105,7 +105,7 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerQuery
                 QueryParameters queryParams = new QueryParameters();
 
                 // Construct and assign the where clause that will be used to query the feature table 
-                queryParams.WhereClause = "upper(STATE_NAME) LIKE '%" + (stateName.ToUpper()) + "%'";
+                queryParams.WhereClause = "upper(STATE_NAME) LIKE '%" + (stateName.Trim().ToUpper()) + "%'";
 
                 // Query the feature table 
                 FeatureQueryResult queryResult = await _featureTable.QueryFeaturesAsync(queryParams);

@@ -1,0 +1,83 @@
+﻿<UserControl x:Class="ArcGISRuntime.WPF.Samples.GeodatabaseTransactions.GeodatabaseTransactions"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="130"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="TransactionStatusLabel"
+                       Background="Transparent" Foreground="LightGray"
+                       TextAlignment="Center"
+                       Width="200" Height="35"
+                       Text="Not in transaction"/>
+            <CheckBox x:Name="CheckTransactionCheckBox"
+                      Grid.Row="1"
+                      HorizontalAlignment="Center" VerticalAlignment="Center"
+                      Content="Check transaction status"/>
+            <Button x:Name="LoadLocalDataButton"
+                    Grid.Row="2"
+                    Width="200" Height="30"
+                    Content="Load local tables"
+                    Click="LoadLocalData"/>
+            <Button x:Name="BeginTransactionButton"
+                    Grid.Row="3"
+                    Width="200" Height="30"
+                    Content="Begin Transaction"
+                    Click="BeginTransactionClick"/>
+            <Button x:Name="CommitTransactionButton"
+                    Grid.Row="4"
+                    Width="200" Height="30"
+                    Content="Commit Transaction"
+                    Click="CommitTransactionClick"/>
+            <Button x:Name="RollbackTransactionButton"
+                    Grid.Row="5"
+                    Width="200" Height="30"
+                    Content="Rollback Transaction"
+                    Click="RollbackTransactionClick"/>
+            <TextBlock x:Name="MessageTextBlock"
+                       Grid.Row="7"
+                       Width="200" Height="120"
+                       VerticalAlignment="Top"
+                       TextWrapping="Wrap"/>
+            <ComboBox x:Name="TableComboBox"
+                      Grid.Row="8"
+                      Width="200" Height="25"/>
+            <Button x:Name="AddFeatureButton"
+                    Grid.Row="9"
+                    Width="200" Height="30"
+                    Content="Add New Feature"
+                    Click="AddNewFeature"/>
+        </Grid>
+        <ProgressBar x:Name="LoadingProgressBar" 
+               Grid.Column="0"
+               Width="290" Height="152"
+               Margin="0,83,10,0"               
+               HorizontalAlignment="Center" VerticalAlignment="Top"
+                     IsIndeterminate="True"
+                     Opacity="0.5"/>
+        <TextBlock x:Name="LoadingText" 
+                   Grid.Column="0"
+                   Margin="0,240"
+                   Text="Generating local data ..." 
+                   FontSize="24"
+                   HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <esri:MapView x:Name="MyMapView"
+                      Grid.Column="1"/>
+    </Grid>
+</UserControl>

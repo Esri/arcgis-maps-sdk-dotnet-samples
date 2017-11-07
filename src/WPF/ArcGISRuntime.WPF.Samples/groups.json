@@ -40,6 +40,10 @@
             {
               "SampleName": "FeatureLayerTimeOffset",
               "Path": "Samples/MapView/FeatureLayerTimeOffset"
+            },
+            {
+              "SampleName": "GeoViewSync",
+              "Path": "Samples/MapView/GeoViewSync"
             }
           ]
         },
@@ -426,6 +430,23 @@
             {
               "SampleName": "DisplayScene",
               "Path": "Samples/Layers/DisplayScene"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Local Server",
+      "CategoryName": "LocalServer",
+      "SubCategories": [
+        {
+          "Name": "Local Server",
+          "SubCategoryName": "LocalServer",
+          "ShowGroup": false,
+          "SampleInfos": [
+            {
+              "SampleName": "DynamicWorkspaceShapefile",
+              "Path": "Samples/LocalServer/DynamicWorkspaceShapefile"
             }
           ]
         }

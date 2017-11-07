@@ -40,6 +40,10 @@
             {
               "SampleName": "FeatureLayerTimeOffset",
               "Path": "Samples/MapView/FeatureLayerTimeOffset"
+            },
+            {
+              "SampleName": "GeoViewSync",
+              "Path": "Samples/MapView/GeoViewSync"
             }
           ]
         },

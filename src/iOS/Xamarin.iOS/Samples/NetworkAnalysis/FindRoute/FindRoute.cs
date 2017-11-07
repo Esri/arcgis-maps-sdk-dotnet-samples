@@ -25,8 +25,11 @@ namespace ArcGISRuntimeXamarin.Samples.FindRoute
     public class FindRoute : UIViewController
     {
         private MapView _myMapView;
-        private int _yOffset = 60;
-        private UIToolbar _toolbar;
+        private UIToolbar _toolbar = new UIToolbar();
+
+        UIButton solveRouteButton = new UIButton(UIButtonType.Plain);
+        UIButton resetButton = new UIButton(UIButtonType.Plain);
+        UIButton showDirectionsButton = new UIButton(UIButtonType.Plain);
 
         // List of stops on the route ('from' and 'to')
         private List<Stop> _routeStops;
@@ -54,49 +57,19 @@ namespace ArcGISRuntimeXamarin.Samples.FindRoute
             base.ViewDidLoad();
 
             // Create a new MapView control and provide its location coordinates on the frame
-            _myMapView = new MapView();            
-            
-            // Create a toolbar on the bottom of the display 
-            _toolbar = new UIToolbar();
-            _toolbar.AutosizesSubviews = true;
+            _myMapView = new MapView();
 
-            // Create a button for solving the route
-            UIButton solveRouteButton = new UIButton(UIButtonType.RoundedRect);
-            solveRouteButton.Frame = new CoreGraphics.CGRect(10, 8, 100, 24);
             solveRouteButton.SetTitle("Solve Route", UIControlState.Normal);
             solveRouteButton.TouchUpInside += SolveRouteButtonClick;
 
-            // Create a button to reset
-            UIButton resetButton = new UIButton(UIButtonType.RoundedRect);
-            resetButton.Frame = new CoreGraphics.CGRect(120, 8, 50, 24);
             resetButton.SetTitle("Reset", UIControlState.Normal);
             resetButton.TouchUpInside += ResetButtonClick;
 
-            // Create a button for viewing the driving directions
-            UIButton showDirectionsButton = new UIButton(UIButtonType.RoundedRect);
-            showDirectionsButton.Frame = new CoreGraphics.CGRect(180, 8, 100, 24);
             showDirectionsButton.SetTitle("Directions", UIControlState.Normal);
             showDirectionsButton.TouchUpInside += ShowDirections;
 
-            // Create a UIBarButtonItem and set its view with the solve route button
-            UIBarButtonItem barButtonSolveRoute = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
-            barButtonSolveRoute.CustomView = solveRouteButton;
-
-            // Create a UIBarButtonItem and set its view with the reset button
-            UIBarButtonItem barButtonReset = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
-            barButtonReset.CustomView = resetButton;
-
-            // Create a UIBarButtonItem and set its view with the show directions button
-            UIBarButtonItem barButtonShowDirections = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
-            barButtonShowDirections.CustomView = showDirectionsButton;
-
             // Add the bar button items to an array of UIBarButtonItems
-            UIBarButtonItem[] barButtonItems = new UIBarButtonItem[] { barButtonSolveRoute, barButtonReset, barButtonShowDirections };
-
-            // Add the UIBarButtonItems array to the toolbar
-            _toolbar.SetItems(barButtonItems, true);
-
-            View.AddSubviews(_myMapView, _toolbar);
+            View.AddSubviews(_myMapView, _toolbar, solveRouteButton, resetButton, showDirectionsButton);
 
             Initialize();
         }
@@ -209,8 +182,14 @@ namespace ArcGISRuntimeXamarin.Samples.FindRoute
         {
             // Setup the visual frame for the MapView
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+
             // Setup the visual frame for the Toolbar
-            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, View.Bounds.Height);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
+
+            // Update toolbar item layouts
+            solveRouteButton.Frame = new CoreGraphics.CGRect(10, _toolbar.Frame.Top + 10, 100, 20);
+            resetButton.Frame = new CoreGraphics.CGRect(120, _toolbar.Frame.Top + 10, 50, 20);
+            showDirectionsButton.Frame = new CoreGraphics.CGRect(180, _toolbar.Frame.Top + 10, 100, 20);
 
 
             base.ViewDidLayoutSubviews();

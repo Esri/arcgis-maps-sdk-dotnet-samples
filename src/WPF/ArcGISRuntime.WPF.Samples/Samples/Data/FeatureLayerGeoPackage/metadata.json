@@ -7,6 +7,7 @@
   "RequiresOnlineConnection": true,
   "RequiresOfflineData": true,
   "DataItemIds": [ "68ec42517cdd439e81b036210483e8e7" ],
+  "DataFileNames": [ "AuroraCO.gpkg" ],
   "RequiresLocalServer": false,
   "Image": "FeatureLayerGeoPackage.jpg",
   "Link": "",

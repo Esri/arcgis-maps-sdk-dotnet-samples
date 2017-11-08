@@ -6,8 +6,9 @@
   "Type": 0,
   "RequiresOnlineConnection": true,
   "RequiresOfflineData": true,
-  "DataItemIds": [ "68ec42517cdd439e81b036210483e8e7" ],
   "RequiresLocalServer": false,
+  "DataItemIds": [ "68ec42517cdd439e81b036210483e8e7" ],
+  "DataFileNames": [ "AuroraCO.gpkg" ],
   "Image": "FeatureLayerGeoPackage.jpg",
   "Link": "",
   "TypeLink": [ "T:Esri.ArcGISRuntime.Data.GeoPackage", "T:Esri.ArcGISRuntime.Data.GeoPackageFeatureTable", "P:Esri.ArcGISRuntime.Data.GeoPackage.GeoPackageFeatureTables", "M:Esri.ArcGISRuntime.Data.GeoPackage.OpenAsync(System.String)" ]

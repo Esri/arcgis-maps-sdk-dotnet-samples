@@ -438,6 +438,23 @@
       ]
     },
     {
+      "Name": "Hydrography",
+      "CategoryName": "Hydrography",
+      "SubCategories": [
+        {
+          "Name": "Hydrography",
+          "SubCategoryName": "Hydrography",
+          "ShowGroup": false,
+          "SampleInfos": [
+            {
+              "SampleName": "AddEncExchangeSet",
+              "Path": "Samples/Hydrography/AddEncExchangeSet"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "Name": "Location",
       "CategoryName": "Location",
       "SubCategories": [

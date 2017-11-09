@@ -9,5 +9,13 @@
   "RequiresLocalServer":false,
   "Image":"FeatureLayerQuery.jpg",
   "Link":"",
-  "TypeLink": ["T:Esri.ArcGISRuntime.Data.FeatureQueryResult","T:Esri.ArcGISRuntime.Data.QueryParameters","M:Esri.ArcGISRuntime.Data.FeatureTable.QueryFeaturesAsync(Esri.ArcGISRuntime.Data.QueryParameters)","P:Esri.ArcGISRuntime.Data.QueryParameters.WhereClause","P:Esri.ArcGISRuntime.Mapping.Layer.Opacity","M:Esri.ArcGISRuntime.Mapping.FeatureLayer.ClearSelection","M:Esri.ArcGISRuntime.Mapping.FeatureLayer.SelectFeature(Esri.ArcGISRuntime.Data.Feature)","M:Esri.ArcGISRuntime.UI.Controls.MapView.SetViewpointGeometryAsync(Esri.ArcGISRuntime.Geometry.Geometry)"]
+  "TypeLink": [
+"T:Esri.ArcGISRuntime.Data.QueryParameters",
+"M:Esri.ArcGISRuntime.Data.FeatureTable.QueryFeaturesAsync(Esri.ArcGISRuntime.Data.QueryParameters)",
+"P:Esri.ArcGISRuntime.Data.QueryParameters.WhereClause",
+"P:Esri.ArcGISRuntime.Mapping.Layer.Opacity",
+"M:Esri.ArcGISRuntime.Mapping.FeatureLayer.ClearSelection",
+"M:Esri.ArcGISRuntime.Mapping.FeatureLayer.SelectFeature(Esri.ArcGISRuntime.Data.Feature)",
+"M:Esri.ArcGISRuntime.UI.Controls.MapView.SetViewpointGeometryAsync(Esri.ArcGISRuntime.Geometry.Geometry)"
+]
 }

@@ -9,6 +9,12 @@
   "RequiresLocalServer": false,
   "Image": "GeoViewSync.jpg",
   "Link": "",
-  "TypeLink": [ "P:Esri.ArcGISRuntime.UI.Controls.GeoView.IsNavigating" ],
+  "TypeLink": [
+"P:Esri.ArcGISRuntime.UI.Controls.GeoView.IsNavigating",
+"T:Esri.ArcGISRuntime.UI.Controls.GeoView",
+"M:Esri.ArcGISRuntime.Mapping.Scene.#ctor(Esri.ArcGISRuntime.Mapping.Basemap)",
+"M:Esri.ArcGISRuntime.Mapping.Basemap.CreateImageryWithLabels",
+"T:Esri.ArcGISRuntime.Mapping.Scene"
+],
   "SampleFolder": "GeoViewSync"
 }

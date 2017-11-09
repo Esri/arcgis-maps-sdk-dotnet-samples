@@ -16,8 +16,6 @@
 "P:Esri.ArcGISRuntime.Data.ShapefileFeatureTable.Info",
 "P:Esri.ArcGISRuntime.Data.ShapefileInfo.Thumbnail",
 "T:Esri.ArcGISRuntime.Data.ShapefileInfo",
-"M:Esri.ArcGISRuntime.RuntimeCollection`1.Add(`0)",
-"T:Esri.ArcGISRuntime.Mapping.LayerCollection",
 "M:Esri.ArcGISRuntime.Mapping.Basemap.CreateStreetsVector",
 "E:Esri.ArcGISRuntime.UI.Controls.GeoView.SpatialReferenceChanged"
 ],

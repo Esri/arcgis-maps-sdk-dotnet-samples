@@ -11,5 +11,5 @@
   "RequiresLocalServer": false,
   "Image": "ReadShapefileMetadata.jpg",
   "Link": "",
-  "TypeLink": [ "T:Esri.ArcGISRuntime.Data.ShapefileFeatureTable", "T:Esri.ArcGISRuntime.Data.ShapefileInfo", "M:Esri.ArcGISRuntime.Data.ShapefileFeatureTable.OpenAsync(System.String)" ]
+  "TypeLink": ["M:Esri.ArcGISRuntime.Data.ShapefileFeatureTable.OpenAsync(System.String)" ]
 }

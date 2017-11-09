@@ -9,5 +9,5 @@
   "RequiresLocalServer":false,
   "Image":"AuthorMap.jpg",
   "Link":"",
-  "TypeLink": ["M:Esri.ArcGISRuntime.Portal.ArcGISPortal.CreateAsync","T:Esri.ArcGISRuntime.Security.ServerInfo","T:Esri.ArcGISRuntime.Security.AuthenticationManager","P:Esri.ArcGISRuntime.Security.AuthenticationManager.Current","T:Esri.ArcGISRuntime.Security.CredentialRequestInfo","T:Esri.ArcGISRuntime.Security.TokenAuthenticationType"]
+  "TypeLink": ["M:Esri.ArcGISRuntime.Portal.ArcGISPortal.CreateAsync","T:Esri.ArcGISRuntime.Security.ServerInfo","T:Esri.ArcGISRuntime.Security.TokenAuthenticationType"]
 }

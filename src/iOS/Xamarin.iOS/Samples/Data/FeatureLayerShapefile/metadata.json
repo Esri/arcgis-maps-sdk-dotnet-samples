@@ -11,6 +11,6 @@
   "DataFileNames": [ "Public_Art.shp" ],
   "Image": "FeatureLayerShapefile.jpg",
   "Link": "",
-  "TypeLink": [ "T:Esri.ArcGISRuntime.Data.ShapefileFeatureTable", "M:Esri.ArcGISRuntime.Data.ShapefileFeatureTable.OpenAsync(System.String)" ],
+  "TypeLink": [ "T:Esri.ArcGISRuntime.Data.ShapefileFeatureTable"],
   "SampleFolder": "FeatureLayerShapefile"
 }

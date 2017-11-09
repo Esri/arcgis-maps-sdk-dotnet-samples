@@ -10,10 +10,14 @@
   "Image":"SurfacePlacements.jpg",
   "Link": "",
   "TypeLink": [
-    "T:Esri.ArcGISRuntime.Mapping;",
-    "T:Esri.ArcGISRuntime.Symbology;",
-    "T:Esri.ArcGISRuntime.Geometry;",
-    "T:Esri.ArcGISRuntime.UI.Graphic",
-    "T:Esri.ArcGISRuntime.UI.GraphicsOverlay"
+"M:Esri.ArcGISRuntime.Geometry.MapPoint.#ctor(System.Double,System.Double,System.Double,Esri.ArcGISRuntime.Geometry.SpatialReference)",
+"M:Esri.ArcGISRuntime.Mapping.ArcGISTiledElevationSource.#ctor(System.Uri)",
+"T:Esri.ArcGISRuntime.Mapping.LayerSceneProperties",
+"P:Esri.ArcGISRuntime.Mapping.LayerSceneProperties.SurfacePlacement",
+"T:Esri.ArcGISRuntime.Mapping.SurfacePlacement",
+"P:Esri.ArcGISRuntime.UI.GraphicsOverlay.SceneProperties",
+"P:Esri.ArcGISRuntime.Geometry.Geometry.SpatialReference",
+"P:Esri.ArcGISRuntime.Mapping.Camera.Location",
+"M:Esri.ArcGISRuntime.Symbology.TextSymbol.#ctor"
   ]
 }

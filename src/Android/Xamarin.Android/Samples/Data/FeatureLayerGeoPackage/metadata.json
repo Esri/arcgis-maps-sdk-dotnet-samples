@@ -11,6 +11,6 @@
   "DataFileNames": [ "AuroraCO.gpkg" ],
   "Image": "FeatureLayerGeoPackage.jpg",
   "Link": "",
-  "TypeLink": [ "T:Esri.ArcGISRuntime.Data.GeoPackage", "T:Esri.ArcGISRuntime.Data.GeoPackageFeatureTable", "P:Esri.ArcGISRuntime.Data.GeoPackage.GeoPackageFeatureTables", "M:Esri.ArcGISRuntime.Data.GeoPackage.OpenAsync(System.String)" ],
+  "TypeLink": [ "T:Esri.ArcGISRuntime.Data.GeoPackage", "T:Esri.ArcGISRuntime.Data.GeoPackageFeatureTable", "P:Esri.ArcGISRuntime.Data.GeoPackage.GeoPackageFeatureTables"],
   "SampleFolder": "FeatureLayerGeoPackage"
 }

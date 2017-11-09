@@ -9,6 +9,24 @@
   "RequiresLocalServer": false,
   "Image": "AuthorMap.jpg",
   "Link": "",
-  "TypeLink": [ "M:Esri.ArcGISRuntime.Portal.ArcGISPortal.CreateAsync", "T:Esri.ArcGISRuntime.Security.ServerInfo", "T:Esri.ArcGISRuntime.Security.TokenAuthenticationType" ],
-  "SampleFolder": "AutorMap"
+  "TypeLink": [
+"M:Esri.ArcGISRuntime.Portal.ArcGISPortal.CreateAsync",
+"T:Esri.ArcGISRuntime.Security.ServerInfo",
+"T:Esri.ArcGISRuntime.Security.TokenAuthenticationType",
+"P:Esri.ArcGISRuntime.Geometry.Envelope.XMax",
+"P:Esri.ArcGISRuntime.Geometry.Envelope.XMin",
+"P:Esri.ArcGISRuntime.Geometry.Envelope.YMax",
+"P:Esri.ArcGISRuntime.Geometry.Envelope.YMin",
+"M:Esri.ArcGISRuntime.Portal.PortalItem.SetThumbnailWithImage(System.IO.Stream)", 
+"M:Esri.ArcGISRuntime.UI.RuntimeImage.GetEncodedBufferAsync",
+"M:Esri.ArcGISRuntime.Mapping.Basemap.CreateLightGrayCanvas",
+"M:Esri.ArcGISRuntime.Security.AuthenticationManager.GenerateCredentialAsync(System.Uri,Esri.ArcGISRuntime.Security.GenerateTokenOptions)",
+"M:Esri.ArcGISRuntime.Security.AuthenticationManager.RegisterServer(Esri.ArcGISRuntime.Security.ServerInfo)",
+"P:Esri.ArcGISRuntime.Security.OAuthClientInfo.ClientId",
+"P:Esri.ArcGISRuntime.Security.OAuthClientInfo.RedirectUri",
+"P:Esri.ArcGISRuntime.Security.ServerInfo.OAuthClientInfo",
+"P:Esri.ArcGISRuntime.Security.ServerInfo.ServerUri",
+"P:Esri.ArcGISRuntime.Security.ServerInfo.TokenAuthenticationType"
+],
+  "SampleFolder": "AuthorMap"
 }

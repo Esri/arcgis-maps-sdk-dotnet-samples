@@ -9,6 +9,21 @@
   "RequiresLocalServer":false,
   "Image":"StatsQueryGroupAndSort.jpg",
   "Link":"",
-  "TypeLink": [ "T:Esri.ArcGISRuntime.Data.StatisticDefinition", "T:Esri.ArcGISRuntime.Data.StatisticsQueryParameters", "T:Esri.ArcGISRuntime.Data.StatisticsQueryResult", "M:Esri.ArcGISRuntime.Data.FeatureTable.QueryStatisticsAsync(Esri.ArcGISRuntime.Data.StatisticsQueryParameters)" ],
+  "TypeLink": [
+"P:Esri.ArcGISRuntime.Data.FeatureTable.Fields",
+"T:Esri.ArcGISRuntime.Data.OrderBy",
+"M:Esri.ArcGISRuntime.Data.OrderBy.#ctor(System.String,Esri.ArcGISRuntime.Data.SortOrder)",
+"P:Esri.ArcGISRuntime.Data.OrderBy.FieldName",
+"P:Esri.ArcGISRuntime.Data.OrderBy.SortOrder",
+"T:Esri.ArcGISRuntime.Data.SortOrder",
+"P:Esri.ArcGISRuntime.Data.StatisticDefinition.OnFieldName",
+"P:Esri.ArcGISRuntime.Data.StatisticDefinition.StatisticType",
+"T:Esri.ArcGISRuntime.Data.StatisticRecord",
+"P:Esri.ArcGISRuntime.Data.StatisticRecord.Group",
+"P:Esri.ArcGISRuntime.Data.StatisticsQueryParameters.GroupByFieldNames",
+"P:Esri.ArcGISRuntime.Data.StatisticsQueryParameters.OrderByFields",
+"T:Esri.ArcGISRuntime.Data.StatisticsQueryResult",
+"M:Esri.ArcGISRuntime.Data.FeatureTable.QueryStatisticsAsync(Esri.ArcGISRuntime.Data.StatisticsQueryParameters)"
+],
   "SampleFolder": "StatsQueryGroupAndSort"
 }

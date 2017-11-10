@@ -9,6 +9,10 @@
   "RequiresLocalServer":false,
   "Image":"WMSLayerUrl.jpg",
   "Link":"",
-  "TypeLink": [],
+  "TypeLink": [
+"T:Esri.ArcGISRuntime.Mapping.WmsLayer",
+"M:Esri.ArcGISRuntime.RuntimeCollection`1.Add(`0)",
+"T:Esri.ArcGISRuntime.Mapping.LayerCollection"
+],
   "SampleFolder": "WMSLayerUrl"
 }

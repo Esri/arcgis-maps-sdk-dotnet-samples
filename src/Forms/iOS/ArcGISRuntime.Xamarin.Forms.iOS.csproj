@@ -171,6 +171,7 @@
       <HintPath>..\..\..\packages\PInvoke.Windows.Core.0.5.86\lib\portable-net45+win8+wpa81\PInvoke.Windows.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Json" />
     <Reference Include="System.Runtime.Serialization" />

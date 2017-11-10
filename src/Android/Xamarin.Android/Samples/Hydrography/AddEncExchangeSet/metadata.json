@@ -2,13 +2,15 @@
   "Name": "Add ENC Exchange Set",
   "SampleName": "AddEncExchangeSet",
   "Description": "",
-  "Instructions": "", 
+  "Instructions": "",
   "Type": 0,
   "RequiresOnlineConnection": true,
-  "RequiresOfflineData": false,
+  "RequiresOfflineData": true,
   "RequiresLocalServer": false,
+  "DataItemIds": [ "9d3ddb20afe3409eae25b3cdeb82215b" ],
+  "DataFileNames": [ "ExchangeSet" ],
   "Image": "AddEncExchangeSet.jpg",
   "Link": "",
-  "TypeLink": [ ],
+  "TypeLink": [],
   "SampleFolder": "AddEncExchangeSet"
 }

@@ -7,11 +7,13 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Hydrography;
 using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WPF.Samples.AddEncExchangeSet
@@ -36,28 +38,28 @@ namespace ArcGISRuntime.WPF.Samples.AddEncExchangeSet
 
             // Create the Exchange Set
             // Note: this constructor takes an array of paths because so that update sets can be loaded alongside base data
-            EncExchangeSet encExchangeSet = new EncExchangeSet(new string[] { encPath });
+            EncExchangeSet _encExchangeSet = new EncExchangeSet(new string[] { encPath });
 
-            // Wait for the layer to load
-            await encExchangeSet.LoadAsync();
+            // Wait for the exchange set to load
+            await _encExchangeSet.LoadAsync();
 
             // Store a list of data set extent's - will be used to zoom the mapview to the full extent of the Exchange Set
             List<Envelope> dataSetExtents = new List<Envelope>();
 
             // Add each data set as a layer
-            foreach (EncDataSet encDataset in encExchangeSet.DataSets)
+            foreach (EncDataSet _encDataSet in _encExchangeSet.DataSets)
             {
                 // Create the cell and layer
-                EncLayer encLayer = new EncLayer(new EncCell(encDataset));
+                EncLayer _encLayer = new EncLayer(new EncCell(_encDataSet));
 
                 // Add the layer to the map
-                MyMapView.Map.OperationalLayers.Add(encLayer);
+                MyMapView.Map.OperationalLayers.Add(_encLayer);
 
                 // Wait for the layer to load
-                await encLayer.LoadAsync();
+                await _encLayer.LoadAsync();
 
                 // Add the extent to the list of extents
-                dataSetExtents.Add(encLayer.FullExtent);
+                dataSetExtents.Add(_encLayer.FullExtent);
             }
 
             // Use the geometry engine to compute the full extent of the ENC Exchange Set
@@ -71,8 +73,20 @@ namespace ArcGISRuntime.WPF.Samples.AddEncExchangeSet
         {
             #region offlinedata
 
-            // TODO - replace with offline data code
-            return @"\\apps-data\Data\test_strategy\data_for_test_designs\ENC\ExchangeSet\ENC_ROOT\CATALOG.031";
+            // The data manager provides a method to get the folder
+            string folder = DataManager.GetDataFolder();
+
+            // Get the full path
+            string filepath = Path.Combine(folder, "SampleData", "AddEncExchangeSet", "ExchangeSet", "ENC_ROOT", "CATALOG.031");
+
+            // Check if the file exists
+            if (!File.Exists(filepath))
+            {
+                // Download the file
+                await DataManager.GetData("9d3ddb20afe3409eae25b3cdeb82215b", "AddEncExchangeSet");
+            }
+
+            return filepath;
 
             #endregion offlinedata
         }

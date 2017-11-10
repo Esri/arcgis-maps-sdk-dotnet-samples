@@ -155,9 +155,9 @@
           ]
         },
         {
-          "Name":"Raster Layers",
-          "SubCategoryName":"RasterLayer",
-          "ShowGroup":true,
+          "Name": "Raster Layers",
+          "SubCategoryName": "RasterLayer",
+          "ShowGroup": true,
           "SampleInfos": [
             {
               "SampleName": "RasterLayerImageServiceRaster",
@@ -415,6 +415,23 @@
             {
               "SampleName": "FindRoute",
               "Path": "Samples/NetworkAnalysis/FindRoute"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Hydrography",
+      "CategoryName": "Hydrography",
+      "SubCategories": [
+        {
+          "Name": "Hydrography",
+          "SubCategoryName": "Hydrography",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "AddEncExchangeSet",
+              "Path": "Samples/Hydrography/AddEncExchangeSet"
             }
           ]
         }

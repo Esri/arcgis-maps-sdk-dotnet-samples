@@ -17,7 +17,7 @@
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -53,10 +53,10 @@
   <ItemGroup>
     <!-- References -->
     <Reference Include="Esri.ArcGISRuntime, Version=100.2.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.2.0-daily1878\lib\MonoAndroid10\Esri.ArcGISRuntime.dll</HintPath>
+      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.2.0\lib\MonoAndroid10\Esri.ArcGISRuntime.dll</HintPath>
     </Reference>
     <Reference Include="Esri.ArcGISRuntime.Hydrography, Version=100.2.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.2.0-daily1878\lib\MonoAndroid10\Esri.ArcGISRuntime.Hydrography.dll</HintPath>
+      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.2.0\lib\MonoAndroid10\Esri.ArcGISRuntime.Hydrography.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
@@ -397,5 +397,5 @@
     </PropertyGroup>
   </Target>
   <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.2.0\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.2.0\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets')" />
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.2.0-daily1878\build\MonoAndroid10\Esri.ArcGISRuntime.Hydrography.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.2.0-daily1878\build\MonoAndroid10\Esri.ArcGISRuntime.Hydrography.targets')" />
+  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.2.0\build\MonoAndroid10\Esri.ArcGISRuntime.Hydrography.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.2.0\build\MonoAndroid10\Esri.ArcGISRuntime.Hydrography.targets')" />
 </Project>

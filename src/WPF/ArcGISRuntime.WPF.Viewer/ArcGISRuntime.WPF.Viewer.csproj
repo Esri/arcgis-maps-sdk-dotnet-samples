@@ -46,7 +46,7 @@
       <HintPath>..\..\..\packages\Esri.ArcGISRuntime.WPF.100.2.0\lib\net452\Esri.ArcGISRuntime.dll</HintPath>
     </Reference>
     <Reference Include="Esri.ArcGISRuntime.Hydrography, Version=100.2.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.2.0-daily1878\lib\net452\Esri.ArcGISRuntime.Hydrography.dll</HintPath>
+      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.2.0\lib\net452\Esri.ArcGISRuntime.Hydrography.dll</HintPath>
     </Reference>
     <Reference Include="Esri.ArcGISRuntime.LocalServices, Version=100.2.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.2.0\lib\net452\Esri.ArcGISRuntime.LocalServices.dll</HintPath>
@@ -176,5 +176,5 @@
     </PropertyGroup>
   </Target>
   <Import Project="..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.2.0\build\net452\Esri.ArcGISRuntime.LocalServices.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.2.0\build\net452\Esri.ArcGISRuntime.LocalServices.targets')" />
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.2.0-daily1878\build\net452\Esri.ArcGISRuntime.Hydrography.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.2.0-daily1878\build\net452\Esri.ArcGISRuntime.Hydrography.targets')" />
+  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.2.0\build\net452\Esri.ArcGISRuntime.Hydrography.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.2.0\build\net452\Esri.ArcGISRuntime.Hydrography.targets')" />
 </Project>

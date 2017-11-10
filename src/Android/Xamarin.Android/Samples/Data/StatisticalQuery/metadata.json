@@ -9,6 +9,16 @@
   "RequiresLocalServer":false,
   "Image":"StatisticalQuery.jpg",
   "Link":"",
-  "TypeLink": ["T:Esri.ArcGISRuntime.Data.StatisticDefinition", "T:Esri.ArcGISRuntime.Data.StatisticsQueryParameters", "T:Esri.ArcGISRuntime.Data.StatisticsQueryResult", "M:Esri.ArcGISRuntime.Data.FeatureTable.QueryStatisticsAsync(Esri.ArcGISRuntime.Data.StatisticsQueryParameters)" ],
+  "TypeLink": [
+"T:Esri.ArcGISRuntime.Data.SpatialRelationship",
+"P:Esri.ArcGISRuntime.Data.StatisticsQueryParameters.Geometry",
+"P:Esri.ArcGISRuntime.Data.StatisticsQueryParameters.SpatialRelationship",
+"P:Esri.ArcGISRuntime.Data.StatisticsQueryParameters.WhereClause",
+"M:Esri.ArcGISRuntime.Data.StatisticDefinition.#ctor(System.String,Esri.ArcGISRuntime.Data.StatisticType,System.String)",
+"P:Esri.ArcGISRuntime.Data.StatisticRecord.Statistics",
+"T:Esri.ArcGISRuntime.Data.StatisticType",
+"T:Esri.ArcGISRuntime.Data.StatisticDefinition",
+"T:Esri.ArcGISRuntime.Data.StatisticsQueryParameters"
+],
   "SampleFolder": "StatisticalQuery"
 }

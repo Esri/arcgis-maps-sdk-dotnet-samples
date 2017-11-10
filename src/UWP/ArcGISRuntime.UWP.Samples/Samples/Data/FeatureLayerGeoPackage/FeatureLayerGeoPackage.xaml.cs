@@ -54,7 +54,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerGeoPackage
         private async Task<string> GetGeoPackagePath()
 
         {
-            #region offline data
+            #region offlinedata
 
             // The GeoPackage will be downloaded from ArcGIS Online.
             // The data manager (a component of the sample viewer), *NOT* the runtime handles the offline data process

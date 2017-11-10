@@ -9,6 +9,25 @@
   "RequiresLocalServer":false,
   "Image":"AuthorEditSaveMap.jpg",
   "Link":"https://developers.arcgis.com/net/latest/android/guide/author-edit-and-save-maps-to-your-portal.htm",
-  "TypeLink": ["M:Esri.ArcGISRuntime.Portal.ArcGISPortal.CreateAsync","T:Esri.ArcGISRuntime.Security.ServerInfo","T:Esri.ArcGISRuntime.Security.AuthenticationManager","P:Esri.ArcGISRuntime.Security.AuthenticationManager.Current","T:Esri.ArcGISRuntime.Security.CredentialRequestInfo","T:Esri.ArcGISRuntime.Security.TokenAuthenticationType"],
+  "TypeLink": [
+"T:Esri.ArcGISRuntime.Security.AuthenticationManager",
+"P:Esri.ArcGISRuntime.Security.AuthenticationManager.Current",
+"T:Esri.ArcGISRuntime.Security.CredentialRequestInfo",
+"P:Esri.ArcGISRuntime.Security.AuthenticationManager.ChallengeHandler",
+"P:Esri.ArcGISRuntime.Security.AuthenticationManager.OAuthAuthorizeHandler",
+"P:Esri.ArcGISRuntime.Security.CredentialRequestInfo.GenerateTokenOptions",
+"P:Esri.ArcGISRuntime.Security.CredentialRequestInfo.ServiceUri",
+"P:Esri.ArcGISRuntime.Security.GenerateTokenOptions.TokenAuthenticationType",
+"P:Esri.ArcGISRuntime.Mapping.Map.Item",
+"M:Esri.ArcGISRuntime.Security.GenerateTokenOptions.#ctor",
+"T:Esri.ArcGISRuntime.Security.IChallengeHandler",
+"T:Esri.ArcGISRuntime.Security.IOAuthAuthorizeHandler",
+"T:Esri.ArcGISRuntime.Portal.PortalFolder",
+"T:Esri.ArcGISRuntime.Security.GenerateTokenOptions",
+"T:Esri.ArcGISRuntime.Security.OAuthClientInfo",
+"T:Esri.ArcGISRuntime.Security.TokenCredential",
+"M:Esri.ArcGISRuntime.Mapping.Basemap.CreateLightGrayCanvasVector",
+"M:Esri.ArcGISRuntime.Mapping.Basemap.CreateTopographicVector"
+],
   "SampleFolder": "AuthorEditSaveMap"
 }

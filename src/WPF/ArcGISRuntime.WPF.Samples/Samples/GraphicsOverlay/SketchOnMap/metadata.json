@@ -9,6 +9,19 @@
   "RequiresLocalServer":false,
   "Image":"SketchOnMap.jpg",
   "Link":"",
-  "TypeLink": ["T:Esri.ArcGISRuntime.UI.SketchEditor","T:Esri.ArcGISRuntime.UI.Graphic","T:Esri.ArcGISRuntime.UI.GraphicsOverlay"
+  "TypeLink": [
+"T:Esri.ArcGISRuntime.UI.SketchEditor",
+"T:Esri.ArcGISRuntime.UI.SketchCreationMode",
+"T:Esri.ArcGISRuntime.UI.SketchEditConfiguration",
+"P:Esri.ArcGISRuntime.UI.SketchEditConfiguration.AllowMove",
+"P:Esri.ArcGISRuntime.UI.SketchEditConfiguration.AllowVertexEditing",
+"P:Esri.ArcGISRuntime.UI.SketchEditConfiguration.ResizeMode",
+"P:Esri.ArcGISRuntime.UI.SketchEditor.EditConfiguration",
+"M:Esri.ArcGISRuntime.UI.SketchEditor.StartAsync(Esri.ArcGISRuntime.Geometry.Geometry)",
+"T:Esri.ArcGISRuntime.UI.SketchResizeMode",
+"M:Esri.ArcGISRuntime.UI.Controls.MapView.LocationToScreen(Esri.ArcGISRuntime.Geometry.MapPoint)",
+"P:Esri.ArcGISRuntime.UI.Controls.MapView.SketchEditor",
+"P:Esri.ArcGISRuntime.Symbology.SimpleFillSymbol.Style",
+"T:Esri.ArcGISRuntime.Symbology.SimpleFillSymbolStyle"
   ]
 }

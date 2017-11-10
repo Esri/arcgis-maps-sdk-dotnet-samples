@@ -9,6 +9,18 @@
   "RequiresLocalServer": false,
   "Image": "FeatureLayerTimeOffset.jpg",
   "Link": "",
-  "TypeLink": [ "T:Esri.ArcGISRuntime.TimeExtent", "T:Esri.ArcGISRuntime.TimeValue", "T:Esri.ArcGISRuntime.ArcGISServices.TimeUnit", "P:Esri.ArcGISRuntime.ITimeAware.TimeOffset", "P:Esri.ArcGISRuntime.ITimeAware.FullTimeExtent", "P:Esri.ArcGISRuntime.Mapping.FeatureLayer.FullTimeExtent", "P:Esri.ArcGISRuntime.Mapping.FeatureLayer.TimeOffset", "M:Esri.ArcGISRuntime.TimeExtent.#ctor(System.DateTimeOffset,System.DateTimeOffset)", "P:Esri.ArcGISRuntime.UI.Controls.GeoView.TimeExtent" ],
+  "TypeLink": [
+"T:Esri.ArcGISRuntime.TimeValue",
+"T:Esri.ArcGISRuntime.ArcGISServices.TimeUnit",
+"P:Esri.ArcGISRuntime.ITimeAware.TimeOffset",
+"P:Esri.ArcGISRuntime.ITimeAware.FullTimeExtent",
+"P:Esri.ArcGISRuntime.Mapping.FeatureLayer.FullTimeExtent",
+"P:Esri.ArcGISRuntime.Mapping.FeatureLayer.TimeOffset",
+"M:Esri.ArcGISRuntime.TimeExtent.#ctor(System.DateTimeOffset,System.DateTimeOffset)",
+"P:Esri.ArcGISRuntime.UI.Controls.GeoView.TimeExtent",
+"P:Esri.ArcGISRuntime.TimeExtent.EndTime",
+"P:Esri.ArcGISRuntime.TimeExtent.StartTime",
+"M:Esri.ArcGISRuntime.TimeValue.#ctor(System.Double,Esri.ArcGISRuntime.ArcGISServices.TimeUnit)"
+],
   "SampleFolder": "FeatureLayerTimeOffset"
 }

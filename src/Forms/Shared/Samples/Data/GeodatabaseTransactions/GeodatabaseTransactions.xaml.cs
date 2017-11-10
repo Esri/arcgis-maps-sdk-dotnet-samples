@@ -10,19 +10,23 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using System;
 using System.IO;
+using Xamarin.Forms;
 using System.Threading.Tasks;
-using Windows.UI.Core;
-using Windows.UI.Popups;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
+#if WINDOWS_UWP
+using Colors = Windows.UI.Colors;
+#else
+using Colors = System.Drawing.Color;
+#endif
+
+namespace ArcGISRuntimeXamarin.Samples.GeodatabaseTransactions
 {
-    public partial class GeodatabaseTransactions
+    public partial class GeodatabaseTransactions : ContentPage
     {
         // url for the editable feature service
         private const string SyncServiceUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/SaveTheBaySync/FeatureServer/";
@@ -41,14 +45,8 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
         {
             InitializeComponent();
 
-            // when the map view loads, add a new map
-            MyMapView.Loaded += (s, e) =>
-            {
-                // create a new map with the oceans basemap and add it to the map view
-                var map = new Map(Basemap.CreateOceans());
-                MyMapView.Map = map;
-            };
-
+            Title = "Geodatabase transactions";
+            
             // when the spatial reference changes (the map loads) add the local geodatabase tables as feature layers
             MyMapView.SpatialReferenceChanged += async (s, e) =>
             {
@@ -58,6 +56,10 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
                 // once the local geodatabase is available, load the tables as layers to the map
                 LoadLocalGeodatabaseTables();
             };
+            
+            // create a new map with the oceans basemap and add it to the map view
+            var map = new Map(Basemap.CreateOceans());
+            MyMapView.Map = map;
         }
 
         private async Task GetLocalGeodatabase()
@@ -69,10 +71,10 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
             {
                 // see if the geodatabase file is already present
                 if (File.Exists(localGeodatabasePath))
-                {
+                { 
                     // if the geodatabase is already available, open it, hide the progress control, and update the message
                     _localGeodatabase = await Geodatabase.OpenAsync(localGeodatabasePath);
-                    LoadingProgressBar.Visibility = Visibility.Collapsed;
+                    LoadingProgressBar.IsVisible = false;
                     MessageTextBlock.Text = "Using local geodatabase from '" + _localGeodatabase.Path + "'";
                 }
                 else
@@ -98,19 +100,19 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
                         // see if the job succeeded
                         if (generateGdbJob.Status == JobStatus.Succeeded)
                         {
-                            this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                            Device.BeginInvokeOnMainThread(() =>
                             {
                                 // hide the progress control and update the message
-                                LoadingProgressBar.Visibility = Visibility.Collapsed;
+                                LoadingProgressBar.IsVisible = false;
                                 MessageTextBlock.Text = "Created local geodatabase";
                             });
                         }
                         else if (generateGdbJob.Status == JobStatus.Failed)
                         {
-                            this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                            Device.BeginInvokeOnMainThread(() =>
                             {
                                 // hide the progress control and report the exception
-                                LoadingProgressBar.Visibility = Visibility.Collapsed;
+                                LoadingProgressBar.IsVisible = false;
                                 MessageTextBlock.Text = "Unable to create local geodatabase: " + generateGdbJob.Error.Message;
                             });
                         }
@@ -123,10 +125,9 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
             catch (Exception ex)
             {
                 // show a message for the exception encountered
-                this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => 
+                Device.BeginInvokeOnMainThread(() =>
                 {
-                    MessageDialog dialog = new MessageDialog("Unable to create offline database: " + ex.Message);
-                    dialog.ShowAsync();
+                    DisplayAlert("Generate Geodatabase","Unable to create offline database: " + ex.Message,"OK");
                 });
             }
         }
@@ -134,7 +135,7 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
         // function that loads the two point tables from the local geodatabase and displays them as feature layers
         private async void LoadLocalGeodatabaseTables()
         {
-            if(_localGeodatabase == null) { return; }
+            if (_localGeodatabase == null) { return; }
 
             // read the geodatabase tables and add them as layers
             foreach (GeodatabaseFeatureTable table in _localGeodatabase.GeodatabaseFeatureTables)
@@ -156,14 +157,14 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
 
                 // create a new feature layer to show the table in the map
                 var layer = new FeatureLayer(table);
-                this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => MyMapView.Map.OperationalLayers.Add(layer));
+                Device.BeginInvokeOnMainThread(() => MyMapView.Map.OperationalLayers.Add(layer));
             }
 
             // handle the transaction status changed event
             _localGeodatabase.TransactionStatusChanged += GdbTransactionStatusChanged;
 
             // zoom the map view to the extent of the generated local datasets
-            this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            Device.BeginInvokeOnMainThread(() =>
             {
                 MyMapView.SetViewpointGeometryAsync(_marineTable.Extent);
                 StartEditingButton.IsEnabled = true;
@@ -173,7 +174,7 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
         private void GdbTransactionStatusChanged(object sender, TransactionStatusChangedEventArgs e)
         {
             // update UI controls based on whether the geodatabase has a current transaction
-            this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            Device.BeginInvokeOnMainThread(() =>
             {
                 // these buttons should be enabled when there IS a transaction
                 AddBirdButton.IsEnabled = e.IsInTransaction;
@@ -185,15 +186,24 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
                 SyncEditsButton.IsEnabled = !e.IsInTransaction;
             });
         }
-
-        private string GetGdbPath()
+        
+       private string GetGdbPath()
         {
-            // Get the UWP-specific path for storing the geodatabase
-            string folder = Windows.Storage.ApplicationData.Current.LocalFolder.Path.ToString();
+            // Set the platform-specific path for storing the geodatabase
+            String folder = "";
+
+#if NETFX_CORE //UWP
+            folder = Windows.Storage.ApplicationData.Current.LocalFolder.Path.ToString();
+#elif __IOS__
+            folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+#elif __ANDROID__
+            folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+#endif
+            // Set the final path
             return Path.Combine(folder, "savethebay.geodatabase");
         }
 
-        private void BeginTransaction(object sender, RoutedEventArgs e)
+        private void BeginTransaction(object sender, EventArgs e)
         {
             // see if there is a transaction active for the geodatabase
             if (!_localGeodatabase.IsInTransaction)
@@ -204,7 +214,7 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
             }
         }
 
-        private async void AddNewFeature(object sender, RoutedEventArgs args)
+        private async void AddNewFeature(object sender, EventArgs args)
         {
             // See if it was the "Birds" or "Marine" button that was clicked
             Button addFeatureButton = sender as Button;
@@ -236,7 +246,7 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
                 int featureType = random.Next(1, 7);
 
                 // use the sketch editor to allow the user to draw a point on the map
-                MapPoint clickPoint = await MyMapView.SketchEditor.StartAsync(Esri.ArcGISRuntime.UI.SketchCreationMode.Point, false) as MapPoint;
+                MapPoint clickPoint = await MyMapView.SketchEditor.StartAsync(SketchCreationMode.Point, false) as MapPoint;
 
                 // create a new feature (row) in the selected table
                 Feature newFeature = editTable.CreateFeature();
@@ -262,22 +272,12 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
             }
         }
 
-        private async void StopEditTransaction(object sender, RoutedEventArgs e)
+        private async void StopEditTransaction(object sender, EventArgs e)
         {
-            // create a new dialog that prompts for commit, rollback, or cancel
-            MessageDialog promptDialog = new MessageDialog("Commit your edits to the local geodatabase or rollback to discard them.", "Stop Editing");
-            UICommand commitCommand = new UICommand("Commit");
-            UICommand rollbackCommand = new UICommand("Rollback");
-            UICommand cancelCommand = new UICommand("Cancel");
-            promptDialog.Options = MessageDialogOptions.None;
-            promptDialog.Commands.Add(commitCommand);
-            promptDialog.Commands.Add(rollbackCommand);
-            promptDialog.Commands.Add(cancelCommand);
-
             // ask the user if they want to commit or rollback the transaction (or cancel to keep working in the transaction)
-            IUICommand cmd = await promptDialog.ShowAsync();
+            string choice = await DisplayActionSheet("Transaction", "Cancel", null, new string[] { "Commit", "Rollback" });
 
-            if (cmd == commitCommand)
+            if (choice == "Commit")
             {
                 // see if there is a transaction active for the geodatabase
                 if (_localGeodatabase.IsInTransaction)
@@ -287,7 +287,7 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
                     MessageTextBlock.Text = "Edits were committed to the local geodatabase.";
                 }
             }
-            else if (cmd == rollbackCommand)
+            else if (choice == "Rollback")
             {
                 // see if there is a transaction active for the geodatabase
                 if (_localGeodatabase.IsInTransaction)
@@ -304,20 +304,19 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
         }
 
         // change which controls are enabled if the user chooses to require/not require transactions for edits
-        private void RequireTransactionChanged(object sender, RoutedEventArgs e)
+        private void RequireTransactionChanged(object sender, EventArgs e)
         {
             // if the local geodatabase isn't created yet, return
             if (_localGeodatabase == null) { return; }
 
             // get the value of the "require transactions" checkbox
-            bool mustHaveTransaction = RequireTransactionCheckBox.IsChecked == true;
+            bool mustHaveTransaction = RequireTransactionCheckBox.IsToggled;
 
             // warn the user if disabling transactions while a transaction is active
             if (!mustHaveTransaction && _localGeodatabase.IsInTransaction)
             {
-                MessageDialog dialog = new MessageDialog("Stop editing to end the current transaction.", "Current Transaction");
-                dialog.ShowAsync();
-                RequireTransactionCheckBox.IsChecked = true;
+                DisplayAlert("Stop editing to end the current transaction.", "Current Transaction", "OK");
+                RequireTransactionCheckBox.IsToggled = true;
                 return;
             }
 
@@ -329,10 +328,10 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
         }
 
         // synchronize edits in the local geodatabase with the service
-        public async void SynchronizeEdits(object sender, RoutedEventArgs e)
+        public async void SynchronizeEdits(object sender, EventArgs e)
         {
             // show the progress bar while the sync is working
-            LoadingProgressBar.Visibility = Visibility.Visible;
+            LoadingProgressBar.IsVisible = true;
 
             try
             {
@@ -352,17 +351,17 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
                     if (job.Status == JobStatus.Succeeded)
                     {
                         // report success ...
-                        Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => MessageTextBlock.Text = "Synchronization is complete!");
+                        Device.BeginInvokeOnMainThread(() => MessageTextBlock.Text = "Synchronization is complete!");
                     }
                     else if (job.Status == JobStatus.Failed)
                     {
                         // report failure ...
-                        Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => MessageTextBlock.Text = job.Error.Message);
+                        Device.BeginInvokeOnMainThread(() => MessageTextBlock.Text = job.Error.Message);
                     }
                     else
                     {
                         // report that the job is in progress ...
-                        Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => MessageTextBlock.Text = "Sync in progress ...");
+                        Device.BeginInvokeOnMainThread(() => MessageTextBlock.Text = "Sync in progress ...");
                     }
                 };
 
@@ -377,7 +376,7 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
             finally
             {
                 // hide the progress bar when the sync job is complete
-                LoadingProgressBar.Visibility = Visibility.Collapsed;
+                LoadingProgressBar.IsVisible = false;
             }
         }
     }

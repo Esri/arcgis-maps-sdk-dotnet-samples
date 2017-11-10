@@ -28,6 +28,6 @@
 "T:Esri.ArcGISRuntime.Security.TokenCredential",
 "M:Esri.ArcGISRuntime.Mapping.Basemap.CreateLightGrayCanvasVector",
 "M:Esri.ArcGISRuntime.Mapping.Basemap.CreateTopographicVector"
-]
+],
   "SampleFolder": "AuthorEditSaveMap"
 }

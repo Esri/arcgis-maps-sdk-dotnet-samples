@@ -241,6 +241,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
+	<EmbeddedResource Include="Samples\Hydrography\EncDisplaySettings\metadata.json" />
     <EmbeddedResource Include="Samples\Hydrography\AddEncExchangeSet\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\GeoViewSync\metadata.json" />
     <EmbeddedResource Include="groups.json" />
@@ -318,6 +319,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<None Include="Samples\Hydrography\EncDisplaySettings\EncDisplaySettings.jpg" />
     <None Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
     <None Include="Samples\MapView\GeoViewSync\GeoViewSync.jpg" />
     <None Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg" />
@@ -394,6 +396,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="Samples\Hydrography\EncDisplaySettings\EncDisplaySettings.cs" />
     <Compile Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.cs" />
     <Compile Include="Samples\MapView\GeoViewSync\GeoViewSync.cs" />
     <Compile Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.cs" />

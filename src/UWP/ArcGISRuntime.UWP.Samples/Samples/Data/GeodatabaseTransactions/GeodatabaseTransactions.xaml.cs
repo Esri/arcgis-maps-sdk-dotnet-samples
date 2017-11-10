@@ -13,11 +13,14 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using System;
+using System.IO;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
+using Windows.UI.Core;
+using Windows.UI.Popups;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntime.WPF.Samples.GeodatabaseTransactions
+namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
 {
     public partial class GeodatabaseTransactions
     {
@@ -95,7 +98,7 @@ namespace ArcGISRuntime.WPF.Samples.GeodatabaseTransactions
                         // see if the job succeeded
                         if (generateGdbJob.Status == JobStatus.Succeeded)
                         {
-                            this.Dispatcher.Invoke(() =>
+                            this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                             {
                                 // hide the progress control and update the message
                                 LoadingProgressBar.Visibility = Visibility.Collapsed;
@@ -104,7 +107,7 @@ namespace ArcGISRuntime.WPF.Samples.GeodatabaseTransactions
                         }
                         else if (generateGdbJob.Status == JobStatus.Failed)
                         {
-                            this.Dispatcher.Invoke(() =>
+                            this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                             {
                                 // hide the progress control and report the exception
                                 LoadingProgressBar.Visibility = Visibility.Collapsed;
@@ -120,13 +123,19 @@ namespace ArcGISRuntime.WPF.Samples.GeodatabaseTransactions
             catch (Exception ex)
             {
                 // show a message for the exception encountered
-                this.Dispatcher.Invoke(() => MessageBox.Show("Unable to create offline database: " + ex.Message));
+                this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => 
+                {
+                    MessageDialog dialog = new MessageDialog("Unable to create offline database: " + ex.Message);
+                    dialog.ShowAsync();
+                });
             }
         }
 
         // function that loads the two point tables from the local geodatabase and displays them as feature layers
         private async void LoadLocalGeodatabaseTables()
         {
+            if(_localGeodatabase == null) { return; }
+
             // read the geodatabase tables and add them as layers
             foreach (GeodatabaseFeatureTable table in _localGeodatabase.GeodatabaseFeatureTables)
             {
@@ -147,14 +156,14 @@ namespace ArcGISRuntime.WPF.Samples.GeodatabaseTransactions
 
                 // create a new feature layer to show the table in the map
                 var layer = new FeatureLayer(table);
-                this.Dispatcher.Invoke(() => MyMapView.Map.OperationalLayers.Add(layer));
+                this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => MyMapView.Map.OperationalLayers.Add(layer));
             }
 
             // handle the transaction status changed event
             _localGeodatabase.TransactionStatusChanged += GdbTransactionStatusChanged;
 
             // zoom the map view to the extent of the generated local datasets
-            this.Dispatcher.Invoke(() =>
+            this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 MyMapView.SetViewpointGeometryAsync(_marineTable.Extent);
                 StartEditingButton.IsEnabled = true;
@@ -164,7 +173,7 @@ namespace ArcGISRuntime.WPF.Samples.GeodatabaseTransactions
         private void GdbTransactionStatusChanged(object sender, TransactionStatusChangedEventArgs e)
         {
             // update UI controls based on whether the geodatabase has a current transaction
-            this.Dispatcher.Invoke(() =>
+            this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 // these buttons should be enabled when there IS a transaction
                 AddBirdButton.IsEnabled = e.IsInTransaction;
@@ -179,10 +188,11 @@ namespace ArcGISRuntime.WPF.Samples.GeodatabaseTransactions
 
         private string GetGdbPath()
         {
-            // Return the WPF-specific path for storing the geodatabase
-            return Environment.ExpandEnvironmentVariables("%TEMP%\\savethebay.geodatabase");
+            // Get the UWP-specific path for storing the geodatabase
+            string folder = Windows.Storage.ApplicationData.Current.LocalFolder.Path.ToString();
+            return Path.Combine(folder, "savethebay.geodatabase");
         }
-        
+
         private void BeginTransaction(object sender, RoutedEventArgs e)
         {
             // see if there is a transaction active for the geodatabase
@@ -193,7 +203,7 @@ namespace ArcGISRuntime.WPF.Samples.GeodatabaseTransactions
                 MessageTextBlock.Text = "Transaction started";
             }
         }
-        
+
         private async void AddNewFeature(object sender, RoutedEventArgs args)
         {
             // See if it was the "Birds" or "Marine" button that was clicked
@@ -252,12 +262,22 @@ namespace ArcGISRuntime.WPF.Samples.GeodatabaseTransactions
             }
         }
 
-        private void StopEditTransaction(object sender, RoutedEventArgs e)
+        private async void StopEditTransaction(object sender, RoutedEventArgs e)
         {
-            // ask the user if they want to commit or rollback the transaction (or cancel to keep working in the transaction)
-            MessageBoxResult commitAnswer = MessageBox.Show("Commit your edits? ('No' to discard)", "Stop Editing", MessageBoxButton.YesNoCancel);
+            // create a new dialog that prompts for commit, rollback, or cancel
+            MessageDialog promptDialog = new MessageDialog("Commit your edits to the local geodatabase or rollback to discard them.", "Stop Editing");
+            UICommand commitCommand = new UICommand("Commit");
+            UICommand rollbackCommand = new UICommand("Rollback");
+            UICommand cancelCommand = new UICommand("Cancel");
+            promptDialog.Options = MessageDialogOptions.None;
+            promptDialog.Commands.Add(commitCommand);
+            promptDialog.Commands.Add(rollbackCommand);
+            promptDialog.Commands.Add(cancelCommand);
 
-            if (commitAnswer == MessageBoxResult.Yes)
+            // ask the user if they want to commit or rollback the transaction (or cancel to keep working in the transaction)
+            IUICommand cmd = await promptDialog.ShowAsync();
+
+            if (cmd == commitCommand)
             {
                 // see if there is a transaction active for the geodatabase
                 if (_localGeodatabase.IsInTransaction)
@@ -267,7 +287,7 @@ namespace ArcGISRuntime.WPF.Samples.GeodatabaseTransactions
                     MessageTextBlock.Text = "Edits were committed to the local geodatabase.";
                 }
             }
-            else if (commitAnswer == MessageBoxResult.No)
+            else if (cmd == rollbackCommand)
             {
                 // see if there is a transaction active for the geodatabase
                 if (_localGeodatabase.IsInTransaction)
@@ -295,7 +315,8 @@ namespace ArcGISRuntime.WPF.Samples.GeodatabaseTransactions
             // warn the user if disabling transactions while a transaction is active
             if (!mustHaveTransaction && _localGeodatabase.IsInTransaction)
             {
-                MessageBox.Show("Stop editing to end the current transaction.", "Current Transaction");
+                MessageDialog dialog = new MessageDialog("Stop editing to end the current transaction.", "Current Transaction");
+                dialog.ShowAsync();
                 RequireTransactionCheckBox.IsChecked = true;
                 return;
             }
@@ -331,17 +352,17 @@ namespace ArcGISRuntime.WPF.Samples.GeodatabaseTransactions
                     if (job.Status == JobStatus.Succeeded)
                     {
                         // report success ...
-                        Dispatcher.Invoke(() => MessageTextBlock.Text = "Synchronization is complete!");
+                        Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => MessageTextBlock.Text = "Synchronization is complete!");
                     }
                     else if (job.Status == JobStatus.Failed)
                     {
                         // report failure ...
-                        Dispatcher.Invoke(() => MessageTextBlock.Text = job.Error.Message);
+                        Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => MessageTextBlock.Text = job.Error.Message);
                     }
                     else
                     {
                         // report that the job is in progress ...
-                        Dispatcher.Invoke(() => MessageTextBlock.Text = "Sync in progress ...");
+                        Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => MessageTextBlock.Text = "Sync in progress ...");
                     }
                 };
 

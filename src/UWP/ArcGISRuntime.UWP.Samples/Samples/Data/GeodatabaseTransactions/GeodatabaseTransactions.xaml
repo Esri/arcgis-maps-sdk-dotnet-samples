@@ -1,12 +1,12 @@
-﻿<UserControl x:Class="ArcGISRuntime.WPF.Samples.GeodatabaseTransactions.GeodatabaseTransactions"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+﻿<UserControl 
+    x:Class="ArcGISRuntime.UWP.Samples.GeodatabaseTransactions.GeodatabaseTransactions"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
-        <esri:MapView x:Name="MyMapView"
+        <esriUI:MapView x:Name="MyMapView"
                       Grid.Column="1"/>
-        <Border Grid.Column="1" 
-                Width="600" Height="125" 
+        <Border Width="465" Height="150" 
                 HorizontalAlignment="Center" VerticalAlignment="Top"
                 Margin="0,30" 
                 CornerRadius="10" BorderBrush="DarkGray" BorderThickness="2"
@@ -18,31 +18,31 @@
                     <Button x:Name="StartEditingButton" 
                             Content="Start Editing"
                             IsEnabled="False"
-                            Width="100" Height="30"
+                            Width="100" Height="35"
                             Margin="2,0"
                             Click="BeginTransaction"/>
                     <Button x:Name="AddBirdButton" 
-                            Content="Add Bird Feature"
+                            Content="Add Bird"
                             IsEnabled="False"
-                            Width="130" Height="30"
+                            Width="80" Height="35"
                             Margin="2,0"
                             Click="AddNewFeature"/>
                     <Button x:Name="AddMarineButton" 
-                            Content="Add Marine Feature"
+                            Content="Add Marine"
                             IsEnabled="False"
-                            Width="130" Height="30"
+                            Width="100" Height="35"
                             Margin="2,0"
                             Click="AddNewFeature"/>
                     <Button x:Name="StopEditingButton"
                             Content="Stop Editing" 
                             IsEnabled="False"
-                            Width="100" Height="30"
+                            Width="100" Height="35"
                             Margin="2,0"
                             Click="StopEditTransaction"/>
                     <Button x:Name="SyncEditsButton"
-                            Content="Synchronize" 
+                            Content="Sync" 
                             IsEnabled="True"
-                            Width="100" Height="30"
+                            Width="50" Height="35"
                             Margin="2,0"
                             Click="SynchronizeEdits"/>
                 </StackPanel>

@@ -103,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
+	<Content Include="Samples\Hydrography\ApplyEncUpdatePackages\metadata.json" />
 	<Content Include="Samples\Hydrography\SelectEncFeatures\metadata.json" />
 	<Content Include="Samples\Hydrography\EncDisplaySettings\metadata.json" />
 	<Content Include="Samples\Hydrography\AddEncExchangeSet\metadata.json" />
@@ -183,6 +184,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<Content Include="Samples\Hydrography\ApplyEncUpdatePackages\ApplyEncUpdatePackages.jpg" />
 	<Content Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg" />
 	<Content Include="Samples\Hydrography\EncDisplaySettings\EncDisplaySettings.jpg" />
 	<Content Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
@@ -261,6 +263,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="Samples\Hydrography\ApplyEncUpdatePackages\ApplyEncUpdatePackages.xaml.cs">
+		<DependentUpon>ApplyEncUpdatePackages.xaml</DependentUpon>
+	</Compile>
 	<Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml.cs">
 		<DependentUpon>SelectEncFeatures.xaml</DependentUpon>
 	</Compile>
@@ -492,6 +497,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+	<Page Include="Samples\Hydrography\ApplyEncUpdatePackages\ApplyEncUpdatePackages.xaml">
+		<Generator>MSBuild:Compile</Generator>
+		<SubType>Designer</SubType>
+	</Page>
 	<Page Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml">
 		<Generator>MSBuild:Compile</Generator>
 		<SubType>Designer</SubType>

@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
+	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Hydrography\ApplyEncUpdatePackages\metadata.json" />
 	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Hydrography\SelectEncFeatures\metadata.json" />
 	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Hydrography\EncDisplaySettings\metadata.json" />
 	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Hydrography\AddEncExchangeSet\metadata.json" />
@@ -125,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<None Include="$(MSBuildThisFileDirectory)Samples\Hydrography\ApplyEncUpdatePackages\ApplyEncUpdatePackages.jpg" />
 	<None Include="$(MSBuildThisFileDirectory)Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg" />
 	<None Include="$(MSBuildThisFileDirectory)Samples\Hydrography\EncDisplaySettings\EncDisplaySettings.jpg" />
 	<None Include="$(MSBuildThisFileDirectory)Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
@@ -202,6 +204,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="$(MSBuildThisFileDirectory)Samples\Hydrography\ApplyEncUpdatePackages\ApplyEncUpdatePackages.xaml.cs">
+		<DependentUpon>ApplyEncUpdatePackages.xaml</DependentUpon>
+		<SubType>Code</SubType>
+	</Compile>
 	<Compile Include="$(MSBuildThisFileDirectory)Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml.cs">
 		<DependentUpon>SelectEncFeatures.xaml</DependentUpon>
 		<SubType>Code</SubType>
@@ -513,6 +519,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Hydrography\ApplyEncUpdatePackages\ApplyEncUpdatePackages.xaml">
+		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	</EmbeddedResource>
 	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml">
 		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	</EmbeddedResource>

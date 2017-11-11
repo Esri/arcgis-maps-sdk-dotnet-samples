@@ -1,0 +1,16 @@
+{
+  "Name": "Apply ENC Update Packages",
+  "SampleName": "ApplyEncUpdatePackages",
+  "Description": "",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": true,
+  "RequiresLocalServer": false,
+  "DataItemIds": [ "9d3ddb20afe3409eae25b3cdeb82215b" ],
+  "DataFileNames": [ "ExchangeSet" ],
+  "Image": "ApplyEncUpdatePackages.jpg",
+  "Link": "",
+  "TypeLink": [],
+  "SampleFolder": "ApplyEncUpdatePackages"
+}

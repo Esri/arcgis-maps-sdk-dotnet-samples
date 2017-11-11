@@ -1,0 +1,16 @@
+{
+  "Name": "Select ENC Features",
+  "SampleName": "SelectEncFeatures",
+  "Description": "",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": true,
+  "RequiresLocalServer": false,
+  "DataItemIds": [ "9d3ddb20afe3409eae25b3cdeb82215b" ],
+  "DataFileNames": [ "ExchangeSet" ],
+  "Image": "SelectEncFeatures.jpg",
+  "Link": "",
+  "TypeLink": [],
+  "SampleFolder": "SelectEncFeatures"
+}

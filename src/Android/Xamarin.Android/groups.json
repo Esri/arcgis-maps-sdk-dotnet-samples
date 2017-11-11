@@ -432,6 +432,10 @@
             {
               "SampleName": "EncDisplaySettings",
               "Path": "Samples/Hydrography/EncDisplaySettings"
+            },
+            {
+              "SampleName": "SelectEncFeatures",
+              "Path": "Samples/Hydrography/SelectEncFeatures"
             }
           ]
         }

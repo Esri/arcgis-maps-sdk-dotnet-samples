@@ -449,6 +449,10 @@
             {
               "SampleName": "AddEncExchangeSet",
               "Path": "Samples/Hydrography/AddEncExchangeSet"
+            },
+            {
+              "SampleName": "EncDisplaySettings",
+              "Path": "Samples/Hydrography/EncDisplaySettings"
             }
           ]
         }

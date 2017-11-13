@@ -201,14 +201,14 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceShapefile
             #endregion offlinedata
         }
 
-        private void MyChooseButton_Click(object sender, RoutedEventArgs e)
+        private async void MyChooseButton_Click(object sender, RoutedEventArgs e)
         {
             // Allow the user to specify a file path - create the dialog
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog()
             {
                 DefaultExt = ".shp",
                 Filter = "Shapefiles|*.shp",
-                InitialDirectory = GetDataFolder()
+                InitialDirectory = Path.GetDirectoryName(await LoadShapefilePaths())
             };
 
             // Show the dialog and get the results
@@ -221,11 +221,6 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceShapefile
                 string path = Path.GetDirectoryName(dlg.FileName);
                 StartLocalMapService(filename, path);
             }
-        }
-
-        private string GetDataFolder()
-        {
-            return Path.Combine(DataManager.GetDataFolder(), "SampleData", "DynamicWorkspaceShapefile");
         }
     }
 }

@@ -47,7 +47,7 @@ It also provides core support for geocoding and geoprocessing.-->
             </ChildPackages>
           </Package>
           <!--Provides additional vector file data format support.-->
-          <Package name="Vector" enabled="false" />
+          <Package name="Vector" enabled="true" />
           <!--Adds support for direct connect to DBMS system that Esri supports. This option must be selected in conjunction with at least one of the following DBMS(s): DB2, Informix, Oracle, PostgreSQL, SQL Server, Netezza, HANA, Teradata or Alitbase.-->
           <!--SDE direct connect deployed. Specific database drivers also required.-->
           <Package name="SDE" enabled="false">

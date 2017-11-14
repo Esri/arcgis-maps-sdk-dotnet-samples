@@ -100,10 +100,12 @@
     <Content Include="Properties\ArcGISRuntime.Windows.Samples.rd.xml" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Samples\Data\RasterLayerGeoPackage\metadata.json" />
+    <Content Include="Samples\Layers\FeatureLayerRenderingModeMap\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
-	<Content Include="Samples\MapView\GeoViewSync\metadata.json" />
+    <Content Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.jpg" />
+    <Content Include="Samples\MapView\GeoViewSync\metadata.json" />
     <Content Include="groups.json" />
     <Content Include="Samples\Data\EditAndSyncFeatures\metadata.json" />
     <Content Include="Samples\Data\FeatureLayerGeoPackage\metadata.json" />
@@ -180,7 +182,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<Content Include="Samples\MapView\GeoViewSync\GeoViewSync.jpg" />
+    <Content Include="Samples\MapView\GeoViewSync\GeoViewSync.jpg" />
     <Content Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg" />
     <Content Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.jpg" />
     <Content Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.jpg" />
@@ -255,9 +257,12 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="Samples\MapView\GeoViewSync\GeoViewSync.xaml.cs">
-		<DependentUpon>GeoViewSync.xaml</DependentUpon>
-	</Compile>
+    <Compile Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.xaml.cs">
+      <DependentUpon>FeatureLayerRenderingModeMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\GeoViewSync\GeoViewSync.xaml.cs">
+      <DependentUpon>GeoViewSync.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.xaml.cs">
       <DependentUpon>EditAndSyncFeatures.xaml</DependentUpon>
     </Compile>
@@ -477,10 +482,14 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-	<Page Include="Samples\MapView\GeoViewSync\GeoViewSync.xaml">
-		<Generator>MSBuild:Compile</Generator>
-		<SubType>Designer</SubType>
-	</Page>
+    <Page Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\GeoViewSync\GeoViewSync.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

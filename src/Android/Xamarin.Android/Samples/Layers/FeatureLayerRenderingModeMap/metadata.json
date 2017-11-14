@@ -1,0 +1,14 @@
+{
+  "Name": "Feature Layer Rendering Mode (Map)",
+  "SampleName": "FeatureLayerRenderingModeMap",
+  "Description": "This sample demonstrates how to use load settings to set preferred rendering mode for feature layers, specifically static or dynamic rendering modes.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": false,
+  "RequiresLocalServer": false,
+  "Image": "FeatureLayerRenderingModeMap.jpg",
+  "Link": "",
+  "SampleFolder": "FeatureLayerRenderingModeMap",
+  "TypeLink": [ "T:Esri.ArcGISRuntime.Data.ServiceFeatureTable" ]
+}

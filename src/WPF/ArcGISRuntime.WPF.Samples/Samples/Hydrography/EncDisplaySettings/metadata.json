@@ -11,6 +11,11 @@
   "DataFileNames": [ "ExchangeSet" ],
   "Image": "EncDisplaySettings.jpg",
   "Link": "",
-  "TypeLink": [],
+  "TypeLink": [
+    "P:Esri.ArcGISRuntime.Hydrography.EncEnvironmentSettings.EncDisplaySettings",
+    "P:Esri.ArcGISRuntime.Hydrography.EncDisplaySettings.MarinerSettings",
+    "P:Esri.ArcGISRuntime.Hydrography.EncDisplaySettings.TextGroupVisibilitySettings",
+    "P:Esri.ArcGISRuntime.Hydrography.EncDisplaySettings.ViewingGroupSettings"
+  ],
   "SampleFolder": "EncDisplaySettings"
 }

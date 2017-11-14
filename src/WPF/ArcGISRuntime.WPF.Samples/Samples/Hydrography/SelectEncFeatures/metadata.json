@@ -11,6 +11,6 @@
   "DataFileNames": [ "ExchangeSet" ],
   "Image": "SelectEncFeatures.jpg",
   "Link": "",
-  "TypeLink": [],
+  "TypeLink": [ "M:Esri.ArcGISRuntime.Mapping.EncLayer.SelectFeature(Esri.ArcGISRuntime.Hydrography.EncFeature)" ],
   "SampleFolder": "SelectEncFeatures"
 }

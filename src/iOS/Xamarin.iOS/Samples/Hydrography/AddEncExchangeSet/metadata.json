@@ -11,6 +11,14 @@
   "DataFileNames": [ "ExchangeSet" ],
   "Image": "AddEncExchangeSet.jpg",
   "Link": "",
-  "TypeLink": [],
+  "TypeLink": [
+    "T:Esri.ArcGISRuntime.Hydrography.EncExchangeSet",
+    "P:Esri.ArcGISRuntime.Hydrography.EncExchangeSet.DataSets",
+    "T:Esri.ArcGISRuntime.Hydrography.EncCell",
+    "M:Esri.ArcGISRuntime.Hydrography.EncCell.#ctor(Esri.ArcGISRuntime.Hydrography.EncDataSet)",
+    "T:Esri.ArcGISRuntime.Mapping.EncLayer",
+    "M:Esri.ArcGISRuntime.Mapping.EncLayer.#ctor(Esri.ArcGISRuntime.Hydrography.EncCell)",
+    "M:Esri.ArcGISRuntime.Hydrography.EncExchangeSet.LoadAsync"
+  ],
   "SampleFolder": "AddEncExchangeSet"
 }

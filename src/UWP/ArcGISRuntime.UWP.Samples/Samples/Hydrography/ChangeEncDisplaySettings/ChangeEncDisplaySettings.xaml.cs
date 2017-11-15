@@ -99,18 +99,24 @@ namespace ArcGISRuntime.UWP.Samples.ChangeEncDisplaySettings
 
         private void UpdateDisplaySettings()
         {
+            // Hold a reference to the application-wide ENC Display Settings
+            EncDisplaySettings globalDisplaySettings = EncEnvironmentSettings.Default.EncDisplaySettings;
+
+            // Hold a reference to the application-wide ENC Mariner Settings (part of display settings)
+            EncMarinerSettings globalMaringerSettings = globalDisplaySettings.MarinerSettings;
+
             // Apply color scheme
-            if ((bool)radDay.IsChecked) { EncEnvironmentSettings.Default.EncDisplaySettings.MarinerSettings.ColorScheme = EncColorScheme.Day; }
-            else if ((bool)radDusk.IsChecked) { EncEnvironmentSettings.Default.EncDisplaySettings.MarinerSettings.ColorScheme = EncColorScheme.Dusk; }
-            else if ((bool)radNight.IsChecked) { EncEnvironmentSettings.Default.EncDisplaySettings.MarinerSettings.ColorScheme = EncColorScheme.Night; }
+            if ((bool)radDay.IsChecked) { globalMaringerSettings.ColorScheme = EncColorScheme.Day; }
+            else if ((bool)radDusk.IsChecked) { globalMaringerSettings.ColorScheme = EncColorScheme.Dusk; }
+            else if ((bool)radNight.IsChecked) { globalMaringerSettings.ColorScheme = EncColorScheme.Night; }
 
             // Apply area symbolization
-            if ((bool)radAreaPlain.IsChecked) { EncEnvironmentSettings.Default.EncDisplaySettings.MarinerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Plain; }
-            else { EncEnvironmentSettings.Default.EncDisplaySettings.MarinerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Symbolized; }
+            if ((bool)radAreaPlain.IsChecked) { globalMaringerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Plain; }
+            else { globalMaringerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Symbolized; }
 
             // Apply point symbolization
-            if ((bool)radPointPaper.IsChecked) { EncEnvironmentSettings.Default.EncDisplaySettings.MarinerSettings.PointSymbolizationType = EncPointSymbolizationType.PaperChart; }
-            else { EncEnvironmentSettings.Default.EncDisplaySettings.MarinerSettings.PointSymbolizationType = EncPointSymbolizationType.Simplified; }
+            if ((bool)radPointPaper.IsChecked) { globalMaringerSettings.PointSymbolizationType = EncPointSymbolizationType.PaperChart; }
+            else { globalMaringerSettings.PointSymbolizationType = EncPointSymbolizationType.Simplified; }
         }
 
         private void Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)

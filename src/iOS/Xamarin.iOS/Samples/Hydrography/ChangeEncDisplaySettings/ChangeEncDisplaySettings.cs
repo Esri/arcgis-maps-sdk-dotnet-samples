@@ -27,6 +27,9 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 
+        // Hold a reference to the (static) app-wide ENC Mariner settings
+        EncMarinerSettings _encMarinerSettings = EncEnvironmentSettings.Default.EncDisplaySettings.MarinerSettings;
+
         // Create and hold references to the segment controls
         private UISegmentedControl _colorSchemeSegment = new UISegmentedControl("Day", "Dusk", "Night")
         {
@@ -98,16 +101,16 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
         }
 
         private void PointStyleChanged(object sender, EventArgs e)
-        {
+        { 
             switch (_pointSegment.SelectedSegment)
             {
                 case 0:
-                    EncEnvironmentSettings.Default.EncDisplaySettings.MarinerSettings.PointSymbolizationType = EncPointSymbolizationType.PaperChart;
+                    _encMarinerSettings.PointSymbolizationType = EncPointSymbolizationType.PaperChart;
                     break;
 
                 case 1:
                 default:
-                    EncEnvironmentSettings.Default.EncDisplaySettings.MarinerSettings.PointSymbolizationType = EncPointSymbolizationType.Simplified;
+                    _encMarinerSettings.PointSymbolizationType = EncPointSymbolizationType.Simplified;
                     break;
             }
         }
@@ -117,12 +120,12 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
             switch (_areaSegment.SelectedSegment)
             {
                 case 0:
-                    EncEnvironmentSettings.Default.EncDisplaySettings.MarinerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Plain;
+                    _encMarinerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Plain;
                     break;
 
                 case 1:
                 default:
-                    EncEnvironmentSettings.Default.EncDisplaySettings.MarinerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Symbolized;
+                    _encMarinerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Symbolized;
                     break;
             }
         }
@@ -133,16 +136,16 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
             switch (_colorSchemeSegment.SelectedSegment)
             {
                 case 0:
-                    EncEnvironmentSettings.Default.EncDisplaySettings.MarinerSettings.ColorScheme = EncColorScheme.Day;
+                    _encMarinerSettings.ColorScheme = EncColorScheme.Day;
                     break;
 
                 case 1:
-                    EncEnvironmentSettings.Default.EncDisplaySettings.MarinerSettings.ColorScheme = EncColorScheme.Dusk;
+                    _encMarinerSettings.ColorScheme = EncColorScheme.Dusk;
                     break;
 
                 case 2:
                 default:
-                    EncEnvironmentSettings.Default.EncDisplaySettings.MarinerSettings.ColorScheme = EncColorScheme.Night;
+                    _encMarinerSettings.ColorScheme = EncColorScheme.Night;
                     break;
             }
         }

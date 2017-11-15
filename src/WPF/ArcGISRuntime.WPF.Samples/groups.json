@@ -457,10 +457,6 @@
             {
               "SampleName": "SelectEncFeatures",
               "Path": "Samples/Hydrography/SelectEncFeatures"
-            },
-            {
-              "SampleName": "ApplyEncUpdatePackages",
-              "Path": "Samples/Hydrography/ApplyEncUpdatePackages"
             }
           ]
         }

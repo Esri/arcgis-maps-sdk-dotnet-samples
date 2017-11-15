@@ -36,10 +36,10 @@ namespace ArcGISRuntimeXamarin.Samples.EncDisplaySettings
 
             // Create the UI, setup the control references and execute initialization
             CreateLayout();
-            InitializeAsync();
+            Initialize();
         }
 
-        private async Task InitializeAsync()
+        private async void Initialize()
         {
             // Initialize the map with an oceans basemap
             _myMapView.Map = new Map(Basemap.CreateOceans());
@@ -60,10 +60,8 @@ namespace ArcGISRuntimeXamarin.Samples.EncDisplaySettings
             // Add each data set as a layer
             foreach (EncDataSet _encDataSet in _encExchangeSet.DataSets)
             {
-                var path = _encDataSet.Name.Replace("\\", "/");
                 // Create the cell and layer
-                EncCell cell = new EncCell(Path.Combine(Path.GetDirectoryName(encPath), path));
-                EncLayer _encLayer = new EncLayer(cell);
+                EncLayer _encLayer = new EncLayer(new EncCell(_encDataSet));
 
                 // Add the layer to the map
                 _myMapView.Map.OperationalLayers.Add(_encLayer);

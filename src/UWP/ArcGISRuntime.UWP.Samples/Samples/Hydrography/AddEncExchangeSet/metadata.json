@@ -1,8 +1,8 @@
 {
-  "Name": "Add ENC Exchange Set",
+  "Name": "Add an ENC Exchange Set",
   "SampleName": "AddEncExchangeSet",
-  "Description": "",
-  "Instructions": "",
+  "Description": "This sample demonstrates how to load an ENC Exchange Set, including its component cells.",
+  "Instructions": "This sample automatically downloads ENC data from ArcGIS Online before displaying the map.",
   "Type": 0,
   "RequiresOnlineConnection": true,
   "RequiresOfflineData": true,

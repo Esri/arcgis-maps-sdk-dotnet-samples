@@ -28,10 +28,10 @@ namespace ArcGISRuntimeXamarin.Samples.EncDisplaySettings
             Title = "ENC Display Settings";
 
             // Create the UI, setup the control references and execute initialization
-            InitializeAsync();
+            Initialize();
         }
 
-        private async Task InitializeAsync()
+        private async void Initialize()
         {
             // Add display options to UI
             ColorSchemePicker.ItemsSource = new List<String>() { "Day", "Dusk", "Night" };

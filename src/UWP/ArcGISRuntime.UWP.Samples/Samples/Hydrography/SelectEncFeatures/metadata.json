@@ -1,8 +1,8 @@
 {
   "Name": "Select ENC Features",
   "SampleName": "SelectEncFeatures",
-  "Description": "",
-  "Instructions": "",
+  "Description": "This sample demonstrates how to select an ENC feature.",
+  "Instructions": "This sample automatically downloads ENC data from ArcGIS Online before displaying the map.",
   "Type": 0,
   "RequiresOnlineConnection": true,
   "RequiresOfflineData": true,

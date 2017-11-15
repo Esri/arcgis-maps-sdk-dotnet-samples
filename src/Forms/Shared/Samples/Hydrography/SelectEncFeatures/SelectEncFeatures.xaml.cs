@@ -31,10 +31,10 @@ namespace ArcGISRuntimeXamarin.Samples.SelectEncFeatures
             Title = "Select ENC Features";
 
             // Create the UI, setup the control references and execute initialization
-            InitializeAsync();
+            Initialize();
         }
 
-        private async Task InitializeAsync()
+        private async void Initialize()
         {
             // Initialize the map with an oceans basemap
             MyMapView.Map = new Map(Basemap.CreateOceans());

@@ -51,7 +51,7 @@ namespace ArcGISRuntimeXamarin.Samples.EncDisplaySettings
             Title = "ENC Display Settings";
         }
 
-        private async Task InitializeAsync()
+        private async void Initialize()
         {
             // Subscribe to event notifications
             _colorSchemeSegment.ValueChanged += ColorSchemeChanged;
@@ -77,10 +77,8 @@ namespace ArcGISRuntimeXamarin.Samples.EncDisplaySettings
             // Add each data set as a layer
             foreach (EncDataSet _encDataSet in _encExchangeSet.DataSets)
             {
-                var path = _encDataSet.Name.Replace("\\", "/");
                 // Create the cell and layer
-                EncCell cell = new EncCell(Path.Combine(Path.GetDirectoryName(encPath), path));
-                EncLayer _encLayer = new EncLayer(cell);
+                EncLayer _encLayer = new EncLayer(new EncCell(_encDataSet));
 
                 // Add the layer to the map
                 _myMapView.Map.OperationalLayers.Add(_encLayer);
@@ -158,7 +156,7 @@ namespace ArcGISRuntimeXamarin.Samples.EncDisplaySettings
         public override void ViewDidLoad()
         {
             CreateLayout();
-            InitializeAsync();
+            Initialize();
 
             base.ViewDidLoad();
         }

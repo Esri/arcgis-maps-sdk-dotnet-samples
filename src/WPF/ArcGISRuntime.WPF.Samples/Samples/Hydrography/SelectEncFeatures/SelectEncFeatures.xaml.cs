@@ -28,10 +28,10 @@ namespace ArcGISRuntime.WPF.Samples.SelectEncFeatures
             InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization
-            InitializeAsync();
+            Initialize();
         }
 
-        private async Task InitializeAsync()
+        private async void Initialize()
         {
             // Initialize the map with an oceans basemap
             MyMapView.Map = new Map(Basemap.CreateOceans());

@@ -39,10 +39,10 @@ namespace ArcGISRuntimeXamarin.Samples.SelectEncFeatures
 
             // Create the UI, setup the control references and execute initialization
             CreateLayout();
-            InitializeAsync();
+            Initialize();
         }
 
-        private async Task InitializeAsync()
+        private async void Initialize()
         {
             // Initialize the map with an oceans basemap
             _myMapView.Map = new Map(Basemap.CreateOceans());

@@ -27,10 +27,10 @@ namespace ArcGISRuntime.UWP.Samples.EncDisplaySettings
             InitializeComponent();
 
             // Setup the control references and execute initialization
-            InitializeAsync();
+            Initialize();
         }
 
-        private async Task InitializeAsync()
+        private async void Initialize()
         {
             // Apply initial display settings
             UpdateDisplaySettings();

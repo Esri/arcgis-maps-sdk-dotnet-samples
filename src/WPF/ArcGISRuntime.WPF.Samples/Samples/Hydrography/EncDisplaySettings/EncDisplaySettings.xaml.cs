@@ -26,10 +26,10 @@ namespace ArcGISRuntime.WPF.Samples.EncDisplaySettings
             InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization
-            InitializeAsync();
+            Initialize();
         }
 
-        private async Task InitializeAsync()
+        private async void Initialize()
         {
             // Apply initial display settings
             UpdateDisplaySettings();

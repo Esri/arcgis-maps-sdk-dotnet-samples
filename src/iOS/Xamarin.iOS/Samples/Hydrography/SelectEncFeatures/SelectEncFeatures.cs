@@ -38,12 +38,12 @@ namespace ArcGISRuntimeXamarin.Samples.SelectEncFeatures
         public override void ViewDidLoad()
         {
             CreateLayout();
-            InitializeAsync();
+            Initialize();
 
             base.ViewDidLoad();
         }
 
-        private async Task InitializeAsync()
+        private async void Initialize()
         {
             // Initialize the map with an oceans basemap
             _myMapView.Map = new Map(Basemap.CreateOceans());

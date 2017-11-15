@@ -104,7 +104,7 @@
   <ItemGroup>
     <!-- JSON Metadata -->
     <Content Include="Samples\Hydrography\SelectEncFeatures\metadata.json" />
-    <Content Include="Samples\Hydrography\EncDisplaySettings\metadata.json" />
+    <Content Include="Samples\Hydrography\ChangeEncDisplaySettings\metadata.json" />
     <Content Include="Samples\Hydrography\AddEncExchangeSet\metadata.json" />
     <Content Include="Samples\MapView\GeoViewSync\metadata.json" />
     <Content Include="groups.json" />
@@ -184,7 +184,7 @@
   <ItemGroup>
     <!-- Screenshots -->
     <Content Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg" />
-    <Content Include="Samples\Hydrography\EncDisplaySettings\EncDisplaySettings.jpg" />
+    <Content Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
     <Content Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
     <Content Include="Samples\MapView\GeoViewSync\GeoViewSync.jpg" />
     <Content Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg" />
@@ -264,8 +264,8 @@
     <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml.cs">
       <DependentUpon>SelectEncFeatures.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Hydrography\EncDisplaySettings\EncDisplaySettings.xaml.cs">
-      <DependentUpon>EncDisplaySettings.xaml</DependentUpon>
+    <Compile Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.xaml.cs">
+      <DependentUpon>ChangeEncDisplaySettings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.xaml.cs">
       <DependentUpon>AddEncExchangeSet.xaml</DependentUpon>
@@ -496,7 +496,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Hydrography\EncDisplaySettings\EncDisplaySettings.xaml">
+    <Page Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

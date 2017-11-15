@@ -430,8 +430,8 @@
               "Path": "Samples/Hydrography/AddEncExchangeSet"
             },
             {
-              "SampleName": "EncDisplaySettings",
-              "Path": "Samples/Hydrography/EncDisplaySettings"
+              "SampleName": "ChangeEncDisplaySettings",
+              "Path": "Samples/Hydrography/ChangeEncDisplaySettings"
             },
             {
               "SampleName": "SelectEncFeatures",

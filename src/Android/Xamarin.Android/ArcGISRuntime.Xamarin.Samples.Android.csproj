@@ -158,7 +158,7 @@
   <ItemGroup>
     <!-- JSON Metadata -->
     <EmbeddedResource Include="Samples\Hydrography\SelectEncFeatures\metadata.json" />
-    <EmbeddedResource Include="Samples\Hydrography\EncDisplaySettings\metadata.json" />
+    <EmbeddedResource Include="Samples\Hydrography\ChangeEncDisplaySettings\metadata.json" />
     <EmbeddedResource Include="Samples\Hydrography\AddEncExchangeSet\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\GeoViewSync\metadata.json" />
     <EmbeddedResource Include="groups.json" />
@@ -237,7 +237,7 @@
   <ItemGroup>
     <!-- Screenshots -->
     <None Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg" />
-    <None Include="Samples\Hydrography\EncDisplaySettings\EncDisplaySettings.jpg" />
+    <None Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
     <None Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
     <AndroidResource Include="Resources\layout\GeoViewSync.axml" />
     <None Include="Samples\MapView\GeoViewSync\GeoViewSync.jpg" />
@@ -317,7 +317,7 @@
   <ItemGroup>
     <!-- Sample Code -->
     <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.cs" />
-    <Compile Include="Samples\Hydrography\EncDisplaySettings\EncDisplaySettings.cs" />
+    <Compile Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.cs" />
     <Compile Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.cs" />
     <Compile Include="Samples\MapView\GeoViewSync\GeoViewSync.cs" />
     <Compile Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.cs" />

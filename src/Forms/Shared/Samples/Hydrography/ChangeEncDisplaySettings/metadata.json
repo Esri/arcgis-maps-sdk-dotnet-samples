@@ -1,6 +1,6 @@
 {
   "Name": "ENC Display Settings",
-  "SampleName": "EncDisplaySettings",
+  "SampleName": "ChangeEncDisplaySettings",
   "Description": "This sample demonstrates how to control ENC environment settings. These settings apply to the display of all ENC content in your app.",
   "Instructions": "This sample automatically downloads ENC data from ArcGIS Online before displaying the map.",
   "Type": 0,
@@ -9,13 +9,13 @@
   "RequiresLocalServer": false,
   "DataItemIds": [ "9d3ddb20afe3409eae25b3cdeb82215b" ],
   "DataFileNames": [ "ExchangeSet" ],
-  "Image": "EncDisplaySettings.jpg",
+  "Image": "ChangeEncDisplaySettings.jpg",
   "Link": "",
   "TypeLink": [
-    "P:Esri.ArcGISRuntime.Hydrography.EncEnvironmentSettings.EncDisplaySettings",
-    "P:Esri.ArcGISRuntime.Hydrography.EncDisplaySettings.MarinerSettings",
-    "P:Esri.ArcGISRuntime.Hydrography.EncDisplaySettings.TextGroupVisibilitySettings",
-    "P:Esri.ArcGISRuntime.Hydrography.EncDisplaySettings.ViewingGroupSettings"
+    "P:Esri.ArcGISRuntime.Hydrography.EncEnvironmentSettings.ChangeEncDisplaySettings",
+    "P:Esri.ArcGISRuntime.Hydrography.ChangeEncDisplaySettings.MarinerSettings",
+    "P:Esri.ArcGISRuntime.Hydrography.ChangeEncDisplaySettings.TextGroupVisibilitySettings",
+    "P:Esri.ArcGISRuntime.Hydrography.ChangeEncDisplaySettings.ViewingGroupSettings"
   ],
-  "SampleFolder": "EncDisplaySettings"
+  "SampleFolder": "ChangeEncDisplaySettings"
 }

@@ -42,28 +42,28 @@ namespace ArcGISRuntime.UWP.Samples.SelectEncFeatures
 
             // Create the Exchange Set
             // Note: this constructor takes an array of paths because so that update sets can be loaded alongside base data
-            EncExchangeSet _encExchangeSet = new EncExchangeSet(new string[] { encPath });
+            EncExchangeSet myEncExchangeSet = new EncExchangeSet(new string[] { encPath });
 
             // Wait for the exchange set to load
-            await _encExchangeSet.LoadAsync();
+            await myEncExchangeSet.LoadAsync();
 
             // Store a list of data set extent's - will be used to zoom the mapview to the full extent of the Exchange Set
             List<Envelope> dataSetExtents = new List<Envelope>();
 
             // Add each data set as a layer
-            EncDataSet _encDataSet = _encExchangeSet.DataSets.First();
+            EncDataSet myEncDataSet = myEncExchangeSet.DataSets.First();
 
             // Create the cell and layer
-            EncLayer _encLayer = new EncLayer(new EncCell(_encDataSet));
+            EncLayer myEncLayer = new EncLayer(new EncCell(myEncDataSet));
 
             // Add the layer to the map
-            MyMapView.Map.OperationalLayers.Add(_encLayer);
+            MyMapView.Map.OperationalLayers.Add(myEncLayer);
 
             // Wait for the layer to load
-            await _encLayer.LoadAsync();
+            await myEncLayer.LoadAsync();
 
             // Set the viewpoint
-            MyMapView.SetViewpoint(new Viewpoint(_encLayer.FullExtent));
+            MyMapView.SetViewpoint(new Viewpoint(myEncLayer.FullExtent));
 
             // Subscribe to tap events (in order to use them to identify and select features)
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
@@ -116,7 +116,8 @@ namespace ArcGISRuntime.UWP.Samples.SelectEncFeatures
             // The data manager provides a method to get the folder
             string folder = DataManager.GetDataFolder();
 
-            // Get the full path
+            // Get the full path - the catalog is within a hierarchy in the downloaded data;
+            // /SampleData/AddEncExchangeSet/ExchangeSet/ENC_ROOT/CATALOG.031
             string filepath = Path.Combine(folder, "SampleData", "AddEncExchangeSet", "ExchangeSet", "ENC_ROOT", "CATALOG.031");
 
             // Check if the file exists

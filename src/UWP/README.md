@@ -328,7 +328,7 @@
 
     This sample demonstrates how to load an ENC Exchange Set, including its component cells.
 
-* [ENC Display Settings](ArcGISRuntime.UWP.Samples/Samples/Hydrography/EncDisplaySettings)
+* [ENC Display Settings](ArcGISRuntime.UWP.Samples/Samples/Hydrography/ChangeEncDisplaySettings)
 
     This sample demonstrates how to control ENC environment settings. These settings apply to the display of all ENC content in your app.
 

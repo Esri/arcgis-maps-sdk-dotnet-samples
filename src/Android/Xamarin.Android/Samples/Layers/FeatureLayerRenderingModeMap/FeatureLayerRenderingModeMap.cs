@@ -9,6 +9,7 @@
 
 using Android.App;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
@@ -23,8 +24,8 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerRenderingModeMap
     public class FeatureLayerRenderingModeMap : Activity
     {
         // Create and hold reference to the used MapView
-        private MapView _myMapViewTop = new MapView();
-        private MapView _myMapViewBottom = new MapView();
+        private MapView _myMapViewTop;
+        private MapView _myMapViewBottom;
 
         // Viewpoint locations for map view to zoom in and out to.
         Viewpoint _zoomOutPoint = new Viewpoint(new MapPoint(-118.37, 34.46, SpatialReferences.Wgs84), 650000, 0);
@@ -42,16 +43,17 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerRenderingModeMap
         }
 
         private void CreateLayout()
-        {
-            // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
-
-            // Add the map views to the layout
-            layout.AddView(_myMapViewTop);
-            layout.AddView(_myMapViewBottom);
-       
+        { 
             // Show the layout in the app
-            SetContentView(layout);
+            SetContentView(Resource.Layout.FeatureLayerRenderingModeMapLayout);
+
+            // Create the mapviews and sceneviews
+            _myMapViewTop = FindViewById<MapView>(Resource.Id.Top_MyMapView);
+            _myMapViewBottom = FindViewById<MapView>(Resource.Id.Bottom_MyMapView);
+
+            Button zoomButton = FindViewById<Button>(Resource.Id.ZoomButton);
+
+            zoomButton.Click += OnZoomClick;
         }
 
         private async void Initialize()

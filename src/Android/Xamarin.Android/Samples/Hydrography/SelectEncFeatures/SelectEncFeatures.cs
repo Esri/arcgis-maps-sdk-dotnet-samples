@@ -61,26 +61,19 @@ namespace ArcGISRuntimeXamarin.Samples.SelectEncFeatures
             List<Envelope> dataSetExtents = new List<Envelope>();
 
             // Add each data set as a layer
-            foreach (EncDataSet _encDataSet in _encExchangeSet.DataSets)
-            {
-                // Create the cell and layer
-                EncLayer _encLayer = new EncLayer(new EncCell(_encDataSet));
+            EncDataSet _encDataSet = _encExchangeSet.DataSets.First();
 
-                // Add the layer to the map
-                _myMapView.Map.OperationalLayers.Add(_encLayer);
+            // Create the cell and layer
+            EncLayer _encLayer = new EncLayer(new EncCell(_encDataSet));
 
-                // Wait for the layer to load
-                await _encLayer.LoadAsync();
+            // Add the layer to the map
+            _myMapView.Map.OperationalLayers.Add(_encLayer);
 
-                // Add the extent to the list of extents
-                dataSetExtents.Add(_encLayer.FullExtent);
-            }
-
-            // Use the geometry engine to compute the full extent of the ENC Exchange Set
-            Envelope fullExtent = GeometryEngine.CombineExtents(dataSetExtents);
+            // Wait for the layer to load
+            await _encLayer.LoadAsync();
 
             // Set the viewpoint
-            _myMapView.SetViewpoint(new Viewpoint(fullExtent));
+            _myMapView.SetViewpoint(new Viewpoint(_encLayer.FullExtent));
 
             // Subscribe to tap events (in order to use them to identify and select features)
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
@@ -119,24 +112,17 @@ namespace ArcGISRuntimeXamarin.Samples.SelectEncFeatures
             // Return if there are no results
             if (results.Count < 1) { return; }
 
-            // Select every matching feature
-            foreach (IdentifyLayerResult result in results)
-            {
-                // Get the layer associated with this set of results
-                EncLayer containingLayer = result.LayerContent as EncLayer;
+            // Get the first result with ENC features
+            IdentifyLayerResult firstResult = results.Where(res => res.GeoElements.OfType<EncFeature>().Count() > 0).First();
 
-                // Select each ENC feature
-                foreach (EncFeature feature in result.GeoElements.OfType<EncFeature>())
-                {
-                    containingLayer.SelectFeature(feature);
-                }
-            }
+            // Get the layer associated with this set of results
+            EncLayer containingLayer = firstResult.LayerContent as EncLayer;
 
             // Get the first identified feature
             EncFeature firstFeature = results.First().GeoElements.OfType<EncFeature>().First();
 
-            // Note that more checking would be needed if there were more than just ENC layers on the map
-            //     MapView.IdentifyLayersAsync returns results from all layers on the map
+            // Select the feature
+            containingLayer.SelectFeature(firstFeature);
 
             // Create the callout definition
             CalloutDefinition definition = new CalloutDefinition("Feature", firstFeature.Attributes["FeatureDescription"].ToString());

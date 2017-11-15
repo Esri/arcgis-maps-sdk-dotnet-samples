@@ -201,7 +201,7 @@
               "SampleName": "FeatureLayerSelection",
               "Path": "Samples/Layers/FeatureLayerSelection"
             },
-               {
+            {
               "SampleName": "FeatureLayerDefinitionExpression",
               "Path": "Samples/Layers/FeatureLayerDefinitionExpression"
             },
@@ -224,6 +224,10 @@
             {
               "SampleName": "FeatureLayerDictionaryRenderer",
               "Path": "Samples/Layers/FeatureLayerDictionaryRenderer"
+            },
+            {
+              "SampleName": "FeatureLayerRenderingModeMap",
+              "Path": "Samples/Layers/FeatureLayerRenderingModeMap"
             }
           ]
         },

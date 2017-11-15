@@ -56,6 +56,10 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerRenderingModeMap
 
         private async void Initialize()
         {
+            // Setting the Map property of both MapViews
+            _myMapViewTop.Map = new Map();
+            _myMapViewBottom.Map = new Map();
+
             // Set the top map to render all features in static rendering mode
             _myMapViewTop.Map.LoadSettings.PreferredPointFeatureRenderingMode = FeatureRenderingMode.Static;
             _myMapViewTop.Map.LoadSettings.PreferredPolylineFeatureRenderingMode = FeatureRenderingMode.Static;

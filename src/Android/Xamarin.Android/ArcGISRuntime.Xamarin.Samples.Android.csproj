@@ -234,6 +234,7 @@
     <None Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.jpg" />
     <None Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.jpg" />
     <None Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.jpg" />
+    <EmbeddedResource Include="Samples\Data\GeodatabaseTransactions\metadata.json" />
     <None Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.jpg" />
     <EmbeddedResource Include="Samples\Data\RasterLayerGeoPackage\metadata.json" />
     <None Include="Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.jpg" />
@@ -310,6 +311,7 @@
     <Compile Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.cs" />
     <Compile Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.cs" />
     <Compile Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.cs" />
+    <Compile Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.cs" />
     <Compile Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.cs" />
     <Compile Include="Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.cs" />
     <Compile Include="Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.cs" />
@@ -382,6 +384,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

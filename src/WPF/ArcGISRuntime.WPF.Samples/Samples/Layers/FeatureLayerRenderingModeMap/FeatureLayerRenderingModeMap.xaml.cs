@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+﻿// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -38,9 +38,9 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerRenderingModeMap
             MyMapViewTop.Map.LoadSettings.PreferredPolygonFeatureRenderingMode = FeatureRenderingMode.Static;
 
             // Set the bottom map to render all features in dynamic rendering mode
-            MyMapViewBottom.Map.LoadSettings.PreferredPointFeatureRenderingMode = FeatureRenderingMode.Static;
-            MyMapViewBottom.Map.LoadSettings.PreferredPolylineFeatureRenderingMode = FeatureRenderingMode.Static;
-            MyMapViewBottom.Map.LoadSettings.PreferredPolygonFeatureRenderingMode = FeatureRenderingMode.Static;
+            MyMapViewBottom.Map.LoadSettings.PreferredPointFeatureRenderingMode = FeatureRenderingMode.Dynamic;
+            MyMapViewBottom.Map.LoadSettings.PreferredPolylineFeatureRenderingMode = FeatureRenderingMode.Dynamic;
+            MyMapViewBottom.Map.LoadSettings.PreferredPolygonFeatureRenderingMode = FeatureRenderingMode.Dynamic;
 
             // Create service feature table using a point, polyline, and polygon service.
             ServiceFeatureTable poinServiceFeatureTable = new ServiceFeatureTable(new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Energy/Geology/FeatureServer/0"));
@@ -51,8 +51,6 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerRenderingModeMap
             FeatureLayer pointFeatureLayer = new FeatureLayer(poinServiceFeatureTable);
             FeatureLayer polylineFeatureLayer = new FeatureLayer(polylineServiceFeatureTable);
             FeatureLayer polygonFeatureLayer = new FeatureLayer(polygonServiceFeatureTable);
-
-            pointFeatureLayer.RenderingMode = FeatureRenderingMode.Dynamic;
 
             // Add each layer to top map.
             MyMapViewTop.Map.OperationalLayers.Add(pointFeatureLayer.Clone());

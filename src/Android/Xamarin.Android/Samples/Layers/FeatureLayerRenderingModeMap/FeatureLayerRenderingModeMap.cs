@@ -23,13 +23,13 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerRenderingModeMap
     [Activity]
     public class FeatureLayerRenderingModeMap : Activity
     {
-        // Create and hold reference to the used MapView
+        // Create variables to hold MapView instances  
         private MapView _myMapViewTop;
         private MapView _myMapViewBottom;
 
         // Viewpoint locations for map view to zoom in and out to.
-        Viewpoint _zoomOutPoint = new Viewpoint(new MapPoint(-118.37, 34.46, SpatialReferences.Wgs84), 650000, 0);
-        Viewpoint _zoomInPoint = new Viewpoint(new MapPoint(-118.45, 34.395, SpatialReferences.Wgs84), 50000, 90);
+        private Viewpoint _zoomOutPoint = new Viewpoint(new MapPoint(-118.37, 34.46, SpatialReferences.Wgs84), 650000, 0);
+        private Viewpoint _zoomInPoint = new Viewpoint(new MapPoint(-118.45, 34.395, SpatialReferences.Wgs84), 50000, 90);
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -47,18 +47,20 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerRenderingModeMap
             // Show the layout in the app
             SetContentView(Resource.Layout.FeatureLayerRenderingModeMapLayout);
 
-            // Create the mapviews and sceneviews
+            // Create the MapViews
             _myMapViewTop = FindViewById<MapView>(Resource.Id.Top_MyMapView);
             _myMapViewBottom = FindViewById<MapView>(Resource.Id.Bottom_MyMapView);
 
+            // Create the Zoom button
             Button zoomButton = FindViewById<Button>(Resource.Id.ZoomButton);
 
+            // Set Zoom method to run on button click 
             zoomButton.Click += OnZoomClick;
         }
 
         private async void Initialize()
         {
-            // Setting the Map property of both MapViews
+            // Set the Map property of both MapViews
             _myMapViewTop.Map = new Map();
             _myMapViewBottom.Map = new Map();
 
@@ -68,9 +70,9 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerRenderingModeMap
             _myMapViewTop.Map.LoadSettings.PreferredPolygonFeatureRenderingMode = FeatureRenderingMode.Static;
 
             // Set the bottom map to render all features in dynamic rendering mode
-            _myMapViewBottom.Map.LoadSettings.PreferredPointFeatureRenderingMode = FeatureRenderingMode.Static;
-            _myMapViewBottom.Map.LoadSettings.PreferredPolylineFeatureRenderingMode = FeatureRenderingMode.Static;
-            _myMapViewBottom.Map.LoadSettings.PreferredPolygonFeatureRenderingMode = FeatureRenderingMode.Static;
+            _myMapViewBottom.Map.LoadSettings.PreferredPointFeatureRenderingMode = FeatureRenderingMode.Dynamic;
+            _myMapViewBottom.Map.LoadSettings.PreferredPolylineFeatureRenderingMode = FeatureRenderingMode.Dynamic;
+            _myMapViewBottom.Map.LoadSettings.PreferredPolygonFeatureRenderingMode = FeatureRenderingMode.Dynamic;
 
             // Create service feature table using a point, polyline, and polygon service.
             ServiceFeatureTable poinServiceFeatureTable = new ServiceFeatureTable(new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Energy/Geology/FeatureServer/0"));
@@ -81,8 +83,6 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerRenderingModeMap
             FeatureLayer pointFeatureLayer = new FeatureLayer(poinServiceFeatureTable);
             FeatureLayer polylineFeatureLayer = new FeatureLayer(polylineServiceFeatureTable);
             FeatureLayer polygonFeatureLayer = new FeatureLayer(polygonServiceFeatureTable);
-
-            pointFeatureLayer.RenderingMode = FeatureRenderingMode.Dynamic;
 
             // Add each layer to top map.
             _myMapViewTop.Map.OperationalLayers.Add(pointFeatureLayer.Clone());

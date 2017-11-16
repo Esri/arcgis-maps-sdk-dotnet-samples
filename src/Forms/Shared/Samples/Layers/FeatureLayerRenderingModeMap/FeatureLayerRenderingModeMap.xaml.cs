@@ -18,7 +18,6 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerRenderingModeMap
 {
     public partial class FeatureLayerRenderingModeMap : ContentPage
     {
-
         // Viewpoint locations for map view to zoom in and out to.
         Viewpoint _zoomOutPoint = new Viewpoint(new MapPoint(-118.37, 34.46, SpatialReferences.Wgs84), 650000, 0);
         Viewpoint _zoomInPoint = new Viewpoint(new MapPoint(-118.45, 34.395, SpatialReferences.Wgs84), 50000, 90);
@@ -29,7 +28,7 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerRenderingModeMap
 
             Title = "Feature Layer Rendering Mode (Map)";
 
-            //setup the control references and execute initialization 
+            // Setup the control references and execute initialization 
             Initialize();
         }
 
@@ -41,9 +40,9 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerRenderingModeMap
             MyMapViewTop.Map.LoadSettings.PreferredPolygonFeatureRenderingMode = FeatureRenderingMode.Static;
 
             // Set the bottom map to render all features in dynamic rendering mode
-            MyMapViewBottom.Map.LoadSettings.PreferredPointFeatureRenderingMode = FeatureRenderingMode.Static;
-            MyMapViewBottom.Map.LoadSettings.PreferredPolylineFeatureRenderingMode = FeatureRenderingMode.Static;
-            MyMapViewBottom.Map.LoadSettings.PreferredPolygonFeatureRenderingMode = FeatureRenderingMode.Static;
+            MyMapViewBottom.Map.LoadSettings.PreferredPointFeatureRenderingMode = FeatureRenderingMode.Dynamic;
+            MyMapViewBottom.Map.LoadSettings.PreferredPolylineFeatureRenderingMode = FeatureRenderingMode.Dynamic;
+            MyMapViewBottom.Map.LoadSettings.PreferredPolygonFeatureRenderingMode = FeatureRenderingMode.Dynamic;
 
             // Create service feature table using a point, polyline, and polygon service.
             ServiceFeatureTable poinServiceFeatureTable = new ServiceFeatureTable(new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Energy/Geology/FeatureServer/0"));
@@ -54,8 +53,6 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerRenderingModeMap
             FeatureLayer pointFeatureLayer = new FeatureLayer(poinServiceFeatureTable);
             FeatureLayer polylineFeatureLayer = new FeatureLayer(polylineServiceFeatureTable);
             FeatureLayer polygonFeatureLayer = new FeatureLayer(polygonServiceFeatureTable);
-
-            pointFeatureLayer.RenderingMode = FeatureRenderingMode.Dynamic;
 
             // Add each layer to top map.
             MyMapViewTop.Map.OperationalLayers.Add(pointFeatureLayer.Clone());

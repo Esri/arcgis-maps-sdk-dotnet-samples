@@ -51,7 +51,7 @@ namespace ArcGISRuntime.WPF.Samples.ChangeEncDisplaySettings
             List<Envelope> dataSetExtents = new List<Envelope>();
 
             // Add each data set as a layer
-            foreach (EncDataSet myEncDataSet in myEncExchangeSet.DataSets)
+            foreach (EncDataset myEncDataSet in myEncExchangeSet.DataSets)
             {
                 // Create the cell and layer
                 EncLayer myEncLayer = new EncLayer(new EncCell(myEncDataSet));

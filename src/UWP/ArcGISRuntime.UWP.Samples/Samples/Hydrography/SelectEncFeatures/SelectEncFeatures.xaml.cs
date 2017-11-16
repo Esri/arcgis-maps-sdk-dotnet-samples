@@ -51,7 +51,7 @@ namespace ArcGISRuntime.UWP.Samples.SelectEncFeatures
             List<Envelope> dataSetExtents = new List<Envelope>();
 
             // Add each data set as a layer
-            EncDataSet myEncDataSet = myEncExchangeSet.DataSets.First();
+            EncDataset myEncDataSet = myEncExchangeSet.DataSets.First();
 
             // Create the cell and layer
             EncLayer myEncLayer = new EncLayer(new EncCell(myEncDataSet));
@@ -108,8 +108,8 @@ namespace ArcGISRuntime.UWP.Samples.SelectEncFeatures
             // Select the feature
             containingLayer.SelectFeature(firstFeature);
 
-            // Create the callout definition - "FeatureDescription" is an attribute key common to all ENC features
-            CalloutDefinition definition = new CalloutDefinition("Feature", firstFeature.Attributes["FeatureDescription"].ToString());
+            // Create the callout definition
+            CalloutDefinition definition = new CalloutDefinition(firstFeature.Acronym, firstFeature.Description);
 
             // Show the callout
             MyMapView.ShowCalloutAt(e.Location, definition);

@@ -60,8 +60,10 @@ namespace ArcGISRuntimeXamarin.Samples.AddEncExchangeSet
             // Add each data set as a layer
             foreach (EncDataSet myEncDataSet in myEncExchangeSet.DataSets)
             {
+                var path = myEncDataSet.Name.Replace("\\", "/");
                 // Create the cell and layer
-                EncLayer myEncLayer = new EncLayer(new EncCell(myEncDataSet));
+                EncCell cell = new EncCell(Path.Combine(Path.GetDirectoryName(encPath), path));
+                EncLayer myEncLayer = new EncLayer(cell);
 
                 // Add the layer to the map
                 _myMapView.Map.OperationalLayers.Add(myEncLayer);

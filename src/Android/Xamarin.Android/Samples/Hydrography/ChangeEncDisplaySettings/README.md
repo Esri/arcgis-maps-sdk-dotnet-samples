@@ -1,4 +1,4 @@
-# ENC Display Settings
+# Change ENC Display Settings
 
 This sample demonstrates how to control ENC environment settings. These settings apply to the display of all ENC content in your app.
 

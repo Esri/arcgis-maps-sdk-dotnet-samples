@@ -11,6 +11,15 @@
   "DataFileNames": [ "ExchangeSet" ],
   "Image": "SelectEncFeatures.jpg",
   "Link": "",
-  "TypeLink": [ "M:Esri.ArcGISRuntime.Mapping.EncLayer.SelectFeature(Esri.ArcGISRuntime.Hydrography.EncFeature)" ],
+  "TypeLink": [
+"T:Esri.ArcGISRuntime.Data.GeoElement",
+"T:Esri.ArcGISRuntime.Data.IdentifyLayerResult",
+"T:Esri.ArcGISRuntime.Mapping.ILayerContent",
+"P:Esri.ArcGISRuntime.Data.IdentifyLayerResult.GeoElements",
+"P:Esri.ArcGISRuntime.Data.IdentifyLayerResult.LayerContent",
+"T:Esri.ArcGISRuntime.Hydrography.EncFeature",
+"M:Esri.ArcGISRuntime.Mapping.EncLayer.ClearSelection",
+"M:Esri.ArcGISRuntime.Mapping.EncLayer.SelectFeature(Esri.ArcGISRuntime.Hydrography.EncFeature)"
+],
   "SampleFolder": "SelectEncFeatures"
 }

@@ -12,13 +12,15 @@
   "Image": "AddEncExchangeSet.jpg",
   "Link": "",
   "TypeLink": [
-    "T:Esri.ArcGISRuntime.Hydrography.EncExchangeSet",
-    "P:Esri.ArcGISRuntime.Hydrography.EncExchangeSet.DataSets",
-    "T:Esri.ArcGISRuntime.Hydrography.EncCell",
-    "M:Esri.ArcGISRuntime.Hydrography.EncCell.#ctor(Esri.ArcGISRuntime.Hydrography.EncDataSet)",
-    "T:Esri.ArcGISRuntime.Mapping.EncLayer",
-    "M:Esri.ArcGISRuntime.Mapping.EncLayer.#ctor(Esri.ArcGISRuntime.Hydrography.EncCell)",
-    "M:Esri.ArcGISRuntime.Hydrography.EncExchangeSet.LoadAsync"
+"T:Esri.ArcGISRuntime.Hydrography.EncDataSet",
+"M:Esri.ArcGISRuntime.Hydrography.EncExchangeSet.#ctor(System.String[])",
+"T:Esri.ArcGISRuntime.Hydrography.EncExchangeSet",
+"P:Esri.ArcGISRuntime.Hydrography.EncExchangeSet.DataSets",
+"T:Esri.ArcGISRuntime.Hydrography.EncCell",
+"M:Esri.ArcGISRuntime.Hydrography.EncCell.#ctor(Esri.ArcGISRuntime.Hydrography.EncDataSet)",
+"T:Esri.ArcGISRuntime.Mapping.EncLayer",
+"M:Esri.ArcGISRuntime.Mapping.EncLayer.#ctor(Esri.ArcGISRuntime.Hydrography.EncCell)",
+"M:Esri.ArcGISRuntime.Hydrography.EncExchangeSet.LoadAsync"
   ],
   "SampleFolder": "AddEncExchangeSet"
 }

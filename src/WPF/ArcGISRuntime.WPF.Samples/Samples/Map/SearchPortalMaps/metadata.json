@@ -10,6 +10,8 @@
   "Image": "SearchPortalMaps.jpg",
   "Link": "",
   "TypeLink": [
+"T:Esri.ArcGISRuntime.Portal.PortalQueryParameters",
+"M:Esri.ArcGISRuntime.Portal.ArcGISPortal.CreateAsync(System.Uri)",
 "M:Esri.ArcGISRuntime.Mapping.Map.#ctor(Esri.ArcGISRuntime.Portal.Item)",
 "P:Esri.ArcGISRuntime.Mapping.Map.LoadError",
 "M:Esri.ArcGISRuntime.Portal.ArcGISPortal.FindItemsAsync(Esri.ArcGISRuntime.Portal.PortalQueryParameters)",

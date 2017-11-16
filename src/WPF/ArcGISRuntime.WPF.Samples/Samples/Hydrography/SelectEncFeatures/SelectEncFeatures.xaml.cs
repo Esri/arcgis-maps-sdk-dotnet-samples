@@ -89,19 +89,25 @@ namespace ArcGISRuntime.WPF.Samples.SelectEncFeatures
             // Return if there are no results
             if (results.Count < 1) { return; }
 
+            // Get the results that are from ENC layers
+            IEnumerable<IdentifyLayerResult> encResults = results.Where(result => result.LayerContent is EncLayer);
+
+            // Get the ENC results that have features
+            IEnumerable<IdentifyLayerResult> encResultsWithFeatures = encResults.Where(result => result.GeoElements.Count > 0);
+
             // Get the first result with ENC features
-            IdentifyLayerResult firstResult = results.Where(res => res.GeoElements.OfType<EncFeature>().Count() > 0).First();
+            IdentifyLayerResult firstResult = encResultsWithFeatures.First();
 
             // Get the layer associated with this set of results
             EncLayer containingLayer = firstResult.LayerContent as EncLayer;
 
-            // Get the first identified feature
-            EncFeature firstFeature = results.First().GeoElements.OfType<EncFeature>().First();
+            // Get the first identified ENC feature
+            EncFeature firstFeature = firstResult.GeoElements.First() as EncFeature;
 
             // Select the feature
             containingLayer.SelectFeature(firstFeature);
 
-            // Create the callout definition
+            // Create the callout definition - "FeatureDescription" is an attribute key common to all ENC features
             CalloutDefinition definition = new CalloutDefinition("Feature", firstFeature.Attributes["FeatureDescription"].ToString());
 
             // Show the callout

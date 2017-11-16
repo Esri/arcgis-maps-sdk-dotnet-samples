@@ -102,20 +102,20 @@ namespace ArcGISRuntime.WPF.Samples.ChangeEncDisplaySettings
             EncDisplaySettings globalDisplaySettings = EncEnvironmentSettings.Default.EncDisplaySettings;
 
             // Hold a reference to the application-wide ENC Mariner Settings (part of display settings)
-            EncMarinerSettings globalMaringerSettings = globalDisplaySettings.MarinerSettings;
+            EncMarinerSettings globalMarinerSettings = globalDisplaySettings.MarinerSettings;
 
             // Apply color scheme
-            if ((bool)radDay.IsChecked) { globalMaringerSettings.ColorScheme = EncColorScheme.Day; }
-            else if ((bool)radDusk.IsChecked) { globalMaringerSettings.ColorScheme = EncColorScheme.Dusk; }
-            else if ((bool)radNight.IsChecked) { globalMaringerSettings.ColorScheme = EncColorScheme.Night; }
+            if ((bool)radDay.IsChecked) { globalMarinerSettings.ColorScheme = EncColorScheme.Day; }
+            else if ((bool)radDusk.IsChecked) { globalMarinerSettings.ColorScheme = EncColorScheme.Dusk; }
+            else if ((bool)radNight.IsChecked) { globalMarinerSettings.ColorScheme = EncColorScheme.Night; }
 
             // Apply area symbolization
-            if ((bool)radAreaPlain.IsChecked) { globalMaringerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Plain; }
-            else { globalMaringerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Symbolized; }
+            if ((bool)radAreaPlain.IsChecked) { globalMarinerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Plain; }
+            else { globalMarinerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Symbolized; }
 
             // Apply point symbolization
-            if ((bool)radPointPaper.IsChecked) { globalMaringerSettings.PointSymbolizationType = EncPointSymbolizationType.PaperChart; }
-            else { globalMaringerSettings.PointSymbolizationType = EncPointSymbolizationType.Simplified; }
+            if ((bool)radPointPaper.IsChecked) { globalMarinerSettings.PointSymbolizationType = EncPointSymbolizationType.PaperChart; }
+            else { globalMarinerSettings.PointSymbolizationType = EncPointSymbolizationType.Simplified; }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

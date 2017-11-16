@@ -114,23 +114,23 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
             EncDisplaySettings globalDisplaySettings = EncEnvironmentSettings.Default.EncDisplaySettings;
 
             // Hold a reference to the application-wide ENC Mariner Settings (part of display settings)
-            EncMarinerSettings globalMaringerSettings = globalDisplaySettings.MarinerSettings;
+            EncMarinerSettings globalMarinerSettings = globalDisplaySettings.MarinerSettings;
 
             // Apply color scheme
             string _selectedTheme = ColorSchemePicker.SelectedItem.ToString();
-            if (_selectedTheme == "Day") { globalMaringerSettings.ColorScheme = EncColorScheme.Day; }
-            else if (_selectedTheme == "Dusk") { globalMaringerSettings.ColorScheme = EncColorScheme.Dusk; }
-            else if (_selectedTheme == "Night") { globalMaringerSettings.ColorScheme = EncColorScheme.Night; }
+            if (_selectedTheme == "Day") { globalMarinerSettings.ColorScheme = EncColorScheme.Day; }
+            else if (_selectedTheme == "Dusk") { globalMarinerSettings.ColorScheme = EncColorScheme.Dusk; }
+            else if (_selectedTheme == "Night") { globalMarinerSettings.ColorScheme = EncColorScheme.Night; }
 
             // Apply area symbolization
             string _selectedAreaType = AreaPicker.SelectedItem.ToString();
-            if (_selectedAreaType == "Plain") { globalMaringerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Plain; }
-            else { globalMaringerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Symbolized; }
+            if (_selectedAreaType == "Plain") { globalMarinerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Plain; }
+            else { globalMarinerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Symbolized; }
 
             // Apply point symbolization
             string _selectedPointType = PointPicker.SelectedItem.ToString();
-            if (_selectedPointType == "Paper Chart") { globalMaringerSettings.PointSymbolizationType = EncPointSymbolizationType.PaperChart; }
-            else { globalMaringerSettings.PointSymbolizationType = EncPointSymbolizationType.Simplified; }
+            if (_selectedPointType == "Paper Chart") { globalMarinerSettings.PointSymbolizationType = EncPointSymbolizationType.PaperChart; }
+            else { globalMarinerSettings.PointSymbolizationType = EncPointSymbolizationType.Simplified; }
         }
 
         private void Button_Clicked(object sender, EventArgs e)

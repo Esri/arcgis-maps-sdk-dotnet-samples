@@ -36,6 +36,14 @@
             {
               "SampleName": "ShowCallout",
               "Path": "Samples/MapView/ShowCallout"
+            },
+            {
+              "SampleName": "FeatureLayerTimeOffset",
+              "Path": "Samples/MapView/FeatureLayerTimeOffset"
+            },
+            {
+              "SampleName": "GeoViewSync",
+              "Path": "Samples/MapView/GeoViewSync"
             }
           ]
         },
@@ -143,21 +151,6 @@
             {
               "SampleName": "WmsServiceCatalog",
               "Path": "Samples/Layers/WmsServiceCatalog"
-            }
-          ]
-        },
-        {
-          "Name": "OGC Layers",
-          "SubCategoryName": "OGCLayers",
-          "ShowGroup": true,
-          "SampleInfos": [
-            {
-              "SampleName": "KmlLayerUrl",
-              "Path": "Samples/Layers/KmlLayerUrl"
-            },
-            {
-              "SampleName": "KmlLayerFile",
-              "Path": "Samples/Layers/KmlLayerFile"
             },
             {
               "SampleName": "WmsIdentify",
@@ -426,6 +419,48 @@
             {
               "SampleName": "DisplayScene",
               "Path": "Samples/Layers/DisplayScene"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Local Server",
+      "CategoryName": "LocalServer",
+      "SubCategories": [
+        {
+          "Name": "Local Server",
+          "SubCategoryName": "LocalServer",
+          "ShowGroup": false,
+          "SampleInfos": [
+            {
+              "SampleName": "DynamicWorkspaceShapefile",
+              "Path": "Samples/LocalServer/DynamicWorkspaceShapefile"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Hydrography",
+      "CategoryName": "Hydrography",
+      "SubCategories": [
+        {
+          "Name": "Hydrography",
+          "SubCategoryName": "Hydrography",
+          "ShowGroup": false,
+          "SampleInfos": [
+            {
+              "SampleName": "AddEncExchangeSet",
+              "Path": "Samples/Hydrography/AddEncExchangeSet"
+            },
+            {
+              "SampleName": "ChangeEncDisplaySettings",
+              "Path": "Samples/Hydrography/ChangeEncDisplaySettings"
+            },
+            {
+              "SampleName": "SelectEncFeatures",
+              "Path": "Samples/Hydrography/SelectEncFeatures"
             }
           ]
         }

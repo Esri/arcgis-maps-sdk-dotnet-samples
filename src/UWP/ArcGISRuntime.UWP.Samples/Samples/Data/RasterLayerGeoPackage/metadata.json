@@ -11,5 +11,5 @@
   "RequiresLocalServer": false,
   "Image": "RasterLayerGeoPackage.jpg",
   "Link": "",
-  "TypeLink": [ "T:Esri.ArcGISRuntime.Data.GeoPackage", "T:Esri.ArcGISRuntime.Rasters.GeoPackageRaster", "P:Esri.ArcGISRuntime.Data.GeoPackage.GeoPackageRasters", "M:Esri.ArcGISRuntime.Data.GeoPackage.OpenAsync(System.String)" ]
+  "TypeLink": ["T:Esri.ArcGISRuntime.Rasters.GeoPackageRaster", "P:Esri.ArcGISRuntime.Data.GeoPackage.GeoPackageRasters", "M:Esri.ArcGISRuntime.Data.GeoPackage.OpenAsync(System.String)" ]
 }

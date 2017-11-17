@@ -10,7 +10,24 @@
   "Image": "SearchPortalMaps.jpg",
   "Link": "",
   "TypeLink": [
-    "M:Esri.ArcGISRuntime.Mapping.Map.#ctor(PortalItem)"
+"T:Esri.ArcGISRuntime.Portal.PortalQueryParameters",
+"M:Esri.ArcGISRuntime.Portal.ArcGISPortal.CreateAsync(System.Uri)",
+"M:Esri.ArcGISRuntime.Mapping.Map.#ctor(Esri.ArcGISRuntime.Portal.Item)",
+"P:Esri.ArcGISRuntime.Mapping.Map.LoadError",
+"M:Esri.ArcGISRuntime.Portal.ArcGISPortal.FindItemsAsync(Esri.ArcGISRuntime.Portal.PortalQueryParameters)",
+"P:Esri.ArcGISRuntime.Portal.ArcGISPortal.User",
+"P:Esri.ArcGISRuntime.Portal.PortalFolder.FolderId",
+"P:Esri.ArcGISRuntime.Portal.PortalQueryParameters.Query",
+"M:Esri.ArcGISRuntime.Portal.PortalQueryParameters.#ctor(System.String,System.Int32)",
+"T:Esri.ArcGISRuntime.Portal.PortalQueryResultSet`1",
+"P:Esri.ArcGISRuntime.Portal.PortalQueryResultSet`1.Results",
+"T:Esri.ArcGISRuntime.Portal.PortalUser",
+"M:Esri.ArcGISRuntime.Portal.PortalUser.GetContentAsync",
+"M:Esri.ArcGISRuntime.Portal.PortalUser.GetContentAsync(System.String)",
+"T:Esri.ArcGISRuntime.Portal.PortalUserContent",
+"P:Esri.ArcGISRuntime.Portal.PortalUserContent.Folders",
+"P:Esri.ArcGISRuntime.Portal.PortalUserContent.Items",
+"M:Esri.ArcGISRuntime.Mapping.Map.#ctor(PortalItem)"
   ],
   "SampleFolder": "SearchPortalMaps"
 }

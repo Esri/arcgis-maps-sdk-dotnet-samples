@@ -32,6 +32,14 @@
 
     This sample illustrates how to show callouts on a map in response to user interaction.
 
+    * [Feature layer time offset](Xamarin.Android/Samples/MapView/FeatureLayerTimeOffset)
+
+    This sample demonstrates how to show data from the same service side-by-side with a time offset. This allows for the comparison of data over time.
+
+    * [GeoView viewpoint synchronization](Xamarin.Android/Samples/MapView/GeoViewSync)
+
+    This sample demonstrates how to keep two geo views (MapView/SceneView) in sync with each other.
+
 
 - **Map**
 
@@ -124,17 +132,6 @@
     This sample demonstrates how to enable and disable the display of layers discovered from a WMS service.
 
 
-- **OGC Layers**
-
-    * [KML layer (URL)](Xamarin.Android/Samples/Layers/KmlLayerUrl)
-
-    This sample demonstrates how to display a KML file from a URL.
-
-    * [KML layer (file)](Xamarin.Android/Samples/Layers/KmlLayerFile)
-
-    This sample demonstrates how to display a KML file from local storage.
-
-
 - **Raster Layers**
 
     * [ArcGIS raster layer (service)](Xamarin.Android/Samples/Layers/RasterLayerImageServiceRaster)
@@ -152,6 +149,10 @@
     * [Raster rendering rule](Xamarin.Android/Samples/Layers/RasterRenderingRule)
 
     This sample demonstrates how to create an `ImageServiceRaster`, fetch the `RenderingRule`s from the service info, and use a `RenderingRule` to create an `ImageServiceRaster` and add it to a raster layer.
+
+    * [Raster layer (GeoPackage)](Xamarin.Android/Samples/Data/RasterLayerGeoPackage)
+
+    This sample demonstrates how to open a GeoPackage and show a GeoPackage raster in a raster layer.
 
 ## Features
 
@@ -228,6 +229,10 @@
     * [Feature layer (GeoPackage)](Xamarin.Android/Samples/Data/FeatureLayerGeoPackage)
 
     This sample demonstrates how to open a GeoPackage and show a GeoPackage feature table in a feature layer.
+
+    * [Read shapefile metadata](Xamarin.Android/Samples/Data/ReadShapefileMetadata)
+
+    This sample demonstrates how to open a shapefile stored on the device, read metadata that describes the dataset, and display it as a feature layer with default symbology.
 
 ## Display Information
 
@@ -325,6 +330,23 @@
     * [Find a route](Xamarin.Android/Samples/NetworkAnalysis/FindRoute)
 
     This sample demonstrates how to solve for the best route between two locations on the map and display driving directions between them.
+
+## Hydrography
+
+
+- **Hydrography**
+
+    * [Add an ENC Exchange Set](Xamarin.Android/Samples/Hydrography/AddEncExchangeSet)
+
+    This sample demonstrates how to load an ENC Exchange Set, including its component cells.
+
+    * [ENC Display Settings](Xamarin.Android/Samples/Hydrography/ChangeEncDisplaySettings)
+
+    This sample demonstrates how to control ENC environment settings. These settings apply to the display of all ENC content in your app.
+
+    * [Select ENC Features](Xamarin.Android/Samples/Hydrography/SelectEncFeatures)
+
+    This sample demonstrates how to select an ENC feature.
 
 ## Location
 

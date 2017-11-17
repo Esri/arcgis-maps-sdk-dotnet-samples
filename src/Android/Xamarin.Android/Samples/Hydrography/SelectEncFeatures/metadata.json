@@ -1,0 +1,25 @@
+{
+  "Name": "Select ENC Features",
+  "SampleName": "SelectEncFeatures",
+  "Description": "This sample demonstrates how to select an ENC feature.",
+  "Instructions": "This sample automatically downloads ENC data from ArcGIS Online before displaying the map.",
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": true,
+  "RequiresLocalServer": false,
+  "DataItemIds": [ "9d3ddb20afe3409eae25b3cdeb82215b" ],
+  "DataFileNames": [ "ExchangeSet" ],
+  "Image": "SelectEncFeatures.jpg",
+  "Link": "",
+  "TypeLink": [
+"T:Esri.ArcGISRuntime.Data.GeoElement",
+"T:Esri.ArcGISRuntime.Data.IdentifyLayerResult",
+"T:Esri.ArcGISRuntime.Mapping.ILayerContent",
+"P:Esri.ArcGISRuntime.Data.IdentifyLayerResult.GeoElements",
+"P:Esri.ArcGISRuntime.Data.IdentifyLayerResult.LayerContent",
+"T:Esri.ArcGISRuntime.Hydrography.EncFeature",
+"M:Esri.ArcGISRuntime.Mapping.EncLayer.ClearSelection",
+"M:Esri.ArcGISRuntime.Mapping.EncLayer.SelectFeature(Esri.ArcGISRuntime.Hydrography.EncFeature)"
+],
+  "SampleFolder": "SelectEncFeatures"
+}

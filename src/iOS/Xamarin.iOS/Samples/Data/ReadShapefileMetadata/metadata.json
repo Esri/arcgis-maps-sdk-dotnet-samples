@@ -11,6 +11,11 @@
   "DataFileNames": [ "TrailBikeNetwork.shp" ],
   "Image": "ReadShapefileMetadata.jpg",
   "Link": "",
-  "TypeLink": [ "T:Esri.ArcGISRuntime.Data.ShapefileFeatureTable", "T:Esri.ArcGISRuntime.Data.ShapefileInfo", "M:Esri.ArcGISRuntime.Data.ShapefileFeatureTable.OpenAsync(System.String)" ],
+  "TypeLink": [
+"P:Esri.ArcGISRuntime.Data.ShapefileFeatureTable.Info",
+"P:Esri.ArcGISRuntime.Data.ShapefileInfo.Thumbnail",
+"T:Esri.ArcGISRuntime.Data.ShapefileInfo",
+"E:Esri.ArcGISRuntime.UI.Controls.GeoView.SpatialReferenceChanged"
+],
   "SampleFolder": "ReadShapefileMetadata"
 }

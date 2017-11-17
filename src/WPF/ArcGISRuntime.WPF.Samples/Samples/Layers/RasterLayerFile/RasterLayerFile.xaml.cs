@@ -64,7 +64,7 @@ namespace ArcGISRuntime.WPF.Samples.RasterLayerFile
             string folder = DataManager.GetDataFolder();
 
             // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "RasterLayerFile", filename);
+            string filepath = Path.Combine(folder, "SampleData", "RasterLayerFile", "raster-file", filename);
 
             // Check if the file exists
             if (!File.Exists(filepath))

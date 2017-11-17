@@ -168,7 +168,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
             {
                 // Report error message
                 var messageDialog = new MessageDialog("Error saving map to ArcGIS Online: " + ex.Message);
-                await messageDialog.ShowAsync();
+                messageDialog.ShowAsync();
             }
             finally
             {

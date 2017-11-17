@@ -37,10 +37,13 @@ namespace ArcGISRuntime.UWP.Samples.AuthorEditSaveMap
         private const string OAuthRedirectUrl = "https://developers.arcgis.com";
 
         // Gets the view-model that provides mapping capabilities to the view
-        public MapViewModel ViewModel { get; } = new MapViewModel();
+        public MapViewModel ViewModel { get; set; }
 
         public AuthorEditSaveMap()
         {
+            // Initialize the map view model
+            ViewModel = new MapViewModel();
+
             this.InitializeComponent();
 
             // Pass the current map view to the map view model

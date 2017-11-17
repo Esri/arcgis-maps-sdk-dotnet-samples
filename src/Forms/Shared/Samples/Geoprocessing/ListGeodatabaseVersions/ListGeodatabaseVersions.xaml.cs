@@ -109,11 +109,11 @@ namespace ArcGISRuntimeXamarin.Samples.ListGeodatabaseVersions
                 // Error handling if something goes wrong
                 if (listVersionsJob.Status == JobStatus.Failed && listVersionsJob.Error != null)
                 {
-                    await DisplayAlert("Geoprocessing error", "Executing geoprocessing failed. " + listVersionsJob.Error.Message, "OK");
+                    DisplayAlert("Geoprocessing error", "Executing geoprocessing failed. " + listVersionsJob.Error.Message, "OK");
                 }
                 else
                 {
-                    await DisplayAlert("Sample error", "An error occurred. " + ex.ToString(), "OK");
+                    DisplayAlert("Sample error", "An error occurred. " + ex.ToString(), "OK");
                 }
             }
             finally

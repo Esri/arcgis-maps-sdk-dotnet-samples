@@ -110,13 +110,13 @@ namespace ArcGISRuntime.UWP.Samples.ListGeodatabaseVersions
                 if (listVersionsJob.Status == JobStatus.Failed && listVersionsJob.Error != null)
                 {
                     var message = new MessageDialog("Executing geoprocessing failed. " + listVersionsJob.Error.Message, "Geoprocessing error");
-                    await message.ShowAsync();
+                    message.ShowAsync();
                 }
 
                 else
                 {
                     var message = new MessageDialog("An error occurred. " + ex.ToString(), "Sample error");
-                    await message.ShowAsync();
+                    message.ShowAsync();
                 }
             }
             finally

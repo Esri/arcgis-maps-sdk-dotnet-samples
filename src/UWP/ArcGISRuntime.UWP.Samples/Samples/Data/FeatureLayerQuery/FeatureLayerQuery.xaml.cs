@@ -122,7 +122,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerQuery
             catch (Exception ex)
             {
                 var message = new MessageDialog("Sample error: " + ex.ToString(), "An error occurred");
-                await message.ShowAsync();
+                message.ShowAsync();
             }
         }
     }

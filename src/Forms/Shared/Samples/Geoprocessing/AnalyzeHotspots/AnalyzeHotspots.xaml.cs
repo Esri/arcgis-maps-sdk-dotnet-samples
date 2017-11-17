@@ -67,7 +67,7 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeHotspots
             } catch (Exception)
             {
                 // Handle badly formatted dates
-                await DisplayAlert("Invalid date", "Please enter a valid date", "OK");
+                DisplayAlert("Invalid date", "Please enter a valid date", "OK");
 
                 // Remove the busy activity indication
                 MyActivityInidicator.IsRunning = false;
@@ -79,7 +79,7 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeHotspots
             if (myToDate <= myFromDate.AddDays(1))
             {
                 // Show error message
-                await DisplayAlert("Invalid date range", "Please select valid time range. There has to be at least one day in between To and From dates.", "OK");
+                DisplayAlert("Invalid date range", "Please select valid time range. There has to be at least one day in between To and From dates.", "OK");
 
                 // Remove the busy activity indication
                 MyActivityInidicator.IsRunning = false;
@@ -124,11 +124,11 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeHotspots
                 // Display error messages if the geoprocessing task fails
                 if (_hotspotJob.Status == JobStatus.Failed && _hotspotJob.Error != null)
                 {
-                    await DisplayAlert("Geoprocessing error", "Executing geoprocessing failed. " + _hotspotJob.Error.Message, "OK");
+                    DisplayAlert("Geoprocessing error", "Executing geoprocessing failed. " + _hotspotJob.Error.Message, "OK");
                 }
                 else
                 {
-                    await DisplayAlert("Sample error", "An error occurred. " + ex.ToString(), "OK");
+                    DisplayAlert("Sample error", "An error occurred. " + ex.ToString(), "OK");
                 }
             }
             finally

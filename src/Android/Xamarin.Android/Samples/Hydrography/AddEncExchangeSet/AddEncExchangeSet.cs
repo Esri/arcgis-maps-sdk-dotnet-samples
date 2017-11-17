@@ -58,7 +58,7 @@ namespace ArcGISRuntimeXamarin.Samples.AddEncExchangeSet
             List<Envelope> dataSetExtents = new List<Envelope>();
 
             // Add each data set as a layer
-            foreach (EncDataset myEncDataSet in myEncExchangeSet.DataSets)
+            foreach (EncDataset myEncDataSet in myEncExchangeSet.Datasets)
             {
                 var path = myEncDataSet.Name.Replace("\\", "/");
                 // Create the cell and layer

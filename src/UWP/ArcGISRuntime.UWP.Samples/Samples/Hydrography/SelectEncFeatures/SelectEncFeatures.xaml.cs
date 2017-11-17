@@ -51,7 +51,7 @@ namespace ArcGISRuntime.UWP.Samples.SelectEncFeatures
             List<Envelope> dataSetExtents = new List<Envelope>();
 
             // Add each data set as a layer
-            EncDataset myEncDataSet = myEncExchangeSet.DataSets.First();
+            EncDataset myEncDataSet = myEncExchangeSet.Datasets.First();
 
             // Create the cell and layer
             EncLayer myEncLayer = new EncLayer(new EncCell(myEncDataSet));

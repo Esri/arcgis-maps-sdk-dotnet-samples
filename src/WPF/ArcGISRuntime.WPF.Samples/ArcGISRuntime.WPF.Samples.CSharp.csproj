@@ -39,6 +39,12 @@
     <Reference Include="Esri.ArcGISRuntime, Version=100.2.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Esri.ArcGISRuntime.WPF.100.2.0\lib\net452\Esri.ArcGISRuntime.dll</HintPath>
     </Reference>
+    <Reference Include="Esri.ArcGISRuntime.Hydrography, Version=100.2.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.2.0\lib\net452\Esri.ArcGISRuntime.Hydrography.dll</HintPath>
+    </Reference>
+    <Reference Include="Esri.ArcGISRuntime.LocalServices, Version=100.2.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.2.0\lib\net452\Esri.ArcGISRuntime.LocalServices.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -68,6 +74,21 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
+    <Content Include="Samples\Hydrography\SelectEncFeatures\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Hydrography\ChangeEncDisplaySettings\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Hydrography\AddEncExchangeSet\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\GeoViewSync\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\LocalServer\DynamicWorkspaceShapefile\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="groups.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -105,9 +126,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Data\StatsQueryGroupAndSort\metadata.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Geoprocessing\AnalyzeHotspots\metadata.json">
@@ -188,6 +206,9 @@
     <Content Include="Samples\Layers\SceneLayerUrl\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Layers\TimeBasedQuery\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Layers\WMSLayerUrl\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -245,6 +266,9 @@
     <Content Include="Samples\MapView\DisplayLayerViewState\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\MapView\FeatureLayerTimeOffset\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\MapView\MapRotation\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -287,6 +311,21 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\GeoViewSync\GeoViewSync.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\LocalServer\DynamicWorkspaceShapefile\DynamicWorkspaceShapefile.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -395,6 +434,9 @@
     <Content Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -452,6 +494,9 @@
     <Content Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\MapView\MapRotation\MapRotation.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -494,6 +539,21 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml.cs">
+      <DependentUpon>SelectEncFeatures.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.xaml.cs">
+      <DependentUpon>ChangeEncDisplaySettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.xaml.cs">
+      <DependentUpon>AddEncExchangeSet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\GeoViewSync\GeoViewSync.xaml.cs">
+      <DependentUpon>GeoViewSync.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LocalServer\DynamicWorkspaceShapefile\DynamicWorkspaceShapefile.xaml.cs">
+      <DependentUpon>DynamicWorkspaceShapefile.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.xaml.cs">
       <DependentUpon>EditAndSyncFeatures.xaml</DependentUpon>
     </Compile>
@@ -529,9 +589,6 @@
     </Compile>
     <Compile Include="Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.xaml.cs">
       <DependentUpon>StatsQueryGroupAndSort.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.xaml.cs">
-      <DependentUpon>GeodatabaseTransactions.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.xaml.cs">
       <DependentUpon>AnalyzeHotspots.xaml</DependentUpon>
@@ -611,6 +668,9 @@
     <Compile Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.xaml.cs">
       <DependentUpon>SceneLayerUrl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.xaml.cs">
+      <DependentUpon>TimeBasedQuery.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.xaml.cs">
       <DependentUpon>WmsLayerUrl.xaml</DependentUpon>
     </Compile>
@@ -622,6 +682,9 @@
     </Compile>
     <Compile Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.xaml.cs">
       <DependentUpon>DisplayDeviceLocation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.xaml.cs">
+      <DependentUpon>FeatureLayerTimeOffset.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.xaml.cs">
       <DependentUpon>AccessLoadStatus.xaml</DependentUpon>
@@ -710,6 +773,26 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\GeoViewSync\GeoViewSync.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\LocalServer\DynamicWorkspaceShapefile\DynamicWorkspaceShapefile.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -755,10 +838,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -866,6 +945,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Layers\WMSLayerUrl\WmsLayerUrl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -879,6 +962,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -996,24 +1083,23 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <Content Include="Samples\Data\RasterLayerGeoPackage\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
-    <Content Include="Samples\Data\GeodatabaseTransactions\metadata.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <None Include="Samples\Data\GeodatabaseTransactions\README.md" />
   </ItemGroup>
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.WPF.100.2.0\build\net452\Esri.ArcGISRuntime.WPF.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.2.0\build\net452\Esri.ArcGISRuntime.WPF.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.2.0\build\net452\Esri.ArcGISRuntime.WPF.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.WPF.100.2.0\build\net452\Esri.ArcGISRuntime.WPF.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.2.0\build\net452\Esri.ArcGISRuntime.LocalServices.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.2.0\build\net452\Esri.ArcGISRuntime.LocalServices.targets'))" />
   </Target>
+  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.WPF.100.2.0\build\net452\Esri.ArcGISRuntime.WPF.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.2.0\build\net452\Esri.ArcGISRuntime.WPF.targets')" />
+  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.WPF.100.2.0\build\net452\Esri.ArcGISRuntime.WPF.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.2.0\build\net452\Esri.ArcGISRuntime.WPF.targets')" />
+  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.2.0\build\net452\Esri.ArcGISRuntime.LocalServices.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.2.0\build\net452\Esri.ArcGISRuntime.LocalServices.targets')" />
+  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.2.0\build\net452\Esri.ArcGISRuntime.Hydrography.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.2.0\build\net452\Esri.ArcGISRuntime.Hydrography.targets')" />
 </Project>

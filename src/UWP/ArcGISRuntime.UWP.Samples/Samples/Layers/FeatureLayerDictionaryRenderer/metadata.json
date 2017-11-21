@@ -11,5 +11,12 @@
   "DataFileNames": [ "militaryoverlay.geodatabase", "mil2525d.stylx" ],
   "Image": "FeatureLayerDictionaryRenderer.jpg",
   "Link": "",
-  "TypeLink": [ "T:Esri.ArcGISRuntime.Symbology.DictionarySymbolStyle", "M:Esri.ArcGISRuntime.Symbology.DictionarySymbolStyle.OpenAsync(System.String,System.String)", "T:Esri.ArcGISRuntime.Symbology.DictionaryRenderer", "M:Esri.ArcGISRuntime.Symbology.DictionaryRenderer.#ctor(Esri.ArcGISRuntime.Symbology.DictionarySymbolStyle)" ]
+  "TypeLink": [
+"M:Esri.ArcGISRuntime.Data.Geodatabase.OpenAsync(System.String)",
+"P:Esri.ArcGISRuntime.Data.Geodatabase.GeodatabaseFeatureTables",
+"T:Esri.ArcGISRuntime.Symbology.DictionarySymbolStyle",
+"M:Esri.ArcGISRuntime.Symbology.DictionarySymbolStyle.OpenAsync(System.String,System.String)",
+"T:Esri.ArcGISRuntime.Symbology.DictionaryRenderer",
+"M:Esri.ArcGISRuntime.Symbology.DictionaryRenderer.#ctor(Esri.ArcGISRuntime.Symbology.DictionarySymbolStyle)"
+]
 }

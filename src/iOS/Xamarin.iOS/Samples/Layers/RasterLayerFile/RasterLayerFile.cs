@@ -94,7 +94,7 @@ namespace ArcGISRuntimeXamarin.Samples.RasterLayerFile
             string folder = DataManager.GetDataFolder();
 
 			// Return the full path; Item ID is 7c4c679ab06a4df19dc497f577f111bd
-			return Path.Combine(folder, "SampleData", "RasterLayerFile", filename);
+			return Path.Combine(folder, "SampleData", "RasterLayerFile", "raster-file", filename);
             #endregion offlinedata
         }
     }

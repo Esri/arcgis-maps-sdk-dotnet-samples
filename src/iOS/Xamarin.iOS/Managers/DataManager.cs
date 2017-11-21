@@ -13,7 +13,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Esri.ArcGISRuntime.Portal;
 using System.Linq;
-
+using System.IO.Compression;
 
 namespace ArcGISRuntimeXamarin.Managers
 {
@@ -76,14 +76,13 @@ namespace ArcGISRuntimeXamarin.Managers
 
         private static async Task UnpackData(string zipFile, string folder)
         {
-            await Task.Run(() => System.IO.Compression.ZipFile.ExtractToDirectory(zipFile, folder, true));
-            var info = new DirectoryInfo(folder);
-            List<DirectoryInfo> directoryContents = info.GetDirectories().ToList();
-            // copy the files from the directories into the parent
-            foreach(var directory in directoryContents){
-                // For each file in the directory
-                foreach (var file in directory.GetFiles()){
-                    File.Copy(file.FullName, Path.Combine(file.Directory.Parent.FullName, file.Name), true);
+            using (var archive = ZipFile.OpenRead(zipFile))
+            {
+                foreach (var entry in archive.Entries.Where(m => !String.IsNullOrWhiteSpace(m.Name)))
+                {
+                    var path = Path.Combine(folder, entry.FullName);
+                    Directory.CreateDirectory(Path.GetDirectoryName(path));
+                    entry.ExtractToFile(path, true);
                 }
             }
         }

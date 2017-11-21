@@ -9,6 +9,17 @@
   "RequiresLocalServer": false,
   "Image": "WmsServiceCatalog.jpg",
   "Link": "",
-  "TypeLink": [ "M:Esri.ArcGISRuntime.Mapping.WmsLayer.#ctor(System.Collections.Generic.IEnumerable{Esri.ArcGISRuntime.Ogc.WmsLayerInfo})", "T:Esri.ArcGISRuntime.Ogc.WmsService", "T:Esri.ArcGISRuntime.Ogc.WmsServiceInfo", "P:Esri.ArcGISRuntime.Ogc.WmsService.ServiceInfo", "M:Esri.ArcGISRuntime.Ogc.WmsService.#ctor(System.Uri)" ],
+  "TypeLink": [
+"M:Esri.ArcGISRuntime.Mapping.WmsLayer.#ctor(System.Collections.Generic.IEnumerable{Esri.ArcGISRuntime.Ogc.WmsLayerInfo})",
+"T:Esri.ArcGISRuntime.Ogc.WmsService",
+"T:Esri.ArcGISRuntime.Ogc.WmsServiceInfo",
+"P:Esri.ArcGISRuntime.Ogc.WmsService.ServiceInfo",
+"M:Esri.ArcGISRuntime.Ogc.WmsService.#ctor(System.Uri)",
+"T:Esri.ArcGISRuntime.Ogc.WmsLayerInfo",
+"P:Esri.ArcGISRuntime.Ogc.WmsLayerInfo.LayerInfos",
+"P:Esri.ArcGISRuntime.Ogc.WmsLayerInfo.Title",
+"M:Esri.ArcGISRuntime.Ogc.WmsService.LoadAsync",
+"P:Esri.ArcGISRuntime.Ogc.WmsServiceInfo.LayerInfos"
+],
   "SampleFolder": "WmsServiceCatalog"
 }

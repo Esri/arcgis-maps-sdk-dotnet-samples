@@ -28,6 +28,14 @@
 
     This sample illustrates how to show callouts on a map in response to user interaction.
 
+    * [Feature layer time offset](Xamarin.iOS/Samples/MapView/FeatureLayerTimeOffset)
+
+    This sample demonstrates how to show data from the same service side-by-side with a time offset. This allows for the comparison of data over time.
+
+    * [GeoView viewpoint synchronization](Xamarin.iOS/Samples/MapView/GeoViewSync)
+
+    This sample demonstrates how to keep two geo views (MapView/SceneView) in sync with each other.
+
 
 - **Map**
 
@@ -120,17 +128,6 @@
     This sample demonstrates how to enable and disable the display of layers discovered from a WMS service.
 
 
-- **OGC Layers**
-
-    * [KML layer (URL)](Xamarin.iOS/Samples/Layers/KmlLayerUrl)
-
-    This sample demonstrates how to display a KML file from a URL.
-
-    * [KML layer (file)](Xamarin.iOS/Samples/Layers/KmlLayerFile)
-
-    This sample demonstrates how to display a KML file from local storage.
-
-
 - **Raster Layers**
 
     * [ArcGIS raster layer (service)](Xamarin.iOS/Samples/Layers/RasterLayerImageServiceRaster)
@@ -148,6 +145,10 @@
     * [Raster rendering rule](Xamarin.iOS/Samples/Layers/RasterRenderingRule)
 
     This sample demonstrates how to create an `ImageServiceRaster`, fetch the `RenderingRule`s from the service info, and use a `RenderingRule` to create an `ImageServiceRaster` and add it to a raster layer.
+
+    * [Raster layer (GeoPackage)](Xamarin.iOS/Samples/Data/RasterLayerGeoPackage)
+
+    This sample demonstrates how to open a GeoPackage and show a GeoPackage raster in a raster layer.
 
 ## Features
 
@@ -225,6 +226,10 @@
 
     This sample demonstrates how to open a GeoPackage and show a GeoPackage feature table in a feature layer.
 
+    * [Read shapefile metadata](Xamarin.iOS/Samples/Data/ReadShapefileMetadata)
+
+    This sample demonstrates how to open a shapefile stored on the device, read metadata that describes the dataset, and display it as a feature layer with default symbology.
+
 ## Display Information
 
 
@@ -270,14 +275,9 @@
 
 - **Geoprocessing**
 
-    * [Viewshed (Geoprocessing)](Xamarin.iOS/Samples/Geoprocessing/AnalyzeViewshed)
+    * [Analyze hotspots](Xamarin.iOS/Samples/Geoprocessing/AnalyzeHotspots)
 
-    This sample demonstrates how to use GeoprocessingTask to calculate a viewshed using a geoprocessing service. Click any point on the map to see all areas that are visible within a 1 kilometer radius. It may take a few seconds for the model to run and send back the results.
-
-## Analysis
-
-
-- **Geoprocessing**
+    This sample demonstrates how to execute the GeoprocessingTask asynchronously to calculate a hotspot analysis based on the frequency of 911 calls. It calculates the frequency of these calls within a given study area during a specified constrained time period set between 1/1/1998 and 5/31/1998.
 
     * [Viewshed (Geoprocessing)](Xamarin.iOS/Samples/Geoprocessing/AnalyzeViewshed)
 
@@ -322,6 +322,23 @@
     * [Display scene](Xamarin.iOS/Samples/Layers/DisplayScene)
 
     Demonstrates how to display a scene with an elevation data source. An elevation data source allows objects to be viewed in 3D, like this picture of Mt. Everest.
+
+## Hydrography
+
+
+- **Hydrography**
+
+    * [Add an ENC Exchange Set](Xamarin.iOS/Samples/Hydrography/AddEncExchangeSet)
+
+    This sample demonstrates how to load an ENC Exchange Set, including its component cells.
+
+    * [ENC Display Settings](Xamarin.iOS/Samples/Hydrography/ChangeEncDisplaySettings)
+
+    This sample demonstrates how to control ENC environment settings. These settings apply to the display of all ENC content in your app.
+
+    * [Select ENC Features](Xamarin.iOS/Samples/Hydrography/SelectEncFeatures)
+
+    This sample demonstrates how to select an ENC feature.
 
 ## Location
 

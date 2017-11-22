@@ -79,19 +79,95 @@ namespace ArcGISRuntimeXamarin.Samples.GeodatabaseTransactions
 
         private void CreateLayout()
         {
-            //TODO: Create the UI
+            //TODO: Get device width to evenly space buttons (set equal width)
+            var w = Resources.DisplayMetrics.WidthPixels;
+            var w2 = PixelsToDensityIndependentPixels(w);
+            var buttonWidth = w2 / 3;
 
-            // Create the layout
+            // button to start an edit transaction
+            _startEditingButton = new Button(this);
+            _startEditingButton.Text = "Start";
+            _startEditingButton.SetWidth(buttonWidth);
+            _startEditingButton.Click += BeginTransaction;
+
+            // button to stop a transaction
+            _stopEditingButton = new Button(this);
+            _stopEditingButton.Text = "Stop";
+            _stopEditingButton.SetWidth(buttonWidth);
+            _stopEditingButton.Enabled = false;
+            _stopEditingButton.Click += StopEditTransaction;
+
+            // button to synchronize local edits with the service
+            _syncEditsButton = new Button(this);
+            _syncEditsButton.Text ="Sync";       
+            _syncEditsButton.SetWidth(buttonWidth);
+            _syncEditsButton.Enabled = false;
+            _syncEditsButton.Click += SynchronizeEdits;
+
+            buttonWidth = w2 / 2;
+
+            // button to add bird features
+            _addBirdButton = new Button(this);
+            _addBirdButton.Text="Add Bird";
+            _addBirdButton.SetWidth(buttonWidth);
+            _addBirdButton.Enabled = false;
+            _addBirdButton.Click += AddNewFeature;
+
+            // button to add marine features
+            _addMarineButton = new Button(this);
+            _addMarineButton.Text = "Add Marine";
+            _addMarineButton.SetWidth(buttonWidth);
+            _addMarineButton.Enabled = false;            
+            _addMarineButton.Click += AddNewFeature;
+
+            // layout to hold the first row of buttons (start, stop, sync)
+            LinearLayout editButtonsRow1 = new LinearLayout(this);
+            editButtonsRow1.Orientation = Orientation.Horizontal;
+            editButtonsRow1.AddView(_startEditingButton);
+            editButtonsRow1.AddView(_stopEditingButton);
+            editButtonsRow1.AddView(_syncEditsButton);
+
+            // layout to hold the second row of buttons (add bird, add marine)
+            LinearLayout editButtonsRow2 = new LinearLayout(this);
+            editButtonsRow2.Orientation = Orientation.Horizontal;
+            editButtonsRow2.AddView(_addBirdButton);
+            editButtonsRow2.AddView(_addMarineButton);
+
+            // layout for the 'require transaction' switch
+            LinearLayout editSwitchRow = new LinearLayout(this);
+            editSwitchRow.Orientation = Orientation.Horizontal;
+            _requireTransactionSwitch = new Switch(this);
+            _requireTransactionSwitch.Checked = true;
+            _requireTransactionSwitch.Text = "Require transaction";
+            _requireTransactionSwitch.CheckedChange += RequireTransactionChanged;
+            editSwitchRow.AddView(_requireTransactionSwitch);
+
+            // progress bar
+            _progressBar = new ProgressBar(this);
+            _progressBar.Visibility = Android.Views.ViewStates.Gone;
+
+            // use the rest of the view to show status messages
+            _messageTextBlock = new TextView(this);
+
+            // Create the main layout
             LinearLayout layout = new LinearLayout(this);
             layout.Orientation = Orientation.Vertical;
 
+            // add the first row of buttons
+            layout.AddView(editButtonsRow1);
 
-            // Add the progress bar
-            _progressBar = new ProgressBar(this);
-            _progressBar.Visibility = Android.Views.ViewStates.Gone;
-            layout.AddView(_progressBar);
+            // add the second row of buttons
+            layout.AddView(editButtonsRow2);
 
+            // add the 'require transaction' switch and label
+            layout.AddView(editSwitchRow);
 
+            // add the messages text view
+            layout.AddView(_messageTextBlock);
+
+            // add the progress bar
+            layout.AddView(_progressBar);            
+            
             // Add the map view
             _mapView = new MapView(this);
             layout.AddView(_mapView);
@@ -115,6 +191,13 @@ namespace ArcGISRuntimeXamarin.Samples.GeodatabaseTransactions
             // create a new map with the oceans basemap and add it to the map view
             var map = new Map(Basemap.CreateOceans());
             _mapView.Map = map;
+        }
+
+        // a function to convert pixels to density independent pixels
+        private int PixelsToDensityIndependentPixels(float pixelValue)
+        {
+            int dips = (int)((pixelValue) / Resources.DisplayMetrics.Density);
+            return dips;
         }
 
         private async Task GetLocalGeodatabase()

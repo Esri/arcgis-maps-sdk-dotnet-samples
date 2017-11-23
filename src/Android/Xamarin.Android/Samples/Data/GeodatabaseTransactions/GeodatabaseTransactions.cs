@@ -79,44 +79,33 @@ namespace ArcGISRuntimeXamarin.Samples.GeodatabaseTransactions
 
         private void CreateLayout()
         {
-            //TODO: Get device width to evenly space buttons (set equal width)
-            var w = Resources.DisplayMetrics.WidthPixels;
-            var w2 = PixelsToDensityIndependentPixels(w);
-            var buttonWidth = w2 / 3;
-
             // button to start an edit transaction
             _startEditingButton = new Button(this);
             _startEditingButton.Text = "Start";
-            _startEditingButton.SetWidth(buttonWidth);
+            var g = new GridLayout(this);
             _startEditingButton.Click += BeginTransaction;
 
             // button to stop a transaction
             _stopEditingButton = new Button(this);
             _stopEditingButton.Text = "Stop";
-            _stopEditingButton.SetWidth(buttonWidth);
             _stopEditingButton.Enabled = false;
             _stopEditingButton.Click += StopEditTransaction;
 
             // button to synchronize local edits with the service
             _syncEditsButton = new Button(this);
-            _syncEditsButton.Text ="Sync";       
-            _syncEditsButton.SetWidth(buttonWidth);
+            _syncEditsButton.Text ="Sync";
             _syncEditsButton.Enabled = false;
             _syncEditsButton.Click += SynchronizeEdits;
-
-            buttonWidth = w2 / 2;
 
             // button to add bird features
             _addBirdButton = new Button(this);
             _addBirdButton.Text="Add Bird";
-            _addBirdButton.SetWidth(buttonWidth);
             _addBirdButton.Enabled = false;
             _addBirdButton.Click += AddNewFeature;
 
             // button to add marine features
             _addMarineButton = new Button(this);
             _addMarineButton.Text = "Add Marine";
-            _addMarineButton.SetWidth(buttonWidth);
             _addMarineButton.Enabled = false;            
             _addMarineButton.Click += AddNewFeature;
 
@@ -191,13 +180,6 @@ namespace ArcGISRuntimeXamarin.Samples.GeodatabaseTransactions
             // create a new map with the oceans basemap and add it to the map view
             var map = new Map(Basemap.CreateOceans());
             _mapView.Map = map;
-        }
-
-        // a function to convert pixels to density independent pixels
-        private int PixelsToDensityIndependentPixels(float pixelValue)
-        {
-            int dips = (int)((pixelValue) / Resources.DisplayMetrics.Density);
-            return dips;
         }
 
         private async Task GetLocalGeodatabase()

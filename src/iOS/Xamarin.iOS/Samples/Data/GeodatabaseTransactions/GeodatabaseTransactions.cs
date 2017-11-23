@@ -166,6 +166,7 @@ namespace ArcGISRuntimeXamarin.Samples.GeodatabaseTransactions
             UIStackView editSwitchRow = new UIStackView();
             editSwitchRow.Frame = new CoreGraphics.CGRect(0, 70, View.Bounds.Width, 35);
             editSwitchRow.Axis = UILayoutConstraintAxis.Horizontal;
+            _requireTransactionSwitch.On = true;
             _requireTransactionSwitch.ValueChanged += RequireTransactionChanged;
             editSwitchRow.Add(_requireTransactionSwitch);
 

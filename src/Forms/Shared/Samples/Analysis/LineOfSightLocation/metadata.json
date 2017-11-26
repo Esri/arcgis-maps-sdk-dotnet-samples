@@ -18,5 +18,6 @@
     "T:Esri.ArcGISRuntime.Mapping.ElevationSource",
     "T:Esri.ArcGISRuntime.Mapping.Surface",
     "T:Esri.ArcGISRuntime.UI.Controls.SceneView"
-  ]
+  ],
+  "SampleFolder": "LineOfSightLocation"
 }

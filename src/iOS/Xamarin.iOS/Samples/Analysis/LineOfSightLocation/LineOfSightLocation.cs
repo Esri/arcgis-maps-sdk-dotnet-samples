@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -9,15 +9,20 @@
 
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
+using Foundation;
 using System;
-using System.Windows.Media;
+using UIKit;
 
-namespace ArcGISRuntime.WPF.Samples.LineOfSightLocation
+namespace ArcGISRuntimeXamarin.Samples.LineOfSightLocation
 {
-
-    public partial class LineOfSightLocation
+    [Register("LineOfSightLocation")]
+    public class LineOfSightLocation : UIViewController
     {
+        // Create and hold reference to the used MapView
+        private SceneView _mySceneView = new SceneView();
+
         // URL for an image service to use as an elevation source
         private string _elevationSourceUrl = @"http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
 
@@ -31,17 +36,31 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightLocation
         private MapPoint _targetLocation = null;
 
         // Offset (meters) to use for the observer/target height (z-value for the points)
-        private double _zOffset = 2.0; 
+        private double _zOffset = 2.0;
 
         public LineOfSightLocation()
         {
-            InitializeComponent();
+            Title = "Line of sight location";
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+
+            // Create a layout that contains only a scene view, wire up touch events
+            CreateLayout();
 
             // Create the Scene, basemap, line of sight analysis, and analysis overlay
             Initialize();
+        }
 
-            // Handle taps on the scene view to define the observer or target point for the line of sight
-            MySceneView.GeoViewTapped += SceneViewTapped;
+        public override void ViewDidLayoutSubviews()
+        {
+            // Setup the visual frame for the MapView
+            _mySceneView.Frame = new CoreGraphics.CGRect(
+                0, 0, View.Bounds.Width, View.Bounds.Height);
+
+            base.ViewDidLayoutSubviews();
         }
 
         private void Initialize()
@@ -54,27 +73,36 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightLocation
             myScene.BaseSurface.ElevationSources.Add(elevationSrc);
 
             // Add the Scene to the SceneView
-            MySceneView.Scene = myScene;
-            
+            _mySceneView.Scene = myScene;
+
             // Set the viewpoint with a new camera
             Camera newCamera = new Camera(new MapPoint(-121.7, 45.4, SpatialReferences.Wgs84), 10000, 0, 45, 0);
-            MySceneView.SetViewpointCameraAsync(newCamera);
+            _mySceneView.SetViewpointCameraAsync(newCamera);
 
             // Create a new line of sight analysis with arbitrary points (observer and target will be defined by the user)
             _lineOfSightAnalysis = new LocationLineOfSight(new MapPoint(0.0, 0.0, SpatialReferences.Wgs84), new MapPoint(0.0, 0.0, SpatialReferences.Wgs84));
 
             // Set the visible and obstructed colors (default would be green/red)
             // These are static properties that apply to all line of sight analyses in the scene view
-            LineOfSight.VisibleColor = Colors.Cyan;
-            LineOfSight.ObstructedColor = Colors.Magenta;
-            
+            LineOfSight.VisibleColor = System.Drawing.Color.Cyan;
+            LineOfSight.ObstructedColor = System.Drawing.Color.Magenta;
+
             // Create an analysis overlay to contain the analysis and add it to the scene view
             AnalysisOverlay lineOfSightOverlay = new AnalysisOverlay();
             lineOfSightOverlay.Analyses.Add(_lineOfSightAnalysis);
-            MySceneView.AnalysisOverlays.Add(lineOfSightOverlay);
+            _mySceneView.AnalysisOverlays.Add(lineOfSightOverlay);
+        }
+        
+        private void CreateLayout()
+        {
+            // Wire up tapped event for the scene view
+            _mySceneView.GeoViewTapped += SceneViewTapped;
+
+            // Add SceneView to the page
+            View.AddSubviews(_mySceneView);
         }
 
-        private void SceneViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
+        private void SceneViewTapped(object sender, GeoViewInputEventArgs e)
         {
             // When the view is tapped, define the observer or target location with the tap point as appropriate
             if (_observerLocation == null)

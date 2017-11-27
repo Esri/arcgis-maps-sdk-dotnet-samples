@@ -6,10 +6,10 @@
     <Grid>
         <esriUI:SceneView x:Name="MySceneView"/>
         <Button x:Name="UpdateObserverButton"
-                Content="Viewshed from Here"
-                Width="160" Height="30"
-                HorizontalAlignment="Center" VerticalAlignment="Top"
-                Margin="0,30"
-                Click="UpdateObserverWithCamera"/>
+                Text="Viewshed from Here"
+                WidthRequest="160" HeightRequest="30"
+                HorizontalOptions="Center" VerticalOptions="Start"
+                Margin="0,5"
+                Clicked="UpdateObserverWithCamera"/>
     </Grid>
 </ContentPage>

@@ -29,6 +29,10 @@
 
     This sample illustrates how to show callouts on a map in response to user interaction.
 
+* [Feature layer time offset](ArcGISRuntime.WPF.Samples/Samples/MapView/FeatureLayerTimeOffset)
+
+    This sample demonstrates how to show data from the same service side-by-side with a time offset. This allows for the comparison of data over time.
+
 * [GeoView viewpoint synchronization](ArcGISRuntime.WPF.Samples/Samples/MapView/GeoViewSync)
 
     This sample demonstrates how to keep two geo views (MapView/SceneView) in sync with each other.
@@ -293,6 +297,20 @@
 * [Dynamic workspace shapefile](ArcGISRuntime.WPF.Samples/Samples/LocalServer/DynamicWorkspaceShapefile)
 
     This sample demonstrates how to dynamically add a local shapefile to a map using Local Server.
+
+## Hydrography
+
+* [Add an ENC Exchange Set](ArcGISRuntime.WPF.Samples/Samples/Hydrography/AddEncExchangeSet)
+
+    This sample demonstrates how to load an ENC Exchange Set, including its component cells.
+
+* [ENC Display Settings](ArcGISRuntime.WPF.Samples/Samples/Hydrography/ChangeEncDisplaySettings)
+
+    This sample demonstrates how to control ENC environment settings. These settings apply to the display of all ENC content in your app.
+
+* [Select ENC Features](ArcGISRuntime.WPF.Samples/Samples/Hydrography/SelectEncFeatures)
+
+    This sample demonstrates how to select an ENC feature.
 
 ## Location
 

@@ -65,7 +65,7 @@ namespace ArcGISRuntimeXamarin.Samples.RasterLayerFile
 			string folder = DataManager.GetDataFolder();
 
 			// Get the full path
-			return Path.Combine(folder, "SampleData", "RasterLayerFile", filename);
+			return Path.Combine(folder, "SampleData", "RasterLayerFile", "raster-file", filename);
 			#endregion offlinedata
 		}
     }

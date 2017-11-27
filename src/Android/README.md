@@ -32,6 +32,10 @@
 
     This sample illustrates how to show callouts on a map in response to user interaction.
 
+    * [Feature layer time offset](Xamarin.Android/Samples/MapView/FeatureLayerTimeOffset)
+
+    This sample demonstrates how to show data from the same service side-by-side with a time offset. This allows for the comparison of data over time.
+
     * [GeoView viewpoint synchronization](Xamarin.Android/Samples/MapView/GeoViewSync)
 
     This sample demonstrates how to keep two geo views (MapView/SceneView) in sync with each other.
@@ -326,6 +330,23 @@
     * [Find a route](Xamarin.Android/Samples/NetworkAnalysis/FindRoute)
 
     This sample demonstrates how to solve for the best route between two locations on the map and display driving directions between them.
+
+## Hydrography
+
+
+- **Hydrography**
+
+    * [Add an ENC Exchange Set](Xamarin.Android/Samples/Hydrography/AddEncExchangeSet)
+
+    This sample demonstrates how to load an ENC Exchange Set, including its component cells.
+
+    * [ENC Display Settings](Xamarin.Android/Samples/Hydrography/ChangeEncDisplaySettings)
+
+    This sample demonstrates how to control ENC environment settings. These settings apply to the display of all ENC content in your app.
+
+    * [Select ENC Features](Xamarin.Android/Samples/Hydrography/SelectEncFeatures)
+
+    This sample demonstrates how to select an ENC feature.
 
 ## Location
 

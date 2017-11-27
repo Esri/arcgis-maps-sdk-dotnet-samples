@@ -84,7 +84,9 @@ namespace ArcGISRuntime.Samples.Managers
             {
                 foreach(var entry in archive.Entries.Where(m => !String.IsNullOrWhiteSpace(m.Name)))
                 {
-                    entry.ExtractToFile(Path.Combine(folder, entry.Name), true);
+                    var path = Path.Combine(folder, entry.FullName);
+                    Directory.CreateDirectory(Path.GetDirectoryName(path));
+                    entry.ExtractToFile(path, true);
                 }
             }
         }

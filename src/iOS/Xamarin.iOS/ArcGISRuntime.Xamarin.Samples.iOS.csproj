@@ -130,6 +130,9 @@
     <Reference Include="Esri.ArcGISRuntime.Hydrography, Version=100.2.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.2.0\lib\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.dll</HintPath>
     </Reference>
+    <Reference Include="Esri.ArcGISRuntime.Preview, Version=100.2.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.2.0\lib\Xamarin.iOS10\Esri.ArcGISRuntime.Preview.dll</HintPath>
+    </Reference>
     <Reference Include="MonoTouch.Dialog-1" />
     <Reference Include="OpenTK-1.0" />
     <Reference Include="PCLCrypto, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d4421c8a4786956c, processorArchitecture=MSIL">
@@ -149,6 +152,7 @@
       <HintPath>..\..\..\packages\PInvoke.Windows.Core.0.5.86\lib\portable-net45+win8+wpa81\PInvoke.Windows.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Json" />
     <Reference Include="System.Runtime.Serialization" />
@@ -227,7 +231,8 @@
     <Compile Include="Models\SampleModelExtensions.cs" />
     <Compile Include="Models\SampleStructureMap.cs" />
     <Compile Include="Models\SubCategoryModel.cs" />
-    <Compile Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.cs" />
+    <Compile Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.cs" />
+    <Compile Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.cs" />    
     <Compile Include="ViewControllers\SamplesViewController.cs" />
     <Compile Include="ViewControllers\SearchResultsUpdater.cs" />
     <Compile Include="ViewControllers\SearchResultsViewController.cs" />
@@ -238,6 +243,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
+    <EmbeddedResource Include="Samples\Hydrography\SelectEncFeatures\metadata.json" />
+    <EmbeddedResource Include="Samples\Hydrography\ChangeEncDisplaySettings\metadata.json" />
+    <EmbeddedResource Include="Samples\Hydrography\AddEncExchangeSet\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\GeoViewSync\metadata.json" />
     <EmbeddedResource Include="groups.json" />
     <EmbeddedResource Include="Samples\Data\EditAndSyncFeatures\metadata.json" />
@@ -314,7 +322,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-    <EmbeddedResource Include="Samples\Analysis\LineOfSightLocation\metadata.json" />
+    <None Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg" />
+    <None Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
+    <None Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
+    <EmbeddedResource Include="Samples\Analysis\LineOfSightLocation\metadata.json" />    
     <None Include="Samples\MapView\GeoViewSync\GeoViewSync.jpg" />
     <None Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg" />
     <None Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.jpg" />
@@ -390,6 +401,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.cs" />
+    <Compile Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.cs" />
+    <Compile Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.cs" />
     <Compile Include="Samples\MapView\GeoViewSync\GeoViewSync.cs" />
     <Compile Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.cs" />
     <Compile Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.cs" />
@@ -478,4 +492,5 @@
   <Import Project="..\..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.2.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.2.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets')" />
   <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.2.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.2.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets')" />
+  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.2.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.2.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.targets')" />
 </Project>

@@ -28,6 +28,10 @@
 
     This sample illustrates how to show callouts on a map in response to user interaction.
 
+    * [Feature layer time offset](Xamarin.iOS/Samples/MapView/FeatureLayerTimeOffset)
+
+    This sample demonstrates how to show data from the same service side-by-side with a time offset. This allows for the comparison of data over time.
+
     * [GeoView viewpoint synchronization](Xamarin.iOS/Samples/MapView/GeoViewSync)
 
     This sample demonstrates how to keep two geo views (MapView/SceneView) in sync with each other.
@@ -318,6 +322,23 @@
     * [Display scene](Xamarin.iOS/Samples/Layers/DisplayScene)
 
     Demonstrates how to display a scene with an elevation data source. An elevation data source allows objects to be viewed in 3D, like this picture of Mt. Everest.
+
+## Hydrography
+
+
+- **Hydrography**
+
+    * [Add an ENC Exchange Set](Xamarin.iOS/Samples/Hydrography/AddEncExchangeSet)
+
+    This sample demonstrates how to load an ENC Exchange Set, including its component cells.
+
+    * [ENC Display Settings](Xamarin.iOS/Samples/Hydrography/ChangeEncDisplaySettings)
+
+    This sample demonstrates how to control ENC environment settings. These settings apply to the display of all ENC content in your app.
+
+    * [Select ENC Features](Xamarin.iOS/Samples/Hydrography/SelectEncFeatures)
+
+    This sample demonstrates how to select an ENC feature.
 
 ## Location
 

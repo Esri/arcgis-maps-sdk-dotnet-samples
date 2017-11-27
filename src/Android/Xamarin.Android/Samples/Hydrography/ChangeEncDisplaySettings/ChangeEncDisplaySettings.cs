@@ -29,7 +29,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
         private MapView _myMapView = new MapView();
 
         // Hold a reference to the (static) app-wide mariner settings
-        EncMarinerSettings _encMarinerSettings = EncEnvironmentSettings.Default.EncDisplaySettings.MarinerSettings;
+        private EncMarinerSettings _encMarinerSettings = EncEnvironmentSettings.Default.DisplaySettings.MarinerSettings;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -63,10 +63,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
             // Add each data set as a layer
             foreach (EncDataset myEncDataSet in myEncExchangeSet.Datasets)
             {
-                var path = myEncDataSet.Name.Replace("\\", "/");
-                // Create the cell and layer
-                EncCell cell = new EncCell(Path.Combine(Path.GetDirectoryName(encPath), path));
-                EncLayer myEncLayer = new EncLayer(cell);
+                EncLayer myEncLayer = new EncLayer(new EncCell(myEncDataSet));
 
                 // Add the layer to the map
                 _myMapView.Map.OperationalLayers.Add(myEncLayer);

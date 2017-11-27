@@ -100,7 +100,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeEncDisplaySettings
         private void UpdateDisplaySettings()
         {
             // Hold a reference to the application-wide ENC Display Settings
-            EncDisplaySettings globalDisplaySettings = EncEnvironmentSettings.Default.EncDisplaySettings;
+            EncDisplaySettings globalDisplaySettings = EncEnvironmentSettings.Default.DisplaySettings;
 
             // Hold a reference to the application-wide ENC Mariner Settings (part of display settings)
             EncMarinerSettings globalMarinerSettings = globalDisplaySettings.MarinerSettings;

@@ -67,6 +67,9 @@ namespace ArcGISRuntimeXamarin.Samples.WmsIdentify
             // Add the layer to the map
             _myMapView.Map.OperationalLayers.Add(myWmsLayer);
 
+            // Zoom to the layer's extent
+            _myMapView.SetViewpoint(new Viewpoint(myWmsLayer.FullExtent));
+
             // Subscribe to tap events - starting point for feature identification
             _myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
         }

@@ -29,10 +29,16 @@ namespace ArcGISRuntimeXamarin.Samples.WmsIdentify
         private Uri wmsUrl = new Uri("https://watersgeo.epa.gov/arcgis/services/OWPROGRAM/SDWIS_WMERC/MapServer/WMSServer?request=GetCapabilities&service=WMS");
 
         // Hold a list of uniquely-identifying WMS layer names to display
-        private List<String> wmsLayerNames = new List<string> { "4" };
+        private List<String> _wmsLayerNames = new List<string> { "4" };
 
         // Hold the WMS layer
-        private WmsLayer myWmsLayer;
+        private WmsLayer _myWmsLayer;
+
+        // Hold the webview for displaying identify result content
+        private WebKit.WKWebView _myWebview = new WebKit.WKWebView(new CoreGraphics.CGRect(), new WebKit.WKWebViewConfiguration());
+
+        // Button for dismissing the web view
+        private UIButton _myCloseButton = new UIButton();
 
         public WmsIdentify()
         {
@@ -43,6 +49,18 @@ namespace ArcGISRuntimeXamarin.Samples.WmsIdentify
         {
             // Add MapView to the page
             View.AddSubviews(_myMapView);
+
+            // Set close result button text
+            _myCloseButton.SetTitle("Close Result", UIControlState.Normal);
+            _myCloseButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
+
+            // Hide the results controls from the view
+            _myWebview.Hidden = true;
+            _myCloseButton.Hidden = true;
+            View.AddSubviews(_myWebview, _myCloseButton);
+
+            // Subscribe to close result events
+            _myCloseButton.TouchUpInside += (sender, e) => { HideHtml(); };
         }
 
         public override void ViewDidLoad()
@@ -55,9 +73,10 @@ namespace ArcGISRuntimeXamarin.Samples.WmsIdentify
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
+            // Setup the visual frame for the MapView, web view, and close result buttons
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-
+            _myWebview.Frame = new CoreGraphics.CGRect(50, 50, View.Bounds.Width - 100, View.Bounds.Height - 120);
+            _myCloseButton.Frame = new CoreGraphics.CGRect(10, View.Bounds.Height - 20, View.Bounds.Width, 20);
             base.ViewDidLayoutSubviews();
         }
 
@@ -70,13 +89,16 @@ namespace ArcGISRuntimeXamarin.Samples.WmsIdentify
             _myMapView.Map = myMap;
 
             // Create a new WMS layer displaying the specified layers from the service
-            myWmsLayer = new WmsLayer(wmsUrl, wmsLayerNames);
+            _myWmsLayer = new WmsLayer(wmsUrl, _wmsLayerNames);
 
             // Load the layer
-            await myWmsLayer.LoadAsync();
+            await _myWmsLayer.LoadAsync();
 
             // Add the layer to the map
-            _myMapView.Map.OperationalLayers.Add(myWmsLayer);
+            _myMapView.Map.OperationalLayers.Add(_myWmsLayer);
+
+            // Zoom to the layer's extent
+            _myMapView.SetViewpoint(new Viewpoint(_myWmsLayer.FullExtent));
 
             // Subscribe to tap events - starting point for feature identification
             _myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
@@ -85,7 +107,7 @@ namespace ArcGISRuntimeXamarin.Samples.WmsIdentify
         private async void _myMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             // Perform the identify operation
-            IdentifyLayerResult myIdentifyResult = await _myMapView.IdentifyLayerAsync(myWmsLayer, e.Position, 20, false);
+            IdentifyLayerResult myIdentifyResult = await _myMapView.IdentifyLayerAsync(_myWmsLayer, e.Position, 20, false);
 
             // Return if there's nothing to show
             if (myIdentifyResult.GeoElements.Count < 1)
@@ -99,20 +121,28 @@ namespace ArcGISRuntimeXamarin.Samples.WmsIdentify
             // Retrieve the WmsFeature's HTML content
             string htmlContent = identifiedFeature.Attributes["HTML"].ToString();
 
-            // Show a callout with the HTML content
-            ShowHtmlCallout(htmlContent, e.Location);
+            // Show a preview with the HTML content
+            ShowHtml(htmlContent, e.Location);
         }
 
-        private void ShowHtmlCallout(string htmlContent, MapPoint position)
+        private void ShowHtml(string htmlContent, MapPoint position)
         {
-            // Create the web browser control
-            WebKit.WKWebView htmlView = new WebKit.WKWebView(new CoreGraphics.CGRect(0, 0, 100, 200), new WebKit.WKWebViewConfiguration());
+            // Load the HTML content
+            _myWebview.LoadHtmlString(new NSString(htmlContent), new NSUrl(""));
 
-            // Display the string content as an HTML document
-            htmlView.LoadHtmlString(new NSString(htmlContent), new NSUrl("/"));
+            // Update the webview frame and add to view
+            _myWebview.Frame = new CoreGraphics.CGRect(50, 50, View.Bounds.Width - 100, View.Bounds.Height - 120);
+            _myWebview.Hidden = false;
 
-            // Create the callout with the browser
-            _myMapView.ShowCalloutAt(position, htmlView);
+            // Update the close button frame and add to view
+            _myCloseButton.Frame = new CoreGraphics.CGRect(10, View.Bounds.Height - 20, View.Bounds.Width, 20);
+            _myCloseButton.Hidden = false;
+        }
+
+        private void HideHtml()
+        {
+            _myWebview.Hidden = true;
+            _myCloseButton.Hidden = true;
         }
     }
 }

@@ -51,6 +51,9 @@ namespace ArcGISRuntime.UWP.Samples.WmsIdentify
             // Add the layer to the map
             MyMapView.Map.OperationalLayers.Add(myWmsLayer);
 
+            // Zoom to the layer's extent
+            MyMapView.SetViewpoint(new Viewpoint(myWmsLayer.FullExtent));
+
             // Subscribe to tap events - starting point for feature identification
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }

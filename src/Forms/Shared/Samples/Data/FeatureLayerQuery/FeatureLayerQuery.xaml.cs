@@ -123,7 +123,7 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerQuery
                     await DisplayAlert("State Not Found!", "Add a valid state name.", "OK");
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 await DisplayAlert("Sample error", "An error occurred", "OK");
             }

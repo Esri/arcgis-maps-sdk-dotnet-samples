@@ -287,7 +287,7 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
         // Function to handle authorization requests, takes the URIs for the secured service, the authorization endpoint, and the redirect URI
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
-            if (_tcs?.Task.IsCompleted == false)
+            if (_tcs != null && !_tcs.Task.IsCompleted)
                 throw new Exception("Task in progress");
 
             _tcs = new TaskCompletionSource<IDictionary<string, string>>();

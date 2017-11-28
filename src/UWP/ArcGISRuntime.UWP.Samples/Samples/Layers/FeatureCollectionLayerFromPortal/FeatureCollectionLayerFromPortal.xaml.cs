@@ -62,16 +62,16 @@ namespace ArcGISRuntime.UWP.Samples.FeatureCollectionLayerFromPortal
                 else
                 {
                     var messageDlg = new MessageDialog("Portal item with ID '" + itemId + "' is not a feature collection.", "Feature Collection");
-                    messageDlg.ShowAsync();
+                    await messageDlg.ShowAsync();
                 }
             }catch(Exception ex)
             {
                 var messageDlg = new MessageDialog("Unable to open item with ID '" + itemId + "': " + ex.Message, "Error");
-                messageDlg.ShowAsync();
+                await messageDlg.ShowAsync();
             }
         }        
 
-        private void OpenPortalFeatureCollectionClick(object sender, RoutedEventArgs e)
+        private async void OpenPortalFeatureCollectionClick(object sender, RoutedEventArgs e)
         {
             // Get the portal item Id from the user
             var collectionItemId = CollectionItemIdTextBox.Text.Trim();
@@ -80,7 +80,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureCollectionLayerFromPortal
             if(string.IsNullOrEmpty(collectionItemId))
             {
                 var messageDlg = new MessageDialog("Please enter a portal item ID", "Feature Collection ID");
-                messageDlg.ShowAsync();
+                await messageDlg.ShowAsync();
                 return;
             }
 

@@ -231,7 +231,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             catch (Exception ex)
             {
                 // Login failure
-                DisplayAlert("Login Error", ex.Message, "OK");
+                await DisplayAlert("Login Error", ex.Message, "OK");
             }
 
             return loggedIn;

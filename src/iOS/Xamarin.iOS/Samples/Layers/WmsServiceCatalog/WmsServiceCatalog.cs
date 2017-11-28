@@ -259,7 +259,6 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
 
         public LayerDisplayVM(WmsLayerInfo info)
         {
-            IsEnabled = false;
             this.Info = info;
         }
     }

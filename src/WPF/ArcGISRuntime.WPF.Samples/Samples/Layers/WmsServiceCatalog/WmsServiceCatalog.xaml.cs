@@ -144,7 +144,6 @@ namespace ArcGISRuntime.WPF.Samples.WmsServiceCatalog
 
         public LayerDisplayVM(WmsLayerInfo info)
         {
-            IsEnabled = false;
             this.Info = info;
         }
 

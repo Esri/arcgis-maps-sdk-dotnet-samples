@@ -30,7 +30,7 @@ namespace ArcGISRuntime.UWP.Samples.CreateFeatureCollectionLayer
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
             try
             {
@@ -44,7 +44,7 @@ namespace ArcGISRuntime.UWP.Samples.CreateFeatureCollectionLayer
             catch (Exception ex)
             {
                 MessageDialog messageDlg = new MessageDialog("Unable to create feature collection layer: " + ex.Message, "Error");
-                messageDlg.ShowAsync();
+                await messageDlg.ShowAsync();
             }
         }
         

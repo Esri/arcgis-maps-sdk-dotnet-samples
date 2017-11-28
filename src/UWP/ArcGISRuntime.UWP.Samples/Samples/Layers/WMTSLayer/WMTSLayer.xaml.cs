@@ -51,7 +51,7 @@ namespace ArcGISRuntime.UWP.Samples.WMTSLayer
             catch (Exception ex)
             {
                 MessageDialog messageDlg = new MessageDialog(ex.ToString(), "Error");
-                messageDlg.ShowAsync();
+                await messageDlg.ShowAsync();
             }
         }
 
@@ -95,7 +95,7 @@ namespace ArcGISRuntime.UWP.Samples.WMTSLayer
             catch (Exception ex)
             {
                 MessageDialog messageDlg = new MessageDialog(ex.ToString(), "Error");
-                messageDlg.ShowAsync();
+                await messageDlg.ShowAsync();
             }
         }
     }

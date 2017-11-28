@@ -51,7 +51,7 @@ namespace ArcGISRuntimeXamarin.Samples.WMTSLayer
             }
             catch (Exception ex)
             {
-                DisplayAlert("Sample error", ex.ToString(), "OK");
+                await DisplayAlert("Sample error", ex.ToString(), "OK");
             }
         }
 
@@ -94,7 +94,7 @@ namespace ArcGISRuntimeXamarin.Samples.WMTSLayer
             }
             catch (Exception ex)
             {
-                DisplayAlert("Sample error", ex.ToString(), "OK");
+                await DisplayAlert("Sample error", ex.ToString(), "OK");
             }
         }
     }

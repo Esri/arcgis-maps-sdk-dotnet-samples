@@ -125,7 +125,7 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerQuery
             }
             catch (Exception)
             {
-                DisplayAlert("Sample error", "An error occurred", "OK");
+                await DisplayAlert("Sample error", "An error occurred", "OK");
             }
         }
     }

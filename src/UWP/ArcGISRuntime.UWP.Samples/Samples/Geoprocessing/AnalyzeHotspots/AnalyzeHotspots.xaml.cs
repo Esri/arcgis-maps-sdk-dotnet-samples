@@ -127,12 +127,12 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeHotspots
                 if (_hotspotJob.Status == JobStatus.Failed && _hotspotJob.Error != null)
                 {
                     var message = new MessageDialog("Executing geoprocessing failed. " + _hotspotJob.Error.Message, "Geoprocessing error");
-                    message.ShowAsync();
+                    await message.ShowAsync();
                 }
                 else
                 {
                     var message = new MessageDialog("An error occurred. " + ex.ToString(), "Sample error");
-                    message.ShowAsync();
+                    await message.ShowAsync();
                 }
             }
             finally

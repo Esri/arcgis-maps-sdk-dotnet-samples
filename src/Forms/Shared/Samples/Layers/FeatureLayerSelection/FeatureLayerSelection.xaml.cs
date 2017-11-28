@@ -109,7 +109,7 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerSelection
             }
             catch (Exception ex)
             {
-                DisplayAlert("Sample error", ex.ToString(),"OK");
+                await DisplayAlert("Sample error", ex.ToString(),"OK");
             }
         }
     }

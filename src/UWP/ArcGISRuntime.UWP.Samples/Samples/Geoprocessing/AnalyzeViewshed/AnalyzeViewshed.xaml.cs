@@ -141,12 +141,12 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeViewshed
                 if (myViewshedJob.Status == JobStatus.Failed && myViewshedJob.Error != null)
                 {
                     var message = new MessageDialog("Executing geoprocessing failed. " + myViewshedJob.Error.Message, "Geoprocessing error");
-                    message.ShowAsync();
+                    await message.ShowAsync();
                 }
                 else
                 {
                     var message = new MessageDialog("An error occurred. " + ex.ToString(), "Sample error");
-                    message.ShowAsync();
+                    await message.ShowAsync();
                 }
             }
             finally

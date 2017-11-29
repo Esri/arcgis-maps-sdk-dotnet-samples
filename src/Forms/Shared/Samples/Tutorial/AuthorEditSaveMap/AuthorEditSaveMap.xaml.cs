@@ -151,7 +151,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                     await _mapViewModel.SaveNewMapAsync(currentViewpoint, title, description, tags, thumbnailImg);
 
                     // Report a successful save
-                    DisplayAlert("Map Saved", "Saved '" + title + "' to ArcGIS Online!", "OK");
+                    await DisplayAlert("Map Saved", "Saved '" + title + "' to ArcGIS Online!", "OK");
                 }
                 else
                 {
@@ -159,13 +159,13 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                     _mapViewModel.UpdateMapItem();
 
                     // Report success
-                    DisplayAlert("Map Updated", "Saved changes to '" + title + "'", "OK");
+                    await DisplayAlert("Map Updated", "Saved changes to '" + title + "'", "OK");
                 }
             }
             catch (Exception ex)
             {
                 // Show the exception message
-                DisplayAlert("Unable to save map", ex.Message, "OK");
+                await DisplayAlert("Unable to save map", ex.Message, "OK");
             }
         }
 

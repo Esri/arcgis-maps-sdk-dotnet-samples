@@ -68,6 +68,7 @@
     <BuildIpa>True</BuildIpa>
     <IpaIncludeArtwork>False</IpaIncludeArtwork>
     <DeviceSpecificBuild>False</DeviceSpecificBuild>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>full</DebugType>
@@ -88,6 +89,7 @@
     <MtouchEnableBitcode>False</MtouchEnableBitcode>
     <OptimizePNGs>True</OptimizePNGs>
     <MtouchFloat32>False</MtouchFloat32>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
     <DebugType>full</DebugType>
@@ -101,6 +103,7 @@
     <CodesignKey>iPhone Distribution</CodesignKey>
     <CodesignProvision>Automatic:AdHoc</CodesignProvision>
     <BuildIpa>true</BuildIpa>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|iPhone' ">
     <DebugType>full</DebugType>
@@ -112,6 +115,7 @@
     <MtouchArch>ARMv7, ARM64</MtouchArch>
     <CodesignProvision>Automatic:AppStore</CodesignProvision>
     <CodesignKey>iPhone Distribution</CodesignKey>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhoneSimulator'">
     <OutputPath>..\..\..\output\iOS\iPhoneSimulator\Ad-Hoc\</OutputPath>

@@ -20,14 +20,14 @@ namespace ArcGISRuntime.UWP.Samples.WmsIdentify
 {
     public partial class WmsIdentify
     {
-        // Hold the URL to the WMS service showing EPA water info
-        private Uri wmsUrl = new Uri("https://watersgeo.epa.gov/arcgis/services/OWPROGRAM/SDWIS_WMERC/MapServer/WMSServer?request=GetCapabilities&service=WMS");
+        // Create and hold the URL to the WMS service showing EPA water info
+        private Uri _wmsUrl = new Uri("https://watersgeo.epa.gov/arcgis/services/OWPROGRAM/SDWIS_WMERC/MapServer/WMSServer?request=GetCapabilities&service=WMS");
 
-        // Hold a list of uniquely-identifying WMS layer names to display
-        private List<String> wmsLayerNames = new List<string> { "4" };
+        // Crteate and hold a list of uniquely-identifying WMS layer names to display
+        private List<String> _wmsLayerNames = new List<string> { "4" };
 
         // Hold the WMS layer
-        private WmsLayer myWmsLayer;
+        private WmsLayer _wmsLayer;
 
         public WmsIdentify()
         {
@@ -43,16 +43,16 @@ namespace ArcGISRuntime.UWP.Samples.WmsIdentify
             MyMapView.Map = new Map(Basemap.CreateImagery());
 
             // Create a new WMS layer displaying the specified layers from the service
-            myWmsLayer = new WmsLayer(wmsUrl, wmsLayerNames);
+            _wmsLayer = new WmsLayer(_wmsUrl, _wmsLayerNames);
 
             // Load the layer
-            await myWmsLayer.LoadAsync();
+            await _wmsLayer.LoadAsync();
 
             // Add the layer to the map
-            MyMapView.Map.OperationalLayers.Add(myWmsLayer);
+            MyMapView.Map.OperationalLayers.Add(_wmsLayer);
 
             // Zoom to the layer's extent
-            MyMapView.SetViewpoint(new Viewpoint(myWmsLayer.FullExtent));
+            MyMapView.SetViewpoint(new Viewpoint(_wmsLayer.FullExtent));
 
             // Subscribe to tap events - starting point for feature identification
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
@@ -61,7 +61,7 @@ namespace ArcGISRuntime.UWP.Samples.WmsIdentify
         private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
         {
             // Perform the identify operation
-            IdentifyLayerResult myIdentifyResult = await MyMapView.IdentifyLayerAsync(myWmsLayer, e.Position, 20, false);
+            IdentifyLayerResult myIdentifyResult = await MyMapView.IdentifyLayerAsync(_wmsLayer, e.Position, 20, false);
 
             // Return if there's nothing to show
             if (myIdentifyResult.GeoElements.Count() < 1)

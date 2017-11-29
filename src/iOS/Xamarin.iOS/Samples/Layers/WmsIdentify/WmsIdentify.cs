@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -25,20 +26,14 @@ namespace ArcGISRuntimeXamarin.Samples.WmsIdentify
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 
-        // Hold the URL to the WMS service showing EPA water info
-        private Uri wmsUrl = new Uri("https://watersgeo.epa.gov/arcgis/services/OWPROGRAM/SDWIS_WMERC/MapServer/WMSServer?request=GetCapabilities&service=WMS");
+        // Create and hold the URL to the WMS service showing EPA water info
+        private Uri _wmsUrl = new Uri("https://watersgeo.epa.gov/arcgis/services/OWPROGRAM/SDWIS_WMERC/MapServer/WMSServer?request=GetCapabilities&service=WMS");
 
-        // Hold a list of uniquely-identifying WMS layer names to display
+        // Create and hold a list of uniquely-identifying WMS layer names to display
         private List<String> _wmsLayerNames = new List<string> { "4" };
 
         // Hold the WMS layer
-        private WmsLayer _myWmsLayer;
-
-        // Hold the webview for displaying identify result content
-        private WebKit.WKWebView _myWebview = new WebKit.WKWebView(new CoreGraphics.CGRect(), new WebKit.WKWebViewConfiguration());
-
-        // Button for dismissing the web view
-        private UIButton _myCloseButton = new UIButton();
+        private WmsLayer _wmsLayer;
 
         public WmsIdentify()
         {
@@ -49,18 +44,6 @@ namespace ArcGISRuntimeXamarin.Samples.WmsIdentify
         {
             // Add MapView to the page
             View.AddSubviews(_myMapView);
-
-            // Set close result button text
-            _myCloseButton.SetTitle("Close Result", UIControlState.Normal);
-            _myCloseButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
-
-            // Hide the results controls from the view
-            _myWebview.Hidden = true;
-            _myCloseButton.Hidden = true;
-            View.AddSubviews(_myWebview, _myCloseButton);
-
-            // Subscribe to close result events
-            _myCloseButton.TouchUpInside += (sender, e) => { HideHtml(); };
         }
 
         public override void ViewDidLoad()
@@ -74,9 +57,7 @@ namespace ArcGISRuntimeXamarin.Samples.WmsIdentify
         public override void ViewDidLayoutSubviews()
         {
             // Setup the visual frame for the MapView, web view, and close result buttons
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myWebview.Frame = new CoreGraphics.CGRect(50, 50, View.Bounds.Width - 100, View.Bounds.Height - 120);
-            _myCloseButton.Frame = new CoreGraphics.CGRect(10, View.Bounds.Height - 20, View.Bounds.Width, 20);
+            _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
             base.ViewDidLayoutSubviews();
         }
 
@@ -89,16 +70,16 @@ namespace ArcGISRuntimeXamarin.Samples.WmsIdentify
             _myMapView.Map = myMap;
 
             // Create a new WMS layer displaying the specified layers from the service
-            _myWmsLayer = new WmsLayer(wmsUrl, _wmsLayerNames);
+            _wmsLayer = new WmsLayer(_wmsUrl, _wmsLayerNames);
 
             // Load the layer
-            await _myWmsLayer.LoadAsync();
+            await _wmsLayer.LoadAsync();
 
             // Add the layer to the map
-            _myMapView.Map.OperationalLayers.Add(_myWmsLayer);
+            _myMapView.Map.OperationalLayers.Add(_wmsLayer);
 
             // Zoom to the layer's extent
-            _myMapView.SetViewpoint(new Viewpoint(_myWmsLayer.FullExtent));
+            _myMapView.SetViewpoint(new Viewpoint(_wmsLayer.FullExtent));
 
             // Subscribe to tap events - starting point for feature identification
             _myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
@@ -107,7 +88,7 @@ namespace ArcGISRuntimeXamarin.Samples.WmsIdentify
         private async void _myMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             // Perform the identify operation
-            IdentifyLayerResult myIdentifyResult = await _myMapView.IdentifyLayerAsync(_myWmsLayer, e.Position, 20, false);
+            IdentifyLayerResult myIdentifyResult = await _myMapView.IdentifyLayerAsync(_wmsLayer, e.Position, 20, false);
 
             // Return if there's nothing to show
             if (myIdentifyResult.GeoElements.Count < 1)
@@ -127,22 +108,37 @@ namespace ArcGISRuntimeXamarin.Samples.WmsIdentify
 
         private void ShowHtml(string htmlContent, MapPoint position)
         {
+            // Create the web view
+            WebKit.WKWebView myWebView = new WebKit.WKWebView(new CGRect(), new WebKit.WKWebViewConfiguration());
+
             // Load the HTML content
-            _myWebview.LoadHtmlString(new NSString(htmlContent), new NSUrl(""));
+            myWebView.LoadHtmlString(new NSString(htmlContent), new NSUrl(""));
 
-            // Update the webview frame and add to view
-            _myWebview.Frame = new CoreGraphics.CGRect(50, 50, View.Bounds.Width - 100, View.Bounds.Height - 120);
-            _myWebview.Hidden = false;
-
-            // Update the close button frame and add to view
-            _myCloseButton.Frame = new CoreGraphics.CGRect(10, View.Bounds.Height - 20, View.Bounds.Width, 20);
-            _myCloseButton.Hidden = false;
+            // Show the callout
+            _myMapView.ShowCalloutAt(position, new WebViewWrapper(myWebView));
         }
 
-        private void HideHtml()
+        // Class to override UIView; ShowCalloutAt uses IntrinsicContentSize to calculate the layout
+        //     Because IntrinsicContentSize is get-only, a custom UI view is being used to override that behavior.
+        //     The wrapper view overrides IntrinsicContentSize and updates the child webview to fill the custom view.
+        private class WebViewWrapper : UIView
         {
-            _myWebview.Hidden = true;
-            _myCloseButton.Hidden = true;
+            // Override intrinsic size so that the view displays properly in a callout
+            public override CGSize IntrinsicContentSize => new CGSize(200, 100);
+
+            // Hold a reference to the webview that is being wrapped
+            private WebKit.WKWebView webview;
+
+            public WebViewWrapper(WebKit.WKWebView view)
+            {
+                this.webview = view;
+
+                // Add the webview as a subview
+                AddSubview(webview);
+
+                // Make the webview frame fill the wrapper view
+                webview.Frame = new CGRect(0, 0, 200, 100);
+            }
         }
     }
 }

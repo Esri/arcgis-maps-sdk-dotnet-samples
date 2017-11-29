@@ -27,14 +27,14 @@ namespace ArcGISRuntimeXamarin.Samples.WmsIdentify
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 
-        // Hold the URL to the WMS service showing EPA water info
-        private Uri wmsUrl = new Uri("https://watersgeo.epa.gov/arcgis/services/OWPROGRAM/SDWIS_WMERC/MapServer/WMSServer?request=GetCapabilities&service=WMS");
+        // Create and hold the URL to the WMS service showing EPA water info
+        private Uri _wmsUrl = new Uri("https://watersgeo.epa.gov/arcgis/services/OWPROGRAM/SDWIS_WMERC/MapServer/WMSServer?request=GetCapabilities&service=WMS");
 
-        // Hold a list of uniquely-identifying WMS layer names to display
-        private List<String> wmsLayerNames = new List<string> { "4" };
+        // Create and hold a list of uniquely-identifying WMS layer names to display
+        private List<String> _wmsLayerNames = new List<string> { "4" };
 
         // Hold the WMS layer
-        private WmsLayer myWmsLayer;
+        private WmsLayer _wmsLayer;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -55,20 +55,17 @@ namespace ArcGISRuntimeXamarin.Samples.WmsIdentify
             // Provide used Map to the MapView
             _myMapView.Map = myMap;
 
-            // Provide used Map to the MapView
-            _myMapView.Map = myMap;
-
             // Create a new WMS layer displaying the specified layers from the service
-            myWmsLayer = new WmsLayer(wmsUrl, wmsLayerNames);
+            _wmsLayer = new WmsLayer(_wmsUrl, _wmsLayerNames);
 
             // Load the layer
-            await myWmsLayer.LoadAsync();
+            await _wmsLayer.LoadAsync();
 
             // Add the layer to the map
-            _myMapView.Map.OperationalLayers.Add(myWmsLayer);
+            _myMapView.Map.OperationalLayers.Add(_wmsLayer);
 
             // Zoom to the layer's extent
-            _myMapView.SetViewpoint(new Viewpoint(myWmsLayer.FullExtent));
+            _myMapView.SetViewpoint(new Viewpoint(_wmsLayer.FullExtent));
 
             // Subscribe to tap events - starting point for feature identification
             _myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
@@ -89,7 +86,7 @@ namespace ArcGISRuntimeXamarin.Samples.WmsIdentify
         private async void _myMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             // Perform the identify operation
-            IdentifyLayerResult myIdentifyResult = await _myMapView.IdentifyLayerAsync(myWmsLayer, e.Position, 20, false);
+            IdentifyLayerResult myIdentifyResult = await _myMapView.IdentifyLayerAsync(_wmsLayer, e.Position, 20, false);
 
             // Return if there's nothing to show
             if (myIdentifyResult.GeoElements.Count < 1)

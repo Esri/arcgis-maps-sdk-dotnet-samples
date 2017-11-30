@@ -102,6 +102,9 @@ namespace ArcGISRuntimeXamarin.Samples.WmsIdentify
             // Retrieve the WmsFeature's HTML content
             string htmlContent = identifiedFeature.Attributes["HTML"].ToString();
 
+            // Note that the service returns a boilerplate HTML result if there is no feature found;
+            //    here might be a good place to check for that and filter out spurious results
+
             // Show a preview with the HTML content
             ShowHtml(htmlContent, e.Location);
         }
@@ -118,13 +121,13 @@ namespace ArcGISRuntimeXamarin.Samples.WmsIdentify
             _myMapView.ShowCalloutAt(position, new WebViewWrapper(myWebView));
         }
 
-        // Class to override UIView; ShowCalloutAt uses IntrinsicContentSize to calculate the layout
-        //     Because IntrinsicContentSize is get-only, a custom UI view is being used to override that behavior.
-        //     The wrapper view overrides IntrinsicContentSize and updates the child webview to fill the custom view.
+        // Class to override UIView; ShowCalloutAt uses IntrinsicContentSize to calculate the layout.
+        // Because IntrinsicContentSize is get-only, a custom UI view is being used to override that behavior.
+        // The wrapper view overrides IntrinsicContentSize and updates the child webview to fill the custom view.
         private class WebViewWrapper : UIView
         {
             // Override intrinsic size so that the view displays properly in a callout
-            public override CGSize IntrinsicContentSize => new CGSize(200, 100);
+            public override CGSize IntrinsicContentSize => new CGSize(175, 100);
 
             // Hold a reference to the webview that is being wrapped
             private WebKit.WKWebView webview;
@@ -137,7 +140,7 @@ namespace ArcGISRuntimeXamarin.Samples.WmsIdentify
                 AddSubview(webview);
 
                 // Make the webview frame fill the wrapper view
-                webview.Frame = new CGRect(0, 0, 200, 100);
+                webview.Frame = new CGRect(0, 0, 175, 100);
             }
         }
     }

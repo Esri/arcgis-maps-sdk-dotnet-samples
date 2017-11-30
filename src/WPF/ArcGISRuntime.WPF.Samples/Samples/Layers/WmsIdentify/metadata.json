@@ -2,13 +2,18 @@
   "Name": "Identify WMS Features",
   "SampleName": "WmsIdentify",
   "Description": "This sample demonstrates how to identify WMS features and display the associated content for an identified WMS feature.",
-  "Instructions": "Tap or click on a feature. A callout appears with the returned content for the WMS feature.",
+  "Instructions": "Tap or click on a feature. A callout appears with the returned content for the WMS feature. Note that due to the nature of the WMS service implementation, an empty callout is shown when there is no result; an application might inspect the HTML to determine if the HTML actually contains a feature.",
   "Type": 0,
   "RequiresOnlineConnection": true,
   "RequiresOfflineData": false,
   "RequiresLocalServer": false,
   "Image": "WmsIdentify.jpg",
   "Link": "",
-  "TypeLink": [ "T:Esri.ArcGISRuntime.Ogc.WmsFeature" ],
+  "TypeLink": [
+    "T:Esri.ArcGISRuntime.Ogc.WmsFeature",
+    "M:Esri.ArcGISRuntime.Mapping.WmsLayer.#ctor(System.Uri,System.Collections.Generic.IEnumerable{System.String})",
+    "M:Esri.ArcGISRuntime.UI.Controls.GeoView.IdentifyLayerAsync(Esri.ArcGISRuntime.Mapping.Layer,System.Windows.Point,System.Double,System.Boolean)",
+    "M:Esri.ArcGISRuntime.UI.Controls.GeoView.ShowCalloutAt(Esri.ArcGISRuntime.Geometry.MapPoint,System.Windows.UIElement,System.Windows.Point)"
+  ],
   "SampleFolder": "WmsIdentify"
 }

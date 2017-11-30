@@ -100,6 +100,9 @@ namespace ArcGISRuntimeXamarin.Samples.WmsIdentify
             // Retrieve the WmsFeature's HTML content
             string htmlContent = identifiedFeature.Attributes["HTML"].ToString();
 
+            // Note that the service returns a boilerplate HTML result if there is no feature found;
+            //    here might be a good place to check for that and filter out spurious results
+
             // Show a callout with the HTML content
             ShowHtmlCallout(htmlContent, e.Location);
         }

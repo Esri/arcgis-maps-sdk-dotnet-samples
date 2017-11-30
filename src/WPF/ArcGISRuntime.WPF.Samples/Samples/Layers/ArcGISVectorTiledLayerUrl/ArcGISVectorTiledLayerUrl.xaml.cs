@@ -53,6 +53,9 @@ namespace ArcGISRuntime.WPF.Samples.ArcGISVectorTiledLayerUrl
 
             // Assign the map to the MapView
             MyMapView.Map = myMap;
+
+            // Update UI to match selection
+            vectorLayersChooser.SelectedIndex = 3;
         }
 
         private void OnVectorLayersChooserSelectionChanged(object sender, SelectionChangedEventArgs e)

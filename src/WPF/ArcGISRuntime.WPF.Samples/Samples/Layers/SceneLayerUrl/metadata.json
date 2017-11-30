@@ -1,5 +1,5 @@
 {
-  "Name": "ArcGIS Scene layer (URL)",
+  "Name": "ArcGIS scene layer (URL)",
   "SampleName": "SceneLayerUrl",
   "Description": "This sample demonstrates how to add an ArcGISSceneLayer as a layer in a Scene.",
   "Instructions": "",

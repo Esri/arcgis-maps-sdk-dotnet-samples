@@ -15,7 +15,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
-            <TextBlock x:Name="loadStatusTextBlock" Text="Maps' load status : "/>
+            <TextBlock x:Name="loadStatusTextBlock" Text="Map's load status : "/>
         </StackPanel>
         <esriUI:MapView x:Name="myMapView"  Grid.Row="1"/>
     </Grid>

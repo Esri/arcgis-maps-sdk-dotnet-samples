@@ -13,9 +13,10 @@
                 HorizontalAlignment="Right" VerticalAlignment="Top"
                 Margin="30" Padding="20" Width="375">
             <StackPanel>
-                <Button Content="Generate Geodatabase" Click="GenerateButton_Clicked" />
+                <Button Content="Generate Geodatabase" Click="GenerateButton_Clicked" x:Name="MyGenerateButton" IsEnabled="False" />
                 <Button Content="Sync Geodatabase" Click="SyncButton_Click" IsEnabled="False" x:Name="MySyncButton" />
                 <ProgressBar x:Name="MyProgressBar" Visibility="Collapsed" MinHeight="10" />
+                <Label Foreground="Red" x:Name="MyHelpLabel">1. Click 'Generate Geodatabase'</Label>
             </StackPanel>
         </Border>
     </Grid>

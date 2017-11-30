@@ -44,6 +44,8 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
 
             // Create the UI, setup the control references and execute initialization
             Initialize();
+
+            throw new Exception("You lose!");
         }
 
         private async void Initialize()
@@ -76,9 +78,6 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
             // Set up an event handler for when the viewpoint (extent) changes
             MyMapView.ViewpointChanged += MapViewExtentChanged;
 
-            // Update the local data path for the geodatabase file
-            _gdbPath = GetGdbPath();
-
             // Create a task for generating a geodatabase (GeodatabaseSyncTask)
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
@@ -97,6 +96,12 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
                     myMap.OperationalLayers.Add(new FeatureLayer(onlineTable));
                 }
             }
+
+            // Update the graphic - needed in case the user decides not to interact before pressing the button
+            UpdateMapExtent();
+
+            // Enable the generate button
+            MyGenerateButton.IsEnabled = true;
         }
 
         private void UpdateMapExtent()
@@ -246,7 +251,7 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
         private string GetGdbPath()
         {
             // Return the WPF-specific path for storing the geodatabase
-            return Environment.ExpandEnvironmentVariables("%TEMP%\\wildfire.geodatabase");
+            return Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), Path.GetTempFileName() + ".geodatabase");
         }
 
         private void ShowStatusMessage(string message)
@@ -258,6 +263,12 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
         // Handler for the generate button clicked event
         private void GenerateButton_Clicked(object sender, RoutedEventArgs e)
         {
+            // Update the gdb path for the new run
+            _gdbPath = GetGdbPath();
+
+            // Prevent the user from clicking twice - errors happen
+            MyGenerateButton.IsEnabled = false;
+
             // Call the cross-platform geodatabase generation method
             StartGeodatabaseGeneration();
         }
@@ -279,10 +290,11 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
             //     the dispatcher needs to be used to interact with the UI
             this.Dispatcher.Invoke(() =>
             {
-                // Hide the progress bar if the job is finished
+                // Hide the progress bar and re-enable button if the job is finished
                 if (job.Status == JobStatus.Succeeded || job.Status == JobStatus.Failed)
                 {
                     MyProgressBar.Visibility = Visibility.Collapsed;
+                    MyGenerateButton.IsEnabled = true;
                 }
                 else // Show it otherwise
                 {

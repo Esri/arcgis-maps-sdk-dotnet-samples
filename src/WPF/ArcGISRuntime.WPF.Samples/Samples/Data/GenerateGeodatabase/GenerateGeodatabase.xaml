@@ -13,7 +13,7 @@
                 HorizontalAlignment="Right" VerticalAlignment="Top"
                 Margin="30" Padding="20" Width="375">
             <StackPanel>
-                <Button Content="Generate Geodatabase" Click="GenerateButton_Clicked" />
+                <Button x:Name="MyGenerateButton" Content="Generate Geodatabase" Click="GenerateButton_Clicked" IsEnabled="False" />
                 <ProgressBar x:Name="MyProgressBar" Visibility="Collapsed" MinHeight="10" />
             </StackPanel>
         </Border>

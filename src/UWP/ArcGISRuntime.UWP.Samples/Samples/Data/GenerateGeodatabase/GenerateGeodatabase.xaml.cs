@@ -45,6 +45,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
 
             // Create the UI, setup the control references and execute initialization
             Initialize();
+            
         }
 
         private async void Initialize()
@@ -149,7 +150,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
             // Get the current extent of the red preview box
-            Envelope extent = MyMapView.GraphicsOverlays.FirstOrDefault().Extent as Envelope;
+            Envelope extent = MyMapView.GraphicsOverlays.FirstOrDefault().Graphics.FirstOrDefault().Geometry as Envelope;
 
             // Get the default parameters for the generate geodatabase task
             GenerateGeodatabaseParameters generateParams = await _gdbSyncTask.CreateDefaultGenerateGeodatabaseParametersAsync(extent);

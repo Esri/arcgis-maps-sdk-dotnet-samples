@@ -248,10 +248,10 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
             // Get the (only) graphic in the map view
-            GraphicsOverlay redPreviewBox = MyMapView.GraphicsOverlays.FirstOrDefault();
+            Graphic redPreviewBox = MyMapView.GraphicsOverlays.FirstOrDefault().Graphics.FirstOrDefault();
 
             // Get the current extent of the red preview box
-            Envelope extent = redPreviewBox.Extent as Envelope;
+            Envelope extent = redPreviewBox.Geometry as Envelope;
 
             // Get the default parameters for the generate geodatabase task
             GenerateGeodatabaseParameters generateParams = await _gdbSyncTask.CreateDefaultGenerateGeodatabaseParametersAsync(extent);

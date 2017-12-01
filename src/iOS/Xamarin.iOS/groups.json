@@ -346,6 +346,10 @@
               "Path": "Samples/Geoprocessing/AnalyzeViewshed"
             },
             {
+              "SampleName": "LineOfSightLocation",
+              "Path": "Samples/Analysis/LineOfSightLocation"
+            },
+            {
               "SampleName": "ListGeodatabaseVersions",
               "Path": "Samples/Geoprocessing/ListGeodatabaseVersions"
             }

@@ -106,21 +106,13 @@
                           Margin="5,0">
                 <AppBarButton.Flyout>
                     <Flyout>
-                        <ListView x:Name="BasemapListView">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <RadioButton GroupName="Basemaps" 
-                                                 Content="{Binding}" 
-                                                 Checked="BasemapItemClick" />
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
+                        <ListView x:Name="BasemapListView" SelectionChanged="BasemapListView_SelectionChanged" />
                     </Flyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
             <AppBarButton Content="Layers">
                 <AppBarButton.Flyout>
-                    <Flyout>
+                    <Flyout AllowFocusOnInteraction="True">
                         <ListView x:Name="LayerListView"
                                   SelectionMode="Multiple"
                                   DisplayMemberPath="Key"
@@ -133,7 +125,7 @@
             <AppBarButton Content="Save ..."
                           Margin="5,0">
                 <AppBarButton.Flyout>
-                    <Flyout x:Name="SaveMapFlyout">
+                    <Flyout x:Name="SaveMapFlyout" AllowFocusOnInteraction="True">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>

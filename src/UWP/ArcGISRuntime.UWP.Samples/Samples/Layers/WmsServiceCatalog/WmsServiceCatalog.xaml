@@ -10,7 +10,14 @@
                 HorizontalAlignment="Right" VerticalAlignment="Top"
                 Margin="30" Padding="20" Width="375">
             <Grid>
-                <ListBox x:Name="MyDisplayList" SelectionMode="Multiple" SelectionChanged="MyDisplayList_SelectionChanged_1" />
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Text="Select a WMS layer from the list for display:" Grid.Row="0" />
+                <ListBox x:Name="MyDisplayList" SelectionMode="Multiple" SelectionChanged="MyDisplayList_SelectionChanged_1" Grid.Row="1" />
+                <TextBlock Foreground="Red" Text="Note: above list does not show layer hierarchy" Grid.Row="2" />
             </Grid>
         </Border>
     </Grid>

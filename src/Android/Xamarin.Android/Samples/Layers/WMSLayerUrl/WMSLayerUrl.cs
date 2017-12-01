@@ -10,6 +10,7 @@
 using Android.App;
 using Android.OS;
 using Android.Widget;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
@@ -58,6 +59,10 @@ namespace ArcGISRuntimeXamarin.Samples.WMSLayerUrl
         {
             // Apply an imagery basemap to the map
             _myMapView.Map = new Map(Basemap.CreateImagery());
+
+            // Set the initial viewpoint
+            _myMapView.Map.InitialViewpoint = new Viewpoint(
+                new MapPoint(25.450, -4.59, new SpatialReference(4326)), 1000000);
 
             // Create a new WMS layer displaying the specified layers from the service
             WmsLayer myWmsLayer = new WmsLayer(wmsUrl, wmsLayerNames);

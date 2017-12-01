@@ -36,7 +36,8 @@ namespace ArcGISRuntime.WPF.Samples.WMSLayerUrl
             MyMapView.Map = new Map(Basemap.CreateImagery());
 
             // Set the initial viewpoint
-            MyMapView.Map.InitialViewpoint = new Viewpoint(new MapPoint(25.450, -4.59, new SpatialReference(4326)), 1000000);
+            MyMapView.Map.InitialViewpoint = new Viewpoint(
+                new MapPoint(25.450, -4.59, new SpatialReference(4326)), 1000000);
 
             // Create a new WMS layer displaying the specified layers from the service
             WmsLayer myWmsLayer = new WmsLayer(wmsUrl, wmsLayerNames);

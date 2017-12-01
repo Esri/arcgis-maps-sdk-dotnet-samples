@@ -75,11 +75,11 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
             // Add graphics overlay to the map view
             MyMapView.GraphicsOverlays.Add(extentOverlay);
 
+            // Update the extent graphic so that it is valid before user interaction
+            UpdateMapExtent();
+
             // Set up an event handler for when the viewpoint (extent) changes
             MyMapView.ViewpointChanged += MapViewExtentChanged;
-
-            // Update the local data path for the geodatabase file
-            _gdbPath = GetGdbPath();
 
             // Create a task for generating a geodatabase (GeodatabaseSyncTask)
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
@@ -146,6 +146,9 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
 
         private async void StartGeodatabaseGeneration()
         {
+            // Update the geodatabase path
+            _gdbPath = GetGdbPath();
+
             // Create a task for generating a geodatabase (GeodatabaseSyncTask)
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
@@ -198,6 +201,9 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
 
                 // Tell the user that the geodatabase was unregistered
                 ShowStatusMessage("Since no edits will be made, the local geodatabase has been unregistered per best practice.");
+
+                // Re-enabled the generate button
+                MyGenerateButton.IsEnabled = true;
             }
 
             // See if the job failed
@@ -248,8 +254,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
         private string GetGdbPath()
         {
             // Get the UWP-specific path for storing the geodatabase
-            string folder = Windows.Storage.ApplicationData.Current.LocalFolder.Path.ToString();
-            return Path.Combine(folder, "wildfire.geodatabase");
+            return $"{Path.GetTempFileName()}.geodatabase";
         }
 
         private async void ShowStatusMessage(string message)
@@ -262,7 +267,10 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
         // Handler for the generate button clicked event
         private void GenerateButton_Clicked(object sender, RoutedEventArgs e)
         {
-            // Call the cross-platform geodatabase generation method
+            // Disable the generate button
+            MyGenerateButton.IsEnabled = false;
+
+            // Call the geodatabase generation method
             StartGeodatabaseGeneration();
         }
 

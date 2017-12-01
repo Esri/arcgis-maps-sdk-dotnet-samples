@@ -27,8 +27,8 @@ namespace ArcGISRuntime.UWP.Samples.ExportTiles
         // URL to the service tiles will be exported from
         private Uri _serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer");
 
-        // Keep count of how many times sample has run to avoid overwriting cache files
-        private int _runcount = 0;
+        // Path to the tile package on disk
+        private string _tilePath;
 
         public ExportTiles()
         {
@@ -49,6 +49,10 @@ namespace ArcGISRuntime.UWP.Samples.ExportTiles
             // Create the basemap with the layer
             Map myMap = new Map(new Basemap(myLayer));
 
+            // Set the min and max scale - export task fails if the scale is too big or small
+            myMap.MaxScale = 5000000;
+            myMap.MinScale = 10000000;
+
             // Assign the map to the mapview
             MyMapView.Map = myMap;
 
@@ -62,6 +66,9 @@ namespace ArcGISRuntime.UWP.Samples.ExportTiles
 
             // Add graphics overlay to the map view
             MyMapView.GraphicsOverlays.Add(extentOverlay);
+
+            // Update the extent graphic so that it is valid before user interaction
+            UpdateMapExtentGraphic();
 
             // Subscribe to changes in the mapview's viewpoint so the preview box can be kept in position
             MyMapView.ViewpointChanged += MyMapView_ViewpointChanged;
@@ -123,8 +130,7 @@ namespace ArcGISRuntime.UWP.Samples.ExportTiles
         private string GetTilePath()
         {
             // Return the platform-specific path for storing the tile cache
-            string folder = Windows.Storage.ApplicationData.Current.LocalFolder.Path.ToString();
-            return Path.Combine(folder, String.Format("myTileCache{0}.tpk", _runcount));
+            return $"{Path.GetTempFileName()}.tpk";
         }
 
         /// <summary>
@@ -139,10 +145,10 @@ namespace ArcGISRuntime.UWP.Samples.ExportTiles
             ExportTileCacheTask exportTask = await ExportTileCacheTask.CreateAsync(_serviceUri);
 
             // Get the tile cache path
-            String filePath = GetTilePath();
+            _tilePath = GetTilePath();
 
             // Create the export job
-            ExportTileCacheJob job = exportTask.ExportTileCache(parameters, filePath);
+            ExportTileCacheJob job = exportTask.ExportTileCache(parameters, _tilePath);
 
             // Subscribe to notifications for status updates
             job.JobChanged += Job_JobChanged;
@@ -212,6 +218,9 @@ namespace ArcGISRuntime.UWP.Samples.ExportTiles
 
                     // Hide the progress bar
                     MyProgressBar.Visibility = Visibility.Collapsed;
+
+                    // Enable the 'export tiles' button
+                    MyExportButton.IsEnabled = true;
                 });
             }
             else if (job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed)
@@ -234,11 +243,8 @@ namespace ArcGISRuntime.UWP.Samples.ExportTiles
         /// </summary>
         private async void UpdatePreviewMap()
         {
-            // Get the path to the cache
-            String filePath = GetTilePath();
-
             // Load the saved tile cache
-            TileCache cache = new TileCache(filePath);
+            TileCache cache = new TileCache(_tilePath);
 
             // Load the cache
             await cache.LoadAsync();
@@ -258,8 +264,8 @@ namespace ArcGISRuntime.UWP.Samples.ExportTiles
         /// </summary>
         private void MyExportButton_Click(object sender, RoutedEventArgs e)
         {
-            // Increment the run count
-            _runcount++;
+            // Disable the export button
+            MyExportButton.IsEnabled = false;
 
             // Show the progress bar
             MyProgressBar.Visibility = Visibility.Visible;

@@ -87,12 +87,11 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
             // Add graphics overlay to the map view
             MyMapView.GraphicsOverlays.Add(extentOverlay);
 
+            // Update the extent graphic so that it is valid before user interaction
+            UpdateMapExtent();
+
             // Set up an event handler for when the viewpoint (extent) changes
             MyMapView.ViewpointChanged += MapViewExtentChanged;
-
-            // Update the local data path for the geodatabase file
-            string uwpFolder = Windows.Storage.ApplicationData.Current.LocalFolder.Path.ToString();
-            _gdbPath = Path.Combine(uwpFolder, "wildfire.geodatabase");
 
             // Create a task for generating a geodatabase (GeodatabaseSyncTask)
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
@@ -237,6 +236,9 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
 
         private async void StartGeodatabaseGeneration()
         {
+            // Update the geodatabase path
+            _gdbPath = GetGdbPath();
+
             // Create a task for generating a geodatabase (GeodatabaseSyncTask)
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
@@ -429,6 +431,13 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
             #endregion offlinedata
         }
 
+        private string GetGdbPath()
+        {
+            // Get the local data path for the geodatabase file
+            return $"{Path.GetTempFileName()}.geodatabase";
+
+        }
+
         private async void ShowStatusMessage(string message)
         {
             // Display the message to the user
@@ -439,6 +448,9 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
         // Handler for the generate button clicked event
         private void GenerateButton_Clicked(object sender, RoutedEventArgs e)
         {
+            // Disable the genereate button
+            MyGenerateButton.IsEnabled = false;
+
             // Call the cross-platform geodatabase generation method
             StartGeodatabaseGeneration();
         }

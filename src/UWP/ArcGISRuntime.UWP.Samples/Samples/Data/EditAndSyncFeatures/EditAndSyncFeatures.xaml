@@ -9,7 +9,10 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <CommandBar Grid.Row="0">
+        <CommandBar Grid.Row="0" VerticalContentAlignment="Center">
+            <CommandBar.Content>
+                <TextBlock Text="1. Click 'generate' " Foreground="Red" x:Name="MyHelpLabel" />
+            </CommandBar.Content>
             <AppBarButton Label="Generate" Icon="Download" Click="GenerateButton_Clicked" x:Name="MyGenerateButton" />
             <AppBarButton Label="Synchronize" Icon="Sync" Click="SyncButton_Click" x:Name="MySyncButton" IsEnabled="False" />
         </CommandBar>

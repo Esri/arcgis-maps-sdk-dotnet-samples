@@ -164,6 +164,9 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
 
                 // Enable the sync button
                 MySyncButton.IsEnabled = true;
+
+                // Update the help label
+                MyHelpLabel.Text = "4. Click 'Sync' or edit more features";
             }
             // Otherwise, start an edit
             else
@@ -188,6 +191,9 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
 
                 // Set the edit state
                 _readyForEdits = EditState.Editing;
+
+                // Update the help label
+                MyHelpLabel.Text = "3. Tap on the map to move the point";
             }
         }
 
@@ -296,6 +302,9 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
 
                 // Enable editing features
                 _readyForEdits = EditState.Ready;
+
+                // Update the help label
+                MyHelpLabel.Text = "2. Tap a point feature to select";
             }
 
             // See if the job failed

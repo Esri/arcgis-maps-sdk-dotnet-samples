@@ -1,5 +1,5 @@
 {
-  "Name": "Open Map (URL)",
+  "Name": "Open map (URL)",
   "SampleName": "OpenMapURL",
   "Description": "This sample demonstrates loading a webmap in a map from a Uri.",
   "Instructions": "",

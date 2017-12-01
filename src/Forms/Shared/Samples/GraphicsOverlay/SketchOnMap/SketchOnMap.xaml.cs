@@ -177,7 +177,7 @@ namespace ArcGISRuntimeXamarin.Samples.SketchOnMap
             catch (Exception ex)
             {
                 // Report exceptions
-                DisplayAlert("Error", "Error drawing graphic shape: " + ex.Message, "OK");
+                await DisplayAlert("Error", "Error drawing graphic shape: " + ex.Message, "OK");
             }
         }
 
@@ -209,7 +209,7 @@ namespace ArcGISRuntimeXamarin.Samples.SketchOnMap
                 if (editGraphic == null) { return; }
 
                 // Let the user make changes to the graphic's geometry, await the result (updated geometry)
-                Esri.ArcGISRuntime.Geometry.Geometry newGeometry = await MyMapView.SketchEditor.StartAsync(editGraphic.Geometry);
+                Geometry newGeometry = await MyMapView.SketchEditor.StartAsync(editGraphic.Geometry);
                 
                 // Display the updated geometry in the graphic
                 editGraphic.Geometry = newGeometry;
@@ -221,7 +221,7 @@ namespace ArcGISRuntimeXamarin.Samples.SketchOnMap
             catch (Exception ex)
             {
                 // Report exceptions
-                DisplayAlert("Error", "Error editing shape: " + ex.Message,"OK");
+                await DisplayAlert("Error", "Error editing shape: " + ex.Message,"OK");
             }
         }
 

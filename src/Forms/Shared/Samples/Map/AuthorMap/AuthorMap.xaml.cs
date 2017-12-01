@@ -217,7 +217,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                     await myMap.SaveAsAsync(agsOnline, null, title, description, tags, thumbnailImage);
 
                     // Report a successful save
-                    DisplayAlert("Map Saved", "Saved '" + title + "' to ArcGIS Online!", "OK");
+                    await DisplayAlert("Map Saved", "Saved '" + title + "' to ArcGIS Online!", "OK");
                 }
                 else
                 {
@@ -232,13 +232,13 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                     await myMap.SaveAsync();
 
                     // Report update was successful
-                    DisplayAlert("Updates Saved", "Saved changes to '" + myMap.Item.Title + "'", "OK");
+                    await DisplayAlert("Updates Saved", "Saved changes to '" + myMap.Item.Title + "'", "OK");
                 }
             }
             catch (Exception ex)
             {
                 // Show the exception message
-                DisplayAlert("Unable to save map", ex.Message, "OK");
+                await DisplayAlert("Unable to save map", ex.Message, "OK");
             }
             finally
             {

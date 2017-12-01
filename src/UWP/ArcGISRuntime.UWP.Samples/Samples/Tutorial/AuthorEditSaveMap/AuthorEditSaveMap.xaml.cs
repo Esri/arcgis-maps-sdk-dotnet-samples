@@ -112,7 +112,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorEditSaveMap
 
                     // Report success
                     MessageDialog dialog = new MessageDialog("Map '" + title + "' was saved to the portal.", "Saved Map");
-                    dialog.ShowAsync();
+                    await dialog.ShowAsync();
                 }
                 else
                 {
@@ -121,20 +121,20 @@ namespace ArcGISRuntime.UWP.Samples.AuthorEditSaveMap
 
                     // Report success
                     MessageDialog dialog = new MessageDialog("Changes to '" + title + "' were updated to the portal.");
-                    dialog.ShowAsync();
+                    await dialog.ShowAsync();
                 }
             }
             catch (OperationCanceledException)
             {
                 // Report canceled login
                 MessageDialog dialog = new MessageDialog("Login to the portal was canceled.", "Save canceled");
-                dialog.ShowAsync();
+                await dialog.ShowAsync();
             }
             catch (Exception ex)
             {
                 // Report error
                 MessageDialog dialog = new MessageDialog("Error while saving: " + ex.Message, "Cannot save");
-                dialog.ShowAsync();
+                await dialog.ShowAsync();
             }
         }
 

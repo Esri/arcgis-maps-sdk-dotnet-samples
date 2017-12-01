@@ -72,6 +72,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <PlatformTarget>x86</PlatformTarget>
@@ -83,6 +84,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <!-- /Build Configurations -->
   <ItemGroup>
@@ -105,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
+    <Content Include="Samples\Layers\WmsIdentify\metadata.json" />
     <Content Include="Samples\Hydrography\SelectEncFeatures\metadata.json" />
     <Content Include="Samples\Hydrography\ChangeEncDisplaySettings\metadata.json" />
     <Content Include="Samples\Hydrography\AddEncExchangeSet\metadata.json" />
@@ -185,6 +188,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Layers\WmsIdentify\WmsIdentify.jpg" />
     <Content Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg" />
     <Content Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
     <Content Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
@@ -263,6 +267,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Layers\WmsIdentify\WmsIdentify.xaml.cs">
+      <DependentUpon>WmsIdentify.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml.cs">
       <DependentUpon>SelectEncFeatures.xaml</DependentUpon>
     </Compile>
@@ -497,6 +504,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Layers\WmsIdentify\WmsIdentify.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

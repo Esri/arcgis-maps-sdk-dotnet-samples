@@ -140,7 +140,7 @@ namespace ArcGISRuntime.WPF.Samples.WmsServiceCatalog
         /// <summary>
         /// True if the layer is selected for display
         /// </summary>
-        public Boolean IsEnabled { get; set; } = false;
+        public Boolean IsEnabled { get; set; }
 
         public LayerDisplayVM(WmsLayerInfo info)
         {

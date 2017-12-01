@@ -151,6 +151,10 @@
             {
               "SampleName": "WmsServiceCatalog",
               "Path": "Samples/Layers/WmsServiceCatalog"
+            },
+            {
+              "SampleName": "WmsIdentify",
+              "Path": "Samples/Layers/WmsIdentify"
             }
           ]
         },

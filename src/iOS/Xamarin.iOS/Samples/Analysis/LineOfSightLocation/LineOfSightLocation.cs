@@ -30,10 +30,10 @@ namespace ArcGISRuntimeXamarin.Samples.LineOfSightLocation
         private LocationLineOfSight _lineOfSightAnalysis;
 
         // Observer location for line of sight
-        private MapPoint _observerLocation = null;
+        private MapPoint _observerLocation;
 
         // Target location for line of sight
-        private MapPoint _targetLocation = null;
+        private MapPoint _targetLocation;
 
         // Offset (meters) to use for the observer/target height (z-value for the points)
         private double _zOffset = 2.0;

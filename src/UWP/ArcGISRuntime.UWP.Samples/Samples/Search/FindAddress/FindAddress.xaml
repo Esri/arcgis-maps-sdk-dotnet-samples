@@ -28,7 +28,7 @@
         </Grid.RowDefinitions>
         <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
         <CommandBar x:Name="appBar" Grid.Row="2">
-            <AppBarButton Icon="Find" Label="Search" Name="MyAppBarSearchButton" IsEnabled="False">
+            <AppBarButton Icon="Find" Label="Search" Name="MyAppBarSearchButton" IsEnabled="False" AllowFocusOnInteraction="True">
                 <AppBarButton.Flyout>
                     <Flyout>
                         <StackPanel Width="200">

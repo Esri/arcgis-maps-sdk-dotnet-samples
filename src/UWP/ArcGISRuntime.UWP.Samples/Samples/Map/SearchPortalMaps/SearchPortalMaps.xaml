@@ -14,7 +14,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <CommandBar>
-            <AppBarButton Width="100"
+            <AppBarButton Width="100" AllowFocusOnInteraction="True"
                 Content="Search Maps">
                 <AppBarButton.Flyout>
                     <Flyout x:Name="SearchMapsFlyout">

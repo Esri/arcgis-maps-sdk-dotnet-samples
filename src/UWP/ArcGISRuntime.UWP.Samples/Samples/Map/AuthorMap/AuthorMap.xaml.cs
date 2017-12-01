@@ -11,20 +11,14 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
+using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using WinUI = Windows.UI;
-using Windows.UI.Popups;
 using System.IO;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.UI.Xaml.Media.Imaging;
-using Windows.Graphics.Imaging;
-using Windows.Storage;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Controls;
+using System.Threading.Tasks;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
-using Esri.ArcGISRuntime.UI;
+using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.UWP.Samples.AuthorMap
 {

@@ -123,9 +123,10 @@
             <AppBarButton Content="Clear"
                           Click="ClearMapClicked"/>
             <AppBarButton Content="Save ..."
-                          Margin="5,0">
+                          Margin="5,0" 
+                          AllowFocusOnInteraction="True">
                 <AppBarButton.Flyout>
-                    <Flyout x:Name="SaveMapFlyout" AllowFocusOnInteraction="True">
+                    <Flyout x:Name="SaveMapFlyout">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>

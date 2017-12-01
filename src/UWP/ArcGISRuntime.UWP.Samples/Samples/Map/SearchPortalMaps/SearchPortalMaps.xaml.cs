@@ -119,7 +119,11 @@ namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
                 if (err != null)
                 {
                     var dialog = new MessageDialog(err.Message, "Map Load Error");
-                    await dialog.ShowAsync();
+                    await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                    {
+                        await dialog.ShowAsync();
+                    });
+                    
                 }
             }
         }

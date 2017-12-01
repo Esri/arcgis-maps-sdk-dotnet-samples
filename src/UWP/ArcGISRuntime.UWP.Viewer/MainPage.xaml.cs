@@ -172,7 +172,7 @@ namespace ArcGISRuntime.UWP.Viewer
         {
             if (SearchToggleButton.IsChecked.HasValue && SearchToggleButton.IsChecked.Value)
             {
-                SearchBox.Visibility = Visibility.Collapsed;
+                //SearchBox.Visibility = Visibility.Collapsed;
                 SearchToggleButton.Visibility = Visibility.Visible;
                 SearchToggleButton.IsChecked = false;
             }
@@ -182,12 +182,12 @@ namespace ArcGISRuntime.UWP.Viewer
         {
             if (SearchToggleButton.IsChecked.HasValue && SearchToggleButton.IsChecked.Value)
             {
-                SearchBox.Visibility = Visibility.Visible;
+                //SearchBox.Visibility = Visibility.Visible;
                 SearchToggleButton.Visibility = Visibility.Collapsed;
             }
             else
             {
-                SearchBox.Visibility = Visibility.Collapsed;
+                //SearchBox.Visibility = Visibility.Collapsed;
             }
         }
 

@@ -10,14 +10,21 @@
   "Image": "LineOfSightLocation.jpg",
   "Link": "",
   "TypeLink": [
-    "T:Esri.ArcGISRuntime.UI.GeoAnalysis.LocationLineOfSight",
-    "P:Esri.ArcGISRuntime.UI.GeoAnalysis.LocationLineOfSight.ObserverLocation",
-    "P:Esri.ArcGISRuntime.UI.GeoAnalysis.LocationLineOfSight.TargetLocation",
-    "T:Esri.ArcGISRuntime.UI.GeoAnalysis.AnalysisOverlay",
-    "T:Esri.ArcGISRuntime.Mapping.ArcGISTiledElevationSource",
-    "T:Esri.ArcGISRuntime.Mapping.ElevationSource",
-    "T:Esri.ArcGISRuntime.Mapping.Surface",
-    "T:Esri.ArcGISRuntime.UI.Controls.SceneView"
+"T:Esri.ArcGISRuntime.UI.GeoAnalysis.LocationLineOfSight",
+"P:Esri.ArcGISRuntime.UI.GeoAnalysis.LocationLineOfSight.ObserverLocation",
+"P:Esri.ArcGISRuntime.UI.GeoAnalysis.LocationLineOfSight.TargetLocation",
+"T:Esri.ArcGISRuntime.UI.GeoAnalysis.AnalysisOverlay",
+"T:Esri.ArcGISRuntime.UI.GeoAnalysis.Analysis",
+"T:Esri.ArcGISRuntime.UI.GeoAnalysis.AnalysisCollection",
+"T:Esri.ArcGISRuntime.UI.GeoAnalysis.AnalysisOverlayCollection",
+"M:Esri.ArcGISRuntime.Geometry.MapPoint.#ctor(System.Double,System.Double,System.Double)",
+"M:Esri.ArcGISRuntime.UI.GeoAnalysis.AnalysisOverlay.#ctor",
+"M:Esri.ArcGISRuntime.UI.GeoAnalysis.LocationLineOfSight.#ctor(Esri.ArcGISRuntime.Geometry.MapPoint,Esri.ArcGISRuntime.Geometry.MapPoint)",
+"P:Esri.ArcGISRuntime.Geometry.MapPoint.Z",
+"P:Esri.ArcGISRuntime.UI.Controls.SceneView.AnalysisOverlays",
+"P:Esri.ArcGISRuntime.UI.GeoAnalysis.AnalysisOverlay.Analyses",
+"P:Esri.ArcGISRuntime.UI.GeoAnalysis.LineOfSight.ObstructedColor",
+"P:Esri.ArcGISRuntime.UI.GeoAnalysis.LineOfSight.VisibleColor"
   ],
   "SampleFolder": "LineOfSightLocation"
 }

@@ -15,6 +15,9 @@
 "P:Esri.ArcGISRuntime.Data.QueryParameters.WhereClause",
 "P:Esri.ArcGISRuntime.Mapping.Layer.Opacity",
 "M:Esri.ArcGISRuntime.Mapping.FeatureLayer.ClearSelection",
-"M:Esri.ArcGISRuntime.Mapping.FeatureLayer.SelectFeature(Esri.ArcGISRuntime.Data.Feature)"
+"M:Esri.ArcGISRuntime.Mapping.FeatureLayer.SelectFeature(Esri.ArcGISRuntime.Data.Feature)",
+"P:Esri.ArcGISRuntime.Geometry.Geometry.Extent",
+"T:Esri.ArcGISRuntime.Data.Feature",
+"P:Esri.ArcGISRuntime.Data.GeoElement.Geometry"
 ]
 }

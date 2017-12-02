@@ -20,7 +20,7 @@
 
     This sample demonstrates how to get view status for layers in a map.
 
-    * [Take Screenshot](Shared/Samples/MapView/TakeScreenshot)
+    * [Take screenshot](Shared/Samples/MapView/TakeScreenshot)
 
     This sample demonstrates how you can take screenshot of a map. Click 'capture' button to take a screenshot of the visible area of the map. Created image is shown in the sample after creation.
 
@@ -47,7 +47,7 @@
 
     This sample demonstrates how to display a map with a basemap.
 
-    * [Open Map (URL)](Shared/Samples/Map/OpenMapURL)
+    * [Open map (URL)](Shared/Samples/Map/OpenMapURL)
 
     This sample demonstrates how to open an existing map from a portal. The sample opens with a map displayed by default. You can change the shown map by selecting a new one from the populated list.
 
@@ -59,7 +59,7 @@
 
     This sample demonstrates searching a portal for web maps and loading them in the map view. You can search ArcGIS Online public web maps using tag values or browse the web maps in your account. OAuth is used to authenticate with ArcGIS Online to access items in your account.
 
-    * [Set Min & Max Scale](Shared/Samples/Map/SetMinMaxScale)
+    * [Set min & max scale](Shared/Samples/Map/SetMinMaxScale)
 
     This sample demonstrates how to set the minimum and maximum scale of a Map. Setting the minimum and maximum scale for the Map can be useful in keeping the user focused at a certain level of detail.
 
@@ -83,7 +83,7 @@
 
     This sample demonstrates how to dynamically change the basemap displayed in a Map.
 
-    * [Manage Bookmarks](Shared/Samples/Map/ManageBookmarks)
+    * [Manage bookmarks](Shared/Samples/Map/ManageBookmarks)
 
     This sample demonstrates how to access and add bookmarks to a map.
 
@@ -131,7 +131,7 @@
 
     This sample demonstrates how to enable and disable the display of layers discovered from a WMS service.
 
-    * [Identify WMS Features](Shared/Samples/Layers/WmsIdentify)
+    * [Identify WMS features](Shared/Samples/Layers/WmsIdentify)
 
     This sample demonstrates how to identify WMS features and display the associated content for an identified WMS feature.
 
@@ -291,6 +291,10 @@
 
     This sample demonstrates how to use GeoprocessingTask to calculate a viewshed using a geoprocessing service. Click any point on the map to see all areas that are visible within a 1 kilometer radius. It may take a few seconds for the model to run and send back the results.
 
+    * [Line of sight from location](Shared/Samples/Analysis/LineOfSightLocation)
+
+    This sample demonstrates a `LocationLineOfSight` analysis that shows segments that are visible or obstructed along a line drawn from observer to target.
+
     * [List geodatabase versions](Shared/Samples/Geoprocessing/ListGeodatabaseVersions)
 
     This sample demonstrates how to use GeoprocessingTask to get available geodatabase versions from the enterprise geodatabase. Geoprocessing task will return the versions as a table that is shown to the user in a list. This is a good example how to use geoprocessing on mapless application.
@@ -318,7 +322,7 @@
 
 - **Scene Layers**
 
-    * [ArcGIS Scene layer (URL)](Shared/Samples/Layers/SceneLayerUrl)
+    * [ArcGIS scene layer (URL)](Shared/Samples/Layers/SceneLayerUrl)
 
     This sample demonstrates how to add an ArcGISSceneLayer as a layer in a Scene.
 
@@ -340,15 +344,15 @@
 
 - **Hydrography**
 
-    * [Add an ENC Exchange Set](Shared/Samples/Hydrography/AddEncExchangeSet)
+    * [Add an ENC exchange set](Shared/Samples/Hydrography/AddEncExchangeSet)
 
     This sample demonstrates how to load an ENC Exchange Set, including its component cells.
 
-    * [Change ENC Display Settings](Shared/Samples/Hydrography/ChangeEncDisplaySettings)
+    * [Change ENC display settings](Shared/Samples/Hydrography/ChangeEncDisplaySettings)
 
     This sample demonstrates how to control ENC environment settings. These settings apply to the display of all ENC content in your app.
 
-    * [Select ENC Features](Shared/Samples/Hydrography/SelectEncFeatures)
+    * [Select ENC features](Shared/Samples/Hydrography/SelectEncFeatures)
 
     This sample demonstrates how to select an ENC feature.
 
@@ -366,11 +370,11 @@
 
 - **Working with Places**
 
-    * [Find Address](Shared/Samples/Search/FindAddress)
+    * [Find address](Shared/Samples/Search/FindAddress)
 
     This sample demonstrates how you can use the LocatorTask API to geocode an address and display it with a pin on the map. Tapping the pin displays the reverse-geocoded address in a callout.
 
-    * [Find Place](Shared/Samples/Search/FindPlace)
+    * [Find place](Shared/Samples/Search/FindPlace)
 
     This sample demonstrates how to use geocode functionality to search for points of interest, around a location or within an extent.
 

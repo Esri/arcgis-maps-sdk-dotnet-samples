@@ -17,7 +17,7 @@
 
     This sample demonstrates how to get view status for layers in a map.
 
-* [Take Screenshot](ArcGISRuntime.WPF.Samples/Samples/MapView/TakeScreenshot)
+* [Take screenshot](ArcGISRuntime.WPF.Samples/Samples/MapView/TakeScreenshot)
 
     This sample demonstrates how you can take screenshot of a map. Click 'take screenshot' button to take a screenshot of the visible area of the map. Created image is shown in the sample after creation.
 
@@ -53,7 +53,7 @@
 
     This sample demonstrates searching a portal for web maps and loading them in the map view. You can search ArcGIS Online public web maps using tag values or browse the web maps in your account. OAuth is used to authenticate with ArcGIS Online to access items in your account.
 
-* [Set Min & Max Scale](ArcGISRuntime.WPF.Samples/Samples/Map/SetMinMaxScale)
+* [Set min & max scale](ArcGISRuntime.WPF.Samples/Samples/Map/SetMinMaxScale)
 
     This sample demonstrates how to set the minimum and maximum scale of a Map. Setting the minimum and maximum scale for the Map can be useful in keeping the user focused at a certain level of detail.
 
@@ -77,7 +77,7 @@
 
     This sample demonstrates how to dynamically change the basemap displayed in a Map.
 
-* [Manage Bookmarks](ArcGISRuntime.WPF.Samples/Samples/Map/ManageBookmarks)
+* [Manage bookmarks](ArcGISRuntime.WPF.Samples/Samples/Map/ManageBookmarks)
 
     This sample demonstrates how to access and add bookmarks to a map.
 
@@ -119,7 +119,7 @@
 
     This sample demonstrates how to enable and disable the display of layers discovered from a WMS service.
 
-* [Identify WMS Features](ArcGISRuntime.WPF.Samples/Samples/Layers/WmsIdentify)
+* [Identify WMS features](ArcGISRuntime.WPF.Samples/Samples/Layers/WmsIdentify)
 
     This sample demonstrates how to identify WMS features and display the associated content for an identified WMS feature.
 
@@ -264,6 +264,10 @@
 
     This sample demonstrates how to use GeoprocessingTask to calculate a viewshed using a geoprocessing service. Click any point on the map to see all areas that are visible within a 1 kilometer radius. It may take a few seconds for the model to run and send back the results.
 
+* [Line of sight from location](ArcGISRuntime.WPF.Samples/Samples/Analysis/LineOfSightLocation)
+
+    This sample demonstrates a `LocationLineOfSight` analysis that shows segments that are visible or obstructed along a line drawn from observer to target.
+
 * [List geodatabase versions](ArcGISRuntime.WPF.Samples/Samples/Geoprocessing/ListGeodatabaseVersions)
 
     This sample demonstrates how to use GeoprocessingTask to get available geodatabase versions from the enterprise geodatabase. Geoprocessing task will return the versions as a table that is shown to the user in a list. This is a good example how to use geoprocessing on mapless application.
@@ -288,7 +292,7 @@
 
     This sample demonstrates how to create a `DistanceCompositeSceneSymbol` with unique marker symbols to display at various distances from the camera.
 
-* [ArcGIS Scene layer (URL)](ArcGISRuntime.WPF.Samples/Samples/Layers/SceneLayerUrl)
+* [ArcGIS scene layer (URL)](ArcGISRuntime.WPF.Samples/Samples/Layers/SceneLayerUrl)
 
     This sample demonstrates how to add an ArcGISSceneLayer as a layer in a Scene.
 
@@ -304,21 +308,21 @@
 
 ## Hydrography
 
-* [Add an ENC Exchange Set](ArcGISRuntime.WPF.Samples/Samples/Hydrography/AddEncExchangeSet)
+* [Add an ENC exchange set](ArcGISRuntime.WPF.Samples/Samples/Hydrography/AddEncExchangeSet)
 
     This sample demonstrates how to load an ENC Exchange Set, including its component cells.
 
-* [Change ENC Display Settings](ArcGISRuntime.WPF.Samples/Samples/Hydrography/ChangeEncDisplaySettings)
+* [Change ENC display settings](ArcGISRuntime.WPF.Samples/Samples/Hydrography/ChangeEncDisplaySettings)
 
     This sample demonstrates how to control ENC environment settings. These settings apply to the display of all ENC content in your app.
 
-* [Select ENC Features](ArcGISRuntime.WPF.Samples/Samples/Hydrography/SelectEncFeatures)
+* [Select ENC features](ArcGISRuntime.WPF.Samples/Samples/Hydrography/SelectEncFeatures)
 
     This sample demonstrates how to select an ENC feature.
 
 ## Location
 
-* [Display Device Location](ArcGISRuntime.WPF.Samples/Samples/Location/DisplayDeviceLocation)
+* [Display device location](ArcGISRuntime.WPF.Samples/Samples/Location/DisplayDeviceLocation)
 
     This sample demonstrates how you can enable location services and switch between different types of auto pan modes.
 
@@ -327,11 +331,11 @@
 
 - **Working with Places**
 
-    * [Find Address](ArcGISRuntime.WPF.Samples/Samples/Search/FindAddress)
+    * [Find address](ArcGISRuntime.WPF.Samples/Samples/Search/FindAddress)
 
     This sample demonstrates how you can use the LocatorTask API to geocode an address and display it with a pin on the map. Tapping the pin displays the reverse-geocoded address in a callout.
 
-    * [Find Place](ArcGISRuntime.WPF.Samples/Samples/Search/FindPlace)
+    * [Find place](ArcGISRuntime.WPF.Samples/Samples/Search/FindPlace)
 
     This sample demonstrates how to use geocode functionality to search for points of interest, around a location or within an extent.
 

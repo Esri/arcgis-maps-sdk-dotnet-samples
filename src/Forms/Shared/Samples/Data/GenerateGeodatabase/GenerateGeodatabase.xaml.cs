@@ -85,8 +85,8 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
             // Set up an event handler for when the viewpoint (extent) changes
             myMapView.ViewpointChanged += MapViewExtentChanged;
 
-            // Update the local data path for the geodatabase file
-            _gdbPath = GetGdbPath();
+            // Update the graphic - needed in case the user decides not to interact before pressing the button
+            UpdateMapExtent();
 
             // Create a task for generating a geodatabase (GeodatabaseSyncTask)
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
@@ -153,11 +153,14 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
 
         private async void StartGeodatabaseGeneration()
         {
+            // Update the geodatabase path
+            _gdbPath = GetGdbPath();
+
             // Create a task for generating a geodatabase (GeodatabaseSyncTask)
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
             // Get the current extent of the red preview box
-            Envelope extent = myMapView.GraphicsOverlays.FirstOrDefault().Extent as Envelope;
+            Envelope extent = myMapView.GraphicsOverlays.FirstOrDefault().Graphics.FirstOrDefault().Geometry as Envelope;
 
             // Get the default parameters for the generate geodatabase task
             GenerateGeodatabaseParameters generateParams = await _gdbSyncTask.CreateDefaultGenerateGeodatabaseParametersAsync(extent);
@@ -205,6 +208,9 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
 
                 // Tell the user that the geodatabase was unregistered
                 ShowStatusMessage("Since no edits will be made, the local geodatabase has been unregistered per best practice.");
+
+                // Re-enable generate button
+                myGenerateButton.IsEnabled = true;
             }
 
             // See if the job failed
@@ -246,18 +252,8 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
 
         private string GetGdbPath()
         {
-            // Set the platform-specific path for storing the geodatabase
-            String folder = "";
-
-#if NETFX_CORE //UWP
-            folder = Windows.Storage.ApplicationData.Current.LocalFolder.Path.ToString();
-#elif __IOS__
-            folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-#elif __ANDROID__
-            folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-#endif
-            // Set the final path
-            return Path.Combine(folder, "wildfire.geodatabase");
+            // Return a new temporary path
+            return $"{Path.GetTempFileName()}.geodatabase";
         }
 
         private void ShowStatusMessage(string message)
@@ -269,6 +265,9 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
         // Handler for the generate button clicked event
         private void GenerateButton_Clicked(object sender, EventArgs e)
         {
+            // Disable the generate button
+            myGenerateButton.IsEnabled = false;
+
             // Call the cross-platform geodatabase generation method
             StartGeodatabaseGeneration();
         }

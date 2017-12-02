@@ -37,7 +37,7 @@ namespace ArcGISRuntimeXamarin.Samples.WmsIdentify
 
         public WmsIdentify()
         {
-            Title = "Identify WMS Features";
+            Title = "Identify WMS features";
         }
 
         private void CreateLayout()

@@ -40,7 +40,7 @@ namespace ArcGISRuntimeXamarin.Samples.WmsIdentify
         {
             base.OnCreate(bundle);
 
-            Title = "Identify WMS Features";
+            Title = "Identify WMS features";
 
             // Create the UI, setup the control references and execute initialization
             CreateLayout();

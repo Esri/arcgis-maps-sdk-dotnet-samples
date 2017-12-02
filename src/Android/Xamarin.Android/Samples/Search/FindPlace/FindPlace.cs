@@ -49,7 +49,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         {
             base.OnCreate(bundle);
 
-            Title = "Find Place";
+            Title = "Find place";
 
             // Create the UI, setup the control references and execute initialization
             CreateLayout();

@@ -54,7 +54,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
         {
             base.OnCreate(bundle);
 
-            Title = "Find Address";
+            Title = "Find address";
 
             // Create the UI, setup the control references and execute initialization
             CreateLayout();

@@ -34,7 +34,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         {
             InitializeComponent();
 
-            Title = "Find Place";
+            Title = "Find place";
 
             // Create the UI, setup the control references and execute initialization
             Initialize();
@@ -50,7 +50,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             MyMapView.Map = myMap;
 
             // Subscribe to location changed event so that map can zoom to location
-            MyMapView.LocationDisplay.LocationChanged += LocationDisplay_LocationChanged; ;
+            MyMapView.LocationDisplay.LocationChanged += LocationDisplay_LocationChanged;
 
             // Enable location display
             MyMapView.LocationDisplay.IsEnabled = true;

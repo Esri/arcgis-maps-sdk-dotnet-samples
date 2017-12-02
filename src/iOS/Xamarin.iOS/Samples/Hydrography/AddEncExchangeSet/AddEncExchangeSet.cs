@@ -29,7 +29,7 @@ namespace ArcGISRuntimeXamarin.Samples.AddEncExchangeSet
 
         public AddEncExchangeSet()
         {
-            Title = "Add an ENC Exchange Set";
+            Title = "Add an ENC exchange set";
         }
 
         private async void Initialize()

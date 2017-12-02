@@ -1,5 +1,5 @@
 {
-  "Name": "Select ENC Features",
+  "Name": "Select ENC features",
   "SampleName": "SelectEncFeatures",
   "Description": "This sample demonstrates how to select an ENC feature.",
   "Instructions": "This sample automatically downloads ENC data from ArcGIS Online before displaying the map.",

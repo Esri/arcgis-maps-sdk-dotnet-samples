@@ -26,7 +26,7 @@ namespace ArcGISRuntimeXamarin.Samples.SetMinMaxScale
 
         public SetMinMaxScale()
         {
-            Title = "Set Min & Max Scale";
+            Title = "Set min & max scale";
         }
 
         public override void ViewDidLoad()

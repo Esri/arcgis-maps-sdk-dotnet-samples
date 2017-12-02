@@ -30,17 +30,20 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
         // URL to the service tiles will be exported from
         private Uri _serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer");
 
+        // Path to exported tile cache
+        private string _tilePath;
+
         // Flag to indicate whether an exported tile cache is being previewed
         private bool _previewOpen = false;
-
-        // Keep count of how many times the sample has been run to avoid overwriting cache files
-        private int _runCount = 0;
 
         // Reference to the original basemap
         private Map _basemap;
 
         // Reference to the original viewpoint (when previewing)
         private Viewpoint _originalView;
+
+        // Holder for the Graphics Overlay (so that it can be hidden and re-added for preview/non-preview state)
+        private GraphicsOverlay _overlay;
 
         public ExportTiles()
         {
@@ -61,6 +64,10 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
             // Create the basemap with the layer
             _basemap = new Map(new Basemap(myLayer));
 
+            // Set the min and max scale - export task fails if the scale is too big or small
+            _basemap.MaxScale = 5000000;
+            _basemap.MinScale = 10000000;
+
             // Assign the map to the mapview
             MyMapView.Map = _basemap;
 
@@ -77,6 +84,9 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
 
             // Subscribe to changes in the mapview's viewpoint so the preview box can be kept in position
             MyMapView.ViewpointChanged += MyMapView_ViewpointChanged;
+
+            // Update the graphic - needed in case the user decides not to interact before pressing the button
+            UpdateMapExtentGraphic();
         }
 
         private void MyMapView_ViewpointChanged(object sender, EventArgs e)
@@ -113,7 +123,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
             // Get the (only) graphics overlay in the map view
             GraphicsOverlay extentOverlay = MyMapView.GraphicsOverlays.FirstOrDefault();
 
-            // Return if the extent overlay is null
+            // Return if there is none (in preview, the overlay shouldn't be there)
             if (extentOverlay == null) { return; }
 
             // Get the extent graphic
@@ -134,18 +144,8 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
 
         private string GetTilePath()
         {
-            // Return the platform-specific path for storing the tile cache
-            String folder = "";
-
-#if NETFX_CORE //UWP
-            folder = Windows.Storage.ApplicationData.Current.LocalFolder.Path.ToString();
-#elif __IOS__
-            folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-#elif __ANDROID__
-            folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-#endif
-            // Set the final path
-            return Path.Combine(folder, String.Format("myTileCache{0}.tpk", _runCount));
+            // Return a new temporary path
+            return $"{Path.GetTempFileName()}.tpk";
         }
 
         /// <summary>
@@ -153,8 +153,8 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
         /// </summary>
         private async void StartExport()
         {
-            // Increment the run count
-            _runCount++;
+            // Update the tile cache path
+            _tilePath = GetTilePath();
 
             // Get the parameters for the job
             ExportTileCacheParameters parameters = GetExportParameters();
@@ -162,11 +162,8 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
             // Create the task
             ExportTileCacheTask exportTask = await ExportTileCacheTask.CreateAsync(_serviceUri);
 
-            // Get the tile cache path
-            String filePath = GetTilePath();
-
             // Create the export job
-            ExportTileCacheJob job = exportTask.ExportTileCache(parameters, filePath);
+            ExportTileCacheJob job = exportTask.ExportTileCache(parameters, _tilePath);
 
             // Subscribe to notifications for status updates
             job.JobChanged += Job_JobChanged;
@@ -231,8 +228,18 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
                     // Change the export button text
                     MyExportPreviewButton.Text = "Close Preview";
 
+                    // Re-enable the button
+                    MyExportPreviewButton.IsEnabled = true;
+
                     // Set the preview open flag
                     _previewOpen = true;
+
+                    // Store the overlay for later
+                    _overlay = MyMapView.GraphicsOverlays.FirstOrDefault();
+
+                    // Then hide it
+                    MyMapView.GraphicsOverlays.Clear();
+
                 });
             }
             else if (job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed)
@@ -250,6 +257,9 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
                     // Change the export button text
                     MyExportPreviewButton.Text = "Export Tiles";
 
+                    // Re-enable the export button
+                    MyExportPreviewButton.IsEnabled = true;
+
                     // Set the preview open flag
                     _previewOpen = false;
                 });
@@ -261,11 +271,8 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
         /// </summary>
         private async void UpdatePreviewMap()
         {
-            // Get the path to the cache
-            String filePath = GetTilePath();
-
             // Load the saved tile cache
-            TileCache cache = new TileCache(filePath);
+            TileCache cache = new TileCache(_tilePath);
 
             // Load the cache
             await cache.LoadAsync();
@@ -291,6 +298,9 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
             // If preview isn't open, start an export
             if (!_previewOpen)
             {
+                // Disable the export button
+                MyExportPreviewButton.IsEnabled = false;
+
                 // Show the progress bar
                 MyProgressBar.IsVisible = true;
 
@@ -316,6 +326,12 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
 
                 // Re-apply the original viewpoint
                 MyMapView.SetViewpoint(_originalView);
+
+                // Re-show the overlay
+                MyMapView.GraphicsOverlays.Add(_overlay);
+
+                // Update the graphic
+                UpdateMapExtentGraphic();
             }
         }
 

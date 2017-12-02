@@ -167,6 +167,8 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
 
         public override void ViewWillDisappear(bool animated)
         {
+            base.ViewWillDisappear(animated);
+
             // ENC environment settings apply to the entire application
             // They need to be reset after leaving the sample to avoid affecting other samples
             EncEnvironmentSettings.Default.DisplaySettings.MarinerSettings.ResetToDefaults();

@@ -44,11 +44,17 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
         // URL to the service tiles will be exported from
         private Uri _serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer");
 
+        // Path to the tile cache
+        private string _tilePath;
+
         // Flag to indicate if an exported cache is being previewed
         private bool _previewOpen = false;
 
         // Layout container for setting a margin on the mapview
         private RelativeLayout _layoutContainer;
+
+        // Hold the graphics overlay so that overlay graphic can be added and removed
+        private GraphicsOverlay _overlay;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -116,6 +122,10 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
             // Create the basemap with the layer
             _basemap = new Map(new Basemap(myLayer));
 
+            // Set the min and max scale - export task fails if the scale is too big or small
+            _basemap.MaxScale = 5000000;
+            _basemap.MinScale = 10000000;
+
             // Assign the map to the mapview
             _myMapView.Map = _basemap;
 
@@ -132,6 +142,9 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
 
             // Subscribe to changes in the mapview's viewpoint so the preview box can be kept in position
             _myMapView.ViewpointChanged += MyMapView_ViewpointChanged;
+
+            // Update the graphic - in case user doesn't interact with the map
+            UpdateMapExtentGraphic();
         }
 
         private void MyMapView_ViewpointChanged(object sender, EventArgs e)
@@ -189,8 +202,8 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
 
         private string GetTilePath()
         {
-            // Return the platform-specific path for storing the tile cache
-            return GetFileStreamPath("myTileCache.tpk").AbsolutePath;
+            // Return a path
+            return $"{System.IO.Path.GetTempFileName()}.tpk";
         }
 
         /// <summary>
@@ -198,17 +211,17 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
         /// </summary>
         private async void StartExport()
         {
+            // Update the path to the tile cache
+            _tilePath = GetTilePath();
+
             // Get the parameters for the job
             ExportTileCacheParameters parameters = GetExportParameters();
 
             // Create the task
             ExportTileCacheTask exportTask = await ExportTileCacheTask.CreateAsync(_serviceUri);
 
-            // Get the tile cache path
-            String filePath = GetTilePath();
-
             // Create the export job
-            ExportTileCacheJob job = exportTask.ExportTileCache(parameters, filePath);
+            ExportTileCacheJob job = exportTask.ExportTileCache(parameters, _tilePath);
 
             // Subscribe to notifications for status updates
             job.JobChanged += Job_JobChanged;
@@ -227,7 +240,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
             ExportTileCacheParameters parameters = new ExportTileCacheParameters();
 
             // Get the (only) graphics overlay in the map view
-            GraphicsOverlay extentOverlay = _myMapView.GraphicsOverlays.FirstOrDefault();
+            GraphicsOverlay extentOverlay = _myMapView.GraphicsOverlays.First();
 
             // Get the area selection graphic's extent
             Graphic extentGraphic = extentOverlay.Graphics.FirstOrDefault();
@@ -276,8 +289,16 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
                     // Change the export button text
                     _myExportButton.Text = "Close Preview";
 
+                    // Re-enable the button
+                    _myExportButton.Enabled = true;
+
                     // Set the preview open flag
                     _previewOpen = true;
+
+                    // Store the graphics overlay and then hide it
+                    _overlay = _myMapView.GraphicsOverlays.FirstOrDefault();
+                    _myMapView.GraphicsOverlays.Clear();
+
                 });
             }
             else if (job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed)
@@ -295,6 +316,9 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
                     // Change the export button text
                     _myExportButton.Text = "Export tiles";
 
+                    // Re-enable the export button
+                    _myExportButton.Enabled = true;
+
                     // Set the preview open flag
                     _previewOpen = false;
                 });
@@ -306,11 +330,8 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
         /// </summary>
         private async void UpdatePreviewMap()
         {
-            // Get the path to the cache
-            String filePath = GetTilePath();
-
             // Load the saved tile cache
-            TileCache cache = new TileCache(filePath);
+            TileCache cache = new TileCache(_tilePath);
 
             // Load the cache
             await cache.LoadAsync();
@@ -336,6 +357,9 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
             // If preview isn't open, start an export
             if (!_previewOpen)
             {
+                // Disable the export button
+                _myExportButton.Enabled = false;
+
                 // Show the progress bar
                 _myProgressBar.Visibility = Android.Views.ViewStates.Visible;
 
@@ -358,6 +382,9 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
 
                 // Clear the preview open flag
                 _previewOpen = false;
+
+                // Re-show the graphics overlay
+                _myMapView.GraphicsOverlays.Add(_overlay);
             }
         }
 

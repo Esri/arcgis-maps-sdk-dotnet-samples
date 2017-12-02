@@ -64,6 +64,10 @@ namespace ArcGISRuntimeXamarin.Samples.WMSLayerUrl
             _myMapView.Map.InitialViewpoint = new Viewpoint(
                 new MapPoint(25.450, -4.59, new SpatialReference(4326)), 1000000);
 
+            // Set the initial viewpoint
+            _myMapView.Map.InitialViewpoint = new Viewpoint(
+                new MapPoint(25.450, -4.59, new SpatialReference(4326)), 1000000);
+
             // Create a new WMS layer displaying the specified layers from the service
             WmsLayer myWmsLayer = new WmsLayer(wmsUrl, wmsLayerNames);
 

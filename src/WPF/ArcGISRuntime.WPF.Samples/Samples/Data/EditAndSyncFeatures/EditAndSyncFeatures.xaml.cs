@@ -157,8 +157,15 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
                     // Set the new geometry
                     feature.Geometry = e.Location;
 
-                    // Update the feature in the table
-                    await table.UpdateFeatureAsync(feature);
+                    try
+                    {
+                        // Update the feature in the table
+                        await table.UpdateFeatureAsync(feature);
+                    }
+                    catch (Esri.ArcGISRuntime.ArcGISException)
+                    {
+                        ShowStatusMessage("Feature must be within extent of geodatabase.");
+                    }
                 }
 
                 // Update the edit state
@@ -320,7 +327,7 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
                 else
                 {
                     // If no error, show messages from the job
-                    foreach(JobMessage m in job.Messages)
+                    foreach (JobMessage m in job.Messages)
                     {
                         // Get the text from the JobMessage and add it to the output string
                         message += "\n" + m.Message;
@@ -420,6 +427,7 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
         private async Task<string> GetTpkPath()
         {
             #region offlinedata
+
             // The desired tpk is expected to be called SanFrancisco.tpk
             string filename = "SanFrancisco.tpk";
 
@@ -436,6 +444,7 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
                 await DataManager.GetData("3f1bbf0ec70b409a975f5c91f363fe7d", "EditAndSyncFeatures");
             }
             return filepath;
+
             #endregion offlinedata
         }
 

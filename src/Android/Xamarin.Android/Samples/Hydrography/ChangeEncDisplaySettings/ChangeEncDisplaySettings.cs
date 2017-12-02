@@ -42,6 +42,16 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
             Initialize();
         }
 
+        protected override void OnStop()
+        {
+            base.OnStop();
+            // ENC environment settings apply to the entire application
+            // They need to be reset after leaving the sample to avoid affecting other samples
+            EncEnvironmentSettings.Default.DisplaySettings.MarinerSettings.ResetToDefaults();
+            EncEnvironmentSettings.Default.DisplaySettings.ViewingGroupSettings.ResetToDefaults();
+            EncEnvironmentSettings.Default.DisplaySettings.TextGroupVisibilitySettings.ResetToDefaults();
+        }
+
         private async void Initialize()
         {
             // Initialize the map with an oceans basemap

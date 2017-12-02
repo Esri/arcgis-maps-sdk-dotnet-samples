@@ -38,7 +38,7 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
         private async void Initialize()
         {
             // Apply an imagery basemap to the map
-            MyMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
+            MyMapView.Map = new Map(Basemap.CreateDarkGrayCanvasVector());
 
             // Create the WMS Service
             WmsService service = new WmsService(wmsUrl);

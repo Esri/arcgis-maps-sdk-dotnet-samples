@@ -123,7 +123,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
             myHelpLabel.Text = "1. Click 'Generate Geodatabase'";
             myHelpLabel.TextColor = UIColor.Red;
             myHelpLabel.ShadowColor = UIColor.DarkGray;
-            myHelpLabel.ShadowOffset = new CoreGraphics.CGSize(1,1);
+            myHelpLabel.ShadowOffset = new CoreGraphics.CGSize(1, 1);
 
             // Add the views
             View.AddSubviews(myMapView, myProgressBar, mySyncButton, myGenerateButton, myHelpLabel);
@@ -226,9 +226,15 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
 
                     // Set the new geometry
                     feature.Geometry = e.Location;
-
-                    // Update the feature in the table
-                    await table.UpdateFeatureAsync(feature);
+                    try
+                    {
+                        // Update the feature in the table
+                        await table.UpdateFeatureAsync(feature);
+                    }
+                    catch (Esri.ArcGISRuntime.ArcGISException)
+                    {
+                        ShowStatusMessage("Feature must be within extent of geodatabase.");
+                    }
                 }
 
                 // Update the edit state
@@ -266,7 +272,6 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
 
                 // Update the help label
                 myHelpLabel.Text = "3. Tap on the map to move the point";
-
             }
         }
 
@@ -500,14 +505,16 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
         private string GetTpkPath()
         {
             #region offlinedata
+
             // The desired tpk is expected to be called SanFrancisco.tpk
             string filename = "SanFrancisco.tpk";
 
             // The data manager provides a method to get the folder
             string folder = DataManager.GetDataFolder();
 
-			// Return the full path; Item ID is 3f1bbf0ec70b409a975f5c91f363fe7d
-			return Path.Combine(folder, "SampleData", "EditAndSyncFeatures", filename);
+            // Return the full path; Item ID is 3f1bbf0ec70b409a975f5c91f363fe7d
+            return Path.Combine(folder, "SampleData", "EditAndSyncFeatures", filename);
+
             #endregion offlinedata
         }
 

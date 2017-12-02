@@ -55,7 +55,10 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             SaveMapButton.Clicked += ShowSaveMapDialog;
 
             // Define a click handler for the New button
-            NewMapButton.Clicked += (s, e) => _mapViewModel.ResetMap();
+            NewMapButton.Clicked += (s, e) => {
+                _mapViewModel.ResetMap();
+                BasemapListBox.SelectedItem = _mapViewModel.BasemapChoices[0];
+            };
 
             // Set up the AuthencticationManager to challenge for ArcGIS Online credentials
             UpdateAuthenticationManager();
@@ -236,7 +239,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             set { _mapView = value; }
         }
 
-        private Map _map = new Map(Basemap.CreateLightGrayCanvas());
+        private Map _map = new Map(Basemap.CreateTopographic());
         
         // Gets or sets the map
         public Map Map
@@ -334,8 +337,8 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             // Set the current map to null
             _map = null;
 
-            // Create a new map with light gray canvas basemap
-            Map newMap = new Map(Basemap.CreateLightGrayCanvasVector());
+            // Create a new map with topographic basemap
+            Map newMap = new Map(Basemap.CreateTopographic());
 
             // Store the new map 
             this.Map = newMap;

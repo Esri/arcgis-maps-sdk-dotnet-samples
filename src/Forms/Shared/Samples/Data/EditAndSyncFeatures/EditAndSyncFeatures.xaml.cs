@@ -166,7 +166,8 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
                     {
                         // Update the feature in the table
                         await table.UpdateFeatureAsync(feature);
-                    } catch (Esri.ArcGISRuntime.ArcGISRuntimeException)
+                    }
+                    catch (Esri.ArcGISRuntime.ArcGISRuntimeException)
                     {
                         ShowStatusMessage("Feature must be within the generated geodatabase's extent");
                     }
@@ -207,7 +208,6 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
 
                 // Update the help label
                 MyHelpLabel.Text = "3. Tap on the map to move the point";
-
             }
         }
 
@@ -435,6 +435,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
         private string GetTpkPath()
         {
             #region offlinedata
+
             // The desired tpk is expected to be called SanFrancisco.tpk
             string filename = "SanFrancisco.tpk";
 
@@ -443,6 +444,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
 
             // Return the full path; Item ID is 3f1bbf0ec70b409a975f5c91f363fe7d
             return Path.Combine(folder, "SampleData", "EditAndSyncFeatures", filename);
+
             #endregion offlinedata
         }
 

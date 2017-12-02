@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using Android.App;
+using Android.Graphics;
 using Android.OS;
 using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;
@@ -56,8 +57,14 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
             // Create the list view
             _myDisplayList = new ListView(this);
 
-            // Add the ListView and MapView to the layout
+            // Create two help labels
+            TextView promptLabel = new TextView(this) { Text = "Select a layer" };
+            TextView explainLabel = new TextView(this) { Text = "Note: above list does not preserve hierarchy" };
+
+            // Add the views to the layout
+            layout.AddView(promptLabel);
             layout.AddView(_myDisplayList);
+            layout.AddView(explainLabel);
             layout.AddView(_myMapView);
 
             // Show the layout in the app
@@ -129,7 +136,7 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
         /// <summary>
         /// Updates the map with the latest layer selection
         /// </summary>
-        private void UpdateMapDisplay(List<LayerDisplayVM> displayList)
+        private async void UpdateMapDisplay(List<LayerDisplayVM> displayList)
         {
             // Remove all existing layers
             _myMapView.Map.OperationalLayers.Clear();
@@ -137,8 +144,17 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
             // Get a list of selected LayerInfos
             IEnumerable<WmsLayerInfo> selectedLayers = displayList.Where(vm => vm.IsEnabled).Select(vm => vm.Info);
 
+            // Return if list is empty
+            if (selectedLayers.Count() < 1) { return; }
+
             // Create a new WmsLayer from the selected layers
             WmsLayer myLayer = new WmsLayer(selectedLayers);
+
+            // Load the layer
+            await myLayer.LoadAsync();
+
+            // Zoom to the extent of the layer
+            _myMapView.SetViewpoint(new Viewpoint(myLayer.FullExtent));
 
             // Add the layer to the map
             _myMapView.Map.OperationalLayers.Add(myLayer);

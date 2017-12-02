@@ -22,7 +22,11 @@
 "M:Esri.ArcGISRuntime.UI.Controls.MapView.LocationToScreen(Esri.ArcGISRuntime.Geometry.MapPoint)",
 "P:Esri.ArcGISRuntime.UI.Controls.MapView.SketchEditor",
 "P:Esri.ArcGISRuntime.Symbology.SimpleFillSymbol.Style",
-"T:Esri.ArcGISRuntime.Symbology.SimpleFillSymbolStyle"
+"T:Esri.ArcGISRuntime.Symbology.SimpleFillSymbolStyle",
+"P:Esri.ArcGISRuntime.Geometry.Geometry.GeometryType",
+"P:Esri.ArcGISRuntime.RuntimeCollection`1.Count",
+"T:Esri.ArcGISRuntime.Geometry.GeometryType",
+"M:Esri.ArcGISRuntime.Symbology.SimpleFillSymbol.#ctor"
   ],
  "SampleFolder":  "SketchOnMap"
 }

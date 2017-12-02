@@ -27,7 +27,11 @@
     "P:Esri.ArcGISRuntime.Hydrography.EncEnvironmentSettings.ChangeEncDisplaySettings",
     "P:Esri.ArcGISRuntime.Hydrography.EncDisplaySettings.MarinerSettings",
     "P:Esri.ArcGISRuntime.Hydrography.EncDisplaySettings.TextGroupVisibilitySettings",
-    "P:Esri.ArcGISRuntime.Hydrography.EncDisplaySettings.ViewingGroupSettings"
+    "P:Esri.ArcGISRuntime.Hydrography.EncDisplaySettings.ViewingGroupSettings",
+    "P:Esri.ArcGISRuntime.Hydrography.EncEnvironmentSettings.DisplaySettings",
+    "T:Esri.ArcGISRuntime.Hydrography.EncDataset",
+    "M:Esri.ArcGISRuntime.Hydrography.EncCell.#ctor(Esri.ArcGISRuntime.Hydrography.EncDataset)",
+    "P:Esri.ArcGISRuntime.Hydrography.EncExchangeSet.Datasets"
   ],
   "SampleFolder": "ChangeEncDisplaySettings"
 }

@@ -100,7 +100,8 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
         }
 
         private void PointStyleChanged(object sender, EventArgs e)
-        { 
+        {
+            // Apply the selected point symbolization
             switch (_pointSegment.SelectedSegment)
             {
                 case 0:
@@ -116,6 +117,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
 
         private void AreaStyleChanged(object sender, EventArgs e)
         {
+            // Apply the selected area symbolization
             switch (_areaSegment.SelectedSegment)
             {
                 case 0:
@@ -161,6 +163,15 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
             Initialize();
 
             base.ViewDidLoad();
+        }
+
+        public override void ViewWillDisappear(bool animated)
+        {
+            // ENC environment settings apply to the entire application
+            // They need to be reset after leaving the sample to avoid affecting other samples
+            EncEnvironmentSettings.Default.DisplaySettings.MarinerSettings.ResetToDefaults();
+            EncEnvironmentSettings.Default.DisplaySettings.ViewingGroupSettings.ResetToDefaults();
+            EncEnvironmentSettings.Default.DisplaySettings.TextGroupVisibilitySettings.ResetToDefaults();
         }
 
         public override void ViewDidLayoutSubviews()

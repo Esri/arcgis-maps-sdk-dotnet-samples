@@ -65,6 +65,9 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
         // Synchronize button
         private UIButton mySyncButton = new UIButton();
 
+        // Help label
+        private UILabel myHelpLabel = new UILabel();
+
         public EditAndSyncFeatures()
         {
             Title = "Edit and Sync Features";
@@ -83,6 +86,8 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
         {
             base.ViewDidLayoutSubviews();
 
+            nfloat pageOffset = this.NavigationController.TopLayoutGuide.Length;
+
             // Place the MapView
             myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
@@ -94,28 +99,34 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
 
             // Place the progress bar
             myProgressBar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 10, View.Bounds.Width, 10);
+
+            // Place the help label
+            myHelpLabel.Frame = new CoreGraphics.CGRect(10, pageOffset + 60, View.Bounds.Width - 20, 30);
         }
 
         private void CreateLayout()
         {
-            // Place the MapView
-            myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-
-            // Place the Generate Button
+            // Update the Generate Button
             myGenerateButton.SetTitle("Generate", UIControlState.Normal);
             myGenerateButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
             myGenerateButton.BackgroundColor = UIColor.LightTextColor;
             myGenerateButton.TouchUpInside += GenerateButton_Clicked;
 
-            // Place the Sync Button
+            // Update the Sync Button
             mySyncButton.SetTitle("Synchronize", UIControlState.Normal);
             mySyncButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
             mySyncButton.BackgroundColor = UIColor.LightTextColor;
             mySyncButton.TouchUpInside += SyncButton_Click;
             mySyncButton.Enabled = false;
 
+            // Update the help label
+            myHelpLabel.Text = "1. Click 'Generate Geodatabase'";
+            myHelpLabel.TextColor = UIColor.Red;
+            myHelpLabel.ShadowColor = UIColor.DarkGray;
+            myHelpLabel.ShadowOffset = new CoreGraphics.CGSize(1,1);
+
             // Add the views
-            View.AddSubviews(myMapView, myProgressBar, mySyncButton, myGenerateButton);
+            View.AddSubviews(myMapView, myProgressBar, mySyncButton, myGenerateButton, myHelpLabel);
         }
 
         private async void Initialize()
@@ -145,15 +156,11 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
             // Add graphics overlay to the map view
             myMapView.GraphicsOverlays.Add(extentOverlay);
 
-            // Set up an event handler for when the viewpoint (extent) changes
-            myMapView.ViewpointChanged += MapViewExtentChanged;
-
             // Set up an event handler for 'tapped' events
             myMapView.GeoViewTapped += GeoViewTapped;
 
-            // Update the local data path for the geodatabase file
-            String iOSFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            _gdbPath = Path.Combine(iOSFolder, "wildfire.geodatabase");
+            // Set up an event handler for when the viewpoint (extent) changes
+            myMapView.ViewpointChanged += MapViewExtentChanged;
 
             // Create a task for generating a geodatabase (GeodatabaseSyncTask)
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
@@ -176,6 +183,9 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
                     myMap.OperationalLayers.Add(new FeatureLayer(onlineTable));
                 }
             }
+
+            // Update the graphic - needed in case the user decides not to interact before pressing the button
+            UpdateMapExtent();
         }
 
         private async void GeoViewTapped(object sender, GeoViewInputEventArgs e)
@@ -226,6 +236,9 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
 
                 // Enable the sync button
                 mySyncButton.Enabled = true;
+
+                // Update the help label
+                myHelpLabel.Text = "4. Click 'Synchronize' or edit more features";
             }
             // Otherwise, start an edit
             else
@@ -250,6 +263,10 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
 
                 // Set the edit state
                 _readyForEdits = EditState.Editing;
+
+                // Update the help label
+                myHelpLabel.Text = "3. Tap on the map to move the point";
+
             }
         }
 
@@ -298,14 +315,17 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
 
         private async void StartGeodatabaseGeneration()
         {
+            // Update geodatabase path
+            _gdbPath = GetGdbPath();
+
             // Create a task for generating a geodatabase (GeodatabaseSyncTask)
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
             // Get the (only) graphic in the map view
-            GraphicsOverlay redPreviewBox = myMapView.GraphicsOverlays.FirstOrDefault();
+            Graphic redPreviewBox = myMapView.GraphicsOverlays.First().Graphics.First();
 
             // Get the current extent of the red preview box
-            Envelope extent = redPreviewBox.Extent as Envelope;
+            Envelope extent = redPreviewBox.Geometry as Envelope;
 
             // Get the default parameters for the generate geodatabase task
             GenerateGeodatabaseParameters generateParams = await _gdbSyncTask.CreateDefaultGenerateGeodatabaseParametersAsync(extent);
@@ -328,6 +348,12 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
 
             // Start the job
             generateGdbJob.Start();
+        }
+
+        private string GetGdbPath()
+        {
+            // Return a path
+            return $"{Path.GetTempFileName()}.geodatabase";
         }
 
         private async void HandleGenerationStatusChange(GenerateGeodatabaseJob job)
@@ -355,6 +381,9 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
 
                 // Enable editing features
                 _readyForEdits = EditState.Ready;
+
+                // Update the help label
+                myHelpLabel.Text = "2. Tap a point feature to select";
             }
 
             // See if the job failed
@@ -492,6 +521,9 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
         // Handler for the generate button clicked event
         private void GenerateButton_Clicked(object sender, EventArgs e)
         {
+            // Disable the generate button
+            myGenerateButton.Enabled = false;
+
             // Call the cross-platform geodatabase generation method
             StartGeodatabaseGeneration();
         }

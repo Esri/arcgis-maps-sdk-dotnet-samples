@@ -1,4 +1,4 @@
-# Identify WMS Features
+# Identify WMS features
 
 This sample demonstrates how to identify WMS features and display the associated content for an identified WMS feature.
 

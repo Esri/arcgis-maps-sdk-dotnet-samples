@@ -23,41 +23,41 @@
                 <ColumnDefinition Width="30"/>
                 <ColumnDefinition Width="70"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="StartEditingButton" 
-                            Grid.Row="0" Grid.Column="0"
-                                Text="Start Edit"
-                                IsEnabled="False" 
-                                MinimumWidthRequest="100" MinimumHeightRequest="35"
-                                Margin="2,0"
-                                Clicked="BeginTransaction"/>
+            <Button x:Name="StartEditingButton"
+                    Grid.Row="0" Grid.Column="0"
+                    Text="Start Edit"
+                    IsEnabled="False" 
+                    MinimumWidthRequest="100" MinimumHeightRequest="35"
+                    Margin="2,0"
+                    Clicked="BeginTransaction"/>
             <Button x:Name="StopEditingButton"
-                            Grid.Row="1" Grid.Column="0"
-                                Text="Stop Edit" 
-                                IsEnabled="False"
-                                MinimumWidthRequest="100" MinimumHeightRequest="35"
-                                Margin="2,0"
-                                Clicked="StopEditTransaction"/>
+                    Grid.Row="1" Grid.Column="0"
+                    Text="Stop Edit" 
+                    IsEnabled="False"
+                    MinimumWidthRequest="100" MinimumHeightRequest="35"
+                    Margin="2,0"
+                    Clicked="StopEditTransaction"/>
             <Button x:Name="AddBirdButton" 
                     Grid.Row="0" Grid.Column="1"
-                            Text="Add Bird"
-                            IsEnabled="False"
-                            MinimumWidthRequest="80" MinimumHeightRequest="35"
-                            Margin="2,0"
-                            Clicked="AddNewFeature"/>
+                    Text="Add Bird"
+                    IsEnabled="False"
+                    MinimumWidthRequest="80" MinimumHeightRequest="35"
+                    Margin="2,0"
+                    Clicked="AddNewFeature"/>
             <Button x:Name="AddMarineButton" 
-                            Grid.Row="1" Grid.Column="1"
-                            Text="Add Marine"
-                            IsEnabled="False"
-                            MinimumWidthRequest="100" MinimumHeightRequest="35"
-                            Margin="2,0"
-                            Clicked="AddNewFeature"/>
+                    Grid.Row="1" Grid.Column="1"
+                    Text="Add Marine"
+                    IsEnabled="False"
+                    MinimumWidthRequest="100" MinimumHeightRequest="35"
+                    Margin="2,0"
+                    Clicked="AddNewFeature"/>
             <Button x:Name="SyncEditsButton"
-                        Grid.Row="0" Grid.Column="3"
-                            Text="Sync" 
-                            IsEnabled="True"
-                            MinimumWidthRequest="50" MinimumHeightRequest="35"
-                            Margin="2,0"
-                            Clicked="SynchronizeEdits"/>
+                    Grid.Row="0" Grid.Column="3"
+                    Text="Sync" 
+                    IsEnabled="True"
+                    MinimumWidthRequest="50" MinimumHeightRequest="35"
+                    Margin="2,0"
+                    Clicked="SynchronizeEdits"/>
             <StackLayout Grid.Row="2" Grid.ColumnSpan="4"
                          Orientation="Horizontal">
                 <Label Text="Require a transaction for edits"

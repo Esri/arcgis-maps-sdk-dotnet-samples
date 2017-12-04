@@ -104,6 +104,8 @@
     <Content Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
     <Content Include="Samples\Data\RasterLayerGeoPackage\metadata.json" />
     <Content Include="Samples\Analysis\LineOfSightLocation\metadata.json" />
+        <Content Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.jpg" />
+    <Content Include="Samples\Data\GeodatabaseTransactions\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
@@ -299,6 +301,9 @@
     </Compile>
     <Compile Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.xaml.cs">
       <DependentUpon>GenerateGeodatabase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.xaml.cs">
+      <DependentUpon>GeodatabaseTransactions.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.xaml.cs">
       <DependentUpon>RasterLayerGeoPackage.xaml</DependentUpon>
@@ -545,6 +550,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

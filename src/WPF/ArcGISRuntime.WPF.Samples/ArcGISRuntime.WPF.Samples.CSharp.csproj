@@ -79,6 +79,9 @@
     <Content Include="Samples\Layers\WmsIdentify\metadata.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Hydrography\SelectEncFeatures\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -553,6 +556,9 @@
     <Compile Include="Samples\Layers\WmsIdentify\WmsIdentify.xaml.cs">
         <DependentUpon>WmsIdentify.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.xaml.cs">
+      <DependentUpon>GeodatabaseTransactions.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml.cs">
       <DependentUpon>SelectEncFeatures.xaml</DependentUpon>
     </Compile>
@@ -794,6 +800,10 @@
         <Generator>MSBuild:Compile</Generator>
         <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>    
     <Page Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1116,6 +1126,9 @@
     <Content Include="Samples\Analysis\LineOfSightLocation\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Data\GeodatabaseTransactions\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>    
   </ItemGroup>
   <ItemGroup />
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

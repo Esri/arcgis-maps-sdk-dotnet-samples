@@ -67,11 +67,14 @@ namespace ArcGISRuntime.UWP.Samples.ExportTiles
             // Add graphics overlay to the map view
             MyMapView.GraphicsOverlays.Add(extentOverlay);
 
+            // Subscribe to changes in the mapview's viewpoint so the preview box can be kept in position
+            MyMapView.ViewpointChanged += MyMapView_ViewpointChanged;
+
             // Update the extent graphic so that it is valid before user interaction
             UpdateMapExtentGraphic();
 
-            // Subscribe to changes in the mapview's viewpoint so the preview box can be kept in position
-            MyMapView.ViewpointChanged += MyMapView_ViewpointChanged;
+            // Enable the export tile button once sample is ready
+            MyExportButton.IsEnabled = true;
         }
 
         private void MyMapView_ViewpointChanged(object sender, EventArgs e)

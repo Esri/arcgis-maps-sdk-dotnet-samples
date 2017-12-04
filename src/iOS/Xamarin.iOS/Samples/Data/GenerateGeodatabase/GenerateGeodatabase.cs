@@ -47,7 +47,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
         private UIProgressView myProgressBar = new UIProgressView();
 
         // Genereate button
-        private UIButton myGenerateButton = new UIButton();
+        private UIButton myGenerateButton = new UIButton() { Enabled = false };
 
         public GenerateGeodatabase()
         {
@@ -146,6 +146,9 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
 
             // Update the graphic - needed in case the user decides not to interact before pressing the button
             UpdateMapExtent();
+
+            // Enable the generate button now that the sample is ready
+            myGenerateButton.Enabled = true;
         }
 
         private void UpdateMapExtent()

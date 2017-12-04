@@ -90,10 +90,11 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
                 Visibility = Android.Views.ViewStates.Gone
             };
 
-            // Create the export button
+            // Create the export button (disabled until sample is ready)
             _myExportButton = new Button(this)
             {
-                Text = "Export Tiles"
+                Text = "Export Tiles",
+                Enabled = false
             };
 
             // Get notified of button taps
@@ -145,6 +146,9 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
 
             // Update the graphic - in case user doesn't interact with the map
             UpdateMapExtentGraphic();
+
+            // Enable export button now that sample is ready
+            _myExportButton.Enabled = true;
         }
 
         private void MyMapView_ViewpointChanged(object sender, EventArgs e)

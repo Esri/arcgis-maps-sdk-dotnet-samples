@@ -74,6 +74,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
             // Add the generate button
             myGenerateButton = new Button(this);
             myGenerateButton.Text = "Generate";
+            myGenerateButton.Enabled = false;
             myGenerateButton.Click += GenerateButton_Clicked;
             layout.AddView(myGenerateButton);
 
@@ -136,6 +137,9 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
 
             // Update the graphic - in case user doesn't interact with the map
             UpdateMapExtent();
+
+            // Enable the generate button now that the sample is ready
+            myGenerateButton.Enabled = true;
         }
 
         private void UpdateMapExtent()

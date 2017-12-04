@@ -97,6 +97,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
             // Add the generate button
             myGenerateButton = new Button(this);
             myGenerateButton.Text = "Generate";
+            myGenerateButton.Enabled = false;
             myGenerateButton.Click += GenerateButton_Clicked;
             layout.AddView(myGenerateButton);
 
@@ -172,6 +173,9 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
 
             // Update the graphic - in case user doesn't interact with the map
             UpdateMapExtent();
+
+            // Enable the generate button now that the sample is ready
+            myGenerateButton.Enabled = true;
         }
 
         private async void GeoViewTapped(object sender, GeoViewInputEventArgs e)

@@ -60,7 +60,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
         private UIProgressView myProgressBar = new UIProgressView();
 
         // Generate button
-        private UIButton myGenerateButton = new UIButton();
+        private UIButton myGenerateButton = new UIButton() { Enabled = false };
 
         // Synchronize button
         private UIButton mySyncButton = new UIButton();
@@ -186,6 +186,9 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
 
             // Update the graphic - needed in case the user decides not to interact before pressing the button
             UpdateMapExtent();
+
+            // Enable the generate button now that the sample is ready
+            myGenerateButton.Enabled = true;
         }
 
         private async void GeoViewTapped(object sender, GeoViewInputEventArgs e)

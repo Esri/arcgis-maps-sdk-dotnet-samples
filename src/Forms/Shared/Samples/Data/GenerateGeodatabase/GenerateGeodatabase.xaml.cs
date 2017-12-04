@@ -85,9 +85,6 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
             // Set up an event handler for when the viewpoint (extent) changes
             myMapView.ViewpointChanged += MapViewExtentChanged;
 
-            // Update the graphic - needed in case the user decides not to interact before pressing the button
-            UpdateMapExtent();
-
             // Create a task for generating a geodatabase (GeodatabaseSyncTask)
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
@@ -106,6 +103,12 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
                     myMap.OperationalLayers.Add(new FeatureLayer(onlineTable));
                 }
             }
+
+            // Update the graphic - needed in case the user decides not to interact before pressing the button
+            UpdateMapExtent();
+
+            // Enable the generate button now that the sample is ready
+            myGenerateButton.IsEnabled = true;
         }
 
         private void UpdateMapExtent()

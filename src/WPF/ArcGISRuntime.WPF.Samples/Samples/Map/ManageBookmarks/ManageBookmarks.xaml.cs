@@ -28,9 +28,7 @@ namespace ArcGISRuntime.WPF.Samples.ManageBookmarks
         {
             // Create new map with a base map
             Map myMap = new Map(Basemap.CreateImageryWithLabels());
-            MyMapView.LocationDisplay.IsEnabled = true;
-            MyMapView.LocationDisplay.LocationChanged += LocationDisplay_LocationChanged;
-            //MyMapView.LocationDisplay.IsEnabled = false;
+
             // Set the map view, map property to the base map
             MyMapView.Map = myMap;
 
@@ -82,12 +80,6 @@ namespace ArcGISRuntime.WPF.Samples.ManageBookmarks
 
             // Hide the controls for adding an additional bookmark
             BorderAddBookmark.Visibility = System.Windows.Visibility.Hidden;
-        }
-
-        private void LocationDisplay_LocationChanged(object sender, Esri.ArcGISRuntime.Location.Location e)
-        {
-            if (e.Position != null)
-            ((Esri.ArcGISRuntime.UI.LocationDisplay)sender).LocationChanged -= LocationDisplay_LocationChanged;
         }
 
         private void OnBookmarkChooserSelectionChanged(object sender, SelectionChangedEventArgs e)

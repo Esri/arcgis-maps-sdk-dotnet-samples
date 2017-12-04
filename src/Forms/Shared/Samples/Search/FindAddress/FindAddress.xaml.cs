@@ -132,8 +132,8 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             pinSymbol.Height = 60;
             // The image is a pin; offset the image so that the pinpoint
             //     is on the point rather than the image's true center
-            pinSymbol.OffsetX = pinSymbol.Width / 2;
-            pinSymbol.OffsetY = pinSymbol.Height / 2;
+            pinSymbol.LeaderOffsetX = 30;
+            pinSymbol.OffsetY = 14;
             return new Graphic(point, pinSymbol);
         }
 

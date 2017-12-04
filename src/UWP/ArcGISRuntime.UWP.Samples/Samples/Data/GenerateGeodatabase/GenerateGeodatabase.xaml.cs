@@ -75,9 +75,6 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
             // Add graphics overlay to the map view
             MyMapView.GraphicsOverlays.Add(extentOverlay);
 
-            // Update the extent graphic so that it is valid before user interaction
-            UpdateMapExtent();
-
             // Set up an event handler for when the viewpoint (extent) changes
             MyMapView.ViewpointChanged += MapViewExtentChanged;
 
@@ -99,6 +96,12 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
                     myMap.OperationalLayers.Add(new FeatureLayer(onlineTable));
                 }
             }
+
+            // Update the extent graphic so that it is valid before user interaction
+            UpdateMapExtent();
+
+            // Enable the generate button now that the sample is ready
+            MyGenerateButton.IsEnabled = true;
         }
 
         private void UpdateMapExtent()

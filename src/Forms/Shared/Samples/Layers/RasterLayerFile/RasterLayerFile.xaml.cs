@@ -13,7 +13,7 @@ using ArcGISRuntimeXamarin.Managers;
 using System;
 using Xamarin.Forms;
 using System.IO;
-
+using Esri.ArcGISRuntime.Geometry;
 
 namespace ArcGISRuntimeXamarin.Samples.RasterLayerFile
 {
@@ -41,17 +41,17 @@ namespace ArcGISRuntimeXamarin.Samples.RasterLayerFile
 			// Create the layer
 			RasterLayer myRasterLayer = new RasterLayer(myRasterFile);
 
-			// Load the layer
-			await myRasterLayer.LoadAsync();
+            // Load the layer
+            await myRasterLayer.LoadAsync();
 
-			// Add the layer to the map
-			MyMapView.Map.OperationalLayers.Add(myRasterLayer);
+            // Convert the layer's extent to the correct spatial reference
+            Geometry convertedExtent = GeometryEngine.Project(myRasterLayer.FullExtent, SpatialReferences.WebMercator);
 
-			// Get the raster's extent in a viewpoint
-			Viewpoint myFullRasterExtent = new Viewpoint(myRasterLayer.FullExtent);
+            // Get the raster's extent in a viewpoint
+            Viewpoint myFullRasterExtent = new Viewpoint(convertedExtent);
 
-            // Zoom to the extent
-            MyMapView.SetViewpoint(myFullRasterExtent);
+            // Add the layer to the map
+            MyMapView.Map.OperationalLayers.Add(myRasterLayer);
         }
 
 		private string GetRasterPath()

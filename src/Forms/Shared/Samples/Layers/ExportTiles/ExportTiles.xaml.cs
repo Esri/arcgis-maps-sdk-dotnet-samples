@@ -87,6 +87,9 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
 
             // Update the graphic - needed in case the user decides not to interact before pressing the button
             UpdateMapExtentGraphic();
+
+            // Enable the export button once sample is ready
+            MyExportPreviewButton.IsEnabled = true;
         }
 
         private void MyMapView_ViewpointChanged(object sender, EventArgs e)

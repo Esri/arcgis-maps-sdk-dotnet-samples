@@ -9,7 +9,7 @@
                 HorizontalAlignment="Right" VerticalAlignment="Top"
                 Margin="30" Padding="20" Width="375">
             <StackPanel>
-                <Button Content="Export Tiles" x:Name="MyExportButton" Click="MyExportButton_Click" HorizontalAlignment="Stretch" />
+                <Button Content="Export Tiles" x:Name="MyExportButton" Click="MyExportButton_Click" HorizontalAlignment="Stretch" IsEnabled="False" />
                 <ProgressBar x:Name="MyProgressBar" Visibility="Collapsed" MinHeight="10" IsIndeterminate="True" />
                 <esriUI:MapView x:Name="MyPreviewMapView" Width="375" Height="400" Visibility="Collapsed" />
                 <Button Content="Close Preview" x:Name="MyClosePreviewButton" Click="ClosePreview_Click" Visibility="Collapsed" HorizontalAlignment="Stretch" />

@@ -116,6 +116,9 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
 
             // Update the graphic - needed in case the user decides not to interact before pressing the button
             UpdateMapExtentGraphic();
+
+            // Enable the export button now that sample is ready
+            _myExportButton.Enabled = true;
         }
 
         private void CreateLayout()
@@ -139,10 +142,8 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
             // Set the progress bar to hide when not animating
             _myProgressBar.HidesWhenStopped = true;
 
-            // Create the export button
-            _myExportButton = new UIButton();
-
-            // Set the export button text
+            // Create the export button - disabled until sample is ready
+            _myExportButton = new UIButton() { Enabled = false };
             _myExportButton.SetTitle("Export", UIControlState.Normal);
 
             // Set background color on the button and progressbar

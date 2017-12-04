@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntimeXamarin.Managers;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -62,14 +63,14 @@ namespace ArcGISRuntimeXamarin.Samples.RasterLayerFile
             // Load the layer
             await myRasterLayer.LoadAsync();
 
-            // Add the layer to the map
-            _myMapView.Map.OperationalLayers.Add(myRasterLayer);
+            // Convert the layer's extent to the correct spatial reference
+            Geometry convertedExtent = GeometryEngine.Project(myRasterLayer.FullExtent, SpatialReferences.WebMercator);
 
             // Get the raster's extent in a viewpoint
-            Viewpoint myFullRasterExtent = new Viewpoint(myRasterLayer.FullExtent);
+            Viewpoint myFullRasterExtent = new Viewpoint(convertedExtent);
 
-            // Zoom to the extent
-            _myMapView.SetViewpoint(myFullRasterExtent);
+            // Add the layer to the map
+            _myMapView.Map.OperationalLayers.Add(myRasterLayer);
         }
 
         private void CreateLayout()

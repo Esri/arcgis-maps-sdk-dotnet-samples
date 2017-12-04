@@ -168,10 +168,10 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
             ExportTileCacheParameters parameters = new ExportTileCacheParameters();
 
             // Get the (only) graphics overlay in the map view
-            GraphicsOverlay extentOverlay = MyMapView.GraphicsOverlays.FirstOrDefault();
+            GraphicsOverlay extentOverlay = MyMapView.GraphicsOverlays.First();
 
             // Get the area selection graphic's extent
-            Graphic extentGraphic = extentOverlay.Graphics.FirstOrDefault();
+            Graphic extentGraphic = extentOverlay.Graphics.First();
 
             // Set the area for the export
             parameters.AreaOfInterest = extentGraphic.Geometry;

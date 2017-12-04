@@ -247,7 +247,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
             GraphicsOverlay extentOverlay = _myMapView.GraphicsOverlays.First();
 
             // Get the area selection graphic's extent
-            Graphic extentGraphic = extentOverlay.Graphics.FirstOrDefault();
+            Graphic extentGraphic = extentOverlay.Graphics.First();
 
             // Set the area for the export
             parameters.AreaOfInterest = extentGraphic.Geometry;

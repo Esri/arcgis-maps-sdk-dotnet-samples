@@ -250,7 +250,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
             ExportTileCacheParameters parameters = new ExportTileCacheParameters();
 
             // Get the (only) graphics overlay in the map view
-            GraphicsOverlay extentOverlay = _myMapView.GraphicsOverlays.FirstOrDefault();
+            GraphicsOverlay extentOverlay = _myMapView.GraphicsOverlays.First();
 
             // Get the area selection graphic's extent
             Graphic extentGraphic = extentOverlay.Graphics.First();

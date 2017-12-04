@@ -318,7 +318,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
             // Get the (only) graphic in the map view
-            Graphic redPreviewBox = myMapView.GraphicsOverlays.First().Graphics.FirstOrDefault();
+            Graphic redPreviewBox = myMapView.GraphicsOverlays.First().Graphics.First();
 
             // Get the current extent of the red preview box
             Envelope extent = redPreviewBox.Geometry as Envelope;

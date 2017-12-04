@@ -151,7 +151,7 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
             // Get the current extent of the red preview box
-            Envelope extent = MyMapView.GraphicsOverlays.FirstOrDefault().Graphics.FirstOrDefault().Geometry as Envelope;
+            Envelope extent = MyMapView.GraphicsOverlays.First().Graphics.First().Geometry as Envelope;
 
             // Get the default parameters for the generate geodatabase task
             GenerateGeodatabaseParameters generateParams = await _gdbSyncTask.CreateDefaultGenerateGeodatabaseParametersAsync(extent);

@@ -127,6 +127,10 @@
 
     This sample demonstrates how to enable and disable the display of layers discovered from a WMS service.
 
+    * [Identify WMS Features](Xamarin.iOS/Samples/Layers/WmsIdentify)
+
+    This sample demonstrates how to identify WMS features and display the associated content for an identified WMS feature.
+
 
 - **Raster Layers**
 
@@ -332,7 +336,7 @@
 
     This sample demonstrates how to load an ENC Exchange Set, including its component cells.
 
-    * [ENC Display Settings](Xamarin.iOS/Samples/Hydrography/ChangeEncDisplaySettings)
+    * [Change ENC Display Settings](Xamarin.iOS/Samples/Hydrography/ChangeEncDisplaySettings)
 
     This sample demonstrates how to control ENC environment settings. These settings apply to the display of all ENC content in your app.
 

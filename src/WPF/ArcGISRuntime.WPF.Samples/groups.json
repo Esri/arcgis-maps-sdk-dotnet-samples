@@ -151,6 +151,10 @@
             {
               "SampleName": "WmsServiceCatalog",
               "Path": "Samples/Layers/WmsServiceCatalog"
+            },
+            {
+              "SampleName": "WmsIdentify",
+              "Path": "Samples/Layers/WmsIdentify"
             }
           ]
         },
@@ -347,6 +351,10 @@
             {
               "SampleName": "AnalyzeViewshed",
               "Path": "Samples/Geoprocessing/AnalyzeViewshed"
+            },
+            {
+              "SampleName": "LineOfSightLocation",
+              "Path": "Samples/Analysis/LineOfSightLocation"
             },
             {
               "SampleName": "ListGeodatabaseVersions",

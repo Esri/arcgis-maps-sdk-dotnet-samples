@@ -39,6 +39,7 @@
     <MandroidI18n />
     <Debugger>Xamarin</Debugger>
     <DevInstrumentationEnabled>True</DevInstrumentationEnabled>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -48,6 +49,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <!-- /Build Configurations-->
   <ItemGroup>
@@ -157,11 +159,13 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
+    <EmbeddedResource Include="Samples\Layers\WmsIdentify\metadata.json" />
     <EmbeddedResource Include="Samples\Hydrography\SelectEncFeatures\metadata.json" />
     <EmbeddedResource Include="Samples\Hydrography\ChangeEncDisplaySettings\metadata.json" />
     <EmbeddedResource Include="Samples\Hydrography\AddEncExchangeSet\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\GeoViewSync\metadata.json" />
     <EmbeddedResource Include="groups.json" />
+    <EmbeddedResource Include="Samples\Analysis\LineOfSightLocation\metadata.json" />
     <EmbeddedResource Include="Samples\Data\EditAndSyncFeatures\metadata.json" />
     <EmbeddedResource Include="Samples\Data\FeatureLayerGeoPackage\metadata.json" />
     <EmbeddedResource Include="Samples\Data\FeatureLayerQuery\metadata.json" />
@@ -236,6 +240,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
+    <None Include="Samples\Layers\WmsIdentify\WmsIdentify.jpg" />
     <None Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg" />
     <None Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
     <None Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
@@ -245,9 +251,11 @@
     <None Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.jpg" />
     <None Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.jpg" />
     <None Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.jpg" />
+    <None Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.jpg" />
     <EmbeddedResource Include="Samples\Data\GeodatabaseTransactions\metadata.json" />
     <None Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.jpg" />
     <EmbeddedResource Include="Samples\Data\RasterLayerGeoPackage\metadata.json" />
+    <None Include="Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.jpg" />
     <None Include="Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.jpg" />
     <None Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.jpg" />
     <None Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.jpg" />
@@ -317,6 +325,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.cs" />
+    <Compile Include="Samples\Layers\WmsIdentify\WmsIdentify.cs" />
     <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.cs" />
     <Compile Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.cs" />
     <Compile Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.cs" />
@@ -394,13 +404,10 @@
     <Compile Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.cs" />
     <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.cs" />
     <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.jpg" />
-  </ItemGroup>
+  </ItemGroup>  
+
+    
+
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -9,11 +9,9 @@
 
 using Android.App;
 using Android.OS;
-using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
-using static Android.Widget.GridLayout;
 
 namespace ArcGISRuntimeXamarin.Samples.GeoViewSync
 {

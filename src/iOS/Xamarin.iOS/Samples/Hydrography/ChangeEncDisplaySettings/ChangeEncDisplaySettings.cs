@@ -28,7 +28,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
         private MapView _myMapView = new MapView();
 
         // Hold a reference to the (static) app-wide ENC Mariner settings
-        EncMarinerSettings _encMarinerSettings = EncEnvironmentSettings.Default.EncDisplaySettings.MarinerSettings;
+        EncMarinerSettings _encMarinerSettings = EncEnvironmentSettings.Default.DisplaySettings.MarinerSettings;
 
         // Create and hold references to the segment controls
         private UISegmentedControl _colorSchemeSegment = new UISegmentedControl("Day", "Dusk", "Night")
@@ -80,10 +80,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
             // Add each data set as a layer
             foreach (EncDataset myEncDataSet in myEncExchangeSet.Datasets)
             {
-                var path = myEncDataSet.Name.Replace("\\", "/");
-                // Create the cell and layer
-                EncCell cell = new EncCell(Path.Combine(Path.GetDirectoryName(encPath), path));
-                EncLayer myEncLayer = new EncLayer(cell);
+                EncLayer myEncLayer = new EncLayer(new EncCell(myEncDataSet));
 
                 // Add the layer to the map
                 _myMapView.Map.OperationalLayers.Add(myEncLayer);

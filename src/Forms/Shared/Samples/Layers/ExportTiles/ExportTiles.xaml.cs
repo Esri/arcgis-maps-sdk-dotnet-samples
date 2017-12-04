@@ -20,7 +20,9 @@ using System.IO;
 #if WINDOWS_UWP
 using Colors = Windows.UI.Colors;
 #else
+
 using Colors = System.Drawing.Color;
+
 #endif
 
 namespace ArcGISRuntimeXamarin.Samples.ExportTiles
@@ -242,7 +244,6 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
 
                     // Then hide it
                     MyMapView.GraphicsOverlays.Clear();
-
                 });
             }
             else if (job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed)

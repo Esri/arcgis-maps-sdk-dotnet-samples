@@ -45,7 +45,6 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
 
             // Create the UI, setup the control references and execute initialization
             Initialize();
-            
         }
 
         private async void Initialize()
@@ -235,6 +234,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
         private async Task<string> GetTpkPath()
         {
             #region offlinedata
+
             // The desired tpk is expected to be called SanFrancisco.tpk
             string filename = "SanFrancisco.tpk";
 
@@ -251,6 +251,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
                 await DataManager.GetData("3f1bbf0ec70b409a975f5c91f363fe7d", "GenerateGeodatabase");
             }
             return filepath;
+
             #endregion offlinedata
         }
 

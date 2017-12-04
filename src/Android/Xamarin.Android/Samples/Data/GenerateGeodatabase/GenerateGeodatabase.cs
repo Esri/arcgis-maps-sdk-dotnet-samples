@@ -277,14 +277,16 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
         private string GetTpkPath()
         {
             #region offlinedata
+
             // The desired tpk is expected to be called SanFrancisco.tpk
             string filename = "SanFrancisco.tpk";
 
             // The data manager provides a method to get the folder
             string folder = DataManager.GetDataFolder();
 
-			// Return the full path; Item ID is 3f1bbf0ec70b409a975f5c91f363fe7d
-			return Path.Combine(folder, "SampleData", "GenerateGeodatabase", filename);
+            // Return the full path; Item ID is 3f1bbf0ec70b409a975f5c91f363fe7d
+            return Path.Combine(folder, "SampleData", "GenerateGeodatabase", filename);
+
             #endregion offlinedata
         }
 

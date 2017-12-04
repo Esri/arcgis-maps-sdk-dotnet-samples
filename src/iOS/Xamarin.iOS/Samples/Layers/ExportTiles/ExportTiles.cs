@@ -213,7 +213,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
         private string GetTilePath()
         {
             // Return a path
-            return $"{Path.GetTempFileName()}.tpk"; 
+            return $"{Path.GetTempFileName()}.tpk";
         }
 
         /// <summary>

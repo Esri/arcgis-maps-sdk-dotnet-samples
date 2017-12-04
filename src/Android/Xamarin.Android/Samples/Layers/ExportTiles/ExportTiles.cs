@@ -74,7 +74,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
             // Create a stack layout
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
-			layout.LayoutParameters = new ViewGroup.MarginLayoutParams(ViewGroup.MarginLayoutParams.MatchParent, ViewGroup.MarginLayoutParams.MatchParent);
+            layout.LayoutParameters = new ViewGroup.MarginLayoutParams(ViewGroup.MarginLayoutParams.MatchParent, ViewGroup.MarginLayoutParams.MatchParent);
 
             // Create the mapview
             _myMapView = new MapView();
@@ -302,7 +302,6 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
                     // Store the graphics overlay and then hide it
                     _overlay = _myMapView.GraphicsOverlays.FirstOrDefault();
                     _myMapView.GraphicsOverlays.Clear();
-
                 });
             }
             else if (job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed)
@@ -349,8 +348,8 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
             // Apply the map to the mapview
             _myMapView.Map = previewMap;
 
-			// Set the margin
-			SetMapviewMargin(40);
+            // Set the margin
+            SetMapviewMargin(40);
         }
 
         /// <summary>
@@ -403,7 +402,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
         }
 
         /// <summary>
-        /// Helper method applies the specified margin to the mapview's container 
+        /// Helper method applies the specified margin to the mapview's container
         /// </summary>
         private void SetMapviewMargin(int margin)
         {
@@ -411,7 +410,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
             ViewGroup.MarginLayoutParams paramaters = (ViewGroup.MarginLayoutParams)_layoutContainer.LayoutParameters;
 
             // Set the margins
-            paramaters.SetMargins(margin,margin,margin,margin);
+            paramaters.SetMargins(margin, margin, margin, margin);
 
             // Apply the layout
             _layoutContainer.LayoutParameters = paramaters;

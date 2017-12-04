@@ -69,6 +69,9 @@ namespace ArcGISRuntimeXamarin.Samples.RasterLayerFile
             // Get the raster's extent in a viewpoint
             Viewpoint myFullRasterExtent = new Viewpoint(convertedExtent);
 
+            // Set the viewpoint
+            _myMapView.SetViewpoint(myFullRasterExtent);
+
             // Add the layer to the map
             _myMapView.Map.OperationalLayers.Add(myRasterLayer);
         }
@@ -88,14 +91,16 @@ namespace ArcGISRuntimeXamarin.Samples.RasterLayerFile
         private string GetRasterPath()
         {
             #region offlinedata
+
             // The desired raster is expected to be called Shasta.tif
             string filename = "Shasta.tif";
 
             // The data manager provides a method to get the folder
             string folder = DataManager.GetDataFolder();
 
-			// Return the full path; Item ID is 7c4c679ab06a4df19dc497f577f111bd
-			return Path.Combine(folder, "SampleData", "RasterLayerFile", "raster-file", filename);
+            // Return the full path; Item ID is 7c4c679ab06a4df19dc497f577f111bd
+            return Path.Combine(folder, "SampleData", "RasterLayerFile", "raster-file", filename);
+
             #endregion offlinedata
         }
     }

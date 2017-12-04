@@ -144,13 +144,13 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
 
             // Create the task
             ExportTileCacheTask exportTask = await ExportTileCacheTask.CreateAsync(_serviceUri);
-            
+
             // Update the tile cache path
             _tilePath = GetTilePath();
 
             // Create the export job
             ExportTileCacheJob job = exportTask.ExportTileCache(parameters, _tilePath);
-            
+
             // Start the export job
             job.Start();
 

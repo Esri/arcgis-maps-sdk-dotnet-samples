@@ -227,6 +227,7 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
         private async Task<string> GetTpkPath()
         {
             #region offlinedata
+
             // The desired tpk is expected to be called SanFrancisco.tpk
             string filename = "SanFrancisco.tpk";
 
@@ -243,6 +244,7 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
                 await DataManager.GetData("3f1bbf0ec70b409a975f5c91f363fe7d", "GenerateGeodatabase");
             }
             return filepath;
+
             #endregion offlinedata
         }
 

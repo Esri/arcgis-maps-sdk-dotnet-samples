@@ -50,6 +50,9 @@ namespace ArcGISRuntime.WPF.Samples.RasterLayerFile
             // Get the raster's extent in a viewpoint
             Viewpoint myFullRasterExtent = new Viewpoint(convertedExtent);
 
+            // Set the viewpoint
+            MyMapView.SetViewpoint(myFullRasterExtent);
+
             // Add the layer to the map
             MyMapView.Map.OperationalLayers.Add(myRasterLayer);
         }

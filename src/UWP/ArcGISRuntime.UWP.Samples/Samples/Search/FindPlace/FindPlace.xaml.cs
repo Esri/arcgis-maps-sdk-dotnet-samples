@@ -77,7 +77,8 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
             ((LocationDisplay)sender).LocationChanged -= LocationDisplay_LocationChanged;
 
             // Need to use the dispatcher to interact with UI elements because this function is called from a background thread
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
                 MyMapView.SetViewpoint(new Viewpoint(e.Position, 100000));
             });
         }
@@ -312,6 +313,9 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
         /// </summary>
         private async void MySearchBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
+            // Dismiss callout, if any
+            UserInteracted();
+
             // Get the current text
             string searchText = MySearchBox.Text;
 
@@ -333,6 +337,9 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
         /// </summary>
         private async void MyLocationBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
+            // Dismiss callout, if any
+            UserInteracted();
+
             // Get the current text
             string searchText = MyLocationBox.Text;
 
@@ -357,6 +364,9 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
         /// </summary>
         private void MySearchRestrictedButton_Click(object sender, RoutedEventArgs e)
         {
+            // Dismiss callout, if any
+            UserInteracted();
+
             // Get the search text
             string searchText = MySearchBox.Text;
 
@@ -372,6 +382,9 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
         /// </summary>
         private void MySearchButton_Click(object sender, RoutedEventArgs e)
         {
+            // Dismiss callout, if any
+            UserInteracted();
+
             // Get the search text
             string searchText = MySearchBox.Text;
 
@@ -380,6 +393,15 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
 
             // Run the search
             UpdateSearch(searchText, locationText, false);
+        }
+
+        /// <summary>
+        /// Method to handle hiding the callout, should be called by all UI event handlers
+        /// </summary>
+        private void UserInteracted()
+        {
+            // Hide the callout
+            MyMapView.DismissCallout();
         }
     }
 }

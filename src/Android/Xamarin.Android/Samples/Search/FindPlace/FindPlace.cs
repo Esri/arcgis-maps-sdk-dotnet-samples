@@ -36,6 +36,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
 
         // UI Elements
         private MapView _myMapView = new MapView();
+
         private AutoCompleteTextView _mySearchBox;
         private AutoCompleteTextView _myLocationBox;
         private Button _mySearchButton;
@@ -376,6 +377,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         /// </summary>
         private async void _mySearchBox_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
         {
+            // Dismiss callout, if any
+            UserInteracted();
+
             // Get the current text
             string searchText = _mySearchBox.Text;
 
@@ -400,6 +404,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         /// </summary>
         private async void _myLocationBox_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
         {
+            // Dismiss callout, if any
+            UserInteracted();
+
             // Get the current text
             string searchText = _myLocationBox.Text;
 
@@ -427,6 +434,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         /// </summary>
         private async void _mySearchButton_Click(object sender, EventArgs e)
         {
+            // Dismiss callout, if any
+            UserInteracted();
+
             // Get the search text
             string searchText = _mySearchBox.Text;
 
@@ -442,6 +452,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         /// </summary>
         private async void _mySearchRestrictedButton_Click(object sender, EventArgs e)
         {
+            // Dismiss callout, if any
+            UserInteracted();
+
             // Get the search text
             string searchText = _mySearchBox.Text;
 
@@ -450,6 +463,15 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
 
             // Run the search
             await UpdateSearch(searchText, locationText, true);
+        }
+
+        /// <summary>
+        /// Method to handle hiding the callout, should be called by all UI event handlers
+        /// </summary>
+        private void UserInteracted()
+        {
+            // Hide the callout
+            _myMapView.DismissCallout();
         }
     }
 }

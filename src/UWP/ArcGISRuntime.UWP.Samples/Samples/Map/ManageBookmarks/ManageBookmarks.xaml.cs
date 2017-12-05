@@ -29,7 +29,7 @@ namespace ArcGISRuntime.UWP.Samples.ManageBookmarks
             // Create new map with a base map
             Map myMap = new Map(Basemap.CreateImageryWithLabels());
 
-            // Set the map view, map property to the base map
+            // Add the map to the mapview
             MyMapView.Map = myMap;
 
             // Create a set of predefined bookmarks; each one follows the pattern of:

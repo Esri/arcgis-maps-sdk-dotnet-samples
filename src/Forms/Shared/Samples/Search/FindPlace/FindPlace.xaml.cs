@@ -74,7 +74,8 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             ((LocationDisplay)sender).LocationChanged -= LocationDisplay_LocationChanged;
 
             // Need to use this to interact with UI elements because this function is called from a background thread
-            Device.BeginInvokeOnMainThread(() => {
+            Device.BeginInvokeOnMainThread(() =>
+            {
                 MyMapView.SetViewpoint(new Viewpoint(e.Position, 100000));
             });
         }
@@ -313,6 +314,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         /// </summary>
         private async void MyLocationBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            // Dismiss callout, if any
+            UserInteracted();
+
             // Get the current text
             string searchText = MyLocationBox.Text;
 
@@ -337,6 +341,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         /// </summary>
         private async void MySearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            // Dismiss callout, if any
+            UserInteracted();
+
             // Get the current text
             string searchText = MySearchBox.Text;
 
@@ -358,6 +365,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         /// </summary>
         private void MySearchRestrictedButton_Clicked(object sender, EventArgs e)
         {
+            // Dismiss callout, if any
+            UserInteracted();
+
             // Get the search text
             string searchText = MySearchBox.Text;
 
@@ -373,6 +383,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         /// </summary>
         private void MySearchButton_Clicked(object sender, EventArgs e)
         {
+            // Dismiss callout, if any
+            UserInteracted();
+
             // Get the search text
             string searchText = MySearchBox.Text;
 
@@ -388,6 +401,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         /// </summary>
         private void MyLocationBox_Unfocused(object sender, FocusEventArgs e)
         {
+            // Dismiss callout, if any
+            UserInteracted();
+
             // Hide the suggestion list
             lstViewSuggestions.IsVisible = false;
 
@@ -400,6 +416,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         /// </summary>
         private void MySearchBox_Focused(object sender, FocusEventArgs e)
         {
+            // Dismiss callout, if any
+            UserInteracted();
+
             // Show the suggestion list
             lstViewSuggestions.IsVisible = true;
 
@@ -412,6 +431,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         /// </summary>
         private void lstViewSuggestions_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
+            // Dismiss callout, if any
+            UserInteracted();
+
             // Get the text of the selected item
             String suggestion = e.SelectedItem.ToString();
 
@@ -425,6 +447,15 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
                 // Otherwise, update the search box
                 MySearchBox.Text = suggestion;
             }
+        }
+
+        /// <summary>
+        /// Method to handle hiding the callout, should be called by all UI event handlers
+        /// </summary>
+        private void UserInteracted()
+        {
+            // Hide the callout
+            MyMapView.DismissCallout();
         }
     }
 }

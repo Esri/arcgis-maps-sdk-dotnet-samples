@@ -527,6 +527,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         /// </summary>
         private async void _myLocationBox_TextChanged(object sender, EventArgs e)
         {
+            // Dismiss callout, if any
+            UserInteracted();
+
             // Set the currently-updated text field
             _locationSearchActive = true;
 
@@ -560,6 +563,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         /// </summary>
         private async void _mySearchBox_TextChanged(object sender, EventArgs e)
         {
+            // Dismiss callout, if any
+            UserInteracted();
+
             // Set the currently-updated text field
             _locationSearchActive = false;
 
@@ -590,6 +596,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         /// </summary>
         private void _mySearchRestrictedButton_Click(object sender, EventArgs e)
         {
+            // Dismiss callout, if any
+            UserInteracted();
+
             // Get the search text
             string searchText = _mySearchBox.Text;
 
@@ -605,6 +614,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         /// </summary>
         private void _mySearchButton_Clicked(object sender, EventArgs e)
         {
+            // Dismiss callout, if any
+            UserInteracted();
+
             // Get the search text
             string searchText = _mySearchBox.Text;
 
@@ -636,6 +648,15 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
 
             // Reset the suggestion items
             _mySuggestionSource.TableItems = new List<string>();
+        }
+
+        /// <summary>
+        /// Method to handle hiding the callout, should be called by all UI event handlers
+        /// </summary>
+        private void UserInteracted()
+        {
+            // Hide the callout
+            _myMapView.DismissCallout();
         }
     }
 }

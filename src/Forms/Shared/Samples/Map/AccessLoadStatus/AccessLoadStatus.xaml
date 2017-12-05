@@ -10,7 +10,7 @@
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
     <StackLayout Orientation="Horizontal">
-      <Label x:Name="loadStatusLabel" Text="Maps' load status : "/>
+      <Label x:Name="loadStatusLabel" Text="Map's load status : "/>
     </StackLayout>
     <esriUI:MapView x:Name="myMapView"  Grid.Row="1"/>
   </Grid>

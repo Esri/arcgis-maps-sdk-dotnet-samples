@@ -44,7 +44,7 @@ namespace ArcGISRuntimeXamarin.Samples.AccessLoadStatus
             {
                 // Update the load status information
                 loadStatusLabel.Text = string.Format(
-                        "Maps' load status : {0}",
+                        "Map's load status : {0}",
                         e.Status.ToString());
             });
         }

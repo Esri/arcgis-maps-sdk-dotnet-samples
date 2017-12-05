@@ -48,6 +48,9 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             // Provide used Map to the MapView
             MyMapView.Map = myMap;
 
+            // Subscribe to location changed events (to support zooming to current location)
+            MyMapView.LocationDisplay.LocationChanged += LocationDisplay_LocationChanged;
+
             // Enable location display
             MyMapView.LocationDisplay.IsEnabled = true;
 
@@ -64,12 +67,26 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             MySearchRestrictedButton.IsEnabled = true;
         }
 
+        private void LocationDisplay_LocationChanged(object sender, Esri.ArcGISRuntime.Location.Location e)
+        {
+            // Return if position is null; event is called with null position when location display is turned on
+            if (e.Position == null) { return; }
+
+            // Unsubscribe to the event (only want to zoom once)
+            ((LocationDisplay)sender).LocationChanged -= LocationDisplay_LocationChanged;
+
+            // Needed because the event is called from a background thread, but the code is manipulating UI
+            Dispatcher.Invoke(() =>
+            {
+                // Zoom to the location
+                MyMapView.SetViewpointAsync(new Viewpoint(e.Position, 100000));
+            });
+        }
+
         /// <summary>
         /// Gets the map point corresponding to the text in the location textbox.
         /// If the text is 'Current Location', the returned map point will be the device's location.
         /// </summary>
-        /// <param name="locationText"></param>
-        /// <returns></returns>
         private async Task<MapPoint> GetSearchMapPoint(string locationText)
         {
             // Get the map point for the search text
@@ -198,10 +215,10 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);
             pinSymbol.Width = 60;
             pinSymbol.Height = 60;
-            // The image is a pin; offset the image so that the pinpoint
-            //     is on the point rather than the image's true center
-            pinSymbol.OffsetX = pinSymbol.Width / 2;
-            pinSymbol.OffsetY = pinSymbol.Height / 2;
+            // The symbol is a pin; centering it on the point is incorrect. 
+            // The values below center the pin and offset it so that the pinpoint is accurate
+            pinSymbol.LeaderOffsetX = 30;
+            pinSymbol.OffsetY = 14;
             return new Graphic(point, pinSymbol);
         }
 

@@ -40,7 +40,7 @@ namespace ArcGISRuntime.WPF.Samples.AccessLoadStatus
             // Update the load status information
             Dispatcher.BeginInvoke(
                 new ThreadStart(() => 
-                loadStatusLabel.Content = string.Format("Maps' load status : {0}", e.Status.ToString())
+                loadStatusLabel.Content = string.Format("Map's load status : {0}", e.Status.ToString())
                 ));
         }
     }

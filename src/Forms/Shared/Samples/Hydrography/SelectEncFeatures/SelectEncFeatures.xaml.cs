@@ -28,7 +28,7 @@ namespace ArcGISRuntimeXamarin.Samples.SelectEncFeatures
         {
             InitializeComponent();
 
-            Title = "Select ENC Features";
+            Title = "Select ENC features";
 
             // Create the UI, setup the control references and execute initialization
             Initialize();

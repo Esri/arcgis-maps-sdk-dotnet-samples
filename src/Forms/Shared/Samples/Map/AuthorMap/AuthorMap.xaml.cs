@@ -116,6 +116,9 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
 
         private void LayerSelected(object sender, ItemTappedEventArgs e)
         {
+            // return if null
+            if (e.Item == null) { return; }
+
             // Handle the event when a layer item is selected (tapped) in the layer list
             var selectedItem = e.Item.ToString();
 
@@ -140,15 +143,12 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
 
         private void ShowLayerList(object sender, EventArgs e)
         {
-            // Clear the items currently shown in the list
-            LayersList.ItemsSource = null;
-
             // See which button was used to show the list and fill it accordingly
             var button = sender as Button;
-            if (button.Text == "Base map")
+            if (button.Text == "Basemap")
             {
                 // Show the basemap list
-                LayersList.ItemsSource = _basemapTypes;
+                LayersList.ItemsSource = _basemapTypes.ToList();
             }
             else if (button.Text == "Layers")
             {
@@ -309,26 +309,21 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
 
         private void AddLayer(string layerName, string url)
         {
+            // Clear any existing layers
+            MyMapView.Map.OperationalLayers.Clear();
+
             // See if the layer already exists
             ArcGISMapImageLayer layer = MyMapView.Map.OperationalLayers.FirstOrDefault(l => l.Name == layerName) as ArcGISMapImageLayer;
 
-            // If the layer is in the map, remove it
-            if (layer != null)
-            {
-                MyMapView.Map.OperationalLayers.Remove(layer);
-            }
-            else
-            {
-                var layerUri = new Uri(url);
+            var layerUri = new Uri(url);
 
-                // Create a new map image layer
-                layer = new ArcGISMapImageLayer(layerUri);
-                layer.Name = layerName;
+            // Create a new map image layer
+            layer = new ArcGISMapImageLayer(layerUri);
+            layer.Name = layerName;
 
-                // Set it 50% opaque, and add it to the map
-                layer.Opacity = 0.5;
-                MyMapView.Map.OperationalLayers.Add(layer);
-            }
+            // Set it 50% opaque, and add it to the map
+            layer.Opacity = 0.5;
+            MyMapView.Map.OperationalLayers.Add(layer);
         }
 
         #region OAuth

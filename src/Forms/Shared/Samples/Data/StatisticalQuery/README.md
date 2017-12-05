@@ -6,4 +6,4 @@ This sample demonstrates how to query a feature table to get statistics for a sp
 
 ### Instructions
 
-Check the appropriate switches to evaluate only features representing the largest cities and/or those within the current extent. Click the button to see basic statistics displayed for world cities.
+Check the appropriate boxes to filter features by attributes and/or within the current extent. Click the button to see basic statistics displayed for world cities.

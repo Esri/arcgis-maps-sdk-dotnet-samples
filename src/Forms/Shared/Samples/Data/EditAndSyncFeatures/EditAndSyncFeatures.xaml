@@ -10,11 +10,13 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Button Text="Generate" Grid.Row="0" Clicked="GenerateButton_Clicked" />
-        <Button Text="Synchronize" Grid.Row="1" Clicked="SyncButton_Click" IsEnabled="False" x:Name="mySyncButton" />
-        <ProgressBar IsVisible="False" Grid.Row="2" x:Name="myProgressBar" MinimumHeightRequest="10" />
-        <esriUI:MapView x:Name="myMapView"  Grid.Row="3" GeoViewTapped="GeoViewTapped" />
+        <Label x:Name="MyHelpLabel" Grid.Row="0" Text="1. Click 'generate'" TextColor="Red" />
+        <Button Text="Generate" Grid.Row="1" Clicked="GenerateButton_Clicked" x:Name="myGenerateButton" IsEnabled="False" />
+        <Button Text="Synchronize" Grid.Row="2" Clicked="SyncButton_Click" IsEnabled="False" x:Name="mySyncButton" />
+        <ProgressBar IsVisible="False" Grid.Row="3" x:Name="myProgressBar" MinimumHeightRequest="10" />
+        <esriUI:MapView x:Name="myMapView"  Grid.Row="4" GeoViewTapped="GeoViewTapped" />
     </Grid>
 </ContentPage>

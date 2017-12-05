@@ -93,7 +93,7 @@ namespace ArcGISRuntimeXamarin.Managers
         /// <returns></returns>
         internal static string GetDataFolder()
         {
-            var appDataFolder = "Library/";
+            var appDataFolder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData);
             return appDataFolder;
         }
     }

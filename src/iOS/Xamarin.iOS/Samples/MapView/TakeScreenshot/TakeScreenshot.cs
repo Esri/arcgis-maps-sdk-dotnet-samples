@@ -35,7 +35,7 @@ namespace ArcGISRuntimeXamarin.Samples.TakeScreenshot
 
         public TakeScreenshot()
         {
-            this.Title = "Take Screenshot";
+            this.Title = "Take screenshot";
         }
 
         public override void ViewDidLoad()

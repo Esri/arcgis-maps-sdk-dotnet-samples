@@ -1,4 +1,4 @@
-# Manage Bookmarks
+# Manage bookmarks
 
 This sample demonstrates how to access and add bookmarks to a map.
 

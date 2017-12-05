@@ -105,6 +105,9 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
         // Create the view for the layer list display
         private UITableView _myDisplayList = new UITableView();
 
+        // Create and hold the help label
+        private UILabel _myHelpLabel = new UILabel();
+
         public WmsServiceCatalog()
         {
             Title = "WMS service catalog";
@@ -123,14 +126,24 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
 
         private void CreateLayout()
         {
+            // Set the help label text and color
+            _myHelpLabel.Text = "Select a layer from above list.";
+            _myHelpLabel.TextColor = UIColor.Red;
+
             // Add the MapView to the view
-            View.AddSubviews(_myMapView, _myDisplayList);
+            View.AddSubviews(_myMapView, _myDisplayList, _myHelpLabel);
         }
 
         public override void ViewDidLayoutSubviews()
         {
+            // Variable holding the top bound (for code clarity)
+            nfloat pageOffset = this.NavigationController.TopLayoutGuide.Length;
+
             // Set up the visual frame for the layer display list
-            _myDisplayList.Frame = new CoreGraphics.CGRect(0, this.NavigationController.TopLayoutGuide.Length, View.Bounds.Width, 150);
+            _myDisplayList.Frame = new CoreGraphics.CGRect(0, pageOffset, View.Bounds.Width, 150);
+
+            // Set up the visual frame for the help label
+            _myHelpLabel.Frame = new CoreGraphics.CGRect(10, pageOffset + 150, View.Bounds.Width - 20, 60);
 
             // Set up the visual frame for the MapView
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
@@ -181,6 +194,9 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
         /// <summary>
         /// Recursively builds a list of WmsLayerInfo metadata starting from a collection of root WmsLayerInfo
         /// </summary>
+        /// For simplicity, this sample doesn't show the layer hierarchy (tree), instead collapsing it to a list.
+        /// A tree view would be more appropriate, but would complicate the sample greatly.
+        /// </remarks>
         /// <param name="info">Collection of starting WmsLayerInfo object</param>
         /// <param name="result">Result list to build</param>
         private void BuildLayerInfoList(IReadOnlyList<WmsLayerInfo> info, List<WmsLayerInfo> result)
@@ -202,7 +218,7 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
         /// <summary>
         /// Updates the map with the latest layer selection
         /// </summary>
-        private void UpdateMapDisplay(List<LayerDisplayVM> displayList)
+        private async void UpdateMapDisplay(List<LayerDisplayVM> displayList)
         {
             // Remove all existing layers
             _myMapView.Map.OperationalLayers.Clear();
@@ -212,6 +228,12 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
 
             // Create a new WmsLayer from the selected layers
             WmsLayer myLayer = new WmsLayer(selectedLayers);
+
+            // Wait for the layer to load
+            await myLayer.LoadAsync();
+
+            // Zoom to the extent of the layer
+            await _myMapView.SetViewpointAsync(new Viewpoint(myLayer.FullExtent));
 
             // Add the layer to the map
             _myMapView.Map.OperationalLayers.Add(myLayer);

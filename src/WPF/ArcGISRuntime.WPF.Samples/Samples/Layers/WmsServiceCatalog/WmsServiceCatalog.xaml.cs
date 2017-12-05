@@ -67,8 +67,12 @@ namespace ArcGISRuntime.WPF.Samples.WmsServiceCatalog
         }
 
         /// <summary>
-        /// Recursively builds a list of WmsLayerInfo metadata starting from a collection of root WmsLayerInfo
+        /// Recursively builds a list of WmsLayerInfo metadata starting from a collection of root WmsLayerInfo.
         /// </summary>
+        /// <remarks>
+        /// For simplicity, this sample doesn't show the layer hierarchy (tree), instead collapsing it to a list.
+        /// A tree view would be more appropriate, but would complicate the sample greatly.
+        /// </remarks>
         /// <param name="info">Collection of starting WmsLayerInfo object</param>
         /// <param name="result">Result list to build</param>
         private void BuildLayerInfoList(IReadOnlyList<WmsLayerInfo> info, List<WmsLayerInfo> result)
@@ -97,6 +101,9 @@ namespace ArcGISRuntime.WPF.Samples.WmsServiceCatalog
 
             // Get a list of selected LayerInfos
             IEnumerable<WmsLayerInfo> selectedLayers = displayList.Where(vm => vm.IsEnabled).Select(vm => vm.Info);
+
+            // Return if no layers selected
+            if (selectedLayers.Count() < 1) { return; }
 
             // Create a new WmsLayer from the selected layers
             WmsLayer myLayer = new WmsLayer(selectedLayers);

@@ -7,7 +7,7 @@
              mc:Ignorable="d">
     <Grid>
         <esri:MapView x:Name="MyMapView"/>
-        <Border Background="LightSlateGray" Opacity=".85" BorderBrush="Black" BorderThickness="1"
+        <Border Background="WhiteSmoke" Opacity=".85" BorderBrush="Black" BorderThickness="1"
                 HorizontalAlignment="Left" VerticalAlignment="Top"
                 Margin="30" Padding="20" Width="375">
             <StackPanel>

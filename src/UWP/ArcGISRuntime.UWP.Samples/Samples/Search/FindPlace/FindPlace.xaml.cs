@@ -46,6 +46,12 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
             // Create new Map with basemap
             Map myMap = new Map(Basemap.CreateStreets());
 
+            // Subscribe to location changed event so that map can zoom to location
+            MyMapView.LocationDisplay.LocationChanged += LocationDisplay_LocationChanged;
+
+            // Enable location display
+            MyMapView.LocationDisplay.IsEnabled = true;
+
             // Enable tap-for-info pattern on results
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
 
@@ -55,14 +61,25 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
             // Initialize the LocatorTask with the provided service Uri
             _geocoder = await LocatorTask.CreateAsync(_serviceUri);
 
-            // Enable location display
-            MyMapView.LocationDisplay.IsEnabled = true;
-
             // Enable all controls now that the locator task is ready
             MySearchBox.IsEnabled = true;
             MyLocationBox.IsEnabled = true;
             MySearchButton.IsEnabled = true;
             MySearchRestrictedButton.IsEnabled = true;
+        }
+
+        private async void LocationDisplay_LocationChanged(object sender, Esri.ArcGISRuntime.Location.Location e)
+        {
+            // Return if position is null; event is raised with null location after
+            if (e.Position == null) { return; }
+
+            // Unsubscribe from further events; only want to zoom to location once
+            ((LocationDisplay)sender).LocationChanged -= LocationDisplay_LocationChanged;
+
+            // Need to use the dispatcher to interact with UI elements because this function is called from a background thread
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
+                MyMapView.SetViewpoint(new Viewpoint(e.Position, 100000));
+            });
         }
 
         /// <summary>
@@ -202,8 +219,8 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
             pinSymbol.Height = 60;
             // The image is a pin; offset the image so that the pinpoint
             //     is on the point rather than the image's true center
-            pinSymbol.OffsetX = pinSymbol.Width / 2;
-            pinSymbol.OffsetY = pinSymbol.Height / 2;
+            pinSymbol.LeaderOffsetX = 30;
+            pinSymbol.OffsetY = 14;
             return new Graphic(point, pinSymbol);
         }
 

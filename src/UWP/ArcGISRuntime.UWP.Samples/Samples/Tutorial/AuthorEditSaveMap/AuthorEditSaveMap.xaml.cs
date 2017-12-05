@@ -220,7 +220,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorEditSaveMap
         }
 
         // Create a default map with the vector streets basemap
-        private Map _map = new Map(Basemap.CreateStreetsVector());
+        private Map _map = new Map(Basemap.CreateStreets());
         
         // Gets or sets the map        
         public Map Map

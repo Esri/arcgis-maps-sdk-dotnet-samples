@@ -241,22 +241,24 @@
             <ContentControl Margin="5" Grid.Row="1" x:Name="SampleContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
 
             <ContentControl Margin="5" Visibility="Collapsed" Grid.Row="1" x:Name="DescriptionContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
-                <RelativePanel>
-                    <Image x:Name="ThumbnailImage" Margin="10" Stretch="Uniform" HorizontalAlignment="Center" MaxWidth="400"
+                <ScrollViewer>
+                    <RelativePanel>
+                        <Image x:Name="ThumbnailImage" Margin="10" Stretch="Uniform" HorizontalAlignment="Center" MaxWidth="400"
                            Source="{Binding SampleImageName, Converter={StaticResource sampleToBitmapConverter}}">
-                    </Image>
-                    <TextBlock x:Name="DescriptionText" Text="{Binding Description}" FontSize="18" RelativePanel.RightOf="ThumbnailImage"
+                        </Image>
+                        <TextBlock x:Name="DescriptionText" Text="{Binding Description}" FontSize="18" RelativePanel.RightOf="ThumbnailImage"
                                 TextWrapping="Wrap" 
                                 Margin="20" Style="{StaticResource SecondaryTextBlock}" />
-                    <TextBlock x:Name="InstructionsHeader" Text="Instructions"  FontSize="24" Foreground="Black" RelativePanel.Below="ThumbnailImage"
+                        <TextBlock x:Name="InstructionsHeader" Text="Instructions"  FontSize="24" Foreground="Black" RelativePanel.Below="ThumbnailImage"
                                Visibility="{Binding Instructions, Converter={StaticResource nullToVisibilityConverter}}"
                                Margin="10"  Style="{StaticResource PrimaryTextBlock}" />
-                    <TextBlock x:Name="InstructionsText" Text="{Binding Instructions}" FontSize="18" TextWrapping="Wrap" Margin="10,0"
+                        <TextBlock x:Name="InstructionsText" Text="{Binding Instructions}" FontSize="18" TextWrapping="Wrap" Margin="10,0"
                                RelativePanel.Below="InstructionsHeader"  Style="{StaticResource SecondaryTextBlock}"  />
-                    <HyperlinkButton NavigateUri="{Binding Link}" FontSize="18" Margin="10,10" Content="Open tutorial ..."
+                        <HyperlinkButton NavigateUri="{Binding Link}" FontSize="18" Margin="10,10" Content="Open tutorial ..."
                                      Visibility="{Binding Link, Converter={StaticResource nullToVisibilityConverter}}"                                     
                                      RelativePanel.Below="InstructionsText" />
-                </RelativePanel>
+                    </RelativePanel>
+                </ScrollViewer>
             </ContentControl>
         </Grid>
     </Grid>

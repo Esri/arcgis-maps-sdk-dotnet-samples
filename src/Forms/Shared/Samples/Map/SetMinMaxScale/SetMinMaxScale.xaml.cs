@@ -19,7 +19,7 @@ namespace ArcGISRuntimeXamarin.Samples.SetMinMaxScale
         {
             InitializeComponent ();
 
-            Title = "Set Min & Max Scale";
+            Title = "Set min & max scale";
             
             // Create the UI, setup the control references and execute initialization 
             Initialize();

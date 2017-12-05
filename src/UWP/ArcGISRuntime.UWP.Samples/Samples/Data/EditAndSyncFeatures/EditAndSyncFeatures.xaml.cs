@@ -90,10 +90,6 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
             // Set up an event handler for when the viewpoint (extent) changes
             MyMapView.ViewpointChanged += MapViewExtentChanged;
 
-            // Update the local data path for the geodatabase file
-            string uwpFolder = Windows.Storage.ApplicationData.Current.LocalFolder.Path.ToString();
-            _gdbPath = Path.Combine(uwpFolder, "wildfire.geodatabase");
-
             // Create a task for generating a geodatabase (GeodatabaseSyncTask)
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
@@ -115,6 +111,12 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
                     myMap.OperationalLayers.Add(new FeatureLayer(onlineTable));
                 }
             }
+
+            // Update the extent graphic so that it is valid before user interaction
+            UpdateMapExtent();
+
+            // Enable the generate button now that the sample is ready
+            MyGenerateButton.IsEnabled = true;
         }
 
         private async void GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
@@ -156,8 +158,15 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
                     // Set the new geometry
                     feature.Geometry = e.Location;
 
-                    // Update the feature in the table
-                    await table.UpdateFeatureAsync(feature);
+                    try
+                    {
+                        // Update the feature in the table
+                        await table.UpdateFeatureAsync(feature);
+                    }
+                    catch (Esri.ArcGISRuntime.ArcGISException)
+                    {
+                        ShowStatusMessage("Feature must be within extent of geodatabase.");
+                    }
                 }
 
                 // Update the edit state
@@ -165,6 +174,9 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
 
                 // Enable the sync button
                 MySyncButton.IsEnabled = true;
+
+                // Update the help label
+                MyHelpLabel.Text = "4. Click 'Sync' or edit more features";
             }
             // Otherwise, start an edit
             else
@@ -189,6 +201,9 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
 
                 // Set the edit state
                 _readyForEdits = EditState.Editing;
+
+                // Update the help label
+                MyHelpLabel.Text = "3. Tap on the map to move the point";
             }
         }
 
@@ -237,14 +252,17 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
 
         private async void StartGeodatabaseGeneration()
         {
+            // Update the geodatabase path
+            _gdbPath = GetGdbPath();
+
             // Create a task for generating a geodatabase (GeodatabaseSyncTask)
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
             // Get the (only) graphic in the map view
-            GraphicsOverlay redPreviewBox = MyMapView.GraphicsOverlays.FirstOrDefault();
+            Graphic redPreviewBox = MyMapView.GraphicsOverlays.First().Graphics.First();
 
             // Get the current extent of the red preview box
-            Envelope extent = redPreviewBox.Extent as Envelope;
+            Envelope extent = redPreviewBox.Geometry as Envelope;
 
             // Get the default parameters for the generate geodatabase task
             GenerateGeodatabaseParameters generateParams = await _gdbSyncTask.CreateDefaultGenerateGeodatabaseParametersAsync(extent);
@@ -294,6 +312,9 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
 
                 // Enable editing features
                 _readyForEdits = EditState.Ready;
+
+                // Update the help label
+                MyHelpLabel.Text = "2. Tap a point feature to select";
             }
 
             // See if the job failed
@@ -410,6 +431,7 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
         private async Task<string> GetTpkPath()
         {
             #region offlinedata
+
             // The desired tpk is expected to be called SanFrancisco.tpk
             string filename = "SanFrancisco.tpk";
 
@@ -426,7 +448,14 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
                 await DataManager.GetData("3f1bbf0ec70b409a975f5c91f363fe7d", "EditAndSyncFeatures");
             }
             return filepath;
+
             #endregion offlinedata
+        }
+
+        private string GetGdbPath()
+        {
+            // Get the local data path for the geodatabase file
+            return $"{Path.GetTempFileName()}.geodatabase";
         }
 
         private async void ShowStatusMessage(string message)
@@ -439,6 +468,9 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
         // Handler for the generate button clicked event
         private void GenerateButton_Clicked(object sender, RoutedEventArgs e)
         {
+            // Disable the genereate button
+            MyGenerateButton.IsEnabled = false;
+
             // Call the cross-platform geodatabase generation method
             StartGeodatabaseGeneration();
         }

@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntimeXamarin.Managers;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -62,14 +63,17 @@ namespace ArcGISRuntimeXamarin.Samples.RasterLayerFile
             // Load the layer
             await myRasterLayer.LoadAsync();
 
-            // Add the layer to the map
-            _myMapView.Map.OperationalLayers.Add(myRasterLayer);
+            // Convert the layer's extent to the correct spatial reference
+            Geometry convertedExtent = GeometryEngine.Project(myRasterLayer.FullExtent, SpatialReferences.WebMercator);
 
             // Get the raster's extent in a viewpoint
-            Viewpoint myFullRasterExtent = new Viewpoint(myRasterLayer.FullExtent);
+            Viewpoint myFullRasterExtent = new Viewpoint(convertedExtent);
 
-            // Zoom to the extent
-            _myMapView.Map.InitialViewpoint = myFullRasterExtent;
+            // Set the viewpoint
+            _myMapView.SetViewpoint(myFullRasterExtent);
+
+            // Add the layer to the map
+            _myMapView.Map.OperationalLayers.Add(myRasterLayer);
         }
 
         private void CreateLayout()
@@ -87,14 +91,16 @@ namespace ArcGISRuntimeXamarin.Samples.RasterLayerFile
         private string GetRasterPath()
         {
             #region offlinedata
+
             // The desired raster is expected to be called Shasta.tif
             string filename = "Shasta.tif";
 
             // The data manager provides a method to get the folder
             string folder = DataManager.GetDataFolder();
 
-			// Return the full path; Item ID is 7c4c679ab06a4df19dc497f577f111bd
-			return Path.Combine(folder, "SampleData", "RasterLayerFile", "raster-file", filename);
+            // Return the full path; Item ID is 7c4c679ab06a4df19dc497f577f111bd
+            return Path.Combine(folder, "SampleData", "RasterLayerFile", "raster-file", filename);
+
             #endregion offlinedata
         }
     }

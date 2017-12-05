@@ -238,6 +238,7 @@
     <Compile Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.cs" />
     <Compile Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.cs" />
     <Compile Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.cs" />    
+    <Compile Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.cs" />
     <Compile Include="ViewControllers\SamplesViewController.cs" />
     <Compile Include="ViewControllers\SearchResultsUpdater.cs" />
     <Compile Include="ViewControllers\SearchResultsViewController.cs" />
@@ -334,6 +335,7 @@
     <None Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
     <None Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
     <EmbeddedResource Include="Samples\Analysis\LineOfSightLocation\metadata.json" />    
+    <EmbeddedResource Include="Samples\Layers\FeatureLayerRenderingModeMap\metadata.json" />
     <None Include="Samples\MapView\GeoViewSync\GeoViewSync.jpg" />
     <None Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg" />
     <None Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.jpg" />
@@ -491,6 +493,9 @@
   <ItemGroup>
     <None Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.jpg" />
     <None Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -235,6 +235,10 @@
             {
               "SampleName": "FeatureLayerDictionaryRenderer",
               "Path": "Samples/Layers/FeatureLayerDictionaryRenderer"
+            },
+            {
+              "SampleName": "FeatureLayerRenderingModeMap",
+              "Path": "Samples/Layers/FeatureLayerRenderingModeMap"
             }
           ]
         },

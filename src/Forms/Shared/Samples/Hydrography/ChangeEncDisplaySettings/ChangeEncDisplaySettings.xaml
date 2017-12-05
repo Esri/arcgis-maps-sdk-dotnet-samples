@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime"
+             x:Class="ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings.ChangeEncDisplaySettings">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackLayout Grid.Row="0">
+            <Label FontAttributes="Bold" >Color Scheme</Label>
+            <Picker x:Name="ColorSchemePicker" />
+            <Label FontAttributes="Bold">Area Symbolization Type</Label>
+            <Picker x:Name="AreaPicker" />
+            <Label FontAttributes="Bold">Point Symbolization Type</Label>
+            <Picker x:Name ="PointPicker" />
+            <Button Text="Apply" Clicked="Button_Clicked" />
+        </StackLayout>
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
+    </Grid>
+</ContentPage>

@@ -13,7 +13,7 @@ using ArcGISRuntimeXamarin.Managers;
 using System;
 using Xamarin.Forms;
 using System.IO;
-
+using Esri.ArcGISRuntime.Geometry;
 
 namespace ArcGISRuntimeXamarin.Samples.RasterLayerFile
 {
@@ -32,41 +32,46 @@ namespace ArcGISRuntimeXamarin.Samples.RasterLayerFile
             // Add an imagery basemap
             MyMapView.Map = new Map(Basemap.CreateImagery());
 
-			// Get the file name
-			String filepath = GetRasterPath();
+            // Get the file name
+            String filepath = GetRasterPath();
 
-			// Load the raster file
-			Raster myRasterFile = new Raster(filepath);
+            // Load the raster file
+            Raster myRasterFile = new Raster(filepath);
 
-			// Create the layer
-			RasterLayer myRasterLayer = new RasterLayer(myRasterFile);
+            // Create the layer
+            RasterLayer myRasterLayer = new RasterLayer(myRasterFile);
 
-			// Load the layer
-			await myRasterLayer.LoadAsync();
+            // Load the layer
+            await myRasterLayer.LoadAsync();
 
-			// Add the layer to the map
-			MyMapView.Map.OperationalLayers.Add(myRasterLayer);
+            // Convert the layer's extent to the correct spatial reference
+            Geometry convertedExtent = GeometryEngine.Project(myRasterLayer.FullExtent, SpatialReferences.WebMercator);
 
-			// Get the raster's extent in a viewpoint
-			Viewpoint myFullRasterExtent = new Viewpoint(myRasterLayer.FullExtent);
+            // Get the raster's extent in a viewpoint
+            Viewpoint myFullRasterExtent = new Viewpoint(convertedExtent);
 
-            // Zoom to the extent
-            MyMapView.Map.InitialViewpoint = myFullRasterExtent;
+            // Set the viewpoint
+            MyMapView.SetViewpoint(myFullRasterExtent);
+
+            // Add the layer to the map
+            MyMapView.Map.OperationalLayers.Add(myRasterLayer);
         }
 
-		private string GetRasterPath()
-		{
-			#region offlinedata
-			// The desired raster is expected to be called Shasta.tif
-			// The ID is 7c4c679ab06a4df19dc497f577f111bd
-			string filename = "Shasta.tif";
+        private string GetRasterPath()
+        {
+            #region offlinedata
 
-			// The data manager provides a method to get the folder
-			string folder = DataManager.GetDataFolder();
+            // The desired raster is expected to be called Shasta.tif
+            // The ID is 7c4c679ab06a4df19dc497f577f111bd
+            string filename = "Shasta.tif";
 
-			// Get the full path
-			return Path.Combine(folder, "SampleData", "RasterLayerFile", filename);
-			#endregion offlinedata
-		}
+            // The data manager provides a method to get the folder
+            string folder = DataManager.GetDataFolder();
+
+            // Get the full path
+            return Path.Combine(folder, "SampleData", "RasterLayerFile", "raster-file", filename);
+
+            #endregion offlinedata
+        }
     }
 }

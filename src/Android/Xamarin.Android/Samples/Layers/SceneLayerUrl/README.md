@@ -1,4 +1,4 @@
-# ArcGIS Scene layer (URL)
+# ArcGIS scene layer (URL)
 
 This sample demonstrates how to add an ArcGISSceneLayer as a layer in a Scene.
 

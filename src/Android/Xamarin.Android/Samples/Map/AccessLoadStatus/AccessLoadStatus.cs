@@ -22,7 +22,7 @@ namespace ArcGISRuntimeXamarin.Samples.AccessLoadStatus
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 
-        // Control to show the Maps' load status
+        // Control to show the Map's load status
         private TextView _loadStatusTextView;
 
         protected override void OnCreate(Bundle bundle)
@@ -55,7 +55,7 @@ namespace ArcGISRuntimeXamarin.Samples.AccessLoadStatus
             {
                 // Update the load status information
                 _loadStatusTextView.Text = string.Format(
-                    "Maps' load status : {0}", 
+                    "Map's load status : {0}", 
                     e.Status.ToString());
             });
         }

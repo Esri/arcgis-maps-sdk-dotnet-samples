@@ -6,7 +6,7 @@
     <Grid>
         <esriUI:MapView x:Name="MyMapView"/>
         <CommandBar>
-            <AppBarButton>
+            <AppBarButton AllowFocusOnInteraction="True">
                 <AppBarButton.Content>
                     <TextBlock Text="Draw/Edit" HorizontalAlignment="Center"/>
                 </AppBarButton.Content>

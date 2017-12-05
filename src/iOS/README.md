@@ -20,13 +20,17 @@
 
     This sample demonstrates how to get view status for layers in a map.
 
-    * [Take Screenshot](Xamarin.iOS/Samples/MapView/TakeScreenshot)
+    * [Take screenshot](Xamarin.iOS/Samples/MapView/TakeScreenshot)
 
     This sample demonstrates how you can take screenshot of a map. The app has a Screenshot button in the bottom toolbar you can tap to take screenshot of the visible area of the map. You can pan or zoom to a specific location and tap on the button, which also shows you the preview of the image produced. You can tap on the Close Preview button to close image preview.
 
     * [Show callout](Xamarin.iOS/Samples/MapView/ShowCallout)
 
     This sample illustrates how to show callouts on a map in response to user interaction.
+
+    * [Feature layer time offset](Xamarin.iOS/Samples/MapView/FeatureLayerTimeOffset)
+
+    This sample demonstrates how to show data from the same service side-by-side with a time offset. This allows for the comparison of data over time.
 
     * [GeoView viewpoint synchronization](Xamarin.iOS/Samples/MapView/GeoViewSync)
 
@@ -43,7 +47,7 @@
 
     This sample demonstrates how to open a mobile map from a map package.
 
-    * [Open Map (URL)](Xamarin.iOS/Samples/Map/OpenMapURL)
+    * [Open map (URL)](Xamarin.iOS/Samples/Map/OpenMapURL)
 
     This sample demonstrates how to open an existing map from a portal. The sample opens with a map displayed by default. You can change the shown map by selecting a new one from the populated list.
 
@@ -55,7 +59,7 @@
 
     This sample demonstrates how to dynamically change the basemap displayed in a Map.
 
-    * [Set Min & Max Scale](Xamarin.iOS/Samples/Map/SetMinMaxScale)
+    * [Set min & max scale](Xamarin.iOS/Samples/Map/SetMinMaxScale)
 
     This sample demonstrates how to set the minimum and maximum scale of a Map. Setting the minimum and maximum scale for the Map can be useful in keeping the user focused at a certain level of detail.
 
@@ -122,6 +126,10 @@
     * [WMS service catalog](Xamarin.iOS/Samples/Layers/WmsServiceCatalog)
 
     This sample demonstrates how to enable and disable the display of layers discovered from a WMS service.
+
+    * [Identify WMS features](Xamarin.iOS/Samples/Layers/WmsIdentify)
+
+    This sample demonstrates how to identify WMS features and display the associated content for an identified WMS feature.
 
 
 - **Raster Layers**
@@ -279,6 +287,10 @@
 
     This sample demonstrates how to use GeoprocessingTask to calculate a viewshed using a geoprocessing service. Click any point on the map to see all areas that are visible within a 1 kilometer radius. It may take a few seconds for the model to run and send back the results.
 
+    * [Line of sight from location](Xamarin.iOS/Samples/Analysis/LineOfSightLocation)
+
+    This sample demonstrates a `LocationLineOfSight` analysis that shows segments that are visible or obstructed along a line drawn from observer to target.
+
 
 - **Statistics**
 
@@ -311,13 +323,30 @@
 
 - **Scene Layers**
 
-    * [ArcGIS Scene layer (URL)](Xamarin.iOS/Samples/Layers/SceneLayerUrl)
+    * [ArcGIS scene layer (URL)](Xamarin.iOS/Samples/Layers/SceneLayerUrl)
 
     This sample demonstrates how to add an ArcGISSceneLayer as a layer in a Scene.
 
     * [Display scene](Xamarin.iOS/Samples/Layers/DisplayScene)
 
     Demonstrates how to display a scene with an elevation data source. An elevation data source allows objects to be viewed in 3D, like this picture of Mt. Everest.
+
+## Hydrography
+
+
+- **Hydrography**
+
+    * [Add an ENC exchange set](Xamarin.iOS/Samples/Hydrography/AddEncExchangeSet)
+
+    This sample demonstrates how to load an ENC Exchange Set, including its component cells.
+
+    * [Change ENC display settings](Xamarin.iOS/Samples/Hydrography/ChangeEncDisplaySettings)
+
+    This sample demonstrates how to control ENC environment settings. These settings apply to the display of all ENC content in your app.
+
+    * [Select ENC features](Xamarin.iOS/Samples/Hydrography/SelectEncFeatures)
+
+    This sample demonstrates how to select an ENC feature.
 
 ## Location
 
@@ -333,11 +362,11 @@
 
 - **Working with Places**
 
-    * [Find Address](Xamarin.iOS/Samples/Search/FindAddress)
+    * [Find address](Xamarin.iOS/Samples/Search/FindAddress)
 
     This sample demonstrates how you can use the LocatorTask API to geocode an address and display it with a pin on the map. Tapping the pin displays the reverse-geocoded address in a callout.
 
-    * [Find Place](Xamarin.iOS/Samples/Search/FindPlace)
+    * [Find place](Xamarin.iOS/Samples/Search/FindPlace)
 
     This sample demonstrates how to use geocode functionality to search for points of interest, around a location or within an extent.
 

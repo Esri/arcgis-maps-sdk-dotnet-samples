@@ -40,7 +40,7 @@ Namespace AccessLoadStatus
             ' Update the load status information
             Await Dispatcher.RunAsync(
                 CoreDispatcherPriority.Normal,
-                Sub() loadStatusTextBlock.Text = String.Format("Maps' load status : {0}", e.Status.ToString()))
+                Sub() loadStatusTextBlock.Text = String.Format("Map's load status : {0}", e.Status.ToString()))
 
         End Sub
 

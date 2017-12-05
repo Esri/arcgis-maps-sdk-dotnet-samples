@@ -11,20 +11,14 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
+using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using WinUI = Windows.UI;
-using Windows.UI.Popups;
 using System.IO;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.UI.Xaml.Media.Imaging;
-using Windows.Graphics.Imaging;
-using Windows.Storage;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Controls;
+using System.Threading.Tasks;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
-using Esri.ArcGISRuntime.UI;
+using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.UWP.Samples.AuthorMap
 {
@@ -85,12 +79,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
         #region UI event handlers
         private void BasemapItemClick(object sender, RoutedEventArgs e)
         {
-            // Get the name of the desired basemap 
-            var radioBtn = sender as RadioButton;
-            var basemapName = radioBtn.Content.ToString();
-
-            // Apply the basemap to the current map
-            ApplyBasemap(basemapName);
+            
         }
 
         private void LayerSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -181,6 +170,15 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
         {
             // Create a new map (will not have an associated PortalItem)
             MyMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
+
+            // Reset the basemap selection in the UI
+            BasemapListView.SelectedIndex = 0;
+
+            // Reset the layer selection in the UI;
+            LayerListView.SelectedIndex = -1;
+
+            // Reset the extent labels
+            UpdateViewExtentLabels();
         }
         #endregion
 
@@ -376,5 +374,14 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
             return credential;
         }
         #endregion
+
+        private void BasemapListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Get the name of the desired basemap 
+            string name = e.AddedItems[0].ToString();
+
+            // Apply the basemap to the current map
+            ApplyBasemap(name);
+        }
     }
 }

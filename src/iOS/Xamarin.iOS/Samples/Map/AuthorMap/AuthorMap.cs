@@ -655,7 +655,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             // Button to save the values
             UIButton saveButton = new UIButton(new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight));
             saveButton.SetTitle("Save", UIControlState.Normal);
-            saveButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            saveButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
             saveButton.TouchUpInside += SaveButtonClick;
 
             // Adjust the X position for the next control

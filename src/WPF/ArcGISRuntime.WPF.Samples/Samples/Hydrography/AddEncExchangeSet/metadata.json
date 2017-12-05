@@ -1,0 +1,26 @@
+{
+  "Name": "Add an ENC exchange set",
+  "SampleName": "AddEncExchangeSet",
+  "Description": "This sample demonstrates how to load an ENC Exchange Set, including its component cells.",
+  "Instructions": "This sample automatically downloads ENC data from ArcGIS Online before displaying the map.",
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": true,
+  "RequiresLocalServer": false,
+  "DataItemIds": [ "9d3ddb20afe3409eae25b3cdeb82215b" ],
+  "DataFileNames": [ "ExchangeSet" ],
+  "Image": "AddEncExchangeSet.jpg",
+  "Link": "",
+  "TypeLink": [
+"T:Esri.ArcGISRuntime.Hydrography.EncDataSet",
+"M:Esri.ArcGISRuntime.Hydrography.EncExchangeSet.#ctor(System.String[])",
+"T:Esri.ArcGISRuntime.Hydrography.EncExchangeSet",
+"P:Esri.ArcGISRuntime.Hydrography.EncExchangeSet.DataSets",
+"T:Esri.ArcGISRuntime.Hydrography.EncCell",
+"M:Esri.ArcGISRuntime.Hydrography.EncCell.#ctor(Esri.ArcGISRuntime.Hydrography.EncDataSet)",
+"T:Esri.ArcGISRuntime.Mapping.EncLayer",
+"M:Esri.ArcGISRuntime.Mapping.EncLayer.#ctor(Esri.ArcGISRuntime.Hydrography.EncCell)",
+"M:Esri.ArcGISRuntime.Hydrography.EncExchangeSet.LoadAsync"
+  ],
+  "SampleFolder": "AddEncExchangeSet"
+}

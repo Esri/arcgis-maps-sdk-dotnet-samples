@@ -151,6 +151,10 @@
             {
               "SampleName": "WmsServiceCatalog",
               "Path": "Samples/Layers/WmsServiceCatalog"
+            },
+            {
+              "SampleName": "WmsIdentify",
+              "Path": "Samples/Layers/WmsIdentify"
             }
           ]
         },
@@ -260,6 +264,10 @@
               "Path": "Samples/Data/GenerateGeodatabase"
             },
             {
+              "SampleName": "GeodatabaseTransactions",
+              "Path": "Samples/Data/GeodatabaseTransactions"
+            },
+            {
               "SampleName": "FeatureLayerShapefile",
               "Path": "Samples/Data/FeatureLayerShapefile"
             },
@@ -349,6 +357,10 @@
               "Path": "Samples/Geoprocessing/AnalyzeViewshed"
             },
             {
+              "SampleName": "LineOfSightLocation",
+              "Path": "Samples/Analysis/LineOfSightLocation"
+            },
+            {
               "SampleName": "ListGeodatabaseVersions",
               "Path": "Samples/Geoprocessing/ListGeodatabaseVersions"
             }
@@ -436,6 +448,31 @@
             {
               "SampleName": "DynamicWorkspaceShapefile",
               "Path": "Samples/LocalServer/DynamicWorkspaceShapefile"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Hydrography",
+      "CategoryName": "Hydrography",
+      "SubCategories": [
+        {
+          "Name": "Hydrography",
+          "SubCategoryName": "Hydrography",
+          "ShowGroup": false,
+          "SampleInfos": [
+            {
+              "SampleName": "AddEncExchangeSet",
+              "Path": "Samples/Hydrography/AddEncExchangeSet"
+            },
+            {
+              "SampleName": "ChangeEncDisplaySettings",
+              "Path": "Samples/Hydrography/ChangeEncDisplaySettings"
+            },
+            {
+              "SampleName": "SelectEncFeatures",
+              "Path": "Samples/Hydrography/SelectEncFeatures"
             }
           ]
         }

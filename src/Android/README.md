@@ -20,7 +20,7 @@
 
     This sample demonstrates how to get view status for layers in a map.
 
-    * [Take Screenshot](Xamarin.Android/Samples/MapView/TakeScreenshot)
+    * [Take screenshot](Xamarin.Android/Samples/MapView/TakeScreenshot)
 
     This sample demonstrates how you can take screenshot of a map. Click 'capture' button to take a screenshot of the visible area of the map. Created image is shown in the sample after creation.
 
@@ -31,6 +31,10 @@
     * [Show callout](Xamarin.Android/Samples/MapView/ShowCallout)
 
     This sample illustrates how to show callouts on a map in response to user interaction.
+
+    * [Feature layer time offset](Xamarin.Android/Samples/MapView/FeatureLayerTimeOffset)
+
+    This sample demonstrates how to show data from the same service side-by-side with a time offset. This allows for the comparison of data over time.
 
     * [GeoView viewpoint synchronization](Xamarin.Android/Samples/MapView/GeoViewSync)
 
@@ -47,7 +51,7 @@
 
     This sample demonstrates how to open a map from a mobile map package.
 
-    * [Open Map (URL)](Xamarin.Android/Samples/Map/OpenMapURL)
+    * [Open map (URL)](Xamarin.Android/Samples/Map/OpenMapURL)
 
     This sample demonstrates how to open an existing map from a portal. The sample opens with a map displayed by default. You can change the shown map by selecting a new one from the populated list.
 
@@ -55,7 +59,7 @@
 
     This sample demonstrates searching a portal for web maps and loading them in the map view. You can search ArcGIS Online public web maps using tag values or browse the web maps in your account. OAuth is used to authenticate with ArcGIS Online to access items in your account.
 
-    * [Set Min & Max Scale](Xamarin.Android/Samples/Map/SetMinMaxScale)
+    * [Set min & max scale](Xamarin.Android/Samples/Map/SetMinMaxScale)
 
     This sample demonstrates how to set the minimum and maximum scale of a Map. Setting the minimum and maximum scale for the Map can be useful in keeping the user focused at a certain level of detail.
 
@@ -126,6 +130,10 @@
     * [WMS service catalog](Xamarin.Android/Samples/Layers/WmsServiceCatalog)
 
     This sample demonstrates how to enable and disable the display of layers discovered from a WMS service.
+
+    * [Identify WMS features](Xamarin.Android/Samples/Layers/WmsIdentify)
+
+    This sample demonstrates how to identify WMS features and display the associated content for an identified WMS feature.
 
 
 - **Raster Layers**
@@ -283,6 +291,10 @@
 
     This sample demonstrates how to use GeoprocessingTask to calculate a viewshed using a geoprocessing service. Click any point on the map to see all areas that are visible within a 1 kilometer radius. It may take a few seconds for the model to run and send back the results.
 
+    * [Line of sight from location](Xamarin.Android/Samples/Analysis/LineOfSightLocation)
+
+    This sample demonstrates a `LocationLineOfSight` analysis that shows segments that are visible or obstructed along a line drawn from observer to target.
+
     * [List geodatabase versions](Xamarin.Android/Samples/Geoprocessing/ListGeodatabaseVersions)
 
     This sample demonstrates how to use GeoprocessingTask to get available geodatabase versions from the enterprise geodatabase. Geoprocessing task will return the versions as a table that is shown to the user in a list. This is a good example how to use geoprocessing on mapless application.
@@ -310,7 +322,7 @@
 
 - **Scene Layers**
 
-    * [ArcGIS Scene layer (URL)](Xamarin.Android/Samples/Layers/SceneLayerUrl)
+    * [ArcGIS scene layer (URL)](Xamarin.Android/Samples/Layers/SceneLayerUrl)
 
     This sample demonstrates how to add an ArcGISSceneLayer as a layer in a Scene.
 
@@ -327,6 +339,23 @@
 
     This sample demonstrates how to solve for the best route between two locations on the map and display driving directions between them.
 
+## Hydrography
+
+
+- **Hydrography**
+
+    * [Add an ENC exchange set](Xamarin.Android/Samples/Hydrography/AddEncExchangeSet)
+
+    This sample demonstrates how to load an ENC Exchange Set, including its component cells.
+
+    * [Change ENC display settings](Xamarin.Android/Samples/Hydrography/ChangeEncDisplaySettings)
+
+    This sample demonstrates how to control ENC environment settings. These settings apply to the display of all ENC content in your app.
+
+    * [Select ENC features](Xamarin.Android/Samples/Hydrography/SelectEncFeatures)
+
+    This sample demonstrates how to select an ENC feature.
+
 ## Location
 
 
@@ -341,11 +370,11 @@
 
 - **Working with Places**
 
-    * [Find Address](Xamarin.Android/Samples/Search/FindAddress)
+    * [Find address](Xamarin.Android/Samples/Search/FindAddress)
 
     This sample demonstrates how you can use the LocatorTask API to geocode an address and display it with a pin on the map. Tapping the pin displays the reverse-geocoded address in a callout.
 
-    * [Find Place](Xamarin.Android/Samples/Search/FindPlace)
+    * [Find place](Xamarin.Android/Samples/Search/FindPlace)
 
     This sample demonstrates how to use geocode functionality to search for points of interest, around a location or within an extent.
 

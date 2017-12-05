@@ -72,7 +72,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
             // Verify that there is at least one statistic definition
             if (_statDefinitions.Count() == 0)
             {
-                DisplayAlert("Please define at least one statistic for the query.", "Statistical Query","OK");
+                await DisplayAlert("Please define at least one statistic for the query.", "Statistical Query","OK");
                 return;
             }
 

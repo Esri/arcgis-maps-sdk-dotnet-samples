@@ -266,6 +266,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             // Initialize the geocoder with the provided service Uri
             _geocoder = await LocatorTask.CreateAsync(_serviceUri);
 
+            // Subscribe to location changed event so that map can zoom to location
+            _myMapView.LocationDisplay.LocationChanged += LocationDisplay_LocationChanged;
+
             // Enable location display on the map
             _myMapView.LocationDisplay.IsEnabled = true;
 
@@ -274,6 +277,21 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             _mySearchBox.Enabled = true;
             _mySearchButton.Enabled = true;
             _mySearchRestrictedButton.Enabled = true;
+        }
+
+        private void LocationDisplay_LocationChanged(object sender, Esri.ArcGISRuntime.Location.Location e)
+        {
+            // Return if position is null; event is raised with null location after
+            if (e.Position == null) { return; }
+
+            // Unsubscribe from further events; only want to zoom to location once
+            ((LocationDisplay)sender).LocationChanged -= LocationDisplay_LocationChanged;
+
+            // Need to use this to interact with UI elements because this function is called from a background thread
+            InvokeOnMainThread(() =>
+            {
+                _myMapView.SetViewpoint(new Viewpoint(e.Position, 100000));
+            });
         }
 
         /// <summary>
@@ -416,8 +434,8 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             pinSymbol.Height = 60;
             // The image is a pin; offset the image so that the pinpoint
             //     is on the point rather than the image's true center
-            pinSymbol.OffsetX = pinSymbol.Width / 2;
-            pinSymbol.OffsetY = pinSymbol.Height / 2;
+            pinSymbol.LeaderOffsetX = 30;
+            pinSymbol.OffsetY = 14;
             return new Graphic(point, pinSymbol);
         }
 

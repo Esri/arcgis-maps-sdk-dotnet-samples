@@ -106,7 +106,7 @@ namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
             list.SelectedItem = null;
         }
 
-        private void WebMapLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
+        private async void WebMapLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
         {
             // Get the current status
             var status = e.Status;
@@ -119,7 +119,11 @@ namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
                 if (err != null)
                 {
                     var dialog = new MessageDialog(err.Message, "Map Load Error");
-                    dialog.ShowAsync();
+                    await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                    {
+                        await dialog.ShowAsync();
+                    });
+                    
                 }
             }
         }

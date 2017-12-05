@@ -10,7 +10,7 @@
             <RowDefinition Height="40" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <SearchBar Grid.Row="0" x:Name="MySearchBar" Placeholder="Find Address" IsEnabled="false" SearchButtonPressed="Handle_TextChanged" />
+        <SearchBar Grid.Row="0" x:Name="MySearchBar" Placeholder="Find address" IsEnabled="false" SearchButtonPressed="Handle_TextChanged" />
         <Button Text="Suggest" x:Name="MySuggestButton" Clicked="SuggestionButtonTapped" IsEnabled="false" Grid.Row="1" />
         <esriUI:MapView x:Name="MyMapView" Grid.Row="2" />
     </Grid>

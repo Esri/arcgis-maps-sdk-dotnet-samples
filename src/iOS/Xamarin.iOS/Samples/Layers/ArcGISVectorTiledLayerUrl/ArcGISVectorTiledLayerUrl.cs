@@ -68,7 +68,7 @@ namespace ArcGISRuntimeXamarin.Samples.ArcGISVectorTiledLayerUrl
             _segmentControl.InsertSegment("Night", 2, false);
             _segmentControl.InsertSegment("Navigation", 3, false);
 
-            _segmentControl.SelectedSegment = 0;
+            _segmentControl.SelectedSegment = 3;
 
             _segmentControl.ValueChanged += (sender, e) =>
             {

@@ -49,7 +49,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         {
             base.OnCreate(bundle);
 
-            Title = "Find Place";
+            Title = "Find place";
 
             // Create the UI, setup the control references and execute initialization
             CreateLayout();
@@ -67,6 +67,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             // Wire up the map view to support tapping on address markers
             _myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
 
+            // Subscribe to location events to zoom to current location
+            _myMapView.LocationDisplay.LocationChanged += LocationDisplay_LocationChanged;
+
             // Enable location display
             _myMapView.LocationDisplay.IsEnabled = true;
 
@@ -78,6 +81,19 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             _myLocationBox.Enabled = true;
             _mySearchButton.Enabled = true;
             _mySearchRestrictedButton.Enabled = true;
+        }
+
+        private void LocationDisplay_LocationChanged(object sender, Esri.ArcGISRuntime.Location.Location e)
+        {
+            // Return if no location
+            if (e.Position == null) { return; }
+
+            // Unsubscribe; only want to zoom to location once
+            ((LocationDisplay)sender).LocationChanged -= LocationDisplay_LocationChanged;
+            RunOnUiThread(() =>
+            {
+                _myMapView.SetViewpoint(new Viewpoint(e.Position, 10000));
+            });
         }
 
         private void CreateLayout()
@@ -267,8 +283,8 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             pinSymbol.Height = 60;
             // The image is a pin; offset the image so that the pinpoint
             //     is on the point rather than the image's true center
-            pinSymbol.OffsetX = pinSymbol.Width / 2;
-            pinSymbol.OffsetY = pinSymbol.Height / 2;
+            pinSymbol.LeaderOffsetX = 30;
+            pinSymbol.OffsetY = 14;
             return new Graphic(point, pinSymbol);
         }
 

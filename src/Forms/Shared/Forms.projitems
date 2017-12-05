@@ -50,7 +50,6 @@
       <SubType>Code</SubType>
       <DependentUpon>GeodatabaseTransactions.xaml</DependentUpon>
     </Compile>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightLocation\LineOfSightLocation.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>LineOfSightLocation.xaml</DependentUpon>
@@ -75,7 +74,6 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Hydrography\SelectEncFeatures\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Hydrography\ChangeEncDisplaySettings\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Hydrography\AddEncExchangeSet\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\GeoViewSync\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\GeoViewSync\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)groups.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\EditAndSyncFeatures\metadata.json" />

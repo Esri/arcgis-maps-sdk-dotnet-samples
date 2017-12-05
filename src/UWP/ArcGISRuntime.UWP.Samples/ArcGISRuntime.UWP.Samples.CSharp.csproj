@@ -116,7 +116,6 @@
     <Content Include="Samples\Hydrography\SelectEncFeatures\metadata.json" />
     <Content Include="Samples\Hydrography\ChangeEncDisplaySettings\metadata.json" />
     <Content Include="Samples\Hydrography\AddEncExchangeSet\metadata.json" />
-    <Content Include="Samples\MapView\GeoViewSync\metadata.json" />
     <Content Include="groups.json" />
     <Content Include="Samples\Data\EditAndSyncFeatures\metadata.json" />
     <Content Include="Samples\Data\FeatureLayerGeoPackage\metadata.json" />
@@ -198,7 +197,6 @@
     <Content Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg" />
     <Content Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
     <Content Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
-    <Content Include="Samples\MapView\GeoViewSync\GeoViewSync.jpg" />
     <Content Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg" />
     <Content Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.jpg" />
     <Content Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.jpg" />
@@ -290,9 +288,6 @@
     </Compile>
     <Compile Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.xaml.cs">
       <DependentUpon>AddEncExchangeSet.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\MapView\GeoViewSync\GeoViewSync.xaml.cs">
-      <DependentUpon>GeoViewSync.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.xaml.cs">
       <DependentUpon>LineOfSightLocation.xaml</DependentUpon>
@@ -544,10 +539,6 @@
       <SubType>Designer</SubType>
     </Page>    
     <Page Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\MapView\GeoViewSync\GeoViewSync.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -246,6 +246,8 @@
     <None Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
     <None Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
     <AndroidResource Include="Resources\layout\GeoViewSync.axml" />
+    <EmbeddedResource Include="Samples\Layers\FeatureLayerRenderingModeMap\metadata.json" />
+    <AndroidResource Include="Resources\layout\FeatureLayerRenderingModeMapLayout.axml" />
     <None Include="Samples\MapView\GeoViewSync\GeoViewSync.jpg" />
     <None Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg" />
     <None Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.jpg" />
@@ -330,6 +332,7 @@
     <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.cs" />
     <Compile Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.cs" />
     <Compile Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.cs" />
+    <Compile Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.cs" />
     <Compile Include="Samples\MapView\GeoViewSync\GeoViewSync.cs" />
     <Compile Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.cs" />
     <Compile Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.cs" />
@@ -404,10 +407,13 @@
     <Compile Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.cs" />
     <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.cs" />
     <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.cs" />
-  </ItemGroup>  
-
-    
-
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -19,6 +19,10 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\GeodatabaseTransactions\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerRenderingModeMap\metadata.json" />
     <Folder Include="$(MSBuildThisFileDirectory)Assets\" />
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +56,10 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.xaml.cs">
       <DependentUpon>RasterLayerGeoPackage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>FeatureLayerRenderingModeMap.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)CategoryListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -142,11 +150,12 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\MapView\GeoViewSync\GeoViewSync.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\WmsIdentify\WmsIdentify.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\MapView\GeoViewSync\GeoViewSync.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />    
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.jpg" />

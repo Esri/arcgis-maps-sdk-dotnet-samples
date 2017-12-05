@@ -9,5 +9,15 @@
   "RequiresLocalServer": false,
   "Image": "FeatureLayerRenderingModeMap.jpg",
   "Link": "",
-  "TypeLink": [ "T:Esri.ArcGISRuntime.Data.ServiceFeatureTable"]
+  "TypeLink": 
+  [
+    "P:Esri.ArcGISRuntime.Mapping.Map.LoadSettings",
+    "P:Esri.ArcGISRuntime.Mapping.LoadSettings.PreferredPointFeatureRenderingMode",
+    "P:Esri.ArcGISRuntime.Mapping.LoadSettings.PreferredPolylineFeatureRenderingMode",
+    "P:Esri.ArcGISRuntime.Mapping.LoadSettings.PreferredPolygonFeatureRenderingMode",
+    "T:Esri.ArcGISRuntime.Mapping.FeatureRenderingMode",
+    "F:Esri.ArcGISRuntime.Mapping.FeatureRenderingMode.Static",
+    "F:Esri.ArcGISRuntime.Mapping.FeatureRenderingMode.Dynamic",
+    "M:Esri.ArcGISRuntime.Mapping.Layer.Clone"
+  ]
 }

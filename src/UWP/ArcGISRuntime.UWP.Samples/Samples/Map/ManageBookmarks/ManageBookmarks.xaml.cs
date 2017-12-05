@@ -29,6 +29,9 @@ namespace ArcGISRuntime.UWP.Samples.ManageBookmarks
             // Create new map with a base map
             Map myMap = new Map(Basemap.CreateImageryWithLabels());
 
+            // Add the map to the mapview
+            MyMapView.Map = myMap;
+
             // Create a set of predefined bookmarks; each one follows the pattern of:
             // ~ Initialize a viewpoint pointing to a latitude longitude
             // ~ Create a new bookmark
@@ -74,9 +77,6 @@ namespace ArcGISRuntime.UWP.Samples.ManageBookmarks
 
             // Zoom to the last bookmark
             myMap.InitialViewpoint = myMap.Bookmarks.Last().Viewpoint;
-
-            // Add the map to the mapview
-            MyMapView.Map = myMap;
 
             // Hide the controls for adding an additional bookmark
             BorderAddBookmark.Visibility = Visibility.Collapsed;

@@ -24,7 +24,10 @@
 "M:Esri.ArcGISRuntime.UI.Controls.GeoView.DismissCallout",
 "P:Esri.ArcGISRuntime.Tasks.Geocoding.GeocodeResult.Label",
 "T:Esri.ArcGISRuntime.Location.Location",
-"P:Esri.ArcGISRuntime.Location.Location.Position"
+"P:Esri.ArcGISRuntime.Location.Location.Position",
+"E:Esri.ArcGISRuntime.UI.LocationDisplay.LocationChanged",
+"P:Esri.ArcGISRuntime.UI.GraphicsOverlay.Extent",
+"P:Esri.ArcGISRuntime.Symbology.MarkerSymbol.LeaderOffsetX"
  ],
   "SampleFolder": "FindPlace"
 } 

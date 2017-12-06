@@ -9,5 +9,26 @@
   "RequiresLocalServer": false,
   "Image": "GeodatabaseTransactions.jpg",
   "Link": "",
-  "TypeLink": [ "T:Esri.ArcGISRuntime.Data.Geodatabase", "P:Esri.ArcGISRuntime.Data.Geodatabase.IsInTransaction", "M:Esri.ArcGISRuntime.Data.Geodatabase.BeginTransaction", "M:Esri.ArcGISRuntime.Data.Geodatabase.CommitTransaction", "M:Esri.ArcGISRuntime.Data.Geodatabase.RollbackTransaction", "E:Esri.ArcGISRuntime.Data.Geodatabase.TransactionStatusChanged" ]
+  "TypeLink": [
+"T:Esri.ArcGISRuntime.Data.Geodatabase",
+"P:Esri.ArcGISRuntime.Data.Geodatabase.IsInTransaction",
+"M:Esri.ArcGISRuntime.Data.Geodatabase.BeginTransaction",
+"M:Esri.ArcGISRuntime.Data.Geodatabase.CommitTransaction",
+"M:Esri.ArcGISRuntime.Data.Geodatabase.RollbackTransaction",
+"E:Esri.ArcGISRuntime.Data.Geodatabase.TransactionStatusChanged",
+"T:Esri.ArcGISRuntime.Data.SyncLayerResult",
+"T:Esri.ArcGISRuntime.Data.TransactionStatusChangedEventArgs",
+"T:Esri.ArcGISRuntime.Tasks.Offline.GenerateLayerOption",
+"M:Esri.ArcGISRuntime.Tasks.Offline.GenerateLayerOption.#ctor",
+"T:Esri.ArcGISRuntime.Tasks.Offline.SyncModel",
+"P:Esri.ArcGISRuntime.Data.FeatureTable.Extent",
+"P:Esri.ArcGISRuntime.Data.FeatureTable.TableName",
+"P:Esri.ArcGISRuntime.Data.Geodatabase.Path",
+"P:Esri.ArcGISRuntime.Data.TransactionStatusChangedEventArgs.IsInTransaction",
+"P:Esri.ArcGISRuntime.Tasks.Offline.GenerateGeodatabaseParameters.LayerOptions",
+"P:Esri.ArcGISRuntime.Tasks.Offline.GenerateGeodatabaseParameters.OutSpatialReference",
+"P:Esri.ArcGISRuntime.Tasks.Offline.GenerateGeodatabaseParameters.SyncModel",
+"P:Esri.ArcGISRuntime.UI.SketchEditor.CancelCommand",
+"M:Esri.ArcGISRuntime.Tasks.Offline.GeodatabaseSyncTask.CreateDefaultSyncGeodatabaseParametersAsync(Esri.ArcGISRuntime.Data.Geodatabase)"
+]
 }

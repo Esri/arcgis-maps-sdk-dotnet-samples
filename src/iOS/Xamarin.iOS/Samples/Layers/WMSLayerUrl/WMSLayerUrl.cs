@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
@@ -53,16 +54,20 @@ namespace ArcGISRuntimeXamarin.Samples.WMSLayerUrl
         private async void Initialize()
         {
             // Apply an imagery basemap to the map
-            _myMapView.Map = new Map(Basemap.CreateImagery());
+            Map myMap = new Map(Basemap.CreateImagery());
+
+            // Set the initial viewpoint
+            myMap.InitialViewpoint = new Viewpoint(
+                new MapPoint(25.450, -4.59, new SpatialReference(4326)), 1000000);
+
+            // Add the map to the mapview
+            _myMapView.Map = myMap;
 
             // Create a new WMS layer displaying the specified layers from the service
             WmsLayer myWmsLayer = new WmsLayer(wmsUrl, wmsLayerNames);
 
-            // Load the layer
-            await myWmsLayer.LoadAsync();
-
             // Add the layer to the map
-            _myMapView.Map.OperationalLayers.Add(myWmsLayer);
+            myMap.OperationalLayers.Add(myWmsLayer);
         }
 
         public override void ViewDidLayoutSubviews()

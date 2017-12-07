@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System;
@@ -43,14 +44,17 @@ namespace ArcGISRuntime.WPF.Samples.RasterLayerFile
             // Load the layer
             await myRasterLayer.LoadAsync();
 
-            // Add the layer to the map
-            MyMapView.Map.OperationalLayers.Add(myRasterLayer);
+            // Convert the layer's extent to the correct spatial reference
+            Geometry convertedExtent = GeometryEngine.Project(myRasterLayer.FullExtent, SpatialReferences.WebMercator);
 
             // Get the raster's extent in a viewpoint
-            Viewpoint myFullRasterExtent = new Viewpoint(myRasterLayer.FullExtent);
+            Viewpoint myFullRasterExtent = new Viewpoint(convertedExtent);
 
-            // Zoom to the extent
-            MyMapView.Map.InitialViewpoint = myFullRasterExtent;
+            // Set the viewpoint
+            MyMapView.SetViewpoint(myFullRasterExtent);
+
+            // Add the layer to the map
+            MyMapView.Map.OperationalLayers.Add(myRasterLayer);
         }
 
         private async Task<string> GetRasterPath()

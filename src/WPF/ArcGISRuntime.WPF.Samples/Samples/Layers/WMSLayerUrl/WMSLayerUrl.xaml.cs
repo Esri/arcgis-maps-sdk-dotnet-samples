@@ -10,6 +10,7 @@
 using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Collections.Generic;
+using Esri.ArcGISRuntime.Geometry;
 
 namespace ArcGISRuntime.WPF.Samples.WMSLayerUrl
 {
@@ -32,16 +33,20 @@ namespace ArcGISRuntime.WPF.Samples.WMSLayerUrl
         private async void Initialize()
         {
             // Apply an imagery basemap to the map
-            MyMapView.Map = new Map(Basemap.CreateImagery());
+            Map myMap = new Map(Basemap.CreateImagery());
+
+            // Set the initial viewpoint
+            myMap.InitialViewpoint = new Viewpoint(
+                new MapPoint(25.450, -4.59, new SpatialReference(4326)), 1000000);
+
+            // Add the map to the mapview
+            MyMapView.Map = myMap;
 
             // Create a new WMS layer displaying the specified layers from the service
             WmsLayer myWmsLayer = new WmsLayer(wmsUrl, wmsLayerNames);
 
-            // Load the layer
-            await myWmsLayer.LoadAsync();
-
             // Add the layer to the map
-            MyMapView.Map.OperationalLayers.Add(myWmsLayer);
+            myMap.OperationalLayers.Add(myWmsLayer);
         }
     }
 }

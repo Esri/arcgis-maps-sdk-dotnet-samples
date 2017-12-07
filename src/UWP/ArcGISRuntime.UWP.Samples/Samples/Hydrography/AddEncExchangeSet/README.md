@@ -1,4 +1,4 @@
-# Add an ENC Exchange Set
+# Add an ENC exchange set
 
 This sample demonstrates how to load an ENC Exchange Set, including its component cells.
 

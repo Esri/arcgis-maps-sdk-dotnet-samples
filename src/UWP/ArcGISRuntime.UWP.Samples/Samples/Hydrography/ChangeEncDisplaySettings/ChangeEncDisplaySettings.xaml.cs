@@ -72,6 +72,18 @@ namespace ArcGISRuntime.UWP.Samples.ChangeEncDisplaySettings
 
             // Set the viewpoint
             MyMapView.SetViewpoint(new Viewpoint(fullExtent));
+
+            // Subscribe to notifications about leaving so that settings can be re-set
+            this.Unloaded += SampleUnloaded;
+        }
+
+        private void SampleUnloaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            // ENC environment settings apply to the entire application
+            // They need to be reset after leaving the sample to avoid affecting other samples
+            EncEnvironmentSettings.Default.DisplaySettings.MarinerSettings.ResetToDefaults();
+            EncEnvironmentSettings.Default.DisplaySettings.ViewingGroupSettings.ResetToDefaults();
+            EncEnvironmentSettings.Default.DisplaySettings.TextGroupVisibilitySettings.ResetToDefaults();
         }
 
         private async Task<String> GetEncPath()

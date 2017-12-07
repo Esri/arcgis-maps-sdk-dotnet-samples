@@ -72,6 +72,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <PlatformTarget>x86</PlatformTarget>
@@ -83,6 +84,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <!-- /Build Configurations -->
   <ItemGroup>
@@ -99,23 +101,19 @@
     <None Include="project.json" />
     <Content Include="Properties\ArcGISRuntime.Windows.Samples.rd.xml" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Content Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.jpg" />
-    <Content Include="Samples\Data\RasterLayerGeoPackage\metadata.json" />
-    <Content Include="Samples\Analysis\ViewshedCamera\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
-    <Content Include="Samples\Hydrography\SelectEncFeatures\metadata.json" />
-    <Content Include="Samples\Hydrography\ChangeEncDisplaySettings\metadata.json" />
-    <Content Include="Samples\Hydrography\AddEncExchangeSet\metadata.json" />
-    <Content Include="Samples\MapView\GeoViewSync\metadata.json" />
     <Content Include="groups.json" />
+    <Content Include="Samples\Analysis\LineOfSightLocation\metadata.json" />
+    <Content Include="Samples\Analysis\ViewshedCamera\metadata.json" />
     <Content Include="Samples\Data\EditAndSyncFeatures\metadata.json" />
     <Content Include="Samples\Data\FeatureLayerGeoPackage\metadata.json" />
     <Content Include="Samples\Data\FeatureLayerQuery\metadata.json" />
     <Content Include="Samples\Data\FeatureLayerShapefile\metadata.json" />
     <Content Include="Samples\Data\GenerateGeodatabase\metadata.json" />
-    <Content Include="Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.jpg" />
+    <Content Include="Samples\Data\GeodatabaseTransactions\metadata.json" />
+    <Content Include="Samples\Data\RasterLayerGeoPackage\metadata.json" />
     <Content Include="Samples\Data\ReadShapefileMetadata\metadata.json" />
     <Content Include="Samples\Data\ServiceFeatureTableCache\metadata.json" />
     <Content Include="Samples\Data\ServiceFeatureTableManualCache\metadata.json" />
@@ -129,6 +127,9 @@
     <Content Include="Samples\GraphicsOverlay\IdentifyGraphics\metadata.json" />
     <Content Include="Samples\GraphicsOverlay\SketchOnMap\metadata.json" />
     <Content Include="Samples\GraphicsOverlay\SurfacePlacements\metadata.json" />
+    <Content Include="Samples\Hydrography\AddEncExchangeSet\metadata.json" />
+    <Content Include="Samples\Hydrography\ChangeEncDisplaySettings\metadata.json" />
+    <Content Include="Samples\Hydrography\SelectEncFeatures\metadata.json" />
     <Content Include="Samples\Layers\ArcGISMapImageLayerUrl\metadata.json" />
     <Content Include="Samples\Layers\ArcGISTiledLayerUrl\metadata.json" />
     <Content Include="Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json" />
@@ -141,6 +142,7 @@
     <Content Include="Samples\Layers\FeatureCollectionLayerFromQuery\metadata.json" />
     <Content Include="Samples\Layers\FeatureLayerDefinitionExpression\metadata.json" />
     <Content Include="Samples\Layers\FeatureLayerDictionaryRenderer\metadata.json" />
+    <Content Include="Samples\Layers\FeatureLayerRenderingModeMap\metadata.json" />
     <Content Include="Samples\Layers\FeatureLayerSelection\metadata.json" />
     <Content Include="Samples\Layers\FeatureLayerUrl\metadata.json" />
     <Content Include="Samples\Layers\RasterLayerFile\metadata.json" />
@@ -149,6 +151,7 @@
     <Content Include="Samples\Layers\RasterRenderingRule\metadata.json" />
     <Content Include="Samples\Layers\SceneLayerUrl\metadata.json" />
     <Content Include="Samples\Layers\TimeBasedQuery\metadata.json" />
+    <Content Include="Samples\Layers\WmsIdentify\metadata.json" />
     <Content Include="Samples\Layers\WMSLayerUrl\metadata.json" />
     <Content Include="Samples\Layers\WmsServiceCatalog\metadata.json" />
     <Content Include="Samples\Layers\WMTSLayer\metadata.json" />
@@ -169,6 +172,7 @@
     <Content Include="Samples\MapView\DisplayDrawingStatus\metadata.json" />
     <Content Include="Samples\MapView\DisplayLayerViewState\metadata.json" />
     <Content Include="Samples\MapView\FeatureLayerTimeOffset\metadata.json" />
+    <Content Include="Samples\MapView\GeoViewSync\metadata.json" />
     <Content Include="Samples\MapView\MapRotation\metadata.json" />
     <Content Include="Samples\MapView\ShowCallout\metadata.json" />
     <Content Include="Samples\MapView\ShowMagnifier\metadata.json" />
@@ -185,15 +189,15 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-    <Content Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg" />
-    <Content Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
-    <Content Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
-    <Content Include="Samples\MapView\GeoViewSync\GeoViewSync.jpg" />
+    <Content Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
+    <Content Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.jpg" />
     <Content Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg" />
     <Content Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.jpg" />
     <Content Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.jpg" />
     <Content Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.jpg" />
     <Content Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.jpg" />
+    <Content Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.jpg" />
+    <Content Include="Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.jpg" />
     <Content Include="Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.jpg" />
     <Content Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.jpg" />
     <Content Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.jpg" />
@@ -207,6 +211,9 @@
     <Content Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.jpg" />
     <Content Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg" />
     <Content Include="Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.jpg" />
+    <Content Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
+    <Content Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
+    <Content Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg" />
     <Content Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg" />
     <Content Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.jpg" />
     <Content Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.jpg" />
@@ -219,6 +226,7 @@
     <Content Include="Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQuery.jpg" />
     <Content Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.jpg" />
     <Content Include="Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.jpg" />
+    <Content Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.jpg" />
     <Content Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.jpg" />
     <Content Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.jpg" />
     <Content Include="Samples\Layers\RasterLayerFile\RasterLayerFile.jpg" />
@@ -227,6 +235,7 @@
     <Content Include="Samples\Layers\RasterRenderingRule\RasterRenderingRule.jpg" />
     <Content Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.jpg" />
     <Content Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.jpg" />
+    <Content Include="Samples\Layers\WmsIdentify\WmsIdentify.jpg" />
     <Content Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.jpg" />
     <Content Include="Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.jpg" />
     <Content Include="Samples\Layers\WMTSLayer\WMTSLayer.jpg" />
@@ -247,6 +256,7 @@
     <Content Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.jpg" />
     <Content Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.jpg" />
     <Content Include="Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.jpg" />
+    <Content Include="Samples\MapView\GeoViewSync\GeoViewSync.jpg" />
     <Content Include="Samples\MapView\MapRotation\MapRotation.jpg" />
     <Content Include="Samples\MapView\ShowCallout\ShowCallout.jpg" />
     <Content Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg" />
@@ -263,20 +273,11 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.xaml.cs">
+      <DependentUpon>LineOfSightLocation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.xaml.cs">
       <DependentUpon>ViewshedCamera.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml.cs">
-      <DependentUpon>SelectEncFeatures.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.xaml.cs">
-      <DependentUpon>ChangeEncDisplaySettings.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.xaml.cs">
-      <DependentUpon>AddEncExchangeSet.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\MapView\GeoViewSync\GeoViewSync.xaml.cs">
-      <DependentUpon>GeoViewSync.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.xaml.cs">
       <DependentUpon>EditAndSyncFeatures.xaml</DependentUpon>
@@ -292,6 +293,9 @@
     </Compile>
     <Compile Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.xaml.cs">
       <DependentUpon>GenerateGeodatabase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.xaml.cs">
+      <DependentUpon>GeodatabaseTransactions.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.xaml.cs">
       <DependentUpon>RasterLayerGeoPackage.xaml</DependentUpon>
@@ -335,6 +339,15 @@
     <Compile Include="Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.xaml.cs">
       <DependentUpon>SurfacePlacements.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.xaml.cs">
+      <DependentUpon>AddEncExchangeSet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.xaml.cs">
+      <DependentUpon>ChangeEncDisplaySettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml.cs">
+      <DependentUpon>SelectEncFeatures.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.xaml.cs">
       <DependentUpon>ArcGISMapImageLayerUrl.xaml</DependentUpon>
     </Compile>
@@ -371,6 +384,9 @@
     <Compile Include="Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.xaml.cs">
       <DependentUpon>FeatureLayerDictionaryRenderer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.xaml.cs">
+      <DependentUpon>FeatureLayerRenderingModeMap.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.xaml.cs">
       <DependentUpon>FeatureLayerSelection.xaml</DependentUpon>
     </Compile>
@@ -395,6 +411,9 @@
     <Compile Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.xaml.cs">
       <DependentUpon>TimeBasedQuery.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Layers\WmsIdentify\WmsIdentify.xaml.cs">
+      <DependentUpon>WmsIdentify.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.xaml.cs">
       <DependentUpon>WMSLayerUrl.xaml</DependentUpon>
     </Compile>
@@ -406,9 +425,6 @@
     </Compile>
     <Compile Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.xaml.cs">
       <DependentUpon>DisplayDeviceLocation.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.xaml.cs">
-      <DependentUpon>FeatureLayerTimeOffset.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.xaml.cs">
       <DependentUpon>AccessLoadStatus.xaml</DependentUpon>
@@ -454,6 +470,12 @@
     </Compile>
     <Compile Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.xaml.cs">
       <DependentUpon>DisplayLayerViewState.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.xaml.cs">
+      <DependentUpon>FeatureLayerTimeOffset.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\GeoViewSync\GeoViewSync.xaml.cs">
+      <DependentUpon>GeoViewSync.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\MapView\MapRotation\MapRotation.xaml.cs">
       <DependentUpon>MapRotation.xaml</DependentUpon>
@@ -501,6 +523,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Layers\WmsIdentify\WmsIdentify.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -514,6 +540,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\MapView\GeoViewSync\GeoViewSync.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -534,6 +568,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -35,7 +35,7 @@ namespace ArcGISRuntimeXamarin.Samples.SelectEncFeatures
         {
             base.OnCreate(bundle);
 
-            Title = "Select ENC Features";
+            Title = "Select ENC features";
 
             // Create the UI, setup the control references and execute initialization
             CreateLayout();

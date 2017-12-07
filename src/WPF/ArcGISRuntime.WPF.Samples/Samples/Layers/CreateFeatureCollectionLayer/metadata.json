@@ -9,5 +9,17 @@
   "RequiresLocalServer": false,
   "Image": "CreateFeatureCollectionLayer.jpg",
   "Link": "",
-  "TypeLink": ["T:Esri.ArcGISRuntime.Data.FeatureCollection","T:Esri.ArcGISRuntime.Mapping.FeatureCollectionLayer","T:Esri.ArcGISRuntime.Data.FeatureCollectionTable","P:Esri.ArcGISRuntime.Data.FeatureCollectionTable.Renderer","T:Esri.ArcGISRuntime.Data.Domain","T:Esri.ArcGISRuntime.Geometry.Polyline","T:Esri.ArcGISRuntime.Data.FieldType","E:Esri.ArcGISRuntime.Mapping.Layer.Loaded"]
+  "TypeLink": [
+"T:Esri.ArcGISRuntime.Data.FeatureCollection",
+"T:Esri.ArcGISRuntime.Mapping.FeatureCollectionLayer",
+"T:Esri.ArcGISRuntime.Data.FeatureCollectionTable",
+"P:Esri.ArcGISRuntime.Data.FeatureCollectionTable.Renderer",
+"T:Esri.ArcGISRuntime.Data.Domain",
+"T:Esri.ArcGISRuntime.Geometry.Polyline",
+"T:Esri.ArcGISRuntime.Data.FieldType",
+"E:Esri.ArcGISRuntime.Mapping.Layer.Loaded",
+"M:Esri.ArcGISRuntime.Data.FeatureTable.AddFeatureAsync(Esri.ArcGISRuntime.Data.Feature)",
+"M:Esri.ArcGISRuntime.Data.FeatureTable.CreateFeature",
+"T:Esri.ArcGISRuntime.Data.Field"
+]
 }

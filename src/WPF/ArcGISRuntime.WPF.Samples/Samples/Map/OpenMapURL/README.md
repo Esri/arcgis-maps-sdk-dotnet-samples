@@ -1,4 +1,4 @@
-# Open Map (URL)
+# Open map (URL)
 
 This sample demonstrates loading a webmap in a map from a Uri.
 

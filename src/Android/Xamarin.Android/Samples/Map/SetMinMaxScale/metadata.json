@@ -1,5 +1,5 @@
 {
-  "Name": "Set Min & Max Scale",
+  "Name": "Set min & max scale",
   "SampleName": "SetMinMaxScale",
   "Description": "This sample demonstrates how to set the minimum and maximum scale of a Map. Setting the minimum and maximum scale for the Map can be useful in keeping the user focused at a certain level of detail.",
   "Instructions": "",

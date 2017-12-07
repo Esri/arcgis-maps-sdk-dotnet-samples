@@ -51,8 +51,7 @@ namespace ArcGISRuntimeXamarin.Samples.SimpleRenderers
             // Create new map with basemap layer
             Map myMap = new Map(Basemap.CreateImageryWithLabels());
 
-            // Add the map to the map view
-            _myMapView.Map = myMap;
+            
 
             // Create several map points using the WGS84 coordinates (latitude and longitude)
             MapPoint oldFaithfullPoint = new MapPoint(-110.828140, 44.460458, SpatialReferences.Wgs84);
@@ -61,6 +60,9 @@ namespace ArcGISRuntimeXamarin.Samples.SimpleRenderers
 
             // Use the two points farthest apart to create an envelope
             Envelope initialEnvelope = new Envelope(oldFaithfullPoint, plumeGeyserPoint);
+
+            // Use the envelope to define the map's visible area
+            myMap.InitialViewpoint = new Viewpoint(initialEnvelope);
 
             // Create a graphics overlay 
             GraphicsOverlay myGraphicOverlay = new GraphicsOverlay();
@@ -87,8 +89,8 @@ namespace ArcGISRuntimeXamarin.Samples.SimpleRenderers
             // Add the graphics overlay to the map view
             _myMapView.GraphicsOverlays.Add(myGraphicOverlay);
 
-            // Use the envelope to define the map views visible area (include some padding around the extent)
-            _myMapView.SetViewpointGeometryAsync(initialEnvelope, 100);
+            // Add the map to the map view
+            _myMapView.Map = myMap;
         }
 
         private void CreateLayout()

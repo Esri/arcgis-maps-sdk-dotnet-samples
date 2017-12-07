@@ -66,6 +66,9 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
         // Progress bar
         private ProgressBar myProgressBar;
 
+        // Help label
+        private TextView myHelpLabel;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -82,6 +85,10 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
             LinearLayout layout = new LinearLayout(this);
             layout.Orientation = Orientation.Vertical;
 
+            // Add the help label
+            myHelpLabel = new TextView(this) { Text = "1. Click 'Generate'" };
+            layout.AddView(myHelpLabel);
+
             // Add the progress bar
             myProgressBar = new ProgressBar(this);
             myProgressBar.Visibility = Android.Views.ViewStates.Gone;
@@ -90,6 +97,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
             // Add the generate button
             myGenerateButton = new Button(this);
             myGenerateButton.Text = "Generate";
+            myGenerateButton.Enabled = false;
             myGenerateButton.Click += GenerateButton_Clicked;
             layout.AddView(myGenerateButton);
 
@@ -97,6 +105,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
             mySyncButton = new Button(this);
             mySyncButton.Text = "Synchronize";
             mySyncButton.Click += SyncButton_Click;
+            mySyncButton.Enabled = false;
             layout.AddView(mySyncButton);
 
             // Add the mapview
@@ -140,9 +149,6 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
             // Set up event handler for mapview taps
             myMapView.GeoViewTapped += GeoViewTapped;
 
-            // Update the local data path for the geodatabase file
-            _gdbPath = GetFileStreamPath("wildfire.geodatabase").AbsolutePath;
-
             // Create a task for generating a geodatabase (GeodatabaseSyncTask)
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
@@ -164,6 +170,12 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
                     myMap.OperationalLayers.Add(new FeatureLayer(onlineTable));
                 }
             }
+
+            // Update the graphic - in case user doesn't interact with the map
+            UpdateMapExtent();
+
+            // Enable the generate button now that the sample is ready
+            myGenerateButton.Enabled = true;
         }
 
         private async void GeoViewTapped(object sender, GeoViewInputEventArgs e)
@@ -205,8 +217,15 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
                     // Set the new geometry
                     feature.Geometry = e.Location;
 
-                    // Update the feature in the table
-                    await table.UpdateFeatureAsync(feature);
+                    try
+                    {
+                        // Update the feature in the table
+                        await table.UpdateFeatureAsync(feature);
+                    }
+                    catch (Esri.ArcGISRuntime.ArcGISException)
+                    {
+                        ShowStatusMessage("Feature must be within extent of geodatabase.");
+                    }
                 }
 
                 // Update the edit state
@@ -214,6 +233,9 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
 
                 // Enable the sync button
                 mySyncButton.Enabled = true;
+
+                // Update the help label
+                myHelpLabel.Text = "4. Click 'Synchronize' or edit more features";
             }
             // Otherwise, start an edit
             else
@@ -238,6 +260,9 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
 
                 // Set the edit state
                 _readyForEdits = EditState.Editing;
+
+                // Update the help label
+                myHelpLabel.Text = "3. Tap on the map to move the point";
             }
         }
 
@@ -286,14 +311,17 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
 
         private async void StartGeodatabaseGeneration()
         {
+            // Update geodatabase path
+            _gdbPath = GetGdbPath();
+
             // Create a task for generating a geodatabase (GeodatabaseSyncTask)
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
             // Get the (only) graphic in the map view
-            GraphicsOverlay redPreviewBox = myMapView.GraphicsOverlays.FirstOrDefault();
+            Graphic redPreviewBox = myMapView.GraphicsOverlays.First().Graphics.First();
 
             // Get the current extent of the red preview box
-            Envelope extent = redPreviewBox.Extent as Envelope;
+            Envelope extent = redPreviewBox.Geometry as Envelope;
 
             // Get the default parameters for the generate geodatabase task
             GenerateGeodatabaseParameters generateParams = await _gdbSyncTask.CreateDefaultGenerateGeodatabaseParametersAsync(extent);
@@ -343,6 +371,9 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
 
                 // Enable editing features
                 _readyForEdits = EditState.Ready;
+
+                // Update the help label
+                myHelpLabel.Text = "2. Tap a point feature to select";
             }
 
             // See if the job failed
@@ -459,15 +490,23 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
         private string GetTpkPath()
         {
             #region offlinedata
+
             // The desired tpk is expected to be called SanFrancisco.tpk
             string filename = "SanFrancisco.tpk";
 
             // The data manager provides a method to get the folder
             string folder = DataManager.GetDataFolder();
 
-			// Return the full path; the Item ID is 3f1bbf0ec70b409a975f5c91f363fe7d
-			return Path.Combine(folder, "SampleData", "EditAndSyncFeatures", filename);
+            // Return the full path; the Item ID is 3f1bbf0ec70b409a975f5c91f363fe7d
+            return Path.Combine(folder, "SampleData", "EditAndSyncFeatures", filename);
+
             #endregion offlinedata
+        }
+
+        private string GetGdbPath()
+        {
+            // Return a path
+            return $"{Path.GetTempFileName()}.geodatabase";
         }
 
         private void ShowStatusMessage(string message)
@@ -480,6 +519,9 @@ namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
         // Handler for the generate button clicked event
         private void GenerateButton_Clicked(object sender, EventArgs e)
         {
+            // Disable the generate button
+            myGenerateButton.Enabled = false;
+
             // Call the cross-platform geodatabase generation method
             StartGeodatabaseGeneration();
         }

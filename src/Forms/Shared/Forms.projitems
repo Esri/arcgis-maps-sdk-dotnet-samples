@@ -11,10 +11,6 @@
   <ItemGroup>
     <!-- Misc Resources -->
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\PictureMarkerSymbols\pin_star_blue.png" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedCamera\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedCamera\ViewshedCamera.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <Folder Include="$(MSBuildThisFileDirectory)Assets\" />
   </ItemGroup>
   <ItemGroup>
@@ -38,13 +34,6 @@
       <DependentUpon>SampleListPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedCamera\ViewshedCamera.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>ViewshedCamera.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.xaml.cs">
-      <DependentUpon>RasterLayerGeoPackage.xaml</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)CategoryListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -54,16 +43,16 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Hydrography\SelectEncFeatures\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Hydrography\ChangeEncDisplaySettings\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Hydrography\AddEncExchangeSet\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\GeoViewSync\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)groups.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightLocation\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedCamera\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\EditAndSyncFeatures\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerGeoPackage\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerQuery\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerShapefile\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\GenerateGeodatabase\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\GeodatabaseTransactions\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\RasterLayerGeoPackage\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ReadShapefileMetadata\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableCache\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableManualCache\metadata.json" />
@@ -77,6 +66,9 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\IdentifyGraphics\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SketchOnMap\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SurfacePlacements\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Hydrography\AddEncExchangeSet\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Hydrography\ChangeEncDisplaySettings\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Hydrography\SelectEncFeatures\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISMapImageLayerUrl\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISTiledLayerUrl\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json" />
@@ -89,6 +81,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureCollectionLayerFromQuery\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerDefinitionExpression\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerDictionaryRenderer\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerRenderingModeMap\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerSelection\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerUrl\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterLayerFile\metadata.json" />
@@ -97,6 +90,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterRenderingRule\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\SceneLayerUrl\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\TimeBasedQuery\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\WmsIdentify\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\WMSLayerUrl\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\WmsServiceCatalog\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\WMTSLayer\metadata.json" />
@@ -117,6 +111,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\DisplayDrawingStatus\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\DisplayLayerViewState\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\FeatureLayerTimeOffset\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\GeoViewSync\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\MapRotation\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\ShowCallout\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\ShowMagnifier\metadata.json" />
@@ -133,16 +128,15 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedCamera\ViewshedCamera.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\MapView\GeoViewSync\GeoViewSync.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerQuery\FeatureLayerQuery.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\GenerateGeodatabase\GenerateGeodatabase.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.jpg" />
@@ -156,6 +150,9 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.jpg" />
@@ -168,6 +165,7 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQuery.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterLayerFile\RasterLayerFile.jpg" />
@@ -175,6 +173,7 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterRenderingRule\RasterRenderingRule.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\TimeBasedQuery\TimeBasedQuery.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\WmsIdentify\WmsIdentify.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\WMSLayerUrl\WMSLayerUrl.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\WMTSLayer\WMTSLayer.jpg" />
@@ -195,6 +194,7 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\MapView\GeoViewSync\GeoViewSync.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\MapView\MapRotation\MapRotation.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\MapView\ShowCallout\ShowCallout.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\MapView\ShowMagnifier\ShowMagnifier.jpg" />
@@ -211,21 +211,13 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml.cs">
-      <DependentUpon>SelectEncFeatures.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightLocation\LineOfSightLocation.xaml.cs">
       <SubType>Code</SubType>
+      <DependentUpon>LineOfSightLocation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.xaml.cs">
-      <DependentUpon>ChangeEncDisplaySettings.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedCamera\ViewshedCamera.xaml.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.xaml.cs">
-      <DependentUpon>AddEncExchangeSet.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\GeoViewSync\GeoViewSync.xaml.cs">
-      <DependentUpon>GeoViewSync.xaml</DependentUpon>
-      <SubType>Code</SubType>
+      <DependentUpon>ViewshedCamera.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.xaml.cs">
       <DependentUpon>EditAndSyncFeatures.xaml</DependentUpon>
@@ -246,6 +238,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\GenerateGeodatabase\GenerateGeodatabase.xaml.cs">
       <DependentUpon>GenerateGeodatabase.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>GeodatabaseTransactions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.xaml.cs">
+      <DependentUpon>RasterLayerGeoPackage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.xaml.cs">
       <DependentUpon>ReadShapefileMetadata.xaml</DependentUpon>
@@ -299,6 +298,18 @@
       <DependentUpon>SurfacePlacements.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.xaml.cs">
+      <DependentUpon>AddEncExchangeSet.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.xaml.cs">
+      <DependentUpon>ChangeEncDisplaySettings.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml.cs">
+      <DependentUpon>SelectEncFeatures.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.xaml.cs">
       <DependentUpon>ArcGISMapImageLayerUrl.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -347,6 +358,10 @@
       <DependentUpon>FeatureLayerDictionaryRenderer.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>FeatureLayerRenderingModeMap.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.xaml.cs">
       <DependentUpon>FeatureLayerSelection.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -377,6 +392,10 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\TimeBasedQuery\TimeBasedQuery.xaml.cs">
       <DependentUpon>TimeBasedQuery.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\WmsIdentify\WmsIdentify.xaml.cs">
+      <DependentUpon>WmsIdentify.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\WMSLayerUrl\WMSLayerUrl.xaml.cs">
@@ -463,6 +482,10 @@
       <DependentUpon>FeatureLayerTimeOffset.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\GeoViewSync\GeoViewSync.xaml.cs">
+      <DependentUpon>GeoViewSync.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\MapRotation\MapRotation.xaml.cs">
       <DependentUpon>MapRotation.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -522,16 +545,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightLocation\LineOfSightLocation.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\GeoViewSync\GeoViewSync.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedCamera\ViewshedCamera.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.xaml">
@@ -547,6 +564,15 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\GenerateGeodatabase\GenerateGeodatabase.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.xaml">
@@ -585,6 +611,15 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -621,6 +656,9 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -643,6 +681,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\TimeBasedQuery\TimeBasedQuery.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\WmsIdentify\WmsIdentify.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\WMSLayerUrl\WMSLayerUrl.xaml">
@@ -708,6 +749,9 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\GeoViewSync\GeoViewSync.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\MapRotation\MapRotation.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -748,19 +792,6 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Tutorial\AuthorEditSaveMap\SaveMapPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\RasterLayerGeoPackage\metadata.json" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

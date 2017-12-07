@@ -41,7 +41,7 @@ namespace ArcGISRuntime.UWP.Samples.AccessLoadStatus
             // Update the load status information
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                  {
-                     loadStatusTextBlock.Text = string.Format("Maps' load status : {0}", e.Status.ToString());
+                     loadStatusTextBlock.Text = string.Format("Map's load status : {0}", e.Status.ToString());
                  });
         }
     }

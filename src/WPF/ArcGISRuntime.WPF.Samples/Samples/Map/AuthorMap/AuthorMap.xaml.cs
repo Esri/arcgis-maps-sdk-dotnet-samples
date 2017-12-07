@@ -100,6 +100,10 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
         {
             // Create a new map (will not have an associated PortalItem)
             MyMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
+
+            // Reset UI to be consistent with map
+            BasemapListBox.SelectedIndex = 0;
+            OperationalLayerListBox.SelectedIndex = -1;
         }
 
         private void SaveOAuthSettingsClicked(object sender, RoutedEventArgs e)

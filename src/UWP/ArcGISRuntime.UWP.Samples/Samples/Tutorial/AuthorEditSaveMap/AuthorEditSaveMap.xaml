@@ -14,7 +14,8 @@
                 </AppBarButton.Flyout>
             </AppBarButton>
             <AppBarButton Content="Save ..."
-                        Margin="5,0">
+                          Margin="5,0"
+                          AllowFocusOnInteraction="True">
                 <AppBarButton.Flyout>
                     <Flyout>
                         <Grid>

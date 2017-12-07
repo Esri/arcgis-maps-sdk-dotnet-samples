@@ -159,7 +159,7 @@ namespace ArcGISRuntime.UWP.Samples.SketchOnMap
             {
                 // Report exceptions
                 var dialog = new MessageDialog("Error drawing graphic shape: " + ex.Message);
-                dialog.ShowAsync();
+                await dialog.ShowAsync();
             }
         }
 
@@ -204,7 +204,7 @@ namespace ArcGISRuntime.UWP.Samples.SketchOnMap
             {
                 // Report exceptions
                 var dialog = new MessageDialog("Error editing shape: " + ex.Message);
-                dialog.ShowAsync();
+                await dialog.ShowAsync();
             }
         }
     }

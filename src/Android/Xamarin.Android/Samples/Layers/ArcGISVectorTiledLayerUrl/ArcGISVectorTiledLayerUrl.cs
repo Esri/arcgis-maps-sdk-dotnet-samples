@@ -122,7 +122,7 @@ namespace ArcGISRuntimeXamarin.Samples.ArcGISVectorTiledLayerUrl
 
             // Create button to show possible options
             var button = new Button(this);
-            button.Text = "ArcGISVectorTiledLayer";
+            button.Text = "Select layer";
             button.Click += OnVectorLayersClicked;
 
             // Add button to the layout

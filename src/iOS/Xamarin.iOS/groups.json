@@ -148,6 +148,10 @@
             {
               "SampleName": "WmsServiceCatalog",
               "Path": "Samples/Layers/WmsServiceCatalog"
+            },
+            {
+              "SampleName": "WmsIdentify",
+              "Path": "Samples/Layers/WmsIdentify"
             }
           ]
         },
@@ -224,6 +228,10 @@
             {
               "SampleName": "FeatureLayerDictionaryRenderer",
               "Path": "Samples/Layers/FeatureLayerDictionaryRenderer"
+            },
+            {
+              "SampleName": "FeatureLayerRenderingModeMap",
+              "Path": "Samples/Layers/FeatureLayerRenderingModeMap"
             }
           ]
         },
@@ -251,6 +259,10 @@
             {
               "SampleName": "GenerateGeodatabase",
               "Path": "Samples/Data/GenerateGeodatabase"
+            },
+            {
+              "SampleName": "GeodatabaseTransactions",
+              "Path": "Samples/Data/GeodatabaseTransactions"
             },
             {
               "SampleName": "FeatureLayerShapefile",
@@ -344,6 +356,10 @@
             {
               "SampleName": "ViewshedCamera",
               "Path": "Samples/Analysis/ViewshedCamera"
+            },
+            {
+              "SampleName": "LineOfSightLocation",
+              "Path": "Samples/Analysis/LineOfSightLocation"
             },
             {
               "SampleName": "ListGeodatabaseVersions",

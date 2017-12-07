@@ -1,4 +1,4 @@
-# Select ENC Features
+# Select ENC features
 
 This sample demonstrates how to select an ENC feature.
 

@@ -43,7 +43,7 @@ namespace ArcGISRuntimeXamarin.Samples.OpenMapURL
 
         public OpenMapURL()
         {
-            Title = "Open Map (URL)";
+            Title = "Open map (URL)";
         }
 
         public override void ViewDidLoad() {

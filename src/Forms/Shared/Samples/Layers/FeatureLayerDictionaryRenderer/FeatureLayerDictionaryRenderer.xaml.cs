@@ -39,8 +39,7 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerDictionaryRenderer
             MapPoint centerGeometry = new MapPoint(-13549402.587055, 4397264.96879385, SpatialReference.Create(3857));
 
             // Set the map's viewpoint to highlight the desired content
-            await MyMapView.SetViewpointCenterAsync(centerGeometry);
-            await MyMapView.SetViewpointScaleAsync(201555.279);
+            await MyMapView.SetViewpointAsync(new Viewpoint(centerGeometry, 201555));
 
             // Get the path to the geodatabase
             string geodbFilePath = GetGeodatabasePath();

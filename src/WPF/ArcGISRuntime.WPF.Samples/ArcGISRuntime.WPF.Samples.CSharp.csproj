@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>5</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,6 +33,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>5</LangVersion>
   </PropertyGroup>
   <!-- /Build Configurations -->
   <ItemGroup>
@@ -74,6 +76,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
+    <Content Include="Samples\Layers\WmsIdentify\metadata.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Hydrography\SelectEncFeatures\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -83,9 +88,6 @@
     <Content Include="Samples\Hydrography\AddEncExchangeSet\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>    
     <Content Include="Samples\MapView\GeoViewSync\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -311,9 +313,40 @@
     <Content Include="Samples\Tutorial\AuthorEditSaveMap\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Data\RasterLayerGeoPackage\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Analysis\ViewshedCamera\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="packages.config" />
+    <Content Include="Samples\Analysis\LineOfSightLocation\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\GeodatabaseTransactions\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>    
+    <Content Include="Samples\Layers\FeatureLayerRenderingModeMap\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>    
+    <Content Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>    
+    <Content Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\WmsIdentify\WmsIdentify.jpg">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -542,6 +575,15 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.xaml.cs">
+      <DependentUpon>FeatureLayerRenderingModeMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\WmsIdentify\WmsIdentify.xaml.cs">
+        <DependentUpon>WmsIdentify.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.xaml.cs">
+      <DependentUpon>GeodatabaseTransactions.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml.cs">
       <DependentUpon>SelectEncFeatures.xaml</DependentUpon>
     </Compile>
@@ -553,6 +595,9 @@
     </Compile>
     <Compile Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.xaml.cs">
       <DependentUpon>ViewshedCamera.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.xaml.cs">
+      <DependentUpon>LineOfSightLocation.xaml</DependentUpon>
     </Compile>    
     <Compile Include="Samples\MapView\GeoViewSync\GeoViewSync.xaml.cs">
       <DependentUpon>GeoViewSync.xaml</DependentUpon>
@@ -779,6 +824,14 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Layers\WmsIdentify\WmsIdentify.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>    
     <Page Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -795,6 +848,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>    
+    <Page Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>    
+    <Page Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\MapView\GeoViewSync\GeoViewSync.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1094,13 +1155,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <Content Include="Samples\Data\RasterLayerGeoPackage\metadata.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\Analysis\ViewshedCamera\metadata.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
@@ -1111,7 +1165,6 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.2.0\build\net452\Esri.ArcGISRuntime.LocalServices.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.2.0\build\net452\Esri.ArcGISRuntime.LocalServices.targets'))" />
   </Target>
   <Import Project="..\..\..\packages\Esri.ArcGISRuntime.WPF.100.2.0\build\net452\Esri.ArcGISRuntime.WPF.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.2.0\build\net452\Esri.ArcGISRuntime.WPF.targets')" />
   <Import Project="..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.2.0\build\net452\Esri.ArcGISRuntime.LocalServices.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.2.0\build\net452\Esri.ArcGISRuntime.LocalServices.targets')" />

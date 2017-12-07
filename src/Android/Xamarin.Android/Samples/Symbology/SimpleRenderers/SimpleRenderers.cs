@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Android.App;
@@ -30,7 +30,7 @@ namespace ArcGISRuntimeXamarin.Samples.SimpleRenderers
 
             Title = "Simple renderer";
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             CreateLayout();
             Initialize();
         }
@@ -40,9 +40,6 @@ namespace ArcGISRuntimeXamarin.Samples.SimpleRenderers
             // Create new map with basemap layer
             Map myMap = new Map(Basemap.CreateImageryWithLabels());
 
-            // Add the map to the map view
-            _myMapView.Map = myMap;
-
             // Create several map points using the WGS84 coordinates (latitude and longitude)
             MapPoint oldFaithfullPoint = new MapPoint(-110.828140, 44.460458, SpatialReferences.Wgs84);
             MapPoint cascadeGeyserPoint = new MapPoint(-110.829004, 44.462438, SpatialReferences.Wgs84);
@@ -51,7 +48,13 @@ namespace ArcGISRuntimeXamarin.Samples.SimpleRenderers
             // Use the two points farthest apart to create an envelope
             Envelope initialEnvelope = new Envelope(oldFaithfullPoint, plumeGeyserPoint);
 
-            // Create a graphics overlay 
+            // Set the map initial viewpoint
+            myMap.InitialViewpoint = new Viewpoint(initialEnvelope);
+
+            // Add the map to the map view
+            _myMapView.Map = myMap;
+
+            // Create a graphics overlay
             GraphicsOverlay myGraphicOverlay = new GraphicsOverlay();
 
             // Create graphics based upon the map points
@@ -75,9 +78,6 @@ namespace ArcGISRuntimeXamarin.Samples.SimpleRenderers
 
             // Add the graphics overlay to the map view
             _myMapView.GraphicsOverlays.Add(myGraphicOverlay);
-
-            // Use the envelope to define the map views visible area (include some padding around the extent)
-            _myMapView.SetViewpointGeometryAsync(initialEnvelope, 100);
         }
 
         private void CreateLayout()

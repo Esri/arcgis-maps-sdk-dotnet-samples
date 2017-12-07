@@ -40,6 +40,9 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
         // URL to the service tiles will be exported from
         private Uri _serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer");
 
+        // Path to exported tiles on disk
+        private string _tilePath;
+
         // Flag to indicate if an exported cache is being previewed
         private bool _previewOpen = false;
 
@@ -90,6 +93,10 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
             // Create the basemap with the layer
             Map myMap = new Map(new Basemap(myLayer));
 
+            // Set the min and max scale - export task fails if the scale is too big or small
+            myMap.MaxScale = 5000000;
+            myMap.MinScale = 10000000;
+
             // Assign the map to the mapview
             _myMapView.Map = myMap;
 
@@ -106,6 +113,12 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
 
             // Subscribe to changes in the mapview's viewpoint so the preview box can be kept in position
             _myMapView.ViewpointChanged += MyMapView_ViewpointChanged;
+
+            // Update the graphic - needed in case the user decides not to interact before pressing the button
+            UpdateMapExtentGraphic();
+
+            // Enable the export button now that sample is ready
+            _myExportButton.Enabled = true;
         }
 
         private void CreateLayout()
@@ -129,10 +142,8 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
             // Set the progress bar to hide when not animating
             _myProgressBar.HidesWhenStopped = true;
 
-            // Create the export button
-            _myExportButton = new UIButton();
-
-            // Set the export button text
+            // Create the export button - disabled until sample is ready
+            _myExportButton = new UIButton() { Enabled = false };
             _myExportButton.SetTitle("Export", UIControlState.Normal);
 
             // Set background color on the button and progressbar
@@ -201,10 +212,8 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
 
         private string GetTilePath()
         {
-            // Get the platform-specific path for storing the tile cache
-            String folder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            // Return the final path
-            return Path.Combine(folder, "myTileCache.tpk");
+            // Return a path
+            return $"{Path.GetTempFileName()}.tpk";
         }
 
         /// <summary>
@@ -218,11 +227,11 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
             // Create the task
             ExportTileCacheTask exportTask = await ExportTileCacheTask.CreateAsync(_serviceUri);
 
-            // Get the tile cache path
-            String filePath = GetTilePath();
+            // Update tile cache path
+            _tilePath = GetTilePath();
 
             // Create the export job
-            ExportTileCacheJob job = exportTask.ExportTileCache(parameters, filePath);
+            ExportTileCacheJob job = exportTask.ExportTileCache(parameters, _tilePath);
 
             // Subscribe to notifications for status updates
             job.JobChanged += Job_JobChanged;
@@ -241,10 +250,10 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
             ExportTileCacheParameters parameters = new ExportTileCacheParameters();
 
             // Get the (only) graphics overlay in the map view
-            GraphicsOverlay extentOverlay = _myMapView.GraphicsOverlays.FirstOrDefault();
+            GraphicsOverlay extentOverlay = _myMapView.GraphicsOverlays.First();
 
             // Get the area selection graphic's extent
-            Graphic extentGraphic = extentOverlay.Graphics.FirstOrDefault();
+            Graphic extentGraphic = extentOverlay.Graphics.First();
 
             // Set the area for the export
             parameters.AreaOfInterest = extentGraphic.Geometry;
@@ -290,6 +299,9 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
                     // Change the export button text
                     _myExportButton.SetTitle("Close Preview", UIControlState.Normal);
 
+                    // Re-enable the button
+                    _myExportButton.Enabled = true;
+
                     // Set the preview open flag
                     _previewOpen = true;
                 });
@@ -309,6 +321,9 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
                     // Change the export button text
                     _myExportButton.SetTitle("Export Tiles", UIControlState.Normal);
 
+                    // Re-enable the export button
+                    _myExportButton.Enabled = true;
+
                     // Set the preview open flag
                     _previewOpen = false;
                 });
@@ -320,11 +335,8 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
         /// </summary>
         private async void UpdatePreviewMap()
         {
-            // Get the path to the cache
-            String filePath = GetTilePath();
-
             // Load the saved tile cache
-            TileCache cache = new TileCache(filePath);
+            TileCache cache = new TileCache(_tilePath);
 
             // Load the cache
             await cache.LoadAsync();
@@ -347,6 +359,9 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
             // If preview isn't open, start an export
             if (!_previewOpen)
             {
+                // Disable the export button
+                _myExportButton.Enabled = false;
+
                 // Show the progress bar
                 _myProgressBar.StartAnimating();
 

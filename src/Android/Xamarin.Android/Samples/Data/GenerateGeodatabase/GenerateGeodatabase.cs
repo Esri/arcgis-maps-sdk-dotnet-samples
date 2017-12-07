@@ -74,6 +74,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
             // Add the generate button
             myGenerateButton = new Button(this);
             myGenerateButton.Text = "Generate";
+            myGenerateButton.Enabled = false;
             myGenerateButton.Click += GenerateButton_Clicked;
             layout.AddView(myGenerateButton);
 
@@ -115,9 +116,6 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
             // Set up an event handler for when the viewpoint (extent) changes
             myMapView.ViewpointChanged += MapViewExtentChanged;
 
-            // Update the local data path for the geodatabase file
-            _gdbPath = GetGdbPath();
-
             // Create a task for generating a geodatabase (GeodatabaseSyncTask)
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
@@ -136,6 +134,12 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
                     myMap.OperationalLayers.Add(new FeatureLayer(onlineTable));
                 }
             }
+
+            // Update the graphic - in case user doesn't interact with the map
+            UpdateMapExtent();
+
+            // Enable the generate button now that the sample is ready
+            myGenerateButton.Enabled = true;
         }
 
         private void UpdateMapExtent()
@@ -183,11 +187,14 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
 
         private async void StartGeodatabaseGeneration()
         {
+            // Update the geodatabase path
+            _gdbPath = GetGdbPath();
+
             // Create a task for generating a geodatabase (GeodatabaseSyncTask)
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
             // Get the current extent of the red preview box
-            Envelope extent = myMapView.GraphicsOverlays.FirstOrDefault().Extent as Envelope;
+            Envelope extent = myMapView.GraphicsOverlays.First().Graphics.First().Geometry as Envelope;
 
             // Get the default parameters for the generate geodatabase task
             GenerateGeodatabaseParameters generateParams = await _gdbSyncTask.CreateDefaultGenerateGeodatabaseParametersAsync(extent);
@@ -235,6 +242,9 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
 
                 // Tell the user that the geodatabase was unregistered
                 ShowStatusMessage("Since no edits will be made, the local geodatabase has been unregistered per best practice.");
+
+                // Re-enable the generate button
+                myGenerateButton.Enabled = true;
             }
 
             // See if the job failed
@@ -255,7 +265,11 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
                     message += ": " + string.Join<string>("\n", m);
                 }
 
+                // Show error message
                 ShowStatusMessage(message);
+
+                // Re-enable the generate button
+                myGenerateButton.Enabled = true;
             }
         }
 
@@ -263,20 +277,23 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
         private string GetTpkPath()
         {
             #region offlinedata
+
             // The desired tpk is expected to be called SanFrancisco.tpk
             string filename = "SanFrancisco.tpk";
 
             // The data manager provides a method to get the folder
             string folder = DataManager.GetDataFolder();
 
-			// Return the full path; Item ID is 3f1bbf0ec70b409a975f5c91f363fe7d
-			return Path.Combine(folder, "SampleData", "GenerateGeodatabase", filename);
+            // Return the full path; Item ID is 3f1bbf0ec70b409a975f5c91f363fe7d
+            return Path.Combine(folder, "SampleData", "GenerateGeodatabase", filename);
+
             #endregion offlinedata
         }
 
         private string GetGdbPath()
         {
-            return GetFileStreamPath("wildfire.geodatabase").AbsolutePath;
+            // Return a path
+            return $"{Path.GetTempFileName()}.geodatabase";
         }
 
         private void ShowStatusMessage(string message)
@@ -289,6 +306,9 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
         // Handler for the generate button clicked event
         private void GenerateButton_Clicked(object sender, EventArgs e)
         {
+            // Disable generate button
+            myGenerateButton.Enabled = false;
+
             // Call the cross-platform geodatabase generation method
             StartGeodatabaseGeneration();
         }

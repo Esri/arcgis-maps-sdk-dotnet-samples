@@ -11,7 +11,7 @@
         </Grid.RowDefinitions>
         <esriUI:MapView x:Name="MyMapView"/>
         <Frame x:Name="DirectionsFrame" 
-               BackgroundColor="LightSlateGray" Opacity=".85"
+               BackgroundColor="WhiteSmoke" Opacity=".85"
                IsVisible="False"
                 HorizontalOptions="FillAndExpand" VerticalOptions="Start"
                 Margin="5" Padding="5">

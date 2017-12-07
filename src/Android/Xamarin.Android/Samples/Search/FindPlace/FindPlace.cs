@@ -36,6 +36,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
 
         // UI Elements
         private MapView _myMapView = new MapView();
+
         private AutoCompleteTextView _mySearchBox;
         private AutoCompleteTextView _myLocationBox;
         private Button _mySearchButton;
@@ -49,7 +50,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         {
             base.OnCreate(bundle);
 
-            Title = "Find Place";
+            Title = "Find place";
 
             // Create the UI, setup the control references and execute initialization
             CreateLayout();
@@ -67,6 +68,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             // Wire up the map view to support tapping on address markers
             _myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
 
+            // Subscribe to location events to zoom to current location
+            _myMapView.LocationDisplay.LocationChanged += LocationDisplay_LocationChanged;
+
             // Enable location display
             _myMapView.LocationDisplay.IsEnabled = true;
 
@@ -78,6 +82,19 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             _myLocationBox.Enabled = true;
             _mySearchButton.Enabled = true;
             _mySearchRestrictedButton.Enabled = true;
+        }
+
+        private void LocationDisplay_LocationChanged(object sender, Esri.ArcGISRuntime.Location.Location e)
+        {
+            // Return if no location
+            if (e.Position == null) { return; }
+
+            // Unsubscribe; only want to zoom to location once
+            ((LocationDisplay)sender).LocationChanged -= LocationDisplay_LocationChanged;
+            RunOnUiThread(() =>
+            {
+                _myMapView.SetViewpoint(new Viewpoint(e.Position, 10000));
+            });
         }
 
         private void CreateLayout()
@@ -267,8 +284,8 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             pinSymbol.Height = 60;
             // The image is a pin; offset the image so that the pinpoint
             //     is on the point rather than the image's true center
-            pinSymbol.OffsetX = pinSymbol.Width / 2;
-            pinSymbol.OffsetY = pinSymbol.Height / 2;
+            pinSymbol.LeaderOffsetX = 30;
+            pinSymbol.OffsetY = 14;
             return new Graphic(point, pinSymbol);
         }
 
@@ -360,6 +377,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         /// </summary>
         private async void _mySearchBox_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
         {
+            // Dismiss callout, if any
+            UserInteracted();
+
             // Get the current text
             string searchText = _mySearchBox.Text;
 
@@ -384,6 +404,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         /// </summary>
         private async void _myLocationBox_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
         {
+            // Dismiss callout, if any
+            UserInteracted();
+
             // Get the current text
             string searchText = _myLocationBox.Text;
 
@@ -411,6 +434,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         /// </summary>
         private async void _mySearchButton_Click(object sender, EventArgs e)
         {
+            // Dismiss callout, if any
+            UserInteracted();
+
             // Get the search text
             string searchText = _mySearchBox.Text;
 
@@ -426,6 +452,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
         /// </summary>
         private async void _mySearchRestrictedButton_Click(object sender, EventArgs e)
         {
+            // Dismiss callout, if any
+            UserInteracted();
+
             // Get the search text
             string searchText = _mySearchBox.Text;
 
@@ -434,6 +463,15 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
 
             // Run the search
             await UpdateSearch(searchText, locationText, true);
+        }
+
+        /// <summary>
+        /// Method to handle hiding the callout, should be called by all UI event handlers
+        /// </summary>
+        private void UserInteracted()
+        {
+            // Hide the callout
+            _myMapView.DismissCallout();
         }
     }
 }

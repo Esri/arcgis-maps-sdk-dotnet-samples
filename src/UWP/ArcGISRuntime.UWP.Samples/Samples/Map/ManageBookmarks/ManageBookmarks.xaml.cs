@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
@@ -29,7 +29,7 @@ namespace ArcGISRuntime.UWP.Samples.ManageBookmarks
             // Create new map with a base map
             Map myMap = new Map(Basemap.CreateImageryWithLabels());
 
-            // Set the map view, map property to the base map
+            // Add the map to the mapview
             MyMapView.Map = myMap;
 
             // Create a set of predefined bookmarks; each one follows the pattern of:
@@ -38,7 +38,7 @@ namespace ArcGISRuntime.UWP.Samples.ManageBookmarks
             // ~ Give the bookmark a name
             // ~ Assign the viewpoint
             // ~ Add the bookmark to bookmark collection of the map
-            // ~ Add the bookmark to the UI combo box for the user to choose from 
+            // ~ Add the bookmark to the UI combo box for the user to choose from
 
             // Bookmark-1
             Viewpoint myViewpoint1 = new Viewpoint(27.3805833, 33.6321389, 6000);

@@ -77,9 +77,6 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
             // Set up an event handler for when the viewpoint (extent) changes
             MyMapView.ViewpointChanged += MapViewExtentChanged;
 
-            // Update the local data path for the geodatabase file
-            _gdbPath = GetGdbPath();
-
             // Create a task for generating a geodatabase (GeodatabaseSyncTask)
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
@@ -98,6 +95,12 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
                     myMap.OperationalLayers.Add(new FeatureLayer(onlineTable));
                 }
             }
+
+            // Update the extent graphic so that it is valid before user interaction
+            UpdateMapExtent();
+
+            // Enable the generate button now that the sample is ready
+            MyGenerateButton.IsEnabled = true;
         }
 
         private void UpdateMapExtent()
@@ -145,11 +148,14 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
 
         private async void StartGeodatabaseGeneration()
         {
+            // Update the geodatabase path
+            _gdbPath = GetGdbPath();
+
             // Create a task for generating a geodatabase (GeodatabaseSyncTask)
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
             // Get the current extent of the red preview box
-            Envelope extent = MyMapView.GraphicsOverlays.FirstOrDefault().Extent as Envelope;
+            Envelope extent = MyMapView.GraphicsOverlays.First().Graphics.First().Geometry as Envelope;
 
             // Get the default parameters for the generate geodatabase task
             GenerateGeodatabaseParameters generateParams = await _gdbSyncTask.CreateDefaultGenerateGeodatabaseParametersAsync(extent);
@@ -197,6 +203,9 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
 
                 // Tell the user that the geodatabase was unregistered
                 ShowStatusMessage("Since no edits will be made, the local geodatabase has been unregistered per best practice.");
+
+                // Re-enabled the generate button
+                MyGenerateButton.IsEnabled = true;
             }
 
             // See if the job failed
@@ -225,6 +234,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
         private async Task<string> GetTpkPath()
         {
             #region offlinedata
+
             // The desired tpk is expected to be called SanFrancisco.tpk
             string filename = "SanFrancisco.tpk";
 
@@ -241,14 +251,14 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
                 await DataManager.GetData("3f1bbf0ec70b409a975f5c91f363fe7d", "GenerateGeodatabase");
             }
             return filepath;
+
             #endregion offlinedata
         }
 
         private string GetGdbPath()
         {
             // Get the UWP-specific path for storing the geodatabase
-            string folder = Windows.Storage.ApplicationData.Current.LocalFolder.Path.ToString();
-            return Path.Combine(folder, "wildfire.geodatabase");
+            return $"{Path.GetTempFileName()}.geodatabase";
         }
 
         private async void ShowStatusMessage(string message)
@@ -261,7 +271,10 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
         // Handler for the generate button clicked event
         private void GenerateButton_Clicked(object sender, RoutedEventArgs e)
         {
-            // Call the cross-platform geodatabase generation method
+            // Disable the generate button
+            MyGenerateButton.IsEnabled = false;
+
+            // Call the geodatabase generation method
             StartGeodatabaseGeneration();
         }
 

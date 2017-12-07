@@ -32,7 +32,7 @@ namespace ArcGISRuntimeXamarin.Samples.SelectEncFeatures
 
         public SelectEncFeatures()
         {
-            Title = "Select ENC Features";
+            Title = "Select ENC features";
         }
 
         public override void ViewDidLoad()

@@ -53,7 +53,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewshedCamera
             // Create a new Scene with an imagery basemap
             Scene myScene = new Scene(Basemap.CreateImagery());
 
-            // Create a scene layer to should buildings in the Scene
+            // Create a scene layer to show buildings in the Scene
             ArcGISSceneLayer buildingsLayer = new ArcGISSceneLayer(new Uri(_buildingsServiceUrl));
             myScene.OperationalLayers.Add(buildingsLayer);
 
@@ -97,7 +97,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewshedCamera
         private void CreateLayout()
         {
             // Create a button to update the viewshed using the current camera
-            UIButton updateViewshedButton = new UIButton(new CoreGraphics.CGRect(0,0,View.Bounds.Width,30));
+            UIButton updateViewshedButton = new UIButton(new CoreGraphics.CGRect(0,View.Bounds.Height - 60,View.Bounds.Width,30));
             updateViewshedButton.SetTitle("Viewshed from here", UIControlState.Normal);
             updateViewshedButton.TouchUpOutside += UpdateObserverWithCamera;
 

@@ -39,7 +39,7 @@ namespace ArcGISRuntime.WPF.Samples.ViewshedCamera
             // Create a new Scene with an imagery basemap
             Scene myScene = new Scene(Basemap.CreateImagery());
 
-            // Create a scene layer to should buildings in the Scene
+            // Create a scene layer to show buildings in the Scene
             ArcGISSceneLayer buildingsLayer = new ArcGISSceneLayer(new Uri(_buildingsServiceUrl));
             myScene.OperationalLayers.Add(buildingsLayer);
 

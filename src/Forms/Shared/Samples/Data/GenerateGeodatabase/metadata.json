@@ -23,7 +23,6 @@
 "T:Esri.ArcGISRuntime.Geometry.EnvelopeBuilder",
 "T:Esri.ArcGISRuntime.Tasks.Offline.GenerateGeodatabaseParameters",
 "T:Esri.ArcGISRuntime.Data.GeodatabaseFeatureTable",
-"T:Esri.ArcGISRuntime.Data.Geodatabase",
 "M:Esri.ArcGISRuntime.Tasks.Offline.GeodatabaseSyncTask.UnregisterGeodatabaseAsync(Esri.ArcGISRuntime.Data.Geodatabase)",
 "P:Esri.ArcGISRuntime.ArcGISServices.ArcGISFeatureServiceInfo.LayerInfos",
 "P:Esri.ArcGISRuntime.ArcGISServices.IdInfo.Id",

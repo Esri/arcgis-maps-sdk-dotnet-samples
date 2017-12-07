@@ -19,6 +19,8 @@
     "T:Esri.ArcGISRuntime.Mapping.FeatureRenderingMode",
     "F:Esri.ArcGISRuntime.Mapping.FeatureRenderingMode.Static",
     "F:Esri.ArcGISRuntime.Mapping.FeatureRenderingMode.Dynamic",
-    "M:Esri.ArcGISRuntime.Mapping.Layer.Clone"
+    "M:Esri.ArcGISRuntime.Mapping.Layer.Clone",
+    "T:Esri.ArcGISRuntime.Mapping.LoadSettings",
+    "M:Esri.ArcGISRuntime.Mapping.Viewpoint.#ctor(Esri.ArcGISRuntime.Geometry.MapPoint,System.Double,System.Double)"
   ]
 }

@@ -60,7 +60,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                 BasemapListBox.SelectedItem = _mapViewModel.BasemapChoices[0];
             };
 
-            // Set up the AuthencticationManager to challenge for ArcGIS Online credentials
+            // Set up the AuthenticationManager to challenge for ArcGIS Online credentials
             UpdateAuthenticationManager();
 
             // Change the style of the basemap list view for Android and UWP

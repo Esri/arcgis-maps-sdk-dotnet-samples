@@ -23,7 +23,7 @@ namespace ArcGISRuntime.UWP.Samples.WmsIdentify
         // Create and hold the URL to the WMS service showing EPA water info
         private Uri _wmsUrl = new Uri("https://watersgeo.epa.gov/arcgis/services/OWPROGRAM/SDWIS_WMERC/MapServer/WMSServer?request=GetCapabilities&service=WMS");
 
-        // Crteate and hold a list of uniquely-identifying WMS layer names to display
+        // Create and hold a list of uniquely-identifying WMS layer names to display
         private List<String> _wmsLayerNames = new List<string> { "4" };
 
         // Hold the WMS layer

@@ -165,7 +165,7 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
             // Get the service info (metadata) from the service
             WmsServiceInfo info = service.ServiceInfo;
 
-            // Get the list of layer ifnos
+            // Get the list of layer infos
             IReadOnlyList<WmsLayerInfo> topLevelLayers = info.LayerInfos;
 
             // Recursively build up a list of all the layers in the service and get their IDs as a flat list

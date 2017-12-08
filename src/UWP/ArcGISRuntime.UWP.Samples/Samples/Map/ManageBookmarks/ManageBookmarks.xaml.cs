@@ -97,7 +97,7 @@ namespace ArcGISRuntime.UWP.Samples.ManageBookmarks
             TextBoxBookmarkName.Text = "";
         }
 
-        private void ButtonCanel_Click(object sender, RoutedEventArgs e)
+        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
             // Hide the controls to add a bookmark
             BorderAddBookmark.Visibility = Visibility.Collapsed;

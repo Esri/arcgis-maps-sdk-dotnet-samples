@@ -39,12 +39,12 @@ namespace ArcGISRuntimeXamarin.Samples.SimpleRenderers
             Map myMap = new Map(Basemap.CreateImageryWithLabels());
 
             // Create several map points using the WGS84 coordinates (latitude and longitude)
-            MapPoint oldFaithfullPoint = new MapPoint(-110.828140, 44.460458, SpatialReferences.Wgs84);
+            MapPoint oldFaithfulPoint = new MapPoint(-110.828140, 44.460458, SpatialReferences.Wgs84);
             MapPoint cascadeGeyserPoint = new MapPoint(-110.829004, 44.462438, SpatialReferences.Wgs84);
             MapPoint plumeGeyserPoint = new MapPoint(-110.829381, 44.462735, SpatialReferences.Wgs84);
 
             // Use the two points farthest apart to create an envelope
-            Envelope initialEnvelope = new Envelope(oldFaithfullPoint, plumeGeyserPoint);
+            Envelope initialEnvelope = new Envelope(oldFaithfulPoint, plumeGeyserPoint);
 
             // Use the envelope to define the map views visible area (include some padding around the extent)
             myMap.InitialViewpoint = new Viewpoint(initialEnvelope, 100);
@@ -56,12 +56,12 @@ namespace ArcGISRuntimeXamarin.Samples.SimpleRenderers
             GraphicsOverlay myGraphicOverlay = new GraphicsOverlay();
 
             // Create graphics based upon the map points
-            Graphic oldFaithfullGraphic = new Graphic(oldFaithfullPoint);
+            Graphic oldFaithfulGraphic = new Graphic(oldFaithfulPoint);
             Graphic cascadeGeyserGraphic = new Graphic(cascadeGeyserPoint);
             Graphic plumeGeyserGraphic = new Graphic(plumeGeyserPoint);
 
             // Add the graphics to the graphics overlay
-            myGraphicOverlay.Graphics.Add(oldFaithfullGraphic);
+            myGraphicOverlay.Graphics.Add(oldFaithfulGraphic);
             myGraphicOverlay.Graphics.Add(cascadeGeyserGraphic);
             myGraphicOverlay.Graphics.Add(plumeGeyserGraphic);
 

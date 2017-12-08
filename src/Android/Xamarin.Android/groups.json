@@ -357,6 +357,10 @@
               "Path": "Samples/Geoprocessing/AnalyzeViewshed"
             },
             {
+              "SampleName": "ViewshedCamera",
+              "Path": "Samples/Analysis/ViewshedCamera"
+            },
+            {
               "SampleName": "LineOfSightLocation",
               "Path": "Samples/Analysis/LineOfSightLocation"
             },

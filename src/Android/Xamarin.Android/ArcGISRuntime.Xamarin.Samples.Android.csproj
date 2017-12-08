@@ -17,7 +17,7 @@
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -115,6 +115,8 @@
     <AndroidResource Include="Resources\drawable-hdpi\Icon.png" />
     <AndroidResource Include="Resources\drawable\Icon.png" />
     <!-- Android Layouts -->
+    <AndroidResource Include="Resources\layout\GeoViewSync.axml" />
+    <AndroidResource Include="Resources\layout\FeatureLayerRenderingModeMapLayout.axml" />
     <AndroidResource Include="Resources\layout\GroupedResultsList_DataItem.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
@@ -159,18 +161,16 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
-    <EmbeddedResource Include="Samples\Layers\WmsIdentify\metadata.json" />
-    <EmbeddedResource Include="Samples\Hydrography\SelectEncFeatures\metadata.json" />
-    <EmbeddedResource Include="Samples\Hydrography\ChangeEncDisplaySettings\metadata.json" />
-    <EmbeddedResource Include="Samples\Hydrography\AddEncExchangeSet\metadata.json" />
-    <EmbeddedResource Include="Samples\MapView\GeoViewSync\metadata.json" />
     <EmbeddedResource Include="groups.json" />
     <EmbeddedResource Include="Samples\Analysis\LineOfSightLocation\metadata.json" />
+    <EmbeddedResource Include="Samples\Analysis\ViewshedCamera\metadata.json" />
     <EmbeddedResource Include="Samples\Data\EditAndSyncFeatures\metadata.json" />
     <EmbeddedResource Include="Samples\Data\FeatureLayerGeoPackage\metadata.json" />
     <EmbeddedResource Include="Samples\Data\FeatureLayerQuery\metadata.json" />
     <EmbeddedResource Include="Samples\Data\FeatureLayerShapefile\metadata.json" />
     <EmbeddedResource Include="Samples\Data\GenerateGeodatabase\metadata.json" />
+    <EmbeddedResource Include="Samples\Data\GeodatabaseTransactions\metadata.json" />
+    <EmbeddedResource Include="Samples\Data\RasterLayerGeoPackage\metadata.json" />
     <EmbeddedResource Include="Samples\Data\ReadShapefileMetadata\metadata.json" />
     <EmbeddedResource Include="Samples\Data\ServiceFeatureTableCache\metadata.json" />
     <EmbeddedResource Include="Samples\Data\ServiceFeatureTableManualCache\metadata.json" />
@@ -184,6 +184,9 @@
     <EmbeddedResource Include="Samples\GraphicsOverlay\IdentifyGraphics\metadata.json" />
     <EmbeddedResource Include="Samples\GraphicsOverlay\SketchOnMap\metadata.json" />
     <EmbeddedResource Include="Samples\GraphicsOverlay\SurfacePlacements\metadata.json" />
+    <EmbeddedResource Include="Samples\Hydrography\AddEncExchangeSet\metadata.json" />
+    <EmbeddedResource Include="Samples\Hydrography\ChangeEncDisplaySettings\metadata.json" />
+    <EmbeddedResource Include="Samples\Hydrography\SelectEncFeatures\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\ArcGISMapImageLayerUrl\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\ArcGISTiledLayerUrl\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json" />
@@ -196,6 +199,7 @@
     <EmbeddedResource Include="Samples\Layers\FeatureCollectionLayerFromQuery\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\FeatureLayerDefinitionExpression\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\FeatureLayerDictionaryRenderer\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\FeatureLayerRenderingModeMap\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\FeatureLayerSelection\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\FeatureLayerUrl\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\RasterLayerFile\metadata.json" />
@@ -204,6 +208,7 @@
     <EmbeddedResource Include="Samples\Layers\RasterRenderingRule\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\SceneLayerUrl\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\TimeBasedQuery\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\WmsIdentify\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\WMSLayerUrl\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\WmsServiceCatalog\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\WMTSLayer\metadata.json" />
@@ -224,6 +229,7 @@
     <EmbeddedResource Include="Samples\MapView\DisplayDrawingStatus\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\DisplayLayerViewState\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\FeatureLayerTimeOffset\metadata.json" />
+    <EmbeddedResource Include="Samples\MapView\GeoViewSync\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\MapRotation\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\ShowCallout\metadata.json" />
     <EmbeddedResource Include="Samples\MapView\ShowMagnifier\metadata.json" />
@@ -241,22 +247,13 @@
   <ItemGroup>
     <!-- Screenshots -->
     <None Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
-    <None Include="Samples\Layers\WmsIdentify\WmsIdentify.jpg" />
-    <None Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg" />
-    <None Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
-    <None Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
-    <AndroidResource Include="Resources\layout\GeoViewSync.axml" />
-    <EmbeddedResource Include="Samples\Layers\FeatureLayerRenderingModeMap\metadata.json" />
-    <AndroidResource Include="Resources\layout\FeatureLayerRenderingModeMapLayout.axml" />
-    <None Include="Samples\MapView\GeoViewSync\GeoViewSync.jpg" />
+    <None Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.jpg" />
     <None Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg" />
     <None Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.jpg" />
     <None Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.jpg" />
     <None Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.jpg" />
-    <None Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.jpg" />
-    <EmbeddedResource Include="Samples\Data\GeodatabaseTransactions\metadata.json" />
     <None Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.jpg" />
-    <EmbeddedResource Include="Samples\Data\RasterLayerGeoPackage\metadata.json" />
+    <None Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.jpg" />
     <None Include="Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.jpg" />
     <None Include="Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.jpg" />
     <None Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.jpg" />
@@ -271,6 +268,9 @@
     <None Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.jpg" />
     <None Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg" />
     <None Include="Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.jpg" />
+    <None Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
+    <None Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
+    <None Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg" />
     <None Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg" />
     <None Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.jpg" />
     <None Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.jpg" />
@@ -283,6 +283,7 @@
     <None Include="Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQuery.jpg" />
     <None Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.jpg" />
     <None Include="Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.jpg" />
+    <None Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.jpg" />
     <None Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.jpg" />
     <None Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.jpg" />
     <None Include="Samples\Layers\RasterLayerFile\RasterLayerFile.jpg" />
@@ -291,6 +292,7 @@
     <None Include="Samples\Layers\RasterRenderingRule\RasterRenderingRule.jpg" />
     <None Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.jpg" />
     <None Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.jpg" />
+    <None Include="Samples\Layers\WmsIdentify\WmsIdentify.jpg" />
     <None Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.jpg" />
     <None Include="Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.jpg" />
     <None Include="Samples\Layers\WMTSLayer\WMTSLayer.jpg" />
@@ -311,6 +313,7 @@
     <None Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.jpg" />
     <None Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.jpg" />
     <None Include="Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.jpg" />
+    <None Include="Samples\MapView\GeoViewSync\GeoViewSync.jpg" />
     <None Include="Samples\MapView\MapRotation\MapRotation.jpg" />
     <None Include="Samples\MapView\ShowCallout\ShowCallout.jpg" />
     <None Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg" />
@@ -328,18 +331,13 @@
   <ItemGroup>
     <!-- Sample Code -->
     <Compile Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.cs" />
-    <Compile Include="Samples\Layers\WmsIdentify\WmsIdentify.cs" />
-    <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.cs" />
-    <Compile Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.cs" />
-    <Compile Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.cs" />
-    <Compile Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.cs" />
-    <Compile Include="Samples\MapView\GeoViewSync\GeoViewSync.cs" />
+    <Compile Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.cs" />
     <Compile Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.cs" />
     <Compile Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.cs" />
     <Compile Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.cs" />
     <Compile Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.cs" />
-    <Compile Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.cs" />
     <Compile Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.cs" />
+    <Compile Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.cs" />
     <Compile Include="Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.cs" />
     <Compile Include="Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.cs" />
     <Compile Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.cs" />
@@ -354,6 +352,9 @@
     <Compile Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.cs" />
     <Compile Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.cs" />
     <Compile Include="Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.cs" />
+    <Compile Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.cs" />
+    <Compile Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.cs" />
+    <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.cs" />
     <Compile Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.cs" />
     <Compile Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.cs" />
     <Compile Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.cs" />
@@ -366,6 +367,7 @@
     <Compile Include="Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQuery.cs" />
     <Compile Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.cs" />
     <Compile Include="Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.cs" />
+    <Compile Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.cs" />
     <Compile Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.cs" />
     <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.cs" />
     <Compile Include="Samples\Layers\RasterLayerFile\RasterLayerFile.cs" />
@@ -374,6 +376,7 @@
     <Compile Include="Samples\Layers\RasterRenderingRule\RasterRenderingRule.cs" />
     <Compile Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.cs" />
     <Compile Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.cs" />
+    <Compile Include="Samples\Layers\WmsIdentify\WmsIdentify.cs" />
     <Compile Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.cs" />
     <Compile Include="Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.cs" />
     <Compile Include="Samples\Layers\WMTSLayer\WMTSLayer.cs" />
@@ -394,6 +397,7 @@
     <Compile Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.cs" />
     <Compile Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.cs" />
     <Compile Include="Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.cs" />
+    <Compile Include="Samples\MapView\GeoViewSync\GeoViewSync.cs" />
     <Compile Include="Samples\MapView\MapRotation\MapRotation.cs" />
     <Compile Include="Samples\MapView\ShowCallout\ShowCallout.cs" />
     <Compile Include="Samples\MapView\ShowMagnifier\ShowMagnifier.cs" />
@@ -407,12 +411,6 @@
     <Compile Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.cs" />
     <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.cs" />
     <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

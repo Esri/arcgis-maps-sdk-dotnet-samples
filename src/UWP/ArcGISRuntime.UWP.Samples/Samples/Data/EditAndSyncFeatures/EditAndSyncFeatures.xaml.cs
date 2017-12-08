@@ -468,7 +468,7 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
         // Handler for the generate button clicked event
         private void GenerateButton_Clicked(object sender, RoutedEventArgs e)
         {
-            // Disable the genereate button
+            // Disable the generate button
             MyGenerateButton.IsEnabled = false;
 
             // Call the cross-platform geodatabase generation method

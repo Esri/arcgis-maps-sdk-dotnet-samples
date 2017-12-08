@@ -77,7 +77,7 @@ namespace ArcGISRuntime.WPF.Samples.RasterLayerRasterFunction
             RasterFunction myRasterFunction = RasterFunction.FromJson(theJSON_String);
 
             // NOTE: Depending on your platform/device, you could have alternatively created the raster function via a JSON string that is contained in a 
-            // file on disk (ex: hillshade_simplified.json) via the constructor: Esri.ArcGISRuntime.Rasters.RasterFuntion(path as String)
+            // file on disk (ex: hillshade_simplified.json) via the constructor: Esri.ArcGISRuntime.Rasters.RasterFunction(path as String)
 
             // Get the raster function arguments
             RasterFunctionArguments myRasterFunctionArguments = myRasterFunction.Arguments;

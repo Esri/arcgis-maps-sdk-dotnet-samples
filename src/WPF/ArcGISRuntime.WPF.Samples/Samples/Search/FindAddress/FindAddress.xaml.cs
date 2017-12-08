@@ -132,7 +132,7 @@ namespace ArcGISRuntime.WPF.Samples.FindAddress
             return new Graphic(point, pinSymbol);
         }
 
-        private void OnSugguestionChosen(object sender, SelectionChangedEventArgs e)
+        private void OnSuggestionChosen(object sender, SelectionChangedEventArgs e)
         {
             // Get the selected address
             string address = MySuggestionBox.SelectedValue.ToString();

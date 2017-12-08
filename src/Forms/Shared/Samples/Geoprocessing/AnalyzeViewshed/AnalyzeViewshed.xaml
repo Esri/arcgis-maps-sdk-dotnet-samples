@@ -14,7 +14,7 @@
         <Label Margin="10,0,0,0">Click a location on the map to perform the viewshed analysis.</Label>
       </StackLayout>
     </StackLayout>
-    <ActivityIndicator x:Name="MyActivityInidicator" IsVisible="False"/>
+    <ActivityIndicator x:Name="MyActivityIndicator" IsVisible="False"/>
     <esriUI:MapView x:Name="MyMapView" Grid.Row="1"/>
   </Grid>
 </ContentPage>

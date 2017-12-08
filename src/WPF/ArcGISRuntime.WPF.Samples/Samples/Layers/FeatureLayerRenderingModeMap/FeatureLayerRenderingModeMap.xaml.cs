@@ -43,12 +43,12 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerRenderingModeMap
             MyMapViewBottom.Map.LoadSettings.PreferredPolygonFeatureRenderingMode = FeatureRenderingMode.Dynamic;
 
             // Create service feature table using a point, polyline, and polygon service.
-            ServiceFeatureTable poinServiceFeatureTable = new ServiceFeatureTable(new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Energy/Geology/FeatureServer/0"));
+            ServiceFeatureTable pointServiceFeatureTable = new ServiceFeatureTable(new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Energy/Geology/FeatureServer/0"));
             ServiceFeatureTable polylineServiceFeatureTable = new ServiceFeatureTable(new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Energy/Geology/FeatureServer/8"));
             ServiceFeatureTable polygonServiceFeatureTable = new ServiceFeatureTable(new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Energy/Geology/FeatureServer/9"));
 
             // Create feature layer from service feature tables.
-            FeatureLayer pointFeatureLayer = new FeatureLayer(poinServiceFeatureTable);
+            FeatureLayer pointFeatureLayer = new FeatureLayer(pointServiceFeatureTable);
             FeatureLayer polylineFeatureLayer = new FeatureLayer(polylineServiceFeatureTable);
             FeatureLayer polygonFeatureLayer = new FeatureLayer(polygonServiceFeatureTable);
 

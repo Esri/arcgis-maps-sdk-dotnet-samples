@@ -175,7 +175,7 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
                 MySyncButton.IsEnabled = true;
 
                 // Update the help label
-                MyHelpLabel.Content = "4. Click 'Sync Geodatabse' or edit more features";
+                MyHelpLabel.Content = "4. Click 'Sync Geodatabase' or edit more features";
             }
             // Otherwise, start an edit
             else

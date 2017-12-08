@@ -407,13 +407,13 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
         private void SetMapviewMargin(int margin)
         {
             // Get the layout parameters for the container
-            ViewGroup.MarginLayoutParams paramaters = (ViewGroup.MarginLayoutParams)_layoutContainer.LayoutParameters;
+            ViewGroup.MarginLayoutParams parameters = (ViewGroup.MarginLayoutParams)_layoutContainer.LayoutParameters;
 
             // Set the margins
-            paramaters.SetMargins(margin, margin, margin, margin);
+            parameters.SetMargins(margin, margin, margin, margin);
 
             // Apply the layout
-            _layoutContainer.LayoutParameters = paramaters;
+            _layoutContainer.LayoutParameters = parameters;
         }
     }
 }

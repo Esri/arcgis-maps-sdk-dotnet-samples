@@ -43,7 +43,7 @@ namespace ArcGISRuntimeXamarin.Samples.ArcGISVectorTiledLayerUrl
 
         private void Initialize()
         {
-            // Create a new ArcGISVectorTiledLayer with the navigation serice Url
+            // Create a new ArcGISVectorTiledLayer with the navigation service Url
             _vectorTiledLayer = new ArcGISVectorTiledLayer(new Uri(_navigationUrl));
 
             // Create new Map with basemap
@@ -87,7 +87,7 @@ namespace ArcGISRuntimeXamarin.Samples.ArcGISVectorTiledLayerUrl
             // Create a new ArcGISVectorTiledLayer with the Url Selected by the user
             _vectorTiledLayer = new ArcGISVectorTiledLayer(new Uri(_vectorTiledLayerUrl));
 
-            // // Create new Map with basemap and assigning to the Mapviews Map
+            // Create new Map with basemap and assigning to the MapView's Map
             MyMapView.Map = new Map(new Basemap(_vectorTiledLayer));
 
         }

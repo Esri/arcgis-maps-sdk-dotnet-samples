@@ -32,7 +32,7 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRenderingRule
         // Hold a reference to the UIToolbar control (used to hold the UISegmentedControl)
         private UIToolbar _myUIToolbar = new UIToolbar();
 
-        // Hold a reference to a UISementedControl
+        // Hold a reference to a UISegmentedControl
         // (used to hold buttons with the names of the rendering rules of the image service raster)
         private UISegmentedControl _myUISegmentedControl = new UISegmentedControl();
 

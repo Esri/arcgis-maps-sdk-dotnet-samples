@@ -46,7 +46,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
         // Progress Bar
         private UIProgressView myProgressBar = new UIProgressView();
 
-        // Genereate button
+        // Generate button
         private UIButton myGenerateButton = new UIButton() { Enabled = false };
 
         public GenerateGeodatabase()

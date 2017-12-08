@@ -28,7 +28,7 @@ namespace ArcGISRuntimeXamarin.Samples.SetMapSpatialReference
 
         private void Initialize()
         {
-            // Create new Map using spatial reference as world bonne (54024)
+            // Create new Map using spatial reference as World Bonne (54024)
             Map myMap = new Map(SpatialReference.Create(54024));
 
             // Adding a map image layer which can reproject itself to the map's spatial reference

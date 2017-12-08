@@ -87,7 +87,7 @@ namespace ArcGISRuntime.UWP.Samples.ArcGISVectorTiledLayerUrl
             // Create a new ArcGISVectorTiledLayer with the Url Selected by the user
             _vectorTiledLayer = new ArcGISVectorTiledLayer(new Uri(_vectorTiledLayerUrl));
 
-            // // Create new Map with basemap and assigning to the Mapviews Map
+            // Create new Map with basemap and assigning to the MapView's Map
             MyMapView.Map = new Map(new Basemap(_vectorTiledLayer));
         }
     }

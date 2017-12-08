@@ -14,7 +14,7 @@
         <Label Margin="10,0,0,0">Current versions:</Label>
       </StackLayout>
     </StackLayout>
-    <ActivityIndicator x:Name="MyActivityInidicator" IsVisible="False"/>
+    <ActivityIndicator x:Name="MyActivityIndicator" IsVisible="False"/>
     <Editor x:Name="theTextBox" Grid.Row="1"/>
   </Grid>
 </ContentPage>

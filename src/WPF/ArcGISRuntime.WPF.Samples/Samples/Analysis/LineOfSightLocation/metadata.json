@@ -13,7 +13,6 @@
 "T:Esri.ArcGISRuntime.UI.GeoAnalysis.LocationLineOfSight",
 "P:Esri.ArcGISRuntime.UI.GeoAnalysis.LocationLineOfSight.ObserverLocation",
 "P:Esri.ArcGISRuntime.UI.GeoAnalysis.LocationLineOfSight.TargetLocation",
-"T:Esri.ArcGISRuntime.UI.GeoAnalysis.AnalysisOverlay",
 "T:Esri.ArcGISRuntime.UI.GeoAnalysis.Analysis",
 "T:Esri.ArcGISRuntime.UI.GeoAnalysis.AnalysisCollection",
 "T:Esri.ArcGISRuntime.UI.GeoAnalysis.AnalysisOverlayCollection",

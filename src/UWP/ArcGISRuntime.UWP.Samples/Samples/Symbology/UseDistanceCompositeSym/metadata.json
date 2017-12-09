@@ -14,7 +14,6 @@
 "P:Esri.ArcGISRuntime.Symbology.DistanceCompositeSceneSymbol.Ranges",
 "T:Esri.ArcGISRuntime.Symbology.DistanceSymbolRange",
 "T:Esri.ArcGISRuntime.Mapping.ArcGISTiledElevationSource",
-"T:Esri.ArcGISRuntime.Mapping.Camera",
 "T:Esri.ArcGISRuntime.Mapping.ElevationSource",
 "T:Esri.ArcGISRuntime.Mapping.ElevationSourceCollection",
 "T:Esri.ArcGISRuntime.Mapping.Surface",
@@ -22,10 +21,6 @@
 "M:Esri.ArcGISRuntime.Mapping.Camera.#ctor(Esri.ArcGISRuntime.Geometry.MapPoint,System.Double,System.Double,System.Double,System.Double)",
 "M:Esri.ArcGISRuntime.Symbology.DistanceCompositeSceneSymbol.#ctor",
 "M:Esri.ArcGISRuntime.Symbology.DistanceSymbolRange.#ctor(Esri.ArcGISRuntime.Symbology.Symbol,System.Double,System.Double)",
-"M:Esri.ArcGISRuntime.Symbology.SimpleMarkerSceneSymbol.#ctor",
-"P:Esri.ArcGISRuntime.Mapping.Scene.BaseSurface",
-"P:Esri.ArcGISRuntime.Mapping.Surface.ElevationSources",
-"P:Esri.ArcGISRuntime.UI.Controls.SceneView.Scene",
-"M:Esri.ArcGISRuntime.UI.Controls.SceneView.SetViewpointCameraAsync(Esri.ArcGISRuntime.Mapping.Camera)"
+"M:Esri.ArcGISRuntime.Symbology.SimpleMarkerSceneSymbol.#ctor"
 ]
 }

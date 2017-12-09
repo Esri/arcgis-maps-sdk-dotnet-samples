@@ -17,7 +17,10 @@
     "P:Esri.ArcGISRuntime.Mapping.Surface.ElevationSources",
     "P:Esri.ArcGISRuntime.UI.Controls.SceneView.Scene",
     "T:Esri.ArcGISRuntime.Mapping.Camera",
-    "M:Esri.ArcGISRuntime.Mapping.Camera.#ctor(Esri.ArcGISRuntime.Geometry.MapPoint,System.Double,System.Double,System.Double,System.Double)",
-    "M:Esri.ArcGISRuntime.UI.Controls.SceneView.SetViewpointCameraAsync(Esri.ArcGISRuntime.Mapping.Camera)"
+    "M:Esri.ArcGISRuntime.UI.Controls.SceneView.SetViewpointCameraAsync(Esri.ArcGISRuntime.Mapping.Camera)",
+    "M:Esri.ArcGISRuntime.Mapping.Camera.#ctor(Esri.ArcGISRuntime.Geometry.MapPoint,System.Double,System.Double,System.Double)",
+    "M:Esri.ArcGISRuntime.UI.GeoAnalysis.LocationViewshed.#ctor(Esri.ArcGISRuntime.Mapping.Camera,System.Double,System.Double)",
+    "P:Esri.ArcGISRuntime.UI.Controls.SceneView.Camera",
+    "M:Esri.ArcGISRuntime.UI.GeoAnalysis.LocationViewshed.UpdateFromCamera(Esri.ArcGISRuntime.Mapping.Camera)"
   ]
 }

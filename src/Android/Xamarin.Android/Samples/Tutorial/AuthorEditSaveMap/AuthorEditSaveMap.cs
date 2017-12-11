@@ -175,8 +175,16 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                 // Indicate the url (portal) to authenticate with (ArcGIS Online)
                 challengeRequest.ServiceUri = new Uri("https://www.arcgis.com/sharing/rest");
 
-                // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
-                await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
+                try 
+                {
+                    // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
+                    await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
+                }
+                catch (System.OperationCanceledException)
+                {
+                    // user canceled the login
+                    throw new Exception("Portal log in was canceled.");
+                }
 
                 // See if the map has already been saved
                 if (!_mapViewModel.MapIsSaved)
@@ -335,10 +343,11 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                 // IOAuthAuthorizeHandler will challenge the user for OAuth credentials
                 credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
             }
-            catch (Exception ex)
+            catch (TaskCanceledException) { return credential; }
+            catch (Exception)
             {
                 // Exception will be reported in calling function
-                throw (ex);
+                throw;
             }
 
             return credential;
@@ -347,11 +356,11 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
         // IOAuthAuthorizeHandler.AuthorizeAsync implementation
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
-            // If the TaskCompletionSource is not null, authorization is in progress
-            if (_taskCompletionSource != null)
+            // If the TaskCompletionSource is not null and the task is running, authorization is in progress
+            if (_taskCompletionSource != null && _taskCompletionSource.Task.Status == TaskStatus.Running)
             {
                 // Allow only one authorization process at a time
-                throw new Exception();
+                _taskCompletionSource.TrySetCanceled();
             }
 
             // Create a task completion source
@@ -362,7 +371,8 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                 clientId: AppClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
-                redirectUrl: callbackUri);
+                redirectUrl: callbackUri)
+            { ShowErrors = false };
 
             // Allow the user to cancel the OAuth attempt
             authenticator.AllowCancel = true;
@@ -385,7 +395,10 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                 catch (Exception ex)
                 {
                     // If authentication failed, set the exception on the TaskCompletionSource
-                    _taskCompletionSource.SetException(ex);
+                    _taskCompletionSource.TrySetException(ex);
+
+                    // Cancel authentication
+                    authenticator.OnCancelled();
                 }
                 finally
                 {
@@ -400,7 +413,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                 // If the user cancels, the Error event is raised but there is no exception ... best to check first
                 if (errArgs.Exception != null)
                 {
-                    _taskCompletionSource.SetException(errArgs.Exception);
+                    _taskCompletionSource.TrySetException(errArgs.Exception);
                 }
                 else
                 {
@@ -411,6 +424,9 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                         this.FinishActivity(99);
                     }
                 }
+
+                // Cancel authentication
+                authenticator.OnCancelled();
             };
 
             // Present the OAuth UI so the user can enter user name and password

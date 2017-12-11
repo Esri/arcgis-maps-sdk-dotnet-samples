@@ -116,15 +116,15 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
 
                 // Add the credential to the AuthenticationManager
                 AuthenticationManager.Current.AddCredential(cred);
-            } catch (System.Threading.Tasks.TaskCanceledException ex)
+            } catch (System.Threading.Tasks.TaskCanceledException)
             {
                 // Handle situation where the user closes the login window
                 return;
-            } catch (System.OperationCanceledException ex )
+            } catch (System.OperationCanceledException)
             {
                 // Handle situation where the user presses 'cancel' in the login UI
                 return;
-            } catch (Exception ex)
+            } catch (Exception)
             {
                 // Handle all other exceptions related to canceled login
                 return;
@@ -210,10 +210,11 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                 // IOAuthAuthorizeHandler will challenge the user for OAuth credentials
                 credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
             }
-            catch (Exception ex)
+            catch (TaskCanceledException) { return credential; }
+            catch (Exception)
             {
                 // Exception will be reported in calling function
-                throw (ex);
+                throw;
             }
 
             return credential;

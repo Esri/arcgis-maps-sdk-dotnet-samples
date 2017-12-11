@@ -154,8 +154,10 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             _webMapUris = new Dictionary<string, Uri>();
             foreach (var item in webmapItems)
             {
-                _webMapUris.Add(item.Title, item.Url);
-                mapsMenu.Menu.Add(item.Title);
+                if (!_webMapUris.ContainsKey(item.Title)){
+                    _webMapUris.Add(item.Title, item.Url);
+                    mapsMenu.Menu.Add(item.Title);
+                }
             }
 
             //Show menu in the view
@@ -350,7 +352,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                 var cred = await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
                 loggedIn = cred != null;
             }
-            catch (System.OperationCanceledException ex)
+            catch (System.OperationCanceledException)
             {
                 // Login was canceled
                 // .. ignore, user can still search public maps without logging in
@@ -387,10 +389,11 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                             info.GenerateTokenOptions
                     ) as OAuthTokenCredential;
             }
-            catch (Exception ex)
+            catch (TaskCanceledException) { return credential; }
+            catch (Exception)
             {
                 // Exception will be reported in calling function
-                throw (ex);
+                throw;
             }
 
             return credential;
@@ -399,11 +402,11 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
         // IOAuthAuthorizeHandler.AuthorizeAsync implementation
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
-            // If the TaskCompletionSource is not null, authorization is in progress
-            if (_taskCompletionSource != null)
+            // If the TaskCompletionSource is not null and the task is running, authorization is in progress
+            if (_taskCompletionSource != null && _taskCompletionSource.Task.Status == TaskStatus.Running)
             {
                 // Allow only one authorization process at a time
-                throw new Exception();
+                _taskCompletionSource.TrySetCanceled();
             }
 
             // Create a task completion source
@@ -414,7 +417,10 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                 clientId: _appClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
-                redirectUrl: callbackUri);
+                redirectUrl: callbackUri)
+            {
+                ShowErrors = false
+            };
 
             // Allow the user to cancel the OAuth attempt
             authenticator.AllowCancel = true;
@@ -437,7 +443,10 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                 catch (Exception ex)
                 {
                     // If authentication failed, set the exception on the TaskCompletionSource
-                    _taskCompletionSource.SetException(ex);
+                    _taskCompletionSource.TrySetException(ex);
+
+                    // Cancel authentication
+                    authenticator.OnCancelled();
                 }
                 finally
                 {
@@ -452,7 +461,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                 // If the user cancels, the Error event is raised but there is no exception ... best to check first
                 if (errArgs.Exception != null)
                 {
-                    _taskCompletionSource.SetException(errArgs.Exception);
+                    _taskCompletionSource.TrySetException(errArgs.Exception);
                 }
                 else
                 {
@@ -463,6 +472,9 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                         this.FinishActivity(99);
                     }
                 }
+
+                // Cancel authentication
+                authenticator.OnCancelled();
             };
 
             // Present the OAuth UI (Activity) so the user can enter user name and password

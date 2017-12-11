@@ -455,10 +455,11 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                             info.GenerateTokenOptions
                     ) as OAuthTokenCredential;
             }
-            catch (Exception ex)
+            catch (TaskCanceledException) { return credential; }
+            catch (Exception)
             {
                 // Exception will be reported in calling function
-                throw (ex);
+                throw;
             }
 
             return credential;
@@ -467,11 +468,11 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
         // IOAuthAuthorizeHandler.AuthorizeAsync implementation
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
-            // If the TaskCompletionSource is not null, authorization is in progress
-            if (_taskCompletionSource != null)
+            // If the TaskCompletionSource is not null and the task is running, authorization is in progress
+            if (_taskCompletionSource != null && _taskCompletionSource.Task.Status == TaskStatus.Running)
             {
                 // Allow only one authorization process at a time
-                throw new Exception();
+                _taskCompletionSource.TrySetCanceled();
             }
 
             // Create a task completion source
@@ -482,7 +483,10 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 clientId: AppClientId,
                 scope: "",
                 authorizeUrl: new Uri(AuthorizeUrl),
-                redirectUrl: new Uri(OAuthRedirectUrl));
+                redirectUrl: new Uri(OAuthRedirectUrl))
+            {
+                ShowErrors = false
+            };
 
             // Allow the user to cancel the OAuth attempt
             auth.AllowCancel = true;
@@ -498,7 +502,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                     // Throw an exception if the user could not be authenticated
                     if (!authArgs.IsAuthenticated)
                     {
-                        throw new Exception("Unable to authenticate user.");
+                        throw(new Exception("Unable to authenticate user."));
                     }
 
                     // If authorization was successful, get the user's account
@@ -510,8 +514,12 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 catch (Exception ex)
                 {
                     // If authentication failed, set the exception on the TaskCompletionSource
-                    _taskCompletionSource.SetException(ex);
+                    _taskCompletionSource.TrySetException(ex);
+
+                    // Cancel authentication
+                    auth.OnCancelled();
                 }
+
             };
 
             // If an error was encountered when authenticating, set the exception on the TaskCompletionSource
@@ -525,6 +533,9 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 {
                     _taskCompletionSource.TrySetException(new Exception(errArgs.Message));
                 }
+
+                // Cancel authentication
+                auth.OnCancelled();
             };
 
             // Present the OAuth UI (on the app's UI thread) so the user can enter user name and password
@@ -813,7 +824,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             // Button to save the map
             UIButton saveButton = new UIButton(new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight));
             saveButton.SetTitle("Save", UIControlState.Normal);
-            saveButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            saveButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
             saveButton.TouchUpInside += SaveButtonClick;
 
             // Adjust the X position for the next control

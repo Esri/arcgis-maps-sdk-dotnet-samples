@@ -103,17 +103,6 @@ namespace ArcGISRuntime.Samples.Desktop
 
             try
             {
-                if (SampleManager.Current.SelectedSample.RequiresOfflineData == true)
-                {
-                    var sampleDataPath = Path.Combine(DataManager.GetDataFolder(), "SampleData", SampleManager.Current.SelectedSample.Name);
-                    if (!Directory.Exists(sampleDataPath))
-                        {
-                        data.IsChecked = true;
-                        SampleContainer.Visibility = Visibility.Collapsed;
-                        DescriptionContainer.Visibility = Visibility.Collapsed;
-                        DataContainer.Visibility = Visibility.Visible;
-                        }               
-                }
                 SampleContainer.Content = SampleManager.Current.SampleToControl(selectedSample);
                 
                 // Call a function to clear any existing credentials from AuthenticationManager
@@ -231,21 +220,18 @@ namespace ArcGISRuntime.Samples.Desktop
         {
             SampleContainer.Visibility = Visibility.Visible;
             DescriptionContainer.Visibility = Visibility.Collapsed;
-            DataContainer.Visibility = Visibility.Collapsed;
         }
 
         private void Description_Click(object sender, RoutedEventArgs e)
         {
             SampleContainer.Visibility = Visibility.Collapsed;
             DescriptionContainer.Visibility = Visibility.Visible;
-            DataContainer.Visibility = Visibility.Collapsed;
         }
 
         private void Data_Click(object sender, RoutedEventArgs e)
         {
             SampleContainer.Visibility = Visibility.Collapsed;
             DescriptionContainer.Visibility = Visibility.Collapsed;
-            DataContainer.Visibility = Visibility.Visible;
         }
         private void Close_Click(object sender, RoutedEventArgs e)
         {

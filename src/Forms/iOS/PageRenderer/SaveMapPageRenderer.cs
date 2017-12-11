@@ -1,4 +1,4 @@
-using ArcGISRuntime.Samples.AuthorEditSaveMap;
+﻿using ArcGISRuntime.Samples.AuthorEditSaveMap;
 using ArcGISRuntimeXamarin.iOSPageRenderer;
 using Esri.ArcGISRuntime.Security;
 using System;
@@ -26,10 +26,10 @@ namespace ArcGISRuntimeXamarin.iOSPageRenderer
         #region IOAuthAuthorizationHandler implementation
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
-            // If the TaskCompletionSource is not null and the task is running, authorization is in progress
-            if (_taskCompletionSource != null && _taskCompletionSource.Task.Status == TaskStatus.Running)
+            // If the TaskCompletionSource is not null, authorization may already be in progress and should be cancelled
+            if (_taskCompletionSource != null)
             {
-                // Allow only one authorization process at a time
+                // Try to cancel any existing authentication task
                 _taskCompletionSource.TrySetCanceled();
             }
 

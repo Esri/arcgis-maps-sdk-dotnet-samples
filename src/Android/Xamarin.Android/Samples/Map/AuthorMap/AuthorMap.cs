@@ -1,4 +1,4 @@
-// Copyright 2016 Esri.
+﻿// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -489,10 +489,10 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
         // IOAuthAuthorizeHandler.AuthorizeAsync implementation
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
-            // If the TaskCompletionSource is not null and the task is running, authorization is in progress
-            if (_taskCompletionSource != null && _taskCompletionSource.Task.Status == TaskStatus.Running)
+            // If the TaskCompletionSource is not null, authorization may already be in progress and should be cancelled
+            if (_taskCompletionSource != null)
             {
-                // Allow only one authorization process at a time
+                // Try to cancel any existing authentication task
                 _taskCompletionSource.TrySetCanceled();
             }
 

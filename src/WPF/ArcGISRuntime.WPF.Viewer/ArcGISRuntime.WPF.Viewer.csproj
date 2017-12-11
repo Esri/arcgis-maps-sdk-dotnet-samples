@@ -94,9 +94,6 @@
     </Compile>
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Converters\SampleToBitmapConverter.cs" />
-    <Compile Include="Data.xaml.cs">
-      <DependentUpon>Data.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Description.xaml.cs">
       <DependentUpon>Description.xaml</DependentUpon>
     </Compile>

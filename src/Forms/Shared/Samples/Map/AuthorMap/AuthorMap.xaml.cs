@@ -262,8 +262,16 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             // Indicate the url (portal) to authenticate with (ArcGIS Online)
             loginInfo.ServiceUri = new Uri(ArcGISOnlineUrl);
 
-            // Get the users credentials for ArcGIS Online (should have logged in when launching the page)
-            cred = await AuthenticationManager.Current.GetCredentialAsync(loginInfo, false);
+            try
+            {
+                // Get the users credentials for ArcGIS Online (should have logged in when launching the page)
+                cred = await AuthenticationManager.Current.GetCredentialAsync(loginInfo, false);
+            }
+            catch (System.OperationCanceledException)
+            {
+                // user canceled the login
+                throw new Exception("Portal log in was canceled.");
+            }
 
             return cred;
         }
@@ -369,10 +377,11 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 // IOAuthAuthorizeHandler will challenge the user for OAuth credentials
                 credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
             }
-            catch (Exception ex)
+            catch (TaskCanceledException) { return credential; }
+            catch (Exception)
             {
                 // Exception will be reported in calling function
-                throw (ex);
+                throw;
             }
 
             return credential;
@@ -385,11 +394,11 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
         // IOAuthAuthorizeHandler.AuthorizeAsync implementation
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
-            // If the TaskCompletionSource is not null, authorization is in progress
+            // If the TaskCompletionSource is not null, authorization may already be in progress and should be cancelled
             if (_taskCompletionSource != null)
             {
-                // Allow only one authorization process at a time
-                throw new Exception();
+                // Try to cancel any existing authentication task
+                _taskCompletionSource.TrySetCanceled();
             }
 
             // Create a task completion source
@@ -409,7 +418,10 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 clientId: _appClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
-                redirectUrl: callbackUri);
+                redirectUrl: callbackUri)
+            {
+                ShowErrors = false
+            };
 
             // Allow the user to cancel the OAuth attempt
             authenticator.AllowCancel = true;
@@ -441,7 +453,10 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 catch (Exception ex)
                 {
                     // If authentication failed, set the exception on the TaskCompletionSource
-                    _taskCompletionSource.SetException(ex);
+                    _taskCompletionSource.TrySetException(ex);
+
+                    // Cancel authentication
+                    authenticator.OnCancelled();
                 }
                 finally
                 {
@@ -471,6 +486,9 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
 #endif
                     }
                 }
+
+                // Cancel authentication
+                authenticator.OnCancelled();
             };
 
             // Present the OAuth UI so the user can enter user name and password

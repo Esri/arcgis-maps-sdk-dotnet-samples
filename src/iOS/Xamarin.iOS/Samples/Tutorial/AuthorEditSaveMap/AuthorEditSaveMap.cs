@@ -152,11 +152,11 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
         // IOAuthAuthorizeHandler.AuthorizeAsync implementation
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
-            // If the TaskCompletionSource is not null, authorization is in progress
+            // If the TaskCompletionSource is not null, authorization may already be in progress and should be cancelled
             if (_taskCompletionSource != null)
             {
-                // Allow only one authorization process at a time
-                throw new Exception();
+                // Try to cancel any existing authentication task
+                _taskCompletionSource.TrySetCanceled();
             }
 
             // Create a task completion source
@@ -167,7 +167,10 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                 clientId: AppClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
-                redirectUrl: callbackUri);
+                redirectUrl: callbackUri)
+            {
+                ShowErrors = false
+            };
 
             // Allow the user to cancel the OAuth attempt
             authenticator.AllowCancel = true;
@@ -177,25 +180,30 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             {
                 try
                 {
-                    // Check if the user is authenticated
-                    if (authArgs.IsAuthenticated)
-                    {
-                        // If authorization was successful, get the user's account
-                        Xamarin.Auth.Account authenticatedAccount = authArgs.Account;
+                    // Dismiss the OAuth UI when complete
+                    this.DismissViewController(true, null);
 
-                        // Set the result (Credential) for the TaskCompletionSource
-                        _taskCompletionSource.SetResult(authenticatedAccount.Properties);
+                    // Throw an exception if the user could not be authenticated
+                    if (!authArgs.IsAuthenticated)
+                    {
+                        throw (new OperationCanceledException("Unable to authenticate user."));
                     }
+
+                    // If authorization was successful, get the user's account
+                    Xamarin.Auth.Account authenticatedAccount = authArgs.Account;
+
+                    // Set the result (Credential) for the TaskCompletionSource
+                    _taskCompletionSource.SetResult(authenticatedAccount.Properties);
                 }
                 catch (Exception ex)
                 {
                     // If authentication failed, set the exception on the TaskCompletionSource
-                    _taskCompletionSource.SetException(ex);
-                }
-                finally
-                {
-                    // Dismiss the OAuth login
-                    this.DismissViewController(true, null);
+                    _taskCompletionSource.TrySetException(ex);
+
+                    // Cancel authentication
+                    authenticator.OnCancelled();
+                } finally {
+                    this.DismissViewController(false, null);
                 }
             };
 
@@ -205,7 +213,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                 // If the user cancels, the Error event is raised but there is no exception ... best to check first
                 if (errArgs.Exception != null)
                 {
-                    _taskCompletionSource.SetException(errArgs.Exception);
+                    _taskCompletionSource.TrySetException(errArgs.Exception);
                 }
                 else
                 {
@@ -216,6 +224,8 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                         this.DismissViewController(true, null);
                     }
                 }
+                // Cancel authentication
+                authenticator.OnCancelled();
             };
 
             // Present the OAuth UI so the user can enter user name and password
@@ -238,10 +248,11 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                 // IOAuthAuthorizeHandler will challenge the user for OAuth credentials
                 credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
             }
-            catch (Exception ex)
+            catch (TaskCanceledException) { return credential; }
+            catch (Exception)
             {
                 // Exception will be reported in calling function
-                throw (ex);
+                throw;
             }
 
             return credential;
@@ -284,11 +295,20 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                 // Indicate the url (portal) to authenticate with (ArcGIS Online)
                 challengeRequest.ServiceUri = new Uri("https://www.arcgis.com/sharing/rest");
 
-                // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
-                await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
+                try
+                {
+                    // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
+                    await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
+                }
+                catch (Exception)
+                {
+                    // user canceled the login
+                    buttonControl.SelectedSegment = -1;
+                    return;
+                }
 
                 // Show the save map UI
-                if (_mapInfoUI != null) { return; }
+                if (_mapInfoUI != null) { buttonControl.SelectedSegment = -1; return; }
 
                 // Create a view to show map item info entry controls over the map view
                 var ovBounds = _mapView.Bounds;
@@ -392,8 +412,11 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             finally
             {
                 // Get rid of the item input controls
-                _mapInfoUI.Hide();
-                _mapInfoUI = null;
+                if (_mapInfoUI != null)
+                {
+                    _mapInfoUI.Hide();
+                    _mapInfoUI = null;
+                }
             }
         }
 

@@ -1,4 +1,4 @@
-// Copyright 2016 Esri.
+﻿// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -476,10 +476,11 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                             info.GenerateTokenOptions
                     ) as OAuthTokenCredential;
             }
-            catch (Exception ex)
+            catch (TaskCanceledException) { return credential; }
+            catch (Exception)
             {
                 // Exception will be reported in calling function
-                throw (ex);
+                throw;
             }
 
             return credential;
@@ -488,11 +489,11 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
         // IOAuthAuthorizeHandler.AuthorizeAsync implementation
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
-            // If the TaskCompletionSource is not null, authorization is in progress
+            // If the TaskCompletionSource is not null, authorization may already be in progress and should be cancelled
             if (_taskCompletionSource != null)
             {
-                // Allow only one authorization process at a time
-                throw new Exception();
+                // Try to cancel any existing authentication task
+                _taskCompletionSource.TrySetCanceled();
             }
 
             // Create a task completion source
@@ -503,7 +504,10 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 clientId: AppClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
-                redirectUrl: callbackUri);
+                redirectUrl: callbackUri)
+            {
+                ShowErrors = false
+            };
 
             // Allow the user to cancel the OAuth attempt
             authenticator.AllowCancel = true;
@@ -526,7 +530,10 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 catch (Exception ex)
                 {
                     // If authentication failed, set the exception on the TaskCompletionSource
-                    _taskCompletionSource.SetException(ex);
+                    _taskCompletionSource.TrySetException(ex);
+
+                    // Cancel authentication
+                    authenticator.OnCancelled();
                 }
                 finally
                 {
@@ -541,7 +548,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 // If the user cancels, the Error event is raised but there is no exception ... best to check first
                 if (errArgs.Exception != null)
                 {
-                    _taskCompletionSource.SetException(errArgs.Exception);
+                    _taskCompletionSource.TrySetException(errArgs.Exception);
                 }
                 else
                 {
@@ -552,6 +559,9 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                         this.FinishActivity(99);
                     }
                 }
+
+                // Cancel authentication
+                authenticator.OnCancelled();
             };
 
             // Present the OAuth UI (Activity) so the user can enter user name and password

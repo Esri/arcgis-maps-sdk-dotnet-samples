@@ -1,4 +1,4 @@
-// Copyright 2017 Esri.
+﻿// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -388,7 +388,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                 var cred = await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
                 loggedIn = cred != null;
             }
-            catch (System.OperationCanceledException ex)
+            catch (System.OperationCanceledException)
             {
                 // Login was canceled
                 // .. ignore, user can still search public maps without logging in
@@ -423,10 +423,11 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                             info.GenerateTokenOptions
                     ) as OAuthTokenCredential;
             }
-            catch (Exception ex)
+            catch (TaskCanceledException) { return credential; }
+            catch (Exception)
             {
                 // Exception will be reported in calling function
-                throw (ex);
+                throw;
             }
 
             return credential;
@@ -435,11 +436,11 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
         // IOAuthAuthorizeHandler.AuthorizeAsync implementation
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
-            // If the TaskCompletionSource is not null, authorization is in progress
+            // If the TaskCompletionSource is not null, authorization may already be in progress and should be cancelled
             if (_taskCompletionSource != null)
             {
-                // Allow only one authorization process at a time
-                throw new Exception();
+                // Try to cancel any existing authentication task
+                _taskCompletionSource.TrySetCanceled();
             }
 
             // Create a task completion source
@@ -450,7 +451,10 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                 clientId: _appClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
-                redirectUrl: callbackUri);
+                redirectUrl: callbackUri)
+            {
+                ShowErrors = false
+            };
 
             // Allow the user to cancel the OAuth attempt
             auth.AllowCancel = true;
@@ -478,7 +482,10 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                 catch (Exception ex)
                 {
                     // If authentication failed, set the exception on the TaskCompletionSource
-                    _taskCompletionSource.SetException(ex);
+                    _taskCompletionSource.TrySetException(ex);
+
+                    // Cancel authentication
+                    auth.OnCancelled();
                 }
             };
 
@@ -493,6 +500,9 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                 {
                     _taskCompletionSource.TrySetException(new Exception(errArgs.Message));
                 }
+
+                // Cancel authentication
+                auth.OnCancelled();
             };
 
             // Present the OAuth UI (on the app's UI thread) so the user can enter user name and password

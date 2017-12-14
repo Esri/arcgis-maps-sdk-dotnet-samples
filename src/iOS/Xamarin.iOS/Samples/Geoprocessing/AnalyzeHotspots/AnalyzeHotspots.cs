@@ -215,6 +215,8 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeHotspots
             _startDateTextField.Text = "1/01/98";
             _startDateTextField.AdjustsFontSizeToFitWidth = true;
             _startDateTextField.BackgroundColor = UIColor.White;
+            // Allow pressing 'return' to dismiss the keyboard
+            _startDateTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
             // Create label for the end date
             _endDateLabel = new UILabel();
@@ -227,6 +229,8 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeHotspots
             _endDateTextField.Text = "1/31/98";
             _endDateTextField.AdjustsFontSizeToFitWidth = true;
             _endDateTextField.BackgroundColor = UIColor.White;
+            // Allow pressing 'return' to dismiss the keyboard
+            _endDateTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
             // Create button to invoke the geoprocessing request
             _runAnalysisButton = new UIButton();

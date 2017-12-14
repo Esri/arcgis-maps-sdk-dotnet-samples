@@ -617,6 +617,8 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             _clientIdTextField.Text = clientId;
             _clientIdTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
             _clientIdTextField.BackgroundColor = UIColor.LightGray;
+            // Allow pressing 'return' to dismiss the keyboard
+            _clientIdTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;
@@ -632,6 +634,8 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             _redirectUrlTextField.Text = redirectUrl;
             _redirectUrlTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
             _redirectUrlTextField.BackgroundColor = UIColor.LightGray;
+            // Allow pressing 'return' to dismiss the keyboard
+            _redirectUrlTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;
@@ -768,6 +772,8 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             _searchTextField.Placeholder = "Search text";
             _searchTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
             _searchTextField.BackgroundColor = UIColor.LightGray;
+            // Allow pressing 'return' to dismiss the keyboard
+            _searchTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
             // Hide the keyboard when "Enter" is clicked
             _searchTextField.ShouldReturn += (input) =>

@@ -41,20 +41,20 @@ namespace ArcGISRuntimeXamarin.Samples.RasterLayerFile
             // Create the layer
             RasterLayer myRasterLayer = new RasterLayer(myRasterFile);
 
+            // Add the layer to the map
+            MyMapView.Map.OperationalLayers.Add(myRasterLayer);
+
             // Load the layer
             await myRasterLayer.LoadAsync();
 
             // Convert the layer's extent to the correct spatial reference
-            Geometry convertedExtent = GeometryEngine.Project(myRasterLayer.FullExtent, SpatialReferences.WebMercator);
+            Geometry convertedExtent = GeometryEngine.Project(myRasterLayer.FullExtent, MyMapView.SpatialReference);
 
             // Get the raster's extent in a viewpoint
             Viewpoint myFullRasterExtent = new Viewpoint(convertedExtent);
 
             // Set the viewpoint
             MyMapView.SetViewpoint(myFullRasterExtent);
-
-            // Add the layer to the map
-            MyMapView.Map.OperationalLayers.Add(myRasterLayer);
         }
 
         private string GetRasterPath()

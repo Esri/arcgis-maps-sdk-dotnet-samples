@@ -106,6 +106,9 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeHotspots
 
         private async void OnRunAnalysisClicked(object sender, EventArgs e)
         {
+            // Clear any existing results
+            _myMapView.Map.OperationalLayers.Clear();
+
             // Show the animating progress bar 
             _myProgressBar.StartAnimating();
 

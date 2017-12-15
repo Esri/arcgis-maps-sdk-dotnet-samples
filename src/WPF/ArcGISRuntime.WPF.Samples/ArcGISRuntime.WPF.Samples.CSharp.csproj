@@ -77,15 +77,6 @@
   <ItemGroup>
     <!-- JSON Metadata -->
     <Content Include="Samples\Layers\WmsIdentify\metadata.json">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\Hydrography\SelectEncFeatures\metadata.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\Hydrography\ChangeEncDisplaySettings\metadata.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\Hydrography\AddEncExchangeSet\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\MapView\GeoViewSync\metadata.json">
@@ -319,13 +310,12 @@
     <Content Include="Samples\Analysis\ViewshedCamera\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="packages.config" />
     <Content Include="Samples\Analysis\LineOfSightLocation\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Data\GeodatabaseTransactions\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>    
+    </Content>
     <Content Include="Samples\Layers\FeatureLayerRenderingModeMap\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -337,7 +327,7 @@
     </Content>
     <Content Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>    
+    </Content>
     <Content Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>    
@@ -345,15 +335,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Layers\WmsIdentify\WmsIdentify.jpg">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\MapView\GeoViewSync\GeoViewSync.jpg">
@@ -579,26 +560,17 @@
       <DependentUpon>FeatureLayerRenderingModeMap.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\WmsIdentify\WmsIdentify.xaml.cs">
-        <DependentUpon>WmsIdentify.xaml</DependentUpon>
+      <DependentUpon>WmsIdentify.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.xaml.cs">
       <DependentUpon>GeodatabaseTransactions.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml.cs">
-      <DependentUpon>SelectEncFeatures.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.xaml.cs">
-      <DependentUpon>ChangeEncDisplaySettings.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.xaml.cs">
-      <DependentUpon>AddEncExchangeSet.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.xaml.cs">
       <DependentUpon>ViewshedCamera.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.xaml.cs">
       <DependentUpon>LineOfSightLocation.xaml</DependentUpon>
-    </Compile>    
+    </Compile>
     <Compile Include="Samples\MapView\GeoViewSync\GeoViewSync.xaml.cs">
       <DependentUpon>GeoViewSync.xaml</DependentUpon>
     </Compile>
@@ -825,33 +797,21 @@
   <ItemGroup>
     <!-- Sample XAML -->
     <Page Include="Samples\Layers\WmsIdentify\WmsIdentify.xaml">
-        <Generator>MSBuild:Compile</Generator>
-        <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>    
-    <Page Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>    
+    </Page>
     <Page Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>    
+    </Page>
     <Page Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1155,6 +1115,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

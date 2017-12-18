@@ -343,6 +343,15 @@
 
     Demonstrates how to display a scene with an elevation data source. An elevation data source allows objects to be viewed in 3D, like this picture of Mt. Everest.
 
+## Hydrography
+
+
+- **Electronic Navigational Charts (ENC)**
+
+    * [Select ENC features](Xamarin.iOS/Samples/Hydrography/SelectEncFeatures)
+
+    This sample demonstrates how to select an ENC feature.
+
 ## Location
 
 

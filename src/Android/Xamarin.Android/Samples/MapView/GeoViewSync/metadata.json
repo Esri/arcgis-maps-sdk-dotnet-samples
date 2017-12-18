@@ -1,0 +1,20 @@
+{
+  "Name": "GeoView viewpoint synchronization",
+  "SampleName": "GeoViewSync",
+  "Description": "This sample demonstrates how to keep two geo views (MapView/SceneView) in sync with each other.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": false,
+  "RequiresLocalServer": false,
+  "Image": "GeoViewSync.jpg",
+  "Link": "",
+  "TypeLink": [
+"P:Esri.ArcGISRuntime.UI.Controls.GeoView.IsNavigating",
+"T:Esri.ArcGISRuntime.UI.Controls.GeoView",
+"M:Esri.ArcGISRuntime.Mapping.Scene.#ctor(Esri.ArcGISRuntime.Mapping.Basemap)",
+"M:Esri.ArcGISRuntime.Mapping.Basemap.CreateImageryWithLabels",
+"T:Esri.ArcGISRuntime.Mapping.Scene"
+],
+  "SampleFolder": "GeoViewSync"
+}

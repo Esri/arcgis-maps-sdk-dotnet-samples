@@ -81,26 +81,15 @@ namespace ArcGISRuntimeXamarin.Managers
 
         private static async Task UnpackData(string zipFile, string folder)
         {
-#if NETFX_CORE
             using (var archive = ZipFile.OpenRead(zipFile))
             {
                 foreach(var entry in archive.Entries.Where(m => !String.IsNullOrWhiteSpace(m.Name)))
                 {
-                    entry.ExtractToFile(Path.Combine(folder, entry.Name), true);
+                    var path = Path.Combine(folder, entry.FullName);
+                    Directory.CreateDirectory(Path.GetDirectoryName(path));
+                    entry.ExtractToFile(path, true);
                 }
             }
-#elif __ANDROID__ || __IOS__
-            await Task.Run(() => ZipFile.ExtractToDirectory(zipFile, folder, true));
-            var info = new DirectoryInfo(folder);
-            List<DirectoryInfo> directoryContents = info.GetDirectories().ToList();
-            // copy the files from the directories into the parent
-            foreach(var directory in directoryContents){
-                // For each file in the directory
-                foreach (var file in directory.GetFiles()){
-                    File.Copy(file.FullName, Path.Combine(file.Directory.Parent.FullName, file.Name), true);
-                }
-            }
-#endif
         }
 
         /// <summary>
@@ -112,10 +101,8 @@ namespace ArcGISRuntimeXamarin.Managers
             var appDataFolder =
 #if NETFX_CORE
                 Windows.Storage.ApplicationData.Current.LocalFolder.Path;
-#elif __ANDROID__
+#elif __ANDROID__ || __IOS__
                 System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData);
-#elif __IOS__
-                "Library/";
 #endif
             return appDataFolder;
         }

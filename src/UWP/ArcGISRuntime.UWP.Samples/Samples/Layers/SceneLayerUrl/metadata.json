@@ -1,5 +1,5 @@
 {
-  "Name": "ArcGIS Scene layer (URL)",
+  "Name": "ArcGIS scene layer (URL)",
   "SampleName": "SceneLayerUrl",
   "Description": "This sample demonstrates how to add an ArcGISSceneLayer as a layer in a Scene.",
   "Instructions": "",
@@ -9,5 +9,10 @@
   "RequiresLocalServer": false,
   "Image": "SceneLayerUrl.jpg",
   "Link": "",
-  "TypeLink": [ "T:Esri.ArcGISRuntime.Mapping.ArcGISSceneLayer", "P:Esri.ArcGISRuntime.Mapping.Basemap.BaseLayers", "T:Esri.ArcGISRuntime.Mapping.Layer" ]
+  "TypeLink": [
+"T:Esri.ArcGISRuntime.Mapping.ArcGISSceneLayer",
+"P:Esri.ArcGISRuntime.Mapping.Scene.OperationalLayers",
+"M:Esri.ArcGISRuntime.Mapping.ArcGISSceneLayer.#ctor(System.Uri)",
+"P:Esri.ArcGISRuntime.Mapping.Scene.Basemap"
+]
 }

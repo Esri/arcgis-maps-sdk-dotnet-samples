@@ -55,9 +55,12 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             SaveMapButton.Clicked += ShowSaveMapDialog;
 
             // Define a click handler for the New button
-            NewMapButton.Clicked += (s, e) => _mapViewModel.ResetMap();
+            NewMapButton.Clicked += (s, e) => {
+                _mapViewModel.ResetMap();
+                BasemapListBox.SelectedItem = _mapViewModel.BasemapChoices[0];
+            };
 
-            // Set up the AuthencticationManager to challenge for ArcGIS Online credentials
+            // Set up the AuthenticationManager to challenge for ArcGIS Online credentials
             UpdateAuthenticationManager();
 
             // Change the style of the basemap list view for Android and UWP
@@ -113,15 +116,15 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
 
                 // Add the credential to the AuthenticationManager
                 AuthenticationManager.Current.AddCredential(cred);
-            } catch (System.Threading.Tasks.TaskCanceledException ex)
+            } catch (System.Threading.Tasks.TaskCanceledException)
             {
                 // Handle situation where the user closes the login window
                 return;
-            } catch (System.OperationCanceledException ex )
+            } catch (System.OperationCanceledException)
             {
                 // Handle situation where the user presses 'cancel' in the login UI
                 return;
-            } catch (Exception ex)
+            } catch (Exception)
             {
                 // Handle all other exceptions related to canceled login
                 return;
@@ -151,7 +154,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                     await _mapViewModel.SaveNewMapAsync(currentViewpoint, title, description, tags, thumbnailImg);
 
                     // Report a successful save
-                    DisplayAlert("Map Saved", "Saved '" + title + "' to ArcGIS Online!", "OK");
+                    await DisplayAlert("Map Saved", "Saved '" + title + "' to ArcGIS Online!", "OK");
                 }
                 else
                 {
@@ -159,13 +162,13 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                     _mapViewModel.UpdateMapItem();
 
                     // Report success
-                    DisplayAlert("Map Updated", "Saved changes to '" + title + "'", "OK");
+                    await DisplayAlert("Map Updated", "Saved changes to '" + title + "'", "OK");
                 }
             }
             catch (Exception ex)
             {
                 // Show the exception message
-                DisplayAlert("Unable to save map", ex.Message, "OK");
+                await DisplayAlert("Unable to save map", ex.Message, "OK");
             }
         }
 
@@ -207,10 +210,11 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                 // IOAuthAuthorizeHandler will challenge the user for OAuth credentials
                 credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
             }
-            catch (Exception ex)
+            catch (TaskCanceledException) { return credential; }
+            catch (Exception)
             {
                 // Exception will be reported in calling function
-                throw (ex);
+                throw;
             }
 
             return credential;
@@ -236,7 +240,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             set { _mapView = value; }
         }
 
-        private Map _map = new Map(Basemap.CreateLightGrayCanvas());
+        private Map _map = new Map(Basemap.CreateTopographic());
         
         // Gets or sets the map
         public Map Map
@@ -334,8 +338,8 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             // Set the current map to null
             _map = null;
 
-            // Create a new map with light gray canvas basemap
-            Map newMap = new Map(Basemap.CreateLightGrayCanvasVector());
+            // Create a new map with topographic basemap
+            Map newMap = new Map(Basemap.CreateTopographic());
 
             // Store the new map 
             this.Map = newMap;

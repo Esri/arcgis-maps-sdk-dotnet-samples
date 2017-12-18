@@ -62,16 +62,16 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureCollectionLayerFromPortal
                 }
                 else
                 {
-                    DisplayAlert("Feature Collection", "Portal item with ID '" + itemId + "' is not a feature collection.", "OK");
+                    await DisplayAlert("Feature Collection", "Portal item with ID '" + itemId + "' is not a feature collection.", "OK");
                 }
             }
             catch (Exception ex)
             {
-                DisplayAlert("Error", "Unable to open item with ID '" + itemId + "': " + ex.Message, "OK");
+                await DisplayAlert("Error", "Unable to open item with ID '" + itemId + "': " + ex.Message, "OK");
             }
         }
 
-        private void OpenPortalFeatureCollectionClick(object sender, EventArgs e)
+        private async void OpenPortalFeatureCollectionClick(object sender, EventArgs e)
         {
             // Get the portal item Id from the user
             var collectionItemId = CollectionItemIdTextBox.Text.Trim();
@@ -79,7 +79,7 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureCollectionLayerFromPortal
             // Make sure an Id was entered
             if (string.IsNullOrEmpty(collectionItemId))
             {
-                DisplayAlert("Feature Collection ID", "Please enter a portal item ID", "OK");
+                await DisplayAlert("Feature Collection ID", "Please enter a portal item ID", "OK");
                 return;
             }
 

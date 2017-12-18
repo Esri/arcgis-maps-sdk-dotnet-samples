@@ -20,7 +20,7 @@
 
     This sample demonstrates how to get view status for layers in a map.
 
-    * [Take Screenshot](Xamarin.Android/Samples/MapView/TakeScreenshot)
+    * [Take screenshot](Xamarin.Android/Samples/MapView/TakeScreenshot)
 
     This sample demonstrates how you can take screenshot of a map. Click 'capture' button to take a screenshot of the visible area of the map. Created image is shown in the sample after creation.
 
@@ -31,6 +31,14 @@
     * [Show callout](Xamarin.Android/Samples/MapView/ShowCallout)
 
     This sample illustrates how to show callouts on a map in response to user interaction.
+
+    * [Feature layer time offset](Xamarin.Android/Samples/MapView/FeatureLayerTimeOffset)
+
+    This sample demonstrates how to show data from the same service side-by-side with a time offset. This allows for the comparison of data over time.
+
+    * [GeoView viewpoint synchronization](Xamarin.Android/Samples/MapView/GeoViewSync)
+
+    This sample demonstrates how to keep two geo views (MapView/SceneView) in sync with each other.
 
 
 - **Map**
@@ -43,7 +51,7 @@
 
     This sample demonstrates how to open a map from a mobile map package.
 
-    * [Open Map (URL)](Xamarin.Android/Samples/Map/OpenMapURL)
+    * [Open map (URL)](Xamarin.Android/Samples/Map/OpenMapURL)
 
     This sample demonstrates how to open an existing map from a portal. The sample opens with a map displayed by default. You can change the shown map by selecting a new one from the populated list.
 
@@ -51,7 +59,7 @@
 
     This sample demonstrates searching a portal for web maps and loading them in the map view. You can search ArcGIS Online public web maps using tag values or browse the web maps in your account. OAuth is used to authenticate with ArcGIS Online to access items in your account.
 
-    * [Set Min & Max Scale](Xamarin.Android/Samples/Map/SetMinMaxScale)
+    * [Set min & max scale](Xamarin.Android/Samples/Map/SetMinMaxScale)
 
     This sample demonstrates how to set the minimum and maximum scale of a Map. Setting the minimum and maximum scale for the Map can be useful in keeping the user focused at a certain level of detail.
 
@@ -115,6 +123,18 @@
 
     This sample demonstrates how to display a WMTS layer on a map via a Uri and WmtsLayerInfo.
 
+    * [WMS layer (URL)](Xamarin.Android/Samples/Layers/WMSLayerUrl)
+
+    This sample demonstrates how to add a layer from a WMS service to a map.
+
+    * [WMS service catalog](Xamarin.Android/Samples/Layers/WmsServiceCatalog)
+
+    This sample demonstrates how to enable and disable the display of layers discovered from a WMS service.
+
+    * [Identify WMS features](Xamarin.Android/Samples/Layers/WmsIdentify)
+
+    This sample demonstrates how to identify WMS features and display the associated content for an identified WMS feature.
+
 
 - **Raster Layers**
 
@@ -133,6 +153,10 @@
     * [Raster rendering rule](Xamarin.Android/Samples/Layers/RasterRenderingRule)
 
     This sample demonstrates how to create an `ImageServiceRaster`, fetch the `RenderingRule`s from the service info, and use a `RenderingRule` to create an `ImageServiceRaster` and add it to a raster layer.
+
+    * [Raster layer (GeoPackage)](Xamarin.Android/Samples/Data/RasterLayerGeoPackage)
+
+    This sample demonstrates how to open a GeoPackage and show a GeoPackage raster in a raster layer.
 
 ## Features
 
@@ -171,9 +195,17 @@
 
     This sample demonstrates how to create a feature collection layer to show a query result from a service feature table.
 
+    * [Time-based query](Xamarin.Android/Samples/Layers/TimeBasedQuery)
+
+    This sample demonstrates how to apply a time-based parameter to a feature layer query.
+
     * [Feature layer dictionary renderer](Xamarin.Android/Samples/Layers/FeatureLayerDictionaryRenderer)
 
     Demonstrates how to apply a dictionary renderer to a feature layer and display mil2525d graphics. The dictionary renderer creates these graphics using a mil2525d style file and the attributes attached to each feature within the geodatabase.
+
+    * [Feature Layer Rendering Mode (Map)](Xamarin.Android/Samples/Layers/FeatureLayerRenderingModeMap)
+
+    This sample demonstrates how to use load settings to set preferred rendering mode for feature layers, specifically static or dynamic rendering modes.
 
 
 - **Feature Tables**
@@ -194,9 +226,25 @@
 
     This sample demonstrates how to take a feature service offline by generating a geodatabase.
 
+    * [Geodatabase transactions](Xamarin.Android/Samples/Data/GeodatabaseTransactions)
+
+    This sample demonstrates how to manage edits to a local geodatabase inside of transactions.
+
+    * [Feature layer (shapefile)](Xamarin.Android/Samples/Data/FeatureLayerShapefile)
+
+    This sample demonstrates how to open a shapefile stored on the device and display it as a feature layer with default symbology.
+
     * [Edit and sync features](Xamarin.Android/Samples/Data/EditAndSyncFeatures)
 
     This sample demonstrates how to synchronize offline edits with a feature service.
+
+    * [Feature layer (GeoPackage)](Xamarin.Android/Samples/Data/FeatureLayerGeoPackage)
+
+    This sample demonstrates how to open a GeoPackage and show a GeoPackage feature table in a feature layer.
+
+    * [Read shapefile metadata](Xamarin.Android/Samples/Data/ReadShapefileMetadata)
+
+    This sample demonstrates how to open a shapefile stored on the device, read metadata that describes the dataset, and display it as a feature layer with default symbology.
 
 ## Display Information
 
@@ -206,6 +254,10 @@
     * [Add graphics (SimpleRenderer)](Xamarin.Android/Samples/GraphicsOverlay/AddGraphicsRenderer)
 
     This sample demonstrates how you add graphics and set a renderer on a graphic overlays.
+
+    * [Surface placement](Xamarin.Android/Samples/GraphicsOverlay/SurfacePlacements)
+
+    This sample demonstrates how to position graphics using different Surface Placements.
 
     * [Identify graphics](Xamarin.Android/Samples/GraphicsOverlay/IdentifyGraphics)
 
@@ -243,13 +295,32 @@
 
     This sample demonstrates how to execute the GeoprocessingTask asynchronously to calculate a hotspot analysis based on the frequency of 911 calls. It calculates the frequency of these calls within a given study area during a specified constrained time period set between 1/1/1998 and 5/31/1998.
 
-    * [Analyze viewshed](Xamarin.Android/Samples/Geoprocessing/AnalyzeViewshed)
+    * [Viewshed (Geoprocessing)](Xamarin.Android/Samples/Geoprocessing/AnalyzeViewshed)
 
     This sample demonstrates how to use GeoprocessingTask to calculate a viewshed using a geoprocessing service. Click any point on the map to see all areas that are visible within a 1 kilometer radius. It may take a few seconds for the model to run and send back the results.
+
+    * [Viewshed for camera](Xamarin.Android/Samples/Analysis/ViewshedCamera)
+
+    This sample demonstrates how to create a `LocationViewshed` to display interactive viewshed results in the scene view. The viewshed observer is defined by the scene view camera to evaluate visible and obstructed areas of the scene from that location.
+
+    * [Line of sight from location](Xamarin.Android/Samples/Analysis/LineOfSightLocation)
+
+    This sample demonstrates a `LocationLineOfSight` analysis that shows segments that are visible or obstructed along a line drawn from observer to target.
 
     * [List geodatabase versions](Xamarin.Android/Samples/Geoprocessing/ListGeodatabaseVersions)
 
     This sample demonstrates how to use GeoprocessingTask to get available geodatabase versions from the enterprise geodatabase. Geoprocessing task will return the versions as a table that is shown to the user in a list. This is a good example how to use geoprocessing on mapless application.
+
+
+- **Statistics**
+
+    * [Statistical query](Xamarin.Android/Samples/Data/StatisticalQuery)
+
+    This sample demonstrates how to query a feature table to get statistics for a specified field.
+
+    * [Statistical query group and sort results](Xamarin.Android/Samples/Data/StatsQueryGroupAndSort)
+
+    This sample demonstrates how to query a feature table to get statistics for a specified field and to group and sort the results.
 
 ## Scenes
 
@@ -263,7 +334,7 @@
 
 - **Scene Layers**
 
-    * [ArcGIS Scene layer (URL)](Xamarin.Android/Samples/Layers/SceneLayerUrl)
+    * [ArcGIS scene layer (URL)](Xamarin.Android/Samples/Layers/SceneLayerUrl)
 
     This sample demonstrates how to add an ArcGISSceneLayer as a layer in a Scene.
 
@@ -294,11 +365,11 @@
 
 - **Working with Places**
 
-    * [Find Address](Xamarin.Android/Samples/Search/FindAddress)
+    * [Find address](Xamarin.Android/Samples/Search/FindAddress)
 
     This sample demonstrates how you can use the LocatorTask API to geocode an address and display it with a pin on the map. Tapping the pin displays the reverse-geocoded address in a callout.
 
-    * [Find Place](Xamarin.Android/Samples/Search/FindPlace)
+    * [Find place](Xamarin.Android/Samples/Search/FindPlace)
 
     This sample demonstrates how to use geocode functionality to search for points of interest, around a location or within an extent.
 

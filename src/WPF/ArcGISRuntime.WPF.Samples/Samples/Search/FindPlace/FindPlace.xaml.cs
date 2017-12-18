@@ -48,6 +48,9 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             // Provide used Map to the MapView
             MyMapView.Map = myMap;
 
+            // Subscribe to location changed events (to support zooming to current location)
+            MyMapView.LocationDisplay.LocationChanged += LocationDisplay_LocationChanged;
+
             // Enable location display
             MyMapView.LocationDisplay.IsEnabled = true;
 
@@ -64,12 +67,26 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             MySearchRestrictedButton.IsEnabled = true;
         }
 
+        private void LocationDisplay_LocationChanged(object sender, Esri.ArcGISRuntime.Location.Location e)
+        {
+            // Return if position is null; event is called with null position when location display is turned on
+            if (e.Position == null) { return; }
+
+            // Unsubscribe to the event (only want to zoom once)
+            ((LocationDisplay)sender).LocationChanged -= LocationDisplay_LocationChanged;
+
+            // Needed because the event is called from a background thread, but the code is manipulating UI
+            Dispatcher.Invoke(() =>
+            {
+                // Zoom to the location
+                MyMapView.SetViewpointAsync(new Viewpoint(e.Position, 100000));
+            });
+        }
+
         /// <summary>
         /// Gets the map point corresponding to the text in the location textbox.
         /// If the text is 'Current Location', the returned map point will be the device's location.
         /// </summary>
-        /// <param name="locationText"></param>
-        /// <returns></returns>
         private async Task<MapPoint> GetSearchMapPoint(string locationText)
         {
             // Get the map point for the search text
@@ -137,7 +154,8 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             IReadOnlyList<GeocodeResult> locations = await _geocoder.GeocodeAsync(enteredText, parameters);
 
             // Stop gracefully and show a message if the geocoder does not return a result
-            if (locations.Count < 1) {
+            if (locations.Count < 1)
+            {
                 MyProgressBar.Visibility = Visibility.Collapsed; // 1. Hide the progress bar
                 ShowStatusMessage("No results found"); // 2. Show a message
                 return; // 3. Stop
@@ -198,10 +216,10 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);
             pinSymbol.Width = 60;
             pinSymbol.Height = 60;
-            // The image is a pin; offset the image so that the pinpoint
-            //     is on the point rather than the image's true center
-            pinSymbol.OffsetX = pinSymbol.Width / 2;
-            pinSymbol.OffsetY = pinSymbol.Height / 2;
+            // The symbol is a pin; centering it on the point is incorrect.
+            // The values below center the pin and offset it so that the pinpoint is accurate
+            pinSymbol.LeaderOffsetX = 30;
+            pinSymbol.OffsetY = 14;
             return new Graphic(point, pinSymbol);
         }
 
@@ -292,6 +310,9 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
         /// </summary>
         private async void MySearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            // Dismiss callout, if any
+            UserInteracted();
+
             // Get the current text
             string searchText = MySearchBox.Text;
 
@@ -313,6 +334,9 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
         /// </summary>
         private async void MyLocationBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            // Dismiss callout, if any
+            UserInteracted();
+
             // Get the current text
             string searchText = MyLocationBox.Text;
 
@@ -337,6 +361,9 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
         /// </summary>
         private void MySearchRestrictedButton_Click(object sender, RoutedEventArgs e)
         {
+            // Dismiss callout, if any
+            UserInteracted();
+
             // Get the search text
             string searchText = MySearchBox.Text;
 
@@ -352,6 +379,9 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
         /// </summary>
         private void MySearchButton_Click(object sender, RoutedEventArgs e)
         {
+            // Dismiss callout, if any
+            UserInteracted();
+
             // Get the search text
             string searchText = MySearchBox.Text;
 
@@ -360,6 +390,15 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
 
             // Run the search
             UpdateSearch(searchText, locationText, false);
+        }
+
+        /// <summary>
+        /// Method to handle hiding the callout, should be called by all UI event handlers
+        /// </summary>
+        private void UserInteracted()
+        {
+            // Hide the callout
+            MyMapView.DismissCallout();
         }
     }
 }

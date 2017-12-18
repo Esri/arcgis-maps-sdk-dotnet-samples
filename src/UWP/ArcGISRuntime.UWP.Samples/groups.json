@@ -36,6 +36,14 @@
             {
               "SampleName": "ShowCallout",
               "Path": "Samples/MapView/ShowCallout"
+            },
+            {
+              "SampleName": "FeatureLayerTimeOffset",
+              "Path": "Samples/MapView/FeatureLayerTimeOffset"
+            },
+            {
+              "SampleName": "GeoViewSync",
+              "Path": "Samples/MapView/GeoViewSync"
             }
           ]
         },
@@ -135,6 +143,18 @@
             {
               "SampleName": "WMTSLayer",
               "Path": "Samples/Layers/WMTSLayer"
+            },
+            {
+              "SampleName": "WMSLayerUrl",
+              "Path": "Samples/Layers/WMSLayerUrl"
+            },
+            {
+              "SampleName": "WmsServiceCatalog",
+              "Path": "Samples/Layers/WmsServiceCatalog"
+            },
+            {
+              "SampleName": "WmsIdentify",
+              "Path": "Samples/Layers/WmsIdentify"
             }
           ]
         },
@@ -158,6 +178,10 @@
             {
               "SampleName": "RasterRenderingRule",
               "Path": "Samples/Layers/RasterRenderingRule"
+            },
+            {
+              "SampleName": "RasterLayerGeoPackage",
+              "Path": "Samples/Data/RasterLayerGeoPackage"
             }
           ]
         }
@@ -201,8 +225,16 @@
               "Path": "Samples/Layers/FeatureCollectionLayerFromQuery"
             },
             {
+              "SampleName": "TimeBasedQuery",
+              "Path": "Samples/Layers/TimeBasedQuery"
+            },
+            {
               "SampleName": "FeatureLayerDictionaryRenderer",
               "Path": "Samples/Layers/FeatureLayerDictionaryRenderer"
+            },
+            {
+              "SampleName": "FeatureLayerRenderingModeMap",
+              "Path": "Samples/Layers/FeatureLayerRenderingModeMap"
             }
           ]
         },
@@ -232,8 +264,24 @@
               "Path": "Samples/Data/GenerateGeodatabase"
             },
             {
+              "SampleName": "GeodatabaseTransactions",
+              "Path": "Samples/Data/GeodatabaseTransactions"
+            },
+            {
+              "SampleName": "FeatureLayerGeoPackage",
+              "Path": "Samples/Data/FeatureLayerGeoPackage"
+            },
+            {
+              "SampleName": "FeatureLayerShapefile",
+              "Path": "Samples/Data/FeatureLayerShapefile"
+            },
+            {
               "SampleName": "EditAndSyncFeatures",
               "Path": "Samples/Data/EditAndSyncFeatures"
+            },
+            {
+              "SampleName": "ReadShapefileMetadata",
+              "Path": "Samples/Data/ReadShapefileMetadata"
             }
           ]
         }
@@ -309,8 +357,35 @@
               "Path": "Samples/Geoprocessing/AnalyzeViewshed"
             },
             {
+              "SampleName": "ViewshedCamera",
+              "Path": "Samples/Analysis/ViewshedCamera"
+            },
+            {
+              "SampleName": "LineOfSightLocation",
+              "Path": "Samples/Analysis/LineOfSightLocation"
+            },
+            {
               "SampleName": "ListGeodatabaseVersions",
               "Path": "Samples/Geoprocessing/ListGeodatabaseVersions"
+            }
+          ]
+        },
+        {
+          "Name": "Statistics",
+          "SubCategoryName": "Statistics",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "StatisticalQuery",
+              "Path": "Samples/Data/StatisticalQuery"
+            },
+            {
+              "SampleName": "StatsQueryGroupAndSort",
+              "Path": "Samples/Data/StatsQueryGroupAndSort"
+            },
+            {
+              "SampleName": "QueryCountExtent",
+              "Path": "Samples/Data/QueryCountExtent"
             }
           ]
         }

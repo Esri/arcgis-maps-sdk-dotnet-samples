@@ -54,8 +54,8 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeHotspots
         private async void OnRunAnalysisClicked(object sender, EventArgs e)
         {
             // Show busy activity indication
-            MyActivityInidicator.IsVisible = true;
-            MyActivityInidicator.IsRunning = true;
+            MyActivityIndicator.IsVisible = true;
+            MyActivityIndicator.IsRunning = true;
 
             // Get the 'from' and 'to' dates from the date pickers for the geoprocessing analysis
             DateTime myFromDate;
@@ -70,8 +70,8 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeHotspots
                 await DisplayAlert("Invalid date", "Please enter a valid date", "OK");
 
                 // Remove the busy activity indication
-                MyActivityInidicator.IsRunning = false;
-                MyActivityInidicator.IsVisible = false;
+                MyActivityIndicator.IsRunning = false;
+                MyActivityIndicator.IsVisible = false;
                 return;
             }
 
@@ -82,8 +82,8 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeHotspots
                 await DisplayAlert("Invalid date range", "Please select valid time range. There has to be at least one day in between To and From dates.", "OK");
 
                 // Remove the busy activity indication
-                MyActivityInidicator.IsRunning = false;
-                MyActivityInidicator.IsVisible = false;
+                MyActivityIndicator.IsRunning = false;
+                MyActivityIndicator.IsVisible = false;
                 return;
             }
 
@@ -134,8 +134,8 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeHotspots
             finally
             {
                 // Remove the busy activity indication
-                MyActivityInidicator.IsRunning = false;
-                MyActivityInidicator.IsVisible = false;
+                MyActivityIndicator.IsRunning = false;
+                MyActivityIndicator.IsVisible = false;
             }
         }
     }

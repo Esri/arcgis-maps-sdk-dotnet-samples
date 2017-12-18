@@ -51,7 +51,7 @@ namespace ArcGISRuntimeXamarin.Samples.SceneLayerUrl
             // Add created layer to the operational layers collection
             myScene.OperationalLayers.Add(sceneLayer);
 
-            // Create a camera with cordinates showing layer data 
+            // Create a camera with coordinates showing layer data 
             Camera camera = new Camera(48.378, -4.494, 200, 345, 65, 0);
 
             // Assign the Scene to the SceneView

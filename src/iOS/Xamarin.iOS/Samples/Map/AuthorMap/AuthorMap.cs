@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
@@ -29,8 +29,8 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
         // Reference to the MapView used in the app
         private MapView _myMapView;
 
-        private UISegmentedControl _segmentButton;
-        private UIToolbar _toolbar;
+        private UISegmentedControl _segmentButton = new UISegmentedControl();
+        private UIToolbar _toolbar = new UIToolbar();
 
         // Dictionary of operational layer names and URLs
         private Dictionary<string, string> _operationalLayerUrls = new Dictionary<string, string>
@@ -71,13 +71,13 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             Title = "Author and save a map";
         }
 
-        public override void ViewDidLayoutSubviews() {
+        public override void ViewDidLayoutSubviews()
+        {
             // correctly handle re-layout events (e.g. rotated phone)
             base.ViewDidLayoutSubviews();
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-
-            _segmentButton.Frame = new CoreGraphics.CGRect(10, 10, View.Bounds.Width - 20, 24);
-            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 50, View.Bounds.Width, 50);
+            _segmentButton.Frame = new CoreGraphics.CGRect(10, _toolbar.Frame.Top + 10, View.Bounds.Width - 20, _toolbar.Frame.Height - 20);
         }
 
         public override void ViewDidLoad()
@@ -116,8 +116,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             // Define the visual frame for the MapView
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
-            // Add a segmented button control
-            _segmentButton = new UISegmentedControl();
+            // Configure segmented button control
             _segmentButton.BackgroundColor = UIColor.White;
             _segmentButton.InsertSegment("Basemap", 0, false);
             _segmentButton.InsertSegment("Layers", 1, false);
@@ -127,23 +126,8 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             // Handle the "click" for each segment (new segment is selected)
             _segmentButton.ValueChanged += SegmentButtonClicked;
 
-			// Create a UIBarButtonItem where its view is the SegmentControl
-			UIBarButtonItem barButtonItem = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
-			barButtonItem.CustomView = _segmentButton;
-
-			// Create a toolbar on the bottom of the display 
-			_toolbar = new UIToolbar();
-			_toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
-			_toolbar.AutosizesSubviews = true;
-
-			// Add the bar button item to an array of UIBarButtonItems
-			UIBarButtonItem[] barButtonItems = new UIBarButtonItem[] { barButtonItem };
-
-			// Add the UIBarButtonItems array to the toolbar
-			_toolbar.SetItems(barButtonItems, true);
-
             // Add the MapView, progress bar, and UIButton to the page
-            View.AddSubviews(_myMapView, _activityIndicator, _toolbar);
+            View.AddSubviews(_myMapView, _activityIndicator, _toolbar, _segmentButton);
         }
 
         private void SegmentButtonClicked(object sender, EventArgs e)
@@ -261,13 +245,13 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
         {
             if (_oauthInfoUI != null) { return; }
 
-			// Create a view to show entry controls over the map view
+            // Create a view to show entry controls over the map view
 
-			var ovBounds = new CoreGraphics.CGRect(30, 60, (View.Bounds.Width - 60), (View.Bounds.Height - 120));
+            var ovBounds = new CoreGraphics.CGRect(30, 60, (View.Bounds.Width - 60), (View.Bounds.Height - 120));
             _oauthInfoUI = new OAuthPropsDialogOverlay(ovBounds, 0.75f, UIColor.White, AppClientId, OAuthRedirectUrl);
 
             // Handle the OnOAuthPropsInfoEntered event to get the info entered by the user
-            _oauthInfoUI.OnOAuthPropsInfoEntered += (s,e) => 
+            _oauthInfoUI.OnOAuthPropsInfoEntered += (s, e) =>
             {
                 // Store the settings entered and use them to update the AuthenticationManager
                 AppClientId = e.ClientId;
@@ -280,7 +264,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             };
 
             // Handle the cancel event when the user closes the dialog without choosing to save
-            _oauthInfoUI.OnCanceled += (s, e) => 
+            _oauthInfoUI.OnCanceled += (s, e) =>
             {
                 _oauthInfoUI.Hide();
                 _oauthInfoUI = null;
@@ -295,7 +279,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             if (_mapInfoUI != null) { return; }
 
             // Create a view to show map item info entry controls over the map view
-            var ovBounds = new CoreGraphics.CGRect(0, 60, View.Bounds.Width, View.Bounds.Height - 60); 
+            var ovBounds = new CoreGraphics.CGRect(0, 60, View.Bounds.Width, View.Bounds.Height - 60);
             _mapInfoUI = new SaveMapDialogOverlay(ovBounds, 0.75f, UIColor.White, (PortalItem)_myMapView.Map.Item);
 
             // Handle the OnMapInfoEntered event to get the info entered by the user
@@ -351,7 +335,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                     Stream imageStream = await thumbnailImg.GetEncodedBufferAsync();
 
                     // Update the item thumbnail
-                    (myMap.Item as PortalItem).SetThumbnailWithImage(imageStream);                    
+                    (myMap.Item as PortalItem).SetThumbnailWithImage(imageStream);
                     await myMap.SaveAsync();
 
                     // Report update was successful
@@ -421,6 +405,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
         }
 
         #region OAuth helpers
+
         private void UpdateAuthenticationManager()
         {
             // Register the server information with the AuthenticationManager
@@ -470,10 +455,11 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                             info.GenerateTokenOptions
                     ) as OAuthTokenCredential;
             }
-            catch (Exception ex)
+            catch (TaskCanceledException) { return credential; }
+            catch (Exception)
             {
                 // Exception will be reported in calling function
-                throw (ex);
+                throw;
             }
 
             return credential;
@@ -482,11 +468,11 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
         // IOAuthAuthorizeHandler.AuthorizeAsync implementation
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
-            // If the TaskCompletionSource is not null, authorization is in progress
+            // If the TaskCompletionSource is not null, authorization may already be in progress and should be cancelled
             if (_taskCompletionSource != null)
             {
-                // Allow only one authorization process at a time
-                throw new Exception();
+                // Try to cancel any existing authentication process
+                _taskCompletionSource.TrySetCanceled();
             }
 
             // Create a task completion source
@@ -497,7 +483,10 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 clientId: AppClientId,
                 scope: "",
                 authorizeUrl: new Uri(AuthorizeUrl),
-                redirectUrl: new Uri(OAuthRedirectUrl));
+                redirectUrl: new Uri(OAuthRedirectUrl))
+            {
+                ShowErrors = false
+            };
 
             // Allow the user to cancel the OAuth attempt
             auth.AllowCancel = true;
@@ -513,7 +502,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                     // Throw an exception if the user could not be authenticated
                     if (!authArgs.IsAuthenticated)
                     {
-                        throw new Exception("Unable to authenticate user.");
+                        throw(new Exception("Unable to authenticate user."));
                     }
 
                     // If authorization was successful, get the user's account
@@ -525,8 +514,12 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 catch (Exception ex)
                 {
                     // If authentication failed, set the exception on the TaskCompletionSource
-                    _taskCompletionSource.SetException(ex);
+                    _taskCompletionSource.TrySetException(ex);
+
+                    // Cancel authentication
+                    auth.OnCancelled();
                 }
+
             };
 
             // If an error was encountered when authenticating, set the exception on the TaskCompletionSource
@@ -540,6 +533,9 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 {
                     _taskCompletionSource.TrySetException(new Exception(errArgs.Message));
                 }
+
+                // Cancel authentication
+                auth.OnCancelled();
             };
 
             // Present the OAuth UI (on the app's UI thread) so the user can enter user name and password
@@ -589,7 +585,8 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             // Return the dictionary of string keys/values
             return keyValueDictionary;
         }
-        #endregion
+
+        #endregion OAuth helpers
     }
 
     // View containing "configure OAuth" controls (client id and redirect url inputs with save/cancel buttons)
@@ -603,9 +600,9 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
 
         // Store the input controls so the values can be read
         private UITextField _clientIdTextField;
+
         private UITextField _redirectUrlTextField;
 
-        
         public OAuthPropsDialogOverlay(CoreGraphics.CGRect frame, nfloat transparency, UIColor color, string clientId, string redirectUrl) : base(frame)
         {
             // Create a semi-transparent overlay with the specified background color
@@ -639,7 +636,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             // Client ID text input and label
             var clientIdLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
             clientIdLabel.Text = "Client ID";
-            
+
             controlY = controlY + controlHeight + lessRowSpace;
 
             _clientIdTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
@@ -665,11 +662,11 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
 
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;
-            
-            // Button to save the values 
+
+            // Button to save the values
             UIButton saveButton = new UIButton(new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight));
             saveButton.SetTitle("Save", UIControlState.Normal);
-            saveButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            saveButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
             saveButton.TouchUpInside += SaveButtonClick;
 
             // Adjust the X position for the next control
@@ -734,7 +731,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
 
         // Redirect Url property
         public string RedirectUrl { get; set; }
-        
+
         // Store map item values passed into the constructor
         public OAuthPropsSavedEventArgs(string clientId, string redirectUrl)
         {
@@ -754,6 +751,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
 
         // Store the input controls so the values can be read
         private UITextField _titleTextField;
+
         private UITextField _descriptionTextField;
         private UITextField _tagsTextField;
 
@@ -823,10 +821,10 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;
 
-            // Button to save the map 
+            // Button to save the map
             UIButton saveButton = new UIButton(new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight));
             saveButton.SetTitle("Save", UIControlState.Normal);
-            saveButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            saveButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
             saveButton.TouchUpInside += SaveButtonClick;
 
             // Adjust the X position for the next control

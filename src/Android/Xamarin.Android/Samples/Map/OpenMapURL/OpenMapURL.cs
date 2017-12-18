@@ -44,7 +44,7 @@ namespace ArcGISRuntimeXamarin.Samples.OpenMapURL
         {
             base.OnCreate(bundle);
 
-            Title = "Open Map (URL)";
+            Title = "Open map (URL)";
 
             // Create the UI, setup the control references and execute initialization 
             CreateLayout();

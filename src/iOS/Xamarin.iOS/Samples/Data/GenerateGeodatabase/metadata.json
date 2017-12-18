@@ -11,6 +11,25 @@
   "Image": "GenerateGeodatabase.jpg",
   "DataFileNames": [ "SanFrancisco.tpk" ],
   "Link": "",
-  "TypeLink": [ "T:Esri.ArcGISRuntime.Tasks.Offline.GeodatabaseSyncTask", "T:Esri.ArcGISRuntime.Tasks.Offline.GenerateGeodatabaseJob", "T:Esri.ArcGISRuntime.Mapping.TileCache", "M:Esri.ArcGISRuntime.Mapping.ArcGISTiledLayer.#ctor(Esri.ArcGISRuntime.Mapping.TileCache)", "M:Esri.ArcGISRuntime.Tasks.Offline.GeodatabaseSyncTask.CreateAsync(System.Uri,Esri.ArcGISRuntime.Security.Credential)", "P:Esri.ArcGISRuntime.Tasks.Offline.GeodatabaseSyncTask.ServiceInfo", "P:Esri.ArcGISRuntime.ArcGISServices.ArcGISMapServiceInfo.LayerInfos", "M:Esri.ArcGISRuntime.Geometry.EnvelopeBuilder.#ctor(Esri.ArcGISRuntime.Geometry.Envelope)", "T:Esri.ArcGISRuntime.Geometry.EnvelopeBuilder", "T:Esri.ArcGISRuntime.Tasks.Offline.GenerateGeodatabaseParameters", "T:Esri.ArcGISRuntime.Data.GeodatabaseFeatureTable", "T:Esri.ArcGISRuntime.Data.Geodatabase", "M:Esri.ArcGISRuntime.Tasks.Offline.GeodatabaseSyncTask.UnregisterGeodatabaseAsync(Esri.ArcGISRuntime.Data.Geodatabase)" ],
+  "TypeLink": [
+"T:Esri.ArcGISRuntime.Tasks.Offline.GeodatabaseSyncTask",
+"T:Esri.ArcGISRuntime.Tasks.Offline.GenerateGeodatabaseJob",
+"T:Esri.ArcGISRuntime.Mapping.TileCache",
+"M:Esri.ArcGISRuntime.Mapping.ArcGISTiledLayer.#ctor(Esri.ArcGISRuntime.Mapping.TileCache)",
+"M:Esri.ArcGISRuntime.Tasks.Offline.GeodatabaseSyncTask.CreateAsync(System.Uri,Esri.ArcGISRuntime.Security.Credential)",
+"P:Esri.ArcGISRuntime.Tasks.Offline.GeodatabaseSyncTask.ServiceInfo",
+"P:Esri.ArcGISRuntime.ArcGISServices.ArcGISMapServiceInfo.LayerInfos",
+"M:Esri.ArcGISRuntime.Geometry.EnvelopeBuilder.#ctor(Esri.ArcGISRuntime.Geometry.Envelope)",
+"T:Esri.ArcGISRuntime.Geometry.EnvelopeBuilder",
+"T:Esri.ArcGISRuntime.Tasks.Offline.GenerateGeodatabaseParameters",
+"T:Esri.ArcGISRuntime.Data.GeodatabaseFeatureTable",
+"M:Esri.ArcGISRuntime.Tasks.Offline.GeodatabaseSyncTask.UnregisterGeodatabaseAsync(Esri.ArcGISRuntime.Data.Geodatabase)",
+"P:Esri.ArcGISRuntime.ArcGISServices.ArcGISFeatureServiceInfo.LayerInfos",
+"P:Esri.ArcGISRuntime.ArcGISServices.IdInfo.Id",
+"P:Esri.ArcGISRuntime.Data.FeatureTable.LoadStatus",
+"T:Esri.ArcGISRuntime.ArcGISServices.ArcGISFeatureServiceInfo",
+"T:Esri.ArcGISRuntime.ArcGISServices.IdInfo",
+"T:Esri.ArcGISRuntime.Tasks.JobMessage"
+],
   "SampleFolder": "GenerateGeodatabase"
 }

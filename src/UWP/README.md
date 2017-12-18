@@ -20,7 +20,7 @@
 
     This sample demonstrates how to get view status for layers in a map.
 
-    * [Take Screenshot](ArcGISRuntime.UWP.Samples/Samples/MapView/TakeScreenshot)
+    * [Take screenshot](ArcGISRuntime.UWP.Samples/Samples/MapView/TakeScreenshot)
 
     This sample demonstrates how you can take screenshot of a map. Click 'capture' button to take a screenshot of the visible area of the map. Created image is shown in the sample after creation.
 
@@ -32,6 +32,14 @@
 
     This sample illustrates how to show callouts on a map in response to user interaction.
 
+    * [Feature layer time offset](ArcGISRuntime.UWP.Samples/Samples/MapView/FeatureLayerTimeOffset)
+
+    This sample demonstrates how to show data from the same service side-by-side with a time offset. This allows for the comparison of data over time.
+
+    * [GeoView viewpoint synchronization](ArcGISRuntime.UWP.Samples/Samples/MapView/GeoViewSync)
+
+    This sample demonstrates how to keep two geo views (MapView/SceneView) in sync with each other.
+
 
 - **Map**
 
@@ -39,7 +47,7 @@
 
     This sample demonstrates how to display a map with a basemap.
 
-    * [Open Map (URL)](ArcGISRuntime.UWP.Samples/Samples/Map/OpenMapURL)
+    * [Open map (URL)](ArcGISRuntime.UWP.Samples/Samples/Map/OpenMapURL)
 
     This sample demonstrates loading a webmap in a map from a Uri.
 
@@ -51,7 +59,7 @@
 
     This sample demonstrates searching a portal for web maps and loading them in the map view. You can search ArcGIS Online public web maps using tag values or browse the web maps in your account. OAuth is used to authenticate with ArcGIS Online to access items in your account.
 
-    * [Set Min & Max Scale](ArcGISRuntime.UWP.Samples/Samples/Map/SetMinMaxScale)
+    * [Set min & max scale](ArcGISRuntime.UWP.Samples/Samples/Map/SetMinMaxScale)
 
     This sample demonstrates how to set the minimum and maximum scale of a Map. Setting the minimum and maximum scale for the Map can be useful in keeping the user focused at a certain level of detail.
 
@@ -75,7 +83,7 @@
 
     This sample demonstrates how to dynamically change the basemap displayed in a Map.
 
-    * [Manage Bookmarks](ArcGISRuntime.UWP.Samples/Samples/Map/ManageBookmarks)
+    * [Manage bookmarks](ArcGISRuntime.UWP.Samples/Samples/Map/ManageBookmarks)
 
     This sample demonstrates how to access and add bookmarks to a map.
 
@@ -115,6 +123,18 @@
 
     This sample demonstrates how to display a WMTS layer on a map via a Uri and WmtsLayerInfo.
 
+    * [WMS layer (URL)](ArcGISRuntime.UWP.Samples/Samples/Layers/WMSLayerUrl)
+
+    This sample demonstrates how to add a layer from a WMS service to a map.
+
+    * [WMS service catalog](ArcGISRuntime.UWP.Samples/Samples/Layers/WmsServiceCatalog)
+
+    This sample demonstrates how to enable and disable the display of layers discovered from a WMS service.
+
+    * [Identify WMS features](ArcGISRuntime.UWP.Samples/Samples/Layers/WmsIdentify)
+
+    This sample demonstrates how to identify WMS features and display the associated content for an identified WMS feature.
+
 
 - **Raster Layers**
 
@@ -133,6 +153,10 @@
     * [Raster rendering rule](ArcGISRuntime.UWP.Samples/Samples/Layers/RasterRenderingRule)
 
     This sample demonstrates how to create an `ImageServiceRaster`, fetch the `RenderingRule`s from the service info, and use a `RenderingRule` to create an `ImageServiceRaster` and add it to a raster layer.
+
+    * [Raster layer (GeoPackage)](ArcGISRuntime.UWP.Samples/Samples/Data/RasterLayerGeoPackage)
+
+    This sample demonstrates how to open a GeoPackage and show a GeoPackage raster in a raster layer.
 
 ## Features
 
@@ -167,9 +191,17 @@
 
     This sample demonstrates how to create a feature collection layer to show a query result from a service feature table.
 
+    * [Time-based query](ArcGISRuntime.UWP.Samples/Samples/Layers/TimeBasedQuery)
+
+    This sample demonstrates how to apply a time-based parameter to a feature layer query.
+
     * [Feature layer dictionary renderer](ArcGISRuntime.UWP.Samples/Samples/Layers/FeatureLayerDictionaryRenderer)
 
     Demonstrates how to apply a dictionary renderer to a feature layer and display mil2525d graphics. The dictionary renderer creates these graphics using a mil2525d style file and the attributes attached to each feature within the geodatabase.
+
+    * [Feature Layer Rendering Mode (Map)](ArcGISRuntime.UWP.Samples/Samples/Layers/FeatureLayerRenderingModeMap)
+
+    This sample demonstrates how to use load settings to set preferred rendering mode for feature layers, specifically static or dynamic rendering modes.
 
 
 - **Feature Tables**
@@ -194,9 +226,25 @@
 
     This sample demonstrates how to take a feature service offline by generating a geodatabase.
 
+    * [Geodatabase transactions](ArcGISRuntime.UWP.Samples/Samples/Data/GeodatabaseTransactions)
+
+    This sample demonstrates how to manage edits to a local geodatabase inside of transactions.
+
+    * [Feature layer (GeoPackage)](ArcGISRuntime.UWP.Samples/Samples/Data/FeatureLayerGeoPackage)
+
+    This sample demonstrates how to open a GeoPackage and show a GeoPackage feature table in a feature layer.
+
+    * [Feature layer (shapefile)](ArcGISRuntime.UWP.Samples/Samples/Data/FeatureLayerShapefile)
+
+    This sample demonstrates how to open a shapefile stored on the device and display it as a feature layer with default symbology.
+
     * [Edit and sync features](ArcGISRuntime.UWP.Samples/Samples/Data/EditAndSyncFeatures)
 
     This sample demonstrates how to synchronize offline edits with a feature service.
+
+    * [Read shapefile metadata](ArcGISRuntime.UWP.Samples/Samples/Data/ReadShapefileMetadata)
+
+    This sample demonstrates how to open a shapefile stored on the device, read metadata that describes the dataset, and display it as a feature layer with default symbology.
 
 ## Display Information
 
@@ -206,6 +254,10 @@
     * [Add graphics (SimpleRenderer)](ArcGISRuntime.UWP.Samples/Samples/GraphicsOverlay/AddGraphicsRenderer)
 
     This sample demonstrates how you add graphics and set a renderer on a graphic overlays.
+
+    * [Surface placement](ArcGISRuntime.UWP.Samples/Samples/GraphicsOverlay/SurfacePlacements)
+
+    This sample demonstrates how to position graphics using different Surface Placements.
 
     * [Identify graphics](ArcGISRuntime.UWP.Samples/Samples/GraphicsOverlay/IdentifyGraphics)
 
@@ -243,13 +295,32 @@
 
     This sample demonstrates how to execute the GeoprocessingTask asynchronously to calculate a hotspot analysis based on the frequency of 911 calls. It calculates the frequency of these calls within a given study area during a specified constrained time period set between 1/1/1998 and 5/31/1998.
 
-    * [Analyze viewshed](ArcGISRuntime.UWP.Samples/Samples/Geoprocessing/AnalyzeViewshed)
+    * [Viewshed (Geoprocessing)](ArcGISRuntime.UWP.Samples/Samples/Geoprocessing/AnalyzeViewshed)
 
     This sample demonstrates how to use GeoprocessingTask to calculate a viewshed using a geoprocessing service. Click any point on the map to see all areas that are visible within a 1 kilometer radius. It may take a few seconds for the model to run and send back the results.
+
+    * [Viewshed for camera](ArcGISRuntime.UWP.Samples/Samples/Analysis/ViewshedCamera)
+
+    This sample demonstrates how to create a `LocationViewshed` to display interactive viewshed results in the scene view. The viewshed observer is defined by the scene view camera to evaluate visible and obstructed areas of the scene from that location.
+
+    * [Line of sight from location](ArcGISRuntime.UWP.Samples/Samples/Analysis/LineOfSightLocation)
+
+    This sample demonstrates a `LocationLineOfSight` analysis that shows segments that are visible or obstructed along a line drawn from observer to target.
 
     * [List geodatabase versions](ArcGISRuntime.UWP.Samples/Samples/Geoprocessing/ListGeodatabaseVersions)
 
     This sample demonstrates how to use GeoprocessingTask to get available geodatabase versions from the enterprise geodatabase. Geoprocessing task will return the versions as a table that is shown to the user in a list. This is a good example how to use geoprocessing on mapless application.
+
+
+- **Statistics**
+
+    * [Statistical query](ArcGISRuntime.UWP.Samples/Samples/Data/StatisticalQuery)
+
+    This sample demonstrates how to query a feature table to get statistics for a specified field.
+
+    * [Statistical query group and sort results](ArcGISRuntime.UWP.Samples/Samples/Data/StatsQueryGroupAndSort)
+
+    This sample demonstrates how to query a feature table to get statistics for a specified field and to group and sort the results.
 
 ## Scenes
 
@@ -257,7 +328,7 @@
 
     This sample demonstrates how to create a `DistanceCompositeSceneSymbol` with unique marker symbols to display at various distances from the camera.
 
-* [ArcGIS Scene layer (URL)](ArcGISRuntime.UWP.Samples/Samples/Layers/SceneLayerUrl)
+* [ArcGIS scene layer (URL)](ArcGISRuntime.UWP.Samples/Samples/Layers/SceneLayerUrl)
 
     This sample demonstrates how to add an ArcGISSceneLayer as a layer in a Scene.
 
@@ -273,7 +344,7 @@
 
 ## Location
 
-* [Display Device Location](ArcGISRuntime.UWP.Samples/Samples/Location/DisplayDeviceLocation)
+* [Display device location](ArcGISRuntime.UWP.Samples/Samples/Location/DisplayDeviceLocation)
 
     This sample demonstrates how you can enable location services and switch between different types of auto pan modes.
 
@@ -282,11 +353,11 @@
 
 - **Working with Places**
 
-    * [Find Address](ArcGISRuntime.UWP.Samples/Samples/Search/FindAddress)
+    * [Find address](ArcGISRuntime.UWP.Samples/Samples/Search/FindAddress)
 
     This sample demonstrates how you can use the LocatorTask API to geocode an address and display it with a pin on the map. Tapping the pin displays the reverse-geocoded address in a callout.
 
-    * [Find Place](ArcGISRuntime.UWP.Samples/Samples/Search/FindPlace)
+    * [Find place](ArcGISRuntime.UWP.Samples/Samples/Search/FindPlace)
 
     This sample demonstrates how to use geocode functionality to search for points of interest, around a location or within an extent.
 

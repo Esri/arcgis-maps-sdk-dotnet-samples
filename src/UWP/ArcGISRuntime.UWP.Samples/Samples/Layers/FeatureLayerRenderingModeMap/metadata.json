@@ -1,0 +1,25 @@
+{
+  "Name": "Feature Layer Rendering Mode (Map)",
+  "SampleName": "FeatureLayerRenderingModeMap",
+  "Description": "This sample demonstrates how to use load settings to set preferred rendering mode for feature layers, specifically static or dynamic rendering modes.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": false,
+  "RequiresLocalServer": false,
+  "Image": "FeatureLayerRenderingModeMap.jpg",
+  "Link": "",
+  "TypeLink": 
+  [
+    "P:Esri.ArcGISRuntime.Mapping.Map.LoadSettings",
+    "P:Esri.ArcGISRuntime.Mapping.LoadSettings.PreferredPointFeatureRenderingMode",
+    "P:Esri.ArcGISRuntime.Mapping.LoadSettings.PreferredPolylineFeatureRenderingMode",
+    "P:Esri.ArcGISRuntime.Mapping.LoadSettings.PreferredPolygonFeatureRenderingMode",
+    "T:Esri.ArcGISRuntime.Mapping.FeatureRenderingMode",
+    "F:Esri.ArcGISRuntime.Mapping.FeatureRenderingMode.Static",
+    "F:Esri.ArcGISRuntime.Mapping.FeatureRenderingMode.Dynamic",
+    "M:Esri.ArcGISRuntime.Mapping.Layer.Clone",
+    "T:Esri.ArcGISRuntime.Mapping.LoadSettings",
+    "M:Esri.ArcGISRuntime.Mapping.Viewpoint.#ctor(Esri.ArcGISRuntime.Geometry.MapPoint,System.Double,System.Double)"
+  ]
+}

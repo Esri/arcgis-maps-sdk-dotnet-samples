@@ -51,6 +51,9 @@ namespace ArcGISRuntime.UWP.Samples.ArcGISVectorTiledLayerUrl
             // Set titles as a items source
             vectorLayersChooser.ItemsSource = _vectorLayerNames;
 
+            // Set the initial selection
+            vectorLayersChooser.SelectedIndex = 3;
+
             // Assign the map to the MapView
             MyMapView.Map = myMap;
         }
@@ -84,7 +87,7 @@ namespace ArcGISRuntime.UWP.Samples.ArcGISVectorTiledLayerUrl
             // Create a new ArcGISVectorTiledLayer with the Url Selected by the user
             _vectorTiledLayer = new ArcGISVectorTiledLayer(new Uri(_vectorTiledLayerUrl));
 
-            // // Create new Map with basemap and assigning to the Mapviews Map
+            // Create new Map with basemap and assigning to the MapView's Map
             MyMapView.Map = new Map(new Basemap(_vectorTiledLayer));
         }
     }

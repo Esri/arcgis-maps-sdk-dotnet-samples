@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
@@ -15,7 +15,6 @@ namespace ArcGISRuntime.WPF.Samples.ManageBookmarks
 {
     public partial class ManageBookmarks
     {
-     
         public ManageBookmarks()
         {
             InitializeComponent();
@@ -38,13 +37,13 @@ namespace ArcGISRuntime.WPF.Samples.ManageBookmarks
             // ~ Give the bookmark a name
             // ~ Assign the viewpoint
             // ~ Add the bookmark to bookmark collection of the map
-            // ~ Add the bookmark to the UI combo box for the user to choose from 
+            // ~ Add the bookmark to the UI combo box for the user to choose from
 
             // Bookmark-1
-            Viewpoint myViewpoint1 = new Viewpoint(27.3805833, 33.6321389, 6000); 
-            Bookmark myBookmark1 = new Bookmark(); 
-            myBookmark1.Name = "Mysterious Desert Pattern"; 
-            myBookmark1.Viewpoint = myViewpoint1; 
+            Viewpoint myViewpoint1 = new Viewpoint(27.3805833, 33.6321389, 6000);
+            Bookmark myBookmark1 = new Bookmark();
+            myBookmark1.Name = "Mysterious Desert Pattern";
+            myBookmark1.Viewpoint = myViewpoint1;
             MyMapView.Map.Bookmarks.Add(myBookmark1);
             bookmarkChooser.Items.Add(myBookmark1);
 
@@ -97,8 +96,7 @@ namespace ArcGISRuntime.WPF.Samples.ManageBookmarks
             TextBoxBookmarkName.Text = "";
         }
 
-
-        private void ButtonCanel_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void ButtonCancel_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             // Hide the controls to add a bookmark
             BorderAddBookmark.Visibility = System.Windows.Visibility.Hidden;
@@ -125,7 +123,7 @@ namespace ArcGISRuntime.WPF.Samples.ManageBookmarks
 
             // Get the current viewpoint from map and assign it to bookmark
             myBookmark.Viewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
-            
+
             // Add the bookmark to bookmark collection of the map
             MyMapView.Map.Bookmarks.Add(myBookmark);
 

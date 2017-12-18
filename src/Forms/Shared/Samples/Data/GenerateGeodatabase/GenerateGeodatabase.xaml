@@ -10,7 +10,7 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Button Text="Generate" Grid.Row="0" Clicked="GenerateButton_Clicked" />
+        <Button Text="Generate" Grid.Row="0" Clicked="GenerateButton_Clicked" x:Name="myGenerateButton" IsEnabled="False" />
         <ProgressBar IsVisible="False" Grid.Row="1" x:Name="myProgressBar" MinimumHeightRequest="10" />
         <esriUI:MapView x:Name="myMapView"  Grid.Row="2" />
     </Grid>

@@ -36,7 +36,7 @@ Namespace AccessLoadStatus
             Dispatcher.BeginInvoke(
                 New ThreadStart(
                     Function() InlineAssignHelper(
-                        loadStatusLabel.Content, String.Format("Maps' load status : {0}", e.Status.ToString()))))
+                        loadStatusLabel.Content, String.Format("Map's load status : {0}", e.Status.ToString()))))
         End Sub
         Private Shared Function InlineAssignHelper(Of T)(ByRef target As T, value As T) As T
             target = value

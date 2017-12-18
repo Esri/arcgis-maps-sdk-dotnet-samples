@@ -16,9 +16,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-#if __IOS__ 
+
+#if __IOS__
 using Xamarin.Forms.Platform.iOS;
 using Xamarin.Auth;
+using UIKit;
 #endif
 
 #if __ANDROID__
@@ -221,7 +223,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                 var cred = await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
                 loggedIn = cred != null;
             }
-            catch (OperationCanceledException ex)
+            catch (OperationCanceledException)
             {
                 // Login was canceled
                 // .. ignore, user can still search public maps without logging in
@@ -229,7 +231,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             catch (Exception ex)
             {
                 // Login failure
-                DisplayAlert("Login Error", ex.Message, "OK");
+                await DisplayAlert("Login Error", ex.Message, "OK");
             }
 
             return loggedIn;
@@ -290,10 +292,11 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                 // IOAuthAuthorizeHandler will challenge the user for OAuth credentials
                 credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
             }
-            catch (Exception ex)
+            catch (TaskCanceledException) { return credential; }
+            catch (Exception)
             {
                 // Exception will be reported in calling function
-                throw (ex);
+                throw;
             }
 
             return credential;
@@ -306,11 +309,11 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
         // IOAuthAuthorizeHandler.AuthorizeAsync implementation
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
-            // If the TaskCompletionSource is not null, authorization is in progress
+            // If the TaskCompletionSource is not null, authorization may already be in progress and should be cancelled
             if (_taskCompletionSource != null)
             {
-                // Allow only one authorization process at a time
-                throw new Exception();
+                // Try to cancel any existing authentication task
+                _taskCompletionSource.TrySetCanceled();
             }
 
             // Create a task completion source
@@ -323,14 +326,17 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
 #endif
 #if __IOS__
             // Get the current iOS ViewController
-            var viewController = Platform.GetRenderer(this).ViewController;
+            var viewController = Xamarin.Forms.Platform.iOS.Platform.GetRenderer(this).ViewController;
 #endif
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in
             Xamarin.Auth.OAuth2Authenticator authenticator = new Xamarin.Auth.OAuth2Authenticator(
                 clientId: _appClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
-                redirectUrl: callbackUri);
+                redirectUrl: callbackUri)
+            {
+                ShowErrors = false
+            };
 
             // Allow the user to cancel the OAuth attempt
             authenticator.AllowCancel = true;
@@ -362,7 +368,10 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                 catch (Exception ex)
                 {
                     // If authentication failed, set the exception on the TaskCompletionSource
-                    _taskCompletionSource.SetException(ex);
+                    _taskCompletionSource.TrySetException(ex);
+
+                    // Cancel authentication
+                    authenticator.OnCancelled();
                 }
                 finally
                 {
@@ -392,6 +401,9 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
 #endif
                     }
                 }
+
+                // Cancel authentication
+                authenticator.OnCancelled();
             };
 
             // Present the OAuth UI so the user can enter user name and password

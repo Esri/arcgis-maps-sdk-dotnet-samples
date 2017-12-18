@@ -205,14 +205,14 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeViewshed
             if (isBusy)
             {
                 // Show busy activity indication
-                MyActivityInidicator.IsVisible = true;
-                MyActivityInidicator.IsRunning = true;
+                MyActivityIndicator.IsVisible = true;
+                MyActivityIndicator.IsRunning = true;
             }
             else
             {
                 // Remove the busy activity indication
-                MyActivityInidicator.IsRunning = false;
-                MyActivityInidicator.IsVisible = false;
+                MyActivityIndicator.IsRunning = false;
+                MyActivityIndicator.IsVisible = false;
 
             }
         }

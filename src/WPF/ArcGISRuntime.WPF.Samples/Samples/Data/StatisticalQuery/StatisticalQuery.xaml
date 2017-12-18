@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="ArcGISRuntime.WPF.Samples.StatisticalQuery.StatisticalQuery"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <CheckBox x:Name="OnlyInExtentCheckbox"
+                      Grid.Row="1" Grid.Column="0"
+                      HorizontalAlignment="Right" VerticalAlignment="Center"/>            
+            <TextBlock Grid.Row="1" Grid.Column="1"
+                       HorizontalAlignment="Left" VerticalAlignment="Center"
+                       Margin="5,0"
+                       Text="Only cities in current extent"/>
+            <CheckBox x:Name="OnlyBigCitiesCheckbox"
+                      Grid.Row="2" Grid.Column="0"
+                      HorizontalAlignment="Right"/>
+            <TextBlock Grid.Row="2" Grid.Column="1"
+                       HorizontalAlignment="Left"
+                       Margin="5,0"
+                       Text="Only cities greater than 5M"/>
+            <Button x:Name="GetStatsButton"
+                    Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                    Height="30"
+                    Margin="10"
+                    Content="Get Statistics"
+                    Click="OnExecuteStatisticsQueryClicked"/>
+            <ListBox x:Name="StatResultsListBox"
+                      Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
+                      HorizontalAlignment="Stretch"
+                      Margin="5"
+                      Height="200"/>
+        </Grid>
+        <esri:MapView x:Name="MyMapView" Grid.Column="1"/>
+    </Grid>
+
+</UserControl>

@@ -1,21 +1,21 @@
 {
-  "Categories":[
+  "Categories": [
     {
-      "Name":"Maps",
-      "CategoryName":"Maps",
-      "SubCategories":[
+      "Name": "Maps",
+      "CategoryName": "Maps",
+      "SubCategories": [
         {
-          "Name":"MapView",
-          "SubCategoryName":"MapView",
-          "ShowGroup":true,
-          "SampleInfos":[
+          "Name": "MapView",
+          "SubCategoryName": "MapView",
+          "ShowGroup": true,
+          "SampleInfos": [
             {
               "SampleName": "ChangeViewpoint",
               "Path": "Samples/MapView/ChangeViewpoint"
             },
             {
-              "SampleName":"DisplayDrawingStatus",
-              "Path":"Samples/MapView/DisplayDrawingStatus"
+              "SampleName": "DisplayDrawingStatus",
+              "Path": "Samples/MapView/DisplayDrawingStatus"
             },
             {
               "SampleName": "MapRotation",
@@ -32,17 +32,25 @@
             {
               "SampleName": "ShowCallout",
               "Path": "Samples/MapView/ShowCallout"
+            },
+            {
+              "SampleName": "FeatureLayerTimeOffset",
+              "Path": "Samples/MapView/FeatureLayerTimeOffset"
+            },
+            {
+              "SampleName": "GeoViewSync",
+              "Path": "Samples/MapView/GeoViewSync"
             }
           ]
         },
         {
-          "Name":"Map",
-          "SubCategoryName":"Map",
-          "ShowGroup":true,
-          "SampleInfos":[
+          "Name": "Map",
+          "SubCategoryName": "Map",
+          "ShowGroup": true,
+          "SampleInfos": [
             {
-              "SampleName":"DisplayMap",
-              "Path":"Samples/Map/DisplayMap"
+              "SampleName": "DisplayMap",
+              "Path": "Samples/Map/DisplayMap"
             },
             {
               "SampleName": "OpenMobileMap",
@@ -50,32 +58,32 @@
 
             },
             {
-              "SampleName":"OpenMapURL",
-              "Path":"Samples/Map/OpenMapURL"
+              "SampleName": "OpenMapURL",
+              "Path": "Samples/Map/OpenMapURL"
             },
             {
-              "SampleName":"SearchPortalMaps",
-              "Path":"Samples/Map/SearchPortalMaps"
+              "SampleName": "SearchPortalMaps",
+              "Path": "Samples/Map/SearchPortalMaps"
             },
             {
-              "SampleName":"ChangeBasemap",
-              "Path":"Samples/Map/ChangeBasemap"
+              "SampleName": "ChangeBasemap",
+              "Path": "Samples/Map/ChangeBasemap"
             },
             {
-              "SampleName":"SetMinMaxScale",
-              "Path":"Samples/Map/SetMinMaxScale"
+              "SampleName": "SetMinMaxScale",
+              "Path": "Samples/Map/SetMinMaxScale"
             },
             {
-              "SampleName":"SetInitialMapLocation",
-              "Path":"Samples/Map/SetInitialMapLocation"
+              "SampleName": "SetInitialMapLocation",
+              "Path": "Samples/Map/SetInitialMapLocation"
             },
             {
-              "SampleName":"SetInitialMapArea",
-              "Path":"Samples/Map/SetInitialMapArea"
+              "SampleName": "SetInitialMapArea",
+              "Path": "Samples/Map/SetInitialMapArea"
             },
             {
-              "SampleName":"SetMapSpatialReference",
-              "Path":"Samples/Map/SetMapSpatialReference"
+              "SampleName": "SetMapSpatialReference",
+              "Path": "Samples/Map/SetMapSpatialReference"
             },
             {
               "SampleName": "AccessLoadStatus",
@@ -94,14 +102,14 @@
       ]
     },
     {
-      "Name":"Layers",
-      "CategoryName":"Layers",
-      "SubCategories":[
+      "Name": "Layers",
+      "CategoryName": "Layers",
+      "SubCategories": [
         {
-          "Name":"Tiled Layers",
-          "SubCategoryName":"ArcGISTiledLayer",
-          "ShowGroup":true,
-          "SampleInfos":[
+          "Name": "Tiled Layers",
+          "SubCategoryName": "ArcGISTiledLayer",
+          "ShowGroup": true,
+          "SampleInfos": [
             {
               "SampleName": "ArcGISTiledLayerUrl",
               "Path": "Samples/Layers/ArcGISTiledLayerUrl"
@@ -132,14 +140,26 @@
             {
               "SampleName": "WMTSLayer",
               "Path": "Samples/Layers/WMTSLayer"
+            },
+            {
+              "SampleName": "WMSLayerUrl",
+              "Path": "Samples/Layers/WMSLayerUrl"
+            },
+            {
+              "SampleName": "WmsServiceCatalog",
+              "Path": "Samples/Layers/WmsServiceCatalog"
+            },
+            {
+              "SampleName": "WmsIdentify",
+              "Path": "Samples/Layers/WmsIdentify"
             }
           ]
         },
         {
-          "Name":"Raster Layers",
-          "SubCategoryName":"RasterLayer",
-          "ShowGroup":true,
-          "SampleInfos":[
+          "Name": "Raster Layers",
+          "SubCategoryName": "RasterLayer",
+          "ShowGroup": true,
+          "SampleInfos": [
             {
               "SampleName": "RasterLayerImageServiceRaster",
               "Path": "Samples/Layers/RasterLayerImageServiceRaster"
@@ -155,15 +175,19 @@
             {
               "SampleName": "RasterRenderingRule",
               "Path": "Samples/Layers/RasterRenderingRule"
+            },
+            {
+              "SampleName": "RasterLayerGeoPackage",
+              "Path": "Samples/Data/RasterLayerGeoPackage"
             }
           ]
         }
       ]
     },
     {
-      "Name":"Features",
-      "CategoryName":"Features",
-      "SubCategories":[
+      "Name": "Features",
+      "CategoryName": "Features",
+      "SubCategories": [
         {
           "Name": "Feature Layers",
           "SubCategoryName": "FeatureLayers",
@@ -181,7 +205,7 @@
               "SampleName": "FeatureLayerSelection",
               "Path": "Samples/Layers/FeatureLayerSelection"
             },
-               {
+            {
               "SampleName": "FeatureLayerDefinitionExpression",
               "Path": "Samples/Layers/FeatureLayerDefinitionExpression"
             },
@@ -198,19 +222,27 @@
               "Path": "Samples/Layers/FeatureCollectionLayerFromQuery"
             },
             {
+              "SampleName": "TimeBasedQuery",
+              "Path": "Samples/Layers/TimeBasedQuery"
+            },
+            {
               "SampleName": "FeatureLayerDictionaryRenderer",
               "Path": "Samples/Layers/FeatureLayerDictionaryRenderer"
+            },
+            {
+              "SampleName": "FeatureLayerRenderingModeMap",
+              "Path": "Samples/Layers/FeatureLayerRenderingModeMap"
             }
           ]
         },
         {
-          "Name":"Feature Tables",
-          "SubCategoryName":"FeatureTables",
-          "ShowGroup":true,
+          "Name": "Feature Tables",
+          "SubCategoryName": "FeatureTables",
+          "ShowGroup": true,
           "SampleInfos": [
-             {
-              "SampleName":"ServiceFeatureTableCache",
-              "Path":"Samples/Data/ServiceFeatureTableCache"
+            {
+              "SampleName": "ServiceFeatureTableCache",
+              "Path": "Samples/Data/ServiceFeatureTableCache"
             },
             {
               "SampleName": "ServiceFeatureTableNoCache",
@@ -229,8 +261,24 @@
               "Path": "Samples/Data/GenerateGeodatabase"
             },
             {
+              "SampleName": "GeodatabaseTransactions",
+              "Path": "Samples/Data/GeodatabaseTransactions"
+            },
+            {
+              "SampleName": "FeatureLayerShapefile",
+              "Path": "Samples/Data/FeatureLayerShapefile"
+            },
+            {
               "SampleName": "EditAndSyncFeatures",
               "Path": "Samples/Data/EditAndSyncFeatures"
+            },
+            {
+              "SampleName": "FeatureLayerGeoPackage",
+              "Path": "Samples/Data/FeatureLayerGeoPackage"
+            },
+            {
+              "SampleName": "ReadShapefileMetadata",
+              "Path": "Samples/Data/ReadShapefileMetadata"
             }
           ]
         }
@@ -298,8 +346,43 @@
           "ShowGroup": true,
           "SampleInfos": [
             {
+              "SampleName": "AnalyzeHotspots",
+              "Path": "Samples/Geoprocessing/AnalyzeHotspots"
+            },
+            {
               "SampleName": "AnalyzeViewshed",
               "Path": "Samples/Geoprocessing/AnalyzeViewshed"
+            },
+            {
+              "SampleName": "ViewshedCamera",
+              "Path": "Samples/Analysis/ViewshedCamera"
+            },
+            {
+              "SampleName": "LineOfSightLocation",
+              "Path": "Samples/Analysis/LineOfSightLocation"
+            },
+            {
+              "SampleName": "ListGeodatabaseVersions",
+              "Path": "Samples/Geoprocessing/ListGeodatabaseVersions"
+            }
+          ]
+        },
+        {
+          "Name": "Statistics",
+          "SubCategoryName": "Statistics",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "StatisticalQuery",
+              "Path": "Samples/Data/StatisticalQuery"
+            },
+            {
+              "SampleName": "StatsQueryGroupAndSort",
+              "Path": "Samples/Data/StatsQueryGroupAndSort"
+            },
+            {
+              "SampleName": "QueryCountExtent",
+              "Path": "Samples/Data/QueryCountExtent"
             }
           ]
         }

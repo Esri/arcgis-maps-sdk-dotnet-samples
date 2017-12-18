@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <!-- Build Configurations -->
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -11,8 +12,8 @@
     <AssemblyName>ArcGISRuntime.UWP.Viewer</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.14393.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
     <FileAlignment>512</FileAlignment>
@@ -78,6 +79,7 @@
     <Optimize>false</Optimize>
     <UseDotNetNativeToolchain>false</UseDotNetNativeToolchain>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>..\..\..\output\UWP\x86\release\</OutputPath>
@@ -90,38 +92,40 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <RunPostBuildEvent>Always</RunPostBuildEvent>
   </PropertyGroup>
+  <!-- /Build Configurations -->
   <ItemGroup>
+    <!-- References -->
+    <ProjectReference Include="..\ArcGISRuntime.UWP.Samples\ArcGISRuntime.UWP.Samples.CSharp.csproj">
+      <Project>{6820b615-c568-4a13-b026-a77cdd348bfa}</Project>
+      <Name>ArcGISRuntime.UWP.Samples.CSharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ArcGISRuntime.UWP.Samples\ArcGISRuntime.UWP.Samples.VBNet.vbproj">
+      <Project>{73cf6057-8ac2-40e5-90eb-f733ce87dd93}</Project>
+      <Name>ArcGISRuntime.UWP.Samples.VBNet</Name>
+    </ProjectReference>
+    <SDKReference Include="Microsoft.VCLibs, version=14.0">
+      <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
+    </SDKReference>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <None Include="project.json" />
+    <SDKReference Include="WindowsMobile, Version=10.0.14393.0">
+      <Name>Windows Mobile Extensions for the UWP</Name>
+    </SDKReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Converters\NullToVisibilityConverter.cs" />
-    <Compile Include="Converters\SampleToBitmapConverter.cs" />
-    <Compile Include="Dialogs\SampleInfoDialog.xaml.cs">
-      <DependentUpon>SampleInfoDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SamplePage.xaml.cs">
-      <DependentUpon>SamplePage.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
+    <!-- Misc Config -->
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="ArcGISRuntime.UWP.Viewer_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <!-- Misc Resources -->
     <Content Include="Assets\BadgeLogo.scale-200.png" />
     <Content Include="Assets\banner-background-blue.png" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
@@ -162,6 +166,22 @@
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
+    <!-- Sample Manager Code -->
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\NullToVisibilityConverter.cs" />
+    <Compile Include="Converters\SampleToBitmapConverter.cs" />
+    <Compile Include="Dialogs\SampleInfoDialog.xaml.cs">
+      <DependentUpon>SampleInfoDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SamplePage.xaml.cs">
+      <DependentUpon>SamplePage.xaml</DependentUpon>
+    </Compile>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -183,42 +203,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ArcGISRuntime.UWP.Samples\ArcGISRuntime.UWP.Samples.CSharp.csproj">
-      <Project>{6820b615-c568-4a13-b026-a77cdd348bfa}</Project>
-      <Name>ArcGISRuntime.UWP.Samples.CSharp</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ArcGISRuntime.UWP.Samples\ArcGISRuntime.UWP.Samples.VBNet.vbproj">
-      <Project>{73cf6057-8ac2-40e5-90eb-f733ce87dd93}</Project>
-      <Name>ArcGISRuntime.UWP.Samples.VBNet</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <SDKReference Include="Microsoft.VCLibs, version=14.0">
-      <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
-    </SDKReference>
-    <SDKReference Include="WindowsMobile, Version=10.0.10586.0">
-      <Name>Windows Mobile Extensions for the UWP</Name>
-    </SDKReference>
-  </ItemGroup>
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
-  <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

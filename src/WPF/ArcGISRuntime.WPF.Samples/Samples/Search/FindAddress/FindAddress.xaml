@@ -23,7 +23,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBox Grid.Row="0" Grid.Column="0" x:Name="MySearchBox" IsEnabled="False" />
                 <Button Content="Search" Grid.Row="0" Grid.Column="1" Click="Button_Click" IsEnabled="False" x:Name="MySearchButton" />
-                <ComboBox x:Name="MySuggestionBox" SelectionChanged="OnSugguestionChosen" Grid.Row="1" Grid.ColumnSpan="2" IsEnabled="False" />
+                <ComboBox x:Name="MySuggestionBox" SelectionChanged="OnSuggestionChosen" Grid.Row="1" Grid.ColumnSpan="2" IsEnabled="False" />
             </Grid>
         </Border>
     </Grid>

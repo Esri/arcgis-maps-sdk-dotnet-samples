@@ -53,6 +53,9 @@ namespace ArcGISRuntime.WPF.Samples.ArcGISVectorTiledLayerUrl
 
             // Assign the map to the MapView
             MyMapView.Map = myMap;
+
+            // Update UI to match selection
+            vectorLayersChooser.SelectedIndex = 3;
         }
 
         private void OnVectorLayersChooserSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -84,7 +87,7 @@ namespace ArcGISRuntime.WPF.Samples.ArcGISVectorTiledLayerUrl
             // Create a new ArcGISVectorTiledLayer with the Url Selected by the user
             _vectorTiledLayer = new ArcGISVectorTiledLayer(new Uri(_vectorTiledLayerUrl));
 
-            // // Create new Map with basemap and assigning to the Mapviews Map
+            // Create new Map with basemap and assigning to the MapView's Map
             MyMapView.Map = new Map(new Basemap(_vectorTiledLayer));
         }
     }

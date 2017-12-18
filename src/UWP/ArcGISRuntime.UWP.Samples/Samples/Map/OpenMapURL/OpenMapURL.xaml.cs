@@ -50,6 +50,9 @@ namespace ArcGISRuntime.UWP.Samples.OpenMapURL
    
             // Set titles as a items source
             mapsChooser.ItemsSource = _titles;
+
+            // Update selected item in list
+            mapsChooser.SelectedIndex = 0;
         }
 
         private void OnMapsChooseSelectionChanged(object sender, SelectionChangedEventArgs e)

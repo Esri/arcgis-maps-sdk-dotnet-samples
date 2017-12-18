@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             x:Class="ArcGISRuntimeXamarin.Samples.ViewshedCamera.ViewshedCamera">
+    <Grid>
+        <esriUI:SceneView x:Name="MySceneView"/>
+        <Button x:Name="UpdateObserverButton"
+                Text="Viewshed from Here"
+                WidthRequest="160" HeightRequest="30"
+                HorizontalOptions="Center" VerticalOptions="Start"
+                Margin="0,5"
+                Clicked="UpdateObserverWithCamera"/>
+    </Grid>
+</ContentPage>

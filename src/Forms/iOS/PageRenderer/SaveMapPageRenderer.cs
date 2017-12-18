@@ -1,4 +1,4 @@
-using ArcGISRuntime.Samples.AuthorEditSaveMap;
+﻿using ArcGISRuntime.Samples.AuthorEditSaveMap;
 using ArcGISRuntimeXamarin.iOSPageRenderer;
 using Esri.ArcGISRuntime.Security;
 using System;
@@ -26,11 +26,11 @@ namespace ArcGISRuntimeXamarin.iOSPageRenderer
         #region IOAuthAuthorizationHandler implementation
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
-            // If the TaskCompletionSource is not null, authorization is in progress
+            // If the TaskCompletionSource is not null, authorization may already be in progress and should be cancelled
             if (_taskCompletionSource != null)
             {
-                // Allow only one authorization process at a time
-                throw new Exception();
+                // Try to cancel any existing authentication task
+                _taskCompletionSource.TrySetCanceled();
             }
 
             // Create a task completion source
@@ -41,7 +41,10 @@ namespace ArcGISRuntimeXamarin.iOSPageRenderer
                 clientId: Samples.AuthorEditSaveMap.AuthorEditSaveMap.AppClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
-                redirectUrl: callbackUri);
+                redirectUrl: callbackUri)
+            {
+                ShowErrors = false
+            };
 
             // Allow the user to cancel the OAuth attempt
             authenticator.AllowCancel = true;
@@ -69,7 +72,10 @@ namespace ArcGISRuntimeXamarin.iOSPageRenderer
                 catch (Exception ex)
                 {
                     // If authentication failed, set the exception on the TaskCompletionSource
-                    _taskCompletionSource.SetException(ex);
+                    _taskCompletionSource.TrySetException(ex);
+
+                    // Cancel authentication
+                    authenticator.OnCancelled();
                 }
             };
 
@@ -85,6 +91,9 @@ namespace ArcGISRuntimeXamarin.iOSPageRenderer
                 {
                     _taskCompletionSource.TrySetException(new Exception(errArgs.Message));
                 }
+
+                // Cancel authentication
+                authenticator.OnCancelled();
             };
 
             // Present the OAuth UI (on the app's UI thread) so the user can enter user name and password

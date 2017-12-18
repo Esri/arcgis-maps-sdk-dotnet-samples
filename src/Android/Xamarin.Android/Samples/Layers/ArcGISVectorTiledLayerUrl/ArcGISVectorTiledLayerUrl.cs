@@ -54,7 +54,7 @@ namespace ArcGISRuntimeXamarin.Samples.ArcGISVectorTiledLayerUrl
 
         private void Initialize()
         {
-            // Create a new ArcGISVectorTiledLayer with the navigation serice Url
+            // Create a new ArcGISVectorTiledLayer with the navigation service Url
             _vectorTiledLayer = new ArcGISVectorTiledLayer(new Uri(_navigationUrl));
 
             // Create new Map with basemap
@@ -122,7 +122,7 @@ namespace ArcGISRuntimeXamarin.Samples.ArcGISVectorTiledLayerUrl
 
             // Create button to show possible options
             var button = new Button(this);
-            button.Text = "ArcGISVectorTiledLayer";
+            button.Text = "Select layer";
             button.Click += OnVectorLayersClicked;
 
             // Add button to the layout

@@ -103,7 +103,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerSelection
             }
             catch (Exception ex)
             {
-                var message = new MessageDialog(ex.ToString(), "An error occured").ShowAsync();
+                var message = new MessageDialog(ex.ToString(), "An error occurred").ShowAsync();
             }
         }
     }

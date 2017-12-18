@@ -458,31 +458,6 @@
       ]
     },
     {
-      "Name": "Hydrography",
-      "CategoryName": "Hydrography",
-      "SubCategories": [
-        {
-          "Name": "Hydrography",
-          "SubCategoryName": "Hydrography",
-          "ShowGroup": false,
-          "SampleInfos": [
-            {
-              "SampleName": "AddEncExchangeSet",
-              "Path": "Samples/Hydrography/AddEncExchangeSet"
-            },
-            {
-              "SampleName": "ChangeEncDisplaySettings",
-              "Path": "Samples/Hydrography/ChangeEncDisplaySettings"
-            },
-            {
-              "SampleName": "SelectEncFeatures",
-              "Path": "Samples/Hydrography/SelectEncFeatures"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "Name": "Location",
       "CategoryName": "Location",
       "SubCategories": [

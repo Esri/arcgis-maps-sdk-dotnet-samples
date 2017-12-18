@@ -127,9 +127,6 @@
     <Content Include="Samples\GraphicsOverlay\IdentifyGraphics\metadata.json" />
     <Content Include="Samples\GraphicsOverlay\SketchOnMap\metadata.json" />
     <Content Include="Samples\GraphicsOverlay\SurfacePlacements\metadata.json" />
-    <Content Include="Samples\Hydrography\AddEncExchangeSet\metadata.json" />
-    <Content Include="Samples\Hydrography\ChangeEncDisplaySettings\metadata.json" />
-    <Content Include="Samples\Hydrography\SelectEncFeatures\metadata.json" />
     <Content Include="Samples\Layers\ArcGISMapImageLayerUrl\metadata.json" />
     <Content Include="Samples\Layers\ArcGISTiledLayerUrl\metadata.json" />
     <Content Include="Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json" />
@@ -211,9 +208,6 @@
     <Content Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.jpg" />
     <Content Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg" />
     <Content Include="Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.jpg" />
-    <Content Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
-    <Content Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
-    <Content Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg" />
     <Content Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg" />
     <Content Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.jpg" />
     <Content Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.jpg" />
@@ -338,15 +332,6 @@
     </Compile>
     <Compile Include="Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.xaml.cs">
       <DependentUpon>SurfacePlacements.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.xaml.cs">
-      <DependentUpon>AddEncExchangeSet.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.xaml.cs">
-      <DependentUpon>ChangeEncDisplaySettings.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml.cs">
-      <DependentUpon>SelectEncFeatures.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.xaml.cs">
       <DependentUpon>ArcGISMapImageLayerUrl.xaml</DependentUpon>
@@ -524,18 +509,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Layers\WmsIdentify\WmsIdentify.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

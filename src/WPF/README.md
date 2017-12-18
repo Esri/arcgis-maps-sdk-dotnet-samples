@@ -184,6 +184,10 @@
 
     Demonstrates how to apply a dictionary renderer to a feature layer and display mil2525d graphics. The dictionary renderer creates these graphics using a mil2525d style file and the attributes attached to each feature within the geodatabase.
 
+* [Feature Layer Rendering Mode (Map)](ArcGISRuntime.WPF.Samples/Samples/Layers/FeatureLayerRenderingModeMap)
+
+    This sample demonstrates how to use load settings to set preferred rendering mode for feature layers, specifically static or dynamic rendering modes.
+
 * [Service feature table (cache)](ArcGISRuntime.WPF.Samples/Samples/Data/ServiceFeatureTableCache)
 
     This sample demonstrates how to use a feature service in on interaction cache mode.
@@ -203,6 +207,10 @@
 * [Generate geodatabase](ArcGISRuntime.WPF.Samples/Samples/Data/GenerateGeodatabase)
 
     This sample demonstrates how to take a feature service offline by generating a geodatabase.
+
+* [Geodatabase transactions](ArcGISRuntime.WPF.Samples/Samples/Data/GeodatabaseTransactions)
+
+    This sample demonstrates how to manage edits to a local geodatabase inside of transactions.
 
 * [Feature layer (shapefile)](ArcGISRuntime.WPF.Samples/Samples/Data/FeatureLayerShapefile)
 
@@ -264,6 +272,10 @@
 
     This sample demonstrates how to use GeoprocessingTask to calculate a viewshed using a geoprocessing service. Click any point on the map to see all areas that are visible within a 1 kilometer radius. It may take a few seconds for the model to run and send back the results.
 
+* [Viewshed for camera](ArcGISRuntime.WPF.Samples/Samples/Analysis/ViewshedCamera)
+
+    This sample demonstrates how to create a `LocationViewshed` to display interactive viewshed results in the scene view. The viewshed observer is defined by the scene view camera to evaluate visible and obstructed areas of the scene from that location.
+
 * [Line of sight from location](ArcGISRuntime.WPF.Samples/Samples/Analysis/LineOfSightLocation)
 
     This sample demonstrates a `LocationLineOfSight` analysis that shows segments that are visible or obstructed along a line drawn from observer to target.
@@ -305,20 +317,6 @@
 * [Dynamic workspace shapefile](ArcGISRuntime.WPF.Samples/Samples/LocalServer/DynamicWorkspaceShapefile)
 
     This sample demonstrates how to dynamically add a local shapefile to a map using Local Server.
-
-## Hydrography
-
-* [Add an ENC exchange set](ArcGISRuntime.WPF.Samples/Samples/Hydrography/AddEncExchangeSet)
-
-    This sample demonstrates how to load an ENC Exchange Set, including its component cells.
-
-* [Change ENC display settings](ArcGISRuntime.WPF.Samples/Samples/Hydrography/ChangeEncDisplaySettings)
-
-    This sample demonstrates how to control ENC environment settings. These settings apply to the display of all ENC content in your app.
-
-* [Select ENC features](ArcGISRuntime.WPF.Samples/Samples/Hydrography/SelectEncFeatures)
-
-    This sample demonstrates how to select an ENC feature.
 
 ## Location
 

@@ -177,6 +177,7 @@
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
     <None Include="packages.config" />
+    <None Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg" />
   </ItemGroup>
   <ItemGroup>
     <!-- Misc Resources -->
@@ -222,6 +223,7 @@
     <BundleResource Include="Resources\Default-568h%402x.png" />
     <!-- Storyboards -->
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
+    <EmbeddedResource Include="Samples\Hydrography\SelectEncFeatures\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Manager Code-->
@@ -243,6 +245,7 @@
     <Compile Include="ViewControllers\CategoriesViewController.designer.cs">
       <DependentUpon>CategoriesViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.cs" />
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->

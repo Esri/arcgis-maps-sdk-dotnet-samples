@@ -443,8 +443,8 @@
       "SubCategories": [
         {
           "Name": "Electronic Navigational Charts (ENC)",
-          "SubCategoryName": "Enc",
-          "ShowGroup": false,
+          "SubCategoryName": "ENC",
+          "ShowGroup": true,
           "SampleInfos": [
             {
               "SampleName": "SelectEncFeatures",

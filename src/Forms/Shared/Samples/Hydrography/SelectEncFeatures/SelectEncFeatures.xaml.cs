@@ -37,7 +37,7 @@ namespace ArcGISRuntimeXamarin.Samples.SelectEncFeatures
         private async void Initialize()
         {
             // Initialize the map with an oceans basemap
-            MyMapView.Map = new Map(Basemap.CreateOceans());
+            Map myMap = new Map(Basemap.CreateOceans());
 
             // Get the path to the ENC Exchange Set
             string encPath = await GetEncPath();
@@ -49,13 +49,16 @@ namespace ArcGISRuntimeXamarin.Samples.SelectEncFeatures
             EncLayer myEncLayer = new EncLayer(new EncCell(encPath));
 
             // Add the layer to the map
-            MyMapView.Map.OperationalLayers.Add(myEncLayer);
+            myMap.OperationalLayers.Add(myEncLayer);
 
             // Wait for the layer to load
             await myEncLayer.LoadAsync();
 
             // Set the viewpoint
-            MyMapView.SetViewpoint(new Viewpoint(myEncLayer.FullExtent));
+            myMap.InitialViewpoint = new Viewpoint(myEncLayer.FullExtent);
+
+            // Add the map to the mapview
+            MyMapView.Map = myMap;
 
             // Subscribe to tap events (in order to use them to identify and select features)
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;

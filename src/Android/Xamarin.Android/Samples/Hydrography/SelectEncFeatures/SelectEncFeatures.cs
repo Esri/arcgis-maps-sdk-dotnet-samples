@@ -63,7 +63,7 @@ namespace ArcGISRuntimeXamarin.Samples.SelectEncFeatures
             await myEncLayer.LoadAsync();
 
             // Set the viewpoint
-            _myMapView.SetViewpoint(new Viewpoint(myEncLayer.FullExtent));
+            _myMapView.Map.InitialViewpoint = new Viewpoint(myEncLayer.FullExtent);
 
             // Subscribe to tap events (in order to use them to identify and select features)
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;

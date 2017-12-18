@@ -195,6 +195,10 @@
 
     Demonstrates how to apply a dictionary renderer to a feature layer and display mil2525d graphics. The dictionary renderer creates these graphics using a mil2525d style file and the attributes attached to each feature within the geodatabase.
 
+    * [Feature Layer Rendering Mode (Map)](Xamarin.iOS/Samples/Layers/FeatureLayerRenderingModeMap)
+
+    This sample demonstrates how to use load settings to set preferred rendering mode for feature layers, specifically static or dynamic rendering modes.
+
 
 - **Feature Tables**
 
@@ -217,6 +221,10 @@
     * [Generate geodatabase](Xamarin.iOS/Samples/Data/GenerateGeodatabase)
 
     This sample demonstrates how to take a feature service offline by generating a geodatabase.
+
+    * [Geodatabase transactions](Xamarin.iOS/Samples/Data/GeodatabaseTransactions)
+
+    This sample demonstrates how to manage edits to a local geodatabase inside of transactions.
 
     * [Feature layer (shapefile)](Xamarin.iOS/Samples/Data/FeatureLayerShapefile)
 
@@ -287,6 +295,10 @@
 
     This sample demonstrates how to use GeoprocessingTask to calculate a viewshed using a geoprocessing service. Click any point on the map to see all areas that are visible within a 1 kilometer radius. It may take a few seconds for the model to run and send back the results.
 
+    * [Viewshed for camera](Xamarin.iOS/Samples/Analysis/ViewshedCamera)
+
+    This sample demonstrates how to create a `LocationViewshed` to display interactive viewshed results in the scene view. The viewshed observer is defined by the scene view camera to evaluate visible and obstructed areas of the scene from that location.
+
     * [Line of sight from location](Xamarin.iOS/Samples/Analysis/LineOfSightLocation)
 
     This sample demonstrates a `LocationLineOfSight` analysis that shows segments that are visible or obstructed along a line drawn from observer to target.
@@ -330,23 +342,6 @@
     * [Display scene](Xamarin.iOS/Samples/Layers/DisplayScene)
 
     Demonstrates how to display a scene with an elevation data source. An elevation data source allows objects to be viewed in 3D, like this picture of Mt. Everest.
-
-## Hydrography
-
-
-- **Hydrography**
-
-    * [Add an ENC exchange set](Xamarin.iOS/Samples/Hydrography/AddEncExchangeSet)
-
-    This sample demonstrates how to load an ENC Exchange Set, including its component cells.
-
-    * [Change ENC display settings](Xamarin.iOS/Samples/Hydrography/ChangeEncDisplaySettings)
-
-    This sample demonstrates how to control ENC environment settings. These settings apply to the display of all ENC content in your app.
-
-    * [Select ENC features](Xamarin.iOS/Samples/Hydrography/SelectEncFeatures)
-
-    This sample demonstrates how to select an ENC feature.
 
 ## Location
 

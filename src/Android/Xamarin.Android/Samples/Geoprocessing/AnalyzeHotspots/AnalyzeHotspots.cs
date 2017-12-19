@@ -71,6 +71,9 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeHotspots
 
         private async void OnRunAnalysisClicked(object sender, EventArgs e)
         {
+            // Clear any existing results
+            _myMapView.Map.OperationalLayers.Clear();
+
             // Show busy activity indication
             _myProgressBar.Visibility = ViewStates.Visible;
 

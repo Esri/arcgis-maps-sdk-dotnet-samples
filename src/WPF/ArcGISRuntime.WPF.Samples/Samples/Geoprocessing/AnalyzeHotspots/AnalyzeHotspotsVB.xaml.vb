@@ -49,6 +49,8 @@ Namespace AnalyzeHotspots
         End Sub
 
         Private Async Sub OnAnalyzeHotspotsClicked(ByVal sender As Object, ByVal e As RoutedEventArgs)
+            ' Clear any existing results
+            MyMapView.Map.OperationalLayers.Clear()
 
             ' Show the busyOverlay indication
             ShowBusyOverlay()

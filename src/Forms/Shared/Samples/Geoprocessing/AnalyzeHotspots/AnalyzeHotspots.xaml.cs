@@ -53,6 +53,9 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeHotspots
 
         private async void OnRunAnalysisClicked(object sender, EventArgs e)
         {
+            // Clear any existing results
+            MyMapView.Map.OperationalLayers.Clear();
+
             // Show busy activity indication
             MyActivityIndicator.IsVisible = true;
             MyActivityIndicator.IsRunning = true;

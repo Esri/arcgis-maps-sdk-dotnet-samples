@@ -32,6 +32,9 @@ namespace ArcGISRuntimeXamarin.Samples.ViewshedCamera
         // Location viewshed analysis to show visible and obstructed areas from the camera
         private LocationViewshed _viewshedForCamera;
 
+        // Button for updating the analysis viewpoint
+        private UIButton _updateViewshedButton;
+
         public ViewshedCamera()
         {
             Title = "Viewshed from camera";
@@ -91,18 +94,21 @@ namespace ArcGISRuntimeXamarin.Samples.ViewshedCamera
             _mySceneView.Frame = new CoreGraphics.CGRect(
                 0, 0, View.Bounds.Width, View.Bounds.Height);
 
+            // Update the visual frame for the button
+            _updateViewshedButton.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 60, View.Bounds.Width, 30);
+
             base.ViewDidLayoutSubviews();
         }
         
         private void CreateLayout()
         {
             // Create a button to update the viewshed using the current camera
-            UIButton updateViewshedButton = new UIButton(new CoreGraphics.CGRect(0,View.Bounds.Height - 60,View.Bounds.Width,30));
-            updateViewshedButton.SetTitle("Viewshed from here", UIControlState.Normal);
-            updateViewshedButton.TouchUpOutside += UpdateObserverWithCamera;
+            _updateViewshedButton = new UIButton(new CoreGraphics.CGRect(0,View.Bounds.Height - 60,View.Bounds.Width,30));
+            _updateViewshedButton.SetTitle("Viewshed from here", UIControlState.Normal);
+            _updateViewshedButton.TouchUpInside += UpdateObserverWithCamera;
 
             // Add SceneView and button to the page
-            View.AddSubviews(_mySceneView, updateViewshedButton);
+            View.AddSubviews(_mySceneView, _updateViewshedButton);
         }
     }
 }

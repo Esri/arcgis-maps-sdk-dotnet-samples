@@ -135,6 +135,8 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureCollectionLayerFromPortal
             // Create a text input for the portal item Id
             _collectionItemIdTextBox = new UITextField();
             _collectionItemIdTextBox.BackgroundColor = UIColor.LightGray;
+            // Allow pressing 'return' to dismiss the keyboard
+            _collectionItemIdTextBox.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
             // Create a button for adding features from a portal item
             _addFeaturesButton = new UIButton(UIButtonType.Custom);

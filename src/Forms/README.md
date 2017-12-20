@@ -199,6 +199,10 @@
 
     Demonstrates how to apply a dictionary renderer to a feature layer and display mil2525d graphics. The dictionary renderer creates these graphics using a mil2525d style file and the attributes attached to each feature within the geodatabase.
 
+    * [Feature Layer Rendering Mode (Map)](Shared/Samples/Layers/FeatureLayerRenderingModeMap)
+
+    This sample demonstrates how to use load settings to set preferred rendering mode for feature layers, specifically static or dynamic rendering modes.
+
 
 - **Feature Tables**
 
@@ -221,6 +225,10 @@
     * [Generate geodatabase](Shared/Samples/Data/GenerateGeodatabase)
 
     This sample demonstrates how to take a feature service offline by generating a geodatabase.
+
+    * [Geodatabase transactions](Shared/Samples/Data/GeodatabaseTransactions)
+
+    This sample demonstrates how to manage edits to a local geodatabase inside of transactions.
 
     * [Feature layer (shapefile)](Shared/Samples/Data/FeatureLayerShapefile)
 
@@ -291,6 +299,10 @@
 
     This sample demonstrates how to use GeoprocessingTask to calculate a viewshed using a geoprocessing service. Click any point on the map to see all areas that are visible within a 1 kilometer radius. It may take a few seconds for the model to run and send back the results.
 
+    * [Viewshed for camera](Shared/Samples/Analysis/ViewshedCamera)
+
+    This sample demonstrates how to create a `LocationViewshed` to display interactive viewshed results in the scene view. The viewshed observer is defined by the scene view camera to evaluate visible and obstructed areas of the scene from that location.
+
     * [Line of sight from location](Shared/Samples/Analysis/LineOfSightLocation)
 
     This sample demonstrates a `LocationLineOfSight` analysis that shows segments that are visible or obstructed along a line drawn from observer to target.
@@ -338,23 +350,6 @@
     * [Find a route](Shared/Samples/NetworkAnalysis/FindRoute)
 
     This sample demonstrates how to solve for the best route between two locations on the map and display driving directions between them.
-
-## Hydrography
-
-
-- **Hydrography**
-
-    * [Add an ENC exchange set](Shared/Samples/Hydrography/AddEncExchangeSet)
-
-    This sample demonstrates how to load an ENC Exchange Set, including its component cells.
-
-    * [Change ENC display settings](Shared/Samples/Hydrography/ChangeEncDisplaySettings)
-
-    This sample demonstrates how to control ENC environment settings. These settings apply to the display of all ENC content in your app.
-
-    * [Select ENC features](Shared/Samples/Hydrography/SelectEncFeatures)
-
-    This sample demonstrates how to select an ENC feature.
 
 ## Location
 

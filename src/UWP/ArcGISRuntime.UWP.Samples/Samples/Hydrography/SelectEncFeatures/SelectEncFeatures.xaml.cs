@@ -67,6 +67,9 @@ namespace ArcGISRuntime.UWP.Samples.SelectEncFeatures
                 // Clear the layer's selection
                 layer.ClearSelection();
             }
+
+            // Clear the callout
+            MyMapView.DismissCallout();
         }
 
         private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
@@ -119,7 +122,7 @@ namespace ArcGISRuntime.UWP.Samples.SelectEncFeatures
             if (!File.Exists(filepath))
             {
                 // Download the file
-                await DataManager.GetData("a490098c60f64d3bbac10ad131cc62c7", "GB5x01NW.000");
+                await DataManager.GetData("a490098c60f64d3bbac10ad131cc62c7", "SelectEncFeatures");
             }
 
             return filepath;

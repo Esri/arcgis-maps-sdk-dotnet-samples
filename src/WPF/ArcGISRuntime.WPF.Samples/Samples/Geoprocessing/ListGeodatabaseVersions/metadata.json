@@ -1,7 +1,7 @@
 {
   "Name": "List geodatabase versions",
   "SampleName": "ListGeodatabaseVersions",
-  "Description": "This sample demonstrates how to use GeoprocessingTask to get available geodatabase versions from the enterprise geodatabase. Geoprocessing task will return the versions as a table that is shown to the user in a list. This is a good example how to use geoprocessing on mapless application.",
+  "Description": "This sample calls a custom GeoprocessingTask to get a list of available versions for an enterprise geodatabase. The task returns a table of geodatabase version information, which is displayed in the app as a list.",
   "Instructions": "",
   "Type": 0,
   "RequiresOnlineConnection": true,
@@ -9,5 +9,5 @@
   "RequiresLocalServer": false,
   "Image": "ListGeodatabaseVersions.jpg",
   "Link": "",
-  "TypeLink": ["T:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingResult","P:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingResult.Outputs","T:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingTask","M:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingTask.#ctor(System.Uri)","P:Esri.ArcGISRuntime.Data.GeoElement.Attributes","P:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingFeatures.Features","M:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingParameters.#ctor(Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingExecutionType)"]
+  "TypeLink": [ "T:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingResult", "P:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingResult.Outputs", "T:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingTask", "M:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingTask.#ctor(System.Uri)", "P:Esri.ArcGISRuntime.Data.GeoElement.Attributes", "P:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingFeatures.Features", "M:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingParameters.#ctor(Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingExecutionType)" ]
 }

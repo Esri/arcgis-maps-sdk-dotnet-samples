@@ -68,12 +68,20 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeViewshed
             _inputOverlay.Graphics.Clear();
             _resultOverlay.Graphics.Clear();
 
+            // Get the tapped point
+            MapPoint geometry = e.Location;
+
             // Create a marker graphic where the user clicked on the map and add it to the existing graphics overlay 
-            Graphic myInputGraphic = new Graphic(e.Location);
+            Graphic myInputGraphic = new Graphic(geometry);
             _inputOverlay.Graphics.Add(myInputGraphic);
 
+            // Normalize the geometry if wrap-around is enabled
+            //    This is necessary because of how wrapped-around map coordinates are handled by Runtime
+            //    Without this step, the task may fail because wrapped-around coordinates are out of bounds.
+            if (MyMapView.IsWrapAroundEnabled) { geometry = GeometryEngine.NormalizeCentralMeridian(geometry) as MapPoint; }
+
             // Execute the geoprocessing task using the user click location 
-            await CalculateViewshed(e.Location);
+            await CalculateViewshed(geometry);
         }
 
         private async Task CalculateViewshed(MapPoint location)

@@ -644,6 +644,8 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             _clientIdTextField.Text = clientId;
             _clientIdTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
             _clientIdTextField.BackgroundColor = UIColor.LightGray;
+            // Allow pressing 'return' to dismiss the keyboard
+            _clientIdTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;
@@ -659,6 +661,8 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             _redirectUrlTextField.Text = redirectUrl;
             _redirectUrlTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
             _redirectUrlTextField.BackgroundColor = UIColor.LightGray;
+            // Allow pressing 'return' to dismiss the keyboard
+            _redirectUrlTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;
@@ -799,6 +803,8 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             _titleTextField.Placeholder = "Title";
             _titleTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
             _titleTextField.BackgroundColor = UIColor.LightGray;
+            // Allow pressing 'return' to dismiss the keyboard
+            _titleTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;
@@ -808,6 +814,8 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             _descriptionTextField.Placeholder = "Description";
             _descriptionTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
             _descriptionTextField.BackgroundColor = UIColor.LightGray;
+            // Allow pressing 'return' to dismiss the keyboard
+            _descriptionTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;
@@ -817,6 +825,8 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             _tagsTextField.Text = "ArcGIS Runtime, Web Map";
             _tagsTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
             _tagsTextField.BackgroundColor = UIColor.LightGray;
+            // Allow pressing 'return' to dismiss the keyboard
+            _tagsTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;

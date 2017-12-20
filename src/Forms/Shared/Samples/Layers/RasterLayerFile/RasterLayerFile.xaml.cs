@@ -30,7 +30,10 @@ namespace ArcGISRuntimeXamarin.Samples.RasterLayerFile
         private async void Initialize()
         {
             // Add an imagery basemap
-            MyMapView.Map = new Map(Basemap.CreateImagery());
+            Map myMap = new Map(Basemap.CreateImagery());
+
+            // Wait for the map to load
+            await myMap.LoadAsync();
 
             // Get the file name
             String filepath = GetRasterPath();
@@ -41,20 +44,17 @@ namespace ArcGISRuntimeXamarin.Samples.RasterLayerFile
             // Create the layer
             RasterLayer myRasterLayer = new RasterLayer(myRasterFile);
 
-            // Load the layer
+            // Add the layer to the map
+            myMap.OperationalLayers.Add(myRasterLayer);
+
+            // Wait for the layer to load
             await myRasterLayer.LoadAsync();
 
-            // Convert the layer's extent to the correct spatial reference
-            Geometry convertedExtent = GeometryEngine.Project(myRasterLayer.FullExtent, SpatialReferences.WebMercator);
-
-            // Get the raster's extent in a viewpoint
-            Viewpoint myFullRasterExtent = new Viewpoint(convertedExtent);
-
             // Set the viewpoint
-            MyMapView.SetViewpoint(myFullRasterExtent);
+            myMap.InitialViewpoint = new Viewpoint(myRasterLayer.FullExtent);
 
-            // Add the layer to the map
-            MyMapView.Map.OperationalLayers.Add(myRasterLayer);
+            // Add map to the mapview
+            MyMapView.Map = myMap;
         }
 
         private string GetRasterPath()

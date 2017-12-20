@@ -171,6 +171,8 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerQuery
             _queryTextView.Placeholder = "State name";
             _queryTextView.AdjustsFontSizeToFitWidth = true;
             _queryTextView.BackgroundColor = UIColor.White;
+            // Allow pressing 'return' to dismiss the keyboard
+            _queryTextView.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
             // Create button to invoke the query
             _queryButton = new UIButton();

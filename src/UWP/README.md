@@ -342,6 +342,12 @@
 
     This sample demonstrates how to solve for the best route between two locations on the map and display driving directions between them.
 
+## Hydrography
+
+* [Select ENC features](ArcGISRuntime.UWP.Samples/Samples/Hydrography/SelectEncFeatures)
+
+    This sample demonstrates how to select an ENC feature.
+
 ## Location
 
 * [Display device location](ArcGISRuntime.UWP.Samples/Samples/Location/DisplayDeviceLocation)

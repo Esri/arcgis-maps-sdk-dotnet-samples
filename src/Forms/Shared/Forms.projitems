@@ -12,6 +12,9 @@
     <!-- Misc Resources -->
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\PictureMarkerSymbols\pin_star_blue.png" />
     <Folder Include="$(MSBuildThisFileDirectory)Assets\" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Manager Code-->
@@ -66,6 +69,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\IdentifyGraphics\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SketchOnMap\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SurfacePlacements\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Hydrography\SelectEncFeatures\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISMapImageLayerUrl\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISTiledLayerUrl\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json" />
@@ -147,6 +151,7 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.jpg" />
@@ -290,6 +295,10 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.xaml.cs">
       <DependentUpon>SurfacePlacements.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml.cs">
+      <DependentUpon>SelectEncFeatures.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.xaml.cs">

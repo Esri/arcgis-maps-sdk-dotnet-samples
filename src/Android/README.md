@@ -351,6 +351,15 @@
 
     This sample demonstrates how to solve for the best route between two locations on the map and display driving directions between them.
 
+## Hydrography
+
+
+- **Electronic Navigational Charts (ENC)**
+
+    * [Select ENC features](Xamarin.Android/Samples/Hydrography/SelectEncFeatures)
+
+    This sample demonstrates how to select an ENC feature.
+
 ## Location
 
 

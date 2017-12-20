@@ -318,6 +318,12 @@
 
     This sample demonstrates how to dynamically add a local shapefile to a map using Local Server.
 
+## Hydrography
+
+* [Select ENC features](ArcGISRuntime.WPF.Samples/Samples/Hydrography/SelectEncFeatures)
+
+    This sample demonstrates how to select an ENC feature.
+
 ## Location
 
 * [Display device location](ArcGISRuntime.WPF.Samples/Samples/Location/DisplayDeviceLocation)

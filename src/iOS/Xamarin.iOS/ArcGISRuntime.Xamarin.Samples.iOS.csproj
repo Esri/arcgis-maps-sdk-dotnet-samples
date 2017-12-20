@@ -132,9 +132,6 @@
       <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.2.0\lib\Xamarin.iOS10\Esri.ArcGISRuntime.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Esri.ArcGISRuntime.Hydrography, Version=100.2.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.2.0\lib\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.dll</HintPath>
-    </Reference>
     <Reference Include="Esri.ArcGISRuntime.Preview, Version=100.2.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.2.0\lib\Xamarin.iOS10\Esri.ArcGISRuntime.Preview.dll</HintPath>
     </Reference>
@@ -170,6 +167,9 @@
       <HintPath>..\..\..\packages\Xamarin.Auth.1.5.0.3\lib\Xamarin.iOS10\Xamarin.Auth.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.iOS" />
+    <Reference Include="Esri.ArcGISRuntime.Hydrography">
+      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.2.0\lib\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <!-- Misc Config -->
@@ -177,6 +177,7 @@
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
     <None Include="packages.config" />
+    <None Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg" />
     <None Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -223,6 +224,7 @@
     <BundleResource Include="Resources\Default-568h%402x.png" />
     <!-- Storyboards -->
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
+    <EmbeddedResource Include="Samples\Hydrography\SelectEncFeatures\metadata.json" />
     <EmbeddedResource Include="Samples\Geoprocessing\ListGeodatabaseVersions\metadata.json" />
   </ItemGroup>
   <ItemGroup>
@@ -245,6 +247,7 @@
     <Compile Include="ViewControllers\CategoriesViewController.designer.cs">
       <DependentUpon>CategoriesViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.cs" />
     <Compile Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.cs" />
   </ItemGroup>
   <ItemGroup>

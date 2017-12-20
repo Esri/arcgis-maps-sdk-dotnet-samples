@@ -438,6 +438,23 @@
       ]
     },
     {
+      "Name": "Hydrography",
+      "CategoryName": "Hydrography",
+      "SubCategories": [
+        {
+          "Name": "Electronic Navigational Charts (ENC)",
+          "SubCategoryName": "ENC",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "SelectEncFeatures",
+              "Path": "Samples/Hydrography/SelectEncFeatures"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "Name": "Location",
       "CategoryName": "Location",
       "SubCategories": [

@@ -69,6 +69,9 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeHotspots
 
         private async void OnAnalyzeHotspotsClicked(object sender, RoutedEventArgs e)
         {
+            // Clear any existing results
+            MyMapView.Map.OperationalLayers.Clear();
+
             // Show the busyOverlay indication
             ShowBusyOverlay();
 

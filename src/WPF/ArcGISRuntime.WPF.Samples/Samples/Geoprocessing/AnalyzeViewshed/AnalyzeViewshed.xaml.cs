@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
@@ -42,7 +42,7 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeViewshed
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             Initialize();
         }
 
@@ -63,7 +63,7 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeViewshed
 
         private async void OnMapViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            // The geoprocessing task is still executing, don't do anything else (i.e. respond to 
+            // The geoprocessing task is still executing, don't do anything else (i.e. respond to
             // more user taps) until the processing is complete.
             if (_isExecutingGeoprocessing)
             {
@@ -77,20 +77,28 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeViewshed
             _inputOverlay.Graphics.Clear();
             _resultOverlay.Graphics.Clear();
 
-            // Create a marker graphic where the user clicked on the map and add it to the existing graphics overlay 
-            Graphic myInputGraphic = new Graphic(e.Location);
+            // Get the tapped point
+            MapPoint geometry = e.Location;
+
+            // Create a marker graphic where the user clicked on the map and add it to the existing graphics overlay
+            Graphic myInputGraphic = new Graphic(geometry);
             _inputOverlay.Graphics.Add(myInputGraphic);
 
-            // Execute the geoprocessing task using the user click location 
-            await CalculateViewshed(e.Location);
+            // Normalize the geometry if wrap-around is enabled
+            //    This is necessary because of how wrapped-around map coordinates are handled by Runtime
+            //    Without this step, the task may fail because wrapped-around coordinates are out of bounds.
+            if (MyMapView.IsWrapAroundEnabled) { geometry = GeometryEngine.NormalizeCentralMeridian(geometry) as MapPoint; }
+
+            // Execute the geoprocessing task using the user click location
+            await CalculateViewshed(geometry);
         }
 
         private async Task CalculateViewshed(MapPoint location)
         {
-            // This function will define a new geoprocessing task that performs a custom viewshed analysis based upon a 
+            // This function will define a new geoprocessing task that performs a custom viewshed analysis based upon a
             // user click on the map and then display the results back as a polygon fill graphics overlay. If there
-            // is a problem with the execution of the geoprocessing task an error message will be displayed 
-            
+            // is a problem with the execution of the geoprocessing task an error message will be displayed
+
             // Create new geoprocessing task using the url defined in the member variables section
             var myViewshedTask = await GeoprocessingTask.CreateAsync(new Uri(_viewshedUrl));
 
@@ -107,7 +115,7 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeViewshed
             await myInputFeatures.AddFeatureAsync(myInputFeature);
 
             // Create the parameters that are passed to the used geoprocessing task
-            GeoprocessingParameters myViewshedParameters = 
+            GeoprocessingParameters myViewshedParameters =
                 new GeoprocessingParameters(GeoprocessingExecutionType.SynchronousExecute);
 
             // Request the output features to use the same SpatialReference as the map view
@@ -151,7 +159,7 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeViewshed
 
         private void CreateOverlays()
         {
-            // This function will create the overlays that show the user clicked location and the results of the 
+            // This function will create the overlays that show the user clicked location and the results of the
             // viewshed analysis. Note: the overlays will not be populated with any graphics at this point
 
             // Create renderer for input graphic. Set the size and color properties for the simple renderer
@@ -170,7 +178,7 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeViewshed
                 Renderer = myInputRenderer
             };
 
-            // Create fill renderer for output of the viewshed analysis. Set the color property of the simple renderer 
+            // Create fill renderer for output of the viewshed analysis. Set the color property of the simple renderer
             SimpleRenderer myResultRenderer = new SimpleRenderer()
             {
                 Symbol = new SimpleFillSymbol()
@@ -194,7 +202,7 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeViewshed
         {
             // This function toggles the visibility of the 'busyOverlay' Grid control defined in xaml,
             // sets the 'progress' control feedback status and updates the _isExecutingGeoprocessing
-            // boolean to denote if the viewshed analysis is executing as a result of the user click 
+            // boolean to denote if the viewshed analysis is executing as a result of the user click
             // on the map
 
             if (isBusy)

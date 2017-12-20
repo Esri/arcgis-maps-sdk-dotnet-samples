@@ -30,6 +30,10 @@
               "Path": "Samples/MapView/TakeScreenshot"
             },
             {
+              "SampleName": "ShowMagnifier",
+              "Path": "Samples/MapView/ShowMagnifier"
+            },
+            {
               "SampleName": "ShowCallout",
               "Path": "Samples/MapView/ShowCallout"
             },

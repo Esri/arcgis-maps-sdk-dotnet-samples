@@ -143,6 +143,7 @@
     </AndroidAsset>
     <None Include="Properties\AndroidManifest.xml" />
     <EmbeddedResource Include="Samples\Hydrography\SelectEncFeatures\metadata.json" />
+    <AndroidResource Include="Resources\layout\FeatureLayerRenderingModeScene.axml" />
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Manager Code -->

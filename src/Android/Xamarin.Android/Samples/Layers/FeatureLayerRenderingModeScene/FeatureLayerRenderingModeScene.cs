@@ -97,30 +97,19 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerRenderingModeScene
 
         private void CreateLayout()
         {
-            // Create the labels and button
-            TextView staticLabel = new TextView(this) { Text = "Static Mode: " };
-            TextView dynamicLabel = new TextView(this) { Text = "Dynamic Mode: " };
-            Button zoomButton = new Button(this) { Text = "Animated Zoom" };
+            // Show the layout in the app
+            SetContentView(Resource.Layout.FeatureLayerRenderingModeScene);
+
+            // Get the mapviews and sceneviews
+            _myStaticScene = FindViewById<SceneView>(Resource.Id.flrms_staticSceneView);
+            _myDynamicScene = FindViewById<SceneView>(Resource.Id.flrms_dynamicSceneView);
+
+            // Get the button
+            Button zoomButton = FindViewById<Button>(Resource.Id.flrms_zoomButton);
 
             // Subscribe to zoom button events
             zoomButton.Click += ZoomButton_Click;
 
-            // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
-
-            // Add static scene
-            layout.AddView(staticLabel);
-            layout.AddView(_myStaticScene);
-
-            // Add zoom button
-            layout.AddView(zoomButton);
-
-            // Add dynamic scene
-            layout.AddView(dynamicLabel);
-            layout.AddView(_myDynamicScene);
-
-            // Show the layout in the app
-            SetContentView(layout);
         }
 
         private void ZoomButton_Click(object sender, System.EventArgs e)

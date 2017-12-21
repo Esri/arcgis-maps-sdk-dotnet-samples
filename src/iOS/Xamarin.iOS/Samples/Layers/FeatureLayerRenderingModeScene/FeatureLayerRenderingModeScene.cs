@@ -108,6 +108,9 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerRenderingModeScene
 
             // Add views to page
             View.AddSubviews(_myStaticScene, _myDynamicScene, _staticLabel, _dynamicLabel, _zoomButton);
+
+            // Set view background
+            View.BackgroundColor = UIColor.White;
         }
 
         private void _zoomButton_TouchUpInside(object sender, System.EventArgs e)
@@ -143,10 +146,10 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerRenderingModeScene
 
             // Setup the visual frames for the views
             _myStaticScene.Frame = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, centerLine - 25);
-            _myDynamicScene.Frame = new CoreGraphics.CGRect(0, centerLine + 25, View.Bounds.Width, centerLine - 25);
-            _staticLabel.Frame = new CoreGraphics.CGRect(10, topMargin + 10, View.Bounds.Width / 2, 50);
-            _dynamicLabel.Frame = new CoreGraphics.CGRect(10, centerLine + 35, View.Bounds.Width / 2, 50);
-            _zoomButton.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2, centerLine, View.Bounds.Width / 2, 50);
+            _myDynamicScene.Frame = new CoreGraphics.CGRect(0, topMargin + centerLine + 25, View.Bounds.Width, centerLine - 25);
+            _staticLabel.Frame = new CoreGraphics.CGRect(10, topMargin, View.Bounds.Width / 2, 50);
+            _dynamicLabel.Frame = new CoreGraphics.CGRect(10, centerLine + topMargin - 25, View.Bounds.Width / 2, 50);
+            _zoomButton.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2, centerLine + topMargin - 25, View.Bounds.Width / 2, 50);
 
             base.ViewDidLayoutSubviews();
         }

@@ -8,8 +8,9 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
-using System;
+using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.Xamarin.Forms;
+using System;
 using Xamarin.Forms;
 
 namespace ArcGISRuntimeXamarin.Samples.GeoViewSync
@@ -31,6 +32,11 @@ namespace ArcGISRuntimeXamarin.Samples.GeoViewSync
             // Initialize the MapView and SceneView with a basemap
             MyMapView.Map = new Map(Basemap.CreateImageryWithLabels());
             MySceneView.Scene = new Scene(Basemap.CreateImageryWithLabels());
+
+            // Disable 'flick' gesture - this is the most straightforward way to prevent the 'flick'
+            //     animation on one view from competing with user interaction on the other
+            MySceneView.InteractionOptions = new SceneViewInteractionOptions { IsFlickEnabled = false };
+            MyMapView.InteractionOptions = new MapViewInteractionOptions { IsFlickEnabled = false };
 
             // Subscribe to viewpoint change events for both views
             MyMapView.ViewpointChanged += view_viewpointChanged;

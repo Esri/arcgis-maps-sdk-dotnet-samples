@@ -283,6 +283,10 @@
             {
               "SampleName": "ReadShapefileMetadata",
               "Path": "Samples/Data/ReadShapefileMetadata"
+            },
+            {
+              "SampleName": "SymbolizeShapefile",
+              "Path": "Samples/Data/SymbolizeShapefile"
             }
           ]
         }

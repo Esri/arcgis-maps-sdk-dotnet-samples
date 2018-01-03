@@ -101,6 +101,7 @@
     <None Include="project.json" />
     <Content Include="Properties\ArcGISRuntime.Windows.Samples.rd.xml" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Samples\Symbology\FeatureLayerExtrusion\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
@@ -178,6 +179,7 @@
     <Content Include="Samples\NetworkAnalysis\FindRoute\metadata.json" />
     <Content Include="Samples\Search\FindAddress\metadata.json" />
     <Content Include="Samples\Search\FindPlace\metadata.json" />
+    <Content Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.jpg" />
     <Content Include="Samples\Symbology\RenderPictureMarkers\metadata.json" />
     <Content Include="Samples\Symbology\RenderSimpleMarkers\metadata.json" />
     <Content Include="Samples\Symbology\RenderUniqueValues\metadata.json" />
@@ -487,6 +489,9 @@
     </Compile>
     <Compile Include="Samples\Search\FindPlace\FindPlace.xaml.cs">
       <DependentUpon>FindPlace.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.xaml.cs">
+      <DependentUpon>FeatureLayerExtrusion.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.xaml.cs">
       <DependentUpon>RenderPictureMarkers.xaml</DependentUpon>
@@ -798,6 +803,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Search\FindPlace\FindPlace.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

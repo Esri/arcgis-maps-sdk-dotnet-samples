@@ -421,6 +421,10 @@
             {
               "SampleName": "UseDistanceCompositeSym",
               "Path": "Samples/Symbology/UseDistanceCompositeSym"
+            },
+            {
+              "SampleName": "FeatureLayerExtrusion",
+              "Path": "Samples/Symbology/FeatureLayerExtrusion"
             }
           ]
         },

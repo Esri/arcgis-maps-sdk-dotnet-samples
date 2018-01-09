@@ -101,6 +101,7 @@
     <None Include="project.json" />
     <Content Include="Properties\ArcGISRuntime.Windows.Samples.rd.xml" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Samples\Data\ReadGeoPackage\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
@@ -114,6 +115,7 @@
     <Content Include="Samples\Data\GenerateGeodatabase\metadata.json" />
     <Content Include="Samples\Data\GeodatabaseTransactions\metadata.json" />
     <Content Include="Samples\Data\RasterLayerGeoPackage\metadata.json" />
+    <Content Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.jpg" />
     <Content Include="Samples\Data\ReadShapefileMetadata\metadata.json" />
     <Content Include="Samples\Data\ServiceFeatureTableCache\metadata.json" />
     <Content Include="Samples\Data\ServiceFeatureTableManualCache\metadata.json" />
@@ -295,6 +297,9 @@
     </Compile>
     <Compile Include="Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.xaml.cs">
       <DependentUpon>RasterLayerGeoPackage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.xaml.cs">
+      <DependentUpon>ReadGeoPackage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.xaml.cs">
       <DependentUpon>ReadShapefileMetadata.xaml</DependentUpon>
@@ -510,6 +515,10 @@
   <ItemGroup>
     <!-- Sample XAML -->
     <Page Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

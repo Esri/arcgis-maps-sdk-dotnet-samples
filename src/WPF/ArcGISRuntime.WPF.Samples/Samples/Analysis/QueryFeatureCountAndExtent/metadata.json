@@ -1,8 +1,8 @@
 {
   "Name": "Query feature count and extent",
   "SampleName": "QueryFeatureCountAndExtent",
-  "Description": "",
-  "Instructions": "", 
+  "Description": "This sample demonstrates how to query a feature table, in this case returning a count, for features that are within the visible extent or that meet specified criteria.",
+  "Instructions": "Use the buttons to query by extent or by state name. Features (cities) matching the criteria will be counted and the count will be displayed in the results.", 
   "Type": 0,
   "RequiresOnlineConnection": true,
   "RequiresOfflineData": false,

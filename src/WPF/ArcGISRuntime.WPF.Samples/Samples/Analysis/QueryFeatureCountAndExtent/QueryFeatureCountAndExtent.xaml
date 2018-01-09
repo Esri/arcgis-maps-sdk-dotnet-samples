@@ -7,7 +7,23 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <esri:MapView x:Name="MyMapView"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Label Content="Enter a state abbreviation to query (e.g. NY):" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" />
+        <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtStateEntry" />
+        <Button Content="Get count in Extent" Grid.Row="1" Grid.Column="0" Click="btnExtentCount_Click" />
+        <Button Content="Get count in state" Grid.Row="1" Grid.Column="1" Click="btnStateCount_Click" />
+        <Label Content="Results:" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" />
+        <TextBox Grid.Row="2" Grid.Column="1" IsEnabled="False" x:Name="txtResults" />
+        <esri:MapView x:Name="MyMapView" Grid.Row="3" Grid.ColumnSpan="2"/>
     </Grid>
 
 </UserControl>

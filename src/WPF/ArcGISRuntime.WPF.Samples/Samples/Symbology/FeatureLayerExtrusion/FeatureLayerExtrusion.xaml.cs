@@ -100,23 +100,22 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerExtrusion
             RendererSceneProperties myRendererSceneProperties = myRenderer.SceneProperties;
 
             // Toggle the feature layer's scene properties renderer extrusion expression and change the button text
-            if (Button1.Content.ToString() == "Population Density")
+            if (Button_ToggleExtrusionData.Content.ToString() == "Population Density")
             {
                 myRendererSceneProperties.ExtrusionExpression = "[POP07_SQMI] * 5000";
-                Button1.Content = "Total Population";
+                Button_ToggleExtrusionData.Content = "Total Population";
             }
-            else if(Button1.Content.ToString() == "Total Population")
+            else if(Button_ToggleExtrusionData.Content.ToString() == "Total Population")
             {
                 myRendererSceneProperties.ExtrusionExpression = "[POP2007] / 10";
-                Button1.Content = "Population Density";
+                Button_ToggleExtrusionData.Content = "Population Density";
             }
         }
 
-        private void Button1_Click(object sender, RoutedEventArgs e)
+        private void Button_ToggleExtrusionData_Click(object sender, RoutedEventArgs e)
         {
             // Call the function to change the feature layer's renderer scene properties extrusion expression
             ChangeExtrusionExpression();
         }
-
     }
 }

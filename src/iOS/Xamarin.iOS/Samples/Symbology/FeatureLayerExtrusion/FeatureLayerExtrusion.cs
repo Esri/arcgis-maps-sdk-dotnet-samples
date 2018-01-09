@@ -30,7 +30,7 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerExtrusion
         private SceneView _mySceneView = new SceneView();
 
         // Create button
-        private UIButton _button1;
+        private UIButton _button_ToggleExtrusionData;
 
         public FeatureLayerExtrusion()
         {
@@ -123,15 +123,15 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerExtrusion
             RendererSceneProperties myRendererSceneProperties = myRenderer.SceneProperties;
 
             // Toggle the feature layer's scene properties renderer extrusion expression and change the button text
-            if (_button1.Title(UIControlState.Normal) == "Population Density")
+            if (_button_ToggleExtrusionData.Title(UIControlState.Normal) == "Population Density")
             {
                 myRendererSceneProperties.ExtrusionExpression = "[POP07_SQMI] * 5000";
-                _button1.SetTitle("Total Population", UIControlState.Normal);
+                _button_ToggleExtrusionData.SetTitle("Total Population", UIControlState.Normal);
             }
-            else if (_button1.Title(UIControlState.Normal) == "Total Population")
+            else if (_button_ToggleExtrusionData.Title(UIControlState.Normal) == "Total Population")
             {
                 myRendererSceneProperties.ExtrusionExpression = "[POP2007] / 10";
-                _button1.SetTitle("Population Density", UIControlState.Normal);
+                _button_ToggleExtrusionData.SetTitle("Population Density", UIControlState.Normal);
             }
         }
 
@@ -141,12 +141,12 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerExtrusion
             _mySceneView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
             // Setup the visual frame for button1
-            _button1.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, 40);
+            _button_ToggleExtrusionData.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, 40);
 
             base.ViewDidLayoutSubviews();
         }
 
-        private void OnButton1Clicked(object sender, EventArgs e)
+        private void OnButton_ToggleExtrusionData_Clicked(object sender, EventArgs e)
         {
             // Call the function to change the feature layer's renderer scene properties extrusion expression
             ChangeExtrusionExpression();
@@ -155,17 +155,17 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerExtrusion
         private void CreateLayout()
         {
 
-            // Create button1
-            _button1 = new UIButton();
-            _button1.SetTitle("Population Density", UIControlState.Normal);
-            _button1.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            _button1.BackgroundColor = UIColor.White;
+            // Create a button
+            _button_ToggleExtrusionData = new UIButton();
+            _button_ToggleExtrusionData.SetTitle("Population Density", UIControlState.Normal);
+            _button_ToggleExtrusionData.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _button_ToggleExtrusionData.BackgroundColor = UIColor.White;
 
-            // Hook to touch event to do button1
-            _button1.TouchUpInside += OnButton1Clicked;
+            // Hook the touch event for the button
+            _button_ToggleExtrusionData.TouchUpInside += OnButton_ToggleExtrusionData_Clicked;
 
             // Add SceneView to the page
-            View.AddSubviews(_mySceneView, _button1);
+            View.AddSubviews(_mySceneView, _button_ToggleExtrusionData);
         }
     }
 }

@@ -109,19 +109,19 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerExtrusion
             RendererSceneProperties myRendererSceneProperties = myRenderer.SceneProperties;
 
             // Toggle the feature layer's scene properties renderer extrusion expression and change the button text
-            if (Button1.Text == "Population Density")
+            if (Button_ToggleExtrusionData.Text == "Population Density")
             {
                 myRendererSceneProperties.ExtrusionExpression = "[POP07_SQMI] * 5000";
-                Button1.Text = "Total Population";
+                Button_ToggleExtrusionData.Text = "Total Population";
             }
-            else if (Button1.Text == "Total Population")
+            else if (Button_ToggleExtrusionData.Text == "Total Population")
             {
                 myRendererSceneProperties.ExtrusionExpression = "[POP2007] / 10";
-                Button1.Text = "Population Density";
+                Button_ToggleExtrusionData.Text = "Population Density";
             }
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        private void Button_ToggleExtrusionData_Click(object sender, EventArgs e)
         {
             // Call the function to change the feature layer's renderer scene properties extrusion expression
             ChangeExtrusionExpression();

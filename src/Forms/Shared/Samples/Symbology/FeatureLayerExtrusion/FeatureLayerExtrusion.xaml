@@ -9,7 +9,7 @@
             <RowDefinition Height="60" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Button x:Name="Button1" Text="Population Density" Clicked="Button1_Click" Grid.Row="0"/>
+        <Button x:Name="Button_ToggleExtrusionData" Text="Population Density" Clicked="Button_ToggleExtrusionData_Click" Grid.Row="0"/>
         <esriUI:SceneView x:Name="MySceneView" Grid.Row="1"/>
     </Grid>
 </ContentPage>

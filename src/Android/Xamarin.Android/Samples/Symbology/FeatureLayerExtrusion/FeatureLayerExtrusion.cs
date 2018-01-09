@@ -27,7 +27,7 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerExtrusion
         // Create and hold reference to the used MapView
         private SceneView _mySceneView = new SceneView();
 
-        private Button _button1;
+        private Button _button_ToggleExtrusionData;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -118,19 +118,19 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerExtrusion
             RendererSceneProperties myRendererSceneProperties = myRenderer.SceneProperties;
 
             // Toggle the feature layer's scene properties renderer extrusion expression and change the button text
-            if (_button1.Text == "Population Density")
+            if (_button_ToggleExtrusionData.Text == "Population Density")
             {
                 myRendererSceneProperties.ExtrusionExpression = "[POP07_SQMI] * 5000";
-                _button1.Text = "Total Population";
+                _button_ToggleExtrusionData.Text = "Total Population";
             }
-            else if (_button1.Text == "Total Population")
+            else if (_button_ToggleExtrusionData.Text == "Total Population")
             {
                 myRendererSceneProperties.ExtrusionExpression = "[POP2007] / 10";
-                _button1.Text = "Population Density";
+                _button_ToggleExtrusionData.Text = "Population Density";
             }
         }
 
-        private void Button1_Clicked(object sender, EventArgs e)
+        private void Button_ToggleExtrusionData_Clicked(object sender, EventArgs e)
         {
 
             // Call the function to change the feature layer's renderer scene properties extrusion expression
@@ -143,12 +143,12 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerExtrusion
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create Button
-            _button1 = new Button(this);
-            _button1.Text = "Population Density";
-            _button1.Click += Button1_Clicked;
+            _button_ToggleExtrusionData = new Button(this);
+            _button_ToggleExtrusionData.Text = "Population Density";
+            _button_ToggleExtrusionData.Click += Button_ToggleExtrusionData_Clicked;
 
             // Add Button to the layout  
-            layout.AddView(_button1);
+            layout.AddView(_button_ToggleExtrusionData);
 
             // Add the scene view to the layout
             layout.AddView(_mySceneView);

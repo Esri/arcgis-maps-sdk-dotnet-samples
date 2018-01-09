@@ -55,7 +55,6 @@ namespace ArcGISRuntimeXamarin.Samples.LineOfSightGeoElement
 
         // For taxi animation - tracks animation state
         private int pointIndex = 0;
-
         private int frameIndex = 0;
         private int frameMax = 150;
 

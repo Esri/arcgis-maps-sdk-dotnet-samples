@@ -184,40 +184,40 @@
     <!-- Misc Resources -->
     <!-- Assets -->
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\LaunchImages.launchimage\Contents.json">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-120.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-152.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-167.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-180.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-29.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-40.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-58.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-76.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-80.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-87.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <!-- Resources -->
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
@@ -252,6 +252,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
+    <EmbeddedResource Include="Samples\Analysis\LineOfSightGeoElement\metadata.json" />
     <EmbeddedResource Include="groups.json" />
     <EmbeddedResource Include="Samples\Analysis\LineOfSightLocation\metadata.json" />
     <EmbeddedResource Include="Samples\Analysis\ViewshedCamera\metadata.json" />
@@ -333,6 +334,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
     <None Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
     <None Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.jpg" />
     <None Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg" />
@@ -413,6 +415,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.cs" />
     <Compile Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.cs" />
     <Compile Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.cs" />
     <Compile Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.cs" />

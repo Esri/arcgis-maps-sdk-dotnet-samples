@@ -365,6 +365,10 @@
               "Path": "Samples/Analysis/LineOfSightLocation"
             },
             {
+              "SampleName": "LineOfSightGeoElement",
+              "Path": "Samples/Analysis/LineOfSightGeoElement"
+            },
+            {
               "SampleName": "ListGeodatabaseVersions",
               "Path": "Samples/Geoprocessing/ListGeodatabaseVersions"
             }

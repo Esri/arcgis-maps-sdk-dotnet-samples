@@ -9,7 +9,18 @@
     mc:Ignorable="d" 
     d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <esriUI:MapView x:Name="MyMapView" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <CommandBar Grid.Row="0">
+            <CommandBar.Content>
+                <TextBlock x:Name="MyStatusLabel" Foreground="Red" Text="Status: " />
+            </CommandBar.Content>
+        </CommandBar>
+        <Slider x:Name="MyHeightSlider" ValueChanged="MyHeightSlider_ValueChanged" Grid.Row="1" />
+        <esriUI:SceneView x:Name="MySceneView" Grid.Row="2" />
     </Grid>
 </UserControl>
 

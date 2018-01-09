@@ -5,6 +5,13 @@
              xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
              x:Class="ArcGISRuntimeXamarin.Samples.LineOfSightGeoElement.LineOfSightGeoElement">
   <Grid>
-    <esriUI:MapView x:Name="MyMapView"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label Text="Status: " x:Name="MyStatusLabel" Grid.Row="0" TextColor="Red" />
+        <Slider x:Name="MyHeightSlider" Grid.Row="1" ValueChanged="MyHeightSlider_ValueChanged" />
+        <esriUI:SceneView x:Name="MySceneView" Grid.Row="2" />
   </Grid>
 </ContentPage>

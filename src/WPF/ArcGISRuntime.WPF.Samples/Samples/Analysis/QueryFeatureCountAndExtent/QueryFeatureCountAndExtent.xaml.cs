@@ -21,7 +21,7 @@ namespace ArcGISRuntime.WPF.Samples.QueryFeatureCountAndExtent
     {
         // URL to the feature service
         private Uri _UsaCitiesSource = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0");
-        
+
         // Statistic definition that returns a count of AREANAME (city names)
         private StatisticDefinition countStatistic = new StatisticDefinition("AREANAME", StatisticType.Count, "pop");
 

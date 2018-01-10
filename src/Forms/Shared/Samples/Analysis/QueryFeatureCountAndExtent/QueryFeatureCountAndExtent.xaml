@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
+             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime"
              x:Class="ArcGISRuntimeXamarin.Samples.QueryFeatureCountAndExtent.QueryFeatureCountAndExtent">
-  <Grid>
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
@@ -20,7 +20,7 @@
         <Button Text="Get count in Extent" Grid.Row="1" Grid.Column="0" Clicked="btnExtentCount_Click" />
         <Button Text="Get count in state" Grid.Row="1" Grid.Column="1" Clicked="btnStateCount_Click" />
         <Label Text="Results:" Grid.Row="2" Grid.Column="0" />
-        <Label Grid.Row="2" Grid.Column="1" x:Name="txtResults"  />
-        <esriUI:MapView x:Name="MyMapView" Grid.Row="3" Grid.ColumnSpan="2"/>
+        <Label Grid.Row="2" Grid.Column="1" x:Name="txtResults" />
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="3" Grid.ColumnSpan="2" />
     </Grid>
 </ContentPage>

@@ -1,44 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:p1="http://schemas.android.com/apk/res/android"
-    p1:layout_width="match_parent"
-    p1:layout_height="match_parent"
-    p1:id="@+id/gridLayout1"
-    p1:rowCount="4"
-    p1:columnCount="2">
-    <TextView
-        p1:text="Static: "
-        p1:id="@+id/textView1"
-        p1:layout_row="0"
-        p1:layout_column="0"
-        p1:layout_columnSpan="2" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/gridLayout1">
     <Esri.ArcGISRuntime.UI.Controls.SceneView
-        p1:id="@+id/flrms_staticSceneView"
-        p1:layout_row="1"
-        p1:layout_column="0"
-        p1:layout_columnSpan="2"
-        p1:minHeight="100dp"
-        p1:layout_gravity="fill"
-        p1:layout_rowWeight="1" />
-    <TextView
-        p1:text="Dynamic:"
-        p1:id="@+id/textView2"
-        p1:layout_row="2"
-        p1:layout_column="0"
-        p1:layout_columnSpan="1" />
+        android:id="@+id/flrms_staticSceneView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+    <Esri.ArcGISRuntime.UI.Controls.SceneView
+        android:id="@+id/flrms_dynamicSceneView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
     <Button
-        p1:text="Animated Zoom"
-        p1:id="@+id/flrms_zoomButton"
-        p1:layout_row="2"
-        p1:layout_column="1"
-        p1:layout_columnSpan="1"
-        p1:layout_gravity="right" />
-    <Esri.ArcGISRuntime.UI.Controls.SceneView
-        p1:id="@+id/flrms_dynamicSceneView"
-        p1:layout_row="3"
-        p1:layout_column="0"
-        p1:layout_columnSpan="2"
-        p1:minHeight="100dp"
-        p1:layout_gravity="fill"
-        p1:layout_rowWeight="1"
-        p1:clipToPadding="true" />
-</GridLayout>
+        android:text="Animated Zoom"
+        android:id="@+id/flrms_zoomButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

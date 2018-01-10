@@ -525,8 +525,9 @@
   <ItemGroup>
     <!-- Sample XAML -->
 	<Page Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml">
-  <SubType>Code</SubType>
-	</Compile>
+    <Generator>MSBuild:Compile</Generator>
+    <SubType>Designer</SubType>
+  </Page>
 	<Page Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml">
 		<Generator>MSBuild:Compile</Generator>
 		<SubType>Designer</SubType>

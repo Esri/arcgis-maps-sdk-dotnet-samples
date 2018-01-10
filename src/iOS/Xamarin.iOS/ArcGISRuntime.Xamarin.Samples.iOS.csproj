@@ -184,40 +184,40 @@
     <!-- Misc Resources -->
     <!-- Assets -->
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\LaunchImages.launchimage\Contents.json">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-120.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-152.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-167.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-180.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-29.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-40.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-58.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-76.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-80.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-87.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <!-- Resources -->
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
@@ -240,6 +240,7 @@
     <Compile Include="Models\SampleModelExtensions.cs" />
     <Compile Include="Models\SampleStructureMap.cs" />
     <Compile Include="Models\SubCategoryModel.cs" />
+    <Compile Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.cs" />
     <Compile Include="ViewControllers\SamplesViewController.cs" />
     <Compile Include="ViewControllers\SearchResultsUpdater.cs" />
     <Compile Include="ViewControllers\SearchResultsViewController.cs" />
@@ -253,6 +254,7 @@
   <ItemGroup>
     <!-- JSON Metadata -->
 	<EmbeddedResource Include="Samples\Layers\FeatureLayerRenderingModeScene\metadata.json" />
+	<EmbeddedResource Include="Samples\Data\SymbolizeShapefile\metadata.json" />
     <EmbeddedResource Include="groups.json" />
     <EmbeddedResource Include="Samples\Analysis\LineOfSightLocation\metadata.json" />
     <EmbeddedResource Include="Samples\Analysis\ViewshedCamera\metadata.json" />
@@ -335,6 +337,7 @@
   <ItemGroup>
     <!-- Screenshots -->
 	<None Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
+	<None Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
     <None Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
     <None Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.jpg" />
     <None Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg" />
@@ -406,6 +409,7 @@
     <None Include="Samples\NetworkAnalysis\FindRoute\FindRoute.jpg" />
     <None Include="Samples\Search\FindAddress\FindAddress.jpg" />
     <None Include="Samples\Search\FindPlace\FindPlace.jpg" />
+    <EmbeddedResource Include="Samples\Symbology\FeatureLayerExtrusion\metadata.json" />
     <None Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.jpg" />
     <None Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.jpg" />
     <None Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.jpg" />
@@ -416,6 +420,7 @@
   <ItemGroup>
     <!-- Sample Code -->
 	<Compile Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.cs" />
+	<Compile Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.cs" />
     <Compile Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.cs" />
     <Compile Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.cs" />
     <Compile Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.cs" />
@@ -497,8 +502,9 @@
     <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.cs" />
     <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Samples\Geoprocessing\ListGeodatabaseVersions\" />
+    <None Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

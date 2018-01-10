@@ -22,8 +22,10 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <AndroidLinkMode>None</AndroidLinkMode>
-    <AndroidLinkSkip></AndroidLinkSkip>
-    <AndroidStoreUncompressedFileExtensions></AndroidStoreUncompressedFileExtensions>
+    <AndroidLinkSkip>
+    </AndroidLinkSkip>
+    <AndroidStoreUncompressedFileExtensions>
+    </AndroidStoreUncompressedFileExtensions>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -166,7 +168,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
-	<EmbeddedResource Include="Samples\Layers\FeatureLayerRenderingModeScene\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\FeatureLayerRenderingModeScene\metadata.json" />
+    <EmbeddedResource Include="Samples\Data\SymbolizeShapefile\metadata.json" />
     <EmbeddedResource Include="groups.json" />
     <EmbeddedResource Include="Samples\Analysis\LineOfSightLocation\metadata.json" />
     <EmbeddedResource Include="Samples\Analysis\ViewshedCamera\metadata.json" />
@@ -249,7 +252,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<None Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
+    <None Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
+    <None Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
     <None Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
     <None Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.jpg" />
     <None Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg" />
@@ -322,6 +326,7 @@
     <None Include="Samples\NetworkAnalysis\FindRoute\FindRoute.jpg" />
     <None Include="Samples\Search\FindAddress\FindAddress.jpg" />
     <None Include="Samples\Search\FindPlace\FindPlace.jpg" />
+    <EmbeddedResource Include="Samples\Symbology\FeatureLayerExtrusion\metadata.json" />
     <None Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.jpg" />
     <None Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.jpg" />
     <None Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.jpg" />
@@ -331,7 +336,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.cs" />
+    <Compile Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.cs" />
+    <Compile Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.cs" />
     <Compile Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.cs" />
     <Compile Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.cs" />
     <Compile Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.cs" />
@@ -404,12 +410,16 @@
     <Compile Include="Samples\NetworkAnalysis\FindRoute\FindRoute.cs" />
     <Compile Include="Samples\Search\FindAddress\FindAddress.cs" />
     <Compile Include="Samples\Search\FindPlace\FindPlace.cs" />
+    <Compile Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.cs" />
     <Compile Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.cs" />
     <Compile Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.cs" />
     <Compile Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.cs" />
     <Compile Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.cs" />
     <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.cs" />
     <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

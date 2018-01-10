@@ -282,6 +282,10 @@
             {
               "SampleName": "ReadShapefileMetadata",
               "Path": "Samples/Data/ReadShapefileMetadata"
+            },
+            {
+              "SampleName": "SymbolizeShapefile",
+              "Path": "Samples/Data/SymbolizeShapefile"
             }
           ]
         }
@@ -403,6 +407,10 @@
             {
               "SampleName": "UseDistanceCompositeSym",
               "Path": "Samples/Symbology/UseDistanceCompositeSym"
+            },
+            {
+              "SampleName": "FeatureLayerExtrusion",
+              "Path": "Samples/Symbology/FeatureLayerExtrusion"
             }
           ]
         },

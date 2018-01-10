@@ -236,6 +236,10 @@
             {
               "SampleName": "FeatureLayerRenderingModeMap",
               "Path": "Samples/Layers/FeatureLayerRenderingModeMap"
+            },
+            {
+              "SampleName": "FeatureLayerRenderingModeScene",
+              "Path": "Samples/Layers/FeatureLayerRenderingModeScene"
             }
           ]
         },

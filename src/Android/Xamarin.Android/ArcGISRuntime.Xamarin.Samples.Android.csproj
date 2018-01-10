@@ -145,6 +145,7 @@
     </AndroidAsset>
     <None Include="Properties\AndroidManifest.xml" />
     <EmbeddedResource Include="Samples\Hydrography\SelectEncFeatures\metadata.json" />
+    <AndroidResource Include="Resources\layout\FeatureLayerRenderingModeScene.axml" />
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Manager Code -->
@@ -168,6 +169,7 @@
   <ItemGroup>
     <!-- JSON Metadata -->
     <EmbeddedResource Include="Samples\Analysis\LineOfSightGeoElement\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\FeatureLayerRenderingModeScene\metadata.json" />
     <EmbeddedResource Include="Samples\Data\SymbolizeShapefile\metadata.json" />
     <EmbeddedResource Include="groups.json" />
     <EmbeddedResource Include="Samples\Analysis\LineOfSightLocation\metadata.json" />
@@ -252,6 +254,7 @@
   <ItemGroup>
     <!-- Screenshots -->
     <None Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
+    <None Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
     <None Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
     <None Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
     <None Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.jpg" />
@@ -336,6 +339,7 @@
   <ItemGroup>
     <!-- Sample Code -->
     <Compile Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.cs" />
+    <Compile Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.cs" />
     <Compile Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.cs" />
     <Compile Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.cs" />
     <Compile Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.cs" />

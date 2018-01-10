@@ -188,6 +188,10 @@
 
     This sample demonstrates how to use load settings to set preferred rendering mode for feature layers, specifically static or dynamic rendering modes.
 
+* [Feature layer rendering mode (Scene)](ArcGISRuntime.WPF.Samples/Samples/Layers/FeatureLayerRenderingModeScene)
+
+    This sample demonstrates how to use load settings to change the preferred rendering mode for a scene. Static rendering mode only redraws features periodically when a sceneview is navigating, while dynamic mode dynamically re-renders as the scene moves.
+
 * [Service feature table (cache)](ArcGISRuntime.WPF.Samples/Samples/Data/ServiceFeatureTableCache)
 
     This sample demonstrates how to use a feature service in on interaction cache mode.
@@ -227,6 +231,10 @@
 * [Read shapefile metadata](ArcGISRuntime.WPF.Samples/Samples/Data/ReadShapefileMetadata)
 
     This sample demonstrates how to open a shapefile stored on the device, read metadata that describes the dataset, and display it as a feature layer with default symbology.
+
+* [Symbolize a shapefile](ArcGISRuntime.WPF.Samples/Samples/Data/SymbolizeShapefile)
+
+    This sample demonstrates how to apply a custom renderer to a shapefile displayed by a feature layer.
 
 ## Display Information
 
@@ -282,7 +290,7 @@
 
 * [List geodatabase versions](ArcGISRuntime.WPF.Samples/Samples/Geoprocessing/ListGeodatabaseVersions)
 
-    This sample demonstrates how to use GeoprocessingTask to get available geodatabase versions from the enterprise geodatabase. Geoprocessing task will return the versions as a table that is shown to the user in a list. This is a good example how to use geoprocessing on mapless application.
+    This sample calls a custom GeoprocessingTask to get a list of available versions for an enterprise geodatabase. The task returns a table of geodatabase version information, which is displayed in the app as a list.
 
 * [Statistical query](ArcGISRuntime.WPF.Samples/Samples/Data/StatisticalQuery)
 
@@ -303,6 +311,10 @@
 * [Distance composite symbol](ArcGISRuntime.WPF.Samples/Samples/Symbology/UseDistanceCompositeSym)
 
     This sample demonstrates how to create a `DistanceCompositeSceneSymbol` with unique marker symbols to display at various distances from the camera.
+
+* [Feature layer extrusion](ArcGISRuntime.WPF.Samples/Samples/Symbology/FeatureLayerExtrusion)
+
+    This sample demonstrates how to apply extrusion to a renderer on a feature layer.
 
 * [ArcGIS scene layer (URL)](ArcGISRuntime.WPF.Samples/Samples/Layers/SceneLayerUrl)
 

@@ -106,6 +106,7 @@
   <ItemGroup>
     <!-- JSON Metadata -->
 	<Content Include="Samples\Analysis\LineOfSightGeoElement\metadata.json" />
+	<Content Include="Samples\Layers\FeatureLayerRenderingModeScene\metadata.json" />
 	<Content Include="Samples\Data\SymbolizeShapefile\metadata.json" />
     <Content Include="groups.json" />
     <Content Include="Samples\Analysis\LineOfSightLocation\metadata.json" />
@@ -192,6 +193,7 @@
   <ItemGroup>
     <!-- Screenshots -->
 	<Content Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
+	<Content Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
 	<Content Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
     <Content Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
     <Content Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.jpg" />
@@ -277,6 +279,9 @@
     <!-- Sample Code -->
 	<Compile Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml.cs">
 		<DependentUpon>LineOfSightGeoElement.xaml</DependentUpon>
+    </Compile>
+	<Compile Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.xaml.cs">
+		<DependentUpon>FeatureLayerRenderingModeScene.xaml</DependentUpon>
     </Compile>
 	<Compile Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml.cs">
 		<DependentUpon>SymbolizeShapefile.xaml</DependentUpon>
@@ -528,6 +533,10 @@
     <Generator>MSBuild:Compile</Generator>
     <SubType>Designer</SubType>
   </Page>
+	<Page Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.xaml">
+  <Generator>MSBuild:Compile</Generator>
+		<SubType>Designer</SubType>
+	</Page>
 	<Page Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml">
 		<Generator>MSBuild:Compile</Generator>
 		<SubType>Designer</SubType>

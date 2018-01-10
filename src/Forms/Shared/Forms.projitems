@@ -55,6 +55,7 @@
   <ItemGroup>
     <!-- JSON Metadata -->
 	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightGeoElement\metadata.json" />
+	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerRenderingModeScene\metadata.json" />
 	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\SymbolizeShapefile\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)groups.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightLocation\metadata.json" />
@@ -140,6 +141,7 @@
   <ItemGroup>
     <!-- Screenshots -->
 	<None Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
+	<None Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
 	<None Include="$(MSBuildThisFileDirectory)Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedCamera\ViewshedCamera.jpg" />
@@ -227,6 +229,10 @@
 		<DependentUpon>LineOfSightGeoElement.xaml</DependentUpon>
     <SubType>Code</SubType>
 	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.xaml.cs">
+		<DependentUpon>FeatureLayerRenderingModeScene.xaml</DependentUpon>
+    <SubType>Code</SubType>
+    </Compile>
 	<Compile Include="$(MSBuildThisFileDirectory)Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml.cs">
 		<DependentUpon>SymbolizeShapefile.xaml</DependentUpon>
 		<SubType>Code</SubType>
@@ -558,6 +564,9 @@
   <ItemGroup>
     <!-- Sample XAML -->
 	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml">
+    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	</EmbeddedResource>
+	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.xaml">
   <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	</EmbeddedResource>
 	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml">

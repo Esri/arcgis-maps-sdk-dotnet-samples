@@ -1,8 +1,8 @@
 {
   "Name": "List related features",
   "SampleName": "ListRelatedFeatures",
-  "Description": "",
-  "Instructions": "", 
+  "Description": "This sample demonstrates how to query features related to an identified feature.",
+  "Instructions": "Click on a feature to identify it. Related features will be listed in the window above the map.", 
   "Type": 0,
   "RequiresOnlineConnection": true,
   "RequiresOfflineData": false,

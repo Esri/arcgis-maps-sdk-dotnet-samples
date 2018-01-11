@@ -2,13 +2,16 @@
   "Name": "List related features",
   "SampleName": "ListRelatedFeatures",
   "Description": "This sample demonstrates how to query features related to an identified feature.",
-  "Instructions": "Click on a feature to identify it. Related features will be listed in the window above the map.", 
+  "Instructions": "Click on a feature to identify it. Related features will be listed in the window above the map.",
   "Type": 0,
   "RequiresOnlineConnection": true,
   "RequiresOfflineData": false,
   "RequiresLocalServer": false,
   "Image": "ListRelatedFeatures.jpg",
   "Link": "",
-  "TypeLink": [ ],
+  "TypeLink": [
+    "T:Esri.ArcGISRuntime.Data.RelatedFeatureQueryResult",
+    "M:Esri.ArcGISRuntime.Data.ArcGISFeatureTable.QueryRelatedFeaturesAsync(Esri.ArcGISRuntime.Data.ArcGISFeature)"
+  ],
   "SampleFolder": "ListRelatedFeatures"
 }

@@ -20,9 +20,11 @@ namespace ArcGISRuntime.UWP.Samples.ListRelatedFeatures
 {
     public partial class ListRelatedFeatures
     {
+        // URL to the web map
         private readonly Uri _mapUri =
             new Uri("https://arcgisruntime.maps.arcgis.com/home/item.html?id=dcc7466a91294c0ab8f7a094430ab437");
 
+        // Reference to the feature layer
         private FeatureLayer _myFeatureLayer;
 
         public ListRelatedFeatures()

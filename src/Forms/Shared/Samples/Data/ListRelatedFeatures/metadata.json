@@ -9,6 +9,9 @@
   "RequiresLocalServer": false,
   "Image": "ListRelatedFeatures.jpg",
   "Link": "",
-  "TypeLink": [],
+  "TypeLink": [
+    "T:Esri.ArcGISRuntime.Data.RelatedFeatureQueryResult",
+    "M:Esri.ArcGISRuntime.Data.ArcGISFeatureTable.QueryRelatedFeaturesAsync(Esri.ArcGISRuntime.Data.ArcGISFeature)"
+  ],
   "SampleFolder": "ListRelatedFeatures"
 }

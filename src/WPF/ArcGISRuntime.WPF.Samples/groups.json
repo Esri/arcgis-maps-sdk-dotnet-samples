@@ -464,6 +464,10 @@
             {
               "SampleName": "DynamicWorkspaceShapefile",
               "Path": "Samples/LocalServer/DynamicWorkspaceShapefile"
+            },
+            {
+              "SampleName": "LocalServerFeatureLayer",
+              "Path": "Samples/LocalServer/LocalServerFeatureLayer"
             }
           ]
         }

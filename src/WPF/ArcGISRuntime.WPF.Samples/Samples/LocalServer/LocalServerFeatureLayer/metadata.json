@@ -1,0 +1,14 @@
+{
+  "Name": "Local Server Feature Layer",
+  "SampleName": "LocalServerFeatureLayer",
+  "Description": "",
+  "Instructions": "", 
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": false,
+  "RequiresLocalServer": false,
+  "Image": "LocalServerFeatureLayer.jpg",
+  "Link": "",
+  "TypeLink": [ ],
+  "SampleFolder": "LocalServerFeatureLayer"
+}

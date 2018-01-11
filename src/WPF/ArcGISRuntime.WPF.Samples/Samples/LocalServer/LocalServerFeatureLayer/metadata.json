@@ -1,14 +1,16 @@
 {
   "Name": "Local Server Feature Layer",
   "SampleName": "LocalServerFeatureLayer",
-  "Description": "",
-  "Instructions": "", 
+  "Description": "This sample demonstrates how to display a Feature Layer service by a Local Server feature service.",
+  "Instructions": "Sample data is downloaded automatically from ArcGIS Online by the sample viewer.", 
   "Type": 0,
   "RequiresOnlineConnection": true,
-  "RequiresOfflineData": false,
-  "RequiresLocalServer": false,
+  "RequiresOfflineData": true,
+  "RequiresLocalServer": true,
+  "DataItemIds": [ "4e94fec734434d1288e6ebe36c3c461f" ],
+  "DateFileNames": ["PointsOfInterest.mpk"],
   "Image": "LocalServerFeatureLayer.jpg",
   "Link": "",
-  "TypeLink": [ ],
+  "TypeLink": [ "T:Esri.ArcGISRuntime.LocalServices.LocalFeatureService" ],
   "SampleFolder": "LocalServerFeatureLayer"
 }

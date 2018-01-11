@@ -105,6 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
+	<Content Include="Samples\Data\ListRelatedFeatures\metadata.json" />
 	<Content Include="Samples\Layers\FeatureLayerRenderingModeScene\metadata.json" />
 	<Content Include="Samples\Data\SymbolizeShapefile\metadata.json" />
     <Content Include="groups.json" />
@@ -191,6 +192,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<Content Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
 	<Content Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
 	<Content Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
     <Content Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
@@ -275,6 +277,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.xaml.cs">
+		<DependentUpon>ListRelatedFeatures.xaml</DependentUpon>
+	</Compile>
 	<Compile Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.xaml.cs">
 		<DependentUpon>FeatureLayerRenderingModeScene.xaml</DependentUpon>
     </Compile>
@@ -524,6 +529,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+	<Page Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.xaml">
+		<Generator>MSBuild:Compile</Generator>
+		<SubType>Designer</SubType>
+	</Page>
 	<Page Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.xaml">
   <Generator>MSBuild:Compile</Generator>
 		<SubType>Designer</SubType>

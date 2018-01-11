@@ -24,6 +24,10 @@
 
     This sample demonstrates how you can take screenshot of a map. The app has a Screenshot button in the bottom toolbar you can tap to take screenshot of the visible area of the map. You can pan or zoom to a specific location and tap on the button, which also shows you the preview of the image produced. You can tap on the Close Preview button to close image preview.
 
+    * [Show magnifier](Xamarin.iOS/Samples/MapView/ShowMagnifier)
+
+    This sample demonstrates how you can tap and hold on a map to get the magnifier. You can also pan while tapping and holding to move the magnifier across the map.
+
     * [Show callout](Xamarin.iOS/Samples/MapView/ShowCallout)
 
     This sample illustrates how to show callouts on a map in response to user interaction.
@@ -199,6 +203,10 @@
 
     This sample demonstrates how to use load settings to set preferred rendering mode for feature layers, specifically static or dynamic rendering modes.
 
+    * [Feature layer rendering mode (Scene)](Xamarin.iOS/Samples/Layers/FeatureLayerRenderingModeScene)
+
+    This sample demonstrates how to use load settings to change the preferred rendering mode for a scene. Static rendering mode only redraws features periodically when a sceneview is navigating, while dynamic mode dynamically re-renders as the scene moves.
+
 
 - **Feature Tables**
 
@@ -241,6 +249,10 @@
     * [Read shapefile metadata](Xamarin.iOS/Samples/Data/ReadShapefileMetadata)
 
     This sample demonstrates how to open a shapefile stored on the device, read metadata that describes the dataset, and display it as a feature layer with default symbology.
+
+    * [Symbolize a shapefile](Xamarin.iOS/Samples/Data/SymbolizeShapefile)
+
+    This sample demonstrates how to apply a custom renderer to a shapefile displayed by a feature layer.
 
 ## Display Information
 
@@ -303,6 +315,10 @@
 
     This sample demonstrates a `LocationLineOfSight` analysis that shows segments that are visible or obstructed along a line drawn from observer to target.
 
+    * [List geodatabase versions](Xamarin.iOS/Samples/Geoprocessing/ListGeodatabaseVersions)
+
+    This sample calls a custom GeoprocessingTask to get a list of available versions for an enterprise geodatabase. The task returns a table of geodatabase version information, which is displayed in the app as a list.
+
 
 - **Statistics**
 
@@ -331,6 +347,10 @@
     * [Distance composite symbol](Xamarin.iOS/Samples/Symbology/UseDistanceCompositeSym)
 
     This sample demonstrates how to create a `DistanceCompositeSceneSymbol` with unique marker symbols to display at various distances from the camera.
+
+    * [Feature layer extrusion](Xamarin.iOS/Samples/Symbology/FeatureLayerExtrusion)
+
+    This sample demonstrates how to apply extrusion to a renderer on a feature layer.
 
 
 - **Scene Layers**

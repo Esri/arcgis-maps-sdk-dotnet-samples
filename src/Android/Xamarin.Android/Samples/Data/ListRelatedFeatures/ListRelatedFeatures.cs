@@ -11,6 +11,12 @@ using Android.App;
 using Android.OS;
 using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Android.Views;
+using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.UI.Controls;
 
 namespace ArcGISRuntimeXamarin.Samples.ListRelatedFeatures
@@ -18,8 +24,16 @@ namespace ArcGISRuntimeXamarin.Samples.ListRelatedFeatures
     [Activity]
     public class ListRelatedFeatures : Activity
     {
+        private readonly Uri _mapUri =
+            new Uri("https://arcgisruntime.maps.arcgis.com/home/item.html?id=dcc7466a91294c0ab8f7a094430ab437");
+
+        private FeatureLayer _myFeatureLayer;
+
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
+
+        // Hold a reference to the ListView
+        private ListView _myDisplayList;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -32,19 +46,109 @@ namespace ArcGISRuntimeXamarin.Samples.ListRelatedFeatures
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
-            // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateImagery());
-            
-            // Provide used Map to the MapView
+            // Create the portal item from the URL to the webmap
+            PortalItem alaskaPortalItem = await PortalItem.CreateAsync(_mapUri);
+
+            // Create the map from the portal item
+            Map myMap = new Map(alaskaPortalItem);
+
+            // Add the map to the mapview
             _myMapView.Map = myMap;
+
+            // Wait for the map to load
+            await myMap.LoadAsync();
+
+            // Get the feature layer from the map
+            _myFeatureLayer = (FeatureLayer)myMap.OperationalLayers.First();
+
+            // Make the selection color yellow and the width thick
+            _myFeatureLayer.SelectionColor = System.Drawing.Color.Yellow;
+            _myFeatureLayer.SelectionWidth = 5;
+
+            // Listen for GeoViewTapped events
+            _myMapView.GeoViewTapped += MyMapViewOnGeoViewTapped;
+        }
+        private async void MyMapViewOnGeoViewTapped(object sender, GeoViewInputEventArgs e)
+        {
+            // Clear any existing feature selection
+            _myFeatureLayer.ClearSelection();
+
+            // Identify the tapped feature
+            IdentifyLayerResult results = await _myMapView.IdentifyLayerAsync(_myFeatureLayer, e.Position, 10, false);
+
+            // Return if there are no results
+            if (results.GeoElements.Count < 1) { return; }
+
+            // Get the first result
+            ArcGISFeature myFeature = (ArcGISFeature)results.GeoElements.First();
+
+            // Select the feature
+            _myFeatureLayer.SelectFeature(myFeature);
+
+            // Get the feature table for the feature
+            ArcGISFeatureTable myFeatureTable = (ArcGISFeatureTable)myFeature.FeatureTable;
+
+            // Query related features
+            IReadOnlyList<RelatedFeatureQueryResult> relatedFeaturesResult = await myFeatureTable.QueryRelatedFeaturesAsync(myFeature);
+
+            // Create a list to hold the formatted results of the query
+            List<String> queryResultsForUi = new List<string>();
+
+            // For each query result
+            foreach (RelatedFeatureQueryResult result in relatedFeaturesResult)
+            {
+                // And then for each feature in the result
+                foreach (Feature resultFeature in result)
+                {
+                    // Get a referrence to the feature's table
+                    ArcGISFeatureTable relatedTable = (ArcGISFeatureTable)resultFeature.FeatureTable;
+
+                    // Get the display field name - this is the name of the field that is intended for display
+                    string displayFieldName = relatedTable.LayerInfo.DisplayFieldName;
+
+                    // Get the name of the feature's table
+                    string tableName = relatedTable.TableName;
+
+                    // Get the display name for the feature
+                    string featureDisplayname = resultFeature.Attributes[displayFieldName].ToString();
+
+                    // Create a formatted result string
+                    string formattedResult = String.Format("{0} - {1}", tableName, featureDisplayname);
+
+                    // Add the result to the list
+                    queryResultsForUi.Add(formattedResult);
+                }
+            }
+
+            // Create an array adapter for the layer display
+            ArrayAdapter adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, queryResultsForUi);
+
+            // Apply the adapter to show the results in the UI
+            _myDisplayList.Adapter = adapter;
         }
 
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+
+            // Create the listview for displaying results
+            _myDisplayList = new ListView(this);
+            
+            // Create a scrollviewer for the listview
+            ScrollView myScrollView = new ScrollView(this);
+
+            // Set the height so that it always appears on screen
+            myScrollView.SetMinimumHeight(Resources.DisplayMetrics.HeightPixels / 3);
+            myScrollView.FillViewport = true;
+
+            // Add the listview to the scroll view
+            myScrollView.AddView(_myDisplayList);
+
+            // Add the scroll view to the layout
+            layout.AddView(myScrollView);
 
             // Add the map view to the layout
             layout.AddView(_myMapView);

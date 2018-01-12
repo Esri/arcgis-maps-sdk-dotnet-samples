@@ -26,7 +26,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerMapImageLayer
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization
+            // set up the sample 
             Initialize();
         }
 
@@ -56,6 +56,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerMapImageLayer
             {
                 MessageBox.Show(ex.Message, "Local Server failed to start");
             }
+
             // Listen for the shutdown and unloaded events so that the local server can be shut down
             this.Dispatcher.ShutdownStarted += ShutdownSample;
             this.Unloaded += ShutdownSample;

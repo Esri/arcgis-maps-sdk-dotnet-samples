@@ -2,7 +2,7 @@
   "Name": "Local Server Map Image Layer",
   "SampleName": "LocalServerMapImageLayer",
   "Description": "This sample demonstrates how to display a Map Image Layer from a local map service",
-  "Instructions": "This sample depends on the local server being installed and configured. See https://developers.arcgis.com/net/latest/wpf/guide/local-server.htm for details and instructions.\nSample date is loaded in the background. ",
+  "Instructions": "This sample depends on the local server being installed and configured. See https://developers.arcgis.com/net/latest/wpf/guide/local-server.htm for details and instructions.\nSample data is loaded in the background. ",
   "Type": 0,
   "RequiresOnlineConnection": true,
   "RequiresOfflineData": true,
@@ -12,6 +12,7 @@
   "Image": "LocalServerMapImageLayer.jpg",
   "Link": "",
   "TypeLink": [
-],
+    "T:Esri.ArcGISRuntime.LocalServices.LocalMapService"
+  ],
   "SampleFolder": "LocalServerMapImageLayer"
 }

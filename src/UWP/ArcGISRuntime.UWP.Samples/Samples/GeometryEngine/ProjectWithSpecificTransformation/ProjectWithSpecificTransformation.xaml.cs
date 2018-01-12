@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Geometry;
-using System;
 
 namespace ArcGISRuntime.UWP.Samples.ProjectWithSpecificTransformation
 {

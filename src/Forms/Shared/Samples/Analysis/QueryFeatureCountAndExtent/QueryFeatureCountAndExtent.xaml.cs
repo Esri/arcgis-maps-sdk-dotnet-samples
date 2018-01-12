@@ -20,10 +20,7 @@ namespace ArcGISRuntimeXamarin.Samples.QueryFeatureCountAndExtent
     public partial class QueryFeatureCountAndExtent : ContentPage
     {
         // URL to the feature service
-        private Uri _UsaCitiesSource = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0");
-
-        // Statistic definition that returns a count of AREANAME (city names)
-        private StatisticDefinition countStatistic = new StatisticDefinition("AREANAME", StatisticType.Count, "pop");
+        private readonly Uri _usaCitiesSource = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0");
 
         // Feature table to query
         private ServiceFeatureTable _myFeatureTable;
@@ -44,7 +41,7 @@ namespace ArcGISRuntimeXamarin.Samples.QueryFeatureCountAndExtent
             Map myMap = new Map(Basemap.CreateStreetsVector());
 
             // Create the feature table from the service URL
-            _myFeatureTable = new ServiceFeatureTable(_UsaCitiesSource);
+            _myFeatureTable = new ServiceFeatureTable(_usaCitiesSource);
 
             // Create the feature layer from the table
             FeatureLayer myFeatureLayer = new FeatureLayer(_myFeatureTable);
@@ -61,40 +58,44 @@ namespace ArcGISRuntimeXamarin.Samples.QueryFeatureCountAndExtent
             // Add the map to the MapView
             MyMapView.Map = myMap;
         }
-        private async void btnStateCount_Click(object sender, EventArgs e)
+
+        private async void btnZoomToFeatures_Click(object sender, EventArgs e)
         {
-            // Create the statistics query parameters to control the query
-            StatisticsQueryParameters statQueryParams = new StatisticsQueryParameters(new List<StatisticDefinition>() { countStatistic });
+            // Create the query parameters
+            QueryParameters queryStates = new QueryParameters() { WhereClause = String.Format("upper(ST) LIKE '%{0}%'", txtStateEntry.Text.ToUpper()) };
 
-            // Limit results to matching states
-            statQueryParams.WhereClause = String.Format("upper(ST) LIKE '%{0}%'", txtStateEntry.Text.ToUpper());
+            // Get the extent from the query
+            Envelope resultExtent = await _myFeatureTable.QueryExtentAsync(queryStates);
 
-            // Execute the statistical query with these parameters and await the results
-            StatisticsQueryResult statQueryResult = await _myFeatureTable.QueryStatisticsAsync(statQueryParams);
+            // Return if there is no result (might happen if query is invalid)
+            if (resultExtent == null || resultExtent.SpatialReference == null)
+            {
+                return;
+            }
 
-            // Display the results in the UI
-            txtResults.Text = statQueryResult.First().Statistics["pop"].ToString();
+            // Create a viewpoint from the extent
+            Viewpoint resultViewpoint = new Viewpoint(resultExtent);
+
+            // Zoom to the viewpoint
+            await MyMapView.SetViewpointAsync(resultViewpoint);
         }
 
-        private async void btnExtentCount_Click(object sender, EventArgs e)
+        private async void btnCountFeatures_Click(object sender, EventArgs e)
         {
-            // Create the statistics query parameters, pass in the list of definitions
-            StatisticsQueryParameters statQueryParams = new StatisticsQueryParameters(new List<StatisticDefinition>() { countStatistic });
+            // Create the query parameters
+            QueryParameters queryCityCount = new QueryParameters();
 
-            // Get the current extent (envelope) from the map view
-            Envelope currentExtent = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry as Envelope;
+            // Get the current view extent and use that as a query parameters
+            queryCityCount.Geometry = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry;
 
-            // Set the statistics query parameters geometry with the envelope
-            statQueryParams.Geometry = currentExtent;
+            // Specify the interpretation of the Geometry query parameters
+            queryCityCount.SpatialRelationship = SpatialRelationship.Intersects;
 
-            // Set the spatial relationship to Intersects (which is the default)
-            statQueryParams.SpatialRelationship = SpatialRelationship.Intersects;
+            // Get the count of matching features
+            long count = await _myFeatureTable.QueryFeatureCountAsync(queryCityCount);
 
-            // Execute the statistical query with these parameters and await the results
-            StatisticsQueryResult statQueryResult = await _myFeatureTable.QueryStatisticsAsync(statQueryParams);
-
-            // Display the results in the UI
-            txtResults.Text = statQueryResult.First().Statistics["pop"].ToString();
+            // Update the UI
+            txtResults.Text = count.ToString();
         }
     }
 }

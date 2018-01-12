@@ -19,8 +19,8 @@
         </Grid.ColumnDefinitions>
         <Label Content="Enter a state abbreviation to query (e.g. NY):" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" />
         <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtStateEntry" />
-        <Button Content="Get count in Extent" Grid.Row="1" Grid.Column="0" Click="btnExtentCount_Click" />
-        <Button Content="Get count in state" Grid.Row="1" Grid.Column="1" Click="btnStateCount_Click" />
+        <Button Content="Zoom to matching features" Grid.Row="1" Grid.Column="0" Click="btnZoomToFeatures_Click" />
+        <Button Content="Count features in extent" Grid.Row="1" Grid.Column="1" Click="btnCountFeatures_Click" />
         <Label Content="Results:" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" />
         <TextBox Grid.Row="2" Grid.Column="1" IsEnabled="False" x:Name="txtResults" />
         <esri:MapView x:Name="MyMapView" Grid.Row="3" Grid.ColumnSpan="2" />

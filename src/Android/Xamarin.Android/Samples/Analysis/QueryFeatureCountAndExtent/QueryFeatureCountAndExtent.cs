@@ -15,8 +15,6 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ArcGISRuntimeXamarin.Samples.QueryFeatureCountAndExtent
 {
@@ -39,10 +37,7 @@ namespace ArcGISRuntimeXamarin.Samples.QueryFeatureCountAndExtent
         private MapView _myMapView = new MapView();
 
         // URL to the feature service
-        private Uri _UsaCitiesSource = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0");
-
-        // Statistic definition that returns a count of AREANAME (city names)
-        private StatisticDefinition countStatistic = new StatisticDefinition("AREANAME", StatisticType.Count, "pop");
+        private readonly Uri _usaCitiesSource = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0");
 
         // Feature table to query
         private ServiceFeatureTable _myFeatureTable;
@@ -64,7 +59,7 @@ namespace ArcGISRuntimeXamarin.Samples.QueryFeatureCountAndExtent
             Map myMap = new Map(Basemap.CreateStreetsVector());
 
             // Create the feature table from the service URL
-            _myFeatureTable = new ServiceFeatureTable(_UsaCitiesSource);
+            _myFeatureTable = new ServiceFeatureTable(_usaCitiesSource);
 
             // Create the feature layer from the table
             FeatureLayer myFeatureLayer = new FeatureLayer(_myFeatureTable);
@@ -82,40 +77,43 @@ namespace ArcGISRuntimeXamarin.Samples.QueryFeatureCountAndExtent
             _myMapView.Map = myMap;
         }
 
-        private async void btnStateCount_Click(object sender, EventArgs e)
+        private async void btnZoomToFeatures_Click(object sender, EventArgs e)
         {
-            // Create the statistics query parameters to control the query
-            StatisticsQueryParameters statQueryParams = new StatisticsQueryParameters(new List<StatisticDefinition>() { countStatistic });
+            // Create the query parameters
+            QueryParameters queryStates = new QueryParameters() { WhereClause = String.Format("upper(ST) LIKE '%{0}%'", _myStateEntry.Text.ToUpper()) };
 
-            // Limit results to matching states
-            statQueryParams.WhereClause = String.Format("upper(ST) LIKE '%{0}%'", _myStateEntry.Text.ToUpper());
+            // Get the extent from the query
+            Envelope resultExtent = await _myFeatureTable.QueryExtentAsync(queryStates);
 
-            // Execute the statistical query with these parameters and await the results
-            StatisticsQueryResult statQueryResult = await _myFeatureTable.QueryStatisticsAsync(statQueryParams);
+            // Return if there is no result (might happen if query is invalid)
+            if (resultExtent == null || resultExtent.SpatialReference == null)
+            {
+                return;
+            }
 
-            // Display the results in the UI
-            _myResultsLabel.Text = "Result: " + statQueryResult.First().Statistics["pop"].ToString();
+            // Create a viewpoint from the extent
+            Viewpoint resultViewpoint = new Viewpoint(resultExtent);
+
+            // Zoom to the viewpoint
+            await _myMapView.SetViewpointAsync(resultViewpoint);
         }
 
-        private async void btnExtentCount_Click(object sender, EventArgs e)
+        private async void btnCountFeatures_Click(object sender, EventArgs e)
         {
-            // Create the statistics query parameters, pass in the list of definitions
-            StatisticsQueryParameters statQueryParams = new StatisticsQueryParameters(new List<StatisticDefinition>() { countStatistic });
+            // Create the query parameters
+            QueryParameters queryCityCount = new QueryParameters();
 
-            // Get the current extent (envelope) from the map view
-            Envelope currentExtent = _myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry as Envelope;
+            // Get the current view extent and use that as a query parameters
+            queryCityCount.Geometry = _myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry;
 
-            // Set the statistics query parameters geometry with the envelope
-            statQueryParams.Geometry = currentExtent;
+            // Specify the interpretation of the Geometry query parameters
+            queryCityCount.SpatialRelationship = SpatialRelationship.Intersects;
 
-            // Set the spatial relationship to Intersects (which is the default)
-            statQueryParams.SpatialRelationship = SpatialRelationship.Intersects;
+            // Get the count of matching features
+            long count = await _myFeatureTable.QueryFeatureCountAsync(queryCityCount);
 
-            // Execute the statistical query with these parameters and await the results
-            StatisticsQueryResult statQueryResult = await _myFeatureTable.QueryStatisticsAsync(statQueryParams);
-
-            // Display the results in the UI
-            _myResultsLabel.Text = "Result: " + statQueryResult.First().Statistics["pop"].ToString();
+            // Update the UI
+            _myResultsLabel.Text = count.ToString();
         }
 
         private void CreateLayout()
@@ -130,12 +128,12 @@ namespace ArcGISRuntimeXamarin.Samples.QueryFeatureCountAndExtent
             _myResultsLabel = new TextView(this);
 
             // Create the two buttons
-            _myQueryStateButton = new Button(this) { Text = "Query by State" };
-            _myQueryExtentButton = new Button(this) { Text = "Query Extent" };
+            _myQueryStateButton = new Button(this) { Text = "Zoom to matching features" };
+            _myQueryExtentButton = new Button(this) { Text = "Count features in extent" };
 
             // Subscribe to button events
-            _myQueryExtentButton.Click += btnExtentCount_Click;
-            _myQueryStateButton.Click += btnStateCount_Click;
+            _myQueryExtentButton.Click += btnCountFeatures_Click;
+            _myQueryStateButton.Click += btnZoomToFeatures_Click;
 
             // Add the views to the layout
             layout.AddView(_myStateEntry);

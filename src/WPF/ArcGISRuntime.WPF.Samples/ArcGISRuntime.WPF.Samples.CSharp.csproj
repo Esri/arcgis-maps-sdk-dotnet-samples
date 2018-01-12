@@ -79,6 +79,9 @@
 	<Content Include="Samples\Analysis\QueryFeatureCountAndExtent\metadata.json">
     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
   </Content>
+	<Content Include="Samples\LocalServer\LocalServerMapImageLayer\metadata.json">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</Content>
 	<Content Include="Samples\Layers\FeatureLayerRenderingModeScene\metadata.json">
   <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	</Content>
@@ -341,6 +344,12 @@
     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
   </Content>
   <Content Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</Content>
+	<Content Include="Samples\LocalServer\LocalServerMapImageLayer\LocalServerMapImageLayer.jpg">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</Content>
+	<Content Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg">
   <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	</Content>
 	<Content Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg">
@@ -586,6 +595,9 @@
 	<Compile Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.xaml.cs">
 		<DependentUpon>QueryFeatureCountAndExtent.xaml</DependentUpon>
     </Compile>
+	<Compile Include="Samples\LocalServer\LocalServerMapImageLayer\LocalServerMapImageLayer.xaml.cs">
+		<DependentUpon>LocalServerMapImageLayer.xaml</DependentUpon>
+	</Compile>
 	<Compile Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.xaml.cs">
 		<DependentUpon>FeatureLayerRenderingModeScene.xaml</DependentUpon>
     </Compile>
@@ -840,6 +852,10 @@
     <!-- Sample XAML -->
 	<Page Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.xaml">
   <Generator>MSBuild:Compile</Generator>
+    <SubType>Designer</SubType>
+	</Page>
+	<Page Include="Samples\LocalServer\LocalServerMapImageLayer\LocalServerMapImageLayer.xaml">
+		<Generator>MSBuild:Compile</Generator>
 		<SubType>Designer</SubType>
 	</Page>
 	<Page Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.xaml">

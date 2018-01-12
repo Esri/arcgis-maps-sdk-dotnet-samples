@@ -11,6 +11,10 @@
   <ItemGroup>
     <!-- Misc Resources -->
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\PictureMarkerSymbols\pin_star_blue.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterHillshade\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterHillshade\RasterHillshade.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <Folder Include="$(MSBuildThisFileDirectory)Assets\" />
   </ItemGroup>
   <ItemGroup>
@@ -33,6 +37,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)SampleListPage.xaml.cs">
       <DependentUpon>SampleListPage.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterHillshade\RasterHillshade.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>RasterHillshade.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)CategoryListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -162,6 +170,7 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterHillshade\RasterHillshade.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterLayerFile\RasterLayerFile.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg" />

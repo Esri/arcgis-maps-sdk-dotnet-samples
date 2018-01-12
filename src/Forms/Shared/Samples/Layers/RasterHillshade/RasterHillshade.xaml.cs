@@ -7,16 +7,18 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
+using ArcGISRuntimeXamarin.Managers;
 using System;
+using Xamarin.Forms;
 using System.IO;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
-namespace ArcGISRuntime.WPF.Samples.RasterHillshade
+namespace ArcGISRuntimeXamarin.Samples.RasterHillshade
 {
-    public partial class RasterHillshade
+    public partial class RasterHillshade : ContentPage
     {
         // Constant to store a z-factor (conversion constant) applied to the hillshade.
         // If needed, this can be used to convert z-values to the same unit as the x/y coordinates or to apply a vertical exaggeration.
@@ -31,13 +33,16 @@ namespace ArcGISRuntime.WPF.Samples.RasterHillshade
         private const int PIXEL_BIT_DEPTH = 8;
 
         // Store a reference to the layer
-        RasterLayer _rasterLayer; 
-        
+        RasterLayer _rasterLayer;
+
+        // Store a dictionary of slope types
+        Dictionary<string, SlopeType> _slopeTypeValues = new Dictionary<string, SlopeType>();
+
         public RasterHillshade()
         {
             InitializeComponent();
 
-            // Set up the map and load the raster layer from a local file
+            // Call a function to set up the map
             Initialize();
         }
 
@@ -68,22 +73,23 @@ namespace ArcGISRuntime.WPF.Samples.RasterHillshade
             // Add the map to the map view
             MyMapView.Map = map;
 
-            // Add slope type values to the combo box
+            // Add slope type values to the dictionary and picker
             foreach (var slope in Enum.GetValues(typeof(SlopeType)))
             {
-                SlopeTypeCombo.Items.Add(slope);
+                _slopeTypeValues.Add(slope.ToString(), (SlopeType)slope);
+                SlopeTypePicker.Items.Add(slope.ToString());
             }
 
             // Select the "Scaled" slope type enum
-            SlopeTypeCombo.SelectedValue = SlopeType.Scaled;
+            SlopeTypePicker.SelectedIndex = 2;
         }
 
-        private void ApplyHillshade_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void ApplyHillshade_Click(object sender, EventArgs e)
         {
             // Get the current parameter values
             double altitude = AltitudeSlider.Value;
             double azimuth = AzimuthSlider.Value;
-            SlopeType typeOfSlope = (SlopeType)SlopeTypeCombo.SelectedItem;
+            SlopeType typeOfSlope = _slopeTypeValues[SlopeTypePicker.SelectedItem.ToString()];
 
             // Create a hillshade renderer that uses the values selected by the user
             HillshadeRenderer hillshadeRenderer = new HillshadeRenderer(altitude, azimuth, Z_FACTOR, typeOfSlope, PIXEL_SIZE_FACTOR, PIXEL_SIZE_POWER, PIXEL_BIT_DEPTH);

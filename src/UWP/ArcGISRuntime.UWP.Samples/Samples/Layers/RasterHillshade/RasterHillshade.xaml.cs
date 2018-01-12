@@ -14,7 +14,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntime.WPF.Samples.RasterHillshade
+namespace ArcGISRuntime.UWP.Samples.RasterHillshade
 {
     public partial class RasterHillshade
     {
@@ -31,8 +31,8 @@ namespace ArcGISRuntime.WPF.Samples.RasterHillshade
         private const int PIXEL_BIT_DEPTH = 8;
 
         // Store a reference to the layer
-        RasterLayer _rasterLayer; 
-        
+        RasterLayer _rasterLayer;
+
         public RasterHillshade()
         {
             InitializeComponent();
@@ -75,10 +75,10 @@ namespace ArcGISRuntime.WPF.Samples.RasterHillshade
             }
 
             // Select the "Scaled" slope type enum
-            SlopeTypeCombo.SelectedValue = SlopeType.Scaled;
+            SlopeTypeCombo.SelectedIndex = 2;
         }
 
-        private void ApplyHillshade_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void ApplyHillshade_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             // Get the current parameter values
             double altitude = AltitudeSlider.Value;

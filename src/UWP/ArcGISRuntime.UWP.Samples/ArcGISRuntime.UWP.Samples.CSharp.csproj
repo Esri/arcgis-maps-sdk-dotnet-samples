@@ -101,6 +101,7 @@
     <None Include="project.json" />
     <Content Include="Properties\ArcGISRuntime.Windows.Samples.rd.xml" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Samples\Layers\RasterHillshade\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
@@ -142,6 +143,7 @@
     <Content Include="Samples\Layers\FeatureLayerRenderingModeMap\metadata.json" />
     <Content Include="Samples\Layers\FeatureLayerSelection\metadata.json" />
     <Content Include="Samples\Layers\FeatureLayerUrl\metadata.json" />
+    <Content Include="Samples\Layers\RasterHillshade\RasterHillshade.jpg" />
     <Content Include="Samples\Layers\RasterLayerFile\metadata.json" />
     <Content Include="Samples\Layers\RasterLayerImageServiceRaster\metadata.json" />
     <Content Include="Samples\Layers\RasterLayerRasterFunction\metadata.json" />
@@ -378,6 +380,9 @@
     <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.xaml.cs">
       <DependentUpon>FeatureLayerUrl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Layers\RasterHillshade\RasterHillshade.xaml.cs">
+      <DependentUpon>RasterHillshade.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\RasterLayerFile\RasterLayerFile.xaml.cs">
       <DependentUpon>RasterLayerFile.xaml</DependentUpon>
     </Compile>
@@ -505,6 +510,10 @@
   <ItemGroup>
     <!-- Sample XAML -->
     <Page Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\RasterHillshade\RasterHillshade.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

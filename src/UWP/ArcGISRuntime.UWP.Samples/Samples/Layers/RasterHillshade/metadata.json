@@ -15,5 +15,6 @@
     "T:Esri.ArcGISRuntime.Mapping.RasterLayer",
     "P:Esri.ArcGISRuntime.Rasters.HillshadeRenderer.Altitude",
     "P:Esri.ArcGISRuntime.Rasters.HillshadeRenderer.Azimuth"
-  ]
+  ],
+  "SampleFolder": "RasterHillshade"
 }

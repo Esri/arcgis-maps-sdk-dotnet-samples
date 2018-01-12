@@ -82,6 +82,15 @@
     <Content Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+	<Content Include="Samples\LocalServer\LocalServerMapImageLayer\metadata.json">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</Content>
+	<Content Include="Samples\Layers\FeatureLayerRenderingModeScene\metadata.json">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</Content>
+	<Content Include="Samples\Data\SymbolizeShapefile\metadata.json">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</Content>
     <Content Include="Samples\Layers\WmsIdentify\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -295,6 +304,9 @@
     <Content Include="Samples\Search\FindPlace\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Symbology\RenderPictureMarkers\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -331,6 +343,15 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<Content Include="Samples\LocalServer\LocalServerMapImageLayer\LocalServerMapImageLayer.jpg">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</Content>
+	<Content Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg">
+  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</Content>
+	<Content Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</Content>
     <Content Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -571,6 +592,15 @@
     <Compile Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.xaml.cs">
       <DependentUpon>ReadGeoPackage.xaml</DependentUpon>
     </Compile>
+	<Compile Include="Samples\LocalServer\LocalServerMapImageLayer\LocalServerMapImageLayer.xaml.cs">
+		<DependentUpon>LocalServerMapImageLayer.xaml</DependentUpon>
+	</Compile>
+	<Compile Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.xaml.cs">
+		<DependentUpon>FeatureLayerRenderingModeScene.xaml</DependentUpon>
+    </Compile>
+	<Compile Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml.cs">
+		<DependentUpon>SymbolizeShapefile.xaml</DependentUpon>
+	</Compile>
     <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml.cs">
       <DependentUpon>SelectEncFeatures.xaml</DependentUpon>
     </Compile>
@@ -793,6 +823,9 @@
     <Compile Include="Samples\Search\FindPlace\FindPlace.xaml.cs">
       <DependentUpon>FindPlace.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.xaml.cs">
+      <DependentUpon>FeatureLayerExtrusion.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.xaml.cs">
       <DependentUpon>RenderPictureMarkers.xaml</DependentUpon>
     </Compile>
@@ -818,6 +851,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+	<Page Include="Samples\LocalServer\LocalServerMapImageLayer\LocalServerMapImageLayer.xaml">
+		<Generator>MSBuild:Compile</Generator>
+		<SubType>Designer</SubType>
+	</Page>
+	<Page Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.xaml">
+  <Generator>MSBuild:Compile</Generator>
+		<SubType>Designer</SubType>
+	</Page>
+	<Page Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml">
+		<Generator>MSBuild:Compile</Generator>
+		<SubType>Designer</SubType>
+	</Page>
     <Page Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1114,6 +1159,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1143,6 +1192,9 @@
     <None Include="app.config" />
     <None Include="packages.config" />
     <Content Include="Samples\Data\ReadGeoPackage\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\FeatureLayerExtrusion\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

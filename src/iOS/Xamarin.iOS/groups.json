@@ -240,6 +240,10 @@
             {
               "SampleName": "FeatureLayerRenderingModeMap",
               "Path": "Samples/Layers/FeatureLayerRenderingModeMap"
+            },
+            {
+              "SampleName": "FeatureLayerRenderingModeScene",
+              "Path": "Samples/Layers/FeatureLayerRenderingModeScene"
             }
           ]
         },
@@ -287,6 +291,10 @@
             {
               "SampleName": "ReadShapefileMetadata",
               "Path": "Samples/Data/ReadShapefileMetadata"
+            },
+            {
+              "SampleName": "SymbolizeShapefile",
+              "Path": "Samples/Data/SymbolizeShapefile"
             }
           ]
         }
@@ -425,6 +433,10 @@
             {
               "SampleName": "UseDistanceCompositeSym",
               "Path": "Samples/Symbology/UseDistanceCompositeSym"
+            },
+            {
+              "SampleName": "FeatureLayerExtrusion",
+              "Path": "Samples/Symbology/FeatureLayerExtrusion"
             }
           ]
         },

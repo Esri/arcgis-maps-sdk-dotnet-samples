@@ -102,9 +102,12 @@
     <Content Include="Properties\ArcGISRuntime.Windows.Samples.rd.xml" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Samples\Data\ReadGeoPackage\metadata.json" />
+    <Content Include="Samples\Symbology\FeatureLayerExtrusion\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
+	<Content Include="Samples\Layers\FeatureLayerRenderingModeScene\metadata.json" />
+	<Content Include="Samples\Data\SymbolizeShapefile\metadata.json" />
     <Content Include="groups.json" />
     <Content Include="Samples\Analysis\LineOfSightLocation\metadata.json" />
     <Content Include="Samples\Analysis\ViewshedCamera\metadata.json" />
@@ -180,6 +183,7 @@
     <Content Include="Samples\NetworkAnalysis\FindRoute\metadata.json" />
     <Content Include="Samples\Search\FindAddress\metadata.json" />
     <Content Include="Samples\Search\FindPlace\metadata.json" />
+    <Content Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.jpg" />
     <Content Include="Samples\Symbology\RenderPictureMarkers\metadata.json" />
     <Content Include="Samples\Symbology\RenderSimpleMarkers\metadata.json" />
     <Content Include="Samples\Symbology\RenderUniqueValues\metadata.json" />
@@ -189,6 +193,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<Content Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
+	<Content Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
     <Content Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
     <Content Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.jpg" />
     <Content Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg" />
@@ -271,6 +277,12 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.xaml.cs">
+		<DependentUpon>FeatureLayerRenderingModeScene.xaml</DependentUpon>
+    </Compile>
+	<Compile Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml.cs">
+		<DependentUpon>SymbolizeShapefile.xaml</DependentUpon>
+	</Compile>
     <Compile Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.xaml.cs">
       <DependentUpon>LineOfSightLocation.xaml</DependentUpon>
     </Compile>
@@ -493,6 +505,9 @@
     <Compile Include="Samples\Search\FindPlace\FindPlace.xaml.cs">
       <DependentUpon>FindPlace.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.xaml.cs">
+      <DependentUpon>FeatureLayerExtrusion.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.xaml.cs">
       <DependentUpon>RenderPictureMarkers.xaml</DependentUpon>
     </Compile>
@@ -514,6 +529,14 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+	<Page Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.xaml">
+  <Generator>MSBuild:Compile</Generator>
+		<SubType>Designer</SubType>
+	</Page>
+	<Page Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml">
+		<Generator>MSBuild:Compile</Generator>
+		<SubType>Designer</SubType>
+	</Page>
     <Page Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -807,6 +830,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Search\FindPlace\FindPlace.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

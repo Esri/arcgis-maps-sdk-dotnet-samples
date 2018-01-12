@@ -462,6 +462,10 @@
           "ShowGroup": false,
           "SampleInfos": [
             {
+              "SampleName": "LocalServerMapImageLayer",
+              "Path": "Samples/LocalServer/LocalServerMapImageLayer"
+            },
+            {
               "SampleName": "DynamicWorkspaceShapefile",
               "Path": "Samples/LocalServer/DynamicWorkspaceShapefile"
             },

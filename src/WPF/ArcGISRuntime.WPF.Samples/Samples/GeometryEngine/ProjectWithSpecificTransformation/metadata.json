@@ -1,0 +1,16 @@
+{
+  "Name": "Project with specific transformation",
+  "SampleName": "ProjectWithSpecificTransformation",
+  "Description": "This sample demonstrates how to use the GeometryEngine with a specified geographic transformation to transform a geometry from one coordinate system to another. ",
+  "Instructions": "See https://developers.arcgis.com/net/latest/wpf/guide/coordinate-systems-and-transformations.htm for more information about geographic coordinate systems, geographic transformations, and projected coordinate systems. ",
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": false,
+  "RequiresLocalServer": false,
+  "Image": "ProjectWithSpecificTransformation.jpg",
+  "Link": "",
+  "TypeLink": [ "T:Esri.ArcGISRuntime.Geometry.GeographicTransformation",
+    "M:Esri.ArcGISRuntime.Geometry.GeographicTransformation.#ctor(Esri.ArcGISRuntime.Geometry.GeographicTransformationStep)",
+    "T:Esri.ArcGISRuntime.Geometry.GeographicTransformationStep" ],
+  "SampleFolder": "ProjectWithSpecificTransformation"
+}

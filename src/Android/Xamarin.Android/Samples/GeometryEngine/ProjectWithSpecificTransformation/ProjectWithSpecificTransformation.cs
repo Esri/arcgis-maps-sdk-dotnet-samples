@@ -40,7 +40,7 @@ namespace ArcGISRuntimeXamarin.Samples.ProjectWithSpecificTransformation
             MapPoint myPoint = new MapPoint(-73.984513, 40.748469, SpatialReferences.Wgs84);
 
             // Update the UI with the initial coordinates
-            _lblBefore.Text = $"x: {myPoint.X}, y: {myPoint.Y}, z: {myPoint.Z}";
+            _lblBefore.Text = $"x: {myPoint.X}, y: {myPoint.Y}";
 
             // Create a geographic transformation step for transfrom WKID 108055, WGS_1984_To_MSK_1942
             GeographicTransformationStep geoStep = new GeographicTransformationStep(108055);
@@ -52,7 +52,7 @@ namespace ArcGISRuntimeXamarin.Samples.ProjectWithSpecificTransformation
             MapPoint myAfterPoint = (MapPoint)GeometryEngine.Project(myPoint, SpatialReference.Create(2829), geoTransform);
 
             // Update the UI with the projected coordinates
-            _lblAfter.Text = $"x: {myAfterPoint.X}, y: {myAfterPoint.Y}, z: {myAfterPoint.Z}";
+            _lblAfter.Text = $"x: {myAfterPoint.X}, y: {myAfterPoint.Y}";
         }
 
         private void CreateLayout()

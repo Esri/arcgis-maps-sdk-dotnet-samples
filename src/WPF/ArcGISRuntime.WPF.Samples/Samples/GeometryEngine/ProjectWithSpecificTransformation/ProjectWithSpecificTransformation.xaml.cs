@@ -27,7 +27,7 @@ namespace ArcGISRuntime.WPF.Samples.ProjectWithSpecificTransformation
             MapPoint myPoint = new MapPoint(-73.984513, 40.748469, SpatialReferences.Wgs84);
 
             // Update the UI with the initial coordinates
-            lblBefore.Content = String.Format("x: {0}, y: {1}, z: {2}", myPoint.X, myPoint.Y, myPoint.Z);
+            lblBefore.Content = String.Format("x: {0}, y: {1}", myPoint.X, myPoint.Y);
 
             // Create a geographic transformation step for transfrom WKID 108055, WGS_1984_To_MSK_1942
             GeographicTransformationStep geoStep = new GeographicTransformationStep(108055);
@@ -39,7 +39,7 @@ namespace ArcGISRuntime.WPF.Samples.ProjectWithSpecificTransformation
             MapPoint myAfterPoint = (MapPoint)GeometryEngine.Project(myPoint, SpatialReference.Create(2829), geoTransform);
 
             // Update the UI with the projected coordinates
-            lblAfter.Content = String.Format("x: {0}, y: {1}, z: {2}", myAfterPoint.X, myAfterPoint.Y, myAfterPoint.Z);
+            lblAfter.Content = String.Format("x: {0}, y: {1}", myAfterPoint.X, myAfterPoint.Y);
         }
     }
 }

@@ -27,24 +27,26 @@ namespace ArcGISRuntimeXamarin.Samples.ReadGeoPackage
     [Register("ReadGeoPackage")]
     public class ReadGeoPackage : UIViewController
     {
-        // Member/global MapView control to display layers in the sample
-        private MapView _MyMapView = new MapView();
+        // Member MapView control to display layers in the sample
+        private MapView _myMapView = new MapView();
 
-        // Member/global UISegmentedControl control to add and removed layers in the MapView
-        private UISegmentedControl _MyUISegmentedControl = new UISegmentedControl();
+        // Member UISegmentedControl control to add and removed layers in the MapView
+        private UISegmentedControl _myUISegmentedControl = new UISegmentedControl();
 
-        // Member/global HybridDictionary to hold the multiple key/object pairs that represent: 
+        // Member HybridDictionary to hold the multiple key/object pairs that represent: 
         // human-readable string name of a layer - key
         // the layer itself (RasterLayer or FeatureLayer) - object
-        HybridDictionary _MyHybridDictionary_Layers = new HybridDictionary();
+        // NOTE: According to MSDN, a HybridDictionary is useful for cases where the number 
+        // of elements in a dictionary is unknown
+        HybridDictionary _myHybridDictionary_Layers = new HybridDictionary();
 
-        // Member/global ObservableCollection to hold the human-readable string name of the layers
+        // Member ObservableCollection to hold the human-readable string name of the layers
         // that are currently Not displayed in the MapView 
-        ObservableCollection<string> _MyObservableCollection_LayerNamesNotInTheMap = new ObservableCollection<string>();
+        ObservableCollection<string> _myObservableCollection_LayerNamesNotInTheMap = new ObservableCollection<string>();
 
-        // Member/global ObservableCollection to hold the human-readable string name of the layers
+        // Member ObservableCollection to hold the human-readable string name of the layers
         // that are currently displayed in the MapView
-        ObservableCollection<string> _MyObservableCollection_LayerNamesInTheMap = new ObservableCollection<string>();
+        ObservableCollection<string> _myObservableCollection_LayerNamesInTheMap = new ObservableCollection<string>();
 
         public ReadGeoPackage()
         {
@@ -67,16 +69,16 @@ namespace ArcGISRuntimeXamarin.Samples.ReadGeoPackage
             base.ViewDidLayoutSubviews();
 
             // Define the viewable area of the MapView in the sample
-            _MyMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
             // Define the viewable area of the UISegmentedControl in the sample
-            _MyUISegmentedControl.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 50, View.Bounds.Width, 50);
+            _myUISegmentedControl.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 50, View.Bounds.Width, 50);
         }
 
         private async void Initialize()
         {
             // Create a new map centered on Aurora Colorado
-            _MyMapView.Map = new Map(BasemapType.Streets, 39.7294, -104.8319, 11);
+            _myMapView.Map = new Map(BasemapType.Streets, 39.7294, -104.8319, 11);
 
             // Get the full path to the GeoPackage on the device
             string myGeoPackagePath = await GetGeoPackagePath();
@@ -121,21 +123,21 @@ namespace ArcGISRuntimeXamarin.Samples.ReadGeoPackage
                 myRasterLayerName = myRasterLayerName + " - RasterLayer";
 
                 // Add the name of the RasterLayer and the RasterLayer itself into the HybridDictionary
-                _MyHybridDictionary_Layers.Add(myRasterLayerName, myRasterLayer);
+                _myHybridDictionary_Layers.Add(myRasterLayerName, myRasterLayer);
 
                 // Add the name of the RasterLayer to _MyObservableCollectionLayerNamesNotInTheMap 
                 // which displays the human-readable layer names used by the UISegmentedControl
-                _MyObservableCollection_LayerNamesNotInTheMap.Add(myRasterLayerName);
+                _myObservableCollection_LayerNamesNotInTheMap.Add(myRasterLayerName);
             }
 
             // Get the read only list of GeoPackageFeatureTabless from the GeoPackage
             IReadOnlyList<GeoPackageFeatureTable> myReadOnlyListOfGeoPackageFeatureTables = myGeoPackage.GeoPackageFeatureTables;
 
             // Loop through each GeoPackageFeatureTable
-            foreach (GeoPackageFeatureTable oneGeoPackageFeatureLayer in myReadOnlyListOfGeoPackageFeatureTables)
+            foreach (GeoPackageFeatureTable oneGeoPackageFeatureTable in myReadOnlyListOfGeoPackageFeatureTables)
             {
                 // Create a FeatureLayer from the GeoPackageFeatureLayer
-                FeatureLayer myFeatureLayer = new FeatureLayer(oneGeoPackageFeatureLayer);
+                FeatureLayer myFeatureLayer = new FeatureLayer(oneGeoPackageFeatureTable);
 
                 // Load the FeatureLayer - that way we can get to it's properties
                 await myFeatureLayer.LoadAsync();
@@ -149,26 +151,26 @@ namespace ArcGISRuntimeXamarin.Samples.ReadGeoPackage
                 myFeatureLayerName = myFeatureLayerName + " - FeatureLayer";
 
                 // Add the name of the FeatureLayer and the FeatureLayer itself into the HybridDictionary
-                _MyHybridDictionary_Layers.Add(myFeatureLayerName, myFeatureLayer);
+                _myHybridDictionary_Layers.Add(myFeatureLayerName, myFeatureLayer);
 
-                // Add the name of the RasterLayer to _MyObservableCollectionLayerNamesNotInTheMap 
+                // Add the name of the RasterLayer to _myObservableCollectionLayerNamesNotInTheMap 
                 // which displays the human-readable layer names used by the UISegmentedControl
-                _MyObservableCollection_LayerNamesNotInTheMap.Add(myFeatureLayerName);
+                _myObservableCollection_LayerNamesNotInTheMap.Add(myFeatureLayerName);
             }
         }
 
         private void CreateLayout()
         {
             // Configure UISegmentedControl
-            _MyUISegmentedControl.BackgroundColor = UIColor.White;
-            _MyUISegmentedControl.InsertSegment("Layers in map", 0, false);
-            _MyUISegmentedControl.InsertSegment("Layers Not in map", 1, false);
+            _myUISegmentedControl.BackgroundColor = UIColor.White;
+            _myUISegmentedControl.InsertSegment("Layers in map", 0, false);
+            _myUISegmentedControl.InsertSegment("Layers Not in map", 1, false);
 
             // Handle the "click" for each segment (new segment is selected)
-            _MyUISegmentedControl.ValueChanged += _MyUISegmentedControl_ValueChanged;
+            _myUISegmentedControl.ValueChanged += _MyUISegmentedControl_ValueChanged;
 
             // Add the MapView and UISegmentedControl to the page
-            View.AddSubviews(_MyMapView, _MyUISegmentedControl);
+            View.AddSubviews(_myMapView, _myUISegmentedControl);
         }
 
         private void _MyUISegmentedControl_ValueChanged(object sender, System.EventArgs e)
@@ -201,7 +203,7 @@ namespace ArcGISRuntimeXamarin.Samples.ReadGeoPackage
             UIAlertController myUIAlertController = UIAlertController.Create("Add a layer to the map", "", UIAlertControllerStyle.ActionSheet);
 
             // Add actions to add a layer to the map
-            foreach (string oneLayerName in _MyObservableCollection_LayerNamesNotInTheMap)
+            foreach (string oneLayerName in _myObservableCollection_LayerNamesNotInTheMap)
             {
                 myUIAlertController.AddAction(UIAlertAction.Create(oneLayerName, UIAlertActionStyle.Default, (action) => Action_AddLayerToMap(oneLayerName)));
             }
@@ -225,8 +227,8 @@ namespace ArcGISRuntimeXamarin.Samples.ReadGeoPackage
         {
             // This function executes when the user clicks on the human-readable name of a layer in the UISegmentedControl
             // It finds the actual layer in the HybridDictionary based upon the user selection and add it to the map
-            // Then the human-readable layer name is removed from the _MyObservableCollection_LayerNamesNotInTheMap and 
-            // added to the  _MyObservableCollection_LayerNamesInTheMap
+            // Then the human-readable layer name is removed from the _myObservableCollection_LayerNamesNotInTheMap and 
+            // added to the _myObservableCollection_LayerNamesInTheMap
 
             // Get the user selected item from the TextView
             string myLayerSelection = layerName;
@@ -235,20 +237,20 @@ namespace ArcGISRuntimeXamarin.Samples.ReadGeoPackage
             if (myLayerSelection != null)
             {
                 // Get the human-readable name of the layer 
-                string myLayerName = myLayerSelection.ToString();
+                string myLayerName = myLayerSelection;
 
                 // Get the layer from the HybridDictionary (it could be either a RasterLayer
                 // or a FeatureLayer - both inherit from the abstract/base Layer class)
-                Layer myLayer = (Layer)_MyHybridDictionary_Layers[myLayerName];
+                Layer myLayer = (Layer)_myHybridDictionary_Layers[myLayerName];
 
                 // Add the layer to the map
-                _MyMapView.Map.OperationalLayers.Add(myLayer);
+                _myMapView.Map.OperationalLayers.Add(myLayer);
 
-                // Remove the human-readable layer name from the ObservableCollection _MyLayerNamesNotInTheMap
-                _MyObservableCollection_LayerNamesNotInTheMap.Remove(myLayerName);
+                // Remove the human-readable layer name from the ObservableCollection _myLayerNamesNotInTheMap
+                _myObservableCollection_LayerNamesNotInTheMap.Remove(myLayerName);
 
-                // Add the human-readable layer name to the ObservableCollection _MyLayerNamesInTheMap
-                _MyObservableCollection_LayerNamesInTheMap.Add(myLayerName);
+                // Add the human-readable layer name to the ObservableCollection _myLayerNamesInTheMap
+                _myObservableCollection_LayerNamesInTheMap.Add(myLayerName);
             }
         }
 
@@ -258,7 +260,7 @@ namespace ArcGISRuntimeXamarin.Samples.ReadGeoPackage
             UIAlertController layersActionSheet = UIAlertController.Create("Remove a layer from the map", "", UIAlertControllerStyle.ActionSheet);
 
             // Add actions to remove a layer from the map
-            foreach (string oneLayerName in _MyObservableCollection_LayerNamesInTheMap)
+            foreach (string oneLayerName in _myObservableCollection_LayerNamesInTheMap)
             {
                 layersActionSheet.AddAction(UIAlertAction.Create(oneLayerName, UIAlertActionStyle.Default, (action) => Action_RemoveLayerFromMap(oneLayerName)));
             }
@@ -282,8 +284,8 @@ namespace ArcGISRuntimeXamarin.Samples.ReadGeoPackage
         {
             // This function executes when the user clicks on the human-readable name of a layer in the UISegmentedControl
             // It finds the actual layer in the HybridDictionary based upon the user selection and add it to the map
-            // Then the human-readable layer name is removed from the _MyObservableCollection_LayerNamesInTheMap and 
-            // added to the _MyObservableCollection_LayerNamesNotInTheMap
+            // Then the human-readable layer name is removed from the _myObservableCollection_LayerNamesInTheMap and 
+            // added to the _myObservableCollection_LayerNamesNotInTheMap
 
             // Get the user selected item from the TextView
             string myLayerSelection = layerName;
@@ -292,20 +294,20 @@ namespace ArcGISRuntimeXamarin.Samples.ReadGeoPackage
             if (myLayerSelection != null)
             {
                 // Get the human-readable name of the layer 
-                string myLayerName = myLayerSelection.ToString();
+                string myLayerName = myLayerSelection;
 
                 // Get the layer from the HybridDictionary (it could be either a RasterLayer
                 // or a FeatureLayer - both inherit from the abstract/base Layer class)
-                Layer myLayer = (Layer)_MyHybridDictionary_Layers[myLayerName];
+                Layer myLayer = (Layer)_myHybridDictionary_Layers[myLayerName];
 
                 // Add the layer to the map
-                _MyMapView.Map.OperationalLayers.Remove(myLayer);
+                _myMapView.Map.OperationalLayers.Remove(myLayer);
 
-                // Remove the human-readable layer name from the _MyObservableCollectionLayerNamesInTheMap
-                _MyObservableCollection_LayerNamesInTheMap.Remove(myLayerName);
+                // Remove the human-readable layer name from the _myObservableCollectionLayerNamesInTheMap
+                _myObservableCollection_LayerNamesInTheMap.Remove(myLayerName);
 
-                // Add the human-readable layer name to the _MyObservableCollectionLayerNamesNotInTheMap
-                _MyObservableCollection_LayerNamesNotInTheMap.Add(myLayerName);
+                // Add the human-readable layer name to the _myObservableCollectionLayerNamesNotInTheMap
+                _myObservableCollection_LayerNamesNotInTheMap.Add(myLayerName);
             }
         }
 

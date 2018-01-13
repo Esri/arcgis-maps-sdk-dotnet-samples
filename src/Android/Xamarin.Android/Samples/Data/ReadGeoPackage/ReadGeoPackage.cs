@@ -28,7 +28,7 @@ namespace ArcGISRuntimeXamarin.Samples.ReadGeoPackage
     public class ReadGeoPackage : Activity
     {
 
-        // Member/global MapView UI control used in the sample
+        // Member MapView UI control used in the sample
         private MapView _myMapView;
 
         // Hold a reference to the ListView for layer names that are currently displayed in the map
@@ -37,18 +37,20 @@ namespace ArcGISRuntimeXamarin.Samples.ReadGeoPackage
         // Hold a reference to the ListView for layer names that are currently Not displayed in the map
         private ListView _myListView_LayersNotInTheMap;
 
-        // Member/global HybridDictionary to hold the multiple key/object pairs that represent: 
+        // Member HybridDictionary to hold the multiple key/object pairs that represent: 
         // human-readable string name of a layer - key
         // the layer itself (RasterLayer or FeatureLayer) - object
-        private HybridDictionary _MyHybridDictionary_Layers = new HybridDictionary();
+        // NOTE: According to MSDN, a HybridDictionary is useful for cases where the number 
+        // of elements in a dictionary is unknown
+        private HybridDictionary _myHybridDictionary_Layers = new HybridDictionary();
 
-        // Member/global ObservableCollection to hold the human-readable string name of the 
+        // Member ObservableCollection to hold the human-readable string name of the 
         // layers - used as the ListView_LayersNotInTheMap.ItemsSource 
-        ObservableCollection<string> _MyLayerNamesNotInTheMap = new ObservableCollection<string>();
+        ObservableCollection<string> _myObservableCollection_LayerNamesNotInTheMap = new ObservableCollection<string>();
 
-        // Member/global ObservableCollection to hold the human-readable string name of the 
+        // Member ObservableCollection to hold the human-readable string name of the 
         // layers - used as the ListView_LayersInTheMap.ItemsSource 
-        ObservableCollection<string> _MyLayerNamesInTheMap = new ObservableCollection<string>();
+        ObservableCollection<string> _myObservableCollection_LayerNamesInTheMap = new ObservableCollection<string>();
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -111,21 +113,21 @@ namespace ArcGISRuntimeXamarin.Samples.ReadGeoPackage
                 myRasterLayerName = myRasterLayerName + " - RasterLayer";
 
                 // Add the name of the RasterLayer and the RasterLayer itself into the HybridDictionary
-                _MyHybridDictionary_Layers.Add(myRasterLayerName, myRasterLayer);
+                _myHybridDictionary_Layers.Add(myRasterLayerName, myRasterLayer);
 
-                // Add the name of the RasterLayer to ObservableCollection _MyLayerNamesNotInTheMap 
+                // Add the name of the RasterLayer to _myObservableCollection_LayerNamesNotInTheMap 
                 // which displays the human-readable layer names used by the _myListView_LayersNotInTheMap
-                _MyLayerNamesNotInTheMap.Add(myRasterLayerName);
+                _myObservableCollection_LayerNamesNotInTheMap.Add(myRasterLayerName);
             }
 
             // Get the read only list of GeoPackageFeatureTabless from the GeoPackage
             IReadOnlyList<GeoPackageFeatureTable> myReadOnlyListOfGeoPackageFeatureTables = myGeoPackage.GeoPackageFeatureTables;
 
             // Loop through each GeoPackageFeatureTable
-            foreach (GeoPackageFeatureTable oneGeoPackageFeatureLayer in myReadOnlyListOfGeoPackageFeatureTables)
+            foreach (GeoPackageFeatureTable oneGeoPackageFeatureTable in myReadOnlyListOfGeoPackageFeatureTables)
             {
                 // Create a FeatureLayer from the GeoPackageFeatureLayer
-                FeatureLayer myFeatureLayer = new FeatureLayer(oneGeoPackageFeatureLayer);
+                FeatureLayer myFeatureLayer = new FeatureLayer(oneGeoPackageFeatureTable);
 
                 // Load the FeatureLayer - that way we can get to it's properties
                 await myFeatureLayer.LoadAsync();
@@ -139,15 +141,15 @@ namespace ArcGISRuntimeXamarin.Samples.ReadGeoPackage
                 myFeatureLayerName = myFeatureLayerName + " - FeatureLayer";
 
                 // Add the name of the FeatureLayer and the FeatureLayer itself into the HybridDictionary
-                _MyHybridDictionary_Layers.Add(myFeatureLayerName, myFeatureLayer);
+                _myHybridDictionary_Layers.Add(myFeatureLayerName, myFeatureLayer);
 
-                // Add the name of the RasterLayer to ObservableCollection _MyLayerNamesNotInTheMap 
+                // Add the name of the RasterLayer to _myObservableCollection_LayerNamesNotInTheMap 
                 // which displays the human-readable layer names used by the _myListView_LayersNotInTheMap
-                _MyLayerNamesNotInTheMap.Add(myFeatureLayerName);
+                _myObservableCollection_LayerNamesNotInTheMap.Add(myFeatureLayerName);
             }
 
             // Create a simple string array of the human-readable layer names from the ObservableCollection
-            string[] myStringArray_LayerNamesNotInTheMap = _MyLayerNamesNotInTheMap.ToArray();
+            string[] myStringArray_LayerNamesNotInTheMap = _myObservableCollection_LayerNamesNotInTheMap.ToArray();
 
             // Create an ArrayAdapter from the simple string array
             ArrayAdapter myArrayAdapter_LayerNamesNotInTheMap = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, myStringArray_LayerNamesNotInTheMap);
@@ -178,17 +180,17 @@ namespace ArcGISRuntimeXamarin.Samples.ReadGeoPackage
 
                 // Get the layer from the HybridDictionary (it could be either a RasterLayer
                 // or a FeatureLayer - both inherit from the abstract/base Layer class)
-                Layer myLayer = (Layer)_MyHybridDictionary_Layers[myLayerName];
+                Layer myLayer = (Layer)_myHybridDictionary_Layers[myLayerName];
 
                 // Add the layer to the map
                 _myMapView.Map.OperationalLayers.Add(myLayer);
 
                 // ------------------------------------------------------------------------------------------
-                // Remove the human-readable layer name from the ObservableCollection _MyLayerNamesNotInTheMap
-                _MyLayerNamesNotInTheMap.Remove(myLayerName);
+                // Remove the human-readable layer name from the _myObservableCollection_LayerNamesNotInTheMap
+                _myObservableCollection_LayerNamesNotInTheMap.Remove(myLayerName);
 
                 // Create a simple string array of the human-readable layer names from the ObservableCollection
-                string[] myStringArray_LayerNamesNotInTheMap = _MyLayerNamesNotInTheMap.ToArray();
+                string[] myStringArray_LayerNamesNotInTheMap = _myObservableCollection_LayerNamesNotInTheMap.ToArray();
 
                 // Create an ArrayAdapter from the simple string array
                 ArrayAdapter myArrayAdapter_LayerNamesNotInTheMap = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, myStringArray_LayerNamesNotInTheMap);
@@ -199,11 +201,11 @@ namespace ArcGISRuntimeXamarin.Samples.ReadGeoPackage
                 // ------------------------------------------------------------------------------------------
 
                 // ------------------------------------------------------------------------------------------
-                // Add the human-readable layer name to the ObservableCollection _MyLayerNamesInTheMap
-                _MyLayerNamesInTheMap.Add(myLayerName);
+                // Add the human-readable layer name to the _myObservableCollection_LayerNamesInTheMap
+                _myObservableCollection_LayerNamesInTheMap.Add(myLayerName);
 
                 // Create a simple string array of the human-readable layer names from the ObservableCollection
-                string[] myStringArray_LayerNamesInTheMap = _MyLayerNamesInTheMap.ToArray();
+                string[] myStringArray_LayerNamesInTheMap = _myObservableCollection_LayerNamesInTheMap.ToArray();
 
                 // Create an ArrayAdapter from the simple string array
                 ArrayAdapter myArrayAdapter_LayerNamesInTheMap = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, myStringArray_LayerNamesInTheMap);
@@ -232,21 +234,21 @@ namespace ArcGISRuntimeXamarin.Samples.ReadGeoPackage
             if (myLayerSelection != null)
             {
                 // Get the human-readable name of the layer 
-                string myLayerName = myLayerSelection.ToString();
+                string myLayerName = myLayerSelection;
 
                 // Get the layer from the HybridDictionary (it could be either a RasterLayer
                 // or a FeatureLayer - both inherit from the abstract/base Layer class)
-                Layer myLayer = (Layer)_MyHybridDictionary_Layers[myLayerName];
+                Layer myLayer = (Layer)_myHybridDictionary_Layers[myLayerName];
 
                 // Remove the layer from the map
                 _myMapView.Map.OperationalLayers.Remove(myLayer);
 
                 // ------------------------------------------------------------------------------------------
-                // Remove the human-readable layer name from the ObservableCollection _MyLayerNamesInTheMap
-                _MyLayerNamesInTheMap.Remove(myLayerName);
+                // Remove the human-readable layer name from the _myObservableCollection_LayerNamesInTheMap
+                _myObservableCollection_LayerNamesInTheMap.Remove(myLayerName);
 
                 // Create a simple string array of the human-readable layer names from the ObservableCollection
-                string[] myStringArray_LayerNamesInTheMap = _MyLayerNamesInTheMap.ToArray();
+                string[] myStringArray_LayerNamesInTheMap = _myObservableCollection_LayerNamesInTheMap.ToArray();
 
                 // Create an ArrayAdapter from the simple string array
                 ArrayAdapter myArrayAdapter_LayerNamesInTheMap = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, myStringArray_LayerNamesInTheMap);
@@ -257,11 +259,11 @@ namespace ArcGISRuntimeXamarin.Samples.ReadGeoPackage
                 // ------------------------------------------------------------------------------------------
 
                 // ------------------------------------------------------------------------------------------
-                // Add the human-readable layer name to the ObservableCollection _MyLayerNamesNotInTheMap
-                _MyLayerNamesNotInTheMap.Add(myLayerName);
+                // Add the human-readable layer name to the _myObservableCollection_LayerNamesNotInTheMap
+                _myObservableCollection_LayerNamesNotInTheMap.Add(myLayerName);
 
                 // Create a simple string array of the human-readable layer names from the ObservableCollection
-                string[] myStringArray_LayerNamesNotInTheMap = _MyLayerNamesNotInTheMap.ToArray();
+                string[] myStringArray_LayerNamesNotInTheMap = _myObservableCollection_LayerNamesNotInTheMap.ToArray();
 
                 // Create an ArrayAdapter from the simple string array
                 ArrayAdapter myArrayAdapter_LayerNamesNotInTheMap = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, myStringArray_LayerNamesNotInTheMap);

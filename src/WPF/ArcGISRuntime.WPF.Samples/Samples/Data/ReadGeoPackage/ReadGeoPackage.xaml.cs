@@ -29,10 +29,12 @@ namespace ArcGISRuntime.WPF.Samples.ReadGeoPackage
             Initialize();
         }
 
-        // Member/global HybridDictionary to hold the multiple key/object pairs that represent: 
+        // Member HybridDictionary to hold the multiple key/object pairs that represent: 
         // human-readable string name of a layer - key
         // the layer itself (RasterLayer or FeatureLayer) - object
-        HybridDictionary _MyHybridDictionary_Layers = new HybridDictionary();
+        // NOTE: According to MSDN, a HybridDictionary is useful for cases where the number 
+        // of elements in a dictionary is unknown
+        HybridDictionary _myHybridDictionary_Layers = new HybridDictionary();
 
         private async void Initialize()
         {
@@ -82,7 +84,7 @@ namespace ArcGISRuntime.WPF.Samples.ReadGeoPackage
                 myRasterLayerName = myRasterLayerName + " - RasterLayer";
 
                 // Add the name of the RasterLayer and the RasterLayer itself into the HybridDictionary
-                _MyHybridDictionary_Layers.Add(myRasterLayerName, myRasterLayer);
+                _myHybridDictionary_Layers.Add(myRasterLayerName, myRasterLayer);
 
                 // Add the name of the RasterLayer to the ListBox of layers not in map
                 ListBox_LayersNotInTheMap.Items.Add(myRasterLayerName);
@@ -92,10 +94,10 @@ namespace ArcGISRuntime.WPF.Samples.ReadGeoPackage
             IReadOnlyList<GeoPackageFeatureTable> myReadOnlyListOfGeoPackageFeatureTables = myGeoPackage.GeoPackageFeatureTables;
 
             // Loop through each GeoPackageFeatureTable
-            foreach (GeoPackageFeatureTable oneGeoPackageFeatureLayer in myReadOnlyListOfGeoPackageFeatureTables)
+            foreach (GeoPackageFeatureTable oneGeoPackageFeatureTable in myReadOnlyListOfGeoPackageFeatureTables)
             {
                 // Create a FeatureLayer from the GeoPackageFeatureLayer
-                FeatureLayer myFeatureLayer = new FeatureLayer(oneGeoPackageFeatureLayer);
+                FeatureLayer myFeatureLayer = new FeatureLayer(oneGeoPackageFeatureTable);
 
                 // Load the FeatureLayer - that way we can get to it's properties
                 await myFeatureLayer.LoadAsync();
@@ -109,7 +111,7 @@ namespace ArcGISRuntime.WPF.Samples.ReadGeoPackage
                 myFeatureLayerName = myFeatureLayerName + " - FeatureLayer";
 
                 // Add the name of the FeatureLayer and the FeatureLayer itself into the HybridDictionary
-                _MyHybridDictionary_Layers.Add(myFeatureLayerName, myFeatureLayer);
+                _myHybridDictionary_Layers.Add(myFeatureLayerName, myFeatureLayer);
 
                 // Add the name of the FeatureLayer to the ListBox of layers not in map
                 ListBox_LayersNotInTheMap.Items.Add(myFeatureLayerName);
@@ -129,7 +131,7 @@ namespace ArcGISRuntime.WPF.Samples.ReadGeoPackage
 
                 // Get the layer from the HybridDictionary (it could be either a RasterLayer
                 // or a FeatureLayer - both inherit from the abstract/base Layer class)
-                Layer myLayer = (Layer)_MyHybridDictionary_Layers[myLayerName];
+                Layer myLayer = (Layer)_myHybridDictionary_Layers[myLayerName];
 
                 // Add the layer to the map
                 MyMapView.Map.OperationalLayers.Add(myLayer);
@@ -155,7 +157,7 @@ namespace ArcGISRuntime.WPF.Samples.ReadGeoPackage
 
                 // Get the layer from the HybridDictionary (it could be either a RasterLayer
                 // or a FeatureLayer - both inherit from the abstract/base Layer class)
-                Layer myLayer = (Layer)_MyHybridDictionary_Layers[myLayerName];
+                Layer myLayer = (Layer)_myHybridDictionary_Layers[myLayerName];
 
                 // Remove the layer from the map
                 MyMapView.Map.OperationalLayers.Remove(myLayer);
@@ -163,7 +165,7 @@ namespace ArcGISRuntime.WPF.Samples.ReadGeoPackage
                 // Remove the human-readable layer name from the ListBox_LayersInTheMap
                 ListBox_LayersInTheMap.Items.Remove(myLayerName);
 
-                // Add the human-readable layer name to the LisBox_LayersNotInTheMap
+                // Add the human-readable layer name to the ListBox_LayersNotInTheMap
                 ListBox_LayersNotInTheMap.Items.Add(myLayerName);
             }
         }

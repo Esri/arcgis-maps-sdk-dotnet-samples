@@ -33,18 +33,20 @@ namespace ArcGISRuntimeXamarin.Samples.ReadGeoPackage
             Initialize();
         }
 
-        // Member/global HybridDictionary to hold the multiple key/object pairs that represent: 
+        // Member HybridDictionary to hold the multiple key/object pairs that represent: 
         // human-readable string name of a layer - key
         // the layer itself (RasterLayer or FeatureLayer) - object
-        HybridDictionary _MyHybridDictionary_Layers = new HybridDictionary();
+        // NOTE: According to MSDN, a HybridDictionary is useful for cases where the number 
+        // of elements in a dictionary is unknown
+        HybridDictionary _myHybridDictionary_Layers = new HybridDictionary();
 
-        // Member/global ObservableCollection to hold the human-readable string name of the 
+        // Member ObservableCollection to hold the human-readable string name of the 
         // layers - used as the ListView_LayersNotInTheMap.ItemsSource 
-        ObservableCollection<string> _MyLayerNamesNotInTheMap = new ObservableCollection<string>();
+        ObservableCollection<string> _myObservableCollection_LayerNamesNotInTheMap = new ObservableCollection<string>();
 
-        // Member/global ObservableCollection to hold the human-readable string name of the 
+        // Member ObservableCollection to hold the human-readable string name of the 
         // layers - used as the ListView_LayersInTheMap.ItemsSource 
-        ObservableCollection<string> _MyLayerNamesInTheMap = new ObservableCollection<string>();
+        ObservableCollection<string> _myObservableCollection_LayerNamesInTheMap = new ObservableCollection<string>();
 
         private async void Initialize()
         {
@@ -94,21 +96,21 @@ namespace ArcGISRuntimeXamarin.Samples.ReadGeoPackage
                 myRasterLayerName = myRasterLayerName + " - RasterLayer";
 
                 // Add the name of the RasterLayer and the RasterLayer itself into the HybridDictionary
-                _MyHybridDictionary_Layers.Add(myRasterLayerName, myRasterLayer);
+                _myHybridDictionary_Layers.Add(myRasterLayerName, myRasterLayer);
 
-                // Add the name of the RasterLayer to ObservableCollection _MyLayerNamesNotInTheMap 
+                // Add the name of the RasterLayer to _myObservableCollection_LayerNamesNotInTheMap 
                 // which displays the human-readable layer names in the ListView_LayersNotInTheMap
-                _MyLayerNamesNotInTheMap.Add(myRasterLayerName);
+                _myObservableCollection_LayerNamesNotInTheMap.Add(myRasterLayerName);
             }
 
             // Get the read only list of GeoPackageFeatureTabless from the GeoPackage
             IReadOnlyList<GeoPackageFeatureTable> myReadOnlyListOfGeoPackageFeatureTables = myGeoPackage.GeoPackageFeatureTables;
 
             // Loop through each GeoPackageFeatureTable
-            foreach (GeoPackageFeatureTable oneGeoPackageFeatureLayer in myReadOnlyListOfGeoPackageFeatureTables)
+            foreach (GeoPackageFeatureTable oneGeoPackageFeatureTable in myReadOnlyListOfGeoPackageFeatureTables)
             {
                 // Create a FeatureLayer from the GeoPackageFeatureLayer
-                FeatureLayer myFeatureLayer = new FeatureLayer(oneGeoPackageFeatureLayer);
+                FeatureLayer myFeatureLayer = new FeatureLayer(oneGeoPackageFeatureTable);
 
                 // Load the FeatureLayer - that way we can get to it's properties
                 await myFeatureLayer.LoadAsync();
@@ -122,18 +124,18 @@ namespace ArcGISRuntimeXamarin.Samples.ReadGeoPackage
                 myFeatureLayerName = myFeatureLayerName + " - FeatureLayer";
 
                 // Add the name of the FeatureLayer and the FeatureLayer itself into the HybridDictionary
-                _MyHybridDictionary_Layers.Add(myFeatureLayerName, myFeatureLayer);
+                _myHybridDictionary_Layers.Add(myFeatureLayerName, myFeatureLayer);
 
-                // Add the name of the RasterLayer to ObservableCollection _MyLayerNamesNotInTheMap 
+                // Add the name of the RasterLayer to _myObservableCollection_LayerNamesNotInTheMap 
                 // which displays the human-readable layer names in the ListView_LayersNotInTheMap
-                _MyLayerNamesNotInTheMap.Add(myFeatureLayerName);
+                _myObservableCollection_LayerNamesNotInTheMap.Add(myFeatureLayerName);
             }
 
-            // Set the  ObservableCollection _MyLayerNamesNotInTheMap as the ListView_LayersNotInTheMap.ItemSource
-            ListView_LayersNotInTheMap.ItemsSource = _MyLayerNamesNotInTheMap;
+            // Set the _myObservableCollection_LayerNamesNotInTheMap as the ListView_LayersNotInTheMap.ItemSource
+            ListView_LayersNotInTheMap.ItemsSource = _myObservableCollection_LayerNamesNotInTheMap;
 
-            // Set the  ObservableCollection _MyLayerNamesInTheMap as the ListView_LayersInTheMap.ItemSource
-            ListView_LayersInTheMap.ItemsSource = _MyLayerNamesInTheMap;
+            // Set the _myObservableCollection_LayerNamesInTheMap as the ListView_LayersInTheMap.ItemSource
+            ListView_LayersInTheMap.ItemsSource = _myObservableCollection_LayerNamesInTheMap;
         }
 
         private void Button_AddLayerToMap_Clicked(object sender, System.EventArgs e)
@@ -149,18 +151,18 @@ namespace ArcGISRuntimeXamarin.Samples.ReadGeoPackage
 
                 // Get the layer from the HybridDictionary (it could be either a RasterLayer
                 // or a FeatureLayer - both inherit from the abstract/base Layer class)
-                Layer myLayer = (Layer)_MyHybridDictionary_Layers[myLayerName];
+                Layer myLayer = (Layer)_myHybridDictionary_Layers[myLayerName];
 
                 // Add the layer to the map
                 MyMapView.Map.OperationalLayers.Add(myLayer);
 
-                // Remove the human-readable layer name from the ObservableCollection _MyLayerNamesNotInTheMap
+                // Remove the human-readable layer name from the ObservableCollection _myLayerNamesNotInTheMap
                 // This will automatically update the ListView_LayersNotInTheMap 
-                _MyLayerNamesNotInTheMap.Remove(myLayerName);
+                _myObservableCollection_LayerNamesNotInTheMap.Remove(myLayerName);
 
-                // Add the human-readable layer name from the ObservableCollection _MyLayerNamesInTheMap
+                // Add the human-readable layer name from the ObservableCollection _myLayerNamesInTheMap
                 // This will automatically update the ListView_LayersInTheMap 
-                _MyLayerNamesInTheMap.Add(myLayerName);
+                _myObservableCollection_LayerNamesInTheMap.Add(myLayerName);
             }
 
             // Clear out an existing selected items in the ListView_LayersNotInTheMap
@@ -180,18 +182,18 @@ namespace ArcGISRuntimeXamarin.Samples.ReadGeoPackage
 
                 // Get the layer from the HybridDictionary (it could be either a RasterLayer
                 // or a FeatureLayer - both inherit from the abstract/base Layer class)
-                Layer myLayer = (Layer)_MyHybridDictionary_Layers[myLayerName];
+                Layer myLayer = (Layer)_myHybridDictionary_Layers[myLayerName];
 
                 // Remove the layer from the map
                 MyMapView.Map.OperationalLayers.Remove(myLayer);
 
-                // Remove the human-readable layer name from the ObservableCollection _MyLayerNamesInTheMap
+                // Remove the human-readable layer name from the _myObservableCollection_LayerNamesInTheMap
                 // This will automatically update the ListView_LayersInTheMap 
-                _MyLayerNamesInTheMap.Remove(myLayerName);
+                _myObservableCollection_LayerNamesInTheMap.Remove(myLayerName);
 
-                // Add the human-readable layer name from the ObservableCollection _MyLayerNamesNotInTheMap
+                // Add the human-readable layer name from the _myObservableCollection_LayerNamesNotInTheMap
                 // This will automatically update the ListView_LayersNotInTheMap 
-                _MyLayerNamesNotInTheMap.Add(myLayerName);
+                _myObservableCollection_LayerNamesNotInTheMap.Add(myLayerName);
             }
 
             // Clear out an existing selected items in the ListView_LayersInTheMap

@@ -380,6 +380,10 @@
             {
               "SampleName": "ListGeodatabaseVersions",
               "Path": "Samples/Geoprocessing/ListGeodatabaseVersions"
+            },
+            {
+              "SampleName": "QueryFeatureCountAndExtent",
+              "Path": "Samples/Analysis/QueryFeatureCountAndExtent"
             }
           ]
         },

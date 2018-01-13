@@ -17,7 +17,7 @@
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -180,6 +180,7 @@
     <EmbeddedResource Include="Samples\Data\GenerateGeodatabase\metadata.json" />
     <EmbeddedResource Include="Samples\Data\GeodatabaseTransactions\metadata.json" />
     <EmbeddedResource Include="Samples\Data\RasterLayerGeoPackage\metadata.json" />
+    <EmbeddedResource Include="Samples\Data\ReadGeoPackage\metadata.json" />
     <EmbeddedResource Include="Samples\Data\ReadShapefileMetadata\metadata.json" />
     <EmbeddedResource Include="Samples\Data\ServiceFeatureTableCache\metadata.json" />
     <EmbeddedResource Include="Samples\Data\ServiceFeatureTableManualCache\metadata.json" />
@@ -263,6 +264,7 @@
     <None Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.jpg" />
     <None Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.jpg" />
     <None Include="Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.jpg" />
+    <None Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.jpg" />
     <None Include="Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.jpg" />
     <None Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.jpg" />
     <None Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.jpg" />
@@ -347,6 +349,7 @@
     <Compile Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.cs" />
     <Compile Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.cs" />
     <Compile Include="Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.cs" />
+    <Compile Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.cs" />
     <Compile Include="Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.cs" />
     <Compile Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.cs" />
     <Compile Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.cs" />

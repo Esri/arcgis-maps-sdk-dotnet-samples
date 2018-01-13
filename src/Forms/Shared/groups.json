@@ -99,6 +99,10 @@
             {
               "SampleName": "AuthorMap",
               "Path": "Samples/Map/AuthorMap"
+            },
+            {
+              "SampleName": "ReadGeoPackage",
+              "Path": "Samples/Data/ReadGeoPackage"
             }
           ]
         }

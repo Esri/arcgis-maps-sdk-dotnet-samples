@@ -17,12 +17,10 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Label Content="Enter a state abbreviation to query (e.g. NY):" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" />
-        <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtStateEntry" />
-        <Button Content="Zoom to matching features" Grid.Row="1" Grid.Column="0" Click="btnZoomToFeatures_Click" />
-        <Button Content="Count features in extent" Grid.Row="1" Grid.Column="1" Click="btnCountFeatures_Click" />
-        <Label Content="Results:" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" />
-        <TextBox Grid.Row="2" Grid.Column="1" IsEnabled="False" x:Name="txtResults" />
+        <TextBox Grid.Row="0" Grid.ColumnSpan="2" Text="NH" x:Name="txtStateEntry" />
+        <Button Content="Zoom to matching features" Grid.Row="1" Grid.Column="0" Click="BtnZoomToFeaturesClick" />
+        <Button Content="Count features in extent" Grid.Row="1" Grid.Column="1" Click="BtnCountFeaturesClick" />
+        <TextBox Grid.Row="2" Grid.ColumnSpan="2" IsEnabled="False" x:Name="txtResults" />
         <esri:MapView x:Name="MyMapView" Grid.Row="3" Grid.ColumnSpan="2" />
     </Grid>
 </UserControl>

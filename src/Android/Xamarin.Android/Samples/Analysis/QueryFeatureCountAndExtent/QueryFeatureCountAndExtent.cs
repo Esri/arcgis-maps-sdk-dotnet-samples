@@ -15,6 +15,9 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
+using Android.Content;
+using Android.Views;
+using Android.Views.InputMethods;
 
 namespace ArcGISRuntimeXamarin.Samples.QueryFeatureCountAndExtent
 {
@@ -34,7 +37,7 @@ namespace ArcGISRuntimeXamarin.Samples.QueryFeatureCountAndExtent
         private Button _myQueryExtentButton;
 
         // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // URL to the feature service
         private readonly Uri _usaCitiesSource = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0");
@@ -77,16 +80,16 @@ namespace ArcGISRuntimeXamarin.Samples.QueryFeatureCountAndExtent
             _myMapView.Map = myMap;
         }
 
-        private async void btnZoomToFeatures_Click(object sender, EventArgs e)
+        private async void BtnZoomToFeatures_Click(object sender, EventArgs e)
         {
             // Create the query parameters
-            QueryParameters queryStates = new QueryParameters() { WhereClause = String.Format("upper(ST) LIKE '%{0}%'", _myStateEntry.Text.ToUpper()) };
+            QueryParameters queryStates = new QueryParameters { WhereClause = $"upper(ST) LIKE '%{_myStateEntry.Text.ToUpper()}%'" };
 
             // Get the extent from the query
             Envelope resultExtent = await _myFeatureTable.QueryExtentAsync(queryStates);
 
             // Return if there is no result (might happen if query is invalid)
-            if (resultExtent == null || resultExtent.SpatialReference == null)
+            if (resultExtent?.SpatialReference == null)
             {
                 return;
             }
@@ -96,24 +99,28 @@ namespace ArcGISRuntimeXamarin.Samples.QueryFeatureCountAndExtent
 
             // Zoom to the viewpoint
             await _myMapView.SetViewpointAsync(resultViewpoint);
+
+            // Update label
+            _myResultsLabel.Text = $"Zoomed to features in {_myStateEntry.Text}";
         }
 
-        private async void btnCountFeatures_Click(object sender, EventArgs e)
+        private async void BtnCountFeatures_Click(object sender, EventArgs e)
         {
             // Create the query parameters
-            QueryParameters queryCityCount = new QueryParameters();
+            QueryParameters queryCityCount = new QueryParameters
+            {
+                // Get the current view extent and use that as a query parameters
+                Geometry = _myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry,
 
-            // Get the current view extent and use that as a query parameters
-            queryCityCount.Geometry = _myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry;
-
-            // Specify the interpretation of the Geometry query parameters
-            queryCityCount.SpatialRelationship = SpatialRelationship.Intersects;
+                // Specify the interpretation of the Geometry query parameters
+                SpatialRelationship = SpatialRelationship.Intersects
+            };
 
             // Get the count of matching features
             long count = await _myFeatureTable.QueryFeatureCountAsync(queryCityCount);
 
             // Update the UI
-            _myResultsLabel.Text = count.ToString();
+            _myResultsLabel.Text = $"{count} features in extent";
         }
 
         private void CreateLayout()
@@ -122,7 +129,22 @@ namespace ArcGISRuntimeXamarin.Samples.QueryFeatureCountAndExtent
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create the entry
-            _myStateEntry = new EditText(this) { Text = "State abbreviation (e.g. NY)" };
+            _myStateEntry = new EditText(this) { Hint = "State abbreviation (e.g. NY)" };
+
+            // Hide the keyboard on enter
+            _myStateEntry.KeyPress += (sender, args) =>
+            {
+                if (args.Event.Action == KeyEventActions.Down && args.KeyCode == Keycode.Enter)
+                {
+                    InputMethodManager imm = (InputMethodManager)GetSystemService(Context.InputMethodService);
+                    imm.HideSoftInputFromWindow(_myStateEntry.WindowToken, 0);
+                    BtnZoomToFeatures_Click(_myStateEntry, null);
+                }
+                else
+                {
+                    args.Handled = false;
+                }
+            };
 
             // Create the results label
             _myResultsLabel = new TextView(this);
@@ -132,8 +154,8 @@ namespace ArcGISRuntimeXamarin.Samples.QueryFeatureCountAndExtent
             _myQueryExtentButton = new Button(this) { Text = "Count features in extent" };
 
             // Subscribe to button events
-            _myQueryExtentButton.Click += btnCountFeatures_Click;
-            _myQueryStateButton.Click += btnZoomToFeatures_Click;
+            _myQueryExtentButton.Click += BtnCountFeatures_Click;
+            _myQueryStateButton.Click += BtnZoomToFeatures_Click;
 
             // Add the views to the layout
             layout.AddView(_myStateEntry);

@@ -11,8 +11,6 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Xamarin.Forms;
 
 namespace ArcGISRuntimeXamarin.Samples.QueryFeatureCountAndExtent
@@ -59,16 +57,16 @@ namespace ArcGISRuntimeXamarin.Samples.QueryFeatureCountAndExtent
             MyMapView.Map = myMap;
         }
 
-        private async void btnZoomToFeatures_Click(object sender, EventArgs e)
+        private async void BtnZoomToFeatures_Click(object sender, EventArgs e)
         {
             // Create the query parameters
-            QueryParameters queryStates = new QueryParameters() { WhereClause = String.Format("upper(ST) LIKE '%{0}%'", txtStateEntry.Text.ToUpper()) };
+            QueryParameters queryStates = new QueryParameters { WhereClause = $"upper(ST) LIKE '%{txtStateEntry.Text.ToUpper()}%'" };
 
             // Get the extent from the query
             Envelope resultExtent = await _myFeatureTable.QueryExtentAsync(queryStates);
 
             // Return if there is no result (might happen if query is invalid)
-            if (resultExtent == null || resultExtent.SpatialReference == null)
+            if (resultExtent?.SpatialReference == null)
             {
                 return;
             }
@@ -78,24 +76,27 @@ namespace ArcGISRuntimeXamarin.Samples.QueryFeatureCountAndExtent
 
             // Zoom to the viewpoint
             await MyMapView.SetViewpointAsync(resultViewpoint);
+
+            // Update the UI
+            txtResults.Text = $"Zoomed to features in {txtStateEntry.Text}";
         }
 
-        private async void btnCountFeatures_Click(object sender, EventArgs e)
+        private async void BtnCountFeatures_Click(object sender, EventArgs e)
         {
             // Create the query parameters
-            QueryParameters queryCityCount = new QueryParameters();
-
-            // Get the current view extent and use that as a query parameters
-            queryCityCount.Geometry = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry;
-
-            // Specify the interpretation of the Geometry query parameters
-            queryCityCount.SpatialRelationship = SpatialRelationship.Intersects;
+            QueryParameters queryCityCount = new QueryParameters
+            {
+                // Get the current view extent and use that as a query parameters
+                Geometry = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry,
+                // Specify the interpretation of the Geometry query parameters
+                SpatialRelationship = SpatialRelationship.Intersects
+            };
 
             // Get the count of matching features
             long count = await _myFeatureTable.QueryFeatureCountAsync(queryCityCount);
 
             // Update the UI
-            txtResults.Text = count.ToString();
+            txtResults.Text = $"{count} features in extent";
         }
     }
 }

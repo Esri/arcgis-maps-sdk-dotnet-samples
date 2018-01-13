@@ -55,7 +55,7 @@ namespace ArcGISRuntime.WPF.Samples.QueryFeatureCountAndExtent
             MyMapView.Map = myMap;
         }
 
-        private async void btnZoomToFeatures_Click(object sender, RoutedEventArgs e)
+        private async void BtnZoomToFeaturesClick(object sender, RoutedEventArgs e)
         {
             // Create the query parameters
             QueryParameters queryStates = new QueryParameters() { WhereClause = String.Format("upper(ST) LIKE '%{0}%'", txtStateEntry.Text.ToUpper()) };
@@ -74,24 +74,27 @@ namespace ArcGISRuntime.WPF.Samples.QueryFeatureCountAndExtent
 
             // Zoom to the viewpoint
             await MyMapView.SetViewpointAsync(resultViewpoint);
+
+            // Update the UI
+            txtResults.Text = String.Format("Zoomed to features in {0}", txtStateEntry.Text);
         }
 
-        private async void btnCountFeatures_Click(object sender, RoutedEventArgs e)
+        private async void BtnCountFeaturesClick(object sender, RoutedEventArgs e)
         {
             // Create the query parameters
-            QueryParameters queryCityCount = new QueryParameters();
-
-            // Get the current view extent and use that as a query parameters
-            queryCityCount.Geometry = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry;
-
-            // Specify the interpretation of the Geometry query parameters
-            queryCityCount.SpatialRelationship = SpatialRelationship.Intersects;
+            QueryParameters queryCityCount = new QueryParameters
+            {
+                // Get the current view extent and use that as a query parameters
+                Geometry = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry,
+                // Specify the interpretation of the Geometry query parameters
+                SpatialRelationship = SpatialRelationship.Intersects
+            };
 
             // Get the count of matching features
             long count = await _myFeatureTable.QueryFeatureCountAsync(queryCityCount);
 
             // Update the UI
-            txtResults.Text = count.ToString();
+            txtResults.Text = String.Format("{0} features in extent", count);
         }
     }
 }

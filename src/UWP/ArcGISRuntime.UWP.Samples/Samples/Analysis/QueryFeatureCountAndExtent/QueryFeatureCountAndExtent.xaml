@@ -18,12 +18,10 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <TextBlock Text="Enter a state abbreviation to query (e.g. NY):" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" />
-        <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtStateEntry" />
-        <Button Content="Zoom to matching features" Grid.Row="1" Grid.Column="0" Click="btnZoomToFeatures_Click" HorizontalAlignment="Stretch" />
-        <Button Content="Count features in extent" Grid.Row="1" Grid.Column="1" Click="btnCountFeatures_Click" HorizontalAlignment="Stretch" />
-        <TextBlock Text="Results:" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" />
-        <TextBlock Grid.Row="2" Grid.Column="1" x:Name="txtResults" />
+        <TextBox Grid.Row="0" Grid.ColumnSpan="2" PlaceholderText="e.g. NY" x:Name="txtStateEntry" />
+        <Button Content="Zoom to matching features" Grid.Row="1" Grid.Column="0" Click="BtnZoomToFeaturesClick" HorizontalAlignment="Stretch" />
+        <Button Content="Count features in extent" Grid.Row="1" Grid.Column="1" Click="BtnCountFeaturesClick" HorizontalAlignment="Stretch" />
+        <TextBlock Grid.Row="2" Grid.ColumnSpan="2" x:Name="txtResults" />
         <esriUI:MapView x:Name="MyMapView" Grid.Row="3" Grid.ColumnSpan="2" />
     </Grid>
 </UserControl>

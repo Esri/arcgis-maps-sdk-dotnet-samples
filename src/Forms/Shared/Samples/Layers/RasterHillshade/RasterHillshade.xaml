@@ -6,7 +6,7 @@
              Title="Raster hillshade">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="200"/>
+            <RowDefinition Height="180"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <esriUI:MapView x:Name="MyMapView"

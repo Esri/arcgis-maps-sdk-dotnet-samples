@@ -173,6 +173,10 @@
               "Path": "Samples/Layers/RasterLayerFile"
             },
             {
+              "SampleName": "RasterHillshade",
+              "Path": "Samples/Layers/RasterHillshade"
+            },
+            {
               "SampleName": "RasterRenderingRule",
               "Path": "Samples/Layers/RasterRenderingRule"
             },

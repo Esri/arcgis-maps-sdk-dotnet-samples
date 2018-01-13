@@ -52,7 +52,7 @@ namespace ArcGISRuntimeXamarin.Samples.RasterHillshade
             Map map = new Map(Basemap.CreateStreets());
 
             // Get the file name for the local raster dataset
-            String filepath = await GetRasterPath();
+            string filepath = await GetRasterPath();
 
             // Load the raster file
             Raster rasterFile = new Raster(filepath);

@@ -27,25 +27,25 @@ namespace ArcGISRuntimeXamarin.Samples.LineOfSightGeoElement
     public class LineOfSightGeoElement : UIViewController
     {
         // Create and hold reference to the used SceneView 
-        private SceneView _mySceneView = new SceneView();
+        private readonly SceneView _mySceneView = new SceneView();
 
         // Create and hold a UI label to show the visibility status 
-        private UILabel _myStatusLabel = new UILabel() { Text = "Status: ", TextColor = UIColor.Red };
+        private readonly UILabel _myStatusLabel = new UILabel() { Text = "Status: ", TextColor = UIColor.Red };
 
         // Create and hold a slider to change the height of the observer
-        private UISlider _mySlider = new UISlider();
+        private readonly UISlider _mySlider = new UISlider();
 
         // URL of the elevation service - provides elevation component of the scene
-        private Uri _elevationUri = new Uri("http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
+        private readonly Uri _elevationUri = new Uri("http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
 
         // URL of the building service - provides builidng models
-        private Uri _buildingsUri = new Uri("https://tiles.arcgis.com/tiles/z2tnIkrLQ2BRzr6P/arcgis/rest/services/New_York_LoD2_3D_Buildings/SceneServer/layers/0");
+        private readonly Uri _buildingsUri = new Uri("https://tiles.arcgis.com/tiles/z2tnIkrLQ2BRzr6P/arcgis/rest/services/New_York_LoD2_3D_Buildings/SceneServer/layers/0");
 
         // Starting point of the observation point
-        private MapPoint _observerPoint = new MapPoint(-73.984988, 40.748131, 20, SpatialReferences.Wgs84);
+        private readonly MapPoint _observerPoint = new MapPoint(-73.984988, 40.748131, 20, SpatialReferences.Wgs84);
 
         // Graphic to represent the observation point
-        private Graphic observerGraphic;
+        private Graphic _observerGraphic;
 
         // Graphic to represent the observed target
         private Graphic _taxiGraphic;
@@ -54,16 +54,17 @@ namespace ArcGISRuntimeXamarin.Samples.LineOfSightGeoElement
         private GeoElementLineOfSight _geoLine;
 
         // For taxi animation - four points in a loop
-        private MapPoint[] points = { new MapPoint(-73.984513, 40.748469, SpatialReferences.Wgs84),
-                                      new MapPoint(-73.985068, 40.747786, SpatialReferences.Wgs84),
-                                      new MapPoint(-73.983452, 40.747091, SpatialReferences.Wgs84),
-                                      new MapPoint(-73.982961, 40.747762, SpatialReferences.Wgs84)
+        private readonly MapPoint[] _points = {
+            new MapPoint(-73.984513, 40.748469, SpatialReferences.Wgs84),
+            new MapPoint(-73.985068, 40.747786, SpatialReferences.Wgs84),
+            new MapPoint(-73.983452, 40.747091, SpatialReferences.Wgs84),
+            new MapPoint(-73.982961, 40.747762, SpatialReferences.Wgs84)
         };
 
         // For taxi animation - tracks animation state
-        private int pointIndex = 0;
-        private int frameIndex = 0;
-        private int frameMax = 150;
+        private int _pointIndex = 0;
+        private int _frameIndex = 0;
+        private int _frameMax = 150;
         public LineOfSightGeoElement()
         {
             Title = "Line of Sight (GeoElement)";
@@ -73,58 +74,58 @@ namespace ArcGISRuntimeXamarin.Samples.LineOfSightGeoElement
         {
             // Create scene
             Scene myScene = new Scene(Basemap.CreateImageryWithLabels());
-            // 1. Set initial viewpoint
+            // Set initial viewpoint
             myScene.InitialViewpoint = new Viewpoint(_observerPoint, 1000000);
-            // 2. Create the elevation source
+            // Create the elevation source
             ElevationSource myElevationSource = new ArcGISTiledElevationSource(_elevationUri);
-            // 3. Add the elevation source to the scene
+            // Add the elevation source to the scene
             myScene.BaseSurface.ElevationSources.Add(myElevationSource);
-            // 4. Create the building scene layer
+            // Create the building scene layer
             ArcGISSceneLayer mySceneLayer = new ArcGISSceneLayer(_buildingsUri);
-            // 5. Add the building layer to the scene
+            // Add the building layer to the scene
             myScene.OperationalLayers.Add(mySceneLayer);
 
             // Add the observer to the scene
-            // 1. Create a graphics overlay with relative surface placement; relative surface placement allows the Z position of the observation point to be adjusted
+            // Create a graphics overlay with relative surface placement; relative surface placement allows the Z position of the observation point to be adjusted
             GraphicsOverlay overlay = new GraphicsOverlay() { SceneProperties = new LayerSceneProperties(SurfacePlacement.Relative) };
-            // 2. Create the symbol that will symbolize the observation point
+            // Create the symbol that will symbolize the observation point
             SimpleMarkerSceneSymbol symbol = new SimpleMarkerSceneSymbol(SimpleMarkerSceneSymbolStyle.Sphere, System.Drawing.Color.Red, 10, 10, 10, SceneSymbolAnchorPosition.Bottom);
-            // 3. Create the observation point graphic from the point and symbol
-            observerGraphic = new Graphic(_observerPoint, symbol);
-            // 4. Add the observer to the overlay
-            overlay.Graphics.Add(observerGraphic);
-            // 5. Add the overlay to the scene
+            // Create the observation point graphic from the point and symbol
+            _observerGraphic = new Graphic(_observerPoint, symbol);
+            // Add the observer to the overlay
+            overlay.Graphics.Add(_observerGraphic);
+            // Add the overlay to the scene
             _mySceneView.GraphicsOverlays.Add(overlay);
 
             // Add the taxi to the scene
-            // 1. Create the model symbol for the taxi
+            // Create the model symbol for the taxi
             ModelSceneSymbol taxiSymbol = await ModelSceneSymbol.CreateAsync(await GetModelUri());
-            // 2. Set the anchor position for the mode; ensures that the model appears above the ground
+            // Set the anchor position for the mode; ensures that the model appears above the ground
             taxiSymbol.AnchorPosition = SceneSymbolAnchorPosition.Bottom;
-            // 3. Create the graphic from the taxi starting point and the symbol
-            _taxiGraphic = new Graphic(points[0], taxiSymbol);
-            // 4. Add the taxi graphic to the overlay
+            // Create the graphic from the taxi starting point and the symbol
+            _taxiGraphic = new Graphic(_points[0], taxiSymbol);
+            // Add the taxi graphic to the overlay
             overlay.Graphics.Add(_taxiGraphic);
 
             // Create GeoElement Line of sight analysis (taxi to building)
-            // 1. Create the analysis
-            _geoLine = new GeoElementLineOfSight(observerGraphic, _taxiGraphic);
-            // 2. Apply an offset to the target. This helps avoid some false negatives
+            // Create the analysis
+            _geoLine = new GeoElementLineOfSight(_observerGraphic, _taxiGraphic);
+            // Apply an offset to the target. This helps avoid some false negatives
             _geoLine.TargetOffsetZ = 2;
-            // 3. Create the analysis overlay
+            // Create the analysis overlay
             AnalysisOverlay myAnalysisOverlay = new AnalysisOverlay();
-            // 4. Add the analysis to the overlay
+            // Add the analysis to the overlay
             myAnalysisOverlay.Analyses.Add(_geoLine);
-            // 5. Add the analysis overlay to the scene
+            // Add the analysis overlay to the scene
             _mySceneView.AnalysisOverlays.Add(myAnalysisOverlay);
 
-            // 1. Create a timer; this will enable animating the taxi
+            // Create a timer; this will enable animating the taxi
             var timer = new Timer(120);
-            // 2. Move the taxi every time the timer expires
+            // Move the taxi every time the timer expires
             timer.Elapsed += AnimationTimer_Elapsed;
-            // 3. Keep the timer running continuously
+            // Keep the timer running continuously
             timer.AutoReset = true;
-            // 4. Start the timer
+            // Start the timer
             timer.Start();
             
             // Subscribe to TargetVisible events; allows for updating the UI and selecting the taxi when it is visible
@@ -138,48 +139,51 @@ namespace ArcGISRuntimeXamarin.Samples.LineOfSightGeoElement
             // Note: the contents of this function are solely related to animating the taxi
 
             // Increment the frame counter
-            frameIndex++;
+            _frameIndex++;
 
             // Reset the frame counter once one segment of the path has been travelled
-            frameIndex = frameIndex % frameMax;
-            if (frameIndex == 0)
+            if (_frameIndex == _frameMax)
             {
-                // Start navigating toward the next point; restart circuit if finished
-                pointIndex = (pointIndex + 1) % points.Length;
+                _frameIndex = 0;
+
+                // Start navigating toward the next point
+                _pointIndex++;
+
+                // Restart if finished circuit
+                if (_pointIndex == _points.Length)
+                {
+                    _pointIndex = 0;
+                }
             }
 
             // Get the point the taxi is travelling from
-            MapPoint starting = points[pointIndex % points.Length];
+            MapPoint starting = _points[_pointIndex];
             // Get the point the taxi is travelling to
-            MapPoint ending = points[(pointIndex + 1) % points.Length];
+            MapPoint ending = _points[(_pointIndex + 1) % _points.Length];
             // Calculate the progress based on the current frame
-            double progress = frameIndex / (double)frameMax;
+            double progress = _frameIndex / (double)_frameMax;
             // Calculate the position of the taxi when it is {progress}% of the way through
-            MapPoint intermediatePoint = interpolatedPoint(starting, ending, progress);
+            MapPoint intermediatePoint = InterpolatedPoint(starting, ending, progress);
             // Update the taxi geometry
             _taxiGraphic.Geometry = intermediatePoint;
         }
 
-        private MapPoint interpolatedPoint(MapPoint firstPoint, MapPoint secondPoint, double progress)
+        private MapPoint InterpolatedPoint(MapPoint firstPoint, MapPoint secondPoint, double progress)
         {
             // This function returns a MapPoint that is the result of travelling {progress}% of the way from {firstPoint} to {secondPoint}
 
-            // 1. Get the difference between the two points
+            // Get the difference between the two points
             MapPoint difference = new MapPoint(secondPoint.X - firstPoint.X, secondPoint.Y - firstPoint.Y, secondPoint.Z - firstPoint.Z, SpatialReferences.Wgs84);
-            // 2. Scale the difference by the progress towards the destination
+            // Scale the difference by the progress towards the destination
             MapPoint scaled = new MapPoint(difference.X * progress, difference.Y * progress, difference.Z * progress);
-            // 3. Add the scaled progress to the starting point
+            // Add the scaled progress to the starting point
             return new MapPoint(firstPoint.X + scaled.X, firstPoint.Y + scaled.Y, firstPoint.Z + scaled.Z);
         }
 
         private void Geoline_TargetVisibilityChanged(object sender, EventArgs e)
         {
             // This is needed because Runtime delivers notifications from a different thread that doesn't have access to UI controls
-            InvokeOnMainThread(() =>
-            {
-                // Update the UI
-                UpdateUiAndSelection();
-            });
+            InvokeOnMainThread(UpdateUiAndSelection);
         }
 
         private void UpdateUiAndSelection()
@@ -244,13 +248,13 @@ namespace ArcGISRuntimeXamarin.Samples.LineOfSightGeoElement
             double value = _mySlider.Value;
 
             // Get the current point
-            MapPoint oldPoint = (MapPoint)observerGraphic.Geometry;
+            MapPoint oldPoint = (MapPoint)_observerGraphic.Geometry;
 
             // Create a new point with the same (x,y) but updated z
             MapPoint newPoint = new MapPoint(oldPoint.X, oldPoint.Y, (maxHeight - minHeight) * value + minHeight);
 
             // Apply the updated geometry to the observer point
-            observerGraphic.Geometry = newPoint;
+            _observerGraphic.Geometry = newPoint;
         }
 
         private void CreateLayout()

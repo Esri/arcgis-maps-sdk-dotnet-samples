@@ -177,6 +177,7 @@
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
     <None Include="packages.config" />
+    <EmbeddedResource Include="Samples\Data\ReadGeoPackage\metadata.json" />
     <None Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg" />
     <None Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.jpg" />
   </ItemGroup>
@@ -240,6 +241,7 @@
     <Compile Include="Models\SampleModelExtensions.cs" />
     <Compile Include="Models\SampleStructureMap.cs" />
     <Compile Include="Models\SubCategoryModel.cs" />
+    <Compile Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.cs" />
     <Compile Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.cs" />
     <Compile Include="ViewControllers\SamplesViewController.cs" />
     <Compile Include="ViewControllers\SearchResultsUpdater.cs" />
@@ -507,6 +509,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.jpg" />
     <None Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

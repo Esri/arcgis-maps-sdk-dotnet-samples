@@ -10,29 +10,32 @@
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.LocalServices;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Tasks;
+using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 
 namespace ArcGISRuntime.WPF.Samples.LocalServerGeoprocessing
 {
     public partial class LocalServerGeoprocessing
     {
-        // Hold a reference to the local geoprocessingservice
-        private LocalGeoprocessingService _myGpService;
+        // Hold a reference to the local geoprocessing service
+        private LocalGeoprocessingService _gpService;
 
+        // Hold a reference to the task
         private GeoprocessingTask _gpTask;
+
+        // Hold a reference to the job
         private GeoprocessingJob _gpJob;
 
         public LocalServerGeoprocessing()
         {
             InitializeComponent();
 
-            // set up the sample 
+            // set up the sample
             Initialize();
         }
 
@@ -66,13 +69,12 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGeoprocessing
             // Add the layer to the map
             MyMapView.Map.OperationalLayers.Add(tiledLayer);
 
+            // Try to start Local Server
             try
             {
                 // Listen for the shutdown and unloaded events so that the local server can be shut down
                 this.Dispatcher.ShutdownStarted += ShutdownSample;
                 this.Unloaded += ShutdownSample;
-
-                // Show the loading UI
 
                 // Start the local server instance
                 await LocalServer.Instance.StartAsync();
@@ -87,34 +89,34 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGeoprocessing
             string gpServiceUrl = await GetGpPath();
 
             // Create the geoprocessing service
-            _myGpService = new LocalGeoprocessingService(gpServiceUrl, GeoprocessingServiceType.AsynchronousSubmitWithMapServiceResult);
+            _gpService = new LocalGeoprocessingService(gpServiceUrl, GeoprocessingServiceType.AsynchronousSubmitWithMapServiceResult);
 
             // Take action once the service loads
-            _myGpService.StatusChanged += MyGpServiceOnStatusChanged;
+            _gpService.StatusChanged += GpServiceOnStatusChanged;
 
+            // Try to start the service
             try
             {
                 // Start the service
-                await _myGpService.StartAsync();
+                await _gpService.StartAsync();
             }
             catch (Exception)
             {
                 MessageBox.Show("geoprocessing service failed to start.");
             }
-
         }
 
-        private async void MyGpServiceOnStatusChanged(object sender, StatusChangedEventArgs statusChangedEventArgs)
+        private async void GpServiceOnStatusChanged(object sender, StatusChangedEventArgs statusChangedEventArgs)
         {
-            if (statusChangedEventArgs.Status == LocalServerStatus.Started)
-            {
-                _gpTask = await GeoprocessingTask.CreateAsync(new Uri(_myGpService.Url + "/Contour"));
+            // Return if the server hasn't started
+            if (statusChangedEventArgs.Status != LocalServerStatus.Started) return;
 
-                // Update UI state
-                MyResetButton.IsEnabled = true;
-                MyUpdateContourButton.IsEnabled = true;
-                MyLoadingIndicator.Visibility = Visibility.Collapsed;
-            }
+            // Create the geoprocessing task from the service
+            _gpTask = await GeoprocessingTask.CreateAsync(new Uri(_gpService.Url + "/Contour"));
+
+            // Update UI
+            MyUpdateContourButton.IsEnabled = true;
+            MyLoadingIndicator.Visibility = Visibility.Collapsed;
         }
 
         private void GenerateContours()
@@ -127,35 +129,49 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGeoprocessing
             GeoprocessingParameters gpParams = new GeoprocessingParameters(GeoprocessingExecutionType.AsynchronousSubmit);
 
             // Add the interval parameter to the geoprocessing parameters
-            gpParams.Inputs["Interval"] = new GeoprocessingDouble(MyContourSlider.Value);
+            gpParams.Inputs["ContourInterval"] = new GeoprocessingDouble(MyContourSlider.Value);
 
             // Create the job
             _gpJob = _gpTask.CreateJob(gpParams);
 
             // Update the UI when job progress changes
-            _gpJob.ProgressChanged += (sender, args) => { MyLoadingIndicator.Value = _gpJob.Progress / 100.0; };
+            _gpJob.ProgressChanged += (sender, args) =>
+             {
+                 Dispatcher.Invoke(() => { MyLoadingIndicator.Value = _gpJob.Progress; });
+             };
 
             // Be notified when the task completes (or other change happens)
             _gpJob.JobChanged += GpJobOnJobChanged;
-            
+
             // Start the job
             _gpJob.Start();
         }
 
         private async void GpJobOnJobChanged(object o, EventArgs eventArgs)
         {
-            if (_gpJob.Status == JobStatus.Succeeded)
+            // Show message if job failed
+            if (_gpJob.Status == JobStatus.Failed)
             {
-                // Get the URL to the map service with the geoprocessing results
-                string gpServiceResultUrl = _myGpService.Url.ToString()
-                    .Replace("GPServer", "MapServer/jobs/" + _gpJob.ServerJobId);
+                MessageBox.Show("Job Failed");
+                return;
+            };
 
-                // Create a map image layer to show the results
-                ArcGISMapImageLayer myMapImageLayer = new ArcGISMapImageLayer(new Uri(gpServiceResultUrl));
+            // Return if not succeeded
+            if (_gpJob.Status != JobStatus.Succeeded) { return; }
 
-                // Load the layer
-                await myMapImageLayer.LoadAsync();
+            // Get the URL to the map service with the geoprocessing results
+            string gpServiceResultUrl = _gpService.Url.ToString()
+                .Replace("GPServer", "MapServer/jobs/" + _gpJob.ServerJobId);
 
+            // Create a map image layer to show the results
+            ArcGISMapImageLayer myMapImageLayer = new ArcGISMapImageLayer(new Uri(gpServiceResultUrl));
+
+            // Load the layer
+            await myMapImageLayer.LoadAsync();
+
+            // This is needed because the event comes from outside of the UI thread
+            Dispatcher.Invoke(() =>
+            {
                 // Add the layer to the map
                 MyMapView.Map.OperationalLayers.Add(myMapImageLayer);
 
@@ -167,11 +183,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGeoprocessing
 
                 // Enable the reset button
                 MyResetButton.IsEnabled = true;
-            }
-            else if (_gpJob.Status == JobStatus.Failed)
-            {
-                MessageBox.Show("Job failed");
-            }
+            });
         }
 
         private async void ShutdownSample(object sender, EventArgs e)
@@ -250,7 +262,9 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGeoprocessing
         private void MyUpdateContourButton_OnClick(object sender, RoutedEventArgs e)
         {
             // Disable the generate button
-            ((Button) sender).IsEnabled = false;
+            ((Button)sender).IsEnabled = false;
+
+            // Generate the contours
             GenerateContours();
         }
     }

@@ -18,7 +18,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <ProgressBar IsIndeterminate="True" x:Name="MyLoadingIndicator" Grid.Row="0" Grid.ColumnSpan="2" />
+        <ProgressBar x:Name="MyLoadingIndicator" Grid.Row="0" Grid.ColumnSpan="2" IsIndeterminate="True" />
         <Slider Minimum="50" Maximum="350" Grid.Row ="2" x:Name="MyContourSlider" Grid.Column="0" />
         <Label Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0">Use the slider to select a contour interval (height difference between contour lines). Use the buttons to update the contours using the service or clear them.</Label>
         <Label Grid.Row="2" x:Name="MyContourDepthLabel" Content="{Binding Value, ElementName=MyContourSlider}" Grid.Column="1" />

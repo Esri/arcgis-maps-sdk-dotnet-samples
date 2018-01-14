@@ -470,6 +470,10 @@
           "ShowGroup": false,
           "SampleInfos": [
             {
+              "SampleName": "DynamicWorkspaceRaster",
+              "Path": "Samples/LocalServer/DynamicWorkspaceRaster" 
+            },
+            {
               "SampleName": "LocalServerMapImageLayer",
               "Path": "Samples/LocalServer/LocalServerMapImageLayer"
             },

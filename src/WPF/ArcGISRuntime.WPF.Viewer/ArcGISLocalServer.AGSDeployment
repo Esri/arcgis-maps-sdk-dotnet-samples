@@ -38,7 +38,7 @@ It also provides core support for geocoding and geoprocessing.-->
       <Package name="Additional Data Formats" enabled="true">
         <ChildPackages>
           <!--Provides additional raster file data format support.-->
-          <Package name="Raster" enabled="false">
+          <Package name="Raster" enabled="true">
             <ChildPackages>
               <!--Provides support for ECW format Raster.-->
               <Package name="ECW Rasters" enabled="false" />

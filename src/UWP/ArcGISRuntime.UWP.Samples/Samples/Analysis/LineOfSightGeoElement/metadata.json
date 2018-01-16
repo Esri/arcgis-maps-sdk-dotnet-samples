@@ -1,0 +1,16 @@
+{
+  "Name": "Line of Sight (GeoElement)",
+  "SampleName": "LineOfSightGeoElement",
+  "Description": "This sample demonstrates how to perform a dynamic line of sight analysis between two moving GeoElements.",
+  "Instructions": "Use the slider to adjust the height of the observer.",
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": true,
+  "RequiresLocalServer": false,
+  "DataItemIds": [ "3af5cfec0fd24dac8d88aea679027cb9" ],
+  "DataFileNames": [ "dolmus.3ds" ],
+  "Image": "LineOfSightGeoElement.jpg",
+  "Link": "",
+  "TypeLink": [],
+  "SampleFolder": "LineOfSightGeoElement"
+}

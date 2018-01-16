@@ -75,13 +75,13 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerGeoPackage
             string folder = DataManager.GetDataFolder();
 
             // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "ReadGeoPackage", filename);
+            string filepath = Path.Combine(folder, "SampleData", "FeatureLayerGeoPackage", filename);
 
             // Check if the file exists
             if (!File.Exists(filepath))
             {
                 // If it's missing, download the GeoPackage
-                await DataManager.GetData("68ec42517cdd439e81b036210483e8e7", "ReadGeoPackage");
+                await DataManager.GetData("68ec42517cdd439e81b036210483e8e7", "FeatureLayerGeoPackage");
             }
 
             // Return the path

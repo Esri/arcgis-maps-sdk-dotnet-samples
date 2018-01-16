@@ -177,6 +177,7 @@
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
     <None Include="packages.config" />
+    <EmbeddedResource Include="Samples\Data\ReadGeoPackage\metadata.json" />
     <None Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg" />
     <None Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.jpg" />
   </ItemGroup>
@@ -240,6 +241,7 @@
     <Compile Include="Models\SampleModelExtensions.cs" />
     <Compile Include="Models\SampleStructureMap.cs" />
     <Compile Include="Models\SubCategoryModel.cs" />
+    <Compile Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.cs" />
     <Compile Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.cs" />
     <Compile Include="ViewControllers\SamplesViewController.cs" />
     <Compile Include="ViewControllers\SearchResultsUpdater.cs" />
@@ -253,6 +255,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
+	<EmbeddedResource Include="Samples\Data\ListRelatedFeatures\metadata.json" />
+    <EmbeddedResource Include="Samples\Analysis\LineOfSightGeoElement\metadata.json" />
+    <EmbeddedResource Include="Samples\Analysis\QueryFeatureCountAndExtent\metadata.json" />
 	<EmbeddedResource Include="Samples\Layers\FeatureLayerRenderingModeScene\metadata.json" />
 	<EmbeddedResource Include="Samples\Data\SymbolizeShapefile\metadata.json" />
     <EmbeddedResource Include="groups.json" />
@@ -336,6 +341,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<None Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
+    <None Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
+    <None Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.jpg" />
 	<None Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
 	<None Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
     <None Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
@@ -419,6 +427,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.cs" />
+    <Compile Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.cs" />
+    <Compile Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.cs" />
 	<Compile Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.cs" />
 	<Compile Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.cs" />
     <Compile Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.cs" />
@@ -504,6 +515,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.jpg" />
     <None Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

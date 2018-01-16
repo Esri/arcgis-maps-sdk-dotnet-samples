@@ -40,12 +40,15 @@
     <!-- References -->
     <Reference Include="Esri.ArcGISRuntime, Version=100.2.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Esri.ArcGISRuntime.WPF.100.2.0\lib\net452\Esri.ArcGISRuntime.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Esri.ArcGISRuntime.Hydrography, Version=100.2.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.2.0\lib\net452\Esri.ArcGISRuntime.Hydrography.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Esri.ArcGISRuntime.LocalServices, Version=100.2.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.2.0\lib\net452\Esri.ArcGISRuntime.LocalServices.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PresentationCore" />
@@ -79,14 +82,26 @@
 	<Content Include="Samples\LocalServer\LocalServerFeatureLayer\metadata.json">
     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	</Content>
+	<Content Include="Samples\Data\ListRelatedFeatures\metadata.json">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</Content>
+    <Content Include="Samples\Analysis\LineOfSightGeoElement\metadata.json">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+	<Content Include="Samples\Analysis\QueryFeatureCountAndExtent\metadata.json">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </Content>
+    <Content Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
 	<Content Include="Samples\LocalServer\LocalServerMapImageLayer\metadata.json">
-		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	</Content>
 	<Content Include="Samples\Layers\FeatureLayerRenderingModeScene\metadata.json">
-  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	</Content>
 	<Content Include="Samples\Data\SymbolizeShapefile\metadata.json">
-		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	</Content>
     <Content Include="Samples\Layers\WmsIdentify\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -340,7 +355,20 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+
 	<Content Include="Samples\LocalServer\LocalServerFeatureLayer\LocalServerFeatureLayer.jpg">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</Content>
+	<Content Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg">
+  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+	<Content Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.jpg">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </Content>
+  <Content Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg">
     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	</Content>
 	<Content Include="Samples\LocalServer\LocalServerMapImageLayer\LocalServerMapImageLayer.jpg">
@@ -592,6 +620,18 @@
 	<Compile Include="Samples\LocalServer\LocalServerFeatureLayer\LocalServerFeatureLayer.xaml.cs">
 		<DependentUpon>LocalServerFeatureLayer.xaml</DependentUpon>
   </Compile>
+	<Compile Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.xaml.cs">
+		<DependentUpon>ListRelatedFeatures.xaml</DependentUpon>
+  </Compile>
+    <Compile Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml.cs">
+      <DependentUpon>LineOfSightGeoElement.xaml</DependentUpon>
+      </Compile>
+	<Compile Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.xaml.cs">
+		<DependentUpon>QueryFeatureCountAndExtent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.xaml.cs">
+      <DependentUpon>ReadGeoPackage.xaml</DependentUpon>
+    </Compile>
 	<Compile Include="Samples\LocalServer\LocalServerMapImageLayer\LocalServerMapImageLayer.xaml.cs">
 		<DependentUpon>LocalServerMapImageLayer.xaml</DependentUpon>
 	</Compile>
@@ -851,6 +891,22 @@
     <Generator>MSBuild:Compile</Generator>
 		<SubType>Designer</SubType>
 	</Page>
+	<Page Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.xaml">
+    <Generator>MSBuild:Compile</Generator>
+		<SubType>Designer</SubType>
+	</Page>
+  <Page Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml">
+    <Generator>MSBuild:Compile</Generator>
+    <SubType>Designer</SubType>
+  </Page>
+	<Page Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.xaml">
+    <Generator>MSBuild:Compile</Generator>
+    <SubType>Designer</SubType>
+	</Page>
+    <Page Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
 	<Page Include="Samples\LocalServer\LocalServerMapImageLayer\LocalServerMapImageLayer.xaml">
 		<Generator>MSBuild:Compile</Generator>
 		<SubType>Designer</SubType>
@@ -1191,6 +1247,9 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <Content Include="Samples\Data\ReadGeoPackage\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Symbology\FeatureLayerExtrusion\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1198,12 +1257,11 @@
   <ItemGroup />
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.WPF.100.2.0\build\net452\Esri.ArcGISRuntime.WPF.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.2.0\build\net452\Esri.ArcGISRuntime.WPF.targets')" />
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.2.0\build\net452\Esri.ArcGISRuntime.LocalServices.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.2.0\build\net452\Esri.ArcGISRuntime.LocalServices.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.2.0\build\net452\Esri.ArcGISRuntime.Hydrography.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.2.0\build\net452\Esri.ArcGISRuntime.Hydrography.targets'))" />
   </Target>
   <Import Project="..\..\..\packages\Esri.ArcGISRuntime.WPF.100.2.0\build\net452\Esri.ArcGISRuntime.WPF.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.2.0\build\net452\Esri.ArcGISRuntime.WPF.targets')" />
   <Import Project="..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.2.0\build\net452\Esri.ArcGISRuntime.LocalServices.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.2.0\build\net452\Esri.ArcGISRuntime.LocalServices.targets')" />

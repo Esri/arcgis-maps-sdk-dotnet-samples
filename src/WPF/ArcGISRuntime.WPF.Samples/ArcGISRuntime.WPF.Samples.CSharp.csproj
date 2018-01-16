@@ -79,6 +79,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
+	<Content Include="Samples\LocalServer\LocalServerFeatureLayer\metadata.json">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</Content>
 	<Content Include="Samples\Data\ListRelatedFeatures\metadata.json">
     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	</Content>
@@ -352,6 +355,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+
+	<Content Include="Samples\LocalServer\LocalServerFeatureLayer\LocalServerFeatureLayer.jpg">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</Content>
 	<Content Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg">
   <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -610,6 +617,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="Samples\LocalServer\LocalServerFeatureLayer\LocalServerFeatureLayer.xaml.cs">
+		<DependentUpon>LocalServerFeatureLayer.xaml</DependentUpon>
+  </Compile>
 	<Compile Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.xaml.cs">
 		<DependentUpon>ListRelatedFeatures.xaml</DependentUpon>
   </Compile>
@@ -877,16 +887,20 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+	<Page Include="Samples\LocalServer\LocalServerFeatureLayer\LocalServerFeatureLayer.xaml">
+    <Generator>MSBuild:Compile</Generator>
+		<SubType>Designer</SubType>
+	</Page>
 	<Page Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.xaml">
     <Generator>MSBuild:Compile</Generator>
 		<SubType>Designer</SubType>
 	</Page>
-    <Page Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml">
+  <Page Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml">
     <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
+    <SubType>Designer</SubType>
+  </Page>
 	<Page Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.xaml">
-  <Generator>MSBuild:Compile</Generator>
+    <Generator>MSBuild:Compile</Generator>
     <SubType>Designer</SubType>
 	</Page>
     <Page Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.xaml">

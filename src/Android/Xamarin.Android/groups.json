@@ -294,6 +294,10 @@
             {
               "SampleName": "SymbolizeShapefile",
               "Path": "Samples/Data/SymbolizeShapefile"
+            },
+            {
+              "SampleName": "ListRelatedFeatures",
+              "Path": "Samples/Data/ListRelatedFeatures"
             }
           ]
         }
@@ -533,10 +537,10 @@
       ]
     }
   ],
-  "Featured":[
+  "Featured": [
     {
-      "SampleName":"ExampleSample",
-      "Reason":1
+      "SampleName": "ExampleSample",
+      "Reason": 1
     }
   ]
 }

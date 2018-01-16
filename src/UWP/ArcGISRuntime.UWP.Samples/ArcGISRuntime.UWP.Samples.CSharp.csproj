@@ -106,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
+	<Content Include="Samples\Data\ListRelatedFeatures\metadata.json" />
 	<Content Include="Samples\Analysis\LineOfSightGeoElement\metadata.json" />
 	<Content Include="Samples\Analysis\QueryFeatureCountAndExtent\metadata.json" />
 	<Content Include="Samples\Layers\FeatureLayerRenderingModeScene\metadata.json" />
@@ -195,6 +196,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<Content Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
 	<Content Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
 	<Content Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.jpg" />
 	<Content Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
@@ -281,6 +283,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.xaml.cs">
+		<DependentUpon>ListRelatedFeatures.xaml</DependentUpon>
+	</Compile>
 	<Compile Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml.cs">
 		<DependentUpon>LineOfSightGeoElement.xaml</DependentUpon>
     </Compile>
@@ -539,6 +544,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+	<Page Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.xaml">
+		<Generator>MSBuild:Compile</Generator>
+    <SubType>Designer</SubType>
+  </Page>
 	<Page Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml">
     <Generator>MSBuild:Compile</Generator>
     <SubType>Designer</SubType>

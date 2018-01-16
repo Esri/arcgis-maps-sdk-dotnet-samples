@@ -74,8 +74,9 @@ namespace ArcGISRuntimeXamarin.Samples.ListRelatedFeatures
 
         private async void MyMapViewOnGeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            // Clear any existing feature selection
+            // Clear any existing feature selection and results list
             _myFeatureLayer.ClearSelection();
+            _myDisplayList.Adapter = null;
 
             // Identify the tapped feature
             IdentifyLayerResult results = await _myMapView.IdentifyLayerAsync(_myFeatureLayer, e.Position, 10, false);
@@ -104,7 +105,7 @@ namespace ArcGISRuntimeXamarin.Samples.ListRelatedFeatures
                 // And then for each feature in the result
                 foreach (Feature resultFeature in result)
                 {
-                    // Get a referrence to the feature's table
+                    // Get a reference to the feature's table
                     ArcGISFeatureTable relatedTable = (ArcGISFeatureTable)resultFeature.FeatureTable;
 
                     // Get the display field name - this is the name of the field that is intended for display

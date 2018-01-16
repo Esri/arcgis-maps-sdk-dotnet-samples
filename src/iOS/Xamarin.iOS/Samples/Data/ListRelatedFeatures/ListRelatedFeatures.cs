@@ -19,60 +19,6 @@ using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.ListRelatedFeatures
 {
-    /// <summary>
-    /// Class defines how a UITableView renders its contents.
-    /// This implements the UI for the list of related features
-    /// </summary>
-    public class LayerListSource : UITableViewSource
-    {
-        // List of strings;
-        public List<string> _viewModelList = new List<string>();
-
-        // Used when re-using cells to ensure that a cell of the right type is used
-        private string CellId = "TableCell";
-
-        public LayerListSource(List<string> items)
-        {
-            // Set the items
-            if (items != null)
-            {
-                _viewModelList = items;
-            }
-        }
-
-        /// <summary>
-        /// This method gets a table view cell for the suggestion at the specified index
-        /// </summary>
-        public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
-        {
-            // Try to get a re-usable cell (this is for performance)
-            UITableViewCell cell = tableView.DequeueReusableCell(CellId);
-
-            // If there are no cells, create a new one
-            if (cell == null)
-            {
-                cell = new UITableViewCell(UITableViewCellStyle.Default, CellId);
-            }
-
-            // Get the specific item to display
-            string item = _viewModelList[indexPath.Row];
-
-            // Set the text on the cell
-            cell.TextLabel.Text = item;
-
-            // Return the cell
-            return cell;
-        }
-
-        /// <summary>
-        /// This method allows the UITableView to know how many rows to render
-        /// </summary>
-        public override nint RowsInSection(UITableView tableview, nint section)
-        {
-            return _viewModelList.Count;
-        }
-    }
-
     [Register("ListRelatedFeatures")]
     public class ListRelatedFeatures : UIViewController
     {
@@ -124,8 +70,10 @@ namespace ArcGISRuntimeXamarin.Samples.ListRelatedFeatures
 
         private async void MyMapViewOnGeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            // Clear any existing feature selection
+            // Clear any existing feature selection and results list
             _myFeatureLayer.ClearSelection();
+            _myDisplayList.Source = null; 
+            _myDisplayList.ReloadData();
 
             // Identify the tapped feature
             IdentifyLayerResult results = await _myMapView.IdentifyLayerAsync(_myFeatureLayer, e.Position, 10, false);
@@ -154,7 +102,7 @@ namespace ArcGISRuntimeXamarin.Samples.ListRelatedFeatures
                 // And then for each feature in the result
                 foreach (Feature resultFeature in result)
                 {
-                    // Get a referrence to the feature's table
+                    // Get a reference to the feature's table
                     ArcGISFeatureTable relatedTable = (ArcGISFeatureTable)resultFeature.FeatureTable;
 
                     // Get the display field name - this is the name of the field that is intended for display
@@ -167,7 +115,7 @@ namespace ArcGISRuntimeXamarin.Samples.ListRelatedFeatures
                     string featureDisplayname = resultFeature.Attributes[displayFieldName].ToString();
 
                     // Create a formatted result string
-                    string formattedResult = String.Format("{1} - {0}", tableName, featureDisplayname);
+                    string formattedResult = String.Format("{0} - {1}", tableName, featureDisplayname);
 
                     // Add the result to the list
                     queryResultsForUi.Add(formattedResult);
@@ -216,6 +164,62 @@ namespace ArcGISRuntimeXamarin.Samples.ListRelatedFeatures
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
             base.ViewDidLayoutSubviews();
+        }
+    }
+    /// <summary>
+    /// Class defines how a UITableView renders its contents.
+    /// This implements the UI for the list of related features
+    /// </summary>
+    public class LayerListSource : UITableViewSource
+    {
+        // List of strings;
+        public List<string> _viewModelList = new List<string>();
+
+        // Used when re-using cells to ensure that a cell of the right type is used
+        private string CellId = "TableCell";
+
+        public LayerListSource(List<string> items)
+        {
+            // Set the items
+            if (items != null)
+            {
+                _viewModelList = items;
+            }
+        }
+
+        /// <summary>
+        /// This method gets a table view cell for the suggestion at the specified index
+        /// </summary>
+        public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
+        {
+            // Try to get a re-usable cell (this is for performance)
+            UITableViewCell cell = tableView.DequeueReusableCell(CellId);
+
+            // If there are no cells, create a new one
+            if (cell == null)
+            {
+                cell = new UITableViewCell(UITableViewCellStyle.Default, CellId);
+            }
+
+            // Get the specific item to display
+            string item = _viewModelList[indexPath.Row];
+
+            // Set the text on the cell
+            cell.TextLabel.Text = item;
+            
+            // Ensure that the label fits
+            cell.TextLabel.AdjustsFontSizeToFitWidth = true;
+
+            // Return the cell
+            return cell;
+        }
+
+        /// <summary>
+        /// This method allows the UITableView to know how many rows to render
+        /// </summary>
+        public override nint RowsInSection(UITableView tableview, nint section)
+        {
+            return _viewModelList.Count;
         }
     }
 }

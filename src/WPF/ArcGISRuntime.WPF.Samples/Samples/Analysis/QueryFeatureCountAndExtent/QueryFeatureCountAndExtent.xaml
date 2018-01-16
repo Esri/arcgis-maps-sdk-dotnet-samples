@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="ArcGISRuntime.WPF.Samples.QueryFeatureCountAndExtent.QueryFeatureCountAndExtent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <TextBox Grid.Row="0" Grid.ColumnSpan="2" Text="NH" x:Name="txtStateEntry" />
+        <Button Content="Zoom to matching features" Grid.Row="1" Grid.Column="0" Click="BtnZoomToFeaturesClick" />
+        <Button Content="Count features in extent" Grid.Row="1" Grid.Column="1" Click="BtnCountFeaturesClick" />
+        <TextBox Grid.Row="2" Grid.ColumnSpan="2" IsEnabled="False" x:Name="txtResults" />
+        <esri:MapView x:Name="MyMapView" Grid.Row="3" Grid.ColumnSpan="2" />
+    </Grid>
+</UserControl>

@@ -474,6 +474,10 @@
               "Path": "Samples/LocalServer/LocalServerMapImageLayer"
             },
             {
+              "SampleName": "LocalServerServices",
+              "Path": "Samples/LocalServer/LocalServerServices" 
+            },
+            {
               "SampleName": "DynamicWorkspaceShapefile",
               "Path": "Samples/LocalServer/DynamicWorkspaceShapefile"
             }

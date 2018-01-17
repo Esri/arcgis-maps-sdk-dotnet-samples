@@ -4,8 +4,10 @@
              x:Class="ArcGISRuntimeXamarin.Samples.ProjectWithSpecificTransformation.ProjectWithSpecificTransformation">
              <StackLayout>
                  <Label>Geometry before:</Label>
-                 <Label x:Name="lblBefore"></Label>
+                 <Label x:Name="beforeLabel"></Label>
                  <Label>Geometry after:</Label>
-                 <Label x:Name="lblAfter"></Label>
+                 <Label x:Name="afterLabel"></Label>
+                 <Label>Geometry after (without specific transformation):</Label>
+                 <Label x:Name="nonSpecificLabel"></Label>
     </StackLayout>
 </ContentPage>

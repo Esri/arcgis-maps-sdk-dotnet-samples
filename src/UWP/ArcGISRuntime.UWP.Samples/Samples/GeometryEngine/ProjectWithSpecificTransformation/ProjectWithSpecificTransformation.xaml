@@ -8,9 +8,11 @@
     d:DesignHeight="300" d:DesignWidth="300">
     <StackPanel>
         <TextBlock>Geometry before:</TextBlock>
-        <TextBlock x:Name="lblBefore"></TextBlock>
+        <TextBlock x:Name="beforeLabel"></TextBlock>
         <TextBlock>Geometry after:</TextBlock>
-        <TextBlock x:Name="lblAfter"></TextBlock>
+        <TextBlock x:Name="afterLabel"></TextBlock>
+        <TextBlock>Geometry after (without specific transformation):</TextBlock>
+        <TextBlock x:Name="nonSpecificLabel"></TextBlock>
     </StackPanel>
 </UserControl>
 

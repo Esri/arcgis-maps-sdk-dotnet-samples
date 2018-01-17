@@ -18,10 +18,13 @@ namespace ArcGISRuntimeXamarin.Samples.ProjectWithSpecificTransformation
     public class ProjectWithSpecificTransformation : Activity
     {
         // Label for showing the coordinates before projection
-        private TextView _lblBefore;
+        private TextView _beforeLabel;
 
-        // Label for showing the coordinates after projection
-        private TextView _lblAfter;
+        // Label for showing the coordinates after projection with specific transformation
+        private TextView _afterLabel;
+
+        // Label for showing the coordinates after projection without specific transformation
+        private TextView _nonSpecificLabel;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -37,22 +40,28 @@ namespace ArcGISRuntimeXamarin.Samples.ProjectWithSpecificTransformation
         private void Initialize()
         {
             // Create a point geometry in NYC in WGS84
-            MapPoint myPoint = new MapPoint(-73.984513, 40.748469, SpatialReferences.Wgs84);
+            MapPoint startingPoint = new MapPoint(-73.984513, 40.748469, SpatialReferences.Wgs84);
 
             // Update the UI with the initial coordinates
-            _lblBefore.Text = $"x: {myPoint.X}, y: {myPoint.Y}";
+            _beforeLabel.Text = $"x: {startingPoint.X}, y: {startingPoint.Y}";
 
-            // Create a geographic transformation step for transfrom WKID 108055, WGS_1984_To_MSK_1942
+            // Create a geographic transformation step for transform WKID 108055, WGS_1984_To_MSK_1942
             GeographicTransformationStep geoStep = new GeographicTransformationStep(108055);
 
             // Create the transformation
             GeographicTransformation geoTransform = new GeographicTransformation(geoStep);
 
             // Project to a coordinate system used in New York, NAD_1983_HARN_StatePlane_New_York_Central_FIPS_3102
-            MapPoint myAfterPoint = (MapPoint)GeometryEngine.Project(myPoint, SpatialReference.Create(2829), geoTransform);
+            MapPoint afterPoint = (MapPoint)GeometryEngine.Project(startingPoint, SpatialReference.Create(2829), geoTransform);
 
             // Update the UI with the projected coordinates
-            _lblAfter.Text = $"x: {myAfterPoint.X}, y: {myAfterPoint.Y}";
+            _afterLabel.Text = $"x: {afterPoint.X}, y: {afterPoint.Y}";
+
+            // Perform the same projection without specified transformation
+            MapPoint unspecifiedTransformPoint = (MapPoint)GeometryEngine.Project(startingPoint, SpatialReference.Create(2829));
+
+            // Update the UI with the projection done without specific transform for comparison purposes
+            _nonSpecificLabel.Text = $"x: {unspecifiedTransformPoint.X}, y: {unspecifiedTransformPoint.Y}";
         }
 
         private void CreateLayout()
@@ -60,21 +69,23 @@ namespace ArcGISRuntimeXamarin.Samples.ProjectWithSpecificTransformation
             // Create a new vertical layout for the app
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
-            // Create the before label
-            _lblBefore = new TextView(this);
+            // Create the labels
+            _beforeLabel = new TextView(this);
+            _afterLabel = new TextView(this);
+            _nonSpecificLabel = new TextView(this);
 
-            // Create the after label
-            _lblAfter = new TextView(this);
-
-            // Create two more labels to label the output
-            TextView lblExplainBefore = new TextView(this) { Text = "Before: " };
-            TextView lblExplainAfter = new TextView(this) { Text = "After: " };
+            // Create three more labels to label the output
+            TextView beforeLabelTitle = new TextView(this) { Text = "Before: " };
+            TextView afterLabelTitle = new TextView(this) { Text = "After: " };
+            TextView nonSpecificLabelTitle = new TextView(this) {Text = "After (without specific transformation):"};
 
             // Add all labels to the layout
-            layout.AddView(lblExplainBefore);
-            layout.AddView(_lblBefore);
-            layout.AddView(lblExplainAfter);
-            layout.AddView(_lblAfter);
+            layout.AddView(beforeLabelTitle);
+            layout.AddView(_beforeLabel);
+            layout.AddView(afterLabelTitle);
+            layout.AddView(_afterLabel);
+            layout.AddView(nonSpecificLabelTitle);
+            layout.AddView(_nonSpecificLabel);
 
             // Show the layout in the app
             SetContentView(layout);

@@ -24,22 +24,28 @@ namespace ArcGISRuntime.UWP.Samples.ProjectWithSpecificTransformation
         private void Initialize()
         {
             // Create a point geometry in NYC in WGS84
-            MapPoint myPoint = new MapPoint(-73.984513, 40.748469, SpatialReferences.Wgs84);
+            MapPoint startingPoint = new MapPoint(-73.984513, 40.748469, SpatialReferences.Wgs84);
 
             // Update the UI with the initial coordinates
-            lblBefore.Text = $"x: {myPoint.X}, y: {myPoint.Y}";
+            beforeLabel.Text = $"x: {startingPoint.X}, y: {startingPoint.Y}";
 
-            // Create a geographic transformation step for transfrom WKID 108055, WGS_1984_To_MSK_1942
+            // Create a geographic transformation step for transform WKID 108055, WGS_1984_To_MSK_1942
             GeographicTransformationStep geoStep = new GeographicTransformationStep(108055);
 
             // Create the transformation
             GeographicTransformation geoTransform = new GeographicTransformation(geoStep);
 
             // Project to a coordinate system used in New York, NAD_1983_HARN_StatePlane_New_York_Central_FIPS_3102
-            MapPoint myAfterPoint = (MapPoint)GeometryEngine.Project(myPoint, SpatialReference.Create(2829), geoTransform);
+            MapPoint afterPoint = (MapPoint)GeometryEngine.Project(startingPoint, SpatialReference.Create(2829), geoTransform);
 
             // Update the UI with the projected coordinates
-            lblAfter.Text = $"x: {myAfterPoint.X}, y: {myAfterPoint.Y}";
+            afterLabel.Text = $"x: {afterPoint.X}, y: {afterPoint.Y}";
+
+            // Perform the same projection without specified transformation
+            MapPoint unspecifiedTransformPoint = (MapPoint)GeometryEngine.Project(startingPoint, SpatialReference.Create(2829));
+
+            // Update the UI with the projection done without specific transform for comparison purposes
+            nonSpecificLabel.Text = $"x: {unspecifiedTransformPoint.X}, y: {unspecifiedTransformPoint.Y}";
         }
     }
 }

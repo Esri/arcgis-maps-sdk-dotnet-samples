@@ -561,6 +561,23 @@
       ]
     },
     {
+      "Name": "GeometryEngine",
+      "CategoryName": "GeometryEngine",
+      "SubCategories": [
+        {
+          "Name": "Projection",
+          "SubCategoryName": "Projection",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "ProjectWithSpecificTransformation",
+              "Path": "Samples/GeometryEngine/ProjectWithSpecificTransformation"
+            }
+          ] 
+        }
+      ] 
+    },
+    {
       "Name": "Tutorial",
       "CategoryName": "Tutorial",
       "SubCategories": [

@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
+	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ProjectWithSpecificTransformation\metadata.json" />
 	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ListRelatedFeatures\metadata.json" />
 	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightGeoElement\metadata.json" />
 	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\QueryFeatureCountAndExtent\metadata.json" />
@@ -150,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg" />
 	<None Include="$(MSBuildThisFileDirectory)Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
 	<None Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
 	<None Include="$(MSBuildThisFileDirectory)Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.jpg" />
@@ -238,10 +240,14 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml.cs">
+		<DependentUpon>ProjectWithSpecificTransformation.xaml</DependentUpon>
+		<SubType>Code</SubType>
+  </Compile>
 	<Compile Include="$(MSBuildThisFileDirectory)Samples\Data\ListRelatedFeatures\ListRelatedFeatures.xaml.cs">
 		<DependentUpon>ListRelatedFeatures.xaml</DependentUpon>
 		<SubType>Code</SubType>
-    </Compile>
+  </Compile>
 	<Compile Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml.cs">
 		<DependentUpon>LineOfSightGeoElement.xaml</DependentUpon>
     <SubType>Code</SubType>
@@ -584,24 +590,27 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml">
+		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+  </EmbeddedResource>
 	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ListRelatedFeatures\ListRelatedFeatures.xaml">
 		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
+  </EmbeddedResource>
 	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml">
     <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
+  </EmbeddedResource>
 	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.xaml">
-  <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	</EmbeddedResource>
 	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.xaml">
-  <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	</EmbeddedResource>
 	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml">
 		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	</EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightLocation\LineOfSightLocation.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
+  <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightLocation\LineOfSightLocation.xaml">
+    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+  </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedCamera\ViewshedCamera.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

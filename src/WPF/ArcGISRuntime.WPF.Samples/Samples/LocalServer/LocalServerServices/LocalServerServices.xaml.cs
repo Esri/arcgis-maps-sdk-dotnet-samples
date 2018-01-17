@@ -32,7 +32,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
         {
             InitializeComponent();
 
-            // set up the sample
+            // Set up the sample
             Initialize();
         }
 
@@ -140,7 +140,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
             }
         }
 
-        private async void BtnStartServiceClick(object sender, RoutedEventArgs e)
+        private async void StartServiceButtonClicked(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -156,7 +156,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
             }
         }
 
-        private async void BtnStopServiceClick(object sender, RoutedEventArgs e)
+        private async void StopServiceButtonClicked(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -238,7 +238,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
             #endregion offlinedata
         }
 
-        private async void BtnStartServer(object sender, RoutedEventArgs e)
+        private async void StartServerButtonClicked(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -258,7 +258,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
             LocalServerStartButton.IsEnabled = false;
         }
 
-        private async void BtnStopServer(object sender, RoutedEventArgs e)
+        private async void StopServerButtonClicked(object sender, RoutedEventArgs e)
         {
             // Update the UI
             btnServiceStart.IsEnabled = false;
@@ -275,7 +275,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
             _localGeoprocessingService = null;
         }
 
-        private void NavgiateButtonOnClick(object sender, RoutedEventArgs e)
+        private void NavigateButtonClicked(object sender, RoutedEventArgs e)
         {
             // Return if selection is empty
             if (lstServices.SelectedItems.Count < 1) { return; }

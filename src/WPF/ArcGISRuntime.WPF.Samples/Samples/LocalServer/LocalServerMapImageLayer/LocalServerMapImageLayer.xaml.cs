@@ -26,7 +26,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerMapImageLayer
         {
             InitializeComponent();
 
-            // set up the sample 
+            // set up the sample
             Initialize();
         }
 
@@ -46,27 +46,9 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerMapImageLayer
                 // Create the Map Service from the data
                 _localMapService = new LocalMapService(datapath);
 
-                // Be notified when the map service is loaded
-                _localMapService.StatusChanged += _localMapService_StatusChanged;
-
                 // Start the feature service
                 await _localMapService.StartAsync();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Local Server failed to start");
-            }
 
-            // Listen for the shutdown and unloaded events so that the local server can be shut down
-            this.Dispatcher.ShutdownStarted += ShutdownSample;
-            this.Unloaded += ShutdownSample;
-        }
-
-        private async void _localMapService_StatusChanged(object sender, StatusChangedEventArgs e)
-        {
-            // Load a MapImageLayer from the service once it has started
-            if (e.Status == LocalServerStatus.Started)
-            {
                 // Get the url to the map service
                 Uri myServiceUri = _localMapService.Url;
 
@@ -82,22 +64,9 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerMapImageLayer
                 // Set the viewpoint on the map to show the data
                 MyMapView.SetViewpoint(new Viewpoint(myImageLayer.FullExtent));
             }
-        }
-
-        private async void ShutdownSample(object sender, EventArgs e)
-        {
-            try
+            catch (Exception ex)
             {
-                // Shut down the local server if it has started
-                if (LocalServer.Instance.Status == LocalServerStatus.Started)
-                {
-                    await LocalServer.Instance.StopAsync();
-                }
-            }
-            catch (InvalidOperationException)
-            {
-                // Local server isn't installed, just return
-                return;
+                MessageBox.Show(ex.Message, "Local Server failed to start");
             }
         }
 

@@ -79,10 +79,22 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
+    <Content Include="Samples\LocalServer\LocalServerFeatureLayer\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\ListRelatedFeatures\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Analysis\LineOfSightGeoElement\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Analysis\QueryFeatureCountAndExtent\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\LocalServer\DynamicWorkspaceRaster\DynamicWorkspaceRaster.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\LocalServer\LocalServerGeoprocessing\LocalServerGeoprocessing.jpg">
@@ -349,10 +361,16 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-    <Content Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.jpg">
+    <Content Include="Samples\LocalServer\LocalServerFeatureLayer\LocalServerFeatureLayer.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg">
+    <Content Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\LocalServer\LocalServerMapImageLayer\LocalServerMapImageLayer.jpg">
@@ -601,6 +619,15 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\LocalServer\LocalServerFeatureLayer\LocalServerFeatureLayer.xaml.cs">
+      <DependentUpon>LocalServerFeatureLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.xaml.cs">
+      <DependentUpon>ListRelatedFeatures.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml.cs">
+      <DependentUpon>LineOfSightGeoElement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.xaml.cs">
       <DependentUpon>QueryFeatureCountAndExtent.xaml</DependentUpon>
     </Compile>
@@ -609,6 +636,9 @@
     </Compile>
     <Compile Include="Samples\LocalServer\LocalServerGeoprocessing\LocalServerGeoprocessing.xaml.cs">
       <DependentUpon>LocalServerGeoprocessing.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LocalServer\DynamicWorkspaceRaster\DynamicWorkspaceRaster.xaml.cs">
+      <DependentUpon>DynamicWorkspaceRaster.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\LocalServer\LocalServerMapImageLayer\LocalServerMapImageLayer.xaml.cs">
       <DependentUpon>LocalServerMapImageLayer.xaml</DependentUpon>
@@ -865,6 +895,18 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\LocalServer\LocalServerFeatureLayer\LocalServerFeatureLayer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -874,6 +916,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\LocalServer\LocalServerGeoprocessing\LocalServerGeoprocessing.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\LocalServer\DynamicWorkspaceRaster\DynamicWorkspaceRaster.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1224,6 +1270,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\LocalServer\LocalServerGeoprocessing\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\LocalServer\DynamicWorkspaceRaster\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

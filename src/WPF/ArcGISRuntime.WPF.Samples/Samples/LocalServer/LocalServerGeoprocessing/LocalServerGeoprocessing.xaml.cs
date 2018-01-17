@@ -44,11 +44,13 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGeoprocessing
             // Create a map and add it to the view
             MyMapView.Map = new Map(Basemap.CreateLightGrayCanvasVector());
 
-            // Load the tiled layer
+            // Load the tiled layer and get the path
             string rasterPath = await GetRasterPath();
 
+            // Create a tile cache using the path to the raster
             TileCache myTileCache = new TileCache(rasterPath);
 
+            // Create the tiled layer from the tile cache
             ArcGISTiledLayer tiledLayer = new ArcGISTiledLayer(myTileCache);
 
             // Try to load the tiled layer
@@ -159,9 +161,14 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGeoprocessing
             // Return if not succeeded
             if (_gpJob.Status != JobStatus.Succeeded) { return; }
 
-            // Get the URL to the map service with the geoprocessing results
-            string gpServiceResultUrl = _gpService.Url.ToString()
-                .Replace("GPServer", "MapServer/jobs/" + _gpJob.ServerJobId);
+            // Get the URL to the map service 
+            string gpServiceResultUrl = _gpService.Url.ToString();
+
+            // Get the URL segment for the specific job results
+            string jobSegment = "MapServer/jobs/" + _gpJob.ServerJobId;
+
+            // Update the URL to point to the specific job from the service
+            gpServiceResultUrl = gpServiceResultUrl.Replace("GPServer", jobSegment); 
 
             // Create a map image layer to show the results
             ArcGISMapImageLayer myMapImageLayer = new ArcGISMapImageLayer(new Uri(gpServiceResultUrl));

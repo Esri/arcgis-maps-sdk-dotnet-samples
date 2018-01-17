@@ -30,7 +30,7 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
         // Used when re-using cells to ensure that a cell of the right type is used
         private string CellId = "TableCell";
 
-        // Hold a reference to the owning view controller; this will be the active instance of FindPlace
+        // Hold a reference to the owning view controller; this will be the active instance of WmsServiceCatalog 
         public WmsServiceCatalog Owner { get; set; }
 
         public LayerListSource(List<LayerDisplayVM> items, WmsServiceCatalog owner)

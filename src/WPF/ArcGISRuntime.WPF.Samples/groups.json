@@ -294,6 +294,10 @@
             {
               "SampleName": "SymbolizeShapefile",
               "Path": "Samples/Data/SymbolizeShapefile"
+            },
+            {
+              "SampleName": "ListRelatedFeatures",
+              "Path": "Samples/Data/ListRelatedFeatures"
             }
           ]
         }
@@ -375,6 +379,10 @@
             {
               "SampleName": "LineOfSightLocation",
               "Path": "Samples/Analysis/LineOfSightLocation"
+            },
+            {
+              "SampleName": "LineOfSightGeoElement",
+              "Path": "Samples/Analysis/LineOfSightGeoElement"
             },
             {
               "SampleName": "ListGeodatabaseVersions",
@@ -470,6 +478,10 @@
           "ShowGroup": false,
           "SampleInfos": [
             {
+              "SampleName": "DynamicWorkspaceRaster",
+              "Path": "Samples/LocalServer/DynamicWorkspaceRaster" 
+            },
+            {
               "SampleName": "LocalServerMapImageLayer",
               "Path": "Samples/LocalServer/LocalServerMapImageLayer"
             },
@@ -480,6 +492,10 @@
             {
               "SampleName": "DynamicWorkspaceShapefile",
               "Path": "Samples/LocalServer/DynamicWorkspaceShapefile"
+            },
+            {
+              "SampleName": "LocalServerFeatureLayer",
+              "Path": "Samples/LocalServer/LocalServerFeatureLayer"
             }
           ]
         }

@@ -85,6 +85,10 @@
 
     This sample demonstrates how to author and save a map as an ArcGIS portal item (web map). Saving a map to arcgis.com requires an ArcGIS Online login.
 
+* [Read a GeoPackage](ArcGISRuntime.WPF.Samples/Samples/Data/ReadGeoPackage)
+
+    This sample demonstrates how to open a GeoPackage file from the local file system and list the available GeoPackageRasters and GeoPackageFeatureTables from the GeoPackage. Users can add and remove the selected datasets as RasterLayers or FeatureLayers to the map.
+
 ## Layers
 
 * [ArcGIS tiled layer (URL)](ArcGISRuntime.WPF.Samples/Samples/Layers/ArcGISTiledLayerUrl)
@@ -236,6 +240,10 @@
 
     This sample demonstrates how to apply a custom renderer to a shapefile displayed by a feature layer.
 
+* [List related features](ArcGISRuntime.WPF.Samples/Samples/Data/ListRelatedFeatures)
+
+    This sample demonstrates how to query features related to an identified feature.
+
 ## Display Information
 
 * [Add graphics (SimpleRenderer)](ArcGISRuntime.WPF.Samples/Samples/GraphicsOverlay/AddGraphicsRenderer)
@@ -288,9 +296,17 @@
 
     This sample demonstrates a `LocationLineOfSight` analysis that shows segments that are visible or obstructed along a line drawn from observer to target.
 
+* [Line of Sight (GeoElement)](ArcGISRuntime.WPF.Samples/Samples/Analysis/LineOfSightGeoElement)
+
+    This sample demonstrates how to perform a dynamic line of sight analysis between two moving GeoElements.
+
 * [List geodatabase versions](ArcGISRuntime.WPF.Samples/Samples/Geoprocessing/ListGeodatabaseVersions)
 
     This sample calls a custom GeoprocessingTask to get a list of available versions for an enterprise geodatabase. The task returns a table of geodatabase version information, which is displayed in the app as a list.
+
+* [Query feature count and extent](ArcGISRuntime.WPF.Samples/Samples/Analysis/QueryFeatureCountAndExtent)
+
+    This sample demonstrates how to query a feature table, in this case returning a count, for features that are within the visible extent or that meet specified criteria.
 
 * [Statistical query](ArcGISRuntime.WPF.Samples/Samples/Data/StatisticalQuery)
 
@@ -325,6 +341,14 @@
     Demonstrates how to display a scene with an elevation data source. An elevation data source allows objects to be viewed in 3D, like this picture of Mt. Everest.
 
 ## Local Server
+
+* [Dynamic workspace Raster](ArcGISRuntime.WPF.Samples/Samples/LocalServer/DynamicWorkspaceRaster)
+
+    This sample demonstrates how to dynamically add a local Raster to a map using Local Server.
+
+* [Local Server Map Image Layer](ArcGISRuntime.WPF.Samples/Samples/LocalServer/LocalServerMapImageLayer)
+
+    This sample demonstrates how to display a Map Image Layer from a local map service
 
 * [Dynamic workspace shapefile](ArcGISRuntime.WPF.Samples/Samples/LocalServer/DynamicWorkspaceShapefile)
 

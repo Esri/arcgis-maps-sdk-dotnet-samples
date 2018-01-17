@@ -294,6 +294,10 @@
             {
               "SampleName": "SymbolizeShapefile",
               "Path": "Samples/Data/SymbolizeShapefile"
+            },
+            {
+              "SampleName": "ListRelatedFeatures",
+              "Path": "Samples/Data/ListRelatedFeatures"
             }
           ]
         }
@@ -375,6 +379,10 @@
             {
               "SampleName": "LineOfSightLocation",
               "Path": "Samples/Analysis/LineOfSightLocation"
+            },
+            {
+              "SampleName": "LineOfSightGeoElement",
+              "Path": "Samples/Analysis/LineOfSightGeoElement"
             },
             {
               "SampleName": "ListGeodatabaseVersions",

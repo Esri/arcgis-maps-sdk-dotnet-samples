@@ -330,6 +330,10 @@
 
     This sample demonstrates how to dynamically add a local shapefile to a map using Local Server.
 
+* [Local Server Feature Layer](ArcGISRuntime.WPF.Samples/Samples/LocalServer/LocalServerFeatureLayer)
+
+    This sample demonstrates how to display a Feature Layer service by a Local Server feature service.
+
 ## Hydrography
 
 * [Select ENC features](ArcGISRuntime.WPF.Samples/Samples/Hydrography/SelectEncFeatures)

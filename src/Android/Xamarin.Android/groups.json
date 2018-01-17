@@ -99,6 +99,10 @@
             {
               "SampleName": "AuthorMap",
               "Path": "Samples/Map/AuthorMap"
+            },
+            {
+              "SampleName": "ReadGeoPackage",
+              "Path": "Samples/Data/ReadGeoPackage"
             }
           ]
         }
@@ -290,6 +294,10 @@
             {
               "SampleName": "SymbolizeShapefile",
               "Path": "Samples/Data/SymbolizeShapefile"
+            },
+            {
+              "SampleName": "ListRelatedFeatures",
+              "Path": "Samples/Data/ListRelatedFeatures"
             }
           ]
         }
@@ -373,8 +381,16 @@
               "Path": "Samples/Analysis/LineOfSightLocation"
             },
             {
+              "SampleName": "LineOfSightGeoElement",
+              "Path": "Samples/Analysis/LineOfSightGeoElement"
+            },
+            {
               "SampleName": "ListGeodatabaseVersions",
               "Path": "Samples/Geoprocessing/ListGeodatabaseVersions"
+            },
+            {
+              "SampleName": "QueryFeatureCountAndExtent",
+              "Path": "Samples/Analysis/QueryFeatureCountAndExtent"
             }
           ]
         },
@@ -538,10 +554,10 @@
       ]
     }
   ],
-  "Featured":[
+  "Featured": [
     {
-      "SampleName":"ExampleSample",
-      "Reason":1
+      "SampleName": "ExampleSample",
+      "Reason": 1
     }
   ]
 }

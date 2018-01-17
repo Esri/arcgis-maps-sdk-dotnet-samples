@@ -99,6 +99,10 @@
             {
               "SampleName": "AuthorMap",
               "Path": "Samples/Map/AuthorMap"
+            },
+            {
+              "SampleName": "ReadGeoPackage",
+              "Path": "Samples/Data/ReadGeoPackage"
             }
           ]
         }
@@ -290,6 +294,10 @@
             {
               "SampleName": "SymbolizeShapefile",
               "Path": "Samples/Data/SymbolizeShapefile"
+            },
+            {
+              "SampleName": "ListRelatedFeatures",
+              "Path": "Samples/Data/ListRelatedFeatures"
             }
           ]
         }
@@ -373,8 +381,16 @@
               "Path": "Samples/Analysis/LineOfSightLocation"
             },
             {
+              "SampleName": "LineOfSightGeoElement",
+              "Path": "Samples/Analysis/LineOfSightGeoElement"
+            },
+            {
               "SampleName": "ListGeodatabaseVersions",
               "Path": "Samples/Geoprocessing/ListGeodatabaseVersions"
+            },
+            {
+              "SampleName": "QueryFeatureCountAndExtent",
+              "Path": "Samples/Analysis/QueryFeatureCountAndExtent"
             }
           ]
         },
@@ -462,12 +478,28 @@
           "ShowGroup": false,
           "SampleInfos": [
             {
+              "SampleName": "DynamicWorkspaceRaster",
+              "Path": "Samples/LocalServer/DynamicWorkspaceRaster" 
+            },
+            {
               "SampleName": "LocalServerMapImageLayer",
               "Path": "Samples/LocalServer/LocalServerMapImageLayer"
             },
             {
+              "SampleName": "LocalServerServices",
+              "Path": "Samples/LocalServer/LocalServerServices"
+            },
+            {
+              "SampleName": "LocalServerGeoprocessing",
+              "Path": "Samples/LocalServer/LocalServerGeoprocessing" 
+            },
+            {
               "SampleName": "DynamicWorkspaceShapefile",
               "Path": "Samples/LocalServer/DynamicWorkspaceShapefile"
+            },
+            {
+              "SampleName": "LocalServerFeatureLayer",
+              "Path": "Samples/LocalServer/LocalServerFeatureLayer"
             }
           ]
         }

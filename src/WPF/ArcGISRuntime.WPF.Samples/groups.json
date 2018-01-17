@@ -486,6 +486,10 @@
               "Path": "Samples/LocalServer/LocalServerMapImageLayer"
             },
             {
+              "SampleName": "LocalServerGeoprocessing",
+              "Path": "Samples/LocalServer/LocalServerGeoprocessing" 
+            },
+            {
               "SampleName": "DynamicWorkspaceShapefile",
               "Path": "Samples/LocalServer/DynamicWorkspaceShapefile"
             },

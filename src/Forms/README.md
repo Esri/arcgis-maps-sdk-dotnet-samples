@@ -91,6 +91,10 @@
 
     This sample demonstrates how to author and save a map as an ArcGIS portal item (web map). Saving a map to arcgis.com requires an ArcGIS Online login.
 
+    * [Read a GeoPackage](Shared/Samples/Data/ReadGeoPackage)
+
+    This sample demonstrates how to open a GeoPackage file from the local file system and list the available GeoPackageRasters and GeoPackageFeatureTables from the GeoPackage. Users can add and remove the selected datasets as RasterLayers or FeatureLayers to the map.
+
 ## Layers
 
 
@@ -254,6 +258,10 @@
 
     This sample demonstrates how to apply a custom renderer to a shapefile displayed by a feature layer.
 
+    * [List related features](Shared/Samples/Data/ListRelatedFeatures)
+
+    This sample demonstrates how to query features related to an identified feature.
+
 ## Display Information
 
 
@@ -315,9 +323,17 @@
 
     This sample demonstrates a `LocationLineOfSight` analysis that shows segments that are visible or obstructed along a line drawn from observer to target.
 
+    * [Line of Sight (GeoElement)](Shared/Samples/Analysis/LineOfSightGeoElement)
+
+    This sample demonstrates how to perform a dynamic line of sight analysis between two moving GeoElements.
+
     * [List geodatabase versions](Shared/Samples/Geoprocessing/ListGeodatabaseVersions)
 
     This sample calls a custom GeoprocessingTask to get a list of available versions for an enterprise geodatabase. The task returns a table of geodatabase version information, which is displayed in the app as a list.
+
+    * [Query feature count and extent](Shared/Samples/Analysis/QueryFeatureCountAndExtent)
+
+    This sample demonstrates how to query a feature table, in this case returning a count, for features that are within the visible extent or that meet specified criteria.
 
 
 - **Statistics**

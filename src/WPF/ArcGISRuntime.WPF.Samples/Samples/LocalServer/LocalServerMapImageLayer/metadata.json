@@ -6,7 +6,7 @@
   "Type": 0,
   "RequiresOnlineConnection": true,
   "RequiresOfflineData": true,
-  "RequiresLocalServer": false,
+  "RequiresLocalServer": true,
   "DataItemIds": [ "dee5d8060a6048a4b063484199a9546b" ],
   "DataFileNames": [ "RelationshipId.mpk" ],
   "Image": "LocalServerMapImageLayer.jpg",

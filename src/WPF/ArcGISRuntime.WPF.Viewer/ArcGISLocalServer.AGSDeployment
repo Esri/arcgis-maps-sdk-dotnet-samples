@@ -28,10 +28,10 @@ It also provides core support for geocoding and geoprocessing.-->
         </ChildPackages>
       </Package>
       <!--Provides the ability to use Python scripts.-->
-      <Package name="Python Scripting" enabled="false">
+      <Package name="Python Scripting" enabled="true">
         <ChildPackages>
           <!--Provides support for Geoprocessing tools that use python-->
-          <Package name="Python Geoprocessing tools" enabled="false" />
+          <Package name="Python Geoprocessing tools" enabled="true" />
         </ChildPackages>
       </Package>
       <!--Provides additional vector and raster data format support.-->
@@ -41,9 +41,9 @@ It also provides core support for geocoding and geoprocessing.-->
           <Package name="Raster" enabled="true">
             <ChildPackages>
               <!--Provides support for ECW format Raster.-->
-              <Package name="ECW Rasters" enabled="false" />
+              <Package name="ECW Rasters" enabled="true" />
               <!--Provides support for Raster Mosaic Layers.-->
-              <Package name="Mosaic Rasters" enabled="false" />
+              <Package name="Mosaic Rasters" enabled="true" />
             </ChildPackages>
           </Package>
           <!--Provides additional vector file data format support.-->

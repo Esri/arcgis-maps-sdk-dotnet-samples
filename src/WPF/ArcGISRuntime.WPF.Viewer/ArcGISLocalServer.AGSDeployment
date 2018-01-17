@@ -22,9 +22,9 @@ It also provides core support for geocoding and geoprocessing.-->
           <!--Adds the ability to produce results as Map Services.-->
           <Package name="Map Server Results" enabled="true" />
           <!--Adds Network Analyst geoprocessing tools.-->
-          <Package name="Network Analyst" enabled="false" />
+          <Package name="Network Analyst" enabled="true" />
           <!--Adds Spatial Analyst geoprocessing tools.-->
-          <Package name="Spatial Analyst" enabled="false" />
+          <Package name="Spatial Analyst" enabled="true" />
         </ChildPackages>
       </Package>
       <!--Provides the ability to use Python scripts.-->

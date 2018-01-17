@@ -486,6 +486,10 @@
               "Path": "Samples/LocalServer/LocalServerMapImageLayer"
             },
             {
+              "SampleName": "LocalServerServices",
+              "Path": "Samples/LocalServer/LocalServerServices"
+            },
+            {
               "SampleName": "LocalServerGeoprocessing",
               "Path": "Samples/LocalServer/LocalServerGeoprocessing" 
             },

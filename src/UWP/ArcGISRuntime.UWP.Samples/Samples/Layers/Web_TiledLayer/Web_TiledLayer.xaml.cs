@@ -12,11 +12,11 @@ using System;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntime.UWP.Samples.WebTiledLayer
+namespace ArcGISRuntime.UWP.Samples.Web_TiledLayer
 {
-    public partial class WebTiledLayer
+    public partial class Web_TiledLayer
     {
-        public WebTiledLayer()
+        public Web_TiledLayer()
         {
             InitializeComponent();
 

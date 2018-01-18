@@ -10,11 +10,11 @@
 using Esri.ArcGISRuntime.Mapping;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.WebTiledLayer
+namespace ArcGISRuntimeXamarin.Samples.Web_TiledLayer
 {
-    public partial class WebTiledLayer : ContentPage
+    public partial class Web_TiledLayer : ContentPage
     {
-        public WebTiledLayer()
+        public Web_TiledLayer()
         {
             InitializeComponent();
 

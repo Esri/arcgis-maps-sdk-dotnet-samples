@@ -24,7 +24,6 @@ namespace ArcGISRuntime.WPF.Samples.AddGraphicsWithSymbols
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization
             Initialize();
         }
 

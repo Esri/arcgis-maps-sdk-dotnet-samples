@@ -1,0 +1,14 @@
+{
+  "Name": "Web TiledLayer",
+  "SampleName": "WebTiledLayer",
+  "Description": "",
+  "Instructions": "", 
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": false,
+  "RequiresLocalServer": false,
+  "Image": "WebTiledLayer.jpg",
+  "Link": "",
+  "TypeLink": [ ],
+  "SampleFolder": "WebTiledLayer"
+}

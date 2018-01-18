@@ -1,7 +1,7 @@
 {
   "Name": "Add graphics with symbols",
   "SampleName": "AddGraphicsWithSymbols",
-  "Description": "",
+  "Description": "This sample demonstrates how to add various types of graphics to a `GraphicsOverlay`.",
   "Instructions": "", 
   "Type": 0,
   "RequiresOnlineConnection": true,
@@ -9,6 +9,6 @@
   "RequiresLocalServer": false,
   "Image": "AddGraphicsWithSymbols.jpg",
   "Link": "",
-  "TypeLink": [ ],
+  "TypeLink": [ "T:Esri.ArcGISRuntime.Symbology.TextSymbol" ],
   "SampleFolder": "AddGraphicsWithSymbols"
 }

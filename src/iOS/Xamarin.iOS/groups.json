@@ -326,6 +326,10 @@
               "Path": "Samples/GraphicsOverlay/IdentifyGraphics"
             },
             {
+              "SampleName": "AddGraphicsWithSymbols",
+              "Path": "Samples/GraphicsOverlay/AddGraphicsWithSymbols"
+            },
+            {
               "SampleName": "SketchOnMap",
               "Path": "Samples/GraphicsOverlay/SketchOnMap"
             }

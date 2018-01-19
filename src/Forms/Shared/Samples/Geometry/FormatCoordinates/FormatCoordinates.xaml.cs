@@ -111,6 +111,12 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
 
         private void UpdateUiFromMapPoint(MapPoint startingPoint)
         {
+            // Remove event handlers temporarily
+            UtmTextField.TextChanged -= InputTextChanged;
+            DmsTextField.TextChanged -= InputTextChanged;
+            DecimalDegreesTextField.TextChanged -= InputTextChanged;
+            UsngTextField.TextChanged -= InputTextChanged;
+
             // Update the decimal degrees textbox
             DecimalDegreesTextField.Text =
                 CoordinateFormatter.ToLatitudeLongitude(startingPoint, LatitudeLongitudeFormat.DecimalDegrees, 4);
@@ -136,6 +142,12 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
 
             // Add the graphic to the graphics overlay
             MyMapView.GraphicsOverlays[0].Graphics.Add(symbolGraphic);
+
+            // Restore event handlers
+            UtmTextField.TextChanged += InputTextChanged;
+            DmsTextField.TextChanged += InputTextChanged;
+            DecimalDegreesTextField.TextChanged += InputTextChanged;
+            UsngTextField.TextChanged += InputTextChanged;
         }
     }
 }

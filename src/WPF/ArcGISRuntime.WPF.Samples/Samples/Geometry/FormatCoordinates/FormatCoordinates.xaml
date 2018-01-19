@@ -21,13 +21,13 @@
         </Grid.ColumnDefinitions>
         <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Foreground="Red">Type in the textboxes to see a real-time conversion</Label>
         <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right">Decimal Degrees</Label>
-        <TextBox Grid.Row="1" Grid.Column="1" Tag="Decimal Degrees" x:Name="txtDecimalDegrees" />
+        <TextBox Grid.Row="1" Grid.Column="1" Tag="Decimal Degrees" x:Name="DecimalDegreesTextField" />
         <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right">Degrees, Minutes, Seconds</Label>
-        <TextBox Grid.Row="2" Grid.Column="1" Tag="Degrees, Minutes, Seconds" x:Name="txtDMS" />
+        <TextBox Grid.Row="2" Grid.Column="1" Tag="Degrees, Minutes, Seconds" x:Name="DmsTextField" />
         <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right">UTM</Label>
-        <TextBox Grid.Row="3" Grid.Column="1" Tag="UTM" x:Name="txtUTM" />
+        <TextBox Grid.Row="3" Grid.Column="1" Tag="UTM" x:Name="UtmTextField" />
         <Label Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right">USNG</Label>
-        <TextBox Grid.Row="4" Grid.Column="1" Tag="USNG" x:Name="txtUSNG" />
+        <TextBox Grid.Row="4" Grid.Column="1" Tag="USNG" x:Name="UsngTextField" />
         <esri:MapView Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" x:Name="MyMapView" />
     </Grid>
 </UserControl>

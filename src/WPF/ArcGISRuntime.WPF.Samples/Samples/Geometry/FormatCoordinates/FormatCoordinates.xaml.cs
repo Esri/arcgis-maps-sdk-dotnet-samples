@@ -42,10 +42,10 @@ namespace ArcGISRuntime.WPF.Samples.FormatCoordinates
             UpdateUiFromMapPoint(startingPoint);
 
             // Subscribe to text change events
-            txtUTM.TextChanged += InputTextChanged;
-            txtDMS.TextChanged += InputTextChanged;
-            txtDecimalDegrees.TextChanged += InputTextChanged;
-            txtUSNG.TextChanged += InputTextChanged;
+            UtmTextField.TextChanged += InputTextChanged;
+            DmsTextField.TextChanged += InputTextChanged;
+            DecimalDegreesTextField.TextChanged += InputTextChanged;
+            UsngTextField.TextChanged += InputTextChanged;
 
             // Subscribe to map tap events to enable tapping on map to update coordinates
             MyMapView.GeoViewTapped += (sender, args) => { UpdateUiFromMapPoint(args.Location); };
@@ -105,18 +105,18 @@ namespace ArcGISRuntime.WPF.Samples.FormatCoordinates
         private void UpdateUiFromMapPoint(MapPoint startingPoint)
         {
             // Update the decimal degrees textbox
-            txtDecimalDegrees.Text =
+            DecimalDegreesTextField.Text =
                 CoordinateFormatter.ToLatitudeLongitude(startingPoint, LatitudeLongitudeFormat.DecimalDegrees, 4);
 
             // Update the degrees, minutes, seconds textbox
-            txtDMS.Text = CoordinateFormatter.ToLatitudeLongitude(startingPoint,
+            DmsTextField.Text = CoordinateFormatter.ToLatitudeLongitude(startingPoint,
                 LatitudeLongitudeFormat.DegreesMinutesSeconds, 1);
 
             // Update the UTM textbox
-            txtUTM.Text = CoordinateFormatter.ToUtm(startingPoint, UtmConversionMode.LatitudeBandIndicators, true);
+            UtmTextField.Text = CoordinateFormatter.ToUtm(startingPoint, UtmConversionMode.LatitudeBandIndicators, true);
 
             // Update the USNG textbox
-            txtUSNG.Text = CoordinateFormatter.ToUsng(startingPoint, 4, true);
+            UsngTextField.Text = CoordinateFormatter.ToUsng(startingPoint, 4, true);
 
             // Clear existing graphics overlays
             MyMapView.GraphicsOverlays[0].Graphics.Clear();

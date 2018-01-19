@@ -33,10 +33,6 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerFeatureLayer
 
         private async void Initialize()
         {
-            // Listen for the shutdown and unloaded events so that the local server can be shut down when sample is closed
-            this.Dispatcher.ShutdownStarted += ShutdownSample;
-            this.Unloaded += ShutdownSample;
-
             // Create a map and add it to the view
             MyMapView.Map = new Map(Basemap.CreateStreetsWithReliefVector());
 
@@ -116,23 +112,6 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerFeatureLayer
             return filepath;
 
             #endregion offlinedata
-        }
-
-        private async void ShutdownSample(object sender, EventArgs e)
-        {
-            try
-            {
-                // Shut down the local server if it has started
-                if (LocalServer.Instance.Status == LocalServerStatus.Started)
-                {
-                    await LocalServer.Instance.StopAsync();
-                }
-            }
-            catch (InvalidOperationException)
-            {
-                // Local server isn't installed, just return
-                return;
-            }
         }
     }
 }

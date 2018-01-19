@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System.Collections.Generic;
 using Esri.ArcGISRuntime.Mapping;
 using Xamarin.Forms;
 
@@ -14,6 +15,18 @@ namespace ArcGISRuntimeXamarin.Samples.Web_TiledLayer
 {
     public partial class Web_TiledLayer : ContentPage
     {
+        // Templated URL to the tile service
+        private readonly string _templateUri = "http://{subDomain}.tile.stamen.com/terrain/{level}/{col}/{row}.png";
+
+        // List of subdomains for use when constructing the web tiled layer
+        private readonly List<string> _tiledLayerSubdomains = new List<string> { "a", "b", "c", "d" };
+
+        // Attribution string for the Stamen service
+        private readonly string _attribution = "Map tiles by <a href=\"http://stamen.com/\">Stamen Design</a>," + 
+                                               "under <a href=\"http://creativecommons.org/licenses/by/3.0\">CC BY 3.0</a>." + 
+                                               "Data by <a href=\"http://openstreetmap.org/\">OpenStreetMap</a>," +
+                                               "under <a href=\"http://creativecommons.org/licenses/by-sa/3.0\">CC BY SA</a>.";
+
         public Web_TiledLayer()
         {
             InitializeComponent();
@@ -24,12 +37,24 @@ namespace ArcGISRuntimeXamarin.Samples.Web_TiledLayer
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
-            // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateImagery());
+            // Create the layer from the URL and the subdomain list
+            WebTiledLayer layer = new WebTiledLayer(_templateUri, _tiledLayerSubdomains);
 
-            // Assign the map to the MapView
+            // Wait for the layer to load
+            await layer.LoadAsync();
+
+            // Create a basemap from the layer
+            Basemap layerBasemap = new Basemap(layer);
+
+            // Apply the attribution for the layer
+            layer.Attribution = _attribution;
+
+            // Create a map to hold the basemap
+            Map myMap = new Map(layerBasemap);
+
+            // Add the map to the map view
             MyMapView.Map = myMap;
         }
     }

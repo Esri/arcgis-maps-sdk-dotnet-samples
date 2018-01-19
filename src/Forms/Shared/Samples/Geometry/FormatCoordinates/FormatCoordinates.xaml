@@ -1,10 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
+             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime"
              x:Class="ArcGISRuntimeXamarin.Samples.FormatCoordinates.FormatCoordinates">
-  <Grid>
-    <esriUI:MapView x:Name="MyMapView"/>
-  </Grid>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" TextColor="Red">Type in the textboxes to see a real-time conversion</Label>
+        <Label Grid.Row="1" Grid.Column="0" HorizontalTextAlignment="End">Decimal Degrees</Label>
+        <Entry Grid.Row="1" Grid.Column="1" Placeholder="Decimal Degrees" x:Name="DecimalDegreesTextField" />
+        <Label Grid.Row="2" Grid.Column="0" HorizontalTextAlignment="End">Degrees, Minutes, Seconds</Label>
+        <Entry Grid.Row="2" Grid.Column="1" Placeholder="Degrees, Minutes, Seconds" x:Name="DmsTextField" />
+        <Label Grid.Row="3" Grid.Column="0" HorizontalTextAlignment="End">UTM</Label>
+        <Entry Grid.Row="3" Grid.Column="1" Placeholder="UTM" x:Name="UtmTextField" />
+        <Label Grid.Row="4" Grid.Column="0" HorizontalTextAlignment="End">USNG</Label>
+        <Entry Grid.Row="4" Grid.Column="1" Placeholder="USNG" x:Name="UsngTextField" />
+        <esriUI:MapView Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" x:Name="MyMapView" />
+    </Grid>
 </ContentPage>

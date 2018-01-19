@@ -3,12 +3,12 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System.Collections.Generic;
 using Esri.ArcGISRuntime.Mapping;
+using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace ArcGISRuntimeXamarin.Samples.Web_TiledLayer
@@ -22,8 +22,8 @@ namespace ArcGISRuntimeXamarin.Samples.Web_TiledLayer
         private readonly List<string> _tiledLayerSubdomains = new List<string> { "a", "b", "c", "d" };
 
         // Attribution string for the Stamen service
-        private readonly string _attribution = "Map tiles by <a href=\"http://stamen.com/\">Stamen Design</a>," + 
-                                               "under <a href=\"http://creativecommons.org/licenses/by/3.0\">CC BY 3.0</a>." + 
+        private readonly string _attribution = "Map tiles by <a href=\"http://stamen.com/\">Stamen Design</a>," +
+                                               "under <a href=\"http://creativecommons.org/licenses/by/3.0\">CC BY 3.0</a>." +
                                                "Data by <a href=\"http://openstreetmap.org/\">OpenStreetMap</a>," +
                                                "under <a href=\"http://creativecommons.org/licenses/by-sa/3.0\">CC BY SA</a>.";
 
@@ -33,7 +33,7 @@ namespace ArcGISRuntimeXamarin.Samples.Web_TiledLayer
 
             Title = "Web TiledLayer";
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             Initialize();
         }
 

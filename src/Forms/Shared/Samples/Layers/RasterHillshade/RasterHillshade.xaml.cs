@@ -22,15 +22,15 @@ namespace ArcGISRuntimeXamarin.Samples.RasterHillshade
     {
         // Constant to store a z-factor (conversion constant) applied to the hillshade.
         // If needed, this can be used to convert z-values to the same unit as the x/y coordinates or to apply a vertical exaggeration.
-        private const double Z_FACTOR = 1.0;
+        private const double ZFactor = 1.0;
 
         // Constants to store the Pixel Size Power and Pixel Size Factor values.
         // Use these to account for altitude changes (scale) as the viewer zooms in and out (recommended when using worldwide datasets).
-        private const double PIXEL_SIZE_POWER = 1.0;
-        private const double PIXEL_SIZE_FACTOR = 1.0;
+        private const double PixelSizePower = 1.0;
+        private const double PixelSizeFactor = 1.0;
 
         // Constant to store the bit depth (pixel depth), which determines the range of values that the hillshade raster can store.
-        private const int PIXEL_BIT_DEPTH = 8;
+        private const int PixelBitDepth = 8;
 
         // Store a reference to the layer
         RasterLayer _rasterLayer;
@@ -92,7 +92,7 @@ namespace ArcGISRuntimeXamarin.Samples.RasterHillshade
             SlopeType typeOfSlope = _slopeTypeValues[SlopeTypePicker.SelectedItem.ToString()];
 
             // Create a hillshade renderer that uses the values selected by the user
-            HillshadeRenderer hillshadeRenderer = new HillshadeRenderer(altitude, azimuth, Z_FACTOR, typeOfSlope, PIXEL_SIZE_FACTOR, PIXEL_SIZE_POWER, PIXEL_BIT_DEPTH);
+            HillshadeRenderer hillshadeRenderer = new HillshadeRenderer(altitude, azimuth, ZFactor, typeOfSlope, PixelSizeFactor, PixelSizePower, PixelBitDepth);
 
             // Apply the new renderer to the raster layer
             _rasterLayer.Renderer = hillshadeRenderer;

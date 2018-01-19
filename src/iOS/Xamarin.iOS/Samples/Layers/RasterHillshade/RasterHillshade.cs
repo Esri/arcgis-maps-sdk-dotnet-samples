@@ -13,7 +13,6 @@ using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using UIKit;
@@ -24,34 +23,38 @@ namespace ArcGISRuntimeXamarin.Samples.RasterHillshade
     public class RasterHillshade : UIViewController
     {
         // Constant holding offset where the MapView control should start
-        private const int _yPageOffset = 60;
-        
-        // Stack view UI control for arranging query controls
-        private UIStackView _controlsStackView;
-
-        // UI controls that will need to be referenced: sliders to define hillshade sun position, and MapView
-        private UIPickerView _slopeTypePicker;
-        private UISlider _altitudeSlider;
-        private UISlider _azimuthSlider;
-        private MapView _myMapView = new MapView();
+        private const int YPageOffset = 60;
 
         // Constant to store a z-factor (conversion constant) applied to the hillshade.
         // If needed, this can be used to convert z-values to the same unit as the x/y coordinates or to apply a vertical exaggeration.
-        private const double Z_FACTOR = 1.0;
+        private const double ZFactor = 1.0;
 
         // Constants to store the Pixel Size Power and Pixel Size Factor values.
         // Use these to account for altitude changes (scale) as the viewer zooms in and out (recommended when using worldwide datasets).
-        private const double PIXEL_SIZE_POWER = 1.0;
-        private const double PIXEL_SIZE_FACTOR = 1.0;
+        private const double PixelSizePower = 1.0;
+        private const double PixelSizeFactor = 1.0;
 
         // Constant to store the bit depth (pixel depth), which determines the range of values that the hillshade raster can store.
-        private const int PIXEL_BIT_DEPTH = 8;
+        private const int PixelBitDepth = 8;
+
+        // Stack view UI control for arranging hillshade parameter controls
+        private UIStackView _controlsStackView;
+
+        // UI controls that will need to be referenced for getting parameter information from the user
+        private UIButton _slopeTypeButton;
+        private UILabel _azimuthLabel;
+        private UILabel _altitudeLabel;
+        private UISlider _azimuthSlider;
+        private UISlider _altitudeSlider;
+
+        // Store a reference to the map view control
+        private MapView _myMapView;
 
         // Store a reference to the layer
         RasterLayer _rasterLayer;
 
-        // Store a dictionary of slope types
-        Dictionary<string, SlopeType> _slopeTypeValues = new Dictionary<string, SlopeType>();
+        // Store a user-selected slope type (default to scaled)
+        private SlopeType _slopeType = SlopeType.Scaled;
 
         public RasterHillshade()
         {
@@ -66,19 +69,29 @@ namespace ArcGISRuntimeXamarin.Samples.RasterHillshade
             CreateLayout();
             Initialize();
         }
-
+        
         public override void ViewDidLayoutSubviews()
+        {
+            LayoutSubviews();
+
+            base.ViewDidLayoutSubviews();
+        }
+
+        private void LayoutSubviews()
         {
             // Get height of status bar and navigation bar
             nfloat pageOffset = NavigationController.NavigationBar.Frame.Size.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            // Setup the visual frame for the query controls
-            _controlsStackView.Frame = new CoreGraphics.CGRect(0, pageOffset, View.Bounds.Width, 150);
+            // Height of the control panel (for inputting hillshade parameters)
+            nfloat controlFrameHeight = 150;
 
             // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _myMapView.Frame = new CoreGraphics.CGRect(0, pageOffset, View.Bounds.Width, View.Bounds.Height - pageOffset - controlFrameHeight);
 
-            base.ViewDidLayoutSubviews();
+            // Setup the visual frame for the hillshade controls
+            _controlsStackView.Frame = new CoreGraphics.CGRect(0, pageOffset + _myMapView.Frame.Height, View.Bounds.Width, controlFrameHeight);
+            _azimuthSlider.Frame = new CoreGraphics.CGRect(50, 50, 160, 20);
+            _altitudeSlider.Frame = new CoreGraphics.CGRect(50, 80, 160, 20);
         }
 
         private async void Initialize()
@@ -94,6 +107,7 @@ namespace ArcGISRuntimeXamarin.Samples.RasterHillshade
 
             // Create and load a new raster layer to show the image
             _rasterLayer = new RasterLayer(rasterFile);
+            
             await _rasterLayer.LoadAsync();
 
             // Create a viewpoint with the raster's full extent
@@ -107,44 +121,52 @@ namespace ArcGISRuntimeXamarin.Samples.RasterHillshade
 
             // Add the map to the map view
             _myMapView.Map = map;
-
-            // Add slope type values to the dictionary and picker
-            //foreach (var slope in Enum.GetValues(typeof(SlopeType)))
-            //{
-            //    _slopeTypeValues.Add(slope.ToString(), (SlopeType)slope);
-            //    SlopeTypePicker.Items.Add(slope.ToString());
-            //}
-
-            //// Select the "Scaled" slope type enum
-            //SlopeTypePicker.SelectedIndex = 2;
         }
         
         private void CreateLayout()
         {
             this.View.BackgroundColor = UIColor.White;
 
+            // Create the map view control
+            _myMapView = new MapView();
+
             // Create a stack view to organize the input controls
-            _controlsStackView = new UIStackView
+            _controlsStackView = new UIStackView()
             {
                 Axis = UILayoutConstraintAxis.Vertical,
                 Alignment = UIStackViewAlignment.Center,
-                Distribution = UIStackViewDistribution.EqualSpacing,
-                Spacing = 5,
-                BackgroundColor = UIColor.White
+                Distribution = UIStackViewDistribution.EqualCentering,
+                Spacing = 1
             };
 
             // Create a button to show the list of slope types to choose from
-            UIButton slopeTypeButton = new UIButton(UIButtonType.Plain);
-            slopeTypeButton.SetTitle("Choose slope type", UIControlState.Normal);
-            slopeTypeButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            slopeTypeButton.BackgroundColor = UIColor.White;
-            slopeTypeButton.TouchUpInside += ShowSlopeTypes;
+            _slopeTypeButton = new UIButton(UIButtonType.Plain);
+            _slopeTypeButton.SetTitle("Slope type: " + _slopeType.ToString(), UIControlState.Normal);
+            _slopeTypeButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _slopeTypeButton.BackgroundColor = UIColor.White;
+            _slopeTypeButton.TouchUpInside += ShowSlopeTypes;
 
+            // Create a slider (and associated label) to set sun azimuth
+            _azimuthSlider = new UISlider(new CoreGraphics.CGRect(50, 50, 160, 20))
+            {
+                BackgroundColor = UIColor.White,
+                MinValue = 0,
+                MaxValue = 360,
+                Value = 270
+            };
+            UILabel azimuthLabel = new UILabel()
+            {
+                BackgroundColor = UIColor.White,
+                TextColor = UIColor.Blue,
+                Text = "Azimuth"
+            };
+            
             // Create a slider (and associated label) to set sun altitude
-            _altitudeSlider = new UISlider
+            _altitudeSlider = new UISlider(new CoreGraphics.CGRect(50, 80, 160, 20))
             {
                 MinValue = 0,
                 MaxValue = 90,
+                Value = 45,
                 BackgroundColor = UIColor.White
             };
             UILabel altitudeLabel = new UILabel
@@ -153,40 +175,6 @@ namespace ArcGISRuntimeXamarin.Samples.RasterHillshade
                 TextColor = UIColor.Blue,
                 Text = "Altitude"
             };
-
-            // Add the slider and label to a horizontal panel
-            UIStackView altitudeStackView = new UIStackView
-            {
-                Axis = UILayoutConstraintAxis.Horizontal,
-                Alignment = UIStackViewAlignment.Fill,
-                Distribution = UIStackViewDistribution.EqualSpacing
-            };
-            altitudeStackView.AddArrangedSubview(altitudeLabel);
-            altitudeStackView.AddArrangedSubview(_altitudeSlider);
-
-            // Create a slider (and associated label) to set sun azimuth
-            _azimuthSlider = new UISlider
-            {
-                BackgroundColor = UIColor.White,
-                MinValue = 0,
-                MaxValue = 360
-            };
-            UILabel azimuthLabel = new UILabel
-            {
-                BackgroundColor = UIColor.White,
-                TextColor = UIColor.Blue,
-                Text = "Azimuth"
-            };
-
-            // Add the slider and label to a horizontal panel
-            UIStackView azimuthStackView = new UIStackView
-            {
-                Axis = UILayoutConstraintAxis.Horizontal,
-                Alignment = UIStackViewAlignment.Fill,
-                Distribution = UIStackViewDistribution.EqualSpacing
-            };
-            azimuthStackView.AddArrangedSubview(azimuthLabel);
-            azimuthStackView.AddArrangedSubview(_azimuthSlider);
 
             // Create a button to apply the hillshade settings
             var applyHillshadeButton = new UIButton();
@@ -198,9 +186,9 @@ namespace ArcGISRuntimeXamarin.Samples.RasterHillshade
             applyHillshadeButton.TouchUpInside += ApplyHillshade_Click;
 
             // Add controls to the stack view
-            _controlsStackView.AddArrangedSubview(slopeTypeButton);
-            _controlsStackView.AddArrangedSubview(azimuthStackView);
-            _controlsStackView.AddArrangedSubview(altitudeStackView);
+            _controlsStackView.AddArrangedSubview(_slopeTypeButton);
+            _controlsStackView.AddArrangedSubview(_azimuthSlider);
+            _controlsStackView.AddArrangedSubview(_altitudeSlider);
             _controlsStackView.AddArrangedSubview(applyHillshadeButton);
 
             // Add MapView and UI controls to the page
@@ -209,10 +197,24 @@ namespace ArcGISRuntimeXamarin.Samples.RasterHillshade
 
         private void ShowSlopeTypes(object sender, EventArgs e)
         {
-            // Create a new UIPickerView and assign a model that will show slope types
-            UIPickerView statisticPicker = new UIPickerView();
-            statisticPicker.Model = new SlopeTypePickerModel();
-            statisticPicker.
+            // Create a new Alert Controller
+            UIAlertController actionAlert = UIAlertController.Create("Slope Type", string.Empty, UIAlertControllerStyle.Alert);
+
+            // Add SlopeType enum values as Actions
+            foreach (SlopeType typeOfSlope in Enum.GetValues(typeof(SlopeType)))
+            {
+                actionAlert.AddAction(UIAlertAction.Create(typeOfSlope.ToString(), UIAlertActionStyle.Default,
+                    (action) => {
+                        // Store the selected slope type
+                        _slopeType = typeOfSlope;
+
+                        // Display the slope type as the button title
+                        _slopeTypeButton.SetTitle("Slope type: " + _slopeType.ToString(), UIControlState.Normal);
+                    }));
+            }
+            
+            // Display the alert
+            PresentViewController(actionAlert, true, null);
         }
 
         private void ApplyHillshade_Click(object sender, EventArgs e)
@@ -220,13 +222,13 @@ namespace ArcGISRuntimeXamarin.Samples.RasterHillshade
             // Get the current parameter values
             double altitude = _altitudeSlider.Value;
             double azimuth = _azimuthSlider.Value;
-            SlopeType typeOfSlope = SlopeType.Scaled; // _slopeTypeValues[SlopeTypePicker.SelectedItem.ToString()];
 
             // Create a hillshade renderer that uses the values selected by the user
-            HillshadeRenderer hillshadeRenderer = new HillshadeRenderer(altitude, azimuth, Z_FACTOR, typeOfSlope, PIXEL_SIZE_FACTOR, PIXEL_SIZE_POWER, PIXEL_BIT_DEPTH);
+            HillshadeRenderer hillshadeRenderer = new HillshadeRenderer(altitude, azimuth, ZFactor, _slopeType, PixelSizeFactor, PixelSizePower, PixelBitDepth);
 
             // Apply the new renderer to the raster layer
             _rasterLayer.Renderer = hillshadeRenderer;
+            LayoutSubviews();
         }
 
         private async Task<string> GetRasterPath()
@@ -251,60 +253,6 @@ namespace ArcGISRuntimeXamarin.Samples.RasterHillshade
             return filepath;
 
             #endregion offlinedata
-        }
-    }
-
-    // Class that defines a view model for showing slope types in a picker
-    public class SlopeTypePickerModel : UIPickerViewModel
-    {
-        // Array of available slope types
-        private Array _slopeTypes = Enum.GetValues(typeof(SlopeType));
-
-        // Currently selected slope type
-        private SlopeType _selectedSlopeType = SlopeType.None;
-
-
-        // Property to expose the currently selected slope type in the picker
-        public SlopeType SelectedSlopeType
-        {
-            get { return _selectedSlopeType; }
-        }
-
-        // Return the number of picker components
-        public override nint GetComponentCount(UIPickerView pickerView)
-        {
-            return 1;
-        }
-
-        // Return the number of rows in the section
-        public override nint GetRowsInComponent(UIPickerView pickerView, nint component)
-        {
-            return _slopeTypes.Length;
-        }
-
-        // Get the title to display in the picker (selected slope type)
-        public override string GetTitle(UIPickerView pickerView, nint row, nint component)
-        {
-            return _slopeTypes.GetValue(row).ToString();
-        }
-
-        // Handle the selection event for the picker to get the selected type
-        public override void Selected(UIPickerView pickerView, nint row, nint component)
-        {
-            // Get the statistic type
-            _selectedSlopeType = (SlopeType)_slopeTypes.GetValue(pickerView.SelectedRowInComponent(0));            
-        }
-
-        // Return the desired width for the picker
-        public override nfloat GetComponentWidth(UIPickerView picker, nint component)
-        {
-            return 200f;
-        }
-
-        // Return the desired height for rows in the picker
-        public override nfloat GetRowHeight(UIPickerView picker, nint component)
-        {
-            return 40f;
         }
     }
 }

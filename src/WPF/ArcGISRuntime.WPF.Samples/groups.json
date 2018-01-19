@@ -578,6 +578,23 @@
       ] 
     },
     {
+      "Name": "Geometry",
+      "CategoryName": "Geometry",
+      "SubCategories": [
+        {
+          "Name": "Coordinates",
+          "SubCategoryName": "Coordinates",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "FormatCoordinates",
+              "Path": "Samples/Geometry/FormatCoordinates"
+            }
+          ] 
+        }
+      ] 
+    },
+    {
       "Name": "Tutorial",
       "CategoryName": "Tutorial",
       "SubCategories": [

@@ -1,0 +1,14 @@
+{
+  "Name": "Format coordinates",
+  "SampleName": "FormatCoordinates",
+  "Description": "",
+  "Instructions": "", 
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": false,
+  "RequiresLocalServer": false,
+  "Image": "FormatCoordinates.jpg",
+  "Link": "",
+  "TypeLink": [ ],
+  "SampleFolder": "FormatCoordinates"
+}

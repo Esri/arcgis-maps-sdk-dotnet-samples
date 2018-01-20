@@ -29,6 +29,9 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
         private EditText _DmsEditText;
         private EditText _UtmEditText;
         private EditText _UsngEditText;
+        
+        // Hold last edited field
+        private EditText _lastEdited;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -61,35 +64,38 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
 
         private void InputTextChanged(object sender, EventArgs e)
         {
-            // Get the textbox that sent the event
-            EditText txtSender = (EditText)sender;
+            // Track the field that was edited last
+            _lastEdited = (EditText)sender;
+        }
 
+        private void ProcessTextChange(object sender, EventArgs e)
+        {
             // Hold the entered point
             MapPoint enteredPoint = null;
 
             // Update the point based on which textbox sent the event
             try
             {
-                switch (txtSender.Hint)
+                switch (_lastEdited.Hint)
                 {
                     case "Decimal Degrees":
                         enteredPoint =
-                            CoordinateFormatter.FromLatitudeLongitude(txtSender.Text, _myMapView.SpatialReference);
+                            CoordinateFormatter.FromLatitudeLongitude(_lastEdited.Text, _myMapView.SpatialReference);
                         break;
 
                     case "Degrees, Minutes, Seconds":
                         enteredPoint =
-                            CoordinateFormatter.FromLatitudeLongitude(txtSender.Text, _myMapView.SpatialReference);
+                            CoordinateFormatter.FromLatitudeLongitude(_lastEdited.Text, _myMapView.SpatialReference);
                         break;
 
                     case "UTM":
                         enteredPoint =
-                            CoordinateFormatter.FromLatitudeLongitude(txtSender.Text, _myMapView.SpatialReference);
+                            CoordinateFormatter.FromLatitudeLongitude(_lastEdited.Text, _myMapView.SpatialReference);
                         break;
 
                     case "USNG":
                         enteredPoint =
-                            CoordinateFormatter.FromLatitudeLongitude(txtSender.Text, _myMapView.SpatialReference);
+                            CoordinateFormatter.FromLatitudeLongitude(_lastEdited.Text, _myMapView.SpatialReference);
                         break;
                 }
             }
@@ -183,6 +189,11 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
             TextView usngTextLabel = new TextView(this) { Text = "USNG" };
             layout.AddView(usngTextLabel);
             layout.AddView(_UsngEditText);
+
+            // Button to allow for recalculating
+            Button recalculateButton = new Button(this) {Text = "Recalculate"};
+            recalculateButton.Click += ProcessTextChange;
+            layout.AddView(recalculateButton);
 
             // Add the map view to the layout
             layout.AddView(_myMapView);

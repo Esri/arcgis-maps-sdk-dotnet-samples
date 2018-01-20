@@ -11,6 +11,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -26,6 +27,7 @@
         <Entry Grid.Row="3" Grid.Column="1" Placeholder="UTM" x:Name="UtmTextField" />
         <Label Grid.Row="4" Grid.Column="0" HorizontalTextAlignment="End">USNG</Label>
         <Entry Grid.Row="4" Grid.Column="1" Placeholder="USNG" x:Name="UsngTextField" />
-        <esriUI:MapView Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" x:Name="MyMapView" />
+        <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Clicked="RecalculateFields" Text="Recalculate"></Button>
+        <esriUI:MapView Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" x:Name="MyMapView" />
     </Grid>
 </ContentPage>

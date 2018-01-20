@@ -13,6 +13,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -28,6 +29,7 @@
         <TextBox Grid.Row="3" Grid.Column="1" Tag="UTM" x:Name="UtmTextField" />
         <Label Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right">USNG</Label>
         <TextBox Grid.Row="4" Grid.Column="1" Tag="USNG" x:Name="UsngTextField" />
-        <esri:MapView Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" x:Name="MyMapView" />
+        <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Click="RecalculateFields">Recalculate</Button>
+        <esri:MapView Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" x:Name="MyMapView" />
     </Grid>
 </UserControl>

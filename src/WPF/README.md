@@ -350,6 +350,14 @@
 
     This sample demonstrates how to display a Map Image Layer from a local map service
 
+* [Local Server Services](ArcGISRuntime.WPF.Samples/Samples/LocalServer/LocalServerServices)
+
+    This sample demonstrates how to control local server and manage running services.
+
+* [Local Server Geoprocessing](ArcGISRuntime.WPF.Samples/Samples/LocalServer/LocalServerGeoprocessing)
+
+    This sample demonstrates how to perform geoprocessing tasks using Local Server.
+
 * [Dynamic workspace shapefile](ArcGISRuntime.WPF.Samples/Samples/LocalServer/DynamicWorkspaceShapefile)
 
     This sample demonstrates how to dynamically add a local shapefile to a map using Local Server.
@@ -382,6 +390,24 @@
     * [Find place](ArcGISRuntime.WPF.Samples/Samples/Search/FindPlace)
 
     This sample demonstrates how to use geocode functionality to search for points of interest, around a location or within an extent.
+
+## GeometryEngine
+
+
+- **Projection**
+
+    * [Project with specific transformation](ArcGISRuntime.WPF.Samples/Samples/GeometryEngine/ProjectWithSpecificTransformation)
+
+    This sample demonstrates how to use the GeometryEngine with a specified geographic transformation to transform a geometry from one coordinate system to another. 
+
+## Geometry
+
+
+- **Coordinates**
+
+    * [Format coordinates](ArcGISRuntime.WPF.Samples/Samples/Geometry/FormatCoordinates)
+
+    This sample demonstrates how to convert between `MapPoint` and string representations of a point using various coordinate systems.
 
 ## Tutorial
 

@@ -397,6 +397,24 @@
 
     This sample demonstrates how you can enable location services and switch between different types of auto pan modes.
 
+## GeometryEngine
+
+
+- **Projection**
+
+    * [Project with specific transformation](Xamarin.iOS/Samples/GeometryEngine/ProjectWithSpecificTransformation)
+
+    This sample demonstrates how to use the GeometryEngine with a specified geographic transformation to transform a geometry from one coordinate system to another. 
+
+## Geometry
+
+
+- **Coordinates**
+
+    * [Format coordinates](Xamarin.iOS/Samples/Geometry/FormatCoordinates)
+
+    This sample demonstrates how to convert between `MapPoint` and string representations of a point using various coordinate systems.
+
 ## Search
 
 

@@ -27,7 +27,6 @@ namespace ArcGISRuntime.UWP.Samples.FormatCoordinates
         {
             InitializeComponent();
 
-            // Setup the control references and execute initialization
             Initialize();
         }
 
@@ -60,9 +59,8 @@ namespace ArcGISRuntime.UWP.Samples.FormatCoordinates
 
         private void InputTextChanged(object sender, TextChangedEventArgs e)
         {
-            // Get the textbox that sent the event
+            // Keep track of the last edited field
             _selectedTextField = (TextBox)sender;
-            
         }
 
         private void UpdateUiFromMapPoint(MapPoint startingPoint)
@@ -105,10 +103,6 @@ namespace ArcGISRuntime.UWP.Samples.FormatCoordinates
                 switch (_selectedTextField.Tag.ToString())
                 {
                     case "Decimal Degrees":
-                        enteredPoint =
-                            CoordinateFormatter.FromLatitudeLongitude(_selectedTextField.Text, MyMapView.SpatialReference);
-                        break;
-
                     case "Degrees, Minutes, Seconds":
                         enteredPoint =
                             CoordinateFormatter.FromLatitudeLongitude(_selectedTextField.Text, MyMapView.SpatialReference);
@@ -116,19 +110,19 @@ namespace ArcGISRuntime.UWP.Samples.FormatCoordinates
 
                     case "UTM":
                         enteredPoint =
-                            CoordinateFormatter.FromLatitudeLongitude(_selectedTextField.Text, MyMapView.SpatialReference);
+                            CoordinateFormatter.FromUtm(_selectedTextField.Text, MyMapView.SpatialReference, UtmConversionMode.LatitudeBandIndicators);
                         break;
 
                     case "USNG":
                         enteredPoint =
-                            CoordinateFormatter.FromLatitudeLongitude(_selectedTextField.Text, MyMapView.SpatialReference);
+                            CoordinateFormatter.FromUsng(_selectedTextField.Text, MyMapView.SpatialReference);
                         break;
                 }
             }
             catch (Exception)
             {
                 // The coordinate is malformed, return
-                // Sample doesn't handle this because coordinates can be invalid while the user is editing
+                // Sample doesn't handle this because coordinates can be invalid while the user is experimenting
                 return;
             }
 

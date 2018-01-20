@@ -7,8 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Drawing;
 using Android.App;
 using Android.OS;
 using Android.Widget;
@@ -17,6 +15,8 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
+using System;
+using System.Drawing;
 
 namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
 {
@@ -29,7 +29,7 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
         private EditText _DmsEditText;
         private EditText _UtmEditText;
         private EditText _UsngEditText;
-        
+
         // Hold last edited field
         private EditText _lastEdited;
 
@@ -64,7 +64,7 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
 
         private void InputTextChanged(object sender, EventArgs e)
         {
-            // Track the field that was edited last
+            // Keep track of the last edited field
             _lastEdited = (EditText)sender;
         }
 
@@ -79,10 +79,6 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
                 switch (_lastEdited.Hint)
                 {
                     case "Decimal Degrees":
-                        enteredPoint =
-                            CoordinateFormatter.FromLatitudeLongitude(_lastEdited.Text, _myMapView.SpatialReference);
-                        break;
-
                     case "Degrees, Minutes, Seconds":
                         enteredPoint =
                             CoordinateFormatter.FromLatitudeLongitude(_lastEdited.Text, _myMapView.SpatialReference);
@@ -90,19 +86,19 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
 
                     case "UTM":
                         enteredPoint =
-                            CoordinateFormatter.FromLatitudeLongitude(_lastEdited.Text, _myMapView.SpatialReference);
+                            CoordinateFormatter.FromUtm(_lastEdited.Text, _myMapView.SpatialReference, UtmConversionMode.LatitudeBandIndicators);
                         break;
 
                     case "USNG":
                         enteredPoint =
-                            CoordinateFormatter.FromLatitudeLongitude(_lastEdited.Text, _myMapView.SpatialReference);
+                            CoordinateFormatter.FromUsng(_lastEdited.Text, _myMapView.SpatialReference);
                         break;
                 }
             }
             catch (Exception)
             {
                 // The coordinate is malformed, return
-                // Sample doesn't handle this because coordinates can be invalid while the user is editing
+                // Sample doesn't handle this because coordinates can be invalid while the user is experimenting
                 return;
             }
 
@@ -111,7 +107,7 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
             {
                 return;
             }
-            
+
             // Update the UI from the MapPoint
             UpdateUiFromMapPoint(enteredPoint);
         }
@@ -150,7 +146,7 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
             // Add the graphic to the graphics overlay
             _myMapView.GraphicsOverlays[0].Graphics.Add(symbolGraphic);
 
-            // Restore event subscriptions 
+            // Restore event subscriptions
             _UtmEditText.TextChanged += InputTextChanged;
             _DmsEditText.TextChanged += InputTextChanged;
             _DecimalDegreesEditText.TextChanged += InputTextChanged;
@@ -191,7 +187,7 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
             layout.AddView(_UsngEditText);
 
             // Button to allow for recalculating
-            Button recalculateButton = new Button(this) {Text = "Recalculate"};
+            Button recalculateButton = new Button(this) { Text = "Recalculate" };
             recalculateButton.Click += ProcessTextChange;
             layout.AddView(recalculateButton);
 

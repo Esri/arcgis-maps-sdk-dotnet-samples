@@ -7,12 +7,12 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Windows;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
+using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -27,7 +27,6 @@ namespace ArcGISRuntime.WPF.Samples.FormatCoordinates
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization
             Initialize();
         }
 
@@ -60,7 +59,8 @@ namespace ArcGISRuntime.WPF.Samples.FormatCoordinates
 
         private void InputTextChanged(object sender, TextChangedEventArgs e)
         {
-            _selectedTextBox = (TextBox) sender;
+            // Keep track of the last edited field
+            _selectedTextBox = (TextBox)sender;
         }
 
         private void UpdateUiFromMapPoint(MapPoint startingPoint)
@@ -96,17 +96,13 @@ namespace ArcGISRuntime.WPF.Samples.FormatCoordinates
         {
             // Hold the entered point
             MapPoint enteredPoint = null;
-            
+
             // Update the point based on which textbox sent the event
             try
             {
                 switch (_selectedTextBox.Tag.ToString())
                 {
                     case "Decimal Degrees":
-                        enteredPoint =
-                            CoordinateFormatter.FromLatitudeLongitude(_selectedTextBox.Text, MyMapView.SpatialReference);
-                        break;
-
                     case "Degrees, Minutes, Seconds":
                         enteredPoint =
                             CoordinateFormatter.FromLatitudeLongitude(_selectedTextBox.Text, MyMapView.SpatialReference);
@@ -114,19 +110,19 @@ namespace ArcGISRuntime.WPF.Samples.FormatCoordinates
 
                     case "UTM":
                         enteredPoint =
-                            CoordinateFormatter.FromLatitudeLongitude(_selectedTextBox.Text, MyMapView.SpatialReference);
+                            CoordinateFormatter.FromUtm(_selectedTextBox.Text, MyMapView.SpatialReference, UtmConversionMode.LatitudeBandIndicators);
                         break;
 
                     case "USNG":
                         enteredPoint =
-                            CoordinateFormatter.FromLatitudeLongitude(_selectedTextBox.Text, MyMapView.SpatialReference);
+                            CoordinateFormatter.FromUsng(_selectedTextBox.Text, MyMapView.SpatialReference);
                         break;
                 }
             }
             catch (Exception)
             {
                 // The coordinate is malformed, return
-                // Sample doesn't handle this because coordinates can be invalid while the user is editing
+                // Sample doesn't handle this because coordinates can be invalid while the user is experimenting
                 return;
             }
 

@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -15,7 +16,6 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
 using System.Drawing;
-using CoreGraphics;
 using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
@@ -72,7 +72,7 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
 
         private void InputValueChanged(object sender, EventArgs e)
         {
-            // Track the field that was edited last
+            // Keep track of the last edited field
             _selectedField = (UITextField)sender;
         }
 
@@ -84,13 +84,9 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
             // Update the point based on which textbox sent the event
             try
             {
-                switch (_selectedField.Placeholder)
+                switch (_selectedField.Tag.ToString())
                 {
                     case "Decimal Degrees":
-                        enteredPoint =
-                            CoordinateFormatter.FromLatitudeLongitude(_selectedField.Text, _myMapView.SpatialReference);
-                        break;
-
                     case "Degrees, Minutes, Seconds":
                         enteredPoint =
                             CoordinateFormatter.FromLatitudeLongitude(_selectedField.Text, _myMapView.SpatialReference);
@@ -98,19 +94,19 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
 
                     case "UTM":
                         enteredPoint =
-                            CoordinateFormatter.FromLatitudeLongitude(_selectedField.Text, _myMapView.SpatialReference);
+                            CoordinateFormatter.FromUtm(_selectedField.Text, _myMapView.SpatialReference, UtmConversionMode.LatitudeBandIndicators);
                         break;
 
                     case "USNG":
                         enteredPoint =
-                            CoordinateFormatter.FromLatitudeLongitude(_selectedField.Text, _myMapView.SpatialReference);
+                            CoordinateFormatter.FromUsng(_selectedField.Text, _myMapView.SpatialReference);
                         break;
                 }
             }
             catch (Exception)
             {
                 // The coordinate is malformed, return
-                // Sample doesn't handle this because coordinates can be invalid while the user is editing
+                // Sample doesn't handle this because coordinates can be invalid while the user is experimenting
                 return;
             }
 
@@ -190,9 +186,9 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
         public override void ViewDidLayoutSubviews()
         {
             var topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height + 10;
-            int controlHeight = 20;
+            var controlHeight = 20;
             var controlWidth = View.Bounds.Width - 20;
-            
+
             // Decimal degrees
             _decimalDegreeslabel.Frame = new CGRect(10, topMargin, controlWidth, controlHeight);
             topMargin += controlHeight;

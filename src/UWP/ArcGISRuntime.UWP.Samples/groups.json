@@ -327,6 +327,10 @@
             {
               "SampleName": "SketchOnMap",
               "Path": "Samples/GraphicsOverlay/SketchOnMap"
+            },
+            {
+              "SampleName": "Animate3DGraphic",
+              "Path": "Samples/GraphicsOverlay/Animate3DGraphic" 
             }
           ]
         },

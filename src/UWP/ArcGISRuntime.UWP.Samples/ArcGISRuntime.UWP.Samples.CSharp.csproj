@@ -106,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
+	<Content Include="Samples\GraphicsOverlay\Animate3DGraphic\metadata.json" />
 	<Content Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\metadata.json" />
 	<Content Include="Samples\Data\ListRelatedFeatures\metadata.json" />
 	<Content Include="Samples\Analysis\LineOfSightGeoElement\metadata.json" />
@@ -197,6 +198,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<Content Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.jpg" />
 	<Content Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg" />
 	<Content Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
 	<Content Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
@@ -285,6 +287,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.xaml.cs">
+		<DependentUpon>Animate3DGraphic.xaml</DependentUpon>
+	</Compile>
 	<Compile Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml.cs">
 		<DependentUpon>ProjectWithSpecificTransformation.xaml</DependentUpon>
 	</Compile>
@@ -549,6 +554,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+	<Page Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.xaml">
+		<Generator>MSBuild:Compile</Generator>
+		<SubType>Designer</SubType>
+	</Page>
 	<Page Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml">
 		<Generator>MSBuild:Compile</Generator>
     <SubType>Designer</SubType>

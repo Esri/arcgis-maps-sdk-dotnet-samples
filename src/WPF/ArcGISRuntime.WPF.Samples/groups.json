@@ -327,6 +327,10 @@
             {
               "SampleName": "SurfacePlacements",
               "Path": "Samples/GraphicsOverlay/SurfacePlacements"
+            },
+            {
+              "SampleName": "Animate3DGraphic",
+              "Path": "Samples/GraphicsOverlay/Animate3DGraphic" 
             }
           ]
         },

@@ -51,7 +51,7 @@ namespace ArcGISRuntimeXamarin.Samples.RasterHillshade
         private MapView _myMapView;
 
         // Store a reference to the layer
-        RasterLayer _rasterLayer;
+        private RasterLayer _rasterLayer;
 
         // Store a user-selected slope type (default to scaled)
         private SlopeType _slopeType = SlopeType.Scaled;
@@ -72,9 +72,9 @@ namespace ArcGISRuntimeXamarin.Samples.RasterHillshade
         
         public override void ViewDidLayoutSubviews()
         {
+            base.ViewDidLayoutSubviews();
             LayoutSubviews();
 
-            base.ViewDidLayoutSubviews();
         }
 
         private void LayoutSubviews()
@@ -90,8 +90,8 @@ namespace ArcGISRuntimeXamarin.Samples.RasterHillshade
 
             // Setup the visual frame for the hillshade controls
             _controlsStackView.Frame = new CoreGraphics.CGRect(0, pageOffset + _myMapView.Frame.Height, View.Bounds.Width, controlFrameHeight);
-            _azimuthSlider.Frame = new CoreGraphics.CGRect(50, 50, 160, 20);
-            _altitudeSlider.Frame = new CoreGraphics.CGRect(50, 80, 160, 20);
+            _azimuthSlider.Frame = new CoreGraphics.CGRect(30, 50, 200, 20);
+            _altitudeSlider.Frame = new CoreGraphics.CGRect(30, 80, 200, 20);
         }
 
         private async void Initialize()
@@ -147,13 +147,14 @@ namespace ArcGISRuntimeXamarin.Samples.RasterHillshade
             _slopeTypeButton.TouchUpInside += ShowSlopeTypes;
 
             // Create a slider (and associated label) to set sun azimuth
-            _azimuthSlider = new UISlider(new CoreGraphics.CGRect(50, 50, 160, 20))
+            _azimuthSlider = new UISlider(new CoreGraphics.CGRect(30, 50, 200, 20))
             {
                 BackgroundColor = UIColor.White,
                 MinValue = 0,
                 MaxValue = 360,
                 Value = 270
             };
+            _slopeTypeButton.EditingChanged += (s, e) => { LayoutSubviews(); };
             UILabel azimuthLabel = new UILabel()
             {
                 BackgroundColor = UIColor.White,
@@ -162,7 +163,7 @@ namespace ArcGISRuntimeXamarin.Samples.RasterHillshade
             };
             
             // Create a slider (and associated label) to set sun altitude
-            _altitudeSlider = new UISlider(new CoreGraphics.CGRect(50, 80, 160, 20))
+            _altitudeSlider = new UISlider(new CoreGraphics.CGRect(30, 80, 200, 20))
             {
                 MinValue = 0,
                 MaxValue = 90,
@@ -204,18 +205,19 @@ namespace ArcGISRuntimeXamarin.Samples.RasterHillshade
             foreach (SlopeType typeOfSlope in Enum.GetValues(typeof(SlopeType)))
             {
                 actionAlert.AddAction(UIAlertAction.Create(typeOfSlope.ToString(), UIAlertActionStyle.Default,
-                    (action) => {
-                        // Store the selected slope type
-                        _slopeType = typeOfSlope;
-
-                        // Display the slope type as the button title
-                        _slopeTypeButton.SetTitle("Slope type: " + _slopeType.ToString(), UIControlState.Normal);
-                    }));
+                              (action) =>
+                              {
+                                  // Store the selected slope type
+                                  _slopeType = typeOfSlope;
+                                  
+                                  // Display the slope type as the button title
+                                  _slopeTypeButton.SetTitle("Slope type: " + _slopeType.ToString(), UIControlState.Normal);
+                              }));
             }
             
             // Display the alert
             PresentViewController(actionAlert, true, null);
-        }
+        }        
 
         private void ApplyHillshade_Click(object sender, EventArgs e)
         {
@@ -228,7 +230,6 @@ namespace ArcGISRuntimeXamarin.Samples.RasterHillshade
 
             // Apply the new renderer to the raster layer
             _rasterLayer.Renderer = hillshadeRenderer;
-            LayoutSubviews();
         }
 
         private async Task<string> GetRasterPath()

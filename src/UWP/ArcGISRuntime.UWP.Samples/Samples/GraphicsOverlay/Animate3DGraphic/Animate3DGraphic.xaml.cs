@@ -249,10 +249,10 @@ namespace ArcGISRuntime.UWP.Samples.Animate3DGraphic
                 MissionProgressBar.Value = missionProgress;
 
                 // Update stats display
-                AltitudeTextBlock.Text = currentFrame.Elevation.ToString();
-                HeadingTextBlock.Text = currentFrame.Heading.ToString();
-                PitchTextBlock.Text = currentFrame.Pitch.ToString();
-                RollTextBlock.Text = currentFrame.Roll.ToString();
+                AltitudeTextBlock.Text = currentFrame.Elevation.ToString("F");
+                HeadingTextBlock.Text = currentFrame.Heading.ToString("F");
+                PitchTextBlock.Text = currentFrame.Pitch.ToString("F");
+                RollTextBlock.Text = currentFrame.Roll.ToString("F");
             });
 
             // Update plane's position

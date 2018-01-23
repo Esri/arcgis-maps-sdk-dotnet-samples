@@ -255,10 +255,10 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
                 MissionProgressBar.Value = missionProgress * 100;
 
                 // Update stats display
-                AltitudeLabel.Text = currentFrame.Elevation.ToString();
-                HeadingLabel.Text = currentFrame.Heading.ToString();
-                PitchLabel.Text = currentFrame.Pitch.ToString();
-                RollLabel.Text = currentFrame.Roll.ToString();
+                AltitudeLabel.Text = currentFrame.Elevation.ToString("F");
+                HeadingLabel.Text = currentFrame.Heading.ToString("F");
+                PitchLabel.Text = currentFrame.Pitch.ToString("F");
+                RollLabel.Text = currentFrame.Roll.ToString("F");
             });
 
             // Update plane's position

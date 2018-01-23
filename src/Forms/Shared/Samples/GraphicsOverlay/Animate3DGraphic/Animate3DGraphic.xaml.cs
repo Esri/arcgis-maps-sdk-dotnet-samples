@@ -71,7 +71,9 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
         public Animate3DGraphic()
         {
             InitializeComponent();
-
+            #if __IOS__
+            LayoutFrame.IsVisible = false;
+            #endif
             // Create the UI, setup the control references and execute initialization
             Initialize();
         }

@@ -22,11 +22,12 @@
             <Button Clicked="MissionPlayPlauseClick" Margin="5,0,0,0" Text="Pause" />
             <Button  HorizontalOptions="End" VerticalOptions="End" Clicked="ToggleFollowPlane" Text="Don't Follow" />
         </StackLayout>
-        <Frame Opacity=".7" Grid.Row ="1" Grid.Column="2" Margin="5" BackgroundColor="White">
+        <Frame Opacity=".7" Grid.Row ="1" Grid.Column="2" Margin="5" BackgroundColor="White" x:Name="LayoutFrame">
+            <!-- Frame is hidden on iOS due to layout issues -->
             <StackLayout Padding="5" Opacity=".9">
                 <Label TextColor="Black" Text="Mission Progress:" />
                 <Slider x:Name="MissionProgressBar" WidthRequest="100" Minimum="0" Maximum="100" ValueChanged="MissionProgressOnSeek" />
-                <Label TextColor="Black">Altitude:</Label>
+                <Label TextColor="Black" >Altitude:</Label>
                 <Label TextColor="Black" x:Name="AltitudeLabel" />
                 <Label TextColor="Black">Heading:</Label>
                 <Label TextColor="Black" x:Name="HeadingLabel" />

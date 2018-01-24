@@ -37,16 +37,16 @@ namespace ArcGISRuntime.WPF.Samples.Web_TiledLayer
         private async void Initialize()
         {
             // Create the layer from the URL and the subdomain list
-            WebTiledLayer layer = new WebTiledLayer(_templateUri, _tiledLayerSubdomains);
+            WebTiledLayer myBaseLayer = new WebTiledLayer(_templateUri, _tiledLayerSubdomains);
 
             // Wait for the layer to load
-            await layer.LoadAsync();
+            await myBaseLayer.LoadAsync();
 
             // Create a basemap from the layer
-            Basemap layerBasemap = new Basemap(layer);
+            Basemap layerBasemap = new Basemap(myBaseLayer);
 
             // Apply the attribution for the layer
-            layer.Attribution = _attribution;
+            myBaseLayer.Attribution = _attribution;
 
             // Create a map to hold the basemap
             Map myMap = new Map(layerBasemap);

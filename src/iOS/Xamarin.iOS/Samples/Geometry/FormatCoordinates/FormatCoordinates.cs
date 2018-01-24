@@ -64,10 +64,10 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
             MapPoint startingPoint = new MapPoint(0, 0, SpatialReferences.WebMercator);
 
             // Update the UI with the initial point
-            UpdateUiFromMapPoint(startingPoint);
+            UpdateUIFromMapPoint(startingPoint);
 
             // Subscribe to map tap events to enable tapping on map to update coordinates
-            _myMapView.GeoViewTapped += (sender, args) => { UpdateUiFromMapPoint(args.Location); };
+            _myMapView.GeoViewTapped += (sender, args) => { UpdateUIFromMapPoint(args.Location); };
         }
 
         private void InputValueChanged(object sender, EventArgs e)
@@ -76,15 +76,15 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
             _selectedField = (UITextField)sender;
         }
 
-        private void ProcessTextChange(object sender, EventArgs e)
+        private void RecalculateFields(object sender, EventArgs e)
         {
             // Hold the entered point
             MapPoint enteredPoint = null;
 
-            // Update the point based on which textbox sent the event
+            // Update the point based on which text sent the event
             try
             {
-                switch (_selectedField.Tag.ToString())
+                switch (_selectedField.Placeholder)
                 {
                     case "Decimal Degrees":
                     case "Degrees, Minutes, Seconds":
@@ -94,7 +94,7 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
 
                     case "UTM":
                         enteredPoint =
-                            CoordinateFormatter.FromUtm(_selectedField.Text, _myMapView.SpatialReference, UtmConversionMode.LatitudeBandIndicators);
+                            CoordinateFormatter.FromUtm(_selectedField.Text, _myMapView.SpatialReference, UtmConversionMode.NorthSouthIndicators);
                         break;
 
                     case "USNG":
@@ -103,43 +103,40 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
                         break;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // The coordinate is malformed, return
-                // Sample doesn't handle this because coordinates can be invalid while the user is experimenting
-                return;
-            }
-
-            // Return if getting the point from text failed
-            if (enteredPoint == null)
-            {
+                // The coordinate is malformed, warn and return
+                UIAlertController alertController = UIAlertController.Create("Invalid Format", ex.Message, UIAlertControllerStyle.Alert);
+                alertController.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Default, null));
+                PresentViewController(alertController, true, null);
                 return;
             }
 
             // Update the UI from the MapPoint
-            UpdateUiFromMapPoint(enteredPoint);
+            UpdateUIFromMapPoint(enteredPoint);
         }
 
-        private void UpdateUiFromMapPoint(MapPoint startingPoint)
+        private void UpdateUIFromMapPoint(MapPoint startingPoint)
         {
+            if (startingPoint == null) { return; }
             // Clear event subscriptions - prevents an infinite loop
             _utmUITextField.EditingDidBegin -= InputValueChanged;
             _dmsUITextField.EditingDidBegin -= InputValueChanged;
             _decimalDegreesUITextField.EditingDidBegin -= InputValueChanged;
             _usngUITextField.EditingDidBegin -= InputValueChanged;
 
-            // Update the decimal degrees textbox
+            // Update the decimal degrees text
             _decimalDegreesUITextField.Text =
                 CoordinateFormatter.ToLatitudeLongitude(startingPoint, LatitudeLongitudeFormat.DecimalDegrees, 4);
 
-            // Update the degrees, minutes, seconds textbox
+            // Update the degrees, minutes, seconds text
             _dmsUITextField.Text = CoordinateFormatter.ToLatitudeLongitude(startingPoint,
                 LatitudeLongitudeFormat.DegreesMinutesSeconds, 1);
 
-            // Update the UTM textbox
-            _utmUITextField.Text = CoordinateFormatter.ToUtm(startingPoint, UtmConversionMode.LatitudeBandIndicators, true);
+            // Update the UTM text
+            _utmUITextField.Text = CoordinateFormatter.ToUtm(startingPoint, UtmConversionMode.NorthSouthIndicators, true);
 
-            // Update the USNG textbox
+            // Update the USNG text
             _usngUITextField.Text = CoordinateFormatter.ToUsng(startingPoint, 4, true);
 
             // Clear existing graphics overlays
@@ -168,7 +165,7 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
             // Create the UI button
             _recalculateButton.SetTitle("Recalculate", UIControlState.Normal);
             _recalculateButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            _recalculateButton.TouchUpInside += ProcessTextChange;
+            _recalculateButton.TouchUpInside += RecalculateFields;
 
             // Add views to the page
             View.AddSubviews(_myMapView, _recalculateButton, _decimalDegreesUITextField, _decimalDegreeslabel, _dmsLabel, _dmsUITextField,

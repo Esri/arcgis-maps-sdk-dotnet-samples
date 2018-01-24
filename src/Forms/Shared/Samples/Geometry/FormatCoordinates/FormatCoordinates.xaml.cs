@@ -54,7 +54,7 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
             MapPoint startingPoint = new MapPoint(0, 0, SpatialReferences.WebMercator);
 
             // Update the UI with the initial point
-            UpdateUiFromMapPoint(startingPoint);
+            UpdateUIFromMapPoint(startingPoint);
 
             // Subscribe to text change events
             UtmTextField.TextChanged += InputTextChanged;
@@ -63,7 +63,7 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
             UsngTextField.TextChanged += InputTextChanged;
 
             // Subscribe to map tap events to enable tapping on map to update coordinates
-            MyMapView.GeoViewTapped += (sender, args) => { UpdateUiFromMapPoint(args.Location); };
+            MyMapView.GeoViewTapped += (sender, args) => { UpdateUIFromMapPoint(args.Location); };
         }
 
         private void InputTextChanged(object sender, EventArgs e)
@@ -72,7 +72,7 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
             _selectedEntry = (Entry)sender;
         }
 
-        private void UpdateUiFromMapPoint(MapPoint startingPoint)
+        private void UpdateUIFromMapPoint(MapPoint startingPoint)
         {
             // Remove event handlers temporarily
             UtmTextField.TextChanged -= InputTextChanged;
@@ -80,18 +80,18 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
             DecimalDegreesTextField.TextChanged -= InputTextChanged;
             UsngTextField.TextChanged -= InputTextChanged;
 
-            // Update the decimal degrees textbox
+            // Update the decimal degrees text
             DecimalDegreesTextField.Text =
                 CoordinateFormatter.ToLatitudeLongitude(startingPoint, LatitudeLongitudeFormat.DecimalDegrees, 4);
 
-            // Update the degrees, minutes, seconds textbox
+            // Update the degrees, minutes, seconds text
             DmsTextField.Text = CoordinateFormatter.ToLatitudeLongitude(startingPoint,
                 LatitudeLongitudeFormat.DegreesMinutesSeconds, 1);
 
-            // Update the UTM textbox
-            UtmTextField.Text = CoordinateFormatter.ToUtm(startingPoint, UtmConversionMode.LatitudeBandIndicators, true);
+            // Update the UTM text
+            UtmTextField.Text = CoordinateFormatter.ToUtm(startingPoint, UtmConversionMode.NorthSouthIndicators, true);
 
-            // Update the USNG textbox
+            // Update the USNG text
             UsngTextField.Text = CoordinateFormatter.ToUsng(startingPoint, 4, true);
 
             // Clear existing graphics overlays
@@ -118,7 +118,7 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
             // Hold the entered point
             MapPoint enteredPoint = null;
 
-            // Update the point based on which textbox sent the event
+            // Update the point based on which text sent the event
             try
             {
                 switch (_selectedEntry.Placeholder)
@@ -131,7 +131,7 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
 
                     case "UTM":
                         enteredPoint =
-                            CoordinateFormatter.FromUtm(_selectedEntry.Text, MyMapView.SpatialReference, UtmConversionMode.LatitudeBandIndicators);
+                            CoordinateFormatter.FromUtm(_selectedEntry.Text, MyMapView.SpatialReference, UtmConversionMode.NorthSouthIndicators);
                         break;
 
                     case "USNG":
@@ -140,21 +140,15 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
                         break;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // The coordinate is malformed, return
-                // Sample doesn't handle this because coordinates can be invalid while the user is experimenting
-                return;
-            }
-
-            // Return if getting the point from text failed
-            if (enteredPoint == null)
-            {
+                // The coordinate is malformed, warn and return
+                DisplayAlert("Invalid Format", ex.Message, "OK");
                 return;
             }
 
             // Update the UI from the MapPoint
-            UpdateUiFromMapPoint(enteredPoint);
+            UpdateUIFromMapPoint(enteredPoint);
         }
     }
 }

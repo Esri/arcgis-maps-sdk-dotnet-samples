@@ -56,10 +56,10 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
             MapPoint startingPoint = new MapPoint(0, 0, SpatialReferences.WebMercator);
 
             // Update the UI with the initial point
-            UpdateUiFromMapPoint(startingPoint);
+            UpdateUIFromMapPoint(startingPoint);
 
             // Subscribe to map tap events to enable tapping on map to update coordinates
-            _myMapView.GeoViewTapped += (sender, args) => { UpdateUiFromMapPoint(args.Location); };
+            _myMapView.GeoViewTapped += (sender, args) => { UpdateUIFromMapPoint(args.Location); };
         }
 
         private void InputTextChanged(object sender, EventArgs e)
@@ -68,12 +68,12 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
             _lastEdited = (EditText)sender;
         }
 
-        private void ProcessTextChange(object sender, EventArgs e)
+        private void RecalculateFields(object sender, EventArgs e)
         {
             // Hold the entered point
             MapPoint enteredPoint = null;
 
-            // Update the point based on which textbox sent the event
+            // Update the point based on which text sent the event
             try
             {
                 switch (_lastEdited.Hint)
@@ -86,7 +86,7 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
 
                     case "UTM":
                         enteredPoint =
-                            CoordinateFormatter.FromUtm(_lastEdited.Text, _myMapView.SpatialReference, UtmConversionMode.LatitudeBandIndicators);
+                            CoordinateFormatter.FromUtm(_lastEdited.Text, _myMapView.SpatialReference, UtmConversionMode.NorthSouthIndicators);
                         break;
 
                     case "USNG":
@@ -95,24 +95,20 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
                         break;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // The coordinate is malformed, return
-                // Sample doesn't handle this because coordinates can be invalid while the user is experimenting
-                return;
-            }
-
-            // Return if getting the point from text failed
-            if (enteredPoint == null)
-            {
+                // The coordinate is malformed, warn and return
+                // Display the message to the user
+                var builder = new AlertDialog.Builder(this);
+                builder.SetMessage(ex.Message).SetTitle("Invalid Format").Show();
                 return;
             }
 
             // Update the UI from the MapPoint
-            UpdateUiFromMapPoint(enteredPoint);
+            UpdateUIFromMapPoint(enteredPoint);
         }
 
-        private void UpdateUiFromMapPoint(MapPoint startingPoint)
+        private void UpdateUIFromMapPoint(MapPoint startingPoint)
         {
             // Clear event subscriptions - prevents an infinite loop
             _UtmEditText.TextChanged -= InputTextChanged;
@@ -120,18 +116,18 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
             _DecimalDegreesEditText.TextChanged -= InputTextChanged;
             _UsngEditText.TextChanged -= InputTextChanged;
 
-            // Update the decimal degrees textbox
+            // Update the decimal degrees text
             _DecimalDegreesEditText.Text =
                 CoordinateFormatter.ToLatitudeLongitude(startingPoint, LatitudeLongitudeFormat.DecimalDegrees, 4);
 
-            // Update the degrees, minutes, seconds textbox
+            // Update the degrees, minutes, seconds text
             _DmsEditText.Text = CoordinateFormatter.ToLatitudeLongitude(startingPoint,
                 LatitudeLongitudeFormat.DegreesMinutesSeconds, 1);
 
-            // Update the UTM textbox
-            _UtmEditText.Text = CoordinateFormatter.ToUtm(startingPoint, UtmConversionMode.LatitudeBandIndicators, true);
+            // Update the UTM text
+            _UtmEditText.Text = CoordinateFormatter.ToUtm(startingPoint, UtmConversionMode.NorthSouthIndicators, true);
 
-            // Update the USNG textbox
+            // Update the USNG text
             _UsngEditText.Text = CoordinateFormatter.ToUsng(startingPoint, 4, true);
 
             // Clear existing graphics overlays
@@ -188,7 +184,7 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
 
             // Button to allow for recalculating
             Button recalculateButton = new Button(this) { Text = "Recalculate" };
-            recalculateButton.Click += ProcessTextChange;
+            recalculateButton.Click += RecalculateFields;
             layout.AddView(recalculateButton);
 
             // Add the map view to the layout

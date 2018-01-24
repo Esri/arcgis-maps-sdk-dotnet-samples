@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
 using Windows.UI;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -20,7 +21,7 @@ namespace ArcGISRuntime.UWP.Samples.FormatCoordinates
 {
     public partial class FormatCoordinates
     {
-        // Hold a reference to the textbox that was selected last
+        // Hold a reference to the text that was selected last
         private TextBox _selectedTextField;
 
         public FormatCoordinates()
@@ -32,7 +33,7 @@ namespace ArcGISRuntime.UWP.Samples.FormatCoordinates
 
         private void Initialize()
         {
-            // Set the initial selected textbox
+            // Set the initial selected text
             _selectedTextField = DecimalDegreesTextField;
 
             // Create the map
@@ -45,7 +46,7 @@ namespace ArcGISRuntime.UWP.Samples.FormatCoordinates
             MapPoint startingPoint = new MapPoint(0, 0, SpatialReferences.WebMercator);
 
             // Update the UI with the initial point
-            UpdateUiFromMapPoint(startingPoint);
+            UpdateUIFromMapPoint(startingPoint);
 
             // Subscribe to text change events
             UtmTextField.TextChanged += InputTextChanged;
@@ -54,7 +55,7 @@ namespace ArcGISRuntime.UWP.Samples.FormatCoordinates
             UsngTextField.TextChanged += InputTextChanged;
 
             // Subscribe to map tap events to enable tapping on map to update coordinates
-            MyMapView.GeoViewTapped += (sender, args) => { UpdateUiFromMapPoint(args.Location); };
+            MyMapView.GeoViewTapped += (sender, args) => { UpdateUIFromMapPoint(args.Location); };
         }
 
         private void InputTextChanged(object sender, TextChangedEventArgs e)
@@ -63,20 +64,20 @@ namespace ArcGISRuntime.UWP.Samples.FormatCoordinates
             _selectedTextField = (TextBox)sender;
         }
 
-        private void UpdateUiFromMapPoint(MapPoint startingPoint)
+        private void UpdateUIFromMapPoint(MapPoint startingPoint)
         {
-            // Update the decimal degrees textbox
+            // Update the decimal degrees text
             DecimalDegreesTextField.Text =
                 CoordinateFormatter.ToLatitudeLongitude(startingPoint, LatitudeLongitudeFormat.DecimalDegrees, 4);
 
-            // Update the degrees, minutes, seconds textbox
+            // Update the degrees, minutes, seconds text
             DmsTextField.Text = CoordinateFormatter.ToLatitudeLongitude(startingPoint,
                 LatitudeLongitudeFormat.DegreesMinutesSeconds, 1);
 
-            // Update the UTM textbox
-            UtmTextField.Text = CoordinateFormatter.ToUtm(startingPoint, UtmConversionMode.LatitudeBandIndicators, true);
+            // Update the UTM text
+            UtmTextField.Text = CoordinateFormatter.ToUtm(startingPoint, UtmConversionMode.NorthSouthIndicators, true);
 
-            // Update the USNG textbox
+            // Update the USNG text
             UsngTextField.Text = CoordinateFormatter.ToUsng(startingPoint, 4, true);
 
             // Clear existing graphics overlays
@@ -92,12 +93,12 @@ namespace ArcGISRuntime.UWP.Samples.FormatCoordinates
             MyMapView.GraphicsOverlays[0].Graphics.Add(symbolGraphic);
         }
 
-        private void RecalculateFields(object sender, RoutedEventArgs e)
+        private async void RecalculateFields(object sender, RoutedEventArgs e)
         {
             // Hold the entered point
             MapPoint enteredPoint = null;
 
-            // Update the point based on which textbox sent the event
+            // Update the point based on which text sent the event
             try
             {
                 switch (_selectedTextField.Tag.ToString())
@@ -110,7 +111,7 @@ namespace ArcGISRuntime.UWP.Samples.FormatCoordinates
 
                     case "UTM":
                         enteredPoint =
-                            CoordinateFormatter.FromUtm(_selectedTextField.Text, MyMapView.SpatialReference, UtmConversionMode.LatitudeBandIndicators);
+                            CoordinateFormatter.FromUtm(_selectedTextField.Text, MyMapView.SpatialReference, UtmConversionMode.NorthSouthIndicators);
                         break;
 
                     case "USNG":
@@ -119,21 +120,15 @@ namespace ArcGISRuntime.UWP.Samples.FormatCoordinates
                         break;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // The coordinate is malformed, return
-                // Sample doesn't handle this because coordinates can be invalid while the user is experimenting
-                return;
-            }
-
-            // Return if getting the point from text failed
-            if (enteredPoint == null)
-            {
+                // The coordinate is malformed, warn and return
+                await new MessageDialog(ex.Message, "Invalid format").ShowAsync();
                 return;
             }
 
             // Update the UI from the MapPoint
-            UpdateUiFromMapPoint(enteredPoint);
+            UpdateUIFromMapPoint(enteredPoint);
         }
     }
 }

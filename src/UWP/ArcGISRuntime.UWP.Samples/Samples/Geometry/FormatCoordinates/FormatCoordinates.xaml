@@ -14,23 +14,21 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Foreground="Red">Type in the textboxes to see a real-time conversion</TextBlock>
-        <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right">Decimal Degrees</TextBlock>
-        <TextBox Grid.Row="1" Grid.Column="1" Tag="Decimal Degrees" x:Name="DecimalDegreesTextField" />
-        <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right">Degrees, Minutes, Seconds</TextBlock>
-        <TextBox Grid.Row="2" Grid.Column="1" Tag="Degrees, Minutes, Seconds" x:Name="DmsTextField" />
-        <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right">UTM</TextBlock>
-        <TextBox Grid.Row="3" Grid.Column="1" Tag="UTM" x:Name="UtmTextField" />
-        <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right">USNG</TextBlock>
-        <TextBox Grid.Row="4" Grid.Column="1" Tag="USNG" x:Name="UsngTextField" />
-        <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Click="RecalculateFields">Recalculate</Button>
-        <esriUI:MapView Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" x:Name="MyMapView" />
+        <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right">Decimal Degrees</TextBlock>
+        <TextBox Grid.Row="0" Grid.Column="1" Tag="Decimal Degrees" x:Name="DecimalDegreesTextField" />
+        <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right">Degrees, Minutes, Seconds</TextBlock>
+        <TextBox Grid.Row="1" Grid.Column="1" Tag="Degrees, Minutes, Seconds" x:Name="DmsTextField" />
+        <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right">UTM</TextBlock>
+        <TextBox Grid.Row="2" Grid.Column="1" Tag="UTM" x:Name="UtmTextField" />
+        <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right">USNG</TextBlock>
+        <TextBox Grid.Row="3" Grid.Column="1" Tag="USNG" x:Name="UsngTextField" />
+        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Click="RecalculateFields">Recalculate</Button>
+        <esriUI:MapView Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" x:Name="MyMapView" />
     </Grid>
 </UserControl>

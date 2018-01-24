@@ -43,6 +43,9 @@ namespace ArcGISRuntime.UWP.Samples.AddGraphicsWithSymbols
             CreatePolygon();
             CreatePolyline();
             CreateText();
+
+            // Update the extent to encompass all of the symbols
+            SetExtent();
         }
 
         private void CreatePoints()
@@ -51,7 +54,7 @@ namespace ArcGISRuntime.UWP.Samples.AddGraphicsWithSymbols
             SimpleMarkerSymbol redCircleSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.FromArgb(0xFF, 0xFF, 0x00, 0x00), 10);
 
             // Create graphics and add them to graphics overlay
-            var graphic = new Graphic(new MapPoint(-2.72, 56.065, SpatialReferences.Wgs84), redCircleSymbol);
+            Graphic graphic = new Graphic(new MapPoint(-2.72, 56.065, SpatialReferences.Wgs84), redCircleSymbol);
             _overlay.Graphics.Add(graphic);
 
             graphic = new Graphic(new MapPoint(-2.69, 56.065, SpatialReferences.Wgs84), redCircleSymbol);
@@ -70,7 +73,7 @@ namespace ArcGISRuntime.UWP.Samples.AddGraphicsWithSymbols
             SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, Color.FromArgb(0xFF, 0x80, 0x00, 0x80), 4);
 
             // Create a new point collection for polyline
-            var points = new PointCollection(SpatialReferences.Wgs84)
+            PointCollection points = new PointCollection(SpatialReferences.Wgs84)
             {
                 // Create and add points to the point collection
                 new MapPoint(-2.715, 56.061),
@@ -101,7 +104,7 @@ namespace ArcGISRuntime.UWP.Samples.AddGraphicsWithSymbols
             SimpleFillSymbol fillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.DiagonalCross, Color.FromArgb(0xFF, 0x00, 0x50, 0x00), outlineSymbol);
 
             // Create a new point collection for polygon
-            var points = new PointCollection(SpatialReferences.Wgs84)
+            PointCollection points = new PointCollection(SpatialReferences.Wgs84)
             {
                 // Create and add points to the point collection
                 new MapPoint(-2.6425, 56.0784),
@@ -142,6 +145,29 @@ namespace ArcGISRuntime.UWP.Samples.AddGraphicsWithSymbols
             // Add graphics to the graphics overlay
             _overlay.Graphics.Add(bassRockGraphic);
             _overlay.Graphics.Add(craigleithGraphic);
+        }
+
+        private void SetExtent()
+        {
+            // Get all of the graphics contained in the graphics overlay
+            GraphicCollection myGraphicCollection = _overlay.Graphics;
+
+            // Create a new envelope builder using the same spatial reference as the graphics
+            EnvelopeBuilder myEnvelopeBuilder = new EnvelopeBuilder(SpatialReferences.Wgs84);
+
+            // Loop through each graphic in the graphic collection
+            foreach (Graphic oneGraphic in myGraphicCollection)
+            {
+                // Union the extent of each graphic in the envelope builder
+                myEnvelopeBuilder.UnionOf(oneGraphic.Geometry.Extent);
+            }
+
+            // Expand the envelope builder by 30%
+            myEnvelopeBuilder.Expand(1.3);
+
+            // Adjust the viewable area of the map to encompass all of the graphics in the
+            // graphics overlay plus an extra 30% margin for better viewing
+            MyMapView.SetViewpointAsync(new Viewpoint(myEnvelopeBuilder.Extent));
         }
     }
 }

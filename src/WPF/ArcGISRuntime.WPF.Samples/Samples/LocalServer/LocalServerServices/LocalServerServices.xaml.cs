@@ -40,10 +40,6 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
         {
             // Subscribe to event notification for the local server instance
             LocalServer.Instance.StatusChanged += (o, e) => { UpdateUiWithServiceUpdate("Local Server", e.Status); };
-
-            // Listen for the shutdown and unloaded events so that the local server can be shut down
-            this.Dispatcher.ShutdownStarted += ShutdownSample;
-            this.Unloaded += ShutdownSample;
         }
 
         private void UpdateUiWithServiceUpdate(string server, LocalServerStatus status)
@@ -68,7 +64,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
                 string featureServicePath = await GetFeatureLayerPath();
                 string geoprocessingPath = await GetGpPath();
 
-                // Create each service but don't start any 
+                // Create each service but don't start any
                 _localMapService = new LocalMapService(mapServicePath);
                 _localFeatureService = new LocalFeatureService(featureServicePath);
                 _localGeoprocessingService = new LocalGeoprocessingService(geoprocessingPath);
@@ -86,8 +82,6 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
                 MessageBox.Show(ex.Message, "Failed to create services");
             }
         }
-
-        
 
         private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -297,23 +291,6 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Couldn't navigate to service");
-            }
-        }
-
-        private async void ShutdownSample(object sender, EventArgs e)
-        {
-            try
-            {
-                // Shut down the local server if it has started
-                if (LocalServer.Instance.Status == LocalServerStatus.Started)
-                {
-                    await LocalServer.Instance.StopAsync();
-                }
-            }
-            catch (InvalidOperationException)
-            {
-                // Local server isn't installed, just return
-                return;
             }
         }
     }

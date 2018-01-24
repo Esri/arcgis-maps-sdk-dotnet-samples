@@ -279,6 +279,10 @@
 
     This sample demonstrates how to identify graphics in a graphics overlay. When you tap on a graphic on the map, you will see an alert message displayed.
 
+    * [Add graphics with symbols](Xamarin.iOS/Samples/GraphicsOverlay/AddGraphicsWithSymbols)
+
+    This sample demonstrates how to add various types of graphics to a `GraphicsOverlay`.
+
     * [Sketch graphics on the map](Xamarin.iOS/Samples/GraphicsOverlay/SketchOnMap)
 
     This sample demonstrates how to interactively sketch and edit graphics in the map view and display them in a graphics overlay. You can sketch a variety of geometry types and undo or redo operations.
@@ -396,6 +400,15 @@
     * [Display Device Location](Xamarin.iOS/Samples/Location/DisplayDeviceLocation)
 
     This sample demonstrates how you can enable location services and switch between different types of auto pan modes.
+
+## GeometryEngine
+
+
+- **Projection**
+
+    * [Project with specific transformation](Xamarin.iOS/Samples/GeometryEngine/ProjectWithSpecificTransformation)
+
+    This sample demonstrates how to use the GeometryEngine with a specified geographic transformation to transform a geometry from one coordinate system to another. 
 
 ## Search
 

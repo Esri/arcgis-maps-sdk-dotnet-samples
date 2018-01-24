@@ -74,10 +74,6 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGeoprocessing
             // Try to start Local Server
             try
             {
-                // Listen for the shutdown and unloaded events so that the local server can be shut down
-                this.Dispatcher.ShutdownStarted += ShutdownSample;
-                this.Unloaded += ShutdownSample;
-
                 // Start the local server instance
                 await LocalServer.Instance.StartAsync();
             }
@@ -161,14 +157,14 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGeoprocessing
             // Return if not succeeded
             if (_gpJob.Status != JobStatus.Succeeded) { return; }
 
-            // Get the URL to the map service 
+            // Get the URL to the map service
             string gpServiceResultUrl = _gpService.Url.ToString();
 
             // Get the URL segment for the specific job results
             string jobSegment = "MapServer/jobs/" + _gpJob.ServerJobId;
 
             // Update the URL to point to the specific job from the service
-            gpServiceResultUrl = gpServiceResultUrl.Replace("GPServer", jobSegment); 
+            gpServiceResultUrl = gpServiceResultUrl.Replace("GPServer", jobSegment);
 
             // Create a map image layer to show the results
             ArcGISMapImageLayer myMapImageLayer = new ArcGISMapImageLayer(new Uri(gpServiceResultUrl));
@@ -191,23 +187,6 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGeoprocessing
                 // Enable the reset button
                 MyResetButton.IsEnabled = true;
             });
-        }
-
-        private async void ShutdownSample(object sender, EventArgs e)
-        {
-            try
-            {
-                // Shut down the local server if it has started
-                if (LocalServer.Instance.Status == LocalServerStatus.Started)
-                {
-                    await LocalServer.Instance.StopAsync();
-                }
-            }
-            catch (InvalidOperationException)
-            {
-                // Local server isn't installed, just return
-                return;
-            }
         }
 
         private async Task<string> GetRasterPath()

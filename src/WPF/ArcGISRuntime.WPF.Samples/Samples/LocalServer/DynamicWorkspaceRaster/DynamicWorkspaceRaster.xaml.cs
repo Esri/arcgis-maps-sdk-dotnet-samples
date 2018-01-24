@@ -32,27 +32,6 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceRaster
 
             // Create the UI, setup the control references and execute initialization
             Initialize();
-
-            // Listen for the shutdown and unloaded events so that the local server can be shut down
-            this.Dispatcher.ShutdownStarted += ShutdownSample;
-            this.Unloaded += ShutdownSample;
-        }
-
-        private async void ShutdownSample(object sender, EventArgs e)
-        {
-            try
-            {
-                // Shut down the local server if it has started
-                if (LocalServer.Instance.Status == LocalServerStatus.Started)
-                {
-                    await LocalServer.Instance.StopAsync();
-                }
-            }
-            catch (InvalidOperationException)
-            {
-                // Local server isn't installed, just return
-                return;
-            }
         }
 
         private async void Initialize()
@@ -62,28 +41,18 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceRaster
 
             try
             {
-                // Handle the StatusChanged event to react when the server is started
-                LocalServer.Instance.StatusChanged += ServerStatusChanged;
-
                 // Start the local server instance
                 await LocalServer.Instance.StartAsync();
 
                 // Load the sample data
                 await LoadRasterPaths();
+
+                // Enable the 'choose Raster' button
+                MyChooseButton.IsEnabled = true;
             }
             catch (InvalidOperationException ex)
             {
                 MessageBox.Show(String.Format("Please ensure that local server is installed prior to using the sample. See instructions in readme.me or metadata.json. Message: {0}", ex.Message));
-            }
-        }
-
-        private void ServerStatusChanged(object sender, StatusChangedEventArgs e)
-        {
-            // Check if the server started successfully
-            if (e.Status == LocalServerStatus.Started)
-            {
-                // Enable the 'choose Raster' button
-                MyChooseButton.IsEnabled = true;
             }
         }
 

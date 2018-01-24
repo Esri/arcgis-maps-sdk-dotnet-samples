@@ -258,6 +258,10 @@
 
     This sample demonstrates how to interactively sketch and edit graphics in the map view and display them in a graphics overlay. You can sketch a variety of geometry types and undo or redo operations.
 
+* [Add graphics with symbols](ArcGISRuntime.WPF.Samples/Samples/GraphicsOverlay/AddGraphicsWithSymbols)
+
+    This sample demonstrates how to add various types of graphics to a `GraphicsOverlay`.
+
 * [Surface placement](ArcGISRuntime.WPF.Samples/Samples/GraphicsOverlay/SurfacePlacements)
 
     This sample demonstrates how to position graphics using different Surface Placements.
@@ -400,6 +404,7 @@
 
     This sample demonstrates how to use the GeometryEngine with a specified geographic transformation to transform a geometry from one coordinate system to another. 
 
+<<<<<<< HEAD
 ## Geometry
 
 
@@ -409,6 +414,8 @@
 
     This sample demonstrates how to convert between `MapPoint` and string representations of a point using various coordinate systems.
 
+=======
+>>>>>>> master
 ## Tutorial
 
 * [Author, edit, and save a map](ArcGISRuntime.WPF.Samples/Samples/Tutorial/AuthorEditSaveMap)

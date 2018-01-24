@@ -258,6 +258,10 @@
 
     This sample demonstrates how to interactively sketch and edit graphics in the map view and display them in a graphics overlay. You can sketch a variety of geometry types and undo or redo operations.
 
+* [Add graphics with symbols](ArcGISRuntime.WPF.Samples/Samples/GraphicsOverlay/AddGraphicsWithSymbols)
+
+    This sample demonstrates how to add various types of graphics to a `GraphicsOverlay`.
+
 * [Surface placement](ArcGISRuntime.WPF.Samples/Samples/GraphicsOverlay/SurfacePlacements)
 
     This sample demonstrates how to position graphics using different Surface Placements.
@@ -350,6 +354,14 @@
 
     This sample demonstrates how to display a Map Image Layer from a local map service
 
+* [Local Server Services](ArcGISRuntime.WPF.Samples/Samples/LocalServer/LocalServerServices)
+
+    This sample demonstrates how to control local server and manage running services.
+
+* [Local Server Geoprocessing](ArcGISRuntime.WPF.Samples/Samples/LocalServer/LocalServerGeoprocessing)
+
+    This sample demonstrates how to perform geoprocessing tasks using Local Server.
+
 * [Dynamic workspace shapefile](ArcGISRuntime.WPF.Samples/Samples/LocalServer/DynamicWorkspaceShapefile)
 
     This sample demonstrates how to dynamically add a local shapefile to a map using Local Server.
@@ -382,6 +394,15 @@
     * [Find place](ArcGISRuntime.WPF.Samples/Samples/Search/FindPlace)
 
     This sample demonstrates how to use geocode functionality to search for points of interest, around a location or within an extent.
+
+## GeometryEngine
+
+
+- **Projection**
+
+    * [Project with specific transformation](ArcGISRuntime.WPF.Samples/Samples/GeometryEngine/ProjectWithSpecificTransformation)
+
+    This sample demonstrates how to use the GeometryEngine with a specified geographic transformation to transform a geometry from one coordinate system to another. 
 
 ## Tutorial
 

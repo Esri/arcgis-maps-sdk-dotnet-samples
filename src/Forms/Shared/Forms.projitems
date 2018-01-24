@@ -62,13 +62,14 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
+	  <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geometry\FormatCoordinates\metadata.json" />
+	  <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ProjectWithSpecificTransformation\metadata.json" />
+	  <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ListRelatedFeatures\metadata.json" />
+	  <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightGeoElement\metadata.json" />
+	  <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\QueryFeatureCountAndExtent\metadata.json" />
+	  <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerRenderingModeScene\metadata.json" />
+	  <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\SymbolizeShapefile\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\Web_TiledLayer\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ProjectWithSpecificTransformation\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ListRelatedFeatures\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightGeoElement\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\QueryFeatureCountAndExtent\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerRenderingModeScene\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\SymbolizeShapefile\metadata.json" />
 	  <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\AddGraphicsWithSymbols\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)groups.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightLocation\metadata.json" />
@@ -153,13 +154,14 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	  <None Include="$(MSBuildThisFileDirectory)Samples\Geometry\FormatCoordinates\FormatCoordinates.jpg" />
+	  <None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg" />
+	  <None Include="$(MSBuildThisFileDirectory)Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
+	  <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
+	  <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.jpg" />
+	  <None Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
+	  <None Include="$(MSBuildThisFileDirectory)Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\Web_TiledLayer\Web_TiledLayer.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
 	  <None Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedCamera\ViewshedCamera.jpg" />
@@ -244,8 +246,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\Web_TiledLayer\Web_TiledLayer.xaml.cs">
-      <DependentUpon>Web_TiledLayer.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geometry\FormatCoordinates\FormatCoordinates.xaml.cs">
+      <DependentUpon>FormatCoordinates.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml.cs">
@@ -267,9 +269,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.xaml.cs">
       <DependentUpon>FeatureLayerRenderingModeScene.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>
+      </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml.cs">
       <DependentUpon>SymbolizeShapefile.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\Web_TiledLayer\Web_TiledLayer.xaml.cs">
+      <DependentUpon>Web_TiledLayer.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.xaml.cs">
@@ -602,7 +608,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\Web_TiledLayer\Web_TiledLayer.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geometry\FormatCoordinates\FormatCoordinates.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml">
@@ -624,6 +630,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightLocation\LineOfSightLocation.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\Web_TiledLayer\Web_TiledLayer.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.xaml">

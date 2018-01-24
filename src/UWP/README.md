@@ -395,6 +395,18 @@
 
     This sample demonstrates how to use the GeometryEngine with a specified geographic transformation to transform a geometry from one coordinate system to another. 
 
+<<<<<<< HEAD
+## Geometry
+
+
+- **Coordinates**
+
+    * [Format coordinates](ArcGISRuntime.UWP.Samples/Samples/Geometry/FormatCoordinates)
+
+    This sample demonstrates how to convert between `MapPoint` and string representations of a point using various coordinate systems.
+
+=======
+>>>>>>> master
 ## Search
 
 

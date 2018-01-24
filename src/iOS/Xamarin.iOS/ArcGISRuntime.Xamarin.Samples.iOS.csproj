@@ -255,13 +255,14 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
-	<EmbeddedResource Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\metadata.json" />
-	<EmbeddedResource Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\metadata.json" />
-	<EmbeddedResource Include="Samples\Data\ListRelatedFeatures\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\Web_TiledLayer\metadata.json" />
+    <EmbeddedResource Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\metadata.json" />
+    <EmbeddedResource Include="Samples\Data\ListRelatedFeatures\metadata.json" />
+	  <EmbeddedResource Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\metadata.json" />
     <EmbeddedResource Include="Samples\Analysis\LineOfSightGeoElement\metadata.json" />
     <EmbeddedResource Include="Samples\Analysis\QueryFeatureCountAndExtent\metadata.json" />
-	<EmbeddedResource Include="Samples\Layers\FeatureLayerRenderingModeScene\metadata.json" />
-	<EmbeddedResource Include="Samples\Data\SymbolizeShapefile\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\FeatureLayerRenderingModeScene\metadata.json" />
+    <EmbeddedResource Include="Samples\Data\SymbolizeShapefile\metadata.json" />
     <EmbeddedResource Include="groups.json" />
     <EmbeddedResource Include="Samples\Analysis\LineOfSightLocation\metadata.json" />
     <EmbeddedResource Include="Samples\Analysis\ViewshedCamera\metadata.json" />
@@ -343,13 +344,14 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<None Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.jpg" />
-	<None Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg" />
-	<None Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
+    <None Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.jpg" />
+    <None Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg" />
+    <None Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
+	  <None Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.jpg" />
     <None Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
     <None Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.jpg" />
-	<None Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
-	<None Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
+    <None Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
+    <None Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
     <None Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
     <None Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.jpg" />
     <None Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg" />
@@ -431,13 +433,14 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.cs" />
-	<Compile Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.cs" />
-	<Compile Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.cs" />
+    <Compile Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.cs" />
+    <Compile Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.cs" />
+    <Compile Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.cs" />
+	  <Compile Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.cs" />
     <Compile Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.cs" />
     <Compile Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.cs" />
-	<Compile Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.cs" />
-	<Compile Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.cs" />
+    <Compile Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.cs" />
+    <Compile Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.cs" />
     <Compile Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.cs" />
     <Compile Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.cs" />
     <Compile Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.cs" />

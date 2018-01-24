@@ -129,6 +129,10 @@
             {
               "SampleName": "ExportTiles",
               "Path": "Samples/Layers/ExportTiles"
+            },
+            {
+              "SampleName": "Web_TiledLayer",
+              "Path": "Samples/Layers/Web_TiledLayer" 
             }
           ]
         },

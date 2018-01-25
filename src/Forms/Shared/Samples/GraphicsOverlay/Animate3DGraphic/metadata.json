@@ -2,7 +2,7 @@
   "Name": "Animate 3D Graphic",
   "SampleName": "Animate3DGraphic",
   "Description": "This sample demonstrates how to animate a graphic's position and follow it using a camera controller.",
-  "Instructions": "Use the play button to start and stop the animation. Use the sliders to adjust the speed of the animation, the camera angle, and the camera zoom. Use the dropdown to select a new mission. ", 
+  "Instructions": "Sample data will be downloaded automatically.", 
   "Type": 0,
   "RequiresOnlineConnection": true,
   "RequiresOfflineData": true,
@@ -11,6 +11,13 @@
   "DataFileNames": ["Bristol.dae", "GrandCanyon.csv", "Hawaii.csv", "Pyrenees.csv", "Snowdon.csv"],
   "Image": "Animate3DGraphic.jpg",
   "Link": "",
-  "TypeLink": [ ],
+  "TypeLink": ["T:Esri.ArcGISRuntime.UI.OrbitGeoElementCameraController",
+    "T:Esri.ArcGISRuntime.Symbology.RendererSceneProperties",
+    "P:Esri.ArcGISRuntime.Symbology.RendererSceneProperties.HeadingExpression",
+    "P:Esri.ArcGISRuntime.Symbology.RendererSceneProperties.PitchExpression",
+    "P:Esri.ArcGISRuntime.Symbology.RendererSceneProperties.RollExpression",
+    "P:Esri.ArcGISRuntime.Symbology.Renderer.RotationExpression",
+    "P:Esri.ArcGISRuntime.UI.Controls.SceneView.CameraController"
+  ],
   "SampleFolder": "Animate3DGraphic"
 }

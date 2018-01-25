@@ -97,12 +97,16 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
         private bool _shouldFollowPlane = true;
 
         // Set the title of the sample
-        public Animate3DGraphic() => Title = "Animate 3D Graphic";
+        public Animate3DGraphic()
+        {
+            Title = "Animate 3D Graphic";
+        }
 
         private async Task Initialize()
         {
             // Apply appropriate maps to the scene and the inset map view
             _insetMapView.Map = new Map(Basemap.CreateImagery());
+            _insetMapView.IsAttributionTextVisible = false;
             _mySceneView.Scene = new Scene(Basemap.CreateImagery());
 
             // Apply the elevation source

@@ -36,6 +36,6 @@
                 <Label TextColor="Black" x:Name="RollLabel" />
             </StackLayout>
         </Frame>
-        <esriUI:MapView x:Name="InsetMapView" Grid.Row="2"  Grid.Column="0" Margin="20" />
+        <esriUI:MapView x:Name="InsetMapView" Grid.Row="2"  Grid.Column="0" Margin="20" IsAttributionTextVisible="False" />
     </Grid>
 </ContentPage>

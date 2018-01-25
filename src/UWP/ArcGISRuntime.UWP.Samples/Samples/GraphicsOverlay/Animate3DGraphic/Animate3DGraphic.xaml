@@ -12,10 +12,10 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="150" />
+            <RowDefinition Height="170" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="170" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="150" />
         </Grid.ColumnDefinitions>
@@ -49,7 +49,7 @@
                 <TextBlock Margin="5" x:Name="RollTextBlock" />
             </StackPanel>
         </Border>
-        <esriUI:MapView x:Name="InsetMapView" Grid.Row="2" Grid.Column="0" Margin="15" />
+        <esriUI:MapView x:Name="InsetMapView" Grid.Row="2" Grid.Column="0" Margin="10,0,0,25" IsAttributionTextVisible="False" />
     </Grid>
 </UserControl>
 

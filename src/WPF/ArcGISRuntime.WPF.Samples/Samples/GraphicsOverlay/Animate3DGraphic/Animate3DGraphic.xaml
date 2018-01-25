@@ -10,10 +10,10 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="100" />
+            <RowDefinition Height="150" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="150" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="150" />
         </Grid.ColumnDefinitions>
@@ -48,6 +48,6 @@
                 <Label x:Name="RollLabel" />
             </StackPanel>
         </GroupBox>
-        <esri:MapView x:Name="InsetMapView" Grid.Row="2" Grid.Column="0" Margin="5" />
+        <esri:MapView x:Name="InsetMapView" Grid.Row="2" Grid.Column="0" Margin="10,0,0,25" IsAttributionTextVisible="False" />
     </Grid>
 </UserControl>

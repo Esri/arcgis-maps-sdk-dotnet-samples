@@ -76,24 +76,26 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
         private readonly UIButton _playButton = new UIButton();
 
         // Labels for showing statistics
-        private readonly UILabel _altitudeLabel = new UILabel() { TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor};
-        private readonly UILabel _headingLabel = new UILabel(){ TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor};
-        private readonly UILabel _pitchLabel = new UILabel(){ TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor};
-        private readonly UILabel _rollLabel = new UILabel(){ TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor};
-        private readonly UILabel _progressLabel = new UILabel(){ TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor};
+        private readonly UILabel _altitudeLabel = new UILabel() { TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
+        private readonly UILabel _headingLabel = new UILabel() { TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
+        private readonly UILabel _pitchLabel = new UILabel() { TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
+        private readonly UILabel _rollLabel = new UILabel() { TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
+        private readonly UILabel _progressLabel = new UILabel() { TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
 
         // Labels to explain the labels above
-        private readonly UILabel _altitudeLabelLabel = new UILabel(){ Text="Altitude: ", TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor};
-        private readonly UILabel _headingLabelLabel = new UILabel(){ Text="Heading: ", TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor};
-        private readonly UILabel _pitchLabelLabel = new UILabel(){ Text="Pitch: ", TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor};
-        private readonly UILabel _rollLabelLabel = new UILabel(){ Text="Roll: ", TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor};
-        private readonly UILabel _progressLabelLabel = new UILabel(){ Text="Progress: ", TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor};
+        private readonly UILabel _altitudeLabelLabel = new UILabel() { Text = "Altitude: ", TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
+        private readonly UILabel _headingLabelLabel = new UILabel() { Text = "Heading: ", TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
+        private readonly UILabel _pitchLabelLabel = new UILabel() { Text = "Pitch: ", TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
+        private readonly UILabel _rollLabelLabel = new UILabel() { Text = "Roll: ", TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
+        private readonly UILabel _progressLabelLabel = new UILabel() { Text = "Progress: ", TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
 
         // List of labels; this simplifies the code for adding and removing the labels from the layout
         private List<UILabel> _statsLabels;
 
         // Flags for the toggle-able states (controls when stats are shown and when the orbit camera is used)
         private bool _showStats;
+
+        // Flag to control which camera will be used
         private bool _shouldFollowPlane = true;
 
         // Set the title of the sample
@@ -192,67 +194,27 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
             await ChangeMission(_missionToItemId.Keys.First());
         }
 
-        private void CreateLayout()
-        {
-            // Set the titles for the primary buttons
-            _missionControlButton.SetTitle("Mission", UIControlState.Normal);
-            _cameraControlButton.SetTitle("Camera", UIControlState.Normal);
-            _statsControlButton.SetTitle("Stats", UIControlState.Normal);
-            _playButton.SetTitle("Pause", UIControlState.Normal);
-            _missionControlButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            _cameraControlButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            _statsControlButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            _playButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-
-            // Subscribe to events
-            // Allow for selecting a mission
-            _missionControlButton.TouchUpInside += ShowMissionOptions;
-            // Allow for pausing the mission
-            _playButton.TouchUpInside += (sender, args) => TogglePlayMission();
-            // Allow for toggling display of statistics
-            _statsControlButton.TouchUpInside += (sender, args) =>
-            {
-                ToggleStatsDisplay();
-            };
-            // Allow for toggling the camera
-            _cameraControlButton.TouchUpInside += (sender, args) =>
-            {
-                ToggleFollowPlane();
-            };
-
-            // Populate the list of labels (simplifies the process of adding and removing the labels from the UI)
-            _statsLabels = new List<UILabel>
-            {
-                _altitudeLabel, _altitudeLabelLabel,
-                _pitchLabel, _pitchLabelLabel,
-                _rollLabel, _rollLabelLabel,
-                _headingLabel, _headingLabelLabel,
-                _progressLabel, _progressLabelLabel
-            };
-
-            // Add views to page
-            // Only views that are visible by default are included
-            View.AddSubviews(_mySceneView, _insetMapView, _controlToolbox, _missionControlButton, _statsControlButton, _cameraControlButton, _playButton);
-        }
-
         private void ShowMissionOptions(object sender, EventArgs eventArgs)
         {
             // Create the view controller that will present the list of missions
             UIAlertController missionSelectionAlert = UIAlertController.Create("Select a mission", "", UIAlertControllerStyle.ActionSheet);
+
             // Add an option for each mission
             foreach (string item in _missionToItemId.Keys)
             {
                 // Selecting the mission will call the ChangeMission method
                 missionSelectionAlert.AddAction(UIAlertAction.Create(item, UIAlertActionStyle.Default, async action => await ChangeMission(item)));
             }
+
             // Show the alert
-            PresentViewController(missionSelectionAlert,true, null);
+            PresentViewController(missionSelectionAlert, true, null);
         }
 
         private void ToggleStatsDisplay()
         {
             // Toggle the stats display field
             _showStats = !_showStats;
+
             // Either show or hide each label
             foreach (UILabel label in _statsLabels)
             {
@@ -265,47 +227,6 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
                     label.RemoveFromSuperview();
                 }
             }
-        }
-
-        public override async void ViewDidLoad()
-        {
-            CreateLayout();
-            await Initialize();
-            base.ViewDidLoad();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            // Update the map frames
-            _mySceneView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height - 40);
-            _insetMapView.Frame = new CGRect(10, View.Bounds.Height - 180, 100, 100);
-
-            // Update the control layout
-            _controlToolbox.Frame = new CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
-            nfloat controlWidth = (View.Bounds.Width - 20) / 4;
-            nfloat controlHeight = 40;
-            nfloat controlYOffset = View.Bounds.Height - controlHeight;
-            _missionControlButton.Frame = new CGRect(10, controlYOffset, controlWidth, controlHeight);
-            _cameraControlButton.Frame = new CGRect(10 + controlWidth, controlYOffset, controlWidth, controlHeight);
-            _statsControlButton.Frame = new CGRect(10 + 2 * controlWidth, controlYOffset, controlWidth, controlHeight);
-            _playButton.Frame = new CGRect(10 + 3 * controlWidth, controlYOffset, controlWidth, controlHeight);
-
-            // Layout stats display
-            nfloat halfWidth = View.Bounds.Width / 2;
-            _altitudeLabel.Frame = new CGRect(halfWidth, 100, halfWidth, 20);
-            _headingLabel.Frame = new CGRect(halfWidth, 120, halfWidth, 20);
-            _pitchLabel.Frame = new CGRect(halfWidth, 140, halfWidth, 20);
-            _rollLabel.Frame = new CGRect(halfWidth, 160, halfWidth, 20);
-            _progressLabel.Frame = new CGRect(halfWidth, 180, halfWidth, 20);
-
-            // Layout stats display labels
-            _altitudeLabelLabel.Frame = new CGRect(10, 100, halfWidth - 10, 20);
-            _headingLabelLabel.Frame = new CGRect(10, 120, halfWidth - 10, 20);
-            _pitchLabelLabel.Frame = new CGRect(10, 140, halfWidth - 10, 20);
-            _rollLabelLabel.Frame = new CGRect(10, 160, halfWidth - 10, 20);
-            _progressLabelLabel.Frame = new CGRect(10, 180, halfWidth - 10, 20);
-
-            base.ViewDidLayoutSubviews();
         }
 
         private async Task ChangeMission(string mission)
@@ -449,11 +370,13 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
         {
             if (_playButton.Title(UIControlState.Normal) == "Play")
             {
+                // Resume playing
                 _playButton.SetTitle("Pause", UIControlState.Normal);
                 _animationTimer.Start();
             }
             else
             {
+                // Pause
                 _playButton.SetTitle("Play", UIControlState.Normal);
                 _animationTimer.Stop();
             }
@@ -461,10 +384,96 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
 
         private void ToggleFollowPlane()
         {
+            // Update the flag
             _shouldFollowPlane = !_shouldFollowPlane;
+
             // Setting the camera controller to null resets it to the default
             // If should follow is true, the orbit camera controller will be used
             _mySceneView.CameraController = _shouldFollowPlane ? _orbitCameraController : null;
+        }
+
+        public override async void ViewDidLoad()
+        {
+            CreateLayout();
+            await Initialize();
+            base.ViewDidLoad();
+        }
+
+        private void CreateLayout()
+        {
+            // Set the titles for the primary buttons
+            _missionControlButton.SetTitle("Mission", UIControlState.Normal);
+            _cameraControlButton.SetTitle("Camera", UIControlState.Normal);
+            _statsControlButton.SetTitle("Stats", UIControlState.Normal);
+            _playButton.SetTitle("Pause", UIControlState.Normal);
+            _missionControlButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _cameraControlButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _statsControlButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _playButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+
+            // Subscribe to events
+            // Allow for selecting a mission
+            _missionControlButton.TouchUpInside += ShowMissionOptions;
+            // Allow for pausing the mission
+            _playButton.TouchUpInside += (sender, args) => TogglePlayMission();
+            // Allow for toggling display of statistics
+            _statsControlButton.TouchUpInside += (sender, args) =>
+            {
+                ToggleStatsDisplay();
+            };
+            // Allow for toggling the camera
+            _cameraControlButton.TouchUpInside += (sender, args) =>
+            {
+                ToggleFollowPlane();
+            };
+
+            // Populate the list of labels (simplifies the process of adding and removing the labels from the UI)
+            _statsLabels = new List<UILabel>
+            {
+                _altitudeLabel, _altitudeLabelLabel,
+                _pitchLabel, _pitchLabelLabel,
+                _rollLabel, _rollLabelLabel,
+                _headingLabel, _headingLabelLabel,
+                _progressLabel, _progressLabelLabel
+            };
+
+            // Add views to page
+            // Only views that are visible by default are included
+            View.AddSubviews(_mySceneView, _insetMapView, _controlToolbox, _missionControlButton, _statsControlButton, _cameraControlButton, _playButton);
+        }
+
+        public override void ViewDidLayoutSubviews()
+        {
+            // Update the map frames
+            _mySceneView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height - 40);
+            _insetMapView.Frame = new CGRect(10, View.Bounds.Height - 180, 100, 100);
+
+            // Update the control layout
+            _controlToolbox.Frame = new CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
+            nfloat controlWidth = (View.Bounds.Width - 20) / 4;
+            nfloat controlHeight = 40;
+            nfloat controlYOffset = View.Bounds.Height - controlHeight;
+            _missionControlButton.Frame = new CGRect(10, controlYOffset, controlWidth, controlHeight);
+            _cameraControlButton.Frame = new CGRect(10 + controlWidth, controlYOffset, controlWidth, controlHeight);
+            _statsControlButton.Frame = new CGRect(10 + 2 * controlWidth, controlYOffset, controlWidth, controlHeight);
+            _playButton.Frame = new CGRect(10 + 3 * controlWidth, controlYOffset, controlWidth, controlHeight);
+
+            // Layout stats display
+            nfloat halfWidth = View.Bounds.Width / 2;
+            _altitudeLabel.Frame = new CGRect(halfWidth, 100, halfWidth, 20);
+            _headingLabel.Frame = new CGRect(halfWidth, 120, halfWidth, 20);
+            _pitchLabel.Frame = new CGRect(halfWidth, 140, halfWidth, 20);
+            _rollLabel.Frame = new CGRect(halfWidth, 160, halfWidth, 20);
+            _progressLabel.Frame = new CGRect(halfWidth, 180, halfWidth, 20);
+
+            // Layout stats display labels
+            _altitudeLabelLabel.Frame = new CGRect(10, 100, halfWidth - 10, 20);
+            _headingLabelLabel.Frame = new CGRect(10, 120, halfWidth - 10, 20);
+            _pitchLabelLabel.Frame = new CGRect(10, 140, halfWidth - 10, 20);
+            _rollLabelLabel.Frame = new CGRect(10, 160, halfWidth - 10, 20);
+            _progressLabelLabel.Frame = new CGRect(10, 180, halfWidth - 10, 20);
+
+            base.ViewDidLayoutSubviews();
         }
 
         /// <summary>

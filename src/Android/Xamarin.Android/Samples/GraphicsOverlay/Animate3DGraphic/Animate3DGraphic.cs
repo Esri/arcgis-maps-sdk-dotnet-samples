@@ -3,16 +3,10 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Timers;
 using Android.App;
 using Android.OS;
 using Android.Views;
@@ -23,6 +17,12 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Timers;
 using Debug = System.Diagnostics.Debug;
 using Surface = Esri.ArcGISRuntime.Mapping.Surface;
 
@@ -37,14 +37,11 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
         private Button _cameraButton;
         private Button _playButton;
         private Button _statsButton;
-
         private TextView _altitudeTextView;
         private TextView _headingTextView;
         private TextView _pitchTextView;
         private TextView _rollTextView;
-
         private SeekBar _missionProgressBar;
-
         private SceneView _mySceneView;
         private MapView _insetMapView;
 
@@ -83,6 +80,8 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
 
         // Array of frames for the current mission
         private MissionFrame[] _missionData;
+
+        // Status flag controls which camera will be used
         private bool _shouldFollowPlane = true;
 
         protected override void OnCreate(Bundle bundle)
@@ -91,7 +90,7 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
 
             Title = "Animate 3D Graphic";
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             CreateLayout();
             Initialize();
         }
@@ -147,9 +146,11 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
 
             // Create the plane graphic; this is symbolized as a blue triangle because of renderer implemented above
             // Create the attribute dictionary
-            Dictionary<string, object> plane2DAttributes = new Dictionary<string, object>();
-            // Set the angle for the plane graphic
-            plane2DAttributes["ANGLE"] = 0f;
+            Dictionary<string, object> plane2DAttributes = new Dictionary<string, object>
+            {
+                // Set the angle for the plane graphic
+                ["ANGLE"] = 0f
+            };
             // Create the graphic from the attributes and the initial point
             _plane2D = new Graphic(new MapPoint(0, 0, SpatialReferences.Wgs84), plane2DAttributes);
             // Add the plane graphic to the inset map via the overlay
@@ -331,7 +332,7 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
             Button playButton = (Button)sender;
 
             // Get the text of the button
-            string playtext = playButton.Text.ToString();
+            string playtext = playButton.Text;
 
             switch (playtext)
             {
@@ -348,47 +349,42 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
             }
         }
 
-        private void MissionProgressOnSeek(object sender, EventArgs e)
-        {
-            // Get a reference to the slider that sent the event
-            SeekBar sliderControl = (SeekBar)sender;
-            if (!sliderControl.HasFocus)
-            {
-                return;
-            }
-
-            // Return if the user didn't change the progress
-            //    (this event is also fired when the value is changed programmatically)
-            if (!sliderControl.IsFocused)
-            {
-                return;
-            }
-
-            // Stop the animation
-            _animationTimer.Stop();
-
-            // Get the new mission progress
-            double missionProgress = sliderControl.Progress / 100.0;
-
-            // Update the keyframe based on the progress
-            _keyframe = (int)(missionProgress * _frameCount);
-
-            // Restart the animation
-            _animationTimer.Start();
-        }
-
         private void ToggleFollowPlane()
         {
+            // Update the flag
             _shouldFollowPlane = !_shouldFollowPlane;
+
+            // If flag is set, use the orbit camera controller, else use null.
+            //     Setting the CameraController to null will cause the SceneView to use the default camera
             _mySceneView.CameraController = _shouldFollowPlane ? _orbitCameraController : null;
+        }
+
+        private void MissionButtonOnClick(object o, EventArgs eventArgs)
+        {
+            // Show a list of missions to choose from
+
+            // Get an array of mission names
+            string[] missions = _missionToItemId.Keys.ToArray();
+
+            // Create an alert dialog builder
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.SetTitle("Select a Mission");
+
+            // Apply the list of items and provide a lambda to handle the selection event
+            builder.SetItems(missions, async (sender, args) => { await ChangeMission(missions[args.Which]); });
+
+            // Show the dialog
+            builder.Show();
         }
 
         private void CreateLayout()
         {
+            // Load the layout for the sample from the .axml file
             SetContentView(Resource.Layout.Animate3DGraphic);
+
+            // Update control references to point to the controls defined in the layout
             _insetMapView = FindViewById<MapView>(Resource.Id.insetMap);
             _mySceneView = FindViewById<SceneView>(Resource.Id.PrimarySceneView);
-            _insetMapView.IsAttributionTextVisible = false;
             _altitudeTextView = FindViewById<TextView>(Resource.Id.planeAltitudeText);
             _headingTextView = FindViewById<TextView>(Resource.Id.planeHeadingText);
             _pitchTextView = FindViewById<TextView>(Resource.Id.planePitchText);
@@ -400,12 +396,22 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
             _playButton = FindViewById<Button>(Resource.Id.playPauseButton);
             LinearLayout statsLayout = FindViewById<LinearLayout>(Resource.Id.statsPanelLayout);
 
+            // Hide the attribution text on the inset map
+            _insetMapView.IsAttributionTextVisible = false;
+
+            // Handle the camera button click
             _cameraButton.Click += (sender, args) => ToggleFollowPlane();
-            _missionProgressBar.ProgressChanged += MissionProgressOnSeek;
+
+            // Handle the play button click
             _playButton.Click += MissionPlayPlauseClick;
+
+            // Handle the mission button click
             _missionButton.Click += MissionButtonOnClick;
+
+            // Handle the stats button click by hiding or showing the stats panel
             _statsButton.Click += (sender, args) =>
             {
+                // If panel is visible already, hide it. Otherwise, show it.
                 if (statsLayout.Visibility == ViewStates.Visible)
                 {
                     statsLayout.Visibility = ViewStates.Invisible;
@@ -417,21 +423,12 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
             };
         }
 
-        private void MissionButtonOnClick(object o, EventArgs eventArgs)
-        {
-            string[] missions = _missionToItemId.Keys.ToArray();
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.SetTitle("Select a Mission");
-            builder.SetItems(missions, async (sender, args) => { await ChangeMission(missions[args.Which]);});
-            builder.Show();
-        }
-
         /// <summary>
         /// Private helper class represents a single frame in the animation
         /// </summary>
         private class MissionFrame
         {
-            private double Longitude { get;}
+            private double Longitude { get; }
             private double Latitude { get; }
             public double Elevation { get; }
             public double Heading { get; }

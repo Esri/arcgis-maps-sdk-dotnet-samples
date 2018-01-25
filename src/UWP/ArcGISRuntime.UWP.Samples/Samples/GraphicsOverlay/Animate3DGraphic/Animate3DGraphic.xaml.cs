@@ -17,7 +17,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -356,7 +355,7 @@ namespace ArcGISRuntime.UWP.Samples.Animate3DGraphic
             Button cameraControlButton = (Button)sender;
 
             // Get the current text of the button
-            string cameraControlText = cameraControlButton.Content.ToString();
+            string cameraControlText = cameraControlButton.Content?.ToString();
 
             switch (cameraControlText)
             {

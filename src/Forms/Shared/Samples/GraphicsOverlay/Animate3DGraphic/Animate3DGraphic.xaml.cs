@@ -21,7 +21,9 @@ using Esri.ArcGISRuntime.UI;
 using Xamarin.Forms;
 
 #if WINDOWS_UWP
+
 using Colors = Windows.UI.Colors;
+
 #else
 
 using Colors = System.Drawing.Color;
@@ -71,9 +73,11 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
         public Animate3DGraphic()
         {
             InitializeComponent();
-            #if __IOS__
+            
+            // Hide the stats display on iOS because it looks bad
+#if __IOS__
             LayoutFrame.IsVisible = false;
-            #endif
+#endif
             // Create the UI, setup the control references and execute initialization
             Initialize();
         }

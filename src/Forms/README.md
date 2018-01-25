@@ -279,6 +279,10 @@
 
     This sample demonstrates how to position graphics using different Surface Placements.
 
+    * [Add graphics with symbols](Shared/Samples/GraphicsOverlay/AddGraphicsWithSymbols)
+
+    This sample demonstrates how to add various types of graphics to a `GraphicsOverlay`.
+
     * [Sketch graphics on the map](Shared/Samples/GraphicsOverlay/SketchOnMap)
 
     This sample demonstrates how to interactively sketch and edit graphics in the map view and display them in a graphics overlay. You can sketch a variety of geometry types and undo or redo operations.
@@ -397,6 +401,27 @@
 
     This sample demonstrates how you can enable location services and switch between different types of auto pan modes.
 
+## GeometryEngine
+
+
+- **Projection**
+
+    * [Project with specific transformation](Shared/Samples/GeometryEngine/ProjectWithSpecificTransformation)
+
+    This sample demonstrates how to use the GeometryEngine with a specified geographic transformation to transform a geometry from one coordinate system to another. 
+
+<<<<<<< HEAD
+## Geometry
+
+
+- **Coordinates**
+
+    * [Format coordinates](Shared/Samples/Geometry/FormatCoordinates)
+
+    This sample demonstrates how to convert between `MapPoint` and string representations of a point using various coordinate systems.
+
+=======
+>>>>>>> master
 ## Search
 
 

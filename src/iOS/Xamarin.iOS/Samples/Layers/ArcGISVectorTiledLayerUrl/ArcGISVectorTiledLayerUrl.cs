@@ -69,18 +69,18 @@ namespace ArcGISRuntimeXamarin.Samples.ArcGISVectorTiledLayerUrl
 
         private void LayerSelectionButtonClick(object sender, EventArgs e)
         {
-            // Create the view controller that will present the list of missions
-            UIAlertController missionSelectionAlert = UIAlertController.Create("Select a vector layer", "", UIAlertControllerStyle.ActionSheet);
+            // Create the view controller that will present the list of layers
+            UIAlertController layerSelectionAlert = UIAlertController.Create("Select a vector layer", "", UIAlertControllerStyle.ActionSheet);
 
-            // Add an option for each mission
+            // Add an option for each layer
             foreach (string item in _layerUrls.Keys)
             {
-                // Selecting the mission will call the ChangeMission method
-                missionSelectionAlert.AddAction(UIAlertAction.Create(item, UIAlertActionStyle.Default, action => ChooseLayer(item)));
+                // Selecting the layer will call the ChooseLayer function
+                layerSelectionAlert.AddAction(UIAlertAction.Create(item, UIAlertActionStyle.Default, action => ChooseLayer(item)));
             }
 
             // Show the alert
-            PresentViewController(missionSelectionAlert, true, null);
+            PresentViewController(layerSelectionAlert, true, null);
         }
 
         private void ChooseLayer(string layer)

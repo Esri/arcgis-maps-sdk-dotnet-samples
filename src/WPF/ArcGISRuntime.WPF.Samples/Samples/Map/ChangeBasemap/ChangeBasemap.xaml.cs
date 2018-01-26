@@ -7,6 +7,8 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System.Collections.Generic;
+using System.Linq;
 using Esri.ArcGISRuntime.Mapping;
 using System.Windows.Controls;
 
@@ -14,13 +16,20 @@ namespace ArcGISRuntime.WPF.Samples.ChangeBasemap
 {
     public partial class ChangeBasemap
     {
-        // String array to store titles for the viewpoints specified above.
-        private string[] titles = new string[]
+        // Dictionary that associates names with basemaps
+        private readonly Dictionary<string, Basemap> _basemapOptions = new Dictionary<string, Basemap>()
         {
-            "Topo",
-            "Streets",
-            "Imagery",
-            "Ocean"
+            {"Streets (Raster)", Basemap.CreateStreets()},
+            {"Streets (Vector)", Basemap.CreateStreetsVector()},
+            {"Streets - Night (Vector)", Basemap.CreateStreetsNightVector()},
+            {"Imagery (Raster)", Basemap.CreateImagery()},
+            {"Imagery with Labels (Raster)", Basemap.CreateImageryWithLabels()},
+            {"Imagery with Labels (Vector)", Basemap.CreateImageryWithLabelsVector()},
+            {"Dark Gray Canvas (Vector)", Basemap.CreateDarkGrayCanvasVector()},
+            {"Light Gray Canvas (Raster)", Basemap.CreateLightGrayCanvas()},
+            {"Light Gray Canvas (Vector)", Basemap.CreateLightGrayCanvasVector()},
+            {"Navigation (Vector)", Basemap.CreateNavigationVector()},
+            {"OpenStreetMap (Raster)", Basemap.CreateOpenStreetMap()}
         };
 
         public ChangeBasemap()
@@ -34,10 +43,10 @@ namespace ArcGISRuntime.WPF.Samples.ChangeBasemap
         private void Initialize()
         {
             // Assign a new map to the MapView
-            MyMapView.Map = new Map();
+            MyMapView.Map = new Map(_basemapOptions.Values.First());
 
             // Set basemap titles as a items source
-            basemapChooser.ItemsSource = titles;
+            basemapChooser.ItemsSource = _basemapOptions.Keys;
 
             // Show the first basemap in the list
             basemapChooser.SelectedIndex = 0;
@@ -45,29 +54,11 @@ namespace ArcGISRuntime.WPF.Samples.ChangeBasemap
 
         private void OnBasemapChooserSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var selectedBasemap = e.AddedItems[0].ToString();
+            // Get the title of the selected basemap
+            var selectedBasemapTtile = e.AddedItems[0].ToString();
 
-            switch (selectedBasemap)
-            {
-                case "Topo":
-                    // Set the basemap to Topographic
-                    MyMapView.Map.Basemap = Basemap.CreateTopographic();
-                    break;
-                case "Streets":  
-                    // Set the basemap to Streets
-                    MyMapView.Map.Basemap = Basemap.CreateStreets();
-                    break;
-                case "Imagery":
-                    // Set the basemap to Imagery
-                    MyMapView.Map.Basemap = Basemap.CreateImagery();
-                    break;
-                case "Ocean":
-                    // Set the basemap to Oceans
-                    MyMapView.Map.Basemap = Basemap.CreateOceans();
-                    break;
-                default:
-                    break;
-            }
+            // Retrieve the basemap from the dictionary
+            MyMapView.Map.Basemap = _basemapOptions[selectedBasemapTtile];
         }
     }
 }

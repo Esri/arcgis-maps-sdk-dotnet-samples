@@ -12,6 +12,8 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.ArcGISVectorTiledLayerUrl
@@ -23,14 +25,18 @@ namespace ArcGISRuntimeXamarin.Samples.ArcGISVectorTiledLayerUrl
         private MapView _myMapView = new MapView();
 
         private UIToolbar _toolbar = new UIToolbar();
-        private UISegmentedControl _segmentControl = new UISegmentedControl();
 
-        private string _navigationUrl = "https://www.arcgis.com/home/item.html?id=63c47b7177f946b49902c24129b87252";
-        private string _streetUrl = "https://www.arcgis.com/home/item.html?id=de26a3cf4cc9451298ea173c4b324736";
-        private string _nightUrl = "https://www.arcgis.com/home/item.html?id=86f556a2d1fd468181855a35e344567f";
-        private string _darkGrayUrl = "https://www.arcgis.com/home/item.html?id=5e9b3685f4c24d8781073dd928ebda50";
+        private UIButton _button = new UIButton();
 
-        private string _vectorTiledLayerUrl;
+        private Dictionary<string, Uri> _layerUrls = new Dictionary<string, Uri>()
+        {
+            {"Mid-Century", new Uri("http://www.arcgis.com/home/item.html?id=7675d44bb1e4428aa2c30a9b68f97822")},
+            {"Colored Pencil", new Uri("http://www.arcgis.com/home/item.html?id=4cf7e1fb9f254dcda9c8fbadb15cf0f8")},
+            {"Newspaper", new Uri("http://www.arcgis.com/home/item.html?id=dfb04de5f3144a80bc3f9f336228d24a")},
+            {"Nova", new Uri("http://www.arcgis.com/home/item.html?id=75f4dfdff19e445395653121a95a85db")},
+            {"World Street Map (Night)", new Uri("http://www.arcgis.com/home/item.html?id=86f556a2d1fd468181855a35e344567f")}
+        };
+
         private ArcGISVectorTiledLayer _vectorTiledLayer;
 
         public ArcGISVectorTiledLayerUrl()
@@ -38,74 +44,70 @@ namespace ArcGISRuntimeXamarin.Samples.ArcGISVectorTiledLayerUrl
             Title = "ArcGIS vector tiled layer (URL)";
         }
 
-        public override void DidReceiveMemoryWarning()
-        {
-            // Releases the view if it doesn't have a superview
-            base.DidReceiveMemoryWarning();
-        }
-
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
 
-            // Create a new MapView control and provide its location coordinates on the frame
-            _myMapView = new MapView();
+            CreateLayout();
+            Initialize();
+        }
 
+        private void Initialize()
+        {
             // Create a new Map instance with the basemap
             Map myMap = new Map(SpatialReferences.WebMercator);
 
             // Create a new ArcGISVectorTiledLayer with the navigation service Url
-            _vectorTiledLayer = new ArcGISVectorTiledLayer(new Uri(_navigationUrl));
+            _vectorTiledLayer = new ArcGISVectorTiledLayer(_layerUrls.Values.First());
 
+            // Create and use a new basemap
             myMap.Basemap = new Basemap(_vectorTiledLayer);
 
             // Assign the Map to the MapView
             _myMapView.Map = myMap;
-
-            // Update the segmented control to display buttons
-            _segmentControl.InsertSegment("Dark gray", 0, false);
-            _segmentControl.InsertSegment("Streets", 1, false);
-            _segmentControl.InsertSegment("Night", 2, false);
-            _segmentControl.InsertSegment("Navigation", 3, false);
-
-            _segmentControl.SelectedSegment = 3;
-
-            _segmentControl.ValueChanged += (sender, e) =>
-            {
-                var selectedSegmentId = (sender as UISegmentedControl).SelectedSegment;
-
-                switch (selectedSegmentId)
-                {
-                    case 0:
-
-                        _vectorTiledLayerUrl = _darkGrayUrl;
-                        break;
-
-                    case 1:
-
-                        _vectorTiledLayerUrl = _streetUrl;
-                        break;
-
-                    case 2:
-
-                        _vectorTiledLayerUrl = _nightUrl;
-                        break;
-
-                    case 3:
-
-                        _vectorTiledLayerUrl = _navigationUrl;
-                        break;
-                }
-
-                // Create a new ArcGISVectorTiledLayer with the Url Selected by the user
-                _vectorTiledLayer = new ArcGISVectorTiledLayer(new Uri(_vectorTiledLayerUrl));
-
-                // Create new Map with basemap and assigning to the MapView's Map
-                _myMapView.Map = new Map(new Basemap(_vectorTiledLayer));
-            };
-
-            View.AddSubviews(_myMapView, _toolbar, _segmentControl);
         }
+
+        private void LayerSelectionButtonClick(object sender, EventArgs e)
+        {
+            // Create the view controller that will present the list of missions
+            UIAlertController missionSelectionAlert = UIAlertController.Create("Select a vector layer", "", UIAlertControllerStyle.ActionSheet);
+
+            // Add an option for each mission
+            foreach (string item in _layerUrls.Keys)
+            {
+                // Selecting the mission will call the ChangeMission method
+                missionSelectionAlert.AddAction(UIAlertAction.Create(item, UIAlertActionStyle.Default, action => ChooseLayer(item)));
+            }
+
+            // Show the alert
+            PresentViewController(missionSelectionAlert, true, null);
+        }
+
+        private void ChooseLayer(string layer)
+        {
+            // Get the layer based on the selection
+            _vectorTiledLayer = new ArcGISVectorTiledLayer(_layerUrls[layer]);
+
+            // Apply the layer
+            _myMapView.Map = new Map(new Basemap(_vectorTiledLayer));
+        }
+
+        private void CreateLayout()
+        {
+            // Create a new MapView control and provide its location coordinates on the frame
+            _myMapView = new MapView();
+
+            // Update the button parameters
+            _button.SetTitle("Choose Layer", UIControlState.Normal);
+            _button.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+
+            // Allow the user to select new layers
+            _button.TouchUpInside += LayerSelectionButtonClick;
+
+            // Add views
+            View.AddSubviews(_myMapView, _toolbar, _button);
+        }
+
 
         public override void ViewDidLayoutSubviews()
         {
@@ -114,7 +116,7 @@ namespace ArcGISRuntimeXamarin.Samples.ArcGISVectorTiledLayerUrl
 
             _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 50, View.Bounds.Width, 50);
 
-            _segmentControl.Frame = new CoreGraphics.CGRect(10, _toolbar.Frame.Top + 10, View.Bounds.Width - 20, 30);
+            _button.Frame = new CoreGraphics.CGRect(10, _toolbar.Frame.Top + 10, View.Bounds.Width - 20, 30);
 
             base.ViewDidLayoutSubviews();
         }

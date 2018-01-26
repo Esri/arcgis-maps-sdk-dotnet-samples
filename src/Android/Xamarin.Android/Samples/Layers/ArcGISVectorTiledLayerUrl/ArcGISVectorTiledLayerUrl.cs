@@ -14,6 +14,7 @@ using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ArcGISRuntimeXamarin.Samples.ArcGISVectorTiledLayerUrl
@@ -24,22 +25,16 @@ namespace ArcGISRuntimeXamarin.Samples.ArcGISVectorTiledLayerUrl
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 
-        private string _navigationUrl = "https://www.arcgis.com/home/item.html?id=63c47b7177f946b49902c24129b87252";
-        private string _streetUrl = "https://www.arcgis.com/home/item.html?id=de26a3cf4cc9451298ea173c4b324736";
-        private string _nightUrl = "https://www.arcgis.com/home/item.html?id=86f556a2d1fd468181855a35e344567f";
-        private string _darkGrayUrl = "https://www.arcgis.com/home/item.html?id=5e9b3685f4c24d8781073dd928ebda50";
-
-        private string _vectorTiledLayerUrl;
-        private ArcGISVectorTiledLayer _vectorTiledLayer;
-
-        // String array to store some vector layer names.
-        private string[] _vectorLayerNames = new string[]
+        private Dictionary<string, Uri> _layerUrls = new Dictionary<string, Uri>()
         {
-            "Dark gray",
-            "Streets",
-            "Night",
-            "Navigation"
+            {"Mid-Century", new Uri("http://www.arcgis.com/home/item.html?id=7675d44bb1e4428aa2c30a9b68f97822")},
+            {"Colored Pencil", new Uri("http://www.arcgis.com/home/item.html?id=4cf7e1fb9f254dcda9c8fbadb15cf0f8")},
+            {"Newspaper", new Uri("http://www.arcgis.com/home/item.html?id=dfb04de5f3144a80bc3f9f336228d24a")},
+            {"Nova", new Uri("http://www.arcgis.com/home/item.html?id=75f4dfdff19e445395653121a95a85db")},
+            {"World Street Map (Night)", new Uri("http://www.arcgis.com/home/item.html?id=86f556a2d1fd468181855a35e344567f")}
         };
+
+        private ArcGISVectorTiledLayer _vectorTiledLayer;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -55,10 +50,11 @@ namespace ArcGISRuntimeXamarin.Samples.ArcGISVectorTiledLayerUrl
         private void Initialize()
         {
             // Create a new ArcGISVectorTiledLayer with the navigation service Url
-            _vectorTiledLayer = new ArcGISVectorTiledLayer(new Uri(_navigationUrl));
+            _vectorTiledLayer = new ArcGISVectorTiledLayer(_layerUrls.Values.First());
 
             // Create new Map with basemap
-            Map myMap = new Map(new Basemap(_vectorTiledLayer));
+            Map myMap = new Map(Basemap.CreateImagery());
+            myMap.OperationalLayers.Add(_vectorTiledLayer);
 
             // Provide used Map to the MapView
             _myMapView.Map = myMap;
@@ -73,7 +69,7 @@ namespace ArcGISRuntimeXamarin.Samples.ArcGISVectorTiledLayerUrl
             menu.MenuItemClick += OnVectorLayersMenuItemClicked;
 
             // Create menu options
-            foreach (var vectorLayerName in _vectorLayerNames)
+            foreach (string vectorLayerName in _layerUrls.Keys)
                 menu.Menu.Add(vectorLayerName);
 
             // Show menu in the view
@@ -83,35 +79,14 @@ namespace ArcGISRuntimeXamarin.Samples.ArcGISVectorTiledLayerUrl
         private void OnVectorLayersMenuItemClicked(object sender, PopupMenu.MenuItemClickEventArgs e)
         {
             // Get title from the selected item
-            var selected = e.Item.TitleCondensedFormatted.ToString();
-
-            // Get index that is used to get the selected url
-            var selectedIndex = _vectorLayerNames.ToList().IndexOf(selected);
-
-            switch (selectedIndex)
-            {
-                case 0:
-                    _vectorTiledLayerUrl = _darkGrayUrl;
-                    break;
-
-                case 1:
-                    _vectorTiledLayerUrl = _streetUrl;
-                    break;
-
-                case 2:
-                    _vectorTiledLayerUrl = _nightUrl;
-                    break;
-
-                case 3:
-                    _vectorTiledLayerUrl = _navigationUrl;
-                    break;
-            }
+            string selected = e.Item.TitleCondensedFormatted.ToString();
 
             // Create new ArcGISVectorTiled layer with the selected service Url 
-            _vectorTiledLayer = new ArcGISVectorTiledLayer(new Uri(_vectorTiledLayerUrl));
+            _vectorTiledLayer = new ArcGISVectorTiledLayer(_layerUrls[selected]);
 
             // Create a new map with a basemap that was selected. Assign this to the mapview's map 
-            _myMapView.Map = new Map(new Basemap(_vectorTiledLayer));
+            _myMapView.Map = new Map(Basemap.CreateImagery());
+            _myMapView.Map.OperationalLayers.Add(_vectorTiledLayer);
         }
 
  

@@ -1,10 +1,10 @@
-﻿// Copyright 2016 Esri.
+﻿// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
@@ -17,6 +17,7 @@ namespace ArcGISRuntime.WPF.Samples.ArcGISVectorTiledLayerUrl
 {
     public partial class ArcGISVectorTiledLayerUrl
     {
+        // Dictionary associates layer names with URIs
         private Dictionary<string, Uri> _layerUrls = new Dictionary<string, Uri>()
         {
             {"Mid-Century", new Uri("http://www.arcgis.com/home/item.html?id=7675d44bb1e4428aa2c30a9b68f97822")},
@@ -25,23 +26,22 @@ namespace ArcGISRuntime.WPF.Samples.ArcGISVectorTiledLayerUrl
             {"Nova", new Uri("http://www.arcgis.com/home/item.html?id=75f4dfdff19e445395653121a95a85db")},
             {"World Street Map (Night)", new Uri("http://www.arcgis.com/home/item.html?id=86f556a2d1fd468181855a35e344567f")}
         };
-        private ArcGISVectorTiledLayer _vectorTiledLayer;
 
         public ArcGISVectorTiledLayerUrl()
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             Initialize();
         }
 
         private void Initialize()
         {
             // Create a new ArcGISVectorTiledLayer
-            _vectorTiledLayer = new ArcGISVectorTiledLayer(_layerUrls.Values.First());
+            ArcGISVectorTiledLayer vectorTiledLayer = new ArcGISVectorTiledLayer(_layerUrls.Values.First());
 
             // Create new Map with basemap
-            Map myMap = new Map(new Basemap(_vectorTiledLayer));
+            Map myMap = new Map(new Basemap(vectorTiledLayer));
 
             // Set titles as items source
             vectorLayersChooser.ItemsSource = _layerUrls.Keys;
@@ -62,10 +62,10 @@ namespace ArcGISRuntime.WPF.Samples.ArcGISVectorTiledLayerUrl
             Uri vectorTiledLayerUrl = _layerUrls[selectedVectorLayer];
 
             // Create a new ArcGISVectorTiledLayer with the URI Selected by the user
-            _vectorTiledLayer = new ArcGISVectorTiledLayer(vectorTiledLayerUrl);
+            ArcGISVectorTiledLayer vectorTiledLayer = new ArcGISVectorTiledLayer(vectorTiledLayerUrl);
 
-            // Create new Map with basemap and assigning to the MapView's Map
-            MyMapView.Map = new Map(new Basemap(_vectorTiledLayer));
+            // Create new Map with basemap 
+            MyMapView.Map = new Map(new Basemap(vectorTiledLayer));
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+﻿// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -7,12 +7,12 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.ChangeBasemap
@@ -39,7 +39,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBasemap
             {"Light Gray Canvas (Vector)", Basemap.CreateLightGrayCanvasVector()},
             {"Navigation (Vector)", Basemap.CreateNavigationVector()},
             {"OpenStreetMap (Raster)", Basemap.CreateOpenStreetMap()}
-        }; 
+        };
 
         public ChangeBasemap()
         {
@@ -94,7 +94,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBasemap
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the views 
+            // Setup the visual frames for the views
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
             _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 50, View.Bounds.Width, 50);
             _button.Frame = new CoreGraphics.CGRect(10, _toolbar.Frame.Top + 10, View.Bounds.Width - 20, _toolbar.Frame.Height - 20);

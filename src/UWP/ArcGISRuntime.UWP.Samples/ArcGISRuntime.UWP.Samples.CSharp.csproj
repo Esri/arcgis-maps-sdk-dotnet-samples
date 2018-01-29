@@ -102,7 +102,9 @@
     <Content Include="Properties\ArcGISRuntime.Windows.Samples.rd.xml" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Samples\Data\ReadGeoPackage\metadata.json" />
+    <Content Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.jpg" />
     <Content Include="Samples\Symbology\FeatureLayerExtrusion\metadata.json" />
+    <Content Include="Samples\Layers\ChangeStretchRenderer\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
@@ -114,7 +116,7 @@
     <Content Include="Samples\Layers\FeatureLayerRenderingModeScene\metadata.json" />
     <Content Include="Samples\Data\SymbolizeShapefile\metadata.json" />
     <Content Include="Samples\Layers\Web_TiledLayer\metadata.json" />
-	  <Content Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\metadata.json" />
+    <Content Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\metadata.json" />
     <Content Include="groups.json" />
     <Content Include="Samples\Analysis\LineOfSightLocation\metadata.json" />
     <Content Include="Samples\Analysis\ViewshedCamera\metadata.json" />
@@ -208,7 +210,7 @@
     <Content Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
     <Content Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
     <Content Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.jpg" />
-	  <Content Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.jpg" />
+    <Content Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.jpg" />
     <Content Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
     <Content Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.jpg" />
     <Content Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg" />
@@ -450,6 +452,9 @@
     <Compile Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.xaml.cs">
       <DependentUpon>SceneLayerUrl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.xaml.cs">
+      <DependentUpon>ChangeStretchRenderer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.xaml.cs">
       <DependentUpon>TimeBasedQuery.xaml</DependentUpon>
     </Compile>
@@ -609,6 +614,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

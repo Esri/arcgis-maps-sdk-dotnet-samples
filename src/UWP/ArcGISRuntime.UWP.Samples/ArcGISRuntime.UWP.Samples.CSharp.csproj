@@ -293,21 +293,6 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-    <Compile Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.xaml.cs">
-      <DependentUpon>ListRelatedFeatures.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml.cs">
-      <DependentUpon>LineOfSightGeoElement.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.xaml.cs">
-      <DependentUpon>QueryFeatureCountAndExtent.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.xaml.cs">
-      <DependentUpon>FeatureLayerRenderingModeScene.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml.cs">
-      <DependentUpon>SymbolizeShapefile.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.xaml.cs">
       <DependentUpon>FormatCoordinates.xaml</DependentUpon>
     </Compile>

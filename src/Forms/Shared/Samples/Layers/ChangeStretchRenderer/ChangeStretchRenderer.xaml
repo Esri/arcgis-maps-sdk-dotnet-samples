@@ -4,14 +4,6 @@
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
              x:Class="ArcGISRuntimeXamarin.Samples.ChangeStretchRenderer.ChangeStretchRenderer"
              Title="Stretch renderer">
-
-    <!--<Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-        </Grid.RowDefinitions>
-        <Label Grid.Row="0">Choose a stretch renderer type from the dropdown, adjust the parameter values, then click the 'Update Renderer' button.</Label>
-    </Grid>-->
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>

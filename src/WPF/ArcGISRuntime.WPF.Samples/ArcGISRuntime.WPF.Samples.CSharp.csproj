@@ -943,7 +943,6 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-<<<<<<< HEAD
     <Page Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

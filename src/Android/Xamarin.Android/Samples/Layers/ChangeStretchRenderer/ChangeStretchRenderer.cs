@@ -174,7 +174,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeStretchRenderer
             if (_RendererTypes.SelectedItem == null)
             {
                 // If the user does not click on a choice in the table but just clicks the
-                // button, the selected value will be null and we will use the initial
+                // button, the selected value will be null so use the initial
                 // stretch renderer option
                 myRendererTypeChoice = "Min Max";
             }

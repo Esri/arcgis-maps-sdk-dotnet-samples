@@ -108,11 +108,15 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
+    <Content Include="Samples\Geometry\FormatCoordinates\metadata.json" />
+    <Content Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\metadata.json" />
     <Content Include="Samples\Data\ListRelatedFeatures\metadata.json" />
     <Content Include="Samples\Analysis\LineOfSightGeoElement\metadata.json" />
     <Content Include="Samples\Analysis\QueryFeatureCountAndExtent\metadata.json" />
     <Content Include="Samples\Layers\FeatureLayerRenderingModeScene\metadata.json" />
     <Content Include="Samples\Data\SymbolizeShapefile\metadata.json" />
+    <Content Include="Samples\Layers\Web_TiledLayer\metadata.json" />
+    <Content Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\metadata.json" />
     <Content Include="groups.json" />
     <Content Include="Samples\Analysis\LineOfSightLocation\metadata.json" />
     <Content Include="Samples\Analysis\ViewshedCamera\metadata.json" />
@@ -198,11 +202,15 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.jpg" />
+    <Content Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg" />
     <Content Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
     <Content Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
     <Content Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.jpg" />
     <Content Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
     <Content Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
+    <Content Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.jpg" />
+    <Content Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.jpg" />
     <Content Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
     <Content Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.jpg" />
     <Content Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg" />
@@ -299,6 +307,33 @@
     </Compile>
     <Compile Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml.cs">
       <DependentUpon>SymbolizeShapefile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.xaml.cs">
+      <DependentUpon>FormatCoordinates.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml.cs">
+      <DependentUpon>ProjectWithSpecificTransformation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.xaml.cs">
+      <DependentUpon>ListRelatedFeatures.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml.cs">
+      <DependentUpon>LineOfSightGeoElement.xaml</DependentUpon>
+      </Compile>
+    <Compile Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.xaml.cs">
+      <DependentUpon>QueryFeatureCountAndExtent.xaml</DependentUpon>
+      </Compile>
+    <Compile Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.xaml.cs">
+      <DependentUpon>FeatureLayerRenderingModeScene.xaml</DependentUpon>
+      </Compile>
+    <Compile Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml.cs">
+      <DependentUpon>SymbolizeShapefile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.xaml.cs">
+      <DependentUpon>Web_TiledLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.xaml.cs">
+      <DependentUpon>AddGraphicsWithSymbols.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.xaml.cs">
       <DependentUpon>LineOfSightLocation.xaml</DependentUpon>
@@ -549,6 +584,14 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -566,6 +609,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

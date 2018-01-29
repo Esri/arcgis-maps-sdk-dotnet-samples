@@ -82,6 +82,18 @@
     <Content Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Geometry\FormatCoordinates\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\Web_TiledLayer\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\LocalServer\LocalServerFeatureLayer\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -97,7 +109,13 @@
     <Content Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\LocalServer\LocalServerServices\LocalServerServices.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\LocalServer\DynamicWorkspaceRaster\DynamicWorkspaceRaster.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\LocalServer\LocalServerGeoprocessing\LocalServerGeoprocessing.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\LocalServer\LocalServerMapImageLayer\metadata.json">
@@ -361,6 +379,18 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\LocalServer\LocalServerFeatureLayer\LocalServerFeatureLayer.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -622,6 +652,18 @@
     <Compile Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.xaml.cs">
       <DependentUpon>ChangeStretchRenderer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.xaml.cs">
+      <DependentUpon>FormatCoordinates.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml.cs">
+      <DependentUpon>ProjectWithSpecificTransformation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.xaml.cs">
+      <DependentUpon>Web_TiledLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.xaml.cs">
+      <DependentUpon>AddGraphicsWithSymbols.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\LocalServer\LocalServerFeatureLayer\LocalServerFeatureLayer.xaml.cs">
       <DependentUpon>LocalServerFeatureLayer.xaml</DependentUpon>
     </Compile>
@@ -636,6 +678,12 @@
     </Compile>
     <Compile Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.xaml.cs">
       <DependentUpon>ReadGeoPackage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LocalServer\LocalServerServices\LocalServerServices.xaml.cs">
+      <DependentUpon>LocalServerServices.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\LocalServer\LocalServerGeoprocessing\LocalServerGeoprocessing.xaml.cs">
+      <DependentUpon>LocalServerGeoprocessing.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\LocalServer\DynamicWorkspaceRaster\DynamicWorkspaceRaster.xaml.cs">
       <DependentUpon>DynamicWorkspaceRaster.xaml</DependentUpon>
@@ -895,7 +943,24 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+<<<<<<< HEAD
     <Page Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -916,6 +981,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\LocalServer\LocalServerServices\LocalServerServices.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\LocalServer\LocalServerGeoprocessing\LocalServerGeoprocessing.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1267,6 +1340,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Symbology\FeatureLayerExtrusion\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\LocalServer\LocalServerServices\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\LocalServer\LocalServerGeoprocessing\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\LocalServer\DynamicWorkspaceRaster\metadata.json">

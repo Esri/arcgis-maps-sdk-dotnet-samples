@@ -128,6 +128,10 @@
             {
               "SampleName": "ExportTiles",
               "Path": "Samples/Layers/ExportTiles"
+            },
+            {
+              "SampleName": "Web_TiledLayer",
+              "Path": "Samples/Layers/Web_TiledLayer" 
             }
           ]
         },
@@ -329,6 +333,10 @@
               "Path": "Samples/GraphicsOverlay/IdentifyGraphics"
             },
             {
+              "SampleName": "AddGraphicsWithSymbols",
+              "Path": "Samples/GraphicsOverlay/AddGraphicsWithSymbols"
+            },
+            {
               "SampleName": "SketchOnMap",
               "Path": "Samples/GraphicsOverlay/SketchOnMap"
             }
@@ -501,6 +509,40 @@
           ]
         }
       ]
+    },
+    {
+      "Name": "GeometryEngine",
+      "CategoryName": "GeometryEngine",
+      "SubCategories": [
+        {
+          "Name": "Projection",
+          "SubCategoryName": "Projection",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "ProjectWithSpecificTransformation",
+              "Path": "Samples/GeometryEngine/ProjectWithSpecificTransformation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Geometry",
+      "CategoryName": "Geometry",
+      "SubCategories": [
+        {
+          "Name": "Coordinates",
+          "SubCategoryName": "Coordinates",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "FormatCoordinates",
+              "Path": "Samples/Geometry/FormatCoordinates"
+            }
+          ] 
+        }
+      ] 
     },
     {
       "Name": "Search",

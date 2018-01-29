@@ -128,6 +128,10 @@
             {
               "SampleName": "ExportTiles",
               "Path": "Samples/Layers/ExportTiles"
+            },
+            {
+              "SampleName": "Web_TiledLayer",
+              "Path": "Samples/Layers/Web_TiledLayer" 
             }
           ]
         },
@@ -329,6 +333,10 @@
               "Path": "Samples/GraphicsOverlay/SketchOnMap"
             },
             {
+              "SampleName": "AddGraphicsWithSymbols",
+              "Path": "Samples/GraphicsOverlay/AddGraphicsWithSymbols"
+            },
+            {
               "SampleName": "SurfacePlacements",
               "Path": "Samples/GraphicsOverlay/SurfacePlacements"
             }
@@ -490,6 +498,14 @@
               "Path": "Samples/LocalServer/LocalServerMapImageLayer"
             },
             {
+              "SampleName": "LocalServerServices",
+              "Path": "Samples/LocalServer/LocalServerServices"
+            },
+            {
+              "SampleName": "LocalServerGeoprocessing",
+              "Path": "Samples/LocalServer/LocalServerGeoprocessing" 
+            },
+            {
               "SampleName": "DynamicWorkspaceShapefile",
               "Path": "Samples/LocalServer/DynamicWorkspaceShapefile"
             },
@@ -555,6 +571,40 @@
           ]
         }
       ]
+    },
+    {
+      "Name": "GeometryEngine",
+      "CategoryName": "GeometryEngine",
+      "SubCategories": [
+        {
+          "Name": "Projection",
+          "SubCategoryName": "Projection",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "ProjectWithSpecificTransformation",
+              "Path": "Samples/GeometryEngine/ProjectWithSpecificTransformation"
+            }
+          ] 
+        }
+      ] 
+    },
+    {
+      "Name": "Geometry",
+      "CategoryName": "Geometry",
+      "SubCategories": [
+        {
+          "Name": "Coordinates",
+          "SubCategoryName": "Coordinates",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "FormatCoordinates",
+              "Path": "Samples/Geometry/FormatCoordinates"
+            }
+          ] 
+        }
+      ] 
     },
     {
       "Name": "Tutorial",

@@ -187,6 +187,10 @@
             {
               "SampleName": "RasterLayerGeoPackage",
               "Path": "Samples/Data/RasterLayerGeoPackage"
+            },
+            {
+              "SampleName": "ChangeBlendRenderer",
+              "Path": "Samples/Layers/ChangeBlendRenderer"
             }
           ]
         }

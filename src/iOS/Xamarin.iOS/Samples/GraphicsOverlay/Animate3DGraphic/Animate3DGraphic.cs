@@ -200,6 +200,12 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
         {
             // Create the view controller that will present the list of missions
             UIAlertController missionSelectionAlert = UIAlertController.Create("Select a mission", "", UIAlertControllerStyle.ActionSheet);
+            // Needed to prevent a crash on iPad
+            UIPopoverPresentationController presentationPopover = missionSelectionAlert.PopoverPresentationController;
+            if (presentationPopover!=null) {
+                presentationPopover.SourceView = this.View;
+                presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
+            }
 
             // Add an option for each mission
             foreach (string item in _missionToItemId.Keys)

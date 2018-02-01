@@ -103,6 +103,10 @@
 
     This sample demonstrates how to export tiles from a map server.
 
+* [Web TiledLayer](ArcGISRuntime.WPF.Samples/Samples/Layers/Web_TiledLayer)
+
+    This sample demonstrates how to load a web tiled layer from a non-ArcGIS service, including how to include proper attribution.
+
 * [ArcGIS map image layer (URL)](ArcGISRuntime.WPF.Samples/Samples/Layers/ArcGISMapImageLayerUrl)
 
     This sample demonstrates how to add an ArcGISMapImageLayer as a base layer in a map. The ArcGISMapImageLayer comes from an ArcGIS Server sample web service.
@@ -149,6 +153,10 @@
     * [Raster layer (GeoPackage)](ArcGISRuntime.WPF.Samples/Samples/Data/RasterLayerGeoPackage)
 
     This sample demonstrates how to open a GeoPackage and show a GeoPackage raster in a raster layer.
+
+    * [Stretch renderer](ArcGISRuntime.WPF.Samples/Samples/Layers/ChangeStretchRenderer)
+
+    This sample demonstrates how to use stretch renderer on a raster layer.
 
 ## Features
 
@@ -265,6 +273,10 @@
 * [Surface placement](ArcGISRuntime.WPF.Samples/Samples/GraphicsOverlay/SurfacePlacements)
 
     This sample demonstrates how to position graphics using different Surface Placements.
+
+* [Animate 3D Graphic](ArcGISRuntime.WPF.Samples/Samples/GraphicsOverlay/Animate3DGraphic)
+
+    This sample demonstrates how to animate a graphic's position and follow it using a camera controller.
 
 * [Render simple markers](ArcGISRuntime.WPF.Samples/Samples/Symbology/RenderSimpleMarkers)
 
@@ -404,7 +416,6 @@
 
     This sample demonstrates how to use the GeometryEngine with a specified geographic transformation to transform a geometry from one coordinate system to another. 
 
-<<<<<<< HEAD
 ## Geometry
 
 
@@ -414,8 +425,6 @@
 
     This sample demonstrates how to convert between `MapPoint` and string representations of a point using various coordinate systems.
 
-=======
->>>>>>> master
 ## Tutorial
 
 * [Author, edit, and save a map](ArcGISRuntime.WPF.Samples/Samples/Tutorial/AuthorEditSaveMap)

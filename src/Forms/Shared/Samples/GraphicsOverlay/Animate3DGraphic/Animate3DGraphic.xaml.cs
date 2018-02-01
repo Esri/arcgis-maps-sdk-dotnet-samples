@@ -68,6 +68,7 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
         };
 
         // Array of frames for the current mission
+        //   A MissionFrame contains the position of the plane for a single moment in the animation
         private MissionFrame[] _missionData;
 
         public Animate3DGraphic()
@@ -91,6 +92,7 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
             // Update the mission selection UI
             MissionSelectionBox.ItemsSource = _missionToItemId.Keys.ToList();
             MissionSelectionBox.SelectedIndex = 0;
+            // Wire up the selection change event to call the ChangeMission method; this method resets the animation and starts a new mission
             MissionSelectionBox.SelectedIndexChanged += async (sender, args) => { await ChangeMission(MissionSelectionBox.SelectedItem.ToString()); };
 
             // Apply the elevation source
@@ -164,6 +166,7 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
             MySceneView.CameraController = _orbitCameraController;
 
             // Start a timer; this animates the plane
+            // The timespan is the length of the timer interval in milliseconds; this controls the animation speed (fps)
             Device.StartTimer(new TimeSpan(0, 0, 0, 0, 60), AnimatePlane);
 
             // Set the initial mission for when the sample loads
@@ -255,8 +258,10 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
             // This is needed because the event could be running on a non-UI thread
             Device.BeginInvokeOnMainThread(() =>
             {
-                // Update the progress slider
+                // Update the progress slider; temporarily remove event subscription to avoid feedback loop
+                MissionProgressBar.ValueChanged -= MissionProgressOnSeek;
                 MissionProgressBar.Value = missionProgress * 100;
+                MissionProgressBar.ValueChanged += MissionProgressOnSeek;
 
                 // Update stats display
                 AltitudeLabel.Text = currentFrame.Elevation.ToString("F");
@@ -340,18 +345,11 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
 
         private void MissionProgressOnSeek(object sender, EventArgs e)
         {
-            // Get a reference to the slider that sent the event
-            Slider sliderControl = (Slider)sender;
-
-            // Return if the user didn't change the progress
-            //    (this event is also fired when the value is changed programmatically)
-            if (!sliderControl.IsFocused)
-            {
-                return;
-            }
-
             // Stop the animation
             _animationTimer = false;
+
+            // Get a reference to the slider that sent the event
+            Slider sliderControl = (Slider)sender;
 
             // Get the new mission progress
             double missionProgress = sliderControl.Value / 100.0;
@@ -406,6 +404,7 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
             private MissionFrame(string missionLine)
             {
                 // Split the string into a list of entries (columns)
+                // Example line: -156.3666517,20.6255059,999.999908,83.77659,0.000105,-47.766567
                 string[] missionFrameParameters = missionLine.Split(',');
 
                 // Throw if the line isn't valid

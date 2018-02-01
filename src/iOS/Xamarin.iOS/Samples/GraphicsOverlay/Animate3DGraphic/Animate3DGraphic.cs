@@ -64,11 +64,12 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
         };
 
         // Array of frames for the current mission
+        //    A MissionFrame contains the position of the plane for a single moment in the animation
         private MissionFrame[] _missionData;
 
         // Primary UI controls
         private readonly MapView _insetMapView = new MapView();
-        private readonly SceneView _mySceneView = new SceneView();
+        private readonly SceneView _mySceneView = new SceneView { AtmosphereEffect = AtmosphereEffect.Realistic };
         private readonly UIToolbar _controlToolbox = new UIToolbar();
         private readonly UIButton _missionControlButton = new UIButton();
         private readonly UIButton _cameraControlButton = new UIButton();
@@ -76,18 +77,18 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
         private readonly UIButton _playButton = new UIButton();
 
         // Labels for showing statistics
-        private readonly UILabel _altitudeLabel = new UILabel() { TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
-        private readonly UILabel _headingLabel = new UILabel() { TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
-        private readonly UILabel _pitchLabel = new UILabel() { TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
-        private readonly UILabel _rollLabel = new UILabel() { TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
-        private readonly UILabel _progressLabel = new UILabel() { TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
+        private readonly UILabel _altitudeLabel = new UILabel { TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
+        private readonly UILabel _headingLabel = new UILabel { TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
+        private readonly UILabel _pitchLabel = new UILabel { TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
+        private readonly UILabel _rollLabel = new UILabel { TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
+        private readonly UILabel _progressLabel = new UILabel { TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
 
         // Labels to explain the labels above
-        private readonly UILabel _altitudeLabelLabel = new UILabel() { Text = "Altitude: ", TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
-        private readonly UILabel _headingLabelLabel = new UILabel() { Text = "Heading: ", TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
-        private readonly UILabel _pitchLabelLabel = new UILabel() { Text = "Pitch: ", TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
-        private readonly UILabel _rollLabelLabel = new UILabel() { Text = "Roll: ", TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
-        private readonly UILabel _progressLabelLabel = new UILabel() { Text = "Progress: ", TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
+        private readonly UILabel _altitudeLabelLabel = new UILabel { Text = "Altitude: ", TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
+        private readonly UILabel _headingLabelLabel = new UILabel { Text = "Heading: ", TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
+        private readonly UILabel _pitchLabelLabel = new UILabel { Text = "Pitch: ", TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
+        private readonly UILabel _rollLabelLabel = new UILabel { Text = "Roll: ", TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
+        private readonly UILabel _progressLabelLabel = new UILabel { Text = "Progress: ", TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
 
         // List of labels; this simplifies the code for adding and removing the labels from the layout
         private List<UILabel> _statsLabels;
@@ -182,6 +183,7 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
             _mySceneView.CameraController = _orbitCameraController;
 
             // Create a timer; this animates the plane
+            // The value is the duration of the timer in milliseconds. This controls the speed of the animation (fps)
             _animationTimer = new Timer(60)
             {
                 AutoReset = true
@@ -495,6 +497,7 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
             private MissionFrame(string missionLine)
             {
                 // Split the string into a list of entries (columns)
+                // Example line: -156.3666517,20.6255059,999.999908,83.77659,.00009,-47.766567
                 string[] missionFrameParameters = missionLine.Split(',');
 
                 // Throw if the line isn't valid

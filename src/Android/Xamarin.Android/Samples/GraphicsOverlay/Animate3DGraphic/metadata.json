@@ -2,7 +2,7 @@
   "Name": "Animate 3D Graphic",
   "SampleName": "Animate3DGraphic",
   "Description": "This sample demonstrates how to animate a graphic's position and follow it using a camera controller.",
-  "Instructions": "Sample data will be downloaded automatically.", 
+  "Instructions": "Click-and-drag to pan the sceneview, orbiting the moving plane. Click 'Camera' to toggle between the default and the orbiting camera controller.\nThe plane's route is shown on the inset map in the bottom left corner of the screen. The progress through the plane's mission is shown in a slider within the stats panel. Click 'Stats' to toggle stats display. Drag the slider to seek through the mission (like you might seek through a song). Tap 'Mission' to choose from a list of alternative routes. \n\nNote that this is a graphics-intensive sample; performance may be degraded in certain situations (such as using a simulator).", 
   "Type": 0,
   "RequiresOnlineConnection": true,
   "RequiresOfflineData": true,

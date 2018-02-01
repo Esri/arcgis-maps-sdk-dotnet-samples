@@ -15,7 +15,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="150" />
         </Grid.ColumnDefinitions>
-        <esriUI:SceneView x:Name="MySceneView" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="3" />
+        <esriUI:SceneView x:Name="MySceneView" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="3" AtmosphereEffect="Realistic" />
         <StackLayout Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="5">
             <Picker x:Name="MissionSelectionBox" />
             <Button Clicked="MissionPlayPlauseClick" Margin="5,0,0,0" Text="Pause" />
@@ -25,7 +25,7 @@
             <!-- Frame is hidden on iOS due to layout issues -->
             <StackLayout Padding="5" Opacity=".7" BackgroundColor="White">
                 <Label TextColor="Black" Text="Mission Progress:" />
-                <Slider x:Name="MissionProgressBar" WidthRequest="100" Minimum="0" Maximum="100" ValueChanged="MissionProgressOnSeek" />
+                <Slider x:Name="MissionProgressBar" Maximum="100" ValueChanged="MissionProgressOnSeek" />
                 <Label TextColor="Black" >Altitude:</Label>
                 <Label TextColor="Black" x:Name="AltitudeLabel" />
                 <Label TextColor="Black">Heading:</Label>

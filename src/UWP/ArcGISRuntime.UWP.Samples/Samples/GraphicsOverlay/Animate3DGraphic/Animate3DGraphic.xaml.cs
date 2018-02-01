@@ -58,7 +58,8 @@ namespace ArcGISRuntime.UWP.Samples.Animate3DGraphic
             {"Snowdon", "12509ffdc684437f8f2656b0129d2c13"}
         };
 
-        // Array of frames for the current mission
+        // Array of animation frames for the current mission
+        //    A MissionFrame describes the position of the plane for a single moment in the animation
         private MissionFrame[] _missionData;
 
         public Animate3DGraphic()
@@ -78,6 +79,8 @@ namespace ArcGISRuntime.UWP.Samples.Animate3DGraphic
             // Update the mission selection UI
             MissionSelectionBox.ItemsSource = _missionToItemId.Keys;
             MissionSelectionBox.SelectedIndex = 0;
+
+            // Wire up the selection change event to call the ChangeMission method; this method resets the animation and starts a new mission
             MissionSelectionBox.SelectionChanged += async (sender, args) => { await ChangeMission(args.AddedItems[0].ToString()); };
 
             // Apply the elevation source
@@ -153,6 +156,7 @@ namespace ArcGISRuntime.UWP.Samples.Animate3DGraphic
             // Create a timer; this will enable animating the plane
             _animationTimer = new DispatcherTimer()
             {
+                // This is the duration of the timer in milliseconds. This controls the animation speed (fps)
                 Interval = new TimeSpan(0, 0, 0, 0, 60)
             };
 
@@ -415,6 +419,7 @@ namespace ArcGISRuntime.UWP.Samples.Animate3DGraphic
             private MissionFrame(string missionLine)
             {
                 // Split the string into a list of entries (columns)
+                // Example line: -156.3666517,20.6255059,999.999908,83.77659,0.0000105,-47.766567
                 string[] missionFrameParameters = missionLine.Split(',');
 
                 // Throw if the line isn't valid

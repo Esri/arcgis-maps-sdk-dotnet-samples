@@ -18,7 +18,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="150" />
         </Grid.ColumnDefinitions>
-        <esriUI:SceneView x:Name="MySceneView" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="3" />
+        <esriUI:SceneView x:Name="MySceneView" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="3" AtmosphereEffect="Realistic" />
         <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="5">
             <ComboBox VerticalAlignment="Top" x:Name="MissionSelectionBox"  />
             <Button VerticalAlignment="Top" Click="MissionPlayPlauseClick" Margin="5,0,0,0" >Pause</Button>

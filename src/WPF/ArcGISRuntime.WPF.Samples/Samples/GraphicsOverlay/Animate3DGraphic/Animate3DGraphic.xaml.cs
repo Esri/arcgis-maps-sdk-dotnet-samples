@@ -63,7 +63,7 @@ namespace ArcGISRuntime.WPF.Samples.Animate3DGraphic
         };
 
         // Array of animation frames for the current mission
-        //    A MissionFrame contains the position of the plane for a single moment in the animation
+        //    A MissionFrame describes the position of the plane for a single moment in the animation
         private MissionFrame[] _missionData;
 
         public Animate3DGraphic()
@@ -379,7 +379,6 @@ namespace ArcGISRuntime.WPF.Samples.Animate3DGraphic
                     cameraControlButton.Content = "Follow";
                     // Setting the scene view's camera controller to null has the effect of resetting the value to the default
                     MySceneView.CameraController = null;
-                    
                     break;
             }
         }

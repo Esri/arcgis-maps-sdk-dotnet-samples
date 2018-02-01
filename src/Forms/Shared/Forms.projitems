@@ -70,7 +70,6 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerRenderingModeScene\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\SymbolizeShapefile\metadata.json" />
 	  <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geometry\FormatCoordinates\metadata.json" />
-	  <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ProjectWithSpecificTransformation\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\Web_TiledLayer\metadata.json" />
 	  <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\AddGraphicsWithSymbols\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)groups.json" />

@@ -79,6 +79,7 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
         };
 
         // Array of frames for the current mission
+        //    A MissionFrame contains the position of the plane for a single moment in the animation
         private MissionFrame[] _missionData;
 
         // Status flag controls which camera will be used
@@ -174,6 +175,7 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
             _mySceneView.CameraController = _orbitCameraController;
 
             // Create a timer; this will enable animating the plane
+            // The value is the duration of the timer in milliseconds. This controls the speed of the animation (fps)
             _animationTimer = new Timer(60)
             {
                 Enabled = true,
@@ -269,8 +271,10 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
             // This is needed because the event could be running on a non-UI thread
             RunOnUiThread(() =>
             {
-                // Update the progress slider
+                // Update the progress slider; temporarily remove event subscription to prevent feedback loop
+                _missionProgressBar.ProgressChanged -= MissionProgressOnSeek;
                 _missionProgressBar.Progress = (int)(missionProgress * 100);
+                _missionProgressBar.ProgressChanged += MissionProgressOnSeek;
 
                 // Update stats display
                 _altitudeTextView.Text = currentFrame.Elevation.ToString("F");
@@ -377,6 +381,21 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
             builder.Show();
         }
 
+        private void MissionProgressOnSeek(object sender, EventArgs e)
+        {
+            // Stop the animation
+            _animationTimer.Stop();
+
+            // Get the new mission progress
+            double missionProgress = _missionProgressBar.Progress / 100.0;
+
+            // Update the keyframe based on the progress
+            _keyframe = (int)(missionProgress * _frameCount);
+
+            // Restart the animation
+            _animationTimer.Start();
+        }
+
         private void CreateLayout()
         {
             // Load the layout for the sample from the .axml file
@@ -396,6 +415,9 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
             _playButton = FindViewById<Button>(Resource.Id.playPauseButton);
             LinearLayout statsLayout = FindViewById<LinearLayout>(Resource.Id.statsPanelLayout);
 
+            // Update the SceneView to use an alternative atmosphere effect
+            _mySceneView.AtmosphereEffect = AtmosphereEffect.Realistic;
+
             // Hide the attribution text on the inset map
             _insetMapView.IsAttributionTextVisible = false;
 
@@ -407,6 +429,9 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
 
             // Handle the mission button click
             _missionButton.Click += MissionButtonOnClick;
+
+            // Handle progress bar manipulation
+            _missionProgressBar.ProgressChanged += MissionProgressOnSeek;
 
             // Handle the stats button click by hiding or showing the stats panel
             _statsButton.Click += (sender, args) =>
@@ -442,6 +467,7 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
             private MissionFrame(string missionLine)
             {
                 // Split the string into a list of entries (columns)
+                // Example line: -156.3666517,20.6255059,999.999908,83.77659,.00009,-47.766567
                 string[] missionFrameParameters = missionLine.Split(',');
 
                 // Throw if the line isn't valid

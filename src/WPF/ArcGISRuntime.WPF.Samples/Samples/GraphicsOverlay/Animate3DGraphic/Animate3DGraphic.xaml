@@ -17,7 +17,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="150" />
         </Grid.ColumnDefinitions>
-        <esri:SceneView x:Name="MySceneView" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="3" />
+        <esri:SceneView x:Name="MySceneView" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="3" AtmosphereEffect="Realistic"/>
         <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="5">
             <ComboBox VerticalAlignment="Top" x:Name="MissionSelectionBox" Height="25" />
             <Button VerticalAlignment="Top" Click="MissionPlayPlauseClick" Margin="5,0,0,0" Height="25">Pause</Button>
@@ -34,6 +34,7 @@
                         <ColumnDefinition Width="40" />
                     </Grid.ColumnDefinitions>
                     <Slider Grid.Column="0" ValueChanged="MissionPlaySpeedChanged" Minimum="0.5" Maximum="8" Value="1" x:Name="MissionPlaySpeedSlider" />
+                    <!-- Bound label shows text for the value in the slider -->
                     <Label Grid.Column="1" Content="{Binding ElementName=MissionPlaySpeedSlider,Path=Value}" />
                 </Grid>
                 <Separator />

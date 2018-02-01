@@ -21,6 +21,8 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
 using Viewpoint = Esri.ArcGISRuntime.Mapping.Viewpoint;
 
 namespace ArcGISRuntime.WPF.Samples.Animate3DGraphic
@@ -60,7 +62,8 @@ namespace ArcGISRuntime.WPF.Samples.Animate3DGraphic
             {"Snowdon", "12509ffdc684437f8f2656b0129d2c13"}
         };
 
-        // Array of frames for the current mission
+        // Array of animation frames for the current mission
+        //    A MissionFrame contains the position of the plane for a single moment in the animation
         private MissionFrame[] _missionData;
 
         public Animate3DGraphic()
@@ -80,6 +83,8 @@ namespace ArcGISRuntime.WPF.Samples.Animate3DGraphic
             // Update the mission selection UI
             MissionSelectionBox.ItemsSource = _missionToItemId.Keys;
             MissionSelectionBox.SelectedIndex = 0;
+            
+            // Wire up the selection change event to call the ChangeMission method; this method resets the animation and starts a new mission
             MissionSelectionBox.SelectionChanged += async (sender, args) => { await ChangeMission(args.AddedItems[0].ToString()); };
 
             // Apply the elevation source
@@ -108,7 +113,7 @@ namespace ArcGISRuntime.WPF.Samples.Animate3DGraphic
             // Create renderer to symbolize plane and update plane orientation in the inset map
             SimpleRenderer renderer2D = new SimpleRenderer();
             // Create the symbol that will be used for the plane
-            SimpleMarkerSymbol plane2DSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Triangle, System.Windows.Media.Colors.Blue, 10);
+            SimpleMarkerSymbol plane2DSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Triangle, Colors.Blue, 10);
             // Apply the symbol to the renderer
             renderer2D.Symbol = plane2DSymbol;
             // Apply a rotation expression to the renderer
@@ -121,7 +126,7 @@ namespace ArcGISRuntime.WPF.Samples.Animate3DGraphic
             InsetMapView.GraphicsOverlays.Add(insetMapOperlay);
 
             // Create placeholder graphic for showing the mission route in the inset map
-            SimpleLineSymbol routeSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Windows.Media.Colors.Red, 2);
+            SimpleLineSymbol routeSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Red, 2);
             _routeGraphic = new Graphic { Symbol = routeSymbol };
             insetMapOperlay.Graphics.Add(_routeGraphic);
 
@@ -153,6 +158,7 @@ namespace ArcGISRuntime.WPF.Samples.Animate3DGraphic
             MySceneView.CameraController = _orbitCameraController;
 
             // Create a timer; this will enable animating the plane
+            // The value is the duration of the timer in milliseconds. This controls the speed of the animation (fps)
             _animationTimer = new Timer(60)
             {
                 Enabled = true,
@@ -373,6 +379,7 @@ namespace ArcGISRuntime.WPF.Samples.Animate3DGraphic
                     cameraControlButton.Content = "Follow";
                     // Setting the scene view's camera controller to null has the effect of resetting the value to the default
                     MySceneView.CameraController = null;
+                    
                     break;
             }
         }
@@ -417,6 +424,7 @@ namespace ArcGISRuntime.WPF.Samples.Animate3DGraphic
             private MissionFrame(string missionLine)
             {
                 // Split the string into a list of entries (columns)
+                // Example line: -156.3666517,20.6255059,999.999908,83.77659,.00009,-47.766567
                 string[] missionFrameParameters = missionLine.Split(',');
 
                 // Throw if the line isn't valid

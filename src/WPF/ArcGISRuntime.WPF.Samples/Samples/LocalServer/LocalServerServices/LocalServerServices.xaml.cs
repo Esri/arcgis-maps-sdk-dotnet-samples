@@ -48,7 +48,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
             }
             catch (Exception ex)
             {
-                MessageBox.Show(String.Format("Please ensure that Local Server is installed prior to loading this sample. See the readme or metadata.json for more info. Message: {0}", ex.Message), "Local Server failed to start");
+                MessageBox.Show(String.Format("Please ensure that local server is installed prior to using the sample. See instructions in readme.me or metadata.json. Message: {0}", ex.Message), "Local Server failed to start");
             }
         }
 

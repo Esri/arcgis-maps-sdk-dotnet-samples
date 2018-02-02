@@ -102,16 +102,18 @@
     <Content Include="Properties\ArcGISRuntime.Windows.Samples.rd.xml" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Samples\Data\ReadGeoPackage\metadata.json" />
+    <Content Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.jpg" />
     <Content Include="Samples\Symbology\FeatureLayerExtrusion\metadata.json" />
+    <Content Include="Samples\Layers\RasterRgbRenderer\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
-	<Content Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\metadata.json" />
-	<Content Include="Samples\Data\ListRelatedFeatures\metadata.json" />
-	<Content Include="Samples\Analysis\LineOfSightGeoElement\metadata.json" />
-	<Content Include="Samples\Analysis\QueryFeatureCountAndExtent\metadata.json" />
-	<Content Include="Samples\Layers\FeatureLayerRenderingModeScene\metadata.json" />
-	<Content Include="Samples\Data\SymbolizeShapefile\metadata.json" />
+    <Content Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\metadata.json" />
+    <Content Include="Samples\Data\ListRelatedFeatures\metadata.json" />
+    <Content Include="Samples\Analysis\LineOfSightGeoElement\metadata.json" />
+    <Content Include="Samples\Analysis\QueryFeatureCountAndExtent\metadata.json" />
+    <Content Include="Samples\Layers\FeatureLayerRenderingModeScene\metadata.json" />
+    <Content Include="Samples\Data\SymbolizeShapefile\metadata.json" />
     <Content Include="groups.json" />
     <Content Include="Samples\Analysis\LineOfSightLocation\metadata.json" />
     <Content Include="Samples\Analysis\ViewshedCamera\metadata.json" />
@@ -197,12 +199,12 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<Content Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg" />
-	<Content Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
-	<Content Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
-	<Content Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.jpg" />
-	<Content Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
-	<Content Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
+    <Content Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg" />
+    <Content Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
+    <Content Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
+    <Content Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.jpg" />
+    <Content Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
+    <Content Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
     <Content Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
     <Content Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.jpg" />
     <Content Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg" />
@@ -285,24 +287,24 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml.cs">
-		<DependentUpon>ProjectWithSpecificTransformation.xaml</DependentUpon>
-	</Compile>
-	<Compile Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.xaml.cs">
-		<DependentUpon>ListRelatedFeatures.xaml</DependentUpon>
-	</Compile>
-	<Compile Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml.cs">
-		<DependentUpon>LineOfSightGeoElement.xaml</DependentUpon>
+    <Compile Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml.cs">
+      <DependentUpon>ProjectWithSpecificTransformation.xaml</DependentUpon>
     </Compile>
-	<Compile Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.xaml.cs">
-		<DependentUpon>QueryFeatureCountAndExtent.xaml</DependentUpon>
+    <Compile Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.xaml.cs">
+      <DependentUpon>ListRelatedFeatures.xaml</DependentUpon>
     </Compile>
-	<Compile Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.xaml.cs">
-		<DependentUpon>FeatureLayerRenderingModeScene.xaml</DependentUpon>
+    <Compile Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml.cs">
+      <DependentUpon>LineOfSightGeoElement.xaml</DependentUpon>
     </Compile>
-	<Compile Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml.cs">
-		<DependentUpon>SymbolizeShapefile.xaml</DependentUpon>
-	</Compile>
+    <Compile Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.xaml.cs">
+      <DependentUpon>QueryFeatureCountAndExtent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.xaml.cs">
+      <DependentUpon>FeatureLayerRenderingModeScene.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml.cs">
+      <DependentUpon>SymbolizeShapefile.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.xaml.cs">
       <DependentUpon>LineOfSightLocation.xaml</DependentUpon>
     </Compile>
@@ -419,6 +421,9 @@
     </Compile>
     <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.xaml.cs">
       <DependentUpon>FeatureLayerUrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.xaml.cs">
+      <DependentUpon>RasterRgbRenderer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\RasterLayerFile\RasterLayerFile.xaml.cs">
       <DependentUpon>RasterLayerFile.xaml</DependentUpon>
@@ -549,30 +554,30 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-	<Page Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml">
-		<Generator>MSBuild:Compile</Generator>
-    <SubType>Designer</SubType>
-  </Page>
-	<Page Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.xaml">
-		<Generator>MSBuild:Compile</Generator>
-    <SubType>Designer</SubType>
-  </Page>
-	<Page Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml">
-    <Generator>MSBuild:Compile</Generator>
-    <SubType>Designer</SubType>
-  </Page>
-	<Page Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.xaml">
-    <Generator>MSBuild:Compile</Generator>
-		<SubType>Designer</SubType>
-	</Page>
-	<Page Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.xaml">
-    <Generator>MSBuild:Compile</Generator>
-		<SubType>Designer</SubType>
-	</Page>
-	<Page Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml">
-		<Generator>MSBuild:Compile</Generator>
-		<SubType>Designer</SubType>
-	</Page>
+    <Page Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -582,6 +587,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

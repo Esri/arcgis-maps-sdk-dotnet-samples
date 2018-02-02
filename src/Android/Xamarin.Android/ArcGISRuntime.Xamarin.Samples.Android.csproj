@@ -168,8 +168,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
-	<EmbeddedResource Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\metadata.json" />
-	<EmbeddedResource Include="Samples\Data\ListRelatedFeatures\metadata.json" />
+    <EmbeddedResource Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\metadata.json" />
+    <EmbeddedResource Include="Samples\Data\ListRelatedFeatures\metadata.json" />
     <EmbeddedResource Include="Samples\Analysis\LineOfSightGeoElement\metadata.json" />
     <EmbeddedResource Include="Samples\Analysis\QueryFeatureCountAndExtent\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\FeatureLayerRenderingModeScene\metadata.json" />
@@ -257,8 +257,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<None Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg" />
-	<None Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
+    <None Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg" />
+    <None Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
     <None Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
     <None Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.jpg" />
     <None Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
@@ -301,6 +301,7 @@
     <None Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.jpg" />
     <None Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.jpg" />
     <None Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.jpg" />
+    <EmbeddedResource Include="Samples\Layers\RasterRgbRenderer\metadata.json" />
     <None Include="Samples\Layers\RasterLayerFile\RasterLayerFile.jpg" />
     <None Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.jpg" />
     <None Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg" />
@@ -346,8 +347,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.cs" />
-	<Compile Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.cs" />
+    <Compile Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.cs" />
+    <Compile Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.cs" />
     <Compile Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.cs" />
     <Compile Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.cs" />
     <Compile Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.cs" />
@@ -390,6 +391,7 @@
     <Compile Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.cs" />
     <Compile Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.cs" />
     <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.cs" />
+    <Compile Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.cs" />
     <Compile Include="Samples\Layers\RasterLayerFile\RasterLayerFile.cs" />
     <Compile Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.cs" />
     <Compile Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.cs" />
@@ -435,6 +437,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

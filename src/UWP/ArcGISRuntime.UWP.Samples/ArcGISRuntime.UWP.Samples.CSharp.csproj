@@ -113,13 +113,14 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
-    <Content Include="Samples\Geometry\FormatCoordinates\metadata.json" />
+    <Content Include="Samples\GraphicsOverlay\Animate3DGraphic\metadata.json" />
     <Content Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\metadata.json" />
     <Content Include="Samples\Data\ListRelatedFeatures\metadata.json" />
     <Content Include="Samples\Analysis\LineOfSightGeoElement\metadata.json" />
     <Content Include="Samples\Analysis\QueryFeatureCountAndExtent\metadata.json" />
     <Content Include="Samples\Layers\FeatureLayerRenderingModeScene\metadata.json" />
     <Content Include="Samples\Data\SymbolizeShapefile\metadata.json" />
+    <Content Include="Samples\Geometry\FormatCoordinates\metadata.json" />
     <Content Include="Samples\Layers\Web_TiledLayer\metadata.json" />
     <Content Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\metadata.json" />
     <Content Include="groups.json" />
@@ -207,13 +208,14 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-    <Content Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.jpg" />
+    <Content Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.jpg" />
     <Content Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg" />
     <Content Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
     <Content Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
     <Content Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.jpg" />
     <Content Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
     <Content Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
+    <Content Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.jpg" />
     <Content Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.jpg" />
     <Content Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.jpg" />
     <Content Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
@@ -298,8 +300,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-    <Compile Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.xaml.cs">
-      <DependentUpon>FormatCoordinates.xaml</DependentUpon>
+    <Compile Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.xaml.cs">
+      <DependentUpon>Animate3DGraphic.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml.cs">
       <DependentUpon>ProjectWithSpecificTransformation.xaml</DependentUpon>
@@ -321,6 +323,9 @@
     </Compile>
     <Compile Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml.cs">
       <DependentUpon>SymbolizeShapefile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.xaml.cs">
+      <DependentUpon>FormatCoordinates.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.xaml.cs">
       <DependentUpon>Web_TiledLayer.xaml</DependentUpon>
@@ -577,7 +582,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-    <Page Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.xaml">
+    <Page Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -606,6 +611,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

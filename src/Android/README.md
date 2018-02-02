@@ -112,6 +112,10 @@
 
     This sample demonstrates how to export tiles from a map server.
 
+    * [Web TiledLayer](Xamarin.Android/Samples/Layers/Web_TiledLayer)
+
+    This sample demonstrates how to load a web tiled layer from a non-ArcGIS service, including how to include proper attribution.
+
 
 - **Map Image Layers**
 
@@ -161,6 +165,10 @@
     * [Raster layer (GeoPackage)](Xamarin.Android/Samples/Data/RasterLayerGeoPackage)
 
     This sample demonstrates how to open a GeoPackage and show a GeoPackage raster in a raster layer.
+
+    * [Stretch renderer](Xamarin.Android/Samples/Layers/ChangeStretchRenderer)
+
+    This sample demonstrates how to use stretch renderer on a raster layer.
 
 ## Features
 
@@ -287,6 +295,10 @@
 
     This sample demonstrates how to interactively sketch and edit graphics in the map view and display them in a graphics overlay. You can sketch a variety of geometry types and undo or redo operations.
 
+    * [Animate 3D Graphic](Xamarin.Android/Samples/GraphicsOverlay/Animate3DGraphic)
+
+    This sample demonstrates how to animate a graphic's position and follow it using a camera controller.
+
 
 - **Symbology**
 
@@ -410,7 +422,6 @@
 
     This sample demonstrates how to use the GeometryEngine with a specified geographic transformation to transform a geometry from one coordinate system to another. 
 
-<<<<<<< HEAD
 ## Geometry
 
 
@@ -420,8 +431,6 @@
 
     This sample demonstrates how to convert between `MapPoint` and string representations of a point using various coordinate systems.
 
-=======
->>>>>>> master
 ## Search
 
 

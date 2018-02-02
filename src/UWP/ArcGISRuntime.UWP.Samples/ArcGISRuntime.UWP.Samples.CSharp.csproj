@@ -102,6 +102,11 @@
     <Content Include="Properties\ArcGISRuntime.Windows.Samples.rd.xml" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Samples\Data\ReadGeoPackage\metadata.json" />
+    <Content Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.jpg" />
+    <Content Include="Samples\Layers\ChangeBlendRenderer\metadata.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- JSON Metadata -->
     <Content Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.jpg" />
     <Content Include="Samples\Symbology\FeatureLayerExtrusion\metadata.json" />
     <Content Include="Samples\Layers\ChangeStretchRenderer\metadata.json" />
@@ -306,13 +311,16 @@
     </Compile>
     <Compile Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml.cs">
       <DependentUpon>LineOfSightGeoElement.xaml</DependentUpon>
-      </Compile>
+    </Compile>
     <Compile Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.xaml.cs">
       <DependentUpon>QueryFeatureCountAndExtent.xaml</DependentUpon>
-      </Compile>
+    </Compile>
+    <Compile Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.xaml.cs">
+      <DependentUpon>ChangeBlendRenderer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.xaml.cs">
       <DependentUpon>FeatureLayerRenderingModeScene.xaml</DependentUpon>
-      </Compile>
+    </Compile>
     <Compile Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml.cs">
       <DependentUpon>SymbolizeShapefile.xaml</DependentUpon>
     </Compile>
@@ -591,6 +599,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

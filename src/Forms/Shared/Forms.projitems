@@ -15,6 +15,10 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ReadGeoPackage\ReadGeoPackage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeBlendRenderer\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeStretchRenderer\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -52,6 +56,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\ReadGeoPackage\ReadGeoPackage.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>ReadGeoPackage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>ChangeBlendRenderer.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.xaml.cs">
       <SubType>Code</SubType>
@@ -164,17 +172,13 @@
   <ItemGroup>
     <!-- Screenshots -->
     <None Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Geometry\FormatCoordinates\FormatCoordinates.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
 	  <None Include="$(MSBuildThisFileDirectory)Samples\Geometry\FormatCoordinates\FormatCoordinates.jpg" />

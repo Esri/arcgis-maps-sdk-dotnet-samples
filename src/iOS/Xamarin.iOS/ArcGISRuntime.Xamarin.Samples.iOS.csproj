@@ -242,6 +242,7 @@
     <Compile Include="Models\SampleStructureMap.cs" />
     <Compile Include="Models\SubCategoryModel.cs" />
     <Compile Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.cs" />
+    <Compile Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.cs" />
     <Compile Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.cs" />
     <Compile Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.cs" />
     <Compile Include="ViewControllers\SamplesViewController.cs" />
@@ -344,6 +345,9 @@
     <EmbeddedResource Include="Samples\Symbology\SimpleRenderers\metadata.json" />
     <EmbeddedResource Include="Samples\Symbology\UseDistanceCompositeSym\metadata.json" />
     <EmbeddedResource Include="Samples\Tutorial\AuthorEditSaveMap\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\ChangeBlendRenderer\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\ChangeStretchRenderer\metadata.json" />
+    <EmbeddedResource Include="Samples\Symbology\FeatureLayerExtrusion\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
@@ -351,7 +355,6 @@
     <None Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
     <None Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
     <None Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.jpg" />
-    <EmbeddedResource Include="Samples\Layers\ChangeStretchRenderer\metadata.json" />
     <None Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.jpg" />
     <None Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg" />
     <None Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
@@ -433,13 +436,16 @@
     <None Include="Samples\NetworkAnalysis\FindRoute\FindRoute.jpg" />
     <None Include="Samples\Search\FindAddress\FindAddress.jpg" />
     <None Include="Samples\Search\FindPlace\FindPlace.jpg" />
-    <EmbeddedResource Include="Samples\Symbology\FeatureLayerExtrusion\metadata.json" />
     <None Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.jpg" />
     <None Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.jpg" />
     <None Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.jpg" />
     <None Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.jpg" />
     <None Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg" />
     <None Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg" />
+    <None Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.jpg" />
+    <None Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.jpg" />
+    <None Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.jpg" />
+    <None Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.jpg" />
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
@@ -533,13 +539,6 @@
     <Compile Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.cs" />
     <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.cs" />
     <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.jpg" />
-    <None Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

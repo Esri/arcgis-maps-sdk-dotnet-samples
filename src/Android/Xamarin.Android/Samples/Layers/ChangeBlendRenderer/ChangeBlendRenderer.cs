@@ -122,6 +122,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBlendRenderer
             _Button_UpdateRenderer.Text = "UpdateRenderer";
             _Button_UpdateRenderer.Click += OnUpdateRendererClicked;
             layout.AddView(_Button_UpdateRenderer);
+            _Button_UpdateRenderer.Enabled = false;
 
             // Create a map view and add it to the layout
             _myMapView = new MapView(this);
@@ -194,6 +195,8 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBlendRenderer
                 // Wait for the map to load
                 await myMap.LoadAsync();
 
+                // Enable the 'Update Renderer' button now that the map has loaded
+                _Button_UpdateRenderer.Enabled = true;
             }
             catch (Exception ex)
             {

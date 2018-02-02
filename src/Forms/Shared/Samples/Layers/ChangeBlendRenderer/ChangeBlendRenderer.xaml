@@ -29,7 +29,7 @@
             <Label x:Name="Label_ColorRamps"  Text="Color Ramp" Margin="10, 5" WidthRequest="80"/>
             <ListView x:Name="ColorRamps" Margin="10,5" />
         </StackLayout>
-        <Button Grid.Row="4" x:Name="UpdateRenderer" Clicked="OnUpdateRendererClicked" Text="Update Renderer" Margin="10,10" />
+        <Button Grid.Row="4" x:Name="UpdateRenderer" Clicked="OnUpdateRendererClicked" Text="Update Renderer" IsEnabled="True" Margin="10,10" />
         <esriUI:MapView Grid.Row="5" x:Name="MyMapView" />
     </Grid>
 </ContentPage>

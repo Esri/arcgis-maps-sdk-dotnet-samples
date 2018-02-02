@@ -24,9 +24,6 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBlendRenderer
     [Register("ChangeBlendRenderer")]
     public class ChangeBlendRenderer : UIViewController
     {
-        // Global constant holding offset where the MapView control should start
-        private const int _yPageOffset = 60;
-
         // Global reference to a label for Altitude
         private UILabel _Label_Altitude;
 
@@ -75,35 +72,38 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBlendRenderer
 
         public override void ViewDidLayoutSubviews()
         {
+            // Top margin location were the UI controls should be placed
+            var topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+
             // Setup the visual frame for the label for Altitude
-            _Label_Altitude.Frame = new CoreGraphics.CGRect(0, _yPageOffset + 40, View.Bounds.Width, 40);
+            _Label_Altitude.Frame = new CoreGraphics.CGRect(0, topMargin + 40, View.Bounds.Width, 40);
 
             // Setup the visual frame for the slider where the user can modify the Altitude
-            _Altitude_Slider.Frame = new CoreGraphics.CGRect(100, _yPageOffset + 40, View.Bounds.Width, 40);
+            _Altitude_Slider.Frame = new CoreGraphics.CGRect(100, topMargin + 40, View.Bounds.Width, 40);
 
             // Setup the visual frame for the label for Azimuth
-            _Label_Azimuth.Frame = new CoreGraphics.CGRect(0, _yPageOffset + 80, View.Bounds.Width, 40);
+            _Label_Azimuth.Frame = new CoreGraphics.CGRect(0, topMargin + 80, View.Bounds.Width, 40);
 
             // Setup the visual frame for the slider where the user can modify the Azimuth
-            _Azimuth_Slider.Frame = new CoreGraphics.CGRect(100, _yPageOffset + 80, View.Bounds.Width, 40);
+            _Azimuth_Slider.Frame = new CoreGraphics.CGRect(100, topMargin + 80, View.Bounds.Width, 40);
 
             // Setup the visual frame for the label for SlopeTypes
-            _Label_SlopeTypes.Frame = new CoreGraphics.CGRect(0, _yPageOffset + 120, View.Bounds.Width, 40);
+            _Label_SlopeTypes.Frame = new CoreGraphics.CGRect(0, topMargin + 120, View.Bounds.Width, 40);
 
             // Setup the visual frame for the table of SlopeType choices the user can choose from
-            _SlopeTypes.Frame = new CoreGraphics.CGRect(100, _yPageOffset + 120, View.Bounds.Width, 40);
+            _SlopeTypes.Frame = new CoreGraphics.CGRect(100, topMargin + 120, View.Bounds.Width, 40);
 
             // Setup the visual frame for the label for ColorRamps
-            _Label_ColorRamps.Frame = new CoreGraphics.CGRect(0, _yPageOffset + 160, View.Bounds.Width, 40);
+            _Label_ColorRamps.Frame = new CoreGraphics.CGRect(0, topMargin + 160, View.Bounds.Width, 40);
 
             // Setup the visual frame for the table of ColorRamp choices the user can choose from
-            _ColorRamps.Frame = new CoreGraphics.CGRect(100, _yPageOffset + 160, View.Bounds.Width, 40);
+            _ColorRamps.Frame = new CoreGraphics.CGRect(100, topMargin + 160, View.Bounds.Width, 40);
 
             // Setup the visual frame for button the users clicks to change the blend renderer on the raster
-            _UpdateRenderer.Frame = new CoreGraphics.CGRect(0, _yPageOffset + 200, View.Bounds.Width, 40);
+            _UpdateRenderer.Frame = new CoreGraphics.CGRect(0, topMargin + 200, View.Bounds.Width, 40);
 
             // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, _yPageOffset + 240, View.Bounds.Width, View.Bounds.Height - 300);
+            _myMapView.Frame = new CoreGraphics.CGRect(0, topMargin + 240, View.Bounds.Width, View.Bounds.Height - 300);
         }
 
         private async void Initialize()
@@ -145,6 +145,9 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBlendRenderer
 
             // Wait for the map to load
             await myMap.LoadAsync();
+
+            // Enable the 'Update Renderer' button now that the map has loaded
+            _UpdateRenderer.Enabled = true;
         }
 
         private void CreateLayout()
@@ -202,6 +205,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBlendRenderer
             _UpdateRenderer.BackgroundColor = UIColor.White;
             // Hook to touch/click event of the button
             _UpdateRenderer.TouchUpInside += OnUpdateRendererClicked;
+            _UpdateRenderer.Enabled = false;
 
             // Add all of the UI controls to the page
             View.AddSubviews(_Label_Altitude, _Altitude_Slider, _Label_Azimuth, _Azimuth_Slider, _Label_SlopeTypes, _SlopeTypes, _Label_ColorRamps, _ColorRamps, _UpdateRenderer, _myMapView);

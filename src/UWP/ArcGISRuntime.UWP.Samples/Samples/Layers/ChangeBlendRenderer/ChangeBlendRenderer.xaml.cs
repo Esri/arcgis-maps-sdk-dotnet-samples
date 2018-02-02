@@ -81,6 +81,9 @@ namespace ArcGISRuntime.UWP.Samples.ChangeBlendRenderer
 
             // Wait for the map to load
             await myMap.LoadAsync();
+
+            // Enable the 'Update Renderer' button now that the map has loaded
+            UpdateRenderer.IsEnabled = true;
         }
 
         private async void OnUpdateRendererClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)

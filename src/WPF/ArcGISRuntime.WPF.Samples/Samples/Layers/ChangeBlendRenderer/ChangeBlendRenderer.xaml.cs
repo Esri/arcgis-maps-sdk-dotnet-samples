@@ -31,7 +31,6 @@ namespace ArcGISRuntime.WPF.Samples.ChangeBlendRenderer
 
         private async void Initialize()
         {
-
             // Get all the ColorRamp names from the PresetColorRampType Enumeration and put them 
             // in an array of strings, then set the ComboBox.ItemSource to the array, and finally 
             // select the first item in the ComboBox
@@ -83,6 +82,9 @@ namespace ArcGISRuntime.WPF.Samples.ChangeBlendRenderer
 
             // Wait for the map to load
             await myMap.LoadAsync();
+
+            // Enable the 'Update Renderer' button now that the map has loaded
+            UpdateRenderer.IsEnabled = true;
         }
 
         private async void OnUpdateRendererClicked(object sender, RoutedEventArgs e)

@@ -192,6 +192,10 @@
               "Path": "Samples/Data/RasterLayerGeoPackage"
             },
             {
+              "SampleName": "ChangeBlendRenderer",
+              "Path": "Samples/Layers/ChangeBlendRenderer"
+            },
+            {
               "SampleName": "ChangeStretchRenderer",
               "Path": "Samples/Layers/ChangeStretchRenderer"
             }

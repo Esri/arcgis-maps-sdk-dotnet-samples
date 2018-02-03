@@ -127,6 +127,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Readme.md" />
     <Resource Include="Assets\ApplicationIcons\windows-desktop-128.png" />
     <Resource Include="Assets\ApplicationIcons\windows-desktop-16.png" />
     <Resource Include="Assets\ApplicationIcons\windows-desktop-256.ico" />

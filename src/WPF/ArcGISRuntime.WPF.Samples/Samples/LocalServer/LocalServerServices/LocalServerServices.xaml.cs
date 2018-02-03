@@ -38,8 +38,18 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
 
         private void Initialize()
         {
-            // Subscribe to event notification for the local server instance
-            LocalServer.Instance.StatusChanged += (o, e) => { UpdateUiWithServiceUpdate("Local Server", e.Status); };
+            try
+            {
+                // Subscribe to event notification for the local server instance
+                LocalServer.Instance.StatusChanged += (o, e) =>
+                {
+                    UpdateUiWithServiceUpdate("Local Server", e.Status);
+                };
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(String.Format("Please ensure that local server is installed prior to using the sample. See instructions in readme.md or metadata.json. Message: {0}", ex.Message), "Local Server failed to start");
+            }
         }
 
         private void UpdateUiWithServiceUpdate(string server, LocalServerStatus status)

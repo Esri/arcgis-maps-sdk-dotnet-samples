@@ -139,7 +139,7 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRgbRenderer
                 DropDownWidth = 120
             };
             _maxRedSpinner.SetSelection(255);
-
+            
             // Set the background color to indicate which values the inputs are for.
             _minRedSpinner.SetBackgroundColor(Android.Graphics.Color.DarkRed);
             _maxRedSpinner.SetBackgroundColor(Android.Graphics.Color.DarkRed);

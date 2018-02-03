@@ -11,7 +11,9 @@
         </Grid.RowDefinitions>
         <esriUI:MapView x:Name="MyMapView"
                         Grid.Row="0"/>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1"
+              WidthRequest="400"
+              HorizontalOptions="Center" VerticalOptions="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="Auto"/>
@@ -23,7 +25,7 @@
             </Grid.ColumnDefinitions>
             <StackLayout Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                          Orientation="Horizontal">
-                <Label Text="Stretch type: " 
+                <Label Text="Stretch: " 
                        HorizontalOptions="End" VerticalOptions="Center"
                        MinimumWidthRequest="80"
                        Margin="10,0,3,0"/>
@@ -120,7 +122,7 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="120"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="100"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="1" Grid.Column="0"

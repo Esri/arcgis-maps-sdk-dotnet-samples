@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using UIKit;
 
@@ -22,37 +23,18 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRgbRenderer
     [Register("RasterRgbRenderer")]
     public class RasterRgbRenderer : UIViewController
     {
-        // Reference to the MapView used in the sample
-        private MapView _myMapView;
+        // Reference to the MapView used in the sample.
+        private MapView _myMapView = new MapView();
+
+        // UI controls for choosing a stretch type.
+        private UISegmentedControl _segmentButton = new UISegmentedControl();
+        private UIToolbar _toolbar = new UIToolbar();
+
+        // Overlay with entry controls for applying a new raster renderer.
+        private UpdateRendererDialogOverlay _updateRendererUI;
 
         // Reference to the raster layer to render.
         private RasterLayer _rasterLayer;
-
-        // Layout panels to contain the UI for entering different renderer parameters.
-        private UIStackView _minMaxLayout;
-        private UIStackView _percentClipLayout;
-        private UIStackView _stdDeviationLayout;
-
-        // The type of stretch parameters input to use for the renderer.
-        private string _parameterInputType;
-
-        // Input values for minimum and maximum RGB parameters.
-        private double _minRedValue;
-        private double _minGreenValue;
-        private double _minBlueValue;
-        private double _maxRedValue;
-        private double _maxGreenValue;
-        private double _maxBlueValue;
-
-        // Input values for minimum and maximum percent clip parameters.
-        private double _minPercentClipSlider;
-        private double _maxPercentClipSlider;
-
-        // Input value for the standard deviation factor parameter.
-        private double _stdDeviationFactorSpinner;
-
-        private nfloat _mapViewHeight;
-        private nfloat _toolsHeight;
 
         public RasterRgbRenderer()
         {
@@ -63,9 +45,6 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRgbRenderer
         {
             base.ViewDidLoad();
 
-            _mapViewHeight = (nfloat)(View.Bounds.Height * (2.0 / 3.0));
-            _toolsHeight = (nfloat)(View.Bounds.Height * (1.0 / 3.0));
-
             // Create the UI for inputting renderer parameters.
             CreateLayout();
 
@@ -75,18 +54,20 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRgbRenderer
 
         public override void ViewDidLayoutSubviews()
         {
+            // Setup the visual frame for the MapView.
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+
+            if (_updateRendererUI != null)
+            {
+                _updateRendererUI.Bounds = new CoreGraphics.CGRect(0, 60, View.Bounds.Width, View.Bounds.Height);
+                _updateRendererUI.Frame = new CoreGraphics.CGRect(0, 60, View.Bounds.Width, View.Bounds.Height);
+                _updateRendererUI.Center = View.Center;
+            }
+
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 50, View.Bounds.Width, 50);
+            _segmentButton.Frame = new CoreGraphics.CGRect(10, _toolbar.Frame.Top + 10, View.Bounds.Width - 20, _toolbar.Frame.Height - 20);
+
             base.ViewDidLayoutSubviews();
-
-            _mapViewHeight = (nfloat)(View.Bounds.Height * (2.0 / 3.0));
-            _toolsHeight = (nfloat)(View.Bounds.Height * (1.0 / 3.0));
-
-            // Set up the visual frame for the MapView.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, _mapViewHeight);
-
-            // Place the edit tools (bottom 1/3 of the view)
-            _minMaxLayout.Frame = new CoreGraphics.CGRect(0, _mapViewHeight, View.Bounds.Width, _toolsHeight);
-            _percentClipLayout.Frame = new CoreGraphics.CGRect(0, _mapViewHeight, View.Bounds.Width, _toolsHeight);
-            _stdDeviationLayout.Frame = new CoreGraphics.CGRect(0, _mapViewHeight, View.Bounds.Width, _toolsHeight);
         }
 
         private async void Initialize()
@@ -119,65 +100,69 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRgbRenderer
 
         private void CreateLayout()
         {
-            // Create the view for the min/max RGB inputs.
-            _minMaxLayout = new UIStackView(new CoreGraphics.CGRect(0, 60, View.Bounds.Width, 300));
-            _minMaxLayout.BackgroundColor = UIColor.Red;
+            // Configure segmented button control.
+            _segmentButton.BackgroundColor = UIColor.White;
+            _segmentButton.InsertSegment("Min Max RGB", 0, false);
+            _segmentButton.InsertSegment("% Clip", 1, false);
+            _segmentButton.InsertSegment("Std Dev", 2, false);
 
-            _percentClipLayout = new UIStackView(new CoreGraphics.CGRect(0, 60, View.Bounds.Width, 300));
-            _percentClipLayout.BackgroundColor = UIColor.Blue;
-            _percentClipLayout.Hidden = true;
+            // Handle the "click" for each segment (new segment is selected).
+            _segmentButton.ValueChanged += SegmentButtonClicked;
 
-            _stdDeviationLayout = new UIStackView(new CoreGraphics.CGRect(0, 60, View.Bounds.Width, 300));
-            _stdDeviationLayout.BackgroundColor = UIColor.Blue;
-            _stdDeviationLayout.Hidden = true;
-
-            // Create the map view.
-            _myMapView = new MapView();
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 360, View.Bounds.Width, View.Bounds.Height - 360);
-            
-            // Add the control views and map view to the main view.
-            View.AddSubviews(_minMaxLayout, _percentClipLayout, _stdDeviationLayout, _myMapView);
+            // Add the MapView and segmented button to the page.
+            View.AddSubviews(_myMapView, _toolbar, _segmentButton);
         }
 
-        private void ShowStretchTypes(object sender, EventArgs e)
+        private void UpdateRenderer(object sender, StretchParametersEventArgs e)
         {
-            // Create a new Alert Controller.
-            UIAlertController actionAlert = UIAlertController.Create("Stretch Type", string.Empty, UIAlertControllerStyle.Alert);
+            // Create an array to specify the raster bands (red, green, blue).
+            int[] bands = { 0, 1, 2 };
 
-            // Add stretch types as Actions.
-            actionAlert.AddAction(UIAlertAction.Create("Min Max", UIAlertActionStyle.Default,
-                (action) =>
-                {
-                    // Hide all other UIViews.
-                    _percentClipLayout.Hidden = true;
-                    _stdDeviationLayout.Hidden = true;
+            // Create the RgbRenderer with the stretch parameters passed in, then apply it to the raster layer.
+            RgbRenderer rasterRenderer = new RgbRenderer(e.StretchParams, bands, null, true);
+            _rasterLayer.Renderer = rasterRenderer;
 
-                    // Show the UIView with the parameter input UI for minimum / maximum RGB values.
-                    _minMaxLayout.Hidden = false;
-                }));
-            actionAlert.AddAction(UIAlertAction.Create("Percent Clip", UIAlertActionStyle.Default,
-                (action) =>
-                {
-                    // Hide all other UIViews.
-                    _minMaxLayout.Hidden = true;
-                    _stdDeviationLayout.Hidden = true;
+            // Remove the parameter input UI.
+            _updateRendererUI.Hide();
+            _updateRendererUI = null;
+        }
 
-                    // Show the UIView with the parameter input UI for min/max percent clip values.
-                    _percentClipLayout.Hidden = false;
-                }));
-            actionAlert.AddAction(UIAlertAction.Create("Standard Deviation", UIAlertActionStyle.Default,
-                (action) =>
-                {
-                    // Hide all other UIViews.
-                    _percentClipLayout.Hidden = true;
-                    _stdDeviationLayout.Hidden = true;
+        private void SegmentButtonClicked(object sender, EventArgs e)
+        {
+            // Get the segmented button control that raised the event.
+            var buttonControl = sender as UISegmentedControl;
 
-                    // Show the UIView with the parameter input UI for standard deviation factors.
-                    _minMaxLayout.Hidden = false;
-                }));
+            // Get the type of stretch inputs to show (title of the selected button).
+            string stretchType = buttonControl.TitleAt(buttonControl.SelectedSegment);
 
-            // Display the alert
-            PresentViewController(actionAlert, true, null);
+            // Show the UI and pass the type of parameter inputs to show.
+            ShowRendererParamsUI(stretchType);
+
+            // Unselect all segments (user might want to click the same control twice)
+            buttonControl.SelectedSegment = -1;
+        }
+
+        private void ShowRendererParamsUI(string stretchType)
+        {
+            if (_updateRendererUI != null) { return; }
+
+            // Create a view to show map item info entry controls over the map view
+            var ovBounds = new CoreGraphics.CGRect(0, 60, View.Bounds.Width, View.Bounds.Height);
+            _updateRendererUI = new UpdateRendererDialogOverlay(ovBounds, 0.75f, UIColor.White, stretchType);
+
+            // Handle the OnSearchMapsTextEntered event to get the info entered by the user
+            _updateRendererUI.OnStretchInputsEntered += UpdateRenderer;
+
+            // Handle the cancel event when the user closes the dialog without choosing to search
+            _updateRendererUI.OnCanceled += (s, e) =>
+            {
+                // Remove the search input UI
+                _updateRendererUI.Hide();
+                _updateRendererUI = null;
+            };
+
+            // Add the search UI view (will display semi-transparent over the map view)
+            View.Add(_updateRendererUI);
         }
 
         private async Task<string> GetRasterPath()
@@ -202,4 +187,335 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRgbRenderer
             #endregion offlinedata
         }
     }
+
+    #region UI for entering raster renderer properties.
+    // View containing renderer parameter input controls (for three stretch types).
+    public class UpdateRendererDialogOverlay : UIView
+    {
+        // Event to provide the user inputs when the view is dismissed.
+        public event EventHandler<StretchParametersEventArgs> OnStretchInputsEntered;
+
+        // Event to report that the input was canceled.
+        public event EventHandler OnCanceled;
+
+        // Field to store the type of stretch inputs.
+        private string _stretchParamsType;
+
+        // Fields for controls that will be referenced later.
+        private UIPickerView _minRgbPicker;
+        private UIPickerView _maxRgbPicker;
+
+        public UpdateRendererDialogOverlay(CoreGraphics.CGRect frame, nfloat transparency, UIColor color, string stretchType) : base(frame)
+        {
+            // Store the type of stretch parameters to define.
+            _stretchParamsType = stretchType;
+
+            // Create a semi-transparent overlay with the specified background color.
+            BackgroundColor = color;
+            Alpha = transparency;
+
+            // Label to describe the type of input.
+            var descriptionLabel = new UILabel
+            {
+                Text = "Stretch parameters (" + _stretchParamsType + ")",
+                TextAlignment = UITextAlignment.Center,
+                TextColor = UIColor.Blue
+            };
+
+            // Button to create the stretch parameters and pass it back to the main page.
+            UIButton inputStretchParamsButton = new UIButton();
+            inputStretchParamsButton.SetTitle("Apply", UIControlState.Normal);
+            inputStretchParamsButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            inputStretchParamsButton.TouchUpInside += InputStretchParamsButton_Click;
+
+            // Button to cancel the search
+            UIButton cancelButton = new UIButton();
+            cancelButton.SetTitle("Cancel", UIControlState.Normal);
+            cancelButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            cancelButton.TouchUpInside += (s, e) => { OnCanceled.Invoke(this, null); };
+
+            // Create inputs that are specific for the stretch type.
+            switch (_stretchParamsType)
+            {
+                case "Min Max RGB":
+                    CreateRgbInputUI(inputStretchParamsButton, cancelButton, descriptionLabel);
+                    break;
+                case "% Clip":
+                    break;
+                case "Std Dev":
+                    break;
+            }
+
+
+        }
+
+        private void CreateRgbInputUI(UIButton applyButton, UIButton cancelButton, UILabel description)
+        {
+            // Set size and spacing for controls.
+            nfloat controlHeight = 25;
+            nfloat rowSpace = 11;
+            nfloat columnSpace = 15;
+            nfloat buttonWidth = 60;
+
+            // Store the total height and width.
+            nfloat totalHeight = Frame.Height - 120;
+            nfloat totalWidth = Frame.Width - 60;
+
+            // Find the center x and y of the view.
+            nfloat centerX = Frame.Width / 2;
+            nfloat centerY = Frame.Height / 2;
+
+            // Find the start x and y for the control layout.
+            nfloat leftMargin = centerX - (totalWidth / 2);
+            nfloat controlX = leftMargin;
+            nfloat controlY = 200;
+
+            // Position the input description label.
+            description.Frame = new CoreGraphics.CGRect(controlX, controlY, totalWidth, controlHeight);
+
+            // Adjust the Y position for the next control.
+            controlY = controlY + controlHeight + rowSpace;
+
+            // Create a label for the minimum RGB input.
+            UILabel minRgbLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, totalWidth, controlHeight))
+            {
+                Text = "Minimum (Red | Green | Blue)",
+                TextAlignment = UITextAlignment.Center,
+                TextColor = UIColor.Blue
+            };
+
+            // Adjust the Y position for the next control.
+            controlY = controlY + 15;
+
+            // Create a picker for minimum RGB values (all are 0 by default).
+            _minRgbPicker = new UIPickerView(new CoreGraphics.CGRect(controlX, controlY, 200, 100))
+            {
+                Model = new RgbValuePickerModel(0,0,0)
+            };
+            
+            // Adjust the Y position for the next control.
+            controlY = controlY + 100 + rowSpace;
+
+            // Create a label for the maximum RGB input.
+            UILabel maxRgbLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, totalWidth, controlHeight))
+            {
+                Text = "Maximum (Red | Green | Blue)",
+                TextAlignment = UITextAlignment.Center,
+                TextColor = UIColor.Blue
+            };
+
+            // Adjust the Y position for the next control.
+            controlY = controlY + 15;
+
+            // Create a picker for the maximum RGB values.
+            _maxRgbPicker = new UIPickerView(new CoreGraphics.CGRect(controlX, controlY, 200, 100))
+            {
+                Model = new RgbValuePickerModel(255,255,255)
+            };
+
+            // Adjust the Y position for the next control.
+            controlY = controlY + 100 + rowSpace;
+
+            // Set the frame for the apply button.
+            applyButton.Frame = new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight);
+
+            // Adjust the X position for the next control.
+            controlX = controlX + buttonWidth + columnSpace;
+
+            // Set the frame for the cancel button.
+            cancelButton.Frame = new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight);
+
+            // Add the input controls.
+            AddSubviews(description, 
+                minRgbLabel, _minRgbPicker, 
+                maxRgbLabel, _maxRgbPicker, 
+                applyButton, cancelButton);
+
+            // Select 255 as the default for red, green, and blue.
+            _maxRgbPicker.Select(255, 0, false);
+            _maxRgbPicker.Select(255, 1, false);
+            _maxRgbPicker.Select(255, 2, false);
+        }
+
+        // Animate increasing transparency to completely hide the view, then remove it
+        public void Hide()
+        {
+            // Action to make the view transparent
+            Action makeTransparentAction = () => Alpha = 0;
+
+            // Action to remove the view
+            Action removeViewAction = () => RemoveFromSuperview();
+
+            // Time to complete the animation (seconds)
+            double secondsToComplete = 0.75;
+
+            // Animate transparency to zero, then remove the view
+            Animate(secondsToComplete, makeTransparentAction, removeViewAction);
+        }
+
+        private void InputStretchParamsButton_Click(object sender, EventArgs e)
+        {
+            // Fire the OnStretchInputsEntered event and provide the stretch parameter input.
+            if (OnStretchInputsEntered != null)
+            {
+                // Create a new StretchParametersEventArgs to contain the input values.
+                StretchParameters inputStretchParams = null;
+
+                // Create the right type of stretch parameters defined by the user.
+                switch (_stretchParamsType)
+                {
+                    // - Minimum and maximum RGB values.
+                    case "Min Max RGB":
+                        // Get the models that contains the min/max red, green, and blue picker choices.
+                        RgbValuePickerModel minRgbModel = _minRgbPicker.Model as RgbValuePickerModel;
+                        RgbValuePickerModel maxRgbModel = _maxRgbPicker.Model as RgbValuePickerModel;
+                        
+                        // Read min/max RGB values that were chosen.
+                        double[] minValues = { minRgbModel.SelectedRed, minRgbModel.SelectedGreen, minRgbModel.SelectedBlue };
+                        double[] maxValues = { maxRgbModel.SelectedRed, maxRgbModel.SelectedGreen, maxRgbModel.SelectedBlue };
+
+                        // Create a new MinMaxStretchParameters object with the values.
+                        inputStretchParams = new MinMaxStretchParameters(minValues, maxValues);
+
+                        break;
+
+                    // - Minimum and maximum percent clip values.
+                    case "% Clip":
+                        // TODO: read min/max percent clip values from the user inputs.
+                        int minPercent = 0;
+                        int maxPercent = 35;
+                        inputStretchParams = new PercentClipStretchParameters(minPercent, maxPercent);
+
+                        break;
+                    // Standard deviation factor.
+                    case "Std Dev":
+                        // TODO: read stddev factor from the user input.
+                        double standardDevFactor = 0.5;
+                        inputStretchParams = new StandardDeviationStretchParameters(standardDevFactor);
+
+                        break;
+                }
+
+                // Create a new StretchParametersEventArgs and provide the stretch parameters.
+                StretchParametersEventArgs inputParamsEventArgs = new StretchParametersEventArgs(inputStretchParams);
+
+                // Raise the event with the custom arguments.
+                OnStretchInputsEntered(sender, inputParamsEventArgs);
+            }
+        }
+    }
+
+    // Custom EventArgs implementation to hold raster renderer inputs.
+    public class StretchParametersEventArgs : EventArgs
+    {
+        // Property to store raster stretch parameters.
+        public StretchParameters StretchParams { get; set; }
+
+        // Store parameter info passed into the constructor.
+        public StretchParametersEventArgs(StretchParameters stretchParams)
+        {
+            StretchParams = stretchParams;
+        }
+    }
+
+    // Class that defines a view model for showing color values (0-255 for RGB) in a picker control.
+    public class RgbValuePickerModel : UIPickerViewModel
+    {
+        // Array of red values (0-255).
+        private int[] _redValues = Enumerable.Range(0, 256).ToArray<int>();
+
+        // Array of green values (0-255).
+        private int[] _greenValues = Enumerable.Range(0, 256).ToArray<int>();
+
+        // Array of blue values (0-255).
+        private int[] _blueValues = Enumerable.Range(0, 256).ToArray<int>();
+
+        // Currently selected red, green, and blue values.
+        private int _selectedRed = 0;
+        private int _selectedGreen = 0;
+        private int _selectedBlue = 0;
+
+        // Constructor takes the default values for RGB.
+        public RgbValuePickerModel(int defaultRed, int defaultGreen, int defaultBlue)
+        {
+            _selectedRed = defaultRed;
+            _selectedGreen = defaultGreen;
+            _selectedBlue = defaultBlue;
+        }
+
+        // Property to expose the currently selected red value in the picker.
+        public int SelectedRed
+        {
+            get { return _selectedRed; }
+        }
+
+        // Property to expose the currently selected green value in the picker.
+        public int SelectedGreen
+        {
+            get { return _selectedGreen; }
+        }
+
+        // Property to expose the currently selected blue value in the picker.
+        public int SelectedBlue
+        {
+            get { return _selectedBlue; }
+        }
+
+        // Return the number of picker components (three sections: red, green, and blue values).
+        public override nint GetComponentCount(UIPickerView pickerView)
+        {
+            return 3;
+        }
+
+        // Return the number of rows in each of the sections (0-255 = 256).
+        public override nint GetRowsInComponent(UIPickerView pickerView, nint component)
+        {
+            return 256;
+        }
+
+        // Get the title to display in each picker component.
+        public override string GetTitle(UIPickerView pickerView, nint row, nint component)
+        {
+            string title = string.Empty;
+
+            // First component is red, second is green, third is blue.
+            switch (component)
+            {
+                case 0:
+                    title = _redValues[row].ToString();
+                    break;
+                case 1:
+                    title = _greenValues[row].ToString();
+                    break;
+                case 2:
+                    title = _blueValues[row].ToString();
+                    break;
+            }
+
+            return title;
+        }
+
+        // Handle the selection event for the picker.
+        public override void Selected(UIPickerView pickerView, nint row, nint component)
+        {
+            // Get the selected RGB values.
+            _selectedRed = _redValues[pickerView.SelectedRowInComponent(0)];
+            _selectedGreen = _greenValues[pickerView.SelectedRowInComponent(1)];
+            _selectedBlue = _blueValues[pickerView.SelectedRowInComponent(2)];
+        }
+
+        // Return the desired width for each component in the picker.
+        public override nfloat GetComponentWidth(UIPickerView picker, nint component)
+        {
+            // All components display the same range of values (largest is 3 digits).
+            return 60f;
+        }
+
+        // Return the desired height for rows in the picker.
+        public override nfloat GetRowHeight(UIPickerView picker, nint component)
+        {
+            return 30f;
+        }
+    }
+    #endregion
 }

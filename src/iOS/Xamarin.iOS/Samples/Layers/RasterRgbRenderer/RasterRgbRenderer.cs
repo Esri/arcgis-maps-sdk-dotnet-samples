@@ -204,6 +204,9 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRgbRenderer
         // Fields for controls that will be referenced later.
         private UIPickerView _minRgbPicker;
         private UIPickerView _maxRgbPicker;
+        private UISlider _minPercentSlider;
+        private UISlider _maxPercentSlider;
+        private UIPickerView _stdDevPicker;
 
         public UpdateRendererDialogOverlay(CoreGraphics.CGRect frame, nfloat transparency, UIColor color, string stretchType) : base(frame)
         {
@@ -241,12 +244,12 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRgbRenderer
                     CreateRgbInputUI(inputStretchParamsButton, cancelButton, descriptionLabel);
                     break;
                 case "% Clip":
+                    CreatePercentInputUI(inputStretchParamsButton, cancelButton, descriptionLabel);
                     break;
                 case "Std Dev":
+                    CreateStdDevInputUI(inputStretchParamsButton, cancelButton, descriptionLabel);
                     break;
             }
-
-
         }
 
         private void CreateRgbInputUI(UIButton applyButton, UIButton cancelButton, UILabel description)
@@ -337,6 +340,153 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRgbRenderer
             _maxRgbPicker.Select(255, 2, false);
         }
 
+        private void CreatePercentInputUI(UIButton applyButton, UIButton cancelButton, UILabel description)
+        {
+            // Set size and spacing for controls.
+            nfloat controlHeight = 25;
+            nfloat rowSpace = 11;
+            nfloat columnSpace = 15;
+            nfloat buttonWidth = 60;
+
+            // Store the total height and width.
+            nfloat totalHeight = Frame.Height - 120;
+            nfloat totalWidth = Frame.Width - 60;
+
+            // Find the center x and y of the view.
+            nfloat centerX = Frame.Width / 2;
+            nfloat centerY = Frame.Height / 2;
+
+            // Find the start x and y for the control layout.
+            nfloat leftMargin = centerX - (totalWidth / 2);
+            nfloat controlX = leftMargin;
+            nfloat controlY = 200;
+
+            // Position the input description label.
+            description.Frame = new CoreGraphics.CGRect(controlX, controlY, totalWidth, controlHeight);
+
+            // Adjust the Y position for the next control.
+            controlY = controlY + controlHeight + rowSpace;
+
+            // Create a label for the minimum percent input.
+            UILabel minPercentLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, totalWidth, controlHeight))
+            {
+                Text = "Minimum: ",
+                TextAlignment = UITextAlignment.Center,
+                TextColor = UIColor.Blue
+            };
+
+            // Adjust the Y position for the next control.
+            controlY = controlY + 15;
+
+            // Create a slider for minimum percent clip value.
+            _minPercentSlider = new UISlider(new CoreGraphics.CGRect(controlX, controlY, 200, 100))
+            {
+                MinValue = 0,
+                MaxValue = 100
+            };
+
+            // Adjust the Y position for the next control.
+            controlY = controlY + 100 + rowSpace;
+
+            // Create a label for the maximum percent clip input.
+            UILabel maxPercentLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, totalWidth, controlHeight))
+            {
+                Text = "Maximum: ",
+                TextAlignment = UITextAlignment.Center,
+                TextColor = UIColor.Blue
+            };
+
+            // Adjust the Y position for the next control.
+            controlY = controlY + 15;
+
+            // Create a picker for the maximum RGB values.
+            _maxPercentSlider = new UISlider(new CoreGraphics.CGRect(controlX, controlY, 200, 100))
+            {
+                MinValue = 0,
+                MaxValue = 100
+            };
+
+            // Adjust the Y position for the next control.
+            controlY = controlY + 100 + rowSpace;
+
+            // Set the frame for the apply button.
+            applyButton.Frame = new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight);
+
+            // Adjust the X position for the next control.
+            controlX = controlX + buttonWidth + columnSpace;
+
+            // Set the frame for the cancel button.
+            cancelButton.Frame = new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight);
+
+            // Add the input controls.
+            AddSubviews(description,
+                minPercentLabel, _minPercentSlider,
+                maxPercentLabel, _maxPercentSlider,
+                applyButton, cancelButton);
+        }
+
+        private void CreateStdDevInputUI(UIButton applyButton, UIButton cancelButton, UILabel description)
+        {
+            // Set size and spacing for controls.
+            nfloat controlHeight = 25;
+            nfloat rowSpace = 11;
+            nfloat columnSpace = 15;
+            nfloat buttonWidth = 60;
+
+            // Store the total height and width.
+            nfloat totalHeight = Frame.Height - 120;
+            nfloat totalWidth = Frame.Width - 60;
+
+            // Find the center x and y of the view.
+            nfloat centerX = Frame.Width / 2;
+            nfloat centerY = Frame.Height / 2;
+
+            // Find the start x and y for the control layout.
+            nfloat leftMargin = centerX - (totalWidth / 2);
+            nfloat controlX = leftMargin;
+            nfloat controlY = 200;
+
+            // Position the input description label.
+            description.Frame = new CoreGraphics.CGRect(controlX, controlY, totalWidth, controlHeight);
+
+            // Adjust the Y position for the next control.
+            controlY = controlY + controlHeight + rowSpace;
+
+            // Create a label for the standard deviation factor input.
+            UILabel factorLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, totalWidth, controlHeight))
+            {
+                Text = "Factor: ",
+                TextAlignment = UITextAlignment.Left,
+                TextColor = UIColor.Blue
+            };
+
+            // Adjust the Y position for the next control.
+            controlY = controlY + 15;
+
+            // Create a picker for the standard deviation factor.
+            _stdDevPicker = new UIPickerView(new CoreGraphics.CGRect(controlX, controlY, 200, 100))
+            {
+                Model = new StdDevFactorPickerModel()
+            };
+
+            // Adjust the Y position for the next control.
+            controlY = controlY + 100 + rowSpace;
+
+            // Set the frame for the apply button.
+            applyButton.Frame = new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight);
+
+            // Adjust the X position for the next control.
+            controlX = controlX + buttonWidth + columnSpace;
+
+            // Set the frame for the cancel button.
+            cancelButton.Frame = new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight);
+
+            // Add the input controls.
+            AddSubviews(description,
+                factorLabel, _stdDevPicker,
+                applyButton, cancelButton);
+        }
+
         // Animate increasing transparency to completely hide the view, then remove it
         public void Hide()
         {
@@ -381,16 +531,19 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRgbRenderer
 
                     // - Minimum and maximum percent clip values.
                     case "% Clip":
-                        // TODO: read min/max percent clip values from the user inputs.
-                        int minPercent = 0;
-                        int maxPercent = 35;
+                        // Read min/max percent values that were chosen.
+                        double minPercent = _minPercentSlider.Value;
+                        double maxPercent = _maxPercentSlider.Value;
                         inputStretchParams = new PercentClipStretchParameters(minPercent, maxPercent);
 
                         break;
                     // Standard deviation factor.
                     case "Std Dev":
-                        // TODO: read stddev factor from the user input.
-                        double standardDevFactor = 0.5;
+                        // Get the model that contains the standard deviation factor choices.
+                        StdDevFactorPickerModel factorModel = _stdDevPicker.Model as StdDevFactorPickerModel;
+
+                        // Get the selected factor.
+                        double standardDevFactor = factorModel.SelectedFactor;
                         inputStretchParams = new StandardDeviationStretchParameters(standardDevFactor);
 
                         break;
@@ -508,6 +661,65 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRgbRenderer
         public override nfloat GetComponentWidth(UIPickerView picker, nint component)
         {
             // All components display the same range of values (largest is 3 digits).
+            return 60f;
+        }
+
+        // Return the desired height for rows in the picker.
+        public override nfloat GetRowHeight(UIPickerView picker, nint component)
+        {
+            return 30f;
+        }
+    }
+
+    // Class that defines a view model for showing standard deviation factor values (0.5-4.50) in a picker control.
+    public class StdDevFactorPickerModel : UIPickerViewModel
+    {
+        // Array of available factor values.
+        private double[] _factorValues = { 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5 };
+
+        // Currently selected factor value.
+        private double _selectedFactor = 4.5;
+
+        // Default constructor.
+        public StdDevFactorPickerModel()
+        {
+
+        }
+
+        // Property to expose the currently selected factor value in the picker.
+        public double SelectedFactor
+        {
+            get { return _selectedFactor; }
+        }
+        
+        // Return the number of picker components (just one).
+        public override nint GetComponentCount(UIPickerView pickerView)
+        {
+            return 1;
+        }
+
+        // Return the number of rows in the section (the size of the factor choice array).
+        public override nint GetRowsInComponent(UIPickerView pickerView, nint component)
+        {
+            return _factorValues.Count();
+        }
+
+        // Get the title to display in the picker component.
+        public override string GetTitle(UIPickerView pickerView, nint row, nint component)
+        {
+            return _factorValues[row].ToString();
+        }
+
+        // Handle the selection event for the picker.
+        public override void Selected(UIPickerView pickerView, nint row, nint component)
+        {
+            // Get the selected standard deviation factor.
+            _selectedFactor = _factorValues[pickerView.SelectedRowInComponent(0)];
+        }
+
+        // Return the desired width for each component in the picker.
+        public override nfloat GetComponentWidth(UIPickerView picker, nint component)
+        {
             return 60f;
         }
 

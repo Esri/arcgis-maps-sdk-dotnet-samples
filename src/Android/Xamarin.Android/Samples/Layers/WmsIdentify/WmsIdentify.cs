@@ -110,13 +110,31 @@ namespace ArcGISRuntimeXamarin.Samples.WmsIdentify
         private void ShowHtmlCallout(string htmlContent, MapPoint position)
         {
             // Create the web browser control
-            WebView htmlView = new WebView(this);
+            WebView htmlView = new WebViewOverride(this);
 
             // Display the string content as an HTML document
             htmlView.LoadData(htmlContent, "text/html", null);
 
             // Create the callout with the browser
             _myMapView.ShowCalloutAt(position, htmlView);
+        }
+
+        /// <summary>
+        /// This is necessary because of how the callout calculates its size 
+        /// based on the reported size of the content
+        /// </summary>
+        private class WebViewOverride : WebView
+        {
+            public WebViewOverride(Android.Content.Context context) : base(context) { }
+
+            // Ensures that there is always a consistent reported size
+            protected override void OnMeasure(int widthMeasureSpec, int heightMeasureSpec)
+            {
+                base.OnMeasure(widthMeasureSpec, heightMeasureSpec);
+                var width = ResolveSize(800, widthMeasureSpec);
+                var height = ResolveSize(150, heightMeasureSpec);
+                SetMeasuredDimension(width, height);
+            }
         }
     }
 }

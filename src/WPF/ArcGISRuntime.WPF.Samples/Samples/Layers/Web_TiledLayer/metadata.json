@@ -1,0 +1,17 @@
+{
+  "Name": "Web TiledLayer",
+  "SampleName": "Web_TiledLayer",
+  "Description": "This sample demonstrates how to load a web tiled layer from a non-ArcGIS service, including how to include proper attribution.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": false,
+  "RequiresLocalServer": false,
+  "Image": "Web_TiledLayer.jpg",
+  "Link": "",
+  "TypeLink": [ "T:Esri.ArcGISRuntime.Mapping.WebTiledLayer", 
+    "P:Esri.ArcGISRuntime.Mapping.WebTiledLayer.Attribution", 
+    "M:Esri.ArcGISRuntime.Mapping.WebTiledLayer.#ctor(System.String,System.Collections.Generic.IEnumerable{System.String})" 
+  ],
+  "SampleFolder": "Web_TiledLayer"
+}

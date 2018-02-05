@@ -99,6 +99,10 @@
             {
               "SampleName": "AuthorMap",
               "Path": "Samples/Map/AuthorMap"
+            },
+            {
+              "SampleName": "ReadGeoPackage",
+              "Path": "Samples/Data/ReadGeoPackage"
             }
           ]
         }
@@ -124,6 +128,10 @@
             {
               "SampleName": "ExportTiles",
               "Path": "Samples/Layers/ExportTiles"
+            },
+            {
+              "SampleName": "Web_TiledLayer",
+              "Path": "Samples/Layers/Web_TiledLayer" 
             }
           ]
         },
@@ -186,6 +194,14 @@
             {
               "SampleName": "RasterLayerGeoPackage",
               "Path": "Samples/Data/RasterLayerGeoPackage"
+            },
+            {
+              "SampleName": "ChangeBlendRenderer",
+              "Path": "Samples/Layers/ChangeBlendRenderer"
+            },
+            {
+              "SampleName": "ChangeStretchRenderer",
+              "Path": "Samples/Layers/ChangeStretchRenderer"
             }
           ]
         }
@@ -239,6 +255,10 @@
             {
               "SampleName": "FeatureLayerRenderingModeMap",
               "Path": "Samples/Layers/FeatureLayerRenderingModeMap"
+            },
+            {
+              "SampleName": "FeatureLayerRenderingModeScene",
+              "Path": "Samples/Layers/FeatureLayerRenderingModeScene"
             }
           ]
         },
@@ -286,6 +306,14 @@
             {
               "SampleName": "ReadShapefileMetadata",
               "Path": "Samples/Data/ReadShapefileMetadata"
+            },
+            {
+              "SampleName": "SymbolizeShapefile",
+              "Path": "Samples/Data/SymbolizeShapefile"
+            },
+            {
+              "SampleName": "ListRelatedFeatures",
+              "Path": "Samples/Data/ListRelatedFeatures"
             }
           ]
         }
@@ -311,10 +339,18 @@
             {
               "SampleName": "SurfacePlacements",
               "Path": "Samples/GraphicsOverlay/SurfacePlacements"
+            }, 
+            {
+              "SampleName": "AddGraphicsWithSymbols",
+              "Path": "Samples/GraphicsOverlay/AddGraphicsWithSymbols"
             },
             {
               "SampleName": "SketchOnMap",
               "Path": "Samples/GraphicsOverlay/SketchOnMap"
+            },
+            {
+              "SampleName": "Animate3DGraphic",
+              "Path": "Samples/GraphicsOverlay/Animate3DGraphic" 
             }
           ]
         },
@@ -369,8 +405,16 @@
               "Path": "Samples/Analysis/LineOfSightLocation"
             },
             {
+              "SampleName": "LineOfSightGeoElement",
+              "Path": "Samples/Analysis/LineOfSightGeoElement"
+            },
+            {
               "SampleName": "ListGeodatabaseVersions",
               "Path": "Samples/Geoprocessing/ListGeodatabaseVersions"
+            },
+            {
+              "SampleName": "QueryFeatureCountAndExtent",
+              "Path": "Samples/Analysis/QueryFeatureCountAndExtent"
             }
           ]
         },
@@ -407,6 +451,10 @@
             {
               "SampleName": "UseDistanceCompositeSym",
               "Path": "Samples/Symbology/UseDistanceCompositeSym"
+            },
+            {
+              "SampleName": "FeatureLayerExtrusion",
+              "Path": "Samples/Symbology/FeatureLayerExtrusion"
             }
           ]
         },
@@ -445,6 +493,23 @@
       ]
     },
     {
+      "Name": "Hydrography",
+      "CategoryName": "Hydrography",
+      "SubCategories": [
+        {
+          "Name": "Electronic Navigational Charts (ENC)",
+          "SubCategoryName": "ENC",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "SelectEncFeatures",
+              "Path": "Samples/Hydrography/SelectEncFeatures"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "Name": "Location",
       "CategoryName": "Location",
       "SubCategories": [
@@ -460,6 +525,40 @@
           ]
         }
       ]
+    },
+    {
+      "Name": "GeometryEngine",
+      "CategoryName": "GeometryEngine",
+      "SubCategories": [
+        {
+          "Name": "Projection",
+          "SubCategoryName": "Projection",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "ProjectWithSpecificTransformation",
+              "Path": "Samples/GeometryEngine/ProjectWithSpecificTransformation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Geometry",
+      "CategoryName": "Geometry",
+      "SubCategories": [
+        {
+          "Name": "Coordinates",
+          "SubCategoryName": "Coordinates",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "FormatCoordinates",
+              "Path": "Samples/Geometry/FormatCoordinates"
+            }
+          ] 
+        }
+      ] 
     },
     {
       "Name": "Search",

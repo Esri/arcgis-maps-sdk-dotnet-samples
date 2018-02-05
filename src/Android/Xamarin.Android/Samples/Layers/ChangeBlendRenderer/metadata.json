@@ -1,0 +1,23 @@
+{
+  "Name": "Blend renderer",
+  "SampleName": "ChangeBlendRenderer",
+  "Description": "This sample demonstrates how to use blend renderer on a raster layer. You can get a hillshade blended with either a colored raster or color ramp.",
+  "Instructions": "Tap on the 'Update Renderer' button to change the settings for the blend renderer. The sample allows you to change the Altitude, Azimuth, SlopeType and ColorRamp. If you use None as the ColorRamp, a standard hill shade raster output is displayed. For all the other ColorRamp types an elevation raster is used.",
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": true,
+  "RequiresLocalServer": false,
+  "DataItemIds": [ "7c4c679ab06a4df19dc497f577f111bd","caeef9aa78534760b07158bb8e068462" ],
+  "DataFileNames": [ "Shasta.tif","Shasta_Elevation.tif" ],
+  "Image": "ChangeBlendRenderer.jpg",
+  "Link": "",
+  "TypeLink": [
+    "T:Esri.ArcGISRuntime.Rasters.BlendRenderer",
+    "M:Esri.ArcGISRuntime.Rasters.BlendRenderer.#ctor(Esri.ArcGISRuntime.Rasters.Raster,System.Collections.Generic.IEnumerable{System.Double},System.Collections.Generic.IEnumerable{System.Double},System.Collections.Generic.IEnumerable{System.Double},System.Collections.Generic.IEnumerable{System.Double},System.Collections.Generic.IEnumerable{System.Double},System.Collections.Generic.IEnumerable{System.Double},Esri.ArcGISRuntime.Rasters.ColorRamp,System.Double,System.Double,System.Double,Esri.ArcGISRuntime.Rasters.SlopeType,System.Double,System.Double,System.Int32)",
+    "T:Esri.ArcGISRuntime.Rasters.ColorRamp",
+    "T:Esri.ArcGISRuntime.Rasters.PresetColorRampType",
+    "M:Esri.ArcGISRuntime.Geometry.EnvelopeBuilder.Expand(System.Double)",
+    "P:Esri.ArcGISRuntime.Mapping.RasterLayer.Renderer"
+  ],
+  "SampleFolder": "ChangeBlendRenderer"
+}

@@ -91,6 +91,10 @@
 
     This sample demonstrates how to author and save a map as an ArcGIS portal item (web map). Saving a map to arcgis.com requires an ArcGIS Online login.
 
+    * [Read a GeoPackage](Xamarin.Android/Samples/Data/ReadGeoPackage)
+
+    This sample demonstrates how to open a GeoPackage file from the local file system and list the available GeoPackageRasters and GeoPackageFeatureTables from the GeoPackage. Users can add and remove the selected datasets as RasterLayers or FeatureLayers to the map.
+
 ## Layers
 
 
@@ -107,6 +111,10 @@
     * [Export tiles](Xamarin.Android/Samples/Layers/ExportTiles)
 
     This sample demonstrates how to export tiles from a map server.
+
+    * [Web TiledLayer](Xamarin.Android/Samples/Layers/Web_TiledLayer)
+
+    This sample demonstrates how to load a web tiled layer from a non-ArcGIS service, including how to include proper attribution.
 
 
 - **Map Image Layers**
@@ -158,6 +166,10 @@
 
     This sample demonstrates how to open a GeoPackage and show a GeoPackage raster in a raster layer.
 
+    * [Stretch renderer](Xamarin.Android/Samples/Layers/ChangeStretchRenderer)
+
+    This sample demonstrates how to use stretch renderer on a raster layer.
+
 ## Features
 
 
@@ -207,6 +219,10 @@
 
     This sample demonstrates how to use load settings to set preferred rendering mode for feature layers, specifically static or dynamic rendering modes.
 
+    * [Feature layer rendering mode (Scene)](Xamarin.Android/Samples/Layers/FeatureLayerRenderingModeScene)
+
+    This sample demonstrates how to use load settings to change the preferred rendering mode for a scene. Static rendering mode only redraws features periodically when a sceneview is navigating, while dynamic mode dynamically re-renders as the scene moves.
+
 
 - **Feature Tables**
 
@@ -246,6 +262,14 @@
 
     This sample demonstrates how to open a shapefile stored on the device, read metadata that describes the dataset, and display it as a feature layer with default symbology.
 
+    * [Symbolize a shapefile](Xamarin.Android/Samples/Data/SymbolizeShapefile)
+
+    This sample demonstrates how to apply a custom renderer to a shapefile displayed by a feature layer.
+
+    * [List related features](Xamarin.Android/Samples/Data/ListRelatedFeatures)
+
+    This sample demonstrates how to query features related to an identified feature.
+
 ## Display Information
 
 
@@ -263,9 +287,17 @@
 
     This sample demonstrates how to identify graphics in a graphics overlay. When you tap on a graphic on the map, you will see an alert message displayed.
 
+    * [Add graphics with symbols](Xamarin.Android/Samples/GraphicsOverlay/AddGraphicsWithSymbols)
+
+    This sample demonstrates how to add various types of graphics to a `GraphicsOverlay`.
+
     * [Sketch graphics on the map](Xamarin.Android/Samples/GraphicsOverlay/SketchOnMap)
 
     This sample demonstrates how to interactively sketch and edit graphics in the map view and display them in a graphics overlay. You can sketch a variety of geometry types and undo or redo operations.
+
+    * [Animate 3D Graphic](Xamarin.Android/Samples/GraphicsOverlay/Animate3DGraphic)
+
+    This sample demonstrates how to animate a graphic's position and follow it using a camera controller.
 
 
 - **Symbology**
@@ -307,9 +339,17 @@
 
     This sample demonstrates a `LocationLineOfSight` analysis that shows segments that are visible or obstructed along a line drawn from observer to target.
 
+    * [Line of Sight (GeoElement)](Xamarin.Android/Samples/Analysis/LineOfSightGeoElement)
+
+    This sample demonstrates how to perform a dynamic line of sight analysis between two moving GeoElements.
+
     * [List geodatabase versions](Xamarin.Android/Samples/Geoprocessing/ListGeodatabaseVersions)
 
-    This sample demonstrates how to use GeoprocessingTask to get available geodatabase versions from the enterprise geodatabase. Geoprocessing task will return the versions as a table that is shown to the user in a list. This is a good example how to use geoprocessing on mapless application.
+    This sample calls a custom GeoprocessingTask to get a list of available versions for an enterprise geodatabase. The task returns a table of geodatabase version information, which is displayed in the app as a list.
+
+    * [Query feature count and extent](Xamarin.Android/Samples/Analysis/QueryFeatureCountAndExtent)
+
+    This sample demonstrates how to query a feature table, in this case returning a count, for features that are within the visible extent or that meet specified criteria.
 
 
 - **Statistics**
@@ -331,6 +371,10 @@
 
     This sample demonstrates how to create a `DistanceCompositeSceneSymbol` with unique marker symbols to display at various distances from the camera.
 
+    * [Feature layer extrusion](Xamarin.Android/Samples/Symbology/FeatureLayerExtrusion)
+
+    This sample demonstrates how to apply extrusion to a renderer on a feature layer.
+
 
 - **Scene Layers**
 
@@ -351,6 +395,15 @@
 
     This sample demonstrates how to solve for the best route between two locations on the map and display driving directions between them.
 
+## Hydrography
+
+
+- **Electronic Navigational Charts (ENC)**
+
+    * [Select ENC features](Xamarin.Android/Samples/Hydrography/SelectEncFeatures)
+
+    This sample demonstrates how to select an ENC feature.
+
 ## Location
 
 
@@ -359,6 +412,24 @@
     * [Display Device Location](Xamarin.Android/Samples/Location/DisplayDeviceLocation)
 
     This sample demonstrates how you can enable location services and switch between different types of auto pan modes.
+
+## GeometryEngine
+
+
+- **Projection**
+
+    * [Project with specific transformation](Xamarin.Android/Samples/GeometryEngine/ProjectWithSpecificTransformation)
+
+    This sample demonstrates how to use the GeometryEngine with a specified geographic transformation to transform a geometry from one coordinate system to another. 
+
+## Geometry
+
+
+- **Coordinates**
+
+    * [Format coordinates](Xamarin.Android/Samples/Geometry/FormatCoordinates)
+
+    This sample demonstrates how to convert between `MapPoint` and string representations of a point using various coordinate systems.
 
 ## Search
 

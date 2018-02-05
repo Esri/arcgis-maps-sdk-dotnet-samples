@@ -1,0 +1,27 @@
+{
+  "Name": "FeatureLayerExtrusion",
+  "SampleName": "FeatureLayerExtrusion",
+  "Description": "This sample demonstrates how to apply extrusion to a renderer on a feature layer.",
+  "Instructions": "",
+  "Type": 0,
+  "RequiresOnlineConnection":true,
+  "RequiresOfflineData":false,
+  "RequiresLocalServer":false,
+  "Image":"FeatureLayerExtrusion.jpg",
+  "Link":"",
+  "TypeLink": 
+[
+"P:Esri.ArcGISRuntime.Mapping.FeatureLayer.RenderingMode",
+"T:Esri.ArcGISRuntime.Mapping.FeatureRenderingMode",
+"P:Esri.ArcGISRuntime.Symbology.Renderer.SceneProperties",
+"T:Esri.ArcGISRuntime.Symbology.RendererSceneProperties",
+"P:Esri.ArcGISRuntime.Symbology.RendererSceneProperties.ExtrusionExpression",
+"P:Esri.ArcGISRuntime.Symbology.RendererSceneProperties.ExtrusionMode",
+"T:Esri.ArcGISRuntime.Symbology.ExtrusionMode",
+"T:Esri.ArcGISRuntime.UI.OrbitLocationCameraController",
+"M:Esri.ArcGISRuntime.UI.OrbitLocationCameraController.#ctor(Esri.ArcGISRuntime.Geometry.MapPoint,System.Double)",
+"P:Esri.ArcGISRuntime.UI.Controls.SceneView.CameraController",
+"M:Esri.ArcGISRuntime.Symbology.SimpleLineSymbol.#ctor(Esri.ArcGISRuntime.Symbology.SimpleLineSymbolStyle,Windows.UI.Color,System.Double)",
+"M:Esri.ArcGISRuntime.Symbology.SimpleFillSymbol.#ctor(Esri.ArcGISRuntime.Symbology.SimpleFillSymbolStyle,System.Windows.UI.Color,Esri.ArcGISRuntime.Symbology.LineSymbol)"
+]
+}

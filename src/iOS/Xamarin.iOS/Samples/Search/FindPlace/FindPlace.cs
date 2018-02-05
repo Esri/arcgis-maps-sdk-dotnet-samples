@@ -203,6 +203,10 @@ namespace ArcGISRuntimeXamarin.Samples.FindPlace
             _myLocationBox.Text = "Current Location";
             _mySearchBox.Text = "Coffee";
 
+            // Allow pressing 'return' to dismiss the keyboard
+            _myLocationBox.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
+            _mySearchBox.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
+
             // Gray out the buttons when they are disabled
             _mySearchButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
             _mySearchRestrictedButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);

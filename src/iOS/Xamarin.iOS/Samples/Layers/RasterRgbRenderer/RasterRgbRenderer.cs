@@ -231,7 +231,7 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRgbRenderer
             inputStretchParamsButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
             inputStretchParamsButton.TouchUpInside += InputStretchParamsButton_Click;
 
-            // Button to cancel the search
+            // Button to cancel the inputs.
             UIButton cancelButton = new UIButton();
             cancelButton.SetTitle("Cancel", UIControlState.Normal);
             cancelButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);

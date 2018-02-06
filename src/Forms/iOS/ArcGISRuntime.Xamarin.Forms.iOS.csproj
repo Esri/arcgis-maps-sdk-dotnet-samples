@@ -42,7 +42,7 @@
     <OutputPath>..\..\..\output\Forms\iPhoneSimulator\release\</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <MtouchLink>Full</MtouchLink>
+    <MtouchLink>None</MtouchLink>
     <MtouchArch>i386, x86_64</MtouchArch>
     <ConsolePause>false</ConsolePause>
     <MtouchSdkVersion>10.1</MtouchSdkVersion>

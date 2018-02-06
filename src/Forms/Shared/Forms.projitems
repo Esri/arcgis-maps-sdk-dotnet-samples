@@ -12,7 +12,7 @@
     <!-- Misc Resources -->
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\PictureMarkerSymbols\pin_star_blue.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterHillshade\metadata.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterHillshade\RasterHillshade.xaml">    
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterHillshade\RasterHillshade.xaml" />    
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ReadGeoPackage\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ReadGeoPackage\ReadGeoPackage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>

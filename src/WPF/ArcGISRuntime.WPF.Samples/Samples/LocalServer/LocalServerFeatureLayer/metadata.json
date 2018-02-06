@@ -8,7 +8,7 @@
   "RequiresOfflineData": true,
   "RequiresLocalServer": true,
   "DataItemIds": [ "4e94fec734434d1288e6ebe36c3c461f" ],
-  "DateFileNames": ["PointsOfInterest.mpk"],
+  "DataFileNames": ["PointsOfInterest.mpk"],
   "Image": "LocalServerFeatureLayer.jpg",
   "Link": "",
   "TypeLink": [ "T:Esri.ArcGISRuntime.LocalServices.LocalFeatureService" ],

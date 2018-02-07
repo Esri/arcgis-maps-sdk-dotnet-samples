@@ -30,7 +30,7 @@ namespace ArcGISRuntime.UWP.Samples.ListTransformations
         private Graphic _projectedPointGraphic;
 
         // GraphicsOverlay to hold the point graphics.
-        GraphicsOverlay _pointsOverlay;
+        private GraphicsOverlay _pointsOverlay;
 
         // Property to expose the list of datum transformations for binding to the list box.
         private IReadOnlyList<DatumTransformationListBoxItem> _datumTransformations;

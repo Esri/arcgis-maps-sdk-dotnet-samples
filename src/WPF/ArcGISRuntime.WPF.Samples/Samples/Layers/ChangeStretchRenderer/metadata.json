@@ -7,6 +7,8 @@
   "RequiresOnlineConnection": true,
   "RequiresOfflineData": true,
   "RequiresLocalServer": false,
+  "DataItemIds": [ "95392f99970d4a71bd25951beb34a508" ],
+  "DataFileNames": [ "ShastaBW.tif" ],
   "Image": "ChangeStretchRenderer.jpg",
   "Link": "",
   "TypeLink": [

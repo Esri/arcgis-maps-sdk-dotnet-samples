@@ -7,9 +7,9 @@
   "RequiresOnlineConnection": true,
   "RequiresOfflineData": true,
   "RequiresLocalServer": false,
-  "Image": "SymbolizeShapefile.jpg",
   "DataItemIds": [ "d98b3e5293834c5f852f13c569930caa" ],
-  "DateFileNames": [ "Subdivisions.shp" ],
+  "DataFileNames": [ "Subdivisions.shp" ],
+  "Image": "SymbolizeShapefile.jpg",
   "Link": "",
   "TypeLink": [ "T:Esri.ArcGISRuntime.Data.ShapefileFeatureTable" ],
   "SampleFolder": "SymbolizeShapefile"

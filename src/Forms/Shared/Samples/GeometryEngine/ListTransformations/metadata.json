@@ -2,7 +2,7 @@
   "Name": "List transformations by suitability",
   "SampleName": "ListTransformations",
   "Description": "This sample demonstrates how to use the TransformationCatalog to get a list of available DatumTransformations that can be used to project a Geometry between two different SpatialReferences, and how to use one of the transformations to perform the GeometryEngine.project operation. The TransformationCatalog is also used to set the location of files upon which grid-based transformations depend, and to find the default transformation used for the two SpatialReferences.",
-  "Instructions": "Tap on a listed transformation to reproject the point geometry (shown in blue) using the selected transformation. The reprojected geometry will be shown in red. If there are grid-based transformations for which projection engine files are not available on your device, these will be highlighted in the list. The default transformation is shown in bold in the list.",
+  "Instructions": "Tap on a listed transformation to reproject the point geometry (shown with a blue square) using the selected transformation. The reprojected geometry will be shown in red. If there are grid-based transformations for which projection engine files are not available locally, these will be shown in gray in the list. The default transformation is shown in bold. To download the additional transformation data, log on to your developers account (http://developers.arcgis.com), click the 'Download APIs' button on the dashboard page, and download the 'Coordinate System Data' archive from the 'Supplemental ArcGIS Runtime Data' tab. Unzip the archive to the 'SampleData' folder.",
   "Type": 0,
   "RequiresOnlineConnection": true,
   "RequiresOfflineData": false,

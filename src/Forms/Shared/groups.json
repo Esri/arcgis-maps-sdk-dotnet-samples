@@ -534,6 +534,10 @@
             {
               "SampleName": "ProjectWithSpecificTransformation",
               "Path": "Samples/GeometryEngine/ProjectWithSpecificTransformation"
+            },
+            {
+              "SampleName": "ListTransformations",
+              "Path": "Samples/GeometryEngine/ListTransformations"
             }
           ]
         }

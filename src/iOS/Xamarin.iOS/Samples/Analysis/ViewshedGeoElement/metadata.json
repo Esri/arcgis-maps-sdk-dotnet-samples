@@ -1,0 +1,14 @@
+{
+  "Name": "Viewshed (GeoElement)",
+  "SampleName": "ViewshedGeoElement",
+  "Description": "",
+  "Instructions": "", 
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": false,
+  "RequiresLocalServer": false,
+  "Image": "ViewshedGeoElement.jpg",
+  "Link": "",
+  "TypeLink": [ ],
+  "SampleFolder": "ViewshedGeoElement"
+}

@@ -56,6 +56,9 @@ namespace ArcGISRuntime.WPF.Samples.RasterHillshade
             _rasterLayer = new RasterLayer(rasterFile);
             await _rasterLayer.LoadAsync();
 
+            // Enable the apply renderer button when the layer loads.
+            ApplyHillshadeButton.IsEnabled = true;
+
             // Create a viewpoint with the raster's full extent
             Viewpoint fullRasterExtent = new Viewpoint(_rasterLayer.FullExtent);
 
@@ -78,7 +81,7 @@ namespace ArcGISRuntime.WPF.Samples.RasterHillshade
             SlopeTypeCombo.SelectedValue = SlopeType.Scaled;
         }
 
-        private void ApplyHillshade_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void ApplyHillshadeButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             // Get the current parameter values
             double altitude = AltitudeSlider.Value;

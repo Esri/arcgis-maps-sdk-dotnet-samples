@@ -51,11 +51,12 @@
                                ContentStringFormat="{}{0:0}"/>
                     </Slider.ToolTip>
                 </Slider>
-                <Button x:Name="ApplyHillshade"
+                <Button x:Name="ApplyHillshadeButton"
                         Grid.Row="3" Grid.ColumnSpan="2"
                         Margin="5" Padding="3"
+                        IsEnabled="False"
                         Content="Apply hillshade"
-                        Click="ApplyHillshade_Click"/>
+                        Click="ApplyHillshadeButton_Click"/>
             </Grid>
         </Border>
     </Grid>

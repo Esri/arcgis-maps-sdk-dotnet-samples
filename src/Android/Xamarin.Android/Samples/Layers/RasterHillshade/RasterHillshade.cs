@@ -50,11 +50,14 @@ namespace ArcGISRuntimeXamarin.Samples.RasterHillshade
         private SlopeType _slopeType = SlopeType.PercentRise;
 
         // TextView controls to show the selected azimuth and altitude values
-        TextView _azimuthTextView;
-        TextView _altitudeTextView;
+        private TextView _azimuthTextView;
+        private TextView _altitudeTextView;
 
         // Button to launch the slope type choices menu
-        Button _slopeTypeButton;
+        private Button _slopeTypeButton;
+
+        // Button to apply the renderer.
+        private Button _applyHillshadeButton;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -172,13 +175,14 @@ namespace ArcGISRuntimeXamarin.Samples.RasterHillshade
             azimuthControls.AddView(_azimuthTextView);
 
             // Create a button to create and apply a hillshade renderer to the raster layer
-            Button applyHillshadeButton = new Button(this)
+            _applyHillshadeButton = new Button(this)
             {
-                Text = "Apply hillshade"
+                Text = "Apply hillshade",
+                Enabled = false
             };
 
             // Handle the click event to apply the hillshade renderer
-            applyHillshadeButton.Click += ApplyHillshadeButton_Click;
+            _applyHillshadeButton.Click += ApplyHillshadeButton_Click;
 
             // Add the slope type button to the layout
             mainLayout.AddView(_slopeTypeButton);
@@ -192,7 +196,7 @@ namespace ArcGISRuntimeXamarin.Samples.RasterHillshade
             azimuthSlider.Progress = 270;
 
             // Add the apply hillshade renderer button
-            mainLayout.AddView(applyHillshadeButton);
+            mainLayout.AddView(_applyHillshadeButton);
 
             // Create the map view
             _myMapView = new MapView(this);

@@ -39,7 +39,7 @@ namespace ArcGISRuntimeXamarin.Samples.RasterHillshade
 
         public RasterHillshade()
         {
-            Title = "Raster Hillshade";
+            Title = "Raster hillshade";
         }
 
         public override void ViewDidLoad()
@@ -77,9 +77,11 @@ namespace ArcGISRuntimeXamarin.Samples.RasterHillshade
             Raster rasterFile = new Raster(filepath);
 
             // Create and load a new raster layer to show the image.
-            _rasterLayer = new RasterLayer(rasterFile);
-            
+            _rasterLayer = new RasterLayer(rasterFile);            
             await _rasterLayer.LoadAsync();
+
+            // Enable the apply renderer button when the layer loads.
+            _applyHillshadeButton.Enabled = true;
 
             // Create a viewpoint with the raster's full extent.
             Viewpoint fullRasterExtent = new Viewpoint(_rasterLayer.FullExtent);
@@ -100,12 +102,15 @@ namespace ArcGISRuntimeXamarin.Samples.RasterHillshade
 
             // Create the map view control.
             _myMapView = new MapView();
-            
+
             // Create a button to apply the hillshade settings.
-            _applyHillshadeButton = new UIButton();
+            _applyHillshadeButton = new UIButton
+            {
+                BackgroundColor = UIColor.White,
+                Enabled = false
+            };
             _applyHillshadeButton.SetTitle("Apply Hillshade", UIControlState.Normal);
             _applyHillshadeButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            _applyHillshadeButton.BackgroundColor = UIColor.White;
 
             // Handle the button tap to show the hillshade renderer inputs.
             _applyHillshadeButton.TouchUpInside += ApplyHillshade_Click;

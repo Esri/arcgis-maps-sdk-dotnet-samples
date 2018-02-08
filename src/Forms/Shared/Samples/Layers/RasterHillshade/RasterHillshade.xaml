@@ -42,12 +42,12 @@
                 <Slider x:Name="AzimuthSlider"
                         Grid.Row="2" Grid.Column="1"
                         Minimum="0" Maximum="360"/>
-                <Button x:Name="ApplyHillshade"
+                <Button x:Name="ApplyHillshadeButton"
                         Grid.Row="3" Grid.ColumnSpan="2"
                         Margin="20,0"
                         VerticalOptions="Center" HorizontalOptions="CenterAndExpand"
                         Text="Apply hillshade"
-                        Clicked="ApplyHillshade_Click"/>
+                        Clicked="ApplyHillshadeButton_Click"/>
             </Grid>
     </Grid>
 </ContentPage>

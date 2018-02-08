@@ -43,12 +43,12 @@
                         Grid.Row="2" Grid.Column="1"
                         Minimum="0" Maximum="360"
                         IsThumbToolTipEnabled="True"/>
-                <Button x:Name="ApplyHillshade"
+                <Button x:Name="ApplyHillshadeButton"
                         Grid.Row="3" Grid.ColumnSpan="2"
                         Margin="50,0" Padding="3"
                         VerticalAlignment="Center" HorizontalAlignment="Stretch"
                         Content="Apply hillshade"
-                        Click="ApplyHillshade_Click"/>
+                        Click="ApplyHillshadeButton_Click"/>
             </Grid>
         </Border>
     </Grid>

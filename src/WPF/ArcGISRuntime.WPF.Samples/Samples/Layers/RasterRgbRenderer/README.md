@@ -1,8 +1,8 @@
-# Raster rendering rule
+# Raster RGB renderer
 
-This sample demonstrates how to create an `ImageServiceRaster`, fetch the `RenderingRule`s from the service info, and use a `RenderingRule` to create an `ImageServiceRaster` and add it to a raster layer.
+This sample demonstrates how to use an RGB renderer on a raster layer. An RGB renderer is used to adjust the color bands of a multi-spectral image.
 
-<img src="RasterRenderingRule.jpg" width="350"/>
+<img src="RasterRgbRenderer.jpg" width="350"/>
 
-
-
+### Instructions
+Choose one of the stretch parameter types. The other options will adjust based on the chosen type. Add your inputs and press the Apply button to update the renderer.

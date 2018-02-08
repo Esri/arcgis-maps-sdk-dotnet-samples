@@ -81,9 +81,12 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRgbRenderer
             // Load the raster file
             Raster rasterFile = new Raster(filepath);
 
-            // Create and load a new raster layer to show the image.
+            // Create a new raster layer to show the image.
             _rasterLayer = new RasterLayer(rasterFile);
             await _rasterLayer.LoadAsync();
+
+            // Once the layer is loaded, enable the button for changing the renderer.
+            _segmentButton.Enabled = true;
 
             // Create a viewpoint with the raster's full extent.
             Viewpoint fullRasterExtent = new Viewpoint(_rasterLayer.FullExtent);
@@ -105,6 +108,7 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRgbRenderer
             _segmentButton.InsertSegment("Min Max RGB", 0, false);
             _segmentButton.InsertSegment("% Clip", 1, false);
             _segmentButton.InsertSegment("Std Dev", 2, false);
+            _segmentButton.Enabled = false;
 
             // Handle the "click" for each segment (new segment is selected).
             _segmentButton.ValueChanged += SegmentButtonClicked;

@@ -130,6 +130,7 @@
                         Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4"
                         HorizontalAlignment="Center" VerticalAlignment="Bottom"
                         Margin="0,5"
+                        IsEnabled="False"
                         Content="Apply renderer"
                         Click="ApplyRgbRendererButton_Click"/>
             </Grid>

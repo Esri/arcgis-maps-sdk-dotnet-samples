@@ -126,10 +126,11 @@
                               VerticalAlignment="Center" HorizontalAlignment="Left"/>
                 </Grid>
                 <Button x:Name="ApplyRgbRendererButton"
-                            Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
-                            Margin="0,5"
-                            Content="Apply renderer"
-                            Click="ApplyRgbRendererButton_Click"/>
+                        Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
+                        Margin="0,5"
+                        IsEnabled="False"
+                        Content="Apply renderer"
+                        Click="ApplyRgbRendererButton_Click"/>
             </Grid>
         </Border>
     </Grid>

@@ -43,9 +43,12 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRgbRenderer
             // Load the raster file
             Raster rasterFile = new Raster(filepath);
 
-            // Create and load a new raster layer to show the image.
+            // Create a new raster layer to show the image.
             _rasterLayer = new RasterLayer(rasterFile);
+
+            // Once the layer has loaded, enable the button to change the renderer.
             await _rasterLayer.LoadAsync();
+            ApplyRgbRendererButton.IsEnabled = true;
 
             // Create a viewpoint with the raster's full extent.
             Viewpoint fullRasterExtent = new Viewpoint(_rasterLayer.FullExtent);

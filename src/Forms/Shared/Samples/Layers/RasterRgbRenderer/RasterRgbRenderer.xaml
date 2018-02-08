@@ -138,6 +138,7 @@
                     HorizontalOptions="Center" VerticalOptions="End"
                     Margin="0,5"
                     HeightRequest="40"
+                    IsEnabled="False"
                     Text="Apply renderer"
                     Clicked="ApplyRgbRendererButton_Clicked"/>
         </Grid>

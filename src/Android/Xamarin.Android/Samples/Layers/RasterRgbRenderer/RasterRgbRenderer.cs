@@ -54,6 +54,9 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRgbRenderer
         // Input control for the standard deviation factor value.
         private Spinner _stdDeviationFactorSpinner;
 
+        // Button to apply the renderer.
+        private Button _applyRendererButton;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -96,11 +99,12 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRgbRenderer
             _parameterInputTypeSpinner.ItemSelected += ParameterInputTypeSpinner_ItemSelected;
 
             // Create the button that applies the renderer and handle its Click event.
-            Button applyRendererButton = new Button(this)
+            _applyRendererButton = new Button(this)
             {
-                Text = "Apply"
+                Text = "Apply",
+                Enabled = false
             };
-            applyRendererButton.Click += ApplyRendererButton_Click;
+            _applyRendererButton.Click += ApplyRendererButton_Click;
 
             // Add a label, parameter type spinner control, and the apply button.
             TextView parameterTypeTextView = new TextView(this)
@@ -109,7 +113,7 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRgbRenderer
             };
             parameterTypeLayout.AddView(parameterTypeTextView);
             parameterTypeLayout.AddView(_parameterInputTypeSpinner);
-            parameterTypeLayout.AddView(applyRendererButton);
+            parameterTypeLayout.AddView(_applyRendererButton);
 
             // Add the parameter UI choice controls to the main layout.
             mainLayout.AddView(parameterTypeLayout);
@@ -126,17 +130,23 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRgbRenderer
             int[] minMaxValues = Enumerable.Range(0, 256).ToArray();
             ArrayAdapter<int> minMaxValuesAdapter = new ArrayAdapter<int>(this, Android.Resource.Layout.SimpleSpinnerDropDownItem, minMaxValues);
 
+            // Get the width of the current device (in pixels).
+            int widthPixels = Resources.DisplayMetrics.WidthPixels;
+
+            // Use 1/5 of the device width for the drop down.
+            int dropDownWidth = widthPixels / 5;
+
             // Create controls for specifying the minimum and maximum red values (0-255).
             _minRedSpinner = new Spinner(this, SpinnerMode.Dropdown)
             {
                 Adapter = minMaxValuesAdapter,
-                DropDownWidth = 120
+                DropDownWidth = dropDownWidth
             };
             _minRedSpinner.SetSelection(0);
             _maxRedSpinner = new Spinner(this, SpinnerMode.Dropdown)
             {
                 Adapter = minMaxValuesAdapter,
-                DropDownWidth = 120
+                DropDownWidth = dropDownWidth
             };
             _maxRedSpinner.SetSelection(255);
             
@@ -148,13 +158,13 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRgbRenderer
             _minGreenSpinner = new Spinner(this, SpinnerMode.Dropdown)
             {
                 Adapter = minMaxValuesAdapter,
-                DropDownWidth = 120
+                DropDownWidth = dropDownWidth
             };
             _minGreenSpinner.SetSelection(0);
             _maxGreenSpinner = new Spinner(this, SpinnerMode.Dropdown)
             {
                 Adapter = minMaxValuesAdapter,
-                DropDownWidth = 120
+                DropDownWidth = dropDownWidth
             };
             _maxGreenSpinner.SetSelection(255);
 
@@ -166,13 +176,13 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRgbRenderer
             _minBlueSpinner = new Spinner(this, SpinnerMode.Dropdown)
             {
                 Adapter = minMaxValuesAdapter,
-                DropDownWidth = 120
+                DropDownWidth = dropDownWidth
             };
             _minBlueSpinner.SetSelection(0);
             _maxBlueSpinner = new Spinner(this, SpinnerMode.Dropdown)
             {
                 Adapter = minMaxValuesAdapter,
-                DropDownWidth = 120
+                DropDownWidth = dropDownWidth
             };
             _maxBlueSpinner.SetSelection(255);
 
@@ -287,7 +297,7 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRgbRenderer
             _stdDeviationFactorSpinner = new Spinner(this, SpinnerMode.Dropdown)
             {
                 Adapter = stdDevFactorsAdapter,
-                DropDownWidth = 120
+                DropDownWidth = dropDownWidth
             };
 
             // Set the default selection to the 4th item (value of 2.0)
@@ -347,6 +357,9 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRgbRenderer
             _rasterLayer = new RasterLayer(rasterFile);
             await _rasterLayer.LoadAsync();
 
+            // Once the layer is loaded, enable the button to apply a new renderer.
+            _applyRendererButton.Enabled = true;
+            
             // Create a viewpoint with the raster's full extent.
             Viewpoint fullRasterExtent = new Viewpoint(_rasterLayer.FullExtent);
 

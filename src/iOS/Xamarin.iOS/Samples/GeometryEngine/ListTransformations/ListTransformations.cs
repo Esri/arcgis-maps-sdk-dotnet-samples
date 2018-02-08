@@ -59,7 +59,6 @@ namespace ArcGISRuntimeXamarin.Samples.ListTransformations
         // Switch to toggle suitable transformations for the current extent.
         private UISwitch _useExtentSwitch;
 
-
         public ListTransformations()
         {
             Title = "List datum transformations";

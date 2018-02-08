@@ -115,6 +115,7 @@
     <AndroidResource Include="Resources\layout\Animate3DGraphic.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <EmbeddedResource Include="Samples\GeometryEngine\ListTransformations\metadata.json" />
     <None Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -173,6 +174,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SamplesListActivity.cs" />
     <Compile Include="SamplesListAdapter.cs" />
+    <Compile Include="Samples\GeometryEngine\ListTransformations\ListTransformations.cs" />
     <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -460,6 +462,9 @@
     <Compile Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.cs" />
     <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.cs" />
     <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\GeometryEngine\ListTransformations\ListTransformations.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

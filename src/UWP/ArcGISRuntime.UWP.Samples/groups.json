@@ -188,6 +188,10 @@
               "Path": "Samples/Layers/RasterRenderingRule"
             },
             {
+              "SampleName": "RasterHillshade",
+              "Path": "Samples/Layers/RasterHillshade"
+            },
+            {
               "SampleName": "RasterLayerGeoPackage",
               "Path": "Samples/Data/RasterLayerGeoPackage"
             },

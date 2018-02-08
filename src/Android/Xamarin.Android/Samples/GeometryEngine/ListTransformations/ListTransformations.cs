@@ -12,6 +12,7 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 using ArcGISRuntimeXamarin.Managers;
+using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -51,7 +52,6 @@ namespace ArcGISRuntimeXamarin.Samples.ListTransformations
 
         // Switch to toggle suitable transformations for the current extent.
         private Switch _useExtentSwitch;
-
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -127,51 +127,45 @@ namespace ArcGISRuntimeXamarin.Samples.ListTransformations
         private void CreateLayout()
         {
             // View for the input/output wkid labels.
-            LinearLayout wkidLabelsStackView = new LinearLayout(this)
-            {
-                Orientation = Orientation.Horizontal
-            };
-            
+            LinearLayout wkidLabelsStackView = new LinearLayout(this) { Orientation = Orientation.Horizontal };
+            wkidLabelsStackView.SetPadding(10, 10, 0, 10);
+
             // Create a label for the input spatial reference.
             _inWkidLabel = new TextView(this)
             {
                 Text = "In WKID = ",
-                TextAlignment = Android.Views.TextAlignment.ViewStart
+                TextAlignment = TextAlignment.ViewStart
             };
 
             // Create a label for the output spatial reference.
             _outWkidLabel = new TextView(this)
             {
                 Text = "Out WKID = ",
-                TextAlignment = Android.Views.TextAlignment.ViewStart
+                TextAlignment = TextAlignment.ViewStart
             };
 
-            // Create some horizontal space
+            // Create some horizontal space between the labels.
             Space space = new Space(this);
-            space.SetPadding(20, 0, 0, 0);
+            space.SetMinimumWidth(30);
 
             // Add the Wkid labels to the stack view.
             wkidLabelsStackView.AddView(_inWkidLabel);
             wkidLabelsStackView.AddView(space);
             wkidLabelsStackView.AddView(_outWkidLabel);
 
-            // Create a horizontal stack view for the 'use extent' switch and label.
-            LinearLayout extentSwitchRow = new LinearLayout(this)
-            {
-                Orientation = Orientation.Horizontal
-            };
+            // Create the 'use extent' switch.
             _useExtentSwitch = new Switch(this)
             {
                 Checked = false,
                 Text = "Use extent"
             };
-            _useExtentSwitch.CheckedChange += UseExtentSwitch_CheckedChange;
-            
-            // Add the switch to the horizontal stack view.
-            extentSwitchRow.AddView(_useExtentSwitch);
+
+            // Handle the checked change event for the switch.
+            _useExtentSwitch.CheckedChange += UseExtentSwitch_CheckedChange;            
 
             // Create a picker (Spinner) for datum transformations.
             _transformationsPicker = new Spinner(this);
+            _transformationsPicker.SetPadding(5, 10, 0, 10);
 
             // Handle the selection event to work with the selected transformation.
             _transformationsPicker.ItemSelected += TransformationsPicker_ItemSelected;
@@ -180,19 +174,24 @@ namespace ArcGISRuntimeXamarin.Samples.ListTransformations
             _messagesTextView = new TextView(this);
 
             // Create a new vertical layout for the app UI.
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout mainLayout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
-            // Add the transformation UI controls to the main layout.
-            layout.AddView(wkidLabelsStackView);
-            layout.AddView(extentSwitchRow);
-            layout.AddView(_transformationsPicker);
-            layout.AddView(_messagesTextView);
+            LinearLayout toolsLayout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            toolsLayout.SetPadding(10, 0, 0, 0);
+            toolsLayout.SetMinimumHeight(320);
 
-            // Add the map view to the layout
-            layout.AddView(_myMapView);
+            // Add the transformation UI controls to the tools layout.
+            toolsLayout.AddView(wkidLabelsStackView);
+            toolsLayout.AddView(_useExtentSwitch);
+            toolsLayout.AddView(_transformationsPicker);
+            toolsLayout.AddView(_messagesTextView);
 
-            // Show the layout in the app
-            SetContentView(layout);
+            // Add the tools layout and map view to the main layout.
+            mainLayout.AddView(toolsLayout);
+            mainLayout.AddView(_myMapView);
+
+            // Show the layout in the app.
+            SetContentView(mainLayout);
         }
 
         // Function to get suitable datum transformations for the specified input and output spatial references.
@@ -223,19 +222,58 @@ namespace ArcGISRuntimeXamarin.Samples.ListTransformations
             // Create an adapter for showing the spinner list.
             TransformationsAdapter transformationsAdapter = new TransformationsAdapter(this, transformsList);
             transformationsAdapter.DefaultTransformation = defaultTransform;
-
+            
             // Apply the adapter to the spinner.
             _transformationsPicker.Adapter = transformationsAdapter;
         }
 
         private void TransformationsPicker_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
-            
+            // Get the selected transform from the spinner. Return if none is selected.
+            TransformationsAdapter adapter = _transformationsPicker.Adapter as TransformationsAdapter;            
+            DatumTransformation selectedTransform = adapter[e.Position];
+            if (selectedTransform == null) { return; }
+
+            try
+            {
+                // Project the original point using the selected transform.
+                MapPoint projectedPoint = (MapPoint)GeometryEngine.Project(_originalPoint, _myMapView.SpatialReference, selectedTransform);
+
+                // Update the projected graphic (if it already exists), create it otherwise.
+                if (_projectedPointGraphic != null)
+                {
+                    _projectedPointGraphic.Geometry = projectedPoint;
+                }
+                else
+                {
+                    // Create a symbol to represent the projected point (a cross to ensure both markers are visible).
+                    SimpleMarkerSymbol projectedPointMarker = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, Color.Red, 15);
+
+                    // Create the point graphic and add it to the overlay.
+                    _projectedPointGraphic = new Graphic(projectedPoint, projectedPointMarker);
+                    _pointsOverlay.Graphics.Add(_projectedPointGraphic);
+                }
+
+                _messagesTextView.Text = "Projected point using transform: " + selectedTransform.Name;
+            }
+            catch (ArcGISRuntimeException ex)
+            {
+                // Exception if a transformation is missing grid files.
+                _messagesTextView.Text = "Error using selected transformation: " + ex.Message;
+
+                // Remove the projected point graphic (if it exists).
+                if (_projectedPointGraphic != null && _pointsOverlay.Graphics.Contains(_projectedPointGraphic))
+                {
+                    _pointsOverlay.Graphics.Remove(_projectedPointGraphic);
+                    _projectedPointGraphic = null;
+                }
+            }
         }
 
         private void UseExtentSwitch_CheckedChange(object sender, CompoundButton.CheckedChangeEventArgs e)
         {
-            
+            // Call a function to create a list of transformations to fill the picker.
+            GetSuitableTransformations(_originalPoint.SpatialReference, _myMapView.Map.SpatialReference, _useExtentSwitch.Checked);
         }
 
         private string GetProjectionDataPath()
@@ -260,28 +298,36 @@ namespace ArcGISRuntimeXamarin.Samples.ListTransformations
         }
     }
 
+    // An Adapter class to provide a list of datum transformations for display in a Spinner control.
     public class TransformationsAdapter : BaseAdapter<DatumTransformation>
     {
-        private List<DatumTransformation> _transformations;
-        private Activity _context;
+        // Property to expose the default datum transformation (will be displayed with different text color).
         public DatumTransformation DefaultTransformation { get; set; }
 
+        // Fields to store the list of transformations and the current context.
+        private List<DatumTransformation> _transformations;
+        private Activity _context;
+
+        // Constructor for the adapter. Store the context and the list of transformations to display.
         public TransformationsAdapter(Activity context, List<DatumTransformation> items) : base()
         {
             _transformations = items;
             _context = context;
         }
 
+        // Provide an ID for an item at a given position (just return the position).
         public override long GetItemId(int position)
         {
             return position;
         }
 
+        // Provide the datum transformation at this position in the list.
         public override DatumTransformation this[int position]
         {
             get { return _transformations[position]; }
         }
 
+        // Provide the number of items (datum transformations) in the list.
         public override int Count
         {
             get
@@ -290,23 +336,35 @@ namespace ArcGISRuntimeXamarin.Samples.ListTransformations
             }
         }
 
+        // Override the GetView method to provide a custom (formatted) text view for each transformation in the list.
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
+            // Create a new text view to display the transformation name with the proper formatting.
+            TextView transformTextView = new TextView(_context);
+
+            // Get the datum transformation being displayed.
             DatumTransformation thisTransform = _transformations[position];
 
-            TextView view = new TextView(_context);
-            view.SetTextColor(Android.Graphics.Color.White);
+            // Set the text with the transformation name.
+            transformTextView.SetText(thisTransform.Name, TextView.BufferType.Normal);
+
+            // Use white as the default text color (available transforms).
+            transformTextView.SetTextColor(Android.Graphics.Color.White);
+
+            // See if the transform is missing required projection engine files. If so, display the text in gray.
             if (thisTransform.IsMissingProjectionEngineFiles)
             {
-                view.SetTextColor(Android.Graphics.Color.Gray);
+                transformTextView.SetTextColor(Android.Graphics.Color.Gray);
             }
 
+            // If this is the default transformation, show it in blue.
             if(thisTransform.Name == DefaultTransformation.Name)
             {
-                view.SetTextColor(Android.Graphics.Color.Blue);
+                transformTextView.SetTextColor(Android.Graphics.Color.Blue);
             }
             
-            return view;
+            // Pass back the text view.
+            return transformTextView;
         }
     }
 }

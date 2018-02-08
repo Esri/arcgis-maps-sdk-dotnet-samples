@@ -5,6 +5,6 @@
              xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
              x:Class="ArcGISRuntimeXamarin.Samples.ViewshedGeoElement.ViewshedGeoElement">
   <Grid>
-    <esriUI:MapView x:Name="MyMapView"/>
+    <esriUI:SceneView x:Name="MySceneView"/>
   </Grid>
 </ContentPage>

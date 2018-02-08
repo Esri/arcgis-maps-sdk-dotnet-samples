@@ -3,16 +3,10 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Timers;
 using ArcGISRuntimeXamarin.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -21,6 +15,12 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using Foundation;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Timers;
 using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.ViewshedGeoElement
@@ -29,7 +29,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewshedGeoElement
     public class ViewshedGeoElement : UIViewController
     {
         // Create and hold reference to the used MapView
-        private SceneView _mySceneView = new SceneView();
+        private readonly SceneView _mySceneView = new SceneView();
 
         // URLs to the scene layer with buildings and the elevation source
         private readonly Uri _elevationUri = new Uri("https://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer");
@@ -44,7 +44,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewshedGeoElement
 
         // Units for geodetic calculation (used in animating tank)
         private readonly LinearUnit METERS = (LinearUnit)Unit.FromUnitId(9001);
-        private readonly AngularUnit DEGREES = (AngularUnit) Unit.FromUnitId(9102);
+        private readonly AngularUnit DEGREES = (AngularUnit)Unit.FromUnitId(9102);
 
         public ViewshedGeoElement()
         {
@@ -127,7 +127,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewshedGeoElement
                 AutoReset = true
             };
             // Move the tank every time the timer expires
-            animationTimer.Elapsed += (o,e) =>
+            animationTimer.Elapsed += (o, e) =>
             {
                 AnimateTank();
             };
@@ -147,17 +147,17 @@ namespace ArcGISRuntimeXamarin.Samples.ViewshedGeoElement
             }
 
             // Get current location and distance from the destination
-            MapPoint location = (MapPoint) _tank.Geometry;
+            MapPoint location = (MapPoint)_tank.Geometry;
             GeodeticDistanceResult distance = GeometryEngine.DistanceGeodetic(
                 location, _tankEndPoint, METERS, DEGREES, GeodeticCurveType.Geodesic);
 
             // Move the tank a short distance
-            location = GeometryEngine.MoveGeodetic(new List<MapPoint>(){location}, 1.0, METERS, distance.Azimuth1, DEGREES,
+            location = GeometryEngine.MoveGeodetic(new List<MapPoint>() { location }, 1.0, METERS, distance.Azimuth1, DEGREES,
                 GeodeticCurveType.Geodesic).First();
             _tank.Geometry = location;
 
-            // Rotate toward destination 
-            double heading = (double) _tank.Attributes["HEADING"];
+            // Rotate toward destination
+            double heading = (double)_tank.Attributes["HEADING"];
             heading = heading + ((distance.Azimuth1 - heading) / 10);
             _tank.Attributes["HEADING"] = heading;
 
@@ -171,6 +171,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewshedGeoElement
         private async Task<string> GetModelPath()
         {
             // Returns the tank model
+
             #region offlinedata
 
             // The desired model is expected to be called "bradle.3ds"
@@ -208,6 +209,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewshedGeoElement
 
             base.ViewDidLoad();
         }
+
         public override void ViewDidLayoutSubviews()
         {
             // Setup the visual frame for the MapView

@@ -37,7 +37,7 @@ namespace ArcGISRuntime.WPF.Samples.ViewshedGeoElement
 
         // Units for geodetic calculation (used in animating tank)
         private readonly LinearUnit METERS = (LinearUnit)Unit.FromUnitId(9001);
-        private readonly AngularUnit DEGREES = (AngularUnit) Unit.FromUnitId(9102);
+        private readonly AngularUnit DEGREES = (AngularUnit)Unit.FromUnitId(9102);
 
         public ViewshedGeoElement()
         {
@@ -123,7 +123,7 @@ namespace ArcGISRuntime.WPF.Samples.ViewshedGeoElement
                 AutoReset = true
             };
             // Move the tank every time the timer expires
-            animationTimer.Elapsed += (o,e) =>
+            animationTimer.Elapsed += (o, e) =>
             {
                 AnimateTank();
             };
@@ -143,17 +143,17 @@ namespace ArcGISRuntime.WPF.Samples.ViewshedGeoElement
             }
 
             // Get current location and distance from the destination
-            MapPoint location = (MapPoint) _tank.Geometry;
+            MapPoint location = (MapPoint)_tank.Geometry;
             GeodeticDistanceResult distance = GeometryEngine.DistanceGeodetic(
                 location, _tankEndPoint, METERS, DEGREES, GeodeticCurveType.Geodesic);
 
             // Move the tank a short distance
-            location = GeometryEngine.MoveGeodetic(new List<MapPoint>(){location}, 1.0, METERS, distance.Azimuth1, DEGREES,
+            location = GeometryEngine.MoveGeodetic(new List<MapPoint>() { location }, 1.0, METERS, distance.Azimuth1, DEGREES,
                 GeodeticCurveType.Geodesic).First();
             _tank.Geometry = location;
 
-            // Rotate toward waypoint
-            double heading = (double) _tank.Attributes["HEADING"];
+            // Rotate toward destination
+            double heading = (double)_tank.Attributes["HEADING"];
             heading = heading + ((distance.Azimuth1 - heading) / 10);
             _tank.Attributes["HEADING"] = heading;
 
@@ -167,6 +167,7 @@ namespace ArcGISRuntime.WPF.Samples.ViewshedGeoElement
         private async Task<string> GetModelPath()
         {
             // Returns the tank model
+
             #region offlinedata
 
             // The desired model is expected to be called "bradle.3ds"

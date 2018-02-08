@@ -1,14 +1,23 @@
 {
   "Name": "Viewshed (GeoElement)",
   "SampleName": "ViewshedGeoElement",
-  "Description": "",
-  "Instructions": "", 
+  "Description": "This sample demonstrates how to display a live viewshed analysis for a moving GeoElement. The analysis is offset vertically so that the viewpoint is from the top of the GeoElement (in this case, a model of a tank).",
+  "Instructions": "Tap on the scene to see the tank move to that point.", 
   "Type": 0,
   "RequiresOnlineConnection": true,
-  "RequiresOfflineData": false,
+  "RequiresOfflineData": true,
   "RequiresLocalServer": false,
+  "DataItemIds": ["07d62a792ab6496d9b772a24efea45d0"],
+  "DataFileNames": ["bradle.3ds"],
   "Image": "ViewshedGeoElement.jpg",
   "Link": "",
-  "TypeLink": [ ],
+  "TypeLink": ["M:Esri.ArcGISRuntime.Geometry.Unit.FromUnitId(System.Int32)", 
+    "T:Esri.ArcGISRuntime.Geometry.LinearUnit", 
+    "T:Esri.ArcGISRuntime.Geometry.AngularUnit",
+    "P:Esri.ArcGISRuntime.Symbology.RendererSceneProperties.HeadingExpression",
+    "T:Esri.ArcGISRuntime.Geometry.GeodeticDistanceResult",
+    "F:Esri.ArcGISRuntime.Geometry.GeodeticCurveType.Geodesic", 
+    "M:Esri.ArcGISRuntime.Geometry.GeometryEngine.MoveGeodetic(System.Collections.Generic.IEnumerable{Esri.ArcGISRuntime.Geometry.MapPoint},System.Double,Esri.ArcGISRuntime.Geometry.LinearUnit,System.Double,Esri.ArcGISRuntime.Geometry.AngularUnit,Esri.ArcGISRuntime.Geometry.GeodeticCurveType)"
+  ],
   "SampleFolder": "ViewshedGeoElement"
 }

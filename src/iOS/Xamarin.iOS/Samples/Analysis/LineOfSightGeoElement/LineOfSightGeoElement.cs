@@ -226,7 +226,7 @@ namespace ArcGISRuntimeXamarin.Samples.LineOfSightGeoElement
             // Check if the file exists
             if (!File.Exists(filepath))
             {
-                // If it's missing, download the GeoPackage
+                // If it's missing, download the model
                 await DataManager.GetData("3af5cfec0fd24dac8d88aea679027cb9", "LineOfSightGeoElement");
             }
 

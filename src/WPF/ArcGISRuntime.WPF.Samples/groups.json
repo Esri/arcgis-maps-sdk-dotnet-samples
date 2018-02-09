@@ -401,6 +401,10 @@
               "Path": "Samples/Analysis/ViewshedCamera"
             },
             {
+              "SampleName": "ViewshedGeoElement",
+              "Path": "Samples/Analysis/ViewshedGeoElement" 
+            },
+            {
               "SampleName": "LineOfSightLocation",
               "Path": "Samples/Analysis/LineOfSightLocation"
             },

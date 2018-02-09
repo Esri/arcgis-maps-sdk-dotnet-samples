@@ -40,21 +40,39 @@ namespace ArcGISRuntimeXamarin.Samples.GeoViewSync
             _mySceneView.InteractionOptions = new SceneViewInteractionOptions { IsFlickEnabled = false };
             _myMapView.InteractionOptions = new MapViewInteractionOptions { IsFlickEnabled = false };
 
-            // Subscribe to viewpoint change events for both views
-            _myMapView.ViewpointChanged += view_viewpointChanged;
-            _mySceneView.ViewpointChanged += view_viewpointChanged;
+            // Subscribe to viewpoint change events for both views - event raised on click+drag
+            _myMapView.ViewpointChanged += OnViewpointChanged;
+            _mySceneView.ViewpointChanged += OnViewpointChanged;
+            
+            // Subscribe to the navigation completed events - raised on flick
+            _myMapView.NavigationCompleted += OnNavigationComplete;
+            _mySceneView.NavigationCompleted += OnNavigationComplete;
         }
 
-        private void CreateLayout()
+        private void OnNavigationComplete(object sender, EventArgs eventArgs)
         {
-            // Add GeoViews to the page
-            View.AddSubviews(_myMapView, _mySceneView);
+            // Get a reference to the MapView or SceneView that raised the event
+            GeoView sendingView = (GeoView)sender;
+
+            // Get a reference to the other view
+            GeoView otherView;
+            if (sendingView is MapView)
+            {
+                otherView = _mySceneView;
+            }
+            else
+            {
+                otherView = _myMapView;
+            }
+
+            // Update the viewpoint on the other view
+            otherView.SetViewpoint(sendingView.GetCurrentViewpoint(ViewpointType.CenterAndScale));
         }
 
-        private void view_viewpointChanged(object sender, EventArgs e)
+        private void OnViewpointChanged(object sender, EventArgs e)
         {
             // Get the MapView or SceneView that sent the event
-            GeoView sendingView = sender as GeoView;
+            GeoView sendingView = (GeoView)sender;
 
             // Only take action if this geoview is the one that the user is navigating.
             // Viewpoint changed events are fired when SetViewpoint is called; This check prevents a feedback loop
@@ -78,6 +96,12 @@ namespace ArcGISRuntimeXamarin.Samples.GeoViewSync
                     _myMapView.SetViewpoint(updateViewpoint);
                 }
             }
+        }
+
+        private void CreateLayout()
+        {
+            // Add GeoViews to the page
+            View.AddSubviews(_myMapView, _mySceneView);
         }
 
         public override void ViewDidLoad()

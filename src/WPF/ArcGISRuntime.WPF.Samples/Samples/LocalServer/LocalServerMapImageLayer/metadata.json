@@ -12,7 +12,10 @@
   "Image": "LocalServerMapImageLayer.jpg",
   "Link": "",
   "TypeLink": [
-    "T:Esri.ArcGISRuntime.LocalServices.LocalMapService"
+    "T:Esri.ArcGISRuntime.LocalServices.LocalMapService", 
+    "M:Esri.ArcGISRuntime.LocalServices.LocalMapService.#ctor(System.String)",
+    "P:Esri.ArcGISRuntime.LocalServices.LocalServer.Instance", 
+    "P:Esri.ArcGISRuntime.LocalServices.LocalService.Url"
   ],
   "SampleFolder": "LocalServerMapImageLayer"
 }

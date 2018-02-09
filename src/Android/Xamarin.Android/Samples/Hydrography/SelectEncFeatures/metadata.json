@@ -21,7 +21,11 @@
     "M:Esri.ArcGISRuntime.Mapping.EncLayer.ClearSelection",
     "M:Esri.ArcGISRuntime.Mapping.EncLayer.SelectFeature(Esri.ArcGISRuntime.Hydrography.EncFeature)",
     "P:Esri.ArcGISRuntime.Hydrography.EncFeature.Acronym",
-    "P:Esri.ArcGISRuntime.Hydrography.EncFeature.Description"
+    "P:Esri.ArcGISRuntime.Hydrography.EncFeature.Description",
+    "T:Esri.ArcGISRuntime.Hydrography.EncCell",
+    "M:Esri.ArcGISRuntime.Hydrography.EncCell.#ctor(System.String)",
+    "T:Esri.ArcGISRuntime.Mapping.EncLayer",
+    "M:Esri.ArcGISRuntime.Mapping.EncLayer.#ctor(Esri.ArcGISRuntime.Hydrography.EncCell)"
   ],
   "SampleFolder": "SelectEncFeatures"
 }

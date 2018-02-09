@@ -11,7 +11,14 @@
   "Link": "",
   "TypeLink": [
     "T:Esri.ArcGISRuntime.Data.RelatedFeatureQueryResult",
-    "M:Esri.ArcGISRuntime.Data.ArcGISFeatureTable.QueryRelatedFeaturesAsync(Esri.ArcGISRuntime.Data.ArcGISFeature)"
+    "M:Esri.ArcGISRuntime.Data.ArcGISFeatureTable.QueryRelatedFeaturesAsync(Esri.ArcGISRuntime.Data.ArcGISFeature)",
+    "T:Esri.ArcGISRuntime.ArcGISServices.ArcGISFeatureLayerInfo",
+    "T:Esri.ArcGISRuntime.Data.ArcGISFeature",
+    "T:Esri.ArcGISRuntime.Data.ArcGISFeatureTable",
+    "P:Esri.ArcGISRuntime.ArcGISServices.ArcGISFeatureLayerInfo.DisplayFieldName",
+    "P:Esri.ArcGISRuntime.Data.ArcGISFeatureTable.LayerInfo",
+    "M:Esri.ArcGISRuntime.Data.RelatedFeatureQueryResult.GetEnumerator",
+    "M:Esri.ArcGISRuntime.Portal.PortalItem.CreateAsync(System.Uri,Esri.ArcGISRuntime.Security.Credential)"
   ],
   "SampleFolder": "ListRelatedFeatures"
 }

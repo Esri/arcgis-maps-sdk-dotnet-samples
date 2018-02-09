@@ -10,15 +10,16 @@
   "Image":"FeatureLayerQuery.jpg",
   "Link":"",
   "TypeLink": [
-"T:Esri.ArcGISRuntime.Data.QueryParameters",
-"M:Esri.ArcGISRuntime.Data.FeatureTable.QueryFeaturesAsync(Esri.ArcGISRuntime.Data.QueryParameters)",
-"P:Esri.ArcGISRuntime.Data.QueryParameters.WhereClause",
-"P:Esri.ArcGISRuntime.Mapping.Layer.Opacity",
-"M:Esri.ArcGISRuntime.Mapping.FeatureLayer.ClearSelection",
-"M:Esri.ArcGISRuntime.Mapping.FeatureLayer.SelectFeature(Esri.ArcGISRuntime.Data.Feature)",
-"P:Esri.ArcGISRuntime.Geometry.Geometry.Extent",
-"T:Esri.ArcGISRuntime.Data.Feature",
-"P:Esri.ArcGISRuntime.Data.GeoElement.Geometry"
+    "T:Esri.ArcGISRuntime.Data.QueryParameters",
+    "M:Esri.ArcGISRuntime.Data.FeatureTable.QueryFeaturesAsync(Esri.ArcGISRuntime.Data.QueryParameters)",
+    "P:Esri.ArcGISRuntime.Data.QueryParameters.WhereClause",
+    "P:Esri.ArcGISRuntime.Mapping.Layer.Opacity",
+    "M:Esri.ArcGISRuntime.Mapping.FeatureLayer.ClearSelection",
+    "M:Esri.ArcGISRuntime.Mapping.FeatureLayer.SelectFeature(Esri.ArcGISRuntime.Data.Feature)",
+    "P:Esri.ArcGISRuntime.Geometry.Geometry.Extent",
+    "T:Esri.ArcGISRuntime.Data.Feature",
+    "P:Esri.ArcGISRuntime.Data.GeoElement.Geometry",
+    "M:Esri.ArcGISRuntime.Mapping.Basemap.CreateTopographic"
 ],
   "SampleFolder": "FeatureLayerQuery"
 }

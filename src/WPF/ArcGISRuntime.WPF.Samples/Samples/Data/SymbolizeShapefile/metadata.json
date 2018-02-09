@@ -11,6 +11,12 @@
   "DataFileNames": ["Subdivisions.shp"],
   "Image": "SymbolizeShapefile.jpg",
   "Link": "",
-  "TypeLink": [ "T:Esri.ArcGISRuntime.Data.ShapefileFeatureTable" ],
+  "TypeLink": [
+    "T:Esri.ArcGISRuntime.Data.ShapefileFeatureTable",
+    "M:Esri.ArcGISRuntime.Data.ShapefileFeatureTable.#ctor(System.String)",
+    "T:Esri.ArcGISRuntime.Symbology.SimpleFillSymbol",
+    "P:Esri.ArcGISRuntime.Mapping.FeatureLayer.Renderer",
+    "M:Esri.ArcGISRuntime.Symbology.SimpleLineSymbol.#ctor"
+],
   "SampleFolder": "SymbolizeShapefile"
 }

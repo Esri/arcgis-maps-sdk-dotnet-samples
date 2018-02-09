@@ -11,6 +11,18 @@
   "DataFileNames": [ "Contour.gpk", "RasterHillshade.tpk" ],
   "Image": "LocalServerGeoprocessing.jpg",
   "Link": "",
-  "TypeLink": [ "T:Esri.ArcGISRuntime.LocalServices.LocalGeoprocessingService" ],
+  "TypeLink": [
+    "T:Esri.ArcGISRuntime.LocalServices.LocalGeoprocessingService",
+    "T:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingDouble",
+    "M:Esri.ArcGISRuntime.LocalServices.LocalGeoprocessingService.#ctor(System.String,Esri.ArcGISRuntime.LocalServices.GeoprocessingServiceType)",
+    "M:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingDouble.#ctor(System.Double)",
+    "T:Esri.ArcGISRuntime.LocalServices.GeoprocessingServiceType",
+    "P:Esri.ArcGISRuntime.Mapping.ImageTiledLayer.FullExtent",
+    "P:Esri.ArcGISRuntime.Tasks.Job`1.ServerJobId",
+    "M:Esri.ArcGISRuntime.RuntimeCollection`1.RemoveAt(System.Int32)",
+    "P:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingParameters.Inputs",
+    "M:Esri.ArcGISRuntime.Mapping.TileCache.#ctor(System.String)",
+    "P:Esri.ArcGISRuntime.Tasks.Job`1.Status"
+],
   "SampleFolder": "LocalServerGeoprocessing"
 }

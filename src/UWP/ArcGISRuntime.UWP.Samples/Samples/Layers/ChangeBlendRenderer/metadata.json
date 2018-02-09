@@ -17,7 +17,9 @@
     "T:Esri.ArcGISRuntime.Rasters.ColorRamp",
     "T:Esri.ArcGISRuntime.Rasters.PresetColorRampType",
     "M:Esri.ArcGISRuntime.Geometry.EnvelopeBuilder.Expand(System.Double)",
-    "P:Esri.ArcGISRuntime.Mapping.RasterLayer.Renderer"
+    "P:Esri.ArcGISRuntime.Mapping.RasterLayer.Renderer",
+    "T:Esri.ArcGISRuntime.Rasters.SlopeType",
+    "T:Esri.ArcGISRuntime.Rasters.RasterRenderer"
   ],
   "SampleFolder": "ChangeBlendRenderer"
 }

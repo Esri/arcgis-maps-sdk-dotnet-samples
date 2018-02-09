@@ -11,6 +11,11 @@
   "DataFileNames": [ "Shasta.tif" ],
   "Image": "RasterLayerFile.jpg",
   "Link": "",
-  "TypeLink": [ "M:Esri.ArcGISRuntime.Rasters.Raster.#ctor(System.String)", "P:Esri.ArcGISRuntime.Mapping.Layer.FullExtent", "M:Esri.ArcGISRuntime.Mapping.Layer.LoadAsync" ],
+  "TypeLink": [
+    "M:Esri.ArcGISRuntime.Rasters.Raster.#ctor(System.String)",
+    "P:Esri.ArcGISRuntime.Mapping.Layer.FullExtent",
+    "M:Esri.ArcGISRuntime.Mapping.Layer.LoadAsync",
+    "M:Esri.ArcGISRuntime.Mapping.Map.LoadAsync"
+],
   "SampleFolder": "RasterLayerFile"
 }

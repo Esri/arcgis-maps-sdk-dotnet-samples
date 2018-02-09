@@ -12,10 +12,9 @@
   "Image": "FeatureLayerShapefile.jpg",
   "Link": "",
   "TypeLink": [
-"T:Esri.ArcGISRuntime.Data.ShapefileFeatureTable",
-"M:Esri.ArcGISRuntime.UI.Controls.MapView.SetViewpointGeometryAsync(Esri.ArcGISRuntime.Geometry.Geometry)",
-"M:Esri.ArcGISRuntime.Mapping.Basemap.CreateStreetsVector",
-"M:Esri.ArcGISRuntime.Data.ShapefileFeatureTable.OpenAsync(System.String)"
+    "M:Esri.ArcGISRuntime.UI.Controls.MapView.SetViewpointGeometryAsync(Esri.ArcGISRuntime.Geometry.Geometry)",
+    "M:Esri.ArcGISRuntime.Mapping.Basemap.CreateStreetsVector",
+    "M:Esri.ArcGISRuntime.Data.ShapefileFeatureTable.OpenAsync(System.String)"
 ],
   "SampleFolder": "FeatureLayerShapefile"
 }

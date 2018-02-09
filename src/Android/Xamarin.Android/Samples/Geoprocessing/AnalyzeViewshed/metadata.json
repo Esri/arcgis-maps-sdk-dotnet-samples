@@ -9,6 +9,17 @@
   "RequiresLocalServer": false,
   "Image": "AnalyzeViewshed.jpg",
   "Link": "",
-  "TypeLink": [ "T:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingJob", "T:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingFeatures", "M:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingFeatures.#ctor(Esri.ArcGISRuntime.Data.IFeatureSet)", "M:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingTask.CreateJob(Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingParameters)", "T:Esri.ArcGISRuntime.Symbology.SimpleFillSymbol", "M:Esri.ArcGISRuntime.Symbology.SimpleRenderer.#ctor", "P:Esri.ArcGISRuntime.Symbology.FillSymbol.Color", "P:Esri.ArcGISRuntime.Symbology.SimpleRenderer.Symbol", "P:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingParameters.OutputSpatialReference", "P:Esri.ArcGISRuntime.UI.Controls.GeoView.SpatialReference", "M:Esri.ArcGISRuntime.RuntimeCollection`1.Clear" ],
+  "TypeLink": [
+    "T:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingJob",
+    "T:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingFeatures",
+    "M:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingFeatures.#ctor(Esri.ArcGISRuntime.Data.IFeatureSet)",
+    "M:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingTask.CreateJob(Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingParameters)",
+    "M:Esri.ArcGISRuntime.Symbology.SimpleRenderer.#ctor",
+    "P:Esri.ArcGISRuntime.Symbology.FillSymbol.Color",
+    "P:Esri.ArcGISRuntime.Symbology.SimpleRenderer.Symbol",
+    "P:Esri.ArcGISRuntime.Tasks.Geoprocessing.GeoprocessingParameters.OutputSpatialReference",
+    "P:Esri.ArcGISRuntime.UI.Controls.GeoView.SpatialReference",
+    "M:Esri.ArcGISRuntime.RuntimeCollection`1.Clear"
+],
   "SampleFolder": "AnalyzeViewshed"
 }

@@ -120,7 +120,7 @@ namespace ArcGISRuntime.UWP.Samples.ViewshedGeoElement
             {
                 Interval = new TimeSpan(0, 0, 0, 0, 60)
             };
-            // Move the taxi every time the timer expires
+            // Move the tank every time the timer expires
             animationTimer.Tick += (o, e) => { AnimateTank(); };
             // Start the timer
             animationTimer.Start();

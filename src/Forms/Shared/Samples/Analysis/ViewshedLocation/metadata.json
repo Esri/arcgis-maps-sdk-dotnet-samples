@@ -1,0 +1,14 @@
+{
+  "Name": "Viewshed (Location)",
+  "SampleName": "ViewshedLocation",
+  "Description": "",
+  "Instructions": "", 
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": false,
+  "RequiresLocalServer": false,
+  "Image": "ViewshedLocation.jpg",
+  "Link": "",
+  "TypeLink": [ ],
+  "SampleFolder": "ViewshedLocation"
+}

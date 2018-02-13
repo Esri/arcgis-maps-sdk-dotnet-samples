@@ -102,8 +102,17 @@
     <Content Include="Properties\ArcGISRuntime.Windows.Samples.rd.xml" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Samples\Data\ReadGeoPackage\metadata.json" />
+    <Content Include="Samples\GeometryEngine\ListTransformations\ListTransformations.jpg" />
+    <Content Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.jpg" />
+    <Content Include="Samples\Layers\ChangeBlendRenderer\metadata.json" />
+    <Content Include="Samples\GeometryEngine\ListTransformations\metadata.json" />
     <Content Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- JSON Metadata -->
+    <Content Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.jpg" />
     <Content Include="Samples\Symbology\FeatureLayerExtrusion\metadata.json" />
+    <Content Include="Samples\Layers\ChangeStretchRenderer\metadata.json" />
     <Content Include="Samples\Layers\RasterRgbRenderer\metadata.json" />
   </ItemGroup>
   <ItemGroup>
@@ -315,6 +324,9 @@
 	<Compile Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.xaml.cs">
 		<DependentUpon>ViewshedGeoElement.xaml</DependentUpon>
 	</Compile>
+    <Compile Include="Samples\GeometryEngine\ListTransformations\ListTransformations.xaml.cs">
+      <DependentUpon>ListTransformations.xaml</DependentUpon>
+    </Compile>	
     <Compile Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.xaml.cs">
       <DependentUpon>Animate3DGraphic.xaml</DependentUpon>
     </Compile>
@@ -607,6 +619,10 @@
 		<Generator>MSBuild:Compile</Generator>
 		<SubType>Designer</SubType>
 	</Page>
+    <Page Include="Samples\GeometryEngine\ListTransformations\ListTransformations.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>	
     <Page Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -178,6 +178,7 @@
     <None Include="Entitlements.plist" />
     <None Include="packages.config" />
     <EmbeddedResource Include="Samples\Data\ReadGeoPackage\metadata.json" />
+    <EmbeddedResource Include="Samples\GeometryEngine\ListTransformations\metadata.json" />
     <None Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg" />
     <None Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.jpg" />
   </ItemGroup>
@@ -244,6 +245,7 @@
     <Compile Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.cs" />
     <Compile Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.cs" />
     <Compile Include="Samples\Layers\RasterHillshade\RasterHillshade.cs" />
+    <Compile Include="Samples\GeometryEngine\ListTransformations\ListTransformations.cs" />
     <Compile Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.cs" />
     <Compile Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.cs" />
     <Compile Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.cs" />
@@ -547,6 +549,9 @@
     <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.cs" />
     <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\GeometryEngine\ListTransformations\ListTransformations.jpg" />
+  </ItemGroup>  
   <ItemGroup>
     <None Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.jpg" />
   </ItemGroup>

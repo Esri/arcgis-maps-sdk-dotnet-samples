@@ -80,67 +80,88 @@ namespace ArcGISRuntimeXamarin.Samples.GeodatabaseTransactions
         private void CreateLayout()
         {
             // Button to start an edit transaction
-            _startEditingButton = new Button(this);
-            _startEditingButton.Text = "Start";
-            var g = new GridLayout(this);
+            _startEditingButton = new Button(this)
+            {
+                Text = "Start"
+            };
             _startEditingButton.Click += BeginTransaction;
 
             // Button to stop a transaction
-            _stopEditingButton = new Button(this);
-            _stopEditingButton.Text = "Stop";
-            _stopEditingButton.Enabled = false;
+            _stopEditingButton = new Button(this)
+            {
+                Text = "Stop",
+                Enabled = false
+            };
             _stopEditingButton.Click += StopEditTransaction;
 
             // Button to synchronize local edits with the service
-            _syncEditsButton = new Button(this);
-            _syncEditsButton.Text ="Sync";
-            _syncEditsButton.Enabled = false;
+            _syncEditsButton = new Button(this)
+            {
+                Text = "Sync",
+                Enabled = false
+            };
             _syncEditsButton.Click += SynchronizeEdits;
 
             // Button to add bird features
-            _addBirdButton = new Button(this);
-            _addBirdButton.Text="Add Bird";
-            _addBirdButton.Enabled = false;
+            _addBirdButton = new Button(this)
+            {
+                Text = "Add Bird",
+                Enabled = false
+            };
             _addBirdButton.Click += AddNewFeature;
 
             // Button to add marine features
-            _addMarineButton = new Button(this);
-            _addMarineButton.Text = "Add Marine";
-            _addMarineButton.Enabled = false;            
+            _addMarineButton = new Button(this)
+            {
+                Text = "Add Marine",
+                Enabled = false
+            };
             _addMarineButton.Click += AddNewFeature;
 
             // Layout to hold the first row of buttons (start, stop, sync)
-            LinearLayout editButtonsRow1 = new LinearLayout(this);
-            editButtonsRow1.Orientation = Orientation.Horizontal;
+            LinearLayout editButtonsRow1 = new LinearLayout(this)
+            {
+                Orientation = Orientation.Horizontal
+            };
             editButtonsRow1.AddView(_startEditingButton);
             editButtonsRow1.AddView(_stopEditingButton);
             editButtonsRow1.AddView(_syncEditsButton);
 
             // Layout to hold the second row of buttons (add bird, add marine)
-            LinearLayout editButtonsRow2 = new LinearLayout(this);
-            editButtonsRow2.Orientation = Orientation.Horizontal;
+            LinearLayout editButtonsRow2 = new LinearLayout(this)
+            {
+                Orientation = Orientation.Horizontal
+            };
             editButtonsRow2.AddView(_addBirdButton);
             editButtonsRow2.AddView(_addMarineButton);
 
             // Layout for the 'require transaction' switch
-            LinearLayout editSwitchRow = new LinearLayout(this);
-            editSwitchRow.Orientation = Orientation.Horizontal;
-            _requireTransactionSwitch = new Switch(this);
-            _requireTransactionSwitch.Checked = true;
-            _requireTransactionSwitch.Text = "Require transaction";
+            LinearLayout editSwitchRow = new LinearLayout(this)
+            {
+                Orientation = Orientation.Horizontal
+            };
+            _requireTransactionSwitch = new Switch(this)
+            {
+                Checked = true,
+                Text = "Require transaction"
+            };
             _requireTransactionSwitch.CheckedChange += RequireTransactionChanged;
             editSwitchRow.AddView(_requireTransactionSwitch);
 
             // Progress bar
-            _progressBar = new ProgressBar(this);
-            _progressBar.Visibility = Android.Views.ViewStates.Gone;
+            _progressBar = new ProgressBar(this)
+            {
+                Visibility = Android.Views.ViewStates.Gone
+            };
 
             // Use the rest of the view to show status messages
             _messageTextBlock = new TextView(this);
 
             // Create the main layout
-            LinearLayout layout = new LinearLayout(this);
-            layout.Orientation = Orientation.Vertical;
+            LinearLayout layout = new LinearLayout(this)
+            {
+                Orientation = Orientation.Vertical
+            };
 
             // Add the first row of buttons
             layout.AddView(editButtonsRow1);

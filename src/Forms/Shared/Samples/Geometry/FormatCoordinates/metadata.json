@@ -1,0 +1,24 @@
+{
+  "Name": "Format coordinates",
+  "SampleName": "FormatCoordinates",
+  "Description": "This sample demonstrates how to convert between `MapPoint` and string representations of a point using various coordinate systems.",
+  "Instructions": "Tap on the map to see the point in several coordinate systems. Update one of the coordinates and select 'recalculate' to see the point converted into other coordinate systems. ",
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": false,
+  "RequiresLocalServer": false,
+  "Image": "FormatCoordinates.jpg",
+  "Link": "",
+  "TypeLink": [
+    "M:Esri.ArcGISRuntime.Geometry.CoordinateFormatter.FromLatitudeLongitude(System.String,Esri.ArcGISRuntime.Geometry.SpatialReference)", 
+    "T:Esri.ArcGISRuntime.Geometry.CoordinateFormatter", 
+    "M:Esri.ArcGISRuntime.Geometry.CoordinateFormatter.FromUtm(System.String,Esri.ArcGISRuntime.Geometry.SpatialReference,Esri.ArcGISRuntime.Geometry.UtmConversionMode)", 
+    "M:Esri.ArcGISRuntime.Geometry.CoordinateFormatter.FromUsng(System.String,Esri.ArcGISRuntime.Geometry.SpatialReference)", 
+    "M:Esri.ArcGISRuntime.Geometry.CoordinateFormatter.ToLatitudeLongitude(Esri.ArcGISRuntime.Geometry.MapPoint,Esri.ArcGISRuntime.Geometry.LatitudeLongitudeFormat,System.Int32)", 
+    "M:Esri.ArcGISRuntime.Geometry.CoordinateFormatter.ToUsng(Esri.ArcGISRuntime.Geometry.MapPoint,System.Int32,System.Boolean)", 
+    "M:Esri.ArcGISRuntime.Geometry.CoordinateFormatter.ToUtm(Esri.ArcGISRuntime.Geometry.MapPoint,Esri.ArcGISRuntime.Geometry.UtmConversionMode,System.Boolean)",
+    "T:Esri.ArcGISRuntime.Geometry.LatitudeLongitudeFormat",
+    "T:Esri.ArcGISRuntime.Geometry.UtmConversionMode"
+],
+  "SampleFolder": "FormatCoordinates"
+}

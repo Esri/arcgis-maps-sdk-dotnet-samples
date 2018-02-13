@@ -9,6 +9,13 @@
   "RequiresLocalServer": false,
   "Image": "ShowCallout.jpg",
   "Link": "",
-  "TypeLink": ["T:Esri.ArcGISRuntime.UI.CalloutDefinition","M:Esri.ArcGISRuntime.Geometry.GeometryEngine.Project(Esri.ArcGISRuntime.Geometry.Geometry,Esri.ArcGISRuntime.Geometry.SpatialReference)","E:Esri.ArcGISRuntime.UI.Controls.GeoView.GeoViewTapped","M:Esri.ArcGISRuntime.UI.CalloutDefinition.#ctor(System.String,System.String)","P:Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs.Location"],
+  "TypeLink": [
+    "T:Esri.ArcGISRuntime.UI.CalloutDefinition",
+    "E:Esri.ArcGISRuntime.UI.Controls.GeoView.GeoViewTapped",
+    "M:Esri.ArcGISRuntime.UI.CalloutDefinition.#ctor(System.String,System.String)",
+    "P:Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs.Location",
+    "M:Esri.ArcGISRuntime.UI.Controls.GeoView.ShowCalloutAt(Esri.ArcGISRuntime.Geometry.MapPoint,Esri.ArcGISRuntime.UI.CalloutDefinition)",
+    "P:Esri.ArcGISRuntime.Geometry.MapPoint.X"
+],
   "SampleFolder": "ShowCallout"
 }

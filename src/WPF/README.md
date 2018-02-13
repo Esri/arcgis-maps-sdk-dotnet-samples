@@ -103,6 +103,10 @@
 
     This sample demonstrates how to export tiles from a map server.
 
+* [Web TiledLayer](ArcGISRuntime.WPF.Samples/Samples/Layers/Web_TiledLayer)
+
+    This sample demonstrates how to load a web tiled layer from a non-ArcGIS service, including how to include proper attribution.
+
 * [ArcGIS map image layer (URL)](ArcGISRuntime.WPF.Samples/Samples/Layers/ArcGISMapImageLayerUrl)
 
     This sample demonstrates how to add an ArcGISMapImageLayer as a base layer in a map. The ArcGISMapImageLayer comes from an ArcGIS Server sample web service.
@@ -149,6 +153,10 @@
     * [Raster layer (GeoPackage)](ArcGISRuntime.WPF.Samples/Samples/Data/RasterLayerGeoPackage)
 
     This sample demonstrates how to open a GeoPackage and show a GeoPackage raster in a raster layer.
+
+    * [Stretch renderer](ArcGISRuntime.WPF.Samples/Samples/Layers/ChangeStretchRenderer)
+
+    This sample demonstrates how to use stretch renderer on a raster layer.
 
 ## Features
 
@@ -258,9 +266,17 @@
 
     This sample demonstrates how to interactively sketch and edit graphics in the map view and display them in a graphics overlay. You can sketch a variety of geometry types and undo or redo operations.
 
+* [Add graphics with symbols](ArcGISRuntime.WPF.Samples/Samples/GraphicsOverlay/AddGraphicsWithSymbols)
+
+    This sample demonstrates how to add various types of graphics to a `GraphicsOverlay`.
+
 * [Surface placement](ArcGISRuntime.WPF.Samples/Samples/GraphicsOverlay/SurfacePlacements)
 
     This sample demonstrates how to position graphics using different Surface Placements.
+
+* [Animate 3D Graphic](ArcGISRuntime.WPF.Samples/Samples/GraphicsOverlay/Animate3DGraphic)
+
+    This sample demonstrates how to animate a graphic's position and follow it using a camera controller.
 
 * [Render simple markers](ArcGISRuntime.WPF.Samples/Samples/Symbology/RenderSimpleMarkers)
 
@@ -350,6 +366,14 @@
 
     This sample demonstrates how to display a Map Image Layer from a local map service
 
+* [Local Server Services](ArcGISRuntime.WPF.Samples/Samples/LocalServer/LocalServerServices)
+
+    This sample demonstrates how to control local server and manage running services.
+
+* [Local Server Geoprocessing](ArcGISRuntime.WPF.Samples/Samples/LocalServer/LocalServerGeoprocessing)
+
+    This sample demonstrates how to perform geoprocessing tasks using Local Server.
+
 * [Dynamic workspace shapefile](ArcGISRuntime.WPF.Samples/Samples/LocalServer/DynamicWorkspaceShapefile)
 
     This sample demonstrates how to dynamically add a local shapefile to a map using Local Server.
@@ -382,6 +406,24 @@
     * [Find place](ArcGISRuntime.WPF.Samples/Samples/Search/FindPlace)
 
     This sample demonstrates how to use geocode functionality to search for points of interest, around a location or within an extent.
+
+## GeometryEngine
+
+
+- **Projection**
+
+    * [Project with specific transformation](ArcGISRuntime.WPF.Samples/Samples/GeometryEngine/ProjectWithSpecificTransformation)
+
+    This sample demonstrates how to use the GeometryEngine with a specified geographic transformation to transform a geometry from one coordinate system to another. 
+
+## Geometry
+
+
+- **Coordinates**
+
+    * [Format coordinates](ArcGISRuntime.WPF.Samples/Samples/Geometry/FormatCoordinates)
+
+    This sample demonstrates how to convert between `MapPoint` and string representations of a point using various coordinate systems.
 
 ## Tutorial
 

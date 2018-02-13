@@ -3,34 +3,43 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Xamarin.Forms;
 
 namespace ArcGISRuntimeXamarin.Samples.ChangeBasemap
 {
     public partial class ChangeBasemap : ContentPage
     {
-        // String array to store titles for the viewpoints specified above.
-        private string[] titles = new string[]
+        // Dictionary that associates names with basemaps
+        private readonly Dictionary<string, Basemap> _basemapOptions = new Dictionary<string, Basemap>()
         {
-            "Topo",
-            "Streets",
-            "Imagery",
-            "Ocean"
+            {"Streets (Raster)", Basemap.CreateStreets()},
+            {"Streets (Vector)", Basemap.CreateStreetsVector()},
+            {"Streets - Night (Vector)", Basemap.CreateStreetsNightVector()},
+            {"Imagery (Raster)", Basemap.CreateImagery()},
+            {"Imagery with Labels (Raster)", Basemap.CreateImageryWithLabels()},
+            {"Imagery with Labels (Vector)", Basemap.CreateImageryWithLabelsVector()},
+            {"Dark Gray Canvas (Vector)", Basemap.CreateDarkGrayCanvasVector()},
+            {"Light Gray Canvas (Raster)", Basemap.CreateLightGrayCanvas()},
+            {"Light Gray Canvas (Vector)", Basemap.CreateLightGrayCanvasVector()},
+            {"Navigation (Vector)", Basemap.CreateNavigationVector()},
+            {"OpenStreetMap (Raster)", Basemap.CreateOpenStreetMap()}
         };
 
-        public ChangeBasemap ()
+        public ChangeBasemap()
         {
-            InitializeComponent ();
+            InitializeComponent();
 
             Title = "Change basemap";
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             Initialize();
         }
 
@@ -38,40 +47,10 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBasemap
         {
             // Show sheet and get title from the selection
             var selectedBasemap =
-                await DisplayActionSheet("Select basemap", "Cancel", null, titles);
+                await DisplayActionSheet("Select basemap", "Cancel", null, _basemapOptions.Keys.ToArray());
 
-            // If selected cancel do nothing
-            if (selectedBasemap == "Cancel") return;
-
-            switch (selectedBasemap)
-            {
-                case "Topo":
-
-                    // Set the basemap to Topographic
-                    MyMapView.Map.Basemap = Basemap.CreateTopographic();
-                    break;
-
-                case "Streets":
-
-                    // Set the basemap to Streets
-                    MyMapView.Map.Basemap = Basemap.CreateStreets();
-                    break;
-
-                case "Imagery":
-
-                    // Set the basemap to Imagery
-                    MyMapView.Map.Basemap = Basemap.CreateImagery();
-                    break;
-
-                case "Ocean":
-
-                    // Set the basemap to Imagery
-                    MyMapView.Map.Basemap = Basemap.CreateOceans();
-                    break;
-
-                default:
-                    break;
-            }
+            // Retrieve the basemap from the dictionary
+            MyMapView.Map.Basemap = _basemapOptions[selectedBasemap];
         }
 
         private void Initialize()

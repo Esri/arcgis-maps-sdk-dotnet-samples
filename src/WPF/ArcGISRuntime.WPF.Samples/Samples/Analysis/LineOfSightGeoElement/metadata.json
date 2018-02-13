@@ -11,6 +11,21 @@
   "DataFileNames": ["dolmus.3ds"],
   "Image": "LineOfSightGeoElement.jpg",
   "Link": "",
-  "TypeLink": [ ],
+  "TypeLink": [
+    "T:Esri.ArcGISRuntime.Symbology.SimpleMarkerSceneSymbol",
+    "T:Esri.ArcGISRuntime.UI.GeoAnalysis.GeoElementLineOfSight",
+    "M:Esri.ArcGISRuntime.Mapping.LayerSceneProperties.#ctor(Esri.ArcGISRuntime.Mapping.SurfacePlacement)",
+    "M:Esri.ArcGISRuntime.UI.GeoAnalysis.GeoElementLineOfSight.#ctor(Esri.ArcGISRuntime.Data.GeoElement,Esri.ArcGISRuntime.Data.GeoElement)",
+    "T:Esri.ArcGISRuntime.Symbology.SceneSymbolAnchorPosition",
+    "T:Esri.ArcGISRuntime.UI.GeoAnalysis.LineOfSightTargetVisibility",
+    "E:Esri.ArcGISRuntime.UI.GeoAnalysis.LineOfSight.TargetVisibilityChanged",
+    "P:Esri.ArcGISRuntime.Mapping.Scene.InitialViewpoint",
+    "P:Esri.ArcGISRuntime.Symbology.MarkerSceneSymbol.AnchorPosition",
+    "P:Esri.ArcGISRuntime.UI.GeoAnalysis.GeoElementLineOfSight.TargetOffsetZ",
+    "P:Esri.ArcGISRuntime.UI.GeoAnalysis.LineOfSight.TargetVisibility",
+    "P:Esri.ArcGISRuntime.UI.Graphic.IsSelected",
+    "M:Esri.ArcGISRuntime.Symbology.ModelSceneSymbol.CreateAsync(System.Uri)",
+    "T:Esri.ArcGISRuntime.Symbology.ModelSceneSymbol"
+ ],
   "SampleFolder": "LineOfSightGeoElement"
 }

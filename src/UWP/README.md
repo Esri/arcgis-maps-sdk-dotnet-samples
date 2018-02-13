@@ -112,6 +112,10 @@
 
     This sample demonstrates how to export tiles from a map server.
 
+    * [Web TiledLayer](ArcGISRuntime.UWP.Samples/Samples/Layers/Web_TiledLayer)
+
+    This sample demonstrates how to load a web tiled layer from a non-ArcGIS service, including how to include proper attribution.
+
 
 - **Map Image Layers**
 
@@ -161,6 +165,10 @@
     * [Raster layer (GeoPackage)](ArcGISRuntime.UWP.Samples/Samples/Data/RasterLayerGeoPackage)
 
     This sample demonstrates how to open a GeoPackage and show a GeoPackage raster in a raster layer.
+
+    * [Stretch renderer](ArcGISRuntime.UWP.Samples/Samples/Layers/ChangeStretchRenderer)
+
+    This sample demonstrates how to use stretch renderer on a raster layer.
 
 ## Features
 
@@ -279,9 +287,17 @@
 
     This sample demonstrates how to identify graphics in a graphics overlay. When you tap on a graphic on the map, you will see an alert message displayed.
 
+    * [Add graphics with symbols](ArcGISRuntime.UWP.Samples/Samples/GraphicsOverlay/AddGraphicsWithSymbols)
+
+    This sample demonstrates how to add various types of graphics to a `GraphicsOverlay`.
+
     * [Sketch graphics on the map](ArcGISRuntime.UWP.Samples/Samples/GraphicsOverlay/SketchOnMap)
 
     This sample demonstrates how to interactively sketch and edit graphics in the map view and display them in a graphics overlay. You can sketch a variety of geometry types and undo or redo operations.
+
+    * [Animate 3D Graphic](ArcGISRuntime.UWP.Samples/Samples/GraphicsOverlay/Animate3DGraphic)
+
+    This sample demonstrates how to animate a graphic's position and follow it using a camera controller.
 
 
 - **Symbology**
@@ -381,6 +397,24 @@
 * [Display device location](ArcGISRuntime.UWP.Samples/Samples/Location/DisplayDeviceLocation)
 
     This sample demonstrates how you can enable location services and switch between different types of auto pan modes.
+
+## GeometryEngine
+
+
+- **Projection**
+
+    * [Project with specific transformation](ArcGISRuntime.UWP.Samples/Samples/GeometryEngine/ProjectWithSpecificTransformation)
+
+    This sample demonstrates how to use the GeometryEngine with a specified geographic transformation to transform a geometry from one coordinate system to another. 
+
+## Geometry
+
+
+- **Coordinates**
+
+    * [Format coordinates](ArcGISRuntime.UWP.Samples/Samples/Geometry/FormatCoordinates)
+
+    This sample demonstrates how to convert between `MapPoint` and string representations of a point using various coordinate systems.
 
 ## Search
 

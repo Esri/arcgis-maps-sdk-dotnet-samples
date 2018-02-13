@@ -79,7 +79,31 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
+	<Content Include="Samples\Analysis\ViewshedGeoElement\metadata.json">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</Content>
+    <Content Include="Samples\GraphicsOverlay\Animate3DGraphic\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\FormatCoordinates\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\RasterHillshade\RasterHillshade.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\Web_TiledLayer\metadata.json">        
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.jpg">
@@ -370,7 +394,25 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<Content Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.jpg">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</Content>
+    <Content Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\LocalServer\LocalServerFeatureLayer\LocalServerFeatureLayer.jpg">
@@ -631,12 +673,33 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.xaml.cs">
+		<DependentUpon>ViewshedGeoElement.xaml</DependentUpon>
+	</Compile>
+    <Compile Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.xaml.cs">
+      <DependentUpon>Animate3DGraphic.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.xaml.cs">
+      <DependentUpon>ChangeBlendRenderer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.xaml.cs">
+      <DependentUpon>ChangeStretchRenderer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.xaml.cs">
+      <DependentUpon>FormatCoordinates.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml.cs">
       <DependentUpon>ProjectWithSpecificTransformation.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.xaml.cs">
       <DependentUpon>RasterRgbRenderer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.xaml.cs">
+      <DependentUpon>Web_TiledLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.xaml.cs">
+      <DependentUpon>AddGraphicsWithSymbols.xaml</DependentUpon>
+    </Compile>    
     <Compile Include="Samples\LocalServer\LocalServerFeatureLayer\LocalServerFeatureLayer.xaml.cs">
       <DependentUpon>LocalServerFeatureLayer.xaml</DependentUpon>
     </Compile>
@@ -675,6 +738,9 @@
     </Compile>
     <Compile Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.xaml.cs">
       <DependentUpon>FeatureLayerRenderingModeMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\RasterHillshade\RasterHillshade.xaml.cs">
+      <DependentUpon>RasterHillshade.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\WmsIdentify\WmsIdentify.xaml.cs">
       <DependentUpon>WmsIdentify.xaml</DependentUpon>
@@ -916,11 +982,39 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+	<Page Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.xaml">
+		<Generator>MSBuild:Compile</Generator>
+		<SubType>Designer</SubType>
+	</Page>
+    <Page Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>    
+    <Page Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -932,6 +1026,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Layers\RasterHillshade\RasterHillshade.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>    
     <Page Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1314,6 +1412,15 @@
     <Content Include="Samples\Layers\RasterRgbRenderer\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Layers\ChangeBlendRenderer\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ChangeStretchRenderer\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>    
+    <Content Include="Samples\Layers\RasterHillshade\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>    
   </ItemGroup>
   <ItemGroup />
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

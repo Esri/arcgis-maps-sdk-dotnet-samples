@@ -66,7 +66,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerMapImageLayer
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Local Server failed to start");
+                MessageBox.Show(String.Format("Please ensure that local server is installed prior to using the sample. See instructions in readme.md or metadata.json. Message: {0}", ex.Message), "Local Server failed to start");
             }
         }
 

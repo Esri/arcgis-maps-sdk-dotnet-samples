@@ -11,6 +11,15 @@
   "DataFileNames": [ "RelationshipID.mpk", "PointsOfInterest.mpk", "Contour.gpk" ],
   "Image": "LocalServerServices.jpg",
   "Link": "",
-  "TypeLink": [],
+  "TypeLink": [
+    "T:Esri.ArcGISRuntime.LocalServices.LocalService",
+    "M:Esri.ArcGISRuntime.LocalServices.LocalGeoprocessingService.#ctor(System.String)",
+    "E:Esri.ArcGISRuntime.LocalServices.LocalServer.StatusChanged",
+    "P:Esri.ArcGISRuntime.LocalServices.LocalServer.Services",
+    "P:Esri.ArcGISRuntime.LocalServices.LocalService.Name",
+    "P:Esri.ArcGISRuntime.LocalServices.LocalService.Status",
+    "M:Esri.ArcGISRuntime.LocalServices.LocalServer.StopAsync",
+    "M:Esri.ArcGISRuntime.LocalServices.LocalService.StopAsync"
+],
   "SampleFolder": "LocalServerServices"
 }

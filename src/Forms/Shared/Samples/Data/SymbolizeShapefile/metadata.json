@@ -7,10 +7,16 @@
   "RequiresOnlineConnection": true,
   "RequiresOfflineData": true,
   "RequiresLocalServer": false,
-  "Image": "SymbolizeShapefile.jpg",
   "DataItemIds": [ "d98b3e5293834c5f852f13c569930caa" ],
-  "DateFileNames": [ "Subdivisions.shp" ],
+  "DataFileNames": [ "Subdivisions.shp" ],
+  "Image": "SymbolizeShapefile.jpg",
   "Link": "",
-  "TypeLink": [ "T:Esri.ArcGISRuntime.Data.ShapefileFeatureTable" ],
+  "TypeLink": [
+    "T:Esri.ArcGISRuntime.Data.ShapefileFeatureTable",
+    "M:Esri.ArcGISRuntime.Data.ShapefileFeatureTable.#ctor(System.String)",
+    "T:Esri.ArcGISRuntime.Symbology.SimpleFillSymbol",
+    "P:Esri.ArcGISRuntime.Mapping.FeatureLayer.Renderer",
+    "M:Esri.ArcGISRuntime.Symbology.SimpleLineSymbol.#ctor"
+],
   "SampleFolder": "SymbolizeShapefile"
 }

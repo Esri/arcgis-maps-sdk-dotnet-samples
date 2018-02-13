@@ -243,6 +243,10 @@
     <Compile Include="Models\SubCategoryModel.cs" />
     <Compile Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.cs" />
     <Compile Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.cs" />
+    <Compile Include="Samples\Layers\RasterHillshade\RasterHillshade.cs" />
+    <Compile Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.cs" />
+    <Compile Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.cs" />
+    <Compile Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.cs" />
     <Compile Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.cs" />
     <Compile Include="ViewControllers\SamplesViewController.cs" />
     <Compile Include="ViewControllers\SearchResultsUpdater.cs" />
@@ -256,8 +260,13 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
+	<EmbeddedResource Include="Samples\Analysis\ViewshedGeoElement\metadata.json" />
+    <EmbeddedResource Include="Samples\GraphicsOverlay\Animate3DGraphic\metadata.json" />
     <EmbeddedResource Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\metadata.json" />
     <EmbeddedResource Include="Samples\Data\ListRelatedFeatures\metadata.json" />
+    <EmbeddedResource Include="Samples\Geometry\FormatCoordinates\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\Web_TiledLayer\metadata.json" />
+    <EmbeddedResource Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\metadata.json" />
     <EmbeddedResource Include="Samples\Analysis\LineOfSightGeoElement\metadata.json" />
     <EmbeddedResource Include="Samples\Analysis\QueryFeatureCountAndExtent\metadata.json" />
     <EmbeddedResource Include="Samples\Layers\FeatureLayerRenderingModeScene\metadata.json" />
@@ -340,11 +349,23 @@
     <EmbeddedResource Include="Samples\Symbology\SimpleRenderers\metadata.json" />
     <EmbeddedResource Include="Samples\Symbology\UseDistanceCompositeSym\metadata.json" />
     <EmbeddedResource Include="Samples\Tutorial\AuthorEditSaveMap\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\ChangeBlendRenderer\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\ChangeStretchRenderer\metadata.json" />
+    <EmbeddedResource Include="Samples\Symbology\FeatureLayerExtrusion\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<None Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.jpg" />
+    <None Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.jpg" />
+    <None Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
+    <None Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
+    <None Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.jpg" />
+    <None Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.jpg" />
     <None Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg" />
     <None Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
+    <None Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.jpg" />
+    <None Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.jpg" />
+    <None Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.jpg" />
     <None Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
     <None Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.jpg" />
     <None Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
@@ -370,6 +391,7 @@
     <None Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.jpg" />
     <None Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg" />
     <None Include="Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.jpg" />
+    <EmbeddedResource Include="Samples\Layers\RasterHillshade\metadata.json" />
     <None Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg" />
     <None Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.jpg" />
     <None Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.jpg" />
@@ -421,18 +443,26 @@
     <None Include="Samples\NetworkAnalysis\FindRoute\FindRoute.jpg" />
     <None Include="Samples\Search\FindAddress\FindAddress.jpg" />
     <None Include="Samples\Search\FindPlace\FindPlace.jpg" />
-    <EmbeddedResource Include="Samples\Symbology\FeatureLayerExtrusion\metadata.json" />
     <None Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.jpg" />
     <None Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.jpg" />
     <None Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.jpg" />
     <None Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.jpg" />
     <None Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg" />
     <None Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg" />
+    <None Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.jpg" />
+    <None Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.jpg" />
+    <None Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.jpg" />
+    <None Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.jpg" />
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.cs" />
+    <Compile Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.cs" />
     <Compile Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.cs" />
     <Compile Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.cs" />
+    <Compile Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.cs" />
+    <Compile Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.cs" />
+    <Compile Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.cs" />
     <Compile Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.cs" />
     <Compile Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.cs" />
     <Compile Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.cs" />
@@ -525,6 +555,9 @@
     <None Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.jpg" />
     <None Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Layers\RasterHillshade\RasterHillshade.jpg" />
+  </ItemGroup>  
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

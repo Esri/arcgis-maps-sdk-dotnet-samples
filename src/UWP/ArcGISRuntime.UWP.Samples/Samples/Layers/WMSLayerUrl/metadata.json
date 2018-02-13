@@ -10,8 +10,9 @@
   "Image":"WMSLayerUrl.jpg",
   "Link":"",
   "TypeLink": [
-"T:Esri.ArcGISRuntime.Mapping.WmsLayer",
-"M:Esri.ArcGISRuntime.RuntimeCollection`1.Add(`0)",
-"T:Esri.ArcGISRuntime.Mapping.LayerCollection"
+    "T:Esri.ArcGISRuntime.Mapping.WmsLayer",
+    "M:Esri.ArcGISRuntime.RuntimeCollection`1.Add(`0)",
+    "T:Esri.ArcGISRuntime.Mapping.LayerCollection",
+    "M:Esri.ArcGISRuntime.Geometry.SpatialReference.#ctor(System.Int32)"
 ]
 }

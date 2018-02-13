@@ -11,7 +11,8 @@
   "Link": "",
   "TypeLink": [
     "M:Esri.ArcGISRuntime.Data.FeatureTable.QueryFeatureCountAsync(Esri.ArcGISRuntime.Data.QueryParameters)",
-    "M:Esri.ArcGISRuntime.Data.FeatureTable.QueryExtentAsync(Esri.ArcGISRuntime.Data.QueryParameters)"
+    "M:Esri.ArcGISRuntime.Data.FeatureTable.QueryExtentAsync(Esri.ArcGISRuntime.Data.QueryParameters)",
+    "P:Esri.ArcGISRuntime.Data.QueryParameters.SpatialRelationship"
   ],
   "SampleFolder": "QueryFeatureCountAndExtent"
 }

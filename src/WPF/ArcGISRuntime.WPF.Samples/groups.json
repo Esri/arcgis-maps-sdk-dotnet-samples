@@ -128,6 +128,10 @@
             {
               "SampleName": "ExportTiles",
               "Path": "Samples/Layers/ExportTiles"
+            },
+            {
+              "SampleName": "Web_TiledLayer",
+              "Path": "Samples/Layers/Web_TiledLayer" 
             }
           ]
         },
@@ -187,9 +191,21 @@
               "SampleName": "RasterRgbRenderer",
               "Path": "Samples/Layers/RasterRgbRenderer"
             },
+	    {
+              "SampleName": "RasterHillshade",
+              "Path": "Samples/Layers/RasterHillshade"
+            },
             {
               "SampleName": "RasterLayerGeoPackage",
               "Path": "Samples/Data/RasterLayerGeoPackage"
+            },
+            {
+              "SampleName": "ChangeBlendRenderer",
+              "Path": "Samples/Layers/ChangeBlendRenderer"
+            },
+            {
+              "SampleName": "ChangeStretchRenderer",
+              "Path": "Samples/Layers/ChangeStretchRenderer"
             }
           ]
         }
@@ -329,8 +345,16 @@
               "Path": "Samples/GraphicsOverlay/SketchOnMap"
             },
             {
+              "SampleName": "AddGraphicsWithSymbols",
+              "Path": "Samples/GraphicsOverlay/AddGraphicsWithSymbols"
+            },
+            {
               "SampleName": "SurfacePlacements",
               "Path": "Samples/GraphicsOverlay/SurfacePlacements"
+            },
+            {
+              "SampleName": "Animate3DGraphic",
+              "Path": "Samples/GraphicsOverlay/Animate3DGraphic" 
             }
           ]
         },
@@ -379,6 +403,10 @@
             {
               "SampleName": "ViewshedCamera",
               "Path": "Samples/Analysis/ViewshedCamera"
+            },
+            {
+              "SampleName": "ViewshedGeoElement",
+              "Path": "Samples/Analysis/ViewshedGeoElement" 
             },
             {
               "SampleName": "LineOfSightLocation",
@@ -576,6 +604,23 @@
             {
               "SampleName": "ProjectWithSpecificTransformation",
               "Path": "Samples/GeometryEngine/ProjectWithSpecificTransformation"
+            }
+          ] 
+        }
+      ] 
+    },
+    {
+      "Name": "Geometry",
+      "CategoryName": "Geometry",
+      "SubCategories": [
+        {
+          "Name": "Coordinates",
+          "SubCategoryName": "Coordinates",
+          "ShowGroup": true,
+          "SampleInfos": [
+            {
+              "SampleName": "FormatCoordinates",
+              "Path": "Samples/Geometry/FormatCoordinates"
             }
           ] 
         }

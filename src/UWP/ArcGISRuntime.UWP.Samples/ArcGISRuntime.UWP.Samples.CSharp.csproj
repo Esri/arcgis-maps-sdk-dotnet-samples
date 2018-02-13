@@ -117,13 +117,20 @@
     <Content Include="groups.json" />
     <Content Include="Samples\Analysis\LineOfSightLocation\metadata.json" />
     <Content Include="Samples\Analysis\ViewshedCamera\metadata.json" />
+    <Content Include="groups.json" />
+    <Content Include="Samples\Analysis\LineOfSightLocation\metadata.json" />
+    <Content Include="Samples\Analysis\QueryFeatureCountAndExtent\metadata.json" />
+    <Content Include="Samples\Analysis\ViewshedCamera\metadata.json" />
+    <Content Include="Samples\Analysis\ViewshedGeoElement\metadata.json" />
     <Content Include="Samples\Data\EditAndSyncFeatures\metadata.json" />
     <Content Include="Samples\Data\FeatureLayerGeoPackage\metadata.json" />
     <Content Include="Samples\Data\FeatureLayerQuery\metadata.json" />
     <Content Include="Samples\Data\FeatureLayerShapefile\metadata.json" />
     <Content Include="Samples\Data\GenerateGeodatabase\metadata.json" />
     <Content Include="Samples\Data\GeodatabaseTransactions\metadata.json" />
+    <Content Include="Samples\Data\ListRelatedFeatures\metadata.json" />
     <Content Include="Samples\Data\RasterLayerGeoPackage\metadata.json" />
+    <Content Include="Samples\Data\ReadGeoPackage\metadata.json" />
     <Content Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.jpg" />
     <Content Include="Samples\Data\ReadShapefileMetadata\metadata.json" />
     <Content Include="Samples\Data\ServiceFeatureTableCache\metadata.json" />
@@ -131,10 +138,15 @@
     <Content Include="Samples\Data\ServiceFeatureTableNoCache\metadata.json" />
     <Content Include="Samples\Data\StatisticalQuery\metadata.json" />
     <Content Include="Samples\Data\StatsQueryGroupAndSort\metadata.json" />
+    <Content Include="Samples\Data\SymbolizeShapefile\metadata.json" />
+    <Content Include="Samples\Geometry\FormatCoordinates\metadata.json" />
+    <Content Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\metadata.json" />
     <Content Include="Samples\Geoprocessing\AnalyzeHotspots\metadata.json" />
     <Content Include="Samples\Geoprocessing\AnalyzeViewshed\metadata.json" />
     <Content Include="Samples\Geoprocessing\ListGeodatabaseVersions\metadata.json" />
     <Content Include="Samples\GraphicsOverlay\AddGraphicsRenderer\metadata.json" />
+    <Content Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\metadata.json" />
+    <Content Include="Samples\GraphicsOverlay\Animate3DGraphic\metadata.json" />
     <Content Include="Samples\GraphicsOverlay\IdentifyGraphics\metadata.json" />
     <Content Include="Samples\GraphicsOverlay\SketchOnMap\metadata.json" />
     <Content Include="Samples\GraphicsOverlay\SurfacePlacements\metadata.json" />
@@ -142,7 +154,9 @@
     <Content Include="Samples\Layers\ArcGISMapImageLayerUrl\metadata.json" />
     <Content Include="Samples\Layers\ArcGISTiledLayerUrl\metadata.json" />
     <Content Include="Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json" />
+    <Content Include="Samples\Layers\ChangeBlendRenderer\metadata.json" />
     <Content Include="Samples\Layers\ChangeFeatureLayerRenderer\metadata.json" />
+    <Content Include="Samples\Layers\ChangeStretchRenderer\metadata.json" />
     <Content Include="Samples\Layers\ChangeSublayerVisibility\metadata.json" />
     <Content Include="Samples\Layers\CreateFeatureCollectionLayer\metadata.json" />
     <Content Include="Samples\Layers\DisplayScene\metadata.json" />
@@ -152,14 +166,17 @@
     <Content Include="Samples\Layers\FeatureLayerDefinitionExpression\metadata.json" />
     <Content Include="Samples\Layers\FeatureLayerDictionaryRenderer\metadata.json" />
     <Content Include="Samples\Layers\FeatureLayerRenderingModeMap\metadata.json" />
+    <Content Include="Samples\Layers\FeatureLayerRenderingModeScene\metadata.json" />
     <Content Include="Samples\Layers\FeatureLayerSelection\metadata.json" />
     <Content Include="Samples\Layers\FeatureLayerUrl\metadata.json" />
+    <Content Include="Samples\Layers\RasterHillshade\RasterHillshade.jpg" />
     <Content Include="Samples\Layers\RasterLayerFile\metadata.json" />
     <Content Include="Samples\Layers\RasterLayerImageServiceRaster\metadata.json" />
     <Content Include="Samples\Layers\RasterLayerRasterFunction\metadata.json" />
     <Content Include="Samples\Layers\RasterRenderingRule\metadata.json" />
     <Content Include="Samples\Layers\SceneLayerUrl\metadata.json" />
     <Content Include="Samples\Layers\TimeBasedQuery\metadata.json" />
+    <Content Include="Samples\Layers\Web_TiledLayer\metadata.json" />
     <Content Include="Samples\Layers\WmsIdentify\metadata.json" />
     <Content Include="Samples\Layers\WMSLayerUrl\metadata.json" />
     <Content Include="Samples\Layers\WmsServiceCatalog\metadata.json" />
@@ -190,6 +207,7 @@
     <Content Include="Samples\Search\FindAddress\metadata.json" />
     <Content Include="Samples\Search\FindPlace\metadata.json" />
     <Content Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.jpg" />
+    <Content Include="Samples\Symbology\FeatureLayerExtrusion\metadata.json" />
     <Content Include="Samples\Symbology\RenderPictureMarkers\metadata.json" />
     <Content Include="Samples\Symbology\RenderSimpleMarkers\metadata.json" />
     <Content Include="Samples\Symbology\RenderUniqueValues\metadata.json" />
@@ -199,12 +217,19 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.jpg" />
+    <Content Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.jpg" />
+    <Content Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.jpg" />
+    <Content Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.jpg" />
     <Content Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg" />
     <Content Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
     <Content Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
     <Content Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.jpg" />
     <Content Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
     <Content Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
+    <Content Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.jpg" />
+    <Content Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.jpg" />
+    <Content Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.jpg" />
     <Content Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
     <Content Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.jpg" />
     <Content Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg" />
@@ -287,6 +312,12 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.xaml.cs">
+		<DependentUpon>ViewshedGeoElement.xaml</DependentUpon>
+	</Compile>
+    <Compile Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.xaml.cs">
+      <DependentUpon>Animate3DGraphic.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml.cs">
       <DependentUpon>ProjectWithSpecificTransformation.xaml</DependentUpon>
     </Compile>
@@ -299,11 +330,23 @@
     <Compile Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.xaml.cs">
       <DependentUpon>QueryFeatureCountAndExtent.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.xaml.cs">
+      <DependentUpon>ChangeBlendRenderer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.xaml.cs">
       <DependentUpon>FeatureLayerRenderingModeScene.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml.cs">
       <DependentUpon>SymbolizeShapefile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.xaml.cs">
+      <DependentUpon>FormatCoordinates.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.xaml.cs">
+      <DependentUpon>Web_TiledLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.xaml.cs">
+      <DependentUpon>AddGraphicsWithSymbols.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.xaml.cs">
       <DependentUpon>LineOfSightLocation.xaml</DependentUpon>
@@ -425,6 +468,9 @@
     <Compile Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.xaml.cs">
       <DependentUpon>RasterRgbRenderer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Layers\RasterHillshade\RasterHillshade.xaml.cs">
+      <DependentUpon>RasterHillshade.xaml</DependentUpon>
+    </Compile>    
     <Compile Include="Samples\Layers\RasterLayerFile\RasterLayerFile.xaml.cs">
       <DependentUpon>RasterLayerFile.xaml</DependentUpon>
     </Compile>
@@ -439,6 +485,9 @@
     </Compile>
     <Compile Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.xaml.cs">
       <DependentUpon>SceneLayerUrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.xaml.cs">
+      <DependentUpon>ChangeStretchRenderer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.xaml.cs">
       <DependentUpon>TimeBasedQuery.xaml</DependentUpon>
@@ -554,6 +603,14 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+	<Page Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.xaml">
+		<Generator>MSBuild:Compile</Generator>
+		<SubType>Designer</SubType>
+	</Page>
+    <Page Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -570,11 +627,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -587,6 +660,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\RasterHillshade\RasterHillshade.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -10,13 +10,14 @@
   "Image": "FeatureLayerRenderingModeScene.jpg",
   "Link": "",
   "TypeLink": [
-    "T:Esri.ArcGISRuntime.Mapping.LoadSettings",
     "P:Esri.ArcGISRuntime.Mapping.Scene.LoadSettings",
     "P:Esri.ArcGISRuntime.Mapping.LoadSettings.PreferredPointFeatureRenderingMode",
     "P:Esri.ArcGISRuntime.Mapping.LoadSettings.PreferredPolygonFeatureRenderingMode",
     "P:Esri.ArcGISRuntime.Mapping.LoadSettings.PreferredPolylineFeatureRenderingMode",
     "F:Esri.ArcGISRuntime.Mapping.FeatureRenderingMode.Static",
-    "F:Esri.ArcGISRuntime.Mapping.FeatureRenderingMode.Dynamic"
+    "F:Esri.ArcGISRuntime.Mapping.FeatureRenderingMode.Dynamic",
+    "M:Esri.ArcGISRuntime.UI.Controls.SceneView.SetViewpointCamera(Esri.ArcGISRuntime.Mapping.Camera)",
+    "M:Esri.ArcGISRuntime.UI.Controls.SceneView.SetViewpointCameraAsync(Esri.ArcGISRuntime.Mapping.Camera,System.TimeSpan)"
   ],
   "SampleFolder": "FeatureLayerRenderingModeScene"
 }

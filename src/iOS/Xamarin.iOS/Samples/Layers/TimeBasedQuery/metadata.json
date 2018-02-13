@@ -10,9 +10,10 @@
   "Image": "TimeBasedQuery.jpg",
   "Link": "",
   "TypeLink": [
-"P:Esri.ArcGISRuntime.Data.QueryParameters.TimeExtent",
-"T:Esri.ArcGISRuntime.TimeExtent",
-"T:Esri.ArcGISRuntime.Data.FeatureQueryResult"
+    "P:Esri.ArcGISRuntime.Data.QueryParameters.TimeExtent",
+    "T:Esri.ArcGISRuntime.TimeExtent",
+    "T:Esri.ArcGISRuntime.Data.FeatureQueryResult",
+    "M:Esri.ArcGISRuntime.Mapping.Basemap.CreateOceans"
 ],
   "SampleFolder": "TimeBasedQuery"
 }

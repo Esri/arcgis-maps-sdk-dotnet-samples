@@ -188,6 +188,10 @@
               "Path": "Samples/Layers/RasterRenderingRule"
             },
             {
+              "SampleName": "RasterRgbRenderer",
+              "Path": "Samples/Layers/RasterRgbRenderer"
+            },
+	    {
               "SampleName": "RasterHillshade",
               "Path": "Samples/Layers/RasterHillshade"
             },
@@ -546,6 +550,10 @@
             {
               "SampleName": "ProjectWithSpecificTransformation",
               "Path": "Samples/GeometryEngine/ProjectWithSpecificTransformation"
+            },
+            {
+              "SampleName": "ListTransformations",
+              "Path": "Samples/GeometryEngine/ListTransformations"
             }
           ]
         }

@@ -85,6 +85,9 @@
 	<Content Include="Samples\Analysis\ViewshedGeoElement\metadata.json">
 		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	</Content>
+    <Content Include="Samples\GeometryEngine\ListTransformations\ListTransformations.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>	
     <Content Include="Samples\GraphicsOverlay\Animate3DGraphic\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -107,6 +110,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\LocalServer\LocalServerFeatureLayer\metadata.json">
@@ -682,6 +688,9 @@
 	<Compile Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.xaml.cs">
 		<DependentUpon>ViewshedGeoElement.xaml</DependentUpon>
 	</Compile>
+    <Compile Include="Samples\GeometryEngine\ListTransformations\ListTransformations.xaml.cs">
+      <DependentUpon>ListTransformations.xaml</DependentUpon>
+    </Compile>	
     <Compile Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.xaml.cs">
       <DependentUpon>Animate3DGraphic.xaml</DependentUpon>
     </Compile>
@@ -697,12 +706,15 @@
     <Compile Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml.cs">
       <DependentUpon>ProjectWithSpecificTransformation.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.xaml.cs">
+      <DependentUpon>RasterRgbRenderer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.xaml.cs">
       <DependentUpon>Web_TiledLayer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.xaml.cs">
       <DependentUpon>AddGraphicsWithSymbols.xaml</DependentUpon>
-    </Compile>
+    </Compile>    
     <Compile Include="Samples\LocalServer\LocalServerFeatureLayer\LocalServerFeatureLayer.xaml.cs">
       <DependentUpon>LocalServerFeatureLayer.xaml</DependentUpon>
     </Compile>
@@ -993,6 +1005,10 @@
 		<Generator>MSBuild:Compile</Generator>
 		<SubType>Designer</SubType>
 	</Page>
+    <Page Include="Samples\GeometryEngine\ListTransformations\ListTransformations.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>	
     <Page Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1009,10 +1025,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.xaml">
+    <Page Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>    
     <Page Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1412,13 +1432,19 @@
     <Content Include="Samples\LocalServer\DynamicWorkspaceRaster\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Layers\RasterRgbRenderer\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Layers\ChangeBlendRenderer\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Layers\ChangeStretchRenderer\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </Content>    
     <Content Include="Samples\Layers\RasterHillshade\metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>    
+    <Content Include="Samples\GeometryEngine\ListTransformations\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

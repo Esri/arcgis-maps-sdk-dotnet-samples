@@ -193,6 +193,10 @@
               "Path": "Samples/Layers/RasterRenderingRule"
             },
             {
+              "SampleName": "RasterRgbRenderer",
+              "Path": "Samples/Layers/RasterRgbRenderer"
+            },
+            {
               "SampleName": "RasterLayerGeoPackage",
               "Path": "Samples/Data/RasterLayerGeoPackage"
             },
@@ -547,6 +551,10 @@
             {
               "SampleName": "ProjectWithSpecificTransformation",
               "Path": "Samples/GeometryEngine/ProjectWithSpecificTransformation"
+            },
+            {
+              "SampleName": "ListTransformations",
+              "Path": "Samples/GeometryEngine/ListTransformations"
             }
           ]
         }

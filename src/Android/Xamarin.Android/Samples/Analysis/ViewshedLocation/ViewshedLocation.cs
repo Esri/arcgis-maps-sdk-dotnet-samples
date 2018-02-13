@@ -9,13 +9,13 @@
 
 using Android.App;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
-using Android.Views;
 using Surface = Esri.ArcGISRuntime.Mapping.Surface;
 
 namespace ArcGISRuntimeXamarin.Samples.ViewshedLocation
@@ -38,6 +38,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewshedLocation
         // Reference to the analysis overlay that will hold the viewshed analysis
         private AnalysisOverlay _analysisOverlay;
 
+        // References to UI elements
         private SeekBar _headingSlider;
         private SeekBar _pitchSlider;
         private SeekBar _horizontalAngleSlider;

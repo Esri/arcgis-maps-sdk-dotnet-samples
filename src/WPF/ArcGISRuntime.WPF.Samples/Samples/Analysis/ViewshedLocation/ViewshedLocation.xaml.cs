@@ -9,12 +9,12 @@
 
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.UI.Controls;
+using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using Esri.ArcGISRuntime.UI.Controls;
-using Esri.ArcGISRuntime.UI.GeoAnalysis;
 
 namespace ArcGISRuntime.WPF.Samples.ViewshedLocation
 {
@@ -63,12 +63,12 @@ namespace ArcGISRuntime.WPF.Samples.ViewshedLocation
 
             // Create the location viewshed analysis.
             _viewshed = new LocationViewshed(
-                initialLocation, 
-                HeadingSlider.Value, 
-                PitchSlider.Value, 
-                HorizontalAngleSlider.Value, 
-                VerticalAngleSlider.Value, 
-                MinimumDistanceSlider.Value, 
+                initialLocation,
+                HeadingSlider.Value,
+                PitchSlider.Value,
+                HorizontalAngleSlider.Value,
+                VerticalAngleSlider.Value,
+                MinimumDistanceSlider.Value,
                 MaximumDistanceSlider.Value);
 
             // Create an initial camera based on the initial location.
@@ -87,7 +87,7 @@ namespace ArcGISRuntime.WPF.Samples.ViewshedLocation
             MySceneView.AnalysisOverlays.Add(_analysisOverlay);
 
             // Update the frustum outline color.
-            Viewshed.FrustumOutlineColor = Color.FromArgb(255, 0, 0, 255);
+            Viewshed.FrustumOutlineColor = Colors.Blue;
 
             // Subscribe to tap events. This enables the 'pick up' and 'drop' workflow for moving the viewpoint.
             MySceneView.GeoViewTapped += MySceneViewOnGeoViewTapped;
@@ -135,7 +135,7 @@ namespace ArcGISRuntime.WPF.Samples.ViewshedLocation
             {
                 return;
             }
-            
+
             // Update the viewshed settings.
             _viewshed.Heading = HeadingSlider.Value;
             _viewshed.Pitch = PitchSlider.Value;
@@ -151,25 +151,11 @@ namespace ArcGISRuntime.WPF.Samples.ViewshedLocation
             }
 
             // Update visibility of the viewshed analysis.
-            if ((bool)AnalysisVisibilityCheck.IsChecked)
-            {
-                _viewshed.IsVisible = true;
-            }
-            else if (!(bool) AnalysisVisibilityCheck.IsChecked)
-            {
-                _viewshed.IsVisible = false;
-            }
+            _viewshed.IsVisible = (bool)AnalysisVisibilityCheck.IsChecked;
 
-            // Update visibility of the frustum. Note that the frustum will be invisible 
+            // Update visibility of the frustum. Note that the frustum will be invisible
             //     regardless of this setting if the viewshed analysis is not visible.
-            if ((bool)FrustumVisibilityCheck.IsChecked)
-            {
-                _viewshed.IsFrustumOutlineVisible = true;
-            }
-            else
-            {
-                _viewshed.IsFrustumOutlineVisible = false;
-            }
+            _viewshed.IsFrustumOutlineVisible = (bool) FrustumVisibilityCheck.IsChecked;
         }
     }
 }

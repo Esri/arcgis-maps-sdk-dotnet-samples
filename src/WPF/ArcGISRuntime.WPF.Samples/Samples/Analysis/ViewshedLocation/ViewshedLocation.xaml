@@ -22,12 +22,12 @@
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="40" />
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right">Heading</Label>
                 <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" >Pitch</Label>
@@ -37,24 +37,23 @@
                 <Label Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right">Maximum Distance</Label>
                 <Label Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right">Frustum Visibility</Label>
                 <Label Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right">Analysis Visibility</Label>
-                
+
                 <Slider Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Value="0" Maximum="360" TickFrequency="1" IsSnapToTickEnabled="True" x:Name="HeadingSlider" ValueChanged="HandleSettingsChange" />
                 <Slider Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Value="60" Maximum="180" TickFrequency="1" IsSnapToTickEnabled="True" x:Name="PitchSlider" ValueChanged="HandleSettingsChange" />
-                <Slider Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Value="75" Maximum="120" TickFrequency="1" IsSnapToTickEnabled="True" x:Name="HorizontalAngleSlider" ValueChanged="HandleSettingsChange" />
-                <Slider Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Value="90" Maximum="120" TickFrequency="1" IsSnapToTickEnabled="True" x:Name="VerticalAngleSlider" ValueChanged="HandleSettingsChange" />
+                <Slider Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Value="75" Maximum="120" Minimum="1" TickFrequency="1" IsSnapToTickEnabled="True" x:Name="HorizontalAngleSlider" ValueChanged="HandleSettingsChange" />
+                <Slider Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Value="90" Maximum="120" Minimum="1" TickFrequency="1" IsSnapToTickEnabled="True" x:Name="VerticalAngleSlider" ValueChanged="HandleSettingsChange" />
                 <Slider Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Value="0" Maximum="8999" TickFrequency="1" IsSnapToTickEnabled="True" x:Name="MinimumDistanceSlider" ValueChanged="HandleSettingsChange" />
                 <Slider Grid.Row="5" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Value="1500" Minimum="1" Maximum="9999" TickFrequency="1" IsSnapToTickEnabled="True" x:Name="MaximumDistanceSlider" ValueChanged="HandleSettingsChange" />
                 <CheckBox Grid.Row="6" Grid.Column="2" x:Name="FrustumVisibilityCheck" VerticalAlignment="Center" Checked="HandleSettingsChange" Unchecked="HandleSettingsChange" />
                 <CheckBox Grid.Row="7" Grid.Column="2" x:Name="AnalysisVisibilityCheck" VerticalAlignment="Center" Checked="HandleSettingsChange" Unchecked="HandleSettingsChange" IsChecked="True" />
 
-                <Label Grid.Row="0" Grid.Column="2" Content="{Binding Value, ElementName=HeadingSlider}"/>
-                <Label Grid.Row="1" Grid.Column="2" Content="{Binding Value, ElementName=PitchSlider}"/>
-                <Label Grid.Row="2" Grid.Column="2" Content="{Binding Value, ElementName=HorizontalAngleSlider}"/>
-                <Label Grid.Row="3" Grid.Column="2" Content="{Binding Value, ElementName=VerticalAngleSlider}"/>
-                <Label Grid.Row="4" Grid.Column="2" Content="{Binding Value, ElementName=MinimumDistanceSlider}"/>
-                <Label Grid.Row="5" Grid.Column="2" Content="{Binding Value, ElementName=MaximumDistanceSlider}"/>
+                <Label Grid.Row="0" Grid.Column="2" Content="{Binding Value, ElementName=HeadingSlider}" />
+                <Label Grid.Row="1" Grid.Column="2" Content="{Binding Value, ElementName=PitchSlider}" />
+                <Label Grid.Row="2" Grid.Column="2" Content="{Binding Value, ElementName=HorizontalAngleSlider}" />
+                <Label Grid.Row="3" Grid.Column="2" Content="{Binding Value, ElementName=VerticalAngleSlider}" />
+                <Label Grid.Row="4" Grid.Column="2" Content="{Binding Value, ElementName=MinimumDistanceSlider}" />
+                <Label Grid.Row="5" Grid.Column="2" Content="{Binding Value, ElementName=MaximumDistanceSlider}" />
                 <TextBlock Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3" Foreground="Red" TextWrapping="WrapWithOverflow">Click to pick up the viewshed observer location, click again to drop it.</TextBlock>
-
             </Grid>
         </Border>
     </Grid>

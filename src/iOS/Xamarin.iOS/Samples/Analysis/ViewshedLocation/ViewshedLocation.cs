@@ -37,14 +37,15 @@ namespace ArcGISRuntimeXamarin.Samples.ViewshedLocation
         // Reference to the analysis overlay that will hold the viewshed analysis
         private AnalysisOverlay _analysisOverlay;
 
+        // Create the UI controls.
         private readonly UISlider _headingSlider = new UISlider() { MinValue = 0, MaxValue = 360, Value = 0 };
         private readonly UISlider _pitchSlider = new UISlider() { MinValue = 0, MaxValue = 180, Value = 60 };
         private readonly UISlider _horizontalAngleSlider = new UISlider() { MinValue = 1, MaxValue = 120, Value = 75 };
         private readonly UISlider _verticalAngleSlider = new UISlider { MinValue = 1, MaxValue = 120, Value = 90 };
         private readonly UISlider _minimumDistanceSlider = new UISlider() { MinValue = 0, MaxValue = 8999, Value = 0 };
         private readonly UISlider _maximumDistanceSlider = new UISlider() { MinValue = 0, MaxValue = 9999, Value = 1500 };
-        private readonly UISwitch _analysisVisibilitySwitch = new UISwitch() { Selected = true };
-        private readonly UISwitch _frustumVisibilitySwitch = new UISwitch() { Selected = false };
+        private readonly UISwitch _analysisVisibilitySwitch = new UISwitch() { On = true };
+        private readonly UISwitch _frustumVisibilitySwitch = new UISwitch() { On = false };
         private readonly UILabel _headingLabel = new UILabel() { Text = "Heading:", TextColor = UIColor.Red };
         private readonly UILabel _pitchLabel = new UILabel() { Text = "Pitch", TextColor = UIColor.Red };
         private readonly UILabel _horizontalAngleLabel = new UILabel() { Text = "Horiz. Angle:", TextColor = UIColor.Red };
@@ -117,12 +118,6 @@ namespace ArcGISRuntimeXamarin.Samples.ViewshedLocation
 
         private void HandleSettingsChange(object sender, EventArgs e)
         {
-            // Return if viewshed hasn't been created yet. This happens when the sample is starting.
-            if (_viewshed == null)
-            {
-                return;
-            }
-
             // Update the viewshed settings.
             _viewshed.Heading = _headingSlider.Value;
             _viewshed.Pitch = _pitchSlider.Value;
@@ -147,9 +142,11 @@ namespace ArcGISRuntimeXamarin.Samples.ViewshedLocation
             // Add the labels
             View.AddSubviews(_headingLabel, _pitchLabel, _horizontalAngleLabel, _verticalAngleLabel,
                 _minimumDistanceLabel, _maximumDistanceLabel, _analysisVisibilityLabel, _frustumVisibilityLabel);
+
             // Add the controls
             View.AddSubviews(_headingSlider, _pitchSlider, _horizontalAngleSlider, _verticalAngleSlider,
                 _minimumDistanceSlider, _maximumDistanceSlider, _analysisVisibilitySwitch, _frustumVisibilitySwitch);
+
             // Subscribe to events
             _headingSlider.ValueChanged += HandleSettingsChange;
             _pitchSlider.ValueChanged += HandleSettingsChange;
@@ -178,10 +175,10 @@ namespace ArcGISRuntimeXamarin.Samples.ViewshedLocation
             nfloat topMargin = NavigationController.NavigationBar.Frame.Height +
                                UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            // Each row will have height 20
+            // Each row will have consistent height.
             nfloat rowHeight = 30;
 
-            // Labels will be of consistent width
+            // Labels will be of consistent width.
             nfloat labelWidth = 100;
 
             // Heading

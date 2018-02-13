@@ -101,11 +101,23 @@
     <None Include="project.json" />
     <Content Include="Properties\ArcGISRuntime.Windows.Samples.rd.xml" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Samples\Data\ReadGeoPackage\metadata.json" />
+    <Content Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.jpg" />
+    <Content Include="Samples\Symbology\FeatureLayerExtrusion\metadata.json" />
+    <Content Include="Samples\Layers\RasterRgbRenderer\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
-    <Content Include="groups.json" />
+    <Content Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\metadata.json" />
+    <Content Include="Samples\Data\ListRelatedFeatures\metadata.json" />
     <Content Include="Samples\Analysis\LineOfSightGeoElement\metadata.json" />
+    <Content Include="Samples\Analysis\QueryFeatureCountAndExtent\metadata.json" />
+    <Content Include="Samples\Layers\FeatureLayerRenderingModeScene\metadata.json" />
+    <Content Include="Samples\Data\SymbolizeShapefile\metadata.json" />
+    <Content Include="groups.json" />
+    <Content Include="Samples\Analysis\LineOfSightLocation\metadata.json" />
+    <Content Include="Samples\Analysis\ViewshedCamera\metadata.json" />
+    <Content Include="groups.json" />
     <Content Include="Samples\Analysis\LineOfSightLocation\metadata.json" />
     <Content Include="Samples\Analysis\QueryFeatureCountAndExtent\metadata.json" />
     <Content Include="Samples\Analysis\ViewshedCamera\metadata.json" />
@@ -453,9 +465,12 @@
     <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.xaml.cs">
       <DependentUpon>FeatureLayerUrl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.xaml.cs">
+      <DependentUpon>RasterRgbRenderer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\RasterHillshade\RasterHillshade.xaml.cs">
       <DependentUpon>RasterHillshade.xaml</DependentUpon>
-    </Compile>
+    </Compile>    
     <Compile Include="Samples\Layers\RasterLayerFile\RasterLayerFile.xaml.cs">
       <DependentUpon>RasterLayerFile.xaml</DependentUpon>
     </Compile>
@@ -653,6 +668,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Layers\RasterHillshade\RasterHillshade.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

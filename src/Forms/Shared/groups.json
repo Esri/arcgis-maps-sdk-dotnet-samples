@@ -192,6 +192,10 @@
               "Path": "Samples/Layers/RasterRenderingRule"
             },
             {
+              "SampleName": "RasterRgbRenderer",
+              "Path": "Samples/Layers/RasterRgbRenderer"
+            },
+            {
               "SampleName": "RasterLayerGeoPackage",
               "Path": "Samples/Data/RasterLayerGeoPackage"
             },

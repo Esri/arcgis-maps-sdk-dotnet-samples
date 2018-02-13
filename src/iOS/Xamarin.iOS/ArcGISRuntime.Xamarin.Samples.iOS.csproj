@@ -241,8 +241,9 @@
     <Compile Include="Models\SampleModelExtensions.cs" />
     <Compile Include="Models\SampleStructureMap.cs" />
     <Compile Include="Models\SubCategoryModel.cs" />
-    <Compile Include="Samples\Layers\RasterHillshade\RasterHillshade.cs" />
     <Compile Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.cs" />
+    <Compile Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.cs" />
+    <Compile Include="Samples\Layers\RasterHillshade\RasterHillshade.cs" />
     <Compile Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.cs" />
     <Compile Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.cs" />
     <Compile Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.cs" />
@@ -405,6 +406,7 @@
     <None Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.jpg" />
     <None Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.jpg" />
     <None Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.jpg" />
+    <EmbeddedResource Include="Samples\Layers\RasterRgbRenderer\metadata.json" />
     <None Include="Samples\Layers\RasterLayerFile\RasterLayerFile.jpg" />
     <None Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.jpg" />
     <None Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg" />
@@ -546,8 +548,15 @@
     <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Samples\Layers\RasterHillshade\RasterHillshade.jpg" />
+    <None Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.jpg" />
+    <None Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Layers\RasterHillshade\RasterHillshade.jpg" />
+  </ItemGroup>  
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

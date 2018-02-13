@@ -1,7 +1,7 @@
 ﻿// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
+// You may obtain a copy of the License at: https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
@@ -24,10 +24,10 @@ namespace ArcGISRuntimeXamarin.Samples.ViewshedLocation
     public partial class ViewshedLocation : ContentPage
     {
         // URL to the elevation source
-        private readonly Uri _localElevationImageService = new Uri("http://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer");
+        private readonly Uri _localElevationImageService = new Uri("https://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer");
 
         // URL to the buildings scene layer
-        private readonly Uri _buildingsUrl = new Uri("http://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0");
+        private readonly Uri _buildingsUrl = new Uri("https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0");
 
         // Reference to the viewshed analysis
         private LocationViewshed _viewshed;
@@ -41,6 +41,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewshedLocation
 
             Title = "Viewshed (Location)";
 
+            // Initialize the sample
             Initialize();
         }
 
@@ -72,7 +73,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewshedLocation
                 MinimumDistanceSlider.Value,
                 MaximumDistanceSlider.Value);
 
-            // Create an initial camera based on the initial location.
+            // Create a camera based on the initial location.
             Camera camera = new Camera(initialLocation, 200.0, 20.0, 70.0, 0.0);
 
             // Apply the camera to the scene view.
@@ -88,6 +89,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewshedLocation
             MySceneView.AnalysisOverlays.Add(_analysisOverlay);
 
             // Update the frustum outline color.
+            // The frustum outline shows the volume in which the viewshed analysis is performed.
             Viewshed.FrustumOutlineColor = Colors.Blue;
 
             // Subscribe to tap events to enable moving the observer.

@@ -12,8 +12,9 @@
   "TypeLink": [
     "T:Esri.ArcGISRuntime.Ogc.WmsFeature",
     "M:Esri.ArcGISRuntime.Mapping.WmsLayer.#ctor(System.Uri,System.Collections.Generic.IEnumerable{System.String})",
-    "M:Esri.ArcGISRuntime.UI.Controls.GeoView.IdentifyLayerAsync(Esri.ArcGISRuntime.Mapping.Layer,CoreGraphics.CGPoint,System.Double,System.Boolean)",
-    "M:Esri.ArcGISRuntime.UI.Controls.GeoView.ShowCalloutAt(Esri.ArcGISRuntime.Geometry.MapPoint,UIKit.UIView,CoreGraphics.CGPoint)"
+    "M:Esri.ArcGISRuntime.UI.Controls.GeoView.IdentifyLayerAsync(Esri.ArcGISRuntime.Mapping.Layer,System.Windows.Point,System.Double,System.Boolean)",
+    "M:Esri.ArcGISRuntime.UI.Controls.GeoView.ShowCalloutAt(Esri.ArcGISRuntime.Geometry.MapPoint,System.Windows.UIElement,System.Windows.Point)",
+    "T:Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs"
   ],
   "SampleFolder": "WmsIdentify"
 }

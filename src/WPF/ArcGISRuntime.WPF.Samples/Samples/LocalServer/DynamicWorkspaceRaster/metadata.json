@@ -11,6 +11,12 @@
   "DataFileNames": [ "mpk_blank.mpk", "usa_raster.tif" ],
   "Image": "DynamicWorkspaceRaster.jpg",
   "Link": "",
-  "TypeLink": [],
+  "TypeLink": [
+    "T:Esri.ArcGISRuntime.LocalServices.RasterWorkspace",
+    "M:Esri.ArcGISRuntime.LocalServices.RasterWorkspace.#ctor(System.String,System.String)",
+    "T:Esri.ArcGISRuntime.Mapping.RasterSublayerSource",
+    "M:Esri.ArcGISRuntime.Mapping.RasterSublayerSource.#ctor(System.String,System.String)",
+    "M:Esri.ArcGISRuntime.Mapping.Basemap.CreateNavigationVector"
+],
   "SampleFolder": "DynamicWorkspaceRaster"
 }

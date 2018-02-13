@@ -11,13 +11,19 @@
   "DataFileNames": ["Bristol.dae", "GrandCanyon.csv", "Hawaii.csv", "Pyrenees.csv", "Snowdon.csv"],
   "Image": "Animate3DGraphic.jpg",
   "Link": "",
-  "TypeLink": ["T:Esri.ArcGISRuntime.UI.OrbitGeoElementCameraController",
-    "T:Esri.ArcGISRuntime.Symbology.RendererSceneProperties",
+  "TypeLink": [
+    "T:Esri.ArcGISRuntime.UI.OrbitGeoElementCameraController",
     "P:Esri.ArcGISRuntime.Symbology.RendererSceneProperties.HeadingExpression",
     "P:Esri.ArcGISRuntime.Symbology.RendererSceneProperties.PitchExpression",
     "P:Esri.ArcGISRuntime.Symbology.RendererSceneProperties.RollExpression",
     "P:Esri.ArcGISRuntime.Symbology.Renderer.RotationExpression",
-    "P:Esri.ArcGISRuntime.UI.Controls.SceneView.CameraController"
+    "P:Esri.ArcGISRuntime.UI.Controls.SceneView.CameraController",
+    "M:Esri.ArcGISRuntime.UI.Graphic.#ctor",
+    "M:Esri.ArcGISRuntime.UI.OrbitGeoElementCameraController.#ctor(Esri.ArcGISRuntime.Data.GeoElement,System.Double)",
+    "P:Esri.ArcGISRuntime.UI.Controls.MapView.MapScale",
+    "P:Esri.ArcGISRuntime.UI.Graphic.Symbol",
+    "P:Esri.ArcGISRuntime.UI.OrbitGeoElementCameraController.CameraPitchOffset",
+    "M:Esri.ArcGISRuntime.Symbology.ModelSceneSymbol.CreateAsync(System.Uri,System.Double)"
   ],
   "SampleFolder": "Animate3DGraphic"
 }

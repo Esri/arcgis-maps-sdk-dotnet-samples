@@ -8,9 +8,16 @@
   "RequiresOfflineData": true,
   "RequiresLocalServer": true,
   "DataItemIds": [ "4e94fec734434d1288e6ebe36c3c461f" ],
-  "DateFileNames": ["PointsOfInterest.mpk"],
+  "DataFileNames": ["PointsOfInterest.mpk"],
   "Image": "LocalServerFeatureLayer.jpg",
   "Link": "",
-  "TypeLink": [ "T:Esri.ArcGISRuntime.LocalServices.LocalFeatureService" ],
+  "TypeLink": [
+    "T:Esri.ArcGISRuntime.LocalServices.LocalFeatureService",
+    "M:Esri.ArcGISRuntime.Mapping.Basemap.CreateStreetsWithReliefVector",
+    "T:Esri.ArcGISRuntime.LocalServices.StatusChangedEventArgs",
+    "E:Esri.ArcGISRuntime.LocalServices.LocalService.StatusChanged",
+    "M:Esri.ArcGISRuntime.LocalServices.LocalService.StartAsync",
+    "M:Esri.ArcGISRuntime.LocalServices.LocalFeatureService.#ctor(System.String)"
+],
   "SampleFolder": "LocalServerFeatureLayer"
 }

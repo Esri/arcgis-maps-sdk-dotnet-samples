@@ -35,12 +35,36 @@ namespace ArcGISRuntime.UWP.Samples.GeoViewSync
             MySceneView.InteractionOptions = new SceneViewInteractionOptions { IsFlickEnabled = false };
             MyMapView.InteractionOptions = new MapViewInteractionOptions { IsFlickEnabled = false };
 
-            // Subscribe to viewpoint change events for both views
-            MyMapView.ViewpointChanged += view_viewpointChanged;
-            MySceneView.ViewpointChanged += view_viewpointChanged;
+            // Subscribe to viewpoint change events for both views - event raised on click+drag
+            MyMapView.ViewpointChanged += OnViewpointChanged;
+            MySceneView.ViewpointChanged += OnViewpointChanged;
+            
+            // Subscribe to the navigation completed events - raised on flick
+            MyMapView.NavigationCompleted += OnNavigationComplete;
+            MySceneView.NavigationCompleted += OnNavigationComplete;
         }
 
-        private void view_viewpointChanged(object sender, EventArgs e)
+        private void OnNavigationComplete(object sender, EventArgs eventArgs)
+        {
+            // Get a reference to the MapView or SceneView that raised the event
+            GeoView sendingView = (GeoView)sender;
+
+            // Get a reference to the other view
+            GeoView otherView;
+            if (sendingView is MapView)
+            {
+                otherView = MySceneView;
+            }
+            else
+            {
+                otherView = MyMapView;
+            }
+
+            // Update the viewpoint on the other view
+            otherView.SetViewpoint(sendingView.GetCurrentViewpoint(ViewpointType.CenterAndScale));
+        }
+
+        private void OnViewpointChanged(object sender, EventArgs e)
         {
             // Get the MapView or SceneView that sent the event
             GeoView sendingView = sender as GeoView;

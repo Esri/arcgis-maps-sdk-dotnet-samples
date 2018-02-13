@@ -9,6 +9,17 @@
   "RequiresLocalServer":false,
   "Image":"FeatureLayerSelection.jpg",
   "Link":"",
-  "TypeLink": ["T:Esri.ArcGISRuntime.Mapping.SelectionMode","P:Esri.ArcGISRuntime.Mapping.FeatureLayer.SelectionColor","P:Esri.ArcGISRuntime.Mapping.FeatureLayer.SelectionWidth","M:Esri.ArcGISRuntime.Mapping.FeatureLayer.SelectFeaturesAsync(Esri.ArcGISRuntime.Data.QueryParameters,Esri.ArcGISRuntime.Mapping.SelectionMode)","P:Esri.ArcGISRuntime.Data.QueryParameters.Geometry","P:Esri.ArcGISRuntime.Mapping.Map.SpatialReference","P:Esri.ArcGISRuntime.UI.Controls.MapView.UnitsPerPixel"],
+  "TypeLink": [
+    "T:Esri.ArcGISRuntime.Mapping.SelectionMode",
+    "P:Esri.ArcGISRuntime.Mapping.FeatureLayer.SelectionColor",
+    "P:Esri.ArcGISRuntime.Mapping.FeatureLayer.SelectionWidth",
+    "M:Esri.ArcGISRuntime.Mapping.FeatureLayer.SelectFeaturesAsync(Esri.ArcGISRuntime.Data.QueryParameters,Esri.ArcGISRuntime.Mapping.SelectionMode)",
+    "P:Esri.ArcGISRuntime.Data.QueryParameters.Geometry",
+    "P:Esri.ArcGISRuntime.Mapping.Map.SpatialReference",
+    "P:Esri.ArcGISRuntime.UI.Controls.MapView.UnitsPerPixel",
+    "P:Esri.ArcGISRuntime.Mapping.Layer.LoadStatus",
+    "P:Esri.ArcGISRuntime.UI.Controls.GeoView.IsWrapAroundEnabled",
+    "M:Esri.ArcGISRuntime.Geometry.GeometryEngine.NormalizeCentralMeridian(Esri.ArcGISRuntime.Geometry.Geometry)"
+],
   "SampleFolder": "FeatureLayerSelection"
 }

@@ -185,8 +185,16 @@
               "Path": "Samples/Layers/RasterLayerFile"
             },
             {
+              "SampleName": "RasterHillshade",
+              "Path": "Samples/Layers/RasterHillshade"
+            },
+            {
               "SampleName": "RasterRenderingRule",
               "Path": "Samples/Layers/RasterRenderingRule"
+            },
+            {
+              "SampleName": "RasterRgbRenderer",
+              "Path": "Samples/Layers/RasterRgbRenderer"
             },
             {
               "SampleName": "RasterLayerGeoPackage",
@@ -396,6 +404,10 @@
             {
               "SampleName": "ViewshedCamera",
               "Path": "Samples/Analysis/ViewshedCamera"
+            },
+            {
+              "SampleName": "ViewshedGeoElement",
+              "Path": "Samples/Analysis/ViewshedGeoElement" 
             },
             {
               "SampleName": "LineOfSightLocation",

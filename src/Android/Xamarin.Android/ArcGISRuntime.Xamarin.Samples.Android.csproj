@@ -179,6 +179,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
+	<EmbeddedResource Include="Samples\Analysis\ViewshedGeoElement\metadata.json" />
     <EmbeddedResource Include="Samples\GraphicsOverlay\Animate3DGraphic\metadata.json" />
     <EmbeddedResource Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\metadata.json" />
     <EmbeddedResource Include="Samples\Data\ListRelatedFeatures\metadata.json" />
@@ -275,6 +276,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<None Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.jpg" />
     <None Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.jpg" />
     <None Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg" />
     <None Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
@@ -323,6 +325,8 @@
     <None Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.jpg" />
     <None Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.jpg" />
     <None Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.jpg" />
+    <EmbeddedResource Include="Samples\Layers\RasterRgbRenderer\metadata.json" />
+    <EmbeddedResource Include="Samples\Layers\RasterHillshade\metadata.json" />
     <None Include="Samples\Layers\RasterLayerFile\RasterLayerFile.jpg" />
     <None Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.jpg" />
     <None Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg" />
@@ -370,6 +374,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.cs" />
     <Compile Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.cs" />
     <Compile Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.cs" />
     <Compile Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.cs" />
@@ -420,6 +425,8 @@
     <Compile Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.cs" />
     <Compile Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.cs" />
     <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.cs" />
+    <Compile Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.cs" />
+    <Compile Include="Samples\Layers\RasterHillshade\RasterHillshade.cs" />
     <Compile Include="Samples\Layers\RasterLayerFile\RasterLayerFile.cs" />
     <Compile Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.cs" />
     <Compile Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.cs" />
@@ -464,8 +471,17 @@
     <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Samples\GeometryEngine\ListTransformations\ListTransformations.jpg" />
+    <None Include="Samples\Layers\RasterHillshade\RasterHillshade.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\GeometryEngine\ListTransformations\ListTransformations.jpg" />
+  </ItemGroup>  
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

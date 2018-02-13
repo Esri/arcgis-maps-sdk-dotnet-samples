@@ -7,6 +7,8 @@
   "RequiresOnlineConnection": true,
   "RequiresOfflineData": true,
   "RequiresLocalServer": false,
+  "DataItemIds": [ "7c4c679ab06a4df19dc497f577f111bd","caeef9aa78534760b07158bb8e068462" ],
+  "DataFileNames": [ "Shasta.tif","Shasta_Elevation.tif" ],
   "Image": "ChangeBlendRenderer.jpg",
   "Link": "",
   "TypeLink": [
@@ -15,6 +17,8 @@
     "T:Esri.ArcGISRuntime.Rasters.ColorRamp",
     "T:Esri.ArcGISRuntime.Rasters.PresetColorRampType",
     "M:Esri.ArcGISRuntime.Geometry.EnvelopeBuilder.Expand(System.Double)",
-    "P:Esri.ArcGISRuntime.Mapping.RasterLayer.Renderer"
+    "P:Esri.ArcGISRuntime.Mapping.RasterLayer.Renderer",
+    "T:Esri.ArcGISRuntime.Rasters.SlopeType",
+    "T:Esri.ArcGISRuntime.Rasters.RasterRenderer"
   ]
 }

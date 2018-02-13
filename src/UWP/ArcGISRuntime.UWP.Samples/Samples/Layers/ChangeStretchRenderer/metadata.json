@@ -12,11 +12,14 @@
   "Image":"ChangeStretchRenderer.jpg",
   "Link":"",
   "TypeLink": [
-    "T:Esri.ArcGISRuntime.Rasters.ColorRamp",
     "T:Esri.ArcGISRuntime.Rasters.StretchRenderer",
     "T:Esri.ArcGISRuntime.Rasters.MinMaxStretchParameters",
     "T:Esri.ArcGISRuntime.Rasters.StretchRenderer",
     "T:Esri.ArcGISRuntime.Rasters.PercentClipStretchParameters",
-    "T:T:Esri.ArcGISRuntime.Rasters.StandardDeviationStretchParameters"
+    "T:T:Esri.ArcGISRuntime.Rasters.StandardDeviationStretchParameters",
+    "T:Esri.ArcGISRuntime.Rasters.StandardDeviationStretchParameters",
+    "T:Esri.ArcGISRuntime.Rasters.StretchParameters",
+    "M:Esri.ArcGISRuntime.Rasters.PercentClipStretchParameters.#ctor(System.Double,System.Double)",
+    "M:Esri.ArcGISRuntime.Rasters.StandardDeviationStretchParameters.#ctor(System.Double)"
   ]
 }

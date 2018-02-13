@@ -9,12 +9,16 @@
   "RequiresLocalServer": false,
   "Image": "FormatCoordinates.jpg",
   "Link": "",
-  "TypeLink": [ "M:Esri.ArcGISRuntime.Geometry.CoordinateFormatter.FromLatitudeLongitude(System.String,Esri.ArcGISRuntime.Geometry.SpatialReference)", 
+  "TypeLink": [
+    "M:Esri.ArcGISRuntime.Geometry.CoordinateFormatter.FromLatitudeLongitude(System.String,Esri.ArcGISRuntime.Geometry.SpatialReference)", 
     "T:Esri.ArcGISRuntime.Geometry.CoordinateFormatter", 
     "M:Esri.ArcGISRuntime.Geometry.CoordinateFormatter.FromUtm(System.String,Esri.ArcGISRuntime.Geometry.SpatialReference,Esri.ArcGISRuntime.Geometry.UtmConversionMode)", 
     "M:Esri.ArcGISRuntime.Geometry.CoordinateFormatter.FromUsng(System.String,Esri.ArcGISRuntime.Geometry.SpatialReference)", 
     "M:Esri.ArcGISRuntime.Geometry.CoordinateFormatter.ToLatitudeLongitude(Esri.ArcGISRuntime.Geometry.MapPoint,Esri.ArcGISRuntime.Geometry.LatitudeLongitudeFormat,System.Int32)", 
     "M:Esri.ArcGISRuntime.Geometry.CoordinateFormatter.ToUsng(Esri.ArcGISRuntime.Geometry.MapPoint,System.Int32,System.Boolean)", 
-    "M:Esri.ArcGISRuntime.Geometry.CoordinateFormatter.ToUtm(Esri.ArcGISRuntime.Geometry.MapPoint,Esri.ArcGISRuntime.Geometry.UtmConversionMode,System.Boolean)" ],
+    "M:Esri.ArcGISRuntime.Geometry.CoordinateFormatter.ToUtm(Esri.ArcGISRuntime.Geometry.MapPoint,Esri.ArcGISRuntime.Geometry.UtmConversionMode,System.Boolean)",
+    "T:Esri.ArcGISRuntime.Geometry.LatitudeLongitudeFormat",
+    "T:Esri.ArcGISRuntime.Geometry.UtmConversionMode"
+],
   "SampleFolder": "FormatCoordinates"
 }

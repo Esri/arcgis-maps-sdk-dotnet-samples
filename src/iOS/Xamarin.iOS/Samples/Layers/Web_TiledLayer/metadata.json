@@ -9,9 +9,11 @@
   "RequiresLocalServer": false,
   "Image": "Web_TiledLayer.jpg",
   "Link": "",
-  "TypeLink": [ "T:Esri.ArcGISRuntime.Mapping.WebTiledLayer", 
+  "TypeLink": [
+    "T:Esri.ArcGISRuntime.Mapping.WebTiledLayer", 
     "P:Esri.ArcGISRuntime.Mapping.WebTiledLayer.Attribution", 
-    "M:Esri.ArcGISRuntime.Mapping.WebTiledLayer.#ctor(System.String,System.Collections.Generic.IEnumerable{System.String})" 
+    "M:Esri.ArcGISRuntime.Mapping.WebTiledLayer.#ctor(System.String,System.Collections.Generic.IEnumerable{System.String})",
+    "M:Esri.ArcGISRuntime.Mapping.WebTiledLayer.#ctor"
   ],
   "SampleFolder": "Web_TiledLayer"
 }

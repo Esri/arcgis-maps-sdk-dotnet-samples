@@ -12,7 +12,12 @@
   "TypeLink": [
     "T:Esri.ArcGISRuntime.Geometry.GeographicTransformation",
     "M:Esri.ArcGISRuntime.Geometry.GeographicTransformation.#ctor(Esri.ArcGISRuntime.Geometry.GeographicTransformationStep)",
-    "T:Esri.ArcGISRuntime.Geometry.GeographicTransformationStep"
+    "T:Esri.ArcGISRuntime.Geometry.GeographicTransformationStep",
+    "T:Esri.ArcGISRuntime.Geometry.DatumTransformation",
+    "M:Esri.ArcGISRuntime.Geometry.GeographicTransformationStep.#ctor(System.Int32)",
+    "M:Esri.ArcGISRuntime.Geometry.GeometryEngine.Project(Esri.ArcGISRuntime.Geometry.Geometry,Esri.ArcGISRuntime.Geometry.SpatialReference)",
+    "M:Esri.ArcGISRuntime.Geometry.GeometryEngine.Project(Esri.ArcGISRuntime.Geometry.Geometry,Esri.ArcGISRuntime.Geometry.SpatialReference,Esri.ArcGISRuntime.Geometry.DatumTransformation)",
+    "P:Esri.ArcGISRuntime.Geometry.MapPoint.Y"
   ],
   "SampleFolder": "ProjectWithSpecificTransformation"
 }

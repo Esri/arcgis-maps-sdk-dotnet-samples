@@ -150,6 +150,7 @@ namespace ArcGISRuntimeXamarin.Samples.ListTransformations
             DatumTransformationListBoxItem selectedListBoxItem = TransformationsListBox.SelectedItem as DatumTransformationListBoxItem;
             if (selectedListBoxItem == null) { return; }
 
+            // Get the datum transformation object from the list box item.
             DatumTransformation selectedTransform = selectedListBoxItem.TransformationObject;
 
             try

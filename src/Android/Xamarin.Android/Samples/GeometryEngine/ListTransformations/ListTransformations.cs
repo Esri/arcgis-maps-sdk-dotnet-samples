@@ -57,7 +57,7 @@ namespace ArcGISRuntimeXamarin.Samples.ListTransformations
         {
             base.OnCreate(bundle);
 
-            Title = "List transformations";
+            Title = "List transformations by suitability";
 
             // Create the UI.
             CreateLayout();
@@ -176,6 +176,7 @@ namespace ArcGISRuntimeXamarin.Samples.ListTransformations
             // Create a new vertical layout for the app UI.
             LinearLayout mainLayout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
+            // Create a layout for the app tools.
             LinearLayout toolsLayout = new LinearLayout(this) { Orientation = Orientation.Vertical };
             toolsLayout.SetPadding(10, 0, 0, 0);
             toolsLayout.SetMinimumHeight(320);

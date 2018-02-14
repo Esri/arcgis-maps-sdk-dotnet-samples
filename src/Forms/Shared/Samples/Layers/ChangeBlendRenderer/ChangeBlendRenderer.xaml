@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
     x:Class="ArcGISRuntimeXamarin.Samples.ChangeBlendRenderer.ChangeBlendRenderer"
-             Title="Raster layer (file)">
+             Title="Blend Renderer">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>

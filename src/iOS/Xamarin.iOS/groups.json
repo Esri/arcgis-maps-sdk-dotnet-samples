@@ -104,6 +104,10 @@
             {
               "SampleName": "ReadGeoPackage",
               "Path": "Samples/Data/ReadGeoPackage"
+            },
+            {
+              "SampleName":  "DownloadPreplannedMapAreas",
+              "Path": "Samples/Map/DownloadPreplannedMapAreas" 
             }
           ]
         }

@@ -1,0 +1,14 @@
+{
+  "Name": "Download preplanned map areas",
+  "SampleName": "DownloadPreplannedMapAreas",
+  "Description": "",
+  "Instructions": "", 
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": false,
+  "RequiresLocalServer": false,
+  "Image": "DownloadPreplannedMapAreas.jpg",
+  "Link": "",
+  "TypeLink": [ ],
+  "SampleFolder": "DownloadPreplannedMapAreas"
+}

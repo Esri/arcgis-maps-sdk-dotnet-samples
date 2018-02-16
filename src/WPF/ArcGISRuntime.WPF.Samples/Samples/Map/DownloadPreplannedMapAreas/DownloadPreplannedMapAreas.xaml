@@ -7,7 +7,58 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <esri:MapView x:Name="MyMapView"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <!-- Mapping -->
+        <esri:MapView x:Name="MyMapView" Grid.Row="0"/>
+        <Grid Background="White" x:Name="DownloadNotificationText" Visibility="Collapsed">
+            <TextBlock Text="Download preplanned map area"
+                   HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" />
+        </Grid>
+
+        <!-- Selection list -->
+        <Border Grid.Row="0" x:Name="PreplannedAreasLarge"
+                Background="White" BorderBrush="Black" BorderThickness="1"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Margin="30" Padding="20" Width="auto"
+                Visibility="Visible">
+            <StackPanel>
+                <TextBlock Text="Select area for download:" />
+                <ListView x:Name="PreplannedAreasList" SelectionChanged="OnDownloadMapAreaClicked">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="{Binding PortalItem.ThumbnailUri}" Height="70" Margin="-10,2,2,2" Grid.RowSpan="2" Stretch="UniformToFill"></Image>
+                                <TextBlock Text="{Binding PortalItem.Title}" Margin="10,0" VerticalAlignment="Center" Grid.Column="1" Foreground="Gray"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Button x:Name="DeleteMapAreaButton" Content="Delete all offline areas" Click="OnDeleteAllMapAreasClicked" HorizontalAlignment="Stretch" Margin="5"></Button>
+            </StackPanel>
+        </Border>
+
+
+        <!-- Busy indication -->
+        <Grid x:Name="BusyIndicator" Background="#807f7f7f" Grid.Row="0" Grid.RowSpan="2">
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Foreground="White" Margin="10" FontSize="18">
+                    <Run x:Name="BusyText" Text="Querying map areas..."/>
+                    <Run x:Name="BusyPercentage" Text=""/>
+                </TextBlock>
+                <ProgressBar x:Name="ProgressBar" IsEnabled="True" IsIndeterminate="True" Width="100" Height="10" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1"/>
+            </Grid>
+        </Grid>
     </Grid>
 
 </UserControl>

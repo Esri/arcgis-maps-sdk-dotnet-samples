@@ -5,11 +5,86 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:esri="using:Esri.ArcGISRuntime"
-    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls" 
+    xmlns:esriUi="using:Esri.ArcGISRuntime.UI.Controls" 
     mc:Ignorable="d" 
     d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <esriUI:MapView x:Name="MyMapView" />
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <!-- Adapt screen to more than 780 effective pixels -->
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="AppBar.Visibility" Value="Collapsed"/>
+                        <Setter Target="PreplannedAreasLarge.Visibility" Value="Visible"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <!-- Mapping -->
+        <esriUi:MapView x:Name="MyMapView" Grid.Row="0"/>
+        <Grid Background="White" x:Name="DownloadNotificationText" Visibility="Collapsed">
+            <TextBlock Text="Download preplanned map area"
+                   HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" />
+        </Grid>
+
+        <!-- Selection list for wide view -->
+        <Border Grid.Row="0" x:Name="PreplannedAreasLarge"
+                Background="White" BorderBrush="Black" BorderThickness="1"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Margin="30" Padding="20" Width="auto"
+                Visibility="Collapsed">
+            <StackPanel>
+                <TextBlock Text="Select area for download:" />
+                <ListView x:Name="PreplannedAreasList" SelectionChanged="OnDownloadMapAreaClicked">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="{Binding PortalItem.ThumbnailUri}" Height="70" Margin="-10,2,2,2" Grid.RowSpan="2" Stretch="UniformToFill"></Image>
+                                <TextBlock Text="{Binding PortalItem.Title}" Margin="10,0" VerticalAlignment="Center" Grid.Column="1"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Button x:Name="DeleteMapAreaButton" Content="Delete all offline areas" Click="OnDeleteAllMapAreasClicked" HorizontalAlignment="Stretch" Margin="5"></Button>
+            </StackPanel>
+        </Border>
+
+        <!-- Commands for narrow view -->
+        <CommandBar x:Name="AppBar" Grid.Row="1">
+            <AppBarButton Icon="List" Label="Map areas">
+                <AppBarButton.Flyout>
+                    <MenuFlyout x:Name="MapAreaFlyout">
+                    </MenuFlyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+            <AppBarButton Icon="Delete" Label="Delete all" Click="OnDeleteAllMapAreasClicked" />
+        </CommandBar>
+
+        <!-- Busy indication -->
+        <Grid x:Name="BusyIndicator" Background="#807f7f7f" Grid.Row="0" Grid.RowSpan="2">
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Foreground="White" Margin="10" FontSize="18">
+                    <Run x:Name="BusyText" Text="Querying map areas..."/>
+                    <Run x:Name="BusyPercentage" Text=""/>
+                </TextBlock>
+                <ProgressBar x:Name="ProgressBar" IsEnabled="True" IsIndeterminate="True" Width="100" Height="10" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1"/>
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>
 

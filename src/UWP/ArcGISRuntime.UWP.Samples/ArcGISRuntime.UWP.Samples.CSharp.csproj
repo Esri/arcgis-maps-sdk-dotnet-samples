@@ -109,8 +109,6 @@
     <Content Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <!-- JSON Metadata -->
-	<Content Include="Samples\Map\DownloadPreplannedMapAreas\metadata.json" />
     <Content Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.jpg" />
     <Content Include="Samples\Symbology\FeatureLayerExtrusion\metadata.json" />
     <Content Include="Samples\Layers\ChangeStretchRenderer\metadata.json" />

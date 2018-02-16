@@ -1,14 +1,24 @@
 {
   "Name": "Download preplanned map areas",
   "SampleName": "DownloadPreplannedMapAreas",
-  "Description": "",
-  "Instructions": "", 
+  "Description": "This sample demonstrates how to download preplanned map areas from a webmap. In the preplanned offline workflow, the author of the online map defines map areas for offline use. When these areas are created, their offline packages are created and stored online for clients to download. This is the biggest difference between on-demand and preplanned workflows since on-demand workflow data packages are generated at request time.",
+  "Instructions": "Select an area from the list to download and display that map.", 
   "Type": 0,
   "RequiresOnlineConnection": true,
   "RequiresOfflineData": false,
   "RequiresLocalServer": false,
   "Image": "DownloadPreplannedMapAreas.jpg",
   "Link": "",
-  "TypeLink": [ ],
+  "TypeLink": [
+    "T:Esri.ArcGISRuntime.Tasks.Offline.OfflineMapTask",
+    "M:Esri.ArcGISRuntime.Tasks.Offline.OfflineMapTask.#ctor(Esri.ArcGISRuntime.Portal.PortalItem)",
+    "T:Esri.ArcGISRuntime.Tasks.Offline.PreplannedMapArea",
+    "M:Esri.ArcGISRuntime.Tasks.Offline.OfflineMapTask.GetPreplannedMapAreasAsync",
+    "M:Esri.ArcGISRuntime.Tasks.Offline.PreplannedMapArea.LoadAsync",
+    "T:Esri.ArcGISRuntime.Tasks.Offline.DownloadPreplannedOfflineMapJob",
+    "T:Esri.ArcGISRuntime.Tasks.Offline.DownloadPreplannedOfflineMapResult",
+    "P:Esri.ArcGISRuntime.Tasks.Offline.DownloadPreplannedOfflineMapResult.LayerErrors",
+    "P:Esri.ArcGISRuntime.Tasks.Offline.DownloadPreplannedOfflineMapResult.TableErrors"
+  ],
   "SampleFolder": "DownloadPreplannedMapAreas"
 }

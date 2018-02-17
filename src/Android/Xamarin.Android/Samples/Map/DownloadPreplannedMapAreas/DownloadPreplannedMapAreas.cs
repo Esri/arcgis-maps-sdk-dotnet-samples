@@ -28,10 +28,10 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
     [Activity]
     public class DownloadPreplannedMapAreas : Activity
     {
-        // Create and hold reference to the used MapView
+        // Create and hold a reference to the used MapView.
         private readonly MapView _myMapView = new MapView();
 
-        // Webmap item that has preplanned areas defined
+        // ID of webmap item that has preplanned areas defined
         private const string PortalItemId = "acc027394bc84c2fb04d1ed317aac674";
 
         // Folder where the areas are downloaded
@@ -63,25 +63,27 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
         {
             try
             {
-                // Show the loading indicator.
+                // Show a loading indicator.
                 ProgressDialog progressIndicator = new ProgressDialog(this);
                 progressIndicator.SetTitle("Loading");
                 progressIndicator.SetMessage("Loading the available map areas.");
                 progressIndicator.SetCancelable(false);
                 progressIndicator.Show();
 
-                // Set up the data download folder.
+                // Get the offline data folder.
                 _offlineDataFolder = Path.Combine(GetDataFolder(),
                     "SampleData", "DownloadPreplannedMapAreas");
 
                 // If the temporary data folder doesn't exist, create it.
                 if (!Directory.Exists(_offlineDataFolder))
+                {
                     Directory.CreateDirectory(_offlineDataFolder);
+                }
 
                 // Create a portal that contains the portal item.
                 ArcGISPortal portal = await ArcGISPortal.CreateAsync();
 
-                // Create webmap based on the id.
+                // Create a webmap based on the id.
                 PortalItem webmapItem = await PortalItem.CreateAsync(portal, PortalItemId);
 
                 // Create the offline task and load it.
@@ -99,27 +101,28 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
                 // Show a popup menu of available areas when the download button is clicked.
                 _downloadButton.Click += (s, e) =>
                     {
-                        // Create menu to show area options.
+                        // Create a menu to show the available map areas.
                         PopupMenu areaMenu = new PopupMenu(this, _downloadButton);
                         areaMenu.MenuItemClick += (sndr, evt) =>
                         {
                             // Get the name of the selected area.
                             string selectedArea = evt.Item.TitleCondensedFormatted.ToString();
 
-                            // Change the map.
+                            // Download and show the map.
                             OnDownloadMapAreaClicked(selectedArea);
                         };
-                        // Create menu options.
+
+                        // Create the menu options.
                         foreach (PreplannedMapArea area in _preplannedMapAreas)
                         {
                             areaMenu.Menu.Add(area.PortalItem.Title.ToString());
                         }
 
-                        // Show menu in the view.
+                        // Show the menu in the view.
                         areaMenu.Show();
                     };
 
-                // Remove loading indicators from UI.
+                // Remove loading indicators from the UI.
                 progressIndicator.Dismiss();
             }
             catch (Exception ex)
@@ -132,7 +135,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
 
         private async Task DownloadMapAreaAsync(PreplannedMapArea mapArea)
         {
-            // Setup UI for download.
+            // Set up UI for download.
             _downloadDeleteProgressDialog.Progress = 0;
             _downloadDeleteProgressDialog.SetMessage("Downloading map area...");
             _downloadDeleteProgressDialog.SetTitle("Downloading");
@@ -141,23 +144,28 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
             // Get the path for the downloaded map area.
             var path = Path.Combine(_offlineDataFolder, mapArea.PortalItem.Title);
 
-            // If area is already downloaded, open it and don't download again.
+            // If the map area is already downloaded, open it and don't download it again.
             if (Directory.Exists(path))
             {
                 var localMapArea = await MobileMapPackage.OpenAsync(path);
                 try
                 {
+                    // Load the map area.
                     _myMapView.Map = localMapArea.Maps.First();
+
+                    // Update the UI.
                     _downloadDeleteProgressDialog.Dismiss();
+
+                    // Return without downloading the item again.
                     return;
                 }
                 catch (Exception)
                 {
-                    // Do nothing, continue as if map wasn't downloaded.
+                    // Do nothing, continue as if the map wasn't downloaded.
                 }
             }
 
-            // Create job that is used to do the download.
+            // Create the job that is used to download the map area.
             DownloadPreplannedOfflineMapJob job = _offlineMapTask.DownloadPreplannedOfflineMap(mapArea, path);
 
             // Subscribe to progress change events to support showing a progress bar.
@@ -174,18 +182,18 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
                     var errorBuilder = new StringBuilder();
 
                     // Add layer errors to the message.
-                    foreach (var layerError in results.LayerErrors)
+                    foreach (KeyValuePair<Layer, Exception> layerError in results.LayerErrors)
                     {
                         errorBuilder.AppendLine($"{layerError.Key.Name} {layerError.Value.Message}");
                     }
 
                     // Add table errors to the message.
-                    foreach (var tableError in results.TableErrors)
+                    foreach (KeyValuePair<FeatureTable, Exception> tableError in results.TableErrors)
                     {
                         errorBuilder.AppendLine($"{tableError.Key.TableName} {tableError.Value.Message}");
                     }
 
-                    // Show the message.
+                    // Show the error message.
                     var builder = new AlertDialog.Builder(this);
                     builder.SetMessage(errorBuilder.ToString()).SetTitle("Warning!").Show();
                 }
@@ -213,9 +221,9 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
             if (downloadJob == null) return;
 
             // UI work needs to be done on the UI thread.
-            RunOnUiThread(() => 
+            RunOnUiThread(() =>
             {
-                // Update UI with the load progress.
+                // Update the UI with the load progress.
                 _downloadDeleteProgressDialog.Progress = downloadJob.Progress;
                 _downloadDeleteProgressDialog.SetMessage($"Downloading map area... ({downloadJob.Progress}%)");
             });
@@ -229,11 +237,12 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
         /// When an area is downloaded, geodatabases are registered with the original service to support
         /// synchronization. When the area is deleted from the device, it is important first to unregister
         /// all geodatabases that are used in the map so the service doesn't have stray geodatabases
-        /// registered.</remarks>
+        /// registered.
+        /// </remarks>
         private async Task UnregisterAndDeleteAllAreas()
         {
             // Find all geodatabase files from the map areas, filtering by the .geodatabase extension.
-            var geodatabasesToUnregister = Directory.GetFiles(
+            string[] geodatabasesToUnregister = Directory.GetFiles(
                 _offlineDataFolder, "*.geodatabase", SearchOption.AllDirectories);
 
             // Unregister all geodatabases.
@@ -269,7 +278,10 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
         {
             try
             {
+                // Get the selected map area.
                 PreplannedMapArea area = _preplannedMapAreas.First(mapArea => mapArea.PortalItem.Title.ToString() == selectedArea);
+
+                // Download and show the map.
                 await DownloadMapAreaAsync(area);
             }
             catch (Exception ex)
@@ -284,25 +296,18 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
         {
             try
             {
-                // Show the UI for downloading.
-                _downloadDeleteProgressDialog.SetMessage("Deleting downloaded map area...");
+                // Show the deletion UI.
+                _downloadDeleteProgressDialog.SetMessage("Deleting downloaded map areas...");
                 _downloadDeleteProgressDialog.SetTitle("Deleting");
                 _downloadDeleteProgressDialog.Show();
 
                 // If there is a map loaded, remove it.
                 if (_myMapView.Map != null)
                 {
-                    // Clear the layers. This will ensure that their resources are freed.
-                    _myMapView.Map.OperationalLayers.Clear();
                     _myMapView.Map = null;
                 }
 
-                // Ensure the map and related resources (for example, handles to geodatabases) are cleared.
-                //    This is important on Windows where open files can't be deleted.
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
-                GC.Collect();
-
+                // Delete the downloaded map areas.
                 await UnregisterAndDeleteAllAreas();
             }
             catch (Exception ex)
@@ -332,10 +337,10 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
             _downloadDeleteProgressDialog = new ProgressDialog(this);
 
             // Create the download button. Note: click handler is set up in Initialize.
-            _downloadButton = new Button(this) { Text = "Download Area"};
+            _downloadButton = new Button(this) { Text = "Download Area" };
 
             // Create the delete button.
-            _deleteButton = new Button(this) {Text = "Delete all areas"};
+            _deleteButton = new Button(this) { Text = "Delete all areas" };
             _deleteButton.Click += OnDeleteAllMapAreasClicked;
 
             // Add the buttons to the layout.

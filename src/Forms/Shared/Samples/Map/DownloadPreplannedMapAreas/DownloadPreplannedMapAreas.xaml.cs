@@ -3,27 +3,27 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Portal;
+using Esri.ArcGISRuntime.Tasks.Offline;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Portal;
-using Esri.ArcGISRuntime.Tasks.Offline;
 using Xamarin.Forms;
 
 namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
 {
     public partial class DownloadPreplannedMapAreas : ContentPage
     {
-        // Webmap item that has preplanned areas defined
+        // ID of webmap item that has preplanned areas defined
         private const string PortalItemId = "acc027394bc84c2fb04d1ed317aac674";
 
         // Folder where the areas are downloaded
@@ -43,20 +43,23 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
         {
             try
             {
+                // Get the offline data folder.
                 _offlineDataFolder = Path.Combine(GetDataFolder(),
                     "SampleData", "DownloadPreplannedMapAreas");
 
                 // If the temporary data folder doesn't exist, create it.
                 if (!Directory.Exists(_offlineDataFolder))
+                {
                     Directory.CreateDirectory(_offlineDataFolder);
+                }
 
                 // Create a portal that contains the portal item.
                 ArcGISPortal portal = await ArcGISPortal.CreateAsync();
 
-                // Create webmap based on the id.
+                // Create webmap based on the ID.
                 PortalItem webmapItem = await PortalItem.CreateAsync(portal, PortalItemId);
 
-                // Create the offline task and load it.
+                // Create the offline map task and load it.
                 _offlineMapTask = await OfflineMapTask.CreateAsync(webmapItem);
 
                 // Query related preplanned areas.
@@ -76,14 +79,14 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
             }
             catch (Exception ex)
             {
-                // Something unexpected happened, show error message
+                // Something unexpected happened, show the error message.
                 await DisplayAlert("An error occurred", ex.Message, "OK");
             }
         }
 
         private async Task DownloadMapAreaAsync(PreplannedMapArea mapArea)
         {
-            // Setup UI for download.
+            // Show the UI for the download.
             ProgressBar.Progress = 0;
             BusyText.Text = "Downloading map area...";
             BusyIndicator.IsVisible = true;
@@ -92,24 +95,29 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
             // Get the path for the downloaded map area.
             var path = Path.Combine(_offlineDataFolder, mapArea.PortalItem.Title);
 
-            // If area is already downloaded, open it and don't download again.
+            // If the area is already downloaded, open it and don't download it again.
             if (Directory.Exists(path))
             {
                 var localMapArea = await MobileMapPackage.OpenAsync(path);
                 try
                 {
+                    // Load the map.
                     MyMapView.Map = localMapArea.Maps.First();
+
+                    // Update the UI.
                     BusyText.Text = string.Empty;
                     BusyIndicator.IsVisible = false;
+
+                    // Return without proceeding to download.
                     return;
                 }
                 catch (Exception)
                 {
-                    // Do nothing, continue as if map wasn't downloaded.
+                    // Do nothing, continue as if the map wasn't downloaded.
                 }
             }
 
-            // Create job that is used to do the download.
+            // Create the job that is used to do the download.
             DownloadPreplannedOfflineMapJob job = _offlineMapTask.DownloadPreplannedOfflineMap(mapArea, path);
 
             // Subscribe to progress change events to support showing a progress bar.
@@ -126,19 +134,19 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
                     var errorBuilder = new StringBuilder();
 
                     // Add layer errors to the message.
-                    foreach (var layerError in results.LayerErrors)
+                    foreach (KeyValuePair<Layer, Exception> layerError in results.LayerErrors)
                     {
                         errorBuilder.AppendLine($"{layerError.Key.Name} {layerError.Value.Message}");
                     }
 
                     // Add table errors to the message.
-                    foreach (var tableError in results.TableErrors)
+                    foreach (KeyValuePair<FeatureTable, Exception> tableError in results.TableErrors)
                     {
                         errorBuilder.AppendLine($"{tableError.Key.TableName} {tableError.Value.Message}");
                     }
 
                     // Show the message.
-                    DisplayAlert("Warning!", errorBuilder.ToString(), "OK");
+                    await DisplayAlert("Warning!", errorBuilder.ToString(), "OK");
                 }
 
                 // Show the Map in the MapView.
@@ -146,7 +154,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
             }
             catch (Exception ex)
             {
-                // Report exception.
+                // Report the exception.
                 await DisplayAlert("Downloading map area failed.", ex.Message, "OK");
             }
             finally
@@ -164,7 +172,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
             if (downloadJob == null) return;
 
             // UI work needs to be done on the UI thread.
-            Device.BeginInvokeOnMainThread(() => 
+            Device.BeginInvokeOnMainThread(() =>
             {
                 // Update UI with the load progress.
                 ProgressBar.Progress = downloadJob.Progress / 100.0;
@@ -180,11 +188,12 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
         /// When an area is downloaded, geodatabases are registered with the original service to support
         /// synchronization. When the area is deleted from the device, it is important first to unregister
         /// all geodatabases that are used in the map so the service doesn't have stray geodatabases
-        /// registered.</remarks>
+        /// registered.
+        /// </remarks>
         private async Task UnregisterAndDeleteAllAreas()
         {
             // Find all geodatabase files from the map areas, filtering by the .geodatabase extension.
-            var geodatabasesToUnregister = Directory.GetFiles(
+            string[] geodatabasesToUnregister = Directory.GetFiles(
                 _offlineDataFolder, "*.geodatabase", SearchOption.AllDirectories);
 
             // Unregister all geodatabases.
@@ -230,8 +239,8 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
         {
             try
             {
-                // Show the UI for downloading.
-                BusyText.Text = "Deleting downloaded map area...";
+                // Show the deletion UI.
+                BusyText.Text = "Deleting downloaded map areas...";
                 BusyIndicator.IsVisible = true;
 
                 // If there is a map loaded, remove it.
@@ -248,9 +257,10 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
                 GC.WaitForPendingFinalizers();
                 GC.Collect();
 
+                // Delete all map areas.
                 await UnregisterAndDeleteAllAreas();
 
-                // Update the UI
+                // Update the UI.
                 PreplannedAreasList.SelectedItem = null;
             }
             catch (Exception ex)
@@ -261,7 +271,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
             finally
             {
                 MyMapView.IsVisible = false;
-                BusyIndicator.IsVisible = false; 
+                BusyIndicator.IsVisible = false;
             }
         }
 
@@ -272,7 +282,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
 #if NETFX_CORE
                 Windows.Storage.ApplicationData.Current.LocalFolder.Path;
 #elif __ANDROID__ || __IOS__
-                System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData);
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 #endif
             return appDataFolder;
         }

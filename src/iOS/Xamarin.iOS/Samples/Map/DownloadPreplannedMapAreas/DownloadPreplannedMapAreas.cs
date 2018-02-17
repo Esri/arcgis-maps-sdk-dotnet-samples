@@ -3,16 +3,10 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
@@ -20,6 +14,12 @@ using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
@@ -27,10 +27,10 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
     [Register("DownloadPreplannedMapAreas")]
     public class DownloadPreplannedMapAreas : UIViewController
     {
-        // Create and hold reference to the used MapView
+        // Create and hold reference to the used MapView.
         private readonly MapView _myMapView = new MapView();
 
-        // Webmap item that has preplanned areas defined
+        // ID of webmap item that has preplanned areas defined
         private const string PortalItemId = "acc027394bc84c2fb04d1ed317aac674";
 
         // Folder where the areas are downloaded
@@ -47,7 +47,8 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
         private UIButton _deleteButton;
         private UIToolbar _toolbarTray;
         private LoadingOverlay _progressIndicator;
-        private UILabel _initialPrompt= new UILabel()
+
+        private UILabel _initialPrompt = new UILabel()
         {
             Text = "Download a map area",
             TextColor = UIColor.White
@@ -62,25 +63,27 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
         {
             try
             {
-                // Show a progress indicator
+                // Show a loading indicator.
                 View.AddSubview(_progressIndicator);
                 _progressIndicator.UpdateMessageAndProgress("Loading list of available map areas.", -1);
 
-                // Set up the data download folder.
+                // Get the offline data folder.
                 _offlineDataFolder = Path.Combine(GetDataFolder(),
                     "SampleData", "DownloadPreplannedMapAreas");
 
                 // If the temporary data folder doesn't exist, create it.
                 if (!Directory.Exists(_offlineDataFolder))
+                {
                     Directory.CreateDirectory(_offlineDataFolder);
+                }
 
                 // Create a portal that contains the portal item.
                 ArcGISPortal portal = await ArcGISPortal.CreateAsync();
 
-                // Create webmap based on the id.
+                // Create the webmap based on the id.
                 PortalItem webmapItem = await PortalItem.CreateAsync(portal, PortalItemId);
 
-                // Create the offline task and load it.
+                // Create the offline map task and load it.
                 _offlineMapTask = await OfflineMapTask.CreateAsync(webmapItem);
 
                 // Query related preplanned areas.
@@ -96,28 +99,32 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
                 _downloadButton.TouchUpInside += (s, e) =>
                     {
                         // Create the alert controller.
-                        UIAlertController actionSheetAlert = UIAlertController.Create("Map Area Selection", "Select a map area to download and show.", UIAlertControllerStyle.ActionSheet);
+                        UIAlertController mapAreaSelectionAlertController = UIAlertController.Create("Map Area Selection",
+                            "Select a map area to download and show.", UIAlertControllerStyle.ActionSheet);
 
-                        // Add Actions
+                        // Add one action per map area.
                         foreach (PreplannedMapArea area in _preplannedMapAreas)
                         {
-                            actionSheetAlert.AddAction(UIAlertAction.Create(area.PortalItem.Title, UIAlertActionStyle.Default,
+                            mapAreaSelectionAlertController.AddAction(UIAlertAction.Create(area.PortalItem.Title, UIAlertActionStyle.Default,
                                 action =>
                                 {
+                                    // Download and show the selected map area.
                                     OnDownloadMapAreaClicked(action.Title);
                                 }));
                         }
-                        // Needed to prevent crash on iPad. 
-                        UIPopoverPresentationController presentationPopover = actionSheetAlert.PopoverPresentationController;
-                        if (presentationPopover!=null) {
+
+                        // Needed to prevent a crash on iPad.
+                        UIPopoverPresentationController presentationPopover = mapAreaSelectionAlertController.PopoverPresentationController;
+                        if (presentationPopover != null)
+                        {
                             presentationPopover.SourceView = View;
                             presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
                         }
 
                         // Display the alert.
-                        PresentViewController(actionSheetAlert,true,null);
+                        PresentViewController(mapAreaSelectionAlertController, true, null);
 
-                        // Remove the initial prompt if it hasn't been removed already.
+                        // Remove the startup prompt if it hasn't been removed already.
                         if (_initialPrompt != null)
                         {
                             _initialPrompt.RemoveFromSuperview();
@@ -130,8 +137,8 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
             }
             catch (Exception ex)
             {
-                // Something unexpected happened, show error message.
-                UIAlertController alertController = UIAlertController.Create ("An error occurred.", ex.Message, UIAlertControllerStyle.Alert);
+                // Something unexpected happened, show the error message.
+                UIAlertController alertController = UIAlertController.Create("An error occurred.", ex.Message, UIAlertControllerStyle.Alert);
                 alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                 PresentViewController(alertController, true, null);
             }
@@ -139,21 +146,26 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
 
         private async Task DownloadMapAreaAsync(PreplannedMapArea mapArea)
         {
-            // Setup UI for download.
+            // Show the download UI.
             _progressIndicator.UpdateMessageAndProgress("Downloading map area", 0);
             View.AddSubview(_progressIndicator);
 
             // Get the path for the downloaded map area.
             var path = Path.Combine(_offlineDataFolder, mapArea.PortalItem.Title);
 
-            // If area is already downloaded, open it and don't download again.
+            // If the area is already downloaded, open it and don't download it again.
             if (Directory.Exists(path))
             {
                 var localMapArea = await MobileMapPackage.OpenAsync(path);
                 try
                 {
+                    // Load the map.
                     _myMapView.Map = localMapArea.Maps.First();
+
+                    // Reset the UI.
                     _progressIndicator.RemoveFromSuperview();
+
+                    // Return without proceeding to download.
                     return;
                 }
                 catch (Exception)
@@ -162,7 +174,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
                 }
             }
 
-            // Create job that is used to do the download.
+            // Create the job that is used to do the download.
             DownloadPreplannedOfflineMapJob job = _offlineMapTask.DownloadPreplannedOfflineMap(mapArea, path);
 
             // Subscribe to progress change events to support showing a progress bar.
@@ -179,19 +191,19 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
                     var errorBuilder = new StringBuilder();
 
                     // Add layer errors to the message.
-                    foreach (var layerError in results.LayerErrors)
+                    foreach (KeyValuePair<Layer, Exception> layerError in results.LayerErrors)
                     {
                         errorBuilder.AppendLine($"{layerError.Key.Name} {layerError.Value.Message}");
                     }
 
                     // Add table errors to the message.
-                    foreach (var tableError in results.TableErrors)
+                    foreach (KeyValuePair<FeatureTable, Exception> tableError in results.TableErrors)
                     {
                         errorBuilder.AppendLine($"{tableError.Key.TableName} {tableError.Value.Message}");
                     }
 
                     // Show the message.
-                    UIAlertController alertController = UIAlertController.Create ("Warning!", errorBuilder.ToString(), UIAlertControllerStyle.Alert);
+                    UIAlertController alertController = UIAlertController.Create("Warning!", errorBuilder.ToString(), UIAlertControllerStyle.Alert);
                     alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                     PresentViewController(alertController, true, null);
                 }
@@ -201,8 +213,8 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
             }
             catch (Exception ex)
             {
-                // Report exception.
-                UIAlertController alertController = UIAlertController.Create ("Downloading map area failed.", ex.Message, UIAlertControllerStyle.Alert);
+                // Report the exception.
+                UIAlertController alertController = UIAlertController.Create("Downloading map area failed.", ex.Message, UIAlertControllerStyle.Alert);
                 alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                 PresentViewController(alertController, true, null);
             }
@@ -235,11 +247,12 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
         /// When an area is downloaded, geodatabases are registered with the original service to support
         /// synchronization. When the area is deleted from the device, it is important first to unregister
         /// all geodatabases that are used in the map so the service doesn't have stray geodatabases
-        /// registered.</remarks>
+        /// registered.
+        /// </remarks>
         private async Task UnregisterAndDeleteAllAreas()
         {
             // Find all geodatabase files from the map areas, filtering by the .geodatabase extension.
-            var geodatabasesToUnregister = Directory.GetFiles(
+            string[] geodatabasesToUnregister = Directory.GetFiles(
                 _offlineDataFolder, "*.geodatabase", SearchOption.AllDirectories);
 
             // Unregister all geodatabases.
@@ -275,13 +288,16 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
         {
             try
             {
+                // Get the selected map area.
                 PreplannedMapArea area = _preplannedMapAreas.First(mapArea => mapArea.PortalItem.Title.ToString() == selectedArea);
+
+                // Download the map area.
                 await DownloadMapAreaAsync(area);
             }
             catch (Exception ex)
             {
                 // No match found.
-                UIAlertController alertController = UIAlertController.Create ("Downloading map area failed.", ex.Message, UIAlertControllerStyle.Alert);
+                UIAlertController alertController = UIAlertController.Create("Downloading map area failed.", ex.Message, UIAlertControllerStyle.Alert);
                 alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                 PresentViewController(alertController, true, null);
             }
@@ -298,28 +314,22 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
                 // If there is a map loaded, remove it.
                 if (_myMapView.Map != null)
                 {
-                    // Clear the layers. This will ensure that their resources are freed.
-                    _myMapView.Map.OperationalLayers.Clear();
                     _myMapView.Map = null;
                 }
 
-                // Ensure the map and related resources (for example, handles to geodatabases) are cleared.
-                //    This is important on Windows where open files can't be deleted.
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
-                GC.Collect();
-
+                // Delete all downloaded map areas.
                 await UnregisterAndDeleteAllAreas();
             }
             catch (Exception ex)
             {
                 // Report the error.
-                UIAlertController alertController = UIAlertController.Create ("Deleting map areas failed.", ex.Message, UIAlertControllerStyle.Alert);
+                UIAlertController alertController = UIAlertController.Create("Deleting map areas failed.", ex.Message, UIAlertControllerStyle.Alert);
                 alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                 PresentViewController(alertController, true, null);
             }
             finally
             {
+                // Reset the UI.
                 _progressIndicator.RemoveFromSuperview();
             }
         }
@@ -332,24 +342,27 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
 
         private void CreateLayout()
         {
-            // Create views
+            // Create the progress indicator.
             _progressIndicator = new LoadingOverlay(View.Frame);
 
+            // Create the download button.
             _downloadButton = new UIButton();
             _downloadButton.SetTitle("Download Area", UIControlState.Normal);
             _downloadButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
 
+            // Create the delete button.
             _deleteButton = new UIButton();
             _deleteButton.SetTitle("Delete all areas", UIControlState.Normal);
             _deleteButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
 
+            // Create the toolbar that will be used to contain the buttons.
             _toolbarTray = new UIToolbar();
 
-
-            // Add MapView to the page
+            // Add the MapView to the page
             View.AddSubviews(_myMapView, _toolbarTray, _downloadButton, _deleteButton, _initialPrompt);
 
-            // Subscribe to events
+            // Subscribe to the delete button click event.
+            //     Note: download button event is handled in Initialize.
             _deleteButton.TouchUpInside += OnDeleteAllMapAreasClicked;
         }
 
@@ -360,17 +373,29 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
 
             base.ViewDidLoad();
         }
+
         public override void ViewDidLayoutSubviews()
         {
+            // Get the top margin; this is used to adjust the MapView inset
+            //    (because the MapView is shown under the navigation area).
             nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            // Setup the visual frame for the MapView
+
+            // Set up the visual frame for the MapView.
             _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+
+            // Update the map insets. This will keep the map content centered
+            //     within the visible area of the MapView. Additionally, it will
+            //     ensure that the attribution bar is not obscured by the toolbar.
             _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 50, 0);
-            // Setup the visual frame for the Toolbar
+
+            // Set up the visual frame for the Toolbar.
             _toolbarTray.Frame = new CGRect(0, View.Bounds.Height - 50, View.Bounds.Width, 50);
+
+            // Set up the visual frames for the buttons.
             _downloadButton.Frame = new CGRect(10, _toolbarTray.Frame.Top + 10, View.Bounds.Width / 2 - 10, _toolbarTray.Frame.Height - 20);
             _deleteButton.Frame = new CGRect(View.Bounds.Width / 2 + 15, _toolbarTray.Frame.Top + 10, View.Bounds.Width / 2 - 10, _toolbarTray.Frame.Height - 20);
 
+            // Set up the visual frame for the initial prompt, if it is still there.
             if (_initialPrompt != null)
             {
                 _initialPrompt.Frame = new CGRect(10, View.Bounds.Height / 2, View.Bounds.Width, 20);
@@ -380,49 +405,65 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
         }
     }
 
+    /// <summary>
+    /// Custom view for showing the loading indicator.
+    /// </summary>
     public sealed class LoadingOverlay : UIView
     {
-        private readonly UIActivityIndicatorView _activityIndicator;
+        // Label for showing the loading message.
         private readonly UILabel _loadingMessageLabel;
 
         public LoadingOverlay(CGRect frame) : base(frame)
         {
+            // Update the design.
             BackgroundColor = UIColor.Black;
             Alpha = 0.75f;
             AutoresizingMask = UIViewAutoresizing.All;
 
+            // Calculate layout values.
             nfloat labelHeight = 22;
             nfloat labelWidth = Frame.Width - 20;
             nfloat centerX = Frame.Width / 2;
             nfloat centerY = Frame.Height / 2;
 
             // Create the spinner and show it.
-            _activityIndicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);
-            
-            _activityIndicator.Frame = new CGRect(centerX - (_activityIndicator.Frame.Width / 2),
-                    centerY - _activityIndicator.Frame.Height - 20,
-                    _activityIndicator.Frame.Width,
-                    _activityIndicator.Frame.Height);
-            _activityIndicator.AutoresizingMask = UIViewAutoresizing.All;
-            AddSubview(_activityIndicator);
-            _activityIndicator.StartAnimating();
+            var activityIndicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);
+
+            // Update the spinner's frame
+            activityIndicator.Frame = new CGRect(centerX - (activityIndicator.Frame.Width / 2),
+                    centerY - activityIndicator.Frame.Height - 20,
+                    activityIndicator.Frame.Width,
+                    activityIndicator.Frame.Height);
+            activityIndicator.AutoresizingMask = UIViewAutoresizing.All;
+
+            // Add the spinner to the view.
+            AddSubview(activityIndicator);
+
+            // Start the spinner animation.
+            activityIndicator.StartAnimating();
 
             // Create the label.
             _loadingMessageLabel = new UILabel()
             {
                 Frame = new CGRect(centerX - (labelWidth / 2), centerY + 20, labelWidth, labelHeight),
                 BackgroundColor = UIColor.Clear,
-                TextColor =  UIColor.White,
+                TextColor = UIColor.White,
                 Text = "Loading...",
                 TextAlignment = UITextAlignment.Center,
                 AutoresizingMask = UIViewAutoresizing.All
             };
+
+            // Add the label to the view.
             AddSubview(_loadingMessageLabel);
         }
 
+        /// <summary>
+        /// Method for updating the reported message and progress.
+        /// </summary>
         public void UpdateMessageAndProgress(string message, int progress)
         {
-            if (progress > 0)
+            // Negative progress value is interpreted as indeterminate.
+            if (progress >= 0)
             {
                 _loadingMessageLabel.Text = $"{message}... ({progress})%";
             }

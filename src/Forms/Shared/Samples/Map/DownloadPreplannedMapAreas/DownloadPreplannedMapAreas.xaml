@@ -28,7 +28,7 @@
                 </ListView.ItemTemplate>
             </ListView>
             <Button Grid.Row="2"
-                    Text="Delete all downloaded areas"
+                    Text="Delete offline areas"
                     Clicked="OnDeleteAllMapAreasClicked" />
             <esriUI:MapView x:Name="MyMapView"
                             Grid.Row="3" />

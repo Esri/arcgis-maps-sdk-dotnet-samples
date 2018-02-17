@@ -340,7 +340,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
             _downloadButton = new Button(this) { Text = "Download Area" };
 
             // Create the delete button.
-            _deleteButton = new Button(this) { Text = "Delete all areas" };
+            _deleteButton = new Button(this) { Text = "Delete offline areas" };
             _deleteButton.Click += OnDeleteAllMapAreasClicked;
 
             // Add the buttons to the layout.

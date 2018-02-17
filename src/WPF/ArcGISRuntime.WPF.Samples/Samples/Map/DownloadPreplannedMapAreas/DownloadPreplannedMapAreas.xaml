@@ -53,7 +53,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
                 <Button x:Name="DeleteMapAreaButton"
-                        Content="Delete all offline areas"
+                        Content="Delete offline areas"
                         HorizontalAlignment="Stretch"
                         Margin="5"
                         Click="OnDeleteAllMapAreasClicked" />

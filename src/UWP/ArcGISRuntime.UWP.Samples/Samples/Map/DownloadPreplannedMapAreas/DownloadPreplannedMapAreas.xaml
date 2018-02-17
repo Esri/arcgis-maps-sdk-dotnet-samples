@@ -52,10 +52,10 @@
                                     <ColumnDefinition Width="auto" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <Image Grid.RowSpan="2"
+                                <Image Grid.RowSpan="1"
                                        Source="{Binding PortalItem.ThumbnailUri}"
                                        Height="70" Margin="-10,2,2,2" Stretch="UniformToFill" />
-                                <TextBlock Grid.Column="0"
+                                <TextBlock Grid.Column="1"
                                            Text="{Binding PortalItem.Title}"
                                            Margin="10,0" VerticalAlignment="Center" />
                             </Grid>
@@ -63,7 +63,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
                 <Button x:Name="DeleteMapAreaButton"
-                        Content="Delete all offline areas"
+                        Content="Delete offline areas"
                         HorizontalAlignment="Stretch" Margin="5"
                         Click="OnDeleteAllMapAreasClicked" />
             </StackPanel>

@@ -1,8 +1,8 @@
 ﻿{
   "dependencies": {
-    "Esri.ArcGISRuntime.UWP": "100.2.0",
-    "Esri.ArcGISRuntime.Xamarin.Forms": "100.2.0",
-    "Esri.ArcGISRuntime.Hydrography": "100.2.0",
+    "Esri.ArcGISRuntime.UWP": "100.2.1",
+    "Esri.ArcGISRuntime.Xamarin.Forms": "100.2.1",
+    "Esri.ArcGISRuntime.Hydrography": "100.2.1",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.3",
     "Xamarin.Forms": "2.4.0.74863"
   },

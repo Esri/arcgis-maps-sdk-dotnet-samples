@@ -261,6 +261,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
+	<EmbeddedResource Include="Samples\Map\DownloadPreplannedMapAreas\metadata.json" />
 	<EmbeddedResource Include="Samples\Analysis\ViewshedGeoElement\metadata.json" />
     <EmbeddedResource Include="Samples\GraphicsOverlay\Animate3DGraphic\metadata.json" />
     <EmbeddedResource Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\metadata.json" />
@@ -356,6 +357,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<None Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.jpg" />
 	<None Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.jpg" />
     <None Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.jpg" />
     <None Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
@@ -457,6 +459,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.cs" />
 	<Compile Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.cs" />
     <Compile Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.cs" />
     <Compile Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.cs" />
@@ -551,7 +554,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\GeometryEngine\ListTransformations\ListTransformations.jpg" />
-  </ItemGroup>  
+  </ItemGroup>
   <ItemGroup>
     <None Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.jpg" />
   </ItemGroup>
@@ -561,7 +564,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\Layers\RasterHillshade\RasterHillshade.jpg" />
-  </ItemGroup>  
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

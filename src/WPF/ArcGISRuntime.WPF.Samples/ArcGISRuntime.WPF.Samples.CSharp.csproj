@@ -79,6 +79,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
+	<Content Include="Samples\Analysis\ViewshedLocation\metadata.json">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</Content>
 	<Content Include="Samples\Analysis\ViewshedGeoElement\metadata.json">
 		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	</Content>
@@ -103,7 +106,7 @@
     <Content Include="Samples\Layers\RasterHillshade\RasterHillshade.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\Web_TiledLayer\metadata.json">        
+    <Content Include="Samples\Layers\Web_TiledLayer\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\metadata.json">
@@ -397,6 +400,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<Content Include="Samples\Analysis\ViewshedLocation\ViewshedLocation.jpg">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</Content>
 	<Content Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.jpg">
 		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	</Content>
@@ -676,6 +682,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="Samples\Analysis\ViewshedLocation\ViewshedLocation.xaml.cs">
+		<DependentUpon>ViewshedLocation.xaml</DependentUpon>
+	</Compile>
 	<Compile Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.xaml.cs">
 		<DependentUpon>ViewshedGeoElement.xaml</DependentUpon>
 	</Compile>
@@ -988,6 +997,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+	<Page Include="Samples\Analysis\ViewshedLocation\ViewshedLocation.xaml">
+		<Generator>MSBuild:Compile</Generator>
+		<SubType>Designer</SubType>
+	</Page>
 	<Page Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.xaml">
 		<Generator>MSBuild:Compile</Generator>
 		<SubType>Designer</SubType>
@@ -1039,7 +1052,7 @@
     <Page Include="Samples\Layers\RasterHillshade\RasterHillshade.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>    
+    </Page>
     <Page Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

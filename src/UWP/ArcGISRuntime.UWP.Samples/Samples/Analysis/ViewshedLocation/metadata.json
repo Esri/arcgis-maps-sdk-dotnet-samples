@@ -1,0 +1,25 @@
+{
+  "Name": "Viewshed (Location)",
+  "SampleName": "ViewshedLocation",
+  "Description": "This sample demonstrates the configurable properties of viewshed analysis, including frustum color, heading, pitch, distances, angles, and location.",
+  "Instructions": "Click anywhere in the scene to change the viewshed observer location.", 
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": false,
+  "RequiresLocalServer": false,
+  "Image": "ViewshedLocation.jpg",
+  "Link": "",
+  "TypeLink": [ 
+    "P:Esri.ArcGISRuntime.UI.GeoAnalysis.Viewshed.IsFrustumOutlineVisible",
+    "P:Esri.ArcGISRuntime.UI.GeoAnalysis.Viewshed.FrustumOutlineColor",
+    "P:Esri.ArcGISRuntime.UI.GeoAnalysis.Analysis.IsVisible",
+    "P:Esri.ArcGISRuntime.UI.GeoAnalysis.Viewshed.MaxDistance",
+    "P:Esri.ArcGISRuntime.UI.GeoAnalysis.Viewshed.MinDistance",
+    "P:Esri.ArcGISRuntime.UI.GeoAnalysis.Viewshed.VerticalAngle",
+    "P:Esri.ArcGISRuntime.UI.GeoAnalysis.Viewshed.HorizontalAngle",
+    "P:Esri.ArcGISRuntime.UI.GeoAnalysis.LocationViewshed.Location",
+    "P:Esri.ArcGISRuntime.UI.GeoAnalysis.LocationViewshed.Heading",
+    "P:Esri.ArcGISRuntime.UI.GeoAnalysis.LocationViewshed.Pitch"
+  ],
+  "SampleFolder": "ViewshedLocation"
+}

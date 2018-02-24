@@ -98,6 +98,9 @@
     <!-- Misc Config -->
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
     <Content Include="Properties\ArcGISRuntime.Windows.Samples.rd.xml" />
+    <Content Include="groups.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="project.json" />
     <Content Include="Properties\ArcGISRuntime.Windows.Samples.rd.xml" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -110,25 +113,12 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
-    <Content Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.jpg" />
-    <Content Include="Samples\Symbology\FeatureLayerExtrusion\metadata.json" />
-    <Content Include="Samples\Layers\ChangeStretchRenderer\metadata.json" />
-    <Content Include="Samples\Layers\RasterRgbRenderer\metadata.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <!-- JSON Metadata -->
-    <Content Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\metadata.json" />
-    <Content Include="Samples\Data\ListRelatedFeatures\metadata.json" />
+    <Content Include="Samples\Analysis\ViewshedLocation\metadata.json" />
     <Content Include="Samples\Analysis\LineOfSightGeoElement\metadata.json" />
     <Content Include="Samples\Analysis\QueryFeatureCountAndExtent\metadata.json" />
     <Content Include="Samples\Layers\FeatureLayerRenderingModeScene\metadata.json" />
     <Content Include="Samples\Data\SymbolizeShapefile\metadata.json" />
-    <Content Include="groups.json" />
     <Content Include="Samples\Analysis\LineOfSightLocation\metadata.json" />
-    <Content Include="Samples\Analysis\ViewshedCamera\metadata.json" />
-    <Content Include="groups.json" />
-    <Content Include="Samples\Analysis\LineOfSightLocation\metadata.json" />
-    <Content Include="Samples\Analysis\QueryFeatureCountAndExtent\metadata.json" />
     <Content Include="Samples\Analysis\ViewshedCamera\metadata.json" />
     <Content Include="Samples\Analysis\ViewshedGeoElement\metadata.json" />
     <Content Include="Samples\Data\EditAndSyncFeatures\metadata.json" />
@@ -140,14 +130,12 @@
     <Content Include="Samples\Data\ListRelatedFeatures\metadata.json" />
     <Content Include="Samples\Data\RasterLayerGeoPackage\metadata.json" />
     <Content Include="Samples\Data\ReadGeoPackage\metadata.json" />
-    <Content Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.jpg" />
     <Content Include="Samples\Data\ReadShapefileMetadata\metadata.json" />
     <Content Include="Samples\Data\ServiceFeatureTableCache\metadata.json" />
     <Content Include="Samples\Data\ServiceFeatureTableManualCache\metadata.json" />
     <Content Include="Samples\Data\ServiceFeatureTableNoCache\metadata.json" />
     <Content Include="Samples\Data\StatisticalQuery\metadata.json" />
     <Content Include="Samples\Data\StatsQueryGroupAndSort\metadata.json" />
-    <Content Include="Samples\Data\SymbolizeShapefile\metadata.json" />
     <Content Include="Samples\Geometry\FormatCoordinates\metadata.json" />
     <Content Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\metadata.json" />
     <Content Include="Samples\Geoprocessing\AnalyzeHotspots\metadata.json" />
@@ -226,6 +214,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Analysis\ViewshedLocation\ViewshedLocation.jpg" />
+    <Content Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.jpg" />
     <Content Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.jpg" />
     <Content Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.jpg" />
     <Content Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.jpg" />
@@ -321,12 +311,15 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.xaml.cs">
-		<DependentUpon>ViewshedGeoElement.xaml</DependentUpon>
-	</Compile>
+    <Compile Include="Samples\Analysis\ViewshedLocation\ViewshedLocation.xaml.cs">
+      <DependentUpon>ViewshedLocation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.xaml.cs">
+      <DependentUpon>ViewshedGeoElement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\GeometryEngine\ListTransformations\ListTransformations.xaml.cs">
       <DependentUpon>ListTransformations.xaml</DependentUpon>
-    </Compile>	
+    </Compile>
     <Compile Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.xaml.cs">
       <DependentUpon>Animate3DGraphic.xaml</DependentUpon>
     </Compile>
@@ -482,7 +475,7 @@
     </Compile>
     <Compile Include="Samples\Layers\RasterHillshade\RasterHillshade.xaml.cs">
       <DependentUpon>RasterHillshade.xaml</DependentUpon>
-    </Compile>    
+    </Compile>
     <Compile Include="Samples\Layers\RasterLayerFile\RasterLayerFile.xaml.cs">
       <DependentUpon>RasterLayerFile.xaml</DependentUpon>
     </Compile>
@@ -615,14 +608,18 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-	<Page Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.xaml">
-		<Generator>MSBuild:Compile</Generator>
-		<SubType>Designer</SubType>
-	</Page>
+    <Page Include="Samples\Analysis\ViewshedLocation\ViewshedLocation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\GeometryEngine\ListTransformations\ListTransformations.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>	
+    </Page>
     <Page Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

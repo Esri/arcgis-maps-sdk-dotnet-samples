@@ -158,13 +158,25 @@
 
     This sample demonstrates how to use a raster layer created from a local raster file.
 
+    * [Raster hillshade renderer](Xamarin.Android/Samples/Layers/RasterHillshade)
+
+    This sample demonstrates how to use a hillshade renderer on a raster layer. Hillshade renderers can adjust a grayscale raster (usually of terrain) according to a hypothetical sun position (azimuth and altitude).
+
     * [Raster rendering rule](Xamarin.Android/Samples/Layers/RasterRenderingRule)
 
     This sample demonstrates how to create an `ImageServiceRaster`, fetch the `RenderingRule`s from the service info, and use a `RenderingRule` to create an `ImageServiceRaster` and add it to a raster layer.
 
+    * [Raster RGB renderer](Xamarin.Android/Samples/Layers/RasterRgbRenderer)
+
+    This sample demonstrates how to use an RGB renderer on a raster layer. An RGB renderer is used to adjust the color bands of a multi-spectral image.
+
     * [Raster layer (GeoPackage)](Xamarin.Android/Samples/Data/RasterLayerGeoPackage)
 
     This sample demonstrates how to open a GeoPackage and show a GeoPackage raster in a raster layer.
+
+    * [Blend renderer](Xamarin.Android/Samples/Layers/ChangeBlendRenderer)
+
+    This sample demonstrates how to use blend renderer on a raster layer. You can get a hillshade blended with either a colored raster or color ramp.
 
     * [Stretch renderer](Xamarin.Android/Samples/Layers/ChangeStretchRenderer)
 
@@ -335,6 +347,14 @@
 
     This sample demonstrates how to create a `LocationViewshed` to display interactive viewshed results in the scene view. The viewshed observer is defined by the scene view camera to evaluate visible and obstructed areas of the scene from that location.
 
+    * [Viewshed (GeoElement)](Xamarin.Android/Samples/Analysis/ViewshedGeoElement)
+
+    This sample demonstrates how to display a live viewshed analysis for a moving GeoElement. The analysis is offset vertically so that the viewpoint is from the top of the GeoElement (in this case, a model of a tank).
+
+    * [Viewshed (Location)](Xamarin.Android/Samples/Analysis/ViewshedLocation)
+
+    This sample demonstrates the configurable properties of viewshed analysis, including frustum color, heading, pitch, distances, angles, and location.
+
     * [Line of sight from location](Xamarin.Android/Samples/Analysis/LineOfSightLocation)
 
     This sample demonstrates a `LocationLineOfSight` analysis that shows segments that are visible or obstructed along a line drawn from observer to target.
@@ -421,6 +441,10 @@
     * [Project with specific transformation](Xamarin.Android/Samples/GeometryEngine/ProjectWithSpecificTransformation)
 
     This sample demonstrates how to use the GeometryEngine with a specified geographic transformation to transform a geometry from one coordinate system to another. 
+
+    * [List transformations by suitability](Xamarin.Android/Samples/GeometryEngine/ListTransformations)
+
+    This sample demonstrates how to use the TransformationCatalog to get a list of available DatumTransformations that can be used to project a Geometry between two different SpatialReferences, and how to use one of the transformations to perform the GeometryEngine.project operation. The TransformationCatalog is also used to set the location of files upon which grid-based transformations depend, and to find the default transformation used for the two SpatialReferences.
 
 ## Geometry
 

@@ -23,22 +23,22 @@ namespace ArcGISRuntimeXamarin.Samples.ViewshedLocation
     [Activity]
     public class ViewshedLocation : Activity
     {
-        // Create and hold reference to the used SceneView
+        // Create and hold reference to the used SceneView.
         private readonly SceneView _mySceneView = new SceneView();
 
-        // URL to the elevation source
+        // Hold the URL to the elevation source.
         private readonly Uri _localElevationImageService = new Uri("https://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer");
 
-        // URL to the buildings scene layer
+        // Hold the URL to the buildings scene layer.
         private readonly Uri _buildingsUrl = new Uri("https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0");
 
-        // Reference to the viewshed analysis
+        // Hold a reference to the viewshed analysis.
         private LocationViewshed _viewshed;
 
-        // Reference to the analysis overlay that will hold the viewshed analysis
+        // Hold a reference to the analysis overlay that will hold the viewshed analysis.
         private AnalysisOverlay _analysisOverlay;
 
-        // References to UI elements
+        // References to UI elements.
         private SeekBar _headingSlider;
         private SeekBar _pitchSlider;
         private SeekBar _horizontalAngleSlider;

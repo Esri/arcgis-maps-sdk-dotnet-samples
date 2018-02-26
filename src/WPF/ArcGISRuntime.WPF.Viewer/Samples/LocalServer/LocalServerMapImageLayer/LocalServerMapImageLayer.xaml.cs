@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -17,6 +17,12 @@ using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.LocalServerMapImageLayer
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Local Server Map Image Layer",
+        "LocalServer",
+        "This sample demonstrates how to display a Map Image Layer from a local map service",
+        "This sample depends on the local server being installed and configured. See https://developers.arcgis.com/net/latest/wpf/guide/local-server.htm for details and instructions.\nSample data is loaded in the background. ")]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("dee5d8060a6048a4b063484199a9546b")]
     public partial class LocalServerMapImageLayer
     {
         // Hold a reference to the local map service
@@ -72,24 +78,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerMapImageLayer
 
         private async Task<string> GetDataPath()
         {
-            #region offlinedata
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "LocalServerMapImageLayer", "RelationshipID.mpk");
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the file
-                await DataManager.GetData("dee5d8060a6048a4b063484199a9546b", "LocalServerMapImageLayer");
-            }
-
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("dee5d8060a6048a4b063484199a9546b", "RelationshipID.mpk");
         }
     }
 }

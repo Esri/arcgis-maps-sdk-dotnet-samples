@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -11,6 +11,11 @@ using Esri.ArcGISRuntime.Mapping;
 
 namespace ArcGISRuntime.WPF.Samples.SetInitialMapLocation
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Set initial map location",
+        "Map",
+        "This sample creates a map with a standard ESRI Imagery with Labels basemap that is centered on a latitude and longitude location and zoomed into a specific level of detail.",
+        "")]
     public partial class SetInitialMapLocation
     {
         public SetInitialMapLocation()

@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -16,6 +16,11 @@ using System.Windows.Media;
 
 namespace ArcGISRuntime.WPF.Samples.SurfacePlacements
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Surface placement",
+        "GraphicsOverlay",
+        "This sample demonstrates how to position graphics using different Surface Placements.",
+        "")]
     public partial class SurfacePlacements
     {
         public SurfacePlacements()

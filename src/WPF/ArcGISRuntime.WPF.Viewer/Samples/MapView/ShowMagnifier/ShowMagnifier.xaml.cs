@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -11,6 +11,11 @@ using Esri.ArcGISRuntime.Mapping;
 
 namespace ArcGISRuntime.WPF.Samples.ShowMagnifier
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Show magnifier",
+        "MapView",
+        "This sample demonstrates how you can tap and hold on a map to get the magnifier. You can also pan while tapping and holding to move the magnifier across the map.",
+        "This sample only works on a device with a touch screen. The magnifier will not appear via a mouse click.")]
     public partial class ShowMagnifier
     {
         public ShowMagnifier()

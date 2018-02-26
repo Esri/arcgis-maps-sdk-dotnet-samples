@@ -20,6 +20,12 @@ using System.Windows.Controls;
 
 namespace ArcGISRuntime.WPF.Samples.LocalServerGeoprocessing
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Local Server Geoprocessing",
+        "LocalServer",
+        "This sample demonstrates how to perform geoprocessing tasks using Local Server.",
+        "This sample depends on the local server being installed and configured. See https://developers.arcgis.com/net/latest/wpf/guide/local-server.htm for details and instructions.\nSample data is loaded in the background.\nNote that the functionality used by this sample requires that Geoprocessing packages be enabled in the ArcGISLocalServer.AGSDeployment file that is included in your project. See [Create a Local Server deployment](https://developers.arcgis.com/net/latest/wpf/guide/create-a-local-server-deployment.htm) for more information.")]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("f7c7b4a30fb9415896ba0d1921fe014b", "da9e565a52ca41c1937cff1a01017068")]
     public partial class LocalServerGeoprocessing
     {
         // Hold a reference to the local geoprocessing service
@@ -191,46 +197,12 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGeoprocessing
 
         private async Task<string> GetRasterPath()
         {
-            #region offlinedata
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "LocalServerGeoprocessing", "RasterHillshade.tpk");
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the file
-                await DataManager.GetData("f7c7b4a30fb9415896ba0d1921fe014b", "LocalServerGeoprocessing");
-            }
-
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("f7c7b4a30fb9415896ba0d1921fe014b", "RasterHillshade.tpk");
         }
 
         private async Task<string> GetGpPath()
         {
-            #region offlinedata
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "LocalServerGeoprocessing", "Contour.gpk");
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the file
-                await DataManager.GetData("da9e565a52ca41c1937cff1a01017068", "LocalServerGeoprocessing");
-            }
-
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("da9e565a52ca41c1937cff1a01017068", "Contour.gpk");
         }
 
         private void MyResetButton_OnClick(object sender, RoutedEventArgs e)

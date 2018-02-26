@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -20,6 +20,12 @@ using System.Windows.Media;
 
 namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceShapefile
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Dynamic workspace shapefile",
+        "LocalServer",
+        "This sample demonstrates how to dynamically add a local shapefile to a map using Local Server.",
+        "This sample depends on the local server being installed and configured. See https://developers.arcgis.com/net/latest/wpf/guide/local-server.htm for details and instructions.\nClick on the 'Choose Shapefile' button to select a shapefile. The file picker will start in the sample viewer's offline data directory. Sample shapefiles are loaded in the background. ")]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("ea619b4f0f8f4d108c5b87e90c1b5be0", "d98b3e5293834c5f852f13c569930caa")]
     public partial class DynamicWorkspaceShapefile
     {
         // Hold a reference to the local map service
@@ -126,48 +132,14 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceShapefile
         {
             // Gets the path to the blank map package
 
-            #region offlinedata
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "DynamicWorkspaceShapefile", "mpk_blank.mpk");
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the file
-                await DataManager.GetData("ea619b4f0f8f4d108c5b87e90c1b5be0", "DynamicWorkspaceShapefile");
-            }
-
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("ea619b4f0f8f4d108c5b87e90c1b5be0", "mpk_blank.mpk");
         }
 
         private async Task<String> LoadShapefilePaths()
         {
             // Gets the path to the shapefile package
 
-            #region offlinedata
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "DynamicWorkspaceShapefile", "TrailBikeNetwork.shp");
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the file
-                await DataManager.GetData("d98b3e5293834c5f852f13c569930caa", "DynamicWorkspaceShapefile");
-            }
-
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("d98b3e5293834c5f852f13c569930caa", "TrailBikeNetwork.shp");
         }
 
         private async void MyChooseButton_Click(object sender, RoutedEventArgs e)

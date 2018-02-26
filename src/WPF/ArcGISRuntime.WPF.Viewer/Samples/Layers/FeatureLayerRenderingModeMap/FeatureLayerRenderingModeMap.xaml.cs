@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -15,6 +15,11 @@ using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WPF.Samples.FeatureLayerRenderingModeMap
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Feature Layer Rendering Mode (Map)",
+        "Layers",
+        "This sample demonstrates how to use load settings to set preferred rendering mode for feature layers, specifically static or dynamic rendering modes.",
+        "")]
     public partial class FeatureLayerRenderingModeMap
     {
         // Viewpoint locations for map view to zoom in and out to.

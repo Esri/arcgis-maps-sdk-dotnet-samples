@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -17,6 +17,11 @@ using System.Windows.Controls;
 
 namespace ArcGISRuntime.WPF.Samples.ChangeViewpoint
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Change viewpoint",
+        "MapView",
+        "This sample demonstrates different ways in which you can change the viewpoint or visible area of the map.",
+        "Click any of the available buttons to change the current viewpoint")]
     public partial class ChangeViewpoint
     {
         // Coordinates for London

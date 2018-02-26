@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -18,6 +18,12 @@ using System.Windows.Controls;
 
 namespace ArcGISRuntime.WPF.Samples.LocalServerServices
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Local Server Services",
+        "LocalServer",
+        "This sample demonstrates how to control local server and manage running services.",
+        "This sample depends on the local server being installed and configured. See https://developers.arcgis.com/net/latest/wpf/guide/local-server.htm for details and instructions. \n Sample data is downloaded automatically once local server is started. It may take some time for sample data to load. The list of services will be enabled once the download has finished.")]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("dee5d8060a6048a4b063484199a9546b", "4e94fec734434d1288e6ebe36c3c461f", "da9e565a52ca41c1937cff1a01017068")]
     public partial class LocalServerServices
     {
         // Hold references to the individual services
@@ -178,68 +184,17 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
 
         private async Task<string> GetMpkPath()
         {
-            #region offlinedata
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "LocalServerServices", "RelationshipID.mpk");
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the file
-                await DataManager.GetData("dee5d8060a6048a4b063484199a9546b", "LocalServerServices");
-            }
-
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("dee5d8060a6048a4b063484199a9546b", "RelationshipID.mpk");
         }
 
         private async Task<string> GetFeatureLayerPath()
         {
-            #region offlinedata
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "LocalServerServices", "PointsOfInterest.mpk");
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the file
-                await DataManager.GetData("4e94fec734434d1288e6ebe36c3c461f", "LocalServerServices");
-            }
-
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("4e94fec734434d1288e6ebe36c3c461f", "PointsOfInterest.mpk");
         }
 
         private async Task<string> GetGpPath()
         {
-            #region offlinedata
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "LocalServerServices", "Contour.gpk");
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the file
-                await DataManager.GetData("da9e565a52ca41c1937cff1a01017068", "LocalServerServices");
-            }
-
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("da9e565a52ca41c1937cff1a01017068", "Contour.gpk");
         }
 
         private async void StartServerButtonClicked(object sender, RoutedEventArgs e)

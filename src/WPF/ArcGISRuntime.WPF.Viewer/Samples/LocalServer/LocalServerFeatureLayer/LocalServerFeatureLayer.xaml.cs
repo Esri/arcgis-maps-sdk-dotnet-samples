@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -18,6 +18,12 @@ using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.LocalServerFeatureLayer
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Local Server Feature Layer",
+        "LocalServer",
+        "This sample demonstrates how to display a Feature Layer service by a Local Server feature service.",
+        "Sample data is downloaded automatically from ArcGIS Online by the sample viewer.")]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("4e94fec734434d1288e6ebe36c3c461f")]
     public partial class LocalServerFeatureLayer
     {
         // Hold a reference to the local feature service; the ServiceFeatureTable will be loaded from this service
@@ -94,24 +100,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerFeatureLayer
 
         private async Task<string> GetFeatureLayerPath()
         {
-            #region offlinedata
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "LocalServerFeatureLayer", "PointsOfInterest.mpk");
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the file
-                await DataManager.GetData("4e94fec734434d1288e6ebe36c3c461f", "LocalServerFeatureLayer");
-            }
-
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("4e94fec734434d1288e6ebe36c3c461f", "PointsOfInterest.mpk");
         }
     }
 }

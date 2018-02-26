@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -18,6 +18,12 @@ using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceRaster
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Dynamic workspace Raster",
+        "LocalServer",
+        "This sample demonstrates how to dynamically add a local Raster to a map using Local Server.",
+        "This sample depends on the local server being installed and configured. See https://developers.arcgis.com/net/latest/wpf/guide/local-server.htm for details and instructions.\nClick on the 'Choose Raster' button to select a Raster. The file picker will start in the sample viewer's offline data directory. Sample Rasters are loaded in the background. ")]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("ea619b4f0f8f4d108c5b87e90c1b5be0", "80b43ba48f524a8eb0cb54f0f1ee9a5f")]
     public partial class DynamicWorkspaceRaster
     {
         // Hold a reference to the local map service
@@ -117,48 +123,14 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceRaster
         {
             // Gets the path to the blank map package
 
-            #region offlinedata
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "DynamicWorkspaceRaster", "mpk_blank.mpk");
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the file
-                await DataManager.GetData("ea619b4f0f8f4d108c5b87e90c1b5be0", "DynamicWorkspaceRaster");
-            }
-
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("ea619b4f0f8f4d108c5b87e90c1b5be0", "mpk_blank.mpk");
         }
 
         private async Task<String> LoadRasterPaths()
         {
             // Gets the path to the Raster package
 
-            #region offlinedata
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "DynamicWorkspaceRaster", "usa_raster.tif");
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the file
-                await DataManager.GetData("80b43ba48f524a8eb0cb54f0f1ee9a5f", "DynamicWorkspaceRaster");
-            }
-
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("80b43ba48f524a8eb0cb54f0f1ee9a5f", "usa_raster.tif");
         }
 
         private async void MyChooseButton_Click(object sender, RoutedEventArgs e)

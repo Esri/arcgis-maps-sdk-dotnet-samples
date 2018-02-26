@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: https://www.apache.org/licenses/LICENSE-2.0
@@ -18,6 +18,11 @@ using System.Windows.Media;
 
 namespace ArcGISRuntime.WPF.Samples.ViewshedLocation
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Viewshed (Location)",
+        "Analysis",
+        "This sample demonstrates the configurable properties of viewshed analysis, including frustum color, heading, pitch, distances, angles, and location.",
+        "Click anywhere in the scene to 'pick up' the viewshed observer location. Move the mouse to see the viewshed observer location update in real time. Click again to 'drop' the viewshed observer location.")]
     public partial class ViewshedLocation
     {
         // Hold the URL to the elevation source.

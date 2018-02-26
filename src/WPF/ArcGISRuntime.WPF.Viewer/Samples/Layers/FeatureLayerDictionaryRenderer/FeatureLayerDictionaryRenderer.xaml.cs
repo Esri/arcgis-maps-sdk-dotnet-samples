@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -17,6 +17,12 @@ using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WPF.Samples.FeatureLayerDictionaryRenderer
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Feature layer dictionary renderer",
+        "Layers",
+        "Demonstrates how to apply a dictionary renderer to a feature layer and display mil2525d graphics. The dictionary renderer creates these graphics using a mil2525d style file and the attributes attached to each feature within the geodatabase.",
+        "")]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("e34835bf5ec5430da7cf16bb8c0b075c", "e0d41b4b409a49a5a7ba11939d8535dc")]
     public partial class FeatureLayerDictionaryRenderer
     {
         public FeatureLayerDictionaryRenderer()
@@ -80,43 +86,13 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerDictionaryRenderer
         // Get the file path for the style dictionary
         private async Task<string> GetStyleDictionaryPath()
         {
-            #region offlinedata
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "FeatureLayerDictionaryRenderer", "mil2525d.stylx");
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the file
-                await DataManager.GetData("e34835bf5ec5430da7cf16bb8c0b075c", "FeatureLayerDictionaryRenderer");
-            }
-
-            return filepath;
-            #endregion offlinedata
+            return DataManager.GetDataFolder("e34835bf5ec5430da7cf16bb8c0b075c", "mil2525d.stylx");
         }
 
         // Get the file path for the geodatabase
         private async Task<string> GetGeodatabasePath()
         {
-            #region offlinedata
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "FeatureLayerDictionaryRenderer", "militaryoverlay.geodatabase");
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the file
-                await DataManager.GetData("e0d41b4b409a49a5a7ba11939d8535dc", "FeatureLayerDictionaryRenderer");
-            }
-
-            return filepath;
-            #endregion offlinedata
+            return DataManager.GetDataFolder("e0d41b4b409a49a5a7ba11939d8535dc", "militaryoverlay.geodatabase");
         }
     }
 }

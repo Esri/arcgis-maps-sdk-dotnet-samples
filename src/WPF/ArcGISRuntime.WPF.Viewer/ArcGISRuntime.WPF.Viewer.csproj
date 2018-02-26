@@ -866,7 +866,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Resource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
+    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
     <Resource Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -1180,9 +1180,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Content Include="groups.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="Readme.md" />
     <Content Include="Samples\Analysis\LineOfSightGeoElement\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

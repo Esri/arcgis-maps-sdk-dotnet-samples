@@ -77,7 +77,18 @@ namespace ArcGISRuntimeXamarin.Samples.SketchOnMap
 
             // Set the sketch editor as the page's data context
             this.BindingContext = MyMapView.SketchEditor;
+
+
+#if __IOS__
+            // Prevent commands from being linked away.
+            var cancelCommand = MyMapView.SketchEditor.CancelCommand;
+            var addCommand = MyMapView.SketchEditor.AddCommand;
+            var redoCommand = MyMapView.SketchEditor.RedoCommand;
+            var undoCommand = MyMapView.SketchEditor.UndoCommand;
+            var completeCommand = MyMapView.SketchEditor.CompleteCommand;
+            var deleteCommand = MyMapView.SketchEditor.DeleteCommand;
         }
+#endif
 
         #region Graphic and symbol helpers
         private Graphic CreateGraphic(Esri.ArcGISRuntime.Geometry.Geometry geometry)

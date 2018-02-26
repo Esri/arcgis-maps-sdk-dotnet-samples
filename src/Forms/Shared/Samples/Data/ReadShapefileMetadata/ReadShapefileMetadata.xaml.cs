@@ -43,6 +43,13 @@ namespace ArcGISRuntimeXamarin.Samples.ReadShapefileMetadata
             ShapefileInfo fileInfo = myShapefile.Info;
             InfoPanel.BindingContext = fileInfo;
 
+#if __IOS__
+            // Prevent linking away.
+            var x = fileInfo.Credits;
+            var y = fileInfo.Summary;
+            var z = fileInfo.Tags;
+#endif
+
             // Read the thumbnail image data into a byte array
             Stream imageStream = await fileInfo.Thumbnail.GetEncodedBufferAsync();
             byte[] imageData = new byte[imageStream.Length];

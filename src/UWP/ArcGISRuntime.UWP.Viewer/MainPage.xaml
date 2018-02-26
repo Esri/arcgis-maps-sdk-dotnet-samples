@@ -26,7 +26,7 @@
                        HorizontalAlignment="Center"
                        Source="{Binding SampleImageName, Converter={StaticResource sampleToBitmapConverter}}">
                     </Image>
-                    <TextBlock Text="{Binding Name}" FontSize="18" Grid.Row="1" Margin="10,5,10,5"  Style="{StaticResource HeaderTextBlock}" />
+                    <TextBlock Text="{Binding SampleName}" FontSize="18" Grid.Row="1" Margin="10,5,10,5"  Style="{StaticResource HeaderTextBlock}" />
                     <TextBlock Text="{Binding Description}" FontSize="13" 
 										   TextWrapping="Wrap" Grid.Row="2" VerticalAlignment="Top" 
 										   Margin="10,-5,10,5" FontWeight="Normal" TextTrimming="CharacterEllipsis"  Style="{StaticResource PrimaryTextBlock}" />
@@ -41,7 +41,7 @@
                     BorderBrush="{StaticResource AppBarBorderThemeBrush}" BorderThickness="1" Margin="0,2,0,2">
                 <Grid Tapped="OnSampleItemTapped"
                     HorizontalAlignment="Stretch" Height="48">
-                    <TextBlock Text="{Binding Name}" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="18" Margin="10,0" 
+                    <TextBlock Text="{Binding SampleName}" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="18" Margin="10,0" 
                                Style="{StaticResource PrimaryTextBlock}" />
                     <Button  
                             Tapped="OnInfoTapped"

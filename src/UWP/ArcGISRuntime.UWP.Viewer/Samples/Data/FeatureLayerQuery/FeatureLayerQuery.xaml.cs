@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -20,6 +20,11 @@ using Windows.UI.Xaml;
 
 namespace ArcGISRuntime.UWP.Samples.FeatureLayerQuery
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Feature layer query",
+        "Data",
+        "This sample demonstrates how to return features from a feature layer using an attribute query on the underlying feature table.",
+        "The sample provides a panel with two controls: a text box where you can input the name of a US State, and a button that executes an attribute query using that value. A successful query will select (highlight) the state and zoom the map to its extent.")]
     public partial class FeatureLayerQuery
     {
         // Create reference to service of US States  

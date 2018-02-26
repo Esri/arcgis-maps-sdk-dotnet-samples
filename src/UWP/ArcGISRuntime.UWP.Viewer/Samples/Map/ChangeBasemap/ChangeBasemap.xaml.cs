@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -14,6 +14,11 @@ using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.UWP.Samples.ChangeBasemap
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Change basemap",
+        "Map",
+        "This sample demonstrates how to dynamically change the basemap displayed in a Map.",
+        "")]
     public partial class ChangeBasemap
     {
         // Dictionary that associates names with basemaps

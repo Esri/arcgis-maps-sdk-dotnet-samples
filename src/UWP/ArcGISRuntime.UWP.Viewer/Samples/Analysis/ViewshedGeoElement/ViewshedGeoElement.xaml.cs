@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -21,6 +21,12 @@ using System.Threading.Tasks;
 
 namespace ArcGISRuntime.UWP.Samples.ViewshedGeoElement
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Viewshed (GeoElement)",
+        "Analysis",
+        "This sample demonstrates how to display a live viewshed analysis for a moving GeoElement. The analysis is offset vertically so that the viewpoint is from the top of the GeoElement (in this case, a model of a tank).",
+        "Tap on the scene to see the tank move to that point.")]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("07d62a792ab6496d9b772a24efea45d0")]
     public partial class ViewshedGeoElement
     {
         // URLs to the scene layer with buildings and the elevation source
@@ -163,28 +169,7 @@ namespace ArcGISRuntime.UWP.Samples.ViewshedGeoElement
         {
             // Returns the tank model.
 
-            #region offlinedata
-
-            // The desired model is expected to be called "bradle.3ds".
-            string filename = "bradle.3ds";
-
-            // The data manager provides a method to get the folder.
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path.
-            string filepath = Path.Combine(folder, "SampleData", "ViewshedGeoElement", filename);
-
-            // Check if the file exists.
-            if (!File.Exists(filepath))
-            {
-                // If the model is missing, download it.
-                await DataManager.GetData("07d62a792ab6496d9b772a24efea45d0", "ViewshedGeoElement");
-            }
-
-            // Return the path.
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("07d62a792ab6496d9b772a24efea45d0", "bradle.3ds");
         }
     }
 }

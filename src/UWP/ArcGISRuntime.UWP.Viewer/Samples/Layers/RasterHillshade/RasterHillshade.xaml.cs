@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -11,11 +11,16 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace ArcGISRuntime.UWP.Samples.RasterHillshade
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Raster hillshade renderer",
+        "Layers",
+        "This sample demonstrates how to use a hillshade renderer on a raster layer. Hillshade renderers can adjust a grayscale raster (usually of terrain) according to a hypothetical sun position (azimuth and altitude).",
+        "")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("134d60f50e184e8fa56365f44e5ce3fb")]
     public partial class RasterHillshade
     {
         // Constant to store a z-factor (conversion constant) applied to the hillshade.
@@ -25,13 +30,14 @@ namespace ArcGISRuntime.UWP.Samples.RasterHillshade
         // Constants to store the Pixel Size Power and Pixel Size Factor values.
         // Use these to account for altitude changes (scale) as the viewer zooms in and out (recommended when using worldwide datasets).
         private const double PixelSizePower = 1.0;
+
         private const double PixelSizeFactor = 1.0;
 
         // Constant to store the bit depth (pixel depth), which determines the range of values that the hillshade raster can store.
         private const int PixelBitDepth = 8;
 
         // Store a reference to the layer
-        RasterLayer _rasterLayer;
+        private RasterLayer _rasterLayer;
 
         public RasterHillshade()
         {
@@ -97,26 +103,7 @@ namespace ArcGISRuntime.UWP.Samples.RasterHillshade
 
         private async Task<string> GetRasterPath()
         {
-            #region offlinedata
-
-            // The desired raster is expected to be called srtm.tiff
-            string filename = "srtm.tiff";
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "RasterHillshade", "srtm-hillshade", filename);
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the map package file
-                await DataManager.GetData("134d60f50e184e8fa56365f44e5ce3fb", "RasterHillshade");
-            }
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("134d60f50e184e8fa56365f44e5ce3fb", "srtm-hillshade", "srtm.tiff");
         }
     }
 }

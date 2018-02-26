@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -17,6 +17,11 @@ using Windows.UI.Xaml;
 
 namespace ArcGISRuntime.UWP.Samples.AnalyzeHotspots
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Analyze hotspots",
+        "Geoprocessing",
+        "This sample demonstrates how to execute the GeoprocessingTask asynchronously to calculate a hotspot analysis based on the frequency of 911 calls. It calculates the frequency of these calls within a given study area during a specified constrained time period set between 1/1/1998 and 5/31/1998.",
+        "To run the hotspot analysis, select a data range and click on the 'Run analysis' button. Note the larger the date range, the longer it may take for the task to run and send back the results.")]
     public partial class AnalyzeHotspots
     {
         // Url for the geoprocessing service

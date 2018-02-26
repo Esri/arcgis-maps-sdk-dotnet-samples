@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -12,6 +12,11 @@ using System;
 
 namespace ArcGISRuntime.UWP.Samples.ArcGISTiledLayerUrl
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "ArcGIS tiled layer (URL)",
+        "Layers",
+        "This sample demonstrates how to add an ArcGISTiledLayer as a base layer in a map. The ArcGISTiledLayer comes from an ArcGIS Server sample web service.",
+        "")]
     public partial class ArcGISTiledLayerUrl
     {
         public ArcGISTiledLayerUrl()

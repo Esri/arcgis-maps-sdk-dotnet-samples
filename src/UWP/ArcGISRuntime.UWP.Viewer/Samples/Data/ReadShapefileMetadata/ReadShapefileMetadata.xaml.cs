@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -15,6 +15,12 @@ using System.Threading.Tasks;
 
 namespace ArcGISRuntime.UWP.Samples.ReadShapefileMetadata
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Read shapefile metadata",
+        "Data",
+        "This sample demonstrates how to open a shapefile stored on the device, read metadata that describes the dataset, and display it as a feature layer with default symbology.",
+        "The shapefile will be downloaded from an ArcGIS Online portal automatically.")]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("d98b3e5293834c5f852f13c569930caa")]
     public partial class ReadShapefileMetadata
     {
         public ReadShapefileMetadata()
@@ -62,30 +68,7 @@ namespace ArcGISRuntime.UWP.Samples.ReadShapefileMetadata
 
         private async Task<string> GetShapefilePath()
         {
-            #region offlinedata
-            // The shapefile will be downloaded from ArcGIS Online
-            // The data manager (a component of the sample viewer, *NOT* the runtime
-            //     handles the offline data process
-
-            // The desired shapefile is expected to be called "TrailBikeNetwork.shp"
-            string filename = "TrailBikeNetwork.shp";
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "ReadShapefileMetadata", filename);
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the shapefile
-                await DataManager.GetData("d98b3e5293834c5f852f13c569930caa", "ReadShapefileMetadata");
-            }
-
-            // Return the path
-            return filepath;
-            #endregion offlinedata
+            return DataManager.GetDataFolder("d98b3e5293834c5f852f13c569930caa", "TrailBikeNetwork.shp");
         }
     }
 }

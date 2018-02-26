@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -15,6 +15,12 @@ using System.IO;
 
 namespace ArcGISRuntime.UWP.Samples.OpenMobileMap
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Open mobile map (map package)",
+        "Map",
+        "This sample demonstrates how to open a mobile map from a map package.",
+        "The map package will be downloaded from an ArcGIS Online portal automatically.")]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("e1f3a7254cb845b09450f54937c16061")]
     public partial class OpenMobileMap
     {
         public OpenMobileMap()
@@ -47,28 +53,7 @@ namespace ArcGISRuntime.UWP.Samples.OpenMobileMap
         /// <returns>String that is the path to the file on disk</returns>
         private async Task<string> GetMmpkPath()
         {
-            #region offlinedata
-            // The mobile map package will be downloaded from ArcGIS Online
-            // The data manager (a component of the sample viewer, *NOT* the runtime
-            //     handles the offline data process
-
-            // The desired MMPK is expected to be called Yellowstone.mmpk
-            string filename = "Yellowstone.mmpk";
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "OpenMobileMap", filename);
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the map package file
-                await DataManager.GetData("e1f3a7254cb845b09450f54937c16061", "OpenMobileMap");
-            }
-            return filepath;
-            #endregion offlinedata
+            return DataManager.GetDataFolder("e1f3a7254cb845b09450f54937c16061", "Yellowstone.mmpk");
         }
     }
 }

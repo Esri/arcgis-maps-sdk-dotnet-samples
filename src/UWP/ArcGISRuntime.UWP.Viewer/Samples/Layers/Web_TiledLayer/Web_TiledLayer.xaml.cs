@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -12,6 +12,11 @@ using System.Collections.Generic;
 
 namespace ArcGISRuntime.UWP.Samples.Web_TiledLayer
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Web TiledLayer",
+        "Layers",
+        "This sample demonstrates how to load a web tiled layer from a non-ArcGIS service, including how to include proper attribution.",
+        "")]
     public partial class Web_TiledLayer
     {
         // Templated URL to the tile service

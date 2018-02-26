@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -15,6 +15,11 @@ using Windows.UI;
 
 namespace ArcGISRuntime.UWP.Samples.RenderUniqueValues
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Render unique values",
+        "Symbology",
+        "This sample demonstrate how to use a unique value renderer to style different features in a feature layer with different symbols. Features do not have a symbol property for you to set, renderers should be used to define the symbol for features in feature layers. The unique value renderer allows for separate symbols to be used for features that have specific attribute values in a defined field.",
+        "")]
     public sealed partial class RenderUniqueValues
     {
         public RenderUniqueValues()

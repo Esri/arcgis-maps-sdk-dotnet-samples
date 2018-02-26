@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -18,6 +18,11 @@ using System.Threading.Tasks;
 
 namespace ArcGISRuntime.UWP.Samples.RenderPictureMarkers
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Render picture markers",
+        "Symbology",
+        "This sample demonstrates how to create picture marker symbols from a URL and embedded resources.",
+        "")]
     public sealed partial class RenderPictureMarkers
     {
         public RenderPictureMarkers()
@@ -84,7 +89,7 @@ namespace ArcGISRuntime.UWP.Samples.RenderPictureMarkers
             // Get image as a stream from the resources
             // Picture is defined as EmbeddedResource and DoNotCopy
             var resourceStream = currentAssembly.GetManifestResourceStream(
-                "ArcGISRuntime.UWP.Resources.PictureMarkerSymbols.pin_star_blue.png");
+                "ArcGISRuntime.UWP.Viewer.Resources.PictureMarkerSymbols.pin_star_blue.png");
 
             // Create new symbol using asynchronous factory method from stream
             PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);

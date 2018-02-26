@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -21,6 +21,12 @@ using Windows.UI.Xaml;
 
 namespace ArcGISRuntime.UWP.Samples.ListTransformations
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "List transformations by suitability",
+        "GeometryEngine",
+        "This sample demonstrates how to use the TransformationCatalog to get a list of available DatumTransformations that can be used to project a Geometry between two different SpatialReferences, and how to use one of the transformations to perform the GeometryEngine.project operation. The TransformationCatalog is also used to set the location of files upon which grid-based transformations depend, and to find the default transformation used for the two SpatialReferences.",
+        "Tap on a listed transformation to re-project the point geometry (shown with a blue square) using the selected transformation. The reprojected geometry will be shown in red. If there are grid-based transformations for which projection engine files are not available locally, these will be shown in gray in the list. The default transformation is shown in bold. To download the additional transformation data, log on to your developers account (http://developers.arcgis.com), click the 'Download APIs' button on the dashboard page, and download the 'Coordinate System Data' archive from the 'Supplemental ArcGIS Runtime Data' tab. Unzip the archive to the 'SampleData' sub-folder of the ApplicationData directory, which can be found for each platform at run time with System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData).")]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class ListTransformations : INotifyPropertyChanged
     {
         // Point whose coordinates will be projected using a selected transform.
@@ -194,23 +200,9 @@ namespace ArcGISRuntime.UWP.Samples.ListTransformations
 
         private string GetProjectionDataPath()
         {
-            #region offlinedata
-
-            // The data manager provides a method to get the folder path.
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path to the projection engine data folder.
-            string folderPath = Path.Combine(folder, "SampleData", "PEDataRuntime");
-
-            // Check if the directory exists.
-            if (!Directory.Exists(folderPath))
-            {
-                folderPath = "";
-            }
-
-            return folderPath;
-
-            #endregion offlinedata
+            // Return the projection data path; note that this is not valid by default. 
+            //You must manually download the projection engine data and update the path returned here. 
+            return "";
         }
     }
 

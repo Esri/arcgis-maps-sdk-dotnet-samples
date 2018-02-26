@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -21,6 +21,11 @@ using Windows.UI.Xaml;
 
 namespace ArcGISRuntime.UWP.Samples.SketchOnMap
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Sketch graphics on the map",
+        "GraphicsOverlay",
+        "This sample demonstrates how to interactively sketch and edit graphics in the map view and display them in a graphics overlay. You can sketch a variety of geometry types and undo or redo operations.",
+        "1. Click the 'Sketch' button.\n2. Choose a sketch type from the drop down list.\n3. Click the 'Draw' button and click in the map view to create the sketch.\n4. While sketching, you can undo/redo operations.\n5. Click 'Done' to finish the sketch.\n6. To edit a graphic, click 'Draw/Edit', then 'Edit'. Select a graphic in the map to start editing.\n7. Make edits then click 'Done' to finish editing.")]
     public sealed partial class SketchOnMap
     {
         // Graphics overlay to host sketch graphics

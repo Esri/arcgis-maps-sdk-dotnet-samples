@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
-using ArcGISRuntime.Samples.Models;
 using ArcGISRuntime.UWP.Viewer.Dialogs;
 using System;
 using System.Collections.Generic;
@@ -19,9 +18,9 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 using Navigation = Windows.UI.Xaml.Navigation;
+using ArcGISRuntime.Samples.Shared.Models;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.UWP.Viewer
 {
@@ -91,42 +90,17 @@ namespace ArcGISRuntime.UWP.Viewer
             base.OnNavigatedTo(e);
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Initialize manager that handles all the samples, this will load all the items from samples assembly and related files
-            await SampleManager.Current.InitializeAsync(ApplicationManager.Current.SelectedLanguage);
+            SampleManager.Current.Initialize();
 
             // Create categories list. Also add Featured there as a single category.
-            var categoriesList = SampleManager.Current.GetSamplesInCategories();
+            var categoriesList = SampleManager.Current.FullTree;
 
-            var collectedFeaturedSamplesList = new List<object>();
-            var featuredSampleList = SampleManager.Current.GetFeaturedSamples();
-
-            // Collect all featured samples from the samples list and construct featured category
-            foreach (var featured in featuredSampleList)
-            {
-                foreach (var category in categoriesList)
-                {
-                    foreach (var sample in category.Items)
-                    {
-                        var sampleModel = (sample as SampleModel);
-                        if (sampleModel == null) continue;
-
-                        if (sampleModel.SampleName == featured.SampleName)
-                            collectedFeaturedSamplesList.Add(sampleModel);
-                    }
-                }
-            }
-
-            // Make sure that Featured is shown on top of the categories
-            if (collectedFeaturedSamplesList.Count > 0)
-                categoriesList.Insert(0, new TreeItem
-                    { Name = "Featured", Items = collectedFeaturedSamplesList });
-            
-            categories.ItemsSource = categoriesList;
+            categories.ItemsSource = categoriesList.Items;
             categories.SelectedIndex = 0;
-
-            Frame.Navigated += OnFrameNavigated;
+            (Window.Current.Content as Frame).Navigated += OnFrameNavigated;
 
             HideLoadingIndication();
         }
@@ -140,18 +114,50 @@ namespace ArcGISRuntime.UWP.Viewer
             }
         }
 
-        private void OnSampleItemTapped(object sender, TappedRoutedEventArgs e)
+        private async void OnSampleItemTapped(object sender, TappedRoutedEventArgs e)
         {
-            var selectedSample = (sender as FrameworkElement).DataContext as SampleModel;
-            if (selectedSample == null) return;
+            var selectedSample = (sender as FrameworkElement).DataContext as SampleInfo;
+            await SelectSample(selectedSample);
+        }
 
+        private async Task SelectSample(SampleInfo selectedSample)
+        {
             // Call a function to clear existing credentials
             ClearCredentials();
 
             SampleManager.Current.SelectedSample = selectedSample;
 
-            // Navigate to the sample page that shows the sample and details
-            Frame.Navigate(typeof(SamplePage));
+            try
+            {
+                if (selectedSample.OfflineDataItems != null)
+                {
+                    // Show the waiting page
+                    Frame.Navigate(typeof(WaitPage));
+                    // Wait for offline data to complete
+                    await DataManager.EnsureSampleDataPresent(selectedSample);
+                    
+                }
+                // Show the sample
+                Frame.Navigate(typeof(SamplePage));
+
+                // Only remove download page from navigation stack if it was shown
+                if (selectedSample.OfflineDataItems != null)
+                {
+                    // Remove the waitpage from the stack
+                    Frame.BackStack.Remove(Frame.BackStack.Where(m => m.SourcePageType == typeof(WaitPage)).First());
+                }
+                
+                // Call a function to clear any existing credentials from AuthenticationManager
+                ClearCredentials();
+
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+            }
+            catch (Exception exception)
+            {
+                // failed to create new instance of the sample
+                Frame.Navigate(typeof(ErrorPage), exception);
+            }
         }
 
         private void ClearCredentials()
@@ -193,14 +199,14 @@ namespace ArcGISRuntime.UWP.Viewer
 
         private async void OnInfoClicked(object sender, RoutedEventArgs e)
         {
-            var sampleModel = (sender as Button).DataContext as SampleModel;
+            var sampleModel = (sender as Button).DataContext as SampleInfo;
             if (sampleModel == null)
                 return;
 
             // Create dialog that is used to show the picture
             var dialog = new ContentDialog()
             {
-                Title = sampleModel.Name,
+                Title = sampleModel.SampleName,
                 //MaxWidth = ActualWidth,
                 //MaxHeight = ActualHeight
             };

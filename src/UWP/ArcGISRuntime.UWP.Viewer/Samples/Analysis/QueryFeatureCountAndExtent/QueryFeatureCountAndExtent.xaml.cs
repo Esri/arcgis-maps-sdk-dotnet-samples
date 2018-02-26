@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -14,6 +14,11 @@ using System;
 
 namespace ArcGISRuntime.UWP.Samples.QueryFeatureCountAndExtent
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Query feature count and extent",
+        "Analysis",
+        "This sample demonstrates how to query a feature table, in this case returning a count, for features that are within the visible extent or that meet specified criteria.",
+        "Use the button to zoom to the extent of the state specified (by abbreviation) in the textbox or use the button to count the features in the current extent.")]
     public partial class QueryFeatureCountAndExtent
     {
         // URL to the feature service

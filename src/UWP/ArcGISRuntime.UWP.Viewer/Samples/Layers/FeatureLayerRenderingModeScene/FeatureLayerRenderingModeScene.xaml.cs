@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -14,6 +14,11 @@ using System;
 
 namespace ArcGISRuntime.UWP.Samples.FeatureLayerRenderingModeScene
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Feature layer rendering mode (Scene)",
+        "Layers",
+        "This sample demonstrates how to use load settings to change the preferred rendering mode for a scene. Static rendering mode only redraws features periodically when a sceneview is navigating, while dynamic mode dynamically re-renders as the scene moves.",
+        "Press the 'Animated Zoom' button to trigger a zoom. Observe the differences between the two scenes.")]
     public partial class FeatureLayerRenderingModeScene
     {
         // Points for demonstrating zoom

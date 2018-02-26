@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -25,6 +25,11 @@ using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.UWP.Samples.FindPlace
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Find place",
+        "Search",
+        "This sample demonstrates how to use geocode functionality to search for points of interest, around a location or within an extent.",
+        "1. Enter a point of interest you'd like to search for (e.g. 'Starbucks')\n2. Enter a search location or accept the default 'Current Location'\n3. Select 'search all' to get all results, or press 'search view' to only get results within the current extent.")]
     public partial class FindPlace
     {
         // The LocatorTask provides geocoding services
@@ -212,7 +217,7 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
             // Get image as a stream from the resources
             // Picture is defined as EmbeddedResource and DoNotCopy
             var resourceStream = currentAssembly.GetManifestResourceStream(
-                "ArcGISRuntime.UWP.Resources.PictureMarkerSymbols.pin_star_blue.png");
+                "ArcGISRuntime.UWP.Viewer.Resources.PictureMarkerSymbols.pin_star_blue.png");
 
             // Create new symbol using asynchronous factory method from stream
             PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);

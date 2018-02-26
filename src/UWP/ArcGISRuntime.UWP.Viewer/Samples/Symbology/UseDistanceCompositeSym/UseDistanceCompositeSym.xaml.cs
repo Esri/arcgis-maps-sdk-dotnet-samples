@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -16,6 +16,11 @@ using Windows.UI;
 
 namespace ArcGISRuntime.UWP.Samples.UseDistanceCompositeSym
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Distance composite symbol",
+        "Symbology",
+        "This sample demonstrates how to create a `DistanceCompositeSceneSymbol` with unique marker symbols to display at various distances from the camera.",
+        "1. When the Scene initially loads, you will be looking at a point graphic symbolized with a 3D cone symbol.\n2. Zoom slightly closer to the graphic and the symbol will change to a blue 3D cube symbol.\n3. Zoom farther from the graphic and the symbol will change back to a 3D cone and then to a simple marker symbol.")]
     public sealed partial class UseDistanceCompositeSym
     {
         // URL for an image service to use as an elevation source

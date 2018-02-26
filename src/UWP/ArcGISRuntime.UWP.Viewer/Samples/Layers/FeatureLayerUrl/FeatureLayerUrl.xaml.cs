@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -13,6 +13,11 @@ using System;
 
 namespace ArcGISRuntime.UWP.Samples.FeatureLayerUrl
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Feature layer (feature service)",
+        "Layers",
+        "This sample demonstrates how to show a feature layer on a map using the URL to the service.",
+        "")]
     public partial class FeatureLayerUrl
     {
         public FeatureLayerUrl()

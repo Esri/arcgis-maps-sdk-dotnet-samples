@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -14,6 +14,11 @@ using System.Collections.Generic;
 
 namespace ArcGISRuntime.UWP.Samples.WMSLayerUrl
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "WMS layer (URL)",
+        "Layers",
+        "This sample demonstrates how to add a layer from a WMS service to a map.",
+        "")]
     public partial class WMSLayerUrl
     {
         // Hold the URL to the WMS service showing the geology of Africa

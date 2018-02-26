@@ -365,6 +365,9 @@
     <Compile Include="Dialogs\SampleInfoDialog.xaml.cs">
       <DependentUpon>SampleInfoDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ErrorPage.xaml.cs">
+      <DependentUpon>ErrorPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -670,7 +673,14 @@
     <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.xaml.cs">
       <DependentUpon>AuthorEditSaveMap.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WaitPage.xaml.cs">
+      <DependentUpon>WaitPage.xaml</DependentUpon>
+    </Compile>
     <Page Include="Dialogs\SampleInfoDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ErrorPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1077,6 +1087,10 @@
     <Page Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WaitPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

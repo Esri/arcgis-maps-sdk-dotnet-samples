@@ -161,9 +161,6 @@
     <!-- Sample Manager Code -->
     <Compile Include="CategoriesAdapter.cs" />
     <Compile Include="MainActivity.cs" />
-    <Compile Include="Managers\DataManager.cs" />
-    <Compile Include="Managers\SampleManager.cs" />
-    <Compile Include="Managers\TreeItem.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\FeaturedModel.cs" />
     <Compile Include="Models\SampleModel.cs" />
@@ -179,8 +176,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
-	<EmbeddedResource Include="Samples\Analysis\ViewshedLocation\metadata.json" />
-	<EmbeddedResource Include="Samples\Analysis\ViewshedGeoElement\metadata.json" />
+    <EmbeddedResource Include="Samples\Analysis\ViewshedLocation\metadata.json" />
+    <EmbeddedResource Include="Samples\Analysis\ViewshedGeoElement\metadata.json" />
     <EmbeddedResource Include="Samples\GraphicsOverlay\Animate3DGraphic\metadata.json" />
     <EmbeddedResource Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\metadata.json" />
     <EmbeddedResource Include="Samples\Data\ListRelatedFeatures\metadata.json" />
@@ -277,8 +274,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<None Include="Samples\Analysis\ViewshedLocation\ViewshedLocation.jpg" />
-	<None Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.jpg" />
+    <None Include="Samples\Analysis\ViewshedLocation\ViewshedLocation.jpg" />
+    <None Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.jpg" />
     <None Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.jpg" />
     <None Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg" />
     <None Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
@@ -376,8 +373,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="Samples\Analysis\ViewshedLocation\ViewshedLocation.cs" />
-	<Compile Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.cs" />
+    <Compile Include="Samples\Analysis\ViewshedLocation\ViewshedLocation.cs" />
+    <Compile Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.cs" />
     <Compile Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.cs" />
     <Compile Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.cs" />
     <Compile Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.cs" />
@@ -484,7 +481,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\GeometryEngine\ListTransformations\ListTransformations.jpg" />
-  </ItemGroup>  
+  </ItemGroup>
+  <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -1,16 +1,15 @@
-﻿// Copyright 2016 Esri.
+﻿// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
-using ArcGISRuntime.Samples.Models;
+using ArcGISRuntime.Samples.Shared.Models;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,18 +32,18 @@ namespace ArcGISRuntime.Samples.Desktop
             Initialize();
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             try
             {
-                await SampleManager.Current.InitializeAsync(ApplicationManager.Current.SelectedLanguage);
-
-                // Set featured data context
-                featured.DataContext = SampleManager.Current.GetFeaturedSamples();
-                featured.SelectedIndex = 0;
+                SampleManager.Current.Initialize();
 
                 // Set category data context
-                categories.DataContext = SampleManager.Current.GetSamplesInTreeViewCategories();
+                categories.DataContext = WPF.Viewer.Helpers.ToTreeViewItem(SampleManager.Current.FullTree);
+
+                // Select a random sample
+                Random rnd = new Random();
+                SelectSample(SampleManager.Current.AllSamples[rnd.Next(0, SampleManager.Current.AllSamples.Count() - 1)]);
             }
             catch (Exception ex)
             {
@@ -52,20 +51,11 @@ namespace ArcGISRuntime.Samples.Desktop
             }
         }
 
-        private void featured_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (e.AddedItems.Count > 0)
-            {
-                var featuredItem = e.AddedItems[0] as FeaturedModel;
-                SelectSample(featuredItem.Sample);
-            }
-        }
-
         private void categoriesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count > 0)
             {
-                var sample = e.AddedItems[0] as SampleModel;
+                var sample = e.AddedItems[0] as SampleInfo;
                 SelectSample(sample);
                 (sender as ListView).SelectedItem = null;
             }
@@ -73,28 +63,11 @@ namespace ArcGISRuntime.Samples.Desktop
 
         private void categories_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            var sample = ((e.NewValue as TreeViewItem).DataContext as SampleModel);
-            if (sample == null)
-            {
-                var category = ((e.NewValue  as TreeViewItem).DataContext as CategoryModel);
-                var subcategories = category.SubCategories;
-                var samples = new List<SampleModel>();
-                foreach (var subCategory in subcategories)
-                {
-                    if (subCategory.Samples.Count > 0)
-                        samples.AddRange(subCategory.Samples);
-                }
-                if (samples.Any())
-                {
-                    categoriesList.ItemsSource = samples;
-                    CategoriesRegion.Visibility = Visibility.Visible;
-                }
-            }
-            else
-                SelectSample(sample);
+            var sample = ((e.NewValue as TreeViewItem).DataContext as SampleInfo);
+            SelectSample(sample);
         }
 
-        private void SelectSample(SampleModel selectedSample)
+        private async void SelectSample(SampleInfo selectedSample)
         {
             if (selectedSample == null) return;
 
@@ -103,8 +76,18 @@ namespace ArcGISRuntime.Samples.Desktop
 
             try
             {
+                if (selectedSample.OfflineDataItems != null)
+                {
+                    // Show waiting page
+                    SampleContainer.Content = new WPF.Viewer.WaitPage();
+
+                    // Wait for offline data to complete
+                    await DataManager.EnsureSampleDataPresent(selectedSample);
+                }
+
+                // Show the sample
                 SampleContainer.Content = SampleManager.Current.SampleToControl(selectedSample);
-                
+
                 // Call a function to clear any existing credentials from AuthenticationManager
                 ClearCredentials();
 
@@ -114,7 +97,7 @@ namespace ArcGISRuntime.Samples.Desktop
             catch (Exception exception)
             {
                 // failed to create new instance of the sample
-                // TODO handle
+                SampleContainer.Content = new WPF.Viewer.ErrorPage(exception);
             }
             CategoriesRegion.Visibility = Visibility.Collapsed;
         }
@@ -131,12 +114,6 @@ namespace ArcGISRuntime.Samples.Desktop
                     Esri.ArcGISRuntime.Security.AuthenticationManager.Current.RemoveCredential(c);
                 }
             }
-        }
-
-        private void Featured_Click(object sender, RoutedEventArgs e)
-        {
-            categories.Visibility = Visibility.Collapsed;
-            featured.Visibility = Visibility.Visible;
         }
 
         private bool _openCategoryLeafs = true;
@@ -158,8 +135,6 @@ namespace ArcGISRuntime.Samples.Desktop
                     }
                 }
             }
-            featured.Visibility = Visibility.Collapsed;
-            categories.Visibility = Visibility.Visible;
         }
 
         private void CommandBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
@@ -194,7 +169,7 @@ namespace ArcGISRuntime.Samples.Desktop
             jpg.Frames.Add(BitmapFrame.Create(rtb));
 
             var file = new FileInfo(Path.Combine(
-                SampleManager.Current.SelectedSample.GetSampleFolderInRelativeSolution(),
+                SampleManager.Current.SelectedSample.Path,
                 SampleManager.Current.SelectedSample.Image));
             if (file.Exists)
             {
@@ -228,11 +203,6 @@ namespace ArcGISRuntime.Samples.Desktop
             DescriptionContainer.Visibility = Visibility.Visible;
         }
 
-        private void Data_Click(object sender, RoutedEventArgs e)
-        {
-            SampleContainer.Visibility = Visibility.Collapsed;
-            DescriptionContainer.Visibility = Visibility.Collapsed;
-        }
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             closeNavigation.Visibility = Visibility.Collapsed;
@@ -247,7 +217,5 @@ namespace ArcGISRuntime.Samples.Desktop
             root.ColumnDefinitions[0].MaxWidth = 535;
         }
 
-        
     }
 }
-

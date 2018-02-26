@@ -50,15 +50,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Logger.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Managers\DataManager.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Managers\SampleManager.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Managers\TreeItem.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\CategoryModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\FeaturedModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\SampleModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\SampleModelExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\SampleStructureMap.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\SubCategoryModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SampleListPage.xaml.cs">
       <DependentUpon>SampleListPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -74,12 +65,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ListTransformations\ListTransformations.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>ListTransformations.xaml</DependentUpon>
-    </Compile>    
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>RasterRgbRenderer.xaml</DependentUpon>
     </Compile>
-        <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>ChangeBlendRenderer.xaml</DependentUpon>
     </Compile>
@@ -100,8 +91,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
-	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedLocation\metadata.json" />
-	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedGeoElement\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedLocation\metadata.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedGeoElement\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\Animate3DGraphic\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ProjectWithSpecificTransformation\metadata.json" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ListRelatedFeatures\metadata.json" />
@@ -195,8 +186,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<None Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedLocation\ViewshedLocation.jpg" />
-	<None Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedLocation\ViewshedLocation.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ListTransformations\ListTransformations.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.jpg" />
@@ -295,14 +286,14 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedLocation\ViewshedLocation.xaml.cs">
-		<DependentUpon>ViewshedLocation.xaml</DependentUpon>
-		<SubType>Code</SubType>
-	</Compile>
-	<Compile Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.xaml.cs">
-		<DependentUpon>ViewshedGeoElement.xaml</DependentUpon>
-		<SubType>Code</SubType>
-	</Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedLocation\ViewshedLocation.xaml.cs">
+      <DependentUpon>ViewshedLocation.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.xaml.cs">
+      <DependentUpon>ViewshedGeoElement.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.xaml.cs">
       <DependentUpon>Animate3DGraphic.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -669,12 +660,12 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedLocation\ViewshedLocation.xaml">
-		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	</EmbeddedResource>
-	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.xaml">
-		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	</EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedLocation\ViewshedLocation.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

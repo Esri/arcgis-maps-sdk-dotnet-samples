@@ -173,5 +173,6 @@
   </PropertyGroup>
   <Import Project="..\ArcGISRuntime.Xamarin.Samples\ArcGISRuntime.Xamarin.Samples.projitems" Label="Shared" Condition="Exists('..\ArcGISRuntime.Xamarin.Samples\ArcGISRuntime.Xamarin.Samples.projitems')" />
   <Import Project="..\Shared\Forms.projitems" Label="Shared" />
+  <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
 </Project>

@@ -132,9 +132,6 @@
       <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.2.1\lib\Xamarin.iOS10\Esri.ArcGISRuntime.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Esri.ArcGISRuntime.Preview, Version=100.2.1.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.2.1\lib\Xamarin.iOS10\Esri.ArcGISRuntime.Preview.dll</HintPath>
-    </Reference>
     <Reference Include="MonoTouch.Dialog-1" />
     <Reference Include="OpenTK-1.0" />
     <Reference Include="PCLCrypto, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d4421c8a4786956c, processorArchitecture=MSIL">
@@ -233,15 +230,6 @@
     <!-- Sample Manager Code-->
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Main.cs" />
-    <Compile Include="Managers\DataManager.cs" />
-    <Compile Include="Managers\SampleManager.cs" />
-    <Compile Include="Managers\TreeItem.cs" />
-    <Compile Include="Models\CategoryModel.cs" />
-    <Compile Include="Models\FeaturedModel.cs" />
-    <Compile Include="Models\SampleModel.cs" />
-    <Compile Include="Models\SampleModelExtensions.cs" />
-    <Compile Include="Models\SampleStructureMap.cs" />
-    <Compile Include="Models\SubCategoryModel.cs" />
     <Compile Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.cs" />
     <Compile Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.cs" />
     <Compile Include="Samples\Layers\RasterHillshade\RasterHillshade.cs" />
@@ -261,8 +249,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
-	<EmbeddedResource Include="Samples\Analysis\ViewshedLocation\metadata.json" />
-	<EmbeddedResource Include="Samples\Analysis\ViewshedGeoElement\metadata.json" />
+    <EmbeddedResource Include="Samples\Analysis\ViewshedLocation\metadata.json" />
+    <EmbeddedResource Include="Samples\Analysis\ViewshedGeoElement\metadata.json" />
     <EmbeddedResource Include="Samples\GraphicsOverlay\Animate3DGraphic\metadata.json" />
     <EmbeddedResource Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\metadata.json" />
     <EmbeddedResource Include="Samples\Data\ListRelatedFeatures\metadata.json" />
@@ -357,8 +345,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<None Include="Samples\Analysis\ViewshedLocation\ViewshedLocation.jpg" />
-	<None Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.jpg" />
+    <None Include="Samples\Analysis\ViewshedLocation\ViewshedLocation.jpg" />
+    <None Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.jpg" />
     <None Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.jpg" />
     <None Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
     <None Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
@@ -459,8 +447,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="Samples\Analysis\ViewshedLocation\ViewshedLocation.cs" />
-	<Compile Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.cs" />
+    <Compile Include="Samples\Analysis\ViewshedLocation\ViewshedLocation.cs" />
+    <Compile Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.cs" />
     <Compile Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.cs" />
     <Compile Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.cs" />
     <Compile Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.cs" />
@@ -554,7 +542,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\GeometryEngine\ListTransformations\ListTransformations.jpg" />
-  </ItemGroup>  
+  </ItemGroup>
   <ItemGroup>
     <None Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.jpg" />
   </ItemGroup>
@@ -564,7 +552,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\Layers\RasterHillshade\RasterHillshade.jpg" />
-  </ItemGroup>  
+  </ItemGroup>
+  <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -52,26 +52,6 @@
                             >
                     <TextBlock Text="Read tutorial from "                                     
                                Style="{StaticResource PrimaryTextBlock}" FontSize="24" VerticalAlignment="Center" />
-                    <Button Margin="5" FontSize="24" VerticalAlignment="Center" Content="developers.arcgis.com" Cursor="Hand" 
-                            Click="OpenTutorial">
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <TextBlock TextDecorations="Underline">
-                                    <ContentPresenter />
-                                </TextBlock>
-                            </ControlTemplate>
-                        </Button.Template>
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Foreground" Value="Blue" />
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="true">
-                                        <Setter Property="Foreground" Value="Red" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                    </Button>
                 </StackPanel>
             </Grid>
 

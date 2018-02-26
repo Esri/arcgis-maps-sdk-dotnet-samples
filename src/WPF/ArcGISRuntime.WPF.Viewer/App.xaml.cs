@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
-using ArcGISRuntime.Samples.Models;
 using System;
 using System.Windows;
 
@@ -18,7 +17,6 @@ namespace ArcGISRuntime.WPF.Viewer
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            var selectedLanguage = Language.CSharp;
 
             try
             {
@@ -30,19 +28,6 @@ namespace ArcGISRuntime.WPF.Viewer
                 MessageBox.Show(String.Format("There was an error that prevented initializing the runtime. {0}", ex.Message));
                 Current.Shutdown();
             }
-
-            // Check application parameters:
-            // parameter definitions:
-            //     /vb = launch application using VBNet samples, defaults to C#
-            for (int i = 0; i != e.Args.Length; ++i)
-            {
-                if (e.Args[i] == "/vb")
-                {
-                    selectedLanguage = Language.VBNet;
-                }
-            }
-
-            ApplicationManager.Current.Initialize(selectedLanguage);
         }
     }
 }

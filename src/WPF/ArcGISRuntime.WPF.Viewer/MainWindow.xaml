@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ArcGISRuntime.WPF.Viewer"
-        xmlns:models="clr-namespace:ArcGISRuntime.Samples.Models"
         xmlns:converters="clr-namespace:ArcGISRuntime.WPF.Viewer.Converters"
         xmlns:managers="clr-namespace:ArcGISRuntime.Samples.Managers"
         Title="ArcGIS Runtime for .NET Samples"  
@@ -13,26 +12,6 @@
     <Window.Resources>
         <RoutedUICommand x:Key="TakeScreenshotCommand" Text="TakeThumbnail"/>
         <converters:SampleToBitmapConverter x:Key="sampleToBitmapConverter" />
-
-        <DataTemplate x:Key="StantardFeaturedItemTemplate">
-            <Grid Background="{StaticResource PrimaryBackgroundColor}" Margin="0,1,1,1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="35"/>
-                    <RowDefinition Height="55"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="120"/>
-                    <ColumnDefinition Width="320"/>
-                </Grid.ColumnDefinitions>
-                <Image Margin="10" Width="100" Height="125" Grid.RowSpan="2" Stretch="Uniform"
-                       Source="{Binding Sample.SampleImageName, Converter={StaticResource sampleToBitmapConverter}}">
-                </Image>
-                <TextBlock Text="{Binding Sample.Name}" FontSize="18" Grid.Column="1" Margin="10,5,10,5"/>
-                <TextBlock Text="{Binding Sample.Description}" FontSize="13" 
-										   TextWrapping="Wrap" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" 
-										   Margin="10,-5,10,5" FontWeight="Normal" TextTrimming="CharacterEllipsis"/>
-            </Grid>
-        </DataTemplate>
 
         <!--<DataTemplate x:Key="StandardSampleItemTemplate">
             <Grid>
@@ -64,9 +43,9 @@
                     </Grid.RowDefinitions>
                     <Image Width="270" Height="200" Stretch="Uniform"
                        HorizontalAlignment="Center"
-                       Source="{Binding SampleImageName, Converter={StaticResource sampleToBitmapConverter}}">
+                        Source="{Binding SampleImageName, Converter={StaticResource sampleToBitmapConverter}}">
                     </Image>
-                    <TextBlock Text="{Binding Name}" FontSize="18" Grid.Row="1" Margin="10,5,10,5"  Style="{StaticResource PrimaryTextBlock}" />
+                    <TextBlock Text="{Binding SampleName}" FontSize="18" Grid.Row="1" Margin="10,5,10,5"  Style="{StaticResource PrimaryTextBlock}" />
                     <TextBlock Text="{Binding Description}" FontSize="13" 
 										   TextWrapping="Wrap" Grid.Row="2" VerticalAlignment="Top" 
 										   Margin="10,-5,10,5" FontWeight="Normal" TextTrimming="CharacterEllipsis"  Style="{StaticResource SecondaryTextBlock}" />
@@ -109,10 +88,6 @@
             <!-- Main navigation  -->
             <Grid Margin="60,0,0,0" Grid.Column="1">
                 <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
-                    <RadioButton Content="FEATURED" Click="Featured_Click" Margin="5" 
-                             GroupName="MainTabs" IsChecked="True" 
-                             Background="Transparent" BorderBrush="Transparent" 
-                             FontSize="24" Style="{DynamicResource HeaderToggleButtonStyle}"></RadioButton>
                     <RadioButton Content="ALL" Click="Categories_Click" Margin="5" 
                              GroupName="MainTabs" IsChecked="false" 
                              Background="Transparent" BorderBrush="Transparent" 
@@ -122,20 +97,11 @@
         </Grid>
 
         <Grid Grid.Row="2" Background="#FFF2F2F2" x:Name="navigationPane">
-            <!-- Featured list -->
-            <ListView x:Name="featured" 
-                    Margin="2,0,5,0"
-					ItemsSource="{Binding}" 
-				    SelectionChanged="featured_SelectionChanged"
-				    Background="Transparent"
-				    BorderBrush="Transparent"
-                    ItemTemplate="{StaticResource StantardFeaturedItemTemplate}">
-            </ListView>
             <!-- Categories treeview -->
             <TreeView x:Name="categories" 
 						  Background="#F7F8F8"
 						  ItemsSource="{Binding}" 
-						  Visibility="Collapsed" 
+						  Visibility="Visible" 
                           Margin="0,-1,0,0"
 						  SelectedItemChanged="categories_SelectedItemChanged"
                           BorderBrush="Transparent" FontSize="18">
@@ -174,8 +140,8 @@
                 </Grid>
                 <!-- Details area -->
                 <Grid Background="{StaticResource PrimaryBackgroundColor}" Grid.Row="1">
-                    <ContentControl x:Name="SampleContainer" Margin="5"/>
-                    <local:Description x:Name="DescriptionContainer" Visibility="Collapsed" Margin="5"
+                    <ContentControl x:Name="SampleContainer" Margin="0"/>
+                    <local:Description x:Name="DescriptionContainer" Visibility="Collapsed" Margin="0"
                                        Background="White"/>
                 </Grid>
             </Grid>

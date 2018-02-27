@@ -13,7 +13,7 @@ using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 
-namespace ArcGISRuntimeXamarin.Samples.ShowMagnifier
+namespace ArcGISRuntime.Samples.ShowMagnifier
 {
     [Activity]
     public class ShowMagnifier : Activity

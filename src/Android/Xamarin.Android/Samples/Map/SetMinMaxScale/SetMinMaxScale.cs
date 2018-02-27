@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 
-namespace ArcGISRuntimeXamarin.Samples.SetMinMaxScale
+namespace ArcGISRuntime.Samples.SetMinMaxScale
 {
     [Activity]
     public class SetMinMaxScale : Activity

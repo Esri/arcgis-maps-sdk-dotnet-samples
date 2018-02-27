@@ -16,13 +16,13 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI.Controls;
-using ArcGISRuntimeXamarin.Managers;
+using ArcGISRuntime.Managers;
 using System.Threading.Tasks;
 using System.Collections.Specialized;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace ArcGISRuntimeXamarin.Samples.ReadGeoPackage
+namespace ArcGISRuntime.Samples.ReadGeoPackage
 {
     [Activity]
     public class ReadGeoPackage : Activity

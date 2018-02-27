@@ -15,7 +15,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureCollectionLayerFromPortal
+namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
 {
     [Register("FeatureCollectionLayerFromPortal")]
     public class FeatureCollectionLayerFromPortal : UIViewController

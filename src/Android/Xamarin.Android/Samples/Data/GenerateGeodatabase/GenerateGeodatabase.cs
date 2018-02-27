@@ -22,9 +22,9 @@ using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
-using ArcGISRuntimeXamarin.Managers;
+using ArcGISRuntime.Managers;
 
-namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
+namespace ArcGISRuntime.Samples.GenerateGeodatabase
 {
     [Activity]
     public class GenerateGeodatabase : Activity

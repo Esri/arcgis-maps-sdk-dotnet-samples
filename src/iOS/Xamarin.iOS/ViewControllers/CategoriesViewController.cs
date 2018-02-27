@@ -1,11 +1,11 @@
-using ArcGISRuntimeXamarin.Managers;
+using ArcGISRuntime.Managers;
 using CoreGraphics;
 using Foundation;
 using System;
 using UIKit;
 using System.Collections.Generic;
 
-namespace ArcGISRuntimeXamarin
+namespace ArcGISRuntime
 {
     partial class CategoriesViewController : UITableViewController
 	{

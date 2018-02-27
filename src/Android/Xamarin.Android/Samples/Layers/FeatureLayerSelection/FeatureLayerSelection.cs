@@ -17,7 +17,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Drawing;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureLayerSelection
+namespace ArcGISRuntime.Samples.FeatureLayerSelection
 {
     [Activity]
     public class FeatureLayerSelection : Activity

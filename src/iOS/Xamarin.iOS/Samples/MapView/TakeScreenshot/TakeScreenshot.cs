@@ -13,7 +13,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.TakeScreenshot
+namespace ArcGISRuntime.Samples.TakeScreenshot
 {
     [Register("TakeScreenshot")]
     public class TakeScreenshot : UIViewController

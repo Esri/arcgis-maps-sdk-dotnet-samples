@@ -17,7 +17,7 @@ using System;
 using System.Drawing;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.ChangeFeatureLayerRenderer
+namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
 {
     [Register("ChangeFeatureLayerRenderer")]
     public class ChangeFeatureLayerRenderer : UIViewController

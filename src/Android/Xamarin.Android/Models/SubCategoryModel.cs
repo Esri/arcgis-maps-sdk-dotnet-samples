@@ -10,7 +10,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace ArcGISRuntimeXamarin.Models
+namespace ArcGISRuntime.Models
 {
     /// <summary>
     /// SubCategoryModel defines how samples are grouped under the categories. 

@@ -16,7 +16,7 @@ using Foundation;
 using System.Drawing;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.RenderSimpleMarkers
+namespace ArcGISRuntime.Samples.RenderSimpleMarkers
 {
     [Register("RenderSimpleMarkers")]
     public class RenderSimpleMarkers : UIViewController

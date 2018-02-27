@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.DisplayMap
+namespace ArcGISRuntime.Samples.DisplayMap
 {
     [Register("DisplayMap")]
     public class DisplayMap : UIViewController

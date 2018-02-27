@@ -15,10 +15,10 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Widget;
-using ArcGISRuntimeXamarin.Managers;
-using ArcGISRuntimeXamarin.Models;
+using ArcGISRuntime.Managers;
+using ArcGISRuntime.Models;
 
-namespace ArcGISRuntimeXamarin
+namespace ArcGISRuntime
 {
     [Activity(Label = "Samples")]
     public class SamplesListActivity : Activity

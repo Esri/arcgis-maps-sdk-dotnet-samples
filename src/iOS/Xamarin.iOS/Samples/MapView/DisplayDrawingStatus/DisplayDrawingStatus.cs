@@ -15,7 +15,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.DisplayDrawingStatus
+namespace ArcGISRuntime.Samples.DisplayDrawingStatus
 {
     [Register("DisplayDrawingStatus")]
     public class DisplayDrawingStatus : UIViewController

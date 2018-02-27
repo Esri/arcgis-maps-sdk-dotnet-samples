@@ -18,7 +18,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntimeXamarin.Samples.AnalyzeHotspots
+namespace ArcGISRuntime.Samples.AnalyzeHotspots
 {
     [Activity]
     public class AnalyzeHotspots : Activity

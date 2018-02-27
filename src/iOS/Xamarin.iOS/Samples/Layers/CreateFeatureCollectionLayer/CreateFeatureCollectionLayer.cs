@@ -18,7 +18,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.CreateFeatureCollectionLayer
+namespace ArcGISRuntime.Samples.CreateFeatureCollectionLayer
 {
     [Register("CreateFeatureCollectionLayer")]
     public class CreateFeatureCollectionLayer : UIViewController

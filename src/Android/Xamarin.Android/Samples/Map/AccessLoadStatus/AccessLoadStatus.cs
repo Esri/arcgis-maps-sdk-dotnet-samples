@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 
-namespace ArcGISRuntimeXamarin.Samples.AccessLoadStatus
+namespace ArcGISRuntime.Samples.AccessLoadStatus
 {
     [Activity]
     public class AccessLoadStatus : Activity

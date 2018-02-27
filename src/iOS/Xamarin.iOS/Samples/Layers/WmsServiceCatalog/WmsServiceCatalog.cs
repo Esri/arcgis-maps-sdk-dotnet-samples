@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
+namespace ArcGISRuntime.Samples.WmsServiceCatalog
 {
     /// <summary>
     /// Class defines how a UITableView renders its contents.

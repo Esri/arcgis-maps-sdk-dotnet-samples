@@ -15,7 +15,7 @@ using System;
 using System.Threading.Tasks;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.ListGeodatabaseVersions
+namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
 {
     [Register("ListGeodatabaseVersions")]
     public class ListGeodatabaseVersions : UIViewController

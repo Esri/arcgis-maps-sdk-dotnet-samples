@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 
-namespace ArcGISRuntimeXamarin.Samples.SetInitialMapArea
+namespace ArcGISRuntime.Samples.SetInitialMapArea
 {
     [Activity]
     public class SetInitialMapArea : Activity

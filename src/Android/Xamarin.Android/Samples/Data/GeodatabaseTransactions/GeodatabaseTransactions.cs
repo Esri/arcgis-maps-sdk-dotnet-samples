@@ -21,7 +21,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntimeXamarin.Samples.GeodatabaseTransactions
+namespace ArcGISRuntime.Samples.GeodatabaseTransactions
 {
     [Activity]
     public class GeodatabaseTransactions : Activity

@@ -18,7 +18,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Linq;
 
-namespace ArcGISRuntimeXamarin.Samples.DisplayDeviceLocation
+namespace ArcGISRuntime.Samples.DisplayDeviceLocation
 {
     [Activity]
     public class DisplayDeviceLocation : Activity

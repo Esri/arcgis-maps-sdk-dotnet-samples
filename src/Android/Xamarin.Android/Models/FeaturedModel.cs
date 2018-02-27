@@ -9,7 +9,7 @@
 
 using System.Runtime.Serialization;
 
-namespace ArcGISRuntimeXamarin.Models
+namespace ArcGISRuntime.Models
 {
     /// <summary>
     /// Featured model that contains information what sample is featured and why.

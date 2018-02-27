@@ -16,7 +16,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.AddGraphicsRenderer
+namespace ArcGISRuntime.Samples.AddGraphicsRenderer
 {
     [Register("AddGraphicsRenderer")]
     public class AddGraphicsRenderer : UIViewController

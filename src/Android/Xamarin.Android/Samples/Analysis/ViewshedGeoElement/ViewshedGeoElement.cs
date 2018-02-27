@@ -10,7 +10,7 @@
 using Android.App;
 using Android.OS;
 using Android.Widget;
-using ArcGISRuntimeXamarin.Managers;
+using ArcGISRuntime.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -24,7 +24,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 
-namespace ArcGISRuntimeXamarin.Samples.ViewshedGeoElement
+namespace ArcGISRuntime.Samples.ViewshedGeoElement
 {
     [Activity]
     public class ViewshedGeoElement : Activity

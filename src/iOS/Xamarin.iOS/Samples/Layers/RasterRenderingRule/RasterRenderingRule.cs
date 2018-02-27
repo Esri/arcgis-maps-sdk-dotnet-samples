@@ -18,7 +18,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.RasterRenderingRule
+namespace ArcGISRuntime.Samples.RasterRenderingRule
 {
     [Register("RasterRenderingRule")]
     public class RasterRenderingRule : UIViewController

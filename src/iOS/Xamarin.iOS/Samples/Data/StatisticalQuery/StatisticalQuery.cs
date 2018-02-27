@@ -17,7 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.StatisticalQuery
+namespace ArcGISRuntime.Samples.StatisticalQuery
 {
     [Register("StatisticalQuery")]
     public class StatisticalQuery : UIViewController

@@ -22,7 +22,7 @@ using System.Threading.Tasks;
 using UIKit;
 using System.IO;
 
-namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
+namespace ArcGISRuntime.Samples.AuthorEditSaveMap
 {
     [Register("AuthorEditSaveMap")]
     public class AuthorEditSaveMap : UIViewController, IOAuthAuthorizeHandler

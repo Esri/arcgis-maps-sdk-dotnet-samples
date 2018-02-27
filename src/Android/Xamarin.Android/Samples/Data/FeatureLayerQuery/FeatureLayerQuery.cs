@@ -20,7 +20,7 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureLayerQuery
+namespace ArcGISRuntime.Samples.FeatureLayerQuery
 {
     [Activity]
     public class FeatureLayerQuery : Activity

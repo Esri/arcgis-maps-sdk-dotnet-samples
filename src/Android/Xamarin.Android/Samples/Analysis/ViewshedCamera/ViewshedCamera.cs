@@ -16,7 +16,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.ViewshedCamera
+namespace ArcGISRuntime.Samples.ViewshedCamera
 {
     [Activity]
     public class ViewshedCamera : Activity

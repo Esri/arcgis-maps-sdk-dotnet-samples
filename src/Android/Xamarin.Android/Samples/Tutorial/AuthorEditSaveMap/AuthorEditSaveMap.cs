@@ -23,7 +23,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
+namespace ArcGISRuntime.Samples.AuthorEditSaveMap
 {
     [Activity]
     public class AuthorEditSaveMap : Activity, IOAuthAuthorizeHandler

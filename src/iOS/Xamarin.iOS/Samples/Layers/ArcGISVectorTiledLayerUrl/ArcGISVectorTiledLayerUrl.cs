@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.ArcGISVectorTiledLayerUrl
+namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
 {
     [Register("ArcGISVectorTiledLayerUrl")]
     public class ArcGISVectorTiledLayerUrl : UIViewController

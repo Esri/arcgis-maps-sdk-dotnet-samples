@@ -11,7 +11,7 @@ using Android.App;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using ArcGISRuntimeXamarin.Managers;
+using ArcGISRuntime.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -26,7 +26,7 @@ using System.Timers;
 using Debug = System.Diagnostics.Debug;
 using Surface = Esri.ArcGISRuntime.Mapping.Surface;
 
-namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
+namespace ArcGISRuntime.Samples.Animate3DGraphic
 {
     [Activity]
     public class Animate3DGraphic : Activity

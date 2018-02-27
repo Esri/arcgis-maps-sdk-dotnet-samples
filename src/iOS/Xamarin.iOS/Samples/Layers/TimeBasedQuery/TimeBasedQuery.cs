@@ -15,7 +15,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.TimeBasedQuery
+namespace ArcGISRuntime.Samples.TimeBasedQuery
 {
     [Register("TimeBasedQuery")]
     public class TimeBasedQuery : UIViewController

@@ -17,7 +17,7 @@ using System;
 using System.Drawing;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.ViewshedLocation
+namespace ArcGISRuntime.Samples.ViewshedLocation
 {
     [Register("ViewshedLocation")]
     public class ViewshedLocation : UIViewController

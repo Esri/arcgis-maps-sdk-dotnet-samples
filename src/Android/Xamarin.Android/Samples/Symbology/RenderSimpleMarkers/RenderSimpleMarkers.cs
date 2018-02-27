@@ -17,7 +17,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System.Drawing;
 
-namespace ArcGISRuntimeXamarin.Samples.RenderSimpleMarkers
+namespace ArcGISRuntime.Samples.RenderSimpleMarkers
 {
     [Activity]
     public class RenderSimpleMarkers : Activity

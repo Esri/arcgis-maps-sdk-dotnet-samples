@@ -17,7 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ArcGISRuntimeXamarin.Samples.ChangeBasemap
+namespace ArcGISRuntime.Samples.ChangeBasemap
 {
     [Activity]
     public class ChangeBasemap : Activity

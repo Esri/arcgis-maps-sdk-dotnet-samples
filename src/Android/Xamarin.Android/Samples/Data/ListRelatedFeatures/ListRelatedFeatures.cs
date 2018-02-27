@@ -18,7 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ArcGISRuntimeXamarin.Samples.ListRelatedFeatures
+namespace ArcGISRuntime.Samples.ListRelatedFeatures
 {
     [Activity]
     public class ListRelatedFeatures : Activity

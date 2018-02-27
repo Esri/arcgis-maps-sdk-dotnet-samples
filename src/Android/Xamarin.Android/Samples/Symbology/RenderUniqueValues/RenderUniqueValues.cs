@@ -16,7 +16,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.RenderUniqueValues
+namespace ArcGISRuntime.Samples.RenderUniqueValues
 {
     [Activity]
     public class RenderUniqueValues : Activity

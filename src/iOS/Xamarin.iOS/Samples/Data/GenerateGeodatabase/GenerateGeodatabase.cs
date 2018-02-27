@@ -19,11 +19,11 @@ using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
-using ArcGISRuntimeXamarin.Managers;
+using ArcGISRuntime.Managers;
 using Foundation;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
+namespace ArcGISRuntime.Samples.GenerateGeodatabase
 {
     [Register("GenerateGeodatabase")]
     public class GenerateGeodatabase : UIViewController

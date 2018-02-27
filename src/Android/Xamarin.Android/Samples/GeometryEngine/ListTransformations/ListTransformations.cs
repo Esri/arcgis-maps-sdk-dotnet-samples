@@ -11,7 +11,7 @@ using Android.App;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using ArcGISRuntimeXamarin.Managers;
+using ArcGISRuntime.Managers;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 
-namespace ArcGISRuntimeXamarin.Samples.ListTransformations
+namespace ArcGISRuntime.Samples.ListTransformations
 {
     [Activity]
     public class ListTransformations : Activity

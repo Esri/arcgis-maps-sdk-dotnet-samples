@@ -19,7 +19,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Drawing;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureLayerExtrusion
+namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
 {
     [Activity]
     public class FeatureLayerExtrusion : Activity

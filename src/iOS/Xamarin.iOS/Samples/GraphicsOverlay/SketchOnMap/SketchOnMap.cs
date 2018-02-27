@@ -21,7 +21,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.Drawing;
 
-namespace ArcGISRuntimeXamarin.Samples.SketchOnMap
+namespace ArcGISRuntime.Samples.SketchOnMap
 {
     [Register("SketchOnMap")]
     public class SketchOnMap : UIViewController

@@ -11,9 +11,9 @@ using Android.Widget;
 using Android.App;
 using System.Collections.Generic;
 using Android.Views;
-using ArcGISRuntimeXamarin.Managers;
+using ArcGISRuntime.Managers;
 
-namespace ArcGISRuntimeXamarin
+namespace ArcGISRuntime
 {
     /// <summary>
     /// Custom ArrayAdapter to display the list of Categories

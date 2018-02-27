@@ -16,7 +16,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.DisplayDrawingStatus
+namespace ArcGISRuntime.Samples.DisplayDrawingStatus
 {
     [Activity]
     public class DisplayDrawingStatus : Activity

@@ -15,7 +15,7 @@ using Android.App;
 using Android.OS;
 using Android.Widget;
 
-namespace ArcGISRuntimeXamarin.Samples.DisplayLayerViewState
+namespace ArcGISRuntime.Samples.DisplayLayerViewState
 {
     [Activity]
     public class DisplayLayerViewState : Activity

@@ -18,7 +18,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Drawing;
 
-namespace ArcGISRuntimeXamarin.Samples.ChangeFeatureLayerRenderer
+namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
 {
     [Activity]
     public class ChangeFeatureLayerRenderer : Activity

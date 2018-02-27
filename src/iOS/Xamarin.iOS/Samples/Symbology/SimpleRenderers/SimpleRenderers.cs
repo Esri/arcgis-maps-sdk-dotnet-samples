@@ -16,7 +16,7 @@ using Foundation;
 using System.Drawing;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.SimpleRenderers
+namespace ArcGISRuntime.Samples.SimpleRenderers
 {
     [Register("SimpleRenderers")]
     public class SimpleRenderers : UIViewController

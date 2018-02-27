@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.GeoViewSync
+namespace ArcGISRuntime.Samples.GeoViewSync
 {
     [Activity]
     public class GeoViewSync : Activity

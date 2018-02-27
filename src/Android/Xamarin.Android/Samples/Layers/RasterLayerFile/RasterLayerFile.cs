@@ -10,7 +10,7 @@
 using Android.App;
 using Android.OS;
 using Android.Widget;
-using ArcGISRuntimeXamarin.Managers;
+using ArcGISRuntime.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
@@ -18,7 +18,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.IO;
 
-namespace ArcGISRuntimeXamarin.Samples.RasterLayerFile
+namespace ArcGISRuntime.Samples.RasterLayerFile
 {
     [Activity(Label = "RasterLayerFile")]
     public class RasterLayerFile : Activity

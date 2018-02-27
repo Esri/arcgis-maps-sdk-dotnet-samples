@@ -13,7 +13,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.DisplayScene
+namespace ArcGISRuntime.Samples.DisplayScene
 {
     [Register("DisplayScene")]
     public class DisplayScene : UIViewController

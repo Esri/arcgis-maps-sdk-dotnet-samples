@@ -14,12 +14,12 @@ using Android.OS;
 using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
-using ArcGISRuntimeXamarin.Managers;
+using ArcGISRuntime.Managers;
 using System.Threading.Tasks;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Rasters;
 
-namespace ArcGISRuntimeXamarin.Samples.RasterLayerGeoPackage
+namespace ArcGISRuntime.Samples.RasterLayerGeoPackage
 {
     [Activity]
     public class RasterLayerGeoPackage : Activity

@@ -19,7 +19,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureLayerQuery
+namespace ArcGISRuntime.Samples.FeatureLayerQuery
 {
     [Register("FeatureLayerQuery")]
     public class FeatureLayerQuery : UIViewController

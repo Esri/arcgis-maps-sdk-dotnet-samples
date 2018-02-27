@@ -13,7 +13,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.ArcGISTiledLayerUrl
+namespace ArcGISRuntime.Samples.ArcGISTiledLayerUrl
 {
     [Register("ArcGISTiledLayerUrl")]
     public class ArcGISTiledLayerUrl : UIViewController

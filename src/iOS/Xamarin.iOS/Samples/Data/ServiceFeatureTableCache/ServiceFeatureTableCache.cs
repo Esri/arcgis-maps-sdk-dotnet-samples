@@ -15,7 +15,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.ServiceFeatureTableCache
+namespace ArcGISRuntime.Samples.ServiceFeatureTableCache
 {
     [Register("ServiceFeatureTableCache")]
     public class ServiceFeatureTableCache : UIViewController

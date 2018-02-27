@@ -15,7 +15,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.RasterLayerImageServiceRaster
+namespace ArcGISRuntime.Samples.RasterLayerImageServiceRaster
 {
     [Register("RasterLayerImageServiceRaster")]
     public class RasterLayerImageServiceRaster : UIViewController

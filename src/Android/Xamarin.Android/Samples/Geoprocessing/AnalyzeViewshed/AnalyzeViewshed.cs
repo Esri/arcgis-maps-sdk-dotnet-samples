@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntimeXamarin.Samples.AnalyzeViewshed
+namespace ArcGISRuntime.Samples.AnalyzeViewshed
 {
     [Activity]
     public class AnalyzeViewshed : Activity

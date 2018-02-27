@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 using UIKit;
 using Xamarin.Auth;
 
-namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
+namespace ArcGISRuntime.Samples.SearchPortalMaps
 {
     [Register("SearchPortalMaps")]
     public class SearchPortalMaps : UIViewController, IOAuthAuthorizeHandler

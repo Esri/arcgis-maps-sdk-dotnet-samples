@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using UIKit;
-using ArcGISRuntimeXamarin.Managers;
-using ArcGISRuntimeXamarin.Models;
+using ArcGISRuntime.Managers;
+using ArcGISRuntime.Models;
 using Foundation;
 
-namespace ArcGISRuntimeXamarin
+namespace ArcGISRuntime
 {
     public class SamplesViewController : UITableViewController
     {

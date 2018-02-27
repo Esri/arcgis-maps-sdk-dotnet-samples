@@ -21,7 +21,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Auth;
 
-namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
+namespace ArcGISRuntime.Samples.SearchPortalMaps
 {
     [Activity]
     public class SearchPortalMaps : Activity, IOAuthAuthorizeHandler

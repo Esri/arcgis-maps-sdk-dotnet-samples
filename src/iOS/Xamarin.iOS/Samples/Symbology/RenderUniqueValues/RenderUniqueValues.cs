@@ -15,7 +15,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.RenderUniqueValues
+namespace ArcGISRuntime.Samples.RenderUniqueValues
 {
     [Register("RenderUniqueValues")]
     public class RenderUniqueValues : UIViewController

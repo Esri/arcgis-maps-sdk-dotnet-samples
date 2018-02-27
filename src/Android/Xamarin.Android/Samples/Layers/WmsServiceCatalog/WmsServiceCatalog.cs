@@ -19,7 +19,7 @@ using System.Collections.Generic;
 
 using System.Linq;
 
-namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
+namespace ArcGISRuntime.Samples.WmsServiceCatalog
 {
     [Activity]
     public class WmsServiceCatalog : Activity

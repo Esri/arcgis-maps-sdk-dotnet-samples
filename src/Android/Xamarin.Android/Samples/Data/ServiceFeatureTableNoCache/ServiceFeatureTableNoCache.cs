@@ -16,7 +16,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.ServiceFeatureTableNoCache
+namespace ArcGISRuntime.Samples.ServiceFeatureTableNoCache
 {
     [Activity]
     public class ServiceFeatureTableNoCache : Activity

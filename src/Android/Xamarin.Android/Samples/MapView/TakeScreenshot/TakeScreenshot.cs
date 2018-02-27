@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.TakeScreenshot
+namespace ArcGISRuntime.Samples.TakeScreenshot
 {
     [Activity]
     public class TakeScreenshot : Activity

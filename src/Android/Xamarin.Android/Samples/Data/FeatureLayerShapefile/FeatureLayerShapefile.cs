@@ -10,14 +10,14 @@
 using Android.App;
 using Android.OS;
 using Android.Widget;
-using ArcGISRuntimeXamarin.Managers;
+using ArcGISRuntime.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureLayerShapefile
+namespace ArcGISRuntime.Samples.FeatureLayerShapefile
 {
     [Activity]
     public class FeatureLayerShapefile : Activity

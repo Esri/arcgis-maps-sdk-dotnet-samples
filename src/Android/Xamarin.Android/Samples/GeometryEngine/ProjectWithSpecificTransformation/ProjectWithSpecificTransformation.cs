@@ -12,7 +12,7 @@ using Android.OS;
 using Android.Widget;
 using Esri.ArcGISRuntime.Geometry;
 
-namespace ArcGISRuntimeXamarin.Samples.ProjectWithSpecificTransformation
+namespace ArcGISRuntime.Samples.ProjectWithSpecificTransformation
 {
     [Activity]
     public class ProjectWithSpecificTransformation : Activity

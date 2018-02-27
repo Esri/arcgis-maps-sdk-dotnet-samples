@@ -18,7 +18,7 @@ using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
 using Surface = Esri.ArcGISRuntime.Mapping.Surface;
 
-namespace ArcGISRuntimeXamarin.Samples.ViewshedLocation
+namespace ArcGISRuntime.Samples.ViewshedLocation
 {
     [Activity]
     public class ViewshedLocation : Activity

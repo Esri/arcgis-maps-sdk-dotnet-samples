@@ -16,7 +16,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureLayerRenderingModeScene
+namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
 {
     [Activity]
     public class FeatureLayerRenderingModeScene : Activity

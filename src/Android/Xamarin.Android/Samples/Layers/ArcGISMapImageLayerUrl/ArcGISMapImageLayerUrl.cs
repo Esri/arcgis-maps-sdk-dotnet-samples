@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.ArcGISMapImageLayerUrl
+namespace ArcGISRuntime.Samples.ArcGISMapImageLayerUrl
 {
     [Activity]
     public class ArcGISMapImageLayerUrl : Activity

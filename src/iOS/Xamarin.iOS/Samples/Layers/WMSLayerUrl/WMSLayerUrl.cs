@@ -15,7 +15,7 @@ using System;
 using System.Collections.Generic;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.WMSLayerUrl
+namespace ArcGISRuntime.Samples.WMSLayerUrl
 {
     [Register("WMSLayerUrl")]
     public class WMSLayerUrl : UIViewController

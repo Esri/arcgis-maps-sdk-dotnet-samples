@@ -17,7 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ArcGISRuntimeXamarin.Samples.ArcGISVectorTiledLayerUrl
+namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
 {
     [Activity]
     public class ArcGISVectorTiledLayerUrl : Activity

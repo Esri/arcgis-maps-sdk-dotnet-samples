@@ -16,7 +16,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Location;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISRuntimeXamarin.Samples.DisplayDeviceLocation
+namespace ArcGISRuntime.Samples.DisplayDeviceLocation
 {    
     [Register("DisplayDeviceLocation")]
     public class DisplayDeviceLocation : UIViewController

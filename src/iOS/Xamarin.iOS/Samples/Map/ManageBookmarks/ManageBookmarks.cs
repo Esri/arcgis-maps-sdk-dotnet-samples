@@ -14,7 +14,7 @@ using System;
 using System.Linq;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.ManageBookmarks
+namespace ArcGISRuntime.Samples.ManageBookmarks
 {
     [Register("ManageBookmarks")]
     public class ManageBookmarks : UIViewController

@@ -17,7 +17,7 @@ using System;
 using System.Drawing;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureLayerSelection
+namespace ArcGISRuntime.Samples.FeatureLayerSelection
 {
     [Register("FeatureLayerSelection")]
     public class FeatureLayerSelection : UIViewController

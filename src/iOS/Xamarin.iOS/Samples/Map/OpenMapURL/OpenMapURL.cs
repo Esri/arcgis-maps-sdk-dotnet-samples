@@ -13,7 +13,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.OpenMapURL
+namespace ArcGISRuntime.Samples.OpenMapURL
 {
     [Register("OpenMapURL")]
     public class OpenMapURL : UIViewController

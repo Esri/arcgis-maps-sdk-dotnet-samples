@@ -23,7 +23,7 @@ using Esri.ArcGISRuntime.Tasks.Geocoding;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 
-namespace ArcGISRuntimeXamarin.Samples.FindAddress
+namespace ArcGISRuntime.Samples.FindAddress
 {
     [Activity]
     public class FindAddress : Activity
@@ -190,7 +190,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindAddress
             // Get image as a stream from the resources
             // Picture is defined as EmbeddedResource and DoNotCopy
             var resourceStream = currentAssembly.GetManifestResourceStream(
-                "ArcGISRuntimeXamarin.Resources.PictureMarkerSymbols.pin_star_blue.png");
+                "ArcGISRuntime.Resources.PictureMarkerSymbols.pin_star_blue.png");
 
             // Create new symbol using asynchronous factory method from stream
             PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);

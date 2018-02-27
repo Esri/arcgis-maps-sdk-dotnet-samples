@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Foundation;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.ProjectWithSpecificTransformation
+namespace ArcGISRuntime.Samples.ProjectWithSpecificTransformation
 {
     [Register("ProjectWithSpecificTransformation")]
     public class ProjectWithSpecificTransformation : UIViewController

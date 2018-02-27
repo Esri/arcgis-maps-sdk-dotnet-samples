@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin
+namespace ArcGISRuntime
 {
     public class SearchResultsUpdater : UISearchResultsUpdating
     {

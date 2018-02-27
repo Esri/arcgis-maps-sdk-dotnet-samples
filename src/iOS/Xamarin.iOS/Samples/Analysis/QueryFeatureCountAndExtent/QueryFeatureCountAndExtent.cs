@@ -15,7 +15,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.QueryFeatureCountAndExtent
+namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
 {
     [Register("QueryFeatureCountAndExtent")]
     public class QueryFeatureCountAndExtent : UIViewController

@@ -16,7 +16,7 @@ using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.RasterLayerImageServiceRaster
+namespace ArcGISRuntime.Samples.RasterLayerImageServiceRaster
 {
     [Activity]
     public class RasterLayerImageServiceRaster : Activity

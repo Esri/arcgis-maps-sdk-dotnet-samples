@@ -16,7 +16,7 @@ using System;
 using System.Threading.Tasks;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureLayerRenderingModeMap
+namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
 {
     [Register("FeatureLayerRenderingModeMap")]
     public class FeatureLayerRenderingModeMap : UIViewController

@@ -21,7 +21,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
-namespace ArcGISRuntimeXamarin.Samples.FindRoute
+namespace ArcGISRuntime.Samples.FindRoute
 {
     [Activity(Label = "FindRoute")]
     public class FindRoute : Activity

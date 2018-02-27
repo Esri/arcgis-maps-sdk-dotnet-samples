@@ -9,7 +9,7 @@ using System;
 using System.CodeDom.Compiler;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin
+namespace ArcGISRuntime
 {
 	[Register ("MenuTableViewController")]
 	partial class CategoriesViewController

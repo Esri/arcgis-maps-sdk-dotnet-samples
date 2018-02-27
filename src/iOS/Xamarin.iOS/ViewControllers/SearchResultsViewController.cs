@@ -2,11 +2,11 @@ using UIKit;
 using Foundation;
 using System.Collections.Generic;
 using System.Linq;
-using ArcGISRuntimeXamarin.Managers;
+using ArcGISRuntime.Managers;
 using System;
-using ArcGISRuntimeXamarin.Models;
+using ArcGISRuntime.Models;
 
-namespace ArcGISRuntimeXamarin
+namespace ArcGISRuntime
 {
     [Register("SearchResultsViewController")]
     public class SearchResultsViewController : UITableViewController

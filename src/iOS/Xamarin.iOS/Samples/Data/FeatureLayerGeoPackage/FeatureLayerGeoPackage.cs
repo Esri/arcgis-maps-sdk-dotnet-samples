@@ -13,11 +13,11 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using UIKit;
 using System.IO;
-using ArcGISRuntimeXamarin.Managers;
+using ArcGISRuntime.Managers;
 using System.Threading.Tasks;
 using Esri.ArcGISRuntime.Data;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureLayerGeoPackage
+namespace ArcGISRuntime.Samples.FeatureLayerGeoPackage
 {
     [Register("FeatureLayerGeoPackage")]
     public class FeatureLayerGeoPackage : UIViewController

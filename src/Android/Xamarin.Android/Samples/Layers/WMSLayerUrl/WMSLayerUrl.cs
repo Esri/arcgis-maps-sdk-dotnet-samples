@@ -16,7 +16,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
 
-namespace ArcGISRuntimeXamarin.Samples.WMSLayerUrl
+namespace ArcGISRuntime.Samples.WMSLayerUrl
 {
     [Activity]
     public class WMSLayerUrl : Activity

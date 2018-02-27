@@ -23,7 +23,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Auth;
 
-namespace ArcGISRuntimeXamarin.Samples.AuthorMap
+namespace ArcGISRuntime.Samples.AuthorMap
 {
     [Activity(Label = "AuthorMap")]
     public class AuthorMap : Activity, IOAuthAuthorizeHandler

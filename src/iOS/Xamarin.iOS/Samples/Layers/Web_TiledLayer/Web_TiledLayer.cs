@@ -14,7 +14,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.Web_TiledLayer
+namespace ArcGISRuntime.Samples.Web_TiledLayer
 {
     [Register("Web_TiledLayer")]
     public class Web_TiledLayer : UIViewController

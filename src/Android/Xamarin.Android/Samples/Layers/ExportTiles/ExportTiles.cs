@@ -21,7 +21,7 @@ using System;
 using System.Drawing;
 using System.Linq;
 
-namespace ArcGISRuntimeXamarin.Samples.ExportTiles
+namespace ArcGISRuntime.Samples.ExportTiles
 {
     [Activity(Label = "ExportTiles")]
     public class ExportTiles : Activity

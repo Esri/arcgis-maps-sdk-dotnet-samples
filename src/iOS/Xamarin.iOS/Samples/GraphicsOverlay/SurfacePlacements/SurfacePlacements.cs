@@ -17,7 +17,7 @@ using System;
 using System.Drawing;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.SurfacePlacements
+namespace ArcGISRuntime.Samples.SurfacePlacements
 {
     [Register("SurfacePlacements")]
     public class SurfacePlacements : UIViewController

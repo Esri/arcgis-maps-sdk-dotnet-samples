@@ -17,7 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.ListRelatedFeatures
+namespace ArcGISRuntime.Samples.ListRelatedFeatures
 {
     [Register("ListRelatedFeatures")]
     public class ListRelatedFeatures : UIViewController

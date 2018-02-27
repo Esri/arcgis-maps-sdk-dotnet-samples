@@ -13,7 +13,7 @@ using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 
-namespace ArcGISRuntimeXamarin.Samples.SetInitialMapLocation
+namespace ArcGISRuntime.Samples.SetInitialMapLocation
 {
     [Activity]
     public class SetInitialMapLocation : Activity

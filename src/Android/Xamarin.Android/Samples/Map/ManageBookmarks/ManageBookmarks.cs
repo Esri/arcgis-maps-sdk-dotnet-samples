@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.ManageBookmarks
+namespace ArcGISRuntime.Samples.ManageBookmarks
 {
     [Activity(Label = "ManageBookmarks")]
     public class ManageBookmarks : Activity

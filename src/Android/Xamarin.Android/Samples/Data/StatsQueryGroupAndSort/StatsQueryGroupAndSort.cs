@@ -18,7 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
+namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
 {
     [Activity]
     public class StatsQueryGroupAndSort : Activity

@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.SetInitialMapLocation
+namespace ArcGISRuntime.Samples.SetInitialMapLocation
 {
     [Register("SetInitialMapLocation")]
     public class SetInitialMapLocation : UIViewController

@@ -16,7 +16,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Linq;
 
-namespace ArcGISRuntimeXamarin.Samples.ChangeSublayerVisibility
+namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
 {
     [Activity]
     public class ChangeSublayerVisibility : Activity

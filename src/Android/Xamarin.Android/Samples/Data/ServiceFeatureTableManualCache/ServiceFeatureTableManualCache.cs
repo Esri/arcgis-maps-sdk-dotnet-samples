@@ -16,7 +16,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.ServiceFeatureTableManualCache
+namespace ArcGISRuntime.Samples.ServiceFeatureTableManualCache
 {
     [Activity]
     public class ServiceFeatureTableManualCache : Activity

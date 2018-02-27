@@ -15,7 +15,7 @@ using System;
 using System.Collections.Generic;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.ChangeSublayerVisibility
+namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
 {
     [Register("ChangeSublayerVisibility")]
     public class ChangeSublayerVisibility : UIViewController

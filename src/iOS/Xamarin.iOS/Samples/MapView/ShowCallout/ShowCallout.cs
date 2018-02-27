@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.ShowCallout
+namespace ArcGISRuntime.Samples.ShowCallout
 {
     [Register("ShowCallout")]
     public class ShowCallout : UIViewController

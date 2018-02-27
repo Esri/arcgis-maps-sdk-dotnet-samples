@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.SetInitialMapArea
+namespace ArcGISRuntime.Samples.SetInitialMapArea
 {
     [Register("SetInitialMapArea")]
     public class SetInitialMapArea : UIViewController

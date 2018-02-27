@@ -10,7 +10,7 @@
 using Android.App;
 using Android.OS;
 using Android.Widget;
-using ArcGISRuntimeXamarin.Managers;
+using ArcGISRuntime.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -26,7 +26,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 
-namespace ArcGISRuntimeXamarin.Samples.EditAndSyncFeatures
+namespace ArcGISRuntime.Samples.EditAndSyncFeatures
 {
     [Activity]
     public class EditAndSyncFeatures : Activity

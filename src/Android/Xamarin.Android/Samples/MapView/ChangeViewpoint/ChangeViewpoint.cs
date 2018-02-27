@@ -18,7 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ArcGISRuntimeXamarin.Samples.ChangeViewpoint
+namespace ArcGISRuntime.Samples.ChangeViewpoint
 {
     [Activity]
     public class ChangeViewpoint : Activity

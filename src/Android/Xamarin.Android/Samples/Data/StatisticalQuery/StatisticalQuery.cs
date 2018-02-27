@@ -18,7 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ArcGISRuntimeXamarin.Samples.StatisticalQuery
+namespace ArcGISRuntime.Samples.StatisticalQuery
 {
     [Activity]
     public class StatisticalQuery : Activity

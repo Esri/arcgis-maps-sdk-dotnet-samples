@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntimeXamarin.Samples.Web_TiledLayer
+namespace ArcGISRuntime.Samples.Web_TiledLayer
 {
     [Activity]
     public class Web_TiledLayer : Activity

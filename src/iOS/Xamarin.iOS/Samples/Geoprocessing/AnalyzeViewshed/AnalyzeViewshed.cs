@@ -21,7 +21,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.AnalyzeViewshed
+namespace ArcGISRuntime.Samples.AnalyzeViewshed
 {
     [Register("AnalyzeViewshed")]
     public class AnalyzeViewshed : UIViewController

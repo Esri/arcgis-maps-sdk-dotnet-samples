@@ -17,7 +17,7 @@ using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using System;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntimeXamarin.Samples.ListGeodatabaseVersions
+namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
 {
     [Activity]
     public class ListGeodatabaseVersions : Activity

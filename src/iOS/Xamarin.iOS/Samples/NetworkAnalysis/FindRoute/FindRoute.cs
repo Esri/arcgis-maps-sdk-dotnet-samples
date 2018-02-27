@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.FindRoute
+namespace ArcGISRuntime.Samples.FindRoute
 {
     [Register("FindRoute")]
     public class FindRoute : UIViewController

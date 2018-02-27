@@ -14,7 +14,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.GeoViewSync
+namespace ArcGISRuntime.Samples.GeoViewSync
 {
     [Register("GeoViewSync")]
     public class GeoViewSync : UIViewController

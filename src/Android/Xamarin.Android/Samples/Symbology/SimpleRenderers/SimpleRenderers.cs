@@ -16,7 +16,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 
-namespace ArcGISRuntimeXamarin.Samples.SimpleRenderers
+namespace ArcGISRuntime.Samples.SimpleRenderers
 {
     [Activity]
     public class SimpleRenderers : Activity

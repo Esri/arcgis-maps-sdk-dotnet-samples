@@ -18,7 +18,7 @@ using System;
 using System.Drawing;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureLayerExtrusion
+namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
 {
     [Register("FeatureLayerExtrusion")]
     public class FeatureLayerExtrusion : UIViewController

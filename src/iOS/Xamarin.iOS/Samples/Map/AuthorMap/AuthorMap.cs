@@ -21,7 +21,7 @@ using System.Threading.Tasks;
 using UIKit;
 using Xamarin.Auth;
 
-namespace ArcGISRuntimeXamarin.Samples.AuthorMap
+namespace ArcGISRuntime.Samples.AuthorMap
 {
     [Register("AuthorMap")]
     public class AuthorMap : UIViewController, IOAuthAuthorizeHandler

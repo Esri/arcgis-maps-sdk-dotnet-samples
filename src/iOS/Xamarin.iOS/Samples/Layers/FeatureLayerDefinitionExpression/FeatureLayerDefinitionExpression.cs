@@ -15,7 +15,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureLayerDefinitionExpression
+namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
 {
     [Register("FeatureLayerDefinitionExpression")]
     public class FeatureLayerDefinitionExpression : UIViewController

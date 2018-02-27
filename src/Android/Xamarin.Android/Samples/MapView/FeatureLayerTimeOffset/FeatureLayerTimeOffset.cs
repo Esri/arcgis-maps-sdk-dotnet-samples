@@ -16,7 +16,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureLayerTimeOffset
+namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
 {
     [Activity]
     public class FeatureLayerTimeOffset : Activity

@@ -16,7 +16,7 @@ using System;
 using UIKit;
 using System.Collections.Generic;
 
-namespace ArcGISRuntimeXamarin.Samples.RasterLayerRasterFunction
+namespace ArcGISRuntime.Samples.RasterLayerRasterFunction
 {
     [Register("RasterLayerRasterFunction")]
     public class RasterLayerRasterFunction : UIViewController

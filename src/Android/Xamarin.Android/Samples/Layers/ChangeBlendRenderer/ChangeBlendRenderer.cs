@@ -11,7 +11,7 @@ using Android.App;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using ArcGISRuntimeXamarin.Managers;
+using ArcGISRuntime.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
@@ -21,7 +21,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntimeXamarin.Samples.ChangeBlendRenderer
+namespace ArcGISRuntime.Samples.ChangeBlendRenderer
 {
     [Activity(Label = "ChangeBlendRenderer")]
     public class ChangeBlendRenderer : Activity

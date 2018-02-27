@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.SetMinMaxScale
+namespace ArcGISRuntime.Samples.SetMinMaxScale
 {
     [Register("SetMinMaxScale")]
     public class SetMinMaxScale : UIViewController

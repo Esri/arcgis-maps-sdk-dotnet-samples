@@ -18,7 +18,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System.Collections.Generic;
 
-namespace ArcGISRuntimeXamarin.Samples.IdentifyGraphics
+namespace ArcGISRuntime.Samples.IdentifyGraphics
 {
     [Activity]
     public class IdentifyGraphics : Activity

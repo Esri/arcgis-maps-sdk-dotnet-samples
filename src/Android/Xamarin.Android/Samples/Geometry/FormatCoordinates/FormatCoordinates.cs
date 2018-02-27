@@ -18,7 +18,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Drawing;
 
-namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
+namespace ArcGISRuntime.Samples.FormatCoordinates
 {
     [Activity]
     public class FormatCoordinates : Activity

@@ -13,7 +13,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.MapRotation
+namespace ArcGISRuntime.Samples.MapRotation
 {
     [Register("MapRotation")]
     public class MapRotation : UIViewController

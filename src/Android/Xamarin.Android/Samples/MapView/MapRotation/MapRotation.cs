@@ -13,7 +13,7 @@ using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 
-namespace ArcGISRuntimeXamarin.Samples.MapRotation
+namespace ArcGISRuntime.Samples.MapRotation
 {
     [Activity]
     public class MapRotation : Activity

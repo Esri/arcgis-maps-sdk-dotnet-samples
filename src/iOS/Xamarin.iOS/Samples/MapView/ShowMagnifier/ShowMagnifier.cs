@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.UI;
 using Foundation;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.ShowMagnifier
+namespace ArcGISRuntime.Samples.ShowMagnifier
 {
     [Register("ShowMagnifier")]
     public class ShowMagnifier : UIViewController

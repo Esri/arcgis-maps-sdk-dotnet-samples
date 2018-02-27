@@ -20,7 +20,7 @@ using System.IO;
 using System.Linq;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.ExportTiles
+namespace ArcGISRuntime.Samples.ExportTiles
 {
     [Register("ExportTiles")]
     public class ExportTiles : UIViewController

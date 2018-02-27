@@ -13,7 +13,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.SceneLayerUrl
+namespace ArcGISRuntime.Samples.SceneLayerUrl
 {
     [Register("SceneLayerUrl")]
     public class SceneLayerUrl : UIViewController

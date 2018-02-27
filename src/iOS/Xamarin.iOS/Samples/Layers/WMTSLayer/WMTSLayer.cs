@@ -15,7 +15,7 @@ using System;
 using System.Collections.Generic;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.WMTSLayer
+namespace ArcGISRuntime.Samples.WMTSLayer
 {
     [Register("WMTSLayer")]
     public class WMTSLayer : UIViewController

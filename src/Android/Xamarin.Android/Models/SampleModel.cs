@@ -7,14 +7,14 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntimeXamarin.Managers;
+using ArcGISRuntime.Managers;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 
-namespace ArcGISRuntimeXamarin.Models
+namespace ArcGISRuntime.Models
 {
     /// <summary>
     /// SampleModel defines each sample. 
@@ -148,7 +148,7 @@ namespace ArcGISRuntimeXamarin.Models
         {
             get
             {
-                var fullNamespace = string.Format("ArcGISRuntimeXamarin.Samples.{0}", SampleFolder);
+                var fullNamespace = string.Format("ArcGISRuntime.Samples.{0}", SampleFolder);
                 return fullNamespace;
             }
         }

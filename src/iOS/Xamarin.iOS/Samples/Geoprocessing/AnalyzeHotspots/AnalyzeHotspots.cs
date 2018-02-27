@@ -16,7 +16,7 @@ using System;
 using System.Threading.Tasks;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.AnalyzeHotspots
+namespace ArcGISRuntime.Samples.AnalyzeHotspots
 {
     [Register("AnalyzeHotspots")]
     public class AnalyzeHotspots : UIViewController

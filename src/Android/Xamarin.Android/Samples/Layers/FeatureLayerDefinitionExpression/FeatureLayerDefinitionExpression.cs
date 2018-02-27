@@ -16,7 +16,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureLayerDefinitionExpression
+namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
 {
     [Activity]
     public class FeatureLayerDefinitionExpression : Activity

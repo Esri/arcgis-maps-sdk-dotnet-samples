@@ -16,7 +16,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
 
-namespace ArcGISRuntimeXamarin.Samples.WMTSLayer
+namespace ArcGISRuntime.Samples.WMTSLayer
 {
     [Activity]
     public class WMTSLayer : Activity

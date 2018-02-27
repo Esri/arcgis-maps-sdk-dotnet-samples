@@ -17,7 +17,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.AddGraphicsRenderer
+namespace ArcGISRuntime.Samples.AddGraphicsRenderer
 {
     [Activity]
     public class AddGraphicsRenderer : Activity

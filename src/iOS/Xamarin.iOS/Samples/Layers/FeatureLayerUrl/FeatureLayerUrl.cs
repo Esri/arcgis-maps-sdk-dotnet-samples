@@ -14,7 +14,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureLayerUrl
+namespace ArcGISRuntime.Samples.FeatureLayerUrl
 {
     [Register("FeatureLayerUrl")]
     public class FeatureLayerUrl : UIViewController

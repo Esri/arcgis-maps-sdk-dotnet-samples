@@ -10,7 +10,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace ArcGISRuntimeXamarin.Models
+namespace ArcGISRuntime.Models
 {
     /// <summary>
     /// CategoryModel defines a main level categories. These are mainly used to categorize

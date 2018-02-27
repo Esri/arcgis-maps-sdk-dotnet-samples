@@ -14,7 +14,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.SetMapSpatialReference
+namespace ArcGISRuntime.Samples.SetMapSpatialReference
 {
     [Register("SetMapSpatialReference")]
     public class SetMapSpatialReference : UIViewController

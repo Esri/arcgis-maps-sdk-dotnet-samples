@@ -17,7 +17,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.UseDistanceCompositeSym
+namespace ArcGISRuntime.Samples.UseDistanceCompositeSym
 {
     [Activity]
     public class UseDistanceCompositeSym : Activity

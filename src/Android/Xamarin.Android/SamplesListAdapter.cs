@@ -11,9 +11,9 @@ using System.Collections.Generic;
 using Android.App;
 using Android.Views;
 using Android.Widget;
-using ArcGISRuntimeXamarin.Models;
+using ArcGISRuntime.Models;
 
-namespace ArcGISRuntimeXamarin
+namespace ArcGISRuntime
 {
    /// <summary>
    /// Custom ArrayAdapter to display the list of Samples

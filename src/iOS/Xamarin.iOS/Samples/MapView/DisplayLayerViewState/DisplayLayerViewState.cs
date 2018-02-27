@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.DisplayLayerViewState
+namespace ArcGISRuntime.Samples.DisplayLayerViewState
 {
     [Register("DisplayLayerViewState")]
     public class DisplayLayerViewState : UIViewController

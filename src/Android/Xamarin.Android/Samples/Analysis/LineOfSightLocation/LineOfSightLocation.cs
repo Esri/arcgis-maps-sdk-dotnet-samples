@@ -16,7 +16,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.LineOfSightLocation
+namespace ArcGISRuntime.Samples.LineOfSightLocation
 {
     [Activity]
     public class LineOfSightLocation : Activity

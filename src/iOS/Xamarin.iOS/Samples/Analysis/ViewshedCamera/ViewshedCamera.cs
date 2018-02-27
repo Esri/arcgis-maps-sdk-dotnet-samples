@@ -15,7 +15,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.ViewshedCamera
+namespace ArcGISRuntime.Samples.ViewshedCamera
 {
     [Register("ViewshedCamera")]
     public class ViewshedCamera : UIViewController

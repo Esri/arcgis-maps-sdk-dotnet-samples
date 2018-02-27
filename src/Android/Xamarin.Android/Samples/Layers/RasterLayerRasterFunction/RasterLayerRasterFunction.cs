@@ -17,7 +17,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
 
-namespace ArcGISRuntimeXamarin.Samples.RasterLayerRasterFunction
+namespace ArcGISRuntime.Samples.RasterLayerRasterFunction
 {
     [Activity]
     public class RasterLayerRasterFunction : Activity

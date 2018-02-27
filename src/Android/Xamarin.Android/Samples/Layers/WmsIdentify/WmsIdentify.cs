@@ -19,7 +19,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
 
-namespace ArcGISRuntimeXamarin.Samples.WmsIdentify
+namespace ArcGISRuntime.Samples.WmsIdentify
 {
     [Activity]
     public class WmsIdentify : Activity

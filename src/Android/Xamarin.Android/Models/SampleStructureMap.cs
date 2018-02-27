@@ -14,7 +14,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 
-namespace ArcGISRuntimeXamarin.Models
+namespace ArcGISRuntime.Models
 {
     /// <summary>
     /// <see cref="SampleStructureMap "/> is a main level model for samples structure.

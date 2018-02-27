@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntimeXamarin.Managers;
+using ArcGISRuntime.Managers;
 using CoreGraphics;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
@@ -22,7 +22,7 @@ using System.Drawing;
 using System.IO;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.ListTransformations
+namespace ArcGISRuntime.Samples.ListTransformations
 {
     [Register("ListTransformations")]
     public class ListTransformations : UIViewController

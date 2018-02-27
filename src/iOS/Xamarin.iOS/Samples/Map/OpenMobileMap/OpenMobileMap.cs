@@ -13,9 +13,9 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using UIKit;
 using System.IO;
-using ArcGISRuntimeXamarin.Managers;
+using ArcGISRuntime.Managers;
 
-namespace ArcGISRuntimeXamarin.Samples.OpenMobileMap
+namespace ArcGISRuntime.Samples.OpenMobileMap
 {
     [Register("OpenMobileMap")]
     public class OpenMobileMap : UIViewController

@@ -15,7 +15,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureLayerRenderingModeScene
+namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
 {
     [Register("FeatureLayerRenderingModeScene")]
     public class FeatureLayerRenderingModeScene : UIViewController

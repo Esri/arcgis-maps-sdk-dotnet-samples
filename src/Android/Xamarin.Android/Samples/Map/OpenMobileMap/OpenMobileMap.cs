@@ -10,13 +10,13 @@
 using Android.App;
 using Android.OS;
 using Android.Widget;
-using ArcGISRuntimeXamarin.Managers;
+using ArcGISRuntime.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System.IO;
 using System.Linq;
 
-namespace ArcGISRuntimeXamarin.Samples.OpenMobileMap
+namespace ArcGISRuntime.Samples.OpenMobileMap
 {
     [Activity]
     public class OpenMobileMap : Activity

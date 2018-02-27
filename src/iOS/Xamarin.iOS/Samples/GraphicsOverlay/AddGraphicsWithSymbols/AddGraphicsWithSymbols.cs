@@ -16,7 +16,7 @@ using Foundation;
 using System.Drawing;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.AddGraphicsWithSymbols
+namespace ArcGISRuntime.Samples.AddGraphicsWithSymbols
 {
     [Register("AddGraphicsWithSymbols")]
     public class AddGraphicsWithSymbols : UIViewController

@@ -17,7 +17,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System.Drawing;
 
-namespace ArcGISRuntimeXamarin.Samples.AddGraphicsWithSymbols
+namespace ArcGISRuntime.Samples.AddGraphicsWithSymbols
 {
     [Activity]
     public class AddGraphicsWithSymbols : Activity

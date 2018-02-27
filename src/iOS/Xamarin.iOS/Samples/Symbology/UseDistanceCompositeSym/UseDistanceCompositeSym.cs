@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.UseDistanceCompositeSym
+namespace ArcGISRuntime.Samples.UseDistanceCompositeSym
 {
     [Register("UseDistanceCompositeSym")]
     public class UseDistanceCompositeSym : UIViewController

@@ -19,7 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace ArcGISRuntimeXamarin.Samples.CreateFeatureCollectionLayer
+namespace ArcGISRuntime.Samples.CreateFeatureCollectionLayer
 {
     [Activity(Label = "CreateFeatureCollectionLayer")]
     public class CreateFeatureCollectionLayer : Activity

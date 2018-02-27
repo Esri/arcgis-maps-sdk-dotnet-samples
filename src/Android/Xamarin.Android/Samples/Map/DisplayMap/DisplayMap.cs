@@ -13,7 +13,7 @@ using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 
-namespace ArcGISRuntimeXamarin.Samples.DisplayMap
+namespace ArcGISRuntime.Samples.DisplayMap
 {
     [Activity]
     public class DisplayMap : Activity

@@ -12,10 +12,10 @@ using Android.App;
 using Android.Widget;
 using Android.OS;
 using System.Collections.Generic;
-using ArcGISRuntimeXamarin.Managers;
+using ArcGISRuntime.Managers;
 using Android.Content;
 
-namespace ArcGISRuntimeXamarin
+namespace ArcGISRuntime
 {
     [Activity(Label = "ArcGIS Runtime SDK for .NET", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity

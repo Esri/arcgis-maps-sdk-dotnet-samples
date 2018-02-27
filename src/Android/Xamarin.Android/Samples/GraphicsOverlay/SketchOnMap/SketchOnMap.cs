@@ -23,7 +23,7 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntimeXamarin.Samples.SketchOnMap
+namespace ArcGISRuntime.Samples.SketchOnMap
 {
     [Activity]
     public class SketchOnMap : Activity

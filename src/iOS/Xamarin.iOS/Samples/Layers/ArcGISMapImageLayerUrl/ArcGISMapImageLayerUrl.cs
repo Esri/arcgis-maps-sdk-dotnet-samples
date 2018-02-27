@@ -13,7 +13,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.ArcGISMapImageLayerUrl
+namespace ArcGISRuntime.Samples.ArcGISMapImageLayerUrl
 {
     [Register("ArcGISMapImageLayerUrl")]
     public class ArcGISMapImageLayerUrl : UIViewController

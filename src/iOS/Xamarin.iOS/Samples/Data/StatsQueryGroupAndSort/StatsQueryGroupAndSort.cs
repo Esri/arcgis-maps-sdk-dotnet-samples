@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.StatsQueryGroupAndSort
+namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
 {
     [Register("StatsQueryGroupAndSort")]
     public class StatsQueryGroupAndSort : UIViewController

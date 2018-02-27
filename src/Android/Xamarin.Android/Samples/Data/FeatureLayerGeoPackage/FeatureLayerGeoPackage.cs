@@ -14,11 +14,11 @@ using Android.OS;
 using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
-using ArcGISRuntimeXamarin.Managers;
+using ArcGISRuntime.Managers;
 using System.Threading.Tasks;
 using Esri.ArcGISRuntime.Data;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureLayerGeoPackage
+namespace ArcGISRuntime.Samples.FeatureLayerGeoPackage
 {
     [Activity]
     public class FeatureLayerGeoPackage : Activity

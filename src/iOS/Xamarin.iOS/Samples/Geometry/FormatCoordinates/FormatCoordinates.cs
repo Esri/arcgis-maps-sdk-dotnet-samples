@@ -18,7 +18,7 @@ using System;
 using System.Drawing;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
+namespace ArcGISRuntime.Samples.FormatCoordinates
 {
     [Register("FormatCoordinates")]
     public class FormatCoordinates : UIViewController

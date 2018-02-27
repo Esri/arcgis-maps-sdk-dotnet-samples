@@ -19,7 +19,7 @@ using Android.Content;
 using Android.Views;
 using Android.Views.InputMethods;
 
-namespace ArcGISRuntimeXamarin.Samples.QueryFeatureCountAndExtent
+namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
 {
     [Activity]
     public class QueryFeatureCountAndExtent : Activity

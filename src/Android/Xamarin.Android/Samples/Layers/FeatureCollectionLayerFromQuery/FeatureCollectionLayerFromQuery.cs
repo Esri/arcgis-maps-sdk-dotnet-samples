@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureCollectionLayerFromQuery
+namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromQuery
 {
     [Activity(Label = "FeatureCollectionLayerFromQuery")]
     public class FeatureCollectionLayerFromQuery : Activity

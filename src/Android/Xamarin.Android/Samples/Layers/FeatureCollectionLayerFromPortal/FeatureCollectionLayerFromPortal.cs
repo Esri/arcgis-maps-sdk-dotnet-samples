@@ -17,7 +17,7 @@ using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureCollectionLayerFromPortal
+namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
 {
     [Activity(Label = "FeatureCollectionLayerFromPortal")]
     public class FeatureCollectionLayerFromPortal : Activity

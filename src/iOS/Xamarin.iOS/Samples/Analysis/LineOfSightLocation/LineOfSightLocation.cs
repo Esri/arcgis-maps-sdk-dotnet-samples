@@ -15,7 +15,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.LineOfSightLocation
+namespace ArcGISRuntime.Samples.LineOfSightLocation
 {
     [Register("LineOfSightLocation")]
     public class LineOfSightLocation : UIViewController

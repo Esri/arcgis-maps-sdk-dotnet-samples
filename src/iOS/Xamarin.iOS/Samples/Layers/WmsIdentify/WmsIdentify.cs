@@ -18,7 +18,7 @@ using System;
 using System.Collections.Generic;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.WmsIdentify
+namespace ArcGISRuntime.Samples.WmsIdentify
 {
     [Register("WmsIdentify")]
     public class WmsIdentify : UIViewController

@@ -17,7 +17,7 @@ using Foundation;
 using System.Collections.Generic;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.IdentifyGraphics
+namespace ArcGISRuntime.Samples.IdentifyGraphics
 {
     [Register("IdentifyGraphics")]
     public class IdentifyGraphics : UIViewController

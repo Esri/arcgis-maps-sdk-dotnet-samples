@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.SceneLayerUrl
+namespace ArcGISRuntime.Samples.SceneLayerUrl
 {
     [Activity]
     public class SceneLayerUrl : Activity

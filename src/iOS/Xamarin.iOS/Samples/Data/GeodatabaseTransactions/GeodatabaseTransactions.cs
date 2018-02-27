@@ -20,7 +20,7 @@ using System.IO;
 using System.Threading.Tasks;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.GeodatabaseTransactions
+namespace ArcGISRuntime.Samples.GeodatabaseTransactions
 {
     [Register("GeodatabaseTransactions")]
     public class GeodatabaseTransactions : UIViewController

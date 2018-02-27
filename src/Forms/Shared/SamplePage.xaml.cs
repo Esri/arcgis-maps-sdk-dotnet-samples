@@ -24,7 +24,17 @@ namespace ArcGISRuntime
         {
             this.BindingContext = sampleInfo;
             this.cpSample.Content = sample.Content;
-            this.Title = sample.Title;
+            // This ensures navigation works correctly within samples
+            sample.Parent = this;
+            if (!string.IsNullOrWhiteSpace(sample.Title))
+            {
+                this.Title = sample.Title;
+            }
+            else
+            {
+                this.Title = sampleInfo.SampleName;
+            }
+            
             if (!String.IsNullOrWhiteSpace(sampleInfo.Instructions))
             {
                 lblInstr.IsVisible = true;

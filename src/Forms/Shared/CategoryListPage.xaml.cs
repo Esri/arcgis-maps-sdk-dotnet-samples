@@ -7,15 +7,17 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntimeXamarin.Managers;
+using ArcGISRuntime.Samples.Managers;
 using System.Collections.Generic;
 using Xamarin.Forms;
+using ArcGISRuntime.Samples.Shared.Models;
+using System.Linq;
 
-namespace ArcGISRuntimeXamarin
+namespace ArcGISRuntime
 {
     public partial class CategoryListPage : ContentPage
     {
-        List<TreeItem> _sampleCategories;
+        List<SearchableTreeNode> _sampleCategories;
         public CategoryListPage ()
         {
             Initialize();
@@ -24,15 +26,15 @@ namespace ArcGISRuntimeXamarin
 
         async void Initialize()
         {
-            await SampleManager.Current.InitializeAsync();
-            _sampleCategories= SampleManager.Current.GetSamplesAsTree();
+            SampleManager.Current.Initialize();
+            _sampleCategories= SampleManager.Current.FullTree.Items.OfType<SearchableTreeNode>().ToList();
             BindingContext = _sampleCategories;
 
         }
 
         async void OnItemTapped(object sender, ItemTappedEventArgs e)
         {
-            var item = e.Item as TreeItem;
+            var item = e.Item as SearchableTreeNode;
 
             await Navigation.PushAsync(new SampleListPage(item.Name));
         }

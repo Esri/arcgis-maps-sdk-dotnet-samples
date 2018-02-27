@@ -1,5 +1,5 @@
 ﻿using ArcGISRuntime.Samples.AuthorEditSaveMap;
-using ArcGISRuntimeXamarin.iOSPageRenderer;
+using ArcGISRuntime.iOSPageRenderer;
 using Esri.ArcGISRuntime.Security;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
 [assembly: ExportRenderer(typeof(SaveMapPage), typeof(SaveMapPageRenderer))]
-namespace ArcGISRuntimeXamarin.iOSPageRenderer
+namespace ArcGISRuntime.iOSPageRenderer
 {
     public class SaveMapPageRenderer : PageRenderer, IOAuthAuthorizeHandler
     {

@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -14,8 +14,13 @@ using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.WmsIdentify
+namespace ArcGISRuntime.Samples.WmsIdentify
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Identify WMS features",
+        "Layers",
+        "This sample demonstrates how to identify WMS features and display the associated content for an identified WMS feature.",
+        "Tap or click on a feature. A callout appears with the returned content for the WMS feature. Note that due to the nature of the WMS service implementation, an empty callout is shown when there is no result; an application might inspect the HTML to determine if the HTML actually contains a feature.")]
     public partial class WmsIdentify : ContentPage
     {
         // Create and hold the URL to the WMS service showing EPA water info

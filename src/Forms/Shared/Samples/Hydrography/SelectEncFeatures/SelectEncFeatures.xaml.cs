@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntimeXamarin.Managers;
+using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Hydrography;
@@ -20,8 +20,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.SelectEncFeatures
+namespace ArcGISRuntime.Samples.SelectEncFeatures
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Select ENC features",
+        "Hydrography",
+        "This sample demonstrates how to select an ENC feature.",
+        "This sample automatically downloads ENC data from ArcGIS Online before displaying the map.")]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("a490098c60f64d3bbac10ad131cc62c7")]
     public partial class SelectEncFeatures : ContentPage
     {
         public SelectEncFeatures()
@@ -115,23 +121,7 @@ namespace ArcGISRuntimeXamarin.Samples.SelectEncFeatures
 
         private async Task<String> GetEncPath()
         {
-            #region offlinedata
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path 
-            string filepath = Path.Combine(folder, "SampleData", "SelectEncFeatures", "GB5X01NW.000");
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the file
-                await DataManager.GetData("a490098c60f64d3bbac10ad131cc62c7", "SelectEncFeature");
-            }
-
-            return filepath;
-            #endregion offlinedata
+            return DataManager.GetDataFolder("a490098c60f64d3bbac10ad131cc62c7", "GB5X01NW.000");
         }
     }
 }

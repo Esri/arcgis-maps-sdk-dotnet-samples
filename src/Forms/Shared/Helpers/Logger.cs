@@ -9,7 +9,7 @@
 
 using System;
 
-namespace ArcGISRuntimeXamarin
+namespace ArcGISRuntime
 {
     public  class Logger
     {

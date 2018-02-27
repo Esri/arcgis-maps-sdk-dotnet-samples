@@ -7,19 +7,19 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntimeXamarin.Managers;
-using ArcGISRuntimeXamarin.Models;
+using ArcGISRuntime.Samples.Managers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xamarin.Forms;
+using ArcGISRuntime.Samples.Shared.Models;
 
-namespace ArcGISRuntimeXamarin
+namespace ArcGISRuntime
 {
     public partial class SampleListPage : ContentPage
     {
         private string _categoryName;
-        private List<SampleModel> _listSampleItems;
+        private List<SampleInfo> _listSampleItems;
 
         public SampleListPage(string name)
         {
@@ -33,24 +33,9 @@ namespace ArcGISRuntimeXamarin
 
         void Initialize()
         {
-            var sampleCategories = SampleManager.Current.GetSamplesAsTree();
-            var category = sampleCategories.FirstOrDefault(x => x.Name == _categoryName) as TreeItem;
-
-            List<object> listSubCategories = new List<object>();
-            for (int i = 0; i < category.Items.Count; i++)
-            {
-                listSubCategories.Add((category.Items[i] as TreeItem).Items);
-            }
-
-            _listSampleItems = new List<SampleModel>();
-            foreach (List<object> subCategoryItem in listSubCategories)
-            {
-                foreach (var sample in subCategoryItem)
-                {
-                    _listSampleItems.Add(sample as SampleModel);
-                }
-            }
-
+            var sampleCategories = SampleManager.Current.FullTree.Items;
+            var category = sampleCategories.FirstOrDefault(x => (x as SearchableTreeNode).Name == _categoryName) as SearchableTreeNode;
+            _listSampleItems = category.Items.OfType<SampleInfo>().ToList();
             BindingContext = _listSampleItems;
         }
 
@@ -58,30 +43,29 @@ namespace ArcGISRuntimeXamarin
         {
             try
             {
-                var item = (SampleModel)e.Item;
-                var sampleName = item.SampleName;
-                var sampleNamespace = item.SampleNamespace;
-
-                Type t = Type.GetType(sampleNamespace + "." + sampleName);
-
-                //If Offline data is required for the sample to work download it 
-                if (item.RequiresOfflineData)
+                var item = (SampleInfo)e.Item;
+                
+                if (item.OfflineDataItems != null)
                 {
-                    foreach (string id in item.DataItemIds)
-                    {
-                        //TODO - Add splash screen/progress bar
-                        await DataManager.GetData(id, sampleName);
-                    }
-                }
+                    // Show wait page
+                    await Navigation.PushAsync(new WaitPage(), false);
 
-                await Navigation.PushAsync((ContentPage)Activator.CreateInstance(t));
+                    // Wait for sample data download
+                    await DataManager.EnsureSampleDataPresent(item);
+
+                    // Pop the stack
+                    await Navigation.PopAsync(false);
+                }
+                
+                SamplePage page = new SamplePage((ContentPage)SampleManager.Current.SampleToControl(item), item);
+                await Navigation.PushAsync(page, true);
 
                 // Call a function to clear existing credentials
                 ClearCredentials();
             }
             catch (Exception ex)
             {
-                Logger.WriteLine(string.Format("Exception occurred on OnItemTapped. Exception = ", ex));
+                System.Diagnostics.Debug.WriteLine(string.Format("Exception occurred on OnItemTapped. Exception = ", ex));
             }
         }
 

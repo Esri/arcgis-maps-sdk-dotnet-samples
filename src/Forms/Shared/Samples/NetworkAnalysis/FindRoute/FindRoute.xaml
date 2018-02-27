@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
              xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
-             x:Class="ArcGISRuntimeXamarin.Samples.FindRoute.FindRoute">
+             x:Class="ArcGISRuntime.Samples.FindRoute.FindRoute">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>

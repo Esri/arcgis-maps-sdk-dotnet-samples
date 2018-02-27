@@ -8,8 +8,8 @@
     <ProjectGuid>{183E6918-B2CD-4EEB-9666-8889A151BC7D}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ArcGISRuntimeXamarin</RootNamespace>
-    <AssemblyName>ArcGISRuntimeXamarin</AssemblyName>
+    <RootNamespace>ArcGISRuntime</RootNamespace>
+    <AssemblyName>ArcGISRuntime</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>

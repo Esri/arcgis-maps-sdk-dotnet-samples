@@ -19,7 +19,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-namespace ArcGISRuntimeXamarin.UWP
+namespace ArcGISRuntime.UWP
 {
     sealed partial class App : Application
     {

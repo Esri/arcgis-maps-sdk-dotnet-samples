@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -22,8 +22,13 @@ using Colors = System.Drawing.Color;
 #endif
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.FindRoute
+namespace ArcGISRuntime.Samples.FindRoute
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Find a route",
+        "Network Analysis",
+        "This sample demonstrates how to solve for the best route between two locations on the map and display driving directions between them.",
+        "")]
     public partial class FindRoute : ContentPage
     {
         // List of stops on the route ('from' and 'to')

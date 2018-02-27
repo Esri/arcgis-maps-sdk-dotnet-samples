@@ -54,6 +54,10 @@
       <DependentUpon>SampleListPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)SamplePage.xaml.cs">
+      <DependentUpon>SamplePage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterHillshade\RasterHillshade.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>RasterHillshade.xaml</DependentUpon>
@@ -81,6 +85,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>FeatureLayerExtrusion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)WaitPage.xaml.cs">
+      <DependentUpon>WaitPage.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)CategoryListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -934,6 +941,16 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Tutorial\AuthorEditSaveMap\SaveMapPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)SamplePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)WaitPage.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

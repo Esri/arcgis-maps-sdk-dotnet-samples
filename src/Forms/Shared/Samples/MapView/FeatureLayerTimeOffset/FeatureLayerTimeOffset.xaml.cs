@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -19,8 +19,13 @@ using Colors = Windows.UI.Colors;
 using Colors = System.Drawing.Color;
 #endif
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureLayerTimeOffset
+namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Feature layer time offset",
+        "MapView",
+        "This sample demonstrates how to show data from the same service side-by-side with a time offset. This allows for the comparison of data over time.",
+        "")]
     public partial class FeatureLayerTimeOffset : ContentPage
     {
         private Uri _featureLayerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer/0");

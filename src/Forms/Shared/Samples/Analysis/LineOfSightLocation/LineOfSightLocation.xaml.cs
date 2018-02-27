@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -19,8 +19,13 @@ using Colors = Windows.UI.Colors;
 using Colors = System.Drawing.Color;
 #endif
 
-namespace ArcGISRuntimeXamarin.Samples.LineOfSightLocation
+namespace ArcGISRuntime.Samples.LineOfSightLocation
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Line of sight from location",
+        "Analysis",
+        "This sample demonstrates a `LocationLineOfSight` analysis that shows segments that are visible or obstructed along a line drawn from observer to target.",
+        "Click to define a location for the observer, then again to define the target. The result will show visible segments in cyan and obstructed ones in magenta.")]
     public partial class LineOfSightLocation : ContentPage
     {
         // URL for an image service to use as an elevation source

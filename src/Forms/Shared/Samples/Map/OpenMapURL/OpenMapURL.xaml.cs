@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -12,8 +12,13 @@ using System;
 using System.Linq;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.OpenMapURL
+namespace ArcGISRuntime.Samples.OpenMapURL
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Open map (URL)",
+        "Map",
+        "This sample demonstrates how to open an existing map from a portal. The sample opens with a map displayed by default. You can change the shown map by selecting a new one from the populated list.",
+        "")]
     public partial class OpenMapURL : ContentPage
     {
         // String array to hold urls to publicly available web maps

@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntimeXamarin.Managers;
+using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System;
@@ -17,8 +17,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.RasterRgbRenderer
+namespace ArcGISRuntime.Samples.RasterRgbRenderer
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Raster RGB renderer",
+        "Layers",
+        "This sample demonstrates how to use an RGB renderer on a raster layer. An RGB renderer is used to adjust the color bands of a multi-spectral image.",
+        "Choose one of the stretch parameter types. The other options will adjust based on the chosen type. Add your inputs and press the Apply button to update the renderer.")]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd")]
     public partial class RasterRgbRenderer : ContentPage
     {
         // A reference to the raster layer to render.
@@ -173,26 +179,7 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRgbRenderer
 
         private async Task<string> GetRasterPath()
         {
-            #region offlinedata
-
-            // The desired raster is expected to be called Shasta.tif.
-            string filename = "Shasta.tif";
-
-            // The data manager provides a method to get the folder.
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path.
-            string filepath = Path.Combine(folder, "SampleData", "RasterRgbRenderer", "raster-file", filename);
-
-            // Check if the file exists.
-            if (!File.Exists(filepath))
-            {
-                // Download the map package file.
-                await DataManager.GetData("7c4c679ab06a4df19dc497f577f111bd", "RasterRgbRenderer");
-            }
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("7c4c679ab06a4df19dc497f577f111bd", "raster-file", "Shasta.tif");
         }
     }
 }

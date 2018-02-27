@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntimeXamarin.Managers;
+using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
@@ -19,8 +19,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.ReadGeoPackage
+namespace ArcGISRuntime.Samples.ReadGeoPackage
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Read a GeoPackage",
+        "Data",
+        "This sample demonstrates how to open a GeoPackage file from the local file system and list the available GeoPackageRasters and GeoPackageFeatureTables from the GeoPackage. Users can add and remove the selected datasets as RasterLayers or FeatureLayers to the map.",
+        "Select a layer name in the 'Layers Not in the Map' ListBox and then click the 'Add Layer to Map' button to add it to the map. Conversely to remove a layer from the map select a layer name in the 'Layers in the Map' ListBox and click the 'Remove Layer from Map' button. NOTE: The GeoPackage will be downloaded from an ArcGIS Online portal automatically.")]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("68ec42517cdd439e81b036210483e8e7")]
     public partial class ReadGeoPackage : ContentPage
     {
         public ReadGeoPackage()
@@ -203,31 +209,7 @@ namespace ArcGISRuntimeXamarin.Samples.ReadGeoPackage
         private async Task<string> GetGeoPackagePath()
 
         {
-            #region offlinedata
-
-            // The GeoPackage will be downloaded from ArcGIS Online.
-            // The data manager (a component of the sample viewer), *NOT* the runtime handles the offline data process
-
-            // The desired GPKG is expected to be called "AuroraCO.shp"
-            string filename = "AuroraCO.gpkg";
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "ReadGeoPackage", filename);
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // If it's missing, download the GeoPackage
-                await DataManager.GetData("68ec42517cdd439e81b036210483e8e7", "ReadGeoPackage");
-            }
-
-            // Return the path
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("68ec42517cdd439e81b036210483e8e7", "AuroraCO.gpkg");
         }
 
     }

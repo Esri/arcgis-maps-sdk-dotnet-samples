@@ -11,7 +11,7 @@ using Android.App;
 using Android.Content.PM;
 using Android.OS;
 
-namespace ArcGISRuntimeXamarin.Droid
+namespace ArcGISRuntime.Droid
 {
 	[Activity (Label = "ArcGIS Runtime SDK for .NET", Icon = "@drawable/icon", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
 	public class MainActivity : Xamarin.Forms.Platform.Android.FormsApplicationActivity

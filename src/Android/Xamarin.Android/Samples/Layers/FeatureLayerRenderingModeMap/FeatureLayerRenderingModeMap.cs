@@ -21,6 +21,11 @@ using System.Threading.Tasks;
 namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Feature Layer Rendering Mode (Map)",
+        "Layers",
+        "This sample demonstrates how to use load settings to set preferred rendering mode for feature layers, specifically static or dynamic rendering modes.",
+        "")]
     public class FeatureLayerRenderingModeMap : Activity
     {
         // Create variables to hold MapView instances  

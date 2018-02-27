@@ -11,19 +11,19 @@ using System.Collections.Generic;
 using Android.App;
 using Android.Views;
 using Android.Widget;
-using ArcGISRuntime.Models;
+using ArcGISRuntime.Samples.Shared.Models;
 
 namespace ArcGISRuntime
 {
-   /// <summary>
-   /// Custom ArrayAdapter to display the list of Samples
-   /// </summary>
-   class SamplesListAdapter : BaseAdapter<SampleModel>
+    /// <summary>
+    /// Custom ArrayAdapter to display the list of Samples
+    /// </summary>
+    class SamplesListAdapter : BaseAdapter<SampleInfo>
     {
         Activity context;
-        List<SampleModel> items;
+        List<SampleInfo> items;
 
-        public SamplesListAdapter(Activity context, List<SampleModel> sampleItems) : base()
+        public SamplesListAdapter(Activity context, List<SampleInfo> sampleItems) : base()
         {
             this.context = context;
             this.items = sampleItems;
@@ -33,7 +33,7 @@ namespace ArcGISRuntime
             get { return items.Count; }
         }
 
-        public override SampleModel this[int position]
+        public override SampleInfo this[int position]
         {
             get { return items[position]; }
         }
@@ -48,7 +48,7 @@ namespace ArcGISRuntime
             var view = context.LayoutInflater.Inflate(Resource.Layout.SamplesLayout, parent, false);
             var name = view.FindViewById<TextView>(Resource.Id.sampleNameTextView);
 
-            name.Text = items[position].Name;
+            name.Text = items[position].SampleName;
             return view;
         }
     }

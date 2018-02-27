@@ -15,15 +15,15 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Widget;
-using ArcGISRuntime.Managers;
-using ArcGISRuntime.Models;
+using ArcGISRuntime.Samples.Managers;
+using ArcGISRuntime.Samples.Shared.Models;
 
 namespace ArcGISRuntime
 {
     [Activity(Label = "Samples")]
     public class SamplesListActivity : Activity
     {
-        List<SampleModel> _listSampleItems;
+        List<SampleInfo> _listSampleItems;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -37,27 +37,11 @@ namespace ArcGISRuntime
 
             // Get the listing of categories; Would be good to eventually be able to pass
             // this info, but Android doesn't allow passing Complex types. 
-            var sampleCategories = SampleManager.Current.GetSamplesAsTree();  // TODO: Cache this in the SampleManager
-            var category = sampleCategories[selectedCategory] as TreeItem;
+            var sampleCategories = SampleManager.Current.FullTree.Items;  // TODO: Cache this in the SampleManager
+            var category = sampleCategories[selectedCategory] as SearchableTreeNode;
 
             // Loop through the categories and create a list of each subcategory and the 
-            // items (Samples) it contains.
-            List<Object> listSubCategories = new List<Object>();
-            for (int i = 0; i < category.Items.Count; i++)
-            {
-                listSubCategories.Add((category.Items[i] as TreeItem).Items);
-            }
-
-            // With the newly-created list of subcategory items, create a new list for the
-            // adapter that contains just the individual Samples.
-            _listSampleItems = new List<SampleModel>();
-            foreach (List<object> subCategoryItem in listSubCategories)
-            {
-                foreach (var sample in subCategoryItem)
-                {
-                    _listSampleItems.Add(sample as SampleModel);
-                }
-            }
+            _listSampleItems = category.Items.OfType<SampleInfo>().ToList();
 
             var samplesAdapter = new SamplesListAdapter(this, _listSampleItems);
 
@@ -74,22 +58,24 @@ namespace ArcGISRuntime
             {
                 // Get the clicked item along with its name and namespace
                 var item = _listSampleItems[e.Position];
-                sampleName = item.SampleName;
-                var sampleNamespace = item.SampleNamespace;
 
-                //If Offline data is required for the sample to work download it 
-                if (item.RequiresOfflineData)
+                if (item.OfflineDataItems != null)
                 {
-                    foreach (string id in item.DataItemIds)
-                    { 
-                        //TODO - Add splash screen/progress bar
-                        await DataManager.GetData(id, item.SampleName);
-                    }
+                    // Show wait dialog
+                    ProgressDialog mDialog = new ProgressDialog(this);
+                    mDialog.Indeterminate = true;
+                    mDialog.SetMessage("Downloading Data");
+                    mDialog.Show();
+
+                    // Begin downloading data
+                    await DataManager.EnsureSampleDataPresent(item);
+
+                    // Hide the progress dialog
+                    mDialog.Dismiss();
                 }
 
                 // Each sample is an Activity, so locate it and launch it via an Intent
-                Type t = Type.GetType(sampleNamespace + "." + sampleName);
-                var newActivity = new Intent(this, t);
+                var newActivity = new Intent(this, item.SampleType);
 
                 // Call a function to clear existing credentials
                 ClearCredentials();

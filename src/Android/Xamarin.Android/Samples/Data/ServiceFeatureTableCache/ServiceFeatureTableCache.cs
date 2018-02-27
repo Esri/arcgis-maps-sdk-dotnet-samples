@@ -19,6 +19,11 @@ using System;
 namespace ArcGISRuntime.Samples.ServiceFeatureTableCache
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Service feature table (cache)",
+        "Data",
+        "This sample demonstrates how to use a feature service in on interaction cache mode.",
+        "")]
     public class ServiceFeatureTableCache : Activity
     {
         // Create and hold reference to the used MapView

@@ -20,6 +20,11 @@ using System.Linq;
 namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "ArcGIS vector tiled layer (URL)",
+        "Layers",
+        "This sample demonstrates how to create a ArcGISVectorTiledLayer and bind this to a Basemap which is used in the creation of a map.",
+        "")]
     public class ArcGISVectorTiledLayerUrl : Activity
     {
         // Create and hold reference to the used MapView

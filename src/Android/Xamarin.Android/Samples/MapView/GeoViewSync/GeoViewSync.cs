@@ -17,6 +17,11 @@ using System;
 namespace ArcGISRuntime.Samples.GeoViewSync
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "GeoView viewpoint synchronization",
+        "MapView",
+        "This sample demonstrates how to keep two geo views (MapView/SceneView) in sync with each other.",
+        "")]
     public class GeoViewSync : Activity
     {
         // Hold references to the GeoViews

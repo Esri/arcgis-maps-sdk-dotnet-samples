@@ -19,6 +19,11 @@ using System;
 namespace ArcGISRuntime.Samples.ServiceFeatureTableManualCache
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Service feature table (manual cache)",
+        "Data",
+        "This sample demonstrates how to use a feature service in manual cache mode.",
+        "")]
     public class ServiceFeatureTableManualCache : Activity
     {
         // Create and hold reference to the used MapView

@@ -20,6 +20,11 @@ using System;
 namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
 {
     [Activity(Label = "FeatureCollectionLayerFromPortal")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Create a feature collection layer from a portal item",
+        "Layers",
+        "This sample demonstrates opening a feature collection saved as a portal item.",
+        "")]
     public class FeatureCollectionLayerFromPortal : Activity
     {
         // Store the map view displayed in the app

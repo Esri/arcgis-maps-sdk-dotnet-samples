@@ -22,6 +22,11 @@ using System.Threading.Tasks;
 namespace ArcGISRuntime.Samples.RenderPictureMarkers
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Render picture markers",
+        "Symbology",
+        "This sample demonstrates how to create picture marker symbols from a URL and embedded resources.",
+        "")]
     public class RenderPictureMarkers : Activity
     {
         // Create and hold reference to the used MapView

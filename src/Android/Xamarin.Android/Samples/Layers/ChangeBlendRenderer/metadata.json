@@ -8,7 +8,7 @@
   "RequiresOfflineData": true,
   "RequiresLocalServer": false,
   "DataItemIds": [ "7c4c679ab06a4df19dc497f577f111bd","caeef9aa78534760b07158bb8e068462" ],
-  "DataFileNames": [ "Shasta.tif","Shasta_Elevation.tif" ],
+  "DataFileNames": [ "raster-file", "Shasta.tif","Shasta_Elevation.tif" ],
   "Image": "ChangeBlendRenderer.jpg",
   "Link": "",
   "TypeLink": [

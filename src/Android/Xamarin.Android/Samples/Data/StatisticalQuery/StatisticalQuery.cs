@@ -21,6 +21,11 @@ using System.Linq;
 namespace ArcGISRuntime.Samples.StatisticalQuery
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Statistical query",
+        "Data",
+        "This sample demonstrates how to query a feature table to get statistics for a specified field.",
+        "Check the appropriate boxes to filter features by attributes and/or within the current extent. Click the button to see basic statistics displayed for world cities.")]
     public class StatisticalQuery : Activity
     {
         // Create and hold reference to the used MapView

@@ -18,6 +18,11 @@ using System;
 namespace ArcGISRuntime.Samples.SetMapSpatialReference
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Set map spatial reference",
+        "Map",
+        "This sample demonstrates how you can set the spatial reference on a Map and all the operational layers would project accordingly.",
+        "")]
     public class SetMapSpatialReference : Activity
     {
         // Create and hold reference to the used MapView

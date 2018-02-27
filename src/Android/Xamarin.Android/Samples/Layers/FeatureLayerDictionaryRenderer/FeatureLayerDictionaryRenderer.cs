@@ -10,17 +10,23 @@
 using Android.App;
 using Android.OS;
 using Android.Widget;
-using ArcGISRuntime.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI.Controls;
 using System.IO;
+using ArcGISRuntime.Samples.Managers;
 
 namespace ArcGISRuntime.Samples.FeatureLayerDictionaryRenderer
 {
     [Activity]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("e34835bf5ec5430da7cf16bb8c0b075c","e0d41b4b409a49a5a7ba11939d8535dc")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Feature layer dictionary renderer",
+        "Layers",
+        "Demonstrates how to apply a dictionary renderer to a feature layer and display mil2525d graphics. The dictionary renderer creates these graphics using a mil2525d style file and the attributes attached to each feature within the geodatabase.",
+        "")]
     public class FeatureLayerDictionaryRenderer : Activity
     {
         // Create and hold reference to the used MapView
@@ -102,25 +108,13 @@ namespace ArcGISRuntime.Samples.FeatureLayerDictionaryRenderer
         // Get the file path for the style dictionary
         private string GetStyleDictionaryPath()
         {
-            #region offlinedata
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-			// Return the full path; Item ID is e34835bf5ec5430da7cf16bb8c0b075c
-			return Path.Combine(folder, "SampleData", "FeatureLayerDictionaryRenderer", "mil2525d.stylx");
-            #endregion offlinedata
+            return DataManager.GetDataFolder("e34835bf5ec5430da7cf16bb8c0b075c", "mil2525d.stylx");
         }
 
         // Get the file path for the geodatabase
         private string GetGeodatabasePath()
         {
-            #region offlinedata
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-			// Return the full path; Item ID is e0d41b4b409a49a5a7ba11939d8535dc
-			return Path.Combine(folder, "SampleData", "FeatureLayerDictionaryRenderer", "militaryoverlay.geodatabase");
-            #endregion offlinedata
+            return DataManager.GetDataFolder("e0d41b4b409a49a5a7ba11939d8535dc", "militaryoverlay.geodatabase");
         }
     }
 }

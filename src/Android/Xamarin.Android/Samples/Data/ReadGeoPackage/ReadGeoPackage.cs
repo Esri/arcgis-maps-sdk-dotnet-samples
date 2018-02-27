@@ -16,15 +16,21 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI.Controls;
-using ArcGISRuntime.Managers;
 using System.Threading.Tasks;
 using System.Collections.Specialized;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using ArcGISRuntime.Samples.Managers;
 
 namespace ArcGISRuntime.Samples.ReadGeoPackage
 {
     [Activity]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("68ec42517cdd439e81b036210483e8e7")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Read a GeoPackage",
+        "Data",
+        "This sample demonstrates how to open a GeoPackage file from the local file system and list the available GeoPackageRasters and GeoPackageFeatureTables from the GeoPackage. Users can add and remove the selected datasets as RasterLayers or FeatureLayers to the map.",
+        "Click on the layer name in the 'Layers Not in the Map' ListView to add it to the map. Conversely to remove a layer from the map click on a layer name in the 'Layers in the Map' ListView. NOTE: The GeoPackage will be downloaded from an ArcGIS Online portal automatically.")]
     public class ReadGeoPackage : Activity
     {
 
@@ -310,31 +316,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
 
         private async Task<string> GetGeoPackagePath()
         {
-            #region offlinedata
-
-            // The GeoPackage will be downloaded from ArcGIS Online.
-            // The data manager (a component of the sample viewer), *NOT* the runtime handles the offline data process
-
-            // The desired GPKG is expected to be called "AuroraCO.shp"
-            string filename = "AuroraCO.gpkg";
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "ReadGeoPackage", filename);
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // If it's missing, download the GeoPackage
-                await DataManager.GetData("68ec42517cdd439e81b036210483e8e7", "ReadGeoPackage");
-            }
-
-            // Return the path
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("68ec42517cdd439e81b036210483e8e7", "AuroraCO.gpkg");
         }
     }
 }

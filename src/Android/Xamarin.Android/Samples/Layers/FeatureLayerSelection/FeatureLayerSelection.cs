@@ -20,6 +20,11 @@ using System.Drawing;
 namespace ArcGISRuntime.Samples.FeatureLayerSelection
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Feature layer selection",
+        "Layers",
+        "This sample demonstrates how to select features in a feature layer by tapping a MapView.",
+        "")]
     public class FeatureLayerSelection : Activity
     {
         // Create and hold reference to the used MapView

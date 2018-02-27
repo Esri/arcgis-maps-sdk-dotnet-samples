@@ -16,6 +16,11 @@ using Esri.ArcGISRuntime.UI.Controls;
 namespace ArcGISRuntime.Samples.DisplayMap
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Display a map",
+        "Map",
+        "This sample demonstrates how to display a map with a basemap.",
+        "")]
     public class DisplayMap : Activity
     {
         // Create and hold reference to the used MapView

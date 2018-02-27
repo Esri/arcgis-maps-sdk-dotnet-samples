@@ -20,6 +20,11 @@ using System.Drawing;
 namespace ArcGISRuntime.Samples.AddGraphicsWithSymbols
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Add graphics with symbols",
+        "GraphicsOverlay",
+        "This sample demonstrates how to add various types of graphics to a `GraphicsOverlay`.",
+        "")]
     public class AddGraphicsWithSymbols : Activity
     {
         // Create and hold reference to the used MapView

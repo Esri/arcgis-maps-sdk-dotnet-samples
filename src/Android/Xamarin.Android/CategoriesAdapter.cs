@@ -11,20 +11,21 @@ using Android.Widget;
 using Android.App;
 using System.Collections.Generic;
 using Android.Views;
-using ArcGISRuntime.Managers;
+using ArcGISRuntime.Samples.Managers;
+using ArcGISRuntime.Samples.Shared.Models;
 
 namespace ArcGISRuntime
 {
     /// <summary>
     /// Custom ArrayAdapter to display the list of Categories
     /// </summary>
-    class CategoriesAdapter : BaseAdapter<TreeItem>
+    class CategoriesAdapter : BaseAdapter<SearchableTreeNode>
     {
 
-        List<TreeItem> items;
+        List<SearchableTreeNode> items;
         Activity context;
 
-        public CategoriesAdapter(Activity context, List<TreeItem> items) : base()
+        public CategoriesAdapter(Activity context, List<SearchableTreeNode> items) : base()
         {
             this.items = items;
             this.context = context;
@@ -35,7 +36,7 @@ namespace ArcGISRuntime
             return position;
         }
 
-        public override TreeItem this[int position]
+        public override SearchableTreeNode this[int position]
         {
             get { return items[position]; }
         }

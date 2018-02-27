@@ -24,6 +24,11 @@ using System.Linq;
 namespace ArcGISRuntime.Samples.ExportTiles
 {
     [Activity(Label = "ExportTiles")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Export tiles",
+        "Layers",
+        "This sample demonstrates how to export tiles from a map server.",
+        "1. Pan and zoom until the area you want tiles for is within the red box.\n2. Click 'Export Tiles'.\n3. Pan and zoom to see the area covered by the downloaded tiles in the preview box.")]
     public class ExportTiles : Activity
     {
         // Reference to the MapView used in the sample

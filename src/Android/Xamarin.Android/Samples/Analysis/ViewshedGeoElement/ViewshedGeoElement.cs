@@ -10,7 +10,7 @@
 using Android.App;
 using Android.OS;
 using Android.Widget;
-using ArcGISRuntime.Managers;
+using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -27,6 +27,12 @@ using System.Timers;
 namespace ArcGISRuntime.Samples.ViewshedGeoElement
 {
     [Activity]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("07d62a792ab6496d9b772a24efea45d0")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Viewshed (GeoElement)",
+        "Analysis",
+        "This sample demonstrates how to display a live viewshed analysis for a moving GeoElement. The analysis is offset vertically so that the viewpoint is from the top of the GeoElement (in this case, a model of a tank).",
+        "Tap on the scene to see the tank move to that point.")]
     public class ViewshedGeoElement : Activity
     {
         // Create and hold reference to the used SceneView.
@@ -179,28 +185,7 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
         {
             // Returns the tank model.
 
-            #region offlinedata
-
-            // The desired model is expected to be called "bradle.3ds".
-            string filename = "bradle.3ds";
-
-            // The data manager provides a method to get the folder.
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path.
-            string filepath = Path.Combine(folder, "SampleData", "ViewshedGeoElement", filename);
-
-            // Check if the file exists.
-            if (!File.Exists(filepath))
-            {
-                // If the model is missing, download it. 
-                await DataManager.GetData("07d62a792ab6496d9b772a24efea45d0", "ViewshedGeoElement");
-            }
-
-            // Return the path.
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("07d62a792ab6496d9b772a24efea45d0", "bradle.3ds");
         }
 
         private void CreateLayout()

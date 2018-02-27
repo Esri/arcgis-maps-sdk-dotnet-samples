@@ -179,7 +179,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
 
         private async Task<string> GetRasterPath()
         {
-            return DataManager.GetDataFolder("7c4c679ab06a4df19dc497f577f111bd", "raster-file", "Shasta.tif");
+            return DataManager.GetDataFolder("7c4c679ab06a4df19dc497f577f111bd", "raster-file", "raster-file", "Shasta.tif");
         }
     }
 }

@@ -20,6 +20,11 @@ using System.Collections.Generic;
 namespace ArcGISRuntime.Samples.RasterLayerRasterFunction
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "ArcGIS raster function (service)",
+        "Layers",
+        "This sample demonstrates how to show a raster layer on a map based on an image service layer that has a raster function applied.",
+        "")]
     public class RasterLayerRasterFunction : Activity
     {
         // Create and hold reference to the used MapView

@@ -8,7 +8,7 @@
   "RequiresOfflineData": true,
   "RequiresLocalServer": false,
   "DataItemIds": [ "7c4c679ab06a4df19dc497f577f111bd" ],
-  "DataFileNames": [ "Shasta.tif" ],
+  "DataFileNames": [ "raster-file", "Shasta.tif" ],
   "Image": "RasterLayerFile.jpg",
   "Link": "",
   "TypeLink": [

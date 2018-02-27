@@ -22,6 +22,11 @@ using System.Drawing;
 namespace ArcGISRuntime.Samples.CreateFeatureCollectionLayer
 {
     [Activity(Label = "CreateFeatureCollectionLayer")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Create feature collection layer",
+        "Layers",
+        "This sample demonstrates how to create a new feature collection with several feature collection tables. The collection is displayed in the map as a feature collection layer.",
+        "")]
     public class CreateFeatureCollectionLayer : Activity
     {
         private MapView _myMapView = new MapView();

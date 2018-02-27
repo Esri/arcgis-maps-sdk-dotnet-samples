@@ -10,7 +10,6 @@
 using Android.App;
 using Android.OS;
 using Android.Widget;
-using ArcGISRuntime.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -25,10 +24,17 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using ArcGISRuntime.Samples.Managers;
 
 namespace ArcGISRuntime.Samples.EditAndSyncFeatures
 {
     [Activity]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("3f1bbf0ec70b409a975f5c91f363fe7d")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Edit and sync features",
+        "Data",
+        "This sample demonstrates how to synchronize offline edits with a feature service.",
+        "1. Pan and zoom to the area you would like to download features for, ensuring that all features are within the rectangle.\n2. Tap the 'generate' button. This will start the process of generating the offline geodatabase.\n3. Tap on a point feature within the area of the generated geodatabase. Then tap on the screen (anywhere within the range of the local geodatabase) to move the point to that location.\n4. Tap the 'Sync Geodatabase' button to synchronize the changes back to the feature service.\n\n Note that the basemap for this sample is downloaded from ArcGIS Online automatically.")]
     public class EditAndSyncFeatures : Activity
     {
         // Enumeration to track which phase of the workflow the sample is in
@@ -489,18 +495,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         // (this is plumbing for the sample viewer)
         private string GetTpkPath()
         {
-            #region offlinedata
-
-            // The desired tpk is expected to be called SanFrancisco.tpk
-            string filename = "SanFrancisco.tpk";
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Return the full path; the Item ID is 3f1bbf0ec70b409a975f5c91f363fe7d
-            return Path.Combine(folder, "SampleData", "EditAndSyncFeatures", filename);
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("3f1bbf0ec70b409a975f5c91f363fe7d", "SanFrancisco.tpk");
         }
 
         private string GetGdbPath()

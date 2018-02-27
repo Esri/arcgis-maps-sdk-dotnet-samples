@@ -21,6 +21,11 @@ using Surface = Esri.ArcGISRuntime.Mapping.Surface;
 namespace ArcGISRuntime.Samples.ViewshedLocation
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Viewshed (Location)",
+        "Analysis",
+        "This sample demonstrates the configurable properties of viewshed analysis, including frustum color, heading, pitch, distances, angles, and location.",
+        "Tap anywhere in the scene to change the viewshed observer location.")]
     public class ViewshedLocation : Activity
     {
         // Create and hold reference to the used SceneView.

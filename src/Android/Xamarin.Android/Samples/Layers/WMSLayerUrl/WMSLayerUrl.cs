@@ -19,6 +19,11 @@ using System.Collections.Generic;
 namespace ArcGISRuntime.Samples.WMSLayerUrl
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "WMS layer (URL)",
+        "Layers",
+        "This sample demonstrates how to add a layer from a WMS service to a map.",
+        "")]
     public class WMSLayerUrl : Activity
     {
         // Create and hold reference to the used MapView

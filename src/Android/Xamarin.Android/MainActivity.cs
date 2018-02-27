@@ -12,15 +12,17 @@ using Android.App;
 using Android.Widget;
 using Android.OS;
 using System.Collections.Generic;
-using ArcGISRuntime.Managers;
+using ArcGISRuntime.Samples.Managers;
+using ArcGISRuntime.Samples.Shared.Models;
 using Android.Content;
+using System.Linq;
 
 namespace ArcGISRuntime
 {
     [Activity(Label = "ArcGIS Runtime SDK for .NET", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
-        List<TreeItem> _sampleCategories;
+        List<SearchableTreeNode> _sampleCategories;
 
         protected async override void OnCreate(Bundle bundle)
         {
@@ -31,8 +33,8 @@ namespace ArcGISRuntime
             try
             {
                 // Initialize the SampleManager and create the Sample Categories
-                await SampleManager.Current.InitializeAsync(this);
-                _sampleCategories = SampleManager.Current.GetSamplesAsTree();
+                SampleManager.Current.Initialize();
+                _sampleCategories = SampleManager.Current.FullTree.Items.OfType<SearchableTreeNode>().ToList();
 
                 // Set up the custom ArrayAdapter for displaying the Categories.
                 var categoriesAdapter = new CategoriesAdapter(this, _sampleCategories);

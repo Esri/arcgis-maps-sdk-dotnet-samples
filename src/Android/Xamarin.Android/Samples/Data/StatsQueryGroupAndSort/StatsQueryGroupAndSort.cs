@@ -21,6 +21,11 @@ using System.Linq;
 namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Statistical query group and sort results",
+        "Data",
+        "This sample demonstrates how to query a feature table to get statistics for a specified field and to group and sort the results.",
+        "")]
     public class StatsQueryGroupAndSort : Activity
     {
         // URI for the US states map service

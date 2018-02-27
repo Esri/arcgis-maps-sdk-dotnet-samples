@@ -11,7 +11,6 @@ using Android.App;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using ArcGISRuntime.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
@@ -20,10 +19,17 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using ArcGISRuntime.Samples.Managers;
 
 namespace ArcGISRuntime.Samples.ChangeBlendRenderer
 {
     [Activity(Label = "ChangeBlendRenderer")]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd","caeef9aa78534760b07158bb8e068462")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Blend renderer",
+        "Layers",
+        "This sample demonstrates how to use blend renderer on a raster layer. You can get a hillshade blended with either a colored raster or color ramp.",
+        "Tap on the 'Update Renderer' button to change the settings for the blend renderer. The sample allows you to change the Altitude, Azimuth, SlopeType and ColorRamp. If you use None as the ColorRamp, a standard hill shade raster output is displayed. For all the other ColorRamp types an elevation raster is used.")]
     public class ChangeBlendRenderer : Activity
     {
         // Global reference to a label for Altitude
@@ -112,14 +118,14 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
 
             // Create button to choose a specific ColorRamp
             var colorRampsButton = new Button(this);
-            colorRampsButton.Text = "ColorRamps";
+            colorRampsButton.Text = "Color Ramps";
             colorRampsButton.Click += ColorRampsButton_Click;
             layout.AddView(colorRampsButton);
 
             // Create button to change stretch renderer of the raster, wire-up the touch/click 
             // event handler for the button
             _Button_UpdateRenderer = new Button(this);
-            _Button_UpdateRenderer.Text = "UpdateRenderer";
+            _Button_UpdateRenderer.Text = "Update Renderer";
             _Button_UpdateRenderer.Click += OnUpdateRendererClicked;
             layout.AddView(_Button_UpdateRenderer);
             _Button_UpdateRenderer.Enabled = false;
@@ -323,50 +329,12 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
 
         private async Task<string> GetRasterPath_Imagery()
         {
-            #region offlinedata
-
-            // The desired raster is expected to be called Shasta.tif
-            string filename = "Shasta.tif";
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "ChangeBlendRenderer", "raster-file", filename);
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the map package file
-                await DataManager.GetData("7c4c679ab06a4df19dc497f577f111bd", "ChangeBlendRenderer");
-            }
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("7c4c679ab06a4df19dc497f577f111bd", "raster-file", "Shasta.tif");
         }
 
         private async Task<string> GetRasterPath_Elevation()
         {
-            #region offlinedata
-
-            // The desired raster is expected to be called Shasta_Elevation.tif
-            string filename = "Shasta_Elevation.tif";
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "ChangeBlendRenderer", filename);
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the map package file
-                await DataManager.GetData("caeef9aa78534760b07158bb8e068462", "ChangeBlendRenderer");
-            }
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("caeef9aa78534760b07158bb8e068462", "Shasta_Elevation.tif");
         }
     }
 }

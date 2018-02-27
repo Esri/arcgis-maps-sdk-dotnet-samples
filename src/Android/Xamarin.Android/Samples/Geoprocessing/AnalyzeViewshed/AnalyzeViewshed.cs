@@ -26,6 +26,11 @@ using System.Threading.Tasks;
 namespace ArcGISRuntime.Samples.AnalyzeViewshed
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Viewshed (Geoprocessing)",
+        "Geoprocessing",
+        "This sample demonstrates how to use GeoprocessingTask to calculate a viewshed using a geoprocessing service. Click any point on the map to see all areas that are visible within a 1 kilometer radius. It may take a few seconds for the model to run and send back the results.",
+        "")]
     public class AnalyzeViewshed : Activity
     {
         // Create and hold reference to the used MapView

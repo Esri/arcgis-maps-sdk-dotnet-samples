@@ -10,16 +10,22 @@
 using Android.App;
 using Android.OS;
 using Android.Widget;
-using ArcGISRuntime.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System.IO;
 using System.Threading.Tasks;
+using ArcGISRuntime.Samples.Managers;
 
 namespace ArcGISRuntime.Samples.FeatureLayerShapefile
 {
     [Activity]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("d98b3e5293834c5f852f13c569930caa")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Feature layer (shapefile)",
+        "Data",
+        "This sample demonstrates how to open a shapefile stored on the device and display it as a feature layer with default symbology.",
+        "The shapefile will be downloaded from an ArcGIS Online portal automatically.")]
     public class FeatureLayerShapefile : Activity
     {
         private MapView _myMapView;
@@ -58,30 +64,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerShapefile
 
         private async Task<string> GetShapefilePath()
         {
-            #region offlinedata
-            // The shapefile will be downloaded from ArcGIS Online
-            // The data manager (a component of the sample viewer, *NOT* the runtime
-            //     handles the offline data process
-
-            // The desired shapefile is expected to be called "Public_Art.shp"
-            string filename = "Public_Art.shp";
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "FeatureLayerShapefile", filename);
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the shapefile
-                await DataManager.GetData("d98b3e5293834c5f852f13c569930caa", "FeatureLayerShapefile");
-            }
-
-            // Return the path
-            return filepath;
-            #endregion offlinedata
+            return DataManager.GetDataFolder("d98b3e5293834c5f852f13c569930caa", "Public_Art.shp");
         }
 
         private void CreateLayout()

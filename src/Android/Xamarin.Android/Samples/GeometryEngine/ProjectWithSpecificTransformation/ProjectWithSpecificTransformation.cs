@@ -15,6 +15,11 @@ using Esri.ArcGISRuntime.Geometry;
 namespace ArcGISRuntime.Samples.ProjectWithSpecificTransformation
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Project with specific transformation",
+        "GeometryEngine",
+        "This sample demonstrates how to use the GeometryEngine with a specified geographic transformation to transform a geometry from one coordinate system to another. ",
+        "See [Coordinate Systems and Transformations](https://developers.arcgis.com/net/latest/wpf/guide/coordinate-systems-and-transformations.htm) for more information about geographic coordinate systems, geographic transformations, and projected coordinate systems. ")]
     public class ProjectWithSpecificTransformation : Activity
     {
         // Label for showing the coordinates before projection

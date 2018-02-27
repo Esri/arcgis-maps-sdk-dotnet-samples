@@ -20,6 +20,11 @@ using System;
 namespace ArcGISRuntime.Samples.AddGraphicsRenderer
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Add graphics (SimpleRenderer)",
+        "GraphicsOverlay",
+        "This sample demonstrates how you add graphics and set a renderer on a graphic overlays.",
+        "")]
     public class AddGraphicsRenderer : Activity
     {
         // Create and hold reference to the used MapView

@@ -22,6 +22,11 @@ using System.Linq;
 namespace ArcGISRuntime.Samples.WmsServiceCatalog
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "WMS service catalog",
+        "Layers",
+        "This sample demonstrates how to enable and disable the display of layers discovered from a WMS service.",
+        "")]
     public class WmsServiceCatalog : Activity
     {
         // Create and hold reference to the used MapView
@@ -74,7 +79,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         private async void Initialize()
         {
             // Apply an imagery basemap to the map
-            _myMapView.Map = new Map(Basemap.CreateDarkGrayCanvasVector());
+            _myMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
 
             // Create the WMS Service
             WmsService service = new WmsService(wmsUrl);

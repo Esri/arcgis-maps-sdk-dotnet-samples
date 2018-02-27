@@ -21,6 +21,11 @@ using System.Linq;
 namespace ArcGISRuntime.Samples.ListRelatedFeatures
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "List related features",
+        "Data",
+        "This sample demonstrates how to query features related to an identified feature.",
+        "Click on a feature to identify it. Related features will be listed in the window above the map.")]
     public class ListRelatedFeatures : Activity
     {
         // URL to the web map

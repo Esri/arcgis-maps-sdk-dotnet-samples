@@ -26,6 +26,11 @@ using System.Threading.Tasks;
 namespace ArcGISRuntime.Samples.SketchOnMap
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Sketch graphics on the map",
+        "GraphicsOverlay",
+        "This sample demonstrates how to interactively sketch and edit graphics in the map view and display them in a graphics overlay. You can sketch a variety of geometry types and undo or redo operations.",
+        "1. Click the 'Sketch' button.\n2. Choose a sketch type from the drop down list.\n3. While sketching, you can undo/redo operations.\n4. Click 'Done' to finish the sketch.\n5. Click 'Edit', then click a graphic to start editing.\n6. Make edits then click 'Done' or 'Cancel' to finish editing.")]
     public class SketchOnMap : Activity
     {
         // Create and hold reference to the used MapView

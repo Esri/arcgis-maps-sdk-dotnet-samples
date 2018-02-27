@@ -20,6 +20,11 @@ using System.Linq;
 namespace ArcGISRuntime.Samples.ChangeBasemap
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Change basemap",
+        "Map",
+        "This sample demonstrates how to dynamically change the basemap displayed in a Map.",
+        "")]
     public class ChangeBasemap : Activity
     {
         // Create and hold reference to the used MapView

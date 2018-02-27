@@ -17,6 +17,11 @@ using System;
 namespace ArcGISRuntime.Samples.ArcGISMapImageLayerUrl
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "ArcGIS map image layer (URL)",
+        "Layers",
+        "This sample demonstrates how to add an ArcGISMapImageLayer as a base layer in a map. The ArcGISMapImageLayer comes from an ArcGIS Server sample web service.",
+        "")]
     public class ArcGISMapImageLayerUrl : Activity
     {
         // Create and hold reference to the used MapView

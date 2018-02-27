@@ -20,6 +20,11 @@ using System.Threading.Tasks;
 namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "List geodatabase versions",
+        "Geoprocessing",
+        "This sample calls a custom GeoprocessingTask to get a list of available versions for an enterprise geodatabase. The task returns a table of geodatabase version information, which is displayed in the app as a list.",
+        "")]
     public class ListGeodatabaseVersions : Activity
     {
         // Progress bar to show when the geoprocessing task is working

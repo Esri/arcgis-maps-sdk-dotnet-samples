@@ -17,6 +17,11 @@ using System;
 namespace ArcGISRuntime.Samples.ArcGISTiledLayerUrl
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "ArcGIS tiled layer (URL)",
+        "Layers",
+        "This sample demonstrates how to add an ArcGISTiledLayer as a base layer in a map. The ArcGISTiledLayer comes from an ArcGIS Server sample web service.",
+        "")]
     public class ArcGISTiledLayerUrl : Activity
     {
         // Create and hold reference to the used MapView

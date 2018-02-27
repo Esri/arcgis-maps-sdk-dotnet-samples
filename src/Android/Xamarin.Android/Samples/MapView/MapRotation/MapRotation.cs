@@ -16,6 +16,11 @@ using Esri.ArcGISRuntime.UI.Controls;
 namespace ArcGISRuntime.Samples.MapRotation
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Map rotation",
+        "MapView",
+        "This sample illustrates how to rotate a map.",
+        "")]
     public class MapRotation : Activity
     {
         // Create and hold reference to the used MapView
@@ -52,7 +57,7 @@ namespace ArcGISRuntime.Samples.MapRotation
                     _myMapView.SetViewpointRotationAsync(e.Progress);
 
                     // Display the MapView's rotation.
-                    _loadStatusTextView.Text = string.Format("{0:0}°", angleSlider.Progress);
+                    _loadStatusTextView.Text = string.Format("{0:0}%", angleSlider.Progress);
                 }
             };
 

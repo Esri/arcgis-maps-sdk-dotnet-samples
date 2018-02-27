@@ -18,6 +18,11 @@ using System.Threading.Tasks;
 namespace ArcGISRuntime.Samples.Web_TiledLayer
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Web TiledLayer",
+        "Layers",
+        "This sample demonstrates how to load a web tiled layer from a non-ArcGIS service, including how to include proper attribution.",
+        "")]
     public class Web_TiledLayer : Activity
     {
         // Create and hold reference to the used MapView

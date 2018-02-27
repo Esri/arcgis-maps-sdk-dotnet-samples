@@ -19,6 +19,11 @@ using System.Collections.Generic;
 namespace ArcGISRuntime.Samples.WMTSLayer
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "WMTS layer",
+        "Layers",
+        "This sample demonstrates how to display a WMTS layer on a map via a Uri and WmtsLayerInfo.",
+        "")]
     public class WMTSLayer : Activity
     {
         // Create and hold reference to the used MapView

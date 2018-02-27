@@ -24,6 +24,11 @@ using System.Linq;
 namespace ArcGISRuntime.Samples.FindRoute
 {
     [Activity(Label = "FindRoute")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Find a route",
+        "NetworkAnalysis",
+        "This sample demonstrates how to solve for the best route between two locations on the map and display driving directions between them.",
+        "")]
     public class FindRoute : Activity
     {
         private MapView _myMapView = new MapView();

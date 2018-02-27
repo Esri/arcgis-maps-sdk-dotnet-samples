@@ -21,6 +21,11 @@ using System.Collections.Generic;
 namespace ArcGISRuntime.Samples.IdentifyGraphics
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Identify graphics",
+        "GraphicsOverlay",
+        "This sample demonstrates how to identify graphics in a graphics overlay. When you tap on a graphic on the map, you will see an alert message displayed.",
+        "")]
     public class IdentifyGraphics : Activity
     {
         // Create and hold reference to the used MapView

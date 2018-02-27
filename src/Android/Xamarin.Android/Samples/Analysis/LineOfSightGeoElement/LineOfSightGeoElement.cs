@@ -10,7 +10,6 @@
 using Android.App;
 using Android.OS;
 using Android.Widget;
-using ArcGISRuntime.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -21,10 +20,17 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Timers;
+using ArcGISRuntime.Samples.Managers;
 
 namespace ArcGISRuntime.Samples.LineOfSightGeoElement
 {
     [Activity]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("3af5cfec0fd24dac8d88aea679027cb9")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Line of Sight (GeoElement)",
+        "Analysis",
+        "This sample demonstrates how to perform a dynamic line of sight analysis between two moving GeoElements.",
+        "Use the slider to adjust the height of the observer.")]
     public class LineOfSightGeoElement : Activity
     {
         // Create and hold the SceneView
@@ -221,28 +227,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         {
             // Returns the taxi model
 
-            #region offlinedata
-
-            // The desired model is expected to be called "dolmus.3ds"
-            string filename = "dolmus.3ds";
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "LineOfSightGeoElement", filename);
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // If it's missing, download the model
-                await DataManager.GetData("3af5cfec0fd24dac8d88aea679027cb9", "LineOfSightGeoElement");
-            }
-
-            // Return the path
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("3af5cfec0fd24dac8d88aea679027cb9", "dolmus.3ds");
         }
 
         private void CreateLayout()

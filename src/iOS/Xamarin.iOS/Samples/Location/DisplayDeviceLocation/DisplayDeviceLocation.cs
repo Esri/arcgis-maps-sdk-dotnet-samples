@@ -19,6 +19,11 @@ using Esri.ArcGISRuntime.UI;
 namespace ArcGISRuntime.Samples.DisplayDeviceLocation
 {    
     [Register("DisplayDeviceLocation")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Display Device Location",
+        "Location",
+        "This sample demonstrates how you can enable location services and switch between different types of auto pan modes.",
+        "")]
     public class DisplayDeviceLocation : UIViewController
     {
         // Create and hold reference to the used MapView

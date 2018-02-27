@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -18,6 +18,11 @@ using UIKit;
 namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
 {
     [Register("FeatureCollectionLayerFromPortal")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Feature collection layer from portal item",
+        "Layers",
+        "This sample demonstrates opening a feature collection saved as a portal item.",
+        "")]
     public class FeatureCollectionLayerFromPortal : UIViewController
     {
         // Reference to the MapView used in the app

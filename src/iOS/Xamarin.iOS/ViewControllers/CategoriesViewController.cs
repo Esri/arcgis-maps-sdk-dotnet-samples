@@ -1,8 +1,10 @@
-using ArcGISRuntime.Managers;
+using ArcGISRuntime.Samples.Managers;
+using ArcGISRuntime.Samples.Shared.Models;
 using CoreGraphics;
 using Foundation;
 using System;
 using UIKit;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace ArcGISRuntime
@@ -21,8 +23,8 @@ namespace ArcGISRuntime
 		{
 			base.ViewDidLoad();
 
-			await SampleManager.Current.InitializeAsync();
-			var data = SampleManager.Current.GetSamplesAsTree();
+			SampleManager.Current.Initialize();
+            var data = SampleManager.Current.FullTree.Items.OfType<SearchableTreeNode>().ToList();
 			this.TableView.Source = new CategoryDataSource(this, data);
 
 			this.TableView.ReloadData();
@@ -47,11 +49,11 @@ namespace ArcGISRuntime
         public class CategoryDataSource : UITableViewSource
 		{
 			private UITableViewController controller;
-			private List<TreeItem> data;
+			private List<SearchableTreeNode> data;
 
 			static string CELL_ID = "cellid";
 
-			public CategoryDataSource(UITableViewController controller, List<TreeItem> data)
+			public CategoryDataSource(UITableViewController controller, List<SearchableTreeNode> data)
 			{
 				this.data = data;
 				this.controller = controller;

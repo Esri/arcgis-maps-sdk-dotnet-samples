@@ -18,6 +18,11 @@ using UIKit;
 namespace ArcGISRuntime.Samples.LineOfSightLocation
 {
     [Register("LineOfSightLocation")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Line of sight from location",
+        "Analysis",
+        "This sample demonstrates a `LocationLineOfSight` analysis that shows segments that are visible or obstructed along a line drawn from observer to target.",
+        "Click to define a location for the observer, then again to define the target. The result will show visible segments in cyan and obstructed ones in magenta.")]
     public class LineOfSightLocation : UIViewController
     {
         // Create and hold reference to the used MapView

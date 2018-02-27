@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -22,6 +22,11 @@ using UIKit;
 namespace ArcGISRuntime.Samples.FindRoute
 {
     [Register("FindRoute")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Find route",
+        "Network Analysis",
+        "This sample illustrates how to solve a simple route between two locations.",
+        "")]
     public class FindRoute : UIViewController
     {
         private MapView _myMapView;
@@ -60,12 +65,15 @@ namespace ArcGISRuntime.Samples.FindRoute
             _myMapView = new MapView();
 
             solveRouteButton.SetTitle("Solve Route", UIControlState.Normal);
+            solveRouteButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
             solveRouteButton.TouchUpInside += SolveRouteButtonClick;
 
             resetButton.SetTitle("Reset", UIControlState.Normal);
+            resetButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
             resetButton.TouchUpInside += ResetButtonClick;
 
             showDirectionsButton.SetTitle("Directions", UIControlState.Normal);
+            showDirectionsButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
             showDirectionsButton.TouchUpInside += ShowDirections;
 
             // Add the bar button items to an array of UIBarButtonItems

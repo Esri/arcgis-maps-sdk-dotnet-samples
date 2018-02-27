@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -23,6 +23,11 @@ using UIKit;
 namespace ArcGISRuntime.Samples.ExportTiles
 {
     [Register("ExportTiles")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Export tiles",
+        "Layers",
+        "This sample demonstrates how to export tiles from a map server.",
+        "1. Pan and zoom until the area you want tiles for is within the red box.\n2. Click 'Export Tiles'.\n3. Pan and zoom to see the area covered by the downloaded tiles in the preview box.")]
     public class ExportTiles : UIViewController
     {
         // Reference to the MapView used in the sample

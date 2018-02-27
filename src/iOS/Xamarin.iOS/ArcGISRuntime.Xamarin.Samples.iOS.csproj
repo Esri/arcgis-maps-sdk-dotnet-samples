@@ -7,9 +7,9 @@
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <ProjectGuid>{3192A404-34AC-4083-A3B9-44610EE92E68}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>ArcGISRuntimeXamarin</RootNamespace>
+    <RootNamespace>ArcGISRuntime</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>ArcGISRuntimeXamarin</AssemblyName>
+    <AssemblyName>ArcGISRuntime</AssemblyName>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -229,6 +229,7 @@
   <ItemGroup>
     <!-- Sample Manager Code-->
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="LoadingOverlay.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.cs" />
     <Compile Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.cs" />
@@ -485,9 +486,6 @@
     <Compile Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.cs" />
     <Compile Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.cs" />
     <Compile Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.cs" />
-    <Compile Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.designer.cs">
-      <DependentUpon>ChangeSublayerVisibility.cs</DependentUpon>
-    </Compile>
     <Compile Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.cs" />
     <Compile Include="Samples\Layers\DisplayScene\DisplayScene.cs" />
     <Compile Include="Samples\Layers\ExportTiles\ExportTiles.cs" />

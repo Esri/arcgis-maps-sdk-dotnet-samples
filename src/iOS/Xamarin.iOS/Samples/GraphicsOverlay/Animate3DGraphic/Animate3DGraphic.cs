@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -7,7 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Managers;
 using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -23,11 +22,18 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
+using ArcGISRuntime.Samples.Managers;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.Animate3DGraphic
 {
     [Register("Animate3DGraphic")]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("290f0c571c394461a8b58b6775d0bd63","e87c154fb9c2487f999143df5b08e9b1","5a9b60cee9ba41e79640a06bcdf8084d","12509ffdc684437f8f2656b0129d2c13","681d6f7694644709a7c830ec57a2d72b")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Animate 3D Graphic",
+        "GraphicsOverlay",
+        "This sample demonstrates how to animate a graphic's position and follow it using a camera controller.",
+        "Click-and-drag to pan the sceneview, orbiting the moving plane. Click 'Camera' to toggle between the default and the orbiting camera controller.\nThe plane's route is shown on the inset map in the bottom left corner of the screen. Click 'Stats' to toggle stats display. Tap 'Mission' to choose from a list of alternative routes. \n\nNote that this is a graphics-intensive sample; performance may be degraded in certain situations (such as using a simulator).")]
     public class Animate3DGraphic : UIViewController
     {
         // URL to the elevation service - provides terrain elevation
@@ -331,47 +337,12 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             string itemId = _missionToItemId[mission];
             string filename = mission + ".csv";
 
-            #region offlinedata
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "Animate3DGraphic", filename);
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the map package file
-                await DataManager.GetData(itemId, "Animate3DGraphic");
-            }
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder(itemId, filename);
         }
 
         private async Task<string> GetModelPath()
         {
-            #region offlinedata
-
-            // The desired model is expected to be called Bristol.dae
-            string filename = "Bristol.dae";
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "Animate3DGraphic", filename);
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the map package file
-                await DataManager.GetData("681d6f7694644709a7c830ec57a2d72b", "Animate3DGraphic");
-            }
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("681d6f7694644709a7c830ec57a2d72b", "Bristol.dae");
         }
 
         private void TogglePlayMission()

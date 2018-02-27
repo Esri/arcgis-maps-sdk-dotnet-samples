@@ -19,6 +19,11 @@ using UIKit;
 namespace ArcGISRuntime.Samples.RenderSimpleMarkers
 {
     [Register("RenderSimpleMarkers")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Render simple markers",
+        "Symbology",
+        "This sample adds a point graphic to a graphics overlay symbolized with a red circle specified via a SimpleMarkerSymbol.",
+        "")]
     public class RenderSimpleMarkers : UIViewController
     {
         // Constant holding offset where the MapView control should start

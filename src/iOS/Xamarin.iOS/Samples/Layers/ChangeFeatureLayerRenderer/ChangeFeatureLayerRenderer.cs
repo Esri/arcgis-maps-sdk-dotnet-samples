@@ -20,6 +20,11 @@ using UIKit;
 namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
 {
     [Register("ChangeFeatureLayerRenderer")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Change Renderer",
+        "Layers",
+        "This sample demonstrates how to change renderer for a feature layer. It also shows how to reset the renderer back to the default.",
+        "")]
     public class ChangeFeatureLayerRenderer : UIViewController
     {
         // Create and hold reference to the used MapView

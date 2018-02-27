@@ -17,6 +17,11 @@ using UIKit;
 namespace ArcGISRuntime.Samples.ManageBookmarks
 {
     [Register("ManageBookmarks")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Manage bookmarks",
+        "Map",
+        "This sample demonstrates how to access and add bookmarks to a map.",
+        "")]
     public class ManageBookmarks : UIViewController
     {
         // Create and hold reference to the used MapView

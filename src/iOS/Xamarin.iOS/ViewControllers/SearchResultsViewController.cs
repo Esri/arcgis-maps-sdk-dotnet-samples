@@ -2,9 +2,9 @@ using UIKit;
 using Foundation;
 using System.Collections.Generic;
 using System.Linq;
-using ArcGISRuntime.Managers;
+using ArcGISRuntime.Samples.Managers;
 using System;
-using ArcGISRuntime.Models;
+using ArcGISRuntime.Samples.Shared.Models;
 
 namespace ArcGISRuntime
 {
@@ -13,10 +13,10 @@ namespace ArcGISRuntime
     {
         private readonly UIViewController parentViewController;
         private readonly List<object> visibleSamples = new List<object>();
-        private readonly IList<TreeItem> categories;
-        private readonly List<SampleModel> sampleItems = new List<SampleModel>();
+        private readonly IList<SearchableTreeNode> categories;
+        private readonly List<SampleInfo> sampleItems = new List<SampleInfo>();
 
-        public SearchResultsViewController(UIViewController controller, IList<TreeItem> categories)
+        public SearchResultsViewController(UIViewController controller, IList<SearchableTreeNode> categories)
         {
             this.parentViewController = controller;
             this.categories = categories;
@@ -32,29 +32,23 @@ namespace ArcGISRuntime
             {
                 for (int i = 0; i < category.Items.Count; i++)
                 {
-                    if ((category.Items[i] as TreeItem).Items.Count > 0)
-                    {
-                        categoryItems.Add((category.Items[i] as TreeItem).Items);
-                    }
+                    categoryItems.Add(category.Items[i]);
                 }
             }
 
             // Create a flat list of samples
-            foreach (List<object> item in categoryItems)
+            foreach (var item in categoryItems)
             {
-                foreach (var item1 in item)
-                {
-                    sampleItems.Add(item1 as SampleModel);
-                }
+                sampleItems.Add(item as SampleInfo);
             }
         }
         public void Search(string searchText)
         {
             visibleSamples.Clear();
             foreach (var item in sampleItems.Where(c => c.Description.ToLower().Contains(searchText.ToLower()) ||
-            c.Name.ToLower().Contains(searchText.ToLower()) ||
+            c.SampleName.ToLower().Contains(searchText.ToLower()) ||
             c.Instructions.ToLower().Contains(searchText.ToLower())))
-                visibleSamples.Add(item.Name);
+                visibleSamples.Add(item.SampleName);
 
             Console.WriteLine();
 
@@ -95,13 +89,8 @@ namespace ArcGISRuntime
         {
             try
             {
-                var item = sampleItems[indexPath.Row];
-                var sampleName = (item as SampleModel).SampleName;
-                var sampleNamespace = (item as SampleModel).SampleNamespace;
-
-                Type t = Type.GetType(sampleNamespace + "." + sampleName);
-                UIViewController vc = Activator.CreateInstance(t) as UIViewController;
-                parentViewController.NavigationController.PushViewController(vc, true);
+                var item = SampleManager.Current.SampleToControl(sampleItems[indexPath.Row]);
+                parentViewController.NavigationController.PushViewController((UIViewController)item, true);
             }
             catch (Exception ex)
             {

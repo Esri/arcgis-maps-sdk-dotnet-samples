@@ -97,140 +97,85 @@
   <PropertyGroup>
     <RunPostBuildEvent>Always</RunPostBuildEvent>
   </PropertyGroup>
-  <!-- /Build Configurations -->
+  <!-- References -->
   <ItemGroup>
-    <!-- References -->
-    <Content Include="Samples\Analysis\LineOfSightGeoElement\metadata.json" />
+    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <None Include="project.json" />
+    <SDKReference Include="WindowsMobile, Version=10.0.14393.0">
+      <Name>Windows Mobile Extensions for the UWP</Name>
+    </SDKReference>
+    <SDKReference Include="Microsoft.VCLibs, version=14.0">
+      <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
+    </SDKReference>
+  </ItemGroup>
+  <!-- Screenshots -->
+  <ItemGroup>
     <Content Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
-    <Content Include="Samples\Analysis\LineOfSightLocation\metadata.json" />
-    <Content Include="Samples\Analysis\QueryFeatureCountAndExtent\metadata.json" />
     <Content Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.jpg" />
-    <Content Include="Samples\Analysis\ViewshedCamera\metadata.json" />
     <Content Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.jpg" />
-    <Content Include="Samples\Analysis\ViewshedGeoElement\metadata.json" />
     <Content Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.jpg" />
-    <Content Include="Samples\Analysis\ViewshedLocation\metadata.json" />
     <Content Include="Samples\Analysis\ViewshedLocation\ViewshedLocation.jpg" />
     <Content Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg" />
-    <Content Include="Samples\Data\EditAndSyncFeatures\metadata.json" />
     <Content Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.jpg" />
-    <Content Include="Samples\Data\FeatureLayerGeoPackage\metadata.json" />
     <Content Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.jpg" />
-    <Content Include="Samples\Data\FeatureLayerQuery\metadata.json" />
     <Content Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.jpg" />
-    <Content Include="Samples\Data\FeatureLayerShapefile\metadata.json" />
     <Content Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.jpg" />
-    <Content Include="Samples\Data\GenerateGeodatabase\metadata.json" />
     <Content Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.jpg" />
-    <Content Include="Samples\Data\GeodatabaseTransactions\metadata.json" />
     <Content Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
-    <Content Include="Samples\Data\ListRelatedFeatures\metadata.json" />
-    <Content Include="Samples\Data\RasterLayerGeoPackage\metadata.json" />
     <Content Include="Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.jpg" />
-    <Content Include="Samples\Data\ReadGeoPackage\metadata.json" />
     <Content Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.jpg" />
-    <Content Include="Samples\Data\ReadShapefileMetadata\metadata.json" />
     <Content Include="Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.jpg" />
-    <Content Include="Samples\Data\ServiceFeatureTableCache\metadata.json" />
     <Content Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.jpg" />
-    <Content Include="Samples\Data\ServiceFeatureTableManualCache\metadata.json" />
     <Content Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.jpg" />
-    <Content Include="Samples\Data\ServiceFeatureTableNoCache\metadata.json" />
     <Content Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.jpg" />
-    <Content Include="Samples\Data\StatisticalQuery\metadata.json" />
     <Content Include="Samples\Data\StatisticalQuery\StatisticalQuery.jpg" />
-    <Content Include="Samples\Data\StatsQueryGroupAndSort\metadata.json" />
     <Content Include="Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.jpg" />
-    <Content Include="Samples\Data\SymbolizeShapefile\metadata.json" />
     <Content Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
     <Content Include="Samples\GeometryEngine\ListTransformations\ListTransformations.jpg" />
     <Content Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg" />
     <Content Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.jpg" />
-    <Content Include="Samples\Geometry\FormatCoordinates\metadata.json" />
-    <Content Include="Samples\GeometryEngine\ListTransformations\metadata.json" />
-    <Content Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\metadata.json" />
     <Content Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.jpg" />
-    <Content Include="Samples\Geoprocessing\AnalyzeHotspots\metadata.json" />
     <Content Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.jpg" />
-    <Content Include="Samples\Geoprocessing\AnalyzeViewshed\metadata.json" />
     <Content Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.jpg" />
-    <Content Include="Samples\Geoprocessing\ListGeodatabaseVersions\metadata.json" />
     <Content Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.jpg" />
-    <Content Include="Samples\GraphicsOverlay\AddGraphicsRenderer\metadata.json" />
     <Content Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.jpg" />
-    <Content Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\metadata.json" />
     <Content Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.jpg" />
-    <Content Include="Samples\GraphicsOverlay\Animate3DGraphic\metadata.json" />
     <Content Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.jpg" />
-    <Content Include="Samples\GraphicsOverlay\IdentifyGraphics\metadata.json" />
-    <Content Include="Samples\GraphicsOverlay\SketchOnMap\metadata.json" />
     <Content Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg" />
-    <Content Include="Samples\GraphicsOverlay\SurfacePlacements\metadata.json" />
     <Content Include="Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.jpg" />
-    <Content Include="Samples\Hydrography\SelectEncFeatures\metadata.json" />
     <Content Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg" />
     <Content Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg" />
-    <Content Include="Samples\Layers\ArcGISMapImageLayerUrl\metadata.json" />
     <Content Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.jpg" />
-    <Content Include="Samples\Layers\ArcGISTiledLayerUrl\metadata.json" />
     <Content Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.jpg" />
-    <Content Include="Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json" />
     <Content Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.jpg" />
-    <Content Include="Samples\Layers\ChangeBlendRenderer\metadata.json" />
     <Content Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.jpg" />
-    <Content Include="Samples\Layers\ChangeFeatureLayerRenderer\metadata.json" />
     <Content Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.jpg" />
-    <Content Include="Samples\Layers\ChangeStretchRenderer\metadata.json" />
     <Content Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.jpg" />
-    <Content Include="Samples\Layers\ChangeSublayerVisibility\metadata.json" />
     <Content Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.jpg" />
-    <Content Include="Samples\Layers\CreateFeatureCollectionLayer\metadata.json" />
     <Content Include="Samples\Layers\DisplayScene\DisplayScene.jpg" />
-    <Content Include="Samples\Layers\DisplayScene\metadata.json" />
     <Content Include="Samples\Layers\ExportTiles\ExportTiles.jpg" />
-    <Content Include="Samples\Layers\ExportTiles\metadata.json" />
     <Content Include="Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortal.jpg" />
-    <Content Include="Samples\Layers\FeatureCollectionLayerFromPortal\metadata.json" />
     <Content Include="Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQuery.jpg" />
-    <Content Include="Samples\Layers\FeatureCollectionLayerFromQuery\metadata.json" />
     <Content Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.jpg" />
-    <Content Include="Samples\Layers\FeatureLayerDefinitionExpression\metadata.json" />
     <Content Include="Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.jpg" />
-    <Content Include="Samples\Layers\FeatureLayerDictionaryRenderer\metadata.json" />
     <Content Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.jpg" />
-    <Content Include="Samples\Layers\FeatureLayerRenderingModeMap\metadata.json" />
     <Content Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
-    <Content Include="Samples\Layers\FeatureLayerRenderingModeScene\metadata.json" />
     <Content Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.jpg" />
-    <Content Include="Samples\Layers\FeatureLayerSelection\metadata.json" />
     <Content Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.jpg" />
-    <Content Include="Samples\Layers\FeatureLayerUrl\metadata.json" />
     <Content Include="Samples\Layers\RasterHillshade\RasterHillshade.jpg" />
-    <Content Include="Samples\Layers\RasterLayerFile\metadata.json" />
     <Content Include="Samples\Layers\RasterLayerFile\RasterLayerFile.jpg" />
-    <Content Include="Samples\Layers\RasterLayerImageServiceRaster\metadata.json" />
     <Content Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.jpg" />
-    <Content Include="Samples\Layers\RasterLayerRasterFunction\metadata.json" />
     <Content Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg" />
-    <Content Include="Samples\Layers\RasterRenderingRule\metadata.json" />
     <Content Include="Samples\Layers\RasterRenderingRule\RasterRenderingRule.jpg" />
     <Content Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.jpg" />
-    <Content Include="Samples\Layers\SceneLayerUrl\metadata.json" />
     <Content Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.jpg" />
-    <Content Include="Samples\Layers\TimeBasedQuery\metadata.json" />
     <Content Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.jpg" />
-    <Content Include="Samples\Layers\Web_TiledLayer\metadata.json" />
     <Content Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.jpg" />
-    <Content Include="Samples\Layers\WmsIdentify\metadata.json" />
     <Content Include="Samples\Layers\WmsIdentify\WmsIdentify.jpg" />
-    <Content Include="Samples\Layers\WMSLayerUrl\metadata.json" />
     <Content Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.jpg" />
-    <Content Include="Samples\Layers\WmsServiceCatalog\metadata.json" />
     <Content Include="Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.jpg" />
-    <Content Include="Samples\Layers\WMTSLayer\metadata.json" />
     <Content Include="Samples\Layers\WMTSLayer\WMTSLayer.jpg" />
     <Content Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.jpg" />
-    <Content Include="Samples\Location\DisplayDeviceLocation\metadata.json" />
     <Content Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.jpg" />
     <Content Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.jpg" />
     <Content Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.jpg" />
@@ -241,79 +186,30 @@
     <Content Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg" />
     <Content Include="Samples\MapView\TakeScreenshot\TakeScreenshot.jpg" />
     <Content Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.jpg" />
-    <Content Include="Samples\Map\AccessLoadStatus\metadata.json" />
     <Content Include="Samples\Map\AuthorMap\AuthorMap.jpg" />
-    <Content Include="Samples\Map\AuthorMap\metadata.json" />
     <Content Include="Samples\Map\ChangeBasemap\ChangeBasemap.jpg" />
-    <Content Include="Samples\Map\ChangeBasemap\metadata.json" />
     <Content Include="Samples\Map\DisplayMap\DisplayMap.jpg" />
-    <Content Include="Samples\Map\DisplayMap\metadata.json" />
     <Content Include="Samples\Map\ManageBookmarks\ManageBookmarks.jpg" />
-    <Content Include="Samples\Map\ManageBookmarks\metadata.json" />
-    <Content Include="Samples\Map\OpenMapURL\metadata.json" />
     <Content Include="Samples\Map\OpenMapURL\OpenMapURL.jpg" />
-    <Content Include="Samples\Map\OpenMobileMap\metadata.json" />
     <Content Include="Samples\Map\OpenMobileMap\OpenMobileMap.jpg" />
-    <Content Include="Samples\Map\SearchPortalMaps\metadata.json" />
     <Content Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg" />
-    <Content Include="Samples\Map\SetInitialMapArea\metadata.json" />
     <Content Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg" />
-    <Content Include="Samples\Map\SetInitialMapLocation\metadata.json" />
     <Content Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg" />
-    <Content Include="Samples\Map\SetMapSpatialReference\metadata.json" />
     <Content Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.jpg" />
-    <Content Include="Samples\Map\SetMinMaxScale\metadata.json" />
     <Content Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.jpg" />
-    <Content Include="Samples\MapView\ChangeViewpoint\metadata.json" />
-    <Content Include="Samples\MapView\DisplayDrawingStatus\metadata.json" />
-    <Content Include="Samples\MapView\DisplayLayerViewState\metadata.json" />
-    <Content Include="Samples\MapView\FeatureLayerTimeOffset\metadata.json" />
-    <Content Include="Samples\MapView\GeoViewSync\metadata.json" />
-    <Content Include="Samples\MapView\MapRotation\metadata.json" />
-    <Content Include="Samples\MapView\ShowCallout\metadata.json" />
-    <Content Include="Samples\MapView\ShowMagnifier\metadata.json" />
-    <Content Include="Samples\MapView\TakeScreenshot\metadata.json" />
-    <Content Include="Samples\NetworkAnalysis\FindRoute\FindRoute.jpg" />
-    <Content Include="Samples\NetworkAnalysis\FindRoute\metadata.json" />
+    <Content Include="Samples\Network Analysis\FindRoute\FindRoute.jpg" />
     <Content Include="Samples\Search\FindAddress\FindAddress.jpg" />
-    <Content Include="Samples\Search\FindAddress\metadata.json" />
     <Content Include="Samples\Search\FindPlace\FindPlace.jpg" />
-    <Content Include="Samples\Search\FindPlace\metadata.json" />
     <Content Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.jpg" />
-    <Content Include="Samples\Symbology\FeatureLayerExtrusion\metadata.json" />
-    <Content Include="Samples\Symbology\RenderPictureMarkers\metadata.json" />
     <Content Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.jpg" />
-    <Content Include="Samples\Symbology\RenderSimpleMarkers\metadata.json" />
     <Content Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.jpg" />
-    <Content Include="Samples\Symbology\RenderUniqueValues\metadata.json" />
     <Content Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.jpg" />
-    <Content Include="Samples\Symbology\SimpleRenderers\metadata.json" />
     <Content Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.jpg" />
-    <Content Include="Samples\Symbology\UseDistanceCompositeSym\metadata.json" />
     <Content Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg" />
     <Content Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg" />
-    <Content Include="Samples\Tutorial\AuthorEditSaveMap\metadata.json" />
-    <SDKReference Include="Microsoft.VCLibs, version=14.0">
-      <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
-    </SDKReference>
-    <Content Include="groups.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <None Include="project.json" />
-    <SDKReference Include="WindowsMobile, Version=10.0.14393.0">
-      <Name>Windows Mobile Extensions for the UWP</Name>
-    </SDKReference>
   </ItemGroup>
+  <!-- Misc Resources -->
   <ItemGroup>
-    <!-- Misc Config -->
-    <AppxManifest Include="Package.appxmanifest">
-      <SubType>Designer</SubType>
-    </AppxManifest>
-    <None Include="ArcGISRuntime.UWP.Viewer_TemporaryKey.pfx" />
-  </ItemGroup>
-  <ItemGroup>
-    <!-- Misc Resources -->
     <Content Include="Assets\BadgeLogo.scale-200.png" />
     <Content Include="Assets\banner-background-blue.png" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
@@ -355,30 +251,8 @@
     <Content Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
   </ItemGroup>
+  <!-- Sample Code -->
   <ItemGroup>
-    <!-- Sample Manager Code -->
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Converters\NullToVisibilityConverter.cs" />
-    <Compile Include="Converters\SampleToBitmapConverter.cs" />
-    <Compile Include="Dialogs\SampleInfoDialog.xaml.cs">
-      <DependentUpon>SampleInfoDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ErrorPage.xaml.cs">
-      <DependentUpon>ErrorPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SamplePage.xaml.cs">
-      <DependentUpon>SamplePage.xaml</DependentUpon>
-    </Compile>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
     <Compile Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml.cs">
       <DependentUpon>LineOfSightGeoElement.xaml</DependentUpon>
     </Compile>
@@ -643,7 +517,7 @@
     <Compile Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.xaml.cs">
       <DependentUpon>SetMinMaxScale.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\NetworkAnalysis\FindRoute\FindRoute.xaml.cs">
+    <Compile Include="Samples\Network Analysis\FindRoute\FindRoute.xaml.cs">
       <DependentUpon>FindRoute.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Search\FindAddress\FindAddress.xaml.cs">
@@ -673,29 +547,9 @@
     <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.xaml.cs">
       <DependentUpon>AuthorEditSaveMap.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WaitPage.xaml.cs">
-      <DependentUpon>WaitPage.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Dialogs\SampleInfoDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ErrorPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SamplePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+  </ItemGroup>
+  <!-- Sample Layouts -->
+  <ItemGroup>
     <Page Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1048,7 +902,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\NetworkAnalysis\FindRoute\FindRoute.xaml">
+    <Page Include="Samples\Network Analysis\FindRoute\FindRoute.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1064,6 +918,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    
     <Page Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1088,11 +943,67 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <!-- Sample Manager Code -->
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\NullToVisibilityConverter.cs" />
+    <Compile Include="Converters\SampleToBitmapConverter.cs" />
+    <Compile Include="Dialogs\SampleInfoDialog.xaml.cs">
+      <DependentUpon>SampleInfoDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorPage.xaml.cs">
+      <DependentUpon>ErrorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SamplePage.xaml.cs">
+      <DependentUpon>SamplePage.xaml</DependentUpon>
+    </Compile>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="WaitPage.xaml.cs">
+      <DependentUpon>WaitPage.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Dialogs\SampleInfoDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ErrorPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SamplePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WaitPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <!-- Miscellaneous Configuration -->
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+    <None Include="ArcGISRuntime.UWP.Viewer_TemporaryKey.pfx" />
+  </ItemGroup>
+  <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

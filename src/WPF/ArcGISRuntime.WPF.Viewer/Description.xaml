@@ -41,17 +41,11 @@
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <StackPanel>
-                    <TextBlock Text="{Binding Name}" Style="{StaticResource HeaderTextBlock}" FontSize="36" />
+                    <TextBlock Text="{Binding SampleName}" Style="{StaticResource HeaderTextBlock}" FontSize="36" />
                     <TextBlock Text="{Binding Description}" FontSize="18" 
 									TextWrapping="Wrap" 
                                     Style="{StaticResource PrimaryTextBlock}"
 									VerticalAlignment="Top" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="1"
-                            Visibility="{Binding Link, Converter={StaticResource nullToVisibilityConverter}}"
-                            >
-                    <TextBlock Text="Read tutorial from "                                     
-                               Style="{StaticResource PrimaryTextBlock}" FontSize="24" VerticalAlignment="Center" />
                 </StackPanel>
             </Grid>
 

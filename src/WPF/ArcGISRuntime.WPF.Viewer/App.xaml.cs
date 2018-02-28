@@ -7,7 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Managers;
 using System;
 using System.Windows;
 
@@ -17,7 +16,6 @@ namespace ArcGISRuntime.WPF.Viewer
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-
             try
             {
                 Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.Initialize();
@@ -25,7 +23,7 @@ namespace ArcGISRuntime.WPF.Viewer
             catch (Exception ex)
             {
                 // Show the message and shut down
-                MessageBox.Show(String.Format("There was an error that prevented initializing the runtime. {0}", ex.Message));
+                MessageBox.Show(string.Format("There was an error that prevented initializing the runtime. {0}", ex.Message));
                 Current.Shutdown();
             }
         }

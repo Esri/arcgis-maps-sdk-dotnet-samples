@@ -1,11 +1,20 @@
+// Copyright 2018 Esri.
+//
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+// language governing permissions and limitations under the License.
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using CoreGraphics;
 using Foundation;
-using System;
 using UIKit;
-using System.Linq;
-using System.Collections.Generic;
 
 namespace ArcGISRuntime
 {
@@ -19,15 +28,15 @@ namespace ArcGISRuntime
 
         public UISearchController SearchController { get; set; }
 
-        public async override void ViewDidLoad()
+        public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
 
 			SampleManager.Current.Initialize();
-            var data = SampleManager.Current.FullTree.Items.OfType<SearchableTreeNode>().ToList();
-			this.TableView.Source = new CategoryDataSource(this, data);
+            List<SearchableTreeNode> data = SampleManager.Current.FullTree.Items.OfType<SearchableTreeNode>().ToList();
+			TableView.Source = new CategoryDataSource(this, data);
 
-			this.TableView.ReloadData();
+			TableView.ReloadData();
 
             var searchResultsController = new SearchResultsViewController(this, data);
 
@@ -48,36 +57,36 @@ namespace ArcGISRuntime
 
         public class CategoryDataSource : UITableViewSource
 		{
-			private UITableViewController controller;
-			private List<SearchableTreeNode> data;
+			private readonly UITableViewController _controller;
+			private readonly List<SearchableTreeNode> _data;
 
-			static string CELL_ID = "cellid";
+			static readonly string CellId = "cellid";
 
 			public CategoryDataSource(UITableViewController controller, List<SearchableTreeNode> data)
 			{
-				this.data = data;
-				this.controller = controller;
+				_data = data;
+				_controller = controller;
 			}
 
 			public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
 			{
-				var cell = tableView.DequeueReusableCell(CELL_ID, indexPath);
-				var item = data[indexPath.Row];
+				var cell = tableView.DequeueReusableCell(CellId, indexPath);
+				var item = _data[indexPath.Row];
 				cell.TextLabel.Text = item.Name;
 				return cell;
 			}
 
 			public override nint RowsInSection(UITableView tableview, nint section)
 			{
-				return data.Count;
+				return _data.Count;
 			}
 
 			public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
 			{
 				try
 				{
-					var selected = data[indexPath.Row];
-					controller.NavigationController.PushViewController(new SamplesViewController(selected), true);
+					var selected = _data[indexPath.Row];
+					_controller.NavigationController.PushViewController(new SamplesViewController(selected), true);
 				}
 				catch (Exception ex)
 				{

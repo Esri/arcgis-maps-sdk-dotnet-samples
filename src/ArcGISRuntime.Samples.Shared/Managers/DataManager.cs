@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+﻿// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -16,36 +16,32 @@ using System.IO.Compression;
 using System.Linq;
 using System.Threading.Tasks;
 
-#if NETFX_CORE
-using Windows.Storage;
-#endif
-
 namespace ArcGISRuntime.Samples.Managers
 {
-    public class DataManager
+    public static class DataManager
     {
-        private DataManager()
-        {
-        }
-
-        private static readonly DataManager SingleInstance = new DataManager();
-
+        /// <summary>
+        /// Downloads a portal item and leaves a marker to track download date.
+        /// </summary>
+        /// <param name="item">Portal item to download.</param>
         private static async Task DownloadItem(PortalItem item)
         {
-            // get sample data directory
-            string data_dir = Path.Combine(GetDataFolder(), item.ItemId);
+            // Get sample data directory.
+            string dataDir = Path.Combine(GetDataFolder(), item.ItemId);
 
-            // create directory matching item id
-            if (!Directory.Exists(data_dir))
+            // Create directory matching item id.
+            if (!Directory.Exists(dataDir))
             {
-                Directory.CreateDirectory(data_dir);
+                Directory.CreateDirectory(dataDir);
             }
 
-            // Download item to the directory
+            // Get the download task.
             Task<Stream> downloadTask = item.GetDataAsync();
 
-            string tempFile = Path.Combine(data_dir, item.Name);
-            // Download the file
+            // Get the path to the destination file.
+            string tempFile = Path.Combine(dataDir, item.Name);
+
+            // Download the file.
             using (var s = await downloadTask.ConfigureAwait(false))
             {
                 using (var f = File.Create(tempFile))
@@ -54,47 +50,45 @@ namespace ArcGISRuntime.Samples.Managers
                 }
             }
 
-            // Unzip the file if it is a zip file
+            // Unzip the file if it is a zip archive.
             if (tempFile.EndsWith(".zip"))
             {
-                UnpackData(tempFile, data_dir);
+                UnpackData(tempFile, dataDir);
             }
 
-            // Write the __sample.config file
-            string configFilePath = Path.Combine(data_dir, "__sample.config");
-            File.WriteAllText(configFilePath, DateTime.Now.ToString());
+            // Write the __sample.config file. This is used to ensure that cached data did not go out-of-date.
+            string configFilePath = Path.Combine(dataDir, "__sample.config");
+            File.WriteAllText(configFilePath, "Data downloaded: " + DateTime.Now);
         }
 
+        /// <summary>
+        /// Determines if a portal item has been downloaded and is up-to-date. 
+        /// </summary>
+        /// <param name="item">The portal item to check.</param>
+        /// <returns><c>true</c> if data is available and up-to-date, false otherwise.</returns>
         private static bool IsDataPresent(PortalItem item)
         {
-            // get sample data directory
-            string data_dir = GetDataFolder();
-            // look for directory matching item id
-            string dir = GetDataFolder(item.ItemId);
-            if (!Directory.Exists(dir)) { return false; }
-            // if data is present, look for __sample.config file
-            string configPath = Path.Combine(dir, "__sample.config");
+            // Look for __sample.config file. Return false if not present.
+            string configPath = Path.Combine(GetDataFolder(item.ItemId), "__sample.config");
             if (!File.Exists(configPath)) { return false; }
-            // Read __sample.config, extract data
-            string body = File.ReadLines(configPath).First();
-            DateTime downloadDate;
-            bool dateExtractSuccess = DateTime.TryParse(body, out downloadDate);
 
-            if (!dateExtractSuccess) { return false; }
+            // Get the last write date from the __sample.config file metadata.
+            DateTime downloadDate = File.GetLastWriteTime(configPath);
 
-            // Return false if data was updated since last download
-            if (downloadDate < item.Modified) { return false; }
-
-            // If we're still here, the sample data is valid
-            return true;
+            // Return true if the item was downloaded after it was last modified.
+            return downloadDate >= item.Modified;
         }
 
+        /// <summary>
+        /// Ensures that data needed for a sample has been downloaded and is up-to-date.
+        /// </summary>
+        /// <param name="sample">The sample to ensure data is present for.</param>
         public static async Task EnsureSampleDataPresent(SampleInfo sample)
         {
-            // Return if there's nothing to do
+            // Return if there's nothing to do.
             if (sample.OfflineDataItems == null || !sample.OfflineDataItems.Any()) { return; }
 
-            // Hold list of download tasks (to enable parallel download)
+            // Hold a list of download tasks (to enable parallel download).
             List<Task> downloads = new List<Task>();
 
             foreach (string itemId in sample.OfflineDataItems)
@@ -113,6 +107,12 @@ namespace ArcGISRuntime.Samples.Managers
             await Task.WhenAll(downloads);
         }
 
+        /// <summary>
+        /// Unzips the file at path defined by <paramref name="zipFile"/>
+        ///  into <paramref name="folder"/>.
+        /// </summary>
+        /// <param name="zipFile">Path to the zip archive to extract.</param>
+        /// <param name="folder">Destination folder.</param>
         private static void UnpackData(string zipFile, string folder)
         {
             using (var archive = ZipFile.OpenRead(zipFile))
@@ -127,7 +127,7 @@ namespace ArcGISRuntime.Samples.Managers
         }
 
         /// <summary>
-        /// Gets the data folder where locally provisioned data is stored
+        /// Gets the data folder where locally provisioned data is stored.
         /// </summary>
         internal static string GetDataFolder()
         {
@@ -144,11 +144,22 @@ namespace ArcGISRuntime.Samples.Managers
             return sampleDataFolder;
         }
 
+        /// <summary>
+        /// Gets the path to an item on disk. 
+        /// The item must have already been downloaded for the path to be valid.
+        /// </summary>
+        /// <param name="itemId">ID of the portal item.</param>
         internal static string GetDataFolder(string itemId)
         {
             return Path.Combine(GetDataFolder(), itemId);
         }
 
+        /// <summary>
+        /// Gets the path to an item on disk. 
+        /// The item must have already been downloaded for the path to be valid.
+        /// </summary>
+        /// <param name="itemID">ID of the portal item.</param>
+        /// <param name="pathParts">Components of the path.</param>
         internal static string GetDataFolder(string itemID, params string[] pathParts)
         {
             return Path.Combine(GetDataFolder(itemID), Path.Combine(pathParts));

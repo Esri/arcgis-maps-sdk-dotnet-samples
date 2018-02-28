@@ -267,7 +267,6 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.xaml.cs">
       <DependentUpon>SketchOnMap.xaml</DependentUpon>
-
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.xaml.cs">
@@ -839,7 +838,6 @@
       <DependentUpon>CategoryListPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Logger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SampleListPage.xaml.cs">
       <DependentUpon>SampleListPage.xaml</DependentUpon>
       <SubType>Code</SubType>

@@ -9,58 +9,51 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 
 namespace ArcGISRuntime.Samples.Shared.Models
 {
-    public class SearchableTreeNode : INotifyPropertyChanged
+    public class SearchableTreeNode
     {
+        // Name of this node in the tree.
         public string Name { get; set; }
+
+        // List of child items. These are expected to be other SearchableTreeNodes or SampleInfos.
         public List<object> Items { get; set; }
 
-        private bool m_IsExpanded;
-
         /// <summary>
-        /// Supports collapsing in a tree view context
+        /// Creates a new SearchableTreeNode from a list of items.
         /// </summary>
-        public bool IsExpanded
-        {
-            get { return m_IsExpanded; }
-            set
-            {
-                m_IsExpanded = value;
-                PropertyChangedEventHandler pc = PropertyChanged;
-                if (pc != null) pc.Invoke(this, new PropertyChangedEventArgs("IsExpanded"));
-            }
-        }
-
+        /// <param name="name">The name for this node in the tree.</param>
+        /// <param name="items">A list of containing <c>SampleInfo</c>s and <c>SearchableTreeNode</c>s.</param>
         public SearchableTreeNode(string name, IEnumerable<object> items)
         {
             Name = name;
             Items = items.ToList();
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
+        /// <summary>
+        /// Searches the node and any sub-nodes for samples matching the predicate.
+        /// </summary>
+        /// <param name="predicate">Function that should return true for any matching samples.</param>
+        /// <returns><c>null</c> if there are no matches, a <c>SearchableTreeNode</c> if there are.</returns>
         public SearchableTreeNode Search(Func<SampleInfo, bool> predicate)
         {
-            // Search recursively if node contains sub-trees
-            var subTrees = Items.OfType<SearchableTreeNode>()
+            // Search recursively if this node contains sub-trees.
+            SearchableTreeNode[] subTrees = Items.OfType<SearchableTreeNode>()
                 .Select(cn => cn.Search(predicate))
                 .Where(cn => cn != null)
                 .ToArray();
             if (subTrees.Any()) return new SearchableTreeNode(Name, subTrees);
 
-            // If the node contains samples, search those
-            var matchingSamples = Items
+            // If the node contains samples, search those.
+            SampleInfo[] matchingSamples = Items
                 .OfType<SampleInfo>()
                 .Where(predicate)
                 .ToArray();
-            if (matchingSamples.Any()) return new SearchableTreeNode(Name, matchingSamples);
 
-            // No matches
-            return null;
+            // Return null if there are no results.
+            return matchingSamples.Any() ? new SearchableTreeNode(Name, matchingSamples) : null;
         }
     }
 }

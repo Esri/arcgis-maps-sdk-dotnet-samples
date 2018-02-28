@@ -22,9 +22,9 @@ namespace ArcGISRuntime
     [Activity(Label = "ArcGIS Runtime SDK for .NET", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
-        List<SearchableTreeNode> _sampleCategories;
+        private List<SearchableTreeNode> _sampleCategories;
 
-        protected async override void OnCreate(Bundle bundle)
+        protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 
@@ -51,10 +51,6 @@ namespace ArcGISRuntime
 
         private void CategoriesItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            // Don't need this currently, but would be nice eventually to pass the category instead of the 
-            // position. TBD since you can't pass complex types via Intents. 
-            var category = _sampleCategories[e.Position];
-
             var samplesListActivity = new Intent(this, typeof(SamplesListActivity));
 
             // Pass the index of the selected category to the SamplesListActivity

@@ -9,23 +9,16 @@
 
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
+using Esri.ArcGISRuntime.Security;
 using System;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace ArcGISRuntime.Samples.Desktop
 {
     public partial class MainWindow
     {
-        private bool _isTakingThumbnail;
-        private int _previousHeight;
-        private int _previousWidth;
-
         public MainWindow()
         {
             InitializeComponent();
@@ -39,7 +32,7 @@ namespace ArcGISRuntime.Samples.Desktop
                 SampleManager.Current.Initialize();
 
                 // Set category data context
-                categories.DataContext = WPF.Viewer.Helpers.ToTreeViewItem(SampleManager.Current.FullTree);
+                Categories.DataContext = WPF.Viewer.Helpers.ToTreeViewItem(SampleManager.Current.FullTree);
 
                 // Select a random sample
                 Random rnd = new Random();
@@ -57,13 +50,13 @@ namespace ArcGISRuntime.Samples.Desktop
             {
                 var sample = e.AddedItems[0] as SampleInfo;
                 SelectSample(sample);
-                (sender as ListView).SelectedItem = null;
+                ((ListView)sender).SelectedItem = null;
             }
         }
 
         private void categories_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            var sample = ((e.NewValue as TreeViewItem).DataContext as SampleInfo);
+            var sample = (((TreeViewItem)e.NewValue).DataContext as SampleInfo);
             SelectSample(sample);
         }
 
@@ -102,16 +95,14 @@ namespace ArcGISRuntime.Samples.Desktop
             CategoriesRegion.Visibility = Visibility.Collapsed;
         }
 
-        private void ClearCredentials()
+        private static void ClearCredentials()
         {
             // Clear credentials (if any) from previous sample runs
-            var creds = Esri.ArcGISRuntime.Security.AuthenticationManager.Current.Credentials;
-            for (var i = creds.Count() - 1; i >= 0; i--)
+            foreach (var cred in AuthenticationManager.Current.Credentials)
             {
-                var c = creds.ElementAtOrDefault(i);
-                if (c != null)
+                if (cred != null)
                 {
-                    Esri.ArcGISRuntime.Security.AuthenticationManager.Current.RemoveCredential(c);
+                    AuthenticationManager.Current.RemoveCredential(cred);
                 }
             }
         }
@@ -123,72 +114,18 @@ namespace ArcGISRuntime.Samples.Desktop
             if (_openCategoryLeafs)
             {
                 _openCategoryLeafs = false;
-                if (categories.Items.Count > 0)
+                if (Categories.Items.Count > 0)
                 {
-                    var firstTreeViewItem = categories.Items[0] as TreeViewItem;
-                    firstTreeViewItem.IsSelected = true;
+                    var firstTreeViewItem = Categories.Items[0] as TreeViewItem;
+                    if (firstTreeViewItem != null) firstTreeViewItem.IsSelected = true;
 
-                    foreach (var item in categories.Items)
+                    foreach (var item in Categories.Items)
                     {
                         var treeViewItem = item as TreeViewItem;
-                        treeViewItem.IsExpanded = true;
+                        if (treeViewItem != null) treeViewItem.IsExpanded = true;
                     }
                 }
             }
-        }
-
-        private void CommandBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
-        {
-            TakeThumbnail();
-        }
-
-        private async void TakeThumbnail()
-        {
-            if (SampleManager.Current.SelectedSample == null)
-            {
-                MessageBox.Show("Please select Live Sample to before creating a thumbnail.");
-                return;
-            }
-
-            if (!_isTakingThumbnail)
-            {
-                _previousHeight = (int)SampleContainer.ActualHeight;
-                _previousWidth = (int)SampleContainer.ActualWidth;
-
-                SampleContainer.Width = _previousHeight * 1.25;
-                _isTakingThumbnail = true;
-                return;
-            }
-
-            var rtb = new RenderTargetBitmap((int)SampleContainer.ActualWidth,
-                (int)SampleContainer.ActualHeight, 96, 96, PixelFormats.Default);
-            rtb.Render(SampleContainer.Content as UIElement);
-
-            // Encoding the RenderBitmapTarget as a JPG file.
-            JpegBitmapEncoder jpg = new JpegBitmapEncoder() { QualityLevel = 90 };
-            jpg.Frames.Add(BitmapFrame.Create(rtb));
-
-            var file = new FileInfo(Path.Combine(
-                SampleManager.Current.SelectedSample.Path,
-                SampleManager.Current.SelectedSample.Image));
-            if (file.Exists)
-            {
-                await Task.Delay(1000);
-                file.Delete();
-                using (Stream stm = File.Create(file.FullName))
-                    jpg.Save(stm);
-            }
-            else
-            {
-                using (Stream stm = File.Create(file.FullName))
-                    jpg.Save(stm);
-            }
-
-            SampleContainer.Width = _previousWidth;
-            SampleContainer.Height = _previousHeight;
-            SampleContainer.HorizontalAlignment = HorizontalAlignment.Left;
-            SampleContainer.VerticalAlignment = VerticalAlignment.Top;
-            _isTakingThumbnail = false;
         }
 
         private void LiveSample_Click(object sender, RoutedEventArgs e)
@@ -205,17 +142,16 @@ namespace ArcGISRuntime.Samples.Desktop
 
         private void Close_Click(object sender, RoutedEventArgs e)
         {
-            closeNavigation.Visibility = Visibility.Collapsed;
-            openNavigation.Visibility = Visibility.Visible;
-            root.ColumnDefinitions[0].MaxWidth = 0;
+            CloseNavigation.Visibility = Visibility.Collapsed;
+            OpenNavigation.Visibility = Visibility.Visible;
+            Root.ColumnDefinitions[0].MaxWidth = 0;
         }
 
         private void Open_Click(object sender, RoutedEventArgs e)
         {
-            openNavigation.Visibility = Visibility.Collapsed;
-            closeNavigation.Visibility = Visibility.Visible;
-            root.ColumnDefinitions[0].MaxWidth = 535;
+            OpenNavigation.Visibility = Visibility.Collapsed;
+            CloseNavigation.Visibility = Visibility.Visible;
+            Root.ColumnDefinitions[0].MaxWidth = 535;
         }
-
     }
 }

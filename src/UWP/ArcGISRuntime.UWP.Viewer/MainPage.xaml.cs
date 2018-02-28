@@ -1,17 +1,19 @@
-﻿// Copyright 2016 Esri.
+﻿// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
+using ArcGISRuntime.Samples.Shared.Models;
 using ArcGISRuntime.UWP.Viewer.Dialogs;
+using Esri.ArcGISRuntime.Security;
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Windows.Foundation.Metadata;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
@@ -19,14 +21,12 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Navigation = Windows.UI.Xaml.Navigation;
-using ArcGISRuntime.Samples.Shared.Models;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntime.UWP.Viewer
 {
     public sealed partial class MainPage
     {
-        private readonly SystemNavigationManager _currentView = null;
+        private readonly SystemNavigationManager _currentView;
 
         public MainPage()
         {
@@ -39,19 +39,17 @@ namespace ArcGISRuntime.UWP.Viewer
             _currentView.BackRequested += OnFrameNavigationRequested;
 
             HideStatusBar();
-            
+
             Initialize();
         }
 
-
         // Check if the phone contract is available (mobile) and hide status bar if it is there
-        private async void HideStatusBar()
-        { 
+        private static async void HideStatusBar()
+        {
             // If we have a phone contract, hide the status bar
             if (ApiInformation.IsApiContractPresent("Windows.Phone.PhoneContract", 1, 0))
             {
-                var statusBar = StatusBar.GetForCurrentView();
-                await statusBar.HideAsync();
+                await StatusBar.GetForCurrentView().HideAsync();
             }
         }
 
@@ -68,18 +66,6 @@ namespace ArcGISRuntime.UWP.Viewer
         private void OnFrameNavigated(object sender, Navigation.NavigationEventArgs e)
         {
             _currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
-        }
-
-        private void HideLoadingIndication()
-        {
-            LoadingIndicatorArea.Visibility = Visibility.Collapsed;
-            LoadingProgressRing.IsActive = false;
-        }
-
-        private void ShowLoadingIndication()
-        {
-            LoadingIndicatorArea.Visibility = Visibility.Visible;
-            LoadingProgressRing.IsActive = true;
         }
 
         protected override void OnNavigatedTo(Navigation.NavigationEventArgs e)
@@ -100,9 +86,7 @@ namespace ArcGISRuntime.UWP.Viewer
 
             categories.ItemsSource = categoriesList.Items;
             categories.SelectedIndex = 0;
-            (Window.Current.Content as Frame).Navigated += OnFrameNavigated;
-
-            HideLoadingIndication();
+            ((Frame)Window.Current.Content).Navigated += OnFrameNavigated;
         }
 
         private void OnCategoriesSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -116,7 +100,7 @@ namespace ArcGISRuntime.UWP.Viewer
 
         private async void OnSampleItemTapped(object sender, TappedRoutedEventArgs e)
         {
-            var selectedSample = (sender as FrameworkElement).DataContext as SampleInfo;
+            var selectedSample = (sender as FrameworkElement)?.DataContext as SampleInfo;
             await SelectSample(selectedSample);
         }
 
@@ -135,7 +119,6 @@ namespace ArcGISRuntime.UWP.Viewer
                     Frame.Navigate(typeof(WaitPage));
                     // Wait for offline data to complete
                     await DataManager.EnsureSampleDataPresent(selectedSample);
-                    
                 }
                 // Show the sample
                 Frame.Navigate(typeof(SamplePage));
@@ -143,10 +126,10 @@ namespace ArcGISRuntime.UWP.Viewer
                 // Only remove download page from navigation stack if it was shown
                 if (selectedSample.OfflineDataItems != null)
                 {
-                    // Remove the waitpage from the stack
-                    Frame.BackStack.Remove(Frame.BackStack.Where(m => m.SourcePageType == typeof(WaitPage)).First());
+                    // Remove the wait page from the stack
+                    Frame.BackStack.Remove(Frame.BackStack.First(m => m.SourcePageType == typeof(WaitPage)));
                 }
-                
+
                 // Call a function to clear any existing credentials from AuthenticationManager
                 ClearCredentials();
 
@@ -160,62 +143,34 @@ namespace ArcGISRuntime.UWP.Viewer
             }
         }
 
-        private void ClearCredentials()
+        private static void ClearCredentials()
         {
             // Clear credentials (if any) from previous sample runs
-            var creds = Esri.ArcGISRuntime.Security.AuthenticationManager.Current.Credentials;
-            for (var i = creds.Count() - 1; i >= 0; i--)
+            foreach (Credential cred in AuthenticationManager.Current.Credentials)
             {
-                var c = creds.ElementAtOrDefault(i);
-                if (c != null)
+                if (cred != null)
                 {
-                    Esri.ArcGISRuntime.Security.AuthenticationManager.Current.RemoveCredential(c);
+                    AuthenticationManager.Current.RemoveCredential(cred);
                 }
-            }
-        }
-
-        private void OnSearchQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
-        {
-            if (SearchToggleButton.IsChecked.HasValue && SearchToggleButton.IsChecked.Value)
-            {
-                //SearchBox.Visibility = Visibility.Collapsed;
-                SearchToggleButton.Visibility = Visibility.Visible;
-                SearchToggleButton.IsChecked = false;
-            }
-        }
-
-        private void OnSearchToggleChecked(object sender, RoutedEventArgs e)
-        {
-            if (SearchToggleButton.IsChecked.HasValue && SearchToggleButton.IsChecked.Value)
-            {
-                //SearchBox.Visibility = Visibility.Visible;
-                SearchToggleButton.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                //SearchBox.Visibility = Visibility.Collapsed;
             }
         }
 
         private async void OnInfoClicked(object sender, RoutedEventArgs e)
         {
-            var sampleModel = (sender as Button).DataContext as SampleInfo;
+            var sampleModel = (sender as Button)?.DataContext as SampleInfo;
             if (sampleModel == null)
                 return;
 
             // Create dialog that is used to show the picture
-            var dialog = new ContentDialog()
+            var dialog = new ContentDialog
             {
                 Title = sampleModel.SampleName,
-                //MaxWidth = ActualWidth,
-                //MaxHeight = ActualHeight
+                PrimaryButtonText = "close",
+                SecondaryButtonText = "show",
             };
 
-            dialog.PrimaryButtonText = "close";
-            dialog.SecondaryButtonText = "show";
             dialog.PrimaryButtonClick += (s, args) =>
             {
-               
             };
             dialog.SecondaryButtonClick += (s, args) =>
             {
@@ -224,7 +179,7 @@ namespace ArcGISRuntime.UWP.Viewer
 
             dialog.Content = new SampleInfoDialog() { DataContext = sampleModel };
 
-            // Show dialog as a full screen overlay. 
+            // Show dialog as a full screen overlay.
             await dialog.ShowAsync();
         }
 

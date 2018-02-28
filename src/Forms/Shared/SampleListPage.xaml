@@ -6,7 +6,7 @@
     <ListView x:Name="SampleList" ItemsSource="{Binding .}" ItemTapped="OnItemTapped">
         <ListView.ItemTemplate>
             <DataTemplate>
-                <TextCell Text="{Binding SampleName}"/>
+                <TextCell Text="{Binding SampleName}" />
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>

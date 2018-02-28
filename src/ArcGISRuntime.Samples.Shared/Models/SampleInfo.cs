@@ -18,101 +18,43 @@ namespace ArcGISRuntime.Samples.Shared.Models
 {
     public class SampleInfo
     {
-        private string _pathStub = System.IO.Directory.GetCurrentDirectory();
-
-        public SampleInfo(Type sampleType)
-        {
-            this.SampleType = sampleType;
-            TypeInfo typeInfo = sampleType.GetTypeInfo();
-
-            var sampleAttr = GetAttribute<SampleAttribute>(typeInfo);
-            if (sampleAttr == null) { throw new ArgumentException("Type must be decorated with 'Sample' attribute"); }
-
-            var offlineDataAttr = GetAttribute<OfflineDataAttribute>(typeInfo);
-            var xamlAttr = GetAttribute<XamlFilesAttribute>(typeInfo);
-            var androidAttr = GetAttribute<AndroidLayoutAttribute>(typeInfo);
-            var classAttr = GetAttribute<ClassFileAttribute>(typeInfo);
-
-            this.Category = sampleAttr.Category;
-            this.Description = sampleAttr.Description;
-            this.Instructions = sampleAttr.Instructions;
-            this.SampleName = sampleAttr.Name;
-            this.Tags = sampleAttr.Tags;
-            if (androidAttr != null) { this.AndroidLayouts = androidAttr.Files; }
-            if (xamlAttr != null) { this.XamlLayouts = xamlAttr.Files; }
-            if (classAttr != null) { this.ClassFiles = classAttr.Files; }
-            if (offlineDataAttr != null) { this.OfflineDataItems = offlineDataAttr.Items; }
-        }
+        private string _pathStub = Directory.GetCurrentDirectory();
 
         /// <summary>
-        /// This constructor is for use when constructing from a type in another assembly
-        /// Because of the way type comparison is done, types from different assembly (even if the source is the same) are different, which breaks casts and comparisons
+        /// Gets the path to the sample on disk.
         /// </summary>
-        /// <param name="sampleType"></param>
-        /// <param name="assembly"></param>
-        public SampleInfo(Type sampleType, Assembly assembly)
-        {
-            // The type from which to build the sample info
-            this.SampleType = sampleType;
-
-            // Type info for the sample
-            TypeInfo typeInfo = sampleType.GetTypeInfo();
-
-            // Get the types from the originating assembly
-            var attributeTypeSample = assembly.GetType("ArcGISRuntime.Samples.Shared.Attributes.SampleAttribute"); // needed when working from other assembly
-            var attributeTypeAndroid = assembly.GetType("ArcGISRuntime.Samples.Shared.Attributes.AndroidLayoutAttribute");
-            var attributeTypeOffline = assembly.GetType("ArcGISRuntime.Samples.Shared.Attributes.OfflineDataAttribute");
-            var attributeTypeXaml = assembly.GetType("ArcGISRuntime.Samples.Shared.Attributes.XamlFilesAttribute");
-            var attributeTypeClass = assembly.GetType("ArcGISRuntime.Samples.Shared.Attributes.ClassFileAttribute");
-
-            // Get the attributes decorating the sample
-            var sampleAttr = typeInfo.GetCustomAttribute(attributeTypeSample, false);
-            if (sampleAttr == null) { throw new ArgumentException("Type must be decorated with 'Sample' attribute"); }
-            var offlineDataAttr = typeInfo.GetCustomAttribute(attributeTypeOffline, false);
-            var xamlAttr = typeInfo.GetCustomAttribute(attributeTypeXaml, false);
-            var androidAttr = typeInfo.GetCustomAttribute(attributeTypeAndroid, false);
-            var classAttr = typeInfo.GetCustomAttribute(attributeTypeClass, false);
-
-            // Use reflection to get the properties from each attribute. Then get the value for each property on each attribute
-            this.Category = sampleAttr.GetType().GetProperty("Category").GetValue(sampleAttr).ToString();
-            this.Description = sampleAttr.GetType().GetProperty("Description").GetValue(sampleAttr).ToString();
-            this.Instructions = sampleAttr.GetType().GetProperty("Instructions").GetValue(sampleAttr).ToString(); ;
-            this.SampleName = sampleAttr.GetType().GetProperty("Name").GetValue(sampleAttr).ToString();
-            this.Tags = sampleAttr.GetType().GetProperty("Tags").GetValue(sampleAttr) as List<String>;
-            if (androidAttr != null) { this.AndroidLayouts = androidAttr.GetType().GetProperty("Files").GetValue(androidAttr) as List<String>; }
-            if (xamlAttr != null) { this.XamlLayouts = xamlAttr.GetType().GetProperty("Files").GetValue(xamlAttr) as List<String>; }
-            if (classAttr != null) { this.ClassFiles = classAttr.GetType().GetProperty("Files").GetValue(classAttr) as List<String>; }
-            if (offlineDataAttr != null) { this.OfflineDataItems = offlineDataAttr.GetType().GetProperty("Items").GetValue(offlineDataAttr) as List<String>; }
-        }
-
-        /// <summary>
-        /// This path function assumes that the sample is in the executing assembly
-        /// </summary>
-        public string Path
+        public string Path 
         {
             get
             {
-                return System.IO.Path.Combine(_pathStub, "Samples", this.Category, SampleType.Name);
+                return System.IO.Path.Combine(_pathStub, "Samples", Category, SampleType.Name);
             }
         }
 
-        private static T GetAttribute<T>(MemberInfo typeInfo) where T : Attribute
-        {
-            return typeInfo.GetCustomAttributes(typeof(T)).SingleOrDefault() as T;
-        }
-
+        /// <summary>
+        /// The human-readable name of the sample.
+        /// </summary>
         public string SampleName { get; set; }
 
+        /// <summary>
+        /// The name of the sample as it appears in code.
+        /// </summary>
         public string FormalName { get { return SampleType.Name; } }
 
+        /// <summary>
+        /// The human-readable category of the sample.
+        /// </summary>
         public string Category { get; set; }
-
-        public string ProgCategory { get { return Category.Replace("Samples", "").Replace(" ", ""); } }
 
         public string Description { get; set; }
 
         public string Instructions { get; set; }
 
+        /// <summary>
+        /// A list of offline data items that should be downloaded 
+        /// from ArcGIS Online prior to loading the sample. These 
+        /// should be expressed as portal item identifiers. 
+        /// </summary>
         public IEnumerable<string> OfflineDataItems { get; set; }
 
         public IEnumerable<string> Tags { get; set; }
@@ -123,11 +65,23 @@ namespace ArcGISRuntime.Samples.Shared.Models
 
         public IEnumerable<string> ClassFiles { get; set; }
 
+        /// <summary>
+        /// The expected filename of the sample's image, without path.
+        /// This is intened for use on Windows.
+        /// </summary>
         public string Image { get { return String.Format("{0}.jpg", SampleType.Name); } }
 
+        /// <summary>
+        /// The underlying .NET type for this sample.
+        /// Note: this is used by the sample viewer to 
+        /// construct samples at run time. 
+        /// </summary>
         public Type SampleType { get; set; }
 
-        public string SampleImageName { get { return System.IO.Path.Combine(this.Path, this.Image); } }
+        /// <summary>
+        /// The path to the sample image on disk; intended for use on Windows.
+        /// </summary>
+        public string SampleImageName { get { return System.IO.Path.Combine(Path, Image); } }
 
         /// <summary>
         /// Base directory for the samples; defaults to executable directory
@@ -137,53 +91,114 @@ namespace ArcGISRuntime.Samples.Shared.Models
             get { return _pathStub; }
             set { _pathStub = value; }
         }
-        /*
-        private List<String> codeFiles;
 
-        public List<string> CodeFiles
+        /// <summary>
+        /// This constructor is for use when the sample 
+        /// type is in the executing assembly.
+        /// </summary>
+        /// <param name="sampleType">The type for the sample object.</param>
+        public SampleInfo(Type sampleType)
         {
-            get
+            SampleType = sampleType;
+            TypeInfo typeInfo = sampleType.GetTypeInfo();
+
+            var sampleAttr = GetAttribute<SampleAttribute>(typeInfo);
+            if (sampleAttr == null) { throw new ArgumentException("Type must be decorated with 'Sample' attribute"); }
+
+            var offlineDataAttr = GetAttribute<OfflineDataAttribute>(typeInfo);
+            var xamlAttr = GetAttribute<XamlFilesAttribute>(typeInfo);
+            var androidAttr = GetAttribute<AndroidLayoutAttribute>(typeInfo);
+            var classAttr = GetAttribute<ClassFileAttribute>(typeInfo);
+
+            Category = sampleAttr.Category;
+            Description = sampleAttr.Description;
+            Instructions = sampleAttr.Instructions;
+            SampleName = sampleAttr.Name;
+            Tags = sampleAttr.Tags;
+            if (androidAttr != null) { AndroidLayouts = androidAttr.Files; }
+            if (xamlAttr != null) { XamlLayouts = xamlAttr.Files; }
+            if (classAttr != null) { ClassFiles = classAttr.Files; }
+            if (offlineDataAttr != null) { OfflineDataItems = offlineDataAttr.Items; }
+        }
+
+        /// <summary>
+        /// This constructor is for use when constructing from a type in another assembly
+        /// Because of the way type comparison is done, types from different assembly (even if the source is the same) are different
+        /// This breaks casts and comparisons relied on in the other constructor.
+        /// </summary>
+        /// <param name="sampleType">The type for the sample object.</param>
+        /// <param name="assembly">The assembly from which the sample originated.</param>
+        public SampleInfo(Type sampleType, Assembly assembly)
+        {
+            // The type from which to build the sample info.
+            SampleType = sampleType;
+
+            // Type info for the sample.
+            TypeInfo typeInfo = sampleType.GetTypeInfo();
+
+            // Get the types from the originating assembly. This is needed when working from another assembly (e.g. reflecting on a loaded DLL). 
+            var attributeTypeSample = assembly.GetType("ArcGISRuntime.Samples.Shared.Attributes.SampleAttribute");
+            var attributeTypeAndroid = assembly.GetType("ArcGISRuntime.Samples.Shared.Attributes.AndroidLayoutAttribute");
+            var attributeTypeOffline = assembly.GetType("ArcGISRuntime.Samples.Shared.Attributes.OfflineDataAttribute");
+            var attributeTypeXaml = assembly.GetType("ArcGISRuntime.Samples.Shared.Attributes.XamlFilesAttribute");
+            var attributeTypeClass = assembly.GetType("ArcGISRuntime.Samples.Shared.Attributes.ClassFileAttribute");
+
+            // Get the attributes decorating the sample.
+            var sampleAttr = typeInfo.GetCustomAttribute(attributeTypeSample, false);
+            if (sampleAttr == null) { throw new ArgumentException("Type must be decorated with 'Sample' attribute"); }
+            var offlineDataAttr = typeInfo.GetCustomAttribute(attributeTypeOffline, false);
+            var xamlAttr = typeInfo.GetCustomAttribute(attributeTypeXaml, false);
+            var androidAttr = typeInfo.GetCustomAttribute(attributeTypeAndroid, false);
+            var classAttr = typeInfo.GetCustomAttribute(attributeTypeClass, false);
+
+            // Get the values for each attribute property.
+            Category = GetStringFromAttribute(sampleAttr, "Category");
+            Description = GetStringFromAttribute(sampleAttr, "Description");
+            Instructions = GetStringFromAttribute(sampleAttr, "Instructions");
+            SampleName = GetStringFromAttribute(sampleAttr, "Name");
+            Tags = GetListFromAttribute(sampleAttr, "Tags");
+            AndroidLayouts = GetListFromAttribute(androidAttr, "Files");
+            XamlLayouts = GetListFromAttribute(xamlAttr, "Files");
+            ClassFiles = GetListFromAttribute(classAttr, "Files");
+            OfflineDataItems = GetListFromAttribute(offlineDataAttr, "Items");
+        }
+
+        /// <summary>
+        /// Gets the attribute of type <typeparamref name="T"/> for a type described by <paramref name="typeInfo"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of the attribute object to return.</typeparam>
+        /// <param name="typeInfo">Describes the type that will be examined.</param>
+        /// <returns>The matching attribute object.</returns>
+        private static T GetAttribute<T>(MemberInfo typeInfo) where T : Attribute
+        {
+            return typeInfo.GetCustomAttributes(typeof(T)).SingleOrDefault() as T;
+        }
+
+        /// <summary>
+        /// Takes an attribute object and returns the value from the property matching the supplies <paramref name="propertyName"/>.
+        /// </summary>
+        /// <param name="attr">The attribute object to pull values from.</param>
+        /// <param name="propertyName">The specific property whose value will be returned.</param>
+        /// <returns>The value held by the attribute's property.</returns>
+        private static string GetStringFromAttribute(Attribute attr, string propertyName)
+        {
+            return attr.GetType().GetProperty(propertyName).GetValue(attr).ToString();
+        }
+
+        /// <summary>
+        /// Takes an attribute object and returns the value from the property matching the supplied <paramref name="propertyName" />.
+        /// </summary>
+        /// <param name="attr">The attribute object to pull values from.</param>
+        /// <param name="propertyName">The specific property whose value will be returned.</param>
+        /// <returns>Null if <paramref name="attr"/> is null. Otherwise the value held by the attribute's property.</returns>
+        private static List<string> GetListFromAttribute(Attribute attr, string propertyName)
+        {
+            // Return null if attribute is null.
+            if (attr == null)
             {
-                {
-                    if (codeFiles != null) { return codeFiles; }
-                    codeFiles = new List<string>();
-                    // Any code files in the sample directory
-                    foreach (var file in Directory.EnumerateFiles(this.Path).Where(f => f.EndsWith(".cs") || f.EndsWith(".xaml")))
-                    {
-                        codeFiles.Add(file);
-                    }
-                    // Any android layouts
-                    if (this.AndroidLayouts != null)
-                    {
-                        foreach (var file in this.AndroidLayouts)
-                        {
-                            codeFiles.Add(System.IO.Path.Combine(_pathStub, "resource", "layout", file));
-                        }
-                    }
-                    // Any additional class files
-                    if (this.ClassFiles != null)
-                    {
-                        foreach (var file in this.ClassFiles)
-                        {
-                            if (!String.IsNullOrWhiteSpace(System.IO.Path.GetDirectoryName(file)))
-                            {
-                                codeFiles.Add(System.IO.Path.Combine(_pathStub, file));
-                            }
-                            else
-                            {
-                                codeFiles.Add(System.IO.Path.Combine(this.Path, file));
-                            }
-                        }
-                    }
-                    return codeFiles;
-                }
+                return null;
             }
+            return attr.GetType().GetProperty(propertyName).GetValue(attr) as List<string>;
         }
-
-        public List<string> CodeFileNames
-        {
-            get { return CodeFiles.Select(f => System.IO.Path.GetFileName(f)).ToList(); }
-        }
-        */
     }
 }

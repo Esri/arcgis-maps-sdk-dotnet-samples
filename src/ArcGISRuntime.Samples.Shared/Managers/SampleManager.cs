@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+﻿// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -15,14 +15,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
-#if NETFX_CORE
-using Windows.UI.Xaml.Controls;
-using Windows.ApplicationModel;
-#endif
-#if __WPF__
-using System.Windows.Controls;
-#endif
-
 namespace ArcGISRuntime.Samples.Managers
 {
     /// <summary>
@@ -30,8 +22,6 @@ namespace ArcGISRuntime.Samples.Managers
     /// </summary>
     public class SampleManager
     {
-        private Assembly _samplesAssembly;
-
         // Private constructor
         private SampleManager() { }
 
@@ -43,26 +33,53 @@ namespace ArcGISRuntime.Samples.Managers
             get { return SingleInstance; }
         }
 
+        /// <summary>
+        /// A list of all samples.
+        /// </summary>
         public IList<SampleInfo> AllSamples { get; set; }
+
+        /// <summary>
+        /// A collection of all samples organized by category.
+        /// </summary>
         public SearchableTreeNode FullTree { get; set; }
+
+        /// <summary>
+        /// The sample that is currently being shown to the user.
+        /// </summary>
         public SampleInfo SelectedSample { get; set; }
 
+        /// <summary>
+        /// Initializes the sample manager by loading all of the samples in the app.
+        /// </summary>
         public void Initialize()
         {
-            _samplesAssembly = this.GetType().GetTypeInfo().Assembly;
-            AllSamples = CreateSampleInfos(_samplesAssembly).OrderBy(info => info.Category)
+            // Get the currently-executing assembly.
+            Assembly samplesAssembly = this.GetType().GetTypeInfo().Assembly;
+
+            // Get the list of all samples in the assembly.
+            AllSamples = CreateSampleInfos(samplesAssembly).OrderBy(info => info.Category)
                 .ThenBy(info => info.SampleName.ToLowerInvariant())
                 .ToList();
 
+            // Create a tree from the list of all samples.
             FullTree = BuildFullTree(AllSamples);
         }
 
+        /// <summary>
+        /// Creates a list of sample metadata objects for each sample in the assembly.
+        /// </summary>
+        /// <param name="assembly">The assembly to search for samples.</param>
+        /// <returns>List of sample metadata objects.</returns>
         private static IList<SampleInfo> CreateSampleInfos(Assembly assembly)
         {
-            var sampleTypes = assembly.GetTypes()
+            // Get all the types in the assembly that are decorated with a SampleAttribute.
+            IEnumerable<Type> sampleTypes = assembly.GetTypes()
                 .Where(type => type.GetTypeInfo().GetCustomAttributes().OfType<SampleAttribute>().Any());
 
-            var samples = new List<SampleInfo>();
+            // Create a list to hold all constructed sample metadata objects.
+            List<SampleInfo> samples = new List<SampleInfo>();
+
+            // Create the sample metadata for each sample.
             foreach (Type type in sampleTypes)
             {
                 try
@@ -77,8 +94,15 @@ namespace ArcGISRuntime.Samples.Managers
             return samples;
         }
 
+        /// <summary>
+        /// Creates a <c>SearchableTreeNode</c> representing the entire 
+        /// collection of samples, organized by category.
+        /// </summary>
+        /// <param name="allSamples">A list of all samples.</param>
+        /// <returns>A <c>SearchableTreeNode</c> with all samples organized by category.</returns>
         private static SearchableTreeNode BuildFullTree(IEnumerable<SampleInfo> allSamples)
         {
+            // This code only supports one level of nesting.
             return new SearchableTreeNode(
                 "All Samples",
                 allSamples.ToLookup(s => s.Category) // put samples into lookup by category
@@ -87,24 +111,28 @@ namespace ArcGISRuntime.Samples.Managers
                 .ToList());
         }
 
+        /// <summary>
+        /// Creates a <c>SearchableTreeNode</c> representing a category of samples.
+        /// </summary>
+        /// <param name="byCategory">A grouping that associates one category title with many samples.</param>
+        /// <returns>A <c>SearchableTreeNode</c> representing a category of samples.</returns>
         private static SearchableTreeNode BuildTreeForCategory(IGrouping<string, SampleInfo> byCategory)
         {
-            // only supporting one-level hierarchies for now, no subcategories
+            // This code only supports one level of nesting.
             return new SearchableTreeNode(
-                byCategory.Key.ToString(),
-                byCategory.OrderBy(si => si.SampleName)
-                .ToList());
+                name: byCategory.Key,
+                items: byCategory.OrderBy(si => si.SampleName).ToList()
+            );
         }
 
         /// <summary>
-        /// Creates a new control from sample.
+        /// Constructs the sample control from the provided <paramref name="sampleModel"/>.
         /// </summary>
-        /// <param name="sampleModel">Sample that is transformed into a control</param>
+        /// <param name="sampleModel">Sample for which to create the sample control.</param>
         /// <returns>Sample as a control.</returns>
         public object SampleToControl(SampleInfo sampleModel)
         {
-            var item = Activator.CreateInstance(sampleModel.SampleType);
-            return item;
+            return Activator.CreateInstance(sampleModel.SampleType);
         }
     }
 }

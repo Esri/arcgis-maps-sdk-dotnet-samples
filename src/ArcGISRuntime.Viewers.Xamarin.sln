@@ -24,8 +24,13 @@ EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Forms\Shared\Forms.projitems*{05baeb1e-03dd-4bdc-b0eb-07b2679d9db8}*SharedItemsImports = 13
+		ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{183e6918-b2cd-4eeb-9666-8889a151bc7d}*SharedItemsImports = 4
 		Forms\Shared\Forms.projitems*{183e6918-b2cd-4eeb-9666-8889a151bc7d}*SharedItemsImports = 4
+		ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{3192a404-34ac-4083-a3b9-44610ee92e68}*SharedItemsImports = 4
+		ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{5da4dcda-0167-4eda-b6cf-5711458ca9bf}*SharedItemsImports = 4
 		Forms\Shared\Forms.projitems*{5da4dcda-0167-4eda-b6cf-5711458ca9bf}*SharedItemsImports = 4
+		ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{bf0e3cee-e88e-44e0-80ce-46eda6cd4b54}*SharedItemsImports = 4
+		ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{db2fc14a-7608-44f9-bcf4-88ec7c1aa949}*SharedItemsImports = 4
 		Forms\Shared\Forms.projitems*{db2fc14a-7608-44f9-bcf4-88ec7c1aa949}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -338,5 +343,8 @@ Global
 		{5DA4DCDA-0167-4EDA-B6CF-5711458CA9BF} = {39BE5A90-B804-4D87-B997-DCF5B279CD76}
 		{183E6918-B2CD-4EEB-9666-8889A151BC7D} = {39BE5A90-B804-4D87-B997-DCF5B279CD76}
 		{3192A404-34AC-4083-A3B9-44610EE92E68} = {B4257E7B-C2BC-495E-AC20-FBE0BE6E2BF5}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9432B9DC-7D6A-46A7-838B-475F5944F3DE}
 	EndGlobalSection
 EndGlobal

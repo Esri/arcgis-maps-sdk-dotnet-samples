@@ -17,6 +17,7 @@ using System;
 namespace ArcGISRuntime.Samples.GeoViewSync
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("GeoViewSync.axml")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "GeoView viewpoint synchronization",
         "MapView",

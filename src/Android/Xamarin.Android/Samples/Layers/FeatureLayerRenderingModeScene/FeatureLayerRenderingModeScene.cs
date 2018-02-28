@@ -19,6 +19,7 @@ using System;
 namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("FeatureLayerRenderingModeScene.axml")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Feature layer rendering mode (Scene)",
         "Layers",

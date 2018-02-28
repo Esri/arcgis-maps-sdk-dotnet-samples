@@ -21,6 +21,7 @@ using System.Linq;
 namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("GroupedResultsList_DataItem.axml", "GroupedResultsList_GroupItem.axml")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Statistical query group and sort results",
         "Data",

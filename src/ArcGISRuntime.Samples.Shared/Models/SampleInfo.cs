@@ -191,14 +191,14 @@ namespace ArcGISRuntime.Samples.Shared.Models
         /// <param name="attr">The attribute object to pull values from.</param>
         /// <param name="propertyName">The specific property whose value will be returned.</param>
         /// <returns>Null if <paramref name="attr"/> is null. Otherwise the value held by the attribute's property.</returns>
-        private static List<string> GetListFromAttribute(Attribute attr, string propertyName)
+        private static IEnumerable<string> GetListFromAttribute(Attribute attr, string propertyName)
         {
             // Return null if attribute is null.
             if (attr == null)
             {
                 return null;
             }
-            return attr.GetType().GetProperty(propertyName).GetValue(attr) as List<string>;
+            return attr.GetType().GetProperty(propertyName).GetValue(attr) as string[];
         }
     }
 }

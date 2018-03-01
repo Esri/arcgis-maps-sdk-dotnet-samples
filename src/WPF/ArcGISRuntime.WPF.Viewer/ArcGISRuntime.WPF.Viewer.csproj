@@ -8,8 +8,8 @@
     <ProjectGuid>{5278F66E-D41F-45D2-8327-25EA13A11618}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ArcGISRuntime.WPF.Viewer</RootNamespace>
-    <AssemblyName>ArcGISRuntime.WPF.Viewer</AssemblyName>
+    <RootNamespace>ArcGISRuntime</RootNamespace>
+    <AssemblyName>ArcGISRuntime</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

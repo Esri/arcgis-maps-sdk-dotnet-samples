@@ -8,8 +8,8 @@
     <ProjectGuid>{BE5076AF-ECE0-4EA9-994E-37BAD4B19828}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ArcGISRuntime.UWP.Viewer</RootNamespace>
-    <AssemblyName>ArcGISRuntime.UWP.Viewer</AssemblyName>
+    <RootNamespace>ArcGISRuntime</RootNamespace>
+    <AssemblyName>ArcGISRuntime</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
@@ -918,7 +918,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    
     <Page Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

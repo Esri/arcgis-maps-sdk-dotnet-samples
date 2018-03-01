@@ -27,6 +27,7 @@ namespace ArcGISRuntime.Samples.RenderPictureMarkers
         "Symbology",
         "This sample demonstrates how to create picture marker symbols from a URL and embedded resources.",
         "")]
+    [ArcGISRuntime.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
     public class RenderPictureMarkers : Activity
     {
         // Create and hold reference to the used MapView

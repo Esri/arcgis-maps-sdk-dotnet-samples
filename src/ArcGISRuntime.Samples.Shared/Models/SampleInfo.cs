@@ -66,6 +66,11 @@ namespace ArcGISRuntime.Samples.Shared.Models
         public IEnumerable<string> ClassFiles { get; set; }
 
         /// <summary>
+        /// A list of files used by the sample as embedded resources (e.g. PictureMarkerSymbols\pin_star_blue.png)
+        /// </summary>
+        public IEnumerable<string> EmbeddedResources { get; set; }
+
+        /// <summary>
         /// The expected filename of the sample's image, without path.
         /// This is intened for use on Windows.
         /// </summary>
@@ -109,6 +114,7 @@ namespace ArcGISRuntime.Samples.Shared.Models
             var xamlAttr = GetAttribute<XamlFilesAttribute>(typeInfo);
             var androidAttr = GetAttribute<AndroidLayoutAttribute>(typeInfo);
             var classAttr = GetAttribute<ClassFileAttribute>(typeInfo);
+            var embeddedResourceAttr = GetAttribute<EmbeddedResourceAttribute>(typeInfo);
 
             Category = sampleAttr.Category;
             Description = sampleAttr.Description;
@@ -119,6 +125,7 @@ namespace ArcGISRuntime.Samples.Shared.Models
             if (xamlAttr != null) { XamlLayouts = xamlAttr.Files; }
             if (classAttr != null) { ClassFiles = classAttr.Files; }
             if (offlineDataAttr != null) { OfflineDataItems = offlineDataAttr.Items; }
+            if (embeddedResourceAttr != null) { EmbeddedResources = embeddedResourceAttr.Files; }
         }
 
         /// <summary>
@@ -142,6 +149,7 @@ namespace ArcGISRuntime.Samples.Shared.Models
             var attributeTypeOffline = assembly.GetType("ArcGISRuntime.Samples.Shared.Attributes.OfflineDataAttribute");
             var attributeTypeXaml = assembly.GetType("ArcGISRuntime.Samples.Shared.Attributes.XamlFilesAttribute");
             var attributeTypeClass = assembly.GetType("ArcGISRuntime.Samples.Shared.Attributes.ClassFileAttribute");
+            var attributeTypeResource = assembly.GetType("ArcGISRuntime.Samples.Shared.Attributes.EmbeddedResourceAttribute");
 
             // Get the attributes decorating the sample.
             var sampleAttr = typeInfo.GetCustomAttribute(attributeTypeSample, false);
@@ -150,6 +158,7 @@ namespace ArcGISRuntime.Samples.Shared.Models
             var xamlAttr = typeInfo.GetCustomAttribute(attributeTypeXaml, false);
             var androidAttr = typeInfo.GetCustomAttribute(attributeTypeAndroid, false);
             var classAttr = typeInfo.GetCustomAttribute(attributeTypeClass, false);
+            var embeddedAttr = typeInfo.GetCustomAttribute(attributeTypeResource, false);
 
             // Get the values for each attribute property.
             Category = GetStringFromAttribute(sampleAttr, "Category");
@@ -161,6 +170,7 @@ namespace ArcGISRuntime.Samples.Shared.Models
             XamlLayouts = GetListFromAttribute(xamlAttr, "Files");
             ClassFiles = GetListFromAttribute(classAttr, "Files");
             OfflineDataItems = GetListFromAttribute(offlineDataAttr, "Items");
+            EmbeddedResources = GetListFromAttribute(embeddedAttr, "Files");
         }
 
         /// <summary>

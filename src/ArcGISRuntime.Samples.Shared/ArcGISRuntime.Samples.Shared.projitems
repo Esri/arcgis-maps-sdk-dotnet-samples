@@ -9,7 +9,7 @@
     <Import_RootNamespace>ArcGISRuntime.Samples.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Attributes\LayoutFilesAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\AdditionalFilesAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attributes\OfflineDataAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attributes\SampleAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Managers\DataManager.cs" />

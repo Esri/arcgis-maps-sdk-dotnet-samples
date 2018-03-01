@@ -23,7 +23,7 @@ namespace ArcGISRuntime.WPF.Samples.RenderPictureMarkers
         "Symbology",
         "This sample demonstrates how to create picture marker symbols from a URL and embedded resources.",
         "")]
-
+    [ArcGISRuntime.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
     public partial class RenderPictureMarkers
     {
         public RenderPictureMarkers()

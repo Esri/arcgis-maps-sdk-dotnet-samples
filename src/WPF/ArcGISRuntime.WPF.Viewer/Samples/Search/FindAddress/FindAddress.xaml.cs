@@ -28,6 +28,7 @@ namespace ArcGISRuntime.WPF.Samples.FindAddress
         "Search",
         "This sample demonstrates how you can use the LocatorTask API to geocode an address and display it with a pin on the map. Tapping the pin displays the reverse-geocoded address in a callout.",
         "")]
+    [ArcGISRuntime.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
     public partial class FindAddress
     {
         // Addresses for suggestion

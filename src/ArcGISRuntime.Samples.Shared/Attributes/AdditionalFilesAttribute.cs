@@ -57,4 +57,15 @@ namespace ArcGISRuntime.Samples.Shared.Attributes
         {
         }
     }
+
+    /// <summary>
+    /// Attribute for annotating a sample with additional embedded resources files.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Class)]
+    public class EmbeddedResourceAttribute : AdditionalFilesAttribute
+    {
+        public EmbeddedResourceAttribute(params string[] files) : base(files)
+        {
+        }
+    }
 }

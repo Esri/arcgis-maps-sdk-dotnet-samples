@@ -8,7 +8,7 @@
         <Border
                 Background="White" BorderBrush="Black" BorderThickness="1"
                 HorizontalAlignment="Right" VerticalAlignment="Top"
-                Margin="30" Padding="20" Width="375">
+                Margin="30" Padding="20" Width="400">
             <StackPanel>
                 <TextBlock Text="Select a layer name in the 'Layers Not in the Map' ListBox and then click the 'Add Layer to Map' button to add it to the map. Conversely, to remove a layer from the map, select a layer name in the 'Layers in the Map' ListBox and click the 'Remove Layer from Map' button." 
                            Margin="0,0,0,10" TextWrapping="Wrap" />

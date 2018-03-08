@@ -15,7 +15,10 @@
             HorizontalAlignment="Right" VerticalAlignment="Top"
             Margin="15" Padding="10" Width="200">
             <StackPanel>
-                <Button x:Name="Button_ToggleExtrusionData" Click="Button_ToggleExtrusionData_Click" Content="Population Density"/>
+                <Button x:Name="Button_ToggleExtrusionData"
+                        Click="Button_ToggleExtrusionData_Click"
+                        HorizontalAlignment="Stretch"
+                        Content="Population Density"/>
             </StackPanel>
         </Border>
     </Grid>

@@ -25,7 +25,7 @@
                 <TextBlock Text="Choose a stretch renderer type from the dropdown, adjust the parameter values, then click the 'Update Renderer' button." 
                            Margin="0,0,0,2" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 <StackPanel Grid.Row="1">
-                    <ComboBox x:Name="RendererTypes" Margin="10,5" SelectionChanged="RendererTypes_SelectionChanged"/>
+                    <ComboBox x:Name="RendererTypes" Margin="10,5" SelectionChanged="RendererTypes_SelectionChanged" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock x:Name="Label_Parameter1" Text="Parameter1" Margin="10,5"></TextBlock>
                         <TextBox x:Name="Input_Parameter1" Text="EnterValue1" />
@@ -35,7 +35,12 @@
                         <TextBox x:Name="Input_Parameter2" Text="EnterValue2"/>
                     </StackPanel>
                 </StackPanel>
-                <Button x:Name="UpdateRenderer" Click="OnUpdateRendererClicked" Content="Update Renderer" Margin="10,10" Grid.Row="2"/>
+                <Button x:Name="UpdateRenderer" 
+                        Click="OnUpdateRendererClicked"
+                        Content="Update Renderer"
+                        Margin="10,10"
+                        HorizontalAlignment="Stretch"
+                        Grid.Row="2"/>
             </Grid>
         </Border>
     </Grid>

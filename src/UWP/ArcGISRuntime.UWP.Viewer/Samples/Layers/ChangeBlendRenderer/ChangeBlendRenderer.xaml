@@ -34,7 +34,13 @@
                         <ComboBox x:Name="ColorRamps" Margin="10,5" />
                     </StackPanel>
                 </StackPanel>
-                <Button x:Name="UpdateRenderer" Click="OnUpdateRendererClicked" Content="Update Renderer" Margin="10,10" IsEnabled="False" Grid.Row="2"/>
+                <Button x:Name="UpdateRenderer" 
+                        Click="OnUpdateRendererClicked" 
+                        Content="Update Renderer"
+                        Margin="10,10"
+                        IsEnabled="False"
+                        HorizontalAlignment="Stretch"
+                        Grid.Row="2"/>
             </Grid>
         </Border>
     </Grid>

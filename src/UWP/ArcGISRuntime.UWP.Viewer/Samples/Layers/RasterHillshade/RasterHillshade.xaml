@@ -6,7 +6,7 @@
         <esriUI:MapView x:Name="MyMapView" />
         <Border
                 Background="White" BorderBrush="Black" BorderThickness="1"
-                HorizontalAlignment="Center" VerticalAlignment="Top"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
                 Margin="10" Padding="10" Width="300">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -45,7 +45,7 @@
                         IsThumbToolTipEnabled="True"/>
                 <Button x:Name="ApplyHillshadeButton"
                         Grid.Row="3" Grid.ColumnSpan="2"
-                        Margin="50,0" Padding="3"
+                        Margin="5,0" Padding="3"
                         VerticalAlignment="Center" HorizontalAlignment="Stretch"
                         Content="Apply hillshade"
                         Click="ApplyHillshadeButton_Click"/>

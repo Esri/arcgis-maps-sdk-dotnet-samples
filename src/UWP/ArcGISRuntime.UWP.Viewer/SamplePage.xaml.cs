@@ -10,8 +10,10 @@
 using ArcGISRuntime.Samples.Managers;
 using System;
 using Windows.Foundation.Metadata;
+using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Navigation;
 
 namespace ArcGISRuntime.UWP.Viewer
 {
@@ -54,6 +56,14 @@ namespace ArcGISRuntime.UWP.Viewer
             LiveSample.IsChecked = false;
             DescriptionContainer.Visibility = Visibility.Visible;
             SampleContainer.Visibility = Visibility.Collapsed;
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            // Prevent user from going back
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
         }
     }
 }

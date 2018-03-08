@@ -134,7 +134,7 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
             MySceneView.Scene = myScene;
 
             // Set the viewpoint
-            MySceneView.SetViewpoint(new Viewpoint(_observerPoint, 1000));
+            MySceneView.SetViewpoint(new Viewpoint(_observerPoint, 1000000));
         }
 
         private void AnimationTimer_Tick(object sender, object e)

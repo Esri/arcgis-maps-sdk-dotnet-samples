@@ -5,7 +5,7 @@
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
         <Border Background="White" BorderBrush="Black" BorderThickness="1"
-                HorizontalAlignment="Center" VerticalAlignment="Top"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
                 Margin="10" Padding="10"
                 Width="400">
             <Grid>
@@ -128,7 +128,7 @@
                 </Grid>
                 <Button x:Name="ApplyRgbRendererButton"
                         Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4"
-                        HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                        HorizontalAlignment="Stretch"
                         Margin="0,5"
                         IsEnabled="False"
                         Content="Apply renderer"

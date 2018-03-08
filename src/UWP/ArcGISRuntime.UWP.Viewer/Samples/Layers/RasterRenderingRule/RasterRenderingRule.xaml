@@ -15,8 +15,10 @@
                 HorizontalAlignment="Right" VerticalAlignment="Top"
                 Margin="10" Padding="10" Width="300">
             <StackPanel>
-                <TextBlock Text="Select a Rendering Rule" Margin="0,0,0,2" TextWrapping="Wrap" />
-                <ComboBox Name="comboBox_RenderingRuleChooser" SelectionChanged="comboBox_RenderingRuleChooser_SelectionChanged"/>
+                <TextBlock Text="Select a Rendering Rule" Margin="0,0,0,2" TextWrapping="Wrap" TextAlignment="Center" />
+                <ComboBox Name="comboBox_RenderingRuleChooser" 
+                          HorizontalAlignment="Stretch"
+                          SelectionChanged="comboBox_RenderingRuleChooser_SelectionChanged"/>
             </StackPanel>
         </Border>
     </Grid>

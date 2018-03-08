@@ -7,6 +7,9 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using Windows.UI.Core;
+using Windows.UI.Xaml.Navigation;
+
 namespace ArcGISRuntime.UWP.Viewer
 {
     /// <summary>
@@ -17,6 +20,14 @@ namespace ArcGISRuntime.UWP.Viewer
         public WaitPage()
         {
             this.InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            // Prevent user from going back
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
         }
     }
 }

@@ -6,7 +6,8 @@
     <Grid>
         <esriUI:MapView x:Name="MyMapView" Grid.Column="1"/>
         <CommandBar>
-            <AppBarButton Content="Statistics"
+            <AppBarButton Label="Statistics"
+                          Icon="ShowResults"
                           Width="120">
                 <AppBarButton.Flyout>
                     <Flyout>
@@ -32,6 +33,7 @@
                                       Grid.Row="3"
                                       Height="30"
                                       Margin="10"
+                                      HorizontalAlignment="Stretch"
                                       Content="Get Statistics"
                                       Click="OnExecuteStatisticsQueryClicked"/>
                         </Grid>

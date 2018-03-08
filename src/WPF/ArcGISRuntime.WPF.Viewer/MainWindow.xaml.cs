@@ -34,9 +34,7 @@ namespace ArcGISRuntime.Samples.Desktop
                 // Set category data context
                 Categories.DataContext = WPF.Viewer.Helpers.ToTreeViewItem(SampleManager.Current.FullTree);
 
-                // Select a random sample
-                Random rnd = new Random();
-                SelectSample(SampleManager.Current.AllSamples[rnd.Next(0, SampleManager.Current.AllSamples.Count() - 1)]);
+                SelectSample(SampleManager.Current.AllSamples.First());
             }
             catch (Exception ex)
             {

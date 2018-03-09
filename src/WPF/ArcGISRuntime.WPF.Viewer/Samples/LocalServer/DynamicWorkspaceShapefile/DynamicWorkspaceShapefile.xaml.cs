@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Media;
+using System.Drawing;
 
 namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceShapefile
 {
@@ -107,7 +107,7 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceShapefile
                     if (ex.Status == Esri.ArcGISRuntime.LoadStatus.Loaded)
                     {
                         // Create a default symbol style
-                        SimpleLineSymbol _lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Red, 3);
+                        SimpleLineSymbol _lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 3);
 
                         // Apply the symbol style with a renderer
                         _shapefileSublayer.Renderer = new SimpleRenderer(_lineSymbol);

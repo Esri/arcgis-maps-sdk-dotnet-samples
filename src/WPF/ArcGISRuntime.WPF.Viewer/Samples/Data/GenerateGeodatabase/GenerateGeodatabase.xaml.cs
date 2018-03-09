@@ -10,7 +10,7 @@
 using System;
 using System.Linq;
 using System.Windows;
-using System.Windows.Media;
+using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
 using Esri.ArcGISRuntime.Data;
@@ -70,7 +70,7 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
             MyMapView.Map = myMap;
 
             // Create a new symbol for the extent graphic
-            SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Red, 2);
+            SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 2);
 
             // Create graphics overlay for the extent graphic and apply a renderer
             GraphicsOverlay extentOverlay = new GraphicsOverlay();

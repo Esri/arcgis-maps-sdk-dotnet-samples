@@ -21,7 +21,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
+using System.Drawing;
 using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
 using Viewpoint = Esri.ArcGISRuntime.Mapping.Viewpoint;
 
@@ -119,7 +119,7 @@ namespace ArcGISRuntime.WPF.Samples.Animate3DGraphic
             // Create renderer to symbolize plane and update plane orientation in the inset map
             SimpleRenderer renderer2D = new SimpleRenderer();
             // Create the symbol that will be used for the plane
-            SimpleMarkerSymbol plane2DSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Triangle, Colors.Blue, 10);
+            SimpleMarkerSymbol plane2DSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Triangle, Color.Blue, 10);
             // Apply the symbol to the renderer
             renderer2D.Symbol = plane2DSymbol;
             // Apply a rotation expression to the renderer
@@ -132,7 +132,7 @@ namespace ArcGISRuntime.WPF.Samples.Animate3DGraphic
             InsetMapView.GraphicsOverlays.Add(insetMapOperlay);
 
             // Create placeholder graphic for showing the mission route in the inset map
-            SimpleLineSymbol routeSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Red, 2);
+            SimpleLineSymbol routeSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 2);
             _routeGraphic = new Graphic { Symbol = routeSymbol };
             insetMapOperlay.Graphics.Add(_routeGraphic);
 

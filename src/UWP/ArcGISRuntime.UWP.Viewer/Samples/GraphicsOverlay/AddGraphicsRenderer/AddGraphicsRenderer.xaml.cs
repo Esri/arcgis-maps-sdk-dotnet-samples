@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
-using Windows.UI;
+using System.Drawing;
 
 namespace ArcGISRuntime.UWP.Samples.AddGraphicsRenderer
 {
@@ -84,7 +84,7 @@ namespace ArcGISRuntime.UWP.Samples.AddGraphicsRenderer
             // Create symbol for points
             SimpleMarkerSymbol pointSymbol = new SimpleMarkerSymbol()
             {
-                Color = Colors.Yellow,
+                Color = Color.Yellow,
                 Size = 30,
                 Style = SimpleMarkerSymbolStyle.Square,
             };

@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
-using Windows.UI;
+using System.Drawing;
 
 namespace ArcGISRuntime.UWP.Samples.SurfacePlacements
 {

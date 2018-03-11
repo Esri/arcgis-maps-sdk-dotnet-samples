@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
-using Windows.UI;
+using System.Drawing;
 
 namespace ArcGISRuntime.UWP.Samples.LineOfSightLocation
 {
@@ -69,8 +69,8 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightLocation
 
             // Set the visible and obstructed colors (default would be green/red)
             // These are static properties that apply to all line of sight analyses in the scene view
-            LineOfSight.VisibleColor = Colors.Cyan;
-            LineOfSight.ObstructedColor = Colors.Magenta;
+            LineOfSight.VisibleColor = Color.Cyan;
+            LineOfSight.ObstructedColor = Color.Magenta;
 
             // Create an analysis overlay to contain the analysis and add it to the scene view
             AnalysisOverlay lineOfSightOverlay = new AnalysisOverlay();

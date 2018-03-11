@@ -115,7 +115,7 @@ namespace ArcGISRuntime.UWP.Samples.Animate3DGraphic
             // Create renderer to symbolize plane and update plane orientation in the inset map
             SimpleRenderer renderer2D = new SimpleRenderer();
             // Create the symbol that will be used for the plane
-            SimpleMarkerSymbol plane2DSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Triangle, Windows.UI.Colors.Blue, 10);
+            SimpleMarkerSymbol plane2DSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Triangle, System.Drawing.Color.Blue, 10);
             // Apply the symbol to the renderer
             renderer2D.Symbol = plane2DSymbol;
             // Apply a rotation expression to the renderer
@@ -128,7 +128,7 @@ namespace ArcGISRuntime.UWP.Samples.Animate3DGraphic
             InsetMapView.GraphicsOverlays.Add(insetMapOperlay);
 
             // Create placeholder graphic for showing the mission route in the inset map
-            SimpleLineSymbol routeSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Windows.UI.Colors.Red, 2);
+            SimpleLineSymbol routeSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Red, 2);
             _routeGraphic = new Graphic { Symbol = routeSymbol };
             insetMapOperlay.Graphics.Add(_routeGraphic);
 

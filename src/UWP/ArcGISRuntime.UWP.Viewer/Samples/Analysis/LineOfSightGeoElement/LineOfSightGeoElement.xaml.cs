@@ -18,7 +18,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Windows.UI;
+using System.Drawing;
 using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
@@ -87,7 +87,7 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
             // Create a graphics overlay with relative surface placement; relative surface placement allows the Z position of the observation point to be adjusted
             GraphicsOverlay overlay = new GraphicsOverlay() { SceneProperties = new LayerSceneProperties(SurfacePlacement.Relative) };
             // Create the symbol that will symbolize the observation point
-            SimpleMarkerSceneSymbol symbol = new SimpleMarkerSceneSymbol(SimpleMarkerSceneSymbolStyle.Sphere, Colors.Red, 10, 10, 10, SceneSymbolAnchorPosition.Bottom);
+            SimpleMarkerSceneSymbol symbol = new SimpleMarkerSceneSymbol(SimpleMarkerSceneSymbolStyle.Sphere, Color.Red, 10, 10, 10, SceneSymbolAnchorPosition.Bottom);
             // Create the observation point graphic from the point and symbol
             _observerGraphic = new Graphic(_observerPoint, symbol);
             // Add the observer to the overlay

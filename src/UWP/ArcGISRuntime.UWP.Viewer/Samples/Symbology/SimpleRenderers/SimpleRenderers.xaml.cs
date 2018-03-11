@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using Windows.UI;
+using System.Drawing;
 
 namespace ArcGISRuntime.UWP.Samples.SimpleRenderers
 {
@@ -63,7 +63,7 @@ namespace ArcGISRuntime.UWP.Samples.SimpleRenderers
             myGraphicOverlay.Graphics.Add(plumeGeyserGraphic);
 
             // Create a simple marker symbol - red, cross, size 12
-            SimpleMarkerSymbol mySymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, Colors.Red, 12);
+            SimpleMarkerSymbol mySymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, Color.Red, 12);
 
             // Create a simple renderer based on the simple marker symbol
             SimpleRenderer myRenderer = new SimpleRenderer(mySymbol);

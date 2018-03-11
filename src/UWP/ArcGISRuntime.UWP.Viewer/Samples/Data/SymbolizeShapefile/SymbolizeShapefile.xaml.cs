@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using System.IO;
 using System.Threading.Tasks;
-using Windows.UI;
+using System.Drawing;
 
 namespace ArcGISRuntime.UWP.Samples.SymbolizeShapefile
 {
@@ -70,8 +70,8 @@ namespace ArcGISRuntime.UWP.Samples.SymbolizeShapefile
             myMap.OperationalLayers.Add(_shapefileFeatureLayer);
 
             // Create the symbology for the alternate renderer
-            SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Red, 1.0);
-            SimpleFillSymbol fillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Colors.Yellow, lineSymbol);
+            SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 1.0);
+            SimpleFillSymbol fillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Color.Yellow, lineSymbol);
 
             // Create the alternate renderer
             _alternateRenderer = new SimpleRenderer(fillSymbol);

@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
-using Windows.UI;
+using System.Drawing;
 
 namespace ArcGISRuntime.UWP.Samples.RenderSimpleMarkers
 {
@@ -55,7 +55,7 @@ namespace ArcGISRuntime.UWP.Samples.RenderSimpleMarkers
             // Create a simple marker symbol
             SimpleMarkerSymbol simpleSymbol = new SimpleMarkerSymbol()
             {
-                Color = Colors.Red,
+                Color = Color.Red,
                 Size = 10,
                 Style = SimpleMarkerSymbolStyle.Circle
             };

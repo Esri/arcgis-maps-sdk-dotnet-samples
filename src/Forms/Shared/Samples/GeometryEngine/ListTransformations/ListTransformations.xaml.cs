@@ -8,22 +8,13 @@
 // language governing permissions and limitations under the License.
 
 using System.Collections.Generic;
-using System.IO;
-using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Xamarin.Forms;
-
-#if WINDOWS_UWP
-using Colors = Windows.UI.Colors;
-#else
-
 using Colors = System.Drawing.Color;
-
-#endif
 
 namespace ArcGISRuntime.Samples.ListTransformations
 {

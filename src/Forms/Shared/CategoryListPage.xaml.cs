@@ -7,18 +7,21 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using Esri.ArcGISRuntime.Security;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime
 {
     public partial class CategoryListPage
     {
-        private List<SearchableTreeNode> _sampleCategories;
-
         public CategoryListPage()
         {
             Initialize();
@@ -30,20 +33,114 @@ namespace ArcGISRuntime
             // Initialize the sample manager.
             SampleManager.Current.Initialize();
 
-            // Get the list of categories.
-            _sampleCategories = SampleManager.Current.FullTree.Items.OfType<SearchableTreeNode>().ToList();
+            ViewModel = new SamplesSearchViewModel();
 
             // Update the binding.
-            BindingContext = _sampleCategories;
+            BindingContext = ViewModel;
         }
 
         private async void OnItemTapped(object sender, ItemTappedEventArgs e)
         {
             // Get the selected category.
-            var item = e.Item as SearchableTreeNode;
+            var category = e.Item as SearchableTreeNode;
+            var sample = e.Item as SampleInfo;
+            if (category != null)
+            {
+                // Navigate to the listing page for the category.
+                await Navigation.PushAsync(new SampleListPage(category.Name));
+            }
+            else if (sample != null)
+            {
+                // Navigate to the sample page
+                ShowSample(sample);
+            }
+        }
 
-            // Navigate to the listing page for the category.
-            await Navigation.PushAsync(new SampleListPage(item?.Name));
+        private async void ShowSample(SampleInfo item)
+        {
+            try
+            {
+                // Load offline data before showing the sample.
+                if (item.OfflineDataItems != null)
+                {
+                    // Show the wait page.
+                    await Navigation.PushAsync(new WaitPage { Title = item.SampleName }, false);
+
+                    // Wait for the sample data download.
+                    await DataManager.EnsureSampleDataPresent(item);
+
+                    // Remove the waiting page.
+                    await Navigation.PopAsync(false);
+                }
+
+                // Get the sample control from the selected sample.
+                var sampleControl = (ContentPage)SampleManager.Current.SampleToControl(item);
+
+                // Create the sample display page to show the sample and the metadata.
+                SamplePage page = new SamplePage(sampleControl, item);
+
+                // Show the sample.
+                await Navigation.PushAsync(page, true);
+
+                // Clear Credentials
+                foreach (Credential cred in AuthenticationManager.Current.Credentials)
+                {
+                    AuthenticationManager.Current.RemoveCredential(cred);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception occurred on OnItemTapped. Exception = " + ex);
+            }
+        }
+        public SamplesSearchViewModel ViewModel { get; set; }
+    }
+
+    public class SamplesSearchViewModel : INotifyPropertyChanged
+    {
+        public List<SearchableTreeNode> SampleCategories { get; }
+        public List<SampleInfo> SearchResults => _allSamples.Where(SearchFunction).ToList();
+        private readonly List<SampleInfo> _allSamples;
+        private string _query = "";
+
+        public SamplesSearchViewModel()
+        {
+            SampleCategories = SampleManager.Current.FullTree.Items.OfType<SearchableTreeNode>().ToList();
+            _allSamples = SampleManager.Current.AllSamples.ToList();
+        }
+
+        public string SearchQuery
+        {
+            get { return _query; }
+            set
+            {
+                if (value != _query)
+                {
+                    _query = value;
+                    OnPropertyChanged();
+                    OnPropertyChanged("SearchResults");
+                    OnPropertyChanged("IsSearchOpen");
+                    OnPropertyChanged("IsCategoriesOpen");
+                }
+            }
+        }
+
+        public bool IsSearchOpen => !string.IsNullOrWhiteSpace(_query);
+        public bool IsCategoriesOpen => string.IsNullOrWhiteSpace(_query);
+
+        private bool SearchFunction(SampleInfo sample)
+        {
+            string search = SearchQuery.ToLower();
+            return sample.SampleName.ToLower().Contains(search) ||
+                   sample.Category.ToLower().Contains(search) ||
+                   sample.Description.ToLower().Contains(search);
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -19,7 +19,8 @@ namespace ArcGISRuntime.Samples.FeatureLayerGeoPackage
         "Feature layer (GeoPackage)",
         "Data",
         "This sample demonstrates how to open a GeoPackage and show a GeoPackage feature table in a feature layer.",
-        "The GeoPackage will be downloaded from an ArcGIS Online portal automatically.")]
+        "The GeoPackage will be downloaded from an ArcGIS Online portal automatically.",
+        "Featured")]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("68ec42517cdd439e81b036210483e8e7")]
     public partial class FeatureLayerGeoPackage : ContentPage
     {

@@ -22,7 +22,8 @@ namespace ArcGISRuntime.Samples.FeatureLayerShapefile
         "Feature layer (shapefile)",
         "Data",
         "This sample demonstrates how to open a shapefile stored on the device and display it as a feature layer with default symbology.",
-        "The shapefile will be downloaded from an ArcGIS Online portal automatically.")]
+        "The shapefile will be downloaded from an ArcGIS Online portal automatically.",
+        "Featured")]
     public class FeatureLayerShapefile : UIViewController
     {
         // Create a MapView control to display a map

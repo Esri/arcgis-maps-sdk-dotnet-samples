@@ -14,12 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Windows.UI;
-using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
 {
@@ -27,7 +22,8 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
         "Line of Sight (GeoElement)",
         "Analysis",
         "This sample demonstrates how to perform a dynamic line of sight analysis between two moving GeoElements.",
-        "Use the slider to adjust the height of the observer.")]
+        "Use the slider to adjust the height of the observer.",
+        "Featured")]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("3af5cfec0fd24dac8d88aea679027cb9")]
     public partial class LineOfSightGeoElement
     {

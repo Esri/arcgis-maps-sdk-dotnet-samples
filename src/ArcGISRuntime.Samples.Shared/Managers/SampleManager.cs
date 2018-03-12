@@ -65,6 +65,10 @@ namespace ArcGISRuntime.Samples.Managers
 
             // Create a tree from the list of all samples.
             FullTree = BuildFullTree(AllSamples);
+
+            // Add a special category for featured samples.
+            SearchableTreeNode featured = new SearchableTreeNode("Featured", AllSamples.Where(sample => sample.Tags.Contains("Featured")));
+            FullTree.Items.Insert(0, featured);
         }
 
         /// <summary>

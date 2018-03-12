@@ -24,7 +24,7 @@ namespace ArcGISRuntime
         private readonly UIViewController _parentViewController;
         private readonly List<SampleInfo> _visibleSamples = new List<SampleInfo>();
         private readonly IList<SearchableTreeNode> _categories;
-        private readonly List<SampleInfo> _sampleItems = new List<SampleInfo>();
+        private List<SampleInfo> _sampleItems = new List<SampleInfo>();
         private LoadingOverlay _loadPopup;
 
         public SearchResultsViewController(UIViewController controller, IList<SearchableTreeNode> categories)
@@ -32,7 +32,8 @@ namespace ArcGISRuntime
             _parentViewController = controller;
             _categories = categories;
             
-            CreateLists();
+            // Using the allsamples list avoids duplicate sample entries in the 'featured' category
+            _sampleItems = SampleManager.Current.AllSamples.ToList();
         }
 
         public override void ViewDidLayoutSubviews()
@@ -41,17 +42,6 @@ namespace ArcGISRuntime
             TableView.ContentInset = new UIEdgeInsets(44, 0, 0, 0);
         }
 
-        private void CreateLists()
-        {
-            // Parse out the samples from the categories
-            List<object> categoryItems = _categories.SelectMany(category => category.Items).ToList();
-
-            // Create a flat list of samples
-            foreach (var item in categoryItems)
-            {
-                _sampleItems.Add(item as SampleInfo);
-            }
-        }
         public void Search(string searchText)
         {
             _visibleSamples.Clear();

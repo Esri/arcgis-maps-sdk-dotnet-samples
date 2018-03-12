@@ -28,7 +28,8 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         "Line of Sight (GeoElement)",
         "Analysis",
         "This sample demonstrates how to perform a dynamic line of sight analysis between two moving GeoElements.",
-        "Use the slider to adjust the height of the observer.")]
+        "Use the slider to adjust the height of the observer.",
+        "Featured")]
     public class LineOfSightGeoElement : Activity
     {
         // Create and hold the SceneView

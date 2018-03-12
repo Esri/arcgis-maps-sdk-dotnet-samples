@@ -378,13 +378,13 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                     // Cancel authentication
                     authenticator.OnCancelled();
                 }
+#if __ANDROID__ 
                 finally
                 {
                     // Dismiss the OAuth login
-#if __ANDROID__ 
                     activity.FinishActivity(99);
-#endif
                 }
+#endif
             };
 
             // If an error was encountered when authenticating, set the exception on the TaskCompletionSource

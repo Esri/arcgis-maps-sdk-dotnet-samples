@@ -295,10 +295,10 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             Raster raster_ForMakingBlendRenderer = new Raster(GetRasterPath_Elevation());
             IEnumerable<double> myOutputMinValues = new List<double> { 9 };
             IEnumerable<double> myOutputMaxValues = new List<double> { 255 };
-            IEnumerable<double> mySourceMinValues = new List<double> { };
-            IEnumerable<double> mySourceMaxValues = new List<double> { };
-            IEnumerable<double> myNoDataValues = new List<double> { };
-            IEnumerable<double> myGammas = new List<double> { };
+            IEnumerable<double> mySourceMinValues = new List<double>();
+            IEnumerable<double> mySourceMaxValues = new List<double>();
+            IEnumerable<double> myNoDataValues = new List<double>();
+            IEnumerable<double> myGammas = new List<double>();
             SlopeType mySlopeType = (SlopeType)Enum.Parse(typeof(SlopeType), _mySlopeTypeChoice);
 
             BlendRenderer myBlendRenderer = new BlendRenderer(

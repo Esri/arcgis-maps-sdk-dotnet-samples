@@ -213,11 +213,11 @@ namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
                 var cred = await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
                 loggedIn = cred != null;
             }
-            catch (OperationCanceledException ex)
+            catch (OperationCanceledException)
             {
                 // TODO: handle login canceled
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // TODO: handle login failure
             }

@@ -74,7 +74,6 @@ namespace ArcGISRuntime.UWP.Samples.WmsServiceCatalog
         /// </summary>
         /// For simplicity, this sample doesn't show the layer hierarchy (tree), instead collapsing it to a list.
         /// A tree view would be more appropriate, but would complicate the sample greatly.
-        /// </remarks>
         /// <param name="info">Collection of starting WmsLayerInfo object</param>
         /// <param name="result">Result list to build</param>
         private void BuildLayerInfoList(IReadOnlyList<WmsLayerInfo> info, List<WmsLayerInfo> result)

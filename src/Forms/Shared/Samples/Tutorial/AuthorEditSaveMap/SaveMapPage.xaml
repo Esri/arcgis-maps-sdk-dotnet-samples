@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ArcGISRuntime.Samples.AuthorEditSaveMap.SaveMapPage">
   <TableView x:Name="SaveMapUI"
-          Grid.Row="0"
           Intent="Form">
     <TableRoot>
       <TableSection Title="Map Information">

@@ -52,11 +52,6 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
         // Redirect URL after a successful authorization (configured for the Portal Maps application)
         private const string OAuthRedirectUrl = "https://developers.arcgis.com";
 
-        // Store the OAuth dialog and controls for updating OAuth configuration
-        private AlertDialog _configOAuthDialog = null;
-        private EditText _clientIdText;
-        private EditText _redirectUrlText;
-
         // Store the save dialog and controls for entering the portal item title and description
         private AlertDialog _saveDialog = null;
         private EditText _titleText;
@@ -276,7 +271,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
                 RuntimeImage thumbnailImg = await _mapView.ExportImageAsync();
 
                 // Provide some default tags for the item
-                var tags = new string[] { "ArcGIS Runtime SDK", "tutorial" };
+                var tags = new[] { "ArcGIS Runtime SDK", "tutorial" };
 
                 try
                 {

@@ -219,7 +219,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             if (_groupByFields != null)
             {
                 // Find fields in the dictionary with a 'true' value and add them to the group by field names
-                foreach (KeyValuePair<string, bool> groupField in _groupByFields.Where(field => field.Value == true))
+                foreach (KeyValuePair<string, bool> groupField in _groupByFields.Where(field => field.Value))
                 {
                     statQueryParams.GroupByFieldNames.Add(groupField.Key);
                 }
@@ -887,7 +887,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             _resultsDictionary.TryGetValue(_groupNames[groupPosition], out result);
 
             // Return a string concatenated from the field name and value at the specified position
-            return result.ElementAt(childPosition).Key + " : " + result.ElementAt(childPosition).Value.ToString();
+            return result.ElementAt(childPosition).Key + " : " + result.ElementAt(childPosition).Value;
         }
 
         // Return the ID for the specified item

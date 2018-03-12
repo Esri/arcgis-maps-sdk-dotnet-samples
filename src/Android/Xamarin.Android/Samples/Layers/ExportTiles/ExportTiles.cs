@@ -293,7 +293,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
                     UpdatePreviewMap();
 
                     // Hide the progress bar
-                    _myProgressBar.Visibility = Android.Views.ViewStates.Gone;
+                    _myProgressBar.Visibility = ViewStates.Gone;
 
                     // Change the export button text
                     _myExportButton.Text = "Close Preview";
@@ -319,7 +319,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
                 RunOnUiThread(() =>
                 {
                     // Hide the progress bar
-                    _myProgressBar.Visibility = Android.Views.ViewStates.Gone;
+                    _myProgressBar.Visibility = ViewStates.Gone;
 
                     // Change the export button text
                     _myExportButton.Text = "Export tiles";
@@ -369,7 +369,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
                 _myExportButton.Enabled = false;
 
                 // Show the progress bar
-                _myProgressBar.Visibility = Android.Views.ViewStates.Visible;
+                _myProgressBar.Visibility = ViewStates.Visible;
 
                 // Start the export
                 StartExport();

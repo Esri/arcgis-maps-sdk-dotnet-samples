@@ -199,6 +199,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         /// <summary>
         /// Recursively builds a list of WmsLayerInfo metadata starting from a collection of root WmsLayerInfo
         /// </summary>
+        /// <remarks>
         /// For simplicity, this sample doesn't show the layer hierarchy (tree), instead collapsing it to a list.
         /// A tree view would be more appropriate, but would complicate the sample greatly.
         /// </remarks>

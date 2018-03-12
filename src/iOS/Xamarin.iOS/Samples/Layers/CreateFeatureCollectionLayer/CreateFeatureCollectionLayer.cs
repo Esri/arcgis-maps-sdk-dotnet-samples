@@ -166,8 +166,6 @@ namespace ArcGISRuntime.Samples.CreateFeatureCollectionLayer
                     var lineSym = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.DarkBlue, 2);
                     sym = new SimpleFillSymbol(SimpleFillSymbolStyle.DiagonalCross, Color.Cyan, lineSym);
                     break;
-                default:
-                    break;
             }
 
             // Return a new renderer that uses the symbol created above

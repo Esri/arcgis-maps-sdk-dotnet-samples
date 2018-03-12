@@ -349,7 +349,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                     PresentViewController(alert, true, null);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Report save error
                 UIAlertController alert = UIAlertController.Create("Error", "Unable to save " + e.Title, UIAlertControllerStyle.Alert);
@@ -396,7 +396,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
                 await thisAuthenticationManager.GetCredentialAsync(loginInfo, false);
             }
-            catch (System.OperationCanceledException)
+            catch (OperationCanceledException)
             {
                 // user canceled the login
                 throw new Exception("Portal log in was canceled.");
@@ -770,7 +770,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         public SaveMapDialogOverlay(CoreGraphics.CGRect frame, nfloat transparency, UIColor color, PortalItem mapItem) : base(frame)
         {
             // Store the current portal item for the map (if any)
-            _portalItem = mapItem;
+            var portalItem = mapItem;
 
             // Create a semi-transparent overlay with the specified background color
             BackgroundColor = color;

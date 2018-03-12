@@ -395,7 +395,7 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             string locationText = MyLocationBox.Text;
 
             // Run the search
-            UpdateSearch(searchText, locationText, false);
+            UpdateSearch(searchText, locationText);
         }
 
         /// <summary>

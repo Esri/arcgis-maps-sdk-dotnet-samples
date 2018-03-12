@@ -177,7 +177,7 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
                 var cred = await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
                 loggedIn = cred != null;
             }
-            catch (OperationCanceledException ex)
+            catch (OperationCanceledException)
             {
                 // OAuth login was canceled
                 // .. ignore this, the user can still search public maps

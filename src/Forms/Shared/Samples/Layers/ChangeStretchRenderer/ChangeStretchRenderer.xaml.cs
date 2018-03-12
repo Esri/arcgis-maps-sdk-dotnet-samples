@@ -176,7 +176,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                     PercentClipStretchParameters myPercentClipStretchParameters = new PercentClipStretchParameters(Convert.ToDouble(Input_Parameter1.Text), Convert.ToDouble(Input_Parameter2.Text));
 
                     // Create the percent clip renderer based on the user defined min/max percent clip values, empty gamma values, statistic estimates, and a predefined color ramp 
-                    myStretchRenderer = new Esri.ArcGISRuntime.Rasters.StretchRenderer(myPercentClipStretchParameters, myGammaValues, true, myColorRamp);
+                    myStretchRenderer = new StretchRenderer(myPercentClipStretchParameters, myGammaValues, true, myColorRamp);
 
                     break;
 
@@ -189,7 +189,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                     StandardDeviationStretchParameters myStandardDeviationStretchParameters = new StandardDeviationStretchParameters(Convert.ToDouble(Input_Parameter1.Text));
 
                     // Create the standard deviation renderer based on the user defined standard deviation value, empty gamma values, statistic estimates, and a predefined color ramp 
-                    myStretchRenderer = new Esri.ArcGISRuntime.Rasters.StretchRenderer(myStandardDeviationStretchParameters, myGammaValues, true, myColorRamp);
+                    myStretchRenderer = new StretchRenderer(myStandardDeviationStretchParameters, myGammaValues, true, myColorRamp);
 
                     break;
             }

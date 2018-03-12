@@ -195,14 +195,10 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
        private string GetGdbPath()
         {
             // Set the platform-specific path for storing the geodatabase
-            String folder = "";
-
 #if WINDOWS_UWP
-            folder = Windows.Storage.ApplicationData.Current.LocalFolder.Path.ToString();
-#elif __IOS__
-            folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-#elif __ANDROID__
-            folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string folder = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
+#elif __IOS__ || __ANDROID__
+            string folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 #endif
             // Set the final path
             return Path.Combine(folder, "savethebay.geodatabase");
@@ -280,7 +276,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
         private async void StopEditTransaction(object sender, EventArgs e)
         {
             // Ask the user if they want to commit or rollback the transaction (or cancel to keep working in the transaction)
-            string choice = await DisplayActionSheet("Transaction", "Cancel", null, new string[] { "Commit", "Rollback" });
+            string choice = await DisplayActionSheet("Transaction", "Cancel", null, "Commit", "Rollback");
 
             if (choice == "Commit")
             {

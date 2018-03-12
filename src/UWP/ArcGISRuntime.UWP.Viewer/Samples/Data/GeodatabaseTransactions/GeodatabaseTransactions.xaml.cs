@@ -194,7 +194,7 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
         private string GetGdbPath()
         {
             // Get the UWP-specific path for storing the geodatabase
-            string folder = Windows.Storage.ApplicationData.Current.LocalFolder.Path.ToString();
+            string folder = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
             return Path.Combine(folder, "savethebay.geodatabase");
         }
 

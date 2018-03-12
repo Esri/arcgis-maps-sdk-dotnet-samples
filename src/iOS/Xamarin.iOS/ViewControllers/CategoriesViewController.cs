@@ -49,7 +49,6 @@ namespace ArcGISRuntime
             SearchController.SearchResultsUpdater = searchUpdater;
 
             // Display the search controller
-            SearchController.SearchBar.Frame = new CGRect(SearchController.SearchBar.Frame.X, SearchController.SearchBar.Frame.Y, SearchController.SearchBar.Frame.Width, 44f);
             TableView.TableHeaderView = SearchController.SearchBar;
             DefinesPresentationContext = true;
 

@@ -56,7 +56,7 @@ namespace ArcGISRuntime.Samples.MapRotation
             _rotationLabel.Text = string.Format("{0:0}°", _myMapView.MapRotation);
 
             // Configure the slider
-            _rotationSlider.ValueChanged += (Object s, EventArgs e) =>
+            _rotationSlider.ValueChanged += (s, e) =>
             {
                 _myMapView.SetViewpointRotationAsync(_rotationSlider.Value);
                 _rotationLabel.Text = string.Format("{0:0}°", _rotationSlider.Value);

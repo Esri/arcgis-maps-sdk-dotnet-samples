@@ -49,7 +49,7 @@ namespace ArcGISRuntime.Samples.MapRotation
             angleSlider.Progress = 0;
 
             // When the slider value (Progress) changes, rotate the map   
-            angleSlider.ProgressChanged += (object s, SeekBar.ProgressChangedEventArgs e) => 
+            angleSlider.ProgressChanged += (s, e) => 
             {
                 if (e.FromUser)
                 {

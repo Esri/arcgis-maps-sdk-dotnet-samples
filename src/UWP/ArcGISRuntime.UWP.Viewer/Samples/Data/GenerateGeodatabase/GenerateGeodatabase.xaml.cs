@@ -173,7 +173,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
             _generateGdbJob.JobChanged += GenerateGdbJobChanged;
 
             // Handle the progress changed event (to show progress bar)
-            _generateGdbJob.ProgressChanged += ((object sender, EventArgs e) =>
+            _generateGdbJob.ProgressChanged += ((sender, e) =>
             {
                 UpdateProgressBar();
             });

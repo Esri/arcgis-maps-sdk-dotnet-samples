@@ -19,7 +19,7 @@ namespace ArcGISRuntime.UWP.Viewer
     {
         public WaitPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

@@ -38,10 +38,10 @@ namespace ArcGISRuntime
         public override void ViewDidLayoutSubviews()
         {
             // Magic number is the row height for the view controller
-            this.TableView.ContentInset = new UIEdgeInsets(44, 0, 0, 0);
+            TableView.ContentInset = new UIEdgeInsets(44, 0, 0, 0);
         }
 
-        public void CreateLists()
+        private void CreateLists()
         {
             // Parse out the samples from the categories
             List<object> categoryItems = _categories.SelectMany(category => category.Items).ToList();

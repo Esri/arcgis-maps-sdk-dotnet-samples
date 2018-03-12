@@ -1,17 +1,16 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using Android.App;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Forms.Droid")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("ArcGIS Runtime SDK for .NET Samples Viewer")]
+[assembly: AssemblyDescription("Viewer application to browse ArcGIS Runtime SDK for .NET samples.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Forms.Droid")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCompany("Esri Inc.")]
+[assembly: AssemblyProduct("ArcGIS Runtime SDK for .NET Samples Viewer")]
+[assembly: AssemblyCopyright("Copyright © Esri Inc. 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]

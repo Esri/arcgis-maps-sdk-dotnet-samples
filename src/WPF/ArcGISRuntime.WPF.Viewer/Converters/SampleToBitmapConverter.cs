@@ -21,7 +21,7 @@ namespace ArcGISRuntime.WPF.Viewer.Converters
         {
             try
             {
-                if (File.Exists(value.ToString()))
+                if (value != null && File.Exists(value.ToString()))
                     return BitmapFrame.Create(
                         new Uri(value.ToString(), UriKind.Absolute),
                         BitmapCreateOptions.DelayCreation,

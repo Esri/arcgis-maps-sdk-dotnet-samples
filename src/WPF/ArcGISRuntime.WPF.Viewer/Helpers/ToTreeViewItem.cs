@@ -13,7 +13,7 @@ using System.Windows.Controls;
 
 namespace ArcGISRuntime.WPF.Viewer
 {
-    internal class Helpers
+    internal static class Helpers
     {
         /// <summary>
         /// Creates a usable list of <c>TreeViewItem</c>.

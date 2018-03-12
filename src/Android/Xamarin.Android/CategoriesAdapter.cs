@@ -25,8 +25,8 @@ namespace ArcGISRuntime
 
         public CategoriesAdapter(Activity context, List<SearchableTreeNode> items)
         {
-            this._items = items;
-            this._context = context;
+            _items = items;
+            _context = context;
         }
 
         public override long GetItemId(int position)

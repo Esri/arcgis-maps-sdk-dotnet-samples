@@ -36,12 +36,14 @@ namespace ArcGISRuntime.Samples.Managers
         /// <summary>
         /// A list of all samples.
         /// </summary>
+        /// <remarks>This is public on purpose. Other solutions that consume 
+        /// this project reference it directly.</remarks>
         public IList<SampleInfo> AllSamples { get; set; }
 
         /// <summary>
         /// A collection of all samples organized by category.
         /// </summary>
-        public SearchableTreeNode FullTree { get; set; }
+        public SearchableTreeNode FullTree { get; private set; }
 
         /// <summary>
         /// The sample that is currently being shown to the user.
@@ -98,6 +100,8 @@ namespace ArcGISRuntime.Samples.Managers
         /// Creates a <c>SearchableTreeNode</c> representing the entire 
         /// collection of samples, organized by category.
         /// </summary>
+        /// <remarks>This is public on purpose. Other solutions that 
+        /// consume this project reference it directly.</remarks>
         /// <param name="allSamples">A list of all samples.</param>
         /// <returns>A <c>SearchableTreeNode</c> with all samples organized by category.</returns>
         public static SearchableTreeNode BuildFullTree(IEnumerable<SampleInfo> allSamples)

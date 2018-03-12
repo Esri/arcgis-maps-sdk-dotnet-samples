@@ -78,6 +78,12 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             // Hold the entered point
             MapPoint enteredPoint = null;
 
+            // Set a default last edited field to prevent NullReferenceException
+            if (_lastEdited == null)
+            {
+                _lastEdited = _DecimalDegreesEditText;
+            }
+
             // Update the point based on which text sent the event
             try
             {

@@ -23,7 +23,7 @@ namespace ArcGISRuntime
         private readonly Activity _context;
         private readonly List<SampleInfo> _items;
 
-        public SamplesListAdapter(Activity context, List<SampleInfo> sampleItems) : base()
+        public SamplesListAdapter(Activity context, List<SampleInfo> sampleItems)
         {
             _context = context;
             _items = sampleItems;

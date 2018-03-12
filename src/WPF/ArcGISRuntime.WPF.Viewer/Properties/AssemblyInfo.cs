@@ -1,6 +1,4 @@
 ﻿using System.Reflection;
-using System.Resources;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
 
@@ -12,7 +10,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Esri Inc.")]
 [assembly: AssemblyProduct("ArcGIS Runtime SDK for .NET Samples Viewer")]
-[assembly: AssemblyCopyright("Copyright © Esri Inc. 2015")]
+[assembly: AssemblyCopyright("Copyright © Esri Inc. 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

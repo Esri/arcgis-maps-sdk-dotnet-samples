@@ -38,14 +38,14 @@ namespace ArcGISRuntime.UWP.Viewer
         {
             var errorMessage = e.Exception.ToString();
             Debug.WriteLine(errorMessage);
-            var message = new MessageDialog(errorMessage, "An error occurred").ShowAsync();
+            new MessageDialog(errorMessage, "An error occurred").ShowAsync();
         }
 
         private void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             var errorMessage = e.Exception.ToString();
             Debug.WriteLine(errorMessage);
-            var message = new MessageDialog(errorMessage, "An error occurred").ShowAsync();
+            new MessageDialog(errorMessage, "An error occurred").ShowAsync();
             e.Handled = true;
         }
 
@@ -57,7 +57,7 @@ namespace ArcGISRuntime.UWP.Viewer
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
 #if DEBUG
-            if (System.Diagnostics.Debugger.IsAttached)
+            if (Debugger.IsAttached)
             {
                 DebugSettings.EnableFrameRateCounter = true;
             }

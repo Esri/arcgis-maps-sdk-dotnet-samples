@@ -40,7 +40,7 @@ namespace ArcGISRuntime
             TableView.ReloadData();
         }
 
-        public class SamplesDataSource : UITableViewSource
+        private class SamplesDataSource : UITableViewSource
         {
             private readonly UITableViewController _controller;
             private LoadingOverlay _loadPopup;

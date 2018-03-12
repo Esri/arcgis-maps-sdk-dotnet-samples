@@ -64,14 +64,14 @@ namespace ArcGISRuntime.Samples.Desktop
             var context = (e.NewValue as TreeViewItem);
             if (context == null) {return;}
             var sample = context.DataContext as SampleInfo;
-            if (sample == null)
+            var category = context.DataContext as SearchableTreeNode;
+            if (category != null)
             {
-                SearchableTreeNode category = ((TreeViewItem)e.NewValue).DataContext as SearchableTreeNode;
                 CategoriesList.ItemsSource = category.Items;
                 DetailsRegion.Visibility = Visibility.Collapsed;
                 CategoriesRegion.Visibility = Visibility.Visible;
             }
-            else
+            else if (sample != null)
             {
                 SelectSample(sample);
                 DetailsRegion.Visibility = Visibility.Visible;

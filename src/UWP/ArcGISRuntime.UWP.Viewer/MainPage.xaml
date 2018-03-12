@@ -2,7 +2,6 @@
     x:Class="ArcGISRuntime.UWP.Viewer.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ArcGISRuntime.UWP.Viewer"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     
@@ -187,7 +186,7 @@
                        Margin="0,0,0,0"
                        RelativePanel.RightOf="TogglePaneButton"
                        RelativePanel.AlignVerticalCenterWith="TogglePaneButton"
-                       Text="{Binding ElementName=categories, Path=SelectedItem.Name}"
+                       Text="{Binding ElementName=Categories, Path=SelectedItem.Name}"
                        Foreground="{StaticResource PrimaryColor}"
                        FontSize="24"></TextBlock>
             <SearchBox x:Name="SearchBox" RelativePanel.AlignRightWithPanel="True" 
@@ -211,7 +210,7 @@
                 x:Name="RootSplitView"
                 IsPaneOpen="False" DisplayMode="Overlay">
             <SplitView.Pane>
-                <ListView x:Name="categories"
+                <ListView x:Name="Categories"
 					    ItemsSource="{Binding}" 
 				        SelectionChanged="OnCategoriesSelectionChanged"
 				        Background="Transparent"
@@ -223,8 +222,8 @@
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource SecondaryBackgroundColor}">
                     <!--HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"-->
 
-                    <GridView x:Name="samplesGridView" 
-                              ItemsSource="{Binding ElementName=categories, Path=SelectedItem.Items}" 
+                    <GridView x:Name="SamplesGridView" 
+                              ItemsSource="{Binding ElementName=Categories, Path=SelectedItem.Items}" 
                               ItemTemplate="{StaticResource StantardSampleItemTemplate}" 
                               SelectionMode="None"
                               Background="Transparent" Margin="1,0,0,0">
@@ -235,8 +234,8 @@
                         </GridView.ItemContainerStyle>
                     </GridView>
 
-                    <ListView x:Name="samplesListView" Visibility="Collapsed" 
-                              SelectionMode="None" ItemsSource="{Binding ElementName=categories, Path=SelectedItem.Items}" 
+                    <ListView x:Name="SamplesListView" Visibility="Collapsed" 
+                              SelectionMode="None" ItemsSource="{Binding ElementName=Categories, Path=SelectedItem.Items}" 
                               ItemTemplate="{StaticResource SmallSampleItemTemplate}">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">

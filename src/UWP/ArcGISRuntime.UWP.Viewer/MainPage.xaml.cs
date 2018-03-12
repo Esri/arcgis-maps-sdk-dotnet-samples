@@ -12,9 +12,7 @@ using ArcGISRuntime.Samples.Shared.Models;
 using ArcGISRuntime.UWP.Viewer.Dialogs;
 using Esri.ArcGISRuntime.Security;
 using System;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Windows.Foundation.Metadata;
 using Windows.UI.Core;
@@ -86,8 +84,8 @@ namespace ArcGISRuntime.UWP.Viewer
             // Create categories list. Also add Featured there as a single category.
             var categoriesList = SampleManager.Current.FullTree;
 
-            categories.ItemsSource = categoriesList.Items;
-            categories.SelectedIndex = 0;
+            Categories.ItemsSource = categoriesList.Items;
+            Categories.SelectedIndex = 0;
             ((Frame)Window.Current.Content).Navigated += OnFrameNavigated;
         }
 
@@ -203,9 +201,9 @@ namespace ArcGISRuntime.UWP.Viewer
             {
                 return;
             }
-            categories.ItemsSource = categoriesList.Items;
+            Categories.ItemsSource = categoriesList.Items;
 
-            categories.SelectedIndex = 0;
+            Categories.SelectedIndex = 0;
         }
 
         private void OnSearchToggleChecked(object sender, RoutedEventArgs e)

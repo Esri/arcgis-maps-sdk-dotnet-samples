@@ -152,7 +152,7 @@ namespace ArcGISRuntime.UWP.Samples.WmsServiceCatalog
 
         public LayerDisplayVM(WmsLayerInfo info)
         {
-            this.Info = info;
+            Info = info;
         }
 
         public override string ToString()

@@ -122,7 +122,7 @@ namespace ArcGISRuntime.UWP.Samples.FindAddress
         private async Task<Graphic> GraphicForPoint(MapPoint point)
         {
             // Get current assembly that contains the image
-            var currentAssembly = this.GetType().GetTypeInfo().Assembly;
+            var currentAssembly = GetType().GetTypeInfo().Assembly;
 
             // Get image as a stream from the resources
             // Picture is defined as EmbeddedResource and DoNotCopy

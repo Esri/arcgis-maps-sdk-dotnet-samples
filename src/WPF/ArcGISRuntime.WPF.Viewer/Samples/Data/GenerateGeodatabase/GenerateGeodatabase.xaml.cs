@@ -275,7 +275,7 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
 
             // Due to the nature of the threading implementation,
             //     the dispatcher needs to be used to interact with the UI
-            this.Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(() =>
             {
                 // Hide the progress bar and re-enable button if the job is finished
                 if (job.Status == JobStatus.Succeeded || job.Status == JobStatus.Failed)
@@ -297,7 +297,7 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
         {
             // Due to the nature of the threading implementation,
             //     the dispatcher needs to be used to interact with the UI
-            this.Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(() =>
             {
                 // Update the progress bar value
                 MyProgressBar.Value = _generateGdbJob.Progress / 1.0;

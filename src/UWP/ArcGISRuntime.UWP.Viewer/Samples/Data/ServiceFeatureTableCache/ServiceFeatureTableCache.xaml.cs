@@ -23,7 +23,7 @@ namespace ArcGISRuntime.UWP.Samples.ServiceFeatureTableCache
     {
         public ServiceFeatureTableCache()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization 
             Initialize();

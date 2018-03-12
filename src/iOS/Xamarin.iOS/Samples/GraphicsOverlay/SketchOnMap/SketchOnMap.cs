@@ -299,12 +299,12 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             UIPopoverPresentationController presentationPopover = sketchModeActionSheet.PopoverPresentationController;
             if (presentationPopover != null)
             {
-                presentationPopover.SourceView = this.View;
+                presentationPopover.SourceView = View;
                 presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
             }
 
             // Display the list of sketch modes
-            this.PresentViewController(sketchModeActionSheet, true, null);
+            PresentViewController(sketchModeActionSheet, true, null);
         }
 
         private async void SketchGeometry(string sketchModeName)

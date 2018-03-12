@@ -66,7 +66,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
             Title = "List transformations";
 
             // Bind the view to this page.
-            this.BindingContext = this;
+            BindingContext = this;
 
             // Create a new map, add a point graphic, and fill the datum transformations list.
             Initialize();
@@ -239,7 +239,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
         public TransformRowTemplateSelector()
         {
             // Create the data template for unavailable transformations.
-            this._unavailableTransformTemplate = new DataTemplate(() =>
+            _unavailableTransformTemplate = new DataTemplate(() =>
             {
                 Label transformNameLabel = new Label
                 {
@@ -253,7 +253,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
             });
 
             // Create the data template for available (but non-default) transformations.
-            this._availableTransformTemplate = new DataTemplate(() =>
+            _availableTransformTemplate = new DataTemplate(() =>
             {
                 Label transformNameLabel = new Label
                 {
@@ -267,7 +267,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
             });
 
             // Create the data template for the default transformation.
-            this._defaultTransformTemplate = new DataTemplate(() =>
+            _defaultTransformTemplate = new DataTemplate(() =>
             {
                 Label transformNameLabel = new Label
                 {

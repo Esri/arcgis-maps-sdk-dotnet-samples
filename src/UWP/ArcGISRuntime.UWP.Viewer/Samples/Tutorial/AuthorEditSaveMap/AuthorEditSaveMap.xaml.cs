@@ -46,7 +46,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorEditSaveMap
 
         public AuthorEditSaveMap()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             // Pass the current map view to the map view model
             ViewModel.AppMapView = MyMapView;

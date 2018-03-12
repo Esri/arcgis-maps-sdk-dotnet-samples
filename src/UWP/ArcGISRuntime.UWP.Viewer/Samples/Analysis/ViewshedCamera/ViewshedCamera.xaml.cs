@@ -32,7 +32,7 @@ namespace ArcGISRuntime.UWP.Samples.ViewshedCamera
 
         public ViewshedCamera()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             // Create the Scene, basemap, camera, and location viewshed analysis
             Initialize();

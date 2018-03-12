@@ -23,7 +23,7 @@ namespace ArcGISRuntime.UWP.Samples.AccessLoadStatus
     {
         public AccessLoadStatus()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization 
             Initialize();

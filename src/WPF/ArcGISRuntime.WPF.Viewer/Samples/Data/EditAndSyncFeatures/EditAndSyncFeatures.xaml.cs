@@ -476,7 +476,7 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
             // Due to the nature of the threading implementation,
             //     the dispatcher needs to be used to interact with the UI
             // The dispatcher takes an Action, provided here as a lambda function
-            this.Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(() =>
             {
                 // Hide the progress bar if the job is finished
                 if (job.Status == JobStatus.Succeeded || job.Status == JobStatus.Failed)
@@ -498,7 +498,7 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
             // Due to the nature of the threading implementation,
             //     the dispatcher needs to be used to interact with the UI
             // The dispatcher takes an Action, provided here as a lambda function
-            this.Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(() =>
             {
                 // Update the progress bar value
                 MyProgressBar.Value = progress;
@@ -518,7 +518,7 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
             // Due to the nature of the threading implementation,
             //     the dispatcher needs to be used to interact with the UI
             // The dispatcher takes an Action, provided here as a lambda function
-            this.Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(() =>
             {
                 // Update the progress bar as appropriate
                 if (job.Status == JobStatus.Succeeded || job.Status == JobStatus.Failed)

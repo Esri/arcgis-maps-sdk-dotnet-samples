@@ -209,7 +209,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             // Needed to prevent a crash on iPad
             UIPopoverPresentationController presentationPopover = missionSelectionAlert.PopoverPresentationController;
             if (presentationPopover!=null) {
-                presentationPopover.SourceView = this.View;
+                presentationPopover.SourceView = View;
                 presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
             }
 

@@ -25,7 +25,7 @@ namespace ArcGISRuntime.UWP.Samples.SurfacePlacements
     {
         public SurfacePlacements()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             Initialize();
         }

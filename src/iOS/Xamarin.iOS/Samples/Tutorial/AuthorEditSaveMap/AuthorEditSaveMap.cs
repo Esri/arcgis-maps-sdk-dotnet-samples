@@ -186,7 +186,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
                 try
                 {
                     // Dismiss the OAuth UI when complete
-                    this.DismissViewController(true, null);
+                    DismissViewController(true, null);
 
                     // Throw an exception if the user could not be authenticated
                     if (!authArgs.IsAuthenticated)
@@ -208,7 +208,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
                     // Cancel authentication
                     authenticator.OnCancelled();
                 } finally {
-                    this.DismissViewController(false, null);
+                    DismissViewController(false, null);
                 }
             };
 
@@ -226,7 +226,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
                     if (_taskCompletionSource != null)
                     {
                         _taskCompletionSource.TrySetCanceled();
-                        this.DismissViewController(true, null);
+                        DismissViewController(true, null);
                     }
                 }
                 // Cancel authentication
@@ -236,7 +236,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
             // Present the OAuth UI so the user can enter user name and password
             InvokeOnMainThread(() =>
             {
-                this.PresentViewController(authenticator.GetUI(), true, null);
+                PresentViewController(authenticator.GetUI(), true, null);
             });
 
             // Return completion source task so the caller can await completion
@@ -353,12 +353,12 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
             UIPopoverPresentationController presentationPopover = basemapsActionSheet.PopoverPresentationController;
             if (presentationPopover != null)
             {
-                presentationPopover.SourceView = this.View;
+                presentationPopover.SourceView = View;
                 presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
             }
 
             // Display the list of basemaps
-            this.PresentViewController(basemapsActionSheet, true, null);
+            PresentViewController(basemapsActionSheet, true, null);
         }
 
         private void SaveCanceled(object sender, EventArgs e)
@@ -547,15 +547,15 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
             AddSubviews(_titleTextField, _descriptionTextField, _tagsTextField, saveButton, cancelButton);
 
             // If there's an existing portal item, configure the dialog for "update" (read-only entries)
-            if (this._portalItem != null)
+            if (_portalItem != null)
             {
-                _titleTextField.Text = this._portalItem.Title;
+                _titleTextField.Text = _portalItem.Title;
                 _titleTextField.Enabled = false;
 
-                _descriptionTextField.Text = this._portalItem.Description;
+                _descriptionTextField.Text = _portalItem.Description;
                 _descriptionTextField.Enabled = false;
 
-                _tagsTextField.Text = string.Join(",", this._portalItem.Tags);
+                _tagsTextField.Text = string.Join(",", _portalItem.Tags);
                 _tagsTextField.Enabled = false;
 
                 // Change the button text
@@ -724,7 +724,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
             Map newMap = new Map(Basemap.CreateLightGrayCanvasVector());
 
             // Store the new map
-            this.Map = newMap;
+            Map = newMap;
         }
 
         // Raises the "MapViewModel.PropertyChanged" event

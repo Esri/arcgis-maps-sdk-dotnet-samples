@@ -56,7 +56,7 @@ namespace ArcGISRuntime.Samples.Managers
         public void Initialize()
         {
             // Get the currently-executing assembly.
-            Assembly samplesAssembly = this.GetType().GetTypeInfo().Assembly;
+            Assembly samplesAssembly = GetType().GetTypeInfo().Assembly;
 
             // Get the list of all samples in the assembly.
             AllSamples = CreateSampleInfos(samplesAssembly).OrderBy(info => info.Category)

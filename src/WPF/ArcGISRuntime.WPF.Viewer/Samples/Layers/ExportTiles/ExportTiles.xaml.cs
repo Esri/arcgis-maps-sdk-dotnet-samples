@@ -208,7 +208,7 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
             {
                 // Dispatcher is necessary due to the threading implementation;
                 //     this method is called from a thread other than the UI thread
-                this.Dispatcher.Invoke(() =>
+                Dispatcher.Invoke(() =>
                 {
                     // Show the exported tiles on the preview map
                     UpdatePreviewMap();
@@ -233,7 +233,7 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
 
                 // Dispatcher is necessary due to the threading implementation;
                 //     this method is called from a thread other than the UI thread
-                this.Dispatcher.Invoke(() =>
+                Dispatcher.Invoke(() =>
                 {
                     // Hide the progress bar
                     MyProgressBar.Visibility = Visibility.Collapsed;

@@ -93,7 +93,7 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
 
         private void CreateLayout()
         {
-            this.View.BackgroundColor = UIColor.White;
+            View.BackgroundColor = UIColor.White;
 
             // Create a stack view to organize the query controls
             _controlsStackView = new UIStackView();

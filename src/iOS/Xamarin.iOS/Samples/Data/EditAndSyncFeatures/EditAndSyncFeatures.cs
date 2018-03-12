@@ -92,7 +92,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         {
             base.ViewDidLayoutSubviews();
 
-            nfloat pageOffset = this.NavigationController.TopLayoutGuide.Length;
+            nfloat pageOffset = NavigationController.TopLayoutGuide.Length;
 
             // Place the MapView
             myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);

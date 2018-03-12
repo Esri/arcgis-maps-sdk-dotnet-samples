@@ -26,7 +26,7 @@ namespace ArcGISRuntime.UWP.Samples.AddGraphicsRenderer
     {
         public AddGraphicsRenderer()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization 
             Initialize();

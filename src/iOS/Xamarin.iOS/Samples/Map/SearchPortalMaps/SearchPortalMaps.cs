@@ -288,12 +288,12 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             UIPopoverPresentationController presentationPopover = mapListActionSheet.PopoverPresentationController;
             if (presentationPopover != null)
             {
-                presentationPopover.SourceView = this.View;
+                presentationPopover.SourceView = View;
                 presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
             }
 
             // Display the list of maps
-            this.PresentViewController(mapListActionSheet, true, null);
+            PresentViewController(mapListActionSheet, true, null);
         }
 
         private async void DisplayMap(Uri webMapUri)
@@ -470,7 +470,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 try
                 {
                     // Dismiss the OAuth UI when complete
-                    this.DismissViewController(true, null);
+                    DismissViewController(true, null);
 
                     // Throw an exception if the user could not be authenticated
                     if (!authArgs.IsAuthenticated)
@@ -513,7 +513,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             // Present the OAuth UI (on the app's UI thread) so the user can enter user name and password
             InvokeOnMainThread(() =>
             {
-                this.PresentViewController(auth.GetUI(), true, null);
+                PresentViewController(auth.GetUI(), true, null);
             });
 
             // Return completion source task so the caller can await completion

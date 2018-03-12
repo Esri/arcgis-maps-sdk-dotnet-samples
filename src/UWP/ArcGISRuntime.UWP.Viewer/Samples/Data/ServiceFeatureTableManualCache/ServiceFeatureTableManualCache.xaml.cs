@@ -27,7 +27,7 @@ namespace ArcGISRuntime.UWP.Samples.ServiceFeatureTableManualCache
 
         public ServiceFeatureTableManualCache()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization 
             Initialize();

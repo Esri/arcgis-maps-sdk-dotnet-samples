@@ -27,7 +27,7 @@ namespace ArcGISRuntime.UWP.Samples.RenderPictureMarkers
     {
         public RenderPictureMarkers()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization 
             Initialize();
@@ -84,7 +84,7 @@ namespace ArcGISRuntime.UWP.Samples.RenderPictureMarkers
         private async Task CreatePictureMarkerSymbolFromResources(GraphicsOverlay overlay)
         {
             // Get current assembly that contains the image
-            var currentAssembly = this.GetType().GetTypeInfo().Assembly;
+            var currentAssembly = GetType().GetTypeInfo().Assembly;
 
             // Get image as a stream from the resources
             // Picture is defined as EmbeddedResource and DoNotCopy

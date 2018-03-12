@@ -456,7 +456,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 finally
                 {
                     // End the OAuth login activity
-                    this.FinishActivity(99);
+                    FinishActivity(99);
                 }
             };
 
@@ -474,7 +474,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                     if (_taskCompletionSource != null)
                     {
                         _taskCompletionSource.TrySetCanceled();
-                        this.FinishActivity(99);
+                        FinishActivity(99);
                     }
                 }
 
@@ -484,7 +484,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
 
             // Present the OAuth UI (Activity) so the user can enter user name and password
             var intent = authenticator.GetUI(this);
-            this.StartActivityForResult(intent, 99);
+            StartActivityForResult(intent, 99);
 
             // Return completion source task so the caller can await completion
             return _taskCompletionSource.Task;
@@ -548,10 +548,10 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             LinearLayout dialogView = null;
 
             // Get the context for creating the dialog controls
-            Android.Content.Context ctx = this.Activity.ApplicationContext;
+            Android.Content.Context ctx = Activity.ApplicationContext;
 
             // Set a dialog title
-            this.Dialog.SetTitle("Search Portal");
+            Dialog.SetTitle("Search Portal");
 
             try
             {
@@ -575,7 +575,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             catch (Exception ex)
             {
                 // Show the exception message 
-                var alertBuilder = new AlertDialog.Builder(this.Activity);
+                var alertBuilder = new AlertDialog.Builder(Activity);
                 alertBuilder.SetTitle("Error");
                 alertBuilder.SetMessage(ex.Message);
                 alertBuilder.Show();
@@ -600,12 +600,12 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 OnSearchClicked(this, mapSearchArgs);
 
                 // Close the dialog
-                this.Dismiss();
+                Dismiss();
             }
             catch (Exception ex)
             {
                 // Show the exception message (dialog will stay open so user can try again)
-                var alertBuilder = new AlertDialog.Builder(this.Activity);
+                var alertBuilder = new AlertDialog.Builder(Activity);
                 alertBuilder.SetTitle("Error");
                 alertBuilder.SetMessage(ex.Message);
                 alertBuilder.Show();

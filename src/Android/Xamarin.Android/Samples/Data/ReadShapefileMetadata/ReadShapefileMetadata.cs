@@ -128,10 +128,10 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
             LinearLayout dialogView = null;
 
             // Get the context for creating the dialog controls
-            Android.Content.Context ctx = this.Activity.ApplicationContext;
+            Android.Content.Context ctx = Activity.ApplicationContext;
 
             // Set a dialog title
-            this.Dialog.SetTitle(_metadata.Credits);            
+            Dialog.SetTitle(_metadata.Credits);            
 
             // The container for the dialog is a vertical linear layout
             dialogView = new LinearLayout(ctx);
@@ -159,7 +159,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
             // Add a button to close the dialog
             Button dismissButton = new Button(ctx);
             dismissButton.Text = "OK";
-            dismissButton.Click += (s,e)=> this.Dismiss();
+            dismissButton.Click += (s,e)=> Dismiss();
             dialogView.AddView(dismissButton);
 
             // Return the new view for display

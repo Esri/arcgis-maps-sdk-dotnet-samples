@@ -31,7 +31,7 @@ namespace ArcGISRuntime.UWP.Samples.IdentifyGraphics
 
         public IdentifyGraphics()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization 
             Initialize();

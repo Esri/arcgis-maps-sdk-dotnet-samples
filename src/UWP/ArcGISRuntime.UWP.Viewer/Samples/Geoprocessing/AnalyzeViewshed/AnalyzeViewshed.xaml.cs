@@ -46,7 +46,7 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeViewshed
 
         public AnalyzeViewshed()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization
             Initialize();

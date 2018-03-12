@@ -142,7 +142,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         public override void ViewDidLayoutSubviews()
         {
             // Variable holding the top bound (for code clarity)
-            nfloat pageOffset = this.NavigationController.TopLayoutGuide.Length;
+            nfloat pageOffset = NavigationController.TopLayoutGuide.Length;
 
             // Set up the visual frame for the layer display list
             _myDisplayList.Frame = new CoreGraphics.CGRect(0, pageOffset, View.Bounds.Width, 150);
@@ -287,7 +287,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
 
         public LayerDisplayVM(WmsLayerInfo info)
         {
-            this.Info = info;
+            Info = info;
         }
     }
 }

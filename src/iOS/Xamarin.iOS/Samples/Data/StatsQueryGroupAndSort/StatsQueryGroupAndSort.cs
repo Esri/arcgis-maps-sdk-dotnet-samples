@@ -78,7 +78,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
 
         private void CreateLayout()
         {
-            this.View.BackgroundColor = UIColor.White;
+            View.BackgroundColor = UIColor.White;
 
             // Create a stack view to organize the query controls
             _controlsStackView = new UIStackView();
@@ -159,7 +159,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             fieldsTable.TableView.Source = groupFieldsDataSource;
 
             // Show the table view
-            this.NavigationController.PushViewController(fieldsTable, true);
+            NavigationController.PushViewController(fieldsTable, true);
         }
 
         // Show fields the user can choose to sort results with (must be one of the group by fields)
@@ -200,7 +200,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             sortFieldsTable.TableView.Source = sortFieldsDataSource;
 
             // Show the table view
-            this.NavigationController.PushViewController(sortFieldsTable, true);
+            NavigationController.PushViewController(sortFieldsTable, true);
         }
 
         private void ShowStatDefinitions(object sender, EventArgs e)
@@ -224,7 +224,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             statsTable.SetEditing(true, true);
 
             // Show the table view
-            this.NavigationController.PushViewController(statsTable, true);
+            NavigationController.PushViewController(statsTable, true);
         }
 
         private async void ExecuteStatisticsQuery(object sender, EventArgs e)
@@ -280,7 +280,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             statResultsTable.TableView.Source = statResultsDataSource;
             
             // Show the table view
-            this.NavigationController.PushViewController(statResultsTable, true);
+            NavigationController.PushViewController(statResultsTable, true);
         }
 
         private void ShowAlert(string title, string message)
@@ -327,7 +327,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         // Constructor that takes an array of the available field names
         public StatDefinitionModel(string[] fieldNames)
         {
-            this._fieldNames = fieldNames;
+            _fieldNames = fieldNames;
         }
 
         // Property to expose the currently selected definition in the picker

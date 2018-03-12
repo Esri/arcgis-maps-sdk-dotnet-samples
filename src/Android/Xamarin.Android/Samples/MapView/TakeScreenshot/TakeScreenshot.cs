@@ -72,7 +72,7 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
                 var myPopupWindow = new PopupWindow(myImageButton, (int)(_myMapView.Width * .667), (int)(_myMapView.Height * .667));
 
                 // Display the popup in the middle of the map view
-                myPopupWindow.ShowAtLocation(this._myMapView, Android.Views.GravityFlags.Center, 0, 0);
+                myPopupWindow.ShowAtLocation(_myMapView, Android.Views.GravityFlags.Center, 0, 0);
 
                 // Define a lambda event handler to close the popup when the user clicks on the image button 
                 myImageButton.Click += (s, a) => myPopupWindow.Dismiss();

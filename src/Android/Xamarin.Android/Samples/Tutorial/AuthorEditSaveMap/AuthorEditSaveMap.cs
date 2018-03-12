@@ -403,7 +403,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
                 finally
                 {
                     // Dismiss the OAuth login
-                    this.FinishActivity(99);
+                    FinishActivity(99);
                 }
             };
 
@@ -421,7 +421,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
                     if (_taskCompletionSource != null)
                     {
                         _taskCompletionSource.TrySetCanceled();
-                        this.FinishActivity(99);
+                        FinishActivity(99);
                     }
                 }
 
@@ -431,7 +431,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
 
             // Present the OAuth UI so the user can enter user name and password
             var intent = authenticator.GetUI(this);
-            this.StartActivityForResult(intent, 99);
+            StartActivityForResult(intent, 99);
             // Return completion source task so the caller can await completion
             return _taskCompletionSource.Task;
         }
@@ -553,15 +553,13 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
             Map newMap = new Map(Basemap.CreateLightGrayCanvasVector());
 
             // Store the new map 
-            this.Map = newMap;
+            Map = newMap;
         }
         
         // Raises the PropertyChanged event for a property
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            var propertyChangedHandler = PropertyChanged;
-            if (propertyChangedHandler != null)
-                propertyChangedHandler(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -55,7 +55,7 @@ namespace ArcGISRuntime.iOSPageRenderer
                 try
                 {
                     // Dismiss the OAuth UI when complete
-                    this.DismissViewController(true, null);
+                    DismissViewController(true, null);
 
                     // Throw an exception if the user could not be authenticated
                     if (!authArgs.IsAuthenticated)
@@ -99,7 +99,7 @@ namespace ArcGISRuntime.iOSPageRenderer
             // Present the OAuth UI (on the app's UI thread) so the user can enter user name and password
             InvokeOnMainThread(() =>
             {
-                this.PresentViewController(authenticator.GetUI(), true, null);
+                PresentViewController(authenticator.GetUI(), true, null);
             });
 
             // Return completion source task so the caller can await completion

@@ -33,7 +33,7 @@ namespace ArcGISRuntime.UWP.Samples.SketchOnMap
 
         public SketchOnMap()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             // Call a function to set up the map and sketch editor 
             Initialize();
@@ -62,7 +62,7 @@ namespace ArcGISRuntime.UWP.Samples.SketchOnMap
             config.AllowMove = true;
 
             // Set the sketch editor as the page's data context
-            this.DataContext = MyMapView.SketchEditor;
+            DataContext = MyMapView.SketchEditor;
         }
 
         #region Graphic and symbol helpers

@@ -543,7 +543,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 finally
                 {
                     // End the OAuth login activity
-                    this.FinishActivity(99);
+                    FinishActivity(99);
                 }
             };
 
@@ -561,7 +561,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                     if (_taskCompletionSource != null)
                     {
                         _taskCompletionSource.TrySetCanceled();
-                        this.FinishActivity(99);
+                        FinishActivity(99);
                     }
                 }
 
@@ -571,7 +571,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
             // Present the OAuth UI (Activity) so the user can enter user name and password
             var intent = authenticator.GetUI(this);
-            this.StartActivityForResult(intent, 99);
+            StartActivityForResult(intent, 99);
 
             // Return completion source task so the caller can await completion
             return _taskCompletionSource.Task;
@@ -633,7 +633,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
         public SaveDialogFragment(PortalItem mapItem)
         {
-            this._portalItem = mapItem;
+            _portalItem = mapItem;
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -642,10 +642,10 @@ namespace ArcGISRuntime.Samples.AuthorMap
             LinearLayout dialogView = null;
 
             // Get the context for creating the dialog controls
-            Android.Content.Context ctx = this.Activity.ApplicationContext;
+            Android.Content.Context ctx = Activity.ApplicationContext;
 
             // Set a dialog title
-            this.Dialog.SetTitle("Save Map to Portal");
+            Dialog.SetTitle("Save Map to Portal");
 
             try
             {
@@ -677,26 +677,26 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 dialogView.AddView(saveMapButton);
 
                 // If there's an existing portal item, configure the dialog for "update" (read-only entries)
-                if (this._portalItem != null)
+                if (_portalItem != null)
                 {
-                    _mapTitleTextbox.Text = this._portalItem.Title;
+                    _mapTitleTextbox.Text = _portalItem.Title;
                     _mapTitleTextbox.Enabled = false;
 
-                    _mapDescriptionTextbox.Text = this._portalItem.Description;
+                    _mapDescriptionTextbox.Text = _portalItem.Description;
                     _mapDescriptionTextbox.Enabled = false;
 
-                    _tagsTextbox.Text = string.Join(",", this._portalItem.Tags);
+                    _tagsTextbox.Text = string.Join(",", _portalItem.Tags);
                     _tagsTextbox.Enabled = false;
 
                     // Change some of the control text
-                    this.Dialog.SetTitle("Save Changes to Map");
+                    Dialog.SetTitle("Save Changes to Map");
                     saveMapButton.Text = "Update";
                 }
             }
             catch (Exception ex)
             {
                 // Show the exception message 
-                var alertBuilder = new AlertDialog.Builder(this.Activity);
+                var alertBuilder = new AlertDialog.Builder(Activity);
                 alertBuilder.SetTitle("Error");
                 alertBuilder.SetMessage(ex.Message);
                 alertBuilder.Show();
@@ -729,12 +729,12 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 OnSaveClicked(this, mapSavedArgs);
 
                 // Close the dialog
-                this.Dismiss();
+                Dismiss();
             }
             catch (Exception ex)
             {
                 // Show the exception message (dialog will stay open so user can try again)
-                var alertBuilder = new AlertDialog.Builder(this.Activity);
+                var alertBuilder = new AlertDialog.Builder(Activity);
                 alertBuilder.SetTitle("Error");
                 alertBuilder.SetMessage(ex.Message);
                 alertBuilder.Show();

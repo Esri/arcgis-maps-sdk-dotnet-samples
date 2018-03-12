@@ -33,7 +33,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerDictionaryRenderer
 
         public FeatureLayerDictionaryRenderer()
         {
-            this.Title = "Feature layer dictionary renderer";
+            Title = "Feature layer dictionary renderer";
         }
 
         public override void ViewDidLoad()

@@ -39,7 +39,7 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightLocation
 
         public LineOfSightLocation()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             // Create the Scene, basemap, line of sight analysis, and analysis overlay
             Initialize();

@@ -4,7 +4,7 @@ This sample demonstrates searching a portal for web maps and loading them in the
 
 <img src="SearchPortalMaps.jpg" width="350"/>
 
-### Instructions
+## Instructions
 
 1. When the sample starts, you will be presented with a dialog for entering OAuth settings. If you need to create your own settings, sign in with your developer account and use the [ArcGIS for Developers dashboard](https://developers.arcgis.com/dashboard) to create an Application to store these settings.
 2. Enter values for the following OAuth settings.

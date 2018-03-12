@@ -4,6 +4,6 @@ This sample demonstrates how you can tap and hold on a map to get the magnifier.
 
 <img src="ShowMagnifier.jpg" width="350"/>
 
-### Instructions
+## Instructions
 
 This sample only works on a device with a touch screen. The magnifier will not appear via a mouse click.

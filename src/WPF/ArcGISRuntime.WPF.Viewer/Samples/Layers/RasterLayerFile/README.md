@@ -4,6 +4,6 @@ This sample demonstrates how to use a raster layer created from a local raster f
 
 <img src="RasterLayerFile.jpg" width="350"/>
 
-### Instructions
+## Instructions
 
 The raster file is downloaded by the sample viewer automatically.

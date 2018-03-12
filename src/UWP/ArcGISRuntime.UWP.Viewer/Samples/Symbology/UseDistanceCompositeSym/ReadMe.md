@@ -4,7 +4,7 @@ This sample demonstrates how to create a `DistanceCompositeSceneSymbol` with uni
 
 <img src="UseDistanceCompositeSym.jpg" width="350"/>
 
-### Instructions
+## Instructions
 
 1. When the Scene initially loads, you will be looking at a point graphic symbolized with a 3D cone symbol.
 2. Zoom slightly closer to the graphic and the symbol will change to a blue 3D cube symbol.

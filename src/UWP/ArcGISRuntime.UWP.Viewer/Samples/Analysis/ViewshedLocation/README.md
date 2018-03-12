@@ -4,6 +4,6 @@ This sample demonstrates the configurable properties of viewshed analysis, inclu
 
 <img src="ViewshedLocation.jpg" width="350"/>
 
-### Instructions
+## Instructions
 
 Click anywhere in the scene to change the viewshed observer location.

@@ -4,6 +4,6 @@ This sample demonstrates the configurable properties of viewshed analysis, inclu
 
 <img src="ViewshedLocation.jpg" width="350"/>
 
-### Instructions
+## Instructions
 
 Click anywhere in the scene to 'pick up' the viewshed observer location. Move the mouse to see the viewshed observer location update in real time. Click again to 'drop' the viewshed observer location.

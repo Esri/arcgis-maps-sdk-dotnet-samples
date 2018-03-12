@@ -4,6 +4,6 @@ This sample demonstrates how to open a GeoPackage and show a GeoPackage feature 
 
 <img src="FeatureLayerGeoPackage.jpg" width="350"/>
 
-### Instructions
+## Instructions
 
 The GeoPackage will be downloaded from an ArcGIS Online portal automatically.

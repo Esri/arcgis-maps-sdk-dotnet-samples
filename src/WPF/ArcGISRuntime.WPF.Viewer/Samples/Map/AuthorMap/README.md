@@ -4,7 +4,7 @@ This sample demonstrates how to author and save a map as an ArcGIS portal item (
 
 <img src="AuthorMap.jpg" width="350"/>
 
-### Instructions
+## Instructions
 
 1. Pan and zoom to the extent you would like for your map.
 2. Choose a basemap from the list of available basemaps.

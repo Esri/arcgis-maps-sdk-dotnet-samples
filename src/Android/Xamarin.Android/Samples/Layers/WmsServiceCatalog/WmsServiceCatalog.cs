@@ -111,7 +111,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
             _myDisplayList.Adapter = adapter;
 
             // Subscribe to selection change notifications
-            _myDisplayList.ItemClick += _myDisplayList_ItemClick; ;
+            _myDisplayList.ItemClick += _myDisplayList_ItemClick;
 
             // Update the map display based on the viewModel
             UpdateMapDisplay(_viewModelList);

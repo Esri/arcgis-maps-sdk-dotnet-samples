@@ -114,7 +114,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             if (_oauthInfoUI != null) { return; }
 
             // Create a view to show entry controls over the map view
-            var ovBounds = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height); ;
+            var ovBounds = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height);
             _oauthInfoUI = new OAuthPropsDialogOverlay(ovBounds, 0.75f, UIColor.White, _appClientId, _oAuthRedirectUrl);
 
             // Handle the OnOAuthPropsInfoEntered event to get the info entered by the user

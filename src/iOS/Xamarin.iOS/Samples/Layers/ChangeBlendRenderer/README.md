@@ -4,6 +4,6 @@ This sample demonstrates how to use blend renderer on a raster layer. You can ge
 
 <img src="ChangeBlendRenderer.jpg" width="350"/>
 
-### Instructions
+## Instructions
 
 Tap on the 'Update Renderer' button to change the settings for the blend renderer. The sample allows you to change the Altitude, Azimuth, SlopeType and ColorRamp. If you use None as the ColorRamp, a standard hill shade raster output is displayed. For all the other ColorRamp types an elevation raster is used.

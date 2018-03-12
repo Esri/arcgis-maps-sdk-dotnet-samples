@@ -4,7 +4,7 @@ This sample demonstrates how to synchronize offline edits with a feature service
 
 <img src="EditAndSyncFeatures.jpg" width="350"/>
 
-### Instructions
+## Instructions
 
 1. Pan and zoom to the area you would like to download features for, ensuring that all features are within the rectangle.
 2. Tap the 'generate' button. This will start the process of generating the offline geodatabase.

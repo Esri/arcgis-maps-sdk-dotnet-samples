@@ -1,4 +1,4 @@
-# FeatureLayerExtrusion
+# Feature Layer Extrusion
 
 This sample demonstrates how to apply extrusion to a renderer on a feature layer.
 

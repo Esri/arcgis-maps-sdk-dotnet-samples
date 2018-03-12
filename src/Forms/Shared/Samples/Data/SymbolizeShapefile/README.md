@@ -4,6 +4,6 @@ This sample demonstrates how to apply a custom renderer to a shapefile displayed
 
 <img src="SymbolizeShapefile.jpg" width="350"/>
 
-### Instructions
+## Instructions
 
 Click the button to switch renderers. 

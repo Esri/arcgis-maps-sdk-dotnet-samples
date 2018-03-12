@@ -4,7 +4,7 @@ This sample demonstrates how to animate a graphic's position and follow it using
 
 <img src="Animate3DGraphic.jpg" width="350"/>
 
-### Instructions
+## Instructions
 
 Click-and-drag to pan the SceneView, orbiting the moving plane. Click "Don't Follow" to switch to the default camera controller, which does not orbit the plane.
 The plane's route is shown on the inset map in the bottom left corner of the window. The progress through the plane's mission is shown in the panel on the right.

@@ -11,6 +11,7 @@ using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using Esri.ArcGISRuntime.Security;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -34,8 +35,8 @@ namespace ArcGISRuntime.Samples.Desktop
                 // Set category data context
                 Categories.DataContext = WPF.Viewer.Helpers.ToTreeViewItem(SampleManager.Current.FullTree);
 
-                // Open all categories
-                OpenCategoryLeaves();
+                // Select the first item
+                ((List<TreeViewItem>)Categories.DataContext).First().IsSelected = true;
             }
             catch (Exception ex)
             {
@@ -50,13 +51,32 @@ namespace ArcGISRuntime.Samples.Desktop
                 var sample = e.AddedItems[0] as SampleInfo;
                 SelectSample(sample);
                 ((ListView)sender).SelectedItem = null;
+                DetailsRegion.Visibility = Visibility.Visible;
+                CategoriesRegion.Visibility = Visibility.Collapsed;
+
+                // Unselect all categories
+                ((List<TreeViewItem>)Categories.DataContext).ForEach(item => item.IsSelected = false);
             }
         }
 
         private void categories_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            var sample = (((TreeViewItem)e.NewValue).DataContext as SampleInfo);
-            SelectSample(sample);
+            var context = (e.NewValue as TreeViewItem);
+            if (context == null) {return;}
+            var sample = context.DataContext as SampleInfo;
+            if (sample == null)
+            {
+                SearchableTreeNode category = ((TreeViewItem)e.NewValue).DataContext as SearchableTreeNode;
+                CategoriesList.ItemsSource = category.Items;
+                DetailsRegion.Visibility = Visibility.Collapsed;
+                CategoriesRegion.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                SelectSample(sample);
+                DetailsRegion.Visibility = Visibility.Visible;
+                CategoriesRegion.Visibility = Visibility.Collapsed;
+            }
         }
 
         private async void SelectSample(SampleInfo selectedSample)
@@ -92,6 +112,7 @@ namespace ArcGISRuntime.Samples.Desktop
                 SampleContainer.Content = new WPF.Viewer.ErrorPage(exception);
             }
             CategoriesRegion.Visibility = Visibility.Collapsed;
+            SampleContainer.Visibility = Visibility.Visible;
         }
 
         private static void ClearCredentials()
@@ -125,12 +146,14 @@ namespace ArcGISRuntime.Samples.Desktop
         {
             SampleContainer.Visibility = Visibility.Visible;
             DescriptionContainer.Visibility = Visibility.Collapsed;
+            CategoriesRegion.Visibility = Visibility.Collapsed;
         }
 
         private void Description_Click(object sender, RoutedEventArgs e)
         {
             SampleContainer.Visibility = Visibility.Collapsed;
             DescriptionContainer.Visibility = Visibility.Visible;
+            CategoriesRegion.Visibility = Visibility.Collapsed;
         }
 
         private void SearchFilterBox_OnTextChanged(object sender, TextChangedEventArgs e)

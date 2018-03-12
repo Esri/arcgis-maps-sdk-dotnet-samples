@@ -76,7 +76,7 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
         <Label Content="Search: " VerticalContentAlignment="Center"></Label>
-            <TextBox Grid.Column="1" x:Name="SearchFilterBox" TextChanged="SearchFilterBox_OnTextChanged" Margin="10,10,10,10" VerticalContentAlignment="Center"></TextBox>
+            <TextBox Grid.Column="1" x:Name="SearchFilterBox" TextChanged="SearchFilterBox_OnTextChanged" Margin="0,10,10,10" VerticalContentAlignment="Center"></TextBox>
         </Grid>
         <Grid Grid.Row="2" Grid.Column="0"  x:Name="NavigationPane">
                 

@@ -25,6 +25,12 @@ namespace ArcGISRuntime.WPF.Viewer
             // Create the list of tree view items.
             List<TreeViewItem> categories = new List<TreeViewItem>();
 
+            // This happens when there are no search results.
+            if (fullTree == null)
+            {
+                return categories;
+            }
+
             // For each category in the tree, create a category item.
             foreach (var category in fullTree.Items)
             {

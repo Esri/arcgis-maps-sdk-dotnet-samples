@@ -22,7 +22,7 @@ namespace ArcGISRuntime
     public class SearchResultsViewController : UITableViewController
     {
         private readonly UIViewController _parentViewController;
-        private readonly List<SampleInfo> _visibleSamples = new List<SampleInfo>();
+        private List<SampleInfo> _visibleSamples = new List<SampleInfo>();
         private readonly IList<SearchableTreeNode> _categories;
         private List<SampleInfo> _sampleItems = new List<SampleInfo>();
         private LoadingOverlay _loadPopup;
@@ -44,12 +44,7 @@ namespace ArcGISRuntime
 
         public void Search(string searchText)
         {
-            _visibleSamples.Clear();
-            foreach (var item in _sampleItems.Where(c => c.Description.ToLower().Contains(searchText.ToLower()) ||
-            c.SampleName.ToLower().Contains(searchText.ToLower()) ||
-            c.Instructions.ToLower().Contains(searchText.ToLower())))
-                _visibleSamples.Add(item);
-
+            _visibleSamples = _sampleItems.Where(c => SampleManager.Current.SampleSearchFunc(c, searchText)).ToList();
             TableView.ReloadData();
         }
 

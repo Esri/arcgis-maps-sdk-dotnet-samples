@@ -221,10 +221,7 @@ namespace ArcGISRuntime.UWP.Viewer
 
         private bool SampleSearchFunc(SampleInfo sample)
         {
-            string searchText = SearchBox.QueryText.ToLower();
-            return sample.SampleName.ToLower().Contains(searchText) ||
-                   sample.Category.ToLower().Contains(searchText) ||
-                   sample.Description.ToLower().Contains(searchText);
+            return SampleManager.Current.SampleSearchFunc(sample, SearchBox.QueryText);
         }
 
     }

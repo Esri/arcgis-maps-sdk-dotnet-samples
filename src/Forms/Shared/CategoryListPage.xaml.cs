@@ -130,10 +130,7 @@ namespace ArcGISRuntime
 
         private bool SearchFunction(SampleInfo sample)
         {
-            string search = SearchQuery.ToLower();
-            return sample.SampleName.ToLower().Contains(search) ||
-                   sample.Category.ToLower().Contains(search) ||
-                   sample.Description.ToLower().Contains(search);
+            return SampleManager.Current.SampleSearchFunc(sample, SearchQuery);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

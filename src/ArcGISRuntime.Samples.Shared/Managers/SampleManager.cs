@@ -142,5 +142,19 @@ namespace ArcGISRuntime.Samples.Managers
         {
             return Activator.CreateInstance(sampleModel.SampleType);
         }
+
+        /// <summary>
+        /// Common sample search predicate implementation
+        /// </summary>
+        /// <param name="sample">Sample to evaluate</param>
+        /// <param name="searchText">Query</param>
+        /// <returns><c>true</c> if the sample matches the query.</returns>
+        public bool SampleSearchFunc(SampleInfo sample, string searchText)
+        {
+            searchText = searchText.ToLower();
+            return sample.SampleName.ToLower().Contains(searchText) ||
+                   sample.Category.ToLower().Contains(searchText) ||
+                   sample.Description.ToLower().Contains(searchText);
+        }
     }
 }

@@ -566,13 +566,13 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
     public class RgbValuePickerModel : UIPickerViewModel
     {
         // Array of red values (0-255).
-        private int[] _redValues = Enumerable.Range(0, 256).ToArray<int>();
+        private int[] _redValues = Enumerable.Range(0, 256).ToArray();
 
         // Array of green values (0-255).
-        private int[] _greenValues = Enumerable.Range(0, 256).ToArray<int>();
+        private int[] _greenValues = Enumerable.Range(0, 256).ToArray();
 
         // Array of blue values (0-255).
-        private int[] _blueValues = Enumerable.Range(0, 256).ToArray<int>();
+        private int[] _blueValues = Enumerable.Range(0, 256).ToArray();
 
         // Currently selected red, green, and blue values.
         private int _selectedRed = 0;

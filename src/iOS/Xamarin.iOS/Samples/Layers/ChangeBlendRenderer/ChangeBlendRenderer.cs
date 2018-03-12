@@ -185,7 +185,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             // Get all the SlopeType names from the PresetColorRampType Enumeration and put them 
             // in an array of strings, then set the UITableView.Source to the array
             _SlopeTypes = new UITableView();
-            string[] mySlopeTypes = System.Enum.GetNames(typeof(SlopeType));
+            string[] mySlopeTypes = Enum.GetNames(typeof(SlopeType));
             _SlopeTypes.Source = new TableSource(mySlopeTypes, this);
             _SlopeTypes.SeparatorColor = UIColor.Yellow;
 
@@ -198,7 +198,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             // Get all the ColorRamp names from the PresetColorRampType Enumeration and put them 
             // in an array of strings, then set the UITableView.Source to the array
             _ColorRamps = new UITableView();
-            string[] myPresetColorRampTypes = System.Enum.GetNames(typeof(PresetColorRampType));
+            string[] myPresetColorRampTypes = Enum.GetNames(typeof(PresetColorRampType));
             _ColorRamps.Source = new TableSource(myPresetColorRampTypes, this);
             _ColorRamps.SeparatorColor = UIColor.Yellow;
 
@@ -286,10 +286,10 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
                 Raster raster_ForMakingBlendRenderer = new Raster(GetRasterPath_Elevation());
                 IEnumerable<double> myOutputMinValues = new List<double> { 9 };
                 IEnumerable<double> myOutputMaxValues = new List<double> { 255 };
-                IEnumerable<double> mySourceMinValues = new List<double> { };
-                IEnumerable<double> mySourceMaxValues = new List<double> { };
-                IEnumerable<double> myNoDataValues = new List<double> { };
-                IEnumerable<double> myGammas = new List<double> { };
+                IEnumerable<double> mySourceMinValues = new List<double>();
+                IEnumerable<double> mySourceMaxValues = new List<double>();
+                IEnumerable<double> myNoDataValues = new List<double>();
+                IEnumerable<double> myGammas = new List<double>();
 
                 // Get the user choice for the SlopeType
                 UITableViewSource myUITableViewSource_SlopeType = _SlopeTypes.Source;

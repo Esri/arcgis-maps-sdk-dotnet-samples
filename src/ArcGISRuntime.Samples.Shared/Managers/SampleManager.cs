@@ -100,7 +100,7 @@ namespace ArcGISRuntime.Samples.Managers
         /// </summary>
         /// <param name="allSamples">A list of all samples.</param>
         /// <returns>A <c>SearchableTreeNode</c> with all samples organized by category.</returns>
-        private static SearchableTreeNode BuildFullTree(IEnumerable<SampleInfo> allSamples)
+        public static SearchableTreeNode BuildFullTree(IEnumerable<SampleInfo> allSamples)
         {
             // This code only supports one level of nesting.
             return new SearchableTreeNode(
